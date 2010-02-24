@@ -39,9 +39,11 @@ Rails::Initializer.run do |config|
 
   # Unit testing
   config.gem 'test-unit', :lib => 'test/unit'
- 
+
   # require should to use it for testing :)
   config.gem 'shoulda'
+
+  config.gem 'rubycas-client', :lib => 'casclient', :version => '2.1.0git171ccef'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

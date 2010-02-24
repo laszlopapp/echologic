@@ -6,7 +6,6 @@
       <%= I18n.t('users.user_sessions.login.hello', :name => current_user.profile.full_name) %><br/>
     </span>
   <% else %>
-
     <% form_for UserSession.new, :url => user_session_path do |f| %>
       <span class="label"><%= I18n.t('users.user_sessions.login.email') %></span>
       <span class="label"><%= I18n.t('users.user_sessions.login.password') %></span><br/>
