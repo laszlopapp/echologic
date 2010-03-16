@@ -16,6 +16,10 @@ module NavigationHelpers
       root_path
     when /the connect page/
       connect_path
+    when /the welcome page/
+      welcome_path
+    when /the reports page/
+      reports_path
     when /^create a question$/
       new_question_path(:category => 'echonomyJAM')
     when /^the question$/
@@ -31,6 +35,10 @@ module NavigationHelpers
     when /the proposal/
       raise [@proposal.inspect,@proposal.parent.inspect].join('\n')
       question_proposal_path(@proposal.parent, @proposal)
+<<<<<<< HEAD
+=======
+      
+>>>>>>> DEV_echologic_0.5_test_coverage
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
@@ -38,6 +46,7 @@ module NavigationHelpers
     #     user_profile_path(User.find_by_login($1))
 
     else
+<<<<<<< HEAD
       begin
         paths = page_name.split(' ') - ['the', 'page'] + ['path']
         send(paths.join('_'))
@@ -45,6 +54,10 @@ module NavigationHelpers
         raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
         "Now, go and add a mapping in #{__FILE__}"
       end
+=======
+      raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
+        "Now, go and add a mapping in #{__FILE__}"
+>>>>>>> DEV_echologic_0.5_test_coverage
     end
   end
 end

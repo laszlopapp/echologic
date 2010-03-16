@@ -6,7 +6,7 @@
 
   <% unless statement.question? %>
 
-    <% unless current_user.supported?(statement) %>
+    <% unless current_user && current_user.supported?(statement) %>
       <% link_to(url_for(url_options.merge :action => :echo), :class => "ajax_put", :id => 'echo_button') do %>
         <span class="not_supported ttLink no_border" title="<%= I18n.t('discuss.statements.echo_tooltip') %>"></span>
       <% end %>
@@ -17,7 +17,7 @@
     <% end %>
 
   <% end %>
-  <% if current_user.may_delete?(statement) -%>
+  <% if current_user && current_user.may_delete?(statement) -%>
     <br/><br/>
     <%= link_to I18n.t('discuss.statements.delete_link'), url_for(statement), :class => 'admin_action', 
                 :method => :delete, :confirm => I18n.t('discuss.statements.delete_confirmation') %>

@@ -140,6 +140,7 @@ class ApplicationController < ActionController::Base
         flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_in')
         respond_to do |format|
           format.html { redirect_to root_path }
+          format.js { show_info_message(flash[:notice]) }
         end
         return false
       end

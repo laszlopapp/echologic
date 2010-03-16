@@ -109,14 +109,14 @@ module StatementHelper
   end
 
   def create_question_link_for(category)
-    return unless current_user.has_role?(:editor)
+    return unless current_user && current_user.has_role?(:editor)
     link_to(I18n.t("discuss.statements.create_question_link", :type => Question.display_name),
             new_question_url(:category => category.value), :class=>'ajax text_button create_question_button ttLink', :title => I18n.t("discuss.statements.create_question_tooltip"))
   end
 
   def edit_statement_link(statement)
     link_to(I18n.t('application.general.edit'), edit_statement_path(statement),
-            :class => 'ajax header_button text_button edit_button edit_statement_button') if current_user.may_edit?(statement)
+            :class => 'ajax header_button text_button edit_button edit_statement_button') if current_user && current_user.may_edit?(statement)
   end
 
 
