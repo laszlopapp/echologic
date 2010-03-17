@@ -11,9 +11,9 @@ Feature: Use connect functionality
     Given I am logged in as "user" with password "true"
     And my profile is complete enough
     When I am on the connect page
-    Then I should see the profile of "Joe"
-      And I should see the profile of "User"
-      And I should see the profile of "Ben"
+    Then I should see the profile of "lisa"
+      And I should see the profile of "friedrich"
+      And I should see the profile of "luise"
       And I should see the "Search" form
   
   # As an logged in user, without a complete enough profile
@@ -41,14 +41,14 @@ Feature: Use connect functionality
       And I should not see the profile of "<false>"
 
     Examples:
-      | value   | true | false |
-      | Energy  | Ben  | Admin |
-      | Joe     | Joe  | Ben   |
-      | Berlin  | Joe  | Ben   |
-      | Germany | Joe  | Admin |
-      | I am    | Joe  | Ben   |
-      | Pantha  | Joe  | Admin |
-      | user@e  | User | Joe   |
+      | value   | true  | false |
+      | Energy  | Ben   | Admin |
+      | Joe     | Joe   | Ben   |
+      | Berlin  | luise | Ben   |
+      | Germany | luise | Admin |
+      | I am    | luise | Ben   |
+      | Pantha  | Joe   | Admin |
+      | user@e  | User  | Joe   |
 
   # If they are interested in someones user details they
   # are able to view it - and to close the details.
@@ -57,6 +57,6 @@ Feature: Use connect functionality
     Given I am logged in as "user" with password "true"
     And my profile is complete enough
     And I am on the connect page
-    When I follow the "Show" link for the profile of "Joe"
-    Then I should see the profile details of "Joe"
+    When I follow the "Show" link for the profile of "luise"
+    Then I should see the profile details of "luise"
       And I should see a "Close" link

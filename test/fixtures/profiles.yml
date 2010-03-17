@@ -45,5 +45,10 @@ editor_profile:
   user_id: <%= Fixtures.identify(name.to_sym) %>
   last_name: Echmeier
   first_name: <%= name %>
+  motivation: I am f..ing test user. What you expect my motivation to be?.
+  about_me: As i said.. a test user. What kind of life is this!?
+  city: Berlin
+  country: Germany  
+  birthday: 2010-03-17
 
 <% end %>
