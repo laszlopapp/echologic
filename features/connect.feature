@@ -6,7 +6,7 @@ Feature: Use connect functionality
 
   # Within the connect area users are able to view the
   # list of users.
-
+  
   Scenario: View user list
     Given I am logged in as "user" with password "true"
     And my profile is complete enough
@@ -24,7 +24,7 @@ Feature: Use connect functionality
     Given I am logged in as "ben" with password "benrocks"
     And my profile is not complete enough
     When I go to the connect page
-    Then I should be redirected to "connect/fill_out_profile"
+    Then I should see localized "my_echo.fill_out_profile.title"
 
 
   # As an logged in user I am able to search for everything
@@ -60,3 +60,14 @@ Feature: Use connect functionality
     When I follow the "Show" link for the profile of "luise"
     Then I should see the profile details of "luise"
       And I should see a "Close" link
+      
+      
+  # I know it's not really user storie like to talk about a mysterious flag, but i found it hard to put the logic behind it in better words, because 'complete enough' would make a developer assume that we're dealing with the completeness value
+
+  Scenario: Don't show Users without a complete enough profile (show_profile flag not set)
+    Given I am logged in as "user" with password "true"
+    And my profile is complete enough
+    And the profile of user "luise" has no show_profile flag
+    And I am on the connect page
+    Then I should not see the profile of "luise"
+    

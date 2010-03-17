@@ -40,6 +40,8 @@ class ConnectController < ApplicationController
   end
 
   # Return connect page with results of the search
+  # FIXME: it's really sad that we can't use named scopes here
+  # that's why i had to add the 'show_profile = 1' condition directly to the searchlogic query
   # method: POST
   def search(sort, value)
 
@@ -57,7 +59,7 @@ class ConnectController < ApplicationController
         #{sort_string} 
         u.active = 1 AND
         (
-          p.first_name    like '%#{value}%'
+          (p.first_name    like '%#{value}%'
           or p.last_name  like '%#{value}%'
           or p.city       like '%#{value}%'
           or p.country    like '%#{value}%'
@@ -66,7 +68,8 @@ class ConnectController < ApplicationController
           or u.email      like '%#{value}%'
           or t.value      like '%#{value}%'
           or m.position   like '%#{value}%'
-          or m.organisation like '%#{value}%'
+          or m.organisation like '%#{value}%')
+          and p.show_profile = 1
         )
       order by CASE WHEN p.last_name IS NULL OR p.last_name="" THEN 1 ELSE 0 END, p.last_name, p.first_name, u.id asc;
     END
