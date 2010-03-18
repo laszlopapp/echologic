@@ -45,7 +45,13 @@ class Users::ProfileController < ApplicationController
     respond_to do |format|
       if @profile.update_attributes(params[:profile])
         format.html { flash[:notice] = I18n.t('users.profile.messages.updated') and redirect_to my_profile_path }
-        format.js   { replace_container('personal_container', :partial => 'users/profile/profile_own') }
+        format.js   { 
+          # this was crap, it prevents me from adding additional js functionality 
+          ##replace_container('personal_container', :partial => 'users/profile/profile_own') 
+          render :update do |page|
+            page.replace('personal_container', :partial => 'users/profile/profile_own')
+          end
+        }
       else
         format.js   { show_error_messages(@profile) }
       end
@@ -63,7 +69,7 @@ class Users::ProfileController < ApplicationController
     end
   end
 
-  # After uploading a the profile picture has to be reloaded.
+  # After uploading the profile picture has to be reloaded.
   # Reloading:
   #  1. loginContainer with users picture as profile link
   #  2. picture container of the profile
