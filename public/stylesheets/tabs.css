@@ -114,7 +114,7 @@
 
 #roadmap_tab_container {
   position: absolute;
-  right: 10px;
+  right: 867px;
   top: 0px;
 }
 
@@ -124,9 +124,22 @@
   padding-left: 6px;*/
 }
 
-#roadmap_tab_title {
-  background: transparent url(../images/page/icons/under_construction.png) no-repeat scroll left center;
-  padding-left: 23px;
+.roadmap_tab{	
+	margin:0 auto;
+	padding-bottom:1px;
+	width:990px;
+}
+
+.roadmap_tab img{
+	position:absolute;	
+}
+
+#roadmap_tab_title {  
+	position: absolute;
+	color:#21587F;
+	font-size:16px;
+	font-weight:bold;
+	text-decoration:none;
 }
 
 #roadmap_progressbar {
