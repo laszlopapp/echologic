@@ -1,4 +1,4 @@
-class Users::WebAddressController < ApplicationController
+class Users::WebAddressesController < ApplicationController
 
   before_filter :require_user
 
@@ -89,8 +89,8 @@ class Users::WebAddressController < ApplicationController
 
         # sorry, but this was crap. you can't add additional js actions like this...
         # either use a rjs, a js, or a render :update block
-        #remove_container "web_profile_#{id}"
-        render :template => 'users/profile/remove_object', :locals => { :object => @web_profile }
+        #remove_container "web_address_#{id}"
+        render :template => 'users/profile/remove_object', :locals => { :object => @web_address }
       end
     end
   end
