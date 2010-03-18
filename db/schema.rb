@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091207054420) do
+ActiveRecord::Schema.define(:version => 20100318161910) do
 
   create_table "concernments", :force => true do |t|
     t.integer  "user_id"
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(:version => 20091207054420) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.float    "completeness",        :default => 0.1
+    t.integer  "show_profile"
   end
 
   create_table "reports", :force => true do |t|
@@ -167,7 +169,7 @@ ActiveRecord::Schema.define(:version => 20091207054420) do
     t.string   "openid_identifier"
   end
 
-  create_table "web_profiles", :force => true do |t|
+  create_table "web_addresses", :force => true do |t|
     t.integer  "user_id"
     t.string   "location"
     t.integer  "sort"
@@ -175,6 +177,6 @@ ActiveRecord::Schema.define(:version => 20091207054420) do
     t.datetime "updated_at"
   end
 
-  add_index "web_profiles", ["user_id"], :name => "index_web_profiles_on_user_id"
+  add_index "web_addresses", ["user_id"], :name => "index_web_profiles_on_user_id"
 
 end

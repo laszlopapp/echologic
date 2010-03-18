@@ -1,4 +1,4 @@
-class Users::WebProfilesController < ApplicationController
+class Users::WebAddressController < ApplicationController
 
   before_filter :require_user
 
@@ -9,12 +9,12 @@ class Users::WebProfilesController < ApplicationController
   # Show the web profile with the given id.
   # method: GET
   def show
-    @web_profile = WebProfile.find(params[:id])
+    @web_address = WebAddress.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
       format.js do
-        replace_content(dom_id(@web_profile), :partial => 'web_profile')
+        replace_content(dom_id(@web_address), :partial => 'web_address')
       end
     end
   end
@@ -22,7 +22,7 @@ class Users::WebProfilesController < ApplicationController
   # Show the new template for web profiles. Currently unused.
   # method: GET
   def new
-    @web_profile = WebProfile.new
+    @web_address = WebAddress.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -33,11 +33,11 @@ class Users::WebProfilesController < ApplicationController
   # method: GET
   def edit
     @user = @current_user
-    @web_profile = WebProfile.find(params[:id])
+    @web_address = WebAddress.find(params[:id])
 
     respond_to do |format|
       format.js do
-        replace_content(dom_id(@web_profile), :partial => 'edit')
+        replace_content(dom_id(@web_address), :partial => 'edit')
       end
     end
   end
@@ -45,15 +45,15 @@ class Users::WebProfilesController < ApplicationController
   # Create new web profile for the current user.
   # method: POST
   def create
-    @web_profile = WebProfile.new(params[:web_profile])
-    @web_profile.user_id = @current_user.id
+    @web_address = WebAddress.new(params[:web_address])
+    @web_address.user_id = @current_user.id
 
     respond_to do |format|
       format.js do
-        if @web_profile.save
-          render :template => 'users/profile/create_object', :locals => { :object => @web_profile }
+        if @web_address.save
+          render :template => 'users/profile/create_object', :locals => { :object => @web_address }
         else
-          show_error_messages(@web_profile)
+          show_error_messages(@web_address)
         end
       end
     end
@@ -62,14 +62,14 @@ class Users::WebProfilesController < ApplicationController
   # Update the web profiles attributes
   # method: PUT
   def update
-    @web_profile = WebProfile.find(params[:id])
+    @web_address = WebAddress.find(params[:id])
 
     respond_to do |format|
       format.js do
-        if @web_profile.update_attributes(params[:web_profile])
-          replace_content(dom_id(@web_profile), :partial => @web_profile)
+        if @web_address.update_attributes(params[:web_address])
+          replace_content(dom_id(@web_address), :partial => @web_address)
         else
-          show_error_messages(@web_profile)
+          show_error_messages(@web_address)
         end
       end
     end
@@ -78,13 +78,13 @@ class Users::WebProfilesController < ApplicationController
   # Remove the web profile specified through id
   # method: DELETE
   def destroy
-    @web_profile = WebProfile.find(params[:id])
-    id = @web_profile.id
-    @web_profile.destroy
+    @web_address = WebAddress.find(params[:id])
+    id = @web_address.id
+    @web_address.destroy
 
     respond_to do |format|
       format.js do
-        remove_container "web_profile_#{id}"
+        remove_container "web_address_#{id}"
       end
     end
   end
