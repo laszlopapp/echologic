@@ -138,11 +138,11 @@
   background:  url(../images/page/prev_next_buttons.png) no-repeat scroll -37px -117px;
 }
 
-.context_line:hover .prev_stmt {
+.context_line:hover .prev_stmt, .context_line.active .prev_stmt {
   background-position: 0 0;
 }
 
-.context_line:hover .next_stmt {
+.context_line:hover .next_stmt, .context_line.active .next_stmt {
   background-position: -37px 0px;
 }
 
@@ -154,11 +154,11 @@
   background-position: -37px -39px;
 }
 
-.context_line:hover .prev_stmt.disabled {
+.context_line:hover .prev_stmt.disabled, .context_line.active .prev_stmt.disabled {
   background-position: 0 -78px;
 }
 
-.context_line:hover .next_stmt.disabled {
+.context_line:hover .next_stmt.disabled, .context_line.active .next_stmt.disabled {
   background-position: -37px -78px;
 }
 
