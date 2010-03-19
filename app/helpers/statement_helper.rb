@@ -99,7 +99,7 @@ module StatementHelper
     link_to(I18n.t("discuss.statements.create_#{type.underscore}_link"),
             new_child_statement_url(statement, type),
             :id => "create_#{type.underscore}_link",
-            :class => "ajax header_button text_button #{create_statement_button_class(type)} ttLink", 
+            :class => "ajax header_button text_button #{create_statement_button_class(type)} ttLink no_border",
             :title => I18n.t("discuss.statements.create_#{type.underscore}_tooltip"))
   end
 
@@ -111,7 +111,8 @@ module StatementHelper
   def create_question_link_for(category)
     return unless current_user.has_role?(:editor)
     link_to(I18n.t("discuss.statements.create_question_link", :type => Question.display_name),
-            new_question_url(:category => category.value), :class=>'ajax text_button create_question_button ttLink', :title => I18n.t("discuss.statements.create_question_tooltip"))
+            new_question_url(:category => category.value), :class=>'ajax text_button create_question_button ttLink no_border',
+            :title => I18n.t("discuss.statements.create_question_tooltip"))
   end
 
   def edit_statement_link(statement)
@@ -193,13 +194,13 @@ module StatementHelper
                  end
     end
   end
-  
+
   def prev_statement_tag(class_identifier, disabled=false)
-    content_tag(:span, '&nbsp;', :class => "prev_stmt no_border#{disabled ? ' disabled' : ' ttLink'}", :title => I18n.t("discuss.statements.prev_#{class_identifier}_tooltip"))  
+    content_tag(:span, '&nbsp;', :class => "prev_stmt no_border#{disabled ? ' disabled' : ' ttLink'}", :title => I18n.t("discuss.statements.prev_#{class_identifier}_tooltip"))
   end
-  
+
   def next_statement_tag(class_identifier, disabled=false)
-    content_tag(:span, '&nbsp;', :class => "next_stmt no_border#{disabled ? ' disabled' : ' ttLink'}", :title => I18n.t("discuss.statements.next_#{class_identifier}_tooltip")) 
+    content_tag(:span, '&nbsp;', :class => "next_stmt no_border#{disabled ? ' disabled' : ' ttLink'}", :title => I18n.t("discuss.statements.next_#{class_identifier}_tooltip"))
   end
 
   # Insert a button that links to the previous statement
