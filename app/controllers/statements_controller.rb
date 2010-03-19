@@ -41,9 +41,13 @@ class StatementsController < ApplicationController
 
   # TODO use find or create category tag?
   def category
+    @page     = params[:page]  || 1
+    statements_not_paginated = statement_class.from_category(params[:id]).published(current_user.has_role?(:editor)).by_supporters.order(:created_at)
+    @count    = statements_not_paginated.count
     @category = Tag.find_or_create_by_value(params[:id])
     redirect_to(:controller => 'discuss', :action => 'index') and return unless @category
-    @statements = statement_class.from_category(params[:id]).published(current_user.has_role?(:editor)).by_supporters
+    @statements = statements_not_paginated.paginate(:page => @page, :per_page => 6)
+   
     respond_to do |format|
       format.html {render :template => 'questions/index'}
       format.js {

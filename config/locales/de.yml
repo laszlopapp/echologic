@@ -280,6 +280,9 @@ de:
   # ---------------
 
   discuss:
+    results_count:
+      one: '{{count}} debatte'
+      more: '{{count}} debatten'
     topics_overview:
       title: Überblick
       text: |

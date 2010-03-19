@@ -6,5 +6,7 @@
 
 <%= render :partial => 'questions', :locals => {:statements => @statements} %>
 
-<%= create_question_link_for(@category)%>
-
+<br></br>
+<span class="new_question">
+	<%= create_question_link_for(@category)%>
+</span>

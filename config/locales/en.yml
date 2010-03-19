@@ -273,6 +273,9 @@ en:
   # ---------------
 
   discuss:
+    results_count:
+      one: '{{count}} debate'
+      more: '{{count}} debates'
     topics_overview:
       title: Overview
       text: |
