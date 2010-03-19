@@ -58,6 +58,7 @@ de:
       connect:
         roadmap: 'echologic - Fahrplan für Vernetzen'
         show:    'echologic - Vernetzen - Community entdecken'
+        fill_out_profile: 'echologic - Vernetzen - Geben und nehmen'
 
       # act: de.seo.title.act
       act:
@@ -68,7 +69,7 @@ de:
         roadmap: 'echologic - Fahrplan für Mein echo'
         welcome: 'echologic - Welcome'
         profile: 'echologic - Mein Profil'
-        
+
       # my_echo: de.seo.title.admin
       admin:
         show: 'echologic - Admin Area'
@@ -90,14 +91,14 @@ de:
 
   # Supporters & Sponsors
   sponsors:
-    text: 'Ab 01.02.2010 wird echo unterstützt durch'
+    text: 'Gefördert durch'
     exist: EXIST
     eu: Europäische Union
     esf: Europäische Sozialfonds für Deutschland
     bmwi: Bundesministerium für Wirtschaft und Technologie
     grm: GründerRegio M
     lmu_ec: LMU Entrepreneurship Center
-    
+
 
   # Static content
   static:
@@ -145,7 +146,7 @@ de:
           lösungsorientierte Diskussionen einbringen, MitstreiterInnen mobilisieren und ihre Entscheidungen gemeinsam in die Tat umsetzen.
           Dabei erlaubt echo erstmals die Herausbildung <strong>kollektiver Intelligenz</strong> in einem demokratischen Diskurs mit
           beliebig vielen Teilnehmern. Menschen rund um den Globus können so konstruktiv auf echo zusammen arbeiten und
-          gemeinsam ihren unmittelbaren Lebensraum sowie die Zukunft unserer Welt gestalten. Dabei hilft die 
+          gemeinsam ihren unmittelbaren Lebensraum sowie die Zukunft unserer Welt gestalten. Dabei hilft die
           <strong>Your-Profit Philosophie</strong> von echo den Menschen, ihre Ziele erfolgreich zu verwirklichen.
           </p><p>
           Durch neuartige Möglichkeiten transnationaler und interkultureller Zusammenarbeit soll mit echo ein globales Bewusstsein gefördert
@@ -161,7 +162,7 @@ de:
         text: |
           <p>
           <strong>Die Quelle</strong> von echo ist ein <strong>interdisziplinäres Team</strong> junger und erfahrener
-          Akademiker. Sie haben sein einmaliges Konzept als Antwort auf die globalen Herausforderungen unserer Zeit
+          Akademiker. Sie haben sein Konzept als Antwort auf die globalen Herausforderungen unserer Zeit
           entwickelt und arbeiten zielstrebig an dessen Umsetzung.
           </p><p>
           Mittlerweile hat sich um echo ein stetig <strong>wachsendes Netzwerk</strong> von UnterstützerInnen gebildet,
@@ -755,7 +756,7 @@ de:
         Bis bald,
 
         Ihr echo Team
-        
+
     # New password section
     new_password:
       subject: "Neues Passwort für echologic"
