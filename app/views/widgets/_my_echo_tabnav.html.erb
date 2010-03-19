@@ -21,7 +21,7 @@ render_tabnav :my_echo,
   add_tab :html => {:id => 'roadmap_tab'} do |t|    
     value = "#{Development::MY_ECHO_PROGRESS}%  " + I18n.t('application.roadmap.title')
     t.named value
-    t.links_to hash_for_discuss_roadmap_path
+    t.links_to hash_for_my_echo_roadmap_path
   end
 
   #add_tab :html => {:id => 'roadmap_tab'} do |t|
