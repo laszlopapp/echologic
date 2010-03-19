@@ -286,6 +286,7 @@ en:
         Currently available topics are:
         </p>
     topics:
+      description: Description
       echonomy_jam:
         continues: 'continues online!'
         register_here: 'Click here to register!'

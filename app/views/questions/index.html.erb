@@ -1,7 +1,8 @@
 <% content_for :submenu, tabnav(:discuss) %>
 
 <h1><%= I18n.t("discuss.topics.#{@category.value.underscore}.name") %></h1>
-<%= I18n.t("discuss.topics.#{@category.value.underscore}.description") %>
+<strong><%= I18n.t('discuss.topics.description') %></strong>
+<% insert_toggle_more(I18n.t("discuss.topics.#{@category.value.underscore}.description")) %>
 
 <%= render :partial => 'questions', :locals => {:statements => @statements} %>
 
