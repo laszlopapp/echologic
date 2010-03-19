@@ -119,7 +119,7 @@ en:
       </p>
     function_1:
       name: 'My Profile'
-      description: 'Complete your profile to present yourself in the echologic community.'
+      description: 'Fill out your profile to present yourself in the echologic community.'
     function_2:
       name: 'Connect'
       description: 'Explore the community and connect with other interesting people of the movement.'
@@ -326,13 +326,13 @@ en:
           than we might have ever imagined!
           </p>
     statements:
-      back_to_question_tooltip: 'Go to this debate.'
-      back_to_proposal_tooltip: 'Read this proposal.'
-      back_to_improvement_proposal_tooltip: 'Read this improvement proposal.'
-      prev_proposal_tooltip: 'Read previous proposal.'
-      next_proposal_tooltip: 'Read next proposal.'
-      prev_improvement_proposal_tooltip: 'Read previous improvement proposal.'
-      next_improvement_proposal_tooltip: 'Read next improvement proposal.'
+      back_to_question_tooltip: 'Go to this debate'
+      back_to_proposal_tooltip: 'Read this proposal'
+      back_to_improvement_proposal_tooltip: 'Read this improvement proposal'
+      prev_proposal_tooltip: 'Read previous proposal'
+      next_proposal_tooltip: 'Read next proposal'
+      prev_improvement_proposal_tooltip: 'Read previous improvement proposal'
+      next_improvement_proposal_tooltip: 'Read next improvement proposal'
       create_proposal_tooltip: 'Create a new proposal in this debate.'
       create_improvement_proposal_tooltip: 'Create a new improvement proposal for this proposal.'
       echo_tooltip: 'echo this statement to support it!'
@@ -380,7 +380,7 @@ en:
         <p>
         Connect is much more interesting with <strong>informative profiles</strong>.
         Please fill out <strong>at least 50%</strong> of your profile to see others and connect to them.
-        The completeness indicator below show you how far you already are.
+        The completeness indicator below shows you how far you already are.
         </p>
 
     segments:
