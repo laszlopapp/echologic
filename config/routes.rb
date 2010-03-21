@@ -45,7 +45,7 @@ ActionController::Routing::Routes.draw do |map|
                 :path_prefix => '', :only => [:new, :create, :destroy]
 
   map.resources :users, :controller => 'users/users', :path_prefix => '' do |user|
-    user.resources :web_profiles, :controller => 'users/web_profiles', :except => [:index]
+    user.resources :web_addresses, :controller => 'users/web_addresses', :except => [:index]
     user.resources :activities,   :controller => 'users/activities',   :except => [:index]
     user.resources :memberships,  :controller => 'users/memberships',  :except => [:index]
   end
