@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100317153006) do
+ActiveRecord::Schema.define(:version => 20100321171526) do
 
   create_table "concernments", :force => true do |t|
     t.integer  "user_id"
@@ -37,6 +37,13 @@ ActiveRecord::Schema.define(:version => 20100317153006) do
     t.integer "supporter_count", :default => 0
   end
 
+  create_table "enum_values", :force => true do |t|
+    t.integer "key"
+    t.string  "subject"
+    t.string  "code"
+    t.string  "description"
+  end
+
   create_table "feedbacks", :force => true do |t|
     t.string "name"
     t.string "email"
@@ -56,6 +63,13 @@ ActiveRecord::Schema.define(:version => 20100317153006) do
     t.string   "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "multilingual_resource", :force => true do |t|
+    t.integer "enum_value_id"
+    t.integer "language_id"
+    t.string  "context"
+    t.string  "value"
   end
 
   create_table "profiles", :force => true do |t|
@@ -169,7 +183,7 @@ ActiveRecord::Schema.define(:version => 20100317153006) do
     t.string   "openid_identifier"
   end
 
-  create_table "web_profiles", :force => true do |t|
+  create_table "web_addresses", :force => true do |t|
     t.integer  "user_id"
     t.string   "location"
     t.integer  "sort"
@@ -177,6 +191,6 @@ ActiveRecord::Schema.define(:version => 20100317153006) do
     t.datetime "updated_at"
   end
 
-  add_index "web_profiles", ["user_id"], :name => "index_web_profiles_on_user_id"
+  add_index "web_addresses", ["user_id"], :name => "index_web_profiles_on_user_id"
 
 end
