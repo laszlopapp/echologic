@@ -20,6 +20,14 @@ user_profile:
   user_id: <%= Fixtures.identify(:user) %>
   last_name: Test
   first_name: User
+  country: Germany
+  city: berlin
+  female: false
+  about_me: I am a test user, so what do you expect me to say here?
+  motivation: I want to get all those tests running, harhar!
+  birthday: 1986-06-17
+  completeness: 0.55
+  
 
 
 admin_profile:
@@ -31,3 +39,16 @@ editor_profile:
   user_id: <%= Fixtures.identify(:editor) %>
   last_name: Tor
   first_name: Edi
+
+<% ["theodor","friedrich","luise","charlotte","lisa","red","blue","green","yellow","red"].each do |name| %>
+<%= name %>_profile:
+  user_id: <%= Fixtures.identify(name.to_sym) %>
+  last_name: Echmeier
+  first_name: <%= name %>
+  motivation: I am f..ing test user. What you expect my motivation to be?.
+  about_me: As i said.. a test user. What kind of life is this!?
+  city: Berlin
+  country: Germany  
+  birthday: 2010-03-17
+
+<% end %>

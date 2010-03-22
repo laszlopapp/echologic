@@ -1,0 +1,10 @@
+<div class="function_button_holder">
+  <span class="function_button">
+  	<%= link_to image_tag("../images/page/functions/my_profile.png", :border => 0), {:url => my_profile_path}, :href => my_profile_path %>
+  </span>
+  <span class="function_name"><%= I18n.t('welcome.function_1.name') %>
+    (<%=I18n.t('layouts.my_echo.profile_complete', :complete => current_user.profile.percent_completed || 0)%>)
+  </span>
+  <br/>  
+  <span class="function_description"><%= I18n.t('welcome.function_1.description') %></span>
+</div>

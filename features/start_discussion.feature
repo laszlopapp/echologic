@@ -65,3 +65,7 @@ Feature: Start a discussion
      And I am logged in as "user" with password "true"
     When I go to create a question
     Then I should see an error message
+
+    
+    #Category tests: tests the existence of the 4 main categories
+    Scenario: I want to see all categories
