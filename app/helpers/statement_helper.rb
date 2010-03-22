@@ -100,7 +100,7 @@ module StatementHelper
             new_child_statement_url(statement, type),
             :id => "create_#{type.underscore}_link",
             :class => "ajax header_button text_button #{create_statement_button_class(type)} ttLink no_border",
-            :title => I18n.t("discuss.statements.create_#{type.underscore}_tooltip"))
+            :title => I18n.t("discuss.tooltip.create_#{type.underscore}"))
   end
 
   # this classname is needed to display the right icon next to the link
@@ -110,9 +110,10 @@ module StatementHelper
 
   def create_question_link_for(category)
     return unless current_user.has_role?(:editor)
-    link_to(I18n.t("discuss.statements.create_question_link", :type => Question.display_name),
-            new_question_url(:category => category.value), :class=>'ajax text_button create_question_button ttLink no_border',
-            :title => I18n.t("discuss.statements.create_question_tooltip"))
+    link_to(I18n.t("discuss.statements.create_question_link",
+            :type => Question.display_name), new_question_url(:category => category.value),
+            :class=>'ajax text_button create_question_button ttLink no_border',
+            :title => I18n.t("discuss.tooltip.create_question"))
   end
 
   def edit_statement_link(statement)
@@ -143,9 +144,9 @@ module StatementHelper
   # Inserts a support ratio bar with the ratio value in its alt-attribute.
   def supporter_ratio_bar(statement,context=nil)
     if statement.supporter_count < 2
-      tooltip = I18n.t('discuss.statements.echo_indicator_tooltip.one', :supporter_count => statement.supporter_count)
+      tooltip = I18n.t('discuss.tooltips.echo_indicator.one', :supporter_count => statement.supporter_count)
     else
-      tooltip = I18n.t('discuss.statements.echo_indicator_tooltip.many', :supporter_count => statement.supporter_count)
+      tooltip = I18n.t('discuss.tooltips.echo_indicator.many', :supporter_count => statement.supporter_count)
     end
     if statement.ratio > 1
       val = "<span class='echo_indicator ttLink' title='#{tooltip}' alt='#{statement.ratio}'></span>"
@@ -166,8 +167,10 @@ module StatementHelper
   end
 
   # Returns the context menu link for this statement.
-  def statement_context_link(statement)
-    link = link_to(statement.title, url_for(statement), :class => "ajax no_border statement_link #{statement.class.name.underscore}_link ttLink", :title => I18n.t("discuss.statements.back_to_#{statement.class.name.underscore}_tooltip"))
+  def statement_context_link(statement, action='read')
+    link = link_to(statement.title, url_for(statement),
+                   :class => "ajax no_border statement_link #{statement.class.name.underscore}_link ttLink",
+                   :title => I18n.t("discuss.tooltips.#{action}_#{statement.class.name.underscore}"))
     link << supporter_ratio_bar(statement,'context') unless statement.class.name == 'Question'
     return link
   end
