@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ReportsControllerTest < ActionController::TestCase
   def setup
-    @controller = ReportsController.new
+    @controller = Users::ReportsController.new
   end
   
   test "should get index" do
