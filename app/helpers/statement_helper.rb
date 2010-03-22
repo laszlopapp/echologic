@@ -185,19 +185,19 @@ module StatementHelper
       buttons = if index == 0
                   statement_tag(:prev, type, true)
                 else
-                  statement_button(session[key][index-1], statement_tag(:prev, type), :class => "prev_stmt", :rel => 'prev')
+                  statement_button(session[key][index-1], statement_tag(:prev, type), :rel => 'prev')
                 end
       buttons << if index == session[key].length-1
                    statement_tag(:next, type, true)
                  else
-                   statement_button(session[key][index+1], statement_tag(:next, type), :class => 'next_stmt', :rel => 'next')
+                   statement_button(session[key][index+1], statement_tag(:next, type), :rel => 'next')
                  end
     end
   end
 
   def statement_tag(direction, class_identifier, disabled=false)
     if !disabled
-      content_tag(:span, '&nbsp;', :class => "#{direction}_stmt ttLink no_border", 
+      content_tag(:span, '&nbsp;', :class => "#{direction}_stmt ttLink no_border",
                   :title => I18n.t("discuss.statements.prev_#{class_identifier}_tooltip"))
     else
       content_tag(:span, '&nbsp;', :class => "#{direction}_stmt disabled")
@@ -209,9 +209,7 @@ module StatementHelper
   # maybe one could code some statement.url method..?
   def statement_button(id, title, options={})
     stmt = Statement.find(id)
-    options[:class] ||= ''
-    options[:class] += ' ajax'
-    return link_to(title, url_for(stmt), options)
+    return link_to(title, url_for(stmt), :class => 'ajax')
   end
 
 end
