@@ -2,7 +2,7 @@ require 'test_helper'
 
 class WebProfilesControllerTest < ActionController::TestCase
   def setup
-    @controller = WebProfilesController.new
+    @controller = Users::WebProfilesController.new
   end
   
   test "should get index" do

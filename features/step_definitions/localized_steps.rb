@@ -13,3 +13,7 @@ end
 Then /^I should see localized "([^\"]*)"$/ do |key|
   response.should contain(I18n.t(key))
 end
+
+Then /^I should not see localized "([^\"]*)"$/ do |key|
+  response.should_not contain(I18n.t(key))
+end
