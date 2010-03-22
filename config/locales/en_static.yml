@@ -90,7 +90,7 @@ en:
 
   # Supporters & Sponsors
   sponsors:
-    text: 'Supported by'
+    text: 'echo is supported by'
     exist: EXIST
     eu: European Union
     esf: European Social Fund for Germany

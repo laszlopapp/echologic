@@ -325,21 +325,27 @@ en:
           Discuss your idees with other movers and contribute to <strong>make more (out of) echo</strong>
           than we might have ever imagined!
           </p>
-    statements:
-      back_to_question_tooltip: 'Go to this debate'
-      back_to_proposal_tooltip: 'Read this proposal'
-      back_to_improvement_proposal_tooltip: 'Read this improvement proposal'
-      prev_proposal_tooltip: 'Read previous proposal'
-      next_proposal_tooltip: 'Read next proposal'
-      prev_improvement_proposal_tooltip: 'Read previous improvement proposal'
-      next_improvement_proposal_tooltip: 'Read next improvement proposal'
-      create_proposal_tooltip: 'Create a new proposal in this debate.'
-      create_improvement_proposal_tooltip: 'Create a new improvement proposal for this proposal.'
-      echo_tooltip: 'echo this statement to support it!'
-      unecho_tooltip: 'Withdraw your vote to stop supporting this statement.'
-      echo_indicator_tooltip:
+
+    tooltips:
+      read_question: 'Go to this debate'
+      read_proposal: 'Read this proposal'
+      read_improvement_proposal: 'Read this improvement proposal'
+      current_question: 'The currently displayed debate'
+      current_proposal: 'The currently displayed proposal'
+      current_improvement_proposal: 'The currently displayed improvement proposal'
+      prev_proposal: 'Read previous proposal'
+      next_proposal: 'Read next proposal'
+      prev_improvement_proposal: 'Read previous improvement proposal'
+      next_improvement_proposal: 'Read next improvement proposal'
+      create_proposal: 'Create a new proposal in the current debate.'
+      create_improvement_proposal: 'Create a new improvement proposal for the current proposal.'
+      echo: 'echo this statement to support it!'
+      unecho: 'Withdraw your vote to stop supporting this statement.'
+      echo_indicator:
         one: 'This statement has {{supporter_count}} supporter.'
         many: 'This statement has {{supporter_count}} supporters.'
+        
+    statements:
       create_question_link: 'Open a new debate'
       create_proposal_link: 'Enter a new position'
       create_improvement_proposal_link: 'Add new improvement proposal'

@@ -91,7 +91,7 @@ de:
 
   # Supporters & Sponsors
   sponsors:
-    text: 'Gefördert durch'
+    text: 'echo wird gefördert durch'
     exist: EXIST
     eu: Europäische Union
     esf: Europäische Sozialfonds für Deutschland
