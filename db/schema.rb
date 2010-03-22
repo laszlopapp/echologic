@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100321171526) do
+ActiveRecord::Schema.define(:version => 20100321173601) do
 
   create_table "concernments", :force => true do |t|
     t.integer  "user_id"
@@ -66,6 +66,13 @@ ActiveRecord::Schema.define(:version => 20100321171526) do
   end
 
   create_table "multilingual_resource", :force => true do |t|
+    t.integer "enum_value_id"
+    t.integer "language_id"
+    t.string  "context"
+    t.string  "value"
+  end
+
+  create_table "multilingual_resources", :force => true do |t|
     t.integer "enum_value_id"
     t.integer "language_id"
     t.string  "context"

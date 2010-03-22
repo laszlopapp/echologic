@@ -1,6 +1,7 @@
 class Statement < ActiveRecord::Base
   include Echoable
-  
+  include Enumerable
+ 
   # magically allows Proposal.first.question? et al.
   #
   # FIXME: figure out why this sometimes doesn't work, but only in ajax requests
