@@ -67,7 +67,7 @@ de:
       # my_echo: de.seo.title.my_echo
       my_echo:
         roadmap: 'echologic - Fahrplan für Mein echo'
-        welcome: 'echologic - Welcome'
+        welcome: 'echologic - Willkommen'
         profile: 'echologic - Mein Profil'
 
       # my_echo: de.seo.title.admin
@@ -98,7 +98,6 @@ de:
     bmwi: Bundesministerium für Wirtschaft und Technologie
     grm: GründerRegio M
     lmu_ec: LMU Entrepreneurship Center
-
 
   # Static content
   static:

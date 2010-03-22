@@ -263,6 +263,10 @@ de:
           </p>
         action: 'Jetzt beitreten!'
 
+      user_sessions:
+        messages:
+          session_timeout: 'Ihre alte Sitzung wurde beendet. Bitte melden Sie sich erneut an.' 
+
       messages:
         created: "Bitte überprüfen Sie Ihre E-Mails, um Ihren neu angelegten Zugang freizuschalten."
 
@@ -334,7 +338,7 @@ de:
           nächsten Schritte sein? Sagen Sie uns Ihre Meinung, diskutieren Sie diese mit
           anderen BewegerInnen und tragen Sie dazu bei, noch <strong>mehr (aus) echo zu machen</strong>, als wir es uns je hätten vorstellen können!
           </p>
-          
+
     tooltips:
       read_question: 'Diese Debatte anschauen'
       read_proposal: 'Diesen Vorschlag lesen'

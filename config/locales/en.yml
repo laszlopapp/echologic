@@ -259,6 +259,10 @@ en:
           </p>
         action: 'Join now!'
 
+      user_sessions:
+        messages:
+          session_timeout: 'Your old session has been closed. Please log in again.'
+
       messages:
         created: "Please check your E-Mails to activate your newly created account!"
 
@@ -344,7 +348,7 @@ en:
       echo_indicator:
         one: 'This statement has {{supporter_count}} supporter.'
         many: 'This statement has {{supporter_count}} supporters.'
-        
+
     statements:
       create_question_link: 'Open a new debate'
       create_proposal_link: 'Enter a new position'
