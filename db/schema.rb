@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(:version => 20100317153006) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.float    "completeness",        :default => 0.1
+    t.float    "completeness",        :default => 0.01
     t.integer  "show_profile"
   end
 

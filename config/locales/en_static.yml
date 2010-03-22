@@ -59,11 +59,12 @@ en:
       connect:
         roadmap:  'echologic - Roadmap for Connect'
         show:   'echologic - Connect - Explore Community'
+        fill_out_profile: 'echologic - Connect - Give and Take'
 
       # act: de.seo.title.act
       act:
         roadmap: 'echologic - Roadmap for Act'
-        
+
       # my_echo: de.seo.title.my_echo
       my_echo:
         roadmap: 'echologic - Roadmap for My echo'
@@ -89,7 +90,7 @@ en:
 
   # Supporters & Sponsors
   sponsors:
-    text: 'From 01.02.2010 echo is supported by' 
+    text: 'echo is supported by'
     exist: EXIST
     eu: European Union
     esf: European Social Fund for Germany
@@ -162,7 +163,7 @@ en:
         text: |
           <p>
           <strong>The source</strong> of echo is an <strong>interdisciplinary team</strong> of young and experienced professionals.
-          They have developed its unique concept to address the global challenges of our time and have been working
+          They have developed its concept to address the global challenges of our time and have been working
           determined on its implementation.
           </p><p>
           Meanwhile, a <strong>growing network</strong> of supporters and consultants lends the project

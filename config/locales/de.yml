@@ -95,6 +95,7 @@ de:
       tabs:
         welcome: Willkommen
         profile: Mein Profil
+      profile_complete: '{{complete}}% ausgefüllt'
 
 
   # ----------------
@@ -115,8 +116,7 @@ de:
       </p>
     function_1:
       name: 'Mein Profil'
-      description: |
-        Erstellen Sie Ihr aussagekräftiges Profil, um von Anderen gefunden zu werden, wenn Ihre Kompetenzen gebraucht werden.
+      description: 'Vervollständigen Sie Ihr Profil, um sich in der echologic Community zu präsentieren.'
     function_2:
       name: 'Vernetzen'
       description: 'Entdecken Sie die Community und vernetzen Sie sich mit anderen interessanten Menschen der Bewegung.'
@@ -334,32 +334,48 @@ de:
           nächsten Schritte sein? Sagen Sie uns Ihre Meinung, diskutieren Sie diese mit
           anderen BewegerInnen und tragen Sie dazu bei, noch <strong>mehr (aus) echo zu machen</strong>, als wir es uns je hätten vorstellen können!
           </p>
-    statements:
-      create_question_link: 'Neue Debatte eröffnen'
-      create_proposal_link: 'Neue Stellungnahme erstellen'
-      create_improvement_proposal_link: 'Neuen Ergänzungsvorschlag erstellen'
-      echo_tooltip: 'Unterstützen Sie diese Aussage durch Ihr Echo!'
-      unecho_tooltip: 'Ziehen Sie Ihre Stimme zurück, wenn Sie die Aussage nicht mehr unterstützen möchten.'
-      echo_indicator_tooltip:
+          
+    tooltips:
+      read_question: 'Diese Debatte anschauen'
+      read_proposal: 'Diesen Vorschlag lesen'
+      read_improvement_proposal: 'Diesen Ergänzgunsvorschlag lesen'
+      current_question: 'Die aktuell angezeigte Debatte'
+      current_proposal: 'Der aktuell angezeigte Vorschlag'
+      current_improvement_proposal: 'Der aktuell angezeigte Ergänzgunsvorschlag'
+      prev_proposal: 'Vorigen Vorschlag zu der Debatte lesen'
+      next_proposal: 'Nächsten Vorschlag zu der Debatte lesen'
+      prev_improvement_proposal: 'Vorigen Ergänzungsvorschlag für den aktuellen Vorschlag lesen'
+      next_improvement_proposal: 'Nächsten Ergänzungsvorschlag für den aktuellen Vorschlag lesen'
+      create_proposal: 'Erstellen Sie einen neuen Vorschlag zu der aktuellen Debatte.'
+      create_improvement_proposal: 'Erstellen Sie einen neuen Ergänzungsvorschlag für den aktuellen Vorschlag.'
+      echo: 'Unterstützen Sie diese Aussage durch Ihr Echo!'
+      unecho: 'Ziehen Sie Ihre Stimme zurück, wenn Sie die Aussage nicht mehr unterstützen möchten.'
+      echo_indicator:
         one: 'Diese Aussage hat {{supporter_count}} UnterstützerIn.'
         many: 'Diese Aussage hat {{supporter_count}} UnterstützerInnen.'
+
+    statements:
+      create_question_link: 'Neue Debatte eröffnen'
+      create_proposal_link: 'Neuen Vorschlag erstellen'
+      create_improvement_proposal_link: 'Neuen Ergänzungsvorschlag erstellen'
+
       types:
         question:  'Debatte'
-        proposal:  'Stellungnahme'
+        proposal:  'Vorschlag'
         improvement_proposal: 'Ergänzungsvorschlag'
       new:
         question:  'Neue Debatte'
-        proposal:  'Neue Stellungnahme'
+        proposal:  'Neuer Vorschlag'
         improvement_proposal: 'Neuer Ergänzungsvorschlag'
       headings:
         question: 'Debatten'
-        proposal: 'Stellungnahmen'
+        proposal: 'Vorschläge'
         improvement_proposal: 'Ergänzungsvorschläge'
       states:
-        new: New
-        published: Published
-      delete_link: "L&ouml;schen"
-      delete_confirmation: "Bist du sicher, dass du dieses Statement l&ouml;schen willst?"
+        new: 'New'
+        published: 'Published'
+      delete_link: 'Löschen'
+      delete_confirmation: 'Bist du sicher, dass du diese Aussage löschen willst?'
     summary: 'Zusammenfassung'
     messages:
       created: "{{type}} wurde erfolgreich eingestellt."
@@ -372,6 +388,16 @@ de:
   # ---------------
 
   connect:
+
+    fill_out_profile:
+      title: Geben und nehmen
+      text: |
+        <p>
+        "Vernetzen" ist viel spannender mit <strong>informativen Profilen</strong>.
+        Bitte füllen Sie Ihr Profil <strong>mindestens zu 50%</strong> aus, um andere BewegerInnen zu sehen und Kontakte zu knüpfen.
+        Der Fortschrittsindikator unten zeigt Ihnen, wie weit Sie schon sind.
+        </p>
+
     segments:
       all: Alle
       affected:  'Betroffene'
@@ -569,7 +595,7 @@ de:
 
     models:
       question: "Debatte"
-      proposal: "Stellungnahme"
+      proposal: "Vorschlag"
       improvement_proposal: "Ergänzungsvorschlag"
 
   authlogic:
