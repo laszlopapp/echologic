@@ -179,28 +179,29 @@ module StatementHelper
   # Insert prev/next buttons for the current statement.
   def prev_next_buttons(statement)
     type = statement.class.to_s.underscore
-    key   = ("current_" + type).to_sym
+    key = ("current_" + type).to_sym
     if session[key].present? and session[key].include?(statement.id)
       index = session[key].index(statement.id)
       buttons = if index == 0
-                  prev_statement_tag(type,true)
+                  statement_tag(:prev, type, true)
                 else
-                  statement_button(session[key][index-1], prev_statement_tag(type), :class => "prev_stmt", :rel => 'prev')
+                  statement_button(session[key][index-1], statement_tag(:prev, type), :class => "prev_stmt", :rel => 'prev')
                 end
       buttons << if index == session[key].length-1
-                   next_statement_tag(true)
+                   statement_tag(:next, type, true)
                  else
-                   statement_button(session[key][index+1], next_statement_tag(type), :class => 'next_stmt', :rel => 'next')
+                   statement_button(session[key][index+1], statement_tag(:next, type), :class => 'next_stmt', :rel => 'next')
                  end
     end
   end
 
-  def prev_statement_tag(class_identifier, disabled=false)
-    content_tag(:span, '&nbsp;', :class => "prev_stmt no_border#{disabled ? ' disabled' : ' ttLink'}", :title => I18n.t("discuss.statements.prev_#{class_identifier}_tooltip"))
-  end
-
-  def next_statement_tag(class_identifier, disabled=false)
-    content_tag(:span, '&nbsp;', :class => "next_stmt no_border#{disabled ? ' disabled' : ' ttLink'}", :title => I18n.t("discuss.statements.next_#{class_identifier}_tooltip"))
+  def statement_tag(direction, class_identifier, disabled=false)
+    if !disabled
+      content_tag(:span, '&nbsp;', :class => "#{direction}_stmt ttLink no_border", 
+                  :title => I18n.t("discuss.statements.prev_#{class_identifier}_tooltip"))
+    else
+      content_tag(:span, '&nbsp;', :class => "#{direction}_stmt disabled")
+    end
   end
 
   # Insert a button that links to the previous statement
