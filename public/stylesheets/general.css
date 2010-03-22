@@ -58,7 +58,7 @@ a {
   cursor:       pointer;
 }
 
-p a {
+p a, span a {
   color: #21587f;
   text-decoration: underline;
 }
