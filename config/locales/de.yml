@@ -144,6 +144,7 @@ de:
         login_success:  "Login erfolgreich.<br/>Willkommen zurück auf echologic!"
         login_failed:   "Unbekannter Nutzer oder falsches Passwort."
         logout_success: "Logout erfolgreich.<br/>Tschüß - Bis zum nächsten Mal!"
+        session_timeout: "Ihre alte Sitzung wurde beendet. Bitte melden Sie sich erneut an."
 
     # Activations section
     activation:
@@ -262,10 +263,6 @@ de:
           mit anderen engagierten BürgerInnen, ExpertInnen und PolitikerInnen.
           </p>
         action: 'Jetzt beitreten!'
-
-      user_sessions:
-        messages:
-          session_timeout: 'Ihre alte Sitzung wurde beendet. Bitte melden Sie sich erneut an.'
 
       messages:
         created: "Bitte überprüfen Sie Ihre E-Mails, um Ihren neu angelegten Zugang freizuschalten."

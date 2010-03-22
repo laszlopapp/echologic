@@ -146,6 +146,7 @@ en:
         login_success: "Login successful. Welcome back to echologic."
         login_failed: "Unknown user or wrong password."
         logout_success: "Logout successful. See you later. Bye!"
+        session_timeout: "Your old session has been closed. Please log in again."
 
     # Activations section
     activation:
@@ -258,10 +259,6 @@ en:
           <strong>Form echo</strong> and <strong>discuss topics on sustainability</strong> and democracy with other engaged citizens, experts and representatives.
           </p>
         action: 'Join now!'
-
-      user_sessions:
-        messages:
-          session_timeout: 'Your old session has been closed. Please log in again.'
 
       messages:
         created: "Please check your E-Mails to activate your newly created account!"
