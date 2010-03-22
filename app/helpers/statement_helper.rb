@@ -100,7 +100,7 @@ module StatementHelper
             new_child_statement_url(statement, type),
             :id => "create_#{type.underscore}_link",
             :class => "ajax header_button text_button #{create_statement_button_class(type)} ttLink no_border",
-            :title => I18n.t("discuss.tooltip.create_#{type.underscore}"))
+            :title => I18n.t("discuss.tooltips.create_#{type.underscore}"))
   end
 
   # this classname is needed to display the right icon next to the link
@@ -113,7 +113,7 @@ module StatementHelper
     link_to(I18n.t("discuss.statements.create_question_link",
             :type => Question.display_name), new_question_url(:category => category.value),
             :class=>'ajax text_button create_question_button ttLink no_border',
-            :title => I18n.t("discuss.tooltip.create_question"))
+            :title => I18n.t("discuss.tooltips.create_question"))
   end
 
   def edit_statement_link(statement)
@@ -201,7 +201,7 @@ module StatementHelper
   def statement_tag(direction, class_identifier, disabled=false)
     if !disabled
       content_tag(:span, '&nbsp;', :class => "#{direction}_stmt ttLink no_border",
-                  :title => I18n.t("discuss.statements.prev_#{class_identifier}_tooltip"))
+                  :title => I18n.t("discuss.tooltips.#{direction}_#{class_identifier}"))
     else
       content_tag(:span, '&nbsp;', :class => "#{direction}_stmt disabled")
     end
