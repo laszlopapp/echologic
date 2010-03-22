@@ -367,10 +367,10 @@ de:
       create_improvement_proposal_link: 'Neuen Ergänzungsvorschlag erstellen'
       create_proposal_explanation: |
         Haben Sie eine <strong>gute Idee</strong> zur aktuellen Debatte, die noch <strong>nicht vorhandenen</strong> ist?<br/>
-        Hier können Sie dafür einen <strong>neuen Vorschlag</strong> erstellen.
+        Hier können Sie einen <strong>neuen Vorschlag</strong> erstellen.
       create_improvement_proposal_explanation: |
         Haben Sie eine <strong>gute Idee</strong>, wie man den aktuellen <strong>Vorschlag noch besser machen</strong> kann?<br/>
-        Hier können Sie dafür einen <strong>neuen Ergänzungsvorschlag</strong> erstellen.
+        Hier können Sie einen <strong>neuen Ergänzungsvorschlag</strong> erstellen.
 
       types:
         question:  'Debatte'
