@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class WebProfileTest < ActiveSupport::TestCase
-  
+    
   # Web profiles mustn't be saved empty.
   def test_no_empty_saving
     w = WebProfile.new
