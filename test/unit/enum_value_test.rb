@@ -5,28 +5,29 @@ class EnumValueTest < ActiveSupport::TestCase
   context "an enum value" do
     setup { @enum_value = EnumValue.new }
     subject { @enum_value }
-    should_have_many :multilingual_resources
-    should_validate_presence_of :key, :subject, :code, :description
-    # subjects: 
-    # statements -> original_language_id
-    # multilingual_resources -> language_id
-    # statment_documents -> language_id
-    # web_addresses -> type_id
+    should_belong_to :enum_key
+    should_have_db_columns :context
     
-    # not yet implemented:
-    # tags -> original_languae_id
-    # tao_tags -> context_id
-    # tag_words -> language_id
-    # tao_contexts -> context_id
-    # organizations -> type_id
-    # needs -> type_id
+    # testing validations (should_validate_presence_of didn't work)
+    %w(enum_key_id value language_id).each do |attr|
+      context "with no #{attr} set" do 
+        setup { @enum_value.send("#{attr}=", nil)
+          assert ! @enum_value.valid?
+        }
+        should("include #{attr} in it's errors") { 
+          assert @enum_value.errors[attr]
+        }
+      end
+    end
     
-    # actual subjects:
-    # * language
-    # * web_address_type
-    # not yet implemented
-    # * context
-    # * organization_type
-    # * need_type
+    # EnumValue.languages
+        
+    should "have a language enum associated" do
+      assert ! EnumValue.languages.empty?
+      @enum_value.language_id = EnumValue.languages.first.key
+      assert_equal @enum_value.language, EnumValue.languages.first
+      # @enum_value.language.value
+    end
+    
   end
 end
