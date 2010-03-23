@@ -144,6 +144,7 @@ de:
         login_success:  "Login erfolgreich.<br/>Willkommen zurück auf echologic!"
         login_failed:   "Unbekannter Nutzer oder falsches Passwort."
         logout_success: "Logout erfolgreich.<br/>Tschüß - Bis zum nächsten Mal!"
+        session_timeout: "Ihre alte Sitzung wurde beendet. Bitte melden Sie sich erneut an."
 
     # Activations section
     activation:
@@ -334,7 +335,7 @@ de:
           nächsten Schritte sein? Sagen Sie uns Ihre Meinung, diskutieren Sie diese mit
           anderen BewegerInnen und tragen Sie dazu bei, noch <strong>mehr (aus) echo zu machen</strong>, als wir es uns je hätten vorstellen können!
           </p>
-          
+
     tooltips:
       read_question: 'Diese Debatte anschauen'
       read_proposal: 'Diesen Vorschlag lesen'
@@ -342,12 +343,15 @@ de:
       current_question: 'Die aktuell angezeigte Debatte'
       current_proposal: 'Der aktuell angezeigte Vorschlag'
       current_improvement_proposal: 'Der aktuell angezeigte Ergänzgunsvorschlag'
-      prev_proposal: 'Vorigen Vorschlag zu der Debatte lesen'
-      next_proposal: 'Nächsten Vorschlag zu der Debatte lesen'
-      prev_improvement_proposal: 'Vorigen Ergänzungsvorschlag für den aktuellen Vorschlag lesen'
-      next_improvement_proposal: 'Nächsten Ergänzungsvorschlag für den aktuellen Vorschlag lesen'
-      create_proposal: 'Erstellen Sie einen neuen Vorschlag zu der aktuellen Debatte.'
-      create_improvement_proposal: 'Erstellen Sie einen neuen Ergänzungsvorschlag für den aktuellen Vorschlag.'
+      back_to_question: 'Zurück zur aktuellen Debatte'
+      back_to_proposal: 'Zurück zum aktuellen Vorschlag'
+      back_to_improvement_proposal: 'Zurück zum aktuellen Ergänzungsvorschlag'
+      prev_proposal: 'Vorigen Vorschlag zur aktuellen Debatte lesen'
+      next_proposal: 'Nächsten Vorschlag zur aktuellen Debatte lesen'
+      prev_improvement_proposal: 'Vorigen Ergänzungsvorschlag zum aktuellen Vorschlag lesen'
+      next_improvement_proposal: 'Nächsten Ergänzungsvorschlag zum aktuellen Vorschlag lesen'
+      create_proposal: 'Neuen Vorschlag zur aktuellen Debatte erstellen'
+      create_improvement_proposal: 'Neuen Ergänzungsvorschlag zum aktuellen Vorschlag erstellen'
       echo: 'Unterstützen Sie diese Aussage durch Ihr Echo!'
       unecho: 'Ziehen Sie Ihre Stimme zurück, wenn Sie die Aussage nicht mehr unterstützen möchten.'
       echo_indicator:
@@ -358,6 +362,12 @@ de:
       create_question_link: 'Neue Debatte eröffnen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
       create_improvement_proposal_link: 'Neuen Ergänzungsvorschlag erstellen'
+      create_proposal_explanation: |
+        Haben Sie eine <strong>gute Idee</strong> zur aktuellen Debatte, die noch <strong>nicht vorhandenen</strong> ist?<br/>
+        Hier können Sie einen <strong>neuen Vorschlag</strong> erstellen.
+      create_improvement_proposal_explanation: |
+        Haben Sie eine <strong>gute Idee</strong>, wie man den aktuellen <strong>Vorschlag noch besser machen</strong> kann?<br/>
+        Hier können Sie einen <strong>neuen Ergänzungsvorschlag</strong> erstellen.
 
       types:
         question:  'Debatte'

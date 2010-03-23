@@ -146,6 +146,7 @@ en:
         login_success: "Login successful. Welcome back to echologic."
         login_failed: "Unknown user or wrong password."
         logout_success: "Logout successful. See you later. Bye!"
+        session_timeout: "Your old session has been closed. Please log in again."
 
     # Activations section
     activation:
@@ -333,33 +334,43 @@ en:
       current_question: 'The currently displayed debate'
       current_proposal: 'The currently displayed proposal'
       current_improvement_proposal: 'The currently displayed improvement proposal'
-      prev_proposal: 'Read previous proposal'
-      next_proposal: 'Read next proposal'
-      prev_improvement_proposal: 'Read previous improvement proposal'
-      next_improvement_proposal: 'Read next improvement proposal'
-      create_proposal: 'Create a new proposal in the current debate.'
-      create_improvement_proposal: 'Create a new improvement proposal for the current proposal.'
+      back_to_question: 'Back to current debate'
+      back_to_proposal: 'Back to current proposal'
+      back_to_improvement_proposal: 'Back to current improvement proposal'
+      prev_proposal: 'Read previous proposal of the current debate'
+      next_proposal: 'Read next proposal of the current debate'
+      prev_improvement_proposal: 'Read previous improvement proposal for the current proposal'
+      next_improvement_proposal: 'Read next improvement proposal for the current proposal'
+      create_proposal: 'Create a new proposal in the current debate'
+      create_improvement_proposal: 'Create a new improvement proposal for the current proposal'
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your vote to stop supporting this statement.'
       echo_indicator:
         one: 'This statement has {{supporter_count}} supporter.'
         many: 'This statement has {{supporter_count}} supporters.'
-        
+
     statements:
       create_question_link: 'Open a new debate'
-      create_proposal_link: 'Enter a new position'
+      create_proposal_link: 'Enter a new proposal'
       create_improvement_proposal_link: 'Add new improvement proposal'
+      create_proposal_explanation: |
+        Do you have a <strong>good idea</strong> concerning the the current debate, which <strong>doesn't exist</strong> yet?<br/>
+        Here you can create a <strong>new proposal</strong>.
+      create_improvement_proposal_explanation: |
+        Do you have a <strong>good idea</strong> to <strong>make the current proposal even better</strong>?<br/>
+        Here you can create a <strong>new improvement porposal</strong>.
+
       types:
         question:  'Debate'
-        proposal:  'Position'
+        proposal:  'Proposal'
         improvement_proposal: 'Improvement Proposal'
       new:
         question:  'New Debate'
-        proposal:  'New Position'
+        proposal:  'New Proposal'
         improvement_proposal: 'New Improvement Proposal'
       headings:
         question: 'Debates'
-        proposal: 'Positions'
+        proposal: 'Proposals'
         improvement_proposal: 'Improvement Proposals'
       states:
         new: 'New'
