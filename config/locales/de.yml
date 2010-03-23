@@ -413,7 +413,7 @@ de:
       affected:  'Betroffene'
       engaged:   'Engagierte'
       scientist: 'ExpertInnen'
-      representative: 'EntscheidungsträgerInnen'
+      representative: 'EntscheiderInnen'
     results_count:
       one: '{{count}} BewegerIn'
       more: '{{count}} BewegerInnen'
