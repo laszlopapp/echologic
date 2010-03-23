@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ProfilesControllerTest < ActionController::TestCase
   def setup
-    @controller = ProfilesController.new
+    @controller = User::ProfilesController.new
   end
   
   test "should get index" do

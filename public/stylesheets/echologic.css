@@ -63,7 +63,7 @@
 
 #loginContainer .label {
   color:       #7BB031;
-  width:       152px;
+  width:       172px;
   display:     inline-block;
   margin-bottom: 3px;
   padding:     0 8px;
@@ -75,7 +75,7 @@
 
 #loginContainer .bottomLabel {
   color:       #1A4864;
-  width:       152px;
+  width:       172px;
   display:     inline-block;
   margin:      4px 0 3px 0;
   padding:     0 8px;
@@ -91,7 +91,7 @@
   background:   #FFF url(../images/page/input/login_input_bg.png) no-repeat top left;
   color:        #1A4864;
   font-size:    12px;
-  width:        150px;
+  width:        170px;
   height:       17px;
   border:       1px solid transparent;
   -moz-border-radius: 12px;

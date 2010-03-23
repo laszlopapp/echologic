@@ -1,7 +1,8 @@
 # Be sure to restart your server when you modify this file
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
+MAX_SESSION_PERIOD = 3600
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -19,22 +20,23 @@ Rails::Initializer.run do |config|
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
-  
-  # Authlogic authentication gem.
-  config.gem "binarylogic-authlogic",   :lib => "authlogic",    :source => "http://gems.github.com"
-  
+
   # Access control list gem Acl9.
-  config.gem "acl9",                    :lib => "acl9" ,        :source => "http://gemcutter.org"  
-  
+  config.gem "acl9", :lib => "acl9", :source => "http://gemcutter.org"
+
+  # Authlogic authentication gem.
+  config.gem "authlogic", :lib => "authlogic", :source => "http://gems.github.com"
+
   # Require the searchlogic gem.
-  config.gem "binarylogic-searchlogic", :lib => "searchlogic",  :source => 'http://gems.github.com'
-  
+  config.gem "searchlogic", :lib => "searchlogic", :source => 'http://gems.github.com'
+
   # Pagination gem from github
-  config.gem 'mislav-will_paginate',    :lib => 'will_paginate', :source => 'http://gems.github.com'
+  config.gem 'will_paginate', :lib => 'will_paginate', :source => 'http://gems.github.com'
   
   # Require formtastic gem to build semantic forms
   config.gem "formtastic"
 
+  # Unit testing
   config.gem 'test-unit', :lib => 'test/unit'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
