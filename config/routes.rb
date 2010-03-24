@@ -6,6 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   # routing-filter plugin for wrapping :locale around urls and paths.
   map.filter :locale
 
+
   # SECTION main parts of echologic
   map.act     '/act/roadmap',     :controller => :act,     :action => :roadmap
   map.discuss '/discuss', :controller => :discuss, :action => :index
@@ -64,6 +65,7 @@ ActionController::Routing::Routes.draw do |map|
   map.echo      'echo/:action',      :controller => 'static/echo',      :action => 'show'
   map.echonomy  'echonomy/:action',  :controller => 'static/echonomy',  :action => 'show'
   map.echocracy 'echocracy/:action', :controller => 'static/echocracy', :action => 'show'
+  map.echosocial'echosocial/:action',:controller => 'static/echosocial',:action => 'show'
   map.echologic 'echologic',         :controller => 'static/echologic', :action => 'show'
   map.static    'echologic/:action', :controller => 'static/echologic'
 

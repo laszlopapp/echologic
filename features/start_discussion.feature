@@ -67,5 +67,11 @@ Feature: Start a discussion
     Then I should see an error message
 
     
-    #Category tests: tests the existence of the 4 main categories
-    Scenario: I want to see all categories
+  #Category tests: tests the existence of the 4 main categories
+  Scenario: I want to see all categories
+    Given I am logged in as "user" with password "true"
+   	And I am on the Discuss Index
+    Then I should see localized "discuss.topics.echonomy_jam.name"
+    Then I should see localized "discuss.topics.echocracy.name"
+    Then I should see localized "discuss.topics.echo.name"
+    Then I should see localized "discuss.topics.echosocial.name"
