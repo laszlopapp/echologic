@@ -730,9 +730,9 @@ de:
             title: What?
             text: what do you mean, what?
       tabs:
-        me: mich
-        myself: mich selber
-        i: Ich
+        chosocial: Echo Social
+        features: Funktionen
+        benefits: Leistungen
       #About
       about:
         title: About us

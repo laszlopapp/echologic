@@ -737,9 +737,9 @@ en:
             title: What?
             text: what do you mean, what?
       tabs:
-        me: Me
-        myself: Myself
-        i: I
+        echosocial: Echo Social
+        features: Features
+        benefits: Benefits
       #About
       about:
         title: About us
