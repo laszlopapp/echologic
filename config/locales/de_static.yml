@@ -30,9 +30,8 @@ de:
           public_property: 'echonomy - echo als kollektives Eigentum'
         echosocial:
           show:            'echosocial - A New Show Message in German would be nice'
-          your_profit:     'echosocial - A New Your Profit Message in German would be nice'
-          foundation:      'echosocial - A New Foundation Message in German would be nice'
-          public_property: 'echosocial - A New Public Property Message in German would be nice' 
+          features:        'echosocial - Funktionen'
+          benefits:        'echosocial - Leistungen'
 
       # users: de.seo.title.users
       users:
@@ -730,9 +729,13 @@ de:
             title: What?
             text: what do you mean, what?
       tabs:
-        chosocial: Echo Social
+        echosocial: Echo Social
         features: Funktionen
         benefits: Leistungen
+      features:
+          title: Funktionen          
+      benefits:
+          title: Leistungen
       #About
       about:
         title: About us

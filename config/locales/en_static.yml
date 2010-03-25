@@ -31,9 +31,9 @@ en:
           public_property: 'echonomy - echo as Common Property'
         echosocial:
           show:            'echosocial - A New Show Message would be nice'
-          your_profit:     'echosocial - A New Your Profit Message would be nice'
-          foundation:      'echosocial - A New Foundation Message would be nice'
-          public_property: 'echosocial - A New Public Property Message would be nice' 
+          features:        'echosocial - Features'
+          benefits:        'echosocial - Benefits'
+           
 
       # users: de.seo.title.users
       users:
@@ -740,6 +740,10 @@ en:
         echosocial: Echo Social
         features: Features
         benefits: Benefits
+      features:
+          title: Features          
+      benefits:
+          title: Benefits
       #About
       about:
         title: About us
@@ -807,7 +811,7 @@ en:
           </p>
         open_document: Check out the document anyway!
 
-
+     
     join:
       title: &your_echo 'Your echo'
       subtitle: &join 'Join echologic'
