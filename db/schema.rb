@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100321173601) do
+ActiveRecord::Schema.define(:version => 20100324130427) do
 
   create_table "concernments", :force => true do |t|
     t.integer  "user_id"
@@ -37,11 +37,18 @@ ActiveRecord::Schema.define(:version => 20100321173601) do
     t.integer "supporter_count", :default => 0
   end
 
-  create_table "enum_values", :force => true do |t|
-    t.integer "key"
-    t.string  "subject"
+  create_table "enum_keys", :force => true do |t|
     t.string  "code"
+    t.string  "name"
     t.string  "description"
+    t.integer "key"
+  end
+
+  create_table "enum_values", :force => true do |t|
+    t.integer "enum_key_id"
+    t.integer "language_id"
+    t.string  "context"
+    t.string  "value"
   end
 
   create_table "feedbacks", :force => true do |t|
@@ -63,20 +70,6 @@ ActiveRecord::Schema.define(:version => 20100321173601) do
     t.string   "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "multilingual_resource", :force => true do |t|
-    t.integer "enum_value_id"
-    t.integer "language_id"
-    t.string  "context"
-    t.string  "value"
-  end
-
-  create_table "multilingual_resources", :force => true do |t|
-    t.integer "enum_value_id"
-    t.integer "language_id"
-    t.string  "context"
-    t.string  "value"
   end
 
   create_table "profiles", :force => true do |t|
@@ -154,11 +147,28 @@ ActiveRecord::Schema.define(:version => 20100321173601) do
     t.datetime "updated_at"
   end
 
-  create_table "tags", :force => true do |t|
+  create_table "tag_words", :force => true do |t|
     t.string   "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "language_id"
+    t.integer  "tag_id"
   end
+
+  create_table "tags", :force => true do |t|
+    t.integer "original_language_id"
+  end
+
+  create_table "tao_tags", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "tao_id"
+    t.string   "tao_type"
+    t.string   "context_id"
+    t.datetime "created_at"
+  end
+
+  add_index "tao_tags", ["tag_id"], :name => "index_tao_tags_on_tag_id"
+  add_index "tao_tags", ["tao_id", "tao_type", "context_id"], :name => "index_tao_tags_on_tao_id_and_tao_type_and_context_id"
 
   create_table "translations", :force => true do |t|
     t.string  "key"
@@ -190,6 +200,11 @@ ActiveRecord::Schema.define(:version => 20100321173601) do
     t.string   "openid_identifier"
   end
 
+  create_table "valid_contexts", :force => true do |t|
+    t.integer "context_id"
+    t.string  "tao_type"
+  end
+
   create_table "web_addresses", :force => true do |t|
     t.integer  "user_id"
     t.string   "location"
@@ -199,5 +214,15 @@ ActiveRecord::Schema.define(:version => 20100321173601) do
   end
 
   add_index "web_addresses", ["user_id"], :name => "index_web_profiles_on_user_id"
+
+  create_table "web_profiles", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "location"
+    t.integer  "sort"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "web_profiles", ["user_id"], :name => "index_web_profiles_on_user_id"
 
 end
