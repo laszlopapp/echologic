@@ -69,8 +69,9 @@ ActionController::Routing::Routes.draw do |map|
   map.echologic 'echologic',         :controller => 'static/echologic', :action => 'show'  
   map.static    'echologic/:action', :controller => 'static/echologic'
   
-  map.echosocial 'echosocial/:action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'development', :host =>'127.0.0.1', :port => 3001 }  
-
+  map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'development', :host =>'127.0.0.1', :port => 3001 }  
+  map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'staging', :domain => "echosocial.echo-test.org" }
+  map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'production', :domain => "echosocial.org" }
 
   # SECTION discuss - discussion tree
   map.resources :questions, :as => 'discuss/questions' do |question|
