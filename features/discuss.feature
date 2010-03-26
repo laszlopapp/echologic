@@ -4,6 +4,20 @@ Feature: Take Part on a discussion
   As a user
   I want to give different kind of statements on questions
 
+
+	# Within the discuss area the list of debates should be
+  # correctly ordered (by date of creation)
+
+  Scenario: View debates list
+    Given I am logged in as "user" with password "true"
+  	  And I am on the Discuss Index
+  	When I follow "echonomy JAM"
+    	When I choose the first question
+    	When I choose the second question
+    Then the second question must be more recent than the first question
+    
+    
+    
   @ok
   Scenario: Open a question
     Given I am logged in as "user" with password "true"
