@@ -1,0 +1,4 @@
+<%= statement ||= @statement %>
+<div id="navigator" class="rounded-box rounded-box-gray-itow">
+ <%= create_children_statement_link(statement.parent) if statement.parent%>
+</div>

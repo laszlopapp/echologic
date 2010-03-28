@@ -20,7 +20,7 @@ Feature: Take Part on a discussion
       And I am on the Discuss Index
     When I follow "echonomy JAM"
       And I choose the first Question
-      And I follow "Enter a new position"
+      And I follow "Enter a new proposal"
       And I fill in the following:
         | proposal_document_title | a proposal to propose some proposeworthy proposal data |
         | proposal_document_text | nothing to propose yet...                              |
@@ -57,3 +57,13 @@ Feature: Take Part on a discussion
    #   And I press "Save"
    # Then I should see "my updated proposal"
    #   And the questions title should be "my updated proposal"
+
+   Scenario: View a proposal
+     Given I am logged in as "user" with password "true"
+       And there is a proposal
+     When I go to the proposal
+     Then I should see localized "discuss.summary"
+       And I should see the proposals data
+       And I should see localized "discuss.statements.create_improvement_proposal_link"
+       And I should see localized "discuss.statements.create_proposal_link"
+       

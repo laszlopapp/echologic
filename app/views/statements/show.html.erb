@@ -2,6 +2,7 @@
 
 <%= render :partial => 'statements/context', :locals => {:statement => @statement} %>
 <%= render :partial => 'statements/sidebar', :locals => {:statement => @statement}%>
+<%= render :partial => 'statements/navigator', :locals => {:statement => @statement} %>
 <%= render :partial => 'statements/summary', :locals => {:statement => @statement} %>
 <%= render :partial => 'statements/children', :locals => {:statement => @statement, :children => @children } %>
 
