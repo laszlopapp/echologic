@@ -72,6 +72,13 @@ ActiveRecord::Schema.define(:version => 20100324130427) do
     t.datetime "updated_at"
   end
 
+  create_table "multilingual_resources", :force => true do |t|
+    t.integer "enum_value_id"
+    t.integer "language_id"
+    t.string  "context"
+    t.string  "value"
+  end
+
   create_table "profiles", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -147,16 +154,11 @@ ActiveRecord::Schema.define(:version => 20100324130427) do
     t.datetime "updated_at"
   end
 
-  create_table "tag_words", :force => true do |t|
+  create_table "tags", :force => true do |t|
     t.string   "value"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "language_id"
-    t.integer  "tag_id"
-  end
-
-  create_table "tags", :force => true do |t|
-    t.integer "original_language_id"
   end
 
   create_table "tao_tags", :force => true do |t|

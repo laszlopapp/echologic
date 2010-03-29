@@ -1,14 +1,8 @@
 class CreateExtaggable < ActiveRecord::Migration
   def self.up
     
-    rename_table :tags, :tag_words
-    add_column :tag_words, :language_id, :integer
-    add_column :tag_words, :tag_id, :integer
-    
-    create_table :tags do |t|
-     t.integer :original_language_id
-    end
-    
+   # rename_table :tags, :tag_words
+    add_column :tags, :language_id, :integer
     create_table :valid_contexts do |t|
       t.integer :context_id
       t.string :tao_type
@@ -34,12 +28,8 @@ class CreateExtaggable < ActiveRecord::Migration
   end
   
   def self.down
-    drop_table :tags
     drop_table :valid_contexts
     remove_column :tag_words, :language_id
-    remove_column :tag_words, :tag_id
-    rename_table :tag_words, :tags
     drop_table :tao_tags
-  
   end
 end

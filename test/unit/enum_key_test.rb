@@ -3,8 +3,7 @@ require 'test_helper'
 class EnumKeyTest < ActiveSupport::TestCase
 
   context "an enum value" do
-    setup { @enum_key = EnumKey.new 
-    }
+    setup { @enum_key = EnumKey.new }
     subject { @enum_key }
     should_have_many :enum_values
         
