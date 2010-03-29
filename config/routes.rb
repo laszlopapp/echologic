@@ -11,9 +11,10 @@ ActionController::Routing::Routes.draw do |map|
   # SECTION main parts of echologic
   map.act     '/act/roadmap',     :controller => :act,     :action => :roadmap
   map.discuss '/discuss', :controller => :discuss, :action => :index
-  map.discuss_roadmap '/discuss/roadmap', :controller => :discuss, :action => :roadmap
+  map.discuss_roadmap '/discuss/roadmap', :controller => :discuss, :action => :roadmap  
+  map.discuss_search '/discuss/search', :controller => :questions, :action => :category
   map.question_tags '/discuss/:id', :controller => :questions, :action => :category, :conditions => {:id => /\w+/ }
-  map.question_tags '/discuss/search', :controller => :questions, :action => :category, :conditions => {:id => ''}
+  
   map.my_echo '/my_echo/roadmap', :controller => :my_echo, :action => :roadmap
 
   map.resource :connect, :controller => 'connect', :only => [:show]
