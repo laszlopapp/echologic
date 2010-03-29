@@ -212,6 +212,10 @@
   position: relative;
 }
 
+#profile_details_container.discuss{
+	height: 647px;
+}
+
 #profile_details_container div {
   text-align: left;
 }

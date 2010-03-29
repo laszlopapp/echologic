@@ -287,7 +287,7 @@ en:
       one: '{{count}} debate'
       more: '{{count}} debates'
     topics_overview:
-      title: Overview
+      title: Featured
       text: |
         <p>
         As you can see in the Roadmap (in the upper right corner of the screen),
@@ -298,6 +298,13 @@ en:
         Additionally, you can also engage into the development of echo.<br/>
         Currently available topics are:
         </p>
+      tabs:
+        featured:
+          title: Featured
+        pilot_projects:
+          title: Pilot Projects
+    search:
+      title: Search
     topics:
       description: Description
       echonomy_jam:

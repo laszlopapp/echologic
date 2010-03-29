@@ -41,8 +41,27 @@ class StatementsController < ApplicationController
 
   # TODO use find or create category tag?
   def category
+    @value    = params[:value] || ""
     @page     = params[:page]  || 1
-    statements_not_paginated = statement_class.from_category(params[:id]).published(current_user.has_role?(:editor)).by_supporters.order(:created_at)
+    
+    #step 1: search for first string
+    statements_not_paginated = statement_class.find_by_title(@value.split(' ').first) if !@value.nil? && !@value.empty?
+    
+    #step 2: search for remaining strings
+    if @value.split(' ').size > 1
+       for value in @value.split(' ')[1..-1] do
+        statements_not_paginated &= statement_class.find_by_title(value)
+      end
+    end
+    
+    #step 3: search for everything if there where no previous results from the string search
+    statements_not_paginated = statement_class if (statements_not_paginated.nil? || statements_not_paginated.empty?) && (@value.nil? || @value.empty?) 
+   
+    #step 4: filter by category, if there is one 
+    statements_not_paginated = statements_not_paginated.from_category(params[:id]) if params[:id]
+    
+    statements_not_paginated = statements_not_paginated.published(current_user.has_role?(:editor)).by_supporters.by_creation
+    
     @count    = statements_not_paginated.count
     @category = Tag.find_or_create_by_value(params[:id])
     redirect_to(:controller => 'discuss', :action => 'index') and return unless @category
