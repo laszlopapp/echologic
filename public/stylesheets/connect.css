@@ -205,18 +205,6 @@
 
 /* PROFILE DETAILS. */
 
-#details_container.connect,
-#details_container.discuss {
-  clear: both;
-  margin: 25px 0 10px;
-  position: relative;
-  overflow: auto;
-}
-
-
-#details_container div {
-  text-align: left;
-}
 
 #profile_details_tabs {
   margin-bottom: 15px;
@@ -270,13 +258,7 @@
   font-weight: bold;
 }
 
-/* All tab content containers */
-#details_container .tab_content_container {
-  float: left;
-  left: 140px;
-  width: 670px;
-  padding: 0 15px;
-}
+
 
 /* Overview part */
 #overview ul {

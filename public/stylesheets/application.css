@@ -343,7 +343,7 @@
   
 }
 
-.function_button_holder:hover .function_name {
+.function_button_holder .function_name:hover {
   color:       #7bb031;
   text-decoration: none;
 }
@@ -357,4 +357,25 @@
 	font-size:	14px;
 	position: 	relative;
 	margin-left: 140px;
+}
+
+
+#details_container {
+  clear: both;
+  margin: 25px 0 10px;
+  position: relative;
+  overflow: auto;
+}
+
+
+#details_container div {
+  text-align: left;
+}
+
+/* All tab content containers */
+#details_container .tab_content_container {
+  float: left;
+  left: 140px;
+  width: 670px;
+  padding: 0 15px;
 }
