@@ -35,6 +35,10 @@
   margin-top: -39px;
 }
 
+#function_container .search_description {
+	float: left;
+	margin-top: 6px;
+}
 
 /* ------ */
 /* Topics */

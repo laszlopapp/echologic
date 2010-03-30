@@ -1,18 +1,20 @@
 <% content_for :submenu, tabnav(:discuss) %>
 
-<% if !@category.value%>
-	<div id="search_container">
-	  <% form_tag question_tags_path, :method => 'GET', :id => 'search_form' do %>
-	    <%= text_field_tag :value %>
-	    <%= submit_tag '', :alt => 'search_button' %>
-	  <% end %>
-	</div>
-<%end%>
+<%path = @category.value ? question_tags_path : discuss_search_path%>
+
+<div id="search_container">	
+<span class="search_description"> <%= "In #{@category.value}:" if @category.value%></span>
+  <% form_tag path, :method => 'GET', :id => 'search_form' do %>
+    <%= text_field_tag :value %>
+    <%= submit_tag '', :alt => 'search_button' %>
+  <% end %>
+</div>
 
 
-<h1><%= I18n.t("discuss.topics.#{@category.value.underscore}.name") if @category.value %></h1>
-<strong><%= I18n.t('discuss.topics.description') if @category.value %></strong>
-<% insert_toggle_more(I18n.t("discuss.topics.#{@category.value.underscore}.description")) if @category.value%>
+
+<!--h1><%#= I18n.t("discuss.topics.#{@category.value.underscore}.name") if @category.value %></h1-->
+<!--strong><%#= I18n.t('discuss.topics.description') if @category.value %></strong-->
+<% #insert_toggle_more(I18n.t("discuss.topics.#{@category.value.underscore}.description")) if @category.value%>
 
 <%= render :partial => 'questions', :locals => {:statements => @statements} %>
 

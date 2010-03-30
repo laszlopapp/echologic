@@ -10,8 +10,9 @@
 
 #search_container {
   margin:   25px auto 0;
-  width:    500px;
+  width:    600px;
 }
+
 
 #search_form {
   margin: 20px 0 2px;
@@ -214,6 +215,7 @@
 }
 
 #details_container.discuss {
+	overflow: inherit;
 	height: 647px;
 }
 

@@ -303,7 +303,7 @@
 /* OTHER NAVIGATION*/
 
 .function_button_holder {
-  height:      85px;
+  min-height:      95px;
   margin:      0px;
   padding:     0px;
 }
@@ -312,7 +312,6 @@
   float:       left;
   margin:      0px;
   padding:     0px;
-  width:       100%;
   height:      80px;
   position:    relative;
   left:        10px;
@@ -322,6 +321,7 @@
 
 .function_button:hover {
   cursor:      pointer;
+  
 }
 
 .function_name {
@@ -329,18 +329,22 @@
   font-weight: bold;
   color:       #21587f;
   position:    relative;
-  top:         -70px;
-  left:        140px;
+  top:         10px;
+  left:        60px;
 }
 
 .function_description {
   font-size:   14px;
   color:       #21587f;
   position:    relative;
-  top:         -68px;
-  left:        140px;
+  float: 	   left;
+  top:         12px;
+  left:        60px;
+  width: 	   590px;
+  
 }
 
 .function_button_holder:hover .function_name {
   color:       #7bb031;
+  text-decoration: none;
 }
