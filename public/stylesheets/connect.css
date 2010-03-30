@@ -208,16 +208,11 @@
 #details_container.connect,
 #details_container.discuss {
   clear: both;
-  overflow: auto;
-  height: 295px;
   margin: 25px 0 10px;
   position: relative;
+  overflow: auto;
 }
 
-#details_container.discuss {
-	overflow: inherit;
-	height: 647px;
-}
 
 #details_container div {
   text-align: left;
@@ -277,10 +272,9 @@
 
 /* All tab content containers */
 #details_container .tab_content_container {
-  position: absolute;
+  float: left;
   left: 140px;
   width: 670px;
-  min-height: 240px;
   padding: 0 15px;
 }
 

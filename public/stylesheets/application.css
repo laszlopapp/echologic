@@ -312,11 +312,12 @@
   float:       left;
   margin:      0px;
   padding:     0px;
-  height:      80px;
+  min-height:      80px;
   position:    relative;
   left:        10px;
   z-index:     5;
   border:      none;
+  width: 	   140px;
 }
 
 .function_button:hover {
@@ -329,22 +330,31 @@
   font-weight: bold;
   color:       #21587f;
   position:    relative;
-  top:         10px;
-  left:        60px;
+  width: 	   100%;
+  display: 	   block;
 }
 
 .function_description {
   font-size:   14px;
   color:       #21587f;
   position:    relative;
-  float: 	   left;
-  top:         12px;
-  left:        60px;
-  width: 	   590px;
+  width: 	   100%;
+  display:	   block;
   
 }
 
 .function_button_holder:hover .function_name {
   color:       #7bb031;
   text-decoration: none;
+}
+
+.function_button_holder .function_more {
+	font-size:	14px;
+	position: 	relative;
+}
+
+.function_button_holder .toggleMoreText {
+	font-size:	14px;
+	position: 	relative;
+	margin-left: 140px;
 }
