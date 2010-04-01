@@ -27,9 +27,7 @@ class EnumKeyTest < ActiveSupport::TestCase
         assert ! @enum_key.enum_values.for_language_id(1).empty?
         assert_equal @enum_key.enum_values.for_language_id(1).first.value, 'Finanzbedarf'
       end
-    end
-    
-  
+    end  
     
     # subjects: 
     # statements -> original_language_id

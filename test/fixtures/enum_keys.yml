@@ -1,14 +1,14 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 languages_english:
-   name: languages
-   key: 1
-   code: english
+  name: languages
+  key: 1
+  code: english
 
 languages_german:
-   name: languages
-   key: 2
-   code: german
+  name: languages
+  key: 2
+  code: german
 
 languages_french:
   name: languages

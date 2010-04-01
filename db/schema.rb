@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100324130427) do
+ActiveRecord::Schema.define(:version => 20100330095547) do
 
   create_table "concernments", :force => true do |t|
     t.integer  "user_id"
@@ -135,23 +135,33 @@ ActiveRecord::Schema.define(:version => 20100324130427) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "statement_documents", :force => true do |t|
-    t.string  "title"
-    t.text    "text"
-    t.integer "author_id"
+    t.string   "title"
+    t.text     "text"
+    t.integer  "author_id"
+    t.integer  "language_id"
+    t.integer  "translated_document_id"
+    t.integer  "statement_id"
+    t.integer  "current"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "statements", :force => true do |t|
+  create_table "statement_nodes", :force => true do |t|
     t.string   "type"
     t.integer  "parent_id"
     t.integer  "root_id"
     t.integer  "document_id"
     t.integer  "creator_id"
-    t.integer  "work_package_id"
     t.integer  "echo_id"
     t.integer  "category_id"
     t.integer  "state"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "statement_id"
+  end
+
+  create_table "statements", :force => true do |t|
+    t.integer "original_language_id"
   end
 
   create_table "tags", :force => true do |t|
