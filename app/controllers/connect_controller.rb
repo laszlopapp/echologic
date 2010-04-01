@@ -43,7 +43,7 @@ class ConnectController < ApplicationController
   # method: POST
   def search(sort, value)
 
-    sort_string = sort.blank?? "" : "c.sort = #{sort} AND "
+    sort_string = "c.sort = #{sort} AND "
 
     query = <<-END
       select distinct p.*, u.email
@@ -54,24 +54,33 @@ class ConnectController < ApplicationController
         LEFT JOIN concernments c ON (u.id = c.user_id)
         LEFT JOIN tags t         ON (t.id = c.tag_id)
       where
-        #{sort_string} 
+    END
+    
+    query_cont = <<-END 
         u.active = 1 AND
         (
-          p.first_name    like '%#{value}%'
-          or p.last_name  like '%#{value}%'
-          or p.city       like '%#{value}%'
-          or p.country    like '%#{value}%'
-          or p.about_me   like '%#{value}%'
-          or p.motivation like '%#{value}%'
-          or u.email      like '%#{value}%'
-          or t.value      like '%#{value}%'
-          or m.position   like '%#{value}%'
-          or m.organisation like '%#{value}%'
+          p.first_name    like ?
+          or p.last_name  like ?
+          or p.city       like ?
+          or p.country    like ?
+          or p.about_me   like ?
+          or p.motivation like ?
+          or u.email      like ?
+          or t.value      like ?
+          or m.position   like ?
+          or m.organisation like ?
         )
       order by CASE WHEN p.last_name IS NULL OR p.last_name="" THEN 1 ELSE 0 END, p.last_name, p.first_name, u.id asc;
     END
-
-    profiles = Profile.find_by_sql(query)
+    
+    #formatting the query string
+    query << sort_string unless sort.blank?
+    query << query_cont
+    value = "%#{value}%"    
+    query_array = [query, [value]*10].flatten
+    
+    #sql querying
+    profiles = Profile.find_by_sql(query_array)
     
   end
   
