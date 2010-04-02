@@ -62,7 +62,7 @@ class StatementNodeTest < ActiveSupport::TestCase
     
     context "being saved" do
       setup do 
-        @statement_node.create_document 
+        @statement_node.statement.create_statement_document 
         @statement_node.translated_document('en').update_attributes!({:title => "A new Document", :text => "with a very short body, dude!", :author_id => User.first.id})
         @statement_node.category = Tag.first
         @statement_node.update_attributes!(:creator_id => User.first.id, :state => 1)

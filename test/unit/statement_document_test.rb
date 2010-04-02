@@ -34,6 +34,7 @@ class StatementDocumentTest < ActiveSupport::TestCase
       setup do  
         @statement_document.update_attributes(:title => 'A document', :text => 'the documents body', :language_id => 1, :statement_id => 1)
         @statement_document.author = User.first
+        @statement_document.save!
         @translated_statement_document = StatementDocument.create(:title => 'A document', :text => 'the documents body', :language_id => 1, :statement_id => 1)
         @translated_statement_document.author = User.first
         @translated_statement_document.translated_document_id = @statement_document.id
@@ -41,11 +42,11 @@ class StatementDocumentTest < ActiveSupport::TestCase
       end
     
       should "be able to be a translation of another statement" do
-        @translated_statement_document.original.should_be @statement_document
+        assert_equal @translated_statement_document.original, @statement_document
       end
 
       should "be able to have translations" do
-        @statement_document.translations.should_be [@translated_statement_document]
+        assert_equal @statement_document.translations, [@translated_statement_document]
       end
 
       should "tell if it is the original document" do

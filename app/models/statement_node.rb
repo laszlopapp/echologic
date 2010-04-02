@@ -59,9 +59,9 @@ class StatementNode < ActiveRecord::Base
     @current_document ||= documents.for_languages(lang_codes)
   end
    
-  def document
-    raise "Statement#document is deprecated. Use helper document(statement) instead."
-  end
+  #def document
+  #  raise "Statement#document is deprecated. Use helper document(statement) instead."
+  #end
   
     
   ##
@@ -97,11 +97,11 @@ class StatementNode < ActiveRecord::Base
   ## ACCESSORS
   
   def title
-    self.document.title
+    self.translated_document(['en']).title
   end
 
   def text
-    self.document.text
+    self.translated_document(['de']).text
   end
 
   def level
@@ -132,11 +132,11 @@ class StatementNode < ActiveRecord::Base
   ## VALIDATIONS
   ##
 
-  validates_presence_of :creator
+  validates_presence_of :creator_id
   validates_associated :creator
-  validates_presence_of :document
+  validates_presence_of :statement_document_id
   validates_associated :document
-  validates_presence_of :category
+  validates_presence_of :category_id
   
   def validate
     # except of questions, all statements need a valid parent
