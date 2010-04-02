@@ -99,7 +99,7 @@ class StatementsController < ApplicationController
 
     @page = params[:page] || 1
     # find alle child statements, which are published (except user is an editor) sorted by supporters count, and paginate them
-    @children = @statement.children.published(current_user.has_role?(:editor)).by_supporters.paginate(Statement.default_scope.merge(:page => @page, :per_page => 5))
+    @children = @statement.children.published(current_user.has_role?(:editor)).by_supporters.paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
     respond_to do |format|
       format.html { render :template => 'statements/show' } # show.html.erb
       format.js   { render :template => 'statements/show' } # show.js.erb
@@ -142,7 +142,7 @@ class StatementsController < ApplicationController
 
   def create
     attrs = params[statement_class_param]
-    attrs[:state] = Statement.state_lookup[:published] unless statement_class == Question
+    attrs[:state] = StatementNode.state_lookup[:published] unless statement_class == Question
     @statement = statement_class.new(attrs)
     @statement.creator = @statement.document.author = current_user
     

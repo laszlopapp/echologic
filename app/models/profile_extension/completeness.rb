@@ -6,7 +6,7 @@ module ProfileExtension::Completeness
       # we use it when calculating the profiles completeness (after_save :calculate_completeness)
       # key => the columns name to check if it is filled
       # value => the minimum count of chars (size) to accept it as beeing filled
-      @@fillable_fields = [:about_me, :city, :country, :first_name, :last_name, :motivation, [:concernments,:affected], [:concernments, :engaged], [:concernments, :scientist], [:concernments, :representative], :memberships, :web_profiles, :avatar]
+      @@fillable_fields = [:about_me, :city, :country, :first_name, :last_name, :motivation, [:concernments,:affected], [:concernments, :engaged], [:concernments, :scientist], [:concernments, :representative], :memberships, :web_addresses, :avatar]
       cattr_reader :fillable_fields
     end
     
@@ -40,6 +40,7 @@ module ProfileExtension::Completeness
       end
       # save completeness into the database
       self.completeness = (fields_filled/self.class.fillable_fields.size.to_f)
+      self.show_profile = 1 if self.completeness >= 0.5
     end
     
     # lets make the float a proper percent value

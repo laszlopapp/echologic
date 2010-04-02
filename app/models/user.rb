@@ -7,7 +7,7 @@ require 'base64'
 class User < ActiveRecord::Base
   include UserExtension::Echo
 
-  has_many :web_profiles, :dependent => :destroy
+  has_many :web_addresses, :dependent => :destroy
   has_many :memberships, :dependent => :destroy
   has_many :concernments, :dependent => :destroy
   has_many :tags, :through => :concernments

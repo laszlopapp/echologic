@@ -217,7 +217,7 @@ en:
       position: My role
 
     # Web profiles section
-    web_profiles:
+    web_addresses:
       title: Web Addresses
       guide: |
         Here you can enter some of your contact data and other web profiles.<br/>
@@ -406,13 +406,13 @@ en:
       tabs:
         overview:     'Overview'
         concernments: 'Competences'
-        web_profiles: 'Web Addresses'
+        web_addresses: 'Web Addresses'
       actions:
         report: "Report"
     messages:
       empty:           'No members found. Please change your search criteria.'
       no_concernments: "This member hasn't defined any concernments and competences, yet."
-      no_web_profiles: "This member hasn't defined any web addresses, yet."
+      no_web_addresses: "This member hasn't defined any web addresses, yet."
 
   # Feedback resources
   feedback:
@@ -473,7 +473,7 @@ en:
         memberships: Activities
       report:
         reason:     'Reason'
-      web_profile:
+      web_address:
         location:   'Web Address'
       membership:
         position: My role

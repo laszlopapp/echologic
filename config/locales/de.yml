@@ -207,7 +207,7 @@ de:
       position: Meine Rolle
 
     # Web profiles section
-    web_profiles:
+    web_addresses:
       title: Web Adressen
       guide: |
         Indem Sie hier Ihre Kontaktdaten eintragen, geben Sie anderen Nutzern die Möglichkeit, sich ein Bild von Ihnen zu machen und Sie zu kontaktieren.<br/>
@@ -408,13 +408,13 @@ de:
       tabs:
         overview:     'Überblick'
         concernments: 'Kompetenzen'
-        web_profiles: 'Web Adressen'
+        web_addresses: 'Web Adressen'
       actions:
         report: "Melden"
     messages:
       empty:           'Zu Ihrer Suchanfrage wurden keine Ergebnisse gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff.'
       no_concernments: 'Dieses Mitgleid hat noch keine Betroffenheiten und Kompetenzen eingetragen.'
-      no_web_profiles: 'Dieses Mitglied hat noch keine Web Adressen eingetragen.'
+      no_web_addresses: 'Dieses Mitglied hat noch keine Web Adressen eingetragen.'
 
   # Feedback resources
   feedback:
@@ -580,7 +580,7 @@ de:
         memberships: Tätigkeiten
       report:
         reason: 'Grund'
-      web_profile:
+      web_address:
         location: 'Web Adresse'
       membership:
         position: 'Meine Rolle'

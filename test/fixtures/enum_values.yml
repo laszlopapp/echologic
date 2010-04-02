@@ -1,0 +1,31 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+languages_english_english:
+  enum_key_id: <%= Fixtures.identify(:languages_english) %>
+  value: English
+  language_id: 1
+
+languages_english_german:
+  enum_key_id: <%=Fixtures.identify(:languages_english) %>
+  value: Englisch
+  language_id: 2
+  
+languages_english_french:
+  enum_key_id: <%=Fixtures.identify(:languages_english) %>
+  value: ingles
+  language_id: 3
+
+languages_german_english:
+  enum_key_id: <%=Fixtures.identify(:languages_german) %>
+  value: Deutsch
+  language_id: 1
+
+languages_german_german:
+  enum_key_id: <%=Fixtures.identify(:languages_german) %>
+  value: German
+  language_id: 2
+  
+languages_german_french:
+  enum_key_id: <%=Fixtures.identify(:languages_german) %>
+  value: Aleman
+  language_id: 3

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100201181239) do
+ActiveRecord::Schema.define(:version => 20100330095547) do
 
   create_table "concernments", :force => true do |t|
     t.integer  "user_id"
@@ -37,6 +37,20 @@ ActiveRecord::Schema.define(:version => 20100201181239) do
     t.integer "supporter_count", :default => 0
   end
 
+  create_table "enum_keys", :force => true do |t|
+    t.string  "code"
+    t.string  "name"
+    t.string  "description"
+    t.integer "key"
+  end
+
+  create_table "enum_values", :force => true do |t|
+    t.integer "enum_key_id"
+    t.integer "language_id"
+    t.string  "context"
+    t.string  "value"
+  end
+
   create_table "feedbacks", :force => true do |t|
     t.string "name"
     t.string "email"
@@ -58,6 +72,13 @@ ActiveRecord::Schema.define(:version => 20100201181239) do
     t.datetime "updated_at"
   end
 
+  create_table "multilingual_resources", :force => true do |t|
+    t.integer "enum_value_id"
+    t.integer "language_id"
+    t.string  "context"
+    t.string  "value"
+  end
+
   create_table "profiles", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -74,7 +95,8 @@ ActiveRecord::Schema.define(:version => 20100201181239) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.float    "completeness",        :default => 0.01
+    t.float    "completeness",        :default => 0.1
+    t.integer  "show_profile"
   end
 
   create_table "reports", :force => true do |t|
@@ -113,30 +135,52 @@ ActiveRecord::Schema.define(:version => 20100201181239) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "statement_documents", :force => true do |t|
-    t.string  "title"
-    t.text    "text"
-    t.integer "author_id"
+    t.string   "title"
+    t.text     "text"
+    t.integer  "author_id"
+    t.integer  "language_id"
+    t.integer  "translated_document_id"
+    t.integer  "statement_id"
+    t.integer  "current"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "statements", :force => true do |t|
+  create_table "statement_nodes", :force => true do |t|
     t.string   "type"
     t.integer  "parent_id"
     t.integer  "root_id"
     t.integer  "document_id"
     t.integer  "creator_id"
-    t.integer  "work_package_id"
     t.integer  "echo_id"
     t.integer  "category_id"
     t.integer  "state"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "statement_id"
+  end
+
+  create_table "statements", :force => true do |t|
+    t.integer "original_language_id"
   end
 
   create_table "tags", :force => true do |t|
     t.string   "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "language_id"
   end
+
+  create_table "tao_tags", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "tao_id"
+    t.string   "tao_type"
+    t.string   "context_id"
+    t.datetime "created_at"
+  end
+
+  add_index "tao_tags", ["tag_id"], :name => "index_tao_tags_on_tag_id"
+  add_index "tao_tags", ["tao_id", "tao_type", "context_id"], :name => "index_tao_tags_on_tao_id_and_tao_type_and_context_id"
 
   create_table "translations", :force => true do |t|
     t.string  "key"
@@ -167,6 +211,21 @@ ActiveRecord::Schema.define(:version => 20100201181239) do
     t.boolean  "active",             :default => false, :null => false
     t.string   "openid_identifier"
   end
+
+  create_table "valid_contexts", :force => true do |t|
+    t.integer "context_id"
+    t.string  "tao_type"
+  end
+
+  create_table "web_addresses", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "location"
+    t.integer  "sort"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "web_addresses", ["user_id"], :name => "index_web_profiles_on_user_id"
 
   create_table "web_profiles", :force => true do |t|
     t.integer  "user_id"

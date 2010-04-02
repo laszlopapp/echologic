@@ -1,0 +1,19 @@
+<div id="web_address_container" class="header_block">
+  <h2><%= I18n.t('users.web_addresses.title') %></h2>
+  
+  <div class="guide">
+    <%= I18n.t('users.web_addresses.guide') %>
+  </div>
+
+  <ul id="web_address_list">
+    <li>
+      <span class="column_200 label"><%= I18n.t('users.web_addresses.type') %></span>
+      <span class="column_200 label"><%= I18n.t('users.web_addresses.address') %></span>
+    </li>
+    <%= render :partial => 'users/web_addresses/web_address', :collection => @user.web_addresses %>
+  </ul>
+  <ul>
+    <%= render :partial => 'users/web_addresses/new' %>
+  </ul>
+
+</div>

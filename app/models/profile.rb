@@ -2,7 +2,7 @@ class Profile < ActiveRecord::Base
 
   # Every profile has to belong to a user.
   belongs_to :user,       :dependent => :destroy
-  has_many :web_profiles, :through => :user
+  has_many :web_addresses, :through => :user
   has_many :memberships,  :through => :user
   has_many :concernments, :through => :user
 
@@ -13,10 +13,15 @@ class Profile < ActiveRecord::Base
  
   include ProfileExtension::Completeness
 
-    
+
+  # named scope, only returning profiles with 'show_profile' flag set to true
+  # currently this flag is true for alle users before release 0.5 and everyone who ever had more then 50% of his profile filled
+  # FIXME: this scope isn't used, because the current profile search implementation doesn't work with additional scopes
+  named_scope :published, :conditions => { :show_profile => 1 }  
+ 
   # callback for paperclip
  
-
+  
   # There are two kind of people in the world..
   @@gender = {
     false => I18n.t('users.profile.gender.male'),
