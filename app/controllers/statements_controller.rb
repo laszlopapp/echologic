@@ -49,12 +49,12 @@ class StatementsController < ApplicationController
       statements_not_paginated = statement_class
     else  
       #step 1.01: search for first string
-      statements_not_paginated = statement_class.find_by_title(@value.split(' ').first)
+      statements_not_paginated = statement_class.search(@value.split(' ').first)
       
       #step 1.10: search for remaining strings
       if @value.split(' ').size > 1
          for value in @value.split(' ')[1..-1] do
-          statements_not_paginated &= statement_class.find_by_title(value)
+          statements_not_paginated &= statement_class.search(value)
         end
       end
     end
@@ -77,6 +77,11 @@ class StatementsController < ApplicationController
       }
     end
   end
+
+  def search (value)
+    statement_class.find_by_title(value)    
+  end
+
 
   # TODO visited! throws error with current fixtures.
   def show
