@@ -140,7 +140,10 @@ class ApplicationController < ActionController::Base
         respond_to do |format|
           format.html {
             flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_in_for_page')
-            redirect_to root_path }
+            #raise request.inspect
+            request.env["HTTP_REFERER"] ? redirect_to(:back) : redirect_to(root_path) 
+              
+            }
           format.js { 
             # rendering an ajax-request, we assume it's rather an action, than a certain page, that the user want to access
             flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_in_for_action')
@@ -168,7 +171,9 @@ class ApplicationController < ActionController::Base
     end
 
     def store_location
-      session[:return_to] = request.request_uri
+      unless ['statements', 'proposals', 'questions', 'improvement_proposals'].include?(params[:controller]) && ['echo', 'unecho', 'new','create', 'update', 'delete'].include?(params[:action])
+        session[:return_to] = request.request_uri
+      end
     end
 
     def redirect_back_or_default(default)

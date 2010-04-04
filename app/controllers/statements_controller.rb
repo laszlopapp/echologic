@@ -21,6 +21,9 @@ class StatementsController < ApplicationController
 
   before_filter :require_user, :except => [:index, :category, :show]
   
+  # as discussions are public now, it's neccessary so save where we are, to redirect the user back after login
+  before_filter :store_location, :only => [:index, :category, :show]
+  
   # make custom URL helper available to controller
   include StatementHelper
 
