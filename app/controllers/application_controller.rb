@@ -137,10 +137,14 @@ class ApplicationController < ActionController::Base
     def require_user
       unless current_user
         store_location
-        flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_in')
         respond_to do |format|
-          format.html { redirect_to root_path }
-          format.js { show_info_message(flash[:notice]) }
+          format.html {
+            flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_in_for_page')
+            redirect_to root_path }
+          format.js { 
+            # rendering an ajax-request, we assume it's rather an action, than a certain page, that the user want to access
+            flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_in_for_action')
+            show_info_message(flash[:notice]) }
         end
         return false
       end
