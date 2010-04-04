@@ -104,7 +104,12 @@ class StatementsController < ApplicationController
     respond_to do |format|
       format.html { render :template => 'statements/new' }
       format.js {
-        replace_container(@statement.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/new')
+        render :update do |page|
+          page.replace(@statement.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/new')
+          page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent})          
+          page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent})          
+          page.replace('navigator_container', :partial => 'statements/navigator', :locals => { :statement => @statement.parent})
+        end
       }
     end
   end
