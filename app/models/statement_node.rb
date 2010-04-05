@@ -88,6 +88,8 @@ class StatementNode < ActiveRecord::Base
   named_scope :by_ratio, :include => :echo, :order => '(echos.supporter_count/echos.visitor_count) DESC'
 
   named_scope :by_supporters, :include => :echo, :order => 'echos.supporter_count DESC'
+  
+  named_scope :by_creation, :order => 'created_at DESC'
 
   # category
 

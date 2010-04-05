@@ -12,8 +12,15 @@ languages_english_german:
   
 languages_english_french:
   enum_key_id: <%=Fixtures.identify(:languages_english) %>
-  value: ingles
+  value: Ingles
   language_id: 3
+  
+languages_english_portuguese:
+  enum_key_id: <%=Fixtures.identify(:languages_english) %>
+  value: Inglês
+  language_id: 4
+
+    
 
 languages_german_english:
   enum_key_id: <%=Fixtures.identify(:languages_german) %>
@@ -29,3 +36,663 @@ languages_german_french:
   enum_key_id: <%=Fixtures.identify(:languages_german) %>
   value: Aleman
   language_id: 3
+  
+languages_german_portuguese:
+  enum_key_id: <%=Fixtures.identify(:languages_german) %>
+  value: Alemão
+  language_id: 4
+  
+  
+
+
+  
+languages_french_english:
+  enum_key_id: <%=Fixtures.identify(:languages_french) %>
+  value: French
+  language_id: 1
+
+languages_french_german:
+  enum_key_id: <%=Fixtures.identify(:languages_french) %>
+  value: Französisch
+  language_id: 2
+  
+languages_french_french:
+  enum_key_id: <%=Fixtures.identify(:languages_french) %>
+  value: Français
+  language_id: 3
+  
+languages_french_portuguese:
+  enum_key_id: <%=Fixtures.identify(:languages_french) %>
+  value: Francês
+  language_id: 4
+
+
+
+
+  
+languages_portuguese_english:
+  enum_key_id: <%=Fixtures.identify(:languages_portuguese) %>
+  value: Portuguese
+  language_id: 1
+
+languages_portuguese_german:
+  enum_key_id: <%=Fixtures.identify(:languages_portuguese) %>
+  value: Portugiesisch
+  language_id: 2
+  
+languages_portuguese_french:
+  enum_key_id: <%=Fixtures.identify(:languages_portuguese) %>
+  value: Portugais
+  language_id: 3
+  
+languages_portuguese_portuguese:
+  enum_key_id: <%=Fixtures.identify(:languages_portuguese) %>
+  value: Português
+  language_id: 4
+  
+  
+
+
+
+
+language_level_mother_tongue_english:
+  enum_key_id: <%=Fixtures.identify(:language_levels_mother_tongue) %>
+  value: Mother Tongue
+  language_id: 1
+
+language_level_mother_tongue_german:
+  enum_key_id: <%=Fixtures.identify(:language_levels_mother_tongue) %>
+  value: Muttersprache
+  language_id: 2
+  
+language_level_mother_tongue_french:
+  enum_key_id: <%=Fixtures.identify(:language_levels_mother_tongue) %>
+  value: Langue Maternelle
+  language_id: 3
+  
+language_level_mother_tongue_portuguese:
+  enum_key_id: <%=Fixtures.identify(:language_levels_mother_tongue) %>
+  value: Língua Materna
+  language_id: 4
+  
+
+
+
+  
+language_level_advanced_english:
+  enum_key_id: <%=Fixtures.identify(:language_levels_advanced) %>
+  value: Advanced
+  language_id: 1
+
+language_level_advanced_german:
+  enum_key_id: <%=Fixtures.identify(:language_levels_advanced) %>
+  value: Fortgeschritten
+  language_id: 2
+  
+language_level_advanced_french:
+  enum_key_id: <%=Fixtures.identify(:language_levels_advanced) %>
+  value: Avancé
+  language_id: 3
+  
+language_level_advanced_portuguese:
+  enum_key_id: <%=Fixtures.identify(:language_levels_advanced) %>
+  value: Avançado
+  language_id: 4
+
+
+
+  
+language_level_intermediate_english:
+  enum_key_id: <%=Fixtures.identify(:language_levels_intermediate) %>
+  value: Intermediate
+  language_id: 1
+
+language_level_intermediate_german:
+  enum_key_id: <%=Fixtures.identify(:language_levels_intermediate) %>
+  value: Mittelstufe
+  language_id: 2
+  
+language_level_intermediate_french:
+  enum_key_id: <%=Fixtures.identify(:language_levels_intermediate) %>
+  value: Intermédiaire
+  language_id: 3
+  
+language_level_intermediate_portuguese:
+  enum_key_id: <%=Fixtures.identify(:language_levels_intermediate) %>
+  value: Intermédio
+  language_id: 4
+
+
+
+  
+language_level_basic_english:
+  enum_key_id: <%=Fixtures.identify(:language_levels_basic) %>
+  value: Basic
+  language_id: 1
+
+language_level_basic_german:
+  enum_key_id: <%=Fixtures.identify(:language_levels_basic) %>
+  value: Grundkenntnisse
+  language_id: 2
+  
+language_level_basic_french:
+  enum_key_id: <%=Fixtures.identify(:language_levels_basic) %>
+  value: Basique
+  language_id: 3
+  
+language_level_basic_portuguese:
+  enum_key_id: <%=Fixtures.identify(:language_levels_basic) %>
+  value: Básico
+  language_id: 4
+
+
+
+
+web_adresses_email_english:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_email) %>
+  value: E-Mail
+  language_id: 1
+
+web_adresses_email_german:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_email) %>
+  value: E-Mail
+  language_id: 2
+  
+web_adresses_email_french:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_email) %>
+  value: E-Mail
+  language_id: 3
+  
+web_adresses_email_portuguese:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_email) %>
+  value: E-Mail
+  language_id: 4
+  
+  
+  
+  
+  
+  
+web_adresses_homepage_english:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_homepage) %>
+  value: Homepage
+  language_id: 1
+
+web_adresses_homepage_german:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_homepage) %>
+  value: Homepage
+  language_id: 2
+  
+web_adresses_homepage_french:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_homepage) %>
+  value: Homepage
+  language_id: 3
+  
+web_adresses_homepage_portuguese:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_homepage) %>
+  value: Homepage
+  language_id: 4
+  
+  
+  
+  
+  
+  
+web_adresses_blog_english:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_blog) %>
+  value: Blog
+  language_id: 1
+
+web_adresses_blog_german:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_blog) %>
+  value: Blog
+  language_id: 2
+  
+web_adresses_blog_french:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_blog) %>
+  value: Blog
+  language_id: 3
+  
+web_adresses_blog_portuguese:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_blog) %>
+  value: Blog
+  language_id: 4
+  
+    
+  
+  
+  
+  
+web_adresses_xing_english:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_xing) %>
+  value: Xing
+  language_id: 1
+
+web_adresses_xing_german:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_xing) %>
+  value: Xing
+  language_id: 2
+  
+web_adresses_xing_french:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_xing) %>
+  value: Xing
+  language_id: 3
+  
+web_adresses_xing_portuguese:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_xing) %>
+  value: Xing
+  language_id: 4
+  
+    
+  
+  
+  
+  
+web_adresses_linked_in_english:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_linked_in) %>
+  value: LinkedIn
+  language_id: 1
+
+web_adresses_linked_in_german:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_linked_in) %>
+  value: LinkedIn
+  language_id: 2
+  
+web_adresses_linked_in_french:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_linked_in) %>
+  value: LinkedIn
+  language_id: 3
+  
+web_adresses_linked_in_portuguese:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_linked_in) %>
+  value: LinkedIn
+  language_id: 4  
+  
+  
+    
+  
+  
+  
+  
+web_adresses_facebook_english:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_facebook) %>
+  value: Facebook
+  language_id: 1
+
+web_adresses_facebook_german:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_facebook) %>
+  value: Facebook
+  language_id: 2
+  
+web_adresses_facebook_french:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_facebook) %>
+  value: Facebook
+  language_id: 3
+  
+web_adresses_facebook_portuguese:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_facebook) %>
+  value: Facebook
+  language_id: 4  
+  
+  
+   
+    
+  
+  
+  
+  
+web_adresses_twitter_english:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_twitter) %>
+  value: Twitter
+  language_id: 1
+
+web_adresses_twitter_german:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_twitter) %>
+  value: Twitter
+  language_id: 2
+  
+web_adresses_twitter_french:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_twitter) %>
+  value: Twitter
+  language_id: 3
+  
+web_adresses_twitter_portuguese:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_twitter) %>
+  value: Twitter
+  language_id: 4  
+  
+    
+   
+    
+  
+  
+  
+  
+web_adresses_other_english:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_other) %>
+  value: Other
+  language_id: 1
+
+web_adresses_other_german:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_other) %>
+  value: Andere
+  language_id: 2
+  
+web_adresses_other_french:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_other) %>
+  value: Autre
+  language_id: 3
+  
+web_adresses_other_portuguese:
+  enum_key_id: <%=Fixtures.identify(:web_adresses_other) %>
+  value: Outro
+  language_id: 4  
+  
+  
+  
+  
+  
+  
+organisation_types_ngo_english:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_ngo) %>
+  value: NGO
+  language_id: 1
+
+organisation_types_ngo_german:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_ngo) %>
+  value: NRO
+  language_id: 2
+  
+organisation_types_ngo_french:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_ngo) %>
+  value: ONG
+  language_id: 3
+  
+organisation_types_ngo_portuguese:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_ngo) %>
+  value: ONG
+  language_id: 4  
+  
+  
+  
+  
+  
+organisation_types_political_english:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_political) %>
+  value: Political
+  language_id: 1
+
+organisation_types_political_german:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_political) %>
+  value: Politisch
+  language_id: 2
+  
+organisation_types_political_french:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_political) %>
+  value: Politique
+  language_id: 3
+  
+organisation_types_political_portuguese:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_political) %>
+  value: Política
+  language_id: 4  
+  
+  
+    
+  
+  
+  
+organisation_types_scientific_english:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_scientific) %>
+  value: Scientific
+  language_id: 1
+
+organisation_types_scientific_german:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_scientific) %>
+  value: Wissenschaftlich
+  language_id: 2
+  
+organisation_types_scientific_french:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_scientific) %>
+  value: Scientifique
+  language_id: 3
+  
+organisation_types_scientific_portuguese:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_scientific) %>
+  value: Científica
+  language_id: 4 
+  
+    
+    
+  
+  
+  
+organisation_types_trade_union_english:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_trade_union) %>
+  value: Trade Union
+  language_id: 1
+
+organisation_types_trade_union_german:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_trade_union) %>
+  value: Gewerkschaft
+  language_id: 2
+  
+organisation_types_trade_union_french:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_trade_union) %>
+  value: Syndicat
+  language_id: 3
+  
+organisation_types_trade_union_portuguese:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_trade_union) %>
+  value: Sindicato
+  language_id: 4 
+  
+   
+    
+  
+  
+  
+organisation_types_social_business_english:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_social_business) %>
+  value: Social Business
+  language_id: 1
+
+organisation_types_social_business_german:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_social_business) %>
+  value: Sozialbetrieb
+  language_id: 2
+  
+organisation_types_social_business_french:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_social_business) %>
+  value: Activité Sociale
+  language_id: 3
+  
+organisation_types_social_business_portuguese:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_social_business) %>
+  value: Actividade Social 
+  language_id: 4 
+  
+       
+    
+  
+  
+  
+organisation_types_profit_driven_business_english:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_profit_driven_business) %>
+  value: Profit-Driven Business
+  language_id: 1
+
+organisation_types_profit_driven_business_german:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_profit_driven_business) %>
+  value: Gewinnorientierte Firma
+  language_id: 2
+  
+organisation_types_profit_driven_business_french:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_profit_driven_business) %>
+  value: Firma à but lucratif
+  language_id: 3
+  
+organisation_types_profit_driven_business_portuguese:
+  enum_key_id: <%=Fixtures.identify(:organisation_types_profit_driven_business) %>
+  value: Firma com fins lucrativos 
+  language_id: 4 
+
+  
+       
+    
+  
+  
+  
+tag_contexts_affection_english:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_affection) %>
+  value: Affection
+  language_id: 1
+
+tag_contexts_affection_german:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_affection) %>
+  value: Betroffenheit
+  language_id: 2
+  
+tag_contexts_affection_french:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_affection) %>
+  value: Affection
+  language_id: 3
+  
+tag_contexts_affection_portuguese:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_affection) %>
+  value: Afeição
+  language_id: 4 
+  
+     
+    
+  
+  
+  
+tag_contexts_engagement_english:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_engagement) %>
+  value: Engagement
+  language_id: 1
+
+tag_contexts_engagement_german:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_engagement) %>
+  value: Engagement
+  language_id: 2
+  
+tag_contexts_engagement_french:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_engagement) %>
+  value: Engagement
+  language_id: 3
+  
+tag_contexts_engagement_portuguese:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_engagement) %>
+  value: Compromisso
+  language_id: 4 
+
+  
+  
+    
+  
+  
+  
+tag_contexts_expertise_english:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_expertise) %>
+  value: Expertise
+  language_id: 1
+
+tag_contexts_expertise_german:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_expertise) %>
+  value: Expertise
+  language_id: 2
+  
+tag_contexts_expertise_french:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_expertise) %>
+  value: Expertise
+  language_id: 3
+  
+tag_contexts_expertise_portuguese:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_expertise) %>
+  value: Especialidade
+  language_id: 4 
+
+  
+  
+  
+    
+  
+  
+  
+tag_contexts_decision_making_english:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_decision_making) %>
+  value: Decision Making
+  language_id: 1
+
+tag_contexts_decision_making_german:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_decision_making) %>
+  value: Entscheidung
+  language_id: 2
+  
+tag_contexts_decision_making_french:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_decision_making) %>
+  value: Décision
+  language_id: 3
+  
+tag_contexts_decision_making_portuguese:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_decision_making) %>
+  value: Decisão
+  language_id: 4 
+  
+  
+  
+  
+    
+  
+  
+  
+tag_contexts_field_work_english:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_field_work) %>
+  value: Field of Work
+  language_id: 1
+
+tag_contexts_field_work_german:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_field_work) %>
+  value: Arbeitsfeld
+  language_id: 2
+  
+tag_contexts_field_work_french:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_field_work) %>
+  value: Domaine de travail
+  language_id: 3
+  
+tag_contexts_field_work_portuguese:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_field_work) %>
+  value: Domínio de Trabalho
+  language_id: 4 
+
+  
+  
+  
+    
+  
+  
+  
+tag_contexts_field_activity_english:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_field_activity) %>
+  value: Field of Activity
+  language_id: 1
+
+tag_contexts_field_activity_german:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_field_activity) %>
+  value: Aktivitätsfeld
+  language_id: 2
+  
+tag_contexts_field_activity_french:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_field_activity) %>
+  value: Domaine d'activité
+  language_id: 3
+  
+tag_contexts_field_activity_portuguese:
+  enum_key_id: <%=Fixtures.identify(:tag_contexts_field_activity) %>
+  value: Domínio de Actividade
+  language_id: 4 
+
+  
