@@ -95,6 +95,7 @@ de:
       tabs:
         welcome: Willkommen
         profile: Mein Profil
+      profile_complete: '{{complete}}% ausgefüllt'
 
 
   # ----------------
@@ -115,8 +116,7 @@ de:
       </p>
     function_1:
       name: 'Mein Profil'
-      description: |
-        Erstellen Sie Ihr aussagekräftiges Profil, um von Anderen gefunden zu werden, wenn Ihre Kompetenzen gebraucht werden.
+      description: 'Vervollständigen Sie Ihr Profil, um sich in der echologic Community zu präsentieren.'
     function_2:
       name: 'Vernetzen'
       description: 'Entdecken Sie die Community und vernetzen Sie sich mit anderen interessanten Menschen der Bewegung.'
@@ -144,6 +144,7 @@ de:
         login_success:  "Login erfolgreich.<br/>Willkommen zurück auf echologic!"
         login_failed:   "Unbekannter Nutzer oder falsches Passwort."
         logout_success: "Logout erfolgreich.<br/>Tschüß - Bis zum nächsten Mal!"
+        session_timeout: "Ihre alte Sitzung wurde beendet. Bitte melden Sie sich erneut an."
 
     # Activations section
     activation:
@@ -334,32 +335,57 @@ de:
           nächsten Schritte sein? Sagen Sie uns Ihre Meinung, diskutieren Sie diese mit
           anderen BewegerInnen und tragen Sie dazu bei, noch <strong>mehr (aus) echo zu machen</strong>, als wir es uns je hätten vorstellen können!
           </p>
-    statements:
-      create_question_link: 'Neue Debatte eröffnen'
-      create_proposal_link: 'Neue Stellungnahme erstellen'
-      create_improvement_proposal_link: 'Neuen Ergänzungsvorschlag erstellen'
-      echo_tooltip: 'Unterstützen Sie diese Aussage durch Ihr Echo!'
-      unecho_tooltip: 'Ziehen Sie Ihre Stimme zurück, wenn Sie die Aussage nicht mehr unterstützen möchten.'
-      echo_indicator_tooltip:
+
+    tooltips:
+      read_question: 'Diese Debatte anschauen'
+      read_proposal: 'Diesen Vorschlag lesen'
+      read_improvement_proposal: 'Diesen Ergänzgunsvorschlag lesen'
+      current_question: 'Die aktuell angezeigte Debatte'
+      current_proposal: 'Der aktuell angezeigte Vorschlag'
+      current_improvement_proposal: 'Der aktuell angezeigte Ergänzgunsvorschlag'
+      back_to_question: 'Zurück zur aktuellen Debatte'
+      back_to_proposal: 'Zurück zum aktuellen Vorschlag'
+      back_to_improvement_proposal: 'Zurück zum aktuellen Ergänzungsvorschlag'
+      prev_proposal: 'Vorigen Vorschlag zur aktuellen Debatte lesen'
+      next_proposal: 'Nächsten Vorschlag zur aktuellen Debatte lesen'
+      prev_improvement_proposal: 'Vorigen Ergänzungsvorschlag zum aktuellen Vorschlag lesen'
+      next_improvement_proposal: 'Nächsten Ergänzungsvorschlag zum aktuellen Vorschlag lesen'
+      create_proposal: 'Neuen Vorschlag zur aktuellen Debatte erstellen'
+      create_improvement_proposal: 'Neuen Ergänzungsvorschlag zum aktuellen Vorschlag erstellen'
+      echo: 'Unterstützen Sie diese Aussage durch Ihr Echo!'
+      unecho: 'Ziehen Sie Ihre Stimme zurück, wenn Sie die Aussage nicht mehr unterstützen möchten.'
+      echo_indicator:
         one: 'Diese Aussage hat {{supporter_count}} UnterstützerIn.'
         many: 'Diese Aussage hat {{supporter_count}} UnterstützerInnen.'
+
+    statements:
+      create_question_link: 'Neue Debatte eröffnen'
+      create_proposal_link: 'Neuen Vorschlag erstellen'
+      create_improvement_proposal_link: 'Neuen Ergänzungsvorschlag erstellen'
+      create_proposal_explanation: |
+        Haben Sie eine <strong>gute Idee</strong> zur aktuellen Debatte, die noch <strong>nicht vorhandenen</strong> ist?<br/>
+        Hier können Sie einen <strong>neuen Vorschlag</strong> erstellen.
+      create_improvement_proposal_explanation: |
+        Haben Sie eine <strong>gute Idee</strong>, wie man den aktuellen <strong>Vorschlag noch besser machen</strong> kann?<br/>
+        Hier können Sie einen <strong>neuen Ergänzungsvorschlag</strong> erstellen.
+
       types:
         question:  'Debatte'
-        proposal:  'Stellungnahme'
+        proposal:  'Vorschlag'
         improvement_proposal: 'Ergänzungsvorschlag'
       new:
         question:  'Neue Debatte'
-        proposal:  'Neue Stellungnahme'
+        proposal:  'Neuer Vorschlag'
         improvement_proposal: 'Neuer Ergänzungsvorschlag'
       headings:
         question: 'Debatten'
-        proposal: 'Stellungnahmen'
+        proposal: 'Vorschläge'
         improvement_proposal: 'Ergänzungsvorschläge'
       states:
-        new: New
-        published: Published
-      delete_link: "L&ouml;schen"
-      delete_confirmation: "Bist du sicher, dass du dieses Statement l&ouml;schen willst?"
+        new: 'New'
+        published: 'Published'
+      delete_link: 'Löschen'
+      delete_confirmation: 'Bist du sicher, dass du diese Aussage löschen willst?'
     summary: 'Zusammenfassung'
     messages:
       created: "{{type}} wurde erfolgreich eingestellt."
@@ -372,12 +398,22 @@ de:
   # ---------------
 
   connect:
+
+    fill_out_profile:
+      title: Geben und nehmen
+      text: |
+        <p>
+        "Vernetzen" ist viel spannender mit <strong>informativen Profilen</strong>.
+        Bitte füllen Sie Ihr Profil <strong>mindestens zu 50%</strong> aus, um andere BewegerInnen zu sehen und Kontakte zu knüpfen.
+        Die Prozentzahl unten zeigt Ihnen, wie weit Sie schon sind.
+        </p>
+
     segments:
       all: Alle
       affected:  'Betroffene'
       engaged:   'Engagierte'
       scientist: 'ExpertInnen'
-      representative: 'EntscheidungsträgerInnen'
+      representative: 'EntscheiderInnen'
     results_count:
       one: '{{count}} BewegerIn'
       more: '{{count}} BewegerInnen'
@@ -569,7 +605,7 @@ de:
 
     models:
       question: "Debatte"
-      proposal: "Stellungnahme"
+      proposal: "Vorschlag"
       improvement_proposal: "Ergänzungsvorschlag"
 
   authlogic:

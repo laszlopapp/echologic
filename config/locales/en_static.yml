@@ -59,11 +59,12 @@ en:
       connect:
         roadmap:  'echologic - Roadmap for Connect'
         show:   'echologic - Connect - Explore Community'
+        fill_out_profile: 'echologic - Connect - Give and Take'
 
       # act: de.seo.title.act
       act:
         roadmap: 'echologic - Roadmap for Act'
-        
+
       # my_echo: de.seo.title.my_echo
       my_echo:
         roadmap: 'echologic - Roadmap for My echo'
@@ -89,7 +90,7 @@ en:
 
   # Supporters & Sponsors
   sponsors:
-    text: 'From 01.02.2010 echo is supported by' 
+    text: 'echo is supported by'
     exist: EXIST
     eu: European Union
     esf: European Social Fund for Germany
@@ -145,7 +146,7 @@ en:
           emerge in a democratic public discourse even with a nearly unlimited number of participants.
           In this way, echo empowers people all over the world to collaborate in a constructive manner and
           jointly determine their very local living space, as well as the future of our common world.
-          Additionally, echo's <strong>Your-Profit philosophy</strong> effectively supports people
+          Additionally, echo's <strong>"Your-Profit" business philosophy</strong> supports people
           to successfully achieve their goals.
           </p><p>
           By facilitating new means of transnational and intercultural collaboration, echo aims to foster a
@@ -162,7 +163,7 @@ en:
         text: |
           <p>
           <strong>The source</strong> of echo is an <strong>interdisciplinary team</strong> of young and experienced professionals.
-          They have developed its unique concept to address the global challenges of our time and have been working
+          They have developed its concept to address the global challenges of our time and have been working
           determined on its implementation.
           </p><p>
           Meanwhile, a <strong>growing network</strong> of supporters and consultants lends the project
@@ -299,7 +300,7 @@ en:
           </p><p>
           The discussion area of echo lets for the first time <strong>collective intelligence</strong> emerge in a
           democratic public discourse even with a nearly unlimited number of participants.<br/>
-          In order to achieve this, the <strong>novel discussion method</strong> of echo unites some essential innovations:
+          In order to achieve this, the <strong>novel discussion method</strong> of echo unites some essential features:
           </p>
 
         clarity: Clarity

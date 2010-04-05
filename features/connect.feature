@@ -24,8 +24,14 @@ Feature: Use connect functionality
     Given I am logged in as "ben" with password "benrocks"
     And my profile is not complete enough
     When I go to the connect page
-    Then I should see localized "my_echo.fill_out_profile.title"
+    Then I should see localized "connect.fill_out_profile.title"
 
+  Scenario: Try to access connect roadmap with too empty profile
+    Given I am logged in as "ben" with password "benrocks"
+    And my profile is not complete enough
+    When I go to the connect roadmap
+    Then I should see localized "static.echo.connect.title"
+    And I should not see localized "connect.fill_out_profile.title"
 
   # As an logged in user I am able to search for everything
   # ones profile includes:

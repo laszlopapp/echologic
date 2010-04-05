@@ -58,6 +58,7 @@ de:
       connect:
         roadmap: 'echologic - Fahrplan für Vernetzen'
         show:    'echologic - Vernetzen - Community entdecken'
+        fill_out_profile: 'echologic - Vernetzen - Geben und nehmen'
 
       # act: de.seo.title.act
       act:
@@ -66,9 +67,9 @@ de:
       # my_echo: de.seo.title.my_echo
       my_echo:
         roadmap: 'echologic - Fahrplan für Mein echo'
-        welcome: 'echologic - Welcome'
+        welcome: 'echologic - Willkommen'
         profile: 'echologic - Mein Profil'
-        
+
       # my_echo: de.seo.title.admin
       admin:
         show: 'echologic - Admin Area'
@@ -90,14 +91,13 @@ de:
 
   # Supporters & Sponsors
   sponsors:
-    text: 'Ab 01.02.2010 wird echo unterstützt durch'
+    text: 'echo wird gefördert durch'
     exist: EXIST
     eu: Europäische Union
     esf: Europäische Sozialfonds für Deutschland
     bmwi: Bundesministerium für Wirtschaft und Technologie
     grm: GründerRegio M
     lmu_ec: LMU Entrepreneurship Center
-    
 
   # Static content
   static:
@@ -131,22 +131,27 @@ de:
 
         teaser: |
           <p>
-          <strong>echologic</strong> bietet Ihnen die Möglichkeit die Entwicklung von echo zu verfolgen und
-          <strong>echo aktiv mitzugestalten</strong>!
+          <strong>echologic</strong> bietet Ihnen die Möglichkeit die Entwicklung von <strong>echo aktiv mitzugestalten</strong>!
           </p><p>
-          <strong>echo</strong> ist ein Internetprojekt zur Ermächtigung der Menschen. Unser Ziel ist eine
-          <strong>neue Form teilnehmender Demokratie</strong> auf lokalem, regionalem und globalem Niveau zu etablieren.
+          <strong>echo</strong> ist ein Internetprojekt für einen nachhaltigen Wandel durch <strong>aktive Bürgerbeteiligung</strong>.
+          Unser Ziel ist eine <strong>neue Form teilnehmender Demokratie</strong> auf lokaler, regionaler und globaler Ebene zu ermöglichen.
           </p>
 
         teaser_more: |
           <p>
-          Mit echo beginnt eine <strong>neue Ära demokratischer Zusammenarbeit</strong>.
-          Engagierte BürgerInnen, ExpertInnen, RepräsentantInnen und deren Organisationen können hier ihre Ansichten in
-          lösungsorientierte Diskussionen einbringen, MitstreiterInnen mobilisieren und ihre Entscheidungen gemeinsam in die Tat umsetzen.
-          Dabei erlaubt echo erstmals die Herausbildung <strong>kollektiver Intelligenz</strong> in einem demokratischen Diskurs mit
-          beliebig vielen Teilnehmern. Menschen rund um den Globus können so konstruktiv auf echo zusammen arbeiten und
-          gemeinsam ihren unmittelbaren Lebensraum sowie die Zukunft unserer Welt gestalten. Dabei hilft die 
-          <strong>Your-Profit Philosophie</strong> von echo den Menschen, ihre Ziele erfolgreich zu verwirklichen.
+          Engagierte BürgerInnen, ExpertInnen, RepräsentantInnen und deren Organisationen können auf echo ihre
+          Ansichten diskutieren, Mitstreiter mobilisieren, gemeinsam Aktionen planen und umsetzen.
+          Erstmals ist ein lösungsorientierter, <strong>übersichtlicher Diskurs mit beliebig vielen Teilnehmern</strong> möglich.
+          Durch Anknüpfung an bestehende <strong>legislative Instrumente</strong>
+          wird aus zivilgesellschaftlichem Engagement <strong>echte politische Teilhabe</strong>.
+          </p><p>
+          echo ist <strong>Open Source</strong> und wird die Basis einer heterogenen, <strong>dezentralen Infrastruktur</strong>.
+          Sein webseitenübergreifender Ansatz überwindet die Grenzen einzelner Portale und Initiativen und
+          vervielfacht somit deren <strong>Einflusspotential</strong>.
+          </p><p>
+          echo ist als <strong>Social Business</strong> tätig. Im Rahmen seiner <strong>"Your-Profit“ Geschäftsphilosophie</strong>
+          fließen Überschüsse zurück in Aktionen und Unternehmungen der Gemeinschaft. So kann der virtuelle Diskurs reale Früchte tragen und
+          immer mehr Menschen zur <strong>politischen und wirtschaftlichen Selbstbestimmung</strong> verhelfen.
           </p><p>
           Durch neuartige Möglichkeiten transnationaler und interkultureller Zusammenarbeit soll mit echo ein globales Bewusstsein gefördert
           und damit der Weg in eine friedliche, gerechte und <strong>nachhaltige Zukunft</strong> geebnet werden.
@@ -161,7 +166,7 @@ de:
         text: |
           <p>
           <strong>Die Quelle</strong> von echo ist ein <strong>interdisziplinäres Team</strong> junger und erfahrener
-          Akademiker. Sie haben sein einmaliges Konzept als Antwort auf die globalen Herausforderungen unserer Zeit
+          Akademiker. Sie haben sein Konzept als Antwort auf die globalen Herausforderungen unserer Zeit
           entwickelt und arbeiten zielstrebig an dessen Umsetzung.
           </p><p>
           Mittlerweile hat sich um echo ein stetig <strong>wachsendes Netzwerk</strong> von UnterstützerInnen gebildet,
@@ -303,7 +308,7 @@ de:
           </p><p>
           Der Diskussionsbereich von echo ermöglicht erstmals die Herausbildung <strong>kollektiver Intelligenz</strong> in einem
           demokratischen öffentlichen Diskurs mit beliebig vielen Teilnehmern. Seine <strong>neuartige Diskussionsmethode</strong>
-          vereint hierfür mehrere entscheidende Innovationen:
+          vereint hierfür mehrere entscheidende Merkmale:
           <p>
 
         clarity: Übersichtlichkeit
@@ -755,7 +760,7 @@ de:
         Bis bald,
 
         Ihr echo Team
-        
+
     # New password section
     new_password:
       subject: "Neues Passwort für echologic"

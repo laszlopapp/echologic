@@ -16,6 +16,8 @@ module NavigationHelpers
       root_path
     when /the connect page/
       connect_path
+    when /the connect roadmap/
+      connect_roadmap_path
     when /the welcome page/
       welcome_path
     when /the reports page/
