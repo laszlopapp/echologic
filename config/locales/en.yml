@@ -98,7 +98,7 @@ en:
         welcome: Welcome
         profile: My Profile
       profile_complete: '{{complete}}% complete'
- 
+
   # ----------------
   # Welcome function
   # ----------------
@@ -119,7 +119,7 @@ en:
       </p>
     function_1:
       name: 'My Profile'
-      description: 'Create your meaningful profile to enable others to find you when your competences are needed.'
+      description: 'Fill out your profile to present yourself in the echologic community.'
     function_2:
       name: 'Connect'
       description: 'Explore the community and connect with other interesting people of the movement.'
@@ -129,14 +129,6 @@ en:
         Exchange your ideas with other newthinkers on topics about sustainablity and democracy.<br/>
         Engage into the evolution of echo.
 
-  #------------
-  # MY ECHO
-  #------------
-  
-  my_echo:
-    fill_out_profile:
-      title: Please complete your profile at least 50%
-      text: To make sure that...
 
   # ------------
   # USERS MODULE
@@ -154,6 +146,7 @@ en:
         login_success: "Login successful. Welcome back to echologic."
         login_failed: "Unknown user or wrong password."
         logout_success: "Logout successful. See you later. Bye!"
+        session_timeout: "Your old session has been closed. Please log in again."
 
     # Activations section
     activation:
@@ -348,9 +341,10 @@ en:
           <p>
           As a mover at echologic you are kindly invited to actively <strong>engage into the evolution of echo</strong>!
           Which functions are the most important for you and which ones should be implemented next?
-          Discuss your idees with other movers and contribute to <strong>make more (out of) echo</strong> 
+          Discuss your idees with other movers and contribute to <strong>make more (out of) echo</strong>
           than we might have ever imagined!
           </p>
+<<<<<<< HEAD
       echosocial:
         name: echosocial
         teaser: Echo Social Teaser.
@@ -361,30 +355,57 @@ en:
           Discuss your idees with other movers and contribute to <strong>make more (out of) echo</strong> 
           than we might have ever imagined!
           </p>
-    statements:
-      create_question_link: 'Open a new debate'
-      create_proposal_link: 'Enter a new position'
-      create_improvement_proposal_link: 'Add new improvement proposal'
-      echo_tooltip: 'echo this statement to support it!'
-      unecho_tooltip: 'Withdraw your vote to stop supporting this statement.'
-      echo_indicator_tooltip:
+=======
+
+    tooltips:
+      read_question: 'Go to this debate'
+      read_proposal: 'Read this proposal'
+      read_improvement_proposal: 'Read this improvement proposal'
+      current_question: 'The currently displayed debate'
+      current_proposal: 'The currently displayed proposal'
+      current_improvement_proposal: 'The currently displayed improvement proposal'
+      back_to_question: 'Back to current debate'
+      back_to_proposal: 'Back to current proposal'
+      back_to_improvement_proposal: 'Back to current improvement proposal'
+      prev_proposal: 'Read previous proposal of the current debate'
+      next_proposal: 'Read next proposal of the current debate'
+      prev_improvement_proposal: 'Read previous improvement proposal for the current proposal'
+      next_improvement_proposal: 'Read next improvement proposal for the current proposal'
+      create_proposal: 'Create a new proposal in the current debate'
+      create_improvement_proposal: 'Create a new improvement proposal for the current proposal'
+      echo: 'echo this statement to support it!'
+      unecho: 'Withdraw your vote to stop supporting this statement.'
+      echo_indicator:
         one: 'This statement has {{supporter_count}} supporter.'
         many: 'This statement has {{supporter_count}} supporters.'
+
+>>>>>>> 761d8a0eaae261aa94b50cad047090d7bf3a99bc
+    statements:
+      create_question_link: 'Open a new debate'
+      create_proposal_link: 'Enter a new proposal'
+      create_improvement_proposal_link: 'Add new improvement proposal'
+      create_proposal_explanation: |
+        Do you have a <strong>good idea</strong> concerning the the current debate, which <strong>doesn't exist</strong> yet?<br/>
+        Here you can create a <strong>new proposal</strong>.
+      create_improvement_proposal_explanation: |
+        Do you have a <strong>good idea</strong> to <strong>make the current proposal even better</strong>?<br/>
+        Here you can create a <strong>new improvement porposal</strong>.
+
       types:
         question:  'Debate'
-        proposal:  'Position'
+        proposal:  'Proposal'
         improvement_proposal: 'Improvement Proposal'
       new:
         question:  'New Debate'
-        proposal:  'New Position'
+        proposal:  'New Proposal'
         improvement_proposal: 'New Improvement Proposal'
       headings:
         question: 'Debates'
-        proposal: 'Positions'
+        proposal: 'Proposals'
         improvement_proposal: 'Improvement Proposals'
       states:
-        new: New
-        published: Published
+        new: 'New'
+        published: 'Published'
       delete_link: "Delete"
       delete_confirmation: "Are you sure you want to delete this statement?"
     summary: 'Summary'
@@ -400,6 +421,16 @@ en:
   # ---------------
 
   connect:
+
+    fill_out_profile:
+      title: Give and Take
+      text: |
+        <p>
+        "Connect" is much more interesting with <strong>informative profiles</strong>.
+        Please fill out <strong>at least 50%</strong> of your profile to see and connect to other movers.
+        The percentage below shows you how far you already are.
+        </p>
+
     segments:
       all:       'All'
       affected:  'Affected'
