@@ -3,22 +3,22 @@
 languages_english:
   name: languages
   key: 1
-  code: english
+  code: en
 
 languages_german:
   name: languages
   key: 2
-  code: german
+  code: de
 
 languages_french:
   name: languages
   key: 3
-  code: french
+  code: fr
 
 languages_portuguese:
   name: languages
   key: 4
-  code: portuguese
+  code: pt
   
   
 language_levels_mother_tongue:
