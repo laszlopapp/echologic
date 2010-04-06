@@ -209,6 +209,13 @@ en:
       messages:
         updated: "Profile information updated successful."
 
+    # Spoken Languages section
+    spoken_languages:
+      title: Spoken Languages
+      guide: Here you can enter the languages you know, as well as your level in them.
+      language: Language
+      level: Level
+      
     # Memberships section
     memberships:
       title: Activities

@@ -199,6 +199,14 @@ de:
       messages:
         updated: "Sie haben Ihr Profil erfolgreich geändert."
 
+    # Spoken Languages section
+    spoken_languages:
+      title: Gesprochene Sprache
+      guide:  Bitte geben Sie hier Ihre gesprochene Sprache an, sowie Ihre Kenntnisseniveau in denen.
+      language: Sprache
+      level: Niveau
+      
+
     # Memberships section
     memberships:
       title: Tätigkeiten

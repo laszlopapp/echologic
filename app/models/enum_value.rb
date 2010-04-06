@@ -7,7 +7,7 @@ class EnumValue < ActiveRecord::Base
   named_scope :for_language_id, lambda { |language_id| { :conditions => ['language_id = ?', language_id ], :limit => 1 } }
     
   def self.languages
-    EnumKey.find_all_by_name('languages')
+    EnumKey.get_languages
   end
   
   def language

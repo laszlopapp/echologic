@@ -50,6 +50,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :users, :controller => 'users/users', :path_prefix => '' do |user|
     user.resources :web_addresses, :controller => 'users/web_addresses', :except => [:index]
+    user.resources :spoken_languages, :controller => 'users/spoken_languages', :except => [:index]
     user.resources :activities,   :controller => 'users/activities',   :except => [:index]
     user.resources :memberships,  :controller => 'users/memberships',  :except => [:index]
   end
