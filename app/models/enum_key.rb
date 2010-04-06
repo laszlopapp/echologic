@@ -4,20 +4,12 @@ class EnumKey < ActiveRecord::Base
   
   #acts_as_list :scope => :subject, :column => 'key'
   
-  def self.get_languages
-    self.find_all_by_name('languages')
-  end
+  named_scope :languages, lambda { { :conditions => { :name => 'languages' }, :order => "'key' DESC" } }
   
-  def self.get_language_levels
-    self.find_all_by_name('language_levels')
-  end
+  named_scope :language_levels, lambda { { :conditions => { :name => 'language_levels' }, :order => "'key' ASC" } }
   
-  def get_current_enum_value 
-    case I18n.locale
-      when :en then language = 'english'
-      when :de then language = 'german'
-    end
-    enum_values.for_language_id(EnumKey.first(:conditions => ["code = ?", language]).key).first
+  def get_current_enum_value    
+    enum_values.for_language_id(EnumKey.first(:conditions => ["code = ?", I18n.locale.to_s]).key).first
   end
   
 end

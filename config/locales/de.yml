@@ -354,7 +354,6 @@ de:
           nächsten Schritte sein? Sagen Sie uns Ihre Meinung, diskutieren Sie diese mit
           anderen BewegerInnen und tragen Sie dazu bei, noch <strong>mehr (aus) echo zu machen</strong>, als wir es uns je hätten vorstellen können!
           </p>
-<<<<<<< HEAD
       echosocial:
         name: echosocial
         teaser: echo social Teaser.
@@ -367,7 +366,6 @@ de:
           nächsten Schritte sein? Sagen Sie uns Ihre Meinung, diskutieren Sie diese mit
           anderen BewegerInnen und tragen Sie dazu bei, noch <strong>mehr (aus) echo zu machen</strong>, als wir es uns je hätten vorstellen können!
           </p>
-=======
 
     tooltips:
       read_question: 'Diese Debatte anschauen'
@@ -390,8 +388,6 @@ de:
       echo_indicator:
         one: 'Diese Aussage hat {{supporter_count}} UnterstützerIn.'
         many: 'Diese Aussage hat {{supporter_count}} UnterstützerInnen.'
-
->>>>>>> 761d8a0eaae261aa94b50cad047090d7bf3a99bc
     statements:
       create_question_link: 'Neue Debatte eröffnen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
@@ -420,7 +416,8 @@ de:
         published: 'Published'
       delete_link: 'Löschen'
       delete_confirmation: 'Bist du sicher, dass du diese Aussage löschen willst?'
-    summary: 'Zusammenfassung'
+    summary:
+      title: 'Zusammenfassung'
     messages:
       created: "{{type}} wurde erfolgreich eingestellt."
       updated: "{{type}} wurde erfolgreich bearbeitet."

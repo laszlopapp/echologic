@@ -17,7 +17,7 @@ class SpokenLanguagesControllerTest < ActionController::TestCase
   end
 
   test "should create spoken language" do
-    assert_difference('WebProfile.count') do
+    assert_difference('SpokenLanguage.count') do
       post :create, :spoken_language => { }
     end
 
@@ -46,4 +46,6 @@ class SpokenLanguagesControllerTest < ActionController::TestCase
 
     assert_redirected_to spoken_languages_path
   end
+  
+ 
 end

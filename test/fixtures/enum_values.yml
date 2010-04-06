@@ -24,12 +24,12 @@ languages_english_portuguese:
 
 languages_german_english:
   enum_key_id: <%=Fixtures.identify(:languages_german) %>
-  value: Deutsch
+  value: German
   language_id: 1
 
 languages_german_german:
   enum_key_id: <%=Fixtures.identify(:languages_german) %>
-  value: German
+  value: Deutsch
   language_id: 2
   
 languages_german_french:

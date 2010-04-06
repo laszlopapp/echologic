@@ -17,7 +17,7 @@ class SpokenLanguageTest < ActiveSupport::TestCase
       should_belong_to :level
       should_have_db_columns :level_id
     end
-    
+           
     context "being saved" do
       setup do 
         @spoken_language.update_attributes!(:user => User.first, :language => EnumKey.find_by_code("english"), :level => EnumKey.find_by_code("intermediate"))
@@ -28,6 +28,14 @@ class SpokenLanguageTest < ActiveSupport::TestCase
         assert_equal @spoken_language.level.name, "language_levels"
       end
     end
+    
+    context("should fail to associate the same spoken language to the same user") do
+      @spoken_language_2 = SpokenLanguage.new  
+      @spoken_language_2.user = @spoken_language.user
+      @spoken_language_2.language = @spoken_language.language
+      @spoken_language_2.level = @spoken_language.level
+      assert_equal @spoken_language.save, false
+    end  
     
   end
 end
