@@ -9,7 +9,7 @@ class SpokenLanguage < ActiveRecord::Base
   validate_on_create :one_language_instance_per_user
   
   def one_language_instance_per_user 
-    errors.add(:user, "already has an instance of this language") if 
+    errors.add(:user, I18n.t('users.spoken_languages.error_messages.repeated_instance')) if 
       !SpokenLanguage.first(:conditions => ["user_id = ? and language_id = ?",user.id,language.id]).nil?       
   end
   

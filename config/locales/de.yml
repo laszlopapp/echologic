@@ -206,6 +206,8 @@ de:
       guide:  Bitte geben Sie hier Ihre gesprochene Sprache an, sowie Ihre Kenntnisseniveau in denen.
       language: Sprache
       level: Niveau
+      error_messages:
+        repeated_instance: Sie haben schon diese Sprache ausgewählt
       
 
     # Memberships section

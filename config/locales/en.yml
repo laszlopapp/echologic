@@ -208,6 +208,8 @@ en:
       guide: Here you can enter the languages you know, as well as your level in them.
       language: Language
       level: Level
+      error_messages:
+        repeated_instance: you already have selected this language
       
     # Memberships section
     memberships:
