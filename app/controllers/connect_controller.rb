@@ -45,7 +45,7 @@ class ConnectController < ApplicationController
   # method: POST
   def search(sort, value)
 
-    sort_string = "c.sort = #{sort} AND "
+    sort_string = "c.sort = #{sort} AND " if !sort.blank?
 
     query = <<-END
       select distinct p.*, u.email
