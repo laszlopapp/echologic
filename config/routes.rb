@@ -16,6 +16,8 @@ ActionController::Routing::Routes.draw do |map|
   map.discuss_search '/discuss/search', :controller => :questions, :action => :category
   map.question_tags '/discuss/:id', :controller => :questions, :action => :category, :conditions => {:id => /\w+/ }
   
+  map.connect_roadmap '/connect/roadmap', :controller => :connect, :action => :roadmap
+  
   map.my_echo '/my_echo/roadmap', :controller => :my_echo, :action => :roadmap
 
   map.resource :connect, :controller => 'connect', :only => [:show]

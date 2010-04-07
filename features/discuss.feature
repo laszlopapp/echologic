@@ -11,6 +11,7 @@ Feature: Take Part on a discussion
   Scenario: View debates list
     Given I am logged in as "user" with password "true"
   	  And I am on the Discuss Index
+  	When I follow "Featured"
   	When I follow "echonomy JAM"
     	When I choose the first question
     	When I choose the second question
@@ -22,8 +23,9 @@ Feature: Take Part on a discussion
   Scenario: Open a question
     Given I am logged in as "user" with password "true"
       And I am on the Discuss Index
+    When I follow "Featured"
     When I follow "echonomy JAM"
-      And I choose the first Question
+      And I choose the first question
     Then I should see the questions title
   
   @ok
@@ -32,8 +34,9 @@ Feature: Take Part on a discussion
       And there is the first question
       And the question has no proposals
       And I am on the Discuss Index
+    When I follow "Featured"
     When I follow "echonomy JAM"
-      And I choose the first Question
+      And I choose the first question
       And I follow "Enter a new position"
       And I fill in the following:
         | proposal_document_title | a proposal to propose some proposeworthy proposal data |
