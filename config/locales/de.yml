@@ -30,7 +30,7 @@ de:
 
     # Roadmap - Progress
     roadmap:
-      title: Fahrplan
+      title: fertig
       progress_tooltip: 'Dieser Bereich ist zu {{progress}}% fertig.'
       status_quo: 'Status Quo'
       next_steps: 'Nächste Schritte'
@@ -328,6 +328,18 @@ de:
         description: |
           <p>
           Als BewegerIn von echologic sind Sie herzlich eingeladen, die <strong>Entwicklung echos mit
+          zu gestalten</strong>.
+          </p><p>
+          Welche Funktionen halten Sie für notwendig und was sollten die
+          nächsten Schritte sein? Sagen Sie uns Ihre Meinung, diskutieren Sie diese mit
+          anderen BewegerInnen und tragen Sie dazu bei, noch <strong>mehr (aus) echo zu machen</strong>, als wir es uns je hätten vorstellen können!
+          </p>
+      echosocial:
+        name: echosocial
+        teaser: echo social Teaser.
+        description: |
+          <p>
+          Nicht der echte Text!!!!!!!!!!!! Als BewegerIn von echologic sind Sie herzlich eingeladen, die <strong>Entwicklung echos mit
           zu gestalten</strong>.
           </p><p>
           Welche Funktionen halten Sie für notwendig und was sollten die

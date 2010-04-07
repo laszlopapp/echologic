@@ -320,18 +320,6 @@
   border:      none;
 }
 
-.function_button_my_profile {
-  background:  url(../images/page/functions/my_profile.png) no-repeat scroll 0 0;
-}
-
-.function_button_connect {
-  background:  url(../images/page/functions/connect.png) no-repeat scroll 0 0;
-}
-
-.function_button_discuss {
-  background:  url(../images/page/functions/discuss.png) no-repeat scroll 0 0;
-}
-
 .function_button:hover {
   cursor:      pointer;
 }

@@ -1,3 +1,6 @@
+<div class="roadmap_tab">	
+	<%= image_tag("../images/page/icons/under_construction_big.png", :width => 25, :height => 28, :border => "none") %>				
+</div>
 <%
 # Render submenu tabs for act section.
 
@@ -27,12 +30,21 @@ render_tabnav :discuss,
     t.highlight! if @category && @category.value == 'echo'
   end
 
-  add_tab :html => {:id => 'roadmap_tab'} do |t|
-    value = '<span id="roadmap_tab_title">' + I18n.t('application.roadmap.title') + '</span>'
-    value += insert_progressbar(Development::DISCUSS_PROGRESS)
+  add_tab :html => {:id => 'echosocial_tab'} do |t|
+    t.named 'echosocial'
+    t.links_to hash_for_question_tags_path.merge({:id => 'echosocial'})
+    t.highlight! if @category && @category.value == 'echosocial'
+  end
+
+  add_tab :html => {:id => 'roadmap_tab'} do |t|    
+    value = "#{Development::DISCUSS_PROGRESS}%  " + I18n.t('application.roadmap.title')
     t.named value
     t.links_to hash_for_discuss_roadmap_path
   end
-
+ 
+  
 end
 %>
+
+
+
