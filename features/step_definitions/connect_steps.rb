@@ -17,8 +17,23 @@ end
 
 Then /^I should see the profile details of "([^\"]*)"$/ do |user|
   profile = Profile.find_by_first_name(user)
-  #within("#profile_details_container") do |content|
+  #within("#details_container") do |content|
     response.should contain(profile.motivation)
   #end
 end
+
+And  /^my profile is complete enough$/ do
+  @user.profile.completeness.should >= 0.5
+end
+
+
+And  /^my profile is not complete enough$/ do
+  @user.profile.completeness.should <= 0.5
+end
+
+
+Then /^I should be redirected to "(.*)"$/ do |url|
+  response.should redirect_to(url)
+end
+
 

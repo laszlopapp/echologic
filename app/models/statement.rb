@@ -70,11 +70,16 @@ class Statement < ActiveRecord::Base
 
   named_scope :by_supporters, :include => :echo, :order => 'echos.supporter_count DESC'
 
+  named_scope :by_creation, :order => 'created_at DESC'
   # category
 
   named_scope :from_category, lambda { |value|
     { :include => :category, :conditions => ['tags.value = ?', value] } }
   
+  #title
+  named_scope :find_by_title, lambda  { |value|
+    { :include => :document, :conditions => ['statement_documents.title like ?', '%'+value+'%']}}
+
   ## ACCESSORS
   
   def title

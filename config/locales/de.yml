@@ -280,8 +280,11 @@ de:
   # ---------------
 
   discuss:
+    results_count:
+      one: '{{count}} debatte'
+      more: '{{count}} debatten'
     topics_overview:
-      title: Überblick
+      title: Aktuellen
       text: |
         <p>
         Wie Sie dem Fahrplan (oben rechts im Bild) entnehmen können, befindet sich der Diskussionsbereich echos
@@ -292,7 +295,15 @@ de:
         Außerdem haben Sie die Möglichkeit, sich in die weitere Entwicklung echos einzubringen.<br/>
         Die aktuelle Diskussionsthemen sind:
         </p>
+      tabs:
+        featured:
+          title: Aktuellen
+        pilot_projects:
+          title: Pilot Projekte
+    search:
+      title: Suchen
     topics:
+      description: Beschreibung
       echonomy_jam:
         continues: 'geht online weiter!'
         register_here: 'Hier lang zur Erstanmeldung!'

@@ -97,7 +97,8 @@ en:
       tabs:
         welcome: Welcome
         profile: My Profile
-
+      profile_complete: '{{complete}}% complete'
+ 
   # ----------------
   # Welcome function
   # ----------------
@@ -127,6 +128,15 @@ en:
       description: |
         Exchange your ideas with other newthinkers on topics about sustainablity and democracy.<br/>
         Engage into the evolution of echo.
+
+  #------------
+  # MY ECHO
+  #------------
+  
+  my_echo:
+    fill_out_profile:
+      title: Please complete your profile at least 50%
+      text: To make sure that...
 
   # ------------
   # USERS MODULE
@@ -273,8 +283,11 @@ en:
   # ---------------
 
   discuss:
+    results_count:
+      one: '{{count}} debate'
+      more: '{{count}} debates'
     topics_overview:
-      title: Overview
+      title: Featured
       text: |
         <p>
         As you can see in the Roadmap (in the upper right corner of the screen),
@@ -285,7 +298,15 @@ en:
         Additionally, you can also engage into the development of echo.<br/>
         Currently available topics are:
         </p>
+      tabs:
+        featured:
+          title: Featured
+        pilot_projects:
+          title: Pilot Projects
+    search:
+      title: Search
     topics:
+      description: Description
       echonomy_jam:
         continues: 'continues online!'
         register_here: 'Click here to register!'

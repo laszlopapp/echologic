@@ -35,6 +35,11 @@
   margin-top: -39px;
 }
 
+#function_container .search_description {
+	position:absolute;
+	left:462px;
+	top:63px;
+}
 
 /* ------ */
 /* Topics */
@@ -290,3 +295,13 @@ a.statement_link:hover {
 
 /* New Statement */
 
+.new_question {
+	
+}
+
+
+/* other */
+
+#featured.tab_content_container {
+  position: relative;
+}
