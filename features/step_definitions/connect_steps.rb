@@ -28,12 +28,18 @@ end
 
 
 And  /^my profile is not complete enough$/ do
-  @user.profile.completeness.should <= 0.5
+  @user.profile.completeness.should < 0.5
 end
 
+Given /^the profile of user "([^\"]*)" has no show_profile flag$/ do |user_login|
+  p = Profile.find_by_first_name(user_login)
+  p.show_profile = 0
+  p.save!
+end
 
 Then /^I should be redirected to "(.*)"$/ do |url|
   response.should redirect_to(url)
 end
 
 
+      

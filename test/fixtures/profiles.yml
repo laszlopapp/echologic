@@ -10,11 +10,13 @@ joe_profile:
   city: Berlin
   country: Germany  
   birthday: 2009-10-30
+  show_profile: 1
   
 ben_profile:
   user_id: <%= Fixtures.identify(:ben) %>
   last_name: Test
   first_name: Ben
+  show_profile: 1
   
 user_profile:
   user_id: <%= Fixtures.identify(:user) %>
@@ -27,6 +29,7 @@ user_profile:
   motivation: I want to get all those tests running, harhar!
   birthday: 1986-06-17
   completeness: 0.55
+  show_profile: 1
   
 
 
@@ -34,11 +37,13 @@ admin_profile:
   user_id: <%= Fixtures.identify(:admin) %>
   last_name: Test
   first_name: Admin
+  show_profile: 1
 
 editor_profile:
   user_id: <%= Fixtures.identify(:editor) %>
   last_name: Tor
   first_name: Edi
+  show_profile: 1
 
 <% ["theodor","friedrich","luise","charlotte","lisa","red","blue","green","yellow","red"].each do |name| %>
 <%= name %>_profile:
@@ -50,5 +55,5 @@ editor_profile:
   city: Berlin
   country: Germany  
   birthday: 2010-03-17
-
+  show_profile: 1
 <% end %>

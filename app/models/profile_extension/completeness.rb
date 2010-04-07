@@ -40,6 +40,7 @@ module ProfileExtension::Completeness
       end
       # save completeness into the database
       self.completeness = (fields_filled/self.class.fillable_fields.size.to_f)
+      self.show_profile = 1 if self.completeness >= 0.5
     end
     
     # lets make the float a proper percent value

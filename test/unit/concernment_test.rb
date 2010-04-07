@@ -27,13 +27,13 @@ class ConcernmentTest < ActiveSupport::TestCase
   # 4. Key has to be a Number.
   # 5. Value has to be a string.
   def test_sorts
-    assert_kind_of Array, Concernment.sorts
+    assert_kind_of [Array, Hash], Concernment.sorts
     sorts = Concernment.sorts
     assert_equal sorts.size, 4
-    assert_kind_of Array, sorts.first
+    assert_kind_of [Array, Hash], sorts.first
     assert_equal sorts.first.size, 2
     assert_kind_of Integer, sorts.first.first
-    assert_kind_of String, sorts.first.second
+    assert_kind_of Symbol, sorts.first.second
   end
 
 end

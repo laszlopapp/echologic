@@ -10,7 +10,7 @@ class StatementsController < ApplicationController
   verify :method => :get, :only => [:index, :show, :new, :edit, :category]
   verify :method => :post, :only => :create
   verify :method => :put, :only => [:update]
-  verify :method => :delete, :only => [:detsroy]
+  verify :method => :delete, :only => [:destroy]
 
   # FIXME: we don't need this line anymore if we have the access_control block, right?
   #  before_filter :require_user, :only => [:new, :create, :show, :edit, :update]
@@ -29,7 +29,7 @@ class StatementsController < ApplicationController
     allow logged_in, :only => [:edit, :update], :if => :may_edit?
     allow logged_in, :only => [:destroy], :if => :may_delete?
   end
-  
+
   # FIXME: I tink this method is never used - it should possibly do nothing, or redirect to category...
   def index
     @statements = statement_class.published(current_user.has_role?(:editor)).by_supporters.paginate(statement_class.default_scope.merge(:page => @page, :per_page => 6))
@@ -125,7 +125,7 @@ class StatementsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to @statement }
       format.js { render :template => 'statements/echo' }
-    end  
+    end
   end
 
   # Create a new statement
@@ -145,7 +145,7 @@ class StatementsController < ApplicationController
     attrs[:state] = Statement.state_lookup[:published] unless statement_class == Question
     @statement = statement_class.new(attrs)
     @statement.creator = @statement.document.author = current_user
-    
+
     respond_to do |format|
       if @statement.save
         set_info("discuss.messages.created", :type => @statement.class.human_name)
@@ -156,7 +156,7 @@ class StatementsController < ApplicationController
         format.js   {
           session[:last_info] = @info # save @info so it doesn't get lost during redirect
           render :update do |page|
-            page << "window.location.replace('#{url_for(@statement)}');" 
+            page << "window.location.replace('#{url_for(@statement)}');"
           end
         }
       else
@@ -228,11 +228,11 @@ class StatementsController < ApplicationController
   def is_question?
     params[:controller].singularize.camelize.eql?('Question')
   end
-  
+
   def may_edit?
-    current_user.may_edit?(@statement)  
+    current_user.may_edit?(@statement)
   end
-  
+
   def may_delete?
     current_user.may_delete?(@statement)
   end

@@ -4,6 +4,6 @@ class AddProfileCompletenessDefaultValue < ActiveRecord::Migration
   end
 
   def self.down
-    change_column :profiles, :completeness, :string
+    change_column :profiles, :completeness, :float
   end
 end
