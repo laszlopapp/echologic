@@ -12,9 +12,6 @@ class StatementsController < ApplicationController
   verify :method => :put, :only => [:update]
   verify :method => :delete, :only => [:destroy]
 
-  # FIXME: we don't need this line anymore if we have the access_control block, right?
-  #  before_filter :require_user, :only => [:new, :create, :show, :edit, :update]
-
   # the order of these filters matters. change with caution.
   before_filter :fetch_statement, :only => [:show, :edit, :update, :echo, :unecho, :destroy]
   before_filter :fetch_category, :only => [:index, :new, :show, :edit, :update, :destroy]
@@ -22,6 +19,7 @@ class StatementsController < ApplicationController
   # make custom URL helper available to controller
   include StatementHelper
 
+  # authlogic access control block
   access_control do
     allow :editor
     allow logged_in, :only => [:index, :show, :echo, :unecho]
@@ -40,6 +38,7 @@ class StatementsController < ApplicationController
   end
 
   # TODO use find or create category tag?
+  # displays all questions in a category
   def category
     @value    = params[:value] || ""
     @page     = params[:page]  || 1
@@ -49,12 +48,14 @@ class StatementsController < ApplicationController
       statements_not_paginated = statement_class
     else  
       #step 1.01: search for first string
-      statements_not_paginated = statement_class.search(@value.split(' ').first)
-      
+      statements_not_paginated = search(@value.split(' ').first)
+      #statements_not_paginated = statement_class.search(@value.split(' ').first)    
       #step 1.10: search for remaining strings
       if @value.split(' ').size > 1
          for value in @value.split(' ')[1..-1] do
-          statements_not_paginated &= statement_class.search(value)
+
+           statements_not_paginated &= search(value)
+
         end
       end
     end
@@ -84,21 +85,25 @@ class StatementsController < ApplicationController
 
 
   # TODO visited! throws error with current fixtures.
+
   def show
     current_user.visited!(@statement)
+    
+    # prev / next functionaliy
     unless @statement.children.empty?
       child_type = ("current_" + @statement.class.expected_children.first.to_s.underscore).to_sym
-      # FIXME: why is this necessary?
       session[child_type] = @statement.children.by_supporters.collect { |c| c.id }
     end
+    
+    # when creating an issue, we save the flash message within the session, to be able to display it hete
     if session[:last_info]
       @info = session[:last_info]
       flash_info
       session[:last_info] = nil
     end
 
-    @page = params[:page] || 1
     # find alle child statements, which are published (except user is an editor) sorted by supporters count, and paginate them
+    @page = params[:page] || 1
     @children = @statement.children.published(current_user.has_role?(:editor)).by_supporters.paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
     respond_to do |format|
       format.html { render :template => 'statements/show' } # show.html.erb
@@ -128,7 +133,7 @@ class StatementsController < ApplicationController
     end
   end
 
-  # Create a new statement
+  # renders form for creating a new statement
   def new
     @statement ||= statement_class.new(:parent => parent, :category_id => @category.id)
     @statement.create_document
@@ -140,6 +145,7 @@ class StatementsController < ApplicationController
     end
   end
 
+  # actually creates a new statement
   def create
     attrs = params[statement_class_param]
     attrs[:state] = StatementNode.state_lookup[:published] unless statement_class == Question
@@ -148,7 +154,7 @@ class StatementsController < ApplicationController
 
     respond_to do |format|
       if @statement.save
-        set_info("discuss.messages.created", :type => @statement.class.human_name)
+        set_info("discuss.messages.created", :type => @statement.class.display_name)
         current_user.supported!(@statement)
         # render parent statement after creation, if any
         @statement = @statement.parent if @statement.parent
@@ -167,6 +173,7 @@ class StatementsController < ApplicationController
     end
   end
 
+  # renders a form to edit statements
   def edit
     respond_to do |format|
       format.html { render :template => 'statements/edit' }
@@ -174,6 +181,7 @@ class StatementsController < ApplicationController
     end
   end
 
+  # actually update statements
   def update
     attrs = params[statement_class_param]
     (attrs[:document] || attrs[:statement_document])[:author] = current_user
@@ -190,6 +198,7 @@ class StatementsController < ApplicationController
     end
   end
 
+  # destroys a statement
   def destroy
     @statement.destroy
     set_info("discuss.messages.deleted", :type => @statement.class.human_name)
@@ -219,6 +228,7 @@ class StatementsController < ApplicationController
                 end or redirect_to :controller => 'discuss', :action => 'index'
   end
 
+  # returns the statement class, corresponding to the controllers name
   def statement_class
     params[:controller].singularize.camelize.constantize
   end

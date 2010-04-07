@@ -18,9 +18,10 @@ module ActionController
         result << "conditions[:host] === env[:host]" if conditions[:host]     
         result << "conditions[:port] === env[:port]" if conditions[:port]     
         result << "conditions[:rails_env] === RAILS_ENV" if conditions[:rails_env]   
+        result << "conditions[:host] === env[:host]" if conditions[:host]      
         result
       end
     end
   end
-end
 
+end

@@ -80,12 +80,8 @@ ActionController::Routing::Routes.draw do |map|
 
   # SECTION discuss - discussion tree
   map.resources :questions, :as => 'discuss/questions' do |question|
-    question.resources :proposals do |proposal|
-      proposal.resources :pro_arguments
-      proposal.resources :contra_arguments
-      proposal.resources :improvement_proposals do |improvement_proposal|
-        improvement_proposal.resources :pro_arguments
-        improvement_proposal.resources :contra_arguments
+    question.resources :proposals, :member => [:echo, :unecho] do |proposal|
+      proposal.resources :improvement_proposals, :member => [:echo, :unecho] do |improvement_proposal|
       end
     end
   end

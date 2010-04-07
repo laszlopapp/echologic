@@ -45,7 +45,7 @@ class ConnectController < ApplicationController
   # method: POST
   def search(sort, value)
 
-    sort_string = "c.sort = #{sort} AND "
+    sort_string = "c.sort = #{sort} AND " if !sort.blank?
 
     query = <<-END
       select distinct p.*, u.email
@@ -59,6 +59,7 @@ class ConnectController < ApplicationController
     END
     
     query_cont = <<-END 
+        #{sort_string}
         u.active = 1 AND
         p.show_profile = 1 AND
         (

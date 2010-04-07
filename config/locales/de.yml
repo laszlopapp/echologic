@@ -391,6 +391,7 @@ de:
       echo_indicator:
         one: 'Diese Aussage hat {{supporter_count}} UnterstützerIn.'
         many: 'Diese Aussage hat {{supporter_count}} UnterstützerInnen.'
+
     statements:
       create_question_link: 'Neue Debatte eröffnen'
       create_proposal_link: 'Neuen Vorschlag erstellen'

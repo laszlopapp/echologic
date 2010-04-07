@@ -379,6 +379,7 @@ en:
       echo_indicator:
         one: 'This statement has {{supporter_count}} supporter.'
         many: 'This statement has {{supporter_count}} supporters.'
+    statements:
       create_question_link: 'Open a new debate'
       create_proposal_link: 'Enter a new proposal'
       create_improvement_proposal_link: 'Add new improvement proposal'
