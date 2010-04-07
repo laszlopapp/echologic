@@ -2,13 +2,12 @@
 
 ## ROLES
 { :admin => %w(),
-  :editor => %w(),
-  :censor => %w()
+  :editor => %w()
 }.each_pair { |role, users| users.each { |user| user.has_role!(role) } }
 
 ## CATEGORIES
 
-%w(echonomyJAM echocracy echo).each { |name| Tag.create(:value => name) }
+%w(echonomyJAM echocracy echo echosocial).each { |name| Tag.create(:value => name) }
 
 ## ENUM KEYS
 #LANGUAGES
@@ -63,25 +62,13 @@ end
   EnumValue.create!(:enum_key => EnumKey.find_by_code('basic'), :language_id => index+1, :value => value, :context=> "")
 end
 #Web Addresses
-4.times do |index|
+EnumKey.languages.length.times do |index|
   EnumValue.create!(:enum_key => EnumKey.find_by_code('email'), :language_id => index+1, :value => "E-mail", :context=> "")
-end
-4.times do |index|
   EnumValue.create!(:enum_key => EnumKey.find_by_code('homepage'), :language_id => index+1, :value => "Homepage", :context=> "")
-end
-4.times do |index|
   EnumValue.create!(:enum_key => EnumKey.find_by_code('blog'), :language_id => index+1, :value => "Blog", :context=> "")
-end
-4.times do |index|
   EnumValue.create!(:enum_key => EnumKey.find_by_code('xing'), :language_id => index+1, :value => "Xing", :context=> "")
-end
-4.times do |index|
   EnumValue.create!(:enum_key => EnumKey.find_by_code('linked_in'), :language_id => index+1, :value => "LinkedIn", :context=> "")
-end
-4.times do |index|
   EnumValue.create!(:enum_key => EnumKey.find_by_code('facebook'), :language_id => index+1, :value => "Facebook", :context=> "")
-end  
-4.times do |index|
   EnumValue.create!(:enum_key => EnumKey.find_by_code('twitter'), :language_id => index+1, :value => "Twitter", :context=> "")
 end 
 ["Other","Andere","Autre","Outro"].each_with_index do |value,index|
