@@ -99,7 +99,8 @@ module StatementHelper
     link_to(I18n.t("discuss.statements.create_#{type.underscore}_link"),
             new_child_statement_url(statement, type),
             :id => "create_#{type.underscore}_link",
-            :class => "ajax header_button text_button #{create_statement_button_class(type)}")
+            :class => "ajax header_button text_button #{create_statement_button_class(type)} ttLink no_border",
+            :title => I18n.t("discuss.tooltips.create_#{type.underscore}"))
   end
 
   # this classname is needed to display the right icon next to the link
@@ -109,8 +110,10 @@ module StatementHelper
 
   def create_question_link_for(category)
     return unless current_user.has_role?(:editor)
-    link_to(I18n.t("discuss.statements.create_question_link", :type => Question.display_name),
-            new_question_url(:category => category.value), :class=>'ajax text_button create_question_button')
+    link_to(I18n.t("discuss.statements.create_question_link",
+            :type => Question.display_name), new_question_url(:category => category.value),
+            :class=>'ajax text_button create_question_button ttLink no_border',
+            :title => I18n.t("discuss.tooltips.create_question"))
   end
 
   def edit_statement_link(statement)
@@ -141,9 +144,9 @@ module StatementHelper
   # Inserts a support ratio bar with the ratio value in its alt-attribute.
   def supporter_ratio_bar(statement,context=nil)
     if statement.supporter_count < 2
-      tooltip = I18n.t('discuss.statements.echo_indicator_tooltip.one', :supporter_count => statement.supporter_count)
+      tooltip = I18n.t('discuss.tooltips.echo_indicator.one', :supporter_count => statement.supporter_count)
     else
-      tooltip = I18n.t('discuss.statements.echo_indicator_tooltip.many', :supporter_count => statement.supporter_count)
+      tooltip = I18n.t('discuss.tooltips.echo_indicator.many', :supporter_count => statement.supporter_count)
     end
     if statement.ratio > 1
       val = "<span class='echo_indicator ttLink' title='#{tooltip}' alt='#{statement.ratio}'></span>"
@@ -164,8 +167,10 @@ module StatementHelper
   end
 
   # Returns the context menu link for this statement.
-  def statement_context_link(statement)
-    link = link_to(statement.title, url_for(statement), :class => "ajax statement_link #{statement.class.name.underscore}_link")
+  def statement_context_link(statement, action='read')
+    link = link_to(statement.title, url_for(statement),
+                   :class => "ajax no_border statement_link #{statement.class.name.underscore}_link ttLink",
+                   :title => I18n.t("discuss.tooltips.#{action}_#{statement.class.name.underscore}"))
     link << supporter_ratio_bar(statement,'context') unless statement.class.name == 'Question'
     return link
   end
@@ -176,19 +181,29 @@ module StatementHelper
 
   # Insert prev/next buttons for the current statement.
   def prev_next_buttons(statement)
-    key   = ("current_" + statement.class.to_s.underscore).to_sym
+    type = statement.class.to_s.underscore
+    key = ("current_" + type).to_sym
     if session[key].present? and session[key].include?(statement.id)
       index = session[key].index(statement.id)
       buttons = if index == 0
-                  content_tag(:span, '&nbsp;', :class => 'disabled prev_stmt')
+                  statement_tag(:prev, type, true)
                 else
-                  statement_button(session[key][index-1], '&nbsp;', :class => "prev_stmt", :rel => 'prev')
+                  statement_button(session[key][index-1], statement_tag(:prev, type), :rel => 'prev')
                 end
       buttons << if index == session[key].length-1
-                   content_tag(:span, '&nbsp;', :class => 'disabled next_stmt')
+                   statement_tag(:next, type, true)
                  else
-                   statement_button(session[key][index+1], '&nbsp;', :class => 'next_stmt', :rel => 'next')
+                   statement_button(session[key][index+1], statement_tag(:next, type), :rel => 'next')
                  end
+    end
+  end
+
+  def statement_tag(direction, class_identifier, disabled=false)
+    if !disabled
+      content_tag(:span, '&nbsp;', :class => "#{direction}_stmt ttLink no_border",
+                  :title => I18n.t("discuss.tooltips.#{direction}_#{class_identifier}"))
+    else
+      content_tag(:span, '&nbsp;', :class => "#{direction}_stmt disabled")
     end
   end
 
@@ -197,9 +212,7 @@ module StatementHelper
   # maybe one could code some statement.url method..?
   def statement_button(id, title, options={})
     stmt = Statement.find(id)
-    options[:class] ||= ''
-    options[:class] += ' ajax'
-    return link_to(title, url_for(stmt), options)
+    return link_to(title, url_for(stmt), :class => 'ajax')
   end
 
 end

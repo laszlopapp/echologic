@@ -2,6 +2,8 @@ class MyEchoController < ApplicationController
 
   before_filter :require_user
 
+  helper :profile
+
   access_control do
     allow logged_in
   end
@@ -21,5 +23,5 @@ class MyEchoController < ApplicationController
   def welcome
     render
   end
-
+   
 end

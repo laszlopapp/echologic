@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ConcernmentsControllerTest < ActionController::TestCase
   def setup
-    @controller = ConcernmentsController.new
+    @controller = Users::ConcernmentsController.new
   end
   
   test "should get index" do
@@ -25,23 +25,23 @@ class ConcernmentsControllerTest < ActionController::TestCase
   end
 
   test "should show concernment" do
-    get :show, :id => concernments(:one).to_param
+    get :show, :id => concernments(:joe_energy).to_param
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, :id => concernments(:one).to_param
+    get :edit, :id => concernments(:joe_energy).to_param
     assert_response :success
   end
 
   test "should update concernment" do
-    put :update, :id => concernments(:one).to_param, :concernment => { }
+    put :update, :id => concernments(:joe_energy).to_param, :concernment => { }
     assert_redirected_to concernment_path(assigns(:concernment))
   end
 
   test "should destroy concernment" do
     assert_difference('Concernment.count', -1) do
-      delete :destroy, :id => concernments(:one).to_param
+      delete :destroy, :id => concernments(:joe_energy).to_param
     end
 
     assert_redirected_to concernments_path

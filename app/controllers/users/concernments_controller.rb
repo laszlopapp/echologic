@@ -2,6 +2,8 @@ class Users::ConcernmentsController < ApplicationController
 
   before_filter :require_user
 
+  helper :profile
+  
   access_control do
     allow logged_in
   end
@@ -41,7 +43,10 @@ class Users::ConcernmentsController < ApplicationController
 
     respond_to do |format|
       format.js do
-        remove_container("concernment_#{params[:id]}")
+        # sorry, but this was crap. you can't add additional js actions like this...
+        # either use a rjs, a js, or a render :update block
+        # remove_container("concernment_#{params[:id]}")
+        render :template => 'users/profile/remove_object', :locals => { :object => @concernment }
       end
     end
   end
