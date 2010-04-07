@@ -95,6 +95,7 @@ de:
       tabs:
         welcome: Willkommen
         profile: Mein Profil
+        organisations: Organisationen
       profile_complete: '{{complete}}% ausgefüllt'
 
 

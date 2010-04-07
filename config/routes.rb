@@ -27,6 +27,7 @@ ActionController::Routing::Routes.draw do |map|
   map.profile_details '/profiles/:id/details', :controller => 'users/profile', :action => 'details'
 
   map.welcome   'welcome', :controller => 'my_echo', :action => 'welcome'
+  map.organisations 'organisations', :controller => 'my_echo', :action => 'organisations'
 
   # SECTION autocomplete
   map.auto_complete ':controller/:action',

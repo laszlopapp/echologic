@@ -97,6 +97,7 @@ en:
       tabs:
         welcome: Welcome
         profile: My Profile
+        organisations: Organisations
       profile_complete: '{{complete}}% complete'
 
   # ----------------
