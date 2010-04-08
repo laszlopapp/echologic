@@ -43,7 +43,17 @@ class ConnectController < ApplicationController
   # FIXME: it's really sad that we can't use named scopes here
   # that's why i had to add the 'show_profile = 1' condition directly to the searchlogic query
   # method: POST
-  def search(sort, value)
+  
+  def search (sort, value)
+    profiles = sort.blank? ? Profile : Profile.user_concernments_sort_equals(sort)        
+    #profiles = profiles.user_active_equals(1).show_profile_equals(1).first_name_or_last_name_or_city_or_country_or_about_me_or_motivation_or_user_email_or_user_tags_value_like_or_user_memberships_position_or_user_memberships_organisation_like(value).by_last_name_first_name_id
+    profiles = profiles.first_name_or_last_name_or_city_or_country_or_about_me_or_motivation_or_memberships_position_like(value)
+    
+  end
+
+  def search2(sort, value)
+
+    
 
     sort_string = "c.sort = #{sort} AND " if !sort.blank?
 

@@ -18,6 +18,8 @@ class Profile < ActiveRecord::Base
   # currently this flag is true for alle users before release 0.5 and everyone who ever had more then 50% of his profile filled
   # FIXME: this scope isn't used, because the current profile search implementation doesn't work with additional scopes
   named_scope :published, :conditions => { :show_profile => 1 }  
+  
+  named_scope :by_last_name_first_name_id, :include => :user, :order => 'CASE WHEN last_name IS NULL OR last_name="" THEN 1 ELSE 0 END, last_name, first_name, user.id asc'
  
   # callback for paperclip
  
