@@ -49,6 +49,8 @@ class Statement < ActiveRecord::Base
   ## NAMED SCOPES
   ##
     
+  named_scope :questions, lambda {
+    { :conditions => { :type => 'Question' } } }  
   named_scope :proposals, lambda {
     { :conditions => { :type => 'Proposal' } } }
   named_scope :improvement_proposals, lambda {

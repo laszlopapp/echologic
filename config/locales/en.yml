@@ -298,9 +298,10 @@ en:
           title: Pilot Projects
     search:
       title: Search
+      in: 'In {{category}}:'
     topics:
       description: Description
-      echonomy_jam:
+      echonomyjam:
         continues: 'continues online!'
         register_here: 'Click here to register!'
         name: echonomy JAM

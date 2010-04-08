@@ -8,5 +8,5 @@
 
 ## CATEGORIES
 
-%w(echonomyJAM echocracy echo).each { |name| Tag.create(:value => name) }
+%w(echonomyjam echocracy echo).each { |name| Tag.create(:value => name) }
 

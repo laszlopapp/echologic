@@ -303,9 +303,10 @@ de:
           title: Pilot Projekte
     search:
       title: Suchen
+      in: 'In {{category}}:'
     topics:
       description: Beschreibung
-      echonomy_jam:
+      echonomyjam:
         continues: 'geht online weiter!'
         register_here: 'Hier lang zur Erstanmeldung!'
         name: echonomy JAM
