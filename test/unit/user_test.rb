@@ -2,6 +2,33 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
 
+  
+  context "a user" do
+    setup { @user = User.new }
+    subject { @user }
+    context "being saved" do
+      setup do
+        #TODO - replace this by proper creation of an new user
+        @user = User.first
+      end
+      
+      context "with spoken languages" do
+        setup do
+          # TODO - replace this by proper creation of spoken languages associated to this user
+        end
+        
+        should "return spoken languages as an array of keys (EnumKey)" do
+          # TODO - this will only work when fixtures do not change. see todos above
+          assert_equal @user.language_keys, [2,1]
+        end
+        
+      end
+      
+    end
+  end
+  
+  
+  
   # 1. Users should have associations to:
   #     - Web profiles
   #     - Concernments
@@ -27,5 +54,6 @@ class UserTest < ActiveSupport::TestCase
   def test_no_empty_saving
     assert !User.new.save
   end
+  
 
 end

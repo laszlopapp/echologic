@@ -136,7 +136,9 @@ class StatementsController < ApplicationController
   # renders form for creating a new statement
   def new
     @statement ||= statement_class.new(:parent => parent, :category_id => @category.id)
-    @statement.create_document
+    # TODO: right now users can't select the language they create a statement in, so current_user.languages_keys.first will work. once this changes, we're in trouble - or better said: we'll have to pass the language_id as a param
+    @statement.create_statement(:original_language_id => current_user.language_keys.first)
+    @statement.add_statement_document
     respond_to do |format|
       format.html { render :template => 'statements/new' }
       format.js {
@@ -184,9 +186,10 @@ class StatementsController < ApplicationController
   # actually update statements
   def update
     attrs = params[statement_class_param]
-    (attrs[:document] || attrs[:statement_document])[:author] = current_user
+    attrs[:statement_document][:author] = current_user
+    attrs_doc = attrs.delete(:statement_document)
     respond_to do |format|
-      if @statement.update_attributes(attrs)
+      if @statement.update_attributes!(attrs) && @statement.translated_document(current_user.language_keys).update_attributes!(attrs_doc)
         set_info("discuss.messages.updated", :type => @statement.class.human_name)
         format.html { flash_info and redirect_to url_for(@statement) }
         format.js   { show }

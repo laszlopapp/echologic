@@ -85,7 +85,8 @@ Given /^a "([^\"]*)" question in "([^\"]*)"$/ do |state, category|
   end
   @category = Tag.find_by_value(category)
   @question = Question.new(:state => state, :category => @category, :creator => @user)
-  @question.create_document(:title => "Am I a new statement?", :text => "I wonder what i really am! Maybe a statement? Or even a question?", :author => @user)
+  @question.create_statement(:original_language_id => @user.language_keys.first)
+  @question.add_statement_document!(:title => "Am I a new statement?", :text => "I wonder what i really am! Maybe a statement? Or even a question?", :author => @user, :language_id => @user.language_keys.first)
   @question.save!
 end
 

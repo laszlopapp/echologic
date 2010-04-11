@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :web_addresses, :dependent => :destroy
   has_many :memberships, :dependent => :destroy
   has_many :concernments, :dependent => :destroy
-  has_many :spoken_languages, :dependent => :destroy
+  has_many :spoken_languages, :dependent => :destroy, :order => 'level_id'
   has_many :tags, :through => :concernments
 
   has_many :reports, :foreign_key => 'suspect_id'
@@ -137,4 +137,14 @@ class User < ActiveRecord::Base
   def may_delete?(statement)
     has_role?(:admin)
   end
+  
+  ##
+  ## SPOKEN LANGUAGES
+  ##
+  
+  # returns an array with the actual language_ids of the users spoken languages (used to find the right translations)
+  def language_keys
+    self.spoken_languages.map(&:language_id)
+  end
+  
 end

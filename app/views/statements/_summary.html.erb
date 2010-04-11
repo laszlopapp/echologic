@@ -3,5 +3,5 @@
 <div id="summary" class="summary simple_header_block discuss_right_block">
   <h2><%= I18n.t('discuss.summary') %></h2>
   <%= edit_statement_link(@statement) %>
-  <p><%= statement.text %></p>
+  <p><%= statement.translated_document(current_user.language_keys).text %></p>
 </div>

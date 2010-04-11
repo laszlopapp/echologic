@@ -171,7 +171,7 @@ module StatementHelper
   end
 
   # Returns the context menu link for this statement.
-  def statement_context_link(statement, action='read')
+  def statement_context_link(statement, action = 'read')
     link = link_to(statement.title, url_for(statement),
                    :class => "ajax no_border statement_link #{statement.class.name.underscore}_link ttLink",
                    :title => I18n.t("discuss.tooltips.#{action}_#{statement.class.name.underscore}"))
@@ -230,10 +230,12 @@ module StatementHelper
   ##
   ## Statement Context (where am i within the statement stack?)
   ##
-  
+    
   # Returns the context menu link for this statement.
-  def statement_context_link(statement)
-    link = link_to(statement.title, url_for(statement), :class => "ajax statement_link #{statement.class.name.underscore}_link")
+  def statement_context_link(statement, action='read')
+    link = link_to(statement.translated_document(current_user.language_keys).title, url_for(statement),
+                   :class => "ajax no_border statement_link #{statement.class.name.underscore}_link ttLink",
+                   :title => I18n.t("discuss.tooltips.#{action}_#{statement.class.name.underscore}"))
     link << supporter_ratio_bar(statement,'context') unless statement.class.name == 'Question'
     return link
   end
@@ -247,7 +249,7 @@ module StatementHelper
   def statement_class_dom_id(statement)
     if statement.kind_of?(Symbol)
       statement_class = statement.to_s.constantize
-     elsif statement.kind_of?(Statement)
+     elsif statement.kind_of?(StatementNode)
       statement_class = statement.class
     end
     statement_class.name.underscore.downcase

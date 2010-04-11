@@ -45,24 +45,31 @@ class StatementNode < ActiveRecord::Base
   # end ; alias :statement_document= :document=
 
   belongs_to :statement
-  has_many :documents, :through => :statement, :class_name => "StatementDocument" do 
+  has_many :statement_documents, :through => :statement, :class_name => "StatementDocument" do 
     # this query returns translation for a statement ordered by the users prefered languages
     # OPTIMIZE: this should be built in sql
-    def for_languages(lang_codes)
+    def for_languages(lang_ids)
       # doc = find(:all, :conditions => ["translated_statement_id = ? AND language_code = ?", nil, lang_codes.first]).first
-      find(:all, :conditions => ["language_code IN (?)", lang_codes]).sort { |a, b| lang_codes.index(a.language_code) <=> lang_codes.index(b.language_code)}.first
+      find(:all, :conditions => ["language_id IN (?)", lang_ids]).sort { |a, b| lang_codes.index(a.language_code) <=> lang_codes.index(b.language_code)}.first
     end
   end
     
   # returns a translated document for passed language_codes (or nil if none is found)
-  def translated_document(lang_codes)
-    @current_document ||= documents.for_languages(lang_codes)
+  def translated_document(lang_ids)
+    @current_document ||= statement_documents.for_languages(lang_ids)
   end
    
-  #def document
-  #  raise "Statement#document is deprecated. Use helper document(statement) instead."
-  #end
+  # creates a new statement_document
+  def add_statement_document 
+    self.statement.statement_documents << StatementDocument.new(:statement_id => self.id)
+  end
   
+  # creates and saves a  statement_document with given parameters a
+  def add_statement_document!(*args)
+    doc = StatementDocument.new(:statement_id => self.statement.id)
+    doc.update_attributes!(*args)
+    self.statement.statement_documents << doc
+  end
     
   ##
   ## NAMED SCOPES
@@ -96,14 +103,21 @@ class StatementNode < ActiveRecord::Base
   named_scope :from_category, lambda { |value|
     { :include => :category, :conditions => ['tags.value = ?', value] } }
   
+    #title
+  named_scope :find_by_title, lambda  { |value|
+    { :include => :statement_document, :conditions => ['statement_documents.title like ?', '%'+value+'%']}}
+
+  
   ## ACCESSORS
   
   def title
-    self.translated_document(['en']).title
+    raise 'title is deprecated... please use translated_document().title instead'
+    #self.translated_document(1).title
   end
 
   def text
-    self.translated_document(['de']).text
+    raise 'text is deprecated... please use translated_document().title instead'
+    #self.translated_document(1).text
   end
 
   def level
@@ -136,8 +150,8 @@ class StatementNode < ActiveRecord::Base
 
   validates_presence_of :creator_id
   validates_associated :creator
-  validates_presence_of :statement_document_id
-  validates_associated :document
+  validates_presence_of :statement_id
+  validates_associated :statement
   validates_presence_of :category_id
   
   def validate

@@ -4,7 +4,7 @@
 # * currently an Improvementproposal does always refer to a proposal, and does not expect further children
 
 
-class ImprovementProposal < Statement
+class ImprovementProposal < StatementNode
   
   # methods / settings to overwrite default statement behaviour
     

@@ -1,59 +1,139 @@
-test-question-doc:
+test-question-doc-english:
   title: 'Test Question?'
   text: 'The Question is: is this a question?'
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('test-question-statement') %>
+  language_id: 1
 
-first-proposal-doc:
+first-proposal-doc-english:
   title: 'A first proposal!'
   text: 'I think, a good proposal would be a first one!'
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('first-proposal-statement') %>
+  language_id: 1
 
-second-proposal-doc:
+second-proposal-doc-english:
   title: 'Second Proposal'
   text: 'I think we should have a second proposal as well!'
   author_id: <%= Fixtures.identify(:user) %>
   statement_id: <%= Fixtures.identify('second-proposal-statement') %>
+  language_id: 1
 
-third-proposal-doc:
+third-proposal-doc-english:
   title: 'Third Proposal'
   text: 'I think we should have a third proposal as well!'
   author_id: <%= Fixtures.identify(:user) %>
   statement_id: <%= Fixtures.identify('third-proposal-statement') %>
+  language_id: 1
 
-inbetween-proposal-doc:
+inbetween-proposal-doc-english:
   title: 'Inbetween Proposal'
   text: 'I think we should have a proposal inbetween as well!'
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('inbetween-proposal-statement') %>
+  language_id: 1
 
-fourth-proposal-doc:
+fourth-proposal-doc-english:
   title: 'Fourth Proposal'
   text: 'I think we should have a fourth proposal as well!'
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('fourth-proposal-statement') %>
+  language_id: 1
 
-fifth-proposal-doc:
+fifth-proposal-doc-english:
   title: 'Fifth Proposal'
   text: 'I think we should have a fifth proposal as well!'
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('fifth-proposal-statement') %>
+  language_id: 1
 
-sixth-proposal-doc:
+sixth-proposal-doc-english:
   title: 'Sixth Proposal'
   text: 'I think we should have a sixth proposal as well!'
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('sixth-proposal-statement') %>
+  language_id: 1
 
-first-impro-proposal-doc:
+first-impro-proposal-doc-english:
   title: 'A better first proposal'
   text: 'I think, a better first proposal would be a better one!'
   author_id: <%= Fixtures.identify(:ben) %>
   statement_id: <%= Fixtures.identify('first-impro-proposal-statement') %>
+  language_id: 1
 
-not-published-proposal-doc:
+not-published-proposal-doc-english:
   title: 'This proposal should not be seen...'
   text: 'unless you are an editor'
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('not-published-proposal-statement') %>
+  language_id: 1
+
+test-question-doc-german:
+  title: 'Eine Test-Frage?'
+  text: 'Die Frage ist: Ist das eine Frage?'
+  author_id: <%= Fixtures.identify(:editor) %>
+  statement_id: <%= Fixtures.identify('test-question-statement') %>
+  language_id: 2
+
+first-proposal-doc-german:
+  title: 'Ein erster Vorschlag'
+  text: 'Ich denke ein erster Vorschlag waere in guter!'
+  author_id: <%= Fixtures.identify(:editor) %>
+  statement_id: <%= Fixtures.identify('first-proposal-statement') %>
+  language_id: 2
+
+second-proposal-doc-german:
+  title: 'Zweiter vorschlag'
+  text: 'Ich denke wir sollten auch einen zweiten Vorschlage haben!'
+  author_id: <%= Fixtures.identify(:user) %>
+  statement_id: <%= Fixtures.identify('second-proposal-statement') %>
+  language_id: 2
+
+third-proposal-doc-german:
+  title: 'Dritter vorschlag'
+  text: 'Ich denke wir sollten auch einen dritten Vorschlage haben!'
+  author_id: <%= Fixtures.identify(:user) %>
+  statement_id: <%= Fixtures.identify('third-proposal-statement') %>
+  language_id: 2
+
+inbetween-proposal-doc-german:
+  title: 'Inbetween Proposal'
+  text: 'I think we should have a proposal inbetween as well!'
+  author_id: <%= Fixtures.identify(:editor) %>
+  statement_id: <%= Fixtures.identify('inbetween-proposal-statement') %>
+  language_id: 2
+
+fourth-proposal-doc-german:
+  title: 'Vierter vorschlag'
+  text: 'Ich denke wir sollten auch einen vierten Vorschlage haben!'
+  author_id: <%= Fixtures.identify(:editor) %>
+  statement_id: <%= Fixtures.identify('fourth-proposal-statement') %>
+  language_id: 2
+
+fifth-proposal-doc-german:
+  title: 'Fuenfter vorschlag'
+  text: 'Ich denke wir sollten auch einen fuenften Vorschlage haben!'
+  author_id: <%= Fixtures.identify(:editor) %>
+  statement_id: <%= Fixtures.identify('fifth-proposal-statement') %>
+  language_id: 2
+
+sixth-proposal-doc-german:
+  title: 'Sechster vorschlag'
+  text: 'Ich denke wir sollten auch einen sechsten Vorschlage haben!'
+  author_id: <%= Fixtures.identify(:editor) %>
+  statement_id: <%= Fixtures.identify('sixth-proposal-statement') %>
+  language_id: 2
+
+first-impro-proposal-doc-german:
+  title: 'Ein besserer Vorschlag'
+  text: 'Das waere vielleicht ein besserer Vorschlag!'  
+  author_id: <%= Fixtures.identify(:ben) %>
+  statement_id: <%= Fixtures.identify('first-impro-proposal-statement') %>
+  language_id: 2
+
+not-published-proposal-doc-german:
+  title: 'Dieser Vorschlag sollte nicht gesehen werden...'
+  text: 'ausser du hast die Rolle Editor'
+  author_id: <%= Fixtures.identify(:editor) %>
+  statement_id: <%= Fixtures.identify('not-published-proposal-statement') %>
+  language_id: 2
