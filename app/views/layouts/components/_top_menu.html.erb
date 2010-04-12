@@ -7,6 +7,8 @@
 
   <%= link_to(I18n.t('layouts.outer_menu.feedback'), new_feedback_path, :id => 'feedback_button', :class => 'outerMenuItem') %>
 
+  <%= link_to 'Blog', "http://blog.echologic.org", :id => 'blog_button', :class => 'outerMenuItem', :method => :post%>
+
   <!-- Language choose section. -->
   <% link_to('#', :id => 'echo_language_button') do %>
      <%= I18n.t('layouts.outer_menu.language') %>
