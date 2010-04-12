@@ -731,12 +731,61 @@ en:
           <font size="+2">Write something new</font>
         ms3: |
           echo - Write something new <span title="{{tooltip}}" class="ttLink">please</span>!
-        why:
+        about:
             title: Why?
-            text: why not?
-        what:
-            title: What?
-            text: what do you mean, what?
+            text: why not?        
+        benefits:
+          title: Benefits Title
+          text: Benefits Text
+        features:
+          title: Features Title
+          internet_presence:
+            title: Individueller Internetauftritt 
+            text: |
+              <p>Passt Eure Seite an Eure individuellen Bedürfnisse an! Mit nur wenigen Klicks fügt Ihr Eurer Logo ein, ändert Farben, Layout und Funktionen.</p>
+          calendar_event:
+            title: Eventkalender
+            text: |
+              <p>Informiert Eure Mitstreiter über anstehende Aktionen und koordiniert wichtige Termine und Ereignisse gemeinsam!</p>
+          community_management:
+            title: Community Management 
+            text: |
+              <p>Haltet Eure Mitstreiter über Euer eigenes Blog sowie RSS-Feeds, facebook und twitter auf dem Laufenden!</p>
+          photo_video_gallery:
+            title: Foto- und Video-Galerien
+            text: |
+              <p>Zeigt Euer Engagement in Bild und Ton! Foto- und Video-Galerien verleihen Eurem Web-Auftritt die nötige multimediale 
+              Note und stellen Eure Aktionen eindrucksvoll dar.</p>
+          cost_neutral_fundraising:
+            title: Kostenneutrales Fundraising 
+            text: |
+              <p>Helft Euren Mitstreitern Euch zu helfen, indem Ihr das kostenlose Fundraising-Tool von Click4Charity nutzt! So können Eure Unterstützer 
+              Euch bei Ihrem nächsten Online-Kauf mit einem Teil des Umsatzes unterstützen, ohne selbst Geld in Eure Kasse legen zu müssen.</p>
+          project_management:
+            title: Projektmanagement
+            text: |
+              <p>Arbeitet zeit- und ortsunabhängige zusammen! Projektgruppen, Aufgabenverwaltung, File-Sharing, Wikis und Foren helfen Euch dabei.</p>
+          group_administration:
+            title: Differenzierte Gruppenverwaltung 
+            text: |
+              <p>Organisiert Euch und Eure Mitstreiter in beliebige Gruppen und Untergruppen mit differenzierte Rechtevergabe für Zugriff und Nutzung von Dokumenten und Daten.</p>
+          votings_polls:
+            title: Abstimmungen und Umfragen 
+            text: |
+              <p>Trefft Eure Entscheidungen schnell und ortsunabhängig. Mit den Umfrage- und Abstimmungs-Tools kommt Ihr schnell vom Brainstorming zu gemeinsamen Entscheidungen.</p>
+          increased_attention:
+            title: Erhöhte Aufmerksamkeit 
+            text: |
+              <p>Zeigt Eure Aktivitäten auch auf anderen Plattformen und Netzwerken! echo dient dabei als die <strong>dezentrale Kommunikationsinfrastruktur</strong>, welche Deine Aktionen auch 
+              auf anderen Plattformen und Webseiten sichtbar macht. So erreicht Ihr automatisch alle Menschen, die sich für die Thematik Eurer Aktionen interessieren und 
+              <strong>vervielfacht Eurer Reichweite</strong>.</p>
+          discussion_methods:
+            title: Innovative Diskussionsmethode
+            text: |
+              <p>Nutzt die <strong>innovative Diskussionsmethode</strong> von echo für konstruktive interne Debatten und zur effizienten gemeinsamen Texterstellung! Über die differenzierte 
+              Gruppenverwaltung können z.B. Experten oder Mitglieder flexibel in interne Diskussionen mit einbezogen und die Ergebnisse in die öffentliche Debatte eingebracht 
+              werden. So stehen Deine Organisation und Dein Handeln immer in einem diskursiven Kontext. Die Gründe für Dein Handeln werden so transparent, nachvollziehbar und 
+              Du kannst <strong>mehr Menschen</strong> für Deine Anliegen <strong>begeistern</strong>.</p>
       tabs:
         echosocial: Echo Social
         features: Features
