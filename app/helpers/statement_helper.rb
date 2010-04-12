@@ -171,7 +171,7 @@ module StatementHelper
   end
 
   # Returns the context menu link for this statement.
-  def statement_context_link(statement, action='read')
+  def statement_context_link(statement, action = 'read')
     link = link_to(statement.title, url_for(statement),
                    :class => "ajax no_border statement_link #{statement.class.name.underscore}_link ttLink",
                    :title => I18n.t("discuss.tooltips.#{action}_#{statement.class.name.underscore}"))
@@ -227,17 +227,7 @@ module StatementHelper
     return link_to(title, url_for(stmt), options)
   end
   
-  ##
-  ## Statement Context (where am i within the statement stack?)
-  ##
-  
-  # Returns the context menu link for this statement.
-  def statement_context_link(statement)
-    link = link_to(statement.title, url_for(statement), :class => "ajax statement_link #{statement.class.name.underscore}_link")
-    link << supporter_ratio_bar(statement,'context') unless statement.class.name == 'Question'
-    return link
-  end
-
+ 
   
   ##
   ## DOM-ID Helpers
