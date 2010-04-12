@@ -1,0 +1,16 @@
+<% @question = question if defined?(question) %>
+
+<li id="<%= dom_id(@question) %>" class="question">
+  <span class="name"><%=h (@question.title.length > 55 ? @question.title[0,54]+"..." : @question.title )%></span> <br/>
+  <span class="location_orga">
+    <%#=h @question.location %><br/>
+    <%#=h @question.first_membership %>
+  </span>
+  <span class="close_hint" style="display: none;"><%= I18n.t('application.general.close') %></span>
+
+  <% link_to question_url(@question), :class => 'avatar_holder' do %>
+  	<%= image_tag("page/discuss/question_medium.png") %>		
+    <%#= image_tag @question.avatar.url(:small) %>
+  <% end %>
+
+</li>
