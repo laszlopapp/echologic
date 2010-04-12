@@ -26,6 +26,10 @@
   color:       #1A4864;
 }
 
+#blog_button {
+  background:  transparent url(../images/page/icons/feedback.png) no-repeat scroll;
+}
+
 #feedback_button {
   background:  transparent url(../images/page/icons/feedback.png) no-repeat scroll;
 }
