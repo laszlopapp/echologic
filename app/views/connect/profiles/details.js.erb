@@ -2,14 +2,14 @@
 
 var overview     = "<%= escape_javascript(render(:partial => 'connect/profiles/overview')) %>";
 var concernments = "<%= escape_javascript(render(:partial => 'connect/profiles/concernments')) %>";
-var web_addresses = "<%= escape_javascript(render(:partial => 'connect/profiles/web_addresses')) %>";
+var web_profiles = "<%= escape_javascript(render(:partial => 'connect/profiles/web_profiles')) %>";
 var avatar       = "<%= escape_javascript(render(:partial => 'connect/profiles/avatar')) %>";
 var actions      = "<%= escape_javascript(render(:partial => 'connect/profiles/actions')) %>";
 
 $('#avatar').html(avatar);
 $('#overview').html(overview);
 $('#concernments').html(concernments);
-$('#web_addresses').html(web_addresses);
+$('#web_profiles').html(web_profiles);
 $('#full_name').html("<%=h @profile.full_name %>");
 $('#actions').html(actions);
 

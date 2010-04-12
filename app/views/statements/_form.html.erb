@@ -10,7 +10,7 @@
         <%= form.label :state %>
         <%# would be nice to have map_with_index... -%>
         <% i = -1 -%>
-        <%= form.select(:state, StatementNode.states.map { |state| [I18n.t("discuss.statements.states.#{state}"), i+=1] },
+        <%= form.select(:state, Statement.states.map { |state| [I18n.t("discuss.statements.states.#{state}"), i+=1] },
                         :selected => form.object.state) %>
       </li>
     <% end %>

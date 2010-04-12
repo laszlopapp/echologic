@@ -76,7 +76,7 @@ class ConnectController < ApplicationController
         )
         order by CASE WHEN p.last_name IS NULL OR p.last_name="" THEN 1 ELSE 0 END, p.last_name, p.first_name, u.id asc;
     END
-
+    
     #formatting the query string
     query << sort_string unless sort.blank?
     query << query_cont

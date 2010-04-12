@@ -221,10 +221,8 @@ module StatementHelper
   # TODO AR from the helper stinks, but who knows a better way to get the right url?
   # maybe one could code some statement.url method..?
   def statement_button(id, title, options={})
-    stmt = StatementNode.find(id)
-    options[:class] ||= ''
-    options[:class] += ' ajax'
-    return link_to(title, url_for(stmt), options)
+    stmt = Statement.find(id)
+    return link_to(title, url_for(stmt), :class => 'ajax')
   end
   
  

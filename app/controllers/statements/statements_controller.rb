@@ -49,13 +49,13 @@ class StatementsController < ApplicationController
     else  
       #step 1.01: search for first string
       statements_not_paginated = search(@value.split(' ').first)
-      #statements_not_paginated = statement_class.search(@value.split(' ').first)    
+      #statements_not_paginated = statement_class.search(@value.split(' ').first)
+      
       #step 1.10: search for remaining strings
       if @value.split(' ').size > 1
          for value in @value.split(' ')[1..-1] do
-
-           statements_not_paginated &= search(value)
-
+          statements_not_paginated &= search(value)
+          statements_not_paginated &= statement_class.search(value)
         end
       end
     end
@@ -104,7 +104,7 @@ class StatementsController < ApplicationController
 
     # find alle child statements, which are published (except user is an editor) sorted by supporters count, and paginate them
     @page = params[:page] || 1
-    @children = @statement.children.published(current_user.has_role?(:editor)).by_supporters.paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
+    @children = @statement.children.published(current_user.has_role?(:editor)).by_supporters.paginate(Statement.default_scope.merge(:page => @page, :per_page => 5))
     respond_to do |format|
       format.html { render :template => 'statements/show' } # show.html.erb
       format.js   { render :template => 'statements/show' } # show.js.erb
@@ -148,7 +148,7 @@ class StatementsController < ApplicationController
   # actually creates a new statement
   def create
     attrs = params[statement_class_param]
-    attrs[:state] = StatementNode.state_lookup[:published] unless statement_class == Question
+    attrs[:state] = Statement.state_lookup[:published] unless statement_class == Question
     @statement = statement_class.new(attrs)
     @statement.creator = @statement.document.author = current_user
 

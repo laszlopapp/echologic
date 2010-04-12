@@ -14,5 +14,5 @@ module ApplicationHelper
     val += "<script type='text/javascript'>$('#roadmap_progressbar').progressbar({value: #{percent != 0 ? percent : 1}});</script>"
     val
   end
-  
+
 end

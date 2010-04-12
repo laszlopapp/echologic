@@ -12,7 +12,7 @@ Feature: Profile settings
     When I go to the profile
     Then I should see the "Personal" container
       And I should see the "profile_avatar" container
-      And I should see the "Web address" container
+      And I should see the "Web profile" container
       And I should see the "Membership" container
 
   # In the profile the user should be able to update

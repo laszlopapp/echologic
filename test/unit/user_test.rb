@@ -9,7 +9,7 @@ class UserTest < ActiveSupport::TestCase
   #     - Memberships
   def test_associations
     @user = users(:joe)
-    assert_not_nil @user.web_addresses
+    assert_not_nil @user.web_profiles
     assert_not_nil @user.concernments
     assert_not_nil @user.tags
     assert_not_nil @user.memberships
