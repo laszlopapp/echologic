@@ -8,7 +8,14 @@
   <div id="headerMessage"><%= I18n.t('static.echologic.show.header2') %></div>
 </div>
 
-<%= I18n.t('static.echologic.show.teaser_more') %>
+<br/>
+<br/>
+<strong><%= I18n.t('static.echologic.show.action') %></strong>
+<% insert_toggle_more(I18n.t('static.echologic.show.teaser_more')) %>
+<br/>
+<br/>
+<br/>
+<%#= I18n.t('static.echologic.show.teaser_more') %>
 
 <div class="echoButtonBigHolder">
   <%= link_to('<span class="echoButtonBig"></span>', {:url => echo_path}, :href => echo_path, :class => 'ajaxLink') %>
