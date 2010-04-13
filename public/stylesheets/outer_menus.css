@@ -27,7 +27,7 @@
 }
 
 #blog_button {
-  background:  transparent url(../images/page/icons/feedback.png) no-repeat scroll;
+  background:  transparent url(../images/page/icons/blog.png) no-repeat scroll;
 }
 
 #feedback_button {
@@ -46,7 +46,7 @@
   background:  transparent url(../images/page/icons/logout.png) no-repeat scroll;
 }
 
-#echo_language_button, #feedback_button:hover, #about_echo_button:hover, #logout_button:hover {
+#echo_language_button, #blog_button:hover, #feedback_button:hover, #about_echo_button:hover, #logout_button:hover {
   background-position: 0 -16px;
 }
 
