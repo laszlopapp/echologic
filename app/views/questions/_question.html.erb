@@ -1,6 +1,6 @@
 <% @question = question if defined?(question) %>
 
-<li id="<%= dom_id(@question) %>" class="question">
+<li id="<%= dom_id(@question) %>" class="content question">
   <span class="name"><%=h (@question.title.length > 55 ? @question.title[0,54]+"..." : @question.title )%></span> <br/>
   <span class="location_orga">
     <%#=h @question.location %><br/>
