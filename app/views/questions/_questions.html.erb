@@ -24,7 +24,7 @@
 	  <% if not statements.empty? %>
 	    <%= render :partial => 'questions/question', :collection => statements %>
 	  <% else %>
-	    <span class="no_results"><%= I18n.t('connect.messages.empty') %></span>
+	    <span class="no_results"><%= I18n.t('discuss.messages.empty') %></span>
 	  <% end %>
 	</ul>
     <%= will_paginate statements , :previous_label => '', :next_label => '' if defined? statements.total_pages %>

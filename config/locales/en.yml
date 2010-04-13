@@ -403,6 +403,7 @@ en:
       created: "The new {{type}} has been entered successfully."
       updated: "The {{type}} has been updated successfully."
       deleted: "The {{type}} has been deleted successfully."
+      empty:   "No debates found. Please change your search criteria."
 
 
 
