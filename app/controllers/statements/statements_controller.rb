@@ -16,12 +16,18 @@ class StatementsController < ApplicationController
   before_filter :fetch_statement, :only => [:show, :edit, :update, :echo, :unecho, :destroy]
   before_filter :fetch_category, :only => [:index, :new, :show, :edit, :update, :destroy]
 
+  before_filter :require_user, :except => [:index, :category, :show]
+  
+  # as discussions are public now, it's neccessary so save where we are, to redirect the user back after login
+  before_filter :store_location, :only => [:index, :category, :show]
+  
   # make custom URL helper available to controller
   include StatementHelper
 
   # authlogic access control block
   access_control do
     allow :editor
+    allow anonymous, :to => [:index, :show, :category]
     allow logged_in, :only => [:index, :show, :echo, :unecho]
     allow logged_in, :only => [:new, :create], :unless => :is_question?
     allow logged_in, :only => [:edit, :update], :if => :may_edit?
@@ -64,7 +70,7 @@ class StatementsController < ApplicationController
     #step 2: filter by category, if there is one 
     statements_not_paginated = statements_not_paginated.from_category(params[:id]) if params[:id]
     
-    statements_not_paginated = statements_not_paginated.published(current_user.has_role?(:editor)).by_supporters.by_creation
+    statements_not_paginated = statements_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
     
     @count    = statements_not_paginated.count
     @category = Tag.find_or_create_by_value(params[:id])
@@ -87,7 +93,7 @@ class StatementsController < ApplicationController
   # TODO visited! throws error with current fixtures.
 
   def show
-    current_user.visited!(@statement)
+    current_user.visited!(@statement) if current_user
     
     # prev / next functionaliy
     unless @statement.children.empty?
@@ -104,7 +110,7 @@ class StatementsController < ApplicationController
 
     # find alle child statements, which are published (except user is an editor) sorted by supporters count, and paginate them
     @page = params[:page] || 1
-    @children = @statement.children.published(current_user.has_role?(:editor)).by_supporters.paginate(Statement.default_scope.merge(:page => @page, :per_page => 5))
+    @children = @statement.children.published(current_user && current_user.has_role?(:editor)).by_supporters.paginate(Statement.default_scope.merge(:page => @page, :per_page => 5))
     respond_to do |format|
       format.html { render :template => 'statements/show' } # show.html.erb
       format.js   { render :template => 'statements/show' } # show.js.erb
