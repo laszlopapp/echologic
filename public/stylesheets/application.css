@@ -322,7 +322,7 @@
 
 .function_button:hover {
   cursor:      pointer;
-  
+
 }
 
 .function_name {
@@ -340,7 +340,7 @@
   position:    relative;
   width: 	   100%;
   display:	   block;
-  
+
 }
 
 .function_button_holder .function_name:hover {
@@ -375,7 +375,6 @@
 /* All tab content containers */
 #details_container .tab_content_container {
   float: left;
-  left: 140px;
-  width: 670px;
+  width: 960px;
   padding: 0 15px;
 }
