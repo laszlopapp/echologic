@@ -37,9 +37,9 @@ function setActionControllerFragment(href) {
   controller = href.toString().split('/')[4];
   action = href.toString().split('/')[5];
   if (href.toString().split('/')[5]) {
-    document.location.hash = '/' + controller + '/' + action;
+      document.location.hash = '/' + controller + '/' + action;
   } else {
-    document.location.hash = '/' + controller;
+      document.location.hash = '/' + controller;
   }
 }
 
