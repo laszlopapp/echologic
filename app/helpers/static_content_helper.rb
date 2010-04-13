@@ -24,13 +24,13 @@ module StaticContentHelper
   end
 
   # Inserts illustrations as a link for the given array of paths.
-  def insert_illustrations(links)
-    concat "<div class='illustrationHolder" + (links.size==3 ? " threeItems" : '') + "'>"
+  def insert_illustrations(links, options = {})
+    concat "<div class='illustrationHolder" + (links.size==3 ? " threeItems" : '') + "'>"    
     links.each do |link|
       parts = link.split('/')
       item = parts[2,3].join('_')
       pic_resource = 'page/illustrations/' + item + '.png'
-      translation = I18n.t("static.#{parts[2,3].join('.')}.title")
+      translation = I18n.t("static.#{options[:domain]+'.' if options[:domain]}#{parts[2,3].join('.')}.title")
       illustration = "<div class='illustration'>"
       illustration +=   image_tag(pic_resource)
       illustration +=   "<h2>#{translation}</h2>"

@@ -196,12 +196,14 @@ module StatementHelper
     if session[key].present? and session[key].include?(statement.id)
       index = session[key].index(statement.id)
       buttons = if index == 0
-                  statement_tag(:prev, type, true)
+                  #statement_tag(:prev, type, true)
+                  statement_button(session[key][session[key].length-1], statement_tag(:prev, type), :rel => 'prev')
                 else
                   statement_button(session[key][index-1], statement_tag(:prev, type), :rel => 'prev')
                 end
       buttons << if index == session[key].length-1
-                   statement_tag(:next, type, true)
+                   #statement_tag(:next, type, true)
+                   statement_button(session[key][0], statement_tag(:next, type), :rel => 'next')
                  else
                    statement_button(session[key][index+1], statement_tag(:next, type), :rel => 'next')
                  end
