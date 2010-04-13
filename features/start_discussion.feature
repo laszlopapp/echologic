@@ -11,7 +11,7 @@ Feature: Start a discussion
       And I am logged in as "editor" with password "true"
       And I am on the discuss index
     When I follow "Featured"
-    When I follow localized "discuss.topics.echonomy_jam.name"
+    When I follow localized "discuss.topics.echonomyjam.name"
       And I follow "Open a new debate"
       And I fill in the following:
         | question_statement_document_title | Is this a Question?   |
@@ -51,7 +51,7 @@ Feature: Start a discussion
       And the question has no proposals
       And I am on the discuss index
     When I follow "Featured"
-    When I follow localized "discuss.topics.echonomy_jam.name"
+    When I follow localized "discuss.topics.echonomyjam.name"
       And I choose the first question
       And I follow "Enter a new position"
       And I fill in the following:
@@ -74,7 +74,7 @@ Feature: Start a discussion
     Given I am logged in as "user" with password "true"
    	And I am on the discuss index
    	When I follow "Featured"
-    Then I should see localized "discuss.topics.echonomy_jam.name"
+    Then I should see localized "discuss.topics.echonomyjam.name"
     Then I should see localized "discuss.topics.echocracy.name"
     Then I should see localized "discuss.topics.echo.name"
     Then I should see localized "discuss.topics.echosocial.name"
