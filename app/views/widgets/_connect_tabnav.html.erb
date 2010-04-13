@@ -1,6 +1,7 @@
-<div class="roadmap_tab">	
-	<%= image_tag("../images/page/icons/under_construction_big.png", :width => 25, :height => 28, :border => "none") %>				
+<div class="roadmap_tab">
+	<%= image_tag("../images/page/icons/under_construction.png", :border => "none") %>
 </div>
+
 <%
 # Render submenu tabs for act section.
 
@@ -14,7 +15,7 @@ render_tabnav :connect,
     t.highlights_on :action => 'fill_out_profile'
   end
 
-  add_tab :html => {:id => 'roadmap_tab'} do |t|    
+  add_tab :html => {:id => 'roadmap_tab'} do |t|
     value = "#{Development::CONNECT_PROGRESS}%  " + I18n.t('application.roadmap.title')
     t.named value
 	t.links_to connect_roadmap_path
@@ -25,7 +26,7 @@ render_tabnav :connect,
  #   value = '<span id="roadmap_tab_title">' + I18n.t('application.roadmap.title') + '</span>'
  #   value += insert_progressbar(Development::CONNECT_PROGRESS)
  #   t.named value
- #   t.links_to    
+ #   t.links_to
  # end
 
 end
