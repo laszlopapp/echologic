@@ -114,8 +114,10 @@
 
 #roadmap_tab_container {
   position: absolute;
-  right: 837px;
+  left: 55px;
+  width: 150px;
   top: 0px;
+  text-align: left;
 }
 
 #roadmap_tab {
