@@ -1,4 +1,5 @@
 <%about_path ||= static_path(:about)%>
+
 <div id="topMenuContainer">
 
   <%= link_to I18n.t('layouts.outer_menu.logout'), user_session_path, :method => :delete, :id => 'logout_button' if current_user_session %>
@@ -7,7 +8,7 @@
 
   <%= link_to(I18n.t('layouts.outer_menu.feedback'), new_feedback_path, :id => 'feedback_button', :class => 'outerMenuItem') %>
 
-  <%= link_to 'Blog', "http://blog.echologic.org", :id => 'blog_button', :class => 'outerMenuItem', :method => :post%>
+  <a id="blog_button" class="outerMenuItem" alt="Blog" href="http://blog.echologic.org" target="_blank">Blog</a>
 
   <!-- Language choose section. -->
   <% link_to('#', :id => 'echo_language_button') do %>
@@ -20,5 +21,5 @@
       <li><%= link_to("Deutsch", url_for(:controller => request[:controller], :action => request[:action], :locale => :de)) %></li>
       <%=  %>
     </ul>
-  </div> 
+  </div>
 </div>
