@@ -1,15 +1,15 @@
 <div class="roadmap_tab">
-	<%= image_tag("../images/page/icons/under_construction.png", :border => "none") %>				
+	<%= image_tag("../images/page/icons/under_construction.png", :border => "none") %>
 </div>
 <%
-# Render submenu tabs for act section.
+# Render submenu tabs for discuss section.
 
 render_tabnav :discuss,
               :generate_css => false, :html => {:class => 'submenu'} do
 
 
   add_tab do |t|
-    t.named I18n.t('discuss.topics_overview.title')
+    t.named I18n.t('discuss.featured_topics.title')
     t.links_to hash_for_discuss_path
   end
 
@@ -20,7 +20,7 @@ render_tabnav :discuss,
   end
 
  # add_tab do |t|
- #   t.named I18n.t('discuss.topics_overview.title')
+ #   t.named I18n.t('discuss.featured_topics.title')
  #   t.links_to hash_for_discuss_path
  # end
 

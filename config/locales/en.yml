@@ -279,7 +279,7 @@ en:
     results_count:
       one: '{{count}} debate'
       more: '{{count}} debates'
-    topics_overview:
+    featured_topics:
       title: Featured Topics
       text: |
         <p>
@@ -292,7 +292,7 @@ en:
         Currently available topics are:
         </p>
       tabs:
-        featured:
+        echo:
           title: Featured by echo
         pilot_projects:
           title: Pilot Projects

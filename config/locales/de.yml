@@ -284,7 +284,7 @@ de:
     results_count:
       one: '{{count}} debatte'
       more: '{{count}} debatten'
-    topics_overview:
+    featured_topics:
       title: Empfohlene Themen
       text: |
         <p>
@@ -297,7 +297,7 @@ de:
         Die aktuelle Diskussionsthemen sind:
         </p>
       tabs:
-        featured:
+        echo:
           title: Empfohlen von echo
         pilot_projects:
           title: Pilot Projekte

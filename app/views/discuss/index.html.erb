@@ -4,11 +4,11 @@
 
 <div id="details_container" class="discuss">
   <ul id="profile_details_tabs">
-    <li><a href="#featured"><%= I18n.t('discuss.topics_overview.tabs.featured.title') %></a></li>
-    <li><a href="#pilot_projects"><%= I18n.t('discuss.topics_overview.tabs.pilot_projects.title') %></a></li>
+    <li><a href="#echo"><%= I18n.t('discuss.featured_topics.tabs.echo.title') %></a></li>
+    <li><a href="#pilot_projects"><%= I18n.t('discuss.featured_topics.tabs.pilot_projects.title') %></a></li>
   </ul>
 
-   <div id="featured" class="tab_content_container">
+   <div id="echo" class="tab_content_container">
     <%= render :partial => 'discuss/featured' %>
   </div>
   <div id="pilot_projects" class="tab_content_container">
@@ -17,8 +17,8 @@
 </div>
 
 
-  
- 
+
+
 <script type="text/javascript">
   $('#details_container').tabs();
 </script>
