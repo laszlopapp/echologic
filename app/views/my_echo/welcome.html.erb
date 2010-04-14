@@ -11,7 +11,10 @@
   <span class="function_button">
   	<%= link_to image_tag("../images/page/functions/connect.png", :border => 0), {:url => connect_path}, :href => connect_path %>
   </span>
-  <span class="function_name"><%= I18n.t('welcome.function_2.name') %></span>
+  <% link_to connect_path, {:class => 'function_name'} do %>
+  	 <%= I18n.t('welcome.function_2.name') %>
+  <% end %>
+  <!--span class="function_name"></span-->
   <span class="function_description"><%= I18n.t('welcome.function_2.description') %></span>
 </div>
 
@@ -19,7 +22,10 @@
   <span class="function_button">
   	<%= link_to image_tag("../images/page/functions/discuss.png", :border => 0), {:url => discuss_path}, :href => discuss_path %>
   </span>
-  <span class="function_name"><%= I18n.t('welcome.function_3.name') %></span>
+  <% link_to discuss_path, {:class => 'function_name'} do %>
+  	 <%= I18n.t('welcome.function_3.name') %>
+  <% end %>
+  <!--span class="function_name"></span-->
   <span class="function_description"><%= I18n.t('welcome.function_3.description') %></span>
 </div>
 
