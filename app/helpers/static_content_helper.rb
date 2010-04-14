@@ -25,7 +25,7 @@ module StaticContentHelper
 
   # Inserts illustrations as a link for the given array of paths.
   def insert_illustrations(links, options = {})
-    concat "<div class='illustrationHolder" + (links.size==3 ? " threeItems" : '') + "'>"    
+    concat "<div class='illustrationHolder" + (links.size==3 ? " threeItems" : '') + "'>"
     links.each do |link|
       parts = link.split('/')
       item = parts[2,3].join('_')
@@ -114,7 +114,7 @@ module StaticContentHelper
   def insert_toggle_more(text)
     concat("<span class='hideButton' style='display:none;'>#{I18n.t('application.general.hide')}</span>")
     concat("<span class='moreButton'>#{I18n.t('application.general.more')}</span>")
-    concat("<div class='toggleMoreText' style='display: none;'>")
+    concat("<div class='toggled_content' style='display: none;'>")
       concat("#{text}")
     concat("</div>")
   end

@@ -280,7 +280,7 @@ en:
       one: '{{count}} debate'
       more: '{{count}} debates'
     topics_overview:
-      title: Featured
+      title: Featured Topics
       text: |
         <p>
         As you can see in the Roadmap (in the upper right corner of the screen),
@@ -293,7 +293,7 @@ en:
         </p>
       tabs:
         featured:
-          title: Featured
+          title: Featured by echo
         pilot_projects:
           title: Pilot Projects
     search:
@@ -338,13 +338,13 @@ en:
           than we might have ever imagined!
           </p>
       echosocial:
-        name: echosocial
+        name: echo-social
         teaser: Echo Social Teaser.
         description: |
           <p>
           Not the final text!!!!!!! As a mover at echologic you are kindly invited to actively <strong>engage into the evolution of echo</strong>!
           Which functions are the most important for you and which ones should be implemented next?
-          Discuss your idees with other movers and contribute to <strong>make more (out of) echo</strong> 
+          Discuss your idees with other movers and contribute to <strong>make more (out of) echo</strong>
           than we might have ever imagined!
           </p>
 

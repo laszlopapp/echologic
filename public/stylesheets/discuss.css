@@ -35,10 +35,11 @@
   margin-top: -39px;
 }
 
-#function_container .search_description {
-	position:absolute;
-	left:462px;
-	top:63px;
+#function_container .search_category {
+  position: absolute;
+  left: 462px;
+  top: 63px;
+  font-weight: bold;
 }
 
 /* ------ */
@@ -291,12 +292,13 @@ a.statement_link:hover {
 /* New Statement */
 
 .new_question {
-	
+
 }
 
 
 /* other */
 
-#featured.tab_content_container {
-  position: relative;
+#featured.tab_content_container, #pilot_projects.tab_content_container {
+  /*position: relative;*/
+  width: 960px;
 }

@@ -285,7 +285,7 @@ de:
       one: '{{count}} debatte'
       more: '{{count}} debatten'
     topics_overview:
-      title: Aktuellen
+      title: Empfohlene Themen
       text: |
         <p>
         Wie Sie dem Fahrplan (oben rechts im Bild) entnehmen können, befindet sich der Diskussionsbereich echos
@@ -298,7 +298,7 @@ de:
         </p>
       tabs:
         featured:
-          title: Aktuellen
+          title: Empfohlen von echo
         pilot_projects:
           title: Pilot Projekte
     search:
@@ -347,7 +347,7 @@ de:
           anderen BewegerInnen und tragen Sie dazu bei, noch <strong>mehr (aus) echo zu machen</strong>, als wir es uns je hätten vorstellen können!
           </p>
       echosocial:
-        name: echosocial
+        name: echo-social
         teaser: echo social Teaser.
         description: |
           <p>

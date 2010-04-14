@@ -303,9 +303,10 @@
 /* OTHER NAVIGATION*/
 
 .function_button_holder {
-  min-height:      95px;
+  /*min-height:   95px;*/
   margin:      0px;
-  padding:     0px;
+  padding:     0 0 30px;
+  clear:       both;
 }
 
 .function_button {
@@ -332,6 +333,7 @@
   position:    relative;
   width: 	   100%;
   display: 	   block;
+  padding:     7px 0;
 }
 
 .function_description {
@@ -339,21 +341,20 @@
   color:       #21587f;
   position:    relative;
   width: 	   100%;
-  display:	   block;
-
 }
 
 .function_button_holder .function_name:hover {
   color:       #7bb031;
   text-decoration: none;
+  cursor:      pointer;
 }
 
 .function_button_holder .function_more {
 	font-size:	14px;
-	position: 	relative;
+	/*position: 	relative;*/
 }
 
-.function_button_holder .toggleMoreText {
+.function_button_holder .toggled_content {
 	font-size:	14px;
 	position: 	relative;
 	margin-left: 140px;
@@ -375,8 +376,7 @@
 /* All tab content containers */
 #details_container .tab_content_container {
   float: left;
-  width: 960px;
-  padding: 0 15px;
+  padding: 0px 15px;
 }
 
 
