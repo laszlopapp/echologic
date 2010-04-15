@@ -1,29 +1,4 @@
 
-/*
-#summary ul li {
-  list-style: disc;
-  list-style-position: inside;
-}
-
-#summary ol li {
-  list-style: decimal;
-  list-style-position: inside;
-}
-
-#summary form ol li {
-	 list-style:none;
-}
-
-#summary li {
-  display: list-item;
-}
-
-
-#context h1 {
-  margin:5px 0 5px !important;
-}*/
-
-
 #function_container .simple_header_block h2 {
   color: #21587f !important;
   border-bottom: 1px solid #a8a8a8;
@@ -37,8 +12,8 @@
 
 #function_container .search_category {
   position: absolute;
-  left: 462px;
-  top: 63px;
+  left: 9px;
+  top: 6px;
   font-weight: bold;
 }
 
@@ -184,8 +159,12 @@
 #echo_button .not_supported:hover { background-position: 0 -80px; }
 
 #create_parent_element_button {
-  margin-left: -25px;
-  margin-top: 25px;
+  display: inline-block;
+  margin: 10px 0 0;
+}
+
+#create_parent_element_button a {
+  margin: 0;
 }
 
 /* --------- */
@@ -291,7 +270,7 @@ a.statement_link:hover {
 #navigator .header_button {
   float: left;
   margin: 0px;
-  
+
 }
 
 /* ------------------- */
