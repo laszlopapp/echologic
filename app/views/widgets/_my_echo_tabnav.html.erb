@@ -17,6 +17,11 @@ render_tabnav :my_echo,
     t.named I18n.t('layouts.my_echo.tabs.profile')
     t.links_to hash_for_my_profile_path
   end
+  
+  add_tab do |t|
+    t.named I18n.t('layouts.my_echo.tabs.organisations')
+    t.links_to hash_for_organisations_path
+  end
 
   add_tab :html => {:id => 'roadmap_tab'} do |t|
     value = "#{Development::MY_ECHO_PROGRESS}%  " + I18n.t('application.roadmap.title')

@@ -4,12 +4,12 @@
 <%= render :partial => 'users/avatar/picture' %>
 <!-- Personal profile  -->
 <%= render :partial => 'users/profile/profile_own' %>
-<!-- Organisations and positions -->
-<%= render :partial => 'users/memberships/container' %>
+<!-- Spoken Languages -->
+<%= render :partial => 'users/spoken_languages/container' %>
 <!-- Concernments -->
 <%= render :partial => 'users/concernments/container' %>
 <!-- Contacts & web profiles -->
-<%= render :partial => 'users/web_profiles/container' %>
+<%= render :partial => 'users/web_addresses/container' %>
 <!-- Account data -->
 <% # TODO: Password change ist not possible atm - when possible again, the related test needs to be activated (profile.feature) %>
 <%- render :partial => 'users/profile/password' %>

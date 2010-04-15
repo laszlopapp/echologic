@@ -55,13 +55,13 @@ class StatementsController < ApplicationController
     else  
       #step 1.01: search for first string
       statements_not_paginated = search(@value.split(' ').first)
-      #statements_not_paginated = statement_class.search(@value.split(' ').first)
-      
+      #statements_not_paginated = statement_class.search(@value.split(' ').first)    
       #step 1.10: search for remaining strings
       if @value.split(' ').size > 1
          for value in @value.split(' ')[1..-1] do
-          statements_not_paginated &= search(value)
-          statements_not_paginated &= statement_class.search(value)
+
+           statements_not_paginated &= search(value)
+
         end
       end
     end
@@ -165,7 +165,7 @@ class StatementsController < ApplicationController
   # actually creates a new statement
   def create
     attrs = params[statement_class_param]
-    attrs[:state] = Statement.state_lookup[:published] unless statement_class == Question
+    attrs[:state] = StatementNode.state_lookup[:published] unless statement_class == Question
     @statement = statement_class.new(attrs)
     @statement.creator = @statement.document.author = current_user
 

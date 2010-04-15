@@ -3,6 +3,7 @@
 <div id="context">
 
   <% statement_stack = [statement.root, statement.parent, statement].compact.uniq || [] %>
+  <%# raise statement_stack.inspect %>
   <% statement_stack.each do |s| %>
   <div class="context_line <%= 'active' if statement_stack.last.eql?(s) %>">
     <div class="context_buttons"><%= prev_next_buttons(s) %></div>

@@ -9,7 +9,7 @@
 
     <li><a href="#overview"><%= I18n.t('connect.details.tabs.overview') %></a></li>
     <li><a href="#concernments"><%= I18n.t('connect.details.tabs.concernments') %></a></li>
-    <li><a href="#web_profiles"><%= I18n.t('connect.details.tabs.web_profiles') %></a></li>
+    <li><a href="#web_addresses"><%= I18n.t('connect.details.tabs.web_addresses') %></a></li>
 
     <%= link_to I18n.t('application.general.close'), connect_path,
         :id => 'close_details_container',
@@ -35,8 +35,8 @@
     <%= render :partial => 'connect/profiles/concernments' %>
   </div>
   
-  <div id="web_profiles" class="tab_content_container">
-    <%= render :partial => 'connect/profiles/web_profiles' %>
+  <div id="web_addresses" class="tab_content_container">
+    <%= render :partial => 'connect/profiles/web_addresses' %>
   </div>
   
   <div id="actions" class="actions">

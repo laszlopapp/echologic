@@ -95,6 +95,7 @@ de:
       tabs:
         welcome: Willkommen
         profile: Mein Profil
+        organisations: Organisationen
       profile_complete: '{{complete}}% ausgefüllt'
 
 
@@ -200,6 +201,16 @@ de:
       messages:
         updated: "Sie haben Ihr Profil erfolgreich geändert."
 
+    # Spoken Languages section
+    spoken_languages:
+      title: Gesprochene Sprache
+      guide:  Bitte geben Sie hier Ihre gesprochene Sprache an, sowie Ihre Kenntnisseniveau in denen.
+      language: Sprache
+      level: Niveau
+      error_messages:
+        repeated_instance: Sie haben schon diese Sprache ausgewählt
+      
+
     # Memberships section
     memberships:
       title: Tätigkeiten
@@ -208,7 +219,7 @@ de:
       position: Meine Rolle
 
     # Web profiles section
-    web_profiles:
+    web_addresses:
       title: Web Adressen
       guide: |
         Indem Sie hier Ihre Kontaktdaten eintragen, geben Sie anderen Nutzern die Möglichkeit, sich ein Bild von Ihnen zu machen und Sie zu kontaktieren.<br/>
@@ -409,7 +420,8 @@ de:
         published: 'Published'
       delete_link: 'Löschen'
       delete_confirmation: 'Bist du sicher, dass du diese Aussage löschen willst?'
-    summary: 'Zusammenfassung'
+    summary:
+      title: 'Zusammenfassung'
     messages:
       created: "{{type}} wurde erfolgreich eingestellt."
       updated: "{{type}} wurde erfolgreich bearbeitet."
@@ -445,13 +457,13 @@ de:
       tabs:
         overview:     'Überblick'
         concernments: 'Kompetenzen'
-        web_profiles: 'Web Adressen'
+        web_addresses: 'Web Adressen'
       actions:
         report: "Melden"
     messages:
       empty:           'Zu Ihrer Suchanfrage wurden keine Ergebnisse gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff.'
       no_concernments: 'Dieses Mitgleid hat noch keine Betroffenheiten und Kompetenzen eingetragen.'
-      no_web_profiles: 'Dieses Mitglied hat noch keine Web Adressen eingetragen.'
+      no_web_addresses: 'Dieses Mitglied hat noch keine Web Adressen eingetragen.'
 
   # Feedback resources
   feedback:
@@ -617,7 +629,7 @@ de:
         memberships: Tätigkeiten
       report:
         reason: 'Grund'
-      web_profile:
+      web_address:
         location: 'Web Adresse'
       membership:
         position: 'Meine Rolle'
