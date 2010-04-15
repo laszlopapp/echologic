@@ -372,8 +372,8 @@ en:
 
     statements:
       create_question_link: 'Open a new debate'
-      create_proposal_link: 'Enter a new proposal'
-      create_improvement_proposal_link: 'Add new improvement proposal'
+      create_proposal_link: 'Add new'
+      create_improvement_proposal_link: 'Add new'
       create_proposal_explanation: |
         Do you have a <strong>good idea</strong> concerning the the current debate, which <strong>doesn't exist</strong> yet?<br/>
         Here you can create a <strong>new proposal</strong>.

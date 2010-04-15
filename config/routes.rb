@@ -14,6 +14,7 @@ ActionController::Routing::Routes.draw do |map|
   map.discuss '/discuss/featured', :controller => :discuss, :action => :index
   map.discuss_roadmap '/discuss/roadmap', :controller => :discuss, :action => :roadmap
   map.discuss_search '/discuss/search', :controller => :questions, :action => :category
+  map.discuss_cancel '/discuss/cancel', :controller => :discuss, :action => :cancel
   map.question_tags '/discuss/:id', :controller => :questions, :action => :category, :conditions => {:id => /\w+/ }
 
   map.connect_roadmap '/connect/roadmap', :controller => :connect, :action => :roadmap

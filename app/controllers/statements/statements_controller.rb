@@ -94,6 +94,9 @@ class StatementsController < ApplicationController
 
   def show
     current_user.visited!(@statement) if current_user
+  
+    # store last statement (for cancel link)
+    session[:last_statement] = @statement.id
     
     # prev / next functionaliy
     unless @statement.children.empty?
@@ -112,8 +115,10 @@ class StatementsController < ApplicationController
     @page = params[:page] || 1
     @children = @statement.children.published(current_user && current_user.has_role?(:editor)).by_supporters.paginate(Statement.default_scope.merge(:page => @page, :per_page => 5))
     respond_to do |format|
-      format.html { render :template => 'statements/show' } # show.html.erb
-      format.js   { render :template => 'statements/show' } # show.js.erb
+      format.html { 
+        render :template => 'statements/show' } # show.html.erb
+      format.js   { 
+        render :template => 'statements/show' } # show.js.erb
     end
   end
 
@@ -146,7 +151,13 @@ class StatementsController < ApplicationController
     respond_to do |format|
       format.html { render :template => 'statements/new' }
       format.js {
-        replace_container(@statement.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/new')
+        render :update do |page|
+          page.replace(@statement.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/new')
+          page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent})          
+          page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) 
+          page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent}) 
+          page.replace('navigator_container', :partial => 'statements/navigator', :locals => { :statement => @statement.parent})
+        end
       }
     end
   end
@@ -163,7 +174,7 @@ class StatementsController < ApplicationController
         set_info("discuss.messages.created", :type => @statement.class.display_name)
         current_user.supported!(@statement)
         # render parent statement after creation, if any
-        @statement = @statement.parent if @statement.parent
+        # @statement = @statement.parent if @statement.parent
         format.html { flash_info and redirect_to url_for(@statement) }
         format.js   {
           session[:last_info] = @info # save @info so it doesn't get lost during redirect
@@ -209,6 +220,11 @@ class StatementsController < ApplicationController
     @statement.destroy
     set_info("discuss.messages.deleted", :type => @statement.class.human_name)
     flash_info and redirect_to :controller => 'questions', :action => :category, :id => @category.value
+  end
+  
+  # processes a cancel request, and redirects back to the last shown statement
+  def cancel
+    redirect_to url_f(Statement.find(session[:last_statement]))
   end
 
   #

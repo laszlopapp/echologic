@@ -13,6 +13,8 @@ module StatementHelper
   ## URLS
   ##
 
+  
+  
   def new_child_statement_url(parent, type)
     case type.downcase
     when 'question'
@@ -34,8 +36,23 @@ module StatementHelper
       edit_question_path(statement)
     when 'proposal'
       edit_proposal_path(statement)
-    when 'improvementProposal'
+    when 'improvement_proposal'
       edit_improvement_proposal_path(statement)
+    else
+      raise ArgumentError.new("Unhandled type: #{statement_dom_id(statement).downcase}")
+    end
+  end
+  
+  # returns the path to a statement, according to its type
+  def statement_path(statement)
+    statement = Statement.find(statement) if statement.kind_of?(Integer)
+    case statement_class_dom_id(statement).downcase
+    when 'question'
+      question_url(statement)
+    when 'proposal'
+      proposal_url(statement)
+    when 'improvement_proposal'
+      improvement_proposal_url(statement)
     else
       raise ArgumentError.new("Unhandled type: #{statement_dom_id(statement).downcase}")
     end
@@ -92,13 +109,13 @@ module StatementHelper
   ##
 
   # edited: i18n without interpolation, because of language diffs.
-  def create_children_statement_link(statement)
+  def create_children_statement_link(statement, css_class = "")
     return unless statement.class.expected_children.any?
     type = statement_class_dom_id(statement.class.expected_children.first)
     link_to(I18n.t("discuss.statements.create_#{type}_link"),
             new_child_statement_url(statement, type),
             :id => "create_#{type.underscore}_link",
-            :class => "ajax header_button text_button #{create_statement_button_class(type)} ttLink no_border",
+            :class => "ajax #{css_class} text_button #{create_statement_button_class(type)} ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_#{type.underscore}"))
   end
 
@@ -184,7 +201,6 @@ module StatementHelper
   end
 
 
-  
   ##
   ## Navigation within statements
   ##

@@ -178,10 +178,15 @@
   background-image: url(../images/page/discuss/echo_all.png);
 }
 
+
 #echo_button .supported           { background-position: 0 -80px; }
 #echo_button .supported:hover     { background-position: 0 80px; }
 #echo_button .not_supported:hover { background-position: 0 -80px; }
 
+#create_parent_element_button {
+  margin-left: -25px;
+  margin-top: 25px;
+}
 
 /* --------- */
 /* Main area */
@@ -271,6 +276,23 @@ a.statement_link:hover {
   background:transparent url(../images/page/discuss/add_improvement_proposal_16.png) no-repeat scroll 0 0;
 }
 
+
+/* --------- */
+/* Navigator */
+/* --------- */
+
+#navigator {
+  min-height:20px;
+  padding:5px;
+}
+
+/* overwrite header_button behaviour for create_statement links in navigator */
+
+#navigator .header_button {
+  float: left;
+  margin: 0px;
+  
+}
 
 /* ------------------- */
 /* Children statements */
