@@ -115,6 +115,12 @@ class ApplicationController < ActionController::Base
       page.remove name
     end
   end
+  
+  def requires_login
+    render :update do |page|
+      
+    end
+  end
 
 
   # PRIVATE SECTION
