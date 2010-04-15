@@ -5,7 +5,7 @@ Feature: Take Part on a discussion
   I want to give different kind of statements on questions
 
 
-	# Within the discuss area the list of debates should be
+  # Within the discuss area the list of debates should be
   # correctly ordered (by date of creation)
 
   Scenario: View debates list
