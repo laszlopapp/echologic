@@ -4,7 +4,7 @@
 
 <div id="discuss_sidebar">
 
-  <% unless statement.question? %>
+  <% unless statement.question? || statement.new_record? %>
 
     <% unless current_user && current_user.supported?(statement) %>
       <% link_to(url_for(url_options.merge :action => :echo), :class => "ajax_put", :id => 'echo_button') do %>
@@ -15,7 +15,10 @@
         <span class="supported ttLink no_border" title="<%= I18n.t('discuss.tooltips.unecho') %>"></span>
       <% end %>
     <% end %>
-
+    <br />
+  <span id="create_parent_element_button">
+  <%= create_children_statement_link(statement.parent) if statement.parent%>
+  </span>
   <% end %>
   <% if current_user && current_user.may_delete?(statement) -%>
     <br/><br/>
@@ -23,4 +26,3 @@
                 :method => :delete, :confirm => I18n.t('discuss.statements.delete_confirmation') %>
   <% end -%>
 </div>
-
