@@ -5,19 +5,18 @@ Feature: Take Part on a discussion
   I want to give different kind of statements on questions
 
 
-	# Within the discuss area the list of debates should be
+  # Within the discuss area the list of debates should be
   # correctly ordered (by date of creation)
 
   Scenario: View debates list
     Given I am logged in as "user" with password "true"
-  	  And I am on the Discuss Index
+    And I am on the Discuss Index
   	When I follow "Featured"
   	When I follow "echonomy JAM"
     	When I choose the first question
     	When I choose the second question
     Then the second question must be more recent than the first question
-    
-    
+        
     
   @ok
   Scenario: Open a question
@@ -36,8 +35,8 @@ Feature: Take Part on a discussion
       And I am on the Discuss Index
     When I follow "Featured"
     When I follow "echonomy JAM"
-      And I choose the first question
-      And I follow "Enter a new position"
+      And I choose the first Question
+      And I follow "Enter a new proposal"
       And I fill in the following:
         | proposal_document_title | a proposal to propose some proposeworthy proposal data |
         | proposal_document_text | nothing to propose yet...                              |
@@ -138,3 +137,13 @@ Feature: Take Part on a discussion
 # In this case we should really display the user in what languages (he speaks) the statement has translations
 
 # * what should i actually see when i navigate directly to a proposal without a translation into any language i speak (for example through an direct link?)
+
+   Scenario: View a proposal
+     Given I am logged in as "user" with password "true"
+       And there is a proposal
+     When I go to the proposal
+     Then I should see localized "discuss.summary"
+       And I should see the proposals data
+       And I should see localized "discuss.statements.create_improvement_proposal_link"
+       And I should see localized "discuss.statements.create_proposal_link"
+

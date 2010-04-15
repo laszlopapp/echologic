@@ -6,18 +6,19 @@ ActionController::Routing::Routes.draw do |map|
   # routing-filter plugin for wrapping :locale around urls and paths.
   map.filter :locale
 
-  
+
 
 
   # SECTION main parts of echologic
   map.act     '/act/roadmap',     :controller => :act,     :action => :roadmap
-  map.discuss '/discuss', :controller => :discuss, :action => :index
-  map.discuss_roadmap '/discuss/roadmap', :controller => :discuss, :action => :roadmap  
+  map.discuss '/discuss/featured', :controller => :discuss, :action => :index
+  map.discuss_roadmap '/discuss/roadmap', :controller => :discuss, :action => :roadmap
   map.discuss_search '/discuss/search', :controller => :questions, :action => :category
+  map.discuss_cancel '/discuss/cancel', :controller => :discuss, :action => :cancel
   map.question_tags '/discuss/:id', :controller => :questions, :action => :category, :conditions => {:id => /\w+/ }
-  
+
   map.connect_roadmap '/connect/roadmap', :controller => :connect, :action => :roadmap
-  
+
   map.my_echo '/my_echo/roadmap', :controller => :my_echo, :action => :roadmap
 
   map.resource :connect, :controller => 'connect', :only => [:show]
@@ -36,6 +37,10 @@ ActionController::Routing::Routes.draw do |map|
   map.auto_complete ':controller/:action',
     :requirements => { :action => /auto_complete_for_\S+/ },
     :conditions => { :method => :get }
+  
+  # Not being logged in
+  
+  map.requires_login 'requires_login', :controller => 'application', :action => 'flash_info'
 
   # SECTION i18n
   map.resources :locales, :controller => 'i18n/locales' do |locale|
@@ -72,12 +77,12 @@ ActionController::Routing::Routes.draw do |map|
   # SECTION static - contents per controller
   map.echo      'echo/:action',      :controller => 'static/echo',      :action => 'show'
   map.echonomy  'echonomy/:action',  :controller => 'static/echonomy',  :action => 'show'
-  map.echocracy 'echocracy/:action', :controller => 'static/echocracy', :action => 'show'  
-  map.echologic 'echologic',         :controller => 'static/echologic', :action => 'show'  
+  map.echocracy 'echocracy/:action', :controller => 'static/echocracy', :action => 'show'
+  map.echologic 'echologic',         :controller => 'static/echologic', :action => 'show'
   map.static    'echologic/:action', :controller => 'static/echologic'
-  
-   
-  map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'development', :host =>'localhost', :port => 3001 } 
+
+
+  map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'development', :host =>'localhost', :port => 3001 }
   #map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'staging', :domain => "echosocial.echo-test.org" }
   #map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'production', :domain => "echosocial.org" }
 

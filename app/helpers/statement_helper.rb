@@ -13,6 +13,8 @@ module StatementHelper
   ## URLS
   ##
 
+  
+  
   def new_child_statement_url(parent, type)
     case type.downcase
     when 'question'
@@ -34,8 +36,23 @@ module StatementHelper
       edit_question_path(statement)
     when 'proposal'
       edit_proposal_path(statement)
-    when 'improvementProposal'
+    when 'improvement_proposal'
       edit_improvement_proposal_path(statement)
+    else
+      raise ArgumentError.new("Unhandled type: #{statement_dom_id(statement).downcase}")
+    end
+  end
+  
+  # returns the path to a statement, according to its type
+  def statement_path(statement)
+    statement = Statement.find(statement) if statement.kind_of?(Integer)
+    case statement_class_dom_id(statement).downcase
+    when 'question'
+      question_url(statement)
+    when 'proposal'
+      proposal_url(statement)
+    when 'improvement_proposal'
+      improvement_proposal_url(statement)
     else
       raise ArgumentError.new("Unhandled type: #{statement_dom_id(statement).downcase}")
     end
@@ -92,13 +109,13 @@ module StatementHelper
   ##
 
   # edited: i18n without interpolation, because of language diffs.
-  def create_children_statement_link(statement)
+  def create_children_statement_link(statement, css_class = "")
     return unless statement.class.expected_children.any?
     type = statement_class_dom_id(statement.class.expected_children.first)
     link_to(I18n.t("discuss.statements.create_#{type}_link"),
             new_child_statement_url(statement, type),
             :id => "create_#{type.underscore}_link",
-            :class => "ajax header_button text_button #{create_statement_button_class(type)} ttLink no_border",
+            :class => "ajax #{css_class} text_button #{create_statement_button_class(type)} ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_#{type.underscore}"))
   end
 
@@ -108,7 +125,7 @@ module StatementHelper
   end
 
   def create_question_link_for(category)
-    return unless current_user.has_role?(:editor)
+    return unless current_user && current_user.has_role?(:editor)
     link_to(I18n.t("discuss.statements.create_question_link",
             :type => Question.display_name), new_question_url(:category => category.value),
             :class=>'ajax text_button create_question_button ttLink no_border',
@@ -117,7 +134,7 @@ module StatementHelper
 
   def edit_statement_link(statement)
     link_to(I18n.t('application.general.edit'), edit_statement_path(statement),
-            :class => 'ajax header_button text_button edit_button edit_statement_button') if current_user.may_edit?(statement)
+            :class => 'ajax header_button text_button edit_button edit_statement_button') if current_user && current_user.may_edit?(statement)
   end
  
   # Returns the block heading for the children of the given statement
@@ -184,7 +201,6 @@ module StatementHelper
   end
 
 
-  
   ##
   ## Navigation within statements
   ##
@@ -196,12 +212,14 @@ module StatementHelper
     if session[key].present? and session[key].include?(statement.id)
       index = session[key].index(statement.id)
       buttons = if index == 0
-                  statement_tag(:prev, type, true)
+                  #statement_tag(:prev, type, true)
+                  statement_button(session[key][session[key].length-1], statement_tag(:prev, type), :rel => 'prev')
                 else
                   statement_button(session[key][index-1], statement_tag(:prev, type), :rel => 'prev')
                 end
       buttons << if index == session[key].length-1
-                   statement_tag(:next, type, true)
+                   #statement_tag(:next, type, true)
+                   statement_button(session[key][0], statement_tag(:next, type), :rel => 'next')
                  else
                    statement_button(session[key][index+1], statement_tag(:next, type), :rel => 'next')
                  end

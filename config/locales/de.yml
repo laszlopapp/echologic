@@ -295,8 +295,8 @@ de:
     results_count:
       one: '{{count}} debatte'
       more: '{{count}} debatten'
-    topics_overview:
-      title: Aktuellen
+    featured_topics:
+      title: Empfohlene Themen
       text: |
         <p>
         Wie Sie dem Fahrplan (oben rechts im Bild) entnehmen können, befindet sich der Diskussionsbereich echos
@@ -308,8 +308,8 @@ de:
         Die aktuelle Diskussionsthemen sind:
         </p>
       tabs:
-        featured:
-          title: Aktuellen
+        echo:
+          title: Empfohlen von echo
         pilot_projects:
           title: Pilot Projekte
     search:
@@ -358,7 +358,7 @@ de:
           anderen BewegerInnen und tragen Sie dazu bei, noch <strong>mehr (aus) echo zu machen</strong>, als wir es uns je hätten vorstellen können!
           </p>
       echosocial:
-        name: echosocial
+        name: echo-social
         teaser: echo social Teaser.
         description: |
           <p>
@@ -426,6 +426,7 @@ de:
       created: "{{type}} wurde erfolgreich eingestellt."
       updated: "{{type}} wurde erfolgreich bearbeitet."
       deleted: "{{type}} wurde erfolgreich gelöscht."
+      empty:   "Zu Ihrer Suchanfrage wurden keine Ergebnisse gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
 
 
   # ---------------
@@ -648,7 +649,8 @@ de:
       email_invalid:      "Bitte korrigieren Sie die angegebene E-Mail Adresse."
       password_blank:     "Bitte geben Sie ein Passwort an."
       not_active:         "Ihr Zugang wurde noch nicht freigeschaltet. Sehen Sie bitte Ihrem Posteingang nach einer Aktivierungs E-Mail."
-      must_be_logged_in:  "Sie müssen eingeloggt sein, um diese Seite zu sehen."
+      must_be_logged_in_for_page:  "Sie müssen eingeloggt sein, um diese Seite zu sehen."
+      must_be_logged_in_for_action: "Sie müssen eingeloggt sein, um diese Aktion ausführen zu können."
       must_be_logged_out: "Sie müssen ausgeloggt sein, um diese Seite zu sehen."
 
     attributes:

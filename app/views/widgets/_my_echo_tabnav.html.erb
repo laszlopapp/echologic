@@ -1,5 +1,5 @@
-<div class="roadmap_tab">	
-	<%= image_tag("../images/page/icons/under_construction_big.png", :width => 25, :height => 28, :border => "none") %>				
+<div class="roadmap_tab">
+	<%= image_tag("../images/page/icons/under_construction.png", :border => "none") %>
 </div>
 
 <%
@@ -23,7 +23,7 @@ render_tabnav :my_echo,
     t.links_to hash_for_organisations_path
   end
 
-  add_tab :html => {:id => 'roadmap_tab'} do |t|    
+  add_tab :html => {:id => 'roadmap_tab'} do |t|
     value = "#{Development::MY_ECHO_PROGRESS}%  " + I18n.t('application.roadmap.title')
     t.named value
     t.links_to hash_for_my_echo_path

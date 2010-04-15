@@ -103,6 +103,16 @@ Given /^there is a proposal I have created$/ do
   @proposal = Proposal.find_by_creator_id(@user.id)
 end
 
+Given /^there is a proposal$/ do
+  @proposal = Question.find_all_by_state(1).first.children.proposals.first
+end
+
 Then /^the questions title should be "([^\"]*)"$/ do |title|
   @question.document.title.should == title
+end
+
+
+Then /^I should see the proposals data$/ do
+  Then 'I should see "'+@proposal.title+'"'
+  Then 'I should see "'+@proposal.text+'"'
 end

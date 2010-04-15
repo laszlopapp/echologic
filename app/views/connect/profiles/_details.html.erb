@@ -3,7 +3,7 @@
 
 <% @profile = profile if defined?(profile) %>
 
-<div id="details_container" class="connect" style="<%= 'display:none' if (defined?(hidden) and hidden) %>">
+<div id="details_container" class=" tab_details_container connect" style="<%= 'display:none' if (defined?(hidden) and hidden) %>">
   <ul id="profile_details_tabs">
     <li id="full_name"><%=h @profile.full_name %></li>
 
