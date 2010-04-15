@@ -10,8 +10,9 @@
 
 #search_container {
   margin:   25px auto 0;
-  width:    500px;
+  width:    600px;
 }
+
 
 #search_form {
   margin: 20px 0 2px;
@@ -139,7 +140,8 @@
   min-height: 155px;
 }
 
-#profiles_container .profile {
+#profiles_container .profile,
+#profiles_container .question {
   float:    left;
   width:    287px;
   height:   55px;
@@ -150,7 +152,12 @@
   overflow: hidden;
 }
 
-#profiles_container .profile .avatar_holder {
+#profiles_container .question {
+	width: 273px;
+}
+
+#profiles_container .profile .avatar_holder,
+#profiles_container .question .avatar_holder {
   float: left;
   width: 100%;
   height: 50px;
@@ -160,12 +167,14 @@
   top: 0px;
 }
 
-#profiles_container .profile img {
+#profiles_container .profile img,
+#profiles_container .question img {
   max-width: 45px;
   max-height: 45px;
 }
 
-#profiles_container .profile .name {
+#profiles_container .profile .name,
+#profiles_container .question .name {
   font-size: 14px;
   font-weight: bold;
   display: inline-block;
@@ -173,7 +182,8 @@
   left: 60px;
 }
 
-#profiles_container .profile:hover .name, #profiles_container .profile.active .name {
+#profiles_container .profile:hover .name, #profiles_container .profile.active .name,
+#profiles_container .question:hover .name, #profiles_container .question.active .name {
   color: #7bb031;
 }
 
@@ -195,17 +205,6 @@
 
 /* PROFILE DETAILS. */
 
-#profile_details_container {
-  clear: both;
-  overflow: auto;
-  height: 295px;
-  margin: 25px 0 10px;
-  position: relative;
-}
-
-#profile_details_container div {
-  text-align: left;
-}
 
 #profile_details_tabs {
   margin-bottom: 15px;
@@ -221,7 +220,7 @@
   cursor: default;
 }
 
-#close_profile_details_container {
+#close_details_container {
   color: #7691a2;
   font-size: 14px;
   background: none;
@@ -232,7 +231,7 @@
 }
 
 /* Avatar part */
-#avatar {
+#avatar.avatar{
   float:left;
   width: 140px;
   text-align: center !important;
@@ -259,14 +258,7 @@
   font-weight: bold;
 }
 
-/* All tab content containers */
-#profile_details_container .tab_content_container {
-  position: absolute;
-  left: 140px;
-  width: 670px;
-  min-height: 240px;
-  padding: 0 15px;
-}
+
 
 /* Overview part */
 #overview ul {
@@ -352,7 +344,7 @@
 }
 
 /* Overview & Concerments & Web Profiles */
-#profile_details_container .tab_content_container .no_results {
+#details_container .tab_content_container .no_results {
   display: block;
   width: 670px;
   margin: 0 auto;
@@ -364,17 +356,17 @@
   cursor: default;
 }
 
-#profile_details_container .label {
+#details_container .label {
   cursor: default;
 }
 
-#profile_details_container .value, #profile_details_container .values {
+#details_container .value, #details_container .values {
   font-size: 14px;
   cursor: text;
 }
 
 /* Actions part */
-#profile_details_container #actions {
+#details_container #actions.actions {
   float: right;
   width: 128px;
   min-height: 128px;

@@ -1,38 +1,62 @@
+<div class="roadmap_tab">	
+	<%= image_tag("../images/page/icons/under_construction_big.png", :width => 25, :height => 28, :border => "none") %>				
+</div>
 <%
 # Render submenu tabs for act section.
 
 render_tabnav :discuss,
               :generate_css => false, :html => {:class => 'submenu'} do
 
+
   add_tab do |t|
     t.named I18n.t('discuss.topics_overview.title')
     t.links_to hash_for_discuss_path
   end
 
-  add_tab :html => {:id => 'echonomyjam_tab'} do |t|
-    t.named 'echonomy JAM'
-    t.links_to hash_for_question_tags_path.merge({:id => 'echonomyJAM'})
-    t.highlight! if @category && @category.value == 'echonomyJAM'
+  add_tab do |t|
+    t.named I18n.t('discuss.search.title')
+    t.links_to hash_for_discuss_search_path
+	t.highlight! if @category 
   end
 
-  add_tab :html => {:id => 'echocracy_tab'} do |t|
-    t.named 'echocracy'
-    t.links_to hash_for_question_tags_path.merge({:id => 'echocracy'})
-    t.highlight! if @category && @category.value == 'echocracy'
-  end
+ # add_tab do |t|
+ #   t.named I18n.t('discuss.topics_overview.title')
+ #   t.links_to hash_for_discuss_path
+ # end
 
-  add_tab :html => {:id => 'echo_tab'} do |t|
-    t.named 'echo'
-    t.links_to hash_for_question_tags_path.merge({:id => 'echo'})
-    t.highlight! if @category && @category.value == 'echo'
-  end
+ # add_tab :html => {:id => 'echonomyjam_tab'} do |t|
+ #   t.named 'echonomy JAM'
+ #   t.links_to hash_for_question_tags_path.merge({:id => 'echonomyJAM'})
+ #   t.highlight! if @category && @category.value == 'echonomyJAM'
+ # end
 
-  add_tab :html => {:id => 'roadmap_tab'} do |t|
-    value = '<span id="roadmap_tab_title">' + I18n.t('application.roadmap.title') + '</span>'
-    value += insert_progressbar(Development::DISCUSS_PROGRESS)
+ # add_tab :html => {:id => 'echocracy_tab'} do |t|
+ #   t.named 'echocracy'
+ #   t.links_to hash_for_question_tags_path.merge({:id => 'echocracy'})
+ #   t.highlight! if @category && @category.value == 'echocracy'
+ # end
+
+ # add_tab :html => {:id => 'echo_tab'} do |t|
+ #   t.named 'echo'
+ #   t.links_to hash_for_question_tags_path.merge({:id => 'echo'})
+ #   t.highlight! if @category && @category.value == 'echo'
+ # end
+
+ # add_tab :html => {:id => 'echosocial_tab'} do |t|
+ #   t.named 'echosocial'
+ #   t.links_to hash_for_question_tags_path.merge({:id => 'echosocial'})
+ #   t.highlight! if @category && @category.value == 'echosocial'
+ # end
+
+  add_tab :html => {:id => 'roadmap_tab'} do |t|    
+    value = "#{Development::DISCUSS_PROGRESS}%  " + I18n.t('application.roadmap.title')
     t.named value
     t.links_to hash_for_discuss_roadmap_path
   end
-
+ 
+  
 end
 %>
+
+
+

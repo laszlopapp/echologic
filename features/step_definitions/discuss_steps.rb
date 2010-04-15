@@ -17,6 +17,13 @@ When /^I choose the first Question$/ do
   end
 end
 
+When /^I choose the second Question$/ do 
+  response.should have_selector("a.question_link") do |selector|
+    @second_question = Question.find(URI.parse(selector.first['href']).path.match(/\d+/)[1].to_i)
+    visit selector.first['href']
+  end
+end
+
 Then /^I should see an error message$/i do
   pending
   Then "I should see a \"error box\""
@@ -24,6 +31,10 @@ end
 
 Given /^there is the first question$/i do 
   @question = Question.first
+end
+
+Given /^there is the second question$/i do 
+  @question = Question.second
 end
 
 Given /^there is a question "([^\"]*)"$/ do |id| # not in use right now
@@ -42,6 +53,10 @@ end
 Then /^the question should have one proposal$/ do
   @question.reload
   @question.children.proposals.count.should >= 1
+end
+
+Then /^the second question must be more recent than the first question$/ do
+  @question.created_at < @second_question.created_at
 end
 
 # Is it okay to give a condition in a 'Given' step?

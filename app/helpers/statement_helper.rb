@@ -13,29 +13,48 @@ module StatementHelper
   ## URLS
   ##
 
+  
+  
   def new_child_statement_url(parent, type)
-    case type.to_s
-    when 'Question'
+    case type.downcase
+    when 'question'
       new_question_url(parent)
-    when 'Proposal'
+    when 'proposal'
       new_proposal_url(parent)
-    when 'ImprovementProposal'
+    when 'improvement_proposal'
       new_improvement_proposal_url(parent)
-    when 'ProArgument'
+    when 'pro_argument'
       new_pro_argument_proposal_url(parent)
+    else
+      raise ArgumentError.new("Unhandled type: #{type.downcase}")
     end
   end
 
   def edit_statement_path(statement)
-    case statement.type.to_s
-    when 'Question'
+    case statement_class_dom_id(statement).downcase
+    when 'question'
       edit_question_path(statement)
-    when 'Proposal'
+    when 'proposal'
       edit_proposal_path(statement)
-    when 'ImprovementProposal'
+    when 'improvement_proposal'
       edit_improvement_proposal_path(statement)
     else
-      raise ArgumentError.new("Unhandled type: #{statement.type}")
+      raise ArgumentError.new("Unhandled type: #{statement_dom_id(statement).downcase}")
+    end
+  end
+  
+  # returns the path to a statement, according to its type
+  def statement_path(statement)
+    statement = Statement.find(statement) if statement.kind_of?(Integer)
+    case statement_class_dom_id(statement).downcase
+    when 'question'
+      question_url(statement)
+    when 'proposal'
+      proposal_url(statement)
+    when 'improvement_proposal'
+      improvement_proposal_url(statement)
+    else
+      raise ArgumentError.new("Unhandled type: #{statement_dom_id(statement).downcase}")
     end
   end
 
@@ -79,35 +98,34 @@ module StatementHelper
 
   ## ProArgument
 
-  def new_pro_argument_proposal_url(parent)
-    raise ArgumentError.new("Expected `parent' to be a Proposal (is: #{parent})") unless parent.kind_of?(Proposal)
-    raise ArgumentError.new("Expected `parent.parent' to be a Question (is: #{parent.parent})") unless parent.parent.kind_of?(Question)
-    new_question_proposal_pro_argument_url(parent.parent, parent)
-  end
+  # def new_pro_argument_proposal_url(parent)
+  #   raise ArgumentError.new("Expected `parent' to be a Proposal (is: #{parent})") unless parent.kind_of?(Proposal)
+  #   raise ArgumentError.new("Expected `parent.parent' to be a Question (is: #{parent.parent})") unless parent.parent.kind_of?(Question)
+  #   new_question_proposal_pro_argument_url(parent.parent, parent)
+  # end
 
   ##
   ## LINKS
   ##
 
   # edited: i18n without interpolation, because of language diffs.
-  def create_children_statement_link(statement=nil)
+  def create_children_statement_link(statement, css_class = "")
     return unless statement.class.expected_children.any?
-    type = 'Question' if statement.nil?
-    type ||= statement.class.expected_children.first.to_s
-    link_to(I18n.t("discuss.statements.create_#{type.underscore}_link"),
+    type = statement_class_dom_id(statement.class.expected_children.first)
+    link_to(I18n.t("discuss.statements.create_#{type}_link"),
             new_child_statement_url(statement, type),
             :id => "create_#{type.underscore}_link",
-            :class => "ajax header_button text_button #{create_statement_button_class(type)} ttLink no_border",
+            :class => "ajax #{css_class} text_button #{create_statement_button_class(type)} ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_#{type.underscore}"))
   end
 
   # this classname is needed to display the right icon next to the link
   def create_statement_button_class(type)
-    "create_#{type.underscore}_button"
+    "create_#{type}_button"
   end
 
   def create_question_link_for(category)
-    return unless current_user.has_role?(:editor)
+    return unless current_user && current_user.has_role?(:editor)
     link_to(I18n.t("discuss.statements.create_question_link",
             :type => Question.display_name), new_question_url(:category => category.value),
             :class=>'ajax text_button create_question_button ttLink no_border',
@@ -116,30 +134,34 @@ module StatementHelper
 
   def edit_statement_link(statement)
     link_to(I18n.t('application.general.edit'), edit_statement_path(statement),
-            :class => 'ajax header_button text_button edit_button edit_statement_button') if current_user.may_edit?(statement)
+            :class => 'ajax header_button text_button edit_button edit_statement_button') if current_user && current_user.may_edit?(statement)
   end
-
-
-  ## CONVENIENCE and UI
-
-  def statement_icon(statement, size = :medium)
-    # remove me to have different sizes again
-    image_tag("page/discuss/#{statement.class.name.underscore}_#{size.to_s}.png")
-  end
-
+ 
   # Returns the block heading for the children of the given statement
   def children_box_title(statement)
-    type = statement.class.expected_children.first.to_s.underscore
+    type = statement_class_dom_id(statement.class.expected_children.first)
     I18n.t("discuss.statements.headings.#{type}")
   end
 
   # Returns the block heading for entering a new child for the given statement
   def children_new_box_title(statement)
-    type = statement.class.to_s.underscore
+    type = statement_class_dom_id(statement)
     I18n.t("discuss.statements.new.#{type}")
   end
 
-  # Inserts a support ratio bar with the ratio value in its alt-attribute.
+
+  ##
+  ## CONVENIENCE and UI
+  ##
+  
+  # returns the right icon for a statement, determined from statement class and given size
+  def statement_icon(statement, size = :medium)
+    # remove me to have different sizes again
+    image_tag("page/discuss/#{statement_class_dom_id(statement)}_#{size.to_s}.png")
+  end
+  
+  # inserts a status bar based on the support ratio  value
+  # (support ratio is the calculated ratio for a statement, representing and visualizing the agreement a statement has found within the community)
   def supporter_ratio_bar(statement,context=nil)
     if statement.supporter_count < 2
       tooltip = I18n.t('discuss.tooltips.echo_indicator.one', :supporter_count => statement.supporter_count)
@@ -153,6 +175,7 @@ module StatementHelper
     end
   end
 
+
   # TODO: instead of adding an image tag, we should use css classes here, like (almost) everywhere else
   # TODO: find out why statement.question? works, but not statement.parent.question? or deprecate statement.question?
   # possible answer: method is private - invoking .send :question? on parent does the trick!
@@ -165,7 +188,7 @@ module StatementHelper
   end
 
   # Returns the context menu link for this statement.
-  def statement_context_link(statement, action='read')
+  def statement_context_link(statement, action = 'read')
     link = link_to(statement.title, url_for(statement),
                    :class => "ajax no_border statement_link #{statement.class.name.underscore}_link ttLink",
                    :title => I18n.t("discuss.tooltips.#{action}_#{statement.class.name.underscore}"))
@@ -177,6 +200,11 @@ module StatementHelper
     "#{statement.parent.class.name.downcase}_#{statement.id}"
   end
 
+
+  ##
+  ## Navigation within statements
+  ##
+  
   # Insert prev/next buttons for the current statement.
   def prev_next_buttons(statement)
     type = statement.class.to_s.underscore
@@ -211,6 +239,28 @@ module StatementHelper
   def statement_button(id, title, options={})
     stmt = Statement.find(id)
     return link_to(title, url_for(stmt), :class => 'ajax')
+  end
+  
+ 
+  
+  ##
+  ## DOM-ID Helpers
+  ##
+  
+  # returns the statement class dom identifier (used to identifiy dom objects, e.g. for javascript)
+  def statement_class_dom_id(statement)
+    if statement.kind_of?(Symbol)
+      statement_class = statement.to_s.constantize
+     elsif statement.kind_of?(Statement)
+      statement_class = statement.class
+    end
+    statement_class.name.underscore.downcase
+  end
+  
+  # returns the dom identifier for a particular statement
+  # consisting out of the statement class dom identifier, and the statements id
+  def statement_dom_id(statement)
+    "#{statement_class_dom_id(statement)}_#{statement.id}"
   end
 
 end

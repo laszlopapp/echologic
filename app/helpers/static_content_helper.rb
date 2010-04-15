@@ -114,7 +114,7 @@ module StaticContentHelper
   def insert_toggle_more(text)
     concat("<span class='hideButton' style='display:none;'>#{I18n.t('application.general.hide')}</span>")
     concat("<span class='moreButton'>#{I18n.t('application.general.more')}</span>")
-    concat("<div style='display: none;'>")
+    concat("<div class='toggleMoreText' style='display: none;'>")
       concat("#{text}")
     concat("</div>")
   end

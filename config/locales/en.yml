@@ -30,7 +30,7 @@ en:
 
     # Roadmap - Progress
     roadmap:
-      title: Roadmap
+      title: ready
       progress_tooltip: 'This area of echo is {{progress}}% ready.'
       status_quo: 'Status Quo'
       next_steps: 'Next Steps'
@@ -276,8 +276,11 @@ en:
   # ---------------
 
   discuss:
+    results_count:
+      one: '{{count}} debate'
+      more: '{{count}} debates'
     topics_overview:
-      title: Overview
+      title: Featured
       text: |
         <p>
         As you can see in the Roadmap (in the upper right corner of the screen),
@@ -288,8 +291,16 @@ en:
         Additionally, you can also engage into the development of echo.<br/>
         Currently available topics are:
         </p>
+      tabs:
+        featured:
+          title: Featured
+        pilot_projects:
+          title: Pilot Projects
+    search:
+      title: Search
     topics:
-      echonomy_jam:
+      description: Description
+      echonomyjam:
         continues: 'continues online!'
         register_here: 'Click here to register!'
         name: echonomy JAM
@@ -326,6 +337,16 @@ en:
           Discuss your idees with other movers and contribute to <strong>make more (out of) echo</strong>
           than we might have ever imagined!
           </p>
+      echosocial:
+        name: echosocial
+        teaser: Echo Social Teaser.
+        description: |
+          <p>
+          Not the final text!!!!!!! As a mover at echologic you are kindly invited to actively <strong>engage into the evolution of echo</strong>!
+          Which functions are the most important for you and which ones should be implemented next?
+          Discuss your idees with other movers and contribute to <strong>make more (out of) echo</strong> 
+          than we might have ever imagined!
+          </p>
 
     tooltips:
       read_question: 'Go to this debate'
@@ -351,8 +372,8 @@ en:
 
     statements:
       create_question_link: 'Open a new debate'
-      create_proposal_link: 'Enter a new proposal'
-      create_improvement_proposal_link: 'Add new improvement proposal'
+      create_proposal_link: 'Add new'
+      create_improvement_proposal_link: 'Add new'
       create_proposal_explanation: |
         Do you have a <strong>good idea</strong> concerning the the current debate, which <strong>doesn't exist</strong> yet?<br/>
         Here you can create a <strong>new proposal</strong>.
@@ -397,7 +418,7 @@ en:
         <p>
         "Connect" is much more interesting with <strong>informative profiles</strong>.
         Please fill out <strong>at least 50%</strong> of your profile to see and connect to other movers.
-        The completeness indicator below shows you how far you already are.
+        The percentage below shows you how far you already are.
         </p>
 
     segments:
@@ -499,7 +520,8 @@ en:
       email_invalid:      "Please enter a correct e-mail address."
       password_blank:     "Password must be defined."
       not_active:         "Your account has not been activated yet. Please check your inbox."
-      must_be_logged_in:  "You must be logged in to access this page."
+      must_be_logged_in_for_page:  "You must be logged in to access this page."
+      must_be_logged_in_for_action: "You must be logged in to perform this action."
       must_be_logged_out: "You must be logged out to access this page."
 
     attributes:

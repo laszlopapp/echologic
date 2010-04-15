@@ -303,7 +303,7 @@
 /* OTHER NAVIGATION*/
 
 .function_button_holder {
-  height:      85px;
+  min-height:      95px;
   margin:      0px;
   padding:     0px;
 }
@@ -312,28 +312,17 @@
   float:       left;
   margin:      0px;
   padding:     0px;
-  width:       100%;
-  height:      80px;
+  min-height:      80px;
   position:    relative;
   left:        10px;
   z-index:     5;
   border:      none;
-}
-
-.function_button_my_profile {
-  background:  url(../images/page/functions/my_profile.png) no-repeat scroll 0 0;
-}
-
-.function_button_connect {
-  background:  url(../images/page/functions/connect.png) no-repeat scroll 0 0;
-}
-
-.function_button_discuss {
-  background:  url(../images/page/functions/discuss.png) no-repeat scroll 0 0;
+  width: 	   140px;
 }
 
 .function_button:hover {
   cursor:      pointer;
+  
 }
 
 .function_name {
@@ -341,18 +330,52 @@
   font-weight: bold;
   color:       #21587f;
   position:    relative;
-  top:         -70px;
-  left:        140px;
+  width: 	   100%;
+  display: 	   block;
 }
 
 .function_description {
   font-size:   14px;
   color:       #21587f;
   position:    relative;
-  top:         -68px;
-  left:        140px;
+  width: 	   100%;
+  display:	   block;
+  
 }
 
-.function_button_holder:hover .function_name {
+.function_button_holder .function_name:hover {
   color:       #7bb031;
+  text-decoration: none;
+}
+
+.function_button_holder .function_more {
+	font-size:	14px;
+	position: 	relative;
+}
+
+.function_button_holder .toggleMoreText {
+	font-size:	14px;
+	position: 	relative;
+	margin-left: 140px;
+}
+
+
+#details_container {
+  clear: both;
+  margin: 25px 0 10px;
+  position: relative;
+  overflow: auto;
+}
+
+
+#details_container div {
+  text-align: left;
+}
+
+/* All tab content containers */
+#details_container .tab_content_container {
+  float: left;
+  left: 140px;
+  width: 670px;
+  padding: 0 15px;
 }

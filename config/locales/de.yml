@@ -30,7 +30,7 @@ de:
 
     # Roadmap - Progress
     roadmap:
-      title: Fahrplan
+      title: fertig
       progress_tooltip: 'Dieser Bereich ist zu {{progress}}% fertig.'
       status_quo: 'Status Quo'
       next_steps: 'Nächste Schritte'
@@ -281,8 +281,11 @@ de:
   # ---------------
 
   discuss:
+    results_count:
+      one: '{{count}} debatte'
+      more: '{{count}} debatten'
     topics_overview:
-      title: Überblick
+      title: Aktuellen
       text: |
         <p>
         Wie Sie dem Fahrplan (oben rechts im Bild) entnehmen können, befindet sich der Diskussionsbereich echos
@@ -293,8 +296,16 @@ de:
         Außerdem haben Sie die Möglichkeit, sich in die weitere Entwicklung echos einzubringen.<br/>
         Die aktuelle Diskussionsthemen sind:
         </p>
+      tabs:
+        featured:
+          title: Aktuellen
+        pilot_projects:
+          title: Pilot Projekte
+    search:
+      title: Suchen
     topics:
-      echonomy_jam:
+      description: Beschreibung
+      echonomyjam:
         continues: 'geht online weiter!'
         register_here: 'Hier lang zur Erstanmeldung!'
         name: echonomy JAM
@@ -329,6 +340,18 @@ de:
         description: |
           <p>
           Als BewegerIn von echologic sind Sie herzlich eingeladen, die <strong>Entwicklung echos mit
+          zu gestalten</strong>.
+          </p><p>
+          Welche Funktionen halten Sie für notwendig und was sollten die
+          nächsten Schritte sein? Sagen Sie uns Ihre Meinung, diskutieren Sie diese mit
+          anderen BewegerInnen und tragen Sie dazu bei, noch <strong>mehr (aus) echo zu machen</strong>, als wir es uns je hätten vorstellen können!
+          </p>
+      echosocial:
+        name: echosocial
+        teaser: echo social Teaser.
+        description: |
+          <p>
+          Nicht der echte Text!!!!!!!!!!!! Als BewegerIn von echologic sind Sie herzlich eingeladen, die <strong>Entwicklung echos mit
           zu gestalten</strong>.
           </p><p>
           Welche Funktionen halten Sie für notwendig und was sollten die
@@ -405,7 +428,7 @@ de:
         <p>
         "Vernetzen" ist viel spannender mit <strong>informativen Profilen</strong>.
         Bitte füllen Sie Ihr Profil <strong>mindestens zu 50%</strong> aus, um andere BewegerInnen zu sehen und Kontakte zu knüpfen.
-        Der Fortschrittsindikator unten zeigt Ihnen, wie weit Sie schon sind.
+        Die Prozentzahl unten zeigt Ihnen, wie weit Sie schon sind.
         </p>
 
     segments:
@@ -413,7 +436,7 @@ de:
       affected:  'Betroffene'
       engaged:   'Engagierte'
       scientist: 'ExpertInnen'
-      representative: 'EntscheidungsträgerInnen'
+      representative: 'EntscheiderInnen'
     results_count:
       one: '{{count}} BewegerIn'
       more: '{{count}} BewegerInnen'
@@ -613,7 +636,8 @@ de:
       email_invalid:      "Bitte korrigieren Sie die angegebene E-Mail Adresse."
       password_blank:     "Bitte geben Sie ein Passwort an."
       not_active:         "Ihr Zugang wurde noch nicht freigeschaltet. Sehen Sie bitte Ihrem Posteingang nach einer Aktivierungs E-Mail."
-      must_be_logged_in:  "Sie müssen eingeloggt sein, um diese Seite zu sehen."
+      must_be_logged_in_for_page:  "Sie müssen eingeloggt sein, um diese Seite zu sehen."
+      must_be_logged_in_for_action: "Sie müssen eingeloggt sein, um diese Aktion ausführen zu können."
       must_be_logged_out: "Sie müssen ausgeloggt sein, um diese Seite zu sehen."
 
     attributes:

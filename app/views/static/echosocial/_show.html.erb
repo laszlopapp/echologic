@@ -1,0 +1,16 @@
+<% content_for :tabContainer do %>
+  <%= tabnav 'static_echosocial' %>
+<% end %>
+
+<% insert_breadcrumb(echosocial_path, echosocial_path) %>
+
+<h3><%= I18n.t('static.echosocial.show.about.title') %></h3>
+<%= I18n.t('static.echosocial.show.about.text') %>
+
+
+
+
+<% insert_illustrations([echosocial_path(:features),
+                         echosocial_path(:benefits)]) %>
+
+<% #insert_back_next_buttons(echologic_path, echo_path(:discuss)) %>

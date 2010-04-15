@@ -28,6 +28,10 @@ de:
           your_profit:     'echonomy - Social Business mit Your-Profit Geschäftsphilosophie'
           foundation:      'echonomy - Die Echonomy Stiftung'
           public_property: 'echonomy - echo als kollektives Eigentum'
+        echosocial:
+          show:            'echosocial - A New Show Message in German would be nice'
+          features:        'echosocial - Funktionen'
+          benefits:        'echosocial - Leistungen'
 
       # users: de.seo.title.users
       users:
@@ -145,7 +149,7 @@ de:
           Durch Anknüpfung an bestehende <strong>legislative Instrumente</strong>
           wird aus zivilgesellschaftlichem Engagement <strong>echte politische Teilhabe</strong>.
           </p><p>
-          echo ist <strong>Open Source</strong> und wird Basis einer heterogenen, <strong>dezentralen Infrastruktur</strong>.
+          echo ist <strong>Open Source</strong> und wird die Basis einer heterogenen, <strong>dezentralen Infrastruktur</strong>.
           Sein webseitenübergreifender Ansatz überwindet die Grenzen einzelner Portale und Initiativen und
           vervielfacht somit deren <strong>Einflusspotential</strong>.
           </p><p>
@@ -158,7 +162,7 @@ de:
           </p>
 
         action: |
-          Erfahren Sie mehr über echo!
+          Jetzt reinschnuppern!
 
       # about section
       about:
@@ -308,7 +312,7 @@ de:
           </p><p>
           Der Diskussionsbereich von echo ermöglicht erstmals die Herausbildung <strong>kollektiver Intelligenz</strong> in einem
           demokratischen öffentlichen Diskurs mit beliebig vielen Teilnehmern. Seine <strong>neuartige Diskussionsmethode</strong>
-          vereint hierfür mehrere entscheidende Innovationen:
+          vereint hierfür mehrere entscheidende Merkmale:
           <p>
 
         clarity: Übersichtlichkeit
@@ -712,6 +716,173 @@ de:
           Über eine bewährte und stabile Selbstverwaltung hinaus wird der Akt der Übergabe an bestimmte
           Kriterien in Bezug auf eine geographisch und demographisch ausgewogene Beteiligung der
           Weltbevölkerung gekoppelt. Die genauen Details dazu werden später in einem transparenten Prozess definiert.
+
+    # Static content for the echosocial main menu point
+    echosocial:
+      title: echosocial
+      subtitle: Worum geht´s?
+      show:
+        ms1: Worum geht´s?
+        ms2: |
+          <font size="+2">Worum geht´s?</font>
+        ms3: |
+          echosocial - Worum geht´s? <span title="{{tooltip}}" class="ttLink">please</span>!
+        about:
+            title: Worum geht´s?
+            text: |
+              <p>
+              Wir sind die <strong>erste Generation</strong> in der Menschheitsgeschichte, die ihr <strong>zukünftiges Leben</strong> 
+              auf diesem Planeten bewusst und <strong>gemeinsam gestalten</strong> kann.<br/>
+              Alle sprechen von Veränderung - Millionen Menschen sind in tausenden Organisationen rund um den Globus aktiv.</p>
+              <p>Aber <strong>wo bleibt der Wandel?!</strong></p>
+              <p>Mit dem Internet - dem ersten <strong>weltumspannenden Netz</strong> für Echtzeitkommunikation - eröffnen sich uns 
+              <strong>einzigartige Möglichkeiten</strong> - aber wir nutzen sie nicht (richtig).</p>
+              <p>Zu viele kleine Gruppen, zu viele Einzelaktivitäten, aber zu wenig <strong>Synergien!</strong></p>
+              <p>Wir finden, es ist an der Zeit, daran etwas zu <strong>ändern!</strong></p>
+              <p>Deswegen entwickeln wir echo-social. <strong>echo-social</strong> soll die vielen unterschiedlichen Organisationen und 
+              Aktivitäten mit gleichen Zielen in einer <strong>globalen Bewegung</strong> zusammenführen und ein <strong>vereintes Handeln</strong> ermöglichen.</p>
+              <p>echo-social gibt Euch die Instrumente an die Hand, die Ihr benötigt, um Eure Organisation, Eure Aktionen und Projekte sichtbar zu machen und mit Euren Mitstreitern in allen Erdteilen effizient zusammen zu arbeiten.</p>
+        benefits:
+          title: Was bringt´s mir?
+          text: |
+            <p>
+            <strong>echo-social</strong> ermöglicht Euch, für <strong>Eure Organisation</strong> sowie einzelne <strong>Projekte und Aktionen</strong> ein eigenes Netzwerk zu erstellen und
+            dieses <strong>Teil einer globalen Bewegung mit einem gemeinsamen Ziel</strong> werden zu lassen. Eure Ideen und Gedanken, Euer Wille zum Handeln 
+            tragen dazu bei, <strong>wirklich etwas zu bewegen</strong>.</p><p>
+            echo-social ist die Open-Source-Lösung, um mit <strong>wenigen Klicks</strong> ein <strong>eigenes Netzwerk mit eigenem Auftritt</strong> zu erstellen. <br/>
+            Hier bekommt Ihr <strong>kostenlos</strong> sowohl eine <strong>eigene Website</strong> für die <strong>individuelle Darstellung</strong> Eurer Organisation/Aktionen/Projekte, als 
+            auch <strong>umfangreiche Netzwerkfunktionen</strong> und wichtige WebTools für eine <strong>effiziente Zusammenarbeit</strong> mit Euren Mitstreitern.</p><p>
+            echo-social <strong>Netzwerke</strong> können sich untereinander vernetzen und so <strong>gemeinsam an einem Strang ziehen</strong>. Dadurch könnt Ihr schneller die 
+            <strong>richtigen Leute finden</strong> oder selbst <strong>gefunden werden</strong>. Die verfügbaren WebTools helfen, Eure <strong>Zusammenarbeit zu koordinieren</strong> und Eure 
+            Ideen in die Tat umsetzen.</p><p>
+            echo-social ist <strong>Teil von echo</strong> - der globalen Agora. echo bildet das <strong>dezentrale Portal</strong>, über welches <strong>Eure Aktionen</strong> auch <strong>auf anderen Plattformen und Webseiten</strong> 
+            gefunden werden können. Im Laufe der weiteren Realisierung echos werden Eure Aktionen und Projekte mit thematisch relevanten <strong>Debatten und anderen Aktionen verknüpft</strong>. Dadurch können
+            <strong>alle Menschen</strong>, die sich für ein Thema interessieren und engagieren, erreicht werden. Die <strong>Reichweite</strong> und das <strong>Potenzial</strong> Eurer Aktionen <strong>multipliziert</strong> sich.
+            </p>
+        features:
+          title: Wie funktioniert´s?
+          internet_presence:
+            title: Individueller Internetauftritt 
+            text: |
+              <p>Passt Eure Seite an Eure individuellen Bedürfnisse an! Mit nur wenigen Klicks fügt Ihr Eurer Logo ein, ändert Farben, Layout und Funktionen.</p>
+          calendar_event:
+            title: Eventkalender
+            text: |
+              <p>Informiert Eure Mitstreiter über anstehende Aktionen und koordiniert wichtige Termine und Ereignisse gemeinsam!</p>
+          community_management:
+            title: Community Management 
+            text: |
+              <p>Haltet Eure Mitstreiter über Euer eigenes Blog sowie RSS-Feeds, facebook und twitter auf dem Laufenden!</p>
+          photo_video_gallery:
+            title: Foto- und Video-Galerien
+            text: |
+              <p>Zeigt Euer Engagement in Bild und Ton! Foto- und Video-Galerien verleihen Eurem Web-Auftritt die nötige multimediale 
+              Note und stellen Eure Aktionen eindrucksvoll dar.</p>
+          cost_neutral_fundraising:
+            title: Kostenneutrales Fundraising 
+            text: |
+              <p>Helft Euren Mitstreitern Euch zu helfen, indem Ihr das kostenlose Fundraising-Tool von Click4Charity nutzt! So können Eure Unterstützer 
+              Euch bei Ihrem nächsten Online-Kauf mit einem Teil des Umsatzes unterstützen, ohne selbst Geld in Eure Kasse legen zu müssen.</p>
+          project_management:
+            title: Projektmanagement
+            text: |
+              <p>Arbeitet zeit- und ortsunabhängige zusammen! Projektgruppen, Aufgabenverwaltung, File-Sharing, Wikis und Foren helfen Euch dabei.</p>
+          group_administration:
+            title: Differenzierte Gruppenverwaltung 
+            text: |
+              <p>Organisiert Euch und Eure Mitstreiter in beliebige Gruppen und Untergruppen mit differenzierte Rechtevergabe für Zugriff und Nutzung von Dokumenten und Daten.</p>
+          votings_polls:
+            title: Abstimmungen und Umfragen 
+            text: |
+              <p>Trefft Eure Entscheidungen schnell und ortsunabhängig. Mit den Umfrage- und Abstimmungs-Tools kommt Ihr schnell vom Brainstorming zu gemeinsamen Entscheidungen.</p>
+          increased_attention:
+            title: Erhöhte Aufmerksamkeit 
+            text: |
+              <p>Zeigt Eure Aktivitäten auch auf anderen Plattformen und Netzwerken! echo dient dabei als die <strong>dezentrale Kommunikationsinfrastruktur</strong>, welche Deine Aktionen auch 
+              auf anderen Plattformen und Webseiten sichtbar macht. So erreicht Ihr automatisch alle Menschen, die sich für die Thematik Eurer Aktionen interessieren und 
+              <strong>vervielfacht Eurer Reichweite</strong>.</p>
+          discussion_methods:
+            title: Innovative Diskussionsmethode
+            text: |
+              <p>Nutzt die <strong>innovative Diskussionsmethode</strong> von echo für konstruktive interne Debatten und zur effizienten gemeinsamen Texterstellung! Über die differenzierte 
+              Gruppenverwaltung können z.B. Experten oder Mitglieder flexibel in interne Diskussionen mit einbezogen und die Ergebnisse in die öffentliche Debatte eingebracht 
+              werden. So stehen Deine Organisation und Dein Handeln immer in einem diskursiven Kontext. Die Gründe für Dein Handeln werden so transparent, nachvollziehbar und 
+              Du kannst <strong>mehr Menschen</strong> für Deine Anliegen <strong>begeistern</strong>.</p>
+      tabs:
+        echosocial: Echo Social
+        features: Funktionen
+        benefits: Leistungen
+      features:
+          title: Funktionen          
+      benefits:
+          title: Leistungen
+      #About
+      about:
+        title: About us
+        text: |
+          <p>
+          <strong>The source</strong> of echo is an <strong>interdisciplinary team</strong> of young and experienced professionals.
+          They have developed its unique concept to address the global challenges of our time and have been working
+          determined on its implementation.
+          </p><p>
+          Meanwhile, a <strong>growing network</strong> of supporters and consultants lends the project
+          additional impetus. Several <strong>experts</strong> from different fields (human- and natural
+          science, marketing, economy, software rights, investor & public relations etc.) support the
+          project with their know-how and engagement.<br/>
+          Furthermore, echo enjoys the backing of some <strong>renowned politicians</strong> such as
+          <a href='http://www.ruth-paulig.de' target='_blank'>Ruth Paulig</a> (Green Party), former member of the Bavarian Parliament,
+          <a href='http://www.axel-berg.de' target='_blank'>Axel Berg</a> (SPD), recent member of the German Parliament and
+          <a href='http://www.eesc.europa.eu/organisation/secretarygeneral/index-en.asp' target='_blank'>Martin Westlake</a>,
+          Secretary-General of EESC, the European Economic and Social Committee.
+          </p><p>
+          Several <strong>cooperation partners</strong> from civil society
+          (<a href='http://www.netzwerk-gemeinsinn.net/' target='_blank'>Netzwerk Gemeinsinn</a>, OneAim.org), economy (<a href='http://the-foo.de'
+          target='_blank'>The Foo</a>), politics (<a href='http://www.gjm.de' target='_blank'>Grüne Jugend München</a>) and
+          science (<a href='http://www.ztg.tu-berlin.de' target="_blank">Technical University Berlin / Center for Technology and Society</a>)
+          are supporting echo to achieve its far reaching sociopolitical goals.
+          </p><p>
+          In case your organisation would also like to shape echo, please send us an E-mail to
+          <a href="mailto:team@echologic.org?subject=echo mitgestalten">team@echologic.org</a>.
+          </p>
+
+      # Static content for imprint
+      imprint:
+        title: Imprint
+        text: |
+          <p>
+          Currently, our imprint is only available in German.
+          </p><p>
+          Dienstanbieter dieser Seite ist der <strong>echo source e.V.</strong><br/>
+          Inhaltlich Verantwortliche gemäß § 6 MDStV sind Jan Linhart und László Papp.
+          </p><p>
+          <strong>Ladungsfähige Anschrift</strong> gemäß TMG:<br/>
+          echo source e.V. - c/o Jan Linhart<br/>
+          Freibadstr. 1<br/>
+          81543 München<br/>
+          E-mail: <a href="mailto:team@echologic.org">team@echologic.org</a><br/>
+          </p><p>
+          <strong>Haftungshinweis</strong>:<br/>
+          Im Rahmen unseres Dienstes werden auch Links zu Internetinhalten anderer Anbieter bereitgestellt.
+          Auf den Inhalt dieser Seiten haben wir keinen Einfluss; für den Inhalt ist ausschließlich der
+          Betreiber der anderen Website verantwortlich. Trotz der Überprüfung der Inhalte im gesetzlich
+          gebotenen Rahmen müssen wir daher jede Verantwortung für den Inhalt dieser Links bzw.
+          der verlinkten Seite ablehnen.
+          </p><p>
+          Currently, the <strong>statute of echo source e.V.</strong> is only available as a PDF document in German.
+          </p>
+
+        open_statute: Check out the document anyway!
+
+      # Static content for data privacy
+      data_privacy:
+        title: Data Privacy
+        text: |
+          <p>
+          We are happy to note your interest on echologic.<br/>
+          Currently, our data privacy statement is only available as a PDF document in German.
+          </p>
+        open_document: Check out the document anyway!
+
 
     join:
       title: &your_echo 'Ihr echo'

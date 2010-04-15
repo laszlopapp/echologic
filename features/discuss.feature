@@ -4,12 +4,27 @@ Feature: Take Part on a discussion
   As a user
   I want to give different kind of statements on questions
 
+
+	# Within the discuss area the list of debates should be
+  # correctly ordered (by date of creation)
+
+  Scenario: View debates list
+    Given I am logged in as "user" with password "true"
+    And I am on the Discuss Index
+  	When I follow "Featured"
+  	When I follow "echonomy JAM"
+    	When I choose the first question
+    	When I choose the second question
+    Then the second question must be more recent than the first question
+        
+    
   @ok
   Scenario: Open a question
     Given I am logged in as "user" with password "true"
       And I am on the Discuss Index
+    When I follow "Featured"
     When I follow "echonomy JAM"
-      And I choose the first Question
+      And I choose the first question
     Then I should see the questions title
   
   @ok
@@ -18,6 +33,7 @@ Feature: Take Part on a discussion
       And there is the first question
       And the question has no proposals
       And I am on the Discuss Index
+    When I follow "Featured"
     When I follow "echonomy JAM"
       And I choose the first Question
       And I follow "Enter a new proposal"
@@ -66,4 +82,3 @@ Feature: Take Part on a discussion
        And I should see the proposals data
        And I should see localized "discuss.statements.create_improvement_proposal_link"
        And I should see localized "discuss.statements.create_proposal_link"
-       

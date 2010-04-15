@@ -70,11 +70,16 @@ class Statement < ActiveRecord::Base
 
   named_scope :by_supporters, :include => :echo, :order => 'echos.supporter_count DESC'
 
+  named_scope :by_creation, :order => 'created_at DESC'
   # category
 
   named_scope :from_category, lambda { |value|
     { :include => :category, :conditions => ['tags.value = ?', value] } }
   
+  #title
+  named_scope :find_by_title, lambda  { |value|
+    { :include => :document, :conditions => ['statement_documents.title like ?', '%'+value+'%']}}
+
   ## ACCESSORS
   
   def title
@@ -139,14 +144,19 @@ class Statement < ActiveRecord::Base
   end
 
   class << self
+    
+    # returns valid parent statements for this statement (e.g. proposal -> question)
     def valid_parents
       @@valid_parents[self.name]
     end
 
+    # returns valid / expected children for this statement (e.g. question -> proposal)
     def expected_children
       @@expected_children[self.name]
     end
-
+    
+    # the default scope defines basic rules for the sql query sent on this model
+    # by default we include the echo-relation and bring them in order of being most supported / most recent
     def default_scope
       { :include => :echo,
         :order => %Q[echos.supporter_count DESC, created_at ASC] }

@@ -1,0 +1,52 @@
+<% content_for :tabContainer do %>
+  <%= tabnav 'static_echosocial' %>
+<% end %>
+
+<% insert_breadcrumb(echosocial_path, echosocial_path(:features)) %>
+
+<h3><%= I18n.t('static.echosocial.show.features.title') %></h3>
+
+<ul class="spreadedList">
+	<li>
+<strong><%= I18n.t('static.echosocial.show.features.internet_presence.title') %></strong>
+<% insert_toggle_more(I18n.t('static.echosocial.show.features.internet_presence.text')) %>
+</li>
+<li>
+<strong><%= I18n.t('static.echosocial.show.features.calendar_event.title') %></strong>
+<% insert_toggle_more(I18n.t('static.echosocial.show.features.calendar_event.text')) %>
+</li>
+<li>
+<strong><%= I18n.t('static.echosocial.show.features.community_management.title') %></strong>
+<% insert_toggle_more(I18n.t('static.echosocial.show.features.community_management.text')) %>
+</li>
+<li>
+<strong><%= I18n.t('static.echosocial.show.features.photo_video_gallery.title') %></strong>
+<% insert_toggle_more(I18n.t('static.echosocial.show.features.photo_video_gallery.text')) %>
+</li>
+<li>	
+<strong><%= I18n.t('static.echosocial.show.features.cost_neutral_fundraising.title') %></strong>
+<% insert_toggle_more(I18n.t('static.echosocial.show.features.cost_neutral_fundraising.text')) %>
+</li>
+<li>
+<strong><%= I18n.t('static.echosocial.show.features.project_management.title') %></strong>
+<% insert_toggle_more(I18n.t('static.echosocial.show.features.project_management.text')) %>
+</li>
+<li>
+<strong><%= I18n.t('static.echosocial.show.features.group_administration.title') %></strong>
+<% insert_toggle_more(I18n.t('static.echosocial.show.features.group_administration.text')) %>
+</li>
+<li>
+<strong><%= I18n.t('static.echosocial.show.features.votings_polls.title') %></strong>
+<% insert_toggle_more(I18n.t('static.echosocial.show.features.votings_polls.text')) %>
+</li>
+<li>
+<strong><%= I18n.t('static.echosocial.show.features.increased_attention.title') %></strong>
+<% insert_toggle_more(I18n.t('static.echosocial.show.features.increased_attention.text')) %>
+</li>
+<li>
+<strong><%= I18n.t('static.echosocial.show.features.discussion_methods.title') %></strong>
+<% insert_toggle_more(I18n.t('static.echosocial.show.features.discussion_methods.text')) %>
+</li>
+</ul>
+
+<%# insert_back_next_buttons(echo_path(:discuss), echo_path(:act)) %>

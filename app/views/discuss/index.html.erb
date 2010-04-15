@@ -1,29 +1,34 @@
 <% content_for :submenu, tabnav(:discuss) %>
 
-<h1><%= I18n.t('discuss.topics_overview.title') %></h1>
 
-<%= I18n.t('discuss.topics_overview.text') %><br/>
 
-<div class="function_button_holder">
-  <% link_to hash_for_question_tags_path.merge( {:id=>'echonomyJAM'} ) do %>
-    <span class="function_button topic_button_echonomy_jam"></span>
-  <% end %>
-  <span class="function_name"><%= I18n.t('discuss.topics.echonomy_jam.name') %></span><br/>
-  <span class="function_description"><%= I18n.t('discuss.topics.echonomy_jam.teaser') %></span>
+<div id="details_container" class="discuss">
+  <ul id="profile_details_tabs">
+    <li><a href="#featured"><%= I18n.t('discuss.topics_overview.tabs.featured.title') %></a></li>
+    <li><a href="#pilot_projects"><%= I18n.t('discuss.topics_overview.tabs.pilot_projects.title') %></a></li>
+  </ul>
+
+   <div id="featured" class="tab_content_container">
+    <%= render :partial => 'discuss/featured' %>
+  </div>
+  <div id="pilot_projects" class="tab_content_container">
+    <%= render :partial => 'discuss/pilot_projects' %>
+  </div>
 </div>
 
-<div class="function_button_holder">
-  <% link_to hash_for_question_tags_path.merge( {:id=>'echocracy'} ) do %>
-    <span class="function_button topic_button_echocracy"></span>
-  <% end %>
-  <span class="function_name"><%= I18n.t('discuss.topics.echocracy.name') %></span><br/>
-  <span class="function_description"><%= I18n.t('discuss.topics.echocracy.teaser') %></span>
-</div>
 
-<div class="function_button_holder">
-  <% link_to hash_for_question_tags_path.merge( {:id=>'echo'} ) do %>
-    <span class="function_button topic_button_echo"></span>
-  <% end %>
-  <span class="function_name"><%= I18n.t('discuss.topics.echo.name') %></span><br/>
-  <span class="function_description"><%= I18n.t('discuss.topics.echo.teaser') %></span>
-</div>
+  
+ 
+<script type="text/javascript">
+  $('#details_container').tabs();
+</script>
+
+
+
+
+
+
+
+
+
+

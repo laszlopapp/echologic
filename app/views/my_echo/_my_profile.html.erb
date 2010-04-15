@@ -1,5 +1,7 @@
 <div class="function_button_holder">
-  <%= link_to('<span class="function_button function_button_my_profile"></span>', {:url => my_profile_path}, :href => my_profile_path) %>
+  <span class="function_button">
+  	<%= link_to image_tag("../images/page/functions/my_profile.png", :border => 0), {:url => my_profile_path}, :href => my_profile_path %>
+  </span>
   <span class="function_name"><%= I18n.t('welcome.function_1.name') %>
     (<%=I18n.t('layouts.my_echo.profile_complete', :complete => current_user.profile.percent_completed || 0)%>)
   </span>

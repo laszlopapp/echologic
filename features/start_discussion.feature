@@ -9,7 +9,8 @@ Feature: Start a discussion
   Scenario: Create a valid question as an editor
     Given there are no questions
       And I am logged in as "editor" with password "true"
-      And I am on the Discuss Index
+      And I am on the discuss index
+    When I follow "Featured"
     When I follow "echonomy JAM"
       And I follow "Open a new debate"
       And I fill in the following:
@@ -17,7 +18,7 @@ Feature: Start a discussion
         | question_document_text  | Blablabla bla bla bla |
       And I select "New" from "state"
       And I press "Save"
-    Then I should see "Is this a Question?"
+    Then I should see "Blablabla"
      And there should be one question
 
   @ok
@@ -48,9 +49,10 @@ Feature: Start a discussion
     Given I am logged in as "editor" with password "true"
       And there is the first question
       And the question has no proposals
-      And I am on the Discuss Index
+      And I am on the discuss index
+    When I follow "Featured"
     When I follow "echonomy JAM"
-      And I choose the first Question
+      And I choose the first question
       And I follow "Enter a new position"
       And I fill in the following:
         | proposal_document_title | a proposal to propose some proposeworthy proposal data |
@@ -65,3 +67,14 @@ Feature: Start a discussion
      And I am logged in as "user" with password "true"
     When I go to create a question
     Then I should see an error message
+
+    
+  #Category tests: tests the existence of the 4 main categories
+  Scenario: I want to see all categories
+    Given I am logged in as "user" with password "true"
+   	And I am on the discuss index
+   	When I follow "Featured"
+    Then I should see localized "discuss.topics.echonomy_jam.name"
+    Then I should see localized "discuss.topics.echocracy.name"
+    Then I should see localized "discuss.topics.echo.name"
+    Then I should see localized "discuss.topics.echosocial.name"

@@ -37,13 +37,6 @@ ActiveRecord::Schema.define(:version => 20100322183701) do
     t.integer "supporter_count", :default => 0
   end
 
-  create_table "enum_values", :force => true do |t|
-    t.integer "key"
-    t.string  "subject"
-    t.string  "code"
-    t.string  "description"
-  end
-
   create_table "feedbacks", :force => true do |t|
     t.string "name"
     t.string "email"
@@ -65,13 +58,6 @@ ActiveRecord::Schema.define(:version => 20100322183701) do
     t.datetime "updated_at"
   end
 
-  create_table "multilingual_resources", :force => true do |t|
-    t.integer "enum_value_id"
-    t.integer "language_id"
-    t.string  "context"
-    t.string  "value"
-  end
-
   create_table "profiles", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -88,7 +74,7 @@ ActiveRecord::Schema.define(:version => 20100322183701) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.float    "completeness",        :default => 0.1
+    t.float    "completeness",        :default => 0.01
     t.integer  "show_profile"
   end
 
@@ -182,16 +168,6 @@ ActiveRecord::Schema.define(:version => 20100322183701) do
     t.boolean  "active",             :default => false, :null => false
     t.string   "openid_identifier"
   end
-
-  create_table "web_addresses", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "location"
-    t.integer  "sort"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "web_addresses", ["user_id"], :name => "index_web_profiles_on_user_id"
 
   create_table "web_profiles", :force => true do |t|
     t.integer  "user_id"
