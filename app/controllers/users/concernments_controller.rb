@@ -26,6 +26,8 @@ class Users::ConcernmentsController < ApplicationController
       @concernments << Concernment.new(:user_id => current_user.id, :tag_id => tag.id, :sort => params[:sort])
     end
     @concernments.delete_if { |c| !c.save }
+    puts "Me"
+    puts @concernments.inspect
     respond_to do |format|
       format.js
     end

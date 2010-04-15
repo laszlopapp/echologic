@@ -55,6 +55,7 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :web_profiles, :controller => 'users/web_profiles', :except => [:index]
     user.resources :activities,   :controller => 'users/activities',   :except => [:index]
     user.resources :memberships,  :controller => 'users/memberships',  :except => [:index]
+    user.resources :concernments, :controller => 'users/concernments', :except => [:index]
   end
 
   map.resources :password_resets, :controller => 'users/password_resets',
