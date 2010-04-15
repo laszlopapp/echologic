@@ -3,6 +3,8 @@ require 'test_helper'
 class ConcernmentsControllerTest < ActionController::TestCase
   def setup
     @controller = Users::ConcernmentsController.new
+    @user = Profile.find_by_first_name('User').user
+    @tag = Tag.find_by_value('echonomyJAM')
   end
   
   test "should get index" do
@@ -17,8 +19,8 @@ class ConcernmentsControllerTest < ActionController::TestCase
   end
 
   test "should create concernment" do
-    assert_difference('Concernment.count') do
-      post :create, :concernment => { }
+    assert_difference('Concernment.count', 1, "a concernment should be created") do
+      post :create, :concernment => { :user => @user, :tag => @tag, :sort => 0 }
     end
 
     assert_redirected_to concernment_path(assigns(:concernment))
