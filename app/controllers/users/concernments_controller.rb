@@ -3,7 +3,7 @@ class Users::ConcernmentsController < ApplicationController
   before_filter :require_user
 
   helper :profile
-  
+
   access_control do
     allow logged_in
   end
@@ -20,14 +20,7 @@ class Users::ConcernmentsController < ApplicationController
   # Response: JS
   #
   def create
-    @concernments = []
-    for value in params[:tag][:value].split(',') do
-      tag = Tag.find_or_create_by_value(value.strip)
-      @concernments << Concernment.new(:user_id => current_user.id, :tag_id => tag.id, :sort => params[:sort])
-    end
-    @concernments.delete_if { |c| !c.save }
-    puts "Me"
-    puts @concernments.inspect
+    @concernments = Concernment.create_for(params[:tag][:value].split(','), params[:concernment].merge(:user_id => current_user.id))
     respond_to do |format|
       format.js
     end

@@ -2,49 +2,28 @@ require 'test_helper'
 
 class ConcernmentsControllerTest < ActionController::TestCase
   def setup
+    login_as :user
     @controller = Users::ConcernmentsController.new
     @user = Profile.find_by_first_name('User').user
   end
-  
-#  test "should get index" do
-#    get :index
-#    assert_response :success
-#    assert_not_nil assigns(:concernments)
-#  end
-#
-#  test "should get new" do
-#    get :new
-#    assert_response :success
-#  end
 
-  test "should create concernment" do    
+  test "should create concernment" do
     assert_difference('Concernment.count') do
-      post :create, :concernment => {:user_id => @user.id, :tag => { :value => 'echonomyJAM'}, :sort => 0 }
+      post :create, :concernment => { :sort => 0 }, :tag => { :value => 'echonomyJAM' }
     end
-
-    #assert_redirected_to concernments_path(assigns(:concernment))
   end
 
-#  test "should show concernment" do
-#    get :show, :id => concernments(:joe_energy).to_param
-#    assert_response :success
-#  end
-#
-#  test "should get edit" do
-#    get :edit, :id => concernments(:joe_energy).to_param
-#    assert_response :success
-#  end
+  test "should create many concernments" do
+    assert_difference("Concernment.count", 2) do
+      post :create, :concernment => { :sort => 0 }, :tag => {
+        :value => 'echonomyJAM, echo' }
+    end
+  end
 
-#  test "should update concernment" do
-#    put :update, :id => concernments(:joe_energy).to_param, :concernment => { }
-#    assert_redirected_to concernment_path(assigns(:concernment))
-#  end
 
   test "should destroy concernment" do
     assert_difference('Concernment.count', -1) do
       delete :destroy, :id => concernments(:joe_energy).to_param
     end
-
-  # assert_redirected_to concernments_path
   end
 end
