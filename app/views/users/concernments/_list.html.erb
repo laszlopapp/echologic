@@ -4,8 +4,8 @@
   <% form_tag url_for(:controller => "users/concernments", :action => "create"), :id => "new_concernment_#{sort}" do -%>
     <%= text_field :tag, :value, :class => 'tag_value_autocomplete', :id => "tag_#{sort}_id" %>
     <%# TODO: take this out? %>
-    <%= hidden_field :concernment, :user_id, @user.id %>
-    <%= hidden_field :concernment, :sort, sort %>
+    <%= hidden_field_tag 'concernment[user_id]', @user.id %>
+    <%= hidden_field_tag 'concernment[sort]', sort %>
     <%= submit_tag I18n.t('application.general.create'), :class => 'text_button add_button', :id => "add_tag_#{sort}" %>
   <% end %>
 </div>

@@ -43,7 +43,7 @@ class Concernment < ActiveRecord::Base
       tags.map { |tag|
         tag = Tag.find_or_create_by_value(tag.strip)
         concernment = create(attributes.merge(:tag_id => tag.id))
-        concernment.new_record? ? concernment : nil
+        concernment.new_record? ? nil : concernment
       }.compact
     end
   end

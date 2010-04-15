@@ -21,6 +21,7 @@ class Users::ConcernmentsController < ApplicationController
   #
   def create
     @concernments = Concernment.create_for(params[:tag][:value].split(','), params[:concernment].merge(:user_id => current_user.id))
+    @sort = params[:concernment][:sort]
     respond_to do |format|
       format.js
     end
