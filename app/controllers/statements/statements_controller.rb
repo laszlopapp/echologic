@@ -104,7 +104,7 @@ class StatementsController < ApplicationController
       session[child_type] = @statement.children.by_supporters.collect { |c| c.id }
     end
     
-    # when creating an issue, we save the flash message within the session, to be able to display it hete
+    # when creating an issue, we save the flash message within the session, to be able to display it here
     if session[:last_info]
       @info = session[:last_info]
       flash_info

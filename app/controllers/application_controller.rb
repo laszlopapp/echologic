@@ -140,8 +140,10 @@ class ApplicationController < ActionController::Base
 
     # TODO comment and js?
     # TODO i18n
+    # before filter, used to define which controller actions require an active and valid user session
     def require_user
       unless current_user
+        # to be able to redirect back, after the user performed a login, we store the current location
         store_location
         respond_to do |format|
           format.html {
@@ -152,8 +154,8 @@ class ApplicationController < ActionController::Base
             }
           format.js { 
             # rendering an ajax-request, we assume it's rather an action, than a certain page, that the user want to access
-            flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_in_for_action')
-            show_info_message(flash[:notice]) }
+            @info = I18n.t('authlogic.error_messages.must_be_logged_in_for_action')
+            show_info_message(@info) }
         end
         return false
       end
