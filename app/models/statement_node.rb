@@ -50,7 +50,7 @@ class StatementNode < ActiveRecord::Base
     # OPTIMIZE: this should be built in sql
     def for_languages(lang_ids)
       # doc = find(:all, :conditions => ["translated_statement_id = ? AND language_code = ?", nil, lang_codes.first]).first
-      find(:all, :conditions => ["language_id IN (?)", lang_ids]).sort { |a, b| lang_codes.index(a.language_code) <=> lang_codes.index(b.language_code)}.first
+      find(:all, :conditions => ["language_id IN (?)", lang_ids]).sort { |a, b| lang_ids.index(a.language_id) <=> lang_ids.index(b.language_id)}.first
     end
   end
     
@@ -60,8 +60,10 @@ class StatementNode < ActiveRecord::Base
   end
    
   # creates a new statement_document
-  def add_statement_document 
-    self.statement.statement_documents << StatementDocument.new(:statement_id => self.id)
+  def add_statement_document(attributes={ })
+    doc = StatementDocument.new(attributes.merge(:statement_id => self.statement_id))
+    self.statement.statement_documents << doc
+    return doc
   end
   
   # creates and saves a  statement_document with given parameters a
@@ -69,6 +71,7 @@ class StatementNode < ActiveRecord::Base
     doc = StatementDocument.new(:statement_id => self.statement.id)
     doc.update_attributes!(*args)
     self.statement.statement_documents << doc
+    return doc
   end
     
   ##

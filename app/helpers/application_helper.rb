@@ -15,4 +15,8 @@ module ApplicationHelper
     val
   end
   
+  def current_language_keys
+    keys = current_user ? current_user.language_keys : [EnumKey.find_by_name_and_code("languages", I18n.locale).key]
+  end
+  
 end

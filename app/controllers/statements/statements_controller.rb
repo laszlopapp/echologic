@@ -113,7 +113,7 @@ class StatementsController < ApplicationController
 
     # find alle child statements, which are published (except user is an editor) sorted by supporters count, and paginate them
     @page = params[:page] || 1
-    @children = @statement.children.published(current_user && current_user.has_role?(:editor)).by_supporters.paginate(Statement.default_scope.merge(:page => @page, :per_page => 5))
+    @children = @statement.children.published(current_user && current_user.has_role?(:editor)).by_supporters.paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
     respond_to do |format|
       format.html { 
         render :template => 'statements/show' } # show.html.erb
@@ -155,8 +155,8 @@ class StatementsController < ApplicationController
       format.js {
         render :update do |page|
           page.replace(@statement.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/new')
-          page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent})          
-          page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) 
+          page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent}) if @statement.parent         
+          page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) if @statement.parent 
           page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent}) 
           page.replace('navigator_container', :partial => 'statements/navigator', :locals => { :statement => @statement.parent})
         end
@@ -168,9 +168,15 @@ class StatementsController < ApplicationController
   def create
     attrs = params[statement_class_param]
     attrs[:state] = StatementNode.state_lookup[:published] unless statement_class == Question
+    doc_attrs = attrs.delete(:statement_document)
+    doc_attrs[:author_id] = current_user.id
+    # TODO: as soon as there is the possibility, that the language is passed with the form data (e.g. the user made a translation) we can't rely on the users first language_key anymore
+    doc_attrs[:language_id] = current_user.language_keys.first
+    # FIXME: find a way to move more stuff into the models
     @statement = statement_class.new(attrs)
-    @statement.creator = @statement.document.author = current_user
-
+    @statement.creator = current_user
+    @statement.create_statement(:original_language_id => current_user.language_keys.first)
+    document = @statement.add_statement_document(doc_attrs)
     respond_to do |format|
       if @statement.save
         set_info("discuss.messages.created", :type => @statement.class.display_name)
@@ -185,9 +191,9 @@ class StatementsController < ApplicationController
           end
         }
       else
-        set_error(@statement.document)
+        set_error(document)
         format.html { flash_error and render :template => 'statements/new' }
-        format.js   { show_error_messages(@statement.document) }
+        format.js   { show_error_messages(document) }
       end
     end
   end

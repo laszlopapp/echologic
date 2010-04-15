@@ -3,7 +3,7 @@ test-question:
   creator_id: <%= Fixtures.identify(:editor) %>
   state: 1
   category_id: <%= Fixtures.identify('echonomy-jam') %>
-  statement_id: <%= Fixtures.identify('first-question-statement') %>
+  statement_id: <%= Fixtures.identify('test-question-statement') %>
 
 second-proposal:
   parent_id: <%= Fixtures.identify('test-question') %>

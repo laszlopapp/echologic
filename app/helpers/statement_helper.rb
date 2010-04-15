@@ -45,7 +45,7 @@ module StatementHelper
   
   # returns the path to a statement, according to its type
   def statement_path(statement)
-    statement = Statement.find(statement) if statement.kind_of?(Integer)
+    statement = StatementNode.find(statement) if statement.kind_of?(Integer)
     case statement_class_dom_id(statement).downcase
     when 'question'
       question_url(statement)
@@ -174,32 +174,19 @@ module StatementHelper
       val = "<span class='no_echo_indicator ttLink' title='#{tooltip}'></span>"
     end
   end
-
-
-  # TODO: instead of adding an image tag, we should use css classes here, like (almost) everywhere else
-  # TODO: find out why statement.question? works, but not statement.parent.question? or deprecate statement.question?
-  # possible answer: method is private - invoking .send :question? on parent does the trick!
-
-  # DEPRICATED, user statement_context_link instead
-  def statement_context_line(statement)
-    link = link_to(statement_icon(statement, :small)+statement.title, url_for(statement), :class => 'ajax')
-    link << supporter_ratio_bar(statement,'context') unless statement.class.name == 'Question'
-    return link
-  end
-
+    
+  ##
+  ## Statement Context (where am i within the statement stack?)
+  ##
+    
   # Returns the context menu link for this statement.
-  def statement_context_link(statement, action = 'read')
-    link = link_to(statement.title, url_for(statement),
+  def statement_context_link(statement, action='read')
+    link = link_to(statement.translated_document(current_language_keys).title, url_for(statement),
                    :class => "ajax no_border statement_link #{statement.class.name.underscore}_link ttLink",
                    :title => I18n.t("discuss.tooltips.#{action}_#{statement.class.name.underscore}"))
     link << supporter_ratio_bar(statement,'context') unless statement.class.name == 'Question'
     return link
   end
-
-  def statement_dom_id(statement)
-    "#{statement.parent.class.name.downcase}_#{statement.id}"
-  end
-
 
   ##
   ## Navigation within statements
@@ -243,19 +230,6 @@ module StatementHelper
     options[:class] ||= ''
     options[:class] += ' ajax'
     return link_to(title, url_for(stmt), options)
-  end
-  
-  ##
-  ## Statement Context (where am i within the statement stack?)
-  ##
-    
-  # Returns the context menu link for this statement.
-  def statement_context_link(statement, action='read')
-    link = link_to(statement.translated_document(current_user.language_keys).title, url_for(statement),
-                   :class => "ajax no_border statement_link #{statement.class.name.underscore}_link ttLink",
-                   :title => I18n.t("discuss.tooltips.#{action}_#{statement.class.name.underscore}"))
-    link << supporter_ratio_bar(statement,'context') unless statement.class.name == 'Question'
-    return link
   end
 
   

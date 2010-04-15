@@ -7,9 +7,9 @@ class StatementNodeTest < ActiveSupport::TestCase
     setup { @statement_node = Question.new }
     subject { @statement_node }
     
-    should_belong_to :statement, :creator, :document, :category
+    should_belong_to :statement, :creator, :category
     should_have_one :author
-    should_have_many :documents
+    should_have_many :statement_documents
     
     # should_validate_associated :creator, :document, :category
       
@@ -27,7 +27,7 @@ class StatementNodeTest < ActiveSupport::TestCase
     end
     
     # check for validations (should_validate_presence_of didn't work)
-    %w(creator category state).each do |attr|
+    %w(creator_id category_id state).each do |attr|
       context "with no #{attr} set" do 
         setup { @statement_node.send("#{attr}=", nil)
           assert ! @statement_node.valid?
@@ -62,15 +62,15 @@ class StatementNodeTest < ActiveSupport::TestCase
     
     context "being saved" do
       setup do 
-        @statement_node.statement.create_statement_document 
-        @statement_node.translated_document('en').update_attributes!({:title => "A new Document", :text => "with a very short body, dude!", :author_id => User.first.id})
+        @statement_node.create_statement(:original_language_id => 1)
+        @statement_node.add_statement_document!(:title => 'A new Document', :text => 'with a very short body, dude!', :language_id => 1, :author_id => User.first.id)
         @statement_node.category = Tag.first
         @statement_node.update_attributes!(:creator_id => User.first.id, :state => 1)
       end
       
       should "be able to access its statement documents data" do
-        assert_equal @statement_node.title, "A new Document"
-        assert_equal @statement_node.text, "with a very short body, dude!"
+        assert_equal @statement_node.translated_document([1]).title, "A new Document"
+        assert_equal @statement_node.translated_document([1]).text, "with a very short body, dude!"
       end
     end
     
