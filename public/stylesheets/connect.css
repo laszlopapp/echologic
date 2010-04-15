@@ -254,14 +254,14 @@
 
 /* Overview & Concerments & Web Profiles */
 #details_container .tab_content_container .no_results {
-  display: block;
   width: 670px;
   margin: 0 auto;
   text-align: center;
   color: #21587f;
   font-size: 15px;
-  position: absolute;
-  top: 110px;
+  position: relative;
+  top: 43px;
+  left: 84px;
   cursor: default;
 }
 
