@@ -32,7 +32,7 @@
     <%= javascript_include_tag 'jquery.forms' %>
     <%= javascript_include_tag 'jquery.tooltip.pack' %>
     <%= javascript_include_tag 'jquery.autogrow' %>
-    <%= javascript_include_tag 'jquery.scrollTo.min' %>	
+    <%= javascript_include_tag 'jquery.scrollTo.min' %>
     <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
 
     <!-- exp -->
@@ -46,7 +46,7 @@
   <body>
     <div id="header">
       <div id="echologicLogo">
-        <%= link_to(image_tag('page/echologic_logo.png'), welcome_path) %>
+        <%= link_to(image_tag('page/echo_logo.png'), welcome_path) %>
       </div>
       <%= render :partial => "layouts/components/top_menu" %>
       <%= render :partial => "users/user_sessions/login" %>
