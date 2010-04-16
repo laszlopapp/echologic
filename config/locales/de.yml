@@ -298,7 +298,7 @@ de:
         </p>
       tabs:
         echo:
-          title: Empfohlen von echo
+          title: Über echo
         pilot_projects:
           title: Pilot Projekte
     search:
@@ -414,7 +414,7 @@ de:
       created: "{{type}} wurde erfolgreich eingestellt."
       updated: "{{type}} wurde erfolgreich bearbeitet."
       deleted: "{{type}} wurde erfolgreich gelöscht."
-      empty:   "Zu Ihrer Suchanfrage wurden keine Ergebnisse gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
+      empty:   "Es wurden keine Debatten gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
 
 
   # ---------------
