@@ -52,8 +52,8 @@ Feature: Start a discussion
       And I am on the discuss index
     When I follow "Featured"
     When I follow "echonomy JAM"
-      And I choose the first question
-      And I follow "Enter a new position"
+      And I choose the first Question
+      And I follow "create_proposal_link"
       And I fill in the following:
         | proposal_document_title | a proposal to propose some proposeworthy proposal data |
         | proposal_document_text | nothing to propose yet...                              |
@@ -74,7 +74,7 @@ Feature: Start a discussion
     Given I am logged in as "user" with password "true"
    	And I am on the discuss index
    	When I follow "Featured"
-    Then I should see localized "discuss.topics.echonomy_jam.name"
+    Then I should see localized "discuss.topics.echonomyjam.name"
     Then I should see localized "discuss.topics.echocracy.name"
     Then I should see localized "discuss.topics.echo.name"
     Then I should see localized "discuss.topics.echosocial.name"

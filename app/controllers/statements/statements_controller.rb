@@ -153,10 +153,9 @@ class StatementsController < ApplicationController
       format.js {
         render :update do |page|
           page.replace(@statement.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/new')
-          page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent})          
-          page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) 
-          page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent}) 
-          page.replace('navigator_container', :partial => 'statements/navigator', :locals => { :statement => @statement.parent})
+          page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent}) if @statement.parent         
+          page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) if @statement.parent
+          page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent})
         end
       }
     end
