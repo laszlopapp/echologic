@@ -285,6 +285,7 @@
 
 #staticContent .sponsors_container {
   padding-left: 145px;
+  clear: both;
 }
 
 .sponsors_container ul {
