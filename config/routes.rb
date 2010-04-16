@@ -49,6 +49,10 @@ ActionController::Routing::Routes.draw do |map|
   map.asset_translations '/asset_translations', :controller => 'i18n/translations', :action => 'asset_translations'
   map.filter_translations 'translations/filter', :controller => 'i18n/translations', :action => 'filter'
 
+  #SECTION tags
+
+  map.tags 'tags/:action/:id', :controller => :tags, :action => :index, :id => ''
+
   # SECTION feedback
   map.resources :feedback, :only => [:new, :create]
 

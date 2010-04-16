@@ -1,6 +1,6 @@
 <h1>Editing tag</h1>
 
-<% form_for(@tag) do |f| %>
+<% form_for :tag, @tag, :url => { :action => "edit" }  do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -12,5 +12,5 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', @tag %> |
+<%= link_to 'Show', hash_for_tags_path.merge({:action => :show, :id => @tag.id}) %> |
 <%= link_to 'Back', tags_path %>

@@ -45,7 +45,7 @@ class Users::MembershipsController < ApplicationController
   # through javascript if something fails.
   # method: POST
   def create
-    @membership = Membership.new(params[:membership])
+    @membership = Membership.new(params[:membership].merge(:user_id => current_user.id))
 
     respond_to do |format|
       format.js do
@@ -65,7 +65,7 @@ class Users::MembershipsController < ApplicationController
     
     respond_to do |format|
       format.js do
-        if @membership.update_attributes(params[:membership])
+        if @membership.update_attributes(params[:membership].merge(:user_id => current_user.id))
           replace_content(dom_id(@membership), :partial => 'membership')
         else
           show_error_messages(@membership)

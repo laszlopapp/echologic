@@ -4,7 +4,6 @@ class ConcernmentsControllerTest < ActionController::TestCase
   def setup
     login_as :user
     @controller = Users::ConcernmentsController.new
-    @user = Profile.find_by_first_name('User').user
   end
 
   test "should create concernment" do

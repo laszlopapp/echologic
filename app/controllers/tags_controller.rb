@@ -45,7 +45,7 @@ class TagsController < ApplicationController
     respond_to do |format|
       if @tag.save
         flash[:notice] = 'Tag was successfully created.'
-        format.html { redirect_to(@tag) }
+        format.html { redirect_to hash_for_tags_url.merge({:action => :show, :id =>@tag.id}) }
         format.xml  { render :xml => @tag, :status => :created, :location => @tag }
       else
         format.html { render :action => "new" }
@@ -62,7 +62,7 @@ class TagsController < ApplicationController
     respond_to do |format|
       if @tag.update_attributes(params[:tag])
         flash[:notice] = 'Tag was successfully updated.'
-        format.html { redirect_to(@tag) }
+        format.html { redirect_to hash_for_tags_path.merge({:action => :show, :id => @tag.id})}
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
