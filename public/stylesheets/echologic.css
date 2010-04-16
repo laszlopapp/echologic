@@ -139,6 +139,9 @@
   margin-left: -5px;
   background:  #fff;
 }
+#missionStatementContainer .statement {
+	width: 620px;
+}
 
 #missionStatementContainer img {
   position:    relative;
@@ -338,7 +341,6 @@
 #echoHeader {
   background:  url(../images/page/echo_gradient.png) no-repeat scroll;
   position:    relative;
-  left:	       -5px;
   top:         0px;
   margin:      20px 0 0;
 }
@@ -364,11 +366,10 @@
   font-weight: bold;
   color:       #7bb031;
   position:    relative;
-  right:       12px;
   bottom:      17px;
-  text-align:  right;
   line-height: 45px;
   cursor:      default;
+  left: 	   15px;
 }
 
 /* Important actions */
