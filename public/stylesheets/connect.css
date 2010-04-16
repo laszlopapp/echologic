@@ -85,6 +85,10 @@
 
 /* RESULTS */
 
+#connect_results .box_header_icon {
+  background: url(../images/page/box/box_icon_people.png) repeat-x left top;
+}
+
 .results_sort {
   width: 990px;
   background: url(../images/page/separator_no_shadow.png) no-repeat bottom;

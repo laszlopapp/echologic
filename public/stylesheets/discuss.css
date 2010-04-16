@@ -1,4 +1,14 @@
 
+/* ------ */
+/* Search */
+/* ------ */
+
+#discuss_results .box_header_icon {
+  background: url(../images/page/box/box_icon_discuss.png) repeat-x left top;
+}
+
+/* ----- */
+
 #function_container .simple_header_block h2 {
   color: #21587f !important;
   border-bottom: 1px solid #a8a8a8;
