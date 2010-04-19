@@ -23,17 +23,21 @@ function startFragmentObservation() {
   });
 
   /* If fragment is present on document load trigger fragmentChange event. */
-  if ($.fragment()) {
+  if (fragmentPresent()) {
     $(document).trigger("fragmentChange");
   }
 }
 
 /* splits the hash of a location and returns the name of the controller */
 function getControllerFromHash() {
-  return document.location.hash.split('/')[1];
+    // leading slash is required!
+  return '/'+document.location.hash.split('/')[1];
 }
 
 function getActionFromHash() {
   return document.location.hash.split('/')[2];
 }
 
+function fragmentPresent() {
+    return document.location.hash.length > 0 ? true : false;
+}
