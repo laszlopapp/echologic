@@ -208,7 +208,7 @@ de:
       language: Sprache
       level: Niveau
       error_messages:
-        repeated_instance: Sie haben schon diese Sprache ausgewählt
+        repeated_instance: hat schon diese Sprache ausgewählt
       
 
     # Memberships section

@@ -20,7 +20,7 @@ class SpokenLanguageTest < ActiveSupport::TestCase
            
     context "being saved" do
       setup do 
-        @spoken_language.update_attributes!(:user => User.first, :language => EnumKey.find_by_code("english"), :level => EnumKey.find_by_code("intermediate"))
+        @spoken_language=SpokenLanguage.create!(:user => User.find_by_email('user@echologic.org'), :language => EnumKey.find_by_code("pt"), :level => EnumKey.find_by_code("intermediate"))
       end
       
       should "be able to access its language data" do
@@ -29,12 +29,18 @@ class SpokenLanguageTest < ActiveSupport::TestCase
       end
     end
     
-    context("should fail to associate the same spoken language to the same user") do
-      @spoken_language_2 = SpokenLanguage.new  
-      @spoken_language_2.user = @spoken_language.user
-      @spoken_language_2.language = @spoken_language.language
-      @spoken_language_2.level = @spoken_language.level
-      assert_equal @spoken_language.save, false
+    context("having already an instance of one language to an user") do
+      setup do 
+        @spoken_language = SpokenLanguage.find_by_user_id(User.find_by_email('user@echologic.org').id)
+      end
+      
+      should "should fail to associate the same spoken language to the same user" do
+        @spoken_language_2 = SpokenLanguage.new  
+        @spoken_language_2.user = @spoken_language.user
+        @spoken_language_2.language_id = @spoken_language.language
+        @spoken_language_2.level_id = @spoken_language.level  
+        assert !@spoken_language_2.save
+      end
     end  
     
   end

@@ -10,7 +10,7 @@ class SpokenLanguage < ActiveRecord::Base
   
   def one_language_instance_per_user 
     errors.add(:user, I18n.t('users.spoken_languages.error_messages.repeated_instance')) if 
-      !SpokenLanguage.first(:conditions => ["user_id = ? and language_id = ?",user.id,language.id]).nil?       
+      user and language and !SpokenLanguage.first(:conditions => ["user_id = ? and language_id = ?",user.id,language.id]).nil?       
   end
   
 end
