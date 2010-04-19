@@ -152,5 +152,3 @@ not-published-proposal-doc-german:
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('not-published-proposal-statement') %>
   language_id: 2
-=======
->>>>>>> origin/INT_echologic_0.6

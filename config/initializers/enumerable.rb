@@ -1,1 +1,1 @@
-ActiveRecord::Base.send :include, Enumerable
+ActiveRecord::Base.send :include, EchoEnumerable
