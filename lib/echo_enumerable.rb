@@ -15,9 +15,9 @@ module EchoEnumerable
     end
     
     def enum(name, options = {})
-      config = {:key => name.singularize << '_id'}
+      config = {:key => name.to_s.singularize << '_id'}
       config.update(options)    
-      belongs_to name.singularize.to_sym, :class_name => "EnumKey", :conditions => {:name => name}, :foreign_key => config[:key]
+      belongs_to name.to_s.singularize.to_sym, :class_name => "EnumKey", :conditions => {:name => name}, :foreign_key => config[:key]
 
       class_eval <<-EOV
 
