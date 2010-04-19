@@ -141,6 +141,11 @@
   margin: -34px 15px 0 0;
 }
 
+
+.add_new_button {  
+  vertical-align: top;  
+}
+
 .column_200 {
   width: 195px !important;
   padding: 2px !important;
@@ -152,7 +157,7 @@
 .header_block input[type="text"] {
   border: 1px solid #999;
   color: #21587F;
-  font-size: 14px;
+  font-size: 14px;§
   min-height: 18px;
   width: 195px;
   margin: 1px;

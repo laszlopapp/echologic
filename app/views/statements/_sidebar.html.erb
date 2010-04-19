@@ -17,7 +17,7 @@
     <% end %>
     <br />
   <span id="create_parent_element_button">
-  <%= create_children_statement_link(statement.parent) if statement.parent%>
+  <%= create_children_statement_link(statement.parent, "", "create_internal_link") if statement.parent%>
   </span>
   <% end %>
   <% if current_user && current_user.may_delete?(statement) -%>
