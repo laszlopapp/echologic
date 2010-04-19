@@ -16,7 +16,7 @@ render_tabnav :discuss,
   add_tab do |t|
     t.named I18n.t('discuss.search.title')
     t.links_to hash_for_discuss_search_path
-	t.highlight! if @category
+	t.highlight! if @category and @statement.blank?
   end
 
  # add_tab do |t|
