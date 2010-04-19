@@ -13,16 +13,16 @@
 <body class="content">
 
   <div id="header">
-    <div id="echologicLogo">
+    <div id="main_logo">
       <%= link_to(image_tag('page/echologic_logo.png'), {:url => echologic_path}, :href => echologic_path, :class => :ajaxLink) %>
     </div>
-    <div id="inviteBubble">
+    <div id="invite_bubble">
       <%= link_to(t('.invite'), {:url => join_path}, :href => join_path) %>
     </div>
     <%= render :partial => "layouts/top_menu" %>
     <%# render :partial => "users/user_sessions/login" %>
   </div>
- 
+
   <div class="mainBox rounded-box rounded-box-green-iwot">
     <div class="boxContent" id="mainBoxContent">
       <div id="staticContent">
