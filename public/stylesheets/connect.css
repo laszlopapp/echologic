@@ -10,9 +10,9 @@
 
 #search_container {
   margin:   25px auto 0;
-  width:    600px;
+  width:    990px;
+  position: relative;
 }
-
 
 #search_form {
   margin: 20px 0 2px;
@@ -84,6 +84,10 @@
 
 
 /* RESULTS */
+
+#connect_results .box_header_icon {
+  background: url(../images/page/box/box_icon_people.png) repeat-x left top;
+}
 
 .results_sort {
   width: 990px;

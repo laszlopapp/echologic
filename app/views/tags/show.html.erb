@@ -4,5 +4,5 @@
 </p>
 
 
-<%= link_to 'Edit', edit_tag_path(@tag) %> |
+<%= link_to 'Edit', hash_for_tags_path.merge({:action => :edit, :id => @tag.id}) %> |
 <%= link_to 'Back', tags_path %>

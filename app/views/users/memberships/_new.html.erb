@@ -2,7 +2,6 @@
   <% form_tag user_memberships_path(@user), :method => :post, :id => dom_class(Membership, :new) do -%>
     <%= text_field :membership, :organisation, :value => '' %>
     <%= text_field :membership, :position, :value => '' %>
-    <%= hidden_field :membership, :user_id, :value => @user.id %>
     <%= submit_tag I18n.t('application.general.create'), :class => 'text_button add_button', :alt => 'create_button' %>
   <% end %>
 </li>

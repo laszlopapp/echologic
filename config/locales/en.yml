@@ -293,7 +293,7 @@ en:
         </p>
       tabs:
         echo:
-          title: Featured by echo
+          title: About echo
         pilot_projects:
           title: Pilot Projects
     search:
