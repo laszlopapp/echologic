@@ -24,9 +24,16 @@ class EnumValueTest < ActiveSupport::TestCase
         
     should "have a language enum associated" do
       assert ! EnumValue.languages.empty?
-      @enum_value.language_id = EnumValue.languages.first.key
-      assert_equal @enum_value.language, EnumValue.languages.first
-      # @enum_value.language.value
+    end
+    
+    context "being saved" do
+      setup { 
+        @enum_value.update_attributes!({:enum_key_id => EnumKey.first.id, :value => 'Test', :language_id => EnumValue.languages.first.key})
+      }
+      
+      should "have a language associated" do
+        assert_equal @enum_value.language, EnumValue.languages.first
+      end
     end
     
   end

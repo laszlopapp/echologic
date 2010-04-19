@@ -51,9 +51,9 @@ Feature: Start a discussion
       And the question has no proposals
       And I am on the discuss index
     When I follow "Featured"
-    When I follow localized "discuss.topics.echonomyjam.name"
-      And I choose the first question
-      And I follow "Enter a new position"
+    When I follow "echonomy JAM"
+      And I choose the first Question
+      And I follow "create_proposal_link"
       And I fill in the following:
         | proposal_statement_document_title | a proposal to propose some proposeworthy proposal data |
         | proposal_statement_document_text | nothing to propose yet...                              |

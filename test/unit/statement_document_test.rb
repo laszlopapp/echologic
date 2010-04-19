@@ -25,17 +25,15 @@ class StatementDocumentTest < ActiveSupport::TestCase
   
     should "have a language enum associated" do
       assert ! StatementDocument.languages.empty?
-      @statement_document.language_id = StatementDocument.languages.first.key
-      assert_equal @statement_document.language, StatementDocument.languages.first
-      # @enum_value.language.value
     end
 
     context "with translations" do
       setup do  
-        @statement_document.update_attributes(:title => 'A document', :text => 'the documents body', :language_id => 1, :statement_id => 1)
+        @statement_document.update_attributes(:title => 'A document', :text => 'the documents body', :statement_id => 1)
+        @statement_document.language = StatementDocument.languages.first
         @statement_document.author = User.first
         @statement_document.save!
-        @translated_statement_document = StatementDocument.create(:title => 'A document', :text => 'the documents body', :language_id => 1, :statement_id => 1)
+        @translated_statement_document = StatementDocument.create(:title => 'A document', :text => 'the documents body', :language_id => StatementDocument.languages.last.key, :statement_id => 1)
         @translated_statement_document.author = User.first
         @translated_statement_document.translated_document_id = @statement_document.id
         @translated_statement_document.save!
@@ -53,6 +51,11 @@ class StatementDocumentTest < ActiveSupport::TestCase
         assert @statement_document.original?
         assert ! @translated_statement_document.original?
       end
+      
+      should "have a language associated" do
+        assert_equal @statement_document.language, StatementDocument.languages.first
+      end
+
     end
   end
 end

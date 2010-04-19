@@ -8,13 +8,13 @@
 <% @tags.each do |tag| %>
   <tr>
     <td><%=h tag.value %></td>
-    <td><%= link_to 'Show', tag %></td>
-    <td><%= link_to 'Edit', edit_tag_path(tag) %></td>
-    <td><%= link_to 'Destroy', tag, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', tags_path(tag) %></td>
+    <td><%= link_to 'Edit', hash_for_tags_path.merge({:action => :edit, :id => tag.id}) %></td>
+    <td><%= link_to 'Destroy', hash_for_tags_path.merge({:action => :delete, :id => tag.id}) , :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New tag', new_tag_path %>
+<%= link_to 'New tag', hash_for_tags_path.merge({:action => :new}) %>

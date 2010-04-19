@@ -5,6 +5,13 @@ test-question-doc-english:
   statement_id: <%= Fixtures.identify('test-question-statement') %>
   language_id: 1
 
+second-question-doc-english:
+  title: 'Another Question?'
+  text: 'Is this yet another question?'
+  author_id: <%= Fixtures.identify(:editor) %>
+  statement_id: <%= Fixtures.identify('second-question-statement') %>
+  language_id: 1
+
 first-proposal-doc-english:
   title: 'A first proposal!'
   text: 'I think, a good proposal would be a first one!'
@@ -68,11 +75,19 @@ not-published-proposal-doc-english:
   statement_id: <%= Fixtures.identify('not-published-proposal-statement') %>
   language_id: 1
 
+
 test-question-doc-german:
   title: 'Eine Test-Frage?'
   text: 'Die Frage ist: Ist das eine Frage?'
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('test-question-statement') %>
+  language_id: 2
+
+second-question-doc-german:
+  title: 'Noch ne Frage?'
+  text: 'Ist das etwa noch eine Frage?'
+  author_id: <%= Fixtures.identify(:editor) %>
+  statement_id: <%= Fixtures.identify('second-question-statement') %>
   language_id: 2
 
 first-proposal-doc-german:

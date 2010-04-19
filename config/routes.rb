@@ -50,6 +50,10 @@ ActionController::Routing::Routes.draw do |map|
   map.asset_translations '/asset_translations', :controller => 'i18n/translations', :action => 'asset_translations'
   map.filter_translations 'translations/filter', :controller => 'i18n/translations', :action => 'filter'
 
+  #SECTION tags
+
+  map.tags 'tags/:action/:id', :controller => :tags, :action => :index, :id => ''
+
   # SECTION feedback
   map.resources :feedback, :only => [:new, :create]
 
@@ -62,6 +66,7 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :spoken_languages, :controller => 'users/spoken_languages', :except => [:index]
     user.resources :activities,   :controller => 'users/activities',   :except => [:index]
     user.resources :memberships,  :controller => 'users/memberships',  :except => [:index]
+    user.resources :concernments, :controller => 'users/concernments', :except => [:index]
   end
 
   map.resources :password_resets, :controller => 'users/password_resets',

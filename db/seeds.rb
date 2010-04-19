@@ -1,5 +1,4 @@
 
-
 ## ROLES
 { :admin => %w(),
   :editor => %w()
