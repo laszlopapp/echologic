@@ -16,25 +16,31 @@ class Tag < ActiveRecord::Base
   
   ### NAMED SCOPES:
   
-  named_scope :named, lambda { |value| { :conditions => ["value LIKE ?", value] } }
-  named_scope :named_any, lambda { |list| { :conditions => list.map { |tag| sanitize_sql(["value LIKE ?", tag.to_s]) }.join(" OR ") } }
-  named_scope :named_like, lambda { |value| { :conditions => ["value LIKE ?", "%#{value}%"] } }
-  named_scope :named_like_any, lambda { |list| { :conditions => list.map { |tag| sanitize_sql(["value LIKE ?", "%#{tag.to_s}%"]) }.join(" OR ") } }
+  def self.uber (*value)
+    value.each {|d| puts d.class }
+  end
+    
+  named_scope :named, lambda { |language_id, value| { :conditions => ["value LIKE ? AND language_id = ?", value, language_id] } }
+  named_scope :named_any, lambda { |language_id, *list| { :conditions => list.map { |tag| sanitize_sql(["value LIKE ?", tag.to_s]) }.join(" OR ").concat(sanitize_sql([" AND language_id = ?", language_id])) } }  
+  named_scope :named_like, lambda { |language_id, value| { :conditions => ["value LIKE ? AND language_id = ?", "%#{value}%", language_id] } }
+  named_scope :named_like_any, lambda { |language_id, *list| { :conditions => list.map { |tag| sanitize_sql(["value LIKE ?", "%#{tag.to_s}%"]) }.join(" OR ").concat(sanitize_sql([" AND language_id = ?", language_id])) } }
   
   ### CLASS METHODS:
   
-  def self.find_or_create_with_like_by_value(value)
-    named_like(value).first || create(:value => value)
+  def self.find_or_create_with_like_by_value(value, language_id = 1)
+    named_like(value, language_id).first || create(:value => value, :language_id => language_id)
   end
   
   def self.find_or_create_all_with_like_by_value(*list)
     list = [list].flatten
     
     return [] if list.empty?
+  
+    language_id = list.last.kind_of?(Numeric) ? list.pop : 1
 
-    existing_tags = Tag.named_any(list).all
+    existing_tags = Tag.named_any(language_id, list).all
     new_tag_values = list.reject { |value| existing_tags.any? { |tag| tag.value.mb_chars.downcase == value.mb_chars.downcase } }
-    created_tags  = new_tag_values.map { |value| Tag.create(:value => value) }
+    created_tags  = new_tag_values.map { |value| Tag.create(:value => value, :language_id => language_id) }
   
     existing_tags + created_tags    
   end
@@ -42,7 +48,7 @@ class Tag < ActiveRecord::Base
   ### INSTANCE METHODS:
   
   def ==(object)
-    super || (object.is_a?(Tag) && value == object.value)
+    super || (object.is_a?(Tag) && value == object.value && language_id == object.language_id)
   end
   
   def to_s

@@ -1,10 +1,24 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
+earth:
+  value: Earth
+  language_id: 1
+  
+wind: 
+  value: Wind
+  language_id: 1
+  
+fire:
+  value: Fire
+  language_id: 1
+
 energy:
   value: Energy
+  language_id: 1
 
 water:
   value: Water
+  language_id: 1
 
 
 ###
@@ -13,6 +27,8 @@ water:
 
 echonomy-jam:
   value: echonomyJAM
+  language_id: 1
 
 echocracy:
   value: echocracy
+  language_id: 1
