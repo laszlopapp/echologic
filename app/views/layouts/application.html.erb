@@ -46,7 +46,7 @@
   <body>
     <div id="header">
       <div id="echologicLogo">
-        <%= link_to(image_tag('page/echologic_logo.png'), welcome_path) %>
+        <%= link_to(image_tag('page/echo_logo.png'), current_user ? welcome_path : root_path) %>
       </div>
       <%= render :partial => "layouts/components/top_menu" %>
       <%= render :partial => "users/user_sessions/login" %>

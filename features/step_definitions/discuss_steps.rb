@@ -11,16 +11,20 @@ Then /^there should be one question$/ do
 end
 
 When /^I choose the first Question$/ do 
-  response.should have_selector("a.question_link") do |selector|
+  response.should have_selector("li.question a") do |selector|
     @question = Question.find(URI.parse(selector.first['href']).path.match(/\d+/)[0].to_i)
     visit selector.first['href']
   end
 end
 
 When /^I choose the second Question$/ do 
-  response.should have_selector("a.question_link") do |selector|
-    @second_question = Question.find(URI.parse(selector.first['href']).path.match(/\d+/)[1].to_i)
-    visit selector.first['href']
+  response.should have_selector("li.question a") do |selector|
+    if question_id = URI.parse(selector.first['href']).path.match(/\d+/)[1].to_i
+      @second_question = Question.find(question_id)
+      visit selector.first['href']
+    else
+      raise 'there is no second question dude... this test does not work'
+    end
   end
 end
 
@@ -30,11 +34,11 @@ Then /^I should see an error message$/i do
 end
 
 Given /^there is the first question$/i do 
-  @question = Question.first
+  @question = Question.last
 end
 
 Given /^there is the second question$/i do 
-  @question = Question.second
+  @question = Question.first
 end
 
 Given /^there is a question "([^\"]*)"$/ do |id| # not in use right now
@@ -104,7 +108,7 @@ Given /^there is a proposal I have created$/ do
 end
 
 Given /^there is a proposal$/ do
-  @proposal = Question.find_all_by_state(1).first.children.proposals.first
+  @proposal = Question.find_all_by_state(1).last.children.proposals.first
 end
 
 Then /^the questions title should be "([^\"]*)"$/ do |title|

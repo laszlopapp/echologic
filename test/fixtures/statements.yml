@@ -1,5 +1,7 @@
 test-question-statement:
   original_language_id: 1
+second-question-statement:
+  original_language_id: 1
 first-proposal-statement:
   original_language_id: 1
 second-proposal-statement:

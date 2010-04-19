@@ -58,8 +58,7 @@
 #static_menu {
   float:      right;
   width:      275px;
-  margin-top: -12px;
-  margin-right:30px;
+  margin:     -12px 30px -15px 0;
 }
 
 #static_menu ul { list-style-type: none; }

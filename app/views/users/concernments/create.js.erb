@@ -9,9 +9,9 @@
 var tag = "<%= escape_javascript(render @concernments) %>";
 
 /* Append the tag to the right list of tags (by sort) */
-$('#concernments_<%= params[:sort] %>').append(tag).fadeIn();
+$('#concernments_<%= @sort %>').append(tag).fadeIn();
 
 /* Reset the form. */
-$('#new_concernment_<%= params[:sort] %>').reset();
+$('#new_concernment_<%= @sort %>').reset();
 
-<%= render :partial => 'users/profile/update_completeness' %>
+<%#= render :partial => 'users/profile/update_completeness' %>

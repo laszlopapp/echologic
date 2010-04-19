@@ -104,7 +104,7 @@ class StatementsController < ApplicationController
       session[child_type] = @statement.children.by_supporters.collect { |c| c.id }
     end
     
-    # when creating an issue, we save the flash message within the session, to be able to display it hete
+    # when creating an issue, we save the flash message within the session, to be able to display it here
     if session[:last_info]
       @info = session[:last_info]
       flash_info
@@ -156,9 +156,8 @@ class StatementsController < ApplicationController
         render :update do |page|
           page.replace(@statement.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/new')
           page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent}) if @statement.parent         
-          page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) if @statement.parent 
-          page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent}) 
-          page.replace('navigator_container', :partial => 'statements/navigator', :locals => { :statement => @statement.parent})
+          page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) if @statement.parent
+          page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent})
         end
       }
     end
@@ -289,3 +288,5 @@ class StatementsController < ApplicationController
     end ; nil
   end
 end
+
+
