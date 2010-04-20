@@ -7,7 +7,7 @@ class TagTest < ActiveSupport::TestCase
     assert !t.save, 'Do not save empty tag'
   end
   
-  # Concernments have to have a user.
+  # Tag have to have a user.
   def test_value_uniqueness
     t = tags(:earth)
     c = Tag.new(:value => t.value, :language_id => 1)
