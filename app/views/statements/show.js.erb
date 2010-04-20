@@ -4,7 +4,6 @@
   info('<%= @info %>');
 <% end %>
 
-
 var context  = "<%= escape_javascript(render :partial => 'statements/context') %>";
 var sidebar  = "<%= escape_javascript(render :partial => 'statements/sidebar') %>";
 var summary  = "<%= escape_javascript(render :partial => 'statements/summary') %>";
@@ -19,6 +18,8 @@ if($('#children').size() == 0)
 $('#children').replaceWith(children);
 if($('#new_statement').size() != 0)
   $('#new_statement').remove();
+
+
 
 makeRatiobars();
 makeTooltips();

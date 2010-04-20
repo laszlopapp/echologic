@@ -2,7 +2,7 @@ class Concernment < ActiveRecord::Base
 
   # module to update the profile (e.g. completeness) after_save, after_destroy
   include ProfileUpdater
-  
+
   # Join table implementation, connect users and tags
   belongs_to :user
   belongs_to :tag
@@ -38,4 +38,13 @@ class Concernment < ActiveRecord::Base
   # Validate correctness of sort
   validates_inclusion_of :sort, :in => Concernment.sorts
 
+  class << self
+    def create_for(tags, attributes)
+      tags.map { |tag|
+        tag = Tag.find_or_create_by_value(tag.strip)
+        concernment = create(attributes.merge(:tag_id => tag.id))
+        concernment.new_record? ? nil : concernment
+      }.compact
+    end
+  end
 end

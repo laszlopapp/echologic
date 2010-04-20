@@ -1,28 +1,13 @@
 
-/*
-#summary ul li {
-  list-style: disc;
-  list-style-position: inside;
+/* ------ */
+/* Search */
+/* ------ */
+
+#discuss_results .box_header_icon {
+  background: url(../images/page/box/box_icon_discuss.png) repeat-x left top;
 }
 
-#summary ol li {
-  list-style: decimal;
-  list-style-position: inside;
-}
-
-#summary form ol li {
-	 list-style:none;
-}
-
-#summary li {
-  display: list-item;
-}
-
-
-#context h1 {
-  margin:5px 0 5px !important;
-}*/
-
+/* ----- */
 
 #function_container .simple_header_block h2 {
   color: #21587f !important;
@@ -35,10 +20,11 @@
   margin-top: -39px;
 }
 
-#function_container .search_description {
-	position:absolute;
-	left:462px;
-	top:63px;
+#function_container .search_category {
+  position: absolute;
+  left: 9px;
+  top: 6px;
+  font-weight: bold;
 }
 
 /* ------ */
@@ -55,11 +41,6 @@
 /* Questions */
 /* --------- */
 
-#questions_container ul {
-  list-style-type: none;
-  margin-top: 20px;
-  padding: 0 0 0 20px;
-}
 
 #questions_container li {
   padding: 5px;
@@ -161,6 +142,11 @@
   background-position: -37px -78px;
 }
 
+.context_line .question_label {
+	float: right;
+	width: 170px;
+	margin:0 20px;
+}
 
 /* ------- */
 /* Sidebar */
@@ -182,10 +168,19 @@
   background-image: url(../images/page/discuss/echo_all.png);
 }
 
+
 #echo_button .supported           { background-position: 0 -80px; }
 #echo_button .supported:hover     { background-position: 0 80px; }
 #echo_button .not_supported:hover { background-position: 0 -80px; }
 
+#create_parent_element_button {
+  display: inline-block;
+  margin: 10px 0 0;
+}
+
+#create_parent_element_button a {
+  margin: 0;
+}
 
 /* --------- */
 /* Main area */
@@ -276,6 +271,23 @@ a.statement_link:hover {
 }
 
 
+/* --------- */
+/* Navigator */
+/* --------- */
+
+#navigator {
+  min-height:20px;
+  padding:5px;
+}
+
+/* overwrite header_button behaviour for create_statement links in navigator */
+
+#navigator .header_button {
+  float: left;
+  margin: 0px;
+
+}
+
 /* ------------------- */
 /* Children statements */
 /* ------------------- */
@@ -292,16 +304,23 @@ a.statement_link:hover {
   width: 830px !important;
 }
 
+#children .text_button {
+  margin-left: 0px;
+}
 
 /* New Statement */
 
 .new_question {
-	
+
 }
 
 
 /* other */
 
-#featured.tab_content_container {
-  position: relative;
+#echo.tab_content_container, #pilot_projects.tab_content_container {
+  /*position: relative;*/
+  width: 945px;
 }
+
+
+

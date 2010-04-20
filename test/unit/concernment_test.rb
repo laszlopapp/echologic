@@ -30,10 +30,7 @@ class ConcernmentTest < ActiveSupport::TestCase
     assert_kind_of [Array, Hash], Concernment.sorts
     sorts = Concernment.sorts
     assert_equal sorts.size, 4
-    assert_kind_of [Array, Hash], sorts.first
-    assert_equal sorts.first.size, 2
-    assert_kind_of Integer, sorts.first.first
-    assert_kind_of Symbol, sorts.first.second
+    #think about other things to test in sorts
   end
 
 end

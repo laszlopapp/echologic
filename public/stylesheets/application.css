@@ -303,9 +303,10 @@
 /* OTHER NAVIGATION*/
 
 .function_button_holder {
-  min-height:      95px;
+  /*min-height:   95px;*/
   margin:      0px;
-  padding:     0px;
+  padding:     0 0 30px;
+  clear:       both;
 }
 
 .function_button {
@@ -322,7 +323,7 @@
 
 .function_button:hover {
   cursor:      pointer;
-  
+
 }
 
 .function_name {
@@ -332,6 +333,7 @@
   position:    relative;
   width: 	   100%;
   display: 	   block;
+  padding:     7px 0;
 }
 
 .function_description {
@@ -339,43 +341,129 @@
   color:       #21587f;
   position:    relative;
   width: 	   100%;
-  display:	   block;
-  
 }
 
 .function_button_holder .function_name:hover {
   color:       #7bb031;
   text-decoration: none;
+  cursor:      pointer;
 }
 
 .function_button_holder .function_more {
 	font-size:	14px;
-	position: 	relative;
+	/*position: 	relative;*/
 }
 
-.function_button_holder .toggleMoreText {
+.function_button_holder .toggled_content {
 	font-size:	14px;
 	position: 	relative;
 	margin-left: 140px;
 }
 
 
-#details_container {
+.tab_details_container {
   clear: both;
   margin: 25px 0 10px;
-  position: relative;
   overflow: auto;
 }
 
 
-#details_container div {
+.tab_details_container div {
   text-align: left;
 }
 
 /* All tab content containers */
-#details_container .tab_content_container {
+.tab_details_container .tab_content_container {
   float: left;
-  left: 140px;
-  width: 670px;
-  padding: 0 15px;
+  padding: 0px 15px;
+}
+
+
+/* Container for profiles and debates */
+
+.results_container {
+  padding: 45px 0 5px;
+  margin: 0;
+  width: 990px;
+  background: #fff url(../images/page/box/blue_white_gradient.png) repeat-x left top;
+  min-height: 195px;
+}
+
+.results_container .no_results {
+  display: block;
+  width: 990px;
+  margin: 0 auto;
+  text-align: center;
+  color: #21587f;
+  font-size: 15px;
+  position: absolute;
+  top: 120px;
+  cursor: default;
+}
+
+.results_container ul {
+  margin: 0px;
+  padding: 0px;
+  min-height: 155px;
+}
+
+.results_container .content {
+  float:    left;
+  width:    287px;
+  height:   55px;
+  list-style: none;
+  display:  block;
+  margin: 11px 10px 11px 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.results_container .question {
+	width: 273px;
+}
+
+
+
+.results_container .content .avatar_holder {
+  float: left;
+  width: 100%;
+  height: 50px;
+  padding: 1px 10px 0 0;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.results_container .content img {
+  max-width: 45px;
+  max-height: 45px;
+}
+
+.results_container .content .name {
+  font-size: 14px;
+  font-weight: bold;
+  display: inline-block;
+  position: absolute;
+  left: 60px;
+  top: 0px;
+}
+
+.results_container .content:hover .name, .results_container .content.active .name {
+  color: #7bb031;
+}
+
+.results_container .profile .location_orga {
+  font-size: 14px;
+  display: inline-block;
+  position: absolute;
+  left: 60px;
+}
+
+.results_container .profile.active:hover .close_hint {
+  font-size: 12px;
+  color: #7691A2;
+  display: inline-block !important;
+  position: absolute;
+  right: 0px;
+  top: 2px;
 }

@@ -16,12 +16,18 @@ class StatementsController < ApplicationController
   before_filter :fetch_statement, :only => [:show, :edit, :update, :echo, :unecho, :destroy]
   before_filter :fetch_category, :only => [:index, :new, :show, :edit, :update, :destroy]
 
+  before_filter :require_user, :except => [:index, :category, :show]
+  
+  # as discussions are public now, it's neccessary so save where we are, to redirect the user back after login
+  before_filter :store_location, :only => [:index, :category, :show]
+  
   # make custom URL helper available to controller
   include StatementHelper
 
   # authlogic access control block
   access_control do
     allow :editor
+    allow anonymous, :to => [:index, :show, :category]
     allow logged_in, :only => [:index, :show, :echo, :unecho]
     allow logged_in, :only => [:new, :create], :unless => :is_question?
     allow logged_in, :only => [:edit, :update], :if => :may_edit?
@@ -65,7 +71,7 @@ class StatementsController < ApplicationController
     #step 2: filter by category, if there is one 
     statements_not_paginated = statements_not_paginated.from_category(params[:id]) if params[:id]
     
-    statements_not_paginated = statements_not_paginated.published(current_user.has_role?(:editor)).by_supporters.by_creation
+    statements_not_paginated = statements_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
     
     @count    = statements_not_paginated.count
     @category = Tag.find_or_create_by_value(params[:id])
@@ -88,7 +94,10 @@ class StatementsController < ApplicationController
   # TODO visited! throws error with current fixtures.
 
   def show
-    current_user.visited!(@statement)
+    current_user.visited!(@statement) if current_user
+  
+    # store last statement (for cancel link)
+    session[:last_statement] = @statement.id
     
     # prev / next functionaliy
     unless @statement.children.empty?
@@ -96,7 +105,7 @@ class StatementsController < ApplicationController
       session[child_type] = @statement.children.by_supporters.collect { |c| c.id }
     end
     
-    # when creating an issue, we save the flash message within the session, to be able to display it hete
+    # when creating an issue, we save the flash message within the session, to be able to display it here
     if session[:last_info]
       @info = session[:last_info]
       flash_info
@@ -105,10 +114,12 @@ class StatementsController < ApplicationController
 
     # find alle child statements, which are published (except user is an editor) sorted by supporters count, and paginate them
     @page = params[:page] || 1
-    @children = @statement.children.published(current_user.has_role?(:editor)).by_supporters.paginate(Statement.default_scope.merge(:page => @page, :per_page => 5))
+    @children = @statement.children.published(current_user && current_user.has_role?(:editor)).by_supporters.paginate(Statement.default_scope.merge(:page => @page, :per_page => 5))
     respond_to do |format|
-      format.html { render :template => 'statements/show' } # show.html.erb
-      format.js   { render :template => 'statements/show' } # show.js.erb
+      format.html { 
+        render :template => 'statements/show' } # show.html.erb
+      format.js   { 
+        render :template => 'statements/show' } # show.js.erb
     end
   end
 
@@ -141,7 +152,12 @@ class StatementsController < ApplicationController
     respond_to do |format|
       format.html { render :template => 'statements/new' }
       format.js {
-        replace_container(@statement.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/new')
+        render :update do |page|
+          page.replace(@statement.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/new')
+          page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent}) if @statement.parent         
+          page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) if @statement.parent
+          page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent})
+        end
       }
     end
   end
@@ -158,7 +174,7 @@ class StatementsController < ApplicationController
         set_info("discuss.messages.created", :type => @statement.class.display_name)
         current_user.supported!(@statement)
         # render parent statement after creation, if any
-        @statement = @statement.parent if @statement.parent
+        # @statement = @statement.parent if @statement.parent
         format.html { flash_info and redirect_to url_for(@statement) }
         format.js   {
           session[:last_info] = @info # save @info so it doesn't get lost during redirect
@@ -204,6 +220,11 @@ class StatementsController < ApplicationController
     @statement.destroy
     set_info("discuss.messages.deleted", :type => @statement.class.human_name)
     flash_info and redirect_to :controller => 'questions', :action => :category, :id => @category.value
+  end
+  
+  # processes a cancel request, and redirects back to the last shown statement
+  def cancel
+    redirect_to url_f(Statement.find(session[:last_statement]))
   end
 
   #

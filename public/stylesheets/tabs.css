@@ -114,8 +114,10 @@
 
 #roadmap_tab_container {
   position: absolute;
-  right: 867px;
+  left: 55px;
+  width: 150px;
   top: 0px;
+  text-align: left;
 }
 
 #roadmap_tab {
@@ -124,17 +126,20 @@
   padding-left: 6px;*/
 }
 
-.roadmap_tab{	
+.roadmap_tab{
 	margin:0 auto;
 	padding-bottom:1px;
 	width:990px;
+    position: relative;
 }
 
 .roadmap_tab img{
-	position:absolute;	
+	position:absolute;
+    top: -23px;
+    z-index: 11;
 }
 
-#roadmap_tab_title {  
+#roadmap_tab_title {
 	position: absolute;
 	color:#21587F;
 	font-size:16px;

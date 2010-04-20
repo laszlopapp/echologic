@@ -1,8 +1,26 @@
 require 'test_helper'
 
 class MyEchoControllerTest < ActionController::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+  def setup
+    login_as :user
+    @controller = MyEchoController.new
   end
+  
+  test "should get welcome" do
+    get :welcome
+    assert_response :success
+  end
+  
+  test "should get profile" do
+    get :profile
+    assert_response :success
+  end
+  
+  test "should get roadmap" do
+    get :roadmap
+    assert_response :success
+  end
+  
+  
+  
 end

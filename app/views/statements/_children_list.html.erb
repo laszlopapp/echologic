@@ -2,16 +2,19 @@
    children ||= @children
 %>
 <div id="children_list">
-  <% unless children.empty? %>
-    <ul>
-      <% last_child = children.pop -%>
-      <% children.each do |statement| %>
-        <%= render :partial => 'statements/child', :locals => { :statement => statement } %>
-      <% end %>
-      <%= render :partial => 'statements/child', :locals => { :statement => last_child, :extra_classes => "active" } %>
-    </ul>
-    <%= will_paginate children, :previous_label => '', :next_label => '' if defined? children.total_pages %>
-  <% end %>
+  <ul>
+	<% unless children.empty? %>
+	  <% last_child = children.pop -%>
+	  <% children.each do |statement| %>
+	    <%= render :partial => 'statements/child', :locals => { :statement => statement } %>
+	  <% end %>
+	  <%= render :partial => 'statements/child', :locals => { :statement => last_child, :extra_classes => "active" } %>
+	<% end %>
+	<%if children.empty? or children.current_page == children.total_pages%>
+	  <li><%= create_children_statement_link(@statement, "add_new_button") %></li>
+	<%end%>
+  </ul>
+  <%= will_paginate children, :previous_label => '', :next_label => '' if defined? !children.empty? and children.total_pages %>  
 </div>
 
 <script type="text/javascript">

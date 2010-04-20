@@ -15,7 +15,7 @@
 
   <span id="profiles_beginn"></span>
 
-  <div id="profiles_container" class="rounded-box rounded-box-gray-itow with-header">
+  <div id="discuss_results" class="results_container rounded-box rounded-box-gray-itow with-header">
     <span class="box_header"><%= count_text %></span>
     <span class="box_header_border"></span>
     <span class="box_header_icon"></span>
@@ -24,7 +24,7 @@
 	  <% if not statements.empty? %>
 	    <%= render :partial => 'questions/question', :collection => statements %>
 	  <% else %>
-	    <span class="no_results"><%= I18n.t('connect.messages.empty') %></span>
+	    <span class="no_results"><%= I18n.t('discuss.messages.empty') %></span>
 	  <% end %>
 	</ul>
     <%= will_paginate statements , :previous_label => '', :next_label => '' if defined? statements.total_pages %>

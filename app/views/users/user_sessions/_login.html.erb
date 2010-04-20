@@ -14,8 +14,10 @@
       <%= f.password_field :password, :class => 'loginField' %>
       <%= f.submit 'Login', :class => 'loginButton' %><br/>
     <% end %>
-
-    <%= link_to I18n.t('users.user_sessions.login.signup'), join_path, :class => 'ajaxLink bottomLabel' %>
-    <%= link_to I18n.t('users.user_sessions.login.set_password'), new_password_reset_path, :class => 'ajaxLink bottomLabel' %><br/>
+    <% #raise params[:controller] %>
+    <% ajax_class = params[:controller].match(%r[static|users])? 'ajaxLink' : '' %>
+    <%= link_to I18n.t('users.user_sessions.login.signup'), join_path, :class => "#{ajax_class} bottomLabel" %>
+    <%= link_to I18n.t('users.user_sessions.login.set_password'), new_password_reset_path, :class => "#{ajax_class} bottomLabel" %><br/>
   <% end %>
+
 </div>

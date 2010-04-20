@@ -2,48 +2,38 @@ require 'test_helper'
 
 class WebProfilesControllerTest < ActionController::TestCase
   def setup
+    login_as :user
     @controller = Users::WebProfilesController.new
   end
   
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:web_profiles)
-  end
-
   test "should get new" do
     get :new
-    assert_response :success
+    assert_response :error
   end
 
   test "should create web_profile" do
     assert_difference('WebProfile.count') do
-      post :create, :web_profile => { }
+      post :create, :web_profile => {:sort => 0, :location => 'xixi@coco.com'}
     end
-
-    assert_redirected_to web_profile_path(assigns(:web_profile))
   end
 
   test "should show web_profile" do
-    get :show, :id => web_profiles(:one).to_param
-    assert_response :success
+    get :show, :id => web_profiles(:user_blog).to_param
+    assert_response :error
   end
 
   test "should get edit" do
-    get :edit, :id => web_profiles(:one).to_param
+    get :edit, :id => web_profiles(:user_blog).to_param
     assert_response :success
   end
 
   test "should update web_profile" do
-    put :update, :id => web_profiles(:one).to_param, :web_profile => { }
-    assert_redirected_to web_profile_path(assigns(:web_profile))
+    put :update, :id => web_profiles(:user_blog).to_param, :web_profile => {:location => "blogadores.blogspot.com" }
   end
 
   test "should destroy web_profile" do
     assert_difference('WebProfile.count', -1) do
-      delete :destroy, :id => web_profiles(:one).to_param
+      delete :destroy, :id => web_profiles(:user_blog).to_param
     end
-
-    assert_redirected_to web_profiles_path
   end
 end

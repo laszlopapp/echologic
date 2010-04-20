@@ -279,8 +279,8 @@ en:
     results_count:
       one: '{{count}} debate'
       more: '{{count}} debates'
-    topics_overview:
-      title: Featured
+    featured_topics:
+      title: Featured Topics
       text: |
         <p>
         As you can see in the Roadmap (in the upper right corner of the screen),
@@ -292,8 +292,8 @@ en:
         Currently available topics are:
         </p>
       tabs:
-        featured:
-          title: Featured
+        echo:
+          title: About echo
         pilot_projects:
           title: Pilot Projects
     search:
@@ -339,13 +339,13 @@ en:
           than we might have ever imagined!
           </p>
       echosocial:
-        name: echosocial
+        name: echo-social
         teaser: Echo Social Teaser.
         description: |
           <p>
           Not the final text!!!!!!! As a mover at echologic you are kindly invited to actively <strong>engage into the evolution of echo</strong>!
           Which functions are the most important for you and which ones should be implemented next?
-          Discuss your idees with other movers and contribute to <strong>make more (out of) echo</strong> 
+          Discuss your idees with other movers and contribute to <strong>make more (out of) echo</strong>
           than we might have ever imagined!
           </p>
 
@@ -372,9 +372,11 @@ en:
         many: 'This statement has {{supporter_count}} supporters.'
 
     statements:
+      label: 'echos'
       create_question_link: 'Open a new debate'
-      create_proposal_link: 'Enter a new proposal'
-      create_improvement_proposal_link: 'Add new improvement proposal'
+      create_proposal_link: Couldn't find your idea? Post it now!
+      create_internal_link: 'New idea?'
+      create_improvement_proposal_link: Couldn't find your idea? Post it now!
       create_proposal_explanation: |
         Do you have a <strong>good idea</strong> concerning the the current debate, which <strong>doesn't exist</strong> yet?<br/>
         Here you can create a <strong>new proposal</strong>.
@@ -404,6 +406,7 @@ en:
       created: "The new {{type}} has been entered successfully."
       updated: "The {{type}} has been updated successfully."
       deleted: "The {{type}} has been deleted successfully."
+      empty:   "No debates found. Please change your search criteria."
 
 
 
@@ -521,7 +524,8 @@ en:
       email_invalid:      "Please enter a correct e-mail address."
       password_blank:     "Password must be defined."
       not_active:         "Your account has not been activated yet. Please check your inbox."
-      must_be_logged_in:  "You must be logged in to access this page."
+      must_be_logged_in_for_page:  "You must be logged in to access this page."
+      must_be_logged_in_for_action: "You must be logged in to perform this action."
       must_be_logged_out: "You must be logged out to access this page."
 
     attributes:

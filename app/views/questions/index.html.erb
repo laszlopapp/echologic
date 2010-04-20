@@ -3,7 +3,7 @@
 <%path = @category.value ? question_tags_path : discuss_search_path%>
 
 <div id="search_container">	
-<span class="search_description"> <%= I18n.t('discuss.search.in', :category => I18n.t("discuss.topics.#{@category.value}.name")) if @category.value%></span>
+<span class="search_category"> <%= I18n.t('discuss.search.in', :category => I18n.t("discuss.topics.#{@category.value}.name")) if @category.value%></span>
   <% form_tag path, :method => 'GET', :id => 'search_form' do %>
     <%= text_field_tag :value %>
     <%= submit_tag '', :alt => 'search_button' %>

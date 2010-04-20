@@ -1,4 +1,4 @@
-Given /^a proposal wihout echos$/ do
+Given /^a proposal without echos$/ do
   @proposal = Proposal.first
   @proposal.user_echos.destroy_all
 end

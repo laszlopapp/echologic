@@ -4,16 +4,12 @@
 
 <% insert_breadcrumb(echosocial_path, echosocial_path) %>
 
-<h3><%= I18n.t('static.echosocial.show.why.title') %></h3>
-<%= I18n.t('static.echosocial.show.why.text', :tooltip => I18n.t('static.echosocial.show.why.tooltip')) %>
-
-<h3><%= I18n.t('static.echosocial.show.what.title') %></h3>
-<%= I18n.t('static.echosocial.show.what.text',
-  :tooltip1 => I18n.t('static.echosocial.show.what.tooltip1'),
-  :tooltip2 => I18n.t('static.echosocial.show.what.tooltip2')) %>
+<h3><%= I18n.t('static.echosocial.show.about.title') %></h3>
+<%= I18n.t('static.echosocial.show.about.text') %>
 
 
-<% insert_illustrations([echosocial_path(:features),
-                         echosocial_path(:benefits)]) %>
+
+
+<% insert_illustrations([echosocial_path(:features),echosocial_path(:benefits)], {:domain => "echosocial"}) %>
 
 <% #insert_back_next_buttons(echologic_path, echo_path(:discuss)) %>
