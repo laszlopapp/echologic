@@ -45,13 +45,27 @@ class ApplicationController < ActionController::Base
       page << "error('#{escape_javascript(message)}');"
     end
   end
+#
+#  def render_with_info(action, opts = {})
+#    render action do |page|      
+#      page << "info('#{@info}');" if @info
+#      opts.each {|key, value| page.replace(key.to_s, value)}      
+#    end
+#  end
+  
+  def render_with_info(&block)
+    render :update do |page|      
+      page << "info('#{@info}');" if @info
+      yield page
+    end
+  end
 
-  def show_info_message(string)
+  def show_info_message(string=@info)
     render :update do |page|
       page << "info('#{string}');"
     end
   end
-
+  
   def show_error_message(string)
     render :update do |page|
       page << "error('#{string}');"
@@ -105,6 +119,7 @@ class ApplicationController < ActionController::Base
   # This small methods takes much complexness from the controllers.
   def replace_content(name, content)
     render :update do |page|
+      page << "info('#{@info}');" if @info
       page.replace_html name, content
     end
   end
@@ -112,6 +127,7 @@ class ApplicationController < ActionController::Base
   # Helper method to remove some identifier from the page.
   def remove_container(name)
     render :update do |page|
+      page << "info('#{@info}');" if @info
       page.remove name
     end
   end

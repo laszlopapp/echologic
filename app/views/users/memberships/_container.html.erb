@@ -5,13 +5,7 @@
     <%= I18n.t('users.memberships.guide') %>
   </div>
 
-  <ul id="membership_list">
-    <li>
-      <span class="column_200 label"><%= I18n.t('users.memberships.organisation') %></span>
-      <span class="column_200 label"><%= I18n.t('users.memberships.position') %></span>
-    </li>
-    <%= render :partial => 'users/memberships/membership', :collection => @user.memberships %>
-  </ul>
+  <%= render :partial => 'users/memberships/list', :locals => {:memberships => @user.memberships}%>
   
   <ul>
     <%= render :partial => 'users/memberships/new' %>

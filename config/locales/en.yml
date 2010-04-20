@@ -200,7 +200,7 @@ en:
         progress: Your avatar is being uploaded. Please wait...
 
       messages:
-        updated: "Profile information updated successful."
+        updated: "Profile information updated successful."        
 
     # Memberships section
     memberships:
@@ -407,6 +407,7 @@ en:
       updated: "The {{type}} has been updated successfully."
       deleted: "The {{type}} has been deleted successfully."
       empty:   "No debates found. Please change your search criteria."
+      new_percentage: "Your profile is {{percentage}}% complete."
 
 
 

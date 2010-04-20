@@ -177,8 +177,6 @@ class StatementsController < ApplicationController
         type = @statement.class.to_s.underscore
         key = ("current_" + type).to_sym
         session[key] << @statement.id
-                 
-        
         # render parent statement after creation, if any
         # @statement = @statement.parent if @statement.parent
         format.html { flash_info and redirect_to url_for(@statement) }

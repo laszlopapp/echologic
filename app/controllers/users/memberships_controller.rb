@@ -45,12 +45,17 @@ class Users::MembershipsController < ApplicationController
   # through javascript if something fails.
   # method: POST
   def create
+    
     @membership = Membership.new(params[:membership].merge(:user_id => current_user.id))
-
+    previous_completeness = @membership.user.profile.percent_completed
+    
     respond_to do |format|
       format.js do
         if @membership.save
-          render :template => 'users/profile/create_object', :locals => { :object => @membership }          
+          set_info("discuss.messages.new_percentage", :percentage => @membership.user.profile.percent_completed) if previous_completeness != @membership.user.profile.percent_completed
+          render_with_info do |p|
+            p.insert_html :bottom, 'membership_list', :partial => 'users/memberships/membership'
+          end
         else
           show_error_messages(@membership)
         end
@@ -64,7 +69,7 @@ class Users::MembershipsController < ApplicationController
     @membership = Membership.find(params[:id])
     
     respond_to do |format|
-      format.js do
+      format.js do        
         if @membership.update_attributes(params[:membership].merge(:user_id => current_user.id))
           replace_content(dom_id(@membership), :partial => 'membership')
         else
@@ -79,14 +84,18 @@ class Users::MembershipsController < ApplicationController
   def destroy
     @membership = Membership.find(params[:id])
     id = @membership.id
+    
+    previous_completeness = @membership.user.profile.percent_completed
     @membership.destroy
+    set_info("discuss.messages.new_percentage", :percentage => @membership.user.profile.percent_completed) if previous_completeness != @membership.user.profile.percent_completed
     
     respond_to do |format|
       format.js do
         # sorry, but this was crap. you can't add additional js actions like this...
         # either use a rjs, a js, or a render :update block
-        ## remove_container("membership_#{@membership.id}")
-        render :template => 'users/profile/remove_object', :locals => { :object => @membership }     
+        render_with_info do |p|
+          p.remove dom_id(@membership)
+        end          
       end
     end
   end
