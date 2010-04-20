@@ -173,6 +173,12 @@ class StatementsController < ApplicationController
       if @statement.save
         set_info("discuss.messages.created", :type => @statement.class.display_name)
         current_user.supported!(@statement)
+        #load current created statement to session
+        type = @statement.class.to_s.underscore
+        key = ("current_" + type).to_sym
+        session[key] << @statement.id
+                 
+        
         # render parent statement after creation, if any
         # @statement = @statement.parent if @statement.parent
         format.html { flash_info and redirect_to url_for(@statement) }
