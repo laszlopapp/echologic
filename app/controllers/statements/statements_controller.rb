@@ -54,16 +54,17 @@ class StatementsController < ApplicationController
       statements_not_paginated = statement_class
     else  
       #step 1.01: search for first string
-      statements_not_paginated = search(@value.split(' ').first)
+      #statements_not_paginated = search(@value.split(' ').first)
+      statements_not_paginated = search(@value)
       #statements_not_paginated = statement_class.search(@value.split(' ').first)
       
       #step 1.10: search for remaining strings
-      if @value.split(' ').size > 1
-         for value in @value.split(' ')[1..-1] do
-          statements_not_paginated &= search(value)
-          statements_not_paginated &= statement_class.search(value)
-        end
-      end
+#      if @value.split(' ').size > 1
+#         for value in @value.split(' ')[1..-1] do
+#          statements_not_paginated &= search(value)
+#          statements_not_paginated &= statement_class.search(value)
+#        end
+#      end
     end
     
    
@@ -86,7 +87,7 @@ class StatementsController < ApplicationController
   end
 
   def search (value)
-    statement_class.find_by_title(value)    
+    statement_class.type_equals('Question').document_title_or_document_text_like(value) 
   end
 
 
@@ -104,7 +105,7 @@ class StatementsController < ApplicationController
       session[child_type] = @statement.children.by_supporters.collect { |c| c.id }
     end
     
-    # when creating an issue, we save the flash message within the session, to be able to display it hete
+    # when creating an issue, we save the flash message within the session, to be able to display it here
     if session[:last_info]
       @info = session[:last_info]
       flash_info
@@ -153,10 +154,9 @@ class StatementsController < ApplicationController
       format.js {
         render :update do |page|
           page.replace(@statement.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/new')
-          page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent})          
-          page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) 
-          page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent}) 
-          page.replace('navigator_container', :partial => 'statements/navigator', :locals => { :statement => @statement.parent})
+          page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent}) if @statement.parent         
+          page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) if @statement.parent
+          page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent})
         end
       }
     end
@@ -173,6 +173,10 @@ class StatementsController < ApplicationController
       if @statement.save
         set_info("discuss.messages.created", :type => @statement.class.display_name)
         current_user.supported!(@statement)
+        #load current created statement to session
+        type = @statement.class.to_s.underscore
+        key = ("current_" + type).to_sym
+        session[key] << @statement.id
         # render parent statement after creation, if any
         # @statement = @statement.parent if @statement.parent
         format.html { flash_info and redirect_to url_for(@statement) }

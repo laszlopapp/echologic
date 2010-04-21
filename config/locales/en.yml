@@ -200,7 +200,7 @@ en:
         progress: Your avatar is being uploaded. Please wait...
 
       messages:
-        updated: "Profile information updated successful."
+        updated: "Profile information updated successful."        
 
     # Memberships section
     memberships:
@@ -298,6 +298,7 @@ en:
           title: Pilot Projects
     search:
       title: Search
+      in: 'In {{category}}:'
     topics:
       description: Description
       echonomyjam:
@@ -371,9 +372,11 @@ en:
         many: 'This statement has {{supporter_count}} supporters.'
 
     statements:
+      label: 'echos'
       create_question_link: 'Open a new debate'
-      create_proposal_link: 'Add new'
-      create_improvement_proposal_link: 'Add new'
+      create_proposal_link: Couldn't find your idea? Post it now!
+      create_internal_link: 'New idea?'
+      create_improvement_proposal_link: Couldn't find your idea? Post it now!
       create_proposal_explanation: |
         Do you have a <strong>good idea</strong> concerning the the current debate, which <strong>doesn't exist</strong> yet?<br/>
         Here you can create a <strong>new proposal</strong>.
@@ -404,6 +407,7 @@ en:
       updated: "The {{type}} has been updated successfully."
       deleted: "The {{type}} has been deleted successfully."
       empty:   "No debates found. Please change your search criteria."
+      new_percentage: "Your profile is {{percentage}}% complete."
 
 
 

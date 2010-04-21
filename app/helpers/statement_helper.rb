@@ -109,10 +109,10 @@ module StatementHelper
   ##
 
   # edited: i18n without interpolation, because of language diffs.
-  def create_children_statement_link(statement, css_class = "")
+  def create_children_statement_link(statement, css_class = "", lan_tag = "")
     return unless statement.class.expected_children.any?
     type = statement_class_dom_id(statement.class.expected_children.first)
-    link_to(I18n.t("discuss.statements.create_#{type}_link"),
+    link_to(I18n.t(lan_tag.blank? ? "discuss.statements.create_#{type}_link" : "discuss.statements.#{lan_tag}"),
             new_child_statement_url(statement, type),
             :id => "create_#{type.underscore}_link",
             :class => "ajax #{css_class} text_button #{create_statement_button_class(type)} ttLink no_border",
@@ -174,6 +174,11 @@ module StatementHelper
       val = "<span class='no_echo_indicator ttLink' title='#{tooltip}'></span>"
     end
   end
+  
+  def question_bar(context=nil)
+    text = I18n.t('discuss.statements.label')
+    val = "<span class='question_label'>#{text}</span>"    
+  end
 
 
   # TODO: instead of adding an image tag, we should use css classes here, like (almost) everywhere else
@@ -189,10 +194,15 @@ module StatementHelper
 
   # Returns the context menu link for this statement.
   def statement_context_link(statement, action = 'read')
+    
     link = link_to(statement.title, url_for(statement),
                    :class => "ajax no_border statement_link #{statement.class.name.underscore}_link ttLink",
                    :title => I18n.t("discuss.tooltips.#{action}_#{statement.class.name.underscore}"))
-    link << supporter_ratio_bar(statement,'context') unless statement.class.name == 'Question'
+    if statement.class.name == 'Question'
+      link << question_bar
+    else
+      link << supporter_ratio_bar(statement,'context')
+    end
     return link
   end
 

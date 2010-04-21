@@ -23,7 +23,7 @@ module NavigationHelpers
     when /the reports page/
       reports_path
     when /^create a question$/
-      new_question_path(:category => 'echonomyJAM')
+      new_question_path(:category => 'echonomyjam')
     when /^the question$/
       question_path(@question)
     when /^the proposal$/

@@ -142,6 +142,11 @@
   background-position: -37px -78px;
 }
 
+.context_line .question_label {
+	float: right;
+	width: 170px;
+	margin:0 20px;
+}
 
 /* ------- */
 /* Sidebar */
@@ -299,6 +304,9 @@ a.statement_link:hover {
   width: 830px !important;
 }
 
+#children .text_button {
+  margin-left: 0px;
+}
 
 /* New Statement */
 
@@ -313,3 +321,6 @@ a.statement_link:hover {
   /*position: relative;*/
   width: 945px;
 }
+
+
+

@@ -1,4 +1,4 @@
-class EchoDetail < ActiveRecord::Base
+class UserEcho < ActiveRecord::Base
   belongs_to :echo
   belongs_to :user
   belongs_to :statement, :foreign_key => 'echo_id', :primary_key => 'echo_id'

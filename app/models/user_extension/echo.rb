@@ -1,9 +1,9 @@
 module UserExtension::Echo
   def self.included(base)
     base.instance_eval do
-      has_many :echo_details
-      has_many :echos, :through => :echo_details
-      has_many :echoed_statements, :through => :echo_details, :source => :statement
+      has_many :user_echos
+      has_many :echos, :through => :user_echos
+      has_many :echoed_statements, :through => :user_echos, :source => :statement
       
       include InstanceMethods
     end
@@ -12,7 +12,7 @@ module UserExtension::Echo
   module InstanceMethods
     # creates a new EchoDetail record with the given options or updates an existing EchoDetail if applicable
     def echo!(echoable, options={})
-      ed = echo_details.create_or_update!(options.merge(:echo => echoable.find_or_create_echo))
+      ed = user_echos.create_or_update!(options.merge(:echo => echoable.find_or_create_echo))
       # OPTIMIZE: update the counters periodically
       ed.echo.update_counter! ; ed
     end
@@ -29,12 +29,12 @@ module UserExtension::Echo
     
     # returns true if the +user+ has visted the given +echoable+
     def visited?(echoable)
-      echoable.echo_details.visited.for_user(self.id).any?
+      echoable.user_echos.visited.for_user(self.id).any?
     end
     
     # returns true if the +user+ has supported the given +echoable+
     def supported?(echoable)
-      echoable.echo_details.supported.for_user(self.id).any?
+      echoable.user_echos.supported.for_user(self.id).any?
     end
   end
 end
