@@ -58,7 +58,7 @@ class Users::WebProfilesController < ApplicationController
           set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
           
           render_with_info do |p|
-            p.insert_html :bottom, 'web_profile_list', :partial => 'users/web_profiles/web_profile'            
+            p.insert_html :bottom, 'web_profile_list', :partial => 'users/web_profiles/web_profile', :locals => {:new => true}        
           end
         else
           show_error_messages(@web_profile)

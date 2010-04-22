@@ -6,7 +6,7 @@
 #   :generate_css => true|false #=> generates a default inline css for the tabnav, defaults to false
 #   :html => aHash #=> sets html options for the tabnav's div (es :html => {:class=> 'myCssClass', :id=>'myCssId'})
 #
-render_navigation :echosocial_static_menu, :separator => '' , :generate_css => false, :html => { :id => 'static_menu' } do
+render_navigation :echosocial_static_menu, :separator => '' , :generate_css => false, :html => { :id => 'echosocial_static_menu' } do
 
   add_item :html => { :id => 'make_echo' } do |i|
     i.named build_static_menu_button('make_echo')
