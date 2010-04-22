@@ -1,6 +1,6 @@
 <% content_for :submenu, tabnav(:connect) %>
 
-<%= render :partial => 'connect/fill_out_profile' if current_user.profile.completeness.nil? || current_user.profile.completeness < 0.5%>
+<%= render :partial => 'connect/fill_out_profile' if current_user.profile.completeness.nil? || current_user.profile.completeness < Profile::COMPLETENESS_THRESHOLD %>
 
 <div id="search_container">
   <% form_tag connect_path, :method => 'GET', :id => 'search_form' do %>
