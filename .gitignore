@@ -7,6 +7,7 @@ public/system/avatars/
 /echologic.iml
 /echologic.ipr
 /echologic.iws
+/rerun.txt
 db/*.sqlite3
 *~
 .\#*
