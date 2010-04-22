@@ -428,7 +428,7 @@ de:
   connect:
 
     fill_out_profile:
-      text: Bitte füllen Sie Ihr Profil <strong>mindestens zu 50%</strong> aus, um diesen Block verschwinden zu lassen.
+      text: Bitte füllen Sie Ihr Profil <strong>mindestens zu 40%</strong> aus, um diesen Block verschwinden zu lassen.
 
     segments:
       all: Alle
