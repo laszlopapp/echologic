@@ -6,32 +6,24 @@ Feature: Use connect functionality
 
   # Within the connect area users are able to view the
   # list of users.
-  
+
   Scenario: View user list
     Given I am logged in as "user" with password "true"
     And my profile is complete enough
     When I am on the connect page
-    Then I should see the profile of "lisa"
-      And I should see the profile of "friedrich"
-      And I should see the profile of "luise"
+    Then I should see the profile of "ben"
+      And I should see the profile of "user"
       And I should see the "Search" form
-  
+
   # As an logged in user, without a complete enough profile
-  # i cannot access the connect area 
+  # i cannot access the connect area
 
 
   Scenario: Try to access connect with too empty profile
-    Given I am logged in as "ben" with password "benrocks"
+    Given I am logged in as "Joe" with password "true"
     And my profile is not complete enough
     When I go to the connect page
-    Then I should see localized "connect.fill_out_profile.title"
-
-  Scenario: Try to access connect roadmap with too empty profile
-    Given I am logged in as "ben" with password "benrocks"
-    And my profile is not complete enough
-    When I go to the connect roadmap
-    Then I should see localized "static.echo.connect.title"
-    And I should not see localized "connect.fill_out_profile.title"
+    Then I should see the "profile" teaser
 
   # As an logged in user I am able to search for everything
   # ones profile includes:
@@ -63,11 +55,11 @@ Feature: Use connect functionality
     Given I am logged in as "user" with password "true"
     And my profile is complete enough
     And I am on the connect page
-    When I follow the "Show" link for the profile of "luise"
-    Then I should see the profile details of "luise"
+    When I follow the "Show" link for the profile of "ben"
+    Then I should see the profile details of "ben"
       And I should see a "Close" link
-      
-      
+
+
   # I know it's not really user storie like to talk about a mysterious flag, but i found it hard to put the logic behind it in better words, because 'complete enough' would make a developer assume that we're dealing with the completeness value
 
   Scenario: Don't show Users without a complete enough profile (show_profile flag not set)
@@ -76,4 +68,4 @@ Feature: Use connect functionality
     And the profile of user "luise" has no show_profile flag
     And I am on the connect page
     Then I should not see the profile of "luise"
-    
+

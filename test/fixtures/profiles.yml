@@ -8,16 +8,15 @@ joe_profile:
   motivation: I am idealist.
   about_me: Pantha Rei.
   city: Berlin
-  country: Germany  
+  country: Germany
   birthday: 2009-10-30
-  show_profile: 1
-  
+
 ben_profile:
   user_id: <%= Fixtures.identify(:ben) %>
   last_name: Test
   first_name: Ben
-  show_profile: 1
-  
+  completeness: 0.55
+
 user_profile:
   user_id: <%= Fixtures.identify(:user) %>
   last_name: Test
@@ -29,21 +28,20 @@ user_profile:
   motivation: I want to get all those tests running, harhar!
   birthday: 1986-06-17
   completeness: 0.55
-  show_profile: 1
-  
 
+# Profiles for certain roles
 
 admin_profile:
   user_id: <%= Fixtures.identify(:admin) %>
   last_name: Test
   first_name: Admin
-  show_profile: 1
 
 editor_profile:
   user_id: <%= Fixtures.identify(:editor) %>
   last_name: Tor
   first_name: Edi
-  show_profile: 1
+
+# Profiles for pagination
 
 <% ["theodor","friedrich","luise","charlotte","lisa","red","blue","green","yellow","red"].each do |name| %>
 <%= name %>_profile:
@@ -53,7 +51,6 @@ editor_profile:
   motivation: I am f..ing test user. What you expect my motivation to be?.
   about_me: As i said.. a test user. What kind of life is this!?
   city: Berlin
-  country: Germany  
+  country: Germany
   birthday: 2010-03-17
-  show_profile: 1
 <% end %>
