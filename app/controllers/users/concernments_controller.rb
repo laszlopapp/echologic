@@ -23,17 +23,17 @@ class Users::ConcernmentsController < ApplicationController
     previous_completeness = current_user.profile.percent_completed
     @concernments = Concernment.create_for(params[:tag][:value].split(','), params[:concernment].merge(:user_id => current_user.id))
     current_completeness = @concernments.first.profile.percent_completed
+
     set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 
-
-    @sort = params[:concernment][:sort]
-
-
+    sort = params[:concernment][:sort]
     respond_to do |format|
       format.js do
          render_with_info do |p|
-           p.insert_html :bottom, "concernments_#{@sort}", :partial => "users/concernments/concernment", :collection => @concernments, :locals => {:new => true}
+           p.insert_html :bottom, "concernments_#{sort}", :partial => "users/concernments/concernment", :collection => @concernments
            p.visual_effect :appear, dom_id(@concernments.last)
+           p << "$('#new_concernment_#{sort}').reset();"
+           p << "$('#tag_#{sort}_id').focus();"
          end
       end
     end
