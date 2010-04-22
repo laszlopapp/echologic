@@ -24,6 +24,10 @@ class WebProfile < ActiveRecord::Base
     @@sorts
   end
 
+  def profile
+    self.user.profile
+  end
+
   # Validate that sort is correct
   validates_inclusion_of :sort, :in => WebProfile.sorts
 

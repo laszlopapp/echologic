@@ -45,8 +45,8 @@ class Users::ProfileController < ApplicationController
     respond_to do |format|
       previous_completeness = @profile.percent_completed
       if @profile.update_attributes(params[:profile])
-        
-        set_info("discuss.messages.new_percentage", :percentage => @profile.percent_completed) if previous_completeness != @profile.percent_completed
+        current_completeness = @profile.percent_completed
+        set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
         
         format.html { flash_info and redirect_to my_profile_path }
         format.js   {         

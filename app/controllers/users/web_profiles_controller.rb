@@ -50,10 +50,16 @@ class Users::WebProfilesController < ApplicationController
     @web_profile = WebProfile.new(params[:web_profile])
     @web_profile.user_id = @current_user.id
 
+    previous_completeness = @web_profile.profile.percent_completed
     respond_to do |format|
       format.js do
         if @web_profile.save
-          render :template => 'users/profile/create_object', :locals => { :object => @web_profile }
+          current_completeness = @web_profile.profile.percent_completed
+          set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
+          
+          render_with_info do |p|
+            p.insert_html :bottom, 'web_profile_list', :partial => 'users/web_profiles/web_profile'            
+          end
         else
           show_error_messages(@web_profile)
         end
@@ -82,14 +88,19 @@ class Users::WebProfilesController < ApplicationController
   def destroy
     @web_profile = WebProfile.find(params[:id])
     id = @web_profile.id
+    previous_completeness = @web_profile.profile.percent_completed
     @web_profile.destroy
+    current_completeness = @web_profile.profile.percent_completed
+    set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 
     respond_to do |format|
       format.js do
         # sorry, but this was crap. you can't add additional js actions like this...
         # either use a rjs, a js, or a render :update block
         #remove_container "web_profile_#{id}"
-        render :template => 'users/profile/remove_object', :locals => { :object => @web_profile }
+        render_with_info do |p|
+          p.remove dom_id(@web_profile)
+        end 
       end
     end
   end

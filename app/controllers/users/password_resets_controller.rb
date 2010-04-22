@@ -26,7 +26,7 @@ class Users::PasswordResetsController < ApplicationController
         @user.deliver_password_reset_instructions!
         message = I18n.t('users.password_reset.messages.success')
         format.html { flash[:notice] = message and redirect_to root_url }
-        format.js   { show_info_message(message) }
+        format.js   { render_with_info(message) }
       else
         message = I18n.t('users.password_reset.messages.not_found')
         format.html { flash[:error] = message and render :action => :new, :layout => 'static' }

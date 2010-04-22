@@ -883,6 +883,9 @@ de:
           </p>
         open_document: Check out the document anyway!
 
+    make_echo:
+      title: Machen Sie ein echo-social!
+      subtitle: Geben Sie Ihre Wünschen und Prioritäten ein. We werden echo-social dementsprechend entwickeln!
 
     join:
       title: &your_echo 'Ihr echo'

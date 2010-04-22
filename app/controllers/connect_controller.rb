@@ -2,8 +2,7 @@ class ConnectController < ApplicationController
 
   before_filter :require_user
 
-  # if the users profile is not fullfilled, we display a message and won't let him into the other users profiles
-  before_filter :check_completeness, :only => [:show, :search]
+  # if the users profile is not fullfilled, we display a message and won't let him into the other users profiles 
 
   # Show the connect page
   # method: GET
@@ -38,16 +37,4 @@ class ConnectController < ApplicationController
       format.html # roadmap.html.erb
     end
   end
-
-
-  # checks wether the users profile is complete enough to view other users profiles
-  def check_completeness
-    # something like...
-    # maybe trigger ajax, but i think redirecting is better
-    redirect_to :action => 'fill_out_profile' if current_user.profile.completeness.nil? || current_user.profile.completeness < 0.5
-  end
-
-  def fill_out_profile
-  end
-
 end
