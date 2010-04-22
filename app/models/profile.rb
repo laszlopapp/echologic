@@ -1,7 +1,7 @@
 class Profile < ActiveRecord::Base
 
   # Constants
-  COMPLETENESS_THRESHOLD = 0.4
+  COMPLETENESS_THRESHOLD = 0.42
 
   # Every profile has to belong to a user.
   belongs_to :user,       :dependent => :destroy
@@ -90,7 +90,7 @@ class Profile < ActiveRecord::Base
     query_part_2 = and_conditions.join(" AND ")
     #Rambo 3
     query_part_3 = " order by
-      CASE WHEN p.completeness > #{COMPLETENESS_THRESHOLD} THEN 0 ELSE 1 END,
+      CASE WHEN p.completeness >= #{COMPLETENESS_THRESHOLD} THEN 0 ELSE 1 END,
       CASE WHEN p.last_name IS NULL OR p.last_name='' THEN 1 ELSE 0 END,
       p.last_name, p.first_name, u.id asc;"
 
