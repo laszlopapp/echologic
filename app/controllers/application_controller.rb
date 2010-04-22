@@ -31,20 +31,19 @@ class ApplicationController < ActionController::Base
   end
 
 
-  # GENERIC AJAX METHODS SECTION
-
-
-  def render_with_info(message=@info)
-    render :update do |page|      
-      page << "info('#{message}');" if message
-      yield page
-    end
-  end
-  
+  # AJAX METHODS TO UPDATE THE PAGE AND DISPLAY INFO/ERROR MESSAGES
 
   # Sets the @info variable to the localisation given through the string
   def set_info(string, options = {})
     @info = I18n.t(string, options)
+  end
+
+  # Renders :updates a page with an a info message set by set_info.
+  def render_with_info(message=@info)
+    render :update do |page|
+      page << "info('#{message}');" if message
+      yield page if block_given?
+    end
   end
 
   # Sets error to the given objects error message.
@@ -122,7 +121,6 @@ class ApplicationController < ActionController::Base
 
   def requires_login
     render :update do |page|
-
     end
   end
 
@@ -154,12 +152,11 @@ class ApplicationController < ActionController::Base
             flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_in_for_page')
             #raise request.inspect
             request.env["HTTP_REFERER"] ? redirect_to(:back) : redirect_to(root_path)
-
             }
           format.js {
             # rendering an ajax-request, we assume it's rather an action, than a certain page, that the user want to access
             @info = I18n.t('authlogic.error_messages.must_be_logged_in_for_action')
-            render_with_info 
+            render_with_info
           }
         end
         return false

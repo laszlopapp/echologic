@@ -21,6 +21,12 @@
   margin:       18px 0px 5px;
 }
 
+.shadow_line_separator {
+  background: url(../images/page/separator_no_shadow.png) no-repeat bottom;
+  width: 990px;
+  padding: 10px 0;
+  display: block;
+}
 
 /* FUNCTION BUTTONS */
 
@@ -302,6 +308,10 @@
 
 /* OTHER NAVIGATION*/
 
+.text_for_function_button {
+  margin: 5px 0 10px 30px;
+}
+
 .function_button_holder {
   /*min-height:   95px;*/
   margin:      0px;
@@ -421,7 +431,6 @@
 .results_container .question {
 	width: 273px;
 }
-
 
 
 .results_container .content .avatar_holder {
