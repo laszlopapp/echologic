@@ -428,13 +428,7 @@ de:
   connect:
 
     fill_out_profile:
-      title: Geben und nehmen
-      text: |
-        <p>
-        "Vernetzen" ist viel spannender mit <strong>informativen Profilen</strong>.
-        Bitte füllen Sie Ihr Profil <strong>mindestens zu 50%</strong> aus.
-        Die Prozentzahl unten zeigt Ihnen, wie weit Sie schon sind.
-        </p>
+      text: Bitte füllen Sie Ihr Profil <strong>mindestens zu 50%</strong> aus, um diesen Block verschwinden zu lassen.
 
     segments:
       all: Alle

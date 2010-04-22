@@ -119,7 +119,7 @@ en:
       </p>
     function_1:
       name: 'My Profile'
-      description: 'Fill out your profile to present yourself in the echologic community.'
+      description: 'Complete your profile to present yourself in the echologic community.'
     function_2:
       name: 'Connect'
       description: 'Explore the community and connect with other interesting people of the movement.'
@@ -200,7 +200,7 @@ en:
         progress: Your avatar is being uploaded. Please wait...
 
       messages:
-        updated: "Profile information updated successful."        
+        updated: "Profile information updated successful."
 
     # Memberships section
     memberships:
@@ -418,13 +418,7 @@ en:
   connect:
 
     fill_out_profile:
-      title: Give and Take
-      text: |
-        <p>
-        "Connect" is much more interesting with <strong>informative profiles</strong>.
-        Please fill out <strong>at least 50%</strong> of your profile.
-        The percentage below shows you how far you already are.
-        </p>
+      text: Please fill out <strong>at least 50%</strong> of your profile to let this block disappear.
 
     segments:
       all:       'All'
