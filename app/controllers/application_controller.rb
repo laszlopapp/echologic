@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
   def render_with_info(message=@info)
     render :update do |page|
       page << "info('#{message}');" if message
-      yield page
+      yield page if block_given?
     end
   end
 
@@ -152,7 +152,6 @@ class ApplicationController < ActionController::Base
             flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_in_for_page')
             #raise request.inspect
             request.env["HTTP_REFERER"] ? redirect_to(:back) : redirect_to(root_path)
-
             }
           format.js {
             # rendering an ajax-request, we assume it's rather an action, than a certain page, that the user want to access
