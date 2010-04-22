@@ -2,7 +2,7 @@ class ConnectController < ApplicationController
 
   before_filter :require_user
 
-  # if the users profile is not fullfilled, we display a message and won't let him into the other users profiles 
+  # if the users profile is not fullfilled, we display a message and won't let him into the other users profiles
 
   # Show the connect page
   # method: GET

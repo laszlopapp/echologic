@@ -13,13 +13,11 @@ class Profile < ActiveRecord::Base
   validates_length_of :about_me, :maximum => 1024, :allow_nil => true
   validates_length_of :motivation, :maximum => 1024, :allow_nil => true
 
-
+  # To calculate profile completeness
   include ProfileExtension::Completeness
 
+  # TODO: do we need this ?
   named_scope :by_last_name_first_name_id, :include => :user, :order => 'CASE WHEN last_name IS NULL OR last_name="" THEN 1 ELSE 0 END, last_name, first_name, user.id asc'
-
-  # callback for paperclip
-
 
   # There are two kind of people in the world..
   @@gender = {
