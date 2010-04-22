@@ -32,7 +32,7 @@ class Users::ConcernmentsController < ApplicationController
     respond_to do |format|
       format.js do
          render_with_info do |p|           
-           p.insert_html :bottom, "concernments_#{@sort}", :partial => "users/concernments/concernment", :collection => @concernments
+           p.insert_html :bottom, "concernments_#{@sort}", :partial => "users/concernments/concernment", :collection => @concernments, :locals => {:new => true}
            p.visual_effect :appear, dom_id(@concernments.last)           
          end
       end      

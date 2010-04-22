@@ -1,3 +1,13 @@
-body {
-	
+#echosocial_static_menu {
+  float: right;
+  margin: -12px 30px -15px 0;
+  width: 275px;
+}
+
+#echosocial_static_menu ul {
+  list-style-type:none;
+}
+
+#echosocial_static_menu li {
+  margin: 0;
 }
