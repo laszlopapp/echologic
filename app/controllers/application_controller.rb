@@ -10,9 +10,9 @@ class ApplicationController < ActionController::Base
 
   # Initializes translate_routes
   before_filter :set_locale
-  
+
   # session timeout
-  
+
   before_filter :session_expiry
 
   # Set locale to the best fitting one
@@ -33,18 +33,6 @@ class ApplicationController < ActionController::Base
 
   # GENERIC AJAX METHODS SECTION
 
-  # Get formatted error string from error partial for a given object, then show
-  # it on the page object as an error message.
-  def show_error_messages(object=nil)
-    render :update do |page|
-      if object.blank?
-        message = @error
-      else
-        message = render(:partial => 'layouts/components/error', :locals => {:object => object})
-      end
-      page << "error('#{escape_javascript(message)}');"
-    end
-  end
 
   def render_with_info(message=@info)
     render :update do |page|      
@@ -53,11 +41,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def show_error_message(string)
-    render :update do |page|
-      page << "error('#{string}');"
-    end
-  end
 
   # Sets the @info variable to the localisation given through the string
   def set_info(string, options = {})
@@ -82,6 +65,24 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def show_error_message(string)
+    render :update do |page|
+      page << "error('#{string}');"
+    end
+  end
+
+  # Get formatted error string from error partial for a given object, then show
+  # it on the page object as an error message.
+  def show_error_messages(object=nil)
+    render :update do |page|
+      if object.blank?
+        message = @error
+      else
+        message = render(:partial => 'layouts/components/error', :locals => {:object => object})
+      end
+      page << "error('#{escape_javascript(message)}');"
+    end
+  end
 
   # Sets the @info variable to the flash object
   def flash_info
@@ -118,10 +119,10 @@ class ApplicationController < ActionController::Base
       page.remove name
     end
   end
-  
+
   def requires_login
     render :update do |page|
-      
+
     end
   end
 
@@ -152,10 +153,10 @@ class ApplicationController < ActionController::Base
           format.html {
             flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_in_for_page')
             #raise request.inspect
-            request.env["HTTP_REFERER"] ? redirect_to(:back) : redirect_to(root_path) 
-              
+            request.env["HTTP_REFERER"] ? redirect_to(:back) : redirect_to(root_path)
+
             }
-          format.js { 
+          format.js {
             # rendering an ajax-request, we assume it's rather an action, than a certain page, that the user want to access
             @info = I18n.t('authlogic.error_messages.must_be_logged_in_for_action')
             render_with_info 
@@ -199,7 +200,7 @@ class ApplicationController < ActionController::Base
       flash[:error] = I18n.t('activerecord.errors.messages.access_denied')
       redirect_to welcome_path
     end
-    
+
     def session_expiry
       if current_user_session and session[:expiry_time] and session[:expiry_time] < Time.now
         current_user_session.destroy
@@ -208,6 +209,6 @@ class ApplicationController < ActionController::Base
       end
       session[:expiry_time] = MAX_SESSION_PERIOD.seconds.from_now
       return true
-    end   
-     
+    end
+
 end
