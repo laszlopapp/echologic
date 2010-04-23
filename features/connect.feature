@@ -18,7 +18,6 @@ Feature: Use connect functionality
   # As an logged in user, without a complete enough profile
   # i cannot access the connect area
 
-
   Scenario: Try to access connect with too empty profile
     Given I am logged in as "Joe" with password "true"
     And my profile is not complete enough
@@ -39,14 +38,14 @@ Feature: Use connect functionality
       And I should not see the profile of "<false>"
 
     Examples:
-      | value   | true  | false |
-      | Energy  | Ben   | Admin |
-      | Joe     | Joe   | Ben   |
-      | Berlin  | luise | Ben   |
-      | Germany | luise | Admin |
-      | I am    | luise | Ben   |
-      | Pantha  | Joe   | Admin |
-      | user@e  | User  | Joe   |
+      | value   | true | false |
+      | Energy  | Ben  | Admin |
+      | Joe     | Joe  | Ben   |
+      | Berlin  | lisa | Ben   |
+      | Germany | lisa | Admin |
+      | I am    | lisa | Ben   |
+      | Pantha  | Joe  | Admin |
+      | user@e  | User | Joe   |
 
   # If they are interested in someones user details they
   # are able to view it - and to close the details.
@@ -68,4 +67,3 @@ Feature: Use connect functionality
     And the profile of user "luise" has no show_profile flag
     And I am on the connect page
     Then I should not see the profile of "luise"
-
