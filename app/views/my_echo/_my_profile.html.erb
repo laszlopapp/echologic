@@ -4,7 +4,6 @@
   </span>
   <% link_to my_profile_path, {:class => 'function_name'} do %>
     <%= I18n.t('welcome.function_1.name') %>
-    (<%=I18n.t('layouts.my_echo.profile_complete', :complete => current_user.profile.percent_completed || 0)%>)
   <% end %>
   <!--span class="function_name">
   </span-->
