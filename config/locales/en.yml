@@ -417,7 +417,7 @@ en:
   connect:
 
     fill_out_profile:
-      text: Please fill out <strong>at least {{percentage}}%</strong> of your profile to make this block disappear.
+      text: Please fill out <strong>at least {{percentage}}%</strong> of your profile to make "the computer" happy and let this block disappear. :-)
 
     segments:
       all:       'All'

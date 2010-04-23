@@ -429,7 +429,7 @@ de:
   connect:
 
     fill_out_profile:
-      text: Bitte füllen Sie Ihr Profil <strong>mindestens zu {{percentage}}%</strong> aus, um diesen Block verschwinden zu lassen.
+      text: Bitte füllen Sie Ihr Profil <strong>mindestens zu {{percentage}}%</strong> aus, um "den Rechner" glücklich zu machen und diesen Block verschwinden zu lassen. :-)
 
     segments:
       all: Alle
