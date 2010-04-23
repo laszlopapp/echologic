@@ -4,12 +4,7 @@
 
 <% insert_echosocial_breadcrumb(echosocial_path, echosocial_path) %>
 
+<%= I18n.t('static.echosocial.show.text') %>
 
-<%= I18n.t('static.echosocial.show.show.text') %>
-
-
-
-
-<% insert_illustrations([echosocial_path(:show),echosocial_path(:features),echosocial_path(:benefits)], {:domain => "echosocial"}) %>
-
-<% #insert_back_next_buttons(echologic_path, echo_path(:discuss)) %>
+<%# insert_back_next_buttons(echosocial_path(:features), echosocial_path(:benefits)) %>
+<% insert_illustrations([echosocial_path(:show), echosocial_path(:benefits), echosocial_path(:features)], {:domain => "echosocial"}) %>
