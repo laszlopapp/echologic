@@ -25,7 +25,7 @@ module StaticContentHelper
   
   def insert_echosocial_breadcrumb(main_link, sub_link, show_illustration=true)
     controller = request[:controller].split('/')[1]
-    action = request[:action] 
+    action = request[:action]
     title_translation = I18n.t("static.#{controller}.tabs.#{action}")  
     if show_illustration
       pic_resource = "page/illustrations/#{controller}_#{action}_small.png"

@@ -43,3 +43,8 @@
 #echosocial_teasers a:hover span {
   color: #7bb031;
 }
+
+.spreadedList {
+	list-style: none;
+	padding-left: 0px;
+}
