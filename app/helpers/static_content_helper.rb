@@ -4,7 +4,7 @@ module StaticContentHelper
 
 
   # Inserts the breadcrumb for the given main and sub menu point
-  def insert_breadcrumb(main_link, sub_link, sub_menu_title='.title', show_illustration=true)
+  def insert_breadcrumb(main_link, sub_link, sub_menu_title='.title',sub_menu_subtitle='.subtitle', show_illustration=true)
     controller = request[:controller].split('/')[1]
     action = request[:action]
     title_translation = I18n.t("static.#{controller}.title")
@@ -15,7 +15,7 @@ module StaticContentHelper
       end
       subtitle_translation = I18n.t("static.#{controller}.#{action}" + sub_menu_title)
     else
-      subtitle_translation = I18n.t("static.#{controller}.subtitle")
+      subtitle_translation = I18n.t("static.#{controller}#{sub_menu_subtitle}")
     end
 
     main_menu = "<h1 class='link'>#{title_translation}</h1>"
