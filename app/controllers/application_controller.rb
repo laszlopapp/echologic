@@ -198,7 +198,9 @@ class ApplicationController < ActionController::Base
 
     def session_expiry
       if current_user_session and session[:expiry_time] and session[:expiry_time] < Time.now
+        
         current_user_session.destroy
+        reset_session
         flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
         redirect_to root_path
       end

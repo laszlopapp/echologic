@@ -726,6 +726,7 @@ en:
       title: echosocial
       subtitle: Write something new
       show:
+        title: Echosocial
         ms1: Write something new
         ms2: |
           <font size="+2">Write something new</font>

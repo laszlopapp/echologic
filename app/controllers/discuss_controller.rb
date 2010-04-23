@@ -1,5 +1,7 @@
 class DiscussController < ApplicationController
 
+  before_filter :store_location, :only => [:index]
+  
   # GET /discuss
   def roadmap
     respond_to do |format|

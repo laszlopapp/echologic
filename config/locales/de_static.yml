@@ -722,6 +722,7 @@ de:
       title: echosocial
       subtitle: Worum geht´s?
       show:
+        title: Echosocial
         ms1: Worum geht´s?
         ms2: |
           <font size="+2">Worum geht´s?</font>
