@@ -14,12 +14,12 @@
   padding:     0 23px;
 }
 
-#main_logo {
+.main_logo {
   float:       left;
   margin:      23px 0 -27px 0;
 }
 
-#main_logo img {
+.main_logo img {
   border:      none;
   margin:      -2px 0 2px;
 }
@@ -138,9 +138,6 @@
   float:       left;
   margin-left: -5px;
   background:  #fff;
-}
-#missionStatementContainer .statement {
-	width: 620px;
 }
 
 #missionStatementContainer img {
@@ -375,10 +372,14 @@
 
 /* Important actions */
 
-.echoButtonBigHolder {
+.jump_in_button {
   height:      128px;
-  margin:      0px;
+  margin:      0;
   padding:     0px;
+}
+
+#missionStatementContainer .jump_in_button {
+  margin: 5px 0 0 7px;
 }
 
 .echoButtonBig {
@@ -408,7 +409,7 @@
   left:        142px;
 }
 
-.echoButtonBigHolder:hover .echoActionBig {
+.jump_in_button:hover .echoActionBig {
   color: #7bb031;
 }
 
