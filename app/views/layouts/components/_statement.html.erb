@@ -1,27 +1,21 @@
 <div id="missionStatementContainer" class="rounded-box rounded-box-green-iwot">
-	<div class="statement">
-		<%= image_tag "page/illustrations/state_1_#{params[:locale]}.jpg" %>
+	<div>
+		<%= image_tag "page/teasers/echologic_teaser_1_#{params[:locale]}.png" %>
 	</div>
-	<div class="statement">
-		<%= image_tag "page/illustrations/state_2_#{params[:locale]}.jpg" %>
+	<div>
+		<%= image_tag "page/teasers/echologic_teaser_2_#{params[:locale]}.png" %>
 	</div>
-	<div class="statement">
-		<%= image_tag "page/illustrations/state_3_#{params[:locale]}.jpg" %>
+	<div>
+		<%= image_tag "page/teasers/echologic_teaser_3_#{params[:locale]}.png" %>
 	</div>
-	<div class="statement">
-		<%= image_tag "page/illustrations/state_4_#{params[:locale]}.jpg" %>
+	<div>
+		<%= image_tag "page/teasers/echologic_teaser_4_#{params[:locale]}.png" %>
 	</div>
-	<div class="statement">
-		<div class="echoButtonBigHolder">
-		  <%#= link_to('<span class="echoButtonBig"></span>', {:url => echo_path}, :href => echo_path, :class => 'ajaxLink') %>
-		  <%= link_to '<span class="echoButtonBig"></span>', discuss_path %>
-		  <span class="echoActionBig"><%= I18n.t('static.echologic.show.action') %></span>
-		</div>
-	</div>
+  <%= render :partial => 'jump_in_button' %>
 </div>
 
 <script type="text/javascript">
-$('#missionStatementContainer').cycle({ 
+$('#missionStatementContainer').cycle({
     timeout: 5000
-}); 
+});
 </script>
