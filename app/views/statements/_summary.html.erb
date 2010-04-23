@@ -3,5 +3,10 @@
 <div id="summary" class="summary simple_header_block discuss_right_block">
   <h2><%= I18n.t('discuss.summary') %></h2>
   <%= edit_statement_link(statement) %>
+  <div class="translation_box rounded-box rounded-box-gray-itow with-header">
+    <span class="box_header"><%= link_to "Bitte übersetzen Sie das auf Deutsch", '' %></span>
+    <span class="box_header_icon"></span>
+	<span class="box_header_info">EN</span>
+  </div>
   <p><%= statement.translated_document(current_language_keys).text %></p>
 </div>

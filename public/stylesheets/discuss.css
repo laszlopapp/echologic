@@ -322,5 +322,32 @@ a.statement_link:hover {
   width: 945px;
 }
 
+/* ------------------- */
+/* Translations        */
+/* ------------------- */
 
+.translation_box {
+	background:url("../images/page/box/blue_white_gradient.png") repeat-x scroll left top #FFFFFF;
+	margin:0 0 15px;
+	padding-top: 11px;
+	padding-bottom: 11px;
+	text-align: center;
+}
 
+.translation_box .box_header {
+	position: relative;
+	left: 0px;
+	top: 0px;
+}
+
+.translation_box .box_header_icon {
+	background:url("../images/page/box/box_icon_people.png") scroll left top transparent;
+	left: 33px;
+	top: 3px;
+}
+
+.translation_box .box_header_info {
+	position: absolute;
+	left: 76px;
+	font-size:19px;
+}
