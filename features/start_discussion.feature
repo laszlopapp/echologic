@@ -24,7 +24,7 @@ Feature: Start a discussion
   @ok
   Scenario: Publish a question i created as an editor
     Given I am logged in as "editor" with password "true"
-      And a "New" question in "echonomyJAM"
+      And a "New" question in "echonomyjam"
       And I am on the Discuss Index
     When I go to the question
       And I follow "edit" within "#summary"

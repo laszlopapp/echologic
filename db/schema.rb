@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100405160319) do
+ActiveRecord::Schema.define(:version => 20100412141818) do
 
   create_table "concernments", :force => true do |t|
     t.integer  "user_id"
@@ -21,16 +21,6 @@ ActiveRecord::Schema.define(:version => 20100405160319) do
 
   add_index "concernments", ["sort"], :name => "index_concernments_on_sort"
   add_index "concernments", ["user_id", "sort"], :name => "index_concernments_on_user_id_and_sort"
-
-  create_table "echo_details", :force => true do |t|
-    t.integer "echo_id"
-    t.integer "user_id"
-    t.boolean "visited",   :default => false
-    t.boolean "supported", :default => false
-  end
-
-  add_index "echo_details", ["echo_id"], :name => "index_echo_details_on_echo_id"
-  add_index "echo_details", ["user_id"], :name => "index_echo_details_on_user_id"
 
   create_table "echos", :force => true do |t|
     t.integer "visitor_count",   :default => 0
@@ -191,6 +181,16 @@ ActiveRecord::Schema.define(:version => 20100405160319) do
 
   add_index "translations", ["locale_id", "key", "pluralization_index"], :name => "index_translations_on_locale_id_and_key_and_pluralization_index"
   add_index "translations", ["locale_id", "raw_key"], :name => "index_translations_on_locale_id_and_raw_key"
+
+  create_table "user_echos", :force => true do |t|
+    t.integer "echo_id"
+    t.integer "user_id"
+    t.boolean "visited",   :default => false
+    t.boolean "supported", :default => false
+  end
+
+  add_index "user_echos", ["echo_id"], :name => "index_echo_details_on_echo_id"
+  add_index "user_echos", ["user_id"], :name => "index_echo_details_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :null => false

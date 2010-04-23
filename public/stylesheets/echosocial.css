@@ -1,0 +1,50 @@
+#echosocial_static_menu {
+  float: right;
+  margin: -12px 30px -15px 0;
+  width: 275px;
+}
+
+#echosocial_static_menu ul {
+  list-style-type:none;
+}
+
+#echosocial_static_menu li {
+  margin: 0;
+}
+
+#echosocial_static_menu .box_header_icon {
+	background:url("../images/page/box/box_icon_people.png") repeat-x scroll left top transparent;
+}
+
+#echosocial_static_menu .make_echo {
+  background:url("../images/page/box/blue_white_gradient.png") repeat-x scroll left top #FFFFFF;
+  display:block;
+  height:272px;
+  width:220px;
+}
+
+#echosocial_static_menu .my_echo_image {
+	background:url("../images/page/illustrations/make_echosocial.jpg") center;
+	width: 220px;
+	height: 157px;
+	display: block;
+	top: 35px;
+	position: absolute;
+	margin-top: 10px;
+}
+
+#echosocial_static_menu .box_header{
+  left: 42px;
+}
+
+#echosocial_static_menu .box_subtitle {
+  padding-left: 10px;
+  padding-right: 10px;
+  position: absolute;
+  top: 200px;
+  margin-top: 10px;
+}
+
+#make_echo.rounded-box-gray-itow b.b {
+
+}

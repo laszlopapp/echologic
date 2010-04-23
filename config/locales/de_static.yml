@@ -813,9 +813,12 @@ de:
         features: Funktionen
         benefits: Leistungen
       features:
-          title: Funktionen          
+        title: Funktionen          
       benefits:
-          title: Leistungen
+        title: Leistungen
+      make_echo:
+        title: Machen Sie ein echo-social!
+        subtitle: Geben Sie Ihre Wünschen und Prioritäten ein. We werden echo-social dementsprechend entwickeln!
       #About
       about:
         title: About us
@@ -883,6 +886,7 @@ de:
           </p>
         open_document: Check out the document anyway!
 
+    
 
     join:
       title: &your_echo 'Ihr echo'

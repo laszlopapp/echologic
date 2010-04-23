@@ -177,6 +177,41 @@ class StatementNode < ActiveRecord::Base
   end
 
   class << self
+    
+    def search_statements(type, value, opts={} )
+    
+      #sorting the or arguments    
+      or_attrs = opts[:or_attrs] || %w(d.title d.text)
+      or_conditions = or_attrs.map{|attr|"#{attr} LIKE ?"}.join(" OR ")
+      
+      #sorting the and arguments    
+      and_conditions = opts[:conditions] || ["n.type = '#{type}'"]
+      
+      #all getting along like really good friends
+      and_conditions << "(#{or_conditions})"
+      
+      #Rambo 1
+      query_part_1 = <<-END
+        select distinct n.*
+        from
+          statement_nodes n
+          LEFT JOIN statements s             ON n.statement_id = s.id
+          LEFT JOIN statement_documents d    ON s.id = d.statement_id
+        where
+      END
+      #Rambo 2
+      query_part_2 = and_conditions.join(" AND ")
+      #Rambo 3
+      query_part_3 = " order by s.id asc;"
+      
+      #All Rambo's in one
+      query = query_part_1+query_part_2+query_part_3
+      value = "%#{value}%"
+       
+      conditions = [query, *([value] * or_attrs.size)]
+      statement_nodes = find_by_sql(conditions)
+    end
+  
     def valid_parents
       @@valid_parents[self.name]
     end

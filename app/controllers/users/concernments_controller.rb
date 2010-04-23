@@ -20,10 +20,22 @@ class Users::ConcernmentsController < ApplicationController
   # Response: JS
   #
   def create
+    previous_completeness = current_user.profile.percent_completed
     @concernments = Concernment.create_for(params[:tag][:value].split(','), params[:concernment].merge(:user_id => current_user.id))
+    current_completeness = @concernments.first.profile.percent_completed
+    set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
+
+
     @sort = params[:concernment][:sort]
+
+
     respond_to do |format|
-      format.js
+      format.js do
+         render_with_info do |p|
+           p.insert_html :bottom, "concernments_#{@sort}", :partial => "users/concernments/concernment", :collection => @concernments, :locals => {:new => true}
+           p.visual_effect :appear, dom_id(@concernments.last)
+         end
+      end
     end
   end
 
@@ -35,14 +47,20 @@ class Users::ConcernmentsController < ApplicationController
   #
   def destroy
     @concernment = Concernment.find(params[:id])
+    previous_completeness = @concernment.profile.percent_completed
     @concernment.destroy
+    current_completeness = @concernment.profile.percent_completed
+    set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 
     respond_to do |format|
       format.js do
         # sorry, but this was crap. you can't add additional js actions like this...
         # either use a rjs, a js, or a render :update block
         # remove_container("concernment_#{params[:id]}")
-        render :template => 'users/profile/remove_object', :locals => { :object => @concernment }
+        render_with_info do |p|
+          p.remove dom_id(@concernment)
+        end
+        #render :template => 'users/profile/remove_object', :locals => { :object => @concernment }
       end
     end
   end

@@ -791,9 +791,12 @@ en:
         features: Features
         benefits: Benefits
       features:
-          title: Features          
+        title: Features          
       benefits:
-          title: Benefits
+        title: Benefits
+      make_echo:
+        title: Make an echo-social!
+        subtitle: Tell your wishes and priorities. We will develop echo-social accordingly!
       #About
       about:
         title: About us
@@ -860,7 +863,6 @@ en:
           Currently, our data privacy statement is only available as a PDF document in German.
           </p>
         open_document: Check out the document anyway!
-
      
     join:
       title: &your_echo 'Your echo'

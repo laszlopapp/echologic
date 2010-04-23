@@ -120,7 +120,7 @@ en:
       </p>
     function_1:
       name: 'My Profile'
-      description: 'Fill out your profile to present yourself in the echologic community.'
+      description: 'Complete your profile to present yourself in the echologic community.'
     function_2:
       name: 'Connect'
       description: 'Explore the community and connect with other interesting people of the movement.'
@@ -308,6 +308,7 @@ en:
           title: Pilot Projects
     search:
       title: Search
+      in: 'In {{category}}:'
     topics:
       description: Description
       echonomyjam:
@@ -380,9 +381,11 @@ en:
         one: 'This statement has {{supporter_count}} supporter.'
         many: 'This statement has {{supporter_count}} supporters.'
     statements:
+      label: 'echos'
       create_question_link: 'Open a new debate'
-      create_proposal_link: 'Add new'
-      create_improvement_proposal_link: 'Add new'
+      create_proposal_link: Couldn't find your idea? Post it now!
+      create_internal_link: 'New idea?'
+      create_improvement_proposal_link: Couldn't find your idea? Post it now!
       create_proposal_explanation: |
         Do you have a <strong>good idea</strong> concerning the the current debate, which <strong>doesn't exist</strong> yet?<br/>
         Here you can create a <strong>new proposal</strong>.
@@ -414,6 +417,7 @@ en:
       updated: "The {{type}} has been updated successfully."
       deleted: "The {{type}} has been deleted successfully."
       empty:   "No debates found. Please change your search criteria."
+      new_percentage: "Your profile is {{percentage}}% complete."
 
 
 
@@ -424,13 +428,7 @@ en:
   connect:
 
     fill_out_profile:
-      title: Give and Take
-      text: |
-        <p>
-        "Connect" is much more interesting with <strong>informative profiles</strong>.
-        Please fill out <strong>at least 50%</strong> of your profile to see and connect to other movers.
-        The percentage below shows you how far you already are.
-        </p>
+      text: Please fill out <strong>at least 50%</strong> of your profile to let this block disappear.
 
     segments:
       all:       'All'
@@ -531,9 +529,9 @@ en:
       email_invalid:      "Please enter a correct e-mail address."
       password_blank:     "Password must be defined."
       not_active:         "Your account has not been activated yet. Please check your inbox."
-      must_be_logged_in_for_page:  "You must be logged in to access this page."
-      must_be_logged_in_for_action: "You must be logged in to perform this action."
-      must_be_logged_out: "You must be logged out to access this page."
+      must_be_logged_in_for_page:  "Please log in to access this page."
+      must_be_logged_in_for_action: "Please log in to perform this action."
+      must_be_logged_out: "Please log out to access this page."
 
     attributes:
       user_session:

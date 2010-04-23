@@ -5,7 +5,6 @@
 }.each_pair { |role, users| users.each { |user| user.has_role!(role) } }
 
 ## CATEGORIES
-
 %w(echonomyJAM echocracy echo echosocial).each { |name| Tag.create(:value => name) }
 
 ## ENUM KEYS

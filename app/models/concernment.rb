@@ -7,6 +7,8 @@ class Concernment < ActiveRecord::Base
   belongs_to :user
   belongs_to :tag
 
+  
+
   # Validate uniqueness
   validates_uniqueness_of :tag_id, :scope => [:user_id, :sort]
   validates_presence_of :tag_id, :user_id
@@ -35,6 +37,10 @@ class Concernment < ActiveRecord::Base
     @@sorts
   end
 
+  def profile
+    self.user.profile
+  end
+
   # Validate correctness of sort
   validates_inclusion_of :sort, :in => Concernment.sorts
 
@@ -47,4 +53,5 @@ class Concernment < ActiveRecord::Base
       }.compact
     end
   end
+  
 end

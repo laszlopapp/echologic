@@ -2,7 +2,7 @@ module Echoable
   def self.included(base)
     base.instance_eval do
       belongs_to :echo
-      has_many :echo_details, :foreign_key => 'echo_id', :primary_key => 'echo_id'
+      has_many :user_echos, :foreign_key => 'echo_id', :primary_key => 'echo_id'
       include InstanceMethods
     end
   end

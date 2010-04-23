@@ -12,6 +12,7 @@
 
     <!-- Stylesheets -->
     <%= stylesheet_link_tag 'echologic' %>
+	<%= stylesheet_link_tag 'echosocial' %>
     <%= stylesheet_link_tag 'application' %>
     <%= stylesheet_link_tag "formtastic" %>
     <%= stylesheet_link_tag "formtastic_changes" %>
@@ -24,16 +25,16 @@
     <%= javascript_include_tag 'jquery.forms' %>
     <%= javascript_include_tag 'jquery.ba-url.min' %>
     <%= javascript_include_tag 'jquery.autogrow' %>
-    <%= javascript_include_tag 'jquery.tooltip.pack' %>	
+    <%= javascript_include_tag 'jquery.tooltip.pack' %>
     <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
   </head>
   <body>
 
     <div id="header">
-      <div id="echologicLogo">
-        <%= link_to(image_tag('page/echologic_logo.png'), echosocial_path) %>
+      <div id="main_logo">
+        <%= link_to(image_tag('page/echosocial_logo.png'), echosocial_path) %>
       </div>
-      <%= render :partial => "layouts/components/top_menu", :locals => {:about_path => echosocial_path(:about)} %>
+      <%= render :partial => "layouts/components/top_menu", :locals => {:logout => false, :about_path => echosocial_path(:about)} %>
       <%#= render :partial => "users/user_sessions/login" %>
     </div>
 
@@ -51,7 +52,7 @@
     </div>
 
     <div class="mainBox rounded-box rounded-box-green-iwot">
-      <%#= navigation :static_menu %>
+      <%= navigation :echosocial_static_menu %>
       <div id="staticContent">
         <%= yield %>
       </div>

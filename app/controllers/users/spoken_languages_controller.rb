@@ -50,10 +50,16 @@ class Users::SpokenLanguagesController < ApplicationController
     @spoken_language.level = EnumKey.find(params[:spoken_language][:level])
     @spoken_language.user_id = @current_user.id
 
+    previous_completeness = @spoken_language.profile.percent_completed
     respond_to do |format|
       format.js do
-        if @spoken_language.save
-          render :template => 'users/profile/create_object', :locals => { :object => @spoken_language }
+        if @spoken_language.save          
+          current_completeness = @spoken_language.profile.percent_completed
+          set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
+          
+          render_with_info do |p|
+            p.insert_html :bottom, 'spoken_language_list', :partial => 'users/spoken_languages/spoken_language', :locals => {:new => true}        
+          end
         else
           show_error_messages(@spoken_language)
         end
@@ -83,7 +89,11 @@ class Users::SpokenLanguagesController < ApplicationController
   def destroy
     @spoken_language = SpokenLanguage.find(params[:id])
     id = @spoken_language.id
+    
+    previous_completeness = @spoken_language.profile.percent_completed
     @spoken_language.destroy
+    current_completeness = @spoken_language.profile.percent_completed
+    set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 
     respond_to do |format|
       format.js do
@@ -91,7 +101,9 @@ class Users::SpokenLanguagesController < ApplicationController
         # sorry, but this was crap. you can't add additional js actions like this...
         # either use a rjs, a js, or a render :update block
         #remove_container "web_address_#{id}"
-        render :template => 'users/profile/remove_object', :locals => { :object => @spoken_language }
+        render_with_info do |p|
+          p.remove dom_id(@spoken_language)
+        end 
       end
     end
   end

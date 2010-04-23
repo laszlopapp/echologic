@@ -52,27 +52,20 @@ class StatementsController < ApplicationController
     if @value.blank?
       #step 1.0: get the class name in order to get all the possible results
       statements_not_paginated = statement_class
+      statements_not_paginated = statements_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
     else  
       #step 1.01: search for first string
-      statements_not_paginated = search(@value.split(' ').first)
-      #statements_not_paginated = statement_class.search(@value.split(' ').first)    
-      #step 1.10: search for remaining strings
-      if @value.split(' ').size > 1
-         for value in @value.split(' ')[1..-1] do
-
-           statements_not_paginated &= search(value)
-
-        end
-      end
+      statements_not_paginated = search(@value)
     end
     
    
     #step 2: filter by category, if there is one 
-    statements_not_paginated = statements_not_paginated.from_category(params[:id]) if params[:id]
+    #IMPORTANT TODO!!!: this step will have to be worked over as soon as we have the new tagging mechanism working
+    #statements_not_paginated = statements_not_paginated.select{|s|s.has_from_category(params[:id])} if params[:id]
     
-    statements_not_paginated = statements_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
     
-    @count    = statements_not_paginated.count
+    
+    @count    = statements_not_paginated.size
     @category = Tag.find_or_create_by_value(params[:id])
     
     @statements = statements_not_paginated.paginate(:page => @page, :per_page => 6)
@@ -86,7 +79,7 @@ class StatementsController < ApplicationController
   end
 
   def search (value)
-    statement_class.find_by_title(value)    
+    StatementNode.search_statements('Question', value)
   end
 
 
@@ -180,6 +173,11 @@ class StatementsController < ApplicationController
       if @statement.save
         set_info("discuss.messages.created", :type => @statement.class.display_name)
         current_user.supported!(@statement)
+        #load current created statement to session
+        type = @statement.class.to_s.underscore
+        key = ("current_" + type).to_sym
+        session[key] = [] unless session[key]
+        session[key] << @statement.id
         # render parent statement after creation, if any
         # @statement = @statement.parent if @statement.parent
         format.html { flash_info and redirect_to url_for(@statement) }

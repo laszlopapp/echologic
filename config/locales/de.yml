@@ -314,6 +314,7 @@ de:
           title: Pilot Projekte
     search:
       title: Suchen
+      in: 'In {{category}}:'
     topics:
       description: Beschreibung
       echonomyjam:
@@ -393,9 +394,11 @@ de:
         many: 'Diese Aussage hat {{supporter_count}} UnterstützerInnen.'
 
     statements:
+      label: 'echos'
       create_question_link: 'Neue Debatte eröffnen'
-      create_proposal_link: 'Neuen Vorschlag erstellen'
-      create_improvement_proposal_link: 'Neuen Ergänzungsvorschlag erstellen'
+      create_proposal_link: 'Haben Sie Ihre Idee nicht gefunden? Tragen Sie sie jetzt ein!'
+      create_internal_link: 'Neue Idee?'
+      create_improvement_proposal_link: 'Haben Sie Ihre Idee nicht gefunden? Tragen Sie sie jetzt ein!'
       create_proposal_explanation: |
         Haben Sie eine <strong>gute Idee</strong> zur aktuellen Debatte, die noch <strong>nicht vorhandenen</strong> ist?<br/>
         Hier können Sie einen <strong>neuen Vorschlag</strong> erstellen.
@@ -427,6 +430,7 @@ de:
       updated: "{{type}} wurde erfolgreich bearbeitet."
       deleted: "{{type}} wurde erfolgreich gelöscht."
       empty:   "Es wurden keine Debatten gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
+      new_percentage: "Ihr Profil ist jetzt zu {{percentage}}% ausgefüllt."
 
 
   # ---------------
@@ -436,13 +440,7 @@ de:
   connect:
 
     fill_out_profile:
-      title: Geben und nehmen
-      text: |
-        <p>
-        "Vernetzen" ist viel spannender mit <strong>informativen Profilen</strong>.
-        Bitte füllen Sie Ihr Profil <strong>mindestens zu 50%</strong> aus, um andere BewegerInnen zu sehen und Kontakte zu knüpfen.
-        Die Prozentzahl unten zeigt Ihnen, wie weit Sie schon sind.
-        </p>
+      text: Bitte füllen Sie Ihr Profil <strong>mindestens zu 50%</strong> aus, um diesen Block verschwinden zu lassen.
 
     segments:
       all: Alle
@@ -649,9 +647,9 @@ de:
       email_invalid:      "Bitte korrigieren Sie die angegebene E-Mail Adresse."
       password_blank:     "Bitte geben Sie ein Passwort an."
       not_active:         "Ihr Zugang wurde noch nicht freigeschaltet. Sehen Sie bitte Ihrem Posteingang nach einer Aktivierungs E-Mail."
-      must_be_logged_in_for_page:  "Sie müssen eingeloggt sein, um diese Seite zu sehen."
-      must_be_logged_in_for_action: "Sie müssen eingeloggt sein, um diese Aktion ausführen zu können."
-      must_be_logged_out: "Sie müssen ausgeloggt sein, um diese Seite zu sehen."
+      must_be_logged_in_for_page:  "Bitte melden Sie sich an, um diese Seite zu sehen."
+      must_be_logged_in_for_action: "Bitte melden Sie sich an, um diese Aktion auszuführen."
+      must_be_logged_out: "Bitte melden Sie sich ab, um diese Seite zu sehen."
 
     attributes:
       user_session:

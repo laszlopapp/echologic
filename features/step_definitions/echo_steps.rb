@@ -1,6 +1,6 @@
 Given /^a proposal without echos$/ do
   @proposal = Proposal.first
-  @proposal.echo_details.destroy_all
+  @proposal.user_echos.destroy_all
 end
 
 Then /^the proposal should have one echo$/ do
@@ -16,7 +16,7 @@ end
 
 Given /^I gave an echo already to a proposal$/ do
   @proposal = Proposal.first
-  @proposal.echo_details.destroy_all
+  @proposal.user_echos.destroy_all
   @user.supported!(@proposal)
 end
 

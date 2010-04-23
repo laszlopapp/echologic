@@ -43,13 +43,15 @@ class Users::ProfileController < ApplicationController
   def update
     @profile = @current_user.profile
     respond_to do |format|
+      previous_completeness = @profile.percent_completed
       if @profile.update_attributes(params[:profile])
-        format.html { flash[:notice] = I18n.t('users.profile.messages.updated') and redirect_to my_profile_path }
-        format.js   { 
-          # this was crap, it prevents me from adding additional js functionality 
-          ##replace_container('personal_container', :partial => 'users/profile/profile_own') 
-          render :update do |page|
-            page.replace('personal_container', :partial => 'users/profile/profile_own')
+        current_completeness = @profile.percent_completed
+        set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
+        
+        format.html { flash_info and redirect_to my_profile_path }
+        format.js   {         
+          render_with_info do |p|
+            p.replace('personal_container', :partial => 'users/profile/profile_own')
           end
         }
       else

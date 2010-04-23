@@ -14,17 +14,17 @@
   padding:     0 23px;
 }
 
-#echologicLogo {
+#main_logo {
   float:       left;
   margin:      23px 0 -27px 0;
 }
 
-#echologicLogo img {
+#main_logo img {
   border:      none;
   margin:      -2px 0 2px;
 }
 
-#inviteBubble {
+#invite_bubble {
   position:    relative;
   float:       left;
   background:  url(../images/page/invitebubble_left.png) no-repeat;
@@ -32,7 +32,7 @@
   top: 		   15px;
 }
 
-#inviteBubble a {
+#invite_bubble a {
   background:  transparent url(../images/page/invitebubble_right.png) no-repeat scroll right top;
   color:       #fff;
   display:     block;
@@ -46,7 +46,7 @@
   position:    relative;
 }
 
-#inviteBubble a:hover {
+#invite_bubble a:hover {
   text-decoration: underline;
   cursor:      pointer;
 }
