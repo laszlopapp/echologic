@@ -393,7 +393,7 @@
 
 .results_container {
   padding: 45px 0 5px;
-  margin: 0;
+  margin: 0 0 15px 0;
   width: 990px;
   background: #fff url(../images/page/box/blue_white_gradient.png) repeat-x left top;
   min-height: 195px;

@@ -3,7 +3,7 @@ class Users::WebProfilesController < ApplicationController
   before_filter :require_user
 
   helper :profile
-  
+
   access_control do
     allow logged_in
   end
@@ -56,9 +56,11 @@ class Users::WebProfilesController < ApplicationController
         if @web_profile.save
           current_completeness = @web_profile.profile.percent_completed
           set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
-          
+
           render_with_info do |p|
-            p.insert_html :bottom, 'web_profile_list', :partial => 'users/web_profiles/web_profile', :locals => {:new => true}        
+            p.insert_html :bottom, 'web_profile_list', :partial => 'users/web_profiles/web_profile'
+            p << "$('#new_web_profile').reset();"
+	          p << "$('#web_profile_location').focus();"
           end
         else
           show_error_messages(@web_profile)
@@ -100,7 +102,7 @@ class Users::WebProfilesController < ApplicationController
         #remove_container "web_profile_#{id}"
         render_with_info do |p|
           p.remove dom_id(@web_profile)
-        end 
+        end
       end
     end
   end

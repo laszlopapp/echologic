@@ -1,3 +1,4 @@
+
 When /^I press localized "([^\"]*)"$/ do |key|
   click_button(I18n.t(key)) # or even I18n.t(key, :default => key) if you want to be able to use the key itself as the default
 end

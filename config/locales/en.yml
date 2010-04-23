@@ -108,13 +108,11 @@ en:
     text: |
       <p>
       <strong>Discuss - Connect - Act!</strong><br/>
-      These are the three functional areas of echo, which we will develop step by step at
-      echologic with your active participation.<br/>
-      The <strong>"Roadmap"</strong> (in the upper right corner of the screen) always shows you the
-      <strong>current state of development</strong> and the next steps planned concerning the
-      functional area you are looking at.
+      These are the three functional areas of echo being developed at echologic with your active participation.<br/>
+      The Roadmap (in the upper left corner of the screen) always shows you the
+      <strong>current state of development</strong> and the next steps planned in the area you are looking at.
       </p><p>
-      As a mover at echologic you are kindly invited to <strong>engage into the evolution of echo</strong>!<br/>
+      As a mover at echologic you are welcome to <strong>engage into the evolution of echo</strong>!<br/>
       Until now, the following simple features have been released:
       </p>
     function_1:
@@ -126,8 +124,9 @@ en:
     function_3:
       name: 'Discuss'
       description: |
-        Exchange your ideas with other newthinkers on topics about sustainablity and democracy.<br/>
-        Engage into the evolution of echo.
+        Engage into the evolution of echo.<br/>
+        Exchange your ideas with other newthinkers on topics about sustainablity and democracy.
+
 
 
   # ------------
@@ -418,7 +417,7 @@ en:
   connect:
 
     fill_out_profile:
-      text: Please fill out <strong>at least 50%</strong> of your profile to let this block disappear.
+      text: Please fill out <strong>at least {{percentage}}%</strong> of your profile to make this block disappear.
 
     segments:
       all:       'All'

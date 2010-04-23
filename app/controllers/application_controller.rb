@@ -106,7 +106,6 @@ class ApplicationController < ActionController::Base
   # This small methods takes much complexness from the controllers.
   def replace_content(name, content)
     render :update do |page|
-      page << "info('#{@info}');" if @info
       page.replace_html name, content
     end
   end
@@ -114,7 +113,6 @@ class ApplicationController < ActionController::Base
   # Helper method to remove some identifier from the page.
   def remove_container(name)
     render :update do |page|
-      page << "info('#{@info}');" if @info
       page.remove name
     end
   end
