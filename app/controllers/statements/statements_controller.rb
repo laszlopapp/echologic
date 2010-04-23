@@ -157,6 +157,9 @@ class StatementsController < ApplicationController
           page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent}) if @statement.parent         
           page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) if @statement.parent
           page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent})
+          
+          page << "makeRatiobars();"
+          page << "makeTooltips();"
         end
       }
     end
@@ -182,13 +185,16 @@ class StatementsController < ApplicationController
         @children = children_for_statement
         format.html { flash_info and redirect_to url_for(@statement) }
         format.js   {
-          session[:last_info] = @info # save @info so it doesn't get lost during redirect
+          #session[:last_info] = @info # save @info so it doesn't get lost during redirect
           render :update do |page|
-            
+            page << "info('#{@info}');"
             page.replace('new_statement', :partial => 'statements/children', :statement => @statement, :children => @children)
             page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement})         
             page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement})
             page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement})
+            page << "makeRatiobars();"
+            page << "makeTooltips();"
+
           #page << "window.location.replace('#{url_for(@statement)}');"
           end
         }
