@@ -13,6 +13,9 @@ module EchoEnumerable
     def language_enum
       enum 'languages'
     end
+    def language_level_enum
+      enum 'language_levels'
+    end
     
     def enum(name, options = {})
       config = {:key => name.to_s.singularize << '_id'}
@@ -23,8 +26,8 @@ module EchoEnumerable
 
         include EchoEnumerable::InstanceMethods
 
-        def self.#{name}
-            EnumKey.find_all_by_name('#{name}')
+        def self.#{name}(code='')
+            code.blank? ? EnumKey.find_all_by_name('#{name}') : EnumKey.find_all_by_name_and_code('#{name}',code)  
         end
         
       EOV

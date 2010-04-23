@@ -285,6 +285,7 @@ en:
   # ---------------
 
   discuss:
+    translation_request: Please translate this text in English
     results_count:
       one: '{{count}} debate'
       more: '{{count}} debates'

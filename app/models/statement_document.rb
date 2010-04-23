@@ -12,6 +12,7 @@ class StatementDocument < ActiveRecord::Base
   validates_associated :statement
   
   language_enum
+  language_level_enum
   
   # returns if the document is an original or a translation
   def original?
