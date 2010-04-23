@@ -1,6 +1,10 @@
+#echosocial_logo {
+  margin-bottom: -35px;
+}
+
 #echosocial_teasers {
   float: right;
-  margin: 15px 10px 0 0;
+  margin: 10px 5px 0 0;
   padding: 0;
   width: 275px;
 }
@@ -22,5 +26,20 @@
 
 #echosocial_teasers .box_content {
   text-align: center;
+  font-weight: bold;
+  padding: 7px;
 }
 
+#echosocial_teasers img {
+  border: none;
+  margin-bottom: 20px;
+}
+
+#echosocial_teasers a span {
+  display: block;
+  color: #21587F;
+}
+
+#echosocial_teasers a:hover span {
+  color: #7bb031;
+}
