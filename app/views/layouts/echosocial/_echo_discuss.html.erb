@@ -4,7 +4,9 @@
    <span class="box_header_icon"></span>
 
    <div class="box_content">
-     <%= link_to(image_tag('page/echosocial_logo.png'), echosocial_path) %><br/>
-     <span><%= I18n.t('static.echosocial.make_echo.subtitle') %></span>
+     <% link_to('http://www.echologic.org', :target => '_blank') do %>
+       <%= image_tag('page/echo_logo.png') %>
+       <span><%= I18n.t('static.echosocial.make_echo.subtitle') %></span>
+     <% end %>
    </div>
 </div>
