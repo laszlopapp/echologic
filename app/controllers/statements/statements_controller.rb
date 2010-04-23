@@ -114,7 +114,7 @@ class StatementsController < ApplicationController
 
     # find alle child statements, which are published (except user is an editor) sorted by supporters count, and paginate them
     @page = params[:page] || 1
-    @children = @statement.children.published(current_user && current_user.has_role?(:editor)).by_supporters.paginate(Statement.default_scope.merge(:page => @page, :per_page => 5))
+    @children = children_for_statement
     respond_to do |format|
       format.html { 
         render :template => 'statements/show' } # show.html.erb
@@ -176,14 +176,20 @@ class StatementsController < ApplicationController
         #load current created statement to session
         type = @statement.class.to_s.underscore
         key = ("current_" + type).to_sym
-        session[key] << @statement.id
+        session[key] = @statement.parent.children.map{|s|s.id}
         # render parent statement after creation, if any
         # @statement = @statement.parent if @statement.parent
+        @children = children_for_statement
         format.html { flash_info and redirect_to url_for(@statement) }
         format.js   {
           session[:last_info] = @info # save @info so it doesn't get lost during redirect
           render :update do |page|
-            page << "window.location.replace('#{url_for(@statement)}');"
+            
+            page.replace('new_statement', :partial => 'statements/children', :statement => @statement, :children => @children)
+            page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement})         
+            page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement})
+            page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement})
+          #page << "window.location.replace('#{url_for(@statement)}');"
           end
         }
       else
@@ -282,5 +288,10 @@ class StatementsController < ApplicationController
       parent_id = params[:"#{parent.to_s.underscore.singularize}_id"]
       return parent.to_s.constantize.find(parent_id) if parent_id
     end ; nil
+  end
+  
+  # private method, that collects all children, sorted and paginated in the way we want them to
+  def children_for_statement
+    @statement.children.published(current_user && current_user.has_role?(:editor)).by_supporters.paginate(Statement.default_scope.merge(:page => @page, :per_page => 5))
   end
 end

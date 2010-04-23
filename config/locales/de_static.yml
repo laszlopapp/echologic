@@ -728,7 +728,7 @@ de:
           <font size="+2">Worum geht´s?</font>
         ms3: |
           echosocial - Worum geht´s? <span title="{{tooltip}}" class="ttLink">please</span>!
-        about:
+        show:
             title: Worum geht´s?
             text: |
               <p>
@@ -741,7 +741,7 @@ de:
               zusammen zu arbeiten</strong> - in allen Erdteilen.</p>
         benefits:
           title: Was bringt´s mir?
-          text_1: |
+          text: |
             <p>
             echo-social ermöglicht Euch, für Eure Organisation, Projekte und Aktionen ein eigenes <strong>soziales Netzwerk</strong> 
             zu erstellen und dieses Teil einer globalen Bewegung werden zu lassen. Eure Ideen und Gedanken,
@@ -749,12 +749,7 @@ de:
             echo-social ist die <strong>Open Source</strong> Lösung, um mit wenigen Klicks ein 
             eigenes Netzwerk mit individuellem Auftritt zu erstellen. <br/></p>
       
-          text_2: |
-            <p>echo-social Webseiten sind berbunde durch <strong>echo - eine dezentrale Kommunikationsinfrastruktur</strong> 
-            für aktive Bürgerbeteiligung und teilnehmende Demokratie. Im Laufe der weiteren Realisierung echos
-            werden Aktionen und Projekte auf echo-social Webseiten stets mit thematisch relevanten Debatten und Aktionen 
-            von anderen (nicht nur echo-social) Webseiten verknüpft. Dies hilft bisher unabhängige Communities 
-            mit Eurer eigenen zu vernetzen und die <strong>Reichweite Eurer Aktionen zu verfielfachen</strong>.</p>
+         
             
           toolbox:
             title: Umfangreiche Werkzeugkiste
@@ -773,7 +768,12 @@ de:
           coverage:
             title: Vervielfachte Reichweite
             text: |
-              <p>Wir können Dinge nur verändern, wenn wir gemeinsam handeln!</p>
+              <p>Wir können Dinge nur verändern, wenn wir gemeinsam handeln!</p><p>echo-social Webseiten sind berbunde durch <strong>echo - eine dezentrale 
+              Kommunikationsinfrastruktur</strong> 
+              für aktive Bürgerbeteiligung und teilnehmende Demokratie. Im Laufe der weiteren Realisierung echos
+              werden Aktionen und Projekte auf echo-social Webseiten stets mit thematisch relevanten Debatten und Aktionen 
+              von anderen (nicht nur echo-social) Webseiten verknüpft. Dies hilft bisher unabhängige Communities 
+              mit Eurer eigenen zu vernetzen und die <strong>Reichweite Eurer Aktionen zu verfielfachen</strong>.</p>
            
             
         features:
@@ -828,7 +828,7 @@ de:
               und Dein Handeln immer in einem diskursiven Kontext. Die Gründe für Euer Handeln werden 
               transparent und nachvollziehbar und Ihr könnt mehr Menschen für Eure Anliegen begeistern.</p>
       tabs:
-        echosocial: Echo Social
+        show: Echosocial
         features: Funktionen
         benefits: Leistungen
       features:
