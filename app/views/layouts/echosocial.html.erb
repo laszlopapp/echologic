@@ -41,20 +41,14 @@
     <!-- Messaging section. -->
     <%= render :partial => 'layouts/components/messages' %>
 
-
-    <div id="echologicContainer" <%= display_echologic_container %>>
-      <%= render :partial => "layouts/components/statement" %>
-      <%= render :partial => "layouts/components/news" %>
-    </div>
-
     <div class="tabContainer" id="tabContainer" <%= display_tab_container %>>
       <%= yield :tabContainer %>
     </div>
 
     <div class="mainBox rounded-box rounded-box-green-iwot">
-      <%= navigation :echosocial_static_menu %>
+      <%= render :partial => 'layouts/echosocial/teasers' %>
       <div id="staticContent">
-        <%= yield %>
+         <%= yield %>
       </div>
     </div>
 
