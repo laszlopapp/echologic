@@ -6,7 +6,7 @@ module StaticContentHelper
   # Inserts the breadcrumb for the given main and sub menu point
   def insert_breadcrumb(main_link, sub_link, sub_menu_title='.title',sub_menu_subtitle='.subtitle', show_illustration=true)
     controller = request[:controller].split('/')[1]
-    action = request[:action]
+    action = request[:action] 
     title_translation = I18n.t("static.#{controller}.title")
     if main_link != sub_link
       if show_illustration
@@ -22,12 +22,28 @@ module StaticContentHelper
     concat link_to(main_menu, url_for(:controller => controller, :action => 'show'))
     concat "<h2>#{subtitle_translation}</h2>"
   end
+  
+  def insert_echosocial_breadcrumb(main_link, sub_link, show_illustration=true)
+    controller = request[:controller].split('/')[1]
+    action = request[:action] 
+    title_translation = I18n.t("static.#{controller}.tabs.#{action}")  
+    if show_illustration
+      pic_resource = "page/illustrations/#{controller}_#{action}_small.png"
+      concat image_tag(pic_resource, {:class => 'cornerIllustration'})
+    end
+    subtitle_translation = I18n.t("static.#{controller}.show.#{action}.title")    
+    
+    main_menu = "<h1 class='link'>#{title_translation}</h1>"
+    concat link_to(main_menu, url_for(:controller => controller, :action => 'show'))
+    concat "<h2>#{subtitle_translation}</h2>"
+  end
 
   # Inserts illustrations as a link for the given array of paths.
   def insert_illustrations(links, options = {})
     concat "<div class='illustrationHolder" + (links.size==3 ? " threeItems" : '') + "'>"
     links.each do |link|
       parts = link.split('/')
+      parts << "show" unless parts.length > 2
       item = parts[2,3].join('_')
       pic_resource = 'page/illustrations/' + item + '.png'
       translation = I18n.t("static.#{options[:domain]+'.' if options[:domain]}#{parts[2,3].join('.')}.title")
