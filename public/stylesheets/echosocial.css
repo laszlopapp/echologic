@@ -48,3 +48,9 @@
 #make_echo.rounded-box-gray-itow b.b {
 
 }
+
+
+ul.spreadedList {
+	list-style: none;
+	padding-left: 0px;
+}
