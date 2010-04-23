@@ -13,7 +13,7 @@ Feature: Report unseemly behaving users
     Given I am logged in as "User" with password "true"
       And there are no user reports
     When I am on the connect page
-      And I follow the "Show" link for the profile of "luise"
+      And I follow the "Show" link for the profile of "user"
       And I follow "Report"
       And I fill in "reason" with "User has red hair."
     # Problem with jquery-ui modal dialog.
