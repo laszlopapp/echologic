@@ -1,6 +1,6 @@
 
 <br/>
-<p class="text_for_function_button"><%= I18n.t('connect.fill_out_profile.text') %></p>
+<p class="text_for_function_button"><%= I18n.t('connect.fill_out_profile.text', :percentage => (Profile::COMPLETENESS_THRESHOLD * 100).to_i) %></p>
 <br/>
 <%= render :partial => 'my_echo/my_profile' %>
 <span class="shadow_line_separator"></span>

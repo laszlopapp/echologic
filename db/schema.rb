@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100412141818) do
+ActiveRecord::Schema.define(:version => 20100422144705) do
 
   create_table "concernments", :force => true do |t|
     t.integer  "user_id"
@@ -79,7 +79,6 @@ ActiveRecord::Schema.define(:version => 20100412141818) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.float    "completeness",        :default => 0.01
-    t.integer  "show_profile"
   end
 
   create_table "reports", :force => true do |t|

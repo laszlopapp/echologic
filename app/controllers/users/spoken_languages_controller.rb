@@ -58,7 +58,8 @@ class Users::SpokenLanguagesController < ApplicationController
           set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
           
           render_with_info do |p|
-            p.insert_html :bottom, 'spoken_language_list', :partial => 'users/spoken_languages/spoken_language', :locals => {:new => true}        
+            p.insert_html :bottom, 'spoken_language_list', :partial => 'users/spoken_languages/spoken_language'
+            p << "$('#new_spoken_language').reset();"
           end
         else
           show_error_messages(@spoken_language)

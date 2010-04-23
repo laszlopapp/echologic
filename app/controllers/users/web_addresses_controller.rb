@@ -3,7 +3,7 @@ class Users::WebAddressesController < ApplicationController
   before_filter :require_user
 
   helper :profile
-  
+
   access_control do
     allow logged_in
   end
@@ -56,9 +56,11 @@ class Users::WebAddressesController < ApplicationController
         if @web_address.save
           current_completeness = @web_address.profile.percent_completed
           set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
-          
+
           render_with_info do |p|
-            p.insert_html :bottom, 'web_address_list', :partial => 'users/web_addresses/web_address', :locals => {:new => true}        
+            p.insert_html :bottom, 'web_address_list', :partial => 'users/web_addresses/web_address'
+            p << "$('#new_web_address').reset();"
+	          p << "$('#web_address_location').focus();"
           end
         else
           show_error_messages(@web_address)
@@ -100,8 +102,13 @@ class Users::WebAddressesController < ApplicationController
         # either use a rjs, a js, or a render :update block
         #remove_container "web_profile_#{id}"
         render_with_info do |p|
+<<<<<<< HEAD:app/controllers/users/web_addresses_controller.rb
           p.remove dom_id(@web_address)
         end 
+=======
+          p.remove dom_id(@web_profile)
+        end
+>>>>>>> 82af1eed878452b76b3f189d797e2f9d24516b9a:app/controllers/users/web_profiles_controller.rb
       end
     end
   end

@@ -109,7 +109,7 @@ de:
       <p>
       <strong>Diskutieren - Vernetzen - Handeln!</strong><br/>
       Die drei Funktionsbereiche von echo werden wir auf echologic gemeinsam mit Ihnen Stück für Stück ausbauen.<br/>
-      Im <strong>"Fahrplan"</strong> (rechts oben im Bild) können Sie für jeden Bereich den aktuellen <strong>Stand der
+      Im Fahrplan (links oben im Bild) können Sie für jeden Bereich den aktuellen <strong>Stand der
       Entwicklung</strong> sowie die geplanten nächsten Schritte verfolgen.
       </p><p>
       Als BewegerIn von echologic sind Sie herzlich eingeladen, die Entwicklung von <strong>echo mit zu gestalten</strong>!<br/>
@@ -124,8 +124,9 @@ de:
     function_3:
       name: 'Diskutieren'
       description: |
-        Tauschen Sie Ihre Ideen mit anderen NeudenkerInnen über Themen der Nachhaltigkeit und Demokratie aus.<br/>
-        Bringen Sie sich in die weitere Entwicklung echos ein.
+        Bringen Sie sich in die weitere Entwicklung echos ein.<br/>
+        Tauschen Sie Ihre Ideen mit anderen NeudenkerInnen über Themen der Nachhaltigkeit und Demokratie aus.
+
 
   # ------------
   # USERS MODULE
@@ -440,7 +441,7 @@ de:
   connect:
 
     fill_out_profile:
-      text: Bitte füllen Sie Ihr Profil <strong>mindestens zu 50%</strong> aus, um diesen Block verschwinden zu lassen.
+      text: Bitte füllen Sie Ihr Profil <strong>mindestens zu {{percentage}}%</strong> aus, um diesen Block verschwinden zu lassen.
 
     segments:
       all: Alle

@@ -1,5 +1,4 @@
 <% @spoken_language = spoken_language if spoken_language.present? %>
-<% new ||= false %>
 <li id="<%= dom_id(@spoken_language) %>" >
   <span class="column_200 value"><%=h @spoken_language.language.get_current_enum_value.value %></span>
   <span class="column_200 value"><%=h @spoken_language.level.get_current_enum_value.value %></span>
@@ -7,9 +6,3 @@
   <%= link_to I18n.t('application.general.edit'), edit_user_spoken_language_path(@spoken_language.user, @spoken_language), :class => "ajax text_button edit_button" %>
   <%= link_to I18n.t('application.general.delete'), user_spoken_language_path(@spoken_language.user, @spoken_language), :class => "ajax_delete text_button delete_button" %>
 </li>
-
-<% if new %>
-	<script>
-	$('#new_spoken_language').reset();
-	</script>
-<% end %>
