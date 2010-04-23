@@ -179,8 +179,7 @@ class StatementsController < ApplicationController
         #load current created statement to session
         type = @statement.class.to_s.underscore
         key = ("current_" + type).to_sym
-        session[key] = [] unless session[key]
-        session[key] << @statement.id
+        session[key] = @statement.parent.children.map{|s|s.id}
         # render parent statement after creation, if any
         # @statement = @statement.parent if @statement.parent
         @children = children_for_statement
