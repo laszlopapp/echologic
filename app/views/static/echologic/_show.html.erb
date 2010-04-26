@@ -1,11 +1,21 @@
 <% insert_breadcrumb(echologic_path, echologic_path) %>
 
-<span id="echoTeaser"><%= I18n.t('static.echologic.show.teaser') %></span>
+<%= I18n.t('static.echologic.show.text_1', :tooltip => I18n.t('static.echologic.show.subsidiarity_tooltip')) %>
 
-<strong><%= I18n.t('static.echologic.show.action') %></strong>
-<% insert_toggle_more(I18n.t('static.echologic.show.teaser_more')) %>
-<br/>
-<%#= I18n.t('static.echologic.show.teaser_more') %>
+<ul class="spreadedList">
+	<li>
+		<strong><%= I18n.t('static.echologic.show.text_2.title') %></strong>
+		<% insert_toggle_more(I18n.t('static.echologic.show.text_2.more')) %>
+	</li>
+	<li>
+		<strong><%= I18n.t('static.echologic.show.text_3.title') %></strong>
+		<% insert_toggle_more(I18n.t('static.echologic.show.text_3.more')) %>
+	</li>
+	<li>
+		<strong><%= I18n.t('static.echologic.show.text_4.title') %></strong>
+		<% insert_toggle_more(I18n.t('static.echologic.show.text_4.more')) %>
+	</li>
+</ul>
 
 <%= render :partial => 'jump_in_button' %>
 

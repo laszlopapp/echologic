@@ -1,21 +1,18 @@
 <div id="missionStatementContainer" class="rounded-box rounded-box-green-iwot">
-	<div>
-		<%= image_tag "page/teasers/echologic_teaser_1_#{params[:locale]}.png" %>
-	</div>
-	<div>
-		<%= image_tag "page/teasers/echologic_teaser_2_#{params[:locale]}.png" %>
-	</div>
-	<div>
-		<%= image_tag "page/teasers/echologic_teaser_3_#{params[:locale]}.png" %>
-	</div>
-	<div>
-		<%= image_tag "page/teasers/echologic_teaser_4_#{params[:locale]}.png" %>
-	</div>
+  <div>
+    <%= image_tag 'page/echologic_mission.jpg' %>
+    <div id="yuccaHotspot" class="ttLink" title="<%= I18n.t('static.echologic.show.yucca') %>"></div>
+    <div id="missionStatementHolder">
+      <span class="ms_echologic"><%= I18n.t('static.echologic.show.ms1') %></span>
+      <span class="ms_text"><%= I18n.t('static.echologic.show.ms2') %></span><br/>
+      <span class="ms_echo"><%= I18n.t('static.echologic.show.ms3', :tooltip => I18n.t('static.echologic.show.agora_tooltip')) %></span>
+    </div>
+  </div>
   <%= render :partial => 'static/echologic/jump_in_button' %>
 </div>
 
 <script type="text/javascript">
 $('#missionStatementContainer').cycle({
-    timeout: 5000
+    timeout: 7000
 });
 </script>

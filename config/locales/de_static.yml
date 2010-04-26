@@ -114,7 +114,7 @@ de:
       show:
         ms1: echologic
         ms2: |
-          ist ein Netzwerk von FreidenkerInnen<br/>und ihren Organisationen. Gemeinsam verwirklichen wir
+          ist ein Netzwerk von BewegerInnen<br/>und ihren Organisationen. Gemeinsam verwirklichen wir
         ms3: |
           echo - die globale <span title="{{tooltip}}" class="ttLink">Agora</span>!
 
@@ -133,36 +133,56 @@ de:
         header2: |-
           das Ende der Machtlosigkeit!&nbsp;&nbsp;<br/>den Anfang der Selbstbestimmung!
 
-        teaser: |
+        text_1: |
           <p>
-          <strong>echologic</strong> bietet Ihnen die Möglichkeit die Entwicklung von <strong>echo aktiv mitzugestalten</strong>!
+          echo ist ein <strong>Gemeinschaftsprojekt</strong> für einen nachhaltigen Wandel durch
+          <strong>akive Bürgerbeteiligung</strong>. Es wendet sich an alle Mitglieder der Gesellschaft:
+          Bürger, Experten, Entscheidungsträger und Vertreter von Organisationen und Unternehmen.
           </p><p>
-          <strong>echo</strong> ist ein Internetprojekt für einen nachhaltigen Wandel durch <strong>aktive Bürgerbeteiligung</strong>.
-          Unser Ziel ist eine <strong>neue Form teilnehmender Demokratie</strong> auf lokaler, regionaler und globaler Ebene zu ermöglichen.
+          echo schafft die technische Grundlage für eine offene, <strong>teilnehmende Demokratie</strong> auf lokaler,
+          regionaler und <span title="{{tooltip}}" class="ttLink">globaler Ebene</span>. Auf echo finden Stimmen Anklang.
+          Aus Ideen wird Bewegung, aus Visionen Realität. echo bedeutet das <strong>Ende der Machtlosigkeit</strong>,
+          den <strong>Anfang der Selbstbestimmung</strong>.
           </p>
-
-        teaser_more: |
-          <p>
-          Engagierte BürgerInnen, ExpertInnen, RepräsentantInnen und deren Organisationen können auf echo ihre
-          Ansichten diskutieren, Mitstreiter mobilisieren, gemeinsam Aktionen planen und umsetzen.
-          Erstmals ist ein lösungsorientierter, <strong>übersichtlicher Diskurs mit beliebig vielen Teilnehmern</strong> möglich.
-          Durch Anknüpfung an bestehende <strong>legislative Instrumente</strong>
-          wird aus zivilgesellschaftlichem Engagement <strong>echte politische Teilhabe</strong>.
-          </p><p>
-          echo ist <strong>Open Source</strong> und wird die Basis einer heterogenen, <strong>dezentralen Infrastruktur</strong>.
-          Sein webseitenübergreifender Ansatz überwindet die Grenzen einzelner Portale und Initiativen und
-          vervielfacht somit deren <strong>Einflusspotential</strong>.
-          </p><p>
-          echo ist als <strong>Social Business</strong> tätig. Im Rahmen seiner <strong>"Your-Profit“ Geschäftsphilosophie</strong>
-          fließen Überschüsse zurück in Aktionen und Unternehmungen der Gemeinschaft. So kann der virtuelle Diskurs reale Früchte tragen und
-          immer mehr Menschen zur <strong>politischen und wirtschaftlichen Selbstbestimmung</strong> verhelfen.
-          </p><p>
-          Durch neuartige Möglichkeiten transnationaler und interkultureller Zusammenarbeit soll mit echo ein globales Bewusstsein gefördert
-          und damit der Weg in eine friedliche, gerechte und <strong>nachhaltige Zukunft</strong> geebnet werden.
-          </p>
+        subsidiarity_tooltip: Stichwort Subsidiarität
+        text_2:
+          title: Willensbildung und politische Einflussnahme
+          more: |
+            <p>
+            Nach dem Motto <strong>“Diskutieren – Vernetzen – Handeln!”</strong> können hier Menschen rund um den
+            Globus gemeinsam ihren unmittelbaren Lebensraum gestalten – und die Zukunft unserer Welt. echos Diskussionsbereich
+            ermöglicht eine fundierte <strong>Meinungs- und Willensbildung</strong> und bleibt auch mit beliebig vielen Teilnehmern
+            übersichtlich. Im Bereich „Handeln“ wird gesellschaftliches Engagement mit bestehenden <strong>direkt
+            demokratischen Mittlen</strong> (z.B. ePetition, Volksentscheid, Demonstration) in echte
+            <strong>politische Einflussnahme</strong> umgesetzt.
+            </p>
+        text_3:
+          title: Offenheit und “Your-Profit“ Philosophie
+          more: |
+            <p>echo ist <strong>Open Source</strong> und wird die Basis einer heterogenen,
+            <strong>dezentralen Infrastruktur</strong>. Sein webseitenübergreifender Ansatz überwindet die Grenzen
+            verinselter Plattformen und Initiativen – er bündelt und vervielfacht deren <strong>Einflusspotential</strong>.
+            </p><p>
+            echo ist als <strong>Social Business</strong> tätig und den grundlegenden ethischen Werten der Demokratie sowie
+            ökologisch und sozial nachhaltigen Wirtschaftens verpflichtet. Überschüsse fließen gemäß seiner
+            <strong>„Your-Profit“ Philosophie</strong> vollständig zurück in Aktionen und Unternehmungen der Gemeinschaft.
+            So kann das virtuelle Engagement reale Früchte tragen und immer mehr Menschen zur <strong>politischen und
+            wirtschaftlichen Selbstbestimmung</strong> verhelfen.
+            </p>
+        text_4:
+          title: Ihr echo
+          more: |
+            <p>
+            echo braucht Ihre Meinung, Ihre Ideen, Ihre Stimme. Helfen Sie mit, die Demokratie in eine Zukunft zu führen,
+            in der jede Stimme gleich viel zählt – überall auf der Welt.
+            </p><p>
+            Auf <strong>echologic</strong> finden sich immer mehr Menschen zusammen und beginnen gemeinsam
+            <strong>die Vision von echo zu verwirklichen</strong>.
+            echo steckt zwar momentan noch <strong>in den Kinderschuhen</strong>, Sie können aber bereits jetzt:
+            </p>
 
         action: |
-          Jetzt reinschnuppern!
+          Schauen wie es sich entwickelt
 
       # about section
       about:
