@@ -2,7 +2,7 @@ class AddAndUpdateCategories < ActiveRecord::Migration
   def self.up
     Tag.create!(:value => 'echosocial')
     Tag.create!(:value => 'realprices')
-    t = Tag.find_by_value('echonomyJAM')
+    t = Tag.find_by_value('echonomyjam')
     t.value.replace('echonomyjamx')
     t.value.replace('echonomyjam')
     t.save
