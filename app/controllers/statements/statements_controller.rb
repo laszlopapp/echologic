@@ -17,10 +17,7 @@ class StatementsController < ApplicationController
   before_filter :fetch_category, :only => [:index, :new, :show, :edit, :update, :destroy]
 
   before_filter :require_user, :except => [:index, :category, :show]
-  
-  # as discussions are public now, it's neccessary so save where we are, to redirect the user back after login
-  before_filter :store_location, :only => [:index, :category, :show]
-  
+    
   # make custom URL helper available to controller
   include StatementHelper
 
@@ -177,11 +174,11 @@ class StatementsController < ApplicationController
         set_info("discuss.messages.created", :type => @statement.class.display_name)
         current_user.supported!(@statement)
         #load current created statement to session
-        type = @statement.class.to_s.underscore
-        key = ("current_" + type).to_sym
-        session[key] = @statement.parent.children.map{|s|s.id}
-        # render parent statement after creation, if any
-        # @statement = @statement.parent if @statement.parent
+        if @statement.parent
+          type = @statement.class.to_s.underscore
+          key = ("current_" + type).to_sym
+          session[key] = @statement.parent.children.map{|s|s.id}
+        end
         @children = children_for_statement
         format.html { flash_info and redirect_to url_for(@statement) }
         format.js   {

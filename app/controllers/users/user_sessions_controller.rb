@@ -11,11 +11,12 @@ class Users::UserSessionsController < ApplicationController
 
   # TODO use redirect back or default! see application controller!
   def create
+    redirect_url = params[:user_session].delete(:redirect_url)
     @user_session = UserSession.new(params[:user_session])
     respond_to do |wants|
       if @user_session.save
         flash[:notice] = I18n.t('users.user_sessions.messages.login_success')
-        wants.html { redirect_back_or_default(welcome_path) }
+        wants.html { redirect_to redirect_url }
       else
         flash[:error] = I18n.t('users.user_sessions.messages.login_failed')
         wants.html { redirect_to root_path }
