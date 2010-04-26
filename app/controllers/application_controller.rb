@@ -143,12 +143,9 @@ class ApplicationController < ActionController::Base
     # before filter, used to define which controller actions require an active and valid user session
     def require_user
       unless current_user
-        # to be able to redirect back, after the user performed a login, we store the current location
-        #store_location
         respond_to do |format|
           format.html {
             flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_in_for_page')
-            #raise request.inspect
             request.env["HTTP_REFERER"] ? redirect_to(:back) : redirect_to(root_path)
             }
           format.js {
@@ -164,7 +161,6 @@ class ApplicationController < ActionController::Base
     # TODO i18n
     def require_no_user
       if current_user
-        store_location
         flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_out')
         respond_to do |format|
           format.html { redirect_to root_path }
@@ -178,17 +174,6 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    def store_location
-      unless ['statements', 'proposals', 'questions', 'improvement_proposals'].include?(params[:controller]) && ['echo', 'unecho', 'new','create', 'update', 'delete'].include?(params[:action])
-        session[:return_to] = request.request_uri
-      end
-    end
-
-    def redirect_back_or_default(default)
-      redirect_to(session[:return_to] || default)
-      session[:return_to] = nil
-    end
-
     # If access is denied display warning and redirect to users_path
     # TODO localize access denied message
     def access_denied
@@ -198,7 +183,6 @@ class ApplicationController < ActionController::Base
 
     def session_expiry
       if current_user_session and session[:expiry_time] and session[:expiry_time] < Time.now
-        
         current_user_session.destroy
         reset_session
         flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
