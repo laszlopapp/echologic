@@ -140,7 +140,7 @@ de:
           Bürger, Experten, Entscheidungsträger und Vertreter von Organisationen und Unternehmen.
           </p><p>
           echo schafft die technische Grundlage für eine offene, <strong>teilnehmende Demokratie</strong> auf lokaler,
-          regionaler und <span title="{{tooltip}}" class="ttLink">globaler Ebene</span>. Auf echo finden Stimmen Anklang.
+          regionaler und <span title="{{tooltip}}" class="ttLink">globaler Ebene</span>. Hier findet Ihre Stimme ein Echo.
           Aus Ideen wird Bewegung, aus Visionen Realität. echo bedeutet das <strong>Ende der Machtlosigkeit</strong>,
           den <strong>Anfang der Selbstbestimmung</strong>.
           </p>
@@ -154,16 +154,16 @@ de:
             ermöglicht eine fundierte <strong>Meinungs- und Willensbildung</strong> und bleibt auch mit beliebig vielen Teilnehmern
             übersichtlich. Im Bereich „Handeln“ wird gesellschaftliches Engagement mit bestehenden <strong>direkt
             demokratischen Mittlen</strong> (z.B. ePetition, Volksentscheid, Demonstration) in echte
-            <strong>politische Einflussnahme</strong> umgesetzt.
+            <strong>politische Einflussnahme</strong> überführt.
             </p>
         text_3:
           title: Offenheit und “Your-Profit“ Philosophie
           more: |
-            <p>echo ist <strong>Open Source</strong> und wird die Basis einer heterogenen,
-            <strong>dezentralen Infrastruktur</strong>. Sein webseitenübergreifender Ansatz überwindet die Grenzen
-            verinselter Plattformen und Initiativen – er bündelt und vervielfacht deren <strong>Einflusspotential</strong>.
+            <p>echo ist <strong>Open Source</strong> und wird als die Basis einer vielfaltigen,
+            <strong>verteilten Infrastruktur</strong> dienen. Sein webseitenübergreifender Ansatz überwindet die Grenzen
+            verinselter Plattformen und Initiativen. So bündelt und vervielfacht echo deren <strong>Einflusspotential</strong>.
             </p><p>
-            echo ist als <strong>Social Business</strong> tätig und den grundlegenden ethischen Werten der Demokratie sowie
+            echo ist als <strong>Social Business</strong> tätig und den ethischen Werten der Demokratie sowie
             ökologisch und sozial nachhaltigen Wirtschaftens verpflichtet. Überschüsse fließen gemäß seiner
             <strong>„Your-Profit“ Philosophie</strong> vollständig zurück in Aktionen und Unternehmungen der Gemeinschaft.
             So kann das virtuelle Engagement reale Früchte tragen und immer mehr Menschen zur <strong>politischen und
@@ -182,7 +182,7 @@ de:
             </p>
 
         action: |
-          Schauen wie es sich entwickelt
+          Reinschauen und mitmachen!
 
       # about section
       about:
