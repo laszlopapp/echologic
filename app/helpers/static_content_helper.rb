@@ -46,7 +46,7 @@ module StaticContentHelper
       parts << "show" unless parts.length > 2
       item = parts[2,3].join('_')
       pic_resource = 'page/illustrations/' + item + '.png'
-      translation = I18n.t("static.#{options[:domain]+'.' if options[:domain]}#{parts[2,3].join('.')}.subtitle")
+      translation = I18n.t("static.#{options[:domain]+'.' if options[:domain]}#{parts[2,3].join('.')}.title")
       illustration = "<div class='illustration'>"
       illustration +=   image_tag(pic_resource)
       illustration +=   "<h2>#{translation}</h2>"
