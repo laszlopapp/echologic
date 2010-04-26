@@ -138,12 +138,12 @@
 .header_button {
   position: relative;
   float: right;
-  margin: -34px 15px 0 0;
+  margin: -34px 20px 0 0;
 }
 
 
-.add_new_button {  
-  vertical-align: top;  
+.add_new_button {
+  vertical-align: top;
 }
 
 .column_200 {

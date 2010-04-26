@@ -1,22 +1,22 @@
 <%
 # This partial renders the static echo tabnav.
-   
-render_tabnav :main, 
+
+render_tabnav :main,
               :generate_css => false,
               :html => { :class => 'applicationTabs' } do
 
   add_tab :html => { :class => 'ajaxLink' } do |t|
-    t.named I18n.t('static.echosocial.tabs.show')
+    t.named I18n.t('static.echosocial.show.title')
     t.links_to hash_for_echosocial_path
   end
 
   add_tab :html => { :class => 'ajaxLink' } do |t|
-    t.named I18n.t('static.echosocial.tabs.benefits')
+    t.named I18n.t('static.echosocial.benefits.title')
     t.links_to :controller => 'static/echosocial', :action => 'benefits'
   end
 
   add_tab :html => { :class => 'ajaxLink' } do |t|
-    t.named I18n.t('static.echosocial.tabs.features')
+    t.named I18n.t('static.echosocial.features.title')
     t.links_to :controller => 'static/echosocial', :action => 'features'
   end
 

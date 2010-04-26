@@ -2,7 +2,7 @@
 
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
-MAX_SESSION_PERIOD = 36
+MAX_SESSION_PERIOD = 3600
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -32,7 +32,7 @@ Rails::Initializer.run do |config|
 
   # Pagination gem from github
   config.gem 'will_paginate', :lib => 'will_paginate', :source => 'http://gems.github.com'
-  
+
   # Require formtastic gem to build semantic forms
   config.gem "formtastic"
 
@@ -60,7 +60,7 @@ Rails::Initializer.run do |config|
 
   # Session Storage
   config.action_controller.session_store = :active_record_store
-  
+
   # add load paths for models in subfolders... this can be extended by further subfolders if neccessary
   config.load_paths += %w(statements).collect{|dir|"#{RAILS_ROOT}/app/models/#{dir}"}
   # the same for controllers
