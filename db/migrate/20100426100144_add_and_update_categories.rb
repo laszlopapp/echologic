@@ -4,6 +4,8 @@ class AddAndUpdateCategories < ActiveRecord::Migration
     Tag.create!(:value => 'realprices')
     t = Tag.find_by_value('echonomyjam')
     t.value.replace('echonomyjamx')
+    t.save
+    t = Tag.find_by_value('echonomyjamx')
     t.value.replace('echonomyjam')
     t.save
   end
