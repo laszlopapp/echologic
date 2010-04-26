@@ -9,7 +9,7 @@ class UserEcho < ActiveRecord::Base
   named_scope :for_user, lambda { |user_id| { :conditions => { :user_id => user_id } } }
   
   class << self
-    # Finds the EchoDetail based on the given :echo in the options hash and
+    # Finds the UserEcho based on the given :echo in the options hash and
     # updates it's attributes with the remaining options.
     # If the EchoDetail doesn't exist yet, it is created instead.
     def create_or_update!(options)

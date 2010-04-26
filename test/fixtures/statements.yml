@@ -4,6 +4,7 @@ test-question:
   creator_id: <%= Fixtures.identify(:editor) %>
   state: 1
   category_id: <%= Fixtures.identify(:'echonomy-jam') %>
+  echo_id: <%= Fixtures.identify(:'test-question-echo') %>
 
 second-question:
   document_id: <%= Fixtures.identify(:'second-question-doc') %>
