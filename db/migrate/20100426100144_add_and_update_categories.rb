@@ -2,7 +2,7 @@ class AddAndUpdateCategories < ActiveRecord::Migration
   def self.up
       Tag.create!(:value => 'echosocial')
       Tag.create!(:value => 'realprices')
-      Tag.find_by_value('echonomyJAM').update_attributes!({:value => 'echonomyjam'})
+      Tag.find_by_value('echonomyJAM').value.downcase!
   end
 
   def self.down
