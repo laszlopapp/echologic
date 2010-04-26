@@ -360,6 +360,15 @@ de:
           nächsten Schritte sein? Sagen Sie uns Ihre Meinung, diskutieren Sie diese mit
           anderen BewegerInnen und tragen Sie dazu bei, noch <strong>mehr (aus) echo zu machen</strong>, als wir es uns je hätten vorstellen können!
           </p>
+      realprices:
+        name: Wahre Kosten – Echte Preise
+        teaser: Städte und Institutionen übergreifender Austausch und Vernetzung zur Kostentransparenz von Produkten und Dienstleistungen
+        description: |
+          <p>
+          Welche Kosten werden in Euro berechnet und welche Folgekosten stecken dahinter? Welchen Vorteil hat regionales, umweltverträgliches 
+          und faires Handeln? Wie machen wir das transparent und Teil der Kaufentscheidung von Konsumenten? Bei zwei überregionalen Tagungen am 26.04.2010
+           wird in Berlin und München mit Partnern aus Österreich und der Schweiz der Einstieg in den interaktiven Dialog gestartet.
+          </p>
 
     tooltips:
       read_question: 'Diese Debatte anschauen'

@@ -347,6 +347,15 @@ en:
           Discuss your idees with other movers and contribute to <strong>make more (out of) echo</strong>
           than we might have ever imagined!
           </p>
+      realprices:
+        name: Wahre Kosten – Echte Preise
+        teaser: Städte und Institutionen übergreifender Austausch und Vernetzung zur Kostentransparenz von Produkten und Dienstleistungen
+        description: |
+          <p>
+          Welche Kosten werden in Euro berechnet und welche Folgekosten stecken dahinter? Welchen Vorteil hat regionales, umweltverträgliches 
+          und faires Handeln? Wie machen wir das transparent und Teil der Kaufentscheidung von Konsumenten? Bei zwei überregionalen Tagungen am 26.04.2010
+           wird in Berlin und München mit Partnern aus Österreich und der Schweiz der Einstieg in den interaktiven Dialog gestartet.
+          </p>
 
     tooltips:
       read_question: 'Go to this debate'
