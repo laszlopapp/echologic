@@ -347,6 +347,15 @@ en:
           Discuss your idees with other movers and contribute to <strong>make more (out of) echo</strong>
           than we might have ever imagined!
           </p>
+      realprices:
+        name: True Costs - Real Prices
+        teaser: Comprehensive dialogue across cities and institutions, supporting exchange and networking about subjects as cost transparency of products and services.
+        description: |
+          <p>
+          How is the price of products composed, and what social and ecologic follow-up costs are following up? What advantages can we expect from regional, fair and 
+          eco-friendly trade? How can we make it transparent and being part of the consumers buying decision?</p> 
+          <p>An interactive dialoque, with partners coming from austria and switzerland, will be started on two interregional events on April 26 2010 in Berlin and Munich.
+          </p>
 
     tooltips:
       read_question: 'Go to this debate'
