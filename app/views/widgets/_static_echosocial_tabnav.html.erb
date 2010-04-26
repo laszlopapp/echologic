@@ -6,7 +6,7 @@ render_tabnav :main,
               :html => { :class => 'applicationTabs' } do
 
   add_tab :html => { :class => 'ajaxLink' } do |t|
-    t.named I18n.t('static.echosocial.tabs.echosocial')
+    t.named I18n.t('static.echosocial.tabs.show')
     t.links_to hash_for_echosocial_path
   end
 

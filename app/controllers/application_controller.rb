@@ -144,7 +144,7 @@ class ApplicationController < ActionController::Base
     def require_user
       unless current_user
         # to be able to redirect back, after the user performed a login, we store the current location
-        store_location
+        #store_location
         respond_to do |format|
           format.html {
             flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_in_for_page')
@@ -198,7 +198,9 @@ class ApplicationController < ActionController::Base
 
     def session_expiry
       if current_user_session and session[:expiry_time] and session[:expiry_time] < Time.now
+        
         current_user_session.destroy
+        reset_session
         flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
         redirect_to root_path
       end

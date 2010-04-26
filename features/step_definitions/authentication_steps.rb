@@ -9,3 +9,13 @@ When /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |user, passwor
   @user = User.find_by_email(user)
 end
 
+When /^I let my session expire$/ do
+  @normal_expiry_time = MAX_SESSION_PERIOD
+  MAX_SESSION_PERIOD = 0
+  # controller.send(:current_user_session).destroy
+end
+
+When /^I restore normal session expiry time$/ do 
+  MAX_SESSION_PERIOD = @normal_expiry_time
+  # controller.send(:current_user_session).destroy
+end

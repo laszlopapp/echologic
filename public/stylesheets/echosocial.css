@@ -1,56 +1,50 @@
-#echosocial_static_menu {
+#echosocial_logo {
+  margin-bottom: -35px;
+}
+
+#echosocial_teasers {
   float: right;
-  margin: -12px 30px -15px 0;
+  margin: 10px 5px 0 0;
+  padding: 0;
   width: 275px;
 }
 
-#echosocial_static_menu ul {
-  list-style-type:none;
-}
-
-#echosocial_static_menu li {
+#echosocial_teasers ul {
+  list-style-type: none;
+  padding: 0;
   margin: 0;
 }
 
-#echosocial_static_menu .box_header_icon {
+#echosocial_teasers li {
+  margin: 0;
+  padding: 0;
+}
+
+#echosocial_teasers .box_header_icon {
 	background:url("../images/page/box/box_icon_people.png") repeat-x scroll left top transparent;
 }
 
-#echosocial_static_menu .make_echo {
-  background:url("../images/page/box/blue_white_gradient.png") repeat-x scroll left top #FFFFFF;
-  display:block;
-  height:272px;
-  width:220px;
+#echosocial_teasers .box_content {
+  text-align: center;
+  font-weight: bold;
+  padding: 7px;
 }
 
-#echosocial_static_menu .my_echo_image {
-	background:url("../images/page/illustrations/make_echosocial.jpg") center;
-	width: 220px;
-	height: 157px;
-	display: block;
-	top: 35px;
-	position: absolute;
-	margin-top: 10px;
+#echosocial_teasers img {
+  border: none;
+  margin-bottom: 20px;
 }
 
-#echosocial_static_menu .box_header{
-  left: 42px;
+#echosocial_teasers a span {
+  display: block;
+  color: #21587F;
 }
 
-#echosocial_static_menu .box_subtitle {
-  padding-left: 10px;
-  padding-right: 10px;
-  position: absolute;
-  top: 200px;
-  margin-top: 10px;
+#echosocial_teasers a:hover span {
+  color: #7bb031;
 }
 
-#make_echo.rounded-box-gray-itow b.b {
-
-}
-
-
-ul.spreadedList {
+.spreadedList {
 	list-style: none;
 	padding-left: 0px;
 }

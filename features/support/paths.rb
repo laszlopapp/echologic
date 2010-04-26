@@ -34,6 +34,8 @@ module NavigationHelpers
       question_proposal_path(@question, @proposal)
     when /discuss index/i
       questions_url
+    when /discuss featured/i
+      discuss_path
     when /the proposal/
       raise [@proposal.inspect,@proposal.parent.inspect].join('\n')
       question_proposal_path(@proposal.parent, @proposal)

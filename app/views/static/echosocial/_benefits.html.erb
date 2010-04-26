@@ -2,10 +2,9 @@
   <%= tabnav 'static_echosocial' %>
 <% end %>
 
-<% insert_breadcrumb(echosocial_path, echosocial_path(:benefits)) %>
+<% insert_echosocial_breadcrumb(echosocial_path, echosocial_path(:benefits)) %>
 
-<h3><%= I18n.t('static.echosocial.show.benefits.title') %></h3>
-<%= I18n.t('static.echosocial.show.benefits.text_1') %>
+<%= I18n.t('static.echosocial.show.benefits.text') %>
 
 
 <ul class="spreadedList">
@@ -22,7 +21,6 @@
 		<% insert_toggle_more(I18n.t('static.echosocial.show.benefits.coverage.text')) %>
 	</li>
 </ul>
-<%= I18n.t('static.echosocial.show.benefits.text_2') %>
 
-<% insert_illustrations([echosocial_path(:about),echosocial_path(:features),echosocial_path(:benefits)], {:domain => "echosocial"}) %>
+<% insert_illustrations([echosocial_path(:show),echosocial_path(:features),echosocial_path(:benefits)], {:domain => "echosocial"}) %>
 <%# insert_back_next_buttons(echo_path(:discuss), echo_path(:act)) %>

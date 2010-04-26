@@ -7,7 +7,7 @@
   position:relative;
 }
 
-.rounded-box b.cn { 
+.rounded-box b.cn {
   height: 16px;
   width: 16px;
   position:absolute;
@@ -100,6 +100,7 @@
 
 .with-header {
   position: relative;
+  padding: 45px 0 5px;
 }
 
 .with-header .box_header {
@@ -127,4 +128,10 @@
   top: 5px;
   width: 36px;
   height: 36px;
+}
+
+/* Background */
+
+.with_bg_bw_grad {
+  background: #fff url(../images/page/box/blue_white_gradient.png) repeat-x left top;
 }

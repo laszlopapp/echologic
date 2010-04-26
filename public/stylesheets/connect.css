@@ -144,7 +144,7 @@
 }
 
 /* Avatar part */
-#avatar.avatar{
+#avatar {
   float:left;
   width: 140px;
   text-align: center !important;
