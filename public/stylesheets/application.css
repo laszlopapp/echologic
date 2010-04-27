@@ -391,6 +391,13 @@
 
 /* Container for profiles and debates */
 
+#results_anchor {
+  height: 10px;
+  width: 100%;
+  display: block;
+  margin-top: 15px;
+}
+
 .results_container {
   margin: 0 0 15px 0;
   width: 990px;
