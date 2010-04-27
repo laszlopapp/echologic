@@ -135,12 +135,12 @@ en:
 
         text_1: |
           <p>
-          echo is a <strong>common project</strong> aiming for sustainable change through <strong>active citizen
+          echo is a <strong>joint project</strong> aiming for sustainable change through <strong>active citizen
           participation</strong>. It addresses all members of society: citizens, experts, decision makers and
           representatives of organizations and businesses.
           </p><p>
           echo provides the technological basis for an open, <strong>participatory democracy</strong> on the local,
-          regional and <span title="{{tooltip}}" class="ttLink">global level</span>. Your voice makes an echo.
+          regional and <span title="{{tooltip}}" class="ttLink">global level</span>. Your voice makes here an echo.
           Ideas turn into movements, visions into reality. echo means the <strong>end of powerlessness</strong> and the
           <strong>beginning of self-determination</strong>.
           </p>
@@ -181,7 +181,7 @@ en:
             </p>
 
         action: |
-          Take a look. Make an echo!
+          Take a look! Make an echo!
 
       #About
       about:
