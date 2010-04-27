@@ -405,6 +405,8 @@ de:
       create_proposal_link: 'Haben Sie Ihre Idee nicht gefunden? Tragen Sie sie jetzt ein!'
       create_internal_link: 'Neue Idee?'
       create_improvement_proposal_link: 'Haben Sie Ihre Idee nicht gefunden? Tragen Sie sie jetzt ein!'
+      create_question_explanation: |
+        Hallo Editor! Hier kannst Du eine neue Debatte aufmachen.
       create_proposal_explanation: |
         Haben Sie eine <strong>gute Idee</strong> zur aktuellen Debatte, die noch <strong>nicht vorhandenen</strong> ist?<br/>
         Hier können Sie einen <strong>neuen Vorschlag</strong> erstellen.

@@ -392,6 +392,8 @@ en:
       create_proposal_link: Couldn't find your idea? Post it now!
       create_internal_link: 'New idea?'
       create_improvement_proposal_link: Couldn't find your idea? Post it now!
+      create_question_explanation: |
+        Hi Editor! Here you can open up a new debate. 
       create_proposal_explanation: |
         Do you have a <strong>good idea</strong> concerning the the current debate, which <strong>doesn't exist</strong> yet?<br/>
         Here you can create a <strong>new proposal</strong>.
