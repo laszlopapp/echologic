@@ -148,7 +148,7 @@ class User < ActiveRecord::Base
   end
   
   def mother_tongue
-    self.spoken_languages.first if self.spoken_languages.first.level == StatementDocument.language_levels('mother_tongue')
+    self.spoken_languages.first.language if !self.spoken_languages.blank? and self.spoken_languages.first.level == StatementDocument.language_levels('mother_tongue').first
   end
   
 end

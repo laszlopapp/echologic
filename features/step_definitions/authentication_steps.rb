@@ -9,6 +9,15 @@ When /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |user, passwor
   @user = User.find_by_email(user)
 end
 
+When /^I login as "([^\"]*)" with password "([^\"]*)"$/ do |user, password|
+  user += "@echologic.org" unless user =~ /.*@.*\..{2,3}/
+  fill_in('user_session_email', :with => user)
+  fill_in('user_session_password', :with => password)
+  click_button('user_session_submit')
+  @user = User.find_by_email(user)
+end
+
+
 When /^I let my session expire$/ do
   @normal_expiry_time = MAX_SESSION_PERIOD
   MAX_SESSION_PERIOD = 0

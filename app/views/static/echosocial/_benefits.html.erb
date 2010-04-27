@@ -4,23 +4,22 @@
 
 <% insert_echosocial_breadcrumb(echosocial_path, echosocial_path(:benefits)) %>
 
-<%= I18n.t('static.echosocial.show.benefits.text') %>
-
+<%= I18n.t('static.echosocial.benefits.text') %>
 
 <ul class="spreadedList">
 	<li>
-		<strong><%= I18n.t('static.echosocial.show.benefits.toolbox.title') %></strong>
-		<% insert_toggle_more(I18n.t('static.echosocial.show.benefits.toolbox.text')) %>
+		<strong><%= I18n.t('static.echosocial.benefits.toolbox.title') %></strong>
+		<% insert_toggle_more(I18n.t('static.echosocial.benefits.toolbox.text')) %>
 	</li>
 	<li>
-		<strong><%= I18n.t('static.echosocial.show.benefits.cooperation.title') %></strong>
-		<% insert_toggle_more(I18n.t('static.echosocial.show.benefits.cooperation.text')) %>
+		<strong><%= I18n.t('static.echosocial.benefits.cooperation.title') %></strong>
+		<% insert_toggle_more(I18n.t('static.echosocial.benefits.cooperation.text')) %>
 	</li>
 	<li>
-		<strong><%= I18n.t('static.echosocial.show.benefits.coverage.title') %></strong>
-		<% insert_toggle_more(I18n.t('static.echosocial.show.benefits.coverage.text')) %>
+		<strong><%= I18n.t('static.echosocial.benefits.coverage.title') %></strong>
+		<% insert_toggle_more(I18n.t('static.echosocial.benefits.coverage.text')) %>
 	</li>
 </ul>
 
-<% insert_illustrations([echosocial_path(:show),echosocial_path(:features),echosocial_path(:benefits)], {:domain => "echosocial"}) %>
-<%# insert_back_next_buttons(echo_path(:discuss), echo_path(:act)) %>
+<%# insert_back_next_buttons(echosocial_path(:show), echosocial_path(:features)) %>
+<% insert_illustrations([echosocial_path(:show), echosocial_path(:benefits), echosocial_path(:features)], {:domain => "echosocial"}) %>

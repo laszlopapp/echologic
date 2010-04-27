@@ -29,9 +29,9 @@ de:
           foundation:      'echonomy - Die Echonomy Stiftung'
           public_property: 'echonomy - echo als kollektives Eigentum'
         echosocial:
-          show:            'echosocial - A New Show Message in German would be nice'
-          features:        'echosocial - Funktionen'
-          benefits:        'echosocial - Leistungen'
+          show:            'echo social - Home'
+          features:        'echo social - Funktionalität'
+          benefits:        'echo social - Vorteile'
 
       # users: de.seo.title.users
       users:
@@ -114,7 +114,7 @@ de:
       show:
         ms1: echologic
         ms2: |
-          ist ein Netzwerk von FreidenkerInnen<br/>und ihren Organisationen. Gemeinsam verwirklichen wir
+          ist ein Netzwerk von BewegerInnen<br/>und ihren Organisationen. Gemeinsam verwirklichen wir
         ms3: |
           echo - die globale <span title="{{tooltip}}" class="ttLink">Agora</span>!
 
@@ -133,36 +133,56 @@ de:
         header2: |-
           das Ende der Machtlosigkeit!&nbsp;&nbsp;<br/>den Anfang der Selbstbestimmung!
 
-        teaser: |
+        text_1: |
           <p>
-          <strong>echologic</strong> bietet Ihnen die Möglichkeit die Entwicklung von <strong>echo aktiv mitzugestalten</strong>!
+          echo ist ein <strong>Gemeinschaftsprojekt</strong> für einen nachhaltigen Wandel durch
+          <strong>akive Bürgerbeteiligung</strong>. Es wendet sich an alle Mitglieder der Gesellschaft:
+          Bürger, Experten, Entscheidungsträger und Vertreter von Organisationen und Unternehmen.
           </p><p>
-          <strong>echo</strong> ist ein Internetprojekt für einen nachhaltigen Wandel durch <strong>aktive Bürgerbeteiligung</strong>.
-          Unser Ziel ist eine <strong>neue Form teilnehmender Demokratie</strong> auf lokaler, regionaler und globaler Ebene zu ermöglichen.
+          echo schafft die technische Grundlage für eine offene, <strong>teilnehmende Demokratie</strong> auf lokaler,
+          regionaler und <span title="{{tooltip}}" class="ttLink">globaler Ebene</span>. Ihre Stimme findet hier ein Echo.
+          Aus Ideen wird Bewegung, aus Visionen Realität. echo bedeutet das <strong>Ende der Machtlosigkeit</strong>,
+          den <strong>Anfang der Selbstbestimmung</strong>.
           </p>
-
-        teaser_more: |
-          <p>
-          Engagierte BürgerInnen, ExpertInnen, RepräsentantInnen und deren Organisationen können auf echo ihre
-          Ansichten diskutieren, Mitstreiter mobilisieren, gemeinsam Aktionen planen und umsetzen.
-          Erstmals ist ein lösungsorientierter, <strong>übersichtlicher Diskurs mit beliebig vielen Teilnehmern</strong> möglich.
-          Durch Anknüpfung an bestehende <strong>legislative Instrumente</strong>
-          wird aus zivilgesellschaftlichem Engagement <strong>echte politische Teilhabe</strong>.
-          </p><p>
-          echo ist <strong>Open Source</strong> und wird die Basis einer heterogenen, <strong>dezentralen Infrastruktur</strong>.
-          Sein webseitenübergreifender Ansatz überwindet die Grenzen einzelner Portale und Initiativen und
-          vervielfacht somit deren <strong>Einflusspotential</strong>.
-          </p><p>
-          echo ist als <strong>Social Business</strong> tätig. Im Rahmen seiner <strong>"Your-Profit“ Geschäftsphilosophie</strong>
-          fließen Überschüsse zurück in Aktionen und Unternehmungen der Gemeinschaft. So kann der virtuelle Diskurs reale Früchte tragen und
-          immer mehr Menschen zur <strong>politischen und wirtschaftlichen Selbstbestimmung</strong> verhelfen.
-          </p><p>
-          Durch neuartige Möglichkeiten transnationaler und interkultureller Zusammenarbeit soll mit echo ein globales Bewusstsein gefördert
-          und damit der Weg in eine friedliche, gerechte und <strong>nachhaltige Zukunft</strong> geebnet werden.
-          </p>
+        subsidiarity_tooltip: Stichwort Subsidiarität
+        text_2:
+          title: Willensbildung und politische Einflussnahme
+          more: |
+            <p>
+            Nach dem Motto <strong>“Diskutieren – Vernetzen – Handeln!”</strong> können hier Menschen rund um den
+            Globus gemeinsam ihren unmittelbaren Lebensraum gestalten – und die Zukunft unserer Welt. echos Diskussionsbereich
+            ermöglicht eine fundierte <strong>Meinungs- und Willensbildung</strong> und bleibt auch mit beliebig vielen Teilnehmern
+            übersichtlich. Im Bereich „Handeln“ wird gesellschaftliches Engagement mit bestehenden <strong>direkt
+            demokratischen Mittlen</strong> (z.B. ePetition, Volksentscheid, Demonstration) in echte
+            <strong>politische Einflussnahme</strong> überführt.
+            </p>
+        text_3:
+          title: Offenheit und “Your-Profit“ Philosophie
+          more: |
+            <p>echo ist <strong>Open Source</strong> und wird als die Basis einer vielfaltigen,
+            <strong>verteilten Infrastruktur</strong> dienen. Sein webseitenübergreifender Ansatz überwindet die Grenzen
+            verinselter Plattformen und Initiativen. So bündelt und vervielfacht echo deren <strong>Einflusspotential</strong>.
+            </p><p>
+            echo ist als <strong>Social Business</strong> tätig und den ethischen Werten der Demokratie sowie
+            ökologisch und sozial nachhaltigen Wirtschaftens verpflichtet. Überschüsse fließen gemäß seiner
+            <strong>„Your-Profit“ Philosophie</strong> vollständig zurück in Aktionen und Unternehmungen der Gemeinschaft.
+            So kann das virtuelle Engagement reale Früchte tragen und immer mehr Menschen zur <strong>politischen und
+            wirtschaftlichen Selbstbestimmung</strong> verhelfen.
+            </p>
+        text_4:
+          title: Ihr echo
+          more: |
+            <p>
+            echo braucht Ihre Meinung, Ihre Ideen, Ihre Stimme. Helfen Sie mit, die Demokratie in eine Zukunft zu führen,
+            in der jede Stimme gleich viel zählt – überall auf der Welt.
+            </p><p>
+            Auf <strong>echologic</strong> finden sich immer mehr Menschen zusammen und beginnen gemeinsam
+            <strong>die Vision von echo zu verwirklichen</strong>.
+            echo steckt zwar momentan noch in den Kinderschuhen, Sie können aber bereits jetzt:
+            </p>
 
         action: |
-          Jetzt reinschnuppern!
+          Reinschauen und mitmachen!
 
       # about section
       about:
@@ -717,127 +737,124 @@ de:
           Kriterien in Bezug auf eine geographisch und demographisch ausgewogene Beteiligung der
           Weltbevölkerung gekoppelt. Die genauen Details dazu werden später in einem transparenten Prozess definiert.
 
-    # Static content for the echosocial main menu point
+
+    # Static content for echo-social.org
     echosocial:
-      title: echosocial
-      subtitle: Worum geht´s?
       show:
-        title: Echosocial
-        ms1: Worum geht´s?
-        ms2: |
-          <font size="+2">Worum geht´s?</font>
-        ms3: |
-          echosocial - Worum geht´s? <span title="{{tooltip}}" class="ttLink">please</span>!
-        show:
-            title: Worum geht´s?
-            text: |
-              <p>
-              Wir sind die <strong>erste Generation</strong> in der Menschheitsgeschichte, die ihr <strong>zukünftiges Leben</strong> 
-              auf diesem Planeten bewusst und <strong>gemeinsam gestalten</strong> kann.<br/>
-              <p>Mit dem Internet eröffnen sich uns einzigartige Möglichkeiten, das Engagement vieler kleiner Gruppen zu 
-              bündeln und in eine weltumspannende Welle des Wandels umzuwandeln.</p>
-              <p><strong>echo-social</strong> gibt Euch die Instrumente an die Hand, um <strong>Eure Organisation, 
-              Eure Aktionen und Projekte</strong> sichtbar zu machen und mit Euren Mitstreitern <strong>effizient 
-              zusammen zu arbeiten</strong> - in allen Erdteilen.</p>
-        benefits:
-          title: Was bringt´s mir?
-          text: |
-            <p>
-            echo-social ermöglicht Euch, für Eure Organisation, Projekte und Aktionen ein eigenes <strong>soziales Netzwerk</strong> 
-            zu erstellen und dieses Teil einer globalen Bewegung werden zu lassen. Eure Ideen und Gedanken,
-            Euer Wille zum Handeln tragen dazu bei, etwas wirklich zu bewegen.</p><p>
-            echo-social ist die <strong>Open Source</strong> Lösung, um mit wenigen Klicks ein 
-            eigenes Netzwerk mit individuellem Auftritt zu erstellen. <br/></p>
-      
-         
-            
-          toolbox:
-            title: Umfangreiche Werkzeugkiste
-            text: |
-              <p>Hier bekommt Ihr kostenlos sowohl eine <strong>eigene Website</strong> für die individuelle Darstellung 
-              Eurer Organisation/Aktionen/Projekte, als auch umfangreiche <strong>Netzwerkfunktionen</strong> 
-              und wichtige <strong>Web Tools</strong> für eine effiziente Zusammenarbeit mit Euren 
-              Unterstütrzern.</p>
-          cooperation:
-            title: Koordinierte Zusammenarbeit
-            text: |
-              <p>Alle echo-social Netzwerke können sich untereinander vernetzen und gemeinsam an 
-              einem Strang ziehen. Dadurch könnt Ihr schneller die richtigen Mitstreiter 
-              finden oder selbst gefunden werden. Die verfügbaren Tools helfen, Eure <strong>Zusammenarbeit 
-              zu koordinieren</strong> und Eure Ideen in die Tat umzusetzen.</p>
-          coverage:
-            title: Vervielfachte Reichweite
-            text: |
-              <p>Wir können Dinge nur verändern, wenn wir gemeinsam handeln!</p><p>echo-social Webseiten sind berbunde durch <strong>echo - eine dezentrale 
-              Kommunikationsinfrastruktur</strong> 
-              für aktive Bürgerbeteiligung und teilnehmende Demokratie. Im Laufe der weiteren Realisierung echos
-              werden Aktionen und Projekte auf echo-social Webseiten stets mit thematisch relevanten Debatten und Aktionen 
-              von anderen (nicht nur echo-social) Webseiten verknüpft. Dies hilft bisher unabhängige Communities 
-              mit Eurer eigenen zu vernetzen und die <strong>Reichweite Eurer Aktionen zu verfielfachen</strong>.</p>
-           
-            
-        features:
-          title: Wie funktioniert´s?
-          internet_presence:
-            title: einen individuellen Internetauftritt 
-            text: |
-              <p>Fügt Euer Logo ein und passt mit wenigen Klicks, Farben, Layout und Funktionen individuell für Eure Bedürfnisse an.</p>
-          calendar_event:
-            title: Eventkalender
-            text: |
-              <p>Informiert Eure Mitstreiter über anstehende Aktionen und koordiniert wichtige Termine und Ereignisse gemeinsam.</p>
-          community_management:
-            title: Community Management 
-            text: |
-              <p>Haltet Eure Mitstreiter über Euer eigenes Blog sowie RSS-Feeds, facebook und twitter auf dem Laufenden.</p>
-          photo_video_gallery:
-            title: Foto- und Video-Galerien
-            text: |
-              <p>Zeigt Euer Engagement in Bild und Ton! Foto- und Video-Galerien verleihen Eurem Web-Auftritt die nötige multimediale Note.</p>
-          cost_neutral_fundraising:
-            title: kostenneutrales Fundraising 
-            text: |
-              <p>Helft Euren Mitstreitern Euch zu helfen, indem Ihr das kostenlose Fundraising-Tool von Click4Charity nutzt. So können Eure Unterstützer Euch bei Ihrem nächsten Online-Kauf 
-              mit einem Teil des Umsatzes unterstützen, ohne selbst Geld in Eure Kasse legen zu müssen.</p>
-          project_management:
-            title: Projektmanagement
-            text: |
-              <p>Arbeitet zeit- und ortsunabhängige zusammen! Projektgruppen, Aufgabenverwaltung, File-Sharing, Wikis und Foren helfen Euch dabei.</p>
-          group_administration:
-            title: Differenzierte Gruppenverwaltung 
-            text: |
-              <p>Organisiert Euch und Eure Unterstützer in beliebige Gruppen und Untergruppen mit differenzierte Rechtevergabe für Zugriff und Nutzung von Dokumenten und Daten.</p>
-          votings_polls:
-            title: Abstimmungen und Umfragen 
-            text: |
-              <p>Trefft Eure Entscheidungen unkompliziert. Mit den Umfrage- und Abstimmungs-Tools kommt Ihr schnell vom Brainstorming zu gemeinsamen Entscheidungen.</p>
-          increased_attention:
-            title: Erhöhte Aufmerksamkeit 
-            text: |
-              <p>Zeigt Eure Aktivitäten auch auf anderen Plattformen und Netzwerken! echo dient dabei als die dezentrale Kommunikationsinfrastruktur, 
-              welche Eure Aktionen auch auf anderen Plattformen und Webseiten sichtbar macht. So erreicht 
-              Ihr automatisch alle Menschen, die sich für die Thematik Eurer Aktionen interessieren. 
-              Dies vervielfacht die Reichweite und das Einflußpotential Eures Engagements.</p>
-          discussion_methods:
-            title: Innovative Diskussionsmethode
-            text: |
-              <p>Nutzt die innovative Diskussionsmethode von echo für konstruktive interne Debatten und zur gemeinsamen, 
-              demokratischen Texterstellung! Über die differenzierte Gruppenverwaltung können z.B. 
-              Experten oder Mitglieder flexibel in interne Diskussionen mit einbezogen und die 
-              Ergebnisse in die öffentliche Debatte eingebracht werden. So stehen Deine Organisation 
-              und Dein Handeln immer in einem diskursiven Kontext. Die Gründe für Euer Handeln werden 
-              transparent und nachvollziehbar und Ihr könnt mehr Menschen für Eure Anliegen begeistern.</p>
-      tabs:
-        show: Echosocial
-        features: Funktionen
-        benefits: Leistungen
-      features:
-        title: Funktionen          
+        title: echo social
+        subtitle: Worum geht es?
+        text: |
+          <p>
+          Wir sind die erste Generation in der Menschheitsgeschichte, die ihr <strong>zukünftiges Leben</strong>
+          auf diesem Planeten bewusst und <strong>gemeinsam gestalten</strong> kann.
+          Mit dem Internet eröffnen sich uns einzigartige Möglichkeiten, das Engagement vieler kleiner Gruppen zu
+          bündeln.
+          </p><p>
+          echo social gibt Euch die Instrumente an die Hand, um <strong>Eure Organisation,
+          Eure Aktionen und Projekte</strong> sichtbar zu machen und mit Euren Unterstützern in allen Erdteilen effizient
+          <strong>zusammen zu arbeiten</strong>.
+          </p><p>
+          Durch seine Anbindung an <strong>echo</strong>, die globale Agora, führt echo social Eure Aktionen mit
+          anderen gleichgesinnten Projekten und Organisationen zusammen und ermöglicht vereintes Handeln.
+          So werden Eure Aktionen Teil einer <strong>weltweiten Bewegung</strong> für einen <strong>nachhaltigen Wandel</strong>.
+          </p>
       benefits:
-        title: Leistungen
-      make_echo:
-        title: Machen Sie ein echo-social!
-        subtitle: Geben Sie Ihre Wünschen und Prioritäten ein. We werden echo-social dementsprechend entwickeln!
+        title: Vorteile
+        subtitle: Was bringt es mir?
+        text: |
+          <p>
+          echo social ermöglicht Euch, für Eure Organisation, Projekte und Aktionen ein eigenes <strong>soziales Netzwerk</strong>
+          zu erstellen und dieses Teil einer globalen Bewegung werden zu lassen. Eure Ideen und Gedanken,
+          Euer Wille zum Handeln tragen dazu bei, etwas wirklich zu bewegen.
+          </p><p>
+          echo social ist die <strong>Open Source</strong> Lösung, um mit wenigen Klicks eine
+          <strong>eigene Webseite</strong> mit individuellem Auftritt zu erstellen - <strong>kostenlos</strong>. Es bietet Euch eine:
+          </p>
+        toolbox:
+          title: Umfangreiche Werkzeugkiste
+          text: |
+            <p>Ihr bekommt für Eure Organisation, Aktionen und Projekte umfangreiche Netzwerkfunktionen
+            und wichtige Web Tools für eine effiziente Zusammenarbeit mit Euren Unterstütrzern.</p>
+        cooperation:
+          title: Koordinierte Zusammenarbeit
+          text: |
+            <p>Alle echo social Netzwerke können sich untereinander vernetzen und gemeinsam an
+            einem Strang ziehen. Dadurch könnt Ihr schneller die richtigen Mitstreiter
+            finden oder selbst gefunden werden. Die verfügbaren Tools helfen, Eure Zusammenarbeit
+            zu koordinieren und Eure Ideen in die Tat umzusetzen.</p>
+        coverage:
+          title: Vervielfachte Reichweite
+          text: |
+            <p>Wir können Dinge nur verändern, wenn wir gemeinsam handeln!</p><p>echo social Webseiten werden
+            verbunden durch echo - eine dezentrale Kommunikationsinfrastruktur für aktive Bürgerbeteiligung und
+            teilnehmende Demokratie. Im Laufe der weiteren Realisierung echos werden Aktionen und Projekte auf
+            echo social Webseiten stets mit thematisch relevanten Debatten und Aktionen von anderen
+            (nicht nur echo social) Webseiten verknüpft. Dies hilft bisher unabhängige Communities
+            mit Eurer eigenen zu vernetzen und die Reichweite Eurer Aktionen zu verfielfachen.</p>
+
+
+      features:
+        title: Funktionalität
+        subtitle: Was kann es genau?
+        text: |
+          <p>
+          Auf <a href='http://www.echologic.org' target='_blank'>echo</a> werdet ihr <strong>in kürze Eure eigene
+          echo social Webseite erstellen</strong> können. Diese echo social Webseite bietet Euch:
+          </p>
+        internet_presence:
+          title: einen individuellen Internetauftritt
+          text: |
+            <p>Fügt Euer Logo ein und passt mit wenigen Klicks, Farben, Layout und Funktionen individuell für Eure Bedürfnisse an.</p>
+        calendar_event:
+          title: Eventkalender
+          text: |
+            <p>Informiert Eure Mitstreiter über anstehende Aktionen und koordiniert wichtige Termine und Ereignisse gemeinsam.</p>
+        community_management:
+          title: Community Management
+          text: |
+            <p>Haltet Eure Mitstreiter über Euer eigenes Blog sowie RSS-Feeds, facebook und twitter auf dem Laufenden.</p>
+        photo_video_gallery:
+          title: Foto- und Video-Galerien
+          text: |
+            <p>Zeigt Euer Engagement in Bild und Ton! Foto- und Video-Galerien verleihen Eurem Web-Auftritt die nötige multimediale Note.</p>
+        cost_neutral_fundraising:
+          title: kostenneutrales Fundraising
+          text: |
+            <p>Helft Euren Mitstreitern Euch zu helfen, indem Ihr das kostenlose Fundraising-Tool von Click4Charity nutzt. So können Eure Unterstützer Euch bei Ihrem nächsten Online-Kauf
+            mit einem Teil des Umsatzes unterstützen, ohne selbst Geld in Eure Kasse legen zu müssen.</p>
+        project_management:
+          title: Projektmanagement
+          text: |
+            <p>Arbeitet zeit- und ortsunabhängige zusammen! Projektgruppen, Aufgabenverwaltung, File-Sharing, Wikis und Foren helfen Euch dabei.</p>
+        group_administration:
+          title: Differenzierte Gruppenverwaltung
+          text: |
+            <p>Organisiert Euch und Eure Unterstützer in beliebige Gruppen und Untergruppen mit differenzierte Rechtevergabe für Zugriff und Nutzung von Dokumenten und Daten.</p>
+        votings_polls:
+          title: Abstimmungen und Umfragen
+          text: |
+            <p>Trefft Eure Entscheidungen unkompliziert. Mit den Umfrage- und Abstimmungs-Tools kommt Ihr schnell vom Brainstorming zu gemeinsamen Entscheidungen.</p>
+        discussion_methods:
+          title: echos neuartige Diskussionsmethode
+          text: |
+            <p>Nutzt die innovative Diskussionsmethode echos für konstruktive interne Debatten und zur gemeinsamen,
+            demokratischen Texterstellung! Über die differenzierte Gruppenverwaltung können z.B.
+            Experten oder Mitglieder flexibel in interne Diskussionen mit einbezogen und die
+            Ergebnisse in die öffentliche Debatte eingebracht werden. So stehen Deine Organisation
+            und Dein Handeln immer in einem diskursiven Kontext. Die Gründe für Euer Handeln werden
+            transparent und nachvollziehbar. Ihr könnt mehr Menschen für Eure Anliegen begeistern.</p>
+        decentral_infrastructure:
+          title: echo als dezentrale Kommunikationsinfrastruktur
+          text: |
+            <p>Zeigt Eure Aktivitäten auch auf anderen Plattformen und Netzwerken! echo dient dabei als die
+            dezentrale Kommunikationsinfrastruktur, welche Eure Aktionen auch auf anderen Plattformen und
+            Webseiten sichtbar macht. So erreicht Ihr automatisch alle Menschen, die sich für die Thematik
+            Eurer Aktionen interessieren. Dies vervielfacht die Reichweite und das Einflußpotential Eures Engagements.</p>
+      have_your_say:
+        title: echo social ist für Euch
+        text: Sagt uns Eure Wünsche und Prioritäten.
+
+
       #About
       about:
         title: About us
@@ -905,7 +922,7 @@ de:
           </p>
         open_document: Check out the document anyway!
 
-    
+
 
     join:
       title: &your_echo 'Ihr echo'

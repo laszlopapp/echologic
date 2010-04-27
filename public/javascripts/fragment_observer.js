@@ -30,8 +30,8 @@ function startFragmentObservation() {
 
 /* splits the hash of a location and returns the name of the controller */
 function getControllerFromHash() {
-    // leading slash is required!
-  return '/'+document.location.hash.split('/')[1];
+  // leading slash is required!
+  return '/'+currentLocale+'/'+document.location.hash.split('/')[1];
 }
 
 function getActionFromHash() {

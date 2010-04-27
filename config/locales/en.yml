@@ -358,6 +358,22 @@ en:
           Discuss your idees with other movers and contribute to <strong>make more (out of) echo</strong>
           than we might have ever imagined!
           </p>
+      realprices:
+        name: True Costs - Real Prices
+        teaser: |
+          Dialogue across the boundaries of cities and institutions to support exchange and networking about <strong>cost
+          transparency</strong> for products and services.
+        description: |
+          <p>
+          What is the price of products composed of and what are the <strong>social and ecological follow-up costs</strong> behind them?
+          What advantages can we expect from regional, fair and eco-friendly trade? How can we make prices
+          transparent and be part of the consumers buying decision?
+          </p><p>
+          The interactive dialogue started at two <strong>interregional events</strong> on April 26 2010 in Berlin and Munich
+          with partners from Austria and Switzerland.
+          </p><p>
+          Background information can be found at the <a href='http://www.netzwerk-gemeinsinn.net/content/view/625/218' target='_blank'>blog of Netzwerk Gemeinsinn</a>.
+          </p>
 
     tooltips:
       read_question: 'Go to this debate'
@@ -391,7 +407,7 @@ en:
         Here you can create a <strong>new proposal</strong>.
       create_improvement_proposal_explanation: |
         Do you have a <strong>good idea</strong> to <strong>make the current proposal even better</strong>?<br/>
-        Here you can create a <strong>new improvement porposal</strong>.
+        Here you can create a <strong>new improvement proposal</strong>.
 
       types:
         question:  'Debate'
@@ -428,7 +444,7 @@ en:
   connect:
 
     fill_out_profile:
-      text: Please fill out <strong>at least {{percentage}}%</strong> of your profile to make this block disappear.
+      text: Please fill out <strong>at least {{percentage}}%</strong> of your profile to make "the computer" happy and let this block disappear. :-)
 
     segments:
       all:       'All'

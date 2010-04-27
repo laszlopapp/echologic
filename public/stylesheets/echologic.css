@@ -141,7 +141,7 @@
 }
 
 #missionStatementContainer img {
-  position:    relative;
+  position:    absolute;
   left:        -6px;
   top:         -6px;
   z-index:     5;
@@ -274,7 +274,7 @@
 
 /* Sponsors */
 .sponsors_container {
-  width: 640px;
+  width: 650px;
   margin: 0 auto;
   text-align: center;
   overflow: auto;
@@ -390,7 +390,7 @@
   height:      128px;
   background:  url(../images/page/echo_o_on_off.png) no-repeat scroll 0 0px;
   position:    relative;
-  z-index:     5;
+  z-index:     10;
   border:      none;
 }
 
@@ -407,6 +407,8 @@
   position:    relative;
   top:         -85px;
   left:        142px;
+  z-index:     5;
+  cursor:      pointer;
 }
 
 .jump_in_button:hover .echoActionBig {
@@ -463,7 +465,7 @@
 
 /* Illustrations */
 .illustrationHolder {
-  margin:       25px auto 0px;
+  margin:       25px auto 10px;
   height:       160px;
   padding:      0 0 5px;
   text-align:   center;

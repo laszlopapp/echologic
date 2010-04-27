@@ -17,10 +17,7 @@ class StatementsController < ApplicationController
   before_filter :fetch_category, :only => [:index, :new, :show, :edit, :update, :destroy]
 
   before_filter :require_user, :except => [:index, :category, :show]
-  
-  # as discussions are public now, it's neccessary so save where we are, to redirect the user back after login
-  before_filter :store_location, :only => [:index, :category, :show]
-  
+    
   # make custom URL helper available to controller
   include StatementHelper
 
@@ -101,11 +98,11 @@ class StatementsController < ApplicationController
     
     @statement_document = @statement.translated_document(keys)
     
-    @translation_permission = !current_user.nil? and 
-                              @statement.statement_documents.for_languages(StatementDocument.languages(params[:locale]).map{|l|l.key}).nil? and 
+    @translation_permission = !current_user.nil? and !current_user.spoken_languages.blank?
+                              @statement.statement_documents.for_languages(StatementDocument.languages(params[:locale]).first).nil? and 
                               params[:locale] == current_user.mother_tongue.code and
-                              current_user.spoken_languages.include?(@statement_document.language) and
-                              %w(intermediate advanced mother_tongue).include?(current.spoken_languages.select{|l| l == @statement_document.language}.first.level.code)
+                              current_user.spoken_languages.map{|sp| sp.language}.uniq.include?(@statement_document.language) and
+                              %w(intermediate advanced mother_tongue).include?(current_user.spoken_languages.select{|sp| sp.language == @statement_document.language}.first.level.code)
     
     # when creating an issue, we save the flash message within the session, to be able to display it here
     if session[:last_info]
@@ -162,6 +159,9 @@ class StatementsController < ApplicationController
           page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent}) if @statement.parent         
           page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) if @statement.parent
           page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent})
+          
+          page << "makeRatiobars();"
+          page << "makeTooltips();"
         end
       }
     end
@@ -185,21 +185,24 @@ class StatementsController < ApplicationController
         set_info("discuss.messages.created", :type => @statement.class.display_name)
         current_user.supported!(@statement)
         #load current created statement to session
-        type = @statement.class.to_s.underscore
-        key = ("current_" + type).to_sym
-        session[key] = @statement.parent.children.map{|s|s.id}
-        # render parent statement after creation, if any
-        # @statement = @statement.parent if @statement.parent
+        if @statement.parent
+          type = @statement.class.to_s.underscore
+          key = ("current_" + type).to_sym
+          session[key] = @statement.parent.children.map{|s|s.id}
+        end
         @children = children_for_statement
         format.html { flash_info and redirect_to url_for(@statement) }
         format.js   {
-          session[:last_info] = @info # save @info so it doesn't get lost during redirect
+          #session[:last_info] = @info # save @info so it doesn't get lost during redirect
           render :update do |page|
-            
+            page << "info('#{@info}');"
             page.replace('new_statement', :partial => 'statements/children', :statement => @statement, :children => @children)
             page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement})         
             page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement})
             page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement})
+            page << "makeRatiobars();"
+            page << "makeTooltips();"
+
           #page << "window.location.replace('#{url_for(@statement)}');"
           end
         }

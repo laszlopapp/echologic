@@ -372,6 +372,22 @@ de:
           nächsten Schritte sein? Sagen Sie uns Ihre Meinung, diskutieren Sie diese mit
           anderen BewegerInnen und tragen Sie dazu bei, noch <strong>mehr (aus) echo zu machen</strong>, als wir es uns je hätten vorstellen können!
           </p>
+      realprices:
+        name: Wahre Kosten – Echte Preise
+        teaser: Städte und Institutionen übergreifender Austausch und Vernetzung zur <strong>Kostentransparenz</strong> von Produkten und Dienstleistungen
+        description: |
+          <p>
+          Wie setzt sich der Preis von Produkten zusammen, und welche <strong>sozialen und ökologischen
+          Folgekosten</strong> stecken noch dahinter?
+          Welchen Vorteil hat regionales, umweltverträgliches und faires Handeln? Wie machen wir das transparent
+          und Teil der Kaufentscheidung von Konsumenten?
+          </p><p>
+          Bei zwei <strong>überregionalen Tagungen</strong> am 26.04.2010 wird in Berlin und München mit Partnern aus Österreich und
+          der Schweiz der Einstieg in den interaktiven Dialog gestartet.
+          </p><p>
+          Hintergrundinformationen zur Veranstaltung finden Sie auf dem
+          <a href='http://www.netzwerk-gemeinsinn.net/content/view/625/218' target='_blank'>Blog vom Netzwerk Gemeinsinn</a>.
+
 
     tooltips:
       read_question: 'Diese Debatte anschauen'
@@ -442,7 +458,7 @@ de:
   connect:
 
     fill_out_profile:
-      text: Bitte füllen Sie Ihr Profil <strong>mindestens zu {{percentage}}%</strong> aus, um diesen Block verschwinden zu lassen.
+      text: Bitte füllen Sie Ihr Profil <strong>mindestens zu {{percentage}}%</strong> aus, um "den Rechner" glücklich zu machen und diesen Block verschwinden zu lassen. :-)
 
     segments:
       all: Alle

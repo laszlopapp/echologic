@@ -6,7 +6,7 @@
   float: right;
   margin: 10px 5px 0 0;
   padding: 0;
-  width: 275px;
+  width: 260px;
 }
 
 #echosocial_teasers ul {
@@ -32,7 +32,7 @@
 
 #echosocial_teasers img {
   border: none;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 #echosocial_teasers a span {
@@ -42,9 +42,4 @@
 
 #echosocial_teasers a:hover span {
   color: #7bb031;
-}
-
-.spreadedList {
-	list-style: none;
-	padding-left: 0px;
 }

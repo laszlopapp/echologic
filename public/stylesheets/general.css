@@ -86,3 +86,7 @@ p a, span a {
 .clearRight {
   clear:        right;
 }
+
+.width100p {
+  width: 100%;
+}
