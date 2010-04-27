@@ -8,11 +8,14 @@
       <span class="ms_echo"><%= I18n.t('static.echologic.show.ms3', :tooltip => I18n.t('static.echologic.show.agora_tooltip')) %></span>
     </div>
   </div>
-  <%= render :partial => 'static/echologic/jump_in_button' %>
+  <div class="width100p">
+    <%= image_tag 'page/ms_bg blue.jpg' %>
+    <%= render :partial => 'static/echologic/jump_in_button' %>
+  </div>
 </div>
 
 <script type="text/javascript">
 $('#missionStatementContainer').cycle({
-    timeout: 7000
+    timeout: 12000
 });
 </script>
