@@ -433,11 +433,6 @@
   overflow: hidden;
 }
 
-.results_container .question {
-	width: 273px;
-}
-
-
 .results_container .content .avatar_holder {
   float: left;
   width: 100%;
