@@ -72,7 +72,7 @@ class Statement < ActiveRecord::Base
 
   named_scope :by_supporters, :include => :echo, :order => 'echos.supporter_count DESC'
 
-  named_scope :by_creation, :order => 'created_at DESC'
+  named_scope :by_creation, :order => 'statements.created_at DESC'
   # category
 
   named_scope :from_category, lambda { |value|
