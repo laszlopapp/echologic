@@ -27,7 +27,7 @@
 	    <span class="no_results"><%= I18n.t('discuss.messages.empty') %></span>
 	  <% end %>
 	</ul>
-    <%= will_paginate statements , :previous_label => '', :next_label => '' if defined? statements.total_pages %>
+    <%= will_paginate statements , :previous_label => '', :next_label => '', :params => {:controller => :discuss} if defined? statements.total_pages %>
   </div>
 
 </div>

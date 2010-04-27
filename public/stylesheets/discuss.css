@@ -324,5 +324,8 @@ a.statement_link:hover {
   width: 945px;
 }
 
-
+/* for title in discuss listing */
+#discuss_results .ttLink img{
+	color:#7BB031;
+}
 
