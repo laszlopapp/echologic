@@ -1,10 +1,9 @@
 <% @question = question if defined?(question) %>
 
 <li id="<%= dom_id(@question) %>" class="content question">
-    <span class="name ttLink no_border"><%=h (@question.title.length > 70 ? @question.title[0,69]+"..." : @question.title)%></span> <br/>
-	<% link_to question_url(@question), :title =>@question.title, :class => "avatar_holder #{'ttLink no_border' if @question.title.length > 70 }" do %>
-  	<%= image_tag("page/discuss/question_medium.png") %>		
-    <%#= image_tag @question.avatar.url(:small) %>
-  <% end %>
-
+    <% long_title = @question.title.length > 70 %>
+    <span class="name"><%=h (long_title ? @question.title[0,69]+"..." : @question.title)%></span> <br/>
+    <% link_to question_url(@question), :title => "#{@question.title if long_title}", :class => "avatar_holder#{' ttLink no_border' if long_title }" do %>
+  	  <%= image_tag("page/discuss/question_medium.png") %>
+    <% end %>
 </li>
