@@ -412,7 +412,7 @@
   vertical-align: top;
   font-size: 17px;
   color: #21587f;
-  padding-left: 11px;
+  padding: 3px 0 0 11px;
 }
 
 #search_form input[type='submit'] {
@@ -481,11 +481,13 @@
   position: absolute;
   left: 0px;
   top: 0px;
+  z-index: 50;
 }
 
 .results_container .content img {
   max-width: 45px;
   max-height: 45px;
+  border: 2px solid #7bb031;
 }
 
 .results_container .content .name {

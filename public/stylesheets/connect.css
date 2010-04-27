@@ -66,6 +66,11 @@
 
 /* PROFILE DETAILS. */
 
+#profile_details_container .tab_content_container {
+  width: 670px;
+  padding: 0 0 0 10px;
+}
+
 #profile_details_tabs {
   margin-bottom: 15px;
 }
@@ -118,9 +123,8 @@
   font-weight: bold;
 }
 
-
-
 /* Overview part */
+
 #overview ul {
   margin: 0;
   padding: 0;
@@ -183,6 +187,7 @@
 /* Web profiles */
 #web_profiles {
   margin-left: 8px;
+  display: block;
 }
 
 #web_profiles .label {
@@ -204,29 +209,28 @@
 }
 
 /* Overview & Concerments & Web Profiles */
-#details_container .tab_content_container .no_results {
+#profile_details_container .tab_content_container .no_results {
   width: 670px;
-  margin: 0 auto;
   text-align: center;
   color: #21587f;
   font-size: 15px;
   position: relative;
-  top: 43px;
-  left: 84px;
+  top: 60px;
+  display: block;
   cursor: default;
 }
 
-#details_container .label {
+#profile_details_container .label {
   cursor: default;
 }
 
-#details_container .value, #details_container .values {
+#profile_details_container .value, #profile_details_container .values {
   font-size: 14px;
   cursor: text;
 }
 
 /* Actions part */
-#details_container #actions.actions {
+#profile_details_container #actions.actions {
   float: right;
   width: 128px;
   min-height: 128px;

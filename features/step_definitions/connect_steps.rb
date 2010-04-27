@@ -17,7 +17,7 @@ end
 
 Then /^I should see the profile details of "([^\"]*)"$/ do |user|
   profile = Profile.find_by_first_name(user)
-  within("#details_container") do |content|
+  within("#profile_details_container") do |content|
     response.should contain(profile.full_name)
   end
 end
