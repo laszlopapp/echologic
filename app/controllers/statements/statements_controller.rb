@@ -51,24 +51,14 @@ class StatementsController < ApplicationController
       statements_not_paginated = statement_class
     else
       #step 1.01: search for first string
-      #statements_not_paginated = search(@value.split(' ').first)
       statements_not_paginated = search(@value)
-      #statements_not_paginated = statement_class.search(@value.split(' ').first)
-
-      #step 1.10: search for remaining strings
-#      if @value.split(' ').size > 1
-#         for value in @value.split(' ')[1..-1] do
-#          statements_not_paginated &= search(value)
-#          statements_not_paginated &= statement_class.search(value)
-#        end
-#      end
     end
 
 
     #step 2: filter by category, if there is one
     statements_not_paginated = statements_not_paginated.from_category(params[:id]) if params[:id]
 
-    statements_not_paginated = statements_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
+    statements_not_paginated = statements_not_paginated.published(current_user && current_user.has_role?(:editor)).by_creation
 
     @count    = statements_not_paginated.count
     @category = Tag.find_or_create_by_value(params[:id])
