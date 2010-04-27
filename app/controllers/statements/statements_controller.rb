@@ -71,7 +71,7 @@ class StatementsController < ApplicationController
   end
 
   def search (value)
-    statement_class.type_equals('Question').document_title_or_document_text_like(value)
+    statement_class.type_equals('Question').document_title_or_document_text_or_category_value_like(value)
   end
 
 
