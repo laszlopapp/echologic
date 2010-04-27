@@ -94,15 +94,10 @@ class StatementsController < ApplicationController
       session[child_type] = @statement.children.by_supporters.collect { |c| c.id }
     end
 
-    keys = current_user ? current_user.language_keys : [EnumKey.find_by_name_and_code("languages", I18n.locale).key]
+    current_language_key = EnumKey.find_by_name_and_code("languages", I18n.locale).key    
+    keys = current_user ? current_user.language_keys : [EnumKey.find_by_name_and_code("languages", I18n.locale).key]  
     
-    @statement_document = @statement.translated_document(keys)
-    
-    @translation_permission = !current_user.nil? and !current_user.spoken_languages.blank?
-                              @statement.statement_documents.for_languages(StatementDocument.languages(params[:locale]).first).nil? and 
-                              params[:locale] == current_user.mother_tongue.code and
-                              current_user.spoken_languages.map{|sp| sp.language}.uniq.include?(@statement_document.language) and
-                              %w(intermediate advanced mother_tongue).include?(current_user.spoken_languages.select{|sp| sp.language == @statement_document.language}.first.level.code)
+    @translation_permission = !current_user.nil? and !current_user.spoken_languages.blank? and @statement.translated_document(keys) != current_language_key and params[:locale] == current_user.mother_tongue.code and current_user.spoken_languages.map{|sp| sp.language}.uniq.include?(@statement_document.language) and %w(intermediate advanced mother_tongue).include?(current_user.spoken_languages.select{|sp| sp.language == @statement_document.language}.first.level.code)
     
     # when creating an issue, we save the flash message within the session, to be able to display it here
     if session[:last_info]

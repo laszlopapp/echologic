@@ -58,6 +58,10 @@ class StatementNode < ActiveRecord::Base
   def translated_document(lang_ids)
     @current_document ||= statement_documents.for_languages(lang_ids)
   end
+  
+  def translated_document?(lang_ids)
+    return statement_documents.for_languages(lang_ids).nil?
+  end
    
   # creates a new statement_document
   def add_statement_document(attributes={ })
