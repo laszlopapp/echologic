@@ -283,8 +283,8 @@ de:
 
   discuss:
     results_count:
-      one: '{{count}} debatte'
-      more: '{{count}} debatten'
+      one: '{{count}} Debatte'
+      more: '{{count}} Debatten'
     featured_topics:
       title: Empfohlene Themen
       text: |
@@ -310,14 +310,14 @@ de:
       echonomyjam:
         continues: 'geht online weiter!'
         register_here: 'Hier lang zur Erstanmeldung!'
-        name: echonomy JAM
-        teaser: Entwicklen Sie neue Wege zu einer ökosozial nachhaltigen Wirtschaft.
+        name: echonomyJAM
+        teaser: Entwickeln Sie neue Wege zu einer ökosozial nachhaltigen Wirtschaft.
         description: |
           <p>
           <strong>echonomy</strong> steht für eine <strong>ökologisch und sozial nachhaltige, demokratische Wirtschaftsform</strong>,
           die unter Profit auch das Wohl von Mensch und Natur versteht.
           </p><p>
-          <strong>echonomy JAM</strong> bringt kreative IdeenträgerInnen, KapitalgeberInnen, erfahreren ExpertenInnen
+          <strong>echonomyJAM</strong> bringt kreative IdeenträgerInnen, KapitalgeberInnen, erfahreren ExpertenInnen
           sowie EntscheidungsträgerInnen aus Politik und Wirtschaft zusammen und ermöglicht Ihnen die
           <strong>gemeinsame Entwicklung, Finanzierung und Realisierung von konkreten Projekten</strong> -
           im Sinne der echonomischen Nachhaltigkeit.<br/>
