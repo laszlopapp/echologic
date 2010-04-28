@@ -1,22 +1,24 @@
 test-question-statement:
-  original_language_id: 1
+  original_language_id: <%= Fixtures.identify(:language_en)%>
 second-question-statement:
-  original_language_id: 1
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+third-question-statement:
+  original_language_id: <%= Fixtures.identify(:language_de)%>
 first-proposal-statement:
-  original_language_id: 1
+  original_language_id: <%= Fixtures.identify(:language_en)%>
 second-proposal-statement:
-  original_language_id: 1
+  original_language_id: <%= Fixtures.identify(:language_en)%>
 third-proposal-statement:
-  original_language_id: 1
+  original_language_id: <%= Fixtures.identify(:language_en)%>
 inbetween-proposal-statement:
-  original_language_id: 1
+  original_language_id: <%= Fixtures.identify(:language_en)%>
 fourth-proposal-statement:
-  original_language_id: 1
+  original_language_id: <%= Fixtures.identify(:language_en)%>
 fifth-proposal-statement:
-  original_language_id: 1
+  original_language_id: <%= Fixtures.identify(:language_en)%>
 sixth-proposal-statement:
-  original_language_id: 1
+  original_language_id: <%= Fixtures.identify(:language_en)%>
 not-published-proposal-statement:
-  original_language_id: 1
+  original_language_id: <%= Fixtures.identify(:language_en)%>
 first-impro-proposal-statement:
-  original_language_id: 1
+  original_language_id: <%= Fixtures.identify(:language_en)%>

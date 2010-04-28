@@ -60,6 +60,7 @@ class StatementsController < ApplicationController
     #statements_not_paginated = statements_not_paginated.select{|s|s.has_from_category(params[:id])} if params[:id]
     
     statements_not_paginated = statements_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
+    statements_not_paginated = statements_not_paginated.select{|s| current_language_keys <=> s.statement_documents.collect{|sd| sd.language_id}}
     
     @count    = statements_not_paginated.size
 
@@ -91,8 +92,7 @@ class StatementsController < ApplicationController
       session[child_type] = @statement.children.by_supporters.collect { |c| c.id }
     end
     
-    keys = current_user ? current_user.language_keys : [EnumKey.find_by_name_and_code("languages", I18n.locale).key]  
-    statement_document = @statement.translated_document(keys)
+    statement_document = @statement.translated_document(current_language_keys)
     
     @translation_permission = (!current_user.nil? and !current_user.spoken_languages.blank? and #1.we habe a current user that speaks languages
                                !current_user.mother_tongues.blank?                             and #2.we ensure ourselves that the user has a mother tongue

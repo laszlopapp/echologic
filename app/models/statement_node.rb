@@ -96,7 +96,8 @@ class StatementNode < ActiveRecord::Base
   
   named_scope :published, lambda {|auth| 
     { :conditions => { :state => @@state_lookup[:published] } } unless auth }
-
+    
+  
   # orders
 
   named_scope :by_ratio, :include => :echo, :order => '(echos.supporter_count/echos.visitor_count) DESC'

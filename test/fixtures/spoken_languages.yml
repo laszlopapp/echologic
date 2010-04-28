@@ -4,12 +4,17 @@
 
 # Important: If you change these names her, you also have to change in all user related fixtures (e.g. profiles)
 # Todo: Switch to Factory Girl ;) 
-<% ["joe", "ben", "user", "editor", "admin", "red","blue","green","yellow","red"].each do |name| %>
+<% ["joe", "ben", "user", "editor", "admin", "red","blue"].each do |name| %>
 <%= name+'-english' %>:
   user_id: <%= Fixtures.identify(name) %>
   language_id: <%= Fixtures.identify(:language_en) %>
   level_id: <%= Fixtures.identify(:language_level_mother_tongue) %>
 <% end %>
+
+green-english:
+  user_id: <%= Fixtures.identify(:green) %>
+  language_id: <%= Fixtures.identify(:language_en) %>
+  level_id: <%= Fixtures.identify(:language_level_intermediate) %>
 
 <% ["theodor","friedrich","luise","charlotte","lisa"].each do |name| %>
 <%= name+'-english'%>:
@@ -22,7 +27,7 @@
 <%= name+'-german' %>:
   user_id: <%= Fixtures.identify(name) %>
   language_id: <%= Fixtures.identify(:language_fr) %>
-  level_id: <%= Fixtures.identify(:language_level_mother_tongue) %>
+  level_id: <%= Fixtures.identify(:language_level_intermediate) %>
 <% end %>
 
 <% ["theodor","friedrich","luise","charlotte","lisa"].each do |name| %>

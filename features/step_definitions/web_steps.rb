@@ -167,6 +167,15 @@ Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
   end
 end
 
+Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
+  regexp = Regexp.new(regexp)
+  if defined?(Spec::Rails::Matchers)
+    response.should contain(regexp)
+  else
+    !assert_match(regexp, response_body)
+  end
+end
+
 Then /^(?:|I )should see \/([^\/]*)\/ within "([^\"]*)"$/ do |regexp, selector|
   within(selector) do |content|
     regexp = Regexp.new(regexp)

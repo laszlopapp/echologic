@@ -12,6 +12,14 @@ second-question-doc-english:
   statement_id: <%= Fixtures.identify('second-question-statement') %>
   language_id: <%= Fixtures.identify('language_en') %>
 
+third-question-doc-german:
+  title: 'Andere Frage?'
+  text: 'Ich will deine Seele!'
+  author_id: <%= Fixtures.identify(:user) %>
+  statement_id: <%= Fixtures.identify('third-question-statement') %>
+  language_id: <%= Fixtures.identify('language_de') %>
+
+
 first-proposal-doc-english:
   title: 'A first proposal!'
   text: 'I think, a good proposal would be a first one!'
