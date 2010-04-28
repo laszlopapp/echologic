@@ -48,7 +48,7 @@ class StatementsController < ApplicationController
 
     if @value.blank?
       #step 1.0: get the class name in order to get all the possible results
-      statements_not_paginated = statements_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
+      statements_not_paginated = statement_class      
     else  
       #step 1.01: search for first string
       statements_not_paginated = search(@value)
@@ -59,7 +59,7 @@ class StatementsController < ApplicationController
     #IMPORTANT TODO!!!: this step will have to be worked over as soon as we have the new tagging mechanism working
     #statements_not_paginated = statements_not_paginated.select{|s|s.has_from_category(params[:id])} if params[:id]
     
-    
+    statements_not_paginated = statements_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
     
     @count    = statements_not_paginated.size
 
@@ -90,11 +90,18 @@ class StatementsController < ApplicationController
       child_type = ("current_" + @statement.class.expected_children.first.to_s.underscore).to_sym
       session[child_type] = @statement.children.by_supporters.collect { |c| c.id }
     end
-
-    current_language_key = EnumKey.find_by_name_and_code("languages", I18n.locale).key    
-    keys = current_user ? current_user.language_keys : [EnumKey.find_by_name_and_code("languages", I18n.locale).key]  
     
-    @translation_permission = !current_user.nil? and !current_user.spoken_languages.blank? and @statement.translated_document(keys) != current_language_key and params[:locale] == current_user.mother_tongue.code and current_user.spoken_languages.map{|sp| sp.language}.uniq.include?(@statement_document.language) and %w(intermediate advanced mother_tongue).include?(current_user.spoken_languages.select{|sp| sp.language == @statement_document.language}.first.level.code)
+    keys = current_user ? current_user.language_keys : [EnumKey.find_by_name_and_code("languages", I18n.locale).key]  
+    statement_document = @statement.translated_document(keys)
+    
+    @translation_permission = (!current_user.nil? and !current_user.spoken_languages.blank? and #1.we habe a current user that speaks languages
+                               !current_user.mother_tongues.blank?                             and #2.we ensure ourselves that the user has a mother tongue
+                               !statement_document.language.code.eql?(params[:locale])      and #3.current text language is different from the application language
+                               current_user.mother_tongues.collect{|l| l.code}.include?(params[:locale])        and #4.application language is the current user mother tongue
+                               #5.user knows the document's language
+                               current_user.spoken_languages.map{|sp| sp.language}.uniq.include?(statement_document.language) and
+                               #6. user has language level greater than intermediate
+                               %w(intermediate advanced mother_tongue).include?(current_user.spoken_languages.select{|sp| sp.language == statement_document.language}.first.level.code))
     
     # when creating an issue, we save the flash message within the session, to be able to display it here
     if session[:last_info]

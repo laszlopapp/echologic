@@ -1,0 +1,39 @@
+<% %w(en de fr pt).each_with_index do |code, index| %> 
+language_<%= code %>:
+  code: <%= code %>
+  name: languages
+  key: <%= index+1 %>
+  description: languages
+<% end %>
+
+<% %w(mother_tongue advanced intermediate basic).each_with_index do |code, index| %> 
+language_level_<%= code %>:
+  code: <%= code %>
+  name: language_levels
+  key: <%= index+1 %>
+  description: language_levels
+<% end %>
+  
+<% %w(email homepage blog xing linked_in facebook twitter other).each_with_index do |code, index| %> 
+web_address_<%= code %>:
+  code: <%= code %>
+  name: web_addresses
+  key: <%= index+1 %>
+  description: web_addresses
+<% end %>
+
+<% %w(ngo political scientific trade_union social_business profit_driven_business).each_with_index do |code, index| %> 
+organisation_type_<%= code %>:
+  code: <%= code %>
+  name: organisation_types
+  key: <%= index+1 %>
+  description: organisation_types
+<% end %>
+  
+<% %w(affection engagement expertise decision_making field_work field_activity).each_with_index do |code, index| %> 
+tag_context_<%= code %>:
+  code: <%= code %>
+  name: tag_contexts
+  key: <%= index+1 %>
+  description: tag_contexts
+<% end %>

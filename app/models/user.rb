@@ -147,8 +147,8 @@ class User < ActiveRecord::Base
     self.spoken_languages.map(&:language_id)
   end
   
-  def mother_tongue
-    self.spoken_languages.first.language if !self.spoken_languages.blank? and self.spoken_languages.first.level == StatementDocument.language_levels('mother_tongue').first
+  def mother_tongues
+    self.spoken_languages.select{|sp| sp.level.code == 'mother_tongue'}.collect{|sp| sp.language}
   end
   
 end

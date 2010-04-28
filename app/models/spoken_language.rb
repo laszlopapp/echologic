@@ -1,7 +1,7 @@
 class SpokenLanguage < ActiveRecord::Base
   belongs_to :user
-  belongs_to :level, :class_name => "EnumKey"
-  belongs_to :language, :class_name => "EnumKey"
+  belongs_to :level, :class_name => "EnumKey", :foreign_key => :level_id
+  belongs_to :language, :class_name => "EnumKey", :foreign_key => :language_id
   
   include ProfileUpdater
   
