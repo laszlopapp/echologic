@@ -99,6 +99,7 @@ class ApplicationController < ActionController::Base
   def replace_container(name, content)
     render :update do |page|
       page << "$('##{name}').replaceWith('#{escape_javascript(render(content))}');"
+      yield page if block_given?
     end
   end
 
