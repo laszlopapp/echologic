@@ -139,14 +139,14 @@ de:
           <strong>akive Bürgerbeteiligung</strong>. Es wendet sich an alle Mitglieder der Gesellschaft:
           Bürger, Experten, Entscheidungsträger und Vertreter von Organisationen und Unternehmen.
           </p><p>
-          echo schafft die technische Grundlage für eine offene, <strong>teilnehmende Demokratie</strong> auf lokaler,
+          <strong>echo</strong> schafft die technische Grundlage für eine offene, <strong>teilnehmende Demokratie</strong> auf lokaler,
           regionaler und <span title="{{tooltip}}" class="ttLink">globaler Ebene</span>. Ihre Stimme findet hier ein Echo.
           Aus Ideen wird Bewegung, aus Visionen Realität. echo bedeutet das <strong>Ende der Machtlosigkeit</strong>,
           den <strong>Anfang der Selbstbestimmung</strong>.
           </p>
         subsidiarity_tooltip: Stichwort Subsidiarität
         text_2:
-          title: Willensbildung und politische Einflussnahme
+          title: Kollektive Willensbildung und politische Einflussnahme
           more: |
             <p>
             Nach dem Motto <strong>“Diskutieren – Vernetzen – Handeln!”</strong> können hier Menschen rund um den
