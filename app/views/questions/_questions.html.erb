@@ -13,7 +13,7 @@
   <!--<span class="results_count"><%- count_text %></span>-->
   <!--<span class="results_sort"/>-->
 
-  <span id="profiles_beginn"></span>
+  <span id="results_anchor"></span>
 
   <div id="discuss_results" class="results_container rounded-box rounded-box-gray-itow with-header with_bg_bw_grad">
     <span class="box_header"><%= count_text %></span>
@@ -27,7 +27,23 @@
 	    <span class="no_results"><%= I18n.t('discuss.messages.empty') %></span>
 	  <% end %>
 	</ul>
-    <%= will_paginate statements , :previous_label => '', :next_label => '' if defined? statements.total_pages %>
+    <%= will_paginate statements , :previous_label => '', :next_label => '', :params => {:controller => :discuss} if defined? statements.total_pages %>
   </div>
 
 </div>
+
+
+<!--div id="questions_container">
+  <% statements ||= @statements %>
+  <ul>
+    <% statements.each do |statement| -%>
+      <li><%= link_to(statement.document.title, question_url(statement), :class => 'statement_link question_link') %></li>
+    <% end -%>
+  </ul>
+</div-->
+
+<script type="text/javascript">
+  $(".pagination a").addClass('ajax');
+	makeTooltips();
+  roundCorners();
+</script>

@@ -136,24 +136,24 @@ de:
         text_1: |
           <p>
           echo ist ein <strong>Gemeinschaftsprojekt</strong> für einen nachhaltigen Wandel durch
-          <strong>akive Bürgerbeteiligung</strong>. Es wendet sich an alle Mitglieder der Gesellschaft:
+          <strong>aktive Bürgerbeteiligung</strong>. Es wendet sich an alle Mitglieder der Gesellschaft:
           Bürger, Experten, Entscheidungsträger und Vertreter von Organisationen und Unternehmen.
           </p><p>
-          echo schafft die technische Grundlage für eine offene, <strong>teilnehmende Demokratie</strong> auf lokaler,
+          <strong>echo</strong> schafft die technische Grundlage für eine offene, <strong>teilnehmende Demokratie</strong> auf lokaler,
           regionaler und <span title="{{tooltip}}" class="ttLink">globaler Ebene</span>. Ihre Stimme findet hier ein Echo.
           Aus Ideen wird Bewegung, aus Visionen Realität. echo bedeutet das <strong>Ende der Machtlosigkeit</strong>,
           den <strong>Anfang der Selbstbestimmung</strong>.
           </p>
         subsidiarity_tooltip: Stichwort Subsidiarität
         text_2:
-          title: Willensbildung und politische Einflussnahme
+          title: Kollektive Willensbildung und politische Einflussnahme
           more: |
             <p>
             Nach dem Motto <strong>“Diskutieren – Vernetzen – Handeln!”</strong> können hier Menschen rund um den
             Globus gemeinsam ihren unmittelbaren Lebensraum gestalten – und die Zukunft unserer Welt. echos Diskussionsbereich
             ermöglicht eine fundierte <strong>Meinungs- und Willensbildung</strong> und bleibt auch mit beliebig vielen Teilnehmern
             übersichtlich. Im Bereich „Handeln“ wird gesellschaftliches Engagement mit bestehenden <strong>direkt
-            demokratischen Mittlen</strong> (z.B. ePetition, Volksentscheid, Demonstration) in echte
+            demokratischen Mitteln</strong> (z.B. ePetition, Volksentscheid, Demonstration) in echte
             <strong>politische Einflussnahme</strong> überführt.
             </p>
         text_3:
@@ -170,19 +170,19 @@ de:
             wirtschaftlichen Selbstbestimmung</strong> verhelfen.
             </p>
         text_4:
-          title: Ihr echo
+          title: echologic für Ihr echo
           more: |
             <p>
             echo braucht Ihre Meinung, Ihre Ideen, Ihre Stimme. Helfen Sie mit, die Demokratie in eine Zukunft zu führen,
-            in der jede Stimme gleich viel zählt – überall auf der Welt.
+            in der <strong>jede Stimme zählt</strong> – gleich viel und überall auf der Welt.
             </p><p>
             Auf <strong>echologic</strong> finden sich immer mehr Menschen zusammen und beginnen gemeinsam
-            <strong>die Vision von echo zu verwirklichen</strong>.
+            <strong>echos Vision zu verwirklichen</strong>.
             echo steckt zwar momentan noch in den Kinderschuhen, Sie können aber bereits jetzt:
             </p>
 
         action: |
-          Reinschauen und mitmachen!
+          Reinschnuppern und mitgestalten!
 
       # about section
       about:

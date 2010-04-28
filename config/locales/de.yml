@@ -295,8 +295,8 @@ de:
   discuss:
     translation_request: Bitte übersetzen Sie den Text auf Deutsch
     results_count:
-      one: '{{count}} debatte'
-      more: '{{count}} debatten'
+      one: '{{count}} Debatte'
+      more: '{{count}} Debatten'
     featured_topics:
       title: Empfohlene Themen
       text: |
@@ -322,14 +322,14 @@ de:
       echonomyjam:
         continues: 'geht online weiter!'
         register_here: 'Hier lang zur Erstanmeldung!'
-        name: echonomy JAM
-        teaser: Entwicklen Sie neue Wege zu einer ökosozial nachhaltigen Wirtschaft.
+        name: echonomyJAM
+        teaser: Entwickeln Sie neue Wege zu einer ökosozial nachhaltigen Wirtschaft.
         description: |
           <p>
           <strong>echonomy</strong> steht für eine <strong>ökologisch und sozial nachhaltige, demokratische Wirtschaftsform</strong>,
           die unter Profit auch das Wohl von Mensch und Natur versteht.
           </p><p>
-          <strong>echonomy JAM</strong> bringt kreative IdeenträgerInnen, KapitalgeberInnen, erfahreren ExpertenInnen
+          <strong>echonomyJAM</strong> bringt kreative IdeenträgerInnen, KapitalgeberInnen, erfahreren ExpertenInnen
           sowie EntscheidungsträgerInnen aus Politik und Wirtschaft zusammen und ermöglicht Ihnen die
           <strong>gemeinsame Entwicklung, Finanzierung und Realisierung von konkreten Projekten</strong> -
           im Sinne der echonomischen Nachhaltigkeit.<br/>
@@ -374,7 +374,7 @@ de:
           </p>
       realprices:
         name: Wahre Kosten – Echte Preise
-        teaser: Städte und Institutionen übergreifender Austausch und Vernetzung zur <strong>Kostentransparenz</strong> von Produkten und Dienstleistungen
+        teaser: Städte und Institutionen übergreifender Austausch und Vernetzung zur <strong>Kostentransparenz</strong> von Produkten und Dienstleistungen.
         description: |
           <p>
           Wie setzt sich der Preis von Produkten zusammen, und welche <strong>sozialen und ökologischen
@@ -382,7 +382,7 @@ de:
           Welchen Vorteil hat regionales, umweltverträgliches und faires Handeln? Wie machen wir das transparent
           und Teil der Kaufentscheidung von Konsumenten?
           </p><p>
-          Bei zwei <strong>überregionalen Tagungen</strong> am 26.04.2010 wird in Berlin und München mit Partnern aus Österreich und
+          Bei zwei <strong>überregionalen Tagungen</strong> am 26.04.2010 wurde in Berlin und München mit Partnern aus Österreich und
           der Schweiz der Einstieg in den interaktiven Dialog gestartet.
           </p><p>
           Hintergrundinformationen zur Veranstaltung finden Sie auf dem
@@ -417,6 +417,8 @@ de:
       create_proposal_link: 'Haben Sie Ihre Idee nicht gefunden? Tragen Sie sie jetzt ein!'
       create_internal_link: 'Neue Idee?'
       create_improvement_proposal_link: 'Haben Sie Ihre Idee nicht gefunden? Tragen Sie sie jetzt ein!'
+      create_question_explanation: |
+        Hallo Editor! Hier kannst Du eine neue Debatte aufmachen.
       create_proposal_explanation: |
         Haben Sie eine <strong>gute Idee</strong> zur aktuellen Debatte, die noch <strong>nicht vorhandenen</strong> ist?<br/>
         Hier können Sie einen <strong>neuen Vorschlag</strong> erstellen.

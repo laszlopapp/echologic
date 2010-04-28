@@ -17,7 +17,7 @@ class StatementsController < ApplicationController
   before_filter :fetch_category, :only => [:index, :new, :show, :edit, :update, :destroy]
 
   before_filter :require_user, :except => [:index, :category, :show]
-    
+
   # make custom URL helper available to controller
   include StatementHelper
 
@@ -45,10 +45,9 @@ class StatementsController < ApplicationController
   def category
     @value    = params[:value] || ""
     @page     = params[:page]  || 1
-   
+
     if @value.blank?
       #step 1.0: get the class name in order to get all the possible results
-      statements_not_paginated = statement_class
       statements_not_paginated = statements_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
     else  
       #step 1.01: search for first string
@@ -63,15 +62,13 @@ class StatementsController < ApplicationController
     
     
     @count    = statements_not_paginated.size
+
     @category = Tag.find_or_create_by_value(params[:id])
-    
     @statements = statements_not_paginated.paginate(:page => @page, :per_page => 6)
-   
+
     respond_to do |format|
       format.html {render :template => 'questions/index'}
-      format.js {
-        replace_container('question_container', :partial => 'questions/questions')
-      }
+      format.js {render :template => 'questions/questions'}
     end
   end
 
@@ -84,10 +81,10 @@ class StatementsController < ApplicationController
 
   def show
     current_user.visited!(@statement) if current_user
-  
+
     # store last statement (for cancel link)
     session[:last_statement] = @statement.id
-    
+
     # prev / next functionaliy
     unless @statement.children.empty?
       child_type = ("current_" + @statement.class.expected_children.first.to_s.underscore).to_sym
@@ -111,9 +108,9 @@ class StatementsController < ApplicationController
 
     @children = children_for_statement
     respond_to do |format|
-      format.html { 
+      format.html {
         render :template => 'statements/show' } # show.html.erb
-      format.js   { 
+      format.js   {
         render :template => 'statements/show' } # show.js.erb
     end
   end
@@ -151,10 +148,10 @@ class StatementsController < ApplicationController
       format.js {
         render :update do |page|
           page.replace(@statement.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/new')
-          page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent}) if @statement.parent         
+          page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent}) if @statement.parent
           page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) if @statement.parent
           page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent})
-          
+
           page << "makeRatiobars();"
           page << "makeTooltips();"
         end
@@ -192,7 +189,7 @@ class StatementsController < ApplicationController
           render :update do |page|
             page << "info('#{@info}');"
             page.replace('new_statement', :partial => 'statements/children', :statement => @statement, :children => @children)
-            page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement})         
+            page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement})
             page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement})
             page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement})
             page << "makeRatiobars();"
@@ -241,7 +238,7 @@ class StatementsController < ApplicationController
     set_info("discuss.messages.deleted", :type => @statement.class.human_name)
     flash_info and redirect_to :controller => 'questions', :action => :category, :id => @category.value
   end
-  
+
   # processes a cancel request, and redirects back to the last shown statement
   def cancel
     redirect_to url_f(Statement.find(session[:last_statement]))
@@ -299,7 +296,7 @@ class StatementsController < ApplicationController
       return parent.to_s.constantize.find(parent_id) if parent_id
     end ; nil
   end
-  
+
   # private method, that collects all children, sorted and paginated in the way we want them to
   def children_for_statement
     @statement.children.published(current_user && current_user.has_role?(:editor)).by_supporters.paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))

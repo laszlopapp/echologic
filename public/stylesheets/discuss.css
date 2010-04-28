@@ -26,6 +26,7 @@
   left: 9px;
   top: 6px;
   font-weight: bold;
+  cursor: default;
 }
 
 /* ------ */
@@ -36,22 +37,6 @@
 	border: medium none;
 }
 
-
-
-/* --------- */
-/* Questions */
-/* --------- */
-
-
-#questions_container li {
-  padding: 5px;
-}
-
-#questions_container .statement_link {
-  font-size: 18px;
-  background-position: 0 3px;
-  width: 820px;
-}
 
 /* ------- */
 /* CONTEXT */
@@ -347,6 +332,10 @@ a.statement_link:hover {
 	background:url("../images/page/box/box_icon_people.png") scroll left top transparent;
 	left: 33px;
 	top: 3px;
+	
+/* for title in discuss listing */
+#discuss_results .ttLink img{
+	color:#7BB031;
 }
 
 .translation_box .box_header_info {
