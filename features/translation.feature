@@ -52,7 +52,7 @@ Feature: Translation permission
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the first Question
+      And I choose the "Andere Frage?" Question
     Then I should see "Andere Frage?"
     Then I should not see "Please translate this text in English"
     
@@ -62,7 +62,7 @@ Feature: Translation permission
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the first Question
+      And I choose the "Andere Frage?" Question
     Then I should see "Andere Frage?"
     Then I should not see "Please translate this text in English"
     
@@ -72,6 +72,6 @@ Feature: Translation permission
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the first Question
+      And I choose the "Andere Frage?" Question
     Then I should see "Andere Frage?"
     Then I should see "Please translate this text in English"

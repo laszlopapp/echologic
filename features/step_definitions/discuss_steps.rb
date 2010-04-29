@@ -19,11 +19,22 @@ end
 
 When /^I choose the second Question$/ do 
   response.should have_selector("li.question a") do |selector|
-    if question_id = URI.parse(selector.first['href']).path.match(/\d+/)[1].to_i
+    if question_id = URI.parse(selector[1]['href']).path.match(/\d+/)[0].to_i
       @second_question = Question.find(question_id)
       visit selector.first['href']
     else
       raise 'there is no second question dude... this test does not work'
+    end
+  end
+end
+
+When /^I choose the "([^\"]*)" Question$/ do |name|
+  response.should have_selector("li.question") do |selector|
+    selector.each do |question|
+      if name.eql?(question.at_css("span.name").inner_text.strip)
+        @question = Question.find(URI.parse(question.at_css("a")['href']).path.match(/\d+/)[0].to_i)
+        visit question.at_css("a")['href']
+      end
     end
   end
 end
