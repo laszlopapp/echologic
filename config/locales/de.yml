@@ -311,6 +311,7 @@ de:
         continues: 'geht online weiter!'
         register_here: 'Hier lang zur Erstanmeldung!'
         name: echonomyJAM
+        short_name: echonomyJAM
         teaser: Entwickeln Sie neue Wege zu einer ökosozial nachhaltigen Wirtschaft.
         description: |
           <p>
@@ -327,6 +328,7 @@ de:
           </p>
       echocracy:
         name: echocracy
+        short_name: echocracy
         teaser: Diskutieren Sie über die neue Form teilnehmender Demokratie von echo.
         description: |
           <p>
@@ -338,6 +340,7 @@ de:
           </p>
       echo:
         name: echo
+        short_name: echo
         teaser: Beteiligen Sie sich in der weiteren Entwicklung von echo.
         description: |
           <p>
@@ -350,6 +353,7 @@ de:
           </p>
       echosocial:
         name: echo-social
+        short_name: echo-social
         teaser: echo social Teaser.
         description: |
           <p>
@@ -362,7 +366,8 @@ de:
           </p>
       realprices:
         name: Preistransparenz - ökonomisch, ökologisch, fair
-        teaser: Städte und Institutionen übergreifender Austausch und Vernetzung zur <strong>Kostentransparenz</strong> von Produkten und Dienstleistungen.
+        short_name: Preistransparenz
+        teaser: Städte und Institutionen übergreifender Austausch und Vernetzung zur Kostentransparenz von Produkten und Dienstleistungen.
         description: |
           <p>
           Wie setzt sich der Preis von Produkten zusammen, und welche <strong>sozialen und ökologischen
