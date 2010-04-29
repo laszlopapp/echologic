@@ -64,9 +64,7 @@ class StatementsController < ApplicationController
 
     respond_to do |format|
       format.html {render :template => 'questions/index'}
-      format.js {
-        replace_container('questions_container', :partial => 'questions/questions', :locals => {:statements => @statements})
-      }
+      format.js {render :template => 'questions/questions'}
     end
   end
 
