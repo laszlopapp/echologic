@@ -4,7 +4,7 @@
 
 # Important: If you change these names her, you also have to change in all user related fixtures (e.g. profiles)
 # Todo: Switch to Factory Girl ;) 
-<% ["joe", "ben", "user", "editor", "admin", "red","blue"].each do |name| %>
+<% ["joe", "user", "editor", "admin", "red","blue","luise"].each do |name| %>
 <%= name+'-english' %>:
   user_id: <%= Fixtures.identify(name) %>
   language_id: <%= Fixtures.identify(:language_en) %>
@@ -16,22 +16,33 @@ green-english:
   language_id: <%= Fixtures.identify(:language_en) %>
   level_id: <%= Fixtures.identify(:language_level_intermediate) %>
 
-<% ["theodor","friedrich","luise","charlotte","lisa"].each do |name| %>
-<%= name+'-english'%>:
+ben-english:
+  user_id: <%= Fixtures.identify(:ben) %>
+  language_id: <%= Fixtures.identify(:language_en) %>
+  level_id: <%= Fixtures.identify(:language_level_intermediate) %>
+
+<% ["ben", "joe", "theodor", "friedrich", "luise", "charlotte", "lisa"].each do |name| %>
+<%= name+'-german'%>:
   user_id: <%= Fixtures.identify(name) %>
   language_id: <%= Fixtures.identify(:language_de) %>
   level_id: <%= Fixtures.identify(:language_level_mother_tongue) %>
 <% end %>  
 
-<% ["joe", "ben", "editor", "admin", "yellow"].each do |name| %>
-<%= name+'-german' %>:
+user-german:
+  user_id: <%= Fixtures.identify(:user) %>
+  language_id: <%= Fixtures.identify(:language_de) %>
+  level_id: <%= Fixtures.identify(:language_level_basic) %>
+
+
+<% ["joe", "editor", "admin", "yellow"].each do |name| %>
+<%= name+'-french' %>:
   user_id: <%= Fixtures.identify(name) %>
   language_id: <%= Fixtures.identify(:language_fr) %>
   level_id: <%= Fixtures.identify(:language_level_intermediate) %>
 <% end %>
 
 <% ["theodor","friedrich","luise","charlotte","lisa"].each do |name| %>
-<%= name+'-german'%>:
+<%= name+'-portuguese'%>:
   user_id: <%= Fixtures.identify(name) %>
   language_id: <%= Fixtures.identify(:language_pt) %>
   level_id: <%= Fixtures.identify(:language_level_mother_tongue) %>

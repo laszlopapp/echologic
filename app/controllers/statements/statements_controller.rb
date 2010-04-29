@@ -60,7 +60,7 @@ class StatementsController < ApplicationController
     #statements_not_paginated = statements_not_paginated.select{|s|s.has_from_category(params[:id])} if params[:id]
     
     statements_not_paginated = statements_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
-    statements_not_paginated = statements_not_paginated.select{|s| current_language_keys <=> s.statement_documents.collect{|sd| sd.language_id}}
+    statements_not_paginated = statements_not_paginated.select{|s| !(current_language_keys & s.statement_documents.collect{|sd| sd.language_id}).empty?}
     
     @count    = statements_not_paginated.size
 
@@ -96,8 +96,8 @@ class StatementsController < ApplicationController
     
     @translation_permission = (!current_user.nil? and !current_user.spoken_languages.blank? and #1.we habe a current user that speaks languages
                                !current_user.mother_tongues.blank?                             and #2.we ensure ourselves that the user has a mother tongue
-                               !statement_document.language.code.eql?(params[:locale])      and #3.current text language is different from the application language
-                               current_user.mother_tongues.collect{|l| l.code}.include?(params[:locale])        and #4.application language is the current user mother tongue
+                               !statement_document.language.code.eql?(params[:locale])      and #3.current text language is different from the current language, which would mean there is no translated version of the document yet in the current language
+                               current_user.mother_tongues.collect{|l| l.code}.include?(params[:locale])        and #4.application language is the current user's mother tongue
                                #5.user knows the document's language
                                current_user.spoken_languages.map{|sp| sp.language}.uniq.include?(statement_document.language) and
                                #6. user has language level greater than intermediate
