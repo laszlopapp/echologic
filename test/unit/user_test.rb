@@ -19,7 +19,7 @@ class UserTest < ActiveSupport::TestCase
         
         should "return spoken languages as an array of keys (EnumKey)" do
           # TODO - this will only work when fixtures do not change. see todos above
-          assert_equal @user.language_keys, [2,1]
+          assert_equal @user.language_keys, @user.spoken_languages.collect{|sl| sl.language.id}
         end
         
       end

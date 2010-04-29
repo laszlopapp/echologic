@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), '..', 'test_helper')
 
 class EchoTest < ActiveSupport::TestCase
   def setup
-    @echoable = Statement.first
+    @echoable = StatementNode.first
     # make sure we don't have a echo already
     @echoable.update_attributes!(:echo_id => nil)
     @user = User.first

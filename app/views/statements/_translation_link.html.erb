@@ -1,0 +1,5 @@
+<div class="translation_box rounded-box rounded-box-gray-itow with-header <%= @translation_permission ? '' : 'display: none' %>">
+  <span class="box_header"><%= link_to I18n.t('discuss.translation_request'), '' %></span>
+  <span class="box_header_icon"></span>
+  <span class="box_header_info"><%= params[:locale].upcase%></span>
+</div>

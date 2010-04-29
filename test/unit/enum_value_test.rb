@@ -11,7 +11,8 @@ class EnumValueTest < ActiveSupport::TestCase
     # testing validations (should_validate_presence_of didn't work)
     %w(enum_key_id value language_id).each do |attr|
       context "with no #{attr} set" do 
-        setup { @enum_value.send("#{attr}=", nil)
+        setup { 
+          @enum_value.send("#{attr}=", nil)
           assert ! @enum_value.valid?
         }
         should("include #{attr} in it's errors") { 
@@ -27,12 +28,10 @@ class EnumValueTest < ActiveSupport::TestCase
     end
     
     context "being saved" do
-      setup { 
-        @enum_value.update_attributes!({:enum_key_id => EnumKey.first.id, :value => 'Test', :language_id => EnumValue.languages.first.key})
-      }
-      
+      setup {@enum_value.update_attributes!({:enum_key => StatementDocument.languages.first, :value => 'Test', :language_id => StatementDocument.languages.first.key})}
       should "have a language associated" do
-        assert_equal @enum_value.language, EnumValue.languages.first
+        assert !@enum_value.blank?
+        assert_equal @enum_value.language_id, StatementDocument.languages.first.key
       end
     end
     

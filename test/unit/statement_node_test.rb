@@ -46,7 +46,7 @@ class StatementNodeTest < ActiveSupport::TestCase
     context("should be echoable") do
       should_have_db_columns :echo_id
       should_belong_to :echo
-      should_have_many :echo_details
+      should_have_many :user_echos
     end
     
     [Question, Proposal, ImprovementProposal].each do |subtype|
