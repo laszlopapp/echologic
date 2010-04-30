@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   # Catch access denied exception in the whole application and handle it.
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
   rescue_from 'ActionController::InvalidAuthenticityToken', :with => :csrf_error
+  rescue_from 'ActionController::RoutingError', :with => :redirect_to_root
 
   # Initializes translate_routes
   before_filter :set_locale
@@ -205,6 +206,11 @@ class ApplicationController < ActionController::Base
       else
         flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
       end
+      redirect_to root_path
+    end
+
+    # happens when routing errors occur
+    def redirect_to_root
       redirect_to root_path
     end
 end
