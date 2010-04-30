@@ -211,6 +211,6 @@ class ApplicationController < ActionController::Base
 
     # happens when routing errors occur
     def redirect_to_root
-      redirect_to root_path
+      redirect_to welcome_url
     end
 end
