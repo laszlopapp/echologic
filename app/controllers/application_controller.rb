@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 
   # Catch access denied exception in the whole application and handle it.
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
+  rescue_from 'ActionController::InvalidAuthenticityToken', :with => :csrf_error
 
   # Initializes translate_routes
   before_filter :set_locale
@@ -193,4 +194,12 @@ class ApplicationController < ActionController::Base
       return true
     end
 
+    def csrf_error
+      flash[:error] = I18n.t('application.general.csrf_error')
+      if request.referer
+        redirect_to :back
+      else
+        redirect_to params.slice(:action, :controller, :id)
+      end
+    end
 end
