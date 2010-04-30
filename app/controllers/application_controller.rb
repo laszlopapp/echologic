@@ -185,21 +185,26 @@ class ApplicationController < ActionController::Base
 
     def session_expiry
       if current_user_session and session[:expiry_time] and session[:expiry_time] < Time.now
-        current_user_session.destroy
-        reset_session
-        flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
-        redirect_to root_path
+        expire_session!
       end
       session[:expiry_time] = MAX_SESSION_PERIOD.seconds.from_now
       return true
     end
 
     def csrf_error
-      flash[:error] = I18n.t('application.general.csrf_error')
-      if request.referer
-        redirect_to :back
+      # DISCUSS: use different message here?
+      expire_session!
+    end
+
+    def expire_session!
+      current_user_session.try(:destroy)
+      reset_session
+      if params[:controller] == 'users/user_session' && params[:action] == 'destroy'
+        # still display logout message on logout.
+        flash[:notice] = I18n.t('users.user_sessions.messages.logout_success')
       else
-        redirect_to params.slice(:action, :controller, :id)
+        flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
       end
+      redirect_to root_path
     end
 end

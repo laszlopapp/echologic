@@ -28,8 +28,6 @@ en:
       welcome: Welcome
       all: All
 
-      csrf_error: "Invalid Authenticity Token: Session Timeout occured or CSRF."
-
     # Roadmap - Progress
     roadmap:
       title: ready
