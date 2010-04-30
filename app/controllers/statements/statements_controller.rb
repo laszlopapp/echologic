@@ -7,14 +7,14 @@ class StatementsController < ApplicationController
   #        but that is currently undoable without breaking non-js requests. A
   #        solution would be to make the "echo" button a real submit button and
   #        wrap a form around it.
-  verify :method => :get, :only => [:index, :show, :new, :edit, :category]
+  verify :method => :get, :only => [:index, :show, :new, :edit, :category, :statement_translate]
   verify :method => :post, :only => :create
   verify :method => :put, :only => [:update]
   verify :method => :delete, :only => [:destroy]
 
   # the order of these filters matters. change with caution.
-  before_filter :fetch_statement, :only => [:show, :edit, :update, :echo, :unecho, :translate,:destroy]
-  before_filter :fetch_category, :only => [:index, :new, :show, :edit, :update, :translate, :destroy]
+  before_filter :fetch_statement, :only => [:show, :edit, :update, :echo, :unecho, :statement_translate,:destroy]
+  before_filter :fetch_category, :only => [:index, :new, :show, :edit, :update, :statement_translate, :destroy]
 
   before_filter :require_user, :except => [:index, :category, :show]
 
@@ -25,7 +25,7 @@ class StatementsController < ApplicationController
   access_control do
     allow :editor
     allow anonymous, :to => [:index, :show, :category]
-    allow logged_in, :only => [:index, :show, :echo, :unecho, :translate]
+    allow logged_in, :only => [:index, :show, :echo, :unecho, :statement_translate]
     allow logged_in, :only => [:new, :create], :unless => :is_question?
     allow logged_in, :only => [:edit, :update], :if => :may_edit?
     allow logged_in, :only => [:destroy], :if => :may_delete?
@@ -37,8 +37,9 @@ class StatementsController < ApplicationController
     respond_to do |format|
       format.html { render :template => 'questions/index' }
     end
-
   end
+
+  
 
   # TODO use find or create category tag?
   # displays all questions in a category
@@ -144,6 +145,24 @@ class StatementsController < ApplicationController
     end
   end
 
+  def statement_translate
+    respond_to do |format|
+      format.html { render :template => 'statements/new' }
+      format.js {
+        render :update do |page|
+          page.replace(@statement.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/translate')
+          page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent}) if @statement.parent
+          page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) if @statement.parent
+          page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent})
+
+          page << "makeRatiobars();"
+          page << "makeTooltips();"
+        end
+      }
+    end
+  end
+  
+  
   # renders form for creating a new statement
   def new
     @statement ||= statement_class.new(:parent => parent, :category_id => @category.id)
@@ -250,11 +269,6 @@ class StatementsController < ApplicationController
   def cancel
     redirect_to url_f(Statement.find(session[:last_statement]))
   end
-
-  def translate
-    raise "pipi"
-  end
-
 
   #
   # PRIVATE

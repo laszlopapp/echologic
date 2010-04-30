@@ -1,0 +1,25 @@
+<% statement ||= @statement %>
+<% semantic_form_for statement.self_with_parents, :html => {:class => 'wide_form'} do |form| -%>
+  <%= form.error_messages %>
+  <%= render :partial => "statements/document_form", :locals => { :form => form, :statement => statement } %>
+  <% #FIXME: i don't know how to do this manually with formtastics. enums are not really supported by rails, and everywhere else where we use enum like statefulness in models, views do it like this %>
+  <% if statement.kind_of?(Question) -%>
+    <% form.inputs do %>
+      <li id="question_state_input" class="select optional error">
+        <%= form.label :state %>
+        <%# would be nice to have map_with_index... -%>
+        <% i = -1 -%>
+        <%= form.select(:state, StatementNode.states.map { |state| [I18n.t("discuss.statements.states.#{state}"), i+=1] },
+                        :selected => form.object.state) %>
+      </li>
+    <% end %>
+  <% end -%>
+  <%= form.hidden_field :parent_id %>
+  <%= form.hidden_field :category_id %>
+
+  <% form.buttons do %>
+    <%= form.commit_button I18n.t('application.general.save'), :button_html => { :alt => 'save_button' } %>
+    <span class="or_cancel"><%= I18n.t('application.general.or') %></span>
+    <%= link_to I18n.t('application.general.cancel'), session[:last_statement] ? statement_path(session[:last_statement]) : (statement.parent or discuss_url), :class => 'ajax text_button cancel_button' %>
+  <% end %>
+<% end -%>

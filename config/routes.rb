@@ -93,9 +93,9 @@ ActionController::Routing::Routes.draw do |map|
 
 
   # SECTION discuss - discussion tree
-  map.resources :questions, :as => 'discuss/questions' do |question|
-    question.resources :proposals, :member => [:echo, :unecho, :translate] do |proposal|
-      proposal.resources :improvement_proposals, :member => [:echo, :unecho, :translate] do |improvement_proposal|
+  map.resources :questions, :member => [:statement_translate], :as => 'discuss/questions' do |question|
+    question.resources :proposals, :member => [:echo, :unecho, :statement_translate] do |proposal|
+      proposal.resources :improvement_proposals, :member => [:echo, :unecho, :statement_translate] do |improvement_proposal|
       end
     end
   end
