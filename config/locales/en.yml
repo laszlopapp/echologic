@@ -306,6 +306,7 @@ en:
         continues: 'continues online!'
         register_here: 'Click here to register!'
         name: echonomyJAM
+        short_name: echonomyJAM
         teaser: Find new ways towards an eco-socially sustainable, democratic economy.
         description: |
           <p>
@@ -321,6 +322,7 @@ en:
           </p>
       echocracy:
         name: echocracy
+        short_name: echocracy
         teaser: Discuss your vision of a global democracy of echo.
         description: |
           <p>
@@ -331,6 +333,7 @@ en:
           </p>
       echo:
         name: echo
+        short_name: echo
         teaser: Contribute your ideas to the further development of echo.
         description: |
           <p>
@@ -341,6 +344,7 @@ en:
           </p>
       echosocial:
         name: echo-social
+        short_name: echo-social
         teaser: Echo Social Teaser.
         description: |
           <p>
@@ -350,10 +354,11 @@ en:
           than we might have ever imagined!
           </p>
       realprices:
-        name: True Costs - Real Prices
+        name: Price Transparency - Economical, Ecological, Fair
+        short_name: Price Transparency
         teaser: |
-          Dialogue across the boundaries of cities and institutions to support exchange and networking about <strong>cost
-          transparency</strong> for products and services.
+          Dialogue across the boundaries of cities and institutions to support exchange and networking about cost
+          transparency for products and services.
         description: |
           <p>
           What is the price of products composed of and what are the <strong>social and ecological follow-up costs</strong> behind them?
