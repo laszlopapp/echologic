@@ -2,9 +2,9 @@
 
 <%path = @category.value ? question_tags_path : discuss_search_path%>
 
-<div id="search_container">	
-<span class="search_category"> 
-  <%= I18n.t('discuss.search.in', :category => I18n.t("discuss.topics.#{@category.value}.name")) if @category.value%>
+<div id="search_container">
+<span class="search_category">
+  <%= I18n.t('discuss.search.in', :category => I18n.t("discuss.topics.#{@category.value}.short_name")) if @category.value%>
 </span>
     <% form_tag path, :method => 'GET', :id => 'search_form' do %>
       <%= text_field_tag :value %>
@@ -12,14 +12,7 @@
     <% end %>
 </div>
 
-
-
-<!--h1><%#= I18n.t("discuss.topics.#{@category.value.underscore}.name") if @category.value %></h1-->
-<!--strong><%#= I18n.t('discuss.topics.description') if @category.value %></strong-->
-<% #insert_toggle_more(I18n.t("discuss.topics.#{@category.value.underscore}.description")) if @category.value%>
-
 <%= render :partial => 'questions', :locals => {:statements => @statements} %>
-
 <br></br>
 <span class="new_question">
 	<%= create_question_link_for(@category) if @category.value%>
