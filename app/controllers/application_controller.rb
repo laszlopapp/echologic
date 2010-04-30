@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 
   # Catch access denied exception in the whole application and handle it.
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
+  rescue_from 'ActionController::InvalidAuthenticityToken', :with => :csrf_error
 
   # Initializes translate_routes
   before_filter :set_locale
@@ -184,13 +185,26 @@ class ApplicationController < ActionController::Base
 
     def session_expiry
       if current_user_session and session[:expiry_time] and session[:expiry_time] < Time.now
-        current_user_session.destroy
-        reset_session
-        flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
-        redirect_to root_path
+        expire_session!
       end
       session[:expiry_time] = MAX_SESSION_PERIOD.seconds.from_now
       return true
     end
 
+    def csrf_error
+      # DISCUSS: use different message here?
+      expire_session!
+    end
+
+    def expire_session!
+      current_user_session.try(:destroy)
+      reset_session
+      if params[:controller] == 'users/user_session' && params[:action] == 'destroy'
+        # still display logout message on logout.
+        flash[:notice] = I18n.t('users.user_sessions.messages.logout_success')
+      else
+        flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
+      end
+      redirect_to root_path
+    end
 end
