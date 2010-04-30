@@ -13,8 +13,8 @@ class StatementsController < ApplicationController
   verify :method => :delete, :only => [:destroy]
 
   # the order of these filters matters. change with caution.
-  before_filter :fetch_statement, :only => [:show, :edit, :update, :echo, :unecho, :destroy]
-  before_filter :fetch_category, :only => [:index, :new, :show, :edit, :update, :destroy]
+  before_filter :fetch_statement, :only => [:show, :edit, :update, :echo, :unecho, :translate,:destroy]
+  before_filter :fetch_category, :only => [:index, :new, :show, :edit, :update, :translate, :destroy]
 
   before_filter :require_user, :except => [:index, :category, :show]
 
@@ -25,7 +25,7 @@ class StatementsController < ApplicationController
   access_control do
     allow :editor
     allow anonymous, :to => [:index, :show, :category]
-    allow logged_in, :only => [:index, :show, :echo, :unecho]
+    allow logged_in, :only => [:index, :show, :echo, :unecho, :translate]
     allow logged_in, :only => [:new, :create], :unless => :is_question?
     allow logged_in, :only => [:edit, :update], :if => :may_edit?
     allow logged_in, :only => [:destroy], :if => :may_delete?
@@ -250,6 +250,11 @@ class StatementsController < ApplicationController
   def cancel
     redirect_to url_f(Statement.find(session[:last_statement]))
   end
+
+  def translate
+    raise "pipi"
+  end
+
 
   #
   # PRIVATE

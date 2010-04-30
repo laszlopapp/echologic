@@ -29,6 +29,21 @@ module StatementHelper
       raise ArgumentError.new("Unhandled type: #{type.downcase}")
     end
   end
+  
+  def translate_statement_url (parent, type)
+    case type.downcase
+    when 'question'
+      translate_question_url(parent)
+    when 'proposal'
+      translate_proposal_url(parent)
+    when 'improvement_proposal'
+      translate_improvement_proposal_url(parent)
+    when 'pro_argument'
+      translate_pro_argument_proposal_url(parent)
+    else
+      raise ArgumentError.new("Unhandled type: #{type.downcase}")
+    end
+  end
 
   def edit_statement_path(statement)
     case statement_class_dom_id(statement).downcase
@@ -76,6 +91,10 @@ module StatementHelper
     edit_question_proposal_path(proposal.parent, proposal)
   end
 
+  def translate_proposal_url(parent)
+    translate_question_proposal_url(parent)
+  end
+
   ## ImprovementProposal
 
   def improvement_proposal_url(proposal)
@@ -94,6 +113,10 @@ module StatementHelper
 
   def edit_improvement_proposal_path(proposal)
     edit_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
+  end
+  
+  def translate_improvement_proposal_url(parent)
+    translate_question_proposal_improvement_proposal_url(parent.parent, parent)
   end
 
   ## ProArgument
@@ -117,6 +140,15 @@ module StatementHelper
             :id => "create_#{type.underscore}_link",
             :class => "ajax #{css_class} text_button #{create_statement_button_class(type)} ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_#{type.underscore}"))
+  end
+  
+  def create_translate_statement_link(statement, css_class = "")
+     type = statement_class_dom_id(statement.class.expected_children.first)
+     link_to I18n.t('discuss.translation_request'),
+              translate_statement_url(statement, type),
+              :id => "translation_link",
+              :class => "ajax #{css_class}"
+             
   end
 
   # this classname is needed to display the right icon next to the link
