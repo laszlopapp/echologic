@@ -127,73 +127,79 @@ class ApplicationController < ActionController::Base
   # PRIVATE SECTION
   private
 
-    # Return current session if one exists
-    def current_user_session
-      return @current_user_session if defined?(@current_user_session)
-      @current_user_session = UserSession.find
-    end
+  # Return current session if one exists
+  def current_user_session
+    return @current_user_session if defined?(@current_user_session)
+    @current_user_session = UserSession.find
+  end
 
-    # Returns currently logged in user
-    def current_user
-      return @current_user if defined?(@current_user)
-      @current_user = current_user_session && current_user_session.user
-    end
+  # Returns currently logged in user
+  def current_user
+    return @current_user if defined?(@current_user)
+    @current_user = current_user_session && current_user_session.user
+  end
 
-    # TODO comment and js?
-    # TODO i18n
-    # before filter, used to define which controller actions require an active and valid user session
-    def require_user
-      unless current_user
-        respond_to do |format|
-          format.html {
-            flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_in_for_page')
-            request.env["HTTP_REFERER"] ? redirect_to(:back) : redirect_to(root_path)
-            }
-          format.js {
-            # rendering an ajax-request, we assume it's rather an action, than a certain page, that the user want to access
-            @info = I18n.t('authlogic.error_messages.must_be_logged_in_for_action')
-            render_with_info
+  # TODO comment and js?
+  # TODO i18n
+  # before filter, used to define which controller actions require an active and valid user session
+  def require_user
+    unless current_user
+      respond_to do |format|
+        format.html {
+          flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_in_for_page')
+          request.env["HTTP_REFERER"] ? redirect_to(:back) : redirect_to(root_path)
           }
-        end
-        return false
+        format.js {
+          # rendering an ajax-request, we assume it's rather an action, than a certain page, that the user want to access
+          @info = I18n.t('authlogic.error_messages.must_be_logged_in_for_action')
+          render_with_info
+        }
       end
+      return false
     end
+  end
 
-    # TODO i18n
-    def require_no_user
-      if current_user
-        flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_out')
-        respond_to do |format|
-          format.html { redirect_to root_path }
-          format.js do
-            render :update do |page|
-              page.redirect_to root_path
-            end
+  # TODO i18n
+  def require_no_user
+    if current_user
+      flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_out')
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.js do
+          render :update do |page|
+            page.redirect_to root_path
           end
         end
-        return false
       end
+      return false
     end
+  end
 
-    # If access is denied display warning and redirect to users_path
-    # TODO localize access denied message
-    def access_denied
-      flash[:error] = I18n.t('activerecord.errors.messages.access_denied')
-      redirect_to welcome_path
-    end
+  # If access is denied display warning and redirect to users_path
+  # TODO localize access denied message
+  def access_denied
+    flash[:error] = I18n.t('activerecord.errors.messages.access_denied')
+    redirect_to welcome_path
+  end
 
-    def session_expiry
-      if current_user_session and session[:expiry_time] and session[:expiry_time] < Time.now
-        current_user_session.destroy
-        reset_session
-        flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
-        redirect_to root_path
-      end
-      session[:expiry_time] = MAX_SESSION_PERIOD.seconds.from_now
-      return true
+  def session_expiry
+    if current_user_session and session[:expiry_time] and session[:expiry_time] < Time.now
+      current_user_session.destroy
+      reset_session
+      flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
+      redirect_to root_path
     end
+    session[:expiry_time] = MAX_SESSION_PERIOD.seconds.from_now
+    return true
+  end
 
-    def current_language_keys
-      keys = current_user ? current_user.language_keys : [EnumKey.find_by_name_and_code("languages", I18n.locale.to_s).id]
-    end
+  def current_language_key
+    EnumKey.find_by_name_and_code("languages", I18n.locale.to_s).id
+  end
+  
+  def current_language_keys
+    keys = [current_language_key].concat(current_user ? current_user.language_keys : []).uniq
+  end
+  
+  
 end

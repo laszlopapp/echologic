@@ -449,6 +449,7 @@ de:
       created: "{{type}} wurde erfolgreich eingestellt."
       updated: "{{type}} wurde erfolgreich bearbeitet."
       deleted: "{{type}} wurde erfolgreich gelöscht."
+      deleted: "{{type}} wurde erfolgreich übersetzt."
       empty:   "Es wurden keine Debatten gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
       new_percentage: "Ihr Profil ist jetzt zu {{percentage}}% ausgefüllt."
 

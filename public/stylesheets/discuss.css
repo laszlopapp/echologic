@@ -314,6 +314,27 @@ a.statement_link:hover {
 /* Translations        */
 /* ------------------- */
 
+
+
+#statement_translate textarea {
+  width: 343px;
+}
+
+#statement_translate input{
+  width: 338px;
+}
+
+#statement_translate form.wide_form {
+}
+ 
+#statement_translate fieldset.inputs {
+	float: left;
+}
+
+#statement_translate.discuss_right_block {
+  height: 560px;
+}
+
 .translation_box {
 	background:url("../images/page/box/blue_white_gradient.png") repeat-x scroll left top #FFFFFF;
 	margin:0 0 15px;

@@ -59,6 +59,21 @@ module StatementHelper
       raise ArgumentError.new("Unhandled type: #{type.downcase}")
     end
   end
+  
+  def create_translation_url (parent, type)
+    case type.downcase
+    when 'question'
+      create_translation_question_url(parent)
+    when 'proposal'
+      create_translation_proposal_url(parent)
+    when 'improvement_proposal'
+      create_translation_improvement_proposal_url(parent)
+    when 'pro_argument'
+      create_translation_pro_argument_proposal_url(parent)
+    else
+      raise ArgumentError.new("Unhandled type: #{type.downcase}")
+    end
+  end
 
   
   # returns the path to a statement, according to its type
@@ -101,6 +116,14 @@ module StatementHelper
   def statement_translate_proposal_path(proposal)
     statement_translate_question_proposal_path(proposal.parent, proposal)
   end
+  
+  def create_translation_proposal_url(proposal)
+    create_translation_question_proposal_url(proposal.parent, proposal)
+  end
+  
+  def create_translation_proposal_path(proposal)
+    create_translation_question_proposal_path(proposal.parent, proposal)
+  end
 
   ## ImprovementProposal
 
@@ -128,6 +151,14 @@ module StatementHelper
   
   def statement_translate_improvement_proposal_path(proposal)
     statement_translate_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
+  end
+  
+  def create_translation_improvement_proposal_url(proposal)
+    create_translation_question_proposal_improvement_proposal_url(proposal.root, proposal.parent, proposal)
+  end
+  
+  def create_translation_improvement_proposal_path(proposal)
+    create_translation_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
   end
 
   ## ProArgument

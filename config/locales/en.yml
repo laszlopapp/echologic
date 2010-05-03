@@ -434,6 +434,7 @@ en:
       created: "The new {{type}} has been entered successfully."
       updated: "The {{type}} has been updated successfully."
       deleted: "The {{type}} has been deleted successfully."
+      translated: "The {{type}} has been translated successfully."
       empty:   "No debates found. Please change your search criteria."
       new_percentage: "Your profile is {{percentage}}% complete."
 

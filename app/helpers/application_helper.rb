@@ -15,8 +15,12 @@ module ApplicationHelper
     val
   end
   
+  def current_language_key
+    EnumKey.find_by_name_and_code("languages", I18n.locale.to_s).id
+  end
+  
   def current_language_keys
-    keys = current_user ? current_user.language_keys : [EnumKey.find_by_name_and_code("languages", I18n.locale.to_s).id]
+    keys = [current_language_key].concat(current_user ? current_user.language_keys : []).uniq
   end
   
 end

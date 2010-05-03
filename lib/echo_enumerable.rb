@@ -27,7 +27,7 @@ module EchoEnumerable
         include EchoEnumerable::InstanceMethods
 
         def self.#{name}(code='')
-            code.blank? ? EnumKey.find_all_by_name('#{name}') : EnumKey.find_all_by_name_and_code('#{name}',code)  
+            code.blank? ? EnumKey.by_key.find_all_by_name('#{name}') : EnumKey.find_all_by_name_and_code('#{name}',code)  
         end
         
       EOV

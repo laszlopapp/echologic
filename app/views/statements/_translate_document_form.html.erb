@@ -1,0 +1,6 @@
+<% form.semantic_fields_for :new_statement_document, statement do |doc|  %>
+  <% doc.inputs do %>
+    <%= doc.input :title %><br>
+    <%= doc.text_area :text  %>
+  <% end %>
+<% end -%>

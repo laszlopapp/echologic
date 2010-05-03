@@ -8,13 +8,13 @@ class StatementsController < ApplicationController
   #        solution would be to make the "echo" button a real submit button and
   #        wrap a form around it.
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :statement_translate]
-  verify :method => :post, :only => :create
+  verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update]
   verify :method => :delete, :only => [:destroy]
 
   # the order of these filters matters. change with caution.
-  before_filter :fetch_statement, :only => [:show, :edit, :update, :echo, :unecho, :statement_translate,:destroy]
-  before_filter :fetch_category, :only => [:index, :new, :show, :edit, :update, :statement_translate, :destroy]
+  before_filter :fetch_statement, :only => [:show, :edit, :update, :echo, :unecho, :statement_translate,:create_translation,:destroy]
+  before_filter :fetch_category, :only => [:index, :new, :show, :edit, :update, :statement_translate,:create_translation,:destroy]
 
   before_filter :require_user, :except => [:index, :category, :show]
 
@@ -25,7 +25,7 @@ class StatementsController < ApplicationController
   access_control do
     allow :editor
     allow anonymous, :to => [:index, :show, :category]
-    allow logged_in, :only => [:index, :show, :echo, :unecho, :statement_translate]
+    allow logged_in, :only => [:index, :show, :echo, :unecho, :statement_translate,:create_translation]
     allow logged_in, :only => [:new, :create], :unless => :is_question?
     allow logged_in, :only => [:edit, :update], :if => :may_edit?
     allow logged_in, :only => [:destroy], :if => :may_delete?
@@ -146,6 +146,9 @@ class StatementsController < ApplicationController
   end
 
   def statement_translate
+#     @new_statement_document = StatementDocument.new(:language_id => StatementDocument.languages(params[:locale]).id)
+    @new_statement_document = @statement.add_statement_document({:language_id => current_language_key})
+#     @statement.add_statement_document
     respond_to do |format|
       format.html { render :template => 'statements/new' }
       format.js {
@@ -162,6 +165,48 @@ class StatementsController < ApplicationController
     end
   end
   
+  def create_translation
+    attrs = params[statement_class_param]
+    attrs[:state] = StatementNode.state_lookup[:published] unless statement_class == Question
+    doc_attrs = attrs.delete(:new_statement_document)
+    doc_attrs[:author_id] = current_user.id
+    
+    doc_attrs[:language_id] = current_language_key
+    
+    document = @statement.add_statement_document(doc_attrs)
+    respond_to do |format|
+      if @statement.save
+        set_info("discuss.messages.translated", :type => @statement.class.display_name)
+        current_user.supported!(@statement)
+        #load current created statement to session
+        if @statement.parent
+          type = @statement.class.to_s.underscore
+          key = ("current_" + type).to_sym
+          session[key] = @statement.parent.children.map{|s|s.id}
+        end
+        @children = children_for_statement
+        format.html { flash_info and redirect_to url_for(@statement) }
+        format.js   {
+          #session[:last_info] = @info # save @info so it doesn't get lost during redirect
+          render :update do |page|
+            page << "info('#{@info}');"
+            page.replace('new_statement', :partial => 'statements/children', :statement => @statement, :children => @children)
+            page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement})
+            page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement})
+            page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement})
+            page << "makeRatiobars();"
+            page << "makeTooltips();"
+
+          #page << "window.location.replace('#{url_for(@statement)}');"
+          end
+        }
+      else
+        set_error(document)
+        format.html { flash_error and render :template => 'statements/new' }
+        format.js   { show_error_messages(document) }
+      end
+    end
+  end
   
   # renders form for creating a new statement
   def new
