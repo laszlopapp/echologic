@@ -11,13 +11,13 @@ render_tabnav :main,
   end
 
   add_tab :html => { :class => 'ajaxLink' } do |t|
-    t.named I18n.t('static.echosocial.benefits.title')
-    t.links_to :controller => 'static/echosocial', :action => 'benefits'
+    t.named I18n.t('static.echosocial.features.title')
+    t.links_to :controller => 'static/echosocial', :action => 'features'
   end
 
   add_tab :html => { :class => 'ajaxLink' } do |t|
-    t.named I18n.t('static.echosocial.features.title')
-    t.links_to :controller => 'static/echosocial', :action => 'features'
+    t.named I18n.t('static.echosocial.extensions.title')
+    t.links_to :controller => 'static/echosocial', :action => 'extensions'
   end
 
 end
