@@ -9,6 +9,7 @@ public/system/avatars/
 /echologic.iws
 /rerun.txt
 db/*.sqlite3
+.idea/
 *~
 .\#*
 \#*
