@@ -13,8 +13,8 @@ module StatementHelper
   ## URLS
   ##
 
-  
-  
+
+
   def new_child_statement_url(parent, type)
     case type.downcase
     when 'question'
@@ -42,7 +42,7 @@ module StatementHelper
       raise ArgumentError.new("Unhandled type: #{statement_dom_id(statement).downcase}")
     end
   end
-  
+
   # returns the path to a statement, according to its type
   def statement_path(statement)
     statement = Statement.find(statement) if statement.kind_of?(Integer)
@@ -136,7 +136,7 @@ module StatementHelper
     link_to(I18n.t('application.general.edit'), edit_statement_path(statement),
             :class => 'ajax header_button text_button edit_button edit_statement_button') if current_user && current_user.may_edit?(statement)
   end
- 
+
   # Returns the block heading for the children of the given statement
   def children_box_title(statement)
     type = statement_class_dom_id(statement.class.expected_children.first)
@@ -153,13 +153,13 @@ module StatementHelper
   ##
   ## CONVENIENCE and UI
   ##
-  
+
   # returns the right icon for a statement, determined from statement class and given size
   def statement_icon(statement, size = :medium)
     # remove me to have different sizes again
     image_tag("page/discuss/#{statement_class_dom_id(statement)}_#{size.to_s}.png")
   end
-  
+
   # inserts a status bar based on the support ratio  value
   # (support ratio is the calculated ratio for a statement, representing and visualizing the agreement a statement has found within the community)
   def supporter_ratio_bar(statement,context=nil)
@@ -174,10 +174,10 @@ module StatementHelper
       val = "<span class='no_echo_indicator ttLink' title='#{tooltip}'></span>"
     end
   end
-  
+
   def question_bar(context=nil)
     text = I18n.t('discuss.statements.label')
-    val = "<span class='question_label'>#{text}</span>"    
+    val = "<span class='echo_label'>#{text}</span>"    
   end
 
 
@@ -194,7 +194,7 @@ module StatementHelper
 
   # Returns the context menu link for this statement.
   def statement_context_link(statement, action = 'read')
-    
+
     link = link_to(statement.title, url_for(statement),
                    :class => "ajax no_border statement_link #{statement.class.name.underscore}_link ttLink",
                    :title => I18n.t("discuss.tooltips.#{action}_#{statement.class.name.underscore}"))
@@ -214,7 +214,7 @@ module StatementHelper
   ##
   ## Navigation within statements
   ##
-  
+
   # Insert prev/next buttons for the current statement.
   def prev_next_buttons(statement)
     type = statement.class.to_s.underscore
@@ -230,7 +230,7 @@ module StatementHelper
                   statement_button(session[key][index-1], statement_tag(:prev, type), :rel => 'prev')
                 end
       buttons << if session[key].length == 1
-                   statement_tag(:next, type, true) 
+                   statement_tag(:next, type, true)
                  elsif index == session[key].length-1
                    #statement_tag(:next, type, true)
                    statement_button(session[key][0], statement_tag(:next, type), :rel => 'next')
@@ -256,13 +256,13 @@ module StatementHelper
     stmt = Statement.find(id)
     return link_to(title, url_for(stmt), :class => 'ajax')
   end
-  
- 
-  
+
+
+
   ##
   ## DOM-ID Helpers
   ##
-  
+
   # returns the statement class dom identifier (used to identifiy dom objects, e.g. for javascript)
   def statement_class_dom_id(statement)
     if statement.kind_of?(Symbol)
@@ -272,7 +272,7 @@ module StatementHelper
     end
     statement_class.name.underscore.downcase
   end
-  
+
   # returns the dom identifier for a particular statement
   # consisting out of the statement class dom identifier, and the statements id
   def statement_dom_id(statement)
