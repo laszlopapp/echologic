@@ -32,7 +32,7 @@ en:
         echosocial:
           show:            'echo social - Home'
           features:        'echo social - Features'
-          benefits:        'echo social - Benefits'
+          extensions:        'echo social - Benefits'
 
 
       # users: de.seo.title.users
@@ -762,39 +762,6 @@ en:
           anderen gleichgesinnten Projekten und Organisationen zusammen und ermöglicht vereintes Handeln.
           So werden Eure Aktionen Teil einer <strong>weltweiten Bewegung</strong> für einen <strong>nachhaltigen Wandel</strong>.
           </p>
-      benefits:
-        title: Vorteile
-        subtitle: Was bringt es mir?
-        text: |
-          <p>
-          echo social ermöglicht Euch, für Eure Organisation, Projekte und Aktionen ein eigenes <strong>soziales Netzwerk</strong>
-          zu erstellen und dieses Teil einer globalen Bewegung werden zu lassen. Eure Ideen und Gedanken,
-          Euer Wille zum Handeln tragen dazu bei, etwas wirklich zu bewegen.
-          </p><p>
-          echo social ist die <strong>Open Source</strong> Lösung, um mit wenigen Klicks eine
-          <strong>eigene Webseite</strong> mit individuellem Auftritt zu erstellen - <strong>kostenlos</strong>. Es bietet Euch eine:
-          </p>
-        toolbox:
-          title: Umfangreiche Werkzeugkiste
-          text: |
-            <p>Ihr bekommt für Eure Organisation, Aktionen und Projekte umfangreiche Netzwerkfunktionen
-            und wichtige Web Tools für eine effiziente Zusammenarbeit mit Euren Unterstütrzern.</p>
-        cooperation:
-          title: Koordinierte Zusammenarbeit
-          text: |
-            <p>Alle echo social Netzwerke können sich untereinander vernetzen und gemeinsam an
-            einem Strang ziehen. Dadurch könnt Ihr schneller die richtigen Mitstreiter
-            finden oder selbst gefunden werden. Die verfügbaren Tools helfen, Eure Zusammenarbeit
-            zu koordinieren und Eure Ideen in die Tat umzusetzen.</p>
-        coverage:
-          title: Vervielfachte Reichweite
-          text: |
-            <p>Wir können Dinge nur verändern, wenn wir gemeinsam handeln!</p><p>echo social Webseiten werden
-            verbunden durch echo - eine dezentrale Kommunikationsinfrastruktur für aktive Bürgerbeteiligung und
-            teilnehmende Demokratie. Im Laufe der weiteren Realisierung echos werden Aktionen und Projekte auf
-            echo social Webseiten stets mit thematisch relevanten Debatten und Aktionen von anderen
-            (nicht nur echo social) Webseiten verknüpft. Dies hilft bisher unabhängige Communities
-            mit Eurer eigenen zu vernetzen und die Reichweite Eurer Aktionen zu verfielfachen.</p>
 
       features:
         title: Funktionalität
@@ -853,6 +820,41 @@ en:
             dezentrale Kommunikationsinfrastruktur, welche Eure Aktionen auch auf anderen Plattformen und
             Webseiten sichtbar macht. So erreicht Ihr automatisch alle Menschen, die sich für die Thematik
             Eurer Aktionen interessieren. Dies vervielfacht die Reichweite und das Einflußpotential Eures Engagements.</p>
+
+      extensions:
+        title: Extensions
+        subtitle: Was bringt es mir?
+        text: |
+          <p>
+          echo social ermöglicht Euch, für Eure Organisation, Projekte und Aktionen ein eigenes <strong>soziales Netzwerk</strong>
+          zu erstellen und dieses Teil einer globalen Bewegung werden zu lassen. Eure Ideen und Gedanken,
+          Euer Wille zum Handeln tragen dazu bei, etwas wirklich zu bewegen.
+          </p><p>
+          echo social ist die <strong>Open Source</strong> Lösung, um mit wenigen Klicks eine
+          <strong>eigene Webseite</strong> mit individuellem Auftritt zu erstellen - <strong>kostenlos</strong>. Es bietet Euch eine:
+          </p>
+        toolbox:
+          title: Umfangreiche Werkzeugkiste
+          text: |
+            <p>Ihr bekommt für Eure Organisation, Aktionen und Projekte umfangreiche Netzwerkfunktionen
+            und wichtige Web Tools für eine effiziente Zusammenarbeit mit Euren Unterstütrzern.</p>
+        cooperation:
+          title: Koordinierte Zusammenarbeit
+          text: |
+            <p>Alle echo social Netzwerke können sich untereinander vernetzen und gemeinsam an
+            einem Strang ziehen. Dadurch könnt Ihr schneller die richtigen Mitstreiter
+            finden oder selbst gefunden werden. Die verfügbaren Tools helfen, Eure Zusammenarbeit
+            zu koordinieren und Eure Ideen in die Tat umzusetzen.</p>
+        coverage:
+          title: Vervielfachte Reichweite
+          text: |
+            <p>Wir können Dinge nur verändern, wenn wir gemeinsam handeln!</p><p>echo social Webseiten werden
+            verbunden durch echo - eine dezentrale Kommunikationsinfrastruktur für aktive Bürgerbeteiligung und
+            teilnehmende Demokratie. Im Laufe der weiteren Realisierung echos werden Aktionen und Projekte auf
+            echo social Webseiten stets mit thematisch relevanten Debatten und Aktionen von anderen
+            (nicht nur echo social) Webseiten verknüpft. Dies hilft bisher unabhängige Communities
+            mit Eurer eigenen zu vernetzen und die Reichweite Eurer Aktionen zu verfielfachen.</p>
+
       have_your_say:
         title: echo social ist für Euch
         text: Sagt uns Eure Wünsche und Prioritäten.
