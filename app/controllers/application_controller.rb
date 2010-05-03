@@ -7,14 +7,13 @@ class ApplicationController < ActionController::Base
 
   # Catch access denied exception in the whole application and handle it.
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
-  rescue_from 'ActionController::InvalidAuthenticityToken', :with => :csrf_error
-  rescue_from 'ActionController::RoutingError', :with => :redirect_to_root
+  rescue_from 'ActionController::InvalidAuthenticityToken', :with => :invalid_auth_token
+  rescue_from 'ActionController::RoutingError', :with => :redirect_to_home
 
   # Initializes translate_routes
   before_filter :set_locale
 
   # session timeout
-
   before_filter :session_expiry
 
   # Set locale to the best fitting one
@@ -46,6 +45,11 @@ class ApplicationController < ActionController::Base
       page << "info('#{message}');" if message
       yield page if block_given?
     end
+  end
+
+  # Sets the @info variable for the flash object
+  def flash_info
+    flash[:notice] = @info
   end
 
   # Sets error to the given objects error message.
@@ -85,12 +89,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Sets the @info variable to the flash object
-  def flash_info
-    flash[:notice] = @info
-  end
-
-  # Sets the @error variable to the flash object
+  # Sets the @error variable for the flash object
   def flash_error
     flash[:error] = @error
   end
@@ -129,6 +128,10 @@ class ApplicationController < ActionController::Base
   # PRIVATE SECTION
   private
 
+    ####################
+    # Session handling #
+    ####################
+
     # Return current session if one exists
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
@@ -141,9 +144,7 @@ class ApplicationController < ActionController::Base
       @current_user = current_user_session && current_user_session.user
     end
 
-    # TODO comment and js?
-    # TODO i18n
-    # before filter, used to define which controller actions require an active and valid user session
+    # Before filter used to define which controller actions require an active and valid user session.
     def require_user
       unless current_user
         respond_to do |format|
@@ -161,7 +162,7 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    # TODO i18n
+    # Checks that the user is NOT logged in.
     def require_no_user
       if current_user
         flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_out')
@@ -177,6 +178,11 @@ class ApplicationController < ActionController::Base
       end
     end
 
+
+    ##################################
+    # General error handling methods #
+    ##################################
+
     # If access is denied display warning and redirect to users_path
     # TODO localize access denied message
     def access_denied
@@ -184,6 +190,7 @@ class ApplicationController < ActionController::Base
       redirect_to welcome_path
     end
 
+    # Handles session expiry
     def session_expiry
       if current_user_session and session[:expiry_time] and session[:expiry_time] < Time.now
         expire_session!
@@ -192,11 +199,13 @@ class ApplicationController < ActionController::Base
       return true
     end
 
-    def csrf_error
-      # DISCUSS: use different message here?
+    # Called when the authentication token is invalid. It might happen if the user is anactive for a too long time
+    # or in case of a CSRF attack.
+    def invalid_auth_token
       expire_session!
     end
 
+    # Expires and cleans up the user session.
     def expire_session!
       current_user_session.try(:destroy)
       reset_session
@@ -209,8 +218,8 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
 
-    # happens when routing errors occur
-    def redirect_to_root
+    # Called when when a routing error occurs.
+    def redirect_to_home
       redirect_to welcome_url
     end
 end
