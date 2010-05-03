@@ -36,9 +36,9 @@ ActionController::Routing::Routes.draw do |map|
   map.auto_complete ':controller/:action',
     :requirements => { :action => /auto_complete_for_\S+/ },
     :conditions => { :method => :get }
-  
+
   # Not being logged in
-  
+
   map.requires_login 'requires_login', :controller => 'application', :action => 'flash_info'
 
   # SECTION i18n
@@ -84,10 +84,11 @@ ActionController::Routing::Routes.draw do |map|
   map.echologic 'echologic',         :controller => 'static/echologic', :action => 'show'
   map.static    'echologic/:action', :controller => 'static/echologic'
 
-
+  
+  # echo-social routes
   map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'development', :host =>'localhost', :port => 3001 }
   map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'staging', :host => "echosocial.echo-test.org" }
-  #map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'production', :domain => "echosocial.org" }
+  map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'production', :host => "echo-social.org" }
 
 
   # SECTION discuss - discussion tree
