@@ -8,7 +8,7 @@
     <title><%= I18n.t('seo.title.' + title) %></title>
     <meta name="description" content="<%= I18n.t('seo.meta.description') %>"/>
     <meta name="keywords" content="<%= I18n.t('seo.meta.keywords') %>"/>
-    <link rel="shortcut icon" href="/images/favicon.gif" type="image/gif" />
+    <link rel="shortcut icon" href="/images/echo_browser_icon.png" type="image/gif" />
 
     <!-- Stylesheets -->
     <%= stylesheet_link_tag 'echologic' %>
@@ -29,7 +29,7 @@
     <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
   </head>
   <body>
-    
+
     <script type="text/javascript">
       <%= "var currentLocale = '#{I18n.locale}';" %>
     </script>
