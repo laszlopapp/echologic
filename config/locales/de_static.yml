@@ -205,7 +205,8 @@ de:
           unterstützen echo mit Rat und Tat.
           </p><p>
           Verschiedene <strong>Kooperationspartner</strong> aus Zivilgesellschaft
-          (<a href='http://www.netzwerk-gemeinsinn.net/' target='_blank'>Netzwerk Gemeinsinn</a>, OneAim.org),
+          (<a href='http://www.netzwerk-gemeinsinn.net/' target='_blank'>Netzwerk Gemeinsinn</a>,
+          <a href='http://oneaim.org/' target='_blank'>OneAim.org</a>),
           Wirtschaft (<a href='http://www.the-foo.de/' target='_blank'>The Foo</a>), Politik
           (<a href='http://www.gjm.de' target='_blank'>Grüne Jugend München</a>) und Wissenschaft
           (<a href='http://www.ztg.tu-berlin.de' target="_blank">Technische Universität Berlin / Zentrum Technik und Gesellschaft</a>)
@@ -755,10 +756,10 @@ de:
           <strong>kostenlos</strong>!
           </p>
         part_2:
-          title: Koordinierte Zusammenarbeit
+          title: Umfangreiche Werkzeugkiste
           text: |
-            <p>Jede echo social Webseite bietet Euch eine <strong>umfangreiche Werkzeugkiste</strong> für
-            effiziente Teamarbeit. Die darin enthaltenen Tools helfen Euch gemeinsam Dinge auszuarbeiten,
+            <p>Jede echo social Webseite bietet Euch eine umfangreiche Werkzeugkiste für
+            <strong>effiziente Teamarbeit</strong>. Die darin enthaltenen Tools helfen Euch gemeinsam Dinge auszuarbeiten,
             Euch untereinander abzustimmen und Eure Pläne koordiniert in die Tat umzusetzen.</p>
         part_3:
           title: Vervielfachte Reichweite
