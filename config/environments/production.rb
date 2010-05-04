@@ -28,8 +28,8 @@ config.action_view.cache_template_loading            = true
 # config.threadsafe!
 
 # Hosts
-ECHOLOGIC_HOST = 'echologic.org'
-ECHOSOCIAL_HOST = 'echosocial.org'
+ECHOLOGIC_HOST = 'www.echologic.org'
+ECHOSOCIAL_HOST = 'www.echosocial.org'
 
 # Feedback recipient
 FEEDBACK_RECIPIENT = 'team@echologic.org'
