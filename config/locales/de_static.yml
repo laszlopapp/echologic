@@ -31,7 +31,7 @@ de:
         echosocial:
           show:            'echo social - Home'
           features:        'echo social - Funktionalität'
-          extensions:        'echo social - Vorteile'
+          extensions:        'echo social - Erweiterungen'
 
       # users: de.seo.title.users
       users:
@@ -744,34 +744,34 @@ de:
           <p>
           Wir können nur dann etwas bewegen, wenn wir <strong>gemeinsam handeln</strong>!
           </p><p>
-          Mit echo-social wollen wir die vielen verinselten Aktionen und Projekte zu einer globalen Bewegung
+          Mit echo social wollen wir die vielen verinselten Aktionen und Projekte zu einer globalen Bewegung
           zusammenführen und ein vereintes Handeln ermöglichen.
           </p><p>
-          echo-social gibt Euch die Instrumente an die Hand, um <strong>Eure Organsiation, Aktionen und Projekte</strong>
+          echo social gibt Euch die Instrumente an die Hand, um <strong>Eure Organsiation, Aktionen und Projekte</strong>
           sichtbar zu machen und mit Euren Unterstützern in allen Erdteilen effizient zusammen zu arbeiten.
           </p><p>
-          echo-social ist die <strong>Open Source</strong> Lösung, um mit wenigen Klicks Euer eigenes
+          echo social ist die <strong>Open Source</strong> Lösung, um mit wenigen Klicks Euer eigenes
           <strong>soziales Netzwerk</strong> samt <strong>individueller Website</strong> zu erstellen -
           <strong>kostenlos</strong>!
           </p>
         part_2:
           title: Koordinierte Zusammenarbeit
           text: |
-            <p>Jede echo-social Webseite bietet Euch eine <strong>umfangreiche Werkzeugkiste</strong> für
+            <p>Jede echo social Webseite bietet Euch eine <strong>umfangreiche Werkzeugkiste</strong> für
             effiziente Teamarbeit. Die darin enthaltenen Tools helfen Euch gemeinsam Dinge auszuarbeiten,
             Euch untereinander abzustimmen und Eure Pläne koordiniert in die Tat umzusetzen.</p>
         part_3:
           title: Vervielfachte Reichweite
           text: |
             <p>
-            Neben den umfangreiche Funktionen für das eigene Netzwerk, können sich echo-social Netzwerke untereinander
+            Neben den umfangreiche Funktionen für das eigene Netzwerk, können sich echo social Netzwerke untereinander
             vernetzen und so Teil einer <strong>größeren Bewegung</strong> werden. Dadurch könnt Ihr schneller die
             richtigen <strong>Mitstreiter finden</strong> und gemeinsam an einem Strang ziehen.
             </p><p>
-            echo-social Webseiten werden durch <strong>echo</strong> - die globale Agora - webseitenübergreifend verbunden.
+            echo social Webseiten werden durch <strong>echo</strong> - die globale Agora - webseitenübergreifend verbunden.
             echo dient dabei als <strong>dezentrale Kommunikationsinfrastruktur</strong> zur aktiven Bürgerbeteiligung und
             teilnehmenden Demokratie.<br/>
-            Im Laufe der weiteren Realisierung echos werden Aktionen und Projekte auf echo-social Webseiten stets mit
+            Im Laufe der weiteren Realisierung echos werden Aktionen und Projekte auf echo social Webseiten stets mit
             thematisch relevanten Debatten und Aktionen von anderen (nicht nur echo social) Webseiten verknüpft.
             Sämtliche Kräfte mit einem gemeinsamen Ziel können so gebündelt werden.
             Die Reichweite und <strong>Kraft Eurer Aktionen</strong> verfielfachen sich.
@@ -844,11 +844,11 @@ de:
         your_wishes:
           title: ... und alles was Ihr noch braucht
           text_pre: |
-            <p>Wir möchten, dass echo-social das optimale Tool für Eure Zusammenarbeit und gesellschaftliches
+            <p>Wir möchten, dass echo social das optimale Tool für Eure Zusammenarbeit und gesellschaftliches
             Engagement wird. Sagt uns, welche Funktionen Euch dafür besonders wichtig sind. Euer
           text_link: Feedback
           text_end: |
-            fließt in die weitere Entwicklung und trägt dazu bei, echo-social immer besser zu machen.</p>
+            fließt in die weitere Entwicklung und trägt dazu bei, echo social immer besser zu machen.</p>
 
       extensions:
         title: Erweiterungen
@@ -895,42 +895,18 @@ de:
         title: About us
         text: |
           <p>
-          echo-social ist ein Gemeinschaftsprojekt von echo source e.V. und dem brueckenschlaeger Netzwerk,
-          sowie einer wachsenden Zahl weiterer Partnerorganisationen und Projekten.
+          echo social ist ein <strong>Joint Venture zwischen echo source e.V. und dem brueckenschlaeger Netzwerk</strong>.
+          Unterstützt wird es durch eine wachsende Anzahl an Partnerorganisationen und -projekten.
           </p><p>
           Ein <strong>interdisziplinäres Team</strong> aus jungen und erfahrenen Geisteswissenschaftlern und Entwicklern
-          hat sein Konzept entwickelt und arbeiten zielstrebig an dessen Umsetzung.
-          Dieses intensive Engagement wurde durch die finanzielle Unterstützung u.a. des Europäischen Social Fonds,
-          dem Bundesministerium für Wirtschaft und Technologie sowie privaten Spendern möglich.
+          arbeitet zielstrebig an der Umsetzung unserer gemeinsamen Ziele. Dieses intensive Engagement wurde durch
+          die finanzielle Förderung u.a. des Europäischen Social Fonds, dem Bundesministerium für Wirtschaft
+          und Technologie sowie privaten Spendern möglich.
           </p><p>
-          Als Projekt zur Vernetzung und Synergieschaffung, entsteht echo-social selbst aus einem
-          Gemeinschaftsprojekt heraus! Wenn Ihre Organisation echo-social mitgestalten möchte, schreiben Sie uns bitte
-          eine E-mail an <a href="mailto:team@echosocial.org?subject=echo-social mitgestalten">team@echosocial.org</a>.
-          </p>
-
-          <p>
-          <strong>The source</strong> of echo is an <strong>interdisciplinary team</strong> of young and experienced professionals.
-          They have developed its unique concept to address the global challenges of our time and have been working
-          determined on its implementation.
-          </p><p>
-          Meanwhile, a <strong>growing network</strong> of supporters and consultants lends the project
-          additional impetus. Several <strong>experts</strong> from different fields (human- and natural
-          science, marketing, economy, software rights, investor & public relations etc.) support the
-          project with their know-how and engagement.<br/>
-          Furthermore, echo enjoys the backing of some <strong>renowned politicians</strong> such as
-          <a href='http://www.ruth-paulig.de' target='_blank'>Ruth Paulig</a> (Green Party), former member of the Bavarian Parliament,
-          <a href='http://www.axel-berg.de' target='_blank'>Axel Berg</a> (SPD), recent member of the German Parliament and
-          <a href='http://www.eesc.europa.eu/organisation/secretarygeneral/index-en.asp' target='_blank'>Martin Westlake</a>,
-          Secretary-General of EESC, the European Economic and Social Committee.
-          </p><p>
-          Several <strong>cooperation partners</strong> from civil society
-          (<a href='http://www.netzwerk-gemeinsinn.net/' target='_blank'>Netzwerk Gemeinsinn</a>, OneAim.org), economy (<a href='http://the-foo.de'
-          target='_blank'>The Foo</a>), politics (<a href='http://www.gjm.de' target='_blank'>Grüne Jugend München</a>) and
-          science (<a href='http://www.ztg.tu-berlin.de' target="_blank">Technical University Berlin / Center for Technology and Society</a>)
-          are supporting echo to achieve its far reaching sociopolitical goals.
-          </p><p>
-          In case your organisation would also like to shape echo, please send us an E-mail to
-          <a href="mailto:team@echologic.org?subject=echo mitgestalten">team@echologic.org</a>.
+          Als Projekt zur Vernetzung und Synergieschaffung, entsteht echo social selbst aus einem
+          <strong>Gemeinschaftsprojekt</strong> heraus! Wenn Ihre Organisation echo social mitgestalten möchte,
+          schreiben Sie uns bitte eine E-mail an
+          <a href="mailto:team@echosocial.org?subject=echo social mitgestalten">team@echosocial.org</a>.
           </p>
 
       # Static content for imprint
@@ -945,7 +921,7 @@ de:
           echo source e.V.<br/>
           Senefelderstr. 22<br/>
           10437 Berlin<br/>
-          E-mail: <a href="mailto:team@echologic.org">team@echologic.org</a><br/>
+          E-mail: <a href="mailto:team@echosocial.org">team@echosocial.org</a><br/>
           </p><p>
           <strong>Haftungshinweis</strong>:<br/>
           Im Rahmen unseres Dienstes werden auch Links zu Internetinhalten anderer Anbieter bereitgestellt.
@@ -967,7 +943,6 @@ de:
           Sie können hier unsere Datenschutzerklärung im PDF Format ansehen.
           </p>
         open_document: Dokument öffnen!
-
 
 
     join:

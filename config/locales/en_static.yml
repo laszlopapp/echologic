@@ -32,7 +32,7 @@ en:
         echosocial:
           show:            'echo social - Home'
           features:        'echo social - Features'
-          extensions:        'echo social - Benefits'
+          extensions:      'echo social - Extensions'
 
 
       # users: de.seo.title.users
@@ -744,40 +744,39 @@ en:
     # Static content for echosocial.org
     echosocial:
       show:
-        title: echo-social
+        title: echo social
         subtitle: What is it all about?
         text: |
           <p>
           We can only move the world, if we <strong>act together</strong>!
           </p><p>
-          With echo-social we aim to unite the countless isolated projects and actions into a global movement and so
-          facilitate joint action.
+          echo social aims to foster joint action by uniting the countless isolated projects and actions into a global movement.
           </p><p>
-          echo-social provides you with the tools to make <strong>your organization, actions and projects</strong>
+          echo social provides you with the tools to make <strong>your organization, actions and projects</strong>
           visible and to efficiently work together with your fellows - all over the planet.
           </p><p>
-          echo-social is the <strong>open source</strong> solution to easily create your <strong>social network</strong>
+          echo social is the <strong>open source</strong> solution to easily create your <strong>social network</strong>
           and your <strong>individual website</strong> - for <strong>free</strong>!
           </p>
         part_2:
-          title: Coordinated Collaboration
+          title: Coordinated collaboration
           text: |
-            <p>Every echo-social site comes with a <strong>comprehensive toolset</strong> to organize your teamwork.
+            <p>Every echo social site comes with a <strong>comprehensive toolset</strong> to organize your teamwork.
             These tools help you to jointly elaborate things, make decisions and to realize your plans in a
             coordinated manner.</p>
         part_3:
-          title: Multiplied Reach
+          title: Multiplied reach
           text: |
             <p>
-            Besides its comprehensive functions for the own network, echo-social sites can connect to each other and
+            Besides its comprehensive functions for the own network, echo social sites can connect to each other and
             become part of a <strong>bigger movement</strong>. In this way you can <strong>find the right
             supporters</strong> and start acting together.
             </p><p>
-            Via <strong>echo</strong> - the global agora - echo-social sites are connected across the bundaries of
+            Via <strong>echo</strong> - the global agora - echo social sites are connected across the bundaries of
             different platforms and websites. echo serves thereby as a <strong>distributed communication infrastructure</strong>
             for active citizenship and participatory democracy.<br/>
-            In the course of echos further development, actions and projects on echo-social sites will always be linked to
-            thematically relevant debates and actions on other (not only echo-social) sites. In this way, all civil
+            In the course of echos further development, actions and projects on echo social sites will always be linked to
+            thematically relevant debates and actions on other (not only echo social) sites. In this way, all civil
             engagement with a common goal can be bundled. The reach and the <strong>power of your actions</strong> gets multiplied.
             </p>
 
@@ -787,7 +786,7 @@ en:
         text: |
           <p>
           At <a href='http://www.echologic.org' target='_blank'>echo</a>, you will be enabled to
-          easily <strong>create your own echo-social site soon</strong>. This echo-social offers you:
+          easily <strong>create your own echo social site soon</strong>. This echo social offers you:
           </p>
         internet_presence:
           title: individual internet presence
@@ -846,11 +845,11 @@ en:
           title: ... and everything you might need
           text_pre: |
             <p>
-            Our goal is to make echo-social the optimal tool for social collaboration and civil engagement.
+            Our goal is to make echo social the optimal tool for social collaboration and civil engagement.
             Tell us which features are of particular importance for you. Your
           text_link: feedback
           text_end: |
-            will be incorporated into the development process and helps us to continuously improve echo-social.</p>
+            will be incorporated into the development process and helps us to continuously improve echo social.</p>
 
       extensions:
         title: Erweiterungen
@@ -896,29 +895,20 @@ en:
         title: About us
         text: |
           <p>
-          <strong>The source</strong> of echo is an <strong>interdisciplinary team</strong> of young and experienced professionals.
-          They have developed its unique concept to address the global challenges of our time and have been working
-          determined on its implementation.
+          echo social ist ein <strong>Joint Venture zwischen echo source e.V. und dem brueckenschlaeger Netzwerk</strong>.
+          Unterstützt wird es durch eine wachsende Anzahl an Partnerorganisationen und -projekten.
           </p><p>
-          Meanwhile, a <strong>growing network</strong> of supporters and consultants lends the project
-          additional impetus. Several <strong>experts</strong> from different fields (human- and natural
-          science, marketing, economy, software rights, investor & public relations etc.) support the
-          project with their know-how and engagement.<br/>
-          Furthermore, echo enjoys the backing of some <strong>renowned politicians</strong> such as
-          <a href='http://www.ruth-paulig.de' target='_blank'>Ruth Paulig</a> (Green Party), former member of the Bavarian Parliament,
-          <a href='http://www.axel-berg.de' target='_blank'>Axel Berg</a> (SPD), recent member of the German Parliament and
-          <a href='http://www.eesc.europa.eu/organisation/secretarygeneral/index-en.asp' target='_blank'>Martin Westlake</a>,
-          Secretary-General of EESC, the European Economic and Social Committee.
+          Ein <strong>interdisziplinäres Team</strong> aus jungen und erfahrenen Geisteswissenschaftlern und Entwicklern
+          arbeitet zielstrebig an der Umsetzung unserer gemeinsamen Ziele. Dieses intensive Engagement wurde durch
+          die finanzielle Förderung u.a. des Europäischen Social Fonds, dem Bundesministerium für Wirtschaft
+          und Technologie sowie privaten Spendern möglich.
           </p><p>
-          Several <strong>cooperation partners</strong> from civil society
-          (<a href='http://www.netzwerk-gemeinsinn.net/' target='_blank'>Netzwerk Gemeinsinn</a>, OneAim.org), economy (<a href='http://the-foo.de'
-          target='_blank'>The Foo</a>), politics (<a href='http://www.gjm.de' target='_blank'>Grüne Jugend München</a>) and
-          science (<a href='http://www.ztg.tu-berlin.de' target="_blank">Technical University Berlin / Center for Technology and Society</a>)
-          are supporting echo to achieve its far reaching sociopolitical goals.
-          </p><p>
-          In case your organisation would also like to shape echo, please send us an E-mail to
-          <a href="mailto:team@echologic.org?subject=echo mitgestalten">team@echologic.org</a>.
+          Als Projekt zur Vernetzung und Synergieschaffung, entsteht echo social selbst aus einem
+          <strong>Gemeinschaftsprojekt</strong> heraus! Wenn Ihre Organisation echo social mitgestalten möchte,
+          schreiben Sie uns bitte eine E-mail an
+          <a href="mailto:team@echosocial.org?subject=echo social mitgestalten">team@echosocial.org</a>.
           </p>
+
 
       # Static content for imprint
       imprint:
