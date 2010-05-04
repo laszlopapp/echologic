@@ -69,6 +69,13 @@ sixth-proposal-doc-english:
   statement_id: <%= Fixtures.identify('sixth-proposal-statement') %>
   language_id: <%= Fixtures.identify('language_en') %>
 
+german-proposal-doc-german:
+  title: 'Vorschlag auf Deutsch'
+  text: 'Ich bin ein Berliner!'
+  author_id: <%= Fixtures.identify(:editor) %>
+  statement_id: <%= Fixtures.identify('german-proposal-statement') %>
+  language_id: <%= Fixtures.identify('language_de') %>
+
 first-impro-proposal-doc-english:
   title: 'A better first proposal'
   text: 'I think, a better first proposal would be a better one!'
@@ -82,6 +89,13 @@ not-published-proposal-doc-english:
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('not-published-proposal-statement') %>
   language_id: <%= Fixtures.identify('language_en') %>
+
+german-impro-proposal-doc-english:
+  title: 'Verbesserungsvorschlag auf Deutsch'
+  text: 'Ich bin Berliner!'
+  author_id: <%= Fixtures.identify(:ben) %>
+  statement_id: <%= Fixtures.identify('german-impro-proposal-statement') %>
+  language_id: <%= Fixtures.identify('language_de') %>
 
 
 test-question-doc-german:

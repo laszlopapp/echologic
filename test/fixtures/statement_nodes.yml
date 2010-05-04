@@ -67,6 +67,15 @@ sixth-proposal:
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('sixth-proposal-statement') %>
 
+german-proposal:
+  parent_id: <%= Fixtures.identify('german-question') %>
+  root_id: <%= Fixtures.identify('german-question') %>
+  type: Proposal
+  creator_id: <%= Fixtures.identify(:editor) %>
+  state: 1
+  category_id: <%= Fixtures.identify('echonomy-jam') %>
+  statement_id: <%= Fixtures.identify('german-proposal-statement') %>
+
 not-published-proposal:
   parent_id: <%= Fixtures.identify('test-question') %>
   root_id: <%= Fixtures.identify('test-question') %>
@@ -84,3 +93,12 @@ first-impro-proposal:
   state: 1
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('first-impro-proposal-statement') %>
+  
+german-impro-proposal:
+  parent_id: <%= Fixtures.identify('german-proposal') %>
+  root_id: <%= Fixtures.identify('german-question') %>
+  type: ImprovementProposal
+  creator_id: <%= Fixtures.identify(:ben) %>
+  state: 1
+  category_id: <%= Fixtures.identify('echonomy-jam') %>
+  statement_id: <%= Fixtures.identify('german-impro-proposal-statement') %>

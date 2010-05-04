@@ -150,7 +150,7 @@ class StatementsController < ApplicationController
     @new_statement_document ||= @statement.add_statement_document({:language_id => current_language_key})
 #     @statement.add_statement_document
     respond_to do |format|
-      #format.html { render :template => 'statements/translate' }
+      format.html { render :template => 'statements/translate' }
       format.js {
         render :update do |page|
           #page.replace(@statement.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/translate')

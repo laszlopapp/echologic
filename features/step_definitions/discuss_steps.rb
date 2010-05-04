@@ -39,6 +39,28 @@ When /^I choose the "([^\"]*)" Question$/ do |name|
   end
 end
 
+When /^I choose the "([^\"]*)" Proposal$/ do |name|
+  response.should have_selector("li.question") do |selector|
+    selector.each do |question|
+      if name.eql?(question.at_css("a.proposal_link").inner_text.strip)
+        @question = Proposal.find(URI.parse(question.at_css("a")['href']).path.match(/\/proposals\/\d+/)[0].split('/')[2].to_i)
+        visit question.at_css("a")['href']
+      end
+    end
+  end
+end
+
+When /^I choose the "([^\"]*)" Improvement Proposal$/ do |name|
+  response.should have_selector("li.proposal") do |selector|
+    selector.each do |question|
+      if name.eql?(question.at_css("a.improvement_proposal_link").inner_text.strip)
+        @question = ImprovementProposal.find(URI.parse(question.at_css("a")['href']).path.match(/\/improvement_proposals\/\d+/)[0].split('/')[2].to_i)
+        visit question.at_css("a")['href']
+      end
+    end
+  end
+end
+
 Then /^I should see an error message$/i do
   pending
   Then "I should see a \"error box\""

@@ -18,7 +18,11 @@ fifth-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
 sixth-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+german-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_de)%>
 not-published-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
 first-impro-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+german-impro-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_de)%>

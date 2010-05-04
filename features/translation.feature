@@ -75,3 +75,79 @@ Feature: Translation permission
       And I choose the "Andere Frage?" Question
     Then I should see "Andere Frage?"
     Then I should see "Please translate this text in English"
+    
+    
+  @ok
+  Scenario: luise tries to translate but doesn't fill text
+    Given I am logged in as "luise" with password "luise"
+    When I am on the Discuss Index
+    When I follow "Pilot Projects"
+    When I follow "echonomyJAM"
+      And I choose the "Andere Frage?" Question
+      And I follow "Please translate this text in English"
+      And I fill in the following:
+        | question_new_statement_document_title | Another Question? |
+      And I select "New" from "state"
+      And I press "Save"
+    Then I should see "One of the fields is filled incorrectly."
+    
+  @ok
+  Scenario: luise tries to translate but doesn't fill title
+    Given I am logged in as "luise" with password "luise"
+    When I am on the Discuss Index
+    When I follow "Pilot Projects"
+    When I follow "echonomyJAM"
+      And I choose the "Andere Frage?" Question
+      And I follow "Please translate this text in English"
+      And I fill in the following:
+        | question_new_statement_document_text | new text in english |
+      And I select "New" from "state"
+      And I press "Save"
+    Then I should see "One of the fields is filled incorrectly."
+    
+  @ok
+  Scenario: luise succeeds in translating a question
+    Given I am logged in as "luise" with password "luise"
+    When I am on the Discuss Index
+    When I follow "Pilot Projects"
+    When I follow "echonomyJAM"
+      And I choose the "Andere Frage?" Question
+      And I follow "Please translate this text in English"
+      And I fill in the following:
+        | question_new_statement_document_title | Another Question? |
+        | question_new_statement_document_text | new text in english |
+      And I select "New" from "state"
+      And I press "Save"
+    Then I should see "new text in english"
+    
+  @ok
+  Scenario: luise succeeds in translating a proposal
+    Given I am logged in as "luise" with password "luise"
+    When I am on the Discuss Index
+    When I follow "Pilot Projects"
+    When I follow "echonomyJAM"
+      And I choose the "Andere Frage?" Question
+      And I choose the "Vorschlag auf Deutsch" Proposal
+      And I follow "Please translate this text in English"
+      And I fill in the following:
+        | proposal_new_statement_document_title | Proposal in German |
+        | proposal_new_statement_document_text | new text in english |
+      And I press "Save"
+    Then I should see "new text in english"
+    
+  @ok
+  Scenario: luise succeeds in translating an improvement proposal
+    Given I am logged in as "luise" with password "luise"
+    When I am on the Discuss Index
+    When I follow "Pilot Projects"
+    When I follow "echonomyJAM"
+      And I choose the "Andere Frage?" Question
+      And I choose the "Vorschlag auf Deutsch" Proposal
+      And I choose the "Verbesserungsvorschlag auf Deutsch" Improvement Proposal
+      And I follow "Please translate this text in English"
+      And I fill in the following:
+        | improvement_proposal_new_statement_document_title | Improvement Proposal in German |
+        | improvement_proposal_new_statement_document_text | new text in english |
+      And I press "Save"
+    Then I should see "new text in english"
+    
