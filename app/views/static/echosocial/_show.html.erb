@@ -6,4 +6,15 @@
 
 <%= I18n.t('static.echosocial.show.text') %>
 
-<% insert_illustrations([echosocial_path(:show), echosocial_path(:features), echosocial_path(:extensions)], "echosocial") %>
+<ul class="spreadedList">
+  <li>
+    <strong><%= I18n.t('static.echosocial.show.part_2.title') %></strong>
+    <% insert_toggle_more(I18n.t('static.echosocial.show.part_2.text')) %>
+  </li>
+  <li>
+    <strong><%= I18n.t('static.echosocial.show.part_3.title') %></strong>
+    <% insert_toggle_more(I18n.t('static.echosocial.show.part_3.text')) %>
+  </li>
+</ul>
+
+<% insert_illustrations([echosocial_path(:show), echosocial_path(:features)], "echosocial") %>
