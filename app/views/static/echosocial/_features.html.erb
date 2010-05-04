@@ -7,47 +7,55 @@
 <%= I18n.t('static.echosocial.features.text') %>
 
 <ul class="spreadedList">
-	<li>
-<strong><%= I18n.t('static.echosocial.features.internet_presence.title') %></strong>
-<% insert_toggle_more(I18n.t('static.echosocial.features.internet_presence.text')) %>
-</li>
-<li>
-<strong><%= I18n.t('static.echosocial.features.community_management.title') %></strong>
-<% insert_toggle_more(I18n.t('static.echosocial.features.community_management.text')) %>
-</li>
-<li>
-<strong><%= I18n.t('static.echosocial.features.group_administration.title') %></strong>
-<% insert_toggle_more(I18n.t('static.echosocial.features.group_administration.text')) %>
-</li>
-<li>
-<strong><%= I18n.t('static.echosocial.features.project_management.title') %></strong>
-<% insert_toggle_more(I18n.t('static.echosocial.features.project_management.text')) %>
-</li>
-<li>
-<strong><%= I18n.t('static.echosocial.features.calendar_event.title') %></strong>
-<% insert_toggle_more(I18n.t('static.echosocial.features.calendar_event.text')) %>
-</li>
-<li>
-<strong><%= I18n.t('static.echosocial.features.votings_polls.title') %></strong>
-<% insert_toggle_more(I18n.t('static.echosocial.features.votings_polls.text')) %>
-</li>
-<li>
-<strong><%= I18n.t('static.echosocial.features.photo_video_gallery.title') %></strong>
-<% insert_toggle_more(I18n.t('static.echosocial.features.photo_video_gallery.text')) %>
-</li>
-<li>
-<strong><%= I18n.t('static.echosocial.features.cost_neutral_fundraising.title') %></strong>
-<% insert_toggle_more(I18n.t('static.echosocial.features.cost_neutral_fundraising.text')) %>
-</li>
-<li>
-<strong><%= I18n.t('static.echosocial.features.discussion_methods.title') %></strong>
-<% insert_toggle_more(I18n.t('static.echosocial.features.discussion_methods.text')) %>
-</li>
-<li>
-<strong><%= I18n.t('static.echosocial.features.decentral_infrastructure.title') %></strong>
-<% insert_toggle_more(I18n.t('static.echosocial.features.decentral_infrastructure.text')) %>
-</li>
+  <li>
+    <strong><%= I18n.t('static.echosocial.features.internet_presence.title') %></strong>
+    <% insert_toggle_more(I18n.t('static.echosocial.features.internet_presence.text')) %>
+  </li>
+  <li>
+    <strong><%= I18n.t('static.echosocial.features.community_management.title') %></strong>
+    <% insert_toggle_more(I18n.t('static.echosocial.features.community_management.text')) %>
+  </li>
+  <li>
+    <strong><%= I18n.t('static.echosocial.features.group_administration.title') %></strong>
+    <% insert_toggle_more(I18n.t('static.echosocial.features.group_administration.text')) %>
+  </li>
+  <li>
+    <strong><%= I18n.t('static.echosocial.features.project_management.title') %></strong>
+    <% insert_toggle_more(I18n.t('static.echosocial.features.project_management.text')) %>
+  </li>
+  <li>
+    <strong><%= I18n.t('static.echosocial.features.calendar_event.title') %></strong>
+    <% insert_toggle_more(I18n.t('static.echosocial.features.calendar_event.text')) %>
+  </li>
+  <li>
+    <strong><%= I18n.t('static.echosocial.features.votings_polls.title') %></strong>
+    <% insert_toggle_more(I18n.t('static.echosocial.features.votings_polls.text')) %>
+  </li>
+  <li>
+    <strong><%= I18n.t('static.echosocial.features.photo_video_gallery.title') %></strong>
+    <% insert_toggle_more(I18n.t('static.echosocial.features.photo_video_gallery.text')) %>
+  </li>
+  <li>
+    <strong><%= I18n.t('static.echosocial.features.cost_neutral_fundraising.title') %></strong>
+    <% insert_toggle_more(I18n.t('static.echosocial.features.cost_neutral_fundraising.text')) %>
+  </li>
+  <li>
+    <strong><%= I18n.t('static.echosocial.features.discussion_methods.title') %></strong>
+    <% insert_toggle_more(I18n.t('static.echosocial.features.discussion_methods.text')) %>
+  </li>
+  <li>
+    <strong><%= I18n.t('static.echosocial.features.decentral_infrastructure.title') %></strong>
+    <% insert_toggle_more(I18n.t('static.echosocial.features.decentral_infrastructure.text')) %>
+  </li>
+  <li>
+    <%= I18n.t('static.echosocial.features.your_wishes.title') %>
+    <% text = I18n.t('static.echosocial.features.your_wishes.text_pre') -%>
+    <% text << '<strong>' + link_to(I18n.t('static.echosocial.features.your_wishes.text_link'),
+                       hash_for_question_tags_path.merge({:only_path => false, :host  => ECHOLOGIC_HOST, :id=>'echosocial'}),
+                       :target => '_blank') + '</strong>' %>
+    <% text << ' ' + I18n.t('static.echosocial.features.your_wishes.text_end') %>
+    <% insert_toggle_more(text) %>
+  </li>
 </ul>
 
-<%# insert_back_next_buttons(echosocial_path(:benefits), echosocial_path(:show)) %>
-<% insert_illustrations([echosocial_path(:show), echosocial_path(:benefits), echosocial_path(:features)], {:domain => "echosocial"}) %>
+<% insert_illustrations([echosocial_path(:show), echosocial_path(:features)], "echosocial") %>

@@ -10,6 +10,7 @@ public/system/avatars/
 /rerun.txt
 /.rakeTasks
 db/*.sqlite3
+.idea/
 *~
 .\#*
 \#*

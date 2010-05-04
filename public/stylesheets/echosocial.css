@@ -2,6 +2,14 @@
   margin-bottom: -35px;
 }
 
+#echosocial_content .illustrationHolder {
+  padding: 0 65px 5px;
+}
+
+#echosocial_content .illustration {
+  padding: 0 45px;
+}
+
 #echosocial_teasers {
   float: right;
   margin: 10px 5px 0 0;
@@ -35,9 +43,20 @@
   margin-bottom: 5px;
 }
 
+.echosocial_discuss_teaser {
+  height:      150px;
+  background:  url(../images/page/illustrations/echosocial_discuss_teaser.png) no-repeat scroll 0 0px;
+}
+
+.echosocial_discuss_teaser:hover {
+  background-position: 0 -150px;
+}
+
 #echosocial_teasers a span {
   display: block;
   color: #21587F;
+  margin: 0 35px 0 40px;
+  font-size: 21px;
 }
 
 #echosocial_teasers a:hover span {
