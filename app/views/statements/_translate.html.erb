@@ -1,9 +1,9 @@
 <% statement ||= @statement -%>
-
+<% new_statement_document ||= @new_statement_document %>
 <div id="statement_translate" class="header_block discuss_right_block">
   <h2><%= I18n.t('discuss.translation_request') %></h2>
   <p><%= I18n.t('discuss.translation_request') %></p>
-  <%= render :partial => 'statements/translation_form', :locals => {:statement => statement} %>
+  <%= render :partial => 'statements/translation_form', :locals => {:statement => statement, :new_statement_document => new_statement_document } %>
 </div>
 
 <% unless statement.class.name == 'Question' %>

@@ -147,13 +147,14 @@ class StatementsController < ApplicationController
 
   def statement_translate
 #     @new_statement_document = StatementDocument.new(:language_id => StatementDocument.languages(params[:locale]).id)
-    @new_statement_document = @statement.add_statement_document({:language_id => current_language_key})
+    @new_statement_document ||= @statement.add_statement_document({:language_id => current_language_key})
 #     @statement.add_statement_document
     respond_to do |format|
-      format.html { render :template => 'statements/new' }
+      #format.html { render :template => 'statements/translate' }
       format.js {
         render :update do |page|
-          page.replace(@statement.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/translate')
+          #page.replace(@statement.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/translate')
+          page.replace('children', :partial => 'statements/translate')
           page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent}) if @statement.parent
           page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) if @statement.parent
           page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent})
@@ -173,7 +174,7 @@ class StatementsController < ApplicationController
     
     doc_attrs[:language_id] = current_language_key
     
-    document = @statement.add_statement_document(doc_attrs)
+    @new_statement_document = @statement.add_statement_document(doc_attrs)
     respond_to do |format|
       if @statement.save
         set_info("discuss.messages.translated", :type => @statement.class.display_name)
@@ -190,7 +191,7 @@ class StatementsController < ApplicationController
           #session[:last_info] = @info # save @info so it doesn't get lost during redirect
           render :update do |page|
             page << "info('#{@info}');"
-            page.replace('new_statement', :partial => 'statements/children', :statement => @statement, :children => @children)
+            page.replace('statement_translate', :partial => 'statements/children', :statement => @statement, :children => @children)
             page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement})
             page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement})
             page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement})
@@ -201,9 +202,9 @@ class StatementsController < ApplicationController
           end
         }
       else
-        set_error(document)
-        format.html { flash_error and render :template => 'statements/new' }
-        format.js   { show_error_messages(document) }
+        set_error(@new_statement_document)
+        format.html { flash_error and render :template => 'statements/translate' }
+        format.js   { show_error_messages(@new_statement_document) }
       end
     end
   end
@@ -212,7 +213,7 @@ class StatementsController < ApplicationController
   def new
     @statement ||= statement_class.new(:parent => parent, :category_id => @category.id)
     # TODO: right now users can't select the language they create a statement in, so current_user.languages_keys.first will work. once this changes, we're in trouble - or better said: we'll have to pass the language_id as a param
-    @statement.create_statement(:original_language_id => current_user.language_keys.first)
+    @statement.create_statement(:original_language_id => current_language_key)
     @statement.add_statement_document
     respond_to do |format|
       format.html { render :template => 'statements/new' }
@@ -237,11 +238,11 @@ class StatementsController < ApplicationController
     doc_attrs = attrs.delete(:statement_document)
     doc_attrs[:author_id] = current_user.id
     # TODO: as soon as there is the possibility, that the language is passed with the form data (e.g. the user made a translation) we can't rely on the users first language_key anymore
-    doc_attrs[:language_id] = current_user.language_keys.first
+    doc_attrs[:language_id] = current_language_key
     # FIXME: find a way to move more stuff into the models
     @statement = statement_class.new(attrs)
     @statement.creator = current_user
-    @statement.create_statement(:original_language_id => current_user.language_keys.first)
+    @statement.create_statement(:original_language_id => current_language_key)
     document = @statement.add_statement_document(doc_attrs)
     respond_to do |format|
       if @statement.save

@@ -331,8 +331,12 @@ a.statement_link:hover {
 	float: left;
 }
 
+#statement_translate li.select {
+	width: 700px;
+}
+
 #statement_translate.discuss_right_block {
-  height: 560px;
+  min-height: 590px;
 }
 
 .translation_box {

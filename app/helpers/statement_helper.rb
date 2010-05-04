@@ -185,7 +185,7 @@ module StatementHelper
   end
   
   def create_translate_statement_link(statement, css_class = "")
-     type = statement.class.name
+     type = statement_class_dom_id(statement)
      link_to I18n.t('discuss.translation_request'),
               statement_translate_url(statement, type),
               :id => "translation_link",

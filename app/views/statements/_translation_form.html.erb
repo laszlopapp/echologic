@@ -1,12 +1,8 @@
 <% statement ||= @statement %>
 <% new_statement_document ||= @new_statement_document %>
-<% semantic_form_for statement, :url => create_translation_url(statement, statement.class.name), :html => {:class => 'wide_form'} do |form| -%>
+<% semantic_form_for statement, :url => create_translation_url(statement, statement_class_dom_id(statement)), :html => {:class => 'wide_form'} do |form| -%>
   <%= form.error_messages %>
-  <%= render :partial => "statements/document_form", :locals => { :form => form, :disabled => true } %>
-	<%= render :partial => "statements/translate_document_form", :locals => { :form => form, :statement => new_statement_document} %>
-	<br />
-  <% #FIXME: i don't know how to do this manually with formtastics. enums are not really supported by rails, and everywhere else where we use enum like statefulness in models, views do it like this %>
-  <% if statement.kind_of?(Question) -%>
+	<% if statement.kind_of?(Question) -%>
     <% form.inputs do %>
       <li id="question_state_input" class="select optional error">
         <%= form.label :state %>
@@ -17,6 +13,12 @@
       </li>
     <% end %>
   <% end -%>
+  <%= render :partial => "statements/document_form", :locals => { :form => form, :disabled => true } %>
+	<%= render :partial => "statements/translate_document_form", :locals => { :form => form, :statement => new_statement_document} %>
+	<br />
+	<br />
+  <% #FIXME: i don't know how to do this manually with formtastics. enums are not really supported by rails, and everywhere else where we use enum like statefulness in models, views do it like this %>
+  
   <%= form.hidden_field :parent_id %>
   <%= form.hidden_field :category_id %>
 
