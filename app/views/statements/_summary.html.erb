@@ -1,8 +1,8 @@
-
 <% statement ||= @statement %>
+<% statement_document ||= @statement_document %>
 <div id="summary" class="summary simple_header_block discuss_right_block">
   <h2><%= I18n.t('discuss.summary') %></h2>
   <%= edit_statement_link(statement) %>
-	<%= render :partial => '/statements/translation_link' if @translation_permission %>
-  <p><%= statement.translated_document(current_language_keys).text %></p>
+	<%= render :partial => '/statements/translation_link', :locals => {:statement => statement, :statement_document => statement_document} if @translation_permission %>
+  <p><%= statement_document.text %></p>
 </div>

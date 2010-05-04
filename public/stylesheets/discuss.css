@@ -337,6 +337,8 @@ a.statement_link:hover {
 
 #statement_translate.discuss_right_block {
   min-height: 590px;
+	padding-top: 20px;
+	padding-left: 0px;
 }
 
 .translation_box {
@@ -346,6 +348,19 @@ a.statement_link:hover {
 	padding-bottom: 11px;
 	text-align: center;
 }
+
+.translation_box span.box_header_info {
+  position: absolute;
+  left: 76px;
+  font-size:19px;
+}
+
+.translation_box span.box_header_info_right {
+  position: absolute;
+  right: 82px;
+  font-size:19px;
+}
+
 
 .translation_box .box_header {
 	position: relative;
@@ -357,14 +372,15 @@ a.statement_link:hover {
 	background:url("../images/page/box/box_icon_people.png") scroll left top transparent;
 	left: 33px;
 	top: 3px;
-	
+}
+
+.translation_box .right {
+  left: 762px;
+}
+
 /* for title in discuss listing */
 #discuss_results .ttLink img{
 	color:#7BB031;
 }
 
-.translation_box .box_header_info {
-	position: absolute;
-	left: 76px;
-	font-size:19px;
-}
+

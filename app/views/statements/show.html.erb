@@ -2,7 +2,7 @@
 
 <%= render :partial => 'statements/context', :locals => {:statement => @statement} %>
 <%= render :partial => 'statements/sidebar', :locals => {:statement => @statement}%>
-<%= render :partial => 'statements/summary', :locals => {:statement => @statement} %>
+<%= render :partial => 'statements/summary', :locals => {:statement => @statement, :statement_document => @statement_document} %>
 <%= render :partial => 'statements/children', :locals => {:statement => @statement, :children => @children } %>
 
 <script type="text/javascript">

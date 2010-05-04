@@ -93,16 +93,16 @@ class StatementsController < ApplicationController
       session[child_type] = @statement.children.by_supporters.collect { |c| c.id }
     end
     
-    statement_document = @statement.translated_document(current_language_keys)
+    @statement_document = @statement.translated_document(current_language_keys)
     
     @translation_permission = (!current_user.nil? and !current_user.spoken_languages.blank? and #1.we habe a current user that speaks languages
                                !current_user.mother_tongues.blank?                             and #2.we ensure ourselves that the user has a mother tongue
-                               !statement_document.language.code.eql?(params[:locale])      and #3.current text language is different from the current language, which would mean there is no translated version of the document yet in the current language
+                               !@statement_document.language.code.eql?(params[:locale])      and #3.current text language is different from the current language, which would mean there is no translated version of the document yet in the current language
                                current_user.mother_tongues.collect{|l| l.code}.include?(params[:locale])        and #4.application language is the current user's mother tongue
                                #5.user knows the document's language
-                               current_user.spoken_languages.map{|sp| sp.language}.uniq.include?(statement_document.language) and
+                               current_user.spoken_languages.map{|sp| sp.language}.uniq.include?(@statement_document.language) and
                                #6. user has language level greater than intermediate
-                               %w(intermediate advanced mother_tongue).include?(current_user.spoken_languages.select{|sp| sp.language == statement_document.language}.first.level.code))
+                               %w(intermediate advanced mother_tongue).include?(current_user.spoken_languages.select{|sp| sp.language == @statement_document.language}.first.level.code))
     
     # when creating an issue, we save the flash message within the session, to be able to display it here
     if session[:last_info]
@@ -147,6 +147,7 @@ class StatementsController < ApplicationController
 
   def statement_translate
 #     @new_statement_document = StatementDocument.new(:language_id => StatementDocument.languages(params[:locale]).id)
+    @old_statement_document ||= @statement.translated_document(current_user.language_keys)
     @new_statement_document ||= @statement.add_statement_document({:language_id => current_language_key})
 #     @statement.add_statement_document
     respond_to do |format|
@@ -154,10 +155,11 @@ class StatementsController < ApplicationController
       format.js {
         render :update do |page|
           #page.replace(@statement.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/translate')
-          page.replace('children', :partial => 'statements/translate')
-          page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent}) if @statement.parent
-          page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) if @statement.parent
-          page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent})
+          page.replace('summary', :partial => 'statements/translate')
+#          page.replace('children', :partial => 'statements/translate')
+#          page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent}) if @statement.parent
+#          page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) if @statement.parent
+#          page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent})
 
           page << "makeRatiobars();"
           page << "makeTooltips();"
@@ -180,21 +182,16 @@ class StatementsController < ApplicationController
         set_info("discuss.messages.translated", :type => @statement.class.display_name)
         current_user.supported!(@statement)
         #load current created statement to session
-        if @statement.parent
-          type = @statement.class.to_s.underscore
-          key = ("current_" + type).to_sym
-          session[key] = @statement.parent.children.map{|s|s.id}
-        end
         @children = children_for_statement
         format.html { flash_info and redirect_to url_for(@statement) }
         format.js   {
           #session[:last_info] = @info # save @info so it doesn't get lost during redirect
           render :update do |page|
             page << "info('#{@info}');"
-            page.replace('statement_translate', :partial => 'statements/children', :statement => @statement, :children => @children)
-            page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement})
+#            page.replace('statement_translate', :partial => 'statements/children', :statement => @statement, :children => @children)
+#            page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement})
             page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement})
-            page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement})
+#            page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement})
             page << "makeRatiobars();"
             page << "makeTooltips();"
 
