@@ -4,8 +4,8 @@
    <span class="box_header_icon"></span>
 
    <div class="box_content">
-     <% link_to('http://www.echologic.org', :target => '_blank') do %>
-       <%= image_tag('page/illustrations/echosocial_discuss_teaser.png') %>
+     <% link_to(hash_for_question_tags_path.merge({:id=>'echosocial'}) , :target => '_blank', :host  => ECHOLOGIC_HOST) do %>
+       <span class="echosocial_discuss_teaser"></span>
        <span><%= I18n.t('static.echosocial.have_your_say.text') %></span>
      <% end %>
    </div>
