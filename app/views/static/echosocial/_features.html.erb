@@ -47,15 +47,6 @@
     <strong><%= I18n.t('static.echosocial.features.decentral_infrastructure.title') %></strong>
     <% insert_toggle_more(I18n.t('static.echosocial.features.decentral_infrastructure.text')) %>
   </li>
-  <li>
-    <%= I18n.t('static.echosocial.features.your_wishes.title') %>
-    <% text = I18n.t('static.echosocial.features.your_wishes.text_pre') -%>
-    <% text.concat('<strong>' + link_to(I18n.t('static.echosocial.features.your_wishes.text_link'),
-                    hash_for_question_tags_path.merge({:only_path => false, :host => ECHOLOGIC_HOST, :id=>'echosocial'}),
-                    :target => '_blank') + '</strong>') -%>
-    <% text.concat(' ' + I18n.t('static.echosocial.features.your_wishes.text_end')) -%>
-    <% insert_toggle_more(text) %>
-  </li>
 </ul>
 
 <% insert_illustrations([echosocial_path(:show), echosocial_path(:features)], "echosocial") %>
