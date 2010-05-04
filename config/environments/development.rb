@@ -18,5 +18,9 @@ config.action_mailer.raise_delivery_errors = false
 # For using link_to and url_for in ActionMailer, hostname has to be given.
 config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
+# Hosts
+ECHOLOGIC_HOST = 'localhost:3000'
+ECHOSOCIAL_HOST = 'localhost:3001'
+
 # Feedback recipient
 FEEDBACK_RECIPIENT = 'laszlo.papp@echologic.org'

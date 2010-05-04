@@ -27,6 +27,10 @@ config.action_view.cache_template_loading            = true
 # Enable threaded mode
 # config.threadsafe!
 
+# Hosts
+ECHOLOGIC_HOST = 'echologic.org'
+ECHOSOCIAL_HOST = 'echosocial.org'
+
 # Feedback recipient
 FEEDBACK_RECIPIENT = 'team@echologic.org'
 
