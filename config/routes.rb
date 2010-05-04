@@ -89,6 +89,7 @@ ActionController::Routing::Routes.draw do |map|
   map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'development', :host =>'localhost', :port => 3001 }
   map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'staging', :host => "echosocial.echo-test.org" }
   map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'production', :host => "www.echosocial.org" }
+  map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'production', :host => "echosocial.org" }
 
 
   # SECTION discuss - discussion tree
