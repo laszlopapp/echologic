@@ -769,9 +769,9 @@ de:
             vernetzen und so Teil einer <strong>größeren Bewegung</strong> werden. Dadurch könnt Ihr schneller die
             richtigen <strong>Mitstreiter finden</strong> und gemeinsam an einem Strang ziehen.
             </p><p>
-            echo social Webseiten werden durch <strong>echo</strong> - die globale Agora - webseitenübergreifend verbunden.
-            echo dient dabei als <strong>dezentrale Kommunikationsinfrastruktur</strong> zur aktiven Bürgerbeteiligung und
-            teilnehmenden Demokratie.<br/>
+            echo social Webseiten werden durch <strong><a href='{{echo_link}}' target='_blank'>echo</a></strong>
+            - die globale Agora - webseitenübergreifend verbunden. echo dient dabei als <strong>dezentrale
+            Kommunikationsinfrastruktur</strong> zur aktiven Bürgerbeteiligung und teilnehmenden Demokratie.<br/>
             Im Laufe der weiteren Realisierung echos werden Aktionen und Projekte auf echo social Webseiten stets mit
             thematisch relevanten Debatten und Aktionen von anderen (nicht nur echo social) Webseiten verknüpft.
             Sämtliche Kräfte mit einem gemeinsamen Ziel können so gebündelt werden.
@@ -783,8 +783,8 @@ de:
         subtitle: Was bietet es genau?
         text: |
           <p>
-          Auf <a href='http://www.echologic.org' target='_blank'>echo</a> werdet ihr <strong>in kürze Eure eigene
-          echo social Webseite erstellen</strong> können. Diese echo social Webseite bietet Euch:
+          Ihr werdet <strong>in einigen Wochen Eure eigene echo social Webseite erstellen</strong> können.
+          Diese echo social Webseite bietet Euch:
           </p>
         internet_presence:
           title: einen individuellen Internetauftritt

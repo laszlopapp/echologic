@@ -773,8 +773,9 @@ en:
             become part of a <strong>bigger movement</strong>. In this way you can <strong>find the right
             supporters</strong> and start acting together.
             </p><p>
-            Via <strong>echo</strong> - the global agora - echo social sites are connected across the bundaries of
-            different platforms and websites. echo serves thereby as a <strong>distributed communication infrastructure</strong>
+            Via <strong><a href='{{echo_link}}' target='_blank'>echo</a></strong> - the global agora -
+            echo social sites are connected across the bundaries of different platforms and websites. echo serves
+            thereby as a <strong>distributed communication infrastructure</strong>
             for active citizenship and participatory democracy.<br/>
             In the course of echos further development, actions and projects on echo social sites will always be linked to
             thematically relevant debates and actions on other (not only echo social) sites. In this way, all civil
@@ -786,8 +787,8 @@ en:
         subtitle: What does it exactly offer?
         text: |
           <p>
-          At <a href='http://www.echologic.org' target='_blank'>echo</a>, you will be enabled to
-          easily <strong>create your own echo social site soon</strong>. This echo social website offers you:
+          <strong>In a few weeks</strong>, you will be able to easily <strong>create your own echo social site</strong>.
+          This echo social site offers you:
           </p>
         internet_presence:
           title: individual internet presence
