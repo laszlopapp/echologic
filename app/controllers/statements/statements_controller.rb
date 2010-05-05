@@ -209,9 +209,10 @@ class StatementsController < ApplicationController
   # renders form for creating a new statement
   def new
     @statement ||= statement_class.new(:parent => parent, :category_id => @category.id)
+    @statement_document ||= StatementDocument.new
     # TODO: right now users can't select the language they create a statement in, so current_user.languages_keys.first will work. once this changes, we're in trouble - or better said: we'll have to pass the language_id as a param
-    @statement.create_statement(:original_language_id => current_language_key)
-    @statement.add_statement_document
+#    @statement.create_statement(:original_language_id => current_language_key)
+#    @statement.add_statement_document
     respond_to do |format|
       format.html { render :template => 'statements/new' }
       format.js {
@@ -240,7 +241,7 @@ class StatementsController < ApplicationController
     @statement = statement_class.new(attrs)
     @statement.creator = current_user
     @statement.create_statement(:original_language_id => current_language_key)
-    document = @statement.add_statement_document(doc_attrs)
+    @statement_document = @statement.add_statement_document(doc_attrs)
     respond_to do |format|
       if @statement.save
         set_info("discuss.messages.created", :type => @statement.class.display_name)
@@ -259,7 +260,7 @@ class StatementsController < ApplicationController
             page << "info('#{@info}');"
             page.replace('new_statement', :partial => 'statements/children', :statement => @statement, :children => @children)
             page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement})
-            page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement})
+            page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement, :statement_document => @statement_document})
             page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement})
             page << "makeRatiobars();"
             page << "makeTooltips();"
@@ -268,9 +269,9 @@ class StatementsController < ApplicationController
           end
         }
       else
-        set_error(document)
+        set_error(@statement_document)
         format.html { flash_error and render :template => 'statements/new' }
-        format.js   { show_error_messages(document) }
+        format.js   { show_error_messages(@statement_document) }
       end
     end
   end
