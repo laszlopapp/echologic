@@ -58,7 +58,7 @@ class StatementsController < ApplicationController
    
     #step 2: filter by category, if there is one 
     #IMPORTANT TODO!!!: this step will have to be worked over as soon as we have the new tagging mechanism working
-    #statements_not_paginated = statements_not_paginated.select{|s|s.has_from_category(params[:id])} if params[:id]
+    statements_not_paginated = statements_not_paginated.from_category(params[:id]) if params[:id]
     
     statements_not_paginated = statements_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
     statements_not_paginated = statements_not_paginated.select{|s| !(current_language_keys & s.statement_documents.collect{|sd| sd.language_id}).empty?}
