@@ -1,13 +1,19 @@
 
+/* -------------- */
+/* Pilot projects */
+/* -------------- */
+
+#echo.tab_content_container, #pilot_projects.tab_content_container {
+  width: 945px;
+}
+
+.function_button img{
+  border: medium none;
+}
+
 /* ------ */
 /* Search */
 /* ------ */
-
-#discuss_results .box_header_icon {
-  background: url(../images/page/box/box_icon_discuss.png) repeat-x left top;
-}
-
-/* ----- */
 
 #function_container .simple_header_block h2 {
   color: #21587f !important;
@@ -29,12 +35,12 @@
   cursor: default;
 }
 
-/* ------ */
-/* Topics */
-/* ------ */
+#discuss_results .box_header_icon {
+  background: url(../images/page/box/box_icon_discuss.png) repeat-x left top;
+}
 
-.function_button img{
-	border: medium none;
+#discuss_results .ttLink img {
+  color: #7BB031;
 }
 
 
@@ -128,10 +134,10 @@
   background-position: -37px -78px;
 }
 
-.context_line .question_label {
-	float: right;
-	width: 170px;
-	margin:0 20px;
+.context_line .echo_label {
+  float: right;
+  width: 170px;
+  margin:0 20px;
   text-align: right;
   cursor: default;
 }
@@ -383,5 +389,4 @@ a.statement_link:hover {
 #discuss_results .ttLink img{
 	color:#7BB031;
 }
-
 

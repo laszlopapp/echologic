@@ -375,6 +375,7 @@
   clear: both;
   margin: 25px 0 10px;
   overflow: auto;
+  min-height: 280px;
 }
 
 

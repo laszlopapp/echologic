@@ -8,11 +8,11 @@
     <title><%= I18n.t('seo.title.' + title) %></title>
     <meta name="description" content="<%= I18n.t('seo.meta.description') %>"/>
     <meta name="keywords" content="<%= I18n.t('seo.meta.keywords') %>"/>
-    <link rel="shortcut icon" href="/images/favicon.gif" type="image/gif" />
+    <link rel="shortcut icon" href="/images/echosocial_browser_icon.png" type="image/gif" />
 
     <!-- Stylesheets -->
     <%= stylesheet_link_tag 'echologic' %>
-	<%= stylesheet_link_tag 'echosocial' %>
+	  <%= stylesheet_link_tag 'echosocial' %>
     <%= stylesheet_link_tag 'application' %>
     <%= stylesheet_link_tag "formtastic" %>
     <%= stylesheet_link_tag "formtastic_changes" %>
@@ -30,6 +30,10 @@
   </head>
   <body>
 
+    <script type="text/javascript">
+      <%= "var currentLocale = '#{I18n.locale}';" %>
+    </script>
+
     <div id="header">
       <div id="echosocial_logo" class="main_logo">
         <%= link_to(image_tag('page/echosocial_logo.png'), echosocial_path) %>
@@ -45,7 +49,7 @@
       <%= yield :tabContainer %>
     </div>
 
-    <div class="mainBox rounded-box rounded-box-green-iwot">
+    <div id="echosocial_content" class="mainBox rounded-box rounded-box-green-iwot">
       <%= render :partial => 'layouts/echosocial/teasers' %>
       <div id="staticContent">
          <%= yield %>

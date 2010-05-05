@@ -1,4 +1,8 @@
 <div id="missionStatementContainer" class="rounded-box rounded-box-green-iwot">
+  <div class="width100p">
+    <%= image_tag 'page/ms_bg blue.jpg' %>
+    <%= render :partial => 'static/echologic/jump_in_button' %>
+  </div>
   <div>
     <%= image_tag 'page/echologic_mission.jpg' %>
     <div id="yuccaHotspot" class="ttLink" title="<%= I18n.t('static.echologic.show.yucca') %>"></div>
@@ -7,10 +11,6 @@
       <span class="ms_text"><%= I18n.t('static.echologic.show.ms2') %></span><br/>
       <span class="ms_echo"><%= I18n.t('static.echologic.show.ms3', :tooltip => I18n.t('static.echologic.show.agora_tooltip')) %></span>
     </div>
-  </div>
-  <div class="width100p">
-    <%= image_tag 'page/ms_bg blue.jpg' %>
-    <%= render :partial => 'static/echologic/jump_in_button' %>
   </div>
 </div>
 

@@ -23,6 +23,7 @@ Rails::Initializer.run do |config|
 
   # Access control list gem Acl9.
   config.gem "acl9", :lib => "acl9", :source => "http://gemcutter.org"
+  config.gem 'ezcrypto'
 
   # Authlogic authentication gem.
   config.gem "authlogic", :lib => "authlogic", :source => "http://gems.github.com"

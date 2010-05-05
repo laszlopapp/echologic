@@ -323,6 +323,7 @@ de:
         continues: 'geht online weiter!'
         register_here: 'Hier lang zur Erstanmeldung!'
         name: echonomyJAM
+        short_name: echonomyJAM
         teaser: Entwickeln Sie neue Wege zu einer ökosozial nachhaltigen Wirtschaft.
         description: |
           <p>
@@ -339,6 +340,7 @@ de:
           </p>
       echocracy:
         name: echocracy
+        short_name: echocracy
         teaser: Diskutieren Sie über die neue Form teilnehmender Demokratie von echo.
         description: |
           <p>
@@ -350,6 +352,7 @@ de:
           </p>
       echo:
         name: echo
+        short_name: echo
         teaser: Beteiligen Sie sich in der weiteren Entwicklung von echo.
         description: |
           <p>
@@ -361,20 +364,25 @@ de:
           anderen BewegerInnen und tragen Sie dazu bei, noch <strong>mehr (aus) echo zu machen</strong>, als wir es uns je hätten vorstellen können!
           </p>
       echosocial:
-        name: echo-social
-        teaser: echo social Teaser.
+        name: echo social
+        short_name: echo social
+        teaser: |
+          Für das Echo Ihres Netzwerks. Begleiten Sie die Entfaltung von echo social.
         description: |
           <p>
-          Nicht der echte Text!!!!!!!!!!!! Als BewegerIn von echologic sind Sie herzlich eingeladen, die <strong>Entwicklung echos mit
-          zu gestalten</strong>.
+          <a href='http://www.echosocial.org' target='_blank'>echo social</a> ist die <strong>Open Source</strong> Lösung, um mit wenigen Klicks Ihr eigenes
+          <strong>soziales Netzwerk</strong> mit umfangreicher Funktionalität samt <strong>individueller Website</strong>
+          zu erstellen - <strong>kostenlos</strong>!
           </p><p>
-          Welche Funktionen halten Sie für notwendig und was sollten die
-          nächsten Schritte sein? Sagen Sie uns Ihre Meinung, diskutieren Sie diese mit
-          anderen BewegerInnen und tragen Sie dazu bei, noch <strong>mehr (aus) echo zu machen</strong>, als wir es uns je hätten vorstellen können!
+          Sagen Sie uns was Sie am meisten brauchen, um koordiniert zusammen zu arbeiten, sich mit anderen zu vernetzen und
+          Ihre Aktionen gemeinsam erfolgreich zu machen! echo social wird <strong>in wenigen Wochen</strong> veröffentlicht.
+          Ihre <strong>Wünsche und Prioritäten</strong> fließen aber bereits jetzt in die Entwicklung der Software rein.
+          Mehr Infos unter <a href='http://www.echosocial.org' target='_blank'>www.echosocial.org</a>.
           </p>
       realprices:
-        name: Wahre Kosten – Echte Preise
-        teaser: Städte und Institutionen übergreifender Austausch und Vernetzung zur <strong>Kostentransparenz</strong> von Produkten und Dienstleistungen.
+        name: Preistransparenz - ökonomisch, ökologisch, fair
+        short_name: Preistransparenz
+        teaser: Städte und Institutionen übergreifender Austausch und Vernetzung zur Kostentransparenz von Produkten und Dienstleistungen.
         description: |
           <p>
           Wie setzt sich der Preis von Produkten zusammen, und welche <strong>sozialen und ökologischen
