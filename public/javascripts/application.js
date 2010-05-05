@@ -106,6 +106,17 @@ function bindStaticMenuClickEvents() {
 }
 
 
+function showTranslationBox(permission) {
+	if (permission) {
+  	setTimeout(function(){
+  		$('#translation_box').animate(toggle_params, 2000)
+  	}, 5000);
+  	setTimeout(function(){
+  		$('#translation_box').show()
+  	}, 6000);
+  }
+}
+
 /* Toggle more text on click, use toggleParams. */
 /* IE7 compatibility through IE8.js plugin. */
 function bindMoreHideButtonEvents() {

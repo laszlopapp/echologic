@@ -316,26 +316,27 @@ a.statement_link:hover {
 
 
 
-#statement_translate textarea {
+#new_translation textarea {
   width: 343px;
 }
 
-#statement_translate input{
+#new_translation input{
   width: 338px;
 }
 
-#statement_translate form.wide_form {
+#new_translation form.wide_form {
 }
  
-#statement_translate fieldset.inputs {
+#new_translation fieldset.inputs {
 	float: left;
+	padding-left: 17px;
 }
 
-#statement_translate li.select {
+#new_translation li.select {
 	width: 700px;
 }
 
-#statement_translate.discuss_right_block {
+#new_translation.discuss_right_block {
   min-height: 590px;
 	padding-top: 20px;
 	padding-left: 0px;

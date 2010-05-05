@@ -7,14 +7,14 @@ class StatementsController < ApplicationController
   #        but that is currently undoable without breaking non-js requests. A
   #        solution would be to make the "echo" button a real submit button and
   #        wrap a form around it.
-  verify :method => :get, :only => [:index, :show, :new, :edit, :category, :statement_translate]
+  verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation]
   verify :method => :post, :only => [:create]
-  verify :method => :put, :only => [:update]
+  verify :method => :put, :only => [:update,:create_translation]
   verify :method => :delete, :only => [:destroy]
 
   # the order of these filters matters. change with caution.
-  before_filter :fetch_statement, :only => [:show, :edit, :update, :echo, :unecho, :statement_translate,:create_translation,:destroy]
-  before_filter :fetch_category, :only => [:index, :new, :show, :edit, :update, :statement_translate,:create_translation,:destroy]
+  before_filter :fetch_statement, :only => [:show, :edit, :update, :echo, :unecho, :new_translation,:create_translation,:destroy]
+  before_filter :fetch_category, :only => [:index, :new, :show, :edit, :update, :new_translation,:create_translation,:destroy]
 
   before_filter :require_user, :except => [:index, :category, :show]
 
@@ -25,7 +25,7 @@ class StatementsController < ApplicationController
   access_control do
     allow :editor
     allow anonymous, :to => [:index, :show, :category]
-    allow logged_in, :only => [:index, :show, :echo, :unecho, :statement_translate,:create_translation]
+    allow logged_in, :only => [:index, :show, :echo, :unecho, :new_translation,:create_translation]
     allow logged_in, :only => [:new, :create], :unless => :is_question?
     allow logged_in, :only => [:edit, :update], :if => :may_edit?
     allow logged_in, :only => [:destroy], :if => :may_delete?
@@ -145,7 +145,7 @@ class StatementsController < ApplicationController
     end
   end
 
-  def statement_translate
+  def new_translation
 #     @new_statement_document = StatementDocument.new(:language_id => StatementDocument.languages(params[:locale]).id)
     @old_statement_document ||= @statement.translated_document(current_user.language_keys)
     @new_statement_document ||= @statement.add_statement_document({:language_id => current_language_key})
@@ -188,7 +188,7 @@ class StatementsController < ApplicationController
           #session[:last_info] = @info # save @info so it doesn't get lost during redirect
           render :update do |page|
             page << "info('#{@info}');"
-#            page.replace('statement_translate', :partial => 'statements/children', :statement => @statement, :children => @children)
+#            page.replace('new_translation', :partial => 'statements/children', :statement => @statement, :children => @children)
 #            page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement})
             page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement})
 #            page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement})

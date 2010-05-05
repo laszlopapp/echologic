@@ -3,11 +3,11 @@ module StatementHelper
     base.instance_eval do
       alias_method :proposal_path, :proposal_url
       alias_method :new_proposal_path, :new_proposal_url
-      alias_method :statement_translate_proposal_path, :statement_translate_proposal_url
+      alias_method :new_translation_proposal_path, :new_translation_proposal_url
 
       alias_method :improvement_proposal_path, :improvement_proposal_url
       alias_method :new_improvement_proposal_path, :new_improvement_proposal_url
-      alias_method :statement_translate_improvement_proposal_path, :statement_translate_improvement_proposal_url
+      alias_method :new_translation_improvement_proposal_path, :new_translation_improvement_proposal_url
     end
   end
 
@@ -45,16 +45,16 @@ module StatementHelper
     end
   end
 
-  def statement_translate_url (parent, type)
+  def new_translation_url (parent, type)
     case type.downcase
     when 'question'
-      statement_translate_question_url(parent)
+      new_translation_question_url(parent)
     when 'proposal'
-      statement_translate_proposal_url(parent)
+      new_translation_proposal_url(parent)
     when 'improvement_proposal'
-      statement_translate_improvement_proposal_url(parent)
+      new_translation_improvement_proposal_url(parent)
     when 'pro_argument'
-      statement_translate_pro_argument_proposal_url(parent)
+      new_translation_pro_argument_proposal_url(parent)
     else
       raise ArgumentError.new("Unhandled type: #{type.downcase}")
     end
@@ -109,12 +109,12 @@ module StatementHelper
     edit_question_proposal_path(proposal.parent, proposal)
   end
 
-  def statement_translate_proposal_url(proposal)
-    statement_translate_question_proposal_url(proposal.parent, proposal)
+  def new_translation_proposal_url(proposal)
+    new_translation_question_proposal_url(proposal.parent, proposal)
   end
   
-  def statement_translate_proposal_path(proposal)
-    statement_translate_question_proposal_path(proposal.parent, proposal)
+  def new_translation_proposal_path(proposal)
+    new_translation_question_proposal_path(proposal.parent, proposal)
   end
   
   def create_translation_proposal_url(proposal)
@@ -145,12 +145,12 @@ module StatementHelper
     edit_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
   end
   
-  def statement_translate_improvement_proposal_url(proposal)
-    statement_translate_question_proposal_improvement_proposal_url(proposal.root, proposal.parent, proposal)
+  def new_translation_improvement_proposal_url(proposal)
+    new_translation_question_proposal_improvement_proposal_url(proposal.root, proposal.parent, proposal)
   end
   
-  def statement_translate_improvement_proposal_path(proposal)
-    statement_translate_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
+  def new_translation_improvement_proposal_path(proposal)
+    new_translation_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
   end
   
   def create_translation_improvement_proposal_url(proposal)
@@ -187,7 +187,7 @@ module StatementHelper
   def create_translate_statement_link(statement, css_class = "")
      type = statement_class_dom_id(statement)
      link_to I18n.t('discuss.translation_request'),
-              statement_translate_url(statement, type),
+              new_translation_url(statement, type),
               :id => "translation_link",
               :class => "ajax #{css_class}"
              

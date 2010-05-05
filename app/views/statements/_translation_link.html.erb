@@ -1,6 +1,6 @@
 <% statement ||= @statement %>
 <% statement_document ||= @statement_document %>
-<div class="translation_box rounded-box rounded-box-gray-itow with-header <%= @translation_permission ? '' : 'display: none' %>">
+<div id="translation_box" class="translation_box rounded-box rounded-box-gray-itow with-header" style="display: none">
   <span class="box_header"><%= create_translate_statement_link (@statement) %></span>
   <span class="box_header_icon"></span>
   <span class="box_header_info"><%= statement_document.language.code.upcase%></span>
@@ -8,4 +8,5 @@
 
 <script>
 	roundCorners();
+	showTranslationBox(<%= @translation_permission %>);
 </script>
