@@ -79,18 +79,30 @@ de:
         show: 'echologic - Admin Area'
 
     meta:
-      description: |-
-        echologic ist ein Netzwerk von FreidenkerInnen und ihren Organisationen mit dem gemeinsamen Ziel
-        echo, die globale Agora, zu verwirklichen. echo ist ein Internetprojekt zur Ermächtigung der Menschen.
-        Unser Ziel ist eine neue Form teilnehmender Demokratie auf lokalem, regionalem und globalem Niveau zu etablieren.
-        echo bedeutet demnach das Ende der Machtlosigkeit und den Anfang der Selbstbestimmung!
+      echologic:
+        description: |-
+          echologic ist ein Netzwerk von FreidenkerInnen und ihren Organisationen mit dem gemeinsamen Ziel
+          echo, die globale Agora, zu verwirklichen. echo ist ein Internetprojekt zur Ermächtigung der Menschen.
+          Unser Ziel ist eine neue Form teilnehmender Demokratie auf lokalem, regionalem und globalem Niveau zu etablieren.
+          echo bedeutet demnach das Ende der Machtlosigkeit und den Anfang der Selbstbestimmung!
 
-      keywords: |-
-        echologic, echo, Agora, globale Agora, Demokratie, teilnehmende Demokratie, Selbstbestimmung,
-        kollektive Intelligenz, nachhaltige Zukunft, Meinungsbasis, Meinungsbild, Meinungsbildung,
-        Entscheidungsfindung, Transparenz, lösungsorientierte demokratische Kollaboration,
-        echocracy, Gleichberechtigung, echonomy, öko-sozial, ökosoziale demokratische Wirtschaftsform,
-        Wirtschaftsdemokratie, Your-Profit, Echokratie, Echonomie, partizipative Demokratie, glokal, Glokalität
+        keywords: |-
+          echologic, echo, Agora, globale Agora, Demokratie, teilnehmende Demokratie, Selbstbestimmung,
+          kollektive Intelligenz, nachhaltige Zukunft, Meinungsbasis, Meinungsbild, Meinungsbildung,
+          Entscheidungsfindung, Transparenz, lösungsorientierte demokratische Kollaboration,
+          echocracy, Gleichberechtigung, echonomy, öko-sozial, ökosoziale demokratische Wirtschaftsform,
+          Wirtschaftsdemokratie, Your-Profit, Echokratie, Echonomie, partizipative Demokratie, glokal, Glokalität
+      echosocial:
+        description: |-
+          echo social ist die Open Source Lösung, um mit wenigen Klicks Euer eigenes soziales Netzwerk samt
+          individueller Website zu erstellen - kostenlos! echo social gibt Euch die Instrumente an die Hand,
+          um Eure Organsiation, Aktionen und Projekte sichtbar zu machen und mit Euren Unterstützern in allen
+          Erdteilen effizient zusammen zu arbeiten. Zudem wollen wir mit echo social die vielen verinselten
+          Aktionen und Projekte zu einer globalen Bewegung  zusammenführen und ein vereintes Handeln ermöglichen.
+
+        keywords: |-
+          echo social, soziales Netzwerk, open source, ecosocial, eco, social, ökosozial, öko-sozial, öko, sozial,
+          Webpräsenz, kostenlos, dezentrales System, globale Bewegung, politische Einflussnahme
 
 
   # Supporters & Sponsors
