@@ -227,16 +227,6 @@ de:
         <strong>ACHTUNG</strong>: Alle hier eingetragen Informationen sind vorerst für <strong>alle</strong> Mitglieder von echologic zu sehen.
       type: Art der Adresse
       address: Web Adresse
-      sorts:
-        homepage: "Homepage"
-        email:    "E-Mail"
-        blog:     "Blog"
-        xing:     "Xing"
-        linkedin: "LinkedIn"
-        twitter:  "Twitter"
-        facebook: "Facebook"
-        other:    "Andere"
-
     # Concernments section
     concernments:
       title: Betroffenheit und Kompetenzen

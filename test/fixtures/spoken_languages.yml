@@ -47,3 +47,8 @@ user-german:
   language_id: <%= Fixtures.identify(:language_pt) %>
   level_id: <%= Fixtures.identify(:language_level_mother_tongue) %>
 <% end %>  
+
+spokenlanguagefunctional:
+  user_id: <%= Fixtures.identify(:luise) %>
+  language_id: <%= Fixtures.identify(:language_pt) %>
+  level_id: <%= Fixtures.identify(:language_level_intermediate) %>

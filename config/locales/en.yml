@@ -225,16 +225,7 @@ en:
         Here you can enter some of your contact data and other web profiles.<br/>
         <strong>PLEASE NOTE</strong>: for now, all information entered here will be visible to all members of the echologic community.
       type: Kind of address
-      address: Web Address
-      sorts:
-        homepage: "Homepage"
-        email:    "E-Mail"
-        blog:     "Blog"
-        xing:     "Xing"
-        linkedin: "LinkedIn"
-        twitter:  "Twitter"
-        facebook: "Facebook"
-        other:    "Other"
+      address: Web Address      
 
     # Concernments section
     concernments:

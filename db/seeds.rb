@@ -17,9 +17,10 @@
 #  EnumKey.create!(:code => code, :name => "language_levels", :key => index+1, :description => "language_levels")
 #end
 ##WEB ADDRESSES  
-#%w(email homepage blog xing linked_in facebook twitter other).each_with_index do |code, index| 
-#  EnumKey.create!(:code => code, :name => "web_addresses", :key => index+1, :description => "web_addresses")
+#%w(email homepage blog xing linked_in facebook twitter).each_with_index do |code, index| 
+#  EnumKey.create!(:code => code, :name => "web_addresses", :key => index, :description => "web_addresses")
 #end
+#EnumKey.create!(:code => 'other', :name => "web_addresses", :key => 99, :description => "web_addresses")
 ##ORGANISATIONAL TYPES
 #%w(ngo political scientific trade_union social_business profit_driven_business).each_with_index do |code, index| 
 #  EnumKey.create!(:code => code, :name => "organisation_types", :key => index+1, :description => "organisation_types")

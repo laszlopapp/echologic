@@ -10,17 +10,17 @@ Feature: Manage web addresses
   Scenario Outline: View web profile list
     Given I am logged in as "user" with password "true"
       And I have the following web addresses:
-        | sort   | location   |
-        | <sort> | <location> |
+        | web_address_id   | location   |
+        | <web_address_id> | <location> |
     When I go to the profile
     Then I should see "<location>"
       And I should have 3 web addresses
     
     Examples:
-      | sort     | location                    |
-      | twitter  | http://www.twitter.com/user |
-      | blog     | http://www.blog.com         |
-      | homepage | http://www.homepage.com     |
+      | web_address_id     | location                    |
+      | twitter            | http://www.twitter.com/user |
+      | blog               | http://blog.com/user        |
+      | blog               | http://twitter.com/joe      |
   # When a new web profile is added it should be shown on
   # the users profile page.
   
@@ -28,7 +28,7 @@ Feature: Manage web addresses
     Given I am logged in as "user" with password "true"
       And I have no web addresses
     When I go to the profile
-      And I select "Homepage" from "web_address_sort"
+      And I select "Homepage" from "web_address_web_address_id"
       And I fill in "web_address_location" with "http://www.homepage.com/user"
       And I press "new_web_address_submit"
     Then I should see "http://www.homepage.com/user"

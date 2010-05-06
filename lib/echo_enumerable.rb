@@ -10,12 +10,6 @@ module EchoEnumerable
   
   module ClassMethods
     
-    def language_enum
-      enum :languages
-    end
-    def language_level_enum
-      enum :language_levels
-    end
     
     def enum(name, options = {})      
       config = {:key => name.to_s.singularize << '_id'}

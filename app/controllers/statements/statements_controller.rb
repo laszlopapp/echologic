@@ -262,6 +262,7 @@ class StatementsController < ApplicationController
 
   # renders a form to edit statements
   def edit
+    @statement_document ||= @statement.translated_document(current_language_keys)
     respond_to do |format|
       format.html { render :template => 'statements/edit' }
       format.js { replace_container('summary', :partial => 'statements/edit') }
@@ -295,7 +296,7 @@ class StatementsController < ApplicationController
 
   # processes a cancel request, and redirects back to the last shown statement
   def cancel
-    redirect_to url_f(Statement.find(session[:last_statement]))
+    redirect_to url_f(StatementNode.find(session[:last_statement]))
   end
 
   #

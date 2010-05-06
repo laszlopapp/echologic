@@ -51,7 +51,7 @@ Feature: Start a discussion
       And the question has no proposals
       And I am on the discuss index
     When I follow "Featured"
-    When I follow "echonomy JAM"
+    When I follow "echonomyJAM"
       And I choose the first Question
       And I follow "create_proposal_link"
       And I fill in the following:

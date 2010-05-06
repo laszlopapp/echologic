@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100426100144) do
+ActiveRecord::Schema.define(:version => 20100506111607) do
 
   create_table "concernments", :force => true do |t|
     t.integer  "user_id"
@@ -218,7 +218,7 @@ ActiveRecord::Schema.define(:version => 20100426100144) do
   create_table "web_addresses", :force => true do |t|
     t.integer  "user_id"
     t.string   "location"
-    t.integer  "sort"
+    t.integer  "web_address_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
