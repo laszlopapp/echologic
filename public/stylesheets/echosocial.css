@@ -48,10 +48,6 @@
   background:  url(../images/page/illustrations/echosocial_discuss_teaser.png) no-repeat scroll 0 0px;
 }
 
-.echosocial_discuss_teaser:hover {
-  background-position: 0 -150px;
-}
-
 #echosocial_teasers a span {
   display: block;
   color: #21587F;
@@ -61,4 +57,8 @@
 
 #echosocial_teasers a:hover span {
   color: #7bb031;
+}
+
+#echosocial_teasers a:hover .echosocial_discuss_teaser {
+  background-position: 0 -150px;
 }

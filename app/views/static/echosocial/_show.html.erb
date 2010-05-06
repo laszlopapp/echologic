@@ -13,7 +13,7 @@
   </li>
   <li>
     <strong><%= I18n.t('static.echosocial.show.part_3.title') %></strong>
-    <% insert_toggle_more(I18n.t('static.echosocial.show.part_3.text')) %>
+    <% insert_toggle_more(I18n.t('static.echosocial.show.part_3.text', :echo_link => url_for(:host => ECHOLOGIC_HOST))) %>
   </li>
 </ul>
 
