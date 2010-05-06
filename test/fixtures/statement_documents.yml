@@ -18,6 +18,20 @@ third-question-doc-german:
   author_id: <%= Fixtures.identify(:user) %>
   statement_id: <%= Fixtures.identify('third-question-statement') %>
   language_id: <%= Fixtures.identify('language_de') %>
+  
+original-language-doc-english:
+  title: 'Raindrops keep falling on my head'
+  text: 'And just like the guy whose feet are too big for his bed, nothing seems to fit!'
+  author_id: <%= Fixtures.identify(:user) %>
+  statement_id: <%= Fixtures.identify('original-language-question-statement') %>
+  language_id: <%= Fixtures.identify('language_en') %>
+  
+original-language-doc-german:
+  title: 'Regentropfen fallen auf mein Kopf weiter'
+  text: 'und genau wie der Kerl, deren Füsse zu gross für sein Bett sind, nichts passt an!'
+  author_id: <%= Fixtures.identify(:user) %>
+  statement_id: <%= Fixtures.identify('original-language-question-statement') %>
+  language_id: <%= Fixtures.identify('language_de') %>
 
 
 first-proposal-doc-english:

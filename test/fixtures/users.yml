@@ -43,7 +43,7 @@ editor:
 
 # Important: If you change these names her, you also have to change in all user related fixtures (e.g. profiles)
 # Todo: Switch to Factory Girl ;) 
-<% ["theodor","friedrich","luise","charlotte","lisa","red","blue","green","yellow","red"].each do |name| %>
+<% ["theodor","friedrich","luise","charlotte","lisa","red","blue","green","yellow","red","illiterate"].each do |name| %>
 <%= name %>:
   email: <%= name %>@echologic.org
   active: true

@@ -95,7 +95,9 @@ class StatementsController < ApplicationController
     
     @statement_document = @statement.translated_document(current_language_keys)
     
-    @translation_permission = (!current_user.nil? and !current_user.spoken_languages.blank? and #1.we habe a current user that speaks languages
+    @original_language_warning = (!current_user.nil? and current_user.spoken_languages.empty? and current_language_key != @statement.statement.original_language.id)
+    
+    @translation_permission = (!current_user.nil? and !current_user.spoken_languages.blank? and #1.we have a current user that speaks languages
                                !current_user.mother_tongues.blank?                             and #2.we ensure ourselves that the user has a mother tongue
                                !@statement_document.language.code.eql?(params[:locale])      and #3.current text language is different from the current language, which would mean there is no translated version of the document yet in the current language
                                current_user.mother_tongues.collect{|l| l.code}.include?(params[:locale])        and #4.application language is the current user's mother tongue
@@ -147,7 +149,7 @@ class StatementsController < ApplicationController
 
   def new_translation
 #     @new_statement_document = StatementDocument.new(:language_id => StatementDocument.languages(params[:locale]).id)
-    @old_statement_document ||= @statement.translated_document(current_user.language_keys)
+    @statement_document ||= @statement.translated_document(current_user.language_keys)
     @new_statement_document ||= @statement.add_statement_document({:language_id => current_language_key})
 #     @statement.add_statement_document
     respond_to do |format|

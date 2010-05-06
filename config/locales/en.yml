@@ -286,6 +286,7 @@ en:
 
   discuss:
     translation_request: Please translate this text in English
+    original_language_warning: 'The original statement is in {{language}}. Tell us which languages you speak to see content in other languages.'
     results_count:
       one: '{{count}} debate'
       more: '{{count}} debates'
