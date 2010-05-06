@@ -6,8 +6,8 @@
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <% title= request[:controller].gsub('/','.') + "." +  request[:action] -%>
     <title><%= I18n.t('seo.title.' + title) %></title>
-    <meta name="description" content="<%= I18n.t('application.meta.echologic.description') %>"/>
-    <meta name="keywords" content="<%= I18n.t('application.meta.echologic.keywords') %>"/>
+    <meta name="description" content="<%= I18n.t('seo.meta.echo.description') %>"/>
+    <meta name="keywords" content="<%= I18n.t('seo.meta.echo.keywords') %>"/>
     <link rel="shortcut icon" href="/images/echo_browser_icon.png" type="image/gif" />
 
     <!-- Stylesheets -->
