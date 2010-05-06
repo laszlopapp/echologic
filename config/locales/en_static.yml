@@ -8,18 +8,18 @@ en:
       # static: de.seo.title.static
       static:
         echologic:
-          show: &html_title 'echologic for echo - The Global Agora (Democracy Rethought)'
+          show: &html_title 'echologic for echo - The Global Agora (Engage into Democracy)'
           about:            'echologic for echo - About us'
           imprint:          'echologic for echo - Imprint'
           data_privacy:     'echologic for echo - Data Privacy'
         echo:
-          show:    'echo - The Global Agora (Democracy Rethought)'
-          discuss: 'echo - Discuss (opinion formation and decision making - solution-oriented, transparent & democratic)'
+          show:    'echo - The Global Agora (Engage into Democracy)'
+          discuss: 'echo - Discuss (opinion and will formation - solution-oriented, transparent & democratic)'
           connect: 'echo - Connect (with allies with different forms of competence)'
-          act:     'echo - Act (for noticeable results in everyday life and for a sustainable change)'
+          act:     'echo - Act (for noticeable results in everyday life)'
           echo_on_waves: 'echo - Everywhere (synergies through decentral infrastructure - echo on waves)'
         echocracy:
-          show:            'echocracy - The New Form of Participatory Democracy of echo'
+          show:            'echocracy - The Open, Participatory Democracy of echo'
           citizens:        'echocracy - Affected & Engaged Citizens'
           scientists:      'echocracy - Experts & Scientists'
           decision_makers: 'echocracy - Political and Economic Decision Makers'
@@ -83,33 +83,42 @@ en:
     meta:
       echologic:
         description: |-
-          echologic ist ein Netzwerk von FreidenkerInnen und ihren Organisationen mit dem gemeinsamen Ziel
-          echo, die globale Agora, zu verwirklichen. echo ist ein Internetprojekt zur Ermächtigung der Menschen.
-          Unser Ziel ist eine neue Form teilnehmender Demokratie auf lokalem, regionalem und globalem Niveau zu etablieren.
-          echo bedeutet demnach das Ende der Machtlosigkeit und den Anfang der Selbstbestimmung!
-
+          echologic is a network of movers and their organizations united to realize echo - the global agora.
+          echo is a joint project to facilitate sustainable change through active citizen participation.
+          echo provides the technological basis for an open, participatory democracy on the local, regional and
+          global level.
         keywords: |-
-          echologic, echo, Agora, globale Agora, Demokratie, teilnehmende Demokratie, Selbstbestimmung,
-          kollektive Intelligenz, nachhaltige Zukunft, Meinungsbasis, Meinungsbild, Meinungsbildung,
-          Entscheidungsfindung, Transparenz, lösungsorientierte demokratische Kollaboration,
-          echocracy, Gleichberechtigung, echonomy, öko-sozial, ökosoziale demokratische Wirtschaftsform,
-          Wirtschaftsdemokratie, Your-Profit, Echokratie, Echonomie, partizipative Demokratie, glokal, Glokalität
+          echologic, movement, global movement, echo, agora, global agora, democracy, participatory democracy,
+          self-determination, collective intelligence, opinion base, opinion formation, will formation,
+          collective decision making, mobilization, critical masses, legislative instruments, political influence,
+          social collaboration, echocracy, equality, transparency, echonomy, eco-social, ecosocial democratic economy,
+          Your-Profit, glocal, glocality, sustainability, sustainable change
+
+      echo:
+        description: |-
+          echo is a joint project to facilitate sustainable change through active citizen participation.
+          It provides the technological basis for an open, participatory democracy on the local, regional and
+          global level. Your voice finds here an echo. Ideas turn into movements, visions into reality.
+          echo means the end of powerlessness and the beginning of self-determination.
+        keywords: |-
+          echo, agora, global agora, democracy, participatory democracy, self-determination, collective intelligence,
+          opinion base, opinion formation, will formation, collective decision making, mobilization, critical masses,
+          legislative instruments, political influence, social collaboration, echocracy, equality, transparency,
+          echonomy, eco-social, Your-Profit, glocal, glocality, sustainability, sustainable change
+
       echosocial:
         description: |-
-          echo social is the open source solution to easily create your own social network and your
-          individual website - for free! echo social provides you with the tools to make your organization, actions
-          and projects visible and to efficiently work together with your fellows - all over the planet.
-          Additionally, echo social aims to foster joint action by uniting the countless isolated projects and
+          echo social is the open source solution to easily create your social network and your individual website -
+          for free! Additionally, echo social aims to foster joint action by uniting the countless isolated projects and
           actions into a global movement.
-
         keywords: |-
-          echo social, social network, open source, ecosocial, eco, social, web presence, free, decentral System,
-          global movement, political influence
+          social network, free, open source, individual website, decentral system, bundling civil engagement,
+          global movement, political influence, ecosocial, eco-social, eco, social
 
 
   # Supporters & Sponsors
   sponsors:
-    text: 'echo is supported by'
+    text: 'Supported by'
     exist: EXIST
     eu: European Union
     esf: European Social Fund for Germany
@@ -126,10 +135,8 @@ en:
       title: echologic
       subtitle: The Movement
       show:
-        ms1: echologic
+        ms1: echologic is a network of movers and <br/>their organizations united to realize
         ms2: |
-          <font size="+2">is a network of movers <br/>and their organizations united to realize</font>
-        ms3: |
           echo - the global <span title="{{tooltip}}" class="ttLink">agora</span>!
 
         agora_tooltip: |
@@ -154,10 +161,11 @@ en:
           representatives of organizations and businesses.
           </p><p>
           <strong>echo</strong> provides the technological basis for an open, <strong>participatory democracy</strong> on the local,
-          regional and <span title="{{tooltip}}" class="ttLink">global level</span>. Your voice finds here an echo.
+          regional and <span title="{{subsidiarity_tooltip}}" class="ttLink">global level</span>. Your voice finds here an echo.
           Ideas turn into movements, visions into reality. echo means the <strong>end of powerlessness</strong> and the
           <strong>beginning of self-determination</strong>.
           </p>
+        gender_tooltip: ''
         subsidiarity_tooltip: According to the principles of subsidiarity
         text_2:
           title: Collective will-formation and political influence
@@ -184,14 +192,14 @@ en:
             world in a positive way and help people achieve <strong>political and economical self-determination</strong>.
             </p>
         text_4:
-          title: echologic for Your echo
+          title: Your voice
           more: |
             <p>
-            echo needs your opinion, your ideas, your voice. Help us to create a future democracy where <strong>every
+            Your voice needs an echo. echo needs your voice. Help us to create a future democracy where <strong>every
             voice counts</strong> the same – all over the world.
             </p><p>
             On <strong>echologic</strong>, more and more people join our common mission to <strong>turn echo's vision
-            into reality</strong>. Although echo is yet in an embrionic state, you can already:
+            into reality</strong>. Although echo is yet in an embryonic stage, you can already:
             </p>
 
         action: |
@@ -911,18 +919,17 @@ en:
         title: About us
         text: |
           <p>
-          echo social ist ein <strong>Joint Venture zwischen echo source e.V. und dem brueckenschlaeger Netzwerk</strong>.
-          Unterstützt wird es durch eine wachsende Anzahl an Partnerorganisationen und -projekten.
+          echo social is a <strong>joint venture between echo source e.V. and the brueckenschlager network</strong>.
+          It is supported by a growing number of partner organizations and projects.
           </p><p>
-          Ein <strong>interdisziplinäres Team</strong> aus jungen und erfahrenen Geisteswissenschaftlern und Entwicklern
-          arbeitet zielstrebig an der Umsetzung unserer gemeinsamen Ziele. Dieses intensive Engagement wurde durch
-          die finanzielle Förderung u.a. des Europäischen Social Fonds, dem Bundesministerium für Wirtschaft
-          und Technologie sowie privaten Spendern möglich.
+          An <strong>interdisciplinary team</strong> of young and experienced humanists and developers is working determined to
+          achieve our common goals. This intensive engagement has been made possible by the financial support of the
+          European Union, European Social Fund for Germany, the German Federal Ministry of Economics and Technology
+          and private donors.
           </p><p>
-          Als Projekt zur Vernetzung und Synergieschaffung, entsteht echo social selbst aus einem
-          <strong>Gemeinschaftsprojekt</strong> heraus! Wenn Ihre Organisation echo social mitgestalten möchte,
-          schreiben Sie uns bitte eine E-mail an
-          <a href="mailto:team@echosocial.org?subject=echo social mitgestalten">team@echosocial.org</a>.
+          As a project for creating synergies, echo social itself arises out of a <strong>community project with
+          joint efforts</strong>! If your organization would also like to engage into in the evolution of echo social,
+          please send an e-mail to <a href="mailto:team@echosocial.org?subject=Engage into echo social">team@echosocial.org</a>.
           </p>
 
 
