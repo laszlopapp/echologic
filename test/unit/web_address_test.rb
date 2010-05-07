@@ -17,5 +17,21 @@ class WebAddressTest < ActiveSupport::TestCase
   def test_presence_of_user
     assert_kind_of User, web_addresses(:joe_twitter).user
   end
+  
+  def test_unvalid_email_address
+    w = WebAddress.new
+    w.user_id = User.first.id
+    w.web_address = WebAddress.web_addresses("email").first
+    w.location = "http://facebook.com"
+    assert !w.save
+  end
+  
+  def test_unvalid_location_path
+    w = WebAddress.new
+    w.user_id = User.first.id
+    w.web_address = WebAddress.web_addresses("homepage").first
+    w.location = "me@me.com"
+    assert !w.save
+  end
 
 end

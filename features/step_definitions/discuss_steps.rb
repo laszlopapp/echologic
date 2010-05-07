@@ -132,7 +132,7 @@ Then /^the question should be published$/ do
   @question.state.should == 1
 end
 
-Then /^I should see the questions title$/ do
+Then /^I should see the questions title$/ do 
   Then 'I should see "'+@question.translated_document(StatementDocument.languages("en").first.id).title+'"'
 end
 

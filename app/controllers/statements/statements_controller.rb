@@ -46,6 +46,8 @@ class StatementsController < ApplicationController
   def category
     @value    = params[:value] || ""
     @page     = params[:page]  || 1
+    
+    @current_language_keys = current_language_keys
 
     if @value.blank?
       #step 1.0: get the class name in order to get all the possible results
@@ -61,7 +63,7 @@ class StatementsController < ApplicationController
     statements_not_paginated = statements_not_paginated.from_category(params[:id]) if params[:id]
     
     statements_not_paginated = statements_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
-    statements_not_paginated = statements_not_paginated.select{|s| !(current_language_keys & s.statement_documents.collect{|sd| sd.language_id}).empty?}
+    statements_not_paginated = statements_not_paginated.select{|s| !(@current_language_keys & s.statement_documents.collect{|sd| sd.language_id}).empty?}
     
     @count    = statements_not_paginated.size
 
@@ -86,6 +88,8 @@ class StatementsController < ApplicationController
 
     # store last statement (for cancel link)
     session[:last_statement] = @statement.id
+    
+    @current_language_keys = current_language_keys
 
     # prev / next functionaliy
     unless @statement.children.empty?
@@ -178,11 +182,13 @@ class StatementsController < ApplicationController
         set_info("discuss.messages.translated", :type => @statement.class.display_name)
         current_user.supported!(@statement)
         #load current created statement to session
+        @statement_document = @new_statement_document
+        
         @children = children_for_statement
         format.html { flash_info and redirect_to url_for(@statement) }
         format.js   {
           render_with_info do |page|
-            page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement})
+            page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement, :statement_document => @statement_document})
             page << "makeRatiobars();"
             page << "makeTooltips();"
           end

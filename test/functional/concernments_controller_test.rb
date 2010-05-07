@@ -8,14 +8,13 @@ class ConcernmentsControllerTest < ActionController::TestCase
 
   test "should create concernment" do
     assert_difference('Concernment.count') do
-      post :create, :concernment => { :sort => 0 }, :tag => { :value => 'echonomyJAM' }
+      post :create, :concernment => { :sort => 0 }, :tag => { :value => 'baby_on_board' }
     end
   end
 
   test "should create many concernments" do
     assert_difference("Concernment.count", 2) do
-      post :create, :concernment => { :sort => 0 }, :tag => {
-        :value => 'echonomyJAM, echo' }
+      post :create, :concernment => { :sort => 0 }, :tag => {:value => 'Limpopo, Irokumata' }
     end
   end
 

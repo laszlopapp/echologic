@@ -14,13 +14,4 @@ module ApplicationHelper
     val += "<script type='text/javascript'>$('#roadmap_progressbar').progressbar({value: #{percent != 0 ? percent : 1}});</script>"
     val
   end
-  
-  def current_language_key
-    EnumKey.find_by_name_and_code("languages", I18n.locale.to_s).id
-  end
-  
-  def current_language_keys
-    keys = [current_language_key].concat(current_user ? current_user.language_keys : []).uniq
-  end
-  
 end

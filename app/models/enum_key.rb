@@ -1,6 +1,7 @@
 class EnumKey < ActiveRecord::Base
   has_many :enum_values
   validates_presence_of :code, :description, :key, :name
+  validates_uniqueness_of :code, :scope => :name
   
   #acts_as_list :scope => :subject, :column => 'key'
   

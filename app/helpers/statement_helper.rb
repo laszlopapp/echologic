@@ -274,9 +274,9 @@ module StatementHelper
   end
 
   # Returns the context menu link for this statement.
-  def statement_context_link(statement, action = 'read')
+  def statement_context_link(statement, language_keys, action = 'read')
 
-    link = link_to(statement.translated_document(current_language_keys).title, url_for(statement),
+    link = link_to(statement.translated_document(language_keys).title, url_for(statement),
                    :class => "ajax no_border statement_link #{statement.class.name.underscore}_link ttLink",
                    :title => I18n.t("discuss.tooltips.#{action}_#{statement.class.name.underscore}"))
     if statement.class.name == 'Question'

@@ -8,6 +8,6 @@
   <% if has_children %>
     <h2><%= children_box_title(statement) %></h2>
 	<label class="header_button"> <%= I18n.t('discuss.statements.label') %> </label>    
-    <%= render :partial => 'statements/children_list', :locals => {:statement => statement, :statements => children}%>	
+    <%= render :partial => 'statements/children_list', :locals => {:statements => children}%>	
   <% end -%>
 </div>
