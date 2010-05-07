@@ -7,7 +7,9 @@ class WebAddress < ActiveRecord::Base
   include ProfileUpdater
   
   validates_presence_of :web_address_id, :location, :user_id
-
+  
+  validates_format_of :location, :with => /^(?#Protocol)(?:(?:ht|f)tp(?:s?)\:\/\/)?(?#Username:Password)(?:\w+:\w+@)?(?#Subdomains)(?:(?:[-\w]+\.)+(?#TopLevel Domains)(?:com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum|travel|[a-z]{2}))(?#Port)(?::[\d]{1,5})?(?#Directories)(?:(?:(?:\/(?:[-\w~!$+|.,=]|%[a-f\d]{2})+)+|\/)+|\?|#)?(?#Query)(?:(?:\?(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)(?:&(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)*)*(?#Anchor)(?:#(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)?$/i, :unless => :email?
+  validates_format_of :location, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if => :email?
   
 
   
@@ -15,10 +17,16 @@ class WebAddress < ActiveRecord::Base
     self.user.profile
   end
 
-  
+  def email?
+    !self.web_address.nil? and self.web_address.code.eql?("email")
+  end
 
   # Validate if location has valid format
 
-  validates_format_of :location, :with => /^((www\.|http:\/\/)([a-z0-9]*\.)+([a-z]{2,3}){1}(\/[a-z0-9]+)*(\.[a-z0-9]{1,4})?)|(([a-z0-9]+[a-z0-9\.\_\-]*)@[a-z0-9]{1,}[a-z0-9\-\.]*\.[a-z]{2,4})$/i
+  #validates_format_of :location, :with => /^((www\.|http:\/\/)([a-z0-9]*\.)+([a-z]{2,3}){1}(\/[a-z0-9]+)*(\.[a-z0-9]{1,4})?)|(([a-z0-9]+[a-z0-9\.\_\-]*)@[a-z0-9]{1,}[a-z0-9\-\.]*\.[a-z]{2,4})$/i
+  
+
+
+  
 
 end
