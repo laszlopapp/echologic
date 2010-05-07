@@ -33,10 +33,14 @@ class StatementNode < ActiveRecord::Base
   acts_as_tree :scope => :root_statement
   
   belongs_to :category, :class_name => "Tag"
+  
+  has_many :tao_tags, :as => :tao
+  has_many :tags, :through => :tao_tags
 
   # not yet implemented
 
   #belongs_to :work_packages
+
 
   # allow mass-assignment of document data.
   # FIXME: there has to be some more convenient way of doing this...

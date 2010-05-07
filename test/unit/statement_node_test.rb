@@ -10,6 +10,8 @@ class StatementNodeTest < ActiveSupport::TestCase
     should_belong_to :statement, :creator, :category
     should_have_one :author
     should_have_many :statement_documents
+    should_have_many :tao_tags
+    should_have_many :tags
     
     # should_validate_associated :creator, :document, :category
       

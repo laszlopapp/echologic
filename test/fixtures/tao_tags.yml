@@ -1,7 +1,22 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-# one:
-#   column: value
-#
-# two:
-#   column: value
+
+user_earth_ngo:
+  tag_id: <%= Fixtures.identify(:earth) %>
+  tao_id: <%= Fixtures.identify(:user) %>
+  tao_type: User
+  context_id: <%= Fixtures.identify(:tag_contexts_affection) %>
+ 
+joe_water_ngo:
+  tag_id: <%= Fixtures.identify(:water) %>
+  tao_id: <%= Fixtures.identify(:joe) %>
+  tao_type: User
+  context_id: <%= Fixtures.identify(:tag_contexts_engagement) %>
+  
+<% %w(test-question german-question original-language-question second-proposal third-proposal inbetween-proposal fourth-proposal fifth-proposal sixth-proposal german-proposal not-published-proposal first-impro-proposal german-impro-proposal).each do |statement| %>
+<%= statement %>_echonomyjam_topic:
+  tag_id: <%= Fixtures.identify('echonomy-jam') %>
+  tao_id: <%= Fixtures.identify(statement) %>
+  tao_type: StatementNode
+  context_id: <%= Fixtures.identify(:tag_contexts_topic) %>
+<% end %>

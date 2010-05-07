@@ -24,10 +24,9 @@ EnumKey.create(:code => 'other', :name => "web_addresses", :key => 99, :descript
 #ORGANISATIONAL TYPES
 %w(ngo political scientific trade_union social_business profit_driven_business).each_with_index do |code, index| 
   EnumKey.create(:code => code, :name => "organisation_types", :key => index+1, :description => "organisation_types")
-end
-  
+end  
 #TAG CONTEXTS
-%w(affection engagement expertise decision_making field_work field_activity).each_with_index do |code, index| 
+%w(affection engagement expertise decision_making field_work field_activity topic).each_with_index do |code, index| 
   EnumKey.create(:code => code, :name => "tag_contexts", :key => index+1, :description => "tag_contexts")
 end
 
@@ -109,6 +108,6 @@ end
   EnumValue.create(:enum_key => EnumKey.find_by_code('field_work'), :language_id => index+1, :value => value, :context=> "")
 end
 ["Field of Activity","Aktivitätsfeld","Domaine d'activité","Domínio de Actividade"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('field_work'), :language_id => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('field_activity'), :language_id => index+1, :value => value, :context=> "")
 end
   

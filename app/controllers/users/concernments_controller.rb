@@ -21,19 +21,19 @@ class Users::ConcernmentsController < ApplicationController
   #
   def create
     previous_completeness = current_user.profile.percent_completed
-    @concernments = Concernment.create_for(params[:tag][:value].split(','), params[:concernment].merge(:user_id => current_user.id))
-    current_completeness = @concernments.first.profile.percent_completed
+    @tao_tags = TaoTag.create_for(params[:tag][:value].split(','),params[:tag][:language_id], params[:tao_tag].merge(:user_id => current_user.id))
+    current_completeness = (@tao_tags.empty? ? previous_completeness : @tao_tags.first.tao.profile.percent_completed) 
 
     set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 
-    sort = params[:concernment][:sort]
+    context_id = params[:tao_tag][:context_id]
     respond_to do |format|
       format.js do
          render_with_info do |p|
-           p.insert_html :bottom, "concernments_#{sort}", :partial => "users/concernments/concernment", :collection => @concernments
-           p.visual_effect :appear, dom_id(@concernments.last)
-           p << "$('#new_concernment_#{sort}').reset();"
-           p << "$('#tag_#{sort}_id').focus();"
+           p.insert_html :bottom, "tao_tags_#{context_id}", :partial => "users/concernments/tao_tag", :collection => @tao_tags
+           p.visual_effect :appear, dom_id(@tao_tags.last) unless @tao_tags.empty?
+           p << "$('#new_tag_#{context_id}').reset();"
+           p << "$('#tag_#{context_id}_id').focus();"
          end
       end
     end
@@ -46,10 +46,10 @@ class Users::ConcernmentsController < ApplicationController
   # Response: JS
   #
   def destroy
-    @concernment = Concernment.find(params[:id])
-    previous_completeness = @concernment.profile.percent_completed
-    @concernment.destroy
-    current_completeness = @concernment.profile.percent_completed
+    @tao_tag = TaoTag.find(params[:id])
+    previous_completeness = @tao_tag.tao.profile.percent_completed
+    @tao_tag.destroy
+    current_completeness = @tao_tag.tao.profile.percent_completed
     set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 
     respond_to do |format|
@@ -58,7 +58,7 @@ class Users::ConcernmentsController < ApplicationController
         # either use a rjs, a js, or a render :update block
         # remove_container("concernment_#{params[:id]}")
         render_with_info do |p|
-          p.remove dom_id(@concernment)
+          p.remove dom_id(@tao_tag)
         end
         #render :template => 'users/profile/remove_object', :locals => { :object => @concernment }
       end

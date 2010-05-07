@@ -6,6 +6,12 @@ class UserTest < ActiveSupport::TestCase
   context "a user" do
     setup { @user = User.new }
     subject { @user }
+    
+    should_have_many :web_addresses, :memberships, :spoken_languages, :reports
+    should_have_many :tao_tags
+    should_have_many :tags
+    should_have_one :profile
+    
     context "being saved" do
       setup do
         #TODO - replace this by proper creation of an new user
