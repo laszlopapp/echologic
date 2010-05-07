@@ -1,6 +1,6 @@
 class EnumValue < ActiveRecord::Base
   
-  language_enum
+  enum :languages
   
   belongs_to :enum_key
   validates_presence_of :enum_key_id, :value, :language_id

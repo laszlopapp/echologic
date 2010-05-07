@@ -87,8 +87,9 @@ class Users::SpokenLanguagesController < ApplicationController
   
   # Remove the spoken language specified through id
   # method: DELETE
-  def destroy
+  def destroy    
     @spoken_language = SpokenLanguage.find(params[:id])
+    
     id = @spoken_language.id
     
     previous_completeness = @spoken_language.profile.percent_completed

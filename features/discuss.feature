@@ -14,7 +14,7 @@ Feature: Take Part on a discussion
   #   Given I am logged in as "user" with password "true"
   #   And I am on the Discuss Index
   # 	When I follow "Featured"
-  # 	When I follow "echonomy JAM"
+  # 	When I follow "echonomyJAM"
   #   	When I choose the first Question
   #   	When I choose the second Question
   #   Then the second question must be more recent than the first question
@@ -25,7 +25,7 @@ Feature: Take Part on a discussion
     Given I am logged in as "user" with password "true"
       And I am on the Discuss Index
     When I follow "Featured"
-    When I follow "echonomy JAM"
+    When I follow "echonomyJAM"
       And I choose the first Question
     Then I should see the questions title
   
@@ -36,12 +36,12 @@ Feature: Take Part on a discussion
       And the question has no proposals
       And I am on the Discuss Index
     When I follow "Featured"
-    When I follow "echonomy JAM"
+    When I follow "echonomyJAM"
       And I choose the first Question
       And I follow localized "discuss.statements.create_proposal_link"
       And I fill in the following:
-        | proposal_document_title | a proposal to propose some proposeworthy proposal data |
-        | proposal_document_text | nothing to propose yet...                              |
+        | proposal_statement_document_title | a proposal to propose some proposeworthy proposal data |
+        | proposal_statement_document_text | nothing to propose yet...                              |
       And I press "Save"
       Then I should see "a proposal to propose some"
       And the question should have one proposal
@@ -54,8 +54,8 @@ Feature: Take Part on a discussion
     When I go to the questions first proposal
       And I follow "create_improvement_proposal_link"
       And I fill in the following:
-      | improvement_proposal_document_title           | Improving the unimprovable                                           |
-      | improvement_proposal_document_text           | blubb (oh, and of cause a lot of foo and a little bit of (mars-)bar) |
+      | improvement_proposal_statement_document_title           | Improving the unimprovable                                           |
+      | improvement_proposal_statement_document_text           | blubb (oh, and of cause a lot of foo and a little bit of (mars-)bar) |
       And I press "Save"
     Then I should see "Improving the unimprovable"
       And the proposal should have one improvement proposal
@@ -142,7 +142,7 @@ Feature: Take Part on a discussion
      Given I am logged in as "user" with password "true"
        And there is a proposal
      When I go to the proposal
-     Then I should see localized "discuss.summary"
+     Then I should see localized "discuss.summary.title"
        And I should see the proposals data
        And I should see localized "discuss.statements.create_improvement_proposal_link"
        And I should see localized "discuss.statements.create_proposal_link"

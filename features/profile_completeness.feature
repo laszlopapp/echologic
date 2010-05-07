@@ -20,7 +20,7 @@ Scenario: Update Profile with web-profiles to make it more complete
   And I have no web addresses
   And I know how complete my profile is
   When I go to the profile
-  And I select "Homepage" from "web_address_sort"
+  And I select "Homepage" from "web_address_web_address_id"
   And I fill in "web_address_location" with "http://www.homepage.com/user"
   And I press "new_web_address_submit"
   Then my profile should be more complete

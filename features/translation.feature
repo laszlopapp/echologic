@@ -87,7 +87,6 @@ Feature: Translation permission
       And I follow "Please translate this text in English"
       And I fill in the following:
         | question_new_statement_document_title | Another Question? |
-      And I select "New" from "state"
       And I press "Save"
     Then I should see "One of the fields is filled incorrectly."
     
@@ -101,7 +100,6 @@ Feature: Translation permission
       And I follow "Please translate this text in English"
       And I fill in the following:
         | question_new_statement_document_text | new text in english |
-      And I select "New" from "state"
       And I press "Save"
     Then I should see "One of the fields is filled incorrectly."
     
@@ -116,7 +114,6 @@ Feature: Translation permission
       And I fill in the following:
         | question_new_statement_document_title | Another Question? |
         | question_new_statement_document_text | new text in english |
-      And I select "New" from "state"
       And I press "Save"
     Then I should see "new text in english"
     
@@ -150,4 +147,13 @@ Feature: Translation permission
         | improvement_proposal_new_statement_document_text | new text in english |
       And I press "Save"
     Then I should see "new text in english"
+  
+  @ok
+  Scenario: illiterate doesn't speak any languages, and sees a warning when he chooses a question which original language is german
+    Given I am logged in as "illiterate" with password "illiterate"
+    When I am on the Discuss Index
+    When I follow "Pilot Projects"
+    When I follow "echonomyJAM"
+      And I choose the "Raindrops keep falling on my head" Question     
+    Then I should see "The original statement is in German. Tell us which languages you speak to see content in other languages."
     

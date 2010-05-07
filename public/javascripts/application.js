@@ -178,13 +178,13 @@ var roundCorners = function(){
   $('.rounded-box').append(str);
 };
 
-function showTranslationBox(permission) {
+function showMessageBox(id,permission) {
   if (permission) {
     setTimeout(function(){
-      $('#translation_box').animate(toggleParams, 2000)
+      $(id).animate(toggleParams, 2000)
     }, 5000);
     setTimeout(function(){
-      $('#translation_box').show()
+      $(id).show()
     }, 6000);
   }
 }

@@ -21,21 +21,21 @@ class DiscussControllerTest < ActionController::TestCase
 
   test "should cancel question update and redirect to question page" do
     statement = Question.first
-    session[:last_statement] = statement.statement.id
+    session[:last_statement] = statement.id
     get :cancel
     assert_redirected_to question_url(statement)
   end
 
   test "should cancel proposal update and redirect to proposal page" do
     statement = Proposal.first
-    session[:last_statement] = statement.statement.id
+    session[:last_statement] = statement.id
     get :cancel
     assert_redirected_to question_proposal_url(statement.parent, statement)
   end
 
   test "should cancel improvement proposal update and redirect to improvement proposal page" do
     statement = ImprovementProposal.first
-    session[:last_statement] = statement.statement.id
+    session[:last_statement] = statement.id
     get :cancel
     assert_redirected_to question_proposal_improvement_proposal_url(statement.root, statement.parent, statement)
   end

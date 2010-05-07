@@ -133,7 +133,7 @@ Then /^the question should be published$/ do
 end
 
 Then /^I should see the questions title$/ do
-  Then 'I should see "'+@question.title+'"'
+  Then 'I should see "'+@question.translated_document(StatementDocument.languages("en").first.id).title+'"'
 end
 
 Given /^there is a proposal I have created$/ do
@@ -150,6 +150,6 @@ end
 
 
 Then /^I should see the proposals data$/ do
-  Then 'I should see "'+@proposal.title+'"'
-  Then 'I should see "'+@proposal.text+'"'
+  Then 'I should see "'+@proposal.translated_document(StatementDocument.languages("en").first.id).title+'"'
+  Then 'I should see "'+@proposal.translated_document(StatementDocument.languages("en").first.id).text+'"'
 end

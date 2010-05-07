@@ -1,18 +1,7 @@
 <% statement ||= @statement %>
 <% new_statement_document ||= @new_statement_document %>
 <% semantic_form_for statement, :url => create_translation_url(statement, statement_class_dom_id(statement)), :html => {:class => 'wide_form'} do |form| -%>
-  <%= form.error_messages %>
-	<% if statement.kind_of?(Question) -%>
-    <% form.inputs do %>
-      <li id="question_state_input" class="select optional error">
-        <%= form.label :state %>
-        <%# would be nice to have map_with_index... -%>
-        <% i = -1 -%>
-        <%= form.select(:state, StatementNode.states.map { |state| [I18n.t("discuss.statements.states.#{state}"), i+=1] },
-                        :selected => form.object.state) %>
-      </li>
-    <% end %>
-  <% end -%>
+  <%= form.error_messages %>	
   <%= render :partial => "statements/document_form", :locals => { :form => form, :disabled => true } %>
 	<%= render :partial => "statements/translate_document_form", :locals => { :form => form, :statement => new_statement_document} %>
 	<br />

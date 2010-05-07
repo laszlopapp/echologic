@@ -14,13 +14,19 @@ language_level_<%= code %>:
   description: language_levels
 <% end %>
   
-<% %w(email homepage blog xing linked_in facebook twitter other).each_with_index do |code, index| %> 
+<% %w(email homepage blog xing linked_in facebook twitter).each_with_index do |code, index| %> 
 web_address_<%= code %>:
   code: <%= code %>
   name: web_addresses
-  key: <%= index+1 %>
+  key: <%= index %>
   description: web_addresses
 <% end %>
+  
+web_address_other:
+  code: other
+  name: web_addresses
+  key: 99
+  description: web_addresses
 
 <% %w(ngo political scientific trade_union social_business profit_driven_business).each_with_index do |code, index| %> 
 organisation_type_<%= code %>:

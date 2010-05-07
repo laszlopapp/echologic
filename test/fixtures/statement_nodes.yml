@@ -11,6 +11,13 @@ german-question:
   state: 1
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('third-question-statement') %>
+  
+original-language-question:
+  type: Question
+  creator_id: <%= Fixtures.identify(:editor) %>
+  state: 1
+  category_id: <%= Fixtures.identify('echonomy-jam') %>
+  statement_id: <%= Fixtures.identify('original-language-question-statement') %>
 
 second-proposal:
   parent_id: <%= Fixtures.identify('test-question') %>

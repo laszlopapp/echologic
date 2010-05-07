@@ -1,0 +1,12 @@
+<% statement ||= @statement %>
+<% statement_document ||= @statement_document %>
+<div id="original_language_box" class="statement_message_box rounded-box rounded-box-gray-itow with-header" style="display: none">
+  <span class="box_header"><%= I18n.t('discuss.original_language_warning', :language => statement.statement.original_language.get_current_enum_value.value) %></span>
+  <span class="box_header_icon"></span>
+  <span class="box_header_info"><%= statement_document.language.code.upcase%></span>
+</div>
+
+<script>
+	roundCorners();
+	showMessageBox("#original_language_box", <%= @original_language_warning %>);
+</script>

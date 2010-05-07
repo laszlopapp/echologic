@@ -326,7 +326,7 @@ a.statement_link:hover {
   width: 343px;
 }
 
-#new_translation input{
+#new_translation input , #new_translation label, #new_translation li{
   width: 338px;
 }
 
@@ -335,20 +335,20 @@ a.statement_link:hover {
  
 #new_translation fieldset.inputs {
 	float: left;
-	padding-left: 17px;
+	padding-left: 37px;
 }
 
 #new_translation li.select {
 	width: 700px;
 }
 
-#new_translation.discuss_right_block {
+#new_translation.translation_block {
   min-height: 590px;
 	padding-top: 20px;
 	padding-left: 0px;
 }
 
-.translation_box {
+.statement_message_box {
 	background:url("../images/page/box/blue_white_gradient.png") repeat-x scroll left top #FFFFFF;
 	margin:0 0 15px;
 	padding-top: 11px;
@@ -356,32 +356,51 @@ a.statement_link:hover {
 	text-align: center;
 }
 
-.translation_box span.box_header_info {
+#original_language_box.statement_message_box {
+	padding-top: 13px;
+	padding-bottom: 13px;
+}
+
+.statement_message_box span.box_header_info {
   position: absolute;
   left: 76px;
   font-size:19px;
 }
 
-.translation_box span.box_header_info_right {
+#original_language_box.statement_message_box span.box_header_info {
+  top: 9px;
+	left: 58px;
+}
+
+.statement_message_box span.box_header_info_right {
   position: absolute;
   right: 82px;
   font-size:19px;
 }
 
 
-.translation_box .box_header {
+.statement_message_box .box_header {
 	position: relative;
 	left: 0px;
 	top: 0px;
 }
 
-.translation_box .box_header_icon {
+#original_language_box.statement_message_box .box_header {
+  padding-left:90px;
+	font-size: 12px;
+}
+
+.statement_message_box .box_header_icon {
 	background:url("../images/page/box/box_icon_people.png") scroll left top transparent;
 	left: 33px;
 	top: 3px;
 }
 
-.translation_box .right {
+#original_language_box.statement_message_box .box_header_icon {
+  left: 19px;
+}
+
+.statement_message_box .right {
   left: 762px;
 }
 

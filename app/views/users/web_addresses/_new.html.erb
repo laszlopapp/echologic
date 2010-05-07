@@ -1,9 +1,8 @@
 <li>
   <% form_tag user_web_addresses_path(@user), :method => :post, :id => dom_class(WebAddress, :new) do -%>
-      <%= select :web_address, :sort, WebAddress.sorts.sort.collect { |k,v| [v,k] } %>
-
+	
+      <%= select :web_address, :web_address_id, WebAddress.web_addresses.collect { |wa| [wa.get_current_enum_value.value,wa.id] } %>
       <%= text_field :web_address, :location, :value => '' %>
-
       <%= submit_tag I18n.t('application.general.create'), :class => 'text_button add_button', :id => 'new_web_address_submit' %>
   <% end %>
 </li>

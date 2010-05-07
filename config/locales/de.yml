@@ -227,16 +227,6 @@ de:
         <strong>ACHTUNG</strong>: Alle hier eingetragen Informationen sind vorerst für <strong>alle</strong> Mitglieder von echologic zu sehen.
       type: Art der Adresse
       address: Web Adresse
-      sorts:
-        homepage: "Homepage"
-        email:    "E-Mail"
-        blog:     "Blog"
-        xing:     "Xing"
-        linkedin: "LinkedIn"
-        twitter:  "Twitter"
-        facebook: "Facebook"
-        other:    "Andere"
-
     # Concernments section
     concernments:
       title: Betroffenheit und Kompetenzen
@@ -293,6 +283,7 @@ de:
   # ---------------
 
   discuss:
+    original_language_warning: 'Der originale Text ist auf {{language}}. Sagen Sie uns welche Sprachen Sie sprechen um weitere Inhalte zu sehen.'
     translation_request: Bitte übersetzen Sie den Text auf Deutsch
     results_count:
       one: '{{count}} Debatte'

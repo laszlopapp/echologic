@@ -9,8 +9,8 @@ class WebAddressTest < ActiveSupport::TestCase
   end
 
   # Web profile model has to provide which profiles are available.
-  def test_sorts
-    assert_kind_of [Array, Hash], WebAddress.sorts
+  def test_web_addresses
+    assert_kind_of [Array], WebAddress.web_addresses
   end
 
   # Web profiles has to belong to a user.

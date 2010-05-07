@@ -1,26 +1,20 @@
 <% statement ||= @statement -%>
-<% old_statement_document ||= @old_statement_document%>
+<% old_statement_document ||= @statement_document%>
 <% new_statement_document ||= @new_statement_document %>
-<div id="summary">
-	<div id="new_translation" class="discuss_right_block">
+<div id="summary" class="simple_header_block discuss_right_block">
+	<h2><%= I18n.t('discuss.summary.title') %></h2>
+	<div id="new_translation" class="translation_block">
 		
-		<div class="translation_box rounded-box rounded-box-gray-itow with-header">
+		<div class="statement_message_box rounded-box rounded-box-gray-itow with-header">
 		  <span class="box_header"><%= I18n.t('discuss.translation_request') %></span>
 		  <span class="box_header_icon"></span>
 		  <span class="box_header_info"><%= old_statement_document.language.get_current_enum_value.value  if old_statement_document %></span>
 			<span class="box_header_icon right"></span>
       <span class="box_header_info_right"><%= EnumKey.find_by_code(params[:locale]).get_current_enum_value.value %></span>
-		</div>
-		
+		</div>		
 		<script>
 		  roundCorners();
 		</script>
 	  <%= render :partial => 'statements/translation_form', :locals => {:statement => statement, :new_statement_document => new_statement_document } %>
 	</div>
-	
-	<% unless statement.class.name == 'Question' %>
-	  <script type="text/javascript">
-	    $('#new_<%=statement_class_dom_id(statement)%>').ajaxForm({ dataType : 'script' });
-	  </script>
-	<% end %>
 </div>
