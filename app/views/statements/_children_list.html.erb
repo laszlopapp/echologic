@@ -6,7 +6,7 @@
 	<% unless children.empty? %>
 	  <% last_child = children.pop -%>
 	  <% children.each do |statement| %>
-	    <%= render :partial => 'statements/child', :locals => { :statement => statement } %>
+	    <%= render :partial => 'statements/child', :locals => { :statement => statement} %>
 	  <% end %>
 	  <%= render :partial => 'statements/child', :locals => { :statement => last_child, :extra_classes => "active" } %>
 	<% end %>

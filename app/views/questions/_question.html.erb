@@ -1,9 +1,10 @@
 <% @question = question if defined?(question) %>
+<% question_document = @question.translated_document(@current_language_keys) %>
 
 <li id="<%= dom_id(@question) %>" class="content question">
-    <% long_title = @question.translated_document(current_language_keys).title.length > 70 %>
-    <span class="name"><%=h (long_title ? @question.translated_document(current_language_keys).title[0,69]+"..." : @question.translated_document(current_language_keys).title)%></span> <br/>
-    <% link_to question_url(@question), :title => "#{@question.translated_document(current_language_keys).title if long_title}", :class => "avatar_holder#{' ttLink no_border' if long_title }" do %>
+    <% long_title = question_document.title.length > 70 %>
+    <span class="name"><%=h (long_title ? question_document.title[0,69]+"..." : question_document.title)%></span> <br/>
+    <% link_to question_url(@question), :title => "#{question_document.title if long_title}", :class => "avatar_holder#{' ttLink no_border' if long_title }" do %>
   	  <%= image_tag("default_question_image.png") %>
     <% end %>
 </li>
