@@ -32,9 +32,9 @@ class StatementNode < ActiveRecord::Base
   belongs_to :root_statement, :foreign_key => "root_id", :class_name => "StatementNode"
   acts_as_tree :scope => :root_statement
   
-  belongs_to :category, :class_name => "Tag"
+  #belongs_to :category, :class_name => "Tag"
   
-  has_many :tao_tags, :as => :tao
+  has_many :tao_tags, :as => :tao, :dependent => :destroy
   has_many :tags, :through => :tao_tags
 
   # not yet implemented
@@ -110,10 +110,13 @@ class StatementNode < ActiveRecord::Base
   
   named_scope :by_creation, :order => 'created_at DESC'
 
-  # category
+  #context
+  named_scope :from_context, lambda { |context_ids|
+    { :include => :tao_tags, :conditions => ['tao_tags.context_id IN (?)', context_ids] } }
+  # tag
 
-  named_scope :from_category, lambda { |value|
-    { :include => :category, :conditions => ['tags.value = ?', value] } }
+  named_scope :from_tags, lambda { |value|
+    { :include => :tags, :conditions => ['tags.value = ?', value] } }
   
     #title
   named_scope :find_by_title, lambda  { |value|
@@ -164,7 +167,6 @@ class StatementNode < ActiveRecord::Base
   validates_associated :creator
   validates_presence_of :statement_id
   validates_associated :statement
-  validates_presence_of :category_id
   
   def validate
     # except of questions, all statements need a valid parent

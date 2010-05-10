@@ -11,7 +11,7 @@ module ProfileUpdater
   module InstanceMethods
     # updates the profile 
     def update_profile
-      unless !self.user.profile
+      unless !self.user or !self.user.profile
         self.user.profile.calculate_completeness
         self.user.profile.save
       end

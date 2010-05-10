@@ -237,10 +237,10 @@ en:
         echo helps like-minded people to find each other with <strong>knowledge complementing each other</strong>.<br/>
         Which <strong>keywords (tags)</strong> would you describe <strong>your concernments and competences</strong> with?
       sorts:
-        affected: <strong>Affected</strong> by
-        engaged: <strong>Engaged</strong> in
-        scientist: <strong>Expert</strong> in the field of
-        representative: <strong>Decision maker</strong> in the field of
+        affection: <strong>Affected</strong> by
+        engagement: <strong>Engaged</strong> in
+        expertise: <strong>Expert</strong> in the field of
+        decision_making: <strong>Decision maker</strong> in the field of
       tags: Keywords (tags)
 
     users:
@@ -453,10 +453,10 @@ en:
 
     segments:
       all:       'All'
-      affected:  'Affected'
-      engaged:   'Engaged'
-      scientist: 'Experts'
-      representative: 'Decision Makers'
+      affection:  'Affected'
+      engagement:   'Engaged'
+      expertise: 'Experts'
+      decision_making: 'Decision Makers'
     results_count:
       one: '{{count}} mover'
       more: '{{count}} movers'

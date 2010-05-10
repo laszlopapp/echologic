@@ -3,4 +3,6 @@ class ValidContext < ActiveRecord::Base
    
   enum :contexts, :name => :tag_contexts
   
+  validates_presence_of :tao_type, :context_id
+  
 end

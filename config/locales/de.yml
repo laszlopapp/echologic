@@ -239,10 +239,10 @@ de:
         Wie würden Sie <strong>Ihre Betroffenheit und Ihre Kompetenzen in Schlagworten (sog. Tags)</strong> beschreiben?
 
       sorts:
-        affected: <strong>Betroffen</strong> von
-        engaged: <strong>Engagiert</strong> im Bereich
-        scientist: <strong>ExpertIn</strong> im Bereich
-        representative: <strong>EntscheidungsträgerIn</strong> im Bereich
+        affection: <strong>Betroffen</strong> von
+        engagement: <strong>Engagiert</strong> im Bereich
+        expertise: <strong>ExpertIn</strong> im Bereich
+        decision_making: <strong>EntscheidungsträgerIn</strong> im Bereich
       tags: Schlagworte (Tags)
 
 
@@ -464,10 +464,10 @@ de:
 
     segments:
       all: Alle
-      affected:  'Betroffene'
-      engaged:   'Engagierte'
-      scientist: 'ExpertInnen'
-      representative: 'EntscheiderInnen'
+      affection:  'Betroffene'
+      engagement:   'Engagierte'
+      expertise: 'ExpertInnen'
+      decision_making: 'EntscheiderInnen'
     results_count:
       one: '{{count}} BewegerIn'
       more: '{{count}} BewegerInnen'

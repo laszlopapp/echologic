@@ -22,18 +22,18 @@ class TaoTagsController < ApplicationController
   def create
     previous_completeness = current_user.profile.percent_completed
     @tao_tags = TaoTag.create_for(params[:tag][:value].split(','),params[:tag][:language_id].to_i, params[:tao_tag])
-    current_completeness = (@tao_tags.empty? ? previous_completeness : @tao_tags.first.tao.profile.percent_completed) 
+    current_completeness = (@tao_tags.empty? or !@tao_tags.first.tao_type.eql?(User.name) ? previous_completeness : @tao_tags.first.tao.profile.percent_completed) 
 
     set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 
-    context_id = params[:tao_tag][:context_id]
+    context_code = EnumKey.find(params[:tao_tag][:context_id]).code
     respond_to do |format|
       format.js do
          render_with_info do |p|
-           p.insert_html :bottom, "tao_tags_#{context_id}", :partial => "tao_tags/tao_tag", :collection => @tao_tags
+           p.insert_html :bottom, "tao_tags_#{context_code}", :partial => "tao_tags/tao_tag", :collection => @tao_tags
            p.visual_effect :appear, dom_id(@tao_tags.last) unless @tao_tags.empty?
-           p << "$('#new_tag_#{context_id}').reset();"
-           p << "$('#tag_#{context_id}_id').focus();"
+           p << "$('#new_tag_#{context_code}').reset();"
+           p << "$('#tag_#{context_code}_id').focus();"
          end
       end
     end
@@ -47,9 +47,9 @@ class TaoTagsController < ApplicationController
   #
   def destroy
     @tao_tag = TaoTag.find(params[:id])
-    previous_completeness = @tao_tag.tao.profile.percent_completed
+    previous_completeness = current_user.profile.percent_completed
     @tao_tag.destroy
-    current_completeness = @tao_tag.tao.profile.percent_completed
+    current_completeness = @tao_tag.tao.profile.nil? ? previous_completeness : @tao_tag.tao.profile.percent_completed
     set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 
     respond_to do |format|

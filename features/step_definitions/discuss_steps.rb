@@ -121,7 +121,8 @@ Given /^a "([^\"]*)" question in "([^\"]*)"$/ do |state, category|
       state = 1
   end
   @category = Tag.find_by_value(category)
-  @question = Question.new(:state => state, :category => @category, :creator => @user)
+  @question = Question.new(:state => state, :creator => @user)
+  @question.tao_tags << TaoTag.new(:tag_id => @category.id, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic"))
   @question.create_statement(:original_language_id => @user.language_keys.first)
   @question.add_statement_document!(:title => "Am I a new statement?", :text => "I wonder what i really am! Maybe a statement? Or even a question?", :author => @user, :language_id => @user.language_keys.first)
   @question.save!
@@ -133,7 +134,7 @@ Then /^the question should be published$/ do
 end
 
 Then /^I should see the questions title$/ do 
-  Then 'I should see "'+@question.translated_document(StatementDocument.languages("en").first.id).title+'"'
+  Then 'I should see "'+@question.translated_document([StatementDocument.languages("en").first.id, StatementDocument.languages("de").first.id]).title+'"'
 end
 
 Given /^there is a proposal I have created$/ do
@@ -150,6 +151,6 @@ end
 
 
 Then /^I should see the proposals data$/ do
-  Then 'I should see "'+@proposal.translated_document(StatementDocument.languages("en").first.id).title+'"'
-  Then 'I should see "'+@proposal.translated_document(StatementDocument.languages("en").first.id).text+'"'
+  Then 'I should see "'+@proposal.translated_document([StatementDocument.languages("en").first.id,StatementDocument.languages("de").first.id]).title+'"'
+  Then 'I should see "'+@proposal.translated_document([StatementDocument.languages("en").first.id,StatementDocument.languages("de").first.id]).text+'"'
 end

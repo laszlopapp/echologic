@@ -11,8 +11,8 @@ Feature: Manage Concernments
       And I have no concernments
     When I go to the profile
       And I fill in the following:
-        | tag_0_id | Dirty Water |
-      And I press "add_tag_0"
+        | tag_affection_id | Dirty Water |
+      And I press "add_tag_affection"
     Then I should see "Dirty Water"
       And I should have 1 concernments
   

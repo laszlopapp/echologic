@@ -60,7 +60,7 @@ class StatementsController < ApplicationController
    
     #step 2: filter by category, if there is one 
     #IMPORTANT TODO!!!: this step will have to be worked over as soon as we have the new tagging mechanism working
-    statements_not_paginated = statements_not_paginated.from_category(params[:id]) if params[:id]
+    statements_not_paginated = statements_not_paginated.from_context(TaoTag.valid_contexts(StatementNode.name)).from_tags(params[:id]) if params[:id]
     
     statements_not_paginated = statements_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
     statements_not_paginated = statements_not_paginated.select{|s| !(@current_language_keys & s.statement_documents.collect{|sd| sd.language_id}).empty?}
@@ -205,6 +205,9 @@ class StatementsController < ApplicationController
   def new
     @statement ||= statement_class.new(:parent => parent, :category_id => @category.id)
     @statement_document ||= StatementDocument.new
+    
+    @current_language_keys = current_language_keys
+    
     # TODO: right now users can't select the language they create a statement in, so current_user.languages_keys.first will work. once this changes, we're in trouble - or better said: we'll have to pass the language_id as a param
     respond_to do |format|
       format.html { render :template => 'statements/new' }
@@ -223,7 +226,7 @@ class StatementsController < ApplicationController
   end
 
   # actually creates a new statement
-  def create
+  def create    
     attrs = params[statement_class_param]
     attrs[:state] = StatementNode.state_lookup[:published] unless statement_class == Question
     doc_attrs = attrs.delete(:statement_document)
@@ -235,8 +238,12 @@ class StatementsController < ApplicationController
     @statement.creator = current_user
     @statement.create_statement(:original_language_id => current_language_key)
     @statement_document = @statement.add_statement_document(doc_attrs)
+    tao_tag = TaoTag.new(:tag_id => Tag.find(attrs[:category_id]).id, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id)
     respond_to do |format|
       if @statement.save
+        tao_tag.tao = @statement
+        tao_tag.save
+        @current_language_keys = current_language_keys
         set_info("discuss.messages.created", :type => @statement.class.display_name)
         current_user.supported!(@statement)
         #load current created statement to session
@@ -322,7 +329,7 @@ class StatementsController < ApplicationController
                 elsif params[:category_id] # happens on form-based POSTed requests
                   Tag.find(params[:category_id])
                 elsif parent || (@statement && ! @statement.new_record?) # i.e. /discuss/questions/<id>
-                  @statement.try(:category) || parent.try(:category)
+                  (!@statement.nil? ? @statement.tags.first : parent.tags.first)
                 else
                   nil
                 end or redirect_to :controller => 'discuss', :action => 'index'

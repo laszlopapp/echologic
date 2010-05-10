@@ -3,10 +3,13 @@ class TaoTag < ActiveRecord::Base
                   :tao, :tao_type, :tao_id
                   # :tagger, :tagger_type, :tagger_id
 
+  include ProfileUpdater
+
   enum :contexts, :name => :tag_contexts
 
   belongs_to :tag
   belongs_to :tao, :polymorphic => true
+  belongs_to :user, :foreign_key => :tao_id, :validate => Proc.new {|x| x.tao_type == 'User'}
   # belongs_to :tagger, :polymorphic => true
   
   validates_presence_of :context_id

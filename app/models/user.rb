@@ -9,10 +9,8 @@ class User < ActiveRecord::Base
 
   has_many :web_addresses, :dependent => :destroy
   has_many :memberships, :dependent => :destroy
-  #has_many :concernments, :dependent => :destroy
   has_many :spoken_languages, :dependent => :destroy, :order => 'level_id asc'
-  #has_many :tags, :through => :concernments
-  has_many :tao_tags, :as => :tao
+  has_many :tao_tags, :as => :tao, :dependent => :destroy
   has_many :tags, :through => :tao_tags
 
 

@@ -22,11 +22,7 @@ class EnumValueTest < ActiveSupport::TestCase
     end
     
     # EnumValue.languages
-        
-    should "have a language enum associated" do
-      assert ! EnumValue.languages.empty?
-    end
-    
+   
     context "being saved" do
       setup {@save = @enum_value.update_attributes({:enum_key => StatementDocument.languages.first, :value => 'Test', :language_id => StatementDocument.languages.first.key})}
       should "throw an error due to an already existing instance of this enum key translation in the aforementioned language" do

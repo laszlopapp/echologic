@@ -7,7 +7,8 @@ class StatementNodeTest < ActiveSupport::TestCase
     setup { @statement_node = Question.new }
     subject { @statement_node }
     
-    should_belong_to :statement, :creator, :category
+    should_belong_to :statement, :creator
+    should_have_many :tao_tags
     should_have_one :author
     should_have_many :statement_documents
     should_have_many :tao_tags
@@ -29,7 +30,7 @@ class StatementNodeTest < ActiveSupport::TestCase
     end
     
     # check for validations (should_validate_presence_of didn't work)
-    %w(creator_id category_id state).each do |attr|
+    %w(creator_id state).each do |attr|
       context "with no #{attr} set" do 
         setup { @statement_node.send("#{attr}=", nil)
           assert ! @statement_node.valid?
@@ -66,7 +67,7 @@ class StatementNodeTest < ActiveSupport::TestCase
       setup do 
         @statement_node.create_statement(:original_language_id => 1)
         @statement_node.add_statement_document!(:title => 'A new Document', :text => 'with a very short body, dude!', :language_id => 1, :author_id => User.first.id)
-        @statement_node.category = Tag.first
+        @statement_node.tao_tags << TaoTag.new(:tag_id => Tag.first.id, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id)
         @statement_node.update_attributes!(:creator_id => User.first.id, :state => 1)
       end
       
