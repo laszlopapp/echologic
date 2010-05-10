@@ -17,10 +17,14 @@ class TaoTag < ActiveRecord::Base
   class << self
     def create_for(tags,language_id,attributes)
       tags.map { |tag|
-        tag = Tag.find_or_create_with_like_by_value(tag.strip,language_id)
-        tao_tag = create(attributes.merge(:tag_id => tag.id))
+        tag_obj = Tag.find_or_create_with_named_by_value(tag.strip, language_id)
+        tao_tag = create(attributes.merge(:tag_id => tag_obj.id))
         tao_tag.new_record? ? nil : tao_tag
       }.compact
     end
+    
+    def valid_contexts(class_name)
+      EnumKey.by_key.find_all_by_id(ValidContext.find_all_by_tao_type(class_name).map{|vc|vc.context_id})
+    end    
   end
 end

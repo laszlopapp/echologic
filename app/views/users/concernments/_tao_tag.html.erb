@@ -1,6 +1,0 @@
-<span id="<%= dom_id tao_tag %>" class="tag">
-  <%= tao_tag.tag.value %> <%= link_to 'x',
-      url_for(:controller => 'users/concernments',
-      :action => 'destroy', :id => tao_tag.id),
-      :class => 'ajax' if tao_tag.tao == current_user %>
-</span>

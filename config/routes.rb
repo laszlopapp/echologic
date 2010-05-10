@@ -65,9 +65,9 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :web_addresses, :controller => 'users/web_addresses', :except => [:index]
     user.resources :spoken_languages, :controller => 'users/spoken_languages', :except => [:index]
     user.resources :activities,   :controller => 'users/activities',   :except => [:index]
-    user.resources :memberships,  :controller => 'users/memberships',  :except => [:index]
-    user.resources :concernments, :controller => 'users/concernments', :except => [:index]
-  end
+    user.resources :memberships,  :controller => 'users/memberships',  :except => [:index]    
+  end  
+  map.resources :tao_tags, :controller => 'tao_tags', :except => [:index]
 
   map.resources :password_resets, :controller => 'users/password_resets',
                 :path_prefix => '', :except => [:destroy]

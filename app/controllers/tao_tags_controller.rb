@@ -1,4 +1,4 @@
-class Users::ConcernmentsController < ApplicationController
+class TaoTagsController < ApplicationController
 
   before_filter :require_user
 
@@ -21,7 +21,7 @@ class Users::ConcernmentsController < ApplicationController
   #
   def create
     previous_completeness = current_user.profile.percent_completed
-    @tao_tags = TaoTag.create_for(params[:tag][:value].split(','),params[:tag][:language_id], params[:tao_tag].merge(:user_id => current_user.id))
+    @tao_tags = TaoTag.create_for(params[:tag][:value].split(','),params[:tag][:language_id].to_i, params[:tao_tag])
     current_completeness = (@tao_tags.empty? ? previous_completeness : @tao_tags.first.tao.profile.percent_completed) 
 
     set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
@@ -30,7 +30,7 @@ class Users::ConcernmentsController < ApplicationController
     respond_to do |format|
       format.js do
          render_with_info do |p|
-           p.insert_html :bottom, "tao_tags_#{context_id}", :partial => "users/concernments/tao_tag", :collection => @tao_tags
+           p.insert_html :bottom, "tao_tags_#{context_id}", :partial => "tao_tags/tao_tag", :collection => @tao_tags
            p.visual_effect :appear, dom_id(@tao_tags.last) unless @tao_tags.empty?
            p << "$('#new_tag_#{context_id}').reset();"
            p << "$('#tag_#{context_id}_id').focus();"

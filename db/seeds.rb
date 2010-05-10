@@ -29,6 +29,14 @@ end
 %w(affection engagement expertise decision_making field_work field_activity topic).each_with_index do |code, index| 
   EnumKey.create(:code => code, :name => "tag_contexts", :key => index+1, :description => "tag_contexts")
 end
+#VALID CONTEXTS
+%w(affection engagement expertise decision_making).each do |code|
+  ValidContext.create(:context_id => EnumKey.find_by_code(code).id, :tao_type => User.name )
+end
+%w(field_work field_activity).each do |code|
+  #ValidContext.create(:context => EnumKey.find_by_code(code), :tao_type => User.class.name ) To use when Organisations are set
+end
+ValidContext.create(:context_id => EnumKey.find_by_code("topic").id, :tao_type => StatementNode.name )
 
 ##ENUM VALUES
 

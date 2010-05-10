@@ -7,8 +7,8 @@
   <%# concernments = @user.concernments %>
 	<% tao_tags = @user.tao_tags %>
 
-  <% TaoTag.tag_contexts.each do |tag_context| %>
-    <%= render :partial => 'users/concernments/list', :locals => { :tao_tags => tao_tags.find_all_by_context_id(tag_context.id), :context => tag_context} %><br/>
+  <% TaoTag.valid_contexts(@user.class.name).each do |tag_context| %>
+    <%= render :partial => 'tao_tags/list', :locals => { :tao_tags => tao_tags.find_all_by_context_id(tag_context.id), :context => tag_context} %><br/>
   <% end %>
   <%# Concernment.sorts.each do |sort, name| %>
     <%#= render :partial => 'users/concernments/list', :locals => { :concernments => concernments.find_all_by_sort(sort), :sort => sort , :name => name} %><br/>
@@ -17,5 +17,5 @@
 </div>
 
 <script type="text/javascript">
-  $(".tag_value_autocomplete").autocomplete("users/concernments/auto_complete_for_tag_value", {minChars: 3, selectFirst: false});
+  $(".tag_value_autocomplete").autocomplete("tao_tags/auto_complete_for_tag_value", {minChars: 3, selectFirst: false});
 </script>

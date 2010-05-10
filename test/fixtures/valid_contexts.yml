@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+<% %w(affection engagement expertise decision_making).each do |context| %>
+<% context_str = "tag_context_#{context}"%>
+valid_context_<%= context %>:
+  context_id: <%= Fixtures.identify(context_str) %>
+  tao_type: User
+<% end %>
+
+
+valid_context_topic:
+  context_id: <%= Fixtures.identify(:tag_context_topic) %>
+  tao_type: StatementNode

@@ -3,7 +3,7 @@ class Tag < ActiveRecord::Base
   # has_many :users, :through => :concernments
   # has_many :statements, :foreign_key => 'category_id'
 
-  attr_accessible :value
+  attr_accessible :value, :language_id
   
   enum :languages
   
@@ -29,8 +29,12 @@ class Tag < ActiveRecord::Base
   
   ### CLASS METHODS:
   
+  def self.find_or_create_with_named_by_value(value, language_id = self.languages.first.id)
+    named(language_id, value).first || Tag.create(:value => value, :language_id => language_id)
+  end
+  
   def self.find_or_create_with_like_by_value(value, language_id = self.languages.first.id)
-    named_like(value, language_id).first || create(:value => value, :language_id => language_id)
+    named_like(language_id, value).first || Tag.create(:value => value, :language_id => language_id)
   end
   
   def self.find_or_create_all_with_like_by_value(*list)
