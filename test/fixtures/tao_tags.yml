@@ -18,5 +18,5 @@ joe_water_ngo:
   tag_id: <%= Fixtures.identify('echonomy-jam') %>
   tao_id: <%= Fixtures.identify(statement) %>
   tao_type: StatementNode
-  context_id: <%= Fixtures.identify(:tag_contexts_topic) %>
+  context_id: <%= Fixtures.identify(:tag_context_topic) %>
 <% end %>

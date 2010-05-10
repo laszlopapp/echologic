@@ -36,7 +36,7 @@ organisation_type_<%= code %>:
   description: organisation_types
 <% end %>
   
-<% %w(affection engagement expertise decision_making field_work field_activity).each_with_index do |code, index| %> 
+<% %w(affection engagement expertise decision_making field_work field_activity topic).each_with_index do |code, index| %> 
 tag_context_<%= code %>:
   code: <%= code %>
   name: tag_contexts
