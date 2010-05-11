@@ -134,7 +134,6 @@ ActiveRecord::Schema.define(:version => 20100511145434) do
     t.integer  "state"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "workpackage_id"
     t.integer  "statement_id"
   end
 
