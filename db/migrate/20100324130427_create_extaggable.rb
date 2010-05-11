@@ -25,11 +25,17 @@ class CreateExtaggable < ActiveRecord::Migration
     
     add_index :tao_tags, :tag_id
     add_index :tao_tags, [:tao_id, :tao_type, :context_id]
+    
+    
+    
+    #now that we have enum keys and values and valid contexts, time to load the seed data
+    Rake::Task['db:seed'].invoke
+    
   end
   
   def self.down
     drop_table :valid_contexts
-    remove_column :tag_words, :language_id
+    remove_column :tags, :language_id
     drop_table :tao_tags
   end
 end

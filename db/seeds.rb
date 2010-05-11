@@ -5,7 +5,7 @@
 }.each_pair { |role, users| users.each { |user| user.has_role!(role) } }
 
 ## CATEGORIES
-%w(echonomyjam echocracy echo echosocial).each { |name| Tag.create(:value => name) }
+%w(echonomyjam echocracy echo echosocial realprices).each { |name| Tag.create(:value => name) }
 
 ## ENUM KEYS
 #LANGUAGES
@@ -31,12 +31,12 @@ end
 end
 #VALID CONTEXTS
 %w(affection engagement expertise decision_making).each do |code|
-  ValidContext.create(:context_id => EnumKey.find_by_code(code).id, :tao_type => User.name )
+  ValidContext.create(:context_id => EnumKey.find_by_code(code).id, :tao_type => 'User' )
 end
 %w(field_work field_activity).each do |code|
-  #ValidContext.create(:context => EnumKey.find_by_code(code), :tao_type => User.class.name ) To use when Organisations are set
+  ValidContext.create(:context => EnumKey.find_by_code(code), :tao_type => 'Organisation' ) #To use when Organisations are set
 end
-ValidContext.create(:context_id => EnumKey.find_by_code("topic").id, :tao_type => StatementNode.name )
+ValidContext.create(:context_id => EnumKey.find_by_code("topic").id, :tao_type => 'StatementNode' )
 
 ##ENUM VALUES
 

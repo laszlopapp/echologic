@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :spoken_languages, :dependent => :destroy, :order => 'level_id asc'
   has_many :tao_tags, :as => :tao, :dependent => :destroy
   has_many :tags, :through => :tao_tags
+  
+  has_many :concernments #temporary
 
 
   has_many :reports, :foreign_key => 'suspect_id'

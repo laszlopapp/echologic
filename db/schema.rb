@@ -9,18 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100506111607) do
-
-  create_table "concernments", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "tag_id"
-    t.integer  "sort"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "concernments", ["sort"], :name => "index_concernments_on_sort"
-  add_index "concernments", ["user_id", "sort"], :name => "index_concernments_on_user_id_and_sort"
+ActiveRecord::Schema.define(:version => 20100511145434) do
 
   create_table "echos", :force => true do |t|
     t.integer "visitor_count",   :default => 0
@@ -145,6 +134,7 @@ ActiveRecord::Schema.define(:version => 20100506111607) do
     t.integer  "state"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "workpackage_id"
     t.integer  "statement_id"
   end
 
