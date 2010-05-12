@@ -11,10 +11,7 @@
 		  <span class="box_header_info"><%= old_statement_document.language.get_current_enum_value.value  if old_statement_document %></span>
 			<span class="box_header_icon right"></span>
       <span class="box_header_info_right"><%= EnumKey.find_by_code(params[:locale]).get_current_enum_value.value %></span>
-		</div>		
-		<script>
-		  roundCorners();
-		</script>
+		</div>
 	  <%= render :partial => 'statements/translation_form', :locals => {:statement => statement, :new_statement_document => new_statement_document } %>
 	</div>
 </div>

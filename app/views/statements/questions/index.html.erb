@@ -2,7 +2,7 @@
 
 <%path = @category.value ? question_tags_path : discuss_search_path%>
 
-<div id="search_container">
+<div id="search_container" class="search_container">
 <span class="search_category">
   <%= I18n.t('discuss.search.in', :category => I18n.t("discuss.topics.#{@category.value}.short_name")) if @category.value%>
 </span>

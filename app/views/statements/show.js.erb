@@ -25,3 +25,6 @@ if($('#new_translation').size() != 0)
 
 makeRatiobars();
 makeTooltips();
+roundCorners();
+showMessageBox("#translation_box",<%= @translation_permission %>);
+showMessageBox("#original_language_box", <%= @original_language_warning %>);
