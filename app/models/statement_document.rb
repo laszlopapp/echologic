@@ -21,7 +21,7 @@ class StatementDocument < ActiveRecord::Base
   
   # returns the translated_document, declaring it as the original
   def original
-    self.translated_document
+    if self.translated_document.original? ? self.translated_document : self.translated_document.original
   end
   
   # returns all translations of self

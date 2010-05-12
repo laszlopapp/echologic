@@ -194,6 +194,7 @@ class StatementsController < ApplicationController
           end
         }
       else
+        @statement_document = StatementDocument.find(doc_attrs[:translated_document_id])
         set_error(@new_statement_document)
         format.html { flash_error and render :template => 'statements/translate' }
         format.js   { show_error_messages(@new_statement_document) }
