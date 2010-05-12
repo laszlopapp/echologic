@@ -22,7 +22,7 @@
 
     <ul>
 	  <% if not statements.empty? %>
-	    <%= render :partial => 'questions/question', :collection => statements %>
+	    <%= render :partial => 'statements/questions/question', :collection => statements %>
 	  <% else %>
 	    <span class="no_results"><%= I18n.t('discuss.messages.empty') %></span>
 	  <% end %>

@@ -35,7 +35,7 @@ class StatementsController < ApplicationController
   def index
     @statements = statement_class.published(current_user.has_role?(:editor)).by_supporters.paginate(statement_class.default_scope.merge(:page => @page, :per_page => 6))
     respond_to do |format|
-      format.html { render :template => 'questions/index' }
+      format.html { render :template => 'statements/questions/index' }
     end
   end
 
@@ -71,8 +71,8 @@ class StatementsController < ApplicationController
     @statements = statements_not_paginated.paginate(:page => @page, :per_page => 6)
 
     respond_to do |format|
-      format.html {render :template => 'questions/index'}
-      format.js {render :template => 'questions/questions'}
+      format.html {render :template => 'statements/questions/index'}
+      format.js {render :template => 'statements/questions/questions'}
     end
   end
 
