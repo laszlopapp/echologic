@@ -52,6 +52,7 @@ class StatementNode < ActiveRecord::Base
   has_many :statement_documents, :through => :statement, :class_name => "StatementDocument" do 
     # this query returns translation for a statement ordered by the users prefered languages
     # OPTIMIZE: this should be built in sql
+      
     def for_languages(lang_ids)
       # doc = find(:all, :conditions => ["translated_statement_id = ? AND language_code = ?", nil, lang_codes.first]).first
       find(:all, :conditions => ["language_id IN (?)", lang_ids]).sort { |a, b| lang_ids.index(a.language_id) <=> lang_ids.index(b.language_id)}.first
@@ -86,6 +87,8 @@ class StatementNode < ActiveRecord::Base
   ## NAMED SCOPES
   ##
     
+  named_scope :questions, lambda {
+    { :conditions => { :type => 'Question' } } }  
   named_scope :proposals, lambda {
     { :conditions => { :type => 'Proposal' } } }
   named_scope :improvement_proposals, lambda {
@@ -118,10 +121,6 @@ class StatementNode < ActiveRecord::Base
   named_scope :from_tags, lambda { |value|
     { :include => :tags, :conditions => ['tags.value = ?', value] } }
   
-    #title
-  named_scope :find_by_title, lambda  { |value|
-    { :include => :statement_document, :conditions => ['statement_documents.title like ?', '%'+value+'%']}}
-
   
   ## ACCESSORS
   
@@ -197,6 +196,9 @@ class StatementNode < ActiveRecord::Base
       
       #sorting the and arguments    
       and_conditions = opts[:conditions] || ["n.type = '#{type}'"]
+      and_conditions << "t.value = '#{opts[:tag]}'" unless opts[:tag].nil?
+      and_conditions << "tt.tao_type = 'StatementNode'" unless opts[:tag].nil?
+      and_conditions << "state = #{@@state_lookup[:published]}" if opts[:auth] 
       
       #all getting along like really good friends
       and_conditions << "(#{or_conditions})"
@@ -208,12 +210,16 @@ class StatementNode < ActiveRecord::Base
           statement_nodes n
           LEFT JOIN statements s             ON n.statement_id = s.id
           LEFT JOIN statement_documents d    ON s.id = d.statement_id
+          LEFT JOIN tao_tags tt              ON tt.tao_id = n.id
+          LEFT JOIN tags t                   ON tt.tag_id = t.id
+          LEFT JOIN echos e                  ON n.echo_id = e.id
         where
       END
       #Rambo 2
       query_part_2 = and_conditions.join(" AND ")
       #Rambo 3
-      query_part_3 = " order by s.id asc;"
+      #TODO: doesn't order by supporter count!!!!!!!!!!!!!!!
+      query_part_3 = " order by n.created_at asc;"
       
       #All Rambo's in one
       query = query_part_1+query_part_2+query_part_3

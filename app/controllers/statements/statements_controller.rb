@@ -51,18 +51,16 @@ class StatementsController < ApplicationController
 
     if @value.blank?
       #step 1.0: get the class name in order to get all the possible results
-      statements_not_paginated = statement_class      
+      statements_not_paginated = statement_class
+      statements_not_paginated = statements_not_paginated.from_context(TaoTag.valid_contexts(StatementNode.name)).from_tags(params[:id]) if params[:id]
+      statements_not_paginated = statements_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
     else  
       #step 1.01: search for first string
-      statements_not_paginated = search(@value)
+      statements_not_paginated = search(@value, {:tag => params[:id], :auth => (current_user && current_user.has_role?(:editor)) })
     end
-    
-   
     #step 2: filter by category, if there is one 
-    #IMPORTANT TODO!!!: this step will have to be worked over as soon as we have the new tagging mechanism working
-    statements_not_paginated = statements_not_paginated.from_context(TaoTag.valid_contexts(StatementNode.name)).from_tags(params[:id]) if params[:id]
+    #IMPORTANT TODO!!!: this step will have to be worked over as soon as we have the new tagging mechanism working    
     
-    statements_not_paginated = statements_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
     statements_not_paginated = statements_not_paginated.select{|s| !(@current_language_keys & s.statement_documents.collect{|sd| sd.language_id}).empty?}
     
     @count    = statements_not_paginated.size
@@ -76,8 +74,8 @@ class StatementsController < ApplicationController
     end
   end
 
-  def search (value)
-    StatementNode.search_statements('Question', value)
+  def search (value, opts = {})
+    StatementNode.search_statements("Question", value, opts)
   end
 
 
@@ -91,7 +89,7 @@ class StatementsController < ApplicationController
     
     @current_language_keys = current_language_keys
 
-    # prev / next functionaliy
+    # prev / next functionality
     unless @statement.children.empty?
       child_type = ("current_" + @statement.class.expected_children.first.to_s.underscore).to_sym
       session[child_type] = @statement.children.by_supporters.collect { |c| c.id }
@@ -101,12 +99,11 @@ class StatementsController < ApplicationController
     
     @original_language_warning = (!current_user.nil? and current_user.spoken_languages.empty? and current_language_key != @statement.statement.original_language.id)
     
-    @translation_permission = (!current_user.nil? and !current_user.spoken_languages.blank? and #1.we have a current user that speaks languages
-                               !current_user.mother_tongues.blank?                             and #2.we ensure ourselves that the user has a mother tongue
+    @translation_permission = (!current_user.nil? and !current_user.spoken_languages.blank?  and #1.we have a current user that speaks languages
+                               !current_user.mother_tongues.blank?                           and #2.we ensure ourselves that the user has a mother tongue
                                !@statement_document.language.code.eql?(params[:locale])      and #3.current text language is different from the current language, which would mean there is no translated version of the document yet in the current language
-                               current_user.mother_tongues.collect{|l| l.code}.include?(params[:locale])        and #4.application language is the current user's mother tongue
-                               #5.user knows the document's language
-                               current_user.spoken_languages.map{|sp| sp.language}.uniq.include?(@statement_document.language) and
+                               current_user.mother_tongues.collect{|l| l.code}.include?(params[:locale])                       and #4.application language is the current user's mother tongue
+                               current_user.spoken_languages.map{|sp| sp.language}.uniq.include?(@statement_document.language) and #5.user knows the document's language
                                #6. user has language level greater than intermediate
                                %w(intermediate advanced mother_tongue).include?(current_user.spoken_languages.select{|sp| sp.language == @statement_document.language}.first.level.code))
     
