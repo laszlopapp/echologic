@@ -41,6 +41,8 @@ class StatementNode < ActiveRecord::Base
 
   #belongs_to :work_packages
 
+  named_scope :by_title, lambda {|value|
+      {:joins => [:statement_documents], :conditions => ["statement_documents.title like ?", "%"+value+"%"]}}
 
   # allow mass-assignment of document data.
   # FIXME: there has to be some more convenient way of doing this...
@@ -167,6 +169,9 @@ class StatementNode < ActiveRecord::Base
   validates_presence_of :statement_id
   validates_associated :statement
   
+  after_destroy :delete_dependencies
+  
+  
   def validate
     # except of questions, all statements need a valid parent
     errors.add("Parent of #{self.class.name} must be of one of #{self.class.valid_parents.inspect}") unless self.class.valid_parents and self.class.valid_parents.select { |k| parent.instance_of?(k.to_s.constantize) }.any?
@@ -184,6 +189,10 @@ class StatementNode < ActiveRecord::Base
   def self_with_parents()
     list = parents([self])
     list.size == 1 ? list.pop : list
+  end
+  
+  def delete_dependencies
+    self.statement.destroy if self.statement.statement_nodes.empty?
   end
 
   class << self
