@@ -3,7 +3,7 @@ class RenameColumnSortToWebAddressIdFromWebAddress < ActiveRecord::Migration
     rename_column :web_addresses, :sort, :web_address_type_id 
     
     WebAddress.all.each do |web_address|
-      web_address.web_address_type_id = EnumKey.find_all_by_key_and_name(web_address.web_address_type_id+1,"web_addresses").first.id
+      web_address.web_address_type_id = EnumKey.find_by_key_and_name(web_address.web_address_type_id+1,"web_addresses").id
       web_address.save
     end
   end
