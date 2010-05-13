@@ -185,12 +185,12 @@
 }
 
 /* Web profiles */
-#web_profiles {
+#web_addresses {
   margin-left: 8px;
   display: block;
 }
 
-#web_profiles .label {
+#web_addresses .label {
   color: #7bb031;
   font-size: 15px;
   font-weight: bold;
@@ -200,7 +200,7 @@
   vertical-align: top;
 }
 
-#web_profiles .values {
+#web_addresses .values {
   color: #21587f;
   display: inline-block;
   width: 480px;

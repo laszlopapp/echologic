@@ -5,7 +5,7 @@ class WebAddressesControllerTest < ActionController::TestCase
     login_as :illiterate
     @controller = Users::WebAddressesController.new
   end
-  
+
   test "should get new" do
     get :new
     assert_response (:error, "template new missing")
@@ -13,7 +13,7 @@ class WebAddressesControllerTest < ActionController::TestCase
 
   test "should create web_address" do
     assert_difference('WebAddress.count') do
-      post :create, :web_address => {:web_address_type_id => WebAddress.web_addresses("email").first.id, :location => 'wiri@coco.com'} 
+      post :create, :web_address => {:web_address_type_id => WebAddress.web_address_types("email").first.id, :location => 'wiri@coco.com'} 
     end
 
   end

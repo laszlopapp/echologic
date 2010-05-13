@@ -75,20 +75,20 @@ blog_<%= index+1 %>:
   enum_key_id: <%= Fixtures.identify(:web_address_blog) %>
   language_id: <%= index+1 %>
   value: Blog
-  context:  
-  
+  context:
+
 xing_<%= index+1 %>:
   enum_key_id: <%= Fixtures.identify(:web_address_xing) %>
   language_id: <%= index+1 %>
   value: Xing
   context:
-  
-linked_in_<%= index+1 %>:
-  enum_key_id: <%= Fixtures.identify(:web_address_linked_in) %>
+
+linkedin_<%= index+1 %>:
+  enum_key_id: <%= Fixtures.identify(:web_address_linkedin) %>
   language_id: <%= index+1 %>
   value: LinkedIn
   context:
-  
+
 facebook_<%= index+1 %>:
   enum_key_id: <%= Fixtures.identify(:web_address_facebook) %>
   language_id: <%= index+1 %>
@@ -100,9 +100,9 @@ twitter_<%= index+1 %>:
   language_id: <%= index+1 %>
   value: Twitter
   context:
-  
+
 <% end %>
- 
+
 <% ["Other","Andere","Autre","Outro"].each_with_index do |value,index| %>
 other_<%= index+1 %>:
   enum_key_id: <%= Fixtures.identify(:web_address_other) %>
@@ -116,43 +116,43 @@ ngo_<%= index+1 %>:
   enum_key_id: <%= Fixtures.identify(:organisation_type_ngo) %>
   language_id: <%= index+1 %>
   value: <%= value %>
-  context:  
-<% end %>  
+  context:
+<% end %>
 <% ["Political","Politisch","Politique","Política"].each_with_index do |value,index| %>
 political_<%= index+1 %>:
   enum_key_id: <%= Fixtures.identify(:organisation_type_political) %>
   language_id: <%= index+1 %>
   value: <%= value %>
   context:
-<% end %> 
+<% end %>
 <% ["Scientific","Wissenschaftlich","Scientifique","Científica"].each_with_index do |value,index| %>
 scientific_<%= index+1 %>:
   enum_key_id: <%= Fixtures.identify(:organisation_type_scientific) %>
   language_id: <%= index+1 %>
   value: <%= value %>
   context:
-<% end %>  
+<% end %>
 <% ["Trade Union","Gewerkschaft","Syndicat","Sindicato"].each_with_index do |value,index| %>
 trade_union_<%= index+1 %>:
   enum_key_id: <%= Fixtures.identify(:organisation_type_trade_union) %>
   language_id: <%= index+1 %>
   value: <%= value %>
   context:
-<% end %>  
+<% end %>
 <% ["Social Business","Sozialbetrieb","Activité Sociale","Actividade Social"].each_with_index do |value,index| %>
 social_business_<%= index+1 %>:
   enum_key_id: <%= Fixtures.identify(:organisation_type_social_business) %>
   language_id: <%= index+1 %>
   value: <%= value %>
   context:
-<% end %>   
+<% end %>
 <% ["Profit-Driven Business","Gewinnorientierte Firma","Firma à but lucratif","Firma com fins lucrativos"].each_with_index do |value,index| %>
 profit_driven_business_<%= index+1 %>:
   enum_key_id: <%= Fixtures.identify(:organisation_type_profit_driven_business) %>
   language_id: <%= index+1 %>
   value: <%= value %>
   context:
-<% end %> 
+<% end %>
 
 <% ["Affection","Betroffenheit","Affection","Afeição"].each_with_index do |value,index| %>
 affection_<%= index+1 %>:
@@ -160,28 +160,28 @@ affection_<%= index+1 %>:
   language_id: <%= index+1 %>
   value: <%= value %>
   context:
-<% end %>   
+<% end %>
 <% ["Engagement","Engagement","Engagement","Compromisso"].each_with_index do |value,index| %>
 engagement_<%= index+1 %>:
   enum_key_id: <%= Fixtures.identify(:tag_context_engagement) %>
   language_id: <%= index+1 %>
   value: <%= value %>
   context:
-<% end %>  
+<% end %>
 <% ["Expertise","Expertise","Expertise","Especialidade"].each_with_index do |value,index| %>
 expertise_<%= index+1 %>:
   enum_key_id: <%= Fixtures.identify(:tag_context_expertise) %>
   language_id: <%= index+1 %>
   value: <%= value %>
   context:
-<% end %>  
+<% end %>
 <% ["Decision Making","Entscheidung","Décision","Decisão"].each_with_index do |value,index| %>
 decision_making_<%= index+1 %>:
   enum_key_id: <%= Fixtures.identify(:tag_context_decision_making) %>
   language_id: <%= index+1 %>
   value: <%= value %>
   context:
-<% end %> 
+<% end %>
 <% ["Field of Work","Arbeitsfeld","Domaine de travail","Domínio de Trabalho"].each_with_index do |value,index| %>
 field_work_<%= index+1 %>:
   enum_key_id: <%= Fixtures.identify(:tag_context_field_work) %>
