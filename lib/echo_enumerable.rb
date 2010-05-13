@@ -21,7 +21,7 @@ module EchoEnumerable
         include EchoEnumerable::InstanceMethods
 
         def self.#{config[:name] ? config[:name].to_s : name.to_s}(code='')
-            code.blank? ? EnumKey.by_key.find_all_by_name('#{config[:name] ? config[:name].to_s : name.to_s}') : EnumKey.find_all_by_name_and_code('#{config[:name] ? config[:name].to_s : name.to_s}',code)  
+            code.blank? ? EnumKey.by_key.find_all_by_name('#{config[:name] ? config[:name].to_s : name.to_s}') : EnumKey.by_key.find_all_by_name_and_code('#{config[:name] ? config[:name].to_s : name.to_s}',code)  
         end
         
       EOV
