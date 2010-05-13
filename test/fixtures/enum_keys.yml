@@ -1,4 +1,4 @@
-<% %w(en de fr pt).each_with_index do |code, index| %> 
+<% %w(en de fr pt).each_with_index do |code, index| %>
 language_<%= code %>:
   code: <%= code %>
   name: languages
@@ -6,37 +6,37 @@ language_<%= code %>:
   description: languages
 <% end %>
 
-<% %w(mother_tongue advanced intermediate basic).each_with_index do |code, index| %> 
+<% %w(mother_tongue advanced intermediate basic).each_with_index do |code, index| %>
 language_level_<%= code %>:
   code: <%= code %>
   name: language_levels
   key: <%= index+1 %>
   description: language_levels
 <% end %>
-  
-<% %w(email homepage blog xing linked_in facebook twitter).each_with_index do |code, index| %> 
+
+<% %w(email homepage blog xing linkedin facebook twitter).each_with_index do |code, index| %>
 web_address_<%= code %>:
   code: <%= code %>
-  name: web_addresses
+  name: web_address_types
   key: <%= index %>
-  description: web_addresses
+  description: web_address_type
 <% end %>
-  
+
 web_address_other:
   code: other
-  name: web_addresses
+  name: web_address_types
   key: 99
-  description: web_addresses
+  description: web_address_type
 
-<% %w(ngo political scientific trade_union social_business profit_driven_business).each_with_index do |code, index| %> 
+<% %w(ngo political scientific trade_union social_business profit_driven_business).each_with_index do |code, index| %>
 organisation_type_<%= code %>:
   code: <%= code %>
   name: organisation_types
   key: <%= index+1 %>
   description: organisation_types
 <% end %>
-  
-<% %w(affection engagement expertise decision_making field_work field_activity topic).each_with_index do |code, index| %> 
+
+<% %w(affection engagement expertise decision_making field_work field_activity topic).each_with_index do |code, index| %>
 tag_context_<%= code %>:
   code: <%= code %>
   name: tag_contexts
