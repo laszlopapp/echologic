@@ -42,7 +42,7 @@ class StatementNode < ActiveRecord::Base
   #belongs_to :work_packages
 
   named_scope :by_title, lambda {|value|
-      {:joins => [:statement_documents], :conditions => ["statement_documents.title like ?", "%"+value+"%"]}}
+  {:joins => [:statement_documents], :conditions => ["statement_documents.title like ?", "%"+value+"%"]}}
 
   # allow mass-assignment of document data.
   # FIXME: there has to be some more convenient way of doing this...
@@ -51,7 +51,7 @@ class StatementNode < ActiveRecord::Base
   # end ; alias :statement_document= :document=
 
   belongs_to :statement
-  has_many :statement_documents, :through => :statement, :class_name => "StatementDocument" do 
+  has_many :statement_documents, :through => :statement, :source => :statement_documents do 
     # this query returns translation for a statement ordered by the users prefered languages
     # OPTIMIZE: this should be built in sql
       
