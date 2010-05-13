@@ -12,9 +12,7 @@ class RefactorStatements < ActiveRecord::Migration
     end
     #get all statement Node objects and create a statement for each
     statement_nodes = StatementNode.all.each do |node|
-      statement = Statement.create
-      node.statement_id = statement.id
-      node.save
+      statement = Statement.create({:statement_id => statement.id})
     end
   end
   def self.down
