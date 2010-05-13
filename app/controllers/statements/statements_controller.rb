@@ -39,14 +39,14 @@ class StatementsController < ApplicationController
     end
   end
 
-  
+
 
   # TODO use find or create category tag?
   # displays all questions in a category
   def category
     @value    = params[:value] || ""
     @page     = params[:page]  || 1
-    
+
     @current_language_keys = current_language_keys
 
     if @value.blank?
@@ -58,7 +58,7 @@ class StatementsController < ApplicationController
     end
     #additional step: to filter statements with a translated version in the current language
     statements_not_paginated = statements_not_paginated.select{|s| !(@current_language_keys & s.statement_documents.collect{|sd| sd.language_id}).empty?}
-    
+
     @count    = statements_not_paginated.size
 
     @category = Tag.find_or_create_by_value(params[:id])
@@ -70,7 +70,7 @@ class StatementsController < ApplicationController
     end
   end
 
-  
+
 
 
   # TODO visited! throws error with current fixtures.
@@ -80,7 +80,7 @@ class StatementsController < ApplicationController
 
     # store last statement (for cancel link)
     session[:last_statement] = @statement.id
-    
+
     @current_language_keys = current_language_keys
 
     # prev / next functionality
@@ -88,13 +88,13 @@ class StatementsController < ApplicationController
       child_type = ("current_" + @statement.class.expected_children.first.to_s.underscore).to_sym
       session[child_type] = @statement.children.by_supporters.collect { |c| c.id }
     end
-    
+
     #get document to show
     @statement_document = @statement.translated_document(current_language_keys)
-    
+
     #test for special links
     @original_language_warning = (!current_user.nil? and current_user.spoken_languages.empty? and current_language_key != @statement.statement.original_language.id)
-    
+
     @translation_permission = (!current_user.nil? and !current_user.spoken_languages.blank?  and #1.we have a current user that speaks languages
                                !current_user.mother_tongues.blank?                           and #2.we ensure ourselves that the user has a mother tongue
                                !@statement_document.language.code.eql?(params[:locale])      and #3.current text language is different from the current language, which would mean there is no translated version of the document yet in the current language
@@ -102,7 +102,7 @@ class StatementsController < ApplicationController
                                current_user.spoken_languages.map{|sp| sp.language}.uniq.include?(@statement_document.language) and #5.user knows the document's language
                                #6. user has language level greater than intermediate
                                %w(intermediate advanced mother_tongue).include?(current_user.spoken_languages.select{|sp| sp.language == @statement_document.language}.first.level.code))
-    
+
     # when creating an issue, we save the flash message within the session, to be able to display it here
     if session[:last_info]
       @info = session[:last_info]
@@ -127,6 +127,7 @@ class StatementsController < ApplicationController
   def echo
     return if @statement.question?
     current_user.supported!(@statement)
+    @current_language_keys = current_language_keys
     respond_to do |format|
       format.html { redirect_to @statement }
       format.js { render :template => 'statements/echo' }
@@ -138,6 +139,7 @@ class StatementsController < ApplicationController
   def unecho
     return if @statement.question?
     current_user.echo!(@statement, :supported => false)
+    @current_language_keys = current_language_keys
     respond_to do |format|
       format.html { redirect_to @statement }
       format.js { render :template => 'statements/echo' }
@@ -161,7 +163,7 @@ class StatementsController < ApplicationController
       }
     end
   end
-  
+
   def create_translation
     attrs = params[statement_class_param]
     attrs[:state] = StatementNode.state_lookup[:published] unless statement_class == Question
@@ -192,12 +194,12 @@ class StatementsController < ApplicationController
       end
     end
   end
-  
+
   # renders form for creating a new statement
   def new
     @statement ||= statement_class.new(:parent => parent, :category_id => @category.id)
     @statement_document ||= StatementDocument.new
-    
+
     @current_language_keys = current_language_keys
     @current_language_key = current_language_key
     # TODO: right now users can't select the language they create a statement in, so current_user.languages_keys.first will work. once this changes, we're in trouble - or better said: we'll have to pass the language_id as a param
@@ -218,7 +220,7 @@ class StatementsController < ApplicationController
   end
 
   # actually creates a new statement
-  def create    
+  def create
     attrs = params[statement_class_param].merge({:creator_id => current_user.id})
     attrs[:state] = StatementNode.state_lookup[:published] unless statement_class == Question
     doc_attrs = attrs.delete(:statement_document)
@@ -361,7 +363,7 @@ class StatementsController < ApplicationController
   def children_for_statement
     @statement.children.published(current_user && current_user.has_role?(:editor)).by_supporters.paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
   end
-  
+
   def search (value, opts = {})
     StatementNode.search_statements("Question", value, opts)
   end
