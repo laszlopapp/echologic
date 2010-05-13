@@ -21,18 +21,20 @@ end
 
 #WEB ADDRESSES
 %w(email homepage blog xing linkedin facebook twitter).each_with_index do |code, index|
-  EnumKey.create(:code => code, :name => "web_address_types", :key => index, :description => "web_addresses")
+  EnumKey.create(:code => code, :name => "web_address_types", :key => index+1, :description => "web_address_type")
 end
-EnumKey.create(:code => 'other', :name => "web_address_types", :key => 99, :description => "web_addresses")
+EnumKey.create(:code => 'other', :name => "web_address_types", :key => 99, :description => "web_address_type")
 
 #ORGANISATIONAL TYPES
 %w(ngo political scientific trade_union social_business profit_driven_business).each_with_index do |code, index|
   EnumKey.create(:code => code, :name => "organisation_types", :key => index+1, :description => "organisation_types")
 end
+
 #TAG CONTEXTS
 %w(affection engagement expertise decision_making field_work field_activity topic).each_with_index do |code, index|
   EnumKey.create(:code => code, :name => "tag_contexts", :key => index+1, :description => "tag_contexts")
 end
+
 #VALID CONTEXTS
 %w(affection engagement expertise decision_making).each do |code|
   ValidContext.create(:context_id => EnumKey.find_by_code(code).id, :tao_type => 'User' )
@@ -71,6 +73,7 @@ end
 ["Basic","Grundkenntnisse","Basique","Básico"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('basic'), :language_id => index+1, :value => value, :context=> "")
 end
+
 #Web Addresses
 EnumKey.languages.length.times do |index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('email'), :language_id => index+1, :value => "E-mail", :context=> "")
