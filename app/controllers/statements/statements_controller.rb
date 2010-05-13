@@ -35,7 +35,7 @@ class StatementsController < ApplicationController
   def index
     @statements = statement_class.published(current_user.has_role?(:editor)).by_supporters.paginate(statement_class.default_scope.merge(:page => @page, :per_page => 6))
     respond_to do |format|
-      format.html { render :template => 'questions/index' }
+      format.html { render :template => 'statements/questions/index' }
     end
   end
 
@@ -50,19 +50,13 @@ class StatementsController < ApplicationController
     @current_language_keys = current_language_keys
 
     if @value.blank?
-      #step 1.0: get the class name in order to get all the possible results
-      statements_not_paginated = statement_class      
-    else  
-      #step 1.01: search for first string
-      statements_not_paginated = search(@value)
+      statements_not_paginated = statement_class
+      statements_not_paginated = statements_not_paginated.from_context(TaoTag.valid_contexts(StatementNode.name)).from_tags(params[:id]) if params[:id]
+      statements_not_paginated = statements_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
+    else
+      statements_not_paginated = search(@value, {:tag => params[:id], :auth => (current_user && current_user.has_role?(:editor)) })
     end
-    
-   
-    #step 2: filter by category, if there is one 
-    #IMPORTANT TODO!!!: this step will have to be worked over as soon as we have the new tagging mechanism working
-    statements_not_paginated = statements_not_paginated.from_context(TaoTag.valid_contexts(StatementNode.name)).from_tags(params[:id]) if params[:id]
-    
-    statements_not_paginated = statements_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
+    #additional step: to filter statements with a translated version in the current language
     statements_not_paginated = statements_not_paginated.select{|s| !(@current_language_keys & s.statement_documents.collect{|sd| sd.language_id}).empty?}
     
     @count    = statements_not_paginated.size
@@ -71,14 +65,12 @@ class StatementsController < ApplicationController
     @statements = statements_not_paginated.paginate(:page => @page, :per_page => 6)
 
     respond_to do |format|
-      format.html {render :template => 'questions/index'}
-      format.js {render :template => 'questions/questions'}
+      format.html {render :template => 'statements/questions/index'}
+      format.js {render :template => 'statements/questions/questions'}
     end
   end
 
-  def search (value)
-    StatementNode.search_statements('Question', value)
-  end
+  
 
 
   # TODO visited! throws error with current fixtures.
@@ -91,22 +83,23 @@ class StatementsController < ApplicationController
     
     @current_language_keys = current_language_keys
 
-    # prev / next functionaliy
+    # prev / next functionality
     unless @statement.children.empty?
       child_type = ("current_" + @statement.class.expected_children.first.to_s.underscore).to_sym
       session[child_type] = @statement.children.by_supporters.collect { |c| c.id }
     end
     
+    #get document to show
     @statement_document = @statement.translated_document(current_language_keys)
     
+    #test for special links
     @original_language_warning = (!current_user.nil? and current_user.spoken_languages.empty? and current_language_key != @statement.statement.original_language.id)
     
-    @translation_permission = (!current_user.nil? and !current_user.spoken_languages.blank? and #1.we have a current user that speaks languages
-                               !current_user.mother_tongues.blank?                             and #2.we ensure ourselves that the user has a mother tongue
+    @translation_permission = (!current_user.nil? and !current_user.spoken_languages.blank?  and #1.we have a current user that speaks languages
+                               !current_user.mother_tongues.blank?                           and #2.we ensure ourselves that the user has a mother tongue
                                !@statement_document.language.code.eql?(params[:locale])      and #3.current text language is different from the current language, which would mean there is no translated version of the document yet in the current language
-                               current_user.mother_tongues.collect{|l| l.code}.include?(params[:locale])        and #4.application language is the current user's mother tongue
-                               #5.user knows the document's language
-                               current_user.spoken_languages.map{|sp| sp.language}.uniq.include?(@statement_document.language) and
+                               current_user.mother_tongues.collect{|l| l.code}.include?(params[:locale])                       and #4.application language is the current user's mother tongue
+                               current_user.spoken_languages.map{|sp| sp.language}.uniq.include?(@statement_document.language) and #5.user knows the document's language
                                #6. user has language level greater than intermediate
                                %w(intermediate advanced mother_tongue).include?(current_user.spoken_languages.select{|sp| sp.language == @statement_document.language}.first.level.code))
     
@@ -163,6 +156,7 @@ class StatementsController < ApplicationController
           page.replace('summary', :partial => 'statements/translate')
           page << "makeRatiobars();"
           page << "makeTooltips();"
+          page << "roundCorners();"
         end
       }
     end
@@ -173,9 +167,7 @@ class StatementsController < ApplicationController
     attrs[:state] = StatementNode.state_lookup[:published] unless statement_class == Question
     doc_attrs = attrs.delete(:new_statement_document)
     doc_attrs[:author_id] = current_user.id
-    
     doc_attrs[:language_id] = current_language_key
-    
     @new_statement_document = @statement.add_statement_document(doc_attrs)
     respond_to do |format|
       if @statement.save
@@ -183,7 +175,6 @@ class StatementsController < ApplicationController
         current_user.supported!(@statement)
         #load current created statement to session
         @statement_document = @new_statement_document
-        
         @children = children_for_statement
         format.html { flash_info and redirect_to url_for(@statement) }
         format.js   {
@@ -194,6 +185,7 @@ class StatementsController < ApplicationController
           end
         }
       else
+        @statement_document = StatementDocument.find(doc_attrs[:translated_document_id])
         set_error(@new_statement_document)
         format.html { flash_error and render :template => 'statements/translate' }
         format.js   { show_error_messages(@new_statement_document) }
@@ -207,7 +199,7 @@ class StatementsController < ApplicationController
     @statement_document ||= StatementDocument.new
     
     @current_language_keys = current_language_keys
-    
+    @current_language_key = current_language_key
     # TODO: right now users can't select the language they create a statement in, so current_user.languages_keys.first will work. once this changes, we're in trouble - or better said: we'll have to pass the language_id as a param
     respond_to do |format|
       format.html { render :template => 'statements/new' }
@@ -227,15 +219,12 @@ class StatementsController < ApplicationController
 
   # actually creates a new statement
   def create    
-    attrs = params[statement_class_param]
+    attrs = params[statement_class_param].merge({:creator_id => current_user.id})
     attrs[:state] = StatementNode.state_lookup[:published] unless statement_class == Question
     doc_attrs = attrs.delete(:statement_document)
-    doc_attrs[:author_id] = current_user.id
     # TODO: as soon as there is the possibility, that the language is passed with the form data (e.g. the user made a translation) we can't rely on the users first language_key anymore
-    doc_attrs[:language_id] = current_language_key
     # FIXME: find a way to move more stuff into the models
     @statement = statement_class.new(attrs)
-    @statement.creator = current_user
     @statement.create_statement(:original_language_id => current_language_key)
     @statement_document = @statement.add_statement_document(doc_attrs)
     tao_tag = TaoTag.new(:tag_id => Tag.find(attrs[:category_id]).id, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id)
@@ -266,6 +255,7 @@ class StatementsController < ApplicationController
           end
         }
       else
+        @current_language_key = current_language_key
         set_error(@statement_document)
         format.html { flash_error and render :template => 'statements/new' }
         format.js   { show_error_messages(@statement_document) }
@@ -276,6 +266,7 @@ class StatementsController < ApplicationController
   # renders a form to edit statements
   def edit
     @statement_document ||= @statement.translated_document(current_language_keys)
+    @current_language_key = current_language_key
     respond_to do |format|
       format.html { render :template => 'statements/edit' }
       format.js { replace_container('summary', :partial => 'statements/edit') }
@@ -293,6 +284,7 @@ class StatementsController < ApplicationController
         format.html { flash_info and redirect_to url_for(@statement) }
         format.js   { show }
       else
+        @current_language_key = current_language_key
         set_error(@statement.document)
         format.html { flash_error and redirect_to url_for(@statement) }
         format.js   { show_error_messages }
@@ -368,6 +360,10 @@ class StatementsController < ApplicationController
   # private method, that collects all children, sorted and paginated in the way we want them to
   def children_for_statement
     @statement.children.published(current_user && current_user.has_role?(:editor)).by_supporters.paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
+  end
+  
+  def search (value, opts = {})
+    StatementNode.search_statements("Question", value, opts)
   end
 end
 

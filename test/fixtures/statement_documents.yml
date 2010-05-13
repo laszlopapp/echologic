@@ -3,7 +3,7 @@ test-question-doc-english:
   text: 'The Question is: is this a question?'
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('test-question-statement') %>
-  language_id: <%= Fixtures.identify('language_en') %>
+  language_id: <%= Fixtures.identify('language_en') %>  
 
 second-question-doc-english:
   title: 'Another Question?'
@@ -32,6 +32,7 @@ original-language-doc-german:
   author_id: <%= Fixtures.identify(:user) %>
   statement_id: <%= Fixtures.identify('original-language-question-statement') %>
   language_id: <%= Fixtures.identify('language_de') %>
+  translated_document_id: <%= Fixtures.identify('original-language-doc-english') %>
 
 
 first-proposal-doc-english:
@@ -118,6 +119,7 @@ test-question-doc-german:
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('test-question-statement') %>
   language_id: <%= Fixtures.identify('language_de') %>
+  translated_document_id: <%= Fixtures.identify('test-question-doc-english') %>
 
 second-question-doc-german:
   title: 'Noch ne Frage?'
@@ -125,6 +127,7 @@ second-question-doc-german:
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('second-question-statement') %>
   language_id: <%= Fixtures.identify('language_de') %>
+  translated_document_id: <%= Fixtures.identify('second-question-doc-english') %>
 
 first-proposal-doc-german:
   title: 'Ein erster Vorschlag'
@@ -132,6 +135,7 @@ first-proposal-doc-german:
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('first-proposal-statement') %>
   language_id: <%= Fixtures.identify('language_de') %>
+  translated_document_id: <%= Fixtures.identify('first-proposal-doc-english') %>
 
 second-proposal-doc-german:
   title: 'Zweiter vorschlag'
@@ -139,6 +143,7 @@ second-proposal-doc-german:
   author_id: <%= Fixtures.identify(:user) %>
   statement_id: <%= Fixtures.identify('second-proposal-statement') %>
   language_id: <%= Fixtures.identify('language_de') %>
+  translated_document_id: <%= Fixtures.identify('second-proposal-doc-english') %>
 
 third-proposal-doc-german:
   title: 'Dritter vorschlag'
@@ -146,6 +151,7 @@ third-proposal-doc-german:
   author_id: <%= Fixtures.identify(:user) %>
   statement_id: <%= Fixtures.identify('third-proposal-statement') %>
   language_id: <%= Fixtures.identify('language_de') %>
+  translated_document_id: <%= Fixtures.identify('third-proposal-doc-english') %>
 
 inbetween-proposal-doc-german:
   title: 'Inbetween Proposal'
@@ -153,6 +159,7 @@ inbetween-proposal-doc-german:
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('inbetween-proposal-statement') %>
   language_id: <%= Fixtures.identify('language_de') %>
+  translated_document_id: <%= Fixtures.identify('inbetween-proposal-doc-english') %>
 
 fourth-proposal-doc-german:
   title: 'Vierter vorschlag'
@@ -160,6 +167,7 @@ fourth-proposal-doc-german:
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('fourth-proposal-statement') %>
   language_id: <%= Fixtures.identify('language_de') %>
+  translated_document_id: <%= Fixtures.identify('fourth-proposal-doc-english') %>
 
 fifth-proposal-doc-german:
   title: 'Fuenfter vorschlag'
@@ -167,6 +175,7 @@ fifth-proposal-doc-german:
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('fifth-proposal-statement') %>
   language_id: <%= Fixtures.identify('language_de') %>
+  translated_document_id: <%= Fixtures.identify('fifth-proposal-doc-english') %>
 
 sixth-proposal-doc-german:
   title: 'Sechster vorschlag'
@@ -174,6 +183,7 @@ sixth-proposal-doc-german:
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('sixth-proposal-statement') %>
   language_id: <%= Fixtures.identify('language_de') %>
+  translated_document_id: <%= Fixtures.identify('sixth-proposal-doc-english') %>
 
 first-impro-proposal-doc-german:
   title: 'Ein besserer Vorschlag'
@@ -181,6 +191,7 @@ first-impro-proposal-doc-german:
   author_id: <%= Fixtures.identify(:ben) %>
   statement_id: <%= Fixtures.identify('first-impro-proposal-statement') %>
   language_id: <%= Fixtures.identify('language_de') %>
+  translated_document_id: <%= Fixtures.identify('first-impro-proposal-doc-english') %>
 
 not-published-proposal-doc-german:
   title: 'Dieser Vorschlag sollte nicht gesehen werden...'
@@ -188,3 +199,4 @@ not-published-proposal-doc-german:
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('not-published-proposal-statement') %>
   language_id: <%= Fixtures.identify('language_de') %>
+  translated_document_id: <%= Fixtures.identify('not-published-proposal-doc-english') %>
