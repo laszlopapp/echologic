@@ -211,7 +211,7 @@ class ApplicationController < ActionController::Base
 
 
   def current_language_key
-    EnumKey.find_by_name_and_code("languages", I18n.locale.to_s).id
+    EnumKey.find_by_enum_name_and_code("languages", I18n.locale.to_s).id
   end
   
   def current_language_keys

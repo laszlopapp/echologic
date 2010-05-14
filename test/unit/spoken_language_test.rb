@@ -24,8 +24,8 @@ class SpokenLanguageTest < ActiveSupport::TestCase
       end
       
       should "be able to access its language data" do
-        assert_equal @spoken_language.language.name, "languages"
-        assert_equal @spoken_language.level.name, "language_levels"
+        assert_equal @spoken_language.language.enum_name, "languages"
+        assert_equal @spoken_language.level.enum_name, "language_levels"
       end
       should "not be able to associate the same spoken language to the same user" do
         @spoken_language_2 = SpokenLanguage.new  

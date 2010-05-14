@@ -11,28 +11,28 @@
 
 #LANGUAGES
 %w(en de fr pt).each_with_index do |code, index|
-  EnumKey.create(:code => code, :name => "languages", :key => index+1, :description => "languages")
+  EnumKey.create(:code => code, :enum_name => "languages", :key => index+1, :description => "languages")
 end
 
 #LANGUAGE LEVELS
 %w(mother_tongue advanced intermediate basic).each_with_index do |code, index|
-  EnumKey.create(:code => code, :name => "language_levels", :key => index+1, :description => "language_levels")
+  EnumKey.create(:code => code, :enum_name => "language_levels", :key => index+1, :description => "language_levels")
 end
 
 #WEB ADDRESSES
 %w(email homepage blog xing linkedin facebook twitter).each_with_index do |code, index|
-  EnumKey.create(:code => code, :name => "web_address_types", :key => index+1, :description => "web_address_type")
+  EnumKey.create(:code => code, :enum_name => "web_address_types", :key => index+1, :description => "web_address_type")
 end
-EnumKey.create(:code => 'other', :name => "web_address_types", :key => 99, :description => "web_address_type")
+EnumKey.create(:code => 'other', :enum_name => "web_address_types", :key => 99, :description => "web_address_type")
 
 #ORGANISATIONAL TYPES
 %w(ngo political scientific trade_union social_business profit_driven_business).each_with_index do |code, index|
-  EnumKey.create(:code => code, :name => "organisation_types", :key => index+1, :description => "organisation_types")
+  EnumKey.create(:code => code, :enum_name => "organisation_types", :key => index+1, :description => "organisation_types")
 end
 
 #TAG CONTEXTS
 %w(affection engagement expertise decision_making field_work field_activity topic).each_with_index do |code, index|
-  EnumKey.create(:code => code, :name => "tag_contexts", :key => index+1, :description => "tag_contexts")
+  EnumKey.create(:code => code, :enum_name => "tag_contexts", :key => index+1, :description => "tag_contexts")
 end
 
 #VALID CONTEXTS

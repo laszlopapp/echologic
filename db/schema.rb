@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(:version => 20100511145434) do
 
   create_table "enum_keys", :force => true do |t|
     t.string  "code"
-    t.string  "name"
+    t.string  "enum_name"
     t.string  "description"
     t.integer "key"
   end

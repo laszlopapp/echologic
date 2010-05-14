@@ -2,7 +2,7 @@ class WebAddress < ActiveRecord::Base
 
   belongs_to :user
 
-  enum :web_address_types, :name => :web_address_types
+  enum :web_address_types
 
   include ProfileUpdater
 

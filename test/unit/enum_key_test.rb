@@ -8,7 +8,7 @@ class EnumKeyTest < ActiveSupport::TestCase
     should_have_many :enum_values
         
     # check for validations (should_validate_presence_of didn't work)
-    %w(key name code).each do |attr|
+    %w(key enum_name code).each do |attr|
       context "with no #{attr} set" do 
         setup { @enum_key.send("#{attr}=", nil)
           assert ! @enum_key.valid?
@@ -20,7 +20,7 @@ class EnumKeyTest < ActiveSupport::TestCase
     end
     
     context "being saved" do
-      setup { @enum_key.update_attributes!(:key => 1, :name => 'need_type', :code => 'financial', :description => 'need of financial support') }
+      setup { @enum_key.update_attributes!(:key => 1, :enum_name => 'need_type', :code => 'financial', :description => 'need of financial support') }
       should("return value for language_id") do
         @enum_key.enum_values.create!(:language_id => 1, :value => 'Finanzbedarf')
         @enum_key.enum_values.create!(:language_id => 2, :value => 'Financial Needs')

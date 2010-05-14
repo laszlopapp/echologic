@@ -1,7 +1,7 @@
 class CreateEnumKeys < ActiveRecord::Migration
   def self.up
     create_table :enum_keys do |t|
-      t.string :code, :name, :description
+      t.string :code, :enum_name, :description
       t.integer :key
     end
   end

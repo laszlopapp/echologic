@@ -1,13 +1,13 @@
 class EnumKey < ActiveRecord::Base
   has_many :enum_values
-  validates_presence_of :code, :description, :key, :name
-  validates_uniqueness_of :code, :scope => :name
+  validates_presence_of :code, :description, :key, :enum_name
+  validates_uniqueness_of :code, :scope => :enum_name
   
   #acts_as_list :scope => :subject, :column => 'key'
   
-  named_scope :languages, lambda { { :conditions => { :name => 'languages' }, :order => "'key' DESC" } }
+  named_scope :languages, lambda { { :conditions => { :enum_name => 'languages' }, :order => "'key' DESC" } }
   
-  named_scope :language_levels, lambda { { :conditions => { :name => 'language_levels' }, :order => "'key' ASC" } }
+  named_scope :language_levels, lambda { { :conditions => { :enum_name => 'language_levels' }, :order => "'key' ASC" } }
   
   named_scope :by_key, :order => 'enum_keys.key ASC'
   
