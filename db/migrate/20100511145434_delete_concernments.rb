@@ -4,7 +4,7 @@ class DeleteConcernments < ActiveRecord::Migration
       user = User.find(concernment.user_id)
       tag = Tag.find(concernment.tag_id)
       context_key = concernment.sort+1
-      tao_tag = TaoTag.create(:tag_id => tag.id, :tao_id => user.id, :tao_type => 'User', :context_id => EnumKey.find_by_key_and_name(context_key,"tag_contexts"))
+      tao_tag = TaoTag.create(:tag_id => tag.id, :tao_id => user.id, :tao_type => 'User', :context_id => EnumKey.find_by_key_and_enum_name(context_key,"tag_contexts"))
     end
     drop_table :concernments
   end
