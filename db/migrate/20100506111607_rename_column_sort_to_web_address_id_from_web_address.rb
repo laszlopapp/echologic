@@ -10,7 +10,7 @@ class RenameColumnSortToWebAddressIdFromWebAddress < ActiveRecord::Migration
       web_address.save(false)
       puts "later #{web_address.web_address_id.to_s}"
     end
-    remove_column :web_addresses, :sort
+    #remove_column :web_addresses, :sort
   end
 
   def self.down
