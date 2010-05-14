@@ -12,8 +12,7 @@ class RenameColumnSortToWebAddressIdFromWebAddress < ActiveRecord::Migration
       new_web_address.web_address_type = EnumKey.find_by_key_and_enum_name(key, "web_address_types")
       
       puts new_web_address.web_address_type.code
-      puts new_web_address.address
-      
+     
       new_web_address.save(false)
       
       old_web_address.destroy
