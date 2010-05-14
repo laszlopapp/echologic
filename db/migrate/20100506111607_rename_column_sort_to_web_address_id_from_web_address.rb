@@ -6,8 +6,8 @@ class RenameColumnSortToWebAddressIdFromWebAddress < ActiveRecord::Migration
       puts "former #{web_address_type}"
       web_address_type += 1 unless web_address_type == 99
       puts "Enum Key: #{EnumKey.find_by_key_and_name(web_address_type, "web_address_types").inspect}"
-      web_address.web_address_type_id = EnumKey.find_by_key_and_name(web_address_type, "web_address_types").id
-      web_address.save!
+      web_address.web_address_type = EnumKey.find_by_key_and_name(web_address_type, "web_address_types")
+      web_address.save
       puts "later #{web_address.web_address_type_id.to_s}"
     end
     #remove_column :web_addresses, :sort
