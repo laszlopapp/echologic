@@ -206,7 +206,8 @@ ActiveRecord::Schema.define(:version => 20100511145434) do
 
   create_table "web_addresses", :force => true do |t|
     t.integer  "user_id"
-    t.string   "location"
+    t.string   "address"
+    t.integer  "sort"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "web_address_type_id"

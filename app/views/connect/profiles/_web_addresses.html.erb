@@ -5,7 +5,7 @@
     <% unless web_addresses.blank? %>
       <span class="label"><%= web_address_type.get_current_enum_value.value %></span>
       <span class="values">
-        <%= web_addresses.collect { |wp| auto_link(sanitize(wp.location), :all, :target => '_blank' )}.join(', ') %>
+        <%= web_addresses.collect { |wp| auto_link(sanitize(wp.address), :all, :target => '_blank' )}.join(', ') %>
       </span>
     <% end %>
   <% end %>

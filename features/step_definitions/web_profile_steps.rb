@@ -1,7 +1,7 @@
 # TODO unused atm
 Given /^I have web addresses (.+)$/ do |profiles|
   profiles.split(', ').each do |profile|
-    WebAddress.create!(:location => profile, :web_address_type_id => profile, :user_id => current_user_session.user)
+    WebAddress.create!(:address => profile, :web_address_type_id => profile, :user_id => current_user_session.user)
   end
 end
 
@@ -15,8 +15,8 @@ end
 
 # TODO unused atm
 When /^I create the web address: (.*)$/ do |params|
-  web_address_type_id, location = params.split(', ')
-  fill_in('web_address_location', :with => location)
+  web_address_type_id, address = params.split(', ')
+  fill_in('web_address_address', :with => address)
   click_button('new_web_address_submit')
 end
 

@@ -2,15 +2,15 @@
 
 joe_twitter:
   user_id: <%= Fixtures.identify(:joe) %>
-  location: http://twitter.com/joe
+  address: http://twitter.com/joe
   web_address_type_id: <%= Fixtures.identify(:web_address_homepage) %>
 
 user_twitter:
   user_id: <%= Fixtures.identify(:user) %>
-  location: http://twitter.com/user
+  address: http://twitter.com/user
   web_address_type_id: <%= Fixtures.identify(:web_address_twitter) %>
 
 user_blog:
   user_id: <%= Fixtures.identify(:user) %>
-  location: http://blog.com/user
+  address: http://blog.com/user
   web_address_type_id: <%= Fixtures.identify(:web_address_blog) %>

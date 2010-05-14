@@ -60,7 +60,7 @@ class Users::WebAddressesController < ApplicationController
           render_with_info do |p|
             p.insert_html :bottom, 'web_address_list', :partial => 'users/web_addresses/web_address'
             p << "$('#new_web_address').reset();"
-	          p << "$('#web_address_location').focus();"
+	          p << "$('#web_address_address').focus();"
           end
         else
           show_error_messages(@web_address)

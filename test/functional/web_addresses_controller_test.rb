@@ -13,7 +13,7 @@ class WebAddressesControllerTest < ActionController::TestCase
 
   test "should create web_address" do
     assert_difference('WebAddress.count') do
-      post :create, :web_address => {:web_address_type_id => WebAddress.web_address_types("email").first.id, :location => 'wiri@coco.com'} 
+      post :create, :web_address => {:web_address_type_id => WebAddress.web_address_types("email").first.id, :address => 'wiri@coco.com'} 
     end
 
   end
@@ -29,7 +29,7 @@ class WebAddressesControllerTest < ActionController::TestCase
   end
 
   test "should update web_address" do
-    put :update, :id => web_addresses(:user_blog).to_param, :web_address => {:location => "blogadores.blogspot.com" }
+    put :update, :id => web_addresses(:user_blog).to_param, :web_address => {:address => "blogadores.blogspot.com" }
   end
 
   test "should destroy web_address" do
