@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
   before_filter :check_for_cas_user
 
   def check_for_cas_user
+    logger.fatal "have casfilteruser: #{session[:casfilteruser].inspect}" if session[:casfilteruser]
     @user_session = UserSession.create(User.find_by_email(session[:cas_user])) if session[:cas_user]
   end
 
@@ -204,7 +205,7 @@ class ApplicationController < ActionController::Base
     redirect_to welcome_path
   end
 
-    
+
     # Handles session expiry
   def session_expiry
     if current_user_session and session[:expiry_time] and session[:expiry_time] < Time.now
@@ -213,17 +214,17 @@ class ApplicationController < ActionController::Base
     session[:expiry_time] = MAX_SESSION_PERIOD.seconds.from_now
     return true
   end
-  
+
 
 
   def current_language_key
     EnumKey.find_by_enum_name_and_code("languages", I18n.locale.to_s).id
   end
-  
+
   def current_language_keys
     keys = [current_language_key].concat(current_user ? current_user.language_keys : []).uniq
   end
-    
+
   # Called when the authentication token is invalid. It might happen if the user is anactive for a too long time
   # or in case of a CSRF attack.
   def invalid_auth_token
