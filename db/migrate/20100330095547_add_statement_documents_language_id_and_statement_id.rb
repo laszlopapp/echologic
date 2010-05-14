@@ -23,9 +23,6 @@ class AddStatementDocumentsLanguageIdAndStatementId < ActiveRecord::Migration
         
         taotag.save
       end
-      
-     
-      
     end
   end
 
