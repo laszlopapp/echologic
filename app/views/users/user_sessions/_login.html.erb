@@ -16,6 +16,7 @@
       <%= hidden_field_tag :service, request.url %>
       <%= f.submit 'Login', :class => 'loginButton' %><br/>
     <% end %>
+    <% ajax_class = params[:controller].match(%r[static|users])? 'ajaxLink' : '' %>
     <%= link_to I18n.t('users.user_sessions.login.signup'), join_path, :class => "#{ajax_class} bottomLabel" %>
     <%= link_to I18n.t('users.user_sessions.login.set_password'), new_password_reset_path, :class => "#{ajax_class} bottomLabel" %><br/>
   <% end %>
