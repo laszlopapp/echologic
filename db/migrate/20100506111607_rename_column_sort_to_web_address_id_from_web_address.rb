@@ -3,6 +3,7 @@ class RenameColumnSortToWebAddressIdFromWebAddress < ActiveRecord::Migration
     rename_column :web_addresses, :location, :address
     add_column :web_addresses, :web_address_type_id, :integer
     WebAddress.all.each do |old_web_address|
+      puts WebAddress.inspect
       new_web_address = WebAddress.new
       new_web_address.user_id = old_web_address.user_id
       new_web_address.address = old_web_address.address
