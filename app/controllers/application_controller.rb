@@ -35,9 +35,9 @@ class ApplicationController < ActionController::Base
   before_filter :check_for_cas_user
 
   def check_for_cas_user
-    logger.fatal "have casfilteruser: #{session[:casfilteruser].inspect}" if session[:casfilteruser]
-    @user_session = UserSession.create(User.find_by_email(session[:cas_user])) if session[:cas_user]
+    @user_session = UserSession.create(User.find_by_email(session[:cas_user] || session[:casfilteruser])) if session[:cas_user] || session[:casfilteruser]
   end
+  protected(:check_for_cas_user)
 
   # AJAX METHODS TO UPDATE THE PAGE AND DISPLAY INFO/ERROR MESSAGES
 
