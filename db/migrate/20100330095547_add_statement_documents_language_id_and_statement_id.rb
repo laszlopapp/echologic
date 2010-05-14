@@ -13,13 +13,13 @@ class AddStatementDocumentsLanguageIdAndStatementId < ActiveRecord::Migration
         statement = Statement.find(node.statement_id)
         document = StatementDocument.find(node.document_id)
         document.statement_id = node.statement_id
-        document.language_id = EnumKey.find_by_code_and_name("de","languages").id
-        statement.original_language_id = EnumKey.find_by_code_and_name("de","languages").id
+        document.language_id = EnumKey.find_by_code_and_enum_name("de","languages").id
+        statement.original_language_id = EnumKey.find_by_code_and_enum_name("de","languages").id
         statement.save
         document.save
          #now time to restructure all the statement tagging
         tag = Tag.find(node.category_id)
-        taotag = TaoTag.new(:tag_id => tag.id, :tao_id => node.id, :tao_type => 'StatementNode', :context_id => EnumKey.find_by_code_and_name("topic","tag_contexts") )
+        taotag = TaoTag.new(:tag_id => tag.id, :tao_id => node.id, :tao_type => 'StatementNode', :context_id => EnumKey.find_by_code_and_enum_name("topic","tag_contexts") )
         
         taotag.save
       end
