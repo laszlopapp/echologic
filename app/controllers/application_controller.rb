@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
   before_filter :check_for_cas_user
 
   def check_for_cas_user
-    @user_session = UserSession.create(User.find_by_email(session[:cas_user] || session[:casfilteruser])) if session[:cas_user] || session[:casfilteruser]
+    @current_user_session = UserSession.create(User.find_by_email(session[:cas_user] || session[:casfilteruser])) if session[:cas_user] || session[:casfilteruser]
   end
   protected(:check_for_cas_user)
 
