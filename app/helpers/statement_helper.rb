@@ -205,9 +205,9 @@ module StatementHelper
             :title => I18n.t("discuss.tooltips.create_question"))
   end
 
-  def edit_statement_link(statement)
+  def edit_statement_link(statement, statement_document)
     link_to(I18n.t('application.general.edit'), edit_statement_path(statement),
-            :class => 'ajax header_button text_button edit_button edit_statement_button') if current_user && current_user.may_edit?(statement)
+            :class => 'ajax header_button text_button edit_button edit_statement_button') if current_user and (current_user.may_edit?(statement) or (statement_document.author == current_user and !statement.published?)) 
   end
 
   # Returns the block heading for the children of the given statement

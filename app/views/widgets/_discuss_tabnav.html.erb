@@ -19,6 +19,12 @@ render_tabnav :discuss,
 	t.highlight! if @category and @statement.blank?
   end
 
+  add_tab do |t|
+    t.named I18n.t('discuss.statements.create_question_link')
+    t.links_to hash_for_new_question_url
+    #t.highlight! !@statement.blank?
+  end if !current_user.nil?
+
  # add_tab do |t|
  #   t.named I18n.t('discuss.featured_topics.title')
  #   t.links_to hash_for_discuss_path

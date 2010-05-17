@@ -4,16 +4,32 @@
   <%= form.error_messages %>
   <%= render :partial => "statements/document_form", :locals => { :form => form, :statement => statement } %>
   <% #FIXME: i don't know how to do this manually with formtastics. enums are not really supported by rails, and everywhere else where we use enum like statefulness in models, views do it like this %>
-  <% if statement.kind_of?(Question) -%>
-    <% form.inputs do %>
-      <li id="question_state_input" class="select optional error">
-        <%= form.label :state %>
-        <%# would be nice to have map_with_index... -%>
-        <% i = -1 -%>
-        <%= form.select(:state, StatementNode.states.map { |state| [I18n.t("discuss.statements.states.#{state}"), i+=1] },
-                        :selected => form.object.state) %>
-      </li>
-    <% end %>
+  <% if statement.kind_of?(Question)-%>
+	  <% if current_user.has_role?(:editor)%>
+	    <% form.inputs do %>
+	      <li id="question_state_input" class="select optional error">
+	        <%= form.label :state %>
+	        <%# would be nice to have map_with_index... -%>
+	        <% i = -1 -%>
+	        <%= form.select(:state, StatementNode.states.map { |state| [I18n.t("discuss.statements.states.#{state}"), i+=1] },
+	                        :selected => form.object.state) %>
+	      </li>			
+	    <% end %>
+	  <% end %>
+    <%# form.inputs do %>
+      <%#= form.input :tags, :as => :string, :label => "Topic", :input_html => {:class => "select optional error" } %>
+    <%# end %>
+	<!-- This is only temporary, as soon as i figure out how to resolve the comma between tags situation -->	
+	<fieldset class="inputs">
+		<ol>
+			<li id="question_tags_input" class="string optional">
+				<label for="question_tags">Topic</label>
+				<%= text_field_tag "question[tags]", @tags.join(", "), :class => "select optional error"%>
+			</li>
+		</ol>
+	</fieldset>
+	<!-------------------------------------------------------------------------------------------------------->
+	
   <% end -%>
   <%= form.hidden_field :parent_id %>
   <%= form.hidden_field :category_id %>

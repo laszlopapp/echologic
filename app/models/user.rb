@@ -133,7 +133,7 @@ class User < ActiveRecord::Base
   
   # the given `statement' is ignored for now, but we need it later
   # when we enable editing for users.
-  def may_edit?(statement)
+  def may_edit?
     has_role?(:editor) or has_role?(:admin)
   end
   
