@@ -14,7 +14,7 @@ class StatementsController < ApplicationController
 
   # the order of these filters matters. change with caution.
   before_filter :fetch_statement, :only => [:show, :edit, :update, :echo, :unecho, :new_translation,:create_translation,:destroy]
-  before_filter :fetch_category, :only => [:index, :new, :show, :edit, :update, :new_translation,:create_translation,:destroy]
+  before_filter :fetch_category, :only => [:index,:new_translation,:create_translation,:destroy]
 
   before_filter :require_user, :except => [:index, :category, :show]
 
@@ -26,7 +26,7 @@ class StatementsController < ApplicationController
     allow :editor
     allow anonymous, :to => [:index, :show, :category]
     allow logged_in, :only => [:index, :show, :echo, :unecho, :new_translation,:create_translation]
-    allow logged_in, :only => [:new, :create], :unless => :is_question?
+    allow logged_in, :only => [:new, :create]
     allow logged_in, :only => [:edit, :update], :if => :may_edit?
     allow logged_in, :only => [:destroy], :if => :may_delete?
   end
@@ -197,8 +197,10 @@ class StatementsController < ApplicationController
 
   # renders form for creating a new statement
   def new
-    @statement ||= statement_class.new(:parent => parent, :category_id => @category.id)
+    @statement ||= statement_class.new(:parent => parent)
     @statement_document ||= StatementDocument.new
+    
+    @tags = @statement.tags if @statement.kind_of?(Question)
 
     @current_language_keys = current_language_keys
     @current_language_key = current_language_key
@@ -211,7 +213,6 @@ class StatementsController < ApplicationController
           page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent}) if @statement.parent
           page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) if @statement.parent
           page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent})
-
           page << "makeRatiobars();"
           page << "makeTooltips();"
         end
@@ -222,18 +223,18 @@ class StatementsController < ApplicationController
   # actually creates a new statement
   def create
     attrs = params[statement_class_param].merge({:creator_id => current_user.id})
-    attrs[:state] = StatementNode.state_lookup[:published] unless statement_class == Question
+    attrs[:state] = StatementNode.state_lookup[:new] if statement_class == Question
     doc_attrs = attrs.delete(:statement_document)
+    @tags = attrs.delete(:tags).split(',').map{|t|t.strip} unless attrs[:tags].nil?
     # TODO: as soon as there is the possibility, that the language is passed with the form data (e.g. the user made a translation) we can't rely on the users first language_key anymore
     # FIXME: find a way to move more stuff into the models
     @statement = statement_class.new(attrs)
     @statement.create_statement(:original_language_id => current_language_key)
     @statement_document = @statement.add_statement_document(doc_attrs)
-    tao_tag = TaoTag.new(:tag_id => Tag.find(attrs[:category_id]).id, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id)
     respond_to do |format|
       if @statement.save
-        tao_tag.tao = @statement
-        tao_tag.save
+        #create tags
+        TaoTag.create_for(@tags, current_language_key, {:tao_id => @statement.id, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id}) unless @tags.blank?
         @current_language_keys = current_language_keys
         set_info("discuss.messages.created", :type => @statement.class.display_name)
         current_user.supported!(@statement)
@@ -269,6 +270,7 @@ class StatementsController < ApplicationController
   def edit
     @statement_document ||= @statement.translated_document(current_language_keys)
     @current_language_key = current_language_key
+    @tags = @statement.tags if @statement.kind_of?(Question)
     respond_to do |format|
       format.html { render :template => 'statements/edit' }
       format.js { replace_container('summary', :partial => 'statements/edit') }
@@ -278,10 +280,11 @@ class StatementsController < ApplicationController
   # actually update statements
   def update
     attrs = params[statement_class_param]
-    attrs[:statement_document][:author] = current_user
+    @tags = attrs.delete(:tags).split(',').map{|t|t.strip} unless attrs[:tags].nil?
     attrs_doc = attrs.delete(:statement_document)
     respond_to do |format|
-      if @statement.update_attributes!(attrs) && @statement.translated_document(current_user.language_keys).update_attributes!(attrs_doc)
+      if @statement.update_attributes!(attrs) && @statement.translated_document(current_language_keys).update_attributes!(attrs_doc)
+        TaoTag.create_for(@tags, current_language_key, {:tao_id => @statement.id, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id}) unless @tags.blank?
         set_info("discuss.messages.updated", :type => @statement.class.human_name)
         format.html { flash_info and redirect_to url_for(@statement) }
         format.js   { show }
@@ -341,7 +344,7 @@ class StatementsController < ApplicationController
   end
 
   def may_edit?
-    current_user.may_edit?(@statement)
+    current_user.may_edit? or @statement.translated_document(current_language_keys).author == current_user
   end
 
   def may_delete?

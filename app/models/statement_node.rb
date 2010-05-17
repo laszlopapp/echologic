@@ -73,7 +73,7 @@ class StatementNode < ActiveRecord::Base
   # creates a new statement_document
   def add_statement_document(attributes={ })
     doc = StatementDocument.new(attributes.merge(:statement_id => self.statement_id))
-    self.statement.statement_documents << doc
+    self.statement.statement_documents << doc    
     return doc
   end
   
@@ -193,6 +193,10 @@ class StatementNode < ActiveRecord::Base
   
   def delete_dependencies
     self.statement.destroy if self.statement.statement_nodes.empty?
+  end
+
+  def published?
+    state == @@state_lookup[:published]
   end
 
   class << self
