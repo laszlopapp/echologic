@@ -137,6 +137,26 @@ function bindLanguageSelectionEvents() {
   });
 }
 
+/* add new tags to be added to statement */
+function bindAddTagButtonEvents() {
+	$('.addTag').click(function() {
+		element = $('<span/>').addClass('tag');
+		text = $('#tag_topic_id').val();
+		if (text) {
+			element.text(text);
+			deleteButton = $(' <a> x </a>');
+			deleteButton.click(function(){
+				$(this).parent().remove();
+			});
+			element.append(deleteButton);
+			$('#question_tags_values').append(element);
+			$('#question_tags').val($('#question_tags').val() + ' ' + text);
+			$('#tag_topic_id').reset();
+			$('#tag_topic_id').focus();
+		}
+	})
+}
+
 /* Remove all activeMenu classes and give it to the static menu item specified
  * through the given parameter. */
 function changeMenuImage(item) {

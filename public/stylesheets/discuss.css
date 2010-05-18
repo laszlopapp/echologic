@@ -409,3 +409,47 @@ a.statement_link:hover {
 	color:#7BB031;
 }
 
+#statement_tags_container .form_container {
+	display:inline-block;
+	margin:7px 0 25px;
+	vertical-align:top;
+	width:410px;
+}
+
+#statement_tags_container .label {
+  color: #7bb031;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  cursor: default;
+}
+
+#statement_tags_container form input[type='text'] {
+  width: 250px !important;
+}
+
+#statement_tags_container .tag_container {
+  display: inline-block;
+  width: 383px;
+  margin: 23px 0 0;
+  padding: 2px 4px;
+  min-height: 30px;
+  border: 1px solid #999;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+}
+
+#statement_tags_container .tag {
+  font-size: 13px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  background-color: #DDD;
+  padding: 3px 7px;
+  margin: 4px 1px;
+  display: inline-block;
+}
+
+#statement_tags_container .add_button {
+	display: inline-block;
+}
+
