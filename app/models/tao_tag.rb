@@ -5,7 +5,7 @@ class TaoTag < ActiveRecord::Base
 
   include ProfileUpdater
 
-  enum :contexts, :name => :tag_contexts
+  enum :contexts, :enum_name => :tag_contexts
 
   belongs_to :tag
   belongs_to :tao, :polymorphic => true

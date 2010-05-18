@@ -225,8 +225,7 @@ class StatementsController < ApplicationController
     attrs = params[statement_class_param].merge({:creator_id => current_user.id})
     attrs[:state] = StatementNode.state_lookup[:new] if statement_class == Question
     doc_attrs = attrs.delete(:statement_document)
-    @tags = attrs.delete(:tags).split(',').map{|t|t.strip} unless attrs[:tags].nil?
-    # TODO: as soon as there is the possibility, that the language is passed with the form data (e.g. the user made a translation) we can't rely on the users first language_key anymore
+    @tags = attrs.delete(:tags).split(' ').map{|t|t.strip} unless attrs[:tags].nil?
     # FIXME: find a way to move more stuff into the models
     @statement = statement_class.new(attrs)
     @statement.create_statement(:original_language_id => current_language_key)

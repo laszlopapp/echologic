@@ -16,18 +16,21 @@
 	      </li>			
 	    <% end %>
 	  <% end %>
+		<% form.inputs do %>
+		  <%= render :partial => "statements/statement_tags", :locals => {:form => form, :statement => statement}%>
+		<% end %>
     <%# form.inputs do %>
       <%#= form.input :tags, :as => :string, :label => "Topic", :input_html => {:class => "select optional error" } %>
     <%# end %>
 	<!-- This is only temporary, as soon as i figure out how to resolve the comma between tags situation -->	
-	<fieldset class="inputs">
+	<!--fieldset class="inputs">
 		<ol>
 			<li id="question_tags_input" class="string optional">
 				<label for="question_tags">Topic</label>
-				<%= text_field_tag "question[tags]", @tags.join(", "), :class => "select optional error"%>
+				<%#= text_field_tag "question[tags]", @tags.join(", "), :class => "select optional error"%>
 			</li>
 		</ol>
-	</fieldset>
+	</fieldset-->
 	<!-------------------------------------------------------------------------------------------------------->
 	
   <% end -%>
