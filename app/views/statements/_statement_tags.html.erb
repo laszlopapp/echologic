@@ -16,6 +16,6 @@
   <%= form.input :tags, :as => :hidden, :value => @tags.join(' ') %>
 </div>
 <script type="text/javascript">
-  bindAddTagButtonEvents();
+	loadAddTagButtons();
    $(".tag_value_autocomplete").autocomplete('<%= tao_tags_url %>/auto_complete_for_tag_value', {minChars: 3, selectFirst: false});
 </script>
