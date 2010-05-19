@@ -142,23 +142,30 @@ function bindAddTagButtonEvents() {
 	$('.addTag').click(function() {		
 		text_tags = $('#tag_topic_id').val().trim().split(",");
 		if (text_tags.length != 0) {
-			for (i = 0; i < text_tags.length; i++) {
+			text_tag_values = new Array(0);
+			existing_tags = $('#question_tags').val();
+			existing_tags = existing_tags.split(' ');
+			while (text_tags.length > 0) {
 				element = $('<span/>').addClass('tag');
-		  	element.text(text_tags[i].trim());
-		  	deleteButton = $(' <a> x </a>');
-		  	deleteButton.click(function(){
-		  		$(this).parent().remove();
-					tag_to_delete = $(this).parent().text().split(' ');
-					tags = $('#question_tags').val().split(' ');
-					index_to_delete = tags.indexOf(tag_to_delete[0]);
-					if (index_to_delete > 0)
-					  tags.splice(index_to_delete,1);
-					$('#question_tags').val(tags.join(' '));
-		  	});
-		  	element.append(deleteButton);
-		  	$('#question_tags_values').append(element);
+				tag_text = text_tags.shift().trim();
+				if (existing_tags.indexOf(tag_text) < 0 && text_tags.indexOf(tag_text) < 0) {
+					element.text(tag_text.trim());
+					deleteButton = $(' <a> x </a>');
+					deleteButton.click(function(){
+						$(this).parent().remove();
+						tag_to_delete = $(this).parent().text().split(' ');
+						tags = $('#question_tags').val().split(' ');
+						index_to_delete = tags.indexOf(tag_to_delete[0]);
+						if (index_to_delete > 0) 
+							tags.splice(index_to_delete, 1);
+						$('#question_tags').val(tags.join(' '));
+					});
+					element.append(deleteButton);
+					$('#question_tags_values').append(element);
+					text_tag_values.push(tag_text);
+				}
 	    }
-			tags = $('#question_tags').val() + ' ' + text_tags.join(' ');
+			tags = $('#question_tags').val() + ' ' + text_tag_values.join(' ');
 			$('#question_tags').val(tags);
 			$('#tag_topic_id').val('');
 			$('#tag_topic_id').focus();
