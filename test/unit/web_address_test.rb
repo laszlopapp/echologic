@@ -21,7 +21,7 @@ class WebAddressTest < ActiveSupport::TestCase
   def test_unvalid_email_address
     w = WebAddress.new
     w.user_id = User.first.id
-    w.web_address_type = WebAddress.web_address_types("email").first
+    w.type = WebAddress.web_address_types("email").first
     w.address = "http://facebook.com"
     assert !w.save
   end
@@ -29,7 +29,7 @@ class WebAddressTest < ActiveSupport::TestCase
   def test_unvalid_address_path
     w = WebAddress.new
     w.user_id = User.first.id
-    w.web_address_type = WebAddress.web_address_types("homepage").first
+    w.type = WebAddress.web_address_types("homepage").first
     w.address = "me@me.com"
     assert !w.save
   end

@@ -1,7 +1,7 @@
 <% unless @profile.web_addresses.blank? %>
 
   <% WebAddress.web_address_types.sort{|x,y|x.key <=> y.key}.each do |web_address_type| %>
-    <% web_addresses = @profile.web_addresses.find_all_by_web_address_type_id(web_address_type.id) %>
+    <% web_addresses = @profile.web_addresses.find_all_by_type_id(web_address_type.id) %>
     <% unless web_addresses.blank? %>
       <span class="label"><%= web_address_type.get_current_enum_value.value %></span>
       <span class="values">

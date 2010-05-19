@@ -3,14 +3,14 @@
 joe_twitter:
   user_id: <%= Fixtures.identify(:joe) %>
   address: http://twitter.com/joe
-  web_address_type_id: <%= Fixtures.identify(:web_address_homepage) %>
+  type_id: <%= Fixtures.identify(:web_address_homepage) %>
 
 user_twitter:
   user_id: <%= Fixtures.identify(:user) %>
   address: http://twitter.com/user
-  web_address_type_id: <%= Fixtures.identify(:web_address_twitter) %>
+  type_id: <%= Fixtures.identify(:web_address_twitter) %>
 
 user_blog:
   user_id: <%= Fixtures.identify(:user) %>
   address: http://blog.com/user
-  web_address_type_id: <%= Fixtures.identify(:web_address_blog) %>
+  type_id: <%= Fixtures.identify(:web_address_blog) %>

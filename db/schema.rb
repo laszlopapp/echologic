@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100511145434) do
+ActiveRecord::Schema.define(:version => 20100514181357) do
 
   create_table "echos", :force => true do |t|
     t.integer "visitor_count",   :default => 0
@@ -210,7 +210,7 @@ ActiveRecord::Schema.define(:version => 20100511145434) do
     t.integer  "sort"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "web_address_type_id"
+    t.integer  "type_id"
   end
 
   add_index "web_addresses", ["user_id"], :name => "index_web_profiles_on_user_id"
