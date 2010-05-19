@@ -4,7 +4,7 @@
 
 <div id="search_container" class="search_container">
 <span class="search_category">
-  <%= I18n.t('discuss.search.in', :category => I18n.t("discuss.topics.#{@category.value}.short_name")) if @category.value%>
+  <%= I18n.t('discuss.search.in', :category => I18n.t("discuss.topics.#{params[:id]}.short_name")) if params[:id]%>
 </span>
     <% form_tag path, :method => 'GET', :id => 'search_form' do %>
       <%= text_field_tag :value %>

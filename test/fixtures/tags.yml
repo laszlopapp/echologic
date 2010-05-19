@@ -32,3 +32,15 @@ echonomy-jam:
 echocracy:
   value: echocracy
   language_id: <%= Fixtures.identify(:language_en) %>
+  
+echo:
+  value: echo
+  language_id: <%= Fixtures.identify(:language_en) %>
+  
+echosocial:
+  value: echosocial
+  language_id: <%= Fixtures.identify(:language_en) %>
+
+realprices:
+  value: realprices
+  language_id: <%= Fixtures.identify(:language_en) %>
