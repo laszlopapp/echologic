@@ -17,11 +17,15 @@ class TaoTag < ActiveRecord::Base
   
   validates_uniqueness_of :tag_id, :scope => [:tao_type, :tao_id, :context_id]
   
+  
+  named_scope :tag_and_tao, lambda { |tag_id, tao_id| { :conditions => ["tag_id = ? AND tao_id = ?", tag_id, tao_id] } }
+  
   class << self
     def create_for(tags,language_id,attributes)
       tags.map { |tag|
         tag_obj = Tag.find_or_create_with_named_by_value(tag.strip, language_id)
-        tao_tag = create(attributes.merge(:tag_id => tag_obj.id))
+        attributes.merge!(:tag_id => tag_obj.id)
+        tao_tag = tag_and_tao(attributes[:tag_id], attributes[:tao_id]).first || TaoTag.create(attributes)
         tao_tag.new_record? ? nil : tao_tag
       }.compact
     end

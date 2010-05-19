@@ -179,9 +179,11 @@ function bindAddTagButtonEvents() {
 			while (text_tags.length > 0) {
 				tag_text = text_tags.shift().trim();
 				if (existing_tags.indexOf(tag_text) < 0 && text_tags.indexOf(tag_text) < 0) {
-					element = createTagButton(tag_text,"#question_tags");
-					$('#question_tags_values').append(element);
-					text_tag_values.push(tag_text);
+					if (tag_text.localeCompare(' ') > 0) {
+				  	element = createTagButton(tag_text, "#question_tags");
+				  	$('#question_tags_values').append(element);
+				  	text_tag_values.push(tag_text);
+				  }
 				}
 	    }
 			tags = $('#question_tags').val() + ' ' + text_tag_values.join(' ');

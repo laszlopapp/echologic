@@ -225,7 +225,7 @@ class StatementsController < ApplicationController
     attrs = params[statement_class_param].merge({:creator_id => current_user.id})
     attrs[:state] = StatementNode.state_lookup[:new] if statement_class == Question
     doc_attrs = attrs.delete(:statement_document)
-    @tags = attrs.delete(:tags).split(' ').map{|t|t.strip} unless attrs[:tags].nil?
+    @tags = attrs.delete(:tags).split(' ').map{|t|t.strip}.uniq unless attrs[:tags].nil?
     # FIXME: find a way to move more stuff into the models
     @statement = statement_class.new(attrs)
     @statement.create_statement(:original_language_id => current_language_key)
@@ -279,7 +279,7 @@ class StatementsController < ApplicationController
   # actually update statements
   def update
     attrs = params[statement_class_param]
-    @tags = attrs.delete(:tags).split(',').map{|t|t.strip} unless attrs[:tags].nil?
+    @tags = attrs.delete(:tags).split(' ').map{|t|t.strip}.uniq unless attrs[:tags].nil?
     attrs_doc = attrs.delete(:statement_document)
     respond_to do |format|
       if @statement.update_attributes!(attrs) && @statement.translated_document(current_language_keys).update_attributes!(attrs_doc)
