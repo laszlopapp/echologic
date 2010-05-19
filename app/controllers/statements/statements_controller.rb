@@ -47,21 +47,23 @@ class StatementsController < ApplicationController
     @value    = params[:value] || ""
     @page     = params[:page]  || 1
 
+    category = "##{params[:id]}" if params[:id]
+
     @current_language_keys = current_language_keys
 
     if @value.blank?
       statements_not_paginated = statement_class
-      statements_not_paginated = statements_not_paginated.from_context(TaoTag.valid_contexts(StatementNode.name)).from_tags(params[:id]) if params[:id]
+      statements_not_paginated = statements_not_paginated.from_context(TaoTag.valid_contexts(StatementNode.name)).from_tags(category) if params[:id]
       statements_not_paginated = statements_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
     else
-      statements_not_paginated = search(@value, {:tag => params[:id], :auth => (current_user && current_user.has_role?(:editor)) })
+      statements_not_paginated = search(@value, {:tag => category, :auth => (current_user && current_user.has_role?(:editor)) })
     end
     #additional step: to filter statements with a translated version in the current language
     statements_not_paginated = statements_not_paginated.select{|s| !(@current_language_keys & s.statement_documents.collect{|sd| sd.language_id}).empty?}
 
     @count    = statements_not_paginated.size
 
-    @category = Tag.find_or_create_by_value(params[:id])
+    @category = Tag.find_by_value(category) if params[:id]
     @statements = statements_not_paginated.paginate(:page => @page, :per_page => 6)
 
     respond_to do |format|
@@ -321,7 +323,7 @@ class StatementsController < ApplicationController
   # If the category is supplied as :id, render action 'index' no matter what params[:action] suggests.
   def fetch_category
     @category = if params[:category] # i.e. /discuss/questions/...?category=<tag>
-                  Tag.find_by_value(params[:category])
+                  Tag.find_by_value("##{params[:category]}")
                 elsif params[:category_id] # happens on form-based POSTed requests
                   Tag.find(params[:category_id])
                 elsif parent || (@statement && ! @statement.new_record?) # i.e. /discuss/questions/<id>
