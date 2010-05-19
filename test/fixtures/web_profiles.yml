@@ -1,16 +1,42 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
+joe_email:
+  user_id: <%= Fixtures.identify(:joe) %>
+  location: joe@gmail.com
+  sort: 0
+
 joe_twitter:
   user_id: <%= Fixtures.identify(:joe) %>
   location: http://twitter.com/joe
-  sort: homepage
+  sort: 1
 
+joe_xing:
+  user_id: <%= Fixtures.identify(:joe) %>
+  location: http://xing.com/joe
+  sort: 3
+
+joe_linkedin:
+  user_id: <%= Fixtures.identify(:joe) %>
+  location: http://linkedin.com/joe
+  sort: 4
+
+joe_facebook:
+  user_id: <%= Fixtures.identify(:joe) %>
+  location: http://facebook.com/joe
+  sort: 5
+  
+joe_other:
+  user_id: <%= Fixtures.identify(:joe) %>
+  location: http://myspace.com/joe
+  sort: 99
+  
 user_twitter:
   user_id: <%= Fixtures.identify(:user) %>
   location: http://twitter.com/user
-  sort: twitter
+  sort: 6
 
 user_blog:
   user_id: <%= Fixtures.identify(:user) %>
   location: http://blog.com/user
-  sort: blog
+  sort: 2
+  
