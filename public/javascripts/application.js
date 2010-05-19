@@ -9,6 +9,8 @@ $(document).ready(function () {
   bindLanguageSelectionEvents();
 
   bindMoreHideButtonEvents();
+	
+	bindAddTagButtonEvents();
 
   bindStaticMenuClickEvents();
 
@@ -136,6 +138,35 @@ function bindLanguageSelectionEvents() {
     $('#language_selector').hide();
   });
 }
+/* creates a statement tag button */
+function createTagButton(text, tags_id) {
+  element = $('<span/>').addClass('tag');
+  element.text(text);
+  deleteButton = $(' <a> x </a>');
+  deleteButton.click(function(){
+    $(this).parent().remove();
+    tag_to_delete = $(this).parent().text().split(' ');
+    tags = $(tags_id).val().split(' ');
+    index_to_delete = tags.indexOf(tag_to_delete[0]);
+    if (index_to_delete > 0) 
+      tags.splice(index_to_delete, 1);
+    $(tags_id).val(tags.join(' '));
+  });
+  element.append(deleteButton);
+  return element;
+}
+
+/* load the previously existing tags */
+function loadAddTagButtons() {
+	tags_to_load = $('#question_tags').val().trim().split(' ');
+	while (tags_to_load.length > 0) {
+		tag = tags_to_load.shift().trim();
+		if (tag.localeCompare(' ') > 0) {
+			element = createTagButton(tag, "#question_tags");
+			$('#question_tags_values').append(element);
+		}
+	}
+}
 
 /* add new tags to be added to statement */
 function bindAddTagButtonEvents() {
@@ -143,24 +174,12 @@ function bindAddTagButtonEvents() {
 		text_tags = $('#tag_topic_id').val().trim().split(",");
 		if (text_tags.length != 0) {
 			text_tag_values = new Array(0);
-			existing_tags = $('#question_tags').val();
+			existing_tags = $('#question_tags').val().trim();
 			existing_tags = existing_tags.split(' ');
 			while (text_tags.length > 0) {
-				element = $('<span/>').addClass('tag');
 				tag_text = text_tags.shift().trim();
 				if (existing_tags.indexOf(tag_text) < 0 && text_tags.indexOf(tag_text) < 0) {
-					element.text(tag_text.trim());
-					deleteButton = $(' <a> x </a>');
-					deleteButton.click(function(){
-						$(this).parent().remove();
-						tag_to_delete = $(this).parent().text().split(' ');
-						tags = $('#question_tags').val().split(' ');
-						index_to_delete = tags.indexOf(tag_to_delete[0]);
-						if (index_to_delete > 0) 
-							tags.splice(index_to_delete, 1);
-						$('#question_tags').val(tags.join(' '));
-					});
-					element.append(deleteButton);
+					element = createTagButton(tag_text,"#question_tags");
 					$('#question_tags_values').append(element);
 					text_tag_values.push(tag_text);
 				}
