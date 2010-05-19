@@ -196,3 +196,10 @@ field_activity_<%= index+1 %>:
   value: <%= value %>
   context:
 <% end %>
+<% ["Topic","Thema","Topique","Tópico"].each_with_index do |value,index| %>
+field_activity_<%= index+1 %>:
+  enum_key_id: <%= Fixtures.identify(:tag_context_topic) %>
+  language_id: <%= index+1 %>
+  value: <%= value %>
+  context:
+<% end %>

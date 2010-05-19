@@ -1,5 +1,5 @@
-
 <% statement ||= @statement %>
+<% tags ||= @tags %>
 <% semantic_form_for statement.self_with_parents, :html => {:class => 'wide_form'} do |form| -%>
   <%= form.error_messages %>
   <%= render :partial => "statements/document_form", :locals => { :form => form, :statement => statement } %>
@@ -17,7 +17,7 @@
 	    <% end %>
 	  <% end %>
 		<% form.inputs do %>
-		  <%= render :partial => "statements/statement_tags", :locals => {:form => form, :statement => statement}%>
+		  <%= render :partial => "statements/statement_tags", :locals => {:form => form, :statement => statement, :tags => tags}%>
 		<% end %>
     <%# form.inputs do %>
       <%#= form.input :tags, :as => :string, :label => "Topic", :input_html => {:class => "select optional error" } %>

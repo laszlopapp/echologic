@@ -125,4 +125,6 @@ end
 ["Field of Activity","Aktivitätsfeld","Domaine d'activité","Domínio de Actividade"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('field_activity'), :language_id => index+1, :value => value, :context=> "")
 end
-
+["Topic","Thema","Topique","Tópico"].each_with_index do |value,index|
+  EnumValue.create(:enum_key => EnumKey.find_by_code('topic'), :language_id => index+1, :value => value, :context=> "")
+end

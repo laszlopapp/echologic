@@ -1,8 +1,9 @@
 <% statement ||= @statement -%>
+<% tags ||= @tags%>
 
 <div id="summary" class="summary simple_header_block discuss_right_block">
   <h2>Edit <%= statement.class.display_name %></h2>
-  <%= render :partial => 'statements/form', :locals => {:statement => statement} %>
+  <%= render :partial => 'statements/form', :locals => {:statement => statement, :tags => tags} %>
 </div>
 
 <script type="text/javascript">
