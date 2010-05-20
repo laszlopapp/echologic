@@ -148,8 +148,9 @@ function createTagButton(text, tags_id) {
     tag_to_delete = $(this).parent().text().split(' ');
     tags = $(tags_id).val().split(' ');
     index_to_delete = tags.indexOf(tag_to_delete[0]);
-    if (index_to_delete > 0) 
-      tags.splice(index_to_delete, 1);
+    if (index_to_delete >= 0) {
+			tags.splice(index_to_delete, 1);
+		}
     $(tags_id).val(tags.join(' '));
   });
   element.append(deleteButton);

@@ -26,21 +26,21 @@ water:
 ###
 
 echonomy-jam:
-  value: echonomyjam
+  value: '#echonomyjam'
   language_id: <%= Fixtures.identify(:language_en) %>
 
 echocracy:
-  value: echocracy
+  value: '#echocracy'
   language_id: <%= Fixtures.identify(:language_en) %>
   
 echo:
-  value: echo
+  value: '#echo'
   language_id: <%= Fixtures.identify(:language_en) %>
   
 echosocial:
-  value: echosocial
+  value: '#echosocial'
   language_id: <%= Fixtures.identify(:language_en) %>
 
 realprices:
-  value: realprices
+  value: '#realprices'
   language_id: <%= Fixtures.identify(:language_en) %>

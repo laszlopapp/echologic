@@ -72,14 +72,15 @@ class StatementNode < ActiveRecord::Base
    
   # creates a new statement_document
   def add_statement_document(attributes={ })
-    doc = StatementDocument.new(attributes.merge(:statement_id => self.statement_id))
+    doc = StatementDocument.new(attributes.merge(:statement => self.statement))
+    doc.statement = self.statement
     self.statement.statement_documents << doc    
     return doc
   end
   
   # creates and saves a  statement_document with given parameters a
   def add_statement_document!(*args)
-    doc = StatementDocument.new(:statement_id => self.statement.id)
+    doc = StatementDocument.new(:statement => self.statement)
     doc.update_attributes!(*args)
     self.statement.statement_documents << doc
     return doc
@@ -168,9 +169,11 @@ class StatementNode < ActiveRecord::Base
   validates_associated :creator
   validates_presence_of :statement_id
   validates_associated :statement
+  validates_associated :statement_documents
   
   after_destroy :delete_dependencies
   
+  validates_associated :tao_tags
   
   def validate
     # except of questions, all statements need a valid parent
