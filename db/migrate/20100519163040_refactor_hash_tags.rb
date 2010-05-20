@@ -4,7 +4,6 @@ class RefactorHashTags < ActiveRecord::Migration
       tag = Tag.find_by_value(name)
       tag.value= "##{tag.value}"
       tag.save
-      puts tag.value
     end
   end
 
