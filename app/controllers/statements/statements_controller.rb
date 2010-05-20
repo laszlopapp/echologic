@@ -227,15 +227,14 @@ class StatementsController < ApplicationController
     attrs = params[statement_class_param].merge({:creator_id => current_user.id})
     attrs[:state] = StatementNode.state_lookup[:new] if statement_class == Question
     doc_attrs = attrs.delete(:statement_document)
-    @tags = attrs.delete(:tags).split(' ').map{|t|t.strip}.uniq unless attrs[:tags].nil?
+    @tags = attrs.delete(:tags).split(' ').map{|t|t.strip}.uniq 
     # FIXME: find a way to move more stuff into the models
     @statement = statement_class.new(attrs)
     @statement.create_statement(:original_language_id => current_language_key)
     @statement_document = @statement.add_statement_document(doc_attrs)
+    @statement.tao_tags << TaoTag.create_for(@tags, current_language_key, {:tao => @statement, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id})
     respond_to do |format|
       if @statement.save
-        #create tags
-        TaoTag.create_for(@tags, current_language_key, {:tao_id => @statement.id, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id}) unless @tags.blank?
         @current_language_keys = current_language_keys
         set_info("discuss.messages.created", :type => @statement.class.display_name)
         current_user.supported!(@statement)
@@ -261,6 +260,7 @@ class StatementsController < ApplicationController
       else
         @current_language_key = current_language_key
         set_error(@statement_document)
+        @statement.tao_tags.each {|tao_tag|set_error(tao_tag)} unless @statement.tao_tags.empty?
         format.html { flash_error and render :template => 'statements/new' }
         format.js   { show_error_messages(@statement_document) }
       end
