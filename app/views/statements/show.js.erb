@@ -13,11 +13,11 @@ var children = "<%= escape_javascript(render :partial => 'statements/children') 
 $('#context').replaceWith(context);
 $('#discuss_sidebar').replaceWith(sidebar);
 $('#summary').replaceWith(summary);
+if($('#new_statement').size() != 0)
+  $('#new_statement').replaceWith(context+sidebar+summary);
 if($('#children').size() == 0)
   $('<div id="children"></div>').insertAfter('#summary');
 $('#children').replaceWith(children);
-if($('#new_statement').size() != 0)
-  $('#new_statement').remove();
 if($('#new_translation').size() != 0)
   $('#new_translation').remove();
 

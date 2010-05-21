@@ -1,21 +1,21 @@
 test-question:
   type: Question
   creator_id: <%= Fixtures.identify(:editor) %>
-  state: 1
+  state_id: <%= Fixtures.identify(:statement_state_published) %>
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('test-question-statement') %>
 
 german-question:
   type: Question
   creator_id: <%= Fixtures.identify(:editor) %>
-  state: 1
+  state_id: <%= Fixtures.identify(:statement_state_published) %>
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('third-question-statement') %>
   
 original-language-question:
   type: Question
   creator_id: <%= Fixtures.identify(:editor) %>
-  state: 1
+  state_id: <%= Fixtures.identify(:statement_state_published) %>
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('original-language-question-statement') %>
   
@@ -32,7 +32,7 @@ second-proposal:
   root_id: <%= Fixtures.identify('test-question') %>
   type: Proposal
   creator_id: <%= Fixtures.identify(:user) %>
-  state: 1
+  state_id: <%= Fixtures.identify(:statement_state_published) %>
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('second-proposal-statement') %>
 
@@ -41,7 +41,7 @@ third-proposal:
   root_id: <%= Fixtures.identify('test-question') %>
   type: Proposal
   creator_id: <%= Fixtures.identify(:user) %>
-  state: 1
+  state_id: <%= Fixtures.identify(:statement_state_published) %>
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('third-proposal-statement') %>
 
@@ -51,7 +51,7 @@ inbetween-proposal:
   document_id: <%= Fixtures.identify('inbetween-proposal-doc') %>
   type: Proposal
   creator_id: <%= Fixtures.identify(:editor) %>
-  state: 1
+  state_id: <%= Fixtures.identify(:statement_state_published) %>
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('inbetween-proposal-statement') %>
 
@@ -60,7 +60,7 @@ fourth-proposal:
   root_id: <%= Fixtures.identify('test-question') %>
   type: Proposal
   creator_id: <%= Fixtures.identify(:editor) %>
-  state: 1
+  state_id: <%= Fixtures.identify(:statement_state_published) %>
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('fourth-proposal-statement') %>
 
@@ -69,7 +69,7 @@ fifth-proposal:
   root_id: <%= Fixtures.identify('test-question') %>
   type: Proposal
   creator_id: <%= Fixtures.identify(:editor) %>
-  state: 1
+  state_id: <%= Fixtures.identify(:statement_state_published) %>
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('fifth-proposal-statement') %>
 
@@ -78,7 +78,7 @@ sixth-proposal:
   root_id: <%= Fixtures.identify('test-question') %>
   type: Proposal
   creator_id: <%= Fixtures.identify(:editor) %>
-  state: 1
+  state_id: <%= Fixtures.identify(:statement_state_published) %>
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('sixth-proposal-statement') %>
 
@@ -87,7 +87,7 @@ german-proposal:
   root_id: <%= Fixtures.identify('german-question') %>
   type: Proposal
   creator_id: <%= Fixtures.identify(:editor) %>
-  state: 1
+  state_id: <%= Fixtures.identify(:statement_state_published) %>
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('german-proposal-statement') %>
   
@@ -105,7 +105,7 @@ not-published-proposal:
   root_id: <%= Fixtures.identify('test-question') %>
   type: Proposal
   creator_id: <%= Fixtures.identify(:editor) %>
-  state: 0
+  state_id: <%= Fixtures.identify(:statement_state_new) %>
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('not-published-proposal-statement') %>
   
@@ -123,7 +123,7 @@ first-impro-proposal:
   root_id: <%= Fixtures.identify('test-question') %>
   type: ImprovementProposal
   creator_id: <%= Fixtures.identify(:ben) %>
-  state: 1
+  state_id: <%= Fixtures.identify(:statement_state_published) %>
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('first-impro-proposal-statement') %>
   
@@ -132,6 +132,6 @@ german-impro-proposal:
   root_id: <%= Fixtures.identify('german-question') %>
   type: ImprovementProposal
   creator_id: <%= Fixtures.identify(:ben) %>
-  state: 1
+  state_id: <%= Fixtures.identify(:statement_state_published) %>
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('german-impro-proposal-statement') %>

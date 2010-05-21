@@ -1,17 +1,18 @@
 <% statement ||= @statement %>
 <% tags ||= @tags %>
+<% statement_document ||= @statement_document %>
 <% semantic_form_for statement.self_with_parents, :html => {:class => 'wide_form'} do |form| -%>
   <%= form.error_messages %>
-  <%= render :partial => "statements/document_form", :locals => { :form => form, :statement => statement } %>
+  <%= render :partial => "statements/document_form", :locals => { :form => form, :statement => statement, :statement_document => statement_document } %>
   <% #FIXME: i don't know how to do this manually with formtastics. enums are not really supported by rails, and everywhere else where we use enum like statefulness in models, views do it like this %>
   <% if statement.kind_of?(Question)-%>
 	  <% if current_user.has_role?(:editor)%>
 	    <% form.inputs do %>
 	      <li id="question_state_input" class="select optional error">
-	        <%= form.label :state %>
+	        <%= form.label :state_id %>
 	        <%# would be nice to have map_with_index... -%>
 	        <% i = -1 -%>
-	        <%= form.select(:state, StatementNode.states.map { |state| [I18n.t("discuss.statements.states.#{state}"), i+=1] },
+	        <%= form.select(:state_id, StatementNode.statement_states.map { |state| state.get_current_enum_value.value },
 	                        :selected => form.object.state) %>
 	      </li>			
 	    <% end %>
@@ -34,6 +35,7 @@
 	<!-------------------------------------------------------------------------------------------------------->
 	
   <% end -%>
+	<%= form.hidden_field :statement_id %>
   <%= form.hidden_field :parent_id %>
   <%= form.hidden_field :category_id %>
 	<%= hidden_field_tag "#{statement_class_dom_id(@statement).downcase}[statement_document][author_id]", current_user.id %>

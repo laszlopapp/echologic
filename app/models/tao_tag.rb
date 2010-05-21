@@ -24,7 +24,7 @@ class TaoTag < ActiveRecord::Base
  
   named_scope :tag_id_and_tao_id_and_type_and_context_id, lambda { |tag_id, tao_id, tao_type, context_id| { :conditions => ["tag_id = ? AND tao_id = ? AND tao_type = ? AND context_id = ?", tag_id, tao_id, tao_type, context_id] } }
   
-  named_scope :tag_id_and_tao_and_type_and_context_id, lambda { |tag_id, tao, tao_type, context_id| { :conditions => ["tag_id = ? AND tao_id = ? AND tao_type = ? AND context_id = ?", tag_id, tao.id, tao_type, context_id] } }
+  named_scope :tag_id_and_tao_and_type_and_context_id, lambda { |tag_id, tao, tao_type, context_id| { :conditions => ["tag_id = ? AND (tao_id = ? OR tao_id is null) AND tao_type = ? AND context_id = ?", tag_id, tao.id, tao_type, context_id] } }
   
   def user_on_tags_permission
     errors.add(:tag, "\"#{tag.value}\" is a topic tag and can only be defined by the Editor") if

@@ -35,6 +35,11 @@ end
   EnumKey.create(:code => code, :enum_name => "tag_contexts", :key => index+1, :description => "tag_context")
 end
 
+#STATEMENT STATES
+%w(new published).each_with_index do |code, index|
+  EnumKey.create(:code => code, :enum_name => "statement_states", :key => index+1, :description => "statement_state")
+end
+
 #VALID CONTEXTS
 %w(affection engagement expertise decision_making).each do |code|
   ValidContext.create(:context_id => EnumKey.find_by_code(code).id, :tao_type => 'User' )
@@ -43,6 +48,8 @@ end
   ValidContext.create(:context => EnumKey.find_by_code(code), :tao_type => 'Organisation' ) #To use when Organisations are set
 end
 ValidContext.create(:context_id => EnumKey.find_by_code("topic").id, :tao_type => 'StatementNode' )
+
+
 
 ##ENUM VALUES
 
@@ -127,4 +134,12 @@ end
 end
 ["Topic","Thema","Topique","Tópico"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('topic'), :language_id => index+1, :value => value, :context=> "")
+end
+
+#Statement States
+["New","Neu","Neuf","Novo"].each_with_index do |value,index|
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('new','statement_states'), :language_id => index+1, :value => value, :context=> "")
+end
+["Published","Veröffentlicht","Publié","Publicado"].each_with_index do |value,index|
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('published','statement_states'), :language_id => index+1, :value => value, :context=> "")
 end

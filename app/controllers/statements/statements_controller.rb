@@ -92,7 +92,7 @@ class StatementsController < ApplicationController
     end
 
     #get document to show
-    @statement_document = @statement.translated_document(current_language_keys)
+    @statement_document = @statement.translated_document(@current_language_keys)
 
     #test for special links
     @original_language_warning = (!current_user.nil? and current_user.spoken_languages.empty? and current_language_key != @statement.statement.original_language.id)
@@ -168,7 +168,7 @@ class StatementsController < ApplicationController
 
   def create_translation
     attrs = params[statement_class_param]
-    attrs[:state] = StatementNode.state_lookup[:published] unless statement_class == Question
+    attrs[:state_id] = StatementNode.statement_states('published').first.id unless statement_class == Question
     doc_attrs = attrs.delete(:new_statement_document)
     doc_attrs[:author_id] = current_user.id
     doc_attrs[:language_id] = current_language_key
@@ -225,12 +225,12 @@ class StatementsController < ApplicationController
   # actually creates a new statement
   def create
     attrs = params[statement_class_param].merge({:creator_id => current_user.id})
-    attrs[:state] = StatementNode.state_lookup[:new] if statement_class == Question
+    attrs[:state_id] = StatementNode.statement_states('new').first.id if statement_class == Question
     doc_attrs = attrs.delete(:statement_document)
     @tags = attrs.delete(:tags).split(' ').map{|t|t.strip}.uniq 
-    # FIXME: find a way to move more stuff into the models
-    @statement = statement_class.new(attrs)
-    @statement.create_statement(:original_language_id => current_language_key)
+    # FIXME: find a way to move more stuff into the models    
+    @statement ||= statement_class.new(attrs)
+    @statement.create_statement(:original_language_id => current_language_key) if @statement.statement.nil?
     @statement_document = @statement.add_statement_document(doc_attrs)
     @statement.tao_tags << TaoTag.create_for(@tags, current_language_key, {:tao => @statement, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id})
     respond_to do |format|
@@ -282,10 +282,12 @@ class StatementsController < ApplicationController
   def update
     attrs = params[statement_class_param]
     @tags = attrs.delete(:tags).split(' ').map{|t|t.strip}.uniq unless attrs[:tags].nil?
+    tags_to_delete = @statement.tao_tags.collect{|tao_tag|tao_tag.tag.value} - @tags 
     attrs_doc = attrs.delete(:statement_document)
+    @statement.tao_tags << TaoTag.create_for(@tags, current_language_key, {:tao => @statement, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id})
+    @statement.tao_tags.each {|tao_tag| tao_tag.destroy if tags_to_delete.include?(tao_tag.tag.value)}
     respond_to do |format|
       if @statement.update_attributes!(attrs) && @statement.translated_document(current_language_keys).update_attributes!(attrs_doc)
-        TaoTag.create_for(@tags, current_language_key, {:tao_id => @statement.id, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id}) unless @tags.blank?
         set_info("discuss.messages.updated", :type => @statement.class.human_name)
         format.html { flash_info and redirect_to url_for(@statement) }
         format.js   { show }
@@ -307,6 +309,7 @@ class StatementsController < ApplicationController
 
   # processes a cancel request, and redirects back to the last shown statement
   def cancel
+    @statement
     redirect_to url_f(StatementNode.find(session[:last_statement]))
   end
 
