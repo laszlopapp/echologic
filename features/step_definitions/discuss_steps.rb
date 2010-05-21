@@ -114,12 +114,7 @@ Then /^I should not see the create proposal link$/ do
 end
 
 Given /^a "([^\"]*)" question in "([^\"]*)"$/ do |state, category|
-  case state
-    when "new"
-      state = 0
-    when "published"
-      state = 1
-  end
+  state = StatementNode.statement_states(state).first
   @category = Tag.find_by_value(category)
   @question = Question.new(:state => state, :creator => @user)
   @question.tao_tags << TaoTag.new(:tag_id => @category.id, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic"))
@@ -130,7 +125,7 @@ end
 
 Then /^the question should be published$/ do
   @question.reload
-  @question.state.should == 1
+  @question.state.should == EnumKey.find_by_code_and_enum_name("published","statement_states")
 end
 
 Then /^I should see the questions title$/ do 
@@ -142,7 +137,7 @@ Given /^there is a proposal I have created$/ do
 end
 
 Given /^there is a proposal$/ do
-  @proposal = Question.find_all_by_state(1).last.children.proposals.first
+  @proposal = Question.find_all_by_state_id(StatementNode.statement_states('published').first.id).last.children.proposals.first
 end
 
 Then /^the questions title should be "([^\"]*)"$/ do |title|

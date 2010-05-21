@@ -37,6 +37,8 @@ class StatementNode < ActiveRecord::Base
   has_many :tao_tags, :as => :tao, :dependent => :destroy
   has_many :tags, :through => :tao_tags
 
+  enum :states, :enum_name => :statement_states
+
   # not yet implemented
 
   #belongs_to :work_packages
@@ -69,23 +71,25 @@ class StatementNode < ActiveRecord::Base
   def translated_document?(lang_ids)
     return statement_documents.for_languages(lang_ids).nil?
   end
-   
+ 
+ 
   # creates a new statement_document
   def add_statement_document(attributes={ })
-    doc = StatementDocument.new(attributes.merge(:statement => self.statement))
-    doc.statement = self.statement
-    self.statement.statement_documents << doc    
+    doc = StatementDocument.find_by_title_and_statement_id(attributes[:title],attributes[:statement_id]) || StatementDocument.new(attributes)
+    doc.update_attributes(attributes) unless doc.new_record?
+    doc.statement = self.statement if doc.statement.nil?
+    self.statement.statement_documents << doc
     return doc
   end
   
   # creates and saves a  statement_document with given parameters a
   def add_statement_document!(*args)
-    doc = StatementDocument.new(:statement => self.statement)
+    doc = StatementDocument.new(:statement_id => self.statement.id)
     doc.update_attributes!(*args)
     self.statement.statement_documents << doc
     return doc
   end
-    
+      
   ##
   ## NAMED SCOPES
   ##
@@ -105,7 +109,7 @@ class StatementNode < ActiveRecord::Base
   
   
   named_scope :published, lambda {|auth| 
-    { :conditions => { :state => @@state_lookup[:published] } } unless auth }
+    { :conditions => { :state_id => statement_states('published').first.id } } unless auth }
     
   
   # orders
@@ -145,31 +149,18 @@ class StatementNode < ActiveRecord::Base
     level += 1 if self.root && self.root != self && self.root != self.parent
     level
   end
-
-  ##
-  ## STATES
-  ##
-  
-  cattr_reader :states, :state_lookup
-  
-  # Map the different states of statements to their database representation
-  # value.
-  # TODO: translate them ..
-  @@states = [:new, :published]
-  @@state_lookup = { :new => 0, :published => 1 }
-  
-  # Validate that state is correct
-  validates_inclusion_of :state, :in => StatementNode.state_lookup.values
   
   ##
   ## VALIDATIONS
   ##
 
+ 
+  validates_presence_of :state_id
   validates_presence_of :creator_id
   validates_associated :creator
   validates_presence_of :statement_id
-  validates_associated :statement
-  validates_associated :statement_documents
+  #validates_associated :statement
+  #validates_associated :statement_documents
   
   after_destroy :delete_dependencies
   
@@ -198,10 +189,6 @@ class StatementNode < ActiveRecord::Base
     self.statement.destroy if self.statement.statement_nodes.empty?
   end
 
-  def published?
-    state == @@state_lookup[:published]
-  end
-
   class << self
     
     def search_statements(type, value, opts={} )
@@ -214,7 +201,7 @@ class StatementNode < ActiveRecord::Base
       and_conditions = opts[:conditions] || ["n.type = '#{type}'"]
       and_conditions << "t.value = '#{opts[:tag]}'" unless opts[:tag].nil?
       and_conditions << "tt.tao_type = 'StatementNode'" unless opts[:tag].nil?
-      and_conditions << "state = #{@@state_lookup[:published]}" if opts[:auth] 
+      and_conditions << "state = #{statement_states('published').first.id}" if opts[:auth] 
       
       #all getting along like really good friends
       and_conditions << "(#{or_conditions})"

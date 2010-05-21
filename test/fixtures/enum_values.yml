@@ -203,3 +203,18 @@ field_activity_<%= index+1 %>:
   value: <%= value %>
   context:
 <% end %>
+
+<% ["New","Neu","Neuf","Novo"].each_with_index do |value,index| %>
+field_activity_<%= index+1 %>:
+  enum_key_id: <%= Fixtures.identify(:statement_state_new) %>
+  language_id: <%= index+1 %>
+  value: <%= value %>
+  context:
+<% end %>
+<% ["Published","Veröffentlicht","Publié","Publicado"].each_with_index do |value,index| %>
+field_activity_<%= index+1 %>:
+  enum_key_id: <%= Fixtures.identify(:statement_state_published) %>
+  language_id: <%= index+1 %>
+  value: <%= value %>
+  context:
+<% end %>

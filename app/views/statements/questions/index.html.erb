@@ -1,6 +1,6 @@
 <% content_for :submenu, tabnav(:discuss) %>
 
-<%path = @category.value ? question_tags_path : discuss_search_path%>
+<%path = @category ? question_tags_path : discuss_search_path%>
 
 <div id="search_container" class="search_container">
 <span class="search_category">

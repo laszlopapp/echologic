@@ -9,7 +9,8 @@ class StatementDocument < ActiveRecord::Base
   validates_presence_of :author_id
   validates_presence_of :language_id
   validates_presence_of :statement_id
-  validates_associated :statement
+  validates_uniqueness_of :title, :scope => [:statement_id]
+  #validates_associated :statement
   has_many :statement_nodes, :through => :statement, :source => :statement_nodes
   validates_associated :statement_nodes
   

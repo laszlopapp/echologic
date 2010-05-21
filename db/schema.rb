@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100519163040) do
+ActiveRecord::Schema.define(:version => 20100521172331) do
 
   create_table "echos", :force => true do |t|
     t.integer "visitor_count",   :default => 0
@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(:version => 20100519163040) do
     t.integer  "creator_id"
     t.integer  "echo_id"
     t.integer  "category_id"
-    t.integer  "state"
+    t.integer  "state_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "statement_id"
