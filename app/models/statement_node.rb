@@ -23,7 +23,7 @@ class StatementNode < ActiveRecord::Base
   end
   
   def published?
-    self.state.key = 2
+    self.state.key == 2
   end
   
   ##

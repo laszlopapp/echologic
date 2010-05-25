@@ -287,13 +287,14 @@ class StatementsController < ApplicationController
     @statement.tao_tags << TaoTag.create_for(@tags, current_language_key, {:tao => @statement, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id}) unless @tags.nil?
     @statement.tao_tags.each {|tao_tag| tao_tag.destroy if tags_to_delete.include?(tao_tag.tag.value)}
     respond_to do |format|
-      if @statement.update_attributes!(attrs) && @statement.translated_document(current_language_keys).update_attributes!(attrs_doc)
+      if @statement.update_attributes(attrs) && @statement.translated_document(current_language_keys).update_attributes(attrs_doc)
         set_info("discuss.messages.updated", :type => @statement.class.human_name)
         format.html { flash_info and redirect_to url_for(@statement) }
         format.js   { show }
       else
         @current_language_key = current_language_key
-        set_error(@statement.document)
+        set_error(@statement.translated_document(current_language_keys))
+        @statement.tao_tags.each {|tao_tag|set_error(tao_tag)} unless @statement.tao_tags.empty?
         format.html { flash_error and redirect_to url_for(@statement) }
         format.js   { show_error_messages }
       end

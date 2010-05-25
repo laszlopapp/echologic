@@ -97,6 +97,13 @@ Then /^the question should have one proposal$/ do
   @question.children.proposals.count.should >= 1
 end
 
+Then /^the question "([^\"]*)" should have "([^\"]*)" as tags$/ do |title, tags|
+  tags = tags.split(' ')  
+  @question = StatementNode.search_statements("Question", title).first
+  res = @question.tags.map{|tag|tag.value} - tags
+  res.should == []
+end
+
 Then /^the second question must be more recent than the first question$/ do
   @question.created_at < @second_question.created_at
 end

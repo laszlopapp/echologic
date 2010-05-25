@@ -22,7 +22,7 @@ original-language-question:
 with-german-children-question:
   type: Question
   creator_id: <%= Fixtures.identify(:editor) %>
-  state: 1
+  state_id: <%= Fixtures.identify(:statement_state_published) %>
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('with-german-children-question-statement') %>
 

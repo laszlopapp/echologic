@@ -16,7 +16,9 @@
 	                        :selected => (form.object.state ? form.object.state.id : StatementNode.statement_states.first.id)) %>
 	      </li>			
 	    <% end %>
-	  <% end %>
+	  <% else %>
+		  <%= form.hidden_field :state_id, :value => StatementNode.statement_states('new').first.id %>
+		<% end %>
 		<% form.inputs do %>
 		  <%= render :partial => "statements/statement_tags", :locals => {:form => form, :statement => statement, :tags => tags}%>
 		<% end %>
