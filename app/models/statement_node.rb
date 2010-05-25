@@ -22,6 +22,10 @@ class StatementNode < ActiveRecord::Base
     self.class == Question
   end
   
+  def published?
+    self.state.key = 2
+  end
+  
   ##
   ## ASSOCIATIONS
   ##
@@ -159,7 +163,7 @@ class StatementNode < ActiveRecord::Base
   validates_presence_of :creator_id
   validates_associated :creator
   validates_presence_of :statement_id
-  #validates_associated :statement
+  validates_associated :statement
   #validates_associated :statement_documents
   
   after_destroy :delete_dependencies

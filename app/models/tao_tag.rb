@@ -20,7 +20,7 @@ class TaoTag < ActiveRecord::Base
   
   validates_uniqueness_of :tag_id, :scope => [:tao_type, :tao_id, :context_id]
  
-  validate :user_on_tags_permission, :if => Proc.new {|tao_tag| !tao_tag.statement_node.nil? and tao_tag.tag.value.include?('#')}
+  validate :user_on_tags_permission, :if => Proc.new {|tao_tag| !tao_tag.statement_node.nil? and tao_tag.statement_node.class == Question and tao_tag.tag.value.include?('#')}
  
   named_scope :tag_id_and_tao_id_and_type_and_context_id, lambda { |tag_id, tao_id, tao_type, context_id| { :conditions => ["tag_id = ? AND tao_id = ? AND tao_type = ? AND context_id = ?", tag_id, tao_id, tao_type, context_id] } }
   

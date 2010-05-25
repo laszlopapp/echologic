@@ -12,8 +12,8 @@
 	        <%= form.label :state_id %>
 	        <%# would be nice to have map_with_index... -%>
 	        <% i = -1 -%>
-	        <%= form.select(:state_id, StatementNode.statement_states.map { |state| state.get_current_enum_value.value },
-	                        :selected => form.object.state) %>
+	        <%= form.select(:state_id, StatementNode.statement_states.map { |state| [state.get_current_enum_value.value,state.id] },
+	                        :selected => (form.object.state ? form.object.state.id : StatementNode.statement_states.first.id)) %>
 	      </li>			
 	    <% end %>
 	  <% end %>

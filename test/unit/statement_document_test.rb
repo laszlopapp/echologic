@@ -33,7 +33,7 @@ class StatementDocumentTest < ActiveSupport::TestCase
         @statement_document.language = StatementDocument.languages.first
         @statement_document.author = User.first
         @statement_document.save!
-        @translated_statement_document = StatementDocument.create(:title => 'A document', :text => 'the documents body', :language_id => StatementDocument.languages.last.key, :statement_id => 1)
+        @translated_statement_document = StatementDocument.create(:title => 'Ein dokument', :text => 'the documents body', :language_id => StatementDocument.languages.last.key, :statement_id => 1)
         @translated_statement_document.author = User.first
         @translated_statement_document.translated_document_id = @statement_document.id
         @translated_statement_document.save!
