@@ -78,6 +78,11 @@ Given /^there is a question "([^\"]*)"$/ do |id| # not in use right now
   @question = Question.find(id)
 end
 
+Given /^the question has proposals$/ do
+  @question.reload
+  @question.children.proposals.count.should >= 1
+end
+
 Given /^the question has no proposals$/ do
   @question.children.proposals.destroy_all
 end
@@ -154,3 +159,8 @@ Then /^I should see the proposals data$/ do
   Then 'I should see "'+@proposal.translated_document([StatementDocument.languages("en").first.id,StatementDocument.languages("de").first.id]).title+'"'
   Then 'I should see "'+@proposal.translated_document([StatementDocument.languages("en").first.id,StatementDocument.languages("de").first.id]).text+'"'
 end
+
+Then /^I should see no proposals$/ do
+  assert_have_no_selector("li.question")
+end
+  

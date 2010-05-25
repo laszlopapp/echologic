@@ -147,3 +147,13 @@ Feature: Take Part on a discussion
        And I should see localized "discuss.statements.create_improvement_proposal_link"
        And I should see localized "discuss.statements.create_proposal_link"
 
+   Scenario: Question has only proposals in german, which will not be seen by a user with no defined german language
+    Given I am logged in as "red" with password "red"
+      And I am on the Discuss Index
+    When I follow "Featured"
+    When I follow "echonomyJAM"
+      And I choose the "I only have kids in German" Question
+      And the question has proposals
+      Then I should see no proposals
+     
+     

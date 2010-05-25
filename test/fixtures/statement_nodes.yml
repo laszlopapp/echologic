@@ -18,6 +18,14 @@ original-language-question:
   state: 1
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('original-language-question-statement') %>
+  
+with-german-children-question:
+  type: Question
+  creator_id: <%= Fixtures.identify(:editor) %>
+  state: 1
+  category_id: <%= Fixtures.identify('echonomy-jam') %>
+  statement_id: <%= Fixtures.identify('with-german-children-question-statement') %>
+
 
 second-proposal:
   parent_id: <%= Fixtures.identify('test-question') %>
@@ -91,6 +99,15 @@ not-published-proposal:
   state: 0
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('not-published-proposal-statement') %>
+  
+german-child-proposal:
+  parent_id: <%= Fixtures.identify('with-german-children-question') %>
+  root_id: <%= Fixtures.identify('with-german-children-question') %>
+  type: Proposal
+  creator_id: <%= Fixtures.identify(:editor) %>
+  state: 1
+  category_id: <%= Fixtures.identify('echonomy-jam') %>
+  statement_id: <%= Fixtures.identify('german-child-proposal-statement') %>
 
 first-impro-proposal:
   parent_id: <%= Fixtures.identify('first-proposal') %>
