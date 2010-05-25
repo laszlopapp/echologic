@@ -50,6 +50,9 @@ class StatementNode < ActiveRecord::Base
   named_scope :by_title, lambda {|value|
   {:joins => [:statement_documents], :conditions => ["statement_documents.title like ?", "%"+value+"%"]}}
 
+  
+  
+
   # allow mass-assignment of document data.
   # FIXME: there has to be some more convenient way of doing this...
   # def document=(obj)
@@ -131,8 +134,7 @@ class StatementNode < ActiveRecord::Base
 
   named_scope :from_tags, lambda { |value|
     { :include => :tags, :conditions => ['tags.value = ?', value] } }
-  
-  
+
   ## ACCESSORS
   
   def title

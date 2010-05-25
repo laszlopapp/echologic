@@ -26,7 +26,6 @@ with-german-children-question:
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('with-german-children-question-statement') %>
 
-
 second-proposal:
   parent_id: <%= Fixtures.identify('test-question') %>
   root_id: <%= Fixtures.identify('test-question') %>

@@ -212,6 +212,13 @@ sixth-proposal-doc-german:
   statement_id: <%= Fixtures.identify('sixth-proposal-statement') %>
   language_id: <%= Fixtures.identify('language_de') %>
   translated_document_id: <%= Fixtures.identify('sixth-proposal-doc-english') %>
+  
+english-child-doc-english:
+  title: 'I am the only english child'
+  text: 'I am the only english child!'
+  author_id: <%= Fixtures.identify(:editor) %>
+  statement_id: <%= Fixtures.identify('english-child-proposal-statement') %>
+  language_id: <%= Fixtures.identify('language_en') %>
 
 first-impro-proposal-doc-german:
   title: 'Ein besserer Vorschlag'
