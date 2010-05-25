@@ -40,6 +40,11 @@ end
   EnumKey.create(:code => code, :enum_name => "statement_states", :key => index+1, :description => "statement_state")
 end
 
+#STATEMENT STATES
+%w(new published).each_with_index do |code, index|
+  EnumKey.create(:code => code, :enum_name => "statement_states", :key => index+1, :description => "statement_state")
+end
+
 #VALID CONTEXTS
 %w(affection engagement expertise decision_making).each do |code|
   ValidContext.create(:context_id => EnumKey.find_by_code(code).id, :tao_type => 'User' )
