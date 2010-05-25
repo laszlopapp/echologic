@@ -56,7 +56,7 @@ module Echoable
       else
         echo = create_echo
         #raise self.category.inspect
-        save!
+        save
         echo
       end
     end

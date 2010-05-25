@@ -225,14 +225,14 @@ class StatementsController < ApplicationController
   # actually creates a new statement
   def create
     attrs = params[statement_class_param].merge({:creator_id => current_user.id})
-    attrs[:state_id] = StatementNode.statement_states('new').first.id if statement_class == Question
+    attrs[:state_id] = StatementNode.statement_states('published').first.id unless statement_class == Question
     doc_attrs = attrs.delete(:statement_document)
-    @tags = attrs.delete(:tags).split(' ').map{|t|t.strip}.uniq 
+    @tags = attrs.delete(:tags).split(' ').map{|t|t.strip}.uniq unless attrs[:tags].nil?
     # FIXME: find a way to move more stuff into the models    
     @statement ||= statement_class.new(attrs)
     @statement.create_statement(:original_language_id => current_language_key) if @statement.statement.nil?
     @statement_document = @statement.add_statement_document(doc_attrs)
-    @statement.tao_tags << TaoTag.create_for(@tags, current_language_key, {:tao => @statement, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id})
+    @statement.tao_tags << TaoTag.create_for(@tags, current_language_key, {:tao => @statement, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id}) unless @tags.nil?
     respond_to do |format|
       if @statement.save
         @current_language_keys = current_language_keys
@@ -284,7 +284,7 @@ class StatementsController < ApplicationController
     @tags = attrs.delete(:tags).split(' ').map{|t|t.strip}.uniq unless attrs[:tags].nil?
     tags_to_delete = @statement.tao_tags.collect{|tao_tag|tao_tag.tag.value} - @tags 
     attrs_doc = attrs.delete(:statement_document)
-    @statement.tao_tags << TaoTag.create_for(@tags, current_language_key, {:tao => @statement, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id})
+    @statement.tao_tags << TaoTag.create_for(@tags, current_language_key, {:tao => @statement, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id}) unless @tags.nil?
     @statement.tao_tags.each {|tao_tag| tao_tag.destroy if tags_to_delete.include?(tao_tag.tag.value)}
     respond_to do |format|
       if @statement.update_attributes!(attrs) && @statement.translated_document(current_language_keys).update_attributes!(attrs_doc)
