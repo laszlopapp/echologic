@@ -90,6 +90,15 @@ german-proposal:
   state: 1
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('german-proposal-statement') %>
+  
+second-german-proposal:
+  parent_id: <%= Fixtures.identify('german-question') %>
+  root_id: <%= Fixtures.identify('german-question') %>
+  type: Proposal
+  creator_id: <%= Fixtures.identify(:editor) %>
+  state: 1
+  category_id: <%= Fixtures.identify('echonomy-jam') %>
+  statement_id: <%= Fixtures.identify('second-german-proposal-statement') %>
 
 not-published-proposal:
   parent_id: <%= Fixtures.identify('test-question') %>

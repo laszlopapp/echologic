@@ -179,13 +179,13 @@ var roundCorners = function(){
 };
 
 function showMessageBox(id,permission) {
-  if (permission) {
-    setTimeout(function(){
-      $(id).animate(toggleParams, 2000)
-    }, 5000);
+  if (permission) {    
+	  setTimeout(function(){
+      $(id).animate(toggleParams, 500)
+    }, 500);
     setTimeout(function(){
       $(id).show()
-    }, 6000);
+    }, 500);
   }
 }
 

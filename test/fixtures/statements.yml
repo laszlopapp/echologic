@@ -24,6 +24,8 @@ sixth-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
 german-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
+second-german-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_de)%>
 not-published-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
 german-child-proposal-statement:

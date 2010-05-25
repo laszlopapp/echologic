@@ -105,6 +105,13 @@ german-proposal-doc-german:
   statement_id: <%= Fixtures.identify('german-proposal-statement') %>
   language_id: <%= Fixtures.identify('language_de') %>
 
+second-german-proposal-doc-german:
+  title: 'Zweite Vorschlag auf Deutsch'
+  text: 'Ich bin auch ein Berliner!'
+  author_id: <%= Fixtures.identify(:editor) %>
+  statement_id: <%= Fixtures.identify('second-german-proposal-statement') %>
+  language_id: <%= Fixtures.identify('language_de') %>
+
 german-child-proposal-doc-german:
   title: 'Ich bin das Deutsches Kind'
   text: 'Ich bin das Deutsches Kind'
