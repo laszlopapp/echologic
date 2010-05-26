@@ -10,7 +10,7 @@
 ## ENUM KEYS
 
 #LANGUAGES
-%w(en de fr pt).each_with_index do |code, index|
+%w(en de fr pt es).each_with_index do |code, index|
   EnumKey.create(:code => code, :enum_name => "languages", :key => index+1, :description => "language")
 end
 
@@ -47,30 +47,33 @@ ValidContext.create(:context_id => EnumKey.find_by_code("topic").id, :tao_type =
 ##ENUM VALUES
 
 #Languages
-["English","Englisch","Ingles","Inglês"].each_with_index do |value,index|
+["English","Englisch","Ingles","Inglês","Inglés"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('en'), :language_id => index+1, :value => value, :context => "")
 end
-["German","Deutsch","Aleman","Alemão"].each_with_index do |value,index|
+["German","Deutsch","Aleman","Alemão","Alemán"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('de'), :language_id => index+1, :value => value, :context => "")
 end
-["French","Französisch","Français","Francês"].each_with_index do |value,index|
+["French","Französisch","Français","Francês","Francés"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('fr'), :language_id => index+1, :value => value, :context => "")
 end
-["Portuguese","Portugiesisch","Portugais","Português"].each_with_index do |value,index|
+["Portuguese","Portugiesisch","Portugais","Português","Portugués"].each_with_index do |value,index|
+  EnumValue.create(:enum_key => EnumKey.find_by_code('pt'), :language_id => index+1, :value => value, :context => "")
+end
+["Spanish","Spanisch","espagnol","Espanhol","Español"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('pt'), :language_id => index+1, :value => value, :context => "")
 end
 
 #Language Level
-["Mother Tongue","Muttersprache","Langue Maternelle","Língua Materna"].each_with_index do |value,index|
+["Mother Tongue","Muttersprache","Langue Maternelle","Língua Materna","Lengua Materna"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('mother_tongue'), :language_id => index+1, :value => value, :context=> "")
 end
-["Advanced","Fortgeschritten","Avancé","Avançado"].each_with_index do |value,index|
+["Advanced","Fortgeschritten","Avancé","Avançado","Avanzado"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('advanced'), :language_id => index+1, :value => value, :context=> "")
 end
-["Intermediate","Mittelstufe","Intermédiaire","Intermédio"].each_with_index do |value,index|
+["Intermediate","Mittelstufe","Intermédiaire","Intermédio","Intermedio"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('intermediate'), :language_id => index+1, :value => value, :context=> "")
 end
-["Basic","Grundkenntnisse","Basique","Básico"].each_with_index do |value,index|
+["Basic","Grundkenntnisse","Basique","Básico","Basico"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('basic'), :language_id => index+1, :value => value, :context=> "")
 end
 
@@ -84,45 +87,45 @@ EnumKey.languages.length.times do |index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('facebook'), :language_id => index+1, :value => "Facebook", :context=> "")
   EnumValue.create(:enum_key => EnumKey.find_by_code('twitter'), :language_id => index+1, :value => "Twitter", :context=> "")
 end
-["Other","Andere","Autre","Outro"].each_with_index do |value,index|
+["Other","Andere","Autre","Outro","Otro"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('other'), :language_id => index+1, :value => value, :context=> "")
 end
 #Organization Types
-["NGO","NRO","ONG","ONG"].each_with_index do |value,index|
+["NGO","NRO","ONG","ONG","ONG"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('ngo'), :language_id => index+1, :value => value, :context=> "")
 end
-["Political","Politisch","Politique","Política"].each_with_index do |value,index|
+["Political","Politisch","Politique","Política","Política"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('political'), :language_id => index+1, :value => value, :context=> "")
 end
-["Scientific","Wissenschaftlich","Scientifique","Científica"].each_with_index do |value,index|
+["Scientific","Wissenschaftlich","Scientifique","Científica","Científica"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('scientific'), :language_id => index+1, :value => value, :context=> "")
 end
-["Trade Union","Gewerkschaft","Syndicat","Sindicato"].each_with_index do |value,index|
+["Trade Union","Gewerkschaft","Syndicat","Sindicato","Sindicato"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('trade_union'), :language_id => index+1, :value => value, :context=> "")
 end
-["Social Business","Sozialbetrieb","Activité Sociale","Actividade Social"].each_with_index do |value,index|
+["Social Business","Sozialbetrieb","Activité Sociale","Actividade Social","Actividad Social"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('social_business'), :language_id => index+1, :value => value, :context=> "")
 end
-["Profit-Driven Business","Gewinnorientierte Firma","Firma à but lucratif","Firma com fins lucrativos"].each_with_index do |value,index|
+["Profit-Driven Business","Gewinnorientierte Firma","Firma à but lucratif","Firma com fins lucrativos","Firma de lucro"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('profit_driven_business'), :language_id => index+1, :value => value, :context=> "")
 end
 #Tag Contexts
-["Affection","Betroffenheit","Affection","Afeição"].each_with_index do |value,index|
+["Affection","Betroffenheit","Affection","Afeição","Afecto"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('affection'), :language_id => index+1, :value => value, :context=> "")
 end
-["Engagement","Engagement","Engagement","Compromisso"].each_with_index do |value,index|
+["Engagement","Engagement","Engagement","Compromisso","Compromisso"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('engagement'), :language_id => index+1, :value => value, :context=> "")
 end
-["Expertise","Expertise","Expertise","Especialidade"].each_with_index do |value,index|
+["Expertise","Expertise","Expertise","Especialidade","Peritaje"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('expertise'), :language_id => index+1, :value => value, :context=> "")
 end
-["Decision Making","Entscheidung","Décision","Decisão"].each_with_index do |value,index|
+["Decision Making","Entscheidung","Décision","Decisão","Decisión"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('decision_making'), :language_id => index+1, :value => value, :context=> "")
 end
-["Field of Work","Arbeitsfeld","Domaine de travail","Domínio de Trabalho"].each_with_index do |value,index|
+["Field of Work","Arbeitsfeld","Domaine de travail","Domínio de Trabalho","Área de Trabajo"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('field_work'), :language_id => index+1, :value => value, :context=> "")
 end
-["Field of Activity","Aktivitätsfeld","Domaine d'activité","Domínio de Actividade"].each_with_index do |value,index|
+["Field of Activity","Betätigungsfeld","Domaine d'activité","Domínio de Actividade","Área de Actividad"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('field_activity'), :language_id => index+1, :value => value, :context=> "")
 end
 

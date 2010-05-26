@@ -23,7 +23,7 @@ en:
           citizens:        'echocracy - Affected & Engaged Citizens'
           scientists:      'echocracy - Experts & Scientists'
           decision_makers: 'echocracy - Political and Economic Decision Makers'
-          organisations:   'echocracy - Non-governmental & Govermental Organizations'
+          organisations:   'echocracy - Non-governmental & Governmental Organizations'
         echonomy:
           show:            'echonomy - A New Era of Eco-Socially Sustainable, Democratic Economy'
           your_profit:     'echonomy - Social Business with Your-Profit Business Philosophy'
@@ -505,7 +505,7 @@ en:
 
       citizens:
         title: Citizens
-        title_long: Enganged Citizens
+        title_long: Engaged Citizens
 
         text_top: |
           <p>
@@ -546,7 +546,7 @@ en:
           quality of discussions and to the development of adequate solution proposals.
           For this reason, they are <strong>vitally important actors</strong> on echo and can benefit
           from its <strong>new opportunities</strong> in several ways:
-          <p>
+          <p/>
 
         adv1: Improved scientific discourse
         adv1_details: |
