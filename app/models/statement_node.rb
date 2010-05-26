@@ -23,7 +23,7 @@ class StatementNode < ActiveRecord::Base
   end
   
   def published?
-    self.state.key == 2
+    self.state == self.class.statement_states("published").first
   end
   
   ##
@@ -31,35 +31,17 @@ class StatementNode < ActiveRecord::Base
   ##
   
   belongs_to :creator, :class_name => "User"
-  has_one :author, :through => :document
-
   belongs_to :root_statement, :foreign_key => "root_id", :class_name => "StatementNode"
-  acts_as_tree :scope => :root_statement
-  
-  #belongs_to :category, :class_name => "Tag"
-  
+  belongs_to :statement
   has_many :tao_tags, :as => :tao, :dependent => :destroy
   has_many :tags, :through => :tao_tags
-
+  
   enum :states, :enum_name => :statement_states
-
+  
+  acts_as_tree :scope => :root_statement
   # not yet implemented
-
   #belongs_to :work_packages
-
-  named_scope :by_title, lambda {|value|
-  {:joins => [:statement_documents], :conditions => ["statement_documents.title like ?", "%"+value+"%"]}}
-
   
-  
-
-  # allow mass-assignment of document data.
-  # FIXME: there has to be some more convenient way of doing this...
-  # def document=(obj)
-  #   obj.kind_of?(Hash) ? (document ? document.update_attributes!(obj) : create_document(obj)) : super
-  # end ; alias :statement_document= :document=
-
-  belongs_to :statement
   has_many :statement_documents, :through => :statement, :source => :statement_documents do 
     # this query returns translation for a statement ordered by the users prefered languages
     # OPTIMIZE: this should be built in sql
@@ -69,34 +51,31 @@ class StatementNode < ActiveRecord::Base
       find(:all, :conditions => ["language_id IN (?)", lang_ids]).sort { |a, b| lang_ids.index(a.language_id) <=> lang_ids.index(b.language_id)}.first
     end
   end
-    
-  # returns a translated document for passed language_codes (or nil if none is found)
-  def translated_document(lang_ids)
-    @current_document ||= statement_documents.for_languages(lang_ids)
+  
+  ##
+  ## VALIDATIONS
+  ##
+
+ 
+  validates_presence_of :state_id
+  validates_presence_of :creator_id
+  validates_presence_of :statement
+  validates_associated :creator  
+  validates_associated :statement  
+  #validates_associated :statement_documents
+  validates_associated :tao_tags
+  
+  after_destroy :delete_dependencies
+  
+  def delete_dependencies
+    self.statement.destroy if self.statement.statement_nodes.empty?
   end
   
-  def translated_document?(lang_ids)
-    return statement_documents.for_languages(lang_ids).nil?
-  end
- 
- 
-  # creates a new statement_document
-  def add_statement_document(attributes={ })
-    doc = StatementDocument.find_by_title_and_statement_id(attributes[:title],attributes[:statement_id]) || StatementDocument.new(attributes)
-    doc.update_attributes(attributes) unless doc.new_record?
-    doc.statement = self.statement if doc.statement.nil?
-    self.statement.statement_documents << doc
-    return doc
+  def validate
+    # except of questions, all statements need a valid parent
+    errors.add("Parent of #{self.class.name} must be of one of #{self.class.valid_parents.inspect}") unless self.class.valid_parents and self.class.valid_parents.select { |k| parent.instance_of?(k.to_s.constantize) }.any?
   end
   
-  # creates and saves a  statement_document with given parameters a
-  def add_statement_document!(*args)
-    doc = StatementDocument.new(:statement_id => self.statement.id)
-    doc.update_attributes!(*args)
-    self.statement.statement_documents << doc
-    return doc
-  end
-      
   ##
   ## NAMED SCOPES
   ##
@@ -113,28 +92,25 @@ class StatementNode < ActiveRecord::Base
     { :conditions => { :type => 'ProArgument' } } }
   named_scope :contra_arguments, lambda {
     { :conditions => { :type => 'ContraArgument' } } }
-  
-  
   named_scope :published, lambda {|auth| 
     { :conditions => { :state_id => statement_states('published').first.id } } unless auth }
     
+  #this name scope doesn't work
+  named_scope :by_title, lambda {|value|
+  {:joins => [:statement_documents], :conditions => ["statement_documents.title like ?", "%"+value+"%"]}}
   
   # orders
-
   named_scope :by_ratio, :include => :echo, :order => '(echos.supporter_count/echos.visitor_count) DESC'
-
-  named_scope :by_supporters, :include => :echo, :order => 'echos.supporter_count DESC'
-  
+  named_scope :by_supporters, :include => :echo, :order => 'echos.supporter_count DESC'  
   named_scope :by_creation, :order => 'created_at DESC'
 
   #context
   named_scope :from_context, lambda { |context_ids|
     { :include => :tao_tags, :conditions => ['tao_tags.context_id IN (?)', context_ids] } }
   # tag
-
   named_scope :from_tags, lambda { |value|
     { :include => :tags, :conditions => ['tags.value = ?', value] } }
-
+  
   ## ACCESSORS
   
   def title
@@ -155,28 +131,33 @@ class StatementNode < ActiveRecord::Base
     level += 1 if self.root && self.root != self && self.root != self.parent
     level
   end
-  
-  ##
-  ## VALIDATIONS
-  ##
-
- 
-  validates_presence_of :state_id
-  validates_presence_of :creator_id
-  validates_associated :creator
-  validates_presence_of :statement_id
-  validates_associated :statement
-  #validates_associated :statement_documents
-  
-  after_destroy :delete_dependencies
-  
-  validates_associated :tao_tags
-  
-  def validate
-    # except of questions, all statements need a valid parent
-    errors.add("Parent of #{self.class.name} must be of one of #{self.class.valid_parents.inspect}") unless self.class.valid_parents and self.class.valid_parents.select { |k| parent.instance_of?(k.to_s.constantize) }.any?
+    
+  # returns a translated document for passed language_codes (or nil if none is found)
+  def translated_document(lang_ids)
+    @current_document ||= statement_documents.for_languages(lang_ids)
   end
-
+  
+  def translated_document?(lang_ids)
+    return statement_documents.for_languages(lang_ids).nil?
+  end
+ 
+ 
+  # creates a new statement_document
+  def add_statement_document(attributes={ })
+    doc = StatementDocument.new(attributes)
+    doc.statement = self.statement
+    self.statement.statement_documents << doc
+    return doc
+  end
+  
+  # creates and saves a  statement_document with given parameters a
+  def add_statement_document!(*args)
+    doc = StatementDocument.new(:statement_id => self.statement.id)
+    doc.update_attributes!(*args)
+    self.statement.statement_documents << doc
+    return doc
+  end
+  
   # recursive method to get all parents...
   def parents(parents = [])
     obj = self
@@ -191,10 +172,6 @@ class StatementNode < ActiveRecord::Base
     list.size == 1 ? list.pop : list
   end
   
-  def delete_dependencies
-    self.statement.destroy if self.statement.statement_nodes.empty?
-  end
-
   class << self
     
     def search_statements(type, value, opts={} )

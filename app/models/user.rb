@@ -148,7 +148,7 @@ class User < ActiveRecord::Base
   # returns an array with the actual language_ids of the users spoken languages (used to find the right translations)
   def language_keys(prio_language = 0)
     a = []
-    StatementDocument.language_levels.each do |level|      
+    SpokenLanguage.language_levels.each do |level|      
       a << self.spoken_languages.select{|sp| sp.level.eql?(level)}
     end
     a.each do |sp_array|

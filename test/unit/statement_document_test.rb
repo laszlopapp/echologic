@@ -9,7 +9,7 @@ class StatementDocumentTest < ActiveSupport::TestCase
     should_belong_to :statement
     
     # check for validations (should_validate_presence_of didn't work)
-    %w(language_id statement_id author_id title text).each do |attr|
+    %w(language_id statement author_id title text).each do |attr|
       context "with no #{attr} set" do 
         setup { @statement_document.send("#{attr}=", nil)
           assert ! @statement_document.valid?
@@ -29,13 +29,14 @@ class StatementDocumentTest < ActiveSupport::TestCase
 
     context "with translations" do
       setup do  
-        @statement_document.update_attributes(:title => 'A document', :text => 'the documents body', :statement_id => 1)
+        statement = Statement.new(:original_language => StatementDocument.languages("en").first)
+        @statement_document.update_attributes(:title => 'A document', :text => 'the documents body', :statement => statement)
         @statement_document.language = StatementDocument.languages.first
         @statement_document.author = User.first
         @statement_document.save!
-        @translated_statement_document = StatementDocument.create(:title => 'Ein dokument', :text => 'the documents body', :language_id => StatementDocument.languages.last.key, :statement_id => 1)
+        @translated_statement_document = StatementDocument.create(:title => 'Ein dokument', :text => 'the documents body', :language_id => StatementDocument.languages.last.id, :statement => statement)
         @translated_statement_document.author = User.first
-        @translated_statement_document.translated_document_id = @statement_document.id
+        @translated_statement_document.translated_document = @statement_document
         @translated_statement_document.save!
       end
     

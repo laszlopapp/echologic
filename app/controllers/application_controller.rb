@@ -66,7 +66,11 @@ class ApplicationController < ActionController::Base
         value += "<li>#{message}</li>"
       end
       value += "</ul>"
-      @error = value
+      if @error.nil?
+        @error = value
+      else
+        @error << value
+      end
     end
   end
 

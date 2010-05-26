@@ -230,7 +230,7 @@ class StatementsController < ApplicationController
     @tags = attrs.delete(:tags).split(' ').map{|t|t.strip}.uniq unless attrs[:tags].nil?
     # FIXME: find a way to move more stuff into the models    
     @statement ||= statement_class.new(attrs)
-    @statement.create_statement(:original_language_id => current_language_key) if @statement.statement.nil?
+    @statement.statement = Statement.new(:original_language_id => current_language_key) if @statement.statement.nil?
     @statement_document = @statement.add_statement_document(doc_attrs)
     @statement.tao_tags << TaoTag.create_for(@tags, current_language_key, {:tao => @statement, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id}) unless @tags.nil?
     respond_to do |format|

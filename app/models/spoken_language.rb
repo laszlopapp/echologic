@@ -1,13 +1,14 @@
 class SpokenLanguage < ActiveRecord::Base
   belongs_to :user
-  belongs_to :level, :class_name => "EnumKey", :foreign_key => :level_id
-  belongs_to :language, :class_name => "EnumKey", :foreign_key => :language_id
+  
+  enum :languages
+  enum :levels, :enum_name => :language_levels
   
   include ProfileUpdater
   
-  validates_presence_of :user
-  validates_presence_of :level
-  validates_presence_of :language
+  validates_presence_of :user_id
+  validates_presence_of :level_id
+  validates_presence_of :language_id
   validate_on_create :one_language_instance_per_user
   
   def one_language_instance_per_user 
