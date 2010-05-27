@@ -8,13 +8,13 @@ class TaoTagsControllerTest < ActionController::TestCase
 
   test "should create tao tag" do
     assert_difference('TaoTag.count') do
-      post :create, :tao_tag => { :tao_id => User.first.id, :context_id => EnumKey.find_by_code("affection").id, :tao_type => "User" }, :tag => { :value => 'baby_on_board', :language_id => EnumKey.find_by_code("en").id}
+      post :create, :context_id => EnumKey.find_by_code("affection").id, :tag => { :value => 'baby_on_board', :language_id => EnumKey.find_by_code("en").id}
     end
   end
 
   test "should create many tao tags" do
     assert_difference("TaoTag.count", 2) do
-      post :create, :tao_tag => { :tao_id => User.first.id, :context_id => EnumKey.find_by_code("engagement").id, :tao_type => "User" }, :tag => {:value => 'Limpopo, Irokumata', :language_id => EnumKey.find_by_code("en").id }
+      post :create, :context_id => EnumKey.find_by_code("engagement").id, :tag => {:value => 'Limpopo, Irokumata', :language_id => EnumKey.find_by_code("en").id }
     end
   end
 

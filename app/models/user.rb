@@ -6,7 +6,7 @@ require 'base64'
 
 class User < ActiveRecord::Base
   include UserExtension::Echo
-
+  
   has_many :web_addresses, :dependent => :destroy
   has_many :memberships, :dependent => :destroy
   has_many :spoken_languages, :dependent => :destroy, :order => 'level_id asc'
@@ -167,7 +167,7 @@ class User < ActiveRecord::Base
   ##
   
   def add_tags(tags, opts = {})
-    self.tao_tags << TaoTag.create_for(tags, opts[:language_id], {:tao => self, :tao_type => self.class.name, :context_id => opts[:context_id]})
+    self.tao_tags << TaoTag.create_for(tags, opts[:language_id], {:tao_id => self.id, :tao_type => self.class.name, :context_id => opts[:context_id]})
   end
   
   def delete_tags(tags)

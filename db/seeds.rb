@@ -1,7 +1,8 @@
 
 ## ROLES
 { :admin => %w(),
-  :editor => %w()
+  :editor => %w(),
+  :topic_editor => %w()
 }.each_pair { |role, users| users.each { |user| user.has_role!(role) } }
 
 ## CATEGORIES

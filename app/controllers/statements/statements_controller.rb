@@ -230,8 +230,11 @@ class StatementsController < ApplicationController
     @statement ||= statement_class.new(attrs)
     @statement_document = @statement.add_statement_document(doc_attrs.merge({:original_language_id => current_language_key}))
     @statement.add_tags(@tags, {:language_id => current_language_key}) unless @tags.nil?
+    @statement.tao_tags.each do |tao|
+      set_error('discuss.tag_permission', :tag => tao.tag.value) if tao.tag.value.include? '#' and !current_user.has_role? :topic_editor, tao.tag
+    end
     respond_to do |format|
-      if @statement.save
+      if @statement.save and @error.nil?
         @current_language_keys = current_language_keys
         set_info("discuss.messages.created", :type => @statement.class.display_name)
         current_user.supported!(@statement)
@@ -284,8 +287,11 @@ class StatementsController < ApplicationController
     @statement.add_tags(@tags, {:language_id => current_language_key}) unless @tags.nil?
     @statement.delete_tags(tags_to_delete)
     statement_document = @statement.translated_document(current_language_keys)
+    @statement.tao_tags.each do |tao|
+      set_error('discuss.tag_permission', :tag => tao.tag.value) if tao.tag.value.include? '#' and !current_user.has_role? :topic_editor, tao.tag
+    end
     respond_to do |format|
-      if @statement.update_attributes(attrs) && statement_document.update_attributes(attrs_doc)
+      if @statement.update_attributes(attrs) and statement_document.update_attributes(attrs_doc) and @error.nil?
         set_info("discuss.messages.updated", :type => @statement.class.human_name)
         format.html { flash_info and redirect_to url_for(@statement) }
         format.js   { show }

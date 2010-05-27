@@ -163,7 +163,7 @@ class StatementNode < ActiveRecord::Base
   end
   
   def add_tags(tags, opts = {})
-    self.tao_tags << TaoTag.create_for(tags, opts[:language_id], {:tao => self, :tao_type => "StatementNode", :context_id => TaoTag.tag_contexts("topic").first.id})
+    self.tao_tags << TaoTag.create_for(tags, opts[:language_id], {:tao_id => self.id, :tao_type => "StatementNode", :context_id => TaoTag.tag_contexts("topic").first.id})
   end
   
   def delete_tags(tags)

@@ -276,6 +276,8 @@ en:
   # ---------------
 
   discuss:
+    tag_permission: |
+      <p>You do not have the permission to insert the '{{tag}}' tag</p>
     translation_request: Please translate this text in English
     original_language_warning: 'The original statement is in {{language}}. Tell us which languages you speak to see content in other languages.'
     results_count:

@@ -91,7 +91,7 @@ Feature: User Generated Debates
         | question_tags                     | #echonomyjam |
       And I press "Save"      
     Then I should see "#echonomyjam"
-    Then I should see "is a topic tag and can only be defined by the Editor"
+    Then I should see "You do not have the permission to insert the "
     
   @ok
   Scenario: editor creates Debate with an hash tag echonomyjam, and it should be visible in the echonomy jam listing
@@ -125,4 +125,4 @@ Feature: User Generated Debates
         | question_tags                     | first_tag #echonomyjam |
       And I press "Save"   
     Then I should see "#echonomyjam"
-    Then I should see "is a topic tag and can only be defined by the Editor"
+    Then I should see "You do not have the permission to insert the "

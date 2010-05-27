@@ -4,3 +4,18 @@ admin_admin:
 editor_editor:
   user_id: <%= Fixtures.identify(:editor) %>
   role_id: <%= Fixtures.identify(:role_editor) %>
+topic_editor_echonomy_jam:
+  user_id: <%= Fixtures.identify(:editor) %>
+  role_id: <%= Fixtures.identify(:role_topic_editor_echonomy_jam) %>
+topic_editor_echocracy:
+  user_id: <%= Fixtures.identify(:editor) %>
+  role_id: <%= Fixtures.identify(:role_topic_editor_echocracy) %>
+topic_editor_echo:
+  user_id: <%= Fixtures.identify(:editor) %>
+  role_id: <%= Fixtures.identify(:role_topic_editor_echo) %>
+topic_editor_echosocial:
+  user_id: <%= Fixtures.identify(:editor) %>
+  role_id: <%= Fixtures.identify(:role_topic_editor_echosocial) %>
+topic_editor_realprices:
+  user_id: <%= Fixtures.identify(:editor) %>
+  role_id: <%= Fixtures.identify(:role_topic_editor_realprices) %>

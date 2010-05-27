@@ -1,5 +1,6 @@
 class Tag < ActiveRecord::Base
-    attr_accessible :value, :language_id
+  attr_accessible :value, :language_id
+  acts_as_authorization_object
   
   enum :languages
   
