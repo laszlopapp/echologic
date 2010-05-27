@@ -36,7 +36,7 @@ es:
       # users: de.seo.title.users
       users:
         users:
-          new: 'Tu echo - ingresar en echologic'
+          new: 'Tu echo - unirse a en echologic'
         activations:
           new: 'Tu echo - Activar su cuenta en echologic'
           create: 'Tu echo - Activar su cuenta en echologic'
@@ -121,7 +121,7 @@ es:
           echo - el <span title="{{tooltip}}" class="ttLink">ágora</span> global!
 
         agora_tooltip: |
-          El ágora era la plaza central de la antigua Atenas ‚Äď la cuna de la democracia.
+          El ágora era la plaza central de la antigua Atenas - la cuna de la democracia.
           Ella era el núcleo de la vida social y política de la polis, que se basaba en
           una ciudadanía libre y autodeterminada. Como ágora global, echo
           traspasa las fronteras espaciales y comunicativas del antiguo ágora, para que
@@ -162,7 +162,7 @@ es:
             un proceso democrático.
             </p>
         text_3:
-          title: Franqueza y filosofía de ‚ÄúYour-Profit‚Äú
+          title: Franqueza y filosofía de "Your-Profit"
           more: |
             <p>El <strong>código abierto</strong> de echo servirá como base de una
             <strong>infraestructura distribuida</strong> y variopinta.
@@ -170,7 +170,7 @@ es:
             focalizando y multiplicando su potencial.
             </p><p>
             echo es <strong>social business</strong> y se obligo a promover altos valores éticos y democráticos.
-            Siguiendo su <strong>filosofía de ÄěYour-Profit‚Äú</strong> todos los lucros sobrantes serán reinvertidos en proyectos
+            Siguiendo su <strong>filosofía de "Your-Profit"</strong> todos los lucros sobrantes serán reinvertidos en proyectos
             sociales y ecológicos.
             Así la acción virtual puede resultar en un cambio real y gradualmente traerá mas <strong>auto-determinación</strong>
             política y económica a la gente.
@@ -308,7 +308,7 @@ es:
             Esto ayuda a la gente a entender mejor los trasfondos y las interrelaciones, tomar decisiones en
             común y ponerlas en práctica.
             Así, echo proporciona tres áreas funcionales a sus usuarios:
-            <strong>Discutir ‚Äö√Ą√¨ Conectar ‚Äö√Ą√¨ Actuar!</strong>
+            <strong>Discutir - Conectar - Actuar!</strong>
             </p><p>
             Combinando estas tres áreas, echo genera un espacio virtual único para una colaboración democrática,
             que con un esfuerzo mínimo, trae a <strong>resultados visibles en la vidao cotidiana</strong>.
@@ -318,8 +318,8 @@ es:
 
           tooltip1: |
             Los foros sí permiten una discusión abierta, pero no proporcionan ningún resultado estructurado, ni mensurable.
-            Los ‚Äúgroup blogs‚ÄĚ no pueden ser editados por centenas o miles de autores. Wikipedia logra mantener la calidad
-            del contenido solamente a través del control efectuado por unos pocos administradores con derechos privilegiados ‚Äď
+            Los "group blogs" no pueden ser editados por centenas o miles de autores. Wikipedia logra mantener la calidad
+            del contenido solamente a través del control efectuado por unos pocos administradores con derechos privilegiados -
             lo cual es completamente anti-democrático.
 
           tooltip2: |
@@ -342,7 +342,7 @@ es:
 
         clarity: Visión conjunta
         clarity_more:
-          Con un concepto de búsqueda y pocos ‚Äúclics‚ÄĚ (sin formularios complicados) el buscador multilingüe de echo proporciona
+          Con un concepto de búsqueda y pocos "clics" (sin formularios complicados) el buscador multilingüe de echo proporciona
           una sinopsis de las opiniones más interesantes y fiables.
 
         transparency: Transparencia
@@ -352,7 +352,7 @@ es:
           y contribuye a evitar polémica y populismo.
         detailed: Sinopsis de opiniones
         detailed_more: |
-          Las opiniones y los argumentos pueden ser votados con un ‚Äúclic‚ÄĚ. Así, el apoyo con el que cuenta cada opinión por
+          Las opiniones y los argumentos pueden ser votados con un "clic". Así, el apoyo con el que cuenta cada opinión por
           parte de diferentes grupos sociales puede ser entendido en todo momento de forma exacta.
           <br/><br/>
           <u>Un ejemplo:</u> Cuantas personas en el mundo han votado a favor de la energía nuclear y cuantas en contra?
@@ -374,10 +374,10 @@ es:
         glocal_more: |
           echo ayuda a las personas a entender las inter-relaciones entre los temas locales, regionales y globales.
           <br/><br/>
-          <u>Un ejemplo:</u> Precio de alimentos en el supermercado ‚Üí cría intensiva de animales en la UE
-          ‚Üí plantación de soja ‚Üí de-forestación ‚Üí cambio climático
+          <u>Un ejemplo:</u> Precio de alimentos en el supermercado => cría intensiva de animales en la UE
+          => plantación de soja => de-forestación => cambio climático
           <br/><br/>
-          Esta representación ‚Äúglocal‚ÄĚ permite a los usuarios a entender <strong>temas locales</strong> frente al contexto
+          Esta representación "glocal" permite a los usuarios a entender <strong>temas locales</strong> frente al contexto
           global y temas globales como resultado de múltiples contextos locales. Quien llega  a echo con
           interés particular por un tema local (precios en el supermercado), rápidamente será confrontado
           con sus <strong>implicaciones globales</strong> (cambio climático).
@@ -438,14 +438,14 @@ es:
 
         act_more: |
           <p>
-          <u>Un ejemplo:</u> 20 000 usuarios bávaros votaron a favor de la abolición de la energía nuclear ‚Äď
+          <u>Un ejemplo:</u> 20 000 usuarios bávaros votaron a favor de la abolición de la energía nuclear -
           suficiente para iniciar un referéndum en la Baviera. Al momento todos los electores reciben una noticia,
           invitándoles a organizar el referéndum.
           Siguiendo el enlace incluido en el email, se encuentran dentro de un <strong>espacio virtual de acción</strong> bien equipado.
           </p><p>
           Para fomentar de forma efectiva la colaboración y organización de acciones, echo proporciona todas las <strong>informaciones
           necesarias</strong> y un conjunto de <strong>herramientas apropiadas</strong>, que contienen tanto métodos de toma de decisión,
-          como diversos medios de comunicación, calendario de eventos, filesharing, planificación de proyectos y ‚Äúfundraising‚ÄĚ.
+          como diversos medios de comunicación, calendario de eventos, filesharing, planificación de proyectos y "fundraising".
           Gracias a su <strong>estructura modular</strong>, las herramientas ofrecidas pueden ser extendidas fácilmente a nuevas posibilidades.
           </p>
 
@@ -487,7 +487,7 @@ es:
       show:
         text_top: |
           <p>
-          ‚Äúechocracy‚ÄĚ, la <strong>nueva forma de democracia</strong> realizada por echo, le ofrece a usted y a la gente de todo el mundo la
+          "echocracy", la <strong>nueva forma de democracia</strong> realizada por echo, le ofrece a usted y a la gente de todo el mundo la
           posibilidad de discutir cuestiones de importancia social y la posibilidad de efectuar juntamente un verdadero cambio.
           echocracy se basa en un discurso intercultural y deliberativo,
           que reúne las cuatro competencias constituyentes de la sociedad dentro de un proceso de <strong>decisión colectiva</strong>:
@@ -930,9 +930,9 @@ es:
 
     join:
       title: &your_echo 'Tu echo'
-      subtitle: &join 'ingraser en echologic'
+      subtitle: &join 'Unirse a echologic'
       tabs:
-        join: 'Ingresar en echologic'
+        join: 'Unirse a echologic'
         forgot: 'Nueva seña'
 
     invite:

@@ -1,4 +1,4 @@
-# Localization in German.
+# Localization in Spanish.
 
 es:
 
@@ -8,25 +8,25 @@ es:
     general:
       more: más »
       hide: « ok
-      next: seguir
-      back: regresar
+      next: Seguir
+      back: Regresar
       email: E-Mail
-      name: nombre
-      first_name: nombre
-      last_name: apellido
-      undefined: no definido
+      name: Nombre
+      first_name: Nombre
+      last_name: Apellido
+      undefined: No definido
       ok: Ok
       or: o
-      save: guardar
-      edit: editar
-      cancel: cancelar
-      close: cerrar
-      send: enviar
-      upload: subir
-      delete: borrar
-      create: adicionar
-      welcome: bienvenido
-      all: todos
+      save: Guardar
+      edit: Editar
+      cancel: Cancelar
+      close: Cerrar
+      send: Enviar
+      upload: Subir
+      delete: Borrar
+      create: Adicionar
+      welcome: Bienvenido
+      all: Todos
 
     # Roadmap - Progress
     roadmap:
@@ -36,17 +36,17 @@ es:
       next_steps: 'Próximos pasos'
       vision: 'Al final del camino'
       discuss:
-        status_quo: 'El área „discutir“ está <strong>{{progress}}%</strong> completo.'
+        status_quo: 'El área "discutir" está <strong>{{progress}}%</strong> completo.'
         next_steps: 'Las primeras funciones de discusión están online. El área será desarrollada continuamente.'
       connect:
-        status_quo: 'El área „conectar“ está <strong>{{progress}}%</strong> completo.'
-        next_steps: 'La primera búsqueda simple por personas está online. El área „conectar“ será desarrollado después que los áreas „discutir“ y „actuar!“ estén suficientemente desarrollados.'
+        status_quo: 'El área "conectar" está <strong>{{progress}}%</strong> completo.'
+        next_steps: 'La primera búsqueda simple por personas está online. El área "conectar" será desarrollado después que los áreas "discutir" y "actuar!" estén suficientemente desarrollados.'
       act:
-        status_quo: 'El área „actuar!“ está <strong>{{progress}}%</strong> completo.'
-        next_steps: 'El área „actuar“ será desarrollado después de las primeras funciones básicas de „discutir“.'
+        status_quo: 'El área "actuar!" está <strong>{{progress}}%</strong> completo.'
+        next_steps: 'El área "actuar" será desarrollado después de las primeras funciones básicas de "discutir".'
       my_echo:
-        status_quo: 'El área „mi echo“ está <strong>{{progress}}% </strong> completo.'
-        next_steps: 'Futuros desarrollos en „mi echo“ están planeados para después del desarrollo de los tres áreas principales „discutir, conectar y actuar!“'
+        status_quo: 'El área "mi echo" está <strong>{{progress}}% </strong> completo.'
+        next_steps: 'Futuros desarrollos en "mi echo" están planeados para después del desarrollo de los tres áreas principales "discutir, conectar y actuar!"'
         vision: |
          <p>
          "Mi echo" se será su <strong>central particular de información</strong> en echo.
@@ -68,15 +68,15 @@ es:
     tabs:
       discuss: Discutir
       connect: Conectar
-      act: Actuar!
+      act: Actuar
       my_echo: Mi echo
       admin: Admin
 
     outer_menu:
       language: Lengua
       feedback: &feedback Feedback
-      about: &about √úber uns
-      logout: salir
+      about: &about Sobre nosotros
+      logout: Salir
       imprint: &imprint Impressum
       data_privacy: &data_privacy Datenschutz
 
@@ -135,7 +135,7 @@ es:
     # User sessions section
     user_sessions:
       login:
-        password: seña
+        password: Seña
         email: E-Mail
         signup: Todavía no es miembro?
         set_password: Se olvidó de la seña?
@@ -261,7 +261,7 @@ es:
     users:
       new:
         title: 'Su echo'
-        subtitle: 'Ingresar en echologic'
+        subtitle: 'Unirse a echologic'
         text: |
           <p>
           <strong>echo es la democracia hecha por el pueblo para el pueblo.</strong>
@@ -295,7 +295,7 @@ es:
 
   discuss:
     original_language_warning: 'El texto original es {{language}}. Por favor indique quales son las lenguas que intiendes.'
-    translation_request: Por favor tradusca este texto al Alemán.
+    translation_request: Por favor tradusca este texto al Español.
     results_count:
       one: '{{count}} Debate'
       more: '{{count}} Debates'
@@ -320,15 +320,16 @@ es:
       title: Buscar
       in: 'En {{category}}:'
     topics:
-      echonomy_jam:
+      echonomyjam:
         continues: 'continua online!'
         register_here: 'Por acá al registro!'
         name: echonomyJAM
+        short_name: echonomyJAM
         teaser: 'Elabore nuevos caminos hacia un futuro mas sostenible!'
         description: |
          <p>
           <strong>echonomy</strong> simboliza una <strong>economía ecológica y socialmente sostenible y democrática</strong>,
-          que define „lucro“ como un verdadero aumento del bienestar de las personas y de la naturaleza.
+          que define "lucro" como un verdadero aumento del bienestar de las personas y de la naturaleza.
           </p><p>
           <strong>echonomyJAM</strong> reúne portadores de innovación, capital y conocimiento, tanto cuanto determinantes de la política y del negocio. Así echonomy JAM auspicia que <strong>juntos elaboren, financien y realicen proyectos concretos</strong> -
           que sigan al ideal de la sostenibilidad echologica.<br/>
@@ -444,7 +445,7 @@ es:
       delete_link: "Borrar"
       delete_confirmation: "Está seguro, que realmente quiere borrar esta propuesta?"
     summary:
-      title:'Resumen'
+      title: 'Resumen'
     messages:
       created: "{{type}} fue publicado."
       updated: "{{type}} fue editado."
