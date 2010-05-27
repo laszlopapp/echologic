@@ -162,4 +162,16 @@ class User < ActiveRecord::Base
     self.spoken_languages.select{|sp| sp.level.code == 'mother_tongue'}.collect{|sp| sp.language}
   end
   
+  ##
+  ## CONCERNMENTS (TAGS)
+  ##
+  
+  def add_tags(tags, opts = {})
+    self.tao_tags << TaoTag.create_for(tags, opts[:language_id], {:tao => self, :tao_type => self.class.name, :context_id => opts[:context_id]})
+  end
+  
+  def delete_tags(tags)
+    self.tao_tags.each {|tao_tag| tao_tag.destroy if tags.include?(tao_tag.tag.value)}
+  end
+  
 end

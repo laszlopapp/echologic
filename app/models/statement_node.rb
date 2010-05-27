@@ -61,8 +61,7 @@ class StatementNode < ActiveRecord::Base
   validates_presence_of :creator_id
   validates_presence_of :statement
   validates_associated :creator  
-  validates_associated :statement  
-  #validates_associated :statement_documents
+  validates_associated :statement
   validates_associated :tao_tags
   
   after_destroy :delete_dependencies
@@ -161,6 +160,14 @@ class StatementNode < ActiveRecord::Base
     doc.update_attributes!(*args)
     self.statement.statement_documents << doc
     return doc
+  end
+  
+  def add_tags(tags, opts = {})
+    self.tao_tags << TaoTag.create_for(tags, opts[:language_id], {:tao => self, :tao_type => "StatementNode", :context_id => TaoTag.tag_contexts("topic").first.id})
+  end
+  
+  def delete_tags(tags)
+    self.tao_tags.each {|tao_tag| tao_tag.destroy if tags.include?(tao_tag.tag.value)}
   end
   
   # recursive method to get all parents...

@@ -229,7 +229,7 @@ class StatementsController < ApplicationController
     # FIXME: find a way to move more stuff into the models    
     @statement ||= statement_class.new(attrs)
     @statement_document = @statement.add_statement_document(doc_attrs.merge({:original_language_id => current_language_key}))
-    @statement.tao_tags << TaoTag.create_for(@tags, current_language_key, {:tao => @statement, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id}) unless @tags.nil?
+    @statement.add_tags(@tags, {:language_id => current_language_key}) unless @tags.nil?
     respond_to do |format|
       if @statement.save
         @current_language_keys = current_language_keys
@@ -257,9 +257,9 @@ class StatementsController < ApplicationController
       else
         @current_language_key = current_language_key
         set_error(@statement_document)
-        @statement.tao_tags.each {|tao_tag|set_error(tao_tag)} unless @statement.tao_tags.empty?
+        @statement.tao_tags.each{|tao_tag|set_error(tao_tag)}
         format.html { flash_error and render :template => 'statements/new' }
-        format.js   { show_error_messages(@statement_document) }
+        format.js   { show_error_messages(@statement) }
       end
     end
   end
@@ -279,19 +279,20 @@ class StatementsController < ApplicationController
   def update
     attrs = params[statement_class_param]
     @tags = attrs.delete(:tags).split(' ').map{|t|t.strip}.uniq unless attrs[:tags].nil?
-    tags_to_delete = @statement.tao_tags.collect{|tao_tag|tao_tag.tag.value} - @tags 
+    tags_to_delete = @statement.tags.collect{|tag|tag.value} - @tags 
     attrs_doc = attrs.delete(:statement_document)
-    @statement.tao_tags << TaoTag.create_for(@tags, current_language_key, {:tao => @statement, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id}) unless @tags.nil?
-    @statement.tao_tags.each {|tao_tag| tao_tag.destroy if tags_to_delete.include?(tao_tag.tag.value)}
+    @statement.add_tags(@tags, {:language_id => current_language_key}) unless @tags.nil?
+    @statement.delete_tags(tags_to_delete)
+    statement_document = @statement.translated_document(current_language_keys)
     respond_to do |format|
-      if @statement.update_attributes(attrs) && @statement.translated_document(current_language_keys).update_attributes(attrs_doc)
+      if @statement.update_attributes(attrs) && statement_document.update_attributes(attrs_doc)
         set_info("discuss.messages.updated", :type => @statement.class.human_name)
         format.html { flash_info and redirect_to url_for(@statement) }
         format.js   { show }
       else
         @current_language_key = current_language_key
-        set_error(@statement.translated_document(current_language_keys))
-        @statement.tao_tags.each {|tao_tag|set_error(tao_tag)} unless @statement.tao_tags.empty?
+        set_error(statement_document)
+        @statement.tao_tags.each{|tao_tag|set_error(tao_tag)}
         format.html { flash_error and redirect_to url_for(@statement) }
         format.js   { show_error_messages }
       end
