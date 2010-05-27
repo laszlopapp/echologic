@@ -49,11 +49,11 @@
   </li>
   <li>
     <%= I18n.t('static.echosocial.features.your_wishes.title') %>
-    <% more_text = I18n.t('static.echosocial.features.your_wishes.text_pre') %>
-    <% more_text.concat('<strong>' + link_to(I18n.t('static.echosocial.features.your_wishes.text_link'),
-                    hash_for_question_tags_path.merge({:only_path => false, :host => ECHOLOGIC_HOST, :id=>'echosocial'}),
-                    :target => '_blank') + '</strong>') %>
-    <% more_text.concat(' ' + I18n.t('static.echosocial.features.your_wishes.text_end')) %>
+    <% more_text = I18n.t('static.echosocial.features.your_wishes.text_pre') + '<strong>' +
+                   link_to(I18n.t('static.echosocial.features.your_wishes.text_link'),
+                           url_for(hash_for_question_tags_path.merge({
+                                   :only_path => false, :host => ECHOLOGIC_HOST, :id=>'echosocial'})), :target => '_blank') +
+                   '</strong>' + ' ' + I18n.t('static.echosocial.features.your_wishes.text_end') %>
     <% insert_toggle_more(more_text) %>
   </li>
 </ul>

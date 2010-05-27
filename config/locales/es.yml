@@ -30,7 +30,7 @@ es:
 
     # Roadmap - Progress
     roadmap:
-      title: título
+      title: completo
       progress_tooltip: 'Este área de echo está {{progress}}% completo.'
       status_quo: 'Status Quo'
       next_steps: 'Próximos pasos'
@@ -250,10 +250,10 @@ es:
         Como definirías <strong>sus necessidades, preocupaciones y competencias con algunos tópicos (tags)</strong>?
 
       sorts:
-        affected: <strong>Afectado</strong> por
-        engaged: <strong>Comprometido</strong> en
-        scientist: <strong>Experto</strong> en
-        representative: <strong>Determinante</strong> en
+        affection: <strong>Afectado</strong> por
+        engagement: <strong>Comprometido</strong> en
+        expertise: <strong>Experto</strong> en
+        decision_making: <strong>Determinante</strong> en
       tags: Tópicos (tags)
 
 
@@ -467,10 +467,10 @@ es:
 
     segments:
       all: Todos
-      affected:  'Afectados'
-      engaged:   'Comprometidos'
-      scientist: 'Expertos'
-      representative: 'Determinantes'
+      affection:  'Afectados'
+      engagement:   'Comprometidos'
+      expertise: 'Expertos'
+      decision_making: 'Determinantes'
     results_count:
       one: '{{count}} miembros'
       more: '{{count}} miembros'
