@@ -64,8 +64,7 @@ class StatementNodeTest < ActiveSupport::TestCase
     
     context "being saved" do
       setup do 
-        @statement_node.create_statement(:original_language_id => 1)
-        @statement_node.add_statement_document!(:title => 'A new Document', :text => 'with a very short body, dude!', :language_id => 1, :author_id => User.first.id)
+        @statement_node.add_statement_document!(:title => 'A new Document', :text => 'with a very short body, dude!', :language_id => 1, :author_id => User.first.id, :original_language_id => 1)
         @statement_node.tao_tags << TaoTag.new(:tag_id => Tag.first.id, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id)
         @statement_node.update_attributes!(:creator_id => User.first.id, :state_id => StatementNode.statement_states('published').first.id)
       end

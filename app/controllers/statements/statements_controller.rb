@@ -149,10 +149,8 @@ class StatementsController < ApplicationController
   end
 
   def new_translation
-#     @new_statement_document = StatementDocument.new(:language_id => StatementDocument.languages(params[:locale]).id)
     @statement_document ||= @statement.translated_document(current_user.language_keys)
     @new_statement_document ||= @statement.add_statement_document({:language_id => current_language_key})
-#     @statement.add_statement_document
     respond_to do |format|
       format.html { render :template => 'statements/translate' }
       format.js {
@@ -230,8 +228,7 @@ class StatementsController < ApplicationController
     @tags = attrs.delete(:tags).split(' ').map{|t|t.strip}.uniq unless attrs[:tags].nil?
     # FIXME: find a way to move more stuff into the models    
     @statement ||= statement_class.new(attrs)
-    @statement.statement = Statement.new(:original_language_id => current_language_key) if @statement.statement.nil?
-    @statement_document = @statement.add_statement_document(doc_attrs)
+    @statement_document = @statement.add_statement_document(doc_attrs.merge({:original_language_id => current_language_key}))
     @statement.tao_tags << TaoTag.create_for(@tags, current_language_key, {:tao => @statement, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id}) unless @tags.nil?
     respond_to do |format|
       if @statement.save

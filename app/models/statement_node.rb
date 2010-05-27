@@ -143,8 +143,10 @@ class StatementNode < ActiveRecord::Base
  
  
   # creates a new statement_document
-  def add_statement_document(attributes={ })
+  def add_statement_document(attributes={ },opts={})
+    original_language_id = attributes.delete(:original_language_id)
     doc = StatementDocument.new(attributes)
+    self.statement = Statement.new(:original_language_id => original_language_id) if self.statement.nil?
     doc.statement = self.statement
     self.statement.statement_documents << doc
     return doc
@@ -152,7 +154,10 @@ class StatementNode < ActiveRecord::Base
   
   # creates and saves a  statement_document with given parameters a
   def add_statement_document!(*args)
+    original_language_id = args[0].delete(:original_language_id)
+    self.statement = Statement.new(:original_language_id => original_language_id) if self.statement.nil?
     doc = StatementDocument.new(:statement_id => self.statement.id)
+    doc.statement = self.statement
     doc.update_attributes!(*args)
     self.statement.statement_documents << doc
     return doc

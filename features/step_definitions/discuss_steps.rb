@@ -129,8 +129,7 @@ Given /^a "([^\"]*)" question in "([^\"]*)"$/ do |state, category|
   state = StatementNode.statement_states(state).first
   @category = Tag.find_by_value(category)
   @question = Question.new(:state => state, :creator => @user)  
-  @question.create_statement(:original_language_id => @user.language_keys.first)
-  @question.add_statement_document!(:title => "Am I a new statement?", :text => "I wonder what i really am! Maybe a statement? Or even a question?", :author => @user, :language_id => @user.language_keys.first)
+  @question.add_statement_document!({:title => "Am I a new statement?", :text => "I wonder what i really am! Maybe a statement? Or even a question?", :author => @user, :language_id => @user.language_keys.first, :original_language_id => @user.language_keys.first})
   @question.tao_tags << TaoTag.create_for([category], EnumKey.find_by_code("en").id, {:tao => @question, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id})
   @question.save!
 end
