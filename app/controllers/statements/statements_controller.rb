@@ -113,7 +113,7 @@ class StatementsController < ApplicationController
     # find alle child statements, which are published (except user is an editor) sorted by supporters count, and paginate them
     @page = params[:page] || 1
 
-    @children = children_for_statement
+    @children = children_for_statement @current_language_keys
     respond_to do |format|
       format.html {
         render :template => 'statements/show' } # show.html.erb
@@ -360,8 +360,11 @@ class StatementsController < ApplicationController
   end
 
   # private method, that collects all children, sorted and paginated in the way we want them to
-  def children_for_statement
-    @statement.children.published(current_user && current_user.has_role?(:editor)).by_supporters.paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
+  def children_for_statement(language_keys = current_language_keys, page = @page)
+    children = @statement.children.published(current_user && current_user.has_role?(:editor)).by_supporters
+    #additional step: to filter statements with a translated version in the current language
+    children = children.select{|s| !(language_keys & s.statement_documents.collect{|sd| sd.language_id}).empty?}
+    children.paginate(StatementNode.default_scope.merge(:page => page, :per_page => 5))
   end
 
   def search (value, opts = {})

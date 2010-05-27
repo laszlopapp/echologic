@@ -6,6 +6,8 @@ second-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
 third-question-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
+with-german-children-question-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
 first-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
 second-proposal-statement:
@@ -24,6 +26,8 @@ german-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
 not-published-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+german-child-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_de)%>
 first-impro-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
 german-impro-proposal-statement:
