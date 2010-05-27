@@ -1,9 +1,3 @@
-require 'rubygems'
-require 'ezcrypto'
-require 'json'
-require 'cgi'
-require 'base64'
-
 class User < ActiveRecord::Base
   include UserExtension::Echo
 
@@ -12,19 +6,14 @@ class User < ActiveRecord::Base
   has_many :spoken_languages, :dependent => :destroy, :order => 'level_id asc'
   has_many :tao_tags, :as => :tao, :dependent => :destroy
   has_many :tags, :through => :tao_tags
-  
-  has_many :concernments #temporary
-
 
   has_many :reports, :foreign_key => 'suspect_id'
 
-
   named_scope :no_member, :conditions => { :memberships => nil }, :order => :email
-
-
 
   # Every user must have a profile. Profiles are destroyed with the user.
   has_one :profile, :dependent => :destroy
+
 
   # TODO add attr_accessible :active if needed.
   #attr_accessible :active
@@ -39,7 +28,7 @@ class User < ActiveRecord::Base
   # acl9 plugin to do authorization
   acts_as_authorization_subject
   acts_as_authorization_object
-  
+
   # we need to make sure that either a password or openid gets set
   # when the user activates his account
   def has_no_credentials?
@@ -50,7 +39,7 @@ class User < ActiveRecord::Base
   def active?
     active
   end
-  
+
   # handy interfacing
   def is_author?(other)
     other.author == self
@@ -100,55 +89,28 @@ class User < ActiveRecord::Base
     Mailer.deliver_password_reset_instructions(self)
   end
 
-#  # Return user voice access link
-#  def user_voice_link
-#    options = {
-#      :url    => "http://www.echologic.org/users",
-#      :admin  => "deny",
-#      :allow_forums => [31794],
-#      :display_name => profile.full_name,
-#      :guid   => id,
-#      :email  => email,
-#      :expires => (Time.now + 60*5).to_s
-#    }
-#
-#    account_key = "echonomyjamtemporary"
-#    api_key     = "8fa3e2a47017cff3dc8c28d8c461d699"
-#
-#    key = EzCrypto::Key.with_password account_key, api_key
-#    encrypted = key.encrypt(options.to_json)
-#    @data = Base64.encode64(encrypted).gsub(/\n/,'')
-#    @data = CGI.escape(@data)
-#
-#    "http://www.temporary-discuss.echonomyJAM.org?sso=#{@data}"
-#
-#    # logout script:
-#    # http://www.temporary-discuss.echonomyJAM.org/logout.json
-#
-#  end
-  
   ##
   ## PERMISSIONS
   ##
-  
+
   # the given `statement' is ignored for now, but we need it later
   # when we enable editing for users.
   def may_edit?(statement)
     has_role?(:editor) or has_role?(:admin)
   end
-  
+
   def may_delete?(statement)
     has_role?(:admin)
   end
-  
+
   ##
   ## SPOKEN LANGUAGES
   ##
-  
+
   # returns an array with the actual language_ids of the users spoken languages (used to find the right translations)
   def language_keys(prio_language = 0)
     a = []
-    StatementDocument.language_levels.each do |level|      
+    SpokenLanguage.language_levels.each do |level|
       a << self.spoken_languages.select{|sp| sp.level.eql?(level)}
     end
     a.each do |sp_array|
@@ -157,9 +119,9 @@ class User < ActiveRecord::Base
     a.flatten.map(&:language_id)
 #    self.spoken_languages.sort {|sp1, sp2| }.map(&:language_id)
   end
-  
+
   def mother_tongues
     self.spoken_languages.select{|sp| sp.level.code == 'mother_tongue'}.collect{|sp| sp.language}
   end
-  
+
 end
