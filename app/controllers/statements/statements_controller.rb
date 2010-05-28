@@ -231,7 +231,8 @@ class StatementsController < ApplicationController
     @statement_document = @statement.add_statement_document(doc_attrs.merge({:original_language_id => current_language_key}))
     @statement.add_tags(@tags, {:language_id => current_language_key}) unless @tags.nil?
     @statement.tao_tags.each do |tao|
-      set_error('discuss.tag_permission', :tag => tao.tag.value) if tao.tag.value.include? '#' and !current_user.has_role? :topic_editor, tao.tag
+      index = tao.tag.value.index '#'
+      set_error('discuss.tag_permission', :tag => tao.tag.value) if !index.nil? and index == 0 and !current_user.has_role? :topic_editor, tao.tag
     end
     respond_to do |format|
       if @statement.save and @error.nil?
