@@ -248,17 +248,19 @@
 
 #messageContainer #infoBox, #messageContainer #errorBox {
   z-index: 2000;
+  position: fixed;
 }
 
 #messageContainer .infoErrorIcon {
-  float: left;
+  position: absolute;
+  top: 6px;
+  left: 10px;
   width: 16px;
   height: 16px;
   z-index: 2010;
 }
 
 #messageContainer .message , #messageContainer .closeButton {
-  clear: both;
   position: relative;
   left: 23px;
   width: 350px;
