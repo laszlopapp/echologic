@@ -1,0 +1,560 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  application:
+
+    # General purpose resources
+    general:
+      more: mais »
+      hide: « ok
+      next: Seguinte
+      back: de volta
+      last_name: Sobrenome
+      first_name: Nome Próprio
+      undefined: Ainda não inserido
+      name: Nome
+      email: E-Mail
+      ok: Ok
+      or: ou
+      save: Guardar
+      edit: Editar
+      cancel: Cancelar
+      close: Fechar
+      send: Enviar
+      upload: Upload
+      delete: Apagar
+      create: Incluir
+      welcome: Bemvindo
+      all: Tudo
+
+    # Roadmap - Progress
+    roadmap:
+      title: pronto
+      progress_tooltip: 'Esta área da echo está {{progress}}% pronta.'
+      status_quo: 'Status Quo'
+      next_steps: 'Próximos Passos'
+      vision: 'Ao fim da estrada'
+      discuss:
+        status_quo: 'A echo "Discutir" correntemente encontra-se <strong>{{progress}}% pronta</strong>.'
+        next_steps: 'As primeiras características da echo "Discutir" foram lançadas. A sua funcionalidade será extendida passo por passo nos próximos lançamentos.'
+      connect:
+        status_quo: 'A echo "Conectar" correntemente encontra-se <strong>{{progress}}% pronta</strong>.'
+        next_steps: 'A echo "Conectar" será melhorada após as primeiras características da echo "Discutir" e da echo "Agir" serem lançadas.'
+      act:
+        status_quo: 'A echo "Agir" correntemente encontra-se <strong>{{progress}}% pronta</strong>.'
+        next_steps: 'O desenvolvimento da echo "Agir" começará após as primeiras funções da echo "Discutir" serem lançadas.'
+      my_echo:
+        status_quo: 'A área "My echo" correntemente encontra-se <strong>{{progress}}% pronta</strong>.'
+        next_steps: 'O desenvolvimento ulterior desta área está planeado para acontecer após algumas funcionalidades básicas das áreas "Discutir, Conectar e Agir" serem lançadas.'
+        vision: |
+         <p>
+         A longo prazo, A área My echo será o seu <strong>eixo de informação pessoal</strong> dentro da echo. P.ex. providenciar-lhe-á
+         com as mais<strong>importantes notícias</strong> e chamar-lhe-á a atenção para as mais <strong>recentes discussões e acções</strong> de acordo
+         com as suas preferências.
+         </p>
+
+
+    mailer:
+      signature: |
+        --
+        echologic para a echo - a ágora global
+
+        Web: www.echologic.org
+        E-Mail: team@echologic.org
+        Twitter: www.twitter.com/echologic
+
+      feedback: Parecer (Feedback)
+
+  # Localizations for the layout components
+  layouts:
+    tabs:
+      discuss: Discutir
+      connect: Conectar
+      act: Agir
+      my_echo: My echo
+      admin: Admin
+
+    outer_menu:
+      language: Língua
+      feedback: &feedback Feedback
+      about: &about Sobre nós
+      logout: Sair
+      imprint: &imprint Imprint
+      data_privacy: &data_privacy Privacidade de Dados
+
+    discuss:
+      tabs:
+
+    connect:
+      tabs:
+        search: Explorar a Comunidade
+
+    act:
+      tabs:
+
+    my_echo:
+      tabs:
+        welcome: Bemvindo
+        profile: O meu Perfil
+        organisations: organizações
+      profile_complete: '{{complete}}% completo'
+
+  # ----------------
+  # Welcome function
+  # ----------------
+
+  welcome:
+    title: Bemvindo à echologic!
+    text: |
+      <p>
+      <strong>Discutir - Conectar - Agir!</strong><br/>
+      Estas são as três áreas funcionais da echo desenvolvidas na echologic com a sua participação activa.<br/>
+      O roteiro (no canto superior esquerdo do ecrã) mostra-lhe sempre o
+      <strong>estado actual do desenvolvimento</strong> e os próximos passos planeados na área em que se encontra.
+      </p><p>
+      Como um motor da echologic encontra-se bemvindo a <strong>participar na evolução da echo</strong>!<br/>
+      Até agora, foram lançadas as seguintes características simples:
+      </p>
+    function_1:
+      name: 'O meu Perfil'
+      description: Complete o seu perfil de forma a apresentar-se perante a comunidade echologic.'
+    function_2:
+      name: 'Conectar'
+      description: 'Explore a comunidade e conecte-se com outras pessoas interessantes ligadas ao movimento.'
+    function_3:
+      name: 'Discutir'
+      description: |
+        Participe na evolução da echo.<br/>
+        Troque as suas ideias com outros novos-pensadores sobre tópicos como sustentabilidade e democracia.
+
+
+
+  # ------------
+  # USERS MODULE
+  # ------------
+  users:
+    user_sessions:
+      login:
+        password: 'Senha'
+        email: 'E-Mail'
+        signup: Ainda não é um membro?
+        set_password: Esqueceu da sua senha?
+        remember: Lembre-me!
+        hello: Registrado<br/><strong>{{name}}</strong>
+      messages:
+        login_success: "Autenticação sucedida. Bemvindo de volta à echologic."
+        login_failed: "Utilizador desconhecido ou password errada."
+        logout_success: "Saída sucedida. Até breve!"
+        session_timeout: "A sua sessão foi fechada. Por favor autentique-se de novo."
+
+    # Activations section
+    activation:
+
+      messages:
+        success: A sua conta foi activada com sucesso. Bemvindo à echologic!
+        failed: A sua conta não pode ser activada. Por favor verifique os dados inseridos.
+
+    # Password resets section
+    password_reset:
+      step1: Requerir nova senha
+      step2: Definir nova senha
+      step1_text: |
+        <strong>Esqueceu a sua senha</strong> simplesmente gostaria de definir uma nova?<br/><br/>
+        Sem problema! Preencha este campo apenas com o endereço de <strong>E-Mail</strong> com o qual está autenticado na echologic.<br/>
+        Nós enviar-lhe-emos um E-mail em breve possibilitando-lhe <strong>definir a nova senha</strong>.
+      step1_mail: Enviar E-Mail
+
+      step2_text: |
+        Por favor defina <strong>a nova senha</strong> que gostaria de usar para se autenticar na echologic.
+      step2_ok: Acertar a senha e autenticar-se
+      messages:
+        success: "Enviámos-lhe um E-mail possibilitando-lhe reacertar a sua senha. Por favor dê uma olhada na sua caixa de entrada."
+        not_found: "Endereço de E-Mail desconhecido."
+        reset_success: "A sua nova senha foi guardada com sucesso."
+        reset_failed: "A sua senha não pode ser actualizada. Por favor verifique os dados inseridos."
+
+    # Profile Section
+    profile:
+      title: Informação Pessoal
+      edit_title: Edite a sua informação pessoal
+      guide: Abaixo encontra a sua informação pessoal básica. Por favor carregue no botão Editar para a mudar.
+
+      gender:
+        male: Masculino
+        female: Feminino
+
+      location: Localização
+
+      password:
+        title: Mudar a minha senha
+        new: Nova Senha
+        confirm: Confirmar Senha
+
+      picture:
+        upload_button: Mudar
+
+      upload_picture:
+        title: Enviar Foto
+        guide: Por favor <strong>seleccione uma foto</strong> (JPG or PNG, max. 5MB) e faça o upload da mesma.
+        progress: O seu avatar está a ser carregado. Por favor aguarde...
+
+      messages:
+        updated: "Informação do perfil actualizada com sucesso."
+
+    # Spoken Languages section
+    spoken_languages:
+      title: Línguas Faladas
+      guide: Aqui pode inserir as línguas que domina, assim como o seu nível nas mesmas.
+      language: Língua
+      level: Nível
+      error_messages:
+        repeated_instance: já seleccionou esta língua
+      
+    # Memberships section
+    memberships:
+      title: Actividades
+      guide: Aqui pode inserir as suas actividades voluntárias, profissionais ou de outro tipo em diferentes organizações.
+      organisation: Organização
+      position: A minha Função
+
+    # Web profiles section
+    web_addresses:
+      title: Endereços Web
+      guide: |
+        Aqui pode inserir alguns dos seus contactos e outros perfis web que possua.<br/>
+        <strong>TOME NOTA</strong>: por agora, toda a informação inserida estará visível para todos os membros da comunidade echologic.
+      type: Tipo de endereço
+      address: Endereço Web    
+
+    # Concernments section
+    concernments:
+      title: Interesses & Competências
+      guide: |
+        Todos nós temos <strong>facetas diferentes</strong>. Em algumas áreas que nos afectam podemos precisar da ajuda de outros,
+        noutras áreas podemos ser nós a oferecer a nossa ajuda. Em certos campos tempos especialização profissional,
+        noutros representamos outros pessoas e tomamos decisões.<br/>
+        A echo ajuda pessoas da mesma opinião a encontrarem-se uns aos outros com <strong>conhecimento que se complementa</strong>.<br/>
+        Com que <strong>palavras-chave (tags)</strong> descreveria os seus <strong>interesses e competências</strong>?
+      sorts:
+        affection: <strong>Afeição</strong> by
+        engagement: <strong>Compromisso</strong> em
+        expertise: <strong>Especialidade</strong> no campo de
+        decision_making: <strong>Decisão</strong> no campo de
+      tags: Palavras-chave (tags)
+
+    users:
+      new:
+        title: A vossa echo
+        subtitle: Junte-se à echologic
+        text: |
+          <p>
+          <strong>A echo é democracia das pessoas para as pessoas.</strong>
+          </p><p>
+          Como um projecto para apoiar o bem comum, a echo é levada para a frente graças ao 
+          <strong>esforço conjunto</strong> de indivíduos e organizações comprometidos.
+          </p><p>
+          Ansioso para <strong>contribuir as suas ideias</strong> também!?<br/>
+          Por favor insira o seu nome e endereço de E-Mail abaixo!<br/>
+          <strong>Forme a echo</strong> e <strong>discuta tópicos como sustentabilidade</strong> e democracia com outros cidadões, especialistas e representantes comprometidos.
+          </p>
+        action: 'Junte-se agora!'
+
+      messages:
+        created: "Por favor verifique os seus E-Mails para activar a sua conta recém-criada!"
+
+    # Reports section
+    reports:
+      new:
+        title:  "Utilizador do relatório"
+        text:   "<p>Verificou algum <strong>conteúdo ofensivo, anti-ético ou ilegal?</strong><br/>Se sim, pode aqui referir o utilizador à nossa equipa administrativa.</p><p>Nós verificaremos o assunto tão céleremente como possível.</p>"
+      messages:
+        created: "Obrigado pela sua mensagem. Um dos administradores foi notificado."
+
+  # ---------------
+  # Discuss section
+  # ---------------
+
+  discuss:
+    translation_request: Por favor traduza este texto em Português.
+    original_language_warning: 'O texto original encontra-se em {{language}}. Informe-nos sobre que línguas você domina para poder aceder a conteúdo noutras línguas.'
+    results_count:
+      one: '{{count}} debate'
+      more: '{{count}} debates'
+    featured_topics:
+      title: Tópicos destacados
+      text: |
+        <p>
+        Como pode ver no Roteiro (canto superior direito do ecrã),
+        a área de discussão da echo está num <strong>nível de desenvolvimento inicial</strong>.
+        </p><p>
+        De momento oferece-lhe a possibilidade de discutir diferentes <strong>projetos-piloto</strong> e
+        conjuntamente <strong>desenvolver novas ideias</strong> com outros novos-pensadores da comunidade.
+        Adicionalmente, pode também participar no desenvolvimento da echo.<br/>
+        Tópicos actualmente disponíveis são:
+        </p>
+      tabs:
+        echo:
+          title: Sobre a echo
+        pilot_projects:
+          title: Projectos-piloto
+    search:
+      title: Procura
+      in: 'Em {{category}}:'
+    topics:
+      description: Descrição
+      echonomyjam:
+        continues: 'continua online!'
+        register_here: 'Clique aqui para se registar!'
+        name: echonomyJAM
+        short_name: echonomyJAM
+        teaser: Encontre novas formas em direcção a uma economia sustentável e democrática eco-socialmente.
+        description: |
+          <p>
+          <strong>echonomia</strong> representa uma nova forma de <strong>economia sustentável e democrática ecologicamente e socialmente</strong>,
+          o que define lucro também através do bem-estar dos seres humanos e da natureza.
+          </p><p>
+          <strong>echonomyJAM</strong> junta criativos, investidores, especialistas de negócio e tomadores de decisão nos ramos da política e
+          economia, e habilita-lhes a desenvolver, financiar e realizar projectos concretos conjuntamente - tudo isto no espírito da
+          economia sustentável.<br/>
+          As discussões sobre os mais importantes temas e ideias trazidos pelos cerca de <strong>150 participantes</strong> do
+          <strong>evento de partida no Parlamento Bávaro</strong> continuam agora online an echologic.
+          (Mais informação em <a href='http://www.echonomyJAM.org' target='_blank'>www.echonomyJAM.org</a>).
+          </p>
+      echocracy:
+        name: echocracy
+        short_name: echocracy
+        teaser: Discuta a sua visão de uma democracia global echo.
+        description: |
+          <p>
+          A echo visa servir como a ágora global de uma <strong>nova forma de democracia participatória</strong>, a que podemos chamar echocracia.<br>
+          <strong>echocracy</strong> is constructive, equitable and self organizing - worldwide!
+          </p><p>
+          Contribua as suas ideias! Vamos <strong>tornar esta visão de democracia global em realidade</strong>!
+          </p>
+      echo:
+        name: echo
+        short_name: echo
+        teaser: Contribua com as suas ideias para o ulterior desenvolvimento da echo.
+        description: |
+          <p>
+          Como um motor da echologic é amavelmente convidado a <strong>participar na evolução da echo</strong> activamente!
+          Que funções são as mais importantes para si e quais deverão ser implementadas seguidamente?
+          Discuta as suas ideias com outros colegas e contribua para <strong>fazer mais (da) echo</strong>
+          do que nós alguma vez imaginámos!
+          </p>
+      echosocial:
+        name: echo social
+        short_name: echo social
+        teaser: |
+          Por uma echo da sua rede. Forme a emergência da echo social.
+        description: |
+          <p>
+          A <a href='http://www.echosocial.org' target='_blank'>echo social</a> é a solução <strong>open source</strong>
+          para criar a sua <strong>rede social</strong> com funcionalidade compreensível e o seu
+          <strong>website individual</strong> - <strong>grátis</strong>!
+          </p><p>
+          Diga-nos do que mais necessita para colaborar eficientemente, para se conectar com outros e para desenvolver as suas acções conjuntamente.<br/>
+          Aecho social será lançada <strong>dentro de algumas semanas</strong>. No entanto, os seus <strong>desejos e prioridades</strong>
+          fluem já no processo de desenvolvimento. Mais informação em
+          <a href='http://www.echosocial.org' target='_blank'>www.echosocial.org</a>.
+          </p>
+      realprices:
+        name: Transparência de Preços - Economicamente, Ecologicamente, Justo
+        short_name: Transparência de Preços
+        teaser: |
+          Diálogo através das fronteiras das cidades e instituições para apoiar o intercâmbio e a rede sobre a transparência de custo 
+          para productos e serviços.
+        description: |
+          <p>
+          Como é decomposto o preço dos produtos e quais são os <strong>custos sociais e ecológicos consequentes</strong> por trás deles?
+          Que vantagens podemos esperar da troca regional, justa e amiga do ambiente? Como podemos estabelecer preços transparentes e
+          ser parte da decisão de compra dos consumidores?
+          </p><p>
+          O diálogo interactivo começou em dois <strong>eventos inter-regionais</strong> a 26 de Abril de 2010 em Berlim e Munique
+          com parceiros da Austria e Suíça.
+          </p><p>
+          Informação do acontecimento pode ser encontrada no <a href='http://www.netzwerk-gemeinsinn.net/content/view/625/218' target='_blank'>blog do Espírito Público</a>.
+          </p>
+
+    tooltips:
+      read_question: 'Ir para este debate'
+      read_proposal: 'Ler esta proposta'
+      read_improvement_proposal: 'Ler esta proposta de melhoria'
+      current_question: 'O debate actualmente apresentado'
+      current_proposal: 'A proposta actualmente apresentada'
+      current_improvement_proposal: 'A proposta de melhoria actualmente apresentada'
+      back_to_question: 'De volta ao debate actual'
+      back_to_proposal: 'De volta à proposta actual'
+      back_to_improvement_proposal: 'De volta à proposta de melhoria actual'
+      prev_proposal: 'Ler proposta anterior do debate actual'
+      next_proposal: 'Ler proposta seguinte do debate actual'
+      prev_improvement_proposal: 'Ler proposta de melhoria anterior da proposta actual'
+      next_improvement_proposal: 'Ler proposta de melhoria seguinte da proposta actual'
+      create_proposal: 'Criar nova proposta no debate actual'
+      create_improvement_proposal: 'Criar nova proposta de melhoria na proposta actual'
+      echo: 'echoe esta afirmação de forma a apoiá-la!'
+      unecho: 'Retire o seu voto para parar de apoiar esta afirmação.'
+      echo_indicator:
+        one: 'Esta afirmação tem {{supporter_count}} apoiante.'
+        many: 'Esta afirmação tem {{supporter_count}} apoiantes.'
+    statements:
+      label: 'echos'
+      create_question_link: 'Abra um novo debate'
+      create_proposal_link: Não encontrou a sua ideia? Coloque-a já!
+      create_internal_link: 'Nova ideia?'
+      create_improvement_proposal_link: Não encontrou a sua ideia? Coloque-a já!
+      create_question_explanation: |
+        Olá Editor! Aqui pode abrir um novo debate.
+      create_proposal_explanation: |
+        Tem uma <strong>boa ideia</strong> no que diz respeito ao debate actual, que ainda <strong>não existe</strong>?<br/>
+        Aqui pode criar uma <strong>nova proposta</strong>.
+      create_improvement_proposal_explanation: |
+        Tem uma <strong>boa ideia</strong> para <strong>tornar a proposta actual ainda melhor</strong>?<br/>
+        Aqui pode criar uma <strong>nova proposta de melhoria</strong>.
+
+      types:
+        question:  'Debate'
+        proposal:  'Proposta'
+        improvement_proposal: 'Proposta de melhoria'
+      new:
+        question:  'Novo Debate'
+        proposal:  'Nova Proposta'
+        improvement_proposal: 'Nova Proposta de Melhoria'
+      headings:
+        question: 'Debates'
+        proposal: 'Propostas'
+        improvement_proposal: 'Propostas de Melhoria'
+      states:
+        new: 'Novo'
+        published: 'Publicado'
+      delete_link: "Apagar"
+      delete_confirmation: "Tem a certeza que quer apagar esta afirmação?"
+    summary:
+      title: 'Sumário'
+    messages:
+      created: "O/a novo/a {{type}} foi inserido/a com sucesso."
+      updated: "O/a {{type}} foi actualizado/a com sucesso."
+      deleted: "O/a {{type}} foi apagado/a com sucesso."
+      translated: "O/a {{type}} foi traduzido/a com sucesso."
+      empty:   "Nenhum debate encontrado. Por favor altere os seus critérios de procura."
+      new_percentage: "O seu perfil está {{percentage}}% completo."
+
+
+
+  # ---------------
+  # Connect section
+  # ---------------
+
+  connect:
+
+    fill_out_profile:
+      text: Por favor preencha <strong>pelo menos {{percentage}}%</strong> do seu perfil para fazer o "HAL" feliz e fazer este bloco desaparecer. :-)
+
+    segments:
+      all:       'Todos'
+      affection:  'Afectados'
+      engagement:   'Comprometidos'
+      expertise: 'Especialistas'
+      decision_making: 'Tomadores de decisão'
+    results_count:
+      one: '{{count}} movedor'
+      more: '{{count}} movedores'
+    details:
+      tabs:
+        overview:     'Visão global'
+        concernments: 'Competências'
+        web_addresses: 'Endereços Web'
+      actions:
+        report: "Relatório"
+    messages:
+      empty:           'Nenhum membro encontrado. Por favor altere os seus critérios de procura.'
+      no_concernments: "Este membro ainda não definiu interesses ou competências."
+      no_web_addresses: "Este membro ainda não definiu endereços web."
+
+  # Feedback resources
+  feedback:
+    new:
+      title: Parecer (Feedback)
+      welcome: |
+        <p>
+        <strong>Gostaríamos muito de ouvir a sua opinião!</strong><br/>
+        </p><p>
+        Não hesitem em fazer perguntas, Do not hesitate to ask questions, make comments or to leave a criticism or kudos for us.
+        </p>
+      message: Mensagem
+      send: Enviar mensagem
+    create:
+      thank_you: Muito Obrigado pelo seu parecer.
+
+  activerecord:
+    errors:
+      models:
+        feedback:
+          attributes:
+            blank: 'Por favor preencha todos os campos.'
+            email:
+              invalid: 'Por favor insira um endereço de E-Mail válido.'
+
+        user:
+          attributes:
+            email:
+              taken: 'O seu endereço de e-Mail já se encontra em uso.'
+
+      messages:
+        blank: "O campo '{{attribute}}' tem que ser preenchido obrigatoriamente."
+        taken: 'Já se encontra em uso.'
+        too_short: "A sua entrada para '{{attribute}}' é demasiado curta."
+        too_long: "A sua entrada para '{{attribute}}' é demasiado longa."
+        invalid: "A sua entrada para '{{attribute}}' tem que ser inserida num formato válido."
+        confirmation: 'Confirmação de {{attribute}} não corresponde.'
+        access_denied: "Não lhe é permitido efectuar esta acção."
+
+      template:
+        header:
+          one: "Um dos campos foi preenchido incorrectamente."
+          other: "{{count}} campos foram preenchidos incorrectamente."
+        body: "Por favor corrija o seguinte:"
+
+    attributes:
+      profile:
+        email:      E-Mail
+        first_name: Nome Próprio
+        last_name:  Sobrenome
+        full_name:  Nome
+        gender:     Sexo
+        city:       Cidade
+        country:    País
+        location:   Localização
+        about_me:   Sobre mim
+        motivation: Considerações sobre a echo
+        memberships: Actividades
+      report:
+        reason:     'Razão'
+      web_address:
+        location:   'Endereço Web'
+      membership:
+        position: A minha função
+      statement_document:
+        text:       'Sumário'
+        title:      'Título'
+
+    models:
+      question: "debate"
+      proposal: "proposta"
+      improvement_proposal: "proposta de melhoria"
+
+
+  authlogic:
+    error_messages:
+      email_invalid:      "Por favor insira um endereço de e-mail correcto."
+      password_blank:     "Senha tem que ser definida."
+      not_active:         "A sua conta ainda não foi activada. Por favor verifique a sua caixa de entrada."
+      must_be_logged_in_for_page:  "Por favor autentique-se para aceder a esta página."
+      must_be_logged_in_for_action: "Por favor autentique-se para efectuar esta acção."
+      must_be_logged_out: "Por favor saia da sua conta para aceder a esta página."
+
+    attributes:
+      user_session:
+        email: E-Mail
+        password: Senha
