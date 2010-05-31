@@ -38,7 +38,7 @@ pt:
       # users: de.seo.title.users
       users:
         users:
-          new: 'Your echo - Juntem-se à echologic'
+          new: 'Your echo - Junte-se à echologic'
         activations:
           new: Your echo - Active a sua conta echologic
           create: 'Your echo - Active a sua conta echologic'
@@ -112,10 +112,8 @@ pt:
       title: echologic
       subtitle: O Movimento
       show:
-        ms1: echologic
+        ms1: echologic é uma rede de pessoas com espírito de mudança <br/>e das suas organizações unidas para realizar 
         ms2: |
-          <font size="+2">é uma rede de pessoas com espírito de mudança <br/>e das suas organizações unidas para realizar </font>
-        ms3: |
           echo - a <span title="{{tooltip}}" class="ttLink">ágora</span> global!
 
         agora_tooltip: |
@@ -140,13 +138,13 @@ pt:
           representantes de organizações e empresas.
           </p><p>
           <strong>echo</strong> providencia uma base tecnológica para uma <strong>democracia participatória</strong>, aberta, no nível local,
-          regional e <span title="{{tooltip}}" class="ttLink">global</span>. A usa voz encontra aqui um echo.
+          regional e <span title="{{subsidiarity_tooltip}}" class="ttLink">global</span>. A usa voz encontra aqui um echo.
           Ideias tornam-se movimentos, visões tornam-se realidade. echo significa o <strong>fim da impotência</strong> e o 
           <strong>princípio da auto-determinação</strong>.
           </p>
         subsidiarity_tooltip: De acordo com os princípios da subsidiaridade
         text_2:
-          title: Collective will-formation and political influence
+          title: Formação de vontades colectiva e influência política
           more: |
             <p>
             De acordo com o moto <strong>“discutir – conectar – agir!”</strong>, pessoas à volta do mundo podem conjuntamente
@@ -934,9 +932,9 @@ pt:
 
     join:
       title: &your_echo 'A vossa echo'
-      subtitle: &join 'Juntem-se à echologic'
+      subtitle: &join 'Junte-se à echologic'
       tabs:
-        join: Juntem-se à echologic
+        join: Junte-se à echologic
         forgot: Nova Senha
 
     invite:

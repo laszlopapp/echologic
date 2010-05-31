@@ -1,7 +1,7 @@
 # Sample localization file for English. Add more files in this directory for other locales.
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
-en:
+pt:
   application:
 
     # General purpose resources
@@ -36,16 +36,16 @@ en:
       next_steps: 'Próximos Passos'
       vision: 'Ao fim da estrada'
       discuss:
-        status_quo: 'A echo "Discutir" correntemente encontra-se <strong>{{progress}}% pronta</strong>.'
+        status_quo: 'A echo "Discutir" actualmente encontra-se <strong>{{progress}}% pronta</strong>.'
         next_steps: 'As primeiras características da echo "Discutir" foram lançadas. A sua funcionalidade será extendida passo por passo nos próximos lançamentos.'
       connect:
-        status_quo: 'A echo "Conectar" correntemente encontra-se <strong>{{progress}}% pronta</strong>.'
+        status_quo: 'A echo "Conectar" actualmente encontra-se <strong>{{progress}}% pronta</strong>.'
         next_steps: 'A echo "Conectar" será melhorada após as primeiras características da echo "Discutir" e da echo "Agir" serem lançadas.'
       act:
-        status_quo: 'A echo "Agir" correntemente encontra-se <strong>{{progress}}% pronta</strong>.'
+        status_quo: 'A echo "Agir" actualmente encontra-se <strong>{{progress}}% pronta</strong>.'
         next_steps: 'O desenvolvimento da echo "Agir" começará após as primeiras funções da echo "Discutir" serem lançadas.'
       my_echo:
-        status_quo: 'A área "My echo" correntemente encontra-se <strong>{{progress}}% pronta</strong>.'
+        status_quo: 'A área "My echo" actualmente encontra-se <strong>{{progress}}% pronta</strong>.'
         next_steps: 'O desenvolvimento ulterior desta área está planeado para acontecer após algumas funcionalidades básicas das áreas "Discutir, Conectar e Agir" serem lançadas.'
         vision: |
          <p>
@@ -141,7 +141,7 @@ en:
         signup: Ainda não é um membro?
         set_password: Esqueceu da sua senha?
         remember: Lembre-me!
-        hello: Registrado<br/><strong>{{name}}</strong>
+        hello: Autenticado<br/><strong>{{name}}</strong>
       messages:
         login_success: "Autenticação sucedida. Bemvindo de volta à echologic."
         login_failed: "Utilizador desconhecido ou password errada."
@@ -237,7 +237,7 @@ en:
         A echo ajuda pessoas da mesma opinião a encontrarem-se uns aos outros com <strong>conhecimento que se complementa</strong>.<br/>
         Com que <strong>palavras-chave (tags)</strong> descreveria os seus <strong>interesses e competências</strong>?
       sorts:
-        affection: <strong>Afeição</strong> by
+        affection: <strong>Afeição</strong> por
         engagement: <strong>Compromisso</strong> em
         expertise: <strong>Especialidade</strong> no campo de
         decision_making: <strong>Decisão</strong> no campo de
@@ -480,7 +480,7 @@ en:
         <p>
         <strong>Gostaríamos muito de ouvir a sua opinião!</strong><br/>
         </p><p>
-        Não hesitem em fazer perguntas, Do not hesitate to ask questions, make comments or to leave a criticism or kudos for us.
+        Não hesitem em fazer perguntas, comentar-nos ou criticar-nos (ou quem sabe elogiar-nos :-) ).
         </p>
       message: Mensagem
       send: Enviar mensagem
