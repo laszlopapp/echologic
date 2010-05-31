@@ -204,13 +204,13 @@ en:
 
     # Spoken Languages section
     spoken_languages:
-      title: Spoken Languages
-      guide: Here you can enter the languages you know, as well as your level in them.
+      title: Language Skills
+      guide: Here you can enter your language skills.
       language: Language
       level: Level
       error_messages:
-        repeated_instance: already has selected this language
-      
+        repeated_instance: This language is already defined.
+
     # Memberships section
     memberships:
       title: Activities
@@ -225,7 +225,7 @@ en:
         Here you can enter some of your contact data and other web profiles.<br/>
         <strong>PLEASE NOTE</strong>: for now, all information entered here will be visible to all members of the echologic community.
       type: Kind of address
-      address: Web Address      
+      address: Web Address
 
     # Concernments section
     concernments:
@@ -276,7 +276,7 @@ en:
   # ---------------
 
   discuss:
-    translation_request: Please translate this text in English
+    translation_request: Please translate this statement to English.
     original_language_warning: 'The original statement is in {{language}}. Tell us which languages you speak to see content in other languages.'
     results_count:
       one: '{{count}} debate'

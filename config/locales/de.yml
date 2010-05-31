@@ -204,13 +204,13 @@ de:
 
     # Spoken Languages section
     spoken_languages:
-      title: Gesprochene Sprache
-      guide:  Bitte geben Sie hier Ihre gesprochene Sprache an, sowie Ihre Kenntnisseniveau in denen.
+      title: Sprachkenntnisse
+      guide:  Hier können Sie Ihre Sprachkenntnisse angeben.
       language: Sprache
       level: Niveau
       error_messages:
-        repeated_instance: hat schon diese Sprache ausgewählt
-      
+        repeated_instance: Diese Sprache ist schon definiert worden.
+
 
     # Memberships section
     memberships:
@@ -284,7 +284,7 @@ de:
 
   discuss:
     original_language_warning: 'Der originale Text ist auf {{language}}. Sagen Sie uns welche Sprachen Sie sprechen um weitere Inhalte zu sehen.'
-    translation_request: Bitte übersetzen Sie den Text auf Deutsch
+    translation_request: Bitte übersetzen Sie die Aussage auf Deutsch.
     results_count:
       one: '{{count}} Debatte'
       more: '{{count}} Debatten'
