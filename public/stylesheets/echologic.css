@@ -162,7 +162,7 @@
 #missionStatementHolder {
   position:    absolute;
   top:		     0px;
-  left:        -10px;
+  left:        -15px;
   width: 	     580px;
   text-align:  center;
   color:       #FFF;
@@ -171,18 +171,15 @@
 }
 
 #missionStatementHolder .ms_echologic {
-  font-size:   35px;
-  margin:      0 4px 10px 0;
-}
-
-#missionStatementHolder .ms_text {
   font-size:   20px;
   line-height: 44px;
+  margin:      0 4px 10px 0;
 }
 
 #missionStatementHolder .ms_echo {
   font-size:   38px;
   color:       #7BB031;
+  line-height: 55px;
 }
 
 #missionStatementHolder .ms_echo .ttLink {

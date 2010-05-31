@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 
   # Set locale to the best fitting one
   def set_locale
-    available = %w{en de}
+    available = %w{en de es}
     I18n.locale = params[:locale] || request.compatible_language_from(available)
   end
 

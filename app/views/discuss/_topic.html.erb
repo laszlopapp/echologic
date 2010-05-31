@@ -1,11 +1,11 @@
 <div class="function_button_holder">
-  <% link_to hash_for_question_tags_path.merge( {:id=>category} ) do %>
+  <% link_to hash_for_question_tags_path.merge({:id=>category}) do %>
     <span class="function_button">
     	<%= image_tag(image_path) %>
     </span>
   <% end %>
-  <% link_to hash_for_question_tags_path.merge( {:id=>category} ), {:class => 'function_name'} do %>
-  		<%= I18n.t("discuss.topics.#{category}.name")%>
+  <% link_to hash_for_question_tags_path.merge({:id=>category}), {:class => 'function_name'} do %>
+    <%= I18n.t("discuss.topics.#{category}.name") %>
   <% end %>
   <span class="function_description">
   	<%= I18n.t("discuss.topics.#{category}.teaser") %>
