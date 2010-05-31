@@ -135,3 +135,7 @@
 .with_bg_bw_grad {
   background: #fff url(../images/page/box/blue_white_gradient.png) repeat-x left top;
 }
+
+.with_bg_bw_grad_small {
+  background: #fff url(../images/page/box/blue_white_gradient_small.png) repeat-x left top;
+}
