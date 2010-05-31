@@ -77,8 +77,8 @@ es:
       feedback: &feedback Feedback
       about: &about Sobre nosotros
       logout: Salir
-      imprint: &imprint Impressum
-      data_privacy: &data_privacy Datenschutz
+      imprint: &imprint Información legal
+      data_privacy: &data_privacy Protección de datos
 
     discuss:
       tabs:
@@ -106,7 +106,7 @@ es:
     title: Bienvenido a echologic!
     text: |
       <p>
-      <strong>discutir - conectar - actuar!</strong><br/>
+      <strong>Discutir - Conectar - Actuar!</strong><br/>
       Estas son las tres áreas que desarrollaremos en echologic paso a paso juntos contigo.<br/>
       En el <strong>"desarrollo"</strong> (arriba en el lado derecho de la pantalla) puedes seguir
       el desarrollo actual de cada área y los próximos pasos planeados.
@@ -162,7 +162,7 @@ es:
         </p><p>
         No hay problema! Simplemente entre su <strong>E-Mail</strong> con la cual estas registrado en echologic. Nosotros le enviaremos un E-Mail que le posibilitará <strong>definir una nueva seña</strong>.
         </p>
-      step1_mail: enviar E-Mail
+      step1_mail: Enviar E-Mail
 
       step2_text: |
         Por favor entre <strong>su nueva seña</strong> con la cual deseas entrar a echologic la próxima vez.
@@ -208,7 +208,7 @@ es:
       language: Idioma
       level: Nivel
       error_messages:
-        repeated_instance: ya escojeó este idioma
+        repeated_instance: Ya escojeó este idioma
 
 
     # Memberships section
@@ -297,8 +297,8 @@ es:
     original_language_warning: 'El texto original es {{language}}. Por favor indique quales son las lenguas que intiendes.'
     translation_request: Por favor tradusca este texto al Español.
     results_count:
-      one: '{{count}} Debate'
-      more: '{{count}} Debates'
+      one: '{{count}} debate'
+      more: '{{count}} debates'
     featured_topics:
       title: Sinopsis
       text: |
@@ -388,7 +388,7 @@ es:
           Durante dos <strong>encuentros tranacionales</strong> en el 26.04.2010 participantes de Berlin, Munich, Austria y Suiza iniciaron un dialogo interaktivo.
           </p><p>
           Más informaciones puedes hallar aquí:
-          <a href='http://www.netzwerk-gemeinsinn.net/content/view/625/218' target='_blank'>Blog vom Netzwerk Gemeinsinn</a>.
+          <a href='http://www.netzwerk-gemeinsinn.net/content/view/625/218' target='_blank'>Blog de Netzwerk Gemeinsinn</a>.
 
     tooltips:
       read_question: 'Mirar este debate'
@@ -441,7 +441,7 @@ es:
         improvement_proposal: 'Propuesta de mejoramiento'
       states:
         new: Nuevo
-        published: publicado
+        published: Publicado
       delete_link: "Borrar"
       delete_confirmation: "Está seguro, que realmente quiere borrar esta propuesta?"
     summary:
