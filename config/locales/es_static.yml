@@ -114,7 +114,7 @@ es:
       subtitle: El movimiento
 
       show:
-        ms1: echologic es una red de librepensadores. <br/> Nuestro objetivo es la realización de 
+        ms1: echologic es una red de librepensadores. <br/> Nuestro objetivo es la realización de
         ms2: |
           echo - el <span title="{{tooltip}}" class="ttLink">ágora</span> global!
 
@@ -265,7 +265,7 @@ es:
         echo: echo
         discuss: Discutir
         connect: Conectar
-        act: Actuar!
+        act: Actuar
         echo_on_waves: Dondequiera
 
       show:
@@ -404,7 +404,7 @@ es:
 
       # act section
       act:
-        title: Actuar!
+        title: Actuar
 
         text_top: |
           <p>
@@ -447,7 +447,7 @@ es:
 
       # echo on waves section
       echo_on_waves:
-        title: echo on waves
+        title: Dondequiera
         text: |
           <p>
           Para vencer los límites de plataformas singulares, echo sigue un modelo descentralizado.

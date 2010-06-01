@@ -1,17 +1,3 @@
 <% statements ||= @statements %>
 <% content_for :submenu, tabnav(:discuss) %>
-
-<div id="my_discussions" class="header_block discuss_right_block">
-    <h2><%= I18n.t('discuss.my_discussions.title') %></h2>
-    <div id="discussions">
-		  <ul id="discussion_list">
-		  	<% statements.each do |statement| %>
-		      <%= render :partial => 'statements/questions/discussion', :locals => { :statement => statement} %>
-		    <% end %>
-		  </ul>
-			<%if statements.empty? or statements.current_page == statements.total_pages%>
-        <li><%= add_discussion_link %></li>
-      <%end%>
-		  <%= will_paginate statements, :previous_label => '', :next_label => '' if defined? !statements.empty? and statements.total_pages %>  
-		</div>
-</div>
+<%= render :partial => 'statements/questions/discussions', :locals => {:statements => statements}%>

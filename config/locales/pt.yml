@@ -416,6 +416,7 @@ pt:
         Tem uma <strong>boa ideia</strong> para <strong>tornar a proposta actual ainda melhor</strong>?<br/>
         Aqui pode criar uma <strong>nova proposta de melhoria</strong>.
       publish: Publicar
+      published: Debate publicado com sucesso!
 
       types:
         question:  'Debate'

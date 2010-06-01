@@ -9,11 +9,11 @@ class StatementsController < ApplicationController
   #        wrap a form around it.
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation]
   verify :method => :post, :only => [:create]
-  verify :method => :put, :only => [:update, :create_translation, :publish]
+  verify :method => :put, :only => [:update, :create_translation,:publish]
   verify :method => :delete, :only => [:destroy]
 
   # the order of these filters matters. change with caution.
-  before_filter :fetch_statement, :only => [:show, :edit, :update, :echo, :unecho, :new_translation,:create_translation,:publish,:destroy]
+  before_filter :fetch_statement, :only => [:show, :edit, :update, :echo, :unecho, :new_translation,:create_translation,:destroy,:publish]
   before_filter :fetch_category, :only => [:index,:new_translation,:create_translation,:destroy]
 
   before_filter :require_user, :except => [:index, :category, :show]
@@ -25,7 +25,7 @@ class StatementsController < ApplicationController
   access_control do
     allow :editor
     allow anonymous, :to => [:index, :show, :category]
-    allow logged_in, :only => [:index, :show, :echo, :unecho, :new_translation, :create_translation, :publish]
+    allow logged_in, :only => [:index, :show, :echo, :unecho, :new_translation, :create_translation,:publish]
     allow logged_in, :only => [:new, :create]
     allow logged_in, :only => [:edit, :update], :if => :may_edit?
     allow logged_in, :only => [:destroy], :if => :may_delete?
@@ -148,22 +148,7 @@ class StatementsController < ApplicationController
     end
   end
   
-  def publish
-    return if !@statement.question?
-    @statement.publish
-    respond_to do |format|
-      format.js do        
-        if @statement.save
-          set_info("discuss.statements.published")
-          render_with_info do |p|
-            replace_content(dom_id(@statement), :partial => 'discuss/discussion')
-          end
-        else
-          show_error_messages(@statement)
-        end
-      end
-    end
-  end
+  
 
   def new_translation
     @statement_document ||= @statement.translated_document(current_user.language_keys)
@@ -183,7 +168,7 @@ class StatementsController < ApplicationController
 
   def create_translation
     attrs = params[statement_class_param]
-    attrs[:state_id] = StatementNode.statement_states('published').first.id unless statement_class == Question
+    attrs[:state_id] = StatementNode.statement_states('published').id unless statement_class == Question
     doc_attrs = attrs.delete(:new_statement_document)
     doc_attrs[:author_id] = current_user.id
     doc_attrs[:language_id] = current_language_key
@@ -240,7 +225,7 @@ class StatementsController < ApplicationController
   # actually creates a new statement
   def create
     attrs = params[statement_class_param].merge({:creator_id => current_user.id})
-    attrs[:state_id] = StatementNode.statement_states('published').first.id unless statement_class == Question
+    attrs[:state_id] = StatementNode.statement_states('published').id unless statement_class == Question
     doc_attrs = attrs.delete(:statement_document)
     @tags = attrs.delete(:tags).split(' ').map{|t|t.strip}.uniq unless attrs[:tags].nil?
     # FIXME: find a way to move more stuff into the models    
@@ -332,8 +317,7 @@ class StatementsController < ApplicationController
 
   # processes a cancel request, and redirects back to the last shown statement
   def cancel
-    @statement
-    redirect_to url_f(StatementNode.find(session[:last_statement]))
+    redirect_to url_f(StatementNode.find(session[:last_statement]))    
   end
 
   #

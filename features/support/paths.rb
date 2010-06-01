@@ -25,7 +25,7 @@ module NavigationHelpers
     when /the reports page/
       reports_path
     when /^create a question$/
-      new_question_path(:category => 'echonomyjam')
+      new_question_path
     when /^the question$/
       question_path(@question)
     when /^the proposal$/
@@ -36,6 +36,8 @@ module NavigationHelpers
       question_proposal_path(@question, @proposal)
     when /discuss index/i
       questions_url
+    when /my discussions/i
+      my_discussions_url
     when /discuss featured/i
       discuss_path
     when /the proposal/

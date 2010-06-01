@@ -320,6 +320,80 @@ a.statement_link:hover {
 /* Translations        */
 /* ------------------- */
 
+.translation_box_class {
+  height: 55px;
+	margin: 0 -10px 0px;
+	text-align: center;
+}
+
+.translation_box_class .fish_left {
+  position: absolute;
+  left: 12px;
+  top: 2px;
+}
+
+.translation_box_class .fish_right {
+  position: absolute;
+  right: 12px;
+  top: 2px;
+}
+
+.translation_box_class .language_label {
+  position: absolute;
+  left: 80px;
+  top: 20px;
+  font-weight: bold;
+  cursor: default;
+}
+
+.translation_box_class .from_language {
+  left: 80px;
+}
+
+.translation_box_class .to_language {
+  right: 80px;
+  text-align: right;
+}
+
+.translation_box_class .translation_link {
+  position: relative;
+  top: 20px;
+  font: 14px;
+  font-weight: bold;
+  color: #21587f;
+}
+
+.translation_box_class .translation_link:hover {
+  cursor: pointer;
+  color: #7bb031;
+}
+
+.translation_box_class .arrow {
+  position: relative;
+  top: 4px;
+}
+
+
+
+#original_language_box.statement_message_box {
+	padding-top: 13px;
+	padding-bottom: 13px;
+}
+
+#original_language_box.statement_message_box span.box_header_info {
+  top: 9px;
+	left: 58px;
+}
+
+#original_language_box.statement_message_box .box_header {
+  padding-left:90px;
+	font-size: 12px;
+}
+
+#original_language_box.statement_message_box .box_header_icon {
+  left: 19px;
+}
+
 
 
 #new_translation textarea {
@@ -332,7 +406,7 @@ a.statement_link:hover {
 
 #new_translation form.wide_form {
 }
- 
+
 #new_translation fieldset.inputs {
 	float: left;
 	padding-left: 37px;
@@ -344,64 +418,7 @@ a.statement_link:hover {
 
 #new_translation.translation_block {
   min-height: 590px;
-	padding-top: 20px;
 	padding-left: 0px;
-}
-
-.statement_message_box {
-	background:url("../images/page/box/blue_white_gradient.png") repeat-x scroll left top #FFFFFF;
-	margin:0 0 15px;
-	padding-top: 11px;
-	padding-bottom: 11px;
-	text-align: center;
-}
-
-#original_language_box.statement_message_box {
-	padding-top: 13px;
-	padding-bottom: 13px;
-}
-
-.statement_message_box span.box_header_info {
-  position: absolute;
-  left: 76px;
-  font-size:19px;
-}
-
-#original_language_box.statement_message_box span.box_header_info {
-  top: 9px;
-	left: 58px;
-}
-
-.statement_message_box span.box_header_info_right {
-  position: absolute;
-  right: 82px;
-  font-size:19px;
-}
-
-
-.statement_message_box .box_header {
-	position: relative;
-	left: 0px;
-	top: 0px;
-}
-
-#original_language_box.statement_message_box .box_header {
-  padding-left:90px;
-	font-size: 12px;
-}
-
-.statement_message_box .box_header_icon {
-	background:url("../images/page/box/box_icon_people.png") scroll left top transparent;
-	left: 33px;
-	top: 3px;
-}
-
-#original_language_box.statement_message_box .box_header_icon {
-  left: 19px;
-}
-
-.statement_message_box .right {
-  left: 762px;
 }
 
 /* for title in discuss listing */
@@ -497,4 +514,11 @@ a.statement_link:hover {
 	padding:0 0 4px 20px;
 	text-align:center;
 	width:150px !important;
+}
+#my_discussions .pagination {
+	width: 100%;
+}
+
+#discussions ul {
+	min-height: 255px;
 }

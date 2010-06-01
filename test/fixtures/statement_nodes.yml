@@ -25,6 +25,13 @@ with-german-children-question:
   state_id: <%= Fixtures.identify(:statement_state_published) %>
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('with-german-children-question-statement') %>
+  
+non_published_question:
+  type: Question
+  creator_id: <%= Fixtures.identify(:editor) %>
+  state_id: <%= Fixtures.identify(:statement_state_new) %>
+  category_id: <%= Fixtures.identify('echonomy-jam') %>
+  statement_id: <%= Fixtures.identify('non-published-question-statement') %>
 
 second-proposal:
   parent_id: <%= Fixtures.identify('test-question') %>

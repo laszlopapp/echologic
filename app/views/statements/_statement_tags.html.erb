@@ -2,7 +2,7 @@
 <% tags ||= @tags %>
 <div id="statement_tags_container" class="two_columns_block">
  
-  <% tag_context = TaoTag.tag_contexts("topic").first %>
+  <% tag_context = TaoTag.tag_contexts("topic") %>
 
 	<div class="form_container">
 	  <span class="label"><%= tag_context.get_current_enum_value.value %></span>  

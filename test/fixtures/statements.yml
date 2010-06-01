@@ -8,6 +8,8 @@ third-question-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
 with-german-children-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+non-published-question-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
 first-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
 second-proposal-statement:

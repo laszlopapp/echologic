@@ -23,7 +23,7 @@ class StatementNode < ActiveRecord::Base
   end
   
   def published?
-    self.state == self.class.statement_states("published").first
+    self.state == self.class.statement_states("published")
   end
   
   ##
@@ -36,7 +36,7 @@ class StatementNode < ActiveRecord::Base
   has_many :tao_tags, :as => :tao, :dependent => :destroy
   has_many :tags, :through => :tao_tags
   
-  enum :states, :enum_name => :statement_states
+  enum :state, :enum_name => :statement_states
   
   acts_as_tree :scope => :root_statement
   # not yet implemented
@@ -60,6 +60,7 @@ class StatementNode < ActiveRecord::Base
   validates_presence_of :state_id
   validates_presence_of :creator_id
   validates_presence_of :statement
+  validates_numericality_of :state_id
   validates_associated :creator  
   validates_associated :statement
   validates_associated :tao_tags
@@ -92,7 +93,7 @@ class StatementNode < ActiveRecord::Base
   named_scope :contra_arguments, lambda {
     { :conditions => { :type => 'ContraArgument' } } }
   named_scope :published, lambda {|auth| 
-    { :conditions => { :state_id => statement_states('published').first.id } } unless auth }
+    { :conditions => { :state_id => statement_states('published').id } } unless auth }
     
   #this name scope doesn't work
   named_scope :by_title, lambda {|value|
@@ -138,7 +139,7 @@ class StatementNode < ActiveRecord::Base
 
 
   def publish
-    
+    self.state = self.class.statement_states("published")
   end
   
   # returns a translated document for passed language_codes (or nil if none is found)
@@ -173,7 +174,7 @@ class StatementNode < ActiveRecord::Base
   end
   
   def add_tags(tags, opts = {})
-    self.tao_tags << TaoTag.create_for(tags, opts[:language_id], {:tao_id => self.id, :tao_type => "StatementNode", :context_id => TaoTag.tag_contexts("topic").first.id})
+    self.tao_tags << TaoTag.create_for(tags, opts[:language_id], {:tao_id => self.id, :tao_type => "StatementNode", :context_id => TaoTag.tag_contexts("topic").id})
   end
   
   def delete_tags(tags)
@@ -210,7 +211,7 @@ class StatementNode < ActiveRecord::Base
       and_conditions = opts[:conditions] || ["n.type = '#{type}'"]
       and_conditions << "t.value = '#{opts[:tag]}'" unless opts[:tag].nil?
       and_conditions << "tt.tao_type = 'StatementNode'" unless opts[:tag].nil?
-      and_conditions << "state = #{statement_states('published').first.id}" if opts[:auth] 
+      and_conditions << "state = #{statement_states('published').id}" if opts[:auth] 
       
       #all getting along like really good friends
       and_conditions << "(#{or_conditions})"

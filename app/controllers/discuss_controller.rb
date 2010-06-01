@@ -1,8 +1,5 @@
 class DiscussController < ApplicationController
   
-  access_control do
-    allow logged_in, :only => [:my_discussions]
-  end
   
   # GET /discuss
   def roadmap

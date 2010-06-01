@@ -8,7 +8,7 @@ Feature: User Generated Debates
   @ok
   Scenario: user tries to create Debate without content
     Given I am logged in as "user" with password "true"
-    When I am on the Discuss Index
+    When I am on My Discussions
       And I follow "Open a New Debate"
       And I press "Save"
     Then I should see "Your input for 'Statement' must be in a valid format."
@@ -16,7 +16,7 @@ Feature: User Generated Debates
   @ok
   Scenario: user tries to create Debate without text
     Given I am logged in as "user" with password "true"
-    When I am on the Discuss Index
+    When I am on My Discussions
       And I follow "Open a New Debate"
       And I fill in the following:
         | question_statement_document_title | A Debate for all Seasons |
@@ -26,7 +26,7 @@ Feature: User Generated Debates
   @ok
   Scenario: user tries to create Debate without title
     Given I am logged in as "user" with password "true"
-    When I am on the Discuss Index
+    When I am on My Discussions
       And I follow "Open a New Debate"
       And I fill in the following:
         | question_statement_document_text | A Debate for all Seasons |
@@ -36,7 +36,7 @@ Feature: User Generated Debates
   @ok
   Scenario: user creates Debate without tags, then edits it and adds a new tag
     Given I am logged in as "user" with password "true"
-    When I am on the Discuss Index
+    When I am on My Discussions
       And I follow "Open a New Debate"
       And I fill in the following:
         | question_statement_document_title | A Debate for all Seasons |
@@ -53,7 +53,7 @@ Feature: User Generated Debates
   @ok
   Scenario: user creates Debate with multiple tags
     Given I am logged in as "user" with password "true"
-    When I am on the Discuss Index
+    When I am on My Discussions
       And I follow "Open a New Debate"
       And I fill in the following:
         | question_statement_document_title | A Debate for all Seasons |
@@ -66,7 +66,7 @@ Feature: User Generated Debates
   @ok
   Scenario: user creates Debate with multiple tags, then deletes some
     Given I am logged in as "user" with password "true"
-    When I am on the Discuss Index
+    When I am on My Discussions
       And I follow "Open a New Debate"
       And I fill in the following:
         | question_statement_document_title | A Debate for all Seasons |
@@ -83,7 +83,7 @@ Feature: User Generated Debates
   @ok
   Scenario: user creates Debate with an hash tag, and it should fail
     Given I am logged in as "user" with password "true"
-    When I am on the Discuss Index
+    When I am on My Discussions
       And I follow "Open a New Debate"
       And I fill in the following:
         | question_statement_document_title | A Debate for all Seasons |
@@ -96,7 +96,7 @@ Feature: User Generated Debates
   @ok
   Scenario: editor creates Debate with an hash tag echonomyjam, and it should be visible in the echonomy jam listing
     Given I am logged in as "editor" with password "true"
-    When I am on the Discuss Index
+    When I am on My Discussions
       And I follow "Open a New Debate"
       And I fill in the following:
         | question_statement_document_title | A Debate for all Seasons |
@@ -113,7 +113,7 @@ Feature: User Generated Debates
   @ok
   Scenario: user creates Debate with a tag, then edits the debate and adds an invalid tag, and it should fail
     Given I am logged in as "user" with password "true"
-    When I am on the Discuss Index
+    When I am on My Discussions
       And I follow "Open a New Debate"
       And I fill in the following:
         | question_statement_document_title | A Debate for all Seasons |

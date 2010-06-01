@@ -17,7 +17,7 @@
 	      </li>			
 	    <% end %>
 	  <% else %>
-		  <%= form.hidden_field :state_id, :value => StatementNode.statement_states('new').first.id %>
+		  <%= form.hidden_field :state_id, :value => StatementNode.statement_states('new').id %>
 		<% end %>
 		<% form.inputs do %>
 		  <%= render :partial => "statements/statement_tags", :locals => {:form => form, :statement => statement, :tags => tags}%>
@@ -45,6 +45,6 @@
   <% form.buttons do %>
     <%= form.commit_button I18n.t('application.general.save'), :button_html => { :alt => 'save_button' } %>
     <span class="or_cancel"><%= I18n.t('application.general.or') %></span>
-    <%= link_to I18n.t('application.general.cancel'), session[:last_statement] ? statement_path(session[:last_statement]) : (statement.parent or discuss_url), :class => 'ajax text_button cancel_button' %>
+		<%= cancel_new_statement(statement) %>    
   <% end %>
 <% end -%>

@@ -10,8 +10,7 @@ Feature: Start a discussion
     Given there are no questions
       And I am logged in as "editor" with password "true"
       And I am on the discuss index
-    When I follow "Featured"
-    When I follow localized "discuss.topics.echonomyjam.name"
+    When I follow "My Discussions"
       And I follow "Open a new debate"
       And I fill in the following:
         | question_statement_document_title | Is this a Question?   |

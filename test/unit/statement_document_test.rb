@@ -29,7 +29,7 @@ class StatementDocumentTest < ActiveSupport::TestCase
 
     context "with translations" do
       setup do  
-        statement = Statement.new(:original_language => StatementDocument.languages("en").first)
+        statement = Statement.new(:original_language => StatementDocument.languages("en"))
         @statement_document.update_attributes(:title => 'A document', :text => 'the documents body', :statement => statement)
         @statement_document.language = StatementDocument.languages.first
         @statement_document.author = User.first

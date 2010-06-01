@@ -4,9 +4,11 @@
 
   <% statement_stack = [statement.root, statement.parent, statement].compact.uniq || [] %>
   <% statement_stack.each do |s| %>
-  <div class="context_line <%= 'active' if statement_stack.last.eql?(s) %>">
+  <% last_statement = statement_stack.last.eql?(s) %>
+  <div class="context_line <%= 'active' if last_statement %>">
     <div class="context_buttons"><%= prev_next_buttons(s) %></div>
-    <div class="context_link"><%= statement_context_link(s,@current_language_keys,(statement_stack.last.eql?(s) ? 'current' : 'back_to'))%></div>
+    <div class="context_link"><%= statement_context_link(s,
+         @current_language_keys,(last_statement ? 'current' : 'back_to'), last_statement)%></div>
   </div>
   <% end %>
 

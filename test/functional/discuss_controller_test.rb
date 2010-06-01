@@ -5,7 +5,7 @@ class DiscussControllerTest < ActionController::TestCase
   def setup
     #login_as :user
     @controller = DiscussController.new
-    @user = Profile.find_by_first_name('User')
+    login_as :user
   end
 
   test "should get index without being logged on" do
@@ -21,7 +21,7 @@ class DiscussControllerTest < ActionController::TestCase
 
   test "should cancel question update and redirect to question page" do
     statement = Question.first
-    session[:last_statement] = statement.id
+    session[:last_statement] = statement.id   
     get :cancel
     assert_redirected_to question_url(statement)
   end

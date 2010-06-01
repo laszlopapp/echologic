@@ -16,7 +16,6 @@ module StatementHelper
   ##
 
 
-
   def new_child_statement_url(parent, type)
     case type.downcase
     when 'question'
@@ -31,7 +30,7 @@ module StatementHelper
       raise ArgumentError.new("Unhandled type: #{type.downcase}")
     end
   end
-  
+
   def edit_statement_path(statement)
     case statement_class_dom_id(statement).downcase
     when 'question'
@@ -59,7 +58,7 @@ module StatementHelper
       raise ArgumentError.new("Unhandled type: #{type.downcase}")
     end
   end
-  
+
   def create_translation_url (parent, type)
     case type.downcase
     when 'question'
@@ -111,15 +110,15 @@ module StatementHelper
   def new_translation_proposal_url(proposal)
     new_translation_question_proposal_url(proposal.parent, proposal)
   end
-  
+
   def new_translation_proposal_path(proposal)
     new_translation_question_proposal_path(proposal.parent, proposal)
   end
-  
+
   def create_translation_proposal_url(proposal)
     create_translation_question_proposal_url(proposal.parent, proposal)
   end
-  
+
   def create_translation_proposal_path(proposal)
     create_translation_question_proposal_path(proposal.parent, proposal)
   end
@@ -143,19 +142,19 @@ module StatementHelper
   def edit_improvement_proposal_path(proposal)
     edit_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
   end
-  
+
   def new_translation_improvement_proposal_url(proposal)
     new_translation_question_proposal_improvement_proposal_url(proposal.root, proposal.parent, proposal)
   end
-  
+
   def new_translation_improvement_proposal_path(proposal)
     new_translation_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
   end
-  
+
   def create_translation_improvement_proposal_url(proposal)
     create_translation_question_proposal_improvement_proposal_url(proposal.root, proposal.parent, proposal)
   end
-  
+
   def create_translation_improvement_proposal_path(proposal)
     create_translation_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
   end
@@ -182,14 +181,12 @@ module StatementHelper
             :class => "ajax #{css_class} text_button #{create_statement_button_class(type)} ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_#{type.underscore}"))
   end
-  
+
   def create_translate_statement_link(statement, css_class = "")
      type = statement_class_dom_id(statement)
      link_to I18n.t('discuss.translation_request'),
               new_translation_url(statement, type),
-              :id => "translation_link",
-              :class => "ajax #{css_class}"
-             
+              :class => "ajax translation_link #{css_class}"
   end
 
   # this classname is needed to display the right icon next to the link
@@ -222,6 +219,19 @@ module StatementHelper
     I18n.t("discuss.statements.new.#{type}")
   end
 
+  def cancel_new_statement(statement)
+    type = statement_class_dom_id(statement).downcase
+      if type == 'question'
+        link_to I18n.t('application.general.cancel'), 
+        :back,
+        :class => 'text_button cancel_button'
+      else
+        link_to I18n.t('application.general.cancel'), 
+                session[:last_statement] ? statement_path(session[:last_statement]) : (statement.parent or discuss_url), 
+                :class => 'ajax text_button cancel_button'
+        
+      end
+  end
 
   ##
   ## CONVENIENCE and UI
@@ -247,14 +257,6 @@ module StatementHelper
       val = "<span class='no_echo_indicator ttLink' title='#{tooltip}'></span>"
     end
   end
-  
-  
-
-
-  def question_bar(context=nil)
-    text = I18n.t('discuss.statements.label')
-    val = "<span class='echo_label'>#{text}</span>"
-  end
 
 
   # TODO: instead of adding an image tag, we should use css classes here, like (almost) everywhere else
@@ -264,8 +266,8 @@ module StatementHelper
   ##
   ## Statement Context (where am i within the statement stack?)
   ##
-    
-  
+
+
   # DEPRICATED, user statement_context_link instead
   def statement_context_line(statement)
     link = link_to(statement_icon(statement, :small)+statement.title, url_for(statement), :class => 'ajax')
@@ -274,17 +276,22 @@ module StatementHelper
   end
 
   # Returns the context menu link for this statement.
-  def statement_context_link(statement, language_keys, action = 'read')
+  def statement_context_link(statement, language_keys, action = 'read', last_statement = false)
 
     link = link_to(statement.translated_document(language_keys).title, url_for(statement),
                    :class => "ajax no_border statement_link #{statement.class.name.underscore}_link ttLink",
                    :title => I18n.t("discuss.tooltips.#{action}_#{statement.class.name.underscore}"))
     if statement.class.name == 'Question'
-      link << question_bar
+      link << echo_label unless last_statement
     else
       link << supporter_ratio_bar(statement,'context')
     end
     return link
+  end
+
+  # Creates a label to explain the echo/supporter count indicators
+  def echo_label(context=nil)
+    val = "<span class='echo_label'>#{I18n.t('discuss.statements.label')}</span>"
   end
 
   ##

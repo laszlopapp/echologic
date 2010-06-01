@@ -10,21 +10,19 @@ class StatementDocument < ActiveRecord::Base
   validates_presence_of :language_id
   validates_presence_of :statement
   validates_associated :author    
-  #validates_associated :statement  
-  #validates_associated :statement_nodes
   
-  enum :languages
-  
+  enum :language, :enum_name => :languages
+
   # returns if the document is an original or a translation
   def original?
     self.translated_document_id.nil?
-  end 
-  
+  end
+
   # returns the translated_document, declaring it as the original
   def original
     self.translated_document.original? ? self.translated_document : self.translated_document.original
   end
-  
+
   # returns all translations of self
   def translations
     StatementDocument.find_all_by_translated_document_id(self.id)
