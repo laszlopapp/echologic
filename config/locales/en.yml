@@ -276,8 +276,10 @@ en:
   # ---------------
 
   discuss:
-    translation_request: Please translate this statement to English.
-    original_language_warning: 'The original statement is in {{language}}. Tell us which languages you speak to see content in other languages.'
+    translation_request: Please translate this statement to <strong>ENGLISH</strong>.
+    original_language_warning: |
+      The original statement is in <strong>{{language}}</strong>. Set your <br/>
+      language skills to see content in other languages.
     results_count:
       one: '{{count}} debate'
       more: '{{count}} debates'

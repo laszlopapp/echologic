@@ -45,11 +45,11 @@ pt:
         status_quo: 'A echo "Agir" actualmente encontra-se <strong>{{progress}}% pronta</strong>.'
         next_steps: 'O desenvolvimento da echo "Agir" começará após as primeiras funções da echo "Discutir" serem lançadas.'
       my_echo:
-        status_quo: 'A área "My echo" actualmente encontra-se <strong>{{progress}}% pronta</strong>.'
+        status_quo: 'A área "O meu echo" actualmente encontra-se <strong>{{progress}}% pronta</strong>.'
         next_steps: 'O desenvolvimento ulterior desta área está planeado para acontecer após algumas funcionalidades básicas das áreas "Discutir, Conectar e Agir" serem lançadas.'
         vision: |
          <p>
-         A longo prazo, A área My echo será o seu <strong>eixo de informação pessoal</strong> dentro da echo. P.ex. providenciar-lhe-á
+         A longo prazo, A área O meu echo será o seu <strong>eixo de informação pessoal</strong> dentro da echo. P.ex. providenciar-lhe-á
          com as mais<strong>importantes notícias</strong> e chamar-lhe-á a atenção para as mais <strong>recentes discussões e acções</strong> de acordo
          com as suas preferências.
          </p>
@@ -72,7 +72,7 @@ pt:
       discuss: Discutir
       connect: Conectar
       act: Agir
-      my_echo: My echo
+      my_echo: O meu echo
       admin: Admin
 
     outer_menu:
@@ -80,7 +80,7 @@ pt:
       feedback: &feedback Feedback
       about: &about Sobre nós
       logout: Sair
-      imprint: &imprint Imprint
+      imprint: &imprint Rubrica
       data_privacy: &data_privacy Privacidade de Dados
 
     discuss:
@@ -118,7 +118,7 @@ pt:
       </p>
     function_1:
       name: 'O meu Perfil'
-      description: Complete o seu perfil de forma a apresentar-se perante a comunidade echologic.'
+      description: Complete o seu perfil de forma a apresentar-se perante a comunidade echologic.
     function_2:
       name: 'Conectar'
       description: 'Explore a comunidade e conecte-se com outras pessoas interessantes ligadas ao movimento.'
@@ -210,7 +210,7 @@ pt:
       level: Nível
       error_messages:
         repeated_instance: já seleccionou esta língua
-      
+
     # Memberships section
     memberships:
       title: Actividades
@@ -225,7 +225,7 @@ pt:
         Aqui pode inserir alguns dos seus contactos e outros perfis web que possua.<br/>
         <strong>TOME NOTA</strong>: por agora, toda a informação inserida estará visível para todos os membros da comunidade echologic.
       type: Tipo de endereço
-      address: Endereço Web    
+      address: Endereço Web
 
     # Concernments section
     concernments:
@@ -251,12 +251,13 @@ pt:
           <p>
           <strong>A echo é democracia das pessoas para as pessoas.</strong>
           </p><p>
-          Como um projecto para apoiar o bem comum, a echo é levada para a frente graças ao 
+          Como um projecto para apoiar o bem comum, a echo é levada para a frente graças ao
           <strong>esforço conjunto</strong> de indivíduos e organizações comprometidos.
           </p><p>
           Ansioso para <strong>contribuir as suas ideias</strong> também!?<br/>
           Por favor insira o seu nome e endereço de E-Mail abaixo!<br/>
-          <strong>Forme a echo</strong> e <strong>discuta tópicos como sustentabilidade</strong> e democracia com outros cidadões, especialistas e representantes comprometidos.
+          <strong>Forme a echo</strong> e <strong>discuta tópicos como sustentabilidade</strong> e democracia com
+          outros cidadões, especialistas e representantes comprometidos.
           </p>
         action: 'Junte-se agora!'
 
@@ -267,7 +268,11 @@ pt:
     reports:
       new:
         title:  "Utilizador do relatório"
-        text:   "<p>Verificou algum <strong>conteúdo ofensivo, anti-ético ou ilegal?</strong><br/>Se sim, pode aqui referir o utilizador à nossa equipa administrativa.</p><p>Nós verificaremos o assunto tão céleremente como possível.</p>"
+        text: |
+          <p>
+          Verificou algum <strong>conteúdo ofensivo, anti-ético ou ilegal?</strong><br/>Se sim, pode aqui referir
+          o utilizador à nossa equipa administrativa.</p><p>Nós verificaremos o assunto tão céleremente como possível.
+          </p>
       messages:
         created: "Obrigado pela sua mensagem. Um dos administradores foi notificado."
 
@@ -276,8 +281,10 @@ pt:
   # ---------------
 
   discuss:
-    translation_request: Por favor traduza este texto em Português.
-    original_language_warning: 'O texto original encontra-se em {{language}}. Informe-nos sobre que línguas você domina para poder aceder a conteúdo noutras línguas.'
+    translation_request: Por favor traduza este texto em <strong>PORTUGUÊS</strong>.
+    original_language_warning: |
+      O texto original encontra-se em <strong>{{language}}</strong>. Defina os seus conheci-<br/>
+      mentos linguísticos para poder visualizar conteúdo noutras línguas.
     results_count:
       one: '{{count}} debate'
       more: '{{count}} debates'
@@ -363,7 +370,7 @@ pt:
         name: Transparência de Preços - Economicamente, Ecologicamente, Justo
         short_name: Transparência de Preços
         teaser: |
-          Diálogo através das fronteiras das cidades e instituições para apoiar o intercâmbio e a rede sobre a transparência de custo 
+          Diálogo através das fronteiras das cidades e instituições para apoiar o intercâmbio e a rede sobre a transparência de custo
           para productos e serviços.
         description: |
           <p>
