@@ -353,10 +353,13 @@ a.statement_link:hover {
 
 .translation_box_class .translation_link {
   position: relative;
-  top: 20px;
+  top: 19px;
   font: 14px;
-  font-weight: bold;
   color: #21587f;
+}
+
+.translation_box_class .translation_link strong {
+  font-size: 1em;
 }
 
 .translation_box_class .translation_link:hover {
@@ -367,6 +370,10 @@ a.statement_link:hover {
 .translation_box_class .arrow {
   position: relative;
   top: 4px;
+}
+
+.translation_box_class .profile_link {
+  top: 11px;
 }
 
 /* Translation form */
@@ -394,25 +401,4 @@ a.statement_link:hover {
 #new_translation fieldset.buttons {
   clear: both;
   padding: 15px 0 0;
-}
-
-/* Language skills teaser */
-
-#original_language_box.statement_message_box {
-	padding-top: 13px;
-	padding-bottom: 13px;
-}
-
-#original_language_box.statement_message_box span.box_header_info {
-  top: 9px;
-	left: 58px;
-}
-
-#original_language_box.statement_message_box .box_header {
-  padding-left:90px;
-	font-size: 12px;
-}
-
-#original_language_box.statement_message_box .box_header_icon {
-  left: 19px;
 }
