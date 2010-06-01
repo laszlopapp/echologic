@@ -89,11 +89,16 @@ class StatementsController < ApplicationController
       session[child_type] = @statement.children.by_supporters.collect { |c| c.id }
     end
 
-    #get document to show
+    # Get document to show and redirect if not found
     @statement_document = @statement.translated_document(current_language_keys)
+    if @statement_document.nil?
+      redirect_to(discuss_search_path)
+      return
+    end
 
     #test for special links
-    @original_language_warning = (!current_user.nil? and current_user.spoken_languages.empty? and current_language_key != @statement.statement.original_language.id)
+    @original_language_warning = (!current_user.nil? and current_user.spoken_languages.empty? and
+                                  current_language_key != @statement.statement.original_language.id)
 
     @translation_permission = (!current_user.nil? and !current_user.spoken_languages.blank?  and #1.we have a current user that speaks languages
                                !current_user.mother_tongues.blank?                           and #2.we ensure ourselves that the user has a mother tongue
