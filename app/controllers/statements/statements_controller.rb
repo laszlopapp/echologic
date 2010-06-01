@@ -9,11 +9,11 @@ class StatementsController < ApplicationController
   #        wrap a form around it.
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation]
   verify :method => :post, :only => [:create]
-  verify :method => :put, :only => [:update,:create_translation]
+  verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
 
   # the order of these filters matters. change with caution.
-  before_filter :fetch_statement, :only => [:show, :edit, :update, :echo, :unecho, :new_translation,:create_translation,:destroy]
+  before_filter :fetch_statement, :only => [:show, :edit, :update, :echo, :unecho, :new_translation,:create_translation,:publish,:destroy]
   before_filter :fetch_category, :only => [:index,:new_translation,:create_translation,:destroy]
 
   before_filter :require_user, :except => [:index, :category, :show]
@@ -25,7 +25,7 @@ class StatementsController < ApplicationController
   access_control do
     allow :editor
     allow anonymous, :to => [:index, :show, :category]
-    allow logged_in, :only => [:index, :show, :echo, :unecho, :new_translation,:create_translation]
+    allow logged_in, :only => [:index, :show, :echo, :unecho, :new_translation, :create_translation, :publish]
     allow logged_in, :only => [:new, :create]
     allow logged_in, :only => [:edit, :update], :if => :may_edit?
     allow logged_in, :only => [:destroy], :if => :may_delete?
@@ -145,6 +145,23 @@ class StatementsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to @statement }
       format.js { render :template => 'statements/echo' }
+    end
+  end
+  
+  def publish
+    return if !@statement.question?
+    @statement.publish
+    respond_to do |format|
+      format.js do        
+        if @statement.save
+          set_info("discuss.statements.published")
+          render_with_info do |p|
+            replace_content(dom_id(@statement), :partial => 'discuss/discussion')
+          end
+        else
+          show_error_messages(@statement)
+        end
+      end
     end
   end
 

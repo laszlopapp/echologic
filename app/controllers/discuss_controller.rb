@@ -1,5 +1,9 @@
 class DiscussController < ApplicationController
   
+  access_control do
+    allow logged_in, :only => [:my_discussions]
+  end
+  
   # GET /discuss
   def roadmap
     respond_to do |format|
@@ -12,7 +16,7 @@ class DiscussController < ApplicationController
       format.html
     end
   end
-  
+    
   # processes a cancel request, and redirects back to the last shown statement
   def cancel
     @statement = StatementNode.find(session[:last_statement])

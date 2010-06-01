@@ -276,6 +276,9 @@ en:
   # ---------------
 
   discuss:
+    my_discussions:
+      link: My Discussions
+      title: Published & Unpublished Debates
     tag_permission: |
       <p>You do not have the permission to insert the '{{tag}}' tag</p>
     translation_request: Please translate this text in English
@@ -414,7 +417,8 @@ en:
       create_improvement_proposal_explanation: |
         Do you have a <strong>good idea</strong> to <strong>make the current proposal even better</strong>?<br/>
         Here you can create a <strong>new improvement proposal</strong>.
-
+      publish: Publish
+      
       types:
         question:  'Debate'
         proposal:  'Proposal'

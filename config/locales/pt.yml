@@ -276,6 +276,9 @@ pt:
   # ---------------
 
   discuss:
+    my_discussions:
+      link: Minhas Discussões
+      title: Debates publicados & não publicados
     translation_request: Por favor traduza este texto em Português.
     original_language_warning: 'O texto original encontra-se em {{language}}. Informe-nos sobre que línguas você domina para poder aceder a conteúdo noutras línguas.'
     results_count:
@@ -412,6 +415,7 @@ pt:
       create_improvement_proposal_explanation: |
         Tem uma <strong>boa ideia</strong> para <strong>tornar a proposta actual ainda melhor</strong>?<br/>
         Aqui pode criar uma <strong>nova proposta de melhoria</strong>.
+      publish: Publicar
 
       types:
         question:  'Debate'

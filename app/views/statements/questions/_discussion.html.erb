@@ -1,0 +1,11 @@
+<% statement_document = statement.translated_document(@current_language_keys) %>
+
+<li id="<%= statement_dom_id(statement) %>" class="<%=statement.class.name.downcase%>">
+  <%= link_to(statement_document.title, url_for(statement), :class => "statement_link #{statement.class.name.underscore}_link ttLink no_border", :title => I18n.t("discuss.tooltips.read_#{statement.class.name.underscore}")) %>
+	<div class="tags_list"><%=tag_list(statement)%></div>
+	<div class="buttons">
+		<% if !statement.published? %>
+		 <%= publish_button(statement) %>
+		<% end %>
+	</div>
+</li>

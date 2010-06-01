@@ -97,7 +97,8 @@ class StatementNode < ActiveRecord::Base
   #this name scope doesn't work
   named_scope :by_title, lambda {|value|
   {:joins => [:statement_documents], :conditions => ["statement_documents.title like ?", "%"+value+"%"]}}
-  
+  named_scope :by_creator, lambda {|id|
+  {:conditions => ["creator_id = ?", id]}}
   # orders
   named_scope :by_ratio, :include => :echo, :order => '(echos.supporter_count/echos.visitor_count) DESC'
   named_scope :by_supporters, :include => :echo, :order => 'echos.supporter_count DESC'  
@@ -131,6 +132,15 @@ class StatementNode < ActiveRecord::Base
     level
   end
     
+  ##############################
+  ######### ACTIONS ############
+  ##############################
+
+
+  def publish
+    
+  end
+  
   # returns a translated document for passed language_codes (or nil if none is found)
   def translated_document(lang_ids)
     @current_document ||= statement_documents.for_languages(lang_ids)
@@ -169,6 +179,10 @@ class StatementNode < ActiveRecord::Base
   def delete_tags(tags)
     self.tao_tags.each {|tao_tag| tao_tag.destroy if tags.include?(tao_tag.tag.value)}
   end
+  
+  ###############################
+  ##### ACTS AS TREE METHOD #####
+  ###############################
   
   # recursive method to get all parents...
   def parents(parents = [])

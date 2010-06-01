@@ -283,6 +283,9 @@ de:
   # ---------------
 
   discuss:
+    my_discussions:
+      link: Meine Discussionen
+      title: Publizierten & Unpublizierten Debatten
     tag_permission: |
       <p>Sie dürfen den '{{tag}}' tag nicht vergeben</p>
     original_language_warning: 'Der originale Text ist auf {{language}}. Sagen Sie uns welche Sprachen Sie sprechen um weitere Inhalte zu sehen.'
@@ -426,6 +429,7 @@ de:
       create_improvement_proposal_explanation: |
         Haben Sie eine <strong>gute Idee</strong>, wie man den aktuellen <strong>Vorschlag noch besser machen</strong> kann?<br/>
         Hier können Sie einen <strong>neuen Ergänzungsvorschlag</strong> erstellen.
+      publish: Publizieren
 
       types:
         question:  'Debatte'
