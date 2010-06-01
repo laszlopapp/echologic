@@ -500,6 +500,8 @@
   position: absolute;
   left: 60px;
   top: 0px;
+  max-height: 52px;
+  overflow: hidden;
 }
 
 .results_container .content:hover .name, .results_container .content.active .name {
@@ -511,7 +513,7 @@
   display: inline-block;
   position: absolute;
   left: 60px;
-  height: 35px;
+  max-height: 35px;
   overflow: hidden;
 }
 
