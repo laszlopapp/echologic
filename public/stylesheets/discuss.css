@@ -302,19 +302,16 @@ a.statement_link:hover {
   margin-left: 0px;
 }
 
-/* New Statement */
-
-.new_question {
-
-}
-
-
-/* other */
-
+/* Others */
 #echo.tab_content_container, #pilot_projects.tab_content_container {
-  /*position: relative;*/
   width: 945px;
 }
+
+/* Title in discuss listing */
+#discuss_results .ttLink img{
+	color:#7BB031;
+}
+
 
 /* ------------------- */
 /* Translations        */
@@ -340,18 +337,17 @@ a.statement_link:hover {
 
 .translation_box_class .language_label {
   position: absolute;
-  left: 80px;
   top: 20px;
   font-weight: bold;
   cursor: default;
 }
 
 .translation_box_class .from_language {
-  left: 80px;
+  left: 83px;
 }
 
 .translation_box_class .to_language {
-  right: 80px;
+  right: 83px;
   text-align: right;
 }
 
@@ -373,7 +369,34 @@ a.statement_link:hover {
   top: 4px;
 }
 
+/* Translation form */
 
+#new_translation form {
+  margin-top: 15px;
+}
+
+#new_translation .left_panel {
+  float: left;
+}
+
+#new_translation .right_panel {
+  float: right;
+}
+
+#new_translation li, #new_translation input, #new_translation label {
+  width: 380px;
+}
+
+#new_translation textarea {
+  width: 385px;
+}
+
+#new_translation fieldset.buttons {
+  clear: both;
+  padding: 15px 0 0;
+}
+
+/* Language skills teaser */
 
 #original_language_box.statement_message_box {
 	padding-top: 13px;
@@ -392,36 +415,4 @@ a.statement_link:hover {
 
 #original_language_box.statement_message_box .box_header_icon {
   left: 19px;
-}
-
-
-
-#new_translation textarea {
-  width: 343px;
-}
-
-#new_translation input , #new_translation label, #new_translation li{
-  width: 338px;
-}
-
-#new_translation form.wide_form {
-}
-
-#new_translation fieldset.inputs {
-	float: left;
-	padding-left: 37px;
-}
-
-#new_translation li.select {
-	width: 700px;
-}
-
-#new_translation.translation_block {
-  min-height: 590px;
-	padding-left: 0px;
-}
-
-/* for title in discuss listing */
-#discuss_results .ttLink img{
-	color:#7BB031;
 }

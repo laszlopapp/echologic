@@ -3,8 +3,8 @@
 <% new_statement_document ||= @new_statement_document %>
 <div id="summary" class="simple_header_block discuss_right_block">
 	<h2><%= I18n.t('discuss.summary.title') %></h2>
-	<div id="new_translation" class="translation_block">
 
+	<div id="new_translation">
     <div class="translation_box_class rounded-box rounded-box-gray-itow with_bg_bw_grad_small">
       <%= image_tag('page/translation/babelfish_left.png', :class => 'fish_left') %>
       <span class="language_label from_language"><%= old_statement_document.language.get_current_enum_value.value.upcase %></span>
