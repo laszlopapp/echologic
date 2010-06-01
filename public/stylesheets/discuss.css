@@ -134,11 +134,11 @@
   background-position: -37px -78px;
 }
 
-.context_line .echo_label {
+.echo_label {
+  background: url("../images/page/discuss/echo_small.png") no-repeat scroll 0 0;
   float: right;
-  width: 170px;
-  margin:0 20px;
-  text-align: right;
+  margin-right: 20px;
+  padding-left: 20px;
   cursor: default;
 }
 
@@ -253,15 +253,15 @@ a.statement_link:hover {
 }
 
 .create_question_button {
-  background:transparent url(../images/page/discuss/add_question_16.png) no-repeat scroll 0 0;
+  background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
 
 .create_proposal_button {
-  background:transparent url(../images/page/discuss/add_proposal_16.png) no-repeat scroll 0 0;
+  background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
 
 .create_improvement_proposal_button {
-  background:transparent url(../images/page/discuss/add_improvement_proposal_16.png) no-repeat scroll 0 0;
+  background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
 
 
