@@ -288,8 +288,10 @@ de:
       title: Publizierten & Unpublizierten Debatten
     tag_permission: |
       <p>Sie dürfen den '{{tag}}' tag nicht vergeben</p>
-    original_language_warning: 'Der originale Text ist auf {{language}}. Sagen Sie uns welche Sprachen Sie sprechen um weitere Inhalte zu sehen.'
-    translation_request: Bitte übersetzen Sie die Aussage auf Deutsch.
+    original_language_warning: |
+      Die originale Aussage ist auf <strong>{{language}}</strong>. Definieren Sie<br/>
+      Ihre Sprachkenntnisse, um weitere Inhalte zu sehen.
+    translation_request: Bitte übersetzen Sie die Aussage auf <strong>DEUTSCH</strong>.
     results_count:
       one: '{{count}} Debatte'
       more: '{{count}} Debatten'

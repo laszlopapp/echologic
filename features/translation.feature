@@ -9,7 +9,7 @@ Feature: Translation permission
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
       And I choose the first Question
-    Then I should not see "Please translate this statement in English"
+    Then I should not see "Please translate this statement to ENGLISH"
     
   @ok
   Scenario: user without spoken languages unable to translate
@@ -18,7 +18,7 @@ Feature: Translation permission
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
       And I choose the first Question
-    Then I should not see "Please translate this statement in English"
+    Then I should not see "Please translate this statement to ENGLISH"
     
   @ok
   Scenario: user without mother tongue unable to translate
@@ -27,7 +27,7 @@ Feature: Translation permission
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
       And I choose the first Question
-    Then I should not see "Please translate this statement in English"
+    Then I should not see "Please translate this statement to ENGLISH"
     
   @ok
   Scenario: document translated in current language already exists
@@ -36,7 +36,7 @@ Feature: Translation permission
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
       And I choose the first Question
-    Then I should not see "Please translate this statement in English"
+    Then I should not see "Please translate this statement to ENGLISH"
   
   @ok
   Scenario: joe should see document that only exists in german
@@ -54,7 +54,7 @@ Feature: Translation permission
     When I follow "echonomyJAM"
       And I choose the "Andere Frage?" Question
     Then I should see "Andere Frage?"
-    Then I should not see "Please translate this statement in English"
+    Then I should not see "Please translate this statement to ENGLISH"
     
   @ok
   Scenario: user has language level smaller than intermediate, thus can not translate
@@ -64,7 +64,7 @@ Feature: Translation permission
     When I follow "echonomyJAM"
       And I choose the "Andere Frage?" Question
     Then I should see "Andere Frage?"
-    Then I should not see "Please translate this statement in English"
+    Then I should not see "Please translate this statement to ENGLISH"
     
   @ok
   Scenario: luise has enough language level to translate
@@ -74,7 +74,7 @@ Feature: Translation permission
     When I follow "echonomyJAM"
       And I choose the "Andere Frage?" Question
     Then I should see "Andere Frage?"
-    Then I should see "Please translate this statement in English"
+    Then I should see "Please translate this statement to ENGLISH"
     
     
   @ok
@@ -84,7 +84,7 @@ Feature: Translation permission
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
       And I choose the "Andere Frage?" Question
-      And I follow "Please translate this statement in English"
+      And I follow "Please translate this statement to ENGLISH"
       And I fill in the following:
         | question_new_statement_document_title | Another Question? |
       And I press "Save"
@@ -97,7 +97,7 @@ Feature: Translation permission
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
       And I choose the "Andere Frage?" Question
-      And I follow "Please translate this statement in English"
+      And I follow "Please translate this statement to ENGLISH"
       And I fill in the following:
         | question_new_statement_document_text | new text in english |
       And I press "Save"
@@ -110,7 +110,7 @@ Feature: Translation permission
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
       And I choose the "Andere Frage?" Question
-      And I follow "Please translate this statement in English"
+      And I follow "Please translate this statement to ENGLISH"
       And I fill in the following:
         | question_new_statement_document_title | Another Question? |
         | question_new_statement_document_text | new text in english |
@@ -125,7 +125,7 @@ Feature: Translation permission
     When I follow "echonomyJAM"
       And I choose the "Andere Frage?" Question
       And I choose the "Vorschlag auf Deutsch" Proposal
-      And I follow "Please translate this statement in English"
+      And I follow "Please translate this statement to ENGLISH"
       And I fill in the following:
         | proposal_new_statement_document_title | Proposal in German |
         | proposal_new_statement_document_text | new text in english |
@@ -141,7 +141,7 @@ Feature: Translation permission
       And I choose the "Andere Frage?" Question
       And I choose the "Vorschlag auf Deutsch" Proposal
       And I choose the "Verbesserungsvorschlag auf Deutsch" Improvement Proposal
-      And I follow "Please translate this statement in English"
+      And I follow "Please translate this statement to ENGLISH"
       And I fill in the following:
         | improvement_proposal_new_statement_document_title | Improvement Proposal in German |
         | improvement_proposal_new_statement_document_text | new text in english |
@@ -155,5 +155,5 @@ Feature: Translation permission
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
       And I choose the "Raindrops keep falling on my head" Question     
-    Then I should see "The original statement is in German. Tell us which languages you speak to see content in other languages."
+    Then I should see "The original statement is in GERMAN. Set your language skills to see content in other languages."
     

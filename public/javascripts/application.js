@@ -17,7 +17,7 @@ $(document).ready(function () {
   bindAjaxClickEvents();
 
   roundCorners();
-	
+
 
   /* Always send the authenticity_token with ajax */
   $(document).ajaxSend(function(event, request, settings) {
@@ -236,14 +236,16 @@ var roundCorners = function(){
   $('.rounded-box').append(str);
 };
 
+var timer = null;
 function showMessageBox(id,permission) {
-  if (permission) {    
-	  setTimeout(function(){
-      $(id).animate(toggleParams, 500)
-    }, 500);
-    setTimeout(function(){
-      $(id).show()
-    }, 500);
+  if (permission) {
+    if (timer != null) {
+      clearTimeout (timer);
+      $(id).stop(true).hide;
+    }
+    timer = setTimeout(function(){
+      $(id).animate(toggleParams, 500);
+    }, 1500);
   }
 }
 

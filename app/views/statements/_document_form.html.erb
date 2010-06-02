@@ -1,8 +1,7 @@
 <% disabled ||= false %>
 <% statement_document ||= @statement_document %>
-<%# form.semantic_fields_for :statement_document, form.object.translated_document(current_user.language_keys) do |doc|  %>
 <% form.semantic_fields_for :statement_document, @statement_document do |doc|  %>
-  <% doc.inputs do %>
+  <% doc.inputs :class => 'inputs left_panel' do %>
     <%= doc.input :title, :input_html => { :disabled => disabled } %><br>
     <%= doc.text_area :text, :disabled => disabled %>
 		<%= doc.hidden_field :statement_id %>

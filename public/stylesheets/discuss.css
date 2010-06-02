@@ -134,11 +134,11 @@
   background-position: -37px -78px;
 }
 
-.context_line .echo_label {
+.echo_label {
+  background: url("../images/page/discuss/echo_small.png") no-repeat scroll 0 0;
   float: right;
-  width: 170px;
-  margin:0 20px;
-  text-align: right;
+  margin-right: 20px;
+  padding-left: 20px;
   cursor: default;
 }
 
@@ -253,15 +253,15 @@ a.statement_link:hover {
 }
 
 .create_question_button {
-  background:transparent url(../images/page/discuss/add_question_16.png) no-repeat scroll 0 0;
+  background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
 
 .create_proposal_button {
-  background:transparent url(../images/page/discuss/add_proposal_16.png) no-repeat scroll 0 0;
+  background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
 
 .create_improvement_proposal_button {
-  background:transparent url(../images/page/discuss/add_improvement_proposal_16.png) no-repeat scroll 0 0;
+  background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
 
 
@@ -302,19 +302,16 @@ a.statement_link:hover {
   margin-left: 0px;
 }
 
-/* New Statement */
-
-.new_question {
-
-}
-
-
-/* other */
-
+/* Others */
 #echo.tab_content_container, #pilot_projects.tab_content_container {
-  /*position: relative;*/
   width: 945px;
 }
+
+/* Title in discuss listing */
+#discuss_results .ttLink img{
+	color:#7BB031;
+}
+
 
 /* ------------------- */
 /* Translations        */
@@ -340,27 +337,29 @@ a.statement_link:hover {
 
 .translation_box_class .language_label {
   position: absolute;
-  left: 80px;
   top: 20px;
   font-weight: bold;
   cursor: default;
 }
 
 .translation_box_class .from_language {
-  left: 80px;
+  left: 83px;
 }
 
 .translation_box_class .to_language {
-  right: 80px;
+  right: 83px;
   text-align: right;
 }
 
 .translation_box_class .translation_link {
   position: relative;
-  top: 20px;
+  top: 19px;
   font: 14px;
-  font-weight: bold;
   color: #21587f;
+}
+
+.translation_box_class .translation_link strong {
+  font-size: 1em;
 }
 
 .translation_box_class .translation_link:hover {
@@ -373,57 +372,35 @@ a.statement_link:hover {
   top: 4px;
 }
 
-
-
-#original_language_box.statement_message_box {
-	padding-top: 13px;
-	padding-bottom: 13px;
+.translation_box_class .profile_link {
+  top: 11px;
 }
 
-#original_language_box.statement_message_box span.box_header_info {
-  top: 9px;
-	left: 58px;
+/* Translation form */
+
+#new_translation form {
+  margin-top: 15px;
 }
 
-#original_language_box.statement_message_box .box_header {
-  padding-left:90px;
-	font-size: 12px;
+#new_translation .left_panel {
+  float: left;
 }
 
-#original_language_box.statement_message_box .box_header_icon {
-  left: 19px;
+#new_translation .right_panel {
+  float: right;
 }
 
-
+#new_translation li, #new_translation input, #new_translation label {
+  width: 380px;
+}
 
 #new_translation textarea {
-  width: 343px;
+  width: 385px;
 }
 
-#new_translation input , #new_translation label, #new_translation li{
-  width: 338px;
-}
-
-#new_translation form.wide_form {
-}
-
-#new_translation fieldset.inputs {
-	float: left;
-	padding-left: 37px;
-}
-
-#new_translation li.select {
-	width: 700px;
-}
-
-#new_translation.translation_block {
-  min-height: 590px;
-	padding-left: 0px;
-}
-
-/* for title in discuss listing */
-#discuss_results .ttLink img{
-	color:#7BB031;
+#new_translation fieldset.buttons {
+  clear: both;
+  padding: 15px 0 0;
 }
 
 #statement_tags_container .form_container {

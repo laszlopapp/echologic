@@ -6,9 +6,6 @@ ActionController::Routing::Routes.draw do |map|
   # routing-filter plugin for wrapping :locale around urls and paths.
   map.filter :locale
 
-
-
-
   # SECTION main parts of echologic
   map.act     '/act/roadmap',     :controller => :act,     :action => :roadmap
   map.discuss '/discuss/featured', :controller => :discuss, :action => :index
@@ -40,7 +37,6 @@ ActionController::Routing::Routes.draw do |map|
     :conditions => { :method => :get }
 
   # Not being logged in
-
   map.requires_login 'requires_login', :controller => 'application', :action => 'flash_info'
 
   # SECTION i18n
@@ -66,8 +62,8 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :web_addresses, :controller => 'users/web_addresses', :except => [:index]
     user.resources :spoken_languages, :controller => 'users/spoken_languages', :except => [:index]
     user.resources :activities,   :controller => 'users/activities',   :except => [:index]
-    user.resources :memberships,  :controller => 'users/memberships',  :except => [:index]    
-  end  
+    user.resources :memberships,  :controller => 'users/memberships',  :except => [:index]
+  end
   map.resources :tao_tags, :controller => 'tao_tags', :except => [:index]
 
   map.resources :password_resets, :controller => 'users/password_resets',
