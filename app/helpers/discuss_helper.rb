@@ -11,6 +11,6 @@ module DiscussHelper
   end
   
   def publish_button(statement)
-    link_to('', publish_question_path(statement), :class => 'ajax_put publish_button', :value => I18n.t("discuss.statements.publish"))
+    link_to('Publish', publish_question_path(statement), :class => 'ajax_put publish_button', :value => I18n.t("discuss.statements.publish"))
   end
 end

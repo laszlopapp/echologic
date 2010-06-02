@@ -510,8 +510,8 @@ a.statement_link:hover {
 	display:inline-block;
 	font-size:14px;
 	font-weight:bold;
-	height:43px;
-	padding:0 0 4px 20px;
+	height:30px;
+	padding:13px 0px 4px 0px;
 	text-align:center;
 	width:150px !important;
 }
