@@ -1,0 +1,25 @@
+<% statements ||= @statements %>
+<div id="my_discussions" class="header_block discuss_right_block">
+    <h2><%= I18n.t('discuss.my_discussions.title') %></h2>
+    <div id="discussions">
+      <ul id="discussion_list">
+        <% unless statements.empty? %>
+          <% last_child = statements.pop -%>
+          <% statements.each do |statement| %>
+            <%= render :partial => 'statements/questions/discussion', :locals => { :statement => statement} %>
+          <% end %>
+          <%= render :partial => 'statements/questions/discussion', :locals => { :statement => last_child } %>
+        <% end %>
+        
+      </ul>
+      <%#if statements.empty? or statements.current_page == statements.total_pages%>
+        
+      <%#end%>
+      <%= will_paginate statements, :previous_label => '', :next_label => '' if defined? !statements.empty? and statements.total_pages %>  
+			<li><%= add_discussion_link %></li>
+    </div>
+</div>
+
+<script type="text/javascript">
+  $('.pagination a').addClass('ajax');
+</script>
