@@ -1,7 +1,8 @@
 <% disabled ||= false %>
 <% form.semantic_fields_for :statement_document, @statement_document do |doc|  %>
   <% doc.inputs :class => 'inputs left_panel' do %>
-    <%= doc.input :title, :input_html => { :disabled => disabled } %><br>
-    <%= doc.text_area :text, :disabled => disabled %>
+    <%= doc.input :title, :input_html => {:disabled => disabled} %>
+    <br/>
+    <%= doc.input :text, :input_html => {:disabled => disabled} %>
   <% end %>
 <% end -%>
