@@ -452,7 +452,7 @@ es:
       created: "{{type}} fue publicado."
       updated: "{{type}} fue editado."
       deleted: "{{type}} fue borrado."
-      deleted: "{{type}} fue traducido."
+      translated: "{{type}} fue traducido."
       empty:   "No fue encontrado ningun debate. Por favor intente buscar por otra palavra."
       new_percentage: "Ahora tu perfil está completo por {{percentage}}%."
 
