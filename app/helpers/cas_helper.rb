@@ -6,6 +6,7 @@ module CasHelper
     http.use_ssl = use_ssl
     req = Net::HTTP::Post.new('/loginTicket')
     # nginx fails with 411 if POST requests have no Content-Length set
+    # (i.e. http://www.ruby-forum.com/topic/162976)
     req['Content-Length'] = 0
     return http.request(req).body
   end
