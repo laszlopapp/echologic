@@ -1,3 +1,4 @@
 require 'casclient/frameworks/rails/filter'
 
-CASClient::Frameworks::Rails::Filter.configure :cas_base_url => 'http://login.staging/'
+# TODO: move this to configuration file
+CASClient::Frameworks::Rails::Filter.configure :cas_base_url => 'http://login.echo-test.org/'
