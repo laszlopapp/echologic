@@ -1,21 +1,18 @@
-<% statements ||= @statements %>
+<% statement_nodes ||= @statement_nodes %>
 <div id="my_discussions" class="header_block discuss_right_block">
     <h2><%= I18n.t('discuss.my_discussions.title') %></h2>
     <div id="discussions">
       <ul id="discussion_list">
-        <% unless statements.empty? %>
-          <% last_child = statements.pop -%>
-          <% statements.each do |statement| %>
-            <%= render :partial => 'statements/questions/discussion', :locals => { :statement => statement} %>
+        <% unless statement_nodes.empty? %>
+          <% last_child = statement_nodes.pop -%>
+          <% statement_nodes.each do |statement_node| %>
+            <%= render :partial => 'statements/questions/discussion', :locals => { :statement_node => statement_node} %>
           <% end %>
-          <%= render :partial => 'statements/questions/discussion', :locals => { :statement => last_child } %>
+          <%= render :partial => 'statements/questions/discussion', :locals => { :statement_node => last_child } %>
         <% end %>
         
       </ul>
-      <%#if statements.empty? or statements.current_page == statements.total_pages%>
-        
-      <%#end%>
-      <%= will_paginate statements, :previous_label => '', :next_label => '' if defined? !statements.empty? and statements.total_pages %>  
+      <%= will_paginate statement_nodes, :previous_label => '', :next_label => '' if defined? !statement_nodes.empty? and statement_nodes.total_pages %>  
 			<li><%= add_discussion_link %></li>
     </div>
 </div>

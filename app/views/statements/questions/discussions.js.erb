@@ -1,2 +1,2 @@
-var content = "<%= escape_javascript(render(:partial => 'statements/questions/discussions', :locals => {:statements => @statements})) %>";
+var content = "<%= escape_javascript(render(:partial => 'statements/questions/discussions', :locals => {:statement_nodes => @statement_nodes})) %>";
 $("#my_discussions").replaceWith(content);

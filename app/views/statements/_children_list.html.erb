@@ -5,13 +5,13 @@
   <ul>
 	<% unless children.empty? %>
 	  <% last_child = children.pop -%>
-	  <% children.each do |statement| %>
-	    <%= render :partial => 'statements/child', :locals => { :statement => statement} %>
+	  <% children.each do |statement_node| %>
+	    <%= render :partial => 'statements/child', :locals => { :statement_node => statement_node} %>
 	  <% end %>
-	  <%= render :partial => 'statements/child', :locals => { :statement => last_child, :extra_classes => "active" } %>
+	  <%= render :partial => 'statements/child', :locals => { :statement_node => last_child, :extra_classes => "active" } %>
 	<% end %>
 	<%if children.empty? or children.current_page == children.total_pages%>
-	  <li><%= create_children_statement_link(@statement, "add_new_button") %></li>
+	  <li><%= create_children_statement_node_link(@statement_node, "add_new_button") %></li>
 	<%end%>
   </ul>
   <%= will_paginate children, :previous_label => '', :next_label => '' if defined? !children.empty? and children.total_pages %>  

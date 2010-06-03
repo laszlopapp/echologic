@@ -93,13 +93,13 @@ class User < ActiveRecord::Base
   ## PERMISSIONS
   ##
 
-  # the given `statement' is ignored for now, but we need it later
+  # the given `statement_node' is ignored for now, but we need it later
   # when we enable editing for users.
   def may_edit?
     has_role?(:editor) or has_role?(:admin)
   end
 
-  def may_delete?(statement)
+  def may_delete?(statement_node)
     has_role?(:admin)
   end
 

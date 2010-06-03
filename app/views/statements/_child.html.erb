@@ -1,9 +1,9 @@
 <% 
-   statement_document = statement.translated_document(@current_language_keys)
+   statement_document = statement_node.translated_document(@current_language_keys)
    extra_classes ||= nil 
 %>
 
-<li id="<%= statement_dom_id(statement) %>" class="<%=statement.parent.class.name.downcase%>">
-  <%= link_to(statement_document.title, url_for(statement), :class => "ajax statement_link #{statement.class.name.underscore}_link #{extra_classes} ttLink no_border", :title => I18n.t("discuss.tooltips.read_#{statement.class.name.underscore}")) %>
-  <%= supporter_ratio_bar(statement) %>
+<li id="<%= statement_node_dom_id(statement_node) %>" class="<%=statement_node.parent.class.name.downcase%>">
+  <%= link_to(statement_document.title, url_for(statement_node), :class => "ajax statement_link #{statement_node.class.name.underscore}_link #{extra_classes} ttLink no_border", :title => I18n.t("discuss.tooltips.read_#{statement_node.class.name.underscore}")) %>
+  <%= supporter_ratio_bar(statement_node) %>
 </li>

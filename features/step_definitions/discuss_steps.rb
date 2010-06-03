@@ -99,7 +99,7 @@ end
 
 Then /^the question "([^\"]*)" should have "([^\"]*)" as tags$/ do |title, tags|
   tags = tags.split(' ')  
-  @question = StatementNode.search_statements("Question", title).first
+  @question = StatementNode.search_statement_nodes("Question", title).first
   res = @question.tags.map{|tag|tag.value} - tags
   res.should == []
 end
@@ -127,7 +127,6 @@ end
 
 Given /^a "([^\"]*)" question in "([^\"]*)"$/ do |state, category|
   state = StatementNode.statement_states(state)
-  @category = Tag.find_by_value(category)
   @question = Question.new(:state => state, :creator => @user)  
   @question.add_statement_document!({:title => "Am I a new statement?", :text => "I wonder what i really am! Maybe a statement? Or even a question?", :author => @user, :language_id => @user.language_keys.first, :original_language_id => @user.language_keys.first})
   @question.tao_tags << TaoTag.create_for([category], EnumKey.find_by_code("en").id, {:tao => @question, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id})

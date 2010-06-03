@@ -6,7 +6,7 @@
 
 class ImprovementProposal < StatementNode
   
-  # methods / settings to overwrite default statement behaviour
+  # methods / settings to overwrite default statement_node behaviour
     
   validates_parent :Proposal
   expects_children

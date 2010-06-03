@@ -35,7 +35,7 @@ module NavigationHelpers
     when /^the questions first proposal/
       question_proposal_path(@question, @proposal)
     when /discuss index/i
-      questions_url
+      discuss_url
     when /my discussions/i
       my_discussions_url
     when /discuss featured/i

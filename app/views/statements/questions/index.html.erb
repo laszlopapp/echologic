@@ -1,6 +1,6 @@
 <% content_for :submenu, tabnav(:discuss) %>
 
-<%path = @category ? question_tags_path : discuss_search_path%>
+<%path = params[:id] ? question_tags_path : discuss_search_path%>
 
 <div id="search_container" class="search_container">
 <span class="search_category">
@@ -12,11 +12,9 @@
     <% end %>
 </div>
 
-<%= render :partial => 'statements/questions/questions', :locals => {:statements => @statements} %>
+<%= render :partial => 'statements/questions/questions', :locals => {:statement_nodes => @statement_nodes} %>
 <br></br>
-<span class="new_question">
-	<%#= create_question_link_for(@category) if @category.value%>
-</span>
+
 
 
 <script type="text/javascript">

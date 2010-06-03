@@ -6,11 +6,11 @@ module DiscussHelper
             :title => I18n.t("discuss.tooltips.create_question"))
   end
   
-  def tag_list(statement)
-    statement.tags.map{|tag|tag.value}.join(',')
+  def tag_list(statement_node)
+    statement_node.tags.map{|tag|tag.value}.join(',')
   end
   
-  def publish_button(statement)
-    link_to('Publish', publish_question_path(statement), :class => 'ajax_put publish_button', :value => I18n.t("discuss.statements.publish"))
+  def publish_button(statement_node)
+    link_to('Publish', publish_question_path(statement_node), :class => 'ajax_put publish_button', :value => I18n.t("discuss.statements.publish"))
   end
 end

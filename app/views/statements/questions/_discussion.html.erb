@@ -1,13 +1,13 @@
-<% statement ||= @statement%>
-<% statement_document = statement.translated_document(@current_language_keys) %>
+<% statement_node ||= @statement_node%>
+<% statement_document = statement_node.translated_document(@current_language_keys) %>
 
 <% if statement_document %>
-	<li id="<%= statement_dom_id(statement) %>" class="<%=statement.class.name.downcase%>">
-	  <%= link_to(statement_document.title, url_for(statement), :class => "statement_link #{statement.class.name.underscore}_link ttLink no_border", :title => I18n.t("discuss.tooltips.read_#{statement.class.name.underscore}")) %>
-		<div class="tags_list"><%=tag_list(statement)%></div>
+	<li id="<%= statement_node_dom_id(statement_node) %>" class="<%=statement_node.class.name.downcase%>">
+	  <%= link_to(statement_document.title, url_for(statement_node), :class => "statement_link #{statement_node.class.name.underscore}_link ttLink no_border", :title => I18n.t("discuss.tooltips.read_#{statement_node.class.name.underscore}")) %>
+		<div class="tags_list"><%=tag_list(statement_node)%></div>
 		<div class="buttons">
-			<% if !statement.published? %>
-			 <%= publish_button(statement) %>
+			<% if !statement_node.published? %>
+			 <%= publish_button(statement_node) %>
 			<% end %>
 		</div>
 	</li>

@@ -1,11 +1,11 @@
-<% statement ||= @statement -%>
+<% statement_node ||= @statement_node -%>
 <% tags ||= @tags%>
 
 <div id="summary" class="summary simple_header_block discuss_right_block">
-  <h2>Edit <%= statement.class.display_name %></h2>
-  <%= render :partial => 'statements/form', :locals => {:statement => statement, :tags => tags} %>
+  <h2>Edit <%= statement_node.class.display_name %></h2>
+  <%= render :partial => 'statements/form', :locals => {:statement_node => statement_node, :tags => tags} %>
 </div>
 
 <script type="text/javascript">
-  $('#edit_<%= dom_id(statement) %>').ajaxForm({ dataType : 'script' });
+  $('#edit_<%= dom_id(statement_node) %>').ajaxForm({ dataType : 'script' });
 </script>

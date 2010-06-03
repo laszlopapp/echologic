@@ -1,10 +1,10 @@
-<% statement ||= @statement %>
+<% statement_node ||= @statement_node %>
 <% new_statement_document ||= @new_statement_document %>
-<% semantic_form_for statement, :url => create_translation_url(statement, statement_class_dom_id(statement)) do |form| -%>
+<% semantic_form_for statement_node, :url => create_translation_url(statement_node, statement_node_class_dom_id(statement_node)) do |form| -%>
   <%#= form.error_messages %>
 
   <%= render :partial => "statements/document_form", :locals => { :form => form, :disabled => true } %>
-	<%= render :partial => "statements/translate_document_form", :locals => { :form => form, :statement => new_statement_document} %>
+	<%= render :partial => "statements/translate_document_form", :locals => { :form => form, :new_statement_document => new_statement_document} %>
 	<br/>
 	<br/>
 
@@ -12,10 +12,11 @@
      #and everywhere else where we use enum like statefulness in models, views do it like this %>
   <%= form.hidden_field :parent_id %>
   <%= form.hidden_field :category_id %>
+	<%= form.hidden_field :state_id, :value => StatementNode.statement_states('published').id %>
 
   <% form.buttons do %>
     <%= form.commit_button I18n.t('application.general.save'), :button_html => { :alt => 'save_button' } %>
     <span class="or_cancel"><%= I18n.t('application.general.or') %></span>
-    <%= link_to I18n.t('application.general.cancel'), session[:last_statement] ? statement_path(session[:last_statement]) : (statement.parent or discuss_url), :class => 'ajax text_button cancel_button' %>
+    <%= link_to I18n.t('application.general.cancel'), session[:last_statement_node] ? statement_node_path(session[:last_statement_node]) : (statement_node.parent or discuss_url), :class => 'ajax text_button cancel_button' %>
   <% end %>
 <% end -%>

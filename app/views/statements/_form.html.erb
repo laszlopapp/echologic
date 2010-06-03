@@ -1,11 +1,11 @@
-<% statement ||= @statement %>
+<% statement_node ||= @statement_node %>
 <% tags ||= @tags %>
 <% statement_document ||= @statement_document %>
-<% semantic_form_for statement.self_with_parents, :html => {:class => 'wide_form'} do |form| -%>
+<% semantic_form_for statement_node.self_with_parents, :html => {:class => 'wide_form'} do |form| -%>
   <%#= form.error_messages %>
-  <%= render :partial => "statements/document_form", :locals => { :form => form, :statement => statement, :statement_document => statement_document } %>
+  <%= render :partial => "statements/document_form", :locals => { :form => form, :statement_node => statement_node, :statement_document => statement_document } %>
   <% #FIXME: i don't know how to do this manually with formtastics. enums are not really supported by rails, and everywhere else where we use enum like statefulness in models, views do it like this %>
-  <% if statement.kind_of?(Question)-%>
+  <% if statement_node.kind_of?(Question)-%>
 	  <% if current_user.has_role?(:editor)%>
 	    <% form.inputs do %>
 	      <li id="question_state_input" class="select optional error">
@@ -20,31 +20,19 @@
 		  <%= form.hidden_field :state_id, :value => StatementNode.statement_states('new').id %>
 		<% end %>
 		<% form.inputs do %>
-		  <%= render :partial => "statements/statement_tags", :locals => {:form => form, :statement => statement, :tags => tags}%>
+		  <%= render :partial => "statements/statement_tags", :locals => {:form => form, :statement_node => statement_node, :tags => tags}%>
 		<% end %>
-    <%# form.inputs do %>
-      <%#= form.input :tags, :as => :string, :label => "Topic", :input_html => {:class => "select optional error" } %>
-    <%# end %>
-	<!-- This is only temporary, as soon as i figure out how to resolve the comma between tags situation -->	
-	<!--fieldset class="inputs">
-		<ol>
-			<li id="question_tags_input" class="string optional">
-				<label for="question_tags">Topic</label>
-				<%#= text_field_tag "question[tags]", @tags.join(", "), :class => "select optional error"%>
-			</li>
-		</ol>
-	</fieldset-->
-	<!-------------------------------------------------------------------------------------------------------->
-	
-  <% end -%>
+  <% else -%>
+	 <%= form.hidden_field :state_id, :value => StatementNode.statement_states('published').id %>
+	<% end -%>
 	<%= form.hidden_field :statement_id %>
   <%= form.hidden_field :parent_id %>
   <%= form.hidden_field :category_id %>
-	<%= hidden_field_tag "#{statement_class_dom_id(@statement).downcase}[statement_document][author_id]", current_user.id %>
-  <%= hidden_field_tag "#{statement_class_dom_id(@statement).downcase}[statement_document][language_id]", @current_language_key %>
+	<%= hidden_field_tag "#{statement_node_class_dom_id(@statement_node).downcase}[statement_document][author_id]", current_user.id %>
+  <%= hidden_field_tag "#{statement_node_class_dom_id(@statement_node).downcase}[statement_document][language_id]", @current_language_key %>
   <% form.buttons do %>
     <%= form.commit_button I18n.t('application.general.save'), :button_html => { :alt => 'save_button' } %>
     <span class="or_cancel"><%= I18n.t('application.general.or') %></span>
-		<%= cancel_new_statement(statement) %>    
+		<%= cancel_new_statement_node(statement_node) %>    
   <% end %>
 <% end -%>

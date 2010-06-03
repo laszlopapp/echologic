@@ -26,6 +26,7 @@ class StatementNode < ActiveRecord::Base
     self.state == self.class.statement_states("published")
   end
   
+  
   ##
   ## ASSOCIATIONS
   ##
@@ -112,6 +113,7 @@ class StatementNode < ActiveRecord::Base
   named_scope :from_tags, lambda { |value|
     { :include => :tags, :conditions => ['tags.value = ?', value] } }
   
+    
   ## ACCESSORS
   
   def title
@@ -126,7 +128,7 @@ class StatementNode < ActiveRecord::Base
 
   def level
     # simple hack to gain the level
-    # problem is: as we can't use nested set (too write intensive stuff), we can't easily get the statements level in the tree
+    # problem is: as we can't use nested set (too write intensive stuff), we can't easily get the statement_nodes level in the tree
     level = 0
     level += 1 if self.parent
     level += 1 if self.root && self.root != self && self.root != self.parent
@@ -201,7 +203,7 @@ class StatementNode < ActiveRecord::Base
   
   class << self
     
-    def search_statements(type, value, opts={} )
+    def search_statement_nodes(type, value, opts={} )
     
       #get tags
       tags = opts[:tag] || value.split(" ")
