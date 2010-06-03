@@ -286,8 +286,8 @@ en:
       The original statement is in <strong>{{language}}</strong>. Set your <br/>
       language skills to see content in other languages.
     results_count:
-      one: '{{count}} debate'
-      more: '{{count}} debates'
+      one: '{{count}} discussion'
+      more: '{{count}} discussions'
     featured_topics:
       title: Featured Topics
       text: |
@@ -385,21 +385,21 @@ en:
           </p>
 
     tooltips:
-      read_question: 'Go to this debate'
+      read_question: 'Go to this question'
       read_proposal: 'Read this proposal'
       read_improvement_proposal: 'Read this improvement proposal'
-      current_question: 'The currently displayed debate'
+      current_question: 'The currently displayed question'
       current_proposal: 'The currently displayed proposal'
       current_improvement_proposal: 'The currently displayed improvement proposal'
-      back_to_question: 'Back to current debate'
+      back_to_question: 'Back to current question'
       back_to_proposal: 'Back to current proposal'
       back_to_improvement_proposal: 'Back to current improvement proposal'
-      prev_proposal: 'Read previous proposal of the current debate'
-      next_proposal: 'Read next proposal of the current debate'
+      prev_proposal: 'Read previous proposal for the current question'
+      next_proposal: 'Read next proposal for the current question'
       prev_improvement_proposal: 'Read previous improvement proposal for the current proposal'
       next_improvement_proposal: 'Read next improvement proposal for the current proposal'
-      create_proposal: 'Create a new proposal in the current debate'
-      create_improvement_proposal: 'Create a new improvement proposal for the current proposal'
+      create_proposal: "Post your new idea concerning the current question."
+      create_improvement_proposal: "Post your new idea to improve the current proposal."
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your vote to stop supporting this statement.'
       echo_indicator:
@@ -407,14 +407,14 @@ en:
         many: 'This statement has {{supporter_count}} supporters.'
     statements:
       label: 'echos'
-      create_question_link: 'Open a new debate'
-      create_proposal_link: Couldn't find your idea? Post it now!
+      create_question_link: 'Open a new discussion'
+      create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
-      create_improvement_proposal_link: Couldn't find your idea? Post it now!
+      create_improvement_proposal_link: Add new improvement proposal
       create_question_explanation: |
-        Hi Editor! Here you can open up a new debate.
+        Hi Editor! Here you can create a new question.
       create_proposal_explanation: |
-        Do you have a <strong>good idea</strong> concerning the the current debate, which <strong>doesn't exist</strong> yet?<br/>
+        Do you have a <strong>good idea</strong> concerning the the current question, which <strong>doesn't exist</strong> yet?<br/>
         Here you can create a <strong>new proposal</strong>.
       create_improvement_proposal_explanation: |
         Do you have a <strong>good idea</strong> to <strong>make the current proposal even better</strong>?<br/>
@@ -423,15 +423,15 @@ en:
       published: Debate successfully published!
       
       types:
-        question:  'Debate'
+        question:  'Question'
         proposal:  'Proposal'
         improvement_proposal: 'Improvement Proposal'
       new:
-        question:  'New Debate'
+        question:  'New Question'
         proposal:  'New Proposal'
         improvement_proposal: 'New Improvement Proposal'
       headings:
-        question: 'Debates'
+        question: 'Questions'
         proposal: 'Proposals'
         improvement_proposal: 'Improvement Proposals'
       states:
@@ -446,7 +446,8 @@ en:
       updated: "The {{type}} has been updated successfully."
       deleted: "The {{type}} has been deleted successfully."
       translated: "The {{type}} has been translated successfully."
-      empty:   "No debates found. Please change your search criteria."
+      empty:   "No discussions found. Please change your search criteria."
+      empty_without_spoken_languages: "No discussions found. You can try defining your <a href='{{my_echo}}'><u>language skills</u></a> to see content in other languages."
       new_percentage: "Your profile is {{percentage}}% complete."
 
 
@@ -477,7 +478,7 @@ en:
       actions:
         report: "Report"
     messages:
-      empty:           'No members found. Please change your search criteria.'
+      empty:           'No members found. Please change your search criteria.'      
       no_concernments: "This member hasn't defined any concernments and competences, yet."
       no_web_addresses: "This member hasn't defined any web addresses, yet."
 
@@ -545,11 +546,11 @@ en:
       membership:
         position: My role
       statement_document:
-        text:       'Summary'
-        title:      'Title'
+        title: 'Title'
+        text: 'Summary'
 
     models:
-      question: "debate"
+      question: "question"
       proposal: "position"
       improvement_proposal: "improvement proposal"
 

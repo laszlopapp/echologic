@@ -11,7 +11,7 @@ Feature: Start a discussion
       And I am logged in as "editor" with password "true"
       And I am on the discuss index
     When I follow "My Discussions"
-      And I follow "Open a new debate"
+      And I follow "Open a new discussion"
       And I fill in the following:
         | question_statement_document_title | Is this a Question?   |
         | question_statement_document_text | Blablabla bla bla bla |

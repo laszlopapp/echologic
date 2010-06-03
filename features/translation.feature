@@ -88,7 +88,7 @@ Feature: Translation permission
       And I fill in the following:
         | question_new_statement_document_title | Another Question? |
       And I press "Save"
-    Then I should see "One of the fields is filled incorrectly."
+    Then I should see "The field 'Summary' must not be empty."
     
   @ok
   Scenario: luise tries to translate but doesn't fill title
@@ -99,9 +99,9 @@ Feature: Translation permission
       And I choose the "Andere Frage?" Question
       And I follow "Please translate this statement to ENGLISH"
       And I fill in the following:
-        | question_new_statement_document_text | new text in english |
+        | question_new_statement_document_text | new statement to ENGLISH |
       And I press "Save"
-    Then I should see "One of the fields is filled incorrectly."
+    Then I should see "The field 'Title' must not be empty."
     
   @ok
   Scenario: luise succeeds in translating a question
@@ -113,9 +113,9 @@ Feature: Translation permission
       And I follow "Please translate this statement to ENGLISH"
       And I fill in the following:
         | question_new_statement_document_title | Another Question? |
-        | question_new_statement_document_text | new text in english |
+        | question_new_statement_document_text | new statement to ENGLISH |
       And I press "Save"
-    Then I should see "new text in english"
+    Then I should see "new statement to ENGLISH"
     
   @ok
   Scenario: luise succeeds in translating a proposal
@@ -128,9 +128,9 @@ Feature: Translation permission
       And I follow "Please translate this statement to ENGLISH"
       And I fill in the following:
         | proposal_new_statement_document_title | Proposal in German |
-        | proposal_new_statement_document_text | new text in english |
+        | proposal_new_statement_document_text | new statement to ENGLISH |
       And I press "Save"
-    Then I should see "new text in english"
+    Then I should see "new statement to ENGLISH"
     
   @ok
   Scenario: luise succeeds in translating an improvement proposal
@@ -144,9 +144,9 @@ Feature: Translation permission
       And I follow "Please translate this statement to ENGLISH"
       And I fill in the following:
         | improvement_proposal_new_statement_document_title | Improvement Proposal in German |
-        | improvement_proposal_new_statement_document_text | new text in english |
+        | improvement_proposal_new_statement_document_text | new statement to ENGLISH |
       And I press "Save"
-    Then I should see "new text in english"
+    Then I should see "new statement to ENGLISH"
   
   @ok
   Scenario: illiterate doesn't speak any languages, and sees a warning when he chooses a question which original language is german

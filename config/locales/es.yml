@@ -302,8 +302,8 @@ es:
       indique quales son las lenguas que intiendes.
     translation_request: Por favor tradusca este texto al <strong>ESPAÑOL</strong>.
     results_count:
-      one: '{{count}} debate'
-      more: '{{count}} debates'
+      one: '{{count}} discusión'
+      more: '{{count}} # discusiones'
     featured_topics:
       title: Sinopsis
       text: |
@@ -396,13 +396,13 @@ es:
           <a href='http://www.netzwerk-gemeinsinn.net/content/view/625/218' target='_blank'>Blog de Netzwerk Gemeinsinn</a>.
 
     tooltips:
-      read_question: 'Mirar este debate'
+      read_question: 'Mirar esta cuestión'
       read_proposal: 'Leer esta propuesta'
       read_improvement_proposal: 'Leer esta propuesta de mejoramiento'
-      current_question: 'El debate actualmente indicado'
+      current_question: 'La cuestión actualmente indicado'
       current_proposal: 'La propuesta actualmente indicada'
       current_improvement_proposal: 'La propuesta de mejoramiento actualmente indicada'
-      back_to_question: 'Volver al debate actual'
+      back_to_question: 'Volver al cuestión actual'
       back_to_proposal: 'Volver a la propuesta actual'
       back_to_improvement_proposal: 'Volver a la propuesta de mejoramiento actual'
       prev_proposal: 'Leer propuesta anterior'
@@ -419,12 +419,12 @@ es:
 
     statements:
       label: 'votos'
-      create_question_link: 'Crear nuevo debate'
+      create_question_link: 'Crear nueva discusión'
       create_proposal_link: 'Crear nueva propuesta'
-      create_internal_link: 'Crear nueva propuesta'
+      create_internal_link: 'Nueva Idea?'
       create_improvement_proposal_link: 'Crear nueva propuesta de mejoramiento'
       create_question_explanation: |
-        Hola, editor! Aquí puedes abrir un nuevo debate.
+        Hola, editor! Aquí puedes abrir una nueva cuestión.
       create_proposal_explanation: |
         Tienes una <strong>buena idea</strong>, que todavia <strong>no existe</strong>?<br/>
         Aquí puedes crear una <strong>nueva propuesta</strong>.
@@ -435,15 +435,15 @@ es:
       published: Debate publicado con éxito!
 
       types:
-        question:  'Debate'
+        question:  'Cuestión'
         proposal:  'Propuesta'
         improvement_proposal: 'Propuesta de mejoramiento'
       new:
-        question:  'Nuevo Debate'
+        question:  'Nuevo Cuestión'
         proposal:  'Nueva Propuesta'
         improvement_proposal: 'Nueva propuesta de mejoramiento'
       headings:
-        question: 'Debates'
+        question: 'Cuestiones'
         proposal: 'Propuestas'
         improvement_proposal: 'Propuesta de mejoramiento'
       states:
@@ -458,7 +458,8 @@ es:
       updated: "{{type}} fue editado."
       deleted: "{{type}} fue borrado."
       deleted: "{{type}} fue traducido."
-      empty:   "No fue encontrado ningun debate. Por favor intente buscar por otra palavra."
+      empty:   "No fue encontrada ninguna cuestión. Por favor intente buscar por otra palavra."
+      empty_without_spoken_languages: "No fue encontrada ninguna cuestión. Intente definir sus <a href='{{my_echo}}'><u>lenguas conocidas</u></a> para ver contenidos en otras lenguas."
       new_percentage: "Ahora tu perfil está completo por {{percentage}}%."
 
 
@@ -489,7 +490,7 @@ es:
       actions:
         report: "Denunciar"
     messages:
-      empty:           'No fueron encontrados resultados para su búsqueda. Por favor intente de nuevo con otras palablas.'
+      empty:           'No fueron encontrados resultados para su búsqueda. Por favor intente de nuevo con otras palablas.'      
       no_concernments: 'Este miembro todavía no ingresó ninguna preocupación o competencia.'
       no_web_addresses: 'Este miembro todavía no ingresó ninguna dirección de Web'
 
@@ -668,7 +669,7 @@ es:
         title:    'Titulo'
 
     models:
-      question: "Debate"
+      question: "Cuestión"
       proposal: "Propuesta"
       improvement_proposal: "Suplemento"
 

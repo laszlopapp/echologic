@@ -183,11 +183,12 @@ class StatementsController < ApplicationController
         set_info("discuss.messages.translated", :type => @statement.class.display_name)
         current_user.supported!(@statement)
         #load current created statement to session
-        @statement_document = @new_statement_document
-        @children = children_for_statement
+        @current_language_keys = current_language_keys
+        @statement_document = @new_statement_document        
         format.html { flash_info and redirect_to url_for(@statement) }
         format.js   {
           render_with_info do |page|
+            page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement})
             page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement, :statement_document => @statement_document})
             page << "makeRatiobars();"
             page << "makeTooltips();"
@@ -217,6 +218,7 @@ class StatementsController < ApplicationController
       format.js {
         render :update do |page|
           page.replace(@statement.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/new')
+          page.remove 'search_container' if @statement.kind_of?(Question) 
           page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent}) if @statement.parent
           page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) if @statement.parent
           page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent})
@@ -257,10 +259,17 @@ class StatementsController < ApplicationController
         format.js   {
           #session[:last_info] = @info # save @info so it doesn't get lost during redirect
           render_with_info do |page|
+            if @statement.kind_of?(Question)
+              page.insert_html :top , 'function_container', :partial => 'statements/sidebar', :locals => { :statement => @statement} 
+              page.insert_html :top , 'function_container', :partial => 'statements/summary', :locals => { :statement => @statement, :statement_document => @statement_document}
+              page.insert_html :top , 'function_container', :partial => 'statements/context', :locals => { :statement => @statement} 
+            else
+              page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement})
+              page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement, :statement_document => @statement_document})
+              page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement})
+            end
             page.replace('new_statement', :partial => 'statements/children', :statement => @statement, :children => @children)
-            page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement})
-            page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement, :statement_document => @statement_document})
-            page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement})
+            
             page << "makeRatiobars();"
             page << "makeTooltips();"
           end

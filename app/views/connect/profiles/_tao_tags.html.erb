@@ -1,6 +1,10 @@
 
-<% unless @profile.tao_tags.blank? %>
+<% unless @profile.tao_tags.blank? and @profile.spoken_languages.blank? %>
 
+  <% @profile.spoken_languages.each do |spoken_language| %>
+	 <span class="label"><%= spoken_language.language.get_current_enum_value.value %> </span>
+	 <span class="values"> <%= spoken_language.level.get_current_enum_value.value %> </span>
+	<%end%>
   <% TaoTag.valid_contexts(@profile.user.class.name).each do |context| %>
     <% tao_tags = @profile.tao_tags.find_all_by_context_id(context.id) %>
     <% unless tao_tags.blank? %>
