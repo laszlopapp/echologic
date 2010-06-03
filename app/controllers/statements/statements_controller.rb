@@ -181,11 +181,12 @@ class StatementsController < ApplicationController
         set_info("discuss.messages.translated", :type => @statement.class.display_name)
         current_user.supported!(@statement)
         #load current created statement to session
-        @statement_document = @new_statement_document
-        @children = children_for_statement
+        @current_language_keys = current_language_keys
+        @statement_document = @new_statement_document        
         format.html { flash_info and redirect_to url_for(@statement) }
         format.js   {
           render_with_info do |page|
+            page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement})
             page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement, :statement_document => @statement_document})
             page << "makeRatiobars();"
             page << "makeTooltips();"
@@ -265,7 +266,7 @@ class StatementsController < ApplicationController
         @current_language_key = current_language_key
         set_error(@statement_document)
         format.html { flash_error and render :template => 'statements/new' }
-        format.js   { show_error_messages(@statement_document) }
+        format.js   { show_error_messages(@statement_document)}
       end
     end
   end
