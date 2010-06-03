@@ -6,8 +6,8 @@
   <%= render :partial => 'statements/form', :locals => {:statement => statement} %>
 </div>
 
-<% unless statement.class.name == 'Question' %>
-  <script type="text/javascript">
-    $('#new_<%=statement_class_dom_id(statement)%>').ajaxForm({ dataType : 'script' });
-  </script>
-<% end %>
+
+<script type="text/javascript">
+  $('#new_<%=statement_class_dom_id(statement)%>').ajaxForm({ dataType : 'script' });
+</script>
+
