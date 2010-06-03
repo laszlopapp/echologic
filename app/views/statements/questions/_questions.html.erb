@@ -24,7 +24,7 @@
 	  <% if not statements.empty? %>
 	    <%= render :partial => 'statements/questions/question', :collection => statements %>
 	  <% else %>
-	    <span class="no_results"><%= I18n.t('discuss.messages.empty') %></span>
+	    <span class="no_results"><%= current_user and current_user.spoken_languages.blank? ? I18n.t('discuss.messages.empty_without_spoken_languages', :my_echo => my_profile_path) : I18n.t('discuss.messages.empty') %></span>
 	  <% end %>
 	</ul>
     <%= will_paginate statements , :previous_label => '', :next_label => '', :params => {:controller => :discuss} if defined? statements.total_pages %>

@@ -445,6 +445,7 @@ pt:
       deleted: "O/a {{type}} foi apagado/a com sucesso."
       translated: "O/a {{type}} foi traduzido/a com sucesso."
       empty:   "Nenhuma questão encontrada. Por favor altere os seus critérios de procura."
+      empty_without_spoken_languages: "Nenhuma questão encontrada. Pode tentar definir as suas <a href='{{my_echo}}'><u>Línguas Faladas</u></a> de forma a aceder a conteúdos noutras línguas."
       new_percentage: "O seu perfil está {{percentage}}% completo."
 
 
@@ -475,7 +476,7 @@ pt:
       actions:
         report: "Relatório"
     messages:
-      empty:           'Nenhum membro encontrado. Por favor altere os seus critérios de procura.'
+      empty:           'Nenhum membro encontrado. Por favor altere os seus critérios de procura.'      
       no_concernments: "Este membro ainda não definiu interesses ou competências."
       no_web_addresses: "Este membro ainda não definiu endereços web."
 
