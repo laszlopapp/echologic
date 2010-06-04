@@ -62,6 +62,7 @@ class Profile < ActiveRecord::Base
     "#{memberships.first.organisation} - #{memberships.first.position}"
   end
 
+  # Self written SQL for querying profiles in echo Connect
   def self.search_profiles(sort, value, opts={} )
 
     #sorting the or arguments
