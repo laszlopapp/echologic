@@ -59,8 +59,8 @@ end
 ["Portuguese","Portugiesisch","Portugais","Português","Portugués"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('pt'), :language_id => index+1, :value => value, :context => "")
 end
-["Spanish","Spanisch","espagnol","Espanhol","Español"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('pt'), :language_id => index+1, :value => value, :context => "")
+["Spanish","Spanisch","Espagnol","Espanhol","Español"].each_with_index do |value,index|
+  EnumValue.create(:enum_key => EnumKey.find_by_code('es'), :language_id => index+1, :value => value, :context => "")
 end
 
 #Language Level
