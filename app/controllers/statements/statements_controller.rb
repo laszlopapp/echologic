@@ -56,6 +56,7 @@ class StatementsController < ApplicationController
     else
       statements_not_paginated = search(@value, {:tag => params[:id], :auth => (current_user && current_user.has_role?(:editor)) })
     end
+    
     #additional step: to filter statements with a translated version in the current language
     statements_not_paginated = statements_not_paginated.select{|s| !(@current_language_keys & s.statement_documents.collect{|sd| sd.language_id}).empty?}
 
@@ -178,7 +179,7 @@ class StatementsController < ApplicationController
     @new_statement_document = @statement.add_statement_document(doc_attrs)
     respond_to do |format|
       if @statement.save
-        set_info("discuss.messages.translated", :type => @statement.class.display_name)
+        set_statement_node_info("discuss.messages.translated",@statement)
         current_user.supported!(@statement)
         #load current created statement to session
         @current_language_keys = current_language_keys
@@ -216,7 +217,7 @@ class StatementsController < ApplicationController
           page.replace(@statement.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/new')
           page.remove 'search_container' if @statement.kind_of?(Question) 
           page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent}) if @statement.parent
-          page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) if @statement.parent
+          #page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement.parent}) if @statement.parent
           page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent})
 
           page << "makeRatiobars();"
@@ -242,7 +243,7 @@ class StatementsController < ApplicationController
         tao_tag.tao = @statement
         tao_tag.save
         @current_language_keys = current_language_keys
-        set_info("discuss.messages.created", :type => @statement.class.display_name)
+        set_statement_node_info("discuss.messages.created",@statement)
         current_user.supported!(@statement)
         #load current created statement to session
         if @statement.parent
@@ -296,7 +297,7 @@ class StatementsController < ApplicationController
     attrs_doc = attrs.delete(:statement_document)
     respond_to do |format|
       if @statement.update_attributes!(attrs) && @statement.translated_document(current_user.language_keys).update_attributes!(attrs_doc)
-        set_info("discuss.messages.updated", :type => @statement.class.human_name)
+        set_statement_node_info("discuss.messages.updated",@statement)
         format.html { flash_info and redirect_to url_for(@statement) }
         format.js   { show }
       else
@@ -311,7 +312,7 @@ class StatementsController < ApplicationController
   # destroys a statement
   def destroy
     @statement.destroy
-    set_info("discuss.messages.deleted", :type => @statement.class.human_name)
+    set_statement_node_info("discuss.messages.deleted",@statement)
     flash_info and redirect_to :controller => 'questions', :action => :category, :id => @category.value
   end
 
@@ -364,6 +365,10 @@ class StatementsController < ApplicationController
 
   def statement_class_param
     statement_class.name.underscore.to_sym
+  end
+  
+  def set_statement_node_info(string, statement_node)
+    set_info(string, :type => I18n.t("discuss.statements.types.#{statement_class_dom_id(statement_node).downcase}"))
   end
 
   def parent

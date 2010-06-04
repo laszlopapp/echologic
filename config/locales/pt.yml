@@ -440,10 +440,10 @@ pt:
     summary:
       title: 'Sumário'
     messages:
-      created: "O/a novo/a {{type}} foi inserido/a com sucesso."
-      updated: "O/a {{type}} foi actualizado/a com sucesso."
-      deleted: "O/a {{type}} foi apagado/a com sucesso."
-      translated: "O/a {{type}} foi traduzido/a com sucesso."
+      created: "A nova {{type}} foi inserida com sucesso."
+      updated: "A {{type}} foi actualizada com sucesso."
+      deleted: "A {{type}} foi apagada com sucesso."
+      translated: "A {{type}} foi traduzida com sucesso."
       empty:   "Nenhuma questão encontrada. Por favor altere os seus critérios de procura."
       empty_without_spoken_languages: "Nenhuma questão encontrada. Pode tentar definir as suas <a href='{{my_echo}}'><u>Línguas Faladas</u></a> de forma a aceder a conteúdos noutras línguas."
       new_percentage: "O seu perfil está {{percentage}}% completo."

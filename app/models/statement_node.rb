@@ -51,7 +51,7 @@ class StatementNode < ActiveRecord::Base
   # end ; alias :statement_document= :document=
 
   belongs_to :statement
-  has_many :statement_documents, :through => :statement, :source => :statement_documents do 
+  has_many :statement_documents, :through => :statement do 
     # this query returns translation for a statement ordered by the users prefered languages
     # OPTIMIZE: this should be built in sql
       
