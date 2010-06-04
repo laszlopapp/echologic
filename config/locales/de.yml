@@ -452,6 +452,10 @@ de:
       deleted: "{{type}} wurde erfolgreich gelöscht."
       translated: "{{type}} wurde erfolgreich übersetzt."
       empty: "Es wurden keine Diskussionen gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
+      empty_without_spoken_languages: |
+        Zu Ihrer Suchanfrage wurden keine Diskussionen gefunden.
+        Versuchen Sie, Ihre <a href='{{my_echo}}'><u>Sprachkenntnisse</u></a> einzustellen,
+        um Inhalte in anderen Sprachen zu sehen."
       new_percentage: "Ihr Profil ist jetzt zu {{percentage}}% ausgefüllt."
 
 

@@ -440,6 +440,7 @@ en:
       deleted: "The {{type}} has been deleted successfully."
       translated: "The {{type}} has been translated successfully."
       empty:   "No discussions found. Please change your search criteria."
+      empty_without_spoken_languages: "No discussions found. You can try defining your <a href='{{my_echo}}'><u>language skills</u></a> to see content in other languages."
       new_percentage: "Your profile is {{percentage}}% complete."
 
 
@@ -470,7 +471,7 @@ en:
       actions:
         report: "Report"
     messages:
-      empty:           'No members found. Please change your search criteria.'
+      empty:           'No members found. Please change your search criteria.'      
       no_concernments: "This member hasn't defined any concernments and competences, yet."
       no_web_addresses: "This member hasn't defined any web addresses, yet."
 

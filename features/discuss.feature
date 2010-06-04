@@ -145,7 +145,7 @@ Feature: Take Part on a discussion
      Then I should see localized "discuss.summary.title"
        And I should see the proposals data
        And I should see localized "discuss.statements.create_improvement_proposal_link"
-       And I should see localized "discuss.statements.create_proposal_link"
+       And I should see localized "discuss.statements.create_internal_link"
 
    Scenario: Question has only proposals in german, which will not be seen by a user with no defined german language
     Given I am logged in as "red" with password "red"

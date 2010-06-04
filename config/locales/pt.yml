@@ -286,8 +286,8 @@ pt:
       O texto original encontra-se em <strong>{{language}}</strong>. Defina os seus conheci-<br/>
       mentos linguísticos para poder visualizar conteúdo noutras línguas.
     results_count:
-      one: '{{count}} debate'
-      more: '{{count}} debates'
+      one: '{{count}} discussão'
+      more: '{{count}} discussões'
     featured_topics:
       title: Tópicos destacados
       text: |
@@ -385,20 +385,20 @@ pt:
           </p>
 
     tooltips:
-      read_question: 'Ir para este debate'
+      read_question: 'Ir para esta questão'
       read_proposal: 'Ler esta proposta'
       read_improvement_proposal: 'Ler esta proposta de melhoria'
-      current_question: 'O debate actualmente apresentado'
+      current_question: 'A questão actualmente apresentada'
       current_proposal: 'A proposta actualmente apresentada'
       current_improvement_proposal: 'A proposta de melhoria actualmente apresentada'
-      back_to_question: 'De volta ao debate actual'
+      back_to_question: 'De volta à questão actual'
       back_to_proposal: 'De volta à proposta actual'
       back_to_improvement_proposal: 'De volta à proposta de melhoria actual'
-      prev_proposal: 'Ler proposta anterior do debate actual'
-      next_proposal: 'Ler proposta seguinte do debate actual'
+      prev_proposal: 'Ler proposta anterior da questão actual'
+      next_proposal: 'Ler proposta seguinte da questão actual'
       prev_improvement_proposal: 'Ler proposta de melhoria anterior da proposta actual'
       next_improvement_proposal: 'Ler proposta de melhoria seguinte da proposta actual'
-      create_proposal: 'Criar nova proposta no debate actual'
+      create_proposal: 'Criar nova proposta na questão  actual'
       create_improvement_proposal: 'Criar nova proposta de melhoria na proposta actual'
       echo: 'echoe esta afirmação de forma a apoiá-la!'
       unecho: 'Retire o seu voto para parar de apoiar esta afirmação.'
@@ -407,29 +407,29 @@ pt:
         many: 'Esta afirmação tem {{supporter_count}} apoiantes.'
     statements:
       label: 'echos'
-      create_question_link: 'Abra um novo debate'
-      create_proposal_link: Não encontrou a sua ideia? Coloque-a já!
+      create_question_link: 'Abra uma nova discussão'
+      create_proposal_link: 'Criar nova proposta'
       create_internal_link: 'Nova ideia?'
-      create_improvement_proposal_link: Não encontrou a sua ideia? Coloque-a já!
+      create_improvement_proposal_link: 'Criar nova proposta de melhoria'
       create_question_explanation: |
-        Olá Editor! Aqui pode abrir um novo debate.
+        Olá Editor! Aqui pode abrir uma nova questão.
       create_proposal_explanation: |
-        Tem uma <strong>boa ideia</strong> no que diz respeito ao debate actual, que ainda <strong>não existe</strong>?<br/>
+        Tem uma <strong>boa ideia</strong> no que diz respeito à questão actual, que ainda <strong>não existe</strong>?<br/>
         Aqui pode criar uma <strong>nova proposta</strong>.
       create_improvement_proposal_explanation: |
         Tem uma <strong>boa ideia</strong> para <strong>tornar a proposta actual ainda melhor</strong>?<br/>
         Aqui pode criar uma <strong>nova proposta de melhoria</strong>.
 
       types:
-        question:  'Debate'
+        question:  'Questão'
         proposal:  'Proposta'
         improvement_proposal: 'Proposta de melhoria'
       new:
-        question:  'Novo Debate'
+        question:  'Nova Questão'
         proposal:  'Nova Proposta'
         improvement_proposal: 'Nova Proposta de Melhoria'
       headings:
-        question: 'Debates'
+        question: 'Questões'
         proposal: 'Propostas'
         improvement_proposal: 'Propostas de Melhoria'
       states:
@@ -444,7 +444,8 @@ pt:
       updated: "O/a {{type}} foi actualizado/a com sucesso."
       deleted: "O/a {{type}} foi apagado/a com sucesso."
       translated: "O/a {{type}} foi traduzido/a com sucesso."
-      empty:   "Nenhum debate encontrado. Por favor altere os seus critérios de procura."
+      empty:   "Nenhuma questão encontrada. Por favor altere os seus critérios de procura."
+      empty_without_spoken_languages: "Nenhuma questão encontrada. Pode tentar definir as suas <a href='{{my_echo}}'><u>Línguas Faladas</u></a> de forma a aceder a conteúdos noutras línguas."
       new_percentage: "O seu perfil está {{percentage}}% completo."
 
 
@@ -475,7 +476,7 @@ pt:
       actions:
         report: "Relatório"
     messages:
-      empty:           'Nenhum membro encontrado. Por favor altere os seus critérios de procura.'
+      empty:           'Nenhum membro encontrado. Por favor altere os seus critérios de procura.'      
       no_concernments: "Este membro ainda não definiu interesses ou competências."
       no_web_addresses: "Este membro ainda não definiu endereços web."
 
@@ -547,7 +548,7 @@ pt:
         title:      'Título'
 
     models:
-      question: "debate"
+      question: "questão"
       proposal: "proposta"
       improvement_proposal: "proposta de melhoria"
 
