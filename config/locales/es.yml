@@ -455,8 +455,8 @@ es:
       translated: "{{type}} fue traducido."
       empty:   "No fue encontrado ningun debate. Por favor intente buscar por otra palavra."
       empty_without_spoken_languages: |
-        No fue encontrada ninguna cuestión.
-        Intente definir sus <a href='{{my_echo}}'><u>lenguas conocidas</u></a> para ver contenidos en otras lenguas.
+        No fue encontrada ninguna cuestión. Intente definir sus <a href='{{my_echo}}'>lenguas conocidas</a>
+        para ver contenidos en otras lenguas.
       new_percentage: "Ahora tu perfil está completo por {{percentage}}%."
 
 
