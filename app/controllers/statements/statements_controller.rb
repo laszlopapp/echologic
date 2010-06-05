@@ -214,11 +214,20 @@ class StatementsController < ApplicationController
       format.html { render :template => 'statements/new' }
       format.js {
         render :update do |page|
-          page.replace(@statement.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/new')
-          page.remove 'search_container' if @statement.kind_of?(Question)
-          page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement.parent}) if @statement.parent
-          page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement.parent})
-
+          if @statement.kind_of?(Question)
+            page.remove 'search_container'
+            page.remove 'new_question'
+            page.replace 'questions_container', :partial => 'statements/new'
+          else
+            page.replace 'children', :partial => 'statements/new'
+          end
+          page.replace('context',
+                       :partial => 'statements/context',
+                       :locals => { :statement => @statement.parent}) if @statement.parent
+          page.replace('discuss_sidebar',
+                       :partial => 'statements/sidebar',
+                       :locals => { :statement => @statement.parent})
+          # Direct JS
           page << "makeRatiobars();"
           page << "makeTooltips();"
         end
@@ -256,16 +265,31 @@ class StatementsController < ApplicationController
           #session[:last_info] = @info # save @info so it doesn't get lost during redirect
           render_with_info do |page|
             if @statement.kind_of?(Question)
-              page.insert_html :top , 'function_container', :partial => 'statements/sidebar', :locals => { :statement => @statement}
-              page.insert_html :top , 'function_container', :partial => 'statements/summary', :locals => { :statement => @statement, :statement_document => @statement_document}
-              page.insert_html :top , 'function_container', :partial => 'statements/context', :locals => { :statement => @statement}
+              page.insert_html :top , 'function_container',
+                               :partial => 'statements/summary',
+                               :locals => { :statement => @statement, :statement_document => @statement_document}
+              page.insert_html :top , 'function_container',
+                               :partial => 'statements/sidebar',
+                               :locals => { :statement => @statement}
+              page.insert_html :top , 'function_container',
+                               :partial => 'statements/context',
+                               :locals => { :statement => @statement}
             else
-              page.replace('context', :partial => 'statements/context', :locals => { :statement => @statement})
-              page.replace('summary', :partial => 'statements/summary', :locals => { :statement => @statement, :statement_document => @statement_document})
-              page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement => @statement})
+              page.replace('context',
+                           :partial => 'statements/context',
+                           :locals => { :statement => @statement})
+              page.replace('discuss_sidebar',
+                           :partial => 'statements/sidebar',
+                           :locals => { :statement => @statement})
+              page.replace('summary',
+                           :partial => 'statements/summary',
+                           :locals => { :statement => @statement, :statement_document => @statement_document})
             end
-            page.replace('new_statement', :partial => 'statements/children', :statement => @statement, :children => @children)
-
+            page.replace 'new_statement',
+                         :partial => 'statements/children',
+                         :statement => @statement,
+                         :children => @children
+            # Direct JS
             page << "makeRatiobars();"
             page << "makeTooltips();"
           end
