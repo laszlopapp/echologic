@@ -1,11 +1,11 @@
 class Users::SpokenLanguagesController < ApplicationController
-  
+
   before_filter :require_user
-  
+
   access_control do
     allow logged_in
   end
-  
+
   # Show the spoken language with the given id.
   # method: GET
   def show
@@ -18,7 +18,7 @@ class Users::SpokenLanguagesController < ApplicationController
       end
     end
   end
-  
+
   # Show the new template for spoken languages. Currently unused.
   # method: GET
   def new
@@ -28,7 +28,7 @@ class Users::SpokenLanguagesController < ApplicationController
       format.html # new.html.erb
     end
   end
-  
+
   # Show the edit template for the specified spoken language.
   # method: GET
   def edit
@@ -41,7 +41,7 @@ class Users::SpokenLanguagesController < ApplicationController
       end
     end
   end
-  
+
   # Create new spoken language for the current user.
   # method: POST
   def create
@@ -53,13 +53,14 @@ class Users::SpokenLanguagesController < ApplicationController
     previous_completeness = @spoken_language.profile.percent_completed
     respond_to do |format|
       format.js do
-        if @spoken_language.save          
+        if @spoken_language.save
           current_completeness = @spoken_language.profile.percent_completed
           set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
-          
+
           render_with_info do |p|
             p.insert_html :bottom, 'spoken_language_list', :partial => 'users/spoken_languages/spoken_language'
             p << "$('#new_spoken_language').reset();"
+            p << "$('#spoken_language_language').focus();"
           end
         else
           show_error_messages(@spoken_language)
@@ -67,7 +68,7 @@ class Users::SpokenLanguagesController < ApplicationController
       end
     end
   end
-  
+
   # Update the spoken languages attributes
   # method: PUT
   def update
@@ -84,14 +85,14 @@ class Users::SpokenLanguagesController < ApplicationController
       end
     end
   end
-  
+
   # Remove the spoken language specified through id
   # method: DELETE
-  def destroy    
+  def destroy
     @spoken_language = SpokenLanguage.find(params[:id])
-    
+
     id = @spoken_language.id
-    
+
     previous_completeness = @spoken_language.profile.percent_completed
     @spoken_language.destroy
     current_completeness = @spoken_language.profile.percent_completed
@@ -105,7 +106,7 @@ class Users::SpokenLanguagesController < ApplicationController
         #remove_container "web_address_#{id}"
         render_with_info do |p|
           p.remove dom_id(@spoken_language)
-        end 
+        end
       end
     end
   end
