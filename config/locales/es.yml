@@ -260,13 +260,13 @@ es:
     # New Users section
     users:
       new:
-        title: 'Su echo'
+        title: 'Tu echo'
         subtitle: 'Unirse a echologic'
         text: |
           <p>
           <strong>echo es la democracia hecha por el pueblo para el pueblo.</strong>
           </p><p>
-          Como proyecto por el bienestar común, echo avanza por medio<strong>del esfuerzo  común </strong> de personas y
+          Como proyecto por el bienestar común, echo avanza por medio <strong>del esfuerzo  común</strong> de personas y
           organizaciones comprometidas.
           </p><p>
           Quieres contribuir con <strong>sus ideas</strong>?<br/>
