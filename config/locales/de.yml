@@ -388,6 +388,32 @@ de:
           </p><p>
           Hintergrundinformationen zur Veranstaltung finden Sie auf dem
           <a href='http://www.netzwerk-gemeinsinn.net/content/view/625/218' target='_blank'>Blog vom Netzwerk Gemeinsinn</a>.
+      igf:
+        name: Internet Governance Forum (IGF) - Deutschland
+        short_name: IGF-D
+        teaser: |
+          Das <a href='http://www.igf-d.org' target='_blank'>Internet Governance Forum - Deutschland (IGF-D)</a> ist
+          eine offene und informelle Multistakeholder Diskussionsplattform für Regierung, Privatwirtschaft und Zivilgesellschaft.
+        description: |
+           <p>
+           Zusammen mit der technischen und akademischen Community beschäftigt sich das IGF-D mit Fragen über die weitere
+           Entwicklung des Internets. Inhaltliche Schwerpunkte seiner Arbeit orientieren sich an den globalen
+           Themen des <strong><a href='http://www.intgovforum.org' target='_blank'>IGF der Vereinten Nationen (UN-IGF)</a></strong>
+           (Vielfalt, Offenheit, Sicherheit, kritische Internetressourcen und <strong>Zukunft des Internets</strong>)
+           unter spezifischer Berücksichtigung der Problem- und Interessenlage in Deutschland.
+           </p><p>
+           Konkrete Ziele des IGF-D sind:
+             <ul>
+               <li>
+                 Den Dialog zwischen Stakeholdern zu konkreten Fragen der Internet-Entwicklung zu befördern, um neue
+                 Potenziale für Deutschland zu erschließen.
+               </li>
+               <li>
+                 Den Beitrag der deutschen Stakeholder zum Internet Governance Forum der Vereinten Nationen
+                 vorzubereiten und zu stärken sowie das europäische Internet Governance Forum zu flankieren.
+               </li>
+             <ul>
+           </p>
 
 
     tooltips:

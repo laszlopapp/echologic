@@ -383,6 +383,32 @@ pt:
           </p><p>
           Informação do acontecimento pode ser encontrada no <a href='http://www.netzwerk-gemeinsinn.net/content/view/625/218' target='_blank'>blog do Espírito Público</a>.
           </p>
+      igf:
+        name: Internet Governance Forum (IGF) - Deutschland
+        short_name: IGF-D
+        teaser: |
+          The <a href='http://www.igf-d.org' target='_blank'>Internet Governance Forum - Deutschland (IGF-D)</a>
+          is an open and informal multistakeholder discussion platform for government, private business und civil society.
+        description: |
+           <p>
+           With the inclusion of the German technological and academic community, it discusses the future development
+           of the internet. The work of the IGF-D focuses on the global topics of the
+           <strong><a href='http://www.intgovforum.org' target='_blank'>IGF of the United Nations (UN-IGF)</a></strong>
+           (diversity, openness, security, critical internet resources and the <strong>future of the internet</strong>)
+           with specific consideration for the problems and interests in Germany.
+           </p><p>
+           Goals of the IGF-D are:
+             <ul>
+               <li>
+                 Promoting dialogue between stakeholders on specific topics concerning internet development to
+                 further increase German potencial.
+               </li>
+               <li>
+                 Preparing and enriching the German stakeholders' contribution to the Internet Governance Forum of the
+                 United Nations.
+               </li>
+             <ul>
+           </p>
 
     tooltips:
       read_question: 'Ir para esta questão'
