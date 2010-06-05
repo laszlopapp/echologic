@@ -432,6 +432,7 @@ es:
       next_proposal: 'Leer próxima propuesta'
       prev_improvement_proposal: 'Leer propuesta de mejoramiento anterior'
       next_improvement_proposal: 'Leer próxima propuesta de mejoramiento'
+      create_question: 'Crear nueva discusión'
       create_proposal: 'Crear nueva propuesta'
       create_improvement_proposal: 'Crear nueva propuesta de mejoramiento'
       echo: 'Apoye a esta opinión con su voz!'

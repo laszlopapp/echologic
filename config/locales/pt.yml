@@ -424,6 +424,7 @@ pt:
       next_proposal: 'Ler proposta seguinte da questão actual'
       prev_improvement_proposal: 'Ler proposta de melhoria anterior da proposta actual'
       next_improvement_proposal: 'Ler proposta de melhoria seguinte da proposta actual'
+      create_question: 'Abra uma nova discussão'
       create_proposal: 'Criar nova proposta na questão actual'
       create_improvement_proposal: 'Criar nova proposta de melhoria na proposta actual'
       echo: 'echoe esta afirmação de forma a apoiá-la!'
@@ -431,6 +432,7 @@ pt:
       echo_indicator:
         one: 'Esta afirmação tem {{supporter_count}} apoiante.'
         many: 'Esta afirmação tem {{supporter_count}} apoiantes.'
+
     statements:
       label: 'echos'
       create_question_link: 'Abra uma nova discussão'

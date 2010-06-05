@@ -420,6 +420,7 @@ en:
       next_proposal: 'Read next proposal for the current question'
       prev_improvement_proposal: 'Read previous improvement proposal for the current proposal'
       next_improvement_proposal: 'Read next improvement proposal for the current proposal'
+      create_question: 'Open a new discussion'
       create_proposal: "Post your new idea concerning the current question."
       create_improvement_proposal: "Post your new idea to improve the current proposal."
       echo: 'echo this statement to support it!'

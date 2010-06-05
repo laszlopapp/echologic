@@ -430,6 +430,7 @@ de:
       next_proposal: 'Nächsten Vorschlag zur aktuellen Frage lesen'
       prev_improvement_proposal: 'Vorigen Ergänzungsvorschlag zum aktuellen Vorschlag lesen'
       next_improvement_proposal: 'Nächsten Ergänzungsvorschlag zum aktuellen Vorschlag lesen'
+      create_question: 'Neue Diskussion eröffnen'
       create_proposal: 'Tragen Sie Ihre neue Idee zur aktuellen Frage ein.'
       create_improvement_proposal: 'Tragen Sie Ihre neue Idee zum aktuellen Vorschlag ein.'
       echo: 'Unterstützen Sie diese Aussage durch Ihr Echo!'
@@ -479,7 +480,7 @@ de:
       translated: "{{type}} wurde erfolgreich übersetzt."
       empty: "Es wurden keine Diskussionen gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
       empty_without_spoken_languages: |
-        Keine Diskussion gefunden. Versuchen Sie, Ihre <a href='{{my_echo}}'>Sprachkenntnisse</a> einzustellen,
+        Keine Diskussion gefunden. Versuchen Sie Ihre <a href='{{my_echo}}'>Sprachkenntnisse</a> einzustellen,
         um Inhalte in anderen Sprachen zu sehen.
       new_percentage: "Ihr Profil ist jetzt zu {{percentage}}% ausgefüllt."
 
