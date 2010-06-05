@@ -3,7 +3,7 @@
 # * though the class is called Question, it is commonly refered to as a 'Debate' (in ui, and in concepts).
 # * currently a Debate only expects one type of children, Proposals
 
-class Question < Statement
+class Question < StatementNode
   
   
   # methods / settings to overwrite default statement behaviour

@@ -1,95 +1,36 @@
-test-question:
-  document_id: <%= Fixtures.identify(:'test-question-doc') %>
-  type: Question
-  creator_id: <%= Fixtures.identify(:editor) %>
-  state: 1
-  category_id: <%= Fixtures.identify(:'echonomy-jam') %>
-  echo_id: <%= Fixtures.identify(:'test-question-echo') %>
-
-second-question:
-  document_id: <%= Fixtures.identify(:'second-question-doc') %>
-  type: Question
-  creator_id: <%= Fixtures.identify(:editor) %>
-  state: 1
-  category_id: <%= Fixtures.identify(:'echonomy-jam') %>
-
-first-proposal:
-  parent_id: <%= Fixtures.identify(:'test-question') %>
-  root_id: <%= Fixtures.identify(:'test-question') %>
-  document_id: <%= Fixtures.identify(:'first-proposal-doc') %>
-  type: Proposal
-  creator_id: <%= Fixtures.identify(:editor) %>
-  state: 1
-  category_id: <%= Fixtures.identify(:'echonomy-jam') %>
-
-second-proposal:
-  parent_id: <%= Fixtures.identify(:'test-question') %>
-  root_id: <%= Fixtures.identify(:'test-question') %>
-  document_id: <%= Fixtures.identify(:'second-proposal-doc') %>
-  type: Proposal
-  creator_id: <%= Fixtures.identify(:user) %>
-  state: 1
-  category_id: <%= Fixtures.identify(:'echonomy-jam') %>
-
-third-proposal:
-  parent_id: <%= Fixtures.identify(:'test-question') %>
-  root_id: <%= Fixtures.identify(:'test-question') %>
-  document_id: <%= Fixtures.identify(:'third-proposal-doc') %>
-  type: Proposal
-  creator_id: <%= Fixtures.identify(:user) %>
-  state: 1
-  category_id: <%= Fixtures.identify(:'echonomy-jam') %>
-
-inbetween-proposal:
-  parent_id: <%= Fixtures.identify(:'test-question') %>
-  root_id: <%= Fixtures.identify(:'test-question') %>
-  document_id: <%= Fixtures.identify(:'inbetween-proposal-doc') %>
-  type: Proposal
-  creator_id: <%= Fixtures.identify(:editor) %>
-  state: 1
-  category_id: <%= Fixtures.identify(:'echonomy-jam') %>
-
-fourth-proposal:
-  parent_id: <%= Fixtures.identify(:'test-question') %>
-  root_id: <%= Fixtures.identify(:'test-question') %>
-  document_id: <%= Fixtures.identify(:'fourth-proposal-doc') %>
-  type: Proposal
-  creator_id: <%= Fixtures.identify(:editor) %>
-  state: 1
-  category_id: <%= Fixtures.identify(:'echonomy-jam') %>
-
-fifth-proposal:
-  parent_id: <%= Fixtures.identify(:'test-question') %>
-  root_id: <%= Fixtures.identify(:'test-question') %>
-  document_id: <%= Fixtures.identify(:'fifth-proposal-doc') %>
-  type: Proposal
-  creator_id: <%= Fixtures.identify(:editor) %>
-  state: 1
-  category_id: <%= Fixtures.identify(:'echonomy-jam') %>
-
-sixth-proposal:
-  parent_id: <%= Fixtures.identify(:'test-question') %>
-  root_id: <%= Fixtures.identify(:'test-question') %>
-  document_id: <%= Fixtures.identify(:'sixth-proposal-doc') %>
-  type: Proposal
-  creator_id: <%= Fixtures.identify(:editor) %>
-  state: 1
-  category_id: <%= Fixtures.identify(:'echonomy-jam') %>
-
-not-published-proposal:
-  parent_id: <%= Fixtures.identify(:'test-question') %>
-  root_id: <%= Fixtures.identify(:'test-question') %>
-  document_id: <%= Fixtures.identify(:'not-published-proposal-doc') %>
-  type: Proposal
-  creator_id: <%= Fixtures.identify(:editor) %>
-  state: 0
-  category_id: <%= Fixtures.identify(:'echonomy-jam') %>
-
-first-impro-proposal:
-  parent_id: <%= Fixtures.identify(:'first-proposal') %>
-  root_id: <%= Fixtures.identify(:'test-question') %>
-  document_id: <%= Fixtures.identify(:'first-impro-proposal-doc') %>
-  type: ImprovementProposal
-  creator_id: <%= Fixtures.identify(:ben) %>
-  state: 1
-  category_id: <%= Fixtures.identify(:'echonomy-jam') %>
+test-question-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+original-language-question-statement:
+  original_language_id: <%= Fixtures.identify(:language_de)%>
+second-question-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+third-question-statement:
+  original_language_id: <%= Fixtures.identify(:language_de)%>
+with-german-children-question-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+first-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+second-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+third-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+inbetween-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+fourth-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+fifth-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+sixth-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+german-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_de)%>
+second-german-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_de)%>
+not-published-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+german-child-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_de)%>
+first-impro-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+german-impro-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_de)%>

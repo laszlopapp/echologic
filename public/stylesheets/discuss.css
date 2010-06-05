@@ -134,11 +134,11 @@
   background-position: -37px -78px;
 }
 
-.context_line .echo_label {
+.echo_label {
+  background: url("../images/page/discuss/echo_small.png") no-repeat scroll 0 0;
   float: right;
-  width: 170px;
-  margin:0 20px;
-  text-align: right;
+  margin-right: 20px;
+  padding-left: 20px;
   cursor: default;
 }
 
@@ -253,15 +253,15 @@ a.statement_link:hover {
 }
 
 .create_question_button {
-  background:transparent url(../images/page/discuss/add_question_16.png) no-repeat scroll 0 0;
+  background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
 
 .create_proposal_button {
-  background:transparent url(../images/page/discuss/add_proposal_16.png) no-repeat scroll 0 0;
+  background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
 
 .create_improvement_proposal_button {
-  background:transparent url(../images/page/discuss/add_improvement_proposal_16.png) no-repeat scroll 0 0;
+  background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
 
 
@@ -300,4 +300,111 @@ a.statement_link:hover {
 
 #children .text_button {
   margin-left: 0px;
+}
+
+/* Others */
+#echo.tab_content_container, #pilot_projects.tab_content_container {
+  width: 945px;
+}
+
+/* Title in discuss listing */
+#discuss_results .ttLink img{
+	color:#7BB031;
+}
+
+/* New and Edit Statement form */
+
+#new_statement textarea, #summary textarea {
+  height: 200px;
+}
+
+
+/* ------------------- */
+/* Translations        */
+/* ------------------- */
+
+.translation_box_class {
+  height: 55px;
+	margin: 0 -10px 0px;
+	text-align: center;
+}
+
+.translation_box_class .fish_left {
+  position: absolute;
+  left: 12px;
+  top: 2px;
+}
+
+.translation_box_class .fish_right {
+  position: absolute;
+  right: 12px;
+  top: 2px;
+}
+
+.translation_box_class .language_label {
+  position: absolute;
+  top: 20px;
+  font-weight: bold;
+  cursor: default;
+}
+
+.translation_box_class .from_language {
+  left: 83px;
+}
+
+.translation_box_class .to_language {
+  right: 83px;
+  text-align: right;
+}
+
+.translation_box_class .translation_link {
+  position: relative;
+  top: 19px;
+  font: 14px;
+  color: #21587f;
+}
+
+.translation_box_class .translation_link strong {
+  font-size: 1em;
+}
+
+.translation_box_class .translation_link:hover {
+  cursor: pointer;
+  color: #7bb031;
+}
+
+.translation_box_class .arrow {
+  position: relative;
+  top: 4px;
+}
+
+.translation_box_class .profile_link {
+  top: 11px;
+}
+
+/* Translation form */
+
+#new_translation form {
+  margin-top: 15px;
+}
+
+#new_translation .left_panel {
+  float: left;
+}
+
+#new_translation .right_panel {
+  float: right;
+}
+
+#new_translation li, #new_translation input, #new_translation label {
+  width: 380px;
+}
+
+#new_translation textarea {
+  width: 385px;
+  height: 200px;
+}
+
+#new_translation fieldset.buttons {
+  clear: both;
 }

@@ -1,5 +1,5 @@
 <%
-  children ||= @children 
+  children ||= @children
   statement ||= @statement
   has_children = statement.class.expected_children.any?
 %>
@@ -7,7 +7,9 @@
 <div id="children" class="<%= has_children ? 'header_block discuss_right_block' : '' %>">
   <% if has_children %>
     <h2><%= children_box_title(statement) %></h2>
-	<label class="header_button"> <%= I18n.t('discuss.statements.label') %> </label>    
-    <%= render :partial => 'statements/children_list', :locals => {:statement => statement, :statements => children}%>	
+    <% if !children.blank? %>
+	    <label class="echo_label header_button"> <%= I18n.t('discuss.statements.label') %> </label>
+    <% end %>
+    <%= render :partial => 'statements/children_list', :locals => {:statements => children}%>
   <% end -%>
 </div>

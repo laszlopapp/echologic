@@ -1,0 +1,21 @@
+
+<div class="form_container">
+  <span class="label"><%= context.get_current_enum_value.value %></span>
+  <% form_tag url_for(:controller => "tao_tags", :action => "create"), :id => "new_tag_#{context.code}" do -%>
+    <%= text_field :tag, :value, :class => 'tag_value_autocomplete', :id => "tag_#{context.code}_id" %>
+    <%# TODO: take this out? %>
+		<%= hidden_field_tag 'tag[language_id]', @current_language_key %>
+    <%= hidden_field_tag 'tao_tag[tao_id]', @user.id %>
+    <%= hidden_field_tag 'tao_tag[context_id]', context.id %>
+		<%= hidden_field_tag 'tao_tag[tao_type]', @user.class.name %>
+    <%= submit_tag I18n.t('application.general.create'), :class => 'text_button add_button', :id => "add_tag_#{context.code}" %>
+  <% end %>
+</div>
+
+<div id="tao_tags_<%= context.code %>" class="tag_container">
+  <%= render :partial => 'tao_tags/tao_tag', :collection => tao_tags %>
+</div>
+
+<script type="text/javascript">
+  $("#new_tag_<%= context.code %>").ajaxForm({ dataType: 'script' });
+</script>

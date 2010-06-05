@@ -16,6 +16,7 @@ $(document).ready(function () {
 
   roundCorners();
 
+
   /* Always send the authenticity_token with ajax */
   $(document).ajaxSend(function(event, request, settings) {
     if ( settings.type == 'post' ) {
@@ -106,6 +107,7 @@ function bindStaticMenuClickEvents() {
 }
 
 
+
 /* Toggle more text on click, use toggleParams. */
 /* IE7 compatibility through IE8.js plugin. */
 function bindMoreHideButtonEvents() {
@@ -176,6 +178,18 @@ var roundCorners = function(){
   $('.rounded-box').append(str);
 };
 
+var timer = null;
+function showMessageBox(id,permission) {
+  if (permission) {
+    if (timer != null) {
+      clearTimeout (timer);
+      $(id).stop(true).hide;
+    }
+    timer = setTimeout(function(){
+      $(id).animate(toggleParams, 500);
+    }, 1500);
+  }
+}
 
 /* Show error or info messages in messagesContainer and hide it with delay. */
 function info(text) {

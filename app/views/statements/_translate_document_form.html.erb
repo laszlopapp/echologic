@@ -1,0 +1,8 @@
+<% form.semantic_fields_for :new_statement_document, statement do |doc|  %>
+ <%= hidden_field_tag "#{statement_class_dom_id(@statement).downcase}[new_statement_document][translated_document_id]", @statement_document.id %>
+  <% doc.inputs :class => 'inputs right_panel' do %>
+    <%= doc.input :title %>
+    <br/>
+    <%= doc.input :text %>
+  <% end %>
+<% end -%>

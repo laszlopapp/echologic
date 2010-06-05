@@ -9,22 +9,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100426100144) do
-
-  create_table "concernments", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "tag_id"
-    t.integer  "sort"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "concernments", ["sort"], :name => "index_concernments_on_sort"
-  add_index "concernments", ["user_id", "sort"], :name => "index_concernments_on_user_id_and_sort"
+ActiveRecord::Schema.define(:version => 20100511145434) do
 
   create_table "echos", :force => true do |t|
     t.integer "visitor_count",   :default => 0
     t.integer "supporter_count", :default => 0
+  end
+
+  create_table "enum_keys", :force => true do |t|
+    t.string  "code"
+    t.string  "enum_name"
+    t.string  "description"
+    t.integer "key"
+  end
+
+  create_table "enum_values", :force => true do |t|
+    t.integer "enum_key_id"
+    t.integer "language_id"
+    t.string  "context"
+    t.string  "value"
   end
 
   create_table "feedbacks", :force => true do |t|
@@ -102,31 +105,59 @@ ActiveRecord::Schema.define(:version => 20100426100144) do
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
-  create_table "statement_documents", :force => true do |t|
-    t.string  "title"
-    t.text    "text"
-    t.integer "author_id"
+  create_table "spoken_languages", :force => true do |t|
+    t.integer "user_id"
+    t.integer "language_id"
+    t.integer "level_id"
   end
 
-  create_table "statements", :force => true do |t|
+  create_table "statement_documents", :force => true do |t|
+    t.string   "title"
+    t.text     "text"
+    t.integer  "author_id"
+    t.integer  "language_id"
+    t.integer  "translated_document_id"
+    t.integer  "statement_id"
+    t.integer  "current"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "statement_nodes", :force => true do |t|
     t.string   "type"
     t.integer  "parent_id"
     t.integer  "root_id"
     t.integer  "document_id"
     t.integer  "creator_id"
-    t.integer  "work_package_id"
     t.integer  "echo_id"
     t.integer  "category_id"
     t.integer  "state"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "statement_id"
+  end
+
+  create_table "statements", :force => true do |t|
+    t.integer "original_language_id"
   end
 
   create_table "tags", :force => true do |t|
     t.string   "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "language_id"
   end
+
+  create_table "tao_tags", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "tao_id"
+    t.string   "tao_type"
+    t.string   "context_id"
+    t.datetime "created_at"
+  end
+
+  add_index "tao_tags", ["tag_id"], :name => "index_tao_tags_on_tag_id"
+  add_index "tao_tags", ["tao_id", "tao_type", "context_id"], :name => "index_tao_tags_on_tao_id_and_tao_type_and_context_id"
 
   create_table "translations", :force => true do |t|
     t.string  "key"
@@ -168,14 +199,20 @@ ActiveRecord::Schema.define(:version => 20100426100144) do
     t.string   "openid_identifier"
   end
 
-  create_table "web_profiles", :force => true do |t|
+  create_table "valid_contexts", :force => true do |t|
+    t.integer "context_id"
+    t.string  "tao_type"
+  end
+
+  create_table "web_addresses", :force => true do |t|
     t.integer  "user_id"
-    t.string   "location"
+    t.string   "address"
     t.integer  "sort"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "type_id"
   end
 
-  add_index "web_profiles", ["user_id"], :name => "index_web_profiles_on_user_id"
+  add_index "web_addresses", ["user_id"], :name => "index_web_profiles_on_user_id"
 
 end

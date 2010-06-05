@@ -248,17 +248,19 @@
 
 #messageContainer #infoBox, #messageContainer #errorBox {
   z-index: 2000;
+  position: fixed;
 }
 
 #messageContainer .infoErrorIcon {
-  float: left;
+  position: absolute;
+  top: 6px;
+  left: 10px;
   width: 16px;
   height: 16px;
   z-index: 2010;
 }
 
 #messageContainer .message , #messageContainer .closeButton {
-  clear: both;
   position: relative;
   left: 23px;
   width: 350px;
@@ -392,7 +394,7 @@
 
 /* SEARCH */
 
-#search_container {
+.search_container {
   margin:   25px auto 0;
   width:    990px;
   position: relative;
@@ -498,6 +500,8 @@
   position: absolute;
   left: 60px;
   top: 0px;
+  max-height: 52px;
+  overflow: hidden;
 }
 
 .results_container .content:hover .name, .results_container .content.active .name {
@@ -509,6 +513,8 @@
   display: inline-block;
   position: absolute;
   left: 60px;
+  max-height: 35px;
+  overflow: hidden;
 }
 
 .results_container .profile.active:hover .close_hint {
@@ -519,3 +525,4 @@
   right: 0px;
   top: 2px;
 }
+

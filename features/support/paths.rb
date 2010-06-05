@@ -12,6 +12,8 @@ module NavigationHelpers
       '/'
     when /the profile/
       my_profile_path
+    when /the organisations/
+      organisations_path
     when /the start page/
       root_path
     when /the connect page/

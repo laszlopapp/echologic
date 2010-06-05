@@ -41,9 +41,9 @@ Feature: Use connect functionality
       | value   | true | false |
       | Energy  | Ben  | Admin |
       | Joe     | Joe  | Ben   |
-      | Berlin  | lisa | Ben   |
-      | Germany | lisa | Admin |
-      | I am    | lisa | Ben   |
+      | Berlin  | blue | Ben   |
+      | Germany | blue | Admin |
+      | I am    | blue | Ben   |
       | Pantha  | Joe  | Admin |
       | user@e  | User | Joe   |
 

@@ -12,7 +12,8 @@ When /^(?:|I )follow localized "([^\"]*)" within "([^\"]*)"$/ do |key, parent|
 end
 
 Then /^I should see localized "([^\"]*)"$/ do |key|
-  response.should contain(I18n.t(key))
+  puts I18n.t(key)
+  response.should contain(I18n.t(key))  
 end
 
 Then /^I should not see localized "([^\"]*)"$/ do |key|

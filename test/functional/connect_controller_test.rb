@@ -21,13 +21,13 @@ class ConnectControllerTest < ActionController::TestCase
   end
   
   test "should get Joe in Affected" do
-    get :show, :value => "Joe", :sort => 0
+    get :show, :value => "Joe", :sort => EnumKey.find_by_code("affection").id
     assert_response :success
     assert_true(assigns(:profiles).include?(@user))
   end
   
   test "should not get Joe in Experts" do
-    get :show, :value => "Joe", :sort => 2
+    get :show, :value => "Joe", :sort => EnumKey.find_by_code("expertise").id
     assert_response :success
     assert_true(!assigns(:profiles).include?(@user))
   end

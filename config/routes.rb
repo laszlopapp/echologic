@@ -6,9 +6,6 @@ ActionController::Routing::Routes.draw do |map|
   # routing-filter plugin for wrapping :locale around urls and paths.
   map.filter :locale
 
-
-
-
   # SECTION main parts of echologic
   map.act     '/act/roadmap',     :controller => :act,     :action => :roadmap
   map.discuss '/discuss/featured', :controller => :discuss, :action => :index
@@ -31,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
   map.profile_details '/profiles/:id/details', :controller => 'users/profile', :action => 'details'
 
   map.welcome   'welcome', :controller => 'my_echo', :action => 'welcome'
+  map.organisations 'organisations', :controller => 'my_echo', :action => 'organisations'
 
   # SECTION autocomplete
   map.auto_complete ':controller/:action',
@@ -38,7 +36,6 @@ ActionController::Routing::Routes.draw do |map|
     :conditions => { :method => :get }
 
   # Not being logged in
-
   map.requires_login 'requires_login', :controller => 'application', :action => 'flash_info'
 
   # SECTION i18n
@@ -61,11 +58,12 @@ ActionController::Routing::Routes.draw do |map|
                 :path_prefix => '', :only => [:new, :create, :destroy]
 
   map.resources :users, :controller => 'users/users', :path_prefix => '' do |user|
-    user.resources :web_profiles, :controller => 'users/web_profiles', :except => [:index]
+    user.resources :web_addresses, :controller => 'users/web_addresses', :except => [:index]
+    user.resources :spoken_languages, :controller => 'users/spoken_languages', :except => [:index]
     user.resources :activities,   :controller => 'users/activities',   :except => [:index]
     user.resources :memberships,  :controller => 'users/memberships',  :except => [:index]
-    user.resources :concernments, :controller => 'users/concernments', :except => [:index]
   end
+  map.resources :tao_tags, :controller => 'tao_tags', :except => [:index]
 
   map.resources :password_resets, :controller => 'users/password_resets',
                 :path_prefix => '', :except => [:destroy]
@@ -94,9 +92,9 @@ ActionController::Routing::Routes.draw do |map|
 
 
   # SECTION discuss - discussion tree
-  map.resources :questions, :as => 'discuss/questions' do |question|
-    question.resources :proposals, :member => [:echo, :unecho] do |proposal|
-      proposal.resources :improvement_proposals, :member => [:echo, :unecho] do |improvement_proposal|
+  map.resources :questions, :member => [:new_translation, :create_translation], :as => 'discuss/questions' do |question|
+    question.resources :proposals, :member => [:echo, :unecho, :new_translation, :create_translation] do |proposal|
+      proposal.resources :improvement_proposals, :member => [:echo, :unecho, :new_translation, :create_translation] do |improvement_proposal|
       end
     end
   end

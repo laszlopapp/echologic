@@ -1,0 +1,27 @@
+
+<% unless @profile.spoken_languages.blank? and @profile.tao_tags.blank? %>
+
+  <% unless @profile.spoken_languages.blank? %>
+    <span class="languages_label"><%= Profile.human_attribute_name(:spoken_languages) %></span>
+    <% spoken_languages = [] %>
+    <% for spoken_language in @profile.spoken_languages.sort{|x,y| x.level.key <=> y.level.key} do %>
+      <% spoken_languages << '<span class="language">' +
+                             h(spoken_language.language.get_current_enum_value.value ) +
+                             '</span> - ' + h(spoken_language.level.get_current_enum_value.value) %>
+      <% end %>
+    <span class="values"><%= spoken_languages.join(', ') %></span>
+  <% end %>
+
+  <% TaoTag.valid_contexts(@profile.user.class.name).each do |context| %>
+    <% tao_tags = @profile.tao_tags.find_all_by_context_id(context.id) %>
+    <% unless tao_tags.blank? %>
+      <span class="label"><%= I18n.t("users.concernments.sorts.#{context.code}") %></span>
+      <span class="values">
+        <%= tao_tags.collect { |c| c.tag.value }.join(', ') %>
+      </span>
+    <% end %>
+  <% end %>
+
+<% else %>
+  <span class="no_results"><%= I18n.t('connect.messages.no_concernments') %></span>
+<% end%>

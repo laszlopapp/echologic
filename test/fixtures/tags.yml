@@ -1,10 +1,24 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
+earth:
+  value: Earth
+  language_id: <%= Fixtures.identify(:language_en) %>
+  
+wind: 
+  value: Wind
+  language_id: <%= Fixtures.identify(:language_en) %>
+  
+fire:
+  value: Fire
+  language_id: <%= Fixtures.identify(:language_en) %>
+
 energy:
   value: Energy
+  language_id: <%= Fixtures.identify(:language_en) %>
 
 water:
   value: Water
+  language_id: <%= Fixtures.identify(:language_en) %>
 
 
 ###
@@ -13,6 +27,8 @@ water:
 
 echonomy-jam:
   value: echonomyjam
+  language_id: <%= Fixtures.identify(:language_en) %>
 
 echocracy:
   value: echocracy
+  language_id: <%= Fixtures.identify(:language_en) %>

@@ -3,16 +3,17 @@ module StatementHelper
     base.instance_eval do
       alias_method :proposal_path, :proposal_url
       alias_method :new_proposal_path, :new_proposal_url
+      alias_method :new_translation_proposal_path, :new_translation_proposal_url
 
       alias_method :improvement_proposal_path, :improvement_proposal_url
       alias_method :new_improvement_proposal_path, :new_improvement_proposal_url
+      alias_method :new_translation_improvement_proposal_path, :new_translation_improvement_proposal_url
     end
   end
 
   ##
   ## URLS
   ##
-
 
 
   def new_child_statement_url(parent, type)
@@ -43,9 +44,39 @@ module StatementHelper
     end
   end
 
+  def new_translation_url (parent, type)
+    case type.downcase
+    when 'question'
+      new_translation_question_url(parent)
+    when 'proposal'
+      new_translation_proposal_url(parent)
+    when 'improvement_proposal'
+      new_translation_improvement_proposal_url(parent)
+    when 'pro_argument'
+      new_translation_pro_argument_proposal_url(parent)
+    else
+      raise ArgumentError.new("Unhandled type: #{type.downcase}")
+    end
+  end
+
+  def create_translation_url (parent, type)
+    case type.downcase
+    when 'question'
+      create_translation_question_url(parent)
+    when 'proposal'
+      create_translation_proposal_url(parent)
+    when 'improvement_proposal'
+      create_translation_improvement_proposal_url(parent)
+    when 'pro_argument'
+      create_translation_pro_argument_proposal_url(parent)
+    else
+      raise ArgumentError.new("Unhandled type: #{type.downcase}")
+    end
+  end
+
   # returns the path to a statement, according to its type
   def statement_path(statement)
-    statement = Statement.find(statement) if statement.kind_of?(Integer)
+    statement = StatementNode.find(statement) if statement.kind_of?(Integer)
     case statement_class_dom_id(statement).downcase
     when 'question'
       question_url(statement)
@@ -76,6 +107,22 @@ module StatementHelper
     edit_question_proposal_path(proposal.parent, proposal)
   end
 
+  def new_translation_proposal_url(proposal)
+    new_translation_question_proposal_url(proposal.parent, proposal)
+  end
+
+  def new_translation_proposal_path(proposal)
+    new_translation_question_proposal_path(proposal.parent, proposal)
+  end
+
+  def create_translation_proposal_url(proposal)
+    create_translation_question_proposal_url(proposal.parent, proposal)
+  end
+
+  def create_translation_proposal_path(proposal)
+    create_translation_question_proposal_path(proposal.parent, proposal)
+  end
+
   ## ImprovementProposal
 
   def improvement_proposal_url(proposal)
@@ -94,6 +141,22 @@ module StatementHelper
 
   def edit_improvement_proposal_path(proposal)
     edit_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
+  end
+
+  def new_translation_improvement_proposal_url(proposal)
+    new_translation_question_proposal_improvement_proposal_url(proposal.root, proposal.parent, proposal)
+  end
+
+  def new_translation_improvement_proposal_path(proposal)
+    new_translation_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
+  end
+
+  def create_translation_improvement_proposal_url(proposal)
+    create_translation_question_proposal_improvement_proposal_url(proposal.root, proposal.parent, proposal)
+  end
+
+  def create_translation_improvement_proposal_path(proposal)
+    create_translation_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
   end
 
   ## ProArgument
@@ -117,6 +180,13 @@ module StatementHelper
             :id => "create_#{type.underscore}_link",
             :class => "ajax #{css_class} text_button #{create_statement_button_class(type)} ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_#{type.underscore}"))
+  end
+
+  def create_translate_statement_link(statement, css_class = "")
+     type = statement_class_dom_id(statement)
+     link_to I18n.t('discuss.translation_request'),
+              new_translation_url(statement, type),
+              :class => "ajax translation_link #{css_class}"
   end
 
   # this classname is needed to display the right icon next to the link
@@ -175,15 +245,15 @@ module StatementHelper
     end
   end
 
-  def question_bar(context=nil)
-    text = I18n.t('discuss.statements.label')
-    val = "<span class='echo_label'>#{text}</span>"    
-  end
-
 
   # TODO: instead of adding an image tag, we should use css classes here, like (almost) everywhere else
   # TODO: find out why statement.question? works, but not statement.parent.question? or deprecate statement.question?
   # possible answer: method is private - invoking .send :question? on parent does the trick!
+
+  ##
+  ## Statement Context (where am i within the statement stack?)
+  ##
+
 
   # DEPRICATED, user statement_context_link instead
   def statement_context_line(statement)
@@ -193,23 +263,23 @@ module StatementHelper
   end
 
   # Returns the context menu link for this statement.
-  def statement_context_link(statement, action = 'read')
+  def statement_context_link(statement, language_keys, action = 'read', last_statement = false)
 
-    link = link_to(statement.title, url_for(statement),
+    link = link_to(statement.translated_document(language_keys).title, url_for(statement),
                    :class => "ajax no_border statement_link #{statement.class.name.underscore}_link ttLink",
                    :title => I18n.t("discuss.tooltips.#{action}_#{statement.class.name.underscore}"))
     if statement.class.name == 'Question'
-      link << question_bar
+      link << echo_label unless last_statement
     else
       link << supporter_ratio_bar(statement,'context')
     end
     return link
   end
 
-  def statement_dom_id(statement)
-    "#{statement.parent.class.name.downcase}_#{statement.id}"
+  # Creates a label to explain the echo/supporter count indicators
+  def echo_label(context=nil)
+    val = "<span class='echo_label'>#{I18n.t('discuss.statements.label')}</span>"
   end
-
 
   ##
   ## Navigation within statements
@@ -253,11 +323,11 @@ module StatementHelper
   # TODO AR from the helper stinks, but who knows a better way to get the right url?
   # maybe one could code some statement.url method..?
   def statement_button(id, title, options={})
-    stmt = Statement.find(id)
-    return link_to(title, url_for(stmt), :class => 'ajax')
+    stmt = StatementNode.find(id)
+    options[:class] ||= ''
+    options[:class] += ' ajax'
+    return link_to(title, url_for(stmt), options)
   end
-
-
 
   ##
   ## DOM-ID Helpers
@@ -267,7 +337,7 @@ module StatementHelper
   def statement_class_dom_id(statement)
     if statement.kind_of?(Symbol)
       statement_class = statement.to_s.constantize
-     elsif statement.kind_of?(Statement)
+     elsif statement.kind_of?(StatementNode)
       statement_class = statement.class
     end
     statement_class.name.underscore.downcase

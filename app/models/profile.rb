@@ -5,9 +5,10 @@ class Profile < ActiveRecord::Base
 
   # Every profile has to belong to a user.
   belongs_to :user,       :dependent => :destroy
-  has_many :web_profiles, :through => :user
+  has_many :web_addresses, :through => :user
   has_many :memberships,  :through => :user
-  has_many :concernments, :through => :user
+  has_many :spoken_languages, :through => :user
+  has_many :tao_tags, :through => :user
 
   validates_presence_of :user_id
   validates_length_of :about_me, :maximum => 1024, :allow_nil => true
@@ -61,10 +62,11 @@ class Profile < ActiveRecord::Base
     "#{memberships.first.organisation} - #{memberships.first.position}"
   end
 
+  # Self written SQL for querying profiles in echo Connect
   def self.search_profiles(sort, value, opts={} )
 
     #sorting the or arguments
-    sort_string = "c.sort = #{sort}"
+    sort_string = "tt.context_id = #{sort}"
     or_attrs = opts[:attrs] || %w(p.first_name p.last_name p.city p.country p.about_me p.motivation u.email t.value m.position m.organisation)
     or_conditions = or_attrs.map{|attr|"#{attr} LIKE ?"}.join(" OR ")
 
@@ -82,8 +84,8 @@ class Profile < ActiveRecord::Base
         profiles p
         LEFT JOIN users u        ON u.id = p.user_id
         LEFT JOIN memberships m  ON u.id = m.user_id
-        LEFT JOIN concernments c ON (u.id = c.user_id)
-        LEFT JOIN tags t         ON (t.id = c.tag_id)
+        LEFT JOIN tao_tags tt    ON (u.id = tt.tao_id)
+        LEFT JOIN tags t         ON (t.id = tt.tag_id)
       where
     END
     #Rambo 2

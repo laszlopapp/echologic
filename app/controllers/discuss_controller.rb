@@ -15,7 +15,7 @@ class DiscussController < ApplicationController
   
   # processes a cancel request, and redirects back to the last shown statement
   def cancel
-    @statement = Statement.find(session[:last_statement])
+    @statement = StatementNode.find(session[:last_statement])
     #redirect_to question_proposal_url(@statement.parent, @statement)
     case @statement.class.name
     when "Question"

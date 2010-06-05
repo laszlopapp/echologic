@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 
   # Set locale to the best fitting one
   def set_locale
-    available = %w{en de}
+    available = %w{en de es}
     I18n.locale = params[:locale] || request.compatible_language_from(available)
   end
 
@@ -138,88 +138,107 @@ class ApplicationController < ActionController::Base
       @current_user_session = UserSession.find
     end
 
-    # Returns currently logged in user
-    def current_user
-      return @current_user if defined?(@current_user)
-      @current_user = current_user_session && current_user_session.user
-    end
+  # Returns currently logged in user
+  def current_user
+    return @current_user if defined?(@current_user)
+    @current_user = current_user_session && current_user_session.user
+  end
+
 
     # Before filter used to define which controller actions require an active and valid user session.
-    def require_user
-      unless current_user
-        respond_to do |format|
-          format.html {
-            flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_in_for_page')
-            request.env["HTTP_REFERER"] ? redirect_to(:back) : redirect_to(root_path)
-            }
-          format.js {
-            # rendering an ajax-request, we assume it's rather an action, than a certain page, that the user want to access
-            @info = I18n.t('authlogic.error_messages.must_be_logged_in_for_action')
-            render_with_info
-          }
-        end
-        return false
+  def require_user
+    unless current_user
+      respond_to do |format|
+        format.html {
+          flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_in_for_page')
+          request.env["HTTP_REFERER"] ? redirect_to(:back) : redirect_to(root_path)
+        }
+        format.js {
+          # rendering an ajax-request, we assume it's rather an action, than a certain page, that the user want to access
+          @info = I18n.t('authlogic.error_messages.must_be_logged_in_for_action')
+          render_with_info
+        }
+        format.js {
+          # rendering an ajax-request, we assume it's rather an action, than a certain page, that the user want to access
+          @info = I18n.t('authlogic.error_messages.must_be_logged_in_for_action')
+          render_with_info
+        }
       end
+      return false
     end
+  end
 
     # Checks that the user is NOT logged in.
-    def require_no_user
-      if current_user
-        flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_out')
-        respond_to do |format|
-          format.html { redirect_to root_path }
-          format.js do
-            render :update do |page|
-              page.redirect_to root_path
-            end
+  def require_no_user
+    if current_user
+      flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_out')
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.js do
+          render :update do |page|
+            page.redirect_to root_path
           end
         end
-        return false
       end
     end
+    return false
+  end
+
+
 
 
     ##################################
     # General error handling methods #
     ##################################
 
-    # If access is denied display warning and redirect to users_path
-    # TODO localize access denied message
-    def access_denied
-      flash[:error] = I18n.t('activerecord.errors.messages.access_denied')
-      redirect_to welcome_path
-    end
+  # If access is denied display warning and redirect to users_path
+  # TODO localize access denied message
+  def access_denied
+    flash[:error] = I18n.t('activerecord.errors.messages.access_denied')
+    redirect_to welcome_path
+  end
 
+    
     # Handles session expiry
-    def session_expiry
-      if current_user_session and session[:expiry_time] and session[:expiry_time] < Time.now
-        expire_session!
-      end
-      session[:expiry_time] = MAX_SESSION_PERIOD.seconds.from_now
-      return true
-    end
-
-    # Called when the authentication token is invalid. It might happen if the user is anactive for a too long time
-    # or in case of a CSRF attack.
-    def invalid_auth_token
+  def session_expiry
+    if current_user_session and session[:expiry_time] and session[:expiry_time] < Time.now
       expire_session!
     end
+    session[:expiry_time] = MAX_SESSION_PERIOD.seconds.from_now
+    return true
+  end
+  
 
-    # Expires and cleans up the user session.
-    def expire_session!
-      current_user_session.try(:destroy)
-      reset_session
-      if params[:controller] == 'users/user_session' && params[:action] == 'destroy'
-        # still display logout message on logout.
-        flash[:notice] = I18n.t('users.user_sessions.messages.logout_success')
-      else
-        flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
-      end
-      redirect_to root_path
-    end
 
-    # Called when when a routing error occurs.
-    def redirect_to_home
-      redirect_to welcome_url
+  def current_language_key
+    EnumKey.find_by_enum_name_and_code("languages", I18n.locale.to_s).id
+  end
+  
+  def current_language_keys
+    keys = [current_language_key].concat(current_user ? current_user.language_keys : []).uniq
+  end
+    
+  # Called when the authentication token is invalid. It might happen if the user is anactive for a too long time
+  # or in case of a CSRF attack.
+  def invalid_auth_token
+    expire_session!
+  end
+
+  # Expires and cleans up the user session.
+  def expire_session!
+    current_user_session.try(:destroy)
+    reset_session
+    if params[:controller] == 'users/user_session' && params[:action] == 'destroy'
+      # still display logout message on logout.
+      flash[:notice] = I18n.t('users.user_sessions.messages.logout_success')
+    else
+      flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
     end
+    redirect_to root_path
+  end
+
+  # Called when when a routing error occurs.
+  def redirect_to_home
+    redirect_to welcome_url
+  end
 end

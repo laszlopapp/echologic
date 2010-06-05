@@ -4,7 +4,7 @@
 # * currently a Position expects only Improvement Proposals as valid children, and only Questions as parents
 
 
-class Proposal < Statement
+class Proposal < StatementNode
   
   # methods / settings to overwrite default statement behaviour
     

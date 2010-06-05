@@ -1,4 +1,4 @@
 # abstract
-class Argument < Statement
+class Argument < StatementNode
   validates_parent :Proposal, :ImprovementProposal
 end

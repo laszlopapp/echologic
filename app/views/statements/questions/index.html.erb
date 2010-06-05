@@ -1,0 +1,24 @@
+<% content_for :submenu, tabnav(:discuss) %>
+
+<%path = @category.value ? question_tags_path : discuss_search_path%>
+
+<div id="search_container" class="search_container">
+<span class="search_category">
+  <%= I18n.t('discuss.search.in', :category => I18n.t("discuss.topics.#{@category.value}.short_name")) if @category.value%>
+</span>
+    <% form_tag path, :method => 'GET', :id => 'search_form' do %>
+      <%= text_field_tag :value %>
+      <%= submit_tag '', :alt => 'search_button' %>
+    <% end %>
+</div>
+
+<%= render :partial => 'statements/questions/questions', :locals => {:statements => @statements} %>
+<br></br>
+<span id="new_question">
+	<%= create_question_link_for(@category) if @category.value%>
+</span>
+
+
+<script type="text/javascript">
+  $('#search_form').ajaxForm({ dataType : 'script' });
+</script>

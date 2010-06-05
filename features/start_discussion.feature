@@ -11,11 +11,11 @@ Feature: Start a discussion
       And I am logged in as "editor" with password "true"
       And I am on the discuss index
     When I follow "Featured"
-    When I follow "echonomy JAM"
-      And I follow "Open a new debate"
+    When I follow localized "discuss.topics.echonomyjam.name"
+      And I follow "Open a new discussion"
       And I fill in the following:
-        | question_document_title | Is this a Question?   |
-        | question_document_text  | Blablabla bla bla bla |
+        | question_statement_document_title | Is this a Question?   |
+        | question_statement_document_text | Blablabla bla bla bla |
       And I select "New" from "state"
       And I press "Save"
     Then I should see "Blablabla"
@@ -38,7 +38,7 @@ Feature: Start a discussion
       And I am logged in as "editor" with password "true"
     When I go to create a question
       And I fill in the following:
-        | question_document_text | Blablabla bla bla bla |
+        | question_statement_document_text | Blablabla bla bla bla |
       And I press "Save"
     # Todo: Maybe we should check the content of the error box as well
     Then there should be no questions
@@ -51,12 +51,12 @@ Feature: Start a discussion
       And the question has no proposals
       And I am on the discuss index
     When I follow "Featured"
-    When I follow "echonomy JAM"
+    When I follow "echonomyJAM"
       And I choose the first Question
       And I follow "create_proposal_link"
       And I fill in the following:
-        | proposal_document_title | a proposal to propose some proposeworthy proposal data |
-        | proposal_document_text | nothing to propose yet...                              |
+        | proposal_statement_document_title | a proposal to propose some proposeworthy proposal data |
+        | proposal_statement_document_text | nothing to propose yet...                              |
       And I press "Save"
     Then I should see "a proposal to propose some"
       And the question should have one proposal

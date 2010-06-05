@@ -95,6 +95,7 @@ de:
       tabs:
         welcome: Willkommen
         profile: Mein Profil
+        organisations: Organisationen
       profile_complete: '{{complete}}% ausgefüllt'
 
 
@@ -201,6 +202,16 @@ de:
       messages:
         updated: "Sie haben Ihr Profil erfolgreich geändert."
 
+    # Spoken Languages section
+    spoken_languages:
+      title: Sprachkenntnisse
+      guide:  Hier können Sie Ihre Sprachkenntnisse angeben.
+      language: Sprache
+      level: Niveau
+      error_messages:
+        repeated_instance: Diese Sprache ist schon definiert worden.
+
+
     # Memberships section
     memberships:
       title: Tätigkeiten
@@ -209,23 +220,13 @@ de:
       position: Meine Rolle
 
     # Web profiles section
-    web_profiles:
+    web_addresses:
       title: Web Adressen
       guide: |
         Indem Sie hier Ihre Kontaktdaten eintragen, geben Sie anderen Nutzern die Möglichkeit, sich ein Bild von Ihnen zu machen und Sie zu kontaktieren.<br/>
         <strong>ACHTUNG</strong>: Alle hier eingetragen Informationen sind vorerst für <strong>alle</strong> Mitglieder von echologic zu sehen.
       type: Art der Adresse
       address: Web Adresse
-      sorts:
-        homepage: "Homepage"
-        email:    "E-Mail"
-        blog:     "Blog"
-        xing:     "Xing"
-        linkedin: "LinkedIn"
-        twitter:  "Twitter"
-        facebook: "Facebook"
-        other:    "Andere"
-
     # Concernments section
     concernments:
       title: Betroffenheit und Kompetenzen
@@ -238,10 +239,10 @@ de:
         Wie würden Sie <strong>Ihre Betroffenheit und Ihre Kompetenzen in Schlagworten (sog. Tags)</strong> beschreiben?
 
       sorts:
-        affected: <strong>Betroffen</strong> von
-        engaged: <strong>Engagiert</strong> im Bereich
-        scientist: <strong>ExpertIn</strong> im Bereich
-        representative: <strong>EntscheidungsträgerIn</strong> im Bereich
+        affection: <strong>Betroffen</strong> von
+        engagement: <strong>Engagiert</strong> im Bereich
+        expertise: <strong>ExpertIn</strong> im Bereich
+        decision_making: <strong>EntscheidungsträgerIn</strong> im Bereich
       tags: Schlagworte (Tags)
 
 
@@ -282,9 +283,13 @@ de:
   # ---------------
 
   discuss:
+    original_language_warning: |
+      Die originale Aussage ist auf <strong>{{language}}</strong>. Definieren Sie<br/>
+      Ihre Sprachkenntnisse, um weitere Inhalte zu sehen.
+    translation_request: Bitte übersetzen Sie die Aussage auf <strong>DEUTSCH</strong>.
     results_count:
-      one: '{{count}} Debatte'
-      more: '{{count}} Debatten'
+      one: '{{count}} Diskussion'
+      more: '{{count}} Diskussionen'
     featured_topics:
       title: Empfohlene Themen
       text: |
@@ -383,24 +388,51 @@ de:
           </p><p>
           Hintergrundinformationen zur Veranstaltung finden Sie auf dem
           <a href='http://www.netzwerk-gemeinsinn.net/content/view/625/218' target='_blank'>Blog vom Netzwerk Gemeinsinn</a>.
+      igf:
+        name: Internet Governance Forum (IGF) - Deutschland
+        short_name: IGF-D
+        teaser: |
+          Das <a href='http://www.igf-d.org' target='_blank'>Internet Governance Forum - Deutschland (IGF-D)</a> ist
+          eine offene und informelle Multistakeholder Diskussionsplattform für Regierung, Privatwirtschaft und Zivilgesellschaft.
+        description: |
+           <p>
+           Zusammen mit der technischen und akademischen Community beschäftigt sich das IGF-D mit Fragen über die weitere
+           Entwicklung des Internets. Inhaltliche Schwerpunkte seiner Arbeit orientieren sich an den globalen
+           Themen des <strong><a href='http://www.intgovforum.org' target='_blank'>IGF der Vereinten Nationen (UN-IGF)</a></strong>
+           (Vielfalt, Offenheit, Sicherheit, kritische Internetressourcen und <strong>Zukunft des Internets</strong>)
+           unter spezifischer Berücksichtigung der Problem- und Interessenlage in Deutschland.
+           </p><p>
+           Konkrete Ziele des IGF-D sind:
+             <ul>
+               <li>
+                 Den Dialog zwischen Stakeholdern zu konkreten Fragen der Internet-Entwicklung zu befördern, um neue
+                 Potenziale für Deutschland zu erschließen.
+               </li>
+               <li>
+                 Den Beitrag der deutschen Stakeholder zum Internet Governance Forum der Vereinten Nationen
+                 vorzubereiten und zu stärken sowie das europäische Internet Governance Forum zu flankieren.
+               </li>
+             <ul>
+           </p>
 
 
     tooltips:
-      read_question: 'Diese Debatte anschauen'
+      read_question: 'Diese Frage anschauen'
       read_proposal: 'Diesen Vorschlag lesen'
       read_improvement_proposal: 'Diesen Ergänzgunsvorschlag lesen'
-      current_question: 'Die aktuell angezeigte Debatte'
+      current_question: 'Die aktuell angezeigte Frage'
       current_proposal: 'Der aktuell angezeigte Vorschlag'
       current_improvement_proposal: 'Der aktuell angezeigte Ergänzgunsvorschlag'
-      back_to_question: 'Zurück zur aktuellen Debatte'
+      back_to_question: 'Zurück zur aktuellen Frage'
       back_to_proposal: 'Zurück zum aktuellen Vorschlag'
       back_to_improvement_proposal: 'Zurück zum aktuellen Ergänzungsvorschlag'
-      prev_proposal: 'Vorigen Vorschlag zur aktuellen Debatte lesen'
-      next_proposal: 'Nächsten Vorschlag zur aktuellen Debatte lesen'
+      prev_proposal: 'Vorigen Vorschlag zur aktuellen Frage lesen'
+      next_proposal: 'Nächsten Vorschlag zur aktuellen Frage lesen'
       prev_improvement_proposal: 'Vorigen Ergänzungsvorschlag zum aktuellen Vorschlag lesen'
       next_improvement_proposal: 'Nächsten Ergänzungsvorschlag zum aktuellen Vorschlag lesen'
-      create_proposal: 'Neuen Vorschlag zur aktuellen Debatte erstellen'
-      create_improvement_proposal: 'Neuen Ergänzungsvorschlag zum aktuellen Vorschlag erstellen'
+      create_question: 'Neue Diskussion eröffnen'
+      create_proposal: 'Tragen Sie Ihre neue Idee zur aktuellen Frage ein.'
+      create_improvement_proposal: 'Tragen Sie Ihre neue Idee zum aktuellen Vorschlag ein.'
       echo: 'Unterstützen Sie diese Aussage durch Ihr Echo!'
       unecho: 'Ziehen Sie Ihre Stimme zurück, wenn Sie die Aussage nicht mehr unterstützen möchten.'
       echo_indicator:
@@ -409,29 +441,29 @@ de:
 
     statements:
       label: 'echos'
-      create_question_link: 'Neue Debatte eröffnen'
-      create_proposal_link: 'Haben Sie Ihre Idee nicht gefunden? Tragen Sie sie jetzt ein!'
+      create_question_link: 'Neue Diskussion eröffnen'
+      create_proposal_link: 'Neuen Vorschlag erstellen'
       create_internal_link: 'Neue Idee?'
-      create_improvement_proposal_link: 'Haben Sie Ihre Idee nicht gefunden? Tragen Sie sie jetzt ein!'
+      create_improvement_proposal_link: 'Neuen Ergänzungsvorschlag erstellen'
       create_question_explanation: |
-        Hallo Editor! Hier kannst Du eine neue Debatte aufmachen.
+        Hallo Editor! Hier kannst Du eine neue Diskussion aufmachen.
       create_proposal_explanation: |
-        Haben Sie eine <strong>gute Idee</strong> zur aktuellen Debatte, die noch <strong>nicht vorhandenen</strong> ist?<br/>
+        Haben Sie eine <strong>gute Idee</strong> zur aktuellen Frage, die noch <strong>nicht vorhandenen</strong> ist?<br/>
         Hier können Sie einen <strong>neuen Vorschlag</strong> erstellen.
       create_improvement_proposal_explanation: |
         Haben Sie eine <strong>gute Idee</strong>, wie man den aktuellen <strong>Vorschlag noch besser machen</strong> kann?<br/>
         Hier können Sie einen <strong>neuen Ergänzungsvorschlag</strong> erstellen.
 
       types:
-        question:  'Debatte'
+        question:  'Frage'
         proposal:  'Vorschlag'
         improvement_proposal: 'Ergänzungsvorschlag'
       new:
-        question:  'Neue Debatte'
+        question:  'Neue Frage'
         proposal:  'Neuer Vorschlag'
         improvement_proposal: 'Neuer Ergänzungsvorschlag'
       headings:
-        question: 'Debatten'
+        question: 'Fragen'
         proposal: 'Vorschläge'
         improvement_proposal: 'Ergänzungsvorschläge'
       states:
@@ -439,12 +471,17 @@ de:
         published: 'Published'
       delete_link: 'Löschen'
       delete_confirmation: 'Bist du sicher, dass du diese Aussage löschen willst?'
-    summary: 'Zusammenfassung'
+    summary:
+      title: 'Zusammenfassung'
     messages:
-      created: "{{type}} wurde erfolgreich eingestellt."
+      created: "{{type}} wurde erfolgreich erstellt."
       updated: "{{type}} wurde erfolgreich bearbeitet."
       deleted: "{{type}} wurde erfolgreich gelöscht."
-      empty:   "Es wurden keine Debatten gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
+      translated: "{{type}} wurde erfolgreich übersetzt."
+      empty: "Es wurden keine Diskussionen gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
+      empty_without_spoken_languages: |
+        Keine Diskussion gefunden. Versuchen Sie Ihre <a href='{{my_echo}}'>Sprachkenntnisse</a> einzustellen,
+        um Inhalte in anderen Sprachen zu sehen.
       new_percentage: "Ihr Profil ist jetzt zu {{percentage}}% ausgefüllt."
 
 
@@ -459,10 +496,10 @@ de:
 
     segments:
       all: Alle
-      affected:  'Betroffene'
-      engaged:   'Engagierte'
-      scientist: 'ExpertInnen'
-      representative: 'EntscheiderInnen'
+      affection:  'Betroffene'
+      engagement:   'Engagierte'
+      expertise: 'ExpertInnen'
+      decision_making: 'EntscheiderInnen'
     results_count:
       one: '{{count}} BewegerIn'
       more: '{{count}} BewegerInnen'
@@ -470,13 +507,13 @@ de:
       tabs:
         overview:     'Überblick'
         concernments: 'Kompetenzen'
-        web_profiles: 'Web Adressen'
+        web_addresses: 'Web Adressen'
       actions:
         report: "Melden"
     messages:
       empty:           'Zu Ihrer Suchanfrage wurden keine Ergebnisse gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff.'
       no_concernments: 'Dieses Mitgleid hat noch keine Betroffenheiten und Kompetenzen eingetragen.'
-      no_web_profiles: 'Dieses Mitglied hat noch keine Web Adressen eingetragen.'
+      no_web_addresses: 'Dieses Mitglied hat noch keine Web Adressen eingetragen.'
 
   # Feedback resources
   feedback:
@@ -640,20 +677,21 @@ de:
         about_me:   Über mich
         motivation: Gedanken über echo
         memberships: Tätigkeiten
+        spoken_languages: Sprachkenntnisse
       report:
         reason: 'Grund'
-      web_profile:
+      web_address:
         location: 'Web Adresse'
       membership:
         position: 'Meine Rolle'
       feedback:
         message: Nachricht
       statement_document:
-        text:     'Zusammenfassung'
         title:    'Titel'
+        text:     'Zusammenfassung'
 
     models:
-      question: "Debatte"
+      question: "Frage"
       proposal: "Vorschlag"
       improvement_proposal: "Ergänzungsvorschlag"
 

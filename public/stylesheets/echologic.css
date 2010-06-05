@@ -271,14 +271,14 @@
 
 /* Sponsors */
 .sponsors_container {
-  width: 650px;
+  width: 720px;
   margin: 0 auto;
   text-align: center;
   overflow: auto;
 }
 
 #staticContent .sponsors_container {
-  padding-left: 145px;
+  padding-left: 110px;
   clear: both;
 }
 

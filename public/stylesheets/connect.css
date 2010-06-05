@@ -141,7 +141,7 @@
 
 }
 
-#overview li .label {
+#overview li .label, #concernments .languages_label {
   color: #7bb031;
   font-size: 15px;
   font-weight: bold;
@@ -156,7 +156,6 @@
 }
 
 #overview li .value .membership_organisation {
-  font-size: 14px;
   font-weight: bold;
 }
 
@@ -177,6 +176,10 @@
   margin-bottom: 3px;
 }
 
+#concernments .language {
+  font-weight: bold;
+}
+
 #concernments .values {
   color: #21587f;
   display: block;
@@ -185,12 +188,12 @@
 }
 
 /* Web profiles */
-#web_profiles {
+#web_addresses {
   margin-left: 8px;
   display: block;
 }
 
-#web_profiles .label {
+#web_addresses .label {
   color: #7bb031;
   font-size: 15px;
   font-weight: bold;
@@ -200,7 +203,7 @@
   vertical-align: top;
 }
 
-#web_profiles .values {
+#web_addresses .values {
   color: #21587f;
   display: inline-block;
   width: 480px;
