@@ -376,6 +376,13 @@ a.statement_link:hover {
   top: 11px;
 }
 
+/* New Statement form */
+
+#new_statement textarea {
+  height: 200px;
+}
+
+
 /* Translation form */
 
 #new_translation form {
@@ -396,6 +403,7 @@ a.statement_link:hover {
 
 #new_translation textarea {
   width: 385px;
+  height: 200px;
 }
 
 #new_translation fieldset.buttons {
