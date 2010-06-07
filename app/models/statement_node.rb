@@ -1,6 +1,7 @@
 class StatementNode < ActiveRecord::Base
+  require 'echo_subscribeable'
   include Echoable
- 
+  acts_as_subscribeable
   # magically allows Proposal.first.question? et al.
   #
   # FIXME: figure out why this sometimes doesn't work, but only in ajax requests

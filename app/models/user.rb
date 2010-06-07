@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include UserExtension::Echo
+  acts_as_subscriber
   
   has_many :web_addresses, :dependent => :destroy
   has_many :memberships, :dependent => :destroy

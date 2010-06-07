@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100521172331) do
+ActiveRecord::Schema.define(:version => 20100607142514) do
 
   create_table "echos", :force => true do |t|
     t.integer "visitor_count",   :default => 0
@@ -139,6 +139,13 @@ ActiveRecord::Schema.define(:version => 20100521172331) do
 
   create_table "statements", :force => true do |t|
     t.integer "original_language_id"
+  end
+
+  create_table "subscriptions", :force => true do |t|
+    t.integer  "subscriber_id"
+    t.integer  "subscribeable_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tags", :force => true do |t|
