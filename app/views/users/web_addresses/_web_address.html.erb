@@ -1,8 +1,8 @@
-<% @web_address = web_address if web_address.present? %>
-<li id="<%= dom_id(@web_address) %>" >
-  <span class="column_200 value"><%=h @web_address.type.get_current_enum_value.value %></span>
-  <span class="column_200 value"><%= auto_link sanitize(@web_address.address), :html => { :target => '_blank' } %></span>
+<%# @web_address = web_address if web_address.present? %>
+<li id="<%= dom_id(web_address) %>" >
+  <span class="column_200 value"><%=h web_address.type.get_current_enum_value.value %></span>
+  <span class="column_200 value"><%= auto_link sanitize(web_address.address), :html => { :target => '_blank' } %></span>
 
-  <%= link_to I18n.t('application.general.edit'), edit_user_web_address_path(@web_address.user, @web_address), :class => "ajax text_button edit_button" %>
-  <%= link_to I18n.t('application.general.delete'), user_web_address_path(@web_address.user, @web_address), :class => "ajax_delete text_button delete_button" %>
+  <%= link_to I18n.t('application.general.edit'), edit_user_web_address_path(web_address.user, web_address), :class => "ajax text_button edit_button" %>
+  <%= link_to I18n.t('application.general.delete'), user_web_address_path(web_address.user, web_address), :class => "ajax_delete text_button delete_button" %>
 </li>

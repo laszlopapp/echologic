@@ -103,6 +103,7 @@ es:
     bmwi: Ministerio Alemán de Tecnologia y Economia
     grm: GründerRegio M
     lmu_ec: LMU Entrepreneurship Center
+    tu: Technical University Berlin / Center for Technology and Society
 
 
   # Static content
@@ -172,7 +173,7 @@ es:
             política y económica a la gente.
             </p>
         text_4:
-          title:  su echo para echologic
+          title:  Tu echo
           more: |
             <p>
             echo necesita su opinión, sus ideas, su voz! Ayúdenos a guiar la democracia hacia un futuro en que
@@ -227,13 +228,13 @@ es:
           Esta página está mantenida por <strong>echo source e.V.</strong>
           Los responsables por el contenido en el sentido de la ley alemana & 6 MDStV son Jan Linhart y László Papp.
           </p><p>
-          La dirección oficial seguindo la ley alemana TMG es:<br/>
+          <strong>La dirección oficial</strong> seguindo la ley alemana TMG es:<br/>
           echo source e.V.<br/>
           Senefelderstr. 22<br/>
           10437 Berlin<br/>
           E-Mail: team@echologic.org<br/>
           </p><p>
-          Responsabilidad con respecto a los contenidos de los enlaces:<br/>
+          <strong>Responsabilidad con respecto a los contenidos de los enlaces</strong>:<br/>
           Como parte de esta página son incluidos también enlaces a contenidos de otras páginas. No podemos influenciar
           este contenido; el responsable por ello es únicamente la operadora de la página en cuestión.
           Por lo tanto, a pesar de la comprobación legalmente obligada, tenemos que rehusar cualquier responsabilidad en relación

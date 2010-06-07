@@ -389,29 +389,53 @@ module StatementHelper
   
   def render_new_statement_node(statement_node)
     render :update do |page|
-      page.replace(statement_node.kind_of?(Question) ? 'questions_container' : 'children', :partial => 'statements/new')
-      page.remove 'search_container' if statement_node.kind_of?(Question) 
-      page.replace('context', :partial => 'statements/context', :locals => { :statement_node => statement_node.parent}) if statement_node.parent
-      page.replace('summary', :partial => 'statements/summary', :locals => { :statement_node => statement_node.parent}) if statement_node.parent
-      page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement_node => statement_node.parent})
+      if statement_node.kind_of?(Question)
+        page.remove 'search_container'
+        page.remove 'new_question'
+        page.replace 'questions_container', :partial => 'statements/new'
+      else
+        page.replace 'children', :partial => 'statements/new'
+      end
+      page.replace('context',
+                   :partial => 'statements/context',
+                   :locals => { :statement => statement_node.parent}) if statement_node.parent
+      page.replace('discuss_sidebar',
+                   :partial => 'statements/sidebar',
+                   :locals => { :statement => statement_node.parent})
+      # Direct JS
       page << "makeRatiobars();"
       page << "makeTooltips();"
-    end
+    end    
   end
   
   def render_create_statement_node(statement_node,statement_document,statement_node_children)
     render_with_info do |page|
       if statement_node.kind_of?(Question)
-        page.insert_html :top , 'function_container', :partial => 'statements/sidebar', :locals => { :statement_node => statement_node} 
-        page.insert_html :top , 'function_container', :partial => 'statements/summary', :locals => { :statement_node => statement_node, :statement_document => statement_document}
-        page.insert_html :top , 'function_container', :partial => 'statements/context', :locals => { :statement_node => statement_node} 
+        page.insert_html :top , 'function_container',
+                         :partial => 'statements/summary',
+                         :locals => { :statement => statement_node, :statement_document => statement_document}
+        page.insert_html :top , 'function_container',
+                         :partial => 'statements/sidebar',
+                         :locals => { :statement => statement_node}
+        page.insert_html :top , 'function_container',
+                         :partial => 'statements/context',
+                         :locals => { :statement => statement_node}
       else
-        page.replace('context', :partial => 'statements/context', :locals => { :statement_node => statement_node})
-        page.replace('summary', :partial => 'statements/summary', :locals => { :statement_node => statement_node, :statement_document => statement_document})
-        page.replace('discuss_sidebar', :partial => 'statements/sidebar', :locals => { :statement_node => statement_node})
+        page.replace('context',
+                     :partial => 'statements/context',
+                     :locals => { :statement => statement_node})
+        page.replace('discuss_sidebar',
+                     :partial => 'statements/sidebar',
+                     :locals => { :statement => statement_node})
+        page.replace('summary',
+                     :partial => 'statements/summary',
+                     :locals => { :statement => statement_node, :statement_document => statement_document})
       end
-      page.replace('new_statement', :partial => 'statements/children', :statement_node => statement_node, :children => statement_node_children)
-      
+      page.replace 'new_statement',
+                   :partial => 'statements/children',
+                   :statement => statement_node,
+                   :children => statement_node_children
+      # Direct JS
       page << "makeRatiobars();"
       page << "makeTooltips();"
     end

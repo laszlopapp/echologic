@@ -208,7 +208,6 @@ class StatementsController < ApplicationController
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js   {
           render_create_statement_node(@statement_node,@statement_document,children_for_statement_node)
-          
         }
       else
         @current_language_key = current_language_key
@@ -301,6 +300,10 @@ class StatementsController < ApplicationController
 
   def statement_class_param
     statement_node_class.name.underscore.to_sym
+  end
+
+  def set_statement_node_info(string, statement_node)
+    set_info(string, :type => I18n.t("discuss.statements.types.#{statement_class_dom_id(statement_node).downcase}"))
   end
 
   def parent

@@ -1,6 +1,6 @@
 
 <div class="form_container">
-  <span class="label"><%= context.get_current_enum_value.value %></span>
+  <span class="label"><%= I18n.t("users.concernments.sorts.#{context.code}") %></span>
   <% form_tag url_for(:controller => "tao_tags", :action => "create"), :id => "new_tag_#{context.code}" do -%>
     <%= text_field :tag, :value, :class => 'tag_value_autocomplete', :id => "tag_#{context.code}_id" %>
     <%# TODO: take this out? %>

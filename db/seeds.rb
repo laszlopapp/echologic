@@ -1,37 +1,39 @@
-
-## ROLES
+# USER ROLES
 { :admin => %w(),
   :editor => %w(),
   :topic_editor => %w()
 }.each_pair { |role, users| users.each { |user| user.has_role!(role) } }
 
-## CATEGORIES
-%w(echonomyjam echocracy echo echosocial realprices).each { |name| Tag.create(:value => name) }
+# TOPIC CATEGORIES
+%w(echonomyjam echocracy echo echosocial realprices igf).each { |name| Tag.create(:value => name) }
 
-## ENUM KEYS
 
-#LANGUAGES
+###############
+#  ENUM KEYS  #
+###############
+
+# LANGUAGES
 %w(en de fr pt es).each_with_index do |code, index|
   EnumKey.create(:code => code, :enum_name => "languages", :key => index+1, :description => "language")
 end
 
-#LANGUAGE LEVELS
+# LANGUAGE LEVELS
 %w(mother_tongue advanced intermediate basic).each_with_index do |code, index|
   EnumKey.create(:code => code, :enum_name => "language_levels", :key => index+1, :description => "language_level")
 end
 
-#WEB ADDRESSES
+# WEB ADDRESSES
 %w(email homepage blog xing linkedin facebook twitter).each_with_index do |code, index|
   EnumKey.create(:code => code, :enum_name => "web_address_types", :key => index+1, :description => "web_address_type")
 end
 EnumKey.create(:code => 'other', :enum_name => "web_address_types", :key => 99, :description => "web_address_type")
 
-#ORGANISATIONAL TYPES
+# ORGANISATION TYPES
 %w(ngo political scientific trade_union social_business profit_driven_business).each_with_index do |code, index|
   EnumKey.create(:code => code, :enum_name => "organisation_types", :key => index+1, :description => "organisation_type")
 end
 
-#TAG CONTEXTS
+# TAG CONTEXTS
 %w(affection engagement expertise decision_making field_work field_activity topic).each_with_index do |code, index|
   EnumKey.create(:code => code, :enum_name => "tag_contexts", :key => index+1, :description => "tag_context")
 end
@@ -41,8 +43,7 @@ end
   EnumKey.create(:code => code, :enum_name => "statement_states", :key => index+1, :description => "statement_state")
 end
 
-
-#VALID CONTEXTS
+# VALID CONTEXTS
 %w(affection engagement expertise decision_making).each do |code|
   ValidContext.create(:context_id => EnumKey.find_by_code(code).id, :tao_type => 'User' )
 end
@@ -52,10 +53,11 @@ end
 ValidContext.create(:context_id => EnumKey.find_by_code("topic").id, :tao_type => 'StatementNode' )
 
 
+#################
+#  ENUM VALUES  #
+#################
 
-##ENUM VALUES
-
-#Languages
+# Languages
 ["English","Englisch","Ingles","Inglês","Inglés"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('en'), :language_id => index+1, :value => value, :context => "")
 end
@@ -68,11 +70,11 @@ end
 ["Portuguese","Portugiesisch","Portugais","Português","Portugués"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('pt'), :language_id => index+1, :value => value, :context => "")
 end
-["Spanish","Spanisch","espagnol","Espanhol","Español"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('pt'), :language_id => index+1, :value => value, :context => "")
+["Spanish","Spanisch","Espagnol","Espanhol","Español"].each_with_index do |value,index|
+  EnumValue.create(:enum_key => EnumKey.find_by_code('es'), :language_id => index+1, :value => value, :context => "")
 end
 
-#Language Level
+# Language Levels
 ["Mother Tongue","Muttersprache","Langue Maternelle","Língua Materna","Lengua Materna"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('mother_tongue'), :language_id => index+1, :value => value, :context=> "")
 end
@@ -86,7 +88,7 @@ end
   EnumValue.create(:enum_key => EnumKey.find_by_code('basic'), :language_id => index+1, :value => value, :context=> "")
 end
 
-#Web Addresses
+# Web Addresses
 EnumKey.languages.length.times do |index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('email'), :language_id => index+1, :value => "E-mail", :context=> "")
   EnumValue.create(:enum_key => EnumKey.find_by_code('homepage'), :language_id => index+1, :value => "Homepage", :context=> "")
@@ -99,7 +101,8 @@ end
 ["Other","Andere","Autre","Outro","Otro"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('other'), :language_id => index+1, :value => value, :context=> "")
 end
-#Organization Types
+
+# Organization Types
 ["NGO","NRO","ONG","ONG","ONG"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('ngo'), :language_id => index+1, :value => value, :context=> "")
 end
@@ -118,7 +121,8 @@ end
 ["Profit-Driven Business","Gewinnorientierte Firma","Firma à but lucratif","Firma com fins lucrativos","Firma de lucro"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('profit_driven_business'), :language_id => index+1, :value => value, :context=> "")
 end
-#Tag Contexts
+
+# Tag Contexts
 ["Affection","Betroffenheit","Affection","Afeição","Afecto"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('affection'), :language_id => index+1, :value => value, :context=> "")
 end

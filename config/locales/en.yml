@@ -233,7 +233,7 @@ en:
       guide: |
         All of us have <strong>different facets</strong>. In some areas we might be affected and need help from others,
         in other areas we engage ourselves and offer help to others. In certain fields we have professional expertise,
-        in others we represent other people and make decisions.<br/>
+        in others we might represent other people and make decisions.<br/>
         echo helps like-minded people to find each other with <strong>knowledge complementing each other</strong>.<br/>
         Which <strong>keywords (tags)</strong> would you describe <strong>your concernments and competences</strong> with?
       sorts:
@@ -383,6 +383,33 @@ en:
           </p><p>
           Background information can be found at the <a href='http://www.netzwerk-gemeinsinn.net/content/view/625/218' target='_blank'>blog of Netzwerk Gemeinsinn</a>.
           </p>
+      igf:
+        name: Internet Governance Forum - Deutschland
+        short_name: IGF-D
+        teaser: |
+          The <a href='http://www.igf-d.org' target='_blank'>Internet Governance Forum - Deutschland (IGF-D)</a>
+          is an open and informal multistakeholder discussion platform for government, private business und civil society.
+        description: |
+           <p>
+           With the inclusion of the German technological and academic community, it discusses the future development
+           of the internet. The work of the IGF-D focuses on the global topics of the
+           <strong><a href='http://www.intgovforum.org' target='_blank'>IGF of the United Nations (UN-IGF)</a></strong>
+           (diversity, openness, security, critical internet resources and the <strong>future of the internet</strong>)
+           with specific consideration for the problems and interests in Germany.
+           </p><p>
+           Goals of the IGF-D are:
+             <ul>
+               <li>
+                 Promoting dialogue between stakeholders on specific topics concerning internet development to
+                 further increase German potencial.
+               </li>
+               <li>
+                 Preparing and enriching the German stakeholders' contribution to the Internet Governance Forum of the
+                 United Nations.
+               </li>
+             <ul>
+           </p>
+
 
     tooltips:
       read_question: 'Go to this question'
@@ -398,6 +425,7 @@ en:
       next_proposal: 'Read next proposal for the current question'
       prev_improvement_proposal: 'Read previous improvement proposal for the current proposal'
       next_improvement_proposal: 'Read next improvement proposal for the current proposal'
+      create_question: 'Open a new discussion'
       create_proposal: "Post your new idea concerning the current question."
       create_improvement_proposal: "Post your new idea to improve the current proposal."
       echo: 'echo this statement to support it!'
@@ -414,7 +442,7 @@ en:
       create_question_explanation: |
         Hi Editor! Here you can create a new question.
       create_proposal_explanation: |
-        Do you have a <strong>good idea</strong> concerning the the current question, which <strong>doesn't exist</strong> yet?<br/>
+        Do you have a <strong>good idea</strong> concerning the current question, which <strong>isn't entered</strong> yet?<br/>
         Here you can create a <strong>new proposal</strong>.
       create_improvement_proposal_explanation: |
         Do you have a <strong>good idea</strong> to <strong>make the current proposal even better</strong>?<br/>
@@ -447,7 +475,9 @@ en:
       deleted: "The {{type}} has been deleted successfully."
       translated: "The {{type}} has been translated successfully."
       empty:   "No discussions found. Please change your search criteria."
-      empty_without_spoken_languages: "No discussions found. You can try defining your <a href='{{my_echo}}'><u>language skills</u></a> to see content in other languages."
+      empty_without_spoken_languages: |
+        No discussions found. You can try defining your <a href='{{my_echo}}'>language skills</a>
+        to see content in other languages.
       new_percentage: "Your profile is {{percentage}}% complete."
 
 
@@ -478,7 +508,7 @@ en:
       actions:
         report: "Report"
     messages:
-      empty:           'No members found. Please change your search criteria.'      
+      empty:           'No members found. Please change your search criteria.'
       no_concernments: "This member hasn't defined any concernments and competences, yet."
       no_web_addresses: "This member hasn't defined any web addresses, yet."
 
@@ -529,16 +559,17 @@ en:
     attributes:
       profile:
         email:      E-Mail
-        first_name: First Name
-        last_name:  Last Name
+        first_name: First name
+        last_name:  Last name
         full_name:  Name
         gender:     Gender
         city:       City
         country:    Country
         location:   Location
-        about_me:   About Me
+        about_me:   About me
         motivation: Thoughts about echo
         memberships: Activities
+        spoken_languages: Language skills
       report:
         reason:     'Reason'
       web_address:

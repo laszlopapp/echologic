@@ -1,14 +1,14 @@
-
-<% form_tag user_membership_path(@membership.user, @membership), :method => :put, 
-            :id => dom_id(@membership, :edit) do -%>
+<% membership ||= @membership %>
+<% form_tag user_membership_path(membership.user, membership), :method => :put, 
+            :id => dom_id(membership, :edit) do -%>
 
   <%= text_field :membership, :organisation %>
   <%= text_field :membership, :position %>
   <%= submit_tag I18n.t('application.general.save'), :class => 'text_button save_button' %>
   <span class="or_cancel"><%= I18n.t('application.general.or') %></span>
-  <%= link_to I18n.t('application.general.cancel'), user_membership_path(@membership.user, @membership), :class => 'ajax text_button cancel_button' %>
+  <%= link_to I18n.t('application.general.cancel'), user_membership_path(membership.user, membership), :class => 'ajax text_button cancel_button' %>
 <% end %>
 
 <script type="text/javascript">
-  $("#<%= dom_id(@membership, :edit) %>").ajaxForm({ dataType: 'script' }); 
+  $("#<%= dom_id(membership, :edit) %>").ajaxForm({ dataType: 'script' }); 
 </script>

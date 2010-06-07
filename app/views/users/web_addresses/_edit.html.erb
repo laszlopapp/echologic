@@ -1,14 +1,16 @@
-<% form_tag user_web_address_path(@user, @web_address), :method => :put, :id => dom_id(@web_address, :edit) do -%>
+<% web_address ||= @web_address %>
+<% user ||= @user %>
+<% form_tag user_web_address_path(user, web_address), :method => :put, :id => dom_id(web_address, :edit) do -%>
 
-  <%= select :web_address, :type_id, WebAddress.web_address_types.collect { |wa| [wa.get_current_enum_value.value,wa.id] }, { :selected => @web_address.type_id } %> 
+  <%= select :web_address, :type_id, WebAddress.web_address_types.collect { |wa| [wa.get_current_enum_value.value,wa.id] }, { :selected => web_address.type_id } %> 
   <%= text_field :web_address, :address %>
-  <%= hidden_field :user_id, :value => @user.id %>
+  <%= hidden_field :user_id, :value => user.id %>
   <%= submit_tag I18n.t('application.general.save'), :class => 'text_button save_button' %>
   <span class="or_button"><%= I18n.t('application.general.or') %></span>
-  <%= link_to I18n.t('application.general.cancel'), user_web_address_path(@user, @web_address), :class => 'ajax text_button cancel_button' %>
+  <%= link_to I18n.t('application.general.cancel'), user_web_address_path(user, web_address), :class => 'ajax text_button cancel_button' %>
 
-<%- end %>
+<% end -%>
 
 <script type="text/javascript">
-  $("#<%= dom_id(@web_address, :edit) %>").ajaxForm({ dataType: 'script' });
+  $("#<%= dom_id(web_address, :edit) %>").ajaxForm({ dataType: 'script' });
 </script>

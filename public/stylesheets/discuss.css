@@ -312,6 +312,12 @@ a.statement_link:hover {
 	color:#7BB031;
 }
 
+/* New and Edit Statement form */
+
+#new_statement textarea, #summary textarea {
+  height: 200px;
+}
+
 
 /* ------------------- */
 /* Translations        */
@@ -396,6 +402,7 @@ a.statement_link:hover {
 
 #new_translation textarea {
   width: 385px;
+  height: 200px;
 }
 
 #new_translation fieldset.buttons {

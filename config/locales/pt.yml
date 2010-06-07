@@ -386,6 +386,32 @@ pt:
           </p><p>
           Informação do acontecimento pode ser encontrada no <a href='http://www.netzwerk-gemeinsinn.net/content/view/625/218' target='_blank'>blog do Espírito Público</a>.
           </p>
+      igf:
+        name: Internet Governance Forum - Deutschland
+        short_name: IGF-D
+        teaser: |
+          The <a href='http://www.igf-d.org' target='_blank'>Internet Governance Forum - Deutschland (IGF-D)</a>
+          is an open and informal multistakeholder discussion platform for government, private business und civil society.
+        description: |
+           <p>
+           With the inclusion of the German technological and academic community, it discusses the future development
+           of the internet. The work of the IGF-D focuses on the global topics of the
+           <strong><a href='http://www.intgovforum.org' target='_blank'>IGF of the United Nations (UN-IGF)</a></strong>
+           (diversity, openness, security, critical internet resources and the <strong>future of the internet</strong>)
+           with specific consideration for the problems and interests in Germany.
+           </p><p>
+           Goals of the IGF-D are:
+             <ul>
+               <li>
+                 Promoting dialogue between stakeholders on specific topics concerning internet development to
+                 further increase German potencial.
+               </li>
+               <li>
+                 Preparing and enriching the German stakeholders' contribution to the Internet Governance Forum of the
+                 United Nations.
+               </li>
+             <ul>
+           </p>
 
     tooltips:
       read_question: 'Ir para esta questão'
@@ -401,13 +427,15 @@ pt:
       next_proposal: 'Ler proposta seguinte da questão actual'
       prev_improvement_proposal: 'Ler proposta de melhoria anterior da proposta actual'
       next_improvement_proposal: 'Ler proposta de melhoria seguinte da proposta actual'
-      create_proposal: 'Criar nova proposta na questão  actual'
+      create_question: 'Abra uma nova discussão'
+      create_proposal: 'Criar nova proposta na questão actual'
       create_improvement_proposal: 'Criar nova proposta de melhoria na proposta actual'
       echo: 'echoe esta afirmação de forma a apoiá-la!'
       unecho: 'Retire o seu voto para parar de apoiar esta afirmação.'
       echo_indicator:
         one: 'Esta afirmação tem {{supporter_count}} apoiante.'
         many: 'Esta afirmação tem {{supporter_count}} apoiantes.'
+
     statements:
       label: 'echos'
       create_question_link: 'Abra uma nova discussão'
@@ -445,12 +473,14 @@ pt:
     summary:
       title: 'Sumário'
     messages:
-      created: "O/a novo/a {{type}} foi inserido/a com sucesso."
-      updated: "O/a {{type}} foi actualizado/a com sucesso."
-      deleted: "O/a {{type}} foi apagado/a com sucesso."
-      translated: "O/a {{type}} foi traduzido/a com sucesso."
+      created: "A nova {{type}} foi inserida com sucesso."
+      updated: "A {{type}} foi actualizada com sucesso."
+      deleted: "A {{type}} foi apagada com sucesso."
+      translated: "A {{type}} foi traduzida com sucesso."
       empty:   "Nenhuma questão encontrada. Por favor altere os seus critérios de procura."
-      empty_without_spoken_languages: "Nenhuma questão encontrada. Pode tentar definir as suas <a href='{{my_echo}}'><u>Línguas Faladas</u></a> de forma a aceder a conteúdos noutras línguas."
+      empty_without_spoken_languages: |
+        Nenhuma questão encontrada. Pode tentar definir as suas <a href='{{my_echo}}'><u>Línguas Faladas</u></a>
+        de forma a aceder a conteúdos noutras línguas.
       new_percentage: "O seu perfil está {{percentage}}% completo."
 
 
@@ -481,7 +511,7 @@ pt:
       actions:
         report: "Relatório"
     messages:
-      empty:           'Nenhum membro encontrado. Por favor altere os seus critérios de procura.'      
+      empty:           'Nenhum membro encontrado. Por favor altere os seus critérios de procura.'
       no_concernments: "Este membro ainda não definiu interesses ou competências."
       no_web_addresses: "Este membro ainda não definiu endereços web."
 
@@ -542,6 +572,7 @@ pt:
         about_me:   Sobre mim
         motivation: Considerações sobre a echo
         memberships: Actividades
+        spoken_languages: Línguas Faladas
       report:
         reason:     'Razão'
       web_address:

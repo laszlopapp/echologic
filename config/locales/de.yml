@@ -20,7 +20,7 @@ de:
       save: Speichern
       edit: Editieren
       cancel: Abbrechen
-      close: SchließenDebatte
+      close: Schließen
       send: Abschicken
       upload: Hochladen
       delete: Löschen
@@ -393,6 +393,32 @@ de:
           </p><p>
           Hintergrundinformationen zur Veranstaltung finden Sie auf dem
           <a href='http://www.netzwerk-gemeinsinn.net/content/view/625/218' target='_blank'>Blog vom Netzwerk Gemeinsinn</a>.
+      igf:
+        name: Internet Governance Forum - Deutschland
+        short_name: IGF-D
+        teaser: |
+          Das <a href='http://www.igf-d.org' target='_blank'>Internet Governance Forum - Deutschland (IGF-D)</a> ist
+          eine offene und informelle Multistakeholder Diskussionsplattform für Regierung, Privatwirtschaft und Zivilgesellschaft.
+        description: |
+           <p>
+           Zusammen mit der technischen und akademischen Community beschäftigt sich das IGF-D mit Fragen über die weitere
+           Entwicklung des Internets. Inhaltliche Schwerpunkte seiner Arbeit orientieren sich an den globalen
+           Themen des <strong><a href='http://www.intgovforum.org' target='_blank'>IGF der Vereinten Nationen (UN-IGF)</a></strong>
+           (Vielfalt, Offenheit, Sicherheit, kritische Internetressourcen und <strong>Zukunft des Internets</strong>)
+           unter spezifischer Berücksichtigung der Problem- und Interessenlage in Deutschland.
+           </p><p>
+           Konkrete Ziele des IGF-D sind:
+             <ul>
+               <li>
+                 Den Dialog zwischen Stakeholdern zu konkreten Fragen der Internet-Entwicklung zu befördern, um neue
+                 Potenziale für Deutschland zu erschließen.
+               </li>
+               <li>
+                 Den Beitrag der deutschen Stakeholder zum Internet Governance Forum der Vereinten Nationen
+                 vorzubereiten und zu stärken sowie das europäische Internet Governance Forum zu flankieren.
+               </li>
+             <ul>
+           </p>
 
 
     tooltips:
@@ -409,6 +435,7 @@ de:
       next_proposal: 'Nächsten Vorschlag zur aktuellen Frage lesen'
       prev_improvement_proposal: 'Vorigen Ergänzungsvorschlag zum aktuellen Vorschlag lesen'
       next_improvement_proposal: 'Nächsten Ergänzungsvorschlag zum aktuellen Vorschlag lesen'
+      create_question: 'Neue Diskussion eröffnen'
       create_proposal: 'Tragen Sie Ihre neue Idee zur aktuellen Frage ein.'
       create_improvement_proposal: 'Tragen Sie Ihre neue Idee zum aktuellen Vorschlag ein.'
       echo: 'Unterstützen Sie diese Aussage durch Ihr Echo!'
@@ -454,12 +481,14 @@ de:
     summary:
       title: 'Zusammenfassung'
     messages:
-      created: "{{type}} wurde erfolgreich eingestellt."
+      created: "{{type}} wurde erfolgreich erstellt."
       updated: "{{type}} wurde erfolgreich bearbeitet."
       deleted: "{{type}} wurde erfolgreich gelöscht."
-      deleted: "{{type}} wurde erfolgreich übersetzt."
-      empty:   "Es wurden keine Diskussionen gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
-      empty_without_spoken_languages: "Zu Ihrer Suchanfrage wurden keine Diskussionen gefunden. Versuchen Sie, Ihre <a href='{{my_echo}}'><u>gesprochenen Sprachen</u></a> zu definieren, um Inhalt in anderen Sprachen zu sehen."
+      translated: "{{type}} wurde erfolgreich übersetzt."
+      empty: "Es wurden keine Diskussionen gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
+      empty_without_spoken_languages: |
+        Keine Diskussion gefunden. Versuchen Sie Ihre <a href='{{my_echo}}'>Sprachkenntnisse</a> einzustellen,
+        um Inhalte in anderen Sprachen zu sehen.
       new_percentage: "Ihr Profil ist jetzt zu {{percentage}}% ausgefüllt."
 
 
@@ -489,7 +518,7 @@ de:
       actions:
         report: "Melden"
     messages:
-      empty:           'Zu Ihrer Suchanfrage wurden keine Ergebnisse gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff.'      
+      empty:           'Zu Ihrer Suchanfrage wurden keine Ergebnisse gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff.'
       no_concernments: 'Dieses Mitgleid hat noch keine Betroffenheiten und Kompetenzen eingetragen.'
       no_web_addresses: 'Dieses Mitglied hat noch keine Web Adressen eingetragen.'
 
@@ -655,6 +684,7 @@ de:
         about_me:   Über mich
         motivation: Gedanken über echo
         memberships: Tätigkeiten
+        spoken_languages: Sprachkenntnisse
       report:
         reason: 'Grund'
       web_address:

@@ -102,6 +102,7 @@ pt:
     bmwi: Ministério Federal da Economia e Tecnologia
     grm: GründerRegio M
     lmu_ec: LMU Entrepreneurship Center
+    tu: Technical University Berlin / Center for Technology and Society
 
 
   # Static content
@@ -112,7 +113,7 @@ pt:
       title: echologic
       subtitle: O Movimento
       show:
-        ms1: echologic é uma rede de pessoas com espírito de mudança <br/>e das suas organizações unidas para realizar
+        ms1: echologic é uma rede de pessoas que querem mudança <br/>e das suas organizações unidas para realizar
         ms2: |
           echo - a <span title="{{tooltip}}" class="ttLink">ágora</span> global!
 
