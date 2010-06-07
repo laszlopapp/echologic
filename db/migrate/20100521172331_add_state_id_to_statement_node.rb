@@ -1,9 +1,5 @@
 class AddStateIdToStatementNode < ActiveRecord::Migration
   def self.up
-
-    # Seeding the new enums into the DB
-    Rake::Task['db:seed'].invoke
-
     # Migrating statement states to use the new enums
     rename_column :statement_nodes, :state, :state_id
     StatementNode.all.each do |node|
