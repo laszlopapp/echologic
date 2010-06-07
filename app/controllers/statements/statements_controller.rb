@@ -180,8 +180,6 @@ class StatementsController < ApplicationController
     respond_to do |format|
       if @statement.save
         set_statement_node_info("discuss.messages.translated",@statement)
-        current_user.supported!(@statement)
-        #load current created statement to session
         @current_language_keys = current_language_keys
         @statement_document = @new_statement_document
         format.html { flash_info and redirect_to url_for(@statement) }
