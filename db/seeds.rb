@@ -141,14 +141,14 @@ end
 ["Field of Activity","Betätigungsfeld","Domaine d'activité","Domínio de Actividade","Área de Actividad"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('field_activity'), :language_id => index+1, :value => value, :context=> "")
 end
-["Topic","Thema","Sujet","Topique","Tópico"].each_with_index do |value,index|
+["Topic","Thema","Sujet","Tópico","Tema"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('topic'), :language_id => index+1, :value => value, :context=> "")
 end
 
 # Statement States
-["New","Neu","Neuf","Neuf","Novo"].each_with_index do |value,index|
+["New","Neu","Neuf","Novo","Nuevo"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('new','statement_states'), :language_id => index+1, :value => value, :context=> "")
 end
-["Published","Veröffentlicht","Publié","Publié","Publicado"].each_with_index do |value,index|
+["Published","Veröffentlicht","Publié","Publicado","Publicado"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('published','statement_states'), :language_id => index+1, :value => value, :context=> "")
 end
