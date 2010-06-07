@@ -2,7 +2,7 @@
 
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
-MAX_SESSION_PERIOD = 10
+MAX_SESSION_PERIOD = 3600
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -39,7 +39,7 @@ Rails::Initializer.run do |config|
 
   # Unit testing
   config.gem 'test-unit', :lib => 'test/unit'
- 
+
   # require should to use it for testing :)
   config.gem 'shoulda'
 
