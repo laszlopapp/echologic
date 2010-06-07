@@ -2,6 +2,7 @@ require 'test_helper'
 
 class StatementNodeTest < ActiveSupport::TestCase
 
+
   context "a statement node" do
 
     setup { @statement_node = Question.new }
@@ -12,8 +13,8 @@ class StatementNodeTest < ActiveSupport::TestCase
     should_have_many :statement_documents
     should_have_many :tags
 
-    # should_validate_associated :creator, :document, :category
-
+    # should be visited and supported 
+    
     # validates no invalid states
     [nil, "invalid state"].each do |value|
       context("with state set to #{value}") do
@@ -72,6 +73,24 @@ class StatementNodeTest < ActiveSupport::TestCase
         assert_equal @statement_node.translated_document([1]).title, "A new Document"
         assert_equal @statement_node.translated_document([1]).text, "with a very short body, dude!"
       end
+      
+      should "have creator as supporter" do
+        @user = @statement_node.creator
+        assert(@statement_node.supported_by?(@user))
+      end
+      
+      should "be able to be visited" do
+        @user = User.last
+        @statement_node.visited_by!(@user)
+        assert(@statement_node.visited_by?(@user))
+      end
+      
+      should "be able to be supported" do
+        @user = User.last
+        @statement_node.visited_by!(@user)
+        assert(@statement_node.visited_by?(@user))
+      end
+      
     end
 
   end # main context

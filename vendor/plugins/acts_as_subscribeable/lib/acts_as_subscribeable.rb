@@ -15,8 +15,10 @@ module ActiveRecord
           args.flatten! if args
           args.compact! if args
           class_eval do
-            has_many :subscriptions, :dependent => :destroy
-            has_many :subscribers, :through => :subscriptions
+            has_many :subscriptions, :dependent => :destroy, :class_name => 'Subscription', :foreign_key => 'subscribeable_id'
+            has_many :subscribers, :class_name => 'User', :finder_sql => 'SELECT DISTINCT * FROM users u ' +
+                                                                         'LEFT JOIN subscriptions s ON s.subscriber_id = u.id ' +
+                                                                         'WHERE s.subscribeable_id = #{id} '
           end
           
           class_eval <<-RUBY
@@ -45,8 +47,10 @@ module ActiveRecord
           args.flatten! if args
           args.compact! if args
           class_eval do
-            has_many :subscriptions, :dependent => :destroy
-            has_many :subscribeables, :through => :subscriptions
+            has_many :subscriptions, :dependent => :destroy, :class_name => 'Subscription', :foreign_key => 'subscriber_id'
+            has_many :subscribeables, :class_name => 'StatementNode', :finder_sql => 'SELECT DISTINCT * FROM statement_nodes sn ' +
+                                                                                     'LEFT JOIN subscriptions s ON s.subscribeable_id = sn.id ' +
+                                                                                     'WHERE s.subscriber_id = #{id} '
           end
           class_eval <<-RUBY
             def self.subscriber?

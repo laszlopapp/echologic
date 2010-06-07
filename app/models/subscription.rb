@@ -1,4 +1,4 @@
 class Subscription < ActiveRecord::Base
-  belongs_to :subscriber
-  belongs_to :subscribeable
+  belongs_to :subscriber, :class_name => 'User'
+  belongs_to :subscribeable, :class_name => 'StatementNode'
 end

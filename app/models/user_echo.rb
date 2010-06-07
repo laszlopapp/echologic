@@ -7,6 +7,7 @@ class UserEcho < ActiveRecord::Base
   named_scope :supported, lambda { { :conditions => { :supported => true } } }
   
   named_scope :for_user, lambda { |user_id| { :conditions => { :user_id => user_id } } }
+  named_scope :for_echo, lambda { |echo_id| {:conditions => {:echo_id => echo_id}}}
   
   class << self
     # Finds the UserEcho based on the given :echo in the options hash and

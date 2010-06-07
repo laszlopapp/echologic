@@ -17,7 +17,7 @@ end
 Given /^I gave an echo already to a proposal$/ do
   @proposal = Proposal.first
   @proposal.user_echos.destroy_all
-  @user.supported!(@proposal)
+  @proposal.supported_by!(@user)
 end
 
 Then /^the proposal should have no more echo$/ do

@@ -72,7 +72,7 @@ class StatementsController < ApplicationController
   # TODO visited! throws error with current fixtures.
 
   def show
-    current_user.visited!(@statement_node) if current_user
+    @statement_node.visited_by!(current_user) if current_user
 
     # store last statement (for cancel link)
     session[:last_statement_node] = @statement_node.id
@@ -117,7 +117,7 @@ class StatementsController < ApplicationController
   # echo object.
   def echo
     return if @statement_node.question?
-    current_user.supported!(@statement_node)
+    @statement_node.supported_by!(current_user)
     @current_language_keys = current_language_keys
     respond_to do |format|
       format.html { redirect_to @statement_node }
@@ -155,7 +155,6 @@ class StatementsController < ApplicationController
     respond_to do |format|
       if @statement_node.save
         set_info("discuss.messages.translated", :type => @statement_node.class.display_name)
-        current_user.supported!(@statement_node)
         @current_language_keys = current_language_keys
         @statement_document = @new_statement_document        
         format.html { flash_info and redirect_to url_for(@statement_node) }
@@ -198,7 +197,6 @@ class StatementsController < ApplicationController
       if @statement_node.save and @error.nil?
         @current_language_keys = current_language_keys
         set_info("discuss.messages.created", :type => @statement_node.class.display_name)
-        current_user.supported!(@statement_node)
         #load current created statement_node to session
         if @statement_node.parent
           type = @statement_node.class.to_s.underscore

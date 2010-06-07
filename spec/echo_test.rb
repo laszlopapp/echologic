@@ -27,7 +27,7 @@ describe Echo do
       @user = User.first
       @echoable = Statement.first
       @old_count = @echoable.echo.supporter_count rescue 0
-      @user_echo = @user.supported!(@echoable)
+      @user_echo = @echoable.supported!(@user)
     end
     
     it "should be marked as supported" do 

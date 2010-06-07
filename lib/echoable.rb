@@ -1,8 +1,9 @@
 module Echoable
   def self.included(base)
     base.instance_eval do
-      belongs_to :echo
+      belongs_to :echo      
       has_many :user_echos, :foreign_key => 'echo_id', :primary_key => 'echo_id'
+      after_create :author_support
       include InstanceMethods
     end
   end
@@ -50,6 +51,32 @@ module Echoable
       children.by_supporters.first
     end
     
+    def echo!(user, options={})
+      ed = user_echos.create_or_update!(options.merge(:user => user, :echo => find_or_create_echo))
+      # OPTIMIZE: update the counters periodically
+      echo.update_counter! ; ed
+    end
+    
+    # states that the +user+ visited the given +echoable+
+    def visited_by!(user)
+      echo!(user, :visited => true)
+    end
+    
+    # states that the +user+ supported the given +echoable+
+    def supported_by!(user)
+      echo!(user, :supported => true)
+    end
+    
+    # returns true if the +user+ has visted the given +echoable+
+    def visited_by?(user)
+      user.user_echos.visited.for_echo(self.echo.id).any?
+    end
+    
+    # returns true if the +user+ has supported the given +echoable+
+    def supported_by?(user)
+      user.user_echos.supported.for_echo(self.echo.id).any?
+    end
+    
     def find_or_create_echo
       if echo_id
         echo
@@ -59,6 +86,10 @@ module Echoable
         save
         echo
       end
+    end
+    
+    def author_support
+      self.supported_by!(self.creator)
     end
   end
 end
