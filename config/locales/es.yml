@@ -395,8 +395,8 @@ es:
         name: Internet Governance Forum - Deutschland
         short_name: IGF-D
         teaser: |
-          The <a href='http://www.igf-d.org' target='_blank'>Internet Governance Forum - Deutschland (IGF-D)</a>
-          is an open and informal multistakeholder discussion platform for government, private business und civil society.
+          The <a href='http://www.igf-d.org' target='_blank'>IGF-D</a> is an open and informal multistakeholder
+          discussion platform for government, private business und civil society.
         description: |
            <p>
            With the inclusion of the German technological and academic community, it discusses the future development
@@ -535,109 +535,7 @@ es:
       thank_you: Muchas gracias por su mensaje!
 
 
-  date:
-    formats:
-      default: "%d.%m.%Y"
-      short: "%e. %b"
-      long: "%e. %B %Y"
-      only_day: "%e"
-      month_name: "%B"
-      day_name: "%a"
-
-    day_names: [Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado]
-    abbr_day_names: [Do, Lu, MA, Mi, Ju, Vi, Sa]
-    month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
-    abbr_month_names: [~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic]
-    order: [ :day, :month, :year ]
-
-  time:
-    formats:
-      default: "%a, %d. %B %Y"
-      short: "%e. %B, %H:%M Uhr"
-      long: "%A, %e. %B %Y, %H:%M Uhr"
-      time: "%H:%M"
-
-    am: "por la mañana"
-    pm: "de la tarde"
-
-  datetime:
-    distance_in_words:
-      half_a_minute: 'medio minuto'
-      less_than_x_seconds:
-        zero: 'menos que un segundo'
-        one: 'menos que un segundo'
-        other: 'menos que{{count}} segundos'
-      x_seconds:
-        one: '1 segundo'
-        other: '{{count}} segundos'
-      less_than_x_minutes:
-        zero: 'menos que un minuto'
-        one: 'menos que un minuto'
-        other: 'menos que {{count}} minuto'
-      x_minutes:
-        one: '1 minuto'
-        other: '{{count}} minutos'
-      about_x_hours:
-        one: 'cerca de una hora'
-        other: 'cerca de {{count}} horas'
-      x_days:
-        one: 'un día'
-        other: '{{count}} días'
-      about_x_months:
-        one: 'cerca de un mes'
-        other: 'cerca de {{count}} meses'
-      x_months:
-        one: 'un mes'
-        other: '{{count}} meses'
-      about_x_years:
-        one: 'cerca de un año'
-        other: 'cerca de {{count}} año'
-      over_x_years:
-        one: 'más que un año'
-        other: 'más que {{count}} años'
-    prompts:
-      second: "segundos"
-      minute: "minutos"
-      hour: "horas"
-      day: "días"
-      month: "meses"
-      year: "años"
-
-  number:
-    format:
-      precision: 2
-      separator: ','
-      delimiter: '.'
-    currency:
-      format:
-        unit: '‚ā¨'
-        format: '%n%u'
-        separator:
-        delimiter:
-        precision:
-    percentage:
-      format:
-        delimiter: ""
-    precision:
-      format:
-        delimiter: ""
-    human:
-      format:
-        delimiter: ""
-        precision: 1
-      storage_units:
-        # Storage units output formatting.
-        # %u is the storage unit, %n is the number (default: 2 MB)
-        format: "%n %u"
-        units:
-          byte:
-            one: "Byte"
-            other: "Bytes"
-          kb: "KB"
-          mb: "MB"
-          gb: "GB"
-          tb: "TB"
-
+# Model resources
   activerecord:
     errors:
       models:
@@ -711,3 +609,108 @@ es:
       user_session:
         email:    'E-Mail'
         password: 'seña'
+
+
+# Date / time / number formatting
+  date:
+    formats:
+      default: "%d.%m.%Y"
+      short: "%e. %b"
+      long: "%e. %B %Y"
+      only_day: "%e"
+      month_name: "%B"
+      day_name: "%a"
+
+    day_names: [Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado]
+    abbr_day_names: [Do, Lu, MA, Mi, Ju, Vi, Sa]
+    month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
+    abbr_month_names: [~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic]
+    order: [ :day, :month, :year ]
+
+  time:
+    formats:
+      default: "%a, %d. %B %Y"
+      short: "%e. %B, %H:%M Uhr"
+      long: "%A, %e. %B %Y, %H:%M Uhr"
+      time: "%H:%M"
+
+    am: "por la mañana"
+    pm: "de la tarde"
+
+  datetime:
+    distance_in_words:
+      half_a_minute: 'medio minuto'
+      less_than_x_seconds:
+        zero: 'menos que un segundo'
+        one: 'menos que un segundo'
+        other: 'menos que {{count}} segundos'
+      x_seconds:
+        one: '1 segundo'
+        other: '{{count}} segundos'
+      less_than_x_minutes:
+        zero: 'menos que un minuto'
+        one: 'menos que un minuto'
+        other: 'menos que {{count}} minuto'
+      x_minutes:
+        one: '1 minuto'
+        other: '{{count}} minutos'
+      about_x_hours:
+        one: 'cerca de una hora'
+        other: 'cerca de {{count}} horas'
+      x_days:
+        one: 'un día'
+        other: '{{count}} días'
+      about_x_months:
+        one: 'cerca de un mes'
+        other: 'cerca de {{count}} meses'
+      x_months:
+        one: 'un mes'
+        other: '{{count}} meses'
+      about_x_years:
+        one: 'cerca de un año'
+        other: 'cerca de {{count}} año'
+      over_x_years:
+        one: 'más que un año'
+        other: 'más que {{count}} años'
+    prompts:
+      second: "segundos"
+      minute: "minutos"
+      hour: "horas"
+      day: "días"
+      month: "meses"
+      year: "años"
+
+  number:
+    format:
+      precision: 2
+      separator: ','
+      delimiter: '.'
+    currency:
+      format:
+        unit: '‚ā¨'
+        format: '%n%u'
+        separator:
+        delimiter:
+        precision:
+    percentage:
+      format:
+        delimiter: ""
+    precision:
+      format:
+        delimiter: ""
+    human:
+      format:
+        delimiter: ""
+        precision: 1
+      storage_units:
+        # Storage units output formatting.
+        # %u is the storage unit, %n is the number (default: 2 MB)
+        format: "%n %u"
+        units:
+          byte:
+            one: "Byte"
+            other: "Bytes"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
