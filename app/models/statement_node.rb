@@ -1,5 +1,4 @@
 class StatementNode < ActiveRecord::Base
-  require 'echo_subscribeable'
   include Echoable
   acts_as_subscribeable
   # magically allows Proposal.first.question? et al.
