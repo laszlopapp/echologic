@@ -18,6 +18,7 @@ Given /^I gave an echo already to a proposal$/ do
   @proposal = Proposal.first
   @proposal.user_echos.destroy_all
   @proposal.supported_by!(@user)
+  @user.find_or_create_subscription_for(@proposal)
 end
 
 Then /^the proposal should have no more echo$/ do
@@ -32,5 +33,5 @@ end
 
 Then /^the proposal should not have "([^\"]*)" as follower$/ do |name|
   @proposal.reload
-  assert !@proposal.followed_by?(@user)
+  assert !@user.follows?(@proposal)
 end

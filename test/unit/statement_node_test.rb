@@ -80,10 +80,7 @@ class StatementNodeTest < ActiveSupport::TestCase
       end
       
       should "should be followed by creator" do
-        puts @statement_node.subscribers.map{|s|s.inspect}
         @user = @statement_node.creator
-        puts @user.inspect
-        puts @statement_node.subscribers.include?(@user).to_s
         assert(@statement_node.followed_by?(@user))
       end
       
@@ -102,7 +99,7 @@ class StatementNodeTest < ActiveSupport::TestCase
       should "be able to be followed" do
         @user = User.last
         @user.find_or_create_subscription_for(@statement_node)
-        assert(@statement_node.followed_by?(@user))
+        assert(@user.follows?(@statement_node))
       end
       
     end

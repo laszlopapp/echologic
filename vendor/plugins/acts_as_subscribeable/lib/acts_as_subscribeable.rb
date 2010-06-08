@@ -6,7 +6,7 @@ module ActiveRecord
       end
       
       module ClassMethods
-        def subscribeable?
+        def self.subscribeable?
           false
         end
         
@@ -24,7 +24,7 @@ module ActiveRecord
           
           class_eval <<-RUBY
             def subscribe_creator
-              subscription = self.subscriptions.find_by_subscriber_id(self.creator.id) || Subscription.new(:subscriber => self.creator, :subscribeable => self)
+              subscription = self.subscriptions.find_by_subscriber_id(self.creator.id) || Subscription.new(:subscriber_id => self.creator.id, :subscribeable_id => self.id)
               subscriptions << subscription if subscription.new_record?
             end
           
@@ -33,7 +33,7 @@ module ActiveRecord
             end
             
             def followed_by?(user)
-              self.subscribers.include? user
+              self.subscriptions.map{|s|s.subscriber}.include? user
             end
           RUBY
         end
@@ -45,7 +45,7 @@ module ActiveRecord
       end
       
       module ClassMethods
-        def subscriber?
+        def self.subscriber?
           false
         end
         
@@ -64,7 +64,7 @@ module ActiveRecord
             end
             
             def follows?(obj)
-              self.subscribeables.include? obj
+              self.subscriptions.map{|s|s.subscribeable}.include? obj
             end
             
             def find_or_create_subscription_for(obj)
