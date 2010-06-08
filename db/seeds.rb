@@ -5,7 +5,7 @@
 }.each_pair { |role, users| users.each { |user| user.has_role!(role) } }
 
 # TOPIC CATEGORIES
-%w(echonomyjam echocracy echo echosocial realprices igf).each { |name| Tag.create(:value => name) }
+%w(#echonomyjam #echocracy #echo #echosocial #realprices #igf).each { |name| Tag.create(:value => name) }
 
 
 ###############
