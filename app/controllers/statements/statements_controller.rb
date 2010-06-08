@@ -47,16 +47,7 @@ class StatementsController < ApplicationController
 
     @current_language_keys = current_language_keys
 
-    if @value.blank?
-      statement_nodes_not_paginated = statement_node_class
-      statement_nodes_not_paginated = statement_nodes_not_paginated.from_context(TaoTag.valid_contexts(StatementNode.name)).from_tags(category) if params[:id]
-      statement_nodes_not_paginated = statement_nodes_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
-    else
-      statement_nodes_not_paginated = search(@value, {:tag => category, :auth => (current_user && current_user.has_role?(:editor)) })
-    end
-    #additional step: to filter statement_nodes with a translated version in the current language
-    statement_nodes_not_paginated = statement_nodes_not_paginated.select{|s| !(@current_language_keys & s.statement_documents.collect{|sd| sd.language_id}).empty?}
-
+    statement_nodes_not_paginated = search(@value, @current_language_keys, {:tag => category, :auth => (current_user && current_user.has_role?(:editor)) })
     @count    = statement_nodes_not_paginated.size
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => 6)
 
@@ -315,8 +306,8 @@ class StatementsController < ApplicationController
     children.paginate(StatementNode.default_scope.merge(:page => page, :per_page => 5))
   end
 
-  def search (value, opts = {})
-    StatementNode.search_statement_nodes("Question", value, opts)
+  def search (value, language_keys = current_language_keys, opts = {})
+    StatementNode.search_statement_nodes("Question", value, language_keys, opts)
   end
 end
 

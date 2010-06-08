@@ -99,7 +99,7 @@ end
 
 Then /^the question "([^\"]*)" should have "([^\"]*)" as tags$/ do |title, tags|
   tags = tags.split(' ')  
-  @question = StatementNode.search_statement_nodes("Question", title).first
+  @question = StatementNode.search_statement_nodes("Question", title,[EnumKey.find_by_code("en")]).first
   res = @question.tags.map{|tag|tag.value} - tags
   res.should == []
 end
