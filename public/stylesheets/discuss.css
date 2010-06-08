@@ -35,6 +35,12 @@
   cursor: default;
 }
 
+#function_container .new_question {
+	position: absolute;
+	left: 1270px;
+	top: 64px;
+}
+
 #discuss_results .box_header_icon {
   background: url(../images/page/box/box_icon_discuss.png) repeat-x left top;
 }

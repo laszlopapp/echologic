@@ -211,8 +211,7 @@ class StatementNode < ActiveRecord::Base
       #sorting the or arguments    
       or_attrs = opts[:or_attrs] || %w(d.title d.text)
       or_conditions = or_attrs.map{|attr|"#{attr} LIKE ?"}.join(" OR ")
-      #or_conditions << "OR #{tags.map{|tag| sanitize_sql(["t.value LIKE ?","%#{tag}%"])}. join(" OR ")}"
-      or_conditions << sanitize_sql(["OR t.value IN (?)",tags])
+      or_conditions << "OR #{tags.map{|tag| tag.length > 3 ? sanitize_sql(["t.value LIKE ?","%#{tag}%"]) : sanitize_sql(["t.value = ?",tag])}. join(" OR ")}"
       
       #sorting the and arguments    
       and_conditions = opts[:conditions] || ["n.type = '#{type}'"]

@@ -11,7 +11,9 @@
       <%= submit_tag '', :alt => 'search_button' %>
     <% end %>
 </div>
-
+<span id="new_question" class="new_question">
+<%= create_question_link_for %>
+</span>
 <%= render :partial => 'statements/questions/questions', :locals => {:statement_nodes => @statement_nodes} %>
 <br></br>
 

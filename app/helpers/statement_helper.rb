@@ -194,10 +194,10 @@ module StatementHelper
     "create_#{type}_button"
   end
 
-  def create_question_link_for(category)
-    return unless current_user && current_user.has_role?(:editor)
+  def create_question_link_for
+    return unless current_user
     link_to(I18n.t("discuss.statements.create_question_link",
-            :type => Question.display_name), new_question_url(:category => category.value),
+            :type => Question.display_name), new_question_url,            
             :class=>'ajax text_button create_question_button ttLink no_border',
             :title => I18n.t("discuss.tooltips.create_question"))
   end
