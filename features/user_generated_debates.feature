@@ -103,6 +103,7 @@ Feature: User Generated Debates
         | question_statement_document_title | A Debate for all Seasons |
         | question_statement_document_text  | A Debate for all Seasons |
         | question_tags                     | #echonomyjam |
+      And I select "Published" from "state"
       And I press "Save"   
     When I am on the Discuss Index
     When I follow "Pilot Projects"

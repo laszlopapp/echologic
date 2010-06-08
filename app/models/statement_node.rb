@@ -203,23 +203,24 @@ class StatementNode < ActiveRecord::Base
   
   class << self
     
-    def search_statement_nodes(type, value, opts={} )
+    def search_statement_nodes(type, value, language_keys, opts={} )
     
       #get tags
       tags = opts[:tag] || value.split(" ")
     
       #sorting the or arguments    
-      or_attrs = opts[:or_attrs] || %w(d.title d.text)
-      or_conditions = or_attrs.map{|attr|"#{attr} LIKE ?"}.join(" OR ")
-      #or_conditions << "OR #{tags.map{|tag| sanitize_sql(["t.value LIKE ?","%#{tag}%"])}. join(" OR ")}"
-      or_conditions << sanitize_sql(["OR t.value IN (?)",tags])
-      
+      if !value.blank?
+        or_attrs = opts[:or_attrs] || %w(d.title d.text)
+        or_conditions = or_attrs.map{|attr|"#{attr} LIKE ?"}.join(" OR ")
+        or_conditions << "OR #{tags.map{|tag| tag.length > 3 ? sanitize_sql(["t.value LIKE ?","%#{tag}%"]) : sanitize_sql(["t.value = ?",tag])}. join(" OR ")}"
+      end
       #sorting the and arguments    
       and_conditions = opts[:conditions] || ["n.type = '#{type}'"]
-      and_conditions << "state = #{statement_states('published').id}" if opts[:auth] 
-      
+      and_conditions << "state_id = #{statement_states('published').id}" if opts[:auth] 
+      and_conditions << sanitize_sql(["d.language_id IN (?)",language_keys])
+
       #all getting along like really good friends
-      and_conditions << "(#{or_conditions})"
+      and_conditions << "(#{or_conditions})" if or_conditions
       
       #Rambo 1
       query_part_1 = <<-END
@@ -237,13 +238,13 @@ class StatementNode < ActiveRecord::Base
       query_part_2 = and_conditions.join(" AND ")
       #Rambo 3
       #TODO: doesn't order by supporter count!!!!!!!!!!!!!!!
-      query_part_3 = " order by n.created_at asc;"
+      query_part_3 = " order by e.supporter_count DESC, n.created_at asc;"
       
       #All Rambo's in one
       query = query_part_1+query_part_2+query_part_3
       value = "%#{value}%"
        
-      conditions = [query, *([value] * or_attrs.size)]
+      conditions = or_attrs ? [query, *([value] * or_attrs.size)] : query
       statement_nodes = find_by_sql(conditions)
     end
   

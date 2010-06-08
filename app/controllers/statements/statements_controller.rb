@@ -47,16 +47,7 @@ class StatementsController < ApplicationController
 
     @current_language_keys = current_language_keys
 
-    if @value.blank?
-      statement_nodes_not_paginated = statement_node_class
-      statement_nodes_not_paginated = statement_nodes_not_paginated.from_context(TaoTag.valid_contexts(StatementNode.name)).from_tags(category) if params[:id]
-      statement_nodes_not_paginated = statement_nodes_not_paginated.published(current_user && current_user.has_role?(:editor)).by_supporters.by_creation
-    else
-      statement_nodes_not_paginated = search(@value, {:tag => category, :auth => (current_user && current_user.has_role?(:editor)) })
-    end
-    #additional step: to filter statement_nodes with a translated version in the current language
-    statement_nodes_not_paginated = statement_nodes_not_paginated.select{|s| !(@current_language_keys & s.statement_documents.collect{|sd| sd.language_id}).empty?}
-
+    statement_nodes_not_paginated = search(@value, @current_language_keys, {:tag => category, :auth => (current_user && current_user.has_role?(:editor)) })
     @count    = statement_nodes_not_paginated.size
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => 6)
 
@@ -194,7 +185,7 @@ class StatementsController < ApplicationController
     @statement_node.add_tags(@tags, {:language_id => current_language_key}) unless @tags.nil?
     set_tag_errors @statement_node
     respond_to do |format|
-      if @statement_node.save and @error.nil?
+      if @error.nil? and @statement_node.save
         @current_language_keys = current_language_keys
         set_info("discuss.messages.created", :type => @statement_node.class.display_name)
         #load current created statement_node to session
@@ -205,14 +196,14 @@ class StatementsController < ApplicationController
         end
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js   {
-          render_create_statement_node(@statement_node,@statement_document,children_for_statement_node)
+          render_create_statement_node(@statement_node,@statement_document,@children = children_for_statement_node)
         }
       else
         @current_language_key = current_language_key
         set_error(@statement_document)
         @statement_node.tao_tags.each{|tao_tag|set_error(tao_tag)}
         format.html { flash_error and render :template => 'statements/new' }
-        format.js   { show_error_messages(@statement_node) }
+        format.js   { show_error_messages }
       end
     end
   end
@@ -239,7 +230,7 @@ class StatementsController < ApplicationController
     @statement_node.delete_tags(tags_to_delete)
     set_tag_errors @statement_node
     respond_to do |format|
-      if @statement_node.update_attributes(attrs) and @statement_node.translated_document(current_language_keys).update_attributes(attrs_doc) and @error.nil?
+      if @error.nil? and @statement_node.update_attributes(attrs) and @statement_node.translated_document(current_language_keys).update_attributes(attrs_doc)
         set_info("discuss.messages.updated", :type => @statement_node.class.human_name)
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js   { show }
@@ -282,12 +273,6 @@ class StatementsController < ApplicationController
     params[:controller].singularize.camelize.constantize
   end
 
-  # Checks if the current controller belongs to a question
-  # FIXME: isn't this possible to solve over statement_node.quesion? already?
-  def is_question?
-    params[:controller].singularize.camelize.eql?('Question')
-  end
-
   def may_edit?
     current_user.may_edit? or @statement_node.translated_document(current_language_keys).author == current_user
   end
@@ -319,8 +304,8 @@ class StatementsController < ApplicationController
     children.paginate(StatementNode.default_scope.merge(:page => page, :per_page => 5))
   end
 
-  def search (value, opts = {})
-    StatementNode.search_statement_nodes("Question", value, opts)
+  def search (value, language_keys = current_language_keys, opts = {})
+    StatementNode.search_statement_nodes("Question", value, language_keys, opts)
   end
 end
 

@@ -169,8 +169,18 @@ function loadAddTagButtons() {
 	}
 }
 
+
 /* add new tags to be added to statement */
-function bindAddTagButtonEvents() {
+function bindAddTagButtonEvents() {	
+  $('#tag_topic_id').keypress(function(event) {
+		if (event && event.keyCode == 13) { /* check if enter was pressed */
+		  if ($('#tag_topic_id').val().length != 0) {
+	      $('.addTag').click();
+	    }
+			return false;
+	  }
+	})
+	
 	$('.addTag').click(function() {		
 		text_tags = $('#tag_topic_id').val().trim().split(",");
 		if (text_tags.length != 0) {

@@ -3,7 +3,10 @@
 
 <% if statement_document %>
 	<li id="<%= statement_node_dom_id(statement_node) %>" class="<%=statement_node.class.name.downcase%>">
-	  <%= link_to(statement_document.title, url_for(statement_node), :class => "statement_link #{statement_node.class.name.underscore}_link ttLink no_border", :title => I18n.t("discuss.tooltips.read_#{statement_node.class.name.underscore}")) %>
+		<% link_to url_for(statement_node), :class => "avatar_holder" do %>
+      <%= image_tag("default_question_image.png") %>
+    <% end %>
+	  <%= link_to(statement_document.title, url_for(statement_node), :class => "statement_link ttLink no_border", :title => I18n.t("discuss.tooltips.read_#{statement_node.class.name.underscore}")) %>
 		<div class="tags_list"><%=tag_list(statement_node)%></div>
 		<div class="buttons">
 			<% if !statement_node.published? %>

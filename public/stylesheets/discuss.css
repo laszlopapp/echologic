@@ -35,6 +35,12 @@
   cursor: default;
 }
 
+#function_container .new_question {
+	position: absolute;
+	left: 1270px;
+	top: 64px;
+}
+
 #discuss_results .box_header_icon {
   background: url(../images/page/box/box_icon_discuss.png) repeat-x left top;
 }
@@ -458,6 +464,10 @@ a.statement_link:hover {
 /********* MY DISCUSSIONS AREA*************/
 /******************************************/
 
+#discussion_list a.avatar_holder{
+	float: left;
+}
+
 #discussion_list li.question {
 	width: 100%;
 	height: 46px;
@@ -465,8 +475,9 @@ a.statement_link:hover {
 
 #discussion_list a.statement_link {
 	float: left;
-	width: 330px;
+	width: 304px;
 	margin-top: 8px;
+	padding: 4px 0px;
 }
 
 #discussion_list .tags_list {
