@@ -38,8 +38,8 @@ es:
         users:
           new: 'Tu echo - unirse a en echologic'
         activations:
-          new: 'Tu echo - Activar su cuenta en echologic'
-          create: 'Tu echo - Activar su cuenta en echologic'
+          new: 'Tu echo - Activar tu cuenta en echologic'
+          create: 'Tu echo - Activar tu cuenta en echologic'
         password_resets:
           new: 'Tu echo - pedir nueva seña'
           edit: 'Tu echo - definir nueva seña'
@@ -141,7 +141,7 @@ es:
           Ciudadanos, expertos, determinantes y representantes de organizaciones y empresas.
           </p><p>
           <strong>echo</strong> cría la base para una <strong>democracia participativa</strong> a nivel local,
-          regional y <span title="{{subsidiarity_tooltip}}" class="ttLink">global</span>. Aquí su voz tendrá un eco. Ideas se tornarán en
+          regional y <span title="{{subsidiarity_tooltip}}" class="ttLink">global</span>. Aquí tu voz tendrá un eco. Ideas se tornarán en
           movimiento, visiones en realidad.
           echo significa el <strong>fin de la impotencia</strong> y <strong>el inicio de la auto-determinación</strong>!
           </p>
@@ -176,7 +176,7 @@ es:
           title:  Tu echo
           more: |
             <p>
-            echo necesita su opinión, sus ideas, su voz! Ayúdenos a guiar la democracia hacia un futuro en que
+            echo necesita tu opinión, tus ideas, tu voz! Ayúdenos a guiar la democracia hacia un futuro en que
             <strong>cualcier voz vale</strong> lo mismo por todo el mundo.
             </p><p>
             En <strong>echologic</strong> se reúnen más y más personas para juntos realizar la <strong>visión de echo</strong>.
@@ -184,7 +184,7 @@ es:
             </p>
 
         action: |
-          Descubrirlo y contribuir sus ideas!
+          Descubrirlo y contribuir tus ideas!
 
       # about section
       about:
@@ -216,7 +216,7 @@ es:
           </p><p>
           Además echo está recibiendo apoyo financiero del Fondo Social de la Unión Europea y del Estado Federal de Alemania.
           </p><p>
-          Si su organización está interesada en colaborar, por favor escribanos un E-Mail
+          Si tu organización está interesada en colaborar, por favor escribanos un E-Mail
           a <a href="mailto:team@echologic.org?subject=echo mitgestalten">team@echologic.org</a>.
           </p>
 
@@ -251,7 +251,7 @@ es:
 
         text: |
           <p>
-          Agradecemos por su interés en echologic!<br/>
+          Agradecemos por tu interés en echologic!<br/>
           Aquí puede leer nuestra política de privacidad.
           </p>
 
@@ -331,7 +331,7 @@ es:
         text: |
           <p>
           Descubra una visión conjunta de la opinión publica actual!
-          Participe en discusiones! Convenza a otros de su opinión!
+          Participe en discusiones! Convenza a otros de tu opinión!
           </p><p>
           El área de discusión de echo permite por la primera vez la aparición de una inteligencia colectiva a
           través de un discurso público y democrático con un número ilimitado de participantes. Para ello, su nuevo
@@ -385,7 +385,7 @@ es:
 
         text_top: |
           <p>
-          Halle los aliados ciertos para sus propuestas y proyectos!
+          Halle los aliados ciertos para tus propuestas y proyectos!
           </p><p>
           A diferencia de las redes sociales convencionales, el preciso buscador de echo permite hallar fácilmente
           aliados con <strong>diferentes formas de competencia</strong> en relación a ciertos asuntos. Para eso, los participantes
@@ -409,7 +409,7 @@ es:
 
         text_top: |
           <p>
-          Póngase activo! Realice sus objetivos con éxito!
+          Póngase activo! Realice tus objetivos con éxito!
           </p><p>
           Para lograr <strong>resultados notables en la vida cotidiana</strong> de las personas, echo anima a los
           participantes de discusiones a iniciar acciones y transformar sus propuestas en realidad. echo enfoca todas las
@@ -660,7 +660,7 @@ es:
 
         text: |
           <p>
-          Financie su acción sin gastos !
+          Financie tu acción sin gastos !
           </p><p>
           echo une una <strong><span title="{{tooltip_nonprofit}}" class="ttLink">filosofía sin fines lucrativos</span></strong> con
           <strong>modelos financieros poderosos</strong>, donde “poderoso” no significa la mera financiación de
@@ -918,7 +918,7 @@ es:
 
         text: |
           <p>
-          Agradecemos por su interés en echologic!<br/>
+          Agradecemos por tu interés en echologic!<br/>
           Aquí puede leer nuestra política de privacidad.
           </p>
 
@@ -940,20 +940,20 @@ es:
   mail:
     # Activation section
     activation:
-      subject: "Activar su cuenta en echologic"
+      subject: "Activar tu cuenta en echologic"
       text1: |
         Estimado/a {{name}},
 
-        gracias por su registro en echologic! Por favor active su cuenta siguiendo el link de abajo.
+        gracias por tu registro en echologic! Por favor active tu cuenta siguiendo el link de abajo.
       text2: |
-        Si por acaso este link no funciona, copie el link a su browser.
+        Si por acaso este link no funciona, copie el link a tu browser.
 
         Si usted tuvo problemas con el acceso a echologic, no se detenga y contáctenos por support@echologic.org.
 
         Esperamos reencontrarle en echologic en breve!
 
         Atentamente
-        su equipe de echo
+        tu equipe de echo
 
     # Welcome section
     welcome:
@@ -964,12 +964,12 @@ es:
         Bienvenido a echologic!
 
         Estamos felices que usted decidió contribuir al desarrollo de echo!
-        Como parte de echologic usted podrá contribuir al éxito de echo con sus ideas y propuestas.
+        Como parte de echologic usted podrá contribuir al éxito de echo con tus ideas y propuestas.
         Le deseamos un tiempo muy inspirador con echologic.
 
         Hasta pronto!
 
-        Su equipe de echo
+        Tu equipe de echo
 
     # New password section
     new_password:
@@ -977,13 +977,13 @@ es:
       text1: |
         Estimado/a (nombre),
 
-        gracias por su registro en echologic! Por favor active su cuenta siguiendo el link de abajo.
+        gracias por tu registro en echologic! Por favor active tu cuenta siguiendo el link de abajo.
       text2: |
-        Si por acaso este link no funciona, copie el link a su browser.
+        Si por acaso este link no funciona, copie el link a tu browser.
 
         Si usted tuvo problemas con el acceso a echologic, no se detenga y contáctenos por support@echologic.org.
 
         Esperamos reencontrarle en echologic en breve!
 
         Atentamente
-        su equipe de echo
+        Tu equipe de echo

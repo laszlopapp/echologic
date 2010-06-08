@@ -49,7 +49,7 @@ es:
         next_steps: 'Futuros desarrollos en "mi echo" están planeados para después del desarrollo de los tres áreas principales "discutir, conectar y actuar!"'
         vision: |
          <p>
-         "Mi echo" se será su <strong>central particular de información</strong> en echo.
+         "Mi echo" será tu <strong>central particular de información</strong> en echo.
          Aquí tendrás una sinopsis de las <strong>noticias mas importantes</strong> y las <strong>discusiones y acciones mas recientes</strong>.
          </p>
 
@@ -111,20 +111,20 @@ es:
       En el <strong>"desarrollo"</strong> (arriba en el lado derecho de la pantalla) puedes seguir
       el desarrollo actual de cada área y los próximos pasos planeados.
       </p><p>
-      Como miembro de echologic estas invitado a contribuir con sus ideas a la <strong>evolución de echo</strong>!<br/>
+      Como miembro de echologic estas invitado a contribuir con tus ideas a la <strong>evolución de echo</strong>!<br/>
       Hasta la hora solamente las funciones simples fueron publicadas en las siguientes áreas:
       </p>
     function_1:
       name: 'Mi perfil'
       description: |
-        Complete su perfil para que otros puedan hallarle, cuando sus competencias sean solicitadas.
+        Complete tu perfil para que otros puedan hallarle, cuando tus competencias sean solicitadas.
     function_2:
       name: 'Conectar'
       description: 'Descubra la comunidad y conectase con otras personas interesantes del movimiento.'
     function_3:
       name: 'Discutir'
       description: |
-        Intercambie con otros pensadores sus ideas sobre sostenibilidad y democracia.<br/>
+        Intercambie con otros pensadores tus ideas sobre sostenibilidad y democracia.<br/>
         Participe en la evolución de echo.
 
   # ------------
@@ -145,33 +145,33 @@ es:
         login_success:  "Login exitoso.<br/>Bienvenido de vuelta a echologic!"
         login_failed:   "Usuario desconocido o seña incorrecta."
         logout_success: "Logout exitoso.<br/>Hasta la próxima vez!"
-        session_timeout: "Su sesión fue terminada. Por favor entre otra vez."
+        session_timeout: "Tu sesión fue terminada. Por favor entre otra vez."
 
     # Activations section
     activation:
       messages:
-        success: Su cuenta fue activada. Bienvenido a echologic!
-        failed: Lamentablemente no era posible activar su cuenta. Por favor verifique su entrada.
+        success: Tu cuenta fue activada. Bienvenido a echologic!
+        failed: Lamentablemente no era posible activar tu cuenta. Por favor verifique tu entrada.
 
     # Password resets section
     password_reset:
       step1: Solicitar nueva seña
       step2: Definir nueva seña
       step1_text: |
-        <p><strong>Te olvidaste de su seña</strong> o simplemente desea una nueva?
+        <p><strong>Te olvidaste de tu seña</strong> o simplemente desea una nueva?
         </p><p>
-        No hay problema! Simplemente entre su <strong>E-Mail</strong> con la cual estas registrado en echologic. Nosotros le enviaremos un E-Mail que le posibilitará <strong>definir una nueva seña</strong>.
+        No hay problema! Simplemente entre tu <strong>E-Mail</strong> con la cual estas registrado en echologic. Nosotros le enviaremos un E-Mail que le posibilitará <strong>definir una nueva seña</strong>.
         </p>
       step1_mail: Enviar E-Mail
 
       step2_text: |
-        Por favor entre <strong>su nueva seña</strong> con la cual deseas entrar a echologic la próxima vez.
+        Por favor entre <strong>tu nueva seña</strong> con la cual deseas entrar a echologic la próxima vez.
       step2_ok: Definir seña y entrar
       messages:
-        success:        'Le enviamos un E-Mail, que le posibilita definir una nueva seña.<br/>Por favor cheque su correo electrónico.'
+        success:        'Le enviamos un E-Mail, que le posibilita definir una nueva seña.<br/>Por favor cheque tu correo electrónico.'
         not_found:      'El E-Mail indicado no fue encontrado.'
-        reset_success:  'Su nueva seña fue guardada con éxito.'
-        reset_failed:   'Lamentablemente su seña no puede ser utilizada. Por favor cheque su entrada.'
+        reset_success:  'Tu nueva seña fue guardada con éxito.'
+        reset_failed:   'Lamentablemente tu seña no puede ser utilizada. Por favor cheque tu entrada.'
 
     # Profile Section
     profile:
@@ -187,7 +187,7 @@ es:
 
       password:
         title: Cambiar seña
-        new: Su nueva seña
+        new: Tu nueva seña
         confirm: Verificar seña
 
       picture:
@@ -196,10 +196,10 @@ es:
       upload_picture:
         title: Subir foto
         guide: Por favor <strong>elija una foto</strong> (JPG o PNG, max. 5MB) y clique 'subir'
-        progress: Su foto está siendo guardada. Espere por favor ...
+        progress: Tu foto está siendo guardada. Espere por favor ...
 
       messages:
-        updated: "Su foto fue cambiada."
+        updated: "Tu foto fue cambiada."
 
     # Spoken Languages section
     spoken_languages:
@@ -214,7 +214,7 @@ es:
     # Memberships section
     memberships:
       title: Actividades
-      guide:  Por favor entre aquí su actividades voluntarias, profesionales o las demás actividades en organizaciones.
+      guide:  Por favor entre aquí tu actividades voluntarias, profesionales o las demás actividades en organizaciones.
       organisation: Organización
       position: Mi cargo
 
@@ -247,7 +247,7 @@ es:
         posiblemente representamos a otros y tomamos decisiones por ellos.<br/>
         echo ayuda a la gente con pensamientos o preocupaciones semejantes y <strong>competencias complementares</strong>
         encontrarse y conectarse fácilmente.<br/>
-        Como definirías <strong>sus necessidades, preocupaciones y competencias con algunos tópicos (tags)</strong>?
+        Como definirías <strong>tus necessidades, preocupaciones y competencias con algunos tópicos (tags)</strong>?
 
       sorts:
         affection: <strong>Afectado</strong> por
@@ -269,15 +269,15 @@ es:
           Como proyecto por el bienestar común, echo avanza por medio <strong>del esfuerzo  común</strong> de personas y
           organizaciones comprometidas.
           </p><p>
-          Quieres contribuir con <strong>sus ideas</strong>?<br/>
-          Pues ingrese su nombre y su correo electrónico aquí!<br/>
+          Quieres contribuir con <strong>tus ideas</strong>?<br/>
+          Pues ingrese tu nombre y tu correo electrónico aquí!<br/>
           <strong>participe de echo</strong> y <strong>discuta sobre temas de sostenibilidad y democracia</strong> con otros
           ciudadanos, expertos y políticos comprometidos.
           </p>
         action: 'Ingresar ahora!'
 
       messages:
-        created: "Por favor verifique su E-Mail para activar su nueva cuenta."
+        created: "Por favor verifique tu E-Mail para activar tu nueva cuenta."
 
     # Reports section
     reports:
@@ -286,7 +286,7 @@ es:
         text:  "<p>Viste algún contenido <strong>ofensivo, anti-ético o ilegal?</strong><br/> Si la respuesta es sí,
             puedes denunciar este usuario, nosotros nos encargaremos a resolver este problema.<p>"
       messages:
-        created: "Gracias por su mensaje. Nosotros nos encargaremos a este asunto."
+        created: "Gracias por tu mensaje. Nosotros nos encargaremos a este asunto."
 
 
   # ---------------
@@ -348,7 +348,7 @@ es:
           la echocracy.<br/>
           <strong>echocracy</strong> es constructiva, igualitaria y auto-determinada – y es global!
           </p><p>
-          Contribuya sus ideas y ayúdenos a realizar la visión de una democracia global!
+          Contribuya tus ideas y ayúdenos a realizar la visión de una democracia global!
           </p>
       echo:
         name: echo
@@ -374,7 +374,7 @@ es:
           propia <strong>página de web</strong> solamente con unos clic - <strong>gratis</strong>!
           </p><p>
           Diganos lo que será lo más importante, para coordinar su colaboración mejor, para conectarse con otros y para juntamente llevar sus acciones al éxito!
-          echo social será lanzado en <string>pocas semanas</strong>. Sus <strong>necesidades y prioridades</strong> serán un impulso importante para el desarrollo de echo social.
+          echo social será lanzado en <string>pocas semanas</strong>. Tus <strong>necesidades y prioridades</strong> serán un impulso importante para el desarrollo de echo social.
           Más informaciones hallarás aquí:
           <a href='http://www.echosocial.org' target='_blank'>www.echosocial.org</a>.
           </p>
@@ -435,8 +435,8 @@ es:
       create_question: 'Crear nueva discusión'
       create_proposal: 'Crear nueva propuesta'
       create_improvement_proposal: 'Crear nueva propuesta de mejoramiento'
-      echo: 'Apoye a esta opinión con su voz!'
-      unecho: 'Retire su voto, si ya no estes de acuerdo.'
+      echo: 'Apoye a esta opinión con tu voz!'
+      unecho: 'Retire tu voto, si ya no estes de acuerdo.'
       echo_indicator:
         one: 'Esta opinión tiene {{supporter_count}} vozes.'
         many: 'Esta opinión tiene {{supporter_count}} vozes.'
@@ -482,7 +482,7 @@ es:
       translated: "{{type}} fue traducido."
       empty:   "No fue encontrado ningun debate. Por favor intente buscar por otra palavra."
       empty_without_spoken_languages: |
-        No fue encontrada ninguna cuestión. Intente definir sus <a href='{{my_echo}}'>lenguas conocidas</a>
+        No fue encontrada ninguna cuestión. Intente definir tus <a href='{{my_echo}}'>lenguas conocidas</a>
         para ver contenidos en otras lenguas.
       new_percentage: "Ahora tu perfil está completo por {{percentage}}%."
 
@@ -514,7 +514,7 @@ es:
       actions:
         report: "Denunciar"
     messages:
-      empty:           'No fueron encontrados resultados para su búsqueda. Por favor intente de nuevo con otras palablas.'
+      empty:           'No fueron encontrados resultados para tu búsqueda. Por favor intente de nuevo con otras palablas.'
       no_concernments: 'Este miembro todavía no ingresó ninguna preocupación o competencia.'
       no_web_addresses: 'Este miembro todavía no ingresó ninguna dirección de Web'
 
@@ -524,7 +524,7 @@ es:
       title: Feedback
       welcome: |
         <p>
-        <strong>Su opinión es importante!</strong><br/>
+        <strong>Tu opinión es importante!</strong><br/>
         </p><p>
         Tienes alguna pregunta o sugerencia? Quieres criticar algo, apuntar algo o simplemente derramar un montón de elogio en nosotros?
         Nosotros siempre estamos atentos por ti!
@@ -532,7 +532,7 @@ es:
       message: Mensaje
       send: Enviar mensaje
     create:
-      thank_you: Muchas gracias por su mensaje!
+      thank_you: Muchas gracias por tu mensaje!
 
 
 # Model resources
@@ -543,12 +543,12 @@ es:
           attributes:
             blank: 'Por favor rellene todos los espacios.'
             email:
-              invalid: 'Erraste su E-Mail. Por favor ingréselo otra vez.'
+              invalid: 'Erraste tu E-Mail. Por favor ingréselo otra vez.'
 
         user:
           attributes:
             email:
-              taken: 'Erraste su E-Mail. Por favor ingréselo otra vez.'
+              taken: 'Erraste tu E-Mail. Por favor ingréselo otra vez.'
 
       messages:
         blank: "Tienes que rellenar el espacio '{{attribute}}' ."
@@ -563,7 +563,7 @@ es:
         header:
           one: "Un espacio no fue rellenado correctamente."
           other: "{{count}} espacios no fueron rellenados correctamente."
-        body: "Por favor cheque su entrada:"
+        body: "Por favor cheque tu entrada:"
 
     attributes:
       profile:
@@ -600,7 +600,7 @@ es:
     error_messages:
       email_invalid:      "Por favor corrija la dirección de E-Mail."
       password_blank:     "Por favor ingrese la seña."
-      not_active:         "Su cuenta todavía no fue activada. Por favor mire sus E-Mail y siga el link en el E-Mail de activación que le enviamos."
+      not_active:         "Tu cuenta todavía no fue activada. Por favor mire tus E-Mail y siga el link en el E-Mail de activación que le enviamos."
       must_be_logged_in_for_page:  "Tienes que estar conectado para poder executar esta acción."
       must_be_logged_in_for_action:  "Tienes que estar conectado para poder ver esta página."
       must_be_logged_out: "Tienes que estar desconectado para poder ver esta página."
