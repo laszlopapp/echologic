@@ -16,6 +16,7 @@ class TaoTag < ActiveRecord::Base
   validates_presence_of :context_id
   validates_presence_of :tag_id  
   validates_uniqueness_of :tag_id, :scope => [:tao_type, :tao_id, :context_id] 
+  
  
   named_scope :tag_id_and_tao_id_and_type_and_context_id, lambda { |tag_id, tao_id, tao_type, context_id| { 
               :conditions => ["tag_id = ? AND (tao_id = ? OR tao_id is null) AND tao_type = ? AND context_id = ?", tag_id, tao_id, tao_type, context_id] } }

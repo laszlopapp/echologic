@@ -198,7 +198,7 @@ module StatementHelper
     return unless current_user
     link_to(I18n.t("discuss.statements.create_question_link",
             :type => Question.display_name), new_question_url,            
-            :class=>'ajax text_button create_question_button ttLink no_border',
+            :class=>'text_button create_question_button ttLink no_border',
             :title => I18n.t("discuss.tooltips.create_question"))
   end
 
@@ -277,8 +277,8 @@ module StatementHelper
 
   # Returns the context menu link for this statement_node.
   def statement_node_context_link(statement_node, language_keys, action = 'read', last_statement_node = false)
-
-    link = link_to(statement_node.translated_document(language_keys).title, url_for(statement_node),
+    return if (statement_document = statement_node.translated_document(language_keys)).nil?
+    link = link_to(statement_document.title, url_for(statement_node),
                    :class => "ajax no_border statement_link #{statement_node.class.name.underscore}_link ttLink",
                    :title => I18n.t("discuss.tooltips.#{action}_#{statement_node.class.name.underscore}"))
     if statement_node.class.name == 'Question'
@@ -393,15 +393,16 @@ module StatementHelper
         page.remove 'search_container'
         page.remove 'new_question'
         page.replace 'questions_container', :partial => 'statements/new'
+        page.replace 'my_discussions', :partial => 'statements/new'
       else
         page.replace 'children', :partial => 'statements/new'
       end
       page.replace('context',
                    :partial => 'statements/context',
-                   :locals => { :statement => statement_node.parent}) if statement_node.parent
+                   :locals => { :statement_node => statement_node.parent}) if statement_node.parent
       page.replace('discuss_sidebar',
                    :partial => 'statements/sidebar',
-                   :locals => { :statement => statement_node.parent})
+                   :locals => { :statement_node => statement_node.parent})
       # Direct JS
       page << "makeRatiobars();"
       page << "makeTooltips();"
@@ -411,31 +412,34 @@ module StatementHelper
   def render_create_statement_node(statement_node,statement_document,statement_node_children)
     render_with_info do |page|
       if statement_node.kind_of?(Question)
-        page.insert_html :top , 'function_container',
-                         :partial => 'statements/summary',
-                         :locals => { :statement => statement_node, :statement_document => statement_document}
-        page.insert_html :top , 'function_container',
-                         :partial => 'statements/sidebar',
-                         :locals => { :statement => statement_node}
-        page.insert_html :top , 'function_container',
-                         :partial => 'statements/context',
-                         :locals => { :statement => statement_node}
+#        page.insert_html :top , 'function_container',
+#                         :partial => 'statements/summary',
+#                         :locals => { :statement => statement_node, :statement_document => statement_document}
+#        page.insert_html :top , 'function_container',
+#                         :partial => 'statements/sidebar',
+#                         :locals => { :statement => statement_node}
+#        page.insert_html :top , 'function_container',
+#                         :partial => 'statements/context',
+#                         :locals => { :statement => statement_node}
+       page.redirect_to(url_for statement_node) 
       else
         page.replace('context',
                      :partial => 'statements/context',
-                     :locals => { :statement => statement_node})
+                     :locals => { :statement_node => statement_node})
         page.replace('discuss_sidebar',
                      :partial => 'statements/sidebar',
-                     :locals => { :statement => statement_node})
+                     :locals => { :statement_node => statement_node})
         page.replace('summary',
                      :partial => 'statements/summary',
-                     :locals => { :statement => statement_node, :statement_document => statement_document})
-      end
-      page.replace 'new_statement',
+                     :locals => { :statement_node => statement_node, :statement_document => statement_document})
+        page.replace 'new_statement',
                    :partial => 'statements/children',
                    :statement => statement_node,
                    :children => statement_node_children
+      end
+      
       # Direct JS
+       
       page << "makeRatiobars();"
       page << "makeTooltips();"
     end

@@ -1,7 +1,7 @@
 <% statement_node ||= @statement_node %>
 <% tags ||= @tags %>
 <% statement_document ||= @statement_document %>
-<% semantic_form_for statement_node.self_with_parents, :html => {:class => 'wide_form'} do |form| -%>
+<% semantic_form_for statement_node.self_with_parents, :html => {:class => 'wide_form' } do |form| -%>
   <%#= form.error_messages %>
   <%= render :partial => "statements/document_form", :locals => { :form => form, :statement_node => statement_node, :statement_document => statement_document } %>
   <% #FIXME: i don't know how to do this manually with formtastics. enums are not really supported by rails, and everywhere else where we use enum like statefulness in models, views do it like this %>

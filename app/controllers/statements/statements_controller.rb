@@ -195,7 +195,7 @@ class StatementsController < ApplicationController
     @statement_node.add_tags(@tags, {:language_id => current_language_key}) unless @tags.nil?
     set_tag_errors @statement_node
     respond_to do |format|
-      if @statement_node.save and @error.nil?
+      if @error.nil? and @statement_node.save
         @current_language_keys = current_language_keys
         set_info("discuss.messages.created", :type => @statement_node.class.display_name)
         current_user.supported!(@statement_node)
@@ -214,7 +214,7 @@ class StatementsController < ApplicationController
         set_error(@statement_document)
         @statement_node.tao_tags.each{|tao_tag|set_error(tao_tag)}
         format.html { flash_error and render :template => 'statements/new' }
-        format.js   { show_error_messages(@statement_node) }
+        format.js   { show_error_messages }
       end
     end
   end
@@ -241,7 +241,7 @@ class StatementsController < ApplicationController
     @statement_node.delete_tags(tags_to_delete)
     set_tag_errors @statement_node
     respond_to do |format|
-      if @statement_node.update_attributes(attrs) and @statement_node.translated_document(current_language_keys).update_attributes(attrs_doc) and @error.nil?
+      if @error.nil? and @statement_node.update_attributes(attrs) and @statement_node.translated_document(current_language_keys).update_attributes(attrs_doc)
         set_info("discuss.messages.updated", :type => @statement_node.class.human_name)
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js   { show }
@@ -282,12 +282,6 @@ class StatementsController < ApplicationController
   # returns the statement_node class, corresponding to the controllers name
   def statement_node_class
     params[:controller].singularize.camelize.constantize
-  end
-
-  # Checks if the current controller belongs to a question
-  # FIXME: isn't this possible to solve over statement_node.quesion? already?
-  def is_question?
-    params[:controller].singularize.camelize.eql?('Question')
   end
 
   def may_edit?
