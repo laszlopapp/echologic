@@ -207,7 +207,7 @@ class StatementsController < ApplicationController
         end
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js   {
-          render_create_statement_node(@statement_node,@statement_document,children_for_statement_node)
+          render_create_statement_node(@statement_node,@statement_document,@children = children_for_statement_node)
         }
       else
         @current_language_key = current_language_key
