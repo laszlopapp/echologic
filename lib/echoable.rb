@@ -69,12 +69,12 @@ module Echoable
     
     # returns true if the +user+ has visted the given +echoable+
     def visited_by?(user)
-      user.user_echos.visited.for_echo(self.echo.id).any?
+      self.echo ? user.user_echos.visited.for_echo(self.echo.id).any? : false
     end
     
     # returns true if the +user+ has supported the given +echoable+
     def supported_by?(user)
-      user.user_echos.supported.for_echo(self.echo.id).any?
+      self.echo ? user.user_echos.supported.for_echo(self.echo.id).any? : false
     end
     
     def find_or_create_echo

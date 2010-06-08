@@ -421,7 +421,7 @@ module StatementHelper
 #        page.insert_html :top , 'function_container',
 #                         :partial => 'statements/context',
 #                         :locals => { :statement => statement_node}
-       page.redirect_to(url_for statement_node) 
+       page.redirect_to(url_for(statement_node)) 
       else
         page.replace('context',
                      :partial => 'statements/context',

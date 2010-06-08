@@ -11,6 +11,7 @@ Feature: Echo
     # Todo: This test will always fail. Echo link does not work without js atm
     Then I should see the "echo" button
       And the proposal should have one echo
+      And the proposal should have "user" as follower
 
   Scenario: Undo an Echo to a statement as a user
     Given I am logged in as "user" with password "true"
@@ -20,6 +21,7 @@ Feature: Echo
     # Todo: This test will always fail. Echo link does not work without js atm
     Then I should see the "echo" button
       And the proposal should have no more echo
+      And the proposal should not have "user" as follower
 
   Scenario: Visit an Statement without giving an echo
     Given I am logged in as "user" with password "true"

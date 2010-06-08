@@ -24,3 +24,13 @@ Then /^the proposal should have no more echo$/ do
   @proposal.reload
   @proposal.echo.supporter_count.should == 0
 end
+
+Then /^the proposal should have "([^\"]*)" as follower$/ do |name|
+  @proposal.reload
+  assert @proposal.followed_by?(@user)
+end
+
+Then /^the proposal should not have "([^\"]*)" as follower$/ do |name|
+  @proposal.reload
+  assert !@proposal.followed_by?(@user)
+end

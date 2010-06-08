@@ -79,6 +79,14 @@ class StatementNodeTest < ActiveSupport::TestCase
         assert(@statement_node.supported_by?(@user))
       end
       
+      should "should be followed by creator" do
+        puts @statement_node.subscribers.map{|s|s.inspect}
+        @user = @statement_node.creator
+        puts @user.inspect
+        puts @statement_node.subscribers.include?(@user).to_s
+        assert(@statement_node.followed_by?(@user))
+      end
+      
       should "be able to be visited" do
         @user = User.last
         @statement_node.visited_by!(@user)
@@ -89,6 +97,12 @@ class StatementNodeTest < ActiveSupport::TestCase
         @user = User.last
         @statement_node.visited_by!(@user)
         assert(@statement_node.visited_by?(@user))
+      end
+      
+      should "be able to be followed" do
+        @user = User.last
+        @user.find_or_create_subscription_for(@statement_node)
+        assert(@statement_node.followed_by?(@user))
       end
       
     end

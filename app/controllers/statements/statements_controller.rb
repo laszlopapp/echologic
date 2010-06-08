@@ -109,6 +109,7 @@ class StatementsController < ApplicationController
   def echo
     return if @statement_node.question?
     @statement_node.supported_by!(current_user)
+    current_user.find_or_create_subscription_for(@statement_node)
     @current_language_keys = current_language_keys
     respond_to do |format|
       format.html { redirect_to @statement_node }
@@ -121,6 +122,7 @@ class StatementsController < ApplicationController
   def unecho
     return if @statement_node.question?
     current_user.echo!(@statement_node, :supported => false)
+    current_user.delete_subscription_for(@statement_node)
     @current_language_keys = current_language_keys
     respond_to do |format|
       format.html { redirect_to @statement_node }

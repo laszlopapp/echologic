@@ -163,4 +163,8 @@ end
 Then /^I should see no proposals$/ do
   assert_have_no_selector("li.question")
 end
-  
+
+Then /^I should be a subscriber from "([^\"]*)"$/ do |question|
+  @question = StatementNode.search_statement_nodes("Question", question,[EnumKey.find_by_code("en")]).first
+  assert(@question.followed_by?(@user))
+end
