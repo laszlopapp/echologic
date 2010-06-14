@@ -390,8 +390,8 @@ pt:
         name: Internet Governance Forum - Deutschland
         short_name: IGF-D
         teaser: |
-          The <a href='http://www.igf-d.org' target='_blank'>Internet Governance Forum - Deutschland (IGF-D)</a>
-          is an open and informal multistakeholder discussion platform for government, private business und civil society.
+          The <a href='http://www.igf-d.org' target='_blank'>IGF-D</a> is an open and informal multistakeholder
+          discussion platform for government, private business und civil society.
         description: |
            <p>
            With the inclusion of the German technological and academic community, it discusses the future development
@@ -602,3 +602,107 @@ pt:
       user_session:
         email: E-Mail
         password: Senha
+
+# Date and time formatting
+  date:
+    formats:
+      default: "%d.%m.%Y"
+      short: "%e. %b"
+      long: "%e. %B %Y"
+      only_day: "%e"
+      month_name: "%B"
+      day_name: "%a"
+
+    day_names: [Domingo, Segunda-Feira, Terça-Feira, Quarta-Feira, Quinta-Feira, Sexta-Feira, Sábado]
+    abbr_day_names: [Dom, Seg, Ter, Qua, Qui, Sex, Sab]
+    month_names: [~, Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro]
+    abbr_month_names: [~, Jan, Feb, Mar, Abr, Mai, Jun, Jul, Aug, Sep, Out, Nov, Dez]
+    order: [ :day, :month, :year ]
+
+  time:
+    formats:
+      default: "%a, %d. %B %Y"
+      short: "%e. %B, %H:%M Uhr"
+      long: "%A, %e. %B %Y, %H:%M Uhr"
+      time: "%H:%M"
+
+    am: "da manhã"
+    pm: "da tarde"
+
+  datetime:
+    distance_in_words:
+      half_a_minute: 'meio minuto'
+      less_than_x_seconds:
+        zero: 'menos de 1 segundo'
+        one: 'menos de 1 segundo'
+        other: 'menos de {{count}} segundos'
+      x_seconds:
+        one: '1 segundo'
+        other: '{{count}} segundos'
+      less_than_x_minutes:
+        zero: 'menos de 1 minuto'
+        one: 'menos de um minuto'
+        other: 'menos de {{count}} minutos'
+      x_minutes:
+        one: '1 minuto'
+        other: '{{count}} minuto'
+      about_x_hours:
+        one: 'cerca de 1 hora'
+        other: 'cerca de {{count}} horas'
+      x_days:
+        one: '1 dia'
+        other: '{{count}} dias'
+      about_x_months:
+        one: 'cerca de 1 mês'
+        other: 'cerca de {{count}} meses'
+      x_months:
+        one: '1 mês'
+        other: '{{count}} meses'
+      about_x_years:
+        one: 'cerca de  1 ano'
+        other: 'cerca de {{count}} anos'
+      over_x_years:
+        one: 'mais de 1 ano'
+        other: 'mais de {{count}} anos'
+    prompts:
+      second: "Segundos"
+      minute: "Minutos"
+      hour: "Horas"
+      day: "Dia"
+      month: "Mês"
+      year: "Ano"
+
+  number:
+    format:
+      precision: 2
+      separator: ','
+      delimiter: '.'
+    currency:
+      format:
+        unit: '€'
+        format: '%n%u'
+        separator:
+        delimiter:
+        precision:
+    percentage:
+      format:
+        delimiter: ""
+    precision:
+      format:
+        delimiter: ""
+    human:
+      format:
+        delimiter: ""
+        precision: 1
+      storage_units:
+        # Storage units output formatting.
+        # %u is the storage unit, %n is the number (default: 2 MB)
+        format: "%n %u"
+        units:
+          byte:
+            one: "Byte"
+            other: "Bytes"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
