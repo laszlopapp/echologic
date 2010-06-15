@@ -1,6 +1,5 @@
 <div id="questions_container">
 
-
   <%
     count = @count
     if count < 2
@@ -10,9 +9,6 @@
     end
   %>
 
-  <!--<span class="results_count"><%- count_text %></span>-->
-  <!--<span class="results_sort"/>-->
-
   <span id="results_anchor"></span>
 
   <div id="discuss_results" class="results_container rounded-box rounded-box-gray-itow with-header with_bg_bw_grad">
@@ -21,17 +17,22 @@
     <span class="box_header_icon"></span>
 
     <ul>
-	  <% if not statements.empty? %>
-	    <%= render :partial => 'statements/questions/question', :collection => statements %>
-	  <% else %>
-	    <span class="no_results"><%= current_user and current_user.spoken_languages.blank? ? I18n.t('discuss.messages.empty_without_spoken_languages', :my_echo => my_profile_path) : I18n.t('discuss.messages.empty') %></span>
-	  <% end %>
-	</ul>
-    <%= will_paginate statements , :previous_label => '', :next_label => '', :params => {:controller => :discuss} if defined? statements.total_pages %>
+      <% unless statements.empty? %>
+        <%= render :partial => 'statements/questions/question', :collection => statements %>
+      <% else %>
+        <span class="no_results">
+          <%= (!current_user or current_user.spoken_languages.blank?) ?
+              I18n.t('discuss.messages.empty_without_spoken_languages',
+                     :my_echo => my_profile_path) : I18n.t('discuss.messages.empty') %>
+        </span>
+      <% end %>
+	  </ul>
+
+    <%= will_paginate statements,
+                      :previous_label => '', :next_label => '',
+                      :params => {:controller => :discuss} if defined? statements.total_pages %>
   </div>
-
 </div>
-
 
 <script type="text/javascript">
   $(".pagination a").addClass('ajax');
