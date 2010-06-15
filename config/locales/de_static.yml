@@ -125,7 +125,7 @@ de:
     esf: Europäische Sozialfonds für Deutschland
     bmwi: Bundesministerium für Wirtschaft und Technologie
     grm: GründerRegio M
-    lmu_ec: LMU Entrepreneurship Center
+    lmu_ec: Ludwig-Maximilians-Universität München - Entrepreneurship Center
     tu: Technische Universität Berlin / Zentrum Technik und Gesellschaft
 
   # Static content
@@ -279,7 +279,7 @@ de:
     # ECHO SECTION
     echo:
       title: echo
-      subtitle: Die Plattform
+      subtitle: Das Projekt
 
       tabs:
         echo: echo

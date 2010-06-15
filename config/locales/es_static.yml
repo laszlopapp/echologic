@@ -102,7 +102,7 @@ es:
     esf: Fondo Social de la Unión Europea
     bmwi: Ministerio Alemán de Tecnologia y Economia
     grm: GründerRegio M
-    lmu_ec: LMU Entrepreneurship Center
+    lmu_ec: Ludwig-Maximilians-University Munich - Entrepreneurship Center
     tu: Technical University Berlin / Center for Technology and Society
 
 
@@ -112,7 +112,7 @@ es:
     # ECHOLOGIC SECTION
     echologic:
       title: echologic
-      subtitle: El movimiento
+      subtitle: El Movimiento
 
       show:
         ms1: echologic es una red de librepensadores. <br/> Nuestro objetivo es la realización de
@@ -260,7 +260,7 @@ es:
     # ECHO SECTION
     echo:
       title: echo
-      subtitle: La plataforma
+      subtitle: El Proyecto
 
       tabs:
         echo: echo
@@ -472,7 +472,7 @@ es:
     # ECHOCRACY SECTION
     echocracy:
       title: echocracy
-      subtitle: Los participantes
+      subtitle: Los Participantes
 
       tabs:
         echocracy: echocracy
@@ -626,7 +626,7 @@ es:
     # ECHONOMY SECTION
     echonomy:
       title: echonomy
-      subtitle: Los valores
+      subtitle: Los Valores
 
       tabs:
         echonomy: echonomy
