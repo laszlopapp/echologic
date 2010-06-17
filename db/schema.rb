@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100607142514) do
+ActiveRecord::Schema.define(:version => 20100617131832) do
 
   create_table "echos", :force => true do |t|
     t.integer "visitor_count",   :default => 0
@@ -29,6 +29,16 @@ ActiveRecord::Schema.define(:version => 20100607142514) do
     t.string  "context"
     t.string  "value"
   end
+
+  create_table "events", :force => true do |t|
+    t.string   "event"
+    t.integer  "subscribeable_id"
+    t.string   "subscribeable_type"
+    t.string   "operation"
+    t.datetime "created_at"
+  end
+
+  add_index "events", ["subscribeable_id", "subscribeable_type"], :name => "index_events_on_subscribeable_id_and_subscribeable_type"
 
   create_table "feedbacks", :force => true do |t|
     t.string "name"
@@ -149,6 +159,9 @@ ActiveRecord::Schema.define(:version => 20100607142514) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "subscriptions", ["subscribeable_id", "subscribeable_type"], :name => "index_subscriptions_on_subscribeable_id_and_subscribeable_type"
+  add_index "subscriptions", ["subscriber_id", "subscriber_type"], :name => "index_subscriptions_on_subscriber_id_and_subscriber_type"
 
   create_table "tags", :force => true do |t|
     t.string   "value"

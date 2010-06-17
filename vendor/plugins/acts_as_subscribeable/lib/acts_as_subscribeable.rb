@@ -19,13 +19,21 @@ module ActiveRecord
             has_many :subscribers, :class_name => 'User', :finder_sql => 'SELECT DISTINCT * FROM users u ' +
                                                                          'LEFT JOIN subscriptions s ON s.subscriber_id = u.id ' +
                                                                          'WHERE s.subscribeable_id = #{id} '
+            has_many :events, :as => :subscribeable
             before_save :subscribe_creator
+            before_create :create_event
           end
           
           class_eval <<-RUBY
             def subscribe_creator
               subscription = self.subscriptions.find_by_subscriber_id(self.creator.id) || Subscription.new(:subscriber => self.creator, :subscriber_type => self.class.name, :subscribeable => self, :subscribeable_type => self.class.name)
               subscriptions << subscription if subscription.new_record?
+            end
+            
+            def create_event
+              event_json = self.to_json(:include => { :statement => {:include =>  {:statement_documents => {:only => :title}}}, :tao_tags => {:include => {:tag => {:only => :value}}}}, :only => :type)
+              event = Event.new(:event => event_json, :subscribeable => self, :subscribeable_type => self.class.name, :operation => 'new')
+              events << event
             end
           
             def self.subscribeable?
@@ -68,7 +76,7 @@ module ActiveRecord
             end
             
             def find_or_create_subscription_for(obj)
-              subscriptions.find_by_subscribeable_id(obj.id) || Subscription.create(:subscriber => self, :subscribeable => obj)
+              subscriptions.find_by_subscribeable_id(obj.id) || Subscription.create(:subscriber => self, :subscriber_type => self.class.name, :subscribeable => obj, :subscribeable_type => obj.class.name)
             end
             
             def delete_subscription_for(obj)

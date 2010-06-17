@@ -64,9 +64,11 @@ class StatementNodeTest < ActiveSupport::TestCase
 
     context "being saved" do
       setup do 
-        @statement_node.add_statement_document!(:title => 'A new Document', :text => 'with a very short body, dude!', :language_id => 1, :author_id => User.first.id, :original_language_id => 1)
-        @statement_node.tao_tags << TaoTag.new(:tag_id => Tag.first.id, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id)
-        @statement_node.update_attributes!(:creator_id => User.first.id, :state_id => StatementNode.statement_states('published').id)
+        @statement_node.add_statement_document({:title => 'A new Document', :text => 'with a very short body, dude!', :language_id => 1, :author_id => User.first.id, :original_language_id => 1})
+        @statement_node.add_tags(["bebe"])
+        @statement_node.creator = User.first
+        @statement_node.state = StatementNode.statement_states('published')
+        @statement_node.save
       end
 
       should "be able to access its statement documents data" do
@@ -77,6 +79,23 @@ class StatementNodeTest < ActiveSupport::TestCase
       should "have creator as supporter" do
         @user = @statement_node.creator
         assert(@statement_node.supported_by?(@user))
+      end
+      
+      should "have have a creation event associated" do
+        @events = @statement_node.events
+        assert(@events.first.operation.eql?('new'))
+        result = JSON.parse(@events.first.event)
+        
+        question = result['question']
+        statement = question['statement']
+        statement_documents = statement['statement_documents']
+        title = statement_documents.first['title']
+        assert(title.eql?('A new Document'))
+        
+        question = result['question']
+        tao_tags = question['tao_tags']
+        tag = tao_tags.first['tag']['value']
+        assert(tag.eql?('bebe'))
       end
       
       should "should be followed by creator" do
