@@ -15,7 +15,7 @@ module ActiveRecord
           args.flatten! if args
           args.compact! if args
           class_eval do
-            has_many :subscriptions, :dependent => :destroy, :class_name => 'Subscription', :foreign_key => 'subscribeable_id'
+            has_many :subscriptions, :as => :subscribeable, :dependent => :destroy, :class_name => 'Subscription', :foreign_key => 'subscribeable_id'
             has_many :subscribers, :class_name => 'User', :finder_sql => 'SELECT DISTINCT * FROM users u ' +
                                                                          'LEFT JOIN subscriptions s ON s.subscriber_id = u.id ' +
                                                                          'WHERE s.subscribeable_id = #{id} '
@@ -24,7 +24,7 @@ module ActiveRecord
           
           class_eval <<-RUBY
             def subscribe_creator
-              subscription = self.subscriptions.find_by_subscriber_id(self.creator.id) || Subscription.new(:subscriber_id => self.creator.id, :subscribeable_id => self.id)
+              subscription = self.subscriptions.find_by_subscriber_id(self.creator.id) || Subscription.new(:subscriber => self.creator, :subscriber_type => self.class.name, :subscribeable => self, :subscribeable_type => self.class.name)
               subscriptions << subscription if subscription.new_record?
             end
           
@@ -53,7 +53,7 @@ module ActiveRecord
           args.flatten! if args
           args.compact! if args
           class_eval do
-            has_many :subscriptions, :dependent => :destroy, :class_name => 'Subscription', :foreign_key => 'subscriber_id'
+            has_many :subscriptions, :as => :subscriber, :dependent => :destroy, :class_name => 'Subscription', :foreign_key => 'subscriber_id'
             has_many :subscribeables, :class_name => 'StatementNode', :finder_sql => 'SELECT DISTINCT * FROM statement_nodes sn ' +
                                                                                      'LEFT JOIN subscriptions s ON s.subscribeable_id = sn.id ' +
                                                                                      'WHERE s.subscriber_id = #{id} '
