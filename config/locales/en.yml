@@ -402,9 +402,26 @@ en:
                  Preparing and enriching the German stakeholders' contribution to the Internet Governance Forum of the
                  United Nations.
                </li>
-             <ul>
+             </ul>
            </p>
-
+      klimaherbsttv:
+        name: Klimaherbst TV (Climate Autumn TV)
+        short_name: Klimaherbst TV
+        teaser: |
+          Discuss about "usage behavior, lifestyles and health" concerning the ecology guideline being prepared
+          for the city of Munich.
+        description: |
+          <p>
+          In Munich, the <strong>ecology guideline</strong> to climate protection is going to be submitted to the
+          council - currently we are in the public phase, which  allows citizens to
+          <strong>participate in the discussions</strong> and to take position.
+          Some of the discussed questions are: How much are we willing to waive?
+          How far do we want to go rebuilding our transport system? Where should be invested?
+          How can the city support the change of lifestyle?
+          <br/>
+          For more infos about the Klimaherbst TV event series, click
+          <a href='http://www.klimaherbst.de/hallo-offentlichkeit' target='_blank'>here</a>.
+          </p>
 
     tooltips:
       read_question: 'Go to this question'

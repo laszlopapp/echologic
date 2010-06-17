@@ -79,8 +79,8 @@
   background:  url(../images/page/staticMenu/main_menu_button.png) no-repeat scroll 0 0;
   display:     block;
   height:      67px;
-  width:       220px;
-  padding:     29px 0 2px 55px;
+  width:       230px;
+  padding:     29px 0 2px 50px;
 }
 
 #static_menu a:hover {
