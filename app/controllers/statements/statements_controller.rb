@@ -241,11 +241,7 @@ class StatementsController < ApplicationController
         @current_language_keys = current_language_keys
         set_statement_node_info("discuss.messages.created",@statement_node)
         #load current created statement_node to session
-        if @statement_node.parent
-          type = @statement_node.class.to_s.underscore
-          key = ("current_" + type).to_sym
-          session[key] = @statement_node.parent.children.map{|s|s.id}
-        end
+        load_to_session @statement_node if @statement_node.parent
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js   {
           render_create_statement_node(@statement_node,@statement_document,@children = children_for_statement_node)
@@ -402,6 +398,12 @@ class StatementsController < ApplicationController
         set_error('discuss.tag_permission', :tag => tao.tag.value)
       end
     end
+  end
+  
+  def load_to_session(statement_node)
+    type = statement_node.class.to_s.underscore
+    key = ("current_" + type).to_sym
+    session[key] = statement_node.parent.children.map{|s|s.id}
   end
 
   def search (value, language_keys = current_language_keys, opts = {})

@@ -145,7 +145,7 @@ Feature: User Generated Debates
     Then I should not see "Publish"
     
   @ok
-  Scenario: user creates Debate and automatically follows it
+  Scenario: user creates Debate and automatically follows it and an event is automatically generated
     Given I am logged in as "user" with password "true"
     When I am on My Discussions
       And I follow "Open a New Discussion"
@@ -155,4 +155,5 @@ Feature: User Generated Debates
         | question_tags                     | first_tag |
       And I press "Save"
     Then I should be a subscriber from "A Debate for all Seasons"
+    Then "A Debate for all Seasons" should have a "new" event
     
