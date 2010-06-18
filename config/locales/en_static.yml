@@ -124,7 +124,7 @@ en:
     esf: European Social Fund for Germany
     bmwi: Federal Ministry of Economics and Technolgy
     grm: GründerRegio M
-    lmu_ec: LMU Entrepreneurship Center
+    lmu_ec: Ludwig-Maximilians-University Munich - Entrepreneurship Center
     tu: Technical University Berlin / Center for Technology and Society
 
 
@@ -276,7 +276,7 @@ en:
     # Static content for the echo main menu point
     echo:
       title: echo
-      subtitle: The Platform
+      subtitle: The Project
 
       tabs:
         echo: echo

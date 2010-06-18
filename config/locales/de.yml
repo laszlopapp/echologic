@@ -393,12 +393,13 @@ de:
           </p><p>
           Hintergrundinformationen zur Veranstaltung finden Sie auf dem
           <a href='http://www.netzwerk-gemeinsinn.net/content/view/625/218' target='_blank'>Blog vom Netzwerk Gemeinsinn</a>.
+          </p>
       igf:
         name: Internet Governance Forum - Deutschland
         short_name: IGF-D
         teaser: |
-          Das <a href='http://www.igf-d.org' target='_blank'>Internet Governance Forum - Deutschland (IGF-D)</a> ist
-          eine offene und informelle Multistakeholder Diskussionsplattform für Regierung, Privatwirtschaft und Zivilgesellschaft.
+          Das <a href='http://www.igf-d.org' target='_blank'>IGF-D</a> ist eine offene und informelle Multistakeholder
+          Diskussionsplattform für Regierung, Privatwirtschaft und Zivilgesellschaft.
         description: |
            <p>
            Zusammen mit der technischen und akademischen Community beschäftigt sich das IGF-D mit Fragen über die weitere
@@ -417,8 +418,25 @@ de:
                  Den Beitrag der deutschen Stakeholder zum Internet Governance Forum der Vereinten Nationen
                  vorzubereiten und zu stärken sowie das europäische Internet Governance Forum zu flankieren.
                </li>
-             <ul>
+             </ul>
            </p>
+      klimaherbsttv:
+        name: Klimaherbst TV
+        short_name: Klimaherbst TV
+        teaser: |
+          Diskutieren Sie über das Handlungsfeld „Nutzerverhalten, Lebensstile und Gesundheit“ der kommenden
+          Leitlinie Ökologie der Stadt München mit.
+        description: |
+          <p>
+          In München wird die <strong>Leitlinie Ökologie</strong> zum Klimaschutz dem Stadtrat vorgelegt – zur Zeit läuft die
+          Öffentlichkeitsphase, in der BürgerInnen sich <strong>an den Diskussionen beteiligen</strong> und Stellung
+          beziehen können. Es geht dabei um die Fragen: Zu wie viel Verzicht sind wir bereit?
+          Wie stark wollen wir unser Verkehrssystem umbauen? Wo soll investiert werden?
+          Wie kann die Stadt den Wandel des Lebensstils unterstützen?
+          <br/>
+          Mehr Infos über die Veranstaltungsreihe Klimaherbst TV finden Sie
+          <a href='http://www.klimaherbst.de/hallo-offentlichkeit' target='_blank'>hier</a>.
+          </p>
 
 
     tooltips:
@@ -539,6 +557,83 @@ de:
       thank_you: Vielen Dank für Ihre Nachricht.
 
 
+# Model resources
+  activerecord:
+    errors:
+      models:
+        feedback:
+          attributes:
+            blank: 'Bitte füllen Sie alle Felder aus.'
+            email:
+              invalid: 'Sie haben sich bei Ihrer E-Mail Adresse vertippt. Bitte versuchen Sie es erneut.'
+
+        user:
+          attributes:
+            email:
+              taken: 'Die von Ihnen angegebene E-Mail Adresse wird bereits verwendet.'
+
+      messages:
+        blank: "Das Feld '{{attribute}}' muss ausgefüllt werden."
+        taken: 'Ihre Wunschangabe wird leider bereits schon verwendet.'
+        too_short: "Ihre Eingabe im Feld '{{attribute}}' ist zu kurz."
+        too_long: "Ihre Eingabe im Feld '{{attribute}}' ist zu lang."
+        invalid: "Ihre Eingabe im Feld '{{attribute}}' hat ein falsches Format."
+        confirmation: '{{attribute}} muss übereinstimmen.'
+        access_denied: "Leider fehlt Ihnen die notwendige Zugangsberechtigung."
+
+      template:
+        header:
+          one: "Ein Feld wurde nicht korrekt ausgefüllt."
+          other: "{{count}} Felder wurden nicht korrekt ausgefüllt."
+        body: "Bitte überprüfen Sie Ihre Eingaben:"
+
+    attributes:
+      profile:
+        email:      E-Mail
+        first_name: Vorname
+        last_name:  Nachname
+        full_name:  Name
+        gender:     Geschlecht
+        city:       Stadt
+        country:    Land
+        location:   Ort
+        about_me:   Über mich
+        motivation: Gedanken über echo
+        memberships: Tätigkeiten
+        spoken_languages: Sprachkenntnisse
+      report:
+        reason: 'Grund'
+      web_address:
+        location: 'Web Adresse'
+      membership:
+        position: 'Meine Rolle'
+      feedback:
+        message: Nachricht
+      statement_document:
+        title:    'Titel'
+        text:     'Zusammenfassung'
+
+    models:
+      question: "Frage"
+      proposal: "Vorschlag"
+      improvement_proposal: "Ergänzungsvorschlag"
+
+  authlogic:
+    error_messages:
+      email_invalid:      "Bitte korrigieren Sie die angegebene E-Mail Adresse."
+      password_blank:     "Bitte geben Sie ein Passwort an."
+      not_active:         "Ihr Zugang wurde noch nicht freigeschaltet. Sehen Sie bitte Ihrem Posteingang nach einer Aktivierungs E-Mail."
+      must_be_logged_in_for_page:  "Bitte melden Sie sich an, um diese Seite zu sehen."
+      must_be_logged_in_for_action: "Bitte melden Sie sich an, um diese Aktion auszuführen."
+      must_be_logged_out: "Bitte melden Sie sich ab, um diese Seite zu sehen."
+
+    attributes:
+      user_session:
+        email:    'E-Mail'
+        password: 'Passwort'
+
+
+# Date and time formatting
   date:
     formats:
       default: "%d.%m.%Y"
@@ -641,77 +736,3 @@ de:
           mb: "MB"
           gb: "GB"
           tb: "TB"
-
-  activerecord:
-    errors:
-      models:
-        feedback:
-          attributes:
-            blank: 'Bitte füllen Sie alle Felder aus.'
-            email:
-              invalid: 'Sie haben sich bei Ihrer E-Mail Adresse vertippt. Bitte versuchen Sie es erneut.'
-
-        user:
-          attributes:
-            email:
-              taken: 'Die von Ihnen angegebene E-Mail Adresse wird bereits verwendet.'
-
-      messages:
-        blank: "Das Feld '{{attribute}}' muss ausgefüllt werden."
-        taken: 'Ihre Wunschangabe wird leider bereits schon verwendet.'
-        too_short: "Ihre Eingabe im Feld '{{attribute}}' ist zu kurz."
-        too_long: "Ihre Eingabe im Feld '{{attribute}}' ist zu lang."
-        invalid: "Ihre Eingabe im Feld '{{attribute}}' hat ein falsches Format."
-        confirmation: '{{attribute}} muss übereinstimmen.'
-        access_denied: "Leider fehlt Ihnen die notwendige Zugangsberechtigung."
-
-      template:
-        header:
-          one: "Ein Feld wurde nicht korrekt ausgefüllt."
-          other: "{{count}} Felder wurden nicht korrekt ausgefüllt."
-        body: "Bitte überprüfen Sie Ihre Eingaben:"
-
-    attributes:
-      profile:
-        email:      E-Mail
-        first_name: Vorname
-        last_name:  Nachname
-        full_name:  Name
-        gender:     Geschlecht
-        city:       Stadt
-        country:    Land
-        location:   Ort
-        about_me:   Über mich
-        motivation: Gedanken über echo
-        memberships: Tätigkeiten
-        spoken_languages: Sprachkenntnisse
-      report:
-        reason: 'Grund'
-      web_address:
-        location: 'Web Adresse'
-      membership:
-        position: 'Meine Rolle'
-      feedback:
-        message: Nachricht
-      statement_document:
-        title:    'Titel'
-        text:     'Zusammenfassung'
-
-    models:
-      question: "Frage"
-      proposal: "Vorschlag"
-      improvement_proposal: "Ergänzungsvorschlag"
-
-  authlogic:
-    error_messages:
-      email_invalid:      "Bitte korrigieren Sie die angegebene E-Mail Adresse."
-      password_blank:     "Bitte geben Sie ein Passwort an."
-      not_active:         "Ihr Zugang wurde noch nicht freigeschaltet. Sehen Sie bitte Ihrem Posteingang nach einer Aktivierungs E-Mail."
-      must_be_logged_in_for_page:  "Bitte melden Sie sich an, um diese Seite zu sehen."
-      must_be_logged_in_for_action: "Bitte melden Sie sich an, um diese Aktion auszuführen."
-      must_be_logged_out: "Bitte melden Sie sich ab, um diese Seite zu sehen."
-
-    attributes:
-      user_session:
-        email:    'E-Mail'
-        password: 'Passwort'

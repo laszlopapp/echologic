@@ -125,7 +125,7 @@ de:
     esf: Europäische Sozialfonds für Deutschland
     bmwi: Bundesministerium für Wirtschaft und Technologie
     grm: GründerRegio M
-    lmu_ec: LMU Entrepreneurship Center
+    lmu_ec: Ludwig-Maximilians-Universität München - Entrepreneurship Center
     tu: Technische Universität Berlin / Zentrum Technik und Gesellschaft
 
   # Static content
@@ -161,21 +161,21 @@ de:
           echo ist ein <strong>Gemeinschaftsprojekt</strong> für einen nachhaltigen Wandel durch
           <strong>aktive Bürgerbeteiligung</strong>. Es wendet sich an
           <span title="{{gender_tooltip}}" class="ttLink">alle Mitglieder der Gesellschaft</span>:
-          Bürger, Experten, Entscheidungsträger und Vertreter von Organisationen und Unternehmen.
+          BürgerInnen, ExpertenInnen, EntscheidungsträgerInnen und VertreterInnen von Organisationen und Unternehmen.
           </p><p>
           <strong>echo</strong> schafft die technische Grundlage für eine offene, <strong>teilnehmende Demokratie</strong> auf lokaler,
           regionaler und <span title="{{subsidiarity_tooltip}}" class="ttLink">globaler Ebene</span>. Ihre Stimme findet hier ein Echo.
           Aus Ideen wird Bewegung, aus Visionen Realität. echo bedeutet das <strong>Ende der Machtlosigkeit</strong>,
           den <strong>Anfang der Selbstbestimmung</strong>.
           </p>
-        gender_tooltip: Selbstverständlich Frauen und Männer - unabhängig vom grammatischen Geschlecht.
+        gender_tooltip: Selbstverständlich Frauen und Männer - unabhängig vom grammatischen Geschlecht :-)
         subsidiarity_tooltip: Stichwort Subsidiarität
         text_2:
           title: Kollektive Lösungsfindung und politische Einflussnahme
           more: |
             <p>
-            Nach dem Motto <strong>“Diskutieren – Vernetzen – Handeln!”</strong> können hier Menschen rund um den
-            Globus gemeinsam ihren unmittelbaren Lebensraum gestalten – und die Zukunft unserer Welt. echos Diskussionsbereich
+            Nach dem Motto <strong>“Diskutieren – Vernetzen – Handeln!”</strong> können hier Menschen gemeinsam ihren
+            unmittelbaren Lebensraum gestalten – und die Zukunft unserer Welt. echos Diskussionsbereich
             ermöglicht eine fundierte <strong>Meinungs- und Willensbildung</strong> und bleibt auch mit beliebig vielen Teilnehmern
             übersichtlich. Im Bereich „Handeln“ wird gesellschaftliches Engagement mit bestehenden <strong>direkt
             demokratischen Mitteln</strong> (z.B. ePetition, Volksentscheid, Demonstration) in echte
@@ -198,8 +198,8 @@ de:
           title: Ihre Stimme
           more: |
             <p>
-            Ihre Stimme braucht Echo. echo braucht Ihre Stimme. Helfen Sie mit, die Demokratie in eine Zukunft zu führen,
-            in der <strong>jede Stimme zählt</strong> – gleich viel und überall auf der Welt.
+            Ihre Stimme braucht ein Echo. echo braucht Ihre Stimme. Helfen Sie mit, die Demokratie in eine Zukunft zu führen,
+            in der <strong>jede Stimme zählt</strong> – jeden Tag und überall auf der Welt.
             </p><p>
             Auf <strong>echologic</strong> finden sich immer mehr Menschen zusammen und beginnen gemeinsam
             <strong>echos Vision zu verwirklichen</strong>.
@@ -279,7 +279,7 @@ de:
     # ECHO SECTION
     echo:
       title: echo
-      subtitle: Die Plattform
+      subtitle: Das Projekt
 
       tabs:
         echo: echo

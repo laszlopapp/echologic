@@ -83,10 +83,10 @@ class StatementsController < ApplicationController
       return
     end
 
-    #test for special links 
+    #test for special links
     @original_language_warning = original_language_warning?(@statement_node,current_user,current_language_key)
     @translation_permission = translatable?(@statement_node,current_user,params[:locale],@current_language_keys)
-    
+
     # when creating an issue, we save the flash message within the session, to be able to display it here
     if session[:last_info]
       @info = session[:last_info]
@@ -129,8 +129,8 @@ class StatementsController < ApplicationController
       format.js { render :template => 'statements/echo' }
     end
   end
-  
-  
+
+
 
   def new_translation
     @statement_document ||= @statement_node.translated_document(current_user.language_keys)
@@ -147,9 +147,9 @@ class StatementsController < ApplicationController
     @new_statement_document = @statement_node.add_statement_document(doc_attrs)
     respond_to do |format|
       if @statement_node.save
-        set_info("discuss.messages.translated", :type => @statement_node.class.display_name)
+        set_statement_node_info("discuss.messages.translated",@statement)
         @current_language_keys = current_language_keys
-        @statement_document = @new_statement_document        
+        @statement_document = @new_statement_document
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js   {render_create_translation(@statement_node,@statement_document)}
       else
@@ -165,7 +165,7 @@ class StatementsController < ApplicationController
   def new
     @statement_node ||= statement_node_class.new(:parent => parent)
     @statement_document ||= StatementDocument.new
-    
+
     @tags = @statement_node.tags if @statement_node.kind_of?(Question)
 
     @current_language_keys = current_language_keys
@@ -189,7 +189,7 @@ class StatementsController < ApplicationController
     respond_to do |format|
       if @error.nil? and @statement_node.save
         @current_language_keys = current_language_keys
-        set_info("discuss.messages.created", :type => @statement_node.class.display_name)
+        set_statement_node_info("discuss.messages.created",@statement)
         #load current created statement_node to session
         if @statement_node.parent
           type = @statement_node.class.to_s.underscore
@@ -226,7 +226,7 @@ class StatementsController < ApplicationController
     attrs = params[statement_class_param]
     @tags = fetch_tags(attrs)
     @current_language_key = current_language_key
-    tags_to_delete = @statement_node.tags.collect{|tag|tag.value} - @tags 
+    tags_to_delete = @statement_node.tags.collect{|tag|tag.value} - @tags
     attrs_doc = attrs.delete(:statement_document)
     @statement_node.add_tags(@tags, {:language_id => @current_language_key}) unless @tags.nil?
     @statement_node.delete_tags(tags_to_delete)
@@ -254,7 +254,7 @@ class StatementsController < ApplicationController
 
   # processes a cancel request, and redirects back to the last shown statement_node
   def cancel
-    redirect_to url_f(StatementNode.find(session[:last_statement_node]))    
+    redirect_to url_f(StatementNode.find(session[:last_statement_node]))
   end
 
   #
