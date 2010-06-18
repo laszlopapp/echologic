@@ -608,9 +608,8 @@ en:
       email_invalid:      "Please enter a correct e-mail address."
       password_blank:     "Password must be defined."
       not_active:         "Your account has not been activated yet. Please check your inbox."
-      must_be_logged_in_for_page:  "Please log in to access this page."
-      must_be_logged_in_for_action: "Please log in to perform this action."
-      must_be_logged_out: "Please log out to access this page."
+      must_be_logged_in:  "Please log in to perform this action."
+      must_be_logged_out: "Please log out to perform this action."
 
     attributes:
       user_session:

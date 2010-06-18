@@ -625,9 +625,8 @@ es:
       email_invalid:      "Por favor corrija la dirección de E-Mail."
       password_blank:     "Por favor ingrese la seña."
       not_active:         "Tu cuenta todavía no fue activada. Por favor mire tus E-Mail y siga el link en el E-Mail de activación que le enviamos."
-      must_be_logged_in_for_page:  "Tienes que estar conectado para poder executar esta acción."
-      must_be_logged_in_for_action:  "Tienes que estar conectado para poder ver esta página."
-      must_be_logged_out: "Tienes que estar desconectado para poder ver esta página."
+      must_be_logged_in:  "Conéctate por favor."
+      must_be_logged_out: "Desconéctate por favor."
 
     attributes:
       user_session:
