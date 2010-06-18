@@ -140,6 +140,16 @@ class StatementsController < ApplicationController
       format.js {render_new_translation}
     end
   end
+  private
+  def render_new_translation
+    render :update do |page|
+      page.replace('summary', :partial => 'statements/translate')
+      page << "makeRatiobars();"
+      page << "makeTooltips();"
+      page << "roundCorners();"
+    end
+  end
+  public
 
   def create_translation
     attrs = params[statement_class_param]
@@ -160,6 +170,17 @@ class StatementsController < ApplicationController
       end
     end
   end
+  
+  private
+  def render_create_translation(statement_node,statement_document)
+    render_with_info do |page|
+      page.replace('context', :partial => 'statements/context', :locals => { :statement_node => statement_node})
+      page.replace('summary', :partial => 'statements/summary', :locals => { :statement_node => statement_node, :statement_document => statement_document})
+      page << "makeRatiobars();"
+      page << "makeTooltips();"
+    end
+  end
+  public
 
   # renders form for creating a new statement_node
   def new
@@ -176,7 +197,29 @@ class StatementsController < ApplicationController
       format.js {render_new_statement_node @statement_node}
     end
   end
-
+  private
+  def render_new_statement_node(statement_node)
+    render :update do |page|
+      if statement_node.kind_of?(Question)
+        page.remove 'search_container'
+        page.remove 'new_question'
+        page.replace 'questions_container', :partial => 'statements/new'
+        page.replace 'my_discussions', :partial => 'statements/new'
+      else
+        page.replace 'children', :partial => 'statements/new'
+      end
+      page.replace('context',
+                   :partial => 'statements/context',
+                   :locals => { :statement_node => statement_node.parent}) if statement_node.parent
+      page.replace('discuss_sidebar',
+                   :partial => 'statements/sidebar',
+                   :locals => { :statement_node => statement_node.parent})
+      # Direct JS
+      page << "makeRatiobars();"
+      page << "makeTooltips();"
+    end    
+  end
+  public
   # actually creates a new statement_node
   def create
     attrs = params[statement_class_param].merge({:creator_id => current_user.id})
@@ -209,7 +252,44 @@ class StatementsController < ApplicationController
       end
     end
   end
-
+  
+  private
+  def render_create_statement_node(statement_node,statement_document,statement_node_children)
+    render_with_info do |page|
+      if statement_node.kind_of?(Question)
+#        page.insert_html :top , 'function_container',
+#                         :partial => 'statements/summary',
+#                         :locals => { :statement => statement_node, :statement_document => statement_document}
+#        page.insert_html :top , 'function_container',
+#                         :partial => 'statements/sidebar',
+#                         :locals => { :statement => statement_node}
+#        page.insert_html :top , 'function_container',
+#                         :partial => 'statements/context',
+#                         :locals => { :statement => statement_node}
+       page.redirect_to(url_for(statement_node)) 
+      else
+        page.replace('context',
+                     :partial => 'statements/context',
+                     :locals => { :statement_node => statement_node})
+        page.replace('discuss_sidebar',
+                     :partial => 'statements/sidebar',
+                     :locals => { :statement_node => statement_node})
+        page.replace('summary',
+                     :partial => 'statements/summary',
+                     :locals => { :statement_node => statement_node, :statement_document => statement_document})
+        page.replace 'new_statement',
+                   :partial => 'statements/children',
+                   :statement => statement_node,
+                   :children => statement_node_children
+      end
+      
+      # Direct JS
+       
+      page << "makeRatiobars();"
+      page << "makeTooltips();"
+    end
+  end
+  public
   # renders a form to edit statement_nodes
   def edit
     @statement_document ||= @statement_node.translated_document(current_language_keys)
@@ -304,6 +384,13 @@ class StatementsController < ApplicationController
     #additional step: to filter statement_nodes with a translated version in the current language
     children = children.select{|s| !(language_keys & s.statement_documents.collect{|sd| sd.language_id}).empty?}
     children.paginate(StatementNode.default_scope.merge(:page => page, :per_page => 5))
+  end
+
+  def set_tag_errors(statement_node)
+    statement_node.tao_tags.each do |tao|
+      index = tao.tag.value.index '#'
+      set_error('discuss.tag_permission', :tag => tao.tag.value) if !index.nil? and index == 0 and !current_user.has_role? :topic_editor, tao.tag
+    end
   end
 
   def search (value, language_keys = current_language_keys, opts = {})
