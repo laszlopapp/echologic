@@ -616,9 +616,8 @@ de:
       email_invalid:      "Bitte korrigieren Sie die angegebene E-Mail Adresse."
       password_blank:     "Bitte geben Sie ein Passwort an."
       not_active:         "Ihr Zugang wurde noch nicht freigeschaltet. Sehen Sie bitte Ihrem Posteingang nach einer Aktivierungs E-Mail."
-      must_be_logged_in_for_page:  "Bitte melden Sie sich an, um diese Seite zu sehen."
-      must_be_logged_in_for_action: "Bitte melden Sie sich an, um diese Aktion auszuführen."
-      must_be_logged_out: "Bitte melden Sie sich ab, um diese Seite zu sehen."
+      must_be_logged_in:  "Bitte melden Sie sich an."
+      must_be_logged_out: "Bitte melden Sie sich ab."
 
     attributes:
       user_session:
