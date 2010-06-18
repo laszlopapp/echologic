@@ -89,6 +89,11 @@ class User < ActiveRecord::Base
     reset_perishable_token!
     Mailer.deliver_password_reset_instructions(self)
   end
+  
+  def deliver_activity_tracking_email!
+    reset_perishable_token!
+    Mailer.deliver_activity_tracking_email(self)
+  end
 
   ##
   ## PERMISSIONS

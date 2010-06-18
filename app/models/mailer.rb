@@ -40,4 +40,12 @@ class Mailer < ActionMailer::Base
     body          :name => user.profile.full_name, :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
   end
 
+  # Send the activities on the subscribed objects to the subscribeable
+  def activity_tracking_email(subscriber)
+    subject       "Activity Tracking" #to be internationalized
+    from          "noreply@echologic.org"
+    recipients    subscriber.email
+    sent_on       Time.now
+    body          :events => Event.all(:conditions => ["subscribeable_id IN (?) and created_at > ?",subscriber.subscribeables.map{|s|s.id}, 7.days.ago])
+  end
 end
