@@ -47,7 +47,8 @@ class StatementsController < ApplicationController
 
     @current_language_keys = current_language_keys
 
-    statement_nodes_not_paginated = search(@value, @current_language_keys, {:tag => category, :auth => (current_user && current_user.has_role?(:editor)) })
+    statement_nodes_not_paginated = search(@value, @current_language_keys, 
+                                      {:tag => category, :auth => (current_user && current_user.has_role?(:editor)) })
     @count    = statement_nodes_not_paginated.size
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => 6)
 
@@ -94,7 +95,8 @@ class StatementsController < ApplicationController
       session[:last_info] = nil
     end
 
-    # find all child statement_nodes, which are published (except user is an editor) sorted by supporters count, and paginate them
+    # find all child statement_nodes, which are published (
+    # except user is an editor) sorted by supporters count, and paginate them
     @page = params[:page] || 1
 
     @children = children_for_statement_node @current_language_keys
@@ -157,7 +159,7 @@ class StatementsController < ApplicationController
     @new_statement_document = @statement_node.add_statement_document(doc_attrs)
     respond_to do |format|
       if @statement_node.save
-        set_statement_node_info("discuss.messages.translated",@statement)
+        set_statement_node_info("discuss.messages.translated",@statement_node)
         @current_language_keys = current_language_keys
         @statement_document = @new_statement_document
         format.html { flash_info and redirect_to url_for(@statement_node) }
@@ -174,8 +176,12 @@ class StatementsController < ApplicationController
   private
   def render_create_translation(statement_node,statement_document)
     render_with_info do |page|
-      page.replace('context', :partial => 'statements/context', :locals => { :statement_node => statement_node})
-      page.replace('summary', :partial => 'statements/summary', :locals => { :statement_node => statement_node, :statement_document => statement_document})
+      page.replace('context', 
+                   :partial => 'statements/context', 
+                   :locals => { :statement_node => statement_node})
+      page.replace('summary', 
+                   :partial => 'statements/summary', 
+                   :locals => { :statement_node => statement_node, :statement_document => statement_document})
       page << "makeRatiobars();"
       page << "makeTooltips();"
     end
@@ -191,7 +197,8 @@ class StatementsController < ApplicationController
 
     @current_language_keys = current_language_keys
     @current_language_key = current_language_key
-    # TODO: right now users can't select the language they create a statement in, so current_user.languages_keys.first will work. once this changes, we're in trouble - or better said: we'll have to pass the language_id as a param
+    # TODO: right now users can't select the language they create a statement in, so current_user.languages_keys.first 
+    # will work. once this changes, we're in trouble - or better said: we'll have to pass the language_id as a param
     respond_to do |format|
       format.html { render :template => 'statements/new' }
       format.js {render_new_statement_node @statement_node}
@@ -232,7 +239,7 @@ class StatementsController < ApplicationController
     respond_to do |format|
       if @error.nil? and @statement_node.save
         @current_language_keys = current_language_keys
-        set_statement_node_info("discuss.messages.created",@statement)
+        set_statement_node_info("discuss.messages.created",@statement_node)
         #load current created statement_node to session
         if @statement_node.parent
           type = @statement_node.class.to_s.underscore
@@ -312,7 +319,9 @@ class StatementsController < ApplicationController
     @statement_node.delete_tags(tags_to_delete)
     set_tag_errors @statement_node
     respond_to do |format|
-      if @error.nil? and @statement_node.update_attributes(attrs) and @statement_node.translated_document(current_language_keys).update_attributes(attrs_doc)
+      if @error.nil? and 
+         @statement_node.update_attributes(attrs) and 
+         @statement_node.translated_document(current_language_keys).update_attributes(attrs_doc)
         set_info("discuss.messages.updated", :type => @statement_node.class.human_name)
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js   { show }
@@ -368,7 +377,7 @@ class StatementsController < ApplicationController
   end
 
   def set_statement_node_info(string, statement_node)
-    set_info(string, :type => I18n.t("discuss.statements.types.#{statement_class_dom_id(statement_node).downcase}"))
+    set_info(string, :type => I18n.t("discuss.statements.types.#{statement_node_class_dom_id(statement_node).downcase}"))
   end
 
   def parent
@@ -389,7 +398,9 @@ class StatementsController < ApplicationController
   def set_tag_errors(statement_node)
     statement_node.tao_tags.each do |tao|
       index = tao.tag.value.index '#'
-      set_error('discuss.tag_permission', :tag => tao.tag.value) if !index.nil? and index == 0 and !current_user.has_role? :topic_editor, tao.tag
+      if !index.nil? and index == 0 and !current_user.has_role? :topic_editor, tao.tag
+        set_error('discuss.tag_permission', :tag => tao.tag.value)
+      end
     end
   end
 
