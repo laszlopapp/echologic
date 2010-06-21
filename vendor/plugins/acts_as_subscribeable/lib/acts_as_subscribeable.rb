@@ -77,7 +77,7 @@ module ActiveRecord
             
             def find_or_create_subscription_for(obj)
               s = subscriptions.find_by_subscribeable_id(obj.id) || Subscription.create(:subscriber => self, :subscriber_type => self.class.name, :subscribeable => obj, :subscribeable_type => obj.class.name)
-              Delayed::Job.enqueue(ActivityTrackingNotification.new(self.id),0,7.days.from_now) 
+              Delayed::Job.enqueue(ActivityTrackingNotification.new(self.id),0,7.days.from_now)
             end
             
             def delete_subscription_for(obj)
