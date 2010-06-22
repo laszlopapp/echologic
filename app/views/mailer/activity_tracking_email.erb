@@ -1,1 +1,9 @@
 This is a call to all my activity tracking
+
+<% questions = @events.reject!{|event|event_data = JSON.parse(e.event).keys[0] == 'question'}%>
+<%= render :partial => "activity_templates/questions_activity_template", :locals => {:questions => questions} if questions and !questions.empty?%>
+
+<% @events.each do |event|%>
+  <% event_data = JSON.parse(e.event) %>
+	<%= render :partial => "activity_templates/#{event_data.keys[0]}_activity_template", :locals => {:id => event.subscribeable_id, :data => event_data}%>
+<% end %>

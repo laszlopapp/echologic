@@ -31,7 +31,7 @@ module ActiveRecord
             end
             
             def create_event
-              event_json = self.to_json(:include => { :statement => {:include =>  {:statement_documents => {:only => :title}}}, :tao_tags => {:include => {:tag => {:only => :value}}}}, :only => :type)
+              event_json = self.to_json(:include => { :statement => {:include =>  {:statement_documents => {:only => [:title, :language_id]}}}, :tao_tags => {:include => {:tag => {:only => :value}}}}, :only => :type)
               event = Event.new(:event => event_json, :subscribeable => self, :subscribeable_type => self.class.name, :operation => 'new')
               events << event
             end
@@ -77,7 +77,6 @@ module ActiveRecord
             
             def find_or_create_subscription_for(obj)
               s = subscriptions.find_by_subscribeable_id(obj.id) || Subscription.create(:subscriber => self, :subscriber_type => self.class.name, :subscribeable => obj, :subscribeable_type => obj.class.name)
-              Delayed::Job.enqueue(ActivityTrackingNotification.new(self.id),0,7.days.from_now)
             end
             
             def delete_subscription_for(obj)

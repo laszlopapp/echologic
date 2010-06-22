@@ -46,6 +46,12 @@ class Mailer < ActionMailer::Base
     from          "noreply@echologic.org"
     recipients    subscriber.email
     sent_on       Time.now
-    body          :events => Event.all(:conditions => ["subscribeable_id IN (?) and created_at > ?",subscriber.subscribeables.map{|s|s.id}, 7.days.ago])
+    body          :events => Event.find_by_sql(
+                          sanitize_sql(["SELECT * from events e 
+                                         LEFT JOIN statement_nodes s ON s.id = e.subscribeable_id
+                                         where (s.parent_id = NULL or s.parent_id IN (?))
+                                               and e.created_at > ?
+                                         order_by type DESC 
+                                                  created_at DESC",subscriber.subscribeables.map{|s|s.id},7.days.ago]))
   end
 end

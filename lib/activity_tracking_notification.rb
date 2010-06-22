@@ -1,11 +1,13 @@
 class ActivityTrackingNotification
-  attr_accessor :user_id
-  def initialize(user_id)
-    self.user_id = user_id
+  
+  def initialize
   end
 
   def perform
-    Delayed::Job.enqueue(self.class.new(self.user_id),0,7.days.from_now)
-    User.find(self.user_id).deliver_activity_tracking_email!
+    week_day = Time.now.wday
+    User.all(:conditions => ["(id % 7) = ?", week_day]).each do |user|
+      user.deliver_activity_tracking_email!
+    end
+    Delayed::Job.enqueue ActivityTrackingNotification.new, 0, Time.now.tomorrow.midnight
   end
 end

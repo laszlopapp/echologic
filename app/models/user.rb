@@ -14,8 +14,7 @@ class User < ActiveRecord::Base
 
   # Every user must have a profile. Profiles are destroyed with the user.
   has_one :profile, :dependent => :destroy
-
-
+  
   # TODO add attr_accessible :active if needed.
   #attr_accessible :active
 
@@ -90,10 +89,13 @@ class User < ActiveRecord::Base
     Mailer.deliver_password_reset_instructions(self)
   end
   
+  #Send an activity tracking email through mailer
   def deliver_activity_tracking_email!
     reset_perishable_token!
     Mailer.deliver_activity_tracking_email(self)
   end
+
+  
 
   ##
   ## PERMISSIONS
@@ -126,6 +128,7 @@ class User < ActiveRecord::Base
 #    self.spoken_languages.sort {|sp1, sp2| }.map(&:language_id)
   end
 
+  #returns an array with the user's mother tongues
   def mother_tongues
     self.spoken_languages.select{|sp| sp.level.code == 'mother_tongue'}.collect{|sp| sp.language}
   end
@@ -134,11 +137,13 @@ class User < ActiveRecord::Base
   ## CONCERNMENTS (TAGS)
   ##
   
+  #adds new or existing concernments based on an array of strings representing concernments
   def add_tags(tags, opts = {})
     self.tao_tags << TaoTag.create_for(tags, opts[:language_id], {:tao_id => self.id, :tao_type => self.class.name, :context_id => opts[:context_id]})
   end
   
+  #removes concernments based on an array of strings representing existing concernments
   def delete_tags(tags)
     self.tao_tags.each {|tao_tag| tao_tag.destroy if tags.include?(tao_tag.tag.value)}
-  end
+  end  
 end
