@@ -76,9 +76,4 @@ Rails::Initializer.run do |config|
   # the same for controllers
   config.load_paths += %w(statements).collect{|dir|"#{RAILS_ROOT}/app/controllers/#{dir}"}
   
-  # Deletes old delayed Jobs and starts a new one for the activity tracking email sending
-  config.after_initialize do
-    Delayed::Job.destroy_all
-    Delayed::Job.enqueue ActivityTrackingNotification.new, 0, Time.now.tomorrow.midnight
-  end
 end

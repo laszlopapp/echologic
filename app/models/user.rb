@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   # Every user must have a profile. Profiles are destroyed with the user.
   has_one :profile, :dependent => :destroy
   
+  #last login language, important for the activity tracking email language when the user doesn't have anything set
+  enum :last_login_language, :enum_name => :languages
+  
   # TODO add attr_accessible :active if needed.
   #attr_accessible :active
 
@@ -90,11 +93,12 @@ class User < ActiveRecord::Base
   end
   
   #Send an activity tracking email through mailer
-  def deliver_activity_tracking_email!
+  def deliver_activity_tracking_email!(question_events, question_tags, events)
     reset_perishable_token!
-    Mailer.deliver_activity_tracking_email(self)
+    Mailer.deliver_activity_tracking_email(self,question_events, question_tags, events)
   end
 
+  
   
 
   ##
@@ -132,6 +136,13 @@ class User < ActiveRecord::Base
   def mother_tongues
     self.spoken_languages.select{|sp| sp.level.code == 'mother_tongue'}.collect{|sp| sp.language}
   end
+  
+  
+  def default_language
+    mother_tongues = self.mother_tongues 
+    !mother_tongues.empty? ? mother_tongues.first : self.last_login_language
+  end
+  
   
   ##
   ## CONCERNMENTS (TAGS)

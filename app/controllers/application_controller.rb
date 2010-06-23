@@ -230,6 +230,7 @@ class ApplicationController < ActionController::Base
 
   # Expires and cleans up the user session.
   def expire_session!
+    current_user.update_attributes!(:last_login_language => EnumKey.find_by_code_and_enum_name(params[:locale].to_s,"languages"))
     current_user_session.try(:destroy)
     reset_session
     if params[:controller] == 'users/user_session' && params[:action] == 'destroy'

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100622095242) do
+ActiveRecord::Schema.define(:version => 20100623172455) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -46,13 +46,14 @@ ActiveRecord::Schema.define(:version => 20100622095242) do
   end
 
   create_table "events", :force => true do |t|
-    t.string   "event"
+    t.text     "event"
     t.integer  "subscribeable_id"
     t.string   "subscribeable_type"
     t.string   "operation"
     t.datetime "created_at"
   end
 
+  add_index "events", ["subscribeable_id", "created_at"], :name => "index_events_on_subscribeable_id_and_created_at"
   add_index "events", ["subscribeable_id", "subscribeable_type"], :name => "index_events_on_subscribeable_id_and_subscribeable_type"
 
   create_table "feedbacks", :force => true do |t|
@@ -218,13 +219,13 @@ ActiveRecord::Schema.define(:version => 20100622095242) do
   add_index "user_echos", ["user_id"], :name => "index_echo_details_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :null => false
+    t.string   "email",                                     :null => false
     t.string   "crypted_password"
     t.string   "password_salt"
-    t.string   "persistence_token",                     :null => false
-    t.string   "perishable_token",                      :null => false
-    t.integer  "login_count",        :default => 0,     :null => false
-    t.integer  "failed_login_count", :default => 0,     :null => false
+    t.string   "persistence_token",                         :null => false
+    t.string   "perishable_token",                          :null => false
+    t.integer  "login_count",            :default => 0,     :null => false
+    t.integer  "failed_login_count",     :default => 0,     :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
@@ -232,8 +233,9 @@ ActiveRecord::Schema.define(:version => 20100622095242) do
     t.string   "last_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "active",             :default => false, :null => false
+    t.boolean  "active",                 :default => false, :null => false
     t.string   "openid_identifier"
+    t.integer  "last_login_language_id"
   end
 
   create_table "valid_contexts", :force => true do |t|

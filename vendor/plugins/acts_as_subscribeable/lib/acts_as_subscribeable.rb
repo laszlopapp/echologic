@@ -31,7 +31,23 @@ module ActiveRecord
             end
             
             def create_event
-              event_json = self.to_json(:include => { :statement => {:include =>  {:statement_documents => {:only => [:title, :language_id]}}}, :tao_tags => {:include => {:tag => {:only => :value}}}}, :only => :type)
+              event_json = self.to_json(:include => {
+                                          :statement => {
+                                            :include =>  {
+                                              :statement_documents => {
+                                                :only => [:title, :language_id]
+                                              }
+                                            }
+                                          }, 
+                                          :tao_tags => {
+                                            :include => {
+                                              :tag => {
+                                                :only => :value
+                                              }
+                                            }
+                                          }
+                                        }, 
+                                        :only => [:root_id,:parent_id,:type])
               event = Event.new(:event => event_json, :subscribeable => self, :subscribeable_type => self.class.name, :operation => 'new')
               events << event
             end

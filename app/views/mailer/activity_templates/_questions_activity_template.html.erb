@@ -1,20 +1,14 @@
-
-<%= I18n.t('mail.question.text1') %>
-
-<%= I18n.t('mail.question.new_questions', :count => questions.count) %>
-
-
-<% tags = Hash.new %>
-<% questions.each do |question|%>
-  <% question_data = JSON.parse(question.event) %>
-	<% question_data['question']['tao_tags'].each do |tao_tag| %>
-	 <% tags[tao_tag['tag']['value']] = tags[tao_tag['tag']['value']] + 1 || 0 %>
-	<% end %>
-<% end %>
-
-
-<%= I18n.t('mail.question.tags_intro') %>
-
-<% tags.each do |k,v| %>
-  <%= I18n.t('mail.question.tag', :tag => k, :count => v) %>
-<% end %>
+<ul>
+	<li>
+    <%= I18n.t('mail.questions.text1', :locale => @language.code ) %>
+  </li>
+	<li>
+    <%= I18n.t('mail.questions.new_questions', :count => questions.size, :locale => @language.code) %>
+  </li>
+	<li>
+    <%= I18n.t('mail.questions.tags_intro', :locale => @language.code) %>
+  </li>
+	<li>
+	<%= tags.to_a.map{|tag|I18n.t('mail.questions.tag', :tag => tag[0], :count => tag[1], :code => @language.code, :locale => @language.code)}.join(", ") %>
+  </li>
+</ul>

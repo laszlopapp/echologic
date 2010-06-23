@@ -1,3 +1,6 @@
-<%= I18n.t('mail.proposal.text1') %>
-
-<%= I18n.t('mail.proposal.new', :title=> event_data['proposal']['statement']['statement_documents'][0]['title'], :id => id) %>
+<%= I18n.t('mail.proposal.new', 
+           :title => data['proposal']['statement']['statement_documents'][0]['title'], 
+           :parent_id => data['proposal']['parent_id'],
+           :id => id, 
+           :code => @language.code, 
+           :locale => @language.code) %>

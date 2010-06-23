@@ -41,17 +41,16 @@ class Mailer < ActionMailer::Base
   end
 
   # Send the activities on the subscribed objects to the subscribeable
-  def activity_tracking_email(subscriber)
-    subject       "Activity Tracking" #to be internationalized
+  def activity_tracking_email(subscriber,question_events, question_tags, events)
+    default = subscriber.default_language
+    subject       I18n.t('mail.activity_tracking.subject', :locale => default.code)
     from          "noreply@echologic.org"
     recipients    subscriber.email
     sent_on       Time.now
-    body          :events => Event.find_by_sql(
-                          sanitize_sql(["SELECT * from events e 
-                                         LEFT JOIN statement_nodes s ON s.id = e.subscribeable_id
-                                         where (s.parent_id = NULL or s.parent_id IN (?))
-                                               and e.created_at > ?
-                                         order_by type DESC 
-                                                  created_at DESC",subscriber.subscribeables.map{|s|s.id},7.days.ago]))
+    content_type "text/html"
+    body          :question_events => question_events,
+                  :question_tags => question_tags,
+                  :events => events,
+                  :language => default
   end
 end

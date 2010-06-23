@@ -190,7 +190,7 @@ class StatementsController < ApplicationController
 
   # renders form for creating a new statement_node
   def new
-    @statement_node ||= statement_node_class.new(:parent => parent)
+    @statement_node ||= statement_node_class.new(:parent => parent, :root_id => params[:question_id])
     @statement_document ||= StatementDocument.new
 
     @tags = @statement_node.tags if @statement_node.kind_of?(Question)

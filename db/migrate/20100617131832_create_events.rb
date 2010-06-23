@@ -1,7 +1,7 @@
 class CreateEvents < ActiveRecord::Migration
   def self.up
     create_table :events do |t|
-      t.column :event, :string
+      t.column :event, :text
       t.integer :subscribeable_id
       t.column :subscribeable_type, :string
       t.column :operation, :string
