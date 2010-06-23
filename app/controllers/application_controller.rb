@@ -241,13 +241,21 @@ class ApplicationController < ActionController::Base
   def expire_session!
     current_user_session.try(:destroy)
     reset_session
-    if params[:controller] == 'users/user_session' && params[:action] == 'destroy'
+    if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'
       # still display logout message on logout.
       flash[:notice] = I18n.t('users.user_sessions.messages.logout_success')
     else
       flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
     end
-    redirect_to root_path
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.js do
+        render :update do |page|
+          page.redirect_to root_path
+        end
+      end
+    end
+
   end
 
   # Called when when a routing error occurs.
