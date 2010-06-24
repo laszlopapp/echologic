@@ -159,14 +159,6 @@ module StatementHelper
     create_translation_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
   end
 
-  ## ProArgument
-
-  # def new_pro_argument_proposal_url(parent)
-  #   raise ArgumentError.new("Expected `parent' to be a Proposal (is: #{parent})") unless parent.kind_of?(Proposal)
-  #   raise ArgumentError.new("Expected `parent.parent' to be a Question (is: #{parent.parent})") unless parent.parent.kind_of?(Question)
-  #   new_question_proposal_pro_argument_url(parent.parent, parent)
-  # end
-
   ##
   ## LINKS
   ##
@@ -197,14 +189,17 @@ module StatementHelper
   def create_question_link_for
     return unless current_user
     link_to(I18n.t("discuss.statements.create_question_link",
-            :type => Question.display_name), new_question_url,            
+            :type => Question.display_name), new_question_url,
             :class=>'text_button create_question_button ttLink no_border',
             :title => I18n.t("discuss.tooltips.create_question"))
   end
 
   def edit_statement_node_link(statement_node, statement_document)
-    link_to(I18n.t('application.general.edit'), edit_statement_node_path(statement_node),
-            :class => 'ajax header_button text_button edit_button edit_statement_button') if current_user and (current_user.may_edit? or (statement_document.author == current_user and !statement_node.published?)) 
+    if current_user and
+       (current_user.may_edit? or (statement_document.author == current_user and !statement_node.published?))
+      link_to(I18n.t('application.general.edit'), edit_statement_node_path(statement_node),
+              :class => 'ajax header_button text_button edit_button edit_statement_button')
+    end
   end
 
   # Returns the block heading for the children of the given statement_node
@@ -222,14 +217,13 @@ module StatementHelper
   def cancel_new_statement_node(statement_node)
     type = statement_node_class_dom_id(statement_node).downcase
       if type == 'question'
-        link_to I18n.t('application.general.cancel'), 
-        :back,
-        :class => 'text_button cancel_button'
+        link_to I18n.t('application.general.cancel'), :back, :class => 'text_button cancel_button'
       else
-        link_to I18n.t('application.general.cancel'), 
-                session[:last_statement_node] ? statement_node_path(session[:last_statement_node]) : (statement_node.parent or discuss_url), 
+        link_to I18n.t('application.general.cancel'),
+                session[:last_statement_node] ?
+                  statement_node_path(session[:last_statement_node]) : (statement_node.parent or discuss_url),
                 :class => 'ajax text_button cancel_button'
-        
+
       end
   end
 
@@ -244,7 +238,8 @@ module StatementHelper
   end
 
   # inserts a status bar based on the support ratio  value
-  # (support ratio is the calculated ratio for a statement_node, representing and visualizing the agreement a statement_node has found within the community)
+  # (support ratio is the calculated ratio for a statement_node,
+  # representing and visualizing the agreement a statement_node has found within the community)
   def supporter_ratio_bar(statement_node,context=nil)
     if statement_node.supporter_count < 2
       tooltip = I18n.t('discuss.tooltips.echo_indicator.one', :supporter_count => statement_node.supporter_count)
@@ -260,8 +255,9 @@ module StatementHelper
 
 
   # TODO: instead of adding an image tag, we should use css classes here, like (almost) everywhere else
-  # TODO: find out why statement_node.question? works, but not statement_node.parent.question? or deprecate statement_node.question?
-  # possible answer: method is private - invoking .send :question? on parent does the trick!
+  # TODO: find out why statement_node.question? works, but not statement_node.parent.question? or
+  # deprecate statement_node.question?
+  # Possible answer: method is private - invoking .send :question? on parent does the trick!
 
   ##
   ## statement_node Context (where am i within the statement_node stack?)
@@ -270,7 +266,8 @@ module StatementHelper
 
   # DEPRICATED, user statement_node_context_link instead
   def statement_node_context_line(statement_node)
-    link = link_to(statement_node_icon(statement_node, :small)+statement_node.title, url_for(statement_node), :class => 'ajax')
+    link = link_to(statement_node_icon(statement_node, :small) +
+           statement_node.title, url_for(statement_node), :class => 'ajax')
     link << supporter_ratio_bar(statement_node,'context') unless statement_node.class.name == 'Question'
     return link
   end
@@ -367,27 +364,34 @@ module StatementHelper
   def original_language_warning?(statement_node, user, language_key)
     user ? (user.spoken_languages.empty? and language_key != statement_node.statement.original_language.id) : false
   end
-  
-  def translatable?(statement_node,user,language_code,current_language_keys)
-    statement_document = statement_node.translated_document(current_language_keys)
+
+  def translatable?(statement_node,user,language_code,language_preference_list)
+    statement_document = statement_node.translated_document(language_preference_list)
     if user
-      !user.spoken_languages.blank?  and #1.we have a current user that speaks languages
-      !user.mother_tongues.blank?    and #2.we ensure ourselves that the user has a mother tongue
-      !statement_document.language.code.eql?(language_code)      and #3.current text language is different from the current language, which would mean there is no translated version of the document yet in the current language
-      user.mother_tongues.collect{|l| l.code}.include?(language_code)                       and #4.application language is the current user's mother tongue
-      user.spoken_languages.map{|sp| sp.language}.uniq.include?(statement_document.language) and #5.user knows the document's language
+      # 1.we have a current user that speaks languages
+      !user.spoken_languages.blank? and
+      # 2.we ensure ourselves that the user has a mother tongue
+      !user.mother_tongues.blank? and
+      # 3.current text language is different from the current language,
+      # which would mean there is no translated version of the document yet in the current language
+      !statement_document.language.code.eql?(language_code) and
+      # 4.application language is the current user's mother tongue
+      user.mother_tongues.collect{|l| l.code}.include?(language_code) and
+      # 5.user knows the document's language
+      user.spoken_languages.map{|sp| sp.language}.uniq.include?(statement_document.language) and
       #6. user has language level greater than intermediate
-                               %w(intermediate advanced mother_tongue).include?(user.spoken_languages.select{|sp| sp.language == statement_document.language}.first.level.code)
-    else 
+      %w(intermediate advanced mother_tongue).include?(
+        user.spoken_languages.select {|sp| sp.language == statement_document.language}.first.level.code)
+    else
       false
-    end 
+    end
   end
-  
+
   ##################################
   ##### FORM RENDERS
   ##################################
-  
-  def render_new_statement_node(statement_node)
+
+  def render_new_statement_node(statement_node, language_preference_list)
     render :update do |page|
       if statement_node.kind_of?(Question)
         page.remove 'search_container'
@@ -397,6 +401,10 @@ module StatementHelper
       else
         page.replace 'children', :partial => 'statements/new'
       end
+      page.replace('summary',
+                   :partial => 'statements/summary',
+                   :locals => { :statement_node => statement_node.parent,
+                                :statement_document => statement_node.parent.translated_document(language_preference_list)}) if statement_node.parent
       page.replace('context',
                    :partial => 'statements/context',
                    :locals => { :statement_node => statement_node.parent}) if statement_node.parent
@@ -406,22 +414,13 @@ module StatementHelper
       # Direct JS
       page << "makeRatiobars();"
       page << "makeTooltips();"
-    end    
+    end
   end
-  
+
   def render_create_statement_node(statement_node,statement_document,statement_node_children)
     render_with_info do |page|
       if statement_node.kind_of?(Question)
-#        page.insert_html :top , 'function_container',
-#                         :partial => 'statements/summary',
-#                         :locals => { :statement => statement_node, :statement_document => statement_document}
-#        page.insert_html :top , 'function_container',
-#                         :partial => 'statements/sidebar',
-#                         :locals => { :statement => statement_node}
-#        page.insert_html :top , 'function_container',
-#                         :partial => 'statements/context',
-#                         :locals => { :statement => statement_node}
-       page.redirect_to(url_for statement_node) 
+        page.redirect_to(url_for statement_node)
       else
         page.replace('context',
                      :partial => 'statements/context',
@@ -437,14 +436,14 @@ module StatementHelper
                    :statement => statement_node,
                    :children => statement_node_children
       end
-      
+
       # Direct JS
-       
+
       page << "makeRatiobars();"
       page << "makeTooltips();"
     end
   end
-  
+
   def render_new_translation
     render :update do |page|
       page.replace('summary', :partial => 'statements/translate')
@@ -453,24 +452,30 @@ module StatementHelper
       page << "roundCorners();"
     end
   end
-  
+
   def render_create_translation(statement_node,statement_document)
     render_with_info do |page|
-      page.replace('context', :partial => 'statements/context', :locals => { :statement_node => statement_node})
-      page.replace('summary', :partial => 'statements/summary', :locals => { :statement_node => statement_node, :statement_document => statement_document})
+      page.replace('context',
+                   :partial => 'statements/context',
+                   :locals => { :statement_node => statement_node})
+      page.replace('summary',
+                   :partial => 'statements/summary',
+                   :locals => { :statement_node => statement_node, :statement_document => statement_document})
       page << "makeRatiobars();"
       page << "makeTooltips();"
     end
   end
-  
-  ##############################
+
+  ###############################
   #### TAGS
   ###############################
-  
-  def set_tag_errors(statement_node)
-    statement_node.tao_tags.each do |tao|
-      index = tao.tag.value.index '#'
-      set_error('discuss.tag_permission', :tag => tao.tag.value) if !index.nil? and index == 0 and !current_user.has_role? :topic_editor, tao.tag
+
+  def check_tag_permissions(statement_node)
+    statement_node.tao_tags.each do |tao_tag|
+      index = tao_tag.tag.value.index '#'
+      if !index.nil? and index == 0 and !current_user.has_role? :topic_editor, tao_tag.tag
+        set_error('discuss.tag_permission', :tag => tao_tag.tag.value)
+      end
     end
   end
 end
