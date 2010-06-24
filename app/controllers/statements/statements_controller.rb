@@ -226,6 +226,8 @@ class StatementsController < ApplicationController
       page << "makeTooltips();"
     end    
   end
+
+  
   public
   # actually creates a new statement_node
   def create
@@ -404,6 +406,7 @@ class StatementsController < ApplicationController
     type = statement_node.class.to_s.underscore
     key = ("current_" + type).to_sym
     session[key] = statement_node.parent.children.map{|s|s.id}
+    session[:last_statement_node] = statement_node.id
   end
 
   def search (value, language_keys = current_language_keys, opts = {})

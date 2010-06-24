@@ -25,7 +25,7 @@ class MyEchoController < ApplicationController
     render
   end
    
-  def organisations
+  def settings
     @profile = @current_user.profile
     @user    = @current_user
     render

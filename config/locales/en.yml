@@ -97,7 +97,7 @@ en:
       tabs:
         welcome: Welcome
         profile: My Profile
-        organisations: Organisations
+        settings: Settings
       profile_complete: '{{complete}}% complete'
 
   # ----------------
@@ -242,6 +242,12 @@ en:
         expertise: <strong>Expert</strong> in the field of
         decision_making: <strong>Decision maker</strong> in the field of
       tags: Keywords (tags)
+      
+    # Email Notification section
+    email_notification:
+      title: Email Notification
+      guide: Here you can set if you want to receive a weekly email notification with your subscribed entities related updates.
+      
 
     users:
       new:

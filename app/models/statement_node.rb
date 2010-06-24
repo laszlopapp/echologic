@@ -218,6 +218,7 @@ class StatementNode < ActiveRecord::Base
       and_conditions = opts[:conditions] || ["n.type = '#{type}'"]
       and_conditions << "state_id = #{statement_states('published').id}" if opts[:auth] 
       and_conditions << sanitize_sql(["d.language_id IN (?)",language_keys])
+      and_conditions << sanitize_sql(["t.value = ?", opts[:tag]]) if opts[:tag]
 
       #all getting along like really good friends
       and_conditions << "(#{or_conditions})" if or_conditions
