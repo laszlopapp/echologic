@@ -9,7 +9,7 @@ $(document).ready(function () {
   bindLanguageSelectionEvents();
 
   bindMoreHideButtonEvents();
-	
+
 	bindAddTagButtonEvents();
 
   bindStaticMenuClickEvents();
@@ -145,13 +145,14 @@ function createTagButton(text, tags_id) {
   deleteButton = $(' <a> x </a>');
   deleteButton.click(function(){
     $(this).parent().remove();
-    tag_to_delete = $(this).parent().text().split(' ');
-    tags = $(tags_id).val().split(' ');
-    index_to_delete = tags.indexOf(tag_to_delete[0]);
+    tag_to_delete = $(this).parent().text();
+    tag_to_delete = tag_to_delete.substr(0, tag_to_delete.length - 3);
+    tags = $(tags_id).val().split(',');
+    index_to_delete = tags.indexOf(tag_to_delete);
     if (index_to_delete >= 0) {
 			tags.splice(index_to_delete, 1);
 		}
-    $(tags_id).val(tags.join(' '));
+    $(tags_id).val(tags.join(','));
   });
   element.append(deleteButton);
   return element;
@@ -159,7 +160,7 @@ function createTagButton(text, tags_id) {
 
 /* load the previously existing tags */
 function loadAddTagButtons() {
-	tags_to_load = $('#question_tags').val().trim().split(' ');
+	tags_to_load = $('#question_tags').val().trim().split(',');
 	while (tags_to_load.length > 0) {
 		tag = tags_to_load.shift().trim();
 		if (tag.localeCompare(' ') > 0) {
@@ -171,7 +172,7 @@ function loadAddTagButtons() {
 
 
 /* add new tags to be added to statement */
-function bindAddTagButtonEvents() {	
+function bindAddTagButtonEvents() {
   $('#tag_topic_id').keypress(function(event) {
 		if (event && event.keyCode == 13) { /* check if enter was pressed */
 		  if ($('#tag_topic_id').val().length != 0) {
@@ -180,13 +181,13 @@ function bindAddTagButtonEvents() {
 			return false;
 	  }
 	})
-	
-	$('.addTag').click(function() {		
+
+	$('.addTag').click(function() {
 		text_tags = $('#tag_topic_id').val().trim().split(",");
 		if (text_tags.length != 0) {
 			text_tag_values = new Array(0);
 			existing_tags = $('#question_tags').val().trim();
-			existing_tags = existing_tags.split(' ');
+			existing_tags = existing_tags.split(',');
 			while (text_tags.length > 0) {
 				tag_text = text_tags.shift().trim();
 				if (existing_tags.indexOf(tag_text) < 0 && text_tags.indexOf(tag_text) < 0) {
@@ -197,8 +198,11 @@ function bindAddTagButtonEvents() {
 				  }
 				}
 	    }
-			tags = $('#question_tags').val() + ' ' + text_tag_values.join(' ');
-			$('#question_tags').val(tags);
+			tags = $('#question_tags').val();
+      if (text_tag_values.length > 0) {
+        tags = ((tags.trim().length > 0) ? tags + ',' : '') + text_tag_values.join(',');
+        $('#question_tags').val(tags);
+      }
 			$('#tag_topic_id').val('');
 			$('#tag_topic_id').focus();
 		}
