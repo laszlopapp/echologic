@@ -201,12 +201,12 @@ class ApplicationController < ActionController::Base
   # Language skills of current user
   # -------------------------------
 
-  def current_language_key
+  def locale_language_id
     EnumKey.find_by_enum_name_and_code("languages", I18n.locale.to_s).id
   end
 
-  def current_language_keys
-    keys = [current_language_key].concat(current_user ? current_user.language_keys : []).uniq
+  def language_preference_list
+    keys = [locale_language_id].concat(current_user ? current_user.spoken_language_ids : []).uniq
   end
 
 
