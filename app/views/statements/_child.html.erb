@@ -1,6 +1,6 @@
-<% 
-   statement_document = statement_node.translated_document(@current_language_keys)
-   extra_classes ||= nil 
+<%
+   statement_document = statement_node.translated_document(@language_preference_list)
+   extra_classes ||= nil
 %>
 
 <li id="<%= statement_node_dom_id(statement_node) %>" class="<%=statement_node.parent.class.name.downcase%>">
