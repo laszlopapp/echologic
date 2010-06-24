@@ -11,6 +11,10 @@ class QuestionsController < StatementsController
     end
   end
 
+  def parent
+    nil
+  end
+
   def publish
     @statement_node.publish
     respond_to do |format|
