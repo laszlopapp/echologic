@@ -11,9 +11,7 @@ class QuestionsController < StatementsController
     end
   end
 
-  def parent
-    nil
-  end
+  
 
   def publish
     @statement_node.publish
@@ -30,5 +28,20 @@ class QuestionsController < StatementsController
         end
       end
     end
+  end
+  
+  
+  protected
+  def parent
+    nil
+  end
+  
+  def statement_class_param
+    :question
+  end
+  
+  # returns the statement_node class, corresponding to the controllers name
+  def statement_node_class
+    Question
   end
 end

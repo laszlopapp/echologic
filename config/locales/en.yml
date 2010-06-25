@@ -472,6 +472,7 @@ en:
         Here you can create a <strong>new improvement proposal</strong>.
       publish: Publish
       published: Debate successfully published!
+      edit: 'Edit {{type}}'
       
       types:
         question:  'Question'

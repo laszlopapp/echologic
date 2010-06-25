@@ -9,6 +9,10 @@ module Echoable
   end
   
   module InstanceMethods
+    def echoable?
+      true
+    end
+    
     def visitor_count
       find_or_create_echo if echo.nil?
       echo.visitor_count

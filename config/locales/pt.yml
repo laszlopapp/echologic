@@ -471,6 +471,7 @@ pt:
         Aqui pode criar uma <strong>nova proposta de melhoria</strong>.
       publish: Publicar
       published: Debate publicado com sucesso!
+      edit: 'Editar {{type}}'
 
       types:
         question:  'Questão'

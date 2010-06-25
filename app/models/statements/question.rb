@@ -23,5 +23,8 @@ class Question < StatementNode
   def taggable?
     true
   end
-
+  
+  def echoable?
+    false
+  end
 end

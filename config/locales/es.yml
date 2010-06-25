@@ -479,6 +479,7 @@ es:
         Aquí puedes crear una <strong>nueva propuesta de mejoramiento</strong>.
       publish: Publicar
       published: Debate publicado con éxito!
+      edit: 'Editar {{type}}'
 
       types:
         question:  'Cuestión'

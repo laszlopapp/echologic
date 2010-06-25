@@ -1,6 +1,8 @@
 class StatementsController < ApplicationController
   helper :echo
   include EchoHelper
+  include StatementHelper
+  
 
   # remodelling the RESTful constraints, as a default route is currently active
   # FIXME: the echo and unecho actions should be accessible via PUT/DELETE only,
@@ -15,10 +17,7 @@ class StatementsController < ApplicationController
   # the order of these filters matters. change with caution.
   before_filter :fetch_statement_node, :only => [:show, :edit, :update, :echo, :unecho, :new_translation,:create_translation,:destroy,:publish]
   before_filter :require_user, :except => [:index, :category, :show]
-
-  # make custom URL helper available to controller
-  include StatementHelper
-
+ 
   # authlogic access control block
   access_control do
     allow :editor
@@ -89,8 +88,8 @@ class StatementsController < ApplicationController
     end
 
     #test for special links
-    @original_language_warning = original_language_warning?(@statement_node,current_user,locale_language_id)
-    @translation_permission = translatable?(@statement_node,current_user,params[:locale],@language_preference_list)
+    @original_language_warning = @statement_node.not_original_language?(current_user,locale_language_id)
+    @translation_permission = @statement_node.translatable?(current_user,params[:locale],@language_preference_list)
 
     # when creating an issue, we save the flash message within the session, to be able to display it here
     if session[:last_info]
@@ -102,7 +101,9 @@ class StatementsController < ApplicationController
     # find all child statement_nodes, which are published (except user is an editor) sorted by supporters count, and paginate them
     @page = params[:page] || 1
 
-    @children = children_for_statement_node @language_preference_list
+    @children = @statement_node.sorted_children(current_user,@language_preference_list).paginate(
+                                                StatementNode.default_scope.merge(:page => @page, :per_page => 5))
+    
     respond_to do |format|
       format.html {render :template => 'statements/show' } # show.html.erb
       format.js   {render :template => 'statements/show' } # show.js.erb
@@ -112,7 +113,7 @@ class StatementsController < ApplicationController
   # Called if user supports this statement_node. Updates the support field in the corresponding
   # echo object.
   def echo
-    return if @statement_node.question?
+    return if !@statement_node.echoable?
     @statement_node.supported_by!(current_user)
     current_user.find_or_create_subscription_for(@statement_node)
     @language_preference_list = language_preference_list
@@ -125,7 +126,7 @@ class StatementsController < ApplicationController
   # Called if user doesn't support this statement_node any longer. Sets the supported field
   # of the corresponding echo object to false.
   def unecho
-    return if @statement_node.question?
+    return if !@statement_node.echoable?
     current_user.echo!(@statement_node, :supported => false)
     current_user.delete_subscription_for(@statement_node)
     @language_preference_list = language_preference_list
@@ -158,7 +159,8 @@ class StatementsController < ApplicationController
 
   def create_translation
     attrs = params[statement_class_param]
-    doc_attrs = attrs.delete(:new_statement_document).merge({:author_id => current_user.id, :language_id => locale_language_id})
+    doc_attrs = attrs.delete(:new_statement_document).merge({:author_id => current_user.id, 
+                                                             :language_id => locale_language_id})
     @new_statement_document = @statement_node.add_statement_document(doc_attrs)
     respond_to do |format|
       if @statement_node.save
@@ -190,13 +192,12 @@ class StatementsController < ApplicationController
     end
   end
   public
-
   # renders form for creating a new statement_node
   def new
     @statement_node ||= statement_node_class.new(:parent => parent, :root_id => params[:question_id])
     @statement_document ||= StatementDocument.new
 
-    @tags = @statement_node.tags if @statement_node.kind_of?(Question)
+    @tags = @statement_node.tags if @statement_node.taggable?
 
     @language_preference_list = language_preference_list
     @locale_language_id = locale_language_id
@@ -247,10 +248,13 @@ class StatementsController < ApplicationController
     @statement_document = @statement_node.add_statement_document(
                           doc_attrs.merge({:original_language_id => @locale_language_id}))
     @statement_node.add_tags(@tags, {:language_id => current_language_key}) unless @tags.nil?
-    @tags = update_tags @statement_node, form_tags, @locale_language_id if @statement_node.taggable?
+    if @statement_node.taggable?
+      @tags = @statement_node.update_tags(form_tags, @locale_language_id) 
+      check_tag_permissions @statement_node
+    end
     respond_to do |format|
       if @error.nil? and @statement_node.save
-        @current_language_keys = language_preference_list
+        @language_preference_list = language_preference_list
         set_statement_node_info("discuss.messages.created",@statement_node)
         current_user.supported!(@statement_node)
         #load current created statement_node to session
@@ -258,7 +262,9 @@ class StatementsController < ApplicationController
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js   {
           @statement_node.visited_by!(current_user)
-          render_create_statement_node(@statement_node,@statement_document,@children = children_for_statement_node)
+          @children = @statement_node.sorted_children(current_user,@language_preference_list).paginate(
+                                                  StatementNode.default_scope.merge(:page => @page, :per_page => 5))
+          render_create_statement_node(@statement_node,@statement_document,@children)
         }
       else
         @locale_language_id = locale_language_id
@@ -316,8 +322,10 @@ class StatementsController < ApplicationController
     attrs_doc = attrs.delete(:statement_document)
     # Updating tags of the statement
     form_tags = attrs.delete(:tags)
-    @tags = update_tags @statement_node, form_tags, @locale_language_id if @statement_node.taggable?
-
+    if @statement_node.taggable?
+      @tags = @statement_node.update_tags(form_tags, @locale_language_id) 
+      check_tag_permissions(@statement_node)
+    end
     respond_to do |format|
       if @error.nil? and
          @statement_node.update_attributes(attrs) and
@@ -352,25 +360,9 @@ class StatementsController < ApplicationController
   #
 
   private
-
-  # Updates the tags belonging to a question (other statement types do not have any tags yet).
-  def update_tags(statement_node, tags, language_key)
-    new_tags = tags.split(',').map{|t|t.strip}.uniq
-    tags_to_delete = statement_node.tags.collect{|tag|tag.value} - new_tags
-    statement_node.add_tags(new_tags, {:language_id => language_key}) unless new_tags.nil?
-    statement_node.delete_tags tags_to_delete
-    check_tag_permissions statement_node
-    new_tags
-  end
-
   def fetch_statement_node
     @statement_node ||= statement_node_class.find(params[:id]) if params[:id].try(:any?) && params[:id] =~ /\d+/
-  end
-
-  # returns the statement_node class, corresponding to the controllers name
-  def statement_node_class
-    params[:controller].singularize.camelize.constantize
-  end
+  end  
 
   def may_edit?
     current_user.may_edit? or @statement_node.translated_document(language_preference_list).author == current_user
@@ -381,25 +373,24 @@ class StatementsController < ApplicationController
   end
 
   def statement_class_param
-    statement_node_class.name.underscore.to_sym
+    raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
 
-  def set_statement_node_info(string, statement_node)
-    set_info(string, :type => I18n.t("discuss.statements.types.#{statement_node_class_dom_id(statement_node).downcase}"))
+  # returns the statement_node class, corresponding to the controllers name
+  def statement_node_class
+    raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
-
+  
   # Returns the parent statement node of the the current statement. Must be implemented by the subclasses.
   def parent
     raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
 
-  # private method, that collects all children, sorted and paginated in the way we want them to
-  def children_for_statement_node(language_keys = language_preference_list, page = @page)
-    children = @statement_node.children.published(current_user && current_user.has_role?(:editor)).by_supporters
-    #additional step: to filter statement_nodes with a translated version in the current language
-    children = children.select{|s| !(language_keys & s.statement_documents.collect{|sd| sd.language_id}).empty?}
-    children.paginate(StatementNode.default_scope.merge(:page => page, :per_page => 5))
-  end
+  def set_statement_node_info(string, statement_node)
+    set_info(string, :type => I18n.t("discuss.statements.types.#{statement_class_param.to_s}"))
+  end  
+
+  
 
   def set_tag_errors(statement_node)
     statement_node.tao_tags.each do |tao|
@@ -424,7 +415,7 @@ class StatementsController < ApplicationController
   end
   
   def load_to_session(statement_node)
-    type = statement_node.class.to_s.underscore
+    type = statement_node_class.to_s.underscore
     key = ("current_" + type).to_sym
     session[key] = statement_node.parent.children.map{|s|s.id}
     session[:last_statement_node] = statement_node.id

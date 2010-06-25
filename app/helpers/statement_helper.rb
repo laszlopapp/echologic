@@ -189,7 +189,7 @@ module StatementHelper
   def create_question_link_for
     return unless current_user
     link_to(I18n.t("discuss.statements.create_question_link",
-            :type => Question.display_name), new_question_url,
+            :type => I18n.t("discuss.statements.types.question")), new_question_url,
             :class=>'text_button create_question_button ttLink no_border',
             :title => I18n.t("discuss.tooltips.create_question"))
   end
@@ -355,35 +355,5 @@ module StatementHelper
   # consisting out of the statement_node class dom identifier, and the statement_nodes id
   def statement_node_dom_id(statement_node)
     "#{statement_node_class_dom_id(statement_node)}_#{statement_node.id}"
-  end
-
-  ###############################
-  ## LANGUAGE RELATED MESSAGES
-  ##############################
-
-  def original_language_warning?(statement_node, user, language_key)
-    user ? (user.spoken_languages.empty? and language_key != statement_node.statement.original_language.id) : false
-  end
-
-  def translatable?(statement_node,user,language_code,language_preference_list)
-    statement_document = statement_node.translated_document(language_preference_list)
-    if user
-      # 1.we have a current user that speaks languages
-      !user.spoken_languages.blank? and
-      # 2.we ensure ourselves that the user has a mother tongue
-      !user.mother_tongues.blank? and
-      # 3.current text language is different from the current language,
-      # which would mean there is no translated version of the document yet in the current language
-      !statement_document.language.code.eql?(language_code) and
-      # 4.application language is the current user's mother tongue
-      user.mother_tongues.collect{|l| l.code}.include?(language_code) and
-      # 5.user knows the document's language
-      user.spoken_languages.map{|sp| sp.language}.uniq.include?(statement_document.language) and
-      #6. user has language level greater than intermediate
-      %w(intermediate advanced mother_tongue).include?(
-        user.spoken_languages.select {|sp| sp.language == statement_document.language}.first.level.code)
-    else
-      false
-    end
   end
 end

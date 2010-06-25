@@ -478,6 +478,7 @@ de:
         Hier können Sie einen <strong>neuen Ergänzungsvorschlag</strong> erstellen.
       publish: Publizieren
       published: Debatte erfolgreich publiziert!
+      edit: '{{type}} bearbeiten'
 
       types:
         question:  'Frage'

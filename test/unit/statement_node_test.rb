@@ -51,17 +51,6 @@ class StatementNodeTest < ActiveSupport::TestCase
       should_have_many :user_echos
     end
 
-    [Question, Proposal, ImprovementProposal].each do |subtype|
-      context("with type #{subtype.to_s}") do
-        setup do
-          @statement_node = subtype.new
-        end
-        should "tell us what type it is of" do
-          assert_true @statement_node.send(subtype.name.underscore+'?')
-        end
-      end
-    end
-
     context "being saved" do
       setup do 
         @statement_node.add_statement_document({:title => 'A new Document', :text => 'with a very short body, dude!', :language_id => 1, :author_id => User.first.id, :original_language_id => 1})
