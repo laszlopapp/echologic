@@ -120,23 +120,18 @@ class User < ActiveRecord::Base
   ##
 
   # returns an array with the actual language_ids of the users spoken languages (used to find the right translations)
-  def language_keys(prio_language = 0)
+  def spoken_language_ids
     a = []
     SpokenLanguage.language_levels.each do |level|
       a << self.spoken_languages.select{|sp| sp.level.eql?(level)}
     end
-    a.each do |sp_array|
-      sp_array.sort!{|sp1, sp2| prio_language }
-    end
     a.flatten.map(&:language_id)
-#    self.spoken_languages.sort {|sp1, sp2| }.map(&:language_id)
   end
 
   #returns an array with the user's mother tongues
   def mother_tongues
     self.spoken_languages.select{|sp| sp.level.code == 'mother_tongue'}.collect{|sp| sp.language}
   end
-  
   
   def default_language
     mother_tongues = self.mother_tongues 

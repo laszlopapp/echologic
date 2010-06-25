@@ -1,4 +1,5 @@
 @profile
+Feature: Profile Completeness
 # As an logged in User, without having a country given in my profile
 # when if fill out my profile
 # the completeness value of my profile should have increased

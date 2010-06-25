@@ -10,14 +10,14 @@ Then /^there should be one question$/ do
   Question.count.should == 1
 end
 
-When /^I choose the first Question$/ do 
+When /^I choose the first Question$/ do
   response.should have_selector("li.question a") do |selector|
     @question = Question.find(URI.parse(selector.first['href']).path.match(/\d+/)[0].to_i)
     visit selector.first['href']
   end
 end
 
-When /^I choose the second Question$/ do 
+When /^I choose the second Question$/ do
   response.should have_selector("li.question a") do |selector|
     if question_id = URI.parse(selector[1]['href']).path.match(/\d+/)[0].to_i
       @second_question = Question.find(question_id)
@@ -66,11 +66,11 @@ Then /^I should see an error message$/i do
   Then "I should see a \"error box\""
 end
 
-Given /^there is the first question$/i do 
+Given /^there is the first question$/i do
   @question = Question.last
 end
 
-Given /^there is the second question$/i do 
+Given /^there is the second question$/i do
   @question = Question.first
 end
 
@@ -98,7 +98,7 @@ Then /^the question should have one proposal$/ do
 end
 
 Then /^the question "([^\"]*)" should have "([^\"]*)" as tags$/ do |title, tags|
-  tags = tags.split(' ')  
+  tags = tags.split(' ')
   @question = StatementNode.search_statement_nodes("Question", title,[EnumKey.find_by_code("en")]).first
   res = @question.tags.map{|tag|tag.value} - tags
   res.should == []
@@ -127,8 +127,8 @@ end
 
 Given /^a "([^\"]*)" question in "([^\"]*)"$/ do |state, category|
   state = StatementNode.statement_states(state)
-  @question = Question.new(:state => state, :creator => @user)  
-  @question.add_statement_document!({:title => "Am I a new statement?", :text => "I wonder what i really am! Maybe a statement? Or even a question?", :author => @user, :language_id => @user.language_keys.first, :original_language_id => @user.language_keys.first})
+  @question = Question.new(:state => state, :creator => @user)
+  @question.add_statement_document!({:title => "Am I a new statement?", :text => "I wonder what i really am! Maybe a statement? Or even a question?", :author => @user, :language_id => @user.spoken_language_ids.first, :original_language_id => @user.spoken_language_ids.first})
   @question.tao_tags << TaoTag.create_for([category], EnumKey.find_by_code("en").id, {:tao => @question, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id})
   @question.save!
 end
@@ -138,7 +138,7 @@ Then /^the question should be published$/ do
   @question.state.should == EnumKey.find_by_code_and_enum_name("published","statement_states")
 end
 
-Then /^I should see the questions title$/ do 
+Then /^I should see the questions title$/ do
   Then 'I should see "'+@question.translated_document([StatementDocument.languages("en").id, StatementDocument.languages("de").id]).title+'"'
 end
 

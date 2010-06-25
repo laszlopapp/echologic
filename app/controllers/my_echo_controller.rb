@@ -17,7 +17,7 @@ class MyEchoController < ApplicationController
   def profile
     @profile = @current_user.profile
     @user    = @current_user
-    @current_language_key = current_language_key
+    @locale_language_id = locale_language_id
     render
   end
 

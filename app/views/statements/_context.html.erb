@@ -8,7 +8,7 @@
   <div class="context_line <%= 'active' if last_statement_node %>">
     <div class="context_buttons"><%= prev_next_buttons(s) %></div>
     <div class="context_link"><%= statement_node_context_link(s,
-         @current_language_keys,(last_statement_node ? 'current' : 'back_to'), last_statement_node)%></div>
+         @language_preference_list,(last_statement_node ? 'current' : 'back_to'), last_statement_node)%></div>
   </div>
   <% end %>
 

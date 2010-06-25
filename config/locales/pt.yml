@@ -613,9 +613,8 @@ pt:
       email_invalid:      "Por favor insira um endereço de e-mail correcto."
       password_blank:     "Senha tem que ser definida."
       not_active:         "A sua conta ainda não foi activada. Por favor verifique a sua caixa de entrada."
-      must_be_logged_in_for_page:  "Por favor autentique-se para aceder a esta página."
-      must_be_logged_in_for_action: "Por favor autentique-se para efectuar esta acção."
-      must_be_logged_out: "Por favor saia da sua conta para aceder a esta página."
+      must_be_logged_in:  "Autentique-se por favor."
+      must_be_logged_out: "Por favor saia da sua conta."
 
     attributes:
       user_session:
