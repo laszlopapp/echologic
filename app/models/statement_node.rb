@@ -13,6 +13,7 @@ class StatementNode < ActiveRecord::Base
     self.state == self.class.statement_states("published")
   end
 
+  # default value for a statement node, concerning the tagging mechanismus
   def taggable?
     false
   end
@@ -42,7 +43,8 @@ class StatementNode < ActiveRecord::Base
       find(:all, :conditions => ["language_id IN (?)", lang_ids]).sort { |a, b| lang_ids.index(a.language_id) <=> lang_ids.index(b.language_id)}.first
     end
   end
-
+  
+  
   ##
   ## VALIDATIONS
   ##

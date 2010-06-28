@@ -12,11 +12,10 @@ class TaoTagsController < ApplicationController
   # suggestions a time.
   auto_complete_for :tag, :value, :limit => 5
 
-  # Create a new concernment connection for a user and a given topic with the
-  # sort of concernment specified.
+  # Creates a new group of tags for a specific user given a specific context
   #
   # Method:   POST
-  # Params:   tag_value: string, user_id: integer, sort: integer
+  # Params:   tag_value: string, context_id: integer
   # Response: JS
   #
   def create
@@ -62,13 +61,9 @@ class TaoTagsController < ApplicationController
 
     respond_to do |format|
       format.js do
-        # sorry, but this was crap. you can't add additional js actions like this...
-        # either use a rjs, a js, or a render :update block
-        # remove_container("concernment_#{params[:id]}")
-        render_with_info do |p|
+        ender_with_info do |p|
           p.remove dom_id(@tao_tag)
         end
-        #render :template => 'users/profile/remove_object', :locals => { :object => @concernment }
       end
     end
   end

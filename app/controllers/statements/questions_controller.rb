@@ -1,6 +1,7 @@
 class QuestionsController < StatementsController
 
-
+  
+  # action: my discussions page
   def my_discussions
     @page     = params[:page]  || 1
     @language_preference_list = language_preference_list
@@ -12,7 +13,7 @@ class QuestionsController < StatementsController
   end
 
   
-
+  # action: publish a statement
   def publish
     @statement_node.publish
     respond_to do |format|
@@ -32,10 +33,12 @@ class QuestionsController < StatementsController
   
   
   protected
+  # return a possible parent, in this case question doesn't have a parent
   def parent
     nil
   end
   
+  #returns the handled statement type symbol
   def statement_class_param
     :question
   end

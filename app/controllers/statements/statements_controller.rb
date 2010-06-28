@@ -27,17 +27,14 @@ class StatementsController < ApplicationController
     allow logged_in, :only => [:destroy], :if => :may_delete?
   end
 
-  # FIXME: I tink this method is never used - it should possibly do nothing, or redirect to category...
-  def index
-    respond_to do |format|
-      format.html { render :template => 'statements/questions/index' }
-    end
-  end
+  
 
-
-
-  # TODO use find or create category tag?
-  # displays all questions in a category
+  # Shows all the existing debates according to the given search string and a possible category.
+  #
+  # Method:   GET
+  # Params:   value: string, id (category): string
+  # Response: JS
+  #
   def category
     @value    = params[:value] || ""
     @page     = params[:page]  || 1
@@ -63,8 +60,12 @@ class StatementsController < ApplicationController
 
 
 
-  # TODO visited! throws error with current fixtures.
-
+  # Shows a selected statement
+  #
+  # Method:   GET
+  # Params:   id: integer
+  # Response: HTTP or JS
+  #
   def show
     @statement_node.visited_by!(current_user) if current_user
 
@@ -112,6 +113,10 @@ class StatementsController < ApplicationController
 
   # Called if user supports this statement_node. Updates the support field in the corresponding
   # echo object.
+  #
+  # Method:   POST
+  # Response: JS
+  #
   def echo
     return if !@statement_node.echoable?
     @statement_node.supported_by!(current_user)
@@ -125,6 +130,10 @@ class StatementsController < ApplicationController
 
   # Called if user doesn't support this statement_node any longer. Sets the supported field
   # of the corresponding echo object to false.
+  #
+  # Method:   POST
+  # Response: HTTP or JS
+  #
   def unecho
     return if !@statement_node.echoable?
     current_user.echo!(@statement_node, :supported => false)
@@ -137,7 +146,11 @@ class StatementsController < ApplicationController
   end
 
 
-
+  # Renders the new statement translation form when called
+  #
+  # Method:   GET
+  # Response: JS
+  #
   def new_translation
     @statement_document ||= @statement_node.translated_document(current_user.spoken_language_ids)
     @new_statement_document ||= @statement_node.add_statement_document({:language_id => locale_language_id})
@@ -157,6 +170,12 @@ class StatementsController < ApplicationController
   end
   public
 
+  # Creates a translation of a statement according to the fields from a form that was submitted
+  #
+  # Method:   POST
+  # Params:   new_statement_document: hash
+  # Response: JS
+  #
   def create_translation
     attrs = params[statement_class_param]
     doc_attrs = attrs.delete(:new_statement_document).merge({:author_id => current_user.id, 
@@ -192,7 +211,12 @@ class StatementsController < ApplicationController
     end
   end
   public
-  # renders form for creating a new statement_node
+  # renders form for creating a new statement
+  #
+  # Method:   GET
+  # Params:   parent_id: integer, root_id: integer
+  # Response: JS
+  #
   def new
     @statement_node ||= statement_node_class.new(:parent => parent, :root_id => params[:question_id])
     @statement_document ||= StatementDocument.new
@@ -237,7 +261,12 @@ class StatementsController < ApplicationController
 
   
   public
-  # actually creates a new statement_node
+  # creates a new statement
+  #
+  # Method:   POST
+  # Params:   statement: hash
+  # Response: HTTP or JS
+  #
   def create
     attrs = params[statement_class_param].merge({:creator_id => current_user.id})
     doc_attrs = attrs.delete(:statement_document)
@@ -304,7 +333,12 @@ class StatementsController < ApplicationController
     end
   end
   public
-  # renders a form to edit statement_nodes
+  # renders a form to edit statements
+  #
+  # Method:   POST
+  # Params:   id: integer 
+  # Response: JS
+  #
   def edit
     @statement_document ||= @statement_node.translated_document(language_preference_list)
     @locale_language_id = locale_language_id
@@ -315,7 +349,12 @@ class StatementsController < ApplicationController
     end
   end
 
-  # actually update statement_nodes
+  # actually updates statements
+  #
+  # Method:   POST
+  # Params:   statement: hash 
+  # Response: JS
+  #
   def update
     attrs = params[statement_class_param]
     @locale_language_id = locale_language_id
@@ -344,6 +383,11 @@ class StatementsController < ApplicationController
 
 
   # destroys a statement_node
+  #
+  # Method:   DELETE
+  # Params:   id: integer 
+  # Response: HTTP
+  #
   def destroy
     @statement_node.destroy
     set_statement_node_info("discuss.messages.deleted",@statement_node)

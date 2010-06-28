@@ -45,11 +45,7 @@ class Users::SpokenLanguagesController < ApplicationController
   # Create new spoken language for the current user.
   # method: POST
   def create
-    @spoken_language = SpokenLanguage.new()
-    @spoken_language.language = EnumKey.find(params[:spoken_language][:language])
-    @spoken_language.level = EnumKey.find(params[:spoken_language][:level])
-    @spoken_language.user_id = @current_user.id
-
+    @spoken_language = SpokenLanguage.new(params[:spoken_language].merge({:user => @current_user}))
     previous_completeness = @spoken_language.profile.percent_completed
     respond_to do |format|
       format.js do

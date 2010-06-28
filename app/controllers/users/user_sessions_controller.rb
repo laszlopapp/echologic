@@ -25,7 +25,7 @@ class Users::UserSessionsController < ApplicationController
   end
 
   def destroy
-    current_user.update_attributes!(:last_login_language => EnumKey.find_by_code_and_enum_name(params[:locale].to_s,"languages"))
+    current_user.update_attributes(:last_login_language => EnumKey.find_by_code_and_enum_name(params[:locale].to_s,"languages"))
     current_user_session.destroy
     reset_session
     flash[:notice] = I18n.t('users.user_sessions.messages.logout_success')
