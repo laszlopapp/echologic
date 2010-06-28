@@ -247,6 +247,7 @@ en:
     email_notification:
       title: Email Notification
       guide: Here you can set if you want to receive a weekly email notification with your subscribed entities related updates.
+      label: Weekly update on discussions
       
 
     users:

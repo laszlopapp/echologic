@@ -7,6 +7,7 @@ class ActivityTrackingNotification
   def perform
     week_day = Time.now.wday
     User.all(:conditions => ["(id % 7) = ?", week_day]).each do |user|
+      next if !user.email_notification?
       events = Event.find_by_sql(sanitize_sql(["SELECT * from events e 
                                                LEFT JOIN statement_nodes s ON s.id = e.subscribeable_id
                                                where and s.creator_id != ?

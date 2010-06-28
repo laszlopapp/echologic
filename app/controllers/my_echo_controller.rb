@@ -30,4 +30,15 @@ class MyEchoController < ApplicationController
     @user    = @current_user
     render
   end
+  
+  def set_email_notification
+    @user = User.find(params[:id])
+    @user.email_notification = params.has_key?(:notify) ? 1 : 0 
+    @user.save
+    respond_to do |format|
+      format.js do 
+        replace_content('email_notification_element', :partial => 'users/email_notification/check')
+      end
+    end
+  end
 end

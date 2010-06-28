@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100623172455) do
+ActiveRecord::Schema.define(:version => 20100628092238) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -236,6 +236,7 @@ ActiveRecord::Schema.define(:version => 20100623172455) do
     t.boolean  "active",                 :default => false, :null => false
     t.string   "openid_identifier"
     t.integer  "last_login_language_id"
+    t.integer  "email_notification"
   end
 
   create_table "valid_contexts", :force => true do |t|

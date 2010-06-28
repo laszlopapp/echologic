@@ -5,16 +5,20 @@ class RefactorHashTags < ActiveRecord::Migration
 
     %w(echonomyjam echo echocracy echosocial realprices igf klimaherbsttv).each do |name|
       tag = Tag.find_by_value(name)
-      tag.value= "##{tag.value}"
-      tag.save
+      if tag
+        tag.value= "##{tag.value}" 
+        tag.save
+      end
     end
   end
 
   def self.down
     %w(echonomyjam echo echocracy echosocial realprices igf klimaherbsttv).each do |name|
       tag = Tag.find_by_value("##{value}")
-      tag.value = value
-      tag.save!
+      if tag
+        tag.value = value
+        tag.save!
+      end
     end
   end
 end
