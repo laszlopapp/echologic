@@ -46,11 +46,11 @@ class Users::SpokenLanguagesController < ApplicationController
   # method: POST
   def create
     @spoken_language = SpokenLanguage.new(params[:spoken_language].merge({:user => @current_user}))
-    previous_completeness = @spoken_language.profile.percent_completed
+    previous_completeness = @spoken_language.percent_completed
     respond_to do |format|
       format.js do
         if @spoken_language.save
-          current_completeness = @spoken_language.profile.percent_completed
+          current_completeness = @spoken_language.percent_completed
           set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 
           render_with_info do |p|
@@ -89,9 +89,9 @@ class Users::SpokenLanguagesController < ApplicationController
 
     id = @spoken_language.id
 
-    previous_completeness = @spoken_language.profile.percent_completed
+    previous_completeness = @spoken_language.percent_completed
     @spoken_language.destroy
-    current_completeness = @spoken_language.profile.percent_completed
+    current_completeness = @spoken_language.percent_completed
     set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 
     respond_to do |format|

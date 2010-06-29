@@ -12,8 +12,8 @@ module ProfileUpdater
     # updates the profile 
     def update_profile
       if self.user and self.user.profile
-        self.user.profile.calculate_completeness
-        self.user.profile.save
+        self.user.calculate_completeness
+        self.user.save
       end
     end
   end

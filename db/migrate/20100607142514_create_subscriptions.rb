@@ -8,8 +8,7 @@ class CreateSubscriptions < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :subscriptions, [:subscribeable_id, :subscribeable_type]
-    add_index :subscriptions, [:subscriber_id, :subscriber_type]
+    add_index :subscriptions, [:subscribeable_id, :subscriber_id, :subscribeable_type]
   end
 
   def self.down

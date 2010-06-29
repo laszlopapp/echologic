@@ -19,16 +19,16 @@ class TaoTagsController < ApplicationController
   # Response: JS
   #
   def create
-    previous_completeness = current_user.profile.percent_completed
+    previous_completeness = current_user.percent_completed
     tags = params[:tag][:value].split(',')
     new_tags = tags - current_user.tao_tags.map{|tao_tag|tao_tag.tag.value}
     current_user.add_tags(tags,{:language_id => locale_language_id, :context_id => params[:context_id]})
     context_code = EnumKey.find(params[:context_id]).code
-    current_user.profile.calculate_completeness #maybe there's a better solution for this...
+    current_user.calculate_completeness #maybe there's a better solution for this...
     respond_to do |format|
       format.js do
         if current_user.save
-          current_completeness = current_user.profile.percent_completed
+          current_completeness = current_user.percent_completed
           set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 
           tags_to_show = current_user.tao_tags.select{|tao_tag| new_tags.include? tao_tag.tag.value}
@@ -53,10 +53,10 @@ class TaoTagsController < ApplicationController
   #
   def destroy
     @tao_tag = TaoTag.find(params[:id])
-    previous_completeness = current_user.profile.percent_completed
+    previous_completeness = current_user.percent_completed
     @tao_tag.destroy
-    @tao_tag.tao.profile.calculate_completeness #maybe there's a better solution for this...
-    current_completeness = @tao_tag.tao.profile.nil? ? previous_completeness : @tao_tag.tao.profile.percent_completed
+    @tao_tag.tao.calculate_completeness #maybe there's a better solution for this...
+    current_completeness = @tao_tag.tao.profile.nil? ? previous_completeness : @tao_tag.tao.percent_completed
     set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 
     respond_to do |format|

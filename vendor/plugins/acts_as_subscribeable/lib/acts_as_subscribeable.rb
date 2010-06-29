@@ -26,6 +26,7 @@ module ActiveRecord
           
           class_eval <<-RUBY
             def subscribe_creator
+              return if self.creator.nil?
               subscription = self.subscriptions.find_by_subscriber_id(self.creator.id) || Subscription.new(:subscriber => self.creator, :subscriber_type => self.class.name, :subscribeable => self, :subscribeable_type => self.class.name)
               subscriptions << subscription if subscription.new_record?
             end

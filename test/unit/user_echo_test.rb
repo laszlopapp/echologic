@@ -5,7 +5,7 @@ class UserEchoTest < ActiveSupport::TestCase
   context "UserEcho" do
     setup {@user_echo = UserEcho.new}
     subject {@user_echo}
-    should_belong_to :echo, :user, :statement
+    should_belong_to :echo, :user, :statement_node
     should_have_db_columns :visited, :supported
 
     context "being told to be created or updated" do

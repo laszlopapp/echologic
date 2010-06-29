@@ -8,8 +8,7 @@ class CreateEvents < ActiveRecord::Migration
       t.datetime :created_at
     end
     
-    add_index :events, [:subscribeable_id, :subscribeable_type]
-    add_index :events, [:subscribeable_id, :created_at]
+    add_index :events, [:subscribeable_id, :subscribeable_type, :created_at]
   end
 
   def self.down

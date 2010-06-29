@@ -50,11 +50,11 @@ class Users::WebAddressesController < ApplicationController
     @web_address = WebAddress.new(params[:web_address])
     @web_address.user_id = @current_user.id
 
-    previous_completeness = @web_address.profile.percent_completed
+    previous_completeness = @web_address.percent_completed
     respond_to do |format|
       format.js do
         if @web_address.save
-          current_completeness = @web_address.profile.percent_completed
+          current_completeness = @web_address.percent_completed
           set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 
           render_with_info do |p|
@@ -90,9 +90,9 @@ class Users::WebAddressesController < ApplicationController
   def destroy
     @web_address = WebAddress.find(params[:id])
     id = @web_address.id
-    previous_completeness = @web_address.profile.percent_completed
+    previous_completeness = @web_address.percent_completed
     @web_address.destroy
-    current_completeness = @web_address.profile.percent_completed
+    current_completeness = @web_address.percent_completed
     set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 
     respond_to do |format|

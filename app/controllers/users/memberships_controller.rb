@@ -47,12 +47,12 @@ class Users::MembershipsController < ApplicationController
   def create
 
     @membership = Membership.new(params[:membership].merge(:user_id => current_user.id))
-    previous_completeness = @membership.profile.percent_completed
+    previous_completeness = @membership.percent_completed
 
     respond_to do |format|
       format.js do
         if @membership.save
-          current_completeness = @membership.profile.percent_completed
+          current_completeness = @membership.percent_completed
           set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
           render_with_info do |p|
             p.insert_html :bottom, 'membership_list', :partial => 'users/memberships/membership'
@@ -87,9 +87,9 @@ class Users::MembershipsController < ApplicationController
     @membership = Membership.find(params[:id])
     id = @membership.id
 
-    previous_completeness = @membership.profile.percent_completed
+    previous_completeness = @membership.percent_completed
     @membership.destroy
-    current_completeness = @membership.profile.percent_completed
+    current_completeness = @membership.percent_completed
     set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 
     respond_to do |format|

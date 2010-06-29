@@ -18,7 +18,7 @@ class Mailer < ActionMailer::Base
     from          "noreply@echologic.org"
     recipients    user.email
     sent_on       Time.now
-    body          :name => user.profile.full_name, :activation_url => register_url(user.perishable_token)
+    body          :name => user.full_name, :activation_url => register_url(user.perishable_token)
   end
 
   # Provides an activation for the given user.
@@ -28,7 +28,7 @@ class Mailer < ActionMailer::Base
     from          "noreply@echologic.org"
     recipients    user.email
     sent_on       Time.now
-    body          :name => user.profile.full_name
+    body          :name => user.full_name
   end
 
   # Send a password reset email containing a link to reset via perishable_token.
@@ -37,7 +37,7 @@ class Mailer < ActionMailer::Base
     from          "noreply@echologic.org"
     recipients    user.email
     sent_on       Time.now
-    body          :name => user.profile.full_name, :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
+    body          :name => user.full_name, :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
   end
 
   # Send the activities on the subscribed objects to the subscribeable

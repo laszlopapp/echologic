@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
 
   # Every user must have a profile. Profiles are destroyed with the user.
   has_one :profile, :dependent => :destroy
+  delegate :percent_completed, :full_name, :first_name, :first_name=, :last_name, :last_name=, 
+           :city, :city=, :country, :country=, :completeness, :calculate_completeness, :to => :profile
   
   #last login language, important for the activity tracking email language when the user doesn't have anything set
   enum :last_login_language, :enum_name => :languages
@@ -51,17 +53,17 @@ class User < ActiveRecord::Base
   # Signup process before activation: get login name and email, ensure to not
   # handle with sessions.
   def signup!(params)
-    self.profile.first_name = params[:user][:profile][:first_name]
-    self.profile.last_name  = params[:user][:profile][:last_name]
+    self.first_name = params[:user][:profile][:first_name]
+    self.last_name  = params[:user][:profile][:last_name]
     self.email              = params[:user][:email]
     save_without_session_maintenance
   end
 
   # Returns the display name of the user
-  # TODO Depricated. Use user.profile.full_name
+  # TODO Depricated. Use user.full_name
   #  Changed for mailer model - anywhere else used?
   def display_name()
-    self.profile.first_name + " " + self.profile.last_name;
+    self.first_name + " " + self.last_name;
   end
 
   # Activation process. Set user active and add its password and openID and
