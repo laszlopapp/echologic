@@ -9,6 +9,8 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :enum_keys, [:code, :enum_name]
     #enum_values
     add_index :enum_values, [:language_id]
+    #spoken_languages
+    add_index :spoken_languages, [:user_id, :level_id]
     # users
     add_index :users, [:email]
     # profiles
@@ -26,6 +28,8 @@ class AddMissingIndexes < ActiveRecord::Migration
     remove_index :enum_keys, :column => [:code, :enum_name]
     
     remove_index :enum_values, :column => [:language_id]
+    
+    remove_index :spoken_languages, [:user_id, :level_id]
     
     remove_index :users, :column => [:email]
     

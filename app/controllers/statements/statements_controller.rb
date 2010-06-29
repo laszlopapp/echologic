@@ -177,7 +177,7 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def create_translation
-    attrs = params[statement_class_param]
+    attrs = params[statement_node_symbol]
     doc_attrs = attrs.delete(:new_statement_document).merge({:author_id => current_user.id, 
                                                              :language_id => locale_language_id})
     @new_statement_document = @statement_node.add_statement_document(doc_attrs)
@@ -268,7 +268,7 @@ class StatementsController < ApplicationController
   # Response: HTTP or JS
   #
   def create
-    attrs = params[statement_class_param].merge({:creator_id => current_user.id})
+    attrs = params[statement_node_symbol].merge({:creator_id => current_user.id})
     doc_attrs = attrs.delete(:statement_document)
     
     form_tags = attrs.delete(:tags)
@@ -356,7 +356,7 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def update
-    attrs = params[statement_class_param]
+    attrs = params[statement_node_symbol]
     @locale_language_id = locale_language_id
     attrs_doc = attrs.delete(:statement_document)
     # Updating tags of the statement
@@ -416,7 +416,7 @@ class StatementsController < ApplicationController
     current_user.may_delete?(@statement_node)
   end
 
-  def statement_class_param
+  def statement_node_symbol
     raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
 
@@ -431,7 +431,7 @@ class StatementsController < ApplicationController
   end
 
   def set_statement_node_info(string, statement_node)
-    set_info(string, :type => I18n.t("discuss.statements.types.#{statement_class_param.to_s}"))
+    set_info(string, :type => I18n.t("discuss.statements.types.#{statement_node_symbol.to_s}"))
   end  
 
   

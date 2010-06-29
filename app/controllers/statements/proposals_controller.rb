@@ -7,7 +7,7 @@ class ProposalsController < StatementsController
   end
   
   #returns the handled statement type symbol
-  def statement_class_param
+  def statement_node_symbol
     :proposal
   end
   

@@ -57,8 +57,7 @@ ActiveRecord::Schema.define(:version => 20100628162241) do
     t.datetime "created_at"
   end
 
-  add_index "events", ["subscribeable_id", "created_at"], :name => "index_events_on_subscribeable_id_and_created_at"
-  add_index "events", ["subscribeable_id", "subscribeable_type"], :name => "index_events_on_subscribeable_id_and_subscribeable_type"
+  add_index "events", ["subscribeable_id", "subscribeable_type", "created_at"], :name => "events_index"
 
   create_table "feedbacks", :force => true do |t|
     t.string "name"
@@ -145,6 +144,8 @@ ActiveRecord::Schema.define(:version => 20100628162241) do
     t.integer "level_id"
   end
 
+  add_index "spoken_languages", ["user_id", "level_id"], :name => "index_spoken_languages_on_user_id_and_level_id"
+
   create_table "statement_documents", :force => true do |t|
     t.string   "title"
     t.text     "text"
@@ -189,8 +190,7 @@ ActiveRecord::Schema.define(:version => 20100628162241) do
     t.datetime "updated_at"
   end
 
-  add_index "subscriptions", ["subscribeable_id", "subscribeable_type"], :name => "index_subscriptions_on_subscribeable_id_and_subscribeable_type"
-  add_index "subscriptions", ["subscriber_id", "subscriber_type"], :name => "index_subscriptions_on_subscriber_id_and_subscriber_type"
+  add_index "subscriptions", ["subscribeable_id", "subscriber_id", "subscribeable_type"], :name => "subscriptions_index"
 
   create_table "tags", :force => true do |t|
     t.string   "value"
