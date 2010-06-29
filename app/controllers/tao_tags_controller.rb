@@ -61,7 +61,7 @@ class TaoTagsController < ApplicationController
 
     respond_to do |format|
       format.js do
-        ender_with_info do |p|
+        render_with_info do |p|
           p.remove dom_id(@tao_tag)
         end
       end

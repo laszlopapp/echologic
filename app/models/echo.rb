@@ -1,6 +1,6 @@
 class Echo < ActiveRecord::Base
   # FIXME: take polymorphism into account
-  has_one :statement
+  has_one :statement_node
   has_many :user_echos
   
   before_save :update_counter

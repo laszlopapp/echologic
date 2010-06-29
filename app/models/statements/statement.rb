@@ -8,7 +8,5 @@ class Statement < ActiveRecord::Base
   named_scope :find_by_title, lambda {|value|
             { :include => :statement_documents, :conditions => ['statement_documents.title LIKE ?', "%#{value}%"] } }
             
-  def find_by_echo_id(id)
-    self.statement_nodes.first.find_by_echo_id(id)
-  end
+  
 end

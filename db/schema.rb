@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100628092238) do
+ActiveRecord::Schema.define(:version => 20100628162241) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -38,12 +38,16 @@ ActiveRecord::Schema.define(:version => 20100628092238) do
     t.integer "key"
   end
 
+  add_index "enum_keys", ["code", "enum_name"], :name => "index_enum_keys_on_code_and_enum_name"
+
   create_table "enum_values", :force => true do |t|
     t.integer "enum_key_id"
     t.integer "language_id"
     t.string  "context"
     t.string  "value"
   end
+
+  add_index "enum_values", ["language_id"], :name => "index_enum_values_on_language_id"
 
   create_table "events", :force => true do |t|
     t.text     "event"
@@ -77,6 +81,8 @@ ActiveRecord::Schema.define(:version => 20100628092238) do
     t.datetime "updated_at"
   end
 
+  add_index "memberships", ["position", "organisation"], :name => "index_memberships_on_position_and_organisation"
+
   create_table "profiles", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -95,6 +101,8 @@ ActiveRecord::Schema.define(:version => 20100628092238) do
     t.datetime "avatar_updated_at"
     t.float    "completeness",        :default => 0.01
   end
+
+
 
   create_table "reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -149,6 +157,8 @@ ActiveRecord::Schema.define(:version => 20100628092238) do
     t.datetime "updated_at"
   end
 
+
+
   create_table "statement_nodes", :force => true do |t|
     t.string   "type"
     t.integer  "parent_id"
@@ -162,6 +172,9 @@ ActiveRecord::Schema.define(:version => 20100628092238) do
     t.datetime "updated_at"
     t.integer  "statement_id"
   end
+
+  add_index "statement_nodes", ["creator_id"], :name => "index_statement_nodes_on_creator_id"
+  add_index "statement_nodes", ["type", "statement_id", "state_id", "echo_id", "created_at"], :name => "search_by_statement_node_info_index"
 
   create_table "statements", :force => true do |t|
     t.integer "original_language_id"
@@ -238,6 +251,8 @@ ActiveRecord::Schema.define(:version => 20100628092238) do
     t.integer  "last_login_language_id"
     t.integer  "email_notification"
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email"
 
   create_table "valid_contexts", :force => true do |t|
     t.integer "context_id"
