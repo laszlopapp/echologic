@@ -99,6 +99,16 @@ module ActiveRecord
             def delete_subscription_for(obj)
               subscriptions.find_by_subscribeable_id(obj.id).destroy
             end
+            
+            def find_tracked_events(timespan)
+              Event.find_by_sql(sanitize_sql(["SELECT * from events e 
+                                               LEFT JOIN statement_nodes s ON s.id = e.subscribeable_id
+                                               where and s.creator_id != ?
+                                               and (s.parent_id = NULL or s.root_id IN (?))
+                                               and e.created_at > ?
+                                               order_by type DESC 
+                                               created_at DESC",self.id,self.subscribeables.map{|s|s.id},timespan]))
+            end
           RUBY
         end
       end

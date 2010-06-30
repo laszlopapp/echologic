@@ -8,14 +8,7 @@ class ActivityTrackingNotification
     week_day = Time.now.wday
     User.all(:conditions => ["(id % 7) = ?", week_day]).each do |user|
       next if !user.email_notification?
-      events = Event.find_by_sql(sanitize_sql(["SELECT * from events e 
-                                               LEFT JOIN statement_nodes s ON s.id = e.subscribeable_id
-                                               where and s.creator_id != ?
-                                               and (s.parent_id = NULL or s.root_id IN (?))
-                                               and e.created_at > ?
-                                               order_by type DESC 
-                                               created_at DESC",user.id,user.subscribeables.map{|s|s.id},7.days.ago]))
-                 
+      events = user.find_tracked_events(7.days.ago)
       next if events.blank? #if there are no events to send per email, then get the hell out
       question_events = events.select{|e|JSON.parse(e.event).keys[0] == 'question'}
       tags = Hash.new
