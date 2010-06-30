@@ -105,6 +105,7 @@ class StatementsController < ApplicationController
 
     @children = @statement_node.sorted_children(current_user,@language_preference_list).paginate(
                                                 StatementNode.default_scope.merge(:page => @page, :per_page => 5))
+    @children_documents = statement_document_search(@children.map{|s|s.statement_id}, @language_preference_list)
     
     respond_to do |format|
       format.html {render :template => 'statements/show' } # show.html.erb
@@ -473,7 +474,12 @@ class StatementsController < ApplicationController
   def statement_document_search (statement_ids, language_keys = language_preference_list)
     hash = {}
     statement_documents = StatementDocument.search_statement_documents(statement_ids, language_keys)
-    statement_documents.each{|sd| hash.store(sd.statement_id, sd)}
+    statement_documents = statement_documents.sort do |a, b| 
+      language_keys.index(a.language_id) <=> language_keys.index(b.language_id)
+    end
+    statement_documents.each do |sd|
+      hash.store(sd.statement_id, sd) unless hash.has_key?(sd.statement_id) 
+    end
     hash
   end
 end

@@ -102,7 +102,7 @@ second-german-proposal:
   root_id: <%= Fixtures.identify('german-question') %>
   type: Proposal
   creator_id: <%= Fixtures.identify(:editor) %>
-  state: 1
+  state_id: <%= Fixtures.identify(:statement_state_published) %>
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('second-german-proposal-statement') %>
 
@@ -120,7 +120,7 @@ german-child-proposal:
   root_id: <%= Fixtures.identify('with-german-children-question') %>
   type: Proposal
   creator_id: <%= Fixtures.identify(:editor) %>
-  state: 1
+  state_id: <%= Fixtures.identify(:statement_state_published) %>
   category_id: <%= Fixtures.identify('echonomy-jam') %>
   statement_id: <%= Fixtures.identify('german-child-proposal-statement') %>
 

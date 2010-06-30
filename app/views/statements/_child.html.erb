@@ -1,5 +1,5 @@
 <%
-   statement_document = statement_node.translated_document(@language_preference_list)
+   statement_document = @children_documents[statement_node.statement_id]
    extra_classes ||= nil
 %>
 

@@ -32,16 +32,16 @@ class StatementDocument < ActiveRecord::Base
       
       #Rambo 1
       query_part_1 = <<-END
-        select distinct sd.*
-        from
-          statement_documents sd
-        where
+          select distinct sd.*
+          from
+            statement_documents sd
+            where
       END
       #Rambo 2
-      query_part_2 = sanitize_sql(["sd.statement_id IN (?) AND sd.language_id IN (?)", statement_ids, language_keys])
+      query_part_2 = sanitize_sql([" sd.statement_id IN (?) AND sd.language_id IN (?)", statement_ids, language_keys])
       #Rambo 3
-      #TODO: doesn't order by supporter count!!!!!!!!!!!!!!!
-      query_part_3 = " group by sd.statement_id;"
+      query_part_3 = sanitize_sql([" order by sd.language_id;", 
+                                   language_keys.first])
 
       #All Rambo's in one
       query = query_part_1+query_part_2+query_part_3
