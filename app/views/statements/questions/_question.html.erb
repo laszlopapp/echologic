@@ -1,6 +1,5 @@
 <% @question = question if defined?(question) %>
-<% question_document = @question.translated_document(@language_preference_list) %>
-
+<% question_document = @statement_documents[@question.statement_id] %>
 <li id="<%= dom_id(@question) %>" class="content question">
     <% long_title = question_document.title.length > 70 %>
     <span class="name">

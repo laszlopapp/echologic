@@ -42,14 +42,15 @@ class StatementsController < ApplicationController
     category = "##{params[:id]}" if params[:id]
 
 
-    @language_preference_list = language_preference_list
+    language_list = language_preference_list
 
-    statement_nodes_not_paginated = search(@value, @language_preference_list,
+    statement_nodes_not_paginated = statement_node_search(@value, language_list,
                                            {:tag => category,
                                             :auth => (current_user && current_user.has_role?(:editor))})
                                             
     @count    = statement_nodes_not_paginated.size
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => 6)
+    @statement_documents = statement_document_search(@statement_nodes.map{|s|s.statement_id}, language_list)
 
     respond_to do |format|
       format.html {render :template => 'statements/questions/index'}
@@ -465,8 +466,15 @@ class StatementsController < ApplicationController
     session[:last_statement_node] = statement_node.id
   end
 
-  def search (value, language_keys = language_preference_list, opts = {})
+  def statement_node_search (value, language_keys = language_preference_list, opts = {})
     StatementNode.search_statement_nodes("Question", value, language_keys, opts)
+  end
+  
+  def statement_document_search (statement_ids, language_keys = language_preference_list)
+    hash = {}
+    statement_documents = StatementDocument.search_statement_documents(statement_ids, language_keys)
+    statement_documents.each{|sd| hash.store(sd.statement_id, sd)}
+    hash
   end
 end
 
