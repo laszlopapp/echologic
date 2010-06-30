@@ -11,13 +11,16 @@ Feature: Take Part on a discussion
   # FIXME this can't work in this way, and should anyway rather being tested inside a functional test
 
   # Scenario: View debates list
-  #   Given I am logged in as "user" with password "true"
-  #   And I am on the Discuss Index
-  # 	When I follow "Featured"
-  # 	When I follow "echonomyJAM"
-  #   	When I choose the first Question
-  #   	When I choose the second Question
-  #   Then the second question must be more recent than the first question
+     Given I am logged in as "user" with password "true"
+     And I am on the Discuss Index
+     When I follow "Featured"
+     When I follow "echonomyJAM"
+       When I choose the first Question
+     And I am on the Discuss Index
+     When I follow "Featured"
+     When I follow "echonomyJAM"
+       When I choose the second Question
+     Then the second question must be more recent than the first question
         
     
   @ok
@@ -64,71 +67,16 @@ Feature: Take Part on a discussion
   Scenario: Edit a proposal i created
     Given I am logged in as "user" with password "true"
       And there is a proposal I have created
+      And the proposal was not published yet
      When I go to the proposal
-     Then I should not see "Edit"
-   #   And I follow "edit"
-   #   And I fill in the following:
-   #    | title | my updated proposal               |
-   #    | text  | somewhat more to propose at lease |
-   #   And I press "Save"
-   # Then I should see "my updated proposal"
-   #   And the questions title should be "my updated proposal"
-
-   # @CHECK
-   # Scenario: View an statement (document) that is not oriinally in my locale language but has translations in another language i speak
-   #   Given I am logged in as "user" with password "true"
-   #   And my locale language is "de" locale language is "de"
-   #   And i also speak the languages "en, fr"
-   #   And there is a a proposal in "de" with translations in "en"
-   #   When I go to the proposal
-   #   Then I should see the proposals english translation
-   #   And I should see something like "This proposal is not available in your locale language, but there is an english translation"
-   #   And I should see "Translate this proposal"
-
-   # @CHECK
-   # Scenario: View an statement (document) that is not originally in my locale language but has translations in several other language i speak
-   #   Given I am logged in as "user" with password "true"
-   #   And my locale language is "de"
-   #   And i also speak the languages "en, fr"
-   #   And there is a a proposal in "de" with translations in "en, fr"
-   #   When I go to the proposal
-   #   Then I should see the proposals english translation
-   #   And I should see something like "This proposal is not available in your locale language, but there is an english translation"
-   #   And I should see "Translate this proposal"
-
-   # @TODO @CHECKBOXES
-   # Scenario: View an statement (document) that is not in my locale language and has no translations in any language i speak 
-   #   Given I am logged in as "user" with password "true"
-   #   And my locale language is "de"
-   #   And i also speak the languages "en, fr"
-   #   And there is a a proposal in "de" with no translations
-   #   When I go to the proposals
-   #   TODO: ...
-
-   # @CHECKBOXES
-   # Scenario: View a debate with a proposal that is not available in any language I speaks
-   #   Given I am logged in as "user" with password "true"
-   #   And my locale language is "de"
-   #   And I also speak the languages "en"
-   #   And there is a question in the language "en" with a proposal in language "fr" and titile "C'est la vie!"
-   #   When I go to the question
-   #   Then I shouldn't see "C'est la vie!"
-   #   And there shouldn't be any proposals for the question 
-
-   # @TODO @CHECKBOXES
-   # Scenario: Translate a statement from a language i speak into my locale language
-   #   Given I am logged in as "user" with password "true"
-   #   And my locale language is "de"
-   #   And I also speak the languages "en"
-   #   And there is a a proposal in "en" with no translations
-   #   When I go to the proposal
-   #   And I click "Translate this proposal"
-   #   And I fill in the following
-   #   TODO: ... statement_document_title, statement_document_test
-   #   And I press "Save"
-   #   Then I should see "You successfully translated this proposal"
-   #   And I should see "TODO: what I entered as a title"
-   #   And the proposal should have translations in "en, de"
+     Then I should see "Edit"
+      And I follow "Edit"
+      And I fill in the following:
+       | proposal_statement_document_title | my updated proposal               |
+       | proposal_statement_document_text  | somewhat more to propose at lease |
+      And I press "Save"
+    Then I should see "my updated proposal"
+   
 
 # Open Questions:
 

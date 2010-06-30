@@ -62,8 +62,7 @@ When /^I choose the "([^\"]*)" Improvement Proposal$/ do |name|
 end
 
 Then /^I should see an error message$/i do
-  pending
-  Then "I should see a \"error box\""
+  Then 'I should see "error"'
 end
 
 Given /^there is the first question$/i do
@@ -148,6 +147,11 @@ end
 
 Given /^there is a proposal$/ do
   @proposal = Question.find_all_by_state_id(StatementNode.statement_states('published').id).last.children.proposals.first
+end
+
+Given /^the proposal was not published yet$/ do
+  @proposal.state = StatementNode.statement_states("new")
+  @proposal.save
 end
 
 Then /^the questions title should be "([^\"]*)"$/ do |title|

@@ -59,14 +59,7 @@ Feature: Start a discussion
       And I press "Save"
     Then I should see "a proposal to propose some"
       And the question should have one proposal
-      
-  @allow-rescue
-  Scenario: Create a valid question as a user
-    Given there are no questions
-     And I am logged in as "user" with password "true"
-    When I go to create a question
-    Then I should see an error message
-
+ 
     
   #Category tests: tests the existence of the 4 main categories
   Scenario: I want to see all categories
