@@ -6,7 +6,7 @@ class AddMissingIndexes < ActiveRecord::Migration
     # statement documents
     execute "CREATE INDEX `search_by_statement_document_info_index` ON `statement_documents` (`title`, `text`(400), `language_id`, `statement_id`)"
     # enum keys
-    add_index :enum_keys, [:code, :enum_name]
+    add_index :enum_keys, [:id, :code, :enum_name]
     #enum_values
     add_index :enum_values, [:language_id]
     #spoken_languages
@@ -16,7 +16,7 @@ class AddMissingIndexes < ActiveRecord::Migration
     # profiles
     execute "CREATE INDEX `search_by_profile_info_index` ON `profiles` (`first_name`, `last_name`, `city`, `country`,`about_me`(2), `motivation`(2))"
     # memberships
-    add_index :memberships, [:position, :organisation]
+    add_index :memberships, [:user_id, :position, :organisation]
   end
 
   def self.down
@@ -25,7 +25,7 @@ class AddMissingIndexes < ActiveRecord::Migration
     
     remove_index :statement_documents, :name => "search_by_statement_document_info_index"
     
-    remove_index :enum_keys, :column => [:code, :enum_name]
+    remove_index :enum_keys, :column => [:id, :code, :enum_name]
     
     remove_index :enum_values, :column => [:language_id]
     
@@ -35,6 +35,6 @@ class AddMissingIndexes < ActiveRecord::Migration
     
     remove_index :profiles, :name => "search_by_profile_info_index"
     
-    remove_index :memberships, :column => [:position, :organisation]
+    remove_index :memberships, :column => [:user_id, :position, :organisation]
   end
 end

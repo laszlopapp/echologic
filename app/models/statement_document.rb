@@ -32,7 +32,7 @@ class StatementDocument < ActiveRecord::Base
       
       #Rambo 1
       query_part_1 = <<-END
-          select distinct sd.*
+          select distinct sd.title, sd.statement_id, sd.language_id
           from
             statement_documents sd
             where

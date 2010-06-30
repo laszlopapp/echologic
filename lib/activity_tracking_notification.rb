@@ -16,7 +16,7 @@ class ActivityTrackingNotification
                                                order_by type DESC 
                                                created_at DESC",user.id,user.subscribeables.map{|s|s.id},7.days.ago]))
                  
-      return if events.blank? #if there are no events to send per email, then get the hell out
+      next if events.blank? #if there are no events to send per email, then get the hell out
       question_events = events.select{|e|JSON.parse(e.event).keys[0] == 'question'}
       tags = Hash.new
       question_events.each do |question|
