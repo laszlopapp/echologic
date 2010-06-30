@@ -16,7 +16,9 @@ class QuestionsController < StatementsController
   
   # action: publish a statement
   def publish
+    language_list = language_preference_list
     @statement_node.publish
+    @statement_documents = statement_document_search([@statement_node.statement_id], language_list)
     respond_to do |format|
       format.js do
         if @statement_node.save

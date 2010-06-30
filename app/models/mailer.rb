@@ -1,8 +1,5 @@
 class Mailer < ActionMailer::Base
   
-    handle_asynchronously :feedback, :activation_instructions, :activation_confirmation, :password_reset_instructions,
-                          :activity_tracking_email
-
   # Send a feedback object as email to the FEEDBACK_RECIPIENT specified
   # in the environment.
   def feedback(feedback)  

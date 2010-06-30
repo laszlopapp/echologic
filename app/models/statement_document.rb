@@ -40,8 +40,7 @@ class StatementDocument < ActiveRecord::Base
       #Rambo 2
       query_part_2 = sanitize_sql([" sd.statement_id IN (?) AND sd.language_id IN (?)", statement_ids, language_keys])
       #Rambo 3
-      query_part_3 = sanitize_sql([" order by sd.language_id;", 
-                                   language_keys.first])
+      query_part_3 = " order by sd.language_id;"
 
       #All Rambo's in one
       query = query_part_1+query_part_2+query_part_3
