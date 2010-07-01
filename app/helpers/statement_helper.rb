@@ -188,10 +188,9 @@ module StatementHelper
 
   def create_question_link_for
     return unless current_user
-    link_to(I18n.t("discuss.statements.create_question_link",
-            :type => Question.display_name), new_question_url,
-            :class=>'text_button create_question_button ttLink no_border',
-            :title => I18n.t("discuss.tooltips.create_question"))
+    link_to(I18n.t("discuss.statements.create_question_link"),
+            new_question_url,
+            :class=> 'text_button create_question_button ttLink no_border')
   end
 
   def edit_statement_node_link(statement_node, statement_document)
