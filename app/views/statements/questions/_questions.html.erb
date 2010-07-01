@@ -29,7 +29,8 @@
 	  </ul>
 
     <%= will_paginate statement_nodes,
-                      :previous_label => '', :next_label => '',
+                      :previous_label => '',
+                      :next_label => '',
                       :params => {:controller => :discuss} if defined? statement_nodes.total_pages %>
   </div>
 </div>
