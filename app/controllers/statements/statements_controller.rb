@@ -15,14 +15,15 @@ class StatementsController < ApplicationController
   verify :method => :delete, :only => [:destroy]
 
   # the order of these filters matters. change with caution.
-  before_filter :fetch_statement_node, :only => [:show, :edit, :update, :echo, :unecho, :new_translation,:create_translation,:destroy,:publish]
-  before_filter :require_user, :except => [:index, :category, :show]
+  before_filter :fetch_statement_node, :only => [:show,:edit,:update,:echo,:unecho,:new_translation,:create_translation,:destroy,:publish]
+  before_filter :require_user, :except => [:category, :show]
+  before_filter :fetch_languages, :only => [:category,:show,:edit,:update,:new,:create,:echo,:unecho,:new_translation,:create_translation,:publish,:my_discussions]
  
   # authlogic access control block
   access_control do
     allow :editor
     allow anonymous, :to => [:index, :show, :category]
-    allow logged_in, :only => [:index, :show, :echo, :unecho, :new, :create, :new_translation, :create_translation, :publish]
+    allow logged_in, :only => [:index,:show,:echo,:unecho,:new,:create,:new_translation,:create_translation,:publish,:my_discussions]
     allow logged_in, :only => [:edit, :update], :if => :may_edit?
     allow logged_in, :only => [:destroy], :if => :may_delete?
   end
@@ -41,14 +42,12 @@ class StatementsController < ApplicationController
 
     category = "##{params[:id]}" if params[:id]
 
-
-    language_list = language_preference_list
-
-    statement_nodes_not_paginated = search_statement_nodes(@value, language_list, {:tag => category, :auth => current_user && current_user.has_role?(:editor)})
+    statement_nodes_not_paginated = search_statement_nodes(@value, @language_preference_list, 
+                                    {:tag => category, :auth => current_user && current_user.has_role?(:editor)})
                                             
     @count    = statement_nodes_not_paginated.size
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => 6)
-    @statement_documents = search_statement_documents(@statement_nodes.map { |s| s.statement_id }, language_list)
+    @statement_documents = search_statement_documents(@statement_nodes.map { |s| s.statement_id }, @language_preference_list)
 
     respond_to do |format|
       format.html {render :template => 'statements/questions/index'}
@@ -71,8 +70,6 @@ class StatementsController < ApplicationController
     # store last statement (for cancel link)
     session[:last_statement_node] = @statement_node.id
 
-    @language_preference_list = language_preference_list
-
     # prev / next functionality
     unless @statement_node.children.empty?
       child_type = ("current_" + @statement_node.class.expected_children.first.to_s.underscore).to_sym
@@ -88,7 +85,7 @@ class StatementsController < ApplicationController
     end
 
     #test for special links
-    @original_language_warning = @statement_node.not_original_language?(current_user,locale_language_id)
+    @original_language_warning = @statement_node.not_original_language?(current_user,@locale_language_id)
     @translation_permission = @statement_node.translatable?(current_user,@statement_document.language,
                                                             params[:locale],@language_preference_list)
 
@@ -122,7 +119,6 @@ class StatementsController < ApplicationController
     return if !@statement_node.echoable?
     @statement_node.supported_by!(current_user)
     current_user.find_or_create_subscription_for(@statement_node)
-    @language_preference_list = language_preference_list
     respond_to do |format|
       format.html { redirect_to @statement_node }
       format.js { render :template => 'statements/echo' }
@@ -139,7 +135,6 @@ class StatementsController < ApplicationController
     return if !@statement_node.echoable?
     current_user.echo!(@statement_node, :supported => false)
     current_user.delete_subscription_for(@statement_node)
-    @language_preference_list = language_preference_list
     respond_to do |format|
       format.html { redirect_to @statement_node }
       format.js { render :template => 'statements/echo' }
@@ -154,7 +149,7 @@ class StatementsController < ApplicationController
   #
   def new_translation
     @statement_document ||= @statement_node.translated_document(current_user.spoken_language_ids)
-    @new_statement_document ||= @statement_node.add_statement_document({:language_id => locale_language_id})
+    @new_statement_document ||= @statement_node.add_statement_document({:language_id => @locale_language_id})
     respond_to do |format|
       format.html { render :template => 'statements/translate' }
       format.js {render_new_translation}
@@ -180,12 +175,11 @@ class StatementsController < ApplicationController
   def create_translation
     attrs = params[statement_node_symbol]
     doc_attrs = attrs.delete(:new_statement_document).merge({:author_id => current_user.id, 
-                                                             :language_id => locale_language_id})
+                                                             :language_id => @locale_language_id})
     @new_statement_document = @statement_node.add_statement_document(doc_attrs)
     respond_to do |format|
       if @statement_node.save
         set_statement_node_info("discuss.messages.translated",@statement_node)
-        @language_preference_list = language_preference_list
         @statement_document = @new_statement_document
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js   {render_create_translation(@statement_node,@statement_document)}
@@ -223,9 +217,6 @@ class StatementsController < ApplicationController
     @statement_document ||= StatementDocument.new
 
     @tags = @statement_node.tags if @statement_node.taggable?
-
-    @language_preference_list = language_preference_list
-    @locale_language_id = locale_language_id
     # TODO: right now users can't select the language they create a statement in, so current_user.languages_keys.
     # first will work. once this changes, we're in trouble - or better said: we'll have to pass the language_id as a param
     respond_to do |format|
@@ -274,7 +265,6 @@ class StatementsController < ApplicationController
     
     form_tags = attrs.delete(:tags)
     @statement_node ||= statement_node_class.new(attrs)
-    @locale_language_id = locale_language_id
     @statement_document = @statement_node.add_statement_document(
                           doc_attrs.merge({:original_language_id => @locale_language_id}))
     if @statement_node.taggable?
@@ -283,7 +273,6 @@ class StatementsController < ApplicationController
     end
     respond_to do |format|
       if @error.nil? and @statement_node.save
-        @language_preference_list = language_preference_list
         set_statement_node_info("discuss.messages.created",@statement_node)
         current_user.supported!(@statement_node)
         #load current created statement_node to session
@@ -339,8 +328,7 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def edit
-    @statement_document ||= @statement_node.translated_document(language_preference_list)
-    @locale_language_id = locale_language_id
+    @statement_document ||= @statement_node.translated_document(@language_preference_list)
     @tags = @statement_node.tags if @statement_node.taggable?
     respond_to do |format|
       format.html { render :template => 'statements/edit' }
@@ -356,7 +344,6 @@ class StatementsController < ApplicationController
   #
   def update
     attrs = params[statement_node_symbol]
-    @locale_language_id = locale_language_id
     attrs_doc = attrs.delete(:statement_document)
     # Updating tags of the statement
     form_tags = attrs.delete(:tags)
@@ -367,7 +354,7 @@ class StatementsController < ApplicationController
     respond_to do |format|
       if @error.nil? and
          @statement_node.update_attributes(attrs) and
-         @statement_node.translated_document(language_preference_list).update_attributes(attrs_doc)
+         @statement_node.translated_document(@language_preference_list).update_attributes(attrs_doc)
         set_statement_node_info("discuss.messages.updated",@statement_node)
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js   { show }
@@ -406,9 +393,14 @@ class StatementsController < ApplicationController
   def fetch_statement_node
     @statement_node ||= statement_node_class.find(params[:id]) if params[:id].try(:any?) && params[:id] =~ /\d+/
   end  
+  
+  def fetch_languages
+    @locale_language_id = locale_language_id
+    @language_preference_list = language_preference_list
+  end
 
   def may_edit?
-    current_user.may_edit? or @statement_node.translated_document(language_preference_list).author == current_user
+    current_user.may_edit? or @statement_node.translated_document(@language_preference_list).author == current_user
   end
 
   def may_delete?
@@ -454,11 +446,11 @@ class StatementsController < ApplicationController
     session[:last_statement_node] = statement_node.id
   end
 
-  def search_statement_nodes (value, language_keys = language_preference_list, opts = {})
+  def search_statement_nodes (value, language_keys = @language_preference_list, opts = {})
     StatementNode.search_statement_nodes("Question", value, language_keys, opts)
   end
   
-  def search_statement_documents (statement_ids, language_keys = language_preference_list)
+  def search_statement_documents (statement_ids, language_keys = @language_preference_list)
     hash = {}
     statement_documents = StatementDocument.search_statement_documents(statement_ids, language_keys)
     statement_documents = statement_documents.sort do |a, b| 

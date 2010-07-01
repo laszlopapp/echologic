@@ -4,7 +4,6 @@ class QuestionsController < StatementsController
   # action: my discussions page
   def my_discussions
     @page     = params[:page]  || 1
-    @language_preference_list = language_preference_list
     @statement_nodes = Question.by_creator(current_user).paginate(:page => @page, :per_page => 6)
     @statement_documents = search_statement_documents(@statement_nodes.map{|s|s.statement_id}, @language_preference_list)
     respond_to do |format|
@@ -16,14 +15,12 @@ class QuestionsController < StatementsController
   
   # action: publish a statement
   def publish
-    language_list = language_preference_list
     @statement_node.publish
-    @statement_documents = search_statement_documents([@statement_node.statement_id], language_list)
+    @statement_documents = search_statement_documents([@statement_node.statement_id], @language_preference_list)
     respond_to do |format|
       format.js do
         if @statement_node.save
           set_info("discuss.statements.published")
-          @language_preference_list = language_preference_list
           render_with_info do |p|
             p.replace(dom_id(@statement_node), :partial => 'statements/questions/discussion')
           end
