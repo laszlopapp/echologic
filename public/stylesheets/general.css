@@ -57,9 +57,9 @@ input[type=submit]:hover {
 }
 
 a {
-  color:        #7bb031;
+  color: #7bb031;
   text-decoration: none;
-  cursor:       pointer;
+  cursor: pointer !important;
 }
 
 p a, span a {
@@ -68,27 +68,27 @@ p a, span a {
 }
 
 .link {
-  cursor:       pointer;
+  cursor: pointer !important;
 }
 
 .floatLeft {
-  float:       left;
+  float: left;
 }
 
 .floatRight {
-  float:       right;
+  float: right;
 }
 
 .clear {
-  clear:        both;
+  clear: both;
 }
 
 .clearLeft {
-  clear:        left;
+  clear: left;
 }
 
 .clearRight {
-  clear:        right;
+  clear: right;
 }
 
 .width100p {
