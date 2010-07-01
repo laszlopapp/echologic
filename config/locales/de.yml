@@ -284,8 +284,8 @@ de:
 
   discuss:
     my_discussions:
-      link: Meine Discussionen
-      title: Publizierten & Unpublizierten Debatten
+      link: Meine Diskussionen
+      title: Neue & publizierte Diskussionen
     tag_permission: |
       <p>Sie dürfen den '{{tag}}' tag nicht vergeben</p>
     original_language_warning: |
@@ -478,6 +478,7 @@ de:
         Hier können Sie einen <strong>neuen Ergänzungsvorschlag</strong> erstellen.
       publish: Publizieren
       published: Debatte erfolgreich publiziert!
+      edit: '{{type}} bearbeiten'
 
       types:
         question:  'Frage'
