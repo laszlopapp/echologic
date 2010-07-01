@@ -134,7 +134,7 @@ end
 
 Then /^the question should be published$/ do
   @question.reload
-  @question.state.should == EnumKey.find_by_code_and_enum_name("published","statement_states")
+  assert @question.state.eql?(EnumKey.find_by_code_and_enum_name("published","statement_states"))
 end
 
 Then /^I should see the questions title$/ do

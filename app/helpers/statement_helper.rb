@@ -268,7 +268,7 @@ module StatementHelper
   def statement_node_context_line(statement_node)
     link = link_to(statement_node_icon(statement_node, :small) +
            statement_node.title, url_for(statement_node), :class => 'ajax')
-    link << supporter_ratio_bar(statement_node,'context') unless statement_node.class.name == 'Question'
+    link << supporter_ratio_bar(statement_node,'context') unless !statement_node.echoable?
     return link
   end
 
@@ -278,7 +278,7 @@ module StatementHelper
     link = link_to(statement_document.title, url_for(statement_node),
                    :class => "ajax no_border statement_link #{statement_node.class.name.underscore}_link ttLink",
                    :title => I18n.t("discuss.tooltips.#{action}_#{statement_node.class.name.underscore}"))
-    if statement_node.class.name == 'Question'
+    if !statement_node.echoable?
       link << echo_label unless last_statement_node
     else
       link << supporter_ratio_bar(statement_node,'context')

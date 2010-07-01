@@ -1,6 +1,7 @@
 class StatementNode < ActiveRecord::Base
   include Echoable
   acts_as_subscribeable
+  acts_as_extaggable #had to throw this here, because of the event json generation (tao_tags)
   # magically allows Proposal.first.question? et al.
   #
   # FIXME: figure out why this sometimes doesn't work, but only in ajax requests
@@ -13,11 +14,6 @@ class StatementNode < ActiveRecord::Base
     self.state == self.class.statement_states("published")
   end
 
-  # default value for a statement node, concerning the tagging mechanismus
-  def taggable?
-    false
-  end
-
   ##
   ## ASSOCIATIONS
   ##
@@ -25,8 +21,6 @@ class StatementNode < ActiveRecord::Base
   belongs_to :creator, :class_name => "User"
   belongs_to :root_statement, :foreign_key => "root_id", :class_name => "StatementNode"
   belongs_to :statement
-  has_many :tao_tags, :as => :tao, :dependent => :destroy
-  has_many :tags, :through => :tao_tags
 
   enum :state, :enum_name => :statement_states
 
@@ -56,8 +50,7 @@ class StatementNode < ActiveRecord::Base
   validates_numericality_of :state_id
   validates_associated :creator
   validates_associated :statement
-  validates_associated :tao_tags
-
+  
   after_destroy :delete_dependencies
 
   def delete_dependencies
@@ -84,12 +77,7 @@ class StatementNode < ActiveRecord::Base
   named_scope :by_creator, lambda {|id|
   {:conditions => ["creator_id = ?", id]}}
   
-  # by context
-  named_scope :from_context, lambda { |context_ids|
-    { :include => :tao_tags, :conditions => ['tao_tags.context_id IN (?)', context_ids] } }
-  # by tag
-  named_scope :from_tags, lambda { |value|
-    { :include => :tags, :conditions => ['tags.value = ?', value] } }
+  
   
   # orders
   named_scope :by_ratio, :include => :echo, :order => '(echos.supporter_count/echos.visitor_count) DESC'
@@ -163,8 +151,7 @@ class StatementNode < ActiveRecord::Base
 
 
   # checks if there is no document written in the current language code and the current user can translate it
-  def translatable?(user,language_code,language_preference_list)
-    statement_document = self.translated_document(language_preference_list)
+  def translatable?(user,from_language,to_language,language_preference_list)
     if user
       # 1.we have a current user that speaks languages
       !user.spoken_languages.blank? and
@@ -172,14 +159,14 @@ class StatementNode < ActiveRecord::Base
       !user.mother_tongues.blank? and
       # 3.current text language is different from the current language,
       # which would mean there is no translated version of the document yet in the current language
-      !statement_document.language.code.eql?(language_code) and
+      !from_language.code.eql?(to_language) and
       # 4.application language is the current user's mother tongue
-      user.mother_tongues.collect{|l| l.code}.include?(language_code) and
+      user.mother_tongues.collect{|l| l.code}.include?(to_language) and
       # 5.user knows the document's language
-      user.spoken_languages.map{|sp| sp.language}.uniq.include?(statement_document.language) and
+      user.spoken_languages.map{|sp| sp.language}.uniq.include?(from_language) and
       #6. user has language level greater than intermediate
       %w(intermediate advanced mother_tongue).include?(
-        user.spoken_languages.select {|sp| sp.language == statement_document.language}.first.level.code)
+        user.spoken_languages.select {|sp| sp.language == from_language}.first.level.code)
     else
       false
     end
@@ -187,31 +174,19 @@ class StatementNode < ActiveRecord::Base
 
   # checks if, in case the user hasn't yet set his language knowledge, the current language is different from
   # the statement original language. used for the original message warning
-  def not_original_language?(user, language_key)
-    user ? (user.spoken_languages.empty? and language_key != self.statement.original_language.id) : false
+  def not_original_language?(user, current_language_id)
+    user ? (user.spoken_languages.empty? and current_language_id != self.statement.original_language.id) : false
   end
 
-  ################################
-  ###########   TAGS   ###########
-  ################################
-
-  # auxiliary method, add an array of strings as tags to the statement_node
-  def add_tags(tags, opts = {})
-    self.tao_tags << TaoTag.create_for(tags, opts[:language_id], {:tao_id => self.id, 
-                                                                  :tao_type => "StatementNode", 
-                                                                  :context_id => TaoTag.tag_contexts("topic").id})
-  end
-
-  #auxiliary method, destroys statement tags contained in an array of strings
-  def delete_tags(tags)
-    self.tao_tags.each {|tao_tag| tao_tag.destroy if tags.include?(tao_tag.tag.value)}
-  end
+  
 
   # Updates the tags belonging to a question (other statement types do not have any tags yet).
-  def update_tags(tags, language_key)
+  def update_tags(tags, language_id)
     new_tags = tags.split(',').map{|t|t.strip}.uniq
     tags_to_delete = self.tags.collect{|tag|tag.value} - new_tags
-    self.add_tags(new_tags, {:language_id => language_key}) unless new_tags.nil?
+    self.add_tags(new_tags, :language_id => language_id, 
+                            :tao_type => "StatementNode",
+                            :context_id => TaoTag.tag_contexts("topic").id) unless new_tags.nil?
     self.delete_tags tags_to_delete
     new_tags
   end
@@ -260,7 +235,7 @@ class StatementNode < ActiveRecord::Base
       end
       #sorting the and arguments
       and_conditions = opts[:conditions] || ["n.type = '#{type}'"]
-      and_conditions << "state_id = #{statement_states('published').id}" if opts[:auth]
+      and_conditions << "n.state_id = #{statement_states('published').id}" if opts[:auth]
       and_conditions << sanitize_sql(["t.value = ?", opts[:tag]]) if opts[:tag]
       and_conditions << sanitize_sql(["d.language_id IN (?)",language_keys])
       and_conditions << sanitize_sql(["t.value = ?", opts[:tag]]) if opts[:tag]

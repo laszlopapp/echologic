@@ -44,13 +44,11 @@ class StatementsController < ApplicationController
 
     language_list = language_preference_list
 
-    statement_nodes_not_paginated = statement_node_search(@value, language_list,
-                                           {:tag => category,
-                                            :auth => (current_user && current_user.has_role?(:editor))})
+    statement_nodes_not_paginated = search_statement_nodes(@value, language_list, {:tag => category, :auth => current_user && current_user.has_role?(:editor)})
                                             
     @count    = statement_nodes_not_paginated.size
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => 6)
-    @statement_documents = statement_document_search(@statement_nodes.map{|s|s.statement_id}, language_list)
+    @statement_documents = search_statement_documents(@statement_nodes.map { |s| s.statement_id }, language_list)
 
     respond_to do |format|
       format.html {render :template => 'statements/questions/index'}
@@ -91,7 +89,8 @@ class StatementsController < ApplicationController
 
     #test for special links
     @original_language_warning = @statement_node.not_original_language?(current_user,locale_language_id)
-    @translation_permission = @statement_node.translatable?(current_user,params[:locale],@language_preference_list)
+    @translation_permission = @statement_node.translatable?(current_user,@statement_document.language,
+                                                            params[:locale],@language_preference_list)
 
     # when creating an issue, we save the flash message within the session, to be able to display it here
     if session[:last_info]
@@ -105,7 +104,7 @@ class StatementsController < ApplicationController
 
     @children = @statement_node.sorted_children(current_user,@language_preference_list).paginate(
                                                 StatementNode.default_scope.merge(:page => @page, :per_page => 5))
-    @children_documents = statement_document_search(@children.map{|s|s.statement_id}, @language_preference_list)
+    @children_documents = search_statement_documents(@children.map { |s| s.statement_id }, @language_preference_list)
     
     respond_to do |format|
       format.html {render :template => 'statements/show' } # show.html.erb
@@ -278,7 +277,6 @@ class StatementsController < ApplicationController
     @locale_language_id = locale_language_id
     @statement_document = @statement_node.add_statement_document(
                           doc_attrs.merge({:original_language_id => @locale_language_id}))
-    @statement_node.add_tags(@tags, {:language_id => current_language_key}) unless @tags.nil?
     if @statement_node.taggable?
       @tags = @statement_node.update_tags(form_tags, @locale_language_id) 
       check_tag_permissions @statement_node
@@ -298,7 +296,6 @@ class StatementsController < ApplicationController
           render_create_statement_node(@statement_node,@statement_document,@children)
         }
       else
-        @locale_language_id = locale_language_id
         set_error(@statement_document)
         @statement_node.tao_tags.each{|tao_tag|set_error(tao_tag)}
         format.html { flash_error and render :template => 'statements/new' }
@@ -427,7 +424,7 @@ class StatementsController < ApplicationController
     raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
   
-  # Returns the parent statement node of the the current statement. Must be implemented by the subclasses.
+  # Returns the parent statement node of the current statement. Must be implemented by the subclasses.
   def parent
     raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
@@ -436,16 +433,6 @@ class StatementsController < ApplicationController
     set_info(string, :type => I18n.t("discuss.statements.types.#{statement_node_symbol.to_s}"))
   end  
 
-  
-
-  def set_tag_errors(statement_node)
-    statement_node.tao_tags.each do |tao|
-      index = tao.tag.value.index '#'
-      if !index.nil? and index == 0 and !current_user.has_role? :topic_editor, tao.tag
-        set_error('discuss.tag_permission', :tag => tao.tag.value)
-      end
-    end
-  end
   
   ###############################
   #### TAGS
@@ -467,11 +454,11 @@ class StatementsController < ApplicationController
     session[:last_statement_node] = statement_node.id
   end
 
-  def statement_node_search (value, language_keys = language_preference_list, opts = {})
+  def search_statement_nodes (value, language_keys = language_preference_list, opts = {})
     StatementNode.search_statement_nodes("Question", value, language_keys, opts)
   end
   
-  def statement_document_search (statement_ids, language_keys = language_preference_list)
+  def search_statement_documents (statement_ids, language_keys = language_preference_list)
     hash = {}
     statement_documents = StatementDocument.search_statement_documents(statement_ids, language_keys)
     statement_documents = statement_documents.sort do |a, b| 

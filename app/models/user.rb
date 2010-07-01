@@ -1,12 +1,11 @@
 class User < ActiveRecord::Base
   include UserExtension::Echo
   acts_as_subscriber
+  acts_as_extaggable
   
   has_many :web_addresses, :dependent => :destroy
   has_many :memberships, :dependent => :destroy
   has_many :spoken_languages, :dependent => :destroy, :order => 'level_id asc'
-  has_many :tao_tags, :as => :tao, :dependent => :destroy
-  has_many :tags, :through => :tao_tags
 
   has_many :reports, :foreign_key => 'suspect_id'
 
@@ -139,19 +138,4 @@ class User < ActiveRecord::Base
     mother_tongues = self.mother_tongues 
     !mother_tongues.empty? ? mother_tongues.first : self.last_login_language
   end
-  
-  
-  ##
-  ## CONCERNMENTS (TAGS)
-  ##
-  
-  #adds new or existing concernments based on an array of strings representing concernments
-  def add_tags(tags, opts = {})
-    self.tao_tags << TaoTag.create_for(tags, opts[:language_id], {:tao_id => self.id, :tao_type => self.class.name, :context_id => opts[:context_id]})
-  end
-  
-  #removes concernments based on an array of strings representing existing concernments
-  def delete_tags(tags)
-    self.tao_tags.each {|tao_tag| tao_tag.destroy if tags.include?(tao_tag.tag.value)}
-  end  
 end

@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20100628162241) do
     t.integer "key"
   end
 
-  add_index "enum_keys", ["code", "enum_name"], :name => "index_enum_keys_on_code_and_enum_name"
+  add_index "enum_keys", ["id", "code", "enum_name"], :name => "index_enum_keys_on_id_and_code_and_enum_name"
 
   create_table "enum_values", :force => true do |t|
     t.integer "enum_key_id"
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(:version => 20100628162241) do
     t.datetime "updated_at"
   end
 
-  add_index "memberships", ["position", "organisation"], :name => "index_memberships_on_position_and_organisation"
+  add_index "memberships", ["user_id", "position", "organisation"], :name => "index_memberships_on_user_id_and_position_and_organisation"
 
   create_table "profiles", :force => true do |t|
     t.string   "first_name"
@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(:version => 20100628162241) do
     t.float    "completeness",        :default => 0.01
   end
 
-
+  add_index "profiles", ["first_name", "last_name", "city", "country", "about_me", "motivation"], :name => "search_by_profile_info_index"
 
   create_table "reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -158,7 +158,7 @@ ActiveRecord::Schema.define(:version => 20100628162241) do
     t.datetime "updated_at"
   end
 
-
+  add_index "statement_documents", ["title", "text", "language_id", "statement_id"], :name => "search_by_statement_document_info_index"
 
   create_table "statement_nodes", :force => true do |t|
     t.string   "type"

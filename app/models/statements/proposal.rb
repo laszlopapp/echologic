@@ -20,5 +20,8 @@ class Proposal < StatementNode
   
   # uncomment and overwrite me to change this subclasses display name...
   # default is: self.name.underscore.gsub(/_/,' ').split(' ').each{|word| word.capitalize!}.join(' ')
+  def taggable?
+    false
+  end
   
 end
