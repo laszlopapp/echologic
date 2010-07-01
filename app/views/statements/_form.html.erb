@@ -46,7 +46,6 @@
   <!-- Hidden fields -->
 	<%= form.hidden_field :statement_id %>
   <%= form.hidden_field :parent_id %>
-  <%= form.hidden_field :category_id %>
 	<%= hidden_field_tag "#{statement_node_class_dom_id(@statement_node).downcase}[statement_document][author_id]",
                        current_user.id %>
   <%= hidden_field_tag "#{statement_node_class_dom_id(@statement_node).downcase}[statement_document][language_id]",
