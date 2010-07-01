@@ -95,7 +95,7 @@ de:
 
       echo:
         description: |-
-          echo ist ein Gemeinschaftsprojekt für einen nachhaltigen Wandel durch  aktive Bürgerbeteiligung.
+          echo ist ein Gemeinschaftsprojekt der Menschheit für einen nachhaltigen Wandel durch aktive Bürgerbeteiligung.
           Es schafft die technische Grundlage für eine offene, teilnehmende Demokratie auf lokaler,
           regionaler und globaler Ebene. Ihre Stimme findet hier ein Echo. Aus Ideen wird Bewegung,
           aus Visionen Realität. echo bedeutet das Ende der Machtlosigkeit, den Anfang der Selbstbestimmung.
@@ -158,8 +158,8 @@ de:
 
         text_1: |
           <p>
-          echo ist ein <strong>Gemeinschaftsprojekt</strong> für einen nachhaltigen Wandel durch
-          <strong>aktive Bürgerbeteiligung</strong>. Es wendet sich an
+          echo ist ein <strong>Gemeinschaftsprojekt der Menschheit</strong>. Sein Ziel ist einen ökologisch und sozial
+          nachhaltigen Wandel durch <strong>proaktive Bürgerbeteiligung</strong> zu ermöglichen. Es wendet sich an
           <span title="{{gender_tooltip}}" class="ttLink">alle Mitglieder der Gesellschaft</span>:
           BürgerInnen, ExpertenInnen, EntscheidungsträgerInnen und VertreterInnen von Organisationen und Unternehmen.
           </p><p>
@@ -299,7 +299,8 @@ de:
 
           text:
             <p>
-            Unsere Welt ist im Umbruch. Wir sehen uns mit ökologischen, ökonomischen und humanitären Herausforderungen von bisher unbekanntem Ausmaß konfrontiert. Zufriedenstellende Lösungen sind jedoch nicht in Sicht. Intransparente Entscheidungen
+            Die Menschheit siehst sich mit ökologischen, ökonomischen und humanitären Herausforderungen von bisher
+            unbekanntem Ausmaß konfrontiert. Zufriedenstellende Lösungen sind jedoch nicht in Sicht. Intransparente Entscheidungen
             rufen ein wachsendes Gefühl der <strong>Machtlosigkeit</strong> und <strong>politischen Resignation</strong> in der
             Bevölkerung hervor und schwächen den Glauben an die heutigen Demokratien. Rufe nach mehr <strong>Transparenz</strong> und
             <strong>Mitspracherecht</strong> werden immer lauter.
