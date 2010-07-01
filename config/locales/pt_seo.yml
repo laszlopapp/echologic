@@ -1,0 +1,92 @@
+# SEO data
+  seo:
+    title:
+
+      # static: de.seo.title.static
+      static:
+        echologic:
+          show: &html_title 'echologic para echo - A Ágora Global (Democracia Re-estruturada)'
+          about:            'echologic para echo - Sobre nós'
+          imprint:          'echologic para echo - Rubrica'
+          data_privacy:     'echologic para echo - Privacidade de dados'
+        echo:
+          show:    'echo - A Ágora Global (Democracia Re-estruturada)'
+          discuss: 'echo - Discuss (formação de opiniões e tomada de decisões - orientado à solução, transparente e democrático)'
+          connect: 'echo - Connect (com aliados com diferentes formas de competência )'
+          act:     'echo - Act (por resultados notáveis no dia-a-dia e por uma mudança sustentável)'
+          echo_on_waves: 'echo - Everywhere (sinergias através de uma infra-estrutura descentral - echo on waves)'
+        echocracy:
+          show:            'echocracy - A nova forma de Democracia Participatória da Echo'
+          citizens:        'echocracy - Cidadãos Afectados & Comprometidos'
+          scientists:      'echocracy - Especialistas & Cientistas'
+          decision_makers: 'echocracy - Responsáveis pelas decisões Políticos e Económicos'
+          organisations:   'echocracy - Organizações Não-Governamentais & Governamentais'
+        echonomy:
+          show:            'echonomy - Uma nova Era de Economia Eco-socialmente sustentável, Democrática'
+          your_profit:     'echonomy - Empresa Social com a Filosofia Empresarial Your-Profit'
+          foundation:      'echonomy - A Fundação Echonomy'
+          public_property: 'echonomy - echo como propriedade comum'
+        echosocial:
+          show:            'echo social - Home'
+          features:        'echo social - Características'
+          extensions:      'echo social - Extensões'
+
+
+      # users: de.seo.title.users
+      users:
+        users:
+          new: 'Your echo - Junte-se à echologic'
+        activations:
+          new: Your echo - Active a sua conta echologic
+          create: 'Your echo - Active a sua conta echologic'
+        password_resets:
+          new: 'Your echo - Requira uma nova Password'
+          edit: 'Your echo - Defina uma nova Password'
+        profile:
+          details: 'Your echo - Detalhes do Perfil'
+
+      # discuss: de.seo.title.discuss
+      discuss:
+        index: 'echologic - Discuss'
+        roadmap: 'echologic - Roadmap for Discuss'
+      questions:
+        category: 'echologic - Tópico de Discussão'
+        show: 'echologic - Discussion'
+        new: 'Abra uma nova discussão'
+      proposals:
+        show: 'echologic - Posições no Debate'
+      improvement_proposals:
+        show: 'echologic - Ideias para melhorar a posição'
+
+      # connect: de.seo.title.connect
+      connect:
+        roadmap:  'echologic - Roadmap for Connect'
+        show:   'echologic - Connect - Explore a comunidade'
+        fill_out_profile: 'echologic - Connect - Dê e receba'
+
+      # act: de.seo.title.act
+      act:
+        roadmap: 'echologic - Roadmap for Act'
+
+      # my_echo: de.seo.title.my_echo
+      my_echo:
+        roadmap: 'echologic - Roadmap for My echo'
+        welcome: 'echologic - Bemvindo'
+        profile: 'echologic - O meu Perfil'
+
+      # my_echo: de.seo.title.admin
+      admin:
+        show: 'echologic - Área Admin'
+
+    meta:
+      description: |-
+        Echologic é uma rede de mentes abertas e suas organizações unidas para realizar a Echo, a Ágora global.
+        Echo é um meio social que concede o poder ao cidadão. O nosso objective é estabelecer um novo tipo de
+        democracia participatória tanto a nível local, como a nível regional ou até global. De acordo com este ideal,
+        echo significa o fim da impotência e o princípio da auto-determinação.
+      keywords: |-
+        echologic, echo, ágora, ágora global, democracia, democracia participatória, auto-determinação,
+        inteligência colectiva, futuro sustentável, base de opiniões, formação de opiniões, tomada de decisões,
+        transparência, colaboração democrática orientada à solução, echocracia, igualdade,
+        economia, economia democrática eco-social, your-profit, glocal, glocality
+
