@@ -280,8 +280,7 @@ class StatementsController < ApplicationController
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js   {
           @statement_node.visited_by!(current_user)
-          @children = @statement_node.sorted_children(current_user,@language_preference_list).paginate(
-                                                  StatementNode.default_scope.merge(:page => @page, :per_page => 5))
+          @children = [].paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
           render_create_statement_node(@statement_node,@statement_document,@children)
         }
       else
