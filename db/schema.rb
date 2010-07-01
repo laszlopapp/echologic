@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(:version => 20100628162241) do
     t.float    "completeness",        :default => 0.01
   end
 
-  add_index "profiles", ["first_name", "last_name", "city", "country", "about_me", "motivation"], :name => "search_by_profile_info_index"
+  
 
   create_table "reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -158,7 +158,7 @@ ActiveRecord::Schema.define(:version => 20100628162241) do
     t.datetime "updated_at"
   end
 
-  add_index "statement_documents", ["title", "text", "language_id", "statement_id"], :name => "search_by_statement_document_info_index"
+  
 
   create_table "statement_nodes", :force => true do |t|
     t.string   "type"
