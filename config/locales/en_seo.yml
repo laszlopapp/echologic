@@ -55,6 +55,7 @@ en:
         category: 'echologic - Discussion Topic'
         show: 'echologic - Discussion'
         new: 'Open new discussion'
+        my_discussions: 'My Discussions'
       proposals:
         show: 'echologic - Positions in the Debate'
       improvement_proposals:

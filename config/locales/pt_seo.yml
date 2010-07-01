@@ -1,3 +1,5 @@
+pt:
+
 # SEO data
   seo:
     title:
@@ -53,6 +55,7 @@
         category: 'echologic - Tópico de Discussão'
         show: 'echologic - Discussion'
         new: 'Abra uma nova discussão'
+        my_discussions: 'Minhas Discussões'
       proposals:
         show: 'echologic - Posições no Debate'
       improvement_proposals:

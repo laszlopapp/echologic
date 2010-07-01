@@ -53,6 +53,7 @@ de:
         category: 'echologic - Diskussionsthemen'
         show: 'echologic - Debatten'
         new: 'Neue Diskussion eröffnen'
+        my_discussions: 'Meine Diskussionen'
       proposals:
         show: 'echologic - Stellungnahmen in der Debate'
       improvement_proposals:
