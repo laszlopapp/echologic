@@ -470,49 +470,55 @@ a.statement_link:hover {
 
 #discussion_list li.question {
 	width: 100%;
-	height: 46px;
+  height: 50px;
+  margin: 10px 0;
+  display: inline-block;
+  clear: both;
 }
 
 #discussion_list a.statement_link {
 	float: left;
-	width: 304px;
-	margin-top: 8px;
-	padding: 4px 0px;
+	width: 330px;
+  height: 50px;
+	margin-top: -2px;
+	padding: 0;
 }
 
 #discussion_list .tags_list {
 	float: left;
-	margin-bottom: 5px;
-	min-height: 20px;
 	padding-left: 21px !important;
-	vertical-align: top;
-	width: 290px;
-	margin-top: 8px;
+	width: 200px;
+	margin-top: -2px;
 }
+
 #discussion_list .buttons {
-	float: left;
-	margin-bottom: 5px;
-  min-height: 20px;
-  vertical-align: top;
-	width: 150px;
+	float: right;
+	width: 200px;
 }
+
 #discussion_list a.publish_button {
 	float: left;
-	background:url("../images/page/form_button_150.png") no-repeat scroll left top transparent;
-	border:medium none;
-	color:#21587F;
-	display:inline-block;
-	font-size:14px;
-	font-weight:bold;
-	height:30px;
-	padding:13px 0px 4px 0px;
-	text-align:center;
-	width:150px !important;
+	background: url("../images/page/publish_button_200.png") no-repeat scroll left top transparent;
+	border: medium none;
+	color: #21587F;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: bold;
+	height: 25px;
+	padding: 12px 0 4px 20px;
+	text-align: center;
+	width: 200px !important;
 }
+
+#discussion_list a.publish_button:hover {
+  background-position: 0 -43px;
+}
+
 #my_discussions .pagination {
 	width: 100%;
 }
 
-#discussions ul {
-	min-height: 255px;
+#my_discussions #create_question_link {
+  margin-top: 10px;
+  margin-left: 0;
 }
