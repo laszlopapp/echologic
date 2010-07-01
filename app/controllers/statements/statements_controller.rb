@@ -42,8 +42,8 @@ class StatementsController < ApplicationController
 
     category = "##{params[:id]}" if params[:id]
 
-    statement_nodes_not_paginated = search_statement_nodes(@value, @language_preference_list, 
-                                    {:tag => category, :auth => current_user && current_user.has_role?(:editor)})
+    statement_nodes_not_paginated = search_statement_nodes(:value => @value, :language_keys => @language_preference_list, 
+                                    :tag => category, :auth => current_user && current_user.has_role?(:editor))
                                             
     @count    = statement_nodes_not_paginated.size
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => 6)
@@ -446,8 +446,8 @@ class StatementsController < ApplicationController
     session[:last_statement_node] = statement_node.id
   end
 
-  def search_statement_nodes (value, language_keys = @language_preference_list, opts = {})
-    StatementNode.search_statement_nodes("Question", value, language_keys, opts)
+  def search_statement_nodes (opts = {})
+    StatementNode.search_statement_nodes(opts.merge({:type => "Question"}))
   end
   
   def search_statement_documents (statement_ids, language_keys = @language_preference_list)
