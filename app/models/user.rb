@@ -136,6 +136,7 @@ class User < ActiveRecord::Base
   
   def default_language
     mother_tongues = self.mother_tongues 
-    !mother_tongues.empty? ? mother_tongues.first : self.last_login_language
+    lang = !mother_tongues.empty? ? mother_tongues.first : self.last_login_language
+    lang ? lang : User.languages("en")
   end
 end

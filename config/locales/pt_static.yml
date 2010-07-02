@@ -55,6 +55,8 @@ pt:
       questions:
         category: 'echologic - Tópico de Discussão'
         show: 'echologic - Discussion'
+        my_discussions: 'Minhas Discussões'
+        new: 'Nova Discussão'
       proposals:
         show: 'echologic - Posições no Debate'
       improvement_proposals:

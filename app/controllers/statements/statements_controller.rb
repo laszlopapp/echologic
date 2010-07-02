@@ -195,7 +195,7 @@ class StatementsController < ApplicationController
     # first will work. once this changes, we're in trouble - or better said: we'll have to pass the language_id as a param
     respond_to do |format|
       format.html { render :template => 'statements/new' }
-      format.js {render :partial => 'new.rjs'}
+      format.js {render :partial => 'statements/new.rjs'}
     end
   end
   # creates a new statement
@@ -227,7 +227,6 @@ class StatementsController < ApplicationController
           @statement_node.visited_by!(current_user)
           @children = [].paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
           render :partial => 'statements/create.rjs'
-          #render_create_statement_node(@statement_node,@statement_document,@children)
         }
       else
         set_error(@statement_document)

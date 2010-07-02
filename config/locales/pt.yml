@@ -97,7 +97,7 @@ pt:
       tabs:
         welcome: Bemvindo
         profile: O meu Perfil
-        organisations: organizações
+        settings: Definições
       profile_complete: '{{complete}}% completo'
 
   # ----------------

@@ -21,3 +21,8 @@ Scenario: Login after expired Session
   And I login as "user" with password "true"
   Then I should be on the welcome page
 
+Scenario: Logout and save last login language
+  Given I am logged in as "user" with password "true"
+  And I am on the discuss index
+  And I follow "Logout"
+  Then "user" should have "en" as "last_login_language"

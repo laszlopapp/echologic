@@ -53,6 +53,8 @@ es:
       questions:
         category: 'echologic - temas de discusión'
         show: 'echologic - debates'
+        my_discussions: 'Mis Conversaciones'
+        new: 'Nueva Conversación'
       proposals:
         show: 'echologic - propuestas en este debate'
       improvement_proposals:
