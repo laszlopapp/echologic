@@ -22,7 +22,8 @@ class TaoTagsController < ApplicationController
   def create
     previous_completeness = current_user.profile.percent_completed
     @tao_tags = TaoTag.create_for(params[:tag][:value].split(','),params[:tag][:language_id].to_i, params[:tao_tag])
-    current_completeness = (@tao_tags.empty? or !@tao_tags.first.tao_type.eql?(User.name) ? previous_completeness : @tao_tags.first.tao.profile.percent_completed) 
+    current_completeness = (@tao_tags.empty? or !@tao_tags.first.tao_type.eql?(User.name)) ?
+                           previous_completeness : @tao_tags.first.tao.profile.percent_completed
 
     set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 
