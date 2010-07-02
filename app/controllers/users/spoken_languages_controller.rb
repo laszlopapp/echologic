@@ -1,6 +1,7 @@
 class Users::SpokenLanguagesController < ApplicationController
 
   before_filter :require_user
+  before_filter :fetch_spoken_language, :except => [:new, :create]
 
   access_control do
     allow logged_in
@@ -9,7 +10,6 @@ class Users::SpokenLanguagesController < ApplicationController
   # Show the spoken language with the given id.
   # method: GET
   def show
-    @spoken_language = SpokenLanguage.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -33,7 +33,6 @@ class Users::SpokenLanguagesController < ApplicationController
   # method: GET
   def edit
     @user = @current_user
-    @spoken_language = SpokenLanguage.find(params[:id])
 
     respond_to do |format|
       format.js do
@@ -68,7 +67,6 @@ class Users::SpokenLanguagesController < ApplicationController
   # Update the spoken languages attributes
   # method: PUT
   def update
-    @spoken_language = SpokenLanguage.find(params[:id])
 
     respond_to do |format|
       format.js do
@@ -85,7 +83,6 @@ class Users::SpokenLanguagesController < ApplicationController
   # Remove the spoken language specified through id
   # method: DELETE
   def destroy
-    @spoken_language = SpokenLanguage.find(params[:id])
 
     id = @spoken_language.id
 
@@ -105,5 +102,10 @@ class Users::SpokenLanguagesController < ApplicationController
         end
       end
     end
+  end
+  
+  private
+  def fetch_spoken_language
+    @spoken_language = SpokenLanguage.find(params[:id])
   end
 end

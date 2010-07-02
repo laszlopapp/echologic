@@ -42,7 +42,7 @@ class StatementsController < ApplicationController
 
     category = "##{params[:id]}" if params[:id]
 
-    statement_nodes_not_paginated = search_statement_nodes(:value => @value, :language_keys => @language_preference_list, 
+    statement_nodes_not_paginated = search_statement_nodes(:value => @value, :language_ids => @language_preference_list, 
                                     :tag => category, :auth => current_user && current_user.has_role?(:editor))
                                             
     @count    = statement_nodes_not_paginated.size
@@ -54,9 +54,6 @@ class StatementsController < ApplicationController
       format.js {render :template => 'statements/questions/questions'}
     end
   end
-
-
-
 
   # Shows a selected statement
   #
@@ -152,19 +149,9 @@ class StatementsController < ApplicationController
     @new_statement_document ||= @statement_node.add_statement_document({:language_id => @locale_language_id})
     respond_to do |format|
       format.html { render :template => 'statements/translate' }
-      format.js {render_new_translation}
+      format.js {render :partial => 'statements/new_translation.rjs'}
     end
   end
-  private
-  def render_new_translation
-    render :update do |page|
-      page.replace('summary', :partial => 'statements/translate')
-      page << "makeRatiobars();"
-      page << "makeTooltips();"
-      page << "roundCorners();"
-    end
-  end
-  public
 
   # Creates a translation of a statement according to the fields from a form that was submitted
   #
@@ -182,7 +169,7 @@ class StatementsController < ApplicationController
         set_statement_node_info("discuss.messages.translated",@statement_node)
         @statement_document = @new_statement_document
         format.html { flash_info and redirect_to url_for(@statement_node) }
-        format.js   {render_create_translation(@statement_node,@statement_document)}
+        format.js   {render :partial => 'statements/create.rjs'}
       else
         @statement_document = StatementDocument.find(doc_attrs[:translated_document_id])
         set_error(@new_statement_document)
@@ -192,19 +179,6 @@ class StatementsController < ApplicationController
     end
   end
   
-  private
-  def render_create_translation(statement_node,statement_document)
-    render_with_info do |page|
-      page.replace('context', 
-                   :partial => 'statements/context', 
-                   :locals => { :statement_node => statement_node})
-      page.replace('summary', 
-                   :partial => 'statements/summary', 
-                   :locals => { :statement_node => statement_node, :statement_document => statement_document})
-      page << "makeRatiobars();"
-      page << "makeTooltips();"
-    end
-  end
   public
   # renders form for creating a new statement
   #
@@ -221,38 +195,9 @@ class StatementsController < ApplicationController
     # first will work. once this changes, we're in trouble - or better said: we'll have to pass the language_id as a param
     respond_to do |format|
       format.html { render :template => 'statements/new' }
-      format.js {render_new_statement_node @statement_node, @language_preference_list}
+      format.js {render :partial => 'new.rjs'}
     end
   end
-  private
-  def render_new_statement_node(statement_node, language_preference_list)
-    render :update do |page|
-      if statement_node.kind_of?(Question)
-        page.remove 'search_container'
-        page.remove 'new_question'
-        page.replace 'questions_container', :partial => 'statements/new'
-        page.replace 'my_discussions', :partial => 'statements/new'
-      else
-        page.replace 'children', :partial => 'statements/new'
-      end
-      page.replace('summary',
-                   :partial => 'statements/summary',
-                   :locals => { :statement_node => statement_node.parent,
-                                :statement_document => statement_node.parent.translated_document(language_preference_list)}) if statement_node.parent
-      page.replace('context',
-                   :partial => 'statements/context',
-                   :locals => { :statement_node => statement_node.parent}) if statement_node.parent
-      page.replace('discuss_sidebar',
-                   :partial => 'statements/sidebar',
-                   :locals => { :statement_node => statement_node.parent})
-      # Direct JS
-      page << "makeRatiobars();"
-      page << "makeTooltips();"
-    end
-  end
-
-  
-  public
   # creates a new statement
   #
   # Method:   POST
@@ -281,7 +226,8 @@ class StatementsController < ApplicationController
         format.js   {
           @statement_node.visited_by!(current_user)
           @children = [].paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
-          render_create_statement_node(@statement_node,@statement_document,@children)
+          render :partial => 'statements/create.rjs'
+          #render_create_statement_node(@statement_node,@statement_document,@children)
         }
       else
         set_error(@statement_document)
@@ -291,35 +237,7 @@ class StatementsController < ApplicationController
       end
     end
   end
-  
-  private
-  def render_create_statement_node(statement_node,statement_document,statement_node_children)
-    render_with_info do |page|
-      if statement_node.kind_of?(Question)
-        page.redirect_to(url_for(statement_node))
-      else
-        page.replace('context',
-                     :partial => 'statements/context',
-                     :locals => { :statement_node => statement_node})
-        page.replace('discuss_sidebar',
-                     :partial => 'statements/sidebar',
-                     :locals => { :statement_node => statement_node})
-        page.replace('summary',
-                     :partial => 'statements/summary',
-                     :locals => { :statement_node => statement_node, :statement_document => statement_document})
-        page.replace 'new_statement',
-                   :partial => 'statements/children',
-                   :statement => statement_node,
-                   :children => statement_node_children
-      end
-
-      # Direct JS
-
-      page << "makeRatiobars();"
-      page << "makeTooltips();"
-    end
-  end
-  public
+ 
   # renders a form to edit statements
   #
   # Method:   POST
@@ -388,29 +306,24 @@ class StatementsController < ApplicationController
   # PRIVATE
   #
 
+  # Gets the correspondent statement node to the id that is given in the request
   private
   def fetch_statement_node
     @statement_node ||= statement_node_class.find(params[:id]) if params[:id].try(:any?) && params[:id] =~ /\d+/
   end  
   
+  # loads the locale language and the language preference list
   def fetch_languages
     @locale_language_id = locale_language_id
     @language_preference_list = language_preference_list
   end
 
-  def may_edit?
-    current_user.may_edit? or @statement_node.translated_document(@language_preference_list).author == current_user
-  end
-
-  def may_delete?
-    current_user.may_delete?(@statement_node)
-  end
-
+  # returns the statement node correspondent symbol (:question, :proposal...). Must be implemented by the subclasses.
   def statement_node_symbol
     raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
 
-  # returns the statement_node class, corresponding to the controllers name
+  # returns the statement_node class, corresponding to the controllers name. Must be implemented by the subclasses.
   def statement_node_class
     raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
@@ -445,15 +358,17 @@ class StatementsController < ApplicationController
     session[:last_statement_node] = statement_node.id
   end
 
+  # calls the statement node sql query for questions
   def search_statement_nodes (opts = {})
     StatementNode.search_statement_nodes(opts.merge({:type => "Question"}))
   end
   
-  def search_statement_documents (statement_ids, language_keys = @language_preference_list)
+  # gets all the statement documents belonging to a group of statements, and orders them per language ids
+  def search_statement_documents (statement_ids, language_ids = @language_preference_list)
     hash = {}
-    statement_documents = StatementDocument.search_statement_documents(statement_ids, language_keys)
+    statement_documents = StatementDocument.search_statement_documents(statement_ids, language_ids)
     statement_documents = statement_documents.sort do |a, b| 
-      language_keys.index(a.language_id) <=> language_keys.index(b.language_id)
+      language_ids.index(a.language_id) <=> language_ids.index(b.language_id)
     end
     statement_documents.each do |sd|
       hash.store(sd.statement_id, sd) unless hash.has_key?(sd.statement_id) 

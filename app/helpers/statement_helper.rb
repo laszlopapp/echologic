@@ -273,8 +273,8 @@ module StatementHelper
   end
 
   # Returns the context menu link for this statement_node.
-  def statement_node_context_link(statement_node, language_keys, action = 'read', last_statement_node = false)
-    return if (statement_document = statement_node.translated_document(language_keys)).nil?
+  def statement_node_context_link(statement_node, language_ids, action = 'read', last_statement_node = false)
+    return if (statement_document = statement_node.translated_document(language_ids)).nil?
     link = link_to(statement_document.title, url_for(statement_node),
                    :class => "ajax no_border statement_link #{statement_node.class.name.underscore}_link ttLink",
                    :title => I18n.t("discuss.tooltips.#{action}_#{statement_node.class.name.underscore}"))

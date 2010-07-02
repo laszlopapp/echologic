@@ -1,0 +1,4 @@
+page.replace('summary', :partial => 'statements/translate')
+page << "makeRatiobars();"
+page << "makeTooltips();"
+page << "roundCorners();"

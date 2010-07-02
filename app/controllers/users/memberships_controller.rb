@@ -1,7 +1,8 @@
 class Users::MembershipsController < ApplicationController
 
   before_filter :require_user
-
+  before_filter :fetch_membership, :except => [:new, :create]
+  
   helper :profile
 
   access_control do
@@ -11,7 +12,6 @@ class Users::MembershipsController < ApplicationController
   # Shows the membership identified through params[:id]
   # method: GET
   def show
-    @membership = Membership.find(params[:id])
     respond_to do |format|
       format.js do
         replace_content(dom_id(@membership), :partial => 'membership')
@@ -32,7 +32,6 @@ class Users::MembershipsController < ApplicationController
   # Render the edit membership template. Currently only respond to JS.
   # method: GET
   def edit
-    @membership = Membership.find(params[:id])
 
     respond_to do |format|
       format.js do
@@ -68,7 +67,6 @@ class Users::MembershipsController < ApplicationController
   # Update the membership attributes.
   # method: PUT
   def update
-    @membership = Membership.find(params[:id])
 
     respond_to do |format|
       format.js do
@@ -84,7 +82,6 @@ class Users::MembershipsController < ApplicationController
   # Destroy the membership specified through params[:id]
   # method: DELETE
   def destroy
-    @membership = Membership.find(params[:id])
     id = @membership.id
 
     previous_completeness = @membership.percent_completed
@@ -101,5 +98,11 @@ class Users::MembershipsController < ApplicationController
         end
       end
     end
+  end
+  
+  private
+  
+  def fetch_membership
+    @membership = Membership.find(params[:id])
   end
 end

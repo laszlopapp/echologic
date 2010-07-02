@@ -212,13 +212,10 @@ class StatementNode < ActiveRecord::Base
 
 
   # that collects all children, sorted in the way we want them to
-  def sorted_children(user, language_keys)
-    children = self.class.search_statement_nodes(:language_keys => language_keys, 
+  def sorted_children(user, language_ids)
+    children = self.class.search_statement_nodes(:language_ids => language_ids, 
                                                  :auth => user && user.has_role?(:editor), 
                                                  :conditions => ["parent_id = #{self.id}"])
-#    children = self.children.published(user && user.has_role?(:editor)).by_supporters
-#    #additional step: to filter statement_nodes with a translated version in the current language
-#    children = children.select{|s| !(language_keys & s.statement_documents.collect{|sd| sd.language_id}).empty?}
   end
   
   class << self
@@ -241,7 +238,7 @@ class StatementNode < ActiveRecord::Base
       and_conditions = opts[:conditions] || [sanitize_sql(["n.type = ? ",opts[:type]])]
       and_conditions << "n.state_id = #{statement_states('published').id}" if opts[:auth]
       and_conditions << sanitize_sql(["t.value = ?", opts[:tag]]) if opts[:tag]
-      and_conditions << sanitize_sql(["d.language_id IN (?)",opts[:language_keys]]) if opts[:language_keys]
+      and_conditions << sanitize_sql(["d.language_id IN (?)",opts[:language_ids]]) if opts[:language_ids]
       and_conditions << sanitize_sql(["t.value = ?", opts[:tag]]) if opts[:tag]
 
       #all getting along like really good friends

@@ -2,7 +2,7 @@ class Users::UsersController < ApplicationController
 
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => [:show, :edit, :update, :update_password]
-
+  before_filter :fetch_user, :except => [:index, :new, :create]
 
   access_control do
     allow logged_in, :to => [:show, :index, :update_password]
@@ -27,8 +27,6 @@ class Users::UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.xml
   def show
-    @user = User.find(params[:id])
-
     respond_to do |format|
       format.html
       format.js
@@ -75,7 +73,6 @@ class Users::UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.xml
   def update
-    @user = User.find(params[:id])
     respond_to do |format|
       if @user.update_attributes(params[:user])
         flash[:notice] = "User was successfully updated."
@@ -87,7 +84,6 @@ class Users::UsersController < ApplicationController
   end
 
   def update_password
-    @user = current_user
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
     respond_to do |format|
@@ -104,13 +100,18 @@ class Users::UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.xml
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
 
     respond_to do |format|
       flash[:notice] = "User removed, Sir!"
       format.html { redirect_to connect_path }
     end
+  end
+
+  private
+  
+  def fetch_user
+    @user = User.find(params[:id]) || current_user
   end
 
 end

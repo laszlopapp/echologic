@@ -99,7 +99,7 @@ end
 Then /^the question "([^\"]*)" should have "([^\"]*)" as tags$/ do |title, tags|
   tags = tags.split(' ')
   @question = StatementNode.search_statement_nodes(:type => "Question", :value => title,
-                                                   :language_keys => [EnumKey.find_by_code("en")]).first
+                                                   :language_ids => [EnumKey.find_by_code("en")]).first
   res = @question.tags.map{|tag|tag.value} - tags
   res.should == []
 end
@@ -171,13 +171,13 @@ end
 
 Then /^I should be a subscriber from "([^\"]*)"$/ do |question|
   @question = StatementNode.search_statement_nodes(:type => "Question", :value => question,
-                                                   :language_keys => [EnumKey.find_by_code("en")]).first
+                                                   :language_ids => [EnumKey.find_by_code("en")]).first
   assert(@question.followed_by?(@user))
 end
 
 Then /^"([^\"]*)" should have a "([^\"]*)" event$/ do |question, op_type|
   @question = StatementNode.search_statement_nodes(:type => "Question", :value => question,
-                                                   :language_keys => [EnumKey.find_by_code("en")]).first
+                                                   :language_ids => [EnumKey.find_by_code("en")]).first
   event = Event.find_by_subscribeable_id(@question.id)
   assert !event.nil?  
   assert event.operation.eql?(op_type)

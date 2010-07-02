@@ -28,7 +28,7 @@ class StatementDocument < ActiveRecord::Base
     StatementDocument.find_all_by_translated_document_id(self.id)
   end
   
-  def self.search_statement_documents(statement_ids, language_keys, opts={} )
+  def self.search_statement_documents(statement_ids, language_ids, opts={} )
       
       #Rambo 1
       query_part_1 = <<-END
@@ -38,7 +38,7 @@ class StatementDocument < ActiveRecord::Base
             where
       END
       #Rambo 2
-      query_part_2 = sanitize_sql([" sd.statement_id IN (?) AND sd.language_id IN (?)", statement_ids, language_keys])
+      query_part_2 = sanitize_sql([" sd.statement_id IN (?) AND sd.language_id IN (?)", statement_ids, language_ids])
       #Rambo 3
       query_part_3 = " order by sd.language_id;"
 
