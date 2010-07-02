@@ -15,9 +15,8 @@ class TaoTag < ActiveRecord::Base
   validates_presence_of :context_id
   validates_presence_of :tag_id
 
-  named_scope :in_context, lambda {|id|
-  {:conditions => ["context_id = ?", id]}}
-  
+  named_scope :in_context, lambda {|context| {:conditions => ["context_id = ?", context]}}
+
 
   validates_uniqueness_of :tag_id, :scope => [:tao_type, :tao_id, :context_id]
 
