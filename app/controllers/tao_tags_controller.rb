@@ -30,11 +30,14 @@ class TaoTagsController < ApplicationController
       format.js do
         if current_user.save
           current_completeness = current_user.profile.percent_completed
-          set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
-
+          if previous_completeness != current_completeness do
+            set_info("discuss.messages.new_percentage", :percentage => current_completeness)
+          end
           tags_to_show = current_user.tao_tags.select{|tao_tag| new_tags.include? tao_tag.tag.value}
           render_with_info do |p|
-            p.insert_html :bottom, "tao_tags_#{context_code}", :partial => "tao_tags/tao_tag", :collection => tags_to_show
+            p.insert_html :bottom, "tao_tags_#{context_code}",
+                          :partial => "tao_tags/tao_tag",
+                          :collection => tags_to_show
             p.visual_effect :appear, dom_id(tags_to_show.last) unless tags_to_show.empty?
             p << "$('#new_tag_#{context_code}').reset();"
             p << "$('#tag_#{context_code}_id').focus();"
@@ -56,7 +59,6 @@ class TaoTagsController < ApplicationController
     @tao_tag = TaoTag.find(params[:id])
     previous_completeness = current_user.profile.percent_completed
     @tao_tag.destroy
-    @tao_tag.tao.profile.calculate_completeness #maybe there's a better solution for this...
     current_completeness = @tao_tag.tao.profile.nil? ? previous_completeness : @tao_tag.tao.profile.percent_completed
     set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 

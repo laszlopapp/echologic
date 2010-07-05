@@ -6,7 +6,12 @@ module ProfileExtension::Completeness
       # we use it when calculating the profiles completeness (after_save :calculate_completeness)
       # key => the columns name to check if it is filled
       # value => the minimum count of chars (size) to accept it as beeing filled
-      @@fillable_fields = [:about_me, :city, :country, :first_name, :last_name, :motivation, :tao_tags, :memberships, :web_addresses, :avatar, :spoken_languages]
+      @@fillable_fields = [:about_me, :city, :country, :first_name, :last_name, :motivation,
+                           [:tao_tags, [:in_context, TaoTag.tag_contexts("affection")]],
+                           [:tao_tags, [:in_context, TaoTag.tag_contexts("engagement")]],
+                           [:tao_tags, [:in_context, TaoTag.tag_contexts("expertise")]],
+                           [:tao_tags, [:in_context, TaoTag.tag_contexts("decision_making")]], 
+                           :memberships, :web_addresses, :avatar, :spoken_languages]
       cattr_reader :fillable_fields
     end
 
@@ -25,7 +30,7 @@ module ProfileExtension::Completeness
        self.class.fillable_fields.each do |f|
         # evalute the field, and rescue if an error occurs (e.g. it doesn't exist)
          if f.kind_of?(Array)
-           field = self.send(f[0]).send(f[1])
+           field = self.send(f[0]).send(f[1][0],f[1][1])
          else
           field = self.send(f)
          end
@@ -35,7 +40,7 @@ module ProfileExtension::Completeness
           # TODO: this will break, once the default_*_avatar url changes
           fields_filled += 1.0 unless field.url.match(/images\/default_.+_avatar\.png/)
         else
-          fields_filled += 1.0 unless field.nil? || field.empty?
+          fields_filled += 1.0 unless field.blank?
         end
       end
       # save completeness into the database
