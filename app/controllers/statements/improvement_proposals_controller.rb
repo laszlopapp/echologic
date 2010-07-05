@@ -15,4 +15,8 @@ class ImprovementProposalsController < StatementsController
   def statement_node_class
     ImprovementProposal
   end
+  
+  def root_symbol
+    params[:question_id]
+  end
 end

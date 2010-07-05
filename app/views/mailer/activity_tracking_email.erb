@@ -17,15 +17,15 @@
 			  <% event_data = JSON.parse(e.event) %>
 				<% root_id = event_data[event_data.keys[0]]['root_id'] %>
 				<% parent_id = event_data[event_data.keys[0]]['parent_id'] %>
-				<% root = Question.find(root_id) if root_id%>
-				<% parent = Proposal.find(parent_id) if parent_id and parent_id != root_id %>
-				<% if root and root != main_root %>
+				<% root = root_id.nil? ? Question.find(parent_id) : Question.find(root_id)%>
+				<% parent = root_id.nil? ? Question.find(parent_id) : Proposal.find(parent_id) %>
+				<% if parent.class == Question and root != main_root %>
 				  <% main_root = root %>
 					</ul>
-					<li><%= I18n.t('mail.root.new_entry', :title => root.statement.statement_documents[0].title, 
+					<li><%= I18n.t('mail.root.new_entry', :title => parent.statement.statement_documents[0].title, 
                                                 :locale => @language.code) %></li><ul>
 				<% end %>
-				<% if parent and parent != main_parent %>
+				<% if parent.class == Proposal and parent != main_parent %>
 				  <% main_parent = parent %>
 					</ul>
 					<li><%= I18n.t('mail.parent.new_entry', :title => parent.statement.statement_documents[0].title, 
@@ -39,6 +39,8 @@
 				</li>
 			<% end %>
 		</ul>
+		
+		<%= I18n.t('mail.activity_tracking.cancel') %>
   </body>
 </html>
 

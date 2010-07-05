@@ -9,7 +9,7 @@ event_test_question:
 
   
 event_second_proposal:
-  event: '{"proposal":{"statement":{"statement_documents":[{"title":"Second Proposal","language_id":<%= Fixtures.identify('language_en') %>}]},"tao_tags":[{"tag":{"value":"#echonomyjam"}}],"type":"Proposal","root_id":<%= Fixtures.identify('test-question') %>,"parent_id":<%= Fixtures.identify('test-question') %>}}'
+  event: '{"proposal":{"statement":{"statement_documents":[{"title":"Second Proposal","language_id":<%= Fixtures.identify('language_en') %>}]},"tao_tags":[{"tag":{"value":"#echonomyjam"}}],"type":"Proposal","root_id":null,"parent_id":<%= Fixtures.identify('test-question') %>}}'
   subscribeable_id: <%= Fixtures.identify('second-proposal')%>
   subscribeable_type: StatementNode
   operation: new

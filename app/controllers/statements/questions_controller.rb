@@ -47,4 +47,8 @@ class QuestionsController < StatementsController
   def statement_node_class
     Question
   end
+  
+  def root_symbol
+    nil
+  end
 end

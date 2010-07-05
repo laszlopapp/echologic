@@ -187,7 +187,7 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def new
-    @statement_node ||= statement_node_class.new(:parent => parent, :root_id => params[:question_id])
+    @statement_node ||= statement_node_class.new(:parent => parent, :root_id => root_symbol)
     @statement_document ||= StatementDocument.new
 
     @tags = @statement_node.tags if @statement_node.taggable?

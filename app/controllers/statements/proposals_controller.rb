@@ -15,4 +15,8 @@ class ProposalsController < StatementsController
   def statement_node_class
     Proposal
   end
+  
+  def root_symbol
+    nil
+  end
 end

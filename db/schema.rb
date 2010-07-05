@@ -38,7 +38,9 @@ ActiveRecord::Schema.define(:version => 20100628162241) do
     t.integer "key"
   end
 
-  add_index "enum_keys", ["id", "code", "enum_name"], :name => "index_enum_keys_on_id_and_code_and_enum_name"
+  add_index "enum_keys", ["code", "enum_name", "id"], :name => "index_enum_keys_on_code_and_enum_name_and_id"
+  add_index "enum_keys", ["code", "id"], :name => "index_enum_keys_on_code_and_id"
+  add_index "enum_keys", ["enum_name", "id"], :name => "index_enum_keys_on_enum_name_and_id"
 
   create_table "enum_values", :force => true do |t|
     t.integer "enum_key_id"
@@ -80,7 +82,7 @@ ActiveRecord::Schema.define(:version => 20100628162241) do
     t.datetime "updated_at"
   end
 
-  add_index "memberships", ["user_id", "position", "organisation"], :name => "index_memberships_on_user_id_and_position_and_organisation"
+  add_index "memberships", ["user_id", "id"], :name => "index_memberships_on_user_id_and_id"
 
   create_table "profiles", :force => true do |t|
     t.string   "first_name"
@@ -101,7 +103,7 @@ ActiveRecord::Schema.define(:version => 20100628162241) do
     t.float    "completeness",        :default => 0.01
   end
 
-  
+  add_index "profiles", ["user_id", "id"], :name => "index_profiles_on_user_id_and_id"
 
   create_table "reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -158,7 +160,8 @@ ActiveRecord::Schema.define(:version => 20100628162241) do
     t.datetime "updated_at"
   end
 
-  
+  add_index "statement_documents", ["language_id"], :name => "index_statement_documents_on_language_id"
+  add_index "statement_documents", ["statement_id", "id"], :name => "index_statement_documents_on_statement_id_and_id"
 
   create_table "statement_nodes", :force => true do |t|
     t.string   "type"
@@ -175,7 +178,10 @@ ActiveRecord::Schema.define(:version => 20100628162241) do
   end
 
   add_index "statement_nodes", ["creator_id"], :name => "index_statement_nodes_on_creator_id"
-  add_index "statement_nodes", ["type", "statement_id", "state_id", "echo_id", "created_at"], :name => "search_by_statement_node_info_index"
+  add_index "statement_nodes", ["echo_id", "id"], :name => "index_statement_nodes_on_echo_id_and_id"
+  add_index "statement_nodes", ["id", "statement_id"], :name => "index_statement_nodes_on_id_and_statement_id"
+  add_index "statement_nodes", ["state_id"], :name => "index_statement_nodes_on_state_id"
+  add_index "statement_nodes", ["type"], :name => "index_statement_nodes_on_type"
 
   create_table "statements", :force => true do |t|
     t.integer "original_language_id"

@@ -627,6 +627,10 @@ en:
   mail:
     activity_tracking:
       subject: Activity Tracking
+      cancel: | 
+        If you do not wish to receive the updated to your followed themes on a weekly basis, please go to your profile
+        and uncheck your email notification option. 
+      
     root:
       new_entry: "New entry in the '{{title}}' debate"
     parent:
