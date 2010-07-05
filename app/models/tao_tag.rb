@@ -29,7 +29,7 @@ class TaoTag < ActiveRecord::Base
       tags.map { |tag|
         tag_obj = Tag.find_or_create_with_named_by_value(tag.strip, language_id)
         tao_tag = tag_id_and_tao_id_and_type_and_context_id(
-                    tag_obj.id, attributes[:tao_id], attributes[:tao_type], 
+                    tag_obj.id, attributes[:tao_id], attributes[:tao_type],
                     attributes[:context_id]).first ||
                   TaoTag.new(attributes.merge({:tag => tag_obj}))
         tao_tag

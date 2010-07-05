@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   include UserExtension::Echo
-  
-  
+
+
   has_many :web_addresses, :dependent => :destroy
   has_many :memberships, :dependent => :destroy
   has_many :spoken_languages, :dependent => :destroy, :order => 'level_id asc'
@@ -16,15 +16,19 @@ class User < ActiveRecord::Base
   has_one :profile, :dependent => :destroy
 
   named_scope :affection_tags, lambda {
-  {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("affection")]}}
+    {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("affection")]}
+  }
   named_scope :engagement_tags, lambda {
-  {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("engagement")]}}
+    {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("engagement")]}
+  }
   named_scope :expertise_tags, lambda {
-  {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("expertise")]}}
+    {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("expertise")]}
+  }
   named_scope :decision_making_tags, lambda {
-  {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("decision_making")]}}
+    {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("decision_making")]}
+  }
  
-  
+
   # TODO add attr_accessible :active if needed.
   #attr_accessible :active
 
