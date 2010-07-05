@@ -16,12 +16,14 @@ module ActiveRecord
       
       module ClassMethods
         
-        def acts_as_extaggable(*args)
-          args.flatten! if args
-          args.compact! if args
+        def acts_as_extaggable(args = {})
+#          args.flatten! if args
+#          args.compact! if args
           class_eval do
             has_many :tao_tags, :as => :tao, :dependent => :destroy
             has_many :tags, :through => :tao_tags
+            
+            alias_method args[:as], :tao_tags if args[:as]
             
             validates_associated :tao_tags
             
