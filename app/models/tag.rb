@@ -10,7 +10,7 @@ class Tag < ActiveRecord::Base
   ### VALIDATIONS:
 
   validates_presence_of :value
-  validates_uniqueness_of :value
+  validates_uniqueness_of :value, :scope => :language_id
 
   ### NAMED SCOPES:
 
