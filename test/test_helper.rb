@@ -41,13 +41,13 @@ class ActiveSupport::TestCase
   end
 
   # Add more helper methods to be used by all tests here...
-  
+
   #setup :load_seeds
-  
+
   protected
- 
+
   def load_seeds
     load File.expand_path(File.dirname(__FILE__) + "/../db/seeds.rb")
   end
-  
+
 end

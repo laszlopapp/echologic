@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   
   #last login language, important for the activity tracking email language when the user doesn't have anything set
   enum :last_login_language, :enum_name => :languages
-  
+
   # TODO add attr_accessible :active if needed.
   #attr_accessible :active
 
