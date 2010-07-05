@@ -6,14 +6,16 @@ class TagTest < ActiveSupport::TestCase
     t = Tag.new
     assert !t.save, 'Do not save empty tag'
   end
-  
+
   # Tag have to have a user.
   def test_value_uniqueness
     t = tags(:earth)
-    c = Tag.new(:value => t.value, :language_id => Tag.languages("en"))
-    assert !c.save, 'value should be unique'    
+    c = Tag.new(:value => t.value, :language_id => t.language.id)
+    puts t.inspect
+    puts c.inspect
+    assert !c.save, 'value should be unique'
   end
-  
+
   def test_scopes
     t = tags(:earth)
     named = Tag.named(Tag.languages("en"),"Earth")
@@ -25,7 +27,7 @@ class TagTest < ActiveSupport::TestCase
     named_like_any = Tag.named_like_any(Tag.languages("en"),"E","W","F")
     assert named_any.include?(t), "should find tag with this value (using named_like_any)"
   end
-  
+
   def test_insertion
     assert_difference('Tag.count', 1, "should insert 1 value") do
       Tag.find_or_create_with_like_by_value("captainplanet")
@@ -35,16 +37,16 @@ class TagTest < ActiveSupport::TestCase
     end
     assert_difference('Tag.count', 0, "should not insert repeated value") do
       Tag.find_or_create_with_like_by_value("captainplanet")
-    end    
+    end
     assert_difference('Tag.count', 4, "should insert 4 values") do
       Tag.find_or_create_all_with_like_by_value("john","paul","george","ringo")
     end
     assert_difference('Tag.count', 4, "should insert 4 values in german") do
       Tag.find_or_create_all_with_like_by_value("johan","helmut","franz","klaus",Tag.languages("de").id)
     end
-    
+
   end
-  
+
   def test_equals
     c = tags(:earth)
     t = Tag.new
@@ -52,5 +54,5 @@ class TagTest < ActiveSupport::TestCase
     t.language_id = c.language_id
     assert c==t, "should recognize first tag as equal to second tag"
   end
-  
+
 end
