@@ -20,7 +20,8 @@ class Tag < ActiveRecord::Base
   }
   named_scope :named_any, lambda { |language_id, *list|
     { :conditions => list.map { |tag|
-      sanitize_sql(["value LIKE ?", tag.to_s]) }.join(" OR ").concat(sanitize_sql([" AND language_id = ?", language_id]))
+      sanitize_sql(["value LIKE ?", tag.to_s]) }.join(" OR ").
+        concat(sanitize_sql([" AND language_id = ?", language_id]))
     }
   }
   named_scope :named_like, lambda { |language_id, value|
