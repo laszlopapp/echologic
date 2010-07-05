@@ -1,5 +1,5 @@
 class Tag < ActiveRecord::Base
-    attr_accessible :value, :language_id
+  attr_accessible :value, :language_id
 
   enum :language, :enum_name => :languages
 
