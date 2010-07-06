@@ -1,0 +1,24 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+event_test_question:
+  event: '{"question":{"statement":{"statement_documents":[{"title":"Test Question?","language_id":<%= Fixtures.identify('language_en') %>}]},"tao_tags":[{"tag":{"value":"#echonomyjam"}}],"type":"Question","root_id":null,"parent_id":null}}'
+  subscribeable_id: <%= Fixtures.identify('test-question')%>
+  subscribeable_type: StatementNode
+  operation: new
+  created_at: <%= Time.now.yesterday.strftime("%d/%m/%y %H:%M") %>
+
+  
+event_second_proposal:
+  event: '{"proposal":{"statement":{"statement_documents":[{"title":"Second Proposal","language_id":<%= Fixtures.identify('language_en') %>}]},"tao_tags":[{"tag":{"value":"#echonomyjam"}}],"type":"Proposal","root_id":null,"parent_id":<%= Fixtures.identify('test-question') %>}}'
+  subscribeable_id: <%= Fixtures.identify('second-proposal')%>
+  subscribeable_type: StatementNode
+  operation: new
+  created_at: <%= Time.now.yesterday.strftime("%d/%m/%y %H:%M") %>
+  
+event_first_impro_proposal:
+  event: '{"improvement_proposal":{"statement":{"statement_documents":[{"title":"A better first proposal","language_id":<%= Fixtures.identify('language_en') %>}]},"tao_tags":[{"tag":{"value":"#echonomyjam"}}],"type":"ImprovementProposal","root_id":<%= Fixtures.identify('test-question') %>,"parent_id":<%= Fixtures.identify('second-proposal') %>}}'
+  subscribeable_id: <%= Fixtures.identify('first-impro-proposal')%>
+  subscribeable_type: StatementNode
+  operation: new
+  created_at: <%= Time.now.yesterday.strftime("%d/%m/%y %H:%M") %>
+  

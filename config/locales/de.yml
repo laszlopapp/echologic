@@ -95,7 +95,7 @@ de:
       tabs:
         welcome: Willkommen
         profile: Mein Profil
-        organisations: Organisationen
+        settings: Einstellungen
       profile_complete: '{{complete}}% ausgefüllt'
 
 
@@ -463,6 +463,8 @@ de:
         many: 'Diese Aussage hat {{supporter_count}} UnterstützerInnen.'
 
     statements:
+      error_messages:
+        no_decision_making_permission: 'Sie haben keine Entscheidungsrechte für diese Debatte in {{tag}}.'
       label: 'echos'
       create_question_link: 'Neue Diskussion eröffnen'
       create_proposal_link: 'Neuen Vorschlag erstellen'

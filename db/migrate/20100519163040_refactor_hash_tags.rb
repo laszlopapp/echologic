@@ -4,8 +4,10 @@ class RefactorHashTags < ActiveRecord::Migration
     # Updating featured topic tags to be #tags
     %w(echonomyjam echo echocracy echosocial realprices igf klimaherbsttv).each do |name|
       tag = Tag.find_by_value(name)
-      tag.value= "##{tag.value}"
-      tag.save
+      if tag
+        tag.value= "##{tag.value}" 
+        tag.save
+      end
     end
 
     # Seeding new data into the DB
@@ -15,8 +17,10 @@ class RefactorHashTags < ActiveRecord::Migration
   def self.down
     %w(echonomyjam echo echocracy echosocial realprices igf klimaherbsttv).each do |name|
       tag = Tag.find_by_value("##{value}")
-      tag.value = value
-      tag.save!
+      if tag
+        tag.value = value
+        tag.save!
+      end
     end
   end
 end

@@ -1,0 +1,11 @@
+page << "info('#{@info}');" if @info 
+if @statement_node.parent.nil?
+  page.redirect_to(url_for(@statement_node))
+else
+  page.replace 'context',         :partial => 'statements/context'
+  page.replace 'discuss_sidebar', :partial => 'statements/sidebar'
+  page.replace 'summary',         :partial => 'statements/summary'
+  page.replace 'new_statement',   :partial => 'statements/children'
+end        
+page << "makeRatiobars();"
+page << "makeTooltips();"

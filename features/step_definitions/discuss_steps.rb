@@ -62,8 +62,7 @@ When /^I choose the "([^\"]*)" Improvement Proposal$/ do |name|
 end
 
 Then /^I should see an error message$/i do
-  pending
-  Then "I should see a \"error box\""
+  Then 'I should see "error"'
 end
 
 Given /^there is the first question$/i do
@@ -83,6 +82,11 @@ Given /^the question has proposals$/ do
   @question.children.proposals.count.should >= 1
 end
 
+Given /^the question has "([^\"]*)" for tags$/i do |tags|
+  @question.update_tags(tags, EnumKey.find_by_code("en"))
+  @question.save
+end
+
 Given /^the question has no proposals$/ do
   @question.children.proposals.destroy_all
 end
@@ -99,7 +103,8 @@ end
 
 Then /^the question "([^\"]*)" should have "([^\"]*)" as tags$/ do |title, tags|
   tags = tags.split(' ')
-  @question = StatementNode.search_statement_nodes("Question", title,[EnumKey.find_by_code("en")]).first
+  @question = StatementNode.search_statement_nodes(:type => "Question", :value => title,
+                                                   :language_ids => [EnumKey.find_by_code("en")]).first
   res = @question.tags.map{|tag|tag.value} - tags
   res.should == []
 end
@@ -135,7 +140,7 @@ end
 
 Then /^the question should be published$/ do
   @question.reload
-  @question.state.should == EnumKey.find_by_code_and_enum_name("published","statement_states")
+  assert @question.state.eql?(EnumKey.find_by_code_and_enum_name("published","statement_states"))
 end
 
 Then /^I should see the questions title$/ do
@@ -150,6 +155,11 @@ Given /^there is a proposal$/ do
   @proposal = Question.find_all_by_state_id(StatementNode.statement_states('published').id).last.children.proposals.first
 end
 
+Given /^the proposal was not published yet$/ do
+  @proposal.state = StatementNode.statement_states("new")
+  @proposal.save
+end
+
 Then /^the questions title should be "([^\"]*)"$/ do |title|
   @question.document.title.should == title
 end
@@ -162,4 +172,18 @@ end
 
 Then /^I should see no proposals$/ do
   assert_have_no_selector("li.question")
+end
+
+Then /^I should be a subscriber from "([^\"]*)"$/ do |question|
+  @question = StatementNode.search_statement_nodes(:type => "Question", :value => question,
+                                                   :language_ids => [EnumKey.find_by_code("en")]).first
+  assert(@question.followed_by?(@user))
+end
+
+Then /^"([^\"]*)" should have a "([^\"]*)" event$/ do |question, op_type|
+  @question = StatementNode.search_statement_nodes(:type => "Question", :value => question,
+                                                   :language_ids => [EnumKey.find_by_code("en")]).first
+  event = Event.find_by_subscribeable_id(@question.id)
+  assert !event.nil?  
+  assert event.operation.eql?(op_type)
 end

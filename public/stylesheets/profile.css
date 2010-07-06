@@ -136,7 +136,7 @@
 .header_block input[type="text"] {
   border: 1px solid #999;
   color: #21587F;
-  font-size: 14px;§
+  font-size: 14px;
   min-height: 18px;
   width: 195px;
   margin: 1px;
@@ -154,4 +154,17 @@
   height: 9px;
   display: inline-block;
   margin-left: 10px;
+}
+
+#email_notification_container .label{
+	float: left;
+}
+
+#email_notification_container .checkbox{
+	width:40px;
+}
+
+#email_notification_container .info{
+  float: left;
+	padding-left: 10px;
 }

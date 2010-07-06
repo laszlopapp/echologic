@@ -4,9 +4,9 @@
 
 <div id="discuss_sidebar">
 
-  <% unless statement_node.question? || statement_node.new_record? %>
+  <% unless !statement_node.echoable? || statement_node.new_record? %>
 
-    <% unless current_user && current_user.supported?(statement_node) %>
+    <% unless current_user && statement_node.supported_by?(current_user) %>
       <% link_to(url_for(url_options.merge({:action => :echo})), :class => "ajax_put", :id => 'echo_button') do %>
         <span class="not_supported ttLink no_border" title="<%= I18n.t('discuss.tooltips.echo') %>"></span>
       <% end %>

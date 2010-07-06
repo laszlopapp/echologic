@@ -2,6 +2,7 @@ require 'test_helper'
 
 class StatementNodeTest < ActiveSupport::TestCase
 
+
   context "a statement node" do
 
     setup { @statement_node = Question.new }
@@ -12,8 +13,8 @@ class StatementNodeTest < ActiveSupport::TestCase
     should_have_many :statement_documents
     should_have_many :tags
 
-    # should_validate_associated :creator, :document, :category
-
+    # should be visited and supported 
+    
     # validates no invalid states
     [nil, "invalid state"].each do |value|
       context("with state set to #{value}") do
@@ -50,28 +51,65 @@ class StatementNodeTest < ActiveSupport::TestCase
       should_have_many :user_echos
     end
 
-    [Question, Proposal, ImprovementProposal].each do |subtype|
-      context("with type #{subtype.to_s}") do
-        setup do
-          @statement_node = subtype.new
-        end
-        should "tell us what type it is of" do
-          assert_true @statement_node.send(subtype.name.underscore+'?')
-        end
-      end
-    end
-
     context "being saved" do
       setup do 
-        @statement_node.add_statement_document!(:title => 'A new Document', :text => 'with a very short body, dude!', :language_id => 1, :author_id => User.first.id, :original_language_id => 1)
-        @statement_node.tao_tags << TaoTag.new(:tag_id => Tag.first.id, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id)
-        @statement_node.update_attributes!(:creator_id => User.first.id, :state_id => StatementNode.statement_states('published').id)
+        @statement_node.add_statement_document({:title => 'A new Document', :text => 'with a very short body, dude!', :language_id => 1, :author_id => User.first.id, :original_language_id => 1})
+        @statement_node.add_tags(["bebe"], :language_id => 1, :context_id => 2)
+        @statement_node.creator = User.first
+        @statement_node.state = StatementNode.statement_states('published')
+        @statement_node.save
       end
 
       should "be able to access its statement documents data" do
         assert_equal @statement_node.translated_document([1]).title, "A new Document"
         assert_equal @statement_node.translated_document([1]).text, "with a very short body, dude!"
       end
+      
+      should "have creator as supporter" do
+        @user = @statement_node.creator
+        assert(@statement_node.supported_by?(@user))
+      end
+      
+      should "have have a creation event associated" do
+        @events = @statement_node.events
+        assert(@events.first.operation.eql?('new'))
+        result = JSON.parse(@events.first.event)
+        
+        question = result['question']
+        statement = question['statement']
+        statement_documents = statement['statement_documents']
+        title = statement_documents.first['title']
+        assert(title.eql?('A new Document'))
+        
+        question = result['question']
+        tao_tags = question['tao_tags']
+        tag = tao_tags.first['tag']['value']
+        assert(tag.eql?('bebe'))
+      end
+      
+      should "should be followed by creator" do
+        @user = @statement_node.creator
+        assert(@statement_node.followed_by?(@user))
+      end
+      
+      should "be able to be visited" do
+        @user = User.last
+        @statement_node.visited_by!(@user)
+        assert(@statement_node.visited_by?(@user))
+      end
+      
+      should "be able to be supported" do
+        @user = User.last
+        @statement_node.visited_by!(@user)
+        assert(@statement_node.visited_by?(@user))
+      end
+      
+      should "be able to be followed" do
+        @user = User.last
+        @user.find_or_create_subscription_for(@statement_node)
+        assert(@user.follows?(@statement_node))
+      end
+      
     end
 
   end # main context

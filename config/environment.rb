@@ -7,6 +7,9 @@ MAX_SESSION_PERIOD = 3600
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
+#load local plugin for subscriptions
+require 'vendor/plugins/acts_as_subscribeable/lib/acts_as_subscribeable'
+
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
@@ -42,6 +45,9 @@ Rails::Initializer.run do |config|
 
   # require should to use it for testing :)
   config.gem 'shoulda'
+  
+  # gem for background processing
+  config.gem 'delayed_job'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -69,4 +75,6 @@ Rails::Initializer.run do |config|
   config.load_paths += %w(statements).collect{|dir|"#{RAILS_ROOT}/app/models/#{dir}"}
   # the same for controllers
   config.load_paths += %w(statements).collect{|dir|"#{RAILS_ROOT}/app/controllers/#{dir}"}
+  
+  
 end

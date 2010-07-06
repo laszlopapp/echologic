@@ -1,12 +1,11 @@
 class User < ActiveRecord::Base
   include UserExtension::Echo
-
-
+  acts_as_subscriber
+  acts_as_extaggable :as => :concernments
+  
   has_many :web_addresses, :dependent => :destroy
   has_many :memberships, :dependent => :destroy
   has_many :spoken_languages, :dependent => :destroy, :order => 'level_id asc'
-  has_many :tao_tags, :as => :tao, :dependent => :destroy
-  has_many :tags, :through => :tao_tags
 
   has_many :reports, :foreign_key => 'suspect_id'
 
@@ -14,20 +13,11 @@ class User < ActiveRecord::Base
 
   # Every user must have a profile. Profiles are destroyed with the user.
   has_one :profile, :dependent => :destroy
-
-  named_scope :affection_tags, lambda {
-    {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("affection")]}
-  }
-  named_scope :engagement_tags, lambda {
-    {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("engagement")]}
-  }
-  named_scope :expertise_tags, lambda {
-    {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("expertise")]}
-  }
-  named_scope :decision_making_tags, lambda {
-    {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("decision_making")]}
-  }
- 
+  delegate :percent_completed, :full_name, :first_name, :first_name=, :last_name, :last_name=, 
+           :city, :city=, :country, :country=, :completeness, :calculate_completeness, :to => :profile
+  
+  #last login language, important for the activity tracking email language when the user doesn't have anything set
+  enum :last_login_language, :enum_name => :languages
 
   # TODO add attr_accessible :active if needed.
   #attr_accessible :active
@@ -62,17 +52,17 @@ class User < ActiveRecord::Base
   # Signup process before activation: get login name and email, ensure to not
   # handle with sessions.
   def signup!(params)
-    self.profile.first_name = params[:user][:profile][:first_name]
-    self.profile.last_name  = params[:user][:profile][:last_name]
+    self.first_name = params[:user][:profile][:first_name]
+    self.last_name  = params[:user][:profile][:last_name]
     self.email              = params[:user][:email]
     save_without_session_maintenance
   end
 
   # Returns the display name of the user
-  # TODO Depricated. Use user.profile.full_name
+  # TODO Depricated. Use user.full_name
   #  Changed for mailer model - anywhere else used?
   def display_name()
-    self.profile.first_name + " " + self.profile.last_name;
+    self.first_name + " " + self.last_name;
   end
 
   # Activation process. Set user active and add its password and openID and
@@ -102,6 +92,15 @@ class User < ActiveRecord::Base
     reset_perishable_token!
     Mailer.deliver_password_reset_instructions(self)
   end
+  
+  #Send an activity tracking email through mailer
+  def deliver_activity_tracking_email!(question_events, question_tags, events)
+    reset_perishable_token!
+    Mailer.deliver_activity_tracking_email(self,question_events, question_tags, events)
+  end
+
+  
+  handle_asynchronously :deliver_activity_tracking_email!
 
   ##
   ## PERMISSIONS
@@ -130,19 +129,14 @@ class User < ActiveRecord::Base
     a.flatten.map(&:language_id)
   end
 
+  #returns an array with the user's mother tongues
   def mother_tongues
     self.spoken_languages.select{|sp| sp.level.code == 'mother_tongue'}.collect{|sp| sp.language}
   end
-
-  ##
-  ## CONCERNMENTS (TAGS)
-  ##
-
-  def add_tags(tags, opts = {})
-    self.tao_tags << TaoTag.create_for(tags, opts[:language_id], {:tao_id => self.id, :tao_type => self.class.name, :context_id => opts[:context_id]})
-  end
-
-  def delete_tags(tags)
-    self.tao_tags.each {|tao_tag| tao_tag.destroy if tags.include?(tao_tag.tag.value)}
+  
+  def default_language
+    mother_tongues = self.mother_tongues 
+    lang = !mother_tongues.empty? ? mother_tongues.first : self.last_login_language
+    lang ? lang : User.languages("en")
   end
 end

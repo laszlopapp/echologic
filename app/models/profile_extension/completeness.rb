@@ -7,10 +7,10 @@ module ProfileExtension::Completeness
       # key => the columns name to check if it is filled
       # value => the minimum count of chars (size) to accept it as beeing filled
       @@fillable_fields = [:about_me, :city, :country, :first_name, :last_name, :motivation,
-                           [:tao_tags, [:in_context, TaoTag.tag_contexts("affection")]],
-                           [:tao_tags, [:in_context, TaoTag.tag_contexts("engagement")]],
-                           [:tao_tags, [:in_context, TaoTag.tag_contexts("expertise")]],
-                           [:tao_tags, [:in_context, TaoTag.tag_contexts("decision_making")]], 
+                           [:concernments, [:in_context, TaoTag.tag_contexts("affection")]],
+                           [:concernments, [:in_context, TaoTag.tag_contexts("engagement")]],
+                           [:concernments, [:in_context, TaoTag.tag_contexts("expertise")]],
+                           [:concernments, [:in_context, TaoTag.tag_contexts("decision_making")]], 
                            :memberships, :web_addresses, :avatar, :spoken_languages]
       cattr_reader :fillable_fields
     end

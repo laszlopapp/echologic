@@ -93,8 +93,8 @@ es:
     my_echo:
       tabs:
         welcome: Bienvenido
-        profile: Mi Perfil
-        organisations: Organizaciones
+        profile: Mi perfil
+        settings: Definiciones
         profile_complete: '{{complete}}% completo'
 
 
@@ -464,6 +464,8 @@ es:
         many: 'Esta opinión tiene {{supporter_count}} vozes.'
 
     statements:
+      error_messages:
+        no_decision_making_permission: 'Usted no tiene derechos de decisión para este debate en {{tag}}.'
       label: 'echos'
       create_question_link: 'Crear nueva discusión'
       create_proposal_link: 'Crear nueva propuesta'

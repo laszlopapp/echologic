@@ -97,7 +97,7 @@ pt:
       tabs:
         welcome: Bemvindo
         profile: O meu Perfil
-        organisations: organizações
+        settings: Definições
       profile_complete: '{{complete}}% completo'
 
   # ----------------
@@ -456,6 +456,8 @@ pt:
         many: 'Esta afirmação tem {{supporter_count}} apoiantes.'
 
     statements:
+      error_messages:
+        no_decision_making_permission: 'Não lhe são reconhecidos direitos de tomada de decisão no debate em {{tag}}.'
       label: 'echos'
       create_question_link: 'Abra uma nova discussão'
       create_proposal_link: 'Criar nova proposta'

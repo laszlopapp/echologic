@@ -1,6 +1,7 @@
 class StatementNode < ActiveRecord::Base
   include Echoable
-
+  acts_as_subscribeable
+  acts_as_extaggable #had to throw this here, because of the event json generation (tao_tags)
   # magically allows Proposal.first.question? et al.
   #
   # FIXME: figure out why this sometimes doesn't work, but only in ajax requests
@@ -9,37 +10,17 @@ class StatementNode < ActiveRecord::Base
 #  end
 
   # static for now
-
-  def proposal?
-    self.class == Proposal
-  end
-
-  def improvement_proposal?
-    self.class == ImprovementProposal
-  end
-
-  def question?
-    self.class == Question
-  end
-
   def published?
     self.state == self.class.statement_states("published")
   end
 
-  def taggable?
-    false
-  end
-
-
   ##
   ## ASSOCIATIONS
   ##
-
+ 
   belongs_to :creator, :class_name => "User"
   belongs_to :root_statement, :foreign_key => "root_id", :class_name => "StatementNode"
   belongs_to :statement
-  has_many :tao_tags, :as => :tao, :dependent => :destroy
-  has_many :tags, :through => :tao_tags
 
   enum :state, :enum_name => :statement_states
 
@@ -56,7 +37,8 @@ class StatementNode < ActiveRecord::Base
       find(:all, :conditions => ["language_id IN (?)", lang_ids]).sort { |a, b| lang_ids.index(a.language_id) <=> lang_ids.index(b.language_id)}.first
     end
   end
-
+  
+  
   ##
   ## VALIDATIONS
   ##
@@ -68,8 +50,7 @@ class StatementNode < ActiveRecord::Base
   validates_numericality_of :state_id
   validates_associated :creator
   validates_associated :statement
-  validates_associated :tao_tags
-
+  
   after_destroy :delete_dependencies
 
   def delete_dependencies
@@ -91,31 +72,19 @@ class StatementNode < ActiveRecord::Base
     { :conditions => { :type => 'Proposal' } } }
   named_scope :improvement_proposals, lambda {
     { :conditions => { :type => 'ImprovementProposal' } } }
-  named_scope :arguments, lambda {
-    { :conditions => ['type = ? OR type = ?', 'ProArgument', 'ContraArgument'] } }
-  named_scope :pro_arguments, lambda {
-    { :conditions => { :type => 'ProArgument' } } }
-  named_scope :contra_arguments, lambda {
-    { :conditions => { :type => 'ContraArgument' } } }
   named_scope :published, lambda {|auth|
     { :conditions => { :state_id => statement_states('published').id } } unless auth }
-
-  #this name scope doesn't work
-  named_scope :by_title, lambda {|value|
-  {:joins => [:statement_documents], :conditions => ["statement_documents.title like ?", "%"+value+"%"]}}
   named_scope :by_creator, lambda {|id|
   {:conditions => ["creator_id = ?", id]}}
+  
+  
+  
   # orders
   named_scope :by_ratio, :include => :echo, :order => '(echos.supporter_count/echos.visitor_count) DESC'
   named_scope :by_supporters, :include => :echo, :order => 'echos.supporter_count DESC'
   named_scope :by_creation, :order => 'created_at DESC'
 
-  #context
-  named_scope :from_context, lambda { |context_ids|
-    { :include => :tao_tags, :conditions => ['tao_tags.context_id IN (?)', context_ids] } }
-  # tag
-  named_scope :from_tags, lambda { |value|
-    { :include => :tags, :conditions => ['tags.value = ?', value] } }
+  
 
 
   ## ACCESSORS
@@ -144,6 +113,7 @@ class StatementNode < ActiveRecord::Base
   ##############################
 
 
+  #publish a statement
   def publish
     self.state = self.class.statement_states("published")
   end
@@ -179,12 +149,46 @@ class StatementNode < ActiveRecord::Base
     return doc
   end
 
-  def add_tags(tags, opts = {})
-    self.tao_tags << TaoTag.create_for(tags, opts[:language_id], {:tao_id => self.id, :tao_type => "StatementNode", :context_id => TaoTag.tag_contexts("topic").id})
+
+  # checks if there is no document written in the current language code and the current user can translate it
+  def translatable?(user,from_language,to_language,language_preference_list)
+    if user
+      # 1.we have a current user that speaks languages
+      !user.spoken_languages.blank? and
+      # 2.we ensure ourselves that the user has a mother tongue
+      !user.mother_tongues.blank? and
+      # 3.current text language is different from the current language,
+      # which would mean there is no translated version of the document yet in the current language
+      !from_language.code.eql?(to_language) and
+      # 4.application language is the current user's mother tongue
+      user.mother_tongues.collect{|l| l.code}.include?(to_language) and
+      # 5.user knows the document's language
+      user.spoken_languages.map{|sp| sp.language}.uniq.include?(from_language) and
+      #6. user has language level greater than intermediate
+      %w(intermediate advanced mother_tongue).include?(
+        user.spoken_languages.select {|sp| sp.language == from_language}.first.level.code)
+    else
+      false
+    end
   end
 
-  def delete_tags(tags)
-    self.tao_tags.each {|tao_tag| tao_tag.destroy if tags.include?(tao_tag.tag.value)}
+  # checks if, in case the user hasn't yet set his language knowledge, the current language is different from
+  # the statement original language. used for the original message warning
+  def not_original_language?(user, current_language_id)
+    user ? (user.spoken_languages.empty? and current_language_id != self.statement.original_language.id) : false
+  end
+
+  
+
+  # Updates the tags belonging to a question (other statement types do not have any tags yet).
+  def update_tags(tags, language_id)
+    new_tags = tags.split(',').map{|t|t.strip}.uniq
+    tags_to_delete = self.tags.collect{|tag|tag.value} - new_tags
+    self.add_tags(new_tags, :language_id => language_id, 
+                            :tao_type => "StatementNode",
+                            :context_id => TaoTag.tag_contexts("topic").id) unless new_tags.nil?
+    self.delete_tags tags_to_delete
+    new_tags
   end
 
   ###############################
@@ -205,26 +209,37 @@ class StatementNode < ActiveRecord::Base
     list.size == 1 ? list.pop : list
   end
 
+
+
+  # that collects all children, sorted in the way we want them to
+  def sorted_children(user, language_ids)
+    children = self.class.search_statement_nodes(:language_ids => language_ids, 
+                                                 :auth => user && user.has_role?(:editor), 
+                                                 :conditions => ["parent_id = #{self.id}"])
+  end
+  
   class << self
 
-    def search_statement_nodes(type, value, language_keys, opts={} )
+    def search_statement_nodes(opts={} )
 
+      value = opts[:value] || ""
       #get tags
       tags = opts[:tag] || value.split(" ")
-
+      
       #sorting the or arguments
       if !value.blank?
         or_attrs = opts[:or_attrs] || %w(d.title d.text)
         or_conditions = or_attrs.map{|attr|"#{attr} LIKE ?"}.join(" OR ")
-        or_conditions << "OR #{tags.map{|tag| tag.length > 3 ?
+        or_conditions << " OR #{tags.map{|tag| tag.length > 3 ?
                           sanitize_sql(["t.value LIKE ?","%#{tag}%"]) :
                           sanitize_sql(["t.value = ?",tag])}. join(" OR ")}"
       end
       #sorting the and arguments
-      and_conditions = opts[:conditions] || ["n.type = '#{type}'"]
-      and_conditions << "state_id = #{statement_states('published').id}" if opts[:auth]
+      and_conditions = opts[:conditions] || [sanitize_sql(["n.type = ? ",opts[:type]])]
+      and_conditions << "n.state_id = #{statement_states('published').id}" if opts[:auth]
       and_conditions << sanitize_sql(["t.value = ?", opts[:tag]]) if opts[:tag]
-      and_conditions << sanitize_sql(["d.language_id IN (?)",language_keys])
+      and_conditions << sanitize_sql(["d.language_id IN (?)",opts[:language_ids]]) if opts[:language_ids]
+      and_conditions << sanitize_sql(["t.value = ?", opts[:tag]]) if opts[:tag]
 
       #all getting along like really good friends
       and_conditions << "(#{or_conditions})" if or_conditions
@@ -250,8 +265,9 @@ class StatementNode < ActiveRecord::Base
       #All Rambo's in one
       query = query_part_1+query_part_2+query_part_3
       value = "%#{value}%"
-
+      
       conditions = or_attrs ? [query, *([value] * or_attrs.size)] : query
+      
       statement_nodes = find_by_sql(conditions)
     end
 
@@ -268,10 +284,7 @@ class StatementNode < ActiveRecord::Base
         :order => %Q[echos.supporter_count DESC, created_at ASC] }
     end
 
-    def display_name
-      self.name.underscore.gsub(/_/,' ').split(' ').each{|word| word.capitalize!}.join(' ')
-    end
-
+    
     def expected_parent_chain
       chain = []
       obj_class = self.name.constantize

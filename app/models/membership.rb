@@ -1,13 +1,9 @@
 class Membership < ActiveRecord::Base
-  belongs_to :user
-    
-  # module to update the profile (e.g. completeness) after_save, after_destroy
   include ProfileUpdater
   
+  
+  belongs_to :user
+  delegate :percent_completed, :to => :user
+  
   validates_presence_of :organisation, :position, :user_id
-  
-  def profile
-    self.user.profile
-  end
-  
 end

@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   # Set locale to the best fitting one
   def set_locale
-    available = %w{en de es}
+    available = %w{en de es pt}
     I18n.locale = params[:locale] || request.compatible_language_from(available)
   end
 
@@ -239,6 +239,7 @@ class ApplicationController < ActionController::Base
 
   # Expires and cleans up the user session.
   def expire_session!
+    current_user.update_attributes(:last_login_language => EnumKey.find_by_code_and_enum_name(params[:locale].to_s,"languages"))
     current_user_session.try(:destroy)
     reset_session
     if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'

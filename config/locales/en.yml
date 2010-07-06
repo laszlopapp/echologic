@@ -97,7 +97,7 @@ en:
       tabs:
         welcome: Welcome
         profile: My Profile
-        organisations: Organisations
+        settings: Settings
       profile_complete: '{{complete}}% complete'
 
   # ----------------
@@ -242,6 +242,13 @@ en:
         expertise: <strong>Expert</strong> in the field of
         decision_making: <strong>Decision maker</strong> in the field of
       tags: Keywords (tags)
+      
+    # Email Notification section
+    email_notification:
+      title: Email Notification
+      guide: Here you can set if you want to receive a weekly email notification with your subscribed entities related updates.
+      label: Weekly update on discussions
+      
 
     users:
       new:
@@ -451,6 +458,8 @@ en:
         one: 'This statement has {{supporter_count}} supporter.'
         many: 'This statement has {{supporter_count}} supporters.'
     statements:
+      error_messages:
+        no_decision_making_permission: 'You do not have decision making rights for this debate in {{tag}}.'
       label: 'echos'
       create_question_link: 'Open a new discussion'
       create_proposal_link: Add new proposal
@@ -467,7 +476,6 @@ en:
       publish: Publish
       published: Debate successfully published!
       edit: 'Edit {{type}}'
-
       types:
         question:  'Question'
         proposal:  'Proposal'
@@ -616,3 +624,33 @@ en:
       user_session:
         email: E-Mail
         password: Password
+        
+  mail:
+    activity_tracking:
+      subject: Activity Tracking
+      cancel: | 
+        If you do not wish to receive the updated to your followed themes on a weekly basis, please go to your profile
+        and uncheck your email notification option. 
+      
+    root:
+      new_entry: "New entry in the '{{title}}' debate"
+    parent:
+      new_entry: "New entry in the '{{title}}' proposal belonging to the '{{question_title}}' debate"
+    questions:
+      text1: 'New Debates!'
+      new_questions: 'New Debates from last week: {{count}}'
+      tags_intro: 'New Tags from last week:'
+      tag: "<a href='http://www.echologic.org/{{code}}/discuss/search?value={{tag}}'>{{tag}}</a> ({{count}})"
+    proposal:
+      new: |
+        <p>
+        New proposal added with title 
+        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{parent_id}}/proposals/{{id}}'>{{title}}</a>
+        </p>
+    improvement_proposal:
+      new: |
+        <p>
+        New improvement proposal added with title 
+        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
+        {{title}}</a>
+        </p>

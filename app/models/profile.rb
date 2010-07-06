@@ -8,8 +8,9 @@ class Profile < ActiveRecord::Base
   has_many :web_addresses, :through => :user
   has_many :memberships,  :through => :user
   has_many :spoken_languages, :through => :user
-  has_many :tao_tags, :through => :user
   
+  delegate :email, :email=, :concernments, :concernments=, :to => :user
+
   validates_presence_of :user_id
   validates_length_of :about_me, :maximum => 1024, :allow_nil => true
   validates_length_of :motivation, :maximum => 1024, :allow_nil => true

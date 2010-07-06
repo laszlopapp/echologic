@@ -4,7 +4,7 @@
 # * currently a Debate only expects one type of children, Proposals
 
 class Question < StatementNode
-
+  
 
   # methods / settings to overwrite default statement_node behaviour
 
@@ -20,8 +20,7 @@ class Question < StatementNode
   end
 
   # Questions are the only taggable statements currently.
-  def taggable?
-    true
+  def echoable?
+    false
   end
-
 end

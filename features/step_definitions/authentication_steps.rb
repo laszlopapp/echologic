@@ -28,3 +28,10 @@ When /^I restore normal session expiry time$/ do
   MAX_SESSION_PERIOD = @normal_expiry_time
   # controller.send(:current_user_session).destroy
 end
+
+Then /^"([^\"]*)" should have "([^\"]*)" as "([^\"]*)"$/ do |user, code, attribute|
+  user += "@echologic.org" unless user =~ /.*@.*\..{2,3}/
+  @user = User.find_by_email(user)
+  key = EnumKey.find_by_code(code)
+  assert @user.send(attribute.to_sym).eql?(key)
+end

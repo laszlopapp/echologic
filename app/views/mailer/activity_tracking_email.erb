@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <title><%= I18n.t('mail.activity_tracking.subject', :locale => @language.code) %></title>
+  </head>
+  <body>
+  	<h1><%= I18n.t('mail.activity_tracking.subject', :locale => @language.code) %></h1>
+
+		<%= render :partial => "mailer/activity_templates/questions_activity_template", 
+               :locals => {:questions => @question_events, :tags => @question_tags}%>
+		
+		<ul>
+			<% main_root = nil %>
+			<% main_parent = nil %>
+			<% @events.each do |e|%>
+			  <% event_data = JSON.parse(e.event) %>
+				<% root_id = event_data[event_data.keys[0]]['root_id'] %>
+				<% parent_id = event_data[event_data.keys[0]]['parent_id'] %>
+				<% root = root_id.nil? ? Question.find(parent_id) : Question.find(root_id)%>
+				<% parent = root_id.nil? ? Question.find(parent_id) : Proposal.find(parent_id) %>
+				<% if parent.class == Question and root != main_root %>
+				  <% main_root = root %>
+					</ul>
+					<li><%= I18n.t('mail.root.new_entry', :title => parent.statement.statement_documents[0].title, 
+                                                :locale => @language.code) %></li><ul>
+				<% end %>
+				<% if parent.class == Proposal and parent != main_parent %>
+				  <% main_parent = parent %>
+					</ul>
+					<li><%= I18n.t('mail.parent.new_entry', :title => parent.statement.statement_documents[0].title, 
+                                                  :question_title => root.statement.statement_documents[0].title,
+                                                  :locale => @language.code) %></li><ul>
+				  <%= %>
+				<% end %>
+			  <li>
+			  	<%= render :partial => "mailer/activity_templates/#{event_data.keys[0]}_activity_template", 
+                         :locals => {:id => e.subscribeable_id, :data => event_data}%>
+				</li>
+			<% end %>
+		</ul>
+		
+		<%= I18n.t('mail.activity_tracking.cancel') %>
+  </body>
+</html>
+
