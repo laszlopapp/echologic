@@ -2,7 +2,10 @@
 <% tags ||= @tags%>
 
 <div id="summary" class="summary simple_header_block discuss_right_block">
-  <h2><%= I18n.t("discuss.statements.edit", :type => I18n.t("discuss.statements.types.#{statement_node_class_dom_id(statement_node)}"))%></h2>
+  <h2>
+    <%= I18n.t("discuss.statements.edit",
+               :type => I18n.t("discuss.statements.types.#{statement_node_class_dom_id(statement_node)}"))%>
+  </h2>
   <%= render :partial => 'statements/form', :locals => {:statement_node => statement_node, :tags => tags} %>
 </div>
 

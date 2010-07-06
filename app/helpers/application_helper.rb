@@ -14,4 +14,9 @@ module ApplicationHelper
     val += "<script type='text/javascript'>$('#roadmap_progressbar').progressbar({value: #{percent != 0 ? percent : 1}});</script>"
     val
   end
+
+  def insert_separator_line
+    "<span class='shadow_line_separator'></span>"
+  end
+
 end

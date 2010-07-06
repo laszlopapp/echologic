@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100705090233) do
+ActiveRecord::Schema.define(:version => 20100706092525) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -167,10 +167,8 @@ ActiveRecord::Schema.define(:version => 20100705090233) do
     t.string   "type"
     t.integer  "parent_id"
     t.integer  "root_id"
-    t.integer  "document_id"
     t.integer  "creator_id"
     t.integer  "echo_id"
-    t.integer  "category_id"
     t.integer  "state_id"
     t.datetime "created_at"
     t.datetime "updated_at"

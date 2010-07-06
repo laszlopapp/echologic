@@ -283,7 +283,7 @@ pt:
   discuss:
     my_discussions:
       link: Minhas Discussões
-      title: Debates publicados & não publicados
+      title: Discussões publicados & não publicados
     translation_request: Por favor traduza este texto em <strong>PORTUGUÊS</strong>.
     original_language_warning: |
       O texto original encontra-se em <strong>{{language}}</strong>. Defina os seus conheci-<br/>
@@ -292,7 +292,7 @@ pt:
       one: '{{count}} discussão'
       more: '{{count}} discussões'
     featured_topics:
-      title: Tópicos destacados
+      title: Tópicos Destacados
       text: |
         <p>
         Como pode ver no Roteiro (canto superior direito do ecrã),

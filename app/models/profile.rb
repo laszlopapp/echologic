@@ -19,7 +19,9 @@ class Profile < ActiveRecord::Base
   include ProfileExtension::Completeness
 
   # TODO: do we need this ?
-  named_scope :by_last_name_first_name_id, :include => :user, :order => 'CASE WHEN last_name IS NULL OR last_name="" THEN 1 ELSE 0 END, last_name, first_name, user.id asc'
+  named_scope :by_last_name_first_name_id,
+              :include => :user,
+              :order => 'CASE WHEN last_name IS NULL OR last_name="" THEN 1 ELSE 0 END, last_name, first_name, user.id asc'
 
   # There are two kind of people in the world..
   @@gender = {
@@ -64,22 +66,10 @@ class Profile < ActiveRecord::Base
   end
 
   # Self written SQL for querying profiles in echo Connect
-  def self.search_profiles(sort, value, opts={} )
+  def self.search_profiles(competence, search_term)
 
-    #sorting the or arguments
-    sort_string = "tt.context_id = #{sort}"
-    or_attrs = opts[:attrs] || %w(p.first_name p.last_name p.city p.country p.about_me p.motivation u.email t.value m.position m.organisation)
-    or_conditions = or_attrs.map{|attr|"#{attr} LIKE ?"}.join(" OR ")
-
-    #sorting the and arguments
-    and_conditions = opts[:conditions] || ["u.active = 1"]
-    and_conditions.insert(0,sort_string) if !sort.blank?
-
-    #all getting along like really good friends
-    and_conditions << "(#{or_conditions})"
-
-    #Rambo 1
-    query_part_1 = <<-END
+    # Building the select clause
+    select_clause = <<-END
       select distinct p.*, u.email
       from
         profiles p
@@ -89,19 +79,37 @@ class Profile < ActiveRecord::Base
         LEFT JOIN tags t         ON (t.id = tt.tag_id)
       where
     END
-    #Rambo 2
-    query_part_2 = and_conditions.join(" AND ")
-    #Rambo 3
-    query_part_3 = " order by
+
+    # Building the where clause
+    # Filtering active users
+    and_conditions = ["u.active = 1"]
+
+    # Searching for different competences
+    if (competence.blank?)
+      # General search
+      searched_fields =
+        %w(p.first_name p.last_name p.city p.country p.about_me p.motivation u.email t.value m.position m.organisation)
+    else
+      # Search for a certain competence area
+      searched_fields =
+        %w(p.first_name p.last_name p.city p.country m.organisation t.value)
+      and_conditions << "tt.context_id = #{competence}"
+    end
+    search_conditions = searched_fields.map{|field|"#{field} LIKE ?"}.join(" OR ")
+    and_conditions << "(#{search_conditions})"
+    where_clause = and_conditions.join(" AND ")
+
+    # Building the order clause
+    order_clause = " order by
       CASE WHEN p.completeness >= #{COMPLETENESS_THRESHOLD} THEN 0 ELSE 1 END,
       CASE WHEN p.last_name IS NULL OR p.last_name='' THEN 1 ELSE 0 END,
       p.last_name, p.first_name, u.id asc;"
 
-    #All Rambo's in one
-    query = query_part_1+query_part_2+query_part_3
-    value = "%#{value}%"
+    # Composing the query and substituting the values
+    query = select_clause + where_clause + order_clause
+    conditions = [query, *(["%#{search_term}%"] * searched_fields.size)]
 
-    conditions = [query, *([value] * or_attrs.size)]
+    # Executing the query
     profiles = find_by_sql(conditions)
   end
 end

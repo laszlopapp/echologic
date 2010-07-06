@@ -115,7 +115,7 @@ es:
       Hasta la hora solamente las funciones simples fueron publicadas en las siguientes áreas:
       </p>
     function_1:
-      name: 'Mi perfil'
+      name: 'Mi Perfil'
       description: |
         Complete tu perfil para que otros puedan hallarle, cuando tus competencias sean solicitadas.
     function_2:
@@ -295,8 +295,8 @@ es:
 
   discuss:
     my_discussions:
-      link: Mis Conversaciones
-      title: Debates publicados & no publicados
+      link: Mis Discusiones
+      title: Discusiones publicados & no publicados
     original_language_warning: |
       El texto original es <strong>{{language}}</strong>. Por favor <br/>
       indique quales son las lenguas que intiendes.

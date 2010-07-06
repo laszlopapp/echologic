@@ -285,7 +285,7 @@ en:
   discuss:
     my_discussions:
       link: My Discussions
-      title: Published & Unpublished Debates
+      title: New & published discussion
     tag_permission: |
       <p>You do not have the permission to insert the '{{tag}}' tag</p>
     translation_request: Please translate this statement to <strong>ENGLISH</strong>.
@@ -476,7 +476,6 @@ en:
       publish: Publish
       published: Debate successfully published!
       edit: 'Edit {{type}}'
-      
       types:
         question:  'Question'
         proposal:  'Proposal'
@@ -609,7 +608,7 @@ en:
 
     models:
       question: "question"
-      proposal: "position"
+      proposal: "proposal"
       improvement_proposal: "improvement proposal"
 
 
