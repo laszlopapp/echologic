@@ -1,6 +1,6 @@
 <span id="<%= dom_id tao_tag %>" class="tag">
-  <%= tao_tag.tag.value %> <%= link_to 'x',url_for(:controller => '../tao_tags',
-                                                   :action => 'destroy',
-                                                   :id => tao_tag.id),
-                                       :class => 'ajax' %>
+  <%= tao_tag.tag.value %>
+  <% link_to url_for(tao_tag), :class => 'ajax_delete' do %>
+      <span class='delete_tag_button'></span>
+  <% end %>
 </span>

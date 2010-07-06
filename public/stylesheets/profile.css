@@ -44,27 +44,6 @@
   width: 250px !important;
 }
 
-#concernment_container .tag_container {
-  display: inline-block;
-  width: 383px;
-  margin: 23px 0 0;
-  padding: 2px 4px;
-  min-height: 30px;
-  border: 1px solid #999;
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-}
-
-#concernment_container .tag {
-  font-size: 13px;
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-  background-color: #DDD;
-  padding: 3px 7px;
-  margin: 4px 1px;
-  display: inline-block;
-}
-
 .header_block {
   background: url(../images/page/header_left.png) no-repeat scroll left top;
   padding: 6px 0 0 15px;

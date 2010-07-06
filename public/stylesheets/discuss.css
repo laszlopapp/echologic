@@ -430,33 +430,15 @@ a.statement_link:hover {
   cursor: default;
 }
 
-#statement_tags_container form input[type='text'] {
+#statement_tags_container #tag_topic_id {
   width: 250px !important;
-}
-
-#statement_tags_container .tag_container {
-  display: inline-block;
-  width: 383px;
-  margin: 23px 0 0;
-  padding: 2px 4px;
-  min-height: 30px;
-  border: 1px solid #999;
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-}
-
-#statement_tags_container .tag {
-  font-size: 13px;
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-  background-color: #DDD;
-  padding: 3px 7px;
-  margin: 4px 1px;
-  display: inline-block;
+  padding: 2px 0;
 }
 
 #statement_tags_container .add_button {
 	display: inline-block;
+  position: relative;
+  top: -2px;
 }
 
 
