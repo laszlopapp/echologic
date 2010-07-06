@@ -13,7 +13,7 @@ module ProfileUpdater
     def update_profile
       if self.user and self.user.profile
         self.user.calculate_completeness
-        self.user.save
+        self.user.profile.save
       end
     end
   end
