@@ -119,7 +119,7 @@ class Users::UsersController < ApplicationController
 
     respond_to do |format|
       format.js do
-        if current_user.save
+        if current_user.profile.save
           current_completeness = current_user.profile.percent_completed
           if previous_completeness != current_completeness
             set_info("discuss.messages.new_percentage", :percentage => current_completeness)
@@ -147,7 +147,8 @@ class Users::UsersController < ApplicationController
     previous_completeness = current_user.percent_completed
     @concernment.destroy
     current_user.profile.calculate_completeness
-    current_completeness = current_user.profile.percent_completed
+    current_user.save
+    current_completeness = current_user.percent_completed
     if previous_completeness != current_completeness
       set_info("discuss.messages.new_percentage", :percentage => current_completeness)
     end
