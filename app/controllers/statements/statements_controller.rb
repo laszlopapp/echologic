@@ -229,7 +229,6 @@ class StatementsController < ApplicationController
         }
       else
         set_error(@statement_document)
-        @statement_node.tao_tags.each{|tao_tag|set_error(tao_tag)}
         format.html { flash_error and render :template => 'statements/new' }
         format.js   { show_error_messages }
       end
@@ -275,7 +274,6 @@ class StatementsController < ApplicationController
         format.js   { show }
       else
         set_error(@statement_node)
-        @statement_node.tao_tags.each{|tao_tag|set_error(tao_tag)}
         format.html { flash_error and redirect_to url_for(@statement_node) }
         format.js   { show_error_messages }
       end
