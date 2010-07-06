@@ -21,7 +21,7 @@ class TaoTagsController < ApplicationController
   #
   def create
     previous_completeness = current_user.profile.percent_completed
-    tags = params[:tag][:value].split(',').map!{|t|t.strip}
+    tags = params[:tag][:value].split(',').map!{|t| t.strip}.select{|t| t.length > 0}
     context = EnumKey.find(params[:context_id])
     new_tags = tags - current_user.tao_tags.in_context(context).map{|tao_tag|tao_tag.tag.value}
     current_user.add_tags(new_tags, {:language_id => locale_language_id, :context_id => params[:context_id]})
