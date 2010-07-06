@@ -12,7 +12,7 @@
     <span class="values"><%= spoken_languages.join(', ') %></span>
   <% end %>
 
-  <% TaoTag.valid_contexts(@profile.user.class.name).each do |context| %>
+  <% ValidContext.valid_contexts(@profile.user.class.name).each do |context| %>
     <% concernments = @profile.concernments.in_context(context) %>
     <% unless concernments.blank? %>
       <span class="label"><%= I18n.t("users.concernments.sorts.#{context.code}") %></span>

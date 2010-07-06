@@ -8,7 +8,7 @@ render_tabnav :connect_sorts,
     t.highlights_on :sort => ''
   end
 
-  TaoTag.valid_contexts(User.name).each do |context| 
+  ValidContext.valid_contexts(User.name).each do |context| 
     add_tab :html => {:class => 'ajax_sort', :value => context.id} do |t|
       t.named I18n.t("connect.segments.#{context.code}")
       t.links_to url_for(:controller => :connect, :action => :show, :value => @value, :sort => context.id)

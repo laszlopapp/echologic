@@ -6,7 +6,7 @@
   </div>
 	<% concernments = @user.concernments %>
 
-  <% TaoTag.valid_contexts(@user.class.name).each do |tag_context| %>
+  <% ValidContext.valid_contexts(@user.class.name).each do |tag_context| %>
     <%= render :partial => 'users/concernments/list', :locals => { :concernments => concernments.in_context(tag_context), :context => tag_context} %><br/>
   <% end %>
 
