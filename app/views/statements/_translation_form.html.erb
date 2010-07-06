@@ -11,7 +11,6 @@
   <% #FIXME: i don't know how to do this manually with formtastics. enums are not really supported by rails,
      #and everywhere else where we use enum like statefulness in models, views do it like this %>
   <%= form.hidden_field :parent_id %>
-  <%= form.hidden_field :category_id %>
 	<%= form.hidden_field :state_id, :value => StatementNode.statement_states('published').id %>
 
   <% form.buttons do %>
