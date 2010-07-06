@@ -29,7 +29,7 @@ class TaoTagsController < ApplicationController
 
     respond_to do |format|
       format.js do
-        if current_user.save
+        if current_user.profile.save
           current_completeness = current_user.profile.percent_completed
           if previous_completeness != current_completeness
             set_info("discuss.messages.new_percentage", :percentage => current_completeness)
@@ -60,10 +60,12 @@ class TaoTagsController < ApplicationController
   #
   def destroy
     @tao_tag = TaoTag.find(params[:id])
-    previous_completeness = current_user.profile.percent_completed
+    profile = current_user.profile
+    previous_completeness = profile.percent_completed
     @tao_tag.destroy
-    current_user.profile.calculate_completeness
-    current_completeness = current_user.profile.percent_completed
+    profile.calculate_completeness
+    profile.save
+    current_completeness = profile.percent_completed
     if previous_completeness != current_completeness
       set_info("discuss.messages.new_percentage", :percentage => current_completeness)
     end
