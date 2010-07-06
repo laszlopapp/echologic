@@ -27,12 +27,6 @@ module ActiveRecord
             
             validates_associated :tao_tags
             
-            # by context
-            named_scope :from_context, lambda { |context_ids|
-              { :include => :tao_tags, :conditions => ['tao_tags.context_id IN (?)', context_ids] } }
-            # by tag
-            named_scope :from_tags, lambda { |value|
-              { :include => :tags, :conditions => ['tags.value = ?', value] } }
           end
           
           class_eval <<-RUBY

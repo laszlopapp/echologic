@@ -208,15 +208,17 @@ class StatementsController < ApplicationController
     doc_attrs = attrs.delete(:statement_document)
     
     form_tags = attrs.delete(:tags)
+      
+    
     @statement_node ||= statement_node_class.new(attrs)
     @statement_document = @statement_node.add_statement_document(
                           doc_attrs.merge({:original_language_id => @locale_language_id}))
-    if @statement_node.taggable?
+    permitted = true ; @tags = []
+    if @statement_node.taggable? and (permitted = check_tag_permissions(form_tags))
       @tags = @statement_node.update_tags(form_tags, @locale_language_id) 
-      check_tag_permissions @statement_node
     end
     respond_to do |format|
-      if @error.nil? and @statement_node.save
+      if permitted and @statement_node.save
         set_statement_node_info("discuss.messages.created",@statement_node)
         current_user.supported!(@statement_node)
         #load current created statement_node to session
@@ -262,12 +264,12 @@ class StatementsController < ApplicationController
     attrs_doc = attrs.delete(:statement_document)
     # Updating tags of the statement
     form_tags = attrs.delete(:tags)
-    if @statement_node.taggable?
+    permitted = true ; @tags = []
+    if @statement_node.taggable? and (permitted = check_tag_permissions(form_tags)) 
       @tags = @statement_node.update_tags(form_tags, @locale_language_id) 
-      check_tag_permissions(@statement_node)
     end
     respond_to do |format|
-      if @error.nil? and
+      if permitted and
          @statement_node.update_attributes(attrs) and
          @statement_node.translated_document(@language_preference_list).update_attributes(attrs_doc)
         set_statement_node_info("discuss.messages.updated",@statement_node)
@@ -339,7 +341,7 @@ class StatementsController < ApplicationController
     user_decision_making_tags = current_user.concernments.in_context(TaoTag.tag_contexts("decision_making")).map{|c|c.tag.value}
     statement = @statement_node || parent
     return true if statement.nil?
-    tags = statement.root.tao_tags.map{|t|t.tag.value}
+    tags = statement.root.tags.map{|t|t.value}
     tags.each do |tag|
       index = tag.index '*'
       if !index.nil? and index == 0
@@ -362,13 +364,16 @@ class StatementsController < ApplicationController
   #### TAGS
   ###############################
 
-  def check_tag_permissions(statement_node)
-    statement_node.tao_tags.each do |tao_tag|
-      index = tao_tag.tag.value.index '#'
-      if !index.nil? and index == 0 and !current_user.has_role? :topic_editor, tao_tag.tag
-        set_error('discuss.tag_permission', :tag => tao_tag.tag.value)
+  def check_tag_permissions(tags_values, language_id = @locale_language_id)
+    tags = tags_values.split(',').map{|t|t.strip}.uniq
+    tags.each do |tag|
+      tag.strip!
+      index = tag.index '#'
+      if !index.nil? and index == 0 and !current_user.has_role? :topic_editor, Tag.find_by_value(tag)
+        set_error('discuss.tag_permission', :tag => tag)
       end
     end
+    @error.nil? ? true : false
   end
   
   def load_to_session(statement_node)

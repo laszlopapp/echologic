@@ -6,12 +6,9 @@ module ProfileExtension::Completeness
       # we use it when calculating the profiles completeness (after_save :calculate_completeness)
       # key => the columns name to check if it is filled
       # value => the minimum count of chars (size) to accept it as beeing filled
-      @@fillable_fields = [:about_me, :city, :country, :first_name, :last_name, :motivation,
-                           [:concernments, [:in_context, TaoTag.tag_contexts("affection")]],
-                           [:concernments, [:in_context, TaoTag.tag_contexts("engagement")]],
-                           [:concernments, [:in_context, TaoTag.tag_contexts("expertise")]],
-                           [:concernments, [:in_context, TaoTag.tag_contexts("decision_making")]], 
-                           :memberships, :web_addresses, :avatar, :spoken_languages]
+      @@fillable_fields = [:about_me, :city, :country, :first_name, :last_name, :motivation, 
+                           :memberships, :web_addresses, :avatar, :spoken_languages].concat(
+                           ValidContext.valid_contexts("User").map!{|context| [:concernments, [:in_context, context]]})
       cattr_reader :fillable_fields
     end
 
