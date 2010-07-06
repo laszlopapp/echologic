@@ -225,12 +225,12 @@ class StatementNode < ActiveRecord::Base
       value = opts[:value] || ""
       #get tags
       tags = opts[:tag] || value.split(" ")
-
+      
       #sorting the or arguments
       if !value.blank?
         or_attrs = opts[:or_attrs] || %w(d.title d.text)
         or_conditions = or_attrs.map{|attr|"#{attr} LIKE ?"}.join(" OR ")
-        or_conditions << "OR #{tags.map{|tag| tag.length > 3 ?
+        or_conditions << " OR #{tags.map{|tag| tag.length > 3 ?
                           sanitize_sql(["t.value LIKE ?","%#{tag}%"]) :
                           sanitize_sql(["t.value = ?",tag])}. join(" OR ")}"
       end
@@ -265,8 +265,9 @@ class StatementNode < ActiveRecord::Base
       #All Rambo's in one
       query = query_part_1+query_part_2+query_part_3
       value = "%#{value}%"
-
+      
       conditions = or_attrs ? [query, *([value] * or_attrs.size)] : query
+      
       statement_nodes = find_by_sql(conditions)
     end
 

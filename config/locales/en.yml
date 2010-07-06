@@ -458,6 +458,8 @@ en:
         one: 'This statement has {{supporter_count}} supporter.'
         many: 'This statement has {{supporter_count}} supporters.'
     statements:
+      error_messages:
+        no_decision_making_permission: 'You do not have decision making rights for this debate in {{tag}}.'
       label: 'echos'
       create_question_link: 'Open a new discussion'
       create_proposal_link: Add new proposal

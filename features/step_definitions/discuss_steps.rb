@@ -82,6 +82,11 @@ Given /^the question has proposals$/ do
   @question.children.proposals.count.should >= 1
 end
 
+Given /^the question has "([^\"]*)" for tags$/i do |tags|
+  @question.update_tags(tags, EnumKey.find_by_code("en"))
+  @question.save
+end
+
 Given /^the question has no proposals$/ do
   @question.children.proposals.destroy_all
 end

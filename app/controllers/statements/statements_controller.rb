@@ -15,19 +15,18 @@ class StatementsController < ApplicationController
   verify :method => :delete, :only => [:destroy]
 
   # the order of these filters matters. change with caution.
-  before_filter :fetch_statement_node, :only => [:show,:edit,:update,:echo,:unecho,:new_translation,:create_translation,:destroy,:publish]
+  before_filter :fetch_statement_node, :except => [:category,:my_discussions,:new,:create]
   before_filter :require_user, :except => [:category, :show]
-  before_filter :fetch_languages, :only => [:category,:show,:edit,:update,:new,:create,:echo,:unecho,:new_translation,:create_translation,:publish,:my_discussions]
+  before_filter :fetch_languages, :except => [:destroy]
+  before_filter :require_decision_making_permission, :except => [:category,:show,:my_discussions]
  
   # authlogic access control block
   access_control do
     allow :editor
     allow anonymous, :to => [:index, :show, :category]
-    allow logged_in, :only => [:index,:show,:echo,:unecho,:new,:create,:new_translation,:create_translation,:publish,:my_discussions]
-    allow logged_in, :only => [:edit, :update], :if => :may_edit?
-    allow logged_in, :only => [:destroy], :if => :may_delete?
+    allow logged_in
   end
-
+  
   
 
   # Shows all the existing debates according to the given search string and a possible category.
@@ -336,6 +335,29 @@ class StatementsController < ApplicationController
     set_info(string, :type => I18n.t("discuss.statements.types.#{statement_node_symbol.to_s}"))
   end  
 
+  #checks if the statement node or parent has a * tag and the user has permission for it
+  def require_decision_making_permission
+    user_decision_making_tags = current_user.concernments.in_context(TaoTag.tag_contexts("decision_making")).map{|c|c.tag.value}
+    statement = @statement_node || parent
+    return true if statement.nil?
+    tags = statement.root.tao_tags.map{|t|t.tag.value}
+    tags.each do |tag|
+      index = tag.index '*'
+      if !index.nil? and index == 0
+        if !user_decision_making_tags.include? tag
+          set_info('discuss.statements.error_messages.no_decision_making_permission', :tag => tag[1,tag.length-1])
+          respond_to do |format|
+            format.html { flash_info and redirect_to(url_for(statement)) }
+            format.js do
+              render_with_info
+            end
+          end
+          return false
+        end
+      end
+    end
+    return true
+  end
   
   ###############################
   #### TAGS
