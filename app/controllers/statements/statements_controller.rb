@@ -226,6 +226,7 @@ class StatementsController < ApplicationController
           @statement_node.visited_by!(current_user)
           @children = [].paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
           render :partial => 'statements/create.rjs'
+          
         }
       else
         set_error(@statement_document)

@@ -1,3 +1,4 @@
+page << "info('#{@info}');" if @info
 page.replace 'context', :partial => 'statements/context'
 page.replace 'summary', :partial => 'statements/summary'
 page << "makeRatiobars();"
