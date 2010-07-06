@@ -11,8 +11,6 @@ class TagTest < ActiveSupport::TestCase
   def test_value_uniqueness
     t = tags(:earth)
     c = Tag.new(:value => t.value, :language_id => t.language.id)
-    puts t.inspect
-    puts c.inspect
     assert !c.save, 'value should be unique'
   end
 
