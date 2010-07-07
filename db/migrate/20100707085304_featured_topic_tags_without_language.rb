@@ -3,7 +3,7 @@ class FeaturedTopicTagsWithoutLanguage < ActiveRecord::Migration
 
     # Updating featured topic tags to be language indifferent
     %w(echonomyjam echo echocracy echosocial realprices igf klimaherbsttv).each do |name|
-      tags = Tag.all(conditions => {:value => "#{name}"}, :order => "created_at DESC")
+      tags = Tag.all(:conditions => {:value => "#{name}"}, :order => "created_at DESC")
       next if tags.blank?
       oldest_tag = tags.pop
       tags.each do |tag|
