@@ -1,7 +1,7 @@
 class StatementNode < ActiveRecord::Base
   include Echoable
   acts_as_subscribeable
-  acts_as_extaggable #had to throw this here, because of the event json generation (tao_tags)
+  acts_as_extaggable :topics
   # magically allows Proposal.first.question? et al.
   #
   # FIXME: figure out why this sometimes doesn't work, but only in ajax requests

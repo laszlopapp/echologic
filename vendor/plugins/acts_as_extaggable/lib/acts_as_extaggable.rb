@@ -16,14 +16,16 @@ module ActiveRecord
       
       module ClassMethods
         
-        def acts_as_extaggable(args = {})
-#          args.flatten! if args
-#          args.compact! if args
+        def acts_as_extaggable(*args)
+          tag_types = args.to_a.flatten.compact.map(&:to_sym)
+
+          write_inheritable_attribute(:tag_types, (tag_types).uniq)
+          class_inheritable_reader(:tag_types)
+          
           class_eval do
             has_many :tao_tags, :as => :tao, :dependent => :destroy
             has_many :tags, :through => :tao_tags
             
-            alias_method args[:as], :tao_tags if args[:as]
             
             validates_associated :tao_tags
             
@@ -58,9 +60,12 @@ module ActiveRecord
             def taggable?
               true
             end
+            
+            include ActsAsTaggable::Taggable::Core
           RUBY
         end
       end
     end
   end
 end
+

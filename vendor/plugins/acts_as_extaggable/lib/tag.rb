@@ -1,4 +1,5 @@
 class Tag < ActiveRecord::Base
+  include ActsAsTaggable::ActiveRecord::Backports if ::ActiveRecord::VERSION::MAJOR < 3
   attr_accessible :value, :language_id
   acts_as_authorization_object
 
@@ -12,6 +13,10 @@ class Tag < ActiveRecord::Base
   validates_uniqueness_of :value, :scope => :language_id
 
   # NAMED SCOPES
+  def self.using_postgresql?
+    connection.adapter_name == 'PostgreSQL'
+  end
+    
   def self.uber (*value)
     value.each {|d| puts d.class }
   end
@@ -73,6 +78,17 @@ class Tag < ActiveRecord::Base
 
   def count
     read_attribute(:count).to_i
+  end
+
+  class << self
+    private 
+      def like_operator
+        using_postgresql? ? 'ILIKE' : 'LIKE'
+      end
+      
+      def comparable_name(str)
+        RUBY_VERSION >= "1.9" ? str.downcase : str.mb_chars.downcase
+      end
   end
 
 end
