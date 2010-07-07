@@ -21,9 +21,9 @@ class TaoTag < ActiveRecord::Base
   validates_uniqueness_of :tag_id, :scope => [:tao_type, :tao_id, :context_id]
 
   class << self
-    def create_for(tags,language_id,attributes)
+    def create_for(tags, language_id, attributes)
       tags.map { |tag|
-        tag_obj = Tag.find_or_create_with_named_by_value(tag.strip, language_id)
+        tag_obj = Tag.find_or_create_with_value(tag.strip, language_id)
         tao_tag = create(attributes.merge(:tag => tag_obj))
         tao_tag.new_record? ? nil : tao_tag
       }.compact
