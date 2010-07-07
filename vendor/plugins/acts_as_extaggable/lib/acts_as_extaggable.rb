@@ -42,8 +42,17 @@ module ActiveRecord
             end
           
             #auxiliary method, destroys statement tags contained in an array of strings
-            def delete_tags(tags)
-              self.tao_tags.each {|tao_tag| tao_tag.destroy if tags.include?(tao_tag.tag.value)}
+            def delete_tags(tags, opts = {})
+              tao_tags = opts[:context].nil? ? self.tao_tags : self.tao_tags.in_context(opts[:context])
+              tao_tags.each do |tao_tag|
+                if tags.include?(tao_tag.tag.value)
+                    tao_tag.destroy
+                end
+              end
+            end
+          
+            def get_tags(context)
+              self.tao_tags.in_context(context).map{|tao|tao.tag.value}
             end
           
             def taggable?

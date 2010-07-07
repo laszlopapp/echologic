@@ -25,7 +25,7 @@ joe_energy:
   tao_id:  <%= Fixtures.identify(:joe) %>  
   tag_id:   <%= Fixtures.identify(:energy) %>
   tao_type: User
-  context:     <%= Fixtures.identify(:tag_context_engagement) %>
+  context_id: <%= Fixtures.identify(:tag_context_engagement) %>
 
 ben_energy:
   tao_id:  <%= Fixtures.identify(:ben) %>

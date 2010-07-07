@@ -338,7 +338,7 @@ class StatementsController < ApplicationController
 
   #checks if the statement node or parent has a * tag and the user has permission for it
   def require_decision_making_permission
-    user_decision_making_tags = current_user.concernments.in_context(TaoTag.tag_contexts("decision_making")).map{|c|c.tag.value}
+    user_decision_making_tags = current_user.get_tags(ValidContext.tag_contexts("decision_making"))
     statement = @statement_node || parent
     return true if statement.nil?
     tags = statement.root.tags.map{|t|t.value}

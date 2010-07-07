@@ -13,11 +13,11 @@
   <% end %>
 
   <% ValidContext.valid_contexts(@profile.user.class.name).each do |context| %>
-    <% concernments = @profile.concernments.in_context(context) %>
+    <% concernments = @profile.get_tags(context) %>
     <% unless concernments.blank? %>
       <span class="label"><%= I18n.t("users.concernments.sorts.#{context.code}") %></span>
       <span class="values">
-        <%= concernments.collect { |c| c.tag.value }.join(', ') %>
+        <%= concernments.join(', ') %>
       </span>
     <% end %>
   <% end %>

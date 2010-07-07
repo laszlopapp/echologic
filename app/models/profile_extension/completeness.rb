@@ -8,7 +8,7 @@ module ProfileExtension::Completeness
       # value => the minimum count of chars (size) to accept it as beeing filled
       @@fillable_fields = [:about_me, :city, :country, :first_name, :last_name, :motivation, 
                            :memberships, :web_addresses, :avatar, :spoken_languages].concat(
-                           ValidContext.valid_contexts("User").map!{|context| [:concernments, [:in_context, context]]})
+                           ValidContext.valid_contexts("User").map!{|context| [:get_tags, context]})
       cattr_reader :fillable_fields
     end
 
@@ -27,7 +27,7 @@ module ProfileExtension::Completeness
        self.class.fillable_fields.each do |f|
         # evalute the field, and rescue if an error occurs (e.g. it doesn't exist)
          if f.kind_of?(Array)
-           field = self.send(f[0]).send(f[1][0],f[1][1])
+           field = self.send(f[0],f[1])
          else
           field = self.send(f)
          end

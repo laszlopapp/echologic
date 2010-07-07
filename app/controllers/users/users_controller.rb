@@ -113,10 +113,8 @@ class Users::UsersController < ApplicationController
     previous_completeness = current_user.profile.percent_completed
     concernments = params[:tag][:value].split(',').map!{|t|t.strip}
     context = EnumKey.find(params[:context_id])
-    new_concernments = concernments - current_user.concernments.in_context(context).map{|concernment|concernment.tag.value}
-    current_user.add_tags(new_concernments, {:language_id => locale_language_id, :context_id => params[:context_id]})
-    current_user.profile.calculate_completeness
-
+    new_concernments = concernments - current_user.get_tags(context)
+    current_user.add_tags(new_concernments, {:language_id => locale_language_id, :context => context})
     respond_to do |format|
       format.js do
         if current_user.profile.save
@@ -124,14 +122,14 @@ class Users::UsersController < ApplicationController
           if previous_completeness != current_completeness
             set_info("discuss.messages.new_percentage", :percentage => current_completeness)
           end
-          concernments_to_show = current_user.concernments.in_context(context).select do |concernment|
-            new_concernments.include? concernment.tag.value
+          concernments_to_show = current_user.get_tags(context).select do |tag|
+            new_concernments.include? tag
           end
           render_with_info do |p|
             p.insert_html :bottom, "concernments_#{context.code}",
                           :partial => "users/concernments/concernment",
-                          :collection => concernments_to_show
-            p.visual_effect :appear, dom_id(concernments_to_show.last) unless concernments_to_show.empty?
+                          :collection => concernments_to_show,
+                          :locals => {:context => context}
             p << "$('#new_concernment_#{context.code}').reset();"
             p << "$('#concernment_#{context.code}_id').focus();"
           end
@@ -143,10 +141,9 @@ class Users::UsersController < ApplicationController
   end
   
   def delete_concernment
-    @concernment = TaoTag.find(params[:id])
     previous_completeness = current_user.percent_completed
-    @concernment.destroy
-    current_user.profile.calculate_completeness
+    context = ValidContext.tag_contexts(params[:context])
+    current_user.delete_tags(params[:id], :context => context)
     current_user.profile.save
     current_completeness = current_user.percent_completed
     if previous_completeness != current_completeness
@@ -156,7 +153,7 @@ class Users::UsersController < ApplicationController
     respond_to do |format|
       format.js do
         render_with_info do |p|
-          p.remove dom_id(@concernment)
+          p.remove "#{params[:context]}_#{params[:id]}"
         end
       end
     end

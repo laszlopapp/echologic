@@ -1,4 +1,4 @@
-# this module ist meant to be included in all associated profile fields (e.g. concernments)
+# this module ist meant to be included in all associated profile fields
 module ProfileUpdater
   def self.included(base)
     base.instance_eval do

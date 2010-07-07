@@ -9,7 +9,7 @@ class Profile < ActiveRecord::Base
   has_many :memberships,  :through => :user
   has_many :spoken_languages, :through => :user
   
-  delegate :email, :email=, :concernments, :concernments=, :to => :user
+  delegate :email, :email=, :get_tags, :to => :user
   
   
   validates_presence_of :user_id

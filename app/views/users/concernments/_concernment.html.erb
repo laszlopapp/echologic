@@ -1,6 +1,7 @@
-<span id="<%= dom_id concernment %>" class="tag">
-  <%= concernment.tag.value %> <%= link_to 'x',url_for(:controller => 'users/users',
-                                                   :action => 'delete_concernment',
-                                                   :id => concernment.id),
+<span id="<%= context.code %>_<%= concernment %>" class="tag">
+  <%= concernment %> <%= link_to 'x',url_for(:controller => 'users/users',
+                                             :action => 'delete_concernment',
+                                             :id => concernment,
+                                             :context => context.code),
                                        :class => 'ajax' %>
 </span>

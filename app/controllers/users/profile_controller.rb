@@ -17,7 +17,7 @@ class Users::ProfileController < ApplicationController
   end
 
   def details
-    @profile = Profile.find(params[:id])#, :include => [:web_addresses, :memberships, :concernments, :user])
+    @profile = Profile.find(params[:id], :include => [:web_addresses, :memberships, :user])
     respond_to do |format|
       format.js   { render :template => 'connect/profiles/details'}
       format.html { render :partial => 'connect/profiles/details', :layout => 'application' }

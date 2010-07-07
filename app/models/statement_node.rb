@@ -186,7 +186,7 @@ class StatementNode < ActiveRecord::Base
     tags_to_delete = self.tags.collect{|tag|tag.value} - new_tags
     self.add_tags(new_tags, :language_id => language_id, 
                             :tao_type => "StatementNode",
-                            :context_id => TaoTag.tag_contexts("topic").id) unless new_tags.nil?
+                            :context => ValidContext.tag_contexts("topic")) unless new_tags.nil?
     self.delete_tags tags_to_delete
     new_tags
   end
