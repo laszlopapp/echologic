@@ -1,4 +1,5 @@
 class TaoTag < ActiveRecord::Base
+  include ActsAsTaggable::ActiveRecord::Backports if ::ActiveRecord::VERSION::MAJOR < 3
   attr_accessible :tag, :tag_id, :context_id,
                   :tao, :tao_type, :tao_id
 
@@ -27,7 +28,7 @@ class TaoTag < ActiveRecord::Base
     class << self
     def create_for(tags,language_id,attributes)
       tags.map { |tag|
-        tag_obj = Tag.find_or_create_with_named_by_value(tag.strip, language_id)
+        tag_obj = Tag.find_or_create_with_named_by_value(tag.strip)
         tao_tag = tag_id_and_tao_id_and_type_and_context_id(
                     tag_obj.id, attributes[:tao_id], attributes[:tao_type],
                     attributes[:context_id]).first ||

@@ -23,12 +23,8 @@ module ActiveRecord
           class_inheritable_reader(:tag_types)
           
           class_eval do
-            has_many :tao_tags, :as => :tao, :dependent => :destroy
+            has_many :tao_tags, :as => :tao, :dependent => :destroy, :include => :tag
             has_many :tags, :through => :tao_tags
-            
-            
-            validates_associated :tao_tags
-            
           end
           
           class_eval <<-RUBY
