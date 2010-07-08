@@ -471,15 +471,16 @@ de:
       create_internal_link: 'Neue Idee?'
       create_improvement_proposal_link: 'Neuen Ergänzungsvorschlag erstellen'
       create_question_explanation: |
-        Hallo Editor! Hier kannst Du eine neue Diskussion aufmachen.
+        Hier können Sie eine <strong>neue Diskussion</strong> aufmachen und sie für einen besseren Findbarkeit mit den
+        passenden <strong>thematischen Schlüsselwörten</strong> (sog. Tags) versehen.
       create_proposal_explanation: |
         Haben Sie eine <strong>gute Idee</strong> zur aktuellen Frage, die noch <strong>nicht vorhandenen</strong> ist?<br/>
         Hier können Sie einen <strong>neuen Vorschlag</strong> erstellen.
       create_improvement_proposal_explanation: |
         Haben Sie eine <strong>gute Idee</strong>, wie man den aktuellen <strong>Vorschlag noch besser machen</strong> kann?<br/>
         Hier können Sie einen <strong>neuen Ergänzungsvorschlag</strong> erstellen.
-      publish: Publizieren
-      published: Debatte erfolgreich publiziert!
+      publish: Freigeben
+      published: Die Diskussion wurde erfolgreich freigegeben.
       edit: '{{type}} bearbeiten'
 
       types:
@@ -495,8 +496,8 @@ de:
         proposal: 'Vorschläge'
         improvement_proposal: 'Ergänzungsvorschläge'
       states:
-        new: 'New'
-        published: 'Published'
+        new: 'Neu'
+        published: 'Freigegeben'
       delete_link: 'Löschen'
       delete_confirmation: 'Bist du sicher, dass du diese Aussage löschen willst?'
     summary:

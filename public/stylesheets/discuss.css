@@ -501,6 +501,7 @@ a.statement_link:hover {
 }
 
 #my_discussions #create_question_link {
-  margin-top: 10px;
+  margin-top: 20px;
   margin-left: 0;
+  display: inline-block;
 }

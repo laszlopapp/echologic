@@ -466,15 +466,16 @@ en:
       create_internal_link: 'New idea?'
       create_improvement_proposal_link: Add new improvement proposal
       create_question_explanation: |
-        Hi Editor! Here you can create a new question.
+        Here you can open a <strong>new discussion</strong> and tag it with some <strong>relevant keywords</strong>
+        for better searchability.
       create_proposal_explanation: |
         Do you have a <strong>good idea</strong> concerning the current question, which <strong>isn't entered</strong> yet?<br/>
         Here you can create a <strong>new proposal</strong>.
       create_improvement_proposal_explanation: |
         Do you have a <strong>good idea</strong> to <strong>make the current proposal even better</strong>?<br/>
         Here you can create a <strong>new improvement proposal</strong>.
-      publish: Publish
-      published: Debate successfully published!
+      publish: Release
+      published: Discussion has been released successfully.
       edit: 'Edit {{type}}'
       types:
         question:  'Question'
@@ -490,7 +491,7 @@ en:
         improvement_proposal: 'Improvement Proposals'
       states:
         new: 'New'
-        published: 'Published'
+        published: 'Released'
       delete_link: "Delete"
       delete_confirmation: "Are you sure you want to delete this statement?"
     summary:
