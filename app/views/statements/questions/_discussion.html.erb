@@ -6,8 +6,17 @@
 		<% link_to url_for(statement_node), :class => "avatar_holder" do %>
       <%= image_tag("default_question_image.png") %>
     <% end %>
-	  <%= link_to(statement_document.title, url_for(statement_node), :class => "statement_link ttLink no_border", :title => I18n.t("discuss.tooltips.read_#{statement_node.class.name.underscore}")) %>
+
+    <!-- Statement title -->
+	  <%= link_to(statement_document.title,
+                url_for(statement_node),
+                :class => "statement_link ttLink no_border",
+                :title => I18n.t("discuss.tooltips.read_#{statement_node.class.name.underscore}")) %>
+
+    <!-- Tags -->
 		<div class="tags_list"><%=tag_list(statement_node)%></div>
+
+    <!-- Publish button -->
 		<div class="buttons">
 			<% if !statement_node.published? %>
 			 <%= publish_button(statement_node) %>
