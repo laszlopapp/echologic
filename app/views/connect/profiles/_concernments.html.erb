@@ -12,10 +12,11 @@
     <span class="values"><%= spoken_languages.join(', ') %></span>
   <% end %>
 
-  <% ValidContext.valid_contexts(@profile.user.class.name).each do |context| %>
-    <% concernments = @profile.get_tags(context) %>
+  <% User.tag_types.each do |context| %>
+	  <% context = context.to_s.singularize %>
+    <% concernments = @profile.send("#{context}_tags".to_s) %>
     <% unless concernments.blank? %>
-      <span class="label"><%= I18n.t("users.concernments.sorts.#{context.code}") %></span>
+      <span class="label"><%= I18n.t("users.concernments.sorts.#{context}") %></span>
       <span class="values">
         <%= concernments.join(', ') %>
       </span>

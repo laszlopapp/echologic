@@ -54,7 +54,7 @@ class StatementNodeTest < ActiveSupport::TestCase
     context "being saved" do
       setup do 
         @statement_node.add_statement_document({:title => 'A new Document', :text => 'with a very short body, dude!', :language_id => 1, :author_id => User.first.id, :original_language_id => 1})
-        @statement_node.add_tags(["bebe"], :language_id => 1, :context_id => 2)
+        @statement_node.topic_tags = "bebe"
         @statement_node.creator = User.first
         @statement_node.state = StatementNode.statement_states('published')
         @statement_node.save
@@ -84,6 +84,7 @@ class StatementNodeTest < ActiveSupport::TestCase
         question = result['question']
         tao_tags = question['tao_tags']
         tag = tao_tags.first['tag']['value']
+
         assert(tag.eql?('bebe'))
       end
       

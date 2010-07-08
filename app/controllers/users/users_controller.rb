@@ -111,27 +111,24 @@ class Users::UsersController < ApplicationController
   
   def add_concernments
     previous_completeness = current_user.profile.percent_completed
-    concernments = params[:tag][:value].split(',').map!{|t|t.strip}
-    context = EnumKey.find(params[:context_id])
-    new_concernments = concernments - current_user.get_tags(context)
-    current_user.add_tags(new_concernments, {:language_id => locale_language_id, :context => context})
+    concernments = params[:tag][:value]
+    new_concernments = concernments.split(',').map!{|t|t.strip} - current_user.send("#{params[:context]}_tags".to_sym)
+    all_concernments = current_user.send("#{params[:context]}_tags".to_sym) + new_concernments
+    current_user.send("#{params[:context]}_tags=".to_sym, all_concernments)
     respond_to do |format|
       format.js do
-        if current_user.profile.save
+        if current_user.save and current_user.profile.save
           current_completeness = current_user.profile.percent_completed
           if previous_completeness != current_completeness
             set_info("discuss.messages.new_percentage", :percentage => current_completeness)
           end
-          concernments_to_show = current_user.get_tags(context).select do |tag|
-            new_concernments.include? tag
-          end
           render_with_info do |p|
-            p.insert_html :bottom, "concernments_#{context.code}",
+            p.insert_html :bottom, "concernments_#{params[:context]}",
                           :partial => "users/concernments/concernment",
-                          :collection => concernments_to_show,
-                          :locals => {:context => context}
-            p << "$('#new_concernment_#{context.code}').reset();"
-            p << "$('#concernment_#{context.code}_id').focus();"
+                          :collection => new_concernments,
+                          :locals => {:context => params[:context]}
+            p << "$('#new_concernment_#{params[:context]}').reset();"
+            p << "$('#concernment_#{params[:context]}_id').focus();"
           end
         else
           show_error_messages(current_user)
@@ -142,8 +139,8 @@ class Users::UsersController < ApplicationController
   
   def delete_concernment
     previous_completeness = current_user.percent_completed
-    context = ValidContext.tag_contexts(params[:context])
-    current_user.delete_tags(params[:id], :context => context)
+    current_user.send("#{params[:context]}_tags=", current_user.send("#{params[:context]}_tags") - [params[:id]])
+    current_user.save
     current_user.profile.save
     current_completeness = current_user.percent_completed
     if previous_completeness != current_completeness

@@ -1,7 +1,8 @@
 class StatementNode < ActiveRecord::Base
   include Echoable
-  acts_as_subscribeable
   acts_as_extaggable :topics
+  acts_as_subscribeable
+  
   # magically allows Proposal.first.question? et al.
   #
   # FIXME: figure out why this sometimes doesn't work, but only in ajax requests
@@ -176,19 +177,6 @@ class StatementNode < ActiveRecord::Base
   # the statement original language. used for the original message warning
   def not_original_language?(user, current_language_id)
     user ? (user.spoken_languages.empty? and current_language_id != self.statement.original_language.id) : false
-  end
-
-  
-
-  # Updates the tags belonging to a question (other statement types do not have any tags yet).
-  def update_tags(tags, language_id)
-    new_tags = tags.split(',').map{|t|t.strip}.uniq
-    tags_to_delete = self.tags.collect{|tag|tag.value} - new_tags
-    self.add_tags(new_tags, :language_id => language_id, 
-                            :tao_type => "StatementNode",
-                            :context => ValidContext.tag_contexts("topic")) unless new_tags.nil?
-    self.delete_tags tags_to_delete
-    new_tags
   end
 
   ###############################

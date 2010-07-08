@@ -24,14 +24,14 @@ class Tag < ActiveRecord::Base
   named_scope :named, lambda { |value|
     { :conditions => ["value = ?", value] }
   }
-  named_scope :named_any, lambda { |*list|
+  named_scope :named_any, lambda { |list|
     { :conditions => list.map { |tag| sanitize_sql(["value = ?", tag.to_s]) }.join(" OR ")
     }
   }
   named_scope :named_like, lambda { |value|
     { :conditions => ["value LIKE ?", "%#{value}%"] }
   }
-  named_scope :named_like_any, lambda { |*list|
+  named_scope :named_like_any, lambda { |list|
     { :conditions => list.map { |tag| sanitize_sql(["value LIKE ?", "%#{tag.to_s}%"]) }.join(" OR ")
     }
   }

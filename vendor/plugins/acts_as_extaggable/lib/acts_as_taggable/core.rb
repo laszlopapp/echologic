@@ -218,10 +218,10 @@ module ActsAsTaggable::Taggable
           next unless tag_list_cache_set_on(context)
 
           tag_list = tag_list_cache_on(context).uniq
-
+          
           # Find existing tags or create non-existing tags:
           tag_list = Tag.find_or_create_all_with_like_by_value(tag_list)
-
+          
           current_tags = tags_on(context_name)
           old_tags = current_tags - tag_list 
           new_tags = tag_list  - current_tags 
@@ -233,7 +233,7 @@ module ActsAsTaggable::Taggable
             # Destroy old tao_tags:
             TaoTag.destroy_all :id => old_tao_tags.map(&:id)
           end
-
+          
           # Create new tao_tags:
           new_tags.each do |tag|
             tao_tags.create!(:tag => tag, :context_id => EnumKey.find_by_code(context_name).id, :tao => self, :tao_type => self.class.name)

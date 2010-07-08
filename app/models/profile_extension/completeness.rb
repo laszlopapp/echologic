@@ -8,7 +8,7 @@ module ProfileExtension::Completeness
       # value => the minimum count of chars (size) to accept it as beeing filled
       @@fillable_fields = [:about_me, :city, :country, :first_name, :last_name, :motivation, 
                            :memberships, :web_addresses, :avatar, :spoken_languages].concat(
-                           ValidContext.valid_contexts("User").map!{|context| [:get_tags, context]})
+                           User.tag_types.map{|tags_type|tags_type.to_s.singularize.concat("_tags").to_sym})
       cattr_reader :fillable_fields
     end
 

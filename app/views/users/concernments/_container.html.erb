@@ -4,10 +4,10 @@
   <div class="guide">
     <%= I18n.t('users.concernments.guide') %>
   </div>
-	<% #concernments = @user.concernments %>
 
-  <% ValidContext.valid_contexts(@user.class.name).each do |tag_context| %>
-    <%= render :partial => 'users/concernments/list', :locals => { :concernments => @user.get_tags(tag_context), :context => tag_context} %><br/>
+  <% User.tag_types.each do |context| %>
+	  <% context = context.to_s.singularize %>
+    <%= render :partial => 'users/concernments/list', :locals => { :concernments => @user.send("#{context}_tags".to_s), :context => context} %><br/>
   <% end %>
 
 </div>

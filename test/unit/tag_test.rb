@@ -10,7 +10,7 @@ class TagTest < ActiveSupport::TestCase
   # Tag have to have a user.
   def test_value_uniqueness
     t = tags(:earth)
-    c = Tag.new(:value => t.value, :language_id => t.language.id)
+    c = Tag.new(:value => t.value)
     assert !c.save, 'value should be unique'
   end
 
@@ -18,11 +18,11 @@ class TagTest < ActiveSupport::TestCase
     t = tags(:earth)
     named = Tag.named("Earth")
     assert named.include?(t), "should find tag with this value (using named)"
-    named_any = Tag.named_any("Earth","Wind","Fire")
+    named_any = Tag.named_any(["Earth","Wind","Fire"])
     assert named_any.include?(t), "should find tag with this value (using named_any)"
     named_like = Tag.named_like("Ea")
     assert named.include?(t), "should find tag with this value (using named_like)"
-    named_like_any = Tag.named_like_any("E","W","F")
+    named_like_any = Tag.named_like_any(["E","W","F"])
     assert named_any.include?(t), "should find tag with this value (using named_like_any)"
   end
 

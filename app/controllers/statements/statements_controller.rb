@@ -189,7 +189,7 @@ class StatementsController < ApplicationController
     @statement_node ||= statement_node_class.new(:parent => parent, :root_id => root_symbol)
     @statement_document ||= StatementDocument.new
 
-    @tags = @statement_node.tags if @statement_node.taggable?
+    @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     # TODO: right now users can't select the language they create a statement in, so current_user.languages_keys.
     # first will work. once this changes, we're in trouble - or better said: we'll have to pass the language_id as a param
     respond_to do |format|
@@ -215,7 +215,8 @@ class StatementsController < ApplicationController
                           doc_attrs.merge({:original_language_id => @locale_language_id}))
     permitted = true ; @tags = []
     if @statement_node.taggable? and (permitted = check_tag_permissions(form_tags))
-      @tags = @statement_node.update_tags(form_tags, @locale_language_id) 
+      @statement_node.topic_tags=form_tags 
+      @tags=@statement_node.topic_tags 
     end
     respond_to do |format|
       if permitted and @statement_node.save
@@ -246,7 +247,7 @@ class StatementsController < ApplicationController
   #
   def edit
     @statement_document ||= @statement_node.translated_document(@language_preference_list)
-    @tags = @statement_node.tags if @statement_node.taggable?
+    @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     respond_to do |format|
       format.html { render :template => 'statements/edit' }
       format.js { replace_container('summary', :partial => 'statements/edit') }
@@ -264,9 +265,10 @@ class StatementsController < ApplicationController
     attrs_doc = attrs.delete(:statement_document)
     # Updating tags of the statement
     form_tags = attrs.delete(:tags)
-    permitted = true ; @tags = []
+    permitted = true
     if @statement_node.taggable? and (permitted = check_tag_permissions(form_tags)) 
-      @tags = @statement_node.update_tags(form_tags, @locale_language_id) 
+       @statement_node.topic_tags=form_tags 
+       @tags=@statement_node.topic_tags 
     end
     respond_to do |format|
       if permitted and
@@ -338,7 +340,7 @@ class StatementsController < ApplicationController
 
   #checks if the statement node or parent has a * tag and the user has permission for it
   def require_decision_making_permission
-    user_decision_making_tags = current_user.get_tags(ValidContext.tag_contexts("decision_making"))
+    user_decision_making_tags = current_user.decision_making_tags
     statement = @statement_node || parent
     return true if statement.nil?
     tags = statement.root.tags.map{|t|t.value}
