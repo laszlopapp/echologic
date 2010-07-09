@@ -4,7 +4,7 @@ class QuestionsController < StatementsController
   def my_discussions
     @page     = params[:page]  || 1
     @language_preference_list = language_preference_list
-    @statement_nodes = Question.by_creator(current_user).paginate(:page => @page, :per_page => 6)
+    @statement_nodes = Question.by_creator(current_user).paginate(:page => @page, :per_page => 5)
     respond_to do |format|
       format.html {render :template => 'statements/questions/my_discussions'}
       format.js {render :template => 'statements/questions/discussions'}
