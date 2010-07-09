@@ -22,11 +22,6 @@
   margin-bottom: 15px;
 }
 
-#function_container .simple_header_block .header_button {
-  margin-top: -39px;
-  margin-right: 0;
-}
-
 #function_container .search_category {
   position: absolute;
   left: 9px;
@@ -143,8 +138,9 @@
 .echo_label {
   background: url("../images/page/discuss/echo_small.png") no-repeat scroll 0 0;
   float: right;
-  margin-right: 20px;
   padding-left: 20px;
+  position: relative;
+  right: 20px;
   cursor: default;
 }
 
@@ -297,6 +293,7 @@ a.statement_link:hover {
 }
 
 #children_list li {
+  clear: both;
   margin: 4px 0;
 }
 
@@ -504,4 +501,10 @@ a.statement_link:hover {
   margin-top: 20px;
   margin-left: 0;
   display: inline-block;
+}
+
+#my_discussions .avatar_holder img {
+  max-width: 45px;
+  max-height: 45px;
+  border: 2px solid #7bb031;
 }

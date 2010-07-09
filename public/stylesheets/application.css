@@ -28,13 +28,118 @@
   display: block;
 }
 
+/* BLOCK DESIGN WITH HEADER */
+
+.header_block {
+  background: url(../images/page/header_left.png) no-repeat scroll left top;
+  padding: 6px 0 0 15px;
+  margin: 20px 0 25px 165px;
+}
+
+.simple_header_block {
+  padding: 6px 0 0 15px;
+  margin: 0 0 25px 165px;
+}
+
+.header_block h2 {
+  background: url(../images/page/header_right.png) no-repeat scroll right top;
+  height: 31px;
+  margin: -6px 0 10px !important;
+  line-height: 31px;
+  vertical-align: middle;
+  color: #21587f !important;
+}
+
+.header_block h3 {
+  color: #7bb031;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.header_block ul {
+  margin: 0;
+  padding: 0;
+}
+
+.header_block li {
+  list-style-type: none;
+  line-height: 24px;
+  display: block;
+  vertical-align: middle;
+  cursor: default;
+}
+
+.two_columns_block li {
+  list-style-type: none;
+  line-height: 24px;
+  width: 400px;
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 8px;
+}
+
+.header_block li .label {
+  color: #7bb031;
+  font-size: 15px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.header_block li .value {
+  color: #21587f;
+  display: block;
+  width: 375px;
+  overflow: hidden;
+}
+
+.header_block li .value a {
+  color: #21587f;
+}
+
+.header_block .guide {
+  color: #21587f;
+  font-size: 13px;
+  line-height: 18px;
+  margin: 10px 0;
+  cursor: default;
+}
+
+.add_new_button {
+  vertical-align: top;
+}
+
+.column_200 {
+  width: 195px !important;
+  padding: 2px !important;
+  display: inline-block !important;
+  vertical-align: top;
+  overflow: hidden;
+}
+
+.header_block input[type="text"] {
+  border: 1px solid #999;
+  color: #21587F;
+  font-size: 14px;
+  min-height: 18px;
+  width: 195px;
+  margin: 1px;
+}
+
+.header_block select {
+  border: 1px solid #999999;
+  color: #21587F;
+  padding: 2px;
+  width: 195px;
+}
+
 /* FUNCTION BUTTONS */
 
 .text_button {
   color: #21587f;
   font-family: arial,Helvetica,sans-serif;
   font-size: 13px;
-  margin-left: 10px;
+  margin-left: 20px;
   padding-left: 20px;
   text-decoration: none;
   border: none;
@@ -79,6 +184,23 @@
   line-height: 17px;
   display: inline-block;
 }
+
+/* All buttons in a block header */
+.header_block .header_button {
+  float: right;
+  position: relative;
+  top: -34px;
+  right: 20px;
+  margin-bottom: -34px;
+}
+
+.simple_header_block .header_button {
+  float: right;
+  position: relative;
+  top: -39px;
+}
+
+/* ADMIN STUFF */
 
 .admin_action {
   background-color: #db4c3d;
