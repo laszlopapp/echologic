@@ -20,8 +20,11 @@
     <%= stylesheet_link_tag 'tabs' %>
     <%= stylesheet_link_tag 'jquery.autocomplete' %>
     <%= stylesheet_link_tag 'jquery-ui-1.7.2.custom' %>
-    <%= stylesheet_link_tag "formtastic" %>
-    <%= stylesheet_link_tag "formtastic_changes" %>
+    <%= stylesheet_link_tag 'jquery.rte' %>
+    <%= stylesheet_link_tag 'rte_default' %>
+    <%= stylesheet_link_tag 'formtastic' %>
+    <%= stylesheet_link_tag 'formtastic_changes' %>
+		
 
 
     <!-- Javascript -->
@@ -33,6 +36,8 @@
     <%= javascript_include_tag 'jquery.tooltip.pack' %>
     <%= javascript_include_tag 'jquery.autogrow' %>
     <%= javascript_include_tag 'jquery.scrollTo.min' %>
+		<%= javascript_include_tag 'jquery.rte1_2min/jquery.rte' %>
+		<%= javascript_include_tag 'jquery.rte1_2min/jquery.rte.tb' %>
     <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
 
     <!-- exp -->

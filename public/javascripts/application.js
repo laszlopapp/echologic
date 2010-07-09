@@ -18,6 +18,7 @@ $(document).ready(function () {
 
   roundCorners();
 
+  
 
   /* Always send the authenticity_token with ajax */
   $(document).ajaxSend(function(event, request, settings) {
@@ -138,6 +139,17 @@ function bindLanguageSelectionEvents() {
     $('#language_selector').hide();
   });
 }
+
+
+/* lwRTE editor loading */
+function loadRTEEditor(){
+	$('.rte').rte({
+		frame_class: 'document_frame',
+		controls_rte: rte_toolbar,
+		controls_html: html_toolbar
+	});
+}
+
 /* creates a statement tag button */
 function createTagButton(text, tags_id) {
   element = $('<span/>').addClass('tag');

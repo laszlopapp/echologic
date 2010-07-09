@@ -4,7 +4,10 @@
   <% doc.inputs :class => 'inputs left_panel' do %>
     <%= doc.input :title, :input_html => {:disabled => disabled} %>
     <br/>
-    <%= doc.input :text, :input_html => {:disabled => disabled} %>
+    <%= doc.input :text, :input_html => {:disabled => disabled, :class => 'rte'} %>
 		<%= doc.hidden_field :statement_id %>
   <% end %>
 <% end -%>
+<script>
+	loadRTEEditor();
+</script>
