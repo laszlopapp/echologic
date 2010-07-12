@@ -13,7 +13,9 @@ class StatementsController < ApplicationController
   verify :method => :delete, :only => [:destroy]
 
   # the order of these filters matters. change with caution.
-  before_filter :fetch_statement_node, :only => [:show, :edit, :update, :echo, :unecho, :new_translation,:create_translation,:destroy,:publish]
+  before_filter :fetch_statement_node, :only => [:show, :edit, :update, :publish, :echo, :unecho,
+                                                 :new_translation,:create_translation,
+                                                 :destroy]
   before_filter :require_user, :except => [:index, :category, :show]
 
   # make custom URL helper available to controller
@@ -23,7 +25,8 @@ class StatementsController < ApplicationController
   access_control do
     allow :editor
     allow anonymous, :to => [:index, :show, :category]
-    allow logged_in, :only => [:index, :show, :echo, :unecho, :new, :create, :new_translation, :create_translation, :publish]
+    allow logged_in, :only => [:index, :show, :echo, :unecho, :new, :create, :publish,
+                               :new_translation, :create_translation, ]
     allow logged_in, :only => [:edit, :update], :if => :may_edit?
     allow logged_in, :only => [:destroy], :if => :may_delete?
   end
@@ -90,7 +93,10 @@ class StatementsController < ApplicationController
 
     #test for special links
     @original_language_warning = original_language_warning?(@statement_node,current_user,locale_language_id)
-    @translation_permission = translatable?(@statement_node,current_user,params[:locale],@language_preference_list)
+    @translation_permission = translatable?(@statement_node,
+                                            current_user,
+                                            params[:locale],
+                                            @language_preference_list)
 
     # when creating an issue, we save the flash message within the session, to be able to display it here
     if session[:last_info]
@@ -99,7 +105,8 @@ class StatementsController < ApplicationController
       session[:last_info] = nil
     end
 
-    # find all child statement_nodes, which are published (except user is an editor) sorted by supporters count, and paginate them
+    # find all child statement_nodes, which are published (except user is an editor)
+    # sorted by supporters count, and paginate them
     @page = params[:page] || 1
 
     @children = children_for_statement_node @language_preference_list
@@ -306,7 +313,8 @@ class StatementsController < ApplicationController
   end
 
   def set_statement_node_info(string, statement_node)
-    set_info(string, :type => I18n.t("discuss.statements.types.#{statement_node_class_dom_id(statement_node).downcase}"))
+    set_info(string,
+             :type => I18n.t("discuss.statements.types.#{statement_node_class_dom_id(statement_node).downcase}"))
   end
 
   # Returns the parent statement node of the the current statement. Must be implemented by the subclasses.
