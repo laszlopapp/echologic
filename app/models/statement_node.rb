@@ -148,10 +148,6 @@ class StatementNode < ActiveRecord::Base
     self.state = self.class.statement_states("published")
   end
 
-  def deferred_publish
-    self.state = self.class.statement_states("new")
-  end
-
   # returns a translated document for passed language_codes (or nil if none is found)
   def translated_document(lang_ids)
     @current_document ||= statement_documents.for_languages(lang_ids)

@@ -1,4 +1,5 @@
 <% statement_node ||= @statement_node %>
+<% statement_node.state_id ||= StatementNode.statement_states('new').id %>
 <% tags ||= @tags %>
 <% statement_document ||= @statement_document %>
 <% semantic_form_for statement_node.self_with_parents, :html => {:class => 'wide_form' } do |form| -%>
@@ -24,13 +25,13 @@
          and everywhere else where we use enum like statefulness in models, views do it like this -->
     <% if statement_node.new_record? -%>
       <% form.inputs do %>
-        <li id="release_input" class="radio optional">
-          <%= form.label I18n.t('discuss.statements.states.label') %>
-          <%= radio_button_tag 'question[release]', :deferred, checked = true%>
-          <%= I18n.t('discuss.statements.states.deferred_publish') %><br/>
-          <%= radio_button_tag 'question[release]', :immediate %>
-          <%= I18n.t('discuss.statements.states.immediate_publish') %>
-        </li>
+        <%= form.input :state_id,
+                       :as => :radio,
+                       :label => I18n.t('discuss.statements.states.label'),
+                       :collection => [[I18n.t('discuss.statements.states.deferred_publish'),
+                                         StatementNode.statement_states('new').id],
+                                       [I18n.t('discuss.statements.states.immediate_publish'),
+                                         StatementNode.statement_states('published').id]] %>
       <% end %>
     <% end %>
 
