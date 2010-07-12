@@ -9,6 +9,10 @@ form.formtastic fieldset ol li p.inline-hints { color:#333; }
 
 --------------------------------------------------------------------------------------------------*/
 
+form.formtastic fieldset ol li.hidden {
+  display:none !important;
+}
+
 form.formtastic fieldset ol li {
 display: inline-block;
 width: 400px;
