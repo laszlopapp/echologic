@@ -20,9 +20,7 @@
                              :tags => tags}%>
 		<% end %>
 
-    <!-- Published state combo
-         FIXME: i don't know how to do this manually with formtastics. enums are not really supported by rails,
-         and everywhere else where we use enum like statefulness in models, views do it like this -->
+    <!-- Published state radio buttons -->
     <% if statement_node.new_record? -%>
       <% form.inputs do %>
         <%= form.input :state_id,
