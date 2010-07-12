@@ -44,6 +44,17 @@
   color: #7BB031;
 }
 
+/* ----------------------------- */
+/* New and Edit Statements forms */
+/* ----------------------------- */
+
+#new_statement textarea, #summary textarea {
+  height: 200px;
+}
+
+#new_statement input[type="text"], #new_statement textarea {
+  width: 800px;
+}
 
 /* ------- */
 /* CONTEXT */
@@ -315,12 +326,6 @@ a.statement_link:hover {
 	color:#7BB031;
 }
 
-/* New and Edit Statement form */
-
-#new_statement textarea, #summary textarea {
-  height: 200px;
-}
-
 
 /* ------------------- */
 /* Translations        */
@@ -450,7 +455,7 @@ a.statement_link:hover {
 #discussion_list li.question {
 	width: 100%;
   height: 50px;
-  margin: 10px 0;
+  margin: 5px 0;
   display: inline-block;
   clear: both;
 }
