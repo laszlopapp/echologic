@@ -148,6 +148,10 @@ class StatementNode < ActiveRecord::Base
     self.state = self.class.statement_states("published")
   end
 
+  def deferred_publish
+    self.state = self.class.statement_states("new")
+  end
+
   # returns a translated document for passed language_codes (or nil if none is found)
   def translated_document(lang_ids)
     @current_document ||= statement_documents.for_languages(lang_ids)
@@ -180,7 +184,11 @@ class StatementNode < ActiveRecord::Base
   end
 
   def add_tags(tags, opts = {})
-    self.tao_tags << TaoTag.create_for(tags, opts[:language_id], {:tao_id => self.id, :tao_type => "StatementNode", :context_id => TaoTag.tag_contexts("topic").id})
+    self.tao_tags << TaoTag.create_for(tags,
+                                       opts[:language_id],
+                                       {:tao_id => self.id,
+                                        :tao_type => "StatementNode",
+                                        :context_id => TaoTag.tag_contexts("topic").id})
   end
 
   def delete_tags(tags)

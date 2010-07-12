@@ -22,16 +22,16 @@
     <!-- Published state combo
          FIXME: i don't know how to do this manually with formtastics. enums are not really supported by rails,
          and everywhere else where we use enum like statefulness in models, views do it like this -->
-    <% form.inputs do %>
-      <li id="question_state_input" class="select optional error">
-        <%= form.label :state_id %>
-        <% i = -1 -%>
-        <%= form.select(:state_id,
-                        StatementNode.statement_states.map { |state| [state.get_current_enum_value.value,state.id] },
-                        :selected => (form.object.state ?
-                                      form.object.state.id :
-                                      StatementNode.statement_states.first.id)) %>
-      </li>
+    <% if statement_node.new_record? -%>
+      <% form.inputs do %>
+        <li id="release_input" class="radio optional">
+          <%= form.label I18n.t('discuss.statements.states.label') %>
+          <%= radio_button_tag 'question[release]', :deferred, checked = true%>
+          <%= I18n.t('discuss.statements.states.deferred_publish') %><br/>
+          <%= radio_button_tag 'question[release]', :immediate %>
+          <%= I18n.t('discuss.statements.states.immediate_publish') %>
+        </li>
+      <% end %>
     <% end %>
 
   <% else -%>

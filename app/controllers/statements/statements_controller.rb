@@ -184,7 +184,13 @@ class StatementsController < ApplicationController
     attrs = params[statement_class_param].merge({:creator_id => current_user.id})
     doc_attrs = attrs.delete(:statement_document)
     form_tags = attrs.delete(:tags)
+    release = attrs.delete(:release)
     @statement_node ||= statement_node_class.new(attrs)
+    if release == :immediate.to_s
+      @statement_node.publish
+    else
+      @statement_node.deferred_publish
+    end
     @locale_language_id = locale_language_id
     @statement_document = @statement_node.add_statement_document(
                           doc_attrs.merge({:original_language_id => @locale_language_id}))
