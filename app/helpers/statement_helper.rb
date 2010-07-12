@@ -206,7 +206,8 @@ module StatementHelper
     if current_user and
        statement_document.author == current_user and !statement_node.published?
       link_to(I18n.t('discuss.statements.publish'), publish_question_path(statement_node),
-              :class => 'ajax header_button text_button publish_text_button')
+              :class => 'ajax header_button text_button publish_text_button ttLink',
+              :title => I18n.t('discuss.tooltips.publish'))
     end
   end
 

@@ -150,6 +150,10 @@
   text-decoration: underline;
 }
 
+.text_button.ttLink:hover {
+  border-bottom: none;
+}
+
 .add_text_button {
   background:transparent url(../images/page/icons/add_button.png) no-repeat scroll 0 0;
   height: 20px;
