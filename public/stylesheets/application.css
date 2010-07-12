@@ -150,13 +150,20 @@
   text-decoration: underline;
 }
 
-.add_button {
+.add_text_button {
   background:transparent url(../images/page/icons/add_button.png) no-repeat scroll 0 0;
   height: 20px;
   padding-left: 23px;
 }
 
-.edit_button {
+.edit_text_button {
+  background:transparent url(../images/page/icons/edit_button.png) no-repeat scroll 0 0;
+  height: 17px;
+  line-height: 17px;
+  display: inline-block;
+}
+
+.publish_text_button {
   background:transparent url(../images/page/icons/edit_button.png) no-repeat scroll 0 0;
   height: 17px;
   line-height: 17px;
@@ -178,7 +185,7 @@
   padding-left: 0px;
 }
 
-.delete_button {
+.delete_text_button {
   background:transparent url(../images/page/icons/delete_button.png) no-repeat scroll 0 0;
   height: 16px;
   line-height: 17px;
