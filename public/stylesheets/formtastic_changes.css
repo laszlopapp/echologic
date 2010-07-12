@@ -14,16 +14,29 @@ form.formtastic fieldset ol li.hidden {
 }
 
 form.formtastic fieldset ol li {
-display: inline-block;
-width: 400px;
+  display: inline-block;
+  width: 400px;
 }
 
 html[xmlns] form.formtastic fieldset ol li {
-display: inline-block;
+  display: inline-block;
+}
+
+form.formtastic fieldset ol li fieldset legend {
+  position: relative;
+}
+
+form.formtastic fieldset ol li fieldset ol {
+  padding: 0 0 0 5px;
+}
+
+form.formtastic fieldset ol li.radio fieldset ol {
+  margin: 5px 0 10px;
 }
 
 form.formtastic fieldset ol li label {
   color: #7bb031;
+  font-size: 14px;
   font-weight: bold;
   display: block;
   width: 100%;
