@@ -278,7 +278,7 @@ en:
   discuss:
     my_discussions:
       link: My Discussions
-      title: New & published discussion
+      title: My new & published discussions
     tag_permission: |
       <p>You do not have the permission to insert the '{{tag}}' tag</p>
     translation_request: Please translate this statement to <strong>ENGLISH</strong>.
@@ -450,6 +450,7 @@ en:
       echo_indicator:
         one: 'This statement has {{supporter_count}} supporter.'
         many: 'This statement has {{supporter_count}} supporters.'
+      publish: 'Publish the discussion to make it visible for everybody.'
     statements:
       label: 'echos'
       create_question_link: 'Open a new discussion'
@@ -474,7 +475,7 @@ en:
         proposal:  'Proposal'
         improvement_proposal: 'Improvement Proposal'
       new:
-        question:  'New Question'
+        question:  'New Discussion'
         proposal:  'New Proposal'
         improvement_proposal: 'New Improvement Proposal'
       headings:
@@ -482,8 +483,9 @@ en:
         proposal: 'Proposals'
         improvement_proposal: 'Improvement Proposals'
       states:
-        new: 'New'
-        published: 'Released'
+        label: 'Release discussion immediately?'
+        deferred_publish: 'Set up at first and release it later'
+        immediate_publish: 'Release to the public immediately'
       delete_link: "Delete"
       delete_confirmation: "Are you sure you want to delete this statement?"
     summary:

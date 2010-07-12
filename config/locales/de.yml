@@ -285,7 +285,7 @@ de:
   discuss:
     my_discussions:
       link: Meine Diskussionen
-      title: Neue & publizierte Diskussionen
+      title: Meine neuen & freigegebenen Diskussionen
     tag_permission: |
       <p>Sie dürfen den '{{tag}}' tag nicht vergeben</p>
     original_language_warning: |
@@ -461,6 +461,7 @@ de:
       echo_indicator:
         one: 'Diese Aussage hat {{supporter_count}} UnterstützerIn.'
         many: 'Diese Aussage hat {{supporter_count}} UnterstützerInnen.'
+      publish: 'Veröffentlichen Sie die Diskussion, um sie für alle sichtbar zu machen.'
 
     statements:
       label: 'echos'
@@ -486,7 +487,7 @@ de:
         proposal:  'Vorschlag'
         improvement_proposal: 'Ergänzungsvorschlag'
       new:
-        question:  'Neue Frage'
+        question:  'Neue Diskussion'
         proposal:  'Neuer Vorschlag'
         improvement_proposal: 'Neuer Ergänzungsvorschlag'
       headings:
@@ -494,8 +495,9 @@ de:
         proposal: 'Vorschläge'
         improvement_proposal: 'Ergänzungsvorschläge'
       states:
-        new: 'Neu'
-        published: 'Freigegeben'
+        label: 'Diskussion gleich freigeben?'
+        deferred_publish: 'Erstmal weiter aufsetzen und später freigeben'
+        immediate_publish: 'Sofort an die Öffentlichkeit freigeben'
       delete_link: 'Löschen'
       delete_confirmation: 'Bist du sicher, dass du diese Aussage löschen willst?'
     summary:

@@ -462,6 +462,7 @@ es:
       echo_indicator:
         one: 'Esta opinión tiene {{supporter_count}} vozes.'
         many: 'Esta opinión tiene {{supporter_count}} vozes.'
+      publish: 'Publish the discussion to make it visible for everybody.'
 
     statements:
       label: 'echos'
@@ -486,7 +487,7 @@ es:
         proposal:  'Propuesta'
         improvement_proposal: 'Propuesta de mejoramiento'
       new:
-        question:  'Nuevo Cuestión'
+        question:  'Nueva Discusión'
         proposal:  'Nueva Propuesta'
         improvement_proposal: 'Nueva propuesta de mejoramiento'
       headings:
@@ -494,8 +495,9 @@ es:
         proposal: 'Propuestas'
         improvement_proposal: 'Propuesta de mejoramiento'
       states:
-        new: Nuevo
-        published: Publicado
+        label: 'Release discussion immediately?'
+        deferred_publish: 'Set up at first and release it later.'
+        immediate_publish: 'Release to the public immediately.'
       delete_link: "Borrar"
       delete_confirmation: "Está seguro, que realmente quiere borrar esta propuesta?"
     summary:
