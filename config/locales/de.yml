@@ -461,7 +461,7 @@ de:
       echo_indicator:
         one: 'Diese Aussage hat {{supporter_count}} UnterstützerIn.'
         many: 'Diese Aussage hat {{supporter_count}} UnterstützerInnen.'
-      publish: 'Veröffentlichen Sie die Diskussion, um sie für alle sichtbar zu machen.'
+      publish: 'Geben Sie die Diskussion frei, um sie für alle sichtbar zu machen.'
 
     statements:
       label: 'echos'

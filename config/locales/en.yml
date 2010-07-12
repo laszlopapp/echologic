@@ -450,7 +450,7 @@ en:
       echo_indicator:
         one: 'This statement has {{supporter_count}} supporter.'
         many: 'This statement has {{supporter_count}} supporters.'
-      publish: 'Publish the discussion to make it visible for everybody.'
+      publish: 'Release the discussion to make it visible for everybody.'
     statements:
       label: 'echos'
       create_question_link: 'Open a new discussion'
