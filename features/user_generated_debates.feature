@@ -141,8 +141,8 @@ Feature: User Generated Debates
         | question_tags                     | first_tag |
       And I press "Save"
       And I go to "My Discussions"
-      And I follow "Publish"
-    Then I should not see "Publish"
+      And I follow "Release"
+    Then I should not see "Release"
     
   @ok
   Scenario: user creates Debate and automatically follows it and an event is automatically generated
