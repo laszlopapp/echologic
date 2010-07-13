@@ -231,7 +231,7 @@
 
 .tag_container {
   display: inline-block;
-  width: 383px;
+  width: 385px;
   margin: 23px 0 0;
   padding: 2px 4px;
   min-height: 30px;
@@ -246,7 +246,7 @@
   -webkit-border-radius: 15px;
   background-color: #E3EAEE;
   padding: 3px 7px;
-  margin: 4px 1px;
+  margin: 4px 3px;
   display: inline-block;
 }
 
