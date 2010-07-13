@@ -18,8 +18,8 @@ class QuestionsController < StatementsController
   def publish
     @statement_node.publish
     respond_to do |format|
-      format.js do
-        if @statement_node.save
+      if @statement_node.save
+        format.js do
           set_info("discuss.statements.published")
           @language_preference_list = language_preference_list
           render_with_info do |page|
@@ -29,7 +29,9 @@ class QuestionsController < StatementsController
               page.replace(dom_id(@statement_node), :partial => 'statements/questions/discussion')
             end
           end
-        else
+        end
+      else
+        format.js do
           show_error_messages(@statement_node)
         end
       end
