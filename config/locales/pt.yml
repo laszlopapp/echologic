@@ -284,6 +284,8 @@ pt:
     my_discussions:
       link: Minhas Discussões
       title: Discussões publicados & não publicados
+    tag_permission: |
+      You do not have the permission to insert the '{{tag}}' tag.
     translation_request: Por favor traduza este texto em <strong>PORTUGUÊS</strong>.
     original_language_warning: |
       O texto original encontra-se em <strong>{{language}}</strong>. Defina os seus conheci-<br/>

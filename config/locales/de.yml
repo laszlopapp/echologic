@@ -287,7 +287,7 @@ de:
       link: Meine Diskussionen
       title: Meine neuen & freigegebenen Diskussionen
     tag_permission: |
-      <p>Sie dürfen den '{{tag}}' tag nicht vergeben</p>
+      Sie dürfen den Tag '{{tag}}' nicht vergeben.
     original_language_warning: |
       Die originale Aussage ist auf <strong>{{language}}</strong>. Definieren Sie<br/>
       Ihre Sprachkenntnisse, um weitere Inhalte zu sehen.

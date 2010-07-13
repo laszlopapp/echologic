@@ -297,6 +297,8 @@ es:
     my_discussions:
       link: Mis Discusiones
       title: Discusiones publicados & no publicados
+    tag_permission: |
+      You do not have the permission to insert the '{{tag}}' tag.
     original_language_warning: |
       El texto original es <strong>{{language}}</strong>. Por favor <br/>
       indique quales son las lenguas que intiendes.
