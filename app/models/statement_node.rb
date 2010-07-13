@@ -48,12 +48,13 @@ class StatementNode < ActiveRecord::Base
   #belongs_to :work_packages
 
   has_many :statement_documents, :through => :statement, :source => :statement_documents do
-    # this query returns translation for a statement ordered by the users prefered languages
+    # this query returns translation for a statement ordered by the users preferred languages
     # OPTIMIZE: this should be built in sql
 
     def for_languages(lang_ids)
-      # doc = find(:all, :conditions => ["translated_statement_id = ? AND language_code = ?", nil, lang_codes.first]).first
-      find(:all, :conditions => ["language_id IN (?)", lang_ids]).sort { |a, b| lang_ids.index(a.language_id) <=> lang_ids.index(b.language_id)}.first
+      find(:all, :conditions => ["language_id IN (?)", lang_ids]).sort {
+         |a, b| lang_ids.index(a.language_id) <=> lang_ids.index(b.language_id)
+      }.first
     end
   end
 
@@ -63,9 +64,10 @@ class StatementNode < ActiveRecord::Base
 
 
   validates_presence_of :state_id
+  validates_numericality_of :state_id
+  validates_inclusion_of :state_id, :in => state_ids
   validates_presence_of :creator_id
   validates_presence_of :statement
-  validates_numericality_of :state_id
   validates_associated :creator
   validates_associated :statement
   validates_associated :tao_tags
@@ -78,7 +80,8 @@ class StatementNode < ActiveRecord::Base
 
   def validate
     # except of questions, all statements need a valid parent
-    errors.add("Parent of #{self.class.name} must be of one of #{self.class.valid_parents.inspect}") unless self.class.valid_parents and self.class.valid_parents.select { |k| parent.instance_of?(k.to_s.constantize) }.any?
+    errors.add("Parent of #{self.class.name} must be of one of #{self.class.valid_parents.inspect}") unless
+      self.class.valid_parents and self.class.valid_parents.select { |k| parent.instance_of?(k.to_s.constantize) }.any?
   end
 
   ##
@@ -132,7 +135,8 @@ class StatementNode < ActiveRecord::Base
 
   def level
     # simple hack to gain the level
-    # problem is: as we can't use nested set (too write intensive stuff), we can't easily get the statement_nodes level in the tree
+    # problem is: as we can't use nested set (too write intensive stuff),
+    # we can't easily get the statement_nodes level in the tree
     level = 0
     level += 1 if self.parent
     level += 1 if self.root && self.root != self && self.root != self.parent
