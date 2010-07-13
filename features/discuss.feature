@@ -10,7 +10,7 @@ Feature: Take Part on a discussion
 
   # FIXME this can't work in this way, and should anyway rather being tested inside a functional test
 
-  # Scenario: View debates list
+  Scenario: View debates list
      Given I am logged in as "user" with password "true"
      And I am on the Discuss Index
      When I follow "Featured"
@@ -21,8 +21,8 @@ Feature: Take Part on a discussion
      When I follow "echonomyJAM"
        When I choose the second Question
      Then the second question must be more recent than the first question
-        
-    
+
+
   @ok
   Scenario: Open a question
     Given I am logged in as "user" with password "true"
@@ -31,7 +31,7 @@ Feature: Take Part on a discussion
     When I follow "echonomyJAM"
       And I choose the first Question
     Then I should see the questions title
-  
+
   @ok
   Scenario: Add a proposal to a question
     Given I am logged in as "user" with password "true"
@@ -76,11 +76,11 @@ Feature: Take Part on a discussion
        | proposal_statement_document_text  | somewhat more to propose at lease |
       And I press "Save"
     Then I should see "my updated proposal"
-   
+
 
 # Open Questions:
 
-# * should we always display in which other languages the statement might also exist, or always trust that the order of languages the user speaks is right"? 
+# * should we always display in which other languages the statement might also exist, or always trust that the order of languages the user speaks is right"?
 # ** Do we have an order of languages anyway? If the user can only use checkboxes for selecting languages she speaks, it's impossible to figure out more order than local language, other languages.
 # In this case we should really display the user in what languages (he speaks) the statement has translations
 
@@ -103,5 +103,4 @@ Feature: Take Part on a discussion
       And I choose the "I only have kids in German" Question
       And the question has proposals
       Then I should see no proposals
-     
-     
+

@@ -199,7 +199,18 @@ module StatementHelper
        (current_user.may_edit? or
        (statement_document.author == current_user and !statement_node.published?))
       link_to(I18n.t('application.general.edit'), edit_statement_node_path(statement_node),
-              :class => 'ajax header_button text_button edit_button edit_statement_button')
+              :class => 'ajax header_button text_button edit_text_button')
+    end
+  end
+
+  def publish_statement_node_link(statement_node, statement_document)
+    if current_user and
+       statement_document.author == current_user and !statement_node.published?
+      link_to(I18n.t('discuss.statements.publish'),
+              #publish_question_path(statement_node),
+              {:controller => :questions, :action => :publish, :in => :summary},
+              :class => 'ajax_put header_button text_button publish_text_button ttLink',
+              :title => I18n.t('discuss.tooltips.publish'))
     end
   end
 
