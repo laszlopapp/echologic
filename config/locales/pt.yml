@@ -284,6 +284,8 @@ pt:
     my_discussions:
       link: Minhas Discussões
       title: Discussões publicados & não publicados
+    tag_permission: |
+      You do not have the permission to insert the '{{tag}}' tag.
     translation_request: Por favor traduza este texto em <strong>PORTUGUÊS</strong>.
     original_language_warning: |
       O texto original encontra-se em <strong>{{language}}</strong>. Defina os seus conheci-<br/>
@@ -454,6 +456,7 @@ pt:
       echo_indicator:
         one: 'Esta afirmação tem {{supporter_count}} apoiante.'
         many: 'Esta afirmação tem {{supporter_count}} apoiantes.'
+      publish: 'Publish the discussion to make it visible for everybody.'
 
     statements:
       error_messages:
@@ -480,7 +483,7 @@ pt:
         proposal:  'Proposta'
         improvement_proposal: 'Proposta de melhoria'
       new:
-        question:  'Nova Questão'
+        question:  'Nova Discussão'
         proposal:  'Nova Proposta'
         improvement_proposal: 'Nova Proposta de Melhoria'
       headings:
@@ -488,8 +491,9 @@ pt:
         proposal: 'Propostas'
         improvement_proposal: 'Propostas de Melhoria'
       states:
-        new: 'Novo'
-        published: 'Publicado'
+        label: 'Release discussion immediately?'
+        deferred_publish: 'Set up at first and release it later.'
+        immediate_publish: 'Release to the public immediately.'
       delete_link: "Apagar"
       delete_confirmation: "Tem a certeza que quer apagar esta afirmação?"
     summary:
