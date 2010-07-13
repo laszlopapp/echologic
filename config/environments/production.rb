@@ -39,10 +39,7 @@ config.action_mailer.default_url_options = { :host => 'www.echologic.org' }
 
 config.after_initialize do
   # Assynchronous tasks
-  User.handle_asynchronously :deliver_activation_instructions!, 
-                             :deliver_activation_confirmation!, 
-                             :deliver_password_reset_instructions!,
-                             :deliver_activity_tracking_email!
+  User.handle_asynchronously :deliver_activity_tracking_email!
 
 end
 
