@@ -4,6 +4,7 @@ class Users::UsersController < ApplicationController
   before_filter :require_user, :only => [:show, :edit, :update, :update_password, :add_concernments, :delete_concernment]
   before_filter :fetch_user, :only => [:show, :edit, :update, :update_password, :destroy]
 
+
   access_control do
     allow logged_in, :to => [:show, :index, :update_password, :add_concernments, :delete_concernment, :auto_complete_for_tag_value]
     allow :admin
@@ -14,7 +15,9 @@ class Users::UsersController < ApplicationController
   # suggestions a time.
   auto_complete_for :user, :city,    :limit => 5
   auto_complete_for :user, :country, :limit => 5
-  auto_complete_for :tag, :value, :limit => 5
+  auto_complete_for :tag, :value, :limit => 5 
+
+
 
   # GET /users
   # GET /users.xml
