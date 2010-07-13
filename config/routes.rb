@@ -85,17 +85,31 @@ ActionController::Routing::Routes.draw do |map|
 
 
   # echo-social routes
-  map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'development', :host =>'localhost', :port => 3001 }
-  map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'staging', :host => "echosocial.echo-test.org" }
-  map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'production', :host => "www.echosocial.org" }
-  map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'production', :host => "echosocial.org" }
-  map.echosocial ':action',:controller => 'static/echosocial',:action => 'show', :conditions=>{:rails_env => 'production', :host => "echosocial-prod-clone.echo-test.org" }
+  map.echosocial ':action',
+                 :controller => 'static/echosocial',:action => 'show',
+                 :conditions=>{:rails_env => 'development', :host =>'localhost', :port => 3001 }
+  map.echosocial ':action',
+                 :controller => 'static/echosocial',:action => 'show',
+                 :conditions=>{:rails_env => 'staging', :host => "echosocial.echo-test.org" }
+  map.echosocial ':action',
+                 :controller => 'static/echosocial',:action => 'show',
+                 :conditions=>{:rails_env => 'production', :host => "www.echosocial.org" }
+  map.echosocial ':action',
+                 :controller => 'static/echosocial',:action => 'show',
+                 :conditions=>{:rails_env => 'production', :host => "echosocial.org" }
+  map.echosocial ':action',
+                 :controller => 'static/echosocial',:action => 'show',
+                 :conditions=>{:rails_env => 'production', :host => "echosocial-prod-clone.echo-test.org" }
 
 
   # SECTION discuss - discussion tree
-  map.resources :questions, :member => [:new_translation, :create_translation, :publish], :as => 'discuss/questions' do |question|
-    question.resources :proposals, :member => [:echo, :unecho, :new_translation, :create_translation] do |proposal|
-      proposal.resources :improvement_proposals, :member => [:echo, :unecho, :new_translation, :create_translation] do |improvement_proposal|
+  map.resources :questions,
+                :member => [:new_translation, :create_translation, :publish],
+                :as => 'discuss/questions' do |question|
+    question.resources :proposals,
+                       :member => [:echo, :unecho, :new_translation, :create_translation] do |proposal|
+      proposal.resources :improvement_proposals,
+                         :member => [:echo, :unecho, :new_translation, :create_translation] do |improvement_proposal|
       end
     end
   end
