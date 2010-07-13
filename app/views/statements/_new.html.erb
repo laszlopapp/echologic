@@ -2,7 +2,12 @@
 <% tags ||= @tags %>
 <% statement_document ||= @statement_document %>
 <div id="new_statement" class="header_block discuss_right_block">
-  <h2><%= children_new_box_title(statement_node) %></h2>
+  <h2>
+    <%= children_new_box_title(statement_node) %>
+  </h2>
+
+  <%= statement_form_illustration(statement_node) %>
+
   <p><%= I18n.t("discuss.statements.create_#{statement_node.class.name.underscore}_explanation")%></p>
   <%= render :partial => 'statements/form', :locals => {:statement_node => statement_node, :tags => tags, :statement_document => @statement_document } %>
 </div>

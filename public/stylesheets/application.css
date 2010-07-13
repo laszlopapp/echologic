@@ -133,6 +133,11 @@
   width: 195px;
 }
 
+.right_block_illustration {
+  float: right;
+  margin: -25px 25px 0 70px;
+}
+
 /* FUNCTION BUTTONS */
 
 .text_button {
@@ -168,7 +173,7 @@
 }
 
 .publish_text_button {
-  background:transparent url(../images/page/icons/edit_button.png) no-repeat scroll 0 0;
+  background:transparent url(../images/page/icons/publish_button.png) no-repeat scroll 0 0;
   height: 17px;
   line-height: 17px;
   display: inline-block;
@@ -183,10 +188,13 @@
 
 .or_cancel {
   color: #21587f;
+  margin-left: 5px;
 }
 
 .cancel_button {
+  font-weight: bold;
   padding-left: 0px;
+  margin-left: 15px;
 }
 
 .delete_text_button {

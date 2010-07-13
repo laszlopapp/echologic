@@ -242,6 +242,11 @@ module StatementHelper
   ## CONVENIENCE and UI
   ##
 
+  def statement_form_illustration(statement_node)
+    image_tag("page/discuss/add_#{statement_node.class.name.underscore}_big.png",
+              :class => 'right_block_illustration')
+  end
+
   # returns the right icon for a statement_node, determined from statement_node class and given size
   def statement_node_icon(statement_node, size = :medium)
     # remove me to have different sizes again
@@ -263,16 +268,6 @@ module StatementHelper
       val = "<span class='no_echo_indicator ttLink' title='#{tooltip}'></span>"
     end
   end
-
-
-  # TODO: instead of adding an image tag, we should use css classes here, like (almost) everywhere else
-  # TODO: find out why statement_node.question? works, but not statement_node.parent.question? or
-  # deprecate statement_node.question?
-  # Possible answer: method is private - invoking .send :question? on parent does the trick!
-
-  ##
-  ## statement_node Context (where am i within the statement_node stack?)
-  ##
 
 
   # DEPRICATED, user statement_node_context_link instead
