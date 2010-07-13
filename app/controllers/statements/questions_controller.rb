@@ -22,8 +22,12 @@ class QuestionsController < StatementsController
         if @statement_node.save
           set_info("discuss.statements.published")
           @language_preference_list = language_preference_list
-          render_with_info do |p|
-            p.replace(dom_id(@statement_node), :partial => 'statements/questions/discussion')
+          render_with_info do |page|
+            if params[:in] == 'summary'
+              page.redirect_to(url_for(@statement_node))
+            else
+              page.replace(dom_id(@statement_node), :partial => 'statements/questions/discussion')
+            end
           end
         else
           show_error_messages(@statement_node)
