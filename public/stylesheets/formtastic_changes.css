@@ -36,7 +36,7 @@ form.formtastic fieldset ol li.radio fieldset ol {
 
 form.formtastic fieldset ol li label {
   color: #7bb031;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: bold;
   display: block;
   width: 100%;
@@ -53,17 +53,13 @@ form.formtastic fieldset ol li.text textarea, form.formtastic fieldset ol li.str
 }
 
 form.formtastic.wide_form fieldset ol li.text textarea, form.formtastic.wide_form fieldset ol li.string input {
-  width: 600px;
+  width: 803px;
 }
 
 form.formtastic fieldset ol li.text textarea {
   min-height: 68px !important;
   max-height: 200px;
   height:     68px;
-}
-
-form.formtastic.wide_form fieldset ol li.text textarea {
-  width: 600px;
 }
 
 form.formtastic fieldset ol li fieldset legend span {
