@@ -37,9 +37,4 @@ FEEDBACK_RECIPIENT = 'team@echologic.org'
 # For using link_to and url_for in ActionMailer, hostname has to be given.
 config.action_mailer.default_url_options = { :host => 'www.echologic.org' }
 
-config.after_initialize do
-  # Assynchronous tasks
-  User.handle_asynchronously :deliver_activity_tracking_email!
-
-end
 
