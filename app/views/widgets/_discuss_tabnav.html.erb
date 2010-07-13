@@ -22,7 +22,7 @@ render_tabnav :discuss,
   add_tab do |t|
     t.named I18n.t('discuss.my_discussions.link')
     t.links_to hash_for_my_discussions_path
-  end if !current_user.nil?
+  end
 
   add_tab :html => {:id => 'roadmap_tab'} do |t|
     value = "#{Development::DISCUSS_PROGRESS}%  " + I18n.t('application.roadmap.title')
