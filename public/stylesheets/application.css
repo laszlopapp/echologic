@@ -179,6 +179,10 @@
   display: inline-block;
 }
 
+.publish_text_button:hover {
+  background-position: 0 -17px
+}
+
 .save_button {
   background:transparent url(../images/page/icons/save_button.png) no-repeat scroll 0 0;
   height: 16px;
