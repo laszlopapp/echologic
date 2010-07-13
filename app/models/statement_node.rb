@@ -65,7 +65,6 @@ class StatementNode < ActiveRecord::Base
 
   validates_presence_of :state_id
   validates_numericality_of :state_id
-  validates_inclusion_of :state_id, :in => state_ids
   validates_presence_of :creator_id
   validates_presence_of :statement
   validates_associated :creator
@@ -73,6 +72,7 @@ class StatementNode < ActiveRecord::Base
   validates_associated :tao_tags
 
   after_destroy :delete_dependencies
+
 
   def delete_dependencies
     self.statement.destroy if self.statement.statement_nodes.empty?
