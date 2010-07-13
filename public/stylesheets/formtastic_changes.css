@@ -34,6 +34,10 @@ form.formtastic fieldset ol li.radio fieldset ol {
   margin: 5px 0 10px;
 }
 
+form.formtastic fieldset ol li.radio fieldset ol li label {
+  font-size: 14px;
+}
+
 form.formtastic fieldset ol li label {
   color: #7bb031;
   font-size: 15px;
