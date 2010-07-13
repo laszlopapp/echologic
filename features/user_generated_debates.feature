@@ -103,7 +103,7 @@ Feature: User Generated Debates
         | question_statement_document_title | A Debate for all Seasons |
         | question_statement_document_text  | A Debate for all Seasons |
         | question_tags                     | #echonomyjam |
-      And I select "Published" from "state"
+      And I choose "Release to the public immediately"
       And I press "Save"
     When I am on the Discuss Index
     When I follow "Pilot Projects"
@@ -141,5 +141,5 @@ Feature: User Generated Debates
         | question_tags                     | first_tag |
       And I press "Save"
       And I go to "My Discussions"
-      And I follow "Publish"
-    Then I should not see "Publish"
+      And I follow "Release"
+    Then I should not see "Release"
