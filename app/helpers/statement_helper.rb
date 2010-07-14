@@ -228,12 +228,14 @@ module StatementHelper
   def cancel_new_statement_node(statement_node)
     type = statement_node_class_dom_id(statement_node).downcase
       if type == 'question'
-        link_to I18n.t('application.general.cancel'), :back, :class => 'text_button cancel_button'
+        link_to I18n.t('application.general.cancel'),
+                :back,
+                :class => 'text_button bold_cancel_text_button'
       else
         link_to I18n.t('application.general.cancel'),
                 session[:last_statement_node] ?
                   statement_node_path(session[:last_statement_node]) : (statement_node.parent or discuss_url),
-                :class => 'ajax text_button cancel_button'
+                :class => 'ajax text_button bold_cancel_text_button'
 
       end
   end
