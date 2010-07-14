@@ -52,6 +52,9 @@
   height: 200px;
 }
 
+#new_statement p {
+  cursor: default;
+}
 
 /* ------- */
 /* CONTEXT */
