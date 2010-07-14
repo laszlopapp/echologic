@@ -215,51 +215,55 @@ class StatementNode < ActiveRecord::Base
 
   class << self
 
-    def search_statement_nodes(type, value, language_keys, opts={} )
+    # Custom SQL for querying statement nodes in Discuss / Search
+    def search_statement_nodes(type, search_term, language_keys, opts={} )
 
-      #get tags
-      tags = opts[:tag] || value.split(" ")
-
-      #sorting the or arguments
-      if !value.blank?
-        or_attrs = opts[:or_attrs] || %w(d.title d.text)
-        or_conditions = or_attrs.map{|attr|"#{attr} LIKE ?"}.join(" OR ")
-        or_conditions << "OR #{tags.map{|tag| tag.length > 3 ?
-                          sanitize_sql(["t.value LIKE ?","%#{tag}%"]) :
-                          sanitize_sql(["t.value = ?",tag])}. join(" OR ")}"
-      end
-      #sorting the and arguments
-      and_conditions = opts[:conditions] || ["n.type = '#{type}'"]
-      and_conditions << "state_id = #{statement_states('published').id}" if opts[:auth]
-      and_conditions << sanitize_sql(["t.value = ?", opts[:tag]]) if opts[:tag]
-      and_conditions << sanitize_sql(["d.language_id IN (?)",language_keys])
-
-      #all getting along like really good friends
-      and_conditions << "(#{or_conditions})" if or_conditions
-
-      #Rambo 1
-      query_part_1 = <<-END
+      # Building the search clause
+      search_clause = <<-END
         select distinct n.*
         from
           statement_nodes n
-          LEFT JOIN statements s             ON n.statement_id = s.id
-          LEFT JOIN statement_documents d    ON s.id = d.statement_id
+          LEFT JOIN statement_documents d    ON n.statement_id = d.statement_id 
           LEFT JOIN tao_tags tt              ON tt.tao_id = n.id
           LEFT JOIN tags t                   ON tt.tag_id = t.id
           LEFT JOIN echos e                  ON n.echo_id = e.id
         where
       END
-      #Rambo 2
-      query_part_2 = and_conditions.join(" AND ")
-      #Rambo 3
-      #TODO: doesn't order by supporter count!!!!!!!!!!!!!!!
-      query_part_3 = " order by e.supporter_count DESC, n.created_at asc;"
 
-      #All Rambo's in one
-      query = query_part_1+query_part_2+query_part_3
-      value = "%#{value}%"
+      # Building the where clause
+      tags = opts[:category] || search_term.split(" ")
 
-      conditions = or_attrs ? [query, *([value] * or_attrs.size)] : query
+      # Handling the search term
+      if !search_term.blank?
+        search_fields = %w(d.title d.text)
+        or_conditions = search_fields.map{|attr|"#{attr} LIKE ?"}.join(" OR ")
+        or_conditions << "OR #{tags.map{|tag| tag.length > 3 ?
+                          sanitize_sql(["t.value LIKE ?","%#{tag}%"]) :
+                          sanitize_sql(["t.value = ?",tag])}.join(" OR ")}"
+      end
+      and_conditions << "(#{or_conditions})" if or_conditions
+
+      # Filter for statement type
+      and_conditions = opts[:conditions] || ["n.type = '#{type}'"]
+      # Filter for published statements
+      and_conditions << sanitize_sql(["n.state_id = ?", statement_states('published').id]) if opts[:auth]
+      # Filter for featured topic tags (categories)
+      and_conditions << sanitize_sql(["t.value = ?", opts[:category]]) if opts[:category]
+      # Filter for the preferred languages
+      and_conditions << sanitize_sql(["d.language_id IN (?)", language_keys])
+
+      # Constructing the where clause
+      where_clause = and_conditions.join(" AND ")
+
+      # Building the order clause
+      order_clause = " order by e.supporter_count DESC, n.created_at asc;"
+
+      # Composing the query and substituting the values
+      query = search_clause + where_clause + order_clause
+      value = "%#{search_term}%"
+      conditions = search_fields ? [query, *([value] * search_fields.size)] : query
+
+      # Executing the query
       statement_nodes = find_by_sql(conditions)
     end
 

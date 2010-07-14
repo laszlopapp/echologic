@@ -9,7 +9,7 @@ class Profile < ActiveRecord::Base
   has_many :memberships,  :through => :user
   has_many :spoken_languages, :through => :user
   has_many :tao_tags, :through => :user
-  
+
   validates_presence_of :user_id
   validates_length_of :about_me, :maximum => 1024, :allow_nil => true
   validates_length_of :motivation, :maximum => 1024, :allow_nil => true
@@ -106,7 +106,8 @@ class Profile < ActiveRecord::Base
 
     # Composing the query and substituting the values
     query = select_clause + where_clause + order_clause
-    conditions = [query, *(["%#{search_term}%"] * searched_fields.size)]
+    value = "%#{search_term}%"
+    conditions = [query, *([value] * searched_fields.size)]
 
     # Executing the query
     profiles = find_by_sql(conditions)
