@@ -20,14 +20,14 @@ module ActiveRecord
                                                                          'LEFT JOIN subscriptions s ON s.subscriber_id = u.id ' +
                                                                          'WHERE s.subscribeable_id = #{id} '
             has_many :events, :as => :subscribeable
-            before_save :subscribe_creator
-            before_create :create_event
+            after_save :subscribe_creator
+            after_save :create_event
           end
           
           class_eval <<-RUBY
             def subscribe_creator
               return if self.creator.nil?
-              subscription = self.subscriptions.find_by_subscriber_id(self.creator.id) || Subscription.new(:subscriber => self.creator, :subscriber_type => self.class.name, :subscribeable => self, :subscribeable_type => self.class.name)
+              subscription = self.subscriptions.find_by_subscriber_id(self.creator.id) || Subscription.new(:subscriber => self.creator, :subscriber_type => self.creator.class.name, :subscribeable => self, :subscribeable_type => self.class.name)
               subscriptions << subscription if subscription.new_record?
             end
             
@@ -59,6 +59,18 @@ module ActiveRecord
             
             def followed_by?(user)
               self.subscriptions.map{|s|s.subscriber}.include? user
+            end
+            
+            def add_subscriber(subscriber)
+              return if subscriber.nil?
+              subscription = self.subscriptions.find_by_subscriber_id(subscriber.id) || Subscription.new(:subscriber => subscriber, :subscriber_type => subscriber.class.name, :subscribeable => self, :subscribeable_type => self.class.name)
+              subscriptions << subscription if subscription.new_record?
+            end
+            
+            def remove_subscriber(subscriber)
+              return if subscriber.nil?
+              subscription = self.subscriptions.find_by_subscriber_id(subscriber.id)
+              subscriptions.delete(subscription)
             end
           RUBY
         end

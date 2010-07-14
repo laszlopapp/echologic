@@ -18,7 +18,6 @@ class Users::UsersController < ApplicationController
   auto_complete_for :tag, :value, :limit => 5 
 
 
-
   # GET /users
   # GET /users.xml
   def index
