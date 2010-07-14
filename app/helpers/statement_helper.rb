@@ -1,4 +1,5 @@
 module StatementHelper
+
   def self.included(base)
     base.instance_eval do
       alias_method :proposal_path, :proposal_url
@@ -14,7 +15,6 @@ module StatementHelper
   ##
   ## URLS
   ##
-
 
   def new_child_statement_node_url(parent, type)
     case type.downcase
@@ -206,8 +206,9 @@ module StatementHelper
     if current_user and
        statement_document.author == current_user and !statement_node.published?
       link_to(I18n.t('discuss.statements.publish'),
-              #publish_question_path(statement_node),
-              {:controller => :questions, :action => :publish, :in => :summary},
+              { :controller => :questions,
+                :action => :publish,
+                :in => :summary },
               :class => 'ajax_put header_button text_button publish_text_button ttLink',
               :title => I18n.t('discuss.tooltips.publish'))
     end
@@ -260,9 +261,11 @@ module StatementHelper
   # representing and visualizing the agreement a statement_node has found within the community)
   def supporter_ratio_bar(statement_node,context=nil)
     if statement_node.supporter_count < 2
-      tooltip = I18n.t('discuss.tooltips.echo_indicator.one', :supporter_count => statement_node.supporter_count)
+      tooltip = I18n.t('discuss.tooltips.echo_indicator.one',
+                       :supporter_count => statement_node.supporter_count)
     else
-      tooltip = I18n.t('discuss.tooltips.echo_indicator.many', :supporter_count => statement_node.supporter_count)
+      tooltip = I18n.t('discuss.tooltips.echo_indicator.many',
+                       :supporter_count => statement_node.supporter_count)
     end
     if statement_node.ratio > 1
       val = "<span class='echo_indicator ttLink' title='#{tooltip}' alt='#{statement_node.ratio}'></span>"
@@ -274,8 +277,9 @@ module StatementHelper
 
   # DEPRICATED, user statement_node_context_link instead
   def statement_node_context_line(statement_node)
-    link = link_to(statement_node_icon(statement_node, :small) +
-           statement_node.title, url_for(statement_node), :class => 'ajax')
+    link = link_to(statement_node_icon(statement_node, :small) + statement_node.title,
+                   url_for(statement_node),
+                   :class => 'ajax')
     link << supporter_ratio_bar(statement_node,'context') unless statement_node.class.name == 'Question'
     return link
   end
@@ -283,7 +287,8 @@ module StatementHelper
   # Returns the context menu link for this statement_node.
   def statement_node_context_link(statement_node, language_keys, action = 'read', last_statement_node = false)
     return if (statement_document = statement_node.translated_document(language_keys)).nil?
-    link = link_to(statement_document.title, url_for(statement_node),
+    link = link_to(statement_document.title,
+                   url_for(statement_node),
                    :class => "ajax no_border statement_link #{statement_node.class.name.underscore}_link ttLink",
                    :title => I18n.t("discuss.tooltips.#{action}_#{statement_node.class.name.underscore}"))
     if statement_node.class.name == 'Question'
@@ -328,10 +333,12 @@ module StatementHelper
 
   def statement_tag(direction, class_identifier, disabled=false)
     if !disabled
-      content_tag(:span, '&nbsp;', :class => "#{direction}_stmt ttLink no_border",
+      content_tag(:span, '&nbsp;',
+                  :class => "#{direction}_stmt ttLink no_border",
                   :title => I18n.t("discuss.tooltips.#{direction}_#{class_identifier}"))
     else
-      content_tag(:span, '&nbsp;', :class => "#{direction}_stmt disabled")
+      content_tag(:span, '&nbsp;',
+                  :class => "#{direction}_stmt disabled")
     end
   end
 
@@ -412,7 +419,8 @@ module StatementHelper
       page.replace('summary',
                    :partial => 'statements/summary',
                    :locals => { :statement_node => statement_node.parent,
-                                :statement_document => statement_node.parent.translated_document(language_preference_list)}) if statement_node.parent
+                                :statement_document => statement_node.parent.
+                                  translated_document(language_preference_list)}) if statement_node.parent
       page.replace('context',
                    :partial => 'statements/context',
                    :locals => { :statement_node => statement_node.parent}) if statement_node.parent
@@ -438,7 +446,8 @@ module StatementHelper
                      :locals => { :statement_node => statement_node})
         page.replace('summary',
                      :partial => 'statements/summary',
-                     :locals => { :statement_node => statement_node, :statement_document => statement_document})
+                     :locals => { :statement_node => statement_node,
+                                  :statement_document => statement_document})
         page.replace 'new_statement',
                    :partial => 'statements/children',
                    :statement => statement_node,
@@ -468,7 +477,8 @@ module StatementHelper
                    :locals => { :statement_node => statement_node})
       page.replace('summary',
                    :partial => 'statements/summary',
-                   :locals => { :statement_node => statement_node, :statement_document => statement_document})
+                   :locals => { :statement_node => statement_node,
+                                :statement_document => statement_document})
       page << "makeRatiobars();"
       page << "makeTooltips();"
     end
