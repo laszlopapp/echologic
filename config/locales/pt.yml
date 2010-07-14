@@ -283,9 +283,9 @@ pt:
   discuss:
     my_discussions:
       link: Minhas Discussões
-      title: Discussões publicados & não publicados
+      title: As minhas discussões novas e publicadas
     tag_permission: |
-      You do not have the permission to insert the '{{tag}}' tag.
+      Não tem permissão para inserir a tag '{{tag}}'.
     translation_request: Por favor traduza este texto em <strong>PORTUGUÊS</strong>.
     original_language_warning: |
       O texto original encontra-se em <strong>{{language}}</strong>. Defina os seus conheci-<br/>
@@ -456,7 +456,7 @@ pt:
       echo_indicator:
         one: 'Esta afirmação tem {{supporter_count}} apoiante.'
         many: 'Esta afirmação tem {{supporter_count}} apoiantes.'
-      publish: 'Publish the discussion to make it visible for everybody.'
+      publish: 'Publique a discussão, de forma a esta se tornar visível para todos.'
 
     statements:
       label: 'echos'
@@ -465,7 +465,8 @@ pt:
       create_internal_link: 'Nova ideia?'
       create_improvement_proposal_link: 'Criar nova proposta de melhoria'
       create_question_explanation: |
-        Olá Editor! Aqui pode abrir uma nova questão.
+        Aqui pode começar uma <strong>nova discussão</strong> e providenciar um conjunto de <strong>palavras-chave
+        temáticas</strong>  adequadas de forma a este ser facilmente encontrado.
       create_proposal_explanation: |
         Tem uma <strong>boa ideia</strong> no que diz respeito à questão actual, que ainda <strong>não existe</strong>?<br/>
         Aqui pode criar uma <strong>nova proposta</strong>.
@@ -473,7 +474,7 @@ pt:
         Tem uma <strong>boa ideia</strong> para <strong>tornar a proposta actual ainda melhor</strong>?<br/>
         Aqui pode criar uma <strong>nova proposta de melhoria</strong>.
       publish: Publicar
-      published: Debate publicado com sucesso!
+      published: A discussão foi publicada com sucesso.
       edit: 'Editar {{type}}'
 
       types:
@@ -489,9 +490,9 @@ pt:
         proposal: 'Propostas'
         improvement_proposal: 'Propostas de Melhoria'
       states:
-        label: 'Release discussion immediately?'
-        deferred_publish: 'Set up at first and release it later.'
-        immediate_publish: 'Release to the public immediately.'
+        label: 'Publicar discussão?'
+        deferred_publish: 'Primeiro criar e mais tarde publicar.'
+        immediate_publish: 'Imediatamente publicar.'
       delete_link: "Apagar"
       delete_confirmation: "Tem a certeza que quer apagar esta afirmação?"
     summary:
