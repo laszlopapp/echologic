@@ -276,18 +276,18 @@ module StatementHelper
   ##
 
 
-  # DEPRICATED, user statement_node_context_link instead
-  def statement_node_context_line(statement_node)
-    link = link_to(statement_node_icon(statement_node, :small) +
-           statement_node.title, url_for(statement_node), :class => 'ajax')
-    link << supporter_ratio_bar(statement_node,'context') unless !statement_node.echoable?
-    return link
-  end
+#  # DEPRICATED, user statement_node_context_link instead
+#  def statement_node_context_line(statement_node)
+#    link = link_to(statement_node_icon(statement_node, :small) +
+#           statement_node.title, url_for(statement_node), :class => 'ajax')
+#    link << supporter_ratio_bar(statement_node,'context') unless !statement_node.echoable?
+#    return link
+#  end
 
   # Returns the context menu link for this statement_node.
   def statement_node_context_link(statement_node, language_ids, action = 'read', last_statement_node = false)
     return if (statement_document = statement_node.translated_document(language_ids)).nil?
-    link = link_to(statement_document.title, url_for(statement_node),
+    link = link_to(h(statement_document.title), url_for(statement_node),
                    :class => "ajax no_border statement_link #{statement_node.class.name.underscore}_link ttLink",
                    :title => I18n.t("discuss.tooltips.#{action}_#{statement_node.class.name.underscore}"))
     if !statement_node.echoable?
