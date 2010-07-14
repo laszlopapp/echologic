@@ -1,4 +1,5 @@
 module StatementHelper
+
   def self.included(base)
     base.instance_eval do
       alias_method :proposal_path, :proposal_url
@@ -14,7 +15,6 @@ module StatementHelper
   ##
   ## URLS
   ##
-
 
   def new_child_statement_node_url(parent, type)
     case type.downcase
@@ -188,10 +188,9 @@ module StatementHelper
 
   def create_question_link_for
     return unless current_user
-    link_to(I18n.t("discuss.statements.create_question_link",
-            :type => I18n.t("discuss.statements.types.question")), new_question_url,
-            :class=>'text_button create_question_button ttLink no_border',
-            :title => I18n.t("discuss.tooltips.create_question"))
+    link_to(I18n.t("discuss.statements.create_question_link"),
+            new_question_url,
+            :class=> 'text_button create_question_button no_border')
   end
 
   def edit_statement_node_link(statement_node, statement_document)
@@ -207,8 +206,9 @@ module StatementHelper
     if current_user and
        statement_document.author == current_user and !statement_node.published?
       link_to(I18n.t('discuss.statements.publish'),
-              #publish_question_path(statement_node),
-              {:controller => :questions, :action => :publish, :in => :summary},
+              { :controller => :questions,
+                :action => :publish,
+                :in => :summary },
               :class => 'ajax_put header_button text_button publish_text_button ttLink',
               :title => I18n.t('discuss.tooltips.publish'))
     end
@@ -229,12 +229,14 @@ module StatementHelper
   def cancel_new_statement_node(statement_node)
     type = statement_node_class_dom_id(statement_node).downcase
       if type == 'question'
-        link_to I18n.t('application.general.cancel'), :back, :class => 'text_button cancel_button'
+        link_to I18n.t('application.general.cancel'),
+                :back,
+                :class => 'text_button bold_cancel_text_button'
       else
         link_to I18n.t('application.general.cancel'),
                 session[:last_statement_node] ?
                   statement_node_path(session[:last_statement_node]) : (statement_node.parent or discuss_url),
-                :class => 'ajax text_button cancel_button'
+                :class => 'ajax text_button bold_cancel_text_button'
 
       end
   end
@@ -242,6 +244,11 @@ module StatementHelper
   ##
   ## CONVENIENCE and UI
   ##
+
+  def statement_form_illustration(statement_node)
+    image_tag("page/discuss/add_#{statement_node.class.name.underscore}_big.png",
+              :class => 'statement_form_illustration')
+  end
 
   # returns the right icon for a statement_node, determined from statement_node class and given size
   def statement_node_icon(statement_node, size = :medium)
@@ -254,9 +261,11 @@ module StatementHelper
   # representing and visualizing the agreement a statement_node has found within the community)
   def supporter_ratio_bar(statement_node,context=nil)
     if statement_node.supporter_count < 2
-      tooltip = I18n.t('discuss.tooltips.echo_indicator.one', :supporter_count => statement_node.supporter_count)
+      tooltip = I18n.t('discuss.tooltips.echo_indicator.one',
+                       :supporter_count => statement_node.supporter_count)
     else
-      tooltip = I18n.t('discuss.tooltips.echo_indicator.many', :supporter_count => statement_node.supporter_count)
+      tooltip = I18n.t('discuss.tooltips.echo_indicator.many',
+                       :supporter_count => statement_node.supporter_count)
     end
     if statement_node.ratio > 1
       val = "<span class='echo_indicator ttLink' title='#{tooltip}' alt='#{statement_node.ratio}'></span>"
@@ -266,28 +275,11 @@ module StatementHelper
   end
 
 
-  # TODO: instead of adding an image tag, we should use css classes here, like (almost) everywhere else
-  # TODO: find out why statement_node.question? works, but not statement_node.parent.question? or
-  # deprecate statement_node.question?
-  # Possible answer: method is private - invoking .send :question? on parent does the trick!
-
-  ##
-  ## statement_node Context (where am i within the statement_node stack?)
-  ##
-
-
-#  # DEPRICATED, user statement_node_context_link instead
-#  def statement_node_context_line(statement_node)
-#    link = link_to(statement_node_icon(statement_node, :small) +
-#           statement_node.title, url_for(statement_node), :class => 'ajax')
-#    link << supporter_ratio_bar(statement_node,'context') unless !statement_node.echoable?
-#    return link
-#  end
-
   # Returns the context menu link for this statement_node.
   def statement_node_context_link(statement_node, language_ids, action = 'read', last_statement_node = false)
     return if (statement_document = statement_node.translated_document(language_ids)).nil?
-    link = link_to(h(statement_document.title), url_for(statement_node),
+    link = link_to(h(statement_document.title),
+                   url_for(statement_node),
                    :class => "ajax no_border statement_link #{statement_node.class.name.underscore}_link ttLink",
                    :title => I18n.t("discuss.tooltips.#{action}_#{statement_node.class.name.underscore}"))
     if !statement_node.echoable?
@@ -297,6 +289,7 @@ module StatementHelper
     end
     return link
   end
+
 
   # Creates a label to explain the echo/supporter count indicators
   def echo_label(context=nil)
@@ -332,10 +325,12 @@ module StatementHelper
 
   def statement_tag(direction, class_identifier, disabled=false)
     if !disabled
-      content_tag(:span, '&nbsp;', :class => "#{direction}_stmt ttLink no_border",
+      content_tag(:span, '&nbsp;',
+                  :class => "#{direction}_stmt ttLink no_border",
                   :title => I18n.t("discuss.tooltips.#{direction}_#{class_identifier}"))
     else
-      content_tag(:span, '&nbsp;', :class => "#{direction}_stmt disabled")
+      content_tag(:span, '&nbsp;',
+                  :class => "#{direction}_stmt disabled")
     end
   end
 

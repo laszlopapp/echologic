@@ -1,16 +1,28 @@
 <% statement_nodes ||= @statement_nodes %>
 
+<!-- Illustration -->
+<%= image_tag("page/functions/discuss.png",
+              :class => 'right_block_illustration') %>
+
 <!-- List my new and published discussions -->
 <div id="my_discussions" class="header_block discuss_right_block">
-  <h2><%= I18n.t('discuss.my_discussions.title') %></h2>
+
+  <!-- Header -->
+  <h2>
+    <%= I18n.t('discuss.my_discussions.title') %>
+  </h2>
+
+  <!-- Discussion list -->
   <div id="discussions">
     <ul id="discussion_list">
       <% unless statement_nodes.empty? %>
         <% last_child = statement_nodes.pop -%>
         <% statement_nodes.each do |statement_node| %>
-          <%= render :partial => 'statements/questions/discussion', :locals => { :statement_node => statement_node} %>
+          <%= render :partial => 'statements/questions/discussion',
+                     :locals => { :statement_node => statement_node} %>
         <% end %>
-        <%= render :partial => 'statements/questions/discussion', :locals => { :statement_node => last_child } %>
+        <%= render :partial => 'statements/questions/discussion',
+                   :locals => { :statement_node => last_child } %>
       <% end %>
     </ul>
 

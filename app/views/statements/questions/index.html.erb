@@ -3,23 +3,34 @@
 <%path = params[:id] ? question_tags_path : discuss_search_path%>
 
 <div id="search_container" class="search_container">
-  <span class="search_category">
-    <%= I18n.t('discuss.search.in', :category => I18n.t("discuss.topics.#{params[:id]}.short_name")) if params[:id]%>
+
+  <!-- Display featured topic category -->
+  <% if params[:id] -%>
+    <span class="search_category">
+      <%= I18n.t('discuss.search.in',
+                 :category => I18n.t("discuss.topics.#{params[:id]}.short_name")) %>
+    </span>
+  <% end %>
+
+  <!-- New discussion link -->
+  <span id="new_question" class="new_question">
+    <%= create_question_link_for %>
   </span>
 
-  <% form_tag path, :method => 'GET', :id => 'search_form' do %>
+  <!-- Search field -->
+  <% form_tag path,
+              :method => 'GET',
+              :id => 'search_form' do %>
     <%= text_field_tag :value %>
+
     <%= submit_tag '', :alt => 'search_button' %>
   <% end %>
+
 </div>
 
-<span id="new_question" class="new_question">
-  <%= create_question_link_for %>
-</span>
-
-<%= render :partial => 'statements/questions/questions', :locals => {:statement_nodes => @statement_nodes} %>
-<br/>
-
+<!-- Search results -->
+<%= render :partial => 'statements/questions/questions',
+           :locals => {:statement_nodes => @statement_nodes} %>
 
 <script type="text/javascript">
   $('#search_form').ajaxForm({ dataType : 'script' });

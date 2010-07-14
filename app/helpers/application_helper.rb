@@ -7,6 +7,19 @@ module ApplicationHelper
     allow :admin
   end
 
+  # Creates a 'Save or Cancel' block at the bottom of forms.
+  def save_or_cancel(cancel_action)
+    val = submit_tag I18n.t('application.general.save'),
+                     :class => 'text_button save_button'
+    val << "<span class='or_button'>"
+    val << I18n.t('application.general.or')
+    val << "</span>"
+    val << link_to(I18n.t('application.general.cancel'),
+                   cancel_action,
+                  :class => 'ajax text_button cancel_text_button')
+    val
+  end
+
   # Return a progressbar
   def insert_progressbar(percent)
     tooltip = I18n.t('application.roadmap.progress_tooltip', :progress => percent)

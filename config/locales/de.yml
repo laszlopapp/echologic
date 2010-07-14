@@ -498,7 +498,7 @@ de:
         improvement_proposal: 'Ergänzungsvorschläge'
       states:
         label: 'Diskussion gleich freigeben?'
-        deferred_publish: 'Erstmal weiter aufsetzen und später freigeben'
+        deferred_publish: 'Erstmal weiter vorbereiten und später freigeben'
         immediate_publish: 'Sofort an die Öffentlichkeit freigeben'
       delete_link: 'Löschen'
       delete_confirmation: 'Bist du sicher, dass du diese Aussage löschen willst?'
