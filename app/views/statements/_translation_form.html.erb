@@ -1,10 +1,14 @@
 <% statement_node ||= @statement_node %>
 <% new_statement_document ||= @new_statement_document %>
-<% semantic_form_for statement_node, :url => create_translation_url(statement_node, statement_node_class_dom_id(statement_node)) do |form| -%>
-  <%#= form.error_messages %>
+<% semantic_form_for statement_node,
+                     :url => create_translation_url(statement_node, statement_node_class_dom_id(statement_node)) do |form| -%>
 
-  <%= render :partial => "statements/document_form", :locals => { :form => form, :disabled => true } %>
-	<%= render :partial => "statements/translate_document_form", :locals => { :form => form, :new_statement_document => new_statement_document} %>
+  <%= render :partial => "statements/document_form",
+             :locals => { :form => form,
+                          :disabled => true } %>
+	<%= render :partial => "statements/translate_document_form",
+             :locals => { :form => form,
+                          :new_statement_document => new_statement_document} %>
 	<br/>
 	<br/>
 

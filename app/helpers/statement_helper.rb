@@ -247,7 +247,7 @@ module StatementHelper
 
   def statement_form_illustration(statement_node)
     image_tag("page/discuss/add_#{statement_node.class.name.underscore}_big.png",
-              :class => 'right_block_illustration')
+              :class => 'statement_form_illustration')
   end
 
   # returns the right icon for a statement_node, determined from statement_node class and given size

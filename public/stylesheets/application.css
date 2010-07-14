@@ -134,8 +134,9 @@
 }
 
 .right_block_illustration {
-  float: right;
-  margin: -25px 25px 0 70px;
+  float: left;
+  position: relative;
+  left: 25px;
 }
 
 /* FUNCTION BUTTONS */
@@ -594,6 +595,7 @@
 }
 
 #search_form {
+  clear: both;
   margin: 20px 0 2px;
   padding: 0;
   text-align: center;

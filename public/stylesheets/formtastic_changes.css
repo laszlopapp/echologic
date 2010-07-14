@@ -13,6 +13,10 @@ form.formtastic fieldset ol li.hidden {
   display:none !important;
 }
 
+form.formtastic textarea {
+  resize: none;
+}
+
 form.formtastic fieldset ol li {
   display: inline-block;
   width: 400px;
@@ -24,6 +28,7 @@ html[xmlns] form.formtastic fieldset ol li {
 
 form.formtastic fieldset ol li fieldset legend {
   position: relative;
+  width: 100%;
 }
 
 form.formtastic fieldset ol li fieldset ol {
@@ -42,8 +47,8 @@ form.formtastic fieldset ol li label {
   color: #7bb031;
   font-size: 15px;
   font-weight: bold;
-  display: block;
   width: 100%;
+  float: none;
 }
 
 form.formtastic fieldset ol li.text textarea, form.formtastic fieldset ol li.string input {
@@ -74,6 +79,7 @@ form.formtastic fieldset ol li fieldset legend span {
 
 form.formtastic fieldset ol li.radio fieldset ol li label {
   color: #21587F;
+  cursor: pointer;
 }
 
 form.formtastic select {
