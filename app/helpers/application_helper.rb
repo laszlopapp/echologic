@@ -7,6 +7,7 @@ module ApplicationHelper
     allow :admin
   end
 
+  # Creates a 'Save or Cancel' block at the bottom of forms.
   def save_or_cancel(cancel_action)
     val = submit_tag I18n.t('application.general.save'),
                      :class => 'text_button save_button'
