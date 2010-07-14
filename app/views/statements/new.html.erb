@@ -1,4 +1,4 @@
 <% content_for :submenu, tabnav(:discuss) %>
 <%# TODO locals? %>
-<%= render :partial => 'statements/new', :locals => {:statement => @statement} %>
+<%= render :partial => 'statements/new', :locals => {:statement_node => @statement_node, :tags => @tags, :statement_document => @statement_document} %>
 

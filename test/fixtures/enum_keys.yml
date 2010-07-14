@@ -43,3 +43,11 @@ tag_context_<%= code %>:
   key: <%= index+1 %>
   description: tag_contexts
 <% end %>
+
+<% %w(new published).each_with_index do |code, index| %>
+statement_state_<%= code %>:
+  code: <%= code %>
+  enum_name: statement_states
+  key: <%= index+1 %>
+  description: statement_state
+<% end %>

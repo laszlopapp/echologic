@@ -25,10 +25,6 @@ class UserEchoTest < ActiveSupport::TestCase
           end
         end
       end
-
     end
-
   end
-
-
 end

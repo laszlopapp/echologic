@@ -1,0 +1,27 @@
+<% statement_node ||= @statement_node %>
+<% tags ||= @tags %>
+<div id="statement_tags_container" class="two_columns_block">
+
+  <% tag_context = TaoTag.tag_contexts("topic") %>
+
+	<div class="form_container">
+	  <span class="label"><%= tag_context.get_current_enum_value.value %></span>
+	    <%= text_field :tag, :value,
+                     :class => 'tag_value_autocomplete',
+                     :id => "tag_#{tag_context.code}_id" %>
+	     <span class="add_text_button text_button addTag">
+         <%= I18n.t('application.general.create') %>
+       </span>
+	</div>
+
+	<div id="question_tags_values" class="tag_container" name="question[tags]">
+	</div>
+  <%= form.input :tags, :as => :hidden, :value => tags.join(',') %>
+</div>
+
+<script type="text/javascript">
+	loadAddTagButtons();
+	bindAddTagButtonEvents();
+   $(".tag_value_autocomplete").autocomplete(
+     '<%= tao_tags_url %>/auto_complete_for_tag_value', {minChars: 3, selectFirst: false});
+</script>

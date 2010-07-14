@@ -1,8 +1,10 @@
 <% disabled ||= false %>
+<% statement_document ||= @statement_document %>
 <% form.semantic_fields_for :statement_document, @statement_document do |doc|  %>
   <% doc.inputs :class => 'inputs left_panel' do %>
     <%= doc.input :title, :input_html => {:disabled => disabled} %>
     <br/>
     <%= doc.input :text, :input_html => {:disabled => disabled} %>
+		<%= doc.hidden_field :statement_id %>
   <% end %>
 <% end -%>

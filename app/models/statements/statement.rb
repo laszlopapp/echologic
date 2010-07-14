@@ -1,6 +1,7 @@
 class Statement < ActiveRecord::Base
   has_many :statement_nodes
   has_many :statement_documents, :dependent => :destroy
+  validates_associated :statement_documents
 
   enum :original_language, :enum_name => :languages
 

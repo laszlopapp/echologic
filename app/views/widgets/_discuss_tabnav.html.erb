@@ -16,37 +16,13 @@ render_tabnav :discuss,
   add_tab do |t|
     t.named I18n.t('discuss.search.title')
     t.links_to hash_for_discuss_search_path
-	t.highlight! if @category and @statement.blank?
+	  t.highlight! if params[:id] and @statement_node.blank?
   end
 
- # add_tab do |t|
- #   t.named I18n.t('discuss.featured_topics.title')
- #   t.links_to hash_for_discuss_path
- # end
-
- # add_tab :html => {:id => 'echonomyjam_tab'} do |t|
- #   t.named 'echonomy JAM'
- #   t.links_to hash_for_question_tags_path.merge({:id => 'echonomyJAM'})
- #   t.highlight! if @category && @category.value == 'echonomyJAM'
- # end
-
- # add_tab :html => {:id => 'echocracy_tab'} do |t|
- #   t.named 'echocracy'
- #   t.links_to hash_for_question_tags_path.merge({:id => 'echocracy'})
- #   t.highlight! if @category && @category.value == 'echocracy'
- # end
-
- # add_tab :html => {:id => 'echo_tab'} do |t|
- #   t.named 'echo'
- #   t.links_to hash_for_question_tags_path.merge({:id => 'echo'})
- #   t.highlight! if @category && @category.value == 'echo'
- # end
-
- # add_tab :html => {:id => 'echosocial_tab'} do |t|
- #   t.named 'echosocial'
- #   t.links_to hash_for_question_tags_path.merge({:id => 'echosocial'})
- #   t.highlight! if @category && @category.value == 'echosocial'
- # end
+  add_tab do |t|
+    t.named I18n.t('discuss.my_discussions.link')
+    t.links_to hash_for_my_discussions_path
+  end
 
   add_tab :html => {:id => 'roadmap_tab'} do |t|
     value = "#{Development::DISCUSS_PROGRESS}%  " + I18n.t('application.roadmap.title')

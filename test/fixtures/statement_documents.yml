@@ -49,6 +49,13 @@ with-german-children-doc-english:
   language_id: <%= Fixtures.identify('language_en') %>
   translated_document_id: <%= Fixtures.identify('with-german-children-doc-german') %>
 
+non-published-question-doc-english:
+  title: 'This is a non-published question'
+  text: 'This is a non-published question'
+  author_id: <%= Fixtures.identify(:editor) %>
+  statement_id: <%= Fixtures.identify('non-published-question-statement') %>
+  language_id: <%= Fixtures.identify('language_en') %>
+
 first-proposal-doc-english:
   title: 'A first proposal!'
   text: 'I think, a good proposal would be a first one!'
@@ -212,6 +219,13 @@ sixth-proposal-doc-german:
   statement_id: <%= Fixtures.identify('sixth-proposal-statement') %>
   language_id: <%= Fixtures.identify('language_de') %>
   translated_document_id: <%= Fixtures.identify('sixth-proposal-doc-english') %>
+  
+english-child-doc-english:
+  title: 'I am the only english child'
+  text: 'I am the only english child!'
+  author_id: <%= Fixtures.identify(:editor) %>
+  statement_id: <%= Fixtures.identify('english-child-proposal-statement') %>
+  language_id: <%= Fixtures.identify('language_en') %>
 
 first-impro-proposal-doc-german:
   title: 'Ein besserer Vorschlag'

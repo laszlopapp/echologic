@@ -28,13 +28,124 @@
   display: block;
 }
 
+/* BLOCK DESIGN WITH HEADER */
+
+.header_block {
+  background: url(../images/page/header_left.png) no-repeat scroll left top;
+  padding: 6px 0 0 15px;
+  margin: 20px 0 25px 165px;
+}
+
+.simple_header_block {
+  padding: 6px 0 0 15px;
+  margin: 0 0 25px 165px;
+}
+
+.header_block h2 {
+  background: url(../images/page/header_right.png) no-repeat scroll right top;
+  height: 31px;
+  margin: -6px 0 10px !important;
+  line-height: 31px;
+  vertical-align: middle;
+  color: #21587f !important;
+}
+
+.header_block h3 {
+  color: #7bb031;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.header_block ul {
+  margin: 0;
+  padding: 0;
+}
+
+.header_block li {
+  list-style-type: none;
+  line-height: 24px;
+  display: block;
+  vertical-align: middle;
+  cursor: default;
+}
+
+.two_columns_block li {
+  list-style-type: none;
+  line-height: 24px;
+  width: 400px;
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 8px;
+}
+
+.header_block li .label {
+  color: #7bb031;
+  font-size: 15px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.header_block li .value {
+  color: #21587f;
+  display: block;
+  width: 375px;
+  overflow: hidden;
+}
+
+.header_block li .value a {
+  color: #21587f;
+}
+
+.header_block .guide {
+  color: #21587f;
+  font-size: 13px;
+  line-height: 18px;
+  margin: 10px 0;
+  cursor: default;
+}
+
+.add_new_button {
+  vertical-align: top;
+}
+
+.column_200 {
+  width: 195px !important;
+  padding: 2px !important;
+  display: inline-block !important;
+  vertical-align: top;
+  overflow: hidden;
+}
+
+.header_block input[type="text"] {
+  border: 1px solid #999;
+  color: #21587F;
+  font-size: 14px;
+  min-height: 18px;
+  width: 195px;
+  margin: 1px;
+}
+
+.header_block select {
+  border: 1px solid #999999;
+  color: #21587F;
+  padding: 2px;
+  width: 195px;
+}
+
+.right_block_illustration {
+  float: left;
+  position: relative;
+  left: 25px;
+}
+
 /* FUNCTION BUTTONS */
 
 .text_button {
   color: #21587f;
   font-family: arial,Helvetica,sans-serif;
   font-size: 13px;
-  margin-left: 10px;
+  margin-left: 20px;
   padding-left: 20px;
   text-decoration: none;
   border: none;
@@ -45,17 +156,32 @@
   text-decoration: underline;
 }
 
-.add_button {
+.text_button.ttLink:hover {
+  border-bottom: none;
+}
+
+.add_text_button {
   background:transparent url(../images/page/icons/add_button.png) no-repeat scroll 0 0;
   height: 20px;
   padding-left: 23px;
 }
 
-.edit_button {
+.edit_text_button {
   background:transparent url(../images/page/icons/edit_button.png) no-repeat scroll 0 0;
   height: 17px;
   line-height: 17px;
   display: inline-block;
+}
+
+.publish_text_button {
+  background:transparent url(../images/page/icons/publish_button.png) no-repeat scroll 0 0;
+  height: 17px;
+  line-height: 17px;
+  display: inline-block;
+}
+
+.publish_text_button:hover {
+  background-position: 0 -17px
 }
 
 .save_button {
@@ -67,18 +193,43 @@
 
 .or_cancel {
   color: #21587f;
+  margin-left: 5px;
+  cursor: default;
 }
 
-.cancel_button {
+.bold_cancel_text_button {
+  font-weight: bold;
   padding-left: 0px;
+  margin-left: 15px;
 }
 
-.delete_button {
+.cancel_text_button {
+  padding-left: 0px;
+  margin-left: 15px;
+}
+
+.delete_text_button {
   background:transparent url(../images/page/icons/delete_button.png) no-repeat scroll 0 0;
   height: 16px;
   line-height: 17px;
   display: inline-block;
 }
+
+/* All buttons in a block header */
+.header_block .header_button {
+  float: right;
+  position: relative;
+  right: 20px;
+  top: 1px;
+}
+
+.simple_header_block .header_button {
+  float: right;
+  position: relative;
+  top: 18px;
+}
+
+/* ADMIN STUFF */
 
 .admin_action {
   background-color: #db4c3d;
@@ -92,6 +243,49 @@
 .admin_action:hover {
   text-decoration: underline;
 }
+
+
+/* TAGS */
+
+.tag_container {
+  display: inline-block;
+  width: 385px;
+  margin: 23px 0 0;
+  padding: 2px 4px;
+  min-height: 30px;
+  border: 1px solid #999;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+}
+
+.tag {
+  font-size: 13px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  background-color: #E3EAEE;
+  padding: 3px 7px;
+  margin: 4px 3px;
+  display: inline-block;
+}
+
+.delete_tag_button {
+  background:transparent url(../images/page/icons/delete_tag_button.png) no-repeat scroll 0 0;
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+  top: 2px;
+  margin-left: 6px;
+}
+
+.tag a .delete_tag_button {
+ margin-left: 2px;
+}
+
+.delete_tag_button:hover {
+  background-position: 0 -12px;
+}
+
 
 /* PAGINATION */
 
@@ -401,6 +595,7 @@
 }
 
 #search_form {
+  clear: both;
   margin: 20px 0 2px;
   padding: 0;
   text-align: center;
@@ -431,6 +626,7 @@
 #search_form input[type='submit']:hover {
   background-position: 0 -29px;
 }
+
 
 /* Container for profiles and debates */
 

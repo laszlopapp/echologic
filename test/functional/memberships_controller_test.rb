@@ -9,7 +9,7 @@ class MembershipsControllerTest < ActionController::TestCase
 
   test "should get new" do
     get :new
-    assert_response (:error, "template new missing")
+    assert_response(:error, "template new missing")
   end
 
   test "should create membership" do

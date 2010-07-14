@@ -34,13 +34,13 @@ class TagTest < ActiveSupport::TestCase
       Tag.find_or_create_with_value_like("captainplanet")
     end
     assert_difference('Tag.count', 1, "should insert 1 value in german") do
-      Tag.find_or_create_with_value_like("kaptainerdbeben",Tag.languages("de").first.id)
+      Tag.find_or_create_with_value_like("kaptainerdbeben",Tag.languages("de").id)
     end
     assert_difference('Tag.count', 4, "should insert 4 values") do
       Tag.find_or_create_all_with_values_like("john","paul","george","ringo")
     end
     assert_difference('Tag.count', 4, "should insert 4 values in german") do
-      Tag.find_or_create_all_with_values_like("johan","helmut","franz","klaus",Tag.languages("de").first.id)
+      Tag.find_or_create_all_with_values_like("johan","helmut","franz","klaus",Tag.languages("de").id)
     end
 
   end

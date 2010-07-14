@@ -20,7 +20,7 @@ class SpokenLanguageTest < ActiveSupport::TestCase
 
     context "being saved" do
       setup do
-        @spoken_language.update_attributes!(:user => User.first, :language => SpokenLanguage.languages("en").first, :level => SpokenLanguage.language_levels("intermediate").first)
+        @spoken_language.update_attributes!(:user => User.first, :language => SpokenLanguage.languages("en"), :level => SpokenLanguage.language_levels("intermediate"))
       end
 
       should "be able to access its language data" do

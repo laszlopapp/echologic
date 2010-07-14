@@ -1,5 +1,6 @@
 class DiscussController < ApplicationController
   
+  
   # GET /discuss
   def roadmap
     respond_to do |format|
@@ -12,18 +13,17 @@ class DiscussController < ApplicationController
       format.html
     end
   end
-  
-  # processes a cancel request, and redirects back to the last shown statement
+    
+  # processes a cancel request, and redirects back to the last shown statement_node
   def cancel
-    @statement = StatementNode.find(session[:last_statement])
-    #redirect_to question_proposal_url(@statement.parent, @statement)
-    case @statement.class.name
+    @statement_node = StatementNode.find(session[:last_statement_node])
+    case @statement_node.class.name
     when "Question"
-      redirect_to question_url(@statement)
+      redirect_to question_url(@statement_node)
     when "Proposal"
-      redirect_to question_proposal_path(@statement.parent, @statement)
+      redirect_to question_proposal_path(@statement_node.parent, @statement_node)
     when "ImprovementProposal"
-      redirect_to question_proposal_improvement_proposal_url(@statement.root, @statement.parent, @statement)
+      redirect_to question_proposal_improvement_proposal_url(@statement_node.root, @statement_node.parent, @statement_node)
     end
   end
 

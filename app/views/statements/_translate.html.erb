@@ -1,4 +1,4 @@
-<% statement ||= @statement -%>
+<% statement_node ||= @statement_node -%>
 <% old_statement_document ||= @statement_document%>
 <% new_statement_document ||= @new_statement_document %>
 <div id="summary" class="simple_header_block discuss_right_block">
@@ -12,10 +12,10 @@
       <%= image_tag('page/translation/babelfish_right.png', :class => 'fish_right') %>
       <span class="language_label to_language"><%= EnumKey.find_by_code(params[:locale]).get_current_enum_value.value.upcase %></span>
 		</div>
-	  <%= render :partial => 'statements/translation_form', :locals => {:statement => statement, :new_statement_document => new_statement_document } %>
+	  <%= render :partial => 'statements/translation_form', :locals => {:statement_node => statement_node, :new_statement_document => new_statement_document } %>
 	</div>
 </div>
 
 <script type="text/javascript">
- $('#edit_<%=statement_class_dom_id(statement)%>_<%=statement.id%>').ajaxForm({ dataType : 'script' });
+ $('#edit_<%=statement_node_class_dom_id(statement_node)%>_<%=statement_node.id%>').ajaxForm({ dataType : 'script' });
 </script>

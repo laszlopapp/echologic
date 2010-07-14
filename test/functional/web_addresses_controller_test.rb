@@ -13,7 +13,7 @@ class WebAddressesControllerTest < ActionController::TestCase
 
   test "should create web_address" do
     assert_difference('WebAddress.count') do
-      post :create, :web_address => {:type_id => WebAddress.web_address_types("email").first.id, :address => 'wiri@coco.com'}
+      post :create, :web_address => {:type_id => WebAddress.web_address_types("email").id, :address => 'wiri@coco.com'}
     end
 
   end

@@ -1,10 +1,11 @@
 # USER ROLES
 { :admin => %w(),
-  :editor => %w()
+  :editor => %w(),
+  :topic_editor => %w()
 }.each_pair { |role, users| users.each { |user| user.has_role!(role) } }
 
 # TOPIC CATEGORIES
-%w(echonomyjam echocracy echo echosocial realprices igf klimaherbsttv).each { |name| Tag.create(:value => name) }
+%w(#echonomyjam #echocracy #echo #echosocial #realprices #igf #klimaherbsttv).each { |name| Tag.create(:value => name) }
 
 
 ###############
@@ -35,6 +36,11 @@ end
 # TAG CONTEXTS
 %w(affection engagement expertise decision_making field_work field_activity topic).each_with_index do |code, index|
   EnumKey.create(:code => code, :enum_name => "tag_contexts", :key => index+1, :description => "tag_context")
+end
+
+# STATEMENT STATES
+%w(new published).each_with_index do |code, index|
+  EnumKey.create(:code => code, :enum_name => "statement_states", :key => index+1, :description => "statement_state")
 end
 
 # VALID CONTEXTS
@@ -134,4 +140,15 @@ end
 end
 ["Field of Activity","Betätigungsfeld","Domaine d'activité","Domínio de Actividade","Área de Actividad"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('field_activity'), :language_id => index+1, :value => value, :context=> "")
+end
+["Topic","Thema","Sujet","Tópico","Tema"].each_with_index do |value,index|
+  EnumValue.create(:enum_key => EnumKey.find_by_code('topic'), :language_id => index+1, :value => value, :context=> "")
+end
+
+# Statement States
+["New","Neu","Neuf","Novo","Nuevo"].each_with_index do |value,index|
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('new','statement_states'), :language_id => index+1, :value => value, :context=> "")
+end
+["Published","Veröffentlicht","Publié","Publicado","Publicado"].each_with_index do |value,index|
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('published','statement_states'), :language_id => index+1, :value => value, :context=> "")
 end

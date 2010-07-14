@@ -4,4 +4,23 @@ role_editor:
   name: editor
 role_censor:
   name: censor
-
+role_topic_editor_echonomy_jam:
+  name: topic_editor
+  authorizable_type: Tag
+  authorizable_id: <%= Fixtures.identify('echonomy-jam') %>
+role_topic_editor_echocracy:
+  name: topic_editor
+  authorizable_type: Tag
+  authorizable_id: <%= Fixtures.identify('echocracy') %>
+role_topic_editor_echo:
+  name: topic_editor
+  authorizable_type: Tag
+  authorizable_id: <%= Fixtures.identify('echo') %>
+role_topic_editor_echosocial:
+  name: topic_editor
+  authorizable_type: Tag
+  authorizable_id: <%= Fixtures.identify('echosocial') %>
+role_topic_editor_realprices:
+  name: topic_editor
+  authorizable_type: Tag
+  authorizable_id: <%= Fixtures.identify('realprices') %>

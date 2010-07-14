@@ -1,6 +1,6 @@
 <% content_for :submenu, tabnav(:discuss) %>
 <%# TODO locals? %>
-<%= render :partial => 'statements/translate', :locals => {:statement => @statement, :old_statement_document => @statement_document, :new_statement_document => @new_statement_document} %>
+<%= render :partial => 'statements/translate', :locals => {:statement_node => @statement_node, :old_statement_document => @statement_document, :new_statement_document => @new_statement_document} %>
 <script>
   roundCorners();
 </script>

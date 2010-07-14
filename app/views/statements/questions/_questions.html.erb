@@ -17,8 +17,8 @@
     <span class="box_header_icon"></span>
 
     <ul>
-      <% unless statements.empty? %>
-        <%= render :partial => 'statements/questions/question', :collection => statements %>
+      <% unless statement_nodes.empty? %>
+        <%= render :partial => 'statements/questions/question', :collection => statement_nodes %>
       <% else %>
         <span class="no_results">
           <%= (!current_user or current_user.spoken_languages.blank?) ?
@@ -28,9 +28,10 @@
       <% end %>
 	  </ul>
 
-    <%= will_paginate statements,
-                      :previous_label => '', :next_label => '',
-                      :params => {:controller => :discuss} if defined? statements.total_pages %>
+    <%= will_paginate statement_nodes,
+                      :previous_label => '',
+                      :next_label => '',
+                      :params => {:controller => :discuss} if defined? statement_nodes.total_pages %>
   </div>
 </div>
 

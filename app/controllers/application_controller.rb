@@ -72,7 +72,11 @@ class ApplicationController < ActionController::Base
         value += "<li>#{message}</li>"
       end
       value += "</ul>"
-      @error = value
+      if @error.nil?
+        @error = value
+      else
+        @error << value
+      end
     end
   end
 
@@ -197,12 +201,12 @@ class ApplicationController < ActionController::Base
   # Language skills of current user
   # -------------------------------
 
-  def current_language_key
+  def locale_language_id
     EnumKey.find_by_enum_name_and_code("languages", I18n.locale.to_s).id
   end
 
-  def current_language_keys
-    keys = [current_language_key].concat(current_user ? current_user.language_keys : []).uniq
+  def language_preference_list
+    keys = [locale_language_id].concat(current_user ? current_user.spoken_language_ids : []).uniq
   end
 
 
@@ -237,13 +241,21 @@ class ApplicationController < ActionController::Base
   def expire_session!
     current_user_session.try(:destroy)
     reset_session
-    if params[:controller] == 'users/user_session' && params[:action] == 'destroy'
+    if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'
       # still display logout message on logout.
       flash[:notice] = I18n.t('users.user_sessions.messages.logout_success')
     else
       flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
     end
-    redirect_to root_path
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.js do
+        render :update do |page|
+          page.redirect_to root_path
+        end
+      end
+    end
+
   end
 
   # Called when when a routing error occurs.

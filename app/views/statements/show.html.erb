@@ -1,9 +1,11 @@
 <% content_for :submenu, tabnav(:discuss) %>
 
-<%= render :partial => 'statements/context', :locals => {:statement => @statement} %>
-<%= render :partial => 'statements/sidebar', :locals => {:statement => @statement}%>
-<%= render :partial => 'statements/summary', :locals => {:statement => @statement, :statement_document => @statement_document} %>
-<%= render :partial => 'statements/children', :locals => {:statement => @statement, :children => @children } %>
+<%= render :partial => 'statements/context', :locals => {:statement_node => @statement_node} %>
+<%= render :partial => 'statements/sidebar', :locals => {:statement_node => @statement_node}%>
+<%= render :partial => 'statements/summary', :locals => {:statement_node => @statement_node,
+                                                         :statement_document => @statement_document} %>
+<%= render :partial => 'statements/children', :locals => {:statement_node => @statement_node,
+                                                          :children => @children } %>
 
 <script type="text/javascript">
   makeRatiobars();

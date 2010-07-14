@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   include UserExtension::Echo
-  
-  
+
+
   has_many :web_addresses, :dependent => :destroy
   has_many :memberships, :dependent => :destroy
   has_many :spoken_languages, :dependent => :destroy, :order => 'level_id asc'
@@ -16,15 +16,19 @@ class User < ActiveRecord::Base
   has_one :profile, :dependent => :destroy
 
   named_scope :affection_tags, lambda {
-  {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("affection")]}}
+    {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("affection")]}
+  }
   named_scope :engagement_tags, lambda {
-  {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("engagement")]}}
+    {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("engagement")]}
+  }
   named_scope :expertise_tags, lambda {
-  {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("expertise")]}}
+    {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("expertise")]}
+  }
   named_scope :decision_making_tags, lambda {
-  {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("decision_making")]}}
+    {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("decision_making")]}
+  }
  
-  
+
   # TODO add attr_accessible :active if needed.
   #attr_accessible :active
 
@@ -103,13 +107,13 @@ class User < ActiveRecord::Base
   ## PERMISSIONS
   ##
 
-  # the given `statement' is ignored for now, but we need it later
+  # the given `statement_node' is ignored for now, but we need it later
   # when we enable editing for users.
-  def may_edit?(statement)
+  def may_edit?
     has_role?(:editor) or has_role?(:admin)
   end
 
-  def may_delete?(statement)
+  def may_delete?(statement_node)
     has_role?(:admin)
   end
 
@@ -118,20 +122,27 @@ class User < ActiveRecord::Base
   ##
 
   # returns an array with the actual language_ids of the users spoken languages (used to find the right translations)
-  def language_keys(prio_language = 0)
+  def spoken_language_ids
     a = []
     SpokenLanguage.language_levels.each do |level|
       a << self.spoken_languages.select{|sp| sp.level.eql?(level)}
     end
-    a.each do |sp_array|
-      sp_array.sort!{|sp1, sp2| prio_language }
-    end
     a.flatten.map(&:language_id)
-#    self.spoken_languages.sort {|sp1, sp2| }.map(&:language_id)
   end
 
   def mother_tongues
     self.spoken_languages.select{|sp| sp.level.code == 'mother_tongue'}.collect{|sp| sp.language}
   end
 
+  ##
+  ## CONCERNMENTS (TAGS)
+  ##
+
+  def add_tags(tags, opts = {})
+    self.tao_tags << TaoTag.create_for(tags, opts[:language_id], {:tao_id => self.id, :tao_type => self.class.name, :context_id => opts[:context_id]})
+  end
+
+  def delete_tags(tags)
+    self.tao_tags.each {|tao_tag| tao_tag.destroy if tags.include?(tao_tag.tag.value)}
+  end
 end

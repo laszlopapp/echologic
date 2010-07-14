@@ -281,6 +281,11 @@ pt:
   # ---------------
 
   discuss:
+    my_discussions:
+      link: Minhas Discussões
+      title: As minhas discussões novas e publicadas
+    tag_permission: |
+      Não tem permissão para inserir a tag '{{tag}}'.
     translation_request: Por favor traduza este texto em <strong>PORTUGUÊS</strong>.
     original_language_warning: |
       O texto original encontra-se em <strong>{{language}}</strong>. Defina os seus conheci-<br/>
@@ -289,7 +294,7 @@ pt:
       one: '{{count}} discussão'
       more: '{{count}} discussões'
     featured_topics:
-      title: Tópicos destacados
+      title: Tópicos Destacados
       text: |
         <p>
         Como pode ver no Roteiro (canto superior direito do ecrã),
@@ -451,6 +456,7 @@ pt:
       echo_indicator:
         one: 'Esta afirmação tem {{supporter_count}} apoiante.'
         many: 'Esta afirmação tem {{supporter_count}} apoiantes.'
+      publish: 'Publique a discussão, de forma a esta se tornar visível para todos.'
 
     statements:
       label: 'echos'
@@ -459,20 +465,24 @@ pt:
       create_internal_link: 'Nova ideia?'
       create_improvement_proposal_link: 'Criar nova proposta de melhoria'
       create_question_explanation: |
-        Olá Editor! Aqui pode abrir uma nova questão.
+        Aqui pode começar uma <strong>nova discussão</strong> e providenciar um conjunto de <strong>palavras-chave
+        temáticas</strong>  adequadas de forma a este ser facilmente encontrado.
       create_proposal_explanation: |
         Tem uma <strong>boa ideia</strong> no que diz respeito à questão actual, que ainda <strong>não existe</strong>?<br/>
         Aqui pode criar uma <strong>nova proposta</strong>.
       create_improvement_proposal_explanation: |
         Tem uma <strong>boa ideia</strong> para <strong>tornar a proposta actual ainda melhor</strong>?<br/>
         Aqui pode criar uma <strong>nova proposta de melhoria</strong>.
+      publish: Publicar
+      published: A discussão foi publicada com sucesso.
+      edit: 'Editar {{type}}'
 
       types:
         question:  'Questão'
         proposal:  'Proposta'
         improvement_proposal: 'Proposta de melhoria'
       new:
-        question:  'Nova Questão'
+        question:  'Nova Discussão'
         proposal:  'Nova Proposta'
         improvement_proposal: 'Nova Proposta de Melhoria'
       headings:
@@ -480,8 +490,9 @@ pt:
         proposal: 'Propostas'
         improvement_proposal: 'Propostas de Melhoria'
       states:
-        new: 'Novo'
-        published: 'Publicado'
+        label: 'Publicar discussão?'
+        deferred_publish: 'Primeiro criar e mais tarde publicar.'
+        immediate_publish: 'Imediatamente publicar.'
       delete_link: "Apagar"
       delete_confirmation: "Tem a certeza que quer apagar esta afirmação?"
     summary:

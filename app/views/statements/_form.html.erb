@@ -1,27 +1,55 @@
+<% statement_node ||= @statement_node %>
+<% statement_node.state_id ||= StatementNode.statement_states('new').id %>
+<% tags ||= @tags %>
+<% statement_document ||= @statement_document %>
+<% semantic_form_for statement_node.self_with_parents, :html => {:class => 'wide_form' } do |form| -%>
 
-<% statement ||= @statement %>
-<% semantic_form_for statement.self_with_parents, :html => {:class => 'wide_form'} do |form| -%>
-  <%#= form.error_messages %>
-  <%= render :partial => "statements/document_form", :locals => { :form => form} %>
-  <% #FIXME: i don't know how to do this manually with formtastics. enums are not really supported by rails, and everywhere else where we use enum like statefulness in models, views do it like this %>
-  <% if statement.kind_of?(Question) -%>
+  <!-- Basic fields: title + text -->
+  <%= render :partial => "statements/document_form",
+             :locals => { :form => form,
+                          :statement_node => statement_node,
+                          :statement_document => statement_document } %>
+
+  <% if statement_node.kind_of?(Question) -%>
+
+    <!-- Statement tags (currently only for questions) -->
     <% form.inputs do %>
-      <li id="question_state_input" class="select optional error">
-        <%= form.label :state %>
-        <%# would be nice to have map_with_index... -%>
-        <% i = -1 -%>
-        <%= form.select(:state, StatementNode.states.map { |state| [I18n.t("discuss.statements.states.#{state}"), i+=1] },
-                        :selected => form.object.state) %>
-      </li>
+		  <%= render :partial => "statements/statement_tags",
+                 :locals => {:form => form,
+                             :statement_node => statement_node,
+                             :tags => tags}%>
+		<% end %>
+
+    <!-- Published state radio buttons -->
+    <% if statement_node.new_record? -%>
+      <% form.inputs do %>
+        <%= form.input :state_id,
+                       :as => :radio,
+                       :label => I18n.t('discuss.statements.states.label'),
+                       :collection => [[I18n.t('discuss.statements.states.deferred_publish'),
+                                         StatementNode.statement_states('new').id],
+                                       [I18n.t('discuss.statements.states.immediate_publish'),
+                                         StatementNode.statement_states('published').id]] %>
+      <% end %>
     <% end %>
-  <% end -%>
+
+  <% else -%>
+    <!-- All statement types but questions -->
+	  <%= form.hidden_field :state_id, :value => StatementNode.statement_states('published').id %>
+	<% end -%>
+
+  <!-- Hidden fields -->
+	<%= form.hidden_field :statement_id %>
   <%= form.hidden_field :parent_id %>
-  <%= form.hidden_field :category_id %>
-	<%= hidden_field_tag "#{statement_class_dom_id(@statement).downcase}[statement_document][author_id]", current_user.id %>
-  <%= hidden_field_tag "#{statement_class_dom_id(@statement).downcase}[statement_document][language_id]", @current_language_key %>
+	<%= hidden_field_tag "#{statement_node_class_dom_id(@statement_node).downcase}[statement_document][author_id]",
+                       current_user.id %>
+  <%= hidden_field_tag "#{statement_node_class_dom_id(@statement_node).downcase}[statement_document][language_id]",
+                       statement_document.language_id || @locale_language_id %>
+
+  <!-- Submit or cancel -->
   <% form.buttons do %>
     <%= form.commit_button I18n.t('application.general.save'), :button_html => { :alt => 'save_button' } %>
     <span class="or_cancel"><%= I18n.t('application.general.or') %></span>
-    <%= link_to I18n.t('application.general.cancel'), session[:last_statement] ? statement_path(session[:last_statement]) : (statement.parent or discuss_url), :class => 'ajax text_button cancel_button' %>
+		<%= cancel_new_statement_node(statement_node) %>
   <% end %>
 <% end -%>

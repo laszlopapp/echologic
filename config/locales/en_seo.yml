@@ -1,0 +1,118 @@
+en:
+
+  # SEO data
+  seo:
+    title:
+
+      # static: de.seo.title.static
+      static:
+        echologic:
+          show: &html_title 'echologic for echo - The Global Agora (Engage into Democracy)'
+          about:            'echologic for echo - About us'
+          imprint:          'echologic for echo - Imprint'
+          data_privacy:     'echologic for echo - Data Privacy'
+        echo:
+          show:    'echo - The Global Agora (Engage into Democracy)'
+          discuss: 'echo - Discuss (opinion and will formation - solution-oriented, transparent & democratic)'
+          connect: 'echo - Connect (with allies with different forms of competence)'
+          act:     'echo - Act (for noticeable results in everyday life)'
+          echo_on_waves: 'echo - Everywhere (synergies through decentral infrastructure - echo on waves)'
+        echocracy:
+          show:            'echocracy - The Open, Participatory Democracy of echo'
+          citizens:        'echocracy - Affected & Engaged Citizens'
+          scientists:      'echocracy - Experts & Scientists'
+          decision_makers: 'echocracy - Political and Economic Decision Makers'
+          organisations:   'echocracy - Non-governmental & Governmental Organizations'
+        echonomy:
+          show:            'echonomy - A New Era of Eco-Socially Sustainable, Democratic Economy'
+          your_profit:     'echonomy - Social Business with Your-Profit Business Philosophy'
+          foundation:      'echonomy - The Echonomy Foundation'
+          public_property: 'echonomy - echo as Common Property'
+        echosocial:
+          show:            'echo social - Home'
+          features:        'echo social - Features'
+          extensions:      'echo social - Extensions'
+
+
+      # users: de.seo.title.users
+      users:
+        users:
+          new: 'Your echo - Join echologic'
+        activations:
+          new: Your echo - Activate your echologic account
+          create: 'Your echo - Activate your echologic account'
+        password_resets:
+          new: 'Your echo - Require New Password'
+          edit: 'Your echo - Set New Password'
+        profile:
+          details: 'Your echo - Profile Details'
+
+      # discuss: de.seo.title.discuss
+      discuss:
+        index: 'echologic - Discuss'
+        roadmap: 'echologic - Roadmap for Discuss'
+      questions:
+        category: 'echologic - Discussion Topic'
+        show: 'echologic - Discussion'
+        new: 'Open new discussion'
+        my_discussions: 'My Discussions'
+      proposals:
+        show: 'echologic - Positions in the Debate'
+      improvement_proposals:
+        show: 'echologic - Ideas to Improve the Position'
+
+      # connect: de.seo.title.connect
+      connect:
+        roadmap:  'echologic - Roadmap for Connect'
+        show:   'echologic - Connect - Explore Community'
+        fill_out_profile: 'echologic - Connect - Give and Take'
+
+      # act: de.seo.title.act
+      act:
+        roadmap: 'echologic - Roadmap for Act'
+
+      # my_echo: de.seo.title.my_echo
+      my_echo:
+        roadmap: 'echologic - Roadmap for My echo'
+        welcome: 'echologic - Welcome'
+        profile: 'echologic - My Profile'
+
+      # my_echo: de.seo.title.admin
+      admin:
+        show: 'echologic - Admin Bereich'
+
+    meta:
+      echologic:
+        description: |-
+          echologic is a network of movers and their organizations united to realize echo - the global agora.
+          echo is a joint project to facilitate sustainable change through active citizen participation.
+          echo provides the technological basis for an open, participatory democracy on the local, regional and
+          global level.
+        keywords: |-
+          echologic, movement, global movement, echo, agora, global agora, democracy, participatory democracy,
+          self-determination, collective intelligence, opinion base, opinion formation, will formation,
+          collective decision making, mobilization, critical masses, legislative instruments, political influence,
+          social collaboration, echocracy, equality, transparency, echonomy, eco-social, ecosocial democratic economy,
+          Your-Profit, glocal, glocality, sustainability, sustainable change
+
+      echo:
+        description: |-
+          echo is a joint project of humanity to facilitate sustainable change through active citizen participation.
+          It provides the technological basis for an open, participatory democracy on the local, regional and
+          global level. Your voice finds here an echo. Ideas turn into movements, visions into reality.
+          echo means the end of powerlessness and the beginning of self-determination.
+        keywords: |-
+          echo, agora, global agora, democracy, participatory democracy, self-determination, collective intelligence,
+          opinion base, opinion formation, will formation, collective decision making, mobilization, critical masses,
+          legislative instruments, political influence, social collaboration, echocracy, equality, transparency,
+          echonomy, eco-social, Your-Profit, glocal, glocality, sustainability, sustainable change
+
+      echosocial:
+        description: |-
+          echo social is the open source solution to easily create your social network and your individual website -
+          for free! Additionally, echo social aims to foster joint action by uniting the countless isolated projects and
+          actions into a global movement.
+        keywords: |-
+          social network, free, open source, individual website, decentral system, bundling civil engagement,
+          global movement, political influence, ecosocial, eco-social, eco, social
+

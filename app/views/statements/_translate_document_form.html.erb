@@ -1,5 +1,8 @@
-<% form.semantic_fields_for :new_statement_document, statement do |doc|  %>
- <%= hidden_field_tag "#{statement_class_dom_id(@statement).downcase}[new_statement_document][translated_document_id]", @statement_document.id %>
+<% statement_node ||= @statement_node %>
+<% statement_document ||= @statement_document%>
+<% new_statement_document ||= @new_statement_document%>
+<% form.semantic_fields_for :new_statement_document, new_statement_document do |doc|  %>
+ <%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[new_statement_document][translated_document_id]", statement_document.id %>
   <% doc.inputs :class => 'inputs right_panel' do %>
     <%= doc.input :title %>
     <br/>
