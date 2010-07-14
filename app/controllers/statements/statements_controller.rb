@@ -54,10 +54,11 @@ class StatementsController < ApplicationController
     @language_preference_list = language_preference_list
 
     statement_nodes_not_paginated = search(@value, @language_preference_list,
-                                           {:tag => category,
+                                           {:category => category,
                                             :auth => (current_user && current_user.has_role?(:editor))})
     @count    = statement_nodes_not_paginated.size
-    @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => 6)
+    @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page,
+                                                              :per_page => 6)
 
     respond_to do |format|
       format.html {render :template => 'statements/questions/index'}
