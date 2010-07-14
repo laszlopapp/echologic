@@ -132,6 +132,7 @@ class Users::UsersController < ApplicationController
     concernments = params[:tag][:value]
     new_concernments = concernments.split(',').map!{|t|t.strip} - current_user.send("#{params[:context]}_tags".to_sym)
     all_concernments = current_user.send("#{params[:context]}_tags".to_sym) + new_concernments
+    old_concernments_hash = current_user.send("#{params[:context]}_tags_hash".to_sym)
     current_user.send("#{params[:context]}_tags=".to_sym, all_concernments)
     respond_to do |format|
       format.js do
@@ -140,10 +141,11 @@ class Users::UsersController < ApplicationController
           if previous_completeness != current_completeness
             set_info("discuss.messages.new_percentage", :percentage => current_completeness)
           end
+          new_concernments_hash = current_user.send("#{params[:context]}_tags_hash").to_a - old_concernments_hash.to_a
           render_with_info do |p|
             p.insert_html :bottom, "concernments_#{params[:context]}",
                           :partial => "users/concernments/concernment",
-                          :collection => new_concernments,
+                          :collection => new_concernments_hash,
                           :locals => {:context => params[:context]}
             p << "$('#new_concernment_#{params[:context]}').reset();"
             p << "$('#concernment_#{params[:context]}_id').focus();"
@@ -157,7 +159,7 @@ class Users::UsersController < ApplicationController
   
   def delete_concernment
     previous_completeness = current_user.percent_completed
-    current_user.send("#{params[:context]}_tags=", current_user.send("#{params[:context]}_tags") - [params[:id]])
+    current_user.send("#{params[:context]}_tags=", current_user.send("#{params[:context]}_tags") - [params[:tag]])
     current_user.save
     current_user.profile.save
     current_completeness = current_user.percent_completed

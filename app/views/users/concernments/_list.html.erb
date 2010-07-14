@@ -19,7 +19,7 @@
 </div>
 
 <div id="concernments_<%= context %>" class="tag_container">
-  <%= render :partial => 'users/concernments/concernment', :collection => concernments, :locals => {:context => context} %>
+  <%= render :partial => 'users/concernments/concernment', :collection => concernments.to_a, :locals => {:context => context} %>
 </div>
 
 <script type="text/javascript">
