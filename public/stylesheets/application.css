@@ -193,10 +193,16 @@
 .or_cancel {
   color: #21587f;
   margin-left: 5px;
+  cursor: default;
 }
 
-.cancel_button {
+.bold_cancel_text_button {
   font-weight: bold;
+  padding-left: 0px;
+  margin-left: 15px;
+}
+
+.cancel_text_button {
   padding-left: 0px;
   margin-left: 15px;
 }
@@ -212,15 +218,14 @@
 .header_block .header_button {
   float: right;
   position: relative;
-  top: -34px;
   right: 20px;
-  margin-bottom: -34px;
+  top: 1px;
 }
 
 .simple_header_block .header_button {
   float: right;
   position: relative;
-  top: -39px;
+  top: 18px;
 }
 
 /* ADMIN STUFF */
