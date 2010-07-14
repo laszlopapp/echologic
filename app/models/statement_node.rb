@@ -2,13 +2,6 @@ class StatementNode < ActiveRecord::Base
   include Echoable
   acts_as_extaggable :topics
   acts_as_subscribeable
-  
-  # magically allows Proposal.first.question? et al.
-  #
-  # FIXME: figure out why this sometimes doesn't work, but only in ajax requests
-#  def method_missing(sym, *args)
-#    sym.to_s =~ /\?$/ && ((klass = sym.to_s.chop.camelize.constantize) rescue false) ? klass == self.class : super
-#  end
 
   # static for now
   def published?
@@ -18,7 +11,7 @@ class StatementNode < ActiveRecord::Base
   ##
   ## ASSOCIATIONS
   ##
- 
+
   belongs_to :creator, :class_name => "User"
   belongs_to :root_statement, :foreign_key => "root_id", :class_name => "StatementNode"
   belongs_to :statement
@@ -30,29 +23,31 @@ class StatementNode < ActiveRecord::Base
   #belongs_to :work_packages
 
   has_many :statement_documents, :through => :statement, :source => :statement_documents do
-    # this query returns translation for a statement ordered by the users prefered languages
+    # this query returns translation for a statement ordered by the users preferred languages
     # OPTIMIZE: this should be built in sql
 
     def for_languages(lang_ids)
-      # doc = find(:all, :conditions => ["translated_statement_id = ? AND language_code = ?", nil, lang_codes.first]).first
-      find(:all, :conditions => ["language_id IN (?)", lang_ids]).sort { |a, b| lang_ids.index(a.language_id) <=> lang_ids.index(b.language_id)}.first
+      find(:all, :conditions => ["language_id IN (?)", lang_ids]).sort {
+         |a, b| lang_ids.index(a.language_id) <=> lang_ids.index(b.language_id)
+      }.first
     end
   end
-  
-  
+
+
   ##
   ## VALIDATIONS
   ##
 
 
   validates_presence_of :state_id
+  validates_numericality_of :state_id
   validates_presence_of :creator_id
   validates_presence_of :statement
-  validates_numericality_of :state_id
   validates_associated :creator
   validates_associated :statement
-  
+
   after_destroy :delete_dependencies
+
 
   def delete_dependencies
     self.statement.destroy if self.statement.statement_nodes.empty?
@@ -60,7 +55,8 @@ class StatementNode < ActiveRecord::Base
 
   def validate
     # except of questions, all statements need a valid parent
-    errors.add("Parent of #{self.class.name} must be of one of #{self.class.valid_parents.inspect}") unless self.class.valid_parents and self.class.valid_parents.select { |k| parent.instance_of?(k.to_s.constantize) }.any?
+    errors.add("Parent of #{self.class.name} must be of one of #{self.class.valid_parents.inspect}") unless
+      self.class.valid_parents and self.class.valid_parents.select { |k| parent.instance_of?(k.to_s.constantize) }.any?
   end
 
   ##
@@ -77,15 +73,13 @@ class StatementNode < ActiveRecord::Base
     { :conditions => { :state_id => statement_states('published').id } } unless auth }
   named_scope :by_creator, lambda {|id|
   {:conditions => ["creator_id = ?", id]}}
-  
-  
-  
+
+
   # orders
   named_scope :by_ratio, :include => :echo, :order => '(echos.supporter_count/echos.visitor_count) DESC'
   named_scope :by_supporters, :include => :echo, :order => 'echos.supporter_count DESC'
   named_scope :by_creation, :order => 'created_at DESC'
 
-  
 
 
   ## ACCESSORS
@@ -102,7 +96,8 @@ class StatementNode < ActiveRecord::Base
 
   def level
     # simple hack to gain the level
-    # problem is: as we can't use nested set (too write intensive stuff), we can't easily get the statement_nodes level in the tree
+    # problem is: as we can't use nested set (too write intensive stuff),
+    # we can't easily get the statement_nodes level in the tree
     level = 0
     level += 1 if self.parent
     level += 1 if self.root && self.root != self && self.root != self.parent
@@ -114,7 +109,7 @@ class StatementNode < ActiveRecord::Base
   ##############################
 
 
-  #publish a statement
+  # Publish a statement.
   def publish
     self.state = self.class.statement_states("published")
   end
@@ -201,11 +196,11 @@ class StatementNode < ActiveRecord::Base
 
   # that collects all children, sorted in the way we want them to
   def sorted_children(user, language_ids)
-    children = self.class.search_statement_nodes(:language_ids => language_ids, 
-                                                 :auth => user && user.has_role?(:editor), 
+    children = self.class.search_statement_nodes(:language_ids => language_ids,
+                                                 :auth => user && user.has_role?(:editor),
                                                  :conditions => ["parent_id = #{self.id}"])
   end
-  
+
   class << self
 
     def search_statement_nodes(opts={} )
@@ -213,7 +208,7 @@ class StatementNode < ActiveRecord::Base
       value = opts[:value] || ""
       #get tags
       tags = opts[:tag] || value.split(" ")
-      
+
       #sorting the or arguments
       if !value.blank?
         or_attrs = opts[:or_attrs] || %w(d.title d.text)
@@ -253,9 +248,9 @@ class StatementNode < ActiveRecord::Base
       #All Rambo's in one
       query = query_part_1+query_part_2+query_part_3
       value = "%#{value}%"
-      
+
       conditions = or_attrs ? [query, *([value] * or_attrs.size)] : query
-      
+
       statement_nodes = find_by_sql(conditions)
     end
 
@@ -272,7 +267,7 @@ class StatementNode < ActiveRecord::Base
         :order => %Q[echos.supporter_count DESC, created_at ASC] }
     end
 
-    
+
     def expected_parent_chain
       chain = []
       obj_class = self.name.constantize

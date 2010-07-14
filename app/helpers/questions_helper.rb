@@ -7,6 +7,9 @@ module QuestionsHelper
   end
   
   def publish_button(statement_node)
-    link_to('Publish', publish_question_path(statement_node), :class => 'ajax_put publish_button', :value => I18n.t("discuss.statements.publish"))
+    link_to(I18n.t("discuss.statements.publish"),
+            publish_question_path(statement_node),
+            :class => 'ajax_put publish_button ttLink',
+            :title => I18n.t('discuss.tooltips.publish'))
   end
 end

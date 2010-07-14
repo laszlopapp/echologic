@@ -7,14 +7,14 @@ class StatementNodeTest < ActiveSupport::TestCase
 
     setup { @statement_node = Question.new }
     subject { @statement_node }
-    
+
     should_belong_to :statement, :creator, :state
     should_have_many :tao_tags
     should_have_many :statement_documents
     should_have_many :tags
 
-    # should be visited and supported 
-    
+    # should be visited and supported
+
     # validates no invalid states
     [nil, "invalid state"].each do |value|
       context("with state set to #{value}") do
@@ -30,7 +30,7 @@ class StatementNodeTest < ActiveSupport::TestCase
 
     # check for validations (should_validate_presence_of didn't work)
     %w(creator_id state_id).each do |attr|
-      context "with no #{attr} set" do 
+      context "with no #{attr} set" do
         setup { @statement_node.send("#{attr}=", nil)
           assert ! @statement_node.valid?
         }
@@ -52,8 +52,11 @@ class StatementNodeTest < ActiveSupport::TestCase
     end
 
     context "being saved" do
-      setup do 
-        @statement_node.add_statement_document({:title => 'A new Document', :text => 'with a very short body, dude!', :language_id => 1, :author_id => User.first.id, :original_language_id => 1})
+      setup do
+        @statement_node.add_statement_document({:title => 'A new Document',
+                                                :text => 'with a very short body, dude!',
+                                                :language_id => 1, :author_id => User.first.id,
+                                                :original_language_id => 1})
         @statement_node.topic_tags = "bebe"
         @statement_node.creator = User.first
         @statement_node.state = StatementNode.statement_states('published')
@@ -64,53 +67,53 @@ class StatementNodeTest < ActiveSupport::TestCase
         assert_equal @statement_node.translated_document([1]).title, "A new Document"
         assert_equal @statement_node.translated_document([1]).text, "with a very short body, dude!"
       end
-      
+
       should "have creator as supporter" do
         @user = @statement_node.creator
         assert(@statement_node.supported_by?(@user))
       end
-      
+
       should "have have a creation event associated" do
         @events = @statement_node.events
         assert(@events.first.operation.eql?('new'))
         result = JSON.parse(@events.first.event)
-        
+
         question = result['question']
         statement = question['statement']
         statement_documents = statement['statement_documents']
         title = statement_documents.first['title']
         assert(title.eql?('A new Document'))
-        
+
         question = result['question']
         tao_tags = question['tao_tags']
         tag = tao_tags.first['tag']['value']
 
         assert(tag.eql?('bebe'))
       end
-      
+
       should "should be followed by creator" do
         @user = @statement_node.creator
         assert(@statement_node.followed_by?(@user))
       end
-      
+
       should "be able to be visited" do
         @user = User.last
         @statement_node.visited_by!(@user)
         assert(@statement_node.visited_by?(@user))
       end
-      
+
       should "be able to be supported" do
         @user = User.last
         @statement_node.visited_by!(@user)
         assert(@statement_node.visited_by?(@user))
       end
-      
+
       should "be able to be followed" do
         @user = User.last
         @user.find_or_create_subscription_for(@statement_node)
         assert(@user.follows?(@statement_node))
       end
-      
+
     end
 
   end # main context

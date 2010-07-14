@@ -22,6 +22,7 @@
   margin-bottom: 15px;
 }
 
+
 #function_container .simple_header_block .header_button {
   margin-top: -39px;
   margin-right: 0;
@@ -62,7 +63,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea{
   color:#21587F;
 }
 
-
 #function_container .search_category {
   position: absolute;
   left: 9px;
@@ -83,6 +83,14 @@ form.formtastic fieldset ol li.text .rte-zone textarea{
 
 #discuss_results .ttLink img {
   color: #7BB031;
+}
+
+/* ----------------------------- */
+/* New and Edit Statements forms */
+/* ----------------------------- */
+
+#new_statement textarea, #summary textarea {
+  height: 200px;
 }
 
 
@@ -179,8 +187,9 @@ form.formtastic fieldset ol li.text .rte-zone textarea{
 .echo_label {
   background: url("../images/page/discuss/echo_small.png") no-repeat scroll 0 0;
   float: right;
-  margin-right: 20px;
   padding-left: 20px;
+  position: relative;
+  right: 20px;
   cursor: default;
 }
 
@@ -333,6 +342,7 @@ a.statement_link:hover {
 }
 
 #children_list li {
+  clear: both;
   margin: 4px 0;
 }
 
@@ -352,12 +362,6 @@ a.statement_link:hover {
 /* Title in discuss listing */
 #discuss_results .ttLink img{
 	color:#7BB031;
-}
-
-/* New and Edit Statement form */
-
-#new_statement textarea, #summary textarea {
-  height: 200px;
 }
 
 
@@ -460,39 +464,22 @@ a.statement_link:hover {
 
 #statement_tags_container .label {
   color: #7bb031;
+  font-size: 15px;
   font-weight: bold;
   margin-bottom: 5px;
   display: block;
   cursor: default;
 }
 
-#statement_tags_container form input[type='text'] {
+#statement_tags_container #tag_topic_id {
   width: 250px !important;
+  padding: 2px 0;
 }
 
-#statement_tags_container .tag_container {
-  display: inline-block;
-  width: 383px;
-  margin: 23px 0 0;
-  padding: 2px 4px;
-  min-height: 30px;
-  border: 1px solid #999;
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-}
-
-#statement_tags_container .tag {
-  font-size: 13px;
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-  background-color: #DDD;
-  padding: 3px 7px;
-  margin: 4px 1px;
-  display: inline-block;
-}
-
-#statement_tags_container .add_button {
+#statement_tags_container .add_text_button {
 	display: inline-block;
+  position: relative;
+  top: -2px;
 }
 
 
@@ -507,7 +494,7 @@ a.statement_link:hover {
 #discussion_list li.question {
 	width: 100%;
   height: 50px;
-  margin: 10px 0;
+  margin: 5px 0;
   display: inline-block;
   clear: both;
 }
@@ -541,7 +528,7 @@ a.statement_link:hover {
 	font-size: 14px;
 	font-weight: bold;
 	height: 25px;
-	padding: 12px 0 4px 20px;
+	padding: 12px 0 4px 15px;
 	text-align: center;
 	width: 200px !important;
 }
@@ -555,6 +542,13 @@ a.statement_link:hover {
 }
 
 #my_discussions #create_question_link {
-  margin-top: 10px;
+  margin-top: 20px;
   margin-left: 0;
+  display: inline-block;
+}
+
+#my_discussions .avatar_holder img {
+  max-width: 45px;
+  max-height: 45px;
+  border: 2px solid #7bb031;
 }

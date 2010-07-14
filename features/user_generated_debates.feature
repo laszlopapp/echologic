@@ -3,7 +3,8 @@ Feature: User Generated Debates
   @ok
   Scenario: Unlogged user unable to access My Discussions
     When I am on the Discuss Index
-    Then I should not see "My Discussions"
+      And I follow "My Discussions"
+    Then I should see "Please log in to perform this action"
 
   @ok
   Scenario: user tries to create Debate without content
@@ -103,7 +104,7 @@ Feature: User Generated Debates
         | question_statement_document_title | A Debate for all Seasons |
         | question_statement_document_text  | A Debate for all Seasons |
         | question_tags                     | #echonomyjam |
-      And I select "Published" from "state"
+      And I choose "Release to the public immediately"
       And I press "Save"
     When I am on the Discuss Index
     When I follow "Pilot Projects"
@@ -141,9 +142,10 @@ Feature: User Generated Debates
         | question_tags                     | first_tag |
       And I press "Save"
       And I go to "My Discussions"
-      And I follow "Publish"
-    Then I should not see "Publish"
-    
+      And I follow "Release"
+    Then I should not see "Release"
+
+
   @ok
   Scenario: user creates Debate and automatically follows it and an event is automatically generated
     Given I am logged in as "user" with password "true"
@@ -156,4 +158,3 @@ Feature: User Generated Debates
       And I press "Save"
     Then I should be a subscriber from "A Debate for all Seasons"
     Then "A Debate for all Seasons" should have a "new" event
-    

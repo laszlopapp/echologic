@@ -1,11 +1,20 @@
 
 <div class="form_container">
-  <span class="label"><%= I18n.t("users.concernments.sorts.#{context}") %></span>
-  <% form_tag url_for(:controller => "users/users", :action => "add_concernments"), :id => "new_concernment_#{context}" do -%>
-    <%= text_field :tag, :value, :class => 'tag_value_autocomplete', :id => "concernment_#{context}_id" %>
-    <%# TODO: take this out? %>
+<span class="label"><%= I18n.t("users.concernments.sorts.#{context}") %></span>
+  <% form_tag url_for(:controller => "users/users",
+                      :action => "add_concernments"),
+              :id => "new_concernment_#{context}" do -%>
+
+    <%= text_field :tag,
+                   :value,
+                   :class => 'tag_value_autocomplete',
+                   :id => "concernment_#{context}_id" %>
+
     <%= hidden_field_tag 'context', context %>
-    <%= submit_tag I18n.t('application.general.create'), :class => 'text_button add_button', :id => "add_concernment_#{context}" %>
+
+    <%= submit_tag I18n.t('application.general.create'),
+                   :class => 'text_button add_text_button',
+                   :id => "add_concernment_#{context}" %>
   <% end %>
 </div>
 

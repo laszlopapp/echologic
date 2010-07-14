@@ -15,7 +15,7 @@ Feature: Start a discussion
       And I fill in the following:
         | question_statement_document_title | Is this a Question?   |
         | question_statement_document_text | Blablabla bla bla bla |
-      And I select "New" from "state"
+      And I choose "Set up at first and release later"
       And I press "Save"
     Then I should see "Blablabla"
      And there should be one question
@@ -26,10 +26,8 @@ Feature: Start a discussion
       And a "New" question in "echonomyjam"
       And I am on the Discuss Index
     When I go to the question
-      And I follow "edit" within "#summary"
-      And I select "Published" from "state"
-      And I press "Save"
-    Then the question should be published
+      And I follow "Release"
+    Then I should not see "Release"
 
   @ok
   Scenario: Create an invalid question as an editor
@@ -59,7 +57,7 @@ Feature: Start a discussion
       And I press "Save"
     Then I should see "a proposal to propose some"
       And the question should have one proposal
- 
+
     
   #Category tests: tests the existence of the 4 main categories
   Scenario: I want to see all categories
@@ -71,10 +69,10 @@ Feature: Start a discussion
     Then I should see localized "discuss.topics.echo.name"
     Then I should see localized "discuss.topics.echosocial.name"
 
-    
-    
+
+
   @ok
-  Scenario: Fail to add a proposal to a question with * tag  
+  Scenario: Fail to add a proposal to a question with * tag
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
     When I follow "Featured"

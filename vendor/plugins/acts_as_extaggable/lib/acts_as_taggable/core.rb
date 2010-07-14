@@ -220,7 +220,7 @@ module ActsAsTaggable::Taggable
           tag_list = tag_list_cache_on(context).uniq
           
           # Find existing tags or create non-existing tags:
-          tag_list = Tag.find_or_create_all_with_like_by_value(tag_list)
+          tag_list = Tag.find_or_create_all_with_values_like(tag_list)
           
           current_tags = tags_on(context_name)
           old_tags = current_tags - tag_list 

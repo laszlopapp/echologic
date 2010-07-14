@@ -16,31 +16,32 @@ class TagTest < ActiveSupport::TestCase
 
   def test_scopes
     t = tags(:earth)
-    named = Tag.named("Earth")
+
+    named = Tag.with_value("Earth")
     assert named.include?(t), "should find tag with this value (using named)"
-    named_any = Tag.named_any(["Earth","Wind","Fire"])
+    named_any = Tag.with_values(["Earth","Wind","Fire"])
     assert named_any.include?(t), "should find tag with this value (using named_any)"
-    named_like = Tag.named_like("Ea")
+    named_like = Tag.with_value_like("Ea")
     assert named.include?(t), "should find tag with this value (using named_like)"
-    named_like_any = Tag.named_like_any(["E","W","F"])
+    named_like_any = Tag.with_values_like(["E","W","F"])
     assert named_any.include?(t), "should find tag with this value (using named_like_any)"
   end
 
   def test_insertion
     assert_difference('Tag.count', 1, "should insert 1 value") do
-      Tag.find_or_create_with_like_by_value("captainplanet")
-    end
-    assert_difference('Tag.count', 1, "should insert 1 value in german") do
-      Tag.find_or_create_with_like_by_value("kaptainerdbeben")
+      Tag.find_or_create_with_value("captainplanet")
     end
     assert_difference('Tag.count', 0, "should not insert repeated value") do
-      Tag.find_or_create_with_like_by_value("captainplanet")
+      Tag.find_or_create_with_value_like("captainplanet")
+    end
+    assert_difference('Tag.count', 1, "should insert 1 value in german") do
+      Tag.find_or_create_with_value_like("kaptainerdbeben",Tag.languages("de").id)
     end
     assert_difference('Tag.count', 4, "should insert 4 values") do
-      Tag.find_or_create_all_with_like_by_value("john","paul","george","ringo")
+      Tag.find_or_create_all_with_values_like("john","paul","george","ringo")
     end
     assert_difference('Tag.count', 4, "should insert 4 values in german") do
-      Tag.find_or_create_all_with_like_by_value("johan","helmut","franz","klaus")
+      Tag.find_or_create_all_with_values_like("johan","helmut","franz","klaus")
     end
 
   end
@@ -49,7 +50,6 @@ class TagTest < ActiveSupport::TestCase
     c = tags(:earth)
     t = Tag.new
     t.value = c.value
-    t.language_id = c.language_id
     assert c==t, "should recognize first tag as equal to second tag"
   end
 

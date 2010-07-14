@@ -18,7 +18,7 @@
     <% unless concernments.blank? %>
       <span class="label"><%= I18n.t("users.concernments.sorts.#{context}") %></span>
       <span class="values">
-        <%= concernments.join(', ') %>
+        <%= concernments.collect { |c| c.index('*') == 0 ? nil : h(c) }.compact.join(', ') %>
       </span>
     <% end %>
   <% end %>

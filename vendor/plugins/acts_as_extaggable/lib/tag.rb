@@ -21,43 +21,46 @@ class Tag < ActiveRecord::Base
     value.each {|d| puts d.class }
   end
 
-  named_scope :named, lambda { |value|
+
+  named_scope :with_value, lambda { |value|
     { :conditions => ["value = ?", value] }
   }
-  named_scope :named_any, lambda { |list|
+  named_scope :with_values, lambda { |list|
     { :conditions => list.map { |tag| sanitize_sql(["value = ?", tag.to_s]) }.join(" OR ")
     }
   }
-  named_scope :named_like, lambda { |value|
+  named_scope :with_value_like, lambda { |value|
     { :conditions => ["value LIKE ?", "%#{value}%"] }
   }
-  named_scope :named_like_any, lambda { |list|
+  named_scope :with_values_like, lambda { |list|
     { :conditions => list.map { |tag| sanitize_sql(["value LIKE ?", "%#{tag.to_s}%"]) }.join(" OR ")
     }
   }
 
   # CLASS METHODS
-  def self.find_or_create_with_named_by_value(value)
-    named(value).first || Tag.create(:value => value)
+  def self.find_or_create_with_value(value, language_id = nil)
+    with_value(value).first || Tag.create(:value => value, :language_id => language_id)
   end
 
-  def self.find_or_create_with_like_by_value(value)
-    named_like(value).first || Tag.create(:value => value)
+  def self.find_or_create_with_value_like(value, language_id = nil)
+    with_value_like(value).first || Tag.create(:value => value, :language_id => language_id)
   end
 
-  def self.find_or_create_all_with_like_by_value(*list)
-    list = [list].flatten
+  # Creates one tag for each value if it is not found using LIKE.
+  # The last item in the list can be a language_id to use for new tags.
+  def self.find_or_create_all_with_values_like(*values)
+    values = [values].flatten
+    return [] if values.empty?
 
-    return [] if list.empty?
+    language_id = values.last.kind_of?(Numeric) ? values.pop : nil
 
-    existing_tags = Tag.named_any(list).all
-    new_tag_values = list.reject { |value|
+    existing_tags = Tag.with_values(values).all
+    new_tag_values = values.reject { |value|
       existing_tags.any? { |tag| tag.value.mb_chars.downcase == value.mb_chars.downcase }
     }
     created_tags  = new_tag_values.map { |value|
       Tag.create(:value => value)
     }
-
     existing_tags + created_tags
   end
 

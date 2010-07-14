@@ -28,7 +28,7 @@ class TaoTag < ActiveRecord::Base
     class << self
     def create_for(tags,language_id,attributes)
       tags.map { |tag|
-        tag_obj = Tag.find_or_create_with_named_by_value(tag.strip)
+        tag_obj = Tag.find_or_create_with_value(tag.strip, language_id)
         tao_tag = tag_id_and_tao_id_and_type_and_context_id(
                     tag_obj.id, attributes[:tao_id], attributes[:tao_type],
                     attributes[:context_id]).first ||
