@@ -223,7 +223,7 @@ class StatementNode < ActiveRecord::Base
         select distinct n.*
         from
           statement_nodes n
-          LEFT JOIN statement_documents d    ON n.statement_id = d.statement_id 
+          LEFT JOIN statement_documents d    ON n.statement_id = d.statement_id
           LEFT JOIN tao_tags tt              ON tt.tao_id = n.id
           LEFT JOIN tags t                   ON tt.tag_id = t.id
           LEFT JOIN echos e                  ON n.echo_id = e.id
@@ -231,20 +231,19 @@ class StatementNode < ActiveRecord::Base
       END
 
       # Building the where clause
-      tags = opts[:category] || search_term.split(" ")
-
       # Handling the search term
       if !search_term.blank?
+        terms = search_term.split(" ")
         search_fields = %w(d.title d.text)
         or_conditions = search_fields.map{|attr|"#{attr} LIKE ?"}.join(" OR ")
-        or_conditions << "OR #{tags.map{|tag| tag.length > 3 ?
-                          sanitize_sql(["t.value LIKE ?","%#{tag}%"]) :
-                          sanitize_sql(["t.value = ?",tag])}.join(" OR ")}"
+        or_conditions << " OR #{terms.map{|term| term.length > 3 ?
+                          sanitize_sql(["t.value LIKE ?","%#{term}%"]) :
+                          sanitize_sql(["t.value = ?",term])}.join(" OR ")}"
       end
-      and_conditions << "(#{or_conditions})" if or_conditions
+      and_conditions = !or_conditions.blank? ? ["(#{or_conditions})"] : []
 
       # Filter for statement type
-      and_conditions = opts[:conditions] || ["n.type = '#{type}'"]
+      and_conditions << "n.type = '#{type}'"
       # Filter for published statements
       and_conditions << sanitize_sql(["n.state_id = ?", statement_states('published').id]) if opts[:auth]
       # Filter for featured topic tags (categories)
