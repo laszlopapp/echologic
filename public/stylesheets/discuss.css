@@ -54,6 +54,10 @@
   cursor: default;
 }
 
+#new_statement #question_state_id_input li {
+  width: 700px;
+}
+
 .statement_form_illustration {
   float: right;
   margin: -25px 25px 0 70px;
