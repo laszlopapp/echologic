@@ -202,7 +202,7 @@ class ApplicationController < ActionController::Base
   # -------------------------------
 
   def locale_language_id
-    EnumKey.find_by_enum_name_and_code("languages", I18n.locale.to_s).id
+    EnumKey.find_by_enum_name_and_code("languages", I18n.locale).id
   end
 
   def language_preference_list

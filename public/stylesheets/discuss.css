@@ -54,6 +54,10 @@
   cursor: default;
 }
 
+#new_statement #question_state_id_input li {
+  width: 700px;
+}
+
 .statement_form_illustration {
   float: right;
   margin: -25px 25px 0 70px;
@@ -439,6 +443,7 @@ a.statement_link:hover {
 #statement_tags_container #tag_topic_id {
   width: 250px !important;
   padding: 2px 0;
+  color: #21587F;
 }
 
 #statement_tags_container .add_text_button {

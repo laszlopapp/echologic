@@ -8,7 +8,7 @@ class Profile < ActiveRecord::Base
   has_many :web_addresses, :through => :user
   has_many :memberships,  :through => :user
   has_many :spoken_languages, :through => :user
-  
+
   delegate :email, :email=, :concernments, :concernments=, :to => :user
 
   validates_presence_of :user_id
@@ -75,8 +75,8 @@ class Profile < ActiveRecord::Base
         profiles p
         LEFT JOIN users u        ON u.id = p.user_id
         LEFT JOIN memberships m  ON u.id = m.user_id
-        LEFT JOIN tao_tags tt    ON (u.id = tt.tao_id)
-        LEFT JOIN tags t         ON (t.id = tt.tag_id)
+        LEFT JOIN tao_tags tt    ON (u.id = tt.tao_id and tt.tao_type = 'User')
+        LEFT JOIN tags t         ON t.id = tt.tag_id
       where
     END
 
@@ -107,7 +107,8 @@ class Profile < ActiveRecord::Base
 
     # Composing the query and substituting the values
     query = select_clause + where_clause + order_clause
-    conditions = [query, *(["%#{search_term}%"] * searched_fields.size)]
+    value = "%#{search_term}%"
+    conditions = [query, *([value] * searched_fields.size)]
 
     # Executing the query
     profiles = find_by_sql(conditions)

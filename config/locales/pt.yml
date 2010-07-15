@@ -456,7 +456,9 @@ pt:
       echo_indicator:
         one: 'Esta afirmação tem {{supporter_count}} apoiante.'
         many: 'Esta afirmação tem {{supporter_count}} apoiantes.'
-      publish: 'Publique a discussão, de forma a esta se tornar visível para todos.'
+      publish: |
+        Publique a discussão, de forma a esta se tornar visível para todos.
+        (Não será mais possível editar a discussão.)
 
     statements:
       error_messages:
@@ -494,7 +496,7 @@ pt:
       states:
         label: 'Publicar discussão?'
         deferred_publish: 'Primeiro criar e mais tarde publicar.'
-        immediate_publish: 'Imediatamente publicar.'
+        immediate_publish: 'Imediatamente publicar. (Não será mais possível editar a discussão.)'
       delete_link: "Apagar"
       delete_confirmation: "Tem a certeza que quer apagar esta afirmação?"
     summary:

@@ -2,6 +2,7 @@
 <% statement_node.state_id ||= StatementNode.statement_states('new').id %>
 <% tags ||= @tags %>
 <% statement_document ||= @statement_document %>
+
 <% semantic_form_for statement_node.self_with_parents, :html => {:class => 'wide_form' } do |form| -%>
 
   <!-- Basic fields: title + text -->
