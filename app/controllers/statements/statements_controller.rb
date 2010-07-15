@@ -331,8 +331,8 @@ class StatementsController < ApplicationController
     children.paginate(StatementNode.default_scope.merge(:page => page, :per_page => 5))
   end
 
-  def search (value, language_keys = language_preference_list, opts = {})
-    StatementNode.search_statement_nodes("Question", value, language_keys, opts)
+  def search (search_term, language_keys = language_preference_list, opts = {})
+    StatementNode.search_statement_nodes("Question", search_term, language_keys, opts)
   end
 end
 
