@@ -10,6 +10,8 @@ class StatementDocument < ActiveRecord::Base
   validates_presence_of :language_id
   validates_presence_of :statement
   validates_associated :author    
+  validates_uniqueness_of :language_id, :scope => :statement_id
+
   
   enum :language, :enum_name => :languages
 
