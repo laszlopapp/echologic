@@ -58,7 +58,7 @@ Feature: Start a discussion
     Then I should see "a proposal to propose some"
       And the question should have one proposal
 
-    
+
   #Category tests: tests the existence of the 4 main categories
   Scenario: I want to see all categories
     Given I am logged in as "user" with password "true"
