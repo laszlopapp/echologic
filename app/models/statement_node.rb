@@ -237,7 +237,7 @@ class StatementNode < ActiveRecord::Base
       if !search_term.blank?
         search_fields = %w(d.title d.text)
         or_conditions = search_fields.map{|attr|"#{attr} LIKE ?"}.join(" OR ")
-        or_conditions << "OR #{tags.map{|tag| tag.length > 3 ?
+        or_conditions << " OR #{tags.map{|tag| tag.length > 3 ?
                           sanitize_sql(["t.value LIKE ?","%#{tag}%"]) :
                           sanitize_sql(["t.value = ?",tag])}.join(" OR ")}"
       end
