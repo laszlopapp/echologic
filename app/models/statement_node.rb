@@ -231,15 +231,14 @@ class StatementNode < ActiveRecord::Base
       END
 
       # Building the where clause
-      tags = opts[:category] || search_term.split(" ")
-
       # Handling the search term
       if !search_term.blank?
+        terms = search_term.split(" ")
         search_fields = %w(d.title d.text)
         or_conditions = search_fields.map{|attr|"#{attr} LIKE ?"}.join(" OR ")
-        or_conditions << " OR #{tags.map{|tag| tag.length > 3 ?
-                          sanitize_sql(["t.value LIKE ?","%#{tag}%"]) :
-                          sanitize_sql(["t.value = ?",tag])}.join(" OR ")}"
+        or_conditions << " OR #{terms.map{|term| term.length > 3 ?
+                          sanitize_sql(["t.value LIKE ?","%#{term}%"]) :
+                          sanitize_sql(["t.value = ?",term])}.join(" OR ")}"
       end
       and_conditions = !or_conditions.blank? ? ["(#{or_conditions})"] : []
 
