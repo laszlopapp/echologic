@@ -439,6 +439,7 @@ a.statement_link:hover {
 #statement_tags_container #tag_topic_id {
   width: 250px !important;
   padding: 2px 0;
+  color: #21587F;
 }
 
 #statement_tags_container .add_text_button {
