@@ -204,8 +204,7 @@ class StatementNode < ActiveRecord::Base
   # Collects all children, sorted in the way we want them to.
   def sorted_children(user, language_ids)
     children = self.class.search_statement_nodes(:language_ids => language_ids,
-                                                 :auth => user && user.has_role?(:editor),
-                                                 :conditions => ["parent_id = #{self.id}"])
+                                                 :conditions => "parent_id = #{self.id}")
   end
 
   class << self
@@ -226,7 +225,7 @@ class StatementNode < ActiveRecord::Base
 
       # Building the where clause
       # Handling the search term
-      search_term = opts[:value]
+      search_term = opts[:search_term]
       if !search_term.blank?
         terms = search_term.split(" ")
         search_fields = %w(d.title d.text)
@@ -238,14 +237,17 @@ class StatementNode < ActiveRecord::Base
       and_conditions = !or_conditions.blank? ? ["(#{or_conditions})"] : []
 
       # Filter for statement type
-      and_conditions << "n.type = '#{opts[:type]}'"
-      # Filter for published statements
-      and_conditions << sanitize_sql(["n.state_id = ?", statement_states('published').id]) if opts[:auth]
-      # Filter for featured topic tags (categories)
-      and_conditions << sanitize_sql(["t.value = ?", opts[:category]]) if opts[:category]
+      if opts[:conditions].nil?
+        and_conditions << "n.type = '#{opts[:type]}'"
+        # Filter for published statements
+        and_conditions << sanitize_sql(["n.state_id = ?", statement_states('published').id]) if opts[:auth]
+        # Filter for featured topic tags (categories)
+        and_conditions << sanitize_sql(["t.value = ?", opts[:category]]) if opts[:category]
+      else
+        and_conditions << opts[:conditions]
+      end
       # Filter for the preferred languages
       and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]])
-
       # Constructing the where clause
       where_clause = and_conditions.join(" AND ")
 
