@@ -296,9 +296,9 @@ es:
   discuss:
     my_discussions:
       link: Mis Discusiones
-      title: Discusiones publicados & no publicados
+      title: Mis nuevas y publicadas discusiones
     tag_permission: |
-      You do not have the permission to insert the '{{tag}}' tag.
+      Disculpe, pero no tienes permiso para inserir este '{{tag}}' tag.
     original_language_warning: |
       El texto original es <strong>{{language}}</strong>. Por favor <br/>
       indique quales son las lenguas que intiendes.
@@ -464,7 +464,9 @@ es:
       echo_indicator:
         one: 'Esta opinión tiene {{supporter_count}} vozes.'
         many: 'Esta opinión tiene {{supporter_count}} vozes.'
-      publish: 'Publish the discussion to make it visible for everybody.'
+      publish: |
+        Si publicas la discusión, otras personas poderan participar en ello.
+        (No será possible modificar la discusión.)
 
     statements:
       label: 'echos'
@@ -473,7 +475,8 @@ es:
       create_internal_link: 'Nueva Idea?'
       create_improvement_proposal_link: 'Crear nueva propuesta de mejoramiento'
       create_question_explanation: |
-        Hola, editor! Aquí puedes abrir una nueva cuestión.
+        Aquí puedes iniciar un <strong>nueva discusión</strong>.
+        Por favor no te olvides de inserir algunas palabras clave, para que tu nuevo debate será hallado facilmente.
       create_proposal_explanation: |
         Tienes una <strong>buena idea</strong>, que todavia <strong>no existe</strong>?<br/>
         Aquí puedes crear una <strong>nueva propuesta</strong>.
@@ -481,7 +484,7 @@ es:
         Tienes una <strong>buena idea</strong>, como esta propuesta poderia ser <strong>mejorada</strong>?<br/>
         Aquí puedes crear una <strong>nueva propuesta de mejoramiento</strong>.
       publish: Publicar
-      published: Debate publicado con éxito!
+      published: Esta discusión fue publicada con éxito.
       edit: 'Editar {{type}}'
 
       types:
@@ -497,18 +500,18 @@ es:
         proposal: 'Propuestas'
         improvement_proposal: 'Propuesta de mejoramiento'
       states:
-        label: 'Release discussion immediately?'
-        deferred_publish: 'Set up at first and release it later.'
-        immediate_publish: 'Release to the public immediately.'
+        label: 'Publicar discusión de inmediato?'
+        deferred_publish: 'Solamente guardar y publicar mas tarde.'
+        immediate_publish: 'Publicar de inmediato. (No será possible modificar la discusión.)'
       delete_link: "Borrar"
       delete_confirmation: "Está seguro, que realmente quiere borrar esta propuesta?"
     summary:
       title: 'Resumen'
     messages:
-      created: "{{type}} fue publicado."
-      updated: "{{type}} fue editado."
-      deleted: "{{type}} fue borrado."
-      translated: "{{type}} fue traducido."
+      created: "{{type}} fue publicada."
+      updated: "{{type}} fue editada."
+      deleted: "{{type}} fue borrada."
+      translated: "{{type}} fue traducida."
       empty:   "No fue encontrado ningun debate. Por favor intente buscar por otra palavra."
       empty_without_spoken_languages: |
         No fue encontrada ninguna cuestión. Intente definir tus <a href='{{my_echo}}'>lenguas conocidas</a>
