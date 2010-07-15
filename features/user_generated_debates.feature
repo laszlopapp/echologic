@@ -3,7 +3,8 @@ Feature: User Generated Debates
   @ok
   Scenario: Unlogged user unable to access My Discussions
     When I am on the Discuss Index
-    Then I should not see "My Discussions"
+      And I follow "My Discussions"
+    Then I should see "Please log in to perform this action."
 
   @ok
   Scenario: user tries to create Debate without content
