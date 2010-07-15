@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   named_scope :decision_making_tags, lambda {
     {:joins => [:tao_tags], :conditions => ["tao_tags.context_id = ?", TaoTag.tag_contexts("decision_making")]}
   }
- 
+
 
   # TODO add attr_accessible :active if needed.
   #attr_accessible :active
@@ -103,6 +103,7 @@ class User < ActiveRecord::Base
     Mailer.deliver_password_reset_instructions(self)
   end
 
+
   ##
   ## PERMISSIONS
   ##
@@ -115,6 +116,30 @@ class User < ActiveRecord::Base
 
   def may_delete?(statement_node)
     has_role?(:admin)
+  end
+
+  # Gives users with the given E-Mail addresses 'topic_editor' rights for the given hash tags.
+  def self.grant_topic_editor(emails, tags)
+    emails.each do |email|
+      user = User.find_by_email email
+      if user.nil?
+        puts "User with E-Mail '#{email}' cannot be found."
+        next
+      else
+        user_name = "#{user.profile.full_name} (#{user.email})"
+      end
+      tags.each do |tag_value|
+        tag = Tag.find_by_value tag_value
+        if tag.nil?
+          puts "Tag '#{tag_value}' doesn't exist."
+          next
+        end
+        user.has_role! :topic_editor, tag
+        puts "'#{user_name})' has become topic editor of '#{tag_value}'."
+      end
+      puts user.save ? "User '#{user_name}' has been saved sucessfully." :
+                       "Error saving user '#{user_name}'."
+    end
   end
 
   ##
@@ -139,7 +164,10 @@ class User < ActiveRecord::Base
   ##
 
   def add_tags(tags, opts = {})
-    self.tao_tags << TaoTag.create_for(tags, opts[:language_id], {:tao_id => self.id, :tao_type => self.class.name, :context_id => opts[:context_id]})
+    self.tao_tags << TaoTag.create_for(tags, opts[:language_id],
+                                       {:tao_id => self.id,
+                                        :tao_type => self.class.name,
+                                        :context_id => opts[:context_id]})
   end
 
   def delete_tags(tags)

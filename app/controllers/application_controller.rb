@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   # Set locale to the best fitting one
   def set_locale
-    available = %w{en de es}
+    available = %w{en de es pt}
     I18n.locale = params[:locale] || request.compatible_language_from(available)
   end
 
@@ -202,7 +202,7 @@ class ApplicationController < ActionController::Base
   # -------------------------------
 
   def locale_language_id
-    EnumKey.find_by_enum_name_and_code("languages", params[:locale]).id
+    EnumKey.find_by_enum_name_and_code("languages", I18n.locale).id
   end
 
   def language_preference_list
