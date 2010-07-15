@@ -466,7 +466,7 @@ es:
         many: 'Esta opinión tiene {{supporter_count}} vozes.'
       publish: |
         Si publicas la discusión, otras personas poderan participar en ello.
-        No será possible modificar o borrear el debate.
+        (No será possible modificar la discusión.)
 
     statements:
       label: 'echos'
@@ -502,7 +502,7 @@ es:
       states:
         label: 'Publicar discusión de inmediato?'
         deferred_publish: ''Solamente guardar y publicar mas tarde.'
-        immediate_publish: 'Publicar de inmediato. (No será possible modificar o borrear la discusión.)'
+        immediate_publish: 'Publicar de inmediato. (No será possible modificar la discusión.)'
       delete_link: "Borrar"
       delete_confirmation: "Está seguro, que realmente quiere borrar esta propuesta?"
     summary:
