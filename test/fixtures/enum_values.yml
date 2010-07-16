@@ -202,7 +202,7 @@ field_activity_<%= index+1 %>:
   value: <%= value %>
   context:
 <% end %>
-<% ["Topic","Thema","Topique","Tópico"].each_with_index do |value,index| %>
+<% ["Topic","Thema","Topique","Tópico","Tema"].each_with_index do |value,index| %>
 topic_<%= index+1 %>:
   enum_key_id: <%= Fixtures.identify(:tag_context_topic) %>
   language_id: <%= index+1 %>
@@ -210,14 +210,14 @@ topic_<%= index+1 %>:
   context:
 <% end %>
 
-<% ["New","Neu","Neuf","Novo"].each_with_index do |value,index| %>
+<% ["New","Neu","Neuf","Novo","Nuevo"].each_with_index do |value,index| %>
 new_<%= index+1 %>:
   enum_key_id: <%= Fixtures.identify(:statement_state_new) %>
   language_id: <%= index+1 %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Published","Veröffentlicht","Publié","Publicado"].each_with_index do |value,index| %>
+<% ["Published","Veröffentlicht","Publié","Publicado","Publicado"].each_with_index do |value,index| %>
 published_<%= index+1 %>:
   enum_key_id: <%= Fixtures.identify(:statement_state_published) %>
   language_id: <%= index+1 %>

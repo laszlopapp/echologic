@@ -536,6 +536,7 @@ a.statement_link:hover {
 #discussion_list .buttons {
 	float: right;
 	width: 200px;
+  text-align: center;
 }
 
 #discussion_list a.publish_button {
@@ -554,6 +555,15 @@ a.statement_link:hover {
 
 #discussion_list a.publish_button:hover {
   background-position: 0 -43px;
+}
+
+#discussion_list span.publish_button {
+  background:transparent url(../images/page/icons/publish_button.png) no-repeat scroll 0 0;
+  background-position: 0 -17px;
+  height: 17px;
+  line-height: 17px;
+  display: inline-block;
+  padding-left: 20px;
 }
 
 #my_discussions .pagination {

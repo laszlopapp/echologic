@@ -15,7 +15,7 @@ Feature: Start a discussion
       And I fill in the following:
         | question_statement_document_title | Is this a Question?   |
         | question_statement_document_text | Blablabla bla bla bla |
-      And I choose "Set up at first and release later"
+      And I choose "Set up at first and publish later"
       And I press "Save"
     Then I should see "Blablabla"
      And there should be one question

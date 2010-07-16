@@ -494,9 +494,10 @@ en:
         proposal: 'Proposals'
         improvement_proposal: 'Improvement Proposals'
       states:
-        label: 'Release discussion immediately?'
-        deferred_publish: 'Set up at first and release later'
-        immediate_publish: 'Release to the public immediately (no further editing is possible)'
+        label: 'Publish discussion immediately?'
+        deferred_publish: 'Set up at first and publish later'
+        immediate_publish: 'Publish immediately (no further editing is possible)'
+        published: Published
       delete_link: "Delete"
       delete_confirmation: "Are you sure you want to delete this statement?"
     summary:
