@@ -1,9 +1,4 @@
 <% statement_nodes ||= @statement_nodes %>
-
-<!-- Illustration -->
-<%= image_tag("page/functions/discuss.png",
-              :class => 'right_block_illustration') %>
-
 <!-- List my new and published discussions -->
 <div id="my_discussions" class="header_block discuss_right_block">
 
@@ -14,6 +9,17 @@
 
   <!-- Discussion list -->
   <div id="discussions">
+  	<!--li>
+  		<div class="">
+  			 Title
+  		</div>
+			<div class="tags_list">
+         Tags
+      </div>
+			<div class="buttons">
+         Buttons
+      </div>
+  	</li-->
     <ul id="discussion_list">
       <% unless statement_nodes.empty? %>
         <% last_child = statement_nodes.pop -%>

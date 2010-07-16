@@ -3,6 +3,12 @@ class StatementNode < ActiveRecord::Base
   acts_as_extaggable :topics
   acts_as_subscribeable
 
+  after_destroy :destroy_statement
+
+  def destroy_statement
+    self.statement.destroy if (statement.statement_nodes - [self]).empty?
+  end
+
   # static for now
   def published?
     self.state == self.class.statement_states("published")
