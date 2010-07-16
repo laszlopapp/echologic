@@ -489,6 +489,7 @@ en:
         label: 'Release discussion immediately?'
         deferred_publish: 'Set up at first and release later'
         immediate_publish: 'Release to the public immediately (no further editing is possible)'
+        published: Published
       delete_link: "Delete"
       delete_confirmation: "Are you sure you want to delete this statement?"
     summary:

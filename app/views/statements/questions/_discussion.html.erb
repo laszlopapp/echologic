@@ -18,9 +18,7 @@
 
     <!-- Publish button -->
 		<div class="buttons">
-			<% if !statement_node.published? %>
-			 <%= publish_button(statement_node) %>
-			<% end %>
+		  <%= publish_button_or_state(statement_node) %>
 		</div>
 	</li>
 <% end %>
