@@ -500,6 +500,7 @@ de:
         label: 'Diskussion gleich freigeben?'
         deferred_publish: 'Erstmal weiter vorbereiten und später freigeben'
         immediate_publish: 'Sofort an die Öffentlichkeit freigeben (danach keine Editierung möglich)'
+        published: Freigegeben
       delete_link: 'Löschen'
       delete_confirmation: 'Bist du sicher, dass du diese Aussage löschen willst?'
     summary:

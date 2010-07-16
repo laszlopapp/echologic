@@ -494,7 +494,8 @@ pt:
       states:
         label: 'Publicar discussão?'
         deferred_publish: 'Primeiro criar e mais tarde publicar.'
-        immediate_publish: 'Imediatamente publicar. (Não será mais possível editar a discussão.)'
+        immediate_publish: 'Imediatamente publicar (não será mais possível editar a discussão)'
+        published: Publicado
       delete_link: "Apagar"
       delete_confirmation: "Tem a certeza que quer apagar esta afirmação?"
     summary:
