@@ -38,7 +38,6 @@ class StatementNode < ActiveRecord::Base
   ## VALIDATIONS
   ##
 
-
   validates_presence_of :state_id
   validates_numericality_of :state_id
   validates_presence_of :creator_id
@@ -74,12 +73,10 @@ class StatementNode < ActiveRecord::Base
   named_scope :by_creator, lambda {|id|
   {:conditions => ["creator_id = ?", id]}}
 
-
   # orders
   named_scope :by_ratio, :include => :echo, :order => '(echos.supporter_count/echos.visitor_count) DESC'
   named_scope :by_supporters, :include => :echo, :order => 'echos.supporter_count DESC'
   named_scope :by_creation, :order => 'created_at DESC'
-
 
 
   ## ACCESSORS
@@ -104,10 +101,10 @@ class StatementNode < ActiveRecord::Base
     level
   end
 
+
   ##############################
   ######### ACTIONS ############
   ##############################
-
 
   # Publish a statement.
   def publish
@@ -146,7 +143,7 @@ class StatementNode < ActiveRecord::Base
   end
 
 
-  # checks if there is no document written in the current language code and the current user can translate it
+  # Checks if there is no document written in the current language code and the current user can translate it.
   def translatable?(user,from_language,to_language,language_preference_list)
     if user
       # 1.we have a current user that speaks languages
@@ -168,7 +165,7 @@ class StatementNode < ActiveRecord::Base
     end
   end
 
-  # checks if, in case the user hasn't yet set his language knowledge, the current language is different from
+  # Checks if, in case the user hasn't yet set his language knowledge, the current language is different from
   # the statement original language. used for the original message warning
   def not_original_language?(user, current_language_id)
     user ? (user.spoken_languages.empty? and current_language_id != self.statement.original_language.id) : false
@@ -178,7 +175,7 @@ class StatementNode < ActiveRecord::Base
   ##### ACTS AS TREE METHOD #####
   ###############################
 
-  # recursive method to get all parents...
+  # Recursive method to get all parents...
   def parents(parents = [])
     obj = self
     while obj.parent && obj.parent != obj
@@ -192,65 +189,65 @@ class StatementNode < ActiveRecord::Base
     list.size == 1 ? list.pop : list
   end
 
-
-
-  # that collects all children, sorted in the way we want them to
+  # Collects all children, sorted in the way we want them to.
   def sorted_children(user, language_ids)
     children = self.class.search_statement_nodes(:language_ids => language_ids,
-                                                 :auth => user && user.has_role?(:editor),
-                                                 :conditions => ["parent_id = #{self.id}"])
+                                                 :conditions => "parent_id = #{self.id}")
   end
 
   class << self
 
-    def search_statement_nodes(opts={} )
+    def search_statement_nodes(opts={})
 
-      value = opts[:value] || ""
-      #get tags
-      tags = opts[:tag] || value.split(" ")
-
-      #sorting the or arguments
-      if !value.blank?
-        or_attrs = opts[:or_attrs] || %w(d.title d.text)
-        or_conditions = or_attrs.map{|attr|"#{attr} LIKE ?"}.join(" OR ")
-        or_conditions << " OR #{tags.map{|tag| tag.length > 3 ?
-                          sanitize_sql(["t.value LIKE ?","%#{tag}%"]) :
-                          sanitize_sql(["t.value = ?",tag])}. join(" OR ")}"
-      end
-      #sorting the and arguments
-      and_conditions = opts[:conditions] || [sanitize_sql(["n.type = ? ",opts[:type]])]
-      and_conditions << "n.state_id = #{statement_states('published').id}" if opts[:auth]
-      and_conditions << sanitize_sql(["t.value = ?", opts[:tag]]) if opts[:tag]
-      and_conditions << sanitize_sql(["d.language_id IN (?)",opts[:language_ids]]) if opts[:language_ids]
-      and_conditions << sanitize_sql(["t.value = ?", opts[:tag]]) if opts[:tag]
-
-      #all getting along like really good friends
-      and_conditions << "(#{or_conditions})" if or_conditions
-
-      #Rambo 1
-      query_part_1 = <<-END
+      # Building the search clause
+      search_clause = <<-END
         select distinct n.*
         from
           statement_nodes n
-          LEFT JOIN statements s             ON n.statement_id = s.id
-          LEFT JOIN statement_documents d    ON s.id = d.statement_id
-          LEFT JOIN tao_tags tt              ON tt.tao_id = n.id
+          LEFT JOIN statement_documents d    ON n.statement_id = d.statement_id
+          LEFT JOIN tao_tags tt              ON (tt.tao_id = n.id and tt.tao_type = 'StatementNode')
           LEFT JOIN tags t                   ON tt.tag_id = t.id
           LEFT JOIN echos e                  ON n.echo_id = e.id
         where
       END
-      #Rambo 2
-      query_part_2 = and_conditions.join(" AND ")
-      #Rambo 3
-      #TODO: doesn't order by supporter count!!!!!!!!!!!!!!!
-      query_part_3 = " order by e.supporter_count DESC, n.created_at asc;"
 
-      #All Rambo's in one
-      query = query_part_1+query_part_2+query_part_3
-      value = "%#{value}%"
+      # Building the where clause
+      # Handling the search term
+      search_term = opts[:search_term]
+      if !search_term.blank?
+        terms = search_term.split(" ")
+        search_fields = %w(d.title d.text)
+        or_conditions = search_fields.map{|attr|"#{attr} LIKE ?"}.join(" OR ")
+        or_conditions << " OR #{terms.map{|term| term.length > 3 ?
+                          sanitize_sql(["t.value LIKE ?","%#{term}%"]) :
+                          sanitize_sql(["t.value = ?",term])}.join(" OR ")}"
+      end
+      and_conditions = !or_conditions.blank? ? ["(#{or_conditions})"] : []
 
-      conditions = or_attrs ? [query, *([value] * or_attrs.size)] : query
+      # Filter for statement type
+      if opts[:conditions].nil?
+        and_conditions << "n.type = '#{opts[:type]}'"
+        # Filter for published statements
+        and_conditions << sanitize_sql(["n.state_id = ?", statement_states('published').id]) if opts[:auth]
+        # Filter for featured topic tags (categories)
+        and_conditions << sanitize_sql(["t.value = ?", opts[:category]]) if opts[:category]
+      else
+        and_conditions << opts[:conditions]
+      end
+      # Filter for the preferred languages
+      and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]])
+      # Constructing the where clause
+      where_clause = and_conditions.join(" AND ")
 
+      # Building the order clause
+      order_clause = " order by e.supporter_count DESC, n.created_at asc;"
+
+      # Composing the query and substituting the values
+      query = search_clause + where_clause + order_clause
+      value = "%#{search_term}%"
+      conditions = search_fields ? [query, *([value] * search_fields.size)] : query
+
+      # Executing the query
       statement_nodes = find_by_sql(conditions)
     end
 

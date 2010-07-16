@@ -41,9 +41,9 @@ class StatementsController < ApplicationController
 
     category = "##{params[:id]}" if params[:id]
 
-    statement_nodes_not_paginated = search_statement_nodes(:value => @value,
+    statement_nodes_not_paginated = search_statement_nodes(:search_term => @value,
                                                            :language_ids => @language_preference_list,
-                                                           :tag => category,
+                                                           :category => category,
                                                            :auth => current_user && current_user.has_role?(:editor))
 
     @count    = statement_nodes_not_paginated.size

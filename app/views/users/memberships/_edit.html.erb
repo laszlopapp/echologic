@@ -1,14 +1,15 @@
 <% membership ||= @membership %>
-<% form_tag user_membership_path(membership.user, membership), :method => :put,
+
+<% form_tag user_membership_path(membership.user, membership),
+            :method => :put,
             :id => dom_id(membership, :edit) do -%>
 
   <%= text_field :membership, :organisation %>
   <%= text_field :membership, :position %>
-  <%= submit_tag I18n.t('application.general.save'), :class => 'text_button save_button' %>
-  <span class="or_cancel"><%= I18n.t('application.general.or') %></span>
-  <%= link_to I18n.t('application.general.cancel'),
-              user_membership_path(membership.user, membership),
-              :class => 'ajax text_button cancel_button' %>
+
+  <!-- Save and cancel buttons -->
+  <%= save_or_cancel user_membership_path(membership.user, membership) %>
+
 <% end %>
 
 <script type="text/javascript">

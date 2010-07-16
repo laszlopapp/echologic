@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   # Set locale to the best fitting one
   def set_locale
     available = %w{en de es pt}
-    I18n.locale = params[:locale] || request.compatible_language_from(available)
+    I18n.locale = params[:locale] ? params[:locale].to_sym : request.compatible_language_from(available)
   end
 
   # Authlogic authentification filters

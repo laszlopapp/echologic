@@ -64,17 +64,15 @@ form.formtastic fieldset ol li.text .rte-zone textarea{
 }
 
 #function_container .search_category {
-  position: absolute;
-  left: 9px;
-  top: 6px;
+  float: left;
+  margin: 5px 0 -25px 7px;
   font-weight: bold;
   cursor: default;
 }
 
 #function_container .new_question {
-	position: absolute;
-	left: 1270px;
-	top: 64px;
+  float: right;
+  margin: 5px 7px -25px 0;
 }
 
 #discuss_results .box_header_icon {
@@ -93,6 +91,18 @@ form.formtastic fieldset ol li.text .rte-zone textarea{
   height: 200px;
 }
 
+#new_statement p {
+  cursor: default;
+}
+
+#new_statement #question_state_id_input li {
+  width: 700px;
+}
+
+.statement_form_illustration {
+  float: right;
+  margin: -25px 25px 0 70px;
+}
 
 /* ------- */
 /* CONTEXT */
@@ -474,6 +484,7 @@ a.statement_link:hover {
 #statement_tags_container #tag_topic_id {
   width: 250px !important;
   padding: 2px 0;
+  color: #21587F;
 }
 
 #statement_tags_container .add_text_button {

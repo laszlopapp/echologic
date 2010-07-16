@@ -6,10 +6,21 @@
 
 <div id="children" class="<%= has_children ? 'header_block discuss_right_block' : '' %>">
   <% if has_children %>
-    <h2><%= children_box_title(statement_node) %></h2>
+
+    <!-- echo label -->
     <% if !children.blank? %>
-	    <label class="echo_label header_button"> <%= I18n.t('discuss.statements.label') %> </label>
+	    <label class="echo_label header_button">
+        <%= I18n.t('discuss.statements.label') %>
+      </label>
     <% end %>
-    <%= render :partial => 'statements/children_list', :locals => {:statement_nodes => children}%>
+
+    <!-- Title -->
+    <h2>
+      <%= children_box_title(statement_node) %>
+    </h2>
+
+    <!-- The children -->
+    <%= render :partial => 'statements/children_list',
+               :locals => {:statement_nodes => children}%>
   <% end -%>
 </div>

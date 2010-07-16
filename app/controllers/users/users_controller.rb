@@ -20,19 +20,7 @@ class Users::UsersController < ApplicationController
       tag.value.index('*') == 0 ? nil : "#{tag.value}|#{tag.id}"
     }.compact.join("\n")
   end
-  
 
-#  # Direct definition of the tag value autocomplete, as we need more than the default function can give us
-#  def auto_complete_for_tag_value
-#    find_options = { 
-#      :conditions => [ "LOWER(value) LIKE ? and not (position('*' in value) = 0 )", '%' + params[:q].downcase + '%' ], 
-#      :order => "value ASC",
-#      :limit => 5 }
-#    
-#    @items = Tag.find(:all, find_options)
-#
-#    render :inline => "<%= auto_complete_result @items, 'value' %>"
-#  end
 
   # GET /users
   # GET /users.xml

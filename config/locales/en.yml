@@ -457,7 +457,10 @@ en:
       echo_indicator:
         one: 'This statement has {{supporter_count}} supporter.'
         many: 'This statement has {{supporter_count}} supporters.'
-      publish: 'Release the discussion to make it visible for everybody.'
+      publish: |
+        Release the discussion to make it visible for everybody.
+        (Afterwards no further editing is possible.)
+
     statements:
       error_messages:
         no_decision_making_permission: 'You do not have decision making rights for this debate in {{tag}}.'
@@ -493,7 +496,7 @@ en:
       states:
         label: 'Release discussion immediately?'
         deferred_publish: 'Set up at first and release later'
-        immediate_publish: 'Release to the public immediately'
+        immediate_publish: 'Release to the public immediately (no further editing is possible)'
       delete_link: "Delete"
       delete_confirmation: "Are you sure you want to delete this statement?"
     summary:

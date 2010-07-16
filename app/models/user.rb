@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   include UserExtension::Echo
   acts_as_subscriber
   acts_as_extaggable :affections, :engagements, :expertises, :decision_makings
-  
+
   has_many :web_addresses, :dependent => :destroy
   has_many :memberships, :dependent => :destroy
   has_many :spoken_languages, :dependent => :destroy, :order => 'level_id asc'
@@ -13,9 +13,9 @@ class User < ActiveRecord::Base
 
   # Every user must have a profile. Profiles are destroyed with the user.
   has_one :profile, :dependent => :destroy
-  delegate :percent_completed, :full_name, :first_name, :first_name=, :last_name, :last_name=, 
+  delegate :percent_completed, :full_name, :first_name, :first_name=, :last_name, :last_name=,
            :city, :city=, :country, :country=, :completeness, :calculate_completeness, :to => :profile
-  
+
   #last login language, important for the activity tracking email language when the user doesn't have anything set
   enum :last_login_language, :enum_name => :languages
 
@@ -92,14 +92,14 @@ class User < ActiveRecord::Base
     reset_perishable_token!
     Mailer.deliver_password_reset_instructions(self)
   end
-  
+
   #Send an activity tracking email through mailer
   def deliver_activity_tracking_email!(question_events, question_tags, events)
     reset_perishable_token!
     Mailer.deliver_activity_tracking_email(self,question_events, question_tags, events)
   end
 
-  
+
   handle_asynchronously :deliver_activity_tracking_email!
 
   ##
@@ -116,6 +116,30 @@ class User < ActiveRecord::Base
     has_role?(:admin)
   end
 
+  # Gives users with the given E-Mail addresses 'topic_editor' rights for the given hash tags.
+  def self.grant_topic_editor(emails, tags)
+    emails.each do |email|
+      user = User.find_by_email email
+      if user.nil?
+        puts "User with E-Mail '#{email}' cannot be found."
+        next
+      else
+        user_name = "#{user.profile.full_name} (#{user.email})"
+      end
+      tags.each do |tag_value|
+        tag = Tag.find_by_value tag_value
+        if tag.nil?
+          puts "Tag '#{tag_value}' doesn't exist."
+          next
+        end
+        user.has_role! :topic_editor, tag
+        puts "'#{user_name})' has become topic editor of '#{tag_value}'."
+      end
+      puts user.save ? "User '#{user_name}' has been saved sucessfully." :
+                       "Error saving user '#{user_name}'."
+    end
+  end
+
   ##
   ## SPOKEN LANGUAGES
   ##
@@ -129,13 +153,13 @@ class User < ActiveRecord::Base
     a.flatten.map(&:language_id)
   end
 
-  #returns an array with the user's mother tongues
+  # Returns an array with the user's mother tongues.
   def mother_tongues
     self.spoken_languages.select{|sp| sp.level.code == 'mother_tongue'}.collect{|sp| sp.language}
   end
-  
+
   def default_language
-    mother_tongues = self.mother_tongues 
+    mother_tongues = self.mother_tongues
     lang = !mother_tongues.empty? ? mother_tongues.first : self.last_login_language
     lang ? lang : User.languages("en")
   end
