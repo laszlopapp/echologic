@@ -3,6 +3,12 @@ class StatementNode < ActiveRecord::Base
   acts_as_subscribeable
   acts_as_extaggable #had to throw this here, because of the event json generation (tao_tags)
 
+  after_destroy :destroy_statement
+
+  def destroy_statement
+    self.statement.destroy if (statement.statement_nodes - [self]).empty?
+  end
+
   # static for now
   def published?
     self.state == self.class.statement_states("published")
