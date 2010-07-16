@@ -452,7 +452,7 @@ a.statement_link:hover {
   float: right;
 }
 
-#new_translation li, #new_translation input, #new_translation label {
+#new_translation input {
   width: 380px;
 }
 
@@ -463,6 +463,14 @@ a.statement_link:hover {
 
 #new_translation fieldset.buttons {
   clear: both;
+}
+
+#new_translation .static_text {
+	height: 229px;
+	width: 385px;
+	border: 1px solid #999999;
+	overflow: auto;
+	
 }
 
 #statement_tags_container .form_container {

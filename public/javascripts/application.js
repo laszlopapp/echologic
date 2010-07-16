@@ -142,12 +142,20 @@ function bindLanguageSelectionEvents() {
 
 
 /* lwRTE editor loading */
-function loadRTEEditor(){
-	$('.rte').rte({
-		frame_class: 'document_frame',
-		controls_rte: rte_toolbar,
-		controls_html: html_toolbar
-	});
+function loadRTEEditor(css_class, toolbars){
+	if (toolbars) {
+  	$(css_class).rte({
+  		frame_class: 'document_frame',
+  		controls_rte: rte_toolbar,
+  		controls_html: html_toolbar
+  	});
+  } else
+	{
+		$(css_class).rte({
+      frame_class: 'document_frame'
+	  });
+		$('iframe').all.IFRAME_SIMULACION.Disabled = true;
+	}
 }
 
 /* creates a statement tag button */

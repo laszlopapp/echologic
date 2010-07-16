@@ -17,6 +17,7 @@ Scenario: Login after expired Session
   And I am on the discuss index
   When I let my session expire
   And I go to the Discuss Index
+  And I go to the Discuss Index
   And I restore normal session expiry time
   And I login as "user" with password "true"
   Then I should be on the welcome page
