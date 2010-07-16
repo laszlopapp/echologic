@@ -287,7 +287,7 @@ de:
       link: Meine Diskussionen
       title: Meine neuen & freigegebenen Diskussionen
     tag_permission: |
-      Sie dürfen den Tag '{{tag}}' nicht vergeben.
+      Sie dürfen leider den Tag '{{tag}}' nicht vergeben.
     original_language_warning: |
       Die originale Aussage ist auf <strong>{{language}}</strong>. Definieren Sie<br/>
       Ihre Sprachkenntnisse, um weitere Inhalte zu sehen.
@@ -463,7 +463,7 @@ de:
         many: 'Diese Aussage hat {{supporter_count}} UnterstützerInnen.'
       publish: |
         Geben Sie die Diskussion frei, um sie für alle sichtbar zu machen.
-        (Danach ist keine Editierung mehr möglich.)
+        (Danach ist keine Bearbeitung mehr möglich.)
 
     statements:
       label: 'echos'
@@ -472,7 +472,7 @@ de:
       create_internal_link: 'Neue Idee?'
       create_improvement_proposal_link: 'Neuen Ergänzungsvorschlag erstellen'
       create_question_explanation: |
-        Hier können Sie eine <strong>neue Diskussion</strong> aufmachen und sie für einen besseren Findbarkeit mit den
+        Hier können Sie eine <strong>neue Diskussion</strong> eröffnen und mit den
         passenden <strong>thematischen Schlüsselwörten</strong> (sog. Tags) versehen.
       create_proposal_explanation: |
         Haben Sie eine <strong>gute Idee</strong> zur aktuellen Frage, die noch <strong>nicht vorhandenen</strong> ist?<br/>
@@ -497,9 +497,9 @@ de:
         proposal: 'Vorschläge'
         improvement_proposal: 'Ergänzungsvorschläge'
       states:
-        label: 'Diskussion gleich freigeben?'
-        deferred_publish: 'Erstmal weiter vorbereiten und später freigeben'
-        immediate_publish: 'Sofort an die Öffentlichkeit freigeben (danach keine Editierung möglich)'
+        label: 'Diskussion sofort veröffentlichen?'
+        deferred_publish: 'Erstmal weiter vorbereiten und später veröffentlichen'
+        immediate_publish: 'Sofort veröffentlichen (danach ist keine Bearbeitung mehr möglich)'
         published: Freigegeben
       delete_link: 'Löschen'
       delete_confirmation: 'Bist du sicher, dass du diese Aussage löschen willst?'
