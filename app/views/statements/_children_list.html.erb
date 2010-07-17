@@ -11,10 +11,10 @@
 	  <%= render :partial => 'statements/child', :locals => { :statement_node => last_child, :extra_classes => "active" } %>
 	<% end %>
 	<%if children.blank? or children.current_page == children.total_pages%>
-	  <li><%= create_children_statement_node_link(@statement_node, "add_new_button") %></li>
+	  <li><%= create_new_statement_button(@statement_node, "add_new_button") %></li>
 	<%end%>
   </ul>
-  <%= will_paginate children, :previous_label => '', :next_label => '' if defined? !children.blank? and children.total_pages %>  
+  <%= will_paginate children, :previous_label => '', :next_label => '' if defined? !children.blank? and children.total_pages %>
 </div>
 
 <script type="text/javascript">

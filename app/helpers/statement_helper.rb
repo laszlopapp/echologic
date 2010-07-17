@@ -163,14 +163,27 @@ module StatementHelper
   ## LINKS
   ##
 
-  # edited: i18n without interpolation, because of language diffs.
-  def create_children_statement_node_link(statement_node, css_class = "", lan_tag = "")
+  # Creates a link to create a new child item for a Statement
+  def create_new_statement_button(statement_node, css_class = "", lan_tag = "", statement_node_for_image = nil)
     return unless statement_node.class.expected_children.any?
     type = statement_node_class_dom_id(statement_node.class.expected_children.first)
+
+#    if statement_node_for_image
+#      link_block = image_tag("page/discuss/add_#{statement_node_for_image.class.name.underscore}_big.png",
+#                             :class => 'new_statement_button_illustration')
+#      link_block << I18n.t(lan_tag.blank? ? "discuss.statements.create_#{type}_link" : "discuss.statements.#{lan_tag}")
+#    else
+#      link_block = I18n.t(lan_tag.blank? ? "discuss.statements.create_#{type}_link" : "discuss.statements.#{lan_tag}")
+#    end
+
+    image_class = statement_node_for_image ?
+                    "create_statement_button_mid create_#{statement_node_for_image.class.name.underscore}_button_mid" :
+                    "text_button create_#{type}_button"
+
     link_to(I18n.t(lan_tag.blank? ? "discuss.statements.create_#{type}_link" : "discuss.statements.#{lan_tag}"),
             new_child_statement_node_url(statement_node, type),
             :id => "create_#{type.underscore}_link",
-            :class => "ajax #{css_class} text_button #{create_statement_node_button_class(type)} ttLink no_border",
+            :class => "ajax #{css_class} #{image_class} ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_#{type.underscore}"))
   end
 
@@ -179,11 +192,6 @@ module StatementHelper
      link_to I18n.t('discuss.translation_request'),
               new_translation_url(statement_node, type),
               :class => "ajax translation_link #{css_class}"
-  end
-
-  # this classname is needed to display the right icon next to the link
-  def create_statement_node_button_class(type)
-    "create_#{type}_button"
   end
 
   def create_question_link_for

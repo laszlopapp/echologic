@@ -58,6 +58,10 @@
   width: 700px;
 }
 
+.new_statement_button_illustration {
+  width: 50px;
+}
+
 .statement_form_illustration {
   float: right;
   margin: -25px 25px 0 70px;
@@ -131,10 +135,12 @@
 
 .context_line:hover .prev_stmt, .context_line.active .prev_stmt {
   background-position: 0 0;
+  cursor: pointer;
 }
 
 .context_line:hover .next_stmt, .context_line.active .next_stmt {
   background-position: -37px 0px;
+  cursor: pointer;
 }
 
 .context_line:hover .prev_stmt:hover {
@@ -180,6 +186,7 @@
   width:    80px;
   display:  inline-block;
   background-image: url(../images/page/discuss/echo_all.png);
+  cursor: pointer;
 }
 
 
@@ -284,6 +291,28 @@ a.statement_link:hover {
   background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
 
+.create_statement_button_mid {
+  float: left;
+  padding: 55px 0 0;
+  width: 100px;
+  margin-top: 10px !important;
+}
+
+.create_statement_button_mid:hover {
+  text-decoration: underline;
+}
+
+.create_question_button_mid {
+  background:transparent url(../images/page/discuss/add_question_mid.png) no-repeat scroll 0 0;
+}
+
+.create_proposal_button_mid {
+  background:transparent url(../images/page/discuss/add_proposal_mid.png) no-repeat scroll 0 0;
+}
+
+.create_improvement_proposal_button_mid {
+  background:transparent url(../images/page/discuss/add_improvement_proposal_mid.png) no-repeat scroll 0 0;
+}
 
 /* --------- */
 /* Navigator */
@@ -311,7 +340,6 @@ a.statement_link:hover {
 }
 
 #children_list li {
-  clear: both;
   margin: 4px 0;
 }
 
@@ -491,7 +519,6 @@ a.statement_link:hover {
 }
 
 #discussion_list a.publish_button {
-	float: left;
 	background: url("../images/page/publish_button_200.png") no-repeat scroll left top transparent;
 	border: medium none;
 	color: #21587F;
@@ -502,6 +529,8 @@ a.statement_link:hover {
 	padding: 12px 0 4px 15px;
 	text-align: center;
 	width: 200px !important;
+  position: relative;
+  top: -5px;
 }
 
 #discussion_list a.publish_button:hover {

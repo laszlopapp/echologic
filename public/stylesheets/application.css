@@ -547,6 +547,7 @@
   color:       #21587f;
   position:    relative;
   width: 	   100%;
+  cursor: default;
 }
 
 .function_button_holder .function_name:hover {
@@ -673,7 +674,6 @@
 }
 
 .results_container .content .avatar_holder {
-  float: left;
   width: 100%;
   height: 50px;
   padding: 1px 10px 0 0;
