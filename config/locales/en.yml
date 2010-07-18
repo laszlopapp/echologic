@@ -242,13 +242,13 @@ en:
         expertise: <strong>Expert</strong> in the field of
         decision_making: <strong>Decision maker</strong> in the field of
       tags: Keywords (tags)
-      
+
     # Email Notification section
     email_notification:
       title: Email Notification
       guide: Here you can set if you want to receive a weekly email notification with your subscribed entities related updates.
       label: Weekly update on discussions
-      
+
 
     users:
       new:
@@ -462,8 +462,6 @@ en:
         (Afterwards no further editing is possible.)
 
     statements:
-      error_messages:
-        no_decision_making_permission: 'You do not have decision making rights for this debate in {{tag}}.'
       label: 'echos'
       create_question_link: 'Open a new discussion'
       create_proposal_link: Add new proposal
@@ -478,6 +476,9 @@ en:
       create_improvement_proposal_explanation: |
         Do you have a <strong>good idea</strong> to <strong>make the current proposal even better</strong>?<br/>
         Here you can create a <strong>new improvement proposal</strong>.
+      create_statement_language_hint: |
+        Please post the statement in <strong>ENGLISH</strong> or choose another language
+        using the babelfish in the upper menu.
       publish: Release
       published: Discussion has been released successfully.
       edit: 'Edit {{type}}'
@@ -497,11 +498,14 @@ en:
         label: 'Publish discussion immediately?'
         deferred_publish: 'Set up at first and publish later'
         immediate_publish: 'Publish immediately (no further editing is possible)'
-        published: Published
-      delete_link: "Delete"
-      delete_confirmation: "Are you sure you want to delete this statement?"
+        published: Released
+      delete_link: 'Delete'
+      delete_confirmation: 'Are you sure you want to delete this statement?'
+      read_only_permission: 'This is a transparent but currently closed discussion, you are only allowed to read.'
+
     summary:
       title: 'Summary'
+
     messages:
       created: "The new {{type}} has been entered successfully."
       updated: "The {{type}} has been updated successfully."
@@ -631,14 +635,14 @@ en:
       user_session:
         email: E-Mail
         password: Password
-        
+
   mail:
     activity_tracking:
       subject: Activity Tracking
-      cancel: | 
+      cancel: |
         If you do not wish to receive the updated to your followed themes on a weekly basis, please go to your profile
-        and uncheck your email notification option. 
-      
+        and uncheck your email notification option.
+
     root:
       new_entry: "New entry in the '{{title}}' debate"
     parent:
@@ -651,13 +655,13 @@ en:
     proposal:
       new: |
         <p>
-        New proposal added with title 
+        New proposal added with title
         <a href='http://www.echologic.org/{{code}}/discuss/questions/{{parent_id}}/proposals/{{id}}'>{{title}}</a>
         </p>
     improvement_proposal:
       new: |
         <p>
-        New improvement proposal added with title 
+        New improvement proposal added with title
         <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
         {{title}}</a>
         </p>

@@ -214,15 +214,15 @@ class StatementsController < ApplicationController
     doc_attrs = attrs.delete(:statement_document)
 
     form_tags = attrs.delete(:tags)
-      
-    
+
+
     @statement_node ||= statement_node_class.new(attrs)
     @statement_document = @statement_node.add_statement_document(
                           doc_attrs.merge({:original_language_id => @locale_language_id}))
     permitted = true ; @tags = []
     if @statement_node.taggable? and (permitted = check_tag_permissions(form_tags))
-      @statement_node.topic_tags=form_tags 
-      @tags=@statement_node.topic_tags 
+      @statement_node.topic_tags=form_tags
+      @tags=@statement_node.topic_tags
     end
     respond_to do |format|
       if permitted and @statement_node.save
@@ -272,9 +272,9 @@ class StatementsController < ApplicationController
     # Updating tags of the statement
     form_tags = attrs.delete(:tags)
     permitted = true
-    if @statement_node.taggable? and (permitted = check_tag_permissions(form_tags)) 
-       @statement_node.topic_tags=form_tags 
-       @tags=@statement_node.topic_tags 
+    if @statement_node.taggable? and (permitted = check_tag_permissions(form_tags))
+       @statement_node.topic_tags=form_tags
+       @tags=@statement_node.topic_tags
     end
     respond_to do |format|
       if permitted and
@@ -354,8 +354,7 @@ class StatementsController < ApplicationController
       index = tag.index '*'
       if !index.nil? and index == 0
         if !user_decision_making_tags.include? tag
-          set_info('discuss.statements.error_messages.no_decision_making_permission',
-                   :tag => tag[1,tag.length-1])
+          set_info('discuss.statements.read_only_permission')
           respond_to do |format|
             format.html { flash_info and redirect_to(url_for(statement)) }
             format.js do

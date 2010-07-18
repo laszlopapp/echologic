@@ -469,8 +469,6 @@ es:
         (No será possible modificar la discusión.)
 
     statements:
-      error_messages:
-        no_decision_making_permission: 'Usted no tiene derechos de decisión para este debate en {{tag}}.'
       label: 'echos'
       create_question_link: 'Crear nueva discusión'
       create_proposal_link: 'Crear nueva propuesta'
@@ -485,6 +483,11 @@ es:
       create_improvement_proposal_explanation: |
         Tienes una <strong>buena idea</strong>, como esta propuesta poderia ser <strong>mejorada</strong>?<br/>
         Aquí puedes crear una <strong>nueva propuesta de mejoramiento</strong>.
+      create_statement_language_hint: |
+        Esta discusión está transparente pero el accesso astá restricto - solamente puedes leer.
+      create_statement_language_hint: |
+        Por favor escriba su idea en <strong>ESPAÑOL</strong> o escoja un otro idioma utilizando el
+        babelfish arriba al lado derecho.
       publish: Publicar
       published: Esta discusión fue publicada con éxito.
       edit: 'Editar {{type}}'
@@ -508,6 +511,9 @@ es:
         published: Publicado
       delete_link: "Borrar"
       delete_confirmation: "Está seguro, que realmente quiere borrar esta propuesta?"
+      read_only_permission: |
+        Esta discusión está transparente pero el accesso astá restricto - solamente puedes leer.
+
     summary:
       title: 'Resumen'
     messages:

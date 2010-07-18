@@ -466,8 +466,6 @@ de:
         (Danach ist keine Bearbeitung mehr möglich.)
 
     statements:
-      error_messages:
-        no_decision_making_permission: 'Sie haben keine Entscheidungsrechte für diese Debatte in {{tag}}.'
       label: 'echos'
       create_question_link: 'Neue Diskussion eröffnen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
@@ -482,6 +480,9 @@ de:
       create_improvement_proposal_explanation: |
         Haben Sie eine <strong>gute Idee</strong>, wie man den aktuellen <strong>Vorschlag noch besser machen</strong> kann?<br/>
         Hier können Sie einen <strong>neuen Ergänzungsvorschlag</strong> erstellen.
+      create_statement_language_hint: |
+        Bitte schreiben Sie Ihre Idee auf <strong>DEUTSCH</strong> oder wählen Sie über
+        den Babelfish im oberen Menü eine andere Sprache aus. 
       publish: Freigeben
       published: Die Diskussion wurde erfolgreich freigegeben.
       edit: '{{type}} bearbeiten'
@@ -505,6 +506,9 @@ de:
         published: Freigegeben
       delete_link: 'Löschen'
       delete_confirmation: 'Bist du sicher, dass du diese Aussage löschen willst?'
+      read_only_permission: |
+        Diese ist eine transparente aber erstmal geschlossene Diskussion, die Sie nur mitlesen dürfen.
+
     summary:
       title: 'Zusammenfassung'
     messages:
