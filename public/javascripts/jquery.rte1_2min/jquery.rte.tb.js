@@ -94,7 +94,7 @@ var rte_toolbar = {
     image: {
         exec: lwrte_image,
         tags: ["img"]
-    },*/
+    },
     link: {
         exec: lwrte_link,
         tags: ["a"]
@@ -104,16 +104,16 @@ var rte_toolbar = {
     },
     s8: {
         separator: true
-    },
+    },*/
     removeFormat: {
         exec: lwrte_unformat
-    },
-    /*word: {
+    }/*,
+    word: {
         exec: lwrte_cleanup_word
-    },*/
+    },
     clear: {
         exec: lwrte_clear
-    }
+    }*/
 };
 var html_toolbar = {
     s1: {
@@ -163,7 +163,7 @@ function lwrte_style(b){
             c = '<span class="' + d + '">' + c + "</span>";
             a.selection_replace_with(c);
             b.selectedIndex = 0
-        } 
+        }
         catch (f) {
         }
     }
