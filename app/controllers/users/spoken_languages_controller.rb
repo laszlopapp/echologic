@@ -10,13 +10,7 @@ class Users::SpokenLanguagesController < ApplicationController
   # Show the spoken language with the given id.
   # method: GET
   def show
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.js do
-        replace_content(dom_id(@spoken_language), :partial => 'spoken_language')
-      end
-    end
+    render_spoken_language :partial => 'spoken_language'
   end
 
   # Show the new template for spoken languages. Currently unused.
@@ -33,12 +27,7 @@ class Users::SpokenLanguagesController < ApplicationController
   # method: GET
   def edit
     @user = @current_user
-
-    respond_to do |format|
-      format.js do
-        replace_content(dom_id(@spoken_language), :partial => 'edit')
-      end
-    end
+    render_spoken_language :partial => 'edit'
   end
 
   # Create new spoken language for the current user.
@@ -107,5 +96,13 @@ class Users::SpokenLanguagesController < ApplicationController
   private
   def fetch_spoken_language
     @spoken_language = SpokenLanguage.find(params[:id])
+  end
+  
+  def render_spoken_language(opts={})
+    respond_to do |format|
+      format.js do
+        replace_content(dom_id(@spoken_language), :partial => opts[:partial])
+      end
+    end
   end
 end

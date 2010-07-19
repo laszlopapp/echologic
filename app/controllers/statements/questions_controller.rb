@@ -9,10 +9,7 @@ class QuestionsController < StatementsController
     @statement_nodes = Question.by_creator(current_user).paginate(:page => @page, :per_page => 5)
     @statement_documents = search_statement_documents(@statement_nodes.map{|s|s.statement_id},
                                                       @language_preference_list)
-    respond_to do |format|
-      format.html {render :template => 'statements/questions/my_discussions'}
-      format.js {render :template => 'statements/questions/discussions'}
-    end
+    respond_to_js :template => 'statements/questions/my_discussions', :template_js => 'statements/questions/discussions'
   end
 
 

@@ -2,11 +2,7 @@
 
   <%
     count = @count
-    if count < 2
-      count_text = I18n.t('discuss.results_count.one', :count => count)
-    else
-      count_text = I18n.t('discuss.results_count.more', :count => count)
-    end
+    count_text = I18n.t("discuss.results_count.#{count < 2 ? 'one' : 'more'}", :count => count)
   %>
 
   <span id="results_anchor"></span>

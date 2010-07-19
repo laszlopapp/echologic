@@ -104,8 +104,7 @@ class I18n::TranslationsController < ApplicationController
         format.html { redirect_to locale_translation_path(@locale, @translation) }
         format.xml  { render :xml => @translation, :status => :created, :location => @translation }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @translation.errors, :status => :unprocessable_entity }
+        render_xml @translation.errors, :action => 'new'
       end
     end
   end
@@ -125,8 +124,7 @@ class I18n::TranslationsController < ApplicationController
         format.xml  { head :ok }
         format.js   {}
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @translation.errors, :status => :unprocessable_entity }
+        render_xml @translation.errors, :action => 'edit'
       end
     end
   end
@@ -157,7 +155,12 @@ class I18n::TranslationsController < ApplicationController
   
   private
   
-    def find_locale
-      @locale = Locale.find_by_code(params[:locale_id])
-    end
+  def find_locale
+    @locale = Locale.find_by_code(params[:locale_id])
+  end
+  
+  def render_xml(obj,opts={})
+    format.html { render :action => opts[:action] }
+    format.xml  { render :xml => obj, :status => :unprocessable_entity }
+  end
 end

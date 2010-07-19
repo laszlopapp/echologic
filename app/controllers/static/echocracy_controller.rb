@@ -2,42 +2,34 @@ class Static::EchocracyController < ApplicationController
 
   # echocracy - The Benefits / The Actors
   def show
-    respond_to do |format|
-      format.html { render :partial => 'show', :layout => 'static' }
-      format.js { render :template => 'layouts/tabContainer' }
-    end
+    render_static :partial => 'show'
   end
 
   # echocracy - Citizens
   def citizens
-    respond_to do |format|
-      format.html { render :partial => 'citizens', :layout => 'static' }
-      format.js { render :template => 'layouts/tabContainer' }
-    end
+    render_static :partial => 'citizens'
   end
 
   # echocracy - Scientists
   def scientists
-    respond_to do |format|
-      format.html { render :partial => 'scientists', :layout => 'static' }
-      format.js { render :template => 'layouts/tabContainer' }
-    end
+    render_static :partial => 'scientists'
   end
 
   # echocracy - Decision makers
   def decision_makers
-    respond_to do |format|
-      format.html { render :partial => 'decision_makers', :layout => 'static' }
-      format.js { render :template => 'layouts/tabContainer' }
-    end
+    render_static :partial => 'decision_makers'
   end
 
   # echocracy - Organisations
   def organisations
+    render_static :partial => 'organisations'
+  end
+  
+  private
+  def render_static(opts={:partial => 'show'})
     respond_to do |format|
-      format.html { render :partial => 'organisations', :layout => 'static' }
-      format.js { render :template => 'layouts/tabContainer' }
+      format.html { render :partial => opts[:partial], :layout => 'static'}
+      format.js { render :template => 'layouts/tabContainer'}
     end
   end
-
 end

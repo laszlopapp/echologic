@@ -184,14 +184,7 @@ class ApplicationController < ActionController::Base
   def require_no_user
     if current_user
       flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_out')
-      respond_to do |format|
-        format.html { redirect_to root_path }
-        format.js do
-          render :update do |page|
-            page.redirect_to root_path
-          end
-        end
-      end
+      redirect_to_root_path
     end
     return false
   end
@@ -248,6 +241,16 @@ class ApplicationController < ActionController::Base
     else
       flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
     end
+    redirect_to_root_path
+  end
+
+  # Called when when a routing error occurs.
+  def redirect_to_home
+    redirect_to welcome_url
+  end
+  
+  protected
+  def redirect_to_root_path
     respond_to do |format|
       format.html { redirect_to root_path }
       format.js do
@@ -256,11 +259,17 @@ class ApplicationController < ActionController::Base
         end
       end
     end
-
   end
-
-  # Called when when a routing error occurs.
-  def redirect_to_home
-    redirect_to welcome_url
-  end
+  
+  def respond_to_js(opts={})
+    respond_to do |format|
+      format.html { render :template => opts[:template] } if opts[:template]
+      format.html { redirect_to opts[:redirect_to] } if opts[:redirect_to]
+      format.js   { render :partial => opts[:partial] } if opts[:partial]
+      format.html { opts[:html] } if opts[:html]
+      format.js   { render :template => opts[:template_js] } if opts[:template_js] 
+      format.js   { render :partial => opts[:partial_js] } if opts[:partial_js]
+      yield format if block_given?
+    end
+  end  
 end

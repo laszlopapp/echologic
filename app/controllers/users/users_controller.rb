@@ -95,7 +95,7 @@ class Users::UsersController < ApplicationController
     @user.password_confirmation = params[:user][:password_confirmation]
     respond_to do |format|
       if @user.save and not params[:user][:password].empty?
-        format.html { flash[:notice] = I18n.t('users.password_reset.messages.reset_success') and redirect_to my_profile_path }
+        format.html { (flash[:notice] = I18n.t('users.password_reset.messages.reset_success')) and (redirect_to my_profile_path) }
         format.js   { render_with_info(I18n.t('users.password_reset.messages.reset_success')) }
       else
         format.html { redirect_to my_profile_path }

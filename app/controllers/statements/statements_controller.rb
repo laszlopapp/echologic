@@ -52,10 +52,7 @@ class StatementsController < ApplicationController
                                                         s.statement_id
                                                       }, @language_preference_list)
 
-    respond_to do |format|
-      format.html {render :template => 'statements/questions/index'}
-      format.js {render :template => 'statements/questions/questions'}
-    end
+    respond_to_js :template => 'statements/questions/index', :template_js => 'statements/questions/questions'
   end
 
   # Shows a selected statement
@@ -122,10 +119,7 @@ class StatementsController < ApplicationController
     return if !@statement_node.echoable?
     @statement_node.supported_by!(current_user)
     @statement_node.add_subscriber(current_user)
-    respond_to do |format|
-      format.html { redirect_to @statement_node }
-      format.js { render :template => 'statements/echo' }
-    end
+    respond_to_js :redirect_to => @statement_node, :template_js => 'statements/echo'
   end
 
   # Called if user doesn't support this statement_node any longer. Sets the supported field
@@ -138,10 +132,7 @@ class StatementsController < ApplicationController
     return if !@statement_node.echoable?
     current_user.echo!(@statement_node, :supported => false)
     @statement_node.remove_subscriber(current_user)
-    respond_to do |format|
-      format.html { redirect_to @statement_node }
-      format.js { render :template => 'statements/echo' }
-    end
+    respond_to_js :redirect_to => @statement_node, :template_js => 'statements/echo'
   end
 
 
@@ -153,10 +144,7 @@ class StatementsController < ApplicationController
   def new_translation
     @statement_document ||= @statement_node.translated_document(current_user.spoken_language_ids)
     @new_statement_document ||= @statement_node.add_statement_document({:language_id => @locale_language_id})
-    respond_to do |format|
-      format.html { render :template => 'statements/translate' }
-      format.js {render :partial => 'statements/new_translation.rjs'}
-    end
+    respond_to_js :template => 'statements/translate', :partial_js => 'statements/new_translation.rjs'
   end
 
   # Creates a translation of a statement according to the fields from a form that was submitted
@@ -198,10 +186,8 @@ class StatementsController < ApplicationController
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     # TODO: right now users can't select the language they create a statement in, so current_user.languages_keys.
     # first will work. once this changes, we're in trouble - or better said: we'll have to pass the language_id as a param
-    respond_to do |format|
-      format.html { render :template => 'statements/new' }
-      format.js {render :partial => 'statements/new.rjs'}
-    end
+    
+    respond_to_js :template => 'statements/new', :partial_js => 'statements/new.rjs'
   end
   # creates a new statement
   #
@@ -254,8 +240,7 @@ class StatementsController < ApplicationController
   def edit
     @statement_document ||= @statement_node.translated_document(@language_preference_list)
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
-    respond_to do |format|
-      format.html { render :template => 'statements/edit' }
+    respond_to_js :template => 'statements/edit' do |format|
       format.js { replace_container('summary', :partial => 'statements/edit') }
     end
   end

@@ -13,13 +13,7 @@ class Users::WebAddressesController < ApplicationController
   # Show the web profile with the given id.
   # method: GET
   def show
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.js do
-        replace_content(dom_id(@web_address), :partial => 'web_address')
-      end
-    end
+    render_web_address :partial => 'web_address'
   end
 
   # Show the new template for web profiles. Currently unused.
@@ -36,12 +30,7 @@ class Users::WebAddressesController < ApplicationController
   # method: GET
   def edit
     @user = @current_user
-
-    respond_to do |format|
-      format.js do
-        replace_content(dom_id(@web_address), :partial => 'edit')
-      end
-    end
+    render_web_address :partial => 'edit'
   end
 
   # Create new web profile for the current user.
@@ -102,9 +91,17 @@ class Users::WebAddressesController < ApplicationController
     end
   end
   
-  private
+  protected
   
   def fetch_web_address
     @web_address = WebAddress.find(params[:id]) || WebAddress.new(params[:web_address].merge({:user => @current_user}))
+  end
+  
+  def render_web_address(opts={})
+    respond_to do |format|
+      format.js do
+        replace_content(dom_id(@web_address), :partial => opts[:partial])
+      end
+    end
   end
 end
