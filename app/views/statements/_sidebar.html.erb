@@ -1,28 +1,37 @@
 <% statement_node ||= @statement_node %>
 
-<% url_options = { :controller => statement_node.class.name.underscore.pluralize, :id => statement_node.id } %>
+<% url_options = { :controller => statement_node.class.name.underscore.pluralize,
+                   :id => statement_node.id } %>
 
 <div id="discuss_sidebar">
 
   <% unless !statement_node.echoable? || statement_node.new_record? %>
 
     <% unless current_user && statement_node.supported_by?(current_user) %>
-      <% link_to(url_for(url_options.merge({:action => :echo})), :class => "ajax_put", :id => 'echo_button') do %>
+      <% link_to(url_for(url_options.merge({:action => :echo})),
+                 :class => "ajax_put",
+                 :id => 'echo_button') do %>
         <span class="not_supported ttLink no_border" title="<%= I18n.t('discuss.tooltips.echo') %>"></span>
       <% end %>
     <% else %>
-      <% link_to(url_for(url_options.merge({:action => :unecho})), :class => "ajax_delete", :id => 'echo_button') do %>
+      <% link_to(url_for(url_options.merge({:action => :unecho})),
+                 :class => "ajax_delete",
+                 :id => 'echo_button') do %>
         <span class="supported ttLink no_border" title="<%= I18n.t('discuss.tooltips.unecho') %>"></span>
       <% end %>
     <% end %>
-    <br />
-  <span id="create_parent_element_button">
-  <%= create_children_statement_node_link(statement_node.parent, "", "create_internal_link") if statement_node.parent%>
-  </span>
+    <br/>
+    <span id="create_parent_element_button">
+    <%= create_children_statement_node_link(statement_node.parent, "", "create_internal_link") if statement_node.parent%>
+    </span>
   <% end %>
+
   <% if current_user && current_user.may_delete?(statement_node) -%>
     <br/><br/>
-    <%= link_to I18n.t('discuss.statements.delete_link'), url_for(statement_node), :class => 'admin_action', 
-                :method => :delete, :confirm => I18n.t('discuss.statements.delete_confirmation') %>
+    <%= link_to I18n.t('discuss.statements.delete_link'),
+                url_for(statement_node),
+                :class => 'admin_action',
+                :method => :delete,
+                :confirm => I18n.t('discuss.statements.delete_confirmation') %>
   <% end -%>
 </div>
