@@ -195,6 +195,8 @@ class StatementsController < ApplicationController
   def new
     @statement_node ||= statement_node_class.new(:parent => parent, :root_id => root_symbol)
     @statement_document ||= StatementDocument.new
+    
+    @statement_node.topic_tags << "##{params[:id]}" if params[:id]
 
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     # TODO: right now users can't select the language they create a statement in, so current_user.languages_keys.

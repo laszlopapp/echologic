@@ -144,3 +144,16 @@ Feature: User Generated Debates
       And I go to "My Discussions"
       And I follow "Release"
     Then I should not see "Release"
+    
+    @ok
+  Scenario: editor creates echonomyjam debate directly going from the new discussion link from the echonomyjam side
+    Given I am logged in as "editor" with password "true"
+      And I follow "Featured"
+      And I follow "echonomyJAM"
+      And I follow "Open a New Discussion"
+    Then I should see "#echonomyjam"
+      And I fill in the following:
+        | question_statement_document_title | A Debate for all Seasons |
+        | question_statement_document_text  | A Debate for all Seasons |
+      And I press "Save"
+    Then I should see "The new Question has been entered successfully."
