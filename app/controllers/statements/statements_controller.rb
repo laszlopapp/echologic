@@ -20,7 +20,7 @@ class StatementsController < ApplicationController
   before_filter :fetch_languages, :except => [:destroy]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
-  
+
   # authlogic access control block
   access_control do
     allow :editor
@@ -197,8 +197,8 @@ class StatementsController < ApplicationController
   def new
     @statement_node ||= statement_node_class.new(:parent => parent, :root_id => root_symbol)
     @statement_document ||= StatementDocument.new
-    
-    @statement_node.topic_tags << "##{params[:id]}" if params[:id]
+
+    @statement_node.topic_tags << "##{params[:category]}" if params[:category]
 
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     # TODO: right now users can't select the language they create a statement in, so current_user.languages_keys.
@@ -276,7 +276,7 @@ class StatementsController < ApplicationController
     attrs_doc = attrs.delete(:statement_document)
     # Updating tags of the statement
     form_tags = attrs.delete(:tags)
-    
+
     permitted = true
     if @statement_node.taggable? and (permitted = check_hash_tag_permissions(form_tags))
        @statement_node.topic_tags=form_tags
@@ -332,10 +332,10 @@ class StatementsController < ApplicationController
     @locale_language_id = locale_language_id
     @language_preference_list = language_preference_list
   end
-  
+
   # check if text that comes with the form is actually empty, even with the escape parameters from the iframe
   def check_empty_text
-    document_param = params[statement_node_symbol][:new_statement_document] || params[statement_node_symbol][:statement_document] 
+    document_param = params[statement_node_symbol][:new_statement_document] || params[statement_node_symbol][:statement_document]
     text = document_param[:text]
     document_param[:text] = "" if text.eql?('<br>')
   end

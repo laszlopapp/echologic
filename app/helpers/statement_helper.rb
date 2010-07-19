@@ -186,10 +186,10 @@ module StatementHelper
     "create_#{type}_button"
   end
 
-  def create_question_link_for(cat="")
+  def create_question_link_for(category = "")
     return unless current_user
     link_to(I18n.t("discuss.statements.create_question_link"),
-            hash_for_new_question_path.merge({:id => cat}),
+            hash_for_new_question_path.merge({:category => category}),
             :class=> 'text_button create_question_button no_border')
   end
 
