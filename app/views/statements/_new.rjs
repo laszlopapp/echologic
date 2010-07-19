@@ -1,3 +1,4 @@
+# RJS
 if @statement_node.parent.nil?
   page.remove 'search_container'
   page.remove 'new_question'
