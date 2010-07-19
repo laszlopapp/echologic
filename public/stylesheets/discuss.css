@@ -338,23 +338,6 @@ a.statement_link:hover {
 }
 
 
-/* --------- */
-/* Navigator */
-/* --------- */
-
-#navigator {
-  min-height:20px;
-  padding:5px;
-}
-
-/* overwrite header_button behaviour for create_statement links in navigator */
-
-#navigator .header_button {
-  float: left;
-  margin: 0px;
-
-}
-
 /* ------------------- */
 /* Children statements */
 /* ------------------- */
