@@ -116,6 +116,12 @@ class User < ActiveRecord::Base
     has_role?(:admin)
   end
 
+  # Returns true if the user has the topic editor privileges for the given tag (as a String).
+  def is_topic_editor(tag_value)
+    tag = Tag.find_by_value(tag_value)
+    tag and self.has_role? :topic_editor, tag
+  end
+
   # Gives users with the given E-Mail addresses 'topic_editor' rights for the given hash tags.
   def self.grant_topic_editor(emails, tags)
     emails.each do |email|

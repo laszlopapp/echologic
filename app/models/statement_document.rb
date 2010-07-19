@@ -12,18 +12,9 @@ class StatementDocument < ActiveRecord::Base
   validates_presence_of :statement
   validates_associated :author
   validates_uniqueness_of :language_id, :scope => :statement_id
-  
-#  validate :empty_text
 
   enum :language, :enum_name => :languages
 
-
-#  def empty_text
-#    if (self.text.blank? or self.text.eql?("<br>")) and errors.on('text').nil? 
-#      errors.add('text',I18n.t("activerecord.errors.messages.blank",  
-#                               :attribute => I18n.t("activerecord.attributes.statement_document.text")))
-#    end
-#  end
 
   # Returns if the document is an original or a translation
   def original?
@@ -39,9 +30,9 @@ class StatementDocument < ActiveRecord::Base
   def translations
     StatementDocument.find_all_by_translated_document_id(self.id)
   end
-  
+
   def self.search_statement_documents(statement_ids, language_ids, opts={} )
-      
+
       #Rambo 1
       query_part_1 = <<-END
           select distinct sd.title, sd.statement_id, sd.language_id

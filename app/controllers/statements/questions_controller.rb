@@ -1,12 +1,13 @@
 class QuestionsController < StatementsController
 
 
-  
+
 
   # action: my discussions page
   def my_discussions
     @page     = params[:page]  || 1
-    @statement_nodes = Question.by_creator(current_user).paginate(:page => @page, :per_page => 5)
+    @statement_nodes = Question.by_creator(current_user).by_creation.paginate(:page => @page,
+                                                                              :per_page => 5)
     @statement_documents = search_statement_documents(@statement_nodes.map{|s|s.statement_id},
                                                       @language_preference_list)
     respond_to do |format|
