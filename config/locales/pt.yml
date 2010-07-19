@@ -476,8 +476,8 @@ pt:
         Tem uma <strong>boa ideia</strong> para <strong>tornar a proposta actual ainda melhor</strong>?<br/>
         Aqui pode criar uma <strong>nova proposta de melhoria</strong>.
       create_statement_language_hint: |
-        Por favor escreva sua ideia em <strong>PORTUGUES</strong> ou
-        escolha um outro idioma usando o babelfish em cima ao lado direito.
+        Por favor escreva sua ideia em <strong>PORTUGUES</strong> ou escolha um outro idioma usando o
+        babelfish no canto superior direito.
       publish: Publicar
       published: A discussão foi publicada com sucesso.
       edit: 'Editar {{type}}'
@@ -501,7 +501,7 @@ pt:
         published: Publicado
       delete_link: "Apagar"
       delete_confirmation: "Tem a certeza que quer apagar esta afirmação?"
-      read_only_permission: |
+      read_only_permission: |-
         Isso é uma discussão transparente, mas de accesso restrito - somente pode leer.
 
     summary:

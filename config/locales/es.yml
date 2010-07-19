@@ -487,7 +487,7 @@ es:
         Esta discusión está transparente pero el accesso astá restricto - solamente puedes leer.
       create_statement_language_hint: |
         Por favor escriba su idea en <strong>ESPAÑOL</strong> o escoja un otro idioma utilizando el
-        babelfish arriba al lado derecho.
+        babelfish en el menu arriba.
       publish: Publicar
       published: Esta discusión fue publicada con éxito.
       edit: 'Editar {{type}}'
@@ -511,7 +511,7 @@ es:
         published: Publicado
       delete_link: "Borrar"
       delete_confirmation: "Está seguro, que realmente quiere borrar esta propuesta?"
-      read_only_permission: |
+      read_only_permission: |-
         Esta discusión está transparente pero el accesso astá restricto - solamente puedes leer.
 
     summary:
