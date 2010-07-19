@@ -432,6 +432,35 @@ pt:
           For more infos about the Klimaherbst TV event series, click
           <a href='http://www.klimaherbst.de/hallo-offentlichkeit' target='_blank'>here</a>.
           </p>
+      pep-net:
+        name: Pan European eParticipation Network
+        short_name: PEP-NET
+        teaser: |
+          All PEP-NET members are invited to join this discussion on the future of PEP-NET.
+        description: |-
+          <p>
+          In May 2010, a Temporary Steering Committee was formed after the general meeting of PEP‐NET held in Krems,
+          Austria. The aim of this committee was to <strong>prepare a vision statement and agenda for the
+          new entity</strong> that many partners would appreciate to be born after the end of the EU funding for
+          the project – approximately by the end of this year.
+          In order to collect meaningful and useful information from the current members on the future of
+          PEP‐NET, the results of the steering committee's work were taken over to echo to be further
+          deliberated.
+          The results of this online-deliberation will serve as a starting point for the PEP-NET conference on
+          the 23th of September in Hamburg.
+          </p><p>
+          The deliberative process is divided into two stages:
+            <ol>
+              <li>
+                An initial <strong>brainstorming stage</strong> (taking place from July 19. to Aug. 15) to
+                collect problems, opinions and make the support for different positions visible.
+              </li>
+              <li>
+                A <strong>drafting stage</strong> (starting on Aug. 16 and lasting until Sept. 19) to aggregate brainstorming
+                results into jointly elaborated proposals.
+              </li>
+            </ol>
+          </p>
 
 
     tooltips:
@@ -476,8 +505,8 @@ pt:
         Tem uma <strong>boa ideia</strong> para <strong>tornar a proposta actual ainda melhor</strong>?<br/>
         Aqui pode criar uma <strong>nova proposta de melhoria</strong>.
       create_statement_language_hint: |
-        Por favor escreva sua ideia em <strong>PORTUGUES</strong> ou
-        escolha um outro idioma usando o babelfish em cima ao lado direito.
+        Por favor escreva sua ideia em <strong>PORTUGUES</strong> ou escolha um outro idioma usando o
+        babelfish no canto superior direito.
       publish: Publicar
       published: A discussão foi publicada com sucesso.
       edit: 'Editar {{type}}'
@@ -501,7 +530,7 @@ pt:
         published: Publicado
       delete_link: "Apagar"
       delete_confirmation: "Tem a certeza que quer apagar esta afirmação?"
-      read_only_permission: |
+      read_only_permission: |-
         Isso é uma discussão transparente, mas de accesso restrito - somente pode leer.
 
     summary:

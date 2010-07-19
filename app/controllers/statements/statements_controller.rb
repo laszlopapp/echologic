@@ -11,16 +11,16 @@ class StatementsController < ApplicationController
   #        wrap a form around it.
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation]
   verify :method => :post, :only => [:create]
-  verify :method => :put, :only => [:update, :create_translation,:publish]
+  verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
 
   # the order of these filters matters. change with caution.
-  before_filter :fetch_statement_node, :except => [:category,:my_discussions,:new,:create]
+  before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
   before_filter :require_user, :except => [:category, :show]
   before_filter :fetch_languages, :except => [:destroy]
-  before_filter :require_decision_making_permission, :except => [:category,:show,:my_discussions]
+  before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
-
+  
   # authlogic access control block
   access_control do
     allow :editor
@@ -385,7 +385,8 @@ class StatementsController < ApplicationController
   #### TAGS
   ###############################
 
-  def check_tag_permissions(tags_values, language_id = @locale_language_id)
+  # Checks whether the user is allowed to assign the given hash tags (#tag)
+  def check_tag_permissions(tags_values)
     tags = tags_values.split(',').map{|t|t.strip}.uniq
     tags.each do |tag|
       tag.strip!

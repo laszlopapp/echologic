@@ -15,10 +15,11 @@
   <% User.tag_types.each do |context| %>
 	  <% context = context.to_s.singularize %>
     <% concernments = @profile.send("#{context}_tags".to_s) %>
+    <% concernments = concernments.select {|c| c.index('*') != 0} %>
     <% unless concernments.blank? %>
       <span class="label"><%= I18n.t("users.concernments.sorts.#{context}") %></span>
       <span class="values">
-        <%= concernments.collect { |c| c.index('*') == 0 ? nil : h(c) }.compact.join(', ') %>
+        <%= concernments.collect {|c| h(c)}.compact.join(', ') %>
       </span>
     <% end %>
   <% end %>

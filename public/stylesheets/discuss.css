@@ -107,8 +107,9 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 .statement_form_illustration {
-  float: right;
-  margin: 0 25px 0 60px;
+  float: left;
+  margin: 30px 0 0 15px;
+  border: none;
 }
 
 /* ------- */
@@ -337,23 +338,6 @@ a.statement_link:hover {
 }
 
 
-/* --------- */
-/* Navigator */
-/* --------- */
-
-#navigator {
-  min-height:20px;
-  padding:5px;
-}
-
-/* overwrite header_button behaviour for create_statement links in navigator */
-
-#navigator .header_button {
-  float: left;
-  margin: 0px;
-
-}
-
 /* ------------------- */
 /* Children statements */
 /* ------------------- */
@@ -532,9 +516,9 @@ a.statement_link:hover {
 
 #discussion_list a.statement_link {
 	float: left;
-	width: 330px;
+	width: 290px;
   height: 52px;
-	margin-top: -2px;
+	margin: -2px 5px 0 0;
 	padding: 0;
   overflow: hidden;
 }
@@ -542,7 +526,7 @@ a.statement_link:hover {
 #discussion_list .tags_list {
 	float: left;
 	padding-left: 25px !important;
-	width: 200px;
+	width: 215px;
 	margin-top: -2px;
   height: 52px;
   overflow: hidden;

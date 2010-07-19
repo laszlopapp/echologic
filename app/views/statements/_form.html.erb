@@ -50,8 +50,11 @@
 
   <!-- Submit or cancel -->
   <% form.buttons do %>
-    <%= form.commit_button I18n.t('application.general.save'), :button_html => { :alt => 'save_button' } %>
-    <span class="or_cancel"><%= I18n.t('application.general.or') %></span>
+    <%= form.commit_button I18n.t('application.general.save'),
+                           :button_html => { :alt => 'save_button' } %>
+    <span class="or_cancel">
+      <%= I18n.t('application.general.or') %>
+    </span>
 		<%= cancel_new_statement_node(statement_node) %>
   <% end %>
 <% end -%>
