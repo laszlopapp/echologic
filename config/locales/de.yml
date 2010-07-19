@@ -437,6 +437,35 @@ de:
           Mehr Infos über die Veranstaltungsreihe Klimaherbst TV finden Sie
           <a href='http://www.klimaherbst.de/hallo-offentlichkeit' target='_blank'>hier</a>.
           </p>
+      pep-net:
+        name: Pan European eParticipation Network
+        short_name: PEP-NET
+        teaser: |
+          All PEP-NET members are invited to join this discussion on the future of PEP-NET.
+        description: |-
+          <p>
+          In May 2010, a Temporary Steering Committee was formed after the general meeting of PEP‐NET held in Krems,
+          Austria. The aim of this committee was to <strong>prepare a vision statement and agenda for the
+          new entity</strong> that many partners would appreciate to be born after the end of the EU funding for
+          the project – approximately by the end of this year.
+          In order to collect meaningful and useful information from the current members on the future of
+          PEP‐NET, the results of the steering committee's work were taken over to echo to be further
+          deliberated.
+          The results of this online-deliberation will serve as a starting point for the PEP-NET conference on
+          the 23th of September in Hamburg.
+          </p><p>
+          The deliberative process is divided into two stages:
+            <ol>
+              <li>
+                An initial <strong>brainstorming stage</strong> (taking place from July 19. to Aug. 15) to
+                collect problems, opinions and make the support for different positions visible.
+              </li>
+              <li>
+                A <strong>drafting stage</strong> (starting on Aug. 16 and lasting until Sept. 19) to aggregate brainstorming
+                results into jointly elaborated proposals.
+              </li>
+            </ol>
+          </p>
 
 
     tooltips:
