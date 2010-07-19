@@ -80,4 +80,4 @@ Feature: Start a discussion
       And I choose the first Question
       And the question has "*beer" for tags
       And I follow "create_proposal_link"
-    Then I should see "You do not have decision making rights for this debate in beer"
+    Then I should see localized "discuss.statements.read_only_permission"
