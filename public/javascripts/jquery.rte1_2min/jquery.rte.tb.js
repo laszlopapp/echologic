@@ -1,8 +1,8 @@
 var rte_tag = "-rte-tmp-tag-";
 var rte_toolbar = {
-    s1: {
+   /* s1: {
         separator: true
-    },
+    },*/
     bold: {
         command: "bold",
         tags: ["b", "strong"]

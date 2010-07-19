@@ -19,6 +19,7 @@ class StatementsController < ApplicationController
   before_filter :require_user, :except => [:category, :show]
   before_filter :fetch_languages, :except => [:destroy]
   before_filter :require_decision_making_permission, :except => [:category,:show,:my_discussions]
+  before_filter :check_empty_text, :only => [:create, :update, :create_translation]
 
   # authlogic access control block
   access_control do
@@ -256,7 +257,7 @@ class StatementsController < ApplicationController
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     respond_to do |format|
       format.html { render :template => 'statements/edit' }
-      format.js { replace_container('summary', :partial => 'statements/edit') }
+      format.js {render :partial => 'statements/edit.rjs'}
     end
   end
 
@@ -271,19 +272,22 @@ class StatementsController < ApplicationController
     attrs_doc = attrs.delete(:statement_document)
     # Updating tags of the statement
     form_tags = attrs.delete(:tags)
+    
     permitted = true
     if @statement_node.taggable? and (permitted = check_tag_permissions(form_tags))
        @statement_node.topic_tags=form_tags
        @tags=@statement_node.topic_tags
     end
+    statement_document = @statement_node.translated_document(@language_preference_list)
     respond_to do |format|
       if permitted and
          @statement_node.update_attributes(attrs) and
-         @statement_node.translated_document(@language_preference_list).update_attributes(attrs_doc)
+         statement_document.update_attributes(attrs_doc)
         set_statement_node_info("discuss.messages.updated",@statement_node)
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js   { show }
       else
+        set_error(statement_document)
         set_error(@statement_node)
         format.html { flash_error and redirect_to url_for(@statement_node) }
         format.js   { show_error_messages }
@@ -323,6 +327,13 @@ class StatementsController < ApplicationController
   def fetch_languages
     @locale_language_id = locale_language_id
     @language_preference_list = language_preference_list
+  end
+  
+  # check if text that comes with the form is actually empty, even with the escape parameters from the iframe
+  def check_empty_text
+    document_param = params[statement_node_symbol][:new_statement_document] || params[statement_node_symbol][:statement_document] 
+    text = document_param[:text]
+    document_param[:text] = "" if text.eql?('<br>')
   end
 
   # returns the statement node correspondent symbol (:question, :proposal...). Must be implemented by the subclasses.
