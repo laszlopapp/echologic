@@ -10,10 +10,7 @@ class FeedbackController < ApplicationController
 
   # GET /feedback/new
   def new
-    respond_to do |format|
-      format.html { render :partial => 'feedback/new', :layout => 'static' }
-      format.js
-    end
+    render_new :partial => 'feedback/new'
   end  
 
   # POST /feedback

@@ -19,12 +19,4 @@ class Static::EchonomyController < ApplicationController
   def public_property
     render_static :partial => 'public_property'
   end
-  
-  private
-  def render_static(opts={:partial => 'show'})
-    respond_to do |format|
-      format.html { render :partial => opts[:partial], :layout => 'static'}
-      format.js { render :template => 'layouts/tabContainer'}
-    end
-  end
 end

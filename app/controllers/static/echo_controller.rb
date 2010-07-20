@@ -29,12 +29,4 @@ class Static::EchoController < ApplicationController
   def echo_on_waves
     render_static :partial => 'echo_on_waves', :locals => {:menu_item => 'echo', :submenu_item => 'echo_on_waves'}
   end
-  
-  private
-  def render_static(opts={:partial => 'show', :locals => {}})
-    respond_to do |format|
-      format.html { render :partial => opts[:partial], :layout => 'static'}
-      format.js { render :template => (opts[:template_js] || 'layouts/tabContainer') , :locals => opts[:locals]}
-    end
-  end
 end

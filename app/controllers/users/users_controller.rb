@@ -44,11 +44,7 @@ class Users::UsersController < ApplicationController
   # GET /users/new.xml
   def new
     @user = User.new
-
-    respond_to do |format|
-      format.html { render :template => 'users/users/new', :layout => 'static' } # new.html.erb
-      format.js
-    end
+    render_new :template => 'users/users/new'
   end
 
   # GET /users/1/edit

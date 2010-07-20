@@ -3,12 +3,8 @@
   <%= tabnav :connect_segments %>
 
   <%
-    count = @profiles.total_entries
-    if count < 2
-      count_text = I18n.t('connect.results_count.one', :count => count)
-    else
-      count_text = I18n.t('connect.results_count.more', :count => count)
-    end
+	  count = @profiles.total_entries
+    count_text = I18n.t("connect.results_count.#{count < 2 ? 'one' : 'more'}", :count => count)
   %>
 
   <!--<span class="results_count"><%- count_text %></span>-->

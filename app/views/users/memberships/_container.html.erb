@@ -1,13 +1,1 @@
-<div id="membership_container" class="header_block">
-  <h2><%= I18n.t('users.memberships.title') %></h2>
-  
-  <div class="guide">
-    <%= I18n.t('users.memberships.guide') %>
-  </div>
-
-  <%= render :partial => 'users/memberships/list', :locals => {:memberships => @user.memberships}%>
-  
-  <ul>
-    <%= render :partial => 'users/memberships/new' %>
-  </ul>
-</div>
+<%= render :partial => 'users/components/container', :locals => {:type => 'membership', :label => 'organisation', :value => 'position'}%>

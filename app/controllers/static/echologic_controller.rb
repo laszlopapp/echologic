@@ -34,12 +34,4 @@ class Static::EchologicController < ApplicationController
   def data_privacy
     render_outer_menu :partial => 'data_privacy', :locals => {:title => I18n.t('static.echologic.data_privacy.title')}
   end
-
-  private
-  def render_outer_menu(opts={})
-    respond_to do |format|
-      format.html { render :partial => opts[:partial], :layout => 'static', :locals => opts[:locals]}
-      format.js { render :template => 'layouts/outerMenuDialog' , :locals => opts[:locals]}
-    end
-  end
 end

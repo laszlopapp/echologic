@@ -270,5 +270,28 @@ class ApplicationController < ActionController::Base
       format.js   { render :partial => opts[:partial_js] } if opts[:partial_js]
       yield format if block_given?
     end
-  end  
+  end
+  
+  def render_static(opts={:partial => 'show', :layout => 'static', :locals => {}})
+    respond_to do |format|
+      format.html { render :partial => opts[:partial], :layout => opts[:layout]}
+      format.js { render :template => 'layouts/tabContainer', :locals => opts[:locals]}
+    end
+  end
+  
+  def render_outer_menu(opts={:layout => 'static'})
+    respond_to do |format|
+      format.html { render :partial => opts[:partial], :layout => opts[:layout], :locals => opts[:locals]}
+      format.js { render :template => 'layouts/outerMenuDialog' , :locals => opts[:locals]}
+    end
+  end
+  
+  def render_new(opts={:layout => 'static'})
+    respond_to do |format|
+      format.html { render :template => opts[:template], :layout => opts[:layout] } if opts[:template]# new.html.erb 
+      format.html { render :partial => opts[:partial], :layout => opts[:layout] } if opts[:partial]# new.html.erb
+      format.js
+      yield format if block_given?
+    end
+  end
 end

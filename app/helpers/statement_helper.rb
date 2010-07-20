@@ -227,7 +227,7 @@ module StatementHelper
   def render_echo_button(url_options, echo=true)
     title = I18n.t("discuss.tooltips.#{echo ? '' : 'un'}echo")
     link_to(url_for(url_options.merge({:action => (echo ? :echo : :unecho)})), 
-                    :class => (echo ? "ajax_put" : "ajax_delete"), 
+                    :class => "ajax_put", 
                     :id => 'echo_button') do 
        "<span class='#{echo ? 'not_' : '' }supported ttLink no_border' title='#{title}'></span>"
     end
