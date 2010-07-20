@@ -6,7 +6,7 @@ describe Echo do
       @user = User.first
       @echoable = Statement.first
       @old_count = @echoable.echo.visitor_count rescue 0
-      @user_echo = @user.visited!(@echoable)
+      @user_echo = @echoable.visited_by!(@user)
     end
     
     it "should be marked as visited" do 

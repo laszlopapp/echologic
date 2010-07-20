@@ -62,13 +62,13 @@ module Echoable
     end
     
     # states that the +user+ visited the given +echoable+
-    def visited_by!(user)
-      echo!(user, :visited => true)
+    def visited_by!(user, opts={})
+      echo!(user, :visited => opts[:visited] || true)
     end
     
     # states that the +user+ supported the given +echoable+
-    def supported_by!(user)
-      echo!(user, :supported => true)
+    def supported_by!(user, opts={})
+      echo!(user, :supported => opts[:supported] || true)
     end
     
     # returns true if the +user+ has visted the given +echoable+
