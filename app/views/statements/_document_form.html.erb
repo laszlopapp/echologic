@@ -17,7 +17,7 @@
           <%= I18n.t("activerecord.attributes.statement_document.text") %>
         </label>
         <div class="static_text">
-        	<%=h @statement_document.text %>
+        	<%= sanitize @statement_document.text %>
         </div>
 			</li>
     <% end %>
@@ -27,7 +27,7 @@
 
 <% if !disabled %>
 	<script>
-	   loadRTEEditor('.rte_doc', true);
+	   loadRTEEditor('.rte_doc', '<%= ECHOLOGIC_HOST %>');
 		 $('#<%= statement_node_class_dom_id(statement_node).downcase %>_statement_document_title').focus();
 	</script>
 <% end %>
