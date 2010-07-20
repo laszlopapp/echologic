@@ -44,7 +44,7 @@ class StatementsController < ApplicationController
     statement_nodes_not_paginated = search_statement_nodes(:search_term => @value,
                                                            :language_ids => @language_preference_list,
                                                            :category => category,
-                                                           :auth => current_user && current_user.has_role?(:editor))
+                                                           :show_unpublished => current_user && current_user.has_role?(:editor))
 
     @count    = statement_nodes_not_paginated.size
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page,
