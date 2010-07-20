@@ -17,8 +17,9 @@ class UserEcho < ActiveRecord::Base
     # updates it's attributes with the remaining options.
     # If the UserEcho object doesn't exist yet, it gets created.
     def create_or_update!(options)
-      user_echo = find(:first, :conditions => {:user_id => options[:user].id,
-                                               :echo_id => options[:echo].id })
+      user_echo = find(:first,
+                       :conditions => {:user_id => options[:user].id,
+                                       :echo_id => options[:echo].id })
       user_echo ? user_echo.update_attributes!(options) : user_echo = create!(options)
       user_echo
     end
