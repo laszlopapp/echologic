@@ -305,7 +305,7 @@ es:
     translation_request: Por favor tradusca este texto al <strong>ESPAÑOL</strong>.
     results_count:
       one: '{{count}} discusión'
-      more: '{{count}} # discusiones'
+      more: '{{count}} discusiones'
     featured_topics:
       title: Sinopsis
       text: |
