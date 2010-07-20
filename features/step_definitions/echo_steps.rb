@@ -18,7 +18,7 @@ end
 Given /^I gave an echo already to a proposal$/ do
   @proposal = Proposal.first
   @proposal.user_echos.destroy_all
-  ed = @proposal.supported_by!(@user)
+  ed = @proposal.supported!(@user)
   @proposal.add_subscriber(@user)
 end
 

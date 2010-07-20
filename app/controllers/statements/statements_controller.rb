@@ -66,7 +66,7 @@ class StatementsController < ApplicationController
   # Response: HTTP or JS
   #
   def show
-    @statement_node.visited_by!(current_user) if current_user
+    @statement_node.visited!(current_user) if current_user
 
     # Store last statement in session (for cancel link)
     session[:last_statement_node] = @statement_node.id
@@ -123,7 +123,7 @@ class StatementsController < ApplicationController
   #
   def echo
     return if !@statement_node.echoable?
-    @statement_node.supported_by!(current_user)
+    @statement_node.supported!(current_user)
     @statement_node.add_subscriber(current_user)
     respond_to do |format|
       format.html { redirect_to @statement_node }
@@ -139,7 +139,7 @@ class StatementsController < ApplicationController
   #
   def unecho
     return if !@statement_node.echoable?
-    @statement_node.supported_by!(current_user, :supported => false)
+    @statement_node.unsupported!(current_user)
     @statement_node.remove_subscriber(current_user)
     respond_to do |format|
       format.html { redirect_to @statement_node }
@@ -236,7 +236,7 @@ class StatementsController < ApplicationController
         load_to_session @statement_node if @statement_node.parent
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js {
-          @statement_node.visited_by!(current_user)
+          @statement_node.visited!(current_user)
           @children = [].paginate(StatementNode.default_scope.merge(:page => @page,
                                                                     :per_page => 5))
           render :partial => 'statements/create.rjs'

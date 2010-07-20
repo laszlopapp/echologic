@@ -6,8 +6,8 @@
 <div id="discuss_sidebar">
 
   <% unless !statement_node.echoable? || statement_node.new_record? %>
-	
-    <% unless current_user && statement_node.supported_by?(current_user) %>
+
+    <% unless current_user && statement_node.supported?(current_user) %>
       <% link_to(url_for(url_options.merge({:action => :echo})),
                  :class => "ajax_put",
                  :id => 'echo_button') do %>

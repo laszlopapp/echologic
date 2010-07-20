@@ -37,41 +37,41 @@ module Echoable
     # Records that the given user has visited the echoable.
     #
     # TODO: Please rename to 'visited!'
-    def visited_by!(user, opts={})
-      echo!(user, :visited => opts[:visited] || true)
+    def visited!(user)
+      echo!(user, :visited => true)
     end
 
     # Returns true if the given user has visited the echoable.
     #
     # Please rename to 'visited?'
-    def visited_by?(user)
+    def visited?(user)
       self.echo ? user.user_echos.visited.for_echo(self.echo.id).any? : false
     end
 
     # Records that the given user has supported the echoable.
     #
     # TODO: Please rename to 'supported!'
-    def supported_by!(user, opts={})
-      echo!(user, :supported => opts[:supported] || true)
+    def supported!(user)
+      echo! user, :supported => true
     end
 
     # Returns true if the given user supports the echoable.
     #
     # TODO: Please rename to 'supported?'
-    def supported_by?(user)
+    def supported?(user)
       self.echo ? user.user_echos.supported.for_echo(self.echo.id).any? : false
     end
 
     #TODO: Please implement the opposite method unsupported!(user) here
     def unsupported!(user)
-      # ...
+      echo! user, :supported => false
     end
 
     # Returns true if the given user doesn't support the echoable.
     #
     # TODO: Please implement the opposite method unsupported?(user) here
     def unsupported?(user)
-      # ...
+      self.echo ? !user.user_echos.supported.for_echo(self.echo.id).any? : true
     end
 
 
@@ -108,7 +108,8 @@ module Echoable
 
     # Supports the echoable by creating a new user_echo for the given user.
     def echo!(user, options = {})
-      user_echo = user_echos.create_or_update!(options.merge(:user => user, :echo => find_or_create_echo))
+      user_echo = user_echos.create_or_update!(options.merge(:user => user,
+                                                             :echo => find_or_create_echo))
       # OPTIMIZE: update the counters periodically
       echo.update_counter!
       user_echo
@@ -158,7 +159,7 @@ module Echoable
 
     # Records the creator's support for the statement.
     def author_support
-      self.supported_by!(self.creator)
+      self.supported!(self.creator)
     end
 
   end
