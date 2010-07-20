@@ -232,7 +232,6 @@ class StatementsController < ApplicationController
     respond_to do |format|
       if permitted and @statement_node.save
         set_statement_node_info("discuss.messages.created",@statement_node)
-        @statement_node.supported_by!(current_user)
         #load current created statement_node to session
         load_to_session @statement_node if @statement_node.parent
         format.html { flash_info and redirect_to url_for(@statement_node) }
