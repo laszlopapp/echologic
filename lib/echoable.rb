@@ -104,8 +104,6 @@ module Echoable
     end
 
 
-    protected
-
     # Supports the echoable by creating a new user_echo for the given user.
     def echo!(user, options = {})
       user_echo = user_echos.create_or_update!(options.merge(:user => user,
