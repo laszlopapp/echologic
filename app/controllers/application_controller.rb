@@ -265,8 +265,7 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.html { render :template => opts[:template] } if opts[:template]
       format.html { redirect_to opts[:redirect_to] } if opts[:redirect_to]
-      format.js   { render :partial => opts[:partial] } if opts[:partial]
-      format.html { opts[:html] } if opts[:html]
+      format.html   { render :partial => opts[:partial] } if opts[:partial]
       format.js   { render :template => opts[:template_js] } if opts[:template_js] 
       format.js   { render :partial => opts[:partial_js] } if opts[:partial_js]
       yield format if block_given?

@@ -11,7 +11,7 @@ class Users::ProfileController < ApplicationController
   def show
     @profile = Profile.find(params[:id])
     respond_to_js :partial => 'users/profile/profile_own' do |format|
-      replace_container('personal_container', :partial => 'users/profile/profile_own')
+      format.js {replace_container('personal_container', :partial => 'users/profile/profile_own')}
     end
   end
 
