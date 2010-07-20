@@ -103,7 +103,8 @@ end
 
 Then /^the question "([^\"]*)" should have "([^\"]*)" as tags$/ do |title, tags|
   tags = tags.split(',').map{|t| t.strip}
-  @question = StatementNode.search_statement_nodes(:type => "Question", :search_term => title,
+  @question = StatementNode.search_statement_nodes(:type => "Question",
+                                                   :search_term => title,
                                                    :language_ids => [EnumKey.find_by_code("en")]).first
   res = @question.topic_tags - tags
   res.should == []
@@ -184,13 +185,15 @@ Then /^I should see no proposals$/ do
 end
 
 Then /^I should be a subscriber from "([^\"]*)"$/ do |question|
-  @question = StatementNode.search_statement_nodes(:type => "Question", :search_term => question,
+  @question = StatementNode.search_statement_nodes(:type => "Question",
+                                                   :search_term => question,
                                                    :language_ids => [EnumKey.find_by_code("en")]).first
   assert(@question.followed_by?(@user))
 end
 
 Then /^"([^\"]*)" should have a "([^\"]*)" event$/ do |question, op_type|
-  @question = StatementNode.search_statement_nodes(:type => "Question", :search_term => question,
+  @question = StatementNode.search_statement_nodes(:type => "Question",
+                                                   :search_term => question,
                                                    :language_ids => [EnumKey.find_by_code("en")]).first
   event = Event.find_by_subscribeable_id(@question.id)
   assert !event.nil?
