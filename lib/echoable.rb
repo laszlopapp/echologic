@@ -9,6 +9,7 @@ module Echoable
 
       # FIXME: this belongs to the statement logic - echoable should be an independent module/plugin!
       #        Please move it to statement_node_echos (being an extension of statement_node).
+      # Note: it seems that the create action for statements calls supported! explicitly, too.
       after_create :author_support
 
       include InstanceMethods
@@ -36,8 +37,8 @@ module Echoable
     # Records that the given user has visited the echoable.
     #
     # TODO: Please rename to 'visited!'
-    def visited_by!(user)
-      echo!(user, :visited => true)
+    def visited_by!(user, opts={})
+      echo!(user, :visited => opts[:visited] || true)
     end
 
     # Returns true if the given user has visited the echoable.
@@ -50,8 +51,8 @@ module Echoable
     # Records that the given user has supported the echoable.
     #
     # TODO: Please rename to 'supported!'
-    def supported_by!(user)
-      echo!(user, :supported => true)
+    def supported_by!(user, opts={})
+      echo!(user, :supported => opts[:supported] || true)
     end
 
     # Returns true if the given user supports the echoable.

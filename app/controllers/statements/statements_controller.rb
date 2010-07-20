@@ -139,7 +139,7 @@ class StatementsController < ApplicationController
   #
   def unecho
     return if !@statement_node.echoable?
-    current_user.echo!(@statement_node, :supported => false)
+    @statement_node.supported_by!(current_user, :supported => false)
     @statement_node.remove_subscriber(current_user)
     respond_to do |format|
       format.html { redirect_to @statement_node }
@@ -232,7 +232,7 @@ class StatementsController < ApplicationController
     respond_to do |format|
       if permitted and @statement_node.save
         set_statement_node_info("discuss.messages.created",@statement_node)
-        current_user.supported!(@statement_node)
+        @statement_node.supported_by!(current_user)
         #load current created statement_node to session
         load_to_session @statement_node if @statement_node.parent
         format.html { flash_info and redirect_to url_for(@statement_node) }
