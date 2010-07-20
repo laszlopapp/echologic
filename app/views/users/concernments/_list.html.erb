@@ -1,0 +1,27 @@
+
+<div class="form_container">
+<span class="label"><%= I18n.t("users.concernments.sorts.#{context}") %></span>
+  <% form_tag url_for(:controller => "users/users",
+                      :action => "add_concernments"),
+              :id => "new_concernment_#{context}" do -%>
+
+    <%= text_field :tag,
+                   :value,
+                   :class => 'tag_value_autocomplete',
+                   :id => "concernment_#{context}_id" %>
+
+    <%= hidden_field_tag 'context', context %>
+
+    <%= submit_tag I18n.t('application.general.create'),
+                   :class => 'text_button add_text_button',
+                   :id => "add_concernment_#{context}" %>
+  <% end %>
+</div>
+
+<div id="concernments_<%= context %>" class="tag_container">
+  <%= render :partial => 'users/concernments/concernment', :collection => concernments.to_a, :locals => {:context => context} %>
+</div>
+
+<script type="text/javascript">
+  $("#new_concernment_<%= context %>").ajaxForm({ dataType: 'script' });
+</script>

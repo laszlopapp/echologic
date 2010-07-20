@@ -1,5 +1,5 @@
-<% statement_node ||= @statement_node%>
-<% statement_document = statement_node.translated_document(@language_preference_list) %>
+<% statement_node ||= @statement_node %>
+<% statement_document ||= @statement_documents[statement_node.statement_id] %>
 
 <% if statement_document %>
 	<li id="<%= statement_node_dom_id(statement_node) %>" class="<%=statement_node.class.name.downcase%>">
@@ -8,13 +8,13 @@
     <% end %>
 
     <!-- Statement title -->
-	  <%= link_to(statement_document.title,
+	  <%= link_to(h(statement_document.title),
                 url_for(statement_node),
                 :class => "statement_link ttLink no_border",
                 :title => I18n.t("discuss.tooltips.read_#{statement_node.class.name.underscore}")) %>
 
     <!-- Tags -->
-		<div class="tags_list"><%=tag_list(statement_node)%></div>
+		<div class="tags_list"><%=statement_node.topic_tags%></div>
 
     <!-- Publish button -->
 		<div class="buttons">

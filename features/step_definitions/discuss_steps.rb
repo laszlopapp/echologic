@@ -62,8 +62,7 @@ When /^I choose the "([^\"]*)" Improvement Proposal$/ do |name|
 end
 
 Then /^I should see an error message$/i do
-  pending
-  Then "I should see a \"error box\""
+  Then 'I should see "error"'
 end
 
 Given /^there is the first question$/i do
@@ -83,6 +82,11 @@ Given /^the question has proposals$/ do
   @question.children.proposals.count.should >= 1
 end
 
+Given /^the question has "([^\"]*)" for tags$/i do |tags|
+  @question.topic_tags = tags
+  @question.save
+end
+
 Given /^the question has no proposals$/ do
   @question.children.proposals.destroy_all
 end
@@ -98,9 +102,12 @@ Then /^the question should have one proposal$/ do
 end
 
 Then /^the question "([^\"]*)" should have "([^\"]*)" as tags$/ do |title, tags|
-  tags = tags.split(' ')
-  @question = StatementNode.search_statement_nodes("Question", title,[EnumKey.find_by_code("en")]).first
-  res = @question.tags.map{|tag|tag.value} - tags
+  tags = tags.split(',').map{|t| t.strip}
+  @question = StatementNode.search_statement_nodes(:type => "Question",
+                                                   :search_term => title,
+                                                   :language_ids => [EnumKey.find_by_code("en")],
+                                                   :show_unpublished => true).first
+  res = @question.topic_tags - tags
   res.should == []
 end
 
@@ -128,14 +135,18 @@ end
 Given /^a "([^\"]*)" question in "([^\"]*)"$/ do |state, category|
   state = StatementNode.statement_states(state)
   @question = Question.new(:state => state, :creator => @user)
-  @question.add_statement_document!({:title => "Am I a new statement?", :text => "I wonder what i really am! Maybe a statement? Or even a question?", :author => @user, :language_id => @user.spoken_language_ids.first, :original_language_id => @user.spoken_language_ids.first})
-  @question.tao_tags << TaoTag.create_for([category], EnumKey.find_by_code("en").id, {:tao => @question, :tao_type => StatementNode.name, :context_id => EnumKey.find_by_code("topic").id})
+  @question.add_statement_document!({:title => "Am I a new statement?",
+                                     :text => "I wonder what i really am! Maybe a statement? Or even a question?",
+                                     :author => @user,
+                                     :language_id => @user.spoken_language_ids.first,
+                                     :original_language_id => @user.spoken_language_ids.first})
+  @question.topic_tags << category
   @question.save!
 end
 
 Then /^the question should be published$/ do
   @question.reload
-  @question.state.should == EnumKey.find_by_code_and_enum_name("published","statement_states")
+  assert @question.state.eql?(EnumKey.find_by_code_and_enum_name("published","statement_states"))
 end
 
 Then /^I should see the questions title$/ do
@@ -150,6 +161,16 @@ Given /^there is a proposal$/ do
   @proposal = Question.find_all_by_state_id(StatementNode.statement_states('published').id).last.children.proposals.first
 end
 
+Given /^the proposal was not published yet$/ do
+  @proposal.state = StatementNode.statement_states("new")
+  @proposal.save
+end
+
+Given /^I have "([^\"]*)" as decision making tags$/ do |tags|
+  @user.decision_making_tags << tags
+  @user.save
+end
+
 Then /^the questions title should be "([^\"]*)"$/ do |title|
   @question.document.title.should == title
 end
@@ -162,4 +183,20 @@ end
 
 Then /^I should see no proposals$/ do
   assert_have_no_selector("li.question")
+end
+
+Then /^I should be a subscriber from "([^\"]*)"$/ do |question|
+  @question = StatementNode.search_statement_nodes(:type => "Question",
+                                                   :search_term => question,
+                                                   :language_ids => [EnumKey.find_by_code("en")]).first
+  assert(@question.followed_by?(@user))
+end
+
+Then /^"([^\"]*)" should have a "([^\"]*)" event$/ do |question, op_type|
+  @question = StatementNode.search_statement_nodes(:type => "Question",
+                                                   :search_term => question,
+                                                   :language_ids => [EnumKey.find_by_code("en")]).first
+  event = Event.find_by_subscribeable_id(@question.id)
+  assert !event.nil?
+  assert event.operation.eql?(op_type)
 end

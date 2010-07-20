@@ -1,5 +1,11 @@
 class DiscussController < ApplicationController
   
+  auto_complete_for :tag, :value, :limit => 5 do |tags|
+    content = tags.map{ |tag|
+      pre = %w(* #)
+      !pre.select{|p| tag.value.index(p) == 0}.empty? ? nil : "#{tag.value}|#{tag.id}"
+    }.compact.join("\n")
+   end
   
   # GET /discuss
   def roadmap

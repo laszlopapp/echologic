@@ -19,9 +19,8 @@ class Question < StatementNode
     { :order => %Q[created_at ASC] }
   end
 
-  # Questions are the only taggable statements currently.
-  def taggable?
-    true
+  # Questions are NOT echoable.
+  def echoable?
+    false
   end
-
 end

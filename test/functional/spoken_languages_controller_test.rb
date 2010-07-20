@@ -8,7 +8,7 @@ class SpokenLanguagesControllerTest < ActionController::TestCase
 
   test "should create spoken language" do
     assert_difference('SpokenLanguage.count') do
-      post :create, :spoken_language => {:language => SpokenLanguage.languages.first.id, :level => SpokenLanguage.language_levels.first.id}
+      post :create, :spoken_language => {:language => SpokenLanguage.languages.first, :level => SpokenLanguage.language_levels.first}
     end
   end
 

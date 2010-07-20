@@ -19,6 +19,7 @@ $(document).ready(function () {
   roundCorners();
 
 
+
   /* Always send the authenticity_token with ajax */
   $(document).ajaxSend(function(event, request, settings) {
     if ( settings.type == 'post' ) {
@@ -138,6 +139,20 @@ function bindLanguageSelectionEvents() {
     $('#language_selector').hide();
   });
 }
+
+
+/* lwRTE editor loading */
+function loadRTEEditor(iframe_css_class, host) {
+  url = 'http://' + host + '/stylesheets/';
+	$(iframe_css_class).rte({
+    css: ['jquery.rte.css'],
+    base_url: url,
+    frame_class: 'wysiwyg',
+    controls_rte: rte_toolbar,
+    controls_html: html_toolbar
+  });
+}
+
 /* creates a statement tag button */
 function createTagButton(text, tags_id) {
   element = $('<span/>').addClass('tag');

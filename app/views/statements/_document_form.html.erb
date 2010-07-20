@@ -1,10 +1,33 @@
 <% disabled ||= false %>
 <% statement_document ||= @statement_document %>
+<% css_rte_class = 'rte_doc' %>
+
 <% form.semantic_fields_for :statement_document, @statement_document do |doc|  %>
   <% doc.inputs :class => 'inputs left_panel' do %>
-    <%= doc.input :title, :input_html => {:disabled => disabled} %>
+    <%= doc.input :title,
+                  :input_html => {:disabled => disabled} %>
     <br/>
-    <%= doc.input :text, :input_html => {:disabled => disabled} %>
+		<% if !disabled %>
+      <%= doc.input :text,
+                    :input_html => {:disabled => disabled,
+                                    :class => css_rte_class} %>
+		<% else %>
+		  <li>
+			  <label for="question_statement_document_text">
+          <%= I18n.t("activerecord.attributes.statement_document.text") %>
+        </label>
+        <div class="static_text">
+        	<%= sanitize @statement_document.text %>
+        </div>
+			</li>
+    <% end %>
 		<%= doc.hidden_field :statement_id %>
   <% end %>
 <% end -%>
+
+<% if !disabled %>
+	<script>
+	   loadRTEEditor('.rte_doc', '<%= ECHOLOGIC_HOST %>');
+		 $('#<%= statement_node_class_dom_id(statement_node).downcase %>_statement_document_title').focus();
+	</script>
+<% end %>

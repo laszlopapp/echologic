@@ -1,10 +1,12 @@
 class SpokenLanguage < ActiveRecord::Base
+  include ProfileUpdater
+  
   belongs_to :user
-
+  
   enum :language, :enum_name => :languages
   enum :level, :enum_name => :language_levels
 
-  include ProfileUpdater
+  delegate :percent_completed, :to => :user
 
   validates_presence_of :user
   validates_presence_of :level
@@ -15,9 +17,4 @@ class SpokenLanguage < ActiveRecord::Base
     errors.add(:user, I18n.t('users.spoken_languages.error_messages.repeated_instance')) if
       user and language and !SpokenLanguage.first(:conditions => ["user_id = ? and language_id = ?",user.id,language.id]).nil?
   end
-
-  def profile
-    self.user.profile
-  end
-
 end
