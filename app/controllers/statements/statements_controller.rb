@@ -176,6 +176,10 @@ class StatementsController < ApplicationController
     respond_to do |format|
       if @statement_node.save
         set_statement_node_info("discuss.messages.translated",@statement_node)
+        @children = @statement_node.children.paginate(StatementNode.default_scope.merge(:page => 1,
+                                                                                        :per_page => 5))
+        @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
+                                                         @language_preference_list)
         @statement_document = @new_statement_document
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js {render :partial => 'statements/create.rjs'}
