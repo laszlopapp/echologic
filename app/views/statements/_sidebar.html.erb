@@ -17,7 +17,7 @@
       <% end %>
     <% else %>
       <% link_to(url_for(url_options.merge({:action => :unecho})),
-                 :class => "ajax_delete",
+                 :class => "ajax_put",
                  :id => 'echo_button') do %>
         <span class="supported ttLink no_border" title="
           <%= I18n.t('discuss.tooltips.unecho') %>">
