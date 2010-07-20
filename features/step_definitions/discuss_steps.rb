@@ -105,7 +105,8 @@ Then /^the question "([^\"]*)" should have "([^\"]*)" as tags$/ do |title, tags|
   tags = tags.split(',').map{|t| t.strip}
   @question = StatementNode.search_statement_nodes(:type => "Question",
                                                    :search_term => title,
-                                                   :language_ids => [EnumKey.find_by_code("en")]).first
+                                                   :language_ids => [EnumKey.find_by_code("en")],
+                                                   :show_unpublished => true).first
   res = @question.topic_tags - tags
   res.should == []
 end
