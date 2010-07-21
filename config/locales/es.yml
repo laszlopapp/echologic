@@ -307,7 +307,7 @@ es:
       one: '{{count}} discusión'
       more: '{{count}} discusiones'
     featured_topics:
-      title: Sinopsis
+      title: Nuestros Temas
       text: |
         <p>
         Como muestra el desarrollo (arriba al lado derecho de la pantalla), la área de discusión de echo todavía está <strong>en
