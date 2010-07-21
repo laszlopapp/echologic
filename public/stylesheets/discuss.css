@@ -72,14 +72,14 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 #function_container .search_category {
   float: left;
-  margin: 5px 0 -25px 7px;
+  margin: 6px 0 -25px 7px;
   font-weight: bold;
   cursor: default;
 }
 
 #function_container .new_question {
   float: right;
-  margin: 5px 7px -25px 0;
+  margin: 6px 7px -25px 0;
 }
 
 #discuss_results .box_header_icon {
@@ -107,8 +107,9 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 .statement_form_illustration {
-  float: right;
-  margin: 0 25px 0 70px;
+  float: left;
+  margin: 30px 0 0 15px;
+  border: none;
 }
 
 /* ------- */
@@ -337,23 +338,6 @@ a.statement_link:hover {
 }
 
 
-/* --------- */
-/* Navigator */
-/* --------- */
-
-#navigator {
-  min-height:20px;
-  padding:5px;
-}
-
-/* overwrite header_button behaviour for create_statement links in navigator */
-
-#navigator .header_button {
-  float: left;
-  margin: 0px;
-
-}
-
 /* ------------------- */
 /* Children statements */
 /* ------------------- */
@@ -363,7 +347,6 @@ a.statement_link:hover {
 }
 
 #children_list li {
-  clear: both;
   margin: 4px 0;
 }
 
@@ -524,25 +507,28 @@ a.statement_link:hover {
 
 #discussion_list li.question {
 	width: 100%;
-  height: 50px;
-  margin: 5px 0;
+  height: 52px;
+  margin: 4px 0;
   display: inline-block;
   clear: both;
 }
 
 #discussion_list a.statement_link {
 	float: left;
-	width: 330px;
-  height: 50px;
-	margin-top: -2px;
+	width: 290px;
+  height: 52px;
+	margin: -2px 5px 0 0;
 	padding: 0;
+  overflow: hidden;
 }
 
 #discussion_list .tags_list {
 	float: left;
-	padding-left: 21px !important;
-	width: 200px;
+	padding-left: 25px !important;
+	width: 215px;
 	margin-top: -2px;
+  height: 52px;
+  overflow: hidden;
 }
 
 #discussion_list .buttons {
@@ -563,6 +549,8 @@ a.statement_link:hover {
 	padding: 12px 0 4px 15px;
 	text-align: center;
 	width: 200px !important;
+  position: relative;
+  top: -5px;
 }
 
 #discussion_list a.publish_button:hover {
@@ -580,12 +568,6 @@ a.statement_link:hover {
 
 #my_discussions .pagination {
 	width: 100%;
-}
-
-#my_discussions #create_question_link {
-  margin-top: 20px;
-  margin-left: 0;
-  display: inline-block;
 }
 
 #my_discussions .avatar_holder img {

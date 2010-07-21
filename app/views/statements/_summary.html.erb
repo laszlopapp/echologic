@@ -12,6 +12,7 @@
     <%= I18n.t('discuss.summary.title') %>
   </h2>
 
+  <!-- Motivate people to translate the document -->
 	<%= render :partial => '/statements/translation_link',
              :locals => {:statement_node => statement_node,
                          :statement_document => statement_document} if @translation_permission %>
@@ -19,5 +20,9 @@
 	<%= render :partial => '/statements/original_language_warning',
              :locals => {:statement_node => statement_node,
                          :statement_document => statement_document} if @original_language_warning %>
-  <p><%= statement_document.text %></p>
+
+  <!-- Show the document -->
+  <p>
+    <%= sanitize statement_document.text %>
+  </p>
 </div>

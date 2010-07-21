@@ -18,7 +18,7 @@ $(document).ready(function () {
 
   roundCorners();
 
-  
+
 
   /* Always send the authenticity_token with ajax */
   $(document).ajaxSend(function(event, request, settings) {
@@ -142,20 +142,15 @@ function bindLanguageSelectionEvents() {
 
 
 /* lwRTE editor loading */
-function loadRTEEditor(css_class, toolbars){
-	if (toolbars) {
-  	$(css_class).rte({
-  		frame_class: 'document_frame',
-  		controls_rte: rte_toolbar,
-  		controls_html: html_toolbar
-  	});
-  } else
-	{
-		$(css_class).rte({
-      frame_class: 'document_frame'
-	  });
-		$('iframe').all.IFRAME_SIMULACION.Disabled = true;
-	}
+function loadRTEEditor(iframe_css_class, host) {
+  url = 'http://' + host + '/stylesheets/';
+	$(iframe_css_class).rte({
+    css: ['jquery.rte.css'],
+    base_url: url,
+    frame_class: 'wysiwyg',
+    controls_rte: rte_toolbar,
+    controls_html: html_toolbar
+  });
 }
 
 /* creates a statement tag button */

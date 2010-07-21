@@ -70,7 +70,7 @@ module ActiveRecord
             def remove_subscriber(subscriber)
               return if subscriber.nil?
               subscription = self.subscriptions.find_by_subscriber_id(subscriber.id)
-              subscriptions.delete(subscription)
+              subscriptions.delete(subscription) if subscription
             end
           RUBY
         end
@@ -109,7 +109,8 @@ module ActiveRecord
             end
             
             def delete_subscription_for(obj)
-              subscriptions.find_by_subscribeable_id(obj.id).destroy
+              subscription = subscriptions.find_by_subscribeable_id(obj.id)
+              subscription.destroy if subscription
             end
             
             def find_tracked_events(timespan)

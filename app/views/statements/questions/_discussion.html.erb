@@ -8,7 +8,7 @@
     <% end %>
 
     <!-- Statement title -->
-	  <%= link_to(statement_document.title,
+	  <%= link_to(h(statement_document.title),
                 url_for(statement_node),
                 :class => "statement_link ttLink no_border",
                 :title => I18n.t("discuss.tooltips.read_#{statement_node.class.name.underscore}")) %>

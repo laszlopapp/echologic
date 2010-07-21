@@ -1,8 +1,10 @@
 module QuestionsHelper
   def add_discussion_link
-    link_to(I18n.t("discuss.statements.create_question_link"),new_question_url,
+    link_to(image_tag("page/discuss/add_question_big.png",
+                        :class => 'statement_form_illustration'),
+            new_question_url,
             :id => "create_question_link",
-            :class => "text_button create_question_button ttLink no_border",
+            :class => "ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_question"))
   end
 

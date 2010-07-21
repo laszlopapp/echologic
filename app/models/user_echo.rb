@@ -3,20 +3,25 @@ class UserEcho < ActiveRecord::Base
   belongs_to :user
   belongs_to :statement_node, :foreign_key => 'echo_id', :primary_key => 'echo_id'
 
+  validates_presence_of :user_id, :echo_id
+
   named_scope :visited, lambda { { :conditions => { :visited => true } } }
   named_scope :supported, lambda { { :conditions => { :supported => true } } }
 
   named_scope :for_user, lambda { |user_id| { :conditions => { :user_id => user_id } } }
   named_scope :for_echo, lambda { |echo_id| {:conditions => {:echo_id => echo_id}}}
-  
+
   class << self
-    # Finds the UserEcho based on the given :echo in the options hash and
+
+    # Finds the UserEcho based on the given echo and user in the options hash and
     # updates it's attributes with the remaining options.
-    # If the EchoDetail doesn't exist yet, it is created instead.
+    # If the UserEcho object doesn't exist yet, it gets created.
     def create_or_update!(options)
-      ed = find(:first, :conditions => { :echo_id => options[:echo].id })
-      ed ? ed.update_attributes!(options) : ed = create!(options)
-      ed
+      user_echo = find(:first,
+                       :conditions => {:user_id => options[:user].id,
+                                       :echo_id => options[:echo].id })
+      user_echo ? user_echo.update_attributes!(options) : user_echo = create!(options)
+      user_echo
     end
   end
 end

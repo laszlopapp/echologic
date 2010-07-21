@@ -234,7 +234,7 @@ class StatementNode < ActiveRecord::Base
       if opts[:conditions].nil?
         and_conditions << "n.type = '#{opts[:type]}'"
         # Filter for published statements
-        and_conditions << sanitize_sql(["n.state_id = ?", statement_states('published').id]) if opts[:auth]
+        and_conditions << sanitize_sql(["n.state_id = ?", statement_states('published').id]) unless opts[:show_unpublished]
         # Filter for featured topic tags (categories)
         and_conditions << sanitize_sql(["t.value = ?", opts[:category]]) if opts[:category]
       else

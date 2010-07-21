@@ -102,9 +102,11 @@ Then /^the question should have one proposal$/ do
 end
 
 Then /^the question "([^\"]*)" should have "([^\"]*)" as tags$/ do |title, tags|
-  tags = tags.split(' ')
-  @question = StatementNode.search_statement_nodes(:type => "Question", :search_term => title,
-                                                   :language_ids => [EnumKey.find_by_code("en")]).first
+  tags = tags.split(',').map{|t| t.strip}
+  @question = StatementNode.search_statement_nodes(:type => "Question",
+                                                   :search_term => title,
+                                                   :language_ids => [EnumKey.find_by_code("en")],
+                                                   :show_unpublished => true).first
   res = @question.topic_tags - tags
   res.should == []
 end
@@ -133,7 +135,11 @@ end
 Given /^a "([^\"]*)" question in "([^\"]*)"$/ do |state, category|
   state = StatementNode.statement_states(state)
   @question = Question.new(:state => state, :creator => @user)
-  @question.add_statement_document!({:title => "Am I a new statement?", :text => "I wonder what i really am! Maybe a statement? Or even a question?", :author => @user, :language_id => @user.spoken_language_ids.first, :original_language_id => @user.spoken_language_ids.first})
+  @question.add_statement_document!({:title => "Am I a new statement?",
+                                     :text => "I wonder what i really am! Maybe a statement? Or even a question?",
+                                     :author => @user,
+                                     :language_id => @user.spoken_language_ids.first,
+                                     :original_language_id => @user.spoken_language_ids.first})
   @question.topic_tags << category
   @question.save!
 end
@@ -160,6 +166,11 @@ Given /^the proposal was not published yet$/ do
   @proposal.save
 end
 
+Given /^I have "([^\"]*)" as decision making tags$/ do |tags|
+  @user.decision_making_tags << tags
+  @user.save
+end
+
 Then /^the questions title should be "([^\"]*)"$/ do |title|
   @question.document.title.should == title
 end
@@ -175,13 +186,15 @@ Then /^I should see no proposals$/ do
 end
 
 Then /^I should be a subscriber from "([^\"]*)"$/ do |question|
-  @question = StatementNode.search_statement_nodes(:type => "Question", :search_term => question,
+  @question = StatementNode.search_statement_nodes(:type => "Question",
+                                                   :search_term => question,
                                                    :language_ids => [EnumKey.find_by_code("en")]).first
   assert(@question.followed_by?(@user))
 end
 
 Then /^"([^\"]*)" should have a "([^\"]*)" event$/ do |question, op_type|
-  @question = StatementNode.search_statement_nodes(:type => "Question", :search_term => question,
+  @question = StatementNode.search_statement_nodes(:type => "Question",
+                                                   :search_term => question,
                                                    :language_ids => [EnumKey.find_by_code("en")]).first
   event = Event.find_by_subscribeable_id(@question.id)
   assert !event.nil?

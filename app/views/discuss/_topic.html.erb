@@ -1,7 +1,7 @@
 <div class="function_button_holder">
   <% link_to hash_for_question_tags_path.merge({:id=>category}) do %>
     <span class="function_button">
-    	<%= image_tag(image_path) %>
+    	<%= image_tag("page/discuss/topics/#{category}.png") %>
     </span>
   <% end %>
   <% link_to hash_for_question_tags_path.merge({:id=>category}), {:class => 'function_name'} do %>

@@ -11,14 +11,15 @@ class StatementsController < ApplicationController
   #        wrap a form around it.
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation]
   verify :method => :post, :only => [:create]
-  verify :method => :put, :only => [:update, :create_translation,:publish]
+  verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
 
   # the order of these filters matters. change with caution.
-  before_filter :fetch_statement_node, :except => [:category,:my_discussions,:new,:create]
+  before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
   before_filter :require_user, :except => [:category, :show]
   before_filter :fetch_languages, :except => [:destroy]
-  before_filter :require_decision_making_permission, :except => [:category,:show,:my_discussions]
+  before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
+  before_filter :check_empty_text, :only => [:create, :update, :create_translation]
 
   # authlogic access control block
   access_control do
@@ -38,16 +39,16 @@ class StatementsController < ApplicationController
   def category
     @value    = params[:value] || ""
     @page     = params[:page]  || 1
-
     category = "##{params[:id]}" if params[:id]
 
     statement_nodes_not_paginated = search_statement_nodes(:search_term => @value,
                                                            :language_ids => @language_preference_list,
                                                            :category => category,
-                                                           :auth => current_user && current_user.has_role?(:editor))
+                                                           :show_unpublished => current_user && current_user.has_role?(:editor))
 
     @count    = statement_nodes_not_paginated.size
-    @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => 6)
+    @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page,
+                                                              :per_page => 6)
     @statement_documents = search_statement_documents(@statement_nodes.map { |s|
                                                         s.statement_id
                                                       }, @language_preference_list)
@@ -65,12 +66,12 @@ class StatementsController < ApplicationController
   # Response: HTTP or JS
   #
   def show
-    @statement_node.visited_by!(current_user) if current_user
+    @statement_node.visited!(current_user) if current_user
 
-    # store last statement (for cancel link)
+    # Store last statement in session (for cancel link)
     session[:last_statement_node] = @statement_node.id
 
-    # prev / next functionality
+    # Prev / Next functionality
     unless @statement_node.children.empty?
       child_type = ("current_" + @statement_node.class.expected_children.first.to_s.underscore).to_sym
       session[child_type] = @statement_node.children.by_supporters.collect { |c| c.id }
@@ -84,7 +85,7 @@ class StatementsController < ApplicationController
       return
     end
 
-    #test for special links
+    # Test for special links
     @original_language_warning = @statement_node.not_original_language?(current_user, @locale_language_id)
     @translation_permission = @statement_node.translatable?(current_user,
                                                             @statement_document.language,
@@ -103,8 +104,10 @@ class StatementsController < ApplicationController
     @page = params[:page] || 1
 
     @children = @statement_node.sorted_children(current_user, @language_preference_list).
-                  paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
-    @children_documents = search_statement_documents(@children.map { |s| s.statement_id }, @language_preference_list)
+                  paginate(StatementNode.default_scope.merge(:page => @page,
+                                                             :per_page => 5))
+    @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
+                                                     @language_preference_list)
 
     respond_to do |format|
       format.html {render :template => 'statements/show' } # show.html.erb
@@ -120,7 +123,7 @@ class StatementsController < ApplicationController
   #
   def echo
     return if !@statement_node.echoable?
-    @statement_node.supported_by!(current_user)
+    @statement_node.supported!(current_user)
     @statement_node.add_subscriber(current_user)
     respond_to do |format|
       format.html { redirect_to @statement_node }
@@ -136,7 +139,7 @@ class StatementsController < ApplicationController
   #
   def unecho
     return if !@statement_node.echoable?
-    current_user.echo!(@statement_node, :supported => false)
+    @statement_node.unsupported!(current_user)
     @statement_node.remove_subscriber(current_user)
     respond_to do |format|
       format.html { redirect_to @statement_node }
@@ -173,6 +176,10 @@ class StatementsController < ApplicationController
     respond_to do |format|
       if @statement_node.save
         set_statement_node_info("discuss.messages.translated",@statement_node)
+        @children = @statement_node.children.paginate(StatementNode.default_scope.merge(:page => 1,
+                                                                                        :per_page => 5))
+        @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
+                                                         @language_preference_list)
         @statement_document = @new_statement_document
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js {render :partial => 'statements/create.rjs'}
@@ -194,6 +201,8 @@ class StatementsController < ApplicationController
   def new
     @statement_node ||= statement_node_class.new(:parent => parent, :root_id => root_symbol)
     @statement_document ||= StatementDocument.new
+
+    @statement_node.topic_tags << "##{params[:category]}" if params[:category]
 
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     # TODO: right now users can't select the language they create a statement in, so current_user.languages_keys.
@@ -220,19 +229,18 @@ class StatementsController < ApplicationController
     @statement_document = @statement_node.add_statement_document(
                           doc_attrs.merge({:original_language_id => @locale_language_id}))
     permitted = true ; @tags = []
-    if @statement_node.taggable? and (permitted = check_tag_permissions(form_tags))
+    if @statement_node.taggable? and (permitted = check_hash_tag_permissions(form_tags))
       @statement_node.topic_tags=form_tags
       @tags=@statement_node.topic_tags
     end
     respond_to do |format|
       if permitted and @statement_node.save
         set_statement_node_info("discuss.messages.created",@statement_node)
-        current_user.supported!(@statement_node)
         #load current created statement_node to session
         load_to_session @statement_node if @statement_node.parent
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js {
-          @statement_node.visited_by!(current_user)
+          @statement_node.visited!(current_user)
           @children = [].paginate(StatementNode.default_scope.merge(:page => @page,
                                                                     :per_page => 5))
           render :partial => 'statements/create.rjs'
@@ -256,7 +264,7 @@ class StatementsController < ApplicationController
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     respond_to do |format|
       format.html { render :template => 'statements/edit' }
-      format.js { replace_container('summary', :partial => 'statements/edit') }
+      format.js {render :partial => 'statements/edit.rjs'}
     end
   end
 
@@ -271,19 +279,22 @@ class StatementsController < ApplicationController
     attrs_doc = attrs.delete(:statement_document)
     # Updating tags of the statement
     form_tags = attrs.delete(:tags)
+
     permitted = true
-    if @statement_node.taggable? and (permitted = check_tag_permissions(form_tags))
+    if @statement_node.taggable? and (permitted = check_hash_tag_permissions(form_tags))
        @statement_node.topic_tags=form_tags
        @tags=@statement_node.topic_tags
     end
+    statement_document = @statement_node.translated_document(@language_preference_list)
     respond_to do |format|
       if permitted and
          @statement_node.update_attributes(attrs) and
-         @statement_node.translated_document(@language_preference_list).update_attributes(attrs_doc)
+         statement_document.update_attributes(attrs_doc)
         set_statement_node_info("discuss.messages.updated",@statement_node)
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js   { show }
       else
+        set_error(statement_document)
         set_error(@statement_node)
         format.html { flash_error and redirect_to url_for(@statement_node) }
         format.js   { show_error_messages }
@@ -325,6 +336,13 @@ class StatementsController < ApplicationController
     @language_preference_list = language_preference_list
   end
 
+  # check if text that comes with the form is actually empty, even with the escape parameters from the iframe
+  def check_empty_text
+    document_param = params[statement_node_symbol][:new_statement_document] || params[statement_node_symbol][:statement_document]
+    text = document_param[:text]
+    document_param[:text] = "" if text.eql?('<br>')
+  end
+
   # returns the statement node correspondent symbol (:question, :proposal...). Must be implemented by the subclasses.
   def statement_node_symbol
     raise NotImplementedError.new("This method must be implemented by subclasses.")
@@ -344,40 +362,49 @@ class StatementsController < ApplicationController
     set_info(string, :type => I18n.t("discuss.statements.types.#{statement_node_symbol.to_s}"))
   end
 
-  # Checks if the statement node or parent has a * tag and the user has permission for it
-  def require_decision_making_permission
-    user_decision_making_tags = current_user.decision_making_tags
-    statement = @statement_node || parent
-    return true if statement.nil?
-    tags = statement.root.tags.map{|t|t.value}
-    tags.each do |tag|
-      index = tag.index '*'
-      if !index.nil? and index == 0
-        if !user_decision_making_tags.include? tag
-          set_info('discuss.statements.read_only_permission')
-          respond_to do |format|
-            format.html { flash_info and redirect_to(url_for(statement)) }
-            format.js do
-              render_with_info
-            end
-          end
-          return false
-        end
-      end
-    end
-    return true
-  end
+
 
   ###############################
   #### TAGS
   ###############################
 
-  def check_tag_permissions(tags_values, language_id = @locale_language_id)
+  # Checks if the statement node or parent has a * tag and the user has permission for it
+  def require_decision_making_permission
+    decision_making_tags = current_user.decision_making_tags
+    statement = @statement_node || parent
+    return true if statement.nil?
+    tags = statement.root.tags.map{|t|t.value}
+    tags.each do |tag|
+      index = tag.index '*'
+      next if index != 0
+      if !decision_making_tags.include? tag
+        set_info('discuss.statements.read_only_permission')
+        respond_to do |format|
+          format.html { flash_info and redirect_to(url_for(statement)) }
+          format.js do
+            render_with_info
+          end
+        end
+        return false
+      end
+    end
+    return true
+  end
+
+  # Checks whether the user is allowed to assign the given hash tags (#tag)
+  def check_hash_tag_permissions(tags_values)
+    # Editors can define all tags
+    return true if current_user.has_role? :editor
+
+    # Check the individual hash tag permissions
+    decision_making_tags = current_user.decision_making_tags
     tags = tags_values.split(',').map{|t|t.strip}.uniq
     tags.each do |tag|
-      tag.strip!
       index = tag.index '#'
-      if !index.nil? and index == 0 and !current_user.has_role? :topic_editor, Tag.find_by_value(tag)
+      next if index != 0
+      decision_making_tag = '*' + tag[1..-1]
+      if !current_user.is_topic_editor(tag) and
+         !decision_making_tags.include? decision_making_tag
         set_error('discuss.tag_permission', :tag => tag)
       end
     end
