@@ -109,9 +109,9 @@ en:
     text: |
       <p>
       <strong>Discuss - Connect - Act!</strong><br/>
-      These are the three functional areas of echo being developed at echologic with your active participation.<br/>
+      These are the three functional areas of echo being developed at echologic with your active participation.
       The Roadmap (in the upper left corner of the screen) always shows you the
-      <strong>current state of development</strong> and the next steps planned in the area you are looking at.
+      current state of development and the next steps planned in the area you are looking at.
       </p><p>
       As a mover at echologic you are welcome to <strong>engage into the evolution of echo</strong>!<br/>
       Until now, the following simple features have been released:
@@ -125,8 +125,8 @@ en:
     function_3:
       name: 'Discuss'
       description: |
-        Engage into the evolution of echo.<br/>
-        Exchange your ideas with other newthinkers on topics about sustainablity and democracy.
+        Exchange your ideas with other newthinkers. Engage into the evolution of echo.
+
 
 
 

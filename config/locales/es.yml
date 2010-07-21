@@ -124,8 +124,7 @@ es:
     function_3:
       name: 'Discutir'
       description: |
-        Intercambie con otros pensadores tus ideas sobre sostenibilidad y democracia.<br/>
-        Participe en la evolución de echo.
+        Intercambie con otros pensadores tus ideas. Participe en la evolución de echo.
 
   # ------------
   # USERS MODULE
