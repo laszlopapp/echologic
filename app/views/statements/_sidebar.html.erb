@@ -6,7 +6,7 @@
 <div id="discuss_sidebar">
 
   <% unless !statement_node.echoable? || statement_node.new_record? %>
-    <%= render_echo_button(url_options, !(current_user && statement_node.supported_by?(current_user))) %>
+    <%= render_echo_button(url_options, !(current_user && statement_node.supported?(current_user))) %>
     <br/>
     <span id="create_parent_element_button">
       <%= create_children_statement_node_link(statement_node.parent, "", "create_internal_link") if statement_node.parent%>

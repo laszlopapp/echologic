@@ -6,7 +6,7 @@ Feature: Manage spoken languages
   # Users may add memberships through the form at the profile page.
 
   Scenario: Add new spoken language, edit it and try to add it again
-    Given I am logged in as "user" with password "true"
+    Given I am logged in as "tobias" with password "tobias"
       And I have no spoken languages
     When I go to the profile
       And I select "Portuguese" from "spoken_language_language_id"
