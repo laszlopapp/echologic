@@ -59,8 +59,7 @@ class Users::SpokenLanguagesController < ApplicationController
 
     respond_to do |format|
       format.js do
-        @spoken_language.level = EnumKey.find(params[:spoken_language][:level])
-        if @spoken_language.save
+        if @spoken_language.update_attributes(params[:spoken_language])
           replace_content(dom_id(@spoken_language), :partial => @spoken_language)
         else
           show_error_messages(@spoken_language)

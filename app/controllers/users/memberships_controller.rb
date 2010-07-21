@@ -58,10 +58,9 @@ class Users::MembershipsController < ApplicationController
   # Update the membership attributes.
   # method: PUT
   def update
-
     respond_to do |format|
       format.js do
-        if @membership.update_attributes(params[:membership].merge(:user_id => current_user.id))
+        if @membership.update_attributes(params[:membership])
           replace_content(dom_id(@membership), :partial => 'membership')
         else
           show_error_messages(@membership)

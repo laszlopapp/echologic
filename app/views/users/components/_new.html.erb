@@ -1,0 +1,9 @@
+<li>
+  <% form_tag send("user_#{type.pluralize}_path",@user), :method => :post, :id => dom_class(objectClass, :new) do -%>
+	  <%= yield type.to_sym %>
+  <% end %>
+</li>
+
+<script type="text/javascript">
+  $("#<%= dom_class(objectClass, :new) %>").ajaxForm({ dataType: 'script', resetForm: true });
+</script>

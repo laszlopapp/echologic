@@ -1,0 +1,14 @@
+<li id="<%= dom_id object %>" >
+  <span class="column_200">
+  	<%= yield "#{type}_#{object.id}_label".to_sym%>
+  </span>
+  <span class="column_200">
+  	<%= yield "#{type}_#{object.id}_value".to_sym%>
+  </span>
+
+  <% %w(edit delete).each do |method| %>
+	  <%= link_to I18n.t("application.general.#{method}"),
+	              send("#{method.eql?('delete') ? '' : "#{method}_"}user_#{type}_path", object.user, object),
+	              :class => "ajax#{!method.eql?('edit') ? "_#{method}" : '' } text_button #{method}_text_button" %>
+	<% end %>
+</li>
