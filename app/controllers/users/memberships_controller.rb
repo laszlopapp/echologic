@@ -12,11 +12,7 @@ class Users::MembershipsController < ApplicationController
   # Shows the membership identified through params[:id]
   # method: GET
   def show
-    respond_to do |format|
-      format.js do
-        replace_content(dom_id(@membership), :partial => 'membership')
-      end
-    end
+    render_membership :partial =>'membership'
   end
 
   # Render the new membership template. Currently unused.
@@ -32,12 +28,7 @@ class Users::MembershipsController < ApplicationController
   # Render the edit membership template. Currently only respond to JS.
   # method: GET
   def edit
-
-    respond_to do |format|
-      format.js do
-        replace_content(dom_id(@membership), :partial => 'edit')
-      end
-    end
+    render_membership :partial => 'edit'
   end
 
   # Create a new membership with the given params. Show error messages
@@ -104,5 +95,13 @@ class Users::MembershipsController < ApplicationController
   
   def fetch_membership
     @membership = Membership.find(params[:id])
+  end
+  
+  def render_membership(opts={})
+    respond_to do |format|
+      format.js do
+        replace_content(dom_id(@membership), :partial => opts[:partial])
+      end
+    end
   end
 end

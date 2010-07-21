@@ -20,7 +20,7 @@ class WebAddressesControllerTest < ActionController::TestCase
 
   test "should show web_address" do
     get :show, :id => web_addresses(:user_blog).to_param
-    assert_response(:error, "template show missing")
+    assert_response :success
   end
 
   test "should get edit" do

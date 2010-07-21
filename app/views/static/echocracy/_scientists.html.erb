@@ -1,26 +1,3 @@
-<% content_for :tabContainer do %>
-  <%= tabnav 'static_echocracy' %>
-<% end %>
-
-<% insert_breadcrumb(echocracy_path, echocracy_path(:scientists), '.title_long') %>
-
-<%= I18n.t('static.echocracy.scientists.text_top') %>
-
-<ul class="benefitList">
-  <li>
-  	<strong><%= I18n.t('static.echocracy.scientists.adv1') %></strong>
-	<% insert_toggle_more('<ul>' + I18n.t('static.echocracy.scientists.adv1_details') + '</ul>') %>
-  </li>
-  
-  <li>
-  	<strong><%= I18n.t('static.echocracy.scientists.adv2') %></strong>
-	<% insert_toggle_more('<ul>' + I18n.t('static.echocracy.scientists.adv2_details') + '</ul>') %>
-  </li>
-  
-  <li>
-  	<strong><%= I18n.t('static.echocracy.scientists.adv3') %></strong>
-	<% insert_toggle_more('<ul>' + I18n.t('static.echocracy.scientists.adv3_details') + '</ul>') %>
-  </li>	
-</ul>
-
-<% insert_back_next_buttons(echocracy_path(:citizens), echocracy_path(:decision_makers)) %>
+<%= render :partial => 'user_type', :locals => {:person_type => :scientists, :desc_number => 3, 
+                                                :prev_button => echocracy_path(:citizens), 
+                                                :next_button => echocracy_path(:decision_makers)} %>

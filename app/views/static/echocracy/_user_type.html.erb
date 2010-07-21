@@ -1,0 +1,18 @@
+<% content_for :tabContainer do %>
+  <%= tabnav 'static_echocracy' %>
+<% end %>
+
+<% insert_breadcrumb(echocracy_path, echocracy_path(person_type), '.title_long') %>
+
+<%= I18n.t("static.echocracy.#{person_type.to_s}.text_top") %>
+
+<ul class="benefitList">
+	<% desc_number.times do |n| %>
+	  <li>
+	    <strong><%= I18n.t("static.echocracy.#{person_type.to_s}.adv#{n+1}") %></strong>
+	  <% insert_toggle_more('<ul>' + I18n.t("static.echocracy.#{person_type.to_s}.adv#{n+1}_details") + '</ul>') %>
+	  </li>
+	<% end %>
+</ul>
+
+<% insert_back_next_buttons(prev_button, next_button) %>

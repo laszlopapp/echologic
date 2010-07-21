@@ -5,7 +5,7 @@ class I18n::TranslationsController < ApplicationController
   access_control do
     allow :admin
   end
-  
+
   # GET /translations
   # GET /translations.xml
   def index
@@ -23,7 +23,7 @@ class I18n::TranslationsController < ApplicationController
   def translations
     @locale ||= Locale.default_locale
     @translation_option = TranslationOption.find(params[:translation_option])
-    
+
     if @translation_option == TranslationOption.translated
       @translations = @locale.translations.translated
     else
@@ -104,8 +104,7 @@ class I18n::TranslationsController < ApplicationController
         format.html { redirect_to locale_translation_path(@locale, @translation) }
         format.xml  { render :xml => @translation, :status => :created, :location => @translation }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @translation.errors, :status => :unprocessable_entity }
+        render_xml @translation.errors, :action => 'new'
       end
     end
   end
@@ -118,15 +117,14 @@ class I18n::TranslationsController < ApplicationController
 
     respond_to do |format|
       if @translation.update_attributes(params[:translation])
-        format.html do 
+        format.html do
           flash[:notice] = 'Translation was successfully updated.'
           redirect_to locale_translations_path(@locale)
         end
         format.xml  { head :ok }
         format.js   {}
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @translation.errors, :status => :unprocessable_entity }
+        render_xml @translation.errors, :action => 'edit'
       end
     end
   end
@@ -151,13 +149,18 @@ class I18n::TranslationsController < ApplicationController
       :conditions => ['raw_key like ? or value like ?', "%#{params[:filter_text]}%", "%#{params[:filter_text]}%"],
       :order => "raw_key, pluralization_index",
       :limit => 30)
- 
+
     render :partial => 'list'
   end
-  
+
   private
-  
-    def find_locale
-      @locale = Locale.find_by_code(params[:locale_id])
-    end
+
+  def find_locale
+    @locale = Locale.find_by_code(params[:locale_id])
+  end
+
+  def render_xml(obj,opts={})
+    format.html { render :action => opts[:action] }
+    format.xml  { render :xml => obj, :status => :unprocessable_entity }
+  end
 end
