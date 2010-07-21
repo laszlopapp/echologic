@@ -20,6 +20,13 @@ class ApplicationController < ActionController::Base
   # session timeout
   before_filter :session_expiry
 
+  # Tag filter
+  @@tag_filter = lambda do |prefixes, tags|
+    tags.map {|tag|
+      !prefixes.select{|p| tag.value.index(p) == 0}.empty? ? nil : "#{tag.value}|#{tag.id}"
+    }.compact[0..4].join("\n")
+  end
+
   # Set locale to the best fitting one
   def set_locale
     available = %w{en de es pt}
