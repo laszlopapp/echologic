@@ -1,9 +1,6 @@
 <div id="questions_container">
 
-  <%
-    count = @count
-    count_text = I18n.t("discuss.results_count.#{count < 2 ? 'one' : 'more'}", :count => count)
-  %>
+  <% count_text = questions_count_text(@count) %>
 
   <span id="results_anchor"></span>
 

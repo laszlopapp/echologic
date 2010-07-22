@@ -6,9 +6,5 @@
       <%=h (long_title ? question_document.title[0,69]+"..." : question_document.title)%>
     </span>
     <br/>
-    <% link_to question_url(@question),
-               :title => "#{h(question_document.title) if long_title}",
-               :class => "avatar_holder#{' ttLink no_border' if long_title }" do %>
-  	  <%= image_tag("default_question_image.png") %>
-    <% end %>
+		<% link_to_question(question_document.title, @question,long_title) %>
 </li>

@@ -1,0 +1,11 @@
+<div id="<%= id %>" class="function_button_holder">
+  <span class="function_button">
+    <%= link_to image_tag("../images/page/functions/#{entry}.png", :border => 0), {:url => send("#{entry}_path")}, :href => send("#{entry}_path") %>
+  </span>
+  <% link_to send("#{entry}_path"), {:class => 'function_name'} do %>
+    <%= I18n.t("welcome.#{function_code}.name") %>
+  <% end %>
+  <!--span class="function_name">
+  </span-->
+  <span class="function_description"><%= I18n.t("welcome.#{function_code}.description") %></span>
+</div>

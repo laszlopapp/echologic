@@ -320,4 +320,22 @@ module StatementHelper
   def statement_node_dom_id(statement_node)
     "#{statement_node_class_dom_id(statement_node)}_#{statement_node.id}"
   end
+  
+  
+  def link_to_child(title,statement_node,extra_classes)
+    link_to h(title),
+              url_for(statement_node),
+              :class => "ajax statement_link #{statement_node.class.name.underscore}_link #{extra_classes} ttLink no_border",
+              :title => I18n.t("discuss.tooltips.read_#{statement_node.class.name.underscore}")
+  end
+  
+  def translation_upper_box(language_from, language_to)
+    val = "#{image_tag 'page/translation/babelfish_left.png', :class => 'fish_left'}" 
+    val << %(<span class="language_label from_language"> #{language_from} </span>)
+    val << "#{image_tag 'page/translation/translation_arrow.png',:class => 'arrow'}" 
+    val << "#{image_tag 'page/translation/babelfish_right.png', :class => 'fish_right'}"
+    val << %(<span class="language_label to_language">#{language_to}</span>)
+    val
+  end
+  
 end

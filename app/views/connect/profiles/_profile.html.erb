@@ -10,11 +10,6 @@
     <%= I18n.t('application.general.close') %>
   </span>
 
-  <% link_to url_for(:controller => 'users/profile',
-                     :action => 'details',
-                     :id => @profile),
-             :class => 'ajax show_link avatar_holder' do %>
-    <%= image_tag @profile.avatar.url(:small) %>
-  <% end %>
+  <% open_profile_details @profile %>
 
 </li>
