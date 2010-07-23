@@ -15,10 +15,8 @@ class Users::UsersController < ApplicationController
   # suggestions a time.
   auto_complete_for :user, :city,    :limit => 5
   auto_complete_for :user, :country, :limit => 5
-  auto_complete_for :tag, :value, :limit => 5 do |tags|
-    content = tags.map{ |tag|
-      tag.value.index('*') == 0 ? nil : "#{tag.value}|#{tag.id}"
-    }.compact.join("\n")
+  auto_complete_for :tag, :value, :limit => 20 do |tags|
+    @@tag_filter.call %w(* #), tags
   end
 
 
@@ -113,8 +111,8 @@ class Users::UsersController < ApplicationController
       format.html { redirect_to connect_path }
     end
   end
-  
-  
+
+
   def add_concernments
     previous_completeness = current_user.profile.percent_completed
     concernments = params[:tag][:value]
@@ -144,7 +142,7 @@ class Users::UsersController < ApplicationController
       end
     end
   end
-  
+
   def delete_concernment
     previous_completeness = current_user.percent_completed
     current_user.send("#{params[:context]}_tags=", current_user.send("#{params[:context]}_tags") - [params[:tag]])
@@ -165,7 +163,7 @@ class Users::UsersController < ApplicationController
   end
 
   private
-  
+
   def fetch_user
     @user = User.find(params[:id]) || current_user
   end

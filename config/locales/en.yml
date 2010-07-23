@@ -331,8 +331,8 @@ en:
       prev_improvement_proposal: 'Read previous improvement proposal for the current proposal'
       next_improvement_proposal: 'Read next improvement proposal for the current proposal'
       create_question: 'Open a new discussion'
-      create_proposal: "Post your new idea concerning the current question."
-      create_improvement_proposal: "Post your new idea to improve the current proposal."
+      create_proposal: "Post a new idea concerning the current question."
+      create_improvement_proposal: "Post a new idea to improve the current proposal."
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your vote to stop supporting this statement.'
       echo_indicator:
