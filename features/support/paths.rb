@@ -41,6 +41,8 @@ module NavigationHelpers
     when /the proposal/
       raise [@proposal.inspect,@proposal.parent.inspect].join('\n')
       question_proposal_path(@proposal.parent, @proposal)
+    when /the activation page/
+      register_url(@user.perishable_token)
       
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
