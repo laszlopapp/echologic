@@ -1,9 +1,18 @@
+.wysiwyg {
+  margin: 0;
+  padding: 0;
+  clear: both;
+  font: 14px "Lucida Sans",Arial,Helvetica,sans-serif;
+  color: #21587f;
+}
+
 .rte-zone {
     margin: 0;
     padding: 0;
     border: 1px #999 solid;
     clear: both;
-    font: 10px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+    font: 14px "Lucida Sans",Arial,Helvetica,sans-serif;
+    color: #21587f;
 }
 
 .rte-zone textarea {
@@ -94,7 +103,7 @@
     text-decoration: none;
     font-size: 14px;
     font-weight: bold;
-    color: #f00;
+    color: #444;
 }
 
 .rte-panel label {

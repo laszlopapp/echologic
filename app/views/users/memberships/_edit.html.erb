@@ -1,17 +1,7 @@
 <% membership ||= @membership %>
-
-<% form_tag user_membership_path(membership.user, membership),
-            :method => :put,
-            :id => dom_id(membership, :edit) do -%>
-
+<% content_for :fields do %>
   <%= text_field :membership, :organisation %>
   <%= text_field :membership, :position %>
-
-  <!-- Save and cancel buttons -->
-  <%= save_or_cancel user_membership_path(membership.user, membership) %>
-
 <% end %>
+<%= render :partial => 'users/components/edit', :locals => {:type => 'membership', :object => membership} %>
 
-<script type="text/javascript">
-  $("#<%= dom_id(membership, :edit) %>").ajaxForm({ dataType: 'script' });
-</script>

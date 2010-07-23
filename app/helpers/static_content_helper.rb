@@ -2,6 +2,12 @@
 #
 module StaticContentHelper
 
+  def show_illustration(show,controller,action)
+    if show
+        pic_resource = "page/illustrations/#{controller}_#{action}_small.png"
+        concat image_tag(pic_resource, {:class => 'cornerIllustration'})
+      end
+  end
 
   # Inserts the breadcrumb for the given main and sub menu point
   def insert_breadcrumb(main_link, sub_link, sub_menu_title='.title',sub_menu_subtitle='.subtitle', show_illustration=true)
@@ -9,10 +15,7 @@ module StaticContentHelper
     action = request[:action]
     title_translation = I18n.t("static.#{controller}.title")
     if main_link != sub_link
-      if show_illustration
-        pic_resource = "page/illustrations/#{controller}_#{action}_small.png"
-        concat image_tag(pic_resource, {:class => 'cornerIllustration'})
-      end
+      show_illustration(show_illustration,controller,action)
       subtitle_translation = I18n.t("static.#{controller}.#{action}" + sub_menu_title)
     else
       subtitle_translation = I18n.t("static.#{controller}#{sub_menu_subtitle}")
@@ -27,10 +30,7 @@ module StaticContentHelper
     controller = request[:controller].split('/')[1]
     action = request[:action]
     title_translation = I18n.t("static.#{controller}.#{action}.title")
-    if show_illustration
-      pic_resource = "page/illustrations/#{controller}_#{action}_small.png"
-      concat image_tag(pic_resource, {:class => 'cornerIllustration'})
-    end
+    show_illustration(show_illustration,controller,action)
     subtitle_translation = I18n.t("static.#{controller}.#{action}.subtitle")
 
     main_menu = "<h1 class='link'>#{title_translation}</h1>"
@@ -84,8 +84,10 @@ module StaticContentHelper
 
   def build_static_menu_button(item)
     val =  "<span class='img #{item}_image'>&nbsp;</span>"
-    val += "<span class='title'>"    + I18n.t("static.#{item}.title")    + "</span><br/>"
-    val += "<span class='subtitle'>" + I18n.t("static.#{item}.subtitle") + "</span>"
+    %w(title subtitle).each do |type|
+      val += "<span class='#{type}'>" + I18n.t("static.#{item}.#{type}")    + "</span><br/>"
+    end
+    val
   end
 
   # Returns the image filename (on of off state) for a specific item.

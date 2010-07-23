@@ -31,10 +31,15 @@
 /************************/
 /****** lwRTE ***********/
 /************************/
+
+form.formtastic fieldset .rte-zone {
+  color: #21587f;
+}
+
 form.formtastic fieldset .rte-zone li {
   float: left;
   width: 25px;
-  margin:5px 2px;
+  margin: 5px 2px;
 }
 
 form.formtastic fieldset .rte-zone li.separator {
@@ -45,12 +50,12 @@ form.formtastic fieldset .rte-zone li.separator {
 
 form.formtastic .rte-toolbar select {
   font:10px Tahoma,Verdana,Arial,Helvetica,sans-serif;
-  height:16px;
-  margin:0;
-  padding:0;
+  height: 16px;
+  margin: 0;
+  padding: 0;
 }
 
-form.formtastic fieldset ol li.text .rte-zone textarea{
+form.formtastic fieldset ol li.text .rte-zone textarea {
   border: 0px;
   padding: 0px;
 }
@@ -60,19 +65,21 @@ form.formtastic fieldset ol li.text .rte-zone textarea{
 }
 
 .document_frame {
-  color:#21587F;
+  color: #21587F;
 }
+
+/**************/
 
 #function_container .search_category {
   float: left;
-  margin: 5px 0 -25px 7px;
+  margin: 6px 0 -25px 7px;
   font-weight: bold;
   cursor: default;
 }
 
 #function_container .new_question {
   float: right;
-  margin: 5px 7px -25px 0;
+  margin: 6px 7px -25px 0;
 }
 
 #discuss_results .box_header_icon {
@@ -100,8 +107,9 @@ form.formtastic fieldset ol li.text .rte-zone textarea{
 }
 
 .statement_form_illustration {
-  float: right;
-  margin: -25px 25px 0 70px;
+  float: left;
+  margin: 30px 0 0 15px;
+  border: none;
 }
 
 /* ------- */
@@ -160,6 +168,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea{
   width: 37px;
   height: 39px;
   padding: 0;
+  cursor: pointer;
 }
 
 .context_buttons .prev_stmt {
@@ -188,10 +197,12 @@ form.formtastic fieldset ol li.text .rte-zone textarea{
 
 .context_line:hover .prev_stmt.disabled, .context_line.active .prev_stmt.disabled {
   background-position: 0 -78px;
+  cursor: default;
 }
 
 .context_line:hover .next_stmt.disabled, .context_line.active .next_stmt.disabled {
   background-position: -37px -78px;
+  cursor: default;
 }
 
 .echo_label {
@@ -221,6 +232,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea{
   width:    80px;
   display:  inline-block;
   background-image: url(../images/page/discuss/echo_all.png);
+  cursor: pointer;
 }
 
 
@@ -326,23 +338,6 @@ a.statement_link:hover {
 }
 
 
-/* --------- */
-/* Navigator */
-/* --------- */
-
-#navigator {
-  min-height:20px;
-  padding:5px;
-}
-
-/* overwrite header_button behaviour for create_statement links in navigator */
-
-#navigator .header_button {
-  float: left;
-  margin: 0px;
-
-}
-
 /* ------------------- */
 /* Children statements */
 /* ------------------- */
@@ -352,7 +347,6 @@ a.statement_link:hover {
 }
 
 #children_list li {
-  clear: both;
   margin: 4px 0;
 }
 
@@ -466,11 +460,12 @@ a.statement_link:hover {
 }
 
 #new_translation .static_text {
-	height: 229px;
-	width: 385px;
+	height: 225px;
+	width: 380px;
 	border: 1px solid #999999;
 	overflow: auto;
-	
+  padding: 2px;
+
 }
 
 #statement_tags_container .form_container {
@@ -512,25 +507,28 @@ a.statement_link:hover {
 
 #discussion_list li.question {
 	width: 100%;
-  height: 50px;
-  margin: 5px 0;
+  height: 52px;
+  margin: 4px 0;
   display: inline-block;
   clear: both;
 }
 
 #discussion_list a.statement_link {
 	float: left;
-	width: 330px;
-  height: 50px;
-	margin-top: -2px;
+	width: 290px;
+  height: 52px;
+	margin: -2px 5px 0 0;
 	padding: 0;
+  overflow: hidden;
 }
 
 #discussion_list .tags_list {
 	float: left;
-	padding-left: 21px !important;
-	width: 200px;
+	padding-left: 25px !important;
+	width: 215px;
 	margin-top: -2px;
+  height: 52px;
+  overflow: hidden;
 }
 
 #discussion_list .buttons {
@@ -551,6 +549,8 @@ a.statement_link:hover {
 	padding: 12px 0 4px 15px;
 	text-align: center;
 	width: 200px !important;
+  position: relative;
+  top: -5px;
 }
 
 #discussion_list a.publish_button:hover {
@@ -568,12 +568,6 @@ a.statement_link:hover {
 
 #my_discussions .pagination {
 	width: 100%;
-}
-
-#my_discussions #create_question_link {
-  margin-top: 20px;
-  margin-left: 0;
-  display: inline-block;
 }
 
 #my_discussions .avatar_holder img {

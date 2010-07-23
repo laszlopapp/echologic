@@ -30,9 +30,9 @@ class StatementDocument < ActiveRecord::Base
   def translations
     StatementDocument.find_all_by_translated_document_id(self.id)
   end
-  
+
   def self.search_statement_documents(statement_ids, language_ids, opts={} )
-      
+
       #Rambo 1
       query_part_1 = <<-END
           select distinct sd.title, sd.statement_id, sd.language_id

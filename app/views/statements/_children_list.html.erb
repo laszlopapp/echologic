@@ -1,20 +1,25 @@
-<%
-   children ||= @children
-%>
+<% children ||= @children %>
+
 <div id="children_list">
   <ul>
-	<% unless children.blank? %>
-	  <% last_child = children.pop -%>
-	  <% children.each do |statement_node| %>
-	    <%= render :partial => 'statements/child', :locals => { :statement_node => statement_node} %>
-	  <% end %>
-	  <%= render :partial => 'statements/child', :locals => { :statement_node => last_child, :extra_classes => "active" } %>
-	<% end %>
-	<%if children.blank? or children.current_page == children.total_pages%>
-	  <li><%= create_children_statement_node_link(@statement_node, "add_new_button") %></li>
-	<%end%>
+    <% unless children.blank? %>
+      <% last_child = children.pop -%>
+      <% children.each do |statement_node| %>
+        <%= render :partial => 'statements/child',
+                   :locals => { :statement_node => statement_node} %>
+      <% end %>
+      <%= render :partial => 'statements/child',
+                 :locals => { :statement_node => last_child,
+                              :extra_classes => "active" } %>
+    <% end %>
+
+    <%if children.blank? or children.current_page == children.total_pages%>
+      <li><%= create_children_statement_node_link(@statement_node, "add_new_button") %></li>
+    <%end%>
   </ul>
-  <%= will_paginate children, :previous_label => '', :next_label => '' if defined? !children.blank? and children.total_pages %>  
+  <%= will_paginate children,
+                    :previous_label => '',
+                    :next_label => '' if defined? !children.blank? and children.total_pages %>
 </div>
 
 <script type="text/javascript">

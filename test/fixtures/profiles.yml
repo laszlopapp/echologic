@@ -43,7 +43,7 @@ editor_profile:
 
 # Profiles for pagination
 
-<% ["theodor","friedrich","luise","charlotte","lisa","red","blue","green","yellow","red","illiterate"].each do |name| %>
+<% ["theodor","friedrich","luise","charlotte","lisa","red","blue","green","yellow","red","illiterate","tobias"].each do |name| %>
 <%= name %>_profile:
   user_id: <%= Fixtures.identify(name.to_sym) %>
   last_name: Echmeier

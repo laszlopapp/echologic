@@ -1,7 +1,5 @@
-<li>
-  <% form_tag user_web_addresses_path(@user), :method => :post, :id => dom_class(WebAddress, :new) do -%>
-
-      <%= select :web_address,
+<% content_for :web_address do %>
+  <%= select :web_address,
                  :type_id,
                  WebAddress.web_address_types.collect { |wa| [wa.get_current_enum_value.value,wa.id] } %>
 
@@ -10,9 +8,5 @@
       <%= submit_tag I18n.t('application.general.create'),
                      :class => 'text_button add_text_button',
                      :id => 'new_web_address_submit' %>
-  <% end %>
-</li>
-
-<script type="text/javascript">
-  $("#<%= dom_class(WebAddress, :new) %>").ajaxForm({ dataType: 'script' });
-</script>
+<% end %>
+<%= render :partial => 'users/components/new', :locals => {:type => 'web_address', :objectClass => WebAddress} %>

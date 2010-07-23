@@ -70,7 +70,7 @@ class StatementNodeTest < ActiveSupport::TestCase
 
       should "have creator as supporter" do
         @user = @statement_node.creator
-        assert(@statement_node.supported_by?(@user))
+        assert(@statement_node.supported?(@user))
       end
 
       should "have have a creation event associated" do
@@ -98,14 +98,14 @@ class StatementNodeTest < ActiveSupport::TestCase
 
       should "be able to be visited" do
         @user = User.last
-        @statement_node.visited_by!(@user)
-        assert(@statement_node.visited_by?(@user))
+        @statement_node.visited!(@user)
+        assert(@statement_node.visited?(@user))
       end
 
       should "be able to be supported" do
         @user = User.last
-        @statement_node.visited_by!(@user)
-        assert(@statement_node.visited_by?(@user))
+        @statement_node.visited!(@user)
+        assert(@statement_node.visited?(@user))
       end
 
       should "be able to be followed" do

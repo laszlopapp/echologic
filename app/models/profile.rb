@@ -15,8 +15,7 @@ class Profile < ActiveRecord::Base
   validates_presence_of :user_id
   validates_length_of :about_me, :maximum => 1024, :allow_nil => true
   validates_length_of :motivation, :maximum => 1024, :allow_nil => true
-  validates_associated :user
-
+ 
   # To calculate profile completeness
   include ProfileExtension::Completeness
 

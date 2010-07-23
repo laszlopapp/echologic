@@ -2,25 +2,26 @@
 <% tags ||= @tags %>
 <% statement_document ||= @statement_document %>
 
-<!-- Illustration -->
-<%= image_tag("page/functions/discuss.png",
-              :class => 'right_block_illustration') if statement_node.is_a?(Question)%>
+<div id="new_statement">
 
-<!-- The block with the form -->
-<div id="new_statement" class="header_block discuss_right_block">
-  <h2>
-    <%= children_new_box_title(statement_node) %>
-  </h2>
-
+  <!-- Illustration -->
   <%= statement_form_illustration(statement_node) %>
 
-  <p><%= I18n.t("discuss.statements.create_#{statement_node.class.name.underscore}_explanation")%></p>
-  <%= render :partial => 'statements/form',
-             :locals => {:statement_node => statement_node,
-                         :tags => tags,
-                         :statement_document => statement_document } %>
-</div>
+  <!-- The block with the form -->
+  <div class="header_block discuss_right_block">
+    <h2>
+      <%= children_new_box_title(statement_node) %>
+    </h2>
 
+    <p><%= I18n.t("discuss.statements.create_#{statement_node.class.name.underscore}_explanation") %></p>
+    <p><%= I18n.t('discuss.statements.create_statement_language_hint') %></p>
+
+    <%= render :partial => 'statements/form',
+               :locals => {:statement_node => statement_node,
+                           :tags => tags,
+                           :statement_document => statement_document } %>
+  </div>
+</div>
 
 <script type="text/javascript">
   $('#new_<%=statement_node_class_dom_id(statement_node)%>').ajaxForm({ dataType : 'script' });

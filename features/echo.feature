@@ -28,4 +28,62 @@ Feature: Echo
       And a proposal without echos
     When I go to the proposal
     Then the proposal should have one visitor but no echos
-      
+
+
+  Scenario: Comprehensive integrity check for echos and user echos with multiple users
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+      And I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the first Question
+      And the question has no proposals
+      And I am on the discuss index
+      And I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the first Question
+      And I follow "create_proposal_link"
+      And I fill in the following:
+        | proposal_statement_document_title | proposal title |
+        | proposal_statement_document_text  | proposal text. |
+      And I press "Save"
+      And I have the "proposal title" proposal
+    Then the proposal should have 1 visitors
+      And the proposal should have 1 supporters
+      And the proposal should have "user" as visitors
+      And the proposal should have "user" as supporters
+    Given I follow "logout_button"
+      And I login as "luise" with password "luise"
+      And I go to the proposal
+    Then I am not supporter of the proposal
+      And the proposal should have 2 visitors
+      And the proposal should have 1 supporters
+      And the proposal should have "user, luise" as visitors
+      And the proposal should have "user" as supporters
+    Given I follow "echo_button"
+    Then I am supporter of the proposal
+      And the proposal should have 2 visitors
+      And the proposal should have 2 supporters
+      And the proposal should have "user, luise" as visitors
+      And the proposal should have "user, luise" as supporters
+    Given I follow "echo_button"
+    Then I am not supporter of the proposal
+      And the proposal should have 2 visitors
+      And the proposal should have 1 supporters
+      And the proposal should have "user, luise" as visitors
+      And the proposal should have "user" as supporters
+    Given I follow "logout_button"
+      And I login as "user" with password "true"
+      And I go to the proposal
+    Then I am supporter of the proposal
+      And the proposal should have 2 visitors
+      And the proposal should have 1 supporters
+      And the proposal should have "user, luise" as visitors
+      And the proposal should have "user" as supporters
+    Given I follow "echo_button"
+    Then I am not supporter of the proposal
+      And the proposal should have 2 visitors
+      And the proposal should have 0 supporters
+      And the proposal should have "user, luise" as visitors
+
+
+

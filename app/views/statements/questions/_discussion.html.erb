@@ -8,13 +8,10 @@
     <% end %>
 
     <!-- Statement title -->
-	  <%= link_to(statement_document.title,
-                url_for(statement_node),
-                :class => "statement_link ttLink no_border",
-                :title => I18n.t("discuss.tooltips.read_#{statement_node.class.name.underscore}")) %>
+		<%= discussion_title(statement_document.title, statement_node) %>
 
     <!-- Tags -->
-		<div class="tags_list"><%=statement_node.topic_tags%></div>
+		<div class="tags_list"><%= statement_node.topic_tags %></div>
 
     <!-- Publish button -->
 		<div class="buttons">

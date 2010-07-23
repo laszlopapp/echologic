@@ -1,7 +1,3 @@
 <% statement_nodes ||= @statement_nodes %>
 <% content_for :submenu, tabnav(:discuss) %>
-
-<!-- Illustration -->
-<%= image_tag("page/functions/discuss.png",
-              :class => 'right_block_illustration') %>
 <%= render 'statements/questions/my_discussions', :locals => {:statement_nodes => statement_nodes} %>
