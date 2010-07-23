@@ -51,4 +51,21 @@ Feature: Authentication
     Then I should be on the welcome page
       And an "Welcome to echologic" email should be sent to "Jesus Christ"
       And "Jesus Christ" should have "godisintheinternet" as password
-      
+  
+  Scenario: User user forgot his password, and wants to check it
+    Given I am on the start page
+      And I follow "Forgot your password?"
+      And I fill in the following: 
+        | email | user@echologic.org |
+      And I press "Send E-Mail"
+    Then an "New password for echologic" email should be sent to "User Test"
+  
+  Scenario: User user fills the form to have another password
+    Given "friedrich Echmeier" forgot his password
+      And I go to the edit password page
+      And I fill in the following:
+        | user_password               | friedrichstrasse |
+        | user_password_confirmation  | friedrichstrasse |
+      And I press "Set password and log in" 
+    Then I should be on the welcome page
+      And "friedrich Echmeier" should have "friedrichstrasse" as password

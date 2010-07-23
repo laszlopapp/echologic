@@ -43,6 +43,8 @@ module NavigationHelpers
       question_proposal_path(@proposal.parent, @proposal)
     when /the activation page/
       register_url(@user.perishable_token)
+    when /the edit password page/
+      edit_password_reset_url(@user.perishable_token)
       
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
