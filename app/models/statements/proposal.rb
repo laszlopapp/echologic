@@ -5,7 +5,7 @@
 
 
 class Proposal < StatementNode
-  
+  acts_as_drafteable :tracked, :staged, :approved, :incorporated, :passed
   # methods / settings to overwrite default statement_node behaviour
     
   validates_parent :Question

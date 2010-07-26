@@ -20,8 +20,8 @@ module ActiveRecord
                                                                          'LEFT JOIN subscriptions s ON s.subscriber_id = u.id ' +
                                                                          'WHERE s.subscribeable_id = #{id} '
             has_many :events, :as => :subscribeable
-            after_save :subscribe_creator
-            after_save :create_event
+            after_create :subscribe_creator
+            after_create :create_event
           end
           
           class_eval <<-RUBY

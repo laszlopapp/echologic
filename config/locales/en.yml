@@ -547,3 +547,58 @@ en:
         <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
         {{title}}</a>
         </p>
+  notification_mailer:
+    approval:
+      subject: Your Improvement Proposal was Approved!
+      text: |
+        Dear {{name}},
+
+        Your Improvement Proposal "{{title}}" was selected to be incorporated in its proposal. To do that, you need to 
+        follow the link below:
+
+        {{link}}
+        
+        You will have XX hours to do that.
+
+        Best Regards,
+
+        Your echo team
+    approval_reminder:
+      subject: Improvement Proposal Approval Reminder!
+      text: |
+        Dear {{name}},
+
+        Your still have 24 hours to incorporate your Improvement Proposal "{{title}}" in its proposal. To do that, 
+        you need to follow the link below:
+
+        {{link}}
+
+        Best Regards,
+
+        Your echo team
+    expiration:
+      subject: Improvement Proposal Approval Expired!
+      text: |
+        Dear {{name}},
+
+        The time for you to incorporate your Improvement Proposal "{{title}}" in its proposal has expired.
+
+        Best Regards,
+
+        Your echo team
+    approval_repeat:
+      subject: Your Improvement Proposal was Approved again!
+      text: |
+        Dear {{name}},
+
+        Your Improvement Proposal "{{title}}" was again selected to be incorporated in its proposal. To do that, 
+        you need to follow the link below:
+
+        {{link}}
+        
+        You will have XX hours to do that.
+
+        Best Regards,
+
+        Your echo team
+        

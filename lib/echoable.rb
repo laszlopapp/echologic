@@ -28,7 +28,7 @@ module Echoable
     def echoable?
       true
     end
-
+    
 
     ####################################
     # echo methods for visit & support #
@@ -158,7 +158,6 @@ module Echoable
     # Records the creator's support for the statement.
     def author_support
       self.supported!(self.creator)
-    end
-
+    end    
   end
 end
