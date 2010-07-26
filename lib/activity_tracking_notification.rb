@@ -6,7 +6,8 @@ class ActivityTrackingNotification
 
   def perform
     week_day = Time.now.wday
-    User.all(:conditions => ["(id % 7) = ?", week_day]).each do |user|
+    #User.all(:conditions => ["(id % 7) = ?", week_day]).each do |user|
+    User.all.each do |user|
       next if !user.email_notification?
       events = user.find_tracked_events(7.days.ago)
       next if events.blank? #if there are no events to send per email, then get the hell out
@@ -30,6 +31,7 @@ class ActivityTrackingNotification
       
       user.deliver_activity_tracking_email!(question_events, tags, events - question_events)
     end
-    Delayed::Job.enqueue ActivityTrackingNotification.new, 0, Time.now.tomorrow.midnight
+    #Delayed::Job.enqueue ActivityTrackingNotification.new, 0, Time.now.tomorrow.midnight
+    Delayed::Job.enqueue ActivityTrackingNotification.new, 0, 20.min.from_now
   end
 end
