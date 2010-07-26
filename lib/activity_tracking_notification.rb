@@ -9,7 +9,7 @@ class ActivityTrackingNotification
     #User.all(:conditions => ["(id % 7) = ?", week_day]).each do |user|
     User.all.each do |user|
       next if !user.email_notification?
-      events = user.find_tracked_events(7.days.ago)
+      events = Event.find_tracked_events(user, 7.days.ago)
       next if events.blank? #if there are no events to send per email, then get the hell out
       question_events = events.select{|e|JSON.parse(e.event).keys[0] == 'question'}
       tags = Hash.new
