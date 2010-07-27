@@ -32,6 +32,6 @@ class ActivityTrackingNotification
       user.deliver_activity_tracking_email!(question_events, tags, events - question_events)
     end
     #Delayed::Job.enqueue ActivityTrackingNotification.new, 0, Time.now.tomorrow.midnight
-    Delayed::Job.enqueue ActivityTrackingNotification.new, 0, 20.min.from_now
+    Delayed::Job.enqueue ActivityTrackingNotification.new, 0, 20.minutes.from_now
   end
 end
