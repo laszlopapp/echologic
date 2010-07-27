@@ -14,14 +14,14 @@ module Drafteable
       
       include InstanceMethods
       state_types.map(&:to_s).each do |state_type|
-      state = state_type.to_s
-      
-      class_eval %(
-        def #{state}_children
-          instance_variable_get('@#{state}') || instance_variable_set('@#{state}', children.select{|s|s.drafting_state == #{state_type}})
-        end
-      )
-    end
+        state = state_type.to_s
+        
+        class_eval %(
+          def #{state}_children
+            instance_variable_get('@#{state}') || instance_variable_set('@#{state}', children.select{|s|s.drafting_state == #{state_type}})
+          end
+        )
+      end
     end
   end
 
