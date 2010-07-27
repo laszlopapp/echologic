@@ -53,6 +53,7 @@ module Echoable
     # TODO: Please rename to 'supported!'
     def supported!(user)
       echo! user, :supported => true
+      add_subscriber(user)
     end
 
     # Returns true if the given user supports the echoable.
@@ -65,6 +66,7 @@ module Echoable
     #TODO: Please implement the opposite method unsupported!(user) here
     def unsupported!(user)
       echo! user, :supported => false
+      remove_subscriber(user)
     end
 
     # Returns true if the given user doesn't support the echoable.
@@ -157,7 +159,7 @@ module Echoable
 
     # Records the creator's support for the statement.
     def author_support
-      self.supported!(self.creator)
+      self.supported!(self.creator) if self.parent.nil? or !self.parent.echoable? or self.parent.supported?(self.creator)
     end    
   end
 end

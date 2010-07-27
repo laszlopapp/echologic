@@ -1,0 +1,16 @@
+<% statement_node ||= @approved_node %>
+<% statement_document ||= @approved_document %>
+<% if !statement_node.nil? and !statement_node.nil? %>
+  <div id="approved" class="header_block discuss_right_block">
+    <!-- Title -->
+    <h2>
+      <%= I18n.t('discuss.statements.states.approved') %>
+    </h2>
+    <ul>
+      <li id="<%= statement_node_dom_id(statement_node) %>" class="<%=statement_node.parent.class.name.downcase%>">
+        <%= link_to_child(statement_document.title,statement_node,nil) %>
+      </li>
+    </ul>
+    
+  </div>
+<% end %>

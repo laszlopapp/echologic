@@ -199,6 +199,8 @@ class StatementNode < ActiveRecord::Base
   def sorted_children(user, language_ids)
     children = self.class.search_statement_nodes(:language_ids => language_ids,
                                                  :conditions => "parent_id = #{self.id}")
+    children = children.select{|c|c.is_tracked? or c.is_staged?} if self.drafteable?
+    children
   end
 
   class << self

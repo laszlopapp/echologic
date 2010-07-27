@@ -394,10 +394,13 @@ es:
         deferred_publish: 'Solamente guardar y publicar mas tarde'
         immediate_publish: 'Publicar de inmediato (no será possible modificar la discusión)'
         published: Publicado
+        approved: Approved
       delete_link: "Borrar"
       delete_confirmation: "Está seguro, que realmente quiere borrar esta propuesta?"
       read_only_permission: |-
         Esta discusión está transparente pero el accesso astá restricto - solamente puedes leer.
+      unsupported_parent: |-
+        You can only support improvement proposals if you support the proposal itself.
 
     summary:
       title: 'Resumen'

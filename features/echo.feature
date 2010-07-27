@@ -86,4 +86,29 @@ Feature: Echo
       And the proposal should have "user, luise" as visitors
 
 
-
+  Scenario: User tries to echo an improvement proposal without echoing the respective proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+      And I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question?" Question
+      And I choose the "A first proposal!" Proposal
+      And the proposal has no supporters
+      And I choose the "A better first proposal" Improvement Proposal
+    Given I follow "echo_button"
+    Then I am not supporter of the improvement proposal
+  #    And I should see "You can only support improvement proposals if you support the proposal itself."
+      And I go to the proposal
+      And I follow "echo_button"
+      And I choose the "A better first proposal" Improvement Proposal
+    Given I follow "echo_button"
+    Then I am supporter of the proposal
+   #   And I should not see "You can only support improvement proposals if you support the proposal itself."
+      And I go to the proposal
+      And I follow "echo_button"
+      And I choose the "A better first proposal" Improvement Proposal
+    Given I follow "echo_button"
+    Then I am not supporter of the improvement proposal
+ #     And I should see "You can only support improvement proposals if you support the proposal itself."
+    
+      

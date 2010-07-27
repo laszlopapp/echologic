@@ -16,6 +16,11 @@ Then /^the proposal should have one echo$/ do
   i >= 1
 end
 
+Given /^the proposal has no supporters$/ do 
+  @proposal.reload
+  UserEcho.destroy_all("echo_id = #{@proposal.echo.id} and supported = 1")
+end
+
 Then /^the proposal should have ([^\"]*) supporters$/ do |supporter_count|
   @proposal.reload
   user_echos = UserEcho.count(:conditions => ["echo_id = ? and supported = 1", @proposal.echo.id])
@@ -63,9 +68,19 @@ Then /^I am supporter of the proposal$/ do
   assert @proposal.supported?(@user)
 end
 
+Then /^I am supporter of the improvement proposal$/ do
+  @improvement_proposal.reload
+  assert @improvement_proposal.supported?(@user)
+end
+
 Then /^I am not supporter of the proposal$/ do
   @proposal.reload
   assert !@proposal.supported?(@user)
+end
+
+Then /^I am not supporter of the improvement proposal$/ do
+  @improvement_proposal.reload
+  assert !@improvement_proposal.supported?(@user)
 end
 
 Then /^the proposal should have "([^\"]*)" as supporters$/ do |users|

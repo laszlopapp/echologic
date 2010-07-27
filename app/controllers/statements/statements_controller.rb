@@ -97,6 +97,12 @@ class StatementsController < ApplicationController
       session[:last_info] = nil
     end
 
+    #if statement node is drafteable, then try to get the approved one
+    if @statement_node.drafteable?
+      @approved_node = @statement_node.approved_children.first || nil
+      @approved_document = @approved_node.translated_document(@language_preference_list) if !@approved_node.nil?
+    end
+    
     # Find all child statement_nodes, which are published (except user is an editor)
     # sorted by supporters count, and paginate them
     @page = params[:page] || 1
@@ -121,9 +127,16 @@ class StatementsController < ApplicationController
   #
   def echo
     return if !@statement_node.echoable?
-    @statement_node.supported!(current_user)
-    @statement_node.add_subscriber(current_user)
-    respond_to_js :redirect_to => @statement_node, :template_js => 'statements/echo'
+    if !@statement_node.parent.echoable? or @statement_node.parent.supported?(current_user)
+      @statement_node.supported!(current_user)
+      respond_to_js :redirect_to => @statement_node, :template_js => 'statements/echo'
+    else
+      respond_to do |format|
+        set_error('discuss.statements.unsupported_parent')
+        format.html { redirect_to url_for(@statement_node) }
+        format.js { show_error_messages }
+      end
+    end
   end
 
   # Called if user doesn't support this statement_node any longer. Sets the supported field
@@ -135,7 +148,7 @@ class StatementsController < ApplicationController
   def unecho
     return if !@statement_node.echoable?
     @statement_node.unsupported!(current_user)
-    @statement_node.remove_subscriber(current_user)
+    @statement_node.children.each{|c|c.unsupported!(current_user) if c.supported?(current_user)}
     respond_to_js :redirect_to => @statement_node, :template_js => 'statements/echo'
   end
 
@@ -165,10 +178,6 @@ class StatementsController < ApplicationController
     respond_to do |format|
       if @statement_node.save
         set_statement_node_info("discuss.messages.translated",@statement_node)
-#        @children = @statement_node.children.paginate(StatementNode.default_scope.merge(:page => 1,
-#                                                                                        :per_page => 5))
-#        @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
-#                                                         @language_preference_list)
         @statement_document = @new_statement_document
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js {render :partial => 'statements/create_translation.rjs'}
@@ -249,9 +258,7 @@ class StatementsController < ApplicationController
   def edit
     @statement_document ||= @statement_node.translated_document(@language_preference_list)
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
-    respond_to_js :template => 'statements/edit' do |format|
-      format.js { replace_container('summary', :partial => 'statements/edit') }
-    end
+    respond_to_js :template => 'statements/edit', :partial_js => 'statements/edit.rjs'
   end
 
   # actually updates statements
@@ -272,6 +279,8 @@ class StatementsController < ApplicationController
        @tags=@statement_node.topic_tags
     end
     statement_document = @statement_node.translated_document(@language_preference_list)
+#    statement_document = @statement_node.add_statement_document(
+#                         attrs_doc.merge({:original_language_id => @locale_language_id}))
     respond_to do |format|
       if permitted and
          @statement_node.update_attributes(attrs) and

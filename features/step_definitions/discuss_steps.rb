@@ -41,10 +41,10 @@ end
 
 When /^I choose the "([^\"]*)" Proposal$/ do |name|
   response.should have_selector("li.question") do |selector|
-    selector.each do |question|
-      if name.eql?(question.at_css("a.proposal_link").inner_text.strip)
-        @question = Proposal.find(URI.parse(question.at_css("a")['href']).path.match(/\/proposals\/\d+/)[0].split('/')[2].to_i)
-        visit question.at_css("a")['href']
+    selector.each do |proposal|
+      if name.eql?(proposal.at_css("a.proposal_link").inner_text.strip)
+        @proposal = Proposal.find(URI.parse(proposal.at_css("a")['href']).path.match(/\/proposals\/\d+/)[0].split('/')[2].to_i)
+        visit proposal.at_css("a")['href']
       end
     end
   end
@@ -52,10 +52,10 @@ end
 
 When /^I choose the "([^\"]*)" Improvement Proposal$/ do |name|
   response.should have_selector("li.proposal") do |selector|
-    selector.each do |question|
-      if name.eql?(question.at_css("a.improvement_proposal_link").inner_text.strip)
-        @question = ImprovementProposal.find(URI.parse(question.at_css("a")['href']).path.match(/\/improvement_proposals\/\d+/)[0].split('/')[2].to_i)
-        visit question.at_css("a")['href']
+    selector.each do |improvement_proposal|
+      if name.eql?(improvement_proposal.at_css("a.improvement_proposal_link").inner_text.strip)
+        @improvement_proposal = ImprovementProposal.find(URI.parse(improvement_proposal.at_css("a")['href']).path.match(/\/improvement_proposals\/\d+/)[0].split('/')[2].to_i)
+        visit improvement_proposal.at_css("a")['href']
       end
     end
   end
