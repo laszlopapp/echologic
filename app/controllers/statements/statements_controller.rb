@@ -149,7 +149,15 @@ class StatementsController < ApplicationController
     return if !@statement_node.echoable?
     @statement_node.unsupported!(current_user)
     @statement_node.children.each{|c|c.unsupported!(current_user) if c.supported?(current_user)}
-    respond_to_js :redirect_to => @statement_node, :template_js => 'statements/echo'
+    
+    
+    #logic to update the children caused by cascading unsupport
+    @page = params[:page] || 1
+    @children = @statement_node.sorted_children(current_user, @language_preference_list).
+                  paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
+    @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
+                                                     @language_preference_list)
+    respond_to_js :redirect_to => @statement_node, :template_js => 'statements/unecho'
   end
 
 

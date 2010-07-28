@@ -25,6 +25,7 @@ pt:
       upload: Upload
       delete: Apagar
       create: Incluir
+      incorporate: Incorporate
       welcome: Bemvindo
       all: Tudo
 

@@ -1,5 +1,10 @@
 class ProposalsController < StatementsController
-
+  
+  def incorporate
+    @statement_document ||= @statement_node.translated_document(@language_preference_list)
+    respond_to_js :template => 'statements/proposals/edit_draft', :partial_js => 'statements/proposals/edit_draft.rjs'
+  end
+  
   protected
   # return a possible parent, in this case it's a Question
   def parent

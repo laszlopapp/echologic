@@ -1,5 +1,7 @@
 test-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+test-question-2-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
 original-language-question-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
 second-question-statement:

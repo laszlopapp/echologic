@@ -4,6 +4,13 @@ test-question-doc-english:
   author_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('test-question-statement') %>
   language_id: <%= Fixtures.identify('language_en') %>  
+  
+test-question-2-doc-english:
+  title: 'Test Question2?'
+  text: 'The Question is: is this a question?'
+  author_id: <%= Fixtures.identify(:editor) %>
+  statement_id: <%= Fixtures.identify('test-question-2-statement') %>
+  language_id: <%= Fixtures.identify('language_en') %>
 
 second-question-doc-english:
   title: 'Another Question?'

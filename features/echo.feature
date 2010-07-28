@@ -12,6 +12,11 @@ Feature: Echo
     Then I should see the "echo" button
       And the proposal should have one echo
       And the proposal should have "user" as follower
+    Given I go to the proposal
+      And I follow "echo_button"
+    Then I should see the "echo" button
+      And the proposal should have no more echo
+      And the proposal should not have "user" as follower
 
   Scenario: Undo an Echo to a statement as a user
     Given I am logged in as "user" with password "true"
@@ -91,7 +96,7 @@ Feature: Echo
       And I am on the discuss index
       And I follow "Featured"
       And I follow "echonomyJAM"
-      And I choose the "Test Question?" Question
+      And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
       And the proposal has no supporters
       And I choose the "A better first proposal" Improvement Proposal

@@ -31,7 +31,7 @@ module StatementHelper
   def create_translation_url (parent, type)
     send("create_translation_#{type.downcase}_url",parent)
   end
-
+  
   # returns the path to a statement_node, according to its type
   def statement_node_path(statement_node)
     statement_node = StatementNode.find(statement_node) if statement_node.kind_of?(Integer)
@@ -71,11 +71,11 @@ module StatementHelper
   def create_translation_proposal_path(proposal)
     create_translation_question_proposal_path(proposal.parent, proposal)
   end
-
+  
   ## ImprovementProposal
 
-  def improvement_proposal_url(proposal)
-    question_proposal_improvement_proposal_url(proposal.root, proposal.parent, proposal)
+  def improvement_proposal_url(improvement_proposal)
+    question_proposal_improvement_proposal_url(improvement_proposal.root, improvement_proposal.parent, improvement_proposal)
   end
 
   def new_improvement_proposal_url(parent)
@@ -84,30 +84,30 @@ module StatementHelper
     new_question_proposal_improvement_proposal_url(parent.parent, parent)
   end
 
-  def edit_improvement_proposal_url(proposal)
-    edit_question_proposal_improvement_proposal_url(proposal.root, proposal.parent, proposal)
+  def edit_improvement_proposal_url(improvement_proposal)
+    edit_question_proposal_improvement_proposal_url(improvement_proposal.root, improvement_proposal.parent, improvement_proposal)
   end
 
-  def edit_improvement_proposal_path(proposal)
-    edit_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
+  def edit_improvement_proposal_path(improvement_proposal)
+    edit_question_proposal_improvement_proposal_path(improvement_proposal.root, improvement_proposal.parent, improvement_proposal)
   end
 
-  def new_translation_improvement_proposal_url(proposal)
-    new_translation_question_proposal_improvement_proposal_url(proposal.root, proposal.parent, proposal)
+  def new_translation_improvement_proposal_url(improvement_proposal)
+    new_translation_question_proposal_improvement_proposal_url(improvement_proposal.root, improvement_proposal.parent, improvement_proposal)
   end
 
-  def new_translation_improvement_proposal_path(proposal)
-    new_translation_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
+  def new_translation_improvement_proposal_path(improvement_proposal)
+    new_translation_question_proposal_improvement_proposal_path(improvement_proposal.root, improvement_proposal.parent, improvement_proposal)
   end
 
-  def create_translation_improvement_proposal_url(proposal)
-    create_translation_question_proposal_improvement_proposal_url(proposal.root, proposal.parent, proposal)
+  def create_translation_improvement_proposal_url(improvement_proposal)
+    create_translation_question_proposal_improvement_proposal_url(improvement_proposal.root, improvement_proposal.parent, improvement_proposal)
   end
 
-  def create_translation_improvement_proposal_path(proposal)
-    create_translation_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
+  def create_translation_improvement_proposal_path(improvement_proposal)
+    create_translation_question_proposal_improvement_proposal_path(improvement_proposal.root, improvement_proposal.parent, improvement_proposal)
   end
-
+  
   ##
   ## LINKS
   ##
@@ -149,19 +149,7 @@ module StatementHelper
               :class => 'ajax header_button text_button edit_text_button')
     end
   end
-
-  def publish_statement_node_link(statement_node, statement_document)
-    if current_user and
-       statement_document.author == current_user and !statement_node.published?
-      link_to(I18n.t('discuss.statements.publish'),
-              { :controller => :questions,
-                :action => :publish,
-                :in => :summary },
-              :class => 'ajax_put header_button text_button publish_text_button ttLink',
-              :title => I18n.t('discuss.tooltips.publish'))
-    end
-  end
-
+  
   # Returns the block heading for the children of the given statement_node
   def children_box_title(statement_node)
     type = statement_node_class_dom_id(statement_node.class.expected_children.first)

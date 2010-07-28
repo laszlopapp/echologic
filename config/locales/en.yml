@@ -25,6 +25,7 @@ en:
       upload: Upload
       delete: Delete
       create: Add
+      incorporate: Incorporate
       welcome: Welcome
       all: All
 

@@ -4,6 +4,12 @@ test-question:
   state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('test-question-statement') %>
 
+test-question-2:
+  type: Question
+  creator_id: <%= Fixtures.identify(:editor) %>
+  state_id: <%= Fixtures.identify(:statement_state_published) %>
+  statement_id: <%= Fixtures.identify('test-question-2-statement') %>
+
 german-question:
   type: Question
   creator_id: <%= Fixtures.identify(:editor) %>
@@ -29,7 +35,7 @@ non_published_question:
   statement_id: <%= Fixtures.identify('non-published-question-statement') %>
 
 first-proposal:
-  parent_id: <%= Fixtures.identify('test-question') %>
+  parent_id: <%= Fixtures.identify('test-question-2') %>
   type: Proposal
   creator_id: <%= Fixtures.identify(:user) %>
   state_id: <%= Fixtures.identify(:statement_state_published) %>

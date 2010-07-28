@@ -67,11 +67,16 @@ module ActiveRecord
               subscriptions << subscription if subscription.new_record?
             end
             
+            
+            
             def remove_subscriber(subscriber)
               return if subscriber.nil?
               subscription = self.subscriptions.find_by_subscriber_id(subscriber.id)
               subscriptions.delete(subscription) if subscription
             end
+            
+            handle_asynchronously :remove_subscriber
+            handle_asynchronously :add_subscriber
           RUBY
         end
       end

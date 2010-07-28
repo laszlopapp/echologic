@@ -54,13 +54,17 @@ Then /^the proposal should have no more echo$/ do
 end
 
 Then /^the proposal should have "([^\"]*)" as follower$/ do |name|
-  @proposal.reload
-  assert @proposal.followed_by?(@user)
+  assert Delayed::Job.last.name[9..22] == "add_subscriber"
+#  user = Profile.find_by_first_name(name).user
+#  @proposal.reload
+#  assert user.follows?(@proposal)
 end
 
 Then /^the proposal should not have "([^\"]*)" as follower$/ do |name|
-  @proposal.reload
-  assert !@user.follows?(@proposal)
+  assert Delayed::Job.last.name[9..25] == "remove_subscriber"
+#  user = Profile.find_by_first_name(name).user
+#  @proposal.reload
+#  assert !user.follows?(@proposal)
 end
 
 Then /^I am supporter of the proposal$/ do
