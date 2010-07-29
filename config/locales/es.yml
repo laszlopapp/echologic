@@ -353,7 +353,7 @@ es:
         (No será possible modificar la discusión.)
 
     statements:
-      label: 'echos'
+      label: 'votos'
       create_question_link: 'Crear nueva discusión'
       create_proposal_link: 'Crear nueva propuesta'
       create_internal_link: 'Nueva Idea?'

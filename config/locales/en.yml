@@ -343,7 +343,7 @@ en:
         (Afterwards no further editing is possible.)
 
     statements:
-      label: 'echos'
+      label: 'votes'
       create_question_link: 'Open a new discussion'
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'

@@ -340,7 +340,7 @@ pt:
         (Não será mais possível editar a discussão.)
 
     statements:
-      label: 'echos'
+      label: 'votos'
       create_question_link: 'Abra uma nova discussão'
       create_proposal_link: 'Criar nova proposta'
       create_internal_link: 'Nova ideia?'

@@ -342,7 +342,7 @@ de:
         (Danach ist keine Bearbeitung mehr möglich.)
 
     statements:
-      label: 'echos'
+      label: 'Stimmen'
       create_question_link: 'Neue Diskussion eröffnen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
       create_internal_link: 'Neue Idee?'
