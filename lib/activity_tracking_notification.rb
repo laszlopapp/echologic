@@ -1,15 +1,11 @@
 #job class responsible for getting all user related events and sending an email 
 class ActivityTrackingNotification
-  @@quoficient = 7
   @@tracking_period = 7.days.ago 
   @@delivery_period = Time.now.tomorrow.midnight
   
   def initialize
   end
 
-  def self.quoficient
-    @@quoficient
-  end
   def self.tracking_period
     @@tracking_period
   end
@@ -18,9 +14,6 @@ class ActivityTrackingNotification
     @@delivery_period
   end
 
-  def self.quoficient=(value)
-    @@quoficient = value
-  end
   def self.tracking_period=(value)
     @@tracking_period = value
   end
@@ -32,7 +25,7 @@ class ActivityTrackingNotification
 
   def perform
     week_day = Time.now.wday
-    User.all(:conditions => ["(id % ?) = ?", @@quoficient, week_day]).each do |user|
+    User.all(:conditions => ["(id % 7) = ?", week_day]).each do |user|
       next if !user.email_notification?
       events = Event.find_tracked_events(user, @@tracking_period)
       next if events.blank? #if there are no events to send per email, then get the hell out
