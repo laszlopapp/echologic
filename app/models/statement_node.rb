@@ -149,21 +149,21 @@ class StatementNode < ActiveRecord::Base
   end
 
 
-  # Checks if there is no document written in the current language code and the current user can translate it.
+  # Checks if there is no document written in the given language code and the current user can translate it.
   def translatable?(user,from_language,to_language,language_preference_list)
     if user
       # 1.we have a current user that speaks languages
       !user.spoken_languages.blank? and
-      # 2.we ensure ourselves that the user has a mother tongue
+      # 2.the user has a mother tongue
       !user.mother_tongues.blank? and
       # 3.current text language is different from the current language,
-      # which would mean there is no translated version of the document yet in the current language
+      # which means there is no translated version of the document yet in the current language
       !from_language.code.eql?(to_language) and
       # 4.application language is the current user's mother tongue
       user.mother_tongues.collect{|l| l.code}.include?(to_language) and
       # 5.user knows the document's language
       user.spoken_languages.map{|sp| sp.language}.uniq.include?(from_language) and
-      #6. user has language level greater than intermediate
+      # 6. user has language level greater than intermediate
       %w(intermediate advanced mother_tongue).include?(
         user.spoken_languages.select {|sp| sp.language == from_language}.first.level.code)
     else
