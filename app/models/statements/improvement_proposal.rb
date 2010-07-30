@@ -5,7 +5,34 @@
 
 
 class ImprovementProposal < StatementNode
-  acts_as_drafter :tracked, :staged, :approved, :incorporated, :passed
+  acts_as_state_machine :initial => :tracked, :column => 'drafting_state'
+  acts_as_drafter 
+  
+  
+  # These are all of the states for the existing system.
+  state :tracked
+  state :staged
+  state :approved
+  state :incorporated
+  state :passed
+
+  event :stage do
+    transitions :from => :tracked, :to => :staged
+  end
+
+  event :approve do
+    transitions :from => :tracked, :to => :approved
+    transitions :from => :staged, :to => :approved
+  end
+
+  event :incorporate do
+    transitions :from => :approved, :to => :incorporated
+  end
+
+  event :pass do
+    transitions :from => :approved, :to => :passed
+  end
+
   
   # methods / settings to overwrite default statement_node behaviour
   validates_parent :Proposal

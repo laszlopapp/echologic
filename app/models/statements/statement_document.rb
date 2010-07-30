@@ -3,7 +3,7 @@ class StatementDocument < ActiveRecord::Base
   belongs_to :statement
   has_many :statement_nodes, :through => :statement, :source => :statement_nodes
   
-  has_one :statement_history
+  has_one :statement_history, :dependent => :destroy
 
   enum :language, :enum_name => :languages
 

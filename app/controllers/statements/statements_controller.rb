@@ -293,9 +293,7 @@ class StatementsController < ApplicationController
                          attrs_doc.merge({:original_language_id => @locale_language_id,
                                           :action => StatementHistory.statement_actions("new")}))
     respond_to do |format|
-      if permitted and
-         @statement_node.update_attributes(attrs) #and
-#         statement_document.update_attributes(attrs_doc)
+      if permitted and @statement_node.update_attributes(attrs)
         set_statement_node_info("discuss.messages.updated",@statement_node)
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js   { show }

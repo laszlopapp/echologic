@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100730084802) do
+ActiveRecord::Schema.define(:version => 20100730183525) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -176,17 +176,17 @@ ActiveRecord::Schema.define(:version => 20100730084802) do
     t.integer  "root_id"
     t.integer  "creator_id"
     t.integer  "echo_id"
-    t.integer  "state_id"
+    t.integer  "editorial_state_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "statement_id"
-    t.string   "drafting_state", :limit => 20
+    t.string   "drafting_state",     :limit => 20
   end
 
   add_index "statement_nodes", ["creator_id"], :name => "index_statement_nodes_on_creator_id"
   add_index "statement_nodes", ["echo_id", "id"], :name => "index_statement_nodes_on_echo_id_and_id"
+  add_index "statement_nodes", ["editorial_state_id"], :name => "index_statement_nodes_on_state_id"
   add_index "statement_nodes", ["id", "statement_id"], :name => "index_statement_nodes_on_id_and_statement_id"
-  add_index "statement_nodes", ["state_id"], :name => "index_statement_nodes_on_state_id"
   add_index "statement_nodes", ["type"], :name => "index_statement_nodes_on_type"
 
   create_table "statements", :force => true do |t|

@@ -141,10 +141,10 @@ module StatementHelper
             :class=> 'text_button create_question_button no_border')
   end
 
-  def edit_statement_node_link(statement_node, statement_document)
+  def edit_statement_node_link(statement_node)
     if current_user and
        (current_user.may_edit? or
-       (statement_document.author == current_user and !statement_node.published?))
+       (statement_node.authors.include?(current_user) and !statement_node.published?))
       link_to(I18n.t('application.general.edit'), edit_statement_node_path(statement_node),
               :class => 'ajax header_button text_button edit_text_button')
     end

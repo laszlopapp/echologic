@@ -134,7 +134,7 @@ end
 
 Given /^a "([^\"]*)" question in "([^\"]*)"$/ do |state, category|
   state = StatementNode.statement_states(state)
-  @question = Question.new(:state => state, :creator => @user)
+  @question = Question.new(:editorial_state => state, :creator => @user)
   @question.add_statement_document!({:title => "Am I a new statement?",
                                      :text => "I wonder what i really am! Maybe a statement? Or even a question?",
                                      :author => @user,
@@ -159,11 +159,11 @@ Given /^there is a proposal I have created$/ do
 end
 
 Given /^there is a proposal$/ do
-  @proposal = Question.find_all_by_state_id(StatementNode.statement_states('published').id).last.children.proposals.first
+  @proposal = Question.find_all_by_editorial_state_id(StatementNode.statement_states('published').id).last.children.proposals.first
 end
 
 Given /^the proposal was not published yet$/ do
-  @proposal.state = StatementNode.statement_states("new")
+  @proposal.editorial_state = StatementNode.statement_states("new")
   @proposal.save
 end
 

@@ -13,7 +13,7 @@
   </span>
 
   <%= link_to I18n.t('discuss.original_language_warning',
-                     :language => statement_node.statement.original_language.get_current_enum_value.value.upcase),
+                     :language => statement_node.original_language.get_current_enum_value.value.upcase),
               my_profile_path,
               :class => "translation_link profile_link" %>
 </div>

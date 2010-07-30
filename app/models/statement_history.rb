@@ -10,6 +10,7 @@ class StatementHistory < ActiveRecord::Base
     
   belongs_to :author, :class_name => "User"
     
+  delegate :language, :language_id, :to => :statement_document
   
   enum :action, :enum_name => :statement_actions
   

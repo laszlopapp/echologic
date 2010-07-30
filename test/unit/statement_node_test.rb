@@ -8,7 +8,7 @@ class StatementNodeTest < ActiveSupport::TestCase
     setup { @statement_node = Question.new }
     subject { @statement_node }
 
-    should_belong_to :statement, :creator, :state
+    should_belong_to :statement, :creator, :editorial_state
     should_have_many :tao_tags
     should_have_many :statement_documents
     should_have_many :tags
@@ -19,17 +19,17 @@ class StatementNodeTest < ActiveSupport::TestCase
     [nil, "invalid state"].each do |value|
       context("with state set to #{value}") do
         setup {
-          @statement_node.send("state_id=", value)
+          @statement_node.send("editorial_state_id=", value)
           assert ! @statement_node.valid?
         }
         should("include state in it's errors") {
-          assert @statement_node.errors["state_id"]
+          assert @statement_node.errors["editorial_state_id"]
         }
       end
     end
 
     # check for validations (should_validate_presence_of didn't work)
-    %w(creator_id state_id).each do |attr|
+    %w(creator_id editorial_state_id).each do |attr|
       context "with no #{attr} set" do
         setup { @statement_node.send("#{attr}=", nil)
           assert ! @statement_node.valid?
@@ -61,7 +61,7 @@ class StatementNodeTest < ActiveSupport::TestCase
                                                 :original_language_id => StatementDocument.languages.first.id})
         @statement_node.topic_tags = "bebe"
         @statement_node.creator = User.first
-        @statement_node.state = StatementNode.statement_states('published')
+        @statement_node.editorial_state = StatementNode.statement_states('published')
         @statement_node.save!
       end
 

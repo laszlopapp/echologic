@@ -11,7 +11,7 @@ class StatementNode < ActiveRecord::Base
 
   # static for now
   def published?
-    self.state == self.class.statement_states("published")
+    self.editorial_state == self.class.statement_states("published")
   end
 
   ##
@@ -21,8 +21,10 @@ class StatementNode < ActiveRecord::Base
   belongs_to :creator, :class_name => "User"
   belongs_to :root_statement, :foreign_key => "root_id", :class_name => "StatementNode"
   belongs_to :statement
+  
+  delegate :original_language, :authors, :to => :statement
 
-  enum :state, :enum_name => :statement_states
+  enum :editorial_state, :enum_name => :statement_states
 
   acts_as_tree :scope => :root_statement
   # not yet implemented
@@ -40,8 +42,8 @@ class StatementNode < ActiveRecord::Base
   ## VALIDATIONS
   ##
 
-  validates_presence_of :state_id
-  validates_numericality_of :state_id
+  validates_presence_of :editorial_state_id
+  validates_numericality_of :editorial_state_id
   validates_presence_of :creator_id
   validates_presence_of :statement
   validates_associated :creator
@@ -71,7 +73,7 @@ class StatementNode < ActiveRecord::Base
   named_scope :improvement_proposals, lambda {
     { :conditions => { :type => 'ImprovementProposal' } } }
   named_scope :published, lambda {|auth|
-    { :conditions => { :state_id => statement_states('published').id } } unless auth }
+    { :conditions => { :editorial_state_id => statement_states('published').id } } unless auth }
   named_scope :by_creator, lambda {|id|
   {:conditions => ["creator_id = ?", id]}}
 
@@ -110,7 +112,7 @@ class StatementNode < ActiveRecord::Base
 
   # Publish a statement.
   def publish
-    self.state = self.class.statement_states("published")
+    self.editorial_state = self.class.statement_states("published")
   end
 
   # returns a translated document for passed language_codes (or nil if none is found)
@@ -171,7 +173,7 @@ class StatementNode < ActiveRecord::Base
   # Checks if, in case the user hasn't yet set his language knowledge, the current language is different from
   # the statement original language. used for the original message warning
   def not_original_language?(user, current_language_id)
-    user ? (user.spoken_languages.empty? and current_language_id != self.statement.original_language.id) : false
+    user ? (user.spoken_languages.empty? and current_language_id != original_language.id) : false
   end
 
   ###############################
@@ -196,7 +198,7 @@ class StatementNode < ActiveRecord::Base
   def sorted_children(user, language_ids)
     children = self.class.search_statement_nodes(:language_ids => language_ids,
                                                  :conditions => "parent_id = #{self.id}")
-    children = children.select{|c|c.is_tracked? or c.is_staged?} if self.drafteable?
+    children = children.select{|c|c.tracked? or c.staged?} if self.drafteable?
     children
   end
 
@@ -233,7 +235,7 @@ class StatementNode < ActiveRecord::Base
       if opts[:conditions].nil?
         and_conditions << "n.type = '#{opts[:type]}'"
         # Filter for published statements
-        and_conditions << sanitize_sql(["n.state_id = ?", statement_states('published').id]) unless opts[:show_unpublished]
+        and_conditions << sanitize_sql(["n.editorial_state_id = ?", statement_states('published').id]) unless opts[:show_unpublished]
         # Filter for featured topic tags (categories)
         and_conditions << sanitize_sql(["t.value = ?", opts[:category]]) if opts[:category]
       else
