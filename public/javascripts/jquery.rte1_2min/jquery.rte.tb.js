@@ -428,8 +428,8 @@ function lwrte_cleanup_word(){
 
 function lwrte_link(){
     var self = this;
-    var panel = self.create_panel("Create link / Attach file", 385);
-    panel.append('<p><label>URL</label><input type="text" id="url" size="30" value=""><button id="file">Attach File</button><button id="view">View</button></p><div class="clear"></div><p><label>Title</label><input type="text" id="title" size="30" value=""><label>Target</label><select id="target"><option value="">default</option><option value="_blank">new</option></select></p><div class="clear"></div><p class="submit"><button id="ok">Ok</button><button id="cancel">Cancel</button></p>').show();
+    var panel = self.create_panel("Create link", 385);
+    panel.append('<p><label>URL</label><input type="text" id="url" size="30" value=""><button id="view">View</button></p><div class="clear"></div><p><label>Title</label><input type="text" id="title" size="30" value=""><label>Open in</label><select id="target"><option value="">Same window/tab</option><option value="_blank">New window/tab</option></select></p><div class="clear"></div><p class="submit"><button id="ok">Ok</button><button id="cancel">Cancel</button></p>').show();
     $("#ok", panel).click(function(){
         panel.remove();
         var url = $("#url", panel).val();

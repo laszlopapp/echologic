@@ -82,7 +82,7 @@
   display: block;
   clear: both;
   margin: 0;
-  padding: 5px 5px 0;
+  padding: 5px 10px 0;
   font: 10px Tahoma, Verdana, Arial, Helvetica, sans-serif;
   z-index: 10;
   -moz-border-radius: 12px;
@@ -95,7 +95,7 @@
   color: #FFF;
   font-size: 14px;
   font-weight: bold;
-  margin: -2px -2px 5px;
+  margin: -2px -7px 5px;
   padding: 8px 7px 8px 10px;
   height: 16px;
   line-height: 16px;
@@ -150,9 +150,6 @@
   width: 300px !important;
 }
 
-.rte-panel #file {
-  display: none;
-}
 
 .rte-panel #target {
   height: 22px;
