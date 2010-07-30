@@ -347,7 +347,7 @@ pt:
       create_improvement_proposal_link: 'Criar nova proposta de melhoria'
       create_question_explanation: |
         Aqui pode começar uma <strong>nova discussão</strong> e providenciar um conjunto de <strong>palavras-chave
-        temáticas</strong>  adequadas de forma a este ser facilmente encontrado.
+        temáticas</strong> adequadas de forma a este ser facilmente encontrado.
       create_proposal_explanation: |
         Tem uma <strong>boa ideia</strong> no que diz respeito à questão actual, que ainda <strong>não existe</strong>?<br/>
         Aqui pode criar uma <strong>nova proposta</strong>.
@@ -373,6 +373,8 @@ pt:
         question: 'Questões'
         proposal: 'Propostas'
         improvement_proposal: 'Propostas de Melhoria'
+
+      topic: Tópico (Tags)
       states:
         label: 'Publicar discussão?'
         deferred_publish: 'Primeiro criar e mais tarde publicar.'

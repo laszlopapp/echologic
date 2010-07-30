@@ -363,6 +363,7 @@ en:
       publish: Release
       published: Discussion has been released successfully.
       edit: 'Edit {{type}}'
+
       types:
         question:  'Question'
         proposal:  'Proposal'
@@ -375,6 +376,8 @@ en:
         question: 'Questions'
         proposal: 'Proposals'
         improvement_proposal: 'Improvement Proposals'
+
+      topic: Topic (Tags / Keywords)
       states:
         label: 'Publish discussion immediately?'
         deferred_publish: 'Set up at first and publish later'

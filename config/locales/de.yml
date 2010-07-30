@@ -375,6 +375,8 @@ de:
         question: 'Fragen'
         proposal: 'Vorschläge'
         improvement_proposal: 'Ergänzungsvorschläge'
+
+      topic: Thema (Tags / Schlüsselwörte)
       states:
         label: 'Diskussion sofort veröffentlichen?'
         deferred_publish: 'Erstmal weiter vorbereiten und später veröffentlichen'
@@ -624,7 +626,7 @@ de:
           mb: "MB"
           gb: "GB"
           tb: "TB"
-          
+
   mail:
     activity_tracking:
       subject: Activity Tracking
