@@ -29,16 +29,12 @@ class StatementNode < ActiveRecord::Base
   #belongs_to :work_packages
 
   has_many :statement_documents, :through => :statement, :source => :statement_documents do
-    # this query returns translation for a statement ordered by the users preferred languages
-    # OPTIMIZE: this should be built in sql
-
     def for_languages(lang_ids)
-      find(:all, :conditions => ["language_id IN (?)", lang_ids]).sort {
-         |a, b| lang_ids.index(a.language_id) <=> lang_ids.index(b.language_id)
+      find(:all, :conditions => {:language_id => lang_ids}, :order => 'created_at ASC').sort {|a, b| 
+        lang_ids.index(a.language_id) <=> lang_ids.index(b.language_id)
       }.first
     end
   end
-
 
   ##
   ## VALIDATIONS
@@ -130,8 +126,9 @@ class StatementNode < ActiveRecord::Base
   # creates a new statement_document
   def add_statement_document(attributes={ },opts={})
     original_language_id = attributes.delete(:original_language_id)
-    doc = StatementDocument.new(attributes)
     self.statement = Statement.new(:original_language_id => original_language_id) if self.statement.nil?
+    doc = StatementDocument.new
+    attributes.each {|k,v|doc.send("#{k.to_s}=", v)}
     doc.statement = self.statement
     self.statement.statement_documents << doc
     return doc

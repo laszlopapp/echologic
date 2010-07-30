@@ -1,34 +1,48 @@
 class StatementDocument < ActiveRecord::Base
 
   belongs_to :statement
-  belongs_to :author, :class_name => "User"
-  belongs_to :translated_document, :class_name => 'StatementDocument'
   has_many :statement_nodes, :through => :statement, :source => :statement_nodes
-
-  validates_presence_of :title
-  validates_presence_of :text
-  validates_presence_of :author_id
-  validates_presence_of :language_id
-  validates_presence_of :statement
-  validates_associated :author
-  validates_uniqueness_of :language_id, :scope => :statement_id
+  
+  has_one :statement_history
 
   enum :language, :enum_name => :languages
 
+  validates_presence_of :title
+  validates_presence_of :text
+  validates_presence_of :language_id
+  validates_presence_of :statement
+  validates_associated :statement_history
+  
+  
+  before_validation :set_history
+  
+  delegate :author, :author=, :author_id=, :action, :action=, :old_document, :old_document=, :old_document_id=,
+           :incorporated_node, :incorporated_node=, :incorporated_node_id=, :comment, :comment=, :to => :statement_history
+
+  def after_initialize
+    self.statement_history = StatementHistory.new if self.statement_history.nil? 
+  end
+
+  def set_history
+    self.statement_history.statement = self.statement
+  end
 
   # Returns if the document is an original or a translation
   def original?
-    self.translated_document_id.nil?
+    self.old_document.nil?
   end
 
   # Returns the translated_document, declaring it as the original
   def original
-    self.translated_document.original? ? self.translated_document : self.translated_document.original
+    self.original? ? self : self.old_document.original
   end
 
   # Returns all translations of self
   def translations
-    StatementDocument.find_all_by_translated_document_id(self.id)
+    #StatementDocument.find_all_by_translated_document_id(self.id)
+    StatementDocument.all(:joins => :statement_history,
+    :conditions => ["statement_histories.old_document_id = ? and statement_documents.language_id != ?", 
+                                                           self.id,                                 self.language.id])
   end
 
   def self.search_statement_documents(statement_ids, language_ids, opts={} )

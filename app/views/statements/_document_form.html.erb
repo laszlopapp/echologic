@@ -11,6 +11,7 @@
       <%= doc.input :text,
                     :input_html => {:disabled => disabled,
                                     :class => css_rte_class} %>
+			<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][old_document_id]", @statement_document.id if !@statement_document.new_record? %>
 		<% else %>
 		  <li>
 			  <label for="question_statement_document_text">

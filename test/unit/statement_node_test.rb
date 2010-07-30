@@ -53,19 +53,21 @@ class StatementNodeTest < ActiveSupport::TestCase
 
     context "being saved" do
       setup do
-        @statement_node.add_statement_document({:title => 'A new Document',
+        doc = @statement_node.add_statement_document({:title => 'A new Document',
                                                 :text => 'with a very short body, dude!',
-                                                :language_id => 1, :author_id => User.first.id,
-                                                :original_language_id => 1})
+                                                :language => StatementDocument.languages.first, 
+                                                :author => User.first,
+                                                :action => StatementHistory.statement_actions("new"),
+                                                :original_language_id => StatementDocument.languages.first.id})
         @statement_node.topic_tags = "bebe"
         @statement_node.creator = User.first
         @statement_node.state = StatementNode.statement_states('published')
-        @statement_node.save
+        @statement_node.save!
       end
 
       should "be able to access its statement documents data" do
-        assert_equal @statement_node.translated_document([1]).title, "A new Document"
-        assert_equal @statement_node.translated_document([1]).text, "with a very short body, dude!"
+        assert_equal @statement_node.translated_document([StatementDocument.languages.first.id]).title, "A new Document"
+        assert_equal @statement_node.translated_document([StatementDocument.languages.first.id]).text, "with a very short body, dude!"
       end
 
       should "have creator as supporter" do

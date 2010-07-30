@@ -105,15 +105,16 @@ Feature: Echo
   #    And I should see "You can only support improvement proposals if you support the proposal itself."
       And I go to the proposal
       And I follow "echo_button"
+    Then I am supporter of the proposal
+      And I go to the proposal
       And I choose the "A better first proposal" Improvement Proposal
     Given I follow "echo_button"
-    Then I am supporter of the proposal
+    Then I am supporter of the improvement proposal
    #   And I should not see "You can only support improvement proposals if you support the proposal itself."
       And I go to the proposal
       And I follow "echo_button"
-      And I choose the "A better first proposal" Improvement Proposal
-    Given I follow "echo_button"
-    Then I am not supporter of the improvement proposal
+    Then I am not supporter of the proposal
+      And I am not supporter of the improvement proposal
  #     And I should see "You can only support improvement proposals if you support the proposal itself."
     
       

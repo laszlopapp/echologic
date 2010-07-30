@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100727103529) do
+ActiveRecord::Schema.define(:version => 20100730084802) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -151,17 +151,24 @@ ActiveRecord::Schema.define(:version => 20100727103529) do
   create_table "statement_documents", :force => true do |t|
     t.string   "title"
     t.text     "text"
-    t.integer  "author_id"
-    t.integer  "language_id"
-    t.integer  "translated_document_id"
     t.integer  "statement_id"
-    t.integer  "current"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "language_id"
   end
 
-  add_index "statement_documents", ["language_id"], :name => "index_statement_documents_on_language_id"
   add_index "statement_documents", ["statement_id", "id"], :name => "index_statement_documents_on_statement_id_and_id"
+
+  create_table "statement_histories", :force => true do |t|
+    t.integer  "statement_document_id"
+    t.integer  "statement_id"
+    t.integer  "author_id"
+    t.integer  "action_id"
+    t.integer  "old_document_id"
+    t.integer  "incorporated_node_id"
+    t.string   "comment"
+    t.datetime "created_at"
+  end
 
   create_table "statement_nodes", :force => true do |t|
     t.string   "type"

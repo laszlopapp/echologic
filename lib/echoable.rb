@@ -117,7 +117,7 @@ module Echoable
 
     # Returns the echo belonging to the echoable and creates it if it doesn't exist yet.
     def find_or_create_echo
-      if echo_id
+      if !self.echo_id.nil?
         echo
       else
         echo = create_echo

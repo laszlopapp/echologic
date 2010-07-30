@@ -18,7 +18,7 @@ end
 
 Given /^the proposal has no supporters$/ do 
   @proposal.reload
-  UserEcho.destroy_all("echo_id = #{@proposal.echo.id} and supported = 1")
+  UserEcho.destroy_all("echo_id = #{@proposal.echo.id} and supported = 1") if @proposal.echo
 end
 
 Then /^the proposal should have ([^\"]*) supporters$/ do |supporter_count|

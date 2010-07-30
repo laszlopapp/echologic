@@ -181,7 +181,8 @@ class StatementsController < ApplicationController
   def create_translation
     attrs = params[statement_node_symbol]
     doc_attrs = attrs.delete(:new_statement_document).merge({:author_id => current_user.id,
-                                                             :language_id => @locale_language_id})
+                                                             :language_id => @locale_language_id,
+                                                             :action => StatementHistory.statement_actions("translate")})
     @new_statement_document = @statement_node.add_statement_document(doc_attrs)
     respond_to do |format|
       if @statement_node.save
@@ -190,7 +191,7 @@ class StatementsController < ApplicationController
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js {render :partial => 'statements/create_translation.rjs'}
       else
-        @statement_document = StatementDocument.find(doc_attrs[:translated_document_id])
+        @statement_document = StatementDocument.find(doc_attrs[:old_document_id])
         set_error(@new_statement_document)
         format.html { flash_error and render :template => 'statements/translate' }
         format.js { show_error_messages(@new_statement_document) }
@@ -231,7 +232,8 @@ class StatementsController < ApplicationController
 
     @statement_node ||= statement_node_class.new(attrs)
     @statement_document = @statement_node.add_statement_document(
-                          doc_attrs.merge({:original_language_id => @locale_language_id}))
+                          doc_attrs.merge({:original_language_id => @locale_language_id,
+                                           :action => StatementHistory.statement_actions("new")}))
     permitted = true ; @tags = []
     if @statement_node.taggable? and (permitted = check_hash_tag_permissions(form_tags))
       @statement_node.topic_tags=form_tags
@@ -286,18 +288,19 @@ class StatementsController < ApplicationController
        @statement_node.topic_tags=form_tags
        @tags=@statement_node.topic_tags
     end
-    statement_document = @statement_node.translated_document(@language_preference_list)
-#    statement_document = @statement_node.add_statement_document(
-#                         attrs_doc.merge({:original_language_id => @locale_language_id}))
+#    statement_document = @statement_node.translated_document(@language_preference_list)
+    @statement_document = @statement_node.add_statement_document(
+                         attrs_doc.merge({:original_language_id => @locale_language_id,
+                                          :action => StatementHistory.statement_actions("new")}))
     respond_to do |format|
       if permitted and
-         @statement_node.update_attributes(attrs) and
-         statement_document.update_attributes(attrs_doc)
+         @statement_node.update_attributes(attrs) #and
+#         statement_document.update_attributes(attrs_doc)
         set_statement_node_info("discuss.messages.updated",@statement_node)
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js   { show }
       else
-        set_error(statement_document)
+        set_error(@statement_document)
         set_error(@statement_node)
         format.html { flash_error and redirect_to url_for(@statement_node) }
         format.js   { show_error_messages }
