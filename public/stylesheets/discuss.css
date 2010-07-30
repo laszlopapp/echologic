@@ -48,13 +48,6 @@ form.formtastic fieldset .rte-zone li.separator {
 
 }
 
-form.formtastic .rte-toolbar select {
-  font:10px Tahoma,Verdana,Arial,Helvetica,sans-serif;
-  height: 16px;
-  margin: 0;
-  padding: 0;
-}
-
 form.formtastic fieldset ol li.text .rte-zone textarea {
   border: 0px;
   padding: 0px;
@@ -262,6 +255,12 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 #summary.discuss_right_block {
   width: 815px;
 }
+
+.statement_content a {
+  color: #21587f;
+  text-decoration: underline;
+}
+
 
 /* echo indicators */
 
