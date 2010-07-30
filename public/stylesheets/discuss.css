@@ -256,6 +256,11 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   width: 815px;
 }
 
+.statement_content {
+  margin-top: 12px;
+  line-height:1.25em;
+}
+
 .statement_content a {
   color: #21587f;
   text-decoration: underline;
