@@ -258,10 +258,10 @@ de:
           <strong>gemeinsamen Anstrengungen</strong> engagierter Menschen und
           Organisationen vorangetrieben.
           </p><p>
-          Möchten auch Sie Ihre <strong>Ideen beisteuern</strong>?<br/>
+          Möchten auch Sie sich <strong>beteiligen</strong>?<br/>
           Dann tragen Sie einfach Ihren Namen und Ihre E-Mail Adresse ein!<br/>
-          <strong>Gestalten Sie echo</strong> und <strong>diskutieren Sie über Themen der Nachhaltigkeit</strong> und Demokratie
-          mit anderen engagierten BürgerInnen, ExpertInnen und PolitikerInnen.
+          <strong>Gestalten Sie echo</strong> und <strong>diskutieren Sie über Themen der Nachhaltigkeit</strong> und
+          Demokratie mit anderen engagierten BürgerInnen, ExpertInnen und PolitikerInnen.
           </p>
         action: 'Jetzt beitreten!'
 
@@ -272,7 +272,12 @@ de:
     reports:
       new:
         title:  "Benutzer melden"
-        text:   "<p>Haben Sie <strong>beleidigenden, unethischen oder illegalen Inhalt gesehen?</strong><br/> Wenn ja, hier können Sie uns den Benutzer melden.</p><p>Wir werden uns schnellstmöglich um Ihren Hinweis kümmern.<p>"
+        text: |
+          <p>Haben Sie <strong>beleidigenden, unethischen oder illegalen Inhalt gesehen?</strong><br/>
+          Wenn ja, hier können Sie uns den Benutzer melden.
+          </p><p>
+          Wir werden uns schnellstmöglich um Ihren Hinweis kümmern.
+          </p>
       messages:
         created: "Danke für Ihre Mitteilung. Wir werden uns um die Angelegenheit kümmern."
 

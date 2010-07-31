@@ -261,9 +261,10 @@ en:
           As a project for supporting common good, echo is driven forward by the
           <strong>joint effort</strong> of engaged individuals and organizations.
           </p><p>
-          Eager to <strong>contribute your ideas</strong>, too!?<br/>
+          Eager to <strong>participate</strong>!?<br/>
           Please enter your name and E-Mail address below!<br/>
-          <strong>Form echo</strong> and <strong>discuss topics on sustainability</strong> and democracy with other engaged citizens, experts and representatives.
+          <strong>Form echo</strong> and <strong>discuss topics on sustainability</strong> and democracy with other
+          engaged citizens, experts and representatives.
           </p>
         action: 'Join now!'
 
@@ -274,7 +275,12 @@ en:
     reports:
       new:
         title:  "Report user"
-        text:   "<p>Did you see <strong>offensive, unethical or illegal content?</strong><br/>If so, here you can report the user to our administrative team.</p><p>We will check the issue as soon as possible.</p>"
+        text: |
+          <p>Did you see <strong>offensive, unethical or illegal content?</strong><br/>
+          If so, here you can report the user to our administrative team.
+          </p><p>
+          We will check the issue as soon as possible.
+          </p>
       messages:
         created: "Thank you for your message. An administrator was notified."
 
