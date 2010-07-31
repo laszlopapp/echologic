@@ -42,7 +42,7 @@ en:
 
         text_1: |
           <p>
-          echo is a <strong>joint project</strong> for an ecologically and socially sustainable change through
+          echo is a <strong>joint project</strong> for ecological and socially sustainable change through
           <strong>proactive citizen participation</strong>. It addresses and unites all
           members of society: citizens, experts, decision makers and representatives of organizations and businesses.
           </p><p>
@@ -57,12 +57,12 @@ en:
           title: Collective solution finding and political influence
           more: |
             <p>
-            According to the motto <strong>“Discuss – Connect – Act!”</strong>, echo empowers people to jointly
-            determine their very own living space – and the future of our common world. echo´s discussion
-            area allows for sound <strong>opinion- and will formation</strong>, and remains clear and comprehensible
-            even with a nearly unlimited number of participants. In the area Act!, civil engagement
-            is transformed into true <strong>political influence</strong> by the use of existing direct democractic
-            instruments (e.g. ePetitions, referenda, demonstration, etc.)
+            According to its motto <strong>“Discuss – Connect – Act!”</strong>, echo empowers people to jointly
+            shape their local community – and the future of our shared world. echo´s discussion area gives
+            a <strong>clear overview on different opinions</strong> and facilitates <strong>constructive
+            mass collaboration</strong> to co-create your own sound statements together with others.
+            In the area Act!, civic engagement is transformed into true <strong>political influence</strong> by
+            the use of existing direct democractic instruments (e.g. ePetitions, referenda, demonstration, etc.)
             </p>
         text_3:
           title: Openness and “Your-profit” philosophy
@@ -74,7 +74,7 @@ en:
             </p><p>
             echo is <strong>social business</strong> and commited to basic ethical values of a socially and ecologically sustainable
             economy. According to its <strong>“Your-profit” philosophy</strong>, all surpluses will flow back into actions and
-            projects of the echo community. In this way, the virtual engagement can influence our real
+            projects of the echo community. In this way, your virtual engagement can influence our real
             world in a positive way and help people achieve <strong>political and economical self-determination</strong>.
             </p>
         text_4:
@@ -85,7 +85,7 @@ en:
             voice counts</strong> the same – all over the world.
             </p><p>
             On <strong>echologic</strong>, more and more people join our common mission to <strong>turn echo's vision
-            into reality</strong>. Although echo is yet in an embryonic stage, you can already:
+            into reality</strong>. Although echo is still in its embryonic stage, you can already:
             </p>
 
         action: |
@@ -704,7 +704,7 @@ en:
           This echo social site offers you:
           </p>
         internet_presence:
-          title: individual internet presence
+          title: Individual internet presence
           text: |
             <p>Upload your logo, choose colors and layout and adjust functions to your special needs with a few clicks.</p>
         community_management:
