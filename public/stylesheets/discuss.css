@@ -266,6 +266,11 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   text-decoration: underline;
 }
 
+.statement_content strong {
+  font-size: 1em;
+  font-weight: normal; /* Just to fix some old texts generated with strong. WYSIWYG uses <b> tag - unfortunately. */
+}
+
 
 /* echo indicators */
 
