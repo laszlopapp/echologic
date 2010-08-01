@@ -1,6 +1,6 @@
 var rte_tag = "-rte-tmp-tag-";
 var rte_toolbar = {
-   /* s1: {
+    /* s1: {
         separator: true
     },*/
     bold: {
@@ -15,14 +15,14 @@ var rte_toolbar = {
         command: "strikethrough",
         tags: ["s", "strike"]
     },
-    underline: {
+    /*underline: {
         command: "underline",
         tags: ["u"]
-    },
-    /*s2: {
+    },*/
+    s2: {
         separator: true
     },
-    justifyLeft: {
+    /*justifyLeft: {
         command: "justifyleft"
     },
     justifyCenter: {
@@ -37,12 +37,6 @@ var rte_toolbar = {
     s3: {
         separator: true
     },
-    indent: {
-        command: "indent"
-    },
-    outdent: {
-        command: "outdent"
-    },
     s4: {
         separator: true
     },
@@ -54,16 +48,22 @@ var rte_toolbar = {
         command: "superscript",
         tags: ["sup"]
     },*/
-    s5: {
-        separator: true
+    unorderedList: {
+        command: "insertunorderedlist",
+        tags: ["ul"]
     },
     orderedList: {
         command: "insertorderedlist",
         tags: ["ol"]
     },
-    unorderedList: {
-        command: "insertunorderedlist",
-        tags: ["ul"]
+    s5: {
+        separator: true
+    },
+    indent: {
+        command: "indent"
+    },
+    outdent: {
+        command: "outdent"
     },
     s6: {
         separator: true
@@ -94,7 +94,7 @@ var rte_toolbar = {
     image: {
         exec: lwrte_image,
         tags: ["img"]
-    },
+    },*/
     link: {
         exec: lwrte_link,
         tags: ["a"]
@@ -104,7 +104,7 @@ var rte_toolbar = {
     },
     s8: {
         separator: true
-    },*/
+    },
     removeFormat: {
         exec: lwrte_unformat
     }/*,
@@ -428,34 +428,10 @@ function lwrte_cleanup_word(){
 
 function lwrte_link(){
     var self = this;
-    var panel = self.create_panel("Create link / Attach file", 385);
-    panel.append('<p><label>URL</label><input type="text" id="url" size="30" value=""><button id="file">Attach File</button><button id="view">View</button></p><div class="clear"></div><p><label>Title</label><input type="text" id="title" size="30" value=""><label>Target</label><select id="target"><option value="">default</option><option value="_blank">new</option></select></p><div class="clear"></div><p class="submit"><button id="ok">Ok</button><button id="cancel">Cancel</button></p>').show();
-    $("#cancel", panel).click(function(){
-        panel.remove();
-        return false
-    });
-    var url = $("#url", panel);
-    var upload = $("#file", panel).upload({
-        autoSubmit: true,
-        action: "uploader.php",
-        onComplete: function(response){
-            if (response.length <= 0) {
-                return
-            }
-            response = eval("(" + response + ")");
-            if (response.error && response.error.length > 0) {
-                alert(response.error)
-            }
-            else {
-                url.val((response.file && response.file.length > 0) ? response.file : "")
-            }
-        }
-    });
-    $("#view", panel).click(function(){
-        (url.val().length > 0) ? window.open(url.val()) : alert("Enter URL to view");
-        return false
-    });
+    var panel = self.create_panel("Create link", 385);
+    panel.append('<p><label>URL</label><input type="text" id="url" size="30" value=""><button id="view">View</button></p><div class="clear"></div><p><label>Title</label><input type="text" id="title" size="30" value=""><label>Open in</label><select id="target"><option value="">Same window/tab</option><option value="_blank">New window/tab</option></select></p><div class="clear"></div><p class="submit"><button id="ok">Ok</button><button id="cancel">Cancel</button></p>').show();
     $("#ok", panel).click(function(){
+        panel.remove();
         var url = $("#url", panel).val();
         var target = $("#target", panel).val();
         var title = $("#title", panel).val();
@@ -479,5 +455,30 @@ function lwrte_link(){
         $('a[href*="' + rte_tag + '"]', tmp).attr("href", url);
         self.selection_replace_with(tmp.html());
         return false
-    })
+    });
+    $("#cancel", panel).click(function(){
+        panel.remove();
+        return false
+    });
+    var url = $("#url", panel);
+    /*var upload = $("#file", panel).upload({
+        autoSubmit: true,
+        action: "uploader.php",
+        onComplete: function(response){
+            if (response.length <= 0) {
+                return
+            }
+            response = eval("(" + response + ")");
+            if (response.error && response.error.length > 0) {
+                alert(response.error)
+            }
+            else {
+                url.val((response.file && response.file.length > 0) ? response.file : "")
+            }
+        }
+    });*/
+    $("#view", panel).click(function(){
+        (url.val().length > 0) ? window.open(url.val()) : alert("Enter URL to view");
+        return false
+    });
 };
