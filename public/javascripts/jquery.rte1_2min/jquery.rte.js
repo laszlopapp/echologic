@@ -86,7 +86,7 @@ lwRTE.prototype.editor_cmd = function(c, a){
     this.iframe.contentWindow.focus();
     try {
         this.iframe_doc.execCommand(c, false, a)
-    } 
+    }
     catch (b) {
     }
     this.iframe.contentWindow.focus()
@@ -133,7 +133,7 @@ lwRTE.prototype.enable_design_mode = function(){
     a.iframe_doc = a.iframe.contentWindow.document;
     try {
         a.iframe_doc.designMode = "on"
-    } 
+    }
     catch (h) {
         $(a.iframe_doc).focus(function(){
             a.iframe_doc.designMode()
@@ -189,7 +189,7 @@ lwRTE.prototype.disable_design_mode = function(b){
         $(a.iframe_doc).remove();
         $(a.iframe).remove();
         a.iframe = a.iframe_doc = null;
-        a.activate_toolbar(a.textarea, a.toolbars.html) 
+        a.activate_toolbar(a.textarea, a.toolbars.html)
     }
 };
 lwRTE.prototype.toolbar_click = function(f, d){
@@ -203,7 +203,7 @@ lwRTE.prototype.toolbar_click = function(f, d){
         }
         try {
             b.apply(this, a)
-        } 
+        }
         catch (c) {
         }
     }
@@ -231,7 +231,7 @@ lwRTE.prototype.create_toolbar = function(d){
             if (d[f].init) {
                 try {
                     d[f].init.apply(d[f], [this])
-                } 
+                }
                 catch (g) {
                 }
             }
@@ -274,8 +274,8 @@ lwRTE.prototype.create_panel = function(h, c){
     var d = i.event.pageX;
     var g = i.event.pageY;
     var a = $("<div></div>").hide().addClass("rte-panel").css({
-        left: d,
-        top: g
+        left: d + 15,
+        top: g - 200
     });
     $("<div></div>").addClass("rte-panel-title").html(h).append($("<a class='close' href='#'>X</a>").click(function(){
         a.remove();
@@ -291,8 +291,8 @@ lwRTE.prototype.create_panel = function(h, c){
             d -= b.pageX - j.pageX;
             g -= b.pageY - j.pageY;
             a.css({
-                left: d,
-                top: g
+                left: d + 15,
+                top: g - 200
             })
         }
         b = j;
@@ -352,7 +352,7 @@ lwRTE.prototype.set_selected_controls = function(b, l){
             }
             while (a = a.parentNode)
         }
-    } 
+    }
     catch (g) {
     }
     return true
@@ -365,7 +365,7 @@ lwRTE.prototype.get_selected_element = function(){
             b = d.getSelection();
             a = b.getRangeAt(0);
             c = a.commonAncestorContainer
-        } 
+        }
         catch (f) {
             return false
         }
@@ -375,7 +375,7 @@ lwRTE.prototype.get_selected_element = function(){
             b = d.document.selection;
             a = b.createRange();
             c = a.parentElement()
-        } 
+        }
         catch (f) {
             return false
         }
