@@ -49,13 +49,14 @@ class StatementDocument < ActiveRecord::Base
 
       #Rambo 1
       query_part_1 = <<-END
-          select distinct sd.title, sd.statement_id, sd.language_id
+          select distinct sd.title, sd.statement_id, sd.language_id, sd.current
           from
             statement_documents sd
             where
       END
       #Rambo 2
-      query_part_2 = sanitize_sql([" sd.statement_id IN (?) AND sd.language_id IN (?)", statement_ids, language_ids])
+      query_part_2 = sanitize_sql([" sd.statement_id IN (?) AND sd.language_id IN (?) AND sd.current = 1", 
+                                                         statement_ids,            language_ids])
       #Rambo 3
       query_part_3 = " order by sd.language_id;"
 

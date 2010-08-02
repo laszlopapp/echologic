@@ -32,7 +32,7 @@ class StatementNode < ActiveRecord::Base
 
   has_many :statement_documents, :through => :statement, :source => :statement_documents do
     def for_languages(lang_ids)
-      find(:all, :conditions => {:language_id => lang_ids}, :order => 'created_at ASC').sort {|a, b| 
+      find(:all, :conditions => {:language_id => lang_ids, :current => true}, :order => 'created_at ASC').sort {|a, b| 
         lang_ids.index(a.language_id) <=> lang_ids.index(b.language_id)
       }.first
     end

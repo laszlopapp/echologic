@@ -182,7 +182,8 @@ class StatementsController < ApplicationController
     attrs = params[statement_node_symbol]
     doc_attrs = attrs.delete(:new_statement_document).merge({:author_id => current_user.id,
                                                              :language_id => @locale_language_id,
-                                                             :action => StatementHistory.statement_actions("translate")})
+                                                             :action => StatementHistory.statement_actions("translate"),
+                                                             :current => true})
     @new_statement_document = @statement_node.add_statement_document(doc_attrs)
     respond_to do |format|
       if @statement_node.save
@@ -233,7 +234,8 @@ class StatementsController < ApplicationController
     @statement_node ||= statement_node_class.new(attrs)
     @statement_document = @statement_node.add_statement_document(
                           doc_attrs.merge({:original_language_id => @locale_language_id,
-                                           :action => StatementHistory.statement_actions("new")}))
+                                           :action => StatementHistory.statement_actions("new"),
+                                           :current => true}))
     permitted = true ; @tags = []
     if @statement_node.taggable? and (permitted = check_hash_tag_permissions(form_tags))
       @statement_node.topic_tags=form_tags
@@ -288,12 +290,15 @@ class StatementsController < ApplicationController
        @statement_node.topic_tags=form_tags
        @tags=@statement_node.topic_tags
     end
-#    statement_document = @statement_node.translated_document(@language_preference_list)
+    old_statement_document = @statement_node.translated_document(@language_preference_list)
+    
     @statement_document = @statement_node.add_statement_document(
                          attrs_doc.merge({:original_language_id => @locale_language_id,
-                                          :action => StatementHistory.statement_actions("new")}))
+                                          :action => StatementHistory.statement_actions("new"), 
+                                          :current => true}))
     respond_to do |format|
       if permitted and @statement_node.update_attributes(attrs)
+        old_statement_document.update_attributes(:current => 0)
         set_statement_node_info("discuss.messages.updated",@statement_node)
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js   { show }

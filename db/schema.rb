@@ -155,6 +155,7 @@ ActiveRecord::Schema.define(:version => 20100730183525) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "language_id"
+    t.integer  "current"
   end
 
   add_index "statement_documents", ["statement_id", "id"], :name => "index_statement_documents_on_statement_id_and_id"

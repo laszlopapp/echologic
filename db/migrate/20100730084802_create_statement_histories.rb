@@ -24,14 +24,13 @@ class CreateStatementHistories < ActiveRecord::Migration
 #      sh.created_at = statement_document.created_at
 #      sh.save
 #    end
-    remove_column :statement_documents, :author_id, :current, :translated_document_id
+    remove_column :statement_documents, :author_id, :translated_document_id
     
   end
 
   def self.down
-#    drop_table :statement_histories
+    drop_table :statement_histories
     add_column :statement_documents, :author_id, :integer
-    add_column :statement_documents, :current, :integer
     add_column :statement_documents, :translated_document_id, :integer
   end
 end

@@ -138,6 +138,7 @@ Given /^a "([^\"]*)" question in "([^\"]*)"$/ do |state, category|
   @question.add_statement_document!({:title => "Am I a new statement?",
                                      :text => "I wonder what i really am! Maybe a statement? Or even a question?",
                                      :author => @user,
+                                     :current => 1,
                                      :language_id => @user.spoken_language_ids.first,
                                      :action => StatementHistory.statement_actions("new"),
                                      :original_language_id => @user.spoken_language_ids.first})
