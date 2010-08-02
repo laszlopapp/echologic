@@ -7,7 +7,7 @@
   <body>
   	<h1><%= I18n.t('mail.activity_tracking.subject', :locale => @language.code) %></h1>
 
-		<%= render :partial => "mailer/activity_templates/questions_activity_template", 
+		<%= render :partial => "activity_tracking_mailer/activity_templates/questions_activity_template", 
                :locals => {:questions => @question_events, :tags => @question_tags}%>
 		
 		<ul>
@@ -34,7 +34,7 @@
 				  <%= %>
 				<% end %>
 			  <li>
-			  	<%= render :partial => "mailer/activity_templates/#{event_data.keys[0]}_activity_template", 
+			  	<%= render :partial => "activity_tracking_mailer/activity_templates/#{event_data.keys[0]}_activity_template", 
                          :locals => {:id => e.subscribeable_id, :data => event_data}%>
 				</li>
 			<% end %>

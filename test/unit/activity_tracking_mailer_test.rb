@@ -1,13 +1,14 @@
 require 'test_helper'
 
-class MailerTest < ActionMailer::TestCase
+class ActivityTrackingMailerTest < ActionMailer::TestCase
+  
   def test_activity_tracking_email_question
     user = users(:user)
     question_events = [events(:event_test_question)]
     tags = {'#echonomyjam' => 1,'user' => 2}
     events = []
     # Send the email, then test that it got queued
-    email = Mailer.deliver_activity_tracking_email!(user,question_events,tags,events)
+    email = ActivityTrackingMailer.deliver_activity_tracking_email!(user,question_events,tags,events)
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal [user.email], email.to
@@ -19,7 +20,7 @@ class MailerTest < ActionMailer::TestCase
     assert_match /user/, email.encoded
     assert_match /(2)/, email.encoded
   end
-
+  
   def test_activity_tracking_email_proposal
     user = users(:user)
     question_events = []
@@ -29,7 +30,7 @@ class MailerTest < ActionMailer::TestCase
     title = JSON.parse(proposal_event.event)['proposal']['statement']['statement_documents'][0]['title']
     events = [proposal_event]
     # Send the email, then test that it got queued
-    email = Mailer.deliver_activity_tracking_email!(user,question_events,tags,events)
+    email = ActivityTrackingMailer.deliver_activity_tracking_email!(user,question_events,tags,events)
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal [user.email], email.to
@@ -49,7 +50,7 @@ class MailerTest < ActionMailer::TestCase
     title = JSON.parse(impro_proposal_event.event)['improvement_proposal']['statement']['statement_documents'][0]['title']
     events = [impro_proposal_event]
     # Send the email, then test that it got queued
-    email = Mailer.deliver_activity_tracking_email!(user,question_events,tags,events)
+    email = ActivityTrackingMailer.deliver_activity_tracking_email!(user,question_events,tags,events)
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal [user.email], email.to
@@ -58,15 +59,5 @@ class MailerTest < ActionMailer::TestCase
     assert_match /#{Proposal.find(parent_id).translated_document(EnumKey.find_by_code("en")).title}/, email.encoded
     assert_match /#{Question.find(root_id).translated_document(EnumKey.find_by_code("en")).title}/, email.encoded
     assert_match /#{title}/, email.encoded
-  end
-
-  def test_activity_tracking_no_response
-#    user = users(:ben)
-#    question_events = [events(:event_test_question)]
-#    tags = {'#echonomyjam' => 1,'user' => 2}
-#    events = []
-#    # Send the email, then test that it didn't get queued
-#    email = Mailer.deliver_activity_tracking_email!(user,question_events,tags,events)
-#    assert ActionMailer::Base.deliveries.empty?
   end
 end

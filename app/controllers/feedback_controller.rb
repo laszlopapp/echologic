@@ -19,7 +19,7 @@ class FeedbackController < ApplicationController
     respond_to do |format|
       format.js do
         if @feedback.save
-          Mailer.deliver_feedback(@feedback)
+          RegistrationMailer.deliver_feedback(@feedback)
           render :template => 'feedback/create'
         else
           show_error_messages(@feedback)

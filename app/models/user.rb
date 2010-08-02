@@ -78,25 +78,29 @@ class User < ActiveRecord::Base
   # Uses mailer to deliver activation instructions
   def deliver_activation_instructions!
     reset_perishable_token!
-    Mailer.deliver_activation_instructions(self)
+    mail = RegistrationMailer.create_activation_instructions(self)
+    RegistrationMailer.deliver(mail)
   end
 
   # Uses mailer to deliver activation confirmation
   def deliver_activation_confirmation!
     reset_perishable_token!
-    Mailer.deliver_activation_confirmation(self)
+    mail = RegistrationMailer.create_activation_confirmation(self)
+    RegistrationMailer.deliver(mail)
   end
 
   # Send a password reset email through mailer
   def deliver_password_reset_instructions!
     reset_perishable_token!
-    Mailer.deliver_password_reset_instructions(self)
+    mail = RegistrationMailer.create_password_reset_instructions(self)
+    RegistrationMailer.deliver(mail)
   end
 
   #Send an activity tracking email through mailer
   def deliver_activity_tracking_email!(question_events, question_tags, events)
     reset_perishable_token!
-    Mailer.deliver_activity_tracking_email(self,question_events, question_tags, events)
+    mail = ActivityTrackingMailer.create_activity_tracking_email(self,question_events, question_tags, events)
+    ActivityTrackingMailer.deliver(mail)
   end
 
 

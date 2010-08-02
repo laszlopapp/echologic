@@ -1,4 +1,4 @@
-class Mailer < ActionMailer::Base
+class RegistrationMailer < ActionMailer::Base
   
   # Send a feedback object as email to the FEEDBACK_RECIPIENT specified
   # in the environment.
@@ -38,19 +38,5 @@ class Mailer < ActionMailer::Base
     recipients    user.email
     sent_on       Time.now
     body          :name => user.full_name, :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
-  end
-
-  # Send the activities on the subscribed objects to the subscribeable
-  def activity_tracking_email(subscriber,question_events, question_tags, events)
-    default = subscriber.default_language
-    subject       I18n.t('mail.activity_tracking.subject', :locale => default.code)
-    from          "noreply@echologic.org"
-    recipients    subscriber.email
-    sent_on       Time.now
-    content_type "text/html"
-    body          :question_events => question_events,
-                  :question_tags => question_tags,
-                  :events => events,
-                  :language => default
-  end
+  end  
 end
