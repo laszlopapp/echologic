@@ -6,7 +6,7 @@
 
 class ImprovementProposal < StatementNode
   acts_as_state_machine :initial => :tracked, :column => 'drafting_state'
-  acts_as_drafter 
+  acts_as_incorporable
   
   
   # These are all of the states for the existing system.
@@ -19,16 +19,13 @@ class ImprovementProposal < StatementNode
   event :stage do
     transitions :from => :tracked, :to => :staged
   end
-
   event :approve do
     transitions :from => :tracked, :to => :approved
     transitions :from => :staged, :to => :approved
   end
-
   event :incorporate do
     transitions :from => :approved, :to => :incorporated
   end
-
   event :pass do
     transitions :from => :approved, :to => :passed
   end

@@ -79,6 +79,5 @@ Feature: Start a discussion
     When I follow "echonomyJAM"
       And I choose the first Question
       And the question has "*beer" for tags
-      And I choose the first Question
       And I follow "create_proposal_link"
     Then I should see localized "discuss.statements.read_only_permission"

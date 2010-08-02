@@ -6,6 +6,7 @@ module ActsAsTaggable::Taggable
       
       base.class_eval do
         attr_writer :custom_contexts
+        after_create :save_tags
         after_save :save_tags
       end
       

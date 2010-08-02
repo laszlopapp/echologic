@@ -94,8 +94,8 @@ class StatementNodeTest < ActiveSupport::TestCase
       end
 
       should "should be followed by creator" do
-        @user = @statement_node.creator
-        assert(@statement_node.followed_by?(@user))
+        @user = @statement_node.creator 
+        assert (@statement_node.followed_by?(@user) or Delayed::Job.last.name[9..22] == "add_subscriber")
       end
 
       should "be able to be visited" do

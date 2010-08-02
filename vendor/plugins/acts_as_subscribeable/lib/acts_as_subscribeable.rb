@@ -20,17 +20,10 @@ module ActiveRecord
                                                                          'LEFT JOIN subscriptions s ON s.subscriber_id = u.id ' +
                                                                          'WHERE s.subscribeable_id = #{id} '
             has_many :events, :as => :subscribeable
-            after_create :subscribe_creator
             after_create :create_event
           end
           
           class_eval <<-RUBY
-            def subscribe_creator
-              return if self.creator.nil?
-              subscription = self.subscriptions.find_by_subscriber_id(self.creator.id) || Subscription.new(:subscriber => self.creator, :subscriber_type => self.creator.class.name, :subscribeable => self, :subscribeable_type => self.class.name)
-              subscriptions << subscription if subscription.new_record?
-            end
-            
             def create_event
               event_json = self.to_json(:include => {
                                           :statement => {

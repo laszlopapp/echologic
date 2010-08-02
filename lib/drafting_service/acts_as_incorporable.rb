@@ -1,6 +1,6 @@
 module ActiveRecord
   module Acts
-    module Drafter
+    module Incorporable
       def self.included(base)
         base.extend(ClassMethods)
         base.instance_eval do
@@ -17,7 +17,7 @@ module ActiveRecord
     
       module ClassMethods
         
-        def acts_as_drafter(*args)
+        def acts_as_incorporable(*args)
           
           class_eval <<-RUBY
           
