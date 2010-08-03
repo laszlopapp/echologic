@@ -153,6 +153,38 @@ function loadRTEEditor(iframe_css_class, host) {
   });
 }
 
+/* select approved text in the form */
+function selectApprovedText(id) {
+	
+	$("#proposal_statement_document_text").contents().find("body").append("<br>");
+	
+	var contents = $("#approved_improvement_proposal").contents();
+
+  $("#proposal_statement_document_text").contents().find("body").append(contents);
+		
+	
+  var selection = document.getElementById("proposal_statement_document_text").contentWindow.getSelection();
+  var range = document.getElementById("proposal_statement_document_text").contentDocument.createRange();
+
+  
+
+  for (i = 0; i < contents.length; i++) {
+		if ($.browser.msie) {
+		  var range = document.getElementById("proposal_statement_document_text").contentDocument.createTextRange();
+      range.moveToElementText( contents[i] );
+      range.select();
+	  } else if ($.browser.mozilla || $.browser.opera) {
+			alert("");
+			range.selectNodeContents(contents[i]);
+			selection.addRange(range);
+    } else if ( $.browser.safari ) {
+      selection.setBaseAndExtent( contents[i], 0, contents[i], 1 );
+    }
+  }
+
+}
+
+
 /* creates a statement tag button */
 function createTagButton(text, tags_id) {
   element = $('<span/>').addClass('tag');

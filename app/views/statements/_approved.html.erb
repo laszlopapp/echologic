@@ -10,9 +10,9 @@
       <li id="<%= statement_node_dom_id(statement_node) %>" class="<%=statement_node.parent.class.name.downcase%>">
         <%= link_to_child(statement_document.title,statement_node,nil) %>
         <%= incorporate_statement_node_link(statement_node, statement_document) %>
-				<p>
+				<div id="approved_improvement_proposal">
 			    <%= sanitize statement_document.text %>
-			  </p>
+			  </div>
       </li>
     </ul>
     
