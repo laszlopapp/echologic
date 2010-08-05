@@ -58,6 +58,7 @@ module ActiveRecord
               return if subscriber.nil?
               subscription = self.subscriptions.find_by_subscriber_id(subscriber.id) || Subscription.new(:subscriber => subscriber, :subscriber_type => subscriber.class.name, :subscribeable => self, :subscribeable_type => self.class.name)
               subscriptions << subscription if subscription.new_record?
+              save
             end
             
             

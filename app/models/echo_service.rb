@@ -24,9 +24,8 @@ class EchoService
   # TODO: Please rename to 'supported!'
   def supported!(echoable, user)
     echo!(echoable, user, :supported => true)
-    echoable.add_subscriber(user)
     changed
-    notify_observers(:after_supported, echoable)
+    notify_observers(:after_supported, echoable, user)
   end
 
   # Returns true if the given user supports the echoable.
@@ -39,9 +38,8 @@ class EchoService
   #TODO: Please implement the opposite method unsupported!(user) here
   def unsupported!(echoable, user)
     echo!(echoable, user, :supported => false)
-    echoable.remove_subscriber(user)
     changed
-    notify_observers(:after_unsupported, echoable)
+    notify_observers(:after_unsupported, echoable, user)
   end
   
   # Returns true if the given user doesn't support the echoable.

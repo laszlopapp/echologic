@@ -6,4 +6,5 @@ require 'echo_service/acts_as_echoable'
 
 ActiveRecord::Base.send :include, ActiveRecord::Acts::Echoable
 EchoService.instance.add_observer(DraftingService.instance)
+EchoService.instance.add_observer(ActivityNotificationService.instance)
 

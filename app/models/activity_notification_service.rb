@@ -1,22 +1,22 @@
 require 'singleton'
 
-class DraftingService
-  
-  include Singleton
 
+class ActivityNotificationService
+  include Singleton
+  
   def update(*args)
     send(*args)
   end
 
   def after_supported(echoable, user)
-    puts "#{echoable.class.name} supported"
+    echoable.add_subscriber(user)
   end
   
   def after_unsupported(echoable, user)
-    puts "#{echoable.class.name} unsupported"
+    echoable.remove_subscriber(user)
   end
   
-  def after_create(echoable)
+  def after_create(echoable, user)
     puts "#{echoable.class.name} created"
   end
 end
