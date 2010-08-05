@@ -1,0 +1,6 @@
+require 'echo_service/echo_service'
+require 'activity_notification_service/activity_notification_service'
+
+#observers
+EchoService.instance.add_observer(DraftingService.instance)
+EchoService.instance.add_observer(ActivityNotificationService.instance)

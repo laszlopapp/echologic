@@ -78,6 +78,5 @@ Rails::Initializer.run do |config|
   # the same for controllers
   config.load_paths += %w(statements).collect{|dir|"#{RAILS_ROOT}/app/controllers/#{dir}"}
   
-  #observers
-#  config.active_record.observers = :drafting_service
+  
 end
