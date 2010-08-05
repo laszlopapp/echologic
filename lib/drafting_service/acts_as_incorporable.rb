@@ -10,7 +10,7 @@ module ActiveRecord
       end
       
       module InstanceMethods
-        def drafter?
+        def incorporable?
           false
         end
       end
@@ -35,7 +35,7 @@ module ActiveRecord
               50
             end
             
-            def drafter?
+            def incorporable?
               true
             end
             
