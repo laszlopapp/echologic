@@ -16,7 +16,7 @@ class StatementDocument < ActiveRecord::Base
   
   before_validation :set_history
   
-  delegate :author, :author=, :author_id=, :action, :action_id=, :old_document, :old_document=, :old_document_id=,
+  delegate :author, :author=, :author_id=, :action, :action=, :action_id=, :old_document, :old_document=, :old_document_id=,
            :incorporated_node, :incorporated_node=, :incorporated_node_id=, :comment, :comment=, :to => :statement_history
 
   def after_initialize
@@ -55,7 +55,7 @@ class StatementDocument < ActiveRecord::Base
             where
       END
       #Rambo 2
-      query_part_2 = sanitize_sql([" sd.statement_id IN (?) AND sd.language_id IN (?) AND sd.current = 1", 
+      query_part_2 = sanitize_sql(["sd.current = 1 AND sd.statement_id IN (?) AND sd.language_id IN (?) ", 
                                                          statement_ids,            language_ids])
       #Rambo 3
       query_part_3 = " order by sd.language_id;"

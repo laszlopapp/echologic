@@ -20,6 +20,7 @@ module ActiveRecord
           class_eval do
             belongs_to :echo
             has_many :user_echos, :foreign_key => 'echo_id', :primary_key => 'echo_id'
+            delegate :supporter_count, :visitor_count, :to => :echo
             after_create :author_support
           end
           
@@ -147,11 +148,14 @@ module ActiveRecord
         
             # Records the creator's support for the statement.
             def author_support
-              if self.echoable? and (!self.incorporable? or self.parent.supported?(self.creator))
+              if (!self.incorporable? or self.parent.supported?(self.creator)) # and self.echoable? SHOULD I????
                 self.supported!(self.creator)
               end 
-            end   
-          
+            end
+            
+            def supporters
+              self.user_echos.map{|ue|ue.user}
+            end
           RUBY
         end
       end

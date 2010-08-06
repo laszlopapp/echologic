@@ -395,6 +395,7 @@ pt:
       updated: "A {{type}} foi actualizada com sucesso."
       deleted: "A {{type}} foi apagada com sucesso."
       translated: "A {{type}} foi traduzida com sucesso."
+      incorporated: "A {{type}} foi complementada com a sua Proposta de Melhoria com êxito."
       empty:   "Nenhuma questão encontrada. Por favor altere os seus critérios de procura."
       empty_without_spoken_languages: |
         Nenhuma questão encontrada. Pode tentar definir as suas <a href='{{my_echo}}'><u>Línguas Faladas</u></a>

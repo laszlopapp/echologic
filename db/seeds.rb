@@ -44,7 +44,7 @@ end
 end
 
 # STATEMENT DOCUMENT ACTIONS
-%w(new edit translate incorporate).each_with_index do |code, index|
+%w(created updated translated incorporated).each_with_index do |code, index|
   EnumKey.create(:code => code, :enum_name => "statement_actions", :key => index+1, :description => "statement_action")
 end
 
@@ -151,14 +151,14 @@ end
 
 # Statement States
 ["New","Neu","Neuf","Novo","Nuevo"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('new','statement_actions'), :language_id => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('created','statement_actions'), :language_id => index+1, :value => value, :context=> "")
 end
 ["Edit","Editieren","Éditer","Editar","Editar"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('edit','statement_actions'), :language_id => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('updated','statement_actions'), :language_id => index+1, :value => value, :context=> "")
 end
 ["Translate","Übersetzen","Traduire","Traduzir","Traducir"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('translate','statement_actions'), :language_id => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('translated','statement_actions'), :language_id => index+1, :value => value, :context=> "")
 end
 ["Incorporate","Einfügen","Incorporer","Incorporar","Incorporar"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('incorporate','statement_actions'), :language_id => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('incorporated','statement_actions'), :language_id => index+1, :value => value, :context=> "")
 end

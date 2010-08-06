@@ -14,5 +14,8 @@ class Statement < ActiveRecord::Base
   named_scope :find_by_title, lambda {|value|
             { :include => :statement_documents, :conditions => ['statement_documents.title LIKE ?', "%#{value}%"] } }
             
-  
+  # Returns the translated original document
+  def original_document
+    self.statement_documents.find(:first, :conditions => ["language_id = ?", self.original_language_id])
+  end
 end

@@ -107,7 +107,7 @@ class StatementsController < ApplicationController
     # sorted by supporters count, and paginate them
     @page = params[:page] || 1
 
-    @children = @statement_node.sorted_children(current_user, @language_preference_list).
+    @children = @statement_node.sorted_children(@language_preference_list).
                   paginate(StatementNode.default_scope.merge(:page => @page,
                                                              :per_page => 5))
     @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
@@ -153,7 +153,7 @@ class StatementsController < ApplicationController
     
     #logic to update the children caused by cascading unsupport
     @page = params[:page] || 1
-    @children = @statement_node.sorted_children(current_user, @language_preference_list).
+    @children = @statement_node.sorted_children(@language_preference_list).
                   paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
     @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
                                                      @language_preference_list)
@@ -169,7 +169,7 @@ class StatementsController < ApplicationController
   def new_translation
     @statement_document ||= @statement_node.translated_document(current_user.spoken_language_ids)
     @new_statement_document ||= @statement_node.add_statement_document({:language_id => @locale_language_id})
-    @action ||= StatementHistory.statement_actions("translate")
+    @action ||= StatementHistory.statement_actions("translated")
     respond_to_js :template => 'statements/translate', :partial_js => 'statements/new_translation.rjs'
   end
 
@@ -187,7 +187,7 @@ class StatementsController < ApplicationController
     @new_statement_document = @statement_node.add_statement_document(doc_attrs)
     respond_to do |format|
       if @statement_node.save
-        set_statement_node_info("discuss.messages.translated",@statement_node)
+        set_statement_node_info(@new_statement_document)
         @statement_document = @new_statement_document
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js {render :partial => 'statements/create_translation.rjs'}
@@ -209,7 +209,7 @@ class StatementsController < ApplicationController
   def new
     @statement_node ||= statement_node_class.new(:parent => parent, :root_id => root_symbol)
     @statement_document ||= StatementDocument.new
-    @action ||= StatementHistory.statement_actions("new")
+    @action ||= StatementHistory.statement_actions("created")
     @statement_node.topic_tags << "##{params[:category]}" if params[:category]
 
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
@@ -242,7 +242,7 @@ class StatementsController < ApplicationController
     end
     respond_to do |format|
       if permitted and @statement_node.save
-        set_statement_node_info("discuss.messages.created",@statement_node)
+        set_statement_node_info(@statement_document)
         #load current created statement_node to session
         load_to_session @statement_node if @statement_node.parent
         format.html { flash_info and redirect_to url_for(@statement_node) }
@@ -269,7 +269,7 @@ class StatementsController < ApplicationController
   def edit
     @statement_document ||= @statement_node.translated_document(@language_preference_list)
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
-    @action ||= StatementHistory.statement_actions("edit")
+    @action ||= StatementHistory.statement_actions("updated")
     respond_to_js :template => 'statements/edit', :partial_js => 'statements/edit.rjs'
   end
 
@@ -297,7 +297,7 @@ class StatementsController < ApplicationController
     respond_to do |format|
       if permitted and @statement_node.update_attributes(attrs)
         old_statement_document.update_attributes(:current => 0)
-        set_statement_node_info("discuss.messages.updated",@statement_node)
+        set_statement_node_info(@statement_document)
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js   { show }
       else
@@ -318,7 +318,7 @@ class StatementsController < ApplicationController
   #
   def destroy
     @statement_node.destroy
-    set_statement_node_info("discuss.messages.deleted",@statement_node)
+    set_statement_node_info(nil,"discuss.messages.deleted")
     flash_info and redirect_to :controller => 'questions', :action => :category, :id => params[:category]
   end
 
@@ -365,8 +365,8 @@ class StatementsController < ApplicationController
     raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
 
-  def set_statement_node_info(string, statement_node)
-    set_info(string, :type => I18n.t("discuss.statements.types.#{statement_node_symbol.to_s}"))
+  def set_statement_node_info(statement_document, string=nil)
+    set_info((string || "discuss.messages.#{statement_document.action.code}"), :type => I18n.t("discuss.statements.types.#{statement_node_symbol.to_s}"))
   end
 
 

@@ -58,7 +58,7 @@ class StatementNodeTest < ActiveSupport::TestCase
                                                 :language => StatementDocument.languages.first, 
                                                 :author => User.first,
                                                 :current => 1,
-                                                :action => StatementHistory.statement_actions("new"),
+                                                :action_id => StatementHistory.statement_actions("created").id,
                                                 :original_language_id => StatementDocument.languages.first.id})
         @statement_node.topic_tags = "bebe"
         @statement_node.creator = User.first

@@ -25,7 +25,7 @@ class EchoService
   def supported!(echoable, user)
     echo!(echoable, user, :supported => true)
     changed
-    notify_observers(:after_supported, echoable, user)
+    notify_observers(:supported, echoable, user)
   end
 
   # Returns true if the given user supports the echoable.
@@ -39,7 +39,7 @@ class EchoService
   def unsupported!(echoable, user)
     echo!(echoable, user, :supported => false)
     changed
-    notify_observers(:after_unsupported, echoable, user)
+    notify_observers(:unsupported, echoable, user)
   end
   
   # Returns true if the given user doesn't support the echoable.
@@ -56,5 +56,10 @@ class EchoService
     # OPTIMIZE: update the counters periodically
     echoable.echo.update_counter!
     user_echo
+  end
+  
+  def incorporated(echoable)
+    changed
+    notify_observers(:incorporated, echoable)
   end
 end

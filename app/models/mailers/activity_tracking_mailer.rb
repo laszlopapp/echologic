@@ -13,4 +13,13 @@ class ActivityTrackingMailer < ActionMailer::Base
                   :language => default
   end
   
+  def incorporation_notification(statement, statement_document, user)
+    subject       I18n.t('notification_mails.incorporation_notification.subject', :locale => statement_document.language.code)
+    from          "noreply@echologic.org"
+    recipients    user.email
+    sent_on       Time.now
+    body          :name => user.full_name, :title => statement_document.title,
+                  :url => url_for(statement), :language => statement_document.language.code
+  end
+  
 end

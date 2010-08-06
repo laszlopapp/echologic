@@ -53,7 +53,7 @@ statement_state_<%= code %>:
 <% end %>
 
 
-<% %w(new edit translate incorporate).each_with_index do |code, index| %>
+<% %w(created updated translated incorporated).each_with_index do |code, index| %>
 statement_action_<%= code %>:
   code: <%= code %>
   enum_name: statement_actions

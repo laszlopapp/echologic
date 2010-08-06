@@ -397,6 +397,7 @@ de:
       updated: "{{type}} wurde erfolgreich bearbeitet."
       deleted: "{{type}} wurde erfolgreich gelöscht."
       translated: "{{type}} wurde erfolgreich übersetzt."
+      incorporated: "{{type}} wurde mit Ihrem Ergänzungsvorschlag erfolgreich ergänzt."
       empty: "Es wurden keine Diskussionen gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
       empty_without_spoken_languages: |
         Keine Diskussion gefunden. Versuchen Sie Ihre <a href='{{my_echo}}'>Sprachkenntnisse</a> einzustellen,

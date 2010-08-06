@@ -60,16 +60,6 @@ module ActiveRecord
             def after_initialize
               self.drafting_info = DraftingInfo.new if self.drafting_info.nil? 
             end
-      
-            # Minimum votes required for an echoable to be taken into account
-            def self.min_votes
-              5
-            end
-            
-            # Ratio of supporters per visitors required for an echoable to be taken into account
-            def self.min_quorum
-              50
-            end
             
             def incorporable?
               true

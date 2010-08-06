@@ -44,14 +44,14 @@ class StatementDocumentTest < ActiveSupport::TestCase
         @statement_document.update_attributes(:title => 'A document', :text => 'the documents body', :statement => statement)
         @statement_document.language = StatementDocument.languages.first
         @statement_document.author = User.first
-        @statement_document.action = StatementHistory.statement_actions("new")
+        @statement_document.action = StatementHistory.statement_actions("created")
         @statement_document.save!
         @translated_statement_document = StatementDocument.new
         @translated_statement_document.update_attributes(:title => 'Ein dokument', :text => 'the documents body', 
                                                                   :language => StatementDocument.languages.last, 
                                                                   :statement => statement)
         @translated_statement_document.author = User.first
-        @translated_statement_document.action = StatementHistory.statement_actions("translate")
+        @translated_statement_document.action = StatementHistory.statement_actions("translated")
         @translated_statement_document.old_document = @statement_document
         @translated_statement_document.save!
       end

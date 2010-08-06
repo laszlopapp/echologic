@@ -398,6 +398,7 @@ en:
       updated: "The {{type}} has been updated successfully."
       deleted: "The {{type}} has been deleted successfully."
       translated: "The {{type}} has been translated successfully."
+      incorporated: "The {{type}} has been complemented successfully with your Improvement Proposal."
       empty:   "No discussions found. Please change your search criteria."
       empty_without_spoken_languages: |
         No discussions found. You can try defining your <a href='{{my_echo}}'>language skills</a>
@@ -568,6 +569,22 @@ en:
         Best Regards,
 
         Your echo team
+    supporter_approval:
+      subject: You have the privilege to incorporate a Improvement Proposal!
+      text: |
+        Dear {{name}},
+
+        The Improvement Proposal "{{title}}", which you supported, was set to be incorporated in it's proposal. 
+        Given that it's author didn't incorporate it yet, we would like to give you the opportunity to do so.
+        To do that, you need to follow the link below:
+
+        {{link}}
+        
+        You will have XX hours to do that.
+
+        Best Regards,
+
+        Your echo team
     approval_reminder:
       subject: Improvement Proposal Approval Reminder!
       text: |
@@ -581,8 +598,8 @@ en:
         Best Regards,
 
         Your echo team
-    expiration:
-      subject: Improvement Proposal Approval Expired!
+    passed:
+      subject: Improvement Proposal Approval Passed!
       text: |
         Dear {{name}},
 
@@ -591,19 +608,39 @@ en:
         Best Regards,
 
         Your echo team
-    approval_repeat:
-      subject: Your Improvement Proposal was Approved again!
+    supporter_passed:
+      subject: Improvement Proposal Approval Passed!
       text: |
         Dear {{name}},
 
-        Your Improvement Proposal "{{title}}" was again selected to be incorporated in its proposal. To do that, 
-        you need to follow the link below:
-
-        {{link}}
-        
-        You will have XX hours to do that.
+        The time for you to incorporate the Improvement Proposal "{{title}}" in its proposal has expired.
 
         Best Regards,
 
         Your echo team
+    incorporated:
+      subject: Your Improvement Proposal was successfully incorporated!
+      text: |
+        Dear {{name}},
+
+        Your Improvement Proposal "{{title}}" was successfully incorporated in its proposal. Congratulations.
+
+        {{link}}
         
+        Best Regards,
+
+        Your echo team
+        
+    incorporation_notification:
+      subject: A Proposal you support has been updated!
+      text: |
+        Dear {{name}},
+
+        The Proposal "{{title}}" which you support has been updated. Take a look and see if you think it has improved.
+
+        {{link}}
+        
+        Best Regards,
+
+        Your echo team
+    

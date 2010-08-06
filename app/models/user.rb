@@ -167,6 +167,11 @@ class User < ActiveRecord::Base
   def mother_tongues
     self.spoken_languages.select{|sp| sp.level.code == 'mother_tongue'}.collect{|sp| sp.language}
   end
+  
+  def languages(level='basic')
+    level = SpokenLanguage.language_levels(level)
+    self.spoken_languages.select{|sp| sp.level.key <= level.key}.collect{|sp| sp.language}
+  end
 
   def default_language
     mother_tongues = self.mother_tongues

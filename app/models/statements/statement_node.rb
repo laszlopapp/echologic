@@ -195,11 +195,22 @@ class StatementNode < ActiveRecord::Base
   end
 
   # Collects all children, sorted in the way we want them to.
-  def sorted_children(user, language_ids)
-    children = self.class.search_statement_nodes(:language_ids => language_ids,
-                                                 :conditions => "parent_id = #{self.id}")
-    children = children.select{|c|c.tracked? or c.staged?} if self.drafteable?
+  def sorted_children(language_ids = nil)
+    conditions = {:conditions => "parent_id = #{self.id}"}
+    conditions.merge!({:language_ids => language_ids}) if language_ids
+    children = self.class.search_statement_nodes(conditions)
+    children = children.select{|c|c.tracked? or c.ready? or c.staged?} if self.drafteable?
     children
+  end
+  
+  # Collects all fellow statement nodes whose parent is the same as ours
+  def siblings(language_ids = nil)
+    return [] if parent_id.nil?
+    conditions = {:conditions => "parent_id = #{self.parent_id}"}
+    conditions.merge!({:language_ids => language_ids}) if language_ids
+    siblings = self.class.search_statement_nodes(conditions)
+    siblings = siblings.select{|s|s.tracked? or s.ready? or s.staged?} if self.incorporable?
+    siblings
   end
 
   class << self
@@ -230,7 +241,7 @@ class StatementNode < ActiveRecord::Base
                           sanitize_sql(["t.value = ?",term])}.join(" OR ")}"
       end
       and_conditions = !or_conditions.blank? ? ["(#{or_conditions})"] : []
-
+      
       # Filter for statement type
       if opts[:conditions].nil?
         and_conditions << "n.type = '#{opts[:type]}'"
@@ -242,7 +253,7 @@ class StatementNode < ActiveRecord::Base
         and_conditions << opts[:conditions]
       end
       # Filter for the preferred languages
-      and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]])
+      and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]]) if opts[:language_ids]      
       # Constructing the where clause
       where_clause = and_conditions.join(" AND ")
 
