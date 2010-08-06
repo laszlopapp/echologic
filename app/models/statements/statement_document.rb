@@ -16,7 +16,7 @@ class StatementDocument < ActiveRecord::Base
   
   before_validation :set_history
   
-  delegate :author, :author=, :author_id=, :action, :action=, :old_document, :old_document=, :old_document_id=,
+  delegate :author, :author=, :author_id=, :action, :action_id=, :old_document, :old_document=, :old_document_id=,
            :incorporated_node, :incorporated_node=, :incorporated_node_id=, :comment, :comment=, :to => :statement_history
 
   def after_initialize

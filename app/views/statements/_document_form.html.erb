@@ -13,6 +13,7 @@
                     :input_html => {:disabled => disabled,
                                     :class => css_rte_class} %>
 			<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][old_document_id]", @statement_document.id if !@statement_document.new_record? %>
+			<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][action_id]", @action.id if @action %>
 			<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][incorporated_node_id]", @incorporated_node.id if !@incorporated_node.nil? %>
 		<% else %>
 		  <li>

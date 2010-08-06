@@ -3,6 +3,7 @@ class ProposalsController < StatementsController
   def incorporate
     @incorporated_node ||= @statement_node.approved_children.first
     @statement_document ||= @statement_node.translated_document(@language_preference_list)
+    @action ||= StatementHistory.statement_actions("incorporate")
     respond_to_js :template => 'statements/proposals/edit_draft', 
                   :partial_js => 'statements/proposals/edit_draft.rjs'
   end

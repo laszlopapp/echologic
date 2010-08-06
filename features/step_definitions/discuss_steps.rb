@@ -140,7 +140,7 @@ Given /^a "([^\"]*)" question in "([^\"]*)"$/ do |state, category|
                                      :author => @user,
                                      :current => 1,
                                      :language_id => @user.spoken_language_ids.first,
-                                     :action => StatementHistory.statement_actions("new"),
+                                     :action_id => StatementHistory.statement_actions("new").id,
                                      :original_language_id => @user.spoken_language_ids.first})
   @question.topic_tags << category
   @question.save!

@@ -169,6 +169,7 @@ class StatementsController < ApplicationController
   def new_translation
     @statement_document ||= @statement_node.translated_document(current_user.spoken_language_ids)
     @new_statement_document ||= @statement_node.add_statement_document({:language_id => @locale_language_id})
+    @action ||= StatementHistory.statement_actions("translate")
     respond_to_js :template => 'statements/translate', :partial_js => 'statements/new_translation.rjs'
   end
 
@@ -182,7 +183,6 @@ class StatementsController < ApplicationController
     attrs = params[statement_node_symbol]
     doc_attrs = attrs.delete(:new_statement_document).merge({:author_id => current_user.id,
                                                              :language_id => @locale_language_id,
-                                                             :action => StatementHistory.statement_actions("translate"),
                                                              :current => true})
     @new_statement_document = @statement_node.add_statement_document(doc_attrs)
     respond_to do |format|
@@ -209,7 +209,7 @@ class StatementsController < ApplicationController
   def new
     @statement_node ||= statement_node_class.new(:parent => parent, :root_id => root_symbol)
     @statement_document ||= StatementDocument.new
-
+    @action ||= StatementHistory.statement_actions("new")
     @statement_node.topic_tags << "##{params[:category]}" if params[:category]
 
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
@@ -234,7 +234,6 @@ class StatementsController < ApplicationController
     @statement_node ||= statement_node_class.new(attrs)
     @statement_document = @statement_node.add_statement_document(
                           doc_attrs.merge({:original_language_id => @locale_language_id,
-                                           :action => StatementHistory.statement_actions("new"),
                                            :current => true}))
     permitted = true ; @tags = []
     if @statement_node.taggable? and (permitted = check_hash_tag_permissions(form_tags))
@@ -270,6 +269,7 @@ class StatementsController < ApplicationController
   def edit
     @statement_document ||= @statement_node.translated_document(@language_preference_list)
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
+    @action ||= StatementHistory.statement_actions("edit")
     respond_to_js :template => 'statements/edit', :partial_js => 'statements/edit.rjs'
   end
 
@@ -284,7 +284,6 @@ class StatementsController < ApplicationController
     attrs_doc = attrs.delete(:statement_document)
     # Updating tags of the statement
     form_tags = attrs.delete(:tags)
-
     permitted = true
     if @statement_node.taggable? and (permitted = check_hash_tag_permissions(form_tags))
        @statement_node.topic_tags=form_tags
@@ -294,7 +293,6 @@ class StatementsController < ApplicationController
     
     @statement_document = @statement_node.add_statement_document(
                          attrs_doc.merge({:original_language_id => @locale_language_id,
-                                          :action => StatementHistory.statement_actions("new"), 
                                           :current => true}))
     respond_to do |format|
       if permitted and @statement_node.update_attributes(attrs)
