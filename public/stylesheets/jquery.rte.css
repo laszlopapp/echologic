@@ -7,7 +7,8 @@
 }
 
 .wysiwyg a, .wysiwyg a:visited:hover, .wysiwyg a:visited {
-  color: #21587f;
+  color: #21587f !important;
+  font: 14px "Lucida Sans",Arial,Helvetica,sans-serif !important;
 }
 
 
