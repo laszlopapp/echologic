@@ -430,7 +430,7 @@ function lwrte_link(){
     var self = this;
     var panel = self.create_panel("Create link", 385);
     panel.append('<p><label>URL</label><input type="text" id="url" size="30" value=""><button id="view">View</button></p><div class="clear"></div><p><label>Tooltip (optional)</label><input type="text" id="title" size="30" value=""><label>Open in</label><select id="target"><option value="_blank">New browser window/tab</option><option value="">Same browser window/tab</option></select></p><div class="clear"></div><p class="submit"><button id="ok">Ok</button><button id="cancel">Cancel</button></p>').show();
-    $("#ok", panel).click(function(){
+    var ok = $("#ok", panel).click(function(){
         panel.remove();
         var url = $("#url", panel).val();
         var target = $("#target", panel).val();
@@ -460,25 +460,20 @@ function lwrte_link(){
         panel.remove();
         return false
     });
-    var url = $("#url", panel);
-    /*var upload = $("#file", panel).upload({
-        autoSubmit: true,
-        action: "uploader.php",
-        onComplete: function(response){
-            if (response.length <= 0) {
-                return
-            }
-            response = eval("(" + response + ")");
-            if (response.error && response.error.length > 0) {
-                alert(response.error)
-            }
-            else {
-                url.val((response.file && response.file.length > 0) ? response.file : "")
-            }
-        }
-    });*/
+    var url = $("#url", panel).keypress(function(e) {
+      if (e.which == 13) {
+        ok.click();
+        return false;
+      }
+    });
     $("#view", panel).click(function(){
-        (url.val().length > 0) ? window.open(url.val()) : alert("Enter URL to view");
-        return false
+      (url.val().length > 0) ? window.open(url.val()) : alert("Please enter the URL");
+      return false
+    });
+    $("#title", panel).keypress(function(e) {
+      if (e.which == 13) {
+        ok.click();
+        return false;
+      }
     });
 };
