@@ -374,7 +374,7 @@ pt:
         proposal: 'Propostas'
         improvement_proposal: 'Propostas de Melhoria'
 
-      topic: Tópico (Tags)
+      topic: Tópico (Tags / Palavras-chave)
       states:
         label: 'Publicar discussão?'
         deferred_publish: 'Primeiro criar e mais tarde publicar.'
