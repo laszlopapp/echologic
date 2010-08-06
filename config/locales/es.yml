@@ -389,7 +389,7 @@ es:
         proposal: 'Propuestas'
         improvement_proposal: 'Propuesta de mejoramiento'
 
-      topic: Tema (Tags)
+      topic: Tema (Tags / Palabras clave)
       states:
         label: 'Publicar discusión de inmediato?'
         deferred_publish: 'Solamente guardar y publicar mas tarde'

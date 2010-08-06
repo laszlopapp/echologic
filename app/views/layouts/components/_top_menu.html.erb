@@ -3,13 +3,22 @@
 
 <div id="topMenuContainer">
 
-  <%= link_to I18n.t('layouts.outer_menu.logout'), user_session_path, :method => :delete, :id => 'logout_button' if current_user_session and logout %>
-
-  <%= link_to(I18n.t('layouts.outer_menu.about'), about_path, :id => 'about_echo_button', :class => 'outerMenuItem') %>
-
-  <%= link_to(I18n.t('layouts.outer_menu.feedback'), new_feedback_path, :id => 'feedback_button', :class => 'outerMenuItem') %>
-
-  <%= link_to "Blog", "http://blog-echologic.org", :id => 'blog_button', :target => "_blank"%>
+  <%= link_to I18n.t('layouts.outer_menu.logout'),
+              user_session_path,
+              :method => :delete,
+              :id => 'logout_button' if current_user_session and logout %>
+  <%= link_to(I18n.t('layouts.outer_menu.about'),
+              about_path,
+              :id => 'about_echo_button',
+              :class => 'outerMenuItem') %>
+  <%= link_to(I18n.t('layouts.outer_menu.feedback'),
+              new_feedback_path,
+              :id => 'feedback_button',
+              :class => 'outerMenuItem') %>
+  <%= link_to 'Blog',
+              'http://blog-echologic.org',
+              :id => 'blog_button',
+              :target => '_blank' %>
 
   <!-- Language choose section. -->
   <% link_to('#', :id => 'echo_language_button') do %>
