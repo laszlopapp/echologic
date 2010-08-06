@@ -19,6 +19,10 @@ module ActiveRecord
         def acts_as_incorporable(*args)
           
           class_eval do
+            
+            has_one  :drafting_info, :foreign_key => 'statement_node_id', :dependent => :destroy
+            delegate :times_passed,  :times_passed=, :state_since, :state_since=, :to => :drafting_info
+            
             # Acts as State Machine plugin
             acts_as_state_machine :initial => :tracked, :column => 'drafting_state'
             
@@ -52,6 +56,10 @@ module ActiveRecord
             ####################################
             ###### Static values ###############
             ####################################
+            
+            def after_initialize
+              self.drafting_info = DraftingInfo.new if self.drafting_info.nil? 
+            end
       
             # Minimum votes required for an echoable to be taken into account
             def self.min_votes
