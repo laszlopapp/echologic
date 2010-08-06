@@ -6,7 +6,6 @@ module ActiveRecord
         base.instance_eval do
           include InstanceMethods
         end
-          #drafting state. possible values: :tracked, :approved, :incorporated, :passed
       end
       
       module InstanceMethods
@@ -18,6 +17,35 @@ module ActiveRecord
       module ClassMethods
         
         def acts_as_incorporable(*args)
+          
+          class_eval do
+            # Acts as State Machine plugin
+            acts_as_state_machine :initial => :tracked, :column => 'drafting_state'
+            
+            # These are all of the states for the existing system.
+            state :tracked
+            state :ready
+            state :staged
+            state :approved
+            state :incorporated
+          
+            event :track do
+              transitions :from => :ready, :to => :tracked
+              transitions :from => :staged, :to => :tracked
+              transitions :from => :approved, :to => :tracked
+            end
+          
+            event :ready do
+              transitions :from => :tracked, :to => :staged
+            end
+            event :stage do
+              transitions :from => :ready, :to => :staged
+              transitions :from => :approved, :to => :staged
+            end
+            event :incorporate do
+              transitions :from => :approved, :to => :incorporated
+            end
+          end
           
           class_eval <<-RUBY
           
@@ -49,7 +77,7 @@ module ActiveRecord
             
             # Returns Ratio between number of supporters and number of visitors
             def quorum
-              (supporter_count/visitor_count)*100
+              (supporter_count/parent.supporter_count)*100
             end
           RUBY
         end
