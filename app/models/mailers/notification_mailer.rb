@@ -27,6 +27,15 @@ class NotificationMailer < ActionMailer::Base
                   :url => url_for(statement), :language => statement_document.language.code
   end
   
+  def supporters_approval_reminder(statement, statement_document, user=nil)
+    subject       I18n.t('notification_mails.supporters_approval_reminder.subject', :locale => statement_document.language.code)
+    from          "noreply@echologic.org"
+    recipients    user.email
+    sent_on       Time.now
+    body          :name => user.full_name || statement_document.author.full_name, :title => statement_document.title, 
+                  :url => url_for(statement), :language => statement_document.language.code
+  end
+  
   def passed(statement_document, user=nil)
     subject       I18n.t('notification_mails.passed.subject', :locale => statement_document.language.code)
     from          "noreply@echologic.org"

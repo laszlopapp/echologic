@@ -16,7 +16,7 @@ class ActivityNotificationService
     echoable.remove_subscriber(user)
   end
   
-  def incorporated(echoable)
+  def incorporated(echoable, user)
     echoable.parent.supporters.select{|sup|sup.languages('advanced').include?(statement.original_language)}.each do |supporter|
       email = ActivityTrackingMailer.create_incorporation_notification(statement, statement_document, supporter)
       ActivityTrackingMailer.deliver(email)

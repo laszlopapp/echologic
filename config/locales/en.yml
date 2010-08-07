@@ -585,6 +585,19 @@ en:
         Best Regards,
 
         Your echo team
+    approval_notification:
+      subject: An Improvement Proposal was approved for Incorporation
+      text: |
+        Dear {{name}},
+
+        The Improvement Proposal "{{title}}" was approved to be incorporated in a Proposal you supported.
+        To check its content, you can follow the link below:
+
+        {{link}}
+        
+        Best Regards,
+
+        Your echo team
     approval_reminder:
       subject: Improvement Proposal Approval Reminder!
       text: |

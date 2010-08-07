@@ -58,8 +58,13 @@ class EchoService
     user_echo
   end
   
-  def incorporated(echoable)
+  def reset_echoable(echoable)
+    echoable.user_echos.destroy
+    echoable.echo.update_counter!
+  end
+  
+  def incorporated(echoable, user)
     changed
-    notify_observers(:incorporated, echoable)
+    notify_observers(:incorporated, echoable, user)
   end
 end

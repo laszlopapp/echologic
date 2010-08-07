@@ -12,10 +12,10 @@ class Statement < ActiveRecord::Base
   enum :original_language, :enum_name => :languages
 
   named_scope :find_by_title, lambda {|value|
-            { :include => :statement_documents, :conditions => ['statement_documents.title LIKE ?', "%#{value}%"] } }
+            { :include => :statement_documents, :conditions => ['statement_documents.title LIKE ? and statement_documents.current = 1', "%#{value}%"] } }
             
   # Returns the translated original document
   def original_document
-    self.statement_documents.find(:first, :conditions => ["language_id = ?", self.original_language_id])
+    self.statement_documents.find(:first, :conditions => ["language_id = ? and current = 1", self.original_language_id])
   end
 end

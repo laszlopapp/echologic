@@ -19,6 +19,7 @@ class StatementDocument < ActiveRecord::Base
   delegate :author, :author=, :author_id=, :action, :action=, :action_id=, :old_document, :old_document=, :old_document_id=,
            :incorporated_node, :incorporated_node=, :incorporated_node_id=, :comment, :comment=, :to => :statement_history
 
+
   def after_initialize
     self.statement_history = StatementHistory.new if self.statement_history.nil? 
   end

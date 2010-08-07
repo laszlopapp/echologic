@@ -44,68 +44,75 @@ class DraftingService
     draft(echoable, echoable.supporter_count+1)
   end
   
-  # observer to echoable incorporated action
-  def incorporated(echoable)
-    incorporate(echoable)
-    select_approved(echoable)
+  # observer to incorporable incorporated action
+  def incorporated(incorporable, user)
+    incorporate(incorporable, user)
+    select_approved(incorporable)
   end
   
-  def stage(statement)
-    set_stage(statement)
-    select_approved(statement)
+  def stage(incorporable)
+    set_stage(incorporable)
+    select_approved(incorporable)
   end
   
-  # select a suitable sibling from the statement to become approved
-  def select_approved(statement)
-    if statement.parent.approved_children.empty?
-      siblings = statement.siblings.select{|s|s.staged?}
+  # select a suitable sibling from the incorporable to become approved
+  def select_approved(incorporable)
+    if incorporable.parent.approved_children.empty?
+      siblings = incorporable.siblings.select{|s|s.staged?}
       approve(siblings.first) if !siblings.empty?
     end
   end
   
-  def send_approved_email(statement)
-    statement_document = statement.original_document
-    if statement.times_passed == 0
-      email = NotificationMailer.create_approval(statement, statement_document)
+  def send_approved_email(incorporable)
+    statement_document = incorporable.original_document
+    if incorporable.times_passed == 0
+      email = NotificationMailer.create_approval(incorporable, statement_document)
       NotificationMailer.deliver(email)
     else 
-      statement.supporters.select{|sup|sup.languages('advanced').include?(statement.original_language)}.each do |supporter|
-        email = NotificationMailer.create_supporter_approval(statement, statement_document, supporter)
+      incorporable.supporters.select{|sup|sup.languages('advanced').include?(incorporable.original_language)}.each do |supporter|
+        email = NotificationMailer.create_supporter_approval(incorporable, statement_document, supporter)
         NotificationMailer.deliver(email)
       end
     end
-  end
-  
-  def send_approval_reminder(statement)
-    statement_document = statement.original_document
-    if statement.times_passed == 0
-      email = NotificationMailer.create_approval_reminder(statement, statement_document)
-      NotificationMailer.deliver(email)
-    else 
-      statement.supporters.select{|sup|sup.languages('advanced').include?(statement.original_language)}.each do |supporter|
-        email = NotificationMailer.create_approval_reminder(statement, statement_document, supporter)
-        NotificationMailer.deliver(email)
-      end
+    #Send approval notification to the proposal supporters
+    Delayed::Job.enqueue ApprovalReminderMailJob.new(incorporable.id, incorporable.state_since), 1, @@time_approval_reminder
+    incorporable.parent.supporters.select{|sup|sup.languages.include?(incorporable.original_language)}.each do |supporter|
+      email = ActivityTrackingMailer.create_approval_notification(incorporable, statement_document, supporter)
+      ActivityTrackingMailer.deliver(email)
     end
   end
   
-  def send_passed_email(statement)
-    statement_document = statement.original_document
+  def send_approval_reminder(incorporable)
+    statement_document = incorporable.original_document
+    email = NotificationMailer.create_approval_reminder(incorporable, statement_document)
+    NotificationMailer.deliver(email)
+  end
+  
+  def send_supporters_approval_reminder(incorporable)
+    statement_document = incorporable.original_document
+    incorporable.supporters.select{|sup|sup.languages('advanced').include?(incorporable.original_language)}.each do |supporter|
+      email = NotificationMailer.create_supporters_approval_reminder(incorporable, statement_document, supporter)
+      NotificationMailer.deliver(email)
+    end
+  end
+  
+  def send_passed_email(incorporable)
+    statement_document = incorporable.original_document
     email = NotificationMailer.create_passed(statement_document)
     NotificationMailer.deliver(email)
   end
   
-  def send_supporters_passed_email(statement)
-    statement_document = statement.original_document
-    statement.supporters.select{|sup|sup.languages('advanced').include?(statement.original_language)}.each do |supporter|
+  def send_supporters_passed_email(incorporable)
+    statement_document = incorporable.original_document
+    incorporable.supporters.select{|sup|sup.languages('advanced').include?(incorporable.original_language)}.each do |supporter|
       email = NotificationMailer.create_approval_reminder(statement_document, supporter)
       NotificationMailer.deliver(email)
     end
   end
   
-  def send_incorporated_email(statement)
-    statement_document = statement.original_document
-    email = NotificationMailer.create_incorporated(statement, statement_document, supporter)
+  def send_incorporated_email(incorporable, user)
+    statement_document = incorporable.original_document
+    email = NotificationMailer.create_incorporated(incorporable, statement_document, user)
     NotificationMailer.deliver(email)
   end
   
@@ -116,7 +123,7 @@ class DraftingService
   def draft(echoable, old_supporter_count)
     if echoable.incorporable?
       siblings = echoable.siblings
-      update_statement_states(siblings, echoable, old_supporter_count)
+      update_incorporable_states(siblings, echoable, old_supporter_count)
     elsif echoable.drafteable?
       children = echoable.sorted_children
       children.each do |child|
@@ -125,70 +132,69 @@ class DraftingService
     end
   end
   
-  # calculate which statement's positions (ordered per supported_count) have changed, and update their states
-  def update_statement_states(statements, changed_statement, old_supporter_count)
-    old_order = statements.map{|s|[s.id, s.supporter_count]} # get array order with id and supporter count
-    old_order[statements.index(changed_statement)][1] = old_supporter_count # set the old supporter count on the changed statement
+  # calculate which incorporable's positions (ordered per supported_count) have changed, and update their states
+  def update_incorporable_states(incorporables, changed_incorporable, old_supporter_count)
+    old_order = incorporables.map{|s|[s.id, s.supporter_count]} # get array order with id and supporter count
+    old_order[incorporables.index(changed_incorporable)][1] = old_supporter_count # set the old supporter count on the changed incorporable
     old_order.sort!{|a, b| b[1] <=> a[1]} #sort the array, thus getting the ordered array before the support/unsupport action)
     old_order.map!{|s|s[0]}
     
-    statements.each_with_index do |statement, index|
-      if index != old_order.index(statement.id)
-        adjust_for_readiness(statement, index > old_order.index(statement.id), statement == changed_statement)
+    incorporables.each_with_index do |incorporable, index|
+      if index != old_order.index(incorporable.id)
+        adjust_for_readiness(incorporable, index > old_order.index(incorporable.id), incorporable == changed_incorporable)
       end
     end
   end
   
-  # according to the given parameters, will either readify or track the statement 
-  def adjust_readiness(statement, position_decreased, changed_criteria)
-    if (statement.tracked? and changed_criteria and test_readiness(statement)) or 
-       (!statement.tracked? and position_decreased)
-      readify(statement) 
-    elsif !statement.tracked? and changed_criteria and !test_readiness(statement)
-      track(statement)
+  # according to the given parameters, will either readify or track the incorporable 
+  def adjust_readiness(incorporable, position_decreased, changed_criteria)
+    if (incorporable.tracked? and changed_criteria and test_readiness(incorporable)) or 
+       (!incorporable.tracked? and position_decreased)
+      readify(incorporable) 
+    elsif !incorporable.tracked? and changed_criteria and !test_readiness(incorporable)
+      track(incorporable) 
     end
   end
   
-  # test if statement fulfills all conditions to become ready
-  def test_readiness(statement)
-    statement.supporter_count >= @@min_votes and statement.quorum >= @@min_quorum
+  # test if incorporable fulfills all conditions to become ready
+  def test_readiness(incorporable)
+    incorporable.supporter_count >= @@min_votes and incorporable.quorum >= @@min_quorum
   end
   
-  # set statement state as tracked
-  def track(statement)
-    set_track(statement)
+  # set incorporable state as tracked
+  def track(incorporable)
+    set_track(incorporable)
   end
   
-  # set statement as ready
-  def readify(statement)
-    set_readify(statement)
-    Delayed::Job.enqueue TestForStaged.new(statement.id,statement.state_since), 1, @@time_ready
+  # set incorporable as ready
+  def readify(incorporable)
+    set_readify(incorporable)
+    Delayed::Job.enqueue TestForStagedJob.new(incorporable.id,incorporable.state_since), 1, @@time_ready
   end
   
-  # set statement as approved
-  def approve(statement)
-    set_approved(statement)
-    send_approved_email(statement)
-    Delayed::Job.enqueue TestForPassed.new(statement.id,statement.state_since), 1, @@time_approved
-    Delayed::Job.enqueue ApprovalReminder.new(statement.id), 1, @@time_approval_reminder
+  # set incorporable as approved
+  def approve(incorporable)
+    set_approved(incorporable)
+    send_approved_email(incorporable)
+    Delayed::Job.enqueue TestForPassedJob.new(incorporable.id,incorporable.state_since), 1, @@time_approved
   end
   
-  def incorporate(statement)
-    set_incorporate(statement)
-    send_incorporated_email(statement)
+  def incorporate(incorporable)
+    set_incorporate(incorporable)
+    send_incorporated_email(incorporable, user)
   end
   
-  def reset_statement(statement)
-    statement.user_echos.destroy
-    statement.times_passed = 0
-    set_track(statement)
+  def reset_incorporable(incorporable)
+    EchoService.instance.reset_incorporable(incorporable)
+    incorporable.times_passed = 0
+    set_track(incorporable)
   end
   
   %w(track readify stage approve incorporate).each do |transition|
     class_eval %(
-      def set_#{transition}
-        statement.state_since=Time.now
-        statement.send(#{transition}!)
+      def set_#{transition}(incorporable)
+        incorporable.state_since=Time.now
+        incorporable.send(#{transition}!)
       end
     )
   end
