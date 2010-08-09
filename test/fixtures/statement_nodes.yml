@@ -119,6 +119,7 @@ first-impro-proposal:
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('first-impro-proposal-statement') %>
   drafting_state: 'tracked'
+  created_at: <%= Time.now.strftime("%d/%m/%y %H:%M") %>
 
 second-impro-proposal:
   parent_id: <%= Fixtures.identify('first-proposal') %>
@@ -128,6 +129,7 @@ second-impro-proposal:
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('second-impro-proposal-statement') %>
   drafting_state: 'tracked'
+  created_at: <%= Time.now.strftime("%d/%m/%y %H:%M") %>
   
 third-impro-proposal:
   parent_id: <%= Fixtures.identify('first-proposal') %>
@@ -137,6 +139,7 @@ third-impro-proposal:
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('third-impro-proposal-statement') %>
   drafting_state: 'tracked'
+  created_at: <%= Time.now.strftime("%d/%m/%y %H:%M") %>
 
 fourth-impro-proposal:
   parent_id: <%= Fixtures.identify('first-proposal') %>
@@ -146,6 +149,7 @@ fourth-impro-proposal:
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('fourth-impro-proposal-statement') %>
   drafting_state: 'tracked'
+  created_at: <%= Time.now.strftime("%d/%m/%y %H:%M") %>
 
 fifth-impro-proposal:
   parent_id: <%= Fixtures.identify('first-proposal') %>
@@ -155,6 +159,7 @@ fifth-impro-proposal:
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('fifth-impro-proposal-statement') %>
   drafting_state: 'tracked'
+  created_at: <%= Time.now.strftime("%d/%m/%y %H:%M") %>
 
 german-impro-proposal:
   parent_id: <%= Fixtures.identify('german-proposal') %>
@@ -164,3 +169,4 @@ german-impro-proposal:
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('german-impro-proposal-statement') %>
   drafting_state: 'tracked'
+  created_at: <%= Time.now.strftime("%d/%m/%y %H:%M") %>

@@ -63,12 +63,18 @@ class DraftingService
     end
   end
   
+  def reset_incorporable(incorporable)
+    EchoService.instance.reset_echoable(incorporable)
+    incorporable.times_passed = 0
+    set_track(incorporable)
+  end
+  
   def send_approved_email(incorporable)
     statement_document = incorporable.original_document
     if incorporable.times_passed == 0
       email = NotificationMailer.create_approval(incorporable, statement_document)
       NotificationMailer.deliver(email)
-    else 
+    elsif incorporable.times_passed == 1
       supporters = incorporable.supporters.select{|sup|sup.languages('advanced').include?(incorporable.original_language)}
       email = NotificationMailer.create_supporters_approval(incorporable, statement_document, supporters)
       NotificationMailer.deliver(email)
@@ -109,7 +115,7 @@ class DraftingService
   
   def send_incorporated_email(incorporable, user)
     statement_document = incorporable.original_document
-    email = NotificationMailer.create_incorporated(incorporable, statement_document, user)
+    email = NotificationMailer.create_incorporated(incorporable, statement_document)
     NotificationMailer.deliver(email)
   end
   
@@ -135,27 +141,27 @@ class DraftingService
     old_order[incorporables.index(changed_incorporable)][1] = old_supporter_count # set the old supporter count on the changed incorporable
     old_order.sort!{|a, b| b[1] <=> a[1]} #sort the array, thus getting the ordered array before the support/unsupport action)
     old_order.map!{|s|s[0]}
-    
     incorporables.each_with_index do |incorporable, index|
-      if index != old_order.index(incorporable.id)# or incorporable.eql?(changed_incorporable)
-        adjust_for_readiness(incorporable, index > old_order.index(incorporable.id), incorporable == changed_incorporable)
+      if index != old_order.index(incorporable.id) or incorporable.eql?(changed_incorporable)
+        adjust_readiness(incorporable, index > old_order.index(incorporable.id), incorporable == changed_incorporable)
       end
     end
   end
   
   # according to the given parameters, will either readify or track the incorporable 
   def adjust_readiness(incorporable, position_decreased, changed_criteria)
-    if (incorporable.tracked? and changed_criteria and test_readiness(incorporable)) or 
-       (!incorporable.tracked? and position_decreased)
-      readify(incorporable) 
-    elsif !incorporable.tracked? and changed_criteria and !test_readiness(incorporable)
+    readiness = test_readiness(incorporable)
+    if ((incorporable.tracked? and changed_criteria) or (!incorporable.tracked? and position_decreased)) and 
+        readiness
+        readify(incorporable) 
+    elsif !incorporable.tracked? and changed_criteria and !readiness
       track(incorporable) 
     end
   end
   
   # test if incorporable fulfills all conditions to become ready
   def test_readiness(incorporable)
-    incorporable.supporter_count >= @@min_votes and incorporable.quorum >= @@min_quorum
+    incorporable.supporter_count >= @@min_votes# and incorporable.quorum >= @@min_quorum
   end
   
   # set incorporable state as tracked
@@ -171,27 +177,22 @@ class DraftingService
   
   # set incorporable as approved
   def approve(incorporable)
-    set_approved(incorporable)
+    set_approve(incorporable)
     send_approved_email(incorporable)
-    Delayed::Job.enqueue TestForPassedJob.new(incorporable.id,incorporable.state_since), 1, @@time_approved
+    Delayed::Job.enqueue TestForPassedJob.new(incorporable.id), 1, @@time_approved
   end
   
-  def incorporate(incorporable)
+  def incorporate(incorporable, user)
     set_incorporate(incorporable)
     send_incorporated_email(incorporable, user)
-  end
-  
-  def reset_incorporable(incorporable)
-    EchoService.instance.reset_incorporable(incorporable)
-    incorporable.times_passed = 0
-    set_track(incorporable)
   end
   
   %w(track readify stage approve incorporate).each do |transition|
     class_eval %(
       def set_#{transition}(incorporable)
         incorporable.state_since=Time.now
-        incorporable.send(#{transition}!)
+        incorporable.send('#{transition}!')
+        incorporable.save
       end
     )
   end

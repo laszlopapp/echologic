@@ -153,6 +153,7 @@ module ActiveRecord
               end 
             end
             
+            public
             def supporters
               self.user_echos.map{|ue|ue.user}
             end

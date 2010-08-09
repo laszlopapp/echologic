@@ -23,6 +23,7 @@ module ActiveRecord
             has_one  :drafting_info, :foreign_key => 'statement_node_id', :dependent => :destroy
             delegate :times_passed,  :times_passed=, :state_since, :state_since=, :to => :drafting_info
             
+            validates_associated :drafting_info
             # Acts as State Machine plugin
             acts_as_state_machine :initial => :tracked, :column => 'drafting_state'
             
@@ -39,12 +40,16 @@ module ActiveRecord
               transitions :from => :approved, :to => :tracked
             end
           
-            event :ready do
-              transitions :from => :tracked, :to => :staged
+            event :readify do
+              transitions :from => :tracked, :to => :ready
+              transitions :from => :staged, :to => :ready
             end
             event :stage do
               transitions :from => :ready, :to => :staged
               transitions :from => :approved, :to => :staged
+            end
+            event :approve do
+              transitions :from => :staged, :to => :approved
             end
             event :incorporate do
               transitions :from => :approved, :to => :incorporated

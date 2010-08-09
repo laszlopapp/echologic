@@ -10,7 +10,7 @@ second-impro-proposal-drafting-info:
   
 third-impro-proposal-drafting-info:
   statement_node_id: <%= Fixtures.identify('third-impro-proposal') %>
-  times_passed: 0
+  times_passed: 1
   
 fourth-impro-proposal-drafting-info:
   statement_node_id: <%= Fixtures.identify('fourth-impro-proposal') %>

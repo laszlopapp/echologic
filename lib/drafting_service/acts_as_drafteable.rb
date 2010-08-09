@@ -22,7 +22,7 @@ module ActiveRecord
           class_inheritable_reader(:state_types)
           
           class_eval do
-            after_save :check_incorporate
+            after_save :check_incorporated
           end
           
           state_types.map(&:to_s).each do |state_type|
@@ -60,10 +60,10 @@ module ActiveRecord
               self.children.by_supporters
             end
             
-            def check_incorporate
+            def check_incorporated
               last_document = self.statement_documents.last
-              if last_document and last_document.action.code.eql?('incorporate')
-                Echo.instance.incorporated(last_document.incorporated_node, last_document.author)
+              if last_document and last_document.action.code.eql?('incorporated')
+                EchoService.instance.incorporated(last_document.incorporated_node, last_document.author)
               end
             end
           RUBY
