@@ -186,7 +186,7 @@ module StatementHelper
               :class => "ajax translation_link #{css_class}"
   end
 
-  def create_question_link_for
+  def create_question_link_for(category=nil)
     return unless current_user
     link_to(I18n.t("discuss.statements.create_question_link"),
             hash_for_new_question_path.merge({:category => category}),

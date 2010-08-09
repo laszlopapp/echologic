@@ -13,9 +13,9 @@
                               :extra_classes => "active" } %>
     <% end %>
 
-    <%if children.blank? or children.current_page == children.total_pages%>
+    <%if children.blank? or children.current_page == children.total_pages %>
       <li>
-        <%= create_children_statement_node_link(@statement_node, "add_new_button") %>
+        <%= create_new_statement_button(@statement_node, "add_new_button") %>
       </li>
     <%end%>
   </ul>
