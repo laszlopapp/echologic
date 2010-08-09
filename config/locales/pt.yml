@@ -311,7 +311,7 @@ pt:
           title: Projectos-piloto
     search:
       title: Procura
-      in: 'Em {{category}}:'
+      in: '... em {{category}} ...'
 
     tooltips:
       read_question: 'Ir para esta questão'

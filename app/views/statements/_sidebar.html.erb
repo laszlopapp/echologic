@@ -25,10 +25,7 @@
       <% end %>
     <% end %>
     <br/>
-
-  <span id="new_sibling_statement_button">
-    <%= create_new_sibling_statement_button(statement_node) %>
-  </span>
+    <% create_new_sibling_statement_button(statement_node) %>
   <% end %>
 
   <% if current_user && current_user.may_delete?(statement_node) -%>
