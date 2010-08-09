@@ -163,20 +163,34 @@ module StatementHelper
   ## LINKS
   ##
 
-  # Creates a link to create a new child item for a Statement
-  def create_new_statement_button(statement_node, css_class = "", lan_tag = "", statement_node_for_image = nil)
+  #
+  # Creates a link to create a new child statement for the given statement
+  # (appears INSIDE of the children statements panel).
+  #
+  def create_new_child_statement_link(statement_node)
     return unless statement_node.class.expected_children.any?
     type = statement_node_class_dom_id(statement_node.class.expected_children.first)
 
-    image_class = statement_node_for_image ?
-                    "create_statement_button_mid create_#{statement_node_for_image.class.name.underscore}_button_mid" :
-                    "text_button create_#{type}_button"
-
-    link_to(I18n.t(lan_tag.blank? ? "discuss.statements.create_#{type}_link" : "discuss.statements.#{lan_tag}"),
+    link_to(I18n.t("discuss.statements.create_#{type}_link"),
             new_child_statement_node_url(statement_node, type),
-            :id => "create_#{type.underscore}_link",
-            :class => "ajax #{css_class} #{image_class} ttLink no_border",
-            :title => I18n.t("discuss.tooltips.create_#{type.underscore}"))
+            :id => "create_#{type}_link",
+            :class => "ajax add_new_button text_button create_#{type}_button ttLink no_border",
+            :title => I18n.t("discuss.tooltips.create_#{type}"))
+  end
+
+  #
+  # Creates a link to create a new sibling statement for the given statement (appears in the SIDEBAR).
+  #
+  def create_new_sibling_statement_button(statement_node)
+    type = statement_node_class_dom_id(statement_node)
+
+    link_to('',
+            new_child_statement_node_url(statement_node.parent, type),
+            :id => "create_#{type}_link",
+            :class => "ajax create_statement_button_mid create_#{type}_button_mid ttLink no_border",
+            :title => I18n.t("discuss.tooltips.create_#{type}"))
+
+
   end
 
   def create_translate_statement_link(statement_node, css_class = "")

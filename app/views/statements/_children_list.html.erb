@@ -15,7 +15,7 @@
 
     <%if children.blank? or children.current_page == children.total_pages %>
       <li>
-        <%= create_new_statement_button(@statement_node, "add_new_button") %>
+        <%= create_new_child_statement_link(@statement_node) %>
       </li>
     <%end%>
   </ul>

@@ -234,17 +234,16 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   cursor: pointer;
 }
 
-
 #echo_button .supported           { background-position: 0 -80px; }
 #echo_button .supported:hover     { background-position: 0 80px; }
 #echo_button .not_supported:hover { background-position: 0 -80px; }
 
-#create_parent_element_button {
+#new_sibling_statement_button {
   display: inline-block;
-  margin: 10px 0 0;
+  margin: 5px 0 0 -10px;
 }
 
-#create_parent_element_button a {
+#new_sibling_statement_button a {
   margin: 0;
 }
 
@@ -354,8 +353,8 @@ a.statement_link:hover {
 
 .create_statement_button_mid {
   float: left;
-  padding: 55px 0 0;
   width: 100px;
+  height: 55px;
   margin-top: 10px !important;
 }
 
