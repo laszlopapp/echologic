@@ -114,12 +114,6 @@ german-child-proposal-doc-german-history:
   author_id: <%= Fixtures.identify(:editor) %>
   action_id: <%= Fixtures.identify('statement_action_created') %>
 
-first-impro-proposal-doc-english-history:
-  statement_document_id: <%= Fixtures.identify('first-impro-proposal-doc-english') %>
-  statement_id: <%= Fixtures.identify('first-impro-proposal-statement') %>
-  author_id: <%= Fixtures.identify(:ben) %>
-  action_id: <%= Fixtures.identify('statement_action_created') %>
-
 not-published-proposal-doc-english-history:
   statement_document_id: <%= Fixtures.identify('not-published-proposal-doc-english') %>
   statement_id: <%= Fixtures.identify('not-published-proposal-statement') %>
@@ -201,6 +195,12 @@ english-child-doc-english-history:
   author_id: <%= Fixtures.identify(:editor) %>
   action_id: <%= Fixtures.identify('statement_action_created') %>
 
+first-impro-proposal-doc-english-history:
+  statement_document_id: <%= Fixtures.identify('first-impro-proposal-doc-english') %>
+  statement_id: <%= Fixtures.identify('first-impro-proposal-statement') %>
+  author_id: <%= Fixtures.identify(:ben) %>
+  action_id: <%= Fixtures.identify('statement_action_created') %>
+
 first-impro-proposal-doc-german-history:
   statement_document_id: <%= Fixtures.identify('first-impro-proposal-doc-german') %>
   statement_id: <%= Fixtures.identify('first-impro-proposal-statement') %>
@@ -214,3 +214,27 @@ not-published-proposal-doc-german-history:
   author_id: <%= Fixtures.identify(:editor) %>
   old_document_id: <%= Fixtures.identify('not-published-proposal-doc-english') %>
   action_id: <%= Fixtures.identify('statement_action_translated') %>
+  
+second-impro-proposal-doc-english-history:
+  statement_document_id: <%= Fixtures.identify('second-impro-proposal-doc-english') %>
+  statement_id: <%= Fixtures.identify('second-impro-proposal-statement') %>
+  author_id: <%= Fixtures.identify(:ben) %>
+  action_id: <%= Fixtures.identify('statement_action_created') %>
+  
+third-impro-proposal-doc-english-history:
+  statement_document_id: <%= Fixtures.identify('third-impro-proposal-doc-english') %>
+  statement_id: <%= Fixtures.identify('third-impro-proposal-statement') %>
+  author_id: <%= Fixtures.identify(:ben) %>
+  action_id: <%= Fixtures.identify('statement_action_created') %>
+  
+fourth-impro-proposal-doc-english-history:
+  statement_document_id: <%= Fixtures.identify('fourth-impro-proposal-doc-english') %>
+  statement_id: <%= Fixtures.identify('fourth-impro-proposal-statement') %>
+  author_id: <%= Fixtures.identify(:ben) %>
+  action_id: <%= Fixtures.identify('statement_action_created') %>
+  
+fifth-impro-proposal-doc-english-history:
+  statement_document_id: <%= Fixtures.identify('fifth-impro-proposal-doc-english') %>
+  statement_id: <%= Fixtures.identify('fifth-impro-proposal-statement') %>
+  author_id: <%= Fixtures.identify(:ben) %>
+  action_id: <%= Fixtures.identify('statement_action_created') %>

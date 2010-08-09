@@ -38,5 +38,13 @@ english-child-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
 first-impro-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+second-impro-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+third-impro-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+fourth-impro-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+fifth-impro-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
 german-impro-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>

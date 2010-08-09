@@ -4,6 +4,22 @@ first-impro-proposal-drafting-info:
   statement_node_id: <%= Fixtures.identify('first-impro-proposal') %>
   times_passed: 0
 
+second-impro-proposal-drafting-info:
+  statement_node_id: <%= Fixtures.identify('second-impro-proposal') %>
+  times_passed: 0
+  
+third-impro-proposal-drafting-info:
+  statement_node_id: <%= Fixtures.identify('third-impro-proposal') %>
+  times_passed: 0
+  
+fourth-impro-proposal-drafting-info:
+  statement_node_id: <%= Fixtures.identify('fourth-impro-proposal') %>
+  times_passed: 0
+  
+fifth-impro-proposal-drafting-info:
+  statement_node_id: <%= Fixtures.identify('fifth-impro-proposal') %>
+  times_passed: 0
+
 german-impro-proposal-drafting-info:
   statement_node_id: <%= Fixtures.identify('german-impro-proposal') %>
   times_passed: 0

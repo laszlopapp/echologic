@@ -137,7 +137,7 @@ class DraftingService
     old_order.map!{|s|s[0]}
     
     incorporables.each_with_index do |incorporable, index|
-      if index != old_order.index(incorporable.id)
+      if index != old_order.index(incorporable.id)# or incorporable.eql?(changed_incorporable)
         adjust_for_readiness(incorporable, index > old_order.index(incorporable.id), incorporable == changed_incorporable)
       end
     end

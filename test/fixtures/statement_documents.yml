@@ -131,13 +131,6 @@ german-child-proposal-doc-german:
   statement_id: <%= Fixtures.identify('german-child-proposal-statement') %>
   current: 1
   
-first-impro-proposal-doc-english:
-  title: 'A better first proposal'
-  text: 'I think, a better first proposal would be a better one!'
-  language_id: <%= Fixtures.identify('language_en') %>
-  statement_id: <%= Fixtures.identify('first-impro-proposal-statement') %>
-  current: 1
-  
 not-published-proposal-doc-english:
   title: 'This proposal should not be seen...'
   text: 'unless you are an editor'
@@ -222,6 +215,13 @@ english-child-doc-english:
   statement_id: <%= Fixtures.identify('english-child-proposal-statement') %>
   current: 1
   
+first-impro-proposal-doc-english:
+  title: 'A better first proposal'
+  text: 'I think, a better first proposal would be a better one!'
+  language_id: <%= Fixtures.identify('language_en') %>
+  statement_id: <%= Fixtures.identify('first-impro-proposal-statement') %>
+  current: 1
+  
 first-impro-proposal-doc-german:
   title: 'Ein besserer Vorschlag'
   text: 'Das waere vielleicht ein besserer Vorschlag!'  
@@ -236,3 +236,30 @@ not-published-proposal-doc-german:
   statement_id: <%= Fixtures.identify('not-published-proposal-statement') %>
   current: 1
   
+second-impro-proposal-doc-english:
+  title: 'A better second proposal'
+  text: 'I think, a better second proposal would be a better one!'
+  language_id: <%= Fixtures.identify('language_en') %>
+  statement_id: <%= Fixtures.identify('second-impro-proposal-statement') %>
+  current: 1
+
+third-impro-proposal-doc-english:
+  title: 'A better third proposal'
+  text: 'I think, a better third proposal would be a better one!'
+  language_id: <%= Fixtures.identify('language_en') %>
+  statement_id: <%= Fixtures.identify('third-impro-proposal-statement') %>
+  current: 1
+  
+fourth-impro-proposal-doc-english:
+  title: 'A better fourth proposal'
+  text: 'I think, a better fourth proposal would be a better one!'
+  language_id: <%= Fixtures.identify('language_en') %>
+  statement_id: <%= Fixtures.identify('fourth-impro-proposal-statement') %>
+  current: 1
+  
+fifth-impro-proposal-doc-english:
+  title: 'A better fifth proposal'
+  text: 'I think, a better fifth proposal would be a better one!'
+  language_id: <%= Fixtures.identify('language_en') %>
+  statement_id: <%= Fixtures.identify('fifth-impro-proposal-statement') %>
+  current: 1
