@@ -1,4 +1,5 @@
 class ActivityTrackingMailer < ActionMailer::Base
+  include StatementHelper
   # Send the activities on the subscribed objects to the subscribeable
   def activity_tracking_email(subscriber,question_events, question_tags, events)
     default = subscriber.default_language
@@ -13,23 +14,23 @@ class ActivityTrackingMailer < ActionMailer::Base
                   :language => default
   end
   
-  def approval_notification(statement, statement_document, user)
-    subject       I18n.t('notification_mails.approval_notification.subject', :locale => statement_document.language.code)
+  def approval_notification(statement, statement_document, users)
+    subject       I18n.t('notification_mailer.approval_notification.subject', :locale => statement_document.language.code)
     from          "noreply@echologic.org"
-    recipients    user.email
+    recipients    users.map{|u|u.email}
     sent_on       Time.now
-    body          :name => user.full_name, :title => statement_document.title,
-                  :url => url_for(statement), :language => statement_document.language.code
+    body          :title => statement_document.title, :link => improvement_proposal_path(statement), 
+                  :language => statement_document.language
   end
   
   
-  def incorporation_notification(statement, statement_document, user)
-    subject       I18n.t('notification_mails.incorporation_notification.subject', :locale => statement_document.language.code)
+  def incorporation_notification(statement, statement_document, users)
+    subject       I18n.t('notification_mailer.incorporation_notification.subject', :locale => statement_document.language.code)
     from          "noreply@echologic.org"
-    recipients    user.email
+    recipients    users.map{|u|u.email}
     sent_on       Time.now
-    body          :name => user.full_name, :title => statement_document.title,
-                  :url => url_for(statement), :language => statement_document.language.code
+    body          :title => statement_document.title, :link => proposal_path(statement), 
+                  :language => statement_document.language
   end
   
 end

@@ -569,10 +569,10 @@ en:
         Best Regards,
 
         Your echo team
-    supporter_approval:
+    supporters_approval:
       subject: You have the privilege to incorporate a Improvement Proposal!
       text: |
-        Dear {{name}},
+        Dear supporters of the "{{title}}" Improvement Proposal,
 
         The Improvement Proposal "{{title}}", which you supported, was set to be incorporated in it's proposal. 
         Given that it's author didn't incorporate it yet, we would like to give you the opportunity to do so.
@@ -586,9 +586,9 @@ en:
 
         Your echo team
     approval_notification:
-      subject: An Improvement Proposal was approved for Incorporation
+      subject: An Improvement Proposal was approved for incorporation
       text: |
-        Dear {{name}},
+        Dear users,
 
         The Improvement Proposal "{{title}}" was approved to be incorporated in a Proposal you supported.
         To check its content, you can follow the link below:
@@ -611,6 +611,19 @@ en:
         Best Regards,
 
         Your echo team
+    supporters_approval_reminder:
+      subject: Improvement Proposal Approval Reminder!
+      text: |
+        Dear supporters of the "{{title}}" Improvement Proposal,
+
+        Your still have 24 hours to incorporate your Improvement Proposal "{{title}}" in its proposal. To do that, 
+        you need to follow the link below:
+
+        {{link}}
+
+        Best Regards,
+
+        Your echo team
     passed:
       subject: Improvement Proposal Approval Passed!
       text: |
@@ -621,10 +634,10 @@ en:
         Best Regards,
 
         Your echo team
-    supporter_passed:
+    supporters_passed:
       subject: Improvement Proposal Approval Passed!
       text: |
-        Dear {{name}},
+        Dear supporters of the "{{title}}" Improvement Proposal,
 
         The time for you to incorporate the Improvement Proposal "{{title}}" in its proposal has expired.
 
@@ -647,7 +660,7 @@ en:
     incorporation_notification:
       subject: A Proposal you support has been updated!
       text: |
-        Dear {{name}},
+        Dear users,
 
         The Proposal "{{title}}" which you support has been updated. Take a look and see if you think it has improved.
 

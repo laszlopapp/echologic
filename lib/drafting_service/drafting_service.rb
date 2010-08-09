@@ -69,17 +69,16 @@ class DraftingService
       email = NotificationMailer.create_approval(incorporable, statement_document)
       NotificationMailer.deliver(email)
     else 
-      incorporable.supporters.select{|sup|sup.languages('advanced').include?(incorporable.original_language)}.each do |supporter|
-        email = NotificationMailer.create_supporter_approval(incorporable, statement_document, supporter)
-        NotificationMailer.deliver(email)
-      end
+      supporters = incorporable.supporters.select{|sup|sup.languages('advanced').include?(incorporable.original_language)}
+      email = NotificationMailer.create_supporters_approval(incorporable, statement_document, supporters)
+      NotificationMailer.deliver(email)
     end
-    #Send approval notification to the proposal supporters
+    
     Delayed::Job.enqueue ApprovalReminderMailJob.new(incorporable.id, incorporable.state_since), 1, @@time_approval_reminder
-    incorporable.parent.supporters.select{|sup|sup.languages.include?(incorporable.original_language)}.each do |supporter|
-      email = ActivityTrackingMailer.create_approval_notification(incorporable, statement_document, supporter)
-      ActivityTrackingMailer.deliver(email)
-    end
+    #Send approval notification to the proposal supporters
+    supporters = incorporable.parent.supporters.select{|sup|sup.languages.include?(incorporable.original_language)}
+    email = ActivityTrackingMailer.create_approval_notification(incorporable, statement_document, supporters)
+    ActivityTrackingMailer.deliver(email)
   end
   
   def send_approval_reminder(incorporable)
@@ -90,10 +89,9 @@ class DraftingService
   
   def send_supporters_approval_reminder(incorporable)
     statement_document = incorporable.original_document
-    incorporable.supporters.select{|sup|sup.languages('advanced').include?(incorporable.original_language)}.each do |supporter|
-      email = NotificationMailer.create_supporters_approval_reminder(incorporable, statement_document, supporter)
-      NotificationMailer.deliver(email)
-    end
+    supporters = incorporable.supporters.select{|sup|sup.languages('advanced').include?(incorporable.original_language)}
+    email = NotificationMailer.create_supporters_approval_reminder(incorporable, statement_document, supporters)
+    NotificationMailer.deliver(email)
   end
   
   def send_passed_email(incorporable)
@@ -104,10 +102,9 @@ class DraftingService
   
   def send_supporters_passed_email(incorporable)
     statement_document = incorporable.original_document
-    incorporable.supporters.select{|sup|sup.languages('advanced').include?(incorporable.original_language)}.each do |supporter|
-      email = NotificationMailer.create_approval_reminder(statement_document, supporter)
-      NotificationMailer.deliver(email)
-    end
+    supporters = incorporable.supporters.select{|sup|sup.languages('advanced').include?(incorporable.original_language)}
+    email = NotificationMailer.create_supporters_passed(statement_document, supporters)
+    NotificationMailer.deliver(email)
   end
   
   def send_incorporated_email(incorporable, user)
