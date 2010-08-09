@@ -1,7 +1,9 @@
 class Users::WebAddressesController < ApplicationController
 
   before_filter :require_user
-
+  before_filter :fetch_web_address, :except => [:new,:create]
+  
+  
   helper :profile
 
   access_control do
@@ -11,7 +13,6 @@ class Users::WebAddressesController < ApplicationController
   # Show the web profile with the given id.
   # method: GET
   def show
-    @web_address = WebAddress.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -35,7 +36,6 @@ class Users::WebAddressesController < ApplicationController
   # method: GET
   def edit
     @user = @current_user
-    @web_address = WebAddress.find(params[:id])
 
     respond_to do |format|
       format.js do
@@ -47,16 +47,14 @@ class Users::WebAddressesController < ApplicationController
   # Create new web profile for the current user.
   # method: POST
   def create
-    @web_address = WebAddress.new(params[:web_address])
-    @web_address.user_id = @current_user.id
+    @web_address = WebAddress.new(params[:web_address].merge({:user => @current_user}))
 
-    previous_completeness = @web_address.profile.percent_completed
+    @before_completeness = @web_address.percent_completed
     respond_to do |format|
       format.js do
         if @web_address.save
-          current_completeness = @web_address.profile.percent_completed
-          set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
-
+          @after_completeness = @web_address.percent_completed
+          set_info("discuss.messages.new_percentage", :percentage => @after_completeness) if @before_completeness != @after_completeness
           render_with_info do |p|
             p.insert_html :bottom, 'web_address_list', :partial => 'users/web_addresses/web_address'
             p << "$('#new_web_address').reset();"
@@ -72,8 +70,6 @@ class Users::WebAddressesController < ApplicationController
   # Update the web profiles attributes
   # method: PUT
   def update
-    @web_address = WebAddress.find(params[:id])
-
     respond_to do |format|
       format.js do
         if @web_address.update_attributes(params[:web_address])
@@ -88,12 +84,10 @@ class Users::WebAddressesController < ApplicationController
   # Remove the web profile specified through id
   # method: DELETE
   def destroy
-    @web_address = WebAddress.find(params[:id])
-    id = @web_address.id
-    previous_completeness = @web_address.profile.percent_completed
+    @before_completeness = @web_address.percent_completed
     @web_address.destroy
-    current_completeness = @web_address.profile.percent_completed
-    set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
+    @after_completeness = @web_address.percent_completed
+    set_info("discuss.messages.new_percentage", :percentage => @after_completeness) if @before_completeness != @after_completeness
 
     respond_to do |format|
       format.js do
@@ -107,5 +101,10 @@ class Users::WebAddressesController < ApplicationController
       end
     end
   end
-
+  
+  private
+  
+  def fetch_web_address
+    @web_address = WebAddress.find(params[:id]) || WebAddress.new(params[:web_address].merge({:user => @current_user}))
+  end
 end

@@ -20,6 +20,13 @@ class ApplicationController < ActionController::Base
   # session timeout
   before_filter :session_expiry
 
+  # Tag filter
+  @@tag_filter = lambda do |prefixes, tags|
+    tags.map {|tag|
+      !prefixes.select{|p| tag.value.index(p) == 0}.empty? ? nil : "#{tag.value}|#{tag.id}"
+    }.compact[0..4].join("\n")
+  end
+
   # Set locale to the best fitting one
   def set_locale
     available = %w{en de es pt}
@@ -239,6 +246,7 @@ class ApplicationController < ActionController::Base
 
   # Expires and cleans up the user session.
   def expire_session!
+    current_user.update_attributes(:last_login_language => EnumKey.find_by_code_and_enum_name(params[:locale].to_s,"languages"))
     current_user_session.try(:destroy)
     reset_session
     if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'

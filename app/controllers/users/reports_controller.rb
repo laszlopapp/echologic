@@ -2,6 +2,7 @@ class Users::ReportsController < ApplicationController
 
   # All reporting actions require a logged in user
   before_filter :require_user
+  before_filter :fetch_report, :except => [:new, :create, :index]
 
   # Users may create new reports.
   # Admin may perform everything.
@@ -23,8 +24,6 @@ class Users::ReportsController < ApplicationController
 
   # Show a specified user report.
   def show
-    @report = Report.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
     end
@@ -43,7 +42,6 @@ class Users::ReportsController < ApplicationController
 
   # GET /reports/1/edit
   def edit
-    @report = Report.find(params[:id])
     respond_to do |format|
       format.html { render :partial => 'edit' }
       format.js   { replace_container(dom_id(@report, :edit), :partial => 'edit') }
@@ -69,8 +67,6 @@ class Users::ReportsController < ApplicationController
   # Update the reports data, normally: set it done and
   # include one's decision.
   def update
-    @report = Report.find(params[:id])
-
     respond_to do |format|
       if @report.update_attributes(params[:report])
         flash[:notice] = 'Report was successfully updated.'
@@ -84,11 +80,15 @@ class Users::ReportsController < ApplicationController
   # DELETE /reports/1
   # DELETE /reports/1.xml
   def destroy
-    @report = Report.find(params[:id])
+    
     @report.destroy
-
     respond_to do |format|
       format.html { redirect_to(reports_url) }
     end
+  end
+  
+  private
+  def fetch_report
+    @report = Report.find(params[:id])
   end
 end

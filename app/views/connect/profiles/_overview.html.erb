@@ -5,7 +5,10 @@
     <% unless @profile.memberships.blank? %>
       <% memberships = [] %>
       <% for membership in @profile.memberships do %>
-        <% memberships << '<span class="membership_organisation">' + h(membership.organisation) + '</span> - ' + h(membership.position) %>
+        <% memberships << '<span class="membership_organisation">' +
+                             h(membership.organisation) +
+                           '</span> - ' +
+                             h(membership.position) %>
       <% end %>
       <span class="value"><%= memberships.join(', ') %></span>
     <% else %>

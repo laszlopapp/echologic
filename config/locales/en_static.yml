@@ -1,5 +1,6 @@
 en:
 
+
   # Supporters & Sponsors
   sponsors:
     text: 'Supported by'
@@ -20,7 +21,7 @@ en:
       title: echologic
       subtitle: The Movement
       show:
-        ms1: echologic is a network of movers and <br/>their organizations united to realize
+        ms1: echologic is a network of newthinkers and <br/>their organizations united to realize
         ms2: |
           echo - the global <span title="{{tooltip}}" class="ttLink">agora</span>!
 
@@ -41,7 +42,7 @@ en:
 
         text_1: |
           <p>
-          echo is a <strong>joint project</strong> for an ecologically and socially sustainable change through
+          echo is a <strong>joint project</strong> for ecological and socially sustainable change through
           <strong>proactive citizen participation</strong>. It addresses and unites all
           members of society: citizens, experts, decision makers and representatives of organizations and businesses.
           </p><p>
@@ -56,12 +57,12 @@ en:
           title: Collective solution finding and political influence
           more: |
             <p>
-            According to the motto <strong>“Discuss – Connect – Act!”</strong>, echo empowers people to jointly
-            determine their very own living space – and the future of our common world. echo´s discussion
-            area allows for sound <strong>opinion- and will formation</strong>, and remains clear and comprehensible
-            even with a nearly unlimited number of participants. In the area Act!, civil engagement
-            is transformed into true <strong>political influence</strong> by the use of existing direct democractic
-            instruments (e.g. ePetitions, referenda, demonstration, etc.)
+            According to its motto <strong>“Discuss – Connect – Act!”</strong>, echo empowers people to jointly
+            shape their local community – and the future of our shared world. echo´s discussion area gives
+            a <strong>clear overview on different opinions</strong> and facilitates <strong>constructive
+            mass collaboration</strong> to co-create your own sound statements together with others.
+            In the area Act!, civic engagement is transformed into true <strong>political influence</strong> by
+            the use of existing direct democractic instruments (e.g. ePetitions, referenda, demonstration, etc.)
             </p>
         text_3:
           title: Openness and “Your-profit” philosophy
@@ -73,7 +74,7 @@ en:
             </p><p>
             echo is <strong>social business</strong> and commited to basic ethical values of a socially and ecologically sustainable
             economy. According to its <strong>“Your-profit” philosophy</strong>, all surpluses will flow back into actions and
-            projects of the echo community. In this way, the virtual engagement can influence our real
+            projects of the echo community. In this way, your virtual engagement can influence our real
             world in a positive way and help people achieve <strong>political and economical self-determination</strong>.
             </p>
         text_4:
@@ -84,7 +85,7 @@ en:
             voice counts</strong> the same – all over the world.
             </p><p>
             On <strong>echologic</strong>, more and more people join our common mission to <strong>turn echo's vision
-            into reality</strong>. Although echo is yet in an embryonic stage, you can already:
+            into reality</strong>. Although echo is still in its embryonic stage, you can already:
             </p>
 
         action: |
@@ -410,8 +411,7 @@ en:
           <p>
           On echo, actors from these competence groups all engage in an <strong>equal dialogue</strong>.
           This not only ensures <strong>total transparency</strong> throughout the whole decision making process,
-          it also enables echo to offer all its actors a unique <strong>new means of contribution</strong>
-          to the shaping of our common world.
+          it also enables people to <strong>shape our common world by novel means</strong>.
           </p><p>
           On echo, the global agora, all participants are equal, <strong>free world citizens</strong>!
           </p>
@@ -704,7 +704,7 @@ en:
           This echo social site offers you:
           </p>
         internet_presence:
-          title: individual internet presence
+          title: Individual internet presence
           text: |
             <p>Upload your logo, choose colors and layout and adjust functions to your special needs with a few clicks.</p>
         community_management:
@@ -899,10 +899,10 @@ en:
         welcome to echologic!
 
         We are happy seeing you join us to participate in the evolution of echo.
-        As part of echologic you can contribuite your ideas and take part in discussions to provide helpful impulses for a
-        successfull development of echo.
+        As a member at echologic you can contribuite your ideas and take part in discussions and provide helpful
+        impulses for a successfull development of echo.
 
-        We wish you an inspiring and enriching time at echologic.
+        We wish you an inspiring and enriching time.
 
         See you soon,
 
@@ -920,8 +920,8 @@ en:
 
         If you keep having problems with activating your account, please feel free to contact us at support@echologic.org.
 
-        We wish you further much inspiration and fun with the echologic Community.
+        We wish you further much inspiration and fun at echologic.
         With best regards,
 
-        your echo team
+        Your echo team
 

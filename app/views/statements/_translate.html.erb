@@ -1,18 +1,33 @@
 <% statement_node ||= @statement_node -%>
 <% old_statement_document ||= @statement_document%>
 <% new_statement_document ||= @new_statement_document %>
-<div id="summary" class="simple_header_block discuss_right_block">
-	<h2><%= I18n.t('discuss.summary.title') %></h2>
 
+<div id="summary" class="simple_header_block discuss_right_block">
+	<h2>
+    <%= I18n.t('discuss.summary.title') %>
+  </h2>
+
+  <!-- Building the translation box with the two babelfishes -->
 	<div id="new_translation">
     <div class="translation_box_class rounded-box rounded-box-gray-itow with_bg_bw_grad_small">
-      <%= image_tag('page/translation/babelfish_left.png', :class => 'fish_left') %>
-      <span class="language_label from_language"><%= old_statement_document.language.get_current_enum_value.value.upcase %></span>
-      <%= image_tag('page/translation/translation_arrow.png', :class => 'arrow') %>
-      <%= image_tag('page/translation/babelfish_right.png', :class => 'fish_right') %>
-      <span class="language_label to_language"><%= EnumKey.find_by_code(params[:locale]).get_current_enum_value.value.upcase %></span>
+      <%= image_tag 'page/translation/babelfish_left.png',
+                    :class => 'fish_left' %>
+      <span class="language_label from_language">
+        <%= old_statement_document.language.get_current_enum_value.value.upcase %>
+      </span>
+      <%= image_tag 'page/translation/translation_arrow.png',
+                    :class => 'arrow' %>
+      <%= image_tag 'page/translation/babelfish_right.png',
+                    :class => 'fish_right' %>
+      <span class="language_label to_language">
+        <%= EnumKey.find_by_code(params[:locale]).get_current_enum_value.value.upcase %>
+      </span>
 		</div>
-	  <%= render :partial => 'statements/translation_form', :locals => {:statement_node => statement_node, :new_statement_document => new_statement_document } %>
+
+    <!-- The form for translating the statement -->
+	  <%= render :partial => 'statements/translation_form',
+               :locals => {:statement_node => statement_node,
+                           :new_statement_document => new_statement_document } %>
 	</div>
 </div>
 

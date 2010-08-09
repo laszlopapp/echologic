@@ -12,8 +12,6 @@ module NavigationHelpers
       '/'
     when /the profile/
       my_profile_path
-    when /the organisations/
-      organisations_path
     when /the start page/
       root_path
     when /the connect page/
@@ -43,6 +41,10 @@ module NavigationHelpers
     when /the proposal/
       raise [@proposal.inspect,@proposal.parent.inspect].join('\n')
       question_proposal_path(@proposal.parent, @proposal)
+    when /the activation page/
+      register_url(@user.perishable_token)
+    when /the edit password page/
+      edit_password_reset_url(@user.perishable_token)
       
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

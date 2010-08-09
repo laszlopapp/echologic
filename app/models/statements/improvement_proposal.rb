@@ -24,5 +24,8 @@ class ImprovementProposal < StatementNode
   # def display_name
   #   super
   # end
+  def taggable?
+    false
+  end
   
 end

@@ -1,0 +1,1 @@
+page.replace 'summary', :partial => 'statements/edit'

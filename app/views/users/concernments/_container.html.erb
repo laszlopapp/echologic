@@ -1,0 +1,17 @@
+<div id="concernment_container" class="header_block two_columns_block">
+  <h2><%= I18n.t('users.concernments.title') %></h2>
+
+  <div class="guide">
+    <%= I18n.t('users.concernments.guide') %>
+  </div>
+
+  <% User.tag_types.each do |context| %>
+	  <% context = context.to_s.singularize %>
+    <%= render :partial => 'users/concernments/list', :locals => { :concernments => @user.send("#{context}_tags_hash".to_s), :context => context} %><br/>
+  <% end %>
+
+</div>
+
+<script type="text/javascript">
+  $(".tag_value_autocomplete").autocomplete("users/users/auto_complete_for_tag_value", {minChars: 3, selectFirst: false});
+</script>

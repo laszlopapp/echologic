@@ -95,7 +95,7 @@ de:
       tabs:
         welcome: Willkommen
         profile: Mein Profil
-        organisations: Organisationen
+        settings: Einstellungen
       profile_complete: '{{complete}}% ausgefüllt'
 
 
@@ -124,8 +124,7 @@ de:
     function_3:
       name: 'Diskutieren'
       description: |
-        Bringen Sie sich in die weitere Entwicklung echos ein.<br/>
-        Tauschen Sie Ihre Ideen mit anderen NeudenkerInnen über Themen der Nachhaltigkeit und Demokratie aus.
+        Tauschen Sie Ihre Ideen mit anderen NeudenkerInnen. Bringen Sie sich in die weitere Entwicklung echos ein.
 
 
   # ------------
@@ -259,10 +258,10 @@ de:
           <strong>gemeinsamen Anstrengungen</strong> engagierter Menschen und
           Organisationen vorangetrieben.
           </p><p>
-          Möchten auch Sie Ihre <strong>Ideen beisteuern</strong>?<br/>
+          Möchten auch Sie sich <strong>beteiligen</strong>?<br/>
           Dann tragen Sie einfach Ihren Namen und Ihre E-Mail Adresse ein!<br/>
-          <strong>Gestalten Sie echo</strong> und <strong>diskutieren Sie über Themen der Nachhaltigkeit</strong> und Demokratie
-          mit anderen engagierten BürgerInnen, ExpertInnen und PolitikerInnen.
+          <strong>Gestalten Sie echo</strong> und <strong>diskutieren Sie über Themen der Nachhaltigkeit</strong> und
+          Demokratie mit anderen engagierten BürgerInnen, ExpertInnen und PolitikerInnen.
           </p>
         action: 'Jetzt beitreten!'
 
@@ -273,7 +272,12 @@ de:
     reports:
       new:
         title:  "Benutzer melden"
-        text:   "<p>Haben Sie <strong>beleidigenden, unethischen oder illegalen Inhalt gesehen?</strong><br/> Wenn ja, hier können Sie uns den Benutzer melden.</p><p>Wir werden uns schnellstmöglich um Ihren Hinweis kümmern.<p>"
+        text: |
+          <p>Haben Sie <strong>beleidigenden, unethischen oder illegalen Inhalt gesehen?</strong><br/>
+          Wenn ja, hier können Sie uns den Benutzer melden.
+          </p><p>
+          Wir werden uns schnellstmöglich um Ihren Hinweis kümmern.
+          </p>
       messages:
         created: "Danke für Ihre Mitteilung. Wir werden uns um die Angelegenheit kümmern."
 
@@ -315,129 +319,6 @@ de:
     search:
       title: Suchen
       in: 'In {{category}}:'
-    topics:
-      description: Beschreibung
-      echonomyjam:
-        continues: 'geht online weiter!'
-        register_here: 'Hier lang zur Erstanmeldung!'
-        name: echonomyJAM
-        short_name: echonomyJAM
-        teaser: Entwickeln Sie neue Wege zu einer ökosozial nachhaltigen Wirtschaft.
-        description: |
-          <p>
-          <strong>echonomy</strong> steht für eine <strong>ökologisch und sozial nachhaltige, demokratische Wirtschaftsform</strong>,
-          die unter Profit auch das Wohl von Mensch und Natur versteht.
-          </p><p>
-          <strong>echonomyJAM</strong> bringt kreative IdeenträgerInnen, KapitalgeberInnen, erfahreren ExpertenInnen
-          sowie EntscheidungsträgerInnen aus Politik und Wirtschaft zusammen und ermöglicht Ihnen die
-          <strong>gemeinsame Entwicklung, Finanzierung und Realisierung von konkreten Projekten</strong> -
-          im Sinne der echonomischen Nachhaltigkeit.<br/>
-          Die wichtigsten Themen und Ideen der ca. <strong>150 TeilnehmerInnen</strong> der <strong>Auftaktveranstaltung
-          im Bayerischen Landtag</strong>, werden nun hier online weiterdiskutiert.
-          (Mehr Infos unter <a href='http://www.echonomyJAM.org' target='_blank'>www.echonomyJAM.org</a>)
-          </p>
-      echocracy:
-        name: echocracy
-        short_name: echocracy
-        teaser: Diskutieren Sie über die neue Form teilnehmender Demokratie von echo.
-        description: |
-          <p>
-          echo soll als die globale Agora einer <strong>neuen Form teilnehmender Demokratie</strong> etabliert werden -
-          der echocracy.<br/>
-          <strong>echocracy</strong> ist konstruktiv, gleichberechtigt und selbstorganisierend - weltweit!
-          </p><p>
-          Bringen Sie Ihre Ideen ein und helfen Sie mit, die Vision einer globalen Demokratie <strong>real werden zu lassen</strong>!
-          </p>
-      echo:
-        name: echo
-        short_name: echo
-        teaser: Beteiligen Sie sich in der weiteren Entwicklung von echo.
-        description: |
-          <p>
-          Als BewegerIn von echologic sind Sie herzlich eingeladen, die <strong>Entwicklung echos mit
-          zu gestalten</strong>.
-          </p><p>
-          Welche Funktionen halten Sie für notwendig und was sollten die
-          nächsten Schritte sein? Sagen Sie uns Ihre Meinung, diskutieren Sie diese mit
-          anderen BewegerInnen und tragen Sie dazu bei, noch <strong>mehr (aus) echo zu machen</strong>, als wir es uns je hätten vorstellen können!
-          </p>
-      echosocial:
-        name: echo social
-        short_name: echo social
-        teaser: |
-          Für das Echo Ihres Netzwerks. Begleiten Sie die Entfaltung von echo social.
-        description: |
-          <p>
-          <a href='http://www.echosocial.org' target='_blank'>echo social</a> ist die <strong>Open Source</strong> Lösung, um mit wenigen Klicks Ihr eigenes
-          <strong>soziales Netzwerk</strong> mit umfangreicher Funktionalität samt <strong>individueller Website</strong>
-          zu erstellen - <strong>kostenlos</strong>!
-          </p><p>
-          Sagen Sie uns was Sie am meisten brauchen, um koordiniert zusammen zu arbeiten, sich mit anderen zu vernetzen und
-          Ihre Aktionen gemeinsam erfolgreich zu machen! echo social wird <strong>in wenigen Wochen</strong> veröffentlicht.
-          Ihre <strong>Wünsche und Prioritäten</strong> fließen aber bereits jetzt in die Entwicklung der Software rein.
-          Mehr Infos unter <a href='http://www.echosocial.org' target='_blank'>www.echosocial.org</a>.
-          </p>
-      realprices:
-        name: Preistransparenz - ökonomisch, ökologisch, fair
-        short_name: Preistransparenz
-        teaser: Städte und Institutionen übergreifender Austausch und Vernetzung zur Kostentransparenz von Produkten und Dienstleistungen.
-        description: |
-          <p>
-          Wie setzt sich der Preis von Produkten zusammen, und welche <strong>sozialen und ökologischen
-          Folgekosten</strong> stecken noch dahinter?
-          Welchen Vorteil hat regionales, umweltverträgliches und faires Handeln? Wie machen wir das transparent
-          und Teil der Kaufentscheidung von Konsumenten?
-          </p><p>
-          Bei zwei <strong>überregionalen Tagungen</strong> am 26.04.2010 wurde in Berlin und München mit Partnern aus Österreich und
-          der Schweiz der Einstieg in den interaktiven Dialog gestartet.
-          </p><p>
-          Hintergrundinformationen zur Veranstaltung finden Sie auf dem
-          <a href='http://www.netzwerk-gemeinsinn.net/content/view/625/218' target='_blank'>Blog vom Netzwerk Gemeinsinn</a>.
-          </p>
-      igf:
-        name: Internet Governance Forum - Deutschland
-        short_name: IGF-D
-        teaser: |
-          Das <a href='http://www.igf-d.org' target='_blank'>IGF-D</a> ist eine offene und informelle Multistakeholder
-          Diskussionsplattform für Regierung, Privatwirtschaft und Zivilgesellschaft.
-        description: |
-           <p>
-           Zusammen mit der technischen und akademischen Community beschäftigt sich das IGF-D mit Fragen über die weitere
-           Entwicklung des Internets. Inhaltliche Schwerpunkte seiner Arbeit orientieren sich an den globalen
-           Themen des <strong><a href='http://www.intgovforum.org' target='_blank'>IGF der Vereinten Nationen (UN-IGF)</a></strong>
-           (Vielfalt, Offenheit, Sicherheit, kritische Internetressourcen und <strong>Zukunft des Internets</strong>)
-           unter spezifischer Berücksichtigung der Problem- und Interessenlage in Deutschland.
-           </p><p>
-           Konkrete Ziele des IGF-D sind:
-             <ul>
-               <li>
-                 Den Dialog zwischen Stakeholdern zu konkreten Fragen der Internet-Entwicklung zu befördern, um neue
-                 Potenziale für Deutschland zu erschließen.
-               </li>
-               <li>
-                 Den Beitrag der deutschen Stakeholder zum Internet Governance Forum der Vereinten Nationen
-                 vorzubereiten und zu stärken sowie das europäische Internet Governance Forum zu flankieren.
-               </li>
-             </ul>
-           </p>
-      klimaherbsttv:
-        name: Klimaherbst TV
-        short_name: Klimaherbst TV
-        teaser: |
-          Diskutieren Sie über das Handlungsfeld „Nutzerverhalten, Lebensstile und Gesundheit“ der kommenden
-          Leitlinie Ökologie der Stadt München mit.
-        description: |
-          <p>
-          In München wird die <strong>Leitlinie Ökologie</strong> zum Klimaschutz dem Stadtrat vorgelegt – zur Zeit läuft die
-          Öffentlichkeitsphase, in der BürgerInnen sich <strong>an den Diskussionen beteiligen</strong> und Stellung
-          beziehen können. Es geht dabei um die Fragen: Zu wie viel Verzicht sind wir bereit?
-          Wie stark wollen wir unser Verkehrssystem umbauen? Wo soll investiert werden?
-          Wie kann die Stadt den Wandel des Lebensstils unterstützen?
-          <br/>
-          Mehr Infos über die Veranstaltungsreihe Klimaherbst TV finden Sie
-          <a href='http://www.klimaherbst.de/hallo-offentlichkeit' target='_blank'>hier</a>.
-          </p>
-
 
     tooltips:
       read_question: 'Diese Frage anschauen'
@@ -466,7 +347,7 @@ de:
         (Danach ist keine Bearbeitung mehr möglich.)
 
     statements:
-      label: 'echos'
+      label: 'Stimmen'
       create_question_link: 'Neue Diskussion eröffnen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
       create_internal_link: 'Neue Idee?'
@@ -480,6 +361,9 @@ de:
       create_improvement_proposal_explanation: |
         Haben Sie eine <strong>gute Idee</strong>, wie man den aktuellen <strong>Vorschlag noch besser machen</strong> kann?<br/>
         Hier können Sie einen <strong>neuen Ergänzungsvorschlag</strong> erstellen.
+      create_statement_language_hint: |
+        Bitte schreiben Sie Ihre Idee auf <strong>DEUTSCH</strong> oder wählen Sie über
+        den Babelfish im oberen Menü eine andere Sprache aus.
       publish: Freigeben
       published: Die Diskussion wurde erfolgreich freigegeben.
       edit: '{{type}} bearbeiten'
@@ -496,6 +380,8 @@ de:
         question: 'Fragen'
         proposal: 'Vorschläge'
         improvement_proposal: 'Ergänzungsvorschläge'
+
+      topic: Thema (Tags / Schlüsselwörte)
       states:
         label: 'Diskussion sofort veröffentlichen?'
         deferred_publish: 'Erstmal weiter vorbereiten und später veröffentlichen'
@@ -503,6 +389,9 @@ de:
         published: Freigegeben
       delete_link: 'Löschen'
       delete_confirmation: 'Bist du sicher, dass du diese Aussage löschen willst?'
+      read_only_permission: |-
+        Diese ist eine transparente aber geschlossene Diskussion, die Sie nur mitlesen dürfen.
+
     summary:
       title: 'Zusammenfassung'
     messages:
@@ -742,3 +631,33 @@ de:
           mb: "MB"
           gb: "GB"
           tb: "TB"
+
+  mail:
+    activity_tracking:
+      subject: Activity Tracking
+      cancel: |
+        If you do not wish to receive the updated to your followed themes on a weekly basis, please go to your profile
+        and uncheck your email notification option.
+
+    root:
+      new_entry: "New entry in the '{{title}}' debate"
+    parent:
+      new_entry: "New entry in the '{{title}}' proposal belonging to the '{{question_title}}' debate"
+    questions:
+      text1: 'New Debates!'
+      new_questions: 'New Debates from last week: {{count}}'
+      tags_intro: 'New Tags from last week:'
+      tag: "<a href='http://www.echologic.org/{{code}}/discuss/search?value={{tag}}'>{{tag}}</a> ({{count}})"
+    proposal:
+      new: |
+        <p>
+        New proposal added with title
+        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{parent_id}}/proposals/{{id}}'>{{title}}</a>
+        </p>
+    improvement_proposal:
+      new: |
+        <p>
+        New improvement proposal added with title
+        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
+        {{title}}</a>
+        </p>

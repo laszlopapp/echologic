@@ -1,7 +1,8 @@
 class Users::MembershipsController < ApplicationController
 
   before_filter :require_user
-
+  before_filter :fetch_membership, :except => [:new, :create]
+  
   helper :profile
 
   access_control do
@@ -11,7 +12,6 @@ class Users::MembershipsController < ApplicationController
   # Shows the membership identified through params[:id]
   # method: GET
   def show
-    @membership = Membership.find(params[:id])
     respond_to do |format|
       format.js do
         replace_content(dom_id(@membership), :partial => 'membership')
@@ -32,7 +32,6 @@ class Users::MembershipsController < ApplicationController
   # Render the edit membership template. Currently only respond to JS.
   # method: GET
   def edit
-    @membership = Membership.find(params[:id])
 
     respond_to do |format|
       format.js do
@@ -47,12 +46,12 @@ class Users::MembershipsController < ApplicationController
   def create
 
     @membership = Membership.new(params[:membership].merge(:user_id => current_user.id))
-    previous_completeness = @membership.profile.percent_completed
+    previous_completeness = @membership.percent_completed
 
     respond_to do |format|
       format.js do
         if @membership.save
-          current_completeness = @membership.profile.percent_completed
+          current_completeness = @membership.percent_completed
           set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
           render_with_info do |p|
             p.insert_html :bottom, 'membership_list', :partial => 'users/memberships/membership'
@@ -68,7 +67,6 @@ class Users::MembershipsController < ApplicationController
   # Update the membership attributes.
   # method: PUT
   def update
-    @membership = Membership.find(params[:id])
 
     respond_to do |format|
       format.js do
@@ -84,12 +82,11 @@ class Users::MembershipsController < ApplicationController
   # Destroy the membership specified through params[:id]
   # method: DELETE
   def destroy
-    @membership = Membership.find(params[:id])
     id = @membership.id
 
-    previous_completeness = @membership.profile.percent_completed
+    previous_completeness = @membership.percent_completed
     @membership.destroy
-    current_completeness = @membership.profile.percent_completed
+    current_completeness = @membership.percent_completed
     set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 
     respond_to do |format|
@@ -101,5 +98,11 @@ class Users::MembershipsController < ApplicationController
         end
       end
     end
+  end
+  
+  private
+  
+  def fetch_membership
+    @membership = Membership.find(params[:id])
   end
 end

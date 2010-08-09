@@ -1,0 +1,11 @@
+<span id="<%= context %>_<%= concernment[0] %>" class="tag">
+  <%= h concernment[1] %> 
+	<% link_to url_for(:controller => 'users/users',
+                     :action => 'delete_concernment',
+                     :id => concernment[0],
+                     :tag => concernment[1],
+                     :context => context),
+               :class => 'ajax_delete'  do %>
+  <span class="delete_tag_button"></span>
+	<% end %>
+</span>

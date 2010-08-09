@@ -1,6 +1,7 @@
 class Users::SpokenLanguagesController < ApplicationController
 
   before_filter :require_user
+  before_filter :fetch_spoken_language, :except => [:new, :create]
 
   access_control do
     allow logged_in
@@ -9,7 +10,6 @@ class Users::SpokenLanguagesController < ApplicationController
   # Show the spoken language with the given id.
   # method: GET
   def show
-    @spoken_language = SpokenLanguage.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -33,7 +33,6 @@ class Users::SpokenLanguagesController < ApplicationController
   # method: GET
   def edit
     @user = @current_user
-    @spoken_language = SpokenLanguage.find(params[:id])
 
     respond_to do |format|
       format.js do
@@ -45,16 +44,12 @@ class Users::SpokenLanguagesController < ApplicationController
   # Create new spoken language for the current user.
   # method: POST
   def create
-    @spoken_language = SpokenLanguage.new()
-    @spoken_language.language = EnumKey.find(params[:spoken_language][:language])
-    @spoken_language.level = EnumKey.find(params[:spoken_language][:level])
-    @spoken_language.user_id = @current_user.id
-
-    previous_completeness = @spoken_language.profile.percent_completed
+    @spoken_language = SpokenLanguage.new(params[:spoken_language].merge({:user => @current_user}))
+    previous_completeness = @spoken_language.percent_completed
     respond_to do |format|
       format.js do
         if @spoken_language.save
-          current_completeness = @spoken_language.profile.percent_completed
+          current_completeness = @spoken_language.percent_completed
           set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 
           render_with_info do |p|
@@ -72,7 +67,6 @@ class Users::SpokenLanguagesController < ApplicationController
   # Update the spoken languages attributes
   # method: PUT
   def update
-    @spoken_language = SpokenLanguage.find(params[:id])
 
     respond_to do |format|
       format.js do
@@ -89,13 +83,12 @@ class Users::SpokenLanguagesController < ApplicationController
   # Remove the spoken language specified through id
   # method: DELETE
   def destroy
-    @spoken_language = SpokenLanguage.find(params[:id])
 
     id = @spoken_language.id
 
-    previous_completeness = @spoken_language.profile.percent_completed
+    previous_completeness = @spoken_language.percent_completed
     @spoken_language.destroy
-    current_completeness = @spoken_language.profile.percent_completed
+    current_completeness = @spoken_language.percent_completed
     set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
 
     respond_to do |format|
@@ -109,5 +102,10 @@ class Users::SpokenLanguagesController < ApplicationController
         end
       end
     end
+  end
+  
+  private
+  def fetch_spoken_language
+    @spoken_language = SpokenLanguage.find(params[:id])
   end
 end

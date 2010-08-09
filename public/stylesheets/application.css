@@ -133,11 +133,6 @@
   width: 195px;
 }
 
-.right_block_illustration {
-  float: left;
-  position: relative;
-  left: 25px;
-}
 
 /* FUNCTION BUTTONS */
 
@@ -311,6 +306,7 @@
 
 .pagination .current {
   color: #7bb031;
+  cursor: default;
 }
 
 .pagination .prev_page, .pagination .next_page {
@@ -338,10 +334,12 @@
 
 .pagination .prev_page.disabled {
   background-position: 0 -78px;
+  cursor: default;
 }
 
 .pagination .next_page.disabled {
   background-position: -37px -78px;
+  cursor: default;
 }
 
 

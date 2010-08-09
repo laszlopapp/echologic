@@ -1,8 +1,8 @@
 <li>
   <% form_tag user_spoken_languages_path(@user), :method => :post, :id => dom_class(SpokenLanguage, :new) do -%>
-    <%= select_tag 'spoken_language[language]',
+    <%= select_tag 'spoken_language[language_id]',
                    options_for_select(EnumKey.languages.collect { |l| [l.get_current_enum_value.value,l.id] }.sort) %>
-	  <%= select_tag 'spoken_language[level]',
+	  <%= select_tag 'spoken_language[level_id]',
                    options_for_select(EnumKey.language_levels.collect { |l| [l.get_current_enum_value.value,l.id] }) %>
     <%= submit_tag I18n.t('application.general.create'),
                    :class => 'text_button add_text_button',

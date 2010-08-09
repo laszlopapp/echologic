@@ -97,7 +97,7 @@ en:
       tabs:
         welcome: Welcome
         profile: My Profile
-        organisations: Organisations
+        settings: Settings
       profile_complete: '{{complete}}% complete'
 
   # ----------------
@@ -109,9 +109,9 @@ en:
     text: |
       <p>
       <strong>Discuss - Connect - Act!</strong><br/>
-      These are the three functional areas of echo being developed at echologic with your active participation.<br/>
+      These are the three functional areas of echo being developed at echologic with your active participation.
       The Roadmap (in the upper left corner of the screen) always shows you the
-      <strong>current state of development</strong> and the next steps planned in the area you are looking at.
+      current state of development and the next steps planned in the area you are looking at.
       </p><p>
       As a mover at echologic you are welcome to <strong>engage into the evolution of echo</strong>!<br/>
       Until now, the following simple features have been released:
@@ -125,8 +125,8 @@ en:
     function_3:
       name: 'Discuss'
       description: |
-        Engage into the evolution of echo.<br/>
-        Exchange your ideas with other newthinkers on topics about sustainablity and democracy.
+        Exchange your ideas with other newthinkers. Engage into the evolution of echo.
+
 
 
 
@@ -243,6 +243,13 @@ en:
         decision_making: <strong>Decision maker</strong> in the field of
       tags: Keywords (tags)
 
+    # Email Notification section
+    email_notification:
+      title: Email Notification
+      guide: Here you can set if you want to receive a weekly email notification with your subscribed entities related updates.
+      label: Weekly update on discussions
+
+
     users:
       new:
         title: Your echo
@@ -254,9 +261,10 @@ en:
           As a project for supporting common good, echo is driven forward by the
           <strong>joint effort</strong> of engaged individuals and organizations.
           </p><p>
-          Eager to <strong>contribute your ideas</strong>, too!?<br/>
+          Eager to <strong>participate</strong>!?<br/>
           Please enter your name and E-Mail address below!<br/>
-          <strong>Form echo</strong> and <strong>discuss topics on sustainability</strong> and democracy with other engaged citizens, experts and representatives.
+          <strong>Form echo</strong> and <strong>discuss topics on sustainability</strong> and democracy with other
+          engaged citizens, experts and representatives.
           </p>
         action: 'Join now!'
 
@@ -267,7 +275,12 @@ en:
     reports:
       new:
         title:  "Report user"
-        text:   "<p>Did you see <strong>offensive, unethical or illegal content?</strong><br/>If so, here you can report the user to our administrative team.</p><p>We will check the issue as soon as possible.</p>"
+        text: |
+          <p>Did you see <strong>offensive, unethical or illegal content?</strong><br/>
+          If so, here you can report the user to our administrative team.
+          </p><p>
+          We will check the issue as soon as possible.
+          </p>
       messages:
         created: "Thank you for your message. An administrator was notified."
 
@@ -308,125 +321,6 @@ en:
     search:
       title: Search
       in: 'In {{category}}:'
-    topics:
-      description: Description
-      echonomyjam:
-        continues: 'continues online!'
-        register_here: 'Click here to register!'
-        name: echonomyJAM
-        short_name: echonomyJAM
-        teaser: Find new ways towards an eco-socially sustainable, democratic economy.
-        description: |
-          <p>
-          <strong>echonomy</strong> stands for a new form of <strong>ecologically and socially sustainable, democratic economy</strong>,
-          which defines profit also through the welfare of humans and nature.
-          </p><p>
-          <strong>echonomyJAM</strong> brings together creative heads, investors, business experts and
-          decision makers from politics and economy, and enables them to jointly develop,
-          finance and realize concrete projects - all this in the spirit of echonomic sustainability.<br/>
-          The discussions on the most important topics and ideas brought up by the ca. <strong>150 participants</strong> of the
-          <strong>kick-off event in the Bavarian Parliament</strong> are now continued online here at echologic.
-          (More infos under <a href='http://www.echonomyJAM.org' target='_blank'>www.echonomyJAM.org</a>).
-          </p>
-      echocracy:
-        name: echocracy
-        short_name: echocracy
-        teaser: Discuss your vision of a global democracy of echo.
-        description: |
-          <p>
-          echo aims to serve as the global agora of a <strong>new form of participatory democracy</strong>, which we call echocracy.<br>
-          <strong>echocracy</strong> is constructive, equitable and self organizing - worldwide!
-          </p><p>
-          Contribute your ideas! Let's <strong>turn this vision of global democracy into reality</strong>!
-          </p>
-      echo:
-        name: echo
-        short_name: echo
-        teaser: Contribute your ideas to the further development of echo.
-        description: |
-          <p>
-          As a mover at echologic you are kindly invited to actively <strong>engage into the evolution of echo</strong>!
-          Which functions are the most important for you and which ones should be implemented next?
-          Discuss your idees with other movers and contribute to <strong>make more (out of) echo</strong>
-          than we might have ever imagined!
-          </p>
-      echosocial:
-        name: echo social
-        short_name: echo social
-        teaser: |
-          For an echo of your network. Form the emergence of echo social.
-        description: |
-          <p>
-          <a href='http://www.echosocial.org' target='_blank'>echo social</a> is the <strong>open source</strong> solution
-          to create your own <strong>social network</strong> with comprehensive functionality and your
-          <strong>individual website</strong> - for <strong>free</strong>!
-          </p><p>
-          Tell us what you need most to collaborate efficiently, to connect to others and to jointly make your actions successful.<br/>
-          echo social will be released <strong>in a few weeks</strong>. However, your <strong>wishes and priorities</strong>
-          flow into the development process already now. More infos under
-          <a href='http://www.echosocial.org' target='_blank'>www.echosocial.org</a>.
-          </p>
-      realprices:
-        name: Price Transparency - Economical, Ecological, Fair
-        short_name: Price Transparency
-        teaser: |
-          Dialogue across the boundaries of cities and institutions to support exchange and networking about cost
-          transparency for products and services.
-        description: |
-          <p>
-          What is the price of products composed of and what are the <strong>social and ecological follow-up costs</strong> behind them?
-          What advantages can we expect from regional, fair and eco-friendly trade? How can we make prices
-          transparent and be part of the consumers buying decision?
-          </p><p>
-          The interactive dialogue started at two <strong>interregional events</strong> on April 26 2010 in Berlin and Munich
-          with partners from Austria and Switzerland.
-          </p><p>
-          Background information can be found at the <a href='http://www.netzwerk-gemeinsinn.net/content/view/625/218' target='_blank'>blog of Netzwerk Gemeinsinn</a>.
-          </p>
-      igf:
-        name: Internet Governance Forum - Deutschland
-        short_name: IGF-D
-        teaser: |
-          The <a href='http://www.igf-d.org' target='_blank'>IGF-D</a> is an open and informal multistakeholder
-          discussion platform for government, private business und civil society.
-        description: |
-           <p>
-           With the inclusion of the German technological and academic community, it discusses the future development
-           of the internet. The work of the IGF-D focuses on the global topics of the
-           <strong><a href='http://www.intgovforum.org' target='_blank'>IGF of the United Nations (UN-IGF)</a></strong>
-           (diversity, openness, security, critical internet resources and the <strong>future of the internet</strong>)
-           with specific consideration for the problems and interests in Germany.
-           </p><p>
-           Goals of the IGF-D are:
-             <ul>
-               <li>
-                 Promoting dialogue between stakeholders on specific topics concerning internet development to
-                 further increase German potencial.
-               </li>
-               <li>
-                 Preparing and enriching the German stakeholders' contribution to the Internet Governance Forum of the
-                 United Nations.
-               </li>
-             </ul>
-           </p>
-      klimaherbsttv:
-        name: Klimaherbst TV (Climate Autumn TV)
-        short_name: Klimaherbst TV
-        teaser: |
-          Discuss about "usage behavior, lifestyles and health" concerning the ecology guideline being prepared
-          for the city of Munich.
-        description: |
-          <p>
-          In Munich, the <strong>ecology guideline</strong> to climate protection is going to be submitted to the
-          council - currently we are in the public phase, which  allows citizens to
-          <strong>participate in the discussions</strong> and to take position.
-          Some of the discussed questions are: How much are we willing to waive?
-          How far do we want to go rebuilding our transport system? Where should be invested?
-          How can the city support the change of lifestyle?
-          <br/>
-          For more infos about the Klimaherbst TV event series, click
-          <a href='http://www.klimaherbst.de/hallo-offentlichkeit' target='_blank'>here</a>.
-          </p>
 
     tooltips:
       read_question: 'Go to this question'
@@ -455,7 +349,7 @@ en:
         (Afterwards no further editing is possible.)
 
     statements:
-      label: 'echos'
+      label: 'votes'
       create_question_link: 'Open a new discussion'
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
@@ -469,6 +363,9 @@ en:
       create_improvement_proposal_explanation: |
         Do you have a <strong>good idea</strong> to <strong>make the current proposal even better</strong>?<br/>
         Here you can create a <strong>new improvement proposal</strong>.
+      create_statement_language_hint: |
+        Please post the statement in <strong>ENGLISH</strong> or choose another language
+        using the babelfish in the upper menu.
       publish: Release
       published: Discussion has been released successfully.
       edit: 'Edit {{type}}'
@@ -485,15 +382,21 @@ en:
         question: 'Questions'
         proposal: 'Proposals'
         improvement_proposal: 'Improvement Proposals'
+
+      topic: Topic (Tags / Keywords)
       states:
         label: 'Publish discussion immediately?'
         deferred_publish: 'Set up at first and publish later'
         immediate_publish: 'Publish immediately (no further editing is possible)'
-        published: Published
-      delete_link: "Delete"
-      delete_confirmation: "Are you sure you want to delete this statement?"
+        published: Released
+      delete_link: 'Delete'
+      delete_confirmation: 'Are you sure you want to delete this statement?'
+      read_only_permission: |-
+        This is a transparent but currently closed discussion, you are only allowed to read.
+
     summary:
       title: 'Summary'
+
     messages:
       created: "The new {{type}} has been entered successfully."
       updated: "The {{type}} has been updated successfully."
@@ -623,3 +526,33 @@ en:
       user_session:
         email: E-Mail
         password: Password
+
+  mail:
+    activity_tracking:
+      subject: Activity Tracking
+      cancel: |
+        If you do not wish to receive the updated to your followed themes on a weekly basis, please go to your profile
+        and uncheck your email notification option.
+
+    root:
+      new_entry: "New entry in the '{{title}}' debate"
+    parent:
+      new_entry: "New entry in the '{{title}}' proposal belonging to the '{{question_title}}' debate"
+    questions:
+      text1: 'New Debates!'
+      new_questions: 'New Debates from last week: {{count}}'
+      tags_intro: 'New Tags from last week:'
+      tag: "<a href='http://www.echologic.org/{{code}}/discuss/search?value={{tag}}'>{{tag}}</a> ({{count}})"
+    proposal:
+      new: |
+        <p>
+        New proposal added with title
+        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{parent_id}}/proposals/{{id}}'>{{title}}</a>
+        </p>
+    improvement_proposal:
+      new: |
+        <p>
+        New improvement proposal added with title
+        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
+        {{title}}</a>
+        </p>

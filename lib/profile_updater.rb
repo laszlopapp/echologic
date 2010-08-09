@@ -1,4 +1,4 @@
-# this module ist meant to be included in all associated profile fields (e.g. concernments)
+# this module ist meant to be included in all associated profile fields
 module ProfileUpdater
   def self.included(base)
     base.instance_eval do
@@ -12,7 +12,7 @@ module ProfileUpdater
     # updates the profile 
     def update_profile
       if self.user and self.user.profile
-        self.user.profile.calculate_completeness
+        self.user.calculate_completeness
         self.user.profile.save
       end
     end

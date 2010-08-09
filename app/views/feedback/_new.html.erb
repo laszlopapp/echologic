@@ -8,7 +8,7 @@
 
   <p>
     <%= label_tag I18n.t('application.general.name'), nil %><br />
-    <%= f.text_field :name, :value => (current_user.profile.full_name rescue "") %><br/>
+    <%= f.text_field :name, :value => (current_user.full_name rescue "") %><br/>
   </p>
 
   <p>

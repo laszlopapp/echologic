@@ -1,0 +1,221 @@
+
+en:
+
+  discuss:
+    topics:
+
+      echonomyjam:
+        continues: 'continues online!'
+        register_here: 'Click here to register!'
+        name: echonomyJAM
+        short_name: echonomyJAM
+        teaser: Find new ways towards an eco-socially sustainable, democratic economy.
+        description: |-
+          <p>
+          <strong>echonomy</strong> stands for a new form of <strong>ecologically and socially sustainable, democratic economy</strong>,
+          which defines profit also through the welfare of humans and nature.
+          </p><p>
+          <strong>echonomyJAM</strong> brings together creative heads, investors, business experts and
+          decision makers from politics and economy, and enables them to jointly develop,
+          finance and realize concrete projects - all this in the spirit of echonomic sustainability.<br/>
+          The discussions on the most important topics and ideas brought up by the ca. <strong>150 participants</strong> of the
+          <strong>kick-off event in the Bavarian Parliament</strong> are now continued online here at echologic.
+          (More infos under <a href='http://www.echonomyJAM.org' target='_blank'>www.echonomyJAM.org</a>).
+          </p>
+
+      echocracy:
+        name: echocracy
+        short_name: echocracy
+        teaser: Discuss your vision of a global democracy of echo.
+        description: |-
+          <p>
+          echo aims to serve as the global agora of a <strong>new form of participatory democracy</strong>, which we call echocracy.<br>
+          <strong>echocracy</strong> is constructive, equitable and self organizing - worldwide!
+          </p><p>
+          Contribute your ideas! Let's <strong>turn this vision of global democracy into reality</strong>!
+          </p>
+
+      echo:
+        name: echo
+        short_name: echo
+        teaser: Contribute your ideas to the further development of echo.
+        description: |-
+          <p>
+          As a mover at echologic you are kindly invited to actively <strong>engage into the evolution of echo</strong>!
+          Which functions are the most important for you and which ones should be implemented next?
+          Discuss your ideas with other movers and contribute to <strong>make more (out of) echo</strong>
+          than we might have ever imagined!
+          </p>
+
+      echosocial:
+        name: echo social
+        short_name: echo social
+        teaser: |
+          For an echo of your network. Form the emergence of echo social.
+        description: |-
+          <p>
+          <a href='http://www.echosocial.org' target='_blank'>echo social</a> is the <strong>open source</strong> solution
+          to create your own <strong>social network</strong> with comprehensive functionality and your
+          <strong>individual website</strong> - for <strong>free</strong>!
+          </p><p>
+          Tell us what you need most to collaborate efficiently, to connect to others and to jointly make your actions successful.<br/>
+          echo social will be released <strong>in a few weeks</strong>. However, your <strong>wishes and priorities</strong>
+          flow into the development process already now. More infos under
+          <a href='http://www.echosocial.org' target='_blank'>www.echosocial.org</a>.
+          </p>
+
+      realprices:
+        name: Price Transparency - Economical, Ecological, Fair
+        short_name: Price Transparency
+        teaser: |
+          Dialogue across the boundaries of cities and institutions to support exchange and networking about cost
+          transparency for products and services.
+        description: |-
+          <p>
+          What is the price of products composed of and what are the <strong>social and ecological follow-up costs</strong> behind them?
+          What advantages can we expect from regional, fair and eco-friendly trade? How can we make prices
+          transparent and be part of the consumers buying decision?
+          </p><p>
+          The interactive dialogue started at two <strong>interregional events</strong> on April 26 2010 in Berlin and Munich
+          with partners from Austria and Switzerland.
+          </p><p>
+          Background information can be found at the <a href='http://www.netzwerk-gemeinsinn.net/content/view/625/218' target='_blank'>blog of Netzwerk Gemeinsinn</a>.
+          </p>
+
+      igf:
+        name: Internet Governance Forum - Deutschland
+        short_name: IGF-D
+        teaser: |
+          The <a href='http://www.igf-d.org' target='_blank'>IGF-D</a> is an open and informal multistakeholder
+          discussion platform for government, private business und civil society.
+        description: |-
+           <p>
+           With the inclusion of the German technological and academic community, it discusses the future development
+           of the internet. The work of the IGF-D focuses on the global topics of the
+           <strong><a href='http://www.intgovforum.org' target='_blank'>IGF of the United Nations (UN-IGF)</a></strong>
+           (diversity, openness, security, critical internet resources and the <strong>future of the internet</strong>)
+           with specific consideration for the problems and interests in Germany.
+           </p><p>
+           Goals of the IGF-D are:
+             <ul>
+               <li>
+                 Promoting dialogue between stakeholders on specific topics concerning internet development to
+                 further increase German potencial.
+               </li>
+               <li>
+                 Preparing and enriching the German stakeholders' contribution to the Internet Governance Forum of the
+                 United Nations.
+               </li>
+             </ul>
+           </p>
+
+      klimaherbsttv:
+        name: Klimaherbst TV (Climate Autumn TV)
+        short_name: Klimaherbst TV
+        teaser: |
+          Discuss about "usage behavior, lifestyles and health" with respect to the ecology guideline
+          being prepared for the city of Munich.
+        description: |-
+          <p>
+          In Munich, the <strong>ecology guideline</strong> to climate protection is going to be submitted to the
+          council - currently we are in the public phase, which  allows citizens to
+          <strong>participate in the discussions</strong> and to take position.
+          Some of the discussed questions are: How much are we willing to waive?
+          How far do we want to go rebuilding our transport system? Where should be invested?
+          How can the city support the change of lifestyle?
+          <br/>
+          For more infos about the Klimaherbst TV event series, click
+          <a href='http://www.klimaherbst.de/hallo-offentlichkeit' target='_blank'>here</a>.
+          </p>
+
+      pep-net:
+        name: Pan European eParticipation Network
+        short_name: PEP-NET
+        teaser: |
+          All PEP-NET members are invited to join this discussion on the future of PEP-NET.
+        description: |-
+          <p>
+          In May 2010, a Temporary Steering Committee was formed after the general meeting of PEP‐NET held in Krems,
+          Austria. The aim of this committee was to <strong>prepare a vision statement and agenda for the
+          new entity</strong> that many partners would appreciate to be born after the end of the EU funding for
+          the project – approximately by the end of this year.
+          In order to collect meaningful and useful information from the current members on the future of
+          PEP‐NET, the results of the steering committee's work were taken over to echo to be further
+          deliberated.
+          The results of this online-deliberation will serve as a starting point for the PEP-NET conference on
+          the 23th of September in Hamburg.
+          </p><p>
+          The deliberative process is divided into two stages:
+            <ol>
+              <li>
+                An initial <strong>brainstorming stage</strong> (taking place from July 19. to Aug. 15) to
+                collect problems, opinions and make the support for different positions visible.
+              </li>
+              <li>
+                A <strong>drafting stage</strong> (starting on Aug. 16 and lasting until Sept. 19) to aggregate brainstorming
+                results into jointly elaborated proposals.
+              </li>
+            </ol>
+          </p>
+
+      huwy:
+        name: HUWY - Hub Websites for Youth Participation
+        short_name: HUWY
+        teaser: |
+          The HUWY project invites all young people to talk about and influence policies
+          and laws affecting the Internet.
+        description: |-
+          <p>
+          <a href='http://www.huwy.eu/uk' target='_blank'>HUWY</a> aims to channel the results of the discussions to
+          representatives in governments and parliaments working on these policies. HUWY supports
+          <strong>young people</strong> and youth groups to investigate various <strong>issues about the net</strong>
+          in their own way and help to publish their results and ideas in a way that is
+          <strong>useful for policy makers</strong>.
+          </p><p>
+          Discussion topics are:
+          <ul>
+            <li>Cyberbullying</li>
+            <li>Freedom of speech and censorship</li>
+            <li>Phishing, ID theft and privacy</li>
+            <li>Filesharing</li>
+            <li>Open Topic</li>
+          </ul>
+          </p>
+          <p>
+          To find out more about the project or to get involved in HUWY, please visit
+          <a href='http://www.huwy.eu' target='_blank'>www.huwy.eu</a>.
+          </p>
+
+      eci:
+        name: Advisory Board on the European Citizens' Initiative
+        short_name: ECI Advisory Board
+        teaser: |
+          The ECI Advisory Board creates recommendations on how to make the European Citizens´ Initiative an
+          effective instrument for a more participative Europe.
+        description: |-
+          <p>
+          The ECI Advisory Board is a non official forum. Together with Matthias Groote and Gerald Haefner,
+          it was founded by a <strong>core of experts</strong> from a range of member states
+          with backing from a growing number of MEPs.
+          </p><p>
+          Its overall goal is to <strong>bail out ECIs potential</strong> to become a means of discursive
+          appropriation of Europe by its citizens, making them co-authors of the European endeavor and thus to
+          reestablish citizens´ faith in European democracy. The board will <strong>elaborate recommendations</strong>
+          on the different aspects concerning ECIs effective implementation. This includes the development of concepts
+          for a consistent combination of <strong>offline and online methods for deliberation and proactive agenda
+          setting</strong>. The recommendations elaborated by the board will be presented to the
+          European Parliament, the responsible committees and the European Commission.
+          </p><p>
+            The deliberative process is divided into two stages:
+            <ol>
+              <li>
+                An initial <strong>brainstorming stage</strong> (taking place from Aug. 6 to Aug. 18) to collect
+                problems, opinions and make the support for different positions visible.
+              </li>
+              <li>
+                A <strong>drafting stage</strong> (starting on Aug. 18 and lasting until Sept. 6) to aggregate
+                brainstorming results into jointly elaborated proposals.
+              </li>
+            </ol>
+          </p>
+

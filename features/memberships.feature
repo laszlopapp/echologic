@@ -9,7 +9,7 @@ Feature: Manage memberships
   Scenario: Add new membership
     Given I am logged in as "user" with password "true"
       And I have no memberships
-    When I go to the organisations
+    When I go to the profile
       And I fill in the following:
         | membership_organisation | Greenpeace |
         | membership_position     | Activist   |

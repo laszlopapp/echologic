@@ -1,0 +1,39 @@
+
+<% no_concernments = true %>
+
+<% if !@profile.user.blank? %>
+  <% unless @profile.spoken_languages.blank? %>
+    <% no_concernments = false %>
+    <span class="languages_label">
+      <%= Profile.human_attribute_name(:spoken_languages) %>
+    </span>
+    <% spoken_languages = [] %>
+    <% for spoken_language in @profile.spoken_languages.sort{|x,y| x.level.key <=> y.level.key} do %>
+      <% spoken_languages << '<span class="language">' +
+                             h(spoken_language.language.get_current_enum_value.value) +
+                             '</span> - ' + h(spoken_language.level.get_current_enum_value.value) %>
+      <% end %>
+    <span class="values"><%= spoken_languages.join(', ') %></span>
+  <% end %>
+
+  <% User.tag_types.each do |context| %>
+    <% context = context.to_s.singularize %>
+    <% concernments = @profile.send("#{context}_tags".to_s) %>
+    <% concernments = concernments.select {|c| c.index('*') != 0} %>
+    <% unless concernments.blank? %>
+      <% no_concernments = false %>
+      <span class="label">
+        <%= I18n.t("users.concernments.sorts.#{context}") %>
+      </span>
+      <span class="values">
+        <%= concernments.collect {|c| h(c)}.compact.join(', ') %>
+      </span>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if no_concernments %>
+  <span class="no_results">
+    <%= I18n.t('connect.messages.no_concernments') %>
+  </span>
+<% end%>
