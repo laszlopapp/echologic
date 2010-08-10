@@ -87,7 +87,7 @@ es:
 
       igf:
         name: Internet Governance Forum - Deutschland
-        short_name: IGF-D
+        short_name: IGF-Deutschland
         teaser: |
           The <a href='http://www.igf-d.org' target='_blank'>IGF-D</a> is an open and informal multistakeholder
           discussion platform for government, private business und civil society.
@@ -116,8 +116,8 @@ es:
         name: Klimaherbst TV (Climate Autumn TV)
         short_name: Klimaherbst TV
         teaser: |
-          Discuss about "usage behavior, lifestyles and health" concerning the ecology guideline being prepared
-          for the city of Munich.
+          Discuss about "usage behavior, lifestyles and health" with respect to the ecology guideline
+          being prepared for the city of Munich.
         description: |-
           <p>
           In Munich, the <strong>ecology guideline</strong> to climate protection is going to be submitted to the
@@ -188,5 +188,37 @@ es:
           To find out more about the project or to get involved in HUWY, please visit
           <a href='http://www.huwy.eu' target='_blank'>www.huwy.eu</a>.
           </p>
-      
+
+      eci:
+        name: Advisory Board on the European Citizens' Initiative
+        short_name: ECI Advisory Board
+        teaser: |
+          The ECI Advisory Board creates recommendations on how to make the European Citizens´ Initiative an
+          effective instrument for a more participative Europe.
+        description: |-
+          <p>
+          The ECI Advisory Board is a non official forum. Together with Matthias Groote and Gerald Haefner,
+          it was founded by a <strong>core of experts</strong> from a range of member states
+          with backing from a growing number of MEPs.
+          </p><p>
+          Its overall goal is to <strong>bail out ECIs potential</strong> to become a means of discursive
+          appropriation of Europe by its citizens, making them co-authors of the European endeavor and thus to
+          reestablish citizens´ faith in European democracy. The board will <strong>elaborate recommendations</strong>
+          on the different aspects concerning ECIs effective implementation. This includes the development of concepts
+          for a consistent combination of <strong>offline and online methods for deliberation and proactive agenda
+          setting</strong>. The recommendations elaborated by the board will be presented to the
+          European Parliament, the responsible committees and the European Commission.
+          </p><p>
+            The deliberative process is divided into two stages:
+            <ol>
+              <li>
+                An initial <strong>brainstorming stage</strong> (taking place from Aug. 6 to Aug. 18) to collect
+                problems, opinions and make the support for different positions visible.
+              </li>
+              <li>
+                A <strong>drafting stage</strong> (starting on Aug. 18 and lasting until Sept. 6) to aggregate
+                brainstorming results into jointly elaborated proposals.
+              </li>
+            </ol>
+          </p>
 

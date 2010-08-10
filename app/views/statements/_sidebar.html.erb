@@ -8,9 +8,7 @@
   <% unless !statement_node.echoable? || statement_node.new_record? %>
     <%= render_echo_button(url_options, !(current_user && statement_node.supported?(current_user))) %>
     <br/>
-    <span id="create_parent_element_button">
-      <%= create_children_statement_node_link(statement_node.parent, "", "create_internal_link") if statement_node.parent%>
-    </span>
+    <% create_new_sibling_statement_button(statement_node) %>
   <% end %>
 
   <% if current_user && current_user.may_delete?(statement_node) -%>

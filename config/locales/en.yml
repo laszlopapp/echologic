@@ -109,9 +109,9 @@ en:
     text: |
       <p>
       <strong>Discuss - Connect - Act!</strong><br/>
-      These are the three functional areas of echo being developed at echologic with your active participation.<br/>
+      These are the three functional areas of echo being developed at echologic with your active participation.
       The Roadmap (in the upper left corner of the screen) always shows you the
-      <strong>current state of development</strong> and the next steps planned in the area you are looking at.
+      current state of development and the next steps planned in the area you are looking at.
       </p><p>
       As a mover at echologic you are welcome to <strong>engage into the evolution of echo</strong>!<br/>
       Until now, the following simple features have been released:
@@ -125,8 +125,8 @@ en:
     function_3:
       name: 'Discuss'
       description: |
-        Engage into the evolution of echo.<br/>
-        Exchange your ideas with other newthinkers on topics about sustainablity and democracy.
+        Exchange your ideas with other newthinkers. Engage into the evolution of echo.
+
 
 
 
@@ -261,9 +261,10 @@ en:
           As a project for supporting common good, echo is driven forward by the
           <strong>joint effort</strong> of engaged individuals and organizations.
           </p><p>
-          Eager to <strong>contribute your ideas</strong>, too!?<br/>
+          Eager to <strong>participate</strong>!?<br/>
           Please enter your name and E-Mail address below!<br/>
-          <strong>Form echo</strong> and <strong>discuss topics on sustainability</strong> and democracy with other engaged citizens, experts and representatives.
+          <strong>Form echo</strong> and <strong>discuss topics on sustainability</strong> and democracy with other
+          engaged citizens, experts and representatives.
           </p>
         action: 'Join now!'
 
@@ -274,7 +275,12 @@ en:
     reports:
       new:
         title:  "Report user"
-        text:   "<p>Did you see <strong>offensive, unethical or illegal content?</strong><br/>If so, here you can report the user to our administrative team.</p><p>We will check the issue as soon as possible.</p>"
+        text: |
+          <p>Did you see <strong>offensive, unethical or illegal content?</strong><br/>
+          If so, here you can report the user to our administrative team.
+          </p><p>
+          We will check the issue as soon as possible.
+          </p>
       messages:
         created: "Thank you for your message. An administrator was notified."
 
@@ -314,7 +320,7 @@ en:
           title: Pilot Projects
     search:
       title: Search
-      in: 'In {{category}}:'
+      in: '... in {{category}} ...'
 
     tooltips:
       read_question: 'Go to this question'
@@ -343,7 +349,7 @@ en:
         (Afterwards no further editing is possible.)
 
     statements:
-      label: 'echos'
+      label: 'votes'
       create_question_link: 'Open a new discussion'
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
@@ -363,6 +369,7 @@ en:
       publish: Release
       published: Discussion has been released successfully.
       edit: 'Edit {{type}}'
+
       types:
         question:  'Question'
         proposal:  'Proposal'
@@ -375,6 +382,8 @@ en:
         question: 'Questions'
         proposal: 'Proposals'
         improvement_proposal: 'Improvement Proposals'
+
+      topic: Topic (Tags / Keywords)
       states:
         label: 'Publish discussion immediately?'
         deferred_publish: 'Set up at first and publish later'

@@ -125,8 +125,7 @@ pt:
     function_3:
       name: 'Discutir'
       description: |
-        Participe na evolução da echo.<br/>
-        Troque as suas ideias com outros novos-pensadores sobre tópicos como sustentabilidade e democracia.
+        Troque as suas ideias com outros novos-pensadores. Participe na evolução da echo.
 
 
 
@@ -312,7 +311,7 @@ pt:
           title: Projectos-piloto
     search:
       title: Procura
-      in: 'Em {{category}}:'
+      in: '... em {{category}} ...'
 
     tooltips:
       read_question: 'Ir para esta questão'
@@ -341,14 +340,14 @@ pt:
         (Não será mais possível editar a discussão.)
 
     statements:
-      label: 'echos'
+      label: 'votos'
       create_question_link: 'Abra uma nova discussão'
       create_proposal_link: 'Criar nova proposta'
       create_internal_link: 'Nova ideia?'
       create_improvement_proposal_link: 'Criar nova proposta de melhoria'
       create_question_explanation: |
         Aqui pode começar uma <strong>nova discussão</strong> e providenciar um conjunto de <strong>palavras-chave
-        temáticas</strong>  adequadas de forma a este ser facilmente encontrado.
+        temáticas</strong> adequadas de forma a este ser facilmente encontrado.
       create_proposal_explanation: |
         Tem uma <strong>boa ideia</strong> no que diz respeito à questão actual, que ainda <strong>não existe</strong>?<br/>
         Aqui pode criar uma <strong>nova proposta</strong>.
@@ -374,6 +373,8 @@ pt:
         question: 'Questões'
         proposal: 'Propostas'
         improvement_proposal: 'Propostas de Melhoria'
+
+      topic: Tópico (Tags / Palavras-chave)
       states:
         label: 'Publicar discussão?'
         deferred_publish: 'Primeiro criar e mais tarde publicar.'
@@ -619,3 +620,32 @@ pt:
           mb: "MB"
           gb: "GB"
           tb: "TB"
+  mail:
+    activity_tracking:
+      subject: Activity Tracking
+      cancel: |
+        If you do not wish to receive the updated to your followed themes on a weekly basis, please go to your profile
+        and uncheck your email notification option.
+
+    root:
+      new_entry: "New entry in the '{{title}}' debate"
+    parent:
+      new_entry: "New entry in the '{{title}}' proposal belonging to the '{{question_title}}' debate"
+    questions:
+      text1: 'New Debates!'
+      new_questions: 'New Debates from last week: {{count}}'
+      tags_intro: 'New Tags from last week:'
+      tag: "<a href='http://www.echologic.org/{{code}}/discuss/search?value={{tag}}'>{{tag}}</a> ({{count}})"
+    proposal:
+      new: |
+        <p>
+        New proposal added with title
+        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{parent_id}}/proposals/{{id}}'>{{title}}</a>
+        </p>
+    improvement_proposal:
+      new: |
+        <p>
+        New improvement proposal added with title
+        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
+        {{title}}</a>
+        </p>

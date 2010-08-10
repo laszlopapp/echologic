@@ -6,6 +6,12 @@
   color: #21587f;
 }
 
+.wysiwyg a, .wysiwyg a:visited:hover, .wysiwyg a:visited {
+  color: #21587f !important;
+  font: 14px "Lucida Sans",Arial,Helvetica,sans-serif !important;
+}
+
+
 .rte-zone {
     margin: 0;
     padding: 0;
@@ -62,98 +68,130 @@
 }
 
 .rte-toolbar select {
-    font: 10px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+    font: 10px "Lucida Sans",Arial,Helvetica,sans-serif;
     height: 16px;
     padding: 0;
     margin: 0;
 }
 
 .rte-panel {
-    position: absolute;
-    left: 0;
-    top: 0;
-    border: 1px solid #999;
-    display: block;
-    clear: both;
-    margin: 0;
-    padding: 5px 5px 0 5px;
-    background: #f0f0f0;
-    font: 10px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+  background: #FFF url("../images/jquery-ui/background_dialog_buttonbar.gif") repeat-x scroll center bottom;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: 1px solid #AAA;
+  display: block;
+  clear: both;
+  margin: 0;
+  padding: 5px 10px 0;
+  font: 10px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+  z-index: 10;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
 }
 
 .rte-panel div.rte-panel-title {
-    font-weight: bold;
-    margin: -5px -5px 5px -5px;
-    padding: 5px;
-    height: 16px;
-    line-height: 16px;
-    background: #e0e0e0;
-    border-bottom: 1px solid #ccc;
-    display: block;
-    clear: both;
-    cursor: move;
+  background: url("../images/jquery-ui/ui-bg_gloss-wave_85_9fda58_500x100.gif") repeat-x scroll 50% 65% #7AB031;
+  font-family: "Lucida Sans",Arial,Helvetica,sans-serif;
+  color: #FFF;
+  font-size: 14px;
+  font-weight: bold;
+  margin: -2px -7px 5px;
+  padding: 8px 7px 8px 10px;
+  height: 16px;
+  line-height: 16px;
+  display: block;
+  clear: both;
+  cursor: move;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
 }
 
 .rte-panel div.rte-panel-title .close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: block;
-    float: right;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: bold;
-    color: #444;
+  position: relative;
+  top: 0;
+  right: 0;
+  float: right;
+  text-decoration: none;
+  color: #21587f;
+  font-size: 13px;
+  font-weight: bold;
+  width: 14px;
+  height: 17px;
+  padding: 1px 0 0 5px;
+}
+
+.rte-panel div.rte-panel-title .close:hover {
+  color: #7bb031;
+  background-color: #FFF;
+  -moz-border-radius: 10px;
 }
 
 .rte-panel label {
-    display: block;
-    float: left;
-    width: 50px;
-    margin: 0 5px 0 2px;
-    font-weight: bold;
-    font-size: 10px;
-    text-align: right;
-    line-height: 20px;
-    font-size: 100%;
+  display: block;
+  width: 50px;
+  margin: 5px 5px 0 2px;
+  float: left !important;
+  font-weight: bold;
+  text-align: left;
+  line-height: 20px;
+  font-size: 13px !important;
 }
 
 .rte-panel input, .rte-panel select {
-    margin: 0 5px 0 2px;
-    padding: 0;
-    height: 20px;
-    font-size: 10px;
-    border: 1px solid #ccc;
-    float: left;
-    vertical-align: middle;
-    line-height: 20px;
+  margin: 0 5px 0 2px;
+  padding: 0;
+  height: 20px;
+  color: #21587f;
+  font-size: 10px;
+  border: 1px solid #aaa !important;
+  float: left;
+  vertical-align: middle;
+  line-height: 20px;
+  width: 300px !important;
+}
+
+
+.rte-panel #target {
+  height: 22px;
 }
 
 .rte-panel button {
-    margin: 0 5px 0 2px;
-    padding: 2px 5px;
-    font-size: 10px;
-    border: 1px solid #ccc;
-    float: left;
-    vertical-align: middle;
+  color: #21587f;
+  background-color: #FAFAFA;
+  margin: 0 0 0 15px;
+  padding: 2px 7px 4px;
+  font-family: "Lucida Sans",Arial,Helvetica,sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  height: 21px;
+  border: 1px solid #C8C8C8;
+  vertical-align: middle;
+  cursor: pointer;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+.rte-panel button:hover {
+  color: #7BB031;
 }
 
 .rte-panel p.submit {
-    margin: 5px -5px 0 -5px;
-    padding: 5px;
-    height: 20px;
-    line-height: 20px;
-    background: #e0e0e0;
-    border-top: 1px solid #ccc;
-    display: block;
-    clear: both;
+  background: transparent;
+  margin: 22px auto 0;
+  padding: 7px;
+  height: 25px;
+  display: block;
+  clear: both;
+  text-align: center;
+  -moz-border-radius: 0 0 10px 10px;
+  -webkit-border-radius: 0 0 10px 10px;
 }
 
 .rte-panel p.submit button {
-    width: 60px;
-    padding: 2px 5px;
-    margin-left: 10px;
-    font-weight: bold;
+  font-size: 12px;
+  min-width: 70px;
+  margin-left: 10px;
 }
 
 .rte-panel .colorpicker1, .rte-panel .colorpicker2 {

@@ -4,6 +4,9 @@ page.replace 'context',
              :partial => 'statements/context'
 page.replace 'summary',
              :partial => 'statements/summary'
+page.replace 'discuss_sidebar',
+             :partial => 'statements/sidebar'
+page.show 'discuss_sidebar'
 
 page << "makeRatiobars();"
 page << "makeTooltips();"

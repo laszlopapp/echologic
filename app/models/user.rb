@@ -19,14 +19,18 @@ class User < ActiveRecord::Base
   #last login language, important for the activity tracking email language when the user doesn't have anything set
   enum :last_login_language, :enum_name => :languages
 
-  # TODO add attr_accessible :active if needed.
+  # TODO uncomment attr_accessible :active if needed.
   #attr_accessible :active
 
   # Authlogic plugin to do authentication
   acts_as_authentic do |c|
-#    c.logged_in_timeout = 10.minutes#1.hour
-    c.validates_length_of_password_field_options = {:on => :update, :minimum => 4, :if => :has_no_credentials?}
-    c.validates_length_of_password_confirmation_field_options = {:on => :update, :minimum => 4, :if => :has_no_credentials?}
+#    c.logged_in_timeout = 10.minutes #1.hour
+    c.validates_length_of_password_field_options = {:on => :update,
+                                                    :minimum => 4,
+                                                    :if => :has_no_credentials?}
+    c.validates_length_of_password_confirmation_field_options = {:on => :update,
+                                                                 :minimum => 4,
+                                                                 :if => :has_no_credentials?}
   end
 
   # acl9 plugin to do authorization

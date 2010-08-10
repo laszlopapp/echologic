@@ -1,10 +1,11 @@
 class StatementsController < ApplicationController
+
   helper :echo
   include EchoHelper
   include StatementHelper
 
 
-  # remodelling the RESTful constraints, as a default route is currently active
+  # Remodelling the RESTful constraints, as a default route is currently active
   # FIXME: the echo and unecho actions should be accessible via PUT/DELETE only,
   #        but that is currently undoable without breaking non-js requests. A
   #        solution would be to make the "echo" button a real submit button and
@@ -14,14 +15,14 @@ class StatementsController < ApplicationController
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
 
-  # the order of these filters matters. change with caution.
+  # The order of these filters matters. change with caution.
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
   before_filter :require_user, :except => [:category, :show]
   before_filter :fetch_languages, :except => [:destroy]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
 
-  # authlogic access control block
+  # Authlogic access control block
   access_control do
     allow :editor
     allow anonymous, :to => [:index, :show, :category]
@@ -44,7 +45,8 @@ class StatementsController < ApplicationController
     statement_nodes_not_paginated = search_statement_nodes(:search_term => @value,
                                                            :language_ids => @language_preference_list,
                                                            :category => category,
-                                                           :show_unpublished => current_user && current_user.has_role?(:editor))
+                                                           :show_unpublished => current_user &&
+                                                                                current_user.has_role?(:editor))
 
     @count    = statement_nodes_not_paginated.size
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page,
@@ -57,6 +59,7 @@ class StatementsController < ApplicationController
                   :template_js => 'statements/questions/questions'
   end
 
+
   # Shows a selected statement
   #
   # Method:   GET
@@ -64,6 +67,7 @@ class StatementsController < ApplicationController
   # Response: HTTP or JS
   #
   def show
+    # Record visited
     @statement_node.visited!(current_user) if current_user
 
     # Store last statement in session (for cancel link)
@@ -77,7 +81,6 @@ class StatementsController < ApplicationController
 
     # Get document to show and redirect if not found
     @statement_document = @statement_node.translated_document(@language_preference_list)
-
     if @statement_document.nil?
       redirect_to(discuss_search_path)
       return
@@ -100,7 +103,6 @@ class StatementsController < ApplicationController
     # Find all child statement_nodes, which are published (except user is an editor)
     # sorted by supporters count, and paginate them
     @page = params[:page] || 1
-
     @children = @statement_node.sorted_children(current_user, @language_preference_list).
                   paginate(StatementNode.default_scope.merge(:page => @page,
                                                              :per_page => 5))
@@ -113,6 +115,7 @@ class StatementsController < ApplicationController
     end
   end
 
+
   # Called if user supports this statement_node. Updates the support field in the corresponding
   # echo object.
   #
@@ -121,10 +124,13 @@ class StatementsController < ApplicationController
   #
   def echo
     return if !@statement_node.echoable?
+
     @statement_node.supported!(current_user)
     @statement_node.add_subscriber(current_user)
-    respond_to_js :redirect_to => @statement_node, :template_js => 'statements/echo'
+    respond_to_js :redirect_to => @statement_node,
+                  :template_js => 'statements/echo'
   end
+
 
   # Called if user doesn't support this statement_node any longer. Sets the supported field
   # of the corresponding echo object to false.
@@ -134,9 +140,11 @@ class StatementsController < ApplicationController
   #
   def unecho
     return if !@statement_node.echoable?
+
     @statement_node.unsupported!(current_user)
     @statement_node.remove_subscriber(current_user)
-    respond_to_js :redirect_to => @statement_node, :template_js => 'statements/echo'
+    respond_to_js :redirect_to => @statement_node,
+                  :template_js => 'statements/echo'
   end
 
 
@@ -188,18 +196,21 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def new
-    @statement_node ||= statement_node_class.new(:parent => parent, :root_id => root_symbol)
+    @statement_node ||= statement_node_class.new(:parent => parent,
+                                                 :root_id => root_symbol)
     @statement_document ||= StatementDocument.new
 
     @statement_node.topic_tags << "##{params[:category]}" if params[:category]
-
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     # TODO: right now users can't select the language they create a statement in, so current_user.languages_keys.
     # first will work. once this changes, we're in trouble - or better said: we'll have to pass the language_id as a param
 
-    respond_to_js :template => 'statements/new', :partial_js => 'statements/new.rjs'
+    respond_to_js :template => 'statements/new',
+                  :partial_js => 'statements/new.rjs'
   end
-  # creates a new statement
+
+
+  # Creates a new statement.
   #
   # Method:   POST
   # Params:   statement: hash
@@ -208,9 +219,7 @@ class StatementsController < ApplicationController
   def create
     attrs = params[statement_node_symbol].merge({:creator_id => current_user.id})
     doc_attrs = attrs.delete(:statement_document)
-
     form_tags = attrs.delete(:tags)
-
 
     @statement_node ||= statement_node_class.new(attrs)
     @statement_document = @statement_node.add_statement_document(
@@ -220,6 +229,7 @@ class StatementsController < ApplicationController
       @statement_node.topic_tags=form_tags
       @tags=@statement_node.topic_tags
     end
+
     respond_to do |format|
       if permitted and @statement_node.save
         set_statement_node_info("discuss.messages.created",@statement_node)
@@ -240,7 +250,8 @@ class StatementsController < ApplicationController
     end
   end
 
-  # renders a form to edit statements
+
+  # Renders a form to edit statements
   #
   # Method:   POST
   # Params:   id: integer
@@ -253,6 +264,7 @@ class StatementsController < ApplicationController
       format.js { replace_container('summary', :partial => 'statements/edit') }
     end
   end
+
 
   # actually updates statements
   #
@@ -301,40 +313,42 @@ class StatementsController < ApplicationController
     flash_info and redirect_to :controller => 'questions', :action => :category, :id => params[:category]
   end
 
-  # processes a cancel request, and redirects back to the last shown statement_node
+  # Processes a cancel request, and redirects back to the last shown statement_node
   def cancel
     redirect_to url_f(StatementNode.find(session[:last_statement_node]))
   end
 
-  #
-  # PRIVATE
-  #
+
+  ###########
+  # PRIVATE #
+  ###########
+
+  private
 
   # Gets the correspondent statement node to the id that is given in the request
-  private
   def fetch_statement_node
     @statement_node ||= statement_node_class.find(params[:id]) if params[:id].try(:any?) && params[:id] =~ /\d+/
   end
 
-  # loads the locale language and the language preference list
+  # Loads the locale language and the language preference list
   def fetch_languages
     @locale_language_id = locale_language_id
     @language_preference_list = language_preference_list
   end
 
-  # check if text that comes with the form is actually empty, even with the escape parameters from the iframe
+  # Checks if text that comes with the form is actually empty, even with the escape parameters from the iframe
   def check_empty_text
     document_param = params[statement_node_symbol][:new_statement_document] || params[statement_node_symbol][:statement_document]
     text = document_param[:text]
     document_param[:text] = "" if text.eql?('<br>')
   end
 
-  # returns the statement node correspondent symbol (:question, :proposal...). Must be implemented by the subclasses.
+  # Returns the statement node correspondent symbol (:question, :proposal...). Must be implemented by the subclasses.
   def statement_node_symbol
     raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
 
-  # returns the statement_node class, corresponding to the controllers name. Must be implemented by the subclasses.
+  # Returns the statement_node class, corresponding to the controllers name. Must be implemented by the subclasses.
   def statement_node_class
     raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
@@ -344,15 +358,16 @@ class StatementsController < ApplicationController
     raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
 
+  # Sets the info to displayed along with the response
   def set_statement_node_info(string, statement_node)
     set_info(string, :type => I18n.t("discuss.statements.types.#{statement_node_symbol.to_s}"))
   end
 
 
 
-  ###############################
-  #### TAGS
-  ###############################
+  ###############
+  # PERMISSIONS #
+  ###############
 
   # Checks if the statement node or parent has a * tag and the user has permission for it
   def require_decision_making_permission
@@ -377,8 +392,10 @@ class StatementsController < ApplicationController
     return true
   end
 
+
   # Checks whether the user is allowed to assign the given hash tags (#tag)
   def check_hash_tag_permissions(tags_values)
+
     # Editors can define all tags
     return true if current_user.has_role? :editor
 
@@ -397,17 +414,16 @@ class StatementsController < ApplicationController
     @error.nil? ? true : false
   end
 
-  def load_to_session(statement_node)
-    type = statement_node_class.to_s.underscore
-    key = ("current_" + type).to_sym
-    session[key] = statement_node.parent.children.map{|s|s.id}
-    session[:last_statement_node] = statement_node.id
-  end
+
+  ##########
+  # SEARCH #
+  ##########
 
   # Calls the statement node sql query for questions.
   def search_statement_nodes (opts = {})
     StatementNode.search_statement_nodes(opts.merge({:type => "Question"}))
   end
+
 
   # Gets all the statement documents belonging to a group of statements, and orders them per language ids.
   def search_statement_documents (statement_ids, language_ids = @language_preference_list)
@@ -421,6 +437,20 @@ class StatementsController < ApplicationController
     end
     hash
   end
+
+
+  ########
+  # MISC #
+  ########
+
+  # Saves the current statement node to the session to enable back navigation
+  def load_to_session(statement_node)
+    type = statement_node_class.to_s.underscore
+    key = ("current_" + type).to_sym
+    session[key] = statement_node.parent.children.map{|s|s.id}
+    session[:last_statement_node] = statement_node.id
+  end
+
 end
 
 

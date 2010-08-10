@@ -124,8 +124,7 @@ de:
     function_3:
       name: 'Diskutieren'
       description: |
-        Bringen Sie sich in die weitere Entwicklung echos ein.<br/>
-        Tauschen Sie Ihre Ideen mit anderen NeudenkerInnen über Themen der Nachhaltigkeit und Demokratie aus.
+        Tauschen Sie Ihre Ideen mit anderen NeudenkerInnen. Bringen Sie sich in die weitere Entwicklung echos ein.
 
 
   # ------------
@@ -259,10 +258,10 @@ de:
           <strong>gemeinsamen Anstrengungen</strong> engagierter Menschen und
           Organisationen vorangetrieben.
           </p><p>
-          Möchten auch Sie Ihre <strong>Ideen beisteuern</strong>?<br/>
+          Möchten auch Sie sich <strong>beteiligen</strong>?<br/>
           Dann tragen Sie einfach Ihren Namen und Ihre E-Mail Adresse ein!<br/>
-          <strong>Gestalten Sie echo</strong> und <strong>diskutieren Sie über Themen der Nachhaltigkeit</strong> und Demokratie
-          mit anderen engagierten BürgerInnen, ExpertInnen und PolitikerInnen.
+          <strong>Gestalten Sie echo</strong> und <strong>diskutieren Sie über Themen der Nachhaltigkeit</strong> und
+          Demokratie mit anderen engagierten BürgerInnen, ExpertInnen und PolitikerInnen.
           </p>
         action: 'Jetzt beitreten!'
 
@@ -273,7 +272,12 @@ de:
     reports:
       new:
         title:  "Benutzer melden"
-        text:   "<p>Haben Sie <strong>beleidigenden, unethischen oder illegalen Inhalt gesehen?</strong><br/> Wenn ja, hier können Sie uns den Benutzer melden.</p><p>Wir werden uns schnellstmöglich um Ihren Hinweis kümmern.<p>"
+        text: |
+          <p>Haben Sie <strong>beleidigenden, unethischen oder illegalen Inhalt gesehen?</strong><br/>
+          Wenn ja, hier können Sie uns den Benutzer melden.
+          </p><p>
+          Wir werden uns schnellstmöglich um Ihren Hinweis kümmern.
+          </p>
       messages:
         created: "Danke für Ihre Mitteilung. Wir werden uns um die Angelegenheit kümmern."
 
@@ -314,7 +318,7 @@ de:
           title: Pilot Projekte
     search:
       title: Suchen
-      in: 'In {{category}}:'
+      in: '... in {{category}} ...'
 
     tooltips:
       read_question: 'Diese Frage anschauen'
@@ -343,7 +347,7 @@ de:
         (Danach ist keine Bearbeitung mehr möglich.)
 
     statements:
-      label: 'echos'
+      label: 'Stimmen'
       create_question_link: 'Neue Diskussion eröffnen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
       create_internal_link: 'Neue Idee?'
@@ -376,6 +380,8 @@ de:
         question: 'Fragen'
         proposal: 'Vorschläge'
         improvement_proposal: 'Ergänzungsvorschläge'
+
+      topic: Thema (Tags / Schlüsselwörte)
       states:
         label: 'Diskussion sofort veröffentlichen?'
         deferred_publish: 'Erstmal weiter vorbereiten und später veröffentlichen'
@@ -625,3 +631,33 @@ de:
           mb: "MB"
           gb: "GB"
           tb: "TB"
+
+  mail:
+    activity_tracking:
+      subject: Activity Tracking
+      cancel: |
+        If you do not wish to receive the updated to your followed themes on a weekly basis, please go to your profile
+        and uncheck your email notification option.
+
+    root:
+      new_entry: "New entry in the '{{title}}' debate"
+    parent:
+      new_entry: "New entry in the '{{title}}' proposal belonging to the '{{question_title}}' debate"
+    questions:
+      text1: 'New Debates!'
+      new_questions: 'New Debates from last week: {{count}}'
+      tags_intro: 'New Tags from last week:'
+      tag: "<a href='http://www.echologic.org/{{code}}/discuss/search?value={{tag}}'>{{tag}}</a> ({{count}})"
+    proposal:
+      new: |
+        <p>
+        New proposal added with title
+        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{parent_id}}/proposals/{{id}}'>{{title}}</a>
+        </p>
+    improvement_proposal:
+      new: |
+        <p>
+        New improvement proposal added with title
+        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
+        {{title}}</a>
+        </p>

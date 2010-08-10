@@ -124,8 +124,7 @@ es:
     function_3:
       name: 'Discutir'
       description: |
-        Intercambie con otros pensadores tus ideas sobre sostenibilidad y democracia.<br/>
-        Participe en la evolución de echo.
+        Intercambie con otros pensadores tus ideas. Participe en la evolución de echo.
 
   # ------------
   # USERS MODULE
@@ -325,7 +324,7 @@ es:
           title: Proyectos piloto
     search:
       title: Buscar
-      in: 'En {{category}}:'
+      in: '... en {{category}} ...'
 
     tooltips:
       read_question: 'Mirar esta cuestión'
@@ -354,7 +353,7 @@ es:
         (No será possible modificar la discusión.)
 
     statements:
-      label: 'echos'
+      label: 'votos'
       create_question_link: 'Crear nueva discusión'
       create_proposal_link: 'Crear nueva propuesta'
       create_internal_link: 'Nueva Idea?'
@@ -389,6 +388,8 @@ es:
         question: 'Cuestiones'
         proposal: 'Propuestas'
         improvement_proposal: 'Propuesta de mejoramiento'
+
+      topic: Tema (Tags / Palabras clave)
       states:
         label: 'Publicar discusión de inmediato?'
         deferred_publish: 'Solamente guardar y publicar mas tarde'
@@ -639,3 +640,33 @@ es:
           mb: "MB"
           gb: "GB"
           tb: "TB"
+
+  mail:
+    activity_tracking:
+      subject: Activity Tracking
+      cancel: |
+        If you do not wish to receive the updated to your followed themes on a weekly basis, please go to your profile
+        and uncheck your email notification option.
+
+    root:
+      new_entry: "New entry in the '{{title}}' debate"
+    parent:
+      new_entry: "New entry in the '{{title}}' proposal belonging to the '{{question_title}}' debate"
+    questions:
+      text1: 'New Debates!'
+      new_questions: 'New Debates from last week: {{count}}'
+      tags_intro: 'New Tags from last week:'
+      tag: "<a href='http://www.echologic.org/{{code}}/discuss/search?value={{tag}}'>{{tag}}</a> ({{count}})"
+    proposal:
+      new: |
+        <p>
+        New proposal added with title
+        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{parent_id}}/proposals/{{id}}'>{{title}}</a>
+        </p>
+    improvement_proposal:
+      new: |
+        <p>
+        New improvement proposal added with title
+        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
+        {{title}}</a>
+        </p>
