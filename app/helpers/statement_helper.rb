@@ -167,20 +167,15 @@ module StatementHelper
   end
 
   def create_question_link_for(category=nil)
-    link_to(hash_for_new_question_path.merge({:category => category})) do
+    link_to(hash_for_new_question_path.merge({:category => category}),
+            :id => 'create_question_link') do
       content_tag(:span, '',
                   :class => "new_question create_statement_button_mid create_question_button_mid ttLink no_border",
                   :title => I18n.t("discuss.tooltips.create_question"))
     end
   end
 
-  def create_question_link_for(category = "")
-    link_to(I18n.t("discuss.statements.create_question_link"),
-            hash_for_new_question_path.merge({:category => category}),
-            :class=> 'text_button create_question_button no_border')
-  end
-
-  def edit_statement_node_link(statement_node, statement_document)
+  def edit_statement_node_link(statement_node)
     if current_user and
        (current_user.may_edit? or
        (statement_node.authors.include?(current_user) and !statement_node.published?))
@@ -188,7 +183,7 @@ module StatementHelper
               :class => 'ajax header_button text_button edit_text_button')
     end
   end
-  
+
   # Returns the block heading for the children of the given statement_node
   def children_box_title(statement_node)
     type = statement_node_class_dom_id(statement_node.class.expected_children.first)
