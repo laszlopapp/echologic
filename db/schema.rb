@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20100806131450) do
 
   create_table "drafting_infos", :force => true do |t|
     t.integer  "statement_node_id"
-    t.datetime "state_since",       :default => '2010-08-06 15:31:08'
+    t.datetime "state_since",       :default => '2010-08-10 17:37:59'
     t.integer  "times_passed",      :default => 0
   end
 
@@ -157,13 +157,14 @@ ActiveRecord::Schema.define(:version => 20100806131450) do
   create_table "statement_documents", :force => true do |t|
     t.string   "title"
     t.text     "text"
+    t.integer  "language_id"
     t.integer  "statement_id"
+    t.integer  "current"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "language_id"
-    t.integer  "current"
   end
 
+  add_index "statement_documents", ["language_id"], :name => "index_statement_documents_on_language_id"
   add_index "statement_documents", ["statement_id", "id"], :name => "index_statement_documents_on_statement_id_and_id"
 
   create_table "statement_histories", :force => true do |t|
