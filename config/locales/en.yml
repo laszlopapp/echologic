@@ -25,6 +25,7 @@ en:
       upload: Upload
       delete: Delete
       create: Add
+      incorporate: Incorporate
       welcome: Welcome
       all: All
 
@@ -389,10 +390,14 @@ en:
         deferred_publish: 'Set up at first and publish later'
         immediate_publish: 'Publish immediately (no further editing is possible)'
         published: Released
+        approved: Approved
       delete_link: 'Delete'
       delete_confirmation: 'Are you sure you want to delete this statement?'
       read_only_permission: |-
         This is a transparent but currently closed discussion, you are only allowed to read.
+      unsupported_parent: |-
+        You can only support improvement proposals if you support the proposal itself.
+        
 
     summary:
       title: 'Summary'
@@ -402,6 +407,7 @@ en:
       updated: "The {{type}} has been updated successfully."
       deleted: "The {{type}} has been deleted successfully."
       translated: "The {{type}} has been translated successfully."
+      incorporated: "The {{type}} has been complemented successfully with your Improvement Proposal."
       empty:   "No discussions found. Please change your search criteria."
       empty_without_spoken_languages: |
         No discussions found. You can try defining your <a href='{{my_echo}}'>language skills</a>
@@ -556,3 +562,120 @@ en:
         <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
         {{title}}</a>
         </p>
+  notification_mailer:
+    approval:
+      subject: Your Improvement Proposal was Approved!
+      text: |
+        Dear {{name}},
+
+        Your Improvement Proposal "{{title}}" was selected to be incorporated in its proposal. To do that, you need to 
+        follow the link below:
+
+        {{link}}
+        
+        You will have XX hours to do that.
+
+        Best Regards,
+
+        Your echo team
+    supporters_approval:
+      subject: You have the privilege to incorporate a Improvement Proposal!
+      text: |
+        Dear supporters of the "{{title}}" Improvement Proposal,
+
+        The Improvement Proposal "{{title}}", which you supported, was set to be incorporated in it's proposal. 
+        Given that it's author didn't incorporate it yet, we would like to give you the opportunity to do so.
+        To do that, you need to follow the link below:
+
+        {{link}}
+        
+        You will have XX hours to do that.
+
+        Best Regards,
+
+        Your echo team
+    approval_notification:
+      subject: An Improvement Proposal was approved for incorporation
+      text: |
+        Dear users,
+
+        The Improvement Proposal "{{title}}" was approved to be incorporated in a Proposal you supported.
+        To check its content, you can follow the link below:
+
+        {{link}}
+        
+        Best Regards,
+
+        Your echo team
+    approval_reminder:
+      subject: Improvement Proposal Approval Reminder!
+      text: |
+        Dear {{name}},
+
+        Your still have 24 hours to incorporate your Improvement Proposal "{{title}}" in its proposal. To do that, 
+        you need to follow the link below:
+
+        {{link}}
+
+        Best Regards,
+
+        Your echo team
+    supporters_approval_reminder:
+      subject: Improvement Proposal Approval Reminder!
+      text: |
+        Dear supporters of the "{{title}}" Improvement Proposal,
+
+        Your still have 24 hours to incorporate your Improvement Proposal "{{title}}" in its proposal. To do that, 
+        you need to follow the link below:
+
+        {{link}}
+
+        Best Regards,
+
+        Your echo team
+    passed:
+      subject: Improvement Proposal Approval Passed!
+      text: |
+        Dear {{name}},
+
+        The time for you to incorporate your Improvement Proposal "{{title}}" in its proposal has expired.
+
+        Best Regards,
+
+        Your echo team
+    supporters_passed:
+      subject: Improvement Proposal Approval Passed!
+      text: |
+        Dear supporters of the "{{title}}" Improvement Proposal,
+
+        The time for you to incorporate the Improvement Proposal "{{title}}" in its proposal has expired.
+
+        Best Regards,
+
+        Your echo team
+    incorporated:
+      subject: Your Improvement Proposal was successfully incorporated!
+      text: |
+        Dear {{name}},
+
+        Your Improvement Proposal "{{title}}" was successfully incorporated in its proposal. Congratulations.
+
+        {{link}}
+        
+        Best Regards,
+
+        Your echo team
+        
+    incorporation_notification:
+      subject: A Proposal you support has been updated!
+      text: |
+        Dear users,
+
+        The Proposal "{{title}}" which you support has been updated. Take a look and see if you think it has improved.
+
+        {{link}}
+        
+        Best Regards,
+
+        Your echo team
+    

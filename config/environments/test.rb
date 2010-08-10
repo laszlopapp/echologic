@@ -22,6 +22,8 @@ config.action_controller.allow_forgery_protection    = false
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test 
 
+config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
 # Feedback recipient
 FEEDBACK_RECIPIENT = 'tiago.cardoso@echologic.org'
 
@@ -35,3 +37,6 @@ config.gem "rspec-rails", :lib => false, :version => ">=1.2.2"
 config.gem "webrat", :lib => false, :version => ">=0.4.3"
 config.gem "cucumber", :lib => false, :version => ">=0.2.2"
 
+# Hosts
+ECHOLOGIC_HOST = 'localhost:3000'
+ECHOSOCIAL_HOST = 'localhost:3001'

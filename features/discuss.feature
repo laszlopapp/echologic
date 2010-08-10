@@ -104,3 +104,21 @@ Feature: Take Part on a discussion
       And the question has proposals
       Then I should see no proposals
 
+
+  Scenario: Incorporate an approved statement
+    Given I am logged in as "ben" with password "benrocks"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And the proposal has an approved child
+      And I go to the proposal
+      And I follow localized "application.general.incorporate"
+      And I fill in the following:
+       | proposal_statement_document_title | Incorporated Title               |
+       | proposal_statement_document_text  | corporative beast                |
+      And I press "Save"
+    Then I should see "corporative beast"
+      And the proposal has no approved children
+      And the proposal has incorporated children

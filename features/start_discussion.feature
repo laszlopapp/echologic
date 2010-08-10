@@ -81,3 +81,4 @@ Feature: Start a discussion
       And the question has "*beer" for tags
       And I follow "create_proposal_link"
     Then I should see localized "discuss.statements.read_only_permission"
+    

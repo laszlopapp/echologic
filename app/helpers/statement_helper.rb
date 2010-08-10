@@ -74,8 +74,10 @@ module StatementHelper
 
   ## ImprovementProposal
 
-  def improvement_proposal_url(proposal)
-    question_proposal_improvement_proposal_url(proposal.root, proposal.parent, proposal)
+  def improvement_proposal_url(improvement_proposal)
+    question_proposal_improvement_proposal_url(improvement_proposal.root,
+                                               improvement_proposal.parent,
+                                               improvement_proposal)
   end
 
   def new_improvement_proposal_url(parent)
@@ -84,28 +86,40 @@ module StatementHelper
     new_question_proposal_improvement_proposal_url(parent.parent, parent)
   end
 
-  def edit_improvement_proposal_url(proposal)
-    edit_question_proposal_improvement_proposal_url(proposal.root, proposal.parent, proposal)
+  def edit_improvement_proposal_url(improvement_proposal)
+    edit_question_proposal_improvement_proposal_url(improvement_proposal.root,
+                                                    improvement_proposal.parent,
+                                                    improvement_proposal)
   end
 
-  def edit_improvement_proposal_path(proposal)
-    edit_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
+  def edit_improvement_proposal_path(improvement_proposal)
+    edit_question_proposal_improvement_proposal_path(improvement_proposal.root,
+                                                     improvement_proposal.parent,
+                                                     improvement_proposal)
   end
 
-  def new_translation_improvement_proposal_url(proposal)
-    new_translation_question_proposal_improvement_proposal_url(proposal.root, proposal.parent, proposal)
+  def new_translation_improvement_proposal_url(improvement_proposal)
+    new_translation_question_proposal_improvement_proposal_url(improvement_proposal.root,
+                                                               improvement_proposal.parent,
+                                                               improvement_proposal)
   end
 
-  def new_translation_improvement_proposal_path(proposal)
-    new_translation_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
+  def new_translation_improvement_proposal_path(improvement_proposal)
+    new_translation_question_proposal_improvement_proposal_path(improvement_proposal.root,
+                                                                improvement_proposal.parent,
+                                                                improvement_proposal)
   end
 
-  def create_translation_improvement_proposal_url(proposal)
-    create_translation_question_proposal_improvement_proposal_url(proposal.root, proposal.parent, proposal)
+  def create_translation_improvement_proposal_url(improvement_proposal)
+    create_translation_question_proposal_improvement_proposal_url(improvement_proposal.root,
+                                                                  improvement_proposal.parent,
+                                                                  improvement_proposal)
   end
 
-  def create_translation_improvement_proposal_path(proposal)
-    create_translation_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
+  def create_translation_improvement_proposal_path(improvement_proposal)
+    create_translation_question_proposal_improvement_proposal_path(improvement_proposal.root,
+                                                                   improvement_proposal.parent,
+                                                                   improvement_proposal)
   end
 
 
@@ -160,27 +174,21 @@ module StatementHelper
     end
   end
 
+  def create_question_link_for(category = "")
+    link_to(I18n.t("discuss.statements.create_question_link"),
+            hash_for_new_question_path.merge({:category => category}),
+            :class=> 'text_button create_question_button no_border')
+  end
+
   def edit_statement_node_link(statement_node, statement_document)
     if current_user and
        (current_user.may_edit? or
-       (statement_document.author == current_user and !statement_node.published?))
+       (statement_node.authors.include?(current_user) and !statement_node.published?))
       link_to(I18n.t('application.general.edit'), edit_statement_node_path(statement_node),
               :class => 'ajax header_button text_button edit_text_button')
     end
   end
-
-  def publish_statement_node_link(statement_node, statement_document)
-    if current_user and
-       statement_document.author == current_user and !statement_node.published?
-      link_to(I18n.t('discuss.statements.publish'),
-              { :controller => :questions,
-                :action => :publish,
-                :in => :summary },
-              :class => 'ajax_put header_button text_button publish_text_button ttLink',
-              :title => I18n.t('discuss.tooltips.publish'))
-    end
-  end
-
+  
   # Returns the block heading for the children of the given statement_node
   def children_box_title(statement_node)
     type = statement_node_class_dom_id(statement_node.class.expected_children.first)
@@ -321,6 +329,7 @@ module StatementHelper
     options[:class] += ' ajax'
     return link_to(title, url_for(stmt), options)
   end
+
 
   ##################
   # DOM-ID Helpers #

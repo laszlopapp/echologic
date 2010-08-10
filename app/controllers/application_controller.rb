@@ -124,6 +124,8 @@ class ApplicationController < ActionController::Base
       yield page if block_given?
     end
   end
+  
+
 
   # Helper method to do simple ajax replacements without writing a new template.
   # This small methods takes much complexness from the controllers.

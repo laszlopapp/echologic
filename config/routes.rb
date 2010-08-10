@@ -107,7 +107,7 @@ ActionController::Routing::Routes.draw do |map|
                 :member => [:new_translation, :create_translation, :publish],
                 :as => 'discuss/questions' do |question|
     question.resources :proposals,
-                       :member => [:echo, :unecho, :new_translation, :create_translation] do |proposal|
+                       :member => [:echo, :unecho, :new_translation, :create_translation, :incorporate] do |proposal|
       proposal.resources :improvement_proposals,
                          :member => [:echo, :unecho, :new_translation, :create_translation] do |improvement_proposal|
       end

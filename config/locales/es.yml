@@ -25,6 +25,7 @@ es:
       upload: Subir
       delete: Borrar
       create: Adicionar
+      incorporate: Incorporate
       welcome: Bienvenido
       all: Todos
 
@@ -395,18 +396,22 @@ es:
         deferred_publish: 'Solamente guardar y publicar mas tarde'
         immediate_publish: 'Publicar de inmediato (no será possible modificar la discusión)'
         published: Publicado
+        approved: Approved
       delete_link: "Borrar"
       delete_confirmation: "Está seguro, que realmente quiere borrar esta propuesta?"
       read_only_permission: |-
         Esta discusión está transparente pero el accesso astá restricto - solamente puedes leer.
+      unsupported_parent: |-
+        You can only support improvement proposals if you support the proposal itself.
 
     summary:
       title: 'Resumen'
     messages:
-      created: "{{type}} fue publicada."
-      updated: "{{type}} fue editada."
-      deleted: "{{type}} fue borrada."
-      translated: "{{type}} fue traducida."
+      created: "La {{type}} fue publicada con éxito."
+      updated: "La {{type}} fue editada con éxito."
+      deleted: "La {{type}} fue borrada con éxito."
+      translated: "La {{type}} fue traducida con éxito."
+      incorporated: "La {{type}} fue complementada con éxito con su propuesta de mejoramiento."
       empty:   "No fue encontrado ningun debate. Por favor intente buscar por otra palavra."
       empty_without_spoken_languages: |
         No fue encontrada ninguna cuestión. Intente definir tus <a href='{{my_echo}}'>lenguas conocidas</a>

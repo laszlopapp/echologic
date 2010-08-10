@@ -100,10 +100,17 @@ class StatementsController < ApplicationController
       session[:last_info] = nil
     end
 
+    # If statement node is drafteable, then try to get the approved one
+    if @statement_node.drafteable?
+      @approved_node = @statement_node.approved_children.first || nil
+      @approved_document = @approved_node.translated_document(@language_preference_list) if !@approved_node.nil?
+    end
+
     # Find all child statement_nodes, which are published (except user is an editor)
     # sorted by supporters count, and paginate them
     @page = params[:page] || 1
-    @children = @statement_node.sorted_children(current_user, @language_preference_list).
+
+    @children = @statement_node.sorted_children(@language_preference_list).
                   paginate(StatementNode.default_scope.merge(:page => @page,
                                                              :per_page => 5))
     @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
@@ -124,11 +131,16 @@ class StatementsController < ApplicationController
   #
   def echo
     return if !@statement_node.echoable?
-
-    @statement_node.supported!(current_user)
-    @statement_node.add_subscriber(current_user)
-    respond_to_js :redirect_to => @statement_node,
-                  :template_js => 'statements/echo'
+    if !@statement_node.parent.echoable? or @statement_node.parent.supported?(current_user)
+      @statement_node.supported!(current_user)
+      respond_to_js :redirect_to => @statement_node, :template_js => 'statements/echo'
+    else
+      respond_to do |format|
+        set_error('discuss.statements.unsupported_parent')
+        format.html { redirect_to url_for(@statement_node) }
+        format.js { show_error_messages }
+      end
+    end
   end
 
 
@@ -142,9 +154,16 @@ class StatementsController < ApplicationController
     return if !@statement_node.echoable?
 
     @statement_node.unsupported!(current_user)
-    @statement_node.remove_subscriber(current_user)
+    @statement_node.children.each{|c|c.unsupported!(current_user) if c.supported?(current_user)}
+
+    # Logic to update the children caused by cascading unsupport
+    @page = params[:page] || 1
+    @children = @statement_node.sorted_children(@language_preference_list).
+                  paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
+    @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
+                                                     @language_preference_list)
     respond_to_js :redirect_to => @statement_node,
-                  :template_js => 'statements/echo'
+                  :template_js => 'statements/unecho'
   end
 
 
@@ -156,7 +175,9 @@ class StatementsController < ApplicationController
   def new_translation
     @statement_document ||= @statement_node.translated_document(current_user.spoken_language_ids)
     @new_statement_document ||= @statement_node.add_statement_document({:language_id => @locale_language_id})
-    respond_to_js :template => 'statements/translate', :partial_js => 'statements/new_translation.rjs'
+    @action ||= StatementHistory.statement_actions("translated")
+    respond_to_js :template => 'statements/translate',
+                  :partial_js => 'statements/new_translation.rjs'
   end
 
   # Creates a translation of a statement according to the fields from a form that was submitted
@@ -168,20 +189,17 @@ class StatementsController < ApplicationController
   def create_translation
     attrs = params[statement_node_symbol]
     doc_attrs = attrs.delete(:new_statement_document).merge({:author_id => current_user.id,
-                                                             :language_id => @locale_language_id})
+                                                             :language_id => @locale_language_id,
+                                                             :current => true})
     @new_statement_document = @statement_node.add_statement_document(doc_attrs)
     respond_to do |format|
       if @statement_node.save
-        set_statement_node_info("discuss.messages.translated",@statement_node)
-#        @children = @statement_node.children.paginate(StatementNode.default_scope.merge(:page => 1,
-#                                                                                        :per_page => 5))
-#        @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
-#                                                         @language_preference_list)
         @statement_document = @new_statement_document
+        set_statement_node_info(@statement_document)
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js {render :partial => 'statements/create_translation.rjs'}
       else
-        @statement_document = StatementDocument.find(doc_attrs[:translated_document_id])
+        @statement_document = StatementDocument.find(doc_attrs[:old_document_id])
         set_error(@new_statement_document)
         format.html { flash_error and render :template => 'statements/translate' }
         format.js { show_error_messages(@new_statement_document) }
@@ -199,7 +217,7 @@ class StatementsController < ApplicationController
     @statement_node ||= statement_node_class.new(:parent => parent,
                                                  :root_id => root_symbol)
     @statement_document ||= StatementDocument.new
-
+    @action ||= StatementHistory.statement_actions("created")
     @statement_node.topic_tags << "##{params[:category]}" if params[:category]
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     # TODO: right now users can't select the language they create a statement in, so current_user.languages_keys.
@@ -223,7 +241,8 @@ class StatementsController < ApplicationController
 
     @statement_node ||= statement_node_class.new(attrs)
     @statement_document = @statement_node.add_statement_document(
-                          doc_attrs.merge({:original_language_id => @locale_language_id}))
+                          doc_attrs.merge({:original_language_id => @locale_language_id,
+                                           :current => true}))
     permitted = true ; @tags = []
     if @statement_node.taggable? and (permitted = check_hash_tag_permissions(form_tags))
       @statement_node.topic_tags=form_tags
@@ -232,7 +251,7 @@ class StatementsController < ApplicationController
 
     respond_to do |format|
       if permitted and @statement_node.save
-        set_statement_node_info("discuss.messages.created",@statement_node)
+        set_statement_node_info(@statement_document)
         #load current created statement_node to session
         load_to_session @statement_node if @statement_node.parent
         format.html { flash_info and redirect_to url_for(@statement_node) }
@@ -260,13 +279,13 @@ class StatementsController < ApplicationController
   def edit
     @statement_document ||= @statement_node.translated_document(@language_preference_list)
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
-    respond_to_js :template => 'statements/edit' do |format|
-      format.js { replace_container('summary', :partial => 'statements/edit') }
-    end
+    @action ||= StatementHistory.statement_actions("updated")
+    respond_to_js :template => 'statements/edit',
+                  :partial_js => 'statements/edit.rjs'
   end
 
 
-  # actually updates statements
+  # Updates statements
   #
   # Method:   POST
   # Params:   statement: hash
@@ -277,22 +296,25 @@ class StatementsController < ApplicationController
     attrs_doc = attrs.delete(:statement_document)
     # Updating tags of the statement
     form_tags = attrs.delete(:tags)
-
     permitted = true
     if @statement_node.taggable? and (permitted = check_hash_tag_permissions(form_tags))
        @statement_node.topic_tags=form_tags
        @tags=@statement_node.topic_tags
     end
-    statement_document = @statement_node.translated_document(@language_preference_list)
+    old_statement_document = @statement_node.translated_document(@language_preference_list)
+
+    @statement_document = @statement_node.add_statement_document(
+                            attrs_doc.merge({:original_language_id => @locale_language_id,
+                                             :current => true}))
+
     respond_to do |format|
-      if permitted and
-         @statement_node.update_attributes(attrs) and
-         statement_document.update_attributes(attrs_doc)
-        set_statement_node_info("discuss.messages.updated",@statement_node)
+      if permitted and @statement_node.update_attributes(attrs)
+        old_statement_document.update_attributes(:current => false)
+        set_statement_node_info(@statement_document)
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js   { show }
       else
-        set_error(statement_document)
+        set_error(@statement_document)
         set_error(@statement_node)
         format.html { flash_error and redirect_to url_for(@statement_node) }
         format.js   { show_error_messages }
@@ -309,8 +331,10 @@ class StatementsController < ApplicationController
   #
   def destroy
     @statement_node.destroy
-    set_statement_node_info("discuss.messages.deleted",@statement_node)
-    flash_info and redirect_to :controller => 'questions', :action => :category, :id => params[:category]
+    set_statement_node_info(nil, "discuss.messages.deleted")
+    flash_info and redirect_to :controller => 'questions',
+                               :action => :category,
+                               :id => params[:category]
   end
 
   # Processes a cancel request, and redirects back to the last shown statement_node
@@ -358,9 +382,12 @@ class StatementsController < ApplicationController
     raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
 
-  # Sets the info to displayed along with the response
-  def set_statement_node_info(string, statement_node)
-    set_info(string, :type => I18n.t("discuss.statements.types.#{statement_node_symbol.to_s}"))
+  # Sets the info to displayed along with the response.
+  # The action name is automagically incorporated into the I18n key.
+  #
+  def set_statement_node_info(statement_document, string=nil)
+    set_info((string || "discuss.messages.#{statement_document.action.code}"),
+             :type => I18n.t("discuss.statements.types.#{statement_node_symbol.to_s}"))
   end
 
 

@@ -7,6 +7,7 @@
 var context  = "<%= escape_javascript(render :partial => 'statements/context') %>";
 var sidebar  = "<%= escape_javascript(render :partial => 'statements/sidebar') %>";
 var summary  = "<%= escape_javascript(render :partial => 'statements/summary') %>";
+var approved = "<%= escape_javascript(render :partial => 'statements/approved') %>";
 var children = "<%= escape_javascript(render :partial => 'statements/children') %>";
 var echoable = <%= @statement_node.echoable? %>
 
@@ -18,6 +19,9 @@ if (echoable) {
   $('#discuss_sidebar').hide();
 }
 $('#summary').replaceWith(summary);
+if($('#approved').size() == 0)
+  $('<div id="approved"></div>').insertAfter('#summary');
+$('#approved').replaceWith(approved);
 if($('#children').size() == 0)
   $('<div id="children"></div>').insertAfter('#summary');
 $('#children').replaceWith(children);

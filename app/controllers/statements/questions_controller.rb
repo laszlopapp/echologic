@@ -1,8 +1,5 @@
 class QuestionsController < StatementsController
 
-
-
-
   # action: my discussions page
   def my_discussions
     @page     = params[:page]  || 1

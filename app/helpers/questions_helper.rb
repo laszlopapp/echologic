@@ -37,4 +37,16 @@ module QuestionsHelper
   def questions_count_text(count)
     I18n.t("discuss.results_count.#{count < 2 ? 'one' : 'more'}", :count => count)
   end
+  
+  def publish_statement_node_link(statement_node, statement_document)
+    if current_user and
+       statement_document.author == current_user and !statement_node.published?
+      link_to(I18n.t('discuss.statements.publish'),
+              { :controller => :questions,
+                :action => :publish,
+                :in => :summary },
+              :class => 'ajax_put header_button text_button publish_text_button ttLink',
+              :title => I18n.t('discuss.tooltips.publish'))
+    end
+  end
 end

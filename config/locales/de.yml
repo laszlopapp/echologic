@@ -25,6 +25,7 @@ de:
       upload: Hochladen
       delete: Löschen
       create: Hinzufügen
+      incorporate: Incorporate
       welcome: Willkommen
       all: Alle
 
@@ -387,10 +388,13 @@ de:
         deferred_publish: 'Erstmal weiter vorbereiten und später veröffentlichen'
         immediate_publish: 'Sofort veröffentlichen (danach ist keine Bearbeitung mehr möglich)'
         published: Freigegeben
+        approved: Approved
       delete_link: 'Löschen'
       delete_confirmation: 'Bist du sicher, dass du diese Aussage löschen willst?'
       read_only_permission: |-
         Diese ist eine transparente aber geschlossene Diskussion, die Sie nur mitlesen dürfen.
+      unsupported_parent: |-
+        You can only support improvement proposals if you support the proposal itself.
 
     summary:
       title: 'Zusammenfassung'
@@ -399,6 +403,7 @@ de:
       updated: "{{type}} wurde erfolgreich bearbeitet."
       deleted: "{{type}} wurde erfolgreich gelöscht."
       translated: "{{type}} wurde erfolgreich übersetzt."
+      incorporated: "{{type}} wurde mit Ihrem Ergänzungsvorschlag erfolgreich ergänzt."
       empty: "Es wurden keine Diskussionen gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
       empty_without_spoken_languages: |
         Keine Diskussion gefunden. Versuchen Sie Ihre <a href='{{my_echo}}'>Sprachkenntnisse</a> einzustellen,

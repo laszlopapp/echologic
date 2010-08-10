@@ -25,6 +25,7 @@ pt:
       upload: Upload
       delete: Apagar
       create: Incluir
+      incorporate: Incorporate
       welcome: Bemvindo
       all: Tudo
 
@@ -380,10 +381,13 @@ pt:
         deferred_publish: 'Primeiro criar e mais tarde publicar.'
         immediate_publish: 'Imediatamente publicar (não será mais possível editar a discussão)'
         published: Publicado
+        approved: Approved
       delete_link: "Apagar"
       delete_confirmation: "Tem a certeza que quer apagar esta afirmação?"
       read_only_permission: |-
         Isso é uma discussão transparente, mas de accesso restrito - somente pode leer.
+      unsupported_parent: |-
+        You can only support improvement proposals if you support the proposal itself.
 
     summary:
       title: 'Sumário'
@@ -392,6 +396,7 @@ pt:
       updated: "A {{type}} foi actualizada com sucesso."
       deleted: "A {{type}} foi apagada com sucesso."
       translated: "A {{type}} foi traduzida com sucesso."
+      incorporated: "A {{type}} foi complementada com a sua Proposta de Melhoria com êxito."
       empty:   "Nenhuma questão encontrada. Por favor altere os seus critérios de procura."
       empty_without_spoken_languages: |
         Nenhuma questão encontrada. Pode tentar definir as suas <a href='{{my_echo}}'><u>Línguas Faladas</u></a>

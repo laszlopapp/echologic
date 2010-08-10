@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100707085304) do
+ActiveRecord::Schema.define(:version => 20100806131450) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -25,6 +25,12 @@ ActiveRecord::Schema.define(:version => 20100707085304) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "drafting_infos", :force => true do |t|
+    t.integer  "statement_node_id"
+    t.datetime "state_since",       :default => '2010-08-06 15:31:08'
+    t.integer  "times_passed",      :default => 0
+  end
 
   create_table "echos", :force => true do |t|
     t.integer "visitor_count",   :default => 0
@@ -151,17 +157,25 @@ ActiveRecord::Schema.define(:version => 20100707085304) do
   create_table "statement_documents", :force => true do |t|
     t.string   "title"
     t.text     "text"
-    t.integer  "author_id"
-    t.integer  "language_id"
-    t.integer  "translated_document_id"
     t.integer  "statement_id"
-    t.integer  "current"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "language_id"
+    t.integer  "current"
   end
 
-  add_index "statement_documents", ["language_id"], :name => "index_statement_documents_on_language_id"
   add_index "statement_documents", ["statement_id", "id"], :name => "index_statement_documents_on_statement_id_and_id"
+
+  create_table "statement_histories", :force => true do |t|
+    t.integer  "statement_document_id"
+    t.integer  "statement_id"
+    t.integer  "author_id"
+    t.integer  "action_id"
+    t.integer  "old_document_id"
+    t.integer  "incorporated_node_id"
+    t.string   "comment"
+    t.datetime "created_at"
+  end
 
   create_table "statement_nodes", :force => true do |t|
     t.string   "type"
@@ -169,16 +183,17 @@ ActiveRecord::Schema.define(:version => 20100707085304) do
     t.integer  "root_id"
     t.integer  "creator_id"
     t.integer  "echo_id"
-    t.integer  "state_id"
+    t.integer  "editorial_state_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "statement_id"
+    t.string   "drafting_state",     :limit => 20
   end
 
   add_index "statement_nodes", ["creator_id"], :name => "index_statement_nodes_on_creator_id"
   add_index "statement_nodes", ["echo_id", "id"], :name => "index_statement_nodes_on_echo_id_and_id"
+  add_index "statement_nodes", ["editorial_state_id"], :name => "index_statement_nodes_on_state_id"
   add_index "statement_nodes", ["id", "statement_id"], :name => "index_statement_nodes_on_id_and_statement_id"
-  add_index "statement_nodes", ["state_id"], :name => "index_statement_nodes_on_state_id"
   add_index "statement_nodes", ["type"], :name => "index_statement_nodes_on_type"
 
   create_table "statements", :force => true do |t|
