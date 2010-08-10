@@ -114,7 +114,7 @@ Feature: Take Part on a discussion
       And I choose the "A first proposal!" Proposal
       And the proposal has an approved child
       And I go to the proposal
-      And I follow "Incorporate"
+      And I follow localized "application.general.incorporate"
       And I fill in the following:
        | proposal_statement_document_title | Incorporated Title               |
        | proposal_statement_document_text  | corporative beast                |
