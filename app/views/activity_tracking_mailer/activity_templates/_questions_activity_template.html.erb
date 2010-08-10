@@ -1,9 +1,17 @@
 <ul>
 	<li>
-    <%= I18n.t('mail.questions.text1', :locale => @language.code ) %>
-  </li>
-	<li>
     <%= I18n.t('mail.questions.new_questions', :count => questions.size, :locale => @language.code) %>
+		<ul>
+			<% questions.each do |question_event| %>
+			  <% 
+            event_data = JSON.parse(question_event.event) 
+           title = event_data['question']['statement']['statement_documents'][0]['title']
+        %>
+				<li>
+					<p><%= link_to title, url_for(question_event.subscribeable)%></p>
+				</li>
+			<% end %>
+		</ul>
   </li>
 	<li>
     <%= I18n.t('mail.questions.tags_intro', :locale => @language.code) %>

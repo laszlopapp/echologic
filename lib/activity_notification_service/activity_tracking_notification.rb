@@ -59,8 +59,8 @@ class ActivityTrackingNotification
         parent_y = b_parsed[b_parsed.keys[0]]['parent_id'] || -1
         [root_x,parent_x] <=> [root_y,parent_y]
       end
-
-      user.deliver_activity_tracking_email!(question_events, tags, events - question_events)
+      
+      user.deliver_activity_tracking_email!(question_events, tags, events)
     end
     Delayed::Job.enqueue ActivityTrackingNotification.new, 0, @@delivery_period
   end

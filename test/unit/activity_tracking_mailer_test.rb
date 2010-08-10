@@ -13,9 +13,8 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert_equal [user.email], email.to
     assert_equal "Activity Tracking", email.subject
     assert_match /Activity Tracking/, email.encoded
-    assert_match /New Debates!/, email.encoded
     assert_match /New Debates from last week: 1/, email.encoded
-    assert_match /New Tags from last week:/, email.encoded
+    assert_match /New Tags:/, email.encoded
     assert_match /user/, email.encoded
     assert_match /(2)/, email.encoded
   end

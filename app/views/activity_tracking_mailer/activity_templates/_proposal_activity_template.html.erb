@@ -1,6 +1,4 @@
-<%= I18n.t('mail.proposal.new', 
-           :title => data['proposal']['statement']['statement_documents'][0]['title'], 
-           :parent_id => data['proposal']['parent_id'],
-           :id => id, 
-           :code => @language.code, 
-           :locale => @language.code) %>
+<p>
+	<% event_data = JSON.parse(event.event) %>
+	<%= link_to event_data[event_data.keys[0]]['statement']['statement_documents'][0]['title'], question_proposal_path(event.subscribeable.parent, event.subscribeable) %>
+</p>
