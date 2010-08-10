@@ -37,3 +37,6 @@ config.gem "rspec-rails", :lib => false, :version => ">=1.2.2"
 config.gem "webrat", :lib => false, :version => ">=0.4.3"
 config.gem "cucumber", :lib => false, :version => ">=0.2.2"
 
+# Hosts
+ECHOLOGIC_HOST = 'localhost:3000'
+ECHOSOCIAL_HOST = 'localhost:3001'

@@ -82,3 +82,4 @@ Feature: Start a discussion
       And I choose the first Question
       And I follow "create_proposal_link"
     Then I should see localized "discuss.statements.read_only_permission"
+    

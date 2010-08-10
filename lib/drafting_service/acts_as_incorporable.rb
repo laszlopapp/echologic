@@ -80,7 +80,7 @@ module ActiveRecord
             
             # Returns Ratio between number of supporters and number of visitors
             def quorum
-              (supporter_count/parent.supporter_count)*100
+              (supporter_count.to_i/parent.supporter_count.to_i)*100
             end
           RUBY
         end

@@ -117,4 +117,15 @@ Feature: Echo
       And I am not supporter of the improvement proposal
  #     And I should see "You can only support improvement proposals if you support the proposal itself."
     
-      
+  Scenario: User echoes an improvement proposal, and this becomes ready
+    Given the minimum number of votes is 1
+      And I am logged in as "joe" with password "true"
+      And I am on the discuss index And I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow "echo_button"
+      And I choose the "A better fourth proposal" Improvement Proposal
+    Given I follow "echo_button"
+    Then I am supporter of the improvement proposal
+      And the state of the improvement proposal must be "ready" 
