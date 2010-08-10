@@ -218,12 +218,26 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* Sidebar */
 /* ------- */
 
-#discuss_sidebar {
+/*#discuss_sidebar {
   clear:      both;
   float:      left;
   width:      140px;
   text-align: center;
   margin-top: 15px;
+}*/
+
+#discuss_sidebar  {
+  clear: both;
+  float: left;
+  position: relative;
+  left: 18px;
+  top: 25px;
+  width: 95px;
+  padding: 5px 0 10px 5px;
+  text-align: center;
+  border: 1px solid #DDD;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
 }
 
 /* echo button */
