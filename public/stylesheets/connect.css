@@ -6,7 +6,11 @@
       Design screen elements for connect section.
 */
 
-/* SEGMENTS */
+/* Search */
+
+#connect_search_container.search_container {
+  margin:   25px auto 0;
+}
 
 .segments {
   margin: 0 auto;

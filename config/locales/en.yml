@@ -320,7 +320,7 @@ en:
           title: Pilot Projects
     search:
       title: Search
-      in: 'In {{category}}:'
+      in: '... in {{category}} ...'
 
     tooltips:
       read_question: 'Go to this question'

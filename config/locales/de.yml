@@ -318,7 +318,7 @@ de:
           title: Pilot Projekte
     search:
       title: Suchen
-      in: 'In {{category}}:'
+      in: '... in {{category}} ...'
 
     tooltips:
       read_question: 'Diese Frage anschauen'
