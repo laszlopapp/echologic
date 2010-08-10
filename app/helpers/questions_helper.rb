@@ -1,11 +1,12 @@
 module QuestionsHelper
   def add_discussion_link
-    link_to(image_tag("page/discuss/add_question_big.png",
-                        :class => 'statement_form_illustration'),
-            new_question_url,
-            :id => "create_question_link",
-            :class => "ttLink no_border",
-            :title => I18n.t("discuss.tooltips.create_question"))
+    link_to(new_question_url,
+            :id => "create_question_link") do
+      content_tag(:span, '',
+                  :class => "new_question create_statement_button_mid create_question_button_mid ttLink no_border",
+                  :title => I18n.t("discuss.tooltips.create_question"))
+
+    end
   end
 
   # Creates a 'Publish' button to release the discussion.

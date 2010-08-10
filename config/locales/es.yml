@@ -324,7 +324,7 @@ es:
           title: Proyectos piloto
     search:
       title: Buscar
-      in: 'En {{category}}:'
+      in: '... en {{category}} ...'
 
     tooltips:
       read_question: 'Mirar esta cuestión'

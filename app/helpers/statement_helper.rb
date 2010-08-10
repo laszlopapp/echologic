@@ -12,9 +12,9 @@ module StatementHelper
     end
   end
 
-  ##
-  ## URLS
-  ##
+  ########
+  # URLs #
+  ########
 
   def new_child_statement_node_url(parent, type)
     case type.downcase
@@ -159,19 +159,41 @@ module StatementHelper
     create_translation_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
   end
 
-  ##
-  ## LINKS
-  ##
 
-  # edited: i18n without interpolation, because of language diffs.
-  def create_children_statement_node_link(statement_node, css_class = "", lan_tag = "")
+
+  #########
+  # Links #
+  #########
+
+  #
+  # Creates a link to create a new child statement for the given statement
+  # (appears INSIDE of the children statements panel).
+  #
+  def create_new_child_statement_link(statement_node)
     return unless statement_node.class.expected_children.any?
     type = statement_node_class_dom_id(statement_node.class.expected_children.first)
-    link_to(I18n.t(lan_tag.blank? ? "discuss.statements.create_#{type}_link" : "discuss.statements.#{lan_tag}"),
+
+    link_to(I18n.t("discuss.statements.create_#{type}_link"),
             new_child_statement_node_url(statement_node, type),
-            :id => "create_#{type.underscore}_link",
-            :class => "ajax #{css_class} text_button #{create_statement_node_button_class(type)} ttLink no_border",
-            :title => I18n.t("discuss.tooltips.create_#{type.underscore}"))
+            :id => "create_#{type}_link",
+            :class => "ajax add_new_button text_button create_#{type}_button ttLink no_border",
+            :title => I18n.t("discuss.tooltips.create_#{type}"))
+  end
+
+  #
+  # Creates a link to create a new sibling statement for the given statement (appears in the SIDEBAR).
+  #
+  def create_new_sibling_statement_button(statement_node)
+    type = statement_node_class_dom_id(statement_node)
+
+    link_to(new_child_statement_node_url(statement_node.parent, type),
+            :id => "create_#{type}_link",
+            :class => "ajax") do
+      content_tag(:span, '',
+                  :class => "create_statement_button_mid create_#{type}_button_mid ttLink no_border",
+                  :title => I18n.t("discuss.tooltips.create_#{type}"))
+
+    end
   end
 
   def create_translate_statement_link(statement_node, css_class = "")
@@ -181,15 +203,13 @@ module StatementHelper
               :class => "ajax translation_link #{css_class}"
   end
 
-  # this classname is needed to display the right icon next to the link
-  def create_statement_node_button_class(type)
-    "create_#{type}_button"
-  end
+  def create_question_link_for(category=nil)
+    link_to(hash_for_new_question_path.merge({:category => category})) do
+      content_tag(:span, '',
+                  :class => "new_question create_statement_button_mid create_question_button_mid ttLink no_border",
+                  :title => I18n.t("discuss.tooltips.create_question"))
 
-  def create_question_link_for(category = "")
-    link_to(I18n.t("discuss.statements.create_question_link"),
-            hash_for_new_question_path.merge({:category => category}),
-            :class=> 'text_button create_question_button no_border')
+    end
   end
 
   def edit_statement_node_link(statement_node, statement_document)
@@ -240,9 +260,10 @@ module StatementHelper
       end
   end
 
-  ##
-  ## CONVENIENCE and UI
-  ##
+
+  ##############
+  # Sugar & UI #
+  ##############
 
   def statement_form_illustration(statement_node)
     image_tag("page/discuss/add_#{statement_node.class.name.underscore}_big.png",
@@ -295,9 +316,9 @@ module StatementHelper
     val = "<span class='echo_label'>#{I18n.t('discuss.statements.label')}</span>"
   end
 
-  ##
-  ## Navigation within statement_nodes
-  ##
+  ##############
+  # Navigation #
+  ##############
 
   # Insert prev/next buttons for the current statement_node.
   def prev_next_buttons(statement_node)
@@ -343,9 +364,9 @@ module StatementHelper
     return link_to(title, url_for(stmt), options)
   end
 
-  ##
-  ## DOM-ID Helpers
-  ##
+  ##################
+  # DOM-ID Helpers #
+  ##################
 
   # returns the statement_node class dom identifier (used to identifiy dom objects, e.g. for javascript)
   def statement_node_class_dom_id(statement_node)
@@ -362,4 +383,5 @@ module StatementHelper
   def statement_node_dom_id(statement_node)
     "#{statement_node_class_dom_id(statement_node)}_#{statement_node.id}"
   end
+
 end

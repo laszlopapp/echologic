@@ -2,7 +2,7 @@
 
 <%path = params[:id] ? question_tags_path : discuss_search_path%>
 
-<div id="search_container" class="search_container">
+<div id="discuss_search_container" class="search_container">
 
   <!-- Display featured topic category -->
   <% if params[:id] -%>
@@ -13,9 +13,7 @@
   <% end %>
 
   <!-- New discussion link -->
-  <span id="new_question" class="new_question">
-    <%= create_question_link_for params[:id] %>
-  </span>
+  <% create_question_link_for params[:id] %>
 
   <!-- Search field -->
   <% form_tag path,
