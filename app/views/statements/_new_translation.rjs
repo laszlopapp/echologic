@@ -1,6 +1,8 @@
 
 page.replace 'summary',
              :partial => 'statements/translate'
+page.replace_html 'discuss_sidebar', ''
+page.hide 'discuss_sidebar'
 
 page << "makeRatiobars();"
 page << "makeTooltips();"
