@@ -541,24 +541,13 @@ en:
         and uncheck your email notification option.
 
     root:
-      new_entry: "New proposal in the '{{title}}' debate"
+      new_entry: "New proposal in the '{{title}}' discussion"
     parent:
-      new_entry: "New improvement proposal in the '{{title}}' proposal belonging to the '{{question_title}}' debate"
+      new_entry: "New improvement proposal in the '{{title}}' proposal belonging to the '{{question_title}}' discussion"
     questions:
       new_questions: 'New Debates from last week: {{count}}'
       tags_intro: 'New Tags:'
       tag: "<a href='http://www.echologic.org/{{code}}/discuss/search?value={{tag}}'>{{tag}}</a> ({{count}})"
-    proposal:
-      new: |
-        <p>
-          <a href='http://www.echologic.org/{{code}}/discuss/questions/{{parent_id}}/proposals/{{id}}'>{{title}}</a>
-        </p>
-    improvement_proposal:
-      new: |
-        <p>
-        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
-        {{title}}</a>
-        </p>
   notification_mailer:
     approval:
       subject: Your Improvement Proposal was Approved!

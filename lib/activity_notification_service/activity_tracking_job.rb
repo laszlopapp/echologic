@@ -1,45 +1,13 @@
 #job class responsible for getting all user related events and sending an email
-class ActivityTrackingNotification
-
-#  @@user_split_condition = {}
-#  @@tracking_period = 7.days.ago
-#  @@delivery_period = Time.now.tomorrow.midnight
-
-  def initialize
-  end
-
-  def self.user_split_condition
-    @@user_split_condition
-  end
-
-  def self.tracking_period
-    @@tracking_period
-  end
-
-  def self.delivery_period
-    @@delivery_period
-  end
-
-  def self.user_split_condition=(value)
-    @@user_split_condition = value
-  end
-
-  def self.tracking_period=(value)
-    @@tracking_period = value
-  end
-
-  def self.delivery_period=(value)
-    @@delivery_period = value
-  end
-
-
+class ActivityTrackingJob < Struct.new(:current_charge, :charges, :tracking_period)
+  
   def perform
-    week_day = Time.now.wday
-    User.all(@@user_split_condition).each do |user|
+    ActivityNotificationService.instance.enqueue_activity_tracking_job
+    User.all(:conditions => ["(id % ?) = ?", @charges, @current_charge]).each do |user|
 
       next if !user.email_notification?
 
-      events = Event.find_tracked_events(user, @@tracking_period)
+      events = Event.find_tracked_events(user, @tracking_period.ago)
       next if events.blank? #if there are no events to send per email, then get the hell out
 
       question_events = events.select{|e|JSON.parse(e.event).keys[0] == 'question'}
@@ -62,6 +30,5 @@ class ActivityTrackingNotification
       
       user.deliver_activity_tracking_email!(question_events, tags, events)
     end
-    Delayed::Job.enqueue ActivityTrackingNotification.new, 0, @@delivery_period
   end
 end

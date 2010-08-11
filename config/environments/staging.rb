@@ -24,3 +24,7 @@ ECHOSOCIAL_HOST = 'echosocial.echo-test.org'
 
 # Feedback recipient
 FEEDBACK_RECIPIENT = 'laszlo.papp@echologic.org'
+
+
+config.activity_tracking.charges = 1
+config.activity_tracking.period = 10.minutes 

@@ -4,6 +4,12 @@ require 'singleton'
 class ActivityNotificationService
   include Singleton
   
+  attr_accessor :period, :charges, :counter 
+  
+  def initialize
+    @counter = 0
+  end
+  
   def update(*args)
     send(*args)
   end
@@ -21,5 +27,9 @@ class ActivityNotificationService
     supporters = echoable.parent.supporters.select{|sup|sup.languages('advanced').include?(echoable.original_language)}
     email = ActivityTrackingMailer.create_incorporation_notification(echoable, statement_document, supporters)
     ActivityTrackingMailer.deliver(email)
+  end
+  
+  def enqueue_activity_tracking_job
+    Delayed::Job.enqueue ActivityTrackingJob.new(@counter%@charges, @charges, @period), 0, @period/@charges.from_now
   end
 end
