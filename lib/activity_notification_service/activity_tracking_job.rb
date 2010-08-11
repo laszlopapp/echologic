@@ -28,7 +28,7 @@ class ActivityTrackingJob < Struct.new(:current_charge, :charges, :tracking_peri
         [root_x,parent_x] <=> [root_y,parent_y]
       end
       
-      user.deliver_activity_tracking_email!(question_events, tags, events)
+      user.deliver_activity_tracking_email!(question_events, tags, events - question_events)
     end
   end
 end

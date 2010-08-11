@@ -108,7 +108,7 @@ class User < ActiveRecord::Base
   end
 
 
-  handle_asynchronously :deliver_activity_tracking_email!
+#  handle_asynchronously :deliver_activity_tracking_email!
 
   ##
   ## PERMISSIONS
