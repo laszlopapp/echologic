@@ -7,6 +7,7 @@ Feature: Profile settings
   # A profile consists of some containers, check if
   # all of them are present.
 
+ 
   Scenario: View profile
     Given I am logged in as "user" with password "true"
     When I go to the profile
