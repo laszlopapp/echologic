@@ -1,11 +1,15 @@
 require 'test_helper'
 
 class ActivityTrackingMailerTest < ActionMailer::TestCase
+  include StatementHelper
   def test_activity_tracking_email_question
     user = users(:user)
-    question_events = [events(:event_test_question)]
+    question_event = events(:event_test_question)
+    question_events = [question_event]
+    
     tags = {'#echonomyjam' => 1,'user' => 2}
     events = []
+    title = JSON.parse(question_event.event)['question']['statement']['statement_documents'][0]['title']
     # Send the email, then test that it got queued
     email = ActivityTrackingMailer.deliver_activity_tracking_email!(user,question_events,tags,events)
     assert !ActionMailer::Base.deliveries.empty?
@@ -14,6 +18,8 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert_equal "Activity Tracking", email.subject
     assert_match /Activity Tracking/, email.encoded
     assert_match /New Debates from last week: 1/, email.encoded
+    assert_match /#{title}/, email.encoded
+    assert_match /#{question_event.subscribeable.id}/, email.encoded
     assert_match /New Tags:/, email.encoded
     assert_match /user/, email.encoded
     assert_match /(2)/, email.encoded
@@ -35,6 +41,8 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert_equal "Activity Tracking", email.subject
     assert_match /Activity Tracking/, email.encoded
     assert_match /#{Question.find(parent_id).translated_document(EnumKey.find_by_code("en")).title}/, email.encoded
+    assert_match /#{proposal_event.subscribeable.id}/, email.encoded
+    assert_match /#{proposal_event.subscribeable.parent.id}/, email.encoded
     assert_match /#{title}/, email.encoded
   end
 
@@ -56,6 +64,9 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert_match /Activity Tracking/, email.encoded
     assert_match /#{Proposal.find(parent_id).translated_document(EnumKey.find_by_code("en")).title}/, email.encoded
     assert_match /#{Question.find(root_id).translated_document(EnumKey.find_by_code("en")).title}/, email.encoded
+    assert_match /#{impro_proposal_event.subscribeable.id}/, email.encoded
+    assert_match /#{impro_proposal_event.subscribeable.parent.id}/, email.encoded
+    assert_match /#{impro_proposal_event.subscribeable.root.id}/, email.encoded
     assert_match /#{title}/, email.encoded
   end
   
