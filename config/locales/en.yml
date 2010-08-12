@@ -348,6 +348,7 @@ en:
       publish: |
         Release the discussion to make it visible for everybody.
         (Afterwards no further editing is possible.)
+      incorporate: 'Click here to incorporate this improvement proposal into the text above.'
 
     statements:
       label: 'votes'
@@ -397,7 +398,7 @@ en:
         This is a transparent but currently closed discussion, you are only allowed to read.
       unsupported_parent: |-
         You can only support improvement proposals if you support the proposal itself.
-        
+
 
     summary:
       title: 'Summary'
@@ -554,11 +555,11 @@ en:
       text: |
         Dear {{name}},
 
-        Your Improvement Proposal "{{title}}" was selected to be incorporated in its proposal. To do that, you need to 
+        Your Improvement Proposal "{{title}}" was selected to be incorporated in its proposal. To do that, you need to
         follow the link below:
 
         {{link}}
-        
+
         You will have XX hours to do that.
 
         Best Regards,
@@ -569,12 +570,12 @@ en:
       text: |
         Dear supporters of the "{{title}}" Improvement Proposal,
 
-        The Improvement Proposal "{{title}}", which you supported, was set to be incorporated in it's proposal. 
+        The Improvement Proposal "{{title}}", which you supported, was set to be incorporated in it's proposal.
         Given that it's author didn't incorporate it yet, we would like to give you the opportunity to do so.
         To do that, you need to follow the link below:
 
         {{link}}
-        
+
         You will have XX hours to do that.
 
         Best Regards,
@@ -589,7 +590,7 @@ en:
         To check its content, you can follow the link below:
 
         {{link}}
-        
+
         Best Regards,
 
         Your echo team
@@ -598,7 +599,7 @@ en:
       text: |
         Dear {{name}},
 
-        Your still have 24 hours to incorporate your Improvement Proposal "{{title}}" in its proposal. To do that, 
+        Your still have 24 hours to incorporate your Improvement Proposal "{{title}}" in its proposal. To do that,
         you need to follow the link below:
 
         {{link}}
@@ -611,7 +612,7 @@ en:
       text: |
         Dear supporters of the "{{title}}" Improvement Proposal,
 
-        Your still have 24 hours to incorporate your Improvement Proposal "{{title}}" in its proposal. To do that, 
+        Your still have 24 hours to incorporate your Improvement Proposal "{{title}}" in its proposal. To do that,
         you need to follow the link below:
 
         {{link}}
@@ -647,11 +648,11 @@ en:
         Your Improvement Proposal "{{title}}" was successfully incorporated in its proposal. Congratulations.
 
         {{link}}
-        
+
         Best Regards,
 
         Your echo team
-        
+
     incorporation_notification:
       subject: A Proposal you support has been updated!
       text: |
@@ -660,8 +661,8 @@ en:
         The Proposal "{{title}}" which you support has been updated. Take a look and see if you think it has improved.
 
         {{link}}
-        
+
         Best Regards,
 
         Your echo team
-    
+

@@ -339,6 +339,7 @@ pt:
       publish: |
         Publique a discussão, de forma a esta se tornar visível para todos.
         (Não será mais possível editar a discussão.)
+      incorporate: 'Click here to incorporate this improvement proposal into the text above.'
 
     statements:
       label: 'votos'
