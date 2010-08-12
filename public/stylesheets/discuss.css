@@ -105,8 +105,8 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 .statement_form_illustration {
-  float: left;
-  margin: 30px 0 0 20px;
+  float: right;
+  margin: 20px 35px 0 30px;
   border: none;
 }
 
@@ -217,14 +217,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* ------- */
 /* Sidebar */
 /* ------- */
-
-/*#discuss_sidebar {
-  clear:      both;
-  float:      left;
-  width:      140px;
-  text-align: center;
-  margin-top: 15px;
-}*/
 
 #discuss_sidebar  {
   clear: both;
@@ -384,6 +376,35 @@ a.statement_link:hover {
 
 .create_question_button_mid:hover, .create_proposal_button_mid:hover, .create_improvement_proposal_button_mid:hover {
  background-position: 0 -55px;
+}
+
+/* Incorporation */
+
+#approved_ip {
+  border-top: 1px dashed #CCC;
+  display: block;
+  margin-left: 155px;
+  padding: 5px 0;
+  width: 815px;
+}
+
+.incorporate_statement_button_mid {
+  background: transparent url(../images/page/discuss/inc_improvement_proposal_mid.png) no-repeat scroll 0 0;
+  width: 55px;
+  height: 55px;
+  cursor: pointer;
+  position: relative;
+  left: 390px;
+  top: 0;
+  display: block;
+}
+
+.incorporate_statement_button_mid:hover {
+ background-position: 0 -55px;
+}
+
+#ip_text {
+  margin-top: 15px;
 }
 
 
