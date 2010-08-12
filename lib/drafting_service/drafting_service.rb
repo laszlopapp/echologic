@@ -9,6 +9,7 @@ class DraftingService
   @@time_ready  = 10.hours # 10 hours
   @@time_approved  = 10.hours # 10 hours
   @@time_approval_reminder  = 6.hours #6 hours
+  @@edit_locking_time = 1.hours
 
   def self.min_quorum=(value)
     @@min_quorum = value
@@ -28,6 +29,14 @@ class DraftingService
 
   def self.time_approval_reminder=(value)
     @@time_approval_reminder = value
+  end
+  
+  def self.edit_locking_time=(value)
+    @@edit_locking_time = value
+  end
+  
+  def self.edit_locking_time
+    @@edit_locking_time
   end
 
   def update(*args)

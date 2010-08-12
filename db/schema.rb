@@ -162,7 +162,7 @@ ActiveRecord::Schema.define(:version => 20100812170217) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "locked_by"
-    t.integer  "locked_at"
+    t.datetime "locked_at"
   end
 
   add_index "statement_documents", ["language_id", "id"], :name => "idx_statement_documents_language_pk"
