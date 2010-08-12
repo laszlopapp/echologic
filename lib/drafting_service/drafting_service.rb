@@ -10,9 +10,9 @@ class DraftingService
 
   @@min_quorum = 50
   @@min_votes  = 5
-  @@time_ready  = 10.hours # 10 hours
-  @@time_approved  = 10.hours # 10 hours
-  @@time_approval_reminder  = 6.hours #6 hours
+  @@time_ready  = 10.hours
+  @@time_approved  = 10.hours
+  @@time_approval_reminder  = 6.hours
 
   def self.min_quorum=(value)
     @@min_quorum = value
