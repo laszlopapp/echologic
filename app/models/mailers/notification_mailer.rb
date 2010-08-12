@@ -12,7 +12,7 @@ class NotificationMailer < ActionMailer::Base
   def supporters_approval(statement, statement_document, users)
     subject       I18n.t('notification_mailer.supporters_approval.subject', :locale => statement_document.language.code)
     from          "noreply@echologic.org"
-    recipients    users.map{|u|u.email}
+    bcc           users.map{|u|u.email}
     sent_on       Time.now
     body          :title => statement_document.title, :link => improvement_proposal_path(statement), 
                   :language => statement_document.language
@@ -30,7 +30,7 @@ class NotificationMailer < ActionMailer::Base
   def supporters_approval_reminder(statement, statement_document, users)
     subject       I18n.t('notification_mailer.supporters_approval_reminder.subject', :locale => statement_document.language.code)
     from          "noreply@echologic.org"
-    recipients    users.map{|u|u.email}
+    bcc           users.map{|u|u.email}
     sent_on       Time.now
     body          :title => statement_document.title, :link => improvement_proposal_path(statement), 
                   :language => statement_document.language
@@ -48,7 +48,7 @@ class NotificationMailer < ActionMailer::Base
   def supporters_passed(statement_document, users)
     subject       I18n.t('notification_mailer.supporters_passed.subject', :locale => statement_document.language.code)
     from          "noreply@echologic.org"
-    recipients    users.map{|u|u.email}
+    bcc           users.map{|u|u.email}
     sent_on       Time.now
     body          :title => statement_document.title, :language => statement_document.language
   end

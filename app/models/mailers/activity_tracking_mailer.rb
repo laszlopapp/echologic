@@ -17,7 +17,7 @@ class ActivityTrackingMailer < ActionMailer::Base
   def approval_notification(statement, statement_document, users)
     subject       I18n.t('notification_mailer.approval_notification.subject', :locale => statement_document.language.code)
     from          "noreply@echologic.org"
-    recipients    users.map{|u|u.email}
+    bcc           users.map{|u|u.email}
     sent_on       Time.now
     body          :title => statement_document.title, :link => improvement_proposal_path(statement), 
                   :language => statement_document.language
@@ -27,7 +27,7 @@ class ActivityTrackingMailer < ActionMailer::Base
   def incorporation_notification(statement, statement_document, users)
     subject       I18n.t('notification_mailer.incorporation_notification.subject', :locale => statement_document.language.code)
     from          "noreply@echologic.org"
-    recipients    users.map{|u|u.email}
+    bcc           users.map{|u|u.email}
     sent_on       Time.now
     body          :title => statement_document.title, :link => proposal_path(statement), 
                   :language => statement_document.language

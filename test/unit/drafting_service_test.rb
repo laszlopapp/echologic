@@ -140,7 +140,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
         email = ActionMailer::Base.deliveries.last
         supporters = @statement_2.parent.supporters.select{|sup|sup.languages.include?(@statement_2.original_language)}
         assert !ActionMailer::Base.deliveries.empty?
-        assert_equal supporters.map{|u|u.email}, email.to
+        assert_equal supporters.map{|u|u.email}, email.bcc
         assert_equal "An Improvement Proposal was approved for incorporation", email.subject
       end
       should("set a delayed task for test passed") do
@@ -194,7 +194,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
         supporters = @statement_2.supporters.select{|sup|sup.speaks_language?(@statement_2.original_language, 'intermediate')}
         email = ActionMailer::Base.deliveries[ActionMailer::Base.deliveries.length-2]
         assert !ActionMailer::Base.deliveries.empty?
-        assert_equal supporters.map{|u|u.email}, email.to
+        assert_equal supporters.map{|u|u.email}, email.bcc
         assert_equal "You have the privilege to incorporate a Improvement Proposal!", email.subject
       end
       should("set a delayed task for approval reminder email sending") do
@@ -204,7 +204,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
         email = ActionMailer::Base.deliveries.last
         supporters = @statement_2.parent.supporters.select{|sup|sup.languages.include?(@statement_2.original_language)}
         assert !ActionMailer::Base.deliveries.empty?
-        assert_equal supporters.map{|u|u.email}, email.to
+        assert_equal supporters.map{|u|u.email}, email.bcc
         assert_equal "An Improvement Proposal was approved for incorporation", email.subject
       end
       should("set a delayed task for test passed") do
@@ -305,7 +305,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
         supporters = @statement_1.supporters.select{|sup|sup.languages('advanced').include?(@statement_2.original_language)}
         email = ActionMailer::Base.deliveries[ActionMailer::Base.deliveries.length-3]
         assert !ActionMailer::Base.deliveries.empty?
-        assert_equal supporters.map{|u|u.email}, email.to
+        assert_equal supporters.map{|u|u.email}, email.bcc
         assert_equal "Improvement Proposal Approval Passed!", email.subject
       end
       should("set the next best staged to approved") do
@@ -361,7 +361,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
         supporters = @statement_2.supporters.select{|sup|sup.speaks_language?(@statement_2.original_language, 'intermediate')}
         email = ActionMailer::Base.deliveries.last
         assert !ActionMailer::Base.deliveries.empty?
-        assert_equal supporters.map{|u|u.email}, email.to
+        assert_equal supporters.map{|u|u.email}, email.bcc
         assert_equal "A Proposal you support has been updated!", email.subject
       end
     end
