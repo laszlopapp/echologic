@@ -2,15 +2,10 @@
 class ActivityTrackingJob < Struct.new(:current_charge, :charges, :tracking_period)
   
   def perform
-    puts "Starting"
-    puts "#{@current_charge} #{@charges} #{@tracking_period}"
-    puts User.all(:conditions => ["(id % ?) = ? and email_notification = 1", @charges, @current_charge]).inspect
-    User.all(:conditions => ["(id % ?) = ? and email_notification = 1", @charges, @current_charge]).each do |user|
-      puts "Baby"
+    User.all(:conditions => ["(id % ?) = ? and email_notification = 1", charges, current_charge]).each do |user|
       puts user.full_name
-      events = Event.find_tracked_events(user, Time.now.utc.since(-@tracking_period))
+      events = Event.find_tracked_events(user, Time.now.utc.since(-tracking_period))
       next if events.blank? #if there are no events to send per email, then get the hell out
-      puts "Has events"
       question_events = events.select{|e|JSON.parse(e.event).keys[0] == 'question'}
       tags = Hash.new
       question_events.each do |question|
@@ -28,10 +23,8 @@ class ActivityTrackingJob < Struct.new(:current_charge, :charges, :tracking_peri
         parent_y = b_parsed[b_parsed.keys[0]]['parent_id'] || -1
         [root_x,parent_x] <=> [root_y,parent_y]
       end
-      puts "send mail"
       user.deliver_activity_tracking_email!(question_events, tags, events - question_events)
     end
-    puts "enqueue"
     ActivityNotificationService.instance.enqueue_activity_tracking_job
   end
 end
