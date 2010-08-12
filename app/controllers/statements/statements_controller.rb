@@ -278,10 +278,31 @@ class StatementsController < ApplicationController
   #
   def edit
     @statement_document ||= @statement_node.translated_document(@language_preference_list)
+    locked = false
+    StatementDocument.transaction do
+      if @statement_document.locked_by.nil?
+        @statement_document.user_lock(current_user)
+      elsif current_user != @statement_document.locked_by
+        if @statement_document.locked_at >= DraftingService.edit_locking_time.ago
+          locked = true
+        else
+          @statement_document.user_lock(current_user)
+        end
+      end
+    end
+    
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     @action ||= StatementHistory.statement_actions("updated")
-    respond_to_js :template => 'statements/edit',
-                  :partial_js => 'statements/edit.rjs'
+    if !locked
+      respond_to_js :template => 'statements/edit',
+                    :partial_js => 'statements/edit.rjs'
+    else
+      respond_to do |format|
+        set_info('discuss.statements.being_edited')
+        format.html { flash_error and redirect_to url_for(@statement_node) }
+        format.js   { render_with_info }
+      end
+    end
   end
 
 

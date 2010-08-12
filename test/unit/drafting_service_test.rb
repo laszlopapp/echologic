@@ -35,13 +35,21 @@ class DraftingServiceTest < ActiveSupport::TestCase
     context "when user unsupports the second improvement proposal which is ready and ranking changes" do
       setup {
         @statement_1 = statement_nodes('first-impro-proposal')
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo, :user => users(:luise), :supported => true)
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo, :user => users(:red), :supported => true)
+        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+                                                :user => users(:luise),
+                                                :supported => true)
+        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+                                                :user => users(:red),
+                                                :supported => true)
         @statement_1.find_or_create_echo.update_counter!
 
         @statement_2 = statement_nodes('second-impro-proposal')
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo, :user => users(:luise), :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo, :user => users(:red), :supported => true)
+        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :user => users(:luise),
+                                                :supported => true)
+        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :user => users(:red),
+                                                :supported => true)
         @statement_2.find_or_create_echo.update_counter!
         @statement_2.readify!
         @statement_2.save
@@ -56,13 +64,21 @@ class DraftingServiceTest < ActiveSupport::TestCase
     context "user supports the second improvement proposal which is tracked and ranking changes" do
       setup {
         @statement_1 = statement_nodes('second-impro-proposal')
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo, :user => users(:red), :supported => true)
+        @statement_1.user_echos.destroy_all
+        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+                                                :user => users(:red),
+                                                :supported => true)
         @statement_1.find_or_create_echo.update_counter!
         @statement_1.save
 
         @statement_2 = statement_nodes('first-impro-proposal')
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo, :user => users(:red), :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo, :user => users(:luise), :supported => true)
+        @statement_2.user_echos.destroy_all
+        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :user => users(:red),
+                                                :supported => true)
+        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :user => users(:luise),
+                                                :supported => true)
         @statement_2.find_or_create_echo.update_counter!
         @statement_2.readify!
         @statement_2.stage!
@@ -91,26 +107,42 @@ class DraftingServiceTest < ActiveSupport::TestCase
 
         DraftingService.min_votes=2
         @statement_1 = statement_nodes('first-impro-proposal')
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo, :user => users(:red), :supported => true)
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo, :user => users(:luise), :supported => true)
+        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+                                                :user => users(:red),
+                                                :supported => true)
+        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+                                                :user => users(:luise),
+                                                :supported => true)
         @statement_1.find_or_create_echo.update_counter!
         @statement_1.readify!
         @statement_1.state_since = Time.now
         @statement_1.save
 
         @statement_2 = statement_nodes('second-impro-proposal')
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo, :user => users(:red), :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo, :user => users(:luise), :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo, :user => users(:green), :supported => true)
+        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :user => users(:red),
+                                                :supported => true)
+        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :user => users(:luise),
+                                                :supported => true)
+        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :user => users(:green),
+                                                :supported => true)
         @statement_2.find_or_create_echo.update_counter!
         @statement_2.readify!
         @statement_2.stage!
         @statement_2.state_since = Time.now
         @statement_2.save
 
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo, :user => users(:red), :supported => true)
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo, :user => users(:luise), :supported => true)
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo, :user => users(:green), :supported => true)
+        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :user => users(:red),
+                                                       :supported => true)
+        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :user => users(:luise),
+                                                       :supported => true)
+        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :user => users(:green),
+                                                       :supported => true)
         @statement_2.parent.find_or_create_echo.update_counter!
         @statement_2.parent.save
 
@@ -153,17 +185,27 @@ class DraftingServiceTest < ActiveSupport::TestCase
 
         DraftingService.min_votes=2
         @statement_1 = statement_nodes('first-impro-proposal')
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo, :user => users(:red), :supported => true)
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo, :user => users(:luise), :supported => true)
+        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+                                                :user => users(:red),
+                                                :supported => true)
+        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+                                                :user => users(:luise),
+                                                :supported => true)
         @statement_1.find_or_create_echo.update_counter!
         @statement_1.readify!
         @statement_1.state_since = Time.now
         @statement_1.save
 
         @statement_2 = statement_nodes('third-impro-proposal')
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo, :user => users(:red), :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo, :user => users(:luise), :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo, :user => users(:green), :supported => true)
+        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :user => users(:red),
+                                                :supported => true)
+        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :user => users(:luise),
+                                                :supported => true)
+        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :user => users(:green),
+                                                :supported => true)
         @statement_2.find_or_create_echo.update_counter!
         @statement_2.readify!
         @statement_2.stage!
@@ -171,9 +213,15 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_2.times_passed = 1
         @statement_2.save
 
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo, :user => users(:red), :supported => true)
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo, :user => users(:luise), :supported => true)
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo, :user => users(:green), :supported => true)
+        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :user => users(:red),
+                                                       :supported => true)
+        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :user => users(:luise),
+                                                       :supported => true)
+        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :user => users(:green),
+                                                       :supported => true)
         @statement_2.parent.find_or_create_echo.update_counter!
         @statement_2.parent.save
 
@@ -191,7 +239,9 @@ class DraftingServiceTest < ActiveSupport::TestCase
         assert StatementNode.find(@statement_2.id).approved?
       end
       should("send an supporters approval email") do
-        supporters = @statement_2.supporters.select{|sup|sup.speaks_language?(@statement_2.original_language, 'intermediate')}
+        supporters = @statement_2.supporters.select{|supporter|
+          supporter.speaks_language?(@statement_2.original_language, 'intermediate')
+        }
         email = ActionMailer::Base.deliveries[ActionMailer::Base.deliveries.length-2]
         assert !ActionMailer::Base.deliveries.empty?
         assert_equal supporters.map{|u|u.email}, email.bcc
@@ -202,7 +252,9 @@ class DraftingServiceTest < ActiveSupport::TestCase
       end
       should("send an approval notification email") do
         email = ActionMailer::Base.deliveries.last
-        supporters = @statement_2.parent.supporters.select{|sup|sup.languages.include?(@statement_2.original_language)}
+        supporters = @statement_2.parent.supporters.select{|supporter|
+          supporter.languages.include?(@statement_2.original_language)
+        }
         assert !ActionMailer::Base.deliveries.empty?
         assert_equal supporters.map{|u|u.email}, email.bcc
         assert_equal "An Improvement Proposal was approved for incorporation", email.subject
@@ -217,8 +269,12 @@ class DraftingServiceTest < ActiveSupport::TestCase
 
         DraftingService.min_votes=2
         @statement_1 = statement_nodes('first-impro-proposal')
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo, :user => users(:red), :supported => true)
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo, :user => users(:luise), :supported => true)
+        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+                                                :user => users(:red),
+                                                :supported => true)
+        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+                                                 :user => users(:luise),
+                                                 :supported => true)
         @statement_1.find_or_create_echo.update_counter!
         @statement_1.readify!
         @statement_1.stage!
@@ -227,9 +283,15 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_1.save
 
         @statement_2 = statement_nodes('second-impro-proposal')
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo, :user => users(:red), :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo, :user => users(:luise), :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo, :user => users(:green), :supported => true)
+        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :user => users(:red),
+                                                :supported => true)
+        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :user => users(:luise),
+                                                :supported => true)
+        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :user => users(:green),
+                                                :supported => true)
         @statement_2.find_or_create_echo.update_counter!
         @statement_2.readify!
         @statement_2.stage!
@@ -237,9 +299,15 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_2.times_passed = 1
         @statement_2.save
 
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo, :user => users(:red), :supported => true)
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo, :user => users(:luise), :supported => true)
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo, :user => users(:green), :supported => true)
+        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :user => users(:red),
+                                                       :supported => true)
+        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :user => users(:luise),
+                                                       :supported => true)
+        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :user => users(:green),
+                                                       :supported => true)
         @statement_2.parent.find_or_create_echo.update_counter!
         @statement_2.parent.save
 
@@ -268,8 +336,12 @@ class DraftingServiceTest < ActiveSupport::TestCase
 
         DraftingService.min_votes=2
         @statement_1 = statement_nodes('third-impro-proposal')
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo, :user => users(:red), :supported => true)
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo, :user => users(:luise), :supported => true)
+        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+                                                :user => users(:red),
+                                                :supported => true)
+        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+                                                :user => users(:luise),
+                                                :supported => true)
         @statement_1.find_or_create_echo.update_counter!
         @statement_1.readify!
         @statement_1.stage!
@@ -278,9 +350,15 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_1.save
 
         @statement_2 = statement_nodes('second-impro-proposal')
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo, :user => users(:red), :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo, :user => users(:luise), :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo, :user => users(:green), :supported => true)
+        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :user => users(:red),
+                                                :supported => true)
+        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :user => users(:luise),
+                                                :supported => true)
+        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :user => users(:green),
+                                                :supported => true)
         @statement_2.find_or_create_echo.update_counter!
         @statement_2.readify!
         @statement_2.stage!
@@ -288,9 +366,15 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_2.times_passed = 1
         @statement_2.save
 
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo, :user => users(:red), :supported => true)
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo, :user => users(:luise), :supported => true)
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo, :user => users(:green), :supported => true)
+        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :user => users(:red),
+                                                       :supported => true)
+        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :user => users(:luise),
+                                                       :supported => true)
+        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :user => users(:green),
+                                                       :supported => true)
         @statement_2.parent.find_or_create_echo.update_counter!
         @statement_2.parent.save
 
@@ -302,7 +386,8 @@ class DraftingServiceTest < ActiveSupport::TestCase
         assert StatementNode.find(@statement_1.id).tracked?
       end
       should("send passed email") do
-        supporters = @statement_1.supporters.select{|sup|sup.languages('advanced').include?(@statement_2.original_language)}
+        supporters = @statement_1.supporters.select{|supporter|
+          supporter.speaks_language?(@statement_2.original_language, 'intermediate')}
         email = ActionMailer::Base.deliveries[ActionMailer::Base.deliveries.length-3]
         assert !ActionMailer::Base.deliveries.empty?
         assert_equal supporters.map{|u|u.email}, email.bcc
@@ -328,9 +413,15 @@ class DraftingServiceTest < ActiveSupport::TestCase
         old_doc = @statement_2.original_document
 
         @statement_2.original_document.update_attribute(:current, false)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo, :user => users(:red), :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo, :user => users(:luise), :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo, :user => users(:green), :supported => true)
+        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :user => users(:red),
+                                                :supported => true)
+        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :user => users(:luise),
+                                                :supported => true)
+        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :user => users(:green),
+                                                :supported => true)
         @statement_2.find_or_create_echo.update_counter!
         @statement_2.add_statement_document :original_language_id => @statement_2.original_language.id,
                                             :title => old_doc.title,
@@ -358,7 +449,9 @@ class DraftingServiceTest < ActiveSupport::TestCase
       end
       should("send incorporation notification") do
         @statement_2.reload
-        supporters = @statement_2.supporters.select{|sup|sup.speaks_language?(@statement_2.original_language, 'intermediate')}
+        supporters = @statement_2.supporters.select{|supporter|
+          supporter.speaks_language?(@statement_2.original_language, 'intermediate')
+        }
         email = ActionMailer::Base.deliveries.last
         assert !ActionMailer::Base.deliveries.empty?
         assert_equal supporters.map{|u|u.email}, email.bcc
@@ -366,4 +459,5 @@ class DraftingServiceTest < ActiveSupport::TestCase
       end
     end
   end
+
 end

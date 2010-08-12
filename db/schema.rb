@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100730183525) do
+ActiveRecord::Schema.define(:version => 20100812170217) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -161,6 +161,8 @@ ActiveRecord::Schema.define(:version => 20100730183525) do
     t.integer  "current"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "locked_by"
+    t.datetime "locked_at"
   end
 
   add_index "statement_documents", ["language_id", "id"], :name => "idx_statement_documents_language_pk"

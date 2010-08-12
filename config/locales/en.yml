@@ -398,6 +398,8 @@ en:
         This is a transparent but currently closed discussion, you are only allowed to read.
       unsupported_parent: |-
         You can only support improvement proposals if you support the proposal itself.
+      being_edited: |-
+        We are sorry, this Statement is being edited
 
 
     summary:
