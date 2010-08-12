@@ -1,11 +1,12 @@
 #job class responsible for getting all user related events and sending an email
-class ActivityTrackingJob < Struct.new(:current_charge, :charges, :tracking_period)
+class ActivityTrackingJob < Struct.new(:current_charge, :charges, :trigger_time)
   
   def perform
     User.all(:conditions => ["(id % ?) = ? and email_notification = 1", charges, current_charge]).each do |user|
-      events = Event.find_tracked_events(user, Time.now.utc.since(-tracking_period))
+      events = Event.find_tracked_events(user, trigger_time)
       puts events.inspect
       next if events.blank? #if there are no events to send per email, then get the hell out
+      puts user.full_name
       question_events = events.select{|e|JSON.parse(e.event).keys[0] == 'question'}
       tags = Hash.new
       question_events.each do |question|
