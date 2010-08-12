@@ -42,10 +42,10 @@ Rails::Initializer.run do |config|
 
   # require should to use it for testing :)
   config.gem 'shoulda'
-  
+
   # gem for background processing
   config.gem 'delayed_job'
-  
+
   # gem for running the background jobs in production
   config.gem 'daemons'
 
@@ -74,9 +74,9 @@ Rails::Initializer.run do |config|
   config.action_controller.session_store = :active_record_store
 
   # add load paths for models in subfolders... this can be extended by further subfolders if neccessary
-  config.load_paths += %w(statements).collect{|dir|"#{RAILS_ROOT}/app/models/#{dir}"}
+  config.load_paths += %w(statements mailers).collect{|dir|"#{RAILS_ROOT}/app/models/#{dir}"}
   # the same for controllers
   config.load_paths += %w(statements).collect{|dir|"#{RAILS_ROOT}/app/controllers/#{dir}"}
-  
-  
+
+
 end
