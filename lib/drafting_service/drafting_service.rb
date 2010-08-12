@@ -52,6 +52,7 @@ class DraftingService
 
   def stage(incorporable)
     set_stage(incorporable)
+    incorporable.reload
     select_approved(incorporable)
   end
 
@@ -189,18 +190,23 @@ class DraftingService
   # set incorporable as ready
   def readify(incorporable)
     set_readify(incorporable)
+    puts "state_since before: #{incorporable.state_since.to_s}"
+    incorporable.reload
+    puts "state_since after: #{incorporable.state_since.to_s}"
     Delayed::Job.enqueue TestForStagedJob.new(incorporable.id,incorporable.state_since), 1, Time.now.advance(:seconds => @@time_ready)
   end
 
   # set incorporable as approved
   def approve(incorporable)
     set_approve(incorporable)
+    incorporable.reload
     send_approved_email(incorporable)
     Delayed::Job.enqueue TestForPassedJob.new(incorporable.id), 1, Time.now.advance(:seconds => @@time_approved)
   end
 
   def incorporate(incorporable, user)
     set_incorporate(incorporable)
+    incorporable.reload
     send_incorporated_email(incorporable, user)
   end
 
