@@ -4,7 +4,7 @@ class ActivityTrackingJob < Struct.new(:current_charge, :charges, :tracking_peri
   def perform
     puts "Starting"
     User.all(:conditions => ["(id % ?) = ?", @charges, @current_charge]).each do |user|
-
+      puts "Baby"
       next if !user.email_notification?
       puts user.full_name
       events = Event.find_tracked_events(user, Time.now.utc.since(-@tracking_period))
