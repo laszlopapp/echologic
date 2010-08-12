@@ -86,10 +86,11 @@ class DraftingService
       email = NotificationMailer.create_supporters_approval(incorporable, statement_document, supporters)
       NotificationMailer.deliver(email)
     end
+
     # Enqueue reminder mail
-    Delayed::Job.enqueue ApprovalReminderMailJob.new(incorporable.id, incorporable.state_since), 
-                         1, 
+    Delayed::Job.enqueue ApprovalReminderMailJob.new(incorporable.id, incorporable.state_since), 1,
                          Time.now.advance(:seconds => @@time_approval_reminder)
+    
     #Send approval notification to the proposal supporters
     supporters = incorporable.parent.supporters.select{|supporter|
       supporter.languages.include?(incorporable.original_language)
@@ -135,7 +136,7 @@ class DraftingService
   end
 
 
-  
+
   private
 
   # kickstarts the drafting process, i e when it's incorporable updates the sibling states, when drafteable,
@@ -189,7 +190,8 @@ class DraftingService
   # set incorporable as ready
   def readify(incorporable)
     set_readify(incorporable)
-    Delayed::Job.enqueue TestForStagedJob.new(incorporable.id,incorporable.state_since), 1, Time.now.advance(:seconds => @@time_ready)
+    Delayed::Job.enqueue TestForStagedJob.new(incorporable.id,incorporable.state_since), 1,
+                         Time.now.advance(:seconds => @@time_ready)
   end
 
   # set incorporable as approved
