@@ -7,7 +7,7 @@ class ActivityTrackingJob < Struct.new(:current_charge, :charges, :tracking_peri
 
       next if !user.email_notification?
 
-      events = Event.find_tracked_events(user, Time.now.since(-@tracking_period))
+      events = Event.find_tracked_events(user, Time.now.localtime.since(-@tracking_period))
       next if events.blank? #if there are no events to send per email, then get the hell out
 
       question_events = events.select{|e|JSON.parse(e.event).keys[0] == 'question'}
