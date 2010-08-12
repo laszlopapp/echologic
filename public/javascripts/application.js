@@ -155,51 +155,21 @@ function loadRTEEditor(iframe_css_class, host) {
 
 /* select approved text in the form */
 function selectApprovedText(id) {
-	
-	//$("#proposal_statement_document_text").contents().find("body").append("<br>");
-	
-	//var contents = $("#approved_improvement_proposal").contents();
 
-  if (document.selection) document.selection.empty(); 
+  if (document.selection) document.selection.empty();
   else if (window.getSelection)
           window.getSelection().removeAllRanges();
   if (document.selection) {
 	  var range = document.body.createTextRange();
-	      range.moveToElementText(document.getElementById("approved_improvement_proposal"));
+	      range.moveToElementText(document.getElementById("ip_text"));
 	  range.select();
 	  }
 	  else if (window.getSelection) {
 	  var range = document.createRange();
-	  range.selectNode(document.getElementById("approved_improvement_proposal"));
+	  range.selectNode(document.getElementById("ip_text"));
 	  window.getSelection().addRange(range);
   }
 
-
-
-
-
-  //$("#proposal_statement_document_text").contents().find("body").append(contents);
-		
-	
-
-  /*var selection = document.getElementById("proposal_statement_document_text").contentWindow.getSelection();
-  var range = document.getElementById("proposal_statement_document_text").contentDocument.createRange();
-
-  selection.removeAllRanges();
-
-  
-  for (i = 0; i < contents.length; i++) {
-		if ($.browser.msie) {
-		  var range = document.getElementById("proposal_statement_document_text").contentDocument.createTextRange();
-      range.moveToElementText( contents[i] );
-      range.select();
-	  } else if ($.browser.mozilla || $.browser.opera) {
-			range.selectNodeContents(contents[i]);
-			selection.addRange(range);
-    } else if ( $.browser.safari ) {
-      selection.setBaseAndExtent( contents[i], 0, contents[i], 1 );
-    }
-  }*/
 }
 
 

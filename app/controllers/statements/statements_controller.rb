@@ -76,7 +76,7 @@ class StatementsController < ApplicationController
     # Prev / Next functionality
     unless @statement_node.children.empty?
       child_type = ("current_" + @statement_node.class.expected_children.first.to_s.underscore).to_sym
-      session[child_type] = @statement_node.children.by_supporters.collect { |c| c.id }
+      session[child_type] = @statement_node.sorted_children(@language_preference_list).collect { |c| c.id }
     end
 
     # Get document to show and redirect if not found
@@ -474,7 +474,7 @@ class StatementsController < ApplicationController
   def load_to_session(statement_node)
     type = statement_node_class.to_s.underscore
     key = ("current_" + type).to_sym
-    session[key] = statement_node.parent.children.map{|s|s.id}
+    session[key] = statement_node.parent.sorted_children(@language_preference_list).map{|s|s.id}
     session[:last_statement_node] = statement_node.id
   end
 

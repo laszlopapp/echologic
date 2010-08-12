@@ -10,7 +10,7 @@ ActiveRecord::Base.send :include, ActiveRecord::Acts::Incorporable
 ActiveRecord::Base.send :include, ActiveRecord::Acts::Drafteable
 
 DraftingService.min_quorum = 50
-DraftingService.min_votes  = 5
-DraftingService.time_ready  = 10.hours # 10 hours
-DraftingService.time_approved  = 10.hours # 10 hours
-DraftingService.time_approval_reminder  = 6.hours # 6 hours
+DraftingService.min_votes  = 3
+DraftingService.time_ready  = 24.hours
+DraftingService.time_approved  = 24.hours
+DraftingService.time_approval_reminder  = 12.hours

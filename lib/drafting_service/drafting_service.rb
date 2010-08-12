@@ -1,7 +1,7 @@
 require 'singleton'
 
 class DraftingService
-  
+
   include Singleton
 
   @@min_quorum = 50
@@ -13,11 +13,11 @@ class DraftingService
   def self.min_quorum=(value)
     @@min_quorum = value
   end
-  
+
   def self.min_votes=(value)
     @@min_votes = value
   end
-  
+
   def self.time_ready=(value)
     @@time_ready = value
   end
@@ -25,7 +25,7 @@ class DraftingService
   def self.time_approved=(value)
     @@time_approved = value
   end
-  
+
   def self.time_approval_reminder=(value)
     @@time_approval_reminder = value
   end
@@ -38,90 +38,107 @@ class DraftingService
   def supported(echoable, user)
     draft(echoable, echoable.supporter_count.to_i-1)
   end
-  
+
   # observer to echoable unsupport action
   def unsupported(echoable, user)
     draft(echoable, echoable.supporter_count.to_i+1)
   end
-  
+
   # observer to incorporable incorporated action
   def incorporated(incorporable, user)
     incorporate(incorporable, user)
     select_approved(incorporable)
   end
-  
+
   def stage(incorporable)
     set_stage(incorporable)
     select_approved(incorporable)
   end
-  
-  # select a suitable sibling from the incorporable to become approved
+
+  # Select a suitable sibling from the incorporable to become approved
   def select_approved(incorporable)
     if incorporable.parent.approved_children.empty?
       siblings = incorporable.siblings.select{|s|s.staged?}
       approve(siblings.first) if !siblings.empty?
     end
   end
-  
+
   def reset_incorporable(incorporable)
     EchoService.instance.reset_echoable(incorporable)
     incorporable.times_passed = 0
     set_track(incorporable)
   end
-  
+
+
+  ################
+  # SENING MAILS #
+  ################
+
   def send_approved_email(incorporable)
     statement_document = incorporable.original_document
     if incorporable.times_passed == 0
       email = NotificationMailer.create_approval(incorporable, statement_document)
       NotificationMailer.deliver(email)
     elsif incorporable.times_passed == 1
-      supporters = incorporable.supporters.select{|sup|sup.languages('advanced').include?(incorporable.original_language)}
+      supporters = incorporable.supporters.select{|supporter|
+        supporter.speaks_language?(incorporable.original_language, 'intermediate')
+      }
       email = NotificationMailer.create_supporters_approval(incorporable, statement_document, supporters)
       NotificationMailer.deliver(email)
     end
-    
-    Delayed::Job.enqueue ApprovalReminderMailJob.new(incorporable.id, incorporable.state_since), 1, Time.now.advance(:seconds => @@time_approval_reminder)
+    # Enqueue reminder mail
+    Delayed::Job.enqueue ApprovalReminderMailJob.new(incorporable.id, incorporable.state_since), 
+                         1, 
+                         Time.now.advance(:seconds => @@time_approval_reminder)
     #Send approval notification to the proposal supporters
-    supporters = incorporable.parent.supporters.select{|sup|sup.languages.include?(incorporable.original_language)}
+    supporters = incorporable.parent.supporters.select{|supporter|
+      supporter.languages.include?(incorporable.original_language)
+    }
     email = ActivityTrackingMailer.create_approval_notification(incorporable, statement_document, supporters)
     ActivityTrackingMailer.deliver(email)
   end
-  
+
   def send_approval_reminder(incorporable)
     statement_document = incorporable.original_document
     email = NotificationMailer.create_approval_reminder(incorporable, statement_document)
     NotificationMailer.deliver(email)
   end
-  
+
   def send_supporters_approval_reminder(incorporable)
     statement_document = incorporable.original_document
-    supporters = incorporable.supporters.select{|sup|sup.languages('advanced').include?(incorporable.original_language)}
+    supporters = incorporable.supporters.select{|supporter|
+      supporter.speaks_language?(incorporable.original_language, 'intermediate')
+    }
     email = NotificationMailer.create_supporters_approval_reminder(incorporable, statement_document, supporters)
     NotificationMailer.deliver(email)
   end
-  
+
   def send_passed_email(incorporable)
     statement_document = incorporable.original_document
     email = NotificationMailer.create_passed(statement_document)
     NotificationMailer.deliver(email)
   end
-  
+
   def send_supporters_passed_email(incorporable)
     statement_document = incorporable.original_document
-    supporters = incorporable.supporters.select{|sup|sup.languages('advanced').include?(incorporable.original_language)}
+    supporters = incorporable.supporters.select{|supporter|
+      supporter.speaks_language?(incorporable.original_language, 'intermediate')
+    }
     email = NotificationMailer.create_supporters_passed(statement_document, supporters)
     NotificationMailer.deliver(email)
   end
-  
+
   def send_incorporated_email(incorporable, user)
     statement_document = incorporable.original_document
     email = NotificationMailer.create_incorporated(incorporable, statement_document)
     NotificationMailer.deliver(email)
   end
+
+
   
   private
-  
-  # kickstarts the drafting process, i e when it's incorporable updates the sibling states, when drafteable, 
+
+  # kickstarts the drafting process, i e when it's incorporable updates the sibling states, when drafteable,
   # adjust the readiness of the children
   def draft(echoable, old_supporter_count)
     if echoable.incorporable?
@@ -134,7 +151,7 @@ class DraftingService
       end
     end
   end
-  
+
   # calculate which incorporable's positions (ordered per supported_count) have changed, and update their states
   def update_incorporable_states(incorporables, changed_incorporable, old_supporter_count)
     old_order = incorporables.map{|s|[s.id, s.supporter_count.to_i]} # get array order with id and supporter count
@@ -147,46 +164,46 @@ class DraftingService
       end
     end
   end
-  
-  # according to the given parameters, will either readify or track the incorporable 
+
+  # according to the given parameters, will either readify or track the incorporable
   def adjust_readiness(incorporable, position_decreased, changed_criteria)
     readiness = test_readiness(incorporable)
-    if ((incorporable.tracked? and changed_criteria) or (!incorporable.tracked? and position_decreased)) and 
+    if ((incorporable.tracked? and changed_criteria) or (!incorporable.tracked? and position_decreased)) and
         readiness
-        readify(incorporable) 
+        readify(incorporable)
     elsif !incorporable.tracked? and changed_criteria and !readiness
-      track(incorporable) 
+      track(incorporable)
     end
   end
-  
+
   # test if incorporable fulfills all conditions to become ready
   def test_readiness(incorporable)
     incorporable.supporter_count >= @@min_votes# and incorporable.quorum >= @@min_quorum
   end
-  
+
   # set incorporable state as tracked
   def track(incorporable)
     set_track(incorporable)
   end
-  
+
   # set incorporable as ready
   def readify(incorporable)
     set_readify(incorporable)
     Delayed::Job.enqueue TestForStagedJob.new(incorporable.id,incorporable.state_since), 1, Time.now.advance(:seconds => @@time_ready)
   end
-  
+
   # set incorporable as approved
   def approve(incorporable)
     set_approve(incorporable)
     send_approved_email(incorporable)
     Delayed::Job.enqueue TestForPassedJob.new(incorporable.id), 1, Time.now.advance(:seconds => @@time_approved)
   end
-  
+
   def incorporate(incorporable, user)
     set_incorporate(incorporable)
     send_incorporated_email(incorporable, user)
   end
-  
+
   %w(track readify stage approve incorporate).each do |transition|
     class_eval %(
       def set_#{transition}(incorporable)

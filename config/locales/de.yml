@@ -346,6 +346,7 @@ de:
       publish: |
         Geben Sie die Diskussion frei, um sie für alle sichtbar zu machen.
         (Danach ist keine Bearbeitung mehr möglich.)
+      incorporate: 'Klicken Sie hier, um diesen ausgewählten Ergänzungsvorschlag in den obigen Text einzuarbeiten.'
 
     statements:
       label: 'Stimmen'
