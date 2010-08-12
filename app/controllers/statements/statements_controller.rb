@@ -16,7 +16,7 @@ class StatementsController < ApplicationController
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
-  before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create, :edit]
+  before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
   before_filter :require_user, :except => [:category, :show]
   before_filter :fetch_languages, :except => [:destroy]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
@@ -277,7 +277,6 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def edit
-    @statement_node ||= StatementNode.find(params[:id], :lock => "LOCK IN SHARE MODE")
     @statement_document ||= @statement_node.translated_document(@language_preference_list)
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     @action ||= StatementHistory.statement_actions("updated")
