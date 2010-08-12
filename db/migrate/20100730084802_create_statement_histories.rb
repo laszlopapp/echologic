@@ -14,18 +14,21 @@ class CreateStatementHistories < ActiveRecord::Migration
       t.datetime :created_at
     end
 
-#    StatementDocument.all.each do |statement_document|
-#      sh = StatementHistory.new
-#      sh.statement_document_id = statement_document.id
-#      sh.statement_id = statement_document.statement_id
-#      sh.author_id = statement_document.author_id
-#      sh.action = EnumKey.find_by_code_and_enum_name("created","statement_actions")
-#      sh.old_document_id = statement_document.translated_document_id
-#      sh.created_at = statement_document.created_at
-#      sh.save
-#    end
+    StatementDocument.all.each do |statement_document|
+      sh = StatementHistory.new
+      sh.statement_document_id = statement_document.id
+      sh.statement_id = statement_document.statement_id
+      sh.author_id = statement_document.author_id
+      action = statement_document.translated_document_id.nil? ? StatementHistory.statement_actions("created") : StatementHistory.statement_actions("translated") 
+      sh.action_id = action.id
+      sh.old_document_id = statement_document.translated_document_id
+      sh.created_at = statement_document.created_at
+      sh.save
+    end
     remove_column :statement_documents, :author_id, :translated_document_id
-
+    StatementDocument.all.each do |sd|
+      sd.update_attribute(:current, true)
+    end
   end
 
   def self.down

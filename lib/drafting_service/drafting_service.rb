@@ -6,9 +6,9 @@ class DraftingService
 
   @@min_quorum = 50
   @@min_votes  = 5
-  @@time_ready  = (60 * 60 * 10) # 10 hours
-  @@time_approved  = (60 * 60 * 10) # 10 hours
-  @@time_approval_reminder  = (60 * 60 * 6) #6 hours
+  @@time_ready  = 10.hours # 10 hours
+  @@time_approved  = 10.hours # 10 hours
+  @@time_approval_reminder  = 6.hours #6 hours
 
   def self.min_quorum=(value)
     @@min_quorum = value
@@ -86,12 +86,10 @@ class DraftingService
       email = NotificationMailer.create_supporters_approval(incorporable, statement_document, supporters)
       NotificationMailer.deliver(email)
     end
-
     # Enqueue reminder mail
-    Delayed::Job.enqueue ApprovalReminderMailJob.new(incorporable.id, incorporable.state_since),
-                         1,
-                         Time.now + @@time_approval_reminder
-
+    Delayed::Job.enqueue ApprovalReminderMailJob.new(incorporable.id, incorporable.state_since), 
+                         1, 
+                         Time.now.advance(:seconds => @@time_approval_reminder)
     #Send approval notification to the proposal supporters
     supporters = incorporable.parent.supporters.select{|supporter|
       supporter.languages.include?(incorporable.original_language)
@@ -191,14 +189,14 @@ class DraftingService
   # set incorporable as ready
   def readify(incorporable)
     set_readify(incorporable)
-    Delayed::Job.enqueue TestForStagedJob.new(incorporable.id,incorporable.state_since), 1, Time.now + @@time_ready
+    Delayed::Job.enqueue TestForStagedJob.new(incorporable.id,incorporable.state_since), 1, Time.now.advance(:seconds => @@time_ready)
   end
 
   # set incorporable as approved
   def approve(incorporable)
     set_approve(incorporable)
     send_approved_email(incorporable)
-    Delayed::Job.enqueue TestForPassedJob.new(incorporable.id), 1, Time.now + @@time_approved
+    Delayed::Job.enqueue TestForPassedJob.new(incorporable.id), 1, Time.now.advance(:seconds => @@time_approved)
   end
 
   def incorporate(incorporable, user)

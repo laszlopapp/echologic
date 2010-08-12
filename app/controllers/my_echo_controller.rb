@@ -33,8 +33,10 @@ class MyEchoController < ApplicationController
   
   def set_email_notification
     @user = User.find(params[:id])
+    puts @user.email_notification
     @user.email_notification = params.has_key?(:notify) ? 1 : 0 
     @user.save
+    puts @user.email_notification
     respond_to do |format|
       format.js do 
         replace_content('email_notification_element', :partial => 'users/email_notification/check')
