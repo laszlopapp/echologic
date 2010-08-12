@@ -2,21 +2,15 @@
 <% parent_document ||= @statement_document %>
 <% statement_node ||= @approved_node %>
 <% statement_document ||= @approved_document %>
+
 <% if !statement_node.nil? and !statement_node.nil? %>
-  <div id="approved" class="header_block discuss_right_block">
-    <!-- Title -->
-    <h2>
-      <%= I18n.t('discuss.statements.states.approved') %>
-    </h2>
-    <ul>
-      <li id="<%= statement_node_dom_id(statement_node) %>" class="<%=statement_node.parent.class.name.downcase%>">
-        <%= link_to_child(statement_document.title,statement_node,nil) %>
-        <%= incorporate_statement_node_link(parent_node, parent_document, statement_node, statement_document) %>
-				<div id="approved_improvement_proposal">
-			    <%= sanitize statement_document.text %>
-			  </div>
-      </li>
-    </ul>
-    
+  <div id="approved_ip">
+
+     <% incorporate_statement_node_link(parent_node, parent_document, statement_node, statement_document) %>
+
+		 <div id="ip_text">
+		   <%= sanitize statement_document.text %>
+		 </div>
+
   </div>
 <% end %>

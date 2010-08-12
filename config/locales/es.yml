@@ -352,6 +352,7 @@ es:
       publish: |
         Si publicas la discusión, otras personas podran participar en ella.
         (No será possible modificar la discusión.)
+      incorporate: 'Click here to incorporate this improvement proposal into the text above.'
 
     statements:
       label: 'votos'

@@ -10,7 +10,7 @@ config.action_controller.perform_caching             = true
 config.action_view.cache_template_loading            = true
 
 # See everything in the log (default is :info)
-# config.log_level = :debug
+config.log_level = :error
 
 # Use a different logger for distributed setups
 # config.logger = SyslogLogger.new
@@ -28,13 +28,13 @@ config.action_view.cache_template_loading            = true
 # config.threadsafe!
 
 # Hosts
-ECHOLOGIC_HOST = 'www.echologic.org'
+ECHOLOGIC_HOST = 'echo.to'
 ECHOSOCIAL_HOST = 'www.echosocial.org'
 
 # Feedback recipient
 FEEDBACK_RECIPIENT = 'team@echologic.org'
 
 # For using link_to and url_for in ActionMailer, hostname has to be given.
-config.action_mailer.default_url_options = { :host => 'www.echologic.org' }
+config.action_mailer.default_url_options = { :host => 'echo.to' }
 
 
