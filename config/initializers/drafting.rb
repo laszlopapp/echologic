@@ -9,8 +9,18 @@ require 'drafting_service/approval_reminder_mail_job'
 ActiveRecord::Base.send :include, ActiveRecord::Acts::Incorporable
 ActiveRecord::Base.send :include, ActiveRecord::Acts::Drafteable
 
-DraftingService.min_quorum = 50
-DraftingService.min_votes  = 3
-DraftingService.time_ready  = 24.hours
-DraftingService.time_approved  = 24.hours
-DraftingService.time_approval_reminder  = 12.hours
+if !RAILS_ENV.eql? 'production'
+  DraftingService.min_quorum = 50
+  DraftingService.min_votes  = 2
+  DraftingService.time_ready  = 10.minutes
+  DraftingService.time_approved  = 10.minutes
+  DraftingService.time_approval_reminder  = 7.minutes
+  DraftingService.edit_locking_time  = 1.hours
+else
+  DraftingService.min_quorum = 50
+  DraftingService.min_votes  = 3
+  DraftingService.time_ready  = 24.hours
+  DraftingService.time_approved  = 24.hours
+  DraftingService.time_approval_reminder  = 12.hours
+  DraftingService.edit_locking_time  = 1.hours
+end

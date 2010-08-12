@@ -5,6 +5,8 @@ class StatementDocument < ActiveRecord::Base
   
   has_one :statement_history, :dependent => :destroy
 
+  belongs_to :locked_by, :class_name => "User", :foreign_key => 'locked_by'
+
   enum :language, :enum_name => :languages
 
   validates_presence_of :title
@@ -36,6 +38,12 @@ class StatementDocument < ActiveRecord::Base
   # Returns the translated_document, declaring it as the original
   def original
     self.original? ? self : self.old_document.original
+  end
+  
+  def user_lock(user)
+    self.locked_by = user
+    self.locked_at = Time.now
+    save
   end
 
   # Returns all translations of self

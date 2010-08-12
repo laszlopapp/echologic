@@ -6,7 +6,7 @@ require 'activity_notification_service/activity_notification_service'
 
 if !RAILS_ENV.eql? 'production'
   ActivityNotificationService.instance.charges = 1
-  ActivityNotificationService.instance.period = 2.minutes
+  ActivityNotificationService.instance.period = 30.minutes
 else
   ActivityNotificationService.instance.charges = 7
   ActivityNotificationService.instance.period = 1.week
