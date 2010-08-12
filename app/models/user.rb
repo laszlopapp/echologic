@@ -178,7 +178,7 @@ class User < ActiveRecord::Base
   end
 
   def speaks_language?(language, level)
-    languages(level).include?(langauge)
+    languages(level).include?(language)
   end
 
   def default_language
