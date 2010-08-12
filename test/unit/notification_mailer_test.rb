@@ -23,7 +23,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = NotificationMailer.deliver_supporters_approval!(statement_node, statement_document, users)
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
-    assert_equal users.map{|u|u.email}, email.to
+    assert_equal users.map{|u|u.email}, email.bcc
     assert_equal "You have the privilege to incorporate a Improvement Proposal!", email.subject
     assert_match /#{statement_document.title}/, email.encoded
     assert_match /#{statement_node.id}/, email.encoded
@@ -51,7 +51,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = NotificationMailer.deliver_supporters_approval_reminder!(statement_node, statement_document, users)
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
-    assert_equal users.map{|u|u.email}, email.to
+    assert_equal users.map{|u|u.email}, email.bcc
     assert_equal "Improvement Proposal Approval Reminder!", email.subject
     assert_match /#{statement_document.title}/, email.encoded
     assert_match /#{statement_node.id}/, email.encoded
@@ -78,7 +78,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     email = NotificationMailer.deliver_supporters_passed!(statement_document, users)
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
-    assert_equal users.map{|u|u.email}, email.to
+    assert_equal users.map{|u|u.email}, email.bcc
     assert_equal "Improvement Proposal Approval Passed!", email.subject
     assert_match /#{statement_document.title}/, email.encoded
   end

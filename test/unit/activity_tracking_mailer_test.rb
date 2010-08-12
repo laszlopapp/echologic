@@ -78,7 +78,7 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     email = ActivityTrackingMailer.deliver_approval_notification!(statement_node, statement_document, users)
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
-    assert_equal users.map{|u|u.email}, email.to
+    assert_equal users.map{|u|u.email}, email.bcc
     assert_equal "An Improvement Proposal was approved for incorporation", email.subject
     assert_match /#{statement_document.title}/, email.encoded
     assert_match /#{statement_node.id}/, email.encoded
@@ -92,7 +92,7 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     email = ActivityTrackingMailer.deliver_incorporation_notification!(statement_node, statement_document, users)
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
-    assert_equal users.map{|u|u.email}, email.to
+    assert_equal users.map{|u|u.email}, email.bcc
     assert_equal "A Proposal you support has been updated!", email.subject
     assert_match /#{statement_document.title}/, email.encoded
     assert_match /#{statement_node.id}/, email.encoded

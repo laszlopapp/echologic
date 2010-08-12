@@ -19,9 +19,9 @@ if (echoable) {
   $('#discuss_sidebar').hide();
 }
 $('#summary').replaceWith(summary);
-if($('#approved').size() == 0)
-  $('<div id="approved"></div>').insertAfter('#summary');
-$('#approved').replaceWith(approved);
+if($('#approved_ip').size() == 0)
+  $('<div id="approved_ip"></div>').insertAfter('#summary');
+$('#approved_ip').replaceWith(approved);
 if($('#children').size() == 0)
   $('<div id="children"></div>').insertAfter('#summary');
 $('#children').replaceWith(children);

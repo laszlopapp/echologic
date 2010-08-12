@@ -103,12 +103,12 @@ class User < ActiveRecord::Base
   #Send an activity tracking email through mailer
   def deliver_activity_tracking_email!(question_events, question_tags, events)
     reset_perishable_token!
-    mail = ActivityTrackingMailer.create_activity_tracking_email(self,question_events, question_tags, events)
+    mail = ActivityTrackingMailer.create_activity_tracking_email(self, question_events, question_tags, events)
     ActivityTrackingMailer.deliver(mail)
   end
 
 
-#  handle_asynchronously :deliver_activity_tracking_email!
+  handle_asynchronously :deliver_activity_tracking_email!
 
   ##
   ## PERMISSIONS
@@ -171,10 +171,14 @@ class User < ActiveRecord::Base
   def mother_tongues
     self.spoken_languages.select{|sp| sp.level.code == 'mother_tongue'}.collect{|sp| sp.language}
   end
-  
+
   def languages(level='basic')
     level = SpokenLanguage.language_levels(level)
-    self.spoken_languages.select{|sp| sp.level.key <= level.key}.collect{|sp| sp.language}
+    self.spoken_languages.select{|sp| sp.level.key <= level.key}.collect{|sp| sp.language} || []
+  end
+
+  def speaks_language?(language, level)
+    languages(level).include?(language)
   end
 
   def default_language

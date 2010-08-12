@@ -5,6 +5,11 @@ class CreateDraftingInfos < ActiveRecord::Migration
       t.datetime :state_since, :default => Time.now
       t.integer :times_passed, :default => 0
     end
+    ImprovementProposal.all.each do |improvement_proposal|
+      di = DraftingInfo.new
+      di.statement_node_id = improvement_proposal.id
+      di.save
+    end
   end
 
   def self.down
