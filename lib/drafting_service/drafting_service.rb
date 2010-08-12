@@ -189,18 +189,21 @@ class DraftingService
   # set incorporable as ready
   def readify(incorporable)
     set_readify(incorporable)
+    incorporable.reload
     Delayed::Job.enqueue TestForStagedJob.new(incorporable.id,incorporable.state_since), 1, Time.now.advance(:seconds => @@time_ready)
   end
 
   # set incorporable as approved
   def approve(incorporable)
     set_approve(incorporable)
+    incorporable.reload
     send_approved_email(incorporable)
     Delayed::Job.enqueue TestForPassedJob.new(incorporable.id), 1, Time.now.advance(:seconds => @@time_approved)
   end
 
   def incorporate(incorporable, user)
     set_incorporate(incorporable)
+    incorporable.reload
     send_incorporated_email(incorporable, user)
   end
 
