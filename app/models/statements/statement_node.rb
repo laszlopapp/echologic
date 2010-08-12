@@ -21,9 +21,9 @@ class StatementNode < ActiveRecord::Base
   belongs_to :creator, :class_name => "User"
   belongs_to :root_statement, :foreign_key => "root_id", :class_name => "StatementNode"
   belongs_to :statement
-  
-  
-  
+
+
+
   delegate :original_language, :original_document, :authors, :to => :statement
 
   enum :editorial_state, :enum_name => :statement_states
@@ -34,7 +34,9 @@ class StatementNode < ActiveRecord::Base
 
   has_many :statement_documents, :through => :statement, :source => :statement_documents do
     def for_languages(lang_ids)
-      find(:all, :conditions => {:language_id => lang_ids, :current => true}, :order => 'created_at ASC').sort {|a, b| 
+      find(:all,
+           :conditions => {:language_id => lang_ids, :current => true},
+           :order => 'created_at ASC').sort {|a, b|
         lang_ids.index(a.language_id) <=> lang_ids.index(b.language_id)
       }.first
     end
@@ -204,7 +206,7 @@ class StatementNode < ActiveRecord::Base
     children = children.select{|c|c.tracked? or c.ready? or c.staged?} if self.drafteable?
     children
   end
-  
+
   # Collects all fellow statement nodes whose parent is the same as ours
   def siblings(language_ids = nil)
     return [] if parent_id.nil?
@@ -243,7 +245,7 @@ class StatementNode < ActiveRecord::Base
                           sanitize_sql(["t.value = ?",term])}.join(" OR ")}"
       end
       and_conditions = !or_conditions.blank? ? ["(#{or_conditions})"] : []
-      
+
       # Filter for statement type
       if opts[:conditions].nil?
         and_conditions << "n.type = '#{opts[:type]}'"
@@ -255,7 +257,7 @@ class StatementNode < ActiveRecord::Base
         and_conditions << opts[:conditions]
       end
       # Filter for the preferred languages
-      and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]]) if opts[:language_ids]      
+      and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]]) if opts[:language_ids]
       # Constructing the where clause
       where_clause = and_conditions.join(" AND ")
 
