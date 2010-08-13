@@ -56,7 +56,7 @@ class StatementDocument < ActiveRecord::Base
   def translations
     #StatementDocument.find_all_by_translated_document_id(self.id)
     StatementDocument.all(:joins => :statement_history,
-    :conditions => ["statement_histories.old_document_id = ? and statement_documents.language_id != ?",
+    :conditions => ["statement_histories.old_document_id = ? AND statement_documents.language_id != ?",
                     self.id, self.language.id])
   end
 
