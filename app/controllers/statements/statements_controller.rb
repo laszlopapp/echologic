@@ -278,10 +278,10 @@ class StatementsController < ApplicationController
   #
   def edit
     @statement_document ||= @statement_node.translated_document(@language_preference_list)
-    locked = lock_statement(@statement_document)
+    has_lock = acquire_lock(@statement_document)
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     @action ||= StatementHistory.statement_actions("updated")
-    if !locked
+    if has_lock
       respond_to_js :template => 'statements/edit',
                     :partial_js => 'statements/edit.rjs'
     else
@@ -313,12 +313,11 @@ class StatementsController < ApplicationController
     end
     old_statement_document = @statement_node.translated_document(@language_preference_list)
 
-    locked = statement_locked?(old_statement_document, locked_at)
-
     @statement_document = @statement_node.add_statement_document(
                             attrs_doc.merge({:original_language_id => @locale_language_id,
                                              :current => true}))
-    if !locked
+
+    if holds_lock?(old_statement_document, locked_at)
       respond_to do |format|
         if permitted and @statement_node.update_attributes(attrs)
           old_statement_document.update_attributes(:current => false)
@@ -360,8 +359,8 @@ class StatementsController < ApplicationController
   def cancel
     locked_at = params[:locked_at]
     statement_document = @statement_node.translated_document(@language_preference_list)
-    if !statement_locked?(statement_document, locked_at)
-      statement_document.user_unlock
+    if holds_lock?(statement_document, locked_at)
+      statement_document.unlock
     end
     respond_to do |format|
       format.html { redirect_to url_for(@statement_node)}
@@ -370,28 +369,37 @@ class StatementsController < ApplicationController
   end
 
 
+  #############
+  # PROTECTED #
+  #############
 
   protected
-  def lock_statement(statement_document)
+
+  #
+  # Returns true if the current user could successfully acquire the lock.
+  #
+  def acquire_lock(statement_document)
     StatementDocument.transaction do
       if statement_document.locked_by.nil?
-        statement_document.user_lock(current_user)
+        statement_document.lock(current_user)
       elsif current_user != statement_document.locked_by
         if statement_document.locked_at >= @@edit_locking_time.ago
-          return true
+          return false
         else
-          statement_document.user_lock(current_user)
+          statement_document.lock(current_user)
         end
       end
     end
-    return false
+    return true
   end
 
-  def statement_locked?(statement_document, locked_at)
-    statement_document.locked_by.nil? or
-    (statement_document.locked_by != current_user and statement.locked_at > Time.now - @@edit_locking_time) or
-    (statement_document.locked_by == current_user and statement_document.locked_at.to_s != locked_at)
+  #
+  # Returns true if the current user still holds his original lock he acquired when starting to edit the statement.
+  #
+  def holds_lock?(statement_document, locked_at)
+    statement_document.locked_by == current_user && statement_document.locked_at.to_s == locked_at
   end
+
 
   ###########
   # PRIVATE #
