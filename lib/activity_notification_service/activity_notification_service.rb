@@ -23,6 +23,7 @@ class ActivityNotificationService
   end
 
   def incorporated(echoable, user)
+    echoable.reload
     statement_document = echoable.original_document
     supporters = echoable.parent.supporters.select{|s|s.drafting_notification == 1}
     email = ActivityTrackingMailer.create_incorporation_notification(echoable, statement_document, supporters)
@@ -31,8 +32,8 @@ class ActivityNotificationService
 
   def enqueue_activity_tracking_job
     current_time = Time.now.utc
-    Delayed::Job.enqueue ActivityTrackingJob.new(@counter%@charges, @charges, current_time), 
-                         0, 
+    Delayed::Job.enqueue ActivityTrackingJob.new(@counter%@charges, @charges, current_time),
+                         0,
                          current_time.advance(:seconds => @period/@charges)
   end
 end
