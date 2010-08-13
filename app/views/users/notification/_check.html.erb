@@ -1,0 +1,11 @@
+<% attr ||= @attr %>
+<li class="<%= attr %>_notification_element">
+  <span class="label">
+    <%=check_box_tag("#{attr}_notification","notify", @user.send("#{attr}_notification?"), 
+                     {:id => "#{attr}_notification".to_sym})%>
+  </span>
+  <span class="info"><%=I18n.t("users.#{attr}_notifications.label")%></span>
+</li>
+<%= observe_field "#{attr}_notification".to_sym, :url => {:controller => :my_echo, 
+                                                :action => "set_#{attr}_notification".to_sym, 
+                                                :id => @user.id} %>

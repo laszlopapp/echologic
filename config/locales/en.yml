@@ -245,11 +245,21 @@ en:
       tags: Keywords (tags)
 
     # Email Notification section
-    email_notification:
+    email_notifications:
       title: Email Notification
-      guide: Here you can set if you want to receive a weekly email notification with your subscribed entities related updates.
+      guide: Daily updates on new discussions and new statements in older discussions you were active in. 
       label: Weekly update on discussions
+      email_on: Activity notifications have been switched on.
+      email_off: Activity notifications have been switched off.
 
+    drafting_notifications:
+      title: Drafting Notification
+      guide: Immediate updates to follow the co-creative drafting process of your supported proposals and improvement proposals.
+      label: Drafting Process Updates
+      drafting_on: Drafting notifications have been switched on.
+      drafting_off: Drafting notifications have been switched off.
+ 
+ 
 
     users:
       new:
