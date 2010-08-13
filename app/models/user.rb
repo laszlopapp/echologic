@@ -172,18 +172,26 @@ class User < ActiveRecord::Base
     self.spoken_languages.select{|sp| sp.level.code == 'mother_tongue'}.collect{|sp| sp.language}
   end
 
-  def languages(level='basic')
-    level = SpokenLanguage.language_levels(level)
-    self.spoken_languages.select{|sp| sp.level.key <= level.key}.collect{|sp| sp.language} || []
+  def languages(min_level = nil)
+    languages = self.spoken_languages
+    if min_level
+      level = SpokenLanguage.language_levels(min_level)
+      languages.select{|sp| sp.level.key <= level.key}.collect{|sp| sp.language}
+    else
+      languages.collect{|l| l.language}
+    end
   end
 
-  def speaks_language?(language, level)
-    languages(level).include?(language)
+  #
+  # Returns the languages the user speaks at least at the given level.
+  #
+  def speaks_language?(language, min_level = nil)
+    languages(min_level).include?(language)
   end
 
   def default_language
     mother_tongues = self.mother_tongues
     lang = !mother_tongues.empty? ? mother_tongues.first : self.last_login_language
-    lang ? lang : User.languages("en")
+    lang ? lang : EnumKey.find_by_code("en")
   end
 end
