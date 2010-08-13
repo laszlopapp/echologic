@@ -24,7 +24,7 @@ class ActivityNotificationService
 
   def incorporated(echoable, user)
     statement_document = echoable.original_document
-    supporters = echoable.parent.supporters
+    supporters = echoable.parent.supporters.select{|s|s.drafting_notification == 1}
     email = ActivityTrackingMailer.create_incorporation_notification(echoable, statement_document, supporters)
     ActivityTrackingMailer.deliver(email)
   end

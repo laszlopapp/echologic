@@ -199,18 +199,20 @@ class DraftingService
     statement_document = incorporable.original_document
     if incorporable.times_passed == 0
       email = NotificationMailer.create_approval(incorporable, statement_document)
-      NotificationMailer.deliver(email)
+      NotificationMailer.deliver(email) if statement_document.author.drafting_notification == 1
     elsif incorporable.times_passed == 1
       supporters = incorporable.supporters.select{|supporter|
-        supporter.speaks_language?(incorporable.original_language, 'intermediate')
+        supporter.speaks_language?(incorporable.original_language, 'intermediate') and
+        supporter.drafting_notification == 1
       }
       email = NotificationMailer.create_supporters_approval(incorporable, statement_document, supporters)
-      NotificationMailer.deliver(email)
+      NotificationMailer.deliver(email) 
     end
 
     # Send approval notification to the proposal supporters
     supporters = incorporable.parent.supporters.select{|supporter|
-      supporter.speaks_language?(incorporable.original_language)
+      supporter.speaks_language?(incorporable.original_language) and
+      supporter.drafting_notification == 1
     }
     email = ActivityTrackingMailer.create_approval_notification(incorporable, statement_document, supporters)
     ActivityTrackingMailer.deliver(email)
@@ -226,7 +228,7 @@ class DraftingService
   def send_approval_reminder(incorporable)
     statement_document = incorporable.original_document
     email = NotificationMailer.create_approval_reminder(incorporable, statement_document)
-    NotificationMailer.deliver(email)
+    NotificationMailer.deliver(email) if statement_document.author.drafting_notification == 1
   end
 
   #
@@ -235,7 +237,8 @@ class DraftingService
   def send_supporters_approval_reminder(incorporable)
     statement_document = incorporable.original_document
     supporters = incorporable.supporters.select{|supporter|
-      supporter.speaks_language?(incorporable.original_language, 'intermediate')
+      supporter.speaks_language?(incorporable.original_language, 'intermediate') and
+      supporter.drafting_notification == 1
     }
     email = NotificationMailer.create_supporters_approval_reminder(incorporable, statement_document, supporters)
     NotificationMailer.deliver(email)
@@ -247,7 +250,7 @@ class DraftingService
   def send_passed_email(incorporable)
     statement_document = incorporable.original_document
     email = NotificationMailer.create_passed(statement_document)
-    NotificationMailer.deliver(email)
+    NotificationMailer.deliver(email) if statement_document.author.drafting_notification == 1
   end
 
   #
@@ -256,7 +259,8 @@ class DraftingService
   def send_supporters_passed_email(incorporable)
     statement_document = incorporable.original_document
     supporters = incorporable.supporters.select{|supporter|
-      supporter.speaks_language?(incorporable.original_language, 'intermediate')
+      supporter.speaks_language?(incorporable.original_language, 'intermediate') and
+      supporter.drafting_notification == 1
     }
     email = NotificationMailer.create_supporters_passed(statement_document, supporters)
     NotificationMailer.deliver(email)
@@ -268,7 +272,7 @@ class DraftingService
   def send_incorporated_email(incorporable, user)
     statement_document = incorporable.original_document
     email = NotificationMailer.create_incorporated(incorporable, statement_document)
-    NotificationMailer.deliver(email)
+    NotificationMailer.deliver(email) if statement_document.author.drafting_notification == 1
   end
 
 
