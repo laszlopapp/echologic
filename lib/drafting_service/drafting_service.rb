@@ -160,7 +160,7 @@ class DraftingService
   #
   def select_approved(incorporable)
     if incorporable.parent.approved_children.empty?
-      siblings = incorporable.siblings.select{|s|s.staged?}
+      siblings = incorporable.siblings([incorporable.parent.original_language.id]).select{|s|s.staged?}
       approve(siblings.first) if !siblings.empty?
     end
   end
@@ -219,7 +219,7 @@ class DraftingService
 
     # Send approval notification to the proposal supporters
     supporters = incorporable.parent.supporters.select{|supporter|
-      supporter.languages.include?(incorporable.original_language)
+      supporter.speaks_language?(incorporable.original_language)
     }
     email = ActivityTrackingMailer.create_approval_notification(incorporable, statement_document, supporters)
     ActivityTrackingMailer.deliver(email)
