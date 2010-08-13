@@ -123,90 +123,7 @@ class StatementsController < ApplicationController
   end
 
 
-  # Called if user supports this statement_node. Updates the support field in the corresponding
-  # echo object.
   #
-  # Method:   POST
-  # Response: JS
-  #
-  def echo
-    return if !@statement_node.echoable?
-    if !@statement_node.parent.echoable? or @statement_node.parent.supported?(current_user)
-      @statement_node.supported!(current_user)
-      respond_to_js :redirect_to => @statement_node, :template_js => 'statements/echo'
-    else
-      respond_to do |format|
-        set_error('discuss.statements.unsupported_parent')
-        format.html { redirect_to url_for(@statement_node) }
-        format.js { show_error_messages }
-      end
-    end
-  end
-
-
-  # Called if user doesn't support this statement_node any longer. Sets the supported field
-  # of the corresponding echo object to false.
-  #
-  # Method:   POST
-  # Response: HTTP or JS
-  #
-  def unecho
-    return if !@statement_node.echoable?
-
-    @statement_node.unsupported!(current_user)
-    @statement_node.children.each{|c|c.unsupported!(current_user) if c.supported?(current_user)}
-
-    # Logic to update the children caused by cascading unsupport
-    @page = params[:page] || 1
-    @children = @statement_node.sorted_children(@language_preference_list).
-                  paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
-    @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
-                                                     @language_preference_list)
-    respond_to_js :redirect_to => @statement_node,
-                  :template_js => 'statements/unecho'
-  end
-
-
-  # Renders the new statement translation form when called
-  #
-  # Method:   GET
-  # Response: JS
-  #
-  def new_translation
-    @statement_document ||= @statement_node.translated_document(current_user.spoken_language_ids)
-    @new_statement_document ||= @statement_node.add_statement_document({:language_id => @locale_language_id})
-    @action ||= StatementHistory.statement_actions("translated")
-    respond_to_js :template => 'statements/translate',
-                  :partial_js => 'statements/new_translation.rjs'
-  end
-
-  # Creates a translation of a statement according to the fields from a form that was submitted
-  #
-  # Method:   POST
-  # Params:   new_statement_document: hash
-  # Response: JS
-  #
-  def create_translation
-    attrs = params[statement_node_symbol]
-    doc_attrs = attrs.delete(:new_statement_document).merge({:author_id => current_user.id,
-                                                             :language_id => @locale_language_id,
-                                                             :current => true})
-    @new_statement_document = @statement_node.add_statement_document(doc_attrs)
-    respond_to do |format|
-      if @statement_node.save
-        @statement_document = @new_statement_document
-        set_statement_node_info(@statement_document)
-        format.html { flash_info and redirect_to url_for(@statement_node) }
-        format.js {render :partial => 'statements/create_translation.rjs'}
-      else
-        @statement_document = StatementDocument.find(doc_attrs[:old_document_id])
-        set_error(@new_statement_document)
-        format.html { flash_error and render :template => 'statements/translate' }
-        format.js { show_error_messages(@new_statement_document) }
-      end
-    end
-  end
-
   # Renders form for creating a new statement.
   #
   # Method:   GET
@@ -228,6 +145,7 @@ class StatementsController < ApplicationController
   end
 
 
+  #
   # Creates a new statement.
   #
   # Method:   POST
@@ -270,6 +188,7 @@ class StatementsController < ApplicationController
   end
 
 
+  #
   # Renders a form to edit statements
   #
   # Method:   POST
@@ -278,10 +197,10 @@ class StatementsController < ApplicationController
   #
   def edit
     @statement_document ||= @statement_node.translated_document(@language_preference_list)
-    locked = lock_statement(@statement_document)
+    has_lock = acquire_lock(@statement_document)
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     @action ||= StatementHistory.statement_actions("updated")
-    if !locked
+    if has_lock
       respond_to_js :template => 'statements/edit',
                     :partial_js => 'statements/edit.rjs'
     else
@@ -294,6 +213,7 @@ class StatementsController < ApplicationController
   end
 
 
+  #
   # Updates statements
   #
   # Method:   POST
@@ -311,14 +231,13 @@ class StatementsController < ApplicationController
        @statement_node.topic_tags=form_tags
        @tags=@statement_node.topic_tags
     end
-    old_statement_document = @statement_node.translated_document(@language_preference_list)
-
-    locked = statement_locked?(old_statement_document, locked_at)
 
     @statement_document = @statement_node.add_statement_document(
                             attrs_doc.merge({:original_language_id => @locale_language_id,
                                              :current => true}))
-    if !locked
+    old_statement_document = @statement_node.translated_document(@language_preference_list)
+
+    if holds_lock?(old_statement_document, locked_at)
       respond_to do |format|
         if permitted and @statement_node.update_attributes(attrs)
           old_statement_document.update_attributes(:current => false)
@@ -342,6 +261,122 @@ class StatementsController < ApplicationController
   end
 
 
+  ################
+  # TRANSLATIONS #
+  ################
+
+  #
+  # Renders the new statement translation form when called
+  #
+  # Method:   GET
+  # Response: JS
+  #
+  def new_translation
+    @statement_document ||= @statement_node.translated_document(current_user.sorted_spoken_language_ids)
+    @new_statement_document ||= @statement_node.add_statement_document({:language_id => @locale_language_id})
+    @action ||= StatementHistory.statement_actions("translated")
+    respond_to_js :template => 'statements/translate',
+                  :partial_js => 'statements/new_translation.rjs'
+  end
+
+  #
+  # Creates a translation of a statement according to the fields from a form that was submitted
+  #
+  # Method:   POST
+  # Params:   new_statement_document: hash
+  # Response: JS
+  #
+  def create_translation
+    attrs = params[statement_node_symbol]
+    doc_attrs = attrs.delete(:new_statement_document).merge({:author_id => current_user.id,
+                                                             :language_id => @locale_language_id,
+                                                             :current => true})
+    @new_statement_document = @statement_node.add_statement_document(doc_attrs)
+    respond_to do |format|
+      if @statement_node.save
+        @statement_document = @new_statement_document
+        set_statement_node_info(@statement_document)
+        format.html { flash_info and redirect_to url_for(@statement_node) }
+        format.js {render :partial => 'statements/create_translation.rjs'}
+      else
+        @statement_document = StatementDocument.find(doc_attrs[:old_document_id])
+        set_error(@new_statement_document)
+        format.html { flash_error and render :template => 'statements/translate' }
+        format.js { show_error_messages(@new_statement_document) }
+      end
+    end
+  end
+
+  #
+  # Processes a cancel request, and redirects back to the last shown statement_node
+  #
+  def cancel
+    locked_at = params[:locked_at]
+    statement_document = @statement_node.translated_document(@language_preference_list)
+    if holds_lock?(statement_document, locked_at)
+      statement_document.unlock
+    end
+    respond_to do |format|
+      format.html { redirect_to url_for(@statement_node)}
+      format.js   { show }
+    end
+  end
+
+
+  ###################
+  # ECHO STATEMENTS #
+  ###################
+
+  #
+  # Called if user supports this statement_node. Updates the support field in the corresponding
+  # echo object.
+  #
+  # Method:   POST
+  # Response: JS
+  #
+  def echo
+    return if !@statement_node.echoable?
+    if !@statement_node.parent.echoable? or @statement_node.parent.supported?(current_user)
+      @statement_node.supported!(current_user)
+      respond_to_js :redirect_to => @statement_node, :template_js => 'statements/echo'
+    else
+      respond_to do |format|
+        set_error('discuss.statements.unsupported_parent')
+        format.html { redirect_to url_for(@statement_node) }
+        format.js { show_error_messages }
+      end
+    end
+  end
+
+  #
+  # Called if user doesn't support this statement_node any longer. Sets the supported field
+  # of the corresponding echo object to false.
+  #
+  # Method:   POST
+  # Response: HTTP or JS
+  #
+  def unecho
+    return if !@statement_node.echoable?
+
+    @statement_node.unsupported!(current_user)
+    @statement_node.children.each{|c|c.unsupported!(current_user) if c.supported?(current_user)}
+
+    # Logic to update the children caused by cascading unsupport
+    @page = params[:page] || 1
+    @children = @statement_node.sorted_children(@language_preference_list).
+                  paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
+    @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
+                                                     @language_preference_list)
+    respond_to_js :redirect_to => @statement_node,
+                  :template_js => 'statements/unecho'
+  end
+
+
+  #################
+  # ADMIN ACTIONS #
+  #################
+
+  #
   # Destroys a statement_node.
   #
   # Method:   DELETE
@@ -356,42 +391,38 @@ class StatementsController < ApplicationController
                                :id => params[:category]
   end
 
-  # Processes a cancel request, and redirects back to the last shown statement_node
-  def cancel
-    locked_at = params[:locked_at]
-    statement_document = @statement_node.translated_document(@language_preference_list)
-    if !statement_locked?(statement_document, locked_at)
-      statement_document.user_unlock
-    end
-    respond_to do |format|
-      format.html { redirect_to url_for(@statement_node)}
-      format.js   { show }
-    end
-  end
 
-
+  #############
+  # PROTECTED #
+  #############
 
   protected
-  def lock_statement(statement_document)
+
+  #
+  # Returns true if the current user could successfully acquire the lock.
+  #
+  def acquire_lock(statement_document)
     StatementDocument.transaction do
       if statement_document.locked_by.nil?
-        statement_document.user_lock(current_user)
+        statement_document.lock(current_user)
       elsif current_user != statement_document.locked_by
         if statement_document.locked_at >= @@edit_locking_time.ago
-          return true
+          return false
         else
-          statement_document.user_lock(current_user)
+          statement_document.lock(current_user)
         end
       end
     end
-    return false
+    return true
   end
-  
-  def statement_locked?(statement_document, locked_at)
-    statement_document.locked_by.nil? or 
-    (statement_document.locked_by != current_user and statement.locked_at > Time.now - @@edit_locking_time) or
-    (statement_document.locked_by == current_user and statement_document.locked_at.to_s != locked_at)
+
+  #
+  # Returns true if the current user still holds his original lock he acquired when starting to edit the statement.
+  #
+  def holds_lock?(statement_document, locked_at)
+    statement_document.locked_by == current_user && statement_document.locked_at.to_s == locked_at
   end
+
 
   ###########
   # PRIVATE #
@@ -439,7 +470,6 @@ class StatementsController < ApplicationController
     set_info((string || "discuss.messages.#{statement_document.action.code}"),
              :type => I18n.t("discuss.statements.types.#{statement_node_symbol.to_s}"))
   end
-
 
 
   ###############

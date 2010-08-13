@@ -54,16 +54,13 @@ module ActiveRecord
             event :incorporate do
               transitions :from => :approved, :to => :incorporated
             end
-          end
-
-          class_eval <<-RUBY
 
             ####################################
             ###### Static values ###############
             ####################################
 
             def after_initialize
-              self.drafting_info = DraftingInfo.new(:state_since => Time.now) if self.drafting_info.nil? 
+              self.drafting_info = DraftingInfo.new(:state_since => Time.now) if self.drafting_info.nil?
             end
 
             def incorporable?
@@ -82,7 +79,12 @@ module ActiveRecord
             def quorum
               (supporter_count.to_i/parent.supporter_count.to_i)*100
             end
-          RUBY
+
+            def drafting_language
+              parent.original_language
+            end
+
+          end
         end
       end
     end
