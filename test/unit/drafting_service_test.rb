@@ -255,7 +255,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
       should("send an approval notification email") do
         email = ActionMailer::Base.deliveries.last
         supporters = @statement_2.parent.supporters.select{|supporter|
-          supporter.speaks_langauge?(@statement_2.original_language)
+          supporter.speaks_language?(@statement_2.original_language)
         }
         assert !ActionMailer::Base.deliveries.empty?
         assert_equal supporters.map{|u|u.email}, email.bcc
