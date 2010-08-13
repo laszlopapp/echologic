@@ -101,7 +101,7 @@ class StatementsController < ApplicationController
     end
 
     # If statement node is drafteable, then try to get the approved one
-    if @statement_node.drafteable?
+    if @statement_node.draftable?
       @approved_node = @statement_node.approved_children.first || nil
       @approved_document = @approved_node.translated_document(@language_preference_list) if !@approved_node.nil?
     end

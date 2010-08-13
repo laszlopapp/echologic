@@ -72,7 +72,7 @@ class DraftingService
     if echoable.incorporable?
       siblings = echoable.siblings
       update_incorporable_states(siblings, echoable, old_supporter_count)
-    elsif echoable.drafteable?
+    elsif echoable.draftable?
       children = echoable.sorted_children
       children.each do |child|
         adjust_readiness(child, false, false)
