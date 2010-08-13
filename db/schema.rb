@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100812170217) do
+ActiveRecord::Schema.define(:version => 20100813160827) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -271,6 +271,7 @@ ActiveRecord::Schema.define(:version => 20100812170217) do
     t.string   "openid_identifier"
     t.integer  "last_login_language_id"
     t.integer  "email_notification"
+    t.integer  "drafting_notification"
   end
 
   add_index "users", ["email", "id"], :name => "idx_users_email_pk", :unique => true

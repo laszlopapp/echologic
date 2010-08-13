@@ -2,22 +2,22 @@ Given /^I have a blank profile$/ do
   @user.profile = Profile.new
 end
 
-Given /^I have the email notification enabled$/ do
+Given /^I have the ([^\"]*) notification enabled$/ do |attr|
   @user.reload
-  @user.update_attribute(:email_notification, true)
+  @user.update_attribute("#{attr}_notification".to_sym, true)
 end
 
-Given /^I have the email notification disabled$/ do
+Given /^I have the ([^\"]*) notification disabled$/ do |attr|
   @user.reload
-  @user.update_attribute(:email_notification, false)
+  @user.update_attribute("#{attr}_notification".to_sym, false)
 end
 
-Then /^I must have the email notification enabled$/ do
+Then /^I must have the ([^\"]*) notification enabled$/ do |attr|
   @user.reload
-  assert @user.email_notification
+  assert @user.send("#{attr}_notification") == 1
 end
 
-Then /^I must have the email notification disabled$/ do
+Then /^I must have the ([^\"]*) notification disabled$/ do |attr|
   @user.reload
-  assert !@user.email_notification
+  assert !@user.send("#{attr}_notification") == 0
 end

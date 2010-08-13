@@ -51,15 +51,20 @@
   margin-left: 10px;
 }
 
-#email_notification_container .label{
-	float: left;
-}
-
-#email_notification_container .checkbox{
+#email_notification_container .label,
+#drafting_notification_container .label{
+	display: inline-block !important;
+	overflow:hidden;
+	vertical_align: top;
 	width:40px;
 }
 
-#email_notification_container .info{
+#email_notification_container .info,
+#drafting_notification_container .info{
   float: left;
 	padding-left: 10px;
+	display: inline-block !important;
+	overflow:hidden;
+	vertical_align: top;
+	width: 250px;
 }

@@ -1,0 +1,10 @@
+<% attr ||= 'email' %>
+<div id="<%= attr %>_notification_container" class="header_block">
+  <h2><%= I18n.t("users.#{attr}_notifications.title") %></h2>
+  <div class="guide">
+    <%= I18n.t("users.#{attr}_notifications.guide") %>
+  </div>
+  <ul id="<%= attr %>_notification_list">
+    <%= render :partial => "users/notification/check", :locals => {:attr => attr } %>
+  </ul>
+</div>
