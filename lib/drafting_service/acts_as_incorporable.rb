@@ -84,7 +84,8 @@ module ActiveRecord
               parent.original_language
             end
 
-          end
+          end # --- class_eval
+
         end
       end
     end
