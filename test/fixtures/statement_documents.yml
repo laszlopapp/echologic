@@ -61,6 +61,13 @@ non-published-question-doc-english:
   statement_id: <%= Fixtures.identify('non-published-question-statement') %>
   current: 1
   
+user-question-doc-english:
+  title: 'I am the mighty user'
+  text: 'One User to rule them all'
+  language_id: <%= Fixtures.identify('language_en') %>
+  statement_id: <%= Fixtures.identify('user-question-statement') %>
+  current: 1
+
 first-proposal-doc-english:
   title: 'A first proposal!'
   text: 'I think, a good proposal would be a first one!'

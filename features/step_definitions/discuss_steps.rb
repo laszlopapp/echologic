@@ -77,6 +77,15 @@ Given /^there is a question "([^\"]*)"$/ do |id| # not in use right now
   @question = Question.find(id)
 end
 
+Given /^there is a question i have created$/ do # not in use right now
+   @question = Question.find_by_creator_id(@user.id)
+end
+
+Given /^the question was not published yet$/ do
+  @question.editorial_state = StatementNode.statement_states("new")
+  @question.save
+end
+
 Given /^the question has proposals$/ do
   @question.reload
   @question.children.proposals.count.should >= 1

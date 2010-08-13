@@ -46,6 +46,12 @@ class StatementDocument < ActiveRecord::Base
     save
   end
 
+  def user_unlock
+    self.locked_by = nil
+    self.locked_at = nil
+    save
+  end
+
   # Returns all translations of self
   def translations
     #StatementDocument.find_all_by_translated_document_id(self.id)

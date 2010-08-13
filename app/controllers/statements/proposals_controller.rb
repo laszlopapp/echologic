@@ -3,9 +3,18 @@ class ProposalsController < StatementsController
   def incorporate
     @incorporated_node ||= @statement_node.approved_children.first
     @statement_document ||= @statement_node.translated_document(@language_preference_list)
+    locked = lock_statement(@statement_document)
     @action ||= StatementHistory.statement_actions("incorporated")
-    respond_to_js :template => 'statements/proposals/edit_draft', 
-                  :partial_js => 'statements/proposals/edit_draft.rjs'
+    if !locked
+      respond_to_js :template => 'statements/proposals/edit_draft', 
+                    :partial_js => 'statements/proposals/edit_draft.rjs'
+    else
+      respond_to do |format|
+        set_info('discuss.statements.being_edited')
+        format.html { flash_info and render :template => 'statements/proposals/edit_draft' }
+        format.js   { render_with_info }
+      end
+    end
   end
   
   protected

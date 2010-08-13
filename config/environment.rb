@@ -77,6 +77,4 @@ Rails::Initializer.run do |config|
   config.load_paths += %w(statements mailers).collect{|dir|"#{RAILS_ROOT}/app/models/#{dir}"}
   # the same for controllers
   config.load_paths += %w(statements).collect{|dir|"#{RAILS_ROOT}/app/controllers/#{dir}"}
-
-
 end

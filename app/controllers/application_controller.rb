@@ -103,6 +103,7 @@ class ApplicationController < ActionController::Base
         message = render(:partial => 'layouts/components/error', :locals => {:object => object})
       end
       page << "error('#{escape_javascript(message)}');"
+      yield page if block_given?
     end
   end
 
