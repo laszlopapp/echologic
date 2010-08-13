@@ -30,7 +30,7 @@ class ActivityNotificationService
   end
 
   def enqueue_activity_tracking_job
-    current_time = Time.now
+    current_time = Time.now.utc
     Delayed::Job.enqueue ActivityTrackingJob.new(@counter%@charges, @charges, current_time), 
                          0, 
                          current_time.advance(:seconds => @period/@charges)
