@@ -173,7 +173,7 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def new_translation
-    @statement_document ||= @statement_node.translated_document(current_user.spoken_language_ids)
+    @statement_document ||= @statement_node.translated_document(current_user.sorted_spoken_language_ids)
     @new_statement_document ||= @statement_node.add_statement_document({:language_id => @locale_language_id})
     @action ||= StatementHistory.statement_actions("translated")
     respond_to_js :template => 'statements/translate',
@@ -290,7 +290,7 @@ class StatementsController < ApplicationController
         end
       end
     end
-    
+
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     @action ||= StatementHistory.statement_actions("updated")
     if !locked
