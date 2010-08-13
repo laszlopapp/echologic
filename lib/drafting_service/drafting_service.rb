@@ -212,14 +212,11 @@ class DraftingService
 
     # Send approval notification to the proposal supporters
     incorporable.reload
-    parent = incorporable.parent
-    parent.reload
-    puts parent.inspect
-    puts parent.supporters
-    supporters = parent.supporters.select{|supporter|
-      supporter.speaks_language?(incorporable.original_language) and
-      supporter.drafting_notification == 1
-    }
+    supporters = incorporable.parent.supporters
+#    .select{|supporter|
+#      supporter.speaks_language?(incorporable.original_language) and
+#      supporter.drafting_notification == 1
+#    }
     email = ActivityTrackingMailer.create_approval_notification(incorporable, statement_document, supporters)
     ActivityTrackingMailer.deliver(email)
 
