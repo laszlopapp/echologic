@@ -212,7 +212,11 @@ class DraftingService
 
     # Send approval notification to the proposal supporters
     incorporable.reload
-    supporters = incorporable.parent.supporters.select{|supporter|
+    parent = incorporable.parent
+    parent.reload
+    puts parent.inspect
+    puts parent.supporters
+    supporters = parent.supporters.select{|supporter|
       supporter.speaks_language?(incorporable.original_language) and
       supporter.drafting_notification == 1
     }
