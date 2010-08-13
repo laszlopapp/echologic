@@ -224,39 +224,46 @@ class StatementsController < ApplicationController
     attrs = params[statement_node_symbol]
     attrs_doc = attrs.delete(:statement_document)
     locked_at = attrs_doc.delete(:locked_at)
+
     # Updating tags of the statement
     form_tags = attrs.delete(:tags)
-    permitted = true
-    if @statement_node.taggable? and (permitted = check_hash_tag_permissions(form_tags))
-       @statement_node.topic_tags=form_tags
-       @tags=@statement_node.topic_tags
-    end
+    permitted = !@statement_node.taggable? || check_hash_tag_permissions(form_tags)
 
-    @statement_document = @statement_node.add_statement_document(
-                            attrs_doc.merge({:original_language_id => @locale_language_id,
-                                             :current => true}))
-    old_statement_document = @statement_node.translated_document(@language_preference_list)
-
-    if holds_lock?(old_statement_document, locked_at)
-      respond_to do |format|
-        if permitted and @statement_node.update_attributes(attrs)
-          old_statement_document.update_attributes(:current => false)
-          @statement_node.check_incorporated if @statement_node.draftable?
-          set_statement_node_info(@statement_document)
-          format.html { flash_info and redirect_to url_for(@statement_node) }
-          format.js   { show }
-        else
-          set_error(@statement_document)
-          set_error(@statement_node)
-          format.html { flash_error and redirect_to url_for(@statement_node) }
-          format.js   { show_error_messages }
+    holds_lock = true
+    saved = false
+    if permitted
+      StatementDocument.transaction do
+        old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
+        holds_lock = holds_lock?(old_statement_document, locked_at)
+        if (holds_lock)
+          old_statement_document.update_attribute(:current, false)
+          @statement_node.reload
+          @statement_document = @statement_node.add_statement_document(
+                                  attrs_doc.merge({:original_language_id => @locale_language_id,
+                                                   :current => true}))
+          if @statement_node.taggable?
+            @statement_node.topic_tags=form_tags
+            @tags=@statement_node.topic_tags
+          end
+          saved = @statement_node.save
         end
       end
-    else
-      respond_to do |format|
-        set_error('discuss.statements.staled_modification')
+    end
+
+    respond_to do |format|
+      if !holds_lock
+          set_error('discuss.statements.staled_modification')
+          format.html { flash_error and redirect_to url_for(@statement_node) }
+          format.js   { show_error_messages }
+      elsif !permitted || !saved
+        set_error(@statement_document) if @statement_document
+        set_error(@statement_node)
         format.html { flash_error and redirect_to url_for(@statement_node) }
         format.js   { show_error_messages }
+      else
+        set_statement_node_info(@statement_document)
+        format.html { flash_info and redirect_to url_for(@statement_node) }
+        format.js   { show }
       end
     end
   end
