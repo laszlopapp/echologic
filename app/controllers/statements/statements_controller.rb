@@ -241,6 +241,7 @@ class StatementsController < ApplicationController
       respond_to do |format|
         if permitted and @statement_node.update_attributes(attrs)
           old_statement_document.update_attributes(:current => false)
+          @statement_node.check_incorporated if @statement_node.draftable?
           set_statement_node_info(@statement_document)
           format.html { flash_info and redirect_to url_for(@statement_node) }
           format.js   { show }
