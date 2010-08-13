@@ -8,7 +8,7 @@
            title = event_data['question']['statement']['statement_documents'][0]['title']
         %>
 				<li>
-					<p><%= link_to title, url_for(question_event.subscribeable)%></p>
+					<p><%= link_to title, question_url(question_event.subscribeable)%></p>
 				</li>
 			<% end %>
 		</ul>

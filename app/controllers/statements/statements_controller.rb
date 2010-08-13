@@ -1,5 +1,5 @@
 class StatementsController < ApplicationController
-
+  @@edit_locking_time = 1.hours
   helper :echo
   include EchoHelper
   include StatementHelper
@@ -173,7 +173,7 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def new_translation
-    @statement_document ||= @statement_node.translated_document(current_user.sorted_spoken_language_ids)
+    @statement_document ||= @statement_node.translated_document(current_user.spoken_language_ids)
     @new_statement_document ||= @statement_node.add_statement_document({:language_id => @locale_language_id})
     @action ||= StatementHistory.statement_actions("translated")
     respond_to_js :template => 'statements/translate',
@@ -278,19 +278,7 @@ class StatementsController < ApplicationController
   #
   def edit
     @statement_document ||= @statement_node.translated_document(@language_preference_list)
-    locked = false
-    StatementDocument.transaction do
-      if @statement_document.locked_by.nil?
-        @statement_document.user_lock(current_user)
-      elsif current_user != @statement_document.locked_by
-        if @statement_document.locked_at >= DraftingService.edit_locking_time.ago
-          locked = true
-        else
-          @statement_document.user_lock(current_user)
-        end
-      end
-    end
-
+    locked = lock_statement(@statement_document)
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     @action ||= StatementHistory.statement_actions("updated")
     if !locked
@@ -299,7 +287,7 @@ class StatementsController < ApplicationController
     else
       respond_to do |format|
         set_info('discuss.statements.being_edited')
-        format.html { flash_error and redirect_to url_for(@statement_node) }
+        format.html { flash_info and render :template => 'statements/edit' }
         format.js   { render_with_info }
       end
     end
@@ -315,6 +303,7 @@ class StatementsController < ApplicationController
   def update
     attrs = params[statement_node_symbol]
     attrs_doc = attrs.delete(:statement_document)
+    locked_at = attrs_doc.delete(:locked_at)
     # Updating tags of the statement
     form_tags = attrs.delete(:tags)
     permitted = true
@@ -324,19 +313,28 @@ class StatementsController < ApplicationController
     end
     old_statement_document = @statement_node.translated_document(@language_preference_list)
 
+    locked = statement_locked?(old_statement_document, locked_at)
+
     @statement_document = @statement_node.add_statement_document(
                             attrs_doc.merge({:original_language_id => @locale_language_id,
                                              :current => true}))
-
-    respond_to do |format|
-      if permitted and @statement_node.update_attributes(attrs)
-        old_statement_document.update_attributes(:current => false)
-        set_statement_node_info(@statement_document)
-        format.html { flash_info and redirect_to url_for(@statement_node) }
-        format.js   { show }
-      else
-        set_error(@statement_document)
-        set_error(@statement_node)
+    if !locked
+      respond_to do |format|
+        if permitted and @statement_node.update_attributes(attrs)
+          old_statement_document.update_attributes(:current => false)
+          set_statement_node_info(@statement_document)
+          format.html { flash_info and redirect_to url_for(@statement_node) }
+          format.js   { show }
+        else
+          set_error(@statement_document)
+          set_error(@statement_node)
+          format.html { flash_error and redirect_to url_for(@statement_node) }
+          format.js   { show_error_messages }
+        end
+      end
+    else
+      respond_to do |format|
+        set_error('discuss.statements.staled_modification')
         format.html { flash_error and redirect_to url_for(@statement_node) }
         format.js   { show_error_messages }
       end
@@ -360,9 +358,40 @@ class StatementsController < ApplicationController
 
   # Processes a cancel request, and redirects back to the last shown statement_node
   def cancel
-    redirect_to url_f(StatementNode.find(session[:last_statement_node]))
+    locked_at = params[:locked_at]
+    statement_document = @statement_node.translated_document(@language_preference_list)
+    if !statement_locked?(statement_document, locked_at)
+      statement_document.user_unlock
+    end
+    respond_to do |format|
+      format.html { redirect_to url_for(@statement_node)}
+      format.js   { show }
+    end
   end
 
+
+
+  protected
+  def lock_statement(statement_document)
+    StatementDocument.transaction do
+      if statement_document.locked_by.nil?
+        statement_document.user_lock(current_user)
+      elsif current_user != statement_document.locked_by
+        if statement_document.locked_at >= @@edit_locking_time.ago
+          return true
+        else
+          statement_document.user_lock(current_user)
+        end
+      end
+    end
+    return false
+  end
+
+  def statement_locked?(statement_document, locked_at)
+    statement_document.locked_by.nil? or
+    (statement_document.locked_by != current_user and statement.locked_at > Time.now - @@edit_locking_time) or
+    (statement_document.locked_by == current_user and statement_document.locked_at.to_s != locked_at)
+  end
 
   ###########
   # PRIVATE #

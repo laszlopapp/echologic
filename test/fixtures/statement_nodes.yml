@@ -33,6 +33,12 @@ non_published_question:
   creator_id: <%= Fixtures.identify(:editor) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_new) %>
   statement_id: <%= Fixtures.identify('non-published-question-statement') %>
+  
+user_question: 
+  type: Question
+  creator_id: <%= Fixtures.identify(:user) %>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
+  statement_id: <%= Fixtures.identify('user-question-statement') %>
 
 first-proposal:
   parent_id: <%= Fixtures.identify('test-question-2') %>
