@@ -10,7 +10,7 @@ class Event < ActiveRecord::Base
     query = sanitize_sql(["SELECT * from events e LEFT JOIN statement_nodes s ON s.id = e.subscribeable_id
                        where s.creator_id != ? and (s.parent_id is null or s.parent_id IN (?)) and
                        e.created_at > ? order by e.event DESC, e.created_at DESC", subscriber.id, 
-                       subscribeable_ids, timespan])
+                       subscribeable_ids, timespan.utc])
     Event.find_by_sql(query)
   end 
 end
