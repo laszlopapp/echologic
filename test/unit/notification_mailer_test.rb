@@ -12,9 +12,9 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal "Your Improvement Proposal was Approved!", email.subject
     assert_match /#{statement_document.author.full_name}/, email.encoded
     assert_match /#{statement_document.title}/, email.encoded
-    assert_match /#{statement_node.id}/, email.encoded
+    assert_match /#{statement_node.parent.id}/, email.encoded
   end
-  
+
   def test_supporters_approval_email
     users = [users(:user),users(:joe),users(:ben)]
     statement_node = statement_nodes('first-impro-proposal')
@@ -28,7 +28,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match /#{statement_document.title}/, email.encoded
     assert_match /#{statement_node.id}/, email.encoded
   end
-  
+
   def test_approval_reminder_email
     statement_node = statement_nodes('first-impro-proposal')
     statement_document = statement_documents('first-impro-proposal-doc-english')
@@ -40,9 +40,9 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal "Improvement Proposal Approval Reminder!", email.subject
     assert_match /#{statement_document.author.full_name}/, email.encoded
     assert_match /#{statement_document.title}/, email.encoded
-    assert_match /#{statement_node.id}/, email.encoded
+    assert_match /#{statement_node.parent.id}/, email.encoded
   end
-  
+
   def test_supporters_approval_reminder_email
     users = [users(:user),users(:joe),users(:ben)]
     statement_node = statement_nodes('first-impro-proposal')
@@ -54,9 +54,9 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal users.map{|u|u.email}, email.bcc
     assert_equal "Improvement Proposal Approval Reminder!", email.subject
     assert_match /#{statement_document.title}/, email.encoded
-    assert_match /#{statement_node.id}/, email.encoded
+    assert_match /#{statement_node.parent.id}/, email.encoded
   end
-  
+
   def test_passed_email
     statement_node = statement_nodes('first-impro-proposal')
     statement_document = statement_documents('first-impro-proposal-doc-english')
@@ -69,7 +69,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match /#{statement_document.author.full_name}/, email.encoded
     assert_match /#{statement_document.title}/, email.encoded
   end
-  
+
   def test_supporters_passed_email
     users = [users(:user),users(:joe),users(:ben)]
     statement_node = statement_nodes('first-impro-proposal')
@@ -82,7 +82,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_equal "Improvement Proposal Approval Passed!", email.subject
     assert_match /#{statement_document.title}/, email.encoded
   end
-  
+
   def test_incorporated_email
     statement_node = statement_nodes('first-impro-proposal')
     statement_document = statement_documents('first-impro-proposal-doc-english')
@@ -95,5 +95,5 @@ class NotificationMailerTest < ActionMailer::TestCase
     assert_match /#{statement_document.title}/, email.encoded
     assert_match /#{statement_node.parent.id}/, email.encoded
   end
-  
+
 end
