@@ -5,6 +5,7 @@ class TestForPassedJob < Struct.new(:incorporable_id)
     if !incorporable.nil? and !incorporable.incorporated?
       incorporable.times_passed += 1
       incorporable.drafting_info.save
+      incorporable.reload
       if incorporable.times_passed == 1
         DraftingService.instance.send_passed_email(incorporable)
         DraftingService.instance.stage(incorporable)
