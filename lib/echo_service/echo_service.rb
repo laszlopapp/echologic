@@ -2,11 +2,11 @@ require 'singleton'
 require 'observer'
 
 
-class EchoService 
+class EchoService
   include Observable
   include Singleton
-  
-  
+
+
   # Records that the given user has visited the echoable.
   def visited!(echoable, user)
     echo!(echoable, user, :visited => true)
@@ -41,14 +41,14 @@ class EchoService
     changed
     notify_observers(:unsupported, echoable, user)
   end
-  
+
   # Returns true if the given user doesn't support the echoable.
   #
   # TODO: Please implement the opposite method unsupported?(user) here
   def unsupported?(echoable, user)
     echoable.echo ? !user.user_echos.supported.for_echo(echoable.echo.id).any? : true
   end
-  
+
   # Supports the echoable by creating a new user_echo for the given user.
   def echo!(echoable, user, options = {})
     user_echo = echoable.user_echos.create_or_update!(options.merge(:user => user,
@@ -57,12 +57,7 @@ class EchoService
     echoable.echo.update_counter!
     user_echo
   end
-  
-  def reset_echoable(echoable)
-    echoable.user_echos.destroy
-    echoable.echo.update_counter!
-  end
-  
+
   def incorporated(echoable, user)
     changed
     notify_observers(:incorporated, echoable, user)

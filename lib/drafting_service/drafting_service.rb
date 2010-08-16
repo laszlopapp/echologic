@@ -182,8 +182,10 @@ class DraftingService
   # Removes all echos and puts the statement to tracked state.
   #
   def reset_incorporable(incorporable)
-    EchoService.instance.reset_echoable(incorporable)
-    incorporable.update_attribute(:times_passed, 0)
+    reset_echoable(incorporable)
+    incorporable.times_passed = 0
+    incorporable.drafting_info.save
+    incorporable.reload
     set_track(incorporable)
   end
 
@@ -301,6 +303,14 @@ class DraftingService
       supporter.drafting_notification == 1 &&
       (!check_language_skills || supporter.speaks_language?(echoable.original_language, 'intermediate'))
     }
+  end
+
+  #
+  # Withdraws all echos from the given echoable.
+  #
+  def reset_echoable(echoable)
+    echoable.user_echos.each{|ue| ue.supported = false}
+    echoable.echo.update_counter!
   end
 
   #
