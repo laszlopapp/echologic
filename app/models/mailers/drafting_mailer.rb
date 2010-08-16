@@ -1,4 +1,4 @@
-class NotificationMailer < ActionMailer::Base
+class DraftingMailer < ActionMailer::Base
   include StatementHelper
   def approval(statement, statement_document)
     subject       I18n.t('notification_mailer.approval.subject', :locale => statement_document.language.code)
@@ -61,4 +61,24 @@ class NotificationMailer < ActionMailer::Base
     body          :name => statement_document.author.full_name, :title => statement_document.title,
                   :link => proposal_path(statement.parent), :language => statement_document.language
   end
+
+  def approval_notification(statement, statement_document, users)
+    subject       I18n.t('notification_mailer.approval_notification.subject', :locale => statement_document.language.code)
+    from          "noreply@echologic.org"
+    bcc           users.map{|u|u.email}
+    sent_on       Time.now
+    body          :title => statement_document.title, :link => improvement_proposal_path(statement),
+                  :language => statement_document.language
+  end
+
+
+  def incorporation_notification(statement, statement_document, users)
+    subject       I18n.t('notification_mailer.incorporation_notification.subject', :locale => statement_document.language.code)
+    from          "noreply@echologic.org"
+    bcc           users.map{|u|u.email}
+    sent_on       Time.now
+    body          :title => statement_document.title, :link => proposal_path(statement),
+                  :language => statement_document.language
+  end
+
 end

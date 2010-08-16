@@ -1,6 +1,6 @@
 #job class responsible for getting all user related events and sending an email
 class ActivityTrackingJob < Struct.new(:current_charge, :charges, :trigger_time)
-  
+
   def perform
     User.all(:conditions => ["(id % ?) = ? and email_notification = 1", charges, current_charge]).each do |user|
       events = Event.find_tracked_events(user, trigger_time)
@@ -24,6 +24,6 @@ class ActivityTrackingJob < Struct.new(:current_charge, :charges, :trigger_time)
       end
       user.deliver_activity_tracking_email!(question_events, tags, events - question_events)
     end
-    ActivityNotificationService.instance.enqueue_activity_tracking_job
+    ActivityTrackingService.instance.enqueue_activity_tracking_job
   end
 end

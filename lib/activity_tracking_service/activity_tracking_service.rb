@@ -1,7 +1,7 @@
 require 'singleton'
 
 
-class ActivityNotificationService
+class ActivityTrackingService
   include Singleton
 
   attr_accessor :period, :charges, :counter
@@ -23,13 +23,6 @@ class ActivityNotificationService
   end
 
   def incorporated(echoable, user)
-#    echoable.reload
-#    statement_document = echoable.original_document
-#    parent = echoable.parent
-#    parent.reload
-#    supporters = parent.supporters#.select{|s|s.drafting_notification == 1}
-#    email = ActivityTrackingMailer.create_incorporation_notification(echoable, statement_document, supporters)
-#    ActivityTrackingMailer.deliver(email)
   end
 
   def enqueue_activity_tracking_job

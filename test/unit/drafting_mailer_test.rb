@@ -1,11 +1,11 @@
 require 'test_helper'
 
-class NotificationMailerTest < ActionMailer::TestCase
+class DraftingMailerTest < ActionMailer::TestCase
   def test_approval_email
     statement_node = statement_nodes('first-impro-proposal')
     statement_document = statement_documents('first-impro-proposal-doc-english')
     # Send the email, then test that it got queued
-    email = NotificationMailer.deliver_approval!(statement_node, statement_document)
+    email = DraftingMailer.deliver_approval!(statement_node, statement_document)
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal [statement_document.author.email], email.to
@@ -20,7 +20,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     statement_node = statement_nodes('first-impro-proposal')
     statement_document = statement_documents('first-impro-proposal-doc-english')
     # Send the email, then test that it got queued
-    email = NotificationMailer.deliver_supporters_approval!(statement_node, statement_document, users)
+    email = DraftingMailer.deliver_supporters_approval!(statement_node, statement_document, users)
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal users.map{|u|u.email}, email.bcc
@@ -33,7 +33,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     statement_node = statement_nodes('first-impro-proposal')
     statement_document = statement_documents('first-impro-proposal-doc-english')
     # Send the email, then test that it got queued
-    email = NotificationMailer.deliver_approval_reminder!(statement_node, statement_document)
+    email = DraftingMailer.deliver_approval_reminder!(statement_node, statement_document)
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal [statement_document.author.email], email.to
@@ -48,7 +48,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     statement_node = statement_nodes('first-impro-proposal')
     statement_document = statement_documents('first-impro-proposal-doc-english')
     # Send the email, then test that it got queued
-    email = NotificationMailer.deliver_supporters_approval_reminder!(statement_node, statement_document, users)
+    email = DraftingMailer.deliver_supporters_approval_reminder!(statement_node, statement_document, users)
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal users.map{|u|u.email}, email.bcc
@@ -61,7 +61,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     statement_node = statement_nodes('first-impro-proposal')
     statement_document = statement_documents('first-impro-proposal-doc-english')
     # Send the email, then test that it got queued
-    email = NotificationMailer.deliver_passed!(statement_document)
+    email = DraftingMailer.deliver_passed!(statement_document)
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal [statement_document.author.email], email.to
@@ -75,7 +75,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     statement_node = statement_nodes('first-impro-proposal')
     statement_document = statement_documents('first-impro-proposal-doc-english')
     # Send the email, then test that it got queued
-    email = NotificationMailer.deliver_supporters_passed!(statement_document, users)
+    email = DraftingMailer.deliver_supporters_passed!(statement_document, users)
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal users.map{|u|u.email}, email.bcc
@@ -87,7 +87,7 @@ class NotificationMailerTest < ActionMailer::TestCase
     statement_node = statement_nodes('first-impro-proposal')
     statement_document = statement_documents('first-impro-proposal-doc-english')
     # Send the email, then test that it got queued
-    email = NotificationMailer.deliver_incorporated!(statement_node, statement_document)
+    email = DraftingMailer.deliver_incorporated!(statement_node, statement_document)
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal [statement_document.author.email], email.to
