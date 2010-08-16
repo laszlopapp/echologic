@@ -309,7 +309,7 @@ class DraftingService
   %w(track readify stage approve incorporate).each do |transition|
     class_eval %(
       def set_#{transition}(incorporable)
-        incorporable.drafting_info.state_since = Time.now.utc
+        incorporable.state_since = Time.now.utc
         incorporable.drafting_info.save
         incorporable.send('#{transition}!')
         incorporable.save
