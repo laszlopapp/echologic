@@ -55,7 +55,7 @@ class DraftingService
 
   # Observer to incorporable incorporated action
   def incorporated(incorporable, user)
-    incorporable.reload
+    #incorporable.reload
     incorporate(incorporable, user)
     select_approved(incorporable)
   end
@@ -133,9 +133,9 @@ class DraftingService
   #
   def readify(incorporable)
     set_readify(incorporable)
-    incorporable.reload
+    #incorporable.reload
     Delayed::Job.enqueue TestForStagedJob.new(incorporable.id,incorporable.state_since), 1,
-                         Time.now.advance(:seconds => @@time_ready)
+                         Time.now.advance(:seconds => @@time_ready).utc
   end
 
   #
@@ -143,7 +143,7 @@ class DraftingService
   #
   def stage(incorporable)
     set_stage(incorporable)
-    incorporable.reload
+    #incorporable.reload
     select_approved(incorporable)
   end
 
@@ -151,7 +151,7 @@ class DraftingService
   # Select the suitable sibling from the incorporable to become approved.
   #
   def select_approved(incorporable)
-    incorporable.reload
+    #incorporable.reload
     if incorporable.parent.approved_children.empty?
       siblings = incorporable.sibling_statements([incorporable.drafting_language.id]).select{|s|s.staged?}
       approve(siblings.first) if !siblings.empty?
@@ -163,10 +163,10 @@ class DraftingService
   #
   def approve(incorporable)
     set_approve(incorporable)
-    incorporable.reload
+    #incorporable.reload
     send_emails_on_approval(incorporable)
     Delayed::Job.enqueue TestForPassedJob.new(incorporable.id), 1,
-                         Time.now.advance(:seconds => @@time_approved)
+                         Time.now.advance(:seconds => @@time_approved).utc
   end
 
   #
@@ -174,7 +174,7 @@ class DraftingService
   #
   def incorporate(incorporable, user)
     set_incorporate(incorporable)
-    incorporable.reload
+    #incorporable.reload
     send_mails_on_incorporation(incorporable)
   end
 
@@ -196,7 +196,7 @@ class DraftingService
   # Sends mails when the statement became approved.
   #
   def send_emails_on_approval(incorporable)
-    incorporable.reload
+    #incorporable.reload
 
     # Send notification that the statement can be incorporated
     approved_document = incorporable.document_in_original_language
@@ -296,7 +296,7 @@ class DraftingService
   # Returns those supporters of the echoable who would like to receive drafting notifications.
   #
   def notified_supporters(echoable, check_language_skills = true)
-    echoable.reload
+    #echoable.reload
     echoable.supporters.select{|supporter|
       supporter.drafting_notification == 1 &&
       (!check_language_skills || supporter.speaks_language?(echoable.original_language, 'intermediate'))
@@ -309,7 +309,7 @@ class DraftingService
   %w(track readify stage approve incorporate).each do |transition|
     class_eval %(
       def set_#{transition}(incorporable)
-        incorporable.state_since = Time.now
+        incorporable.state_since = Time.now.utc
         incorporable.send('#{transition}!')
         incorporable.drafting_info.save
         incorporable.save
