@@ -311,6 +311,7 @@ class DraftingService
       def set_#{transition}(incorporable)
         incorporable.state_since = Time.now
         incorporable.send('#{transition}!')
+        incorporable.drafting_info.save
         incorporable.save
       end
     )
