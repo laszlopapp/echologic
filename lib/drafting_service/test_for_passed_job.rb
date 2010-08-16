@@ -19,7 +19,7 @@ class TestForPassedJob < Struct.new(:incorporable_id)
         end
       end
     rescue StandardError => error
-      RAILS_DEFAULT_LOGGER.error error.backtrace
+      puts error.backtrace
     end
   end
 end
