@@ -3,6 +3,9 @@
 <% if defined? @info %>
   info('<%= @info %>');
 <% end %>
+<% if defined? @error %>
+  error('<%= @error %>');
+<% end %>
 
 var context  = "<%= escape_javascript(render :partial => 'statements/context') %>";
 var sidebar  = "<%= escape_javascript(render :partial => 'statements/sidebar') %>";

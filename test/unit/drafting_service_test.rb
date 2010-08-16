@@ -162,7 +162,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
       should("send an approval email") do
         email = ActionMailer::Base.deliveries[ActionMailer::Base.deliveries.length-2]
         assert !ActionMailer::Base.deliveries.empty?
-        assert_equal [@statement_2.original_document.author.email], email.to
+        assert_equal [@statement_2.document_in_original_language.author.email], email.to
         assert_equal "Your Improvement Proposal was Approved!", email.subject
       end
       should("set a delayed task for approval reminder email sending") do
@@ -324,7 +324,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
       should("send passed email") do
         email = ActionMailer::Base.deliveries[ActionMailer::Base.deliveries.length-3]
         assert !ActionMailer::Base.deliveries.empty?
-        assert_equal [@statement_1.original_document.author.email], email.to
+        assert_equal [@statement_1.document_in_original_language.author.email], email.to
         assert_equal "Improvement Proposal Approval Passed!", email.subject
       end
       should("set the next best staged to approved") do
@@ -412,9 +412,9 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_1.save
 
         @statement_2 = statement_nodes('first-proposal')
-        old_doc = @statement_2.original_document
+        old_doc = @statement_2.document_in_original_language
 
-        @statement_2.original_document.update_attribute(:current, false)
+        @statement_2.document_in_original_language.update_attribute(:current, false)
         @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:red),
                                                 :supported => true)
@@ -427,18 +427,18 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_2.find_or_create_echo.update_counter!
         @statement_2.add_statement_document :original_language_id => @statement_2.original_language.id,
                                             :title => old_doc.title,
-                                            :text => old_doc.text + @statement_1.original_document.text,
+                                            :text => old_doc.text + @statement_1.document_in_original_language.text,
                                             :statement_id => @statement_2.statement_id,
                                             :language_id => old_doc.language.id,
                                             :current => true,
-                                            :author_id => @statement_1.original_document.author.id,
+                                            :author_id => @statement_1.document_in_original_language.author.id,
                                             :action_id => StatementHistory.statement_actions('incorporated').id,
                                             :old_document_id => old_doc.id,
                                             :incorporated_node_id => @statement_1.id
         @statement_2.save
       }
 
-      should(" incorporate that improvement proposal") do
+      should("incorporate that improvement proposal") do
         @statement_1.reload
         assert @statement_1.incorporated?
       end
@@ -446,8 +446,8 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_2.reload
         email = ActionMailer::Base.deliveries[ActionMailer::Base.deliveries.length-2]
         assert !ActionMailer::Base.deliveries.empty?
-        assert_equal [@statement_2.original_document.author.email], email.to
         assert_equal "Your Improvement Proposal was successfully incorporated!", email.subject
+        assert_equal [@statement_2.document_in_original_language.author.email], email.to
       end
       should("send incorporation notification") do
         @statement_2.reload
@@ -456,8 +456,8 @@ class DraftingServiceTest < ActiveSupport::TestCase
         }
         email = ActionMailer::Base.deliveries.last
         assert !ActionMailer::Base.deliveries.empty?
-        assert_equal supporters.map{|u|u.email}, email.bcc
         assert_equal "A Proposal you support has been updated!", email.subject
+        assert_equal supporters.map{|u|u.email}, email.to
       end
     end
   end

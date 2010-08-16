@@ -247,7 +247,7 @@ en:
     # Email Notification section
     email_notifications:
       title: Email Notification
-      guide: Daily updates on new discussions and new statements in older discussions you were active in. 
+      guide: Daily updates on new discussions and new statements in older discussions you were active in.
       label: Weekly update on discussions
       email_on: Activity notifications have been switched on.
       email_off: Activity notifications have been switched off.
@@ -258,8 +258,8 @@ en:
       label: Drafting Process Updates
       drafting_on: Drafting notifications have been switched on.
       drafting_off: Drafting notifications have been switched off.
- 
- 
+
+
 
     users:
       new:
@@ -410,11 +410,7 @@ en:
         You can only support improvement proposals if you support the proposal itself.
       being_edited: |-
         We are sorry, this Statement is being edited right now.
-      staled_modification: |-
-        We are very sorry, but you exceeded the 60 minutes limit to edit and save the statement. 
-        Meanwhile it has already been updated by a different user. Therefore, your changes must be 
-        unfortunately discarded.
- 
+      staled_modification: 'We are very sorry, but you exceeded the 60 minutes limit to edit and save the statement. Meanwhile it has already been updated by a different user. Therefore, your changes must have been unfortunately discarded.'
 
 
     summary:

@@ -1,6 +1,7 @@
 module ActiveRecord
   module Acts
-    module Drafteable
+    module Draftable
+
       def self.included(base)
         base.extend(ClassMethods)
         base.instance_eval do
@@ -15,7 +16,7 @@ module ActiveRecord
       end
 
       module ClassMethods
-        def acts_as_drafteable(*args)
+        def acts_as_draftable(*args)
           state_types = args.to_a.flatten.compact.map(&:to_sym)
 
           write_inheritable_attribute(:state_types, (state_types).uniq)

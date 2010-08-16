@@ -9,11 +9,6 @@ class StatementNode < ActiveRecord::Base
     self.statement.destroy if (statement.statement_nodes - [self]).empty?
   end
 
-  # static for now
-  def published?
-    self.editorial_state == self.class.statement_states("published")
-  end
-
   ##
   ## ASSOCIATIONS
   ##
@@ -22,15 +17,11 @@ class StatementNode < ActiveRecord::Base
   belongs_to :root_statement, :foreign_key => "root_id", :class_name => "StatementNode"
   belongs_to :statement
 
-
-
-  delegate :original_language, :original_document, :authors, :to => :statement
+  delegate :original_language, :document_in_original_language, :authors, :to => :statement
 
   enum :editorial_state, :enum_name => :statement_states
 
   acts_as_tree :scope => :root_statement
-  # not yet implemented
-  #belongs_to :work_packages
 
   has_many :statement_documents, :through => :statement, :source => :statement_documents do
     def for_languages(lang_ids)
@@ -53,12 +44,6 @@ class StatementNode < ActiveRecord::Base
   validates_associated :creator
   validates_associated :statement
 
-  after_destroy :delete_dependencies
-
-
-  def delete_dependencies
-    self.statement.destroy if self.statement.statement_nodes.empty?
-  end
 
   def validate
     # except of questions, all statements need a valid parent
@@ -91,12 +76,10 @@ class StatementNode < ActiveRecord::Base
 
   def title
     raise 'title is deprecated... please use translated_document().title instead'
-    #self.translated_document(1).title
   end
 
   def text
     raise 'text is deprecated... please use translated_document().title instead'
-    #self.translated_document(1).text
   end
 
   def level
@@ -113,6 +96,11 @@ class StatementNode < ActiveRecord::Base
   ##############################
   ######### ACTIONS ############
   ##############################
+
+  # static for now
+  def published?
+    self.editorial_state == self.class.statement_states("published")
+  end
 
   # Publish a statement.
   def publish
@@ -198,31 +186,40 @@ class StatementNode < ActiveRecord::Base
     list.size == 1 ? list.pop : list
   end
 
-  # Collects all children, sorted in the way we want them to.
-  def sorted_children(language_ids = nil)
-    conditions = {:conditions => "parent_id = #{self.id}"}
+  # Collects a filtered list of all children statements
+  def children_statements(language_ids = nil)
+    return children_statements_for_parent(self.id, language_ids)
+  end
+
+  # Collects a filtered list of all siblings statements
+  def sibling_statements(language_ids = nil)
+    return parent_id.nil? ? [] : children_statements_for_parent(self.parent_id, language_ids)
+  end
+
+
+  private
+
+  def children_statements_for_parent(parent_id, language_ids = nil)
+    conditions = {:conditions => "parent_id = #{parent_id}"}
     conditions.merge!({:language_ids => language_ids}) if language_ids
+    conditions.merge!({:drafting_states => %w(tracked ready staged)}) if self.draftable?
     children = self.class.search_statement_nodes(conditions)
-    children = children.select{|c|c.tracked? or c.ready? or c.staged?} if self.draftable?
     children
   end
 
-  # Collects all fellow statement nodes whose parent is the same as ours
-  def siblings(language_ids = nil)
-    return [] if parent_id.nil?
-    conditions = {:conditions => "parent_id = #{self.parent_id}"}
-    conditions.merge!({:language_ids => language_ids}) if language_ids
-    siblings = self.class.search_statement_nodes(conditions)
-    siblings = siblings.select{|s|s.tracked? or s.ready? or s.staged?} if self.incorporable?
-    siblings
-  end
+
+  #################
+  # Class methods #
+  #################
 
   class << self
+
+    public
 
     def search_statement_nodes(opts={})
 
       # Building the search clause
-      search_clause = <<-END
+      select_clause = <<-END
         select distinct n.*
         from
           statement_nodes n
@@ -258,6 +255,8 @@ class StatementNode < ActiveRecord::Base
       end
       # Filter for the preferred languages
       and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]]) if opts[:language_ids]
+      # Filter for drafting states
+      and_conditions << sanitize_sql(["n.drafting_state IN (?)", opts[:drafting_states]]) if opts[:drafting_states]
       # Constructing the where clause
       where_clause = and_conditions.join(" AND ")
 
@@ -265,7 +264,7 @@ class StatementNode < ActiveRecord::Base
       order_clause = " order by e.supporter_count DESC, n.created_at asc;"
 
       # Composing the query and substituting the values
-      query = search_clause + where_clause + order_clause
+      query = select_clause + where_clause + order_clause
       value = "%#{search_term}%"
       conditions = search_fields ? [query, *([value] * search_fields.size)] : query
 
@@ -318,4 +317,5 @@ class StatementNode < ActiveRecord::Base
       @@expected_children[self.name] += klasses
     end
   end
+
 end

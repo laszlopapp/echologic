@@ -9,10 +9,10 @@ class DraftingService
   ##############
 
   @@min_quorum = 50
-  @@min_votes  = 5
-  @@time_ready  = 10.hours
-  @@time_approved  = 10.hours
-  @@time_approval_reminder  = 6.hours
+  @@min_votes  = 3
+  @@time_ready  = 24.hours
+  @@time_approved  = 24.hours
+  @@time_approval_reminder  = 12.hours
 
   def self.min_quorum=(value)
     @@min_quorum = value
@@ -55,6 +55,7 @@ class DraftingService
 
   # Observer to incorporable incorporated action
   def incorporated(incorporable, user)
+    incorporable.reload
     incorporate(incorporable, user)
     select_approved(incorporable)
   end
@@ -65,15 +66,15 @@ class DraftingService
   #################
 
   #
-  # Reacts on echo/unecho event. I.e. when it's incorporable updates the sibling states, when drafteable,
+  # Reacts on echo/unecho event. I.e. when it's incorporable updates the sibling states, when draftable,
   # adjust the readiness of the children.
   #
   def adjust_states(echoable, old_supporter_count)
     if echoable.incorporable?
-      siblings = echoable.siblings
+      siblings = echoable.sibling_statements
       update_incorporable_states(siblings, echoable, old_supporter_count)
     elsif echoable.draftable?
-      children = echoable.sorted_children
+      children = echoable.children_statements
       children.each do |child|
         adjust_readiness(child, false, false)
       end
@@ -152,7 +153,7 @@ class DraftingService
   def select_approved(incorporable)
     incorporable.reload
     if incorporable.parent.approved_children.empty?
-      siblings = incorporable.siblings([incorporable.drafting_language.id]).select{|s|s.staged?}
+      siblings = incorporable.sibling_statements([incorporable.drafting_language.id]).select{|s|s.staged?}
       approve(siblings.first) if !siblings.empty?
     end
   end
@@ -163,7 +164,7 @@ class DraftingService
   def approve(incorporable)
     set_approve(incorporable)
     incorporable.reload
-    send_approved_email(incorporable)
+    send_emails_on_approval(incorporable)
     Delayed::Job.enqueue TestForPassedJob.new(incorporable.id), 1,
                          Time.now.advance(:seconds => @@time_approved)
   end
@@ -174,7 +175,7 @@ class DraftingService
   def incorporate(incorporable, user)
     set_incorporate(incorporable)
     incorporable.reload
-    send_incorporated_email(incorporable, user)
+    send_mails_on_incorporation(incorporable)
   end
 
   #
@@ -194,92 +195,113 @@ class DraftingService
   #
   # Sends mails when the statement became approved.
   #
-  def send_approved_email(incorporable)
+  def send_emails_on_approval(incorporable)
+    incorporable.reload
 
-    # Send the notification that the statement can be incorporated
-    statement_document = incorporable.original_document
-    if incorporable.times_passed == 0
-      email = NotificationMailer.create_approval(incorporable, statement_document)
-      NotificationMailer.deliver(email) if statement_document.author.drafting_notification == 1
+    # Send notification that the statement can be incorporated
+    approved_document = incorporable.document_in_original_language
+    if incorporable.times_passed == 0 && approved_document.author.drafting_notification == 1
+      email = DraftingMailer.create_approval(incorporable, approved_document)
+      DraftingMailer.deliver(email)
     elsif incorporable.times_passed == 1
-      supporters = incorporable.supporters.select{|supporter|
-        supporter.speaks_language?(incorporable.original_language, 'intermediate') and
-        supporter.drafting_notification == 1
-      }
-      email = NotificationMailer.create_supporters_approval(incorporable, statement_document, supporters)
-      NotificationMailer.deliver(email)
+      recipients = notified_supporters(incorporable)
+      if !recipients.blank?
+        email = DraftingMailer.create_supporters_approval(incorporable, approved_document, recipients)
+        DraftingMailer.deliver(email)
+      end
     end
 
-    # Send approval notification to the proposal supporters
-    incorporable.reload
-    supporters = incorporable.parent.supporters
-#    .select{|supporter|
-#      supporter.speaks_language?(incorporable.original_language) and
-#      supporter.drafting_notification == 1
-#    }
-    email = ActivityTrackingMailer.create_approval_notification(incorporable, statement_document, supporters)
-    ActivityTrackingMailer.deliver(email)
+    # Send approval notification to the supporters of the proposal
+    recipients = notified_supporters(incorporable.parent)
+    if !recipients.blank?
+      email = DraftingMailer.create_approval_notification(incorporable, approved_document, recipients)
+      DraftingMailer.deliver(email)
+    end
 
-    # Schedule the reminder mail
+    # Schedule job to send reminder mails
     Delayed::Job.enqueue ApprovalReminderMailJob.new(incorporable.id, incorporable.state_since), 1,
-                         Time.now + @@time_approval_reminder
+                         Time.now.advance(:seconds => @@time_approval_reminder)
   end
 
   #
   # Sends the approval reminder mail to the author of the incorporable.
   #
   def send_approval_reminder(incorporable)
-    statement_document = incorporable.original_document
-    email = NotificationMailer.create_approval_reminder(incorporable, statement_document)
-    NotificationMailer.deliver(email) if statement_document.author.drafting_notification == 1
+    approved_document = incorporable.document_in_original_language
+    if approved_document.author.drafting_notification == 1
+      email = DraftingMailer.create_approval_reminder(incorporable, approved_document)
+      DraftingMailer.deliver(email)
+    end
   end
 
   #
   # Sends the approval reminder mail to all supporters of the incorporable.
   #
   def send_supporters_approval_reminder(incorporable)
-    statement_document = incorporable.original_document
-    supporters = incorporable.supporters.select{|supporter|
-      supporter.speaks_language?(incorporable.original_language, 'intermediate') and
-      supporter.drafting_notification == 1
-    }
-    email = NotificationMailer.create_supporters_approval_reminder(incorporable, statement_document, supporters)
-    NotificationMailer.deliver(email)
+    approved_document = incorporable.document_in_original_language
+    recipients = notified_supporters(incorporable)
+    if !recipients.blank?
+      email = DraftingMailer.create_supporters_approval_reminder(incorporable, approved_document, recipients)
+      DraftingMailer.deliver(email)
+    end
   end
 
   #
   # Sends mail to notify the author that he has passed the opportunity to incorporate his statement.
   #
   def send_passed_email(incorporable)
-    statement_document = incorporable.original_document
-    email = NotificationMailer.create_passed(statement_document)
-    NotificationMailer.deliver(email) if statement_document.author.drafting_notification == 1
+    passed_document = incorporable.document_in_original_language
+    if passed_document.author.drafting_notification == 1
+      email = DraftingMailer.create_passed(passed_document)
+      DraftingMailer.deliver(email)
+    end
   end
 
   #
   # Sends mail to notify all supporters of the statement that they have passed the opportunity to incorporate it.
   #
   def send_supporters_passed_email(incorporable)
-    statement_document = incorporable.original_document
-    supporters = incorporable.supporters.select{|supporter|
-      supporter.speaks_language?(incorporable.original_language, 'intermediate') and
-      supporter.drafting_notification == 1
-    }
-    email = NotificationMailer.create_supporters_passed(statement_document, supporters)
-    NotificationMailer.deliver(email)
+    passed_document = incorporable.document_in_original_language
+    recipients = notified_supporters(incorporable)
+    if !recipients.blank?
+      email = DraftingMailer.create_supporters_passed(passed_document, recipients)
+      DraftingMailer.deliver(email)
+    end
   end
 
   #
   # Sends mail author that he has passed the opportunity to incorporate his statement.
   #
-  def send_incorporated_email(incorporable, user)
-    statement_document = incorporable.original_document
-    email = NotificationMailer.create_incorporated(incorporable, statement_document)
-    NotificationMailer.deliver(email) if statement_document.author.drafting_notification == 1
+  def send_mails_on_incorporation(incorporable)
+    incorporated_document = incorporable.document_in_original_language
+
+    # Thank you mail to the author
+    if incorporated_document.author.drafting_notification == 1
+      email = DraftingMailer.create_incorporated(incorporable, incorporated_document)
+      DraftingMailer.deliver(email)
+    end
+
+    # Notification mail to the supporters of the proposal
+    recipients = notified_supporters(incorporable.parent, false)
+    if !recipients.blank?
+      email = DraftingMailer.create_incorporation_notification(incorporable, incorporated_document, recipients)
+      DraftingMailer.deliver(email)
+    end
   end
 
 
   private
+
+  #
+  # Returns those supporters of the echoable who would like to receive drafting notifications.
+  #
+  def notified_supporters(echoable, check_language_skills = true)
+    echoable.reload
+    echoable.supporters.select{|supporter|
+      supporter.drafting_notification == 1 &&
+      (!check_language_skills || supporter.speaks_language?(echoable.original_language, 'intermediate'))
+    }
+  end
 
   #
   # Sets and persists the given state and the state_since timestamp.

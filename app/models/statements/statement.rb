@@ -4,7 +4,7 @@ class Statement < ActiveRecord::Base
   validates_associated :statement_documents
 
   has_many :statement_histories, :source => :statement_histories
-  
+
   def authors
     statement_histories.select{|sh|original_language.eql?(sh.language)}.map{|s|s.author}
   end
@@ -13,9 +13,9 @@ class Statement < ActiveRecord::Base
 
   named_scope :find_by_title, lambda {|value|
             { :include => :statement_documents, :conditions => ['statement_documents.title LIKE ? and statement_documents.current = 1', "%#{value}%"] } }
-            
+
   # Returns the translated original document
-  def original_document
+  def document_in_original_language
     self.statement_documents.find(:first, :conditions => ["language_id = ? and current = 1", self.original_language_id])
   end
 end

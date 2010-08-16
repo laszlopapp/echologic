@@ -1,84 +1,105 @@
 class DraftingMailer < ActionMailer::Base
   include StatementHelper
-  def approval(statement, statement_document)
-    subject       I18n.t('notification_mailer.approval.subject', :locale => statement_document.language.code)
+  def approval(incorporable, approved_document)
+    subject       I18n.t('notification_mailer.approval.subject',
+                         :locale => approved_document.language.code)
     from          "noreply@echologic.org"
-    recipients    statement_document.author.email
+    recipients    approved_document.author.email
     sent_on       Time.now
-    body          :name => statement_document.author.full_name, :title => statement_document.title,
-                  :link => proposal_path(statement.parent), :language => statement_document.language
+    body          :name => approved_document.author.full_name,
+                  :title => approved_document.title,
+                  :link => proposal_path(incorporable.parent),
+                  :language => approved_document.language
   end
 
-  def supporters_approval(statement, statement_document, users)
-    subject       I18n.t('notification_mailer.supporters_approval.subject', :locale => statement_document.language.code)
+  def supporters_approval(incorporable, approved_document, recipients)
+    subject       I18n.t('notification_mailer.supporters_approval.subject',
+                         :locale => approved_document.language.code)
     from          "noreply@echologic.org"
-    bcc           users.map{|u|u.email}
+    bcc           recipients.map(&:email)
     sent_on       Time.now
-    body          :title => statement_document.title, :link => improvement_proposal_path(statement),
-                  :language => statement_document.language
+    body          :title => approved_document.title,
+                  :link => improvement_proposal_path(incorporable),
+                  :language => approved_document.language
   end
 
-  def approval_reminder(statement, statement_document)
-    subject       I18n.t('notification_mailer.approval_reminder.subject', :locale => statement_document.language.code)
+  def approval_notification(incorporable, approved_document, recipients)
+    subject       I18n.t('notification_mailer.approval_notification.subject',
+                         :locale => approved_document.language.code)
     from          "noreply@echologic.org"
-    recipients    statement_document.author.email
+    bcc           recipients.map(&:email)
     sent_on       Time.now
-    body          :name => statement_document.author.full_name, :title => statement_document.title,
-                  :link => proposal_path(statement.parent), :language => statement_document.language
+    body          :title => approved_document.title,
+                  :link => improvement_proposal_path(incorporable),
+                  :language => approved_document.language
   end
 
-  def supporters_approval_reminder(statement, statement_document, users)
-    subject       I18n.t('notification_mailer.supporters_approval_reminder.subject', :locale => statement_document.language.code)
+  def approval_reminder(incorporable, approved_document)
+    subject       I18n.t('notification_mailer.approval_reminder.subject',
+                         :locale => approved_document.language.code)
     from          "noreply@echologic.org"
-    bcc           users.map{|u|u.email}
+    recipients    approved_document.author.email
     sent_on       Time.now
-    body          :title => statement_document.title, :link => proposal_path(statement.parent),
-                  :language => statement_document.language, :p_title => statement.parent.original_document.title
+    body          :name => approved_document.author.full_name,
+                  :title => approved_document.title,
+                  :link => proposal_path(incorporable.parent),
+                  :language => approved_document.language
   end
 
-  def passed(statement_document)
-    subject       I18n.t('notification_mailer.passed.subject', :locale => statement_document.language.code)
+  def supporters_approval_reminder(incorporable, approved_document, recipients)
+    subject       I18n.t('notification_mailer.supporters_approval_reminder.subject',
+                         :locale => approved_document.language.code)
     from          "noreply@echologic.org"
-    recipients    statement_document.author.email
+    bcc           recipients.map(&:email)
     sent_on       Time.now
-    body          :name => statement_document.author.full_name, :title => statement_document.title,
-                  :language => statement_document.language
+    body          :title => approved_document.title,
+                  :link => proposal_path(incorporable.parent),
+                  :language => approved_document.language,
+                  :p_title => incorporable.parent.document_in_original_language.title
   end
 
-  def supporters_passed(statement_document, users)
-    subject       I18n.t('notification_mailer.supporters_passed.subject', :locale => statement_document.language.code)
+  def passed(passed_document)
+    subject       I18n.t('notification_mailer.passed.subject',
+                         :locale => passed_document.language.code)
     from          "noreply@echologic.org"
-    bcc           users.map{|u|u.email}
+    recipients    passed_document.author.email
     sent_on       Time.now
-    body          :title => statement_document.title, :language => statement_document.language
+    body          :name => passed_document.author.full_name,
+                  :title => passed_document.title,
+                  :language => passed_document.language
   end
 
-  def incorporated(statement, statement_document)
-    subject       I18n.t('notification_mailer.incorporated.subject', :locale => statement_document.language.code)
+  def supporters_passed(passed_document, recipients)
+    subject       I18n.t('notification_mailer.supporters_passed.subject',
+                         :locale => passed_document.language.code)
     from          "noreply@echologic.org"
-    recipients    statement_document.author.email
+    bcc           recipients.map(&:email)
     sent_on       Time.now
-    body          :name => statement_document.author.full_name, :title => statement_document.title,
-                  :link => proposal_path(statement.parent), :language => statement_document.language
+    body          :title => passed_document.title,
+                  :language => passed_document.language
   end
 
-  def approval_notification(statement, statement_document, users)
-    subject       I18n.t('notification_mailer.approval_notification.subject', :locale => statement_document.language.code)
+  def incorporated(incorporable, incorporated_document)
+    subject       I18n.t('notification_mailer.incorporated.subject',
+                         :locale => incorporated_document.language.code)
     from          "noreply@echologic.org"
-    bcc           users.map{|u|u.email}
+    recipients    incorporated_document.author.email
     sent_on       Time.now
-    body          :title => statement_document.title, :link => improvement_proposal_path(statement),
-                  :language => statement_document.language
+    body          :name => incorporated_document.author.full_name,
+                  :title => incorporated_document.title,
+                  :link => proposal_path(incorporable.parent),
+                  :language => incorporated_document.language
   end
 
-
-  def incorporation_notification(statement, statement_document, users)
-    subject       I18n.t('notification_mailer.incorporation_notification.subject', :locale => statement_document.language.code)
+  def incorporation_notification(incorporable, incorporated_document, recipients)
+    subject       I18n.t('notification_mailer.incorporation_notification.subject',
+                         :locale => incorporated_document.language.code)
     from          "noreply@echologic.org"
-    bcc           users.map{|u|u.email}
+    bcc           recipients.map(&:email)
     sent_on       Time.now
-    body          :title => statement_document.title, :link => proposal_path(statement),
-                  :language => statement_document.language
+    body          :title => incorporated_document.title,
+                  :link => proposal_path(incorporable.parent),
+                  :language => incorporated_document.language
   end
 
 end

@@ -96,4 +96,32 @@ class DraftingMailerTest < ActionMailer::TestCase
     assert_match /#{statement_node.parent.id}/, email.encoded
   end
 
+  def test_approval_notification_email
+    users = [users(:user),users(:joe),users(:ben)]
+    statement_node = statement_nodes('first-impro-proposal')
+    statement_document = statement_documents('first-impro-proposal-doc-english')
+    # Send the email, then test that it got queued
+    email = DraftingMailer.deliver_approval_notification!(statement_node, statement_document, users)
+    assert !ActionMailer::Base.deliveries.empty?
+    # Test the body of the sent email contains what we expect it to
+    assert_equal users.map{|u|u.email}, email.bcc
+    assert_equal "An Improvement Proposal was approved for incorporation", email.subject
+    assert_match /#{statement_document.title}/, email.encoded
+    assert_match /#{statement_node.id}/, email.encoded
+  end
+
+  def test_incorporation_notification_email
+    users = [users(:user),users(:joe),users(:ben)]
+    statement_node = statement_nodes('first-impro-proposal')
+    statement_document = statement_documents('first-proposal-doc-english')
+    # Send the email, then test that it got queued
+    email = DraftingMailer.deliver_incorporation_notification!(statement_node, statement_document, users)
+    assert !ActionMailer::Base.deliveries.empty?
+    # Test the body of the sent email contains what we expect it to
+    assert_equal users.map{|u|u.email}, email.bcc
+    assert_equal "A Proposal you support has been updated!", email.subject
+    assert_match /#{statement_document.title}/, email.encoded
+    assert_match /#{statement_node.parent.id}/, email.encoded
+  end
+
 end

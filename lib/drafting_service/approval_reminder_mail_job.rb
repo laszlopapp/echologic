@@ -1,12 +1,12 @@
-class ApprovalReminderMailJob < Struct.new(:statement_node_id, :timestamp)
-  
+class ApprovalReminderMailJob < Struct.new(:incorporable_id, :timestamp)
+
   def perform
-    statement = StatementNode.find(statement_node_id)
-    if !statement.nil? and statement.approved? and statement.state_since == timestamp
-      if statement.times_passed == 0
-        DraftingService.instance.send_approval_reminder(statement)
-      elsif statement.times_passed == 1
-        DraftingService.instance.send_supporters_approval_reminder(statement)
+    incorporable = StatementNode.find(incorporable_id)
+    if !incorporable.nil? and incorporable.approved? and incorporable.state_since == timestamp
+      if incorporable.times_passed == 0
+        DraftingService.instance.send_approval_reminder(incorporable)
+      elsif incorporable.times_passed == 1
+        DraftingService.instance.send_supporters_approval_reminder(incorporable)
       end
     end
   end

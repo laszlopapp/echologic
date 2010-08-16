@@ -1,15 +1,15 @@
-require 'activity_notification_service/acts_as_subscribeable'
-require 'activity_notification_service/event'
-require 'activity_notification_service/subscription'
-require 'activity_notification_service/activity_tracking_job'
-require 'activity_notification_service/activity_notification_service'
+require 'activity_tracking_service/acts_as_subscribeable'
+require 'activity_tracking_service/event'
+require 'activity_tracking_service/subscription'
+require 'activity_tracking_service/activity_tracking_job'
+require 'activity_tracking_service/activity_tracking_service'
 
 if !RAILS_ENV.eql? 'production'
-  ActivityNotificationService.instance.charges = 1
-  ActivityNotificationService.instance.period = 30.minutes
+  ActivityTrackingService.instance.charges = 1
+  ActivityTrackingService.instance.period = 30.minutes
 else
-  ActivityNotificationService.instance.charges = 7
-  ActivityNotificationService.instance.period = 1.week
+  ActivityTrackingService.instance.charges = 7
+  ActivityTrackingService.instance.period = 1.week
 end
 
 ActiveRecord::Base.send :include, ActiveRecord::Acts::Subscribeable

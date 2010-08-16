@@ -131,7 +131,7 @@ module ActiveRecord
             # Ratio of this statement's supporters relative to the most supported sibbling statement's supporters.
             def support_relative_to_sibblings
               if parent && parent.most_supported_child.try(:supporter_count).to_i > 0
-                max_support_count = parent.most_supported_child.supporter_count;
+                max_support_count = parent.most_supported_child.supporter_count
                 ((supporter_count.to_f / max_support_count.to_f) * [10*max_support_count, 100].min).to_i
               else
                 0
@@ -152,10 +152,9 @@ module ActiveRecord
 
             public
             def supporters
-              self.user_echos.map{|ue|ue.user}
+              User.find(self.user_echos.supported.all.map(&:user_id))
             end
           end # --- class_eval
-
 
         end
       end

@@ -76,7 +76,7 @@ class StatementsController < ApplicationController
     # Prev / Next functionality
     unless @statement_node.children.empty?
       child_type = ("current_" + @statement_node.class.expected_children.first.to_s.underscore).to_sym
-      session[child_type] = @statement_node.sorted_children(@language_preference_list).collect { |c| c.id }
+      session[child_type] = @statement_node.children_statements(@language_preference_list).collect { |c| c.id }
     end
 
     # Get document to show and redirect if not found
@@ -100,7 +100,7 @@ class StatementsController < ApplicationController
       session[:last_info] = nil
     end
 
-    # If statement node is drafteable, then try to get the approved one
+    # If statement node is draftable, then try to get the approved one
     if @statement_node.draftable?
       @approved_node = @statement_node.approved_children.first || nil
       @approved_document = @approved_node.translated_document(@language_preference_list) if !@approved_node.nil?
@@ -110,7 +110,7 @@ class StatementsController < ApplicationController
     # sorted by supporters count, and paginate them
     @page = params[:page] || 1
 
-    @children = @statement_node.sorted_children(@language_preference_list).
+    @children = @statement_node.children_statements(@language_preference_list).
                   paginate(StatementNode.default_scope.merge(:page => @page,
                                                              :per_page => 5))
     @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
@@ -227,26 +227,35 @@ class StatementsController < ApplicationController
 
     # Updating tags of the statement
     form_tags = attrs.delete(:tags)
-    permitted = !@statement_node.taggable? || check_hash_tag_permissions(form_tags)
+    has_tag_permissions = !@statement_node.taggable? || check_hash_tag_permissions(form_tags)
 
-    holds_lock = true
+    holds_lock = ok = true
     saved = false
-    if permitted
-      StatementDocument.transaction do
-        old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
-        holds_lock = holds_lock?(old_statement_document, locked_at)
-        if (holds_lock)
-          old_statement_document.update_attribute(:current, false)
-          @statement_node.reload
-          @statement_document = @statement_node.add_statement_document(
-                                  attrs_doc.merge({:original_language_id => @locale_language_id,
-                                                   :current => true}))
-          if @statement_node.taggable?
-            @statement_node.topic_tags=form_tags
-            @tags=@statement_node.topic_tags
+    if has_tag_permissions
+      begin
+        StatementNode.transaction do
+          old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
+          holds_lock = holds_lock?(old_statement_document, locked_at)
+          if (holds_lock)
+            old_statement_document.update_attribute(:current, false)
+            old_statement_document.save!
+            @statement_document = @statement_node.add_statement_document(
+                                    attrs_doc.merge({:original_language_id => @locale_language_id,
+                                                     :current => true}))
+            @statement_document.save!
+
+            if @statement_node.taggable?
+              @statement_node.topic_tags=form_tags
+              @tags=@statement_node.topic_tags
+            end
+            @statement_node.save!
           end
-          saved = @statement_node.save
         end
+      rescue StandardError => error
+        log_error(error)
+        ok = false
+      else
+        logger.info("Statement has been updated sucessfully.")
       end
     end
 
@@ -254,8 +263,8 @@ class StatementsController < ApplicationController
       if !holds_lock
           set_error('discuss.statements.staled_modification')
           format.html { flash_error and redirect_to url_for(@statement_node) }
-          format.js   { show_error_messages }
-      elsif !permitted || !saved
+          format.js { show }
+      elsif !has_tag_permissions || !ok
         set_error(@statement_document) if @statement_document
         set_error(@statement_node)
         format.html { flash_error and redirect_to url_for(@statement_node) }
@@ -371,7 +380,7 @@ class StatementsController < ApplicationController
 
     # Logic to update the children caused by cascading unsupport
     @page = params[:page] || 1
-    @children = @statement_node.sorted_children(@language_preference_list).
+    @children = @statement_node.children_statements(@language_preference_list).
                   paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
     @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
                                                      @language_preference_list)
@@ -562,7 +571,7 @@ class StatementsController < ApplicationController
   def load_to_session(statement_node)
     type = statement_node_class.to_s.underscore
     key = ("current_" + type).to_sym
-    session[key] = statement_node.parent.sorted_children(@language_preference_list).map{|s|s.id}
+    session[key] = statement_node.parent.children_statements(@language_preference_list).map{|s|s.id}
     session[:last_statement_node] = statement_node.id
   end
 
