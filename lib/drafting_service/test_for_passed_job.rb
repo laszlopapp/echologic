@@ -2,7 +2,7 @@ class TestForPassedJob < Struct.new(:incorporable_id)
 
   def perform
     begin
-      StatementNode.transation do
+      StatementNode.transaction do
         incorporable = StatementNode.find(incorporable_id)
         if !incorporable.nil? and !incorporable.incorporated?
           incorporable.times_passed += 1
@@ -19,7 +19,9 @@ class TestForPassedJob < Struct.new(:incorporable_id)
         end
       end
     rescue StandardError => error
-      puts error.backtrace
+      Rails.logger.error "Error occured in test for passed job: \n" + error.backtrace
+    else
+      Rails.logger.info "Test for passed job has completed successfully."
     end
   end
 end

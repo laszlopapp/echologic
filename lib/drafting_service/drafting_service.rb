@@ -309,11 +309,11 @@ class DraftingService
   # Withdraws all echos from the given echoable.
   #
   def reset_echoable(echoable)
-    echoable.user_echos.each{|ue|
+    echoable.user_echos.supported.all.each{|ue|
       ue.supported = false
       ue.save
     }
-    ue.reload
+    echoable.reload
     echoable.echo.update_counter!
     echoable.echo.save
     echoable.save
