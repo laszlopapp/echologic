@@ -234,7 +234,7 @@ class DraftingService
 
 
   #
-  # Removes all echos and puts the statement to tracked state.
+  # Removes all echos and sends the statement back to tracked state.
   #
   def reset(incorporable)
     withdraw_echos(incorporable)
@@ -257,22 +257,24 @@ class DraftingService
     mail_data = assembly_mail_data(incorporable)
 
     # Send notification that the statement can be incorporated
+    ip_recipients = []
     approved_document = incorporable.document_in_original_language
     if incorporable.times_passed == 0 && approved_document.author.drafting_notification == 1
+      ip_recipients << approved_document.author
       email = DraftingMailer.create_approval(mail_data)
       DraftingMailer.deliver(email)
     elsif incorporable.times_passed == 1
-      recipients = notified_supporters(incorporable)
-      if !recipients.blank?
-        email = DraftingMailer.create_supporters_approval(recipients, mail_data)
+      ip_recipients = notified_supporters(incorporable)
+      if !ip_recipients.blank?
+        email = DraftingMailer.create_supporters_approval(ip_recipients, mail_data)
         DraftingMailer.deliver(email)
       end
     end
 
-    # Send approval notification to the supporters of the proposal
-    recipients = notified_supporters(incorporable.parent)
-    if !recipients.blank?
-      email = DraftingMailer.create_approval_notification(recipients, mail_data)
+    # Send approval notification to the rest of the supporters of the proposal
+    p_recipients = notified_supporters(incorporable.parent) - ip_recipients
+    if !p_recipients.blank?
+      email = DraftingMailer.create_approval_notification(p_recipients, mail_data)
       DraftingMailer.deliver(email)
     end
 
@@ -332,16 +334,18 @@ class DraftingService
     mail_data = assembly_mail_data(incorporable)
 
     # Thank you mail to the author
+    ip_recipient = []
     draftable_document = incorporable.parent.document_in_original_language
     if draftable_document.author.drafting_notification == 1
+      ip_recipient << draftable_document.author
       email = DraftingMailer.create_incorporated(mail_data)
       DraftingMailer.deliver(email)
     end
 
-    # Notification mail to the supporters of the proposal
-    recipients = notified_supporters(incorporable.parent, false)
-    if !recipients.blank?
-      email = DraftingMailer.create_incorporation_notification(recipients, mail_data)
+    # Notification mail to the rest of the supporters of the proposal
+    p_recipients = notified_supporters(incorporable.parent, false) - ip_recipient
+    if !p_recipients.blank?
+      email = DraftingMailer.create_incorporation_notification(p_recipients, mail_data)
       DraftingMailer.deliver(email)
     end
   end
