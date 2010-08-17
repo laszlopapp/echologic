@@ -1,3 +1,5 @@
+require 'drafting_service'
+
 class DraftingMailer < ActionMailer::Base
   include StatementHelper
 
@@ -5,10 +7,11 @@ class DraftingMailer < ActionMailer::Base
     subject       I18n.t('mailers.drafting.approval.subject',
                          :locale => mail_data[:language])
     from          "noreply@echologic.org"
-    recipients    approved_document.author.email
+    recipients    mail_data[:incorporable_document].author.email
     sent_on       Time.now
     body          :name => mail_data[:incorporable_document].author.full_name,
                   :ip_title => mail_data[:incorporable_document].title,
+                  :hours => DraftingService.approved_hours,
                   :p_title => mail_data[:draftable_document].title,
                   :p_link => proposal_path(mail_data[:draftable]),
                   :language => mail_data[:language]
@@ -22,6 +25,7 @@ class DraftingMailer < ActionMailer::Base
     sent_on       Time.now
     body          :ip_title => mail_data[:incorporable_document].title,
                   :p_title => mail_data[:draftable_document].title,
+                  :hours => DraftingService.approved_hours,
                   :p_link => proposal_path(mail_data[:draftable]),
                   :language => mail_data[:language]
   end
@@ -45,6 +49,7 @@ class DraftingMailer < ActionMailer::Base
     recipients    mail_data[:incorporable_document].author.email
     sent_on       Time.now
     body          :name => mail_data[:incorporable_document].author.full_name,
+                  :hours => DraftingService.approved_hours_left,
                   :ip_title => mail_data[:incorporable_document].title,
                   :p_title => mail_data[:draftable_document].title,
                   :p_link => proposal_path(mail_data[:draftable]),
@@ -57,7 +62,8 @@ class DraftingMailer < ActionMailer::Base
     from          "noreply@echologic.org"
     bcc           recipients.map(&:email)
     sent_on       Time.now
-    body          :ip_title => mail_data[:incorporable_document].title,
+    body          :hours => DraftingService.approved_hours_left,
+                  :ip_title => mail_data[:incorporable_document].title,
                   :p_title => mail_data[:draftable_document].title,
                   :p_link => proposal_path(mail_data[:draftable]),
                   :language => mail_data[:language]
@@ -65,7 +71,7 @@ class DraftingMailer < ActionMailer::Base
 
   def passed(mail_data)
     subject       I18n.t('mailers.drafting.passed.subject',
-                         :locale => passed_document.language.code)
+                         :locale => mail_data[:language])
     from          "noreply@echologic.org"
     recipients    mail_data[:incorporable_document].author.email
     sent_on       Time.now
