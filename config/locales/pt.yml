@@ -231,6 +231,29 @@ pt:
         decision_making: <strong>Decisão</strong> no campo de
       tags: Palavras-chave (tags)
 
+    # Email notifications section
+    notifications:
+      title: E-Mail Notification Settings
+      guide: Aquí podes definir quais nitificações queres receber da echo.
+
+      activity:
+        title: Activity Notifications
+        guide: Notificações diárias sobre novas discussões e novedades nas suas discuções e propostas.
+        turned_on: Notificações diárias foram ativadas.
+        turned_off: Notificações diárias foram desativadas.
+
+      drafting:
+        title: Drafting Notifications
+        guide: |
+          Notificações imediatas para seguir ao processo the elaboração colletiva de suas propostas -
+          por exemplo quando sua proposta de melhoria foi aprovada para ser encorporada.<br/>
+          <strong>Atenção!</strong> Se desativares estas nitificações provavelmente perderás sua oportunidade de
+          encorporar propostas de melhoria.
+        turned_on: Notificações imediatas foram ativadas.
+        turned_off: Notificações imediatas foram desativadas.
+
+
+    # New Users section
     users:
       new:
         title: A vossa echo
@@ -327,7 +350,7 @@ pt:
       publish: |
         Publique a discussão, de forma a esta se tornar visível para todos.
         (Não será mais possível editar a discussão.)
-      incorporate: 'Click here to incorporate this improvement proposal into the text above.'
+      incorporate: 'Clique aquí para incorporar suas propostas de melhoria na proposta (texto asima).'
 
     statements:
       label: 'votos'
@@ -347,6 +370,8 @@ pt:
       create_statement_language_hint: |
         Por favor escreva sua ideia em <strong>PORTUGUES</strong> ou escolha um outro idioma usando o
         babelfish no canto superior direito.
+      drafting_language_hint: |
+        Nota-se por favor, que o precesso da elaboração coletiva desta proposta solamente funcionará do idioma escolhido.
       publish: Publicar
       published: A discussão foi publicada com sucesso.
       edit: 'Editar {{type}}'
@@ -377,6 +402,9 @@ pt:
         Isso é uma discussão transparente, mas de accesso restrito - somente pode leer.
       unsupported_parent: |-
         You can only support improvement proposals if you support the proposal itself.
+      being_edited: |-
+        Esta proposta atualmente está sendo editada. Volte mais tarde por favor.
+      staled_modification: 'A gente sente muito, mas seu tempo de 60 minutos para ditar a proposta esgoto. Agora a proposta ja foi editada por uma outra pessoa. Por isso, suas mudanças lamentavelmente não foram guardadas.'
 
     summary:
       title: 'Sumário'
@@ -385,7 +413,7 @@ pt:
       updated: "A {{type}} foi actualizada com sucesso."
       deleted: "A {{type}} foi apagada com sucesso."
       translated: "A {{type}} foi traduzida com sucesso."
-      incorporated: "A {{type}} foi complementada com a sua Proposta de Melhoria com êxito."
+      incorporated: "A propuesta de melhoria foi encorporada à proposta com susesso."
       empty:   "Nenhuma questão encontrada. Por favor altere os seus critérios de procura."
       empty_without_spoken_languages: |
         Nenhuma questão encontrada. Pode tentar definir as suas <a href='{{my_echo}}'><u>Línguas Faladas</u></a>

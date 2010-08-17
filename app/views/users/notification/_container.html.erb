@@ -1,10 +1,10 @@
-<% attr ||= 'email' %>
-<div id="<%= attr %>_notification_container" class="header_block">
-  <h2><%= I18n.t("users.#{attr}_notifications.title") %></h2>
+<div id="notification_settings" class="header_block">
+  <h2><%= I18n.t("users.notifications.title") %></h2>
   <div class="guide">
-    <%= I18n.t("users.#{attr}_notifications.guide") %>
+    <%= I18n.t("users.notifications.guide") %>
   </div>
-  <ul id="<%= attr %>_notification_list">
-    <%= render :partial => "users/notification/check", :locals => {:attr => attr } %>
+  <ul id="notification_list">
+    <%= render :partial => "users/notification/check", :locals => {:notification_type => 'activity' } %>
+    <%= render :partial => "users/notification/check", :locals => {:notification_type => 'drafting'} %>
   </ul>
 </div>

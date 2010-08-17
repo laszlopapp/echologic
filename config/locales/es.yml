@@ -246,6 +246,27 @@ es:
         decision_making: <strong>Determinante</strong> en
       tags: Tópicos (tags)
 
+    # Email notifications section
+    notifications:
+      title: E-Mail Notification Settings
+      guide: Aquí puedes definir las notificaciones que quieres recibir de echo.
+
+      activity:
+        title: Activity Notifications
+        guide: Noticias diarias sobre nuevas discusiones y novedades en tus discusiones y propuestas.
+        turned_on: Notificaciones diarias fueron activadas.
+        turned_off: Notificaciones diarias fueron desactivadas.
+
+      drafting:
+        title: Drafting Notifications
+        guide: |
+          Notificaciones inmediatas sobre el proceso de la elaboracion colectiva y el progreso de tus propuestas y
+          tus propuestas de mejoramiento - por ejemplo cuando tu propuesta de mejoramiento fue aprobada para ser incorporada.<br/>
+          <strong>Atencion!</strong> Si estas notificaciones fueran desactivadas, posiblemente pierderás la
+          oportunidad de incorporar tus propuestas de mejoramiento.
+        turned_on: Notificaciones inmediatas fueron activadas.
+        turned_off: Notificaciones inmediatas fueron desactivadas.
+
 
     # New Users section
     users:
@@ -342,7 +363,7 @@ es:
       publish: |
         Si publicas la discusión, otras personas podran participar en ella.
         (No será possible modificar la discusión.)
-      incorporate: 'Click here to incorporate this improvement proposal into the text above.'
+      incorporate: 'Clique aquí para incorporar esta propuesta de mejoramiento a la propuesta (texto arriba).'
 
     statements:
       label: 'votos'
@@ -364,6 +385,8 @@ es:
       create_statement_language_hint: |
         Por favor escriba su idea en <strong>ESPAÑOL</strong> o escoja un otro idioma utilizando el
         babelfish en el menu arriba.
+      drafting_language_hint: |
+        Note por favor, que el proceso de la elaboración colectiva de las propuestas solamente funcionará en el idioma escojido.
       publish: Publicar
       published: Esta discusión fue publicada con éxito.
       edit: 'Editar {{type}}'
@@ -394,6 +417,9 @@ es:
         Esta discusión está transparente pero el accesso astá restricto - solamente puedes leer.
       unsupported_parent: |-
         You can only support improvement proposals if you support the proposal itself.
+      being_edited: |-
+        Esta propuesta actualmente está siendo editada. Por favor vuelva mas tarde.
+      staled_modification: 'Desculpe por favor, pero tu plazo de 60 minutos para editar la propuesta caduco. Mientras otro miembro tomó su chance y edito la propuesta. Por eso, tus modificaciones lamentablemente no puedieron ser guardadas.'
 
     summary:
       title: 'Resumen'
@@ -402,7 +428,7 @@ es:
       updated: "La {{type}} fue editada con éxito."
       deleted: "La {{type}} fue borrada con éxito."
       translated: "La {{type}} fue traducida con éxito."
-      incorporated: "La {{type}} fue complementada con éxito con su propuesta de mejoramiento."
+      incorporated: "A propuesta de mejoramiento fue incorporada a la propuesta con exito."
       empty:   "No fue encontrado ningun debate. Por favor intente buscar por otra palavra."
       empty_without_spoken_languages: |
         No fue encontrada ninguna cuestión. Intente definir tus <a href='{{my_echo}}'>lenguas conocidas</a>

@@ -2,7 +2,7 @@
 class ActivityTrackingJob < Struct.new(:current_charge, :charges, :trigger_time)
 
   def perform
-    User.all(:conditions => ["(id % ?) = ? and email_notification = 1", charges, current_charge]).each do |user|
+    User.all(:conditions => ["(id % ?) = ? and activity_notification = 1", charges, current_charge]).each do |user|
       events = Event.find_tracked_events(user, trigger_time)
       next if events.blank? #if there are no events to send per email, then get the hell out
       question_events = events.select{|e|JSON.parse(e.event).keys[0] == 'question'}

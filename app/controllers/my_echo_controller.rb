@@ -24,26 +24,27 @@ class MyEchoController < ApplicationController
   def welcome
     render
   end
-   
+
   def settings
     @profile = @current_user.profile
     @user    = @current_user
     render
   end
-  
-  
-  %w(email drafting).each do |attr|
+
+  %w(activity drafting).each do |notification_type|
     class_eval %(
-      def set_#{attr}_notification
+      def set_#{notification_type}_notification
         @user = User.find(params[:id])
         notify = params.has_key?(:notify)
-        @user.#{attr}_notification = notify ? 1 : 0
+        @user.#{notification_type}_notification = notify ? 1 : 0
         @user.save
         respond_to do |format|
           format.js do
-            set_info("users.#{attr}_notifications."+(notify ? '#{attr}_on' : '#{attr}_off'))
+            set_info("users.notifications.#{notification_type}." + (notify ? 'turned_on' : 'turned_off'))
             render_with_info do
-              replace_content('#{attr}_notification_element',:partial => 'users/notification/check', :locals => {:attr => '#{attr}'})
+              replace_content('#{notification_type}_notification_element',
+                              :partial => 'users/notification/check',
+                              :locals => {:notification_type => '#{notification_type}'})
             end
           end
         end

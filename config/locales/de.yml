@@ -235,6 +235,27 @@ de:
         decision_making: <strong>EntscheidungsträgerIn</strong> im Bereich
       tags: Schlagworte (Tags)
 
+    # Email notifications section
+    notifications:
+      title: E-Mail Benachrichtigungen
+      guide: Hier können Sie einstellen, welche Benachrichtigungen Sie per E-Mail bekommen möchten.
+
+      activity:
+        title: Neue Diskussionsbeiträge
+        guide: Tägliche Benachrichtigungen über neue Diskussionen und Neuigkeiten in Ihren Diskussionen und Vorschlägen.
+        turned_on: Benachrichtigungen zu neuen Diskussionsbeiträgen wurden eingeschaltet.
+        turned_off: Benachrichtigungen zu neuen Diskussionsbeiträgen wurden ausgeschaltet.
+
+      drafting:
+        title: Gemeinsame Textentwicklung
+        guide: |
+          Sofortige Benachrichtigungen zum Verlauf der gemeinsamen Textenwicklung Ihrer Vorschläge und
+          Verbesserungsvorschläge - z.B. wenn Sie Ihren Verbesserungsvorschlag einarbeiten dürfen.<br/>
+          <strong>Achtung!</strong> Wenn Sie diese Benachrichtigungen ausschalten, können Sie leicht Ihre
+          Gelegenheit verpassen, Ihre Verbesserungsvorschläge einzuarbeiten.
+        turned_on: Benachrichtigungen zur gemeinsamen Textenwicklung wurden eingeschaltet.
+        turned_off: Benachrichtigungen zur gemeinsamen Textenwicklung wurden ausgeschaltet.
+
 
     # New Users section
     users:
@@ -356,6 +377,9 @@ de:
       create_statement_language_hint: |
         Bitte schreiben Sie Ihre Idee auf <strong>DEUTSCH</strong> oder wählen Sie über
         den Babelfish im oberen Menü eine andere Sprache aus.
+      drafting_language_hint: |
+        Bitte beachten Sie, dass die gemeinsame Textentwicklung zur Weiterentwicklung dieses Vorschlags nur in
+        dieser Sprache ablaufen wird.
       publish: Freigeben
       published: Die Diskussion wurde erfolgreich freigegeben.
       edit: '{{type}} bearbeiten'
@@ -386,6 +410,9 @@ de:
         Diese ist eine transparente aber geschlossene Diskussion, die Sie nur mitlesen dürfen.
       unsupported_parent: |-
         You can only support improvement proposals if you support the proposal itself.
+      being_edited: |-
+        Dieser Vorschlag wird gerade bearbeitet. Bitte versuchen Sie es später noch einmal.
+      staled_modification: 'Es tut uns sehr leid, aber Ihre Bearbeitungszeit von max. 60 Minuten ist abgelaufen. Mittlerweile hat ein anderer Nutzer den Vorschlag bearbeitet. Ihre Änderungen mussten daher leider verworfen werden.'
 
     summary:
       title: 'Zusammenfassung'
@@ -394,7 +421,7 @@ de:
       updated: "{{type}} wurde erfolgreich bearbeitet."
       deleted: "{{type}} wurde erfolgreich gelöscht."
       translated: "{{type}} wurde erfolgreich übersetzt."
-      incorporated: "{{type}} wurde mit Ihrem Ergänzungsvorschlag erfolgreich ergänzt."
+      incorporated: "Der Verbesserungsvorschlag wurde erfolgreich in den Vorschlag übernommen."
       empty: "Es wurden keine Diskussionen gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
       empty_without_spoken_languages: |
         Keine Diskussion gefunden. Versuchen Sie Ihre <a href='{{my_echo}}'>Sprachkenntnisse</a> einzustellen,

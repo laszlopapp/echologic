@@ -232,23 +232,29 @@ en:
         decision_making: <strong>Decision maker</strong> in the field of
       tags: Keywords (tags)
 
-    # Email Notification section
-    email_notifications:
-      title: Email Notification
-      guide: Daily updates on new discussions and new statements in older discussions you were active in.
-      label: Weekly update on discussions
-      email_on: Activity notifications have been switched on.
-      email_off: Activity notifications have been switched off.
+    # Email notifications section
+    notifications:
+      title: E-Mail Notification Settings
+      guide: Here you can set whether you would like to receive E-Mail notifications on different subjects.
 
-    drafting_notifications:
-      title: Drafting Notification
-      guide: Immediate updates to follow the co-creative drafting process of your supported proposals and improvement proposals.
-      label: Drafting Process Updates
-      drafting_on: Drafting notifications have been switched on.
-      drafting_off: Drafting notifications have been switched off.
+      activity:
+        title: Activity Notifications
+        guide: Daily updates on new discussions and new statements in discussions you were active in.
+        turned_on: Activity notifications have been switched on.
+        turned_off: Activity notifications have been switched off.
+
+      drafting:
+        title: Drafting Notifications
+        guide: |
+          Immediate updates to follow the co-creative drafting process of your improvement proposals and
+          proposals - e.g. when your improvement proposal was approved to be incorporated.<br/>
+          <strong>Attention!</strong> If this notification is turned off, you might easily miss the opportunity to
+          incorporate your improvement proposals into proposals you support.
+        turned_on: Drafting notifications have been switched on.
+        turned_off: Drafting notifications have been switched off.
 
 
-
+    # New Users section
     users:
       new:
         title: Your echo
@@ -346,7 +352,7 @@ en:
       publish: |
         Release the discussion to make it visible for everybody.
         (Afterwards no further editing is possible.)
-      incorporate: 'Click here to incorporate this improvement proposal into the text above.'
+      incorporate: 'Click here to incorporate this improvement proposal into the proposal above.'
 
     statements:
       label: 'votes'
@@ -366,6 +372,8 @@ en:
       create_statement_language_hint: |
         Please post the statement in <strong>ENGLISH</strong> or choose another language
         using the babelfish in the upper menu.
+      drafting_language_hint: |
+        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language.
       publish: Release
       published: Discussion has been released successfully.
       edit: 'Edit {{type}}'
@@ -397,9 +405,8 @@ en:
       unsupported_parent: |-
         You can only support improvement proposals if you support the proposal itself.
       being_edited: |-
-        We are sorry, this Statement is being edited right now.
+        The statement is currently being edited. Please try again later.
       staled_modification: 'We are very sorry, but you exceeded the 60 minutes limit to edit and save the statement. Meanwhile it has already been updated by a different user. Therefore, your changes must have been unfortunately discarded.'
-
 
     summary:
       title: 'Summary'
@@ -409,7 +416,7 @@ en:
       updated: "The {{type}} has been updated successfully."
       deleted: "The {{type}} has been deleted successfully."
       translated: "The {{type}} has been translated successfully."
-      incorporated: "The {{type}} has been complemented successfully with your Improvement Proposal."
+      incorporated: "The improvement proposal has been successfully incorporated into the proposal."
       empty:   "No discussions found. Please change your search criteria."
       empty_without_spoken_languages: |
         No discussions found. You can try defining your <a href='{{my_echo}}'>language skills</a>

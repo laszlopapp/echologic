@@ -76,6 +76,7 @@ pt:
         roadmap: 'echologic - Roadmap for My echo'
         welcome: 'echologic - Bemvindo'
         profile: 'echologic - O meu Perfil'
+        settings:  'echologic - Definições'
 
       # my_echo: de.seo.title.admin
       admin:
