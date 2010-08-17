@@ -39,6 +39,17 @@ class DraftingService
   end
 
 
+  # Derived time parameters for mailing
+
+  def self.approved_hours
+    @@time_approved.to_i / 3600
+  end
+
+  def self.approved_hours_left
+    (@@time_approved - @@time_approval_reminder).to_i / 3600
+  end
+
+
   ###############
   # Event hooks #
   ###############
@@ -56,7 +67,7 @@ class DraftingService
   # Observer to incorporable incorporated action
   def incorporated(incorporable, user)
     incorporable.reload
-    incorporate(incorporable, user)
+    incorporate(incorporable)
     select_approved(incorporable)
   end
 
@@ -164,25 +175,69 @@ class DraftingService
   def approve(incorporable)
     set_approve(incorporable)
     incorporable.reload
-    send_emails_on_approval(incorporable)
+    send_approval_mails(incorporable)
     Delayed::Job.enqueue TestForPassedJob.new(incorporable.id), 1,
                          Time.now.advance(:seconds => @@time_approved).utc
   end
 
   #
+  # Sends the reminder mails to the appropriate recipients.
+  #
+  def remind(incorporable)
+    # First round
+    if incorporable.times_passed == 0
+      send_approval_reminder_mail(incorporable)
+
+    # Second round
+    elsif incorporable.times_passed == 1
+      send_supporters_approval_reminder_mail(incorporable)
+    end
+  end
+
+  #
   # Set incorporable state to incorporated.
   #
-  def incorporate(incorporable, user)
+  def incorporate(incorporable)
     set_incorporate(incorporable)
     incorporable.reload
-    send_mails_on_incorporation(incorporable)
+    send_incorporation_mails(incorporable)
   end
+
+  #
+  # Called if the user(s) passed to incorporate the statement.
+  #
+  def pass(incorporable)
+    begin
+      StatementNode.transaction do
+        incorporable.times_passed += 1
+        incorporable.drafting_info.save
+        incorporable.reload
+
+        # First round
+        if incorporable.times_passed == 1
+          DraftingService.instance.send_passed_mail(incorporable)
+          DraftingService.instance.stage(incorporable)
+
+        # Second round
+        elsif incorporable.times_passed == 2
+          DraftingService.instance.send_supporters_passed_mail(incorporable)
+          DraftingService.instance.reset(incorporable)
+          DraftingService.instance.select_approved(incorporable)
+        end
+      end
+    rescue StandardError => error
+      puts "Error passing IP '#{incorporable.id}':" + error.backtrace
+    else
+      puts "IP '#{incorporable.id}' has been passed."
+    end
+  end
+
 
   #
   # Removes all echos and puts the statement to tracked state.
   #
-  def reset_incorporable(incorporable)
-    reset_echoable(incorporable)
+  def reset(incorporable)
+    withdraw_echos(incorporable)
     incorporable.times_passed = 0
     incorporable.drafting_info.save
     incorporable.reload
@@ -197,7 +252,7 @@ class DraftingService
   #
   # Sends mails when the statement became approved.
   #
-  def send_emails_on_approval(incorporable)
+  def send_approval_mails(incorporable)
     incorporable.reload
     mail_data = assembly_mail_data(incorporable)
 
@@ -229,7 +284,7 @@ class DraftingService
   #
   # Sends the approval reminder mail to the author of the incorporable.
   #
-  def send_approval_reminder(incorporable)
+  def send_approval_reminder_mail(incorporable)
     approved_document = incorporable.current_document_in_original_language
     if approved_document.author.drafting_notification == 1
       email = DraftingMailer.create_approval_reminder(assembly_mail_data(incorporable))
@@ -240,7 +295,7 @@ class DraftingService
   #
   # Sends the approval reminder mail to all supporters of the incorporable.
   #
-  def send_supporters_approval_reminder(incorporable)
+  def send_supporters_approval_reminder_mail(incorporable)
     recipients = notified_supporters(incorporable)
     if !recipients.blank?
       email = DraftingMailer.create_supporters_approval_reminder(recipients, assembly_mail_data(incorporable))
@@ -251,7 +306,7 @@ class DraftingService
   #
   # Sends mail to notify the author that he has passed the opportunity to incorporate his statement.
   #
-  def send_passed_email(incorporable)
+  def send_passed_mail(incorporable)
     passed_document = incorporable.current_document_in_original_language
     if passed_document.author.drafting_notification == 1
       email = DraftingMailer.create_passed(assembly_mail_data(incorporable))
@@ -262,7 +317,7 @@ class DraftingService
   #
   # Sends mail to notify all supporters of the statement that they have passed the opportunity to incorporate it.
   #
-  def send_supporters_passed_email(incorporable)
+  def send_supporters_passed_mail(incorporable)
     recipients = notified_supporters(incorporable)
     if !recipients.blank?
       email = DraftingMailer.create_supporters_passed(recipients, assembly_mail_data(incorporable))
@@ -273,7 +328,7 @@ class DraftingService
   #
   # Sends mail author that he has passed the opportunity to incorporate his statement.
   #
-  def send_mails_on_incorporation(incorporable)
+  def send_incorporation_mails(incorporable)
     mail_data = assembly_mail_data(incorporable)
 
     # Thank you mail to the author
@@ -321,7 +376,7 @@ class DraftingService
   #
   # Withdraws all echos from the given echoable.
   #
-  def reset_echoable(echoable)
+  def withdraw_echos(echoable)
     echoable.user_echos.supported.all.each{|ue|
       ue.supported = false
       ue.save
