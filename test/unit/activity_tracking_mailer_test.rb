@@ -40,7 +40,7 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert_equal [user.email], email.to
     assert_equal "Activity Tracking", email.subject
     assert_match /Activity Tracking/, email.encoded
-    assert_match /#{Question.find(parent_id).translated_document(EnumKey.find_by_code("en")).title}/, email.encoded
+    assert_match /#{Question.find(parent_id).document_in_preferred_language(EnumKey.find_by_code("en")).title}/, email.encoded
     assert_match /#{proposal_event.subscribeable.id}/, email.encoded
     assert_match /#{proposal_event.subscribeable.parent.id}/, email.encoded
     assert_match /#{title}/, email.encoded
@@ -62,8 +62,8 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert_equal [user.email], email.to
     assert_equal "Activity Tracking", email.subject
     assert_match /Activity Tracking/, email.encoded
-    assert_match /#{Proposal.find(parent_id).translated_document(EnumKey.find_by_code("en")).title}/, email.encoded
-    assert_match /#{Question.find(root_id).translated_document(EnumKey.find_by_code("en")).title}/, email.encoded
+    assert_match /#{Proposal.find(parent_id).document_in_preferred_language(EnumKey.find_by_code("en")).title}/, email.encoded
+    assert_match /#{Question.find(root_id).document_in_preferred_language(EnumKey.find_by_code("en")).title}/, email.encoded
     assert_match /#{impro_proposal_event.subscribeable.id}/, email.encoded
     assert_match /#{impro_proposal_event.subscribeable.parent.id}/, email.encoded
     assert_match /#{impro_proposal_event.subscribeable.root.id}/, email.encoded

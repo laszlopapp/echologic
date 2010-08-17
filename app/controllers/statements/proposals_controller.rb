@@ -2,7 +2,7 @@ class ProposalsController < StatementsController
 
   def incorporate
     @incorporated_node ||= @statement_node.approved_children.first
-    @statement_document ||= @statement_node.translated_document(@language_preference_list)
+    @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
     has_lock = acquire_lock(@statement_document)
     @action ||= StatementHistory.statement_actions("incorporated")
     if has_lock

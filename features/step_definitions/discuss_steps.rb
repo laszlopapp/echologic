@@ -161,7 +161,7 @@ Then /^the question should be published$/ do
 end
 
 Then /^I should see the questions title$/ do
-  Then 'I should see "'+@question.translated_document([StatementDocument.languages("en").id, StatementDocument.languages("de").id]).title+'"'
+  Then 'I should see "'+@question.document_in_preferred_language([StatementDocument.languages("en").id, StatementDocument.languages("de").id]).title+'"'
 end
 
 Given /^there is a proposal I have created$/ do
@@ -188,8 +188,8 @@ end
 
 
 Then /^I should see the proposals data$/ do
-  Then 'I should see "'+@proposal.translated_document([StatementDocument.languages("en").id,StatementDocument.languages("de").id]).title+'"'
-  Then 'I should see "'+@proposal.translated_document([StatementDocument.languages("en").id,StatementDocument.languages("de").id]).text+'"'
+  Then 'I should see "'+@proposal.document_in_preferred_language([StatementDocument.languages("en").id,StatementDocument.languages("de").id]).title+'"'
+  Then 'I should see "'+@proposal.document_in_preferred_language([StatementDocument.languages("en").id,StatementDocument.languages("de").id]).text+'"'
 end
 
 Then /^I should see no proposals$/ do

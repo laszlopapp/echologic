@@ -257,7 +257,7 @@ class DraftingService
     mail_data = assembly_mail_data(incorporable)
 
     # Send notification that the statement can be incorporated
-    approved_document = incorporable.current_document_in_original_language
+    approved_document = incorporable.document_in_original_language
     if incorporable.times_passed == 0 && approved_document.author.drafting_notification == 1
       email = DraftingMailer.create_approval(mail_data)
       DraftingMailer.deliver(email)
@@ -285,7 +285,7 @@ class DraftingService
   # Sends the approval reminder mail to the author of the incorporable.
   #
   def send_approval_reminder_mail(incorporable)
-    approved_document = incorporable.current_document_in_original_language
+    approved_document = incorporable.document_in_original_language
     if approved_document.author.drafting_notification == 1
       email = DraftingMailer.create_approval_reminder(assembly_mail_data(incorporable))
       DraftingMailer.deliver(email)
@@ -307,7 +307,7 @@ class DraftingService
   # Sends mail to notify the author that he has passed the opportunity to incorporate his statement.
   #
   def send_passed_mail(incorporable)
-    passed_document = incorporable.current_document_in_original_language
+    passed_document = incorporable.document_in_original_language
     if passed_document.author.drafting_notification == 1
       email = DraftingMailer.create_passed(assembly_mail_data(incorporable))
       DraftingMailer.deliver(email)
@@ -332,7 +332,7 @@ class DraftingService
     mail_data = assembly_mail_data(incorporable)
 
     # Thank you mail to the author
-    draftable_document = incorporable.parent.current_document_in_original_language
+    draftable_document = incorporable.parent.document_in_original_language
     if draftable_document.author.drafting_notification == 1
       email = DraftingMailer.create_incorporated(mail_data)
       DraftingMailer.deliver(email)
@@ -356,8 +356,8 @@ class DraftingService
     {
       :incorporable => incorporable,
       :draftable => incorporable.parent,
-      :incorporable_document => incorporable.current_document_in_original_language,
-      :draftable_document => incorporable.parent.current_document_in_original_language,
+      :incorporable_document => incorporable.document_in_original_language,
+      :draftable_document => incorporable.parent.document_in_original_language,
       :language => incorporable.drafting_language.code
     }
   end

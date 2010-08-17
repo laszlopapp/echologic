@@ -23,7 +23,7 @@ module StatementHelper
   def edit_statement_node_path(statement_node)
     send("edit_#{statement_node_class_dom_id(statement_node).downcase}_url",statement_node)
   end
-  
+
   def new_translation_url (parent, type)
     send("new_translation_#{type.downcase}_url",parent)
   end
@@ -51,7 +51,7 @@ module StatementHelper
   def edit_proposal_url(proposal)
     edit_question_proposal_url(proposal.parent, proposal)
   end
-  
+
   def edit_proposal_path(proposal)
     edit_question_proposal_path(proposal.parent, proposal)
   end
@@ -97,7 +97,7 @@ module StatementHelper
                                                      improvement_proposal.parent,
                                                      improvement_proposal)
   end
-  
+
   def new_translation_improvement_proposal_url(improvement_proposal)
     new_translation_question_proposal_improvement_proposal_url(improvement_proposal.root,
                                                                improvement_proposal.parent,
@@ -210,10 +210,10 @@ module StatementHelper
 
       end
   end
-  
+
   def cancel_edit_statement_node(statement_node, locked_at)
     type = statement_node_class_dom_id(statement_node).downcase.pluralize
-    link_to I18n.t('application.general.cancel'), 
+    link_to I18n.t('application.general.cancel'),
             { :controller => type,
               :action => :cancel,
               :locked_at => locked_at.to_s },
@@ -266,7 +266,7 @@ module StatementHelper
 
   # Returns the context menu link for this statement_node.
   def statement_node_context_link(statement_node, language_ids, action = 'read', last_statement_node = false)
-    return if (statement_document = statement_node.translated_document(language_ids)).nil?
+    return if (statement_document = statement_node.document_in_preferred_language(language_ids)).nil?
     link = link_to(h(statement_document.title),
                    url_for(statement_node),
                    :class => "ajax no_border statement_link #{statement_node.class.name.underscore}_link ttLink",

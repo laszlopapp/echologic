@@ -80,7 +80,7 @@ class StatementsController < ApplicationController
     end
 
     # Get document to show and redirect if not found
-    @statement_document = @statement_node.translated_document(@language_preference_list)
+    @statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
     if @statement_document.nil?
       redirect_to(discuss_search_path)
       return
@@ -103,7 +103,7 @@ class StatementsController < ApplicationController
     # If statement node is draftable, then try to get the approved one
     if @statement_node.draftable?
       @approved_node = @statement_node.approved_children.first || nil
-      @approved_document = @approved_node.translated_document(@language_preference_list) if !@approved_node.nil?
+      @approved_document = @approved_node.document_in_preferred_language(@language_preference_list) if !@approved_node.nil?
     end
 
     # Find all child statement_nodes, which are published (except user is an editor)
@@ -196,7 +196,7 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def edit
-    @statement_document ||= @statement_node.translated_document(@language_preference_list)
+    @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
     has_lock = acquire_lock(@statement_document)
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     @action ||= StatementHistory.statement_actions("updated")
@@ -289,7 +289,7 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def new_translation
-    @statement_document ||= @statement_node.translated_document(current_user.sorted_spoken_language_ids)
+    @statement_document ||= @statement_node.document_in_preferred_language(current_user.sorted_spoken_language_ids)
     @new_statement_document ||= @statement_node.add_statement_document({:language_id => @locale_language_id})
     @action ||= StatementHistory.statement_actions("translated")
     respond_to_js :template => 'statements/translate',
@@ -305,18 +305,35 @@ class StatementsController < ApplicationController
   #
   def create_translation
     attrs = params[statement_node_symbol]
-    doc_attrs = attrs.delete(:new_statement_document).merge({:author_id => current_user.id,
-                                                             :language_id => @locale_language_id,
-                                                             :current => true})
-    @new_statement_document = @statement_node.add_statement_document(doc_attrs)
+    new_doc_attrs = attrs.delete(:new_statement_document).merge({:author_id => current_user.id,
+                                                                 :language_id => @locale_language_id,
+                                                                 :current => true})
+
+    # Updating the statement
+    ok = true
+    begin
+      StatementNode.transaction do
+        @new_statement_document = @statement_node.add_statement_document(new_doc_attrs)
+        @new_statement_document.save!
+        @statement_node.save!
+      end
+    rescue StandardError => error
+      ok = false
+      logger.error("Error translating statement node '#{statement_node.id}'.")
+      log_error(error)
+    else
+      logger.info("Statement_node '#{@statement_node.id}' has been translated sucessfully.")
+    end
+
+    # Rendering response
     respond_to do |format|
-      if @statement_node.save
+      if ok
         @statement_document = @new_statement_document
         set_statement_node_info(@statement_document)
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js {render :partial => 'statements/create_translation.rjs'}
       else
-        @statement_document = StatementDocument.find(doc_attrs[:old_document_id])
+        @statement_document = StatementDocument.find(new_doc_attrs[:old_document_id])
         set_error(@new_statement_document)
         format.html { flash_error and render :template => 'statements/translate' }
         format.js { show_error_messages(@new_statement_document) }
@@ -329,7 +346,7 @@ class StatementsController < ApplicationController
   #
   def cancel
     locked_at = params[:locked_at]
-    statement_document = @statement_node.translated_document(@language_preference_list)
+    statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
     if holds_lock?(statement_document, locked_at)
       statement_document.unlock
     end
