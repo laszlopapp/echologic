@@ -9,6 +9,15 @@ pt:
       Web: http://echo.to
       E-Mail: team@echologic.org
       Twitter: www.twitter.com/echologic
+    signature_as_html: |
+      <p>
+      --<br/>
+      echo - a ágora global
+      </p><p>
+      Web: http://echo.to<br/>
+      E-Mail: team@echologic.org<br/>
+      Twitter: www.twitter.com/echologic
+      </p>
 
     activity_tracking:
       subject: echo - Activity Notifications
