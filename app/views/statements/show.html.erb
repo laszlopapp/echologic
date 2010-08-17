@@ -5,14 +5,16 @@
 <%= render :partial => 'statements/summary', :locals => {:statement_node => @statement_node,
                                                          :statement_document => @statement_document} %>
 <%= render :partial => 'statements/approved', :locals => {:parent_node => @statement_node,
-                                                          :parent_document => @statement_document, 
+                                                          :parent_document => @statement_document,
                                                           :statement_node => @approved_node,
                                                           :statement_document => @approved_document } %>
 <%= render :partial => 'statements/children', :locals => {:statement_node => @statement_node,
                                                           :children => @children } %>
 
 <script type="text/javascript">
-  $('#discuss_sidebar').hide();
+  if (<%= !@statement_node.echoable? %>) {
+    $('#discuss_sidebar').hide();
+  }
   makeRatiobars();
 	roundCorners();
   showMessageBox("#translation_box", <%= @translation_permission %>);
