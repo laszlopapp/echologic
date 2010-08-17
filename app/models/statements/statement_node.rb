@@ -17,7 +17,7 @@ class StatementNode < ActiveRecord::Base
   belongs_to :root_statement, :foreign_key => "root_id", :class_name => "StatementNode"
   belongs_to :statement
 
-  delegate :original_language, :document_in_original_language, :authors, :to => :statement
+  delegate :original_language, :current_document_in_original_language, :authors, :to => :statement
 
   enum :editorial_state, :enum_name => :statement_states
 

@@ -1,6 +1,10 @@
-<%= I18n.t('notification_mailer.incorporation_notification.text',
-           :title => @title,
-           :link => @link,
-           :locale => @language.code) %>
+<%= I18n.t('mailers.drafting.incorporation_notification.text',
+           :ip_title => @ip_title,
+           :p_title => @p_title,
+           :p_link => @p_link,
+           :locale => @language) %>
 
-<%= I18n.t('application.mailer.signature') %>
+<%= I18n.t('mailers.signature') %>
+
+
+<%= I18n.t('mailers.drafting.unsubscribe', :echo_url => root_url ) %>

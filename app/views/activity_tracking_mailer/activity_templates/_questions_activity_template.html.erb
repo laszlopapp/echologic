@@ -1,22 +1,28 @@
-<ul>
-	<li>
-    <%= I18n.t('mail.questions.new_questions', :count => questions.size, :locale => @language.code) %>
-		<ul>
-			<% questions.each do |question_event| %>
-			  <% 
-            event_data = JSON.parse(question_event.event) 
-           title = event_data['question']['statement']['statement_documents'][0]['title']
-        %>
-				<li>
-					<p><%= link_to title, question_url(question_event.subscribeable)%></p>
-				</li>
-			<% end %>
-		</ul>
-  </li>
-	<li>
-    <%= I18n.t('mail.questions.tags_intro', :locale => @language.code) %>
-  </li>
-	<li>
-	<%= tags.to_a.map{|tag|I18n.t('mail.questions.tag', :tag => tag[0], :count => tag[1], :code => @language.code, :locale => @language.code)}.join(", ") %>
-  </li>
-</ul>
+
+
+<% if !questions.blank? %>
+
+  <%= I18n.t('mailers.activity_tracking.discussions.new_questions',
+             :count => questions.size,
+             :locale => @language.code) %>
+  <ul>
+    <% questions.each do |question_event| %>
+      <%
+         event_data = JSON.parse(question_event.event)
+         title = event_data['question']['statement']['statement_documents'][0]['title']
+      %>
+      <li>
+        <%= link_to title, question_url(question_event.subscribeable)%>
+      </li>
+    <% end %>
+  </ul>
+  <br/>
+  <%= I18n.t('mailers.activity_tracking.discussions.new_tags',
+             :locale => @language.code) %>
+  <%= tags.to_a.map{|tag| I18n.t('mailers.activity_tracking.discussions.tag_link',
+                                 :host => ECHOLOGIC_HOST,
+                                 :tag => tag[0],
+                                 :count => tag[1],
+                                 :code => @language.code,
+                                 :locale => @language.code)}.join(", ") %>
+<% end %>
