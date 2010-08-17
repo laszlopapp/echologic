@@ -2,17 +2,13 @@
 pt:
 
   mailers:
-    signature: |-
-      Best regards,
-
-      Your echo team
-
+    signature: |
       --
-      echo - the global agora
+      echo - a ágora global
 
       Web: http://echo.to
-      Mail: team@echologic.org
-      Twitter: http://twitter.com/echologic
+      E-Mail: team@echologic.org
+      Twitter: www.twitter.com/echologic
 
     activity_tracking:
       subject: echo - Activity Notifications
@@ -51,6 +47,10 @@ pt:
 
           Many thanks for your contribution - Have fun! ;-)
 
+          Best regards,
+
+          Your echo team
+
       supporters_approval:
         subject: An improvement proposal you support can now be incorporated
         text: |-
@@ -74,6 +74,10 @@ pt:
 
           Many thanks for your contribution - Have fun! ;-)
 
+          Best regards,
+
+          Your echo team
+
       approval_notification:
         subject: A proposal you support is about to be improved
         text: |-
@@ -88,6 +92,10 @@ pt:
           {{p_link}}
 
           Many thanks for your contribution - Have fun! ;-)
+
+          Best regards,
+
+          Your echo team
 
       approval_reminder:
         subject: Reminder! - Time is running out to incorporate your winner improvement proposal
@@ -110,6 +118,10 @@ pt:
           The change history is already saved and will be visualized later. :-)
 
           Many thanks for your contribution - Have fun! ;-)
+
+          Best regards,
+
+          Your echo team
 
       supporters_approval_reminder:
         subject: Reminder! - Time is running out to incorporate a winner improvement proposal
@@ -134,6 +146,10 @@ pt:
 
           Many thanks for your contribution - Have fun! ;-)
 
+          Best regards,
+
+          Your echo team
+
       passed:
         subject: Passed to incorporate your winner improvement proposal
         text: |-
@@ -150,7 +166,7 @@ pt:
 
           Looking forward to your further contributions. :-)
 
-          Best Regards,
+          Best regards,
 
           Your echo team
 
@@ -170,7 +186,7 @@ pt:
 
           {{ip_link}}
 
-          Best Regards,
+          Best regards,
 
           Your echo team
 
@@ -191,6 +207,10 @@ pt:
 
           Many thanks for your contribution and looking forward to further impulses from you. ;-)
 
+          Best regards,
+
+          Your echo team
+
       incorporation_notification:
         subject: A proposal you support has been improved
         text: |-
@@ -203,6 +223,10 @@ pt:
           original improvement proposal (later on, a detailed change history will make it much easier to do so):
 
           {{p_link}}
+
+          Best regards,
+
+          Your echo team
 
       unsubscribe: |-
         If you do not wish to receive immediate updates on the co-creative drafing process of your
