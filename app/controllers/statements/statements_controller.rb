@@ -90,8 +90,7 @@ class StatementsController < ApplicationController
     @original_language_warning = @statement_node.not_original_language?(current_user, @locale_language_id)
     @translation_permission = @statement_node.translatable?(current_user,
                                                             @statement_document.language,
-                                                            params[:locale],
-                                                            @language_preference_list)
+                                                            EnumKey.find_by_code(params[:locale]))
 
     # When creating an issue, we save the flash message within the session, to be able to display it here
     if session[:last_info]
@@ -251,11 +250,12 @@ class StatementsController < ApplicationController
             @statement_node.save!
           end
         end
-      rescue StandardError => error
-        log_error(error)
+      rescue Exception => e
         ok = false
+        logger.error("Error updating statement node '#{@statement_node.id}'.")
+        log_error e
       else
-        logger.info("Statement has been updated sucessfully.")
+        logger.info("Statement node '#{@statement_node.id}' has been updated sucessfully.")
       end
     end
 
@@ -308,7 +308,6 @@ class StatementsController < ApplicationController
     new_doc_attrs = attrs.delete(:new_statement_document).merge({:author_id => current_user.id,
                                                                  :language_id => @locale_language_id,
                                                                  :current => true})
-
     # Updating the statement
     ok = true
     begin
@@ -317,12 +316,12 @@ class StatementsController < ApplicationController
         @new_statement_document.save!
         @statement_node.save!
       end
-    rescue StandardError => error
+    rescue Exception => e
       ok = false
-      logger.error("Error translating statement node '#{statement_node.id}'.")
-      log_error(error)
+      logger.error("Error translating statement node '#{@statement_node.id}'.")
+      log_error e
     else
-      logger.info("Statement_node '#{@statement_node.id}' has been translated sucessfully.")
+      logger.info("Statement node '#{@statement_node.id}' has been translated sucessfully.")
     end
 
     # Rendering response
@@ -375,9 +374,9 @@ class StatementsController < ApplicationController
       respond_to_js :redirect_to => @statement_node, :template_js => 'statements/echo'
     else
       respond_to do |format|
-        set_error('discuss.statements.unsupported_parent')
-        format.html { redirect_to url_for(@statement_node) }
-        format.js { show_error_messages }
+        set_info('discuss.statements.unsupported_parent')
+        format.html { flash_info and redirect_to url_for(@statement_node) }
+        format.js { render_with_info }
       end
     end
   end
