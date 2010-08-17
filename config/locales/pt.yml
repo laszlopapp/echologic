@@ -55,18 +55,6 @@ pt:
          com as suas preferências.
          </p>
 
-
-    mailer:
-      signature: |
-        --
-        echologic para a echo - a ágora global
-
-        Web: www.echologic.org
-        E-Mail: team@echologic.org
-        Twitter: www.twitter.com/echologic
-
-      feedback: Parecer (Feedback)
-
   # Localizations for the layout components
   layouts:
     tabs:

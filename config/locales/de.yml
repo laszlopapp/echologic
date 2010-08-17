@@ -55,16 +55,6 @@ de:
          Diskussionen und Aktionen</strong> auf dem Laufenden gehalten.
          </p>
 
-    mailer:
-      signature: |
-        --
-        echologic für echo - die globale Agora
-        Web: www.echologic.org
-        E-Mail: team@echologic.org
-
-      feedback: Feedback
-
-
 # Localizations for the layout components
   layouts:
     tabs:

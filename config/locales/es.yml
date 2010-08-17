@@ -54,16 +54,6 @@ es:
          Aquí tendrás una sinopsis de las <strong>noticias mas importantes</strong> y las <strong>discusiones y acciones mas recientes</strong>.
          </p>
 
-    mailer:
-      signature: |
-        --
-        echologic para echo - el ágora global
-        Web: www.echologic.org
-        E-Mail: team@echologic.org
-
-      feedback: Feedback
-
-
 # Localizations for the layout components
   layouts:
     tabs:
