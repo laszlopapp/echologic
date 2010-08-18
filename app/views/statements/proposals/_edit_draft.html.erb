@@ -5,6 +5,8 @@
   <h2>
     <%= I18n.t("application.general.incorporate") %>
   </h2>
+  <p><%= I18n.t('discuss.statements.edit_period_hint', :minutes => 60) %></p>
+
   <%= render :partial => 'statements/form',
              :locals => {:statement_node => statement_node, :tags => tags} %>
 </div>

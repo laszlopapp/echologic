@@ -404,6 +404,9 @@ pt:
         You can only support improvement proposals if you support the proposal itself.
       being_edited: |-
         Esta proposta atualmente está sendo editada. Volte mais tarde por favor.
+      edit_period_hint: |
+        You have <strong>{{minutes}} minutes</strong> to edit the statement.
+        Afterwards, your modifications might even get discarded.
       staled_modification: 'A gente sente muito, mas seu tempo de 60 minutos para ditar a proposta esgoto. Agora a proposta ja foi editada por uma outra pessoa. Por isso, suas mudanças lamentavelmente não foram guardadas.'
 
     summary:

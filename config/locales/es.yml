@@ -419,6 +419,9 @@ es:
         You can only support improvement proposals if you support the proposal itself.
       being_edited: |-
         Esta propuesta actualmente está siendo editada. Por favor vuelva mas tarde.
+      edit_period_hint: |
+        You have <strong>{{minutes}} minutes</strong> to edit the statement.
+        Afterwards, your modifications might even get discarded.
       staled_modification: 'Desculpe por favor, pero tu plazo de 60 minutos para editar la propuesta caduco. Mientras otro miembro tomó su chance y edito la propuesta. Por eso, tus modificaciones lamentablemente no puedieron ser guardadas.'
 
     summary:

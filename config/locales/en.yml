@@ -406,6 +406,9 @@ en:
         You can only support improvement proposals if you support the proposal itself.
       being_edited: |-
         The statement is currently being edited. Please try again later.
+      edit_period_hint: |
+        You have <strong>{{minutes}} minutes</strong> to edit the statement.
+        Afterwards, your modifications might even get discarded.
       staled_modification: 'We are very sorry, but you exceeded the 60 minutes limit to edit and save the statement. Meanwhile it has already been updated by a different user. Therefore, your changes must have been unfortunately discarded.'
 
     summary:

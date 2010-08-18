@@ -412,6 +412,9 @@ de:
         You can only support improvement proposals if you support the proposal itself.
       being_edited: |-
         Dieser Vorschlag wird gerade bearbeitet. Bitte versuchen Sie es später noch einmal.
+      edit_period_hint: |
+        You have <strong>{{minutes}} minutes</strong> to edit the statement.
+        Afterwards, your modifications might even get discarded.
       staled_modification: 'Es tut uns sehr leid, aber Ihre Bearbeitungszeit von max. 60 Minuten ist abgelaufen. Mittlerweile hat ein anderer Nutzer den Vorschlag bearbeitet. Ihre Änderungen mussten daher leider verworfen werden.'
 
     summary:
