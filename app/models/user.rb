@@ -100,16 +100,7 @@ class User < ActiveRecord::Base
     RegistrationMailer.deliver(mail)
   end
 
-  #Send an activity tracking email through mailer
-  def deliver_activity_tracking_email!(question_events, question_tags, events)
-    reset_perishable_token!
-    mail = ActivityTrackingMailer.create_activity_tracking_email(self, question_events, question_tags, events)
-    ActivityTrackingMailer.deliver(mail)
-  end
-
-
-  handle_asynchronously :deliver_activity_tracking_email!
-
+  
   ##
   ## PERMISSIONS
   ##
