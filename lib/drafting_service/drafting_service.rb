@@ -227,8 +227,6 @@ class DraftingService
       end
     rescue StandardError => error
       puts "Error passing IP '#{incorporable.id}':" + error.backtrace
-    else
-      puts "IP '#{incorporable.id}' has been passed."
     end
   end
 

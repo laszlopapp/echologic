@@ -22,11 +22,11 @@ en:
     activity_tracking:
       subject: echo - Activity Notifications
       discussions:
-        new_questions: 'New Debates from last week: {{count}}'
-        new_proposals: "New proposal in the '{{title}}' discussion"
-        new_improvement_proposals: "New improvement proposal in the '{{title}}' proposal belonging to the '{{question_title}}' discussion"
-        new_tags: 'New Tags:'
+        new_questions: 'There are <strong>{{count}} new discussions</strong> since last update:'
+        new_tags: 'The discussions are tagged with the topics:'
         tag_link: "<a href='http://{{host}}/{{code}}/discuss/search?value={{tag}}'>{{tag}}</a> ({{count}})"
+        new_proposals: 'New proposals in the discussion "{{title}}"'
+        new_improvement_proposals: 'New improvement ideas for the proposal "{{title}}" in "{{question_title}}":'
       unsubscribe: |-
         If you do not wish to receive regular updates on new discussion entries, please log in to
         <a href='{{echo_url}}'>echo</a>, go to Settings under My echo and uncheck the activity notification option.

@@ -1,7 +1,7 @@
 module ActiveRecord
   module Acts
     module Subscribeable
-      
+
       def self.included(base)
         base.extend(ClassMethods)
       end
@@ -29,6 +29,7 @@ module ActiveRecord
                                     'WHERE s.subscribeable_id = #{id}'
 
             has_many :events, :as => :subscribeable
+
             after_create :create_event
 
             def create_event
