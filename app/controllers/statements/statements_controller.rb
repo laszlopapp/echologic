@@ -30,6 +30,9 @@ class StatementsController < ApplicationController
   end
 
 
+  ###########
+  # ACTIONS #
+  ###########
 
   # Shows all the existing debates according to the given search string and a possible category.
   #
