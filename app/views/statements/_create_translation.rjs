@@ -6,7 +6,7 @@ page.replace 'summary',
              :partial => 'statements/summary'
 page.replace 'discuss_sidebar',
              :partial => 'statements/sidebar'
-page.show 'discuss_sidebar'
+page.hide 'discuss_sidebar' if !@statement_node.echoable?
 
 page << "makeRatiobars();"
 page << "makeTooltips();"

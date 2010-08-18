@@ -91,7 +91,8 @@ class StatementsController < ApplicationController
 
     # Test for special links
     @original_language_warning = @statement_node.not_original_language?(current_user, @locale_language_id)
-    @translation_permission = @statement_node.translatable?(current_user,
+    @translation_permission = @statement_node.original_language == @statement_document.language &&
+                              @statement_node.translatable?(current_user,
                                                             @statement_document.language,
                                                             EnumKey.find_by_code(params[:locale]))
 
