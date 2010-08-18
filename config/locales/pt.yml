@@ -233,17 +233,17 @@ pt:
 
     # Email notifications section
     notifications:
-      title: E-Mail Notification Settings
+      title: Configuração de notificações
       guide: Aquí podes definir quais nitificações queres receber da echo.
 
       activity:
-        title: Activity Notifications
+        title: Notificações diárias (activity)
         guide: Notificações diárias sobre novas discussões e novedades nas suas discuções e propostas.
         turned_on: Notificações diárias foram ativadas.
         turned_off: Notificações diárias foram desativadas.
 
       drafting:
-        title: Drafting Notifications
+        title: Notificações imediatas (drafting)
         guide: |
           Notificações imediatas para seguir ao processo the elaboração colletiva de suas propostas -
           por exemplo quando sua proposta de melhoria foi aprovada para ser encorporada.<br/>
@@ -401,12 +401,12 @@ pt:
       read_only_permission: |-
         Isso é uma discussão transparente, mas de accesso restrito - somente pode leer.
       unsupported_parent: |-
-        You can only support improvement proposals if you support the proposal itself.
+        Somente podes apoiar a propostas de melhoria, se também apoiaste à proposta correspondente.
       being_edited: |-
         Esta proposta atualmente está sendo editada. Volte mais tarde por favor.
       edit_period_hint: |
-        You have <strong>{{minutes}} minutes</strong> to edit the statement.
-        Afterwards, your modifications might even get discarded.
+        <strong>Tens {{minutes}} minutos</strong> para editar a proposta.
+        Depois possivelmente suas modificações serão despejadas.
       staled_modification: 'A gente sente muito, mas seu tempo de 60 minutos para ditar a proposta esgoto. Agora a proposta ja foi editada por uma outra pessoa. Por isso, suas mudanças lamentavelmente não foram guardadas.'
 
     summary:

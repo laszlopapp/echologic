@@ -248,17 +248,17 @@ es:
 
     # Email notifications section
     notifications:
-      title: E-Mail Notification Settings
+      title: Configuración de notificaciones
       guide: Aquí puedes definir las notificaciones que quieres recibir de echo.
 
       activity:
-        title: Activity Notifications
+        title: Notificaciones diarias (activity)
         guide: Noticias diarias sobre nuevas discusiones y novedades en tus discusiones y propuestas.
         turned_on: Notificaciones diarias fueron activadas.
         turned_off: Notificaciones diarias fueron desactivadas.
 
       drafting:
-        title: Drafting Notifications
+        title: Notificaciones inmediatas (drafting)
         guide: |
           Notificaciones inmediatas sobre el proceso de la elaboracion colectiva y el progreso de tus propuestas y
           tus propuestas de mejoramiento - por ejemplo cuando tu propuesta de mejoramiento fue aprobada para ser incorporada.<br/>
@@ -416,12 +416,12 @@ es:
       read_only_permission: |-
         Esta discusión está transparente pero el accesso astá restricto - solamente puedes leer.
       unsupported_parent: |-
-        You can only support improvement proposals if you support the proposal itself.
+        Solamente puedes apoyar a las propuestas de mejoramiento, si tambien apoyas a la correspondiente propuesta.
       being_edited: |-
         Esta propuesta actualmente está siendo editada. Por favor vuelva mas tarde.
       edit_period_hint: |
-        You have <strong>{{minutes}} minutes</strong> to edit the statement.
-        Afterwards, your modifications might even get discarded.
+        <strong>Tienes {{minutes}} minutos</strong> para editar la propuesta.
+        Passondo este plazo, posiblemente tus modificationes serán perdidas.
       staled_modification: 'Desculpe por favor, pero tu plazo de 60 minutos para editar la propuesta caduco. Mientras otro miembro tomó su chance y edito la propuesta. Por eso, tus modificaciones lamentablemente no puedieron ser guardadas.'
 
     summary:
