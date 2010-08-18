@@ -4,7 +4,7 @@
     <%= I18n.t("users.notifications.guide") %>
   </div>
   <ul id="notification_list">
-    <%= render :partial => "users/notification/check", :locals => {:notification_type => 'activity' } %>
+    <%# render :partial => "users/notification/check", :locals => {:notification_type => 'activity' } %>
     <%= render :partial => "users/notification/check", :locals => {:notification_type => 'drafting'} %>
   </ul>
 </div>

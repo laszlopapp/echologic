@@ -1,6 +1,6 @@
 class StatementNode < ActiveRecord::Base
   acts_as_extaggable :topics
-  acts_as_subscribeable
+  #acts_as_subscribeable
   acts_as_echoable
 
   after_destroy :destroy_statement
