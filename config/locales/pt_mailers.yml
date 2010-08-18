@@ -22,10 +22,10 @@ pt:
     activity_tracking:
       subject: echo - Activity Notifications
       discussions:
-        new_questions: 'New Debates from last week: {{count}}'
-        new_proposals: "New proposal in the '{{title}}' discussion"
-        new_improvement_proposals: "New improvement proposal in the '{{title}}' proposal belonging to the '{{question_title}}' discussion"
-        new_tags: 'New Tags:'
+        new_questions: 'Tem <strong>{{count}} discussões novas</strong> desde o ultimo update:'
+        new_tags: 'Os debates são relacionados aos seguintes tópicos:'
+        new_proposals: 'Novas propostas na discussão "{{title}}"'
+        new_improvement_proposals: 'Novas propostas de melhoria na proposta "{{title}}" em "{{question_title}}":'
         tag_link: "<a href='http://{{host}}/{{code}}/discuss/search?value={{tag}}'>{{tag}}</a> ({{count}})"
       unsubscribe: |-
         If you do not wish to receive regular updates on new discussion entries, please log in to
