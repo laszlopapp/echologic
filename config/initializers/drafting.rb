@@ -17,8 +17,8 @@ if !RAILS_ENV.eql? 'production'
   DraftingService.time_approval_reminder = 7.minutes
 else
   DraftingService.min_quorum = 50
-  DraftingService.min_votes = 3
+  DraftingService.min_votes = 2
   DraftingService.time_ready = 24.hours
   DraftingService.time_approved = 24.hours
-  DraftingService.time_approval_reminder = 12.hours
+  DraftingService.time_approval_reminder = 18.hours
 end
