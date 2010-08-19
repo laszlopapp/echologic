@@ -23,7 +23,6 @@ class ProposalsController < StatementsController
         format.js do
           render_with_info do |page|
             page << "$('#approved_ip').animate(toggleParams, 500).hide();"
-            #page.remove 'approved_ip'
           end
         end
       end
