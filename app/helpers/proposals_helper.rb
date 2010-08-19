@@ -1,7 +1,7 @@
 module ProposalsHelper
 
   def incorporate_proposal_path(improvement_proposal)
-    incorporate_question_proposal_path(improvement_proposal.root, improvement_proposal.parent)
+    url_for hash_for_incorporate_question_proposal_path.merge(:approved_ip => improvement_proposal.id)
   end
 
   def incorporate_statement_node_link(parent_node, parent_document, statement_node, statement_document)
