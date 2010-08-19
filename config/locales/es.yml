@@ -419,6 +419,10 @@ es:
         Solamente puedes apoyar a las propuestas de mejoramiento, si tambien apoyas a la correspondiente propuesta.
       not_approved_any_more: |-
         Unfortunately, this improvement proposal cannot be incorporated any longer.
+      see_parent_if_approved: |-
+        The requested improvement proposal is currently approved to be incorporated into the proposal below.
+      see_parent_if_incorporated: |-
+        The requested improvement proposal has already been incorporated into the proposal below.
       being_edited: |-
         Esta propuesta actualmente está siendo editada. Por favor vuelva mas tarde.
       edit_period_hint: |

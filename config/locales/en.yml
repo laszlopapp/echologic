@@ -406,6 +406,10 @@ en:
         You can only support improvement proposals if you support the proposal itself.
       not_approved_any_more: |-
         Unfortunately, this improvement proposal cannot be incorporated any longer.
+      see_parent_if_approved: |-
+        The requested improvement proposal is currently approved to be incorporated into the proposal below.
+      see_parent_if_incorporated: |-
+        The requested improvement proposal has already been incorporated into the proposal below.
       being_edited: |-
         The statement is currently being edited. Please try again later.
       edit_period_hint: |
