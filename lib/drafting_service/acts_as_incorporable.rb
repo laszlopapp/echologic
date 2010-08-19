@@ -53,6 +53,11 @@ module ActiveRecord
             end
             event :incorporate do
               transitions :from => :approved, :to => :incorporated
+              # For late edit saves
+              transitions :from => :tracked, :to => :incorporated
+              transitions :from => :ready, :to => :incorporated
+              transitions :from => :staged, :to => :incorporated
+
             end
 
             ####################################
