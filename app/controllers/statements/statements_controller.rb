@@ -15,7 +15,7 @@ class StatementsController < ApplicationController
 
   # The order of these filters matters. change with caution.
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
-  before_filter :redirect_if_approved_or_incorporated
+  before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions, :new, :create]
   before_filter :require_user, :except => [:category, :show]
   before_filter :fetch_languages, :except => [:destroy]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
@@ -177,7 +177,7 @@ class StatementsController < ApplicationController
     respond_to do |format|
       if permitted and @statement_node.save
         set_statement_node_info(@statement_document)
-        #load current created statement_node to session
+        # load currently created statement_node to session
         load_to_session @statement_node if @statement_node.parent
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js {
@@ -196,7 +196,7 @@ class StatementsController < ApplicationController
 
 
   #
-  # Renders a form to edit statements
+  # Renders a form to edit the current statement.
   #
   # Method:   POST
   # Params:   id: integer
