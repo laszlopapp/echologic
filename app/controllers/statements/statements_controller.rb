@@ -1,9 +1,7 @@
 class StatementsController < ApplicationController
-  @@edit_locking_time = 1.hours
   helper :echo
   include EchoHelper
   include StatementHelper
-
 
   # Remodelling the RESTful constraints, as a default route is currently active
   # FIXME: the echo and unecho actions should be accessible via PUT/DELETE only,
@@ -17,6 +15,7 @@ class StatementsController < ApplicationController
 
   # The order of these filters matters. change with caution.
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
+  before_filter :redirect_if_approved_or_incorporated
   before_filter :require_user, :except => [:category, :show]
   before_filter :fetch_languages, :except => [:destroy]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
@@ -28,6 +27,13 @@ class StatementsController < ApplicationController
     allow anonymous, :to => [:index, :show, :category]
     allow logged_in
   end
+
+
+  ##############
+  # ATTRIBUTES #
+  ##############
+
+  @@edit_locking_time = 1.hours
 
 
   ###########
@@ -70,6 +76,7 @@ class StatementsController < ApplicationController
   # Response: HTTP or JS
   #
   def show
+
     # Record visited
     @statement_node.visited!(current_user) if current_user
 
@@ -104,10 +111,7 @@ class StatementsController < ApplicationController
     end
 
     # If statement node is draftable, then try to get the approved one
-    if @statement_node.draftable?
-      @approved_node = @statement_node.approved_children.first || nil
-      @approved_document = @approved_node.document_in_preferred_language(@language_preference_list) if !@approved_node.nil?
-    end
+    load_approved_statement()
 
     # Find all child statement_nodes, which are published (except user is an editor)
     # sorted by supporters count, and paginate them
@@ -436,6 +440,16 @@ class StatementsController < ApplicationController
   protected
 
   #
+  # Loads the approved statement if there can be any.
+  #
+  def load_approved_statement
+    if @statement_node.draftable?
+      @approved_node = @statement_node.approved_children.first || nil
+      @approved_document = @approved_node.document_in_preferred_language(@language_preference_list) if !@approved_node.nil?
+    end
+  end
+
+  #
   # Returns true if the current user could successfully acquire the lock.
   #
   def acquire_lock(statement_document)
@@ -467,39 +481,75 @@ class StatementsController < ApplicationController
 
   private
 
+  #
   # Gets the correspondent statement node to the id that is given in the request
+  #
   def fetch_statement_node
     @statement_node ||= statement_node_class.find(params[:id]) if params[:id].try(:any?) && params[:id] =~ /\d+/
   end
 
+  #
+  # Redirect to parent if incorporable is approved or already incorporated.
+  #
+  def redirect_if_approved_or_incorporated
+    if @statement_node.incorporable? && (@statement_node.approved? || @statement_node.incorporated?)
+      if @statement_node.approved?
+        set_info("discuss.statements.see_parent_if_approved")
+      else
+        set_info("discuss.statements.see_parent_if_incorporated")
+      end
+      respond_to do |format|
+        flash_info
+        format.html { redirect_to @statement_node.parent }
+        format.js do
+          render :update do |page|
+            page.redirect_to @statement_node.parent
+          end
+        end
+      end
+      return
+    end
+  end
+
+  #
   # Loads the locale language and the language preference list
+  #
   def fetch_languages
     @locale_language_id = locale_language_id
     @language_preference_list = language_preference_list
   end
 
+  #
   # Checks if text that comes with the form is actually empty, even with the escape parameters from the iframe
+  #
   def check_empty_text
     document_param = params[statement_node_symbol][:new_statement_document] || params[statement_node_symbol][:statement_document]
     text = document_param[:text]
     document_param[:text] = "" if text.eql?('<br>')
   end
 
+  #
   # Returns the statement node correspondent symbol (:question, :proposal...). Must be implemented by the subclasses.
+  #
   def statement_node_symbol
     raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
 
+  #
   # Returns the statement_node class, corresponding to the controllers name. Must be implemented by the subclasses.
+  #
   def statement_node_class
     raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
 
+  #
   # Returns the parent statement node of the current statement. Must be implemented by the subclasses.
+  #
   def parent
     raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
 
+  #
   # Sets the info to displayed along with the response.
   # The action name is automagically incorporated into the I18n key.
   #
@@ -513,7 +563,9 @@ class StatementsController < ApplicationController
   # PERMISSIONS #
   ###############
 
-  # Checks if the statement node or parent has a * tag and the user has permission for it
+  #
+  # Checks if the statement node or parent has a * tag and the user has permission for it.
+  #
   def require_decision_making_permission
     decision_making_tags = current_user.decision_making_tags
     statement = @statement_node || parent
@@ -536,8 +588,9 @@ class StatementsController < ApplicationController
     return true
   end
 
-
-  # Checks whether the user is allowed to assign the given hash tags (#tag)
+  #
+  # Checks whether the user is allowed to assign the given hash tags (#tag).
+  #
   def check_hash_tag_permissions(tags_values)
 
     # Editors can define all tags
@@ -563,13 +616,16 @@ class StatementsController < ApplicationController
   # SEARCH #
   ##########
 
+  #
   # Calls the statement node sql query for questions.
+  #
   def search_statement_nodes (opts = {})
     StatementNode.search_statement_nodes(opts.merge({:type => "Question"}))
   end
 
-
+  #
   # Gets all the statement documents belonging to a group of statements, and orders them per language ids.
+  #
   def search_statement_documents (statement_ids, language_ids = @language_preference_list)
     hash = {}
     statement_documents = StatementDocument.search_statement_documents(statement_ids, language_ids)
@@ -587,7 +643,9 @@ class StatementsController < ApplicationController
   # MISC #
   ########
 
+  #
   # Saves the current statement node to the session to enable back navigation
+  #
   def load_to_session(statement_node)
     type = statement_node_class.to_s.underscore
     key = ("current_" + type).to_sym
@@ -596,5 +654,3 @@ class StatementsController < ApplicationController
   end
 
 end
-
-
