@@ -1,8 +1,8 @@
 require 'singleton'
 
 class DraftingService
-
   include Singleton
+
 
   ##############
   # Parameters #
@@ -402,4 +402,11 @@ class DraftingService
       end
     )
   end
+
+  ###############
+  # Async calls #
+  ###############
+
+  handle_asynchronously :send_incorporation_mails
+
 end
