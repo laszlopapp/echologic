@@ -1,2 +1,2 @@
 page.replace 'summary', :partial => 'statements/proposals/edit_draft'
-page << "selectApprovedText('#{@incorporated_node.id}');"
+#page << "selectApprovedText('#{@incorporated_node.id}');"
