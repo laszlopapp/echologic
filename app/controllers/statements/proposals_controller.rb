@@ -1,5 +1,11 @@
 class ProposalsController < StatementsController
 
+  #
+  # Edit action to incorporate improvement proposals.
+  # FIXME: should be handled RESTfully ind the Edit action with an additional
+  #        parameter in the URL: .../Pid?approved_node=IPid
+  #        Also the edit views should be reused (no edit_draft views)!!!
+  #
   def incorporate
     still_approved = true
     has_lock = false

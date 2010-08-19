@@ -386,6 +386,12 @@ a.statement_link:hover {
   padding: 5px 0 0;
 }
 
+#approved_ip.only_text {
+  border: 1px dashed #CCC;
+  margin: 0 10px 20px 0;
+  padding: 0 7px 10px;
+}
+
 .incorporate_statement_button_mid {
   background: transparent url(../images/page/discuss/inc_improvement_proposal_mid.png) no-repeat scroll 0 0;
   width: 55px;

@@ -11,6 +11,9 @@
                           :statement_node => statement_node,
                           :statement_document => statement_document } %>
 
+  <!-- Approved document -->
+  <%= render(:partial => 'statements/approved', :locals => {:only_text => true}) unless @approved_node.nil? %>
+
   <% if statement_node.kind_of?(Question) -%>
 
     <!-- Statement tags (currently only for questions) -->
