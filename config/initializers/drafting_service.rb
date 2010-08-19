@@ -5,6 +5,7 @@ require 'drafting_info'
 require 'test_for_staged_job'
 require 'test_for_passed_job'
 require 'approval_reminder_mail_job'
+require 'echo_service/echo_service'
 
 ActiveRecord::Base.send :include, ActiveRecord::Acts::Incorporable
 ActiveRecord::Base.send :include, ActiveRecord::Acts::Draftable
@@ -22,3 +23,6 @@ else
   DraftingService.time_approved = 24.hours
   DraftingService.time_approval_reminder = 18.hours
 end
+
+# Observers
+EchoService.instance.add_observer(DraftingService.instance)
