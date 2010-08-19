@@ -4,7 +4,6 @@ class ActivityTrackingService
   include Singleton
 
   attr_accessor :period, :charges, :counter
-  #handle_asynchronously :send_activity_tracking_email
 
   def initialize
     @counter = -1
@@ -104,5 +103,7 @@ class ActivityTrackingService
                                                                  events)
     ActivityTrackingMailer.deliver(mail)
   end
+
+  #handle_asynchronously :send_activity_email
 
 end
