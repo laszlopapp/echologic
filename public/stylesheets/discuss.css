@@ -382,10 +382,8 @@ a.statement_link:hover {
 
 #approved_ip {
   border-top: 1px dashed #CCC;
-  display: block;
-  margin-left: 155px;
-  padding: 5px 0;
-  width: 815px;
+  margin-top: 15px;
+  padding: 5px 0 0;
 }
 
 .incorporate_statement_button_mid {
@@ -404,7 +402,7 @@ a.statement_link:hover {
 }
 
 #ip_text {
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 
