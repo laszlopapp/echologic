@@ -417,6 +417,8 @@ es:
         Esta discusión está transparente pero el accesso astá restricto - solamente puedes leer.
       unsupported_parent: |-
         Solamente puedes apoyar a las propuestas de mejoramiento, si tambien apoyas a la correspondiente propuesta.
+      not_approved_any_more: |-
+        Unfortunately, this improvement proposal cannot be incorporated any longer.
       being_edited: |-
         Esta propuesta actualmente está siendo editada. Por favor vuelva mas tarde.
       edit_period_hint: |

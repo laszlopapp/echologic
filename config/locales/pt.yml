@@ -402,6 +402,8 @@ pt:
         Isso é uma discussão transparente, mas de accesso restrito - somente pode leer.
       unsupported_parent: |-
         Somente podes apoiar a propostas de melhoria, se também apoiaste à proposta correspondente.
+      not_approved_any_more: |-
+        Unfortunately, this improvement proposal cannot be incorporated any longer.
       being_edited: |-
         Esta proposta atualmente está sendo editada. Volte mais tarde por favor.
       edit_period_hint: |

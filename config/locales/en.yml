@@ -404,6 +404,8 @@ en:
         This is a transparent but currently closed discussion, you are only allowed to read.
       unsupported_parent: |-
         You can only support improvement proposals if you support the proposal itself.
+      not_approved_any_more: |-
+        Unfortunately, this improvement proposal cannot be incorporated any longer.
       being_edited: |-
         The statement is currently being edited. Please try again later.
       edit_period_hint: |

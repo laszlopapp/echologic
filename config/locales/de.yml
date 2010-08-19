@@ -410,6 +410,8 @@ de:
         Diese ist eine transparente aber geschlossene Diskussion, die Sie nur mitlesen dürfen.
       unsupported_parent: |-
         You can only support improvement proposals if you support the proposal itself.
+      not_approved_any_more: |-
+        Unfortunately, this improvement proposal cannot be incorporated any longer.
       being_edited: |-
         Dieser Vorschlag wird gerade bearbeitet. Bitte versuchen Sie es später noch einmal.
       edit_period_hint: |
