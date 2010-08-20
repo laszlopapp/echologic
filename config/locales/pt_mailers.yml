@@ -28,8 +28,8 @@ pt:
         new_improvement_proposals: 'Novas propostas de melhoria na proposta "{{title}}" em "{{question_title}}":'
         tag_link: "<a href='http://{{host}}/{{code}}/discuss/search?value={{tag}}'>{{tag}}</a> ({{count}})"
       unsubscribe: |-
-        If you do not wish to receive regular updates on new discussion entries, please log in to
-        <a href='{{echo_url}}'>echo</a>, go to Settings under My echo and uncheck the activity notification option.
+        Se não queres receber notificações diarias sobre sobre novedades nas suas discussões, por favor faça o login em
+        <a href='{{echo_url}}'>echo</a>, vai pra "O meu echo", "Definições" e desative a opção de notificações diarias.
 
     drafting:
       approval:
@@ -219,9 +219,11 @@ pt:
 
           {{p_link}}
 
+          Many thanks for your contribution - Have fun! ;-)
+
           Best regards,
 
           Your echo team
 
       unsubscribe: |-
-        If you do not wish to receive immediate updates on the co-creative drafing process of your supported statements, please log in to {{echo_url}}, go to Settings under My echo and uncheck the drafting notification option.
+        Se não wueres receber notificações imediatas sobre o desenvolvimente colletitivo de propostas, por favor faça o login em {{echo_url}}, vai pra "O meu echo", "Definições" e desative a opção de notificações imediatas.
