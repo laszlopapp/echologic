@@ -1,7 +1,7 @@
 namespace :drafting do
   desc "Initializes the drafting state machine for all Improvement Proposals"
   task :initialize => :environment do
-    DraftingService.time_ready = 3.hours   #   In order to make the approval process start faster
+    DraftingService.time_ready = 1.hours   #   In order to make the approval process start faster
     Proposal.all.each do |proposal|
       proposal.children_statements.each do |ip|
         if DraftingService.instance.test_readiness(ip)
