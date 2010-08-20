@@ -16,7 +16,7 @@ Then /^the proposal should have one echo$/ do
   i >= 1
 end
 
-Given /^the proposal has no supporters$/ do 
+Given /^the proposal has no supporters$/ do
   @proposal.reload
   UserEcho.destroy_all("echo_id = #{@proposal.echo.id} and supported = 1") if @proposal.echo
 end
@@ -44,7 +44,6 @@ Given /^I gave an echo already to a proposal$/ do
   @proposal = Proposal.first
   @proposal.user_echos.destroy_all
   ed = @proposal.supported!(@user)
-  @proposal.add_subscriber(@user)
 end
 
 Then /^the proposal should have no more echo$/ do

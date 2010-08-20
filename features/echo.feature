@@ -11,12 +11,13 @@ Feature: Echo
     # Todo: This test will always fail. Echo link does not work without js atm
     Then I should see the "echo" button
       And the proposal should have one echo
-      And the proposal should have "user" as follower
+      And the proposal should have "user" as supporters
+      #And the proposal should have "user" as follower
     Given I go to the proposal
       And I follow "echo_button"
     Then I should see the "echo" button
       And the proposal should have no more echo
-      And the proposal should not have "user" as follower
+      #And the proposal should not have "user" as follower
 
   Scenario: Undo an Echo to a statement as a user
     Given I am logged in as "user" with password "true"
@@ -26,7 +27,7 @@ Feature: Echo
     # Todo: This test will always fail. Echo link does not work without js atm
     Then I should see the "echo" button
       And the proposal should have no more echo
-      And the proposal should not have "user" as follower
+      #And the proposal should not have "user" as follower
 
   Scenario: Visit an Statement without giving an echo
     Given I am logged in as "user" with password "true"
@@ -116,7 +117,7 @@ Feature: Echo
     Then I am not supporter of the proposal
       And I am not supporter of the improvement proposal
  #     And I should see "You can only support improvement proposals if you support the proposal itself."
-    
+
   Scenario: User echoes an improvement proposal, and this becomes ready
     Given the minimum number of votes is 1
       And I am logged in as "joe" with password "true"
@@ -128,4 +129,4 @@ Feature: Echo
       And I choose the "A better fourth proposal" Improvement Proposal
     Given I follow "echo_button"
     Then I am supporter of the improvement proposal
-      And the state of the improvement proposal must be "ready" 
+      And the state of the improvement proposal must be "ready"

@@ -123,7 +123,7 @@ Feature: Take Part on a discussion
       And the proposal has no approved children
       And the proposal has incorporated children
 
-      
+
   Scenario: User tries to edit, gets out of the form and editor can't edit it
     Given I am logged in as "user" with password "true"
       And there is a question i have created
@@ -134,8 +134,8 @@ Feature: Take Part on a discussion
     Given I am logged in as "editor" with password "true"
     When I go to the question
       And I follow "Edit"
-    Then I should see "We are sorry, this Statement is being edited right now."
-    
+    Then I should see "The statement is currently being edited. Please try again later."
+
   Scenario: User tries to edit, cancels and editor can edit it
     Given I am logged in as "user" with password "true"
       And there is a question i have created
@@ -147,8 +147,8 @@ Feature: Take Part on a discussion
     Given I am logged in as "editor" with password "true"
     When I go to the question
       And I follow "Edit"
-    Then I should not see "We are sorry, this Statement is being edited right now."
-    
+    Then I should not see "The statement is currently being edited. Please try again later."
+
   Scenario: Ben edits for incorporation, doesn't make it, editor tries to edit and can't
     Given I am logged in as "ben" with password "benrocks"
       And I am on the discuss index
@@ -163,8 +163,8 @@ Feature: Take Part on a discussion
     Given I am logged in as "editor" with password "true"
       When I go to the proposal
         And I follow "Edit"
-      Then I should see "We are sorry, this Statement is being edited right now."
-  
+      Then I should see "The statement is currently being edited. Please try again later."
+
   Scenario: Editor tries to edit, gets out of the form and ben can't incorporate it
     Given I am logged in as "editor" with password "true"
     When I am on the discuss index
@@ -177,5 +177,5 @@ Feature: Take Part on a discussion
     Given I am logged in as "ben" with password "benrocks"
       And the proposal has an approved child
       And I go to the proposal
-      And I follow localized "application.general.incorporate"
-    Then I should see "We are sorry, this Statement is being edited right now."
+      And I follow localized "discuss.tooltips.incorporate"
+    Then I should see "The statement is currently being edited. Please try again later."
