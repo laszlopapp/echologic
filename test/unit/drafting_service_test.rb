@@ -61,6 +61,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
         assert @statement_2.tracked?
       end
     end
+
     context "user supports the second improvement proposal which is tracked and ranking changes" do
       setup {
         @statement_1 = statement_nodes('second-impro-proposal')
@@ -70,6 +71,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
                                                 :supported => true)
         @statement_1.find_or_create_echo.update_counter!
         @statement_1.save
+        @statement_1.reload
 
         @statement_2 = statement_nodes('first-impro-proposal')
         @statement_2.user_echos.destroy_all
@@ -83,9 +85,12 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_2.readify!
         @statement_2.stage!
         @statement_2.save
+        @statement_2.reload
         DraftingService.min_votes=2
 
         EchoService.instance.supported!(@statement_1, users(:luise))
+        @statement_1.reload
+        @statement_2.reload
         EchoService.instance.supported!(@statement_1, users(:green))
       }
 
