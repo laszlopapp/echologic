@@ -3,7 +3,7 @@ namespace :drafting do
   task :turn_on_notification => :environment do
     User.all.each do |user|
       user.drafting_notification = 1
-      user.save
+      user.save(false)
     end
   end
 end

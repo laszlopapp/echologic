@@ -3,7 +3,7 @@ namespace :activity_tracking do
   task :turn_on_notification => :environment do
     User.all.each do |user|
       user.activity_notification = 1
-      user.save
+      user.save(false)
     end
   end
 end
