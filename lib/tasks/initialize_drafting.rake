@@ -1,9 +1,13 @@
 namespace :drafting do
-  desc "move all Web Address sorts to type_ids"
+  desc "Initializes the drafting state machine for all Improvement Proposals"
   task :initialize => :environment do
+    DraftingService.time_ready = 3.hours   #   In order to make the approval process start faster
     Proposal.all.each do |proposal|
-      proposal.children_statements.each do |child|
-        DraftingService.instance.readify(child) if DraftingService.instance.test_readiness(child)
+      proposal.children_statements.each do |ip|
+        if DraftingService.instance.test_readiness(ip)
+          DraftingService.instance.readify(ip)
+          sleep(5)  #  So that we don't create a flood of Jobs at the very same time
+        end
       end
     end
   end

@@ -129,7 +129,7 @@ class DraftingService
   # Test if incorporable fulfills all conditions to become ready.
   #
   def test_readiness(incorporable)
-    incorporable.supporter_count >= @@min_votes# and incorporable.quorum >= @@min_quorum
+    incorporable.supporter_count >= @@min_votes # and incorporable.quorum >= @@min_quorum
   end
 
   #
@@ -348,9 +348,6 @@ class DraftingService
     end
   end
 
-
-  private
-
   #
   # Returns a map with data used to create the mail bodies.
   #
@@ -363,6 +360,9 @@ class DraftingService
       :language => incorporable.drafting_language.code
     }
   end
+
+
+  private
 
   #
   # Returns those supporters of the echoable who would like to receive drafting notifications.
