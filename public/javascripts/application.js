@@ -153,6 +153,24 @@ function loadRTEEditor(iframe_css_class, host) {
   });
 }
 
+/* select approved text in the form */
+/*function selectApprovedText(id) {
+  if (document.selection) document.selection.empty();
+  else if (window.getSelection)
+          window.getSelection().removeAllRanges();
+  if (document.selection) {
+	  var range = document.body.createTextRange();
+	      range.moveToElementText(document.getElementById("ip_text"));
+	  range.select();
+	  }
+	  else if (window.getSelection) {
+	  var range = document.createRange();
+	  range.selectNode(document.getElementById("ip_text"));
+	  window.getSelection().addRange(range);
+  }
+}*/
+
+
 /* creates a statement tag button */
 function createTagButton(text, tags_id) {
   element = $('<span/>').addClass('tag');

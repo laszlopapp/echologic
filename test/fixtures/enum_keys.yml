@@ -3,7 +3,7 @@ language_<%= code %>:
   code: <%= code %>
   enum_name: languages
   key: <%= index+1 %>
-  description: languages
+  description: language
 <% end %>
 
 <% %w(mother_tongue advanced intermediate basic).each_with_index do |code, index| %>
@@ -11,7 +11,7 @@ language_level_<%= code %>:
   code: <%= code %>
   enum_name: language_levels
   key: <%= index+1 %>
-  description: language_levels
+  description: language_level
 <% end %>
 
 <% %w(email homepage blog xing linkedin facebook twitter).each_with_index do |code, index| %>
@@ -33,7 +33,7 @@ organisation_type_<%= code %>:
   code: <%= code %>
   enum_name: organisation_types
   key: <%= index+1 %>
-  description: organisation_types
+  description: organisation_type
 <% end %>
 
 <% %w(affection engagement expertise decision_making field_work field_activity topic).each_with_index do |code, index| %>
@@ -41,7 +41,7 @@ tag_context_<%= code %>:
   code: <%= code %>
   enum_name: tag_contexts
   key: <%= index+1 %>
-  description: tag_contexts
+  description: tag_context
 <% end %>
 
 <% %w(new published).each_with_index do |code, index| %>
@@ -50,4 +50,13 @@ statement_state_<%= code %>:
   enum_name: statement_states
   key: <%= index+1 %>
   description: statement_state
+<% end %>
+
+
+<% %w(created updated translated incorporated).each_with_index do |code, index| %>
+statement_action_<%= code %>:
+  code: <%= code %>
+  enum_name: statement_actions
+  key: <%= index+1 %>
+  description: statement_action
 <% end %>

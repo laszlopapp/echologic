@@ -24,10 +24,7 @@ class ConnectController < ApplicationController
     # atm we don't want to toggle profile details when we paginate, but when we search
     # TODO: if search and paginate logic drift more apart, consider seperate controller actions
 
-    respond_to do |format|
-      format.html { render :template => 'connect/search' }
-      format.js   { render :template => 'connect/search' }
-    end
+    respond_to_js :template => 'connect/search', :template_js => 'connect/search' 
   end
 
   # Render the roadmap template.

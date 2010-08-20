@@ -103,6 +103,7 @@ class ApplicationController < ActionController::Base
         message = render(:partial => 'layouts/components/error', :locals => {:object => object})
       end
       page << "error('#{escape_javascript(message)}');"
+      yield page if block_given?
     end
   end
 
@@ -124,6 +125,8 @@ class ApplicationController < ActionController::Base
       yield page if block_given?
     end
   end
+
+
 
   # Helper method to do simple ajax replacements without writing a new template.
   # This small methods takes much complexness from the controllers.
@@ -191,14 +194,7 @@ class ApplicationController < ActionController::Base
   def require_no_user
     if current_user
       flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_out')
-      respond_to do |format|
-        format.html { redirect_to root_path }
-        format.js do
-          render :update do |page|
-            page.redirect_to root_path
-          end
-        end
-      end
+      redirect_to_root_path
     end
     return false
   end
@@ -213,7 +209,7 @@ class ApplicationController < ActionController::Base
   end
 
   def language_preference_list
-    keys = [locale_language_id].concat(current_user ? current_user.spoken_language_ids : []).uniq
+    keys = [locale_language_id].concat(current_user ? current_user.sorted_spoken_language_ids : []).uniq
   end
 
 
@@ -255,6 +251,16 @@ class ApplicationController < ActionController::Base
     else
       flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
     end
+    redirect_to_root_path
+  end
+
+  # Called when when a routing error occurs.
+  def redirect_to_home
+    redirect_to welcome_url
+  end
+
+  protected
+  def redirect_to_root_path
     respond_to do |format|
       format.html { redirect_to root_path }
       format.js do
@@ -263,11 +269,39 @@ class ApplicationController < ActionController::Base
         end
       end
     end
-
   end
 
-  # Called when when a routing error occurs.
-  def redirect_to_home
-    redirect_to welcome_url
+  def respond_to_js(opts={})
+    respond_to do |format|
+      format.html { render :template => opts[:template] } if opts[:template]
+      format.html { redirect_to opts[:redirect_to] } if opts[:redirect_to]
+      format.html   { render :partial => opts[:partial] } if opts[:partial]
+      format.js   { render :template => opts[:template_js] } if opts[:template_js]
+      format.js   { render :partial => opts[:partial_js] } if opts[:partial_js]
+      yield format if block_given?
+    end
+  end
+
+  def render_static(opts={:partial => 'show', :layout => 'static', :locals => {}})
+    respond_to do |format|
+      format.html { render :partial => opts[:partial], :layout => opts[:layout]}
+      format.js { render :template => 'layouts/tabContainer', :locals => opts[:locals]}
+    end
+  end
+
+  def render_outer_menu(opts={:layout => 'static'})
+    respond_to do |format|
+      format.html { render :partial => opts[:partial], :layout => opts[:layout], :locals => opts[:locals]}
+      format.js { render :template => 'layouts/outerMenuDialog' , :locals => opts[:locals]}
+    end
+  end
+
+  def render_new(opts={:layout => 'static'})
+    respond_to do |format|
+      format.html { render :template => opts[:template], :layout => opts[:layout] } if opts[:template]# new.html.erb
+      format.html { render :partial => opts[:partial], :layout => opts[:layout] } if opts[:partial]# new.html.erb
+      format.js
+      yield format if block_given?
+    end
   end
 end

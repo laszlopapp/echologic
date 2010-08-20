@@ -11,7 +11,13 @@ Feature: Echo
     # Todo: This test will always fail. Echo link does not work without js atm
     Then I should see the "echo" button
       And the proposal should have one echo
-      And the proposal should have "user" as follower
+      And the proposal should have "user" as supporters
+      #And the proposal should have "user" as follower
+    Given I go to the proposal
+      And I follow "echo_button"
+    Then I should see the "echo" button
+      And the proposal should have no more echo
+      #And the proposal should not have "user" as follower
 
   Scenario: Undo an Echo to a statement as a user
     Given I am logged in as "user" with password "true"
@@ -21,7 +27,7 @@ Feature: Echo
     # Todo: This test will always fail. Echo link does not work without js atm
     Then I should see the "echo" button
       And the proposal should have no more echo
-      And the proposal should not have "user" as follower
+      #And the proposal should not have "user" as follower
 
   Scenario: Visit an Statement without giving an echo
     Given I am logged in as "user" with password "true"
@@ -37,6 +43,10 @@ Feature: Echo
       And I follow "echonomyJAM"
       And I choose the first Question
       And the question has no proposals
+      And I am on the discuss index
+      And I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the first Question
       And I follow "create_proposal_link"
       And I fill in the following:
         | proposal_statement_document_title | proposal title |
@@ -82,4 +92,41 @@ Feature: Echo
       And the proposal should have "user, luise" as visitors
 
 
+  Scenario: User tries to echo an improvement proposal without echoing the respective proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+      And I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And the proposal has no supporters
+      And I choose the "A better first proposal" Improvement Proposal
+    Given I follow "echo_button"
+    Then I am not supporter of the improvement proposal
+  #    And I should see "You can only support improvement proposals if you support the proposal itself."
+      And I go to the proposal
+      And I follow "echo_button"
+    Then I am supporter of the proposal
+      And I go to the proposal
+      And I choose the "A better first proposal" Improvement Proposal
+    Given I follow "echo_button"
+    Then I am supporter of the improvement proposal
+   #   And I should not see "You can only support improvement proposals if you support the proposal itself."
+      And I go to the proposal
+      And I follow "echo_button"
+    Then I am not supporter of the proposal
+      And I am not supporter of the improvement proposal
+ #     And I should see "You can only support improvement proposals if you support the proposal itself."
 
+  Scenario: User echoes an improvement proposal, and this becomes ready
+    Given the minimum number of votes is 1
+      And I am logged in as "joe" with password "true"
+      And I am on the discuss index And I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow "echo_button"
+      And I choose the "A better fourth proposal" Improvement Proposal
+    Given I follow "echo_button"
+    Then I am supporter of the improvement proposal
+      And the state of the improvement proposal must be "ready"

@@ -1,0 +1,6 @@
+
+<% event_data = JSON.parse(event.event) %>
+<%= link_to event_data[event_data.keys[0]]['statement']['statement_documents'][0]['title'],
+            question_proposal_improvement_proposal_url(event.subscribeable.root,
+                                                       event.subscribeable.parent,
+                                                       event.subscribeable) %>

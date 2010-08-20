@@ -1,4 +1,5 @@
 <% disabled ||= false %>
+<% statement_node ||= @statement_node %>
 <% statement_document ||= @statement_document %>
 <% css_rte_class = 'rte_doc' %>
 
@@ -11,6 +12,14 @@
       <%= doc.input :text,
                     :input_html => {:disabled => disabled,
                                     :class => css_rte_class} %>
+			<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][old_document_id]",
+                           @statement_document.id if !@statement_document.new_record? %>
+			<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][locked_at]",
+                           @statement_document.locked_at if !@statement_document.nil? %>
+			<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][action_id]",
+                           @action.id if @action %>
+			<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][incorporated_node_id]",
+                           @approved_node.id if !@approved_node.nil? %>
 		<% else %>
 		  <li>
 			  <label for="question_statement_document_text">

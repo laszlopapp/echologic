@@ -1,0 +1,17 @@
+<% parent_node ||= @statement_node %>
+<% parent_document ||= @statement_document %>
+<% statement_node ||= @approved_node %>
+<% statement_document ||= @approved_document %>
+<% only_text ||= false %>
+
+<% if !statement_node.nil? and !statement_node.nil? %>
+  <div id="approved_ip" class="<%= only_text ? 'only_text' : '' %>">
+
+     <% incorporate_statement_node_link(parent_node, parent_document, statement_node, statement_document) unless only_text %>
+
+		 <div id="ip_text">
+		   <%= sanitize statement_document.text %>
+		 </div>
+
+  </div>
+<% end %>

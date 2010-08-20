@@ -14,6 +14,7 @@
 
   <%= form.hidden_field :parent_id %>
 	<%= form.hidden_field :state_id, :value => StatementNode.statement_states('published').id %>
+	
 
   <!-- Save and cancel buttons -->
   <% form.buttons do %>
@@ -22,8 +23,6 @@
     <span class="or_cancel">
       <%= I18n.t('application.general.or') %>
     </span>
-    <%= link_to I18n.t('application.general.cancel'),
-                session[:last_statement_node] ? statement_node_path(session[:last_statement_node]) : (statement_node.parent or discuss_url),
-                :class => 'ajax text_button bold_cancel_text_button' %>
+    <%= cancel_new_statement_node(statement_node,true) %>
   <% end %>
 <% end -%>

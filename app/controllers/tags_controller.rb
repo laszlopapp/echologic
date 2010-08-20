@@ -4,10 +4,7 @@ class TagsController < ApplicationController
   def index
     @tags = Tag.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @tags }
-    end
+    render_xml(@tags)
   end
 
   # GET /tags/1
@@ -15,10 +12,7 @@ class TagsController < ApplicationController
   def show
     @tag = Tag.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @tag }
-    end
+    render_xml(@tag)
   end
 
   # GET /tags/new
@@ -26,10 +20,7 @@ class TagsController < ApplicationController
   def new
     @tag = Tag.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @tag }
-    end
+    render_xml(@tag)
   end
 
   # GET /tags/1/edit
@@ -48,8 +39,7 @@ class TagsController < ApplicationController
         format.html { redirect_to hash_for_tags_url.merge({:action => :show, :id =>@tag.id}) }
         format.xml  { render :xml => @tag, :status => :created, :location => @tag }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @tag.errors, :status => :unprocessable_entity }
+        render_xml(@tag.errors, :action => 'new', :status => :unprocessable_entity)
       end
     end
   end
@@ -65,8 +55,7 @@ class TagsController < ApplicationController
         format.html { redirect_to hash_for_tags_path.merge({:action => :show, :id => @tag.id})}
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @tag.errors, :status => :unprocessable_entity }
+        render_xml(@tag.errors, :action => 'edit', :status => :unprocessable_entity)
       end
     end
   end
@@ -80,6 +69,18 @@ class TagsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(tags_url) }
       format.xml  { head :ok }
+    end
+  end
+  
+  private 
+  def render_xml(obj, opts={})
+    respond_to do |format|
+      if opts[:action]
+        format.html { render :action => opts[:action] }
+      else
+        format.html # new.html.erb
+      end
+      format.xml  { render :xml => obj, :status => opts[:status] }
     end
   end
 end

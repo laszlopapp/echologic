@@ -4,7 +4,7 @@
 
 # Important: If you change these names her, you also have to change in all user related fixtures (e.g. profiles)
 # Todo: Switch to Factory Girl ;) 
-<% ["joe", "user", "editor", "admin", "red","blue","luise"].each do |name| %>
+<% ["joe", "user", "editor", "admin", "red","blue","luise","tobias"].each do |name| %>
 <%= name+'-english' %>:
   user_id: <%= Fixtures.identify(name) %>
   language_id: <%= Fixtures.identify(:language_en) %>

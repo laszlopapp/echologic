@@ -16,6 +16,11 @@ Then /^the proposal should have one echo$/ do
   i >= 1
 end
 
+Given /^the proposal has no supporters$/ do
+  @proposal.reload
+  UserEcho.destroy_all("echo_id = #{@proposal.echo.id} and supported = 1") if @proposal.echo
+end
+
 Then /^the proposal should have ([^\"]*) supporters$/ do |supporter_count|
   @proposal.reload
   user_echos = UserEcho.count(:conditions => ["echo_id = ? and supported = 1", @proposal.echo.id])
@@ -39,7 +44,6 @@ Given /^I gave an echo already to a proposal$/ do
   @proposal = Proposal.first
   @proposal.user_echos.destroy_all
   ed = @proposal.supported!(@user)
-  @proposal.add_subscriber(@user)
 end
 
 Then /^the proposal should have no more echo$/ do
@@ -49,13 +53,17 @@ Then /^the proposal should have no more echo$/ do
 end
 
 Then /^the proposal should have "([^\"]*)" as follower$/ do |name|
-  @proposal.reload
-  assert @proposal.followed_by?(@user)
+  assert Delayed::Job.last.name[9..22] == "add_subscriber"
+#  user = Profile.find_by_first_name(name).user
+#  @proposal.reload
+#  assert user.follows?(@proposal)
 end
 
 Then /^the proposal should not have "([^\"]*)" as follower$/ do |name|
-  @proposal.reload
-  assert !@user.follows?(@proposal)
+  assert Delayed::Job.last.name[9..25] == "remove_subscriber"
+#  user = Profile.find_by_first_name(name).user
+#  @proposal.reload
+#  assert !user.follows?(@proposal)
 end
 
 Then /^I am supporter of the proposal$/ do
@@ -63,9 +71,19 @@ Then /^I am supporter of the proposal$/ do
   assert @proposal.supported?(@user)
 end
 
+Then /^I am supporter of the improvement proposal$/ do
+  @improvement_proposal.reload
+  assert @improvement_proposal.supported?(@user)
+end
+
 Then /^I am not supporter of the proposal$/ do
   @proposal.reload
   assert !@proposal.supported?(@user)
+end
+
+Then /^I am not supporter of the improvement proposal$/ do
+  @improvement_proposal.reload
+  assert !@improvement_proposal.supported?(@user)
 end
 
 Then /^the proposal should have "([^\"]*)" as supporters$/ do |users|

@@ -1,31 +1,3 @@
-<% content_for :tabContainer do %>
-  <%= tabnav 'static_echocracy' %>
-<% end %>
-
-<% insert_breadcrumb(echocracy_path, echocracy_path(:organisations), '.title_long') %>
-
-<%= I18n.t('static.echocracy.organisations.text_top') %>
-
-<ul class="benefitList">
-  <li>
-  	<strong><%= I18n.t('static.echocracy.organisations.adv1') %></strong>
-	<% insert_toggle_more('<ul>' + I18n.t('static.echocracy.organisations.adv1_details') + '</ul>') %>
-  </li>
-  
-  <li>
-  	<strong><%= I18n.t('static.echocracy.organisations.adv2') %></strong>
-	<% insert_toggle_more('<ul>' + I18n.t('static.echocracy.organisations.adv2_details') + '</ul>') %>
-  </li>
-  
-  <li>
-  	<strong><%= I18n.t('static.echocracy.organisations.adv3') %></strong>
-	<% insert_toggle_more('<ul>' + I18n.t('static.echocracy.organisations.adv3_details') + '</ul>') %>
-  </li>	
-  
-  <li>
-  	<strong><%= I18n.t('static.echocracy.organisations.adv4') %></strong>
-	<% insert_toggle_more('<ul>' + I18n.t('static.echocracy.organisations.adv4_details') + '</ul>') %>
-  </li>  
-</ul>
-
-<% insert_back_next_buttons(echocracy_path(:decision_makers), echonomy_path) %>
+<%= render :partial => 'user_type', :locals => {:person_type => :organisations, :desc_number => 4, 
+                                                :prev_button => echocracy_path(:decision_makers), 
+                                                :next_button => echonomy_path} %>

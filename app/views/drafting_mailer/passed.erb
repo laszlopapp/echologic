@@ -1,0 +1,10 @@
+<%= I18n.t('mailers.drafting.passed.text',
+           :name => @name,
+           :ip_title => @ip_title,
+           :p_title => @p_title,
+           :locale => @language) %>
+
+<%= I18n.t('mailers.signature') %>
+
+
+<%= I18n.t('mailers.drafting.unsubscribe', :echo_url => root_url ) %>

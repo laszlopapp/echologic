@@ -1,16 +1,7 @@
-
-<li id="<%= dom_id membership %>" >
-  <span class="column_200">
-    <%= h membership.organisation %>
-  </span>
-  <span class="column_200">
-    <%= h membership.position %>
-  </span>
-
-  <%= link_to I18n.t('application.general.edit'),
-              edit_user_membership_path(membership.user, membership),
-              :class => 'ajax text_button edit_text_button' %>
-  <%= link_to I18n.t('application.general.delete'),
-              user_membership_path(membership.user, membership),
-              :class => 'ajax_delete text_button delete_text_button' %>
-</li>
+<% content_for "membership_#{membership.id}_label".to_sym do %>
+  <%= h membership.organisation %>
+<% end %>
+<% content_for "membership_#{membership.id}_value".to_sym do %>
+  <%= h membership.position %>
+<% end %>
+<%= render :partial => 'users/components/object', :locals => {:type => 'membership', :object => membership} %>

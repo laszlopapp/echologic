@@ -4,9 +4,6 @@
 %>
 
 <li id="<%= statement_node_dom_id(statement_node) %>" class="<%=statement_node.parent.class.name.downcase%>">
-  <%= link_to h(statement_document.title),
-              url_for(statement_node),
-              :class => "ajax statement_link #{statement_node.class.name.underscore}_link #{extra_classes} ttLink no_border",
-              :title => I18n.t("discuss.tooltips.read_#{statement_node.class.name.underscore}") %>
+	<%= link_to_child(statement_document.title,statement_node,extra_classes) %>
   <%= supporter_ratio_bar(statement_node) %>
 </li>

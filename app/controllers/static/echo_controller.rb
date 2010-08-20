@@ -2,51 +2,31 @@ class Static::EchoController < ApplicationController
 
   # echo - The Project
   def show
-    respond_to do |format|
-      format.html { render :partial => 'show', :layout => 'static' }
-      format.js { render :template => 'layouts/tabContainer' }
-    end
+    render_static :partial => 'show'
   end
 
   # echo - The Project
   def echo
-    respond_to do |format|
-      format.html { render :partial => 'echo', :layout => 'static' }
-      format.js { render :template => 'layouts/tabContainer' , :locals => { :menu_item => 'echo' } }
-    end
+    render_static :partial => 'echo', :locals => {:menu_item => 'echo'}
   end
 
   # echo - Discuss
   def discuss
-    respond_to do |format|
-      format.html { render :partial => 'discuss', :layout => 'static' }
-      format.js { render :template => 'layouts/tabContainer' , :locals => { :menu_item => 'echo', :submenu_item => 'discuss' } }
-    end
+    render_static :partial => 'discuss', :locals => {:menu_item => 'echo', :submenu_item => 'discuss'}
   end
 
   # echo - Connect
   def connect
-    respond_to do |format|
-      format.html { render :partial => 'connect', :layout => 'static' }
-      format.js { render :template => 'layouts/tabContainer' , :locals => { :menu_item => 'echo', :submenu_item => 'connect' } }
-    end
+    render_static :partial => 'connect', :locals => {:menu_item => 'echo', :submenu_item => 'connect'}
   end
 
   # echo - Act
   def act
-    respond_to do |format|
-      format.html { render :partial => 'act', :layout => 'static' }
-      format.js { render :template => 'layouts/tabContainer' , :locals => { :menu_item => 'echo', :submenu_item => 'act' } }
-    end
+    render_static :partial => 'act', :locals => {:menu_item => 'echo', :submenu_item => 'act'}
   end
 
   # echo - echo on waves
   def echo_on_waves
-    respond_to do |format|
-     # format.html
-      format.html { render :partial => 'echo_on_waves', :layout => 'static' }
-      format.js { render :template => 'layouts/tabContainer' , :locals => { :menu_item => 'echo', :submenu_item => 'echo_on_waves' } }
-    end
+    render_static :partial => 'echo_on_waves', :locals => {:menu_item => 'echo', :submenu_item => 'echo_on_waves'}
   end
-
 end

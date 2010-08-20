@@ -25,6 +25,7 @@ es:
       upload: Subir
       delete: Borrar
       create: Adicionar
+      incorporate: Incorporate
       welcome: Bienvenido
       all: Todos
 
@@ -52,16 +53,6 @@ es:
          "Mi echo" será tu <strong>central particular de información</strong> en echo.
          Aquí tendrás una sinopsis de las <strong>noticias mas importantes</strong> y las <strong>discusiones y acciones mas recientes</strong>.
          </p>
-
-    mailer:
-      signature: |
-        --
-        echologic para echo - el ágora global
-        Web: www.echologic.org
-        E-Mail: team@echologic.org
-
-      feedback: Feedback
-
 
 # Localizations for the layout components
   layouts:
@@ -255,6 +246,27 @@ es:
         decision_making: <strong>Determinante</strong> en
       tags: Tópicos (tags)
 
+    # Email notifications section
+    notifications:
+      title: Configuración de notificaciones
+      guide: Aquí puedes definir las notificaciones que quieres recibir de echo.
+
+      activity:
+        title: Notificaciones diarias (activity)
+        guide: Noticias diarias sobre nuevas discusiones y novedades en tus discusiones y propuestas.
+        turned_on: Notificaciones diarias fueron activadas.
+        turned_off: Notificaciones diarias fueron desactivadas.
+
+      drafting:
+        title: Notificaciones inmediatas (drafting)
+        guide: |
+          Notificaciones inmediatas sobre el proceso de la elaboracion colectiva y el progreso de tus propuestas y
+          tus propuestas de mejoramiento - por ejemplo cuando tu propuesta de mejoramiento fue aprobada para ser incorporada.<br/>
+          <strong>Atencion!</strong> Si estas notificaciones fueran desactivadas, posiblemente pierderás la
+          oportunidad de incorporar tus propuestas de mejoramiento.
+        turned_on: Notificaciones inmediatas fueron activadas.
+        turned_off: Notificaciones inmediatas fueron desactivadas.
+
 
     # New Users section
     users:
@@ -351,6 +363,7 @@ es:
       publish: |
         Si publicas la discusión, otras personas podran participar en ella.
         (No será possible modificar la discusión.)
+      incorporate: 'Clique aquí para incorporar esta propuesta de mejoramiento a la propuesta (texto arriba).'
 
     statements:
       label: 'votos'
@@ -372,6 +385,8 @@ es:
       create_statement_language_hint: |
         Por favor escriba su idea en <strong>ESPAÑOL</strong> o escoja un otro idioma utilizando el
         babelfish en el menu arriba.
+      drafting_language_hint: |
+        Note por favor, que el proceso de la elaboración colectiva de las propuestas solamente funcionará en el idioma escojido.
       publish: Publicar
       published: Esta discusión fue publicada con éxito.
       edit: 'Editar {{type}}'
@@ -395,18 +410,34 @@ es:
         deferred_publish: 'Solamente guardar y publicar mas tarde'
         immediate_publish: 'Publicar de inmediato (no será possible modificar la discusión)'
         published: Publicado
+        approved: Approved
       delete_link: "Borrar"
       delete_confirmation: "Está seguro, que realmente quiere borrar esta propuesta?"
       read_only_permission: |-
         Esta discusión está transparente pero el accesso astá restricto - solamente puedes leer.
+      unsupported_parent: |-
+        Solamente puedes apoyar a las propuestas de mejoramiento, si tambien apoyas a la correspondiente propuesta.
+      not_approved_any_more: |-
+        Unfortunately, this improvement proposal cannot be incorporated any longer.
+      see_parent_if_approved: |-
+        The requested improvement proposal is currently approved to be incorporated into the proposal below.
+      see_parent_if_incorporated: |-
+        The requested improvement proposal has already been incorporated into the proposal below.
+      being_edited: |-
+        Esta propuesta actualmente está siendo editada. Por favor vuelva mas tarde.
+      edit_period_hint: |
+        <strong>Tienes {{minutes}} minutos</strong> para editar la propuesta.
+        Passondo este plazo, posiblemente tus modificationes serán perdidas.
+      staled_modification: 'Desculpe por favor, pero tu plazo de 60 minutos para editar la propuesta caduco. Mientras otro miembro tomó su chance y edito la propuesta. Por eso, tus modificaciones lamentablemente no puedieron ser guardadas.'
 
     summary:
       title: 'Resumen'
     messages:
-      created: "{{type}} fue publicada."
-      updated: "{{type}} fue editada."
-      deleted: "{{type}} fue borrada."
-      translated: "{{type}} fue traducida."
+      created: "La {{type}} fue publicada con éxito."
+      updated: "La {{type}} fue editada con éxito."
+      deleted: "La {{type}} fue borrada con éxito."
+      translated: "La {{type}} fue traducida con éxito."
+      incorporated: "A propuesta de mejoramiento fue incorporada a la propuesta con exito."
       empty:   "No fue encontrado ningun debate. Por favor intente buscar por otra palavra."
       empty_without_spoken_languages: |
         No fue encontrada ninguna cuestión. Intente definir tus <a href='{{my_echo}}'>lenguas conocidas</a>

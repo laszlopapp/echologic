@@ -17,76 +17,25 @@ module StatementHelper
   ########
 
   def new_child_statement_node_url(parent, type)
-    case type.downcase
-    when 'question'
-      new_question_url(parent)
-    when 'proposal'
-      new_proposal_url(parent)
-    when 'improvement_proposal'
-      new_improvement_proposal_url(parent)
-    when 'pro_argument'
-      new_pro_argument_proposal_url(parent)
-    else
-      raise ArgumentError.new("Unhandled type: #{type.downcase}")
-    end
+    send("new_#{type.downcase}_url",parent)
   end
 
   def edit_statement_node_path(statement_node)
-    case statement_node_class_dom_id(statement_node).downcase
-    when 'question'
-      edit_question_path(statement_node)
-    when 'proposal'
-      edit_proposal_path(statement_node)
-    when 'improvement_proposal'
-      edit_improvement_proposal_path(statement_node)
-    else
-      raise ArgumentError.new("Unhandled type: #{statement_node_dom_id(statement_node).downcase}")
-    end
+    send("edit_#{statement_node_class_dom_id(statement_node).downcase}_url",statement_node)
   end
 
   def new_translation_url (parent, type)
-    case type.downcase
-    when 'question'
-      new_translation_question_url(parent)
-    when 'proposal'
-      new_translation_proposal_url(parent)
-    when 'improvement_proposal'
-      new_translation_improvement_proposal_url(parent)
-    when 'pro_argument'
-      new_translation_pro_argument_proposal_url(parent)
-    else
-      raise ArgumentError.new("Unhandled type: #{type.downcase}")
-    end
+    send("new_translation_#{type.downcase}_url",parent)
   end
 
   def create_translation_url (parent, type)
-    case type.downcase
-    when 'question'
-      create_translation_question_url(parent)
-    when 'proposal'
-      create_translation_proposal_url(parent)
-    when 'improvement_proposal'
-      create_translation_improvement_proposal_url(parent)
-    when 'pro_argument'
-      create_translation_pro_argument_proposal_url(parent)
-    else
-      raise ArgumentError.new("Unhandled type: #{type.downcase}")
-    end
+    send("create_translation_#{type.downcase}_url",parent)
   end
 
   # returns the path to a statement_node, according to its type
   def statement_node_path(statement_node)
     statement_node = StatementNode.find(statement_node) if statement_node.kind_of?(Integer)
-    case statement_node_class_dom_id(statement_node).downcase
-    when 'question'
-      question_url(statement_node)
-    when 'proposal'
-      proposal_url(statement_node)
-    when 'improvement_proposal'
-      improvement_proposal_url(statement_node)
-    else
-      raise ArgumentError.new("Unhandled type: #{statement_node_dom_id(statement_node).downcase}")
-    end
+    send("#{statement_node_class_dom_id(statement_node).downcase}_url", statement_node)
   end
 
   ## Proposal
@@ -125,8 +74,10 @@ module StatementHelper
 
   ## ImprovementProposal
 
-  def improvement_proposal_url(proposal)
-    question_proposal_improvement_proposal_url(proposal.root, proposal.parent, proposal)
+  def improvement_proposal_url(improvement_proposal)
+    question_proposal_improvement_proposal_url(improvement_proposal.root,
+                                               improvement_proposal.parent,
+                                               improvement_proposal)
   end
 
   def new_improvement_proposal_url(parent)
@@ -135,28 +86,40 @@ module StatementHelper
     new_question_proposal_improvement_proposal_url(parent.parent, parent)
   end
 
-  def edit_improvement_proposal_url(proposal)
-    edit_question_proposal_improvement_proposal_url(proposal.root, proposal.parent, proposal)
+  def edit_improvement_proposal_url(improvement_proposal)
+    edit_question_proposal_improvement_proposal_url(improvement_proposal.root,
+                                                    improvement_proposal.parent,
+                                                    improvement_proposal)
   end
 
-  def edit_improvement_proposal_path(proposal)
-    edit_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
+  def edit_improvement_proposal_path(improvement_proposal)
+    edit_question_proposal_improvement_proposal_path(improvement_proposal.root,
+                                                     improvement_proposal.parent,
+                                                     improvement_proposal)
   end
 
-  def new_translation_improvement_proposal_url(proposal)
-    new_translation_question_proposal_improvement_proposal_url(proposal.root, proposal.parent, proposal)
+  def new_translation_improvement_proposal_url(improvement_proposal)
+    new_translation_question_proposal_improvement_proposal_url(improvement_proposal.root,
+                                                               improvement_proposal.parent,
+                                                               improvement_proposal)
   end
 
-  def new_translation_improvement_proposal_path(proposal)
-    new_translation_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
+  def new_translation_improvement_proposal_path(improvement_proposal)
+    new_translation_question_proposal_improvement_proposal_path(improvement_proposal.root,
+                                                                improvement_proposal.parent,
+                                                                improvement_proposal)
   end
 
-  def create_translation_improvement_proposal_url(proposal)
-    create_translation_question_proposal_improvement_proposal_url(proposal.root, proposal.parent, proposal)
+  def create_translation_improvement_proposal_url(improvement_proposal)
+    create_translation_question_proposal_improvement_proposal_url(improvement_proposal.root,
+                                                                  improvement_proposal.parent,
+                                                                  improvement_proposal)
   end
 
-  def create_translation_improvement_proposal_path(proposal)
-    create_translation_question_proposal_improvement_proposal_path(proposal.root, proposal.parent, proposal)
+  def create_translation_improvement_proposal_path(improvement_proposal)
+    create_translation_question_proposal_improvement_proposal_path(improvement_proposal.root,
+                                                                   improvement_proposal.parent,
+                                                                   improvement_proposal)
   end
 
 
@@ -204,32 +167,20 @@ module StatementHelper
   end
 
   def create_question_link_for(category=nil)
-    link_to(hash_for_new_question_path.merge({:category => category})) do
+    link_to(hash_for_new_question_path.merge({:category => category}),
+            :id => 'create_question_link') do
       content_tag(:span, '',
                   :class => "new_question create_statement_button_mid create_question_button_mid ttLink no_border",
                   :title => I18n.t("discuss.tooltips.create_question"))
-
     end
   end
 
-  def edit_statement_node_link(statement_node, statement_document)
+  def edit_statement_node_link(statement_node)
     if current_user and
        (current_user.may_edit? or
-       (statement_document.author == current_user and !statement_node.published?))
+       (statement_node.authors.include?(current_user) and !statement_node.published?))
       link_to(I18n.t('application.general.edit'), edit_statement_node_path(statement_node),
               :class => 'ajax header_button text_button edit_text_button')
-    end
-  end
-
-  def publish_statement_node_link(statement_node, statement_document)
-    if current_user and
-       statement_document.author == current_user and !statement_node.published?
-      link_to(I18n.t('discuss.statements.publish'),
-              { :controller => :questions,
-                :action => :publish,
-                :in => :summary },
-              :class => 'ajax_put header_button text_button publish_text_button ttLink',
-              :title => I18n.t('discuss.tooltips.publish'))
     end
   end
 
@@ -245,9 +196,9 @@ module StatementHelper
     I18n.t("discuss.statements.new.#{type}")
   end
 
-  def cancel_new_statement_node(statement_node)
+  def cancel_new_statement_node(statement_node,cancel_js=false)
     type = statement_node_class_dom_id(statement_node).downcase
-      if type == 'question'
+      if type == 'question' and !cancel_js
         link_to I18n.t('application.general.cancel'),
                 :back,
                 :class => 'text_button bold_cancel_text_button'
@@ -258,6 +209,15 @@ module StatementHelper
                 :class => 'ajax text_button bold_cancel_text_button'
 
       end
+  end
+
+  def cancel_edit_statement_node(statement_node, locked_at)
+    type = statement_node_class_dom_id(statement_node).downcase.pluralize
+    link_to I18n.t('application.general.cancel'),
+            { :controller => type,
+              :action => :cancel,
+              :locked_at => locked_at.to_s },
+           :class => "text_button bold_cancel_text_button ajax"
   end
 
 
@@ -294,10 +254,19 @@ module StatementHelper
     end
   end
 
+  # Renders the button for echo and unecho.
+  def render_echo_button(url_options, echo = true)
+    title = I18n.t("discuss.tooltips.#{echo ? '' : 'un'}echo")
+    link_to(url_for(url_options.merge({:action => (echo ? :echo : :unecho)})),
+                    :class => "ajax_put",
+                    :id => 'echo_button') do
+      "<span class='#{echo ? 'not_' : '' }supported ttLink no_border' title='#{title}'></span>"
+    end
+  end
 
   # Returns the context menu link for this statement_node.
   def statement_node_context_link(statement_node, language_ids, action = 'read', last_statement_node = false)
-    return if (statement_document = statement_node.translated_document(language_ids)).nil?
+    return if (statement_document = statement_node.document_in_preferred_language(language_ids)).nil?
     link = link_to(h(statement_document.title),
                    url_for(statement_node),
                    :class => "ajax no_border statement_link #{statement_node.class.name.underscore}_link ttLink",
@@ -315,6 +284,7 @@ module StatementHelper
   def echo_label(context=nil)
     val = "<span class='echo_label'>#{I18n.t('discuss.statements.label')}</span>"
   end
+
 
   ##############
   # Navigation #
@@ -364,6 +334,7 @@ module StatementHelper
     return link_to(title, url_for(stmt), options)
   end
 
+
   ##################
   # DOM-ID Helpers #
   ##################
@@ -382,6 +353,22 @@ module StatementHelper
   # consisting out of the statement_node class dom identifier, and the statement_nodes id
   def statement_node_dom_id(statement_node)
     "#{statement_node_class_dom_id(statement_node)}_#{statement_node.id}"
+  end
+
+  def link_to_child(title,statement_node,extra_classes)
+    link_to h(title),
+            url_for(statement_node),
+            :class => "ajax statement_link #{statement_node.class.name.underscore}_link #{extra_classes} ttLink no_border",
+            :title => I18n.t("discuss.tooltips.read_#{statement_node.class.name.underscore}")
+  end
+
+  def translation_upper_box(language_from, language_to)
+    val = "#{image_tag 'page/translation/babelfish_left.png', :class => 'fish_left'}"
+    val << %(<span class="language_label from_language"> #{language_from} </span>)
+    val << "#{image_tag 'page/translation/translation_arrow.png',:class => 'arrow'}"
+    val << "#{image_tag 'page/translation/babelfish_right.png', :class => 'fish_right'}"
+    val << %(<span class="language_label to_language">#{language_to}</span>)
+    val
   end
 
 end

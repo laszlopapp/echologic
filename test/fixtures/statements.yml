@@ -1,5 +1,7 @@
 test-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+test-question-2-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
 original-language-question-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
 second-question-statement:
@@ -9,6 +11,8 @@ third-question-statement:
 with-german-children-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
 non-published-question-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+user-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
 first-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
@@ -32,7 +36,17 @@ not-published-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
 german-child-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
+english-child-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
 first-impro-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+second-impro-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+third-impro-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+fourth-impro-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+fifth-impro-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
 german-impro-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>

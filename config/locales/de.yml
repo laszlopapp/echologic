@@ -25,6 +25,7 @@ de:
       upload: Hochladen
       delete: Löschen
       create: Hinzufügen
+      incorporate: Incorporate
       welcome: Willkommen
       all: Alle
 
@@ -53,16 +54,6 @@ de:
          Hier erhalten Sie einen Überblick über die <strong>wichtigsten Nachrichten</strong> und Sie werden über die <strong>neuesten
          Diskussionen und Aktionen</strong> auf dem Laufenden gehalten.
          </p>
-
-    mailer:
-      signature: |
-        --
-        echologic für echo - die globale Agora
-        Web: www.echologic.org
-        E-Mail: team@echologic.org
-
-      feedback: Feedback
-
 
 # Localizations for the layout components
   layouts:
@@ -244,6 +235,27 @@ de:
         decision_making: <strong>EntscheidungsträgerIn</strong> im Bereich
       tags: Schlagworte (Tags)
 
+    # Email notifications section
+    notifications:
+      title: E-Mail Benachrichtigungen
+      guide: Hier können Sie einstellen, welche Benachrichtigungen Sie per E-Mail bekommen möchten.
+
+      activity:
+        title: Neue Diskussionsbeiträge
+        guide: Tägliche Benachrichtigungen über neue Diskussionen und Neuigkeiten in Ihren Diskussionen und Vorschlägen.
+        turned_on: Benachrichtigungen zu neuen Diskussionsbeiträgen wurden eingeschaltet.
+        turned_off: Benachrichtigungen zu neuen Diskussionsbeiträgen wurden ausgeschaltet.
+
+      drafting:
+        title: Gemeinsame Textentwicklung
+        guide: |
+          Sofortige Benachrichtigungen zum Verlauf der gemeinsamen Textenwicklung Ihrer Vorschläge und
+          Verbesserungsvorschläge - z.B. wenn Sie Ihren Verbesserungsvorschlag einarbeiten dürfen.<br/>
+          <strong>Achtung!</strong> Wenn Sie diese Benachrichtigungen ausschalten, können Sie leicht Ihre
+          Gelegenheit verpassen, Ihre Verbesserungsvorschläge einzuarbeiten.
+        turned_on: Benachrichtigungen zur gemeinsamen Textenwicklung wurden eingeschaltet.
+        turned_off: Benachrichtigungen zur gemeinsamen Textenwicklung wurden ausgeschaltet.
+
 
     # New Users section
     users:
@@ -345,6 +357,7 @@ de:
       publish: |
         Geben Sie die Diskussion frei, um sie für alle sichtbar zu machen.
         (Danach ist keine Bearbeitung mehr möglich.)
+      incorporate: 'Klicken Sie hier, um diesen ausgewählten Ergänzungsvorschlag in den obigen Text einzuarbeiten.'
 
     statements:
       label: 'Stimmen'
@@ -364,6 +377,9 @@ de:
       create_statement_language_hint: |
         Bitte schreiben Sie Ihre Idee auf <strong>DEUTSCH</strong> oder wählen Sie über
         den Babelfish im oberen Menü eine andere Sprache aus.
+      drafting_language_hint: |
+        Bitte beachten Sie, dass die gemeinsame Textentwicklung zur Weiterentwicklung dieses Vorschlags nur in
+        dieser Sprache ablaufen wird.
       publish: Freigeben
       published: Die Diskussion wurde erfolgreich freigegeben.
       edit: '{{type}} bearbeiten'
@@ -387,10 +403,25 @@ de:
         deferred_publish: 'Erstmal weiter vorbereiten und später veröffentlichen'
         immediate_publish: 'Sofort veröffentlichen (danach ist keine Bearbeitung mehr möglich)'
         published: Freigegeben
+        approved: Approved
       delete_link: 'Löschen'
       delete_confirmation: 'Bist du sicher, dass du diese Aussage löschen willst?'
       read_only_permission: |-
         Diese ist eine transparente aber geschlossene Diskussion, die Sie nur mitlesen dürfen.
+      unsupported_parent: |-
+        You can only support improvement proposals if you support the proposal itself.
+      not_approved_any_more: |-
+        Unfortunately, this improvement proposal cannot be incorporated any longer.
+      see_parent_if_approved: |-
+        The requested improvement proposal is currently approved to be incorporated into the proposal below.
+      see_parent_if_incorporated: |-
+        The requested improvement proposal has already been incorporated into the proposal below.
+      being_edited: |-
+        Dieser Vorschlag wird gerade bearbeitet. Bitte versuchen Sie es später noch einmal.
+      edit_period_hint: |
+        You have <strong>{{minutes}} minutes</strong> to edit the statement.
+        Afterwards, your modifications might even get discarded.
+      staled_modification: 'Es tut uns sehr leid, aber Ihre Bearbeitungszeit von max. 60 Minuten ist abgelaufen. Mittlerweile hat ein anderer Nutzer den Vorschlag bearbeitet. Ihre Änderungen mussten daher leider verworfen werden.'
 
     summary:
       title: 'Zusammenfassung'
@@ -399,6 +430,7 @@ de:
       updated: "{{type}} wurde erfolgreich bearbeitet."
       deleted: "{{type}} wurde erfolgreich gelöscht."
       translated: "{{type}} wurde erfolgreich übersetzt."
+      incorporated: "Der Verbesserungsvorschlag wurde erfolgreich in den Vorschlag übernommen."
       empty: "Es wurden keine Diskussionen gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
       empty_without_spoken_languages: |
         Keine Diskussion gefunden. Versuchen Sie Ihre <a href='{{my_echo}}'>Sprachkenntnisse</a> einzustellen,

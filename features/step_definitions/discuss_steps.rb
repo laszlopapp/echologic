@@ -41,10 +41,10 @@ end
 
 When /^I choose the "([^\"]*)" Proposal$/ do |name|
   response.should have_selector("li.question") do |selector|
-    selector.each do |question|
-      if name.eql?(question.at_css("a.proposal_link").inner_text.strip)
-        @question = Proposal.find(URI.parse(question.at_css("a")['href']).path.match(/\/proposals\/\d+/)[0].split('/')[2].to_i)
-        visit question.at_css("a")['href']
+    selector.each do |proposal|
+      if name.eql?(proposal.at_css("a.proposal_link").inner_text.strip)
+        @proposal = Proposal.find(URI.parse(proposal.at_css("a")['href']).path.match(/\/proposals\/\d+/)[0].split('/')[2].to_i)
+        visit proposal.at_css("a")['href']
       end
     end
   end
@@ -52,10 +52,10 @@ end
 
 When /^I choose the "([^\"]*)" Improvement Proposal$/ do |name|
   response.should have_selector("li.proposal") do |selector|
-    selector.each do |question|
-      if name.eql?(question.at_css("a.improvement_proposal_link").inner_text.strip)
-        @question = ImprovementProposal.find(URI.parse(question.at_css("a")['href']).path.match(/\/improvement_proposals\/\d+/)[0].split('/')[2].to_i)
-        visit question.at_css("a")['href']
+    selector.each do |improvement_proposal|
+      if name.eql?(improvement_proposal.at_css("a.improvement_proposal_link").inner_text.strip)
+        @improvement_proposal = ImprovementProposal.find(URI.parse(improvement_proposal.at_css("a")['href']).path.match(/\/improvement_proposals\/\d+/)[0].split('/')[2].to_i)
+        visit improvement_proposal.at_css("a")['href']
       end
     end
   end
@@ -75,6 +75,15 @@ end
 
 Given /^there is a question "([^\"]*)"$/ do |id| # not in use right now
   @question = Question.find(id)
+end
+
+Given /^there is a question i have created$/ do # not in use right now
+   @question = Question.find_by_creator_id(@user.id)
+end
+
+Given /^the question was not published yet$/ do
+  @question.editorial_state = StatementNode.statement_states("new")
+  @question.save
 end
 
 Given /^the question has proposals$/ do
@@ -134,12 +143,14 @@ end
 
 Given /^a "([^\"]*)" question in "([^\"]*)"$/ do |state, category|
   state = StatementNode.statement_states(state)
-  @question = Question.new(:state => state, :creator => @user)
+  @question = Question.new(:editorial_state => state, :creator => @user)
   @question.add_statement_document!({:title => "Am I a new statement?",
                                      :text => "I wonder what i really am! Maybe a statement? Or even a question?",
                                      :author => @user,
-                                     :language_id => @user.spoken_language_ids.first,
-                                     :original_language_id => @user.spoken_language_ids.first})
+                                     :current => 1,
+                                     :language_id => @user.sorted_spoken_language_ids.first,
+                                     :action_id => StatementHistory.statement_actions("created").id,
+                                     :original_language_id => @user.sorted_spoken_language_ids.first})
   @question.topic_tags << category
   @question.save!
 end
@@ -150,7 +161,7 @@ Then /^the question should be published$/ do
 end
 
 Then /^I should see the questions title$/ do
-  Then 'I should see "'+@question.translated_document([StatementDocument.languages("en").id, StatementDocument.languages("de").id]).title+'"'
+  Then 'I should see "'+@question.document_in_preferred_language([StatementDocument.languages("en").id, StatementDocument.languages("de").id]).title+'"'
 end
 
 Given /^there is a proposal I have created$/ do
@@ -158,11 +169,11 @@ Given /^there is a proposal I have created$/ do
 end
 
 Given /^there is a proposal$/ do
-  @proposal = Question.find_all_by_state_id(StatementNode.statement_states('published').id).last.children.proposals.first
+  @proposal = Question.find_all_by_editorial_state_id(StatementNode.statement_states('published').id).last.children.proposals.first
 end
 
 Given /^the proposal was not published yet$/ do
-  @proposal.state = StatementNode.statement_states("new")
+  @proposal.editorial_state = StatementNode.statement_states("new")
   @proposal.save
 end
 
@@ -177,8 +188,8 @@ end
 
 
 Then /^I should see the proposals data$/ do
-  Then 'I should see "'+@proposal.translated_document([StatementDocument.languages("en").id,StatementDocument.languages("de").id]).title+'"'
-  Then 'I should see "'+@proposal.translated_document([StatementDocument.languages("en").id,StatementDocument.languages("de").id]).text+'"'
+  Then 'I should see "'+@proposal.document_in_preferred_language([StatementDocument.languages("en").id,StatementDocument.languages("de").id]).title+'"'
+  Then 'I should see "'+@proposal.document_in_preferred_language([StatementDocument.languages("en").id,StatementDocument.languages("de").id]).text+'"'
 end
 
 Then /^I should see no proposals$/ do

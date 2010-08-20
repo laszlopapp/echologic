@@ -1,13 +1,8 @@
-<li>
-  <% form_tag user_memberships_path(@user), :method => :post, :id => dom_class(Membership, :new) do -%>
-    <%= text_field :membership, :organisation, :value => '' %>
-    <%= text_field :membership, :position, :value => '' %>
-    <%= submit_tag I18n.t('application.general.create'),
-                   :class => 'text_button add_text_button',
-                   :alt => 'create_button' %>
-  <% end %>
-</li>
-
-<script type="text/javascript">
-  $("#<%= dom_class(Membership, :new) %>").ajaxForm({ dataType: 'script', resetForm: true });
-</script>
+<% content_for :membership do %>
+  <%= text_field :membership, :organisation, :value => '' %>
+  <%= text_field :membership, :position, :value => '' %>
+  <%= submit_tag I18n.t('application.general.create'),
+                 :class => 'text_button add_text_button',
+                 :alt => 'create_button' %>
+<% end %>
+<%= render :partial => 'users/components/new', :locals => {:type => 'membership', :objectClass => Membership} %>

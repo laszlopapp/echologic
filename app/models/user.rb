@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   include UserExtension::Echo
-  acts_as_subscriber
+  #acts_as_subscriber
   acts_as_extaggable :affections, :engagements, :expertises, :decision_makings
 
   has_many :web_addresses, :dependent => :destroy
@@ -82,29 +82,24 @@ class User < ActiveRecord::Base
   # Uses mailer to deliver activation instructions
   def deliver_activation_instructions!
     reset_perishable_token!
-    Mailer.deliver_activation_instructions(self)
+    mail = RegistrationMailer.create_activation_instructions(self)
+    RegistrationMailer.deliver(mail)
   end
 
   # Uses mailer to deliver activation confirmation
   def deliver_activation_confirmation!
     reset_perishable_token!
-    Mailer.deliver_activation_confirmation(self)
+    mail = RegistrationMailer.create_activation_confirmation(self)
+    RegistrationMailer.deliver(mail)
   end
 
   # Send a password reset email through mailer
   def deliver_password_reset_instructions!
     reset_perishable_token!
-    Mailer.deliver_password_reset_instructions(self)
+    mail = RegistrationMailer.create_password_reset_instructions(self)
+    RegistrationMailer.deliver(mail)
   end
 
-  #Send an activity tracking email through mailer
-  def deliver_activity_tracking_email!(question_events, question_tags, events)
-    reset_perishable_token!
-    Mailer.deliver_activity_tracking_email(self,question_events, question_tags, events)
-  end
-
-
-  handle_asynchronously :deliver_activity_tracking_email!
 
   ##
   ## PERMISSIONS
@@ -154,23 +149,48 @@ class User < ActiveRecord::Base
   ## SPOKEN LANGUAGES
   ##
 
-  # returns an array with the actual language_ids of the users spoken languages (used to find the right translations)
-  def spoken_language_ids
-    a = []
-    SpokenLanguage.language_levels.each do |level|
-      a << self.spoken_languages.select{|sp| sp.level.eql?(level)}
-    end
-    a.flatten.map(&:language_id)
+  #
+  # Returns the default language to be used for the user (degrade chain: mother_tounge -> last_login_language -> EN).
+  #
+  def default_language
+    mother_tongues = self.mother_tongues
+    lang = !mother_tongues.empty? ? mother_tongues.first : self.last_login_language
+    lang ? lang : EnumKey.find_by_code("en")
   end
 
+  #
+  # Returns an array with the language_ids of the users spoken languages in order of language levels
+  # (from mother tongue to basic).
+  #
+  def sorted_spoken_language_ids
+    self.spoken_languages.sort{|sl1, sl2| sl1.level.key <=> sl2.level.key}.map(&:language_id)
+  end
+
+  #
   # Returns an array with the user's mother tongues.
+  #
   def mother_tongues
     self.spoken_languages.select{|sp| sp.level.code == 'mother_tongue'}.collect{|sp| sp.language}
   end
 
-  def default_language
-    mother_tongues = self.mother_tongues
-    lang = !mother_tongues.empty? ? mother_tongues.first : self.last_login_language
-    lang ? lang : User.languages("en")
+  #
+  # Returns the languages the user speaks at least at the given level.
+  #
+  def speaks_language?(language, min_level = nil)
+    spoken_languages_at_min_level(min_level).include?(language)
   end
+
+  #
+  # Returns the languages the user speaks at least at the given level.
+  #
+  def spoken_languages_at_min_level(min_level = nil)
+    languages = self.spoken_languages
+    if min_level
+      level = SpokenLanguage.language_levels(min_level)
+      languages.select{|sp| sp.level.key <= level.key}.collect{|sp| sp.language}
+    else
+      languages.collect{|l| l.language}
+    end
+  end
+
 end

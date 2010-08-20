@@ -1,8 +1,5 @@
 class QuestionsController < StatementsController
 
-
-
-
   # action: my discussions page
   def my_discussions
     @page     = params[:page]  || 1
@@ -10,10 +7,7 @@ class QuestionsController < StatementsController
                                                                               :per_page => 5)
     @statement_documents = search_statement_documents(@statement_nodes.map{|s|s.statement_id},
                                                       @language_preference_list)
-    respond_to do |format|
-      format.html {render :template => 'statements/questions/my_discussions'}
-      format.js {render :template => 'statements/questions/discussions'}
-    end
+    respond_to_js :template => 'statements/questions/my_discussions', :template_js => 'statements/questions/discussions'
   end
 
 

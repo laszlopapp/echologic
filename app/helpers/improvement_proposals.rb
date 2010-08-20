@@ -1,0 +1,7 @@
+module ImprovementProposalsHelper
+  
+  
+  
+  
+  
+end

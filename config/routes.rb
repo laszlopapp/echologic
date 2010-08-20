@@ -104,12 +104,12 @@ ActionController::Routing::Routes.draw do |map|
 
   # SECTION discuss - discussion tree
   map.resources :questions,
-                :member => [:new_translation, :create_translation, :publish],
+                :member => [:new_translation, :create_translation, :publish, :cancel],
                 :as => 'discuss/questions' do |question|
     question.resources :proposals,
-                       :member => [:echo, :unecho, :new_translation, :create_translation] do |proposal|
+                       :member => [:echo, :unecho, :new_translation, :create_translation, :incorporate, :cancel] do |proposal|
       proposal.resources :improvement_proposals,
-                         :member => [:echo, :unecho, :new_translation, :create_translation] do |improvement_proposal|
+                         :member => [:echo, :unecho, :new_translation, :create_translation, :cancel] do |improvement_proposal|
       end
     end
   end

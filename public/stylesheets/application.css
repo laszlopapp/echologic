@@ -105,6 +105,23 @@
   cursor: default;
 }
 
+.header_block li.switch_block {
+  margin: 20px 0;
+}
+
+.header_block li .switch_title {
+  color: #7bb031;
+  font-size: 15px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.header_block li .switch_guide {
+  display: block;
+  margin-left: 35px;
+  width: 750px
+}
+
 .add_new_button {
   vertical-align: top;
 }
