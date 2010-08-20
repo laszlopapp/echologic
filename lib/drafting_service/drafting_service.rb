@@ -97,17 +97,21 @@ class DraftingService
   #
   def update_incorporable_states(incorporables, changed_incorporable, old_supporter_count)
     # Get array order with id and supporter count
-    old_order = incorporables.map{|s|[s.id, s.supporter_count.to_i]}
+    old_order = incorporables.map{|inc| [inc.id, inc.supporter_count.to_i, inc.created_at.to_i]}
 
     # Set the old supporter count on the changed incorporable
     old_order[incorporables.index(changed_incorporable)][1] = old_supporter_count
 
     # Sort the array, thus getting the ordered array before the support/unsupport action
-    old_order.sort!{|a, b| b[1] <=> a[1]}
-    old_order.map!{|s|s[0]}
-    incorporables.each_with_index do |incorporable, index|
-      if index != old_order.index(incorporable.id) or incorporable.eql?(changed_incorporable)
-        adjust_readiness(incorporable, index > old_order.index(incorporable.id), incorporable == changed_incorporable)
+    old_order.sort! do |a, b|
+      position_diff = b[1] <=> a[1] # Desc by position
+      position_diff != 0 ? position_diff : a[2] <=> b[2] # Asc by created_at
+    end
+    old_order.map!{|i| i[0]}
+    incorporables.each_with_index do |inc, new_position|
+      old_position = old_order.index(inc.id)
+      if new_position > old_position or inc == changed_incorporable
+        adjust_readiness(inc, new_position > old_position, inc == changed_incorporable)
       end
     end
   end

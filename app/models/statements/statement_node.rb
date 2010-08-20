@@ -179,21 +179,21 @@ class StatementNode < ActiveRecord::Base
 
   # Collects a filtered list of all children statements
   def children_statements(language_ids = nil)
-    return children_statements_for_parent(self.id, language_ids)
+    return children_statements_for_parent(self.id, language_ids, self.draftable?)
   end
 
   # Collects a filtered list of all siblings statements
   def sibling_statements(language_ids = nil)
-    return parent_id.nil? ? [] : children_statements_for_parent(self.parent_id, language_ids)
+    return parent_id.nil? ? [] : children_statements_for_parent(self.parent_id, language_ids, self.incorporable?)
   end
 
 
   private
 
-  def children_statements_for_parent(parent_id, language_ids = nil)
+  def children_statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false)
     conditions = {:conditions => "parent_id = #{parent_id}"}
     conditions.merge!({:language_ids => language_ids}) if language_ids
-    conditions.merge!({:drafting_states => %w(tracked ready staged)}) if self.draftable?
+    conditions.merge!({:drafting_states => %w(tracked ready staged)}) if filter_drafting_state
     children = self.class.search_statement_nodes(conditions)
     children
   end
