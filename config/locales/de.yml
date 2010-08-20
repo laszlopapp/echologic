@@ -411,16 +411,16 @@ de:
       unsupported_parent: |-
         You can only support improvement proposals if you support the proposal itself.
       not_approved_any_more: |-
-        Unfortunately, this improvement proposal cannot be incorporated any longer.
+        Dieser Verbesserungsvorschlag kann leider nicht mehr eingearbeitet werden.
       see_parent_if_approved: |-
-        The requested improvement proposal is currently approved to be incorporated into the proposal below.
+        Dieser Verbesserungsvoschlag wurde zur Einarbeitung in den untern stehenden Vorschlag angenommen.
       see_parent_if_incorporated: |-
-        The requested improvement proposal has already been incorporated into the proposal below.
+        Dieser Verbeserungsvorschlag wurde bereits eingearbeitet.
       being_edited: |-
         Dieser Vorschlag wird gerade bearbeitet. Bitte versuchen Sie es später noch einmal.
       edit_period_hint: |
-        You have <strong>{{minutes}} minutes</strong> to edit the statement.
-        Afterwards, your modifications might even get discarded.
+        Sie haben {{minutes}} Minuten, um den Vorschlag zu bearbeiten.
+        Nach Ablauf können Ihre Änderungen eventuell nicht mehr berücksichtigt werden. 
       staled_modification: 'Es tut uns sehr leid, aber Ihre Bearbeitungszeit von max. 60 Minuten ist abgelaufen. Mittlerweile hat ein anderer Nutzer den Vorschlag bearbeitet. Ihre Änderungen mussten daher leider verworfen werden.'
 
     summary:

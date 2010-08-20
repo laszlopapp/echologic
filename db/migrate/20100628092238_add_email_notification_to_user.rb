@@ -1,6 +1,6 @@
 class AddEmailNotificationToUser < ActiveRecord::Migration
   def self.up
-    add_column :users, :email_notification, :integer
+    add_column :users, :email_notification, :integer, :default => 0
     User.all.each do |user|
       user.email_notification = 0
       user.save

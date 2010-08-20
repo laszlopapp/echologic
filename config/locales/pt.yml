@@ -403,11 +403,11 @@ pt:
       unsupported_parent: |-
         Somente podes apoiar a propostas de melhoria, se também apoiaste à proposta correspondente.
       not_approved_any_more: |-
-        Unfortunately, this improvement proposal cannot be incorporated any longer.
+        Desafortunadamente esta proposta não pode ser incorporada mais.
       see_parent_if_approved: |-
-        The requested improvement proposal is currently approved to be incorporated into the proposal below.
+        Esta proposta de melhoria esta foi aprovada para ser incorporada na proposta em baixo.
       see_parent_if_incorporated: |-
-        The requested improvement proposal has already been incorporated into the proposal below.
+        Esta proposta de melhoria ja foi incorporada. 
       being_edited: |-
         Esta proposta atualmente está sendo editada. Volte mais tarde por favor.
       edit_period_hint: |
