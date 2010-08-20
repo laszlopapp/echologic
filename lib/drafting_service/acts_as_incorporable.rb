@@ -42,6 +42,7 @@ module ActiveRecord
 
             event :readify do
               transitions :from => :tracked, :to => :ready
+              transitions :from => :ready, :to => :ready
               transitions :from => :staged, :to => :ready
             end
             event :stage do
