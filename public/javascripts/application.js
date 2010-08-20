@@ -154,8 +154,7 @@ function loadRTEEditor(iframe_css_class, host) {
 }
 
 /* select approved text in the form */
-function selectApprovedText(id) {
-
+/*function selectApprovedText(id) {
   if (document.selection) document.selection.empty();
   else if (window.getSelection)
           window.getSelection().removeAllRanges();
@@ -169,8 +168,7 @@ function selectApprovedText(id) {
 	  range.selectNode(document.getElementById("ip_text"));
 	  window.getSelection().addRange(range);
   }
-
-}
+}*/
 
 
 /* creates a statement tag button */
