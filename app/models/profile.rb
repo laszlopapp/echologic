@@ -4,7 +4,7 @@ class Profile < ActiveRecord::Base
   COMPLETENESS_THRESHOLD = 0.42
 
   # Every profile has to belong to a user.
-  belongs_to :user,       :dependent => :destroy
+  belongs_to :user
   has_many :web_addresses, :through => :user
   has_many :memberships,  :through => :user
   has_many :spoken_languages, :through => :user
@@ -15,7 +15,7 @@ class Profile < ActiveRecord::Base
   validates_presence_of :user_id
   validates_length_of :about_me, :maximum => 1024, :allow_nil => true
   validates_length_of :motivation, :maximum => 1024, :allow_nil => true
- 
+
   # To calculate profile completeness
   include ProfileExtension::Completeness
 
