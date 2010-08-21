@@ -223,14 +223,13 @@ class DraftingService
 
         # First round
         if incorporable.times_passed == 1
-          DraftingService.instance.send_passed_mail(incorporable)
-          DraftingService.instance.stage(incorporable)
+          send_passed_mail(incorporable)
+          stage(incorporable)
 
         # Second round
         elsif incorporable.times_passed == 2
-          DraftingService.instance.send_supporters_passed_mail(incorporable)
-          DraftingService.instance.reset(incorporable)
-          DraftingService.instance.select_approved(incorporable)
+          send_supporters_passed_mail(incorporable)
+          reset(incorporable)
         end
       end
     rescue StandardError => error
@@ -243,11 +242,13 @@ class DraftingService
   # Removes all echos and sends the statement back to tracked state.
   #
   def reset(incorporable)
-    withdraw_echos(incorporable)
+    #withdraw_echos(incorporable)
     incorporable.times_passed = 0
     incorporable.drafting_info.save
     incorporable.reload
-    set_track(incorporable)
+    stage(incorporable) # Temporary fix !!!! - will be removed soon
+    #set_track(incorporable)
+    #select_approved(incorporable)
   end
 
 
