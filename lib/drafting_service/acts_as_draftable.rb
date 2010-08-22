@@ -42,8 +42,18 @@ module ActiveRecord
               true
             end
 
+            #
+            # The drafting language is currently the original language of the draftable.
+            #
             def drafting_language
               original_language
+            end
+
+            #
+            # Returns the current document in the drafting language.
+            #
+            def document_in_drafting_language
+              document_in_language(drafting_language)
             end
 
             def check_incorporated

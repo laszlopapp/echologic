@@ -160,7 +160,7 @@ en:
 
           In case your improvement proposal will be selected for the second time, all supporters of your winner idea will also get the opportunity to incorporate it into the proposal.
 
-          *Looking forward to your further contributions*. :-)
+          Looking forward to your further contributions. :-)
 
           Best regards,
 
@@ -177,11 +177,11 @@ en:
 
           As said, all votes for the improvement proposal will now be withdrawn making the echos for this favourite idea fade out.
 
-          In case you would like to support the improvement proposal and make an echo again, please follow the link:
+          In case you would like to *support the improvement proposal* and make an echo again, please follow the link:
 
           {{ip_link}}
 
-          *Looking forward to your further contributions*. :-)
+          Looking forward to your further contributions. :-)
 
           Best regards,
 
@@ -192,7 +192,7 @@ en:
         text: |-
           Dear {{name}},
 
-          Thank you for incorporating your winner idea
+          Thank you for incorporating the winner idea
 
           "*{{ip_title}}*"
 

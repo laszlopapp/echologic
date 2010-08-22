@@ -242,13 +242,13 @@ class DraftingService
   # Removes all echos and sends the statement back to tracked state.
   #
   def reset(incorporable)
-    #withdraw_echos(incorporable)
+    withdraw_echos(incorporable)
     incorporable.times_passed = 0
     incorporable.drafting_info.save
     incorporable.reload
-    stage(incorporable) # Temporary fix !!!! - will be removed soon
-    #set_track(incorporable)
-    #select_approved(incorporable)
+    set_track(incorporable)
+    incorporable.reload
+    select_approved(incorporable)
   end
 
 
@@ -265,7 +265,7 @@ class DraftingService
 
     # Send notification that the statement can be incorporated
     ip_recipients = []
-    approved_document = incorporable.document_in_original_language
+    approved_document = incorporable.document_in_drafting_language
 
     # First round
     if incorporable.times_passed == 0 && approved_document.author.drafting_notification == 1
@@ -298,7 +298,7 @@ class DraftingService
   # Sends the approval reminder mail to the author of the incorporable.
   #
   def send_approval_reminder_mail(incorporable)
-    approved_document = incorporable.document_in_original_language
+    approved_document = incorporable.document_in_drafting_language
     if approved_document.author.drafting_notification == 1
       email = DraftingMailer.create_approval_reminder(prepare_mail(incorporable))
       DraftingMailer.deliver(email)
@@ -320,7 +320,7 @@ class DraftingService
   # Sends mail to notify the author that he has passed the opportunity to incorporate his statement.
   #
   def send_passed_mail(incorporable)
-    passed_document = incorporable.document_in_original_language
+    passed_document = incorporable.document_in_drafting_language
     if passed_document.author.drafting_notification == 1
       email = DraftingMailer.create_passed(prepare_mail(incorporable))
       DraftingMailer.deliver(email)
@@ -346,7 +346,7 @@ class DraftingService
 
     # Thank you mail to the author
     ip_recipient = []
-    draftable_document = incorporable.parent.document_in_original_language
+    draftable_document = incorporable.parent.document_in_drafting_language
     if draftable_document.author.drafting_notification == 1
       ip_recipient << draftable_document.author
       email = DraftingMailer.create_incorporated(mail_data)
@@ -367,16 +367,16 @@ class DraftingService
   def prepare_mail(incorporable)
 
     # Setting the language of the mail - and all its links
-    # It can be done this way because all mailings run asynchronously by delayed_job and thus
-    # outside of the scope of user sessions
+    # It can be done this way because all mailings are executed asynchronously by delayed_job, thus
+    # they are outside of the scope of user sessions
     I18n.locale = incorporable.drafting_language.code.to_sym
 
     # Generating the mail data
     {
       :incorporable => incorporable,
       :draftable => incorporable.parent,
-      :incorporable_document => incorporable.document_in_original_language,
-      :draftable_document => incorporable.parent.document_in_original_language,
+      :incorporable_document => incorporable.document_in_drafting_language,
+      :draftable_document => incorporable.parent.document_in_drafting_language,
       :language => incorporable.drafting_language.code
     }
   end

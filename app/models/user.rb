@@ -199,10 +199,10 @@ class User < ActiveRecord::Base
   ###################
 
   #
-  # Calls delete_account instead of destroying the user itself.
+  # Instructs to call delete_account instead of destroying the user itself.
   #
   def before_destroy
-    delete_account
+    puts "The user object cannot be destroyed. Please call 'user.delete_account()' instead."
     false
   end
 
@@ -229,7 +229,7 @@ class User < ActiveRecord::Base
       self.active = 0
       self.save(false)
     rescue Exception => e
-      puts "Error deleting user accout:"
+      puts "Error deleting user account:"
       puts e.backtrace
     else
       puts "User account with E-Mail address '#{old_email}' has been deleted..."
