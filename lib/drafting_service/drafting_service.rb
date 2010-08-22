@@ -242,13 +242,13 @@ class DraftingService
   # Removes all echos and sends the statement back to tracked state.
   #
   def reset(incorporable)
-    #withdraw_echos(incorporable)
+    withdraw_echos(incorporable)
     incorporable.times_passed = 0
     incorporable.drafting_info.save
     incorporable.reload
-    stage(incorporable) # Temporary fix !!!! - will be removed soon
-    #set_track(incorporable)
-    #select_approved(incorporable)
+    set_track(incorporable)
+    incorporable.reload
+    select_approved(incorporable)
   end
 
 
