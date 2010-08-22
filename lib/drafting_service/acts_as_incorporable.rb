@@ -86,8 +86,18 @@ module ActiveRecord
               (supporter_count.to_i/parent.supporter_count.to_i)*100
             end
 
+            #
+            # The drafting language is currently the original language of the draftable.
+            #
             def drafting_language
               parent.original_language
+            end
+
+            #
+            # Returns the current document in the drafting language.
+            #
+            def document_in_drafting_language
+              document_in_language(drafting_language)
             end
 
           end # --- class_eval

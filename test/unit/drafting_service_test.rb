@@ -167,7 +167,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
       should("send an approval email") do
         email = ActionMailer::Base.deliveries[ActionMailer::Base.deliveries.length-2]
         assert !ActionMailer::Base.deliveries.empty?
-        assert_equal [@statement_2.document_in_original_language.author.email], email.to
+        assert_equal [@statement_2.document_in_drafting_language.author.email], email.to
         assert_equal "Your improvement proposal can now be incorporated", email.subject
       end
       should("set a delayed task for approval reminder email sending") do
@@ -329,7 +329,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
       should("send passed email") do
         email = ActionMailer::Base.deliveries[ActionMailer::Base.deliveries.length-3]
         assert !ActionMailer::Base.deliveries.empty?
-        assert_equal [@statement_1.document_in_original_language.author.email], email.to
+        assert_equal [@statement_1.document_in_drafting_language.author.email], email.to
         assert_equal "Passed to incorporate your winner improvement proposal", email.subject
       end
       should("set the next best staged to approved") do
@@ -419,9 +419,9 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_1.save
 
         @statement_2 = statement_nodes('first-proposal')
-        old_doc = @statement_2.document_in_original_language
+        old_doc = @statement_2.document_in_drafting_language
 
-        @statement_2.document_in_original_language.update_attribute(:current, false)
+        @statement_2.document_in_drafting_language.update_attribute(:current, false)
         @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:red),
                                                 :supported => true)
@@ -434,11 +434,11 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_2.find_or_create_echo.update_counter!
         @statement_2.add_statement_document :original_language_id => @statement_2.original_language.id,
                                             :title => old_doc.title,
-                                            :text => old_doc.text + @statement_1.document_in_original_language.text,
+                                            :text => old_doc.text + @statement_1.document_in_drafting_language.text,
                                             :statement_id => @statement_2.statement_id,
                                             :language_id => old_doc.language.id,
                                             :current => true,
-                                            :author_id => @statement_1.document_in_original_language.author.id,
+                                            :author_id => @statement_1.document_in_drafting_language.author.id,
                                             :action_id => StatementHistory.statement_actions('incorporated').id,
                                             :old_document_id => old_doc.id,
                                             :incorporated_node_id => @statement_1.id

@@ -17,7 +17,7 @@ class StatementNode < ActiveRecord::Base
   belongs_to :root_statement, :foreign_key => "root_id", :class_name => "StatementNode"
   belongs_to :statement
 
-  delegate :original_language, :document_in_original_language, :authors, :to => :statement
+  delegate :original_language, :document_in_language, :authors, :to => :statement
 
   enum :editorial_state, :enum_name => :statement_states
 
@@ -116,7 +116,6 @@ class StatementNode < ActiveRecord::Base
     return statement_documents.for_languages(lang_ids).nil?
   end
 
-
   # creates a new statement_document
   def add_statement_document(attributes={ },opts={})
     original_language_id = attributes.delete(:original_language_id)
@@ -158,6 +157,14 @@ class StatementNode < ActiveRecord::Base
   def not_original_language?(user, current_language_id)
     user ? (user.spoken_languages.empty? and current_language_id != original_language.id) : false
   end
+
+  #
+  # Returns the current document in its original language.
+  #
+  def document_in_original_language
+    document_in_language(original_language)
+  end
+
 
   ###############################
   ##### ACTS AS TREE METHOD #####

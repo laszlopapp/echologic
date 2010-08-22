@@ -90,7 +90,7 @@ class DraftingMailerTest < ActionMailer::TestCase
     email = DraftingMailer.deliver_incorporated!(DraftingService.instance.prepare_mail(statement_node))
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
-    assert_equal [statement_node.parent.document_in_original_language.author.email], email.to
+    assert_equal [statement_node.parent.document_in_drafting_language.author.email], email.to
     assert_equal "Thank you for improving the proposal", email.subject
     assert_match /#{statement_document.title}/, email.encoded
     assert_match /#{statement_node.parent.id}/, email.encoded
