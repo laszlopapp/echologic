@@ -350,7 +350,7 @@ class DraftingService
     end
 
     # Notification mail to the rest of the supporters of the proposal
-    p_recipients = notified_supporters(incorporable.parent, false) - ip_recipient
+    p_recipients = notified_supporters(incorporable.parent) - ip_recipient
     if !p_recipients.blank?
       email = DraftingMailer.create_incorporation_notification(p_recipients, mail_data)
       DraftingMailer.deliver(email)
@@ -361,6 +361,9 @@ class DraftingService
   # Returns a map with data used to create the mail bodies.
   #
   def assembly_mail_data(incorporable)
+    # Setting the langauge of the mail (and its links!)
+    I18n.locale = incorporable.drafting_language.code.to_sym
+    # Returning the mail data
     {
       :incorporable => incorporable,
       :draftable => incorporable.parent,
@@ -376,7 +379,7 @@ class DraftingService
   #
   # Returns those supporters of the echoable who would like to receive drafting notifications.
   #
-  def notified_supporters(echoable, check_language_skills = true)
+  def notified_supporters(echoable, check_language_skills = false)
     echoable.reload
     echoable.supporters.select{|supporter|
       supporter.drafting_notification == 1 &&
