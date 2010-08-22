@@ -229,5 +229,4 @@ es:
           Your echo team
 
       unsubscribe: |-
-        Si no quieres recibir notificaciones inmediatas sobre el desarrollo colectivo de propuestas, por favor haga
-        login a {{echo_url}}, vá para "Mi echo", "Definiciones" y desactive las notificaciones.
+        Si no quieres recibir notificaciones inmediatas sobre el desarrollo colectivo de propuestas, por favor haga login a {{echo_url}}, vá para "Mi echo", "Definiciones" y desactive las notificaciones.
