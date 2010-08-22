@@ -3,16 +3,16 @@ class User < ActiveRecord::Base
   #acts_as_subscriber
   acts_as_extaggable :affections, :engagements, :expertises, :decision_makings
 
-  has_many :web_addresses, :dependent => :destroy
-  has_many :memberships, :dependent => :destroy
-  has_many :spoken_languages, :dependent => :destroy, :order => 'level_id asc'
+  has_many :web_addresses
+  has_many :memberships
+  has_many :spoken_languages, :order => 'level_id asc'
 
   has_many :reports, :foreign_key => 'suspect_id'
 
   named_scope :no_member, :conditions => { :memberships => nil }, :order => :email
 
   # Every user must have a profile. Profiles are destroyed with the user.
-  has_one :profile, :dependent => :destroy
+  has_one :profile
   delegate :percent_completed, :full_name, :first_name, :first_name=, :last_name, :last_name=,
            :city, :city=, :country, :country=, :completeness, :calculate_completeness, :to => :profile
 
@@ -191,6 +191,40 @@ class User < ActiveRecord::Base
     else
       languages.collect{|l| l.language}
     end
+  end
+
+
+  ###################
+  # ADMIN FUNCTIONS #
+  ###################
+
+  #
+  # Calls delete_account instead of destroying the user itself.
+  #
+  def before_destroy
+    delete_account
+    false
+  end
+
+  #
+  # This method removes all personalized data but leaves the (empty) user object itself in order not to
+  # invalidate all user echos.
+  #
+  def delete_account
+    self.profile.destroy
+    self.memberships.each(&:destroy)
+    self.spoken_languages.each(&:destroy)
+    self.tao_tags.each(&:destroy)
+    self.web_addresses.each(&:destroy)
+    self.reload
+    self.email = ""
+    self.crypted_password = nil
+    self.current_login_ip = nil
+    self.last_login_ip = nil
+    self.activity_notification = 0
+    self.drafting_notification = 0
+    self.active = 0
+    self.save(false)
   end
 
 end

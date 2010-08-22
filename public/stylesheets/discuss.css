@@ -88,6 +88,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* New and Edit Statements forms */
 /* ----------------------------- */
 
+#new_statement form.formtastic fieldset #question_editorial_state_id_input li {
+  width: 700px;
+}
+
 #new_statement textarea, #summary textarea {
   height: 200px;
 }

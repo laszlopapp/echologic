@@ -39,13 +39,13 @@ pt:
 
           Your improvement proposal
 
-          "{{ip_title}}"
+          "*{{ip_title}}*"
 
           won the most votes. Therefore, you now have the opportunity to incorporate it into the proposal "{{p_title}}".
 
-          You have {{hours}} hours to do so. Afterwards you might lose the opportunity to incorporate your idea to the proposal at all - this will depend on the current support of other improvement proposals compared to yours.
+          *You have {{hours}} hours* to do so. Afterwards you might lose the opportunity to incorporate your idea to the proposal at all - this will depend on the current support of other improvement proposals compared to yours.
 
-          To edit the proposal and incorporate your idea now, please follow the link and click the button with the yellow-green arrow in the middle:
+          To edit the proposal and *incorporate your idea now*, please follow the link and click the button with the yellow-green arrow in the middle:
 
           {{p_link}}
 
@@ -62,11 +62,11 @@ pt:
         text: |-
           Dear supporters of the improvement proposal
 
-          "{{ip_title}}",
+          "*{{ip_title}}*",
 
-          The author of the improvement proposal did not incorporate it to the proposal "{{p_title}}". As supporters of the idea, you now all have the opportunity to do so for the next {{hours}} hours.
+          The author of the improvement proposal did not incorporate it to the proposal "{{p_title}}". As supporters of the idea, you now all have the opportunity to do so *for the next {{hours}} hours*.
 
-          To edit the proposal and incorporate the idea, please follow the link and click the button with the yellow-green arrow in the middle:
+          To edit the proposal and *incorporate the idea*, please follow the link and click the button with the yellow-green arrow in the middle:
 
           {{p_link}}
 
@@ -85,11 +85,11 @@ pt:
         text: |-
           Dear supporters of the proposal
 
-          "{{p_title}}",
+          "*{{p_title}}*",
 
           The improvement proposal "{{ip_title}}" has won the most votes and can now be incorporated into the proposal.
 
-          To check its content, please follow the link below:
+          To *see the new idea*, please follow the link below:
 
           {{p_link}}
 
@@ -104,13 +104,13 @@ pt:
         text: |-
           Dear {{name}},
 
-          You have only {{hours}} hours left to incorporate your improvement proposal
+          You have *only {{hours}} hours left* to incorporate your improvement proposal
 
-          "{{ip_title}}"
+          "*{{ip_title}}*"
 
           to the proposal "{{p_title}}". Afterwards you might lose the opportunity to do so depending on the support of other improvement proposals compared to yours.
 
-          To edit the proposal and incorporate your idea now, please follow the link and click the button with the yellow-green arrow in the middle:
+          To edit the proposal and *incorporate your idea now*, please follow the link and click the button with the yellow-green arrow in the middle:
 
           {{p_link}}
 
@@ -123,17 +123,17 @@ pt:
           Your echo team
 
       supporters_approval_reminder:
-        subject: Reminder! - Time is running out to incorporate a winner improvement proposal
+        subject: Last Reminder! - Time is running out to incorporate a winner improvement proposal
         text: |-
           Dear supporters of the improvement proposal
 
-          "{{ip_title}}",
+          "*{{ip_title}}*",
 
-          You have only {{hours}} hours left to incorporate the improvement proposal to the proposal "{{p_title}}".
+          You have *only {{hours}} hours left* to incorporate the improvement proposal to the proposal "{{p_title}}".
 
           Afterwards all votes for the improvement proposal will be withdrawn making your echos fade out.
 
-          To edit the proposal and incorporate the idea now, please follow the link and click the button with the yellow-green arrow in the middle:
+          To edit the proposal and *incorporate the idea now*, please follow the link and click the button with the yellow-green arrow in the middle:
 
           {{p_link}}
 
@@ -154,13 +154,13 @@ pt:
 
           Unfortunately, the time for you to incorporate your improvement proposal
 
-          "{{ip_title}}"
+          "*{{ip_title}}*"
 
           into the proposal "{{p_title}}" has expired.
 
-          In case your improvement proposal will be selected for the second time, all supporters of your winner idea will also become the opportunity to incorporate it into the proposal.
+          In case your improvement proposal will be selected for the second time, all supporters of your winner idea will also get the opportunity to incorporate it into the proposal.
 
-          Looking forward to your further contributions. :-)
+          *Looking forward to your further contributions*. :-)
 
           Best regards,
 
@@ -171,7 +171,7 @@ pt:
         text: |
           Dear supporters of the improvement proposal
 
-          "{{ip_title}}",
+          "*{{ip_title}}*",
 
           Unfortunately, the time for you to incorporate the idea into the proposal "{{p_title}}" has expired.
 
@@ -180,6 +180,8 @@ pt:
           In case you would like to support the improvement proposal and make an echo again, please follow the link:
 
           {{ip_link}}
+
+          *Looking forward to your further contributions*. :-)
 
           Best regards,
 
@@ -192,7 +194,7 @@ pt:
 
           Thank you for incorporating your winner idea
 
-          "{{ip_title}}"
+          "*{{ip_title}}*"
 
           into the proposal "{{p_title}}".
 
@@ -211,11 +213,11 @@ pt:
         text: |-
           Dear supporters of the proposal
 
-          "{{p_title}}",
+          "*{{p_title}}*",
 
           The improvement proposal with the most votes "{{ip_title}}" has been incorporated into the proposal.
 
-          You can follow the link to see the changes and to check that they really correspond with the original improvement proposal (later on, a detailed change history will make it much easier to do so):
+          You can follow the link to *see the changes* and to check that they really correspond with the original improvement proposal (later on, a detailed change history will make it much easier to do so):
 
           {{p_link}}
 

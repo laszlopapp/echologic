@@ -223,14 +223,13 @@ class DraftingService
 
         # First round
         if incorporable.times_passed == 1
-          DraftingService.instance.send_passed_mail(incorporable)
-          DraftingService.instance.stage(incorporable)
+          send_passed_mail(incorporable)
+          stage(incorporable)
 
         # Second round
         elsif incorporable.times_passed == 2
-          DraftingService.instance.send_supporters_passed_mail(incorporable)
-          DraftingService.instance.reset(incorporable)
-          DraftingService.instance.select_approved(incorporable)
+          send_supporters_passed_mail(incorporable)
+          reset(incorporable)
         end
       end
     rescue StandardError => error
@@ -243,11 +242,13 @@ class DraftingService
   # Removes all echos and sends the statement back to tracked state.
   #
   def reset(incorporable)
-    withdraw_echos(incorporable)
+    #withdraw_echos(incorporable)
     incorporable.times_passed = 0
     incorporable.drafting_info.save
     incorporable.reload
-    set_track(incorporable)
+    stage(incorporable) # Temporary fix !!!! - will be removed soon
+    #set_track(incorporable)
+    #select_approved(incorporable)
   end
 
 
@@ -260,15 +261,19 @@ class DraftingService
   #
   def send_approval_mails(incorporable)
     incorporable.reload
-    mail_data = assembly_mail_data(incorporable)
+    mail_data = prepare_mail(incorporable)
 
     # Send notification that the statement can be incorporated
     ip_recipients = []
     approved_document = incorporable.document_in_original_language
+
+    # First round
     if incorporable.times_passed == 0 && approved_document.author.drafting_notification == 1
       ip_recipients << approved_document.author
       email = DraftingMailer.create_approval(mail_data)
       DraftingMailer.deliver(email)
+
+    # Second round
     elsif incorporable.times_passed == 1
       ip_recipients = notified_supporters(incorporable)
       if !ip_recipients.blank?
@@ -295,7 +300,7 @@ class DraftingService
   def send_approval_reminder_mail(incorporable)
     approved_document = incorporable.document_in_original_language
     if approved_document.author.drafting_notification == 1
-      email = DraftingMailer.create_approval_reminder(assembly_mail_data(incorporable))
+      email = DraftingMailer.create_approval_reminder(prepare_mail(incorporable))
       DraftingMailer.deliver(email)
     end
   end
@@ -306,7 +311,7 @@ class DraftingService
   def send_supporters_approval_reminder_mail(incorporable)
     recipients = notified_supporters(incorporable)
     if !recipients.blank?
-      email = DraftingMailer.create_supporters_approval_reminder(recipients, assembly_mail_data(incorporable))
+      email = DraftingMailer.create_supporters_approval_reminder(recipients, prepare_mail(incorporable))
       DraftingMailer.deliver(email)
     end
   end
@@ -317,7 +322,7 @@ class DraftingService
   def send_passed_mail(incorporable)
     passed_document = incorporable.document_in_original_language
     if passed_document.author.drafting_notification == 1
-      email = DraftingMailer.create_passed(assembly_mail_data(incorporable))
+      email = DraftingMailer.create_passed(prepare_mail(incorporable))
       DraftingMailer.deliver(email)
     end
   end
@@ -328,7 +333,7 @@ class DraftingService
   def send_supporters_passed_mail(incorporable)
     recipients = notified_supporters(incorporable)
     if !recipients.blank?
-      email = DraftingMailer.create_supporters_passed(recipients, assembly_mail_data(incorporable))
+      email = DraftingMailer.create_supporters_passed(recipients, prepare_mail(incorporable))
       DraftingMailer.deliver(email)
     end
   end
@@ -337,7 +342,7 @@ class DraftingService
   # Sends mail author that he has passed the opportunity to incorporate his statement.
   #
   def send_incorporation_mails(incorporable)
-    mail_data = assembly_mail_data(incorporable)
+    mail_data = prepare_mail(incorporable)
 
     # Thank you mail to the author
     ip_recipient = []
@@ -349,7 +354,7 @@ class DraftingService
     end
 
     # Notification mail to the rest of the supporters of the proposal
-    p_recipients = notified_supporters(incorporable.parent, false) - ip_recipient
+    p_recipients = notified_supporters(incorporable.parent) - ip_recipient
     if !p_recipients.blank?
       email = DraftingMailer.create_incorporation_notification(p_recipients, mail_data)
       DraftingMailer.deliver(email)
@@ -357,9 +362,16 @@ class DraftingService
   end
 
   #
-  # Returns a map with data used to create the mail bodies.
+  # Sets the language of the mail and returns a map with data used to create the mail body.
   #
-  def assembly_mail_data(incorporable)
+  def prepare_mail(incorporable)
+
+    # Setting the language of the mail - and all its links
+    # It can be done this way because all mailings run asynchronously by delayed_job and thus
+    # outside of the scope of user sessions
+    I18n.locale = incorporable.drafting_language.code.to_sym
+
+    # Generating the mail data
     {
       :incorporable => incorporable,
       :draftable => incorporable.parent,
@@ -375,7 +387,7 @@ class DraftingService
   #
   # Returns those supporters of the echoable who would like to receive drafting notifications.
   #
-  def notified_supporters(echoable, check_language_skills = true)
+  def notified_supporters(echoable, check_language_skills = false)
     echoable.reload
     echoable.supporters.select{|supporter|
       supporter.drafting_notification == 1 &&

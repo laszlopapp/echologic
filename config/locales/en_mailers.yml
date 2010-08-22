@@ -217,7 +217,7 @@ en:
 
           The improvement proposal with the most votes "{{ip_title}}" has been incorporated into the proposal.
 
-          You can follow the link to see the changes and to check that they really correspond with the original improvement proposal (later on, a detailed change history will make it much easier to do so):
+          You can follow the link to *see the changes* and to check that they really correspond with the original improvement proposal (later on, a detailed change history will make it much easier to do so):
 
           {{p_link}}
 
