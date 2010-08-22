@@ -211,20 +211,29 @@ class User < ActiveRecord::Base
   # invalidate all user echos.
   #
   def delete_account
-    self.profile.destroy
-    self.memberships.each(&:destroy)
-    self.spoken_languages.each(&:destroy)
-    self.tao_tags.each(&:destroy)
-    self.web_addresses.each(&:destroy)
-    self.reload
-    self.email = ""
-    self.crypted_password = nil
-    self.current_login_ip = nil
-    self.last_login_ip = nil
-    self.activity_notification = 0
-    self.drafting_notification = 0
-    self.active = 0
-    self.save(false)
+    begin
+      self.profile.destroy
+      self.memberships.each(&:destroy)
+      self.spoken_languages.each(&:destroy)
+      self.tao_tags.each(&:destroy)
+      self.web_addresses.each(&:destroy)
+      self.save(false)
+      self.reload
+      old_email = self.email
+      self.email = ""
+      self.crypted_password = nil
+      self.current_login_ip = nil
+      self.last_login_ip = nil
+      self.activity_notification = 0
+      self.drafting_notification = 0
+      self.active = 0
+      self.save(false)
+    rescue Exception => e
+      puts "Error deleting user accout:"
+      puts e.backtrace
+    else
+      puts "User account with E-Mail address '#{old_email}' has been deleted..."
+    end
   end
 
 end

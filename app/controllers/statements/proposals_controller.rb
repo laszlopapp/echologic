@@ -11,7 +11,7 @@ class ProposalsController < StatementsController
     has_lock = false
     @approved_node = ImprovementProposal.find params[:approved_ip]
     if @approved_node.approved?
-      @approved_document = @approved_node.document_in_original_language
+      @approved_document = @approved_node.document_in_preferred_language(@language_preference_list)
     else
       still_approved = false
     end

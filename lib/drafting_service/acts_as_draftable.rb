@@ -36,10 +36,21 @@ module ActiveRecord
             )
           end
 
-          class_eval <<-RUBY
+          class_eval do
 
             def draftable?
               true
+            end
+
+            def drafting_language
+              original_language
+            end
+
+            def check_incorporated
+              last_document = self.statement_documents.last
+              if last_document and last_document.action.code.eql?('incorporated')
+                EchoService.instance.incorporated(last_document.incorporated_node, last_document.author)
+              end
             end
 
             ##################################
@@ -48,7 +59,8 @@ module ActiveRecord
 
             # Gets children ordered by supporters number (cacheable)
             def supported_ranking
-              instance_variable_get("@supported_ranking") || instance_variable_set("@supported_ranking", fetch_supported_ranking)
+              instance_variable_get("@supported_ranking") ||
+                instance_variable_set("@supported_ranking", fetch_supported_ranking)
             end
 
             # Updates cache of children by supporters
@@ -61,13 +73,7 @@ module ActiveRecord
               self.children.by_supporters
             end
 
-            def check_incorporated
-              last_document = self.statement_documents.last
-              if last_document and last_document.action.code.eql?('incorporated')
-                EchoService.instance.incorporated(last_document.incorporated_node, last_document.author)
-              end
-            end
-          RUBY
+          end # --- class_eval
         end
       end
     end

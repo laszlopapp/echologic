@@ -5,13 +5,13 @@ module ProposalsHelper
   end
 
   def incorporate_statement_node_link(parent_node, parent_document, statement_node, statement_document)
-    if current_user and statement_node.published? and
-      parent_document.language.eql?(parent_node.original_language) and
-      statement_document.language.eql?(parent_node.original_language) and
-      ((statement_node.times_passed == 0 and statement_document.author == current_user) or
-       (statement_node.times_passed == 1 and statement_node.supported?(current_user)))
+    if !current_user or 
+       (statement_node.published? and
+        parent_document.language == statement_node.drafting_language and
+        statement_document.language. == statement_node.drafting_language and
+        ((statement_node.times_passed == 0 and statement_document.author == current_user) or
+         (statement_node.times_passed == 1 and statement_node.supported?(current_user))))
 
-      #I18n.t('application.general.incorporate')
       link_to(incorporate_proposal_path(statement_node),
              :id => 'incorporate_link',
              :class => 'ajax') do
