@@ -217,6 +217,7 @@ class User < ActiveRecord::Base
     self.tao_tags.each(&:destroy)
     self.web_addresses.each(&:destroy)
     self.reload
+    old_email = self.email
     self.email = ""
     self.crypted_password = nil
     self.current_login_ip = nil
@@ -225,6 +226,7 @@ class User < ActiveRecord::Base
     self.drafting_notification = 0
     self.active = 0
     self.save(false)
+    puts "User account with E-Mail address '#{old_email}' has been deleted..."
   end
 
 end
