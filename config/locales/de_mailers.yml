@@ -34,7 +34,7 @@ de:
 
     drafting:
       approval:
-        subject: Ihr Verbesserungsvorschlag kann jetzt eingefügt werden
+        subject: Sie können Ihren Verbesserungsvorschlag einfügen
         text: |-
           Hallo {{name}},
 
@@ -59,16 +59,16 @@ de:
           Ihr echo Team
 
       supporters_approval:
-        subject: Ein Verbesserungsvorschlag kann jetzt eingefügt werden
+        subject: Sie können einen Verbesserungsvorschlag eingefügen
         text: |-
-          Liebe UnterstützerInnen des Verbeserungsvorschlags
+          Liebe UnterstützerInnen des Verbesserungsvorschlags
 
           "*{{ip_title}}*",
 
           der Author des Verbesserungsvorschlags hat leider die Idee nicht in den Vorschlag "{{p_title}}" eingearbeitet.
           Als UnterstützerIn dieses Verbesserungsvorschlags haben Sie jetzt die Gelegenheit dies zu tun - *innerhalb der nächsten {{hours}} Stunden*.
 
-          Um die *Idee in den Vorschlag einzuarbeiten*, folgen Sie bitte diesem Link und klicken Sie auf das Übernahmesymbol (grün-gelber Pfeil in der Mitte):
+          Um die *Idee jetzt in den Vorschlag einzuarbeiten*, folgen Sie bitte diesem Link und klicken Sie auf das Übernahmesymbol (grün-gelber Pfeil in der Mitte):
 
           {{p_link}}
 
@@ -139,7 +139,7 @@ de:
 
           {{p_link}}
 
-          Seien Sie fair und fügen Sie bitte nur diejenigen Ideen in den Vorschlag ein, die Sie in Ihrem Verbesserungsvorschlag zur Abstimmung angeboten haben.
+          Seien Sie fair und fügen Sie bitte nur diejenigen Ideen in den Vorschlag ein, die im Verbesserungsvorschlag zur Abstimmung angeboten waren.
 
           Und denken Sie daran: Wer zuerst mahlt, mahlt am besten!
 
@@ -160,7 +160,7 @@ de:
 
           abgelaufen. Sie können den Vorschlag "{{p_title}}" jetzt nicht mehr bearbeiten.
 
-          Sollte Ihr Verbesserungsvorschlag erneut angenommen werden, werden auch andere UnterstützerInnen Ihrer Idee die Möglichkeit bekommen, diesen in den Vorschlag einzuarbeiten.
+          Sollte Ihr Verbesserungsvorschlag erneut angenommen werden, werden auch andere UnterstützerInnen Ihrer Idee die Möglichkeit bekommen, diese in den Vorschlag einzuarbeiten.
 
           Wir sind gespannt auf die nächsten Ideen und Beiträge von Ihnen! :-)
 
