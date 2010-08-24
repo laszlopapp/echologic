@@ -5,7 +5,7 @@
 <% only_text ||= false %>
 
 <% if !statement_node.nil? and !statement_node.nil? %>
-  <div id="approved_ip" class="<%= only_text ? 'only_text' : '' %>">
+  <div id="approved_ip" class="statement_content <%= only_text ? 'only_text' : '' %>">
 
      <% incorporate_statement_node_link(parent_node, parent_document, statement_node, statement_document) unless only_text %>
 
