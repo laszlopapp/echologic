@@ -22,6 +22,7 @@ config.action_mailer.default_url_options = { :host => 'echologic.echo-test.org' 
 config.log_level = :error
 
 # Hosts
+OLD_ECHO_HOST = 'echologic.echo-test.org' # For deep link redirection (with 301)
 ECHO_HOST = 'echologic.echo-test.org'
 ECHOSOCIAL_HOST = 'echosocial.echo-test.org'
 

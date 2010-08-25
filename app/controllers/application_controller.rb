@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
 
   private
   def redirect_to_new_host
-    if request.host.include?(OLD_ECHO_HOST)
+    if defined?(OLD_ECHO_HOST) && request.host.include?(OLD_ECHO_HOST)
       new_url = request.protocol + ECHO_HOST + request.request_uri
       redirect_to new_url, :status => :moved_permanently
     end
