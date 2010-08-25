@@ -52,7 +52,7 @@
     <% more_text = I18n.t('static.echosocial.features.your_wishes.text_pre') + '<strong>' +
                    link_to(I18n.t('static.echosocial.features.your_wishes.text_link'),
                            url_for(hash_for_question_tags_path.merge({
-                                   :only_path => false, :host => ECHOLOGIC_HOST, :id=>'echosocial'})), :target => '_blank') +
+                                   :only_path => false, :host => ECHO_HOST, :id=>'echosocial'})), :target => '_blank') +
                    '</strong>' + ' ' + I18n.t('static.echosocial.features.your_wishes.text_end') %>
     <% insert_toggle_more(more_text) %>
   </li>

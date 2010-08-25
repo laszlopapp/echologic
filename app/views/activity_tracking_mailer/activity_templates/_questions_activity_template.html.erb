@@ -20,7 +20,7 @@
   <%= I18n.t('mailers.activity_tracking.discussions.new_tags',
              :locale => @language.code) %>
   <%= tags.to_a.map{|tag| I18n.t('mailers.activity_tracking.discussions.tag_link',
-                                 :host => ECHOLOGIC_HOST,
+                                 :host => ECHO_HOST,
                                  :tag => tag[0],
                                  :count => tag[1],
                                  :code => @language.code,

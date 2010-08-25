@@ -28,7 +28,7 @@ config.log_level = :error
 # config.threadsafe!
 
 # Hosts
-ECHOLOGIC_HOST = 'echo.to'
+ECHO_HOST = 'echo.to'
 ECHOSOCIAL_HOST = 'www.echosocial.org'
 
 # Feedback recipient
