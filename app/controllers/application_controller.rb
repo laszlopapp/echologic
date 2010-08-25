@@ -37,12 +37,13 @@ class ApplicationController < ActionController::Base
   #
   # Redirect all old (echologic.org) deep links to the current host (echo.to)
   #
-  #before_filter :redirect_to_now_host_url
+  before_filter :redirect_to_new_host
 
   private
-  def redirect_to_now_host_url
+  def redirect_to_new_host
     if request.host.include?(OLD_ECHO_HOST)
-      redirect_to request.protocol + ECHO_HOST + request.port + request.request_uri
+      new_url = request.protocol + ECHO_HOST + request.request_uri
+      redirect_to new_url, :status => :moved_permanently
     end
   end
 
