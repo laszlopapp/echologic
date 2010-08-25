@@ -4,6 +4,9 @@
 RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 MAX_SESSION_PERIOD = 3600
 
+# Old host for redirection to ECHO_HOST
+OLD_ECHO_HOST = 'echologic.org'
+
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 

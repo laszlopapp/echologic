@@ -6,19 +6,9 @@ class ApplicationController < ActionController::Base
   # Include all helpers, all the time
   helper :all
 
-  # See ActionController::RequestForgeryProtection for details
-  protect_from_forgery
-
-  # Catch access denied exception in the whole application and handle it.
-  rescue_from 'Acl9::AccessDenied', :with => :access_denied
-  rescue_from 'ActionController::InvalidAuthenticityToken', :with => :invalid_auth_token
-  rescue_from 'ActionController::RoutingError', :with => :redirect_to_home
-
-  # Initializes translate_routes
-  before_filter :set_locale
-
-  # session timeout
-  before_filter :session_expiry
+  ####################
+  # CLASS ATTRIBUTES #
+  ####################
 
   # Tag filter
   @@tag_filter = lambda do |prefixes, tags|
@@ -27,26 +17,169 @@ class ApplicationController < ActionController::Base
     }.compact[0..4].join("\n")
   end
 
-  # Set locale to the best fitting one
+
+  ###########
+  # ROUTING #
+  ###########
+
+  #
+  # Initialize the locale of the application
+  #
+  before_filter :set_locale
+
+  private
+  # Takes the locale from the URL or return the most matching one for the IP.
   def set_locale
     available = %w{en de es pt}
     I18n.locale = params[:locale] ? params[:locale].to_sym : request.compatible_language_from(available)
   end
 
-  # Authlogic authentification filters
-  filter_parameter_logging :password, :password_confirmation
-  helper_method :current_user_session, :current_user
+  #
+  # Redirect all old (echologic.org) deep links to the current host (echo.to)
+  #
+  before_filter :redirect_to_new_host
 
-  # Set notice from the given i18n string.
-  def set_notice(i18n)
-    flash[:notice] = I18n.t(i18n)
+  private
+  def redirect_to_new_host
+    if request.host.include?(OLD_ECHO_HOST)
+      new_url = request.protocol + ECHO_HOST + request.request_uri
+      redirect_to new_url, :status => :moved_permanently
+    end
   end
 
 
-  # ---------------------
-  # Info & error messages
-  # ---------------------
+  ####################
+  # SESSION HANDLING #
+  ####################
 
+  # Session timeout
+  before_filter :session_expiry
+
+  private
+  # Handles session expiry
+  def session_expiry
+    if current_user_session and session[:expiry_time] and session[:expiry_time] < Time.now
+      expire_session!
+    end
+    session[:expiry_time] = MAX_SESSION_PERIOD.seconds.from_now
+    return true
+  end
+
+  # Expires and cleans up the user session.
+  def expire_session!
+    current_user.update_attributes(:last_login_language => EnumKey.find_by_code_and_enum_name(params[:locale].to_s,"languages"))
+    current_user_session.try(:destroy)
+    reset_session
+    if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'
+      # still display logout message on logout.
+      flash[:notice] = I18n.t('users.user_sessions.messages.logout_success')
+    else
+      flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
+    end
+    redirect_to_root_path
+  end
+
+
+  ############
+  # SECURITY #
+  ############
+
+  # See ActionController::RequestForgeryProtection for details
+  protect_from_forgery
+
+  rescue_from 'ActionController::InvalidAuthenticityToken', :with => :invalid_auth_token
+
+  private
+  #
+  # Called when the authentication token is invalid. It might happen if the user is inactive for a too long time
+  # or in case of a CSRF attack.
+  #
+  def invalid_auth_token
+    expire_session!
+  end
+
+
+  ############################
+  # ACCESS RIGHTS MANAGEMENT #
+  ############################
+
+  # Authlogic authentication filters
+  filter_parameter_logging :password, :password_confirmation
+  helper_method :current_user_session, :current_user
+
+  # Catch access denied exception in the whole application and handle it
+  rescue_from 'Acl9::AccessDenied', :with => :access_denied
+
+  private
+  #
+  # If access is denied display warning and redirect to users_path
+  #
+  def access_denied
+    flash[:error] = I18n.t('activerecord.errors.messages.access_denied')
+    redirect_to welcome_path
+  end
+
+  protected
+  # Before filter used to define which controller actions require an active and valid user session.
+  def require_user
+    unless current_user
+      set_info('authlogic.error_messages.must_be_logged_in')
+      respond_to do |format|
+        format.html {
+          flash_info
+          request.env["HTTP_REFERER"] ? redirect_to(:back) : redirect_to(root_path)
+        }
+        format.js {
+          render_with_info do |page|
+            page << "$('#user_session_email').focus();"
+          end
+        }
+      end
+      return false
+    end
+  end
+
+    # Checks that the user is NOT logged in.
+  def require_no_user
+    if current_user
+      flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_out')
+      redirect_to_root_path
+    end
+    return false
+  end
+
+  # Return current session if one exists
+  def current_user_session
+    return @current_user_session if defined?(@current_user_session)
+    @current_user_session = UserSession.find
+  end
+
+  # Returns the currently logged in user
+  def current_user
+    return @current_user if defined?(@current_user)
+    @current_user = current_user_session && current_user_session.user
+  end
+
+
+  #############
+  # LANGUAGES #
+  #############
+
+  protected
+  def locale_language_id
+    EnumKey.find_by_enum_name_and_code("languages", I18n.locale.to_s).id
+  end
+
+  def language_preference_list
+    keys = [locale_language_id].concat(current_user ? current_user.sorted_spoken_language_ids : []).uniq
+  end
+
+
+  #########################
+  # Info & error messages #
+  #########################
+
+  protected
   # Sets the @info variable to the localisation given through the string
   def set_info(string, options = {})
     @info = I18n.t(string, options)
@@ -113,10 +246,11 @@ class ApplicationController < ActionController::Base
   end
 
 
-  # ------------------------
-  # DOM manipulation methods
-  # ------------------------
+  ############################
+  # DOM manipulation methods #
+  ############################
 
+  protected
   # Helper method to do simple ajax replacements without writing a new template.
   # This small methods takes much complexness from the controllers.
   def replace_container(name, content)
@@ -125,8 +259,6 @@ class ApplicationController < ActionController::Base
       yield page if block_given?
     end
   end
-
-
 
   # Helper method to do simple ajax replacements without writing a new template.
   # This small methods takes much complexness from the controllers.
@@ -149,111 +281,13 @@ class ApplicationController < ActionController::Base
   end
 
 
-  # ---------------
-  # PRIVATE SECTION
-  # ---------------
+  ###########
+  # ROUTING #
+  ###########
+
+  rescue_from 'ActionController::RoutingError', :with => :redirect_to_home
 
   private
-
-  ####################
-  # Session handling #
-  ####################
-
-  # Return current session if one exists
-  def current_user_session
-    return @current_user_session if defined?(@current_user_session)
-    @current_user_session = UserSession.find
-  end
-
-  # Returns currently logged in user
-  def current_user
-    return @current_user if defined?(@current_user)
-    @current_user = current_user_session && current_user_session.user
-  end
-
-  # Before filter used to define which controller actions require an active and valid user session.
-  def require_user
-    unless current_user
-      set_info('authlogic.error_messages.must_be_logged_in')
-      respond_to do |format|
-        format.html {
-          flash_info
-          request.env["HTTP_REFERER"] ? redirect_to(:back) : redirect_to(root_path)
-        }
-        format.js {
-          render_with_info do |page|
-            page << "$('#user_session_email').focus();"
-          end
-        }
-      end
-      return false
-    end
-  end
-
-    # Checks that the user is NOT logged in.
-  def require_no_user
-    if current_user
-      flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_out')
-      redirect_to_root_path
-    end
-    return false
-  end
-
-
-  # -------------------------------
-  # Language skills of current user
-  # -------------------------------
-
-  def locale_language_id
-    EnumKey.find_by_enum_name_and_code("languages", I18n.locale.to_s).id
-  end
-
-  def language_preference_list
-    keys = [locale_language_id].concat(current_user ? current_user.sorted_spoken_language_ids : []).uniq
-  end
-
-
-  ##################################
-  # General error handling methods #
-  ##################################
-
-  # If access is denied display warning and redirect to users_path
-  # TODO localize access denied message
-  def access_denied
-    flash[:error] = I18n.t('activerecord.errors.messages.access_denied')
-    redirect_to welcome_path
-  end
-
-
-    # Handles session expiry
-  def session_expiry
-    if current_user_session and session[:expiry_time] and session[:expiry_time] < Time.now
-      expire_session!
-    end
-    session[:expiry_time] = MAX_SESSION_PERIOD.seconds.from_now
-    return true
-  end
-
-  # Called when the authentication token is invalid. It might happen if the user is anactive for a too long time
-  # or in case of a CSRF attack.
-  def invalid_auth_token
-    expire_session!
-  end
-
-  # Expires and cleans up the user session.
-  def expire_session!
-    current_user.update_attributes(:last_login_language => EnumKey.find_by_code_and_enum_name(params[:locale].to_s,"languages"))
-    current_user_session.try(:destroy)
-    reset_session
-    if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'
-      # still display logout message on logout.
-      flash[:notice] = I18n.t('users.user_sessions.messages.logout_success')
-    else
-      flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
-    end
-    redirect_to_root_path
-  end
-
   # Called when when a routing error occurs.
   def redirect_to_home
     redirect_to welcome_url
@@ -271,6 +305,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
+  #############
+  # RENDERING #
+  #############
+
+  protected
   def respond_to_js(opts={})
     respond_to do |format|
       format.html { render :template => opts[:template] } if opts[:template]
@@ -304,4 +344,5 @@ class ApplicationController < ActionController::Base
       yield format if block_given?
     end
   end
+
 end

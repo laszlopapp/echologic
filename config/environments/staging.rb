@@ -22,7 +22,7 @@ config.action_mailer.default_url_options = { :host => 'echologic.echo-test.org' 
 config.log_level = :error
 
 # Hosts
-ECHOLOGIC_HOST = 'echologic.echo-test.org'
+ECHO_HOST = 'echologic.echo-test.org'
 ECHOSOCIAL_HOST = 'echosocial.echo-test.org'
 
 # Feedback recipient

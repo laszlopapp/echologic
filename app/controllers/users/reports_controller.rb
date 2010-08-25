@@ -52,10 +52,11 @@ class Users::ReportsController < ApplicationController
   def create
     @report = Report.new(params[:report])
     @report.reporter_id = current_user.id
-    
+
     respond_to do |format|
       if @report.save
-        format.html { set_notice('users.reports.messages.created') and redirect_to('/connect/search') }
+        set_info('users.reports.messages.created')
+        format.html { flash_info and redirect_to('/connect/search') }
         format.js   # create.js.erb
       else
         format.html { render :action => "new" }
@@ -80,13 +81,13 @@ class Users::ReportsController < ApplicationController
   # DELETE /reports/1
   # DELETE /reports/1.xml
   def destroy
-    
+
     @report.destroy
     respond_to do |format|
       format.html { redirect_to(reports_url) }
     end
   end
-  
+
   private
   def fetch_report
     @report = Report.find(params[:id])
