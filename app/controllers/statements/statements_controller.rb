@@ -492,22 +492,27 @@ class StatementsController < ApplicationController
   # Redirect to parent if incorporable is approved or already incorporated.
   #
   def redirect_if_approved_or_incorporated
-    if @statement_node.incorporable? && (@statement_node.approved? || @statement_node.incorporated?)
-      if @statement_node.approved?
-        set_info("discuss.statements.see_parent_if_approved")
-      else
-        set_info("discuss.statements.see_parent_if_incorporated")
-      end
-      respond_to do |format|
-        flash_info
-        format.html { redirect_to @statement_node.parent }
-        format.js do
-          render :update do |page|
-            page.redirect_to @statement_node.parent
+    begin
+      if @statement_node.incorporable? && (@statement_node.approved? || @statement_node.incorporated?)
+        if @statement_node.approved?
+          set_info("discuss.statements.see_parent_if_approved")
+        else
+          set_info("discuss.statements.see_parent_if_incorporated")
+        end
+        respond_to do |format|
+          flash_info
+          format.html { redirect_to @statement_node.parent }
+          format.js do
+            render :update do |page|
+              page.redirect_to @statement_node.parent
+            end
           end
         end
+        return
       end
-      return
+    rescue Exception => e
+      logger.error "Error running redirect approved/incorporated IP filter"
+      log_error e
     end
   end
 

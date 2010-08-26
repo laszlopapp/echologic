@@ -3,15 +3,12 @@
 #
 class Users::PasswordResetsController < ApplicationController
 
-  # Logged in user may reset their password too.
-  # before_filter :require_no_user
-
   # Use perishable_token on edit or update methods
   before_filter :load_user_using_perishable_token, :only => [:edit, :update]
 
   # Render password reset creation partial
   def new
-    render_new :template => 'users/password_resets/new' do |format|
+    render_static_new :template => 'users/password_resets/new' do |format|
       format.js { render :template => 'users/users/new' }
     end
   end
@@ -69,7 +66,5 @@ class Users::PasswordResetsController < ApplicationController
       redirect_to root_url
     end
   end
-
-
 
 end
