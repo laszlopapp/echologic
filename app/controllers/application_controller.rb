@@ -322,7 +322,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def render_static(opts={})
+  def render_static_show(opts={})
     opts[:partial] ||= 'show'
     opts[:layout] ||= 'static'
     opts[:locals] ||= {}
@@ -332,21 +332,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def render_outer_menu(opts={})
-    opts[:layout] ||= 'static'
-    respond_to do |format|
-      format.html { render :partial => opts[:partial], :layout => opts[:layout], :locals => opts[:locals]}
-      format.js   { render :template => 'layouts/outerMenuDialog' , :locals => opts[:locals]}
-    end
-  end
-
-  def render_new(opts={})
+  def render_static_new(opts={})
     opts[:layout] ||= 'static'
     respond_to do |format|
       format.html { render :template => opts[:template], :layout => opts[:layout] } if opts[:template]
       format.html { render :partial => opts[:partial], :layout => opts[:layout] } if opts[:partial]
       format.js if !block_given?
       yield format if block_given?
+    end
+  end
+
+  def render_static_outer_menu(opts={})
+    opts[:layout] ||= 'static'
+    respond_to do |format|
+      format.html { render :partial => opts[:partial], :layout => opts[:layout], :locals => opts[:locals]}
+      format.js   { render :template => 'layouts/outerMenuDialog' , :locals => opts[:locals]}
     end
   end
 

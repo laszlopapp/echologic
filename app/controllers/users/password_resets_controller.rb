@@ -8,7 +8,7 @@ class Users::PasswordResetsController < ApplicationController
 
   # Render password reset creation partial
   def new
-    render_new :template => 'users/password_resets/new' do |format|
+    render_static_new :template => 'users/password_resets/new' do |format|
       format.js { render :template => 'users/users/new' }
     end
   end

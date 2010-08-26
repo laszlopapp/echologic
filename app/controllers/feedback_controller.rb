@@ -10,8 +10,8 @@ class FeedbackController < ApplicationController
 
   # GET /feedback/new
   def new
-    render_new :partial => 'feedback/new'
-  end  
+    render_static_new :partial => 'feedback/new'
+  end
 
   # POST /feedback
   def create
@@ -38,8 +38,8 @@ class FeedbackController < ApplicationController
       when Net::SMTPSyntaxError
         then flash[:error] = t('activerecord.errors.models.feedback.attributes.email.invalid')
     end
-    render_static :partial => 'feedback/new', :template_js => 'layouts/outerMenuDialog', :locals => { :menu_item => 'feedback/new' }
+    render_static_show :partial => 'feedback/new', :template_js => 'layouts/outerMenuDialog', :locals => { :menu_item => 'feedback/new' }
   end
 
-  
+
 end
