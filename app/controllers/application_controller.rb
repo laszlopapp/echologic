@@ -315,32 +315,37 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.html { render :template => opts[:template] } if opts[:template]
       format.html { redirect_to opts[:redirect_to] } if opts[:redirect_to]
-      format.html   { render :partial => opts[:partial] } if opts[:partial]
+      format.html { render :partial => opts[:partial] } if opts[:partial]
       format.js   { render :template => opts[:template_js] } if opts[:template_js]
       format.js   { render :partial => opts[:partial_js] } if opts[:partial_js]
       yield format if block_given?
     end
   end
 
-  def render_static(opts={:partial => 'show', :layout => 'static', :locals => {}})
+  def render_static(opts={})
+    opts[:partial] ||= 'show'
+    opts[:layout] ||= 'static'
+    opts[:locals] ||= {}
     respond_to do |format|
       format.html { render :partial => opts[:partial], :layout => opts[:layout]}
-      format.js { render :template => 'layouts/tabContainer', :locals => opts[:locals]}
+      format.js   { render :template => 'layouts/tabContainer', :locals => opts[:locals]}
     end
   end
 
-  def render_outer_menu(opts={:layout => 'static'})
+  def render_outer_menu(opts={})
+    opts[:layout] ||= 'static'
     respond_to do |format|
       format.html { render :partial => opts[:partial], :layout => opts[:layout], :locals => opts[:locals]}
-      format.js { render :template => 'layouts/outerMenuDialog' , :locals => opts[:locals]}
+      format.js   { render :template => 'layouts/outerMenuDialog' , :locals => opts[:locals]}
     end
   end
 
-  def render_new(opts={:layout => 'static'})
+  def render_new(opts={})
+    opts[:layout] ||= 'static'
     respond_to do |format|
-      format.html { render :template => opts[:template], :layout => opts[:layout] } if opts[:template]# new.html.erb
-      format.html { render :partial => opts[:partial], :layout => opts[:layout] } if opts[:partial]# new.html.erb
-      format.js
+      format.html { render :template => opts[:template], :layout => opts[:layout] } if opts[:template]
+      format.html { render :partial => opts[:partial], :layout => opts[:layout] } if opts[:partial]
+      format.js if !block_given?
       yield format if block_given?
     end
   end
