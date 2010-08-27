@@ -47,7 +47,30 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  #
+  # False URLs are redirected to home
+  #
+  rescue_from 'ActionController::RoutingError', :with => :redirect_to_home
 
+  private
+  # Called when when a routing error occurs.
+  def redirect_to_home
+    redirect_to welcome_url
+  end
+
+  protected
+  def redirect_to_root_path
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.js do
+        render :update do |page|
+          page.redirect_to root_path
+        end
+      end
+    end
+  end
+
+  
   ####################
   # SESSION HANDLING #
   ####################
@@ -277,31 +300,6 @@ class ApplicationController < ActionController::Base
 
   def requires_login
     render :update do |page|
-    end
-  end
-
-
-  ###########
-  # ROUTING #
-  ###########
-
-  rescue_from 'ActionController::RoutingError', :with => :redirect_to_home
-
-  private
-  # Called when when a routing error occurs.
-  def redirect_to_home
-    redirect_to welcome_url
-  end
-
-  protected
-  def redirect_to_root_path
-    respond_to do |format|
-      format.html { redirect_to root_path }
-      format.js do
-        render :update do |page|
-          page.redirect_to root_path
-        end
-      end
     end
   end
 
