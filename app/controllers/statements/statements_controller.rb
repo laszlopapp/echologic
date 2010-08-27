@@ -512,7 +512,8 @@ class StatementsController < ApplicationController
       end
     rescue Exception => e
       logger.error "Error running redirect approved/incorporated IP filter"
-      log_error e
+      logger.error "Controller: #{params[:controller]} - Action: #{params[:action]} - URL: #{request.url}"
+      logger.error e.backtrace
     end
   end
 
