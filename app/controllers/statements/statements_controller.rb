@@ -77,55 +77,61 @@ class StatementsController < ApplicationController
   #
   def show
 
-    # Record visited
-    @statement_node.visited!(current_user) if current_user
+    begin
+      # Record visited
+      @statement_node.visited!(current_user) if current_user
 
-    # Store last statement in session (for cancel link)
-    session[:last_statement_node] = @statement_node.id
+      # Store last statement in session (for cancel link)
+      session[:last_statement_node] = @statement_node.id
 
-    # Prev / Next functionality
-    unless @statement_node.children.empty?
-      child_type = ("current_" + @statement_node.class.expected_children.first.to_s.underscore).to_sym
-      session[child_type] = @statement_node.children_statements(@language_preference_list).collect { |c| c.id }
-    end
+      # Prev / Next functionality
+      unless @statement_node.children.empty?
+        child_type = ("current_" + @statement_node.class.expected_children.first.to_s.underscore).to_sym
+        session[child_type] = @statement_node.children_statements(@language_preference_list).collect { |c| c.id }
+      end
 
-    # Get document to show and redirect if not found
-    @statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
-    if @statement_document.nil?
-      redirect_to(discuss_search_path)
-      return
-    end
+      # Get document to show and redirect if not found
+      @statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
+      if @statement_document.nil?
+        redirect_to(discuss_search_path)
+        return
+      end
 
-    # Test for special links
-    @original_language_warning = @statement_node.not_original_language?(current_user, @locale_language_id)
-    @translation_permission = @statement_node.original_language == @statement_document.language &&
-                              @statement_node.translatable?(current_user,
-                                                            @statement_document.language,
-                                                            EnumKey.find_by_code(params[:locale]))
+      # Test for special links
+      @original_language_warning = @statement_node.not_original_language?(current_user, @locale_language_id)
+      @translation_permission = @statement_node.original_language == @statement_document.language &&
+                                @statement_node.translatable?(current_user,
+                                                              @statement_document.language,
+                                                              EnumKey.find_by_code(params[:locale]))
 
-    # When creating an issue, we save the flash message within the session, to be able to display it here
-    if session[:last_info]
-      @info = session[:last_info]
-      flash_info
-      session[:last_info] = nil
-    end
+      # When creating an issue, we save the flash message within the session, to be able to display it here
+      if session[:last_info]
+        @info = session[:last_info]
+        flash_info
+        session[:last_info] = nil
+      end
 
-    # If statement node is draftable, then try to get the approved one
-    load_approved_statement()
+      # If statement node is draftable, then try to get the approved one
+      load_approved_statement()
 
-    # Find all child statement_nodes, which are published (except user is an editor)
-    # sorted by supporters count, and paginate them
-    @page = params[:page] || 1
+      # Find all child statement_nodes, which are published (except user is an editor)
+      # sorted by supporters count, and paginate them
+      @page = params[:page] || 1
 
-    @children = @statement_node.children_statements(@language_preference_list).
-                  paginate(StatementNode.default_scope.merge(:page => @page,
-                                                             :per_page => 5))
-    @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
-                                                     @language_preference_list)
+      @children = @statement_node.children_statements(@language_preference_list).
+                    paginate(StatementNode.default_scope.merge(:page => @page,
+                                                               :per_page => 5))
+      @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
+                                                       @language_preference_list)
 
-    respond_to do |format|
-      format.html {render :template => 'statements/show' } # show.html.erb
-      format.js   {render :template => 'statements/show' } # show.js.erb
+      respond_to do |format|
+        format.html {render :template => 'statements/show' } # show.html.erb
+        format.js   {render :template => 'statements/show' } # show.js.erb
+      end
+
+    rescue Exception => e
+      logger.error "Error showing statement for URL: #{request.url}"
+      log_error e
     end
   end
 
@@ -512,6 +518,7 @@ class StatementsController < ApplicationController
       end
     rescue Exception => e
       logger.error "Error running redirect approved/incorporated IP filter"
+      logger.error "Controller: #{params[:controller]} - Action: #{params[:action]} - URL: #{request.url}"
       log_error e
     end
   end

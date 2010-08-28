@@ -22,7 +22,7 @@ class Static::EchologicController < ApplicationController
 
   # About
   def about
-    render_outer_menu :partial => 'about', :locals => {:title => I18n.t('static.echologic.about.title')}
+    render_static_outer_menu :partial => 'about', :locals => {:title => I18n.t('static.echologic.about.title')}
   end
 
   # Imprint
