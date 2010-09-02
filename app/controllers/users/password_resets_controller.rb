@@ -3,15 +3,12 @@
 #
 class Users::PasswordResetsController < ApplicationController
 
-  # Logged in user may reset their password too.
-  # before_filter :require_no_user
-
   # Use perishable_token on edit or update methods
   before_filter :load_user_using_perishable_token, :only => [:edit, :update]
 
   # Render password reset creation partial
   def new
-    render_new :template => 'users/password_resets/new' do |format|
+    render_static_new :template => 'users/password_resets/new' do |format|
       format.js { render :template => 'users/users/new' }
     end
   end
@@ -23,12 +20,12 @@ class Users::PasswordResetsController < ApplicationController
     respond_to do |format|
       if @user
         @user.deliver_password_reset_instructions!
-        message = I18n.t('users.password_reset.messages.success')
-        format.html { (flash[:notice] = message) and (redirect_to root_url) }
+        set_info('users.password_reset.messages.success')
+        format.html { flash_info and redirect_to root_url }
         format.js   { render_with_info(message) }
       else
-        message = I18n.t('users.password_reset.messages.not_found')
-        format.html { (flash[:error] = message) and (render :action => :new, :layout => 'static') }
+        set_error('users.password_reset.messages.not_found')
+        format.html { flash_error and render :action => :new, :layout => 'static' }
         format.js   { show_error_message(message) }
       end
     end
@@ -69,7 +66,5 @@ class Users::PasswordResetsController < ApplicationController
       redirect_to root_url
     end
   end
-
-
 
 end

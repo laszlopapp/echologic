@@ -11,6 +11,9 @@
                           :statement_node => statement_node,
                           :statement_document => statement_document } %>
 
+  <!-- Approved document -->
+  <%= render(:partial => 'statements/approved', :locals => {:only_text => true}) unless @approved_node.nil? %>
+
   <% if statement_node.kind_of?(Question) -%>
 
     <!-- Statement tags (currently only for questions) -->
@@ -43,9 +46,9 @@
 	<%= form.hidden_field :statement_id %>
   <%= form.hidden_field :parent_id %>
 	<%= form.hidden_field :root_id %>
-	<%= hidden_field_tag "#{statement_node_class_dom_id(@statement_node).downcase}[statement_document][author_id]",
+	<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][author_id]",
                        current_user.id %>
-  <%= hidden_field_tag "#{statement_node_class_dom_id(@statement_node).downcase}[statement_document][language_id]",
+  <%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][language_id]",
                        statement_document.language_id || @locale_language_id %>
 
   <!-- Submit or cancel -->
@@ -55,6 +58,6 @@
     <span class="or_cancel">
       <%= I18n.t('application.general.or') %>
     </span>
-		<%= cancel_new_statement_node(statement_node) %>
+		<%= statement_node.new_record? ? cancel_new_statement_node(statement_node) : cancel_edit_statement_node(statement_node, statement_document.locked_at) %>
   <% end %>
 <% end -%>

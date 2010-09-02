@@ -77,6 +77,15 @@ Given /^there is a question "([^\"]*)"$/ do |id| # not in use right now
   @question = Question.find(id)
 end
 
+Given /^there is a question i have created$/ do # not in use right now
+   @question = Question.find_by_creator_id(@user.id)
+end
+
+Given /^the question was not published yet$/ do
+  @question.editorial_state = StatementNode.statement_states("new")
+  @question.save
+end
+
 Given /^the question has proposals$/ do
   @question.reload
   @question.children.proposals.count.should >= 1
@@ -139,9 +148,9 @@ Given /^a "([^\"]*)" question in "([^\"]*)"$/ do |state, category|
                                      :text => "I wonder what i really am! Maybe a statement? Or even a question?",
                                      :author => @user,
                                      :current => 1,
-                                     :language_id => @user.spoken_language_ids.first,
+                                     :language_id => @user.sorted_spoken_language_ids.first,
                                      :action_id => StatementHistory.statement_actions("created").id,
-                                     :original_language_id => @user.spoken_language_ids.first})
+                                     :original_language_id => @user.sorted_spoken_language_ids.first})
   @question.topic_tags << category
   @question.save!
 end
@@ -152,7 +161,7 @@ Then /^the question should be published$/ do
 end
 
 Then /^I should see the questions title$/ do
-  Then 'I should see "'+@question.translated_document([StatementDocument.languages("en").id, StatementDocument.languages("de").id]).title+'"'
+  Then 'I should see "'+@question.document_in_preferred_language([StatementDocument.languages("en").id, StatementDocument.languages("de").id]).title+'"'
 end
 
 Given /^there is a proposal I have created$/ do
@@ -179,8 +188,8 @@ end
 
 
 Then /^I should see the proposals data$/ do
-  Then 'I should see "'+@proposal.translated_document([StatementDocument.languages("en").id,StatementDocument.languages("de").id]).title+'"'
-  Then 'I should see "'+@proposal.translated_document([StatementDocument.languages("en").id,StatementDocument.languages("de").id]).text+'"'
+  Then 'I should see "'+@proposal.document_in_preferred_language([StatementDocument.languages("en").id,StatementDocument.languages("de").id]).title+'"'
+  Then 'I should see "'+@proposal.document_in_preferred_language([StatementDocument.languages("en").id,StatementDocument.languages("de").id]).text+'"'
 end
 
 Then /^I should see no proposals$/ do

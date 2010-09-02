@@ -25,4 +25,8 @@
   <div class="statement_content">
     <%= sanitize statement_document.text %>
   </div>
+
+  <!-- Approved document -->
+  <%= render :partial => 'statements/approved' unless @approved_node.nil? %>
+
 </div>

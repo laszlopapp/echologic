@@ -1,6 +1,6 @@
 class UserEcho < ActiveRecord::Base
   belongs_to :echo
-  belongs_to :user
+  belongs_to :user, :foreign_key => 'user_id', :class_name => 'User'
   belongs_to :statement_node, :foreign_key => 'echo_id', :primary_key => 'echo_id'
 
   validates_presence_of :user_id, :echo_id

@@ -211,6 +211,15 @@ module StatementHelper
       end
   end
 
+  def cancel_edit_statement_node(statement_node, locked_at)
+    type = statement_node_class_dom_id(statement_node).downcase.pluralize
+    link_to I18n.t('application.general.cancel'),
+            { :controller => type,
+              :action => :cancel,
+              :locked_at => locked_at.to_s },
+           :class => "text_button bold_cancel_text_button ajax"
+  end
+
 
   ##############
   # Sugar & UI #
@@ -257,7 +266,7 @@ module StatementHelper
 
   # Returns the context menu link for this statement_node.
   def statement_node_context_link(statement_node, language_ids, action = 'read', last_statement_node = false)
-    return if (statement_document = statement_node.translated_document(language_ids)).nil?
+    return if (statement_document = statement_node.document_in_preferred_language(language_ids)).nil?
     link = link_to(h(statement_document.title),
                    url_for(statement_node),
                    :class => "ajax no_border statement_link #{statement_node.class.name.underscore}_link ttLink",

@@ -21,7 +21,7 @@
   </ul>
   <%= will_paginate children,
                     :previous_label => '',
-                    :next_label => '' if defined? !children.blank? and children.total_pages %>
+                    :next_label => '' if !children.blank? and children.total_pages %>
 </div>
 
 <script type="text/javascript">

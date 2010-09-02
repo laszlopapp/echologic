@@ -28,7 +28,8 @@ config.log_level = :error
 # config.threadsafe!
 
 # Hosts
-ECHOLOGIC_HOST = 'echo.to'
+OLD_ECHO_HOST = 'echologic.org' # For deep link redirection (with 301)
+ECHO_HOST = 'echo.to'
 ECHOSOCIAL_HOST = 'www.echosocial.org'
 
 # Feedback recipient

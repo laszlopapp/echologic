@@ -55,18 +55,6 @@ en:
          to your preferences.
          </p>
 
-
-    mailer:
-      signature: |
-        --
-        echologic for echo - the global agora
-
-        Web: www.echologic.org
-        E-Mail: team@echologic.org
-        Twitter: www.twitter.com/echologic
-
-      feedback: Feedback
-
   # Localizations for the layout components
   layouts:
     tabs:
@@ -244,13 +232,29 @@ en:
         decision_making: <strong>Decision maker</strong> in the field of
       tags: Keywords (tags)
 
-    # Email Notification section
-    email_notification:
-      title: Email Notification
-      guide: Here you can set if you want to receive a weekly email notification with your subscribed entities related updates.
-      label: Weekly update on discussions
+    # Email notifications section
+    notifications:
+      title: E-Mail Notification Settings
+      guide: Here you can set whether you would like to receive E-Mail notifications on different subjects.
+
+      activity:
+        title: Activity Notifications
+        guide: Daily updates on new discussions and new statements in discussions you were active in.
+        turned_on: Activity notifications have been switched on.
+        turned_off: Activity notifications have been switched off.
+
+      drafting:
+        title: Drafting Notifications
+        guide: |
+          Immediate updates to follow the co-creative drafting process of your improvement proposals and
+          proposals - e.g. when your improvement proposal was approved to be incorporated.<br/>
+          <strong>Attention!</strong> If this notification is turned off, you might easily miss the opportunity to
+          incorporate your improvement proposals into proposals you support.
+        turned_on: Drafting notifications have been switched on.
+        turned_off: Drafting notifications have been switched off.
 
 
+    # New Users section
     users:
       new:
         title: Your echo
@@ -348,7 +352,7 @@ en:
       publish: |
         Release the discussion to make it visible for everybody.
         (Afterwards no further editing is possible.)
-      incorporate: 'Click here to incorporate this improvement proposal into the text above.'
+      incorporate: 'Click here to incorporate this improvement proposal into the proposal above.'
 
     statements:
       label: 'votes'
@@ -368,6 +372,8 @@ en:
       create_statement_language_hint: |
         Please post the statement in <strong>ENGLISH</strong> or choose another language
         using the babelfish in the upper menu.
+      drafting_language_hint: |
+        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language.
       publish: Release
       published: Discussion has been released successfully.
       edit: 'Edit {{type}}'
@@ -398,9 +404,18 @@ en:
         This is a transparent but currently closed discussion, you are only allowed to read.
       unsupported_parent: |-
         You can only support improvement proposals if you support the proposal itself.
+      not_approved_any_more: |-
+        Unfortunately, this improvement proposal cannot be incorporated any longer.
+      see_parent_if_approved: |-
+        The requested improvement proposal is currently approved to be incorporated into the proposal below.
+      see_parent_if_incorporated: |-
+        The requested improvement proposal has already been incorporated into the proposal below.
       being_edited: |-
-        We are sorry, this Statement is being edited
-
+        The statement is currently being edited. Please try again later.
+      edit_period_hint: |
+        You have <strong>{{minutes}} minutes</strong> to edit the statement.
+        Afterwards, your modifications might even get discarded.
+      staled_modification: 'We are very sorry, but you exceeded the 60 minutes limit to edit and save the statement. Meanwhile it has already been updated by a different user. Therefore, your changes must have been unfortunately discarded.'
 
     summary:
       title: 'Summary'
@@ -410,7 +425,7 @@ en:
       updated: "The {{type}} has been updated successfully."
       deleted: "The {{type}} has been deleted successfully."
       translated: "The {{type}} has been translated successfully."
-      incorporated: "The {{type}} has been complemented successfully with your Improvement Proposal."
+      incorporated: "The improvement proposal has been successfully incorporated into the proposal."
       empty:   "No discussions found. Please change your search criteria."
       empty_without_spoken_languages: |
         No discussions found. You can try defining your <a href='{{my_echo}}'>language skills</a>
@@ -535,136 +550,3 @@ en:
       user_session:
         email: E-Mail
         password: Password
-
-  mail:
-    activity_tracking:
-      subject: Activity Tracking
-      cancel: |
-        If you do not wish to receive the updated to your followed themes on a weekly basis, please go to your profile
-        and uncheck your email notification option.
-
-    root:
-      new_entry: "New proposal in the '{{title}}' discussion"
-    parent:
-      new_entry: "New improvement proposal in the '{{title}}' proposal belonging to the '{{question_title}}' discussion"
-    questions:
-      new_questions: 'New Debates from last week: {{count}}'
-      tags_intro: 'New Tags:'
-      tag: "<a href='http://www.echologic.org/{{code}}/discuss/search?value={{tag}}'>{{tag}}</a> ({{count}})"
-  notification_mailer:
-    approval:
-      subject: Your Improvement Proposal was Approved!
-      text: |
-        Dear {{name}},
-
-        Your Improvement Proposal "{{title}}" was selected to be incorporated in its proposal. To do that, you need to
-        follow the link below:
-
-        {{link}}
-
-        You will have XX hours to do that.
-
-        Best Regards,
-
-        Your echo team
-    supporters_approval:
-      subject: You have the privilege to incorporate a Improvement Proposal!
-      text: |
-        Dear supporters of the "{{title}}" Improvement Proposal,
-
-        The Improvement Proposal "{{title}}", which you supported, was set to be incorporated in it's proposal.
-        Given that it's author didn't incorporate it yet, we would like to give you the opportunity to do so.
-        To do that, you need to follow the link below:
-
-        {{link}}
-
-        You will have XX hours to do that.
-
-        Best Regards,
-
-        Your echo team
-    approval_notification:
-      subject: An Improvement Proposal was approved for incorporation
-      text: |
-        Dear users,
-
-        The Improvement Proposal "{{title}}" was approved to be incorporated in a Proposal you supported.
-        To check its content, you can follow the link below:
-
-        {{link}}
-
-        Best Regards,
-
-        Your echo team
-    approval_reminder:
-      subject: Improvement Proposal Approval Reminder!
-      text: |
-        Dear {{name}},
-
-        Your still have 24 hours to incorporate your Improvement Proposal "{{title}}" in its proposal. To do that,
-        you need to follow the link below:
-
-        {{link}}
-
-        Best Regards,
-
-        Your echo team
-    supporters_approval_reminder:
-      subject: Improvement Proposal Approval Reminder!
-      text: |
-        Dear supporters of the "{{title}}" Improvement Proposal,
-
-        Your still have 24 hours to incorporate your Improvement Proposal "{{title}}" in its proposal. To do that,
-        you need to follow the link below:
-
-        {{link}}
-
-        Best Regards,
-
-        Your echo team
-    passed:
-      subject: Improvement Proposal Approval Passed!
-      text: |
-        Dear {{name}},
-
-        The time for you to incorporate your Improvement Proposal "{{title}}" in its proposal has expired.
-
-        Best Regards,
-
-        Your echo team
-    supporters_passed:
-      subject: Improvement Proposal Approval Passed!
-      text: |
-        Dear supporters of the "{{title}}" Improvement Proposal,
-
-        The time for you to incorporate the Improvement Proposal "{{title}}" in its proposal has expired.
-
-        Best Regards,
-
-        Your echo team
-    incorporated:
-      subject: Your Improvement Proposal was successfully incorporated!
-      text: |
-        Dear {{name}},
-
-        Your Improvement Proposal "{{title}}" was successfully incorporated in its proposal. Congratulations.
-
-        {{link}}
-
-        Best Regards,
-
-        Your echo team
-
-    incorporation_notification:
-      subject: A Proposal you support has been updated!
-      text: |
-        Dear users,
-
-        The Proposal "{{title}}" which you support has been updated. Take a look and see if you think it has improved.
-
-        {{link}}
-
-        Best Regards,
-
-        Your echo team
-

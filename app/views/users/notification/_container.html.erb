@@ -1,0 +1,10 @@
+<div id="notification_settings" class="header_block">
+  <h2><%= I18n.t("users.notifications.title") %></h2>
+  <div class="guide">
+    <%= I18n.t("users.notifications.guide") %>
+  </div>
+  <ul id="notification_list">
+    <%# render :partial => "users/notification/check", :locals => {:notification_type => 'activity' } %>
+    <%= render :partial => "users/notification/check", :locals => {:notification_type => 'drafting'} %>
+  </ul>
+</div>

@@ -50,16 +50,3 @@
   display: inline-block;
   margin-left: 10px;
 }
-
-#email_notification_container .label{
-	float: left;
-}
-
-#email_notification_container .checkbox{
-	width:40px;
-}
-
-#email_notification_container .info{
-  float: left;
-	padding-left: 10px;
-}

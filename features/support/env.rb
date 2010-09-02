@@ -53,4 +53,4 @@ require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation
 
 # Constants
-ECHOLOGIC_HOST = 'localhost:3000'
+ECHO_HOST = 'localhost:3000'

@@ -1,18 +1,18 @@
 class User < ActiveRecord::Base
   include UserExtension::Echo
-  acts_as_subscriber
+  #acts_as_subscriber
   acts_as_extaggable :affections, :engagements, :expertises, :decision_makings
 
-  has_many :web_addresses, :dependent => :destroy
-  has_many :memberships, :dependent => :destroy
-  has_many :spoken_languages, :dependent => :destroy, :order => 'level_id asc'
+  has_many :web_addresses
+  has_many :memberships
+  has_many :spoken_languages, :order => 'level_id asc'
 
   has_many :reports, :foreign_key => 'suspect_id'
 
   named_scope :no_member, :conditions => { :memberships => nil }, :order => :email
 
   # Every user must have a profile. Profiles are destroyed with the user.
-  has_one :profile, :dependent => :destroy
+  has_one :profile
   delegate :percent_completed, :full_name, :first_name, :first_name=, :last_name, :last_name=,
            :city, :city=, :country, :country=, :completeness, :calculate_completeness, :to => :profile
 
@@ -100,15 +100,6 @@ class User < ActiveRecord::Base
     RegistrationMailer.deliver(mail)
   end
 
-  #Send an activity tracking email through mailer
-  def deliver_activity_tracking_email!(question_events, question_tags, events)
-    reset_perishable_token!
-    mail = ActivityTrackingMailer.create_activity_tracking_email(self, question_events, question_tags, events)
-    ActivityTrackingMailer.deliver(mail)
-  end
-
-
-  handle_asynchronously :deliver_activity_tracking_email!
 
   ##
   ## PERMISSIONS
@@ -158,32 +149,91 @@ class User < ActiveRecord::Base
   ## SPOKEN LANGUAGES
   ##
 
-  # returns an array with the actual language_ids of the users spoken languages (used to find the right translations)
-  def spoken_language_ids
-    a = []
-    SpokenLanguage.language_levels.each do |level|
-      a << self.spoken_languages.select{|sp| sp.level.eql?(level)}
-    end
-    a.flatten.map(&:language_id)
+  #
+  # Returns the default language to be used for the user (degrade chain: mother_tounge -> last_login_language -> EN).
+  #
+  def default_language
+    mother_tongues = self.mother_tongues
+    lang = !mother_tongues.empty? ? mother_tongues.first : self.last_login_language
+    lang ? lang : EnumKey.find_by_code("en")
   end
 
+  #
+  # Returns an array with the language_ids of the users spoken languages in order of language levels
+  # (from mother tongue to basic).
+  #
+  def sorted_spoken_language_ids
+    self.spoken_languages.sort{|sl1, sl2| sl1.level.key <=> sl2.level.key}.map(&:language_id)
+  end
+
+  #
   # Returns an array with the user's mother tongues.
+  #
   def mother_tongues
     self.spoken_languages.select{|sp| sp.level.code == 'mother_tongue'}.collect{|sp| sp.language}
   end
 
-  def languages(level='basic')
-    level = SpokenLanguage.language_levels(level)
-    self.spoken_languages.select{|sp| sp.level.key <= level.key}.collect{|sp| sp.language} || []
+  #
+  # Returns the languages the user speaks at least at the given level.
+  #
+  def speaks_language?(language, min_level = nil)
+    spoken_languages_at_min_level(min_level).include?(language)
   end
 
-  def speaks_language?(language, level)
-    languages(level).include?(language)
+  #
+  # Returns the languages the user speaks at least at the given level.
+  #
+  def spoken_languages_at_min_level(min_level = nil)
+    languages = self.spoken_languages
+    if min_level
+      level = SpokenLanguage.language_levels(min_level)
+      languages.select{|sp| sp.level.key <= level.key}.collect{|sp| sp.language}
+    else
+      languages.collect{|l| l.language}
+    end
   end
 
-  def default_language
-    mother_tongues = self.mother_tongues
-    lang = !mother_tongues.empty? ? mother_tongues.first : self.last_login_language
-    lang ? lang : User.languages("en")
+
+  ###################
+  # ADMIN FUNCTIONS #
+  ###################
+
+  #
+  # Instructs to call delete_account instead of destroying the user itself.
+  #
+  def before_destroy
+    puts "The user object cannot be destroyed. Please call 'user.delete_account()' instead."
+    false
   end
+
+  #
+  # This method removes all personalized data but leaves the (empty) user object itself in order not to
+  # invalidate all user echos.
+  #
+  def delete_account
+    begin
+      self.profile.destroy
+      self.memberships.each(&:destroy)
+      self.spoken_languages.each(&:destroy)
+      self.tao_tags.each(&:destroy)
+      self.web_addresses.each(&:destroy)
+      self.save(false)
+      self.reload
+      old_email = self.email
+      self.email = ""
+      self.crypted_password = nil
+      self.current_login_ip = nil
+      self.last_login_ip = nil
+      self.activity_notification = 0
+      self.drafting_notification = 0
+      self.active = 0
+      self.save(false)
+    rescue Exception => e
+      puts "Error deleting user account:"
+      puts e.backtrace
+    else
+      puts "User account with E-Mail address '#{old_email}' has been deleted..."
+    end
+  end
+
 end

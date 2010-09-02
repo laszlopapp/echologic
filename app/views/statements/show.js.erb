@@ -3,11 +3,13 @@
 <% if defined? @info %>
   info('<%= @info %>');
 <% end %>
+<% if defined? @error %>
+  error('<%= @error %>');
+<% end %>
 
 var context  = "<%= escape_javascript(render :partial => 'statements/context') %>";
 var sidebar  = "<%= escape_javascript(render :partial => 'statements/sidebar') %>";
 var summary  = "<%= escape_javascript(render :partial => 'statements/summary') %>";
-var approved = "<%= escape_javascript(render :partial => 'statements/approved') %>";
 var children = "<%= escape_javascript(render :partial => 'statements/children') %>";
 var echoable = <%= @statement_node.echoable? %>
 
@@ -19,9 +21,6 @@ if (echoable) {
   $('#discuss_sidebar').hide();
 }
 $('#summary').replaceWith(summary);
-if($('#approved_ip').size() == 0)
-  $('<div id="approved_ip"></div>').insertAfter('#summary');
-$('#approved_ip').replaceWith(approved);
 if($('#children').size() == 0)
   $('<div id="children"></div>').insertAfter('#summary');
 $('#children').replaceWith(children);

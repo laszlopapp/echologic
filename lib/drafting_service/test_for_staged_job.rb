@@ -1,11 +1,9 @@
-class TestForStagedJob < Struct.new(:statement_node_id, :timestamp)
-  
+class TestForStagedJob < Struct.new(:incorporable_id, :timestamp)
+
   def perform
-    statement = ImprovementProposal.find(statement_node_id)
-    statement.reload
-    
-    if !statement.nil? and statement.ready? and statement.state_since == timestamp
-      DraftingService.instance.stage(statement)
+    incorporable = ImprovementProposal.find(incorporable_id)
+    if !incorporable.nil? and incorporable.ready? and incorporable.state_since == timestamp
+      DraftingService.instance.stage(incorporable)
     end
   end
 end

@@ -19,7 +19,7 @@ config.action_mailer.raise_delivery_errors = false
 config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
 # Hosts
-ECHOLOGIC_HOST = 'localhost:3000'
+ECHO_HOST = 'localhost:3000'
 ECHOSOCIAL_HOST = 'localhost:3001'
 
 # Feedback recipient

@@ -42,6 +42,7 @@ module ActiveRecord
 
             event :readify do
               transitions :from => :tracked, :to => :ready
+              transitions :from => :ready, :to => :ready
               transitions :from => :staged, :to => :ready
             end
             event :stage do
@@ -53,17 +54,19 @@ module ActiveRecord
             end
             event :incorporate do
               transitions :from => :approved, :to => :incorporated
-            end
-          end
+              # For late edit saves
+              transitions :from => :tracked, :to => :incorporated
+              transitions :from => :ready, :to => :incorporated
+              transitions :from => :staged, :to => :incorporated
 
-          class_eval <<-RUBY
+            end
 
             ####################################
             ###### Static values ###############
             ####################################
 
             def after_initialize
-              self.drafting_info = DraftingInfo.new(:state_since => Time.now) if self.drafting_info.nil? 
+              self.drafting_info = DraftingInfo.new(:state_since => Time.now) if self.drafting_info.nil?
             end
 
             def incorporable?
@@ -82,7 +85,23 @@ module ActiveRecord
             def quorum
               (supporter_count.to_i/parent.supporter_count.to_i)*100
             end
-          RUBY
+
+            #
+            # The drafting language is currently the original language of the draftable.
+            #
+            def drafting_language
+              parent.original_language
+            end
+
+            #
+            # Returns the current document in the drafting language.
+            #
+            def document_in_drafting_language
+              document_in_language(drafting_language)
+            end
+
+          end # --- class_eval
+
         end
       end
     end

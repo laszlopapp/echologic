@@ -18,8 +18,11 @@ config.action_mailer.raise_delivery_errors = false
 # For using link_to and url_for in ActionMailer, hostname has to be given.
 config.action_mailer.default_url_options = { :host => 'echologic.echo-test.org' }
 
+# Logging level
+config.log_level = :error
+
 # Hosts
-ECHOLOGIC_HOST = 'echologic.echo-test.org'
+ECHO_HOST = 'echologic.echo-test.org'
 ECHOSOCIAL_HOST = 'echosocial.echo-test.org'
 
 # Feedback recipient

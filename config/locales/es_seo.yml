@@ -35,45 +35,46 @@ es:
       # users: de.seo.title.users
       users:
         users:
-          new: 'Tu echo - unirse a en echologic'
+          new: 'Tu echo - Unirse a en echologic'
         activations:
           new: 'Tu echo - Activar tu cuenta en echologic'
           create: 'Tu echo - Activar tu cuenta en echologic'
         password_resets:
-          new: 'Tu echo - pedir nueva seña'
-          edit: 'Tu echo - definir nueva seña'
+          new: 'Tu echo - Pedir nueva seña'
+          edit: 'Tu echo - Definir nueva seña'
         profile:
-          details: 'Tu echo - tu perfil detallado'
+          details: 'Tu echo - Tu perfil detallado'
 
       # discuss: de.seo.title.discuss
       discuss:
-        index: 'echologic - discutir'
-        roadmap: 'echologic - desarrollo de discutir'
+        index: 'echologic - Discutir'
+        roadmap: 'echologic - Desarrollo de discutir'
       questions:
-        category: 'echologic - temas de discusión'
-        show: 'echologic - debates'
+        category: 'echologic - Temas de discusión'
+        show: 'echologic - Debates'
         new: 'Crear nueva discusión'
         my_discussions: 'Mis Discusiones'
       proposals:
-        show: 'echologic - propuestas en este debate'
+        show: 'echologic - Propuestas en este debate'
       improvement_proposals:
-        show: 'echologic - propuesta de mejoramiento'
+        show: 'echologic - Propuesta de mejoramiento'
 
       # connect: de.seo.title.connect
       connect:
-        roadmap: 'echologic - desarrollo de conectar'
-        show:    'echologic - conectar - descubrir la cumunidad'
-        fill_out_profile: 'echologic - conectar - dar y recibir'
+        roadmap: 'echologic - Desarrollo de conectar'
+        show:    'echologic - Conectar - Descubrir la cumunidad'
+        fill_out_profile: 'echologic - Conectar - Dar y recibir'
 
       # act: de.seo.title.act
       act:
-        roadmap: 'echologic - desarrollo de actuar'
+        roadmap: 'echologic - Desarrollo de actuar'
 
       # my_echo: de.seo.title.my_echo
       my_echo:
-        roadmap: 'echologic - desarrollo de mi echo'
-        welcome: 'echologic - bienvenido'
-        profile: 'echologic - mi perfil'
+        roadmap: 'echologic - Desarrollo de mi echo'
+        welcome: 'echologic - Bienvenido'
+        profile: 'echologic - Mi Perfil'
+        settings: 'echologic - Ajustes'
 
       # my_echo: de.seo.title.admin
       admin:

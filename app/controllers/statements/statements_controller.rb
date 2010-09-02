@@ -1,9 +1,7 @@
 class StatementsController < ApplicationController
-
   helper :echo
   include EchoHelper
   include StatementHelper
-
 
   # Remodelling the RESTful constraints, as a default route is currently active
   # FIXME: the echo and unecho actions should be accessible via PUT/DELETE only,
@@ -17,6 +15,7 @@ class StatementsController < ApplicationController
 
   # The order of these filters matters. change with caution.
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
+  before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions, :new, :create]
   before_filter :require_user, :except => [:category, :show]
   before_filter :fetch_languages, :except => [:destroy]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
@@ -30,6 +29,16 @@ class StatementsController < ApplicationController
   end
 
 
+  ##############
+  # ATTRIBUTES #
+  ##############
+
+  @@edit_locking_time = 1.hours
+
+
+  ###########
+  # ACTIONS #
+  ###########
 
   # Shows all the existing debates according to the given search string and a possible category.
   #
@@ -67,146 +76,67 @@ class StatementsController < ApplicationController
   # Response: HTTP or JS
   #
   def show
-    # Record visited
-    @statement_node.visited!(current_user) if current_user
 
-    # Store last statement in session (for cancel link)
-    session[:last_statement_node] = @statement_node.id
+    begin
+      # Record visited
+      @statement_node.visited!(current_user) if current_user
 
-    # Prev / Next functionality
-    unless @statement_node.children.empty?
-      child_type = ("current_" + @statement_node.class.expected_children.first.to_s.underscore).to_sym
-      session[child_type] = @statement_node.sorted_children(@language_preference_list).collect { |c| c.id }
-    end
+      # Store last statement in session (for cancel link)
+      session[:last_statement_node] = @statement_node.id
 
-    # Get document to show and redirect if not found
-    @statement_document = @statement_node.translated_document(@language_preference_list)
-    if @statement_document.nil?
-      redirect_to(discuss_search_path)
-      return
-    end
+      # Prev / Next functionality
+      unless @statement_node.children.empty?
+        child_type = ("current_" + @statement_node.class.expected_children.first.to_s.underscore).to_sym
+        session[child_type] = @statement_node.children_statements(@language_preference_list).collect { |c| c.id }
+      end
 
-    # Test for special links
-    @original_language_warning = @statement_node.not_original_language?(current_user, @locale_language_id)
-    @translation_permission = @statement_node.translatable?(current_user,
-                                                            @statement_document.language,
-                                                            params[:locale],
-                                                            @language_preference_list)
+      # Get document to show and redirect if not found
+      @statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
+      if @statement_document.nil?
+        redirect_to(discuss_search_path)
+        return
+      end
 
-    # When creating an issue, we save the flash message within the session, to be able to display it here
-    if session[:last_info]
-      @info = session[:last_info]
-      flash_info
-      session[:last_info] = nil
-    end
+      # Test for special links
+      @original_language_warning = @statement_node.not_original_language?(current_user, @locale_language_id)
+      @translation_permission = @statement_node.original_language == @statement_document.language &&
+                                @statement_node.translatable?(current_user,
+                                                              @statement_document.language,
+                                                              EnumKey.find_by_code(params[:locale]))
 
-    # If statement node is drafteable, then try to get the approved one
-    if @statement_node.drafteable?
-      @approved_node = @statement_node.approved_children.first || nil
-      @approved_document = @approved_node.translated_document(@language_preference_list) if !@approved_node.nil?
-    end
+      # When creating an issue, we save the flash message within the session, to be able to display it here
+      if session[:last_info]
+        @info = session[:last_info]
+        flash_info
+        session[:last_info] = nil
+      end
 
-    # Find all child statement_nodes, which are published (except user is an editor)
-    # sorted by supporters count, and paginate them
-    @page = params[:page] || 1
+      # If statement node is draftable, then try to get the approved one
+      load_approved_statement()
 
-    @children = @statement_node.sorted_children(@language_preference_list).
-                  paginate(StatementNode.default_scope.merge(:page => @page,
-                                                             :per_page => 5))
-    @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
-                                                     @language_preference_list)
+      # Find all child statement_nodes, which are published (except user is an editor)
+      # sorted by supporters count, and paginate them
+      @page = params[:page] || 1
 
-    respond_to do |format|
-      format.html {render :template => 'statements/show' } # show.html.erb
-      format.js   {render :template => 'statements/show' } # show.js.erb
-    end
-  end
+      @children = @statement_node.children_statements(@language_preference_list).
+                    paginate(StatementNode.default_scope.merge(:page => @page,
+                                                               :per_page => 5))
+      @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
+                                                       @language_preference_list)
 
-
-  # Called if user supports this statement_node. Updates the support field in the corresponding
-  # echo object.
-  #
-  # Method:   POST
-  # Response: JS
-  #
-  def echo
-    return if !@statement_node.echoable?
-    if !@statement_node.parent.echoable? or @statement_node.parent.supported?(current_user)
-      @statement_node.supported!(current_user)
-      respond_to_js :redirect_to => @statement_node, :template_js => 'statements/echo'
-    else
       respond_to do |format|
-        set_error('discuss.statements.unsupported_parent')
-        format.html { redirect_to url_for(@statement_node) }
-        format.js { show_error_messages }
+        format.html {render :template => 'statements/show' } # show.html.erb
+        format.js   {render :template => 'statements/show' } # show.js.erb
       end
+
+    rescue Exception => e
+      logger.error "Error showing statement for URL: #{request.url}"
+      log_error e
     end
   end
 
 
-  # Called if user doesn't support this statement_node any longer. Sets the supported field
-  # of the corresponding echo object to false.
   #
-  # Method:   POST
-  # Response: HTTP or JS
-  #
-  def unecho
-    return if !@statement_node.echoable?
-
-    @statement_node.unsupported!(current_user)
-    @statement_node.children.each{|c|c.unsupported!(current_user) if c.supported?(current_user)}
-
-    # Logic to update the children caused by cascading unsupport
-    @page = params[:page] || 1
-    @children = @statement_node.sorted_children(@language_preference_list).
-                  paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
-    @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
-                                                     @language_preference_list)
-    respond_to_js :redirect_to => @statement_node,
-                  :template_js => 'statements/unecho'
-  end
-
-
-  # Renders the new statement translation form when called
-  #
-  # Method:   GET
-  # Response: JS
-  #
-  def new_translation
-    @statement_document ||= @statement_node.translated_document(current_user.spoken_language_ids)
-    @new_statement_document ||= @statement_node.add_statement_document({:language_id => @locale_language_id})
-    @action ||= StatementHistory.statement_actions("translated")
-    respond_to_js :template => 'statements/translate',
-                  :partial_js => 'statements/new_translation.rjs'
-  end
-
-  # Creates a translation of a statement according to the fields from a form that was submitted
-  #
-  # Method:   POST
-  # Params:   new_statement_document: hash
-  # Response: JS
-  #
-  def create_translation
-    attrs = params[statement_node_symbol]
-    doc_attrs = attrs.delete(:new_statement_document).merge({:author_id => current_user.id,
-                                                             :language_id => @locale_language_id,
-                                                             :current => true})
-    @new_statement_document = @statement_node.add_statement_document(doc_attrs)
-    respond_to do |format|
-      if @statement_node.save
-        @statement_document = @new_statement_document
-        set_statement_node_info(@statement_document)
-        format.html { flash_info and redirect_to url_for(@statement_node) }
-        format.js {render :partial => 'statements/create_translation.rjs'}
-      else
-        @statement_document = StatementDocument.find(doc_attrs[:old_document_id])
-        set_error(@new_statement_document)
-        format.html { flash_error and render :template => 'statements/translate' }
-        format.js { show_error_messages(@new_statement_document) }
-      end
-    end
-  end
-
   # Renders form for creating a new statement.
   #
   # Method:   GET
@@ -228,6 +158,7 @@ class StatementsController < ApplicationController
   end
 
 
+  #
   # Creates a new statement.
   #
   # Method:   POST
@@ -252,7 +183,7 @@ class StatementsController < ApplicationController
     respond_to do |format|
       if permitted and @statement_node.save
         set_statement_node_info(@statement_document)
-        #load current created statement_node to session
+        # load currently created statement_node to session
         load_to_session @statement_node if @statement_node.parent
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js {
@@ -270,42 +201,32 @@ class StatementsController < ApplicationController
   end
 
 
-  # Renders a form to edit statements
+  #
+  # Renders a form to edit the current statement.
   #
   # Method:   POST
   # Params:   id: integer
   # Response: JS
   #
   def edit
-    @statement_document ||= @statement_node.translated_document(@language_preference_list)
-    locked = false
-    StatementDocument.transaction do
-      if @statement_document.locked_by.nil?
-        @statement_document.user_lock(current_user)
-      elsif current_user != @statement_document.locked_by
-        if @statement_document.locked_at >= DraftingService.edit_locking_time.ago
-          locked = true
-        else
-          @statement_document.user_lock(current_user)
-        end
-      end
-    end
-    
+    @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
+    has_lock = acquire_lock(@statement_document)
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     @action ||= StatementHistory.statement_actions("updated")
-    if !locked
+    if has_lock
       respond_to_js :template => 'statements/edit',
                     :partial_js => 'statements/edit.rjs'
     else
       respond_to do |format|
         set_info('discuss.statements.being_edited')
-        format.html { flash_error and redirect_to url_for(@statement_node) }
+        format.html { flash_info and render :template => 'statements/edit' }
         format.js   { render_with_info }
       end
     end
   end
 
 
+  #
   # Updates statements
   #
   # Method:   POST
@@ -315,35 +236,194 @@ class StatementsController < ApplicationController
   def update
     attrs = params[statement_node_symbol]
     attrs_doc = attrs.delete(:statement_document)
+    locked_at = attrs_doc.delete(:locked_at)
+
     # Updating tags of the statement
     form_tags = attrs.delete(:tags)
-    permitted = true
-    if @statement_node.taggable? and (permitted = check_hash_tag_permissions(form_tags))
-       @statement_node.topic_tags=form_tags
-       @tags=@statement_node.topic_tags
-    end
-    old_statement_document = @statement_node.translated_document(@language_preference_list)
+    has_tag_permissions = !@statement_node.taggable? || check_hash_tag_permissions(form_tags)
 
-    @statement_document = @statement_node.add_statement_document(
-                            attrs_doc.merge({:original_language_id => @locale_language_id,
-                                             :current => true}))
+    holds_lock = ok = true
+    saved = false
+    if has_tag_permissions
+      begin
+        StatementNode.transaction do
+          old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
+          holds_lock = holds_lock?(old_statement_document, locked_at)
+          if (holds_lock)
+            old_statement_document.update_attribute(:current, false)
+            old_statement_document.save!
+            @statement_document = @statement_node.add_statement_document(
+                                    attrs_doc.merge({:original_language_id => @locale_language_id,
+                                                     :current => true}))
+            @statement_document.save!
+
+            if @statement_node.taggable?
+              @statement_node.topic_tags=form_tags
+              @tags=@statement_node.topic_tags
+            end
+            @statement_node.save!
+          end
+        end
+      rescue Exception => e
+        ok = false
+        logger.error("Error updating statement node '#{@statement_node.id}'.")
+        log_error e
+      else
+        logger.info("Statement node '#{@statement_node.id}' has been updated sucessfully.")
+      end
+    end
 
     respond_to do |format|
-      if permitted and @statement_node.update_attributes(attrs)
-        old_statement_document.update_attributes(:current => false)
-        set_statement_node_info(@statement_document)
-        format.html { flash_info and redirect_to url_for(@statement_node) }
-        format.js   { show }
-      else
-        set_error(@statement_document)
+      if !holds_lock
+          set_error('discuss.statements.staled_modification')
+          format.html { flash_error and redirect_to url_for(@statement_node) }
+          format.js { show }
+      elsif !has_tag_permissions || !ok
+        set_error(@statement_document) if @statement_document
         set_error(@statement_node)
         format.html { flash_error and redirect_to url_for(@statement_node) }
         format.js   { show_error_messages }
+      else
+        set_statement_node_info(@statement_document)
+        format.html { flash_info and redirect_to url_for(@statement_node) }
+        format.js   { show }
       end
     end
   end
 
 
+  ################
+  # TRANSLATIONS #
+  ################
+
+  #
+  # Renders the new statement translation form when called
+  #
+  # Method:   GET
+  # Response: JS
+  #
+  def new_translation
+    @statement_document ||= @statement_node.document_in_preferred_language(current_user.sorted_spoken_language_ids)
+    @new_statement_document ||= @statement_node.add_statement_document({:language_id => @locale_language_id})
+    @action ||= StatementHistory.statement_actions("translated")
+    respond_to_js :template => 'statements/translate',
+                  :partial_js => 'statements/new_translation.rjs'
+  end
+
+  #
+  # Creates a translation of a statement according to the fields from a form that was submitted
+  #
+  # Method:   POST
+  # Params:   new_statement_document: hash
+  # Response: JS
+  #
+  def create_translation
+    attrs = params[statement_node_symbol]
+    new_doc_attrs = attrs.delete(:new_statement_document).merge({:author_id => current_user.id,
+                                                                 :language_id => @locale_language_id,
+                                                                 :current => true})
+    # Updating the statement
+    ok = true
+    begin
+      StatementNode.transaction do
+        @new_statement_document = @statement_node.add_statement_document(new_doc_attrs)
+        @new_statement_document.save!
+        @statement_node.save!
+      end
+    rescue Exception => e
+      ok = false
+      logger.error("Error translating statement node '#{@statement_node.id}'.")
+      log_error e
+    else
+      logger.info("Statement node '#{@statement_node.id}' has been translated sucessfully.")
+    end
+
+    # Rendering response
+    respond_to do |format|
+      if ok
+        @statement_document = @new_statement_document
+        set_statement_node_info(@statement_document)
+        format.html { flash_info and redirect_to url_for(@statement_node) }
+        format.js {render :partial => 'statements/create_translation.rjs'}
+      else
+        @statement_document = StatementDocument.find(new_doc_attrs[:old_document_id])
+        set_error(@new_statement_document)
+        format.html { flash_error and render :template => 'statements/translate' }
+        format.js { show_error_messages(@new_statement_document) }
+      end
+    end
+  end
+
+  #
+  # Processes a cancel request, and redirects back to the last shown statement_node
+  #
+  def cancel
+    locked_at = params[:locked_at]
+    statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
+    if holds_lock?(statement_document, locked_at)
+      statement_document.unlock
+    end
+    respond_to do |format|
+      format.html { redirect_to url_for(@statement_node)}
+      format.js   { show }
+    end
+  end
+
+
+  ###################
+  # ECHO STATEMENTS #
+  ###################
+
+  #
+  # Called if user supports this statement_node. Updates the support field in the corresponding
+  # echo object.
+  #
+  # Method:   POST
+  # Response: JS
+  #
+  def echo
+    return if !@statement_node.echoable?
+    if !@statement_node.parent.echoable? or @statement_node.parent.supported?(current_user)
+      @statement_node.supported!(current_user)
+      respond_to_js :redirect_to => @statement_node, :template_js => 'statements/echo'
+    else
+      respond_to do |format|
+        set_info('discuss.statements.unsupported_parent')
+        format.html { flash_info and redirect_to url_for(@statement_node) }
+        format.js { render_with_info }
+      end
+    end
+  end
+
+  #
+  # Called if user doesn't support this statement_node any longer. Sets the supported field
+  # of the corresponding echo object to false.
+  #
+  # Method:   POST
+  # Response: HTTP or JS
+  #
+  def unecho
+    return if !@statement_node.echoable?
+
+    @statement_node.unsupported!(current_user)
+    @statement_node.children.each{|c|c.unsupported!(current_user) if c.supported?(current_user)}
+
+    # Logic to update the children caused by cascading unsupport
+    @page = params[:page] || 1
+    @children = @statement_node.children_statements(@language_preference_list).
+                  paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
+    @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
+                                                     @language_preference_list)
+    respond_to_js :redirect_to => @statement_node,
+                  :template_js => 'statements/unecho'
+  end
+
+
+  #################
+  # ADMIN ACTIONS #
+  #################
+
+  #
   # Destroys a statement_node.
   #
   # Method:   DELETE
@@ -358,9 +438,46 @@ class StatementsController < ApplicationController
                                :id => params[:category]
   end
 
-  # Processes a cancel request, and redirects back to the last shown statement_node
-  def cancel
-    redirect_to url_f(StatementNode.find(session[:last_statement_node]))
+
+  #############
+  # PROTECTED #
+  #############
+
+  protected
+
+  #
+  # Loads the approved statement if there can be any.
+  #
+  def load_approved_statement
+    if @statement_node.draftable?
+      @approved_node = @statement_node.approved_children.first || nil
+      @approved_document = @approved_node.document_in_preferred_language(@language_preference_list) if !@approved_node.nil?
+    end
+  end
+
+  #
+  # Returns true if the current user could successfully acquire the lock.
+  #
+  def acquire_lock(statement_document)
+    StatementDocument.transaction do
+      if statement_document.locked_by.nil?
+        statement_document.lock(current_user)
+      elsif current_user != statement_document.locked_by
+        if statement_document.locked_at >= @@edit_locking_time.ago
+          return false
+        else
+          statement_document.lock(current_user)
+        end
+      end
+    end
+    return true
+  end
+
+  #
+  # Returns true if the current user still holds his original lock he acquired when starting to edit the statement.
+  #
+  def holds_lock?(statement_document, locked_at)
+    statement_document.locked_by == current_user && statement_document.locked_at.to_s == locked_at
   end
 
 
@@ -370,39 +487,81 @@ class StatementsController < ApplicationController
 
   private
 
+  #
   # Gets the correspondent statement node to the id that is given in the request
+  #
   def fetch_statement_node
     @statement_node ||= statement_node_class.find(params[:id]) if params[:id].try(:any?) && params[:id] =~ /\d+/
   end
 
+  #
+  # Redirect to parent if incorporable is approved or already incorporated.
+  #
+  def redirect_if_approved_or_incorporated
+    begin
+      if @statement_node.incorporable? && (@statement_node.approved? || @statement_node.incorporated?)
+        if @statement_node.approved?
+          set_info("discuss.statements.see_parent_if_approved")
+        else
+          set_info("discuss.statements.see_parent_if_incorporated")
+        end
+        respond_to do |format|
+          flash_info
+          format.html { redirect_to @statement_node.parent }
+          format.js do
+            render :update do |page|
+              page.redirect_to @statement_node.parent
+            end
+          end
+        end
+        return
+      end
+    rescue Exception => e
+      logger.error "Error running redirect approved/incorporated IP filter"
+      logger.error "Controller: #{params[:controller]} - Action: #{params[:action]} - URL: #{request.url}"
+      log_error e
+    end
+  end
+
+  #
   # Loads the locale language and the language preference list
+  #
   def fetch_languages
     @locale_language_id = locale_language_id
     @language_preference_list = language_preference_list
   end
 
+  #
   # Checks if text that comes with the form is actually empty, even with the escape parameters from the iframe
+  #
   def check_empty_text
     document_param = params[statement_node_symbol][:new_statement_document] || params[statement_node_symbol][:statement_document]
     text = document_param[:text]
     document_param[:text] = "" if text.eql?('<br>')
   end
 
+  #
   # Returns the statement node correspondent symbol (:question, :proposal...). Must be implemented by the subclasses.
+  #
   def statement_node_symbol
     raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
 
+  #
   # Returns the statement_node class, corresponding to the controllers name. Must be implemented by the subclasses.
+  #
   def statement_node_class
     raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
 
+  #
   # Returns the parent statement node of the current statement. Must be implemented by the subclasses.
+  #
   def parent
     raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
 
+  #
   # Sets the info to displayed along with the response.
   # The action name is automagically incorporated into the I18n key.
   #
@@ -412,12 +571,13 @@ class StatementsController < ApplicationController
   end
 
 
-
   ###############
   # PERMISSIONS #
   ###############
 
-  # Checks if the statement node or parent has a * tag and the user has permission for it
+  #
+  # Checks if the statement node or parent has a * tag and the user has permission for it.
+  #
   def require_decision_making_permission
     decision_making_tags = current_user.decision_making_tags
     statement = @statement_node || parent
@@ -440,8 +600,9 @@ class StatementsController < ApplicationController
     return true
   end
 
-
-  # Checks whether the user is allowed to assign the given hash tags (#tag)
+  #
+  # Checks whether the user is allowed to assign the given hash tags (#tag).
+  #
   def check_hash_tag_permissions(tags_values)
 
     # Editors can define all tags
@@ -467,13 +628,16 @@ class StatementsController < ApplicationController
   # SEARCH #
   ##########
 
+  #
   # Calls the statement node sql query for questions.
+  #
   def search_statement_nodes (opts = {})
     StatementNode.search_statement_nodes(opts.merge({:type => "Question"}))
   end
 
-
+  #
   # Gets all the statement documents belonging to a group of statements, and orders them per language ids.
+  #
   def search_statement_documents (statement_ids, language_ids = @language_preference_list)
     hash = {}
     statement_documents = StatementDocument.search_statement_documents(statement_ids, language_ids)
@@ -491,14 +655,14 @@ class StatementsController < ApplicationController
   # MISC #
   ########
 
+  #
   # Saves the current statement node to the session to enable back navigation
+  #
   def load_to_session(statement_node)
     type = statement_node_class.to_s.underscore
     key = ("current_" + type).to_sym
-    session[key] = statement_node.parent.sorted_children(@language_preference_list).map{|s|s.id}
+    session[key] = statement_node.parent.children_statements(@language_preference_list).map{|s|s.id}
     session[:last_statement_node] = statement_node.id
   end
 
 end
-
-
