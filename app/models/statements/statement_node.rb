@@ -201,8 +201,7 @@ class StatementNode < ActiveRecord::Base
     conditions = {:conditions => "parent_id = #{parent_id}"}
     conditions.merge!({:language_ids => language_ids}) if language_ids
     conditions.merge!({:drafting_states => %w(tracked ready staged)}) if filter_drafting_state
-    children = self.class.search_statement_nodes(conditions)
-    children
+    self.class.search_statement_nodes(conditions)
   end
 
 
