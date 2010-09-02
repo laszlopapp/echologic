@@ -337,6 +337,8 @@ en:
       back_to_question: 'Back to current question'
       back_to_proposal: 'Back to current proposal'
       back_to_improvement_proposal: 'Back to current improvement proposal'
+      prev_question: 'Read previous question'
+      next_question: 'Read next question'
       prev_proposal: 'Read previous proposal for the current question'
       next_proposal: 'Read next proposal for the current question'
       prev_improvement_proposal: 'Read previous improvement proposal for the current proposal'

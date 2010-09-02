@@ -57,6 +57,9 @@ class StatementsController < ApplicationController
                                                            :show_unpublished => current_user &&
                                                                                 current_user.has_role?(:editor))
 
+    # PREV / NEXT functionality for questions
+    session[:current_question] = statement_nodes_not_paginated.map(&:id)
+
     @count    = statement_nodes_not_paginated.size
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page,
                                                               :per_page => 6)
@@ -81,15 +84,10 @@ class StatementsController < ApplicationController
       # Record visited
       @statement_node.visited!(current_user) if current_user
 
-      # Store last statement in session (for cancel link)
-      session[:last_statement_node] = @statement_node.id
-
-      # Prev / Next functionality
-      unless @statement_node.children.empty?
-        child_type = ("current_" + @statement_node.class.expected_children.first.to_s.underscore).to_sym
-        session[child_type] = @statement_node.children_statements(@language_preference_list).collect { |c| c.id }
-      end
-
+      
+      # Load statement node data to session for prev/next functionality
+      load_to_session(@statement_node)
+      
       # Get document to show and redirect if not found
       @statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
       if @statement_document.nil?
@@ -184,7 +182,7 @@ class StatementsController < ApplicationController
       if permitted and @statement_node.save
         set_statement_node_info(@statement_document)
         # load currently created statement_node to session
-        load_to_session @statement_node if @statement_node.parent
+        load_to_session @statement_node
         format.html { flash_info and redirect_to url_for(@statement_node) }
         format.js {
           @statement_node.visited!(current_user)
@@ -658,11 +656,22 @@ class StatementsController < ApplicationController
   #
   # Saves the current statement node to the session to enable back navigation
   #
-  def load_to_session(statement_node)
-    type = statement_node_class.to_s.underscore
-    key = ("current_" + type).to_sym
-    session[key] = statement_node.parent.children_statements(@language_preference_list).map{|s|s.id}
-    session[:last_statement_node] = statement_node.id
+  def load_to_session(statement_node, reload = true)
+    
+    # Load parent information to session
+    load_to_session(statement_node.parent, false) if statement_node.parent
+    
+    # Loads sibling (or other question) statements to session if they were not loaded yet
+    key = ("current_" + statement_node_class.to_s.underscore).to_sym
+    if !session[key].present? or reload
+      session[key] = statement_node.echoable? ? 
+                     statement_node.sibling_statements(@language_preference_list).map(&:id) :
+                     search_statement_nodes(:language_ids => @language_preference_list, 
+                                            :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id)
+    end
+    
+    # Store last statement in session (for cancel link)
+    session[:last_statement_node] = statement_node.id if reload
   end
 
 end

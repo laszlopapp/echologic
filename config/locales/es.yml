@@ -348,6 +348,8 @@ es:
       back_to_question: 'Volver al cuestión actual'
       back_to_proposal: 'Volver a la propuesta actual'
       back_to_improvement_proposal: 'Volver a la propuesta de mejoramiento actual'
+      prev_question: 'Leer cuestión anterior'
+      next_question: 'Leer próxima cuestión'
       prev_proposal: 'Leer propuesta anterior'
       next_proposal: 'Leer próxima propuesta'
       prev_improvement_proposal: 'Leer propuesta de mejoramiento anterior'

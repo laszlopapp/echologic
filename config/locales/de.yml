@@ -342,6 +342,8 @@ de:
       back_to_question: 'Zurück zur aktuellen Frage'
       back_to_proposal: 'Zurück zum aktuellen Vorschlag'
       back_to_improvement_proposal: 'Zurück zum aktuellen Ergänzungsvorschlag'
+      prev_question: 'Vorige Frage lesen'
+      next_question: 'Nächste Frage lesen'
       prev_proposal: 'Vorigen Vorschlag zur aktuellen Frage lesen'
       next_proposal: 'Nächsten Vorschlag zur aktuellen Frage lesen'
       prev_improvement_proposal: 'Vorigen Ergänzungsvorschlag zum aktuellen Vorschlag lesen'
