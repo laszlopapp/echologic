@@ -531,6 +531,7 @@ en:
       membership:
         position: My role
       statement_document:
+        language: 'Language'
         title: 'Title'
         text: 'Summary'
 

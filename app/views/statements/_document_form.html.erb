@@ -3,8 +3,25 @@
 <% statement_document ||= @statement_document %>
 <% css_rte_class = 'rte_doc' %>
 
-<% form.semantic_fields_for :statement_document, @statement_document do |doc|  %>
+<% form.semantic_fields_for :statement_document, statement_document do |doc|  %>
+  
+  <% if !disabled %>
+	  <% doc.inputs :class => 'inputs left_panel' do %>
+		  <li>
+		  <%= label_tag 'question_statement_document_language_id', I18n.t("activerecord.attributes.statement_document.language") %>
+			<%= select_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][language_id]",
+	                   options_for_select(current_user.spoken_languages_at_min_level("intermediate").collect { 
+	                                   |l| [l.get_current_enum_value.value,l.id] }, statement_document.language_id || @locale_language_id) %>
+			</li>
+		<% end %>
+  <% else %>
+    <%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][language_id]",
+                            statement_document.language_id || @locale_language_id %>
+  <% end %>
+  
+	
   <% doc.inputs :class => 'inputs left_panel' do %>
+	  
     <%= doc.input :title,
                   :input_html => {:disabled => disabled} %>
     <br/>
@@ -12,10 +29,12 @@
       <%= doc.input :text,
                     :input_html => {:disabled => disabled,
                                     :class => css_rte_class} %>
+			<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][author_id]",
+                       current_user.id %>
 			<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][old_document_id]",
-                           @statement_document.id if !@statement_document.new_record? %>
+                           statement_document.id if !statement_document.new_record? %>
 			<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][locked_at]",
-                           @statement_document.locked_at if !@statement_document.nil? %>
+                           statement_document.locked_at %>
 			<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][action_id]",
                            @action.id if @action %>
 			<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][incorporated_node_id]",
@@ -26,7 +45,7 @@
           <%= I18n.t("activerecord.attributes.statement_document.text") %>
         </label>
         <div class="static_text">
-        	<%= sanitize @statement_document.text %>
+        	<%= sanitize statement_document.text %>
         </div>
 			</li>
     <% end %>

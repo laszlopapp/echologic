@@ -540,6 +540,7 @@ de:
       feedback:
         message: Nachricht
       statement_document:
+        language: 'Sprache'
         title:    'Titel'
         text:     'Zusammenfassung'
 

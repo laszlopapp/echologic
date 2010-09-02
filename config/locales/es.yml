@@ -548,6 +548,7 @@ es:
       feedback:
         message: Mensaje
       statement_document:
+        language: 'Idioma'
         text:     'Resumen'
         title:    'Titulo'
 

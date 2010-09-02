@@ -46,11 +46,7 @@
 	<%= form.hidden_field :statement_id %>
   <%= form.hidden_field :parent_id %>
 	<%= form.hidden_field :root_id %>
-	<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][author_id]",
-                       current_user.id %>
-  <%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][language_id]",
-                       statement_document.language_id || @locale_language_id %>
-
+	
   <!-- Submit or cancel -->
   <% form.buttons do %>
     <%= form.commit_button I18n.t('application.general.save'),

@@ -528,6 +528,7 @@ pt:
       membership:
         position: A minha função
       statement_document:
+        language:   'Língua'
         text:       'Sumário'
         title:      'Título'
 
