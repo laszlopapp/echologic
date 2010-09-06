@@ -63,9 +63,7 @@ class StatementsController < ApplicationController
     @count    = statement_nodes_not_paginated.size
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page,
                                                               :per_page => 6)
-    @statement_documents = search_statement_documents(@statement_nodes.map { |s|
-                                                        s.statement_id
-                                                      }, @language_preference_list)
+    @statement_documents = search_statement_documents(@statement_nodes.map(&:statement_id), @language_preference_list)
 
     respond_to_js :template => 'statements/questions/index',
                   :template_js => 'statements/questions/questions'
