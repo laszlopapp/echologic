@@ -19,11 +19,21 @@ class ActivityTrackingService
   #########
 
   def supported(echoable, user)
-    echoable.add_subscriber(user)
+    return if user.nil?
+    subscription = echoable.subscriptions.find_by_subscriber_id(user.id) ||
+                     Subscription.new(:subscriber => user, :subscriber_type => user.class.name,
+                                      :subscribeable => echoable, :subscribeable_type => echoable.class.name)
+    subscriptions << subscription if subscription.new_record?
   end
 
   def unsupported(echoable, user)
-    echoable.remove_subscriber(user)
+    return if user.nil?
+    subscription = echoable.subscriptions.find_by_subscriber_id(user.id)
+    subscriptions.delete(subscription) if subscription
+  end
+  
+  def created(subscribeable)
+    created_event(subscribeable)
   end
 
   def incorporated(echoable, user)
@@ -33,6 +43,34 @@ class ActivityTrackingService
   #################
   # Service logic #
   #################
+
+  #
+  # Creates an event for the newly created subscribeable object
+  #
+  def create_event(subscribeable)
+    event_json = subscribeable.to_json(:include => {
+                                :statement => {
+                                  :include =>  {
+                                    :statement_documents => {
+                                      :only => [:title, :language_id]
+                                    }
+                                  }
+                                },
+                                :tao_tags => {
+                                  :include => {
+                                    :tag => {
+                                      :only => :value
+                                    }
+                                  }
+                                }
+                              },
+                              :only => [:root_id,:parent_id,:type])
+
+    events << Event.new(:event => event_json,
+                      :subscribeable => subscribeable,
+                      :subscribeable_type => subscribeable.class.name,
+                      :operation => 'new')
+  end
 
   #
   # Manages the counter to calculate current charge and schedules the next job with it.

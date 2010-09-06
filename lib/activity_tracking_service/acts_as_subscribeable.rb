@@ -30,31 +30,10 @@ module ActiveRecord
 
             has_many :events, :as => :subscribeable
 
-            after_create :create_event
+            after_create :created_event
 
-            def create_event
-              event_json = self.to_json(:include => {
-                                          :statement => {
-                                            :include =>  {
-                                              :statement_documents => {
-                                                :only => [:title, :language_id]
-                                              }
-                                            }
-                                          },
-                                          :tao_tags => {
-                                            :include => {
-                                              :tag => {
-                                                :only => :value
-                                              }
-                                            }
-                                          }
-                                        },
-                                        :only => [:root_id,:parent_id,:type])
-
-              events << Event.new(:event => event_json,
-                                :subscribeable => self,
-                                :subscribeable_type => self.class.name,
-                                :operation => 'new')
+            def created_event
+              EchoService.instance.created(self)
             end
 
             def self.subscribeable?
@@ -64,28 +43,7 @@ module ActiveRecord
             def followed_by?(user)
               self.subscriptions.map{|s|s.subscriber}.include? user
             end
-
-            def add_subscriber(subscriber)
-              return if subscriber.nil?
-              subscription = self.subscriptions.find_by_subscriber_id(subscriber.id) ||
-                               Subscription.new(:subscriber => subscriber,
-                                                :subscriber_type => subscriber.class.name,
-                                                :subscribeable => self,
-                                                :subscribeable_type => self.class.name)
-              subscriptions << subscription if subscription.new_record?
-            end
-
-            def remove_subscriber(subscriber)
-              return if subscriber.nil?
-              subscription = self.subscriptions.find_by_subscriber_id(subscriber.id)
-              subscriptions.delete(subscription) if subscription
-            end
-
-            handle_asynchronously :remove_subscriber
-            handle_asynchronously :add_subscriber
-
           end # --- class_eval
-
         end
       end
     end

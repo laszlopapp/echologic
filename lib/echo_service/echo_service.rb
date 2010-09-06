@@ -58,6 +58,11 @@ class EchoService
     user_echo
   end
 
+  def created(subscribeable)
+    changed
+    notify_observers(:created, subscribeable)
+  end
+
   def incorporated(echoable, user)
     changed
     notify_observers(:incorporated, echoable, user)
