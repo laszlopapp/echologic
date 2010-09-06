@@ -83,21 +83,7 @@ module ActiveRecord
             def follows?(obj)
               self.subscriptions.map{|s|s.subscribeable}.include? obj
             end
-
-            def find_or_create_subscription_for(obj)
-              s = subscriptions.find_by_subscribeable_id(obj.id) ||
-                    Subscription.create(:subscriber => self,
-                                        :subscriber_type => self.class.name,
-                                        :subscribeable => obj,
-                                        :subscribeable_type => obj.class.name)
-            end
-
-            def delete_subscription_for(obj)
-              subscription = subscriptions.find_by_subscribeable_id(obj.id)
-              subscription.destroy if subscription
-            end
           end # --- class_eval
-
         end
       end
     end

@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   include UserExtension::Echo
-  #acts_as_subscriber
+  acts_as_subscriber
   acts_as_extaggable :affections, :engagements, :expertises, :decision_makings
 
   has_many :web_addresses
