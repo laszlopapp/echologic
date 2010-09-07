@@ -30,11 +30,6 @@ module ActiveRecord
 
             has_many :events, :as => :subscribeable
 
-            after_create :created_event
-
-            def created_event
-              EchoService.instance.created(self)
-            end
 
             def self.subscribeable?
               true
