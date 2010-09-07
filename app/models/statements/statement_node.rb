@@ -4,10 +4,12 @@ class StatementNode < ActiveRecord::Base
   acts_as_subscribeable
 
   after_destroy :destroy_statement
-
+  
   def destroy_statement
     self.statement.destroy if (statement.statement_nodes - [self]).empty?
   end
+  
+  
 
   ##
   ## ASSOCIATIONS

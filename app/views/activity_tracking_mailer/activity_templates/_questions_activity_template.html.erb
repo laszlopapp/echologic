@@ -9,10 +9,17 @@
     <% questions.each do |question_event| %>
       <%
          event_data = JSON.parse(question_event.event)
-         title = event_data['question']['statement']['statement_documents'][0]['title']
+         title = nil
+         @preferred_language_ids.each do |l_id|
+					if event_data['documents'].has_key?(l_id)
+						title = event_data['documents'][l_id]
+						break
+					end
+         end
+         title ||= event_data['documents'].to_a[0][1]
       %>
       <li>
-        <%= link_to title, question_url(question_event.subscribeable)%>
+        <%= link_to title, question_url(Question.find(event_data['id']))%>
       </li>
     <% end %>
   </ul>
