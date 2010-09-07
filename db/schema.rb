@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20100820133948) do
 
   create_table "drafting_infos", :force => true do |t|
     t.integer  "statement_node_id"
-    t.datetime "state_since",       :default => '2010-08-11 14:23:55'
+    t.datetime "state_since",       :default => '2010-09-06 17:47:52'
     t.integer  "times_passed",      :default => 0
   end
 
@@ -271,7 +271,7 @@ ActiveRecord::Schema.define(:version => 20100820133948) do
     t.string   "openid_identifier"
     t.integer  "last_login_language_id"
     t.integer  "activity_notification",  :default => 1
-    t.integer  "drafting_notification"
+    t.integer  "drafting_notification",  :default => 1
   end
 
   add_index "users", ["email", "id"], :name => "idx_users_email_pk", :unique => true
