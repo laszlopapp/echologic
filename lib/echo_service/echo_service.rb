@@ -58,9 +58,9 @@ class EchoService
     user_echo
   end
 
-  def created(subscribeable)
+  def created(node)
     changed
-    notify_observers(:created, subscribeable)
+    notify_observers(:created, node)
   end
 
   def incorporated(echoable, user)
