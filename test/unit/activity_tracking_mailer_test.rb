@@ -9,7 +9,9 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
 
     tags = {'#echonomyjam' => 1,'user' => 2}
     events = []
-    title = JSON.parse(question_event.event)['question']['statement']['statement_documents'][0]['title']
+    id = JSON.parse(question_event.event)['id']
+    en = EnumKey.find_by_code('en')
+    title = JSON.parse(question_event.event)['documents'][en.id]
     # Send the email, then test that it got queued
     email = ActivityTrackingMailer.deliver_activity_tracking_email!(user,question_events,tags,events)
     assert !ActionMailer::Base.deliveries.empty?
@@ -19,7 +21,7 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert_match /echo - Activity Notifications/, email.encoded
     assert_match /There are <strong>1 new discussions<\/strong> since last update:/, email.encoded
     assert_match /#{title}/, email.encoded
-    assert_match /#{question_event.subscribeable.id}/, email.encoded
+    assert_match /#{id}/, email.encoded
     assert_match /The new discussions are related the following topics:/, email.encoded
     assert_match /user/, email.encoded
     assert_match /(2)/, email.encoded
@@ -30,8 +32,10 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     question_events = []
     tags = {}
     proposal_event = events(:event_second_proposal)
-    parent_id = JSON.parse(proposal_event.event)['proposal']['parent_id']
-    title = JSON.parse(proposal_event.event)['proposal']['statement']['statement_documents'][0]['title']
+    id = JSON.parse(proposal_event.event)['id']
+    parent_id = JSON.parse(proposal_event.event)['parent_id']
+    en = EnumKey.find_by_code('en')
+    title = JSON.parse(proposal_event.event)['documents'][en.id]
     events = [proposal_event]
     # Send the email, then test that it got queued
     email = ActivityTrackingMailer.deliver_activity_tracking_email!(user,question_events,tags,events)
@@ -41,8 +45,8 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert_equal "echo - Activity Notifications", email.subject
     assert_match /echo - Activity Notifications/, email.encoded
     assert_match /#{Question.find(parent_id).document_in_preferred_language(EnumKey.find_by_code("en")).title}/, email.encoded
-    assert_match /#{proposal_event.subscribeable.id}/, email.encoded
-    assert_match /#{proposal_event.subscribeable.parent.id}/, email.encoded
+    assert_match /#{id}/, email.encoded
+    assert_match /#{parent_id}/, email.encoded
     assert_match /#{title}/, email.encoded
   end
 
@@ -51,9 +55,10 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     question_events = []
     tags = {}
     impro_proposal_event = events(:event_first_impro_proposal)
-    parent_id = JSON.parse(impro_proposal_event.event)['improvement_proposal']['parent_id']
-    root_id = JSON.parse(impro_proposal_event.event)['improvement_proposal']['root_id']
-    title = JSON.parse(impro_proposal_event.event)['improvement_proposal']['statement']['statement_documents'][0]['title']
+    parent_id = JSON.parse(impro_proposal_event.event)['parent_id']
+    root_id = JSON.parse(impro_proposal_event.event)['root_id']
+    en = EnumKey.find_by_code('en')
+    title = JSON.parse(impro_proposal_event.event)['documents'][en.id]
     events = [impro_proposal_event]
     # Send the email, then test that it got queued
     email = ActivityTrackingMailer.deliver_activity_tracking_email!(user,question_events,tags,events)
