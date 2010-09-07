@@ -178,6 +178,7 @@ class StatementsController < ApplicationController
 
     respond_to do |format|
       if permitted and @statement_node.save
+        EchoService.instance.created(@statement_node) 
         set_statement_node_info(@statement_document)
         # load currently created statement_node to session
         load_to_session @statement_node
