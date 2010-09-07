@@ -69,7 +69,7 @@ class DraftingService
   end
 
   # Observer to subscribeable created action
-  def created(subscribeable)
+  def created(node)
   end
 
   # Observer to incorporable incorporated action
