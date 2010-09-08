@@ -69,10 +69,11 @@ class ActivityTrackingService
       :tags => node.topic_tags,
       :documents => set_titles_hash(node.statement_documents),
       :parent_documents => node.parent ? set_titles_hash(node.parent.statement_documents) : nil,
-      :root_documents => (node.root and node.root != node.parent) ? set_titles_hash(node.root.statement_documents) : nil,
+      :root_documents => (!node.root_id.nil? and node.root != node.parent) ? set_titles_hash(node.root.statement_documents) : nil,
       :parent_id => node.parent_id || -1,
       :root_id => (!node.root_id.nil? and node.root_id != node.parent_id) ? node.root_id : -1,
-      :parent_type => node.parent ? node.parent.class.name.underscore.downcase : nil
+      :parent_type => node.parent ? node.parent.class.name.underscore.downcase : nil,
+      :operation => 'created'
     }.to_json
 
     node.events << Event.new(:event => event_json,
@@ -113,14 +114,20 @@ class ActivityTrackingService
 
       # Collecting events
       events = Event.find_tracked_events(recipient, after_time)
+      # Filter only events whose titles languages the recipient speaks
+      events = events.select{|e| !(JSON.parse(e.event)['documents'].keys.map{|id|id.to_i} & recipient.sorted_spoken_language_ids).empty? }
+      
       next if events.blank? #if there are no events to send per email, take the next user
-
+      
       question_events = events.select{|e|JSON.parse(e.event)['type'] == 'question'}
+      
+      # created an Hash containing the number of ocurrences of the new tags in the new questions
       tag_counts = Hash.new
       question_events.each do |question|
         question_data = JSON.parse(question.event)
         question_data['tags'].each{|tag| tag_counts[tag] = tag_counts[tag] ? tag_counts[tag] + 1 : 1 }
       end
+      
       events.sort! do |a,b|
         a_parsed = JSON.parse(a.event) ; b_parsed = JSON.parse(b.event)
         [a_parsed['root_id'],a_parsed['parent_id']] <=> [b_parsed['root_id'],b_parsed['parent_id']]
