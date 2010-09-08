@@ -1,5 +1,6 @@
 <% statement_node ||= @statement_node %>
 <% new_statement_document ||= @new_statement_document %>
+<% statement_document ||= @statement_document %>
 
 <% semantic_form_for statement_node,
                      :url => create_translation_url(statement_node, statement_node_class_dom_id(statement_node)) do |form| -%>
@@ -23,6 +24,6 @@
     <span class="or_cancel">
       <%= I18n.t('application.general.or') %>
     </span>
-    <%= cancel_new_statement_node(statement_node,true) %>
+    <%= cancel_edit_statement_node(statement_node, statement_document.locked_at) %>
   <% end %>
 <% end -%>

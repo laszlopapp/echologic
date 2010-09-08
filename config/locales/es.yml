@@ -427,6 +427,10 @@ es:
         Esta propuesta de mejoramiento ya fue incorporada.
       being_edited: |-
         Esta propuesta actualmente está siendo editada. Por favor vuelva mas tarde.
+      already_translated: |-
+        This {{type}} was already translated in this language.
+      statement_updated: |-
+        This {{type}} has just been updated.
       edit_period_hint: |
         <strong>Tienes {{minutes}} minutos</strong> para editar la propuesta.
         Passondo este plazo, posiblemente tus modificationes serán perdidas.

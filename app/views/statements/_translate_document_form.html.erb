@@ -11,6 +11,7 @@
                   :input_html => {:class => css_rte_class}%>
   <% end %>
   <%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[new_statement_document][old_document_id]", statement_document.id %>
+	<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[new_statement_document][locked_at]", statement_document.locked_at %>
 	<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[new_statement_document][action_id]", @action.id if @action %>
 <% end -%>
 

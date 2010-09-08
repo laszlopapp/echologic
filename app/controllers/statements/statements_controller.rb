@@ -207,17 +207,22 @@ class StatementsController < ApplicationController
   #
   def edit
     @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
-    has_lock = acquire_lock(@statement_document)
-    @tags ||= @statement_node.topic_tags if @statement_node.taggable?
-    @action ||= StatementHistory.statement_actions("updated")
-    if has_lock
+    if (is_current_document = @statement_document.id == params[:current_document_id].to_i)
+      has_lock = acquire_lock(@statement_document)
+      @tags ||= @statement_node.topic_tags if @statement_node.taggable?
+      @action ||= StatementHistory.statement_actions("updated")
+    end
+    
+    if !is_current_document
+      with_info(:template => 'statements/edit' ) do |format|
+        set_info('discuss.statements.statement_updated', :type => I18n.t("discuss.statements.types.#{statement_node_symbol.to_s}"))
+      end
+    elsif has_lock
       respond_to_js :template => 'statements/edit',
                     :partial_js => 'statements/edit.rjs'
     else
-      respond_to do |format|
+      with_info(:template => 'statements/edit' ) do |format|
         set_info('discuss.statements.being_edited')
-        format.html { flash_info and render :template => 'statements/edit' }
-        format.js   { render_with_info }
       end
     end
   end
@@ -272,9 +277,7 @@ class StatementsController < ApplicationController
 
     respond_to do |format|
       if !holds_lock
-          set_error('discuss.statements.staled_modification')
-          format.html { flash_error and redirect_to url_for(@statement_node) }
-          format.js { show }
+          being_edited(format)
       elsif !has_tag_permissions || !ok
         set_error(@statement_document) if @statement_document
         set_error(@statement_node)
@@ -300,11 +303,29 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def new_translation
-    @statement_document ||= @statement_node.document_in_preferred_language(current_user.sorted_spoken_language_ids)
-    @new_statement_document ||= @statement_node.add_statement_document({:language_id => @locale_language_id})
-    @action ||= StatementHistory.statement_actions("translated")
-    respond_to_js :template => 'statements/translate',
-                  :partial_js => 'statements/new_translation.rjs'
+    @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
+    if (is_current_document = @statement_document.id == params[:current_document_id].to_i) and
+       !(already_translated = @statement_document.language_id == @locale_language_id)
+      has_lock = acquire_lock(@statement_document)
+      @new_statement_document ||= @statement_node.add_statement_document({:language_id => @locale_language_id})
+      @action ||= StatementHistory.statement_actions("translated")
+    end
+    if !is_current_document
+      with_info(:template => 'statements/new_translation' ) do |format|
+        set_info('discuss.statements.statement_updated', :type => I18n.t("discuss.statements.types.#{statement_node_symbol.to_s}"))
+      end
+    elsif already_translated
+      with_info(:template => 'statements/new_translation' ) do |format|
+        set_info('discuss.statements.already_translated', :type => I18n.t("discuss.statements.types.#{statement_node_symbol.to_s}"))
+      end
+    elsif has_lock
+      respond_to_js :template => 'statements/translate',
+                    :partial_js => 'statements/new_translation.rjs'
+    else
+      with_info(:template => 'statements/new_translation' ) do |format|
+        set_info('discuss.statements.being_edited')
+      end
+    end
   end
 
   #
@@ -319,13 +340,19 @@ class StatementsController < ApplicationController
     new_doc_attrs = attrs.delete(:new_statement_document).merge({:author_id => current_user.id,
                                                                  :language_id => @locale_language_id,
                                                                  :current => true})
+    locked_at = new_doc_attrs.delete(:locked_at)
+                                                                 
     # Updating the statement
-    ok = true
+    holds_lock = ok = true
     begin
       StatementNode.transaction do
-        @new_statement_document = @statement_node.add_statement_document(new_doc_attrs)
-        @new_statement_document.save!
-        @statement_node.save!
+        old_statement_document = StatementDocument.find(new_doc_attrs[:old_document_id])
+        holds_lock = holds_lock?(old_statement_document, locked_at)
+        if (holds_lock)
+          @new_statement_document = @statement_node.add_statement_document(new_doc_attrs)
+          @new_statement_document.save!
+          @statement_node.save!
+        end
       end
     rescue Exception => e
       ok = false
@@ -337,7 +364,9 @@ class StatementsController < ApplicationController
 
     # Rendering response
     respond_to do |format|
-      if ok
+      if !holds_lock
+        being_edited(format)
+      elsif ok
         @statement_document = @new_statement_document
         set_statement_node_info(@statement_document)
         format.html { flash_info and redirect_to url_for(@statement_node) }
@@ -620,7 +649,6 @@ class StatementsController < ApplicationController
     @error.nil? ? true : false
   end
 
-
   ##########
   # SEARCH #
   ##########
@@ -673,4 +701,20 @@ class StatementsController < ApplicationController
     session[:last_statement_node] = statement_node.id if reload
   end
 
+  #
+  # show "being edited" info message
+  #
+  def being_edited(format)
+    set_error('discuss.statements.staled_modification')
+    format.html { flash_error and redirect_to url_for(@statement_node) }
+    format.js { show }
+  end
+  
+  def with_info(opts={})
+    respond_to do |format|
+      yield format if block_given?
+      format.html { flash_info and render :template => opts[:template] }
+      format.js   { render_with_info }
+    end
+  end
 end

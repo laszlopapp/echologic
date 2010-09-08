@@ -414,6 +414,10 @@ en:
         The requested improvement proposal has already been incorporated into the proposal below.
       being_edited: |-
         The statement is currently being edited. Please try again later.
+      already_translated: |-
+        This {{type}} was already translated in this language.
+      statement_updated: |-
+        This {{type}} has just been updated.
       edit_period_hint: |
         You have <strong>{{minutes}} minutes</strong> to edit the statement.
         Afterwards, your modifications might even get discarded.
