@@ -26,7 +26,7 @@ pt:
         new_tags: 'Os debates estão relacionados com os seguintes tópicos:'
         new_proposals: 'Novas propostas na discussão "{{title}}"'
         new_improvement_proposals: 'Novas propostas de melhoria na proposta "{{title}}" em "{{question_title}}":'
-        tag_link: "<a href='http://{{host}}/{{code}}/discuss/search?value={{tag}}'>{{tag}}</a> ({{count}})"
+        tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         Se não quer receber notificações diárias sobre novidades nas suas discussões, por favor faça o login em
         <a href='{{echo_url}}'>echo</a>, siga para "O meu echo", "Definições" e desactive a opção de notificações diárias.

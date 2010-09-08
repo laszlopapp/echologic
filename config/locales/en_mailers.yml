@@ -26,7 +26,7 @@ en:
         new_tags: 'The new discussions are related the following topics:'
         new_proposals: 'New proposals in the discussion "{{title}}"'
         new_improvement_proposals: 'New improvement ideas for the proposal "{{title}}" in "{{question_title}}":'
-        tag_link: "<a href='http://{{host}}/{{code}}/discuss/search?value={{tag}}'>{{tag}}</a> ({{count}})"
+        tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         If you do not wish to receive regular updates on new discussion entries, please log in to
         <a href='{{echo_url}}'>echo</a>, go to Settings under My echo and uncheck the activity notification option.

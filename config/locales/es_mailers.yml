@@ -27,7 +27,7 @@ es:
         new_tags: 'Las discusiones son relacionadas a los topicos:'
         new_proposals: 'Nueva propuesta na discusión "{{title}}"'
         new_improvement_proposals: 'Nueva propuesta de mejoramiento para le propuesta "{{title}}" en "{{question_title}}":'
-        tag_link: "<a href='http://{{host}}/{{code}}/discuss/search?value={{tag}}'>{{tag}}</a> ({{count}})"
+        tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         Si no quieres recibir nofiticaciones diarias sobre actividades an tus discussiones, por favor haga login a
         <a href='{{echo_url}}'>echo</a>, vá para "Mi echo", "Definiciones" y desactive las.

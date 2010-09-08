@@ -10,26 +10,28 @@
       <%
          event_data = JSON.parse(question_event.event)
          title = nil
+         title_language_code = nil
          @preferred_language_ids.each do |l_id|
 					if event_data['documents'].has_key?(l_id)
 						title = event_data['documents'][l_id]
+            title_language_code = EnumKey.find(l_id).code
 						break
 					end
          end
          title ||= event_data['documents'].to_a[0][1]
+         title_language_code ||= EnumKey.find(event_data['documents'].to_a[0][0]).code
       %>
       <li>
-        <%= link_to title, question_url(Question.find(event_data['id']))%>
+				<%= link_to title, question_url(Question.find(event_data['id'])), :locale => title_language_code %>
       </li>
     <% end %>
   </ul>
   <br/>
   <%= I18n.t('mailers.activity_tracking.discussions.new_tags',
              :locale => @language.code) %>
-  <%= tags.to_a.map{|tag| I18n.t('mailers.activity_tracking.discussions.tag_link',
-                                 :host => ECHO_HOST,
-                                 :tag => tag[0],
-                                 :count => tag[1],
-                                 :code => @language.code,
-                                 :locale => @language.code)}.join(", ") %>
+  <%= tags.to_a.map{|tag| 
+      I18n.t('mailers.activity_tracking.discussions.tag_link', 
+             :tag => link_to(tag[0], discuss_search_url(:value => tag[0], :locale => @language.code)),
+             :count => tag[1],
+             :locale => @language.code)}.join(", ") %>
 <% end %>

@@ -26,7 +26,7 @@ de:
         new_tags: 'Die Diskussionen befassen sich mit folgenden Themen:'
         new_proposals: 'Neue Vorschläge in der Diskussion "{{title}}"'
         new_improvement_proposals: 'Neue Verbesserungsvorschläge für den Vorschlag "{{title}}" in "{{question_title}}":'
-        tag_link: "<a href='http://{{host}}/{{code}}/discuss/search?value={{tag}}'>{{tag}}</a> ({{count}})"
+        tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         Wenn Sie keine Benachrichtigungen über neue Discussionen und Vorschläge erhalten möchten, melden Sie sich bitte unter
         <a href='{{echo_url}}'>echo</a> an, gehen Sie auf "Main echo", "Einstellungen" und deactivieren Sie die
