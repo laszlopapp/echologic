@@ -1,4 +1,5 @@
-<% event_data = JSON.parse(event.event) %>
-<%= link_to title,
+<li>
+  <%= link_to title,
             question_proposal_url(Question.find(event_data['parent_id']),
                                   Proposal.find(event_data['id'])) %>
+</li>
