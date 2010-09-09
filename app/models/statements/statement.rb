@@ -9,7 +9,7 @@ class Statement < ActiveRecord::Base
     statement_histories.select{|sh|original_language.eql?(sh.language)}.map{|s|s.author}
   end
 
-  enum :original_language, :enum_name => :languages
+  has_enumerated :original_language, :class_name => 'Language'
 
   named_scope :find_by_title, lambda {|value|
             { :include => :statement_documents, :conditions => ['statement_documents.title LIKE ? and statement_documents.current = 1', "%#{value}%"] } }

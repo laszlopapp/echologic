@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100820133948) do
+ActiveRecord::Schema.define(:version => 20100909132714) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20100820133948) do
 
   create_table "drafting_infos", :force => true do |t|
     t.integer  "statement_node_id"
-    t.datetime "state_since",       :default => '2010-09-06 17:47:52'
+    t.datetime "state_since",       :default => '2010-09-09 15:50:32'
     t.integer  "times_passed",      :default => 0
   end
 
@@ -39,13 +39,13 @@ ActiveRecord::Schema.define(:version => 20100820133948) do
 
   create_table "enum_keys", :force => true do |t|
     t.string  "code"
-    t.string  "enum_name"
+    t.string  "type"
     t.string  "description"
     t.integer "key"
   end
 
-  add_index "enum_keys", ["enum_name", "code", "id"], :name => "idx_enum_keys_name_code_pk"
-  add_index "enum_keys", ["enum_name", "id"], :name => "idx_enum_keys_name_pk"
+  add_index "enum_keys", ["type", "code", "id"], :name => "idx_enum_keys_name_code_pk"
+  add_index "enum_keys", ["type", "id"], :name => "idx_enum_keys_name_pk"
 
   create_table "enum_values", :force => true do |t|
     t.integer "enum_key_id"

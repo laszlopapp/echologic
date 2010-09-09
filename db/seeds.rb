@@ -14,38 +14,38 @@
 
 # LANGUAGES
 %w(en de fr pt es).each_with_index do |code, index|
-  EnumKey.create(:code => code, :enum_name => "languages", :key => index+1, :description => "language")
+  EnumKey.create(:code => code, :type => "Language", :key => index+1, :description => "language")
 end
 
 # LANGUAGE LEVELS
 %w(mother_tongue advanced intermediate basic).each_with_index do |code, index|
-  EnumKey.create(:code => code, :enum_name => "language_levels", :key => index+1, :description => "language_level")
+  EnumKey.create(:code => code, :type => "LanguageLevel", :key => index+1, :description => "language_level")
 end
 
 # WEB ADDRESSES
 %w(email homepage blog xing linkedin facebook twitter).each_with_index do |code, index|
-  EnumKey.create(:code => code, :enum_name => "web_address_types", :key => index+1, :description => "web_address_type")
+  EnumKey.create(:code => code, :type => "WebAddressType", :key => index+1, :description => "web_address_type")
 end
-EnumKey.create(:code => 'other', :enum_name => "web_address_types", :key => 99, :description => "web_address_type")
+EnumKey.create(:code => 'other', :type => "WebAddressType", :key => 99, :description => "web_address_type")
 
 # ORGANISATION TYPES
 %w(ngo political scientific trade_union social_business profit_driven_business).each_with_index do |code, index|
-  EnumKey.create(:code => code, :enum_name => "organisation_types", :key => index+1, :description => "organisation_type")
+  EnumKey.create(:code => code, :type => "OrganisationType", :key => index+1, :description => "organisation_type")
 end
 
 # TAG CONTEXTS
 %w(affection engagement expertise decision_making field_work field_activity topic).each_with_index do |code, index|
-  EnumKey.create(:code => code, :enum_name => "tag_contexts", :key => index+1, :description => "tag_context")
+  EnumKey.create(:code => code, :type => "TagContext", :key => index+1, :description => "tag_context")
 end
 
 # STATEMENT STATES
 %w(new published).each_with_index do |code, index|
-  EnumKey.create(:code => code, :enum_name => "statement_states", :key => index+1, :description => "statement_state")
+  EnumKey.create(:code => code, :type => "StatementState", :key => index+1, :description => "statement_state")
 end
 
 # STATEMENT DOCUMENT ACTIONS
 %w(created updated translated incorporated).each_with_index do |code, index|
-  EnumKey.create(:code => code, :enum_name => "statement_actions", :key => index+1, :description => "statement_action")
+  EnumKey.create(:code => code, :type => "StatementAction", :key => index+1, :description => "statement_action")
 end
 
 
@@ -85,7 +85,7 @@ end
 end
 
 # Web Addresses
-EnumKey.languages.length.times do |index|
+Language.all.length.times do |index|
   EnumValue.create(:enum_key => EnumKey.find_by_code('email'), :language_id => index+1, :value => "E-mail", :context=> "")
   EnumValue.create(:enum_key => EnumKey.find_by_code('homepage'), :language_id => index+1, :value => "Homepage", :context=> "")
   EnumValue.create(:enum_key => EnumKey.find_by_code('blog'), :language_id => index+1, :value => "Blog", :context=> "")
@@ -143,22 +143,22 @@ end
 
 # Statement States
 ["New","Neu","Neuf","Novo","Nuevo"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('new','statement_states'), :language_id => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('new','StatementState'), :language_id => index+1, :value => value, :context=> "")
 end
 ["Published","Veröffentlicht","Publié","Publicado","Publicado"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('published','statement_states'), :language_id => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('published','StatementState'), :language_id => index+1, :value => value, :context=> "")
 end
 
 # Statement States
 ["New","Neu","Neuf","Novo","Nuevo"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('created','statement_actions'), :language_id => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('created','StatementAction'), :language_id => index+1, :value => value, :context=> "")
 end
 ["Edit","Editieren","Éditer","Editar","Editar"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('updated','statement_actions'), :language_id => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('updated','StatementAction'), :language_id => index+1, :value => value, :context=> "")
 end
 ["Translate","Übersetzen","Traduire","Traduzir","Traducir"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('translated','statement_actions'), :language_id => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('translated','StatementAction'), :language_id => index+1, :value => value, :context=> "")
 end
 ["Incorporate","Einfügen","Incorporer","Incorporar","Incorporar"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code_and_enum_name('incorporated','statement_actions'), :language_id => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('incorporated','StatementAction'), :language_id => index+1, :value => value, :context=> "")
 end

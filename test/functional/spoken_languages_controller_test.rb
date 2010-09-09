@@ -8,7 +8,7 @@ class SpokenLanguagesControllerTest < ActionController::TestCase
 
   test "should create spoken language" do
     assert_difference('SpokenLanguage.count') do
-      post :create, :spoken_language => {:language => SpokenLanguage.languages.first, :level => SpokenLanguage.language_levels.first}
+      post :create, :spoken_language => {:language => Language.first, :level =>LanguageLevel.first}
     end
   end
 
@@ -18,7 +18,7 @@ class SpokenLanguagesControllerTest < ActionController::TestCase
   end
 
   test "should update spoken language" do
-    put :update, :id => spoken_languages(:spokenlanguagefunctional).to_param, :spoken_language => {:language => SpokenLanguage.languages("pt") }
+    put :update, :id => spoken_languages(:spokenlanguagefunctional).to_param, :spoken_language => {:language => Language["pt"] }
   end
 
   test "should destroy spoken language" do

@@ -10,7 +10,7 @@ class WebAddressTest < ActiveSupport::TestCase
 
   # Web profile model has to provide which profiles are available.
   def test_web_addresses
-    assert_kind_of [Array], WebAddress.web_address_types
+    assert_kind_of [Array], WebAddressType.all
   end
 
   # Web profiles has to belong to a user.
@@ -21,7 +21,7 @@ class WebAddressTest < ActiveSupport::TestCase
   def test_unvalid_email_address
     w = WebAddress.new
     w.user_id = User.first.id
-    w.type = WebAddress.web_address_types("email")
+    w.type = WebAddressType[:email]
     w.address = "http://facebook.com"
     assert !w.save
   end
@@ -29,7 +29,7 @@ class WebAddressTest < ActiveSupport::TestCase
   def test_unvalid_address_path
     w = WebAddress.new
     w.user_id = User.first.id
-    w.type = WebAddress.web_address_types("homepage")
+    w.type = WebAddressType[:homepage]
     w.address = "me@me.com"
     assert !w.save
   end

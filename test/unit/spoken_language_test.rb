@@ -10,22 +10,20 @@ class SpokenLanguageTest < ActiveSupport::TestCase
 
 
     context("should have a language associated") do
-      should_belong_to :language
       should_have_db_columns :language_id
     end
     context("should have a language level associated") do
-      should_belong_to :level
       should_have_db_columns :level_id
     end
 
     context "being saved" do
       setup do
-        @spoken_language.update_attributes!(:user => User.first, :language => SpokenLanguage.languages("en"), :level => SpokenLanguage.language_levels("intermediate"))
+        @spoken_language.update_attributes!(:user => User.first, :language => Language["en"], :level => LanguageLevel["intermediate"])
       end
 
       should "be able to access its language data" do
-        assert_equal @spoken_language.language.enum_name, "languages"
-        assert_equal @spoken_language.level.enum_name, "language_levels"
+        assert_equal @spoken_language.language.type, "Language"
+        assert_equal @spoken_language.level.type, "LanguageLevel"
       end
       should "not be able to associate the same spoken language to the same user" do
         @spoken_language_2 = SpokenLanguage.new

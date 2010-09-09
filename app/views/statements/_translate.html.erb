@@ -11,7 +11,7 @@
 	<div id="new_translation">
     <div class="translation_box_class rounded-box rounded-box-gray-itow with_bg_bw_grad_small">
     	<%= translation_upper_box old_statement_document.language.get_current_enum_value.value.upcase,
-                              EnumKey.find_by_code(params[:locale]).get_current_enum_value.value.upcase %>
+                              Language[params[:locale]].get_current_enum_value.value.upcase %>
 		</div>
 
     <!-- The form for translating the statement -->

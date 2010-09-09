@@ -67,7 +67,7 @@ module ActsAsTaggable::Taggable
         
         taggable_conditions = sanitize_sql(["#{TaoTag.table_name}.tao_type = ?", base_class.name])
         taggable_conditions << sanitize_sql([" AND #{TaoTag.table_name}.tao_id = ?", options.delete(:id)]) if options[:id]
-        taggable_conditions << sanitize_sql([" AND #{TaoTag.table_name}.context_id = ?", EnumKey.find_by_code(options.delete(:on).to_s)]) if options[:on]
+        taggable_conditions << sanitize_sql([" AND #{TaoTag.table_name}.context_id = ?", TagContext[options.delete(:on).to_s]]) if options[:on]
         
         tagging_conditions = [
           taggable_conditions,

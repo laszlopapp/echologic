@@ -3,7 +3,7 @@ class Tag < ActiveRecord::Base
   attr_accessible :value, :language_id
   acts_as_authorization_object
 
-  enum :language, :enum_name => :languages
+  has_enumerated :language, :class_name => 'Language'
 
   # ASSOCIATIONS
   has_many :tao_tags, :dependent => :destroy

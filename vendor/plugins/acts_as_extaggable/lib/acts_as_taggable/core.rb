@@ -22,7 +22,7 @@ module ActsAsTaggable::Taggable
           
           class_eval do
             has_many context_tao_tags, :class_name => "TaoTag", :include => [:tag], :foreign_key => "tao_id",
-                     :conditions => ["tao_tags.context_id = ?", EnumKey.find_by_code(tag_type)]
+                     :conditions => ["tao_tags.context_id = ?", TagContext[tag_type]]
             has_many context_tags, :through => context_tao_tags, :source => :tag, :class_name => "Tag"
           end
           
@@ -102,7 +102,7 @@ module ActsAsTaggable::Taggable
                             " ON #{tao_tags_alias}.tao_id = #{table_name}.#{primary_key}" +
                             " AND #{tao_tags_alias}.tao_type = #{quote_value(base_class.name)}" +
                             " AND #{tao_tags_alias}.tag_id = #{tag.id}"
-            tagging_join << " AND " + sanitize_sql(["#{tao_tags_alias}.context_id = ?", EnumKey.find_by_code(context.to_s.singularize)]) if context
+            tagging_join << " AND " + sanitize_sql(["#{tao_tags_alias}.context_id = ?", TagContext[context.to_s.singularize]]) if context
             
             joins << tagging_join
           end
@@ -193,7 +193,7 @@ module ActsAsTaggable::Taggable
         tag_table_name = Tag.table_name
         tagging_table_name = TaoTag.table_name
         
-        opts = ["#{tagging_table_name}.context_id = ?", EnumKey.find_by_code(context.to_s)]
+        opts = ["#{tagging_table_name}.context_id = ?", TagContext[context.to_s]]
         scope = tags.where(opts)
         
         if Tag.using_postgresql?
@@ -209,7 +209,7 @@ module ActsAsTaggable::Taggable
       ##
       # Returns all tags that are not owned of a given context
       def tags_on(context)
-        tags.where(["#{TaoTag.table_name}.context_id = ?", EnumKey.find_by_code(context)]).all
+        tags.where(["#{TaoTag.table_name}.context_id = ?", TagContext[context]]).all
       end
       
       def set_tag_list_on(context, new_list)
@@ -249,7 +249,7 @@ module ActsAsTaggable::Taggable
           new_tags = tag_list  - current_tags 
           
           # Find tao_tags to remove:
-          old_tao_tags = tao_tags.where(:context_id => EnumKey.find_by_code(context_name), :tag_id => old_tags).all
+          old_tao_tags = tao_tags.where(:context_id => TagContext[context_name], :tag_id => old_tags).all
           
           if old_tao_tags.present?
             # Destroy old tao_tags:
@@ -258,7 +258,7 @@ module ActsAsTaggable::Taggable
           
           # Create new tao_tags:
           new_tags.each do |tag|
-            tao_tags.create!(:tag => tag, :context_id => EnumKey.find_by_code(context_name).id, :tao => self, :tao_type => self.class.name)
+            tao_tags.create!(:tag => tag, :context_id => TagContext[context_name].id, :tao => self, :tao_type => self.class.name)
           end
         end
         

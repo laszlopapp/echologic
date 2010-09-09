@@ -98,7 +98,7 @@ class StatementsController < ApplicationController
       @translation_permission = @statement_node.original_language == @statement_document.language &&
                                 @statement_node.translatable?(current_user,
                                                               @statement_document.language,
-                                                              EnumKey.find_by_code(params[:locale]))
+                                                              Language[params[:locale]])
 
       # When creating an issue, we save the flash message within the session, to be able to display it here
       if session[:last_info]
@@ -143,7 +143,7 @@ class StatementsController < ApplicationController
     @statement_node ||= statement_node_class.new(:parent => parent,
                                                  :root_id => root_symbol)
     @statement_document ||= StatementDocument.new
-    @action ||= StatementHistory.statement_actions("created")
+    @action ||= StatementAction["created"]
     @statement_node.topic_tags << "##{params[:category]}" if params[:category]
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     # TODO: right now users can't select the language they create a statement in, so current_user.languages_keys.
@@ -217,7 +217,7 @@ class StatementsController < ApplicationController
     if (is_current_document = @statement_document.id == params[:current_document_id].to_i)
       has_lock = acquire_lock(@statement_document)
       @tags ||= @statement_node.topic_tags if @statement_node.taggable?
-      @action ||= StatementHistory.statement_actions("updated")
+      @action ||= StatementAction["updated"]
     end
     
     if !is_current_document
@@ -315,7 +315,7 @@ class StatementsController < ApplicationController
        !(already_translated = @statement_document.language_id == @locale_language_id)
       has_lock = acquire_lock(@statement_document)
       @new_statement_document ||= @statement_node.add_statement_document({:language_id => @locale_language_id})
-      @action ||= StatementHistory.statement_actions("translated")
+      @action ||= StatementAction["translated"]
     end
     if !is_current_document
       with_info(:template => 'statements/new_translation' ) do |format|

@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
            :city, :city=, :country, :country=, :completeness, :calculate_completeness, :to => :profile
 
   #last login language, important for the activity tracking email language when the user doesn't have anything set
-  enum :last_login_language, :enum_name => :languages
+  has_enumerated :last_login_language, :class_name => 'Language'
 
   # TODO uncomment attr_accessible :active if needed.
   #attr_accessible :active
@@ -155,7 +155,7 @@ class User < ActiveRecord::Base
   def default_language
     mother_tongues = self.mother_tongues
     lang = !mother_tongues.empty? ? mother_tongues.first : self.last_login_language
-    lang ? lang : EnumKey.find_by_code("en")
+    lang ? lang : Language[:en]
   end
 
   #
@@ -186,7 +186,7 @@ class User < ActiveRecord::Base
   def spoken_languages_at_min_level(min_level = nil)
     languages = self.spoken_languages
     if min_level
-      level = SpokenLanguage.language_levels(min_level)
+      level = LanguageLevel[min_level]
       languages.select{|sp| sp.level.key <= level.key}.collect{|sp| sp.language}
     else
       languages.collect{|l| l.language}

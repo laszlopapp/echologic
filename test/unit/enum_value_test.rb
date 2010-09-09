@@ -24,7 +24,7 @@ class EnumValueTest < ActiveSupport::TestCase
     # EnumValue.languages
    
     context "being saved" do
-      setup {@save = @enum_value.update_attributes({:enum_key => EnumKey.find_all_by_enum_name("languages").first, :value => 'Test', :language_id => EnumKey.find_all_by_enum_name("languages").first.key})}
+      setup {@save = @enum_value.update_attributes({:enum_key => Language.first, :value => 'Test', :language_id => Language.first.key})}
       should "throw an error due to an already existing instance of this enum key translation in the aforementioned language" do
         assert !@save        
       end

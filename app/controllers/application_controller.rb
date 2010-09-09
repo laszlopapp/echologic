@@ -90,7 +90,7 @@ class ApplicationController < ActionController::Base
 
   # Expires and cleans up the user session.
   def expire_session!
-    current_user.update_attributes(:last_login_language => EnumKey.find_by_code_and_enum_name(params[:locale].to_s,"languages"))
+    current_user.update_attributes(:last_login_language => Language[params[:locale]])
     current_user_session.try(:destroy)
     reset_session
     if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'
@@ -190,7 +190,7 @@ class ApplicationController < ActionController::Base
 
   protected
   def locale_language_id
-    EnumKey.find_by_enum_name_and_code("languages", I18n.locale.to_s).id
+    Language[I18n.locale].id
   end
 
   def language_preference_list
@@ -348,5 +348,12 @@ class ApplicationController < ActionController::Base
       format.js   { render :template => 'layouts/outerMenuDialog' , :locals => opts[:locals]}
     end
   end
+  
+  #############
+  #  LOGGING  #
+  #############
+
+
+
 
 end
