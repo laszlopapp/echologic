@@ -166,34 +166,41 @@ class StatementsController < ApplicationController
     doc_attrs = attrs.delete(:statement_document)
     form_tags = attrs.delete(:tags)
 
-    @statement_node ||= statement_node_class.new(attrs)
-    @statement_document = @statement_node.add_statement_document(
-                          doc_attrs.merge({:original_language_id => @locale_language_id,
-                                           :current => true}))
-    permitted = true ; @tags = []
-    if @statement_node.taggable? and (permitted = check_hash_tag_permissions(form_tags))
-      @statement_node.topic_tags=form_tags
-      @tags=@statement_node.topic_tags
-    end
-
-    respond_to do |format|
-      if permitted and @statement_node.save
-        EchoService.instance.created(@statement_node) 
-        set_statement_node_info(@statement_document)
-        # load currently created statement_node to session
-        load_to_session @statement_node
-        format.html { flash_info and redirect_to url_for(@statement_node) }
-        format.js {
-          @statement_node.visited!(current_user)
-          @children = [].paginate(StatementNode.default_scope.merge(:page => @page,
-                                                                    :per_page => 5))
-          render :partial => 'statements/create.rjs'
-        }
-      else
-        set_error(@statement_document)
-        format.html { flash_error and render :template => 'statements/new' }
-        format.js   { show_error_messages }
+    begin
+      @statement_node ||= statement_node_class.new(attrs)
+      @statement_document = @statement_node.add_statement_document(
+                            doc_attrs.merge({:original_language_id => @locale_language_id,
+                                             :current => true}))
+      permitted = true ; @tags = []
+      if @statement_node.taggable? and (permitted = check_hash_tag_permissions(form_tags))
+        @statement_node.topic_tags=form_tags
+        @tags=@statement_node.topic_tags
       end
+  
+      respond_to do |format|
+        if permitted and @statement_node.save
+          EchoService.instance.created(@statement_node) 
+          set_statement_node_info(@statement_document)
+          # load currently created statement_node to session
+          load_to_session @statement_node
+          format.html { flash_info and redirect_to url_for(@statement_node) }
+          format.js {
+            @statement_node.visited!(current_user)
+            @children = [].paginate(StatementNode.default_scope.merge(:page => @page,
+                                                                      :per_page => 5))
+            render :partial => 'statements/create.rjs'
+          }
+        else
+          set_error(@statement_document)
+          format.html { flash_error and render :template => 'statements/new' }
+          format.js   { show_error_messages }
+        end
+      end
+    rescue Exception => e
+      logger.error("Error creating statement node.")
+      log_error e
+    else
+      logger.info("Statement node has been created sucessfully.")
     end
   end
 

@@ -13,29 +13,38 @@ class QuestionsController < StatementsController
 
   # action: publish a statement
   def publish
-    @statement_node.publish
-    respond_to do |format|
-      if @statement_node.save
-        format.js do
-          set_info("discuss.statements.published")
-          render_with_info do |page|
-            if params[:in] == 'summary'
-              page.redirect_to(url_for(@statement_node))
-            else
-              @statement_documents =
-                search_statement_documents([@statement_node.statement_id])
-              page.replace(dom_id(@statement_node),
-                           :partial => 'statements/questions/discussion',
-                           :locals => {:statement_node => @statement_node ,
-                                       :statement_document => @statement_documents[@statement_node.statement_id]})
+    begin
+      StatementNode.transaction do
+        @statement_node.publish
+        respond_to do |format|
+          if @statement_node.save
+            format.js do
+              set_info("discuss.statements.published")
+              render_with_info do |page|
+                if params[:in] == 'summary'
+                  page.redirect_to(url_for(@statement_node))
+                else
+                  @statement_documents =
+                    search_statement_documents([@statement_node.statement_id])
+                  page.replace(dom_id(@statement_node),
+                               :partial => 'statements/questions/discussion',
+                               :locals => {:statement_node => @statement_node ,
+                                           :statement_document => @statement_documents[@statement_node.statement_id]})
+                end
+              end
+            end
+          else
+            format.js do
+              show_error_messages(@statement_node)
             end
           end
         end
-      else
-        format.js do
-          show_error_messages(@statement_node)
-        end
       end
+    rescue Exception => e
+      logger.error("Error publishing statement node '#{@statement_node.id}'.")
+      log_error e
+    else
+      logger.info("Statement node '#{@statement_node.id}' has been published sucessfully.")
     end
   end
 
