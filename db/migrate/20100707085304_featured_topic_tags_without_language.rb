@@ -9,7 +9,7 @@ class FeaturedTopicTagsWithoutLanguage < ActiveRecord::Migration
       tags.each do |tag|
         tag.destroy
       end
-      oldest_tag.language = nil
+      oldest_tag.language_id = nil
       oldest_tag.save!
     end
 

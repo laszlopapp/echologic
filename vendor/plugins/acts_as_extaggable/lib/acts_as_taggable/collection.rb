@@ -10,22 +10,19 @@ module ActsAsTaggable::Taggable
       def initialize_acts_as_taggable_on_collection
         tag_types.map(&:to_s).each do |tags_type|
           class_eval %(
-            def self.#{tags_type.singularize}_counts(options={})
-              tag_counts_on('#{tags_type.singularize}', options)
-            end
-            
-            def #{tags_type.singularize}_counts(options = {})
-              tag_counts_on('#{tags_type.singularize}', options)
-            end
-            
-            def top_#{tags_type.singularize}(limit = 10)
-              tag_counts_on('#{tags_type.singularize}', :order => 'count desc', :limit => limit.to_i)
-            end
-            
-            def self.top_#{tags_type.singularize}(limit = 10)
-              tag_counts_on('#{tags_type.singularize}', :order => 'count desc', :limit => limit.to_i)
-            end
-            )
+def self.#{tags_type.singularize}_counts(options={})
+tag_counts_on('#{tags_type.singularize}', options)
+end
+def #{tags_type.singularize}_counts(options = {})
+tag_counts_on('#{tags_type.singularize}', options)
+end
+def top_#{tags_type.singularize}(limit = 10)
+tag_counts_on('#{tags_type.singularize}', :order => 'count desc', :limit => limit.to_i)
+end
+def self.top_#{tags_type.singularize}(limit = 10)
+tag_counts_on('#{tags_type.singularize}', :order => 'count desc', :limit => limit.to_i)
+end
+)
         end
       end
       
@@ -67,7 +64,7 @@ module ActsAsTaggable::Taggable
         
         taggable_conditions = sanitize_sql(["#{TaoTag.table_name}.tao_type = ?", base_class.name])
         taggable_conditions << sanitize_sql([" AND #{TaoTag.table_name}.tao_id = ?", options.delete(:id)]) if options[:id]
-        taggable_conditions << sanitize_sql([" AND #{TaoTag.table_name}.context_id = ?", TagContext[options.delete(:on).to_s]]) if options[:on]
+        taggable_conditions << sanitize_sql([" AND #{TaoTag.table_name}.context_id = ?", EnumKey.find_by_code(options.delete(:on).to_s)]) if options[:on]
         
         tagging_conditions = [
           taggable_conditions,

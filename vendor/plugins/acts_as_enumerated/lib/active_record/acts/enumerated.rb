@@ -101,9 +101,10 @@ module ActiveRecord
         end
         
         def all_by_code
-          return @all_by_code if @all_by_code
+          return @all_by_code if !@all_by_code.blank?
           begin
-            @all_by_code = all.inject({}) { |memo, item| memo[item.code] = item; memo;}.freeze              
+            @all_by_code = all.inject({}) { |memo, item| memo[item.code] = item; memo;}.freeze
+            @all_by_code
           rescue NoMethodError => err
             if err.name == :code
               raise TypeError, "#{self.name}: you need to define a 'code' column in the table '#{table_name}'"

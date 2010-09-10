@@ -61,7 +61,7 @@ class StatementNodeTest < ActiveSupport::TestCase
                                                 :current => 1,
                                                 :action_id => StatementAction[:created].id,
                                                 :original_language_id => Language.first.id})
-        @statement_node.topic_tags = "bebe"
+        @statement_node.topic_tags = "bebe"       #FIXME: Somehow, this doesn't work here: TagContext.all returns [](????)
         @statement_node.creator = User.first
         @statement_node.publish
         @statement_node.save!
