@@ -10,8 +10,8 @@
   <!-- Building the translation box with the two babelfishes -->
 	<div id="new_translation">
     <div class="translation_box_class rounded-box rounded-box-gray-itow with_bg_bw_grad_small">
-    	<%= translation_upper_box EnumValue[old_statement_document.language.code].value.upcase,
-                              EnumValue[Language[params[:locale]].code].value.upcase %>
+    	<%= translation_upper_box old_statement_document.language.value.upcase,
+                              Language[params[:locale]].value.upcase %>
 		</div>
 
     <!-- The form for translating the statement -->

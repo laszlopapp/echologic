@@ -148,8 +148,8 @@ module ActiveRecord
           return false
         end
 
-        def name_sym
-          self.name.to_sym
+        def code_sym
+          self.code.to_sym
         end
 
         private

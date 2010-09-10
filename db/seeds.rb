@@ -55,110 +55,110 @@ end
 
 # Languages
 ["English","Englisch","Ingles","Inglês","Inglés"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('en'), :key => index+1, :value => value, :context => "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('en'), :code => Language.find_by_key(index+1).code, :value => value, :context => "")
 end
 ["German","Deutsch","Aleman","Alemão","Alemán"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('de'), :key => index+1, :value => value, :context => "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('de'), :code => Language.find_by_key(index+1).code, :value => value, :context => "")
 end
 ["French","Französisch","Français","Francês","Francés"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('fr'), :key => index+1, :value => value, :context => "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('fr'), :code => Language.find_by_key(index+1).code, :value => value, :context => "")
 end
 ["Portuguese","Portugiesisch","Portugais","Português","Portugués"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('pt'), :key => index+1, :value => value, :context => "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('pt'), :code => Language.find_by_key(index+1).code, :value => value, :context => "")
 end
 ["Spanish","Spanisch","Espagnol","Espanhol","Español"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('es'), :key => index+1, :value => value, :context => "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('es'), :code => Language.find_by_key(index+1).code, :value => value, :context => "")
 end
 
 # Language Levels
 ["Mother Tongue","Muttersprache","Langue Maternelle","Língua Materna","Lengua Materna"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('mother_tongue'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('mother_tongue'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 ["Advanced","Fortgeschritten","Avancé","Avançado","Avanzado"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('advanced'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('advanced'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 ["Intermediate","Mittelstufe","Intermédiaire","Intermédio","Intermedio"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('intermediate'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('intermediate'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 ["Basic","Grundkenntnisse","Basique","Básico","Basico"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('basic'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('basic'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 
 # Web Addresses
 Language.all.length.times do |index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('email'), :key => index+1, :value => "E-mail", :context=> "")
-  EnumValue.create(:enum_key => EnumKey.find_by_code('homepage'), :key => index+1, :value => "Homepage", :context=> "")
-  EnumValue.create(:enum_key => EnumKey.find_by_code('blog'), :key => index+1, :value => "Blog", :context=> "")
-  EnumValue.create(:enum_key => EnumKey.find_by_code('xing'), :key => index+1, :value => "Xing", :context=> "")
-  EnumValue.create(:enum_key => EnumKey.find_by_code('linkedin'), :key => index+1, :value => "LinkedIn", :context=> "")
-  EnumValue.create(:enum_key => EnumKey.find_by_code('facebook'), :key => index+1, :value => "Facebook", :context=> "")
-  EnumValue.create(:enum_key => EnumKey.find_by_code('twitter'), :key => index+1, :value => "Twitter", :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('email'), :code => Language.find_by_key(index+1).code, :value => "E-mail", :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('homepage'), :code => Language.find_by_key(index+1).code, :value => "Homepage", :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('blog'), :code => Language.find_by_key(index+1).code, :value => "Blog", :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('xing'), :code => Language.find_by_key(index+1).code, :value => "Xing", :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('linkedin'), :code => Language.find_by_key(index+1).code, :value => "LinkedIn", :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('facebook'), :code => Language.find_by_key(index+1).code, :value => "Facebook", :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('twitter'), :code => Language.find_by_key(index+1).code, :value => "Twitter", :context=> "")
 end
 ["Other","Andere","Autre","Outro","Otro"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('other'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('other'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 
 # Organization Types
 ["NGO","NRO","ONG","ONG","ONG"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('ngo'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('ngo'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 ["Political","Politisch","Politique","Política","Política"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('political'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('political'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 ["Scientific","Wissenschaftlich","Scientifique","Científica","Científica"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('scientific'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('scientific'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 ["Trade Union","Gewerkschaft","Syndicat","Sindicato","Sindicato"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('trade_union'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('trade_union'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 ["Social Business","Sozialbetrieb","Activité Sociale","Actividade Social","Actividad Social"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('social_business'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('social_business'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 ["Profit-Driven Business","Gewinnorientierte Firma","Firma à but lucratif","Firma com fins lucrativos","Firma de lucro"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('profit_driven_business'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('profit_driven_business'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 
 # Tag Contexts
 ["Affection","Betroffenheit","Affection","Afeição","Afecto"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('affection'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('affection'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 ["Engagement","Engagement","Engagement","Compromisso","Compromisso"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('engagement'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('engagement'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 ["Expertise","Expertise","Expertise","Especialidade","Peritaje"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('expertise'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('expertise'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 ["Decision Making","Entscheidung","Décision","Decisão","Decisión"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('decision_making'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('decision_making'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 ["Field of Work","Arbeitsfeld","Domaine de travail","Domínio de Trabalho","Área de Trabajo"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('field_work'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('field_work'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 ["Field of Activity","Betätigungsfeld","Domaine d'activité","Domínio de Actividade","Área de Actividad"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('field_activity'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('field_activity'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 ["Topic","Thema","Sujet","Tópico","Tema"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code('topic'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code('topic'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 
 # Statement States
 ["New","Neu","Neuf","Novo","Nuevo"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('new','StatementState'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('new','StatementState'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 ["Published","Veröffentlicht","Publié","Publicado","Publicado"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('published','StatementState'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('published','StatementState'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 
 # Statement States
 ["New","Neu","Neuf","Novo","Nuevo"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('created','StatementAction'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('created','StatementAction'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 ["Edit","Editieren","Éditer","Editar","Editar"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('updated','StatementAction'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('updated','StatementAction'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 ["Translate","Übersetzen","Traduire","Traduzir","Traducir"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('translated','StatementAction'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('translated','StatementAction'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end
 ["Incorporate","Einfügen","Incorporer","Incorporar","Incorporar"].each_with_index do |value,index|
-  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('incorporated','StatementAction'), :key => index+1, :value => value, :context=> "")
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('incorporated','StatementAction'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end

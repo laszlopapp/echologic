@@ -49,12 +49,12 @@ ActiveRecord::Schema.define(:version => 20100910131733) do
 
   create_table "enum_values", :force => true do |t|
     t.integer "enum_key_id"
-    t.integer "key"
+    t.string  "code"
     t.string  "context"
     t.string  "value"
   end
 
-  add_index "enum_values", ["key", "id"], :name => "idx_enum_values_code_pk"
+  add_index "enum_values", ["code", "id"], :name => "idx_enum_values_code_pk"
 
   create_table "events", :force => true do |t|
     t.text     "event"

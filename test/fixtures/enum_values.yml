@@ -1,255 +1,255 @@
 
-<% ["English","Englisch","Ingles","Inglês","Inglés"].each_with_index do |value,index| %>
-english_<%= index+1 %>:
+<% {'en' => "English", 'de' => "Englisch",'fr'=> "Ingles",'pt' => "Inglês",'es' => "Inglés"}.each_pair do |code,value| %>
+english_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:language_en) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["German","Deutsch","Aleman","Alemão","Alemán"].each_with_index do |value,index| %>
-german_<%= index+1 %>:
+<% {'en' => "German",'de' => "Deutsch",'fr'=> "Aleman",'pt' => "Alemão",'es' => "Alemán"}.each_pair do |code,value| %>
+german_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:language_de) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["French","Französisch","Français","Francês","Francés"].each_with_index do |value,index| %>
-french_<%= index+1 %>:
+<% {'en' => "French",'de' => "Französisch",'fr'=> "Français",'pt' => "Francês",'es' => "Francés"}.each_pair do |code,value| %>
+french_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:language_fr) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Portuguese","Portugiesisch","Portugais","Português","Portugués"].each_with_index do |value,index| %>
-portuguese_<%= index+1 %>:
+<% {'en' => "Portuguese",'de' => "Portugiesisch",'fr'=> "Portugais",'pt' => "Português",'es' => "Portugués"}.each_pair do |code,value| %>
+portuguese_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:language_pt) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Spanish","Spanisch","espagnol","Espanhol","Español"].each_with_index do |value,index| %>
-spanish_<%= index+1 %>:
+<% {'en' => "Spanish",'de' => "Spanisch",'fr'=> "Espagnol",'pt' => "Espanhol",'es' => "Español"}.each_pair do |code,value| %>
+spanish_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:language_es) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
 
-<% ["Mother Tongue","Muttersprache","Langue Maternelle","Língua Materna","Lengua Materna"].each_with_index do |value,index| %>
-mother_tongue_<%= index+1 %>:
+<% {'en' => "Mother Tongue",'de' => "Muttersprache",'fr'=> "Langue Maternelle",'pt' => "Língua Materna",'es' => "Lengua Materna"}.each_pair do |code,value| %>
+mother_tongue_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:language_level_mother_tongue) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Advanced","Fortgeschritten","Avancé","Avançado","Avanzado"].each_with_index do |value,index| %>
-advanced_<%= index+1 %>:
+<% {'en' => "Advanced",'de' => "Fortgeschritten",'fr'=> "Avancé",'pt' => "Avançado",'es' => "Avanzado"}.each_pair do |code,value| %>
+advanced_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:language_level_advanced) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Intermediate","Mittelstufe","Intermédiaire","Intermédio","Intermedio"].each_with_index do |value,index| %>
-intermediate_<%= index+1 %>:
+<% {'en' => "Intermediate",'de' => "Mittelstufe",'fr'=> "Intermédiaire",'pt' => "Intermédio",'es' => "Intermedio"}.each_pair do |code,value| %>
+intermediate_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:language_level_intermediate) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Basic","Grundkenntnisse","Basique","Básico","Basico"].each_with_index do |value,index| %>
-basic_<%= index+1 %>:
+<% {'en' => "Basic",'de' => "Grundkenntnisse",'fr'=> "Basique",'pt' => "Básico",'es' => "Basico"}.each_pair do |code,value| %>
+basic_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:language_level_basic) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
 
-<% 5.times do |index| %>
-email_<%= index+1 %>:
+<% ['en','de','fr','pt','es'].each do |code| %>
+email_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:web_address_email) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: E-mail
   context:
 
-homepage_<%= index+1 %>:
+homepage_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:web_address_homepage) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: Homepage
   context:
 
-blog_<%= index+1 %>:
+blog_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:web_address_blog) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: Blog
   context:
 
-xing_<%= index+1 %>:
+xing_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:web_address_xing) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: Xing
   context:
 
-linkedin_<%= index+1 %>:
+linkedin_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:web_address_linkedin) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: LinkedIn
   context:
 
-facebook_<%= index+1 %>:
+facebook_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:web_address_facebook) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: Facebook
   context:
 
-twitter_<%= index+1 %>:
+twitter_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:web_address_twitter) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: Twitter
   context:
 
 <% end %>
 
-<% ["Other","Andere","Autre","Outro","Otro"].each_with_index do |value,index| %>
-other_<%= index+1 %>:
+<% {'en' => "Other",'de' => "Andere",'fr'=> "Autre",'pt' => "Outro",'es' => "Otro"}.each_pair do |code,value| %>
+other_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:web_address_other) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
 
-<% ["NGO","NRO","ONG","ONG","ONG"].each_with_index do |value,index| %>
-ngo_<%= index+1 %>:
+<% {'en' => "NGO",'de' => "NRO",'fr'=> "ONG",'pt' => "ONG",'es' => "ONG"}.each_pair do |code,value| %>
+ngo_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:organisation_type_ngo) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Political","Politisch","Politique","Política","Política"].each_with_index do |value,index| %>
-political_<%= index+1 %>:
+<% {'en' => "Political",'de' => "Politisch",'fr'=> "Politique",'pt' => "Política",'es' => "Política"}.each_pair do |code,value| %>
+political_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:organisation_type_political) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Scientific","Wissenschaftlich","Scientifique","Científica","Científica"].each_with_index do |value,index| %>
-scientific_<%= index+1 %>:
+<% {'en' => "Scientific",'de' => "Wissenschaftlich",'fr'=> "Scientifique",'pt' => "Científica",'es' => "Científica"}.each_pair do |code,value| %>
+scientific_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:organisation_type_scientific) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Trade Union","Gewerkschaft","Syndicat","Sindicato","Sindicato"].each_with_index do |value,index| %>
-trade_union_<%= index+1 %>:
+<% {'en' => "Trade Union",'de' => "Gewerkschaft",'fr'=> "Syndicat",'pt' => "Sindicato",'es' => "Sindicato"}.each_pair do |code,value| %>
+trade_union_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:organisation_type_trade_union) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Social Business","Sozialbetrieb","Activité Sociale","Actividade Social","Actividad Social"].each_with_index do |value,index| %>
-social_business_<%= index+1 %>:
+<% {'en' => "Social Business",'de' => "Sozialbetrieb",'fr'=> "Activité Sociale",'pt' => "Actividade Social",'es' => "Actividad Social"}.each_pair do |code,value| %>
+social_business_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:organisation_type_social_business) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Profit-Driven Business","Gewinnorientierte Firma","Firma à but lucratif","Firma com fins lucrativos","Firma de lucro"].each_with_index do |value,index| %>
-profit_driven_business_<%= index+1 %>:
+<% {'en' => "Profit-Driven Business",'de' => "Gewinnorientierte Firma",'fr'=> "Firma à but lucratif",'pt' => "Firma com fins lucrativos",'es' => "Firma de lucro"}.each_pair do |code,value| %>
+profit_driven_business_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:organisation_type_profit_driven_business) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
 
-<% ["Affection","Betroffenheit","Affection","Afeição","Afecto"].each_with_index do |value,index| %>
-affection_<%= index+1 %>:
+<% {'en' => "Affection",'de' => "Betroffenheit",'fr'=> "Affection",'pt' => "Afeição",'es' => "Afecto"}.each_pair do |code,value| %>
+affection_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:tag_context_affection) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Engagement","Engagement","Engagement","Compromisso","Compromisso"].each_with_index do |value,index| %>
-engagement_<%= index+1 %>:
+<% {'en' => "Engagement",'de' => "Engagement",'fr'=> "Engagement",'pt' => "Compromisso",'es' => "Compromisso"}.each_pair do |code,value| %>
+engagement_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:tag_context_engagement) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Expertise","Expertise","Expertise","Especialidade","Peritaje"].each_with_index do |value,index| %>
-expertise_<%= index+1 %>:
+<% {'en' => "Expertise",'de' => "Expertise",'fr'=> "Expertise",'pt' => "Especialidade",'es' => "Peritaje"}.each_pair do |code,value| %>
+expertise_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:tag_context_expertise) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Decision Making","Entscheidung","Décision","Decisão","Decisión"].each_with_index do |value,index| %>
-decision_making_<%= index+1 %>:
+<% {'en' => "Decision Making",'de' => "Entscheidung",'fr'=> "Décision",'pt' => "Decisão",'es' => "Decisión"}.each_pair do |code,value| %>
+decision_making_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:tag_context_decision_making) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Field of Work","Arbeitsfeld","Domaine de travail","Domínio de Trabalho","Área de Trabajo"].each_with_index do |value,index| %>
-field_work_<%= index+1 %>:
+<% {'en' => "Field of Work",'de' => "Arbeitsfeld",'fr'=> "Domaine de travail",'pt' => "Domínio de Trabalho",'es' => "Área de Trabajo"}.each_pair do |code,value| %>
+field_work_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:tag_context_field_work) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Field of Activity","Aktivitätsfeld","Domaine d'activité","Domínio de Actividade","Área de Actividad"].each_with_index do |value,index| %>
-field_activity_<%= index+1 %>:
+<% {'en' => "Field of Activity",'de' => "Aktivitätsfeld",'fr'=> "Domaine d'activité",'pt' => "Domínio de Actividade",'es' => "Área de Actividad"}.each_pair do |code,value| %>
+field_activity_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:tag_context_field_activity) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Topic","Thema","Topique","Tópico","Tema"].each_with_index do |value,index| %>
-topic_<%= index+1 %>:
+<% {'en' =>"Topic",'de' => "Thema",'fr'=> "Topique",'pt' => "Tópico",'es' => "Tema"}.each_pair do |code,value| %>
+topic_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:tag_context_topic) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
 
-<% ["New","Neu","Neuf","Novo","Nuevo"].each_with_index do |value,index| %>
-new_<%= index+1 %>:
+<% {'en' => "New",'de' => "Neu",'fr'=> "Neuf",'pt' => "Novo",'es' => "Nuevo"}.each_pair do |code,value| %>
+new_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:statement_state_new) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Published","Veröffentlicht","Publié","Publicado","Publicado"].each_with_index do |value,index| %>
-published_<%= index+1 %>:
+<% {'en' => "Published",'de' => "Veröffentlicht",'fr'=> "Publié",'pt' => "Publicado",'es' => "Publicado"}.each_pair do |code,value| %>
+published_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:statement_state_published) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
 
-<% ["New","Neu","Neuf","Novo","Nuevo"].each_with_index do |value,index| %>
-created_<%= index+1 %>:
+<% {'en' => "New",'de' => "Neu",'fr'=> "Neuf",'pt' => "Novo",'es' => "Nuevo"}.each_pair do |code,value| %>
+created_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:statement_action_created) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Edit","Editieren","Éditer","Editar","Editar"].each_with_index do |value,index| %>
-updated_<%= index+1 %>:
+<% {'en' => "Edit",'de' => "Editieren",'fr'=> "Éditer",'pt' => "Editar",'es' => "Editar"}.each_pair do |code,value| %>
+updated_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:statement_action_updated) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Translate","Übersetzen","Traduire","Traduzir","Traducir"].each_with_index do |value,index| %>
-translated_<%= index+1 %>:
+<% {'en' => "Translate",'de' => "Übersetzen",'fr'=> "Traduire",'pt' => "Traduzir",'es' => "Traducir"}.each_pair do |code,value| %>
+translated_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:statement_action_translated) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>
-<% ["Incorporate","Einfügen","Incorporer","Incorporar","Incorporar"].each_with_index do |value,index| %>
-incorporated_<%= index+1 %>:
+<% {'en' => "Incorporate",'de' => "Einfügen",'fr'=> "Incorporer",'pt' => "Incorporar",'es' => "Incorporar"}.each_pair do |code,value| %>
+incorporated_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:statement_action_incorporated) %>
-  key: <%= index+1 %>
+  code: <%= code %>
   value: <%= value %>
   context:
 <% end %>

@@ -1,8 +1,8 @@
 <% spoken_language ||= @spoken_language %>
 <% content_for "spoken_language_#{spoken_language.id}_label".to_sym do %>
-  <%= h EnumValue[spoken_language.language.code].value %>
+  <%= h spoken_language.language.value %>
 <% end %>
 <% content_for "spoken_language_#{spoken_language.id}_value".to_sym do %>
-  <%= h EnumValue[spoken_language.level.code].value %>
+  <%= h spoken_language.level.value %>
 <% end %>
 <%= render :partial => 'users/components/object', :locals => {:type => 'spoken_language', :object => spoken_language} %>
