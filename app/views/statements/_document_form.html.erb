@@ -11,7 +11,7 @@
 		  <%= label_tag 'question_statement_document_language_id', I18n.t("activerecord.attributes.statement_document.language") %>
 			<%= select_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][language_id]",
 	                   options_for_select(current_user.spoken_languages_at_min_level("intermediate").collect { 
-	                                   |l| [l.get_current_enum_value.value,l.id] }, statement_document.language_id || @locale_language_id) %>
+	                                   |l| [EnumValue[l.code].value,l.id] }, statement_document.language_id || @locale_language_id) %>
 			</li>
 		<% end %>
   <% else %>

@@ -1,5 +1,5 @@
 <% content_for "web_address_#{web_address.id}_label".to_sym do %>
-  <%=h web_address.type.get_current_enum_value.value %>
+  <%=h EnumValue[web_address.type.code].value %>
 <% end %>
 <% content_for "web_address_#{web_address.id}_value".to_sym do %>
   <%= auto_link sanitize(web_address.address), :html => { :target => '_blank' } %>

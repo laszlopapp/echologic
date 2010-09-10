@@ -9,7 +9,7 @@ class EnumValueTest < ActiveSupport::TestCase
     should_have_db_columns :context
     
     # testing validations (should_validate_presence_of didn't work)
-    %w(enum_key_id value language_id).each do |attr|
+    %w(enum_key_id value key).each do |attr|
       context "with no #{attr} set" do 
         setup { 
           @enum_value.send("#{attr}=", nil)
@@ -24,7 +24,7 @@ class EnumValueTest < ActiveSupport::TestCase
     # EnumValue.languages
    
     context "being saved" do
-      setup {@save = @enum_value.update_attributes({:enum_key => Language.first, :value => 'Test', :language_id => Language.first.key})}
+      setup {@save = @enum_value.update_attributes({:enum_key_id => Language.first.id, :value => 'Test', :key => Language.first.key})}
       should "throw an error due to an already existing instance of this enum key translation in the aforementioned language" do
         assert !@save        
       end

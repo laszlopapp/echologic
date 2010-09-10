@@ -1,8 +1,8 @@
 <% content_for :spoken_language do %>
   <%= select_tag 'spoken_language[language_id]',
-                   options_for_select(Language.all.collect { |l| [l.get_current_enum_value.value,l.id] }.sort) %>
+                   options_for_select(Language.all.collect { |l| [EnumValue[l.code].value,l.id] }.sort) %>
     <%= select_tag 'spoken_language[level_id]',
-                   options_for_select(LanguageLevel.all.collect { |l| [l.get_current_enum_value.value,l.id] }) %>
+                   options_for_select(LanguageLevel.all.collect { |l| [EnumValue[l.code].value,l.id] }) %>
     <%= submit_tag I18n.t('application.general.create'),
                    :class => 'text_button add_text_button',
                    :id => 'new_spoken_language_submit' %>

@@ -1,7 +1,7 @@
 <% content_for :web_address do %>
   <%= select :web_address,
                  :type_id,
-                 WebAddressType.all.collect { |wa| [wa.get_current_enum_value.value,wa.id] } %>
+                 WebAddressType.all.collect { |wa| [EnumValue[wa.code].value,wa.id] } %>
 
       <%= text_field :web_address, :address, :value => '' %>
     

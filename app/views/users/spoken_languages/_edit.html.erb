@@ -1,11 +1,11 @@
 <% spoken_language ||= @spoken_language%>
 <% content_for :fields do %>
   <%= select_tag 'spoken_language[language_id]',
-                 options_for_select(Language.all.collect { |l| [l.get_current_enum_value.value,l.id] }.sort,
+                 options_for_select(Language.all.collect { |l| [EnumValue[l.code].value,l.id] }.sort,
                                     spoken_language.language.id),
                  :disabled => true %>
   <%= select_tag 'spoken_language[level_id]',
-                 options_for_select(LanguageLevel.all.collect { |l| [l.get_current_enum_value.value,l.id] },
+                 options_for_select(LanguageLevel.all.collect { |l| [EnumValue[l.code].value,l.id] },
                                     spoken_language.level.id) %>
 <% end %>
 <%= render :partial => 'users/components/edit', :locals => {:type => 'spoken_language', :object => spoken_language} %>

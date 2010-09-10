@@ -5,7 +5,7 @@
   <%= image_tag 'page/translation/babelfish_left.png',
                 :class => 'fish_left' %>
   <span class="language_label from_language">
-    <%= statement_document.language.get_current_enum_value.value.upcase %>
+    <%= EnumValue[statement_document.language.code].value.upcase %>
   </span>
   <%= create_translate_statement_link(statement_node,statement_document) %>
 </div>

@@ -21,7 +21,6 @@ module ActiveRecord
             extend ActiveRecord::Acts::Enumerated::ClassMethods
             class_eval do
               include ActiveRecord::Acts::Enumerated::InstanceMethods
-              validates_uniqueness_of :code
               before_save :enumeration_model_update
               before_destroy :enumeration_model_update
             end
@@ -101,10 +100,9 @@ module ActiveRecord
         end
         
         def all_by_code
-          return @all_by_code if !@all_by_code.blank?
+          return @all_by_code if @all_by_code
           begin
             @all_by_code = all.inject({}) { |memo, item| memo[item.code] = item; memo;}.freeze
-            @all_by_code
           rescue NoMethodError => err
             if err.name == :code
               raise TypeError, "#{self.name}: you need to define a 'code' column in the table '#{table_name}'"
