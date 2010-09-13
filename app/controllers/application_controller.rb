@@ -353,7 +353,25 @@ class ApplicationController < ActionController::Base
   #  LOGGING  #
   #############
 
+  def log_message_info(message)
+    timestamp = Time.now.utc.strftime("%m/%d/%Y %H:%M")
+    user = current_user.nil? ? 'unlogged' : current_user.id
+    request_url = request.url
+    info_message = "Time:'#{timestamp}', User:#{user}, URL:#{request_url} : #{message}"
+    logger.info(info_message)
+  end
 
-
-
+  def log_message_error(e, message)
+    timestamp = Time.now.utc.strftime("%m/%d/%Y %H:%M")
+    user = current_user.nil? ? 'unlogged' : current_user.id
+    request_url = request.url
+    error_message = "Time:'#{timestamp}', User:#{user}, URL:#{request_url} : #{message}"
+    logger.error(error_message)
+    log_error e
+    respond_to do |format|
+      set_error('application.unexpected_error')
+      yield format if block_given?
+      format.js   { show_error_messages }
+    end
+  end
 end

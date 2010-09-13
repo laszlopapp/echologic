@@ -126,8 +126,9 @@ class StatementsController < ApplicationController
       end
 
     rescue Exception => e
-      logger.error "Error showing statement for URL: #{request.url}"
-      log_error e
+      log_message_error(e, "Error showing statement.") do |format|
+        format.html { flash_error and redirect_to_home }
+      end
     end
   end
 
@@ -197,10 +198,11 @@ class StatementsController < ApplicationController
         end
       end
     rescue Exception => e
-      logger.error("Error creating statement node.")
-      log_error e
+      log_message_error(e, "Error creating statement node.") do |format|
+        format.html { flash_error and render :template => 'statements/new' }
+      end
     else
-      logger.info("Statement node has been created sucessfully.")
+      log_message_info("Statement node has been created sucessfully.") if @statement_node
     end
   end
 
@@ -243,18 +245,18 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def update
-    attrs = params[statement_node_symbol]
-    attrs_doc = attrs.delete(:statement_document)
-    locked_at = attrs_doc.delete(:locked_at)
-
-    # Updating tags of the statement
-    form_tags = attrs.delete(:tags)
-    has_tag_permissions = !@statement_node.taggable? || check_hash_tag_permissions(form_tags)
-
-    holds_lock = ok = true
-    saved = false
-    if has_tag_permissions
-      begin
+    update = false
+    begin
+      attrs = params[statement_node_symbol]
+      attrs_doc = attrs.delete(:statement_document)
+      locked_at = attrs_doc.delete(:locked_at)
+  
+      # Updating tags of the statement
+      form_tags = attrs.delete(:tags)
+      has_tag_permissions = !@statement_node.taggable? || check_hash_tag_permissions(form_tags)
+  
+      holds_lock = true
+      if has_tag_permissions
         StatementNode.transaction do
           old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
           holds_lock = holds_lock?(old_statement_document, locked_at)
@@ -264,37 +266,38 @@ class StatementsController < ApplicationController
             @statement_document = @statement_node.add_statement_document(
                                     attrs_doc.merge({:original_language_id => @locale_language_id,
                                                      :current => true}))
-            @statement_document.save!
+            @statement_document.save
 
             if @statement_node.taggable?
               @statement_node.topic_tags=form_tags
               @tags=@statement_node.topic_tags
             end
-            @statement_node.save!
+            @statement_node.save
           end
         end
-      rescue Exception => e
-        ok = false
-        logger.error("Error updating statement node '#{@statement_node.id}'.")
-        log_error e
-      else
-        logger.info("Statement node '#{@statement_node.id}' has been updated sucessfully.")
       end
-    end
-
-    respond_to do |format|
-      if !holds_lock
-          being_edited(format)
-      elsif !has_tag_permissions || !ok
-        set_error(@statement_document) if @statement_document
-        set_error(@statement_node)
+  
+      respond_to do |format|
+        if !holds_lock
+            being_edited(format)
+        elsif has_tag_permissions and @statement_node.valid? and @statement_document.valid?
+          update = true
+          set_statement_node_info(@statement_document)
+          format.html { flash_info and redirect_to url_for(@statement_node) }
+          format.js   { show }
+        else
+          set_error(@statement_document) if @statement_document
+          set_error(@statement_node)
+          format.html { flash_error and redirect_to url_for(@statement_node) }
+          format.js   { show_error_messages }
+        end
+      end
+    rescue Exception => e
+      log_message_error(e, "Error updating statement node '#{@statement_node.id}'.") do |format|
         format.html { flash_error and redirect_to url_for(@statement_node) }
-        format.js   { show_error_messages }
-      else
-        set_statement_node_info(@statement_document)
-        format.html { flash_info and redirect_to url_for(@statement_node) }
-        format.js   { show }
       end
+    else
+      log_message_info("Statement node '#{@statement_node.id}' has been updated sucessfully.") if update
     end
   end
 
@@ -343,47 +346,50 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def create_translation
-    attrs = params[statement_node_symbol]
-    new_doc_attrs = attrs.delete(:new_statement_document).merge({:author_id => current_user.id,
-                                                                 :language_id => @locale_language_id,
-                                                                 :current => true})
-    locked_at = new_doc_attrs.delete(:locked_at)
-                                                                 
-    # Updating the statement
-    holds_lock = ok = true
+    translated = false
     begin
+      attrs = params[statement_node_symbol]
+      new_doc_attrs = attrs.delete(:new_statement_document).merge({:author_id => current_user.id,
+                                                                   :language_id => @locale_language_id,
+                                                                   :current => true})
+      locked_at = new_doc_attrs.delete(:locked_at)
+                                                                   
+      # Updating the statement
+      holds_lock = true
+    
       StatementNode.transaction do
         old_statement_document = StatementDocument.find(new_doc_attrs[:old_document_id])
         holds_lock = holds_lock?(old_statement_document, locked_at)
         if (holds_lock)
           @new_statement_document = @statement_node.add_statement_document(new_doc_attrs)
-          @new_statement_document.save!
-          @statement_node.save!
+          @new_statement_document.save
+          @statement_node.save
+        end
+      end
+      
+      # Rendering response
+      respond_to do |format|
+        if !holds_lock
+          being_edited(format)
+        elsif @new_statement_document.valid? 
+          translated = true
+          @statement_document = @new_statement_document
+          set_statement_node_info(@statement_document)
+          format.html { flash_info and redirect_to url_for(@statement_node) }
+          format.js {render :partial => 'statements/create_translation.rjs'}
+        else
+          @statement_document = StatementDocument.find(new_doc_attrs[:old_document_id])
+          set_error(@new_statement_document)
+          format.html { flash_error and render :template => 'statements/translate' }
+          format.js { show_error_messages(@new_statement_document) }
         end
       end
     rescue Exception => e
-      ok = false
-      logger.error("Error translating statement node '#{@statement_node.id}'.")
-      log_error e
-    else
-      logger.info("Statement node '#{@statement_node.id}' has been translated sucessfully.")
-    end
-
-    # Rendering response
-    respond_to do |format|
-      if !holds_lock
-        being_edited(format)
-      elsif ok
-        @statement_document = @new_statement_document
-        set_statement_node_info(@statement_document)
-        format.html { flash_info and redirect_to url_for(@statement_node) }
-        format.js {render :partial => 'statements/create_translation.rjs'}
-      else
-        @statement_document = StatementDocument.find(new_doc_attrs[:old_document_id])
-        set_error(@new_statement_document)
+      log_message_error(e, "Error translating statement node '#{@statement_node.id}'.") do |format|
         format.html { flash_error and render :template => 'statements/translate' }
-        format.js { show_error_messages(@new_statement_document) }
       end
+    else
+      log_message_info("Statement node '#{@statement_node.id}' has been translated sucessfully.") if translated
     end
   end
 
@@ -415,16 +421,24 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def echo
-    return if !@statement_node.echoable?
-    if !@statement_node.parent.echoable? or @statement_node.parent.supported?(current_user)
-      @statement_node.supported!(current_user)
-      respond_to_js :redirect_to => @statement_node, :template_js => 'statements/echo'
-    else
-      respond_to do |format|
-        set_info('discuss.statements.unsupported_parent')
-        format.html { flash_info and redirect_to url_for(@statement_node) }
-        format.js { render_with_info }
+    begin
+      return if !@statement_node.echoable?
+      if !@statement_node.parent.echoable? or @statement_node.parent.supported?(current_user)
+        @statement_node.supported!(current_user)
+        respond_to_js :redirect_to => @statement_node, :template_js => 'statements/echo'
+      else
+        respond_to do |format|
+          set_info('discuss.statements.unsupported_parent')
+          format.html { flash_info and redirect_to url_for(@statement_node) }
+          format.js { render_with_info }
+        end
       end
+    rescue Exception => e
+      log_message_error(e, "Error echoing statement node '#{@statement_node.id}'.") do |format|
+        format.html { flash_error and redirect_to url_for(@statement_node) }
+      end
+    else
+      log_message_info("Statement node '#{@statement_node.id}' has been echoed sucessfully.")
     end
   end
 
@@ -436,19 +450,27 @@ class StatementsController < ApplicationController
   # Response: HTTP or JS
   #
   def unecho
-    return if !@statement_node.echoable?
-
-    @statement_node.unsupported!(current_user)
-    @statement_node.children.each{|c|c.unsupported!(current_user) if c.supported?(current_user)}
-
-    # Logic to update the children caused by cascading unsupport
-    @page = params[:page] || 1
-    @children = @statement_node.children_statements(@language_preference_list).
-                  paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
-    @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
-                                                     @language_preference_list)
-    respond_to_js :redirect_to => @statement_node,
-                  :template_js => 'statements/unecho'
+    begin 
+      return if !@statement_node.echoable?
+  
+      @statement_node.unsupported!(current_user)
+      @statement_node.children.each{|c|c.unsupported!(current_user) if c.supported?(current_user)}
+  
+      # Logic to update the children caused by cascading unsupport
+      @page = params[:page] || 1
+      @children = @statement_node.children_statements(@language_preference_list).
+                    paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
+      @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
+                                                       @language_preference_list)
+      respond_to_js :redirect_to => @statement_node,
+                    :template_js => 'statements/unecho'
+    rescue Exception => e
+      log_message_error(e, "Error unechoing statement node '#{@statement_node.id}'.") do |format|
+        format.html { flash_error and redirect_to url_for(@statement_node) }
+      end
+    else
+      log_message_info("Statement node '#{@statement_node.id}' has been unechoed sucessfully.")
+    end
   end
 
 
@@ -464,11 +486,19 @@ class StatementsController < ApplicationController
   # Response: HTTP
   #
   def destroy
-    @statement_node.destroy
-    set_statement_node_info(nil, "discuss.messages.deleted")
-    flash_info and redirect_to :controller => 'questions',
-                               :action => :category,
-                               :id => params[:category]
+    begin
+      @statement_node.destroy
+      set_statement_node_info(nil, "discuss.messages.deleted")
+      flash_info and redirect_to :controller => 'questions',
+                                 :action => :category,
+                                 :id => params[:category]
+    rescue Exception => e
+      log_message_error(e, "Error deleting statement node '#{@statement_node.id}'.") do |format|
+        format.html { flash_error and redirect_to url_for(@statement_node) }
+      end
+    else
+      log_message_info("Statement node '#{@statement_node.id}' has been deleted sucessfully.")
+    end
   end
 
 
@@ -550,9 +580,9 @@ class StatementsController < ApplicationController
         return
       end
     rescue Exception => e
-      logger.error "Error running redirect approved/incorporated IP filter"
-      logger.error "Controller: #{params[:controller]} - Action: #{params[:action]} - URL: #{request.url}"
-      log_error e
+      log_message_error(e, "Error running redirect approved/incorporated IP filter") do |format|
+        format.html { flash_error and redirect_to_home }
+      end
     end
   end
 

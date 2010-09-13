@@ -59,10 +59,9 @@ class Users::ProfileController < ApplicationController
         end
       end
     rescue Exception => e
-      logger.error("Error updating profile '#{@profile.id}'.")
-      log_error e
+      log_message_error(e, "Error updating profile '#{@profile.id}'.")
     else
-      logger.info("Profile '#{@profile.id}' has been updated sucessfully.")
+      log_message_info("Profile '#{@profile.id}' has been updated sucessfully.")
     end
   end
 

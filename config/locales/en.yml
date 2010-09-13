@@ -3,7 +3,9 @@
 
 en:
   application:
-
+    # Unexpected Error
+    unexpected_error: An unexpected error has just happened.
+    
     # General purpose resources
     general:
       more: more »

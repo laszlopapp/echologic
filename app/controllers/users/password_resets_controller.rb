@@ -15,9 +15,8 @@ class Users::PasswordResetsController < ApplicationController
 
   # Creates a new password reset process and sends an email to the user.
   def create
+    @user = User.find_by_email(params[:email])
     begin
-      @user = User.find_by_email(params[:email])
-  
       respond_to do |format|
         if @user
           @user.deliver_password_reset_instructions!
@@ -31,10 +30,9 @@ class Users::PasswordResetsController < ApplicationController
         end
       end
     rescue Exception => e
-      logger.error("Error creating user '#{@user.id}' password.")
-      log_error e
+      log_message_error(e, "Error creating user '#{@user.nil? ? params[:email] : @user.id}' password.")
     else
-      logger.info("User '#{@user.id}' password has been created sucessfully.")
+      log_message_info("User '#{@user.nil? ? params[:email] : @user.id}' password has been created sucessfully.")
     end
   end
 
@@ -46,10 +44,11 @@ class Users::PasswordResetsController < ApplicationController
   end
 
   def update
+    
+    @user.password = params[:user][:password]
+    @user.password_confirmation = params[:user][:password_confirmation]
+    @user.active = true
     begin 
-      @user.password = params[:user][:password]
-      @user.password_confirmation = params[:user][:password_confirmation]
-      @user.active = true
       if @user.save
         flash[:notice] = I18n.t('users.password_reset.messages.reset_success')
         redirect_to welcome_path
@@ -58,10 +57,9 @@ class Users::PasswordResetsController < ApplicationController
         render :action => :edit, :layout => 'static'
       end
     rescue Exception => e
-      logger.error("Error updating user '#{@user.id}' password.")
-      log_error e
+      log_message_error(e, "Error updating user '#{@user.id}' password.")
     else
-      logger.info("User '#{@user.id}' password has been updated sucessfully.")
+      log_message_info("User '#{@user.nil? ? params[:email] : @user.id}' password has been updated sucessfully.")
     end
   end
 
