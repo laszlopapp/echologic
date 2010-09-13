@@ -15,19 +15,26 @@ class Users::PasswordResetsController < ApplicationController
 
   # Creates a new password reset process and sends an email to the user.
   def create
-    @user = User.find_by_email(params[:email])
-
-    respond_to do |format|
-      if @user
-        @user.deliver_password_reset_instructions!
-        set_info('users.password_reset.messages.success')
-        format.html { flash_info and redirect_to root_url }
-        format.js   { render_with_info(message) }
-      else
-        set_error('users.password_reset.messages.not_found')
-        format.html { flash_error and render :action => :new, :layout => 'static' }
-        format.js   { show_error_message(message) }
+    begin
+      @user = User.find_by_email(params[:email])
+  
+      respond_to do |format|
+        if @user
+          @user.deliver_password_reset_instructions!
+          set_info('users.password_reset.messages.success')
+          format.html { flash_info and redirect_to root_url }
+          format.js   { render_with_info(message) }
+        else
+          set_error('users.password_reset.messages.not_found')
+          format.html { flash_error and render :action => :new, :layout => 'static' }
+          format.js   { show_error_message(message) }
+        end
       end
+    rescue Exception => e
+      logger.error("Error creating user '#{@user.id}' password.")
+      log_error e
+    else
+      logger.info("User '#{@user.id}' password has been created sucessfully.")
     end
   end
 
@@ -54,7 +61,7 @@ class Users::PasswordResetsController < ApplicationController
       logger.error("Error updating user '#{@user.id}' password.")
       log_error e
     else
-      logger.info("User '#{@user.id}' password have been updated sucessfully.")
+      logger.info("User '#{@user.id}' password has been updated sucessfully.")
     end
   end
 

@@ -1,7 +1,7 @@
 <% spoken_language ||= @spoken_language%>
 <% content_for :fields do %>
   <%= select_tag 'spoken_language[language_id]',
-                 options_for_select(Language.all.collect { |l| [l.value,l.id] }.sort,
+                 options_for_select(Language.all.collect { |l| [l.value,l.id] },
                                     spoken_language.language.id),
                  :disabled => true %>
   <%= select_tag 'spoken_language[level_id]',

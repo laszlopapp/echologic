@@ -214,7 +214,7 @@ class StatementsController < ApplicationController
   #
   def edit
     @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
-    if (is_current_document = @statement_document.id == params[:current_document_id].to_i)
+    if (is_current_document = (@statement_document.id == params[:current_document_id].to_i))
       has_lock = acquire_lock(@statement_document)
       @tags ||= @statement_node.topic_tags if @statement_node.taggable?
       @action ||= StatementAction["updated"]
