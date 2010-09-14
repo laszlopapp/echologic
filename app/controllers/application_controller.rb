@@ -355,7 +355,7 @@ class ApplicationController < ActionController::Base
 
   def log_message_info(message)
     timestamp = Time.now.utc.strftime("%m/%d/%Y %H:%M")
-    user = current_user.nil? ? 'unlogged' : current_user.id
+    user = current_user.nil? ? 'not logged in' : current_user.id
     request_url = request.url
     info_message = "Time:'#{timestamp}', User:#{user}, URL:#{request_url} : #{message}"
     logger.info(info_message)
@@ -363,7 +363,7 @@ class ApplicationController < ActionController::Base
 
   def log_message_error(e, message)
     timestamp = Time.now.utc.strftime("%m/%d/%Y %H:%M")
-    user = current_user.nil? ? 'unlogged' : current_user.id
+    user = current_user.nil? ? 'not logged in' : current_user.id
     request_url = request.url
     error_message = "Time:'#{timestamp}', User:#{user}, URL:#{request_url} : #{message}"
     logger.error(error_message)
