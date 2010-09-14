@@ -392,6 +392,10 @@ es:
         babelfish en el menu arriba.
       drafting_language_hint: |
         Note por favor, que el proceso de la elaboración colectiva de las propuestas solamente funcionará en el idioma escojido.
+      statement_language_hint: |
+        In order to enter statements in other languages, please set your language skills in your <a href='{{url}}'>Profile</a>.
+      drafting_language_hint: | 
+        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
       publish: Publicar
       published: Esta discusión fue publicada con éxito.
       edit: 'Editar {{type}}'

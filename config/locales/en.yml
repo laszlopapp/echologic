@@ -378,6 +378,11 @@ en:
         using the babelfish in the upper menu.
       drafting_language_hint: |
         Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language.
+      statement_language_hint: |
+        In order to enter statements in other languages, please set your language skills in your <a href='{{url}}'>Profile</a>.
+      drafting_language_hint: | 
+        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
+ 
       publish: Release
       published: Discussion has been released successfully.
       edit: 'Edit {{type}}'

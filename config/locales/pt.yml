@@ -377,6 +377,10 @@ pt:
         babelfish no canto superior direito.
       drafting_language_hint: |
         Nota-se por favor, que o precesso da elaboração coletiva desta proposta solamente funcionará do idioma escolhido.
+      statement_language_hint: |
+        In order to enter statements in other languages, please set your language skills in your <a href='{{url}}'>Profile</a>.
+      drafting_language_hint: | 
+        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
       publish: Publicar
       published: A discussão foi publicada com sucesso.
       edit: 'Editar {{type}}'

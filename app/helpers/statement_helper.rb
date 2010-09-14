@@ -183,7 +183,7 @@ module StatementHelper
               :class => 'ajax header_button text_button edit_text_button')
     end
   end
-
+  
   # Returns the block heading for the children of the given statement_node
   def children_box_title(statement_node)
     type = statement_node_class_dom_id(statement_node.class.expected_children.first)

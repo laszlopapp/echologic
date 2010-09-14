@@ -143,7 +143,7 @@ class StatementsController < ApplicationController
   def new
     @statement_node ||= statement_node_class.new(:parent => parent,
                                                  :root_id => root_symbol)
-    @statement_document ||= StatementDocument.new
+    @statement_document ||= StatementDocument.new(:language_id => @locale_language_id)
     @action ||= StatementAction["created"]
     @statement_node.topic_tags << "##{params[:category]}" if params[:category]
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?

@@ -385,6 +385,10 @@ de:
       drafting_language_hint: |
         Bitte beachten Sie, dass die gemeinsame Textentwicklung zur Weiterentwicklung dieses Vorschlags nur in
         dieser Sprache ablaufen wird.
+      statement_language_hint: |
+        In order to enter statements in other languages, please set your language skills in your <a href='{{url}}'>Profile</a>.
+      drafting_language_hint: | 
+        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
       publish: Freigeben
       published: Die Diskussion wurde erfolgreich freigegeben.
       edit: '{{type}} bearbeiten'

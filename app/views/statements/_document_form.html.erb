@@ -2,43 +2,36 @@
 <% statement_node ||= @statement_node %>
 <% statement_document ||= @statement_document %>
 <% css_rte_class = 'rte_doc' %>
+<% user_languages = current_user.spoken_languages_at_min_level("intermediate") %>
 
 <% form.semantic_fields_for :statement_document, statement_document do |doc|  %>
-  
-  <% if !disabled %>
-	  <% doc.inputs :class => 'inputs left_panel' do %>
-		  <li>
-		  <%= label_tag 'question_statement_document_language_id', I18n.t("activerecord.attributes.statement_document.language") %>
-			<%= select_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][language_id]",
-	                   options_for_select(current_user.spoken_languages_at_min_level("intermediate").collect { 
-	                                   |l| [l.value,l.id] }, statement_document.language_id || @locale_language_id) %>
-			</li>
-		<% end %>
-  <% else %>
-    <%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][language_id]",
-                            statement_document.language_id || @locale_language_id %>
-  <% end %>
-  
-	
   <% doc.inputs :class => 'inputs left_panel' do %>
-	  
-    <%= doc.input :title,
-                  :input_html => {:disabled => disabled} %>
+	  <% if !disabled and statement_document.new_record? %>
+		  <% if user_languages.empty? %>
+				<%= doc.input :language_id, 
+                      :collection => [[Language[@locale_language_id].value,Language[@locale_language_id].id]] , 
+                      :include_blank => false %>
+				<p><%= I18n.t('discuss.statements.statement_language_hint') %></p>
+			<% else %>
+		    <%= doc.input :language_id, :collection => user_languages.collect{|l|[l.value,l.id]}, :include_blank => false %>
+			<% end %>
+		<% else %>
+	    <%= doc.input :language_id, :as => :hidden, :value => statement_document.language_id %>
+	  <% end %>
+  
+	   <p><%= I18n.t('discuss.statements.drafting_language_hint') if statement_node.draftable? %></p>
+	
+    <%= doc.input :title, :input_html => {:disabled => disabled} %>
     <br/>
 		<% if !disabled %>
-      <%= doc.input :text,
-                    :input_html => {:disabled => disabled,
-                                    :class => css_rte_class} %>
-			<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][author_id]",
-                       current_user.id %>
-			<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][old_document_id]",
-                           statement_document.id if !statement_document.new_record? %>
-			<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][locked_at]",
-                           statement_document.locked_at %>
-			<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][action_id]",
-                           @action.id if @action %>
-			<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][incorporated_node_id]",
-                           @approved_node.id if !@approved_node.nil? %>
+      <%= doc.input :text, :input_html => {:disabled => disabled, :class => css_rte_class} %>
+			
+      <%= doc.input :author_id, :as => :hidden, :value => current_user.id %>																		
+			<%= doc.input :old_document_id, :as => :hidden, :value => statement_document.id if !statement_document.new_record? %>
+			<%= doc.input :locked_at, :as => :hidden, :value => statement_document.locked_at %>
+			<%= doc.input :action_id, :as => :hidden, :value => @action.id if @action %>
+			<%= doc.input :incorporated_node_id, :as => :hidden, :value => @approved_node.id if !@approved_node.nil? %>
+			
 		<% else %>
 		  <li>
 			  <label for="question_statement_document_text">
