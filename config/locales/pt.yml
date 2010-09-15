@@ -687,3 +687,6 @@ pt:
         <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
         {{title}}</a>
         </p>
+
+  pagination:
+    button: Mais...

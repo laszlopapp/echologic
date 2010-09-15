@@ -13,3 +13,7 @@ $(function() {
     $(document).trigger("fragmentChange.page");
   }
 });
+
+$(".more_pagination a").live("click", function() {
+  $('.more_pagination').html('<span class="pagination_loading"></span>');
+});

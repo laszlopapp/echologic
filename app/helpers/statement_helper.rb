@@ -5,6 +5,8 @@ module StatementHelper
       alias_method :proposal_path, :proposal_url
       alias_method :new_proposal_path, :new_proposal_url
       alias_method :new_translation_proposal_path, :new_translation_proposal_url
+      alias_method :children_proposal_path, :children_proposal_url
+      alias_method :children_path, :children_url
 
       alias_method :improvement_proposal_path, :improvement_proposal_url
       alias_method :new_improvement_proposal_path, :new_improvement_proposal_url
@@ -30,6 +32,10 @@ module StatementHelper
 
   def create_translation_url (parent, type)
     send("create_translation_#{type.downcase}_url",parent)
+  end
+  
+  def children_url (parent, type, opts={})
+    send("children_#{type.downcase}_url",parent, opts)
   end
 
   # returns the path to a statement_node, according to its type
@@ -70,6 +76,14 @@ module StatementHelper
 
   def create_translation_proposal_path(proposal)
     create_translation_question_proposal_path(proposal.parent, proposal)
+  end
+  
+  def children_proposal_url(proposal, opts={})
+    children_question_proposal_url(proposal.parent, proposal, opts)
+  end
+
+  def children_proposal_path(proposal, opts={})
+    children_question_proposal_path(proposal.parent, proposal, opts)
   end
 
   ## ImprovementProposal
@@ -371,4 +385,17 @@ module StatementHelper
     val
   end
 
+  # This class does the heavy lifting of actually building the pagination
+  # links. It is used by the <tt>will_paginate</tt> helper internally.
+  class MoreRenderer < WillPaginate::LinkRenderer
+    
+    
+    def to_html
+      html = page_link_or_span(@collection.next_page, 'disabled more', @options[:next_label])
+      html = html.html_safe if html.respond_to? :html_safe
+      @options[:container] ? @template.content_tag(:div, html, html_attributes) : html
+    end
+    
+  end
 end
+

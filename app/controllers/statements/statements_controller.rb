@@ -8,15 +8,15 @@ class StatementsController < ApplicationController
   #        but that is currently undoable without breaking non-js requests. A
   #        solution would be to make the "echo" button a real submit button and
   #        wrap a form around it.
-  verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation]
+  verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation, :children]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
-  before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions, :new, :create]
-  before_filter :require_user, :except => [:category, :show]
+  before_filter :redirect_if_approved_or_incorporated, :except => [:children, :category, :my_discussions, :new, :create]
+  before_filter :require_user, :except => [:children, :category, :show]
   before_filter :fetch_languages, :except => [:destroy]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
@@ -24,7 +24,7 @@ class StatementsController < ApplicationController
   # Authlogic access control block
   access_control do
     allow :editor
-    allow anonymous, :to => [:index, :show, :category]
+    allow anonymous, :to => [:index, :show, :category, :children]
     allow logged_in
   end
 
@@ -113,22 +113,34 @@ class StatementsController < ApplicationController
       # Find all child statement_nodes, which are published (except user is an editor)
       # sorted by supporters count, and paginate them
       @page = params[:page] || 1
-
+      @per_page = 3
+      @offset = 0
       @children = @statement_node.children_statements(@language_preference_list).
                     paginate(StatementNode.default_scope.merge(:page => @page,
-                                                               :per_page => 5))
+                                                               :per_page => @per_page))
       @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
                                                        @language_preference_list)
 
-      respond_to do |format|
-        format.html {render :template => 'statements/show' } # show.html.erb
-        format.js   {render :template => 'statements/show' } # show.js.erb
-      end
+      respond_to_js :template => 'statements/show',
+                    :partial_js => @page==1 ? 'statements/show.rjs' : 'statements/children.rjs'
 
     rescue Exception => e
       logger.error "Error showing statement for URL: #{request.url}"
       log_error e
     end
+  end
+  
+  
+  def children
+    @page = params[:page] || 1
+    @per_page = 7
+    @offset = @page.to_i == 1 ? 3 : 0
+    @children = @statement_node.children_statements(@language_preference_list).
+                  paginate(StatementNode.default_scope.merge(:page => @page,
+                                                             :per_page => @per_page))
+    @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
+                                                     @language_preference_list)
+    respond_to_js :partial_js => 'statements/children.rjs'                                                 
   end
 
 

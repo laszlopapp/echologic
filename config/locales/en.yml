@@ -557,3 +557,6 @@ en:
       user_session:
         email: E-Mail
         password: Password
+  pagination:
+    button: More...
+
