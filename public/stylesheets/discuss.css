@@ -447,21 +447,14 @@ a.statement_link:hover {
 	color:#7BB031;
 }
 
-#children_list {
-	max-height: 210px;
-	overflow-x: hidden;
-  overflow-y: auto;
-}
-
 .sub_list {
-	height: 200px;
+	min-height: 230px;
 }
 
 .pagination_loading{
-	background: white url('../images/indicator.gif') right center no-repeat;
-	height: 16px;
-	width: 16px;
-	display: inline-block;
+	background: white url('../images/indicator.gif') left center no-repeat;
+	padding-left: 20px;
+	display: none;
 }
 
 .more_pagination .disabled {

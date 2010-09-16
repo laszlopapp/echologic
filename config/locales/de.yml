@@ -28,6 +28,7 @@ de:
       incorporate: Incorporate
       welcome: Willkommen
       all: Alle
+      loading: Page is loading...
 
     # Roadmap - Progress
     roadmap:
@@ -701,5 +702,3 @@ de:
         {{title}}</a>
         </p>
 
-  pagination:
-    button: More...

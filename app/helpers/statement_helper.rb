@@ -391,7 +391,7 @@ module StatementHelper
     
     
     def to_html
-      html = page_link_or_span(@collection.next_page, 'disabled more', @options[:next_label])
+      html = page_link_or_span(@collection.next_page, 'disabled more_children', @options[:next_label])
       html = html.html_safe if html.respond_to? :html_safe
       @options[:container] ? @template.content_tag(:div, html, html_attributes) : html
     end

@@ -122,7 +122,7 @@ class StatementsController < ApplicationController
                                                        @language_preference_list)
 
       respond_to_js :template => 'statements/show',
-                    :partial_js => @page==1 ? 'statements/show.rjs' : 'statements/children.rjs'
+                    :partial_js => 'statements/show.rjs'
 
     rescue Exception => e
       logger.error "Error showing statement for URL: #{request.url}"

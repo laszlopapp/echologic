@@ -1,7 +1,7 @@
 <% children ||= @children %>
 
 <div class="sub_list">
-  <ul id="children_list">
+  <ul id="children_list" class="children_pagination">
     <% unless children.blank? %>
       <% last_child = children.pop -%>
       <% children.each do |statement_node| %>
@@ -19,9 +19,10 @@
       </li>
     <%end%>
   </ul>
+	<span class="pagination_loading"><%= I18n.t("application.general.loading")%></span>
 	<div id="more_pagination" class="more_pagination">
 		<% if !children.blank? and children.current_page != children.total_pages %>
-		  <%= link_to I18n.t("pagination.button"), children_url(@statement_node, statement_node_class_dom_id(@statement_node).downcase, :page => 1), :class => 'ajax' %>
+		  <%= link_to I18n.t("application.general.more"), children_url(@statement_node, statement_node_class_dom_id(@statement_node).downcase, :page => 1), :class => 'more_children ajax' %>
 	  <% end %>
 	</div>
 </div>

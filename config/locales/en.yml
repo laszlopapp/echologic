@@ -28,6 +28,7 @@ en:
       incorporate: Incorporate
       welcome: Welcome
       all: All
+      loading: Page is loading...
 
     # Roadmap - Progress
     roadmap:
@@ -557,6 +558,4 @@ en:
       user_session:
         email: E-Mail
         password: Password
-  pagination:
-    button: More...
-
+  

@@ -28,6 +28,7 @@ es:
       incorporate: Incorporate
       welcome: Bienvenido
       all: Todos
+      loading: Page is loading...
 
     # Roadmap - Progress
     roadmap:
@@ -708,5 +709,3 @@ es:
         <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
         {{title}}</a>
         </p>
-  pagination:
-    button: More...
