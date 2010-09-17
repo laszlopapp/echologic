@@ -1,15 +1,13 @@
 class ChangeColumnLanguageIdToCodeFromEnumValues < ActiveRecord::Migration
   def self.up
+    change_column :enum_values, :language_id, :string
     rename_column :enum_values, :language_id, :code
-    change_column :enum_values, :code, :string
     
-    EnumValue.find(:all).each_with_index do |enum_value, i|
-      puts Language.find_by_key(enum_value.code.to_i).inspect
-      enum_value.code = Language.find_by_key(enum_value.code.to_i).code
-      puts enum_value.inspect
-      puts enum_value.valid?
-      enum_value.save(false)
-    end
+    Rake::Task['db:seed'].invoke
+#    EnumValue.find(:all).each_with_index do |enum_value, i|
+#      enum_value.code = Language.find_by_key(enum_value.code.to_i).code
+#      enum_value.save(false)
+#    end
   end
 
   def self.down
