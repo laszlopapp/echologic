@@ -55,6 +55,7 @@ When /^I choose the "([^\"]*)" Improvement Proposal$/ do |name|
     selector.each do |improvement_proposal|
       if name.eql?(improvement_proposal.at_css("a.improvement_proposal_link").inner_text.strip)
         @improvement_proposal = ImprovementProposal.find(URI.parse(improvement_proposal.at_css("a")['href']).path.match(/\/improvement_proposals\/\d+/)[0].split('/')[2].to_i)
+        puts @improvement_proposal.statement_documents[0].title
         visit improvement_proposal.at_css("a")['href']
       end
     end
