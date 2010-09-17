@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20100910131733) do
 
   create_table "drafting_infos", :force => true do |t|
     t.integer  "statement_node_id"
-    t.datetime "state_since",       :default => '2010-09-10 11:14:44'
+    t.datetime "state_since",       :default => '2010-09-06 17:47:52'
     t.integer  "times_passed",      :default => 0
   end
 

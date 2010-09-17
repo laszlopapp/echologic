@@ -3,9 +3,10 @@ class ChangeColumnLanguageIdToCodeFromEnumValues < ActiveRecord::Migration
     enum_values = EnumValue.all
     rename_column :enum_values, :language_id, :code
     change_column :enum_values, :code, :string
-    EnumValue.all.each_with_index do |enum_value, i|
-      enum_value.code = EnumKey.find_by_type_and_key("Language",enum_values[0].language_id).code
-      enum_value.save
+    
+    EnumValue.find(:all).each_with_index do |enum_value, i|
+      enum_value.code = Language.find_by_key(enum_values[i].code.to_i).code
+      enum_value.save!
     end
   end
 

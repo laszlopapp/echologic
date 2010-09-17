@@ -2,7 +2,7 @@ class ChangeColumnEnumNameToTypeInEnumKey < ActiveRecord::Migration
   def self.up
     EnumKey.all.each do |enum_key|
       enum_key.enum_name = enum_key.enum_name.singularize.classify 
-      enum_key.save
+      enum_key.save(false)
     end
     rename_column :enum_keys, :enum_name, :type
   end
