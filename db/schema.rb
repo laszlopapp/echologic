@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100820133948) do
+ActiveRecord::Schema.define(:version => 20100916143948) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -199,7 +199,11 @@ ActiveRecord::Schema.define(:version => 20100820133948) do
   add_index "statement_nodes", ["type"], :name => "idx_statement_nodes_type"
 
   create_table "statements", :force => true do |t|
-    t.integer "original_language_id"
+    t.integer  "original_language_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "subscriptions", :force => true do |t|
