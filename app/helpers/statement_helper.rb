@@ -5,10 +5,14 @@ module StatementHelper
       alias_method :proposal_path, :proposal_url
       alias_method :new_proposal_path, :new_proposal_url
       alias_method :new_translation_proposal_path, :new_translation_proposal_url
+      alias_method :upload_image_proposal_path, :upload_image_proposal_url
+      alias_method :reload_image_proposal_path, :reload_image_proposal_url
 
       alias_method :improvement_proposal_path, :improvement_proposal_url
       alias_method :new_improvement_proposal_path, :new_improvement_proposal_url
       alias_method :new_translation_improvement_proposal_path, :new_translation_improvement_proposal_url
+      alias_method :upload_image_improvement_proposal_path, :upload_image_improvement_proposal_url
+      alias_method :reload_image_improvement_proposal_path, :reload_image_improvement_proposal_url
     end
   end
 
@@ -30,6 +34,14 @@ module StatementHelper
 
   def create_translation_url (parent, type)
     send("create_translation_#{type.downcase}_url",parent)
+  end
+  
+  def upload_image_url (parent, type)
+    send("upload_image_#{type.downcase}_url",parent)
+  end
+  
+  def reload_image_url (parent, type)
+    send("reload_image_#{type.downcase}_url",parent)
   end
 
   # returns the path to a statement_node, according to its type
@@ -70,6 +82,22 @@ module StatementHelper
 
   def create_translation_proposal_path(proposal)
     create_translation_question_proposal_path(proposal.parent, proposal)
+  end
+  
+  def upload_image_proposal_url(proposal)
+    upload_image_question_proposal_url(proposal.parent, proposal)
+  end
+
+  def upload_image_proposal_path(proposal)
+    upload_image_question_proposal_path(proposal.parent, proposal)
+  end
+  
+  def reload_image_proposal_url(proposal)
+    reload_image_question_proposal_url(proposal.parent, proposal)
+  end
+
+  def reload_image_proposal_path(proposal)
+    reload_image_question_proposal_path(proposal.parent, proposal)
   end
 
   ## ImprovementProposal
@@ -118,6 +146,30 @@ module StatementHelper
 
   def create_translation_improvement_proposal_path(improvement_proposal)
     create_translation_question_proposal_improvement_proposal_path(improvement_proposal.root,
+                                                                   improvement_proposal.parent,
+                                                                   improvement_proposal)
+  end
+  
+  def upload_image_improvement_proposal_url(improvement_proposal)
+    upload_image_question_proposal_improvement_proposal_url(improvement_proposal.root,
+                                                                  improvement_proposal.parent,
+                                                                  improvement_proposal)
+  end
+
+  def upload_image_improvement_proposal_path(improvement_proposal)
+    upload_image_question_proposal_improvement_proposal_path(improvement_proposal.root,
+                                                                   improvement_proposal.parent,
+                                                                   improvement_proposal)
+  end
+  
+  def reload_image_improvement_proposal_url(improvement_proposal)
+    reload_image_question_proposal_improvement_proposal_url(improvement_proposal.root,
+                                                                  improvement_proposal.parent,
+                                                                  improvement_proposal)
+  end
+
+  def reload_image_improvement_proposal_path(improvement_proposal)
+    reload_image_question_proposal_improvement_proposal_path(improvement_proposal.root,
                                                                    improvement_proposal.parent,
                                                                    improvement_proposal)
   end

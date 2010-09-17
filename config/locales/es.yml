@@ -436,6 +436,11 @@ es:
         Passondo este plazo, posiblemente tus modificationes serán perdidas.
       staled_modification: 'Desculpe por favor, pero tu plazo de 60 minutos para editar la propuesta caduco. Mientras otro miembro tomó su chance y edito la propuesta. Por eso, tus modificaciones lamentablemente no puedieron ser guardadas.'
 
+      upload_image:
+        title: Upload Image
+        guide: Please <strong>select a picture</strong> (JPG or PNG, max. 5MB) and upload it.
+        progress: The image is being uploaded. Please wait...
+
     summary:
       title: 'Resumen'
     messages:
@@ -555,6 +560,7 @@ es:
         language: 'Idioma'
         text:     'Resumen'
         title:    'Titulo'
+        image:    'Image'
 
     models:
       question: "Cuestión"

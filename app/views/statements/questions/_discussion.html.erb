@@ -4,7 +4,7 @@
 <% if statement_document %>
 	<li id="<%= statement_node_dom_id(statement_node) %>" class="<%=statement_node.class.name.downcase%>">
 		<% link_to url_for(statement_node), :class => "avatar_holder" do %>
-      <%= image_tag("default_question_image.png") %>
+      <%= image_tag statement_node.image.url(:small) %>
     <% end %>
 
     <!-- Statement title -->

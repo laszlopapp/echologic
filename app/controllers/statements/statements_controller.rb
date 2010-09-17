@@ -8,14 +8,14 @@ class StatementsController < ApplicationController
   #        but that is currently undoable without breaking non-js requests. A
   #        solution would be to make the "echo" button a real submit button and
   #        wrap a form around it.
-  verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation]
+  verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation, :upload_image, :reload_image]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
-  before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions, :new, :create]
+  before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions, :new, :create, :upload_image, :reload_image]
   before_filter :require_user, :except => [:category, :show]
   before_filter :fetch_languages, :except => [:destroy]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
@@ -168,6 +168,7 @@ class StatementsController < ApplicationController
 
     begin
       @statement_node ||= statement_node_class.new(attrs)
+      @statement_node.statement ||= Statement.new
       @statement_document = @statement_node.add_statement_document(
                             doc_attrs.merge({:original_language_id => @locale_language_id,
                                              :current => true}))
@@ -245,32 +246,38 @@ class StatementsController < ApplicationController
   def update
     attrs = params[statement_node_symbol]
     attrs_doc = attrs.delete(:statement_document)
-    locked_at = attrs_doc.delete(:locked_at)
+    locked_at = attrs_doc.delete(:locked_at) if attrs_doc
 
     # Updating tags of the statement
     form_tags = attrs.delete(:tags)
-    has_tag_permissions = !@statement_node.taggable? || check_hash_tag_permissions(form_tags)
+    has_tag_permissions = form_tags.nil? || !@statement_node.taggable? || check_hash_tag_permissions(form_tags)
 
     holds_lock = ok = true
     saved = false
     if has_tag_permissions
       begin
         StatementNode.transaction do
-          old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
-          holds_lock = holds_lock?(old_statement_document, locked_at)
-          if (holds_lock)
-            old_statement_document.update_attribute(:current, false)
-            old_statement_document.save!
-            @statement_document = @statement_node.add_statement_document(
-                                    attrs_doc.merge({:original_language_id => @locale_language_id,
-                                                     :current => true}))
-            @statement_document.save!
-
-            if @statement_node.taggable?
-              @statement_node.topic_tags=form_tags
-              @tags=@statement_node.topic_tags
+          if attrs_doc # normal edit or incorporate form
+            old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
+            holds_lock = holds_lock?(old_statement_document, locked_at)
+            if (holds_lock)
+              old_statement_document.update_attribute(:current, false)
+              old_statement_document.save!
+              
+              @statement_document = @statement_node.add_statement_document(
+                                      attrs_doc.merge({:original_language_id => @locale_language_id,
+                                                       :current => true}))
+              @statement_document.save!
+              
+              if @statement_node.taggable? and form_tags
+                @statement_node.topic_tags=form_tags
+                @tags=@statement_node.topic_tags
+              end
+              @statement_node.update_attributes!(attrs)
             end
-            @statement_node.save!
+          else #update image
+            @statement_node.update_attributes!(attrs)
+            @statement_node.statement.save!
           end
         end
       rescue Exception => e
@@ -282,20 +289,23 @@ class StatementsController < ApplicationController
       end
     end
 
-    respond_to do |format|
-      if !holds_lock
-          being_edited(format)
-      elsif !has_tag_permissions || !ok
-        set_error(@statement_document) if @statement_document
-        set_error(@statement_node)
-        format.html { flash_error and redirect_to url_for(@statement_node) }
-        format.js   { show_error_messages }
-      else
-        set_statement_node_info(@statement_document)
-        format.html { flash_info and redirect_to url_for(@statement_node) }
-        format.js   { show }
+    if attrs_doc
+      respond_to do |format|
+        if !holds_lock
+            being_edited(format)
+        elsif !has_tag_permissions || !ok
+          set_error(@statement_document) if @statement_document
+          set_error(@statement_node)
+          format.html { flash_error and redirect_to url_for(@statement_node) }
+          format.js   { show_error_messages }
+        else
+          set_statement_node_info(@statement_document) 
+          format.html { flash_info and redirect_to url_for(@statement_node) }
+          format.js   { show }
+        end
       end
     end
+    
   end
 
 
@@ -451,6 +461,36 @@ class StatementsController < ApplicationController
                   :template_js => 'statements/unecho'
   end
 
+  #
+  # Loads the form to insert an image in the current statement.
+  #
+  # Method:   GET
+  # Response: JS
+  #
+  # Calls a js template which opens the upload picture dialog.
+  def upload_image
+    respond_to_js :template_js => 'statements/upload_image'
+  end
+  
+  # After uploading the image, this has to be reloaded.
+  # Reloading:
+  #  1. loginContainer with users picture as profile link
+  #  2. picture container of the profile
+  #
+  # Method:   GET
+  # Response: JS
+  #
+  def reload_image
+    respond_to do |format|
+      format.js do
+        render :update do |page|
+          page.replace 'statement_image', :partial => 'statements/image'
+        end
+      end
+    end
+  end
+
+
 
   #################
   # ADMIN ACTIONS #
@@ -470,6 +510,7 @@ class StatementsController < ApplicationController
                                :action => :category,
                                :id => params[:category]
   end
+
 
 
   #############
@@ -568,9 +609,12 @@ class StatementsController < ApplicationController
   # Checks if text that comes with the form is actually empty, even with the escape parameters from the iframe
   #
   def check_empty_text
-    document_param = params[statement_node_symbol][:new_statement_document] || params[statement_node_symbol][:statement_document]
-    text = document_param[:text]
-    document_param[:text] = "" if text.eql?('<br>')
+    if params[statement_node_symbol].include? :new_statement_document or 
+       params[statement_node_symbol].include? :statement_document
+      document_param = params[statement_node_symbol][:new_statement_document] || params[statement_node_symbol][:statement_document]
+      text = document_param[:text]
+      document_param[:text] = "" if text.eql?('<br>')
+    end
   end
 
   #

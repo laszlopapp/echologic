@@ -30,7 +30,7 @@ module QuestionsHelper
     link_to question_url(question),
                :title => "#{h(title) if long_title}",
                :class => "avatar_holder#{' ttLink no_border' if long_title }" do 
-      image_tag("default_question_image.png")
+      image_tag question.image.url(:small)
     end
   end
   

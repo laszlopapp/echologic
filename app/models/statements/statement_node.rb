@@ -19,7 +19,7 @@ class StatementNode < ActiveRecord::Base
   belongs_to :root_statement, :foreign_key => "root_id", :class_name => "StatementNode"
   belongs_to :statement
 
-  delegate :original_language, :document_in_language, :authors, :to => :statement
+  delegate :original_language, :document_in_language, :authors, :image, :image=, :to => :statement
 
   enum :editorial_state, :enum_name => :statement_states
 
@@ -123,8 +123,8 @@ class StatementNode < ActiveRecord::Base
     original_language_id = attributes.delete(:original_language_id)
     self.statement = Statement.new(:original_language_id => original_language_id) if self.statement.nil?
     doc = StatementDocument.new
-    attributes.each {|k,v|doc.send("#{k.to_s}=", v)}
     doc.statement = self.statement
+    attributes.each {|k,v|doc.send("#{k.to_s}=", v)}
     self.statement.statement_documents << doc
     return doc
   end
