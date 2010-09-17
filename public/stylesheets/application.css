@@ -301,7 +301,8 @@
 
 /* PAGINATION */
 
-.pagination {
+.pagination,
+.more_pagination {
   clear: both;
   display: inline-block;
   margin: 0 auto;
@@ -309,7 +310,8 @@
   width: 990px;
 }
 
-.pagination a, .pagination span {
+.pagination a, .pagination span, 
+.more_pagination a {
   font-size: 15px;
   font-weight: bold;
   color: #21587f;
@@ -317,7 +319,8 @@
   vertical-align: middle;
 }
 
-.pagination a:hover {
+.pagination a:hover,
+.more_pagination a:hover {
   color: #7bb031;
 }
 

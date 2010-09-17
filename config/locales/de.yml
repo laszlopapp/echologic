@@ -31,6 +31,7 @@ de:
       incorporate: Incorporate
       welcome: Willkommen
       all: Alle
+      loading: Page is loading...
 
     # Roadmap - Progress
     roadmap:
@@ -707,3 +708,4 @@ de:
         <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
         {{title}}</a>
         </p>
+
