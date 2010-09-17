@@ -271,14 +271,22 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	width: 815px;
 }
 
-.statement_content .image {
+.statement_content .image_container {
 	float: right;
 	margin-left: 20px;
 	margin-bottom: 20px;
+	width: 170px;
+	height: 125px;
+}
+
+.statement_content .image {
+	
 }
 
 .statement_content .upload_link {
-	float: right; 
+	position: absolute;
+  top: 178px;
+	margin-left: 9px; 
 }
 
 .statement_content a {
@@ -440,7 +448,8 @@ a.statement_link:hover {
   margin: 4px 0;
 }
 
-#children .pagination {
+#children .pagination, 
+#children .more_pagination {
   width: 830px !important;
 }
 
@@ -458,7 +467,19 @@ a.statement_link:hover {
 	color:#7BB031;
 }
 
+.sub_list {
+	min-height: 230px;
+}
 
+.pagination_loading{
+	background: white url('../images/indicator.gif') left center no-repeat;
+	padding-left: 20px;
+	display: none;
+}
+
+.more_pagination .disabled {
+	display: none;
+}
 /* ------------------- */
 /* Translations        */
 /* ------------------- */

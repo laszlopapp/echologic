@@ -10,8 +10,8 @@
     <% spoken_languages = [] %>
     <% for spoken_language in @profile.spoken_languages.sort{|x,y| x.level.key <=> y.level.key} do %>
       <% spoken_languages << '<span class="language">' +
-                             h(spoken_language.language.get_current_enum_value.value) +
-                             '</span> - ' + h(spoken_language.level.get_current_enum_value.value) %>
+                             h(spoken_language.language.value) +
+                             '</span> - ' + h(spoken_language.level.value) %>
       <% end %>
     <span class="values"><%= spoken_languages.join(', ') %></span>
   <% end %>

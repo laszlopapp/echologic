@@ -30,28 +30,21 @@ class StatementDocumentTest < ActiveSupport::TestCase
       end
     end
     
-    # EnumValue
-    %w(language).each do |enum|
-      should "have a #{enum} enum associated" do
-        assert ! StatementDocument.send(enum.pluralize).empty?
-      end
-    end
-
    
     context "with translations" do
       setup do  
-        statement = Statement.new(:original_language => StatementDocument.languages("en"))
+        statement = Statement.new(:original_language => Language["en"])
         @statement_document.update_attributes(:title => 'A document', :text => 'the documents body', :statement => statement)
-        @statement_document.language = StatementDocument.languages.first
+        @statement_document.language = Language.first
         @statement_document.author = User.first
-        @statement_document.action = StatementHistory.statement_actions("created")
+        @statement_document.action = StatementAction["created"]
         @statement_document.save!
         @translated_statement_document = StatementDocument.new
         @translated_statement_document.update_attributes(:title => 'Ein dokument', :text => 'the documents body', 
-                                                                  :language => StatementDocument.languages.last, 
+                                                                  :language => Language.last, 
                                                                   :statement => statement)
         @translated_statement_document.author = User.first
-        @translated_statement_document.action = StatementHistory.statement_actions("translated")
+        @translated_statement_document.action = StatementAction["translated"]
         @translated_statement_document.old_document = @statement_document
         @translated_statement_document.save!
       end
@@ -70,7 +63,7 @@ class StatementDocumentTest < ActiveSupport::TestCase
       end
       
       should "have a language associated" do
-        assert_equal @statement_document.language, StatementDocument.languages.first
+        assert_equal @statement_document.language, Language.first
       end
 
     end

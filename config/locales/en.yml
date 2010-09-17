@@ -3,7 +3,9 @@
 
 en:
   application:
-
+    # Unexpected Error
+    unexpected_error: An unexpected error has just happened.
+    
     # General purpose resources
     general:
       more: more »
@@ -28,6 +30,7 @@ en:
       incorporate: Incorporate
       welcome: Welcome
       all: All
+      loading: Page is loading...
 
     # Roadmap - Progress
     roadmap:
@@ -376,6 +379,11 @@ en:
         using the babelfish in the upper menu.
       drafting_language_hint: |
         Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language.
+      statement_language_hint: |
+        In order to enter statements in other languages, please set your language skills in your <a href='{{url}}'>Profile</a>.
+      drafting_language_hint: | 
+        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
+ 
       publish: Release
       published: Discussion has been released successfully.
       edit: 'Edit {{type}}'
@@ -437,6 +445,7 @@ en:
       deleted: "The {{type}} has been deleted successfully."
       translated: "The {{type}} has been translated successfully."
       incorporated: "The improvement proposal has been successfully incorporated into the proposal."
+      image_uploaded: "The Image has been successfully uploaded into the {{type}}."
       empty:   "No discussions found. Please change your search criteria."
       empty_without_spoken_languages: |
         No discussions found. You can try defining your <a href='{{my_echo}}'>language skills</a>
@@ -563,3 +572,4 @@ en:
       user_session:
         email: E-Mail
         password: Password
+  

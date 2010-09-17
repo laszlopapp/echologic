@@ -54,10 +54,9 @@ class Users::MembershipsController < ApplicationController
         end
       end
     rescue Exception => e
-      logger.error("Error creating membership.")
-      log_error e
+      log_message_error(e, "Error creating membership.")
     else
-      logger.info("Membership has been created sucessfully.")
+      log_message_info("Membership has been created sucessfully.")
     end
   end
 
@@ -75,10 +74,9 @@ class Users::MembershipsController < ApplicationController
         end
       end
     rescue Exception => e
-      logger.error("Error updating membership '#{@membership.id}'.")
-      log_error e
+      log_message_error(e, "Error updating membership '#{@membership.id}'.")
     else
-      logger.info("Membership '#{@membership.id}' has been updated sucessfully.")
+      log_message_info("Membership '#{@membership.id}' has been updated sucessfully.")
     end
   end
 
@@ -103,10 +101,9 @@ class Users::MembershipsController < ApplicationController
         end
       end
     rescue Exception => e
-      logger.error("Error deleting membership '#{@membership.id}'.")
-      log_error e
+      log_message_error(e, "Error deleting membership '#{@membership.id}'.")
     else
-      logger.info("Membership '#{@membership.id}' has been deleted sucessfully.")
+      log_message_info("Membership '#{@membership.id}' has been deleted sucessfully.")
     end
   end
   

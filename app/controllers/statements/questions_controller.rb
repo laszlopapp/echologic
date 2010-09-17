@@ -41,10 +41,15 @@ class QuestionsController < StatementsController
         end
       end
     rescue Exception => e
-      logger.error("Error publishing statement node '#{@statement_node.id}'.")
-      log_error e
+      log_message_error(e, "Error publishing statement node '#{@statement_node.id}'.") do |format|
+        if params[:in] == 'summary'
+          format.html { flash_error and redirect_to url_for(@statement_node) }
+        else
+          format.html { flash_error and redirect_to my_discussions_url }
+        end
+      end
     else
-      logger.info("Statement node '#{@statement_node.id}' has been published sucessfully.")
+      log_message_info("Statement node '#{@statement_node.id}' has been published sucessfully.")
     end
   end
 

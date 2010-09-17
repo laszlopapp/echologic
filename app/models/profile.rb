@@ -44,7 +44,7 @@ class Profile < ActiveRecord::Base
   has_attached_file :avatar, :styles => { :big => "128x>", :small => "x45>" },
                     :default_url => "/images/default_:style_avatar.png"
   validates_attachment_size :avatar, :less_than => 5.megabytes
-  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png']
+  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/pjpeg']
   
   # paperclip callback, used to recalculate completeness when uploading an avatar
   after_avatar_post_process :calculate_completeness

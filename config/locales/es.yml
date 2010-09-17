@@ -4,6 +4,9 @@ es:
 
   application:
 
+    # Unexpected Error
+    unexpected_error: An unexpected error has just happened.
+    
     # General purpose resources
     general:
       more: más »
@@ -28,6 +31,7 @@ es:
       incorporate: Incorporate
       welcome: Bienvenido
       all: Todos
+      loading: Page is loading...
 
     # Roadmap - Progress
     roadmap:
@@ -389,6 +393,10 @@ es:
         babelfish en el menu arriba.
       drafting_language_hint: |
         Note por favor, que el proceso de la elaboración colectiva de las propuestas solamente funcionará en el idioma escojido.
+      statement_language_hint: |
+        In order to enter statements in other languages, please set your language skills in your <a href='{{url}}'>Profile</a>.
+      drafting_language_hint: | 
+        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
       publish: Publicar
       published: Esta discusión fue publicada con éxito.
       edit: 'Editar {{type}}'
@@ -449,6 +457,7 @@ es:
       deleted: "La {{type}} fue borrada con éxito."
       translated: "La {{type}} fue traducida con éxito."
       incorporated: "A propuesta de mejoramiento fue incorporada a la propuesta con exito."
+      image_uploaded: "The Image has been successfully uploaded into the {{type}}."
       empty:   "No fue encontrado ningun debate. Por favor intente buscar por otra palavra."
       empty_without_spoken_languages: |
         No fue encontrada ninguna cuestión. Intente definir tus <a href='{{my_echo}}'>lenguas conocidas</a>

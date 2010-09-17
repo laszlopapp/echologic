@@ -56,10 +56,9 @@ class Users::WebAddressesController < ApplicationController
         end
       end
     rescue Exception => e
-      logger.error("Error creating web address.")
-      log_error e
+      log_message_error(e, "Error creating web address.")
     else
-      logger.info("Web address has been created sucessfully.")
+      log_message_info("Web address has been created sucessfully.")
     end
   end
 
@@ -77,10 +76,9 @@ class Users::WebAddressesController < ApplicationController
         end
       end
     rescue Exception => e
-      logger.error("Error updating web address '#{@web_address.id}'.")
-      log_error e
+      log_message_error(e, "Error updating web address '#{@web_address.id}'.")
     else
-      logger.info("Web address '#{@web_address.id}' has been updated sucessfully.")
+      log_message_info("Web address '#{@web_address.id}' has been updated sucessfully.")
     end
   end
 
@@ -105,10 +103,9 @@ class Users::WebAddressesController < ApplicationController
         end
       end
     rescue Exception => e
-      logger.error("Error deleting web address '#{@web_address.id}'.")
-      log_error e
+      log_message_error(e, "Error deleting web address '#{@web_address.id}'.")
     else
-      logger.info("Web address '#{@web_address.id}' has been deleted sucessfully.")
+      log_message_info("Web address '#{@web_address.id}' has been deleted sucessfully.")
     end
   end
   

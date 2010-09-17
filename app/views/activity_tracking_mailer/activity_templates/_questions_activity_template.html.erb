@@ -14,12 +14,12 @@
          @preferred_language_ids.each do |l_id|
 					if event_data['documents'].has_key?(l_id)
 						title = event_data['documents'][l_id]
-            title_language_code = EnumKey.find(l_id).code
+            title_language_code = Language[l_id.to_i].code
 						break
 					end
          end
          title ||= event_data['documents'].to_a[0][1]
-         title_language_code ||= EnumKey.find(event_data['documents'].to_a[0][0]).code
+         title_language_code ||= Language[event_data['documents'].to_a[0][0].to_i].code
       %>
       <li>
 				<%= link_to title, question_url(Question.find(event_data['id'])), :locale => title_language_code %>

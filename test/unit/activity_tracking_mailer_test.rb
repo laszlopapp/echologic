@@ -10,7 +10,7 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     tags = {'#echonomyjam' => 1,'user' => 2}
     events = []
     id = JSON.parse(question_event.event)['id']
-    en = EnumKey.find_by_code('en')
+    en = Language['en']
     title = JSON.parse(question_event.event)['documents'][en.id]
     # Send the email, then test that it got queued
     email = ActivityTrackingMailer.deliver_activity_tracking_email!(user,question_events,tags,events)
@@ -34,7 +34,7 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     proposal_event = events(:event_second_proposal)
     id = JSON.parse(proposal_event.event)['id']
     parent_id = JSON.parse(proposal_event.event)['parent_id']
-    en = EnumKey.find_by_code('en')
+    en = Language['en']
     title = JSON.parse(proposal_event.event)['documents'][en.id]
     events = [proposal_event]
     # Send the email, then test that it got queued
@@ -44,7 +44,7 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert_equal [user.email], email.to
     assert_equal "echo - Activity Notifications", email.subject
     assert_match /echo - Activity Notifications/, email.encoded
-    assert_match /#{Question.find(parent_id).document_in_preferred_language(EnumKey.find_by_code("en")).title}/, email.encoded
+    assert_match /#{Question.find(parent_id).document_in_preferred_language(Language['en']).title}/, email.encoded
     assert_match /#{id}/, email.encoded
     assert_match /#{parent_id}/, email.encoded
     assert_match /#{title}/, email.encoded
@@ -57,7 +57,7 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     impro_proposal_event = events(:event_first_impro_proposal)
     parent_id = JSON.parse(impro_proposal_event.event)['parent_id']
     root_id = JSON.parse(impro_proposal_event.event)['root_id']
-    en = EnumKey.find_by_code('en')
+    en = Language['en']
     title = JSON.parse(impro_proposal_event.event)['documents'][en.id]
     events = [impro_proposal_event]
     # Send the email, then test that it got queued
@@ -67,8 +67,8 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert_equal [user.email], email.to
     assert_equal "echo - Activity Notifications", email.subject
     assert_match /echo - Activity Notifications/, email.encoded
-    assert_match /#{Proposal.find(parent_id).document_in_preferred_language(EnumKey.find_by_code("en")).title}/, email.encoded
-    assert_match /#{Question.find(root_id).document_in_preferred_language(EnumKey.find_by_code("en")).title}/, email.encoded
+    assert_match /#{Proposal.find(parent_id).document_in_preferred_language(Language['en']).title}/, email.encoded
+    assert_match /#{Question.find(root_id).document_in_preferred_language(Language['en']).title}/, email.encoded
     assert_match /#{impro_proposal_event.subscribeable.id}/, email.encoded
     assert_match /#{impro_proposal_event.subscribeable.parent.id}/, email.encoded
     assert_match /#{impro_proposal_event.subscribeable.root.id}/, email.encoded

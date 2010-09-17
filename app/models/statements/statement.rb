@@ -9,13 +9,17 @@ class Statement < ActiveRecord::Base
   has_attached_file :image, :styles => { :big => "800x600>", :medium => "170x125>", :small => "x45>" },
                     :default_url => "/images/default_:style_image.png"
   validates_attachment_size :image, :less_than => 5.megabytes
-  validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png']
+  validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png', 'image/pjpeg']
 
   def authors
-    statement_histories.select{|sh|original_language.eql?(sh.language)}.map{|s|s.author}
+    statement_histories.select{|sh|original_language.eql?(sh.language)}.map(&:author)
   end
 
-  enum :original_language, :enum_name => :languages
+  def has_author? user
+    authors.map(&:id).include? user.id
+  end
+
+  has_enumerated :original_language, :class_name => 'Language'
 
   named_scope :find_by_title, lambda {|value|
             { :include => :statement_documents, :conditions => ['statement_documents.title LIKE ? and statement_documents.current = 1', "%#{value}%"] } }

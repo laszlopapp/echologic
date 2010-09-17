@@ -53,10 +53,9 @@ class Users::SpokenLanguagesController < ApplicationController
         end
       end
     rescue Exception => e
-      logger.error("Error creating spoken language'.")
-      log_error e
+      log_message_error(e, "Error creating spoken language'.")
     else
-      logger.info("Spoken Language has been created sucessfully.")
+      log_message_info("Spoken Language has been created sucessfully.")
     end
   end
 
@@ -74,10 +73,9 @@ class Users::SpokenLanguagesController < ApplicationController
         end
       end
     rescue Exception => e
-      logger.error("Error updating spoken language'#{@spoken_language.id}'.")
-      log_error e
+      log_message_error(e, "Error updating spoken language'#{@spoken_language.id}'.") 
     else
-      logger.info("Spoken Language'#{@spoken_language.id}' has been updated sucessfully.")
+      log_message_info("Spoken Language'#{@spoken_language.id}' has been updated sucessfully.")
     end
   end
 
@@ -104,10 +102,9 @@ class Users::SpokenLanguagesController < ApplicationController
         end
       end
     rescue Exception => e
-      logger.error("Error deleting spoken language '#{@spoken_language.id}'.")
-      log_error e
+      log_message_error(e, "Error deleting spoken language '#{@spoken_language.id}'.")
     else
-      logger.info("Spoken language '#{@spoken_language.id}' has been deleted sucessfully.")
+      log_message_info("Spoken language '#{@spoken_language.id}' has been deleted sucessfully.")
     end
   end
   

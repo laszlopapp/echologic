@@ -22,14 +22,6 @@ class StatementHistoryTest < ActiveSupport::TestCase
           assert @statement_history.errors[attr]
         }
       end
-    end
-  
-    # EnumValue
-    %w(statement_action).each do |enum|
-      should "have a #{enum} enum associated" do
-        assert ! StatementHistory.send(enum.pluralize).empty?
-      end
-    end
+    end 
   end
- 
 end

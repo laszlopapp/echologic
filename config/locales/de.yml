@@ -3,6 +3,9 @@
 de:
 
   application:
+  
+    # Unexpected Error  
+    unexpected_error: An unexpected error has just happened.
 
     # General purpose resources
     general:
@@ -28,6 +31,7 @@ de:
       incorporate: Incorporate
       welcome: Willkommen
       all: Alle
+      loading: Page is loading...
 
     # Roadmap - Progress
     roadmap:
@@ -382,6 +386,10 @@ de:
       drafting_language_hint: |
         Bitte beachten Sie, dass die gemeinsame Textentwicklung zur Weiterentwicklung dieses Vorschlags nur in
         dieser Sprache ablaufen wird.
+      statement_language_hint: |
+        In order to enter statements in other languages, please set your language skills in your <a href='{{url}}'>Profile</a>.
+      drafting_language_hint: | 
+        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
       publish: Freigeben
       published: Die Diskussion wurde erfolgreich freigegeben.
       edit: '{{type}} bearbeiten'
@@ -442,6 +450,7 @@ de:
       deleted: "{{type}} wurde erfolgreich gelöscht."
       translated: "{{type}} wurde erfolgreich übersetzt."
       incorporated: "Der Verbesserungsvorschlag wurde erfolgreich in den Vorschlag übernommen."
+      image_uploaded: "The Image has been successfully uploaded into the {{type}}."
       empty: "Es wurden keine Diskussionen gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
       empty_without_spoken_languages: |
         Keine Diskussion gefunden. Versuchen Sie Ihre <a href='{{my_echo}}'>Sprachkenntnisse</a> einzustellen,
@@ -706,3 +715,4 @@ de:
         <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
         {{title}}</a>
         </p>
+

@@ -32,7 +32,7 @@ Rails::Initializer.run do |config|
   config.gem "searchlogic", :lib => "searchlogic", :source => 'http://gems.github.com'
 
   # Pagination gem from github
-  config.gem 'will_paginate', :lib => 'will_paginate', :source => 'http://gems.github.com'
+#  config.gem 'will_paginate', :lib => 'will_paginate', :source => 'http://gems.github.com'
 
   # Require formtastic gem to build semantic forms
   config.gem "formtastic"
@@ -48,7 +48,10 @@ Rails::Initializer.run do |config|
 
   # gem for running the background jobs in production
   config.gem 'daemons'
-
+  
+  # gems for endless pagination
+  config.gem 'mislav-will_paginate', :lib => 'will_paginate', :source => 'http://gems.github.com'
+  
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]

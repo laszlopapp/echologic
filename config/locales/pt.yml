@@ -4,6 +4,9 @@
 pt:
   application:
 
+    # Unexpected Error
+    unexpected_error: An unexpected error has just happened.
+
     # General purpose resources
     general:
       more: mais »
@@ -28,6 +31,7 @@ pt:
       incorporate: Incorporate
       welcome: Bemvindo
       all: Tudo
+      loading: A carregar...
 
     # Roadmap - Progress
     roadmap:
@@ -374,6 +378,10 @@ pt:
         babelfish no canto superior direito.
       drafting_language_hint: |
         Nota-se por favor, que o precesso da elaboração coletiva desta proposta solamente funcionará do idioma escolhido.
+      statement_language_hint: |
+        In order to enter statements in other languages, please set your language skills in your <a href='{{url}}'>Profile</a>.
+      drafting_language_hint: | 
+        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
       publish: Publicar
       published: A discussão foi publicada com sucesso.
       edit: 'Editar {{type}}'
@@ -433,7 +441,8 @@ pt:
       updated: "A {{type}} foi actualizada com sucesso."
       deleted: "A {{type}} foi apagada com sucesso."
       translated: "A {{type}} foi traduzida com sucesso."
-      incorporated: "A propuesta de melhoria foi encorporada à proposta com susesso."
+      incorporated: "A proposta de melhoria foi incorporada na proposta com sucesso."
+      image_uploaded: "The Image has been successfully uploaded into the {{type}}."
       empty:   "Nenhuma questão encontrada. Por favor altere os seus critérios de procura."
       empty_without_spoken_languages: |
         Nenhuma questão encontrada. Pode tentar definir as suas <a href='{{my_echo}}'><u>Línguas Faladas</u></a>
@@ -693,3 +702,5 @@ pt:
         <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
         {{title}}</a>
         </p>
+
+  

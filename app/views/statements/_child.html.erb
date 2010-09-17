@@ -1,9 +1,9 @@
 <%
-  statement_document = @children_documents[statement_node.statement_id]
+  statement_document = @children_documents[child.statement_id]
   extra_classes ||= nil
 %>
 
-<li id="<%= statement_node_dom_id(statement_node) %>" class="<%=statement_node.parent.class.name.downcase%>">
-	<%= link_to_child(statement_document.title,statement_node,extra_classes) %>
-  <%= supporter_ratio_bar(statement_node) %>
+<li id="<%= statement_node_dom_id(child) %>" class="<%=child.parent.class.name.downcase%>">
+	<%= link_to_child(statement_document.title,child,extra_classes) %>
+  <%= supporter_ratio_bar(child) %>
 </li>

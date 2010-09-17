@@ -9,8 +9,6 @@ class StatementNode < ActiveRecord::Base
     self.statement.destroy if (statement.statement_nodes - [self]).empty?
   end
   
-  
-
   ##
   ## ASSOCIATIONS
   ##
@@ -19,9 +17,9 @@ class StatementNode < ActiveRecord::Base
   belongs_to :root_statement, :foreign_key => "root_id", :class_name => "StatementNode"
   belongs_to :statement
 
-  delegate :original_language, :document_in_language, :authors, :image, :image=, :to => :statement
+  delegate :original_language, :document_in_language, :authors, :has_author?, :image, :image=, :to => :statement
 
-  enum :editorial_state, :enum_name => :statement_states
+  has_enumerated :editorial_state, :class_name => 'StatementState'
 
   acts_as_tree :scope => :root_statement
 
@@ -64,7 +62,7 @@ class StatementNode < ActiveRecord::Base
   named_scope :improvement_proposals, lambda {
     { :conditions => { :type => 'ImprovementProposal' } } }
   named_scope :published, lambda {|auth|
-    { :conditions => { :editorial_state_id => statement_states('published').id } } unless auth }
+    { :conditions => { :editorial_state_id => StatementState['published'].id } } unless auth }
   named_scope :by_creator, lambda {|id|
   {:conditions => ["creator_id = ?", id]}}
 
@@ -101,12 +99,12 @@ class StatementNode < ActiveRecord::Base
 
   # static for now
   def published?
-    self.editorial_state == self.class.statement_states("published")
+    self.editorial_state == StatementState["published"]
   end
 
   # Publish a statement.
   def publish
-    self.editorial_state = self.class.statement_states("published")
+    self.editorial_state = StatementState["published"]
   end
 
   # returns a translated document for passed language_codes (or nil if none is found)
@@ -120,8 +118,8 @@ class StatementNode < ActiveRecord::Base
 
   # creates a new statement_document
   def add_statement_document(attributes={ },opts={})
-    original_language_id = attributes.delete(:original_language_id)
-    self.statement = Statement.new(:original_language_id => original_language_id) if self.statement.nil?
+    original_language_id = attributes.delete(:original_language_id).to_i
+    self.statement = Statement.new(:original_language_id => original_language_id) if self.statement_id.nil?
     doc = StatementDocument.new
     doc.statement = self.statement
     attributes.each {|k,v|doc.send("#{k.to_s}=", v)}
@@ -132,7 +130,7 @@ class StatementNode < ActiveRecord::Base
   # creates and saves a  statement_document with given parameters a
   def add_statement_document!(*args)
     original_language_id = args[0].delete(:original_language_id)
-    self.statement = Statement.new(:original_language_id => original_language_id) if self.statement.nil?
+    self.statement = Statement.new(:original_language_id => original_language_id) if self.statement_id.nil?
     doc = StatementDocument.new(:statement_id => self.statement.id)
     doc.statement = self.statement
     doc.update_attributes!(*args)
@@ -246,7 +244,7 @@ class StatementNode < ActiveRecord::Base
       if opts[:conditions].nil?
         and_conditions << "n.type = '#{opts[:type]}'"
         # Filter for published statements
-        and_conditions << sanitize_sql(["n.editorial_state_id = ?", statement_states('published').id]) unless opts[:show_unpublished]
+        and_conditions << sanitize_sql(["n.editorial_state_id = ?", StatementState['published'].id]) unless opts[:show_unpublished]
         # Filter for featured topic tags (categories)
         and_conditions << sanitize_sql(["t.value = ?", opts[:category]]) if opts[:category]
       else

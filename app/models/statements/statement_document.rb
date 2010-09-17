@@ -7,7 +7,7 @@ class StatementDocument < ActiveRecord::Base
 
   belongs_to :locked_by, :class_name => "User", :foreign_key => 'locked_by'
 
-  enum :language, :enum_name => :languages
+  has_enumerated :language, :class_name => 'Language'
 
   validates_presence_of :title
   validates_presence_of :text

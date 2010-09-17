@@ -52,49 +52,68 @@ class Users::UsersController < ApplicationController
 
   # modified users_controller.rb
   def create
+    
     @user = User.new
     @user.create_profile
-    respond_to do |format|
-      if @user.signup!(params)
-        @user.deliver_activation_instructions!
-        flash[:notice] = I18n.t('users.users.messages.created')
-        format.html { redirect_to root_url }
-        format.js do
-          render :update do |page|
-            page.redirect_to root_url
+    begin
+      respond_to do |format|
+        if @user.signup!(params)
+          @user.deliver_activation_instructions!
+          flash[:notice] = I18n.t('users.users.messages.created')
+          format.html { redirect_to root_url }
+          format.js do
+            render :update do |page|
+              page.redirect_to root_url
+            end
           end
+        else
+          format.js   { show_error_messages(@user) }
+          format.html { render :template => 'users/users/new', :layout => 'static' }
         end
-      else
-        format.js   { show_error_messages(@user) }
-        format.html { render :template => 'users/users/new', :layout => 'static' }
       end
+    rescue Exception => e
+      log_message_error(e, "Error creating user")
+    else
+      log_message_info("User '#{@user.id}' has been created sucessfully.")
     end
   end
 
   # PUT /users/1
   # PUT /users/1.xml
   def update
-    respond_to do |format|
-      if @user.update_attributes(params[:user])
-        flash[:notice] = "User was successfully updated."
-        format.html { redirect_to(profile_path) }
-      else
-        format.html { render :action => "edit" }
+    begin
+      respond_to do |format|
+        if @user.update_attributes(params[:user])
+          flash[:notice] = "User was successfully updated."
+          format.html { redirect_to(profile_path) }
+        else
+          format.html { render :action => "edit" }
+        end
       end
+    rescue Exception => e
+      log_message_error(e, "Error updating user #{@user.id}")
+    else
+      log_message_info("User '#{@user.id}' has been updated sucessfully.")
     end
   end
 
   def update_password
-    @user.password = params[:user][:password]
-    @user.password_confirmation = params[:user][:password_confirmation]
-    respond_to do |format|
-      if @user.save and not params[:user][:password].empty?
-        format.html { (flash[:notice] = I18n.t('users.password_reset.messages.reset_success')) and (redirect_to my_profile_path) }
-        format.js   { render_with_info(I18n.t('users.password_reset.messages.reset_success')) }
-      else
-        format.html { redirect_to my_profile_path }
-        format.js   { show_error_messages(@user) }
+    begin
+      @user.password = params[:user][:password]
+      @user.password_confirmation = params[:user][:password_confirmation]
+      respond_to do |format|
+        if @user.save and not params[:user][:password].empty?
+          format.html { (flash[:notice] = I18n.t('users.password_reset.messages.reset_success')) and (redirect_to my_profile_path) }
+          format.js   { render_with_info(I18n.t('users.password_reset.messages.reset_success')) }
+        else
+          format.html { redirect_to my_profile_path }
+          format.js   { show_error_messages(@user) }
+        end
       end
+    rescue Exception => e
+      log_message_error(e, "Error updating user #{@user.id} password")
+    else
+      log_message_info("User '#{@user.id}' password has been updated sucessfully.")
     end
   end
 
@@ -139,10 +158,9 @@ class Users::UsersController < ApplicationController
         end
       end
     rescue Exception => e
-      logger.error("Error adding concernments '#{new_concernments}' to user '#{current_user.id}'.")
-      log_error e
+      log_message_error(e, "Error adding concernments '#{new_concernments}'.")
     else
-      logger.info("Concernments '#{new_concernments}' have been added sucessfully to user '#{current_user.id}'.")
+      log_message_info("Concernments '#{new_concernments}' have been added sucessfully.")
     end
   end
 
@@ -165,10 +183,9 @@ class Users::UsersController < ApplicationController
         end
       end
     rescue Exception => e
-      logger.error("Error deleting concernment '#{params[:tag]}' from user '#{current_user.id}'.")
-      log_error e
+      log_message_error(e, "Error deleting concernment '#{params[:tag]}'.")
     else
-      logger.info("Concernment '#{params[:tag]}' has been deleted sucessfully from user '#{current_user.id}'.")
+      log_message_info("Concernment '#{params[:tag]}' has been deleted sucessfully.")
     end
   end
 

@@ -39,22 +39,22 @@ ActiveRecord::Schema.define(:version => 20100916143948) do
 
   create_table "enum_keys", :force => true do |t|
     t.string  "code"
-    t.string  "enum_name"
+    t.string  "type"
     t.string  "description"
     t.integer "key"
   end
 
-  add_index "enum_keys", ["enum_name", "code", "id"], :name => "idx_enum_keys_name_code_pk"
-  add_index "enum_keys", ["enum_name", "id"], :name => "idx_enum_keys_name_pk"
+  add_index "enum_keys", ["type", "code", "id"], :name => "idx_enum_keys_name_code_pk"
+  add_index "enum_keys", ["type", "id"], :name => "idx_enum_keys_name_pk"
 
   create_table "enum_values", :force => true do |t|
     t.integer "enum_key_id"
-    t.integer "language_id"
+    t.string  "code"
     t.string  "context"
     t.string  "value"
   end
 
-  add_index "enum_values", ["language_id", "id"], :name => "idx_enum_values_code_pk"
+  add_index "enum_values", ["code", "id"], :name => "idx_enum_values_code_pk"
 
   create_table "events", :force => true do |t|
     t.text     "event"

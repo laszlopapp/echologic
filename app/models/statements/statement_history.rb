@@ -12,8 +12,7 @@ class StatementHistory < ActiveRecord::Base
     
   delegate :language, :language_id, :to => :statement_document
   
-  enum :action, :enum_name => :statement_actions
-  
+  has_enumerated :action, :class_name => 'StatementAction'
   
   # Validations
   
