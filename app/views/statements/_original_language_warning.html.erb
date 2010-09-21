@@ -9,11 +9,11 @@
                 :class => 'fish_left' %>
 
   <span class="language_label from_language">
-    <%= statement_document.language.get_current_enum_value.value.upcase %>
+    <%= statement_document.language.value.upcase %>
   </span>
 
   <%= link_to I18n.t('discuss.original_language_warning',
-                     :language => statement_node.original_language.get_current_enum_value.value.upcase),
+                     :language => statement_node.original_language.value.upcase),
               my_profile_path,
               :class => "translation_link profile_link" %>
 </div>

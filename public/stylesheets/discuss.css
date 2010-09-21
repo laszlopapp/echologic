@@ -442,7 +442,8 @@ a.statement_link:hover {
   margin: 4px 0;
 }
 
-#children .pagination {
+#children .pagination, 
+#children .more_pagination {
   width: 830px !important;
 }
 
@@ -460,7 +461,19 @@ a.statement_link:hover {
 	color:#7BB031;
 }
 
+.sub_list {
+	min-height: 230px;
+}
 
+.pagination_loading{
+	background: white url('../images/indicator.gif') left center no-repeat;
+	padding-left: 20px;
+	display: none;
+}
+
+.more_pagination .disabled {
+	display: none;
+}
 /* ------------------- */
 /* Translations        */
 /* ------------------- */

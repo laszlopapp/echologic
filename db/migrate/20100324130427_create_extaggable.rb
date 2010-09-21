@@ -1,7 +1,7 @@
 class CreateExtaggable < ActiveRecord::Migration
   def self.up
     
-   # rename_table :tags, :tag_words
+#    rename_table :tags, :tag_words
     add_column :tags, :language_id, :integer
     create_table :valid_contexts do |t|
       t.integer :context_id

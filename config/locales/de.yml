@@ -3,6 +3,9 @@
 de:
 
   application:
+  
+    # Unexpected Error  
+    unexpected_error: An unexpected error has just happened.
 
     # General purpose resources
     general:
@@ -28,6 +31,7 @@ de:
       incorporate: Incorporate
       welcome: Willkommen
       all: Alle
+      loading: Page is loading...
 
     # Roadmap - Progress
     roadmap:
@@ -342,6 +346,8 @@ de:
       back_to_question: 'Zurück zur aktuellen Frage'
       back_to_proposal: 'Zurück zum aktuellen Vorschlag'
       back_to_improvement_proposal: 'Zurück zum aktuellen Ergänzungsvorschlag'
+      prev_question: 'Vorige Frage lesen'
+      next_question: 'Nächste Frage lesen'
       prev_proposal: 'Vorigen Vorschlag zur aktuellen Frage lesen'
       next_proposal: 'Nächsten Vorschlag zur aktuellen Frage lesen'
       prev_improvement_proposal: 'Vorigen Ergänzungsvorschlag zum aktuellen Vorschlag lesen'
@@ -380,6 +386,10 @@ de:
       drafting_language_hint: |
         Bitte beachten Sie, dass die gemeinsame Textentwicklung zur Weiterentwicklung dieses Vorschlags nur in
         dieser Sprache ablaufen wird.
+      statement_language_hint: |
+        In order to enter statements in other languages, please set your language skills in your <a href='{{url}}'>Profile</a>.
+      drafting_language_hint: | 
+        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
       publish: Freigeben
       published: Die Diskussion wurde erfolgreich freigegeben.
       edit: '{{type}} bearbeiten'
@@ -418,6 +428,10 @@ de:
         Dieser Verbeserungsvorschlag wurde bereits eingearbeitet.
       being_edited: |-
         Dieser Vorschlag wird gerade bearbeitet. Bitte versuchen Sie es später noch einmal.
+      already_translated: |-
+        This {{type}} was already translated in this language.
+      statement_updated: |-
+        This {{type}} has just been updated.
       edit_period_hint: |
         Sie haben {{minutes}} Minuten, um den Vorschlag zu bearbeiten.
         Nach Ablauf können Ihre Änderungen eventuell nicht mehr berücksichtigt werden. 
@@ -538,6 +552,7 @@ de:
       feedback:
         message: Nachricht
       statement_document:
+        language: 'Sprache'
         title:    'Titel'
         text:     'Zusammenfassung'
 
@@ -693,3 +708,4 @@ de:
         <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
         {{title}}</a>
         </p>
+

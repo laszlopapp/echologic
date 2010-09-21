@@ -4,6 +4,9 @@ es:
 
   application:
 
+    # Unexpected Error
+    unexpected_error: An unexpected error has just happened.
+    
     # General purpose resources
     general:
       more: más »
@@ -28,6 +31,7 @@ es:
       incorporate: Incorporate
       welcome: Bienvenido
       all: Todos
+      loading: Page is loading...
 
     # Roadmap - Progress
     roadmap:
@@ -348,6 +352,8 @@ es:
       back_to_question: 'Volver al cuestión actual'
       back_to_proposal: 'Volver a la propuesta actual'
       back_to_improvement_proposal: 'Volver a la propuesta de mejoramiento actual'
+      prev_question: 'Leer cuestión anterior'
+      next_question: 'Leer próxima cuestión'
       prev_proposal: 'Leer propuesta anterior'
       next_proposal: 'Leer próxima propuesta'
       prev_improvement_proposal: 'Leer propuesta de mejoramiento anterior'
@@ -387,6 +393,10 @@ es:
         babelfish en el menu arriba.
       drafting_language_hint: |
         Note por favor, que el proceso de la elaboración colectiva de las propuestas solamente funcionará en el idioma escojido.
+      statement_language_hint: |
+        In order to enter statements in other languages, please set your language skills in your <a href='{{url}}'>Profile</a>.
+      drafting_language_hint: | 
+        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
       publish: Publicar
       published: Esta discusión fue publicada con éxito.
       edit: 'Editar {{type}}'
@@ -425,6 +435,10 @@ es:
         Esta propuesta de mejoramiento ya fue incorporada.
       being_edited: |-
         Esta propuesta actualmente está siendo editada. Por favor vuelva mas tarde.
+      already_translated: |-
+        This {{type}} was already translated in this language.
+      statement_updated: |-
+        This {{type}} has just been updated.
       edit_period_hint: |
         <strong>Tienes {{minutes}} minutos</strong> para editar la propuesta.
         Passondo este plazo, posiblemente tus modificationes serán perdidas.
@@ -546,6 +560,7 @@ es:
       feedback:
         message: Mensaje
       statement_document:
+        language: 'Idioma'
         text:     'Resumen'
         title:    'Titulo'
 

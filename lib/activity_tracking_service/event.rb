@@ -1,20 +1,18 @@
 class Event < ActiveRecord::Base
   belongs_to :subscribeable, :polymorphic => true
-
-
-  validates_presence_of :subscribeable_id, :subscribeable_type, :operation
-  validates_uniqueness_of :subscribeable_id, :scope => [:subscribeable_type, :operation]
-
+  
   # FIXME: make only one SQL and join for subscribable ids instead of using parent_id IN (?) !!!!
   def self.find_tracked_events(subscriber, after_time)
-    puts after_time
-    subscribeable_ids = subscriber.subscribeables.map{|s|[s.id,s.parent_id]}.flatten.uniq.compact
-    puts subscribeable_ids
-    query = sanitize_sql(["SELECT * from events e LEFT JOIN statement_nodes s ON s.id = e.subscribeable_id
-                       where s.creator_id != ? and (s.parent_id is null or s.parent_id IN (?)) and
-                       e.created_at > ? order by e.event DESC, e.created_at DESC", subscriber.id,
-                       subscribeable_ids, after_time.utc])
-    puts query
+    select_clause = <<-END
+      select distinct e.* from events e
+        where e.subscribeable_id is null  AND e.created_at > ?
+      UNION
+      select distinct e.* from events e
+        LEFT JOIN subscriptions sb ON (e.subscribeable_id = sb.subscribeable_id)
+        where sb.subscriber_id = ? AND e.created_at > ?
+      order by event DESC, created_at DESC 
+    END
+    query = sanitize_sql([select_clause, after_time.utc, subscriber.id, after_time.utc])
     Event.find_by_sql(query)
   end
 end

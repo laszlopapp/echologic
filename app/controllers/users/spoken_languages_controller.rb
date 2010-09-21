@@ -33,38 +33,49 @@ class Users::SpokenLanguagesController < ApplicationController
   # Create new spoken language for the current user.
   # method: POST
   def create
-    @spoken_language = SpokenLanguage.new(params[:spoken_language].merge({:user => @current_user}))
-    previous_completeness = @spoken_language.percent_completed
-    respond_to do |format|
-      format.js do
-        if @spoken_language.save
-          current_completeness = @spoken_language.percent_completed
-          set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
-
-          render_with_info do |p|
-            p.insert_html :bottom, 'spoken_language_list', :partial => 'users/spoken_languages/spoken_language'
-            p << "$('#new_spoken_language').reset();"
-            p << "$('#spoken_language_language').focus();"
+    begin
+      @spoken_language = SpokenLanguage.new(params[:spoken_language].merge({:user => @current_user}))
+      previous_completeness = @spoken_language.percent_completed
+      respond_to do |format|
+        format.js do
+          if @spoken_language.save
+            current_completeness = @spoken_language.percent_completed
+            set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
+  
+            render_with_info do |p|
+              p.insert_html :bottom, 'spoken_language_list', :partial => 'users/spoken_languages/spoken_language'
+              p << "$('#new_spoken_language').reset();"
+              p << "$('#spoken_language_language').focus();"
+            end
+          else
+            show_error_messages(@spoken_language)
           end
-        else
-          show_error_messages(@spoken_language)
         end
       end
+    rescue Exception => e
+      log_message_error(e, "Error creating spoken language'.")
+    else
+      log_message_info("Spoken Language has been created sucessfully.")
     end
   end
 
   # Update the spoken languages attributes
   # method: PUT
   def update
-
-    respond_to do |format|
-      format.js do
-        if @spoken_language.update_attributes(params[:spoken_language])
-          replace_content(dom_id(@spoken_language), :partial => @spoken_language)
-        else
-          show_error_messages(@spoken_language)
+    begin
+      respond_to do |format|
+        format.js do
+          if @spoken_language.update_attributes(params[:spoken_language])
+            replace_content(dom_id(@spoken_language), :partial => @spoken_language)
+          else
+            show_error_messages(@spoken_language)
+          end
         end
       end
+    rescue Exception => e
+      log_message_error(e, "Error updating spoken language'#{@spoken_language.id}'.") 
+    else
+      log_message_info("Spoken Language'#{@spoken_language.id}' has been updated sucessfully.")
     end
   end
 
@@ -73,22 +84,27 @@ class Users::SpokenLanguagesController < ApplicationController
   def destroy
 
     id = @spoken_language.id
-
-    previous_completeness = @spoken_language.percent_completed
-    @spoken_language.destroy
-    current_completeness = @spoken_language.percent_completed
-    set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
-
-    respond_to do |format|
-      format.js do
-
-        # sorry, but this was crap. you can't add additional js actions like this...
-        # either use a rjs, a js, or a render :update block
-        #remove_container "web_address_#{id}"
-        render_with_info do |p|
-          p.remove dom_id(@spoken_language)
+    begin 
+      previous_completeness = @spoken_language.percent_completed
+      @spoken_language.destroy
+      current_completeness = @spoken_language.percent_completed
+      set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
+  
+      respond_to do |format|
+        format.js do
+  
+          # sorry, but this was crap. you can't add additional js actions like this...
+          # either use a rjs, a js, or a render :update block
+          #remove_container "web_address_#{id}"
+          render_with_info do |p|
+            p.remove dom_id(@spoken_language)
+          end
         end
       end
+    rescue Exception => e
+      log_message_error(e, "Error deleting spoken language '#{@spoken_language.id}'.")
+    else
+      log_message_info("Spoken language '#{@spoken_language.id}' has been deleted sucessfully.")
     end
   end
   

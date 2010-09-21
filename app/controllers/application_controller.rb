@@ -90,7 +90,7 @@ class ApplicationController < ActionController::Base
 
   # Expires and cleans up the user session.
   def expire_session!
-    current_user.update_attributes(:last_login_language => EnumKey.find_by_code_and_enum_name(params[:locale].to_s,"languages"))
+    current_user.update_attributes(:last_login_language => Language[params[:locale]])
     current_user_session.try(:destroy)
     reset_session
     if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'
@@ -190,11 +190,12 @@ class ApplicationController < ActionController::Base
 
   protected
   def locale_language_id
-    EnumKey.find_by_enum_name_and_code("languages", I18n.locale.to_s).id
+    Language[I18n.locale].id
   end
 
   def language_preference_list
-    keys = [locale_language_id].concat(current_user ? current_user.sorted_spoken_language_ids : []).uniq
+    priority_languages = @statement_node.nil? ? [locale_language_id] : [locale_language_id, @statement_node.original_language.id]
+    keys = priority_languages.concat(current_user ? current_user.sorted_spoken_language_ids : []).uniq
   end
 
 
@@ -347,5 +348,30 @@ class ApplicationController < ActionController::Base
       format.js   { render :template => 'layouts/outerMenuDialog' , :locals => opts[:locals]}
     end
   end
+  
+  #############
+  #  LOGGING  #
+  #############
 
+  def log_message_info(message)
+    timestamp = Time.now.utc.strftime("%m/%d/%Y %H:%M")
+    user = current_user.nil? ? 'not logged in' : current_user.id
+    request_url = request.url
+    info_message = "Time:'#{timestamp}', User:#{user}, URL:#{request_url} : #{message}"
+    logger.info(info_message)
+  end
+
+  def log_message_error(e, message)
+    timestamp = Time.now.utc.strftime("%m/%d/%Y %H:%M")
+    user = current_user.nil? ? 'not logged in' : current_user.id
+    request_url = request.url
+    error_message = "Time:'#{timestamp}', User:#{user}, URL:#{request_url} : #{message}"
+    logger.error(error_message)
+    log_error e
+    respond_to do |format|
+      set_error('application.unexpected_error')
+      yield format if block_given?
+      format.js   { show_error_messages }
+    end
+  end
 end

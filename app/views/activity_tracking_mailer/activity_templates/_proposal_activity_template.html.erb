@@ -1,5 +1,5 @@
-
-<% event_data = JSON.parse(event.event) %>
-<%= link_to event_data[event_data.keys[0]]['statement']['statement_documents'][0]['title'],
-            question_proposal_url(event.subscribeable.parent,
-                                  event.subscribeable) %>
+<li>
+  <%= link_to title,
+            question_proposal_url(Question.find(event_data['parent_id']),
+                                  Proposal.find(event_data['id']), :locale => language_code) %>
+</li>

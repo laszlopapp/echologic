@@ -5,6 +5,8 @@ module StatementHelper
       alias_method :proposal_path, :proposal_url
       alias_method :new_proposal_path, :new_proposal_url
       alias_method :new_translation_proposal_path, :new_translation_proposal_url
+      alias_method :children_proposal_path, :children_proposal_url
+      alias_method :children_path, :children_url
 
       alias_method :improvement_proposal_path, :improvement_proposal_url
       alias_method :new_improvement_proposal_path, :new_improvement_proposal_url
@@ -20,16 +22,20 @@ module StatementHelper
     send("new_#{type.downcase}_url",parent)
   end
 
-  def edit_statement_node_path(statement_node)
-    send("edit_#{statement_node_class_dom_id(statement_node).downcase}_url",statement_node)
+  def edit_statement_node_path(statement_node, opts={})
+    send("edit_#{statement_node_class_dom_id(statement_node).downcase}_url",statement_node,opts)
   end
 
-  def new_translation_url (parent, type)
-    send("new_translation_#{type.downcase}_url",parent)
+  def new_translation_url (parent, type, opts={})
+    send("new_translation_#{type.downcase}_url",parent,opts)
   end
 
   def create_translation_url (parent, type)
     send("create_translation_#{type.downcase}_url",parent)
+  end
+  
+  def children_url (parent, type, opts={})
+    send("children_#{type.downcase}_url",parent, opts)
   end
 
   # returns the path to a statement_node, according to its type
@@ -48,20 +54,20 @@ module StatementHelper
     new_question_proposal_url(parent)
   end
 
-  def edit_proposal_url(proposal)
-    edit_question_proposal_url(proposal.parent, proposal)
+  def edit_proposal_url(proposal,opts={})
+    edit_question_proposal_url(proposal.parent, proposal,opts)
   end
 
-  def edit_proposal_path(proposal)
-    edit_question_proposal_path(proposal.parent, proposal)
+  def edit_proposal_path(proposal,opts={})
+    edit_question_proposal_path(proposal.parent, proposal,opts)
   end
 
-  def new_translation_proposal_url(proposal)
-    new_translation_question_proposal_url(proposal.parent, proposal)
+  def new_translation_proposal_url(proposal, opts={})
+    new_translation_question_proposal_url(proposal.parent, proposal,opts)
   end
 
-  def new_translation_proposal_path(proposal)
-    new_translation_question_proposal_path(proposal.parent, proposal)
+  def new_translation_proposal_path(proposal, opts={})
+    new_translation_question_proposal_path(proposal.parent, proposal, opts)
   end
 
   def create_translation_proposal_url(proposal)
@@ -70,6 +76,14 @@ module StatementHelper
 
   def create_translation_proposal_path(proposal)
     create_translation_question_proposal_path(proposal.parent, proposal)
+  end
+  
+  def children_proposal_url(proposal, opts={})
+    children_question_proposal_url(proposal.parent, proposal, opts)
+  end
+
+  def children_proposal_path(proposal, opts={})
+    children_question_proposal_path(proposal.parent, proposal, opts)
   end
 
   ## ImprovementProposal
@@ -86,28 +100,28 @@ module StatementHelper
     new_question_proposal_improvement_proposal_url(parent.parent, parent)
   end
 
-  def edit_improvement_proposal_url(improvement_proposal)
+  def edit_improvement_proposal_url(improvement_proposal,opts={})
     edit_question_proposal_improvement_proposal_url(improvement_proposal.root,
                                                     improvement_proposal.parent,
-                                                    improvement_proposal)
+                                                    improvement_proposal,opts)
   end
 
-  def edit_improvement_proposal_path(improvement_proposal)
+  def edit_improvement_proposal_path(improvement_proposal,opts={})
     edit_question_proposal_improvement_proposal_path(improvement_proposal.root,
                                                      improvement_proposal.parent,
-                                                     improvement_proposal)
+                                                     improvement_proposal,opts)
   end
 
-  def new_translation_improvement_proposal_url(improvement_proposal)
+  def new_translation_improvement_proposal_url(improvement_proposal, opts={})
     new_translation_question_proposal_improvement_proposal_url(improvement_proposal.root,
                                                                improvement_proposal.parent,
-                                                               improvement_proposal)
+                                                               improvement_proposal, opts)
   end
 
-  def new_translation_improvement_proposal_path(improvement_proposal)
+  def new_translation_improvement_proposal_path(improvement_proposal, opts={})
     new_translation_question_proposal_improvement_proposal_path(improvement_proposal.root,
                                                                 improvement_proposal.parent,
-                                                                improvement_proposal)
+                                                                improvement_proposal, opts)
   end
 
   def create_translation_improvement_proposal_url(improvement_proposal)
@@ -159,10 +173,10 @@ module StatementHelper
     end
   end
 
-  def create_translate_statement_link(statement_node, css_class = "")
+  def create_translate_statement_link(statement_node, statement_document, css_class = "")
      type = statement_node_class_dom_id(statement_node)
      link_to I18n.t('discuss.translation_request'),
-              new_translation_url(statement_node, type),
+              new_translation_url(statement_node, type, :current_document_id => statement_document.id),
               :class => "ajax translation_link #{css_class}"
   end
 
@@ -175,15 +189,15 @@ module StatementHelper
     end
   end
 
-  def edit_statement_node_link(statement_node)
+  def edit_statement_node_link(statement_node, statement_document)
     if current_user and
        (current_user.may_edit? or
        (statement_node.authors.include?(current_user) and !statement_node.published?))
-      link_to(I18n.t('application.general.edit'), edit_statement_node_path(statement_node),
+      link_to(I18n.t('application.general.edit'), edit_statement_node_path(statement_node,:current_document_id => statement_document.id),
               :class => 'ajax header_button text_button edit_text_button')
     end
   end
-
+  
   # Returns the block heading for the children of the given statement_node
   def children_box_title(statement_node)
     type = statement_node_class_dom_id(statement_node.class.expected_children.first)
@@ -371,4 +385,17 @@ module StatementHelper
     val
   end
 
+  # This class does the heavy lifting of actually building the pagination
+  # links. It is used by the <tt>will_paginate</tt> helper internally.
+  class MoreRenderer < WillPaginate::LinkRenderer
+    
+    
+    def to_html
+      html = page_link_or_span(@collection.next_page, 'disabled more_children', @options[:next_label])
+      html = html.html_safe if html.respond_to? :html_safe
+      @options[:container] ? @template.content_tag(:div, html, html_attributes) : html
+    end
+    
+  end
 end
+

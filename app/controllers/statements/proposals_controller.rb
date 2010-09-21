@@ -18,7 +18,7 @@ class ProposalsController < StatementsController
 
     @statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
     has_lock = acquire_lock(@statement_document)
-    @action ||= StatementHistory.statement_actions("incorporated")
+    @action ||= StatementAction["incorporated"]
     if still_approved && has_lock
       respond_to_js :template => 'statements/proposals/edit_draft',
                     :partial_js => 'statements/proposals/edit_draft.rjs'

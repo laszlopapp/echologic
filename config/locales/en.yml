@@ -3,7 +3,9 @@
 
 en:
   application:
-
+    # Unexpected Error
+    unexpected_error: An unexpected error has just happened.
+    
     # General purpose resources
     general:
       more: more »
@@ -28,6 +30,7 @@ en:
       incorporate: Incorporate
       welcome: Welcome
       all: All
+      loading: Page is loading...
 
     # Roadmap - Progress
     roadmap:
@@ -337,6 +340,8 @@ en:
       back_to_question: 'Back to current question'
       back_to_proposal: 'Back to current proposal'
       back_to_improvement_proposal: 'Back to current improvement proposal'
+      prev_question: 'Read previous question'
+      next_question: 'Read next question'
       prev_proposal: 'Read previous proposal for the current question'
       next_proposal: 'Read next proposal for the current question'
       prev_improvement_proposal: 'Read previous improvement proposal for the current proposal'
@@ -374,6 +379,11 @@ en:
         using the babelfish in the upper menu.
       drafting_language_hint: |
         Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language.
+      statement_language_hint: |
+        In order to enter statements in other languages, please set your language skills in your <a href='{{url}}'>Profile</a>.
+      drafting_language_hint: | 
+        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
+ 
       publish: Release
       published: Discussion has been released successfully.
       edit: 'Edit {{type}}'
@@ -412,6 +422,10 @@ en:
         The requested improvement proposal has already been incorporated into the proposal below.
       being_edited: |-
         The statement is currently being edited. Please try again later.
+      already_translated: |-
+        This {{type}} was already translated in this language.
+      statement_updated: |-
+        This {{type}} has just been updated.
       edit_period_hint: |
         You have <strong>{{minutes}} minutes</strong> to edit the statement.
         Afterwards, your modifications might even get discarded.
@@ -529,6 +543,7 @@ en:
       membership:
         position: My role
       statement_document:
+        language: 'Language'
         title: 'Title'
         text: 'Summary'
 
@@ -550,3 +565,4 @@ en:
       user_session:
         email: E-Mail
         password: Password
+  

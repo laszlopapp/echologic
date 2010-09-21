@@ -1,0 +1,25 @@
+<%
+  ["root_","parent_",""].each do |type|
+    instance_variable_set("@#{type}title",nil)
+    instance_variable_set("@#{type}title_language_code",nil)
+    next if event_data["#{type}documents"].nil?
+    @preferred_language_ids.each do |l_id|
+      if event_data["#{type}documents"].has_key?(l_id)
+        instance_variable_set("@#{type}title",event_data["#{type}documents"][l_id])
+        instance_variable_set("@#{type}title_language_code",Language[l_id.to_i].code)
+        break
+      end
+     end
+     instance_variable_set("@#{type}title",event_data["#{type}documents"].to_a[0][1]) if instance_variable_get("@#{type}title").nil? 
+     instance_variable_set("@#{type}title_language_code",Language[event_data["#{type}documents"].to_a[0][0].to_i].code) if instance_variable_get("@#{type}title_language_code").nil?
+   end
+%>
+<% if previous_event_data.nil? or event_data['parent_id'] != previous_event_data['parent_id'] %>
+	<br/>
+	</ul>
+	<%= I18n.t("mailers.activity_tracking.discussions.new_#{event_data['type']}s",
+                 :title => @parent_title, :question_title => @root_title, :locale => @language.code) %>
+	<ul>
+<% end %>
+<%= render :partial => "activity_tracking_mailer/activity_templates/#{event_data['type']}_activity_template",
+             :locals => {:title => @title, :language_code => @title_language_code, :event_data => event_data} %>

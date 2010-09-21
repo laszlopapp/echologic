@@ -439,7 +439,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
                                             :language_id => old_doc.language.id,
                                             :current => true,
                                             :author_id => @statement_1.document_in_drafting_language.author.id,
-                                            :action_id => StatementHistory.statement_actions('incorporated').id,
+                                            :action_id => StatementAction['incorporated'].id,
                                             :old_document_id => old_doc.id,
                                             :incorporated_node_id => @statement_1.id
         @statement_2.save

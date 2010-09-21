@@ -35,37 +35,48 @@ class Users::MembershipsController < ApplicationController
   # through javascript if something fails.
   # method: POST
   def create
-
-    @membership = Membership.new(params[:membership].merge(:user_id => current_user.id))
-    previous_completeness = @membership.percent_completed
-
-    respond_to do |format|
-      format.js do
-        if @membership.save
-          current_completeness = @membership.percent_completed
-          set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
-          render_with_info do |p|
-            p.insert_html :bottom, 'membership_list', :partial => 'users/memberships/membership'
-            p << "$('#membership_organisation').focus();"
+    begin 
+      @membership = Membership.new(params[:membership].merge(:user_id => current_user.id))
+      previous_completeness = @membership.percent_completed
+      
+      respond_to do |format|
+        format.js do
+          if @membership.save
+            current_completeness = @membership.percent_completed
+            set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
+            render_with_info do |p|
+              p.insert_html :bottom, 'membership_list', :partial => 'users/memberships/membership'
+              p << "$('#membership_organisation').focus();"
+            end
+          else
+            show_error_messages(@membership)
           end
-        else
-          show_error_messages(@membership)
         end
       end
+    rescue Exception => e
+      log_message_error(e, "Error creating membership.")
+    else
+      log_message_info("Membership has been created sucessfully.")
     end
   end
 
   # Update the membership attributes.
   # method: PUT
   def update
-    respond_to do |format|
-      format.js do
-        if @membership.update_attributes(params[:membership])
-          replace_content(dom_id(@membership), :partial => 'membership')
-        else
-          show_error_messages(@membership)
+    begin 
+      respond_to do |format|
+        format.js do
+          if @membership.update_attributes(params[:membership])
+            replace_content(dom_id(@membership), :partial => 'membership')
+          else
+            show_error_messages(@membership)
+          end
         end
       end
+    rescue Exception => e
+      log_message_error(e, "Error updating membership '#{@membership.id}'.")
+    else
+      log_message_info("Membership '#{@membership.id}' has been updated sucessfully.")
     end
   end
 
@@ -74,19 +85,25 @@ class Users::MembershipsController < ApplicationController
   def destroy
     id = @membership.id
 
-    previous_completeness = @membership.percent_completed
-    @membership.destroy
-    current_completeness = @membership.percent_completed
-    set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
-
-    respond_to do |format|
-      format.js do
-        # sorry, but this was crap. you can't add additional js actions like this...
-        # either use a rjs, a js, or a render :update block
-        render_with_info do |p|
-          p.remove dom_id(@membership)
+    begin 
+      previous_completeness = @membership.percent_completed
+      @membership.destroy
+      current_completeness = @membership.percent_completed
+      set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
+  
+      respond_to do |format|
+        format.js do
+          # sorry, but this was crap. you can't add additional js actions like this...
+          # either use a rjs, a js, or a render :update block
+          render_with_info do |p|
+            p.remove dom_id(@membership)
+          end
         end
       end
+    rescue Exception => e
+      log_message_error(e, "Error deleting membership '#{@membership.id}'.")
+    else
+      log_message_info("Membership '#{@membership.id}' has been deleted sucessfully.")
     end
   end
   

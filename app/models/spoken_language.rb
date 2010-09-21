@@ -3,8 +3,9 @@ class SpokenLanguage < ActiveRecord::Base
   
   belongs_to :user
   
-  enum :language, :enum_name => :languages
-  enum :level, :enum_name => :language_levels
+  has_enumerated :language, :class_name => 'Language'
+  has_enumerated :level, :class_name => 'LanguageLevel'
+
 
   delegate :percent_completed, :to => :user
 

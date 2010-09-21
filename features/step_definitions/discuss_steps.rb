@@ -55,6 +55,7 @@ When /^I choose the "([^\"]*)" Improvement Proposal$/ do |name|
     selector.each do |improvement_proposal|
       if name.eql?(improvement_proposal.at_css("a.improvement_proposal_link").inner_text.strip)
         @improvement_proposal = ImprovementProposal.find(URI.parse(improvement_proposal.at_css("a")['href']).path.match(/\/improvement_proposals\/\d+/)[0].split('/')[2].to_i)
+        puts @improvement_proposal.statement_documents[0].title
         visit improvement_proposal.at_css("a")['href']
       end
     end
@@ -82,7 +83,7 @@ Given /^there is a question i have created$/ do # not in use right now
 end
 
 Given /^the question was not published yet$/ do
-  @question.editorial_state = StatementNode.statement_states("new")
+  @question.editorial_state = StatementState["new"]
   @question.save
 end
 
@@ -114,7 +115,7 @@ Then /^the question "([^\"]*)" should have "([^\"]*)" as tags$/ do |title, tags|
   tags = tags.split(',').map{|t| t.strip}
   @question = StatementNode.search_statement_nodes(:type => "Question",
                                                    :search_term => title,
-                                                   :language_ids => [EnumKey.find_by_code("en")],
+                                                   :language_ids => [Language["en"]],
                                                    :show_unpublished => true).first
   res = @question.topic_tags - tags
   res.should == []
@@ -142,14 +143,14 @@ Then /^I should not see the create proposal link$/ do
 end
 
 Given /^a "([^\"]*)" question in "([^\"]*)"$/ do |state, category|
-  state = StatementNode.statement_states(state)
+  state = StatementState[state.downcase]
   @question = Question.new(:editorial_state => state, :creator => @user)
   @question.add_statement_document!({:title => "Am I a new statement?",
                                      :text => "I wonder what i really am! Maybe a statement? Or even a question?",
                                      :author => @user,
                                      :current => 1,
                                      :language_id => @user.sorted_spoken_language_ids.first,
-                                     :action_id => StatementHistory.statement_actions("created").id,
+                                     :action_id => StatementAction["created"].id,
                                      :original_language_id => @user.sorted_spoken_language_ids.first})
   @question.topic_tags << category
   @question.save!
@@ -157,11 +158,11 @@ end
 
 Then /^the question should be published$/ do
   @question.reload
-  assert @question.state.eql?(EnumKey.find_by_code_and_enum_name("published","statement_states"))
+  assert @question.state.eql?(StatementState["published"])
 end
 
 Then /^I should see the questions title$/ do
-  Then 'I should see "'+@question.document_in_preferred_language([StatementDocument.languages("en").id, StatementDocument.languages("de").id]).title+'"'
+  Then 'I should see "'+@question.document_in_preferred_language([Language["en"].id, Language["de"].id]).title+'"'
 end
 
 Given /^there is a proposal I have created$/ do
@@ -169,11 +170,11 @@ Given /^there is a proposal I have created$/ do
 end
 
 Given /^there is a proposal$/ do
-  @proposal = Question.find_all_by_editorial_state_id(StatementNode.statement_states('published').id).last.children.proposals.first
+  @proposal = Question.find_all_by_editorial_state_id(StatementState['published'].id).last.children.proposals.first
 end
 
 Given /^the proposal was not published yet$/ do
-  @proposal.editorial_state = StatementNode.statement_states("new")
+  @proposal.editorial_state = StatementState["new"]
   @proposal.save
 end
 
@@ -188,8 +189,8 @@ end
 
 
 Then /^I should see the proposals data$/ do
-  Then 'I should see "'+@proposal.document_in_preferred_language([StatementDocument.languages("en").id,StatementDocument.languages("de").id]).title+'"'
-  Then 'I should see "'+@proposal.document_in_preferred_language([StatementDocument.languages("en").id,StatementDocument.languages("de").id]).text+'"'
+  Then 'I should see "'+@proposal.document_in_preferred_language([Language["en"].id,Language["de"].id]).title+'"'
+  Then 'I should see "'+@proposal.document_in_preferred_language([Language["en"].id,Language["de"].id]).text+'"'
 end
 
 Then /^I should see no proposals$/ do
@@ -199,14 +200,14 @@ end
 Then /^I should be a subscriber from "([^\"]*)"$/ do |question|
   @question = StatementNode.search_statement_nodes(:type => "Question",
                                                    :search_term => question,
-                                                   :language_ids => [EnumKey.find_by_code("en")]).first
+                                                   :language_ids => [Language["en"]]).first
   assert(@question.followed_by?(@user))
 end
 
 Then /^"([^\"]*)" should have a "([^\"]*)" event$/ do |question, op_type|
   @question = StatementNode.search_statement_nodes(:type => "Question",
                                                    :search_term => question,
-                                                   :language_ids => [EnumKey.find_by_code("en")]).first
+                                                   :language_ids => [Language["en"]]).first
   event = Event.find_by_subscribeable_id(@question.id)
   assert !event.nil?
   assert event.operation.eql?(op_type)

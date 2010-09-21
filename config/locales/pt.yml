@@ -4,6 +4,9 @@
 pt:
   application:
 
+    # Unexpected Error
+    unexpected_error: An unexpected error has just happened.
+
     # General purpose resources
     general:
       more: mais »
@@ -28,6 +31,7 @@ pt:
       incorporate: Incorporate
       welcome: Bemvindo
       all: Tudo
+      loading: A carregar...
 
     # Roadmap - Progress
     roadmap:
@@ -335,6 +339,8 @@ pt:
       back_to_question: 'De volta à questão actual'
       back_to_proposal: 'De volta à proposta actual'
       back_to_improvement_proposal: 'De volta à proposta de melhoria actual'
+      prev_question: 'Ler questão anterior'
+      next_question: 'Ler questão seguinte'
       prev_proposal: 'Ler proposta anterior da questão actual'
       next_proposal: 'Ler proposta seguinte da questão actual'
       prev_improvement_proposal: 'Ler proposta de melhoria anterior da proposta actual'
@@ -372,6 +378,10 @@ pt:
         babelfish no canto superior direito.
       drafting_language_hint: |
         Nota-se por favor, que o precesso da elaboração coletiva desta proposta solamente funcionará do idioma escolhido.
+      statement_language_hint: |
+        In order to enter statements in other languages, please set your language skills in your <a href='{{url}}'>Profile</a>.
+      drafting_language_hint: | 
+        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
       publish: Publicar
       published: A discussão foi publicada com sucesso.
       edit: 'Editar {{type}}'
@@ -410,6 +420,10 @@ pt:
         Esta proposta de melhoria ja foi incorporada. 
       being_edited: |-
         Esta proposta atualmente está sendo editada. Volte mais tarde por favor.
+      already_translated: |-
+        Esta {{type}} já se encontra traduzida.
+      statement_updated: |-
+        Esta {{type}} acabou de ser actualizada.
       edit_period_hint: |
         <strong>Tens {{minutes}} minutos</strong> para editar a proposta.
         Depois possivelmente suas modificações serão despejadas.
@@ -526,6 +540,7 @@ pt:
       membership:
         position: A minha função
       statement_document:
+        language:   'Língua'
         text:       'Sumário'
         title:      'Título'
 
@@ -680,3 +695,5 @@ pt:
         <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
         {{title}}</a>
         </p>
+
+  

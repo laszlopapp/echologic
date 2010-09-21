@@ -4,8 +4,8 @@
 <div id="summary" class="summary simple_header_block discuss_right_block">
 
   <!-- Function buttons -->
-  <%= edit_statement_node_link(statement_node) %>
-  <%= publish_statement_node_link(statement_node, statement_document) %>
+	<%= edit_statement_node_link(statement_node, statement_document) %>
+	<%= publish_statement_node_link(statement_node, statement_document) %>
 
   <!-- Header -->
   <h2>
@@ -16,7 +16,6 @@
 	<%= render :partial => '/statements/translation_link',
              :locals => {:statement_node => statement_node,
                          :statement_document => statement_document} if @translation_permission %>
-
 	<%= render :partial => '/statements/original_language_warning',
              :locals => {:statement_node => statement_node,
                          :statement_document => statement_document} if @original_language_warning %>
@@ -25,7 +24,7 @@
   <div class="statement_content">
     <%= sanitize statement_document.text %>
   </div>
-
+  
   <!-- Approved document -->
   <%= render :partial => 'statements/approved' unless @approved_node.nil? %>
 

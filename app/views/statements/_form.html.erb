@@ -1,5 +1,5 @@
 <% statement_node ||= @statement_node %>
-<% statement_node.editorial_state_id ||= StatementNode.statement_states('new').id %>
+<% statement_node.editorial_state_id ||= StatementState[:new].id %>
 <% tags ||= @tags %>
 <% statement_document ||= @statement_document %>
 
@@ -31,26 +31,22 @@
                        :as => :radio,
                        :label => I18n.t('discuss.statements.states.label'),
                        :collection => [[I18n.t('discuss.statements.states.deferred_publish'),
-                                         StatementNode.statement_states('new').id],
+                                         StatementState[:new].id],
                                        [I18n.t('discuss.statements.states.immediate_publish'),
-                                         StatementNode.statement_states('published').id]] %>
+                                         StatementState[:published].id]] %>
       <% end %>
     <% end %>
 
   <% else -%>
     <!-- All statement types but questions -->
-	  <%= form.hidden_field :editorial_state_id, :value => StatementNode.statement_states('published').id %>
+	  <%= form.hidden_field :editorial_state_id, :value => StatementState[:published].id %>
 	<% end -%>
 
   <!-- Hidden fields -->
 	<%= form.hidden_field :statement_id %>
   <%= form.hidden_field :parent_id %>
 	<%= form.hidden_field :root_id %>
-	<%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][author_id]",
-                       current_user.id %>
-  <%= hidden_field_tag "#{statement_node_class_dom_id(statement_node).downcase}[statement_document][language_id]",
-                       statement_document.language_id || @locale_language_id %>
-
+	
   <!-- Submit or cancel -->
   <% form.buttons do %>
     <%= form.commit_button I18n.t('application.general.save'),

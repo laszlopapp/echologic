@@ -23,7 +23,7 @@ class UserTest < ActiveSupport::TestCase
           # TODO - replace this by proper creation of spoken languages associated to this user
         end
 
-        should "return spoken languages as an array of keys (EnumKey)" do
+        should "return spoken languages as an array of keys" do
           # TODO - this will only work when fixtures do not change. see todos above
           assert_equal @user.sorted_spoken_language_ids, @user.spoken_languages.collect{|sl| sl.language.id}
         end
