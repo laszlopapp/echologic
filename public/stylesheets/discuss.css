@@ -621,6 +621,8 @@ a.statement_link:hover {
   cursor: pointer;
 }
 
+
+
 #discussion_list a.avatar_holder{
 	float: left;
 }
@@ -693,4 +695,8 @@ a.statement_link:hover {
   max-width: 45px;
   max-height: 45px;
   border: 2px solid #7bb031;
+}
+
+#my_discussions .no_discussions {
+  text-align: center;
 }
