@@ -33,7 +33,7 @@ module StatementHelper
   def create_translation_url (parent, type)
     send("create_translation_#{type.downcase}_url",parent)
   end
-  
+
   def children_url (parent, type, opts={})
     send("children_#{type.downcase}_url",parent, opts)
   end
@@ -77,7 +77,7 @@ module StatementHelper
   def create_translation_proposal_path(proposal)
     create_translation_question_proposal_path(proposal.parent, proposal)
   end
-  
+
   def children_proposal_url(proposal, opts={})
     children_question_proposal_url(proposal.parent, proposal, opts)
   end
@@ -197,7 +197,7 @@ module StatementHelper
               :class => 'ajax header_button text_button edit_text_button')
     end
   end
-  
+
   # Returns the block heading for the children of the given statement_node
   def children_box_title(statement_node)
     type = statement_node_class_dom_id(statement_node.class.expected_children.first)
@@ -215,12 +215,12 @@ module StatementHelper
       if type == 'question' and !cancel_js
         link_to I18n.t('application.general.cancel'),
                 :back,
-                :class => 'text_button bold_cancel_text_button'
+                :class => 'text_button cancel_text_button'
       else
         link_to I18n.t('application.general.cancel'),
                 session[:last_statement_node] ?
                   statement_node_path(session[:last_statement_node]) : (statement_node.parent or discuss_url),
-                :class => 'ajax text_button bold_cancel_text_button'
+                :class => 'ajax text_button cancel_text_button'
 
       end
   end
@@ -231,7 +231,7 @@ module StatementHelper
             { :controller => type,
               :action => :cancel,
               :locked_at => locked_at.to_s },
-           :class => "text_button bold_cancel_text_button ajax"
+           :class => "text_button cancel_text_button ajax"
   end
 
 
@@ -372,8 +372,7 @@ module StatementHelper
   def link_to_child(title,statement_node,extra_classes)
     link_to h(title),
             url_for(statement_node),
-            :class => "ajax statement_link #{statement_node.class.name.underscore}_link #{extra_classes} ttLink no_border",
-            :title => I18n.t("discuss.tooltips.read_#{statement_node.class.name.underscore}")
+            :class => "ajax statement_link #{statement_node.class.name.underscore}_link #{extra_classes}"
   end
 
   def translation_upper_box(language_from, language_to)
@@ -388,14 +387,14 @@ module StatementHelper
   # This class does the heavy lifting of actually building the pagination
   # links. It is used by the <tt>will_paginate</tt> helper internally.
   class MoreRenderer < WillPaginate::LinkRenderer
-    
-    
+
+
     def to_html
       html = page_link_or_span(@collection.next_page, 'disabled more_children', @options[:next_label])
       html = html.html_safe if html.respond_to? :html_safe
       @options[:container] ? @template.content_tag(:div, html, html_attributes) : html
     end
-    
+
   end
 end
 
