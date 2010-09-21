@@ -3,8 +3,8 @@
 de:
 
   application:
-  
-    # Unexpected Error  
+
+    # Unexpected Error
     unexpected_error: An unexpected error has just happened.
 
     # General purpose resources
@@ -99,20 +99,20 @@ de:
   # ----------------
 
   welcome:
-    title: Willkommen auf echologic!
+    title: Willkommen auf echo!
     text: |
       <p>
       <strong>Diskutieren - Vernetzen - Handeln!</strong><br/>
-      Die drei Funktionsbereiche von echo werden wir auf echologic gemeinsam mit Ihnen Stück für Stück ausbauen.<br/>
+      Die drei Funktionsbereiche von echo werden wir gemeinsam mit Ihnen Stück für Stück ausbauen.<br/>
       Im Fahrplan (links oben im Bild) können Sie für jeden Bereich den aktuellen <strong>Stand der
       Entwicklung</strong> sowie die geplanten nächsten Schritte verfolgen.
       </p><p>
-      Als BewegerIn von echologic sind Sie herzlich eingeladen, die Entwicklung von <strong>echo mit zu gestalten</strong>!<br/>
+      Als BewegerIn von echo sind Sie herzlich eingeladen, die Entwicklung von <strong>echo mit zu gestalten</strong>!<br/>
       Bisher sind erste einfache Funktionen in folgenden Bereichen veröffentlicht:
       </p>
     function_1:
       name: 'Mein Profil'
-      description: 'Vervollständigen Sie Ihr Profil, um sich in der echologic Community zu präsentieren.'
+      description: 'Vervollständigen Sie Ihr Profil, um sich in der echo Community zu präsentieren.'
     function_2:
       name: 'Vernetzen'
       description: 'Entdecken Sie die Community und vernetzen Sie sich mit anderen interessanten Menschen der Bewegung.'
@@ -137,7 +137,7 @@ de:
         remember: Merke mich!
         hello: Eingeloggt<br/><strong>{{name}}</strong>
       messages:
-        login_success:  "Login erfolgreich.<br/>Willkommen zurück auf echologic!"
+        login_success:  "Login erfolgreich.<br/>Willkommen zurück auf echo!"
         login_failed:   "Unbekannter Nutzer oder falsches Passwort."
         logout_success: "Logout erfolgreich.<br/>Tschüß - Bis zum nächsten Mal!"
         session_timeout: "Ihre alte Sitzung wurde beendet. Bitte melden Sie sich erneut an."
@@ -145,7 +145,7 @@ de:
     # Activations section
     activation:
       messages:
-        success: Ihr Zugang wurde erfolgreich freigeschaltet. Willkommen auf echologic!
+        success: Ihr Zugang wurde erfolgreich freigeschaltet. Willkommen auf echo!
         failed: Ihr Zugang konnte leider nicht freigeschaltet werden. Bitte überprüfen Sie Ihre Eingaben.
 
     # Password resets section
@@ -155,12 +155,13 @@ de:
       step1_text: |
         <p><strong>Haben Sie Ihr Passwort vergessen</strong> oder möchten Sie einfach ein neues?
         </p><p>
-        Kein Problem! Tragen Sie einfach Ihre <strong>E-Mail</strong> Adresse ein, mit der Sie sich auf echologic angemeldet haben. Wir schicken Ihnen anschließend eine E-Mail, die es Ihnen ermöglicht <strong>Ihr Passwort neu zu setzen</strong>.
+        Kein Problem! Tragen Sie einfach Ihre <strong>E-Mail</strong> Adresse ein, mit der Sie sich auf echo angemeldet haben.
+        Wir schicken Ihnen anschließend eine E-Mail, die es Ihnen ermöglicht <strong>Ihr Passwort neu zu setzen</strong>.
         </p>
       step1_mail: E-Mail verschicken
 
       step2_text: |
-        Bitte tragen Sie <strong>Ihr neues Passwort</strong> ein, mit dem Sie sich in echologic einloggen möchten.
+        Bitte tragen Sie <strong>Ihr neues Passwort</strong> ein, mit dem Sie sich in echo einloggen möchten.
       step2_ok: Passwort setzen und einloggen
       messages:
         success:        'Wir haben Ihnen eine E-Mail zugesandt, die es Ihnen ermöglicht Ihr Passwort neu zu setzen.<br/>Bitte sehen Sie Ihrem Posteingang nach.'
@@ -217,8 +218,10 @@ de:
     web_addresses:
       title: Web Adressen
       guide: |
-        Indem Sie hier Ihre Kontaktdaten eintragen, geben Sie anderen Nutzern die Möglichkeit, sich ein Bild von Ihnen zu machen und Sie zu kontaktieren.<br/>
-        <strong>ACHTUNG</strong>: Alle hier eingetragen Informationen sind vorerst für <strong>alle</strong> Mitglieder von echologic zu sehen.
+        Indem Sie hier Ihre Kontaktdaten eintragen, geben Sie anderen Nutzern die Möglichkeit,
+        sich ein Bild von Ihnen zu machen und Sie zu kontaktieren.<br/>
+        <strong>ACHTUNG</strong>: Alle hier eingetragen Informationen sind vorerst für <strong>alle</strong>
+        Mitglieder von echo zu sehen.
       type: Art der Adresse
       address: Web Adresse
     # Concernments section
@@ -265,7 +268,7 @@ de:
     users:
       new:
         title: 'Ihr echo'
-        subtitle: 'echologic beitreten'
+        subtitle: 'echo beitreten'
         text: |
           <p>
           <strong>echo ist Demokratie von Menschen für Menschen.</strong>
@@ -353,10 +356,10 @@ de:
       prev_improvement_proposal: 'Vorigen Ergänzungsvorschlag zum aktuellen Vorschlag lesen'
       next_improvement_proposal: 'Nächsten Ergänzungsvorschlag zum aktuellen Vorschlag lesen'
       create_question: 'Neue Diskussion eröffnen'
-      create_proposal: 'Tragen Sie Ihre neue Idee zur aktuellen Frage ein.'
-      create_improvement_proposal: 'Tragen Sie Ihre neue Idee zum aktuellen Vorschlag ein.'
+      create_proposal: 'Tragen Sie Ihre neue Idee zur aktuellen Frage ein'
+      create_improvement_proposal: 'Tragen Sie Ihre neue Idee zum aktuellen Vorschlag ein'
       echo: 'Unterstützen Sie diese Aussage durch Ihr Echo!'
-      unecho: 'Ziehen Sie Ihre Stimme zurück, wenn Sie die Aussage nicht mehr unterstützen möchten.'
+      unecho: 'Ziehen Sie Ihre Stimme zurück, wenn Sie die Aussage nicht mehr unterstützen möchten'
       echo_indicator:
         one: 'Diese Aussage hat {{supporter_count}} UnterstützerIn.'
         many: 'Diese Aussage hat {{supporter_count}} UnterstützerInnen.'
@@ -388,7 +391,7 @@ de:
         dieser Sprache ablaufen wird.
       statement_language_hint: |
         In order to enter statements in other languages, please set your language skills in your <a href='{{url}}'>Profile</a>.
-      drafting_language_hint: | 
+      drafting_language_hint: |
         Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
       publish: Freigeben
       published: Die Diskussion wurde erfolgreich freigegeben.
@@ -434,7 +437,7 @@ de:
         This {{type}} has just been updated.
       edit_period_hint: |
         Sie haben {{minutes}} Minuten, um den Vorschlag zu bearbeiten.
-        Nach Ablauf können Ihre Änderungen eventuell nicht mehr berücksichtigt werden. 
+        Nach Ablauf können Ihre Änderungen eventuell nicht mehr berücksichtigt werden.
       staled_modification: 'Es tut uns sehr leid, aber Ihre Bearbeitungszeit von max. 60 Minuten ist abgelaufen. Mittlerweile hat ein anderer Nutzer den Vorschlag bearbeitet. Ihre Änderungen mussten daher leider verworfen werden.'
 
     summary:
@@ -678,34 +681,3 @@ de:
           mb: "MB"
           gb: "GB"
           tb: "TB"
-
-  mail:
-    activity_tracking:
-      subject: Activity Tracking
-      cancel: |
-        If you do not wish to receive the updated to your followed themes on a weekly basis, please go to your profile
-        and uncheck your email notification option.
-
-    root:
-      new_entry: "New entry in the '{{title}}' debate"
-    parent:
-      new_entry: "New entry in the '{{title}}' proposal belonging to the '{{question_title}}' debate"
-    questions:
-      text1: 'New Debates!'
-      new_questions: 'New Debates from last week: {{count}}'
-      tags_intro: 'New Tags from last week:'
-      tag: "<a href='http://www.echologic.org/{{code}}/discuss/search?value={{tag}}'>{{tag}}</a> ({{count}})"
-    proposal:
-      new: |
-        <p>
-        New proposal added with title
-        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{parent_id}}/proposals/{{id}}'>{{title}}</a>
-        </p>
-    improvement_proposal:
-      new: |
-        <p>
-        New improvement proposal added with title
-        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
-        {{title}}</a>
-        </p>
-

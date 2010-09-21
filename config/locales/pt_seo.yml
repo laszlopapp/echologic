@@ -7,10 +7,10 @@ pt:
       # static: de.seo.title.static
       static:
         echologic:
-          show: &html_title 'echologic para echo - A Ágora Global (Democracia Re-estruturada)'
-          about:            'echologic para echo - Sobre nós'
-          imprint:          'echologic para echo - Rubrica'
-          data_privacy:     'echologic para echo - Privacidade de dados'
+          show: &html_title 'echo - A Ágora Global (Democracia Re-estruturada)'
+          about:            'echo - Sobre nós'
+          imprint:          'echo - Rubrica'
+          data_privacy:     'echo - Privacidade de dados'
         echo:
           show:    'echo - A Ágora Global (Democracia Re-estruturada)'
           discuss: 'echo - Discuss (formação de opiniões e tomada de decisões - orientado à solução, transparente e democrático)'
@@ -37,10 +37,10 @@ pt:
       # users: de.seo.title.users
       users:
         users:
-          new: 'Your echo - Junte-se à echologic'
+          new: 'Your echo - Junte-se à echo'
         activations:
-          new: Your echo - Active a sua conta echologic
-          create: 'Your echo - Active a sua conta echologic'
+          new: Your echo - Active a sua conta echo
+          create: 'Your echo - Active a sua conta echo'
         password_resets:
           new: 'Your echo - Requira uma nova Password'
           edit: 'Your echo - Defina uma nova Password'
@@ -49,38 +49,38 @@ pt:
 
       # discuss: de.seo.title.discuss
       discuss:
-        index: 'echologic - Discuss'
-        roadmap: 'echologic - Roadmap for Discuss'
+        index: 'echo - Discuss'
+        roadmap: 'echo - Roadmap for Discuss'
       questions:
-        category: 'echologic - Tópico de Discussão'
-        show: 'echologic - Discussion'
+        category: 'echo - Tópico de Discussão'
+        show: 'echo - Discussion'
         new: 'Abra uma nova discussão'
         my_discussions: 'Minhas Discussões'
       proposals:
-        show: 'echologic - Posições no Debate'
+        show: 'echo - Posições no Debate'
       improvement_proposals:
-        show: 'echologic - Ideias para melhorar a posição'
+        show: 'echo - Ideias para melhorar a posição'
 
       # connect: de.seo.title.connect
       connect:
-        roadmap:  'echologic - Roadmap for Connect'
-        show:   'echologic - Connect - Explore a comunidade'
-        fill_out_profile: 'echologic - Connect - Dê e receba'
+        roadmap:  'echo - Roadmap for Connect'
+        show:   'echo - Connect - Explore a comunidade'
+        fill_out_profile: 'echo - Connect - Dê e receba'
 
       # act: de.seo.title.act
       act:
-        roadmap: 'echologic - Roadmap for Act'
+        roadmap: 'echo - Roadmap for Act'
 
       # my_echo: de.seo.title.my_echo
       my_echo:
-        roadmap: 'echologic - Roadmap for My echo'
-        welcome: 'echologic - Bemvindo'
-        profile: 'echologic - O meu Perfil'
-        settings:  'echologic - Definições'
+        roadmap: 'echo - Roadmap for My echo'
+        welcome: 'echo - Bemvindo'
+        profile: 'echo - O meu Perfil'
+        settings:  'echo - Definições'
 
       # my_echo: de.seo.title.admin
       admin:
-        show: 'echologic - Área Admin'
+        show: 'echo - Área Admin'
 
     meta:
       description: |-
@@ -89,8 +89,8 @@ pt:
         democracia participatória tanto a nível local, como a nível regional ou até global. De acordo com este ideal,
         echo significa o fim da impotência e o princípio da auto-determinação.
       keywords: |-
-        echologic, echo, ágora, ágora global, democracia, democracia participatória, auto-determinação,
+        echo, ágora, ágora global, democracia, democracia participatória, auto-determinação,
         inteligência colectiva, futuro sustentável, base de opiniões, formação de opiniões, tomada de decisões,
-        transparência, colaboração democrática orientada à solução, echocracia, igualdade,
+        transparência, colaboração democrática orientada à solução, echocracia, igualdade, echologic,
         economia, economia democrática eco-social, your-profit, glocal, glocality
 

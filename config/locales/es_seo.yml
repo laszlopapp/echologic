@@ -6,10 +6,10 @@ es:
       # static: de.seo.title.static
       static:
         echologic:
-          show: &html_title 'echologic para echo - el ágora global (democracia repensada)'
-          about:            'echologic para echo - sobre nosotros'
-          imprint:          'echologic para echo - información legal'
-          data_privacy:     'echologic para echo - protección de datos'
+          show: &html_title 'echo - el ágora global (democracia repensada)'
+          about:            'echo - sobre nosotros'
+          imprint:          'echo - información legal'
+          data_privacy:     'echo - protección de datos'
         echo:
           show:    'echo - el ágora global (democracia repensada)'
           discuss: 'echo - discutir (Formación de opiniones & toma de decisiones - constructivo, transparente & democrático)'
@@ -35,10 +35,10 @@ es:
       # users: de.seo.title.users
       users:
         users:
-          new: 'Tu echo - Unirse a en echologic'
+          new: 'Tu echo - Unirse a en echo'
         activations:
-          new: 'Tu echo - Activar tu cuenta en echologic'
-          create: 'Tu echo - Activar tu cuenta en echologic'
+          new: 'Tu echo - Activar tu cuenta en echo'
+          create: 'Tu echo - Activar tu cuenta en echo'
         password_resets:
           new: 'Tu echo - Pedir nueva seña'
           edit: 'Tu echo - Definir nueva seña'
@@ -47,38 +47,38 @@ es:
 
       # discuss: de.seo.title.discuss
       discuss:
-        index: 'echologic - Discutir'
-        roadmap: 'echologic - Desarrollo de discutir'
+        index: 'echo - Discutir'
+        roadmap: 'echo - Desarrollo de discutir'
       questions:
-        category: 'echologic - Temas de discusión'
-        show: 'echologic - Debates'
+        category: 'echo - Temas de discusión'
+        show: 'echo - Debates'
         new: 'Crear nueva discusión'
         my_discussions: 'Mis Discusiones'
       proposals:
-        show: 'echologic - Propuestas en este debate'
+        show: 'echo - Propuestas en este debate'
       improvement_proposals:
-        show: 'echologic - Propuesta de mejoramiento'
+        show: 'echo - Propuesta de mejoramiento'
 
       # connect: de.seo.title.connect
       connect:
-        roadmap: 'echologic - Desarrollo de conectar'
-        show:    'echologic - Conectar - Descubrir la cumunidad'
-        fill_out_profile: 'echologic - Conectar - Dar y recibir'
+        roadmap: 'echo - Desarrollo de conectar'
+        show:    'echo - Conectar - Descubrir la cumunidad'
+        fill_out_profile: 'echo - Conectar - Dar y recibir'
 
       # act: de.seo.title.act
       act:
-        roadmap: 'echologic - Desarrollo de actuar'
+        roadmap: 'echo - Desarrollo de actuar'
 
       # my_echo: de.seo.title.my_echo
       my_echo:
-        roadmap: 'echologic - Desarrollo de mi echo'
-        welcome: 'echologic - Bienvenido'
-        profile: 'echologic - Mi Perfil'
-        settings: 'echologic - Ajustes'
+        roadmap: 'echo - Desarrollo de mi echo'
+        welcome: 'echo - Bienvenido'
+        profile: 'echo - Mi Perfil'
+        settings: 'echo - Ajustes'
 
       # my_echo: de.seo.title.admin
       admin:
-        show: 'echologic - Admin Area'
+        show: 'echo - Admin Area'
 
     meta:
       description: |-
@@ -89,9 +89,9 @@ es:
         echo significa el fin de la impotencia y el inicio de la auto-determinación!
 
       keywords: |-
-        echologic, echo, ágora, ágora global, democracía, democracía participativa, autodeterminación,
+        echo, ágora, ágora global, democracía, democracía participativa, autodeterminación,
         inteligencia colectiva, futuro sostenible, base de opiniones, sinopsis de opiniones, formación de opiniones,
         toma de decisión, transparencia, colaboración democrática,
         echocracy, equidad, echonomy, socio-ecológico, economía eco-socialmente sostenible,
-        democracia económica, Your-Profit, echokracia, echonomía, glocal, glocalidad
+        democracia económica, Your-Profit, echologic, echokracia, echonomía, glocal, glocalidad
 

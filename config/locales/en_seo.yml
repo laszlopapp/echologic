@@ -7,10 +7,10 @@ en:
       # static: de.seo.title.static
       static:
         echologic:
-          show: &html_title 'echologic for echo - The Global Agora (Engage into Democracy)'
-          about:            'echologic for echo - About us'
-          imprint:          'echologic for echo - Imprint'
-          data_privacy:     'echologic for echo - Data Privacy'
+          show: &html_title 'echo - The Global Agora (Engage into Democracy)'
+          about:            'echo - About us'
+          imprint:          'echo - Imprint'
+          data_privacy:     'echo - Data Privacy'
         echo:
           show:    'echo - The Global Agora (Engage into Democracy)'
           discuss: 'echo - Discuss (opinion and will formation - solution-oriented, transparent & democratic)'
@@ -37,10 +37,10 @@ en:
       # users: de.seo.title.users
       users:
         users:
-          new: 'Your echo - Join echologic'
+          new: 'Your echo - Join echo'
         activations:
-          new: Your echo - Activate your echologic account
-          create: 'Your echo - Activate your echologic account'
+          new: Your echo - Activate your echo account
+          create: 'Your echo - Activate your echo account'
         password_resets:
           new: 'Your echo - Require New Password'
           edit: 'Your echo - Set New Password'
@@ -49,38 +49,38 @@ en:
 
       # discuss: de.seo.title.discuss
       discuss:
-        index: 'echologic - Discuss'
-        roadmap: 'echologic - Roadmap for Discuss'
+        index: 'echo - Discuss'
+        roadmap: 'echo - Roadmap for Discuss'
       questions:
-        category: 'echologic - Discussion Topic'
-        show: 'echologic - Discussion'
+        category: 'echo - Discussion Topic'
+        show: 'echo - Discussion'
         new: 'Open new discussion'
         my_discussions: 'My Discussions'
       proposals:
-        show: 'echologic - Positions in the Debate'
+        show: 'echo - Positions in the Debate'
       improvement_proposals:
-        show: 'echologic - Ideas to Improve the Position'
+        show: 'echo - Ideas to Improve the Position'
 
       # connect: de.seo.title.connect
       connect:
-        roadmap:  'echologic - Roadmap for Connect'
-        show:   'echologic - Connect - Explore Community'
-        fill_out_profile: 'echologic - Connect - Give and Take'
+        roadmap:  'echo - Roadmap for Connect'
+        show:   'echo - Connect - Explore Community'
+        fill_out_profile: 'echo - Connect - Give and Take'
 
       # act: de.seo.title.act
       act:
-        roadmap: 'echologic - Roadmap for Act'
+        roadmap: 'echo - Roadmap for Act'
 
       # my_echo: de.seo.title.my_echo
       my_echo:
-        roadmap: 'echologic - Roadmap for My echo'
-        welcome: 'echologic - Welcome'
-        profile: 'echologic - My Profile'
-        settings: 'echologic - My Settings'
+        roadmap: 'echo - Roadmap for My echo'
+        welcome: 'echo - Welcome'
+        profile: 'echo - My Profile'
+        settings: 'echo - My Settings'
 
       # my_echo: de.seo.title.admin
       admin:
-        show: 'echologic - Admin Bereich'
+        show: 'echo - Admin Bereich'
 
     meta:
       echologic:
@@ -90,10 +90,10 @@ en:
           echo provides the technological basis for an open, participatory democracy on the local, regional and
           global level.
         keywords: |-
-          echologic, movement, global movement, echo, agora, global agora, democracy, participatory democracy,
-          self-determination, collective intelligence, opinion base, opinion formation, will formation,
+          echo, agora, global agora, democracy, participatory democracy, self-determination, movement, global movement,
+          collective intelligence, opinion base, opinion formation, will formation,
           collective decision making, mobilization, critical masses, legislative instruments, political influence,
-          social collaboration, echocracy, equality, transparency, echonomy, eco-social, ecosocial democratic economy,
+          social collaboration, echocracy, equality, transparency, echologic, echonomy, eco-social, ecosocial democratic economy,
           Your-Profit, glocal, glocality, sustainability, sustainable change
 
       echo:

@@ -5,7 +5,7 @@ en:
   application:
     # Unexpected Error
     unexpected_error: An unexpected error has just happened.
-    
+
     # General purpose resources
     general:
       more: more »
@@ -97,20 +97,20 @@ en:
   # ----------------
 
   welcome:
-    title: Welcome to echologic!
+    title: Welcome to echo!
     text: |
       <p>
       <strong>Discuss - Connect - Act!</strong><br/>
-      These are the three functional areas of echo being developed at echologic with your active participation.
+      These are the three functional areas of echo being developed with your active participation.
       The Roadmap (in the upper left corner of the screen) always shows you the
       current state of development and the next steps planned in the area you are looking at.
       </p><p>
-      As a mover at echologic you are welcome to <strong>engage into the evolution of echo</strong>!<br/>
+      As a mover you are welcome to <strong>engage into the evolution of echo</strong>!<br/>
       Until now, the following simple features have been released:
       </p>
     function_1:
       name: 'My Profile'
-      description: 'Complete your profile to present yourself in the echologic community.'
+      description: 'Complete your profile to present yourself in the echo community.'
     function_2:
       name: 'Connect'
       description: 'Explore the community and connect with other interesting people of the movement.'
@@ -135,7 +135,7 @@ en:
         remember: Remember me!
         hello: Logged in<br/><strong>{{name}}</strong>
       messages:
-        login_success: "Login successful. Welcome back to echologic."
+        login_success: "Login successful. Welcome back to echo."
         login_failed: "Unknown user or wrong password."
         logout_success: "Logout successful. See you later. Bye!"
         session_timeout: "Your old session has been closed. Please log in again."
@@ -144,7 +144,7 @@ en:
     activation:
 
       messages:
-        success: Your account has been successfully activated. Welcome to echologic!
+        success: Your account has been successfully activated. Welcome to echo!
         failed: Your account could not be activated. Please check your input.
 
     # Password resets section
@@ -153,12 +153,12 @@ en:
       step2: Define new password
       step1_text: |
         <strong>Forgot your password</strong> or you would simply like to define a new one?<br/><br/>
-        No problem! Just fill in your <strong>E-Mail</strong> address you used to sign up to echologic.<br/>
+        No problem! Just fill in your <strong>E-Mail</strong> address you used to sign up to echo.<br/>
         We will send you an E-mail shortly allowing you <strong>to define a new password</strong>.
       step1_mail: Send E-Mail
 
       step2_text: |
-        Please define <strong>your new password</strong> you would like to use to log in to echologic.
+        Please define <strong>your new password</strong> you would like to use to log in to echo.
       step2_ok: Set password and log in
       messages:
         success: "We have sent you an E-mail allowing you to reset your password. Please check your inbox."
@@ -215,7 +215,7 @@ en:
       title: Web Addresses
       guide: |
         Here you can enter some of your contact data and other web profiles.<br/>
-        <strong>PLEASE NOTE</strong>: for now, all information entered here will be visible to all members of the echologic community.
+        <strong>PLEASE NOTE</strong>: for now, all information entered here will be visible to all members of the echo community.
       type: Kind of address
       address: Web Address
 
@@ -261,7 +261,7 @@ en:
     users:
       new:
         title: Your echo
-        subtitle: Join echologic
+        subtitle: Join echo
         text: |
           <p>
           <strong>echo is democracy from the people for the people.</strong>
@@ -347,10 +347,10 @@ en:
       prev_improvement_proposal: 'Read previous improvement proposal for the current proposal'
       next_improvement_proposal: 'Read next improvement proposal for the current proposal'
       create_question: 'Open a new discussion'
-      create_proposal: "Post a new idea concerning the current question."
-      create_improvement_proposal: "Post a new idea to improve the current proposal."
+      create_proposal: "Post a new idea concerning the current question"
+      create_improvement_proposal: "Post a new idea to improve the current proposal"
       echo: 'echo this statement to support it!'
-      unecho: 'Withdraw your vote to stop supporting this statement.'
+      unecho: 'Withdraw your vote to stop supporting this statement'
       echo_indicator:
         one: 'This statement has {{supporter_count}} supporter.'
         many: 'This statement has {{supporter_count}} supporters.'
@@ -381,9 +381,9 @@ en:
         Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language.
       statement_language_hint: |
         In order to enter statements in other languages, please set your language skills in your <a href='{{url}}'>Profile</a>.
-      drafting_language_hint: | 
+      drafting_language_hint: |
         Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
- 
+
       publish: Release
       published: Discussion has been released successfully.
       edit: 'Edit {{type}}'
@@ -565,4 +565,4 @@ en:
       user_session:
         email: E-Mail
         password: Password
-  
+

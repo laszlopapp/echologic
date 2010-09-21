@@ -98,20 +98,20 @@ pt:
   # ----------------
 
   welcome:
-    title: Bemvindo à echologic!
+    title: Bemvindo à echo!
     text: |
       <p>
       <strong>Discutir - Conectar - Agir!</strong><br/>
-      Estas são as três áreas funcionais da echo desenvolvidas na echologic com a sua participação activa.<br/>
+      Estas são as três áreas funcionais da echo desenvolvidas na echo com a sua participação activa.<br/>
       O roteiro (no canto superior esquerdo do ecrã) mostra-lhe sempre o
       <strong>estado actual do desenvolvimento</strong> e os próximos passos planeados na área em que se encontra.
       </p><p>
-      Como um motor da echologic encontra-se bemvindo a <strong>participar na evolução da echo</strong>!<br/>
+      Como um motor da echo encontra-se bemvindo a <strong>participar na evolução da echo</strong>!<br/>
       Até agora, foram lançadas as seguintes características simples:
       </p>
     function_1:
       name: 'O meu Perfil'
-      description: Complete o seu perfil de forma a apresentar-se perante a comunidade echologic.
+      description: Complete o seu perfil de forma a apresentar-se perante a comunidade echo.
     function_2:
       name: 'Conectar'
       description: 'Explore a comunidade e conecte-se com outras pessoas interessantes ligadas ao movimento.'
@@ -135,7 +135,7 @@ pt:
         remember: Lembre-me!
         hello: Autenticado<br/><strong>{{name}}</strong>
       messages:
-        login_success: "Autenticação sucedida. Bemvindo de volta à echologic."
+        login_success: "Autenticação sucedida. Bemvindo de volta à echo."
         login_failed: "Utilizador desconhecido ou password errada."
         logout_success: "Saída sucedida. Até breve!"
         session_timeout: "A sua sessão foi fechada. Por favor autentique-se de novo."
@@ -144,7 +144,7 @@ pt:
     activation:
 
       messages:
-        success: A sua conta foi activada com sucesso. Bemvindo à echologic!
+        success: A sua conta foi activada com sucesso. Bemvindo à echo!
         failed: A sua conta não pode ser activada. Por favor verifique os dados inseridos.
 
     # Password resets section
@@ -153,12 +153,12 @@ pt:
       step2: Definir nova senha
       step1_text: |
         <strong>Esqueceu a sua senha</strong> simplesmente gostaria de definir uma nova?<br/><br/>
-        Sem problema! Preencha este campo apenas com o endereço de <strong>E-Mail</strong> com o qual está autenticado na echologic.<br/>
+        Sem problema! Preencha este campo apenas com o endereço de <strong>E-Mail</strong> com o qual está autenticado na echo.<br/>
         Nós enviar-lhe-emos um E-mail em breve possibilitando-lhe <strong>definir a nova senha</strong>.
       step1_mail: Enviar E-Mail
 
       step2_text: |
-        Por favor defina <strong>a nova senha</strong> que gostaria de usar para se autenticar na echologic.
+        Por favor defina <strong>a nova senha</strong> que gostaria de usar para se autenticar na echo.
       step2_ok: Acertar a senha e autenticar-se
       messages:
         success: "Enviámos-lhe um E-mail possibilitando-lhe reacertar a sua senha. Por favor dê uma olhada na sua caixa de entrada."
@@ -215,7 +215,7 @@ pt:
       title: Endereços Web
       guide: |
         Aqui pode inserir alguns dos seus contactos e outros perfis web que possua.<br/>
-        <strong>TOME NOTA</strong>: por agora, toda a informação inserida estará visível para todos os membros da comunidade echologic.
+        <strong>TOME NOTA</strong>: por agora, toda a informação inserida estará visível para todos os membros da comunidade echo.
       type: Tipo de endereço
       address: Endereço Web
 
@@ -261,7 +261,7 @@ pt:
     users:
       new:
         title: A vossa echo
-        subtitle: Junte-se à echologic
+        subtitle: Junte-se à echo
         text: |
           <p>
           <strong>A echo é democracia das pessoas para as pessoas.</strong>
@@ -349,7 +349,7 @@ pt:
       create_proposal: 'Criar nova proposta na questão actual'
       create_improvement_proposal: 'Criar nova proposta de melhoria na proposta actual'
       echo: 'echoe esta afirmação de forma a apoiá-la!'
-      unecho: 'Retire o seu voto para parar de apoiar esta afirmação.'
+      unecho: 'Retire o seu voto para parar de apoiar esta afirmação'
       echo_indicator:
         one: 'Esta afirmação tem {{supporter_count}} apoiante.'
         many: 'Esta afirmação tem {{supporter_count}} apoiantes.'
@@ -380,7 +380,7 @@ pt:
         Nota-se por favor, que o precesso da elaboração coletiva desta proposta solamente funcionará do idioma escolhido.
       statement_language_hint: |
         In order to enter statements in other languages, please set your language skills in your <a href='{{url}}'>Profile</a>.
-      drafting_language_hint: | 
+      drafting_language_hint: |
         Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
       publish: Publicar
       published: A discussão foi publicada com sucesso.
@@ -417,7 +417,7 @@ pt:
       see_parent_if_approved: |-
         Esta proposta de melhoria esta foi aprovada para ser incorporada na proposta em baixo.
       see_parent_if_incorporated: |-
-        Esta proposta de melhoria ja foi incorporada. 
+        Esta proposta de melhoria ja foi incorporada.
       being_edited: |-
         Esta proposta atualmente está sendo editada. Volte mais tarde por favor.
       already_translated: |-
@@ -666,34 +666,4 @@ pt:
           mb: "MB"
           gb: "GB"
           tb: "TB"
-  mail:
-    activity_tracking:
-      subject: Activity Tracking
-      cancel: |
-        If you do not wish to receive the updated to your followed themes on a weekly basis, please go to your profile
-        and uncheck your email notification option.
-
-    root:
-      new_entry: "New entry in the '{{title}}' debate"
-    parent:
-      new_entry: "New entry in the '{{title}}' proposal belonging to the '{{question_title}}' debate"
-    questions:
-      text1: 'New Debates!'
-      new_questions: 'New Debates from last week: {{count}}'
-      tags_intro: 'New Tags from last week:'
-      tag: "<a href='http://www.echologic.org/{{code}}/discuss/search?value={{tag}}'>{{tag}}</a> ({{count}})"
-    proposal:
-      new: |
-        <p>
-        New proposal added with title
-        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{parent_id}}/proposals/{{id}}'>{{title}}</a>
-        </p>
-    improvement_proposal:
-      new: |
-        <p>
-        New improvement proposal added with title
-        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
-        {{title}}</a>
-        </p>
-
-  
+ 
