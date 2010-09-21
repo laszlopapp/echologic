@@ -179,6 +179,13 @@ ActiveRecord::Schema.define(:version => 20100916143948) do
     t.datetime "created_at"
   end
 
+  create_table "statement_images", :force => true do |t|
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
   create_table "statement_nodes", :force => true do |t|
     t.string   "type"
     t.integer  "parent_id"
@@ -199,11 +206,8 @@ ActiveRecord::Schema.define(:version => 20100916143948) do
   add_index "statement_nodes", ["type"], :name => "idx_statement_nodes_type"
 
   create_table "statements", :force => true do |t|
-    t.integer  "original_language_id"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
+    t.integer "original_language_id"
+    t.integer "statement_image_id"
   end
 
   create_table "subscriptions", :force => true do |t|

@@ -299,6 +299,7 @@ pt:
     my_discussions:
       link: Minhas Discussões
       title: As minhas discussões novas e publicadas
+      no_discussions: 'Sorry, no discussions at the moment'
     tag_permission: |
       Não tem permissão para inserir a tag '{{tag}}'.
     translation_request: Por favor traduza este texto em <strong>PORTUGUÊS</strong>.
@@ -402,8 +403,9 @@ pt:
       topic: Tópico (Tags / Palavras-chave)
       states:
         label: 'Publicar discussão?'
-        deferred_publish: 'Primeiro criar e mais tarde publicar.'
-        immediate_publish: 'Imediatamente publicar (não será mais possível editar a discussão)'
+        initial_state:
+          new: 'Primeiro criar e mais tarde publicar.'
+          published: 'Imediatamente publicar (não será mais possível editar a discussão)'
         published: Publicado
         approved: Approved
       delete_link: "Apagar"
@@ -433,6 +435,7 @@ pt:
         title: Upload Image
         guide: Please <strong>select a picture</strong> (JPG or PNG, max. 5MB) and upload it.
         progress: The image is being uploaded. Please wait...
+        error: 'Error uploading image: Image format not supported.'
 
     summary:
       title: 'Sumário'

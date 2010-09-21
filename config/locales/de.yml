@@ -306,6 +306,7 @@ de:
     my_discussions:
       link: Meine Diskussionen
       title: Meine neuen & freigegebenen Diskussionen
+      no_discussions: 'Sorry, no discussions at the moment'
     tag_permission: |
       Sie dürfen leider den Tag '{{tag}}' nicht vergeben.
     original_language_warning: |
@@ -410,8 +411,9 @@ de:
       topic: Thema (Tags / Schlüsselwörte)
       states:
         label: 'Diskussion sofort veröffentlichen?'
-        deferred_publish: 'Erstmal weiter vorbereiten und später veröffentlichen'
-        immediate_publish: 'Sofort veröffentlichen (danach ist keine Bearbeitung mehr möglich)'
+        initial_state:
+          new: 'Erstmal weiter vorbereiten und später veröffentlichen'
+          published: 'Sofort veröffentlichen (danach ist keine Bearbeitung mehr möglich)'
         published: Freigegeben
         approved: Approved
       delete_link: 'Löschen'
@@ -441,6 +443,7 @@ de:
         title: Upload Image
         guide: Please <strong>select a picture</strong> (JPG or PNG, max. 5MB) and upload it.
         progress: The image is being uploaded. Please wait...
+        error: 'Error uploading image: Image format not supported.'
 
     summary:
       title: 'Zusammenfassung'

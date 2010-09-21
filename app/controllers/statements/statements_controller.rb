@@ -85,7 +85,8 @@ class StatementsController < ApplicationController
 
       
       # Load statement node data to session for prev/next functionality
-      load_to_session(@statement_node)
+      reload = params[:reload].nil? ? true : params[:reload]
+      load_to_session(@statement_node, reload)
       
       # Get document to show and redirect if not found
       @statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
@@ -155,7 +156,8 @@ class StatementsController < ApplicationController
   #
   def new
     @statement_node ||= statement_node_class.new(:parent => parent,
-                                                 :root_id => root_symbol)
+                                                 :root_id => root_symbol,
+                                                 :editorial_state => StatementState[:new])
     @statement_document ||= StatementDocument.new(:language_id => @locale_language_id)
     @action ||= StatementAction["created"]
     @statement_node.topic_tags << "##{params[:category]}" if params[:category]
@@ -283,7 +285,7 @@ class StatementsController < ApplicationController
                                                        :current => true}))
               @statement_document.save
   
-              if @statement_node.taggable?
+              if @statement_node.taggable? and form_tags
                 @statement_node.topic_tags=form_tags
                 @tags=@statement_node.topic_tags
               end
@@ -291,14 +293,13 @@ class StatementsController < ApplicationController
             end
           else #update image
             @statement_node.update_attributes(attrs)
-            @statement_node.statement.save
-            update_image = true if @statement_node.statement.valid? 
-            set_error(@statement_node.statement) if !@statement_node.statement.valid?
+            @statement_node.statement_image.save
+            update_image = true
           end
         end
       end
 
-      if attrs_doc
+      if attrs_doc #normal form POST
         respond_to do |format|
           if !holds_lock
               being_edited(format)
@@ -314,6 +315,11 @@ class StatementsController < ApplicationController
             format.js   { show_error_messages }
           end
         end
+      else
+        respond_to do |format|
+          format.html {redirect_to url_for(@statement_node)}
+          format.js {show}
+        end
       end
     rescue Exception => e
       log_message_error(e, "Error updating statement node '#{@statement_node.id}'.") do |format|
@@ -323,7 +329,6 @@ class StatementsController < ApplicationController
       log_message_info("Statement node '#{@statement_node.id}' has been updated sucessfully.") if update
       log_message_info("Statement node '#{@statement_node.id}' has a new image.") if update_image
     end
-    
   end
 
 
@@ -519,7 +524,7 @@ class StatementsController < ApplicationController
   #
   def reload_image
     respond_to do |format|
-      if @statement_node.image.exists? and @error.nil?
+      if @statement_node.image.exists? and @statement_node.image.updated_at != params[:date].to_i
         set_statement_node_info(nil, 'discuss.messages.image_uploaded')
         format.js {
           render_with_info do |page|
@@ -528,7 +533,7 @@ class StatementsController < ApplicationController
           end
         }
       else
-        set_error(@statement_node.image)
+        set_error('discuss.statements.upload_image.error')
         format.js   { show_error_messages }
       end
     end
@@ -767,15 +772,13 @@ class StatementsController < ApplicationController
   # Gets all the statement documents belonging to a group of statements, and orders them per language ids.
   #
   def search_statement_documents (statement_ids, language_ids = @language_preference_list)
-    hash = {}
     statement_documents = StatementDocument.search_statement_documents(statement_ids, language_ids)
     statement_documents = statement_documents.sort do |a, b|
       language_ids.index(a.language_id) <=> language_ids.index(b.language_id)
     end
-    statement_documents.each do |sd|
-      hash.store(sd.statement_id, sd) unless hash.has_key?(sd.statement_id)
+    statement_documents.each_with_object({}) do |sd, documents_hash|
+      documents_hash[sd.statement_id] = sd unless documents_hash.has_key?(sd.statement_id)
     end
-    hash
   end
 
 
@@ -793,7 +796,7 @@ class StatementsController < ApplicationController
     
     # Loads sibling (or other question) statements to session if they were not loaded yet
     key = ("current_" + statement_node_class.to_s.underscore).to_sym
-    if !session[key].present? or reload
+    if session[key].nil? or reload
       session[key] = statement_node.echoable? ? 
                      statement_node.sibling_statements(@language_preference_list).map(&:id) :
                      search_statement_nodes(:language_ids => @language_preference_list, 

@@ -3,13 +3,14 @@
 <% statement_document ||= @statement_document %>
 <% css_rte_class = 'rte_doc' %>
 <% user_languages = current_user.spoken_languages_at_min_level("intermediate") %>
+<% local_language = Language[@locale_language_id] %>
 
 <% form.semantic_fields_for :statement_document, statement_document do |doc|  %>
   <% doc.inputs :class => 'inputs left_panel' do %>
 	  <% if !disabled and statement_document.new_record? %>
 		  <% if user_languages.empty? %>
 				<%= doc.input :language_id, 
-                      :collection => [[Language[@locale_language_id].value,Language[@locale_language_id].id]] , 
+                      :collection => [[local_language.value,local_language.id]] , 
                       :include_blank => false %>
 				<p><%= I18n.t('discuss.statements.statement_language_hint') %></p>
 			<% else %>
@@ -25,7 +26,6 @@
     <br/>
 		<% if !disabled %>
       <%= doc.input :text, :input_html => {:disabled => disabled, :class => css_rte_class} %>
-			
       <%= doc.input :author_id, :as => :hidden, :value => current_user.id %>																		
 			<%= doc.input :old_document_id, :as => :hidden, :value => statement_document.id if !statement_document.new_record? %>
 			<%= doc.input :locked_at, :as => :hidden, :value => statement_document.locked_at %>

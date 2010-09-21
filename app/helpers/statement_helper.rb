@@ -202,11 +202,13 @@ module StatementHelper
     return unless statement_node.class.expected_children.any?
     type = statement_node_class_dom_id(statement_node.class.expected_children.first)
 
-    link_to(I18n.t("discuss.statements.create_#{type}_link"),
-            new_child_statement_node_url(statement_node, type),
-            :id => "create_#{type}_link",
-            :class => "ajax add_new_button text_button create_#{type}_button ttLink no_border",
-            :title => I18n.t("discuss.tooltips.create_#{type}"))
+    content_tag :li do
+      link_to(I18n.t("discuss.statements.create_#{type}_link"),
+              new_child_statement_node_url(statement_node, type),
+              :id => "create_#{type}_link",
+              :class => "ajax add_new_button text_button create_#{type}_button ttLink no_border",
+              :title => I18n.t("discuss.tooltips.create_#{type}"))
+    end
   end
 
   #
@@ -449,6 +451,23 @@ module StatementHelper
                 :class => 'ajax upload_link button_150', :id => 'upload_image_link')
     end 
     content_tag :div, val, :class => 'image_container', :id => 'image_container' if !val.blank?
+  end
+
+  #draws the "more" link when the statement is loaded
+  def more_children(statement_node)
+    link_to I18n.t("application.general.more"), 
+            children_url(statement_node, statement_node_class_dom_id(statement_node).downcase, :page => 1), 
+            :class => 'more_children ajax'
+  end
+
+  # returns a collection from possible statement states to be used on radios and select boxes
+  def statement_states_collection
+    StatementState.all.map{|s|[I18n.t("discuss.statements.states.initial_state.#{s.code}"),s.id]}
+  end
+
+  # draws the "page loading" information icon
+  def loading_icon
+    content_tag :span, I18n.t("application.general.loading"), :class => 'pagination_loading'
   end
 
   # This class does the heavy lifting of actually building the pagination

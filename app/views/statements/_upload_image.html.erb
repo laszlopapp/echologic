@@ -27,7 +27,7 @@
       beforeSend: function() { $('#uploading_progress').show(); },
       complete:   function() { $('#uploading_progress').hide(); },
       success:    function(data, status) {
-				$.ajax({type:'get', dataType: 'script', url:"<%= reload_image_url(@statement_node, statement_node_class_dom_id(@statement_node)) %>?status=" + status});
+				$.ajax({type:'get', dataType: 'script', url:"<%= reload_image_url(@statement_node, statement_node_class_dom_id(@statement_node), :date => @statement_node.image.updated_at) %>"});
         $('#dialogContent').dialog('close');
       }
     });

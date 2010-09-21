@@ -1,3 +1,3 @@
-<% statement_nodes ||= @statement_nodes %>
+<% discussions ||= @discussions %>
 <% content_for :submenu, tabnav(:discuss) %>
-<%= render 'statements/questions/my_discussions', :locals => {:statement_nodes => statement_nodes} %>
+<%= render 'statements/questions/my_discussions', :locals => {:discussions => discussions} %>

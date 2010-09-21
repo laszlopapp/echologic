@@ -300,6 +300,7 @@ en:
     my_discussions:
       link: My Discussions
       title: My new & published discussions
+      no_discussions: 'Sorry, no discussions at the moment'
     tag_permission: |
       You do not have the permission to insert the '{{tag}}' tag.
     translation_request: Please translate this statement to <strong>ENGLISH</strong>.
@@ -404,8 +405,9 @@ en:
       topic: Topic (Tags / Keywords)
       states:
         label: 'Publish discussion immediately?'
-        deferred_publish: 'Set up at first and publish later'
-        immediate_publish: 'Publish immediately (no further editing is possible)'
+        initial_state:
+          new: 'Set up at first and publish later'
+          published: 'Publish immediately (no further editing is possible)'
         published: Released
         approved: Approved
       delete_link: 'Delete'
@@ -435,6 +437,7 @@ en:
         title: Upload Image
         guide: Please <strong>select a picture</strong> (JPG or PNG, max. 5MB) and upload it.
         progress: The image is being uploaded. Please wait...
+        error: 'Error uploading image: Image format not supported.'
 
     summary:
       title: 'Summary'

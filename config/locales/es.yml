@@ -312,6 +312,7 @@ es:
     my_discussions:
       link: Mis Discusiones
       title: Mis discusiones nuevas y ya publicadas
+      no_discussions: 'Sorry, no discussions at the moment'
     tag_permission: |
       Disculpe, pero no tienes permiso para inserir este '{{tag}}' tag.
     original_language_warning: |
@@ -417,8 +418,9 @@ es:
       topic: Tema (Tags / Palabras clave)
       states:
         label: 'Publicar discusión de inmediato?'
-        deferred_publish: 'Solamente guardar y publicar mas tarde'
-        immediate_publish: 'Publicar de inmediato (no será possible modificar la discusión)'
+        initial_state:
+          new: 'Solamente guardar y publicar mas tarde'
+          published: 'Publicar de inmediato (no será possible modificar la discusión)'
         published: Publicado
         approved: Approved
       delete_link: "Borrar"
@@ -448,6 +450,7 @@ es:
         title: Upload Image
         guide: Please <strong>select a picture</strong> (JPG or PNG, max. 5MB) and upload it.
         progress: The image is being uploaded. Please wait...
+        error: 'Error uploading image: Image format not supported.'
 
     summary:
       title: 'Resumen'
