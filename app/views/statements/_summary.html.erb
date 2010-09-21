@@ -9,7 +9,7 @@
 
   <!-- Header -->
   <h2>
-    <%= I18n.t('discuss.summary.title') %>
+    <%= I18n.t("discuss.statements.types.#{statement_node.class.name.underscore}") %>
   </h2>
 
   <!-- Motivate people to translate the document -->
@@ -24,7 +24,7 @@
   <div class="statement_content">
     <%= sanitize statement_document.text %>
   </div>
-  
+
   <!-- Approved document -->
   <%= render :partial => 'statements/approved' unless @approved_node.nil? %>
 
