@@ -796,7 +796,7 @@ class StatementsController < ApplicationController
     
     # Loads sibling (or other question) statements to session if they were not loaded yet
     key = ("current_" + statement_node_class.to_s.underscore).to_sym
-    if session[key].nil? or reload
+    if session[key].nil? or (reload and !statement_node.parent.nil?)
       session[key] = statement_node.echoable? ? 
                      statement_node.sibling_statements(@language_preference_list).map(&:id) :
                      search_statement_nodes(:language_ids => @language_preference_list, 
