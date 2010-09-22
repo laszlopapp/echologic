@@ -22,6 +22,7 @@
 
   <!-- Show the document -->
   <div class="statement_content">
+  	<%= statement_image(statement_node, current_user) %>
     <%= sanitize statement_document.text %>
   </div>
 

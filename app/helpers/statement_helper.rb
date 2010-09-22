@@ -5,12 +5,16 @@ module StatementHelper
       alias_method :proposal_path, :proposal_url
       alias_method :new_proposal_path, :new_proposal_url
       alias_method :new_translation_proposal_path, :new_translation_proposal_url
+      alias_method :upload_image_proposal_path, :upload_image_proposal_url
+      alias_method :reload_image_proposal_path, :reload_image_proposal_url
       alias_method :children_proposal_path, :children_proposal_url
       alias_method :children_path, :children_url
 
       alias_method :improvement_proposal_path, :improvement_proposal_url
       alias_method :new_improvement_proposal_path, :new_improvement_proposal_url
       alias_method :new_translation_improvement_proposal_path, :new_translation_improvement_proposal_url
+      alias_method :upload_image_improvement_proposal_path, :upload_image_improvement_proposal_url
+      alias_method :reload_image_improvement_proposal_path, :reload_image_improvement_proposal_url
     end
   end
 
@@ -32,6 +36,14 @@ module StatementHelper
 
   def create_translation_url (parent, type)
     send("create_translation_#{type.downcase}_url",parent)
+  end
+  
+  def upload_image_url (parent, type, opts={})
+    send("upload_image_#{type.downcase}_url",parent, opts)
+  end
+  
+  def reload_image_url (parent, type, opts={})
+    send("reload_image_#{type.downcase}_url",parent, opts)
   end
 
   def children_url (parent, type, opts={})
@@ -76,6 +88,22 @@ module StatementHelper
 
   def create_translation_proposal_path(proposal)
     create_translation_question_proposal_path(proposal.parent, proposal)
+  end
+  
+  def upload_image_proposal_url(proposal, opts={})
+    upload_image_question_proposal_url(proposal.parent, proposal, opts)
+  end
+
+  def upload_image_proposal_path(proposal, opts={})
+    upload_image_question_proposal_path(proposal.parent, proposal, opts)
+  end
+  
+  def reload_image_proposal_url(proposal, opts={})
+    reload_image_question_proposal_url(proposal.parent, proposal, opts)
+  end
+
+  def reload_image_proposal_path(proposal, opts={})
+    reload_image_question_proposal_path(proposal.parent, proposal, opts)
   end
 
   def children_proposal_url(proposal, opts={})
@@ -135,6 +163,30 @@ module StatementHelper
                                                                    improvement_proposal.parent,
                                                                    improvement_proposal)
   end
+  
+  def upload_image_improvement_proposal_url(improvement_proposal, opts={})
+    upload_image_question_proposal_improvement_proposal_url(improvement_proposal.root,
+                                                                  improvement_proposal.parent,
+                                                                  improvement_proposal, opts)
+  end
+
+  def upload_image_improvement_proposal_path(improvement_proposal, opts={})
+    upload_image_question_proposal_improvement_proposal_path(improvement_proposal.root,
+                                                                   improvement_proposal.parent,
+                                                                   improvement_proposal, opts)
+  end
+  
+  def reload_image_improvement_proposal_url(improvement_proposal, opts={})
+    reload_image_question_proposal_improvement_proposal_url(improvement_proposal.root,
+                                                                  improvement_proposal.parent,
+                                                                  improvement_proposal, opts)
+  end
+
+  def reload_image_improvement_proposal_path(improvement_proposal, opts={})
+    reload_image_question_proposal_improvement_proposal_path(improvement_proposal.root,
+                                                                   improvement_proposal.parent,
+                                                                   improvement_proposal, opts)
+  end
 
 
 
@@ -150,11 +202,13 @@ module StatementHelper
     return unless statement_node.class.expected_children.any?
     type = statement_node_class_dom_id(statement_node.class.expected_children.first)
 
-    link_to(I18n.t("discuss.statements.create_#{type}_link"),
-            new_child_statement_node_url(statement_node, type),
-            :id => "create_#{type}_link",
-            :class => "ajax add_new_button text_button create_#{type}_button ttLink no_border",
-            :title => I18n.t("discuss.tooltips.create_#{type}"))
+    content_tag :li do
+      link_to(I18n.t("discuss.statements.create_#{type}_link"),
+              new_child_statement_node_url(statement_node, type),
+              :id => "create_#{type}_link",
+              :class => "ajax add_new_button text_button create_#{type}_button ttLink no_border",
+              :title => I18n.t("discuss.tooltips.create_#{type}"))
+    end
   end
 
   #
@@ -267,7 +321,7 @@ module StatementHelper
       val = "<span class='no_echo_indicator ttLink' title='#{tooltip}'></span>"
     end
   end
-
+  
   # Renders the button for echo and unecho.
   def render_echo_button(url_options, echo = true)
     title = I18n.t("discuss.tooltips.#{echo ? '' : 'un'}echo")
@@ -382,6 +436,37 @@ module StatementHelper
     val << "#{image_tag 'page/translation/babelfish_right.png', :class => 'fish_right'}"
     val << %(<span class="language_label to_language">#{language_to}</span>)
     val
+  end
+
+  # draws the statement image container
+  def statement_image(statement_node, current_user)
+    val = ""
+    if statement_node.image.exists? or statement_node.has_author? current_user
+      val << image_tag(statement_node.image.url(:medium), :id => 'statement_image', :class => 'image')
+    end
+    if !statement_node.published? or (!statement_node.image.exists? and statement_node.has_author? current_user)
+      val << link_to(I18n.t('users.profile.picture.upload_button'), 
+                upload_image_url(statement_node, statement_node_class_dom_id(statement_node)), 
+                :class => 'ajax upload_link button_150', :id => 'upload_image_link')
+    end 
+    content_tag :div, val, :class => 'image_container', :id => 'image_container' if !val.blank?
+  end
+
+  #draws the "more" link when the statement is loaded
+  def more_children(statement_node)
+    link_to I18n.t("application.general.more"), 
+            children_url(statement_node, statement_node_class_dom_id(statement_node).downcase, :page => 1), 
+            :class => 'more_children ajax'
+  end
+
+  # returns a collection from possible statement states to be used on radios and select boxes
+  def statement_states_collection
+    StatementState.all.map{|s|[I18n.t("discuss.statements.states.initial_state.#{s.code}"),s.id]}
+  end
+
+  # draws the "page loading" information icon
+  def loading_icon
+    content_tag :span, I18n.t("application.general.loading"), :class => 'pagination_loading'
   end
 
   # This class does the heavy lifting of actually building the pagination

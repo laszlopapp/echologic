@@ -22,7 +22,7 @@ module QuestionsHelper
   end
   
   def discussion_title(title,statement_node)
-    link_to(h(title),url_for(statement_node),:class => "statement_link ttLink no_border",
+    link_to(h(title),question_url(statement_node), :class => "statement_link ttLink no_border",
             :title => I18n.t("discuss.tooltips.read_#{statement_node.class.name.underscore}")) 
   end
   
@@ -30,7 +30,7 @@ module QuestionsHelper
     link_to question_url(question),
                :title => "#{h(title) if long_title}",
                :class => "avatar_holder#{' ttLink no_border' if long_title }" do 
-      image_tag("default_question_image.png")
+      image_tag question.image.url(:small)
     end
   end
   

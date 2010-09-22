@@ -17,7 +17,7 @@ class StatementNode < ActiveRecord::Base
   belongs_to :root_statement, :foreign_key => "root_id", :class_name => "StatementNode"
   belongs_to :statement
 
-  delegate :original_language, :document_in_language, :authors, :to => :statement
+  delegate :original_language, :document_in_language, :authors, :has_author?, :statement_image, :statement_image=, :image, :image=, :to => :statement
 
   has_enumerated :editorial_state, :class_name => 'StatementState'
 
@@ -118,11 +118,11 @@ class StatementNode < ActiveRecord::Base
 
   # creates a new statement_document
   def add_statement_document(attributes={ },opts={})
-    original_language_id = attributes.delete(:original_language_id)
-    self.statement = Statement.new(:original_language_id => original_language_id) if self.statement.nil?
+    original_language_id = attributes.delete(:original_language_id).to_i
+    self.statement = Statement.new(:original_language_id => original_language_id) if self.statement_id.nil?
     doc = StatementDocument.new
-    attributes.each {|k,v|doc.send("#{k.to_s}=", v)}
     doc.statement = self.statement
+    attributes.each {|k,v|doc.send("#{k.to_s}=", v)}
     self.statement.statement_documents << doc
     return doc
   end
@@ -130,7 +130,7 @@ class StatementNode < ActiveRecord::Base
   # creates and saves a  statement_document with given parameters a
   def add_statement_document!(*args)
     original_language_id = args[0].delete(:original_language_id)
-    self.statement = Statement.new(:original_language_id => original_language_id) if self.statement.nil?
+    self.statement = Statement.new(:original_language_id => original_language_id) if self.statement_id.nil?
     doc = StatementDocument.new(:statement_id => self.statement.id)
     doc.statement = self.statement
     doc.update_attributes!(*args)

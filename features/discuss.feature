@@ -90,7 +90,7 @@ Feature: Take Part on a discussion
      Given I am logged in as "user" with password "true"
        And there is a proposal
      When I go to the proposal
-     Then I should see localized "discuss.summary.title"
+     Then I should see "Proposal"
        And I should see the proposals data
        And I should see localized "discuss.statements.create_improvement_proposal_link"
 

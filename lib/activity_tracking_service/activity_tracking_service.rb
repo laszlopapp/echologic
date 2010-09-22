@@ -122,10 +122,9 @@ class ActivityTrackingService
       question_events = events.select{|e|JSON.parse(e.event)['type'] == 'question'}
       
       # created an Hash containing the number of ocurrences of the new tags in the new questions
-      tag_counts = Hash.new
-      question_events.each do |question|
+      tag_counts = question_events.each_with_object({}) do |question, tags_hash|
         question_data = JSON.parse(question.event)
-        question_data['tags'].each{|tag| tag_counts[tag] = tag_counts[tag] ? tag_counts[tag] + 1 : 1 }
+        question_data['tags'].each{|tag| tags_hash[tag] = tags_hash.has_key?(tag) ? tags_hash[tag] + 1 : 1 }
       end
       
       events.sort! do |a,b|
@@ -152,10 +151,8 @@ class ActivityTrackingService
 
 
   def set_titles_hash(documents)
-    hash = Hash.new
-    documents.each do |document|
-      hash[document.language_id] = document.title
+    documents.each_with_object({}) do |document, titles_hash|
+      titles_hash[document.language_id] = document.title
     end
-    hash
   end
 end

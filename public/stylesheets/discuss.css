@@ -280,6 +280,26 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .statement_content {
   margin-top: 12px;
   line-height:1.25em;
+	display: inline-block;
+	width: 815px;
+}
+
+.statement_content .image_container {
+	float: right;
+	margin-left: 20px;
+	margin-bottom: 20px;
+	width: 170px;
+	height: 125px;
+}
+
+.statement_content .image {
+	
+}
+
+.statement_content .upload_link {
+	position: absolute;
+  top: 178px;
+	margin-left: 9px; 
 }
 
 .statement_content a {
@@ -615,6 +635,8 @@ a.statement_link:hover {
   cursor: pointer;
 }
 
+
+
 #discussion_list a.avatar_holder{
 	float: left;
 }
@@ -687,4 +709,8 @@ a.statement_link:hover {
   max-width: 45px;
   max-height: 45px;
   border: 2px solid #7bb031;
+}
+
+#my_discussions .no_discussions {
+  text-align: center;
 }

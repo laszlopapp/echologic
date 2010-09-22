@@ -300,6 +300,7 @@ en:
     my_discussions:
       link: My Discussions
       title: My new & published discussions
+      no_discussions: 'Sorry, no discussions at the moment'
     tag_permission: |
       You do not have the permission to insert the '{{tag}}' tag.
     translation_request: Please translate this statement to <strong>ENGLISH</strong>.
@@ -404,8 +405,9 @@ en:
       topic: Topic (Tags / Keywords)
       states:
         label: 'Publish discussion immediately?'
-        deferred_publish: 'Set up at first and publish later'
-        immediate_publish: 'Publish immediately (no further editing is possible)'
+        initial_state:
+          new: 'Set up at first and publish later'
+          published: 'Publish immediately (no further editing is possible)'
         published: Released
         approved: Approved
       delete_link: 'Delete'
@@ -431,6 +433,12 @@ en:
         Afterwards, your modifications might even get discarded.
       staled_modification: 'We are very sorry, but you exceeded the 60 minutes limit to edit and save the statement. Meanwhile it has already been updated by a different user. Therefore, your changes must have been unfortunately discarded.'
 
+      upload_image:
+        title: Upload Image
+        guide: Please <strong>select a picture</strong> (JPG or PNG, max. 5MB) and upload it.
+        progress: The image is being uploaded. Please wait...
+        error: 'Error uploading image: Image format not supported.'
+
     summary:
       title: 'Summary'
 
@@ -440,6 +448,7 @@ en:
       deleted: "The {{type}} has been deleted successfully."
       translated: "The {{type}} has been translated successfully."
       incorporated: "The improvement proposal has been successfully incorporated into the proposal."
+      image_uploaded: "The Image has been successfully uploaded into the {{type}}."
       empty:   "No discussions found. Please change your search criteria."
       empty_without_spoken_languages: |
         No discussions found. You can try defining your <a href='{{my_echo}}'>language skills</a>
@@ -546,6 +555,7 @@ en:
         language: 'Language'
         title: 'Title'
         text: 'Summary'
+        image: 'Image'
 
     models:
       question: "question"

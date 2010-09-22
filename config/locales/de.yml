@@ -309,6 +309,7 @@ de:
     my_discussions:
       link: Meine Diskussionen
       title: Meine neuen & freigegebenen Diskussionen
+      no_discussions: 'Sorry, no discussions at the moment'
     tag_permission: |
       Sie dürfen leider den Tag '{{tag}}' nicht vergeben.
     original_language_warning: |
@@ -413,8 +414,9 @@ de:
       topic: Thema (Tags / Schlüsselwörte)
       states:
         label: 'Diskussion sofort veröffentlichen?'
-        deferred_publish: 'Erstmal weiter vorbereiten und später veröffentlichen'
-        immediate_publish: 'Sofort veröffentlichen (danach ist keine Bearbeitung mehr möglich)'
+        initial_state:
+          new: 'Erstmal weiter vorbereiten und später veröffentlichen'
+          published: 'Sofort veröffentlichen (danach ist keine Bearbeitung mehr möglich)'
         published: Freigegeben
         approved: Approved
       delete_link: 'Löschen'
@@ -440,6 +442,12 @@ de:
         Nach Ablauf können Ihre Änderungen eventuell nicht mehr berücksichtigt werden.
       staled_modification: 'Es tut uns sehr leid, aber Ihre Bearbeitungszeit von max. 60 Minuten ist abgelaufen. Mittlerweile hat ein anderer Nutzer den Vorschlag bearbeitet. Ihre Änderungen mussten daher leider verworfen werden.'
 
+      upload_image:
+        title: Upload Image
+        guide: Please <strong>select a picture</strong> (JPG or PNG, max. 5MB) and upload it.
+        progress: The image is being uploaded. Please wait...
+        error: 'Error uploading image: Image format not supported.'
+
     summary:
       title: 'Zusammenfassung'
     messages:
@@ -448,6 +456,7 @@ de:
       deleted: "{{type}} wurde erfolgreich gelöscht."
       translated: "{{type}} wurde erfolgreich übersetzt."
       incorporated: "Der Verbesserungsvorschlag wurde erfolgreich in den Vorschlag übernommen."
+      image_uploaded: "The Image has been successfully uploaded into the {{type}}."
       empty: "Es wurden keine Diskussionen gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
       empty_without_spoken_languages: |
         Keine Diskussion gefunden. Versuchen Sie Ihre <a href='{{my_echo}}'>Sprachkenntnisse</a> einzustellen,
@@ -558,6 +567,7 @@ de:
         language: 'Sprache'
         title:    'Titel'
         text:     'Zusammenfassung'
+        image:    'Image'
 
     models:
       question: "Frage"

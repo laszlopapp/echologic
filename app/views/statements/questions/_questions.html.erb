@@ -15,8 +15,8 @@
       <% else %>
         <span class="no_results">
           <%= (!current_user or current_user.spoken_languages.blank?) ?
-              I18n.t('discuss.messages.empty_without_spoken_languages',
-                     :my_echo => my_profile_path) : I18n.t('discuss.messages.empty') %>
+              I18n.t('discuss.messages.empty_without_spoken_languages', :my_echo => my_profile_path) : 
+              I18n.t('discuss.messages.empty') %>
         </span>
       <% end %>
 	  </ul>

@@ -1,12 +1,24 @@
 class Statement < ActiveRecord::Base
   has_many :statement_nodes
   has_many :statement_documents, :dependent => :destroy
+  belongs_to :statement_image
+  delegate :image, :image=, :to => :statement_image
+  
+  
   validates_associated :statement_documents
 
   has_many :statement_histories, :source => :statement_histories
 
+  def after_initialize
+    self.statement_image = StatementImage.new if self.statement_image.nil?
+  end
+
   def authors
-    statement_histories.select{|sh|original_language.eql?(sh.language)}.map{|s|s.author}
+    statement_histories.select{|sh|original_language.eql?(sh.language)}.map(&:author)
+  end
+
+  def has_author? user
+    authors.map(&:id).include? user.id
   end
 
   has_enumerated :original_language, :class_name => 'Language'
