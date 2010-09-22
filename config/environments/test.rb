@@ -40,3 +40,6 @@ config.gem "cucumber", :lib => false, :version => ">=0.2.2"
 # Hosts
 ECHO_HOST = 'localhost:3000'
 ECHOSOCIAL_HOST = 'localhost:3001'
+
+# Initial elements number on statements children pagination
+INITIAL_CHILDREN = 7

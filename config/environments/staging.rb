@@ -27,3 +27,6 @@ ECHOSOCIAL_HOST = 'echosocial.echo-test.org'
 
 # Feedback recipient
 FEEDBACK_RECIPIENT = 'laszlo.papp@echologic.org'
+
+# Initial elements number on statements children pagination
+INITIAL_CHILDREN = 3

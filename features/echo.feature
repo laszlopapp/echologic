@@ -107,8 +107,9 @@ Feature: Echo
       And I go to the proposal
       And I follow "echo_button"
     Then I am supporter of the proposal
-      And I go to the proposal
-      And I choose the "A better first proposal" Improvement Proposal
+  #    And I go to the proposal
+  #   And I choose the "A better first proposal" Improvement Proposal
+      And I go to the improvement proposal
     Given I follow "echo_button"
     Then I am supporter of the improvement proposal
    #   And I should not see "You can only support improvement proposals if you support the proposal itself."
