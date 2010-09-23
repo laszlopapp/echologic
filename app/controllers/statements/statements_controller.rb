@@ -85,8 +85,7 @@ class StatementsController < ApplicationController
 
       
       # Load statement node data to session for prev/next functionality
-      reload = params[:reload].nil? ? true : params[:reload]
-      load_to_session(@statement_node, reload)
+      load_to_session(@statement_node)
       
       # Get document to show and redirect if not found
       @statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
@@ -799,8 +798,7 @@ class StatementsController < ApplicationController
     if session[key].nil? or (reload and !statement_node.parent.nil?)
       session[key] = statement_node.echoable? ? 
                      statement_node.sibling_statements(@language_preference_list).map(&:id) :
-                     search_statement_nodes(:language_ids => @language_preference_list, 
-                                            :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id)
+                     [statement_node.id]
     end
     
     # Store last statement in session (for cancel link)
