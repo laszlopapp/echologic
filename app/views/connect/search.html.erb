@@ -8,11 +8,10 @@
 %>
 
 <div id="connect_search_container" class="search_container">
-  <% form_tag connect_path, :method => 'GET', :id => 'search_form' do %>
+  <% content_tag :div, :id => 'search_form' do %>
     <%= text_field_tag :value %>
-    <%= hidden_field_tag :sort, @sort if not @sort.nil? %>
-    <%= hidden_field_tag :sort if @sort.nil? %>
-    <%= submit_tag '', :alt => 'search_button' %>
+    <%= hidden_field_tag :sort, @sort %>
+  	<%= content_tag :span, '', :name => 'submit_button', :class => 'submit_button', :alt => 'search_button' %>
   <% end %>
 </div>
 
