@@ -9,10 +9,11 @@
     <br/>
     <%= doc.input :text,
                   :input_html => {:class => css_rte_class}%>
-  <% end %>
-	<%= doc.input :old_document_id, :as => :hidden, :value => statement_document.id %>
-	<%= doc.input :locked_at, :as => :hidden, :value => statement_document.locked_at %>
-	<%= doc.input :action_id, :as => :hidden, :value => @action.id if @action %>
+  
+		<%= doc.input :old_document_id, :as => :hidden, :value => statement_document.id %>
+		<%= doc.input :locked_at, :as => :hidden, :value => statement_document.locked_at %>
+		<%= doc.input :action_id, :as => :hidden, :value => @action.id if @action %>
+	<% end %>
 <% end -%>
 
 <script>
