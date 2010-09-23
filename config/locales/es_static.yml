@@ -69,10 +69,10 @@ es:
           more: |
             <p>El <strong><a href="{{github_url}}" target="_blank">código abierto</a></strong> de echo servirá como base de una
             <strong>infraestructura distribuida</strong> y variopinta.
-            Ligando varias plataformas y sitios de web echo extralimitará la aislamiento de las iniciativas existentes,
+            Ligando varias plataformas y sitios de web echo extralimitará el aislamiento de las iniciativas existentes,
             focalizando y multiplicando su potencial.
             </p><p>
-            echo es <strong>social business</strong> y se obligo a promover altos valores éticos y democráticos.
+            echo es <strong>social business</strong> y su obligación es promover altos valores éticos y democráticos.
             Siguiendo su <strong>filosofía de "Your-Profit"</strong> todos los lucros sobrantes serán reinvertidos en proyectos
             sociales y ecológicos.
             Así la acción virtual puede resultar en un cambio real y gradualmente traerá mas <strong>auto-determinación</strong>
@@ -82,15 +82,15 @@ es:
           title:  Tu echo
           more: |
             <p>
-            Tu voz necesita un ec(h)o. echo necesita tu voz. Ayúdenos a guiar la democracia hacia un futuro en que
-            <strong>cualcier voz vale</strong> lo mismo por todo el mundo.
+            Tu voz necesita un ec(h)o. echo necesita tu voz. Ayúdenos a guiar la democracia hacia un futuro en el que
+            <strong>cualquier voz vale</strong> lo mismo en todo el mundo.
             </p><p>
-            En echo se reúnen más y más personas para juntos <strong>realizar la visión de echo</strong>.
+            Más y más personas se reúnen para <strong>realizar conjuntamente la visión de echo</strong>.
             Aunque echo todavía está empezando a gatear, ya puedes:
             </p>
 
         action: |
-          Descubrirlo y contribuir tus ideas!
+          Descubrirlo y contribuir con tus ideas!
 
       # about section
       about:
@@ -744,7 +744,7 @@ es:
           <p>
           echo social les posibilitará a criar su <strong>propia red social</strong> para su organización, su projectos y
           actiones, y tornarlo parte de un movimiento global.
-          Sus ideas y pansamientos, sus actividades apoyarán a realmente cambiar algo.
+          Sus ideas y pensamientos, sus actividades apoyarán a realmente cambiar algo.
           </p><p>
           echo social es la solución de <strong>Open Source</strong> para criar con unos pocos clic <strong>su propria
           página web</strong> con su visual individual - <strong>gratis!</strong>
