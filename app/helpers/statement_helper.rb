@@ -219,7 +219,7 @@ module StatementHelper
 
     link_to(new_child_statement_node_url(statement_node.parent, type),
             :id => "create_#{type}_link",
-            :class => "ajax") do
+            :class => "#{statement_node.echoable? ? 'ajax' : ''}") do
       content_tag(:span, '',
                   :class => "create_statement_button_mid create_#{type}_button_mid ttLink no_border",
                   :title => I18n.t("discuss.tooltips.create_#{type}"))
@@ -316,20 +316,22 @@ module StatementHelper
                        :supporter_count => statement_node.supporter_count)
     end
     if statement_node.ratio > 1
-      val = "<span class='echo_indicator ttLink' title='#{tooltip}' alt='#{statement_node.ratio}'></span>"
+      content_tag :span, '', :class => "echo_indicator ttLink", :title => tooltip, :alt => statement_node.ratio
     else
-      val = "<span class='no_echo_indicator ttLink' title='#{tooltip}'></span>"
+      content_tag :span, '', :class => "no_echo_indicator ttLink", :title => tooltip
     end
   end
   
   # Renders the button for echo and unecho.
-  def render_echo_button(url_options, echo = true)
+  def render_echo_button(statement_node, url_options, echo = true)
+    return if !statement_node.echoable?
     title = I18n.t("discuss.tooltips.#{echo ? '' : 'un'}echo")
     link_to(url_for(url_options.merge({:action => (echo ? :echo : :unecho)})),
                     :class => "ajax_put",
                     :id => 'echo_button') do
-      "<span class='#{echo ? 'not_' : '' }supported ttLink no_border' title='#{title}'></span>"
+       content_tag :span, '', :class => "#{echo ? 'not_' : '' }supported ttLink no_border", :title => "#{title}"
     end
+    tag("br")
   end
 
   # Returns the context menu link for this statement_node.
@@ -350,7 +352,7 @@ module StatementHelper
 
   # Creates a label to explain the echo/supporter count indicators
   def echo_label(context=nil)
-    val = "<span class='echo_label'>#{I18n.t('discuss.statements.label')}</span>"
+    content_tag :span, I18n.t('discuss.statements.label'), :class => 'echo_label'
   end
 
 
@@ -431,10 +433,10 @@ module StatementHelper
 
   def translation_upper_box(language_from, language_to)
     val = "#{image_tag 'page/translation/babelfish_left.png', :class => 'fish_left'}"
-    val << %(<span class="language_label from_language"> #{language_from} </span>)
+    val << (content_tag :span, language_from, :class => 'language_label from_language')
     val << "#{image_tag 'page/translation/translation_arrow.png',:class => 'arrow'}"
     val << "#{image_tag 'page/translation/babelfish_right.png', :class => 'fish_right'}"
-    val << %(<span class="language_label to_language">#{language_to}</span>)
+    val << (content_tag :span, language_to, :class => "language_label to_language")
     val
   end
 
