@@ -13,15 +13,15 @@ pt:
           data_privacy:     'echo - Privacidade de dados'
         echo:
           show:    'echo - A Ágora Global (Democracia Re-estruturada)'
-          discuss: 'echo - Discuss (formação de opiniões e tomada de decisões - orientado à solução, transparente e democrático)'
-          connect: 'echo - Connect (com aliados com diferentes formas de competência )'
-          act:     'echo - Act (por resultados notáveis no dia-a-dia e por uma mudança sustentável)'
-          echo_on_waves: 'echo - Everywhere (sinergias através de uma infra-estrutura descentral - echo on waves)'
+          discuss: 'echo - Discutir (formação de opiniões e tomada de decisões - orientado à solução, transparente e democrático)'
+          connect: 'echo - Conectar (com aliados com diferentes formas de competência )'
+          act:     'echo - Agir (por resultados notáveis no dia-a-dia e por uma mudança sustentável)'
+          echo_on_waves: 'echo - Em todo o lado (sinergias através de uma infra-estrutura descentral - echo on waves)'
         echocracy:
           show:            'echocracy - A nova forma de Democracia Participatória da Echo'
-          citizens:        'echocracy - Cidadãos Afectados & Comprometidos'
+          citizens:        'echocracy - Cidadãos Relacionados & Comprometidos'
           scientists:      'echocracy - Especialistas & Cientistas'
-          decision_makers: 'echocracy - Responsáveis pelas decisões Políticos e Económicos'
+          decision_makers: 'echocracy - Políticos e Economistas responsáveis pelas decisões'
           organisations:   'echocracy - Organizações Não-Governamentais & Governamentais'
         echonomy:
           show:            'echonomy - Uma nova Era de Economia Eco-socialmente sustentável, Democrática'
@@ -49,11 +49,11 @@ pt:
 
       # discuss: de.seo.title.discuss
       discuss:
-        index: 'echo - Discuss'
-        roadmap: 'echo - Roadmap for Discuss'
+        index: 'echo - Discutir'
+        roadmap: 'echo - Evolução - Discutir'
       questions:
         category: 'echo - Tópico de Discussão'
-        show: 'echo - Discussion'
+        show: 'echo - Discussão'
         new: 'Abra uma nova discussão'
         my_discussions: 'Minhas Discussões'
       proposals:
@@ -63,17 +63,17 @@ pt:
 
       # connect: de.seo.title.connect
       connect:
-        roadmap:  'echo - Roadmap for Connect'
-        show:   'echo - Connect - Explore a comunidade'
-        fill_out_profile: 'echo - Connect - Dê e receba'
+        roadmap:  'echo - Evolução - Conectar'
+        show:   'echo - Conectar - Explore a comunidade'
+        fill_out_profile: 'echo - Conectar - Dê e receba'
 
       # act: de.seo.title.act
       act:
-        roadmap: 'echo - Roadmap for Act'
+        roadmap: 'echo - Evolução - Agir'
 
       # my_echo: de.seo.title.my_echo
       my_echo:
-        roadmap: 'echo - Roadmap for My echo'
+        roadmap: 'echo - Evolução - O meu echo'
         welcome: 'echo - Bemvindo'
         profile: 'echo - O meu Perfil'
         settings:  'echo - Definições'
@@ -83,14 +83,35 @@ pt:
         show: 'echo - Área Admin'
 
     meta:
-      description: |-
-        Echologic é uma rede de mentes abertas e suas organizações unidas para realizar a Echo, a Ágora global.
-        Echo é um meio social que concede o poder ao cidadão. O nosso objective é estabelecer um novo tipo de
-        democracia participatória tanto a nível local, como a nível regional ou até global. De acordo com este ideal,
-        echo significa o fim da impotência e o princípio da auto-determinação.
-      keywords: |-
-        echo, ágora, ágora global, democracia, democracia participatória, auto-determinação,
-        inteligência colectiva, futuro sustentável, base de opiniões, formação de opiniões, tomada de decisões,
-        transparência, colaboração democrática orientada à solução, echocracia, igualdade, echologic,
-        economia, economia democrática eco-social, your-profit, glocal, glocality
+      echologic:
+        description: |-
+          A echologic é uma rede de mentes abertas e suas organizações unidas para realizar a Echo, a Ágora global.
+          Echo é um meio social que concede o poder ao cidadão. O nosso objective é estabelecer um novo tipo de
+          democracia participatória tanto a nível local, como a nível regional ou até global. De acordo com este ideal,
+          echo significa o fim da impotência e o princípio da auto-determinação.
+        keywords: |-
+          echo, ágora, ágora global, democracia, democracia participatória, auto-determinação,
+          inteligência colectiva, futuro sustentável, base de opiniões, formação de opiniões, tomada de decisões,
+          transparência, colaboração democrática orientada à solução, echocracia, igualdade, echologic,
+          economia, economia democrática eco-social, your-profit, glocal, glocality
 
+      echo:
+        description: |-
+          A echo é um projeto conjunto cujo objectivo é facilitar a mudança sustentável através da participação
+          ativa dos cidadãos. Esta providencia a base tecnológica para uma democracia aberta e participatória a um 
+          nível local, regional e global. A sua voz encontra aqui um 'echo'. Ideias tornam-se em movimentos, visões 
+          em realidade. Echo significa o fim da impotência e o princípio da auto-determinação.
+        keywords: |-
+          echo, agora, ágora global, democracia, democracia participatória, auto-determinação, inteligência coletiva,
+          base de opinião, formação de opinião, formaçao da determinação, tomada de decisões coletiva, mobilização, massas críticas,
+          legislative instruments, political influence, social collaboration, echocracy, equality, transparency,
+          economia, eco-social, Your-Profit, glocal, glocalidade, sustentabilidade, mudança sustentável
+
+      echosocial:
+        description: |-
+          A echo social é a solução open-source para facilmente criar a sua rede social e o seu site individual - grátis!
+          Adicionalmente, a echo social visa criar ações conjuntas unindo os inumeráveis projetos e ações isolados, tornando-os
+          um movimento global.
+        keywords: |-
+          rede social, grátis, open-source, website individual, sistema descentral, agregar compromisso civil,
+          movimento global, influência política, ecosocial, eco-social, eco, social
