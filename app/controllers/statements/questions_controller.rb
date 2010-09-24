@@ -4,12 +4,14 @@ class QuestionsController < StatementsController
   def my_discussions
     @page     = params[:page]  || 1
     
-    session[:current_question] = []
+    discussions_not_paginated = Question.by_creator(current_user).by_creation
     
-    @discussions = Question.by_creator(current_user).by_creation.paginate(:page => @page,
-                                                                              :per_page => 5)
+    session[:current_question] = discussions_not_paginated.map(&:id)
+    
+    @discussions = discussions_not_paginated.paginate(:page => @page, :per_page => 5)    
     @statement_documents = search_statement_documents(@discussions.map(&:statement_id),
                                                       @language_preference_list)
+                  
     respond_to_js :template => 'statements/questions/my_discussions', :template_js => 'statements/questions/discussions'
   end
 

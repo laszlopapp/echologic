@@ -170,7 +170,7 @@ en:
     profile:
       title: Personal Information
       edit_title: Edit your personal information
-      guide: Below you find your basic personal information. Please press the Edit button to change them.
+      guide: Below you find your basic personal information. Please press the Edit button to change it.
 
       gender:
         male: Male
