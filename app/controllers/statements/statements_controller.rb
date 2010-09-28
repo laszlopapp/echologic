@@ -125,10 +125,8 @@ class StatementsController < ApplicationController
       respond_to_js :template => 'statements/show',
                     :partial_js => 'statements/show.rjs'
 
-    rescue Exception => e
-      log_message_error(e, "Error showing statement.") do |format|
-        format.html { flash_error and redirect_to_home }
-      end
+rescue Exception => e
+      log_home_error(e,"Error showing statement.")
     end
   end
   
@@ -321,9 +319,7 @@ class StatementsController < ApplicationController
         end
       end
     rescue Exception => e
-      log_message_error(e, "Error updating statement node '#{@statement_node.id}'.") do |format|
-        format.html { flash_error and redirect_to url_for(@statement_node) }
-      end
+      log_statement_error(e, "Error updating statement node '#{@statement_node.id}'.")
     else
       log_message_info("Statement node '#{@statement_node.id}' has been updated sucessfully.") if update
       log_message_info("Statement node '#{@statement_node.id}' has a new image.") if update_image
@@ -463,9 +459,7 @@ class StatementsController < ApplicationController
         end
       end
     rescue Exception => e
-      log_message_error(e, "Error echoing statement node '#{@statement_node.id}'.") do |format|
-        format.html { flash_error and redirect_to url_for(@statement_node) }
-      end
+      log_statement_error(e, "Error echoing statement node '#{@statement_node.id}'.")
     else
       log_message_info("Statement node '#{@statement_node.id}' has been echoed sucessfully.")
     end
@@ -494,9 +488,7 @@ class StatementsController < ApplicationController
       respond_to_js :redirect_to => @statement_node,
                     :template_js => 'statements/unecho'
     rescue Exception => e
-      log_message_error(e, "Error unechoing statement node '#{@statement_node.id}'.") do |format|
-        format.html { flash_error and redirect_to url_for(@statement_node) }
-      end
+      log_statement_error(e, "Error unechoing statement node '#{@statement_node.id}'.")
     else
       log_message_info("Statement node '#{@statement_node.id}' has been unechoed sucessfully.")
     end
@@ -647,9 +639,7 @@ class StatementsController < ApplicationController
         return
       end
     rescue Exception => e
-      log_message_error(e, "Error running redirect approved/incorporated IP filter") do |format|
-        format.html { flash_error and redirect_to_home }
-      end
+      log_home_error(e,"Error running redirect approved/incorporated IP filter")
     end
   end
 
@@ -771,10 +761,9 @@ class StatementsController < ApplicationController
   # Gets all the statement documents belonging to a group of statements, and orders them per language ids.
   #
   def search_statement_documents (statement_ids, language_ids = @language_preference_list)
-    statement_documents = StatementDocument.search_statement_documents(statement_ids, language_ids)
-    statement_documents = statement_documents.sort do |a, b|
+    statement_documents = StatementDocument.search_statement_documents(statement_ids, language_ids).sort! {|a, b|
       language_ids.index(a.language_id) <=> language_ids.index(b.language_id)
-    end
+    }
     statement_documents.each_with_object({}) do |sd, documents_hash|
       documents_hash[sd.statement_id] = sd unless documents_hash.has_key?(sd.statement_id)
     end
@@ -819,6 +808,18 @@ class StatementsController < ApplicationController
       yield format if block_given?
       format.html { flash_info and render :template => opts[:template] }
       format.js   { render_with_info }
+    end
+  end
+  
+  def log_statement_error(e, message)
+    log_message_error(e, message) do |format|
+      flash_error and redirect_to url_for(@statement_node)
+    end
+  end
+  
+  def log_home_error(e, message)
+    log_message_error(e, message) do |format|
+      flash_error and redirect_to_home
     end
   end
 end

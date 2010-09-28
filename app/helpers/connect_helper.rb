@@ -18,6 +18,6 @@ module ConnectHelper
   end
   
   def profiles_count_text(count)
-    I18n.t("connect.results_count.#{count < 2 ? 'one' : 'more'}", :count => count)
+    count_text("connect", count)
   end
 end

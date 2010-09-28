@@ -12,7 +12,8 @@
 				<%= doc.input :language_id, 
                       :collection => [[local_language.value,local_language.id]] , 
                       :include_blank => false %>
-				<p><%= I18n.t('discuss.statements.statement_language_hint') %></p>
+				<%= content_tag :p, I18n.t('discuss.statements.statement_language_hint', :url => my_profile_url) %>
+				<%= tag('br')%>
 			<% else %>
 		    <%= doc.input :language_id, :collection => user_languages.collect{|l|[l.value,l.id]}, :include_blank => false %>
 			<% end %>
@@ -20,7 +21,7 @@
 	    <%= doc.input :language_id, :as => :hidden, :value => statement_document.language_id %>
 	  <% end %>
   
-	   <p><%= I18n.t('discuss.statements.drafting_language_hint') if statement_node.draftable? %></p>
+	  <%= content_tag :p, I18n.t('discuss.statements.drafting_language_hint') if statement_node.draftable? %>
 	
     <%= doc.input :title, :input_html => {:disabled => disabled} %>
     <br/>
@@ -33,14 +34,10 @@
 			<%= doc.input :incorporated_node_id, :as => :hidden, :value => @approved_node.id if !@approved_node.nil? %>
 			
 		<% else %>
-		  <li>
-			  <label for="question_statement_document_text">
-          <%= I18n.t("activerecord.attributes.statement_document.text") %>
-        </label>
-        <div class="static_text">
-        	<%= sanitize statement_document.text %>
-        </div>
-			</li>
+		  <% content_tag :li do -%>
+		    <%= label_tag "question_statement_document_text" , I18n.t("activerecord.attributes.statement_document.text") %>
+				<%= content_tag :div, sanitize(statement_document.text), :class => "static_text" %>
+			<% end %>
     <% end %>
 		<%= doc.hidden_field :statement_id %>
   <% end %>

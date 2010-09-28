@@ -368,17 +368,15 @@ module StatementHelper
       index = session[key].index(statement_node.id)
       buttons = if session[key].length == 1
                   statement_tag(:prev, type, true)
-                elsif index == 0
-                  statement_button(session[key][session[key].length-1], statement_tag(:prev, type), :rel => 'prev')
                 else
-                  statement_button(session[key][index-1], statement_tag(:prev, type), :rel => 'prev')
+                  s = index == 0 ? session[key][session[key].length-1] : session[key][index-1]
+                  statement_button(s, statement_tag(:prev, type), :rel => 'prev')
                 end
       buttons << if session[key].length == 1
                    statement_tag(:next, type, true)
-                 elsif index == session[key].length-1
-                   statement_button(session[key][0], statement_tag(:next, type), :rel => 'next')
                  else
-                   statement_button(session[key][index+1], statement_tag(:next, type), :rel => 'next')
+                   s = index == session[key].length-1 ? session[key][0] : session[key][index+1]
+                   statement_button(s, statement_tag(:next, type), :rel => 'next')
                  end
     end
   end
@@ -446,7 +444,7 @@ module StatementHelper
     if statement_node.image.exists? or statement_node.has_author? current_user
       val << image_tag(statement_node.image.url(:medium), :id => 'statement_image', :class => 'image')
     end
-    if !statement_node.published? or (!statement_node.image.exists? and statement_node.has_author? current_user)
+    if statement_node.has_author? current_user and (!statement_node.published? or !statement_node.image.exists?)
       val << link_to(I18n.t('users.profile.picture.upload_button'), 
                 upload_image_url(statement_node, statement_node_class_dom_id(statement_node)), 
                 :class => 'ajax upload_link button_150', :id => 'upload_image_link')

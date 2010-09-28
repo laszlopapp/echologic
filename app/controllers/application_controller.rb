@@ -231,7 +231,7 @@ class ApplicationController < ActionController::Base
       @error = I18n.t(object, options)
     elsif object.class.kind_of?(ActiveRecord::Base.class) && object.errors.count > 0
       value = I18n.t('activerecord.errors.template.body')
-      value += "<ul>"
+      value += "<ul>" 
       object.errors.each do |attr_name, message|
         value += "<li>#{message}</li>"
       end
@@ -312,11 +312,9 @@ class ApplicationController < ActionController::Base
   protected
   def respond_to_js(opts={})
     respond_to do |format|
-      format.html { render :template => opts[:template] } if opts[:template]
       format.html { redirect_to opts[:redirect_to] } if opts[:redirect_to]
-      format.html { render :partial => opts[:partial] } if opts[:partial]
-      format.js   { render :template => opts[:template_js] } if opts[:template_js]
-      format.js   { render :partial => opts[:partial_js] } if opts[:partial_js]
+      [:template,:partial].each{|t| format.html { render t => opts[t] } if opts[t]}
+      [:template,:partial].each{|t| format.js { render t => opts["#{t.id2name}_js".to_sym] } if opts["#{t.id2name}_js".to_sym]}
       yield format if block_given?
     end
   end
@@ -334,8 +332,7 @@ class ApplicationController < ActionController::Base
   def render_static_new(opts={})
     opts[:layout] ||= 'static'
     respond_to do |format|
-      format.html { render :template => opts[:template], :layout => opts[:layout] } if opts[:template]
-      format.html { render :partial => opts[:partial], :layout => opts[:layout] } if opts[:partial]
+      [:template,:partial].each{|t|format.html { render t => opts[t], :layout => opts[:layout] } if opts[t]}
       format.js if !block_given?
       yield format if block_given?
     end
