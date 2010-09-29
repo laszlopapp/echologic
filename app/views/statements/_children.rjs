@@ -8,7 +8,6 @@ page.replace :more_pagination, will_paginate(@children, :id => 'more_pagination'
                                                         :next_label => I18n.t("application.general.more"), 
                                                         :renderer => StatementHelper::MoreRenderer)
 page << "makeRatiobars()";
-page << "$('.pagination_loading').animate(toggleParams).hide();"
 page << "pagination_scroll_down('#children_list', current_scroll)" if @page.to_i > 1
 page << "$('.more_pagination a').addClass('ajax');"
 

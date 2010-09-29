@@ -12,7 +12,9 @@
 				<%= doc.input :language_id, 
                       :collection => [[local_language.value,local_language.id]] , 
                       :include_blank => false %>
-				<%= content_tag :p, I18n.t('discuss.statements.statement_language_hint', :url => my_profile_url) %>
+				<% content_tag :li, :class => 'hint ttLink no_border', :title => I18n.t('discuss.statements.statement_language_hint_tooltip') do -%>
+				  <%= content_tag :p, I18n.t('discuss.statements.statement_language_hint', :url => my_profile_url) %>
+				<% end %>
 				<%= tag('br')%>
 			<% else %>
 		    <%= doc.input :language_id, :collection => user_languages.collect{|l|[l.value,l.id]}, :include_blank => false %>
@@ -21,8 +23,6 @@
 	    <%= doc.input :language_id, :as => :hidden, :value => statement_document.language_id %>
 	  <% end %>
   
-	  <%= content_tag :p, I18n.t('discuss.statements.drafting_language_hint') if statement_node.draftable? %>
-	
     <%= doc.input :title, :input_html => {:disabled => disabled} %>
     <br/>
 		<% if !disabled %>

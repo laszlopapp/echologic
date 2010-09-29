@@ -30,7 +30,8 @@ pt:
           A Echo, como a Ágora global, suplanta os limites comunicativos e espaciais da ágora antiga e torna-se acessível
           a todas as pessoas do planeta.
 
-        yucca: | 'Yucca elata' como símbolo de um novo começo
+        yucca: |-
+          'Yucca elata' como símbolo de um novo começo
 
         news_title: echo no Twitter
         twitter: Siga o echo no Twitter!
@@ -251,9 +252,9 @@ pt:
           com os contra-argumentos mais relevantes. Isto ajuda as pessoas a desenvolver facilmente uma vista diferenciada
           e portanto a previnar polémica e populismo.
 
-        detailed: Base de opinião detalhada 
+        detailed: Base de opinião detalhada
         detailed_more: |
-          Na echo, todas as posições bem como os seus argumentos podem ser apoiados pelos seus utilizadores. Isto 
+          Na echo, todas as posições bem como os seus argumentos podem ser apoiados pelos seus utilizadores. Isto
           possibilita-lhe compreender facilmente o apoio dado a posições alternativas por grupos sociais diferentes
           em qualquer altura.
           <br/><br/>
