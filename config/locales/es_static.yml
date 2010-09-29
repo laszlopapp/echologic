@@ -32,7 +32,8 @@ es:
           traspasa las fronteras espaciales y comunicativas del antiguo ágora, para que
           el principio participativo del mismo sea accesible a todos.
 
-        yucca: | 'Yucca elata' como símbolo de un comienzo nuevo
+        yucca: |-
+          'Yucca elata' como símbolo de un comienzo nuevo
 
         news_title: echo en Twitter
         twitter: Siga echo por Twitter!

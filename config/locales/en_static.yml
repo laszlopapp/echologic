@@ -31,7 +31,8 @@ en:
           echo, as the global agora, overcomes the communicative and spatial limits of the ancient agora and
           makes it accessible for all people on the planet.
 
-        yucca: | 'Yucca elata' as symbol of a new beginning
+        yucca: |-
+          'Yucca elata' as symbol of a new beginning
 
         news_title: echo on Twitter
         twitter: Follow echo on Twitter!

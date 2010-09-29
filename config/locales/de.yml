@@ -6,7 +6,7 @@ de:
 
     # Unexpected Error
     unexpected_error: Ein unerwarteter Fehler ist aufgetreten. Bitte entschuldigen Sie die Unannehmlichkeiten.
- 
+
     # General purpose resources
     general:
       more: mehr »
@@ -32,7 +32,7 @@ de:
       welcome: Willkommen
       all: Alle
       loading: Wird geladen...
- 
+
     # Roadmap - Progress
     roadmap:
       title: fertig
@@ -394,7 +394,7 @@ de:
         Sie können dann Aussagen in allen Sprachen erstellen, die Sie mindestens auf mittlerem Niveau beherrschen.
       drafting_language_hint: |
         Bitte beachten Sie, dass die gemeinsame Weiterentwicklung dieses Vorschlags nur in der ausgewählten Sprache möglich sein wird!
- 
+
       publish: Freigeben
       published: Die Diskussion wurde erfolgreich freigegeben.
       edit: '{{type}} bearbeiten'
@@ -448,7 +448,7 @@ de:
         guide: Bitte wählen sie ein passendes <strong>Bild als Illustration</strong> (JPG or PNG, max. 5MB) und laden Sie es hoch.
         progress: Das Bild wird hochgeladen. Einen kurzen Augenblick bitte...
         error: Das Bild konnte leider nicht angenommen werden. Bitte verwenden Sie nur JPG oder PNG mit max. 5MB.
- 
+
     summary:
       title: 'Zusammenfassung'
     messages:
@@ -569,7 +569,7 @@ de:
         title:    'Titel'
         text:     'Zusammenfassung'
         image:    'Illustration'
- 
+
 
     models:
       question: "Frage"
@@ -590,7 +590,7 @@ de:
         password: 'Passwort'
 
 
-# Date and time formatting
+  # Date and time formatting
   date:
     formats:
       default: "%d.%m.%Y"
