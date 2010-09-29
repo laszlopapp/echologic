@@ -18,7 +18,7 @@ class Statement < ActiveRecord::Base
   end
 
   def has_author? user
-    authors.map(&:id).include? user.id
+    user.nil? ? false : authors.map(&:id).include?(user.id)
   end
 
   has_enumerated :original_language, :class_name => 'Language'
