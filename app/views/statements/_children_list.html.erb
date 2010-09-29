@@ -8,7 +8,6 @@
         <%= create_new_child_statement_link(@statement_node) %>
     <%end%>
   </ul>
-	<%= loading_icon %>
 	<div id="more_pagination" class="more_pagination">
 		<% if !children.blank? and children.current_page != children.total_pages %>
 		  <%= more_children(@statement_node) %>

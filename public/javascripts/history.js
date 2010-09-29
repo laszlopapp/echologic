@@ -68,7 +68,8 @@ $(function() {
 /*********************************************/
 $(function() {
 	$(".more_pagination a").live("click", function() {
-		$('.pagination_loading').animate(toggleParams).show();
+		$(this).replaceWith($('<span/>').text($(this).text()));
+		$(".more_pagination").append($('<span/>').addClass('pagination_loading'));
   });
 });
 

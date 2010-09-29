@@ -486,9 +486,11 @@ a.statement_link:hover {
 }
 
 .pagination_loading{
-	background: white url('../images/indicator.gif') left center no-repeat;
-	padding-left: 20px;
-	display: none;
+	background: white url('../images/indicator.gif') left center  no-repeat;
+	height: 16px;
+	width: 16px;
+	position: absolute;
+	left: 997px;
 }
 
 .more_pagination .disabled {
