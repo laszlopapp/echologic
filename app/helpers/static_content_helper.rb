@@ -120,19 +120,16 @@ module StaticContentHelper
       html = content_tag(:span,
                          l(result['status']['created_at'].to_date, :format => :long),
                          :class => 'newsDate')
-
       html += tag('br') + tag('br')
       html += content_tag(:span, auto_link(result['status']['text']), :class => 'newsText')
     rescue Exception => e
-      error_message = "#{Time.now.utc.strftime("%m/%d/%Y %H:%M")} - Failed to display Twitter message"
-      logger.error(error_message)
-      log_error e
+      logger.error "#{Time.now.utc.strftime("%m/%d/%Y %H:%M")} - Failed to display Twitter message"
+      logger.error e.backtrace
       content_tag :span, "Tweet! Tweet! :-)", :class => 'newsText'
     end
   end
 
-  # Inserts text area with the given text and two buttons for opening and
-  # closing the area.
+  # Inserts text area with the given text and two butt
   # Click-functions are added via jQuery, take a look at application.js
   def insert_toggle_more(text)
     concat("<span class='hideButton' style='display:none;'>#{I18n.t('application.general.hide')}</span>")
