@@ -25,7 +25,11 @@ module ActiveRecord
                 return self.send(#{failure.inspect}, :read, #{name.inspect}, #{foreign_key.inspect}, #{class_name.inspect}, self.#{foreign_key})
               end
               return rval
-            end         
+            end       
+            
+            def #{name}_key
+              #{name}.nil? ? nil : #{name}.key
+            end
 
             def #{name}=(arg)                         
               case arg

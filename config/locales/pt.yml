@@ -5,7 +5,7 @@ pt:
   application:
 
     # Unexpected Error
-    unexpected_error: An unexpected error has just happened.
+    unexpected_error: Ocorreu um erro inesperado. Pedimos desculpas pela inconveniência. 
 
     # General purpose resources
     general:
@@ -32,7 +32,7 @@ pt:
       welcome: Bemvindo
       all: Tudo
       loading: A carregar...
-
+ 
     # Roadmap - Progress
     roadmap:
       title: pronto
@@ -299,7 +299,8 @@ pt:
     my_discussions:
       link: Minhas Discussões
       title: As minhas discussões novas e publicadas
-      no_discussions: 'Sorry, no discussions at the moment'
+      no_discussions: |
+        Ainda não criou nenhuma discussão. Para o fazer, por favor clique no ponto de interrogação que se encontra à esquerda.  
     tag_permission: |
       Não tem permissão para inserir a tag '{{tag}}'.
     translation_request: Por favor traduza este texto em <strong>PORTUGUÊS</strong>.
@@ -377,12 +378,12 @@ pt:
       create_statement_language_hint: |
         Por favor escreva sua ideia em <strong>PORTUGUÊS</strong> ou escolha um outro idioma usando o
         babelfish no canto superior direito.
-      drafting_language_hint: |
-        Atenção que o processo da elaboração coletiva desta proposta somente funcionará do idioma escolhido.
       statement_language_hint: |
-        In order to enter statements in other languages, please set your language skills in your <a href='{{url}}'>Profile</a>.
+        Por favor defina o seu conhecimento de línguas no seu <a href='{{url}}'>Perfil</a>.
+      statement_language_hint_tooltip: |
+        Poderá desta forma introduzir conteúdo em qualquer língua na qual possua conhecimentos para além de um nível intermédio.
       drafting_language_hint: |
-        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
+        Por favor tome nota de que o processo de elaboração coletiva desta proposta só irá ocorrer nesta língua! 
       publish: Publicar
       published: A discussão foi publicada com sucesso.
       edit: 'Editar {{type}}'
@@ -423,7 +424,7 @@ pt:
       being_edited: |-
         Esta proposta está a ser editada. Volte mais tarde por favor.
       already_translated: |-
-        Esta {{type}} já se encontra traduzida.
+        Esta {{type}} acabou de ser traduzida.
       statement_updated: |-
         Esta {{type}} acabou de ser actualizada.
       edit_period_hint: |
@@ -432,10 +433,10 @@ pt:
       staled_modification: 'Pedimos desculpa, mas o prazo de 60 minutos para editar a proposta esgotou. Entretanto a proposta foi editada por outra pessoa. Por esta razão, as suas mudanças foram lamentavelmente perdidas.'
 
       upload_image:
-        title: Upload Image
-        guide: Please <strong>select a picture</strong> (JPG or PNG, max. 5MB) and upload it.
-        progress: The image is being uploaded. Please wait...
-        error: 'Error uploading image: Image format not supported.'
+        title: Carregar Imagem
+        guide: Por favor <strong>selecione uma imagem</strong> (JPG or PNG, max. 5MB) e carregue-a.
+        progress: A imagem está sendo carregada. Por favor aguarde...
+        error: A imagem não pôde ser incluída. Por favor carregue um formato suportado (JPG ou PNG e max. 5MB). 
 
     summary:
       title: 'Sumário'
@@ -445,7 +446,7 @@ pt:
       deleted: "A {{type}} foi apagada com sucesso."
       translated: "A {{type}} foi traduzida com sucesso."
       incorporated: "A proposta de melhoria foi incorporada na proposta com sucesso."
-      image_uploaded: "The Image has been successfully uploaded into the {{type}}."
+      image_uploaded: "A imagem acabou de ser incluída na {{type}}."
       empty:   "Nenhuma questão encontrada. Por favor altere os seus critérios de procura."
       empty_without_spoken_languages: |
         Nenhuma questão encontrada. Pode tentar definir as suas <a href='{{my_echo}}'><u>Línguas Faladas</u></a>
@@ -552,7 +553,8 @@ pt:
         language:   'Língua'
         text:       'Sumário'
         title:      'Título'
-        image:      'Imagem'
+        image:      'Ilustração'
+ 
 
     models:
       question: "questão"

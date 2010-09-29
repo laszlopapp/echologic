@@ -35,7 +35,7 @@ module QuestionsHelper
   end
   
   def questions_count_text(count)
-    I18n.t("discuss.results_count.#{count < 2 ? 'one' : 'more'}", :count => count)
+    count_text("discuss", count)
   end
   
   def publish_statement_node_link(statement_node, statement_document)

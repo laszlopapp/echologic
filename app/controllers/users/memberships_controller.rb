@@ -93,8 +93,6 @@ class Users::MembershipsController < ApplicationController
   
       respond_to do |format|
         format.js do
-          # sorry, but this was crap. you can't add additional js actions like this...
-          # either use a rjs, a js, or a render :update block
           render_with_info do |p|
             p.remove dom_id(@membership)
           end

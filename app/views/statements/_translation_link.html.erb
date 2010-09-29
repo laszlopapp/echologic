@@ -4,8 +4,6 @@
 <div id="translation_box" class="translation_box_class rounded-box rounded-box-gray-itow with_bg_bw_grad_small" style="display: none">
   <%= image_tag 'page/translation/babelfish_left.png',
                 :class => 'fish_left' %>
-  <span class="language_label from_language">
-    <%= statement_document.language.value.upcase %>
-  </span>
+  <%= content_tag :span, statement_document.language.value.upcase, :class => "language_label from_language" %>
   <%= create_translate_statement_link(statement_node,statement_document) %>
 </div>

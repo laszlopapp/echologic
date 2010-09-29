@@ -4,8 +4,8 @@
 en:
   application:
     # Unexpected Error
-    unexpected_error: An unexpected error has just happened.
-
+    unexpected_error: An unexpected error has occurred. Sorry for the inconvenience.
+ 
     # General purpose resources
     general:
       more: more »
@@ -30,8 +30,8 @@ en:
       incorporate: Incorporate
       welcome: Welcome
       all: All
-      loading: Page is loading...
-
+      loading: Loading...
+ 
     # Roadmap - Progress
     roadmap:
       title: ready
@@ -300,7 +300,8 @@ en:
     my_discussions:
       link: My Discussions
       title: My new & published discussions
-      no_discussions: 'Sorry, no discussions at the moment'
+      no_discussions: |
+        You haven't opened any discussions yet. To do so, please click on the question mark button on the left.
     tag_permission: |
       You do not have the permission to insert the '{{tag}}' tag.
     translation_request: Please translate this statement to <strong>ENGLISH</strong>.
@@ -378,13 +379,13 @@ en:
       create_statement_language_hint: |
         Please post the statement in <strong>ENGLISH</strong> or choose another language
         using the babelfish in the upper menu.
-      drafting_language_hint: |
-        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language.
       statement_language_hint: |
-        In order to enter statements in other languages, please set your language skills in your <a href='{{url}}'>Profile</a>.
+        Please set your language skills in your <a href='{{url}}'>Profile</a>.
+      statement_language_hint_tooltip: |
+        This will enable you to enter statements in any language you speak at least at intermediate level.
       drafting_language_hint: |
         Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
-
+ 
       publish: Release
       published: Discussion has been released successfully.
       edit: 'Edit {{type}}'
@@ -424,8 +425,8 @@ en:
         The requested improvement proposal has already been incorporated into the proposal below.
       being_edited: |-
         The statement is currently being edited. Please try again later.
-      already_translated: |-
-        This {{type}} was already translated in this language.
+      statement_updated: |-
+        This {{type}} has just been updated by another person.
       statement_updated: |-
         This {{type}} has just been updated.
       edit_period_hint: |
@@ -435,10 +436,10 @@ en:
 
       upload_image:
         title: Upload Image
-        guide: Please <strong>select a picture</strong> (JPG or PNG, max. 5MB) and upload it.
+        guide: Please <strong>select an image</strong> (JPG or PNG, max. 5MB) and upload it.
         progress: The image is being uploaded. Please wait...
-        error: 'Error uploading image: Image format not supported.'
-
+        error: The image couldn't be applied. Please upload a supported format (JPG or PNG and max. 5MB).
+  
     summary:
       title: 'Summary'
 
@@ -448,7 +449,7 @@ en:
       deleted: "The {{type}} has been deleted successfully."
       translated: "The {{type}} has been translated successfully."
       incorporated: "The improvement proposal has been successfully incorporated into the proposal."
-      image_uploaded: "The Image has been successfully uploaded into the {{type}}."
+      image_uploaded: "The illustration image has been added to the {{type}}."
       empty:   "No discussions found. Please change your search criteria."
       empty_without_spoken_languages: |
         No discussions found. You can try defining your <a href='{{my_echo}}'>language skills</a>
@@ -553,10 +554,10 @@ en:
         position: My role
       statement_document:
         language: 'Language'
-        title: 'Title'
-        text: 'Summary'
-        image: 'Image'
-
+        title:    'Title'
+        text:     'Summary'
+        image:    'Illustration'
+ 
     models:
       question: "question"
       proposal: "proposal"
