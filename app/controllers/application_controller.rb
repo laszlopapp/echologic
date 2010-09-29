@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  
+
   ####################
   # SESSION HANDLING #
   ####################
@@ -100,7 +100,7 @@ class ApplicationController < ActionController::Base
       flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
     end
     redirect_to_root_path
-  end
+end
 
 
   ############
@@ -231,7 +231,7 @@ class ApplicationController < ActionController::Base
       @error = I18n.t(object, options)
     elsif object.class.kind_of?(ActiveRecord::Base.class) && object.errors.count > 0
       value = I18n.t('activerecord.errors.template.body')
-      value += "<ul>" 
+      value += "<ul>"
       object.errors.each do |attr_name, message|
         value += "<li>#{message}</li>"
       end
@@ -345,7 +345,7 @@ class ApplicationController < ActionController::Base
       format.js   { render :template => 'layouts/outerMenuDialog' , :locals => opts[:locals]}
     end
   end
-  
+
   #############
   #  LOGGING  #
   #############
