@@ -2,6 +2,8 @@
 <% new_statement_document ||= @new_statement_document %>
 <% statement_document ||= @statement_document %>
 
+<%= content_tag :p, I18n.t('discuss.statements.drafting_language_hint') if statement_node.draftable? %>
+
 <% semantic_form_for statement_node,
                      :url => create_translation_url(statement_node, statement_node_class_dom_id(statement_node)) do |form| -%>
 

@@ -22,6 +22,9 @@ form.formtastic fieldset ol li {
   width: 388px;
 }
 
+form.formtastic fieldset ol li.select {
+  width: 322px;
+}
 
 html[xmlns] form.formtastic fieldset ol li {
   display: inline-block;
@@ -118,4 +121,13 @@ form.formtastic .buttons input:hover {
 form.formtastic .buttons ol {
   line-height: 43px;
   vertical-align: middle;
+}
+
+form.formtastic li.hint {
+	background: url("../images/page/discuss/statement_language_hint.png") no-repeat scroll 150px 5px transparent;
+  background-color: #FFEC8B;
+	border: 1px solid #AAA;
+	width: 300px;
+	padding: 20px 10px 5px;
+	margin-top: 19px;
 }

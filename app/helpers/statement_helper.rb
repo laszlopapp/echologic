@@ -464,10 +464,6 @@ module StatementHelper
     StatementState.all.map{|s|[I18n.t("discuss.statements.states.initial_state.#{s.code}"),s.id]}
   end
 
-  # draws the "page loading" information icon
-  def loading_icon
-    content_tag :span, I18n.t("application.general.loading"), :class => 'pagination_loading'
-  end
 
   # This class does the heavy lifting of actually building the pagination
   # links. It is used by the <tt>will_paginate</tt> helper internally.
