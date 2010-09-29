@@ -1,6 +1,6 @@
 class ChangeColumnLanguageIdToCodeFromEnumValues < ActiveRecord::Migration
   def self.up
-    #add_column :enum_values, :code, :string
+    add_column :enum_values, :code, :string
     Language.all.each do |language|
       execute "UPDATE enum_values SET code = '#{language.code}' WHERE language_id = #{language.id}"
     end
