@@ -5,8 +5,8 @@ de:
   application:
 
     # Unexpected Error
-    unexpected_error: An unexpected error has just happened.
-
+    unexpected_error: Ein unerwarteter Fehler ist aufgetreten. Bitte entschuldigen Sie die Unannehmlichkeiten.
+ 
     # General purpose resources
     general:
       more: mehr »
@@ -31,8 +31,8 @@ de:
       incorporate: Incorporate
       welcome: Willkommen
       all: Alle
-      loading: Page is loading...
-
+      loading: Wird geladen...
+ 
     # Roadmap - Progress
     roadmap:
       title: fertig
@@ -309,7 +309,8 @@ de:
     my_discussions:
       link: Meine Diskussionen
       title: Meine neuen & freigegebenen Diskussionen
-      no_discussions: 'Sorry, no discussions at the moment'
+      no_discussions: |
+        Sie haben bislang noch keine Diskussionen eröffnet. Um eine Diskussion anzulegen, klicken Sie bitte links auf das Fragezeichen.
     tag_permission: |
       Sie dürfen leider den Tag '{{tag}}' nicht vergeben.
     original_language_warning: |
@@ -387,13 +388,13 @@ de:
       create_statement_language_hint: |
         Bitte schreiben Sie Ihre Idee auf <strong>DEUTSCH</strong> oder wählen Sie über
         den Babelfish im oberen Menü eine andere Sprache aus.
-      drafting_language_hint: |
-        Bitte beachten Sie, dass die gemeinsame Textentwicklung zur Weiterentwicklung dieses Vorschlags nur in
-        dieser Sprache ablaufen wird.
       statement_language_hint: |
-        In order to enter statements in other languages, please set your language skills in your <a href='{{url}}'>Profile</a>.
+        Bitte stellen Sie Ihre Sprachkenntnisse in Ihrem <a href='{{url}}'>Profil</a> ein.
+      statement_language_hint_tooltip: |
+        Sie können dann Aussagen in allen Sprachen erstellen, die Sie mindestens auf mittlerem Niveau beherrschen.
       drafting_language_hint: |
-        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
+        Bitte beachten Sie, dass die gemeinsame Weiterentwicklung dieses Vorschlags nur in der ausgewählten Sprache möglich sein wird!
+ 
       publish: Freigeben
       published: Die Diskussion wurde erfolgreich freigegeben.
       edit: '{{type}} bearbeiten'
@@ -434,20 +435,20 @@ de:
       being_edited: |-
         Dieser Vorschlag wird gerade bearbeitet. Bitte versuchen Sie es später noch einmal.
       already_translated: |-
-        This {{type}} was already translated in this language.
+        {{type}} wurde gerade von einer anderen Person übersetzt.
       statement_updated: |-
-        This {{type}} has just been updated.
+        {{type}} wurde gerade von einer anderen Person aktualisiert.
       edit_period_hint: |
         Sie haben {{minutes}} Minuten, um den Vorschlag zu bearbeiten.
         Nach Ablauf können Ihre Änderungen eventuell nicht mehr berücksichtigt werden.
       staled_modification: 'Es tut uns sehr leid, aber Ihre Bearbeitungszeit von max. 60 Minuten ist abgelaufen. Mittlerweile hat ein anderer Nutzer den Vorschlag bearbeitet. Ihre Änderungen mussten daher leider verworfen werden.'
 
       upload_image:
-        title: Upload Image
-        guide: Please <strong>select a picture</strong> (JPG or PNG, max. 5MB) and upload it.
-        progress: The image is being uploaded. Please wait...
-        error: 'Error uploading image: Image format not supported.'
-
+        title: Bild hochladen
+        guide: Bitte wählen sie ein passendes <strong>Bild als Illustration</strong> (JPG or PNG, max. 5MB) und laden Sie es hoch.
+        progress: Das Bild wird hochgeladen. Einen kurzen Augenblick bitte...
+        error: Das Bild konnte leider nicht angenommen werden. Bitte verwenden Sie nur JPG oder PNG mit max. 5MB.
+ 
     summary:
       title: 'Zusammenfassung'
     messages:
@@ -456,7 +457,7 @@ de:
       deleted: "{{type}} wurde erfolgreich gelöscht."
       translated: "{{type}} wurde erfolgreich übersetzt."
       incorporated: "Der Verbesserungsvorschlag wurde erfolgreich in den Vorschlag übernommen."
-      image_uploaded: "The Image has been successfully uploaded into the {{type}}."
+      image_uploaded: "Das Bild wurde als Illustration zum/zur {{type}} hinzugefügt."
       empty: "Es wurden keine Diskussionen gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
       empty_without_spoken_languages: |
         Keine Diskussion gefunden. Versuchen Sie Ihre <a href='{{my_echo}}'>Sprachkenntnisse</a> einzustellen,
@@ -567,7 +568,8 @@ de:
         language: 'Sprache'
         title:    'Titel'
         text:     'Zusammenfassung'
-        image:    'Image'
+        image:    'Illustration'
+ 
 
     models:
       question: "Frage"

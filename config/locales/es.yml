@@ -5,8 +5,8 @@ es:
   application:
 
     # Unexpected Error
-    unexpected_error: An unexpected error has just happened.
-
+    unexpected_error: Se ha detectado un error inesperado en el servidor.
+ 
     # General purpose resources
     general:
       more: más »
@@ -31,8 +31,8 @@ es:
       incorporate: Incorporate
       welcome: Bienvenido
       all: Todos
-      loading: Page is loading...
-
+      loading: Cargando...
+ 
     # Roadmap - Progress
     roadmap:
       title: completo
@@ -313,7 +313,8 @@ es:
     my_discussions:
       link: Mis Discusiones
       title: Mis discusiones nuevas y ya publicadas
-      no_discussions: 'Sorry, no discussions at the moment'
+      no_discussions: |
+        Lo sentimos, no hay debates por el momento. Para abrir un nuevo debate, haga click en el signo de interrogación a la izquierda. 
     tag_permission: |
       Disculpe, pero no tienes permiso para inserir este '{{tag}}' tag.
     original_language_warning: |
@@ -393,12 +394,16 @@ es:
       create_statement_language_hint: |
         Por favor escriba su idea en <strong>ESPAÑOL</strong> o escoja un otro idioma utilizando el
         babelfish en el menu arriba.
-      drafting_language_hint: |
-        Note por favor, que el proceso de la elaboración colectiva de las propuestas solamente funcionará en el idioma escojido.
       statement_language_hint: |
-        In order to enter statements in other languages, please set your language skills in your <a href='{{url}}'>Profile</a>.
+        Para realizar algún comentario, seleccione por favor, el conocimiento de idiomas en su <a href='{{url}}'>Perfil</a>.
+      statement_language_hint_tooltip: |
+        Esto le permitirá introducir comentarios en el idioma en que posee al menos, conocimientos a nivel intermedio.
       drafting_language_hint: |
-        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
+        Note por favor, que el proceso de elaboración colectiva de las propuestas funcionará sólo en este idioma!
+ 
+ 
+ 
+ 
       publish: Publicar
       published: Esta discusión fue publicada con éxito.
       edit: 'Editar {{type}}'
@@ -439,20 +444,20 @@ es:
       being_edited: |-
         Esta propuesta actualmente está siendo editada. Por favor vuelva mas tarde.
       already_translated: |-
-        This {{type}} was already translated in this language.
+        {{type}} ya ha sido traducida.
       statement_updated: |-
-        This {{type}} has just been updated.
+        {{type}} acaba de ser actualizada.
       edit_period_hint: |
         <strong>Tienes {{minutes}} minutos</strong> para editar la propuesta.
         Passondo este plazo, posiblemente tus modificationes serán perdidas.
       staled_modification: 'Desculpe por favor, pero tu plazo de 60 minutos para editar la propuesta caduco. Mientras otro miembro tomó su chance y edito la propuesta. Por eso, tus modificaciones lamentablemente no puedieron ser guardadas.'
 
       upload_image:
-        title: Upload Image
-        guide: Please <strong>select a picture</strong> (JPG or PNG, max. 5MB) and upload it.
-        progress: The image is being uploaded. Please wait...
-        error: 'Error uploading image: Image format not supported.'
-
+        title: Cargar imagen
+        guide: Seleccione <strong>por favor, una imagen</strong> (JPG o PNG, max. 5MB) y descárguela.
+        progress: La imagen se está cargando. Por favor, espere... 
+        error: 'Error cargando la imagen: Formato de la imagen no compatible.'
+ 
     summary:
       title: 'Resumen'
     messages:
@@ -461,7 +466,7 @@ es:
       deleted: "La {{type}} fue borrada con éxito."
       translated: "La {{type}} fue traducida con éxito."
       incorporated: "A propuesta de mejoramiento fue incorporada a la propuesta con exito."
-      image_uploaded: "The Image has been successfully uploaded into the {{type}}."
+      image_uploaded: "La imagen se ha cargado correctamente en el {{type}}."
       empty:   "No fue encontrado ningun debate. Por favor intente buscar por otra palavra."
       empty_without_spoken_languages: |
         No fue encontrada ninguna cuestión. Intente definir tus <a href='{{my_echo}}'>lenguas conocidas</a>
@@ -573,7 +578,7 @@ es:
         language: 'Idioma'
         text:     'Resumen'
         title:    'Titulo'
-        image:    'Image'
+        image:    'Imagen' 
 
     models:
       question: "Cuestión"
