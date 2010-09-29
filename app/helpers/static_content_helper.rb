@@ -122,6 +122,11 @@ module StaticContentHelper
     rescue SocketError
       'twitter connection failed although all this magic stuff!'
     rescue
+      message = "Twitter Fail: Post_Date: #{l(result['status']['created_at'].to_date, :format => :long)}, Link: #{auto_link result['status']['text']}"
+      timestamp = Time.now.utc.strftime("%m/%d/%Y %H:%M")
+      error_message = "Time:'#{timestamp}' : #{message}"
+      logger.error(error_message)
+      log_error e
       "<span class='newsText'>" + '"Tweet! Tweet! :-)"' + '</span>'
     end
   end
