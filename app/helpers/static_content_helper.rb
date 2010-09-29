@@ -117,17 +117,17 @@ module StaticContentHelper
       require 'json'
       buffer = open("http://twitter.com/users/show/echologic.json").read
       result = JSON.parse(buffer)
-      html = "<span class='newsDate'>#{l(result['status']['created_at'].to_date, :format => :long)}</span><br/><br/>"
-      html += "<span class='newsText'>#{auto_link result['status']['text']}</span>"
-    rescue SocketError
-      'twitter connection failed although all this magic stuff!'
-    rescue
-      message = "Twitter Fail: Post_Date: #{l(result['status']['created_at'].to_date, :format => :long)}, Link: #{auto_link result['status']['text']}"
-      timestamp = Time.now.utc.strftime("%m/%d/%Y %H:%M")
-      error_message = "Time:'#{timestamp}' : #{message}"
+      html = content_tag(:span,
+                         l(result['status']['created_at'].to_date, :format => :long),
+                         :class => 'newsDate')
+
+      html += tag('br') + tag('br')
+      html += content_tag(:span, auto_link(result['status']['text']), :class => 'newsText')
+    rescue Exception => e
+      error_message = "#{Time.now.utc.strftime("%m/%d/%Y %H:%M")} - Failed to display Twitter message"
       logger.error(error_message)
       log_error e
-      "<span class='newsText'>" + '"Tweet! Tweet! :-)"' + '</span>'
+      content_tag :span, "Tweet! Tweet! :-)", :class => 'newsText'
     end
   end
 
