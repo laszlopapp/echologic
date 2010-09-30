@@ -2,5 +2,6 @@
 	<%= content_tag :h2, collaboration_team.value %>
 	<ul>
 	 <%= render :partial => 'member', :collection => @about_items.select{|ai|ai.collaboration_team == collaboration_team} %>
+	 <% reset_cycle("about_items") %>
 	</ul>
 </div>
