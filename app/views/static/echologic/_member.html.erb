@@ -1,0 +1,5 @@
+<li id="<%= dom_id(member) %>" class='content member'>
+	<span class="name"><%=h member.name %></span> <br/>
+	<span class="description"><%=h member.description %></span>
+	<%= image_tag member.photo.url(:small), :class => 'avatar_holder' %>
+</li>

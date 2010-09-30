@@ -96,6 +96,9 @@ es:
       # about section
       about:
         title: Sobre nosotros
+        tabs: 
+          project: The Project
+          team: The Team
         text: |
           <p>
           <strong>La fuente</strong> de echo es un <strong>grupo interdisciplinario</strong> de académicos jóvenes y experimentados.

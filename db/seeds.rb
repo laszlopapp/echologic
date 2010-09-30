@@ -48,6 +48,10 @@ end
   EnumKey.create(:code => code, :type => "StatementAction", :key => index+1, :description => "statement_action")
 end
 
+# COLLABORATION TEAM
+%w(core_team supporters alumni technology_partners financial_partners).each_with_index do |code, index|
+  EnumKey.create(:code => code, :type => "CollaborationTeam", :key => index+1, :description => "collaboration_team")
+end
 
 #################
 #  ENUM VALUES  #
@@ -161,4 +165,22 @@ end
 end
 ["Incorporate","Einfügen","Incorporer","Incorporar","Incorporar"].each_with_index do |value,index|
   EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('incorporated','StatementAction'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
+end
+
+
+# Collaboration Teams
+["Core Team","Ständiges Team","Coeur équipe","Equipa-Núcleo","Equipo Permanente"].each_with_index do |value,index|
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('core_team','CollaborationTeam'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
+end
+["Supporters","Unterstützer","Collaborateurs","Colaboradores","Colaboradores"].each_with_index do |value,index|
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('supporters','CollaborationTeam'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
+end
+["Alumni","Absolventen","Diplômées","Graduados","Graduados"].each_with_index do |value,index|
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('alumni','CollaborationTeam'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
+end
+["Technology Partners","Technologiepartner","Partenaires Tecnologiques","Parceiros Tecnológicos","Colaboradores Tecnológicos"].each_with_index do |value,index|
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('technology_partners','CollaborationTeam'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
+end
+["Financial Partners","Finanzpartner","Partenaires Financières","Parceiros Financeiros","Colaboradores Financieros"].each_with_index do |value,index|
+  EnumValue.create(:enum_key => EnumKey.find_by_code_and_type('financial_partners','CollaborationTeam'), :code => Language.find_by_key(index+1).code, :value => value, :context=> "")
 end

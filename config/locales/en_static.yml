@@ -96,6 +96,9 @@ en:
       #About
       about:
         title: About us
+        tabs: 
+          project: The Project
+          team: The Team
         text: |
           <p>
           <strong>The source</strong> of echo is an <strong>interdisciplinary team</strong> of young and experienced professionals.

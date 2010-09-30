@@ -60,3 +60,11 @@ statement_action_<%= code %>:
   key: <%= index+1 %>
   description: statement_action
 <% end %>
+
+<% %w(core_team supporters alumni technology_partners financial_partners).each_with_index do |code, index| %>
+collaboration_team_<%= code %>:
+  code: <%= code %>
+  type: CollaborationTeam
+  key: <%= index+1 %>
+  description: collaboration_team
+<% end %>
