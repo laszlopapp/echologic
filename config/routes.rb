@@ -74,6 +74,8 @@ ActionController::Routing::Routes.draw do |map|
   map.activate  '/activate/:id',              :controller => 'users/activations', :action => 'create'
 
   map.resources :reports, :controller => 'users/reports'
+  
+  map.resources :admin_items, :controller => 'admin_items'
 
 
   # SECTION static - contents per controller
