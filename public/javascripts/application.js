@@ -3,7 +3,7 @@
 
 /* Do init stuff. */
 $(document).ready(function () {
-
+	
   makeTooltips();
 
   bindLanguageSelectionEvents();

@@ -3,7 +3,11 @@
 /**************************/
 
 
-$(function() {
+$(document).ready(function () {
+	bindHistoryEvents();
+});
+
+function bindHistoryEvents() {
 	 $("#search_form .submit_button").live("click", function(){
     setSearchHistory();
     return false;
@@ -29,7 +33,7 @@ $(function() {
     return false;
   });
 	$.fragmentChange(true);
-});
+};
 
 
 
