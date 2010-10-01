@@ -17,6 +17,8 @@ class ApplicationController < ActionController::Base
     }.compact[0..4].join("\n")
   end
 
+  
+
 
   ###########
   # ROUTING #

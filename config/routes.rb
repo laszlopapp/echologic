@@ -75,7 +75,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :reports, :controller => 'users/reports'
   
-  map.resources :admin_items, :controller => 'admin_items'
+  map.resources :about_items, :controller => 'about_items', :active_scaffold => true
+
 
 
   # SECTION static - contents per controller

@@ -81,6 +81,8 @@ pt:
       # my_echo: de.seo.title.admin
       admin:
         show: 'echo - Área Admin'
+      about_items:
+        index: 'echo - Members'
 
     meta:
       echologic:

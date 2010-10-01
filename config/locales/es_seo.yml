@@ -79,6 +79,8 @@ es:
       # my_echo: de.seo.title.admin
       admin:
         show: 'echo - Admin Area'
+      about_items:
+        index: 'echo - Members'
 
     meta:
       description: |-
