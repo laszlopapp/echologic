@@ -13,7 +13,7 @@ class AboutItem < ActiveRecord::Base
   translate_columns :description
   
   validates_numericality_of :index, :greater_than => 0
-  
+  validates_presence_of :name, :index
   
   named_scope :by_index, :order => 'about_items.index ASC'
 end

@@ -3,12 +3,12 @@ module AboutItemsHelper
     image_tag(record.photo.url(:small))
   end
   
+  def photo_form_column(record, options)
+    file_field_tag "record_photo",:accept => 'image/jpeg,image/png,image/pjpeg,image/x-png',
+                   :value => record.photo
+  end
+ 
   def collaboration_team_id_column(record)
     record.collaboration_team.value
-  end
-  
-#  def collaboration_team_form_column(column)
-#    puts column.inspect
-#    select('about_item', column.name, CollaborationTeam.all.map{|c|[c.value, c.code]}, {})
-#  end
+  end  
 end

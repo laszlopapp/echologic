@@ -2,9 +2,9 @@ var context  = "<%= escape_javascript(render :partial => 'statements/context') %
 var sidebar  = "<%= escape_javascript(render :partial => 'statements/sidebar') %>";
 var children_list  = "<%= escape_javascript(render :partial => 'statements/children_list') %>";
 
-$('#context').replaceWith(context);
-$('#discuss_sidebar').replaceWith(sidebar);
-$('#children_list').replaceWith(children_list);
+$j('#context').replaceWith(context);
+$j('#discuss_sidebar').replaceWith(sidebar);
+$j('#children_list').replaceWith(children_list);
 
 makeRatiobars();
 makeTooltips();

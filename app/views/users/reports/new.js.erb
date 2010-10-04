@@ -5,19 +5,19 @@
 /* Write render output into JS variables for later use. */
 var content = "<%= escape_javascript(render(:partial => 'users/reports/new')) %>";
 
-$('#dialogContent').html(content);
+$j('#dialogContent').html(content);
 
-$("input[alt='report_button']").hide();
+$j("input[alt='report_button']").hide();
 
-$('#dialogContent').dialog({
+$j('#dialogContent').dialog({
   title:    "<%= I18n.t('users.reports.new.title') %>",
   bgiframe: true,
   modal:    true,
   buttons:  {
-    "<%= I18n.t('application.general.send') %>"  : function() { $('#new_report_form').submit(); },
-    "<%= I18n.t('application.general.cancel') %>": function() { $(this).dialog('close'); }
+    "<%= I18n.t('application.general.send') %>"  : function() { $j('#new_report_form').submit(); },
+    "<%= I18n.t('application.general.cancel') %>": function() { $j(this).dialog('close'); }
   },
-  close:    function(event, ui) { $(this).dialog('destroy'); },
+  close:    function(event, ui) { $j(this).dialog('destroy'); },
   width:    600,
   height:   350,
   resizable: false

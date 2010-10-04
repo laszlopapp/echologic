@@ -149,8 +149,8 @@ class Users::UsersController < ApplicationController
                             :partial => "users/concernments/concernment",
                             :collection => new_concernments_hash,
                             :locals => {:context => params[:context]}
-              p << "$('#new_concernment_#{params[:context]}').reset();"
-              p << "$('#concernment_#{params[:context]}_id').focus();"
+              p << "$j('#new_concernment_#{params[:context]}').reset();"
+              p << "$j('#concernment_#{params[:context]}_id').focus();"
             end
           else
             show_error_messages(current_user)

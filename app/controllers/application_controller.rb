@@ -156,7 +156,7 @@ end
         }
         format.js {
           render_with_info do |page|
-            page << "$('#user_session_email').focus();"
+            page << "$j('#user_session_email').focus();"
           end
         }
       end
@@ -281,7 +281,7 @@ end
   # This small methods takes much complexness from the controllers.
   def replace_container(name, content)
     render :update do |page|
-      page << "$('##{name}').replaceWith('#{escape_javascript(render(content))}');"
+      page << "$j('##{name}').replaceWith('#{escape_javascript(render(content))}');"
       yield page if block_given?
     end
   end

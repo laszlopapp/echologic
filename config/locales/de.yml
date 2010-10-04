@@ -568,6 +568,12 @@ de:
         title:    'Titel'
         text:     'Zusammenfassung'
         image:    'Illustration'
+      about_item: 
+        photo:                 'Photo'
+        name:                  'Name'
+        description:           'Description'
+        collaboration_team_id: 'Collaboration Team'
+        index:                 'Index'
 
 
     models:

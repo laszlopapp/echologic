@@ -1,8 +1,8 @@
 var context  = "<%= escape_javascript(render :partial => 'statements/context') %>";
 var sidebar  = "<%= escape_javascript(render :partial => 'statements/sidebar') %>";
 
-$('#context').replaceWith(context);
-$('#discuss_sidebar').replaceWith(sidebar);
+$j('#context').replaceWith(context);
+$j('#discuss_sidebar').replaceWith(sidebar);
 
 makeRatiobars();
 makeTooltips();

@@ -17,10 +17,10 @@
 </p>
 
 <%= observe_field(:filter, :frequency => 0.1, :update => :translations_list,
-      :with => "'filter_text=' + $('#filter').val() + '&selected=' + $('#translated').val()",
+      :with => "'filter_text=' + $j('#filter').val() + '&selected=' + $j('#translated').val()",
       :url => {:controller => :translations, :action => :filter, :locale_id => @locale}) %>
 <%= observe_field(:translated, :frequency => 0.1, :update => :translations_list,
-      :with => "'filter_text=' + $('#filter').val() + '&selected=' + $('#translated').val()",
+      :with => "'filter_text=' + $j('#filter').val() + '&selected=' + $j('#translated').val()",
       :url => {:controller => :translations, :action => :filter, :locale_id => @locale}) %>
 
 <div id="translations_list">

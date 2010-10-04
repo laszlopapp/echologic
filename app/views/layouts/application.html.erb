@@ -40,11 +40,10 @@
                                'jquery.em',
                                'jScrollPane',
                                :cache => 'echo_app' %>
-<% if current_user and current_user.has_role? :admin %>
-    <%= javascript_include_tag 'temp/prototype' %>															 
-		<%= active_scaffold_includes  %>
-<% end %>
-		
+		<% if current_user and current_user.has_role? :admin %>													 
+			<%= javascript_include_tag 'temp/prototype' %>                               
+	    <%= active_scaffold_includes %>
+		<% end %>
     <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
 
     <%# TODO remove partially needed files from inclusion. %>

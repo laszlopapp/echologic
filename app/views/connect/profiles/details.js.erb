@@ -6,15 +6,15 @@ var web_addresses = "<%= escape_javascript(render(:partial => 'connect/profiles/
 var avatar       = "<%= escape_javascript(render(:partial => 'connect/profiles/avatar')) %>";
 var actions      = "<%= escape_javascript(render(:partial => 'connect/profiles/actions')) %>";
 
-$('#avatar').html(avatar);
-$('#overview').html(overview);
-$('#concernments').html(concernments);
-$('#web_addresses').html(web_addresses);
-$('#full_name').html("<%=h @profile.full_name %>");
-$('#actions').html(actions);
+$j('#avatar').html(avatar);
+$j('#overview').html(overview);
+$j('#concernments').html(concernments);
+$j('#web_addresses').html(web_addresses);
+$j('#full_name').html("<%=h @profile.full_name %>");
+$j('#actions').html(actions);
 
-$(".profile").removeClass('active');
-$("#<%= dom_id @profile %>").addClass('active');
+$j(".profile").removeClass('active');
+$j("#<%= dom_id @profile %>").addClass('active');
 
 /* Show the profile details and afterwards scroll to the results container. */
-$('#profile_details_container:hidden').animate(toggleParams, 500, function() {$.scrollTo('#results_anchor', 400);});
+$j('#profile_details_container:hidden').animate(toggleParams, 500, function() {$j.scrollTo('#results_anchor', 400);});

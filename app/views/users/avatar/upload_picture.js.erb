@@ -5,17 +5,17 @@
 /* Write render output into JS variables for later use. */
 var content = "<%= escape_javascript(render(:partial => 'users/avatar/upload_picture')) %>";
 
-$('#dialogContent').html(content);
+$j('#dialogContent').html(content);
 
-$('#dialogContent').dialog({
+$j('#dialogContent').dialog({
   title:    "<%= I18n.t('users.profile.upload_picture.title') %>",
   bgiframe: true,
   modal:    true,
   buttons:  {
-    "<%= I18n.t('application.general.upload') %>": function() { $('#upload_picture_form').submit(); },
-    "<%= I18n.t('application.general.cancel') %>": function() { $(this).dialog('close'); }
+    "<%= I18n.t('application.general.upload') %>": function() { $j('#upload_picture_form').submit(); },
+    "<%= I18n.t('application.general.cancel') %>": function() { $j(this).dialog('close'); }
      },
-  close:    function(event, ui) { $(this).dialog('destroy'); },
+  close:    function(event, ui) { $j(this).dialog('destroy'); },
   width:    600,
   height:   250,
   resizable: false

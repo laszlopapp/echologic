@@ -47,8 +47,8 @@ class Users::WebAddressesController < ApplicationController
             set_info("discuss.messages.new_percentage", :percentage => @after_completeness) if @before_completeness != @after_completeness
             render_with_info do |p|
               p.insert_html :bottom, 'web_address_list', :partial => 'users/web_addresses/web_address'
-              p << "$('#new_web_address').reset();"
-  	          p << "$('#web_address_type_id').focus();"
+              p << "$j('#new_web_address').reset();"
+  	          p << "$j('#web_address_type_id').focus();"
             end
           else
             show_error_messages(@web_address)

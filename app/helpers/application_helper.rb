@@ -22,7 +22,7 @@ module ApplicationHelper
   def insert_progressbar(percent)
     tooltip = I18n.t('application.roadmap.progress_tooltip', :progress => percent)
     val =  content_tag :span, :id => 'roadmap_progressbar',  :class => 'ttLink', :title => tooltip
-    val += javascript_tag "$('#roadmap_progressbar').progressbar({value: #{percent != 0 ? percent : 1}});"
+    val += javascript_tag "$j('#roadmap_progressbar').progressbar({value: #{percent != 0 ? percent : 1}});"
     val
   end
 
