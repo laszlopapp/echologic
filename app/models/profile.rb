@@ -58,7 +58,7 @@ class Profile < ActiveRecord::Base
   # TODO conditions in compact form?
   #  - something like this?: [city, country].select{|s|s.try(:any?)}.join(', ')
   def location
-    [city, country].select { |s| s.try(:any?) }.join(', ')
+    [city, country].select { |s| s.try(:any?) }.collect(&:capitalize).join(', ')
   end
 
   # Return the first membership. If none is set return empty-string.

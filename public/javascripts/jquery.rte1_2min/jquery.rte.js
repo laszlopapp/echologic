@@ -2,7 +2,7 @@ jQuery.fn.rte = function(a, b){
     if (!b || b.constructor != Array) {
         b = new Array()
     }
-    $(this).each(function(c){
+    $j(this).each(function(c){
         var d = (this.id) ? this.id : b.length;
         b[d] = new lwRTE(this, a || {})
     });
@@ -10,18 +10,18 @@ jQuery.fn.rte = function(a, b){
 };
 var lwRTE_resizer = function(a){
     this.drag = false;
-    this.rte_zone = $(a).parents(".rte-zone")
+    this.rte_zone = $j(a).parents(".rte-zone")
 };
 lwRTE_resizer.mousedown = function(b, a){
     b.drag = true;
     b.event = (typeof(a) == "undefined") ? window.event : a;
-    b.rte_obj = $(".rte-resizer", b.rte_zone).prev().eq(0);
-    $("body", document).css("cursor", "se-resize");
+    b.rte_obj = $j(".rte-resizer", b.rte_zone).prev().eq(0);
+    $j("body", document).css("cursor", "se-resize");
     return false
 };
 lwRTE_resizer.mouseup = function(b, a){
     b.drag = false;
-    $("body", document).css("cursor", "auto");
+    $j("body", document).css("cursor", "auto");
     return false
 };
 lwRTE_resizer.mousemove = function(d, c){
@@ -39,8 +39,8 @@ var lwRTE = function(a, b){
     this.css = [];
     this.css_class = b.frame_class || "";
     this.base_url = b.base_url || "";
-    this.width = b.width || $(a).width() || "100%";
-    this.height = b.height || $(a).height() || 350;
+    this.width = b.width || $j(a).width() || "100%";
+    this.height = b.height || $j(a).height() || 350;
     this.iframe = null;
     this.iframe_doc = null;
     this.textarea = null;
@@ -62,18 +62,18 @@ var lwRTE = function(a, b){
             }*/
         }
     };
-    $.extend(this.controls.rte, b.controls_rte || {});
-    $.extend(this.controls.html, b.controls_html || {});
-    $.extend(this.css, b.css || {});
+    $j.extend(this.controls.rte, b.controls_rte || {});
+    $j.extend(this.controls.html, b.controls_html || {});
+    $j.extend(this.css, b.css || {});
     if (document.designMode || document.contentEditable) {
-        $(a).wrap($("<div></div>").addClass("rte-zone").width(this.width));
-        $('<div class="rte-resizer"><a href="#"></a></div>').insertAfter(a);
+        $j(a).wrap($j("<div></div>").addClass("rte-zone").width(this.width));
+        $j('<div class="rte-resizer"><a href="#"></a></div>').insertAfter(a);
         var c = new lwRTE_resizer(a);
-        $(".rte-resizer a", $(a).parents(".rte-zone")).mousedown(function(d){
-            $(document).mousemove(function(f){
+        $j(".rte-resizer a", $j(a).parents(".rte-zone")).mousedown(function(d){
+            $j(document).mousemove(function(f){
                 return lwRTE_resizer.mousemove(c, f)
             });
-            $(document).mouseup(function(f){
+            $j(document).mouseup(function(f){
                 return lwRTE_resizer.mouseup(c, f)
             });
             return lwRTE_resizer.mousedown(c, d)
@@ -92,7 +92,7 @@ lwRTE.prototype.editor_cmd = function(c, a){
     this.iframe.contentWindow.focus()
 };
 lwRTE.prototype.get_toolbar = function(){
-    var a = (this.iframe) ? $(this.iframe) : $(this.textarea);
+    var a = (this.iframe) ? $j(this.iframe) : $j(this.textarea);
     return (a.prev().hasClass("rte-toolbar")) ? a.prev() : null
 };
 lwRTE.prototype.activate_toolbar = function(c, a){
@@ -100,7 +100,7 @@ lwRTE.prototype.activate_toolbar = function(c, a){
     if (b) {
         b.remove()
     }
-    $(c).before($(a).clone(true))
+    $j(c).before($j(a).clone(true))
 };
 lwRTE.prototype.enable_design_mode = function(){
     var a = this;
@@ -111,17 +111,17 @@ lwRTE.prototype.enable_design_mode = function(){
     a.iframe.width = "100%";
     a.iframe.height = a.height || "100%";
     a.iframe.src = "javascript:void(0);";
-    if ($(a.textarea).attr("class")) {
-        a.iframe.className = $(a.textarea).attr("class")
+    if ($j(a.textarea).attr("class")) {
+        a.iframe.className = $j(a.textarea).attr("class")
     }
-    if ($(a.textarea).attr("id")) {
-        a.iframe.id = $(a.textarea).attr("id")
+    if ($j(a.textarea).attr("id")) {
+        a.iframe.id = $j(a.textarea).attr("id")
     }
-    if ($(a.textarea).attr("name")) {
-        a.iframe.title = $(a.textarea).attr("name")
+    if ($j(a.textarea).attr("name")) {
+        a.iframe.title = $j(a.textarea).attr("name")
     }
-    var f = $(a.textarea).val();
-    $(a.textarea).hide().after(a.iframe).remove();
+    var f = $j(a.textarea).val();
+    $j(a.textarea).hide().after(a.iframe).remove();
     a.textarea = null;
     var c = "";
     for (var b in a.css) {
@@ -135,7 +135,7 @@ lwRTE.prototype.enable_design_mode = function(){
         a.iframe_doc.designMode = "on"
     }
     catch (h) {
-        $(a.iframe_doc).focus(function(){
+        $j(a.iframe_doc).focus(function(){
             a.iframe_doc.designMode()
         })
     }
@@ -146,31 +146,31 @@ lwRTE.prototype.enable_design_mode = function(){
         a.toolbars.rte = a.create_toolbar(a.controls.rte)
     }
     a.activate_toolbar(a.iframe, a.toolbars.rte);
-    $(a.iframe).parents("form").submit(function(){
+    $j(a.iframe).parents("form").submit(function(){
         a.disable_design_mode(true);
       }
 		);
-    $(a.iframe_doc).mouseup(function(e){
+    $j(a.iframe_doc).mouseup(function(e){
         if (a.iframe_doc.selection) {
             a.range = a.iframe_doc.selection.createRange()
         }
         a.set_selected_controls((e.target) ? e.target : e.srcElement, a.controls.rte)
     });
-    $(a.iframe_doc).blur(function(e){
+    $j(a.iframe_doc).blur(function(e){
         if (a.iframe_doc.selection) {
             a.range = a.iframe_doc.selection.createRange()
         }
     });
-    $(a.iframe_doc).keyup(function(e){
+    $j(a.iframe_doc).keyup(function(e){
         a.set_selected_controls(a.get_selected_element(), a.controls.rte)
     });
-    if (!$.browser.msie) {
+    if (!$j.browser.msie) {
         a.editor_cmd("styleWithCSS", false)
     }
 };
 lwRTE.prototype.disable_design_mode = function(b){
     var a = this;
-    a.textarea = (b) ? $('<input type="hidden" />').get(0) : $("<textarea></textarea>").width("100%").height(a.height).get(0);
+    a.textarea = (b) ? $j('<input type="hidden" />').get(0) : $j("<textarea></textarea>").width("100%").height(a.height).get(0);
     if (a.iframe.className) {
         a.textarea.className = a.iframe.className
     }
@@ -180,14 +180,14 @@ lwRTE.prototype.disable_design_mode = function(b){
     if (a.iframe.title) {
         a.textarea.name = a.iframe.title
     }
-    $(a.textarea).val($("body", a.iframe_doc).html());
-    $(a.iframe).before(a.textarea);
+    $j(a.textarea).val($j("body", a.iframe_doc).html());
+    $j(a.iframe).before(a.textarea);
     if (!a.toolbars.html) {
         a.toolbars.html = a.create_toolbar(a.controls.html)
     }
     if (b != true) {
-        $(a.iframe_doc).remove();
-        $(a.iframe).remove();
+        $j(a.iframe_doc).remove();
+        $j(a.iframe).remove();
         a.iframe = a.iframe_doc = null;
         a.activate_toolbar(a.textarea, a.toolbars.html)
     }
@@ -196,7 +196,7 @@ lwRTE.prototype.toolbar_click = function(f, d){
     var b = d.exec;
     var a = d.args || [];
     var g = (f.tagName.toUpperCase() == "SELECT");
-    $(".rte-panel", this.get_toolbar()).remove();
+    $j(".rte-panel", this.get_toolbar()).remove();
     if (b) {
         if (g) {
             a.push(f)
@@ -221,11 +221,11 @@ lwRTE.prototype.toolbar_click = function(f, d){
 };
 lwRTE.prototype.create_toolbar = function(d){
     var c = this;
-    var b = $("<div></div>").addClass("rte-toolbar").width("100%").append($("<ul></ul>")).append($("<div></div>").addClass("clear"));
+    var b = $j("<div></div>").addClass("rte-toolbar").width("100%").append($j("<ul></ul>")).append($j("<div></div>").addClass("clear"));
     var h, a;
     for (var f in d) {
         if (d[f].separator) {
-            a = $("<li></li>").addClass("separator")
+            a = $j("<li></li>").addClass("separator")
         }
         else {
             if (d[f].init) {
@@ -236,28 +236,28 @@ lwRTE.prototype.create_toolbar = function(d){
                 }
             }
             if (d[f].select) {
-                h = $(d[f].select).change(function(i){
+                h = $j(d[f].select).change(function(i){
                     c.event = i;
                     c.toolbar_click(this, d[this.className]);
                     return false
                 })
             }
             else {
-                h = $("<a href='#'></a>").attr("title", (d[f].hint) ? d[f].hint : f).attr("rel", f).click(function(i){
+                h = $j("<a href='#'></a>").attr("title", (d[f].hint) ? d[f].hint : f).attr("rel", f).click(function(i){
                     c.event = i;
                     c.toolbar_click(this, d[this.rel]);
                     return false
                 })
             }
-            a = $("<li></li>").append(h.addClass(f))
+            a = $j("<li></li>").append(h.addClass(f))
         }
-        $("ul", b).append(a)
+        $j("ul", b).append(a)
     }
-    $(".enable", b).click(function(){
+    $j(".enable", b).click(function(){
         c.enable_design_mode();
         return false
     });
-    $(".disable", b).click(function(){
+    $j(".disable", b).click(function(){
         c.disable_design_mode();
         return false
     });
@@ -269,15 +269,15 @@ lwRTE.prototype.create_panel = function(h, c){
     if (!e) {
         return false
     }
-    $(".rte-panel", e).remove();
+    $j(".rte-panel", e).remove();
     var f, b;
     var d = i.event.pageX;
     var g = i.event.pageY;
-    var a = $("<div></div>").hide().addClass("rte-panel").css({
+    var a = $j("<div></div>").hide().addClass("rte-panel").css({
         left: d + 15,
         top: g - 200
     });
-    $("<div></div>").addClass("rte-panel-title").html(h).append($("<a class='close' href='#'>X</a>").click(function(){
+    $j("<div></div>").addClass("rte-panel-title").html(h).append($j("<a class='close' href='#'>X</a>").click(function(){
         a.remove();
         return false
     })).mousedown(function(){
@@ -305,10 +305,10 @@ lwRTE.prototype.create_panel = function(h, c){
     return a
 };
 lwRTE.prototype.get_content = function(){
-    return (this.iframe) ? $("body", this.iframe_doc).html() : $(this.textarea).val()
+    return (this.iframe) ? $j("body", this.iframe_doc).html() : $j(this.textarea).val()
 };
 lwRTE.prototype.set_content = function(a){
-    (this.iframe) ? $("body", this.iframe_doc).html(a) : $(this.textarea).val(a)
+    (this.iframe) ? $j("body", this.iframe_doc).html(a) : $j(this.textarea).val(a)
 };
 lwRTE.prototype.set_selected_controls = function(b, l){
     var h = this.get_toolbar();
@@ -319,7 +319,7 @@ lwRTE.prototype.set_selected_controls = function(b, l){
     try {
         for (k in l) {
             f = l[k];
-            d = $("." + k, h);
+            d = $j("." + k, h);
             d.removeClass("active");
             if (!f.tags) {
                 continue
@@ -330,7 +330,7 @@ lwRTE.prototype.set_selected_controls = function(b, l){
                     continue
                 }
                 m = a.nodeName.toLowerCase();
-                if ($.inArray(m, f.tags) < 0) {
+                if ($j.inArray(m, f.tags) < 0) {
                     continue
                 }
                 if (f.select) {
@@ -388,7 +388,7 @@ lwRTE.prototype.get_selection_range = function(){
     this.iframe.focus();
     if (c.getSelection) {
         a = c.getSelection().getRangeAt(0);
-        if ($.browser.opera) {
+        if ($j.browser.opera) {
             var b = a.startContainer;
             if (b.nodeType === Node.TEXT_NODE) {
                 a.setStartBefore(b.parentNode)

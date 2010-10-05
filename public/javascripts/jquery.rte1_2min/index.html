@@ -47,14 +47,15 @@ This editor is compatible with major browsers (IE6, Firefox 2, Opera 9, Safari 3
 <script type="text/javascript" src="jquery.rte.tb.js"></script>
 <script type="text/javascript" src="jquery.ocupload-1.1.4.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-	var arr = $('.rte1').rte({
+
+$j(document).ready(function() {
+	var arr = $j('.rte1').rte({
 		css: ['default.css'],
 		controls_rte: rte_toolbar,
 		controls_html: html_toolbar
 	});
 
-	$('.rte2').rte({
+	$j('.rte2').rte({
 		css: ['default.css'],
 		width: 450,
 		height: 200,
@@ -62,6 +63,7 @@ $(document).ready(function() {
 		controls_html: html_toolbar
 	}, arr);
 });
+
 </script>
 
 <hr>
