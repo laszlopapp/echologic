@@ -9,7 +9,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100916143948) do
+ActiveRecord::Schema.define(:version => 20101005140925) do
+
+  create_table "admin_mailers", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -262,13 +267,13 @@ ActiveRecord::Schema.define(:version => 20100916143948) do
   add_index "user_echos", ["user_id"], :name => "index_echo_details_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                     :null => false
+    t.string   "email",                                      :null => false
     t.string   "crypted_password"
     t.string   "password_salt"
-    t.string   "persistence_token",                         :null => false
-    t.string   "perishable_token",                          :null => false
-    t.integer  "login_count",            :default => 0,     :null => false
-    t.integer  "failed_login_count",     :default => 0,     :null => false
+    t.string   "persistence_token",                          :null => false
+    t.string   "perishable_token",                           :null => false
+    t.integer  "login_count",             :default => 0,     :null => false
+    t.integer  "failed_login_count",      :default => 0,     :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
@@ -276,11 +281,12 @@ ActiveRecord::Schema.define(:version => 20100916143948) do
     t.string   "last_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "active",                 :default => false, :null => false
+    t.boolean  "active",                  :default => false, :null => false
     t.string   "openid_identifier"
     t.integer  "last_login_language_id"
-    t.integer  "activity_notification",  :default => 1
-    t.integer  "drafting_notification",  :default => 1
+    t.integer  "activity_notification",   :default => 1
+    t.integer  "drafting_notification",   :default => 1
+    t.integer  "newsletter_notification", :default => 0
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

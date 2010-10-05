@@ -246,6 +246,12 @@ de:
       title: E-Mail Benachrichtigungen
       guide: Hier können Sie einstellen, welche Benachrichtigungen Sie per E-Mail bekommen möchten.
 
+      newsletter:
+        title: Newsletter
+        guide: Get some regular information directly from the webmasters.
+        turned_on: Newsletter has been switched on.
+        turned_off: Newsletter has been switched off.
+
       activity:
         title: Neue Diskussionsbeiträge
         guide: Tägliche Benachrichtigungen über neue Diskussionen und Neuigkeiten in Ihren Diskussionen und Vorschlägen.
@@ -516,6 +522,11 @@ de:
     errors:
       models:
         feedback:
+          attributes:
+            blank: 'Bitte füllen Sie alle Felder aus.'
+            email:
+              invalid: 'Sie haben sich bei Ihrer E-Mail Adresse vertippt. Bitte versuchen Sie es erneut.'
+        newsletter:
           attributes:
             blank: 'Bitte füllen Sie alle Felder aus.'
             email:

@@ -14,5 +14,9 @@ render_tabnav :admin,
     t.links_to hash_for_reports_path
   end
 
+  add_tab do |t|
+    t.named "Newsletter"
+    t.links_to new_newsletter_path
+  end
 end
 %>

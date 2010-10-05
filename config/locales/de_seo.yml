@@ -79,6 +79,9 @@ de:
       # my_echo: de.seo.title.admin
       admin:
         show: 'echo - Admin Area'
+      # my_echo: de.seo.title.newsletter
+      newsletter:
+        new: 'echo - Newsletter'
 
     meta:
       echologic:
