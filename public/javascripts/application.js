@@ -84,6 +84,13 @@ function bindAjaxClickEvents() {
     return false;
   });
 	
+	/*special newsletter submission tag*/
+	$(".newsletter_submit_tag").live("click", function() {
+		$("#newsletter_test").val($(this).attr("value"));
+		$("#new_newsletter_form").submit();
+    return false;
+  });
+	
 }
 
 /* If JS is enabled hijack staticMenuButtons to do AJAX requests. */

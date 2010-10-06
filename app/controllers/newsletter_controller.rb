@@ -1,20 +1,24 @@
 class NewsletterController < ApplicationController
-  # GET /feedback/new
+  # GET /new
   def new
     respond_to do |format|
       format.html
     end
   end
 
-  # POST /feedback
+  # GET /create
   def create
     subject = params[:newsletter][:subject]
     text = params[:newsletter][:text]
     respond_to do |format|
       format.js do
         if !subject.blank? and !text.blank?
-          User.all.select{|u| u.newsletter_notification == 1}.each do |user|
-            AdminMailer.deliver_newsletter(user, subject, text)
+          if params[:newsletter][:test].eql?('true')
+            AdminMailer.deliver_newsletter(current_user, subject, text)
+          else
+            User.all.select{|u| u.newsletter_notification == 1}.each do |user|
+              AdminMailer.deliver_newsletter(user, subject, text)
+            end
           end
           render :template => 'newsletter/create'
         else

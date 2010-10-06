@@ -5,8 +5,8 @@
 
 <%= t('mailers.newsletter.header') %>
 
-<% form_for :newsletter, :url => {:controller => 'newsletter', :action => 'create'},
-            :html => { :id => 'new_newsletter_form', :class => 'echoForm'} do |f| %>
+<% form_for :newsletter, :url => {:controller => :newsletter, :action => :create}, 
+            :html => {:id => 'new_newsletter_form', :class => 'echoForm'} do |f| -%>
 
   <p>
     <%= label_tag I18n.t('mailers.newsletter.subject'), nil %><br />
@@ -17,12 +17,12 @@
     <%= label_tag I18n.t('mailers.newsletter.text'), nil %><br/>
     <%= f.text_area :text, :rows => 4, :cols => 30, :html => {:id => 'newsletter_message'} %>
   </p>
-	
-	<%= f.submit %>
-
-
+    <%= f.hidden_field :test, :value => true %>
 <% end %>
 
+<%= content_tag :span, 'Send Test Mail', :class => 'newsletter_submit_tag', :value => true %>
+<%= content_tag :span, 'Send To All', :class => 'newsletter_submit_tag', :value => false %>
+
 <script type="text/javascript">
-  $("#new_newsletter_form").ajaxForm({ dataType: 'script' });
+  $('#new_newsletter_form').ajaxForm({ dataType : 'script' });
 </script>
