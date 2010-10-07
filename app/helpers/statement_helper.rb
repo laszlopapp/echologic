@@ -398,7 +398,7 @@ module StatementHelper
   def statement_button(id, title, options={})
     stmt = StatementNode.find(id)
     options[:class] ||= ''
-    options[:class] += ' ajax'
+    options[:class] += !stmt.taggable? ? ' ajax' : ''
     return link_to(title, url_for(stmt), options)
   end
 
