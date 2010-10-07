@@ -5,7 +5,7 @@ en:
   application:
     # Unexpected Error
     unexpected_error: An unexpected error has occurred. Sorry for the inconvenience.
- 
+
     # General purpose resources
     general:
       more: more »
@@ -30,7 +30,7 @@ en:
       incorporate: Incorporate
       welcome: Welcome
       all: All
- 
+
     # Roadmap - Progress
     roadmap:
       title: ready
@@ -384,7 +384,7 @@ en:
         This will enable you to enter statements in any language you speak at least at intermediate level.
       drafting_language_hint: |
         Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
- 
+
       publish: Release
       published: Discussion has been released successfully.
       edit: 'Edit {{type}}'
@@ -438,7 +438,7 @@ en:
         guide: Please <strong>select an image</strong> (JPG or PNG, max. 5MB) and upload it.
         progress: The image is being uploaded. Please wait...
         error: The image couldn't be applied. Please upload a supported format (JPG or PNG and max. 5MB).
-  
+
     summary:
       title: 'Summary'
 
@@ -556,7 +556,7 @@ en:
         title:    'Title'
         text:     'Summary'
         image:    'Illustration'
- 
+
     models:
       question: "question"
       proposal: "proposal"
