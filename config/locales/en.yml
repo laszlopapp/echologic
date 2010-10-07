@@ -606,44 +606,44 @@ en:
     distance_in_words:
       half_a_minute: 'half a minute'
       less_than_x_seconds:
-        zero: 'less than 1 Second'
-        one: 'less than 1 Second'
-        other: 'less than {{count}} Seconds'
+        zero: 'less than 1 second'
+        one: 'less than 1 second'
+        other: 'less than {{count}} seconds'
       x_seconds:
-        one: '1 Second'
-        other: '{{count}} Seconds'
+        one: '1 second'
+        other: '{{count}} seconds'
       less_than_x_minutes:
-        zero: 'less than 1 Minute'
-        one: 'less than one Minute'
-        other: 'less than {{count}} Minutes'
+        zero: 'less than 1 minute'
+        one: 'less than one minute'
+        other: 'less than {{count}} minutes'
       x_minutes:
-        one: '1 Minute'
-        other: '{{count}} Minutes'
+        one: '1 minute'
+        other: '{{count}} minutes'
       about_x_hours:
-        one: 'about 1 Hour'
-        other: 'about {{count}} Hours'
+        one: 'about 1 hour'
+        other: 'about {{count}} hours'
       x_days:
-        one: '1 Day'
-        other: '{{count}} Days'
+        one: '1 day'
+        other: '{{count}} days'
       about_x_months:
-        one: 'about 1 Month'
-        other: 'about {{count}} Months'
+        one: 'about 1 month'
+        other: 'about {{count}} months'
       x_months:
-        one: '1 Month'
-        other: '{{count}} Months'
+        one: '1 month'
+        other: '{{count}} months'
       about_x_years:
-        one: 'about 1 Year'
-        other: 'about {{count}} Years'
+        one: 'about 1 year'
+        other: 'about {{count}} years'
       over_x_years:
-        one: 'over 1 Year'
-        other: 'over {{count}} Years'
+        one: 'over 1 year'
+        other: 'over {{count}} years'
     prompts:
-      second: "Seconds"
-      minute: "Minutes"
-      hour: "Hours"
-      day: "Day"
-      month: "Month"
-      year: "Year"
+      second: "seconds"
+      minute: "minutes"
+      hour: "hours"
+      day: "day"
+      month: "month"
+      year: "year"
 
   number:
     format:
