@@ -8,14 +8,14 @@ $(function() {
     setSearchHistory();
     return false;
   });
-	
-	$('#search_form #value').live("keypress", function(event) { 
+
+	$('#search_form #value').live("keypress", function(event) {
     if (event && event.keyCode == 13) { /* check if enter was pressed */
       setSearchHistory();
       return false;
     }
   })
-	
+
   $(".ajax_sort").live("click", function() {
     var sort = $(this).attr('value');
 		$(':input[id=sort]').val(sort);
@@ -41,7 +41,7 @@ function setSearchHistory() {
 	}
 	else {
     $.setFragment({ "value": val, "page": "1"});
-	} 
+	}
 }
 
 
@@ -51,12 +51,12 @@ $(function() {
     $.setFragment({ "page" : $.queryString(this.href).page })
     return false;
   });
-  
+
   $.fragmentChange(true);
   $(document).bind("fragmentChange.page", function() {
 		$.getScript($.queryString(document.location.href, {"page" : $.fragment().page, "sort": $.fragment().sort , "value" : $.fragment().value}));
   });
-  
+
   if ($.fragment().page) {
     $(document).trigger("fragmentChange.page");
   }
@@ -68,8 +68,7 @@ $(function() {
 /*********************************************/
 $(function() {
 	$(".more_pagination a").live("click", function() {
-		$(this).replaceWith($('<span/>').text($(this).text()));
-		$(".more_pagination").append($('<span/>').addClass('pagination_loading'));
+		$(this).replaceWith($('<span/>').text($(this).text()).addClass('more_loading'));
   });
 });
 
