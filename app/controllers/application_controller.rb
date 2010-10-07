@@ -90,7 +90,7 @@ class ApplicationController < ActionController::Base
 
   # Expires and cleans up the user session.
   def expire_session!
-    current_user.update_attributes(:last_login_language => Language[params[:locale]])
+    current_user.update_attributes(:last_login_language => Language[I18n.locale])
     current_user_session.try(:destroy)
     reset_session
     if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'
