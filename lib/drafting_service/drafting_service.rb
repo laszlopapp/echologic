@@ -72,6 +72,11 @@ class DraftingService
   def created(node)
   end
 
+
+  # Observer to subscribeable publish action
+  def published(node)
+  end
+
   # Observer to incorporable incorporated action
   def incorporated(incorporable, user)
     incorporable.reload
