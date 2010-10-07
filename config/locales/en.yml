@@ -586,64 +586,64 @@ en:
       month_name: "%B"
       day_name: "%a"
 
-    day_names: [Sonntag, Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag]
-    abbr_day_names: [So, Mo, Di, Mi, Do, Fr, Sa]
-    month_names: [~, Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]
-    abbr_month_names: [~, Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez]
+    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+    abbr_day_names: [Su, Mo, Tu, We, Th, Fr, Sa]
+    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
+    abbr_month_names: [~, Jan, Feb, Mar, Apr, Mai, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
     order: [ :day, :month, :year ]
 
   time:
     formats:
       default: "%a, %d. %B %Y"
-      short: "%e. %B, %H:%M Uhr"
-      long: "%A, %e. %B %Y, %H:%M Uhr"
+      short: "%e. %B, %H:%M o'clock"
+      long: "%A, %e. %B %Y, %H:%M o'clock"
       time: "%H:%M"
 
-    am: "vormittags"
-    pm: "nachmittags"
+    am: "in the morning"
+    pm: "in the afternoon"
 
   datetime:
     distance_in_words:
-      half_a_minute: 'eine halbe Minute'
+      half_a_minute: 'half a minute'
       less_than_x_seconds:
-        zero: 'weniger als 1 Sekunde'
-        one: 'weniger als 1 Sekunde'
-        other: 'weniger als {{count}} Sekunden'
+        zero: 'less than 1 Second'
+        one: 'less than 1 Second'
+        other: 'less than {{count}} Seconds'
       x_seconds:
-        one: '1 Sekunde'
-        other: '{{count}} Sekunden'
+        one: '1 Second'
+        other: '{{count}} Seconds'
       less_than_x_minutes:
-        zero: 'weniger als 1 Minute'
-        one: 'weniger als eine Minute'
-        other: 'weniger als {{count}} Minuten'
+        zero: 'less than 1 Minute'
+        one: 'less than one Minute'
+        other: 'less than {{count}} Minutes'
       x_minutes:
         one: '1 Minute'
-        other: '{{count}} Minuten'
+        other: '{{count}} Minutes'
       about_x_hours:
-        one: 'etwa 1 Stunde'
-        other: 'etwa {{count}} Stunden'
+        one: 'about 1 Hour'
+        other: 'about {{count}} Hours'
       x_days:
-        one: '1 Tag'
-        other: '{{count}} Tage'
+        one: '1 Day'
+        other: '{{count}} Days'
       about_x_months:
-        one: 'etwa 1 Monat'
-        other: 'etwa {{count}} Monate'
+        one: 'about 1 Month'
+        other: 'about {{count}} Months'
       x_months:
-        one: '1 Monat'
-        other: '{{count}} Monate'
+        one: '1 Month'
+        other: '{{count}} Months'
       about_x_years:
-        one: 'etwa 1 Jahr'
-        other: 'etwa {{count}} Jahre'
+        one: 'about 1 Year'
+        other: 'about {{count}} Years'
       over_x_years:
-        one: 'mehr als 1 Jahr'
-        other: 'mehr als {{count}} Jahre'
+        one: 'over 1 Year'
+        other: 'over {{count}} Years'
     prompts:
-      second: "Sekunden"
-      minute: "Minuten"
-      hour: "Stunden"
-      day: "Tag"
-      month: "Monat"
-      year: "Jahr"
+      second: "Seconds"
+      minute: "Minutes"
+      hour: "Hours"
+      day: "Day"
+      month: "Month"
+      year: "Year"
 
   number:
     format:
