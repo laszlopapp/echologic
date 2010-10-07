@@ -11,13 +11,19 @@
 	right: 0;
 	top: 0;
 	height: 100%;
-	background: #aaa;
+	background: #DDD;
+  width: 10px !important;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 .jScrollPaneDrag {
 	position: absolute;
-	background: #666;
+	background: #A9B6BD;
 	cursor: pointer;
 	overflow: hidden;
+  width: 10px !important;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 .jScrollPaneDragTop {
 	position: absolute;

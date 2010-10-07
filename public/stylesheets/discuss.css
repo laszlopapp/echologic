@@ -242,7 +242,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   left: 23px;
   top: 25px;
   width: 100px;
-  padding: 5px 0 10px 5px;
+  padding: 5px 0 17px 5px;
   text-align: center;
   border: 1px solid #DDD;
   -moz-border-radius: 15px;
@@ -271,6 +271,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   margin-left:  160px;
   width:        815px;
   padding-left: 15px;
+  clear: right;
 }
 
 #summary.discuss_right_block {
@@ -280,26 +281,29 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .statement_content {
   margin-top: 12px;
   line-height:1.25em;
-	display: inline-block;
 	width: 795px;
 }
 
 .statement_content .image_container {
 	float: right;
-	margin-left: 20px;
-	margin-bottom: 20px;
-	width: 170px;
-	height: 125px;
+	margin: 0 0 25px 30px;
+  position: relative;
 }
 
 .statement_content .image {
-	
+  border: 2px solid #7BB031;
+  max-height: 113px;
+  max-width: 170px;
 }
 
 .statement_content .upload_link {
 	position: absolute;
-  top: 236px;
-	margin-left: 9px; 
+  top: 29px;
+	left: 17px;
+}
+
+#upload_image_link {
+  text-decoration: none;
 }
 
 .statement_content a {
@@ -460,11 +464,6 @@ a.statement_link:hover {
 
 #children_list li {
   margin: 4px 0;
-}
-
-#children .pagination, 
-#children .more_pagination {
-  width: 830px !important;
 }
 
 #children .text_button {
