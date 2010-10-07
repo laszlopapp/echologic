@@ -110,7 +110,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .statement_form_illustration {
   float: right;
-  margin: 38px 35px 0 30px;
+  margin: 0px 35px 0 30px;
   border: none;
 }
 
@@ -291,12 +291,13 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 .statement_content .image {
-  border: 2px solid #7BB031;
+  border: 1px solid #7BB031;
   max-height: 113px;
   max-width: 170px;
 }
 
 .statement_content .upload_link {
+  background: url(../images/page/discuss/statement_image_button.png) no-repeat scroll left top transparent;
 	position: absolute;
   top: 29px;
 	left: 17px;
@@ -458,6 +459,10 @@ a.statement_link:hover {
 /* Children statements */
 /* ------------------- */
 
+#children_list {
+  width: 815px !important;
+}
+
 #children_list ul {
   min-height: 145px;
 }
@@ -484,17 +489,7 @@ a.statement_link:hover {
 	min-height: 230px;
 }
 
-.pagination_loading{
-	background: white url('../images/indicator.gif') left center  no-repeat;
-	height: 16px;
-	width: 16px;
-	position: absolute;
-	left: 997px;
-}
 
-.more_pagination .disabled {
-	display: none;
-}
 /* ------------------- */
 /* Translations        */
 /* ------------------- */
@@ -598,7 +593,7 @@ a.statement_link:hover {
 	display:inline-block;
 	margin:7px 0 25px;
 	vertical-align:top;
-	width:410px;
+	width:395px;
 }
 
 #statement_tags_container .label {
@@ -713,5 +708,10 @@ a.statement_link:hover {
 }
 
 #my_discussions .no_discussions {
-  text-align: center;
+  margin-top: 30px;
+}
+
+
+.children_pagination {
+  overflow: hidden;
 }

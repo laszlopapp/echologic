@@ -309,6 +309,22 @@
   color: #21587f;
 }
 
+.more_pagination .more_loading {
+  background: url('../images/indicator.gif') left center no-repeat;
+  padding-left: 25px;
+  color: #21587F;
+  font-size: 15px;
+  position: relative;
+  left: -13px;
+  cursor: default;
+}
+
+.more_pagination .disabled {
+  color: #b4bec3;
+  font-size: 15px;
+  cursor: default;
+}
+
 .pagination {
   clear: both;
   display: inline-block;
@@ -387,7 +403,7 @@
 }
 
 .button_150:hover {
-  background-position: 0 -43px;
+  background-position: 0 -43px !important;
   color: #7bb031;
 }
 
