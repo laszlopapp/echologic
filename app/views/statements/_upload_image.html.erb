@@ -8,7 +8,7 @@
 
 <% semantic_form_for @statement_node, :html => { :multipart => true, :id => 'upload_image_form' } do |form| %>
   <% form.inputs do %>
-    <%= form.input :image %>
+    <%= form.input :image, :input_html => {:size => 70} %>
   <% end %>
 <% end %>
 
@@ -21,7 +21,7 @@
    *   beforeSend: show progress indicator.
    *   complete:   hide progress indicator.
    *   success:    reload all pictures through ajax and close dialog.
-   * Return false to stop normal http processing. */
+   * Return false to stop normal http processing. */t
   $('#upload_image_form').submit(function() {
     $(this).ajaxSubmit({
       beforeSend: function() { $('#uploading_progress').show(); },
