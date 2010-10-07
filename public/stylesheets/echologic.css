@@ -241,7 +241,11 @@
 }
 
 #newsHolder .newsText {
-  font-size:   14px;
+  display: block;
+  font-size: 14px;
+  height: 67px;
+  line-height: 16px;
+  overflow: hidden;
 }
 
 #newsHolder .continues, #newsHolder .register_here {
