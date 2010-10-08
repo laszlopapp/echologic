@@ -5,7 +5,7 @@ pt:
   application:
 
     # Unexpected Error
-    unexpected_error: Ocorreu um erro inesperado. Pedimos desculpas pela inconveniência. 
+    unexpected_error: Ocorreu um erro inesperado. Pedimos desculpas pela inconveniência.
 
     # General purpose resources
     general:
@@ -31,7 +31,7 @@ pt:
       incorporate: Incorporate
       welcome: Bemvindo
       all: Tudo
- 
+
     # Roadmap - Progress
     roadmap:
       title: pronto
@@ -265,7 +265,7 @@ pt:
           <p>
           <strong>A echo é a democracia das pessoas para as pessoas.</strong>
           </p><p>
-          Como um projecto para apoiar o bem comum, a echo avança com o apoio e 
+          Como um projecto para apoiar o bem comum, a echo avança com o apoio e
           <strong>esforço conjunto</strong> de indivíduos e organizações comprometidos.
           </p><p>
           Ansioso para <strong>contribuir as suas ideias</strong> também!?<br/>
@@ -299,7 +299,7 @@ pt:
       link: Minhas Discussões
       title: As minhas discussões novas e publicadas
       no_discussions: |
-        Ainda não criou nenhuma discussão. Para o fazer, por favor clique no ponto de interrogação que se encontra à esquerda.  
+        Ainda não criou nenhuma discussão. Para o fazer, por favor clique no ponto de interrogação que se encontra à esquerda.
     tag_permission: |
       Não tem permissão para inserir a tag '{{tag}}'.
     translation_request: Por favor traduza este texto em <strong>PORTUGUÊS</strong>.
@@ -351,9 +351,6 @@ pt:
       create_improvement_proposal: 'Criar nova proposta de melhoria à proposta atual'
       echo: "Apoie esta afirmação (dê o seu echo)!"
       unecho: 'Retire o seu apoio a esta afirmação (retire o seu echo)'
-      echo_indicator:
-        one: 'Este conteúdo tem {{supporter_count}} apoiante.'
-        many: 'Este conteúdo tem {{supporter_count}} apoiantes.'
       publish: |
         Publique a discussão, de forma a esta se tornar visível para todos.
         (Não será mais possível editar a discussão.)
@@ -361,6 +358,9 @@ pt:
 
     statements:
       label: 'votos'
+      echo_indicator:
+        one: '{{supporter_count}} apoiante'
+        many: '{{supporter_count}} apoiantes'
       create_question_link: 'Criar uma nova discussão'
       create_proposal_link: 'Criar nova proposta'
       create_internal_link: 'Nova ideia?'
@@ -382,7 +382,7 @@ pt:
       statement_language_hint_tooltip: |
         Poderá desta forma introduzir conteúdo em qualquer língua na qual possua conhecimentos para além de um nível intermédio.
       drafting_language_hint: |
-        Por favor tome nota de que o processo de elaboração coletiva desta proposta só irá ocorrer nesta língua! 
+        Por favor tome nota de que o processo de elaboração coletiva desta proposta só irá ocorrer nesta língua!
       publish: Publicar
       published: A discussão foi publicada com sucesso.
       edit: 'Editar {{type}}'
@@ -435,7 +435,7 @@ pt:
         title: Carregar Imagem
         guide: Por favor <strong>selecione uma imagem</strong> (JPG or PNG, max. 5MB) e carregue-a.
         progress: A imagem está sendo carregada. Por favor aguarde...
-        error: A imagem não pôde ser incluída. Por favor carregue um formato suportado (JPG ou PNG e max. 5MB). 
+        error: A imagem não pôde ser incluída. Por favor carregue um formato suportado (JPG ou PNG e max. 5MB).
 
     summary:
       title: 'Sumário'
@@ -553,7 +553,7 @@ pt:
         text:       'Sumário'
         title:      'Título'
         image:      'Ilustração'
- 
+
 
     models:
       question: "questão"
@@ -677,4 +677,3 @@ pt:
           mb: "MB"
           gb: "GB"
           tb: "TB"
- 

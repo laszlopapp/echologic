@@ -361,9 +361,6 @@ de:
       create_improvement_proposal: 'Tragen Sie Ihre neue Idee zum aktuellen Vorschlag ein'
       echo: 'Unterstützen Sie diese Aussage durch Ihr Echo!'
       unecho: 'Ziehen Sie Ihre Stimme zurück, wenn Sie die Aussage nicht mehr unterstützen möchten'
-      echo_indicator:
-        one: 'Diese Aussage hat {{supporter_count}} UnterstützerIn.'
-        many: 'Diese Aussage hat {{supporter_count}} UnterstützerInnen.'
       publish: |
         Geben Sie die Diskussion frei, um sie für alle sichtbar zu machen.
         (Danach ist keine Bearbeitung mehr möglich.)
@@ -371,6 +368,9 @@ de:
 
     statements:
       label: 'Stimmen'
+      echo_indicator:
+        one: '{{supporter_count}} UnterstützerIn'
+        many: '{{supporter_count}} UnterstützerInnen'
       create_question_link: 'Neue Diskussion eröffnen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
       create_internal_link: 'Neue Idee?'

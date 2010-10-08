@@ -221,14 +221,13 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   cursor: default;
 }
 
-.echo_label {
-  background: url("../images/page/discuss/echo_small.png") no-repeat scroll 0 0;
+.supporters_label {
   float: right;
-  padding-left: 20px;
+  font-size: 12px;
   position: relative;
-  right: 20px;
+  right: 22px;
+  top: -5px;
   cursor: default;
-  top: 2px;
 }
 
 /* ------- */

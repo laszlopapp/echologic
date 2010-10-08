@@ -6,7 +6,7 @@ es:
 
     # Unexpected Error
     unexpected_error: Se ha detectado un error inesperado en el servidor.
- 
+
     # General purpose resources
     general:
       more: más »
@@ -31,7 +31,7 @@ es:
       incorporate: Incorporate
       welcome: Bienvenido
       all: Todos
- 
+
     # Roadmap - Progress
     roadmap:
       title: completo
@@ -313,7 +313,7 @@ es:
       link: Mis Discusiones
       title: Mis discusiones nuevas y ya publicadas
       no_discussions: |
-        Lo sentimos, no hay debates por el momento. Para abrir un nuevo debate, haga click en el signo de interrogación a la izquierda. 
+        Lo sentimos, no hay debates por el momento. Para abrir un nuevo debate, haga click en el signo de interrogación a la izquierda.
     tag_permission: |
       Disculpe, pero no tienes permiso para inserir este '{{tag}}' tag.
     original_language_warning: |
@@ -365,9 +365,6 @@ es:
       create_improvement_proposal: 'Crear nueva propuesta de mejoramiento'
       echo: 'Apoye a esta opinión con tu voz!'
       unecho: 'Retire tu voto, si ya no estes de acuerdo'
-      echo_indicator:
-        one: 'Esta opinión tiene {{supporter_count}} vozes.'
-        many: 'Esta opinión tiene {{supporter_count}} vozes.'
       publish: |
         Si publicas la discusión, otras personas podran participar en ella.
         (No será possible modificar la discusión.)
@@ -375,6 +372,9 @@ es:
 
     statements:
       label: 'votos'
+      echo_indicator:
+        one: '{{supporter_count}} vozes'
+        many: '{{supporter_count}} vozes'
       create_question_link: 'Crear nueva discusión'
       create_proposal_link: 'Crear nueva propuesta'
       create_internal_link: 'Nueva Idea?'
@@ -399,10 +399,10 @@ es:
         Esto le permitirá introducir comentarios en el idioma en que posee al menos, conocimientos a nivel intermedio.
       drafting_language_hint: |
         Note por favor, que el proceso de elaboración colectiva de las propuestas funcionará sólo en este idioma!
- 
- 
- 
- 
+
+
+
+
       publish: Publicar
       published: Esta discusión fue publicada con éxito.
       edit: 'Editar {{type}}'
@@ -454,9 +454,9 @@ es:
       upload_image:
         title: Cargar imagen
         guide: Seleccione <strong>por favor, una imagen</strong> (JPG o PNG, max. 5MB) y descárguela.
-        progress: La imagen se está cargando. Por favor, espere... 
+        progress: La imagen se está cargando. Por favor, espere...
         error: 'Error cargando la imagen: Formato de la imagen no compatible.'
- 
+
     summary:
       title: 'Resumen'
     messages:
@@ -577,7 +577,7 @@ es:
         language: 'Idioma'
         text:     'Resumen'
         title:    'Titulo'
-        image:    'Imagen' 
+        image:    'Imagen'
 
     models:
       question: "Cuestión"
@@ -702,4 +702,3 @@ es:
           gb: "GB"
           tb: "TB"
 
-  

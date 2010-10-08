@@ -352,9 +352,6 @@ en:
       create_improvement_proposal: "Post a new idea to improve the current proposal"
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your vote to stop supporting this statement'
-      echo_indicator:
-        one: 'This statement has {{supporter_count}} supporter.'
-        many: 'This statement has {{supporter_count}} supporters.'
       publish: |
         Release the discussion to make it visible for everybody.
         (Afterwards no further editing is possible.)
@@ -362,6 +359,9 @@ en:
 
     statements:
       label: 'votes'
+      echo_indicator:
+        one: '{{supporter_count}} supporter'
+        many: '{{supporter_count}} supporters'
       create_question_link: 'Open a new discussion'
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
