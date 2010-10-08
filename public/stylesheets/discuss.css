@@ -224,9 +224,9 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .supporters_label {
   float: right;
   font-size: 12px;
-  position: relative;
+  position: absolute;
   right: 22px;
-  top: -5px;
+  top: 21px;
   cursor: default;
 }
 
