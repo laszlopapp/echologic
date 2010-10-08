@@ -1,4 +1,5 @@
-page << "$('#children_list').animate({height: 210}, 400).show();" if @page.to_i == 1
+panel_height = @children.total_entries == 7 ? 230 : 210
+page << "$('#children_list').animate({height: #{panel_height}}, 400).show();" if @page.to_i == 1
 page << "current_scroll = save_current_scroll();" if @page.to_i > 1
 
 page.insert_html :bottom, :children_list, :partial => 'statements/child', :collection => @children[@offset, @per_page]
