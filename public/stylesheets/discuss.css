@@ -286,8 +286,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .statement_content .image_container {
 	float: right;
-	margin: 0 0 25px 30px;
+	margin: 4px 0 25px 20px;
   position: relative;
+  text-align: right;
+  width: 170px;
 }
 
 .statement_content .image {
