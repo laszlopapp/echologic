@@ -328,7 +328,7 @@ module StatementHelper
       if statement_node.ratio > 1
         html += content_tag :span, '', :class => "echo_indicator ttLink", :title => label, :alt => statement_node.ratio
       else
-        html += content_tag :span, '', :class => "no_echo_indicator ttLink", :title => tooltip
+        html += content_tag :span, '', :class => "no_echo_indicator ttLink", :title => label
       end
     end
 
