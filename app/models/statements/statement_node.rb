@@ -4,11 +4,11 @@ class StatementNode < ActiveRecord::Base
   acts_as_subscribeable
 
   after_destroy :destroy_statement
-  
+
   def destroy_statement
     self.statement.destroy if (statement.statement_nodes - [self]).empty?
   end
-  
+
   ##
   ## ASSOCIATIONS
   ##
@@ -17,7 +17,8 @@ class StatementNode < ActiveRecord::Base
   belongs_to :root_statement, :foreign_key => "root_id", :class_name => "StatementNode"
   belongs_to :statement
 
-  delegate :original_language, :document_in_language, :authors, :has_author?, :statement_image, :statement_image=, :image, :image=, :to => :statement
+  delegate :original_language, :document_in_language, :authors, :has_author?,
+           :statement_image, :statement_image=, :image, :image=, :to => :statement
 
   has_enumerated :editorial_state, :class_name => 'StatementState'
 
