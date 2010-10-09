@@ -564,10 +564,11 @@ de:
       feedback:
         message: Nachricht
       statement_document:
+        language_id: 'Sprache'
         language: 'Sprache'
-        title:    'Titel'
-        text:     'Zusammenfassung'
-        image:    'Illustration'
+        title: 'Titel'
+        text: 'Zusammenfassung'
+        image: 'Illustration'
 
 
     models:

@@ -552,10 +552,11 @@ en:
       membership:
         position: My role
       statement_document:
+        language_id: 'Language'
         language: 'Language'
-        title:    'Title'
-        text:     'Summary'
-        image:    'Illustration'
+        title: 'Title'
+        text: 'Summary'
+        image: 'Illustration'
 
     models:
       question: "question"

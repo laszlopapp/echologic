@@ -574,10 +574,11 @@ es:
       feedback:
         message: Mensaje
       statement_document:
+        language_id: 'Idioma'
         language: 'Idioma'
-        text:     'Resumen'
-        title:    'Titulo'
-        image:    'Imagen'
+        text: 'Resumen'
+        title: 'Titulo'
+        image: 'Imagen'
 
     models:
       question: "Cuestión"

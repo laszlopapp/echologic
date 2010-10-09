@@ -543,16 +543,17 @@ pt:
         memberships: Actividades
         spoken_languages: Línguas Faladas
       report:
-        reason:     'Razão'
+        reason: 'Razão'
       web_address:
-        location:   'Endereço Web'
+        location: 'Endereço Web'
       membership:
         position: A minha função
       statement_document:
-        language:   'Língua'
-        text:       'Sumário'
-        title:      'Título'
-        image:      'Ilustração'
+        language_id: 'Língua'
+        language: 'Língua'
+        text: 'Sumário'
+        title: 'Título'
+        image: 'Ilustração'
 
 
     models:
