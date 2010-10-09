@@ -113,12 +113,11 @@ pt:
              </ul>
            </p>
 
-      klimaherbsttv:
-        name: Klimaherbst TV (Climate Autumn TV)
-        short_name: Klimaherbst TV
+      klimaherbst:
+        name: Klimaherbst (Climate Autumn)
+        short_name: Klimaherbst
         teaser: |
-          Discuss about "usage behavior, lifestyles and health" with respect to the ecology guideline
-          being prepared for the city of Munich.
+          Discuss about the ecology guideline being prepared for the city of Munich.
         description: |-
           <p>
           In Munich, the <strong>ecology guideline</strong> to climate protection is going to be submitted to the
@@ -128,7 +127,7 @@ pt:
           How far do we want to go rebuilding our transport system? Where should be invested?
           How can the city support the change of lifestyle?
           <br/>
-          For more infos about the Klimaherbst TV event series, click
+          For more infos about the Klimaherbst event series, click
           <a href='http://www.klimaherbst.de/hallo-offentlichkeit' target='_blank'>here</a>.
           </p>
 
