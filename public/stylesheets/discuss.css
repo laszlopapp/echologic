@@ -153,6 +153,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   float: left;
   position: relative;
   top: 12px;
+  margin-bottom: 4px;
 }
 
 .context_link .statement_link {
