@@ -563,6 +563,8 @@ de:
         position: 'Meine Rolle'
       feedback:
         message: Nachricht
+      statement_node:
+        image: 'Bild Datei'
       statement_document:
         language_id: 'Sprache'
         language: 'Sprache'

@@ -573,6 +573,8 @@ es:
         position: 'Mi cargo'
       feedback:
         message: Mensaje
+      statement_node:
+        image: 'Imagen de archivo'
       statement_document:
         language_id: 'Idioma'
         language: 'Idioma'

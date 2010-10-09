@@ -548,6 +548,8 @@ pt:
         location: 'Endereço Web'
       membership:
         position: A minha função
+      statement_node:
+        image: 'O arquivo de imagem'
       statement_document:
         language_id: 'Língua'
         language: 'Língua'
