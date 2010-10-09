@@ -424,7 +424,7 @@ de:
       read_only_permission: |-
         Diese ist eine transparente aber geschlossene Diskussion, die Sie nur mitlesen dürfen.
       unsupported_parent: |-
-        You can only support improvement proposals if you support the proposal itself.
+        Ergänzungsvorschläge können nur unterstützt werden, wenn der Vorschlag selbst unterstützt wurde.
       not_approved_any_more: |-
         Dieser Verbesserungsvorschlag kann leider nicht mehr eingearbeitet werden.
       see_parent_if_approved: |-
