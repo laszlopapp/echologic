@@ -203,64 +203,86 @@
   margin: 0;
 }
 
+/* Twitter */
 
-#newsContainer #twitterBird {
-  border:      none;
-  cursor:      pointer;
-}
-
-#twitterBird a {
-  background:  url(../images/page/echologic_twitter.png) no-repeat scroll;
-  width:       75px;
-  height:      90px;
-  display:     block;
-  position:    relative;
-  right:       -224px;
-  top:         -14px;
-  cursor:      pointer;
-  z-index:     10;
-  border:      none;
-}
-
-#newsHolder {
-  position:    absolute;
-  top:	  	   0px;
-  width: 	     285px;
-}
-
-#newsHolder .newsTitle {
-  font-size:   17px;
-  font-weight: bold;
-  margin:      2px 0 20px 0;
-  cursor:      default;
-}
-
-#newsHolder .newsDate {
-  font-size:   14px;
-  font-weight: bold;
-}
-
-#newsHolder .newsText {
+#twitter_link {
+  color: #21587f;
   display: block;
+  width: 100%;
+  height: 60px;
+  position: absolute;
+  border: none;
+  z-index: 15;
+}
+
+#twitter_link:hover #twitter_title {
+  color: #7bb031;
+}
+
+#twitter_bird {
+  position: absolute;
+  right: -7px;
+  top: -17px;
+  z-index: 10;
+}
+
+#twitter_title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 3px 0 15px;
+}
+
+#twitter_date {
+  font-size: 14px;
+  font-weight: bold;
+  position: relative;
+  top: 42px;
+}
+
+#twitter_text {
+  display: inline-block;
   font-size: 14px;
   height: 67px;
   line-height: 16px;
   overflow: hidden;
+  position: relative;
+  top: 60px;
 }
 
-#newsHolder .continues, #newsHolder .register_here {
-  position: relative;
-  top: -7px;
+/* Featured topic teaser */
+
+#featured_topic_teaser {
   color: #21587f;
 }
 
-#newsHolder .register_here {
-  font-weight: bold;
-}
-
-#newsHolder a:hover .register_here {
+#featured_topic_teaser:hover #featured_topic_name {
   color: #7bb031;
 }
+
+#featured_topic_image {
+  position: absolute;
+  right: -9px;
+  top: -40px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+#featured_topic_name {
+  display: block;
+  font-size: 23px;
+  font-weight: bold;
+  padding: 2px 0 42px 0;
+}
+
+#featured_topic_description {
+  font-size: 14px;
+  font-weight: bold;
+  height: 75px;
+  line-height: 18px;
+  overflow: hidden;
+}
+
+/* Main box */
 
 #mainBoxContent {
   overflow-y:    auto;

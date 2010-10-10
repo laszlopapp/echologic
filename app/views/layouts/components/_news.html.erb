@@ -1,24 +1,15 @@
 <div id="newsContainer" class="rounded-box rounded-box-green-iwot">
-
-  <div id="twitterBird" class="ttLink" title="<%= I18n.t('static.echologic.show.twitter') %>">
-    <a href="http://www.twitter.com/echologic" alt="<%= I18n.t('static.echologic.show.twitter') %>" target="_blank"></a>
+  <div>
+    <%= render :partial => 'layouts/components/featured_topic',
+               :locals => {:featured_topic => "klimaherbst"} %>
   </div>
-
-  <div id="newsHolder">
-    <div class="newsTitle">
-      <%= I18n.t('static.echologic.show.news_title') %>
-    </div>
-
-    <%= get_twitter_content %>
-
-    <!--<span class='newsDate'>08.12.2009</span><br/>-->
-    <%# link_to({:url => join_path}, :href => join_path, :class => 'ajax') do %>
-     <!--<p>-->
-        <%# image_tag("page/discuss/topics/echonomyJAM_Logo.png") %><br/>
-        <!--<span class="continues"><%# I18n.t('discuss.topics.echonomyjam.continues') %></span><br/>
-        <span class="register_here"><%# I18n.t('discuss.topics.echonomyjam.register_here') %></span>
-      </p>-->
-    <%# end %>
-
+  <div id="twitter_panel">
+    <%= render :partial => 'layouts/components/twitter' %>
   </div>
 </div>
+
+<script type="text/javascript">
+  $('#newsContainer').cycle({
+      timeout: 7000
+  });
+</script>

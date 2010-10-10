@@ -1,0 +1,16 @@
+
+<% link_to hash_for_question_tags_path.merge({:id => featured_topic}), {:id => 'featured_topic_teaser'} do %>
+
+  <div id="featured_topic_image">
+    <%= image_tag("page/discuss/topics/#{featured_topic}_teaser.png") %>
+  </div>
+
+  <div id="featured_topic_name">
+    <%= I18n.t("discuss.topics.#{featured_topic}.name") %>
+  </div>
+
+  <div id="featured_topic_description">
+    <%= I18n.t("discuss.topics.#{featured_topic}.teaser") %>
+  </div>
+
+<% end %>
