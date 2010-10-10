@@ -3,10 +3,9 @@ require 'singleton'
 class ActivityTrackingService
   include Singleton
 
-  attr_accessor :period, :charges, :job_counter
+  attr_accessor :period, :charges
 
   def initialize
-    @job_counter = -1
   end
 
   def update(*args)
@@ -93,11 +92,10 @@ class ActivityTrackingService
 
     # After restarting the process (on new deployment) the
     # counter is initialized with the current job id.
-    @job_counter = current_job_id if @job_counter == -1
+    job_id = current_job_id + 1
 
     # Enqueuing the next job
-    @job_counter += 1
-    Delayed::Job.enqueue ActivityTrackingJob.new(@job_counter, @job_counter % @charges), 0,
+    Delayed::Job.enqueue ActivityTrackingJob.new(job_id, job_id % @charges), 0,
                          Time.now.utc.advance(:seconds => @period/@charges)
   end
 
@@ -106,10 +104,8 @@ class ActivityTrackingService
   #
   def generate_activity_mails(current_job_id, current_charge)
 
-    # Enqueuing the next job (but only if there is no job-jam :-))
-    if current_job_id == @job_counter || @job_counter == -1
-      enqueue_activity_tracking_job(current_job_id)
-    end
+    # Enqueuing the next job
+    enqueue_activity_tracking_job(current_job_id)
 
     # Calculating 'after time' to minimize timeframe errors due to long lasting processes
     # FIXME: correct solution should be to persist the last_notification time per user
