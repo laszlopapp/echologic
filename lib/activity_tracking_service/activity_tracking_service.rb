@@ -109,7 +109,9 @@ class ActivityTrackingService
   def generate_activity_mails(job_id, current_charge)
 
     # Enqueuing the next job (but only if there is no job-jam :-))
-    enqueue_activity_tracking_job(current_charge) if job_id == @last_job_id
+    if job_id == @last_job_id || @last_job_id == -1
+      enqueue_activity_tracking_job(current_charge)
+    end
 
     # Calculating 'after time' to minimize timeframe errors due to long lasting processes
     # FIXME: correct solution should be to persist the last_notification time per user
