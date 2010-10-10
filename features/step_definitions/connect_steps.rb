@@ -35,5 +35,7 @@ Then /^I should be redirected to "(.*)"$/ do |url|
   response.should redirect_to(url)
 end
 
-
+When /^I search for "([^\"]*)"$/ do |value|
+  visit connect_path(:value => value)
+end
 

@@ -3,6 +3,8 @@
 
 en:
   application:
+    # Unexpected Error
+    unexpected_error: An unexpected error has occurred. Sorry for the inconvenience.
 
     # General purpose resources
     general:
@@ -94,20 +96,20 @@ en:
   # ----------------
 
   welcome:
-    title: Welcome to echologic!
+    title: Welcome to echo!
     text: |
       <p>
       <strong>Discuss - Connect - Act!</strong><br/>
-      These are the three functional areas of echo being developed at echologic with your active participation.
+      These are the three functional areas of echo being developed with your active participation.
       The Roadmap (in the upper left corner of the screen) always shows you the
       current state of development and the next steps planned in the area you are looking at.
       </p><p>
-      As a mover at echologic you are welcome to <strong>engage into the evolution of echo</strong>!<br/>
+      As a mover you are welcome to <strong>engage into the evolution of echo</strong>!<br/>
       Until now, the following simple features have been released:
       </p>
     function_1:
       name: 'My Profile'
-      description: 'Complete your profile to present yourself in the echologic community.'
+      description: 'Complete your profile to present yourself in the echo community.'
     function_2:
       name: 'Connect'
       description: 'Explore the community and connect with other interesting people of the movement.'
@@ -132,7 +134,7 @@ en:
         remember: Remember me!
         hello: Logged in<br/><strong>{{name}}</strong>
       messages:
-        login_success: "Login successful. Welcome back to echologic."
+        login_success: "Login successful. Welcome back to echo."
         login_failed: "Unknown user or wrong password."
         logout_success: "Logout successful. See you later. Bye!"
         session_timeout: "Your old session has been closed. Please log in again."
@@ -141,7 +143,7 @@ en:
     activation:
 
       messages:
-        success: Your account has been successfully activated. Welcome to echologic!
+        success: Your account has been successfully activated. Welcome to echo!
         failed: Your account could not be activated. Please check your input.
 
     # Password resets section
@@ -150,12 +152,12 @@ en:
       step2: Define new password
       step1_text: |
         <strong>Forgot your password</strong> or you would simply like to define a new one?<br/><br/>
-        No problem! Just fill in your <strong>E-Mail</strong> address you used to sign up to echologic.<br/>
+        No problem! Just fill in your <strong>E-Mail</strong> address you used to sign up to echo.<br/>
         We will send you an E-mail shortly allowing you <strong>to define a new password</strong>.
       step1_mail: Send E-Mail
 
       step2_text: |
-        Please define <strong>your new password</strong> you would like to use to log in to echologic.
+        Please define <strong>your new password</strong> you would like to use to log in to echo.
       step2_ok: Set password and log in
       messages:
         success: "We have sent you an E-mail allowing you to reset your password. Please check your inbox."
@@ -167,7 +169,7 @@ en:
     profile:
       title: Personal Information
       edit_title: Edit your personal information
-      guide: Below you find your basic personal information. Please press the Edit button to change them.
+      guide: Below you find your basic personal information. Please press the Edit button to change it.
 
       gender:
         male: Male
@@ -212,7 +214,7 @@ en:
       title: Web Addresses
       guide: |
         Here you can enter some of your contact data and other web profiles.<br/>
-        <strong>PLEASE NOTE</strong>: for now, all information entered here will be visible to all members of the echologic community.
+        <strong>PLEASE NOTE</strong>: for now, all information entered here will be visible to all members of the echo community.
       type: Kind of address
       address: Web Address
 
@@ -258,7 +260,7 @@ en:
     users:
       new:
         title: Your echo
-        subtitle: Join echologic
+        subtitle: Join echo
         text: |
           <p>
           <strong>echo is democracy from the people for the people.</strong>
@@ -297,6 +299,8 @@ en:
     my_discussions:
       link: My Discussions
       title: My new & published discussions
+      no_discussions: |
+        You haven't opened any discussions yet. To do so, please click on the question mark button on the left.
     tag_permission: |
       You do not have the permission to insert the '{{tag}}' tag.
     translation_request: Please translate this statement to <strong>ENGLISH</strong>.
@@ -337,18 +341,17 @@ en:
       back_to_question: 'Back to current question'
       back_to_proposal: 'Back to current proposal'
       back_to_improvement_proposal: 'Back to current improvement proposal'
+      prev_question: 'Read previous question'
+      next_question: 'Read next question'
       prev_proposal: 'Read previous proposal for the current question'
       next_proposal: 'Read next proposal for the current question'
       prev_improvement_proposal: 'Read previous improvement proposal for the current proposal'
       next_improvement_proposal: 'Read next improvement proposal for the current proposal'
       create_question: 'Open a new discussion'
-      create_proposal: "Post a new idea concerning the current question."
-      create_improvement_proposal: "Post a new idea to improve the current proposal."
+      create_proposal: "Post a new idea concerning the current question"
+      create_improvement_proposal: "Post a new idea to improve the current proposal"
       echo: 'echo this statement to support it!'
-      unecho: 'Withdraw your vote to stop supporting this statement.'
-      echo_indicator:
-        one: 'This statement has {{supporter_count}} supporter.'
-        many: 'This statement has {{supporter_count}} supporters.'
+      unecho: 'Withdraw your vote to stop supporting this statement'
       publish: |
         Release the discussion to make it visible for everybody.
         (Afterwards no further editing is possible.)
@@ -356,6 +359,9 @@ en:
 
     statements:
       label: 'votes'
+      echo_indicator:
+        one: '{{supporter_count}} supporter'
+        many: '{{supporter_count}} supporters'
       create_question_link: 'Open a new discussion'
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
@@ -372,8 +378,13 @@ en:
       create_statement_language_hint: |
         Please post the statement in <strong>ENGLISH</strong> or choose another language
         using the babelfish in the upper menu.
+      statement_language_hint: |
+        Please set your language skills in your <a href='{{url}}'>Profile</a>.
+      statement_language_hint_tooltip: |
+        This will enable you to enter statements in any language you speak at least at intermediate level.
       drafting_language_hint: |
-        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language.
+        Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
+
       publish: Release
       published: Discussion has been released successfully.
       edit: 'Edit {{type}}'
@@ -394,8 +405,9 @@ en:
       topic: Topic (Tags / Keywords)
       states:
         label: 'Publish discussion immediately?'
-        deferred_publish: 'Set up at first and publish later'
-        immediate_publish: 'Publish immediately (no further editing is possible)'
+        initial_state:
+          new: 'Set up at first and publish later'
+          published: 'Publish immediately (no further editing is possible)'
         published: Released
         approved: Approved
       delete_link: 'Delete'
@@ -412,10 +424,20 @@ en:
         The requested improvement proposal has already been incorporated into the proposal below.
       being_edited: |-
         The statement is currently being edited. Please try again later.
+      statement_updated: |-
+        This {{type}} has just been updated by another person.
+      statement_updated: |-
+        This {{type}} has just been updated.
       edit_period_hint: |
         You have <strong>{{minutes}} minutes</strong> to edit the statement.
         Afterwards, your modifications might even get discarded.
       staled_modification: 'We are very sorry, but you exceeded the 60 minutes limit to edit and save the statement. Meanwhile it has already been updated by a different user. Therefore, your changes must have been unfortunately discarded.'
+
+      upload_image:
+        title: Upload Image
+        guide: Please <strong>select an image</strong> (JPG or PNG, max. 5MB) and upload it.
+        progress: The image is being uploaded. Please wait...
+        error: The image couldn't be applied. Please upload a supported format (JPG or PNG and max. 5MB).
 
     summary:
       title: 'Summary'
@@ -426,6 +448,7 @@ en:
       deleted: "The {{type}} has been deleted successfully."
       translated: "The {{type}} has been translated successfully."
       incorporated: "The improvement proposal has been successfully incorporated into the proposal."
+      image_uploaded: "The illustration image has been added to the {{type}}."
       empty:   "No discussions found. Please change your search criteria."
       empty_without_spoken_languages: |
         No discussions found. You can try defining your <a href='{{my_echo}}'>language skills</a>
@@ -528,9 +551,14 @@ en:
         location:   'Web Address'
       membership:
         position: My role
+      statement_node:
+        image: 'Image file'
       statement_document:
+        language_id: 'Language'
+        language: 'Language'
         title: 'Title'
         text: 'Summary'
+        image: 'Illustration'
 
     models:
       question: "question"
@@ -550,3 +578,108 @@ en:
       user_session:
         email: E-Mail
         password: Password
+
+  # Date and time formatting
+  date:
+    formats:
+      default: "%d.%m.%Y"
+      short: "%e. %b"
+      long: "%e. %B %Y"
+      only_day: "%e"
+      month_name: "%B"
+      day_name: "%a"
+
+    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+    abbr_day_names: [Su, Mo, Tu, We, Th, Fr, Sa]
+    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
+    abbr_month_names: [~, Jan, Feb, Mar, Apr, Mai, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+    order: [ :day, :month, :year ]
+
+  time:
+    formats:
+      default: "%a, %d. %B %Y"
+      short: "%e. %B, %H:%M o'clock"
+      long: "%A, %e. %B %Y, %H:%M o'clock"
+      time: "%H:%M"
+
+    am: "in the morning"
+    pm: "in the afternoon"
+
+  datetime:
+    distance_in_words:
+      half_a_minute: 'half a minute'
+      less_than_x_seconds:
+        zero: 'less than 1 second'
+        one: 'less than 1 second'
+        other: 'less than {{count}} seconds'
+      x_seconds:
+        one: '1 second'
+        other: '{{count}} seconds'
+      less_than_x_minutes:
+        zero: 'less than 1 minute'
+        one: 'less than one minute'
+        other: 'less than {{count}} minutes'
+      x_minutes:
+        one: '1 minute'
+        other: '{{count}} minutes'
+      about_x_hours:
+        one: 'about 1 hour'
+        other: 'about {{count}} hours'
+      x_days:
+        one: '1 day'
+        other: '{{count}} days'
+      about_x_months:
+        one: 'about 1 month'
+        other: 'about {{count}} months'
+      x_months:
+        one: '1 month'
+        other: '{{count}} months'
+      about_x_years:
+        one: 'about 1 year'
+        other: 'about {{count}} years'
+      over_x_years:
+        one: 'over 1 year'
+        other: 'over {{count}} years'
+    prompts:
+      second: "seconds"
+      minute: "minutes"
+      hour: "hours"
+      day: "day"
+      month: "month"
+      year: "year"
+
+  number:
+    format:
+      precision: 2
+      separator: ','
+      delimiter: '.'
+    currency:
+      format:
+        unit: '€'
+        format: '%n%u'
+        separator:
+        delimiter:
+        precision:
+    percentage:
+      format:
+        delimiter: ""
+    precision:
+      format:
+        delimiter: ""
+    human:
+      format:
+        delimiter: ""
+        precision: 1
+      storage_units:
+        # Storage units output formatting.
+        # %u is the storage unit, %n is the number (default: 2 MB)
+        format: "%n %u"
+        units:
+          byte:
+            one: "Byte"
+            other: "Bytes"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
+

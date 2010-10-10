@@ -1,0 +1,17 @@
+<div id="discuss_search_container" class="search_container">
+  <%path = params[:id] ? question_tags_path : discuss_search_path %>
+  <!-- Display featured topic category -->
+  <%= search_category(params[:id]) %>
+
+  <!-- New discussion link -->
+  <% create_question_link_for params[:id] %>
+
+  <!-- Search field -->
+  <% content_tag :div, :id => 'search_form' do %>
+    <%= text_field_tag :value %>
+    <%= content_tag :span, '', :name => 'submit_button', :class => 'submit_button', :alt => 'search_button' %>  
+  <% end %>
+</div>
+<script type="text/javascript">
+  $('#search_form').ajaxForm({ dataType : 'script' });
+</script>

@@ -4,6 +4,9 @@ es:
 
   application:
 
+    # Unexpected Error
+    unexpected_error: Se ha detectado un error inesperado en el servidor.
+
     # General purpose resources
     general:
       more: más »
@@ -94,15 +97,15 @@ es:
   # ----------------
 
   welcome:
-    title: Bienvenido a echologic!
+    title: Bienvenido a echo!
     text: |
       <p>
       <strong>Discutir - Conectar - Actuar!</strong><br/>
-      Estas son las tres áreas que desarrollaremos en echologic paso a paso juntos contigo.<br/>
+      Estas son las tres áreas que desarrollaremos en echo paso a paso juntos contigo.<br/>
       En el <strong>"desarrollo"</strong> (arriba en el lado derecho de la pantalla) puedes seguir
       el desarrollo actual de cada área y los próximos pasos planeados.
       </p><p>
-      Como miembro de echologic estas invitado a contribuir con tus ideas a la <strong>evolución de echo</strong>!<br/>
+      Como miembro de echo estas invitado a contribuir con tus ideas a la <strong>evolución de echo</strong>!<br/>
       Hasta la hora solamente las funciones simples fueron publicadas en las siguientes áreas:
       </p>
     function_1:
@@ -132,7 +135,7 @@ es:
         remember: Acuerde de mi!
         hello: Logged in <br/><strong>{{name}}</strong>
       messages:
-        login_success:  "Login exitoso.<br/>Bienvenido de vuelta a echologic!"
+        login_success:  "Login exitoso.<br/>Bienvenido de vuelta a echo!"
         login_failed:   "Usuario desconocido o seña incorrecta."
         logout_success: "Logout exitoso.<br/>Hasta la próxima vez!"
         session_timeout: "Tu sesión fue terminada. Por favor entre otra vez."
@@ -140,7 +143,7 @@ es:
     # Activations section
     activation:
       messages:
-        success: Tu cuenta fue activada. Bienvenido a echologic!
+        success: Tu cuenta fue activada. Bienvenido a echo!
         failed: Lamentablemente no era posible activar tu cuenta. Por favor verifique tu entrada.
 
     # Password resets section
@@ -150,12 +153,13 @@ es:
       step1_text: |
         <p><strong>Te olvidaste de tu seña</strong> o simplemente desea una nueva?
         </p><p>
-        No hay problema! Simplemente entre tu <strong>E-Mail</strong> con la cual estas registrado en echologic. Nosotros le enviaremos un E-Mail que le posibilitará <strong>definir una nueva seña</strong>.
+        No hay problema! Simplemente entre tu <strong>E-Mail</strong> con la cual estas registrado en echo.
+        Nosotros le enviaremos un E-Mail que le posibilitará <strong>definir una nueva seña</strong>.
         </p>
       step1_mail: Enviar E-Mail
 
       step2_text: |
-        Por favor entre <strong>tu nueva seña</strong> con la cual deseas entrar a echologic la próxima vez.
+        Por favor entre <strong>tu nueva seña</strong> con la cual deseas entrar a echo la próxima vez.
       step2_ok: Definir seña y entrar
       messages:
         success:        'Le enviamos un E-Mail, que le posibilita definir una nueva seña.<br/>Por favor cheque tu correo electrónico.'
@@ -214,7 +218,7 @@ es:
       guide: |
         Completando tus datos de contacto posibilitas que los demás usuarios le conozcan y entren en contacto contigo.<br/>
         <strong>ATENCIÓN</strong>: Todas las informaciones inseridas aquí actualmente son <strong>visibles</strong> para todos los
-        demás miembros de echologic.
+        demás miembros de echo.
       type: Tipo de dirección
       address: Dirección Web
       sorts:
@@ -272,7 +276,7 @@ es:
     users:
       new:
         title: 'Tu echo'
-        subtitle: 'Unirse a echologic'
+        subtitle: 'Unirse a echo'
         text: |
           <p>
           <strong>echo es la democracia hecha por el pueblo para el pueblo.</strong>
@@ -308,6 +312,8 @@ es:
     my_discussions:
       link: Mis Discusiones
       title: Mis discusiones nuevas y ya publicadas
+      no_discussions: |
+        Lo sentimos, no hay debates por el momento. Para abrir un nuevo debate, haga click en el signo de interrogación a la izquierda.
     tag_permission: |
       Disculpe, pero no tienes permiso para inserir este '{{tag}}' tag.
     original_language_warning: |
@@ -348,6 +354,8 @@ es:
       back_to_question: 'Volver al cuestión actual'
       back_to_proposal: 'Volver a la propuesta actual'
       back_to_improvement_proposal: 'Volver a la propuesta de mejoramiento actual'
+      prev_question: 'Leer cuestión anterior'
+      next_question: 'Leer próxima cuestión'
       prev_proposal: 'Leer propuesta anterior'
       next_proposal: 'Leer próxima propuesta'
       prev_improvement_proposal: 'Leer propuesta de mejoramiento anterior'
@@ -356,10 +364,7 @@ es:
       create_proposal: 'Crear nueva propuesta'
       create_improvement_proposal: 'Crear nueva propuesta de mejoramiento'
       echo: 'Apoye a esta opinión con tu voz!'
-      unecho: 'Retire tu voto, si ya no estes de acuerdo.'
-      echo_indicator:
-        one: 'Esta opinión tiene {{supporter_count}} vozes.'
-        many: 'Esta opinión tiene {{supporter_count}} vozes.'
+      unecho: 'Retire tu voto, si ya no estes de acuerdo'
       publish: |
         Si publicas la discusión, otras personas podran participar en ella.
         (No será possible modificar la discusión.)
@@ -367,6 +372,9 @@ es:
 
     statements:
       label: 'votos'
+      echo_indicator:
+        one: '{{supporter_count}} vozes'
+        many: '{{supporter_count}} vozes'
       create_question_link: 'Crear nueva discusión'
       create_proposal_link: 'Crear nueva propuesta'
       create_internal_link: 'Nueva Idea?'
@@ -385,8 +393,16 @@ es:
       create_statement_language_hint: |
         Por favor escriba su idea en <strong>ESPAÑOL</strong> o escoja un otro idioma utilizando el
         babelfish en el menu arriba.
+      statement_language_hint: |
+        Para realizar algún comentario, seleccione por favor, el conocimiento de idiomas en su <a href='{{url}}'>Perfil</a>.
+      statement_language_hint_tooltip: |
+        Esto le permitirá introducir comentarios en el idioma en que posee al menos, conocimientos a nivel intermedio.
       drafting_language_hint: |
-        Note por favor, que el proceso de la elaboración colectiva de las propuestas solamente funcionará en el idioma escojido.
+        Note por favor, que el proceso de elaboración colectiva de las propuestas funcionará sólo en este idioma!
+
+
+
+
       publish: Publicar
       published: Esta discusión fue publicada con éxito.
       edit: 'Editar {{type}}'
@@ -407,8 +423,9 @@ es:
       topic: Tema (Tags / Palabras clave)
       states:
         label: 'Publicar discusión de inmediato?'
-        deferred_publish: 'Solamente guardar y publicar mas tarde'
-        immediate_publish: 'Publicar de inmediato (no será possible modificar la discusión)'
+        initial_state:
+          new: 'Solamente guardar y publicar mas tarde'
+          published: 'Publicar de inmediato (no será possible modificar la discusión)'
         published: Publicado
         approved: Approved
       delete_link: "Borrar"
@@ -425,10 +442,20 @@ es:
         Esta propuesta de mejoramiento ya fue incorporada.
       being_edited: |-
         Esta propuesta actualmente está siendo editada. Por favor vuelva mas tarde.
+      already_translated: |-
+        {{type}} ya ha sido traducida.
+      statement_updated: |-
+        {{type}} acaba de ser actualizada.
       edit_period_hint: |
         <strong>Tienes {{minutes}} minutos</strong> para editar la propuesta.
         Passondo este plazo, posiblemente tus modificationes serán perdidas.
       staled_modification: 'Desculpe por favor, pero tu plazo de 60 minutos para editar la propuesta caduco. Mientras otro miembro tomó su chance y edito la propuesta. Por eso, tus modificaciones lamentablemente no puedieron ser guardadas.'
+
+      upload_image:
+        title: Cargar imagen
+        guide: Seleccione <strong>por favor, una imagen</strong> (JPG o PNG, max. 5MB) y descárguela.
+        progress: La imagen se está cargando. Por favor, espere...
+        error: 'Error cargando la imagen: Formato de la imagen no compatible.'
 
     summary:
       title: 'Resumen'
@@ -438,6 +465,7 @@ es:
       deleted: "La {{type}} fue borrada con éxito."
       translated: "La {{type}} fue traducida con éxito."
       incorporated: "A propuesta de mejoramiento fue incorporada a la propuesta con exito."
+      image_uploaded: "La imagen se ha cargado correctamente en el {{type}}."
       empty:   "No fue encontrado ningun debate. Por favor intente buscar por otra palavra."
       empty_without_spoken_languages: |
         No fue encontrada ninguna cuestión. Intente definir tus <a href='{{my_echo}}'>lenguas conocidas</a>
@@ -545,9 +573,14 @@ es:
         position: 'Mi cargo'
       feedback:
         message: Mensaje
+      statement_node:
+        image: 'Imagen de archivo'
       statement_document:
-        text:     'Resumen'
-        title:    'Titulo'
+        language_id: 'Idioma'
+        language: 'Idioma'
+        text: 'Resumen'
+        title: 'Titulo'
+        image: 'Imagen'
 
     models:
       question: "Cuestión"
@@ -672,32 +705,3 @@ es:
           gb: "GB"
           tb: "TB"
 
-  mail:
-    activity_tracking:
-      subject: Activity Tracking
-      cancel: |
-        If you do not wish to receive the updated to your followed themes on a weekly basis, please go to your profile
-        and uncheck your email notification option.
-
-    root:
-      new_entry: "New entry in the '{{title}}' debate"
-    parent:
-      new_entry: "New entry in the '{{title}}' proposal belonging to the '{{question_title}}' debate"
-    questions:
-      text1: 'New Debates!'
-      new_questions: 'New Debates from last week: {{count}}'
-      tags_intro: 'New Tags from last week:'
-      tag: "<a href='http://www.echologic.org/{{code}}/discuss/search?value={{tag}}'>{{tag}}</a> ({{count}})"
-    proposal:
-      new: |
-        <p>
-        New proposal added with title
-        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{parent_id}}/proposals/{{id}}'>{{title}}</a>
-        </p>
-    improvement_proposal:
-      new: |
-        <p>
-        New improvement proposal added with title
-        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
-        {{title}}</a>
-        </p>

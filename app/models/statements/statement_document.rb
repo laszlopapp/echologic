@@ -7,7 +7,7 @@ class StatementDocument < ActiveRecord::Base
 
   belongs_to :locked_by, :class_name => "User", :foreign_key => 'locked_by'
 
-  enum :language, :enum_name => :languages
+  has_enumerated :language, :class_name => 'Language'
 
   validates_presence_of :title
   validates_presence_of :text
@@ -17,7 +17,7 @@ class StatementDocument < ActiveRecord::Base
 
 
   before_validation :set_history
-
+  
   delegate :author, :author=, :author_id=, :action, :action=, :action_id=, :old_document, :old_document=, :old_document_id=,
            :incorporated_node, :incorporated_node=, :incorporated_node_id=, :comment, :comment=, :to => :statement_history
 

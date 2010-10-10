@@ -30,6 +30,8 @@ module NavigationHelpers
       question_path(@question)
     when /^the proposal$/
       question_proposal_path(@proposal.parent,@proposal)
+    when /^the improvement proposal$/
+      question_proposal_improvement_proposal_path(@improvement_proposal.root,@improvement_proposal.parent,@improvement_proposal)
     when /^the first question$/
       question_path(Question.first)
     when /^the questions first proposal/

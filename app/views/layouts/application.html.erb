@@ -17,6 +17,7 @@
                             'jquery.autocomplete',
                             'jquery-ui-1.7.2.custom',
                             'jquery.rte',
+                            'jScrollPane',
                             'formtastic',
                             'formtastic_changes',
                             'discuss',
@@ -26,6 +27,7 @@
 
     <!-- Javascript -->
     <%= javascript_include_tag :defaults,
+                               'history',
                                'jquery.ba-url.min',
                                'jquery.autogrow',
                                'jquery.autocomplete.min',
@@ -34,6 +36,9 @@
                                'jquery.scrollTo.min',
                                'jquery.rte1_2min/jquery.rte',
                                'jquery.rte1_2min/jquery.rte.tb',
+                               'jquery.mousewheel',
+                               'jquery.em',
+                               'jScrollPane',
                                :cache => 'echo_app' %>
     <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
 

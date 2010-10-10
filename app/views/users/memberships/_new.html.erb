@@ -1,8 +1,6 @@
 <% content_for :membership do %>
   <%= text_field :membership, :organisation, :value => '' %>
   <%= text_field :membership, :position, :value => '' %>
-  <%= submit_tag I18n.t('application.general.create'),
-                 :class => 'text_button add_text_button',
-                 :alt => 'create_button' %>
+  <%= submit_tag I18n.t('application.general.create'), :class => 'text_button add_text_button', :alt => 'create_button' %>
 <% end %>
 <%= render :partial => 'users/components/new', :locals => {:type => 'membership', :objectClass => Membership} %>

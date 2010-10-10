@@ -3,6 +3,7 @@ en:
 
   discuss:
     topics:
+      on_echo: on echo
 
       echonomyjam:
         continues: 'continues online!'
@@ -19,7 +20,7 @@ en:
           decision makers from politics and economy, and enables them to jointly develop,
           finance and realize concrete projects - all this in the spirit of echonomic sustainability.<br/>
           The discussions on the most important topics and ideas brought up by the ca. <strong>150 participants</strong> of the
-          <strong>kick-off event in the Bavarian Parliament</strong> are now continued online here at echologic.
+          <strong>kick-off event in the Bavarian Parliament</strong> are now continued online here at echo.
           (More infos under <a href='http://www.echonomyJAM.org' target='_blank'>www.echonomyJAM.org</a>).
           </p>
 
@@ -41,7 +42,7 @@ en:
         teaser: Contribute your ideas to the further development of echo.
         description: |-
           <p>
-          As a mover at echologic you are kindly invited to actively <strong>engage into the evolution of echo</strong>!
+          As a mover you are kindly invited to actively <strong>engage into the evolution of echo</strong>!
           Which functions are the most important for you and which ones should be implemented next?
           Discuss your ideas with other movers and contribute to <strong>make more (out of) echo</strong>
           than we might have ever imagined!
@@ -109,12 +110,11 @@ en:
              </ul>
            </p>
 
-      klimaherbsttv:
-        name: Klimaherbst TV (Climate Autumn TV)
-        short_name: Klimaherbst TV
+      klimaherbst:
+        name: Klimaherbst (Climate Autumn)
+        short_name: Klimaherbst
         teaser: |
-          Discuss about "usage behavior, lifestyles and health" with respect to the ecology guideline
-          being prepared for the city of Munich.
+          Discuss about the ecology guideline being prepared for the city of Munich.
         description: |-
           <p>
           In Munich, the <strong>ecology guideline</strong> to climate protection is going to be submitted to the
@@ -124,7 +124,7 @@ en:
           How far do we want to go rebuilding our transport system? Where should be invested?
           How can the city support the change of lifestyle?
           <br/>
-          For more infos about the Klimaherbst TV event series, click
+          For more infos about the Klimaherbst event series, click
           <a href='http://www.klimaherbst.de/hallo-offentlichkeit' target='_blank'>here</a>.
           </p>
 

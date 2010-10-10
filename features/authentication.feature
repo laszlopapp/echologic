@@ -49,7 +49,7 @@ Feature: Authentication
         |user_password_confirmation | godisintheinternet |
       And I press "Set password and log in"
     Then I should be on the welcome page
-      And an "Welcome to echologic" email should be sent to "Jesus Christ"
+      And an "Welcome to echo" email should be sent to "Jesus Christ"
       And "Jesus Christ" should have "godisintheinternet" as password
   
   Scenario: User user forgot his password, and wants to check it
@@ -58,7 +58,7 @@ Feature: Authentication
       And I fill in the following: 
         | email | user@echologic.org |
       And I press "Send E-Mail"
-    Then an "New password for echologic" email should be sent to "User Test"
+    Then an "New password for echo" email should be sent to "User Test"
   
   Scenario: User user fills the form to have another password
     Given "friedrich Echmeier" forgot his password

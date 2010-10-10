@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  
+
   ####################
   # SESSION HANDLING #
   ####################
@@ -90,7 +90,7 @@ class ApplicationController < ActionController::Base
 
   # Expires and cleans up the user session.
   def expire_session!
-    current_user.update_attributes(:last_login_language => EnumKey.find_by_code_and_enum_name(params[:locale].to_s,"languages"))
+    current_user.update_attributes(:last_login_language => Language[I18n.locale])
     current_user_session.try(:destroy)
     reset_session
     if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'
@@ -100,7 +100,7 @@ class ApplicationController < ActionController::Base
       flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
     end
     redirect_to_root_path
-  end
+end
 
 
   ############
@@ -190,11 +190,12 @@ class ApplicationController < ActionController::Base
 
   protected
   def locale_language_id
-    EnumKey.find_by_enum_name_and_code("languages", I18n.locale.to_s).id
+    Language[I18n.locale].id
   end
 
   def language_preference_list
-    keys = [locale_language_id].concat(current_user ? current_user.sorted_spoken_language_ids : []).uniq
+    priority_languages = @statement_node.nil? ? [locale_language_id] : [locale_language_id, @statement_node.original_language.id]
+    keys = priority_languages.concat(current_user ? current_user.sorted_spoken_language_ids : []).uniq
   end
 
 
@@ -311,11 +312,9 @@ class ApplicationController < ActionController::Base
   protected
   def respond_to_js(opts={})
     respond_to do |format|
-      format.html { render :template => opts[:template] } if opts[:template]
       format.html { redirect_to opts[:redirect_to] } if opts[:redirect_to]
-      format.html { render :partial => opts[:partial] } if opts[:partial]
-      format.js   { render :template => opts[:template_js] } if opts[:template_js]
-      format.js   { render :partial => opts[:partial_js] } if opts[:partial_js]
+      [:template,:partial].each{|t| format.html { render t => opts[t] } if opts[t]}
+      [:template,:partial].each{|t| format.js { render t => opts["#{t.id2name}_js".to_sym] } if opts["#{t.id2name}_js".to_sym]}
       yield format if block_given?
     end
   end
@@ -333,8 +332,7 @@ class ApplicationController < ActionController::Base
   def render_static_new(opts={})
     opts[:layout] ||= 'static'
     respond_to do |format|
-      format.html { render :template => opts[:template], :layout => opts[:layout] } if opts[:template]
-      format.html { render :partial => opts[:partial], :layout => opts[:layout] } if opts[:partial]
+      [:template,:partial].each{|t|format.html { render t => opts[t], :layout => opts[:layout] } if opts[t]}
       format.js if !block_given?
       yield format if block_given?
     end
@@ -348,4 +346,29 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  #############
+  #  LOGGING  #
+  #############
+
+  def log_message_info(message)
+    timestamp = Time.now.utc.strftime("%m/%d/%Y %H:%M")
+    user = current_user.nil? ? 'not logged in' : current_user.id
+    request_url = request.url
+    info_message = "Time:'#{timestamp}', User:#{user}, URL:#{request_url} : #{message}"
+    logger.info(info_message)
+  end
+
+  def log_message_error(e, message)
+    timestamp = Time.now.utc.strftime("%m/%d/%Y %H:%M")
+    user = current_user.nil? ? 'not logged in' : current_user.id
+    request_url = request.url
+    error_message = "Time:'#{timestamp}', User:#{user}, URL:#{request_url} : #{message}"
+    logger.error(error_message)
+    log_error e
+    respond_to do |format|
+      set_error('application.unexpected_error')
+      yield format if block_given?
+      format.js   { show_error_messages }
+    end
+  end
 end

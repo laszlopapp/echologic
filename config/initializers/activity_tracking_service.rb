@@ -22,4 +22,4 @@ Delayed::Worker.max_attempts = 3
 Delayed::Worker.max_run_time = 15.minutes
 
 # Observers
-#EchoService.instance.add_observer(ActivityTrackingService.instance)
+EchoService.instance.add_observer(ActivityTrackingService.instance)

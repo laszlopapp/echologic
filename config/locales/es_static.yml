@@ -32,7 +32,8 @@ es:
           traspasa las fronteras espaciales y comunicativas del antiguo ágora, para que
           el principio participativo del mismo sea accesible a todos.
 
-        yucca: | 'Yucca elata' como símbolo de un comienzo nuevo
+        yucca: |-
+          'Yucca elata' como símbolo de un comienzo nuevo
 
         news_title: echo en Twitter
         twitter: Siga echo por Twitter!
@@ -67,12 +68,12 @@ es:
         text_3:
           title: Franqueza y filosofía de "Your-Profit"
           more: |
-            <p>El <strong>código abierto</strong> de echo servirá como base de una
+            <p>El <strong><a href="{{github_url}}" target="_blank">código abierto</a></strong> de echo servirá como base de una
             <strong>infraestructura distribuida</strong> y variopinta.
-            Ligando varias plataformas y sitios de web echo extralimitará la aislamiento de las iniciativas existentes,
+            Ligando varias plataformas y sitios de web echo extralimitará el aislamiento de las iniciativas existentes,
             focalizando y multiplicando su potencial.
             </p><p>
-            echo es <strong>social business</strong> y se obligo a promover altos valores éticos y democráticos.
+            echo es <strong>social business</strong> y su obligación es promover altos valores éticos y democráticos.
             Siguiendo su <strong>filosofía de "Your-Profit"</strong> todos los lucros sobrantes serán reinvertidos en proyectos
             sociales y ecológicos.
             Así la acción virtual puede resultar en un cambio real y gradualmente traerá mas <strong>auto-determinación</strong>
@@ -82,15 +83,15 @@ es:
           title:  Tu echo
           more: |
             <p>
-            Tu voz necesita un ec(h)o. echo necesita tu voz. Ayúdenos a guiar la democracia hacia un futuro en que
-            <strong>cualcier voz vale</strong> lo mismo por todo el mundo.
+            Tu voz necesita un ec(h)o. echo necesita tu voz. Ayúdenos a guiar la democracia hacia un futuro en el que
+            <strong>cualquier voz vale</strong> lo mismo en todo el mundo.
             </p><p>
-            En <strong>echologic</strong> se reúnen más y más personas para juntos realizar la <strong>visión de echo</strong>.
+            Más y más personas se reúnen para <strong>realizar conjuntamente la visión de echo</strong>.
             Aunque echo todavía está empezando a gatear, ya puedes:
             </p>
 
         action: |
-          Descubrirlo y contribuir tus ideas!
+          Descubrirlo y contribuir con tus ideas!
 
       # about section
       about:
@@ -160,7 +161,7 @@ es:
 
         text: |
           <p>
-          Agradecemos por tu interés en echologic!<br/>
+          Agradecemos por tu interés en echo!<br/>
           Aquí puede leer nuestra política de privacidad.
           </p>
 
@@ -744,7 +745,7 @@ es:
           <p>
           echo social les posibilitará a criar su <strong>propia red social</strong> para su organización, su projectos y
           actiones, y tornarlo parte de un movimiento global.
-          Sus ideas y pansamientos, sus actividades apoyarán a realmente cambiar algo.
+          Sus ideas y pensamientos, sus actividades apoyarán a realmente cambiar algo.
           </p><p>
           echo social es la solución de <strong>Open Source</strong> para criar con unos pocos clic <strong>su propria
           página web</strong> con su visual individual - <strong>gratis!</strong>
@@ -827,7 +828,7 @@ es:
 
         text: |
           <p>
-          Agradecemos por tu interés en echologic!<br/>
+          Agradecemos por tu interés en echo!<br/>
           Aquí puede leer nuestra política de privacidad.
           </p>
 
@@ -836,9 +837,9 @@ es:
 
     join:
       title: &your_echo 'Tu echo'
-      subtitle: &join 'Unirse a echologic'
+      subtitle: &join 'Unirse a echo'
       tabs:
-        join: 'Unirse a echologic'
+        join: 'Unirse a echo'
         forgot: 'Nueva seña'
 
     invite:
@@ -849,32 +850,32 @@ es:
   mail:
     # Activation section
     activation:
-      subject: "Activar tu cuenta en echologic"
+      subject: "Activar tu cuenta en echo"
       text1: |
         Estimado/a {{name}},
 
-        gracias por tu registro en echologic! Por favor active tu cuenta siguiendo el link de abajo.
+        gracias por tu registro en echo! Por favor active tu cuenta siguiendo el link de abajo.
       text2: |
         Si por acaso este link no funciona, copie el link a tu browser.
 
-        Si usted tuvo problemas con el acceso a echologic, no se detenga y contáctenos por support@echologic.org.
+        Si usted tuvo problemas con el acceso a echo, no se detenga y contáctenos por support@echo.org.
 
-        Esperamos reencontrarle en echologic en breve!
+        Esperamos reencontrarle en echo en breve!
 
         Atentamente
         tu equipe de echo
 
     # Welcome section
     welcome:
-      subject: "Bienvenido a echologic"
+      subject: "Bienvenido a echo"
       text: |
         Estimado/a {{name}},
 
-        Bienvenido a echologic!
+        Bienvenido a echo!
 
         Estamos felices que usted decidió contribuir al desarrollo de echo!
-        Como parte de echologic usted podrá contribuir al éxito de echo con tus ideas y propuestas.
-        Le deseamos un tiempo muy inspirador con echologic.
+        Como parte de echo usted podrá contribuir al éxito de echo con tus ideas y propuestas.
+        Le deseamos un tiempo muy inspirador con echo.
 
         Hasta pronto!
 
@@ -886,13 +887,13 @@ es:
       text1: |
         Estimado/a (nombre),
 
-        gracias por tu registro en echologic! Por favor active tu cuenta siguiendo el link de abajo.
+        gracias por tu registro en echo! Por favor active tu cuenta siguiendo el link de abajo.
       text2: |
         Si por acaso este link no funciona, copie el link a tu browser.
 
-        Si usted tuvo problemas con el acceso a echologic, no se detenga y contáctenos por support@echologic.org.
+        Si usted tuvo problemas con el acceso a echo, no se detenga y contáctenos por support@echo.org.
 
-        Esperamos reencontrarle en echologic en breve!
+        Esperamos reencontrarle en echo en breve!
 
         Atentamente
         Tu equipe de echo

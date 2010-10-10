@@ -1,21 +1,20 @@
-<% statement_node ||= @statement_node %>
-<% statement_document ||= @statement_documents[statement_node.statement_id] %>
+<% statement_document ||= @statement_documents[discussion.statement_id] %>
 
 <% if statement_document %>
-	<li id="<%= statement_node_dom_id(statement_node) %>" class="<%=statement_node.class.name.downcase%>">
-		<% link_to url_for(statement_node), :class => "avatar_holder" do %>
-      <%= image_tag("default_question_image.png") %>
+	<li id="<%= statement_node_dom_id(discussion) %>" class="<%=discussion.class.name.downcase%>">
+		<% link_to question_url(discussion), :class => "avatar_holder" do %>
+      <%= image_tag discussion.image.url(:small) %>
     <% end %>
 
     <!-- Statement title -->
-		<%= discussion_title(statement_document.title, statement_node) %>
+		<%= discussion_title(statement_document.title, discussion) %>
 
     <!-- Tags -->
-		<div class="tags_list"><%= statement_node.topic_tags %></div>
+		<div class="tags_list"><%= discussion.topic_tags %></div>
 
     <!-- Publish button -->
 		<div class="buttons">
-		  <%= publish_button_or_state(statement_node) %>
+		  <%= publish_button_or_state(discussion) %>
 		</div>
 	</li>
 <% end %>

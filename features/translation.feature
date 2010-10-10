@@ -8,7 +8,7 @@ Feature: Translation permission
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the first Question
+      And I choose the "Test Question" Question
     Then I should not see "Please translate this statement to ENGLISH"
     
   @ok
@@ -17,7 +17,7 @@ Feature: Translation permission
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the first Question
+      And I choose the "Test Question" Question
     Then I should not see "Please translate this statement to ENGLISH"
     
   @ok
@@ -26,7 +26,7 @@ Feature: Translation permission
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the first Question
+      And I choose the "Test Question" Question
     Then I should not see "Please translate this statement to ENGLISH"
     
   @ok
@@ -35,7 +35,7 @@ Feature: Translation permission
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the first Question
+      And I choose the "Test Question" Question
     Then I should not see "Please translate this statement to ENGLISH"
   
   @ok

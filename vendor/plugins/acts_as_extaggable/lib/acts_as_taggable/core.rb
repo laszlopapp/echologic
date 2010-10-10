@@ -16,7 +16,7 @@ module ActsAsTaggable::Taggable
     module ClassMethods
       def initialize_acts_as_taggable_on_core
         tag_types.map(&:to_s).each do |tags_type|
-          tag_type         = tags_type.to_s.singularize
+          tag_type = tags_type.to_s.singularize
           context_tao_tags = "#{tag_type}_tao_tags".to_sym
           context_tags = tags_type.to_sym
           
@@ -27,22 +27,19 @@ module ActsAsTaggable::Taggable
           end
           
           class_eval %(
-            def #{tag_type}_tags
-              tag_list_on('#{tags_type}')
-            end
-            
-            def #{tag_type}_tags_hash
-              tag_list_hash_on('#{tags_type}')
-            end
-            
-            def #{tag_type}_tags=(new_tags)
-              set_tag_list_on('#{tags_type}', new_tags)
-            end
-            
-#            def all_#{tag_type}_tags
-#            all_tags_list_on('#{tags_type}')
-#            end
-            )
+def #{tag_type}_tags
+tag_list_on('#{tags_type}')
+end
+def #{tag_type}_tags_hash
+tag_list_hash_on('#{tags_type}')
+end
+def #{tag_type}_tags=(new_tags)
+set_tag_list_on('#{tags_type}', new_tags)
+end
+# def all_#{tag_type}_tags
+# all_tags_list_on('#{tags_type}')
+# end
+)
         end
       end
       
@@ -245,8 +242,8 @@ module ActsAsTaggable::Taggable
           tag_list = Tag.find_or_create_all_with_values_like(tag_list)
           
           current_tags = tags_on(context_name)
-          old_tags = current_tags - tag_list 
-          new_tags = tag_list  - current_tags 
+          old_tags = current_tags - tag_list
+          new_tags = tag_list - current_tags
           
           # Find tao_tags to remove:
           old_tao_tags = tao_tags.where(:context_id => EnumKey.find_by_code(context_name), :tag_id => old_tags).all

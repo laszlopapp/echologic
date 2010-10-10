@@ -3,6 +3,8 @@ de:
 
   discuss:
     topics:
+      on_echo: auf echo
+      
       echonomyjam:
         continues: 'geht online weiter!'
         register_here: 'Hier lang zur Erstanmeldung!'
@@ -42,7 +44,7 @@ de:
         teaser: Beteiligen Sie sich in der weiteren Entwicklung von echo.
         description: |-
           <p>
-          Als BewegerIn von echologic sind Sie herzlich eingeladen, die <strong>Entwicklung echos mit
+          Als BewegerIn sind Sie herzlich eingeladen, die <strong>Entwicklung echos mit
           zu gestalten</strong>.
           </p><p>
           Welche Funktionen halten Sie für notwendig und was sollten die
@@ -112,12 +114,11 @@ de:
              </ul>
            </p>
 
-      klimaherbsttv:
-        name: Klimaherbst TV
-        short_name: Klimaherbst TV
+      klimaherbst:
+        name: Klimaherbst
+        short_name: Klimaherbst
         teaser: |
-          Diskutieren Sie über die Handlungsfelder „Nutzerverhalten, Lebensstile und Gesundheit“ der kommenden
-          Leitlinie Ökologie der Stadt München mit.
+          Diskutieren Sie über die kommende Leitlinie Ökologie der Stadt München mit.
         description: |-
           <p>
           In München wird die <strong>Leitlinie Ökologie</strong> zum Klimaschutz dem Stadtrat vorgelegt – zur Zeit läuft die
@@ -126,7 +127,7 @@ de:
           Wie stark wollen wir unser Verkehrssystem umbauen? Wo soll investiert werden?
           Wie kann die Stadt den Wandel des Lebensstils unterstützen?
           <br/>
-          Mehr Infos über die Veranstaltungsreihe Klimaherbst TV finden Sie
+          Mehr Infos über die Veranstaltungsreihe Klimaherbst finden Sie
           <a href='http://www.klimaherbst.de/hallo-offentlichkeit' target='_blank'>hier</a>.
           </p>
 

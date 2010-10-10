@@ -41,21 +41,27 @@ class Users::ProfileController < ApplicationController
   # Set the values from the edit form to the users attributes.
   def update
     @profile = @current_user.profile
-    respond_to do |format|
-      previous_completeness = @profile.percent_completed
-      if @profile.update_attributes(params[:profile])
-        current_completeness = @profile.percent_completed
-        set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
-        
-        format.html { flash_info and redirect_to my_profile_path }
-        format.js   {         
-          render_with_info do |p|
-            p.replace('personal_container', :partial => 'users/profile/profile_own')
-          end
-        }
-      else
-        format.js   { show_error_messages(@profile) }
+    begin
+      respond_to do |format|
+        previous_completeness = @profile.percent_completed
+        if @profile.update_attributes(params[:profile])
+          current_completeness = @profile.percent_completed
+          set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
+          
+          format.html { flash_info and redirect_to my_profile_path }
+          format.js   {         
+            render_with_info do |p|
+              p.replace('personal_container', :partial => 'users/profile/profile_own')
+            end
+          }
+        else
+          format.js   { show_error_messages(@profile) }
+        end
       end
+    rescue Exception => e
+      log_message_error(e, "Error updating profile '#{@profile.id}'.")
+    else
+      log_message_info("Profile '#{@profile.id}' has been updated sucessfully.")
     end
   end
 

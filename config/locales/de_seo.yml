@@ -6,10 +6,10 @@ de:
       # static: de.seo.title.static
       static:
         echologic:
-          show: &html_title 'echologic für echo - die globale Agora (Demokratie neu gedacht)'
-          about:            'echologic für echo - Über uns'
-          imprint:          'echologic für echo - Impressum'
-          data_privacy:     'echologic für echo - Datenschutz'
+          show: &html_title 'echo - die globale Agora (Demokratie neu gedacht)'
+          about:            'echo - Über uns'
+          imprint:          'echo - Impressum'
+          data_privacy:     'echo - Datenschutz'
         echo:
           show:    'echo - die globale Agora (Demokratie zum Mitmachen)'
           discuss: 'echo - Diskutieren (Meinungs- & Willensbildung - lösungsorientiert, transparent & demokratisch)'
@@ -35,10 +35,10 @@ de:
       # users: de.seo.title.users
       users:
         users:
-          new: 'Ihr echo - echologic beitreten'
+          new: 'Ihr echo - echo beitreten'
         activations:
-          new: Ihr echo - Freischaltung des Zugangs zu echologic
-          create: 'Ihr echo - Freischaltung des Zugangs zu echologic'
+          new: Ihr echo - Freischaltung des Zugangs zu echo
+          create: 'Ihr echo - Freischaltung des Zugangs zu echo'
         password_resets:
           new: 'Ihr echo - Neues Passwort anfordern'
           edit: 'Ihr echo - Neues Passwort setzen'
@@ -47,38 +47,38 @@ de:
 
       # discuss: de.seo.title.discuss
       discuss:
-        index: 'echologic - Diskussion'
-        roadmap: 'echologic - Fahrplan für Diskutieren'
+        index: 'echo - Diskussion'
+        roadmap: 'echo - Fahrplan für Diskutieren'
       questions:
-        category: 'echologic - Diskussionsthemen'
-        show: 'echologic - Debatten'
+        category: 'echo - Diskussionsthemen'
+        show: 'echo - Debatten'
         new: 'Neue Diskussion eröffnen'
         my_discussions: 'Meine Diskussionen'
       proposals:
-        show: 'echologic - Stellungnahmen in der Debate'
+        show: 'echo - Stellungnahmen in der Debate'
       improvement_proposals:
-        show: 'echologic - Ergänzungsvorschläge für die Stellungnahme'
+        show: 'echo - Ergänzungsvorschläge für die Stellungnahme'
 
       # connect: de.seo.title.connect
       connect:
-        roadmap: 'echologic - Fahrplan für Vernetzen'
-        show:    'echologic - Vernetzen - Community entdecken'
-        fill_out_profile: 'echologic - Vernetzen - Geben und nehmen'
+        roadmap: 'echo - Fahrplan für Vernetzen'
+        show:    'echo - Vernetzen - Community entdecken'
+        fill_out_profile: 'echo - Vernetzen - Geben und nehmen'
 
       # act: de.seo.title.act
       act:
-        roadmap: 'echologic - Fahrplan für Handeln'
+        roadmap: 'echo - Fahrplan für Handeln'
 
       # my_echo: de.seo.title.my_echo
       my_echo:
-        roadmap: 'echologic - Fahrplan für Mein echo'
-        welcome: 'echologic - Willkommen'
-        profile: 'echologic - Mein Profil'
-        settings: 'echologic - Einstellungen'
+        roadmap: 'echo - Fahrplan für Mein echo'
+        welcome: 'echo - Willkommen'
+        profile: 'echo - Mein Profil'
+        settings: 'echo - Einstellungen'
 
       # my_echo: de.seo.title.admin
       admin:
-        show: 'echologic - Admin Area'
+        show: 'echo - Admin Area'
 
     meta:
       echologic:

@@ -6,7 +6,7 @@ end
 Given /^I have the "([^\"]*)" proposal$/ do |title|
   @proposal = StatementNode.search_statement_nodes(:type => "Proposal",
                                                    :search_term => title,
-                                                   :language_ids => [EnumKey.find_by_code("en")]).first
+                                                   :language_ids => [Language["en"]]).first
 end
 
 

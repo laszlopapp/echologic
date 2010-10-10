@@ -68,6 +68,15 @@ class DraftingService
     adjust_states(echoable, echoable.supporter_count.to_i+1)
   end
 
+  # Observer to subscribeable created action
+  def created(node)
+  end
+
+
+  # Observer to subscribeable publish action
+  def published(node)
+  end
+
   # Observer to incorporable incorporated action
   def incorporated(incorporable, user)
     incorporable.reload

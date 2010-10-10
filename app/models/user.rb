@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   include UserExtension::Echo
-  #acts_as_subscriber
+  acts_as_subscriber
   acts_as_extaggable :affections, :engagements, :expertises, :decision_makings
 
   has_many :web_addresses
@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
            :city, :city=, :country, :country=, :completeness, :calculate_completeness, :to => :profile
 
   #last login language, important for the activity tracking email language when the user doesn't have anything set
-  enum :last_login_language, :enum_name => :languages
+  has_enumerated :last_login_language, :class_name => 'Language'
 
   # TODO uncomment attr_accessible :active if needed.
   #attr_accessible :active
@@ -72,11 +72,9 @@ class User < ActiveRecord::Base
   # Activation process. Set user active and add its password and openID and
   # save with session handling afterwards.
   def activate!(params)
+    u = params[:user]
     self.active = true
-    self.password = params[:user][:password]
-    self.password_confirmation = params[:user][:password_confirmation]
-    self.openid_identifier = params[:user][:openid_identifier]
-    save
+    self.update_attributes(params[:user])
   end
 
   # Uses mailer to deliver activation instructions
@@ -153,9 +151,8 @@ class User < ActiveRecord::Base
   # Returns the default language to be used for the user (degrade chain: mother_tounge -> last_login_language -> EN).
   #
   def default_language
-    mother_tongues = self.mother_tongues
     lang = !mother_tongues.empty? ? mother_tongues.first : self.last_login_language
-    lang ? lang : EnumKey.find_by_code("en")
+    lang ? lang : Language[:en]
   end
 
   #
@@ -163,14 +160,14 @@ class User < ActiveRecord::Base
   # (from mother tongue to basic).
   #
   def sorted_spoken_language_ids
-    self.spoken_languages.sort{|sl1, sl2| sl1.level.key <=> sl2.level.key}.map(&:language_id)
+    spoken_languages.sort{|sl1, sl2| sl1.level_key <=> sl2.level_key}.map(&:language_id)
   end
 
   #
   # Returns an array with the user's mother tongues.
   #
   def mother_tongues
-    self.spoken_languages.select{|sp| sp.level.code == 'mother_tongue'}.collect{|sp| sp.language}
+    spoken_languages.select{|sp| sp.level.code == 'mother_tongue'}.collect(&:language)
   end
 
   #
@@ -184,13 +181,7 @@ class User < ActiveRecord::Base
   # Returns the languages the user speaks at least at the given level.
   #
   def spoken_languages_at_min_level(min_level = nil)
-    languages = self.spoken_languages
-    if min_level
-      level = SpokenLanguage.language_levels(min_level)
-      languages.select{|sp| sp.level.key <= level.key}.collect{|sp| sp.language}
-    else
-      languages.collect{|l| l.language}
-    end
+    spoken_languages.select{|sp| min_level.nil? or sp.level_key <= LanguageLevel[min_level].key}.collect(&:language)
   end
 
 

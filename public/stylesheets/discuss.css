@@ -110,7 +110,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .statement_form_illustration {
   float: right;
-  margin: 38px 35px 0 30px;
+  margin: 0px 35px 0 30px;
   border: none;
 }
 
@@ -118,29 +118,42 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* CONTEXT */
 /* ------- */
 
+#context {
+  margin-bottom: 10px;
+}
+
 .context_line {
+  background:  url(../images/page/discuss/stack_separator.png) no-repeat scroll 7px 0;
   clear: both;
-  min-height: 30px;
+  min-height: 34px;
   display: inline-block;
 }
 
+.context_line.active {
+  background:  url(../images/page/discuss/stack_separator_active.png) no-repeat scroll 7px 0;
+  min-height: 41px;
+}
+
 .context_buttons {
-  width:          135px;
-  min-height:     1px;
-  display:        inline-block;
-  float:          left;
-  position:       relative;
-  top:            -8px;
-  text-align:     center;
-  height:         30px;
-  overflow:       visible;
+  width: 155px;
+  min-height: 1px;
+  display: inline-block;
+  float: left;
+  position: relative;
+  top: 4px;
+  left: 39px;
+  height: 30px;
+  overflow: visible;
 }
 
 .context_link {
-  display:        inline-block;
-  min-height:     30px;
-  width:          855px;
-  float:          left;
+  display: inline-block;
+  min-height: 30px;
+  width: 835px;
+  float: left;
+  position: relative;
+  top: 12px;
+  margin-bottom: 4px;
 }
 
 .context_link .statement_link {
@@ -148,12 +161,12 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 #context .context_link a {
-  width:          600px;
-  display:        inline-block;
-  color:          #21587F;
-  font-size:      18px;
-  font-weight:    bold;
-  text-decoration:none;
+  width: 600px;
+  display: inline-block;
+  color: #21587F;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 #context .context_link a:hover {
@@ -209,12 +222,12 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   cursor: default;
 }
 
-.echo_label {
-  background: url("../images/page/discuss/echo_small.png") no-repeat scroll 0 0;
+.supporters_label {
   float: right;
-  padding-left: 20px;
-  position: relative;
-  right: 20px;
+  font-size: 12px;
+  position: absolute;
+  right: 22px;
+  top: 21px;
   cursor: default;
 }
 
@@ -226,10 +239,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   clear: both;
   float: left;
   position: relative;
-  left: 18px;
+  left: 23px;
   top: 25px;
-  width: 95px;
-  padding: 5px 0 10px 5px;
+  width: 100px;
+  padding: 5px 0 17px 5px;
   text-align: center;
   border: 1px solid #DDD;
   -moz-border-radius: 15px;
@@ -255,18 +268,45 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* --------- */
 
 .discuss_right_block {
-  margin-left:  140px;
-  width:        835px;
+  margin-left:  160px;
+  width:        815px;
   padding-left: 15px;
+  clear: right;
 }
 
 #summary.discuss_right_block {
-  width: 815px;
+  width: 795px;
 }
 
 .statement_content {
-  margin-top: 12px;
+  margin: 12px 0 25px;
   line-height:1.25em;
+	width: 795px;
+}
+
+.statement_content .image_container {
+	float: right;
+	margin: 4px 0 20px 20px;
+  position: relative;
+  text-align: right;
+  width: 170px;
+}
+
+.statement_content .image {
+  border: 1px solid #a8a8a8;
+  max-height: 113px;
+  max-width: 170px;
+}
+
+.statement_content .upload_link {
+  background: url(../images/page/discuss/statement_image_button.png) no-repeat scroll left top transparent;
+	position: absolute;
+  top: 29px;
+	left: 17px;
+}
+
+#upload_image_link {
+  text-decoration: none;
 }
 
 .statement_content a {
@@ -292,6 +332,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 #context .echo_indicator, #context .no_echo_indicator {
   margin-top: 3px;
+  background-color: #FFF;
 }
 
 #children .echo_indicator, #children .no_echo_indicator {
@@ -299,13 +340,13 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 .no_echo_indicator {
-  border:       1px solid #BAC8D0;
+  border:       1px solid #A9B6BD;
   -moz-border-radius: 12px;
   -webkit-border-radius: 12px;
 }
 
 .no_echo_indicator:hover  {
-  border:       1px solid #BAC8D0 !important;
+  border:       1px solid #A9B6BD !important;
 }
 
 /* Statement links & buttons */
@@ -317,7 +358,7 @@ a.statement_link {
   display:inline-block;
   min-height: 20px;
   padding-left: 21px !important;
-  width: 585px;
+  width: 565px;
   vertical-align: top;
   margin-bottom: 5px;
 }
@@ -420,16 +461,16 @@ a.statement_link:hover {
 /* Children statements */
 /* ------------------- */
 
+#children_list {
+  width: 815px !important;
+}
+
 #children_list ul {
   min-height: 145px;
 }
 
 #children_list li {
   margin: 4px 0;
-}
-
-#children .pagination {
-  width: 830px !important;
 }
 
 #children .text_button {
@@ -444,6 +485,10 @@ a.statement_link:hover {
 /* Title in discuss listing */
 #discuss_results .ttLink img{
 	color:#7BB031;
+}
+
+.sub_list {
+	min-height: 230px;
 }
 
 
@@ -550,7 +595,7 @@ a.statement_link:hover {
 	display:inline-block;
 	margin:7px 0 25px;
 	vertical-align:top;
-	width:410px;
+	width:395px;
 }
 
 #statement_tags_container .label {
@@ -587,6 +632,8 @@ a.statement_link:hover {
   float: left;
   cursor: pointer;
 }
+
+
 
 #discussion_list a.avatar_holder{
 	float: left;
@@ -660,4 +707,13 @@ a.statement_link:hover {
   max-width: 45px;
   max-height: 45px;
   border: 2px solid #7bb031;
+}
+
+#my_discussions .no_discussions {
+  margin-top: 30px;
+}
+
+
+.children_pagination {
+  overflow: hidden;
 }

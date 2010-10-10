@@ -9,7 +9,7 @@ class TaoTag < ActiveRecord::Base
   belongs_to :tag
   belongs_to :tao, :polymorphic => true
 
-  belongs_to :context, :class_name => "EnumKey", :foreign_key => 'context_id'
+  belongs_to :context, :class_name => "TagContext", :foreign_key => 'context_id'
 
   ############################
   #     Validations          #

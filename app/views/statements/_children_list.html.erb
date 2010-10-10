@@ -1,29 +1,17 @@
 <% children ||= @children %>
 
-<div id="children_list">
-  <ul>
-    <% unless children.blank? %>
-      <% last_child = children.pop -%>
-      <% children.each do |statement_node| %>
-        <%= render :partial => 'statements/child',
-                   :locals => { :statement_node => statement_node} %>
-      <% end %>
-      <%= render :partial => 'statements/child',
-                 :locals => { :statement_node => last_child,
-                              :extra_classes => "active" } %>
-    <% end %>
+<div class="sub_list">
+  <ul id="children_list" class="children_pagination">
+    <%= render :partial => 'statements/child', :collection => children if !children.blank? %>
 
     <%if children.blank? or children.current_page == children.total_pages %>
-      <li>
         <%= create_new_child_statement_link(@statement_node) %>
-      </li>
     <%end%>
   </ul>
-  <%= will_paginate children,
-                    :previous_label => '',
-                    :next_label => '' if !children.blank? and children.total_pages %>
+	<div id="more_pagination" class="more_pagination">
+		<% if !children.blank? and children.current_page != children.total_pages %>
+		  <%= more_children(@statement_node) %>
+	  <% end %>
+	</div>
 </div>
 
-<script type="text/javascript">
-  $('.pagination a').addClass('ajax');
-</script>

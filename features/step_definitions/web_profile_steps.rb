@@ -7,7 +7,7 @@ end
 
 Given /^I have the following web addresses:$/ do |table|
   table.hashes.each do |hash|
-    hash[:type_id] = EnumKey.find_by_code(hash[:type_id]).id
+    hash[:type_id] = WebAddressType[hash[:type_id]].id
     hash[:user_id] = @user.id
     WebAddress.create!(hash)
   end

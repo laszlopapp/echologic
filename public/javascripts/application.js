@@ -83,7 +83,7 @@ function bindAjaxClickEvents() {
     });
     return false;
   });
-
+	
 }
 
 /* If JS is enabled hijack staticMenuButtons to do AJAX requests. */

@@ -117,17 +117,18 @@ module StaticContentHelper
       require 'json'
       buffer = open("http://twitter.com/users/show/echologic.json").read
       result = JSON.parse(buffer)
-      html = "<span class='newsDate'>#{l(result['status']['created_at'].to_date, :format => :long)}</span><br/><br/>"
-      html += "<span class='newsText'>#{auto_link result['status']['text']}</span>"
-    rescue SocketError
-      'twitter connection failed although all this magic stuff!'
-    rescue
-      "<span class='newsText'>" + '"Tweet! Tweet! :-)"' + '</span>'
+      html = content_tag(:span,
+                         l(result['status']['created_at'].to_date, :format => :long),
+                         :id => 'twitter_date')
+      html += content_tag(:span, auto_link(result['status']['text']), :id => 'twitter_text')
+    rescue Exception => e
+      logger.error "#{Time.now.utc.strftime("%m/%d/%Y %H:%M")} - Failed to display Twitter message"
+      logger.error e.backtrace
+      content_tag :span, "Tweet! Tweet! :-)", :id => 'twitter_text'
     end
   end
 
-  # Inserts text area with the given text and two buttons for opening and
-  # closing the area.
+  # Inserts text area with the given text and two butt
   # Click-functions are added via jQuery, take a look at application.js
   def insert_toggle_more(text)
     concat("<span class='hideButton' style='display:none;'>#{I18n.t('application.general.hide')}</span>")

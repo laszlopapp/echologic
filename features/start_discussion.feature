@@ -67,8 +67,6 @@ Feature: Start a discussion
     Then I should see localized "discuss.topics.echonomyjam.name"
     Then I should see localized "discuss.topics.echocracy.name"
     Then I should see localized "discuss.topics.echo.name"
-    Then I should see localized "discuss.topics.echosocial.name"
-
 
 
   @ok
@@ -79,7 +77,20 @@ Feature: Start a discussion
     When I follow "echonomyJAM"
       And I choose the first Question
       And the question has "*beer" for tags
-      And I choose the first Question
       And I follow "create_proposal_link"
     Then I should see localized "discuss.statements.read_only_permission"
 
+  @ok
+  Scenario: Image upload in an unpublished question
+    Given I am logged in as "user" with password "true"
+      And there is a question i have created
+    When I go to the question
+      And I follow "Change" within "#image_container"
+    Then I should see "Upload Image"
+      And I should see "Cancel"
+      And I should see "Upload"
+    Given I go to the welcome page
+      And I follow "logout_button"
+      And I am logged in as "ben" with password "benrocks"
+    When I go to the question
+      Then I should not see "Change"

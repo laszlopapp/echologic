@@ -4,6 +4,9 @@
 pt:
   application:
 
+    # Unexpected Error
+    unexpected_error: Ocorreu um erro inesperado. Pedimos desculpas pela inconveniência.
+
     # General purpose resources
     general:
       more: mais »
@@ -37,20 +40,20 @@ pt:
       next_steps: 'Próximos Passos'
       vision: 'Ao fim da estrada'
       discuss:
-        status_quo: 'A echo "Discutir" actualmente encontra-se <strong>{{progress}}% pronta</strong>.'
-        next_steps: 'As primeiras características da echo "Discutir" foram lançadas. A sua funcionalidade será extendida passo por passo nos próximos lançamentos.'
+        status_quo: 'A echo "Discutir" atualmente encontra-se <strong>{{progress}}% pronta</strong>.'
+        next_steps: 'As primeiras características da echo "Discutir" foram lançadas. A sua funcionalidade será extendida passo a passo nos próximos lançamentos.'
       connect:
-        status_quo: 'A echo "Conectar" actualmente encontra-se <strong>{{progress}}% pronta</strong>.'
+        status_quo: 'A echo "Conectar" atualmente encontra-se <strong>{{progress}}% pronta</strong>.'
         next_steps: 'A echo "Conectar" será melhorada após as primeiras características da echo "Discutir" e da echo "Agir" serem lançadas.'
       act:
-        status_quo: 'A echo "Agir" actualmente encontra-se <strong>{{progress}}% pronta</strong>.'
+        status_quo: 'A echo "Agir" atualmente encontra-se <strong>{{progress}}% pronta</strong>.'
         next_steps: 'O desenvolvimento da echo "Agir" começará após as primeiras funções da echo "Discutir" serem lançadas.'
       my_echo:
-        status_quo: 'A área "O meu echo" actualmente encontra-se <strong>{{progress}}% pronta</strong>.'
+        status_quo: 'A área "O meu echo" atualmente encontra-se <strong>{{progress}}% pronta</strong>.'
         next_steps: 'O desenvolvimento ulterior desta área está planeado para acontecer após algumas funcionalidades básicas das áreas "Discutir, Conectar e Agir" serem lançadas.'
         vision: |
          <p>
-         A longo prazo, A área O meu echo será o seu <strong>eixo de informação pessoal</strong> dentro da echo. P.ex. providenciar-lhe-á
+         A longo prazo, a área 'O meu echo' será o seu <strong>eixo de informação pessoal</strong> dentro da echo. P.ex. providenciar-lhe-á
          com as mais<strong>importantes notícias</strong> e chamar-lhe-á a atenção para as mais <strong>recentes discussões e acções</strong> de acordo
          com as suas preferências.
          </p>
@@ -94,23 +97,23 @@ pt:
   # ----------------
 
   welcome:
-    title: Bemvindo à echologic!
+    title: Bemvindo à echo!
     text: |
       <p>
       <strong>Discutir - Conectar - Agir!</strong><br/>
-      Estas são as três áreas funcionais da echo desenvolvidas na echologic com a sua participação activa.<br/>
+      Estas são as três áreas funcionais da echo desenvolvidas na echo com a sua participação ativa.<br/>
       O roteiro (no canto superior esquerdo do ecrã) mostra-lhe sempre o
       <strong>estado actual do desenvolvimento</strong> e os próximos passos planeados na área em que se encontra.
       </p><p>
-      Como um motor da echologic encontra-se bemvindo a <strong>participar na evolução da echo</strong>!<br/>
+      Como um motor da echo é bemvindo a <strong>participar na evolução da echo</strong>!<br/>
       Até agora, foram lançadas as seguintes características simples:
       </p>
     function_1:
       name: 'O meu Perfil'
-      description: Complete o seu perfil de forma a apresentar-se perante a comunidade echologic.
+      description: Complete o seu perfil de forma a apresentar-se perante a comunidade echo.
     function_2:
       name: 'Conectar'
-      description: 'Explore a comunidade e conecte-se com outras pessoas interessantes ligadas ao movimento.'
+      description: 'Explore a comunidade e conecte-se com outros membros interessantes ligados ao movimento.'
     function_3:
       name: 'Discutir'
       description: |
@@ -127,46 +130,46 @@ pt:
         password: 'Senha'
         email: 'E-Mail'
         signup: Ainda não é um membro?
-        set_password: Esqueceu da sua senha?
+        set_password: Esqueceu-se da senha?
         remember: Lembre-me!
         hello: Autenticado<br/><strong>{{name}}</strong>
       messages:
-        login_success: "Autenticação sucedida. Bemvindo de volta à echologic."
-        login_failed: "Utilizador desconhecido ou password errada."
-        logout_success: "Saída sucedida. Até breve!"
-        session_timeout: "A sua sessão foi fechada. Por favor autentique-se de novo."
+        login_success: "Autenticação bem-sucedida. Bemvindo de volta à echo."
+        login_failed: "Utilizador desconhecido ou senha errada."
+        logout_success: "Saída bem-sucedida. Até breve!"
+        session_timeout: "A sua sessão foi terminada. Por favor autentique-se de novo."
 
     # Activations section
     activation:
 
       messages:
-        success: A sua conta foi activada com sucesso. Bemvindo à echologic!
-        failed: A sua conta não pode ser activada. Por favor verifique os dados inseridos.
+        success: A sua conta foi ativada com sucesso. Bemvindo à echo!
+        failed: A sua conta não pode ser ativada. Por favor verifique os dados inseridos.
 
     # Password resets section
     password_reset:
       step1: Requerir nova senha
       step2: Definir nova senha
       step1_text: |
-        <strong>Esqueceu a sua senha</strong> simplesmente gostaria de definir uma nova?<br/><br/>
-        Sem problema! Preencha este campo apenas com o endereço de <strong>E-Mail</strong> com o qual está autenticado na echologic.<br/>
+        <strong>Esqueceu-se da sua senha</strong> e gostaria de definir uma nova?<br/><br/>
+        Sem problema! Preencha este campo apenas com o endereço de <strong>E-Mail</strong> com o qual está autenticado na echo.<br/>
         Nós enviar-lhe-emos um E-mail em breve possibilitando-lhe <strong>definir a nova senha</strong>.
       step1_mail: Enviar E-Mail
 
       step2_text: |
-        Por favor defina <strong>a nova senha</strong> que gostaria de usar para se autenticar na echologic.
-      step2_ok: Acertar a senha e autenticar-se
+        Por favor defina <strong>a nova senha</strong> que gostaria de usar para se autenticar na echo.
+      step2_ok: Defina a senha e autentique-se
       messages:
-        success: "Enviámos-lhe um E-mail possibilitando-lhe reacertar a sua senha. Por favor dê uma olhada na sua caixa de entrada."
+        success: "Enviámos-lhe um E-mail possibilitando-lhe redefinir a sua senha. Por favor dê uma olhada na sua caixa de entrada."
         not_found: "Endereço de E-Mail desconhecido."
         reset_success: "A sua nova senha foi guardada com sucesso."
-        reset_failed: "A sua senha não pode ser actualizada. Por favor verifique os dados inseridos."
+        reset_failed: "A sua senha não pode ser atualizada. Por favor verifique os dados inseridos."
 
     # Profile Section
     profile:
       title: Informação Pessoal
       edit_title: Edite a sua informação pessoal
-      guide: Abaixo encontra a sua informação pessoal básica. Por favor carregue no botão Editar para a mudar.
+      guide: Abaixo encontra a sua informação pessoal básica. Por favor carregue no botão 'Editar' para a mudar.
 
       gender:
         male: Masculino
@@ -184,11 +187,11 @@ pt:
 
       upload_picture:
         title: Enviar Foto
-        guide: Por favor <strong>seleccione uma foto</strong> (JPG or PNG, max. 5MB) e faça o upload da mesma.
+        guide: Por favor <strong>selecione uma foto</strong> (JPG ou PNG, max. 5MB) e faça o upload da mesma.
         progress: O seu avatar está a ser carregado. Por favor aguarde...
 
       messages:
-        updated: "Informação do perfil actualizada com sucesso."
+        updated: "Informação do perfil atualizada com sucesso."
 
     # Spoken Languages section
     spoken_languages:
@@ -197,12 +200,12 @@ pt:
       language: Língua
       level: Nível
       error_messages:
-        repeated_instance: já seleccionou esta língua
+        repeated_instance: já selecionou esta língua
 
     # Memberships section
     memberships:
-      title: Actividades
-      guide: Aqui pode inserir as suas actividades voluntárias, profissionais ou de outro tipo em diferentes organizações.
+      title: Atividades
+      guide: Aqui pode inserir as suas atividades voluntárias, profissionais ou de outro tipo em diferentes organizações.
       organisation: Organização
       position: A minha Função
 
@@ -211,7 +214,7 @@ pt:
       title: Endereços Web
       guide: |
         Aqui pode inserir alguns dos seus contactos e outros perfis web que possua.<br/>
-        <strong>TOME NOTA</strong>: por agora, toda a informação inserida estará visível para todos os membros da comunidade echologic.
+        <strong>TOME NOTA</strong>: por agora, toda a informação inserida estará visível para todos os membros da comunidade echo.
       type: Tipo de endereço
       address: Endereço Web
 
@@ -220,12 +223,12 @@ pt:
       title: Interesses & Competências
       guide: |
         Todos nós temos <strong>facetas diferentes</strong>. Em algumas áreas que nos afectam podemos precisar da ajuda de outros,
-        noutras áreas podemos ser nós a oferecer a nossa ajuda. Em certos campos tempos especialização profissional,
+        noutras áreas podemos ser nós a oferecer a nossa ajuda. Em certos campos temos especialização profissional,
         noutros representamos outros pessoas e tomamos decisões.<br/>
         A echo ajuda pessoas da mesma opinião a encontrarem-se uns aos outros com <strong>conhecimento que se complementa</strong>.<br/>
         Com que <strong>palavras-chave (tags)</strong> descreveria os seus <strong>interesses e competências</strong>?
       sorts:
-        affection: <strong>Afeição</strong> por
+        affection: <strong>Relacionado</strong> com
         engagement: <strong>Compromisso</strong> em
         expertise: <strong>Especialidade</strong> no campo de
         decision_making: <strong>Decisão</strong> no campo de
@@ -234,21 +237,21 @@ pt:
     # Email notifications section
     notifications:
       title: Configuração de notificações
-      guide: Aquí podes definir quais nitificações queres receber da echo.
+      guide: Aquí pode definir que tipo de notificações deseja receber da echo.
 
       activity:
-        title: Notificações diárias (activity)
-        guide: Notificações diárias sobre novas discussões e novedades nas suas discuções e propostas.
+        title: Notificações de actividade
+        guide: Notificações diárias sobre novas discussões e novidades nos conteúdos apoiados por si.
         turned_on: Notificações diárias foram ativadas.
         turned_off: Notificações diárias foram desativadas.
 
       drafting:
-        title: Notificações imediatas (drafting)
+        title: Notificações de elaboração de textos
         guide: |
-          Notificações imediatas para seguir ao processo the elaboração colletiva de suas propostas -
-          por exemplo quando sua proposta de melhoria foi aprovada para ser encorporada.<br/>
-          <strong>Atenção!</strong> Se desativares estas nitificações provavelmente perderás sua oportunidade de
-          encorporar propostas de melhoria.
+          Notificações relativas ao processo de elaboração coletiva dos seus conteúdos -
+          por exemplo quando a sua proposta de melhoria foi aprovada para ser incorporada.<br/>
+          <strong>Atenção!</strong> Caso estas notificações se encontrem desativadas poderá vir a perder a oportunidade de
+          incorporar as suas propostas de melhoria.
         turned_on: Notificações imediatas foram ativadas.
         turned_off: Notificações imediatas foram desativadas.
 
@@ -257,23 +260,23 @@ pt:
     users:
       new:
         title: A vossa echo
-        subtitle: Junte-se à echologic
+        subtitle: Junte-se à echo
         text: |
           <p>
-          <strong>A echo é democracia das pessoas para as pessoas.</strong>
+          <strong>A echo é a democracia das pessoas para as pessoas.</strong>
           </p><p>
-          Como um projecto para apoiar o bem comum, a echo é levada para a frente graças ao
+          Como um projecto para apoiar o bem comum, a echo avança com o apoio e
           <strong>esforço conjunto</strong> de indivíduos e organizações comprometidos.
           </p><p>
           Ansioso para <strong>contribuir as suas ideias</strong> também!?<br/>
           Por favor insira o seu nome e endereço de E-Mail abaixo!<br/>
           <strong>Forme a echo</strong> e <strong>discuta tópicos como sustentabilidade</strong> e democracia com
-          outros cidadões, especialistas e representantes comprometidos.
+          outros cidadãos, especialistas e representantes comprometidos.
           </p>
         action: 'Junte-se agora!'
 
       messages:
-        created: "Por favor verifique os seus E-Mails para activar a sua conta recém-criada!"
+        created: "Por favor verifique os seus E-Mails para ativar a sua conta recém-criada!"
 
     # Reports section
     reports:
@@ -282,7 +285,7 @@ pt:
         text: |
           <p>
           Verificou algum <strong>conteúdo ofensivo, anti-ético ou ilegal?</strong><br/>Se sim, pode aqui referir
-          o utilizador à nossa equipa administrativa.</p><p>Nós verificaremos o assunto tão céleremente como possível.
+          o utilizador à nossa equipa administrativa.</p><p>Nós verificaremos o assunto tão rápido quanto possível.
           </p>
       messages:
         created: "Obrigado pela sua mensagem. Um dos administradores foi notificado."
@@ -295,6 +298,8 @@ pt:
     my_discussions:
       link: Minhas Discussões
       title: As minhas discussões novas e publicadas
+      no_discussions: |
+        Ainda não criou nenhuma discussão. Para o fazer, por favor clique no ponto de interrogação que se encontra à esquerda.
     tag_permission: |
       Não tem permissão para inserir a tag '{{tag}}'.
     translation_request: Por favor traduza este texto em <strong>PORTUGUÊS</strong>.
@@ -314,13 +319,13 @@ pt:
         De momento oferece-lhe a possibilidade de discutir diferentes <strong>projetos-piloto</strong> e
         conjuntamente <strong>desenvolver novas ideias</strong> com outros novos-pensadores da comunidade.
         Adicionalmente, pode também participar no desenvolvimento da echo.<br/>
-        Tópicos actualmente disponíveis são:
+        Tópicos atualmente disponíveis são:
         </p>
       tabs:
         echo:
           title: Sobre a echo
         pilot_projects:
-          title: Projectos-piloto
+          title: Projetos-piloto
     search:
       title: Procura
       in: '... em {{category}} ...'
@@ -329,38 +334,40 @@ pt:
       read_question: 'Ir para esta questão'
       read_proposal: 'Ler esta proposta'
       read_improvement_proposal: 'Ler esta proposta de melhoria'
-      current_question: 'A questão actualmente apresentada'
-      current_proposal: 'A proposta actualmente apresentada'
-      current_improvement_proposal: 'A proposta de melhoria actualmente apresentada'
-      back_to_question: 'De volta à questão actual'
-      back_to_proposal: 'De volta à proposta actual'
-      back_to_improvement_proposal: 'De volta à proposta de melhoria actual'
-      prev_proposal: 'Ler proposta anterior da questão actual'
-      next_proposal: 'Ler proposta seguinte da questão actual'
-      prev_improvement_proposal: 'Ler proposta de melhoria anterior da proposta actual'
-      next_improvement_proposal: 'Ler proposta de melhoria seguinte da proposta actual'
-      create_question: 'Abra uma nova discussão'
-      create_proposal: 'Criar nova proposta na questão actual'
-      create_improvement_proposal: 'Criar nova proposta de melhoria na proposta actual'
-      echo: 'echoe esta afirmação de forma a apoiá-la!'
-      unecho: 'Retire o seu voto para parar de apoiar esta afirmação.'
-      echo_indicator:
-        one: 'Esta afirmação tem {{supporter_count}} apoiante.'
-        many: 'Esta afirmação tem {{supporter_count}} apoiantes.'
+      current_question: 'A questão atualmente apresentada'
+      current_proposal: 'A proposta atualmente apresentada'
+      current_improvement_proposal: 'A proposta de melhoria atualmente apresentada'
+      back_to_question: 'De volta à questão atual'
+      back_to_proposal: 'De volta à proposta atual'
+      back_to_improvement_proposal: 'De volta à proposta de melhoria atual'
+      prev_question: 'Ler questão anterior'
+      next_question: 'Ler questão seguinte'
+      prev_proposal: 'Ler proposta anterior da questão atual'
+      next_proposal: 'Ler proposta seguinte da questão atual'
+      prev_improvement_proposal: 'Ler proposta de melhoria anterior à proposta atual'
+      next_improvement_proposal: 'Ler proposta de melhoria seguinte à proposta atual'
+      create_question: 'Criar uma nova discussão'
+      create_proposal: 'Criar nova proposta na questão atual'
+      create_improvement_proposal: 'Criar nova proposta de melhoria à proposta atual'
+      echo: "Apoie esta afirmação (dê o seu echo)!"
+      unecho: 'Retire o seu apoio a esta afirmação (retire o seu echo)'
       publish: |
         Publique a discussão, de forma a esta se tornar visível para todos.
         (Não será mais possível editar a discussão.)
-      incorporate: 'Clique aquí para incorporar suas propostas de melhoria na proposta (texto asima).'
+      incorporate: 'Clique aquí para incorporar as suas propostas de melhoria na proposta (texto acima).'
 
     statements:
       label: 'votos'
-      create_question_link: 'Abra uma nova discussão'
+      echo_indicator:
+        one: '{{supporter_count}} apoiante'
+        many: '{{supporter_count}} apoiantes'
+      create_question_link: 'Criar uma nova discussão'
       create_proposal_link: 'Criar nova proposta'
       create_internal_link: 'Nova ideia?'
       create_improvement_proposal_link: 'Criar nova proposta de melhoria'
       create_question_explanation: |
         Aqui pode começar uma <strong>nova discussão</strong> e providenciar um conjunto de <strong>palavras-chave
-        temáticas</strong> adequadas de forma a este ser facilmente encontrado.
+        temáticas</strong> adequadas de forma a esta ser facilmente encontrada.
       create_proposal_explanation: |
         Tem uma <strong>boa ideia</strong> no que diz respeito à questão actual, que ainda <strong>não existe</strong>?<br/>
         Aqui pode criar uma <strong>nova proposta</strong>.
@@ -368,10 +375,14 @@ pt:
         Tem uma <strong>boa ideia</strong> para <strong>tornar a proposta actual ainda melhor</strong>?<br/>
         Aqui pode criar uma <strong>nova proposta de melhoria</strong>.
       create_statement_language_hint: |
-        Por favor escreva sua ideia em <strong>PORTUGUES</strong> ou escolha um outro idioma usando o
+        Por favor escreva sua ideia em <strong>PORTUGUÊS</strong> ou escolha um outro idioma usando o
         babelfish no canto superior direito.
+      statement_language_hint: |
+        Por favor defina o seu conhecimento de línguas no seu <a href='{{url}}'>Perfil</a>.
+      statement_language_hint_tooltip: |
+        Poderá desta forma introduzir conteúdo em qualquer língua na qual possua conhecimentos para além de um nível intermédio.
       drafting_language_hint: |
-        Nota-se por favor, que o precesso da elaboração coletiva desta proposta solamente funcionará do idioma escolhido.
+        Por favor tome nota de que o processo de elaboração coletiva desta proposta só irá ocorrer nesta língua!
       publish: Publicar
       published: A discussão foi publicada com sucesso.
       edit: 'Editar {{type}}'
@@ -392,37 +403,49 @@ pt:
       topic: Tópico (Tags / Palavras-chave)
       states:
         label: 'Publicar discussão?'
-        deferred_publish: 'Primeiro criar e mais tarde publicar.'
-        immediate_publish: 'Imediatamente publicar (não será mais possível editar a discussão)'
+        initial_state:
+          new: 'Primeiro criar e mais tarde publicar.'
+          published: 'Imediatamente publicar (não será mais possível editar a discussão)'
         published: Publicado
-        approved: Approved
+        approved: Aprovado
       delete_link: "Apagar"
-      delete_confirmation: "Tem a certeza que quer apagar esta afirmação?"
+      delete_confirmation: "Tem a certeza que quer apagar este conteúdo?"
       read_only_permission: |-
-        Isso é uma discussão transparente, mas de accesso restrito - somente pode leer.
+        Esta é uma discussão transparente, mas de accesso restrito - somente pode lêr.
       unsupported_parent: |-
-        Somente podes apoiar a propostas de melhoria, se também apoiaste à proposta correspondente.
+        Só poderá apoiar a propostas de melhoria depois de apoiar a proposta correspondente.
       not_approved_any_more: |-
-        Desafortunadamente esta proposta não pode ser incorporada mais.
+        Infelizmente esta proposta de melhoria não pode ser mais incorporada.
       see_parent_if_approved: |-
-        Esta proposta de melhoria esta foi aprovada para ser incorporada na proposta em baixo.
+        Esta proposta de melhoria foi aprovada para ser incorporada na proposta em baixo.
       see_parent_if_incorporated: |-
-        Esta proposta de melhoria ja foi incorporada. 
+        Esta proposta de melhoria já foi incorporada.
       being_edited: |-
-        Esta proposta atualmente está sendo editada. Volte mais tarde por favor.
+        Esta proposta está a ser editada. Volte mais tarde por favor.
+      already_translated: |-
+        Esta {{type}} acabou de ser traduzida.
+      statement_updated: |-
+        Esta {{type}} acabou de ser actualizada.
       edit_period_hint: |
-        <strong>Tens {{minutes}} minutos</strong> para editar a proposta.
-        Depois possivelmente suas modificações serão despejadas.
-      staled_modification: 'A gente sente muito, mas seu tempo de 60 minutos para ditar a proposta esgoto. Agora a proposta ja foi editada por uma outra pessoa. Por isso, suas mudanças lamentavelmente não foram guardadas.'
+        <strong>Tem {{minutes}} minutos</strong> para editar a proposta.
+        Depois de este tempo esgotar poderá perder as suas modificações.
+      staled_modification: 'Pedimos desculpa, mas o prazo de 60 minutos para editar a proposta esgotou. Entretanto a proposta foi editada por outra pessoa. Por esta razão, as suas mudanças foram lamentavelmente perdidas.'
+
+      upload_image:
+        title: Carregar Imagem
+        guide: Por favor <strong>selecione uma imagem</strong> (JPG or PNG, max. 5MB) e carregue-a.
+        progress: A imagem está sendo carregada. Por favor aguarde...
+        error: A imagem não pôde ser incluída. Por favor carregue um formato suportado (JPG ou PNG e max. 5MB).
 
     summary:
       title: 'Sumário'
     messages:
       created: "A nova {{type}} foi inserida com sucesso."
-      updated: "A {{type}} foi actualizada com sucesso."
+      updated: "A {{type}} foi atualizada com sucesso."
       deleted: "A {{type}} foi apagada com sucesso."
       translated: "A {{type}} foi traduzida com sucesso."
-      incorporated: "A propuesta de melhoria foi encorporada à proposta com susesso."
+      incorporated: "A proposta de melhoria foi incorporada na proposta com sucesso."
+      image_uploaded: "A imagem acabou de ser incluída na {{type}}."
       empty:   "Nenhuma questão encontrada. Por favor altere os seus critérios de procura."
       empty_without_spoken_languages: |
         Nenhuma questão encontrada. Pode tentar definir as suas <a href='{{my_echo}}'><u>Línguas Faladas</u></a>
@@ -438,11 +461,11 @@ pt:
   connect:
 
     fill_out_profile:
-      text: Por favor preencha <strong>pelo menos {{percentage}}%</strong> do seu perfil para fazer o "HAL" feliz e fazer este bloco desaparecer. :-)
+      text: Por favor preencha <strong>pelo menos {{percentage}}%</strong> do seu perfil para fazer a vontado ao "HAL" e fazer este bloco desaparecer. :-)
 
     segments:
       all:       'Todos'
-      affection:  'Afectados'
+      affection:  'Relacionados'
       engagement:   'Comprometidos'
       expertise: 'Especialistas'
       decision_making: 'Tomadores de decisão'
@@ -497,7 +520,7 @@ pt:
         too_long: "A sua entrada para '{{attribute}}' é demasiado longa."
         invalid: "A sua entrada para '{{attribute}}' tem que ser inserida num formato válido."
         confirmation: 'Confirmação de {{attribute}} não corresponde.'
-        access_denied: "Não lhe é permitido efectuar esta acção."
+        access_denied: "Não lhe é permitido efetuar esta ação."
 
       template:
         header:
@@ -520,14 +543,20 @@ pt:
         memberships: Actividades
         spoken_languages: Línguas Faladas
       report:
-        reason:     'Razão'
+        reason: 'Razão'
       web_address:
-        location:   'Endereço Web'
+        location: 'Endereço Web'
       membership:
         position: A minha função
+      statement_node:
+        image: 'O arquivo de imagem'
       statement_document:
-        text:       'Sumário'
-        title:      'Título'
+        language_id: 'Língua'
+        language: 'Língua'
+        text: 'Sumário'
+        title: 'Título'
+        image: 'Ilustração'
+
 
     models:
       question: "questão"
@@ -539,7 +568,7 @@ pt:
     error_messages:
       email_invalid:      "Por favor insira um endereço de e-mail correcto."
       password_blank:     "Senha tem que ser definida."
-      not_active:         "A sua conta ainda não foi activada. Por favor verifique a sua caixa de entrada."
+      not_active:         "A sua conta ainda não foi ativada. Por favor verifique a sua caixa de entrada."
       must_be_logged_in:  "Autentique-se por favor."
       must_be_logged_out: "Por favor saia da sua conta."
 
@@ -651,32 +680,3 @@ pt:
           mb: "MB"
           gb: "GB"
           tb: "TB"
-  mail:
-    activity_tracking:
-      subject: Activity Tracking
-      cancel: |
-        If you do not wish to receive the updated to your followed themes on a weekly basis, please go to your profile
-        and uncheck your email notification option.
-
-    root:
-      new_entry: "New entry in the '{{title}}' debate"
-    parent:
-      new_entry: "New entry in the '{{title}}' proposal belonging to the '{{question_title}}' debate"
-    questions:
-      text1: 'New Debates!'
-      new_questions: 'New Debates from last week: {{count}}'
-      tags_intro: 'New Tags from last week:'
-      tag: "<a href='http://www.echologic.org/{{code}}/discuss/search?value={{tag}}'>{{tag}}</a> ({{count}})"
-    proposal:
-      new: |
-        <p>
-        New proposal added with title
-        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{parent_id}}/proposals/{{id}}'>{{title}}</a>
-        </p>
-    improvement_proposal:
-      new: |
-        <p>
-        New improvement proposal added with title
-        <a href='http://www.echologic.org/{{code}}/discuss/questions/{{root_id}}/proposals/{{parent_id}}/improvement_proposals/{{id}}'>
-        {{title}}</a>
-        </p>

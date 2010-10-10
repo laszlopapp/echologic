@@ -32,8 +32,7 @@ Feature: Use connect functionality
     Given I am logged in as "user" with password "true"
     And my profile is complete enough
     When I go to the connect page
-      And I fill in "value" with "<value>"
-      And I press the "Search" button
+      And I search for "<value>"
     Then I should see the profile of "<true>"
       And I should not see the profile of "<false>"
 

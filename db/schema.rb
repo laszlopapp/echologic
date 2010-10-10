@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100820133948) do
+ActiveRecord::Schema.define(:version => 20100916143948) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20100820133948) do
 
   create_table "drafting_infos", :force => true do |t|
     t.integer  "statement_node_id"
-    t.datetime "state_since",       :default => '2010-08-20 15:42:05'
+    t.datetime "state_since",       :default => '2010-08-26 18:50:17'
     t.integer  "times_passed",      :default => 0
   end
 
@@ -39,23 +39,23 @@ ActiveRecord::Schema.define(:version => 20100820133948) do
 
   create_table "enum_keys", :force => true do |t|
     t.string  "code"
-    t.string  "enum_name"
+    t.string  "type"
     t.string  "description"
     t.integer "key"
   end
 
-  add_index "enum_keys", ["code", "enum_name", "id"], :name => "index_enum_keys_on_code_and_enum_name_and_id"
   add_index "enum_keys", ["code", "id"], :name => "index_enum_keys_on_code_and_id"
-  add_index "enum_keys", ["enum_name", "id"], :name => "index_enum_keys_on_enum_name_and_id"
+  add_index "enum_keys", ["code", "type", "id"], :name => "index_enum_keys_on_code_and_enum_name_and_id"
+  add_index "enum_keys", ["type", "id"], :name => "index_enum_keys_on_enum_name_and_id"
 
   create_table "enum_values", :force => true do |t|
     t.integer "enum_key_id"
-    t.integer "language_id"
     t.string  "context"
     t.string  "value"
+    t.string  "code"
   end
 
-  add_index "enum_values", ["language_id"], :name => "index_enum_values_on_language_id"
+  add_index "enum_values", ["enum_key_id", "code", "id"], :name => "idx_enum_values_enum_key_code_pk"
 
   create_table "events", :force => true do |t|
     t.text     "event"
@@ -180,6 +180,13 @@ ActiveRecord::Schema.define(:version => 20100820133948) do
     t.datetime "created_at"
   end
 
+  create_table "statement_images", :force => true do |t|
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
   create_table "statement_nodes", :force => true do |t|
     t.string   "type"
     t.integer  "parent_id"
@@ -201,6 +208,7 @@ ActiveRecord::Schema.define(:version => 20100820133948) do
 
   create_table "statements", :force => true do |t|
     t.integer "original_language_id"
+    t.integer "statement_image_id"
   end
 
   create_table "subscriptions", :force => true do |t|

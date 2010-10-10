@@ -4,6 +4,8 @@
 RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 MAX_SESSION_PERIOD = 3600
 
+GITHUB_URL = 'http://github.com/echo-on-waves/echologic'
+
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
@@ -32,7 +34,7 @@ Rails::Initializer.run do |config|
   config.gem "searchlogic", :lib => "searchlogic", :source => 'http://gems.github.com'
 
   # Pagination gem from github
-  config.gem 'will_paginate', :lib => 'will_paginate', :source => 'http://gems.github.com'
+#  config.gem 'will_paginate', :lib => 'will_paginate', :source => 'http://gems.github.com'
 
   # Require formtastic gem to build semantic forms
   config.gem "formtastic"
@@ -48,6 +50,9 @@ Rails::Initializer.run do |config|
 
   # gem for running the background jobs in production
   config.gem 'daemons'
+
+  # gems for endless pagination
+  config.gem 'will_paginate', :lib => 'will_paginate', :source => 'http://gems.github.com'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

@@ -19,7 +19,11 @@ form.formtastic textarea {
 
 form.formtastic fieldset ol li {
   display: inline-block;
-  width: 400px;
+  width: 388px;
+}
+
+form.formtastic fieldset ol li.select {
+  width: 322px;
 }
 
 html[xmlns] form.formtastic fieldset ol li {
@@ -49,6 +53,7 @@ form.formtastic fieldset ol li label {
   font-weight: bold;
   width: 100%;
   float: none;
+  padding-bottom: 2px;
 }
 
 form.formtastic fieldset ol li.text textarea, form.formtastic fieldset ol li.string input {
@@ -117,4 +122,13 @@ form.formtastic .buttons input:hover {
 form.formtastic .buttons ol {
   line-height: 43px;
   vertical-align: middle;
+}
+
+form.formtastic li.hint {
+	background: url("../images/page/icons/pin.png") no-repeat scroll 120px 2px #FBF3BB;
+	border: 1px solid #7bb031;
+	width: 245px;
+	padding: 33px 10px 5px;
+  position: relative;
+	top: 5px;
 }

@@ -8,7 +8,7 @@ class StatementNodeTest < ActiveSupport::TestCase
     setup { @statement_node = Question.new }
     subject { @statement_node }
 
-    should_belong_to :statement, :creator, :editorial_state
+    should_belong_to :statement, :creator
     should_have_many :tao_tags
     should_have_many :statement_documents
     should_have_many :tags
@@ -53,22 +53,23 @@ class StatementNodeTest < ActiveSupport::TestCase
 
     context "being saved" do
       setup do
+        @statement_node = Question.new
         doc = @statement_node.add_statement_document({:title => 'A new Document',
                                                 :text => 'with a very short body, dude!',
-                                                :language => StatementDocument.languages.first,
+                                                :language_id => Language.first.id,
                                                 :author => User.first,
                                                 :current => 1,
-                                                :action_id => StatementHistory.statement_actions("created").id,
-                                                :original_language_id => StatementDocument.languages.first.id})
-        @statement_node.topic_tags = "bebe"
+                                                :action_id => StatementAction[:created].id,
+                                                :original_language_id => Language.first.id})
+        @statement_node.topic_tags = "bebe"       #FIXME: Somehow, this doesn't work here: TagContext.all returns [](????)
         @statement_node.creator = User.first
-        @statement_node.editorial_state = StatementNode.statement_states('published')
+        @statement_node.publish
         @statement_node.save!
       end
 
       should "be able to access its statement documents data" do
-        assert_equal @statement_node.document_in_preferred_language([StatementDocument.languages.first.id]).title, "A new Document"
-        assert_equal @statement_node.document_in_preferred_language([StatementDocument.languages.first.id]).text, "with a very short body, dude!"
+        assert_equal @statement_node.document_in_preferred_language([Language.first.id]).title, "A new Document"
+        assert_equal @statement_node.document_in_preferred_language([Language.first.id]).text, "with a very short body, dude!"
       end
 
       should "have creator as supporter" do

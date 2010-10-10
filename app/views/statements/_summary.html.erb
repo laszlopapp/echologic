@@ -4,25 +4,23 @@
 <div id="summary" class="summary simple_header_block discuss_right_block">
 
   <!-- Function buttons -->
-  <%= edit_statement_node_link(statement_node) %>
-  <%= publish_statement_node_link(statement_node, statement_document) %>
+	<%= edit_statement_node_link(statement_node, statement_document) %>
+	<%= publish_statement_node_link(statement_node, statement_document) %>
 
   <!-- Header -->
-  <h2>
-    <%= I18n.t('discuss.summary.title') %>
-  </h2>
-
+  <%= content_tag :h2, I18n.t("discuss.statements.types.#{statement_node.class.name.underscore}") %>
+  
   <!-- Motivate people to translate the document -->
 	<%= render :partial => '/statements/translation_link',
              :locals => {:statement_node => statement_node,
                          :statement_document => statement_document} if @translation_permission %>
-
 	<%= render :partial => '/statements/original_language_warning',
              :locals => {:statement_node => statement_node,
                          :statement_document => statement_document} if @original_language_warning %>
 
   <!-- Show the document -->
   <div class="statement_content">
+  	<%= statement_image(statement_node, current_user) %>
     <%= sanitize statement_document.text %>
   </div>
 

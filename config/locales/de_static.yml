@@ -31,7 +31,8 @@ de:
           sich selbst regierenden Bürgerschaft basierte. Als globale Agora, ermöglicht echo die räumlichen und
           kommunikativen Grenzen der antiken Agora zu überwinden und sie allen Menschen auf unserem Planeten zugänglich zu machen.
 
-        yucca: | 'Yucca elata' als Symbol für einen neuen Anfang
+        yucca: |-
+          'Yucca elata' als Symbol für einen neuen Anfang
 
         news_title: echo auf Twitter
         twitter: Folgen Sie echo auf Twitter!
@@ -68,7 +69,7 @@ de:
         text_3:
           title: Offenheit und “Your-Profit“ Philosophie
           more: |
-            <p>echo ist <strong>Open Source</strong> und wird als die Basis einer vielfaltigen,
+            <p>echo ist <strong><a href="{{github_url}}" target="_blank">Open Source</a></strong> und wird als die Basis einer vielfaltigen,
             <strong>verteilten Infrastruktur</strong> dienen. Sein webseitenübergreifender Ansatz überwindet die Grenzen
             verinselter Plattformen und Initiativen. So bündelt und vervielfacht echo deren <strong>Einflusspotential</strong>.
             </p><p>
@@ -85,8 +86,7 @@ de:
             Ihre Stimme braucht ein Echo. echo braucht Ihre Stimme. Helfen Sie mit, die Demokratie in eine Zukunft zu führen,
             in der <strong>jede Stimme zählt</strong> – jeden Tag und überall auf der Welt.
             </p><p>
-            Auf <strong>echologic</strong> finden sich immer mehr Menschen zusammen und beginnen gemeinsam
-            <strong>echos Vision zu verwirklichen</strong>.
+            Immer mehr Menschen finden sich zusammen und beginnen gemeinsam <strong>echos Vision zu verwirklichen</strong>.
             echo steckt zwar momentan noch in den Kinderschuhen, Sie können aber bereits jetzt:
             </p>
 
@@ -863,9 +863,9 @@ de:
 
     join:
       title: &your_echo 'Ihr echo'
-      subtitle: &join 'echologic beitreten'
+      subtitle: &join 'echo beitreten'
       tabs:
-        join: 'echologic beitreten'
+        join: 'echo beitreten'
         forgot: 'Neues Passwort'
 
     invite:
@@ -876,34 +876,34 @@ de:
   mail:
     # Activation section
     activation:
-      subject: "Freischaltung Ihres Zugangs zu echologic"
+      subject: "Freischaltung Ihres Zugangs zu echo"
       text1: |
         Liebe(r) {{name}},
 
-        vielen Dank, dass Sie sich auf echologic angemeldet haben. Bitte aktivieren Sie Ihren Zugang über den unten stehenden Link.
+        vielen Dank, dass Sie sich auf echo angemeldet haben. Bitte aktivieren Sie Ihren Zugang über den unten stehenden Link.
       text2: |
         Sollte dieser Link nicht funktionieren, kopieren Sie bitte den Link in die Adressleiste Ihres Browsers.
 
-        Sollten Sie weitere Schwierigkeiten mit Ihrem echologic Zugang haben, zögern Sie bitte nicht uns jederzeit unter
+        Sollten Sie weitere Schwierigkeiten mit Ihrem echo Zugang haben, zögern Sie bitte nicht uns jederzeit unter
         support@echologic.org zu kontaktieren.
 
-        Wir freuen uns sehr auf ein baldiges Treffen auf echologic,
+        Wir freuen uns sehr auf ein baldiges Treffen auf echo,
 
         Ihr echo Team
 
     # Welcome section
     welcome:
-      subject: "Willkommen auf echologic"
+      subject: "Willkommen auf echo"
       text: |
         Liebe(r) {{name}},
 
-        willkommen auf echologic!
+        willkommen auf echo!
 
         Schön, dass Sie sich in die Entwicklung von echo einbringen möchten.
-        Als Teil von echologic können Sie mit Ihren Ideen und Diskussionsbeiträge hilfreiche Impulse für die
+        Als Teil von echo können Sie mit Ihren Ideen und Diskussionsbeiträge hilfreiche Impulse für die
         erfolgreiche Weiterentwicklung von echo liefern.
 
-        Wir wünschen Ihnen eine inspirierende und bereichernde Zeit auf echologic!
+        Wir wünschen Ihnen eine inspirierende und bereichernde Zeit auf echo!
 
         Bis bald,
 
@@ -911,19 +911,19 @@ de:
 
     # New password section
     new_password:
-      subject: "Neues Passwort für echologic"
+      subject: "Neues Passwort für echo"
       text1: |
         Liebe(r) {{name}},
 
-        für Ihren Zugang zu echologic wurde ein neues Passwort beantragt. Falls Sie Ihr Passwort ändern möchten,
+        für Ihren Zugang zu echo wurde ein neues Passwort beantragt. Falls Sie Ihr Passwort ändern möchten,
         klicken Sie bitte auf den unten stehenden Link.
       text2: |
         Sollte dieser Link nicht funktionieren, kopieren Sie ihn bitte in die Adressleiste Ihres Browsers.
 
-        Sollten Sie weitere Schwierigkeiten mit Ihrem echologic Zugang haben, zögern Sie bitte nicht uns jederzeit
+        Sollten Sie weitere Schwierigkeiten mit Ihrem echo Zugang haben, zögern Sie bitte nicht uns jederzeit
         unter support@echologic.org zu kontaktieren. Wir helfen Ihnen gerne und schnellstmöglich.
 
-        Wir wuenschen Ihnen weiterhin viel Inspiration und Spass in der echologic Community.
+        Wir wuenschen Ihnen weiterhin viel Inspiration und Spass in der echo Community.
         Mit den besten Grüßen,
 
         Ihr echo Team
