@@ -3,11 +3,10 @@ require 'singleton'
 class ActivityTrackingService
   include Singleton
 
-  attr_accessor :period, :charges, :counter, :last_job_id
+  attr_accessor :period, :charges, :job_counter
 
   def initialize
-    @counter = -1
-    @last_job_id = @counter
+    @job_counter = -1
   end
 
   def update(*args)
@@ -90,27 +89,26 @@ class ActivityTrackingService
   #
   # Manages the counter to calculate current charge and schedules the next job with it.
   #
-  def enqueue_activity_tracking_job(current_charge = 0)
+  def enqueue_activity_tracking_job(current_job_id = 0)
 
     # After restarting the process (on new deployment) the
-    # counter is initialized with the first running charge.
-    @counter = current_charge if @counter == -1
+    # counter is initialized with the current job id.
+    @job_counter = current_job_id if @job_counter == -1
 
     # Enqueuing the next job
-    @counter += 1
-    @last_job_id = @counter
-    Delayed::Job.enqueue ActivityTrackingJob.new(@counter, @counter % @charges), 0,
+    @job_counter += 1
+    Delayed::Job.enqueue ActivityTrackingJob.new(@job_counter, @job_counter % @charges), 0,
                          Time.now.utc.advance(:seconds => @period/@charges)
   end
 
   #
   # Actually executes the job, generates activity mails, sends them and schedules the next job.
   #
-  def generate_activity_mails(job_id, current_charge)
+  def generate_activity_mails(current_job_id, current_charge)
 
     # Enqueuing the next job (but only if there is no job-jam :-))
-    if job_id == @last_job_id || @last_job_id == -1
-      enqueue_activity_tracking_job(current_charge)
+    if current_job_id == @job_counter || @job_counter == -1
+      enqueue_activity_tracking_job(current_job_id)
     end
 
     # Calculating 'after time' to minimize timeframe errors due to long lasting processes
