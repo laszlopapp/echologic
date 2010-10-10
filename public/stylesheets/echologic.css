@@ -74,17 +74,14 @@
 
 
 #loginContainer .bottomLabel {
-  color:       #1A4864;
-  width:       172px;
-  display:     inline-block;
-  margin:      4px 0 3px 0;
-  padding:     0 8px;
-  font-size:   11px;
-  cursor:      pointer;
-}
-
-#loginContainer .bottomLabel:hover {
+  color: #1A4864;
+  width: 172px;
+  display: inline-block;
+  margin: 4px 0 3px 0;
+  padding: 0 8px;
+  font-size: 11px;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 #loginContainer .loginField {
