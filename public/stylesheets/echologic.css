@@ -262,7 +262,7 @@
 #featured_topic_image {
   position: absolute;
   right: -9px;
-  top: -40px;
+  top: -30px;
   cursor: pointer;
   z-index: 10;
 }
