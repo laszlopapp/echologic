@@ -3,6 +3,8 @@ pt:
 
   discuss:
     topics:
+      on_echo: no echo
+
       echonomyjam:
         continues: 'continua online!'
         register_here: 'Clique aqui para se registar!'

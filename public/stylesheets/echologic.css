@@ -255,7 +255,7 @@
   color: #21587f;
 }
 
-#featured_topic_teaser:hover #featured_topic_name {
+#featured_topic_teaser:hover #featured_topic_name, #featured_topic_teaser:hover #featured_topic_on_echo {
   color: #7bb031;
 }
 
@@ -271,13 +271,18 @@
   display: block;
   font-size: 23px;
   font-weight: bold;
-  padding: 2px 0 42px 0;
+  padding-top: 2px;
+}
+
+#featured_topic_on_echo {
+  display: block;
+  padding-bottom: 30px;
 }
 
 #featured_topic_description {
   font-size: 14px;
   font-weight: bold;
-  height: 75px;
+  height: 70px;
   line-height: 18px;
   overflow: hidden;
 }

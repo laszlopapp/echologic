@@ -3,6 +3,7 @@ en:
 
   discuss:
     topics:
+      on_echo: on echo
 
       echonomyjam:
         continues: 'continues online!'

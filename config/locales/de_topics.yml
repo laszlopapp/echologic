@@ -3,6 +3,8 @@ de:
 
   discuss:
     topics:
+      on_echo: auf echo
+      
       echonomyjam:
         continues: 'geht online weiter!'
         register_here: 'Hier lang zur Erstanmeldung!'
