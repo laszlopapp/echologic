@@ -5,8 +5,8 @@ class EnumValueTest < ActiveSupport::TestCase
   context "an enum value" do
     setup { @enum_value = EnumValue.new }
     subject { @enum_value }
-    should_belong_to :enum_key
-    should_have_db_columns :context
+    should belong_to :enum_key
+    should have_db_column :context
     
     # testing validations (should_validate_presence_of didn't work)
     %w(enum_key_id value code).each do |attr|

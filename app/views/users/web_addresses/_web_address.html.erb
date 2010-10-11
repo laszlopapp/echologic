@@ -1,3 +1,4 @@
+<% web_address ||= @web_address %>
 <% content_for "web_address_#{web_address.id}_label".to_sym do %>
   <%=h web_address.type.value %>
 <% end %>
