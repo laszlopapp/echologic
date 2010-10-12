@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100930093544) do
+ActiveRecord::Schema.define(:version => 20101005140925) do
 
   create_table "about_item_translations", :force => true do |t|
     t.integer "about_item_id"
@@ -25,6 +25,11 @@ ActiveRecord::Schema.define(:version => 20100930093544) do
     t.text     "description"
     t.integer  "collaboration_team_id"
     t.integer  "index"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "admin_mailers", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -46,7 +51,7 @@ ActiveRecord::Schema.define(:version => 20100930093544) do
 
   create_table "drafting_infos", :force => true do |t|
     t.integer  "statement_node_id"
-    t.datetime "state_since",       :default => '2010-09-06 17:47:52'
+    t.datetime "state_since",       :default => '2010-08-26 18:50:17'
     t.integer  "times_passed",      :default => 0
   end
 
@@ -62,17 +67,18 @@ ActiveRecord::Schema.define(:version => 20100930093544) do
     t.integer "key"
   end
 
-  add_index "enum_keys", ["type", "code", "id"], :name => "idx_enum_keys_name_code_pk"
-  add_index "enum_keys", ["type", "id"], :name => "idx_enum_keys_name_pk"
+  add_index "enum_keys", ["code", "id"], :name => "index_enum_keys_on_code_and_id"
+  add_index "enum_keys", ["code", "type", "id"], :name => "index_enum_keys_on_code_and_enum_name_and_id"
+  add_index "enum_keys", ["type", "id"], :name => "index_enum_keys_on_enum_name_and_id"
 
   create_table "enum_values", :force => true do |t|
     t.integer "enum_key_id"
-    t.string  "code"
     t.string  "context"
     t.string  "value"
+    t.string  "code"
   end
 
-  add_index "enum_values", ["code", "id"], :name => "idx_enum_values_code_pk"
+  add_index "enum_values", ["enum_key_id", "code", "id"], :name => "idx_enum_values_enum_key_code_pk"
 
   create_table "events", :force => true do |t|
     t.text     "event"
@@ -105,7 +111,7 @@ ActiveRecord::Schema.define(:version => 20100930093544) do
     t.datetime "updated_at"
   end
 
-  add_index "memberships", ["user_id", "id"], :name => "idx_memberships_user_pk"
+  add_index "memberships", ["user_id", "id"], :name => "index_memberships_on_user_id_and_id"
 
   create_table "profiles", :force => true do |t|
     t.string   "first_name"
@@ -126,7 +132,7 @@ ActiveRecord::Schema.define(:version => 20100930093544) do
     t.float    "completeness",        :default => 0.01
   end
 
-  add_index "profiles", ["user_id", "id"], :name => "idx_profiles_user_pk"
+  add_index "profiles", ["user_id", "id"], :name => "index_profiles_on_user_id_and_id"
 
   create_table "reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -169,7 +175,7 @@ ActiveRecord::Schema.define(:version => 20100930093544) do
     t.integer "level_id"
   end
 
-  add_index "spoken_languages", ["user_id", "level_id", "id"], :name => "idx_spoken_languages_users_level_pk"
+  add_index "spoken_languages", ["user_id", "level_id"], :name => "index_spoken_languages_on_user_id_and_level_id"
 
   create_table "statement_documents", :force => true do |t|
     t.string   "title"
@@ -183,8 +189,8 @@ ActiveRecord::Schema.define(:version => 20100930093544) do
     t.datetime "locked_at"
   end
 
-  add_index "statement_documents", ["language_id", "id"], :name => "idx_statement_documents_language_pk"
-  add_index "statement_documents", ["statement_id", "id"], :name => "idx_statement_documents_statement_pk"
+  add_index "statement_documents", ["language_id"], :name => "index_statement_documents_on_language_id"
+  add_index "statement_documents", ["statement_id", "id"], :name => "index_statement_documents_on_statement_id_and_id"
 
   create_table "statement_histories", :force => true do |t|
     t.integer  "statement_document_id"
@@ -217,11 +223,11 @@ ActiveRecord::Schema.define(:version => 20100930093544) do
     t.string   "drafting_state",     :limit => 20
   end
 
-  add_index "statement_nodes", ["creator_id"], :name => "idx_statement_nodes_creator"
-  add_index "statement_nodes", ["echo_id", "id"], :name => "idx_statement_nodes_echo_pk"
-  add_index "statement_nodes", ["editorial_state_id"], :name => "idx_statement_nodes_state"
-  add_index "statement_nodes", ["statement_id", "id"], :name => "idx_statement_nodes_statement_pk"
-  add_index "statement_nodes", ["type"], :name => "idx_statement_nodes_type"
+  add_index "statement_nodes", ["creator_id"], :name => "index_statement_nodes_on_creator_id"
+  add_index "statement_nodes", ["echo_id", "id"], :name => "index_statement_nodes_on_echo_id_and_id"
+  add_index "statement_nodes", ["editorial_state_id"], :name => "index_statement_nodes_on_state_id"
+  add_index "statement_nodes", ["id", "statement_id"], :name => "index_statement_nodes_on_id_and_statement_id"
+  add_index "statement_nodes", ["type"], :name => "index_statement_nodes_on_type"
 
   create_table "statements", :force => true do |t|
     t.integer "original_language_id"
@@ -279,13 +285,13 @@ ActiveRecord::Schema.define(:version => 20100930093544) do
   add_index "user_echos", ["user_id"], :name => "index_echo_details_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                     :null => false
+    t.string   "email",                                      :null => false
     t.string   "crypted_password"
     t.string   "password_salt"
-    t.string   "persistence_token",                         :null => false
-    t.string   "perishable_token",                          :null => false
-    t.integer  "login_count",            :default => 0,     :null => false
-    t.integer  "failed_login_count",     :default => 0,     :null => false
+    t.string   "persistence_token",                          :null => false
+    t.string   "perishable_token",                           :null => false
+    t.integer  "login_count",             :default => 0,     :null => false
+    t.integer  "failed_login_count",      :default => 0,     :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
@@ -293,14 +299,15 @@ ActiveRecord::Schema.define(:version => 20100930093544) do
     t.string   "last_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "active",                 :default => false, :null => false
+    t.boolean  "active",                  :default => false, :null => false
     t.string   "openid_identifier"
     t.integer  "last_login_language_id"
-    t.integer  "activity_notification",  :default => 1
-    t.integer  "drafting_notification",  :default => 1
+    t.integer  "activity_notification",   :default => 1
+    t.integer  "drafting_notification",   :default => 1
+    t.integer  "newsletter_notification", :default => 0
   end
 
-  add_index "users", ["email", "id"], :name => "idx_users_email_pk", :unique => true
+  add_index "users", ["email"], :name => "index_users_on_email"
 
   create_table "valid_contexts", :force => true do |t|
     t.integer "context_id"
