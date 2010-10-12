@@ -2,67 +2,69 @@
 /*    SEARCH HISTORY      */
 /**************************/
 
-var $j = jQuery.noConflict();
 
-$j(document).ready(function () {
+
+(function($) {
+
+$(document).ready(function () {
   bindHistoryEvents();
 });
 
 function bindHistoryEvents() {
-	 $j("#search_form .submit_button").live("click", function(){
+	 $("#search_form .submit_button").live("click", function(){
     setSearchHistory();
     return false;
   });
 	
-	$j('#search_form #value').live("keypress", function(event) { 
+	$('#search_form #value').live("keypress", function(event) { 
     if (event && event.keyCode == 13) { /* check if enter was pressed */
       setSearchHistory();
       return false;
     }
   })
-  $j(".ajax_sort").live("click", function() {
-    var sort = $j(this).attr('value');
-		$j(':input[id=sort]').val(sort);
+  $(".ajax_sort").live("click", function() {
+    var sort = $(this).attr('value');
+		$(':input[id=sort]').val(sort);
 		setSearchHistory();
     return false;
   });
 
-  $j(".ajax_no_sort").live("click", function() {
-		$j(':input[id=sort]').val('');
+  $(".ajax_no_sort").live("click", function() {
+		$(':input[id=sort]').val('');
 		setSearchHistory();
     return false;
   });
-	$j.fragmentChange(true);
+	$.fragmentChange(true);
 };
 
 
 
 function setSearchHistory() {
-  val = $j("#value").val().trim();
-	if ($j(':input[id=sort]').length) {
-		sort = $j(':input[id=sort]').val().trim();
-		$j.setFragment({ "value": val, "sort" : sort , "page": "1"});
+  val = $("#value").val().trim();
+	if ($(':input[id=sort]').length) {
+		sort = $(':input[id=sort]').val().trim();
+		$.setFragment({ "value": val, "sort" : sort , "page": "1"});
 	}
 	else {
-    $j.setFragment({ "value": val, "page": "1"});
+    $.setFragment({ "value": val, "page": "1"});
 	} 
 }
 
 
 
-$j(function() {
-  $j(".pagination a").live("click", function() {
-    $j.setFragment({ "page" : $j.queryString(this.href).page })
+$(function() {
+  $(".pagination a").live("click", function() {
+    $.setFragment({ "page" : $.queryString(this.href).page })
     return false;
   });
   
-  $j.fragmentChange(true);
-  $j(document).bind("fragmentChange.page", function() {
-		$j.getScript($j.queryString(document.location.href, {"page" : $j.fragment().page, "sort": $j.fragment().sort , "value" : $j.fragment().value}));
+  $.fragmentChange(true);
+  $(document).bind("fragmentChange.page", function() {
+		$.getScript($.queryString(document.location.href, {"page" : $.fragment().page, "sort": $.fragment().sort , "value" : $.fragment().value}));
   });
   
-  if ($j.fragment().page) {
-    $j(document).trigger("fragmentChange.page");
+  if ($.fragment().page) {
+    $(document).trigger("fragmentChange.page");
   }
 });
 
@@ -70,22 +72,24 @@ $j(function() {
 /*********************************************/
 /*    CHILDREN PAGINATION AND SCROLLING      */
 /*********************************************/
-$j(function() {
-	$j(".more_pagination a").live("click", function() {
-		$j(this).replaceWith($('<span/>').text($j(this).text()).addClass('more_loading'));
+$(function() {
+	$(".more_pagination a").live("click", function() {
+		$(this).replaceWith($('<span/>').text($(this).text()).addClass('more_loading'));
   });
 });
 
 
 function save_current_scroll(){
-	return $j('#children_list').data('jScrollPanePosition') == $j('#children_list').data('jScrollPaneMaxScroll');
+	return $('#children_list').data('jScrollPanePosition') == $('#children_list').data('jScrollPaneMaxScroll');
 }
 
 function pagination_scroll_down(id, current_scroll) {
-	$j(id).jScrollPane({animateTo: true});
+	$(id).jScrollPane({animateTo: true});
   if (current_scroll)
   {
-    $j(id)[0].scrollTo($j(id).data('jScrollPaneMaxScroll'));
+    $(id)[0].scrollTo($(id).data('jScrollPaneMaxScroll'));
   }
 
 }
+
+})(jQuery);

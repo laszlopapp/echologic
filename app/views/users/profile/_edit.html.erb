@@ -35,20 +35,20 @@
 
 
   <script type="text/javascript">
-    $j(':file').css({'-moz-border-radius':'4px', border:"1px solid #ccc"});
+    $(':file').css({'-moz-border-radius':'4px', border:"1px solid #ccc"});
 
-    $j(':input').focus(function() {
-      $j(this).toggleClass('active');
+    $(':input').focus(function() {
+      $(this).toggleClass('active');
     });
 
-    $j(':input').blur(function() {
-      $j(this).toggleClass('active');
+    $(':input').blur(function() {
+      $(this).toggleClass('active');
     });
 
-    $j("#user_city").autocomplete("users/users/auto_complete_for_user_city");
-    $j("#user_country").autocomplete("users/users/auto_complete_for_user_country");
+    $("#user_city").autocomplete("users/users/auto_complete_for_user_city");
+    $("#user_country").autocomplete("users/users/auto_complete_for_user_country");
 
-    $j("#edit_profile_form").ajaxForm({ dataType: 'script' });
+    $("#edit_profile_form").ajaxForm({ dataType: 'script' });
 
   </script>
 </div>

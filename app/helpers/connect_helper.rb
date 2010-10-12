@@ -10,9 +10,9 @@ module ConnectHelper
     link_to I18n.t('application.general.close'), connect_path,
         :id => 'close_details_container',
         :class => 'close_link',
-        :onclick => "$j('.profile').removeClass('active');
-                     $j.scrollTo('top', 400, function(){
-                       $j('#profile_details_container').animate(toggleParams, 500);
+        :onclick => "$('.profile').removeClass('active');
+                     $.scrollTo('top', 400, function(){
+                       $('#profile_details_container').animate(toggleParams, 500);
                      });
                      return false;"
   end

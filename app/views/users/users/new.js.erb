@@ -11,17 +11,17 @@ var tabs    = "<%= escape_javascript(tabnav :static_join) %>";
 var content = "<%= escape_javascript(render(:partial => request[:action])) %>";
 
 /* Set tab content. */
-$j('#tabContainer').html(tabs);
+$('#tabContainer').html(tabs);
 
 /* If tab container isn't visible, toggle it and hide echologic container.
  * For parameter details see toggleParams in application.js */
-$j('#tabContainer:hidden').animate(toggleParams, 500,
-    function() { $j('#echologicContainer').animate(toggleParams, 500); });
+$('#tabContainer:hidden').animate(toggleParams, 500,
+    function() { $('#echologicContainer').animate(toggleParams, 500); });
 
 /* Replace content with new rendered content. */
-$j('#staticContent').hide();
-$j('#staticContent').html(content);
-$j('#staticContent').appear(400);
+$('#staticContent').hide();
+$('#staticContent').html(content);
+$('#staticContent').appear(400);
 
 /* Change css class through javascript for setting state of staticMenu. */
 changeMenuImage(''+'join');

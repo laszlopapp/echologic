@@ -9,17 +9,17 @@ var content = "<%= escape_javascript(render(:partial => request[:action])) %>";
 
 /* If echologic container isn't visible, toggle it and hide tab container.
  * For parameter details see toggleParams in application.js */
-$j('#echologicContainer:hidden').animate(toggleParams, 500,
-    function() { $j('#tabContainer').animate(toggleParams, 500); });
+$('#echologicContainer:hidden').animate(toggleParams, 500,
+    function() { $('#tabContainer').animate(toggleParams, 500); });
 
 /* Change css class through javascript for setting state of staticMenu.
  * echologic and outer menu parts will show echologic menu item. */
 changeMenuImage('echologic');
 
 /* Replace content with new rendered content. */
-$j('#staticContent').hide();
-$j('#staticContent').html(content);
-$j('#staticContent').appear(400);
+$('#staticContent').hide();
+$('#staticContent').html(content);
+$('#staticContent').appear(400);
 
 /* Render tooltips. */
 makeTooltips();

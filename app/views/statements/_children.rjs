@@ -1,5 +1,5 @@
 panel_height = @children.total_entries == 7 ? 225 : 205
-page << "$j('#children_list').animate({height: #{panel_height}}, 400).show();" if @page.to_i == 1
+page << "$('#children_list').animate({height: #{panel_height}}, 400).show();" if @page.to_i == 1
 page << "current_scroll = save_current_scroll();" if @page.to_i > 1
 
 page.insert_html :bottom, :children_list, :partial => 'statements/child', :collection => @children[@offset, @per_page]
@@ -11,4 +11,4 @@ page.replace :more_pagination, will_paginate(@children, :id => 'more_pagination'
 page << "makeRatiobars()";
 page << "makeTooltips();"
 page << "pagination_scroll_down('#children_list', current_scroll)" if @page.to_i > 1
-page << "$j('.more_pagination a').addClass('ajax');"
+page << "$('.more_pagination a').addClass('ajax');"

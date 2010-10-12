@@ -6,14 +6,14 @@
 var content = "<%= escape_javascript(render(:partial => request[:action])) %>";
 var title = "<%= title %>";
 
-$j('#dialogContent').html(content);
+$('#dialogContent').html(content);
 
-$j('#dialogContent').dialog({
+$('#dialogContent').dialog({
   title:    title,
   bgiframe: true,
   modal:    true,
-  buttons:  { <%= I18n.t('application.general.close') %>: function() { $j(this).dialog('destroy'); }},
-  close:    function(event, ui) { $j(this).dialog('destroy'); },
+  buttons:  { <%= I18n.t('application.general.close') %>: function() { $(this).dialog('destroy'); }},
+  close:    function(event, ui) { $(this).dialog('destroy'); },
   width:    750,
   resizable: false,
   dialogClass: "dialog_popup"

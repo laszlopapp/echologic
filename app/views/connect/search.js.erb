@@ -1,8 +1,8 @@
 var content = "<%= escape_javascript(render(:partial => 'connect/profiles/results')) %>";
 
-$j("#search_results_container").replaceWith(content);
+$("#search_results_container").replaceWith(content);
 
 <% if @page == 1 %>
-$j.scrollTo('top', 400, function() {$j('#details_container:visible').animate(toggleParams, 500)});
+$.scrollTo('top', 400, function() {$('#details_container:visible').animate(toggleParams, 500)});
 <% end %>
 roundCorners();

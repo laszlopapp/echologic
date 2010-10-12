@@ -28,7 +28,7 @@ class ProposalsController < StatementsController
         format.html { flash_info and render :template => 'statements/show' }
         format.js do
           render_with_info do |page|
-            page << "$j('#approved_ip').animate(toggleParams, 500).hide();"
+            page << "$('#approved_ip').animate(toggleParams, 500).hide();"
           end
         end
       end

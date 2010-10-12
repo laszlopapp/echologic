@@ -1,10 +1,10 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
-var $j = jQuery.noConflict();
+(function($) {
 
 /* Do init stuff. */
-$j(document).ready(function () {
+$(document).ready(function () {
 
   startFragmentObservation();
  
@@ -13,20 +13,20 @@ $j(document).ready(function () {
 // TODO robustness: if no script can be found make http request.
 function startFragmentObservation() {
   /* Turn on fragment observation through jQuery plugin. */
-  $j.fragmentChange(true);
+  $.fragmentChange(true);
 
   /* Do AJAX call on fragment change events for goto. */
-  $j(document).bind("fragmentChange", function() {
+  $(document).bind("fragmentChange", function() {
     if (getActionFromHash()) {
-      $j.getScript(getControllerFromHash()+'/'+getActionFromHash());
+      $.getScript(getControllerFromHash()+'/'+getActionFromHash());
     } else {
-      $j.getScript(getControllerFromHash());
+      $.getScript(getControllerFromHash());
     }
   });
 
   /* If fragment is present on document load trigger fragmentChange event. */
   if (fragmentPresent()) {
-    $j(document).trigger("fragmentChange");
+    $(document).trigger("fragmentChange");
   }
 }
 
@@ -43,3 +43,5 @@ function getActionFromHash() {
 function fragmentPresent() {
     return document.location.hash.length > 0 ? true : false;
 }
+
+})(jQuery);

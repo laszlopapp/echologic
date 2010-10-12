@@ -1,4 +1,8 @@
-class AboutItemsController < ApplicationController
+class AboutItemsController < AdminController
+  layout 'admin'
+  
+  
+  
   # All reporting actions require a logged in user
   before_filter :require_user
   
@@ -16,8 +20,22 @@ class AboutItemsController < ApplicationController
     config.columns[:collaboration_team_id].options[:options] = CollaborationTeam.all.map{|c|[c.value, c.id]}
     config.create.multipart = true
     config.update.multipart = true
+    config.list.per_page = 10
+    Language.all.each do |l|
+      config.action_links.add :index, :label => l.value, :parameters => {:locale => l.code}, :page => true
+    end
+  end
+  
+  protected
+
+  # only authenticated admin users are authorized to create projects
+  def create_authorized?
+    user = current_user
+    !user.nil? && user.has_role?(:admin)
   end
 
+
+  
   def before_create_save(record)
     record.photo = params[:record_photo]
   end

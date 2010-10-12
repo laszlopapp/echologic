@@ -1,3 +1,5 @@
+
+
 var rte_tag = "-rte-tmp-tag-";
 var rte_toolbar = {
     /* s1: {
@@ -126,6 +128,7 @@ var html_toolbar = {
         exec: lwrte_clear
     }
 };
+
 function lwrte_block_compare(b, a){
     a = a.replace(/<([^>]*)>/, "$1");
     return (a.toLowerCase() == b.nodeName.toLowerCase())
@@ -135,7 +138,7 @@ function lwrte_style_init(b){
     var a = this;
     a.select = '<select><option value="">- no css -</option></select>';
     if (b.css.length) {
-        $j.ajax({
+        $.ajax({
             url: "styles.php",
             type: "POST",
             data: {
@@ -175,16 +178,16 @@ function lwrte_color(){
     var n = false;
     var j = false;
     a.append('<div class="colorpicker1"><div class="rgb" id="rgb"></div></div><div class="colorpicker1"><div class="gray" id="gray"></div></div><div class="colorpicker2">	<div class="palette" id="palette"></div>	<div class="preview" id="preview"></div>	<div class="color" id="color"></div></div><div class="clear"></div><p class="submit"><button id="ok">Ok</button><button id="cancel">Cancel</button></p>').show();
-    var l = $j("#preview", a);
-    var f = $j("#color", a);
-    var d = $j("#palette", a);
+    var l = $("#preview", a);
+    var f = $("#color", a);
+    var d = $("#palette", a);
     var b = ["#660000", "#990000", "#cc0000", "#ff0000", "#333333", "#006600", "#009900", "#00cc00", "#00ff00", "#666666", "#000066", "#000099", "#0000cc", "#0000ff", "#999999", "#909000", "#900090", "#009090", "#ffffff", "#cccccc", "#ffff00", "#ff00ff", "#00ffff", "#000000", "#eeeeee"];
     for (var h = 0; h < b.length; h++) {
-        $j("<div></div>").addClass("item").css("background", b[h]).appendTo(d)
+        $("<div></div>").addClass("item").css("background", b[h]).appendTo(d)
     }
-    var o = $j("#rgb").height();
-    var k = $j("#rgb").width() / 6;
-    $j("#rgb,#gray,#palette", a).mousedown(function(i){
+    var o = $("#rgb").height();
+    var k = $("#rgb").width() / 6;
+    $("#rgb,#gray,#palette", a).mousedown(function(i){
         n = true;
         return false
     }).mouseup(function(i){
@@ -197,41 +200,41 @@ function lwrte_color(){
         j = true;
         return false
     });
-    $j("#rgb").mousemove(function(i){
+    $("#rgb").mousemove(function(i){
         if (n && j) {
             m(this, true, false, false, i)
         }
         return false
     });
-    $j("#gray").mousemove(function(i){
+    $("#gray").mousemove(function(i){
         if (n && j) {
             m(this, false, true, false, i)
         }
         return false
     });
-    $j("#palette").mousemove(function(i){
+    $("#palette").mousemove(function(i){
         if (n && j) {
             m(this, false, false, true, i)
         }
         return false
     });
-    $j("#rgb").click(function(i){
+    $("#rgb").click(function(i){
         m(this, true, false, false, i);
         return false
     });
-    $j("#gray").click(function(i){
+    $("#gray").click(function(i){
         m(this, false, true, false, i);
         return false
     });
-    $j("#palette").click(function(i){
+    $("#palette").click(function(i){
         m(this, false, false, true, i);
         return false
     });
-    $j("#cancel", a).click(function(){
+    $("#cancel", a).click(function(){
         a.remove();
         return false
     });
-    $j("#ok", a).click(function(){
+    $("#ok", a).click(function(){
         var i = f.html();
         if (i.length > 0 && i.charAt(0) == "#") {
             if (p.iframe_doc.selection) {
@@ -308,8 +311,8 @@ function lwrte_image(){
     var self = this;
     var panel = self.create_panel("Insert image", 385);
     panel.append('<p><label>URL</label><input type="text" id="url" size="30" value=""><button id="file">Upload</button><button id="view">View</button></p><div class="clear"></div><p class="submit"><button id="ok">Ok</button><button id="cancel">Cancel</button></p>').show();
-    var url = $j("#url", panel);
-    var upload = $j("#file", panel).upload({
+    var url = $("#url", panel);
+    var upload = $("#file", panel).upload({
         autoSubmit: false,
         action: "uploader.php",
         onSelect: function(){
@@ -334,15 +337,15 @@ function lwrte_image(){
             }
         }
     });
-    $j("#view", panel).click(function(){
+    $("#view", panel).click(function(){
         (url.val().length > 0) ? window.open(url.val()) : alert("Enter URL of image to view");
         return false
     });
-    $j("#cancel", panel).click(function(){
+    $("#cancel", panel).click(function(){
         panel.remove();
         return false
     });
-    $j("#ok", panel).click(function(){
+    $("#ok", panel).click(function(){
         var file = url.val();
         self.editor_cmd("insertImage", file);
         panel.remove();
@@ -430,11 +433,11 @@ function lwrte_link(){
     var self = this;
     var panel = self.create_panel("Create link", 385);
     panel.append('<p><label>URL</label><input type="text" id="url" size="30" value=""><button id="view">View</button></p><div class="clear"></div><p><label>Tooltip (optional)</label><input type="text" id="title" size="30" value=""><label>Open in</label><select id="target"><option value="_blank">New browser window/tab</option><option value="">Same browser window/tab</option></select></p><div class="clear"></div><p class="submit"><button id="ok">Ok</button><button id="cancel">Cancel</button></p>').show();
-    var ok = $j("#ok", panel).click(function(){
+    var ok = $("#ok", panel).click(function(){
         panel.remove();
-        var url = $j("#url", panel).val();
-        var target = $j("#target", panel).val();
-        var title = $j("#title", panel).val();
+        var url = $("#url", panel).val();
+        var target = $("#target", panel).val();
+        var title = $("#title", panel).val();
         if (self.get_selected_text().length <= 0) {
             alert("Select the text you wish to link!");
             return false
@@ -445,32 +448,32 @@ function lwrte_link(){
         }
         self.editor_cmd("unlink");
         self.editor_cmd("createLink", rte_tag);
-        var tmp = $j("<span></span>").append(self.get_selected_html());
+        var tmp = $("<span></span>").append(self.get_selected_html());
         if (target.length > 0) {
-            $j('a[href*="' + rte_tag + '"]', tmp).attr("target", target)
+            $('a[href*="' + rte_tag + '"]', tmp).attr("target", target)
         }
         if (title.length > 0) {
-            $j('a[href*="' + rte_tag + '"]', tmp).attr("title", title)
+            $('a[href*="' + rte_tag + '"]', tmp).attr("title", title)
         }
-        $j('a[href*="' + rte_tag + '"]', tmp).attr("href", url);
+        $('a[href*="' + rte_tag + '"]', tmp).attr("href", url);
         self.selection_replace_with(tmp.html());
         return false
     });
-    $j("#cancel", panel).click(function(){
+    $("#cancel", panel).click(function(){
         panel.remove();
         return false
     });
-    var url = $j("#url", panel).keypress(function(e) {
+    var url = $("#url", panel).keypress(function(e) {
       if (e.which == 13) {
         ok.click();
         return false;
       }
     });
-    $j("#view", panel).click(function(){
+    $("#view", panel).click(function(){
       (url.val().length > 0) ? window.open(url.val()) : alert("Please enter the URL");
       return false
     });
-    $j("#title", panel).keypress(function(e) {
+    $("#title", panel).keypress(function(e) {
       if (e.which == 13) {
         ok.click();
         return false;

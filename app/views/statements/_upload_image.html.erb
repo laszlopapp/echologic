@@ -22,17 +22,17 @@
    *   complete:   hide progress indicator.
    *   success:    reload all pictures through ajax and close dialog.
    * Return false to stop normal http processing. */
-  $j('#upload_image_form').submit(function() {
-    $j(this).ajaxSubmit({
-      beforeSend: function() { $j('#uploading_progress').show(); },
-      complete:   function() { $j('#uploading_progress').hide(); },
+  $('#upload_image_form').submit(function() {
+    $(this).ajaxSubmit({
+      beforeSend: function() { $('#uploading_progress').show(); },
+      complete:   function() { $('#uploading_progress').hide(); },
       success:    function(data, status) {
-				$j.ajax({
+				$.ajax({
           type:'get',
           dataType: 'script',
           url:"<%= reload_image_url(@statement_node, statement_node_class_dom_id(@statement_node), 
 					                          :date => @statement_node.image.updated_at) %>"});
-        $j('#dialogContent').dialog('close');
+        $('#dialogContent').dialog('close');
       }
     });
     return false;

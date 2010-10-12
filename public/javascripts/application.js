@@ -1,10 +1,9 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
-var $j = jQuery.noConflict();
 
 /* Do init stuff. */
-$j(document).ready(function () {
+$(document).ready(function () {
 	
   makeTooltips();
 
@@ -23,16 +22,16 @@ $j(document).ready(function () {
 
 
   /* Always send the authenticity_token with ajax */
-  $j(document).ajaxSend(function(event, request, settings) {
+  $(document).ajaxSend(function(event, request, settings) {
     if ( settings.type == 'post' ) {
       settings.data = (settings.data ? settings.data + "&" : "")
       + "authenticity_token=" + encodeURIComponent( AUTH_TOKEN );
     }
   });
 
-  $j('#user_session_email').focus();
+  $('#user_session_email').focus();
 
-  $j('.autogrow').autogrow();
+  $('.autogrow').autogrow();
 
 });
 
@@ -51,23 +50,23 @@ function setActionControllerFragment(href) {
 
 /* TODO: unobtrusive check */
 function bindAjaxClickEvents() {
-  $j(".ajaxLink").live("click", function() {
+  $(".ajaxLink").live("click", function() {
     setActionControllerFragment(this.href);
     return false;
   });
 
-  $j("#static_menu a").live("click", function() {
+  $("#static_menu a").live("click", function() {
     setActionControllerFragment(this.href);
     return false;
   });
 
-  $j(".ajax").live("click", function() {
-    $j.getScript(this.href);
+  $(".ajax").live("click", function() {
+    $.getScript(this.href);
     return false;
   });
 
-  $j(".ajax_delete").live("click", function() {
-    $j.ajax({
+  $(".ajax_delete").live("click", function() {
+    $.ajax({
       url:      this.href,
       type:     'post',
       dataType: 'script',
@@ -76,8 +75,8 @@ function bindAjaxClickEvents() {
     return false;
   });
 
-  $j(".ajax_put").live("click", function() {
-    $j.ajax({
+  $(".ajax_put").live("click", function() {
+    $.ajax({
       url:      this.href,
       type:     'post',
       dataType: 'script',
@@ -90,22 +89,22 @@ function bindAjaxClickEvents() {
 
 /* If JS is enabled hijack staticMenuButtons to do AJAX requests. */
 function bindStaticMenuClickEvents() {
-  $j(".staticMenuButton").live("click", function() {
+  $(".staticMenuButton").live("click", function() {
     setActionControllerFragment(this.href);
     return false;
   });
 
-  $j(".outerMenuItem").live("click", function() {
-    $j.getScript(this.href);
+  $(".outerMenuItem").live("click", function() {
+    $.getScript(this.href);
     return false;
   });
 
-  $j(".prevNextButton").live("click", function() {
+  $(".prevNextButton").live("click", function() {
     setActionControllerFragment(this.href);
     return false;
   });
 
-  $j(".illustrationHolder a").live("click", function() {
+  $(".illustrationHolder a").live("click", function() {
     setActionControllerFragment(this.href);
     return false;
   });
@@ -116,29 +115,29 @@ function bindStaticMenuClickEvents() {
 /* Toggle more text on click, use toggleParams. */
 /* IE7 compatibility through IE8.js plugin. */
 function bindMoreHideButtonEvents() {
-  $j('.moreButton').click(function() {
-    $j(this).next().animate(toggleParams, 300);
-    $j(this).hide();
-    $j(this).prev().show();
+  $('.moreButton').click(function() {
+    $(this).next().animate(toggleParams, 300);
+    $(this).hide();
+    $(this).prev().show();
   });
 
-  $j('.hideButton').click(function() {
-    $j(this).next().next().animate(toggleParams, 300);
-    $j(this).hide();
-    $j(this).next().show();
+  $('.hideButton').click(function() {
+    $(this).next().next().animate(toggleParams, 300);
+    $(this).hide();
+    $(this).next().show();
   });
 }
 
 /* Show and hide language selection on mouse enter and mouse leave. */
 function bindLanguageSelectionEvents() {
-  $j('#echo_language_button').bind("mouseenter", function() {
-    var pos = $j("#echo_language_button").position();
-    $j("#language_selector").css( { "left": (pos.left + 20) + "px", "top": (pos.top + 35) + "px" } );
-    $j('#language_selector').show();
+  $('#echo_language_button').bind("mouseenter", function() {
+    var pos = $("#echo_language_button").position();
+    $("#language_selector").css( { "left": (pos.left + 20) + "px", "top": (pos.top + 35) + "px" } );
+    $('#language_selector').show();
   });
 
-  $j('#language_selector').bind("mouseleave", function() {
-    $j('#language_selector').hide();
+  $('#language_selector').bind("mouseleave", function() {
+    $('#language_selector').hide();
   });
 }
 
@@ -146,7 +145,7 @@ function bindLanguageSelectionEvents() {
 /* lwRTE editor loading */
 function loadRTEEditor(iframe_css_class, host) {
   url = 'http://' + host + '/stylesheets/';
-	$j(iframe_css_class).rte({
+	$(iframe_css_class).rte({
     css: ['jquery.rte.css'],
     base_url: url,
     frame_class: 'wysiwyg',
@@ -175,18 +174,18 @@ function loadRTEEditor(iframe_css_class, host) {
 
 /* creates a statement tag button */
 function createTagButton(text, tags_id) {
-  element = $j('<span/>').addClass('tag');
+  element = $('<span/>').addClass('tag');
   element.text(text);
-  deleteButton = $j('<span class="delete_tag_button"></span>');
+  deleteButton = $('<span class="delete_tag_button"></span>');
   deleteButton.click(function(){
-    $j(this).parent().remove();
-    tag_to_delete = $j(this).parent().text();
-    question_tags = $j(tags_id).val().split(',');
+    $(this).parent().remove();
+    tag_to_delete = $(this).parent().text();
+    question_tags = $(tags_id).val().split(',');
     index_to_delete = question_tags.indexOf(tag_to_delete);
     if (index_to_delete >= 0) {
 			question_tags.splice(index_to_delete, 1);
 		}
-    $j(tags_id).val(question_tags.join(','));
+    $(tags_id).val(question_tags.join(','));
   });
   element.append(deleteButton);
   return element;
@@ -194,12 +193,12 @@ function createTagButton(text, tags_id) {
 
 /* load the previously existing tags */
 function loadAddTagButtons() {
-	tags_to_load = $j('#question_tags').val().trim().split(',');
+	tags_to_load = $('#question_tags').val().trim().split(',');
 	while (tags_to_load.length > 0) {
 		tag = tags_to_load.shift().trim();
 		if (tag.localeCompare(' ') > 0) {
 			element = createTagButton(tag, "#question_tags");
-			$j('#question_tags_values').append(element);
+			$('#question_tags_values').append(element);
 		}
 	}
 }
@@ -207,23 +206,23 @@ function loadAddTagButtons() {
 
 /* add new tags to be added to statement */
 function bindAddTagButtonEvents() {
-  $j('#tag_topic_id').keypress(function(event) {
+  $('#tag_topic_id').keypress(function(event) {
 		if (event && event.keyCode == 13) { /* check if enter was pressed */
-		  if ($j('#tag_topic_id').val().length != 0) {
-	      $j('.addTag').click();
+		  if ($('#tag_topic_id').val().length != 0) {
+	      $('.addTag').click();
 	    }
 			return false;
 	  }
 	})
 
-	$j('.addTag').click(function() {
-		entered_tags = $j('#tag_topic_id').val().trim().split(",");
+	$('.addTag').click(function() {
+		entered_tags = $('#tag_topic_id').val().trim().split(",");
 		if (entered_tags.length != 0) {
 			/* Trimming all tags */
       entered_tags = jQuery.map(entered_tags, function(tag) {
         return (tag.trim());
       });
-      existing_tags = $j('#question_tags').val().trim();
+      existing_tags = $('#question_tags').val().trim();
 			existing_tags = existing_tags.split(',');
 
       new_tags = new Array(0);
@@ -232,18 +231,18 @@ function bindAddTagButtonEvents() {
 				if (existing_tags.indexOf(tag) < 0 && entered_tags.indexOf(tag) < 0) {
 					if (tag.localeCompare(' ') > 0) {
 				  	element = createTagButton(tag, "#question_tags");
-				  	$j('#question_tags_values').append(element);
+				  	$('#question_tags_values').append(element);
 				  	new_tags.push(tag);
 				  }
 				}
 	    }
-			question_tags = $j('#question_tags').val();
+			question_tags = $('#question_tags').val();
       if (new_tags.length > 0) {
         question_tags = ((question_tags.trim().length > 0) ? question_tags + ',' : '') + new_tags.join(',');
-        $j('#question_tags').val(question_tags);
+        $('#question_tags').val(question_tags);
       }
-			$j('#tag_topic_id').val('');
-			$j('#tag_topic_id').focus();
+			$('#tag_topic_id').val('');
+			$('#tag_topic_id').focus();
 		}
 	})
 }
@@ -251,10 +250,10 @@ function bindAddTagButtonEvents() {
 /* Remove all activeMenu classes and give it to the static menu item specified
  * through the given parameter. */
 function changeMenuImage(item) {
-  $j('#staticMenu .menuImage').removeClass('activeMenu');
-  $j('#staticMenu #'+item+' .menuImage').toggleClass('activeMenu');
-  $j('#static_menu a').removeClass('active');
-  $j('#static_menu #'+item+'_button').toggleClass('active');
+  $('#staticMenu .menuImage').removeClass('activeMenu');
+  $('#staticMenu #'+item+' .menuImage').toggleClass('activeMenu');
+  $('#static_menu a').removeClass('active');
+  $('#static_menu #'+item+'_button').toggleClass('active');
 }
 
 /* Use this parameters to render toggle effects.
@@ -276,7 +275,7 @@ if (jQuery.support.opacity) {
  * Options and documentation:
  *   http://bassistance.de/jquery-plugins/jquery-plugin-tooltip */
 var makeTooltips = function() {
-  $j(".ttLink[title]").tooltip({
+  $(".ttLink[title]").tooltip({
     track:  true,
     showURL: false
   });
@@ -286,7 +285,7 @@ var makeTooltips = function() {
 /* Add rounded corners to all div elements with class "rounded-box" */
 function roundCorners(){
   var str = '<b class="lr l"></b><b class="lr r"></b><b class="tb t"></b><b class="tb b"></b><b class="cn tl"></b><b class="cn tr"></b><b class="cn bl"></b><b class="cn br"></b>';
-  $j('.rounded-box').append(str);
+  $('.rounded-box').append(str);
 };
 
 var timer = null;
@@ -294,34 +293,33 @@ function showMessageBox(id,permission) {
   if (permission) {
     if (timer != null) {
       clearTimeout (timer);
-      $j(id).stop(true).hide;
+      $(id).stop(true).hide;
     }
     timer = setTimeout(function(){
-      $j(id).animate(toggleParams, 500);
+      $(id).animate(toggleParams, 500);
     }, 1500);
   }
 }
 
 /* Show error or info messages in messagesContainer and hide it with delay. */
 function info(text) {
-  $j('#infoBox').stop().hide();
-  $j('#errorBox').stop().hide();
-  $j('#messageContainer #infoBox .message').html(text);
-  $j('#messageContainer #infoBox').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
+  $('#infoBox').stop().hide();
+  $('#errorBox').stop().hide();
+  $('#messageContainer #infoBox .message').html(text);
+  $('#messageContainer #infoBox').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
 }
 
 function error(text) {
-  $j('#infoBox').stop().hide();
-  $j('#errorBox').stop().hide();
-  $j('#messageContainer #errorBox .message').html(text);
-  $j('#messageContainer #errorBox').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
+  $('#infoBox').stop().hide();
+  $('#errorBox').stop().hide();
+  $('#messageContainer #errorBox .message').html(text);
+  $('#messageContainer #errorBox').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
 }
 
 /* Collects all echo_indicators by class and invokes the progressbar-init on them by taking
  * the value from the alt-attribute. */
 function makeRatiobars() {
-  $j.each( $j('.echo_indicator'), function() {
-    $j(this).progressbar({ value: $j(this).attr('alt') });
+  $.each( $('.echo_indicator'), function() {
+    $(this).progressbar({ value: $(this).attr('alt') });
   });
 }
-

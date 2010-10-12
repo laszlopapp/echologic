@@ -7,8 +7,12 @@ module AboutItemsHelper
     file_field_tag "record_photo",:accept => 'image/jpeg,image/png,image/pjpeg,image/x-png',
                    :value => record.photo
   end
+
+#  def description_column(record)
+#    record.description(params[:code])
+#  end
  
   def collaboration_team_id_column(record)
-    record.collaboration_team.value
+    link_to record.collaboration_team.value, url_for(:action => :index, :collaboration_team_id => record.collaboration_team_id)
   end  
 end
