@@ -9,14 +9,17 @@ class StatementsController < ApplicationController
   #        solution would be to make the "echo" button a real submit button and
   #        wrap a form around it.
 
-  verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation, :children, :upload_image, :reload_image]
+  verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
+                                    :children, :upload_image, :reload_image]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
-  before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions, :new, :create, :children, :upload_image, :reload_image]
+  before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions,
+                                                                   :new, :create, :children, :upload_image,
+                                                                   :reload_image]
   before_filter :require_user, :except => [:category, :show, :children]
   before_filter :fetch_languages, :except => [:destroy]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
@@ -83,10 +86,10 @@ class StatementsController < ApplicationController
       # Record visited
       @statement_node.visited!(current_user) if current_user
 
-      
+
       # Load statement node data to session for prev/next functionality
       load_to_session(@statement_node)
-      
+
       # Get document to show and redirect if not found
       @statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
       if @statement_document.nil?
@@ -129,8 +132,8 @@ rescue Exception => e
       log_home_error(e,"Error showing statement.")
     end
   end
-  
-  
+
+
   def children
     @page = params[:page] || 1
     @per_page = 7
@@ -140,7 +143,7 @@ rescue Exception => e
                                                              :per_page => @per_page))
     @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
                                                      @language_preference_list)
-    respond_to_js :partial_js => 'statements/children.rjs'                                                 
+    respond_to_js :partial_js => 'statements/children.rjs'
   end
 
 
@@ -190,10 +193,10 @@ rescue Exception => e
         @statement_node.topic_tags=form_tags
         @tags=@statement_node.topic_tags
       end
-  
+
       respond_to do |format|
         if permitted and @statement_node.save
-          EchoService.instance.created(@statement_node) 
+          EchoService.instance.created(@statement_node)
           set_statement_node_info(@statement_document)
           # load currently created statement_node to session
           load_to_session @statement_node
@@ -234,13 +237,13 @@ rescue Exception => e
       @tags ||= @statement_node.topic_tags if @statement_node.taggable?
       @action ||= StatementAction["updated"]
     end
-    
+
     if !is_current_document
       with_info(:template => 'statements/edit' ) do |format|
         set_statement_node_info(nil, 'discuss.statements.statement_updated')
       end
     elsif has_lock
-      respond_to_js :template => 'statements/edit', 
+      respond_to_js :template => 'statements/edit',
                     :partial_js => 'statements/edit.rjs'
     else
       with_info(:template => 'statements/edit' ) do |format|
@@ -263,11 +266,11 @@ rescue Exception => e
       attrs = params[statement_node_symbol]
       attrs_doc = attrs.delete(:statement_document)
       locked_at = attrs_doc.delete(:locked_at) if attrs_doc
-  
+
       # Updating tags of the statement
       form_tags = attrs.delete(:tags)
       has_tag_permissions = form_tags.nil? || !@statement_node.taggable? || check_hash_tag_permissions(form_tags)
-  
+
       holds_lock = true
       if has_tag_permissions
         StatementNode.transaction do
@@ -281,7 +284,7 @@ rescue Exception => e
                                       attrs_doc.merge({:original_language_id => @locale_language_id,
                                                        :current => true}))
               @statement_document.save
-  
+
               if @statement_node.taggable? and form_tags
                 @statement_node.topic_tags=form_tags
                 @tags=@statement_node.topic_tags
@@ -378,10 +381,10 @@ rescue Exception => e
                                                                    :language_id => @locale_language_id,
                                                                    :current => true})
       locked_at = new_doc_attrs.delete(:locked_at)
-                                                                   
+
       # Updating the statement
       holds_lock = true
-    
+
       StatementNode.transaction do
         old_statement_document = StatementDocument.find(new_doc_attrs[:old_document_id])
         holds_lock = holds_lock?(old_statement_document, locked_at)
@@ -391,12 +394,12 @@ rescue Exception => e
           @statement_node.save
         end
       end
-      
+
       # Rendering response
       respond_to do |format|
         if !holds_lock
           being_edited(format)
-        elsif @new_statement_document.valid? 
+        elsif @new_statement_document.valid?
           translated = true
           @statement_document = @new_statement_document
           set_statement_node_info(@statement_document)
@@ -473,12 +476,12 @@ rescue Exception => e
   # Response: HTTP or JS
   #
   def unecho
-    begin 
+    begin
       return if !@statement_node.echoable?
-  
+
       @statement_node.unsupported!(current_user)
       @statement_node.children.each{|c|c.unsupported!(current_user) if c.supported?(current_user)}
-  
+
       # Logic to update the children caused by cascading unsupport
       @page = params[:page] || 1
       @children = @statement_node.children_statements(@language_preference_list).
@@ -504,7 +507,7 @@ rescue Exception => e
   def upload_image
     respond_to_js :template_js => 'statements/upload_image'
   end
-  
+
   # After uploading the image, this has to be reloaded.
   # Reloading:
   #  1. loginContainer with users picture as profile link
@@ -520,7 +523,7 @@ rescue Exception => e
         format.js {
           render_with_info do |page|
             page.replace 'statement_image', :partial => 'statements/image'
-            page.remove 'upload_image_link' if @statement_node.published? 
+            page.remove 'upload_image_link' if @statement_node.published?
           end
         }
       else
@@ -655,7 +658,7 @@ rescue Exception => e
   # Checks if text that comes with the form is actually empty, even with the escape parameters from the iframe
   #
   def check_empty_text
-    if params[statement_node_symbol].include? :new_statement_document or 
+    if params[statement_node_symbol].include? :new_statement_document or
        params[statement_node_symbol].include? :statement_document
       document_param = params[statement_node_symbol][:new_statement_document] || params[statement_node_symbol][:statement_document]
       text = document_param[:text]
@@ -778,18 +781,18 @@ rescue Exception => e
   # Saves the current statement node to the session to enable back navigation
   #
   def load_to_session(statement_node, reload = true)
-    
+
     # Load parent information to session
     load_to_session(statement_node.parent, false) if statement_node.parent
-    
+
     # Loads sibling (or other question) statements to session if they were not loaded yet
     key = ("current_" + statement_node_class.to_s.underscore).to_sym
     if session[key].nil? or (reload and !statement_node.parent.nil?)
-      session[key] = statement_node.echoable? ? 
+      session[key] = statement_node.echoable? ?
                      statement_node.sibling_statements(@language_preference_list).map(&:id) :
                      [statement_node.id]
     end
-    
+
     # Store last statement in session (for cancel link)
     session[:last_statement_node] = statement_node.id if reload
   end
@@ -802,7 +805,7 @@ rescue Exception => e
     format.html { flash_error and redirect_to url_for(@statement_node) }
     format.js { show }
   end
-  
+
   def with_info(opts={})
     respond_to do |format|
       yield format if block_given?
@@ -810,13 +813,13 @@ rescue Exception => e
       format.js   { render_with_info }
     end
   end
-  
+
   def log_statement_error(e, message)
     log_message_error(e, message) do |format|
       flash_error and redirect_to url_for(@statement_node)
     end
   end
-  
+
   def log_home_error(e, message)
     log_message_error(e, message) do |format|
       flash_error and redirect_to_home

@@ -23,7 +23,7 @@ de:
       show:
         ms1: echologic ist ein Netzwerk von BewegerInnen und <br/>ihren Organisationen. Gemeinsam verwirklichen wir
         ms2: |
-          echo - die globale <span title="{{tooltip}}" class="ttLink">Agora</span>!
+          echo - die globale <span title="%{tooltip}" class="ttLink">Agora</span>!
 
         agora_tooltip: |
           Die Agora war der zentrale Versammlungsplatz im antiken Athen – der Wiege der Demokratie.
@@ -45,11 +45,11 @@ de:
           <p>
           echo ist ein <strong>Gemeinschaftsprojekt</strong> für einen ökologisch und sozial
           nachhaltigen Wandel durch <strong>aktive Bürgerbeteiligung</strong>. Es wendet sich an
-          <span title="{{gender_tooltip}}" class="ttLink">alle Mitglieder der Gesellschaft</span>:
+          <span title="%{gender_tooltip}" class="ttLink">alle Mitglieder der Gesellschaft</span>:
           BürgerInnen, ExpertenInnen, EntscheidungsträgerInnen und VertreterInnen von Organisationen und Unternehmen.
           </p><p>
           <strong>echo</strong> schafft die technische Grundlage für eine offene, <strong>teilnehmende Demokratie</strong> auf lokaler,
-          regionaler und <span title="{{subsidiarity_tooltip}}" class="ttLink">globaler Ebene</span>. Ihre Stimme findet hier ein Echo.
+          regionaler und <span title="%{subsidiarity_tooltip}" class="ttLink">globaler Ebene</span>. Ihre Stimme findet hier ein Echo.
           Aus Ideen wird Bewegung, aus Visionen Realität. echo bedeutet das <strong>Ende der Machtlosigkeit</strong>,
           den <strong>Anfang der Selbstbestimmung</strong>.
           </p>
@@ -69,7 +69,7 @@ de:
         text_3:
           title: Offenheit und “Your-Profit“ Philosophie
           more: |
-            <p>echo ist <strong><a href="{{github_url}}" target="_blank">Open Source</a></strong> und wird als die Basis einer vielfaltigen,
+            <p>echo ist <strong><a href="%{github_url}" target="_blank">Open Source</a></strong> und wird als die Basis einer vielfaltigen,
             <strong>verteilten Infrastruktur</strong> dienen. Sein webseitenübergreifender Ansatz überwindet die Grenzen
             verinselter Plattformen und Initiativen. So bündelt und vervielfacht echo deren <strong>Einflusspotential</strong>.
             </p><p>
@@ -194,7 +194,7 @@ de:
             </p><p>
             Die aktuellen Krisen können daher als eine allgemeine <strong>Krise der Demokratie</strong> verstanden werden.
             Es gilt eine Möglichkeit zu finden, gemeinsam <strong>konstruktive Lösungen</strong> zu entwickeln,
-            um den <span title="{{tooltip}}" class="ttLink">“glokalen” Herausforderungen</span>
+            um den <span title="%{tooltip}" class="ttLink">“glokalen” Herausforderungen</span>
             unserer Zeit effektiv begegnen zu können.
             </p>
 
@@ -209,8 +209,8 @@ de:
           text: |
             <p>
             echo ist das Instrument einer <strong>neuen Form teilnehmender Demokratie</strong>, das sich diesen Herausforderungen stellt.
-            Anders als auf <span title="{{tooltip1}}" class="ttLink">herkömmlichen Web 2.0 Anwendungen</span> finden Sie auf
-            echo ein <strong>übersichtliches <span title="{{tooltip2}}" class="ttLink">Meinungsbild</span></strong> und können
+            Anders als auf <span title="%{tooltip1}" class="ttLink">herkömmlichen Web 2.0 Anwendungen</span> finden Sie auf
+            echo ein <strong>übersichtliches <span title="%{tooltip2}" class="ttLink">Meinungsbild</span></strong> und können
             <strong>lösungsorientiert</strong> mit Anderen zusammenarbeiten.
             Dazu vereint echo technische Innovationen und humanwissenschaftliche Erkenntnisse in einem einzigartigen Konzept.
             Hintergründe und Zusammenhänge können dadurch leichter verstanden, gemeinsam Entscheidungen
@@ -273,7 +273,7 @@ de:
         democratic: Demokratische Meinungsbildung
         democratic_more: |
           Jede Position auf echo repräsentiert eine fundierte Stellungnahme, welche von den NutzerInnen in einem
-          <span title="{{tooltip}}" class="ttLink">vollkommen demokratischen Prozess</span> ausgearbeitet wird.
+          <span title="%{tooltip}" class="ttLink">vollkommen demokratischen Prozess</span> ausgearbeitet wird.
           Mit geringstem Aufwand können Sie sich jederzeit gleichberechtigt an der dynamischen Entwicklung solcher Stellungnahmen beteiligen.
 
         democratic_tooltip:
@@ -587,10 +587,10 @@ de:
           <p>
           Finanzieren Sie Ihre Aktionen ohne finanziellen Aufwand!
           </p><p>
-          echo verbindet <strong><span title="{{tooltip_nonprofit}}" class="ttLink">Gemeinnützigkeit</span></strong> mit
+          echo verbindet <strong><span title="%{tooltip_nonprofit}" class="ttLink">Gemeinnützigkeit</span></strong> mit
           <strong>tragfähigen Geschäftsmodellen</strong>. „Tragfähig“ bedeutet jedoch nicht bloße Kostendeckung,
           sondern die Bereitstellung von Mitteln für Aktionen und Projekte von NutzerInnen und Organisationen.
-          Hierfür bietet Ihnen echo mehrere <span title="{{tooltip_costneutral}}" class="ttLink">kostenneutrale</span> Möglichkeiten,
+          Hierfür bietet Ihnen echo mehrere <span title="%{tooltip_costneutral}" class="ttLink">kostenneutrale</span> Möglichkeiten,
           Geld auf Ihrem persönlichen virtuellen Konto zu sammeln. Die so gesammelten Gelder können Sie nach Belieben an
           Aktionen und Projekte von NROs, Interessengemeinschaften oder Privatpersonen verteilen.
           So kann Ihr virtuelles Engagement <strong>reale Früchte</strong> tragen!
@@ -642,7 +642,7 @@ de:
           Als Instrument zur Unterstützung demokratischer Entscheidungsprozesse ist für echo die
           Wahrung <strong>politischer und wirtschaftlicher Unabhängigkeit</strong> oberstes Gebot.
           Um seine Unabhängigkeit langfristig zu gewährleisten, wird echo schrittweise in die
-          Hände seiner NutzerInnen <span title="{{tooltip}}" class="ttLink">übergeben</span>.
+          Hände seiner NutzerInnen <span title="%{tooltip}" class="ttLink">übergeben</span>.
           </p><p>
           echo wird so zum Quasi-<strong>Eigentum der Weltbevölkerung</strong>:
           Sie bestimmen, was auf echo passiert. Sie bestimmen wie echo funktioniert. <strong>Sie sind echo!</strong>
@@ -687,7 +687,7 @@ de:
             vernetzen und so Teil einer <strong>größeren Bewegung</strong> werden. Dadurch könnt Ihr schneller die
             richtigen <strong>Mitstreiter finden</strong> und gemeinsam an einem Strang ziehen.
             </p><p>
-            echo social Webseiten werden durch <strong><a href='{{echo_link}}' target='_blank'>echo</a></strong>
+            echo social Webseiten werden durch <strong><a href='%{echo_link}' target='_blank'>echo</a></strong>
             - die globale Agora - webseitenübergreifend verbunden. echo dient dabei als <strong>dezentrale
             Kommunikationsinfrastruktur</strong> zur aktiven Bürgerbeteiligung und teilnehmenden Demokratie.<br/>
             Im Laufe der weiteren Realisierung echos werden Aktionen und Projekte auf echo social Webseiten stets mit
@@ -881,7 +881,7 @@ de:
     activation:
       subject: "Freischaltung Ihres Zugangs zu echo"
       text1: |
-        Liebe(r) {{name}},
+        Liebe(r) %{name},
 
         vielen Dank, dass Sie sich auf echo angemeldet haben. Bitte aktivieren Sie Ihren Zugang über den unten stehenden Link.
       text2: |
@@ -898,7 +898,7 @@ de:
     welcome:
       subject: "Willkommen auf echo"
       text: |
-        Liebe(r) {{name}},
+        Liebe(r) %{name},
 
         willkommen auf echo!
 
@@ -916,7 +916,7 @@ de:
     new_password:
       subject: "Neues Passwort für echo"
       text1: |
-        Liebe(r) {{name}},
+        Liebe(r) %{name},
 
         für Ihren Zugang zu echo wurde ein neues Passwort beantragt. Falls Sie Ihr Passwort ändern möchten,
         klicken Sie bitte auf den unten stehenden Link.

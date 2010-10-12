@@ -5,7 +5,7 @@ class EnumKeyTest < ActiveSupport::TestCase
   context "an enum key" do
     setup { @enum_key = EnumKey.new }
     subject { @enum_key }
-    should_have_many :enum_values
+    should have_many :enum_values
         
     # check for validations (should_validate_presence_of didn't work)
     %w(key type code).each do |attr|

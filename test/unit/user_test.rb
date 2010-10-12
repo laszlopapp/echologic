@@ -7,10 +7,13 @@ class UserTest < ActiveSupport::TestCase
     setup { @user = User.new }
     subject { @user }
 
-    should_have_many :web_addresses, :memberships, :spoken_languages, :reports
-    should_have_many :tao_tags
-    should_have_many :tags
-    should_have_one :profile
+    should have_many :web_addresses
+    should have_many :memberships
+    should have_many :spoken_languages
+    should have_many :reports
+    should have_many :tao_tags
+    should have_many :tags
+    should have_one :profile
 
     context "being saved" do
       setup do

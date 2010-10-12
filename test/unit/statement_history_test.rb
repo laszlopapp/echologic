@@ -6,11 +6,11 @@ class StatementHistoryTest < ActiveSupport::TestCase
     setup { @statement_history = StatementHistory.new }
     subject { @statement_history }
  
-    should_belong_to :statement
-    should_belong_to :statement_document
-    should_belong_to :author
-    should_belong_to :old_document
-    should_belong_to :incorporated_node
+    should belong_to :statement
+    should belong_to :statement_document
+    should belong_to :author
+    should belong_to :old_document
+    should belong_to :incorporated_node
    
      # check for validations (should_validate_presence_of didn't work)
     %w(author_id action_id).each do |attr|

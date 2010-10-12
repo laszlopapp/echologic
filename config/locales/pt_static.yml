@@ -22,7 +22,7 @@ pt:
       show:
         ms1: A echologic é uma rede de pessoas que querem mudança <br/>e das suas organizações unidas para realizar
         ms2: |
-          echo - a <span title="{{tooltip}}" class="ttLink">ágora</span> global!
+          echo - a <span title="%{tooltip}" class="ttLink">ágora</span> global!
 
         agora_tooltip: |
           A Ágora era o lugar central da Grécia Antiga - o berço da democracia.
@@ -48,7 +48,7 @@ pt:
           representantes de organizações e firmas.
           </p><p>
           <strong>echo</strong> providencia uma base tecnológica para uma <strong>democracia participatória</strong>, aberta, no nível local,
-          regional e <span title="{{subsidiarity_tooltip}}" class="ttLink">global</span>. A usa voz encontra aqui um echo.
+          regional e <span title="%{subsidiarity_tooltip}" class="ttLink">global</span>. A usa voz encontra aqui um echo.
           Ideias tornam-se movimentos, visões tornam-se realidade. echo significa o <strong>fim da impotência</strong> e o
           <strong>princípio da auto-determinação</strong>.
           </p>
@@ -68,7 +68,7 @@ pt:
           title: Abertura e Filosofia “O-Seu-Lucro”
           more: |
             <p>
-            echo é <strong><a href="{{github_url}}" target="_blank">open source</a></strong> e será a base de uma
+            echo é <strong><a href="%{github_url}" target="_blank">open source</a></strong> e será a base de uma
             <strong>infra-estrutura descentral</strong>, heterogénea. O seu método distribuído suplanta as
             limitações das plataformas e iniciativas isoladas – agrupa e multiplica o seu <strong>potencial de influência</strong>.
             </p><p>
@@ -193,7 +193,7 @@ pt:
             </p><p>
             A crise corrente pode ser portanto entendida como uma <strong>crise da democracia</strong> no geral.<br/>
             Novas maneiras de dar o poder ao povo para desenvolver <strong>soluções construtivas</strong>, de forma a
-            ajudar efetivamente na resolução dos nossos <span title="{{tooltip}}" class="ttLink">desafios “glocais”</span>,
+            ajudar efetivamente na resolução dos nossos <span title="%{tooltip}" class="ttLink">desafios “glocais”</span>,
             tem de ser encontradas.
             </p>
 
@@ -208,8 +208,8 @@ pt:
           text: |
             <p>
             echo é o instrumento para um <strong>novo tipo de democracia participatória</strong> face a estes desafios.
-            Ao contrário de <span title="{{tooltip1}}" class="ttLink">Aplicações Web 2.0 usuais</span>, a echo providencia
-            uma <strong>claramente estruturada<span title="{{tooltip2}}" class="ttLink">base de opiniões</span></strong> e permite
+            Ao contrário de <span title="%{tooltip1}" class="ttLink">Aplicações Web 2.0 usuais</span>, a echo providencia
+            uma <strong>claramente estruturada<span title="%{tooltip2}" class="ttLink">base de opiniões</span></strong> e permite
             uma colaboração social <strong>orientada à solução</strong>. Une inovação tecnológica e conhecimento científico humano
             num conceito único. Isto ajuda as pessoas a melhor entender os planos-de-fundo e inter-relações de tópicos,
             conjuntamente tomar decisões claras e torná-las realidade. Concordantemente, a echo aparece com três áreas funcionais
@@ -268,7 +268,7 @@ pt:
         democratic: Formação de opiniões democrática
         democratic_more: |
           Na echo, todas as posições representam afirmações claras elaboradas pelos utilizadores num
-          <span title="{{tooltip}}" class="ttLink">processo totalmente democrático</span>. Sendo assim,
+          <span title="%{tooltip}" class="ttLink">processo totalmente democrático</span>. Sendo assim,
           todas as pessoas podem contribuir para a evolução dinâmica dessas afirmações com igual chance e esforço mínimo.
 
         democratic_tooltip: |
@@ -579,10 +579,10 @@ pt:
           <p>
           Financie as suas ações sem apoio financeiro!
           </p><p>
-          A echo combina uma filosofia<strong><span title="{{tooltip_nonprofit}}" class="ttLink">sem fins lucrativos</span></strong>
+          A echo combina uma filosofia<strong><span title="%{tooltip_nonprofit}" class="ttLink">sem fins lucrativos</span></strong>
           com <strong>modelos de negócio poderosos</strong>. "Poderoso" não significa meramente custos de trabalho neutro.
           Também significa ajudar as pessoas e organizações para providenciar as suas ações com os fundos necessários. Com este
-          propósito, a echo oferece-lhe várias formas <span title="{{tooltip_costneutral}}" class="ttLink">de custo neutro</span>
+          propósito, a echo oferece-lhe várias formas <span title="%{tooltip_costneutral}" class="ttLink">de custo neutro</span>
           para colectar dinheiro na sua conta privada virtual.
           Todos os fundos colectados desta forma podem seguidamente ser doados para ações e projetos de organizaçoes, grupos de
           interesse ou indivíduos de acordo com as suas preferências.<br/>
@@ -634,7 +634,7 @@ pt:
           Tal como a echo é um instrumento de tomada de decisões democrática, manter <strong>independência financeira e política</strong>
           é de vital importância.
           De forma a assegurar a total independência a longo prazo, a echo irá gradualmente
-          <span title="{{tooltip}}" class="ttLink">passar para as mãos</span> de todos os utilizadores a qualquer altura.
+          <span title="%{tooltip}" class="ttLink">passar para as mãos</span> de todos os utilizadores a qualquer altura.
           </p><p>
           À sua maneira, a echo quase que se torna <strong>propriedade da humanidade</strong>:
           Será ela que decide o que acontece na echo. Ela define como a echo funciona. Ela é a echo!
@@ -675,7 +675,7 @@ pt:
             Para além das suas funções compreensivas para a própria rede, os sites echo social podem-se ligar entre si e tornar-se num
             <strong>movimento maior</strong>. Desta forma pode <strong>encontrar os apoiantes certos</strong> e começar a agir em conjunto.
             </p><p>
-            Via <strong><a href='{{echo_link}}' target='_blank'>echo</a></strong> - a ágora global -
+            Via <strong><a href='%{echo_link}' target='_blank'>echo</a></strong> - a ágora global -
             os sites echo social estão ligados através das fronteiras de plataformas e websites diferentes. A echo serve portanto como
             uma <strong>infra-estrutura de comunicação distribuída</strong> para a cidadania ativa e democracia participatória.<br/>
             No decurso do desenvolvimento ulterior da echo, as ações e projetos nos sites echo social serão sempre ligados a debates
@@ -865,7 +865,7 @@ pt:
     activation:
       subject: Por favor ative a sua conta echo
       text1: |
-        Caro/a {{name}},
+        Caro/a %{name},
 
         Obrigado por se registar na echo. Por favor clique no URL aqui em baixo para ativar a sua conta.
       text2: |
@@ -881,7 +881,7 @@ pt:
     welcome:
       subject: Bem vindo à echo
       text: |
-        Caro/a {{name}},
+        Caro/a %{name},
 
         Bemvindo à echo!
 
@@ -898,7 +898,7 @@ pt:
     new_password:
       subject: Nova senha para a echo
       text1: |
-        Caro/a {{name}},
+        Caro/a %{name},
 
         a nova senha foi requerida para a sua conta echo. Se pretende mudar a senha por favor clique no link seguinte.
 

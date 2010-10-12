@@ -3,15 +3,15 @@ class QuestionsController < StatementsController
   # action: my discussions page
   def my_discussions
     @page     = params[:page]  || 1
-    
+
     discussions_not_paginated = Question.by_creator(current_user).by_creation
-    
+
     session[:current_question] = discussions_not_paginated.map(&:id)
-    
-    @discussions = discussions_not_paginated.paginate(:page => @page, :per_page => 5)    
+
+    @discussions = discussions_not_paginated.paginate(:page => @page, :per_page => 5)
     @statement_documents = search_statement_documents(@discussions.map(&:statement_id),
                                                       @language_preference_list)
-                  
+
     respond_to_js :template => 'statements/questions/my_discussions', :template_js => 'statements/questions/discussions'
   end
 
@@ -23,6 +23,7 @@ class QuestionsController < StatementsController
         @statement_node.publish
         respond_to do |format|
           if @statement_node.save
+            EchoService.instance.published(@statement_node)
             format.js do
               set_info("discuss.statements.published")
               render_with_info do |page|

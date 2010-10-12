@@ -8,7 +8,7 @@
 
 <% semantic_form_for @profile, :html => { :multipart => true, :id => 'upload_picture_form' } do |form| %>
   <% form.inputs do %>
-    <%= form.input :avatar %>
+    <%= form.input :avatar, :input_html => {:size => 70}%>
   <% end %>
 <% end %>
 

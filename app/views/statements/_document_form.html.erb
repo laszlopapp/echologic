@@ -9,10 +9,10 @@
   <% doc.inputs :class => 'inputs left_panel' do %>
 	  <% if !disabled and statement_document.new_record? %>
 		  <% if user_languages.empty? %>
-				<%= doc.input :language_id, 
-                      :collection => [[local_language.value,local_language.id]] , 
+				<%= doc.input :language_id,
+                      :collection => [[local_language.value,local_language.id]] ,
                       :include_blank => false %>
-				<% content_tag :li, :class => 'hint ttLink no_border', :title => I18n.t('discuss.statements.statement_language_hint_tooltip') do -%>
+				<% content_tag :li, :class => 'hint ttLink', :title => I18n.t('discuss.statements.statement_language_hint_tooltip') do -%>
 				  <%= content_tag :p, I18n.t('discuss.statements.statement_language_hint', :url => my_profile_url) %>
 				<% end %>
 				<%= tag('br')%>
@@ -22,17 +22,17 @@
 		<% else %>
 	    <%= doc.input :language_id, :as => :hidden, :value => statement_document.language_id %>
 	  <% end %>
-  
+
     <%= doc.input :title, :input_html => {:disabled => disabled} %>
     <br/>
 		<% if !disabled %>
       <%= doc.input :text, :input_html => {:disabled => disabled, :class => css_rte_class} %>
-      <%= doc.input :author_id, :as => :hidden, :value => current_user.id %>																		
+      <%= doc.input :author_id, :as => :hidden, :value => current_user.id %>
 			<%= doc.input :old_document_id, :as => :hidden, :value => statement_document.id if !statement_document.new_record? %>
 			<%= doc.input :locked_at, :as => :hidden, :value => statement_document.locked_at %>
 			<%= doc.input :action_id, :as => :hidden, :value => @action.id if @action %>
 			<%= doc.input :incorporated_node_id, :as => :hidden, :value => @approved_node.id if !@approved_node.nil? %>
-			
+
 		<% else %>
 		  <% content_tag :li do -%>
 		    <%= label_tag "question_statement_document_text" , I18n.t("activerecord.attributes.statement_document.text") %>

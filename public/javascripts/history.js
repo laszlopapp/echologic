@@ -20,7 +20,6 @@ function bindHistoryEvents() {
       return false;
     }
   })
-	
   $j(".ajax_sort").live("click", function() {
     var sort = $j(this).attr('value');
 		$j(':input[id=sort]').val(sort);
@@ -73,8 +72,7 @@ $j(function() {
 /*********************************************/
 $j(function() {
 	$j(".more_pagination a").live("click", function() {
-		$j(this).replaceWith($j('<span/>').text($j(this).text()));
-		$j(".more_pagination").append($j('<span/>').addClass('pagination_loading'));
+		$j(this).replaceWith($('<span/>').text($j(this).text()).addClass('more_loading'));
   });
 });
 

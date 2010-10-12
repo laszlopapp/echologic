@@ -37,11 +37,11 @@ module StatementHelper
   def create_translation_url (parent, type)
     send("create_translation_#{type.downcase}_url",parent)
   end
-  
+
   def upload_image_url (parent, type, opts={})
     send("upload_image_#{type.downcase}_url",parent, opts)
   end
-  
+
   def reload_image_url (parent, type, opts={})
     send("reload_image_#{type.downcase}_url",parent, opts)
   end
@@ -89,7 +89,7 @@ module StatementHelper
   def create_translation_proposal_path(proposal)
     create_translation_question_proposal_path(proposal.parent, proposal)
   end
-  
+
   def upload_image_proposal_url(proposal, opts={})
     upload_image_question_proposal_url(proposal.parent, proposal, opts)
   end
@@ -97,7 +97,7 @@ module StatementHelper
   def upload_image_proposal_path(proposal, opts={})
     upload_image_question_proposal_path(proposal.parent, proposal, opts)
   end
-  
+
   def reload_image_proposal_url(proposal, opts={})
     reload_image_question_proposal_url(proposal.parent, proposal, opts)
   end
@@ -163,7 +163,7 @@ module StatementHelper
                                                                    improvement_proposal.parent,
                                                                    improvement_proposal)
   end
-  
+
   def upload_image_improvement_proposal_url(improvement_proposal, opts={})
     upload_image_question_proposal_improvement_proposal_url(improvement_proposal.root,
                                                                   improvement_proposal.parent,
@@ -175,7 +175,7 @@ module StatementHelper
                                                                    improvement_proposal.parent,
                                                                    improvement_proposal, opts)
   end
-  
+
   def reload_image_improvement_proposal_url(improvement_proposal, opts={})
     reload_image_question_proposal_improvement_proposal_url(improvement_proposal.root,
                                                                   improvement_proposal.parent,
@@ -307,21 +307,34 @@ module StatementHelper
   # inserts a status bar based on the support ratio  value
   # (support ratio is the calculated ratio for a statement_node,
   # representing and visualizing the agreement a statement_node has found within the community)
-  def supporter_ratio_bar(statement_node,context=nil)
+  def supporter_ratio_bar(statement_node, show_label = false)
     if statement_node.supporter_count < 2
-      tooltip = I18n.t('discuss.tooltips.echo_indicator.one',
-                       :supporter_count => statement_node.supporter_count)
+      label = I18n.t('discuss.statements.echo_indicator.one',
+                     :supporter_count => statement_node.supporter_count)
     else
-      tooltip = I18n.t('discuss.tooltips.echo_indicator.many',
-                       :supporter_count => statement_node.supporter_count)
+      label = I18n.t('discuss.statements.echo_indicator.many',
+                     :supporter_count => statement_node.supporter_count)
     end
-    if statement_node.ratio > 1
-      content_tag :span, '', :class => "echo_indicator ttLink", :title => tooltip, :alt => statement_node.ratio
+
+    html = ''.html_safe!
+    if show_label
+      if statement_node.ratio > 1
+        html += content_tag :span, '', :class => "echo_indicator", :alt => statement_node.ratio
+      else
+        html += content_tag :span, '', :class => "no_echo_indicator"
+      end
+      html += content_tag :span, label, :class => "supporters_label"
     else
-      content_tag :span, '', :class => "no_echo_indicator ttLink", :title => tooltip
+      if statement_node.ratio > 1
+        html += content_tag :span, '', :class => "echo_indicator ttLink", :title => label, :alt => statement_node.ratio
+      else
+        html += content_tag :span, '', :class => "no_echo_indicator ttLink", :title => label
+      end
     end
+
+    html
   end
-  
+
   # Renders the button for echo and unecho.
   def render_echo_button(statement_node, url_options, echo = true)
     return if !statement_node.echoable?
@@ -341,18 +354,10 @@ module StatementHelper
                    url_for(statement_node),
                    :class => "ajax no_border statement_link #{statement_node.class.name.underscore}_link ttLink",
                    :title => I18n.t("discuss.tooltips.#{action}_#{statement_node.class.name.underscore}"))
-    if !statement_node.echoable?
-      link << echo_label unless last_statement_node
-    else
-      link << supporter_ratio_bar(statement_node,'context')
+    if statement_node.echoable?
+      link << supporter_ratio_bar(statement_node, last_statement_node)
     end
     return link
-  end
-
-
-  # Creates a label to explain the echo/supporter count indicators
-  def echo_label(context=nil)
-    content_tag :span, I18n.t('discuss.statements.label'), :class => 'echo_label'
   end
 
 
@@ -445,17 +450,17 @@ module StatementHelper
       val << image_tag(statement_node.image.url(:medium), :id => 'statement_image', :class => 'image')
     end
     if statement_node.has_author? current_user and (!statement_node.published? or !statement_node.image.exists?)
-      val << link_to(I18n.t('users.profile.picture.upload_button'), 
-                upload_image_url(statement_node, statement_node_class_dom_id(statement_node)), 
+      val << link_to(I18n.t('users.profile.picture.upload_button'),
+                upload_image_url(statement_node, statement_node_class_dom_id(statement_node)),
                 :class => 'ajax upload_link button_150', :id => 'upload_image_link')
-    end 
+    end
     content_tag :div, val, :class => 'image_container', :id => 'image_container' if !val.blank?
   end
 
   #draws the "more" link when the statement is loaded
   def more_children(statement_node)
-    link_to I18n.t("application.general.more"), 
-            children_url(statement_node, statement_node_class_dom_id(statement_node).downcase, :page => 1), 
+    link_to I18n.t("application.general.more"),
+            children_url(statement_node, statement_node_class_dom_id(statement_node).downcase, :page => 1),
             :class => 'more_children ajax'
   end
 
