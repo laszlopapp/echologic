@@ -239,6 +239,12 @@ en:
       title: E-Mail Notification Settings
       guide: Here you can set whether you would like to receive E-Mail notifications on different subjects.
 
+      newsletter:
+        title: Newsletter
+        guide: Get some regular information directly from the webmasters.
+        turned_on: Newsletter has been switched on.
+        turned_off: Newsletter has been switched off.
+
       activity:
         title: Activity Notifications
         guide: Daily updates on new discussions and new statements in discussions you were active in.
@@ -506,6 +512,11 @@ en:
     errors:
       models:
         feedback:
+          attributes:
+            blank: 'Please fill out all fields.'
+            email:
+              invalid: 'Please enter a valid E-Mail address.'
+        newsletter:
           attributes:
             blank: 'Please fill out all fields.'
             email:

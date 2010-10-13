@@ -255,6 +255,12 @@ es:
       title: Configuración de notificaciones
       guide: Aquí puedes definir las notificaciones que quieres recibir de echo.
 
+      newsletter:
+        title: Newsletter
+        guide: Get some regular information directly from the webmasters.
+        turned_on: Newsletter has been switched on.
+        turned_off: Newsletter has been switched off.
+
       activity:
         title: Notificaciones diarias (activity)
         guide: Noticias diarias sobre nuevas discusiones y novedades en tus discusiones y propuestas.
@@ -526,6 +532,11 @@ es:
     errors:
       models:
         feedback:
+          attributes:
+            blank: 'Por favor rellene todos los espacios.'
+            email:
+              invalid: 'Erraste tu E-Mail. Por favor ingréselo otra vez.'
+        newsletter:
           attributes:
             blank: 'Por favor rellene todos los espacios.'
             email:
