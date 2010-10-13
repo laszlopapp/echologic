@@ -1,6 +1,8 @@
 class AboutItemsController < AdminController
   layout 'admin'
   
+  before_filter :action_links_order
+
   
   
   # All reporting actions require a logged in user
@@ -26,6 +28,15 @@ class AboutItemsController < AdminController
     end
   end
   
+  
+  def before_create_save(record)
+    record.photo = params[:record_photo]
+  end
+
+  def before_update_save(record) 
+    record.photo = params[:record_photo]
+  end
+  
   protected
 
   # only authenticated admin users are authorized to create projects
@@ -35,13 +46,18 @@ class AboutItemsController < AdminController
   end
 
 
-  
-  def before_create_save(record)
-    record.photo = params[:record_photo]
+  # Moving action_name link to last
+  def action_links_order
+    links = active_scaffold_config.action_links
+    link = links[:action_name]
+    if link
+      links.delete :action_name
+      links << link
+    end
   end
 
-  def before_update_save(record) 
-    record.photo = params[:record_photo]
-  end
+
+  
+  
 
 end
