@@ -1,0 +1,5 @@
+<li id="<%= dom_id(member) %>" class="<%= cycle('odd', 'even', :name => 'about_items') -%> content member">
+	<%= image_tag member.photo.url(:small), :class => 'avatar_holder' %>
+	<span class="name"><%=h member.name %></span> <br/>
+	<span class="description"><%=h member.description %></span>
+</li>

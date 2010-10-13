@@ -22,6 +22,7 @@ class Static::EchologicController < ApplicationController
 
   # About
   def about
+    @about_items = AboutItem.by_index
     render_static_outer_menu :partial => 'about', :locals => {:title => I18n.t('static.echologic.about.title')}
   end
 

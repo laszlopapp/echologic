@@ -74,17 +74,14 @@
 
 
 #loginContainer .bottomLabel {
-  color:       #1A4864;
-  width:       172px;
-  display:     inline-block;
-  margin:      4px 0 3px 0;
-  padding:     0 8px;
-  font-size:   11px;
-  cursor:      pointer;
-}
-
-#loginContainer .bottomLabel:hover {
+  color: #1A4864;
+  width: 172px;
+  display: inline-block;
+  margin: 4px 0 3px 0;
+  padding: 0 8px;
+  font-size: 11px;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 #loginContainer .loginField {
@@ -203,60 +200,91 @@
   margin: 0;
 }
 
+/* Twitter */
 
-#newsContainer #twitterBird {
-  border:      none;
-  cursor:      pointer;
+#twitter_link {
+  color: #21587f;
+  display: block;
+  width: 100%;
+  height: 60px;
+  position: absolute;
+  border: none;
+  z-index: 15;
 }
 
-#twitterBird a {
-  background:  url(../images/page/echologic_twitter.png) no-repeat scroll;
-  width:       75px;
-  height:      90px;
-  display:     block;
-  position:    relative;
-  right:       -224px;
-  top:         -14px;
-  cursor:      pointer;
-  z-index:     10;
-  border:      none;
+#twitter_link:hover #twitter_title {
+  color: #7bb031;
 }
 
-#newsHolder {
-  position:    absolute;
-  top:	  	   0px;
-  width: 	     285px;
+#twitter_bird {
+  position: absolute;
+  right: 0;
+  top: -17px;
+  z-index: 10;
 }
 
-#newsHolder .newsTitle {
-  font-size:   17px;
+#twitter_title {
+  font-size: 20px;
   font-weight: bold;
-  margin:      2px 0 20px 0;
-  cursor:      default;
+  margin: 3px 0 15px;
 }
 
-#newsHolder .newsDate {
-  font-size:   14px;
+#twitter_date {
+  font-size: 14px;
   font-weight: bold;
-}
-
-#newsHolder .newsText {
-  font-size:   14px;
-}
-
-#newsHolder .continues, #newsHolder .register_here {
   position: relative;
-  top: -7px;
+  top: 42px;
+}
+
+#twitter_text {
+  display: inline-block;
+  font-size: 14px;
+  height: 67px;
+  line-height: 16px;
+  overflow: hidden;
+  position: relative;
+  top: 60px;
+}
+
+/* Featured topic teaser */
+
+#featured_topic_teaser {
   color: #21587f;
 }
 
-#newsHolder .register_here {
-  font-weight: bold;
-}
-
-#newsHolder a:hover .register_here {
+#featured_topic_teaser:hover #featured_topic_name, #featured_topic_teaser:hover #featured_topic_on_echo {
   color: #7bb031;
 }
+
+#featured_topic_image {
+  position: absolute;
+  right: -9px;
+  top: -30px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+#featured_topic_name {
+  display: block;
+  font-size: 23px;
+  font-weight: bold;
+  padding-top: 2px;
+}
+
+#featured_topic_on_echo {
+  display: block;
+  padding-bottom: 30px;
+}
+
+#featured_topic_description {
+  font-size: 14px;
+  font-weight: bold;
+  height: 70px;
+  line-height: 18px;
+  overflow: hidden;
+}
+
+/* Main box */
 
 #mainBoxContent {
   overflow-y:    auto;

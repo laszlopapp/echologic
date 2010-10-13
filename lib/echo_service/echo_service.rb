@@ -63,6 +63,11 @@ class EchoService
     notify_observers(:created, node)
   end
 
+  def published(node)
+    changed
+    notify_observers(:published, node)
+  end
+
   def incorporated(echoable, user)
     changed
     notify_observers(:incorporated, echoable, user)

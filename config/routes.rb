@@ -76,6 +76,9 @@ ActionController::Routing::Routes.draw do |map|
   map.activate  '/activate/:id',              :controller => 'users/activations', :action => 'create'
 
   map.resources :reports, :controller => 'users/reports'
+  
+  map.resources :about_items, :controller => 'about_items', :active_scaffold => true
+
 
 
   # SECTION static - contents per controller

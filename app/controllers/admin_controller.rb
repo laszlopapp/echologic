@@ -1,5 +1,5 @@
 class AdminController < ApplicationController
-
+  
   # GET /admin
   def show
     respond_to do |format|

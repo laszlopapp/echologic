@@ -3,7 +3,14 @@
 /**************************/
 
 
-$(function() {
+
+(function($) {
+
+$(document).ready(function () {
+  bindHistoryEvents();
+});
+
+function bindHistoryEvents() {
 	 $("#search_form .submit_button").live("click", function(){
     setSearchHistory();
     return false;
@@ -15,7 +22,6 @@ $(function() {
       return false;
     }
   })
-	
   $(".ajax_sort").live("click", function() {
     var sort = $(this).attr('value');
 		$(':input[id=sort]').val(sort);
@@ -29,7 +35,7 @@ $(function() {
     return false;
   });
 	$.fragmentChange(true);
-});
+};
 
 
 
@@ -68,8 +74,7 @@ $(function() {
 /*********************************************/
 $(function() {
 	$(".more_pagination a").live("click", function() {
-		$(this).replaceWith($('<span/>').text($(this).text()));
-		$(".more_pagination").append($('<span/>').addClass('pagination_loading'));
+		$(this).replaceWith($('<span/>').text($(this).text()).addClass('more_loading'));
   });
 });
 
@@ -86,3 +91,5 @@ function pagination_scroll_down(id, current_scroll) {
   }
 
 }
+
+})(jQuery);

@@ -1,3 +1,4 @@
+<% membership ||= @membership %>
 <% content_for "membership_#{membership.id}_label".to_sym do %>
   <%= h membership.organisation %>
 <% end %>

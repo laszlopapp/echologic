@@ -32,9 +32,9 @@ FEEDBACK_RECIPIENT = 'tiago.cardoso@echologic.org'
 # like if you have constraints or database-specific column types
 # config.active_record.schema_format = :sql
 
-config.gem "rspec", :lib => false, :version => ">=1.2.2"
-config.gem "rspec-rails", :lib => false, :version => ">=1.2.2"
-config.gem "webrat", :lib => false, :version => ">=0.4.3"
+config.gem 'rspec',            :lib => false, :version => '>=1.3.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec'))
+#config.gem 'rspec-rails',      :lib => false, :version => '>=1.3.2' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
+config.gem 'webrat',           :lib => false, :version => '>=0.6.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/webrat'))
 config.gem "cucumber", :lib => false, :version => ">=0.2.2"
 
 # Hosts

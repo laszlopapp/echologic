@@ -3,7 +3,7 @@
 <div class="sub_list">
   <ul id="children_list" class="children_pagination">
     <%= render :partial => 'statements/child', :collection => children if !children.blank? %>
-    
+
     <%if children.blank? or children.current_page == children.total_pages %>
         <%= create_new_child_statement_link(@statement_node) %>
     <%end%>

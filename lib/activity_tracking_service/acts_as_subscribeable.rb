@@ -28,16 +28,14 @@ module ActiveRecord
                                     'LEFT JOIN subscriptions s ON s.subscriber_id = u.id ' +
                                     'WHERE s.subscribeable_id = #{id}'
 
-            has_many :events, :as => :subscribeable
-
-
             def self.subscribeable?
               true
             end
 
             def followed_by?(user)
-              self.subscriptions.map{|s|s.subscriber}.include? user
+              self.subscribers.include? user
             end
+
           end # --- class_eval
         end
       end
@@ -76,7 +74,7 @@ module ActiveRecord
             end
 
             def follows?(obj)
-              self.subscriptions.map{|s|s.subscribeable}.include? obj
+              self.subscribeables.include? obj
             end
           end # --- class_eval
         end

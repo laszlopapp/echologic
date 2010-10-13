@@ -8,16 +8,23 @@
 .jScrollPaneTrack {
 	position: absolute;
 	cursor: pointer;
-	right: 0;
+	right: 3px;
 	top: 0;
 	height: 100%;
-	background: #aaa;
+	background: #f1f1f1;
+  width: 6px !important;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
 }
 .jScrollPaneDrag {
 	position: absolute;
-	background: #666;
+  left: -2px;
+	background: #97b0bf;
 	cursor: pointer;
 	overflow: hidden;
+  width: 10px !important;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 .jScrollPaneDragTop {
 	position: absolute;

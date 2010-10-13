@@ -6,11 +6,6 @@
 <div id="children" class="<%= has_children ? 'header_block discuss_right_block' : '' %>">
   <% if has_children %>
 
-    <!-- echo label -->
-    <% if !children.blank? %>
-      <%= content_tag :label, I18n.t('discuss.statements.label'), :class => "echo_label header_button" %>
-    <% end %>
-
     <!-- Title -->
       <%= content_tag :h2, children_box_title(statement_node) %>
 

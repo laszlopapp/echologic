@@ -3,10 +3,9 @@ require 'singleton'
 class ActivityTrackingService
   include Singleton
 
-  attr_accessor :period, :charges, :counter
+  attr_accessor :period, :charges
 
   def initialize
-    @counter = -1
   end
 
   def update(*args)
@@ -45,8 +44,12 @@ class ActivityTrackingService
       end
     end
   end
-  
+
   def created(node)
+    created_event(node) if node.published?
+  end
+
+  def published(node)
     created_event(node)
   end
 
@@ -62,7 +65,7 @@ class ActivityTrackingService
   # Creates an event for the newly created subscribeable object
   #
   def created_event(node)
-    
+
     event_json = {
       :type => node.class.name.underscore.downcase,
       :id => node.id,
@@ -76,34 +79,33 @@ class ActivityTrackingService
       :operation => 'created'
     }.to_json
 
-    node.events << Event.new(:event => event_json,
-                             :operation => node.parent.nil? ? "new" : "new_child",
-                             :subscribeable_type => node.class.name,
-                             :subscribeable => node.parent)
+    Event.create(:event => event_json,
+                 :operation => node.parent.nil? ? "new" : "new_child",
+                 :subscribeable_type => node.class.name,
+                 :subscribeable => node.parent)
   end
 
   #
   # Manages the counter to calculate current charge and schedules the next job with it.
   #
-  def enqueue_activity_tracking_job(current_charge = 0)
+  def enqueue_activity_tracking_job(current_job_id = 0)
 
     # After restarting the process (on new deployment) the
-    # counter is initialized with the first running charge.
-    @counter = current_charge if @counter == -1
+    # counter is initialized with the current job id.
+    job_id = current_job_id + 1
 
     # Enqueuing the next job
-    @counter += 1
-    Delayed::Job.enqueue ActivityTrackingJob.new(@counter % @charges), 0,
+    Delayed::Job.enqueue ActivityTrackingJob.new(job_id, job_id % @charges), 0,
                          Time.now.utc.advance(:seconds => @period/@charges)
   end
 
   #
   # Actually executes the job, generates activity mails, sends them and schedules the next job.
   #
-  def generate_activity_mails(current_charge)
+  def generate_activity_mails(current_job_id, current_charge)
 
     # Enqueuing the next job
-    enqueue_activity_tracking_job(current_charge)
+    enqueue_activity_tracking_job(current_job_id)
 
     # Calculating 'after time' to minimize timeframe errors due to long lasting processes
     # FIXME: correct solution should be to persist the last_notification time per user
@@ -116,17 +118,17 @@ class ActivityTrackingService
       events = Event.find_tracked_events(recipient, after_time)
       # Filter only events whose titles languages the recipient speaks
       events = events.select{|e| !(JSON.parse(e.event)['documents'].keys.map{|id|id.to_i} & recipient.sorted_spoken_language_ids).empty? }
-      
+
       next if events.blank? #if there are no events to send per email, take the next user
-      
+
       question_events = events.select{|e|JSON.parse(e.event)['type'] == 'question'}
-      
+
       # created an Hash containing the number of ocurrences of the new tags in the new questions
       tag_counts = question_events.each_with_object({}) do |question, tags_hash|
         question_data = JSON.parse(question.event)
         question_data['tags'].each{|tag| tags_hash[tag] = tags_hash.has_key?(tag) ? tags_hash[tag] + 1 : 1 }
       end
-      
+
       events.sort! do |a,b|
         a_parsed = JSON.parse(a.event) ; b_parsed = JSON.parse(b.event)
         [a_parsed['root_id'],a_parsed['parent_id']] <=> [b_parsed['root_id'],b_parsed['parent_id']]

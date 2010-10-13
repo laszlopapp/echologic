@@ -5,7 +5,7 @@ pt:
   application:
 
     # Unexpected Error
-    unexpected_error: Ocorreu um erro inesperado. Pedimos desculpas pela inconveniência. 
+    unexpected_error: Ocorreu um erro inesperado. Pedimos desculpas pela inconveniência.
 
     # General purpose resources
     general:
@@ -31,25 +31,25 @@ pt:
       incorporate: Incorporate
       welcome: Bemvindo
       all: Tudo
- 
+
     # Roadmap - Progress
     roadmap:
       title: pronto
-      progress_tooltip: 'Esta área da echo está {{progress}}% pronta.'
+      progress_tooltip: 'Esta área da echo está %{progress}% pronta.'
       status_quo: 'Status Quo'
       next_steps: 'Próximos Passos'
       vision: 'Ao fim da estrada'
       discuss:
-        status_quo: 'A echo "Discutir" atualmente encontra-se <strong>{{progress}}% pronta</strong>.'
+        status_quo: 'A echo "Discutir" atualmente encontra-se <strong>%{progress}% pronta</strong>.'
         next_steps: 'As primeiras características da echo "Discutir" foram lançadas. A sua funcionalidade será extendida passo a passo nos próximos lançamentos.'
       connect:
-        status_quo: 'A echo "Conectar" atualmente encontra-se <strong>{{progress}}% pronta</strong>.'
+        status_quo: 'A echo "Conectar" atualmente encontra-se <strong>%{progress}% pronta</strong>.'
         next_steps: 'A echo "Conectar" será melhorada após as primeiras características da echo "Discutir" e da echo "Agir" serem lançadas.'
       act:
-        status_quo: 'A echo "Agir" atualmente encontra-se <strong>{{progress}}% pronta</strong>.'
+        status_quo: 'A echo "Agir" atualmente encontra-se <strong>%{progress}% pronta</strong>.'
         next_steps: 'O desenvolvimento da echo "Agir" começará após as primeiras funções da echo "Discutir" serem lançadas.'
       my_echo:
-        status_quo: 'A área "O meu echo" atualmente encontra-se <strong>{{progress}}% pronta</strong>.'
+        status_quo: 'A área "O meu echo" atualmente encontra-se <strong>%{progress}% pronta</strong>.'
         next_steps: 'O desenvolvimento ulterior desta área está planeado para acontecer após algumas funcionalidades básicas das áreas "Discutir, Conectar e Agir" serem lançadas.'
         vision: |
          <p>
@@ -90,7 +90,7 @@ pt:
         welcome: Bemvindo
         profile: O meu Perfil
         settings: Definições
-      profile_complete: '{{complete}}% completo'
+      profile_complete: '%{complete}% completo'
 
   # ----------------
   # Welcome function
@@ -132,7 +132,7 @@ pt:
         signup: Ainda não é um membro?
         set_password: Esqueceu-se da senha?
         remember: Lembre-me!
-        hello: Autenticado<br/><strong>{{name}}</strong>
+        hello: Autenticado<br/><strong>%{name}</strong>
       messages:
         login_success: "Autenticação bem-sucedida. Bemvindo de volta à echo."
         login_failed: "Utilizador desconhecido ou senha errada."
@@ -271,7 +271,7 @@ pt:
           <p>
           <strong>A echo é a democracia das pessoas para as pessoas.</strong>
           </p><p>
-          Como um projecto para apoiar o bem comum, a echo avança com o apoio e 
+          Como um projecto para apoiar o bem comum, a echo avança com o apoio e
           <strong>esforço conjunto</strong> de indivíduos e organizações comprometidos.
           </p><p>
           Ansioso para <strong>contribuir as suas ideias</strong> também!?<br/>
@@ -305,16 +305,16 @@ pt:
       link: Minhas Discussões
       title: As minhas discussões novas e publicadas
       no_discussions: |
-        Ainda não criou nenhuma discussão. Para o fazer, por favor clique no ponto de interrogação que se encontra à esquerda.  
+        Ainda não criou nenhuma discussão. Para o fazer, por favor clique no ponto de interrogação que se encontra à esquerda.
     tag_permission: |
-      Não tem permissão para inserir a tag '{{tag}}'.
+      Não tem permissão para inserir a tag '%{tag}'.
     translation_request: Por favor traduza este texto em <strong>PORTUGUÊS</strong>.
     original_language_warning: |
-      O texto original encontra-se em <strong>{{language}}</strong>. Defina os seus conheci-<br/>
+      O texto original encontra-se em <strong>%{language}</strong>. Defina os seus conheci-<br/>
       mentos linguísticos para poder visualizar conteúdo noutras línguas.
     results_count:
-      one: '{{count}} discussão'
-      more: '{{count}} discussões'
+      one: '%{count} discussão'
+      more: '%{count} discussões'
     featured_topics:
       title: Tópicos Destacados
       text: |
@@ -334,7 +334,7 @@ pt:
           title: Projetos-piloto
     search:
       title: Procura
-      in: '... em {{category}} ...'
+      in: '... em %{category} ...'
 
     tooltips:
       read_question: 'Ir para esta questão'
@@ -357,9 +357,6 @@ pt:
       create_improvement_proposal: 'Criar nova proposta de melhoria à proposta atual'
       echo: "Apoie esta afirmação (dê o seu echo)!"
       unecho: 'Retire o seu apoio a esta afirmação (retire o seu echo)'
-      echo_indicator:
-        one: 'Este conteúdo tem {{supporter_count}} apoiante.'
-        many: 'Este conteúdo tem {{supporter_count}} apoiantes.'
       publish: |
         Publique a discussão, de forma a esta se tornar visível para todos.
         (Não será mais possível editar a discussão.)
@@ -367,6 +364,9 @@ pt:
 
     statements:
       label: 'votos'
+      echo_indicator:
+        one: '%{supporter_count} apoiante'
+        many: '%{supporter_count} apoiantes'
       create_question_link: 'Criar uma nova discussão'
       create_proposal_link: 'Criar nova proposta'
       create_internal_link: 'Nova ideia?'
@@ -384,14 +384,14 @@ pt:
         Por favor escreva sua ideia em <strong>PORTUGUÊS</strong> ou escolha um outro idioma usando o
         babelfish no canto superior direito.
       statement_language_hint: |
-        Por favor defina o seu conhecimento de línguas no seu <a href='{{url}}'>Perfil</a>.
+        Por favor defina o seu conhecimento de línguas no seu <a href='%{url}'>Perfil</a>.
       statement_language_hint_tooltip: |
         Poderá desta forma introduzir conteúdo em qualquer língua na qual possua conhecimentos para além de um nível intermédio.
       drafting_language_hint: |
-        Por favor tome nota de que o processo de elaboração coletiva desta proposta só irá ocorrer nesta língua! 
+        Por favor tome nota de que o processo de elaboração coletiva desta proposta só irá ocorrer nesta língua!
       publish: Publicar
       published: A discussão foi publicada com sucesso.
-      edit: 'Editar {{type}}'
+      edit: 'Editar %{type}'
 
       types:
         question:  'Questão'
@@ -429,11 +429,11 @@ pt:
       being_edited: |-
         Esta proposta está a ser editada. Volte mais tarde por favor.
       already_translated: |-
-        Esta {{type}} acabou de ser traduzida.
+        Esta %{type} acabou de ser traduzida.
       statement_updated: |-
-        Esta {{type}} acabou de ser actualizada.
+        Esta %{type} acabou de ser actualizada.
       edit_period_hint: |
-        <strong>Tem {{minutes}} minutos</strong> para editar a proposta.
+        <strong>Tem %{minutes} minutos</strong> para editar a proposta.
         Depois de este tempo esgotar poderá perder as suas modificações.
       staled_modification: 'Pedimos desculpa, mas o prazo de 60 minutos para editar a proposta esgotou. Entretanto a proposta foi editada por outra pessoa. Por esta razão, as suas mudanças foram lamentavelmente perdidas.'
 
@@ -441,22 +441,22 @@ pt:
         title: Carregar Imagem
         guide: Por favor <strong>selecione uma imagem</strong> (JPG or PNG, max. 5MB) e carregue-a.
         progress: A imagem está sendo carregada. Por favor aguarde...
-        error: A imagem não pôde ser incluída. Por favor carregue um formato suportado (JPG ou PNG e max. 5MB). 
+        error: A imagem não pôde ser incluída. Por favor carregue um formato suportado (JPG ou PNG e max. 5MB).
 
     summary:
       title: 'Sumário'
     messages:
-      created: "A nova {{type}} foi inserida com sucesso."
-      updated: "A {{type}} foi atualizada com sucesso."
-      deleted: "A {{type}} foi apagada com sucesso."
-      translated: "A {{type}} foi traduzida com sucesso."
+      created: "A nova %{type} foi inserida com sucesso."
+      updated: "A %{type} foi atualizada com sucesso."
+      deleted: "A %{type} foi apagada com sucesso."
+      translated: "A %{type} foi traduzida com sucesso."
       incorporated: "A proposta de melhoria foi incorporada na proposta com sucesso."
-      image_uploaded: "A imagem acabou de ser incluída na {{type}}."
+      image_uploaded: "A imagem acabou de ser incluída na %{type}."
       empty:   "Nenhuma questão encontrada. Por favor altere os seus critérios de procura."
       empty_without_spoken_languages: |
-        Nenhuma questão encontrada. Pode tentar definir as suas <a href='{{my_echo}}'><u>Línguas Faladas</u></a>
+        Nenhuma questão encontrada. Pode tentar definir as suas <a href='%{my_echo}'><u>Línguas Faladas</u></a>
         de forma a aceder a conteúdos noutras línguas.
-      new_percentage: "O seu perfil está {{percentage}}% completo."
+      new_percentage: "O seu perfil está %{percentage}% completo."
 
 
 
@@ -467,7 +467,7 @@ pt:
   connect:
 
     fill_out_profile:
-      text: Por favor preencha <strong>pelo menos {{percentage}}%</strong> do seu perfil para fazer a vontado ao "HAL" e fazer este bloco desaparecer. :-)
+      text: Por favor preencha <strong>pelo menos %{percentage}%</strong> do seu perfil para fazer a vontado ao "HAL" e fazer este bloco desaparecer. :-)
 
     segments:
       all:       'Todos'
@@ -476,8 +476,8 @@ pt:
       expertise: 'Especialistas'
       decision_making: 'Tomadores de decisão'
     results_count:
-      one: '{{count}} movedor'
-      more: '{{count}} movedores'
+      one: '%{count} movedor'
+      more: '%{count} movedores'
     details:
       tabs:
         overview:     'Visão global'
@@ -525,18 +525,18 @@ pt:
               taken: 'O seu endereço de e-Mail já se encontra em uso.'
 
       messages:
-        blank: "O campo '{{attribute}}' tem que ser preenchido obrigatoriamente."
+        blank: "O campo '%{attribute}' tem que ser preenchido obrigatoriamente."
         taken: 'Já se encontra em uso.'
-        too_short: "A sua entrada para '{{attribute}}' é demasiado curta."
-        too_long: "A sua entrada para '{{attribute}}' é demasiado longa."
-        invalid: "A sua entrada para '{{attribute}}' tem que ser inserida num formato válido."
-        confirmation: 'Confirmação de {{attribute}} não corresponde.'
+        too_short: "A sua entrada para '%{attribute}' é demasiado curta."
+        too_long: "A sua entrada para '%{attribute}' é demasiado longa."
+        invalid: "A sua entrada para '%{attribute}' tem que ser inserida num formato válido."
+        confirmation: 'Confirmação de %{attribute} não corresponde.'
         access_denied: "Não lhe é permitido efetuar esta ação."
 
       template:
         header:
           one: "Um dos campos foi preenchido incorrectamente."
-          other: "{{count}} campos foram preenchidos incorrectamente."
+          other: "%{count} campos foram preenchidos incorrectamente."
         body: "Por favor corrija o seguinte:"
 
     attributes:
@@ -554,18 +554,26 @@ pt:
         memberships: Actividades
         spoken_languages: Línguas Faladas
       report:
-        reason:     'Razão'
+        reason: 'Razão'
       web_address:
-        location:   'Endereço Web'
+        location: 'Endereço Web'
       membership:
         position: A minha função
+      statement_node:
+        image: 'O arquivo de imagem'
       statement_document:
-        language:   'Língua'
+        language_id: 'Língua'
+        language: 'Língua'
         text:       'Sumário'
         title:      'Título'
         image:      'Ilustração'
+      about_item: 
+        photo:                 'Photo'
+        name:                  'Name'
+        description:           'Description'
+        collaboration_team_id: 'Collaboration Team'
+        index:                 'Index'
  
-
     models:
       question: "questão"
       proposal: "proposta"
@@ -617,35 +625,35 @@ pt:
       less_than_x_seconds:
         zero: 'menos de 1 segundo'
         one: 'menos de 1 segundo'
-        other: 'menos de {{count}} segundos'
+        other: 'menos de %{count} segundos'
       x_seconds:
         one: '1 segundo'
-        other: '{{count}} segundos'
+        other: '%{count} segundos'
       less_than_x_minutes:
         zero: 'menos de 1 minuto'
         one: 'menos de um minuto'
-        other: 'menos de {{count}} minutos'
+        other: 'menos de %{count} minutos'
       x_minutes:
         one: '1 minuto'
-        other: '{{count}} minuto'
+        other: '%{count} minuto'
       about_x_hours:
         one: 'cerca de 1 hora'
-        other: 'cerca de {{count}} horas'
+        other: 'cerca de %{count} horas'
       x_days:
         one: '1 dia'
-        other: '{{count}} dias'
+        other: '%{count} dias'
       about_x_months:
         one: 'cerca de 1 mês'
-        other: 'cerca de {{count}} meses'
+        other: 'cerca de %{count} meses'
       x_months:
         one: '1 mês'
-        other: '{{count}} meses'
+        other: '%{count} meses'
       about_x_years:
         one: 'cerca de  1 ano'
-        other: 'cerca de {{count}} anos'
+        other: 'cerca de %{count} anos'
       over_x_years:
         one: 'mais de 1 ano'
-        other: 'mais de {{count}} anos'
+        other: 'mais de %{count} anos'
     prompts:
       second: "Segundos"
       minute: "Minutos"
@@ -688,4 +696,3 @@ pt:
           mb: "MB"
           gb: "GB"
           tb: "TB"
- 

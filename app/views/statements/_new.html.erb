@@ -4,15 +4,15 @@
 
 <div id="new_statement">
 
-  <!-- Illustration -->
-  <%= statement_form_illustration(statement_node) %>
-
   <!-- The block with the form -->
   <div class="header_block discuss_right_block">
     <%= content_tag :h2, children_new_box_title(statement_node) %>
-    
+
+    <!-- Illustration -->
+    <%= statement_form_illustration(statement_node) %>
+
     <%= content_tag :p, I18n.t("discuss.statements.create_#{statement_node.class.name.underscore}_explanation") %>
-    
+
     <%= render :partial => 'statements/form',
                :locals => {:statement_node => statement_node,
                            :tags => tags,

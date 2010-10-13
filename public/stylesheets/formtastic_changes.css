@@ -53,6 +53,7 @@ form.formtastic fieldset ol li label {
   font-weight: bold;
   width: 100%;
   float: none;
+  padding-bottom: 2px;
 }
 
 form.formtastic fieldset ol li.text textarea, form.formtastic fieldset ol li.string input {
@@ -124,10 +125,10 @@ form.formtastic .buttons ol {
 }
 
 form.formtastic li.hint {
-	background: url("../images/page/discuss/statement_language_hint.png") no-repeat scroll 150px 5px transparent;
-  background-color: #FFEC8B;
-	border: 1px solid #AAA;
-	width: 300px;
-	padding: 20px 10px 5px;
-	margin-top: 19px;
+	background: url("../images/page/icons/pin.png") no-repeat scroll 120px 2px #FBF3BB;
+	border: 1px solid #7bb031;
+	width: 245px;
+	padding: 33px 10px 5px;
+  position: relative;
+	top: 5px;
 }

@@ -42,33 +42,33 @@ de:
     activity_tracking:
       subject: echo - Activity Notifications
       discussions:
-        new_questions: 'Es gibt <strong>{{count}} neue Diskussionen </strong> seit dem letzten Update:'
+        new_questions: 'Es gibt <strong>%{count} neue Diskussionen </strong> seit dem letzten Update:'
         new_tags: 'Die Diskussionen befassen sich mit folgenden Themen:'
-        new_proposals: 'Neue Vorschläge in der Diskussion "{{title}}"'
-        new_improvement_proposals: 'Neue Verbesserungsvorschläge für den Vorschlag "{{title}}" in "{{question_title}}":'
-        tag_link: "{{tag}} ({{count}})"
+        new_proposals: 'Neue Vorschläge in der Diskussion "%{title}"'
+        new_improvement_proposals: 'Neue Verbesserungsvorschläge für den Vorschlag "%{title}" in "%{question_title}":'
+        tag_link: "%{tag} (%{count})"
       unsubscribe: |-
         Wenn Sie keine Benachrichtigungen über neue Discussionen und Vorschläge erhalten möchten, melden Sie sich bitte unter
-        <a href='{{echo_url}}'>echo</a> an, gehen Sie auf "Main echo", "Einstellungen" und deactivieren Sie die
+        <a href='%{echo_url}'>echo</a> an, gehen Sie auf "Main echo", "Einstellungen" und deactivieren Sie die
         Aktivitäts-Benachrichtigungen.
 
     drafting:
       approval:
         subject: Sie können Ihren Verbesserungsvorschlag einfügen
         text: |-
-          Hallo {{name}},
+          Hallo %{name},
 
           Ihr Verbesserungsvorschlag
 
-          "*{{ip_title}}*"
+          "*%{ip_title}*"
 
-          hat die meisten Stimmen bekommen und wurde ausgewählt, um in den Vorschlag "{{p_title}}" übernommen zu werden. Sie haben ab jetzt {{hours}} Stunden Zeit, um den Vorschlag zu bearbeiten.
+          hat die meisten Stimmen bekommen und wurde ausgewählt, um in den Vorschlag "%{p_title}" übernommen zu werden. Sie haben ab jetzt %{hours} Stunden Zeit, um den Vorschlag zu bearbeiten.
 
           Bitte beachten Sie, dass Sie nach Ablauf dieser Frist Ihr exklusives Schreibrecht verlieren.
 
           Um den *Vorschlag jetzt zu bearbeiten*, folgen Sie bitte diesem Link und klicken Sie auf das Übernahmesymbol (grün-gelber Pfeil in der Mitte):
 
-          {{p_link}}
+          %{p_link}
 
           Seien Sie fair und fügen Sie bitte nur diejenigen Ideen in den Vorschlag ein, die Sie in Ihrem Verbesserungsvorschlag zur Abstimmung angeboten haben.
 
@@ -83,14 +83,14 @@ de:
         text: |-
           Liebe UnterstützerInnen des Verbesserungsvorschlags
 
-          "*{{ip_title}}*",
+          "*%{ip_title}*",
 
-          der Author des Verbesserungsvorschlags hat leider die Idee nicht in den Vorschlag "{{p_title}}" eingearbeitet.
-          Als UnterstützerIn dieses Verbesserungsvorschlags haben Sie jetzt die Gelegenheit dies zu tun - *innerhalb der nächsten {{hours}} Stunden*.
+          der Author des Verbesserungsvorschlags hat leider die Idee nicht in den Vorschlag "%{p_title}" eingearbeitet.
+          Als UnterstützerIn dieses Verbesserungsvorschlags haben Sie jetzt die Gelegenheit dies zu tun - *innerhalb der nächsten %{hours} Stunden*.
 
           Um die *Idee jetzt in den Vorschlag einzuarbeiten*, folgen Sie bitte diesem Link und klicken Sie auf das Übernahmesymbol (grün-gelber Pfeil in der Mitte):
 
-          {{p_link}}
+          %{p_link}
 
           "Wer zuerst mahlt, mahlt am besten!" - D.h. wer von ihnen als erster mit der Bearbeitung des Vorschlags beginnt, hat das exklusive Recht dazu - aber nur für 60 Minuten!
 
@@ -107,13 +107,13 @@ de:
         text: |-
           Liebe UnterstützerInnen des Vorschlags
 
-          "*{{p_title}}*",
+          "*%{p_title}*",
 
-          der Verbesserungsvorschlag "{{ip_title}}" hat die meisten Stimmen bekommen und wurde zur Übernahme in den Vorschlag angenommen.
+          der Verbesserungsvorschlag "%{ip_title}" hat die meisten Stimmen bekommen und wurde zur Übernahme in den Vorschlag angenommen.
 
           Um die *neue Idee zu sehen*, folgen Sie bitte diesem Link:
 
-          {{p_link}}
+          %{p_link}
 
           Vielen Dank für Ihre Teilnahme - und viel Spaß! ;-)
 
@@ -124,17 +124,17 @@ de:
       approval_reminder:
         subject: Erinnerung! - Übernahme Ihres Verbesserungsvorschlags
         text: |-
-          Hallo {{name}},
+          Hallo %{name},
 
-          Sie haben nur noch {{hours}} Stunden, um Ihren Verbesserungsvorschlag
+          Sie haben nur noch %{hours} Stunden, um Ihren Verbesserungsvorschlag
 
-          "*{{ip_title}}*"
+          "*%{ip_title}*"
 
-          in den Vorschlag "{{p_title}}" einzuarbeiten. Bitte beachten Sie, dass Sie nach Ablauf dieser Frist Ihr exklusives Schreibrecht verlieren.
+          in den Vorschlag "%{p_title}" einzuarbeiten. Bitte beachten Sie, dass Sie nach Ablauf dieser Frist Ihr exklusives Schreibrecht verlieren.
 
           Um den *Vorschlag jetzt zu bearbeiten*, folgen Sie bitte diesem Link und klicken Sie auf das Übernahmesymbol (grün-gelber Pfeil in der Mitte):
 
-          {{p_link}}
+          %{p_link}
 
           Seien Sie fair und fügen Sie bitte nur diejenigen Ideen in den Vorschlag ein, die Sie in Ihrem Verbesserungsvorschlag zur Abstimmung angeboten haben.
 
@@ -149,15 +149,15 @@ de:
         text: |-
           Liebe UnterstützerInnen des Verbesserungsvorschlags
 
-          "*{{ip_title}}*",
+          "*%{ip_title}*",
 
-          Sie haben nur noch {{hours}} Stunden, um den Verbesserungsvorschlag in den Vorschlag "{{p_title}}" einzuarbeiten.
+          Sie haben nur noch %{hours} Stunden, um den Verbesserungsvorschlag in den Vorschlag "%{p_title}" einzuarbeiten.
 
           Bitte beachten Sie, dass der Idee nach Ablauf dieser Frist alle bisherigen Stimmen entzogen werden.
 
           Um die *Idee jetzt in den Vorschlag einzuarbeiten*, folgen Sie bitte diesem Link und klicken Sie auf das Übernahmesymbol (grün-gelber Pfeil in der Mitte):
 
-          {{p_link}}
+          %{p_link}
 
           Seien Sie fair und fügen Sie bitte nur diejenigen Ideen in den Vorschlag ein, die im Verbesserungsvorschlag zur Abstimmung angeboten waren.
 
@@ -172,13 +172,13 @@ de:
       passed:
         subject: Die Einarbeitungszeit für Ihren Verbesserungsvorschlag ist abgelaufen
         text: |-
-          Hallo {{name}},
+          Hallo %{name},
 
           leider ist die Einarbeitungszeit für Ihren Verbesserungsvorschlag
 
-          "*{{ip_title}}*"
+          "*%{ip_title}*"
 
-          abgelaufen. Sie können den Vorschlag "{{p_title}}" jetzt nicht mehr bearbeiten.
+          abgelaufen. Sie können den Vorschlag "%{p_title}" jetzt nicht mehr bearbeiten.
 
           Sollte Ihr Verbesserungsvorschlag erneut angenommen werden, werden auch andere UnterstützerInnen Ihrer Idee die Möglichkeit bekommen, diese in den Vorschlag einzuarbeiten.
 
@@ -193,15 +193,15 @@ de:
         text: |
           Liebe UnterstützerInnen des Verbesserungsvorschlags
 
-          "*{{ip_title}}*",
+          "*%{ip_title}*",
 
-          leider ist die Einarbeitungszeit für den Verbesserungsvorschlag abgelaufen. Sie können den Vorschlag "{{p_title}}" jetzt nicht mehr bearbeiten.
+          leider ist die Einarbeitungszeit für den Verbesserungsvorschlag abgelaufen. Sie können den Vorschlag "%{p_title}" jetzt nicht mehr bearbeiten.
 
           Alle bisherigen Stimmen wurden dem Verbesserungsvorschlag entzogen.
 
           Um die *Idee erneut mit Ihrer Stimme zu unterstützen*, folgen Sie bitte diesem Link:
 
-          {{ip_link}}
+          %{ip_link}
 
           Vielen Dank für Ihre Teilnahme - und viel Spaß! ;-)
 
@@ -212,17 +212,17 @@ de:
       incorporated:
         subject: Danke, dass Sie den Vorschlag verbessert haben
         text: |-
-          Hallo {{name}},
+          Hallo %{name},
 
           vielen Dank für die Einarbeitung des Verbesserungsvorschlags
 
-          "*{{ip_title}}*".
+          "*%{ip_title}*"
 
-          in den Vorschlag "{{p_title}}".
+          in den Vorschlag "%{p_title}".
 
           Um die neue Version des Vorschlags zu sehen, klicken Sie bitte auf diesen Link:
 
-          {{p_link}}
+          %{p_link}
 
           Vielen Dank für Ihre Teilnahme - und weiterhin viel Spaß! ;-)
 
@@ -235,13 +235,13 @@ de:
         text: |-
           Liebe UnterstützerInnen des Vorschlags
 
-          "*{{p_title}}*",
+          "*%{p_title}*",
 
-          der Verbesserungsvorschlag "{{ip_title}}" hat die meisten Stimmen bekommen und wurde in den Vorschlag eingearbeitet.
+          der Verbesserungsvorschlag "%{ip_title}" hat die meisten Stimmen bekommen und wurde in den Vorschlag eingearbeitet.
 
           Bitte *werfen Sie einen Blick auf die Veränderungen* und überprüfen Sie, ob diese mit dem Verbesserungsvorschlag übereinstimmen:
 
-          {{p_link}}
+          %{p_link}
 
           Vielen Dank für Ihre Teilnahme - und viel Spaß! ;-)
 
@@ -250,4 +250,4 @@ de:
           Ihr echo Team
 
       unsubscribe: |-
-        Wenn Sie keine Benachrichtigungen zur gemeinsamen Textentwicklung erhalten möchten, melden Sie sich bitte unter {{echo_url}} an, gehen Sie auf "Einstellungen" unter "Mein echo" und deaktivieren Sie die Benachrichtigungen zur gemeinsamen Textentwicklung.
+        Wenn Sie keine Benachrichtigungen zur gemeinsamen Textentwicklung erhalten möchten, melden Sie sich bitte unter %{echo_url} an, gehen Sie auf "Einstellungen" unter "Mein echo" und deaktivieren Sie die Benachrichtigungen zur gemeinsamen Textentwicklung.

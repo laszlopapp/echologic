@@ -1,3 +1,5 @@
+
+
 var rte_tag = "-rte-tmp-tag-";
 var rte_toolbar = {
     /* s1: {
@@ -126,6 +128,7 @@ var html_toolbar = {
         exec: lwrte_clear
     }
 };
+
 function lwrte_block_compare(b, a){
     a = a.replace(/<([^>]*)>/, "$1");
     return (a.toLowerCase() == b.nodeName.toLowerCase())

@@ -67,8 +67,6 @@ Feature: Start a discussion
     Then I should see localized "discuss.topics.echonomyjam.name"
     Then I should see localized "discuss.topics.echocracy.name"
     Then I should see localized "discuss.topics.echo.name"
-    Then I should see localized "discuss.topics.echosocial.name"
-
 
 
   @ok

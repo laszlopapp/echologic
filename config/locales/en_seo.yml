@@ -84,7 +84,9 @@ en:
       # my_echo: de.seo.title.newsletter
       newsletter:
         new: 'echo - Newsletter'
-
+      about_items:
+        index: 'echo - Members'
+ 
     meta:
       echologic:
         description: |-

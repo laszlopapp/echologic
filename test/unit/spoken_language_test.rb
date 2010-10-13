@@ -6,14 +6,14 @@ class SpokenLanguageTest < ActiveSupport::TestCase
     setup { @spoken_language = SpokenLanguage.new }
     subject { @spoken_language }
 
-    should_belong_to :user
+    should belong_to :user
 
 
     context("should have a language associated") do
-      should_have_db_columns :language_id
+      should have_db_column :language_id
     end
     context("should have a language level associated") do
-      should_have_db_columns :level_id
+      should have_db_column :level_id
     end
 
     context "being saved" do

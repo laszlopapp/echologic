@@ -119,13 +119,12 @@ module StaticContentHelper
       result = JSON.parse(buffer)
       html = content_tag(:span,
                          l(result['status']['created_at'].to_date, :format => :long),
-                         :class => 'newsDate')
-      html += tag('br') + tag('br')
-      html += content_tag(:span, auto_link(result['status']['text']), :class => 'newsText')
+                         :id => 'twitter_date')
+      html += content_tag(:span, auto_link(result['status']['text']), :id => 'twitter_text')
     rescue Exception => e
       logger.error "#{Time.now.utc.strftime("%m/%d/%Y %H:%M")} - Failed to display Twitter message"
       logger.error e.backtrace
-      content_tag :span, "Tweet! Tweet! :-)", :class => 'newsText'
+      content_tag :span, "Tweet! Tweet! :-)", :id => 'twitter_text'
     end
   end
 

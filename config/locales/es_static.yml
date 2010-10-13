@@ -23,7 +23,7 @@ es:
       show:
         ms1: echologic es una red de librepensadores. <br/> Nuestro objetivo es la realización de
         ms2: |
-          echo - el <span title="{{tooltip}}" class="ttLink">ágora</span> global!
+          echo - el <span title="%{tooltip}" class="ttLink">ágora</span> global!
 
         agora_tooltip: |
           El ágora era la plaza central de la antigua Atenas - la cuna de la democracia.
@@ -48,7 +48,7 @@ es:
           Ciudadanos, expertos, determinantes y representantes de organizaciones y empresas.
           </p><p>
           <strong>echo</strong> cría la base para una <strong>democracia participativa</strong> a nivel local,
-          regional y <span title="{{subsidiarity_tooltip}}" class="ttLink">global</span>. Aquí tu voz tendrá un eco. Ideas se tornarán en
+          regional y <span title="%{subsidiarity_tooltip}" class="ttLink">global</span>. Aquí tu voz tendrá un eco. Ideas se tornarán en
           movimiento, visiones en realidad.
           echo significa el <strong>fin de la impotencia</strong> y <strong>el inicio de la auto-determinación</strong>!
           </p>
@@ -68,7 +68,7 @@ es:
         text_3:
           title: Franqueza y filosofía de "Your-Profit"
           more: |
-            <p>El <strong><a href="{{github_url}}" target="_blank">código abierto</a></strong> de echo servirá como base de una
+            <p>El <strong><a href="%{github_url}" target="_blank">código abierto</a></strong> de echo servirá como base de una
             <strong>infraestructura distribuida</strong> y variopinta.
             Ligando varias plataformas y sitios de web echo extralimitará el aislamiento de las iniciativas existentes,
             focalizando y multiplicando su potencial.
@@ -96,6 +96,9 @@ es:
       # about section
       about:
         title: Sobre nosotros
+        tabs: 
+          project: The Project
+          team: The Team
         text: |
           <p>
           <strong>La fuente</strong> de echo es un <strong>grupo interdisciplinario</strong> de académicos jóvenes y experimentados.
@@ -194,7 +197,7 @@ es:
             </p><p>
             Por lo tanto, las crisis actuales pueden ser entendidas como una <strong>crisis general de la democracia</strong> y
             por eso hay que capacitar a las personas para que puedan elaborar colectivamente soluciones
-            constructivas, criando la posibilidad de afrontar los <span title="{{tooltip}}" class="ttLink">desafíos “glocales”</span>
+            constructivas, criando la posibilidad de afrontar los <span title="%{tooltip}" class="ttLink">desafíos “glocales”</span>
             de nuestra época de forma efectiva.
             </p>
 
@@ -208,8 +211,8 @@ es:
           text: |
             <p>
             echo es el instrumento de una <strong>nueva democracia participativa</strong> que se afronta estos desafíos.
-            A diferencia de <span title="{{tooltip1}}" class="ttLink">aplicaciones web 2.0 convencionales</span>,
-            echo proporciona un <strong>cuadro sinóptico de <span title="{{tooltip2}}" class="ttLink">opiniones</span></strong>
+            A diferencia de <span title="%{tooltip1}" class="ttLink">aplicaciones web 2.0 convencionales</span>,
+            echo proporciona un <strong>cuadro sinóptico de <span title="%{tooltip2}" class="ttLink">opiniones</span></strong>
             y posibilita una colaboración social <strong>constructiva</strong> y orientada para las soluciones.
             Para eso, echo reúne innovación tecnológica y conocimiento científico dentro de un concepto único.
             Esto ayuda a la gente a entender mejor los trasfondos y las interrelaciones, tomar decisiones en
@@ -269,7 +272,7 @@ es:
         democratic: Formación democrática de opinión
         democratic_more: |
           Cada opinión representa un texto estructurado, elaborado por los usuarios a través de
-          <span title="{{tooltip}}" class="ttLink">un proceso
+          <span title="%{tooltip}" class="ttLink">un proceso
           plenamente democrático</span>. Con un esfuerzo mínimo, todas las personas pueden
           contribuir con los mismos derechos a la elaboración dinámica de estas declaraciones colectivas.
 
@@ -572,10 +575,10 @@ es:
           <p>
           Financie tu acción sin gastos !
           </p><p>
-          echo une una <strong><span title="{{tooltip_nonprofit}}" class="ttLink">filosofía sin fines lucrativos</span></strong> con
+          echo une una <strong><span title="%{tooltip_nonprofit}" class="ttLink">filosofía sin fines lucrativos</span></strong> con
           <strong>modelos financieros poderosos</strong>, donde “poderoso” no significa la mera financiación de
           los gastos, sino la facilitación de recursos para las acciones y proyectos iniciados por los usuarios y organizaciones.
-          Para eso echo ofrece varias maneras para <span title="{{tooltip_costneutral}}" class="ttLink">acumular fondos sin causar
+          Para eso echo ofrece varias maneras para <span title="%{tooltip_costneutral}" class="ttLink">acumular fondos sin causar
           gastos extra</span> a los usuarios, en cuentas virtuales particulares
           de cada usuario. Los usuarios pueden destinar estos recursos libremente a diferentes proyectos y acciones de
           organizaciones, movimientos populares. De esta manera el compromiso virtual puede dar <strong>frutos reales</strong>.
@@ -625,7 +628,7 @@ es:
           echo cada vez más, hasta que este proceso lleve a una <strong>auto-administración estable</strong>.
           </p><p>
           Como instrumento del fomento de procesos democráticos, para echo el mantenerse <strong>política y económicamente independiente</strong> es de suma importancia.
-          Para garantizar su independencia a largo plazo, echo será <span title="{{tooltip}}" class="ttLink">entregado</span> progresivamente a los propios usuarios.
+          Para garantizar su independencia a largo plazo, echo será <span title="%{tooltip}" class="ttLink">entregado</span> progresivamente a los propios usuarios.
           </p><p>
           De esta manera echo se convertirá en <strong>propiedad de la población mundial</strong>: Serán los participantes los que decidan lo que pasa en echo.
           Serán ellos los que decidan cómo funciona echo. <strong>Ellos serán echo!</strong>
@@ -664,7 +667,7 @@ es:
             Aparte de funciones extensas para su propia red, las redes de echo social tambien pueden conectarse entre si y actuar como parte de un
             <strong>movimiento superior</strong>. Así hallarán <strong>más colaboradores</strong> y juntamente <strong>alcancarán más</strong>.
             </p><p>
-            Las páginas de echo social serán conectadas a través de <strong><a href='{{echo_link}}' target='_blank'>echo</a></strong>
+            Las páginas de echo social serán conectadas a través de <strong><a href='%{echo_link}' target='_blank'>echo</a></strong>
             - el ágora global. echo sirve como una <strong>infraestructura comunicativa decentralizada</strong> para la participación activa de los ciudadanos
             <br/>
             A lo largo de la realización de echo las acciones y proyectos serán conectados con otros debates y acciones tematicamente relevantes también de otras paginas de web.
@@ -852,7 +855,7 @@ es:
     activation:
       subject: "Activar tu cuenta en echo"
       text1: |
-        Estimado/a {{name}},
+        Estimado/a %{name},
 
         gracias por tu registro en echo! Por favor active tu cuenta siguiendo el link de abajo.
       text2: |
@@ -869,7 +872,7 @@ es:
     welcome:
       subject: "Bienvenido a echo"
       text: |
-        Estimado/a {{name}},
+        Estimado/a %{name},
 
         Bienvenido a echo!
 
