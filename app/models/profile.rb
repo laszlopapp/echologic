@@ -44,7 +44,7 @@ class Profile < ActiveRecord::Base
   has_attached_file :avatar, :styles => { :big => "128x>", :small => "x45>" },
                     :default_url => "/images/default_:style_avatar.png"
   validates_attachment_size :avatar, :less_than => 5.megabytes
-  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/pjpeg']
+  validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/pjpeg', 'image/x-png']
   
   # paperclip callback, used to recalculate completeness when uploading an avatar
   after_avatar_post_process :calculate_completeness
@@ -58,7 +58,7 @@ class Profile < ActiveRecord::Base
   # TODO conditions in compact form?
   #  - something like this?: [city, country].select{|s|s.try(:any?)}.join(', ')
   def location
-    [city, country].select { |s| s.try(:any?) }.join(', ')
+    [city, country].select { |s| s.try(:any?) }.collect(&:capitalize).join(', ')
   end
 
   # Return the first membership. If none is set return empty-string.

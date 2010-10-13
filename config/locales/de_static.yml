@@ -96,6 +96,9 @@ de:
       # about section
       about:
         title: Über uns
+        tabs: 
+          project: The Project
+          team: The Team
         text: |
           <p>
           <strong>Die Quelle</strong> von echo ist ein <strong>interdisziplinäres Team</strong> junger und erfahrener

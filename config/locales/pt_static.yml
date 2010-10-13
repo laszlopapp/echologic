@@ -94,6 +94,9 @@ pt:
       #About
       about:
         title: Sobre nós
+        tabs: 
+          project: The Project
+          team: The Team
         text: |
           <p>
           <strong>A fonte</strong> da echo é uma <strong>equipa interdisciplinária</strong> de jovens e experienciados profissionais.

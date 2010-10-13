@@ -556,10 +556,16 @@ en:
       statement_document:
         language_id: 'Language'
         language: 'Language'
-        title: 'Title'
-        text: 'Summary'
-        image: 'Illustration'
-
+        title:    'Title'
+        text:     'Summary'
+        image:    'Illustration'
+      about_item: 
+        photo:                 'Photo'
+        name:                  'Name'
+        description:           'Description'
+        collaboration_team_id: 'Collaboration Team'
+        index:                 'Index'
+ 
     models:
       question: "question"
       proposal: "proposal"

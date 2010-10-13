@@ -22,4 +22,4 @@ end
 
 # Direct JS
 page << "makeRatiobars();"
-page << "makeTooltips();"
+page << "makeTooltips;"
