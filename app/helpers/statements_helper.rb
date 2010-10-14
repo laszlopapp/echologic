@@ -257,6 +257,14 @@ module StatementsHelper
     end
   end
   
+  def delete_statement_node_link(statement_node)
+    link_to I18n.t('discuss.statements.delete_link'),
+            url_for(statement_node),
+            :class => 'admin_action',
+            :method => :delete,
+            :confirm => I18n.t('discuss.statements.delete_confirmation')
+  end
+  
   def function_buttons(statement_node, statement_document)
     edit_statement_node_link(statement_node, statement_document)
   end
@@ -268,18 +276,10 @@ module StatementsHelper
   end
 
   def cancel_new_statement_node(statement_node,cancel_js=false)
-    type = statement_node_class_dom_id(statement_node).downcase
-      if type == 'question' and !cancel_js
-        link_to I18n.t('application.general.cancel'),
-                :back,
-                :class => 'text_button cancel_text_button'
-      else
-        link_to I18n.t('application.general.cancel'),
-                session[:last_statement_node] ?
-                  statement_node_path(session[:last_statement_node]) : (statement_node.parent or discuss_url),
-                :class => 'ajax text_button cancel_text_button'
-
-      end
+    link_to I18n.t('application.general.cancel'),
+            session[:last_statement_node] ?
+              statement_node_path(session[:last_statement_node]) : (statement_node.parent or discuss_url),
+            :class => 'ajax text_button cancel_text_button'
   end
 
   def cancel_edit_statement_node(statement_node, locked_at)
