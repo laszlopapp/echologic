@@ -1,5 +1,4 @@
 class Static::EchosocialController < ApplicationController
-  
   %w(show features extensions).each do |name|
     class_eval %(
       def #{name}

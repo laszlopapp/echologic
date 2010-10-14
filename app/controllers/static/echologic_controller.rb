@@ -7,7 +7,7 @@
 #     - index action now handles '/echologic'
 #
 class Static::EchologicController < ApplicationController
-
+  
   # Default page redirected to echoLogic - The Mission
   def show
     respond_to do |format|

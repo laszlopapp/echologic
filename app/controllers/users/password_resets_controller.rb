@@ -2,7 +2,6 @@
 # their password. Authentification based on authlogic's perishable_token.
 #
 class Users::PasswordResetsController < ApplicationController
-
   # Use perishable_token on edit or update methods
   before_filter :load_user_using_perishable_token, :only => [:edit, :update]
 

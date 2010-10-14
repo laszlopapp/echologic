@@ -1,7 +1,7 @@
 class StatementsController < ApplicationController
   helper :echo
   include EchoHelper
-  include StatementHelper
+  include StatementsHelper
 
   # Remodelling the RESTful constraints, as a default route is currently active
   # FIXME: the echo and unecho actions should be accessible via PUT/DELETE only,
@@ -112,7 +112,7 @@ class StatementsController < ApplicationController
       end
 
       # If statement node is draftable, then try to get the approved one
-      load_approved_statement()
+      load_approved_statement
 
       # Find all child statement_nodes, which are published (except user is an editor)
       # sorted by supporters count, and paginate them

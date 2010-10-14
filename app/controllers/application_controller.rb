@@ -3,9 +3,6 @@
 
 class ApplicationController < ActionController::Base
 
-  # Include all helpers, all the time
-  helper :all
-
   ####################
   # CLASS ATTRIBUTES #
   ####################
@@ -16,9 +13,6 @@ class ApplicationController < ActionController::Base
       !prefixes.select{|p| tag.value.index(p) == 0}.empty? ? nil : "#{tag.value}|#{tag.id}"
     }.compact[0..4].join("\n")
   end
-
-  
-
 
   ###########
   # ROUTING #

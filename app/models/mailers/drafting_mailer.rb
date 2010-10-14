@@ -1,7 +1,7 @@
 require 'drafting_service'
 
 class DraftingMailer < ActionMailer::Base
-  include StatementHelper
+  include StatementsHelper
 
   def approval(mail_data)
     subject       I18n.t('mailers.drafting.approval.subject')

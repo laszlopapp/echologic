@@ -1,5 +1,5 @@
 class ActivityTrackingMailer < ActionMailer::Base
-  include StatementHelper
+  include StatementsHelper
 
   # Send the activities on the subscribed objects to the subscribable
   def activity_tracking_email(recipient,question_events, question_tags, events)

@@ -1,5 +1,5 @@
 class Users::ProfileController < ApplicationController
-
+  helper :connect
   before_filter :require_user, :only => [:show, :edit, :update, :get_personal, :welcome, :upload_picture, :reload_pictures]
 
   access_control do
