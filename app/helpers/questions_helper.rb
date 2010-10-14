@@ -47,6 +47,24 @@ module QuestionsHelper
                 :in => :summary },
               :class => 'ajax_put header_button text_button publish_text_button ttLink',
               :title => I18n.t('discuss.tooltips.publish'))
+    else
+      ''
     end
+  end
+  
+  
+  def create_new_child_statement_link(statement_node)
+    create_new_statement_link(statement_node,'proposal')
+  end
+  
+  def children_box_title
+    I18n.t("discuss.statements.headings.proposal")
+  end
+  
+  def function_buttons(statement_node, statement_document)
+    val = ''
+    val << edit_statement_node_link(statement_node, statement_document) 
+    val << publish_statement_node_link(statement_node, statement_document)
+    content_tag :span, val
   end
 end

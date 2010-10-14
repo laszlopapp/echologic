@@ -9,23 +9,7 @@ module StaticContentHelper
       end
   end
 
-  # Inserts the breadcrumb for the given main and sub menu point
-  def insert_breadcrumb(main_link, sub_link, sub_menu_title='.title',sub_menu_subtitle='.subtitle', show_illustration=true)
-    controller = request[:controller].split('/')[1]
-    action = request[:action]
-    title_translation = I18n.t("static.#{controller}.title")
-    if main_link != sub_link
-      show_illustration(show_illustration,controller,action)
-      subtitle_translation = I18n.t("static.#{controller}.#{action}" + sub_menu_title)
-    else
-      subtitle_translation = I18n.t("static.#{controller}#{sub_menu_subtitle}")
-    end
-
-    main_menu = "<h1 class='link'>#{title_translation}</h1>"
-    concat link_to(main_menu, url_for(:controller => controller, :action => 'show'))
-    concat "<h2>#{subtitle_translation}</h2>"
-  end
-
+ 
   def insert_echosocial_breadcrumb(main_link, sub_link, show_illustration=true)
     controller = request[:controller].split('/')[1]
     action = request[:action]
@@ -81,15 +65,7 @@ module StaticContentHelper
     button += "<span class='menuSubtitle'>#{I18n.t(subtitle)}</span>"
     link_to(button, {:url => link}, :href => link, :class => 'staticMenuButton', :id => item.split('_')[0])
   end
-
-  def build_static_menu_button(item)
-    val =  "<span class='img #{item}_image'>&nbsp;</span>"
-    %w(title subtitle).each do |type|
-      val += "<span class='#{type}'>" + I18n.t("static.#{item}.#{type}")    + "</span><br/>"
-    end
-    val
-  end
-
+  
   # Returns the image filename (on of off state) for a specific item.
   # TODO all this splitting is performance critical - find solution! - singleton, class variable?
   def get_static_menu_image(item, link)
@@ -98,44 +74,8 @@ module StaticContentHelper
     "<div class='menuImage #{active_menu}' style='background: url(#{image})'></div>"
   end
 
-  # Container is only visible in echologic
-  def display_echologic_container
-    request[:controller].eql?('static/echologic') ? '' : "style='display:none'"
-  end
+  
 
-  # tabContainer is not visible in echologic
-  def display_tab_container
-    request[:controller].eql?('static/echologic') ? "style='display:none'" : ''
-  end
-
-  # gets the latest twittered content of the specified user account
-  # via json.
-  # RESCUES: SocketError, Exception
-  def get_twitter_content
-    begin
-      require 'open-uri'
-      require 'json'
-      buffer = open("http://twitter.com/users/show/echologic.json").read
-      result = JSON.parse(buffer)
-      html = content_tag(:span,
-                         l(result['status']['created_at'].to_date, :format => :long),
-                         :id => 'twitter_date')
-      html += content_tag(:span, auto_link(result['status']['text']), :id => 'twitter_text')
-    rescue Exception => e
-      logger.error "#{Time.now.utc.strftime("%m/%d/%Y %H:%M")} - Failed to display Twitter message"
-      logger.error e.backtrace
-      content_tag :span, "Tweet! Tweet! :-)", :id => 'twitter_text'
-    end
-  end
-
-  # Inserts text area with the given text and two butt
-  # Click-functions are added via jQuery, take a look at application.js
-  def insert_toggle_more(text)
-    concat("<span class='hideButton' style='display:none;'>#{I18n.t('application.general.hide')}</span>")
-    concat("<span class='moreButton'>#{I18n.t('application.general.more')}</span>")
-    concat("<div class='toggled_content' style='display: none;'>")
-      concat("#{text}")
-    concat("</div>")
-  end
+  
 
 end
