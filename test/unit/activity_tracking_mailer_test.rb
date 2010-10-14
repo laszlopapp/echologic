@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ActivityTrackingMailerTest < ActionMailer::TestCase
-  include StatementHelper
+  include StatementsHelper
   def test_activity_tracking_email_question
     user = users(:user)
     question_event = events(:event_test_question)
