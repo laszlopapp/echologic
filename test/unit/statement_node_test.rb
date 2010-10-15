@@ -8,10 +8,11 @@ class StatementNodeTest < ActiveSupport::TestCase
     setup { @statement_node = Question.new }
     subject { @statement_node }
 
-    should_belong_to :statement, :creator
-    should_have_many :tao_tags
-    should_have_many :statement_documents
-    should_have_many :tags
+    should belong_to :statement
+    should belong_to :creator
+    should have_many :tao_tags
+    should have_many :statement_documents
+    should have_many :tags
 
     # should be visited and supported
 
@@ -41,14 +42,15 @@ class StatementNodeTest < ActiveSupport::TestCase
     end
 
     context("should be in a tree") do
-      should_belong_to :root_statement
-      should_have_db_columns :root_id, :parent_id
+      should belong_to :root_statement
+      should have_db_column :root_id
+      should have_db_column :parent_id
     end
 
     context("should be echoable") do
-      should_have_db_columns :echo_id
-      should_belong_to :echo
-      should_have_many :user_echos
+      should have_db_column :echo_id
+      should belong_to :echo
+      should have_many :user_echos
     end
 
     context "being saved" do

@@ -9,4 +9,8 @@ class Report < ActiveRecord::Base
   self.named_scope :active, :conditions => { :done => false }
   self.named_scope :done,   :conditions => { :done => true }
 
+  def active
+    done == false
+  end
+
 end

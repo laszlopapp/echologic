@@ -6,7 +6,7 @@ class StatementDocumentTest < ActiveSupport::TestCase
     setup { @statement_document = StatementDocument.new }
     subject { @statement_document }
     
-    should_belong_to :statement
+    should belong_to :statement
     
     # check for validations (should_validate_presence_of didn't work)
     %w(language_id statement title text).each do |attr|

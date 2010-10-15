@@ -21,6 +21,7 @@ end
 
 When /^I follow the "([^\"]*)" link for the (.+) report of "([^\"]*)"$/ do |link, status, user|
   user = Profile.find_by_first_name(user).user
-  report = user.reports.done_equals(status.eql?('done')? true : false).first
+  status = status.to_sym
+  report = user.reports.select(&status).first
   When "I follow \"#{link.downcase}\" within \"#report_#{report.id}\""
 end
