@@ -22,32 +22,32 @@ pt:
     activity_tracking:
       subject: echo - Notificações de Actividade
       discussions:
-        new_questions: 'Existem <strong>%{count} discussões novas</strong> desde a última actualização:'
+        new_questions: 'Existem <strong>{{count}} discussões novas</strong> desde a última actualização:'
         new_tags: 'Os debates estão relacionados com os seguintes tópicos:'
-        new_proposals: 'Novas propostas na discussão "%{title}"'
-        new_improvement_proposals: 'Novas propostas de melhoria na proposta "%{title}" em "%{question_title}":'
-        tag_link: "%{tag} (%{count})"
+        new_proposals: 'Novas propostas na discussão "{{title}}"'
+        new_improvement_proposals: 'Novas propostas de melhoria na proposta "{{title}}" em "{{question_title}}":'
+        tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         Se não deseja receber notificações diárias sobre novidades nas suas discussões, por favor logue-se em
-        <a href='%{echo_url}'>echo</a>, siga para "O meu echo", "Definições" e desative a opção de notificações diárias.
+        <a href='{{echo_url}}'>echo</a>, siga para "O meu echo", "Definições" e desative a opção de notificações diárias.
 
-    drafting:     
+    drafting:
       approval:
         subject: A sua proposta de melhoria pode ser incorporada
         text: |-
-          Caro/a %{name},
+          Caro/a {{name}},
 
           A sua proposta de melhoria
 
-          "*%{ip_title}*"
+          "*{{ip_title}}*"
 
-          foi a mais votada para ser incorporada na proposta "%{p_title}".
+          foi a mais votada para ser incorporada na proposta "{{p_title}}".
 
-          A partir de agora tem %{hours} horas para o fazer. Depois desse tempo esgotar poderá perder o direito a editar a proposta.
+          A partir de agora tem {{hours}} horas para o fazer. Depois desse tempo esgotar poderá perder o direito a editar a proposta.
 
           Para editar a proposta e incorporar a sua ideia siga o link e clique no botão de incorporação (flecha verde-amarela no meio):
 
-          %{p_link}
+          {{p_link}}
 
           Por favor seja honesto e insira na proposta apenas as ideias expostas na sua proposta de melhoria! O historial de edição das propostas é guardado e poderá ser visualizado por nós. :-)
 
@@ -62,13 +62,13 @@ pt:
         text: |-
           Caros/as apoiantes da proposta de melhoria
 
-          "*%{ip_title}*"
+          "*{{ip_title}}*"
 
-          O autor da proposta de melhoria não chegou a aproveitar a sua oportunidade de melhorar a proposta "%{p_title}". Como apoiantes dessa proposta de melhoria, terão agora a oportunidade de o fazer por ele *durante as próximas %{hours} horas*.
+          O autor da proposta de melhoria não chegou a aproveitar a sua oportunidade de melhorar a proposta "{{p_title}}". Como apoiantes dessa proposta de melhoria, terão agora a oportunidade de o fazer por ele *durante as próximas {{hours}} horas*.
 
           Para editar a proposta e *incorporar a ideia*, siga o link e clique no botão de incorporação (flecha verde-amarela no meio):
 
-          %{p_link}
+          {{p_link}}
 
           O primeiro de vós que inicie o processo de edição da proposta terá o direito exclusivo de o fazer - mas apenas durante 60 minutos!
 
@@ -85,13 +85,13 @@ pt:
         text: |-
           Caros/as apoiantes da proposta
 
-          "*%{p_title}*"
+          "*{{p_title}}*"
 
-          A proposta de melhoria "%{ip_title}" foi selecionada para ser incorporada na proposta "%{p_title}".
+          A proposta de melhoria "{{ip_title}}" foi selecionada para ser incorporada na proposta "{{p_title}}".
 
           Clique no link para *visualizar a nova ideia*:
 
-          %{p_link}
+          {{p_link}}
 
           Muito obrigado pela sua contribuição! - e divirta-se! ;-)
 
@@ -102,17 +102,17 @@ pt:
       approval_reminder:
         subject: Aviso! - O tempo para a incorporação da sua proposta de melhoria está a acabar
         text: |-
-          Caro/a %{name},
+          Caro/a {{name}},
 
-          *Já só lhe restam %{hours} horas* para incorporar a sua proposta de melhoria
+          *Já só lhe restam {{hours}} horas* para incorporar a sua proposta de melhoria
 
-          "*%{ip_title}*"
+          "*{{ip_title}}*"
 
-          na proposta "%{p_title}". Caso não o faça poderá perder o direito a editar a proposta.
+          na proposta "{{p_title}}". Caso não o faça poderá perder o direito a editar a proposta.
 
           Para editar a proposta siga o link e clique no botão de incorporação (flecha verde-amarela no meio):
 
-          %{p_link}
+          {{p_link}}
 
           Por favor seja honesto e insira na proposta apenas as ideias expostas na sua proposta de melhoria! O historial de edição das propostas é guardado e poderá ser visualizado por nós. :-)
 
@@ -127,15 +127,15 @@ pt:
         text: |-
           Caros/as apoiantes da proposta de melhoria
 
-          "%{ip_title}"
+          "{{ip_title}}"
 
-          *Já só lhes restam %{hours} horas* para incorporarem a proposta de melhoria "%{ip_title}".
+          *Já só lhes restam {{hours}} horas* para incorporarem a proposta de melhoria "{{ip_title}}".
 
           Caso não o façam, serão eliminados todos os votos da proposta de melhoria, retirando à mesma o vosso apoio.
 
           Para editar a proposta sigam o link e cliquem no botão de incorporação (flecha verde-amarela no meio):
 
-          %{p_link}
+          {{p_link}}
 
           Por favor sejam honestos e insiram na proposta apenas as ideias expostas na proposta de melhoria! O historial de edição das propostas é guardado e poderá ser visualizado por nós. :-)
 
@@ -148,13 +148,13 @@ pt:
       passed:
         subject: O tempo para incorporação da proposta de melhoria esgotou!
         text: |-
-          Caro/a %{name},
+          Caro/a {{name}},
 
           Infelizmente, o tempo para incorporar a proposta de melhoria
 
-          "*%{ip_title}*"
+          "*{{ip_title}}*"
 
-          na proposta "%{p_title}" esgotou.
+          na proposta "{{p_title}}" esgotou.
 
           Caso a sua proposta de melhoria seja selecionada novamente, o privilégio de incorporação da mesma será dado igualmente a todos os apoiantes da mesma.
 
@@ -169,15 +169,15 @@ pt:
         text: |-
           Caros/as apoiantes da proposta de melhoria
 
-          "*%{ip_title}*"
+          "*{{ip_title}}*"
 
-          Infelizmente, o tempo para incorporar a ideia na proposta "%{p_title}" esgotou.
+          Infelizmente, o tempo para incorporar a ideia na proposta "{{p_title}}" esgotou.
 
           Como lhes foi previamente comunicado, todos os votos da proposta de melhoria serão eliminados, retirando-lhe assim o vosso apoio.
 
           Caso queiram *apoiar novamente a proposta de melhoria*, por favor sigam o link:
 
-          %{ip_link}
+          {{ip_link}}
 
           Estaremos à espera das vossas contribuições seguintes. :-)
 
@@ -188,17 +188,17 @@ pt:
       incorporated:
         subject: Muito obrigado por ter melhorado a proposta
         text: |-
-          Caro/a %{name},
+          Caro/a {{name}},
 
           Muito obrigado por ter incorporado a ideia
 
-          "*%{ip_title}*"
+          "*{{ip_title}}*"
 
-          na proposta "%{p_title}".
+          na proposta "{{p_title}}".
 
           Para visualizar a nova versão, pode seguir o link:
 
-          %{p_link}
+          {{p_link}}
 
           Muito obrigado pela sua contribuição e estaremos à espera de contribuições futuras da sua parte! ;-)
 
@@ -211,13 +211,13 @@ pt:
         text: |-
           Caros/as apoiantes da proposta
 
-          "*%{p_title}*"
+          "*{{p_title}}*"
 
-          A proposta de melhoria com mais votos "%{ip_title}" foi incorporada na proposta.
+          A proposta de melhoria com mais votos "{{ip_title}}" foi incorporada na proposta.
 
           Podem seguir o link e ver as mudanças, para além de verificarem se estas estão de acordo com a proposta de melhoria original (futuramente, um historial de edições tornará esta tarefa mais fácil para todos):
 
-          %{p_link}
+          {{p_link}}
 
           Muito obrigado pela vossa contribuição! - e divirtam-se ;-)
 
@@ -226,6 +226,5 @@ pt:
           A sua equipa echo
 
       unsubscribe: |-
-        Se não deseja receber actualizações relativas ao processo colaborativo de edição das propostas suportadas por si, por favor logue-se em %{echo_url}, dirija-se à secção "Definições" em "O meu echo" e desselecione a opção de notificação da elaboração de textos.
+        Se não deseja receber actualizações relativas ao processo colaborativo de edição das propostas suportadas por si, por favor logue-se em {{echo_url}}, dirija-se à secção "Definições" em "O meu echo" e desselecione a opção de notificação da elaboração de textos.
 
- 

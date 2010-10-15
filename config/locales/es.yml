@@ -35,21 +35,21 @@ es:
     # Roadmap - Progress
     roadmap:
       title: completo
-      progress_tooltip: 'Este área de echo está %{progress}% completo.'
+      progress_tooltip: 'Este área de echo está {{progress}}% completo.'
       status_quo: 'Status Quo'
       next_steps: 'Próximos pasos'
       vision: 'Al final del camino'
       discuss:
-        status_quo: 'El área "discutir" está <strong>%{progress}%</strong> completo.'
+        status_quo: 'El área "discutir" está <strong>{{progress}}%</strong> completo.'
         next_steps: 'Las primeras funciones de discusión están online. El área será desarrollada continuamente.'
       connect:
-        status_quo: 'El área "conectar" está <strong>%{progress}%</strong> completo.'
+        status_quo: 'El área "conectar" está <strong>{{progress}}%</strong> completo.'
         next_steps: 'La primera búsqueda simple por personas está online. El área "conectar" será desarrollado después que los áreas "discutir" y "actuar!" estén suficientemente desarrollados.'
       act:
-        status_quo: 'El área "actuar!" está <strong>%{progress}%</strong> completo.'
+        status_quo: 'El área "actuar!" está <strong>{{progress}}%</strong> completo.'
         next_steps: 'El área "actuar" será desarrollado después de las primeras funciones básicas de "discutir".'
       my_echo:
-        status_quo: 'El área "mi echo" está <strong>%{progress}% </strong> completo.'
+        status_quo: 'El área "mi echo" está <strong>{{progress}}% </strong> completo.'
         next_steps: 'Futuros desarrollos en "mi echo" están planeados para después del desarrollo de los tres áreas principales "discutir, conectar y actuar!"'
         vision: |
          <p>
@@ -89,7 +89,7 @@ es:
         welcome: Bienvenido
         profile: Mi perfil
         settings: Definiciones
-        profile_complete: '%{complete}% completo'
+        profile_complete: '{{complete}}% completo'
 
 
   # ----------------
@@ -133,7 +133,7 @@ es:
         signup: Todavía no es miembro?
         set_password: Se olvidó de la seña?
         remember: Acuerde de mi!
-        hello: Logged in <br/><strong>%{name}</strong>
+        hello: Logged in <br/><strong>{{name}}</strong>
       messages:
         login_success:  "Login exitoso.<br/>Bienvenido de vuelta a echo!"
         login_failed:   "Usuario desconocido o seña incorrecta."
@@ -315,14 +315,14 @@ es:
       no_discussions: |
         Lo sentimos, no hay debates por el momento. Para abrir un nuevo debate, haga click en el signo de interrogación a la izquierda.
     tag_permission: |
-      Disculpe, pero no tienes permiso para inserir este '%{tag}' tag.
+      Disculpe, pero no tienes permiso para inserir este '{{tag}}' tag.
     original_language_warning: |
-      El texto original es <strong>%{language}</strong>. Por favor <br/>
+      El texto original es <strong>{{language}}</strong>. Por favor <br/>
       indique quales son las lenguas que intiendes.
     translation_request: Por favor tradusca este texto al <strong>ESPAÑOL</strong>.
     results_count:
-      one: '%{count} discusión'
-      more: '%{count} discusiones'
+      one: '{{count}} discusión'
+      more: '{{count}} discusiones'
     featured_topics:
       title: Nuestros Temas
       text: |
@@ -342,7 +342,7 @@ es:
           title: Proyectos piloto
     search:
       title: Buscar
-      in: '... en %{category} ...'
+      in: '... en {{category}} ...'
 
     tooltips:
       read_question: 'Mirar esta cuestión'
@@ -373,8 +373,8 @@ es:
     statements:
       label: 'votos'
       echo_indicator:
-        one: '%{supporter_count} vozes'
-        many: '%{supporter_count} vozes'
+        one: '{{supporter_count}} vozes'
+        many: '{{supporter_count}} vozes'
       create_question_link: 'Crear nueva discusión'
       create_proposal_link: 'Crear nueva propuesta'
       create_internal_link: 'Nueva Idea?'
@@ -394,7 +394,7 @@ es:
         Por favor escriba su idea en <strong>ESPAÑOL</strong> o escoja un otro idioma utilizando el
         babelfish en el menu arriba.
       statement_language_hint: |
-        Para realizar algún comentario, seleccione por favor, el conocimiento de idiomas en su <a href='%{url}'>Perfil</a>.
+        Para realizar algún comentario, seleccione por favor, el conocimiento de idiomas en su <a href='{{url}}'>Perfil</a>.
       statement_language_hint_tooltip: |
         Esto le permitirá introducir comentarios en el idioma en que posee al menos, conocimientos a nivel intermedio.
       drafting_language_hint: |
@@ -405,7 +405,7 @@ es:
 
       publish: Publicar
       published: Esta discusión fue publicada con éxito.
-      edit: 'Editar %{type}'
+      edit: 'Editar {{type}}'
 
       types:
         question:  'Cuestión'
@@ -443,11 +443,11 @@ es:
       being_edited: |-
         Esta propuesta actualmente está siendo editada. Por favor vuelva mas tarde.
       already_translated: |-
-        %{type} ya ha sido traducida.
+        {{type}} ya ha sido traducida.
       statement_updated: |-
-        %{type} acaba de ser actualizada.
+        {{type}} acaba de ser actualizada.
       edit_period_hint: |
-        <strong>Tienes %{minutes} minutos</strong> para editar la propuesta.
+        <strong>Tienes {{minutes}} minutos</strong> para editar la propuesta.
         Passondo este plazo, posiblemente tus modificationes serán perdidas.
       staled_modification: 'Desculpe por favor, pero tu plazo de 60 minutos para editar la propuesta caduco. Mientras otro miembro tomó su chance y edito la propuesta. Por eso, tus modificaciones lamentablemente no puedieron ser guardadas.'
 
@@ -460,17 +460,17 @@ es:
     summary:
       title: 'Resumen'
     messages:
-      created: "La %{type} fue publicada con éxito."
-      updated: "La %{type} fue editada con éxito."
-      deleted: "La %{type} fue borrada con éxito."
-      translated: "La %{type} fue traducida con éxito."
+      created: "La {{type}} fue publicada con éxito."
+      updated: "La {{type}} fue editada con éxito."
+      deleted: "La {{type}} fue borrada con éxito."
+      translated: "La {{type}} fue traducida con éxito."
       incorporated: "A propuesta de mejoramiento fue incorporada a la propuesta con exito."
-      image_uploaded: "La imagen se ha cargado correctamente en el %{type}."
+      image_uploaded: "La imagen se ha cargado correctamente en el {{type}}."
       empty:   "No fue encontrado ningun debate. Por favor intente buscar por otra palavra."
       empty_without_spoken_languages: |
-        No fue encontrada ninguna cuestión. Intente definir tus <a href='%{my_echo}'>lenguas conocidas</a>
+        No fue encontrada ninguna cuestión. Intente definir tus <a href='{{my_echo}}'>lenguas conocidas</a>
         para ver contenidos en otras lenguas.
-      new_percentage: "Ahora tu perfil está completo por %{percentage}%."
+      new_percentage: "Ahora tu perfil está completo por {{percentage}}%."
 
 
   # ---------------
@@ -480,7 +480,7 @@ es:
   connect:
 
     fill_out_profile:
-      text: Por favor complete tu perfil <strong>por lo menos por %{percentage}%</strong>, para hacer feliz al servidor (HAL)
+      text: Por favor complete tu perfil <strong>por lo menos por {{percentage}}%</strong>, para hacer feliz al servidor (HAL)
          y retirar este bloque ;-)
 
     segments:
@@ -490,8 +490,8 @@ es:
       expertise: 'Expertos'
       decision_making: 'Determinantes'
     results_count:
-      one: '%{count} miembros'
-      more: '%{count} miembros'
+      one: '{{count}} miembros'
+      more: '{{count}} miembros'
     details:
       tabs:
         overview:     'Sinopsis'
@@ -537,18 +537,18 @@ es:
               taken: 'Erraste tu E-Mail. Por favor ingréselo otra vez.'
 
       messages:
-        blank: "Tienes que rellenar el espacio '%{attribute}' ."
+        blank: "Tienes que rellenar el espacio '{{attribute}}' ."
         taken: 'La entrada deseada lamentablemente ya está siendo utilizada.'
-        too_short: "Tu entrada en el espacio '%{attribute}' es muy corta."
-        too_long: "Tu entrada en el espacio '%{attribute}' es muy larga."
-        invalid: "Tu entrada en el espacio '%{attribute}' tiene un formato inválido."
-        confirmation: '%{attribute} hay que concordar.'
+        too_short: "Tu entrada en el espacio '{{attribute}}' es muy corta."
+        too_long: "Tu entrada en el espacio '{{attribute}}' es muy larga."
+        invalid: "Tu entrada en el espacio '{{attribute}}' tiene un formato inválido."
+        confirmation: '{{attribute}} hay que concordar.'
         access_denied: "Lamentablemente le falta el permiso de acceso necesario."
 
       template:
         header:
           one: "Un espacio no fue rellenado correctamente."
-          other: "%{count} espacios no fueron rellenados correctamente."
+          other: "{{count}} espacios no fueron rellenados correctamente."
         body: "Por favor cheque tu entrada:"
 
     attributes:
@@ -633,35 +633,35 @@ es:
       less_than_x_seconds:
         zero: 'menos que un segundo'
         one: 'menos que un segundo'
-        other: 'menos que %{count} segundos'
+        other: 'menos que {{count}} segundos'
       x_seconds:
         one: '1 segundo'
-        other: '%{count} segundos'
+        other: '{{count}} segundos'
       less_than_x_minutes:
         zero: 'menos que un minuto'
         one: 'menos que un minuto'
-        other: 'menos que %{count} minuto'
+        other: 'menos que {{count}} minuto'
       x_minutes:
         one: '1 minuto'
-        other: '%{count} minutos'
+        other: '{{count}} minutos'
       about_x_hours:
         one: 'cerca de una hora'
-        other: 'cerca de %{count} horas'
+        other: 'cerca de {{count}} horas'
       x_days:
         one: 'un día'
-        other: '%{count} días'
+        other: '{{count}} días'
       about_x_months:
         one: 'cerca de un mes'
-        other: 'cerca de %{count} meses'
+        other: 'cerca de {{count}} meses'
       x_months:
         one: 'un mes'
-        other: '%{count} meses'
+        other: '{{count}} meses'
       about_x_years:
         one: 'cerca de un año'
-        other: 'cerca de %{count} año'
+        other: 'cerca de {{count}} año'
       over_x_years:
         one: 'más que un año'
-        other: 'más que %{count} años'
+        other: 'más que {{count}} años'
     prompts:
       second: "segundos"
       minute: "minutos"

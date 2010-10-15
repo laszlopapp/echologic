@@ -22,7 +22,7 @@ en:
       show:
         ms1: echologic is a network of newthinkers and <br/>their organizations united to realize
         ms2: |
-          echo - the global <span title="%{tooltip}" class="ttLink">agora</span>!
+          echo - the global <span title="{{tooltip}}" class="ttLink">agora</span>!
 
         agora_tooltip: |
           The agora was the central place in ancient Athens – the cradle of democracy.
@@ -47,7 +47,7 @@ en:
           members of society: citizens, experts, decision makers and representatives of organizations and businesses.
           </p><p>
           <strong>echo</strong> provides the technological basis for an open, <strong>participatory democracy</strong> on the local,
-          regional and <span title="%{subsidiarity_tooltip}" class="ttLink">global level</span>. Your voice finds here an echo.
+          regional and <span title="{{subsidiarity_tooltip}}" class="ttLink">global level</span>. Your voice finds here an echo.
           Ideas turn into movements, visions into reality. echo means the <strong>end of powerlessness</strong> and the
           <strong>beginning of self-determination</strong>.
           </p>
@@ -68,7 +68,7 @@ en:
           title: Openness and “Your-profit” philosophy
           more: |
             <p>
-            echo is <strong><a href="%{github_url}" target="_blank">open source</a></strong> and will be the
+            echo is <strong><a href="{{github_url}}" target="_blank">open source</a></strong> and will be the
             basis of a heterogenious, <strong>decentral infrastructure</strong>. Its distributed approach overcomes
             the limitations of isolated platforms and initiatives – it bundles and multiplies their
             <strong>power of influence</strong>.
@@ -193,7 +193,7 @@ en:
             </p><p>
             The current crises can thus be understood as a general <strong>crisis of democracy</strong>.<br/>
             New ways have to be found, empowering people to develop <strong>constructive solutions</strong> to effectively tackle
-            our <span title="%{tooltip}" class="ttLink">“glocal” challenges</span>.
+            our <span title="{{tooltip}}" class="ttLink">“glocal” challenges</span>.
             </p>
 
           tooltip: |
@@ -207,8 +207,8 @@ en:
           text: |
             <p>
             echo is the instrument for a <strong>new kind of participatory democracy</strong> facing these challenges.
-            Unlike <span title="%{tooltip1}" class="ttLink">usual Web 2.0 applications</span>, echo provides
-            a <strong>clearly structured <span title="%{tooltip2}" class="ttLink">opinion base</span></strong> and allows
+            Unlike <span title="{{tooltip1}}" class="ttLink">usual Web 2.0 applications</span>, echo provides
+            a <strong>clearly structured <span title="{{tooltip2}}" class="ttLink">opinion base</span></strong> and allows
             for a <strong>solution-oriented</strong> social collaboration. It unites technical innovation and human scientific knowledge
             into a unique concept. This helps people to better understand backgrounds and interrelations of topics,
             jointly make sound decisions and turn them into reality. Accordingly, echo comes with three main functional
@@ -268,7 +268,7 @@ en:
         democratic: Democratic opinion formation
         democratic_more: |
           On echo, all positions represent sound statements elaborated by the users in a
-          <span title="%{tooltip}" class="ttLink">fully democractic process</span>.
+          <span title="{{tooltip}}" class="ttLink">fully democractic process</span>.
           Thus, all people can contribute to the dynamic evolution of such statements with equal chance and a minimal effort.
 
         democratic_tooltip: |
@@ -587,11 +587,11 @@ en:
           <p>
           Finance your actions without financial effort!
           </p><p>
-          echo combines a <strong><span title="%{tooltip_nonprofit}" class="ttLink">non-profit</span></strong>
+          echo combines a <strong><span title="{{tooltip_nonprofit}}" class="ttLink">non-profit</span></strong>
           philosophy with <strong>powerful business models</strong>. "Powerful“ does not merely mean
           working cost-neutral.
           It also means helping people and organizations to provide their actions with the necessary funds.
-          For this puropse, echo offers you various <span title="%{tooltip_costneutral}" class="ttLink">cost-neutral</span>
+          For this puropse, echo offers you various <span title="{{tooltip_costneutral}}" class="ttLink">cost-neutral</span>
           ways to collect money on your personal virtual account.
           All funds collected in these ways can then be donated to actions and projects of organisations, interest
           groups and individuals according to your preferences.<br/>
@@ -643,7 +643,7 @@ en:
           As echo is an instrument of democratic decision making, maintaining
           <strong>political and financial independence</strong> is of vital importance.
           In order to ensure such independence in the long term, echo will gradually be
-          <span title="%{tooltip}" class="ttLink">passed into the hands</span> of all its users
+          <span title="{{tooltip}}" class="ttLink">passed into the hands</span> of all its users
           at any given time.
           </p><p>
           In this way, echo becomes the quasi <strong>property of humanity</strong>:
@@ -687,7 +687,7 @@ en:
             become part of a <strong>bigger movement</strong>. In this way you can <strong>find the right
             supporters</strong> and start acting together.
             </p><p>
-            Via <strong><a href='%{echo_link}' target='_blank'>echo</a></strong> - the global agora -
+            Via <strong><a href='{{echo_link}}' target='_blank'>echo</a></strong> - the global agora -
             echo social sites are connected across the bundaries of different platforms and websites. echo serves
             thereby as a <strong>distributed communication infrastructure</strong>
             for active citizenship and participatory democracy.<br/>
@@ -879,7 +879,7 @@ en:
     activation:
       subject: Please activate your echo account
       text1: |
-        Dear %{name},
+        Dear {{name}},
 
         Thank you for registering at echo. Please click the URL below to activate your account.
       text2: |
@@ -895,7 +895,7 @@ en:
     welcome:
       subject: Welcome to echo
       text: |
-        Dear %{name},
+        Dear {{name}},
 
         welcome to echo!
 
@@ -912,7 +912,7 @@ en:
     new_password:
       subject: New password for echo
       text1: |
-        Dear %{name},
+        Dear {{name}},
 
         a new password was requested for your echo account. If you want to change it please click on the following link.
 

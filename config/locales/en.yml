@@ -34,21 +34,21 @@ en:
     # Roadmap - Progress
     roadmap:
       title: ready
-      progress_tooltip: 'This area of echo is %{progress}% ready.'
+      progress_tooltip: 'This area of echo is {{progress}}% ready.'
       status_quo: 'Status Quo'
       next_steps: 'Next Steps'
       vision: 'At The End of The Road'
       discuss:
-        status_quo: 'echo "Discuss" is currently <strong>%{progress}% ready</strong>.'
+        status_quo: 'echo "Discuss" is currently <strong>{{progress}}% ready</strong>.'
         next_steps: 'The first features of echo "Discuss" have been released. Its functionality will be extended step by step in the next releases.'
       connect:
-        status_quo: 'echo "Connect" is currently <strong>%{progress}% ready</strong>.'
+        status_quo: 'echo "Connect" is currently <strong>{{progress}}% ready</strong>.'
         next_steps: 'echo "Connect" will be enhanced after the first features of echo "Discuss" and echo "Act" have been released.'
       act:
-        status_quo: 'echo "Act" is currently <strong>%{progress}% ready</strong>.'
+        status_quo: 'echo "Act" is currently <strong>{{progress}}% ready</strong>.'
         next_steps: 'The development of echo "Act" will begin after the first functions of echo "Discuss" have been released.'
       my_echo:
-        status_quo: 'The "My echo" area is currently <strong>%{progress}% ready</strong>.'
+        status_quo: 'The "My echo" area is currently <strong>{{progress}}% ready</strong>.'
         next_steps: 'Further development of this area is planned after some basic functionality of "Discuss, Connect and Act" has been released.'
         vision: |
          <p>
@@ -89,7 +89,7 @@ en:
         welcome: Welcome
         profile: My Profile
         settings: Settings
-      profile_complete: '%{complete}% complete'
+      profile_complete: '{{complete}}% complete'
 
   # ----------------
   # Welcome function
@@ -132,7 +132,7 @@ en:
         signup: Not a member yet?
         set_password: Forgot your password?
         remember: Remember me!
-        hello: Logged in<br/><strong>%{name}</strong>
+        hello: Logged in<br/><strong>{{name}}</strong>
       messages:
         login_success: "Login successful. Welcome back to echo."
         login_failed: "Unknown user or wrong password."
@@ -302,14 +302,14 @@ en:
       no_discussions: |
         You haven't opened any discussions yet. To do so, please click on the question mark button on the left.
     tag_permission: |
-      You do not have the permission to insert the '%{tag}' tag.
+      You do not have the permission to insert the '{{tag}}' tag.
     translation_request: Please translate this statement to <strong>ENGLISH</strong>.
     original_language_warning: |
-      The original statement is in <strong>%{language}</strong>. Set your <br/>
+      The original statement is in <strong>{{language}}</strong>. Set your <br/>
       language skills to see content in other languages.
     results_count:
-      one: '%{count} discussion'
-      more: '%{count} discussions'
+      one: '{{count}} discussion'
+      more: '{{count}} discussions'
     featured_topics:
       title: Featured Topics
       text: |
@@ -329,7 +329,7 @@ en:
           title: Pilot Projects
     search:
       title: Search
-      in: '... in %{category} ...'
+      in: '... in {{category}} ...'
 
     tooltips:
       read_question: 'Go to this question'
@@ -360,8 +360,8 @@ en:
     statements:
       label: 'votes'
       echo_indicator:
-        one: '%{supporter_count} supporter'
-        many: '%{supporter_count} supporters'
+        one: '{{supporter_count}} supporter'
+        many: '{{supporter_count}} supporters'
       create_question_link: 'Open a new discussion'
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
@@ -379,7 +379,7 @@ en:
         Please post the statement in <strong>ENGLISH</strong> or choose another language
         using the babelfish in the upper menu.
       statement_language_hint: |
-        Please set your language skills in your <a href='%{url}'>Profile</a>.
+        Please set your language skills in your <a href='{{url}}'>Profile</a>.
       statement_language_hint_tooltip: |
         This will enable you to enter statements in any language you speak at least at intermediate level.
       drafting_language_hint: |
@@ -387,7 +387,7 @@ en:
 
       publish: Release
       published: Discussion has been released successfully.
-      edit: 'Edit %{type}'
+      edit: 'Edit {{type}}'
 
       types:
         question:  'Question'
@@ -425,11 +425,11 @@ en:
       being_edited: |-
         The statement is currently being edited. Please try again later.
       statement_updated: |-
-        This %{type} has just been updated by another person.
+        This {{type}} has just been updated by another person.
       statement_updated: |-
-        This %{type} has just been updated.
+        This {{type}} has just been updated.
       edit_period_hint: |
-        You have <strong>%{minutes} minutes</strong> to edit the statement.
+        You have <strong>{{minutes}} minutes</strong> to edit the statement.
         Afterwards, your modifications might even get discarded.
       staled_modification: 'We are very sorry, but you exceeded the 60 minutes limit to edit and save the statement. Meanwhile it has already been updated by a different user. Therefore, your changes must have been unfortunately discarded.'
 
@@ -443,17 +443,17 @@ en:
       title: 'Summary'
 
     messages:
-      created: "The new %{type} has been entered successfully."
-      updated: "The %{type} has been updated successfully."
-      deleted: "The %{type} has been deleted successfully."
-      translated: "The %{type} has been translated successfully."
+      created: "The new {{type}} has been entered successfully."
+      updated: "The {{type}} has been updated successfully."
+      deleted: "The {{type}} has been deleted successfully."
+      translated: "The {{type}} has been translated successfully."
       incorporated: "The improvement proposal has been successfully incorporated into the proposal."
-      image_uploaded: "The illustration image has been added to the %{type}."
+      image_uploaded: "The illustration image has been added to the {{type}}."
       empty:   "No discussions found. Please change your search criteria."
       empty_without_spoken_languages: |
-        No discussions found. You can try defining your <a href='%{my_echo}'>language skills</a>
+        No discussions found. You can try defining your <a href='{{my_echo}}'>language skills</a>
         to see content in other languages.
-      new_percentage: "Your profile is %{percentage}% complete."
+      new_percentage: "Your profile is {{percentage}}% complete."
 
 
 
@@ -464,7 +464,7 @@ en:
   connect:
 
     fill_out_profile:
-      text: Please fill out <strong>at least %{percentage}%</strong> of your profile to make "the computer" happy and let this block disappear. :-)
+      text: Please fill out <strong>at least {{percentage}}%</strong> of your profile to make "the computer" happy and let this block disappear. :-)
 
     segments:
       all:       'All'
@@ -473,8 +473,8 @@ en:
       expertise: 'Experts'
       decision_making: 'Decision Makers'
     results_count:
-      one: '%{count} mover'
-      more: '%{count} movers'
+      one: '{{count}} mover'
+      more: '{{count}} movers'
     details:
       tabs:
         overview:     'Overview'
@@ -517,18 +517,18 @@ en:
               taken: 'Your e-Mail address is already in use.'
 
       messages:
-        blank: "The field '%{attribute}' must not be empty."
+        blank: "The field '{{attribute}}' must not be empty."
         taken: 'Is already in use.'
-        too_short: "Your input for '%{attribute}' is too short."
-        too_long: "Your input for '%{attribute}' is too long."
-        invalid: "Your input for '%{attribute}' must be in a valid format."
-        confirmation: '%{attribute} confirmation does not match.'
+        too_short: "Your input for '{{attribute}}' is too short."
+        too_long: "Your input for '{{attribute}}' is too long."
+        invalid: "Your input for '{{attribute}}' must be in a valid format."
+        confirmation: '{{attribute}} confirmation does not match.'
         access_denied: "You are not allowed to perform this action."
 
       template:
         header:
           one: "One of the fields is filled incorrectly."
-          other: "%{count} fields are filled incorrectly."
+          other: "{{count}} fields are filled incorrectly."
         body: "Please correct the following:"
 
     attributes:
@@ -611,35 +611,35 @@ en:
       less_than_x_seconds:
         zero: 'less than 1 second'
         one: 'less than 1 second'
-        other: 'less than %{count} seconds'
+        other: 'less than {{count}} seconds'
       x_seconds:
         one: '1 second'
-        other: '%{count} seconds'
+        other: '{{count}} seconds'
       less_than_x_minutes:
         zero: 'less than 1 minute'
         one: 'less than one minute'
-        other: 'less than %{count} minutes'
+        other: 'less than {{count}} minutes'
       x_minutes:
         one: '1 minute'
-        other: '%{count} minutes'
+        other: '{{count}} minutes'
       about_x_hours:
         one: 'about 1 hour'
-        other: 'about %{count} hours'
+        other: 'about {{count}} hours'
       x_days:
         one: '1 day'
-        other: '%{count} days'
+        other: '{{count}} days'
       about_x_months:
         one: 'about 1 month'
-        other: 'about %{count} months'
+        other: 'about {{count}} months'
       x_months:
         one: '1 month'
-        other: '%{count} months'
+        other: '{{count}} months'
       about_x_years:
         one: 'about 1 year'
-        other: 'about %{count} years'
+        other: 'about {{count}} years'
       over_x_years:
         one: 'over 1 year'
-        other: 'over %{count} years'
+        other: 'over {{count}} years'
     prompts:
       second: "seconds"
       minute: "minutes"
