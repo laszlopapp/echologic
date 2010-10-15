@@ -66,6 +66,7 @@ $(function() {
 /*********************************************/
 /*    CHILDREN PAGINATION AND SCROLLING      */
 /*********************************************/
+
 $(function() {
 	$(".more_pagination a").live("click", function() {
 		$(this).replaceWith($('<span/>').text($(this).text()).addClass('more_loading'));
@@ -73,14 +74,9 @@ $(function() {
 });
 
 
-function save_current_scroll(){
-	return $('#children_list').data('jScrollPanePosition') == $('#children_list').data('jScrollPaneMaxScroll');
-}
-
-function pagination_scroll_down(id, current_scroll) {
+function pagination_scroll_down(id) {
 	$(id).jScrollPane({animateTo: true});
-  if (current_scroll)
-  {
+  if ($(id).data('jScrollPanePosition') != $(id).data('jScrollPaneMaxScroll')) {
     $(id)[0].scrollTo($(id).data('jScrollPaneMaxScroll'));
   }
 

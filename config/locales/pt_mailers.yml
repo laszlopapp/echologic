@@ -31,7 +31,7 @@ pt:
         Se não deseja receber notificações diárias sobre novidades nas suas discussões, por favor logue-se em
         <a href='{{echo_url}}'>echo</a>, siga para "O meu echo", "Definições" e desative a opção de notificações diárias.
 
-    drafting:     
+    drafting:
       approval:
         subject: A sua proposta de melhoria pode ser incorporada
         text: |-
@@ -228,4 +228,3 @@ pt:
       unsubscribe: |-
         Se não deseja receber actualizações relativas ao processo colaborativo de edição das propostas suportadas por si, por favor logue-se em {{echo_url}}, dirija-se à secção "Definições" em "O meu echo" e desselecione a opção de notificação da elaboração de textos.
 
- 

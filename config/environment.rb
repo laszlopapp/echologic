@@ -31,7 +31,7 @@ Rails::Initializer.run do |config|
   config.gem "authlogic", :lib => "authlogic", :source => "http://gems.github.com"
 
   # Require the searchlogic gem.
-  config.gem "searchlogic", :lib => "searchlogic", :source => 'http://gems.github.com'
+#  config.gem "searchlogic", :lib => "searchlogic", :source => 'http://gems.github.com'
 
   # Pagination gem from github
 #  config.gem 'will_paginate', :lib => 'will_paginate', :source => 'http://gems.github.com'
