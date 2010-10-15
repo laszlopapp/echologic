@@ -4,7 +4,7 @@ de:
   discuss:
     topics:
       on_echo: auf echo
-      
+
       echonomyjam:
         continues: 'geht online weiter!'
         register_here: 'Hier lang zur Erstanmeldung!'
@@ -118,7 +118,7 @@ de:
         name: Klimaherbst
         short_name: Klimaherbst
         teaser: |
-          Diskutieren Sie über die kommende Leitlinie Ökologie der Stadt München mit.
+          Diskutieren Sie über Events des Klimaherbstes München und die kommende Leitlinie Ökologie der Stadt.
         description: |-
           <p>
           In München wird die <strong>Leitlinie Ökologie</strong> zum Klimaschutz dem Stadtrat vorgelegt – zur Zeit läuft die
