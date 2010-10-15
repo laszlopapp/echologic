@@ -1,6 +1,4 @@
 class StatementsController < ApplicationController
-#  helper :echo
-#  include EchoHelper
   include StatementsHelper
 
   # Remodelling the RESTful constraints, as a default route is currently active
