@@ -72,9 +72,9 @@ class ActivityTrackingService
       :tags => node.topic_tags,
       :documents => set_titles_hash(node.statement_documents),
       :parent_documents => node.parent ? set_titles_hash(node.parent.statement_documents) : nil,
-      :root_documents => (!node.root_id.nil? and node.root != node.parent) ? set_titles_hash(node.root.statement_documents) : nil,
+      :root_documents => (!node.root.nil? and node.root != node.parent) ? set_titles_hash(node.root.statement_documents) : nil,
       :parent_id => node.parent_id || -1,
-      :root_id => (!node.root_id.nil? and node.root_id != node.parent_id) ? node.root_id : -1,
+      :root_id => (!node.root.nil? and node.root != node.parent) ? node.root.id : -1,
       :parent_type => node.parent ? node.parent.class.name.underscore.downcase : nil,
       :operation => 'created'
     }.to_json

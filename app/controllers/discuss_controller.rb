@@ -24,9 +24,9 @@ class DiscussController < ApplicationController
     when "Question"
       redirect_to question_url(@statement_node)
     when "Proposal"
-      redirect_to question_proposal_path(@statement_node.parent, @statement_node)
+      redirect_to proposal_path(@statement_node)
     when "ImprovementProposal"
-      redirect_to question_proposal_improvement_proposal_url(@statement_node.root, @statement_node.parent, @statement_node)
+      redirect_to improvement_proposal_url(@statement_node)
     end
   end
 

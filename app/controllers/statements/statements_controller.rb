@@ -1,6 +1,4 @@
 class StatementsController < ApplicationController
-  include StatementsHelper
-
   # Remodelling the RESTful constraints, as a default route is currently active
   # FIXME: the echo and unecho actions should be accessible via PUT/DELETE only,
   #        but that is currently undoable without breaking non-js requests. A
@@ -149,12 +147,11 @@ class StatementsController < ApplicationController
   # Renders form for creating a new statement.
   #
   # Method:   GET
-  # Params:   parent_id: integer, root_id: integer
+  # Params:   parent_id: integer
   # Response: JS
   #
   def new
     @statement_node ||= statement_node_class.new(:parent => parent,
-                                                 :root_id => root_symbol,
                                                  :editorial_state => StatementState[:new])
     @statement_document ||= StatementDocument.new(:language_id => @locale_language_id)
     @action ||= StatementAction["created"]
@@ -679,10 +676,10 @@ class StatementsController < ApplicationController
   end
 
   #
-  # Returns the parent statement node of the current statement. Must be implemented by the subclasses.
+  # Returns the parent statement node of the current statement.
   #
   def parent
-    raise NotImplementedError.new("This method must be implemented by subclasses.")
+    params.has_key?(:parent_id) ? StatementNode.find(params[:parent_id]) : nil
   end
 
   #

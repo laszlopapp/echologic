@@ -4,7 +4,6 @@
 
 
 
-(function($) {
 
 $(document).ready(function () {
   bindHistoryEvents();
@@ -91,5 +90,3 @@ function pagination_scroll_down(id, current_scroll) {
   }
 
 }
-
-})(jQuery);

@@ -2,7 +2,7 @@
 <% tags ||= @tags %>
 <% statement_document ||= @statement_document %>
 
-<% semantic_form_for statement_node.self_with_parents, :html => {:class => 'wide_form' } do |form| -%>
+<% semantic_form_for statement_node, :html => {:class => 'wide_form' } do |form| -%>
 
   <!-- Basic fields: title + text -->
   <%= render :partial => "statements/document_form",
@@ -41,7 +41,6 @@
   <!-- Hidden fields -->
 	<%= form.hidden_field :statement_id %>
   <%= form.hidden_field :parent_id %>
-	<%= form.hidden_field :root_id %>
 	
   <!-- Submit or cancel -->
   <% form.buttons do %>

@@ -29,13 +29,13 @@ module NavigationHelpers
     when /^the question$/
       question_path(@question)
     when /^the proposal$/
-      question_proposal_path(@proposal.parent,@proposal)
+      proposal_path(@proposal)
     when /^the improvement proposal$/
-      question_proposal_improvement_proposal_path(@improvement_proposal.root,@improvement_proposal.parent,@improvement_proposal)
+      improvement_proposal_path(@improvement_proposal)
     when /^the first question$/
       question_path(Question.first)
     when /^the questions first proposal/
-      question_proposal_path(@question, @proposal)
+      proposal_path(@proposal)
     when /discuss index/i
       discuss_url
     when /my discussions/i
@@ -44,7 +44,7 @@ module NavigationHelpers
       discuss_path
     when /the proposal/
       raise [@proposal.inspect,@proposal.parent.inspect].join('\n')
-      question_proposal_path(@proposal.parent, @proposal)
+      proposal_path(@proposal)
     when /the activation page/
       register_url(@user.perishable_token)
     when /the edit password page/

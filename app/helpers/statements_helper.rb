@@ -1,29 +1,10 @@
 module StatementsHelper
-
-  def self.included(base)
-    base.instance_eval do
-      alias_method :proposal_path, :proposal_url
-      alias_method :new_proposal_path, :new_proposal_url
-      alias_method :new_translation_proposal_path, :new_translation_proposal_url
-      alias_method :upload_image_proposal_path, :upload_image_proposal_url
-      alias_method :reload_image_proposal_path, :reload_image_proposal_url
-      alias_method :children_proposal_path, :children_proposal_url
-      alias_method :children_path, :children_url
-
-      alias_method :improvement_proposal_path, :improvement_proposal_url
-      alias_method :new_improvement_proposal_path, :new_improvement_proposal_url
-      alias_method :new_translation_improvement_proposal_path, :new_translation_improvement_proposal_url
-      alias_method :upload_image_improvement_proposal_path, :upload_image_improvement_proposal_url
-      alias_method :reload_image_improvement_proposal_path, :reload_image_improvement_proposal_url
-    end
-  end
-
   ########
   # URLs #
   ########
-
-  def new_child_statement_node_url(parent, type)
-    send("new_#{type.downcase}_url",parent)
+  
+  def new_child_statement_node_url(type, opts={})
+    send("new_#{type.downcase}_url",opts)
   end
 
   def edit_statement_node_path(statement_node, opts={})
@@ -50,145 +31,6 @@ module StatementsHelper
     send("children_#{type.downcase}_url",parent, opts)
   end
 
-  # returns the path to a statement_node, according to its type
-  def statement_node_path(statement_node)
-    statement_node = StatementNode.find(statement_node) if statement_node.kind_of?(Integer)
-    send("#{statement_node_class_dom_id(statement_node).downcase}_url", statement_node)
-  end
-
-  ## Proposal
-
-  def proposal_url(proposal)
-    question_proposal_url(proposal.parent,proposal)
-  end
-
-  def new_proposal_url(parent)
-    new_question_proposal_url(parent)
-  end
-
-  def edit_proposal_url(proposal,opts={})
-    edit_question_proposal_url(proposal.parent, proposal,opts)
-  end
-
-  def edit_proposal_path(proposal,opts={})
-    edit_question_proposal_path(proposal.parent, proposal,opts)
-  end
-
-  def new_translation_proposal_url(proposal, opts={})
-    new_translation_question_proposal_url(proposal.parent, proposal,opts)
-  end
-
-  def new_translation_proposal_path(proposal, opts={})
-    new_translation_question_proposal_path(proposal.parent, proposal, opts)
-  end
-
-  def create_translation_proposal_url(proposal)
-    create_translation_question_proposal_url(proposal.parent, proposal)
-  end
-
-  def create_translation_proposal_path(proposal)
-    create_translation_question_proposal_path(proposal.parent, proposal)
-  end
-
-  def upload_image_proposal_url(proposal, opts={})
-    upload_image_question_proposal_url(proposal.parent, proposal, opts)
-  end
-
-  def upload_image_proposal_path(proposal, opts={})
-    upload_image_question_proposal_path(proposal.parent, proposal, opts)
-  end
-
-  def reload_image_proposal_url(proposal, opts={})
-    reload_image_question_proposal_url(proposal.parent, proposal, opts)
-  end
-
-  def reload_image_proposal_path(proposal, opts={})
-    reload_image_question_proposal_path(proposal.parent, proposal, opts)
-  end
-
-  def children_proposal_url(proposal, opts={})
-    children_question_proposal_url(proposal.parent, proposal, opts)
-  end
-
-  def children_proposal_path(proposal, opts={})
-    children_question_proposal_path(proposal.parent, proposal, opts)
-  end
-
-  ## ImprovementProposal
-
-  def improvement_proposal_url(improvement_proposal)
-    question_proposal_improvement_proposal_url(improvement_proposal.root,
-                                               improvement_proposal.parent,
-                                               improvement_proposal)
-  end
-
-  def new_improvement_proposal_url(parent)
-    raise ArgumentError.new("Expected `parent' to be a Proposal (is: #{parent})") unless parent.kind_of?(Proposal)
-    raise ArgumentError.new("Expected `parent.parent' to be a Question (is: #{parent.parent})") unless parent.parent.kind_of?(Question)
-    new_question_proposal_improvement_proposal_url(parent.parent, parent)
-  end
-
-  def edit_improvement_proposal_url(improvement_proposal,opts={})
-    edit_question_proposal_improvement_proposal_url(improvement_proposal.root,
-                                                    improvement_proposal.parent,
-                                                    improvement_proposal,opts)
-  end
-
-  def edit_improvement_proposal_path(improvement_proposal,opts={})
-    edit_question_proposal_improvement_proposal_path(improvement_proposal.root,
-                                                     improvement_proposal.parent,
-                                                     improvement_proposal,opts)
-  end
-
-  def new_translation_improvement_proposal_url(improvement_proposal, opts={})
-    new_translation_question_proposal_improvement_proposal_url(improvement_proposal.root,
-                                                               improvement_proposal.parent,
-                                                               improvement_proposal, opts)
-  end
-
-  def new_translation_improvement_proposal_path(improvement_proposal, opts={})
-    new_translation_question_proposal_improvement_proposal_path(improvement_proposal.root,
-                                                                improvement_proposal.parent,
-                                                                improvement_proposal, opts)
-  end
-
-  def create_translation_improvement_proposal_url(improvement_proposal)
-    create_translation_question_proposal_improvement_proposal_url(improvement_proposal.root,
-                                                                  improvement_proposal.parent,
-                                                                  improvement_proposal)
-  end
-
-  def create_translation_improvement_proposal_path(improvement_proposal)
-    create_translation_question_proposal_improvement_proposal_path(improvement_proposal.root,
-                                                                   improvement_proposal.parent,
-                                                                   improvement_proposal)
-  end
-
-  def upload_image_improvement_proposal_url(improvement_proposal, opts={})
-    upload_image_question_proposal_improvement_proposal_url(improvement_proposal.root,
-                                                                  improvement_proposal.parent,
-                                                                  improvement_proposal, opts)
-  end
-
-  def upload_image_improvement_proposal_path(improvement_proposal, opts={})
-    upload_image_question_proposal_improvement_proposal_path(improvement_proposal.root,
-                                                                   improvement_proposal.parent,
-                                                                   improvement_proposal, opts)
-  end
-
-  def reload_image_improvement_proposal_url(improvement_proposal, opts={})
-    reload_image_question_proposal_improvement_proposal_url(improvement_proposal.root,
-                                                                  improvement_proposal.parent,
-                                                                  improvement_proposal, opts)
-  end
-
-  def reload_image_improvement_proposal_path(improvement_proposal, opts={})
-    reload_image_question_proposal_improvement_proposal_path(improvement_proposal.root,
-                                                                   improvement_proposal.parent,
-                                                                   improvement_proposal, opts)
-  end
-
-
 
   #########
   # Links #
@@ -207,7 +49,7 @@ module StatementsHelper
   def create_new_statement_link(statement_node, type)
     content_tag :li do
       link_to(I18n.t("discuss.statements.create_#{type}_link"),
-              new_child_statement_node_url(statement_node, type),
+              new_child_statement_node_url(type, :parent_id => statement_node.id),
               :id => "create_#{type}_link",
               :class => "ajax add_new_button text_button create_#{type}_button ttLink no_border",
               :title => I18n.t("discuss.tooltips.create_#{type}"))
@@ -220,7 +62,7 @@ module StatementsHelper
   def create_new_sibling_statement_button(statement_node)
     type = statement_node_class_dom_id(statement_node)
 
-    link_to(new_child_statement_node_url(statement_node.parent, type),
+    link_to(new_child_statement_node_url(type, :parent_id => statement_node.parent ? statement_node.parent.id : nil),
             :id => "create_#{type}_link",
             :class => "#{statement_node.echoable? ? 'ajax' : ''}") do
       content_tag(:span, '',
@@ -276,9 +118,10 @@ module StatementsHelper
   end
 
   def cancel_new_statement_node(statement_node,cancel_js=false)
+    type = statement_node_class_dom_id(statement_node).downcase
     link_to I18n.t('application.general.cancel'),
             session[:last_statement_node] ?
-              statement_node_path(session[:last_statement_node]) : (statement_node.parent or discuss_url),
+              send("#{type}_url",session[:last_statement_node]) : (statement_node.parent or discuss_url),
             :class => 'ajax text_button cancel_text_button'
   end
 
