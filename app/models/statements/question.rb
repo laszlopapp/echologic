@@ -8,9 +8,9 @@ class Question < StatementNode
 
   # methods / settings to overwrite default statement_node behaviour
 
-  validates_parent :Question, :NilClass
-  expects_children :Proposal
-  named_scope(:roots, lambda { { :conditions => { :root_id => nil } } })
+#  validates_parent :Question, :NilClass
+#  expects_children :Proposal
+#  named_scope(:roots, lambda { { :conditions => { :root_id => nil } } })
 
 
   # the default scope defines basic rules for the sql query sent on this model

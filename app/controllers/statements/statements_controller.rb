@@ -126,7 +126,7 @@ class StatementsController < ApplicationController
       respond_to_js :template => 'statements/show',
                     :partial_js => 'statements/show.rjs'
 
-rescue Exception => e
+    rescue Exception => e
       log_home_error(e,"Error showing statement.")
     end
   end

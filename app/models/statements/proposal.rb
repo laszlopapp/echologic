@@ -8,8 +8,8 @@ class Proposal < StatementNode
   acts_as_draftable :tracked, :staged, :approved, :incorporated, :passed
   # methods / settings to overwrite default statement_node behaviour
 
-  validates_parent :Question
-  expects_children :ImprovementProposal
+#  validates_parent :Question
+#  expects_children :ImprovementProposal
 
   # the default scope defines basic rules for the sql query sent on this model
   # for questions we do not need to include the echo, and we don't order by supporters count, as they are not supportable

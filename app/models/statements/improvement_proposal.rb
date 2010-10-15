@@ -8,9 +8,9 @@ class ImprovementProposal < StatementNode
   acts_as_incorporable
   
   # methods / settings to overwrite default statement_node behaviour
-  validates_parent :Proposal
-  expects_children
-  
+#  validates_parent :Proposal
+#  expects_children
+#  
   
   # Overwriting the acts_as_taggable function saying this object is not taggable anymore
   def taggable?

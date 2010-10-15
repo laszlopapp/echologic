@@ -3,49 +3,65 @@ test-question:
   creator_id: <%= Fixtures.identify(:editor) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('test-question-statement') %>
+  lft: 33
+  rgt: 48
 
 test-question-2:
   type: Question
   creator_id: <%= Fixtures.identify(:editor) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('test-question-2-statement') %>
+  lft: 11
+  rgt: 24
 
 german-question:
   type: Question
   creator_id: <%= Fixtures.identify(:editor) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('third-question-statement') %>
+  lft: 3
+  rgt: 10
 
 original-language-question:
   type: Question
   creator_id: <%= Fixtures.identify(:editor) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('original-language-question-statement') %>
+  lft: 31
+  rgt: 32
 
 with-german-children-question:
   type: Question
   creator_id: <%= Fixtures.identify(:editor) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('with-german-children-question-statement') %>
+  lft: 27
+  rgt: 30
 
 non_published_question:
   type: Question
   creator_id: <%= Fixtures.identify(:editor) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_new) %>
   statement_id: <%= Fixtures.identify('non-published-question-statement') %>
+  lft: 1
+  rgt: 2
   
 user_question: 
   type: Question
   creator_id: <%= Fixtures.identify(:user) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('user-question-statement') %>
-
+  lft: 25
+  rgt: 26
+  
 first-proposal:
   parent_id: <%= Fixtures.identify('test-question-2') %>
   type: Proposal
   creator_id: <%= Fixtures.identify(:user) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('first-proposal-statement') %>
+  lft: 12
+  rgt: 23
 
 second-proposal:
   parent_id: <%= Fixtures.identify('test-question') %>
@@ -53,6 +69,8 @@ second-proposal:
   creator_id: <%= Fixtures.identify(:user) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('second-proposal-statement') %>
+  lft: 40
+  rgt: 41
 
 third-proposal:
   parent_id: <%= Fixtures.identify('test-question') %>
@@ -60,6 +78,8 @@ third-proposal:
   creator_id: <%= Fixtures.identify(:user) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('third-proposal-statement') %>
+  lft: 42
+  rgt: 43
 
 inbetween-proposal:
   parent_id: <%= Fixtures.identify('test-question') %>
@@ -67,6 +87,8 @@ inbetween-proposal:
   creator_id: <%= Fixtures.identify(:editor) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('inbetween-proposal-statement') %>
+  lft: 34
+  rgt: 35
 
 fourth-proposal:
   parent_id: <%= Fixtures.identify('test-question') %>
@@ -74,6 +96,8 @@ fourth-proposal:
   creator_id: <%= Fixtures.identify(:editor) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('fourth-proposal-statement') %>
+  lft: 46
+  rgt: 47
 
 fifth-proposal:
   parent_id: <%= Fixtures.identify('test-question') %>
@@ -81,6 +105,8 @@ fifth-proposal:
   creator_id: <%= Fixtures.identify(:editor) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('fifth-proposal-statement') %>
+  lft: 38
+  rgt: 39
 
 sixth-proposal:
   parent_id: <%= Fixtures.identify('test-question') %>
@@ -88,6 +114,8 @@ sixth-proposal:
   creator_id: <%= Fixtures.identify(:editor) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('sixth-proposal-statement') %>
+  lft: 36
+  rgt: 37
 
 german-proposal:
   parent_id: <%= Fixtures.identify('german-question') %>
@@ -95,6 +123,8 @@ german-proposal:
   creator_id: <%= Fixtures.identify(:editor) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('german-proposal-statement') %>
+  lft: 6
+  rgt: 9
 
 second-german-proposal:
   parent_id: <%= Fixtures.identify('german-question') %>
@@ -102,6 +132,8 @@ second-german-proposal:
   creator_id: <%= Fixtures.identify(:editor) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('second-german-proposal-statement') %>
+  lft: 4
+  rgt: 5
 
 not-published-proposal:
   parent_id: <%= Fixtures.identify('test-question') %>
@@ -109,6 +141,8 @@ not-published-proposal:
   creator_id: <%= Fixtures.identify(:editor) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_new) %>
   statement_id: <%= Fixtures.identify('not-published-proposal-statement') %>
+  lft: 44
+  rgt: 45
 
 german-child-proposal:
   parent_id: <%= Fixtures.identify('with-german-children-question') %>
@@ -116,6 +150,9 @@ german-child-proposal:
   creator_id: <%= Fixtures.identify(:editor) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('german-child-proposal-statement') %>
+  lft: 28
+  rgt: 29
+  
 
 first-impro-proposal:
   parent_id: <%= Fixtures.identify('first-proposal') %>
@@ -126,6 +163,8 @@ first-impro-proposal:
   statement_id: <%= Fixtures.identify('first-impro-proposal-statement') %>
   drafting_state: 'tracked'
   created_at: <%= Time.now.strftime("%d/%m/%y %H:%M") %>
+  lft: 19
+  rgt: 20
 
 second-impro-proposal:
   parent_id: <%= Fixtures.identify('first-proposal') %>
@@ -136,6 +175,8 @@ second-impro-proposal:
   statement_id: <%= Fixtures.identify('second-impro-proposal-statement') %>
   drafting_state: 'tracked'
   created_at: <%= Time.now.strftime("%d/%m/%y %H:%M") %>
+  lft: 13
+  rgt: 14
   
 third-impro-proposal:
   parent_id: <%= Fixtures.identify('first-proposal') %>
@@ -146,6 +187,8 @@ third-impro-proposal:
   statement_id: <%= Fixtures.identify('third-impro-proposal-statement') %>
   drafting_state: 'tracked'
   created_at: <%= Time.now.strftime("%d/%m/%y %H:%M") %>
+  lft: 21
+  rgt: 22
 
 fourth-impro-proposal:
   parent_id: <%= Fixtures.identify('first-proposal') %>
@@ -156,6 +199,8 @@ fourth-impro-proposal:
   statement_id: <%= Fixtures.identify('fourth-impro-proposal-statement') %>
   drafting_state: 'tracked'
   created_at: <%= Time.now.strftime("%d/%m/%y %H:%M") %>
+  lft: 15
+  rgt: 16
 
 fifth-impro-proposal:
   parent_id: <%= Fixtures.identify('first-proposal') %>
@@ -166,6 +211,8 @@ fifth-impro-proposal:
   statement_id: <%= Fixtures.identify('fifth-impro-proposal-statement') %>
   drafting_state: 'tracked'
   created_at: <%= Time.now.strftime("%d/%m/%y %H:%M") %>
+  lft: 17
+  rgt: 18
 
 german-impro-proposal:
   parent_id: <%= Fixtures.identify('german-proposal') %>
@@ -176,3 +223,5 @@ german-impro-proposal:
   statement_id: <%= Fixtures.identify('german-impro-proposal-statement') %>
   drafting_state: 'tracked'
   created_at: <%= Time.now.strftime("%d/%m/%y %H:%M") %>
+  lft: 7
+  rgt: 8
