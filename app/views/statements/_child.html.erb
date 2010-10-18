@@ -3,7 +3,7 @@
   extra_classes ||= nil
 %>
 
-<li id="<%= statement_node_dom_id(child) %>" class="<%=child.parent.class.name.downcase%>">
+<li id="<%= dom_id(child) %>" class="<%=child.parent.class.name.downcase%>">
 	<%= link_to_child(statement_document.title,child,extra_classes) %>
   <%= supporter_ratio_bar(child) %>
 </li>

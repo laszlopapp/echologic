@@ -3,7 +3,7 @@
 <% new_statement_document ||= @new_statement_document %>
 
 <div id="summary" class="simple_header_block discuss_right_block">
-	<%= content_tag :h2, I18n.t("discuss.statements.types.#{statement_node.class.name.underscore}") %>
+	<%= content_tag :h2, I18n.t("discuss.statements.types.#{dom_class(statement_node)}") %>
 
   <!-- Building the translation box with the two babelfishes -->
 	<div id="new_translation">
@@ -20,5 +20,5 @@
 </div>
 
 <script type="text/javascript">
- $('#edit_<%=statement_node_class_dom_id(statement_node)%>_<%=statement_node.id%>').ajaxForm({ dataType : 'script' });
+ $('#edit_<%= dom_class(statement_node)%>_<%=statement_node.id%>').ajaxForm({ dataType : 'script' });
 </script>

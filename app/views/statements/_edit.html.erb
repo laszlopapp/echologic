@@ -3,7 +3,7 @@
 
 <div id="summary" class="summary simple_header_block discuss_right_block">
   <%= content_tag :h2, I18n.t("discuss.statements.edit",
-                  :type => I18n.t("discuss.statements.types.#{statement_node_class_dom_id(statement_node)}"))%>
+                  :type => I18n.t("discuss.statements.types.#{dom_class(statement_node)}"))%>
   <%= content_tag :p, I18n.t('discuss.statements.edit_period_hint', :minutes => 60) %>
 
   <%= render :partial => 'statements/form',

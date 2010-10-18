@@ -20,14 +20,7 @@ class DiscussController < ApplicationController
   # processes a cancel request, and redirects back to the last shown statement_node
   def cancel
     @statement_node = StatementNode.find(session[:last_statement_node])
-    case @statement_node.class.name
-    when "Question"
-      redirect_to question_url(@statement_node)
-    when "Proposal"
-      redirect_to proposal_path(@statement_node)
-    when "ImprovementProposal"
-      redirect_to improvement_proposal_url(@statement_node)
-    end
+    redirect_to @statement_node
   end
 
 end

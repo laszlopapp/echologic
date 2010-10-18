@@ -11,7 +11,7 @@
     <!-- Illustration -->
     <%= statement_form_illustration(statement_node) %>
 
-    <%= content_tag :p, I18n.t("discuss.statements.create_#{statement_node.class.name.underscore}_explanation") %>
+    <%= content_tag :p, I18n.t("discuss.statements.create_#{dom_class(statement_node)}_explanation") %>
 
     <%= render :partial => 'statements/form',
                :locals => {:statement_node => statement_node,
@@ -21,6 +21,6 @@
 </div>
 
 <script type="text/javascript">
-  $('#new_<%=statement_node_class_dom_id(statement_node)%>').ajaxForm({ dataType : 'script' });
+  $('#new_<%= dom_class(statement_node)%>').ajaxForm({ dataType : 'script' });
 </script>
 
