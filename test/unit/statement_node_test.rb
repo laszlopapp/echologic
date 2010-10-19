@@ -42,7 +42,6 @@ class StatementNodeTest < ActiveSupport::TestCase
     end
 
     context("should be in a tree") do
-      should belong_to :root_statement
       should have_db_column :root_id
       should have_db_column :parent_id
     end

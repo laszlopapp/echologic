@@ -62,9 +62,9 @@ class QuestionsController < StatementsController
 
   protected
   # return a possible parent, in this case question doesn't have a parent
-  def parent
-    nil
-  end
+#  def parent
+#    nil
+#  end
 
   #returns the handled statement type symbol
   def statement_node_symbol
@@ -74,9 +74,5 @@ class QuestionsController < StatementsController
   # returns the statement_node class, corresponding to the controllers name
   def statement_node_class
     Question
-  end
-
-  def root_symbol
-    nil
   end
 end

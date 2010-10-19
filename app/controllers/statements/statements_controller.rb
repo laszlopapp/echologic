@@ -1,6 +1,4 @@
 class StatementsController < ApplicationController
-  include StatementsHelper
-
   # Remodelling the RESTful constraints, as a default route is currently active
   # FIXME: the echo and unecho actions should be accessible via PUT/DELETE only,
   #        but that is currently undoable without breaking non-js requests. A
@@ -17,9 +15,9 @@ class StatementsController < ApplicationController
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
   before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions,
                                                                    :new, :create, :children, :upload_image,
-                                                                   :reload_image]
-  before_filter :require_user, :except => [:category, :show, :children]
-  before_filter :fetch_languages, :except => [:destroy]
+                                                                   :reload_image, :redirect]
+  before_filter :require_user, :except => [:category, :show, :children, :redirect]
+  before_filter :fetch_languages, :except => [:destroy, :redirect]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
 
@@ -126,7 +124,7 @@ class StatementsController < ApplicationController
       respond_to_js :template => 'statements/show',
                     :partial_js => 'statements/show.rjs'
 
-rescue Exception => e
+    rescue Exception => e
       log_home_error(e,"Error showing statement.")
     end
   end
@@ -149,12 +147,11 @@ rescue Exception => e
   # Renders form for creating a new statement.
   #
   # Method:   GET
-  # Params:   parent_id: integer, root_id: integer
+  # Params:   parent_id: integer
   # Response: JS
   #
   def new
     @statement_node ||= statement_node_class.new(:parent => parent,
-                                                 :root_id => root_symbol,
                                                  :editorial_state => StatementState[:new])
     @statement_document ||= StatementDocument.new(:language_id => @locale_language_id)
     @action ||= StatementAction["created"]
@@ -560,7 +557,13 @@ rescue Exception => e
     end
   end
 
+  ###############
+  # REDIRECTION #
+  ###############
 
+  def redirect
+    redirect_to url_for(@statement_node)
+  end
 
   #############
   # PROTECTED #
@@ -679,10 +682,10 @@ rescue Exception => e
   end
 
   #
-  # Returns the parent statement node of the current statement. Must be implemented by the subclasses.
+  # Returns the parent statement node of the current statement.
   #
   def parent
-    raise NotImplementedError.new("This method must be implemented by subclasses.")
+    params.has_key?(:parent_id) ? StatementNode.find(params[:parent_id]) : nil
   end
 
   #

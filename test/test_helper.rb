@@ -38,6 +38,8 @@ class ActiveSupport::TestCase
 
   setup :initialize_enum_keys
 
+#  setup :build_nested_set
+
   def login_as(user)
     activate_authlogic
     UserSession.create(users(user))
@@ -48,6 +50,10 @@ class ActiveSupport::TestCase
   #setup :load_seeds
   
   protected
+  
+  def build_nested_set
+    StatementNode.rebuild!
+  end
 
   def load_seeds
     load File.expand_path(File.dirname(__FILE__) + "/../db/seeds.rb")

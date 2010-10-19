@@ -18,5 +18,5 @@
 
 <script>
   loadRTEEditor('.rte_tr_doc', '<%= ECHO_HOST %>');
-	$('#<%= statement_node_class_dom_id(statement_node).downcase %>_new_statement_document_title').focus();
+	$('#<%= dom_class(statement_node).downcase %>_new_statement_document_title').focus();
 </script>

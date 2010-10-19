@@ -109,16 +109,19 @@ ActionController::Routing::Routes.draw do |map|
 
   # SECTION discuss - discussion tree
   map.resources :questions,
-              :member => [:new_translation, :create_translation, :publish, :cancel, :children, :upload_image, :reload_image],
-                :as => 'discuss/questions' do |question|
-    question.resources :proposals,
-                       :member => [:echo, :unecho, :new_translation, :create_translation, :incorporate, :cancel, :children, :upload_image, :reload_image] do |proposal|
-      proposal.resources :improvement_proposals,
-                         :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, :reload_image] do |improvement_proposal|
-      end
-    end
-  end
-
+                :member => [:new_translation, :create_translation, :publish, :cancel, :children, :upload_image, :reload_image],
+                :as => 'discuss/questions'
+  map.resources :proposals,
+                 :member => [:echo, :unecho, :new_translation, :create_translation, :incorporate, :cancel, :children, :upload_image, :reload_image],
+                 :as => 'discuss/proposals'
+  map.resources :improvement_proposals,
+                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, :reload_image],
+                :as => 'discuss/improvement_proposals'
+  # old discuss paths redirection
+  map.connect 'discuss/questions/:question_id/proposals/:id', :controller => :proposals, :action => :redirect 
+  map.connect 'discuss/questions/:question_id/proposals/:proposal_id/improvement_proposals/:id',
+              :controller => :improvement_proposals, :action => :redirect 
+              
 
   # SECTION root
   map.root :controller => 'static/echologic', :action => 'show'

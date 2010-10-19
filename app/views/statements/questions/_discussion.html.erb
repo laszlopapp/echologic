@@ -1,7 +1,7 @@
 <% statement_document ||= @statement_documents[discussion.statement_id] %>
 
 <% if statement_document %>
-	<li id="<%= statement_node_dom_id(discussion) %>" class="<%=discussion.class.name.downcase%>">
+	<li id="<%= dom_id(discussion) %>" class="<%=discussion.class.name.downcase%>">
 		<% link_to question_url(discussion), :class => "avatar_holder" do %>
       <%= image_tag discussion.image.url(:small) %>
     <% end %>
