@@ -259,7 +259,7 @@ class StatementNode < ActiveRecord::Base
       where_clause = and_conditions.join(" AND ")
 
       # Building the order clause
-      order_clause = " order by e.supporter_count DESC, n.created_at asc;"
+      order_clause = " order by e.supporter_count DESC, n.created_at DESC;"
 
       # Composing the query and substituting the values
       query = select_clause + where_clause + order_clause

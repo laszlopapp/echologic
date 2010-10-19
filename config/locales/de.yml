@@ -35,21 +35,21 @@ de:
     # Roadmap - Progress
     roadmap:
       title: fertig
-      progress_tooltip: 'Dieser Bereich ist zu %{progress}% fertig.'
+      progress_tooltip: 'Dieser Bereich ist zu {{progress}}% fertig.'
       status_quo: 'Status Quo'
       next_steps: 'Nächste Schritte'
       vision: 'Am Ende des Weges'
       discuss:
-        status_quo: 'Der Bereich "Diskutieren" ist zu <strong>%{progress}% fertig</strong>.'
+        status_quo: 'Der Bereich "Diskutieren" ist zu <strong>{{progress}}% fertig</strong>.'
         next_steps: 'Erste einfache Diskussionsfunktionen sind veröffentlicht. Der Bereich wird kontinuierlich ausgebaut.'
       connect:
-        status_quo: 'Der Bereich "Vernetzen" ist zu <strong>%{progress}% fertig</strong>.'
+        status_quo: 'Der Bereich "Vernetzen" ist zu <strong>{{progress}}% fertig</strong>.'
         next_steps: 'Eine einfache Personensuche ist veröffentlicht. Der Bereich "Vernetzen" wird weiterentwickelt, sobald die ersten Funktionen in "Diskutieren" und "Handeln" zur Verfügung stehen.'
       act:
-        status_quo: 'Der Bereich "Handeln" ist zu <strong>%{progress}% fertig</strong>.'
+        status_quo: 'Der Bereich "Handeln" ist zu <strong>{{progress}}% fertig</strong>.'
         next_steps: 'Mit der Entwicklung von "Handeln" werden wir nach der Veröffentlichung der ersten Funktionen im Bereich "Diskutieren" beginnen.'
       my_echo:
-        status_quo: 'Der Bereich "Mein echo" ist zu <strong>%{progress}% fertig</strong>.'
+        status_quo: 'Der Bereich "Mein echo" ist zu <strong>{{progress}}% fertig</strong>.'
         next_steps: 'Weitere Entwicklungen in "Mein echo" sind nach den Veröffentlichungen von Basisfunktionalitäten unter "Diskutieren, Vernetzen und Handeln" geplant.'
         vision: |
          <p>
@@ -90,7 +90,7 @@ de:
         welcome: Willkommen
         profile: Mein Profil
         settings: Einstellungen
-      profile_complete: '%{complete}% ausgefüllt'
+      profile_complete: '{{complete}}% ausgefüllt'
 
 
   # ----------------
@@ -134,7 +134,7 @@ de:
         signup: Noch kein Mitglied?
         set_password: Passwort vergessen?
         remember: Merke mich!
-        hello: Eingeloggt<br/><strong>%{name}</strong>
+        hello: Eingeloggt<br/><strong>{{name}}</strong>
       messages:
         login_success:  "Login erfolgreich.<br/>Willkommen zurück auf echo!"
         login_failed:   "Unbekannter Nutzer oder falsches Passwort."
@@ -317,14 +317,14 @@ de:
       no_discussions: |
         Sie haben bislang noch keine Diskussionen eröffnet. Um eine Diskussion anzulegen, klicken Sie bitte links auf das Fragezeichen.
     tag_permission: |
-      Sie dürfen leider den Tag '%{tag}' nicht vergeben.
+      Sie dürfen leider den Tag '{{tag}}' nicht vergeben.
     original_language_warning: |
-      Die originale Aussage ist auf <strong>%{language}</strong>. Definieren Sie<br/>
+      Die originale Aussage ist auf <strong>{{language}}</strong>. Definieren Sie<br/>
       Ihre Sprachkenntnisse, um weitere Inhalte zu sehen.
     translation_request: Bitte übersetzen Sie die Aussage auf <strong>DEUTSCH</strong>.
     results_count:
-      one: '%{count} Diskussion'
-      more: '%{count} Diskussionen'
+      one: '{{count}} Diskussion'
+      more: '{{count}} Diskussionen'
     featured_topics:
       title: Empfohlene Themen
       text: |
@@ -344,7 +344,7 @@ de:
           title: Pilot Projekte
     search:
       title: Suchen
-      in: '... in %{category} ...'
+      in: '... in {{category}} ...'
 
     tooltips:
       read_question: 'Diese Frage anschauen'
@@ -375,8 +375,8 @@ de:
     statements:
       label: 'Stimmen'
       echo_indicator:
-        one: '%{supporter_count} UnterstützerIn'
-        many: '%{supporter_count} UnterstützerInnen'
+        one: '{{supporter_count}} UnterstützerIn'
+        many: '{{supporter_count}} UnterstützerInnen'
       create_question_link: 'Neue Diskussion eröffnen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
       create_internal_link: 'Neue Idee?'
@@ -394,7 +394,7 @@ de:
         Bitte schreiben Sie Ihre Idee auf <strong>DEUTSCH</strong> oder wählen Sie über
         den Babelfish im oberen Menü eine andere Sprache aus.
       statement_language_hint: |
-        Bitte stellen Sie Ihre Sprachkenntnisse in Ihrem <a href='%{url}'>Profil</a> ein.
+        Bitte stellen Sie Ihre Sprachkenntnisse in Ihrem <a href='{{url}}'>Profil</a> ein.
       statement_language_hint_tooltip: |
         Sie können dann Aussagen in allen Sprachen erstellen, die Sie mindestens auf mittlerem Niveau beherrschen.
       drafting_language_hint: |
@@ -402,7 +402,7 @@ de:
 
       publish: Freigeben
       published: Die Diskussion wurde erfolgreich freigegeben.
-      edit: '%{type} bearbeiten'
+      edit: '{{type}} bearbeiten'
 
       types:
         question:  'Frage'
@@ -440,11 +440,11 @@ de:
       being_edited: |-
         Dieser Vorschlag wird gerade bearbeitet. Bitte versuchen Sie es später noch einmal.
       already_translated: |-
-        %{type} wurde gerade von einer anderen Person übersetzt.
+        {{type}} wurde gerade von einer anderen Person übersetzt.
       statement_updated: |-
-        %{type} wurde gerade von einer anderen Person aktualisiert.
+        {{type}} wurde gerade von einer anderen Person aktualisiert.
       edit_period_hint: |
-        Sie haben %{minutes} Minuten, um den Vorschlag zu bearbeiten.
+        Sie haben {{minutes}} Minuten, um den Vorschlag zu bearbeiten.
         Nach Ablauf können Ihre Änderungen eventuell nicht mehr berücksichtigt werden.
       staled_modification: 'Es tut uns sehr leid, aber Ihre Bearbeitungszeit von max. 60 Minuten ist abgelaufen. Mittlerweile hat ein anderer Nutzer den Vorschlag bearbeitet. Ihre Änderungen mussten daher leider verworfen werden.'
 
@@ -457,17 +457,17 @@ de:
     summary:
       title: 'Zusammenfassung'
     messages:
-      created: "%{type} wurde erfolgreich erstellt."
-      updated: "%{type} wurde erfolgreich bearbeitet."
-      deleted: "%{type} wurde erfolgreich gelöscht."
-      translated: "%{type} wurde erfolgreich übersetzt."
+      created: "{{type}} wurde erfolgreich erstellt."
+      updated: "{{type}} wurde erfolgreich bearbeitet."
+      deleted: "{{type}} wurde erfolgreich gelöscht."
+      translated: "{{type}} wurde erfolgreich übersetzt."
       incorporated: "Der Verbesserungsvorschlag wurde erfolgreich in den Vorschlag übernommen."
-      image_uploaded: "Das Bild wurde als Illustration zum/zur %{type} hinzugefügt."
+      image_uploaded: "Das Bild wurde als Illustration zum/zur {{type}} hinzugefügt."
       empty: "Es wurden keine Diskussionen gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
       empty_without_spoken_languages: |
-        Keine Diskussion gefunden. Versuchen Sie Ihre <a href='%{my_echo}'>Sprachkenntnisse</a> einzustellen,
+        Keine Diskussion gefunden. Versuchen Sie Ihre <a href='{{my_echo}}'>Sprachkenntnisse</a> einzustellen,
         um Inhalte in anderen Sprachen zu sehen.
-      new_percentage: "Ihr Profil ist jetzt zu %{percentage}% ausgefüllt."
+      new_percentage: "Ihr Profil ist jetzt zu {{percentage}}% ausgefüllt."
 
 
   # ---------------
@@ -477,7 +477,7 @@ de:
   connect:
 
     fill_out_profile:
-      text: Bitte füllen Sie Ihr Profil <strong>mindestens zu %{percentage}%</strong> aus, um "den Rechner" glücklich zu machen und diesen Block verschwinden zu lassen. :-)
+      text: Bitte füllen Sie Ihr Profil <strong>mindestens zu {{percentage}}%</strong> aus, um "den Rechner" glücklich zu machen und diesen Block verschwinden zu lassen. :-)
 
     segments:
       all: Alle
@@ -486,8 +486,8 @@ de:
       expertise: 'ExpertInnen'
       decision_making: 'EntscheiderInnen'
     results_count:
-      one: '%{count} BewegerIn'
-      more: '%{count} BewegerInnen'
+      one: '{{count}} BewegerIn'
+      more: '{{count}} BewegerInnen'
     details:
       tabs:
         overview:     'Überblick'
@@ -538,18 +538,18 @@ de:
               taken: 'Die von Ihnen angegebene E-Mail Adresse wird bereits verwendet.'
 
       messages:
-        blank: "Das Feld '%{attribute}' muss ausgefüllt werden."
+        blank: "Das Feld '{{attribute}}' muss ausgefüllt werden."
         taken: 'Ihre Wunschangabe wird leider bereits schon verwendet.'
-        too_short: "Ihre Eingabe im Feld '%{attribute}' ist zu kurz."
-        too_long: "Ihre Eingabe im Feld '%{attribute}' ist zu lang."
-        invalid: "Ihre Eingabe im Feld '%{attribute}' hat ein falsches Format."
-        confirmation: '%{attribute} muss übereinstimmen.'
+        too_short: "Ihre Eingabe im Feld '{{attribute}}' ist zu kurz."
+        too_long: "Ihre Eingabe im Feld '{{attribute}}' ist zu lang."
+        invalid: "Ihre Eingabe im Feld '{{attribute}}' hat ein falsches Format."
+        confirmation: '{{attribute}} muss übereinstimmen.'
         access_denied: "Leider fehlt Ihnen die notwendige Zugangsberechtigung."
 
       template:
         header:
           one: "Ein Feld wurde nicht korrekt ausgefüllt."
-          other: "%{count} Felder wurden nicht korrekt ausgefüllt."
+          other: "{{count}} Felder wurden nicht korrekt ausgefüllt."
         body: "Bitte überprüfen Sie Ihre Eingaben:"
 
     attributes:
@@ -640,35 +640,35 @@ de:
       less_than_x_seconds:
         zero: 'weniger als 1 Sekunde'
         one: 'weniger als 1 Sekunde'
-        other: 'weniger als %{count} Sekunden'
+        other: 'weniger als {{count}} Sekunden'
       x_seconds:
         one: '1 Sekunde'
-        other: '%{count} Sekunden'
+        other: '{{count}} Sekunden'
       less_than_x_minutes:
         zero: 'weniger als 1 Minute'
         one: 'weniger als eine Minute'
-        other: 'weniger als %{count} Minuten'
+        other: 'weniger als {{count}} Minuten'
       x_minutes:
         one: '1 Minute'
-        other: '%{count} Minuten'
+        other: '{{count}} Minuten'
       about_x_hours:
         one: 'etwa 1 Stunde'
-        other: 'etwa %{count} Stunden'
+        other: 'etwa {{count}} Stunden'
       x_days:
         one: '1 Tag'
-        other: '%{count} Tage'
+        other: '{{count}} Tage'
       about_x_months:
         one: 'etwa 1 Monat'
-        other: 'etwa %{count} Monate'
+        other: 'etwa {{count}} Monate'
       x_months:
         one: '1 Monat'
-        other: '%{count} Monate'
+        other: '{{count}} Monate'
       about_x_years:
         one: 'etwa 1 Jahr'
-        other: 'etwa %{count} Jahre'
+        other: 'etwa {{count}} Jahre'
       over_x_years:
         one: 'mehr als 1 Jahr'
-        other: 'mehr als %{count} Jahre'
+        other: 'mehr als {{count}} Jahre'
     prompts:
       second: "Sekunden"
       minute: "Minuten"
