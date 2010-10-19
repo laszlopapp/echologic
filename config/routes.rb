@@ -117,7 +117,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :improvement_proposals,
                 :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, :reload_image],
                 :as => 'discuss/improvement_proposals'
-    
+  # old discuss paths redirection
+  map.connect 'discuss/questions/:question_id/proposals/:id', :controller => :proposals, :action => :redirect 
+  map.connect 'discuss/questions/:question_id/proposals/:proposal_id/improvement_proposals/:id',
+              :controller => :improvement_proposals, :action => :redirect 
+              
 
   # SECTION root
   map.root :controller => 'static/echologic', :action => 'show'

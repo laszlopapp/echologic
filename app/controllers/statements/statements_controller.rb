@@ -15,9 +15,9 @@ class StatementsController < ApplicationController
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
   before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions,
                                                                    :new, :create, :children, :upload_image,
-                                                                   :reload_image]
-  before_filter :require_user, :except => [:category, :show, :children]
-  before_filter :fetch_languages, :except => [:destroy]
+                                                                   :reload_image, :redirect]
+  before_filter :require_user, :except => [:category, :show, :children, :redirect]
+  before_filter :fetch_languages, :except => [:destroy, :redirect]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
 
@@ -557,7 +557,13 @@ class StatementsController < ApplicationController
     end
   end
 
+  ###############
+  # REDIRECTION #
+  ###############
 
+  def redirect
+    redirect_to url_for(@statement_node)
+  end
 
   #############
   # PROTECTED #
