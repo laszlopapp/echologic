@@ -9,6 +9,6 @@
 <script type="text/javascript">
   makeRatiobars();
 	roundCorners();
-  showMessageBox("#translation_box", <%= @translation_permission %>);
-	showMessageBox("#original_language_box", <%= @original_language_warning %>);
+  showMessageBox("#<%= dom_class(@statement_node) %> #translation_box", <%= @translation_permission %>);
+	showMessageBox("#<%= dom_class(@statement_node) %> #original_language_box", <%= @original_language_warning %>);
 </script>
