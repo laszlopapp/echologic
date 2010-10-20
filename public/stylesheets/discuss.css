@@ -88,20 +88,24 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* New and Edit Statements forms */
 /* ----------------------------- */
 
-#new_statement form.formtastic fieldset #question_editorial_state_id_input li {
+#statements form.formtastic fieldset #question_editorial_state_id_input li {
   width: 700px;
 }
 
-#new_statement textarea, #summary textarea {
+#statements textarea, .summary textarea {
   height: 200px;
 }
 
-#new_statement p {
+form.statement p {
   cursor: default;
 }
 
-#new_statement #question_state_id_input li {
+form.statement #question_state_id_input li {
   width: 700px;
+}
+
+form.statement .discuss_right_block {
+	margin-left: 139px;
 }
 
 .new_statement_button_illustration {

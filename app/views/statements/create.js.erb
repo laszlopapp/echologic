@@ -1,0 +1,14 @@
+<%if @info %>
+  info('<%=@info%>');
+<% end %>
+
+<% if @statement_node.parent.nil? %>
+  window.location.replace('<%=url_for(@statement_node)%>');
+<% else %>
+  
+  var statement = "<%= escape_javascript(render :partial => 'statements/show') %>";
+	$('#statements form.<%= dom_class(@statement_node) %>').replaceWith(statement);
+<% end %>
+
+makeRatiobars();
+makeTooltips;

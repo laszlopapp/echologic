@@ -8,11 +8,11 @@ module StatementsHelper
   end
 
   def echo_url(statement_node, type, opts={})
-    send("echo_#{type.downcase}_url",opts)
+    send("echo_#{type.downcase}_url",statement_node, opts)
   end
   
   def unecho_url(statement_node, type, opts={})
-    send("unecho_#{type.downcase}_url",opts)
+    send("unecho_#{type.downcase}_url",statement_node, opts)
   end
 
   def edit_url(statement_node, opts={})
@@ -234,17 +234,17 @@ module StatementsHelper
 
   # Insert prev/next buttons for the current statement_node.
   def prev_next_buttons(statement_node,type = dom_class(statement_node))
-    
+    return "#{statement_tag(:prev, type, true)}#{statement_tag(:next, type, true)}" if statement_node.new_record?
     key = ("current_" + type).to_sym
     if session[key].present? and session[key].include?(statement_node.id)
       index = session[key].index(statement_node.id)
-      buttons = if session[key].length == 1
+      buttons = if session[key].length == 1 or statement_node.new_record?
                   statement_tag(:prev, type, true)
                 else
                   s = index == 0 ? session[key][session[key].length-1] : session[key][index-1]
                   statement_button(s, statement_tag(:prev, type), :rel => 'prev')
                 end
-      buttons << if session[key].length == 1
+      buttons << if session[key].length == 1 or statement_node.new_record?
                    statement_tag(:next, type, true)
                  else
                    s = index == session[key].length-1 ? session[key][0] : session[key][index+1]

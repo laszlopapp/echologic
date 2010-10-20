@@ -6,7 +6,7 @@
 <% end %>
 
 /* Remove all elements from the same class or children class */
-class_element = $('#statements div.<%= @statement_node.class.name.underscore %>');
+class_element = $('#statements div.<%= dom_class(@statement_node) %>');
 element_index = $('#statements div.statement').index(class_element);
 if(element_index >= 0) {
 	$('#statements .statement').map(function(index){

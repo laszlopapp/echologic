@@ -1,0 +1,6 @@
+<div class="content">
+	<%= render :partial => 'statements/action_bar', :locals => {:statement_node => statement_node, :no_show => true}%>
+	<%= render :partial => 'statements/form_summary', :locals => {:form => form, 
+                                                                :statement_node => statement_node,
+                                                                :statement_document => statement_document} %>
+</div>

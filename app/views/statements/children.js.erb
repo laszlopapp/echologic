@@ -1,5 +1,5 @@
-children_list = $('div.<%=dom_class(@statement_node)%> #children_list');
-more_element = $('div.<%=dom_class(@statement_node)%> .more_pagination');
+var children_list = $('div.<%=dom_class(@statement_node)%> #children_list');
+var more_element = $('div.<%=dom_class(@statement_node)%> .more_pagination');
 <%if @page.to_i == 1 %> 
   panel_height = <%= @children.total_entries == 7 ? 225 : 205 %>
 	children_list.animate({height: panel_height}, 400, function() {
@@ -7,8 +7,8 @@ more_element = $('div.<%=dom_class(@statement_node)%> .more_pagination');
   });
 <% end %>
 
-elements = "<%= escape_javascript(render :partial => 'statements/child', :collection => @children[@offset, @per_page]) %>";
-pagination_buttons = "<%= escape_javascript(will_paginate(@children, :id => 'more_pagination',:class => 'more_pagination',
+var elements = "<%= escape_javascript(render :partial => 'statements/child', :collection => @children[@offset, @per_page]) %>";
+var pagination_buttons = "<%= escape_javascript(will_paginate(@children, :id => 'more_pagination',:class => 'more_pagination',
                                                    :next_label => I18n.t("application.general.more"),
                                                    :renderer => StatementsHelper::MoreRenderer)) %>";
 

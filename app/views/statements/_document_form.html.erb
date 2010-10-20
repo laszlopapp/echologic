@@ -21,9 +21,9 @@
 			<% end %>
 		<% else %>
 	    <%= doc.input :language_id, :as => :hidden, :value => statement_document.language_id %>
+			<%= doc.input :title, :input_html => {:disabled => disabled} %>
 	  <% end %>
-
-    <%= doc.input :title, :input_html => {:disabled => disabled} %>
+		    
     <br/>
 		<% if !disabled %>
       <%= doc.input :text, :input_html => {:disabled => disabled, :class => css_rte_class} %>

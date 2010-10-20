@@ -1,7 +1,20 @@
 <% content_for :submenu, tabnav(:discuss) %>
 
-<%= render :partial => 'statements/new',
+<div id="statements">  
+ <% @ancestors.each do |ancestor| %>
+  <%= render_ancestor(ancestor) %>
+ <% end %>
+ <%= render :partial => 'statements/new',
            :locals => {:statement_node => @statement_node,
                        :statement_document => @statement_document, 
                        :tags => @tags } %>
+</div>
+
+<script type="text/javascript">
+  makeRatiobars();
+  roundCorners();
+  $('#new_<%= dom_class(@statement_node)%>').ajaxForm({ dataType : 'script' });
+</script>
+
+
 

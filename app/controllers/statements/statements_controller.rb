@@ -133,8 +133,6 @@ class StatementsController < ApplicationController
         }
         format.js {render :template => 'statements/show'}
       end
-#      respond_to_js :template => 'statements/show',
-#                    :partial_js => 'statements/show.rjs'
 
     rescue Exception => e
       log_home_error(e,"Error showing statement.")
@@ -175,11 +173,14 @@ class StatementsController < ApplicationController
     @action ||= StatementAction["created"]
     @statement_node.topic_tags << "##{params[:category]}" if params[:category]
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
-    # TODO: right now users can't select the language they create a statement in, so current_user.languages_keys.
-    # first will work. once this changes, we're in trouble - or better said: we'll have to pass the language_id as a param
-
-    respond_to_js :template => 'statements/new',
-                  :partial_js => 'statements/new.rjs'
+    
+    respond_to do |format|
+      format.html {
+        @ancestors = @statement_node.ancestors
+        render :template => 'statements/new'
+      }
+      format.js {render :template => 'statements/new'}
+    end
   end
 
 
@@ -216,14 +217,21 @@ class StatementsController < ApplicationController
           format.html { flash_info and redirect_to url_for(@statement_node) }
           format.js {
             @statement_node.visited!(current_user)
-            @children = [].paginate(StatementNode.default_scope.merge(:page => @page,
-                                                                      :per_page => 5))
-            render :partial => 'statements/create.rjs'
+            @children = {}
+            @statement_node.class.expected_children_types.each_with_index do |type, index|
+              if index == 0
+                type_class = type.to_s.constantize
+                @children[type] = [].paginate(type_class.default_scope.merge(:page => 1,:per_page => INITIAL_CHILDREN))
+              else
+                @children[type] = nil
+              end
+            end
+            render :template => 'statements/create'
           }
         else
           set_error(@statement_document)
           format.html { flash_error and render :template => 'statements/new' }
-          format.js   { show_error_messages }
+          format.js   { show_error_messages}
         end
       end
     rescue Exception => e

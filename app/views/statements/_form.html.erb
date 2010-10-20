@@ -2,51 +2,48 @@
 <% tags ||= @tags %>
 <% statement_document ||= @statement_document %>
 
-<% semantic_form_for statement_node, :html => {:class => 'wide_form' } do |form| -%>
-
-  <!-- Basic fields: title + text -->
-  <%= render :partial => "statements/document_form",
-             :locals => { :form => form,
-                          :statement_node => statement_node,
-                          :statement_document => statement_document } %>
+<!-- Basic fields: title + text -->
+<%= render :partial => "statements/document_form",
+           :locals => { :form => form,
+                        :statement_node => statement_node,
+                        :statement_document => statement_document } %>
 
 
 
-  <!-- Approved document -->
-  <%= render(:partial => 'statements/approved', :locals => {:only_text => true}) unless @approved_node.nil? %>
+<!-- Approved document -->
+<%= render(:partial => 'statements/approved', :locals => {:only_text => true}) unless @approved_node.nil? %>
 
-  <% if statement_node.taggable? -%>
+<% if statement_node.taggable? -%>
 
-    <!-- Statement tags (currently only for questions) -->
-	  <% form.inputs do %>
-		  <%= render :partial => "statements/statement_tags",
-	               :locals => {:form => form,
-	                           :statement_node => statement_node,
-	                           :tags => tags}%>
-		<% end %>
+  <!-- Statement tags (currently only for questions) -->
+  <% form.inputs do %>
+	  <%= render :partial => "statements/statement_tags",
+               :locals => {:form => form,
+                           :statement_node => statement_node,
+                           :tags => tags}%>
+	<% end %>
 
-    <!-- Published state radio buttons -->
-    <% if statement_node.new_record? -%>
-      <% form.inputs do %>
-        <%= form.input :editorial_state_id, :as => :radio, :label => I18n.t('discuss.statements.states.label'),
-                       :collection => statement_states_collection  %>
-      <% end %>
+  <!-- Published state radio buttons -->
+  <% if statement_node.new_record? -%>
+    <% form.inputs do %>
+      <%= form.input :editorial_state_id, :as => :radio, :label => I18n.t('discuss.statements.states.label'),
+                     :collection => statement_states_collection  %>
     <% end %>
-
-  <% else -%>
-    <!-- All statement types but questions -->
-	  <%= form.hidden_field :editorial_state_id, :value => StatementState[:published].id %>
-	<% end -%>
-
-  <!-- Hidden fields -->
-	<%= form.hidden_field :statement_id %>
-  <%= form.hidden_field :parent_id %>
-	
-  <!-- Submit or cancel -->
-  <% form.buttons do %>
-    <%= form.commit_button I18n.t('application.general.save'),
-                           :button_html => { :alt => 'save_button' } %>
-    <%= content_tag :span, I18n.t('application.general.or'), :class => "or_cancel" %>
-    <%= statement_node.new_record? ? cancel_new_statement_node(statement_node) : cancel_edit_statement_node(statement_node, statement_document.locked_at) %>
   <% end %>
+
+<% else -%>
+  <!-- All statement types but questions -->
+  <%= form.hidden_field :editorial_state_id, :value => StatementState[:published].id %>
 <% end -%>
+
+<!-- Hidden fields -->
+<%= form.hidden_field :statement_id %>
+<%= form.hidden_field :parent_id %>
+
+<!-- Submit or cancel -->
+<% form.buttons do %>
+  <%= form.commit_button I18n.t('application.general.save'),
+                         :button_html => { :alt => 'save_button' } %>
+  <%= content_tag :span, I18n.t('application.general.or'), :class => "or_cancel" %>
+  <%= statement_node.new_record? ? cancel_new_statement_node(statement_node) : cancel_edit_statement_node(statement_node, statement_document.locked_at) %>
+<% end %>
