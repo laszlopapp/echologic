@@ -43,6 +43,18 @@ module StatementsHelper
     send("children_#{type.downcase}_url",statement_node, opts)
   end
 
+  ##################
+  # RENDER HELPERS #
+  ##################
+
+  def render_ancestor(ancestor)
+    render :partial => 'statements/show', :locals => {:statement_node => ancestor, :no_show => true}
+  end
+  
+  def render_children(type, children)
+    render :partial => 'statements/children', :locals => {:type => type, :children => children}
+  end
+
 
   #########
   # Links #
@@ -58,7 +70,7 @@ module StatementsHelper
   # Creates a link to create a new statement for the given statement
   # (appears INSIDE of the children statements panel).
   #
-  def create_new_statement_link(statement_node, type)
+  def create_new_statement_link(statement_node, type = dom_class(statement_node))
     content_tag :li do
       link_to(I18n.t("discuss.statements.create_#{type}_link"),
               new_child_url(type, :parent_id => statement_node.id),
@@ -71,8 +83,7 @@ module StatementsHelper
   #
   # Creates a link to create a new sibling statement for the given statement (appears in the SIDEBAR).
   #
-  def create_new_sibling_statement_button(statement_node)
-    type = dom_class(statement_node)
+  def create_new_sibling_statement_button(statement_node,type = dom_class(statement_node))
     link_to(new_child_url(type, :parent_id => statement_node.parent ? statement_node.parent.id : nil),
             :id => "create_#{type}_link",
             :class => "#{statement_node.echoable? ? 'ajax' : ''}") do
@@ -83,8 +94,8 @@ module StatementsHelper
     end
   end
 
-  def create_translate_statement_link(statement_node, statement_document, css_class = "")
-     type = dom_class(statement_node)
+  def create_translate_statement_link(statement_node, statement_document, css_class = "",type = dom_class(statement_node))
+     
      link_to I18n.t('discuss.translation_request'),
               new_translation_url(statement_node, type, :current_document_id => statement_document.id),
               :class => "ajax translation_link #{css_class}"
@@ -126,6 +137,10 @@ module StatementsHelper
   def children_new_box_title(statement_node)
     I18n.t("discuss.statements.new.#{dom_class(statement_node)}")
   end
+  
+  def children_box_title(type)
+    I18n.t("discuss.statements.headings.#{type}")
+  end
 
   def cancel_new_statement_node(statement_node,cancel_js=false)
     link_to I18n.t('application.general.cancel'),
@@ -134,8 +149,7 @@ module StatementsHelper
             :class => 'ajax text_button cancel_text_button'
   end
 
-  def cancel_edit_statement_node(statement_node, locked_at)
-    type = dom_class(statement_node)
+  def cancel_edit_statement_node(statement_node, locked_at,type = dom_class(statement_node))
     link_to I18n.t('application.general.cancel'),
             cancel_url(statement_node, type, :locked_at => locked_at.to_s),
            :class => "text_button cancel_text_button ajax"
@@ -189,8 +203,7 @@ module StatementsHelper
   end
 
   # Renders the button for echo and unecho.
-  def render_echo_button(statement_node, echo = true)
-    type = dom_class(statement_node)
+  def render_echo_button(statement_node, echo = true, type = dom_class(statement_node))
     return if !statement_node.echoable?
     title = I18n.t("discuss.tooltips.#{echo ? '' : 'un'}echo")
     link_to(url_for(echo ? echo_url(statement_node,type) : unecho_url(statement_node,type)),
@@ -220,8 +233,8 @@ module StatementsHelper
   ##############
 
   # Insert prev/next buttons for the current statement_node.
-  def prev_next_buttons(statement_node)
-    type = dom_class(statement_node)
+  def prev_next_buttons(statement_node,type = dom_class(statement_node))
+    
     key = ("current_" + type).to_sym
     if session[key].present? and session[key].include?(statement_node.id)
       index = session[key].index(statement_node.id)
@@ -291,9 +304,9 @@ module StatementsHelper
   end
 
   #draws the "more" link when the statement is loaded
-  def more_children(statement_node)
+  def more_children(statement_node,type)
     link_to I18n.t("application.general.more"),
-            children_url(statement_node, dom_class(statement_node).downcase, :page => 1),
+            children_url(statement_node, dom_class(statement_node).downcase, :page => 1, :type => type),
             :class => 'more_children ajax'
   end
 

@@ -6,7 +6,7 @@ class StatementsController < ApplicationController
   #        wrap a form around it.
 
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
-                                    :children, :upload_image, :reload_image]
+                                    :more, :children, :upload_image, :reload_image]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
@@ -14,9 +14,9 @@ class StatementsController < ApplicationController
   # The order of these filters matters. change with caution.
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
   before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions,
-                                                                   :new, :create, :children, :upload_image,
+                                                                   :new, :create, :more, :children, :upload_image,
                                                                    :reload_image, :redirect]
-  before_filter :require_user, :except => [:category, :show, :children, :redirect]
+  before_filter :require_user, :except => [:category, :show, :more, :children, :redirect]
   before_filter :fetch_languages, :except => [:destroy, :redirect]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
@@ -112,34 +112,52 @@ class StatementsController < ApplicationController
 
       # Find all child statement_nodes, which are published (except user is an editor)
       # sorted by supporters count, and paginate them
-      @page = params[:page] || 1
-      @per_page = INITIAL_CHILDREN
-      @offset = 0
-      @children = @statement_node.children_statements(@language_preference_list).
-                    paginate(StatementNode.default_scope.merge(:page => @page,
-                                                               :per_page => @per_page))
-      @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
-                                                       @language_preference_list)
-
-      respond_to_js :template => 'statements/show',
-                    :partial_js => 'statements/show.rjs'
+      @children = {}
+      @statement_node.class.expected_children_types.each_with_index do |type, index|
+        if index == 0
+          type_class = type.to_s.constantize
+          @children[type] = @statement_node.children_statements(@language_preference_list, type.to_s).
+                                            paginate(type_class.default_scope.merge(:page => 1,
+                                                                                    :per_page => INITIAL_CHILDREN))
+          @children_documents = search_statement_documents(@children[type].map(&:statement_id),
+                                                       @language_preference_list)                                                                          
+        else
+          @children[type] = nil
+        end
+      end
+      
+      respond_to do |format|
+        format.html {
+          @ancestors = @statement_node.ancestors
+          render :template => 'statements/show'
+        }
+        format.js {render :template => 'statements/show'}
+      end
+#      respond_to_js :template => 'statements/show',
+#                    :partial_js => 'statements/show.rjs'
 
     rescue Exception => e
       log_home_error(e,"Error showing statement.")
     end
   end
 
+  def more
+    
+  end
 
   def children
+    @type = params[:type].camelize || @statement_node.class.expected_children_types.first.to_s
     @page = params[:page] || 1
     @per_page = 7
     @offset = @page.to_i == 1 ? 3 : 0
-    @children = @statement_node.children_statements(@language_preference_list).
+    @children = @statement_node.children_statements(@language_preference_list, @type).
                   paginate(StatementNode.default_scope.merge(:page => @page,
                                                              :per_page => @per_page))
     @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
                                                      @language_preference_list)
-    respond_to_js :partial_js => 'statements/children.rjs'
+    respond_to do |format|                                                 
+      format.js {render :template => 'statements/children'}
+    end
   end
 
 

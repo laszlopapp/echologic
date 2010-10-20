@@ -1,16 +1,12 @@
-<%
-  children ||= @children
-  statement_node ||= @statement_node
-  has_children = statement_node.has_children?
-%>
-<div id="children" class="<%= has_children ? 'header_block discuss_right_block' : '' %>">
-  <% if has_children %>
+<div id="<%= type.pluralize %>" class="children header_block discuss_right_block">
+  <!-- Title -->
+  <%= content_tag :h2, children_box_title(type) %>
 
-    <!-- Title -->
-      <%= content_tag :h2, children_box_title %>
-
-    <!-- The children -->
-    <%= render :partial => 'statements/children_list',
-               :locals => {:statement_nodes => children}%>
-  <% end -%>
+  <!-- The children -->
+	<% if children %>
+  <%= render :partial => 'statements/children_list',
+             :locals => {:type => type, :children => children}%>
+  <% else %>
+	
+	<% end %>
 </div>

@@ -79,10 +79,10 @@ $(function() {
 });
 
 
-function pagination_scroll_down(id) {
-	$(id).jScrollPane({animateTo: true});
-  if ($(id).data('jScrollPanePosition') != $(id).data('jScrollPaneMaxScroll')) {
-    $(id)[0].scrollTo($(id).data('jScrollPaneMaxScroll'));
+function pagination_scroll_down(element) {
+	element.jScrollPane({animateTo: true});
+  if (element.data('jScrollPanePosition') != element.data('jScrollPaneMaxScroll')) {
+    element[0].scrollTo(element.data('jScrollPaneMaxScroll'));
   }
 
 }

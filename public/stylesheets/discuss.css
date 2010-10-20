@@ -115,26 +115,24 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 /* ------- */
-/* CONTEXT */
+/* HEADER  */
 /* ------- */
 
-#context {
-  margin-bottom: 10px;
-}
 
-.context_line {
+
+#statements .header {
   background:  url(../images/page/discuss/stack_separator.png) no-repeat scroll 7px 0;
   clear: both;
   min-height: 34px;
   display: inline-block;
 }
 
-.context_line.active {
+#statements .header.active {
   background:  url(../images/page/discuss/stack_separator_active.png) no-repeat scroll 7px 0;
   min-height: 41px;
 }
 
-.context_buttons {
+#statements .header_buttons {
   width: 155px;
   min-height: 1px;
   display: inline-block;
@@ -146,7 +144,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   overflow: visible;
 }
 
-.context_link {
+#statements .header_link {
   display: inline-block;
   min-height: 30px;
   width: 835px;
@@ -156,11 +154,11 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   margin-bottom: 4px;
 }
 
-.context_link .statement_link {
+#statements .header_link .statement_link {
   background-position: 0 2px;
 }
 
-#context .context_link a {
+#statements .header .header_link a {
   width: 600px;
   display: inline-block;
   color: #21587F;
@@ -169,16 +167,16 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   text-decoration: none;
 }
 
-#context .context_link a:hover {
+#statements .header .header_link a:hover {
   color: #7bb031;
 }
 
-#context .context_line.active .context_link a {
+#statements .header.active .header_link a {
   color: #7bb031;
 }
 
 /* Prev/Next Statement buttons */
-.context_buttons .prev_stmt, .context_buttons .next_stmt {
+.header_buttons .prev_stmt, .header_buttons .next_stmt {
   display: inline-block;
   width: 37px;
   height: 39px;
@@ -186,38 +184,38 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   cursor: pointer;
 }
 
-.context_buttons .prev_stmt {
+.header_buttons .prev_stmt {
   background:  url(../images/page/prev_next_buttons.png) no-repeat scroll 0 -117px;
 }
 
-.context_buttons .next_stmt {
+.header_buttons .next_stmt {
   background:  url(../images/page/prev_next_buttons.png) no-repeat scroll -37px -117px;
 }
 
-.context_line:hover .prev_stmt, .context_line.active .prev_stmt {
+.header:hover .prev_stmt, .header.active .prev_stmt {
   background-position: 0 0;
   cursor: pointer;
 }
 
-.context_line:hover .next_stmt, .context_line.active .next_stmt {
+.header:hover .next_stmt, .header.active .next_stmt {
   background-position: -37px 0px;
   cursor: pointer;
 }
 
-.context_line:hover .prev_stmt:hover {
+.header:hover .prev_stmt:hover {
   background-position: 0 -39px;
 }
 
-.context_line:hover .next_stmt:hover {
+.header:hover .next_stmt:hover {
   background-position: -37px -39px;
 }
 
-.context_line:hover .prev_stmt.disabled, .context_line.active .prev_stmt.disabled {
+.header:hover .prev_stmt.disabled, .header.active .prev_stmt.disabled {
   background-position: 0 -78px;
   cursor: default;
 }
 
-.context_line:hover .next_stmt.disabled, .context_line.active .next_stmt.disabled {
+.header:hover .next_stmt.disabled, .header.active .next_stmt.disabled {
   background-position: -37px -78px;
   cursor: default;
 }
@@ -232,10 +230,18 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 /* ------- */
+/* Content */
+/* ------- */
+
+#statements .content {
+  margin-bottom: 10px;
+}
+
+/* ------- */
 /* Sidebar */
 /* ------- */
 
-#discuss_sidebar  {
+#statements .action_bar {
   clear: both;
   float: left;
   position: relative;
@@ -274,7 +280,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   clear: right;
 }
 
-#summary.discuss_right_block {
+.summary.discuss_right_block {
   width: 795px;
 }
 
@@ -330,12 +336,12 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   float:        right;
 }
 
-#context .echo_indicator, #context .no_echo_indicator {
+.header .echo_indicator, .header .no_echo_indicator {
   margin-top: 3px;
   background-color: #FFF;
 }
 
-#children .echo_indicator, #children .no_echo_indicator {
+.children .echo_indicator, .children .no_echo_indicator {
   margin-top: 3px;
 }
 
@@ -461,19 +467,19 @@ a.statement_link:hover {
 /* Children statements */
 /* ------------------- */
 
-#children_list {
+.children_pagination {
   width: 815px !important;
 }
 
-#children_list ul {
+.children_pagination ul {
   min-height: 145px;
 }
 
-#children_list li {
+.children_pagination li {
   margin: 4px 0;
 }
 
-#children .text_button {
+.children .text_button {
   margin-left: 0px;
 }
 

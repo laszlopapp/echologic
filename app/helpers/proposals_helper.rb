@@ -16,12 +16,4 @@ module ProposalsHelper
       end
     end
   end
-  
-  def create_new_child_statement_link(statement_node)
-    create_new_statement_link(statement_node,'improvement_proposal')
-  end
-  
-  def children_box_title
-    I18n.t("discuss.statements.headings.improvement_proposal")
-  end
 end

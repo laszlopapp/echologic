@@ -45,14 +45,7 @@ class StatementNode < ActiveRecord::Base
 
   ##
   ## NAMED SCOPES
-  ##
-
-  named_scope :questions, lambda {
-    { :conditions => { :type => 'Question' } } }
-  named_scope :proposals, lambda {
-    { :conditions => { :type => 'Proposal' } } }
-  named_scope :improvement_proposals, lambda {
-    { :conditions => { :type => 'ImprovementProposal' } } }
+  ##  
   named_scope :published, lambda {|auth|
     { :conditions => { :editorial_state_id => StatementState['published'].id } } unless auth }
   named_scope :by_creator, lambda {|id|
@@ -65,15 +58,15 @@ class StatementNode < ActiveRecord::Base
 
 
   ## ACCESSORS
-
-  def title
-    raise 'title is deprecated... please use translated_document().title instead'
+  %w(title text).each do |accessor|
+    class_eval %(
+      def #{accessor}(lang_ids)
+        doc = statement_documents.for_languages(lang_ids)
+        doc ? statement_documents.for_languages(lang_ids).#{accessor} : raise('no #{accessor} found in this language')
+      end
+    )
   end
-
-  def text
-    raise 'text is deprecated... please use translated_document().title instead'
-  end
-
+  
   ##############################
   ######### ACTIONS ############
   ##############################
@@ -147,20 +140,20 @@ class StatementNode < ActiveRecord::Base
   end
 
   # Collects a filtered list of all children statements
-  def children_statements(language_ids = nil)
-    return children_statements_for_parent(self.id, language_ids, self.draftable?)
+  def children_statements(language_ids = nil, type = self.class.expected_children_types.first.to_s)
+    return children_statements_for_parent(self.id, type, language_ids, self.draftable?)
   end
 
   # Collects a filtered list of all siblings statements
-  def sibling_statements(language_ids = nil)
-    return parent_id.nil? ? [] : children_statements_for_parent(self.parent_id, language_ids, self.incorporable?)
+  def sibling_statements(language_ids = nil, type = self.class.to_s)
+    return parent_id.nil? ? [] : children_statements_for_parent(self.parent_id, type, language_ids, self.incorporable?)
   end
 
 
   private
 
-  def children_statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false)
-    conditions = {:conditions => "parent_id = #{parent_id}"}
+  def children_statements_for_parent(parent_id, type, language_ids = nil, filter_drafting_state = false)
+    conditions = {:conditions => "type = '#{type}' and parent_id = #{parent_id}"}
     conditions.merge!({:language_ids => language_ids}) if language_ids
     conditions.merge!({:drafting_states => %w(tracked ready staged)}) if filter_drafting_state
     self.class.search_statement_nodes(conditions)
@@ -234,6 +227,20 @@ class StatementNode < ActiveRecord::Base
     def default_scope
       { :include => :echo,
         :order => %Q[echos.supporter_count DESC, created_at ASC] }
+    end
+    
+    
+    
+    def expected_children_types
+      @@expected_children[self.name]
+    end
+    
+    protected 
+    
+    def expects_children_types(*klasses)
+      @@expected_children ||= { }
+      @@expected_children[self.name] ||= []
+      @@expected_children[self.name] += klasses
     end
   end
 end

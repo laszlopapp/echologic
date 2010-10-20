@@ -1,0 +1,28 @@
+children_list = $('div.<%=dom_class(@statement_node)%> #children_list');
+more_element = $('div.<%=dom_class(@statement_node)%> .more_pagination');
+<%if @page.to_i == 1 %> 
+  panel_height = <%= @children.total_entries == 7 ? 225 : 205 %>
+	children_list.animate({height: panel_height}, 400, function() {
+    pagination_scroll_down(children_list);
+  });
+<% end %>
+
+elements = "<%= escape_javascript(render :partial => 'statements/child', :collection => @children[@offset, @per_page]) %>";
+pagination_buttons = "<%= escape_javascript(will_paginate(@children, :id => 'more_pagination',:class => 'more_pagination',
+                                                   :next_label => I18n.t("application.general.more"),
+                                                   :renderer => StatementsHelper::MoreRenderer)) %>";
+
+children_list.append(elements);
+<% if @children.next_page.nil? %>
+  children_list.append('<%= create_new_statement_link(@statement_node, @type.underscore) %>');
+<% end %>
+
+more_element.replaceWith(pagination_buttons);
+
+makeRatiobars();
+makeTooltips();
+
+<% if @page.to_i > 1 %>
+  pagination_scroll_down(children_list);
+<% end %> 
+$('div.<%=dom_class(@statement_node)%> .more_pagination a').addClass('ajax');
