@@ -1,10 +1,8 @@
-var context  = "<%= escape_javascript(render :partial => 'statements/context') %>";
-var sidebar  = "<%= escape_javascript(render :partial => 'statements/sidebar') %>";
-var children_list  = "<%= escape_javascript(render :partial => 'statements/children_list') %>";
+var header = "<%= escape_javascript(render :partial => 'statements/header') %>";
+var action_bar  = "<%= escape_javascript(render :partial => 'statements/action_bar') %>";
 
-$('#context').replaceWith(context);
-$('#discuss_sidebar').replaceWith(sidebar);
-/*$('#children_list').replaceWith(children_list);*/
+$('#statements div.<%= dom_class(@statement_node) %> .header').replaceWith(header);
+$('#statements div.<%= dom_class(@statement_node) %> .action_bar').replaceWith(action_bar);
 
 makeRatiobars();
 makeTooltips();

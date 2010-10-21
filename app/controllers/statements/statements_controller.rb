@@ -218,13 +218,13 @@ class StatementsController < ApplicationController
           format.js {show}
         else
           set_error(@statement_document)
-          format.html { flash_error and render :template => 'statements/new' }
+          format.html { @ancestors = @statement_node.ancestors and flash_error and render :template => 'statements/new' }
           format.js   { show_error_messages}
         end
       end
     rescue Exception => e
       log_message_error(e, "Error creating statement node.") do |format|
-        format.html { flash_error and render :template => 'statements/new' }
+        format.html { @ancestors = @statement_node.ancestors and flash_error and render :template => 'statements/new' }
       end
     else
       log_message_info("Statement node has been created sucessfully.") if @statement_node
@@ -427,13 +427,13 @@ class StatementsController < ApplicationController
         else
           @statement_document = StatementDocument.find(new_doc_attrs[:old_document_id])
           set_error(@new_statement_document)
-          format.html { flash_error and render :template => 'statements/translate' }
+          format.html { @ancestors = @statement_node.ancestors and flash_error and render :template => 'statements/new_translation' }
           format.js { show_error_messages(@new_statement_document) }
         end
       end
     rescue Exception => e
       log_message_error(e, "Error translating statement node '#{@statement_node.id}'.") do |format|
-        format.html { flash_error and render :template => 'statements/translate' }
+        format.html { @ancestors = @statement_node.ancestors and flash_error and render :template => 'statements/new_translation' }
       end
     else
       log_message_info("Statement node '#{@statement_node.id}' has been translated sucessfully.") if translated
@@ -541,13 +541,15 @@ class StatementsController < ApplicationController
         set_statement_node_info(nil, 'discuss.messages.image_uploaded')
         format.js {
           render_with_info do |page|
-            page.replace 'statement_image', :partial => 'statements/image'
-            page.remove 'upload_image_link' if @statement_node.published?
+            page << "$('#statements div.#{dom_class(@statement_node)} #statement_image').replaceWith('#{render :partial => 'statements/image'}')"
+            page << "$('#statements div.#{dom_class(@statement_node)} #upload_link').remove()" if @statement_node.published? 
+            #page.replace 'statement_image', :partial => 'statements/image'
+            #page.remove 'upload_image_link' if @statement_node.published?
           end
         }
       else
         set_error('discuss.statements.upload_image.error')
-        format.js   { show_error_messages }
+        format.js{ show_error_messages }
       end
     end
   end
@@ -683,8 +685,7 @@ class StatementsController < ApplicationController
   # Checks if text that comes with the form is actually empty, even with the escape parameters from the iframe
   #
   def check_empty_text
-    if params[statement_node_symbol].include? :new_statement_document or
-       params[statement_node_symbol].include? :statement_document
+    if params[statement_node_symbol].include? :new_statement_document or params[statement_node_symbol].include? :statement_document
       document_param = params[statement_node_symbol][:new_statement_document] || params[statement_node_symbol][:statement_document]
       text = document_param[:text]
       document_param[:text] = "" if text.eql?('<br>')
@@ -834,7 +835,7 @@ class StatementsController < ApplicationController
   def with_info(opts={})
     respond_to do |format|
       yield format if block_given?
-      format.html { flash_info and render :template => opts[:template] }
+      format.html { @ancestors = @statement_node.ancestors and flash_info and render :template => opts[:template] }
       format.js   { render_with_info }
     end
   end

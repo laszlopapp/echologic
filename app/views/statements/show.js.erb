@@ -26,7 +26,7 @@ if(class_element.length > 0) {class_element.replaceWith(statement);}
 else {$('#statements').append(statement);};
 
 makeRatiobars();
-makeTooltips;
+makeTooltips();
 roundCorners();
 showMessageBox('div.<%= dom_class(@statement_node) %> #translation_box', <%= @translation_permission %>);
 showMessageBox('div.<%= dom_class(@statement_node) %> #original_language_box', <%= @original_language_warning %>);

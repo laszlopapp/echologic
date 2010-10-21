@@ -21,7 +21,7 @@
 			<% end %>
 		<% else %>
 	    <%= doc.input :language_id, :as => :hidden, :value => statement_document.language_id %>
-			<%= doc.input :title, :input_html => {:disabled => disabled}, :wrapper_html => {:style => disabled ? "" : "display:none"} %>
+			<%= doc.input :title, :input_html => {:disabled => disabled} if disabled %>
 	  <% end %>
 		    
     <br/>
