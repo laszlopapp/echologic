@@ -6,9 +6,6 @@
                                                          :statement_document => @statement_document,
                                                          :approved_node => @approved_node,
                                                          :approved_document => @approved_document} %>
-   <% @statement_node.class.expected_children_types.each do |type| %>
-	   <%= render_children(type.to_s.underscore, @children[type]) %>
-   <%end%> 
-	 																									
+   <%= render_children(@statement_node, @children) %>
 	<% end %>
 </div>

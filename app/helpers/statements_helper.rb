@@ -47,12 +47,20 @@ module StatementsHelper
   # RENDER HELPERS #
   ##################
 
-  def render_ancestor(ancestor)
-    render :partial => 'statements/show', :locals => {:statement_node => ancestor, :no_show => true}
+  def render_ancestors(ancestors)
+    val = ''
+    ancestors.each do |ancestor|
+      val << render(:partial => 'statements/show', :locals => {:statement_node => ancestor, :no_show => true})
+    end
+    val
   end
   
-  def render_children(type, children)
-    render :partial => 'statements/children', :locals => {:type => type, :children => children}
+  def render_children(statement_node, children)
+    val = ''
+    statement_node.class.expected_children_types.each do |type|
+      val << render(:partial => 'statements/children', :locals => {:type => type.to_s.underscore, :children => children[type]})
+    end
+    val
   end
 
 

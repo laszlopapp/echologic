@@ -30,6 +30,10 @@ html[xmlns] form.formtastic fieldset ol li {
   display: inline-block;
 }
 
+html[xmlns] form.formtastic .header fieldset {
+	display: inline-block;
+}
+
 form.formtastic fieldset ol li fieldset legend {
   position: relative;
   width: 100%;
@@ -67,7 +71,7 @@ form.formtastic fieldset ol li.text textarea, form.formtastic fieldset ol li.str
 }
 
 form.formtastic.wide_form fieldset ol li.text textarea, form.formtastic.wide_form fieldset ol li.string input {
-  width: 803px;
+  width: 609px;
 }
 
 form.formtastic fieldset ol li.text textarea {

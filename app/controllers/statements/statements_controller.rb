@@ -247,7 +247,7 @@ class StatementsController < ApplicationController
   #
   # Renders a form to edit the current statement.
   #
-  # Method:   POST
+  # Method:   GET
   # Params:   id: integer
   # Response: JS
   #
@@ -264,8 +264,13 @@ class StatementsController < ApplicationController
         set_statement_node_info(nil, 'discuss.statements.statement_updated')
       end
     elsif has_lock
-      respond_to_js :template => 'statements/edit',
-                    :partial_js => 'statements/edit.rjs'
+      respond_to do |format|
+        format.html {
+          @ancestors = @statement_node.ancestors
+          render :template => 'statements/edit'
+        }
+        format.js {render :template => 'statements/edit'}
+      end
     else
       with_info(:template => 'statements/edit' ) do |format|
         set_info('discuss.statements.being_edited')

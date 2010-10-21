@@ -6,5 +6,6 @@
 	      <%= doc.input :title, :label => false %>
 			<% end %>
 	  <% end %>
+		<%= supporter_ratio_bar(statement_node, true) if statement_node.echoable?%>
   </div>
 </div>

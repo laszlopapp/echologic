@@ -1,13 +1,8 @@
 <% content_for :submenu, tabnav(:discuss) %>
 
 <div id="statements">  
- <% @ancestors.each do |ancestor| %>
-  <%= render_ancestor(ancestor) %>
- <% end %>
- <%= render :partial => 'statements/new',
-           :locals => {:statement_node => @statement_node,
-                       :statement_document => @statement_document, 
-                       :tags => @tags } %>
+  <%= render_ancestors(@ancestors) %>
+  <%= render :partial => 'statements/new' %>
 </div>
 
 <script type="text/javascript">
