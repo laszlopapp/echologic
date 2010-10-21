@@ -215,19 +215,7 @@ class StatementsController < ApplicationController
           # load currently created statement_node to session
           load_to_session @statement_node
           format.html { flash_info and redirect_to url_for(@statement_node) }
-          format.js {
-            @statement_node.visited!(current_user)
-            @children = {}
-            @statement_node.class.expected_children_types.each_with_index do |type, index|
-              if index == 0
-                type_class = type.to_s.constantize
-                @children[type] = [].paginate(type_class.default_scope.merge(:page => 1,:per_page => INITIAL_CHILDREN))
-              else
-                @children[type] = nil
-              end
-            end
-            render :template => 'statements/create'
-          }
+          format.js {show}
         else
           set_error(@statement_document)
           format.html { flash_error and render :template => 'statements/new' }
@@ -383,8 +371,13 @@ class StatementsController < ApplicationController
         set_statement_node_info(nil,'discuss.statements.already_translated')
       end
     elsif has_lock
-      respond_to_js :template => 'statements/translate',
-                    :partial_js => 'statements/new_translation.rjs'
+      respond_to do |format|
+        format.html {
+          @ancestors = @statement_node.ancestors
+          render :template => 'statements/new_translation'
+        }
+        format.js {render :template => 'statements/new_translation'}
+      end
     else
       with_info(:template => 'statements/new_translation' ) do |format|
         set_info('discuss.statements.being_edited')
@@ -430,7 +423,7 @@ class StatementsController < ApplicationController
           @statement_document = @new_statement_document
           set_statement_node_info(@statement_document)
           format.html { flash_info and redirect_to url_for(@statement_node) }
-          format.js {render :partial => 'statements/create_translation.rjs'}
+          format.js {show}
         else
           @statement_document = StatementDocument.find(new_doc_attrs[:old_document_id])
           set_error(@new_statement_document)

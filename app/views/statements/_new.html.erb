@@ -2,8 +2,8 @@
 <% statement_document ||= @statement_document %>
 
 <% semantic_form_for statement_node, :html => {:class => "wide_form statement #{dom_class(statement_node)}" } do |form| -%>
-  <%= render :partial => 'statements/form_header', :locals => {:form => form, :statement_node => statement_node, :statement_document => statement_document} %>
-  <%= render :partial => 'statements/form_content', :locals => {:form => form, :statement_node => statement_node, :statement_document => statement_document} %>
+  <%= render :partial => 'statements/form_header', :locals => {:form => form, :statement_node => statement_node} %>
+  <%= render :partial => 'statements/form_content', :locals => {:form => form, :statement_node => statement_node} %>
 <% end -%>
 
 <!-- TODO: What to do with these elements?     

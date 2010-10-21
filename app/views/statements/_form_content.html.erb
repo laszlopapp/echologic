@@ -1,6 +1,8 @@
+<%form_partial ||= 'statements/form' %>
 <div class="content">
 	<%= render :partial => 'statements/action_bar', :locals => {:statement_node => statement_node, :no_show => true}%>
-	<%= render :partial => 'statements/form_summary', :locals => {:form => form, 
-                                                                :statement_node => statement_node,
-                                                                :statement_document => statement_document} %>
+	<div class="summary simple_header_block discuss_right_block">
+		<%= content_tag :h2, I18n.t("discuss.statements.types.#{dom_class(statement_node)}") %>
+	  <%= render :partial => form_partial, :locals => {:form => form } %>
+	</div>
 </div>

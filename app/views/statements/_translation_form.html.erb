@@ -2,28 +2,29 @@
 <% new_statement_document ||= @new_statement_document %>
 <% statement_document ||= @statement_document %>
 
+<div class="translation_box_class rounded-box rounded-box-gray-itow with_bg_bw_grad_small">
+  <%= translation_upper_box statement_document.language.value.upcase,
+                          Language[params[:locale]].value.upcase %>
+</div>
+
 <%= content_tag :p, I18n.t('discuss.statements.drafting_language_hint') if statement_node.draftable? %>
 
-<% semantic_form_for statement_node,
-                     :url => create_translation_url(statement_node, dom_class(statement_node)) do |form| -%>
-
-  <%= render :partial => "statements/document_form",
+<%= render :partial => "statements/document_form",
              :locals => { :form => form,
                           :disabled => true } %>
-	<%= render :partial => "statements/translate_document_form",
-             :locals => { :form => form,
-                          :new_statement_document => new_statement_document} %>
-	<br/>
+<%= render :partial => "statements/translate_document_form",
+           :locals => { :form => form,
+                        :new_statement_document => new_statement_document} %>
+<br/>
 
-  <%= form.hidden_field :parent_id %>
-	<%= form.hidden_field :state_id, :value => StatementState[:published].id %>
+<%= form.hidden_field :parent_id %>
+<%= form.hidden_field :state_id, :value => StatementState[:published].id %>
 	
 
-  <!-- Save and cancel buttons -->
-  <% form.buttons do %>
-    <%= form.commit_button I18n.t('application.general.save'),
-                           :button_html => { :alt => 'save_button' } %>
-    <%= content_tag :span, I18n.t('application.general.or'), :class => "or_cancel" %>
-    <%= cancel_edit_statement_node(statement_node, statement_document.locked_at) %>
-  <% end %>
-<% end -%>
+<!-- Save and cancel buttons -->
+<% form.buttons do %>
+  <%= form.commit_button I18n.t('application.general.save'),
+                         :button_html => { :alt => 'save_button' } %>
+  <%= content_tag :span, I18n.t('application.general.or'), :class => "or_cancel" %>
+  <%= cancel_edit_statement_node(statement_node, statement_document.locked_at) %>
+<% end %>

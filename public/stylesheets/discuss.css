@@ -504,7 +504,7 @@ a.statement_link:hover {
 
 .translation_box_class {
   height: 55px;
-	margin: 0 -10px 0px;
+	margin: 0 -10px 15px -10px;
 	text-align: center;
 }
 
@@ -563,32 +563,23 @@ a.statement_link:hover {
 
 /* Translation form */
 
-#new_translation form {
+.translation form {
   margin-top: 15px;
 }
 
-#new_translation .left_panel {
+.translation .left_panel {
   float: left;
 }
 
-#new_translation .right_panel {
+.translation .right_panel {
   float: right;
 }
 
-#new_translation input {
-  width: 380px;
-}
-
-#new_translation textarea {
-  width: 385px;
-  height: 200px;
-}
-
-#new_translation fieldset.buttons {
+.translation fieldset.buttons {
   clear: both;
 }
 
-#new_translation .static_text {
+.translation .static_text {
 	height: 225px;
 	width: 380px;
 	border: 1px solid #999999;

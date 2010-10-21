@@ -3,13 +3,12 @@ $('#statements .statement .header').removeClass('active');
 $('#statements .statement .content').hide();
 $('#statements .statement .supporters_label').hide();
 
-var new_form = "<%= escape_javascript(render :partial => 'statements/edit') %>";
+var new_form = "<%= escape_javascript(render :partial => 'statements/translate') %>";
 
 var class_element = $('#statements div.<%= dom_class(@statement_node) %>');
 
 if(class_element.length > 0) {class_element.replaceWith(new_form);}
 else {$('#statements').append(new_form);};
 
-makeRatiobars();
-makeTooltips;
+roundCorners();
 $('#edit_<%= dom_id(@statement_node)%>').ajaxForm({ dataType : 'script' });
