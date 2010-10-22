@@ -20,13 +20,7 @@ class ProposalsController < StatementsController
     has_lock = acquire_lock(@statement_document)
     @action ||= StatementAction["incorporated"]
     if still_approved && has_lock
-      respond_to do |format|
-        format.html {
-          @ancestors = @statement_node.ancestors
-          render :template => 'statements/proposals/edit_draft'
-        }
-        format.js {render :template => 'statements/proposals/edit_draft'}
-      end
+      respond_action 'statements/proposals/edit_draft'
     elsif !still_approved
       respond_to do |format|
         set_info('discuss.statements.not_approved_any_more')

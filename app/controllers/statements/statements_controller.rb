@@ -126,14 +126,7 @@ class StatementsController < ApplicationController
         end
       end
       
-      respond_to do |format|
-        format.html {
-          @ancestors = @statement_node.ancestors
-          render :template => 'statements/show'
-        }
-        format.js {render :template => 'statements/show'}
-      end
-
+      respond_action 'statements/show'
     rescue Exception => e
       log_home_error(e,"Error showing statement.")
     end
@@ -174,13 +167,7 @@ class StatementsController < ApplicationController
     @statement_node.topic_tags << "##{params[:category]}" if params[:category]
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     
-    respond_to do |format|
-      format.html {
-        @ancestors = @statement_node.ancestors
-        render :template => 'statements/new'
-      }
-      format.js {render :template => 'statements/new'}
-    end
+    respond_action 'statements/new'
   end
 
 
@@ -218,13 +205,13 @@ class StatementsController < ApplicationController
           format.js {show}
         else
           set_error(@statement_document)
-          format.html { @ancestors = @statement_node.ancestors and flash_error and render :template => 'statements/new' }
+          format.html { set_ancestors and flash_error and render :template => 'statements/new' }
           format.js   { show_error_messages}
         end
       end
     rescue Exception => e
       log_message_error(e, "Error creating statement node.") do |format|
-        format.html { @ancestors = @statement_node.ancestors and flash_error and render :template => 'statements/new' }
+        format.html { set_ancestors and flash_error and render :template => 'statements/new' }
       end
     else
       log_message_info("Statement node has been created sucessfully.") if @statement_node
@@ -252,13 +239,7 @@ class StatementsController < ApplicationController
         set_statement_node_info(nil, 'discuss.statements.statement_updated')
       end
     elsif has_lock
-      respond_to do |format|
-        format.html {
-          @ancestors = @statement_node.ancestors
-          render :template => 'statements/edit'
-        }
-        format.js {render :template => 'statements/edit'}
-      end
+      respond_action 'statements/edit'      
     else
       with_info(:template => 'statements/edit' ) do |format|
         set_info('discuss.statements.being_edited')
@@ -371,13 +352,7 @@ class StatementsController < ApplicationController
         set_statement_node_info(nil,'discuss.statements.already_translated')
       end
     elsif has_lock
-      respond_to do |format|
-        format.html {
-          @ancestors = @statement_node.ancestors
-          render :template => 'statements/new_translation'
-        }
-        format.js {render :template => 'statements/new_translation'}
-      end
+      respond_action 'statements/new_translation'
     else
       with_info(:template => 'statements/new_translation' ) do |format|
         set_info('discuss.statements.being_edited')
@@ -427,13 +402,13 @@ class StatementsController < ApplicationController
         else
           @statement_document = StatementDocument.find(new_doc_attrs[:old_document_id])
           set_error(@new_statement_document)
-          format.html { @ancestors = @statement_node.ancestors and flash_error and render :template => 'statements/new_translation' }
+          format.html { set_ancestors and flash_error and render :template => 'statements/new_translation' }
           format.js { show_error_messages(@new_statement_document) }
         end
       end
     rescue Exception => e
       log_message_error(e, "Error translating statement node '#{@statement_node.id}'.") do |format|
-        format.html { @ancestors = @statement_node.ancestors and flash_error and render :template => 'statements/new_translation' }
+        format.html { set_ancestors and flash_error and render :template => 'statements/new_translation' }
       end
     else
       log_message_info("Statement node '#{@statement_node.id}' has been translated sucessfully.") if translated
@@ -543,8 +518,6 @@ class StatementsController < ApplicationController
           render_with_info do |page|
             page << "$('#statements div.#{dom_class(@statement_node)} #statement_image').replaceWith('#{render :partial => 'statements/image'}')"
             page << "$('#statements div.#{dom_class(@statement_node)} #upload_link').remove()" if @statement_node.published? 
-            #page.replace 'statement_image', :partial => 'statements/image'
-            #page.remove 'upload_image_link' if @statement_node.published?
           end
         }
       else
@@ -721,6 +694,13 @@ class StatementsController < ApplicationController
     set_info((string || "discuss.messages.#{statement_document.action.code}"),
              :type => I18n.t("discuss.statements.types.#{statement_node_symbol.to_s}"))
   end
+  
+  #
+  # Sets the ancestors of the current statement node, in order to write the correct context down
+  #
+  def set_ancestors
+    @ancestors = @statement_node.ancestors
+  end
 
 
   ###############
@@ -835,8 +815,16 @@ class StatementsController < ApplicationController
   def with_info(opts={})
     respond_to do |format|
       yield format if block_given?
-      format.html { @ancestors = @statement_node.ancestors and flash_info and render :template => opts[:template] }
+      format.html { set_ancestors and flash_info and render :template => opts[:template] }
       format.js   { render_with_info }
+    end
+  end
+  
+  def respond_action(template)
+    respond_to do |format|
+      yield format if block_given?
+      format.html {set_ancestors and render :template => template}
+      format.js {render :template => template}
     end
   end
 
