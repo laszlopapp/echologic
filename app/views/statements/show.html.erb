@@ -1,12 +1,6 @@
-<% content_for :submenu, tabnav(:discuss) %>
+<%= render :partial => 'statements/default', :locals => {:template => 'statements/show'}%>
 
-<div id="statements">	 
- <%= render_ancestors(@ancestors) %>
- <%= render :partial => 'statements/show', :locals => {:statement_node => @statement_node} %>
-</div>
 <script type="text/javascript">
-  makeRatiobars();
-	roundCorners();
   showMessageBox("#<%= dom_id(@statement_node) %> #translation_box", <%= @translation_permission %>);
 	showMessageBox("#<%= dom_id(@statement_node) %> #original_language_box", <%= @original_language_warning %>);
 </script>
