@@ -1,0 +1,11 @@
+var elements = $("<%= escape_javascript(render :partial => 'statements/authors') %>");
+
+var header = $('#statements div.<%= dom_class(@statement_node) %> .summary h2');
+
+
+
+elements.insertAfter(header);
+
+$('#authors_<%=@statement_node.id%> #authors_list').jcarousel({
+  wrap: 'circular'
+});

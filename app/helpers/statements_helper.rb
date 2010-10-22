@@ -42,6 +42,10 @@ module StatementsHelper
   def children_url (statement_node, type, opts={})
     send("children_#{type.downcase}_url",statement_node, opts)
   end
+  
+  def authors_url (statement_node, type, opts={})
+    send("authors_#{type.downcase}_url",statement_node, opts)
+  end
 
   ##################
   # RENDER HELPERS #
@@ -129,6 +133,11 @@ module StatementsHelper
     end
   end
   
+  def authors_statement_node_link(statement_node,type = dom_class(statement_node))
+    link_to(I18n.t('application.general.authors'), authors_url(statement_node,type),
+              :class => 'ajax_display header_button text_button authors_button', :show => "#authors_#{statement_node.id}")
+  end
+  
   def delete_statement_node_link(statement_node)
     link_to I18n.t('discuss.statements.delete_link'),
             url_for(statement_node),
@@ -138,7 +147,10 @@ module StatementsHelper
   end
   
   def function_buttons(statement_node, statement_document)
-    edit_statement_node_link(statement_node, statement_document)
+    val = '' 
+    val << edit_statement_node_link(statement_node, statement_document)
+    val << authors_statement_node_link(statement_node)
+    content_tag :span, val
   end
 
   # Returns the block heading for entering a new child for the given statement_node

@@ -85,6 +85,19 @@ function bindAjaxClickEvents() {
     return false;
   });
 	
+	$(".ajax_display").live("click", function() {
+		authors = $($(this).attr("show"));
+		if (authors.length > 0) {
+	   if (authors.is(":visible") == true){authors.hide();}
+		 else {authors.show();}
+		}
+		else 
+		{
+			$.getScript(this.href);
+		}
+		return false;
+  });
+	
 	/*special newsletter submission tag*/
 	$(".newsletter_submit_tag").live("click", function() {
 		$("#newsletter_test").val($(this).attr("value"));

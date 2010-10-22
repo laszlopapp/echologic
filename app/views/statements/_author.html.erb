@@ -1,0 +1,6 @@
+<li class="author">
+	<%= image_tag(author.avatar.url(:small)) %>
+	<%= content_tag :span, author.full_name, :class => 'name' %><br/>
+	<%= content_tag :span, author.first_membership, :class => 'location_orga' %>
+	
+</li>

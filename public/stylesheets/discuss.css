@@ -274,6 +274,65 @@ form.statement .discuss_right_block {
 
 
 /* --------- */
+/*  Authors  */
+/* --------- */
+
+.statement .authors .jcarousel-next-horizontal {
+	background-image: url("../images/next-horizontal.png");
+}
+.statement .authors .jcarousel-prev-horizontal {
+  background-image: url("../images/prev-horizontal.png");
+}
+
+.statement .results_container,
+.statement .results_container ul {
+	min-height: 0px;
+	width: 0px;
+}
+
+.statement .authors .jcarousel-clip-horizontal {
+	width: 712px;
+}
+
+.statement .authors .jcarousel-container {
+	width: 712px;
+}
+
+.statement .authors .jcarousel-item {
+	display: none;
+}
+
+.statement .authors .author {
+	width: 229px;
+	height: 50px;
+	display: inline-block;
+}
+
+.statement .authors .author img {
+  float: left;
+	border:2px solid #7BB031;
+	max-height:45px;
+	max-width:45px;
+}
+
+.statement .authors .author .name {
+	position: relative;
+	top: 8px;
+	font-size: 14px;
+  font-weight: bold;
+	overflow: hidden;
+	left:10px;
+}
+
+.statement .authors .author .location_orga {
+  position: relative;
+	top: 8px;
+	font-size:14px;
+	overflow: hidden;
+	left:10px;
+}
+
+/* --------- */
 /* Main area */
 /* --------- */
 

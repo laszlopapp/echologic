@@ -6,7 +6,7 @@ class StatementsController < ApplicationController
   #        wrap a form around it.
 
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
-                                    :more, :children, :upload_image, :reload_image]
+                                    :more, :children, :upload_image, :reload_image, :authors]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
@@ -15,8 +15,8 @@ class StatementsController < ApplicationController
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
   before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions,
                                                                    :new, :create, :more, :children, :upload_image,
-                                                                   :reload_image, :redirect]
-  before_filter :require_user, :except => [:category, :show, :more, :children, :redirect]
+                                                                   :reload_image, :redirect, :authors]
+  before_filter :require_user, :except => [:category, :show, :more, :children, :authors, :redirect]
   before_filter :fetch_languages, :except => [:destroy, :redirect]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
@@ -493,6 +493,18 @@ class StatementsController < ApplicationController
       end
     end
   end
+  
+  # Loads the authors of this statement to the view
+  #
+  # Method:   GET
+  # Response: JS
+  #
+  def authors
+    set_authors
+    respond_to do |format|                                                 
+      format.js {render :template => 'statements/authors'}
+    end
+  end
 
 
 
@@ -575,6 +587,13 @@ class StatementsController < ApplicationController
                                                              :per_page => @per_page))
     @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
                                                      @language_preference_list)
+  end
+
+  #
+  # Sets the authors of the current statement 
+  #
+  def set_authors
+    @authors = @statement_node.authors
   end
 
   #
