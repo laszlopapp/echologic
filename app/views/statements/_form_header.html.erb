@@ -1,0 +1,12 @@
+<% statement_document ||= @statement_document %>
+<div class="header active">
+  <div class="header_buttons"><%= prev_next_buttons(statement_node) %></div>
+	<div class="header_link">
+		<% form.inputs do %>
+			<% form.semantic_fields_for :statement_document, statement_document do |doc|  %>
+	      <%= doc.input :title, :label => false %>
+			<% end %>
+	  <% end %>
+		<%= supporter_ratio_bar(statement_node, true) if statement_node.echoable?%>
+  </div>
+</div>

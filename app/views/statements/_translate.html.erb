@@ -2,23 +2,13 @@
 <% old_statement_document ||= @statement_document%>
 <% new_statement_document ||= @new_statement_document %>
 
-<div id="summary" class="simple_header_block discuss_right_block">
-	<%= content_tag :h2, I18n.t("discuss.statements.types.#{dom_class(statement_node)}") %>
 
-  <!-- Building the translation box with the two babelfishes -->
-	<div id="new_translation">
-    <div class="translation_box_class rounded-box rounded-box-gray-itow with_bg_bw_grad_small">
-    	<%= translation_upper_box old_statement_document.language.value.upcase,
-                              Language[params[:locale]].value.upcase %>
-		</div>
 
-    <!-- The form for translating the statement -->
-	  <%= render :partial => 'statements/translation_form',
-               :locals => {:statement_node => statement_node,
-                           :new_statement_document => new_statement_document } %>
-	</div>
-</div>
+<% semantic_form_for statement_node, :url => create_translation_url(statement_node, dom_class(statement_node)),
+                                     :html => {:class => "wide_form translation statement"} do |form| -%>
+  <%= render :partial => 'statements/header', :locals => {:statement_node => statement_node} %>
+  <%= render :partial => 'statements/form_content', :locals => {:form_partial => 'statements/translation_form', 
+                                                                :form => form, 
+                                                                :statement_node => statement_node} %>
+<% end -%>
 
-<script type="text/javascript">
- $('#edit_<%= dom_class(statement_node)%>_<%=statement_node.id%>').ajaxForm({ dataType : 'script' });
-</script>

@@ -1,0 +1,15 @@
+<% statement_node ||= @statement_node %>
+<% no_show ||= false %>
+<div class="action_bar" style="<%= no_show ? 'border-width:0px' : ''%>">
+  <% unless no_show %>
+	  <% unless statement_node.new_record? %>
+	    <% render_echo_button(statement_node, !(current_user && statement_node.supported?(current_user))) %>
+	    <% create_new_sibling_statement_button(statement_node) %>
+	  <% end %>
+	
+	  <% if current_user && current_user.may_delete?(statement_node) -%>
+	    <br/><br/>
+	    <%= delete_statement_node_link(statement_node) %>
+	  <% end -%>
+	<% end %>
+</div>

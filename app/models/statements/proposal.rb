@@ -6,14 +6,11 @@
 
 class Proposal < StatementNode
   acts_as_draftable :tracked, :staged, :approved, :incorporated, :passed
-  # methods / settings to overwrite default statement_node behaviour
  
+  expects_children_types :ImprovementProposal
+ 
+  # Overwriting the acts_as_taggable function saying this object is not taggable anymore
   def taggable?
     false
   end
-  
-  def has_children?
-    true
-  end
-
 end

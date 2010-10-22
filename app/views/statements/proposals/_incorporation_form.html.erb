@@ -1,0 +1,4 @@
+<%= content_tag :h2, I18n.t("application.general.incorporate") %>
+<%= content_tag :p, I18n.t('discuss.statements.edit_period_hint', :minutes => 60) %>
+
+<%= render :partial => 'statements/form', :locals => {:form => form} %>

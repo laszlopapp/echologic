@@ -5,6 +5,7 @@
 
 class Question < StatementNode
 
+  expects_children_types :Proposal
 
   # methods / settings to overwrite default statement_node behaviour
 
@@ -17,9 +18,5 @@ class Question < StatementNode
   # Questions are NOT echoable.
   def echoable?
     false
-  end
-  
-  def has_children?
-    true
   end
 end

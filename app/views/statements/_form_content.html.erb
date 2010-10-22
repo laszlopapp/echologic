@@ -1,0 +1,7 @@
+<%form_partial ||= 'statements/form' %>
+<div class="content">
+	<%= render :partial => 'statements/action_bar', :locals => {:statement_node => statement_node, :no_show => true}%>
+	<div class="summary simple_header_block discuss_right_block">
+	  <%= render :partial => form_partial, :locals => {:form => form } %>
+	</div>
+</div>

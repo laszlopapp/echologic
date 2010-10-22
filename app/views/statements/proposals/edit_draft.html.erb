@@ -1,3 +1,14 @@
-<%= render :partial => 'statements/proposals/edit_draft',
-           :locals => {:statement_node => @statement_node,
-                       :tags => @tags} %>
+<% content_for :submenu, tabnav(:discuss) %>
+
+<div id="statements">
+  <%= render_ancestors(@ancestors) %>
+  <%= render :partial => 'statements/proposals/edit_draft' %>
+</div>
+
+
+<script type="text/javascript">
+  makeRatiobars();
+  roundCorners();
+  $('#edit_<%= dom_id(@statement_node) %>').ajaxForm({ dataType : 'script' });
+</script>
+

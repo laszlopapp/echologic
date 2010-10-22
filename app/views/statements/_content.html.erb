@@ -1,0 +1,11 @@
+<% no_show ||= false %>
+<div class="content" style="display:<%= no_show ? 'none' : 'show' %>">
+	<% if !no_show %>
+	 <%= render :partial => 'statements/action_bar', :locals => {:statement_node => @statement_node}%>
+	 <%= render :partial => 'statements/summary', :locals => {:statement_node => @statement_node,
+                                                         :statement_document => @statement_document,
+                                                         :approved_node => @approved_node,
+                                                         :approved_document => @approved_document} %>
+   <%= render_children(@statement_node, @children) %>
+	<% end %>
+</div>

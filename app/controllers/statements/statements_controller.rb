@@ -6,7 +6,7 @@ class StatementsController < ApplicationController
   #        wrap a form around it.
 
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
-                                    :children, :upload_image, :reload_image]
+                                    :more, :children, :upload_image, :reload_image]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
@@ -14,9 +14,9 @@ class StatementsController < ApplicationController
   # The order of these filters matters. change with caution.
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
   before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions,
-                                                                   :new, :create, :children, :upload_image,
+                                                                   :new, :create, :more, :children, :upload_image,
                                                                    :reload_image, :redirect]
-  before_filter :require_user, :except => [:category, :show, :children, :redirect]
+  before_filter :require_user, :except => [:category, :show, :more, :children, :redirect]
   before_filter :fetch_languages, :except => [:destroy, :redirect]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
@@ -112,34 +112,50 @@ class StatementsController < ApplicationController
 
       # Find all child statement_nodes, which are published (except user is an editor)
       # sorted by supporters count, and paginate them
-      @page = params[:page] || 1
-      @per_page = INITIAL_CHILDREN
-      @offset = 0
-      @children = @statement_node.children_statements(@language_preference_list).
-                    paginate(StatementNode.default_scope.merge(:page => @page,
-                                                               :per_page => @per_page))
-      @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
-                                                       @language_preference_list)
-
-      respond_to_js :template => 'statements/show',
-                    :partial_js => 'statements/show.rjs'
+      @children = {}
+      @statement_node.class.expected_children_types.each_with_index do |type, index|
+        if index == 0
+          type_class = type.to_s.constantize
+          @children[type] = @statement_node.children_statements(@language_preference_list, type.to_s).
+                                            paginate(type_class.default_scope.merge(:page => 1,
+                                                                                    :per_page => INITIAL_CHILDREN))
+          @children_documents = search_statement_documents(@children[type].map(&:statement_id),
+                                                       @language_preference_list)                                                                          
+        else
+          @children[type] = nil
+        end
+      end
+      
+      respond_to do |format|
+        format.html {
+          @ancestors = @statement_node.ancestors
+          render :template => 'statements/show'
+        }
+        format.js {render :template => 'statements/show'}
+      end
 
     rescue Exception => e
       log_home_error(e,"Error showing statement.")
     end
   end
 
+  def more
+    
+  end
 
   def children
+    @type = params[:type].camelize || @statement_node.class.expected_children_types.first.to_s
     @page = params[:page] || 1
     @per_page = 7
     @offset = @page.to_i == 1 ? 3 : 0
-    @children = @statement_node.children_statements(@language_preference_list).
+    @children = @statement_node.children_statements(@language_preference_list, @type).
                   paginate(StatementNode.default_scope.merge(:page => @page,
                                                              :per_page => @per_page))
     @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
                                                      @language_preference_list)
-    respond_to_js :partial_js => 'statements/children.rjs'
+    respond_to do |format|                                                 
+      format.js {render :template => 'statements/children'}
+    end
   end
 
 
@@ -157,11 +173,14 @@ class StatementsController < ApplicationController
     @action ||= StatementAction["created"]
     @statement_node.topic_tags << "##{params[:category]}" if params[:category]
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
-    # TODO: right now users can't select the language they create a statement in, so current_user.languages_keys.
-    # first will work. once this changes, we're in trouble - or better said: we'll have to pass the language_id as a param
-
-    respond_to_js :template => 'statements/new',
-                  :partial_js => 'statements/new.rjs'
+    
+    respond_to do |format|
+      format.html {
+        @ancestors = @statement_node.ancestors
+        render :template => 'statements/new'
+      }
+      format.js {render :template => 'statements/new'}
+    end
   end
 
 
@@ -196,21 +215,16 @@ class StatementsController < ApplicationController
           # load currently created statement_node to session
           load_to_session @statement_node
           format.html { flash_info and redirect_to url_for(@statement_node) }
-          format.js {
-            @statement_node.visited!(current_user)
-            @children = [].paginate(StatementNode.default_scope.merge(:page => @page,
-                                                                      :per_page => 5))
-            render :partial => 'statements/create.rjs'
-          }
+          format.js {show}
         else
           set_error(@statement_document)
-          format.html { flash_error and render :template => 'statements/new' }
-          format.js   { show_error_messages }
+          format.html { @ancestors = @statement_node.ancestors and flash_error and render :template => 'statements/new' }
+          format.js   { show_error_messages}
         end
       end
     rescue Exception => e
       log_message_error(e, "Error creating statement node.") do |format|
-        format.html { flash_error and render :template => 'statements/new' }
+        format.html { @ancestors = @statement_node.ancestors and flash_error and render :template => 'statements/new' }
       end
     else
       log_message_info("Statement node has been created sucessfully.") if @statement_node
@@ -221,7 +235,7 @@ class StatementsController < ApplicationController
   #
   # Renders a form to edit the current statement.
   #
-  # Method:   POST
+  # Method:   GET
   # Params:   id: integer
   # Response: JS
   #
@@ -238,8 +252,13 @@ class StatementsController < ApplicationController
         set_statement_node_info(nil, 'discuss.statements.statement_updated')
       end
     elsif has_lock
-      respond_to_js :template => 'statements/edit',
-                    :partial_js => 'statements/edit.rjs'
+      respond_to do |format|
+        format.html {
+          @ancestors = @statement_node.ancestors
+          render :template => 'statements/edit'
+        }
+        format.js {render :template => 'statements/edit'}
+      end
     else
       with_info(:template => 'statements/edit' ) do |format|
         set_info('discuss.statements.being_edited')
@@ -352,8 +371,13 @@ class StatementsController < ApplicationController
         set_statement_node_info(nil,'discuss.statements.already_translated')
       end
     elsif has_lock
-      respond_to_js :template => 'statements/translate',
-                    :partial_js => 'statements/new_translation.rjs'
+      respond_to do |format|
+        format.html {
+          @ancestors = @statement_node.ancestors
+          render :template => 'statements/new_translation'
+        }
+        format.js {render :template => 'statements/new_translation'}
+      end
     else
       with_info(:template => 'statements/new_translation' ) do |format|
         set_info('discuss.statements.being_edited')
@@ -399,17 +423,17 @@ class StatementsController < ApplicationController
           @statement_document = @new_statement_document
           set_statement_node_info(@statement_document)
           format.html { flash_info and redirect_to url_for(@statement_node) }
-          format.js {render :partial => 'statements/create_translation.rjs'}
+          format.js {show}
         else
           @statement_document = StatementDocument.find(new_doc_attrs[:old_document_id])
           set_error(@new_statement_document)
-          format.html { flash_error and render :template => 'statements/translate' }
+          format.html { @ancestors = @statement_node.ancestors and flash_error and render :template => 'statements/new_translation' }
           format.js { show_error_messages(@new_statement_document) }
         end
       end
     rescue Exception => e
       log_message_error(e, "Error translating statement node '#{@statement_node.id}'.") do |format|
-        format.html { flash_error and render :template => 'statements/translate' }
+        format.html { @ancestors = @statement_node.ancestors and flash_error and render :template => 'statements/new_translation' }
       end
     else
       log_message_info("Statement node '#{@statement_node.id}' has been translated sucessfully.") if translated
@@ -517,13 +541,15 @@ class StatementsController < ApplicationController
         set_statement_node_info(nil, 'discuss.messages.image_uploaded')
         format.js {
           render_with_info do |page|
-            page.replace 'statement_image', :partial => 'statements/image'
-            page.remove 'upload_image_link' if @statement_node.published?
+            page << "$('#statements div.#{dom_class(@statement_node)} #statement_image').replaceWith('#{render :partial => 'statements/image'}')"
+            page << "$('#statements div.#{dom_class(@statement_node)} #upload_link').remove()" if @statement_node.published? 
+            #page.replace 'statement_image', :partial => 'statements/image'
+            #page.remove 'upload_image_link' if @statement_node.published?
           end
         }
       else
         set_error('discuss.statements.upload_image.error')
-        format.js   { show_error_messages }
+        format.js{ show_error_messages }
       end
     end
   end
@@ -659,8 +685,7 @@ class StatementsController < ApplicationController
   # Checks if text that comes with the form is actually empty, even with the escape parameters from the iframe
   #
   def check_empty_text
-    if params[statement_node_symbol].include? :new_statement_document or
-       params[statement_node_symbol].include? :statement_document
+    if params[statement_node_symbol].include? :new_statement_document or params[statement_node_symbol].include? :statement_document
       document_param = params[statement_node_symbol][:new_statement_document] || params[statement_node_symbol][:statement_document]
       text = document_param[:text]
       document_param[:text] = "" if text.eql?('<br>')
@@ -810,7 +835,7 @@ class StatementsController < ApplicationController
   def with_info(opts={})
     respond_to do |format|
       yield format if block_given?
-      format.html { flash_info and render :template => opts[:template] }
+      format.html { @ancestors = @statement_node.ancestors and flash_info and render :template => opts[:template] }
       format.js   { render_with_info }
     end
   end

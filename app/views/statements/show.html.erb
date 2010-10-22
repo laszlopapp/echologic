@@ -1,16 +1,12 @@
 <% content_for :submenu, tabnav(:discuss) %>
 
-<%= render :partial => 'statements/context', :locals => {:statement_node => @statement_node} %>
-<%= render :partial => 'statements/sidebar', :locals => {:statement_node => @statement_node}%>
-<%= render :partial => 'statements/summary', :locals => {:statement_node => @statement_node,
-                                                         :statement_document => @statement_document,
-                                                         :approved_node => @approved_node,
-                                                         :approved_document => @approved_document} %>
-<%= render :partial => 'statements/children', :locals => {:statement_node => @statement_node,
-                                                          :children => @children } %>
+<div id="statements">	 
+ <%= render_ancestors(@ancestors) %>
+ <%= render :partial => 'statements/show', :locals => {:statement_node => @statement_node} %>
+</div>
 <script type="text/javascript">
   makeRatiobars();
 	roundCorners();
-  showMessageBox("#translation_box", <%= @translation_permission %>);
-	showMessageBox("#original_language_box", <%= @original_language_warning %>);
+  showMessageBox("#<%= dom_id(@statement_node) %> #translation_box", <%= @translation_permission %>);
+	showMessageBox("#<%= dom_id(@statement_node) %> #original_language_box", <%= @original_language_warning %>);
 </script>
