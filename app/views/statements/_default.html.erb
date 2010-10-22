@@ -1,0 +1,11 @@
+<% content_for :submenu, tabnav(:discuss) %>
+
+<div id="statements">
+  <%= render_ancestors(@ancestors) %>
+  <%= render :partial => template %>
+</div>
+
+<script type="text/javascript">
+  makeRatiobars();
+  roundCorners();
+</script>

@@ -50,7 +50,7 @@ class Users::ProfileController < ApplicationController
           
           format.html { flash_info and redirect_to my_profile_path }
           format.js   {         
-            render_with_info do |p|
+            show_info_messages do |p|
               p.replace('personal_container', :partial => 'users/profile/profile_own')
             end
           }
