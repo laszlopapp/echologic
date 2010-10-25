@@ -1,7 +1,7 @@
 var elements = $("<%= escape_javascript(render :partial => 'statements/authors') %>");
-var header = $('#statements div.<%= dom_class(@statement_node) %> .summary h2');
+var content = $('#statements div.<%= dom_class(@statement_node) %> .summary .statement_content');
 
-elements.insertAfter(header);
+elements.insertBefore(content);
 
 $('#statements div.<%= dom_class(@statement_node) %> #authors #authors_list').jcarousel({
   scroll: 1, 
