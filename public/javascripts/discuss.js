@@ -1,3 +1,7 @@
+/********************************/
+/* Statement navigation helpers */
+/********************************/
+
 function collapseStatements() {
 	$('#statements .statement .header').removeClass('active');
 	$('#statements .statement .content').hide();
