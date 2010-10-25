@@ -1,9 +1,7 @@
-var header = "<%= escape_javascript(render :partial => 'statements/header') %>";
-var action_bar  = "<%= escape_javascript(render :partial => 'statements/action_bar') %>";
-
-
-$('#statements div.<%= dom_class(@statement_node) %> .header').replaceWith(header);
-$('#statements div.<%= dom_class(@statement_node) %> .action_bar').replaceWith(action_bar);
+<% %w(header action_bar).each do |element| %>
+  var element = "<%= escape_javascript(render :partial => "statements/#{element}") %>";
+	$('#statements div.<%= dom_class(@statement_node) %> .<%= element %>').replaceWith(element);
+<% end %>
 
 makeRatiobars();
 makeTooltips();

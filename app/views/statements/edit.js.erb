@@ -1,14 +1,8 @@
 /* Close the content of the remaining ones */
-$('#statements .statement .header').removeClass('active');
-$('#statements .statement .content').hide();
-$('#statements .statement .supporters_label').hide();
+collapseStatements();
 
 var new_form = "<%= escape_javascript(render :partial => 'statements/edit') %>";
-
-var class_element = $('#statements div.<%= dom_class(@statement_node) %>');
-
-if(class_element.length > 0) {class_element.replaceWith(new_form);}
-else {$('#statements').append(new_form);};
+replaceOrInsert($('#statements div.<%= dom_class(@statement_node) %>'), new_form);
 
 makeRatiobars();
 makeTooltips();

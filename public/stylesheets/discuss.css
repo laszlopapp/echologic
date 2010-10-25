@@ -277,10 +277,10 @@ form.statement .discuss_right_block {
 /*  Authors  */
 /* --------- */
 
-.statement .authors .jcarousel-next-horizontal {
+.statement .authors .next_button {
 	background-image: url("../images/next-horizontal.png");
 }
-.statement .authors .jcarousel-prev-horizontal {
+.statement .authors .prev_button {
   background-image: url("../images/prev-horizontal.png");
 }
 

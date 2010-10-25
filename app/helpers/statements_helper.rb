@@ -135,7 +135,7 @@ module StatementsHelper
   
   def authors_statement_node_link(statement_node,type = dom_class(statement_node))
     link_to(I18n.t('application.general.authors'), authors_url(statement_node,type),
-              :class => 'ajax_display header_button text_button authors_button', :show => "#authors_#{statement_node.id}")
+              :class => 'ajax_display header_button text_button authors_button', :show => "#authors")
   end
   
   def delete_statement_node_link(statement_node)

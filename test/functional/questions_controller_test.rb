@@ -16,4 +16,10 @@ class QuestionsControllerTest < ActionController::TestCase
     put :publish, :id => statement_nodes(:non_published_question).to_param
     assert_equal StatementNode.published(false).count, prev_published+1
   end
+  
+  test "should get the statement node authors" do
+    @statement_node = Question.first
+    get :authors,:id => @statement_node.id
+    assert_response :success
+  end
 end

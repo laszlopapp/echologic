@@ -86,7 +86,7 @@ function bindAjaxClickEvents() {
   });
 	
 	$(".ajax_display").live("click", function() {
-		authors = $($(this).attr("show"));
+		authors = $(this).parents(".statement").find($(this).attr("show"));
 		if (authors.length > 0) {
 	   if (authors.is(":visible") == true){authors.hide();}
 		 else {authors.show();}

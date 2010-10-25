@@ -14,5 +14,11 @@ class ProposalsControllerTest < ActionController::TestCase
     get :incorporate, :id => @statement_node.id, :approved_ip => @ip_node.id
     assert_response :success
   end
+  
+  test "should get the statement node authors" do
+    @statement_node = Proposal.first
+    get :authors,:id => @statement_node.id
+    assert_response :success
+  end
 
 end
