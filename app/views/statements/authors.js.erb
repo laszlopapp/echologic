@@ -1,11 +1,10 @@
 var elements = $("<%= escape_javascript(render :partial => 'statements/authors') %>");
 var content = $('#statements div.<%= dom_class(@statement_node) %> .summary .statement_content');
 
-elements.insertBefore(content);
+elements.insertBefore(content).animate(toggleParams, 500);
 
 $('#statements div.<%= dom_class(@statement_node) %> #authors #authors_list').jcarousel({
-  scroll: 1, 
-  wrap: 'circular',
+  scroll: 3, 
 	buttonNextHTML: "<div class='next_button'></div>",
 	buttonPrevHTML: "<div class='prev_button'></div>",
 	size: <%= @authors.length %>

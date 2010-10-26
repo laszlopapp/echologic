@@ -86,15 +86,11 @@ function bindAjaxClickEvents() {
   });
 	
 	$(".ajax_display").live("click", function() {
+		$(this).toggleClass('active');
 		authors = $(this).parents(".statement").find($(this).attr("show"));
-		if (authors.length > 0) {
-	   if (authors.is(":visible") == true){authors.animate({ height: 'hide'}, 'slow');}
-		 else {authors.animate({ height: 'show'}, 'slow');}
-		}
+		if (authors.length > 0) {authors.animate(toggleParams, 500);}
 		else 
-		{
-			$.getScript(this.href);
-		}
+		{$.getScript(this.href);}
 		return false;
   });
 	

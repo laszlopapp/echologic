@@ -8,7 +8,7 @@
 
   <!-- Header -->
   <%= content_tag :h2, I18n.t("discuss.statements.types.#{dom_class(statement_node)}") %>
-  
+	
   <!-- Motivate people to translate the document -->
 	<%= render :partial => '/statements/translation_link',
              :locals => {:statement_node => statement_node,
