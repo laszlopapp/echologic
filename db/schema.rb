@@ -23,13 +23,8 @@ ActiveRecord::Schema.define(:version => 20101005140925) do
     t.integer  "photo_file_size"
     t.string   "name"
     t.text     "description"
-    t.integer  "collaboration_team_id"
+    t.integer  "about_category_id"
     t.integer  "index"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "admin_mailers", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end

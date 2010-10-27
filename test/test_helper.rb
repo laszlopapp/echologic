@@ -46,7 +46,7 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 
   #setup :load_seeds
-  
+
   protected
 
   def load_seeds
@@ -68,7 +68,7 @@ class ActiveSupport::TestCase
     StatementState.purge_enumerations_cache
     StatementAction.enumeration_model_updates_permitted = true
     StatementAction.purge_enumerations_cache
-    CollaborationTeam.enumeration_model_updates_permitted = true
-    CollaborationTeam.purge_enumerations_cache
+    AboutCategory.enumeration_model_updates_permitted = true
+    AboutCategory.purge_enumerations_cache
   end
 end

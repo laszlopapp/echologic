@@ -62,9 +62,9 @@ statement_action_<%= code %>:
 <% end %>
 
 <% %w(core_team supporters alumni technology_partners financial_partners).each_with_index do |code, index| %>
-collaboration_team_<%= code %>:
+about_category_<%= code %>:
   code: <%= code %>
-  type: CollaborationTeam
+  type: AboutCategory
   key: <%= index+1 %>
-  description: collaboration_team
+  description: about_category
 <% end %>
