@@ -21,32 +21,39 @@ li {
   border-bottom: 1px dotted #7BB031;
 }
 
-.team_results {
+/* About echo */
+
+#project {
+  padding: 0;
+  margin: 0;
+}
+
+#team_members {
 	height: 388px;
 	overflow-x: hidden;
 	overflow-y: auto;
 }
 
-.team_results .results_container {
+#team_members .results_container {
 	width: 656px;
 	min-height: 60px;
 }
 
-.team_results .header_block {
+#team .header_block {
 	margin-left: 0px;
 	padding-right: 20px;
 }
 
-.team_results .results_container ul {
+#team .results_container ul {
 	min-height: 60px;
 	display: inline-block;
 }
 
-.team_results .results_container .content .avatar_holder {
+#team .results_container .content .avatar_holder {
 	position: relative;
 	float: left;
 }
-.team_results .results_container .content .name, 
+#team .results_container .content .name,
 .results_container .member .description {
 	position: relative;
 	float: left;
@@ -59,15 +66,6 @@ li {
   height: 36px;
 }
 
-.team_results .results_container .odd .avatar_holder {
+#team .results_container .odd .avatar_holder {
 	float: right;
 }
-
-/*.results_container .member .description{
-	display:inline-block;
-	font-size:14px;
-	left:60px;
-	max-height:35px;
-	overflow:hidden;
-	position:absolute;
-}*/

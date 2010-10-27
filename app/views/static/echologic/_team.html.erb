@@ -1,3 +1,4 @@
-<div id='team_results' class='team_results'>
-  <%= render :partial => 'collaboration_team', :collection => CollaborationTeam.all %>
+<div id='team_members' class='team_members'>
+  <%= render :partial => 'about_category', :collection => [AboutCategory[:core_team],
+                                                           AboutCategory[:supporters]] %>
 </div>
