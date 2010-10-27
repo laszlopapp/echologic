@@ -42,10 +42,3 @@
 		<%= doc.hidden_field :statement_id %>
   <% end %>
 <% end -%>
-
-<% if !disabled %>
-	<script type="text/javascript">
-	   loadRTEEditor('.rte_doc', '<%= ECHO_HOST %>');
-		 $('#<%= dom_class(statement_node).downcase %>_statement_document_title').focus();
-	</script>
-<% end %>

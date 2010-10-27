@@ -32,23 +32,4 @@
                   :class => 'ajax text_button cancel_text_button' %>
     <% end %>
   <% end %>
-
-
-  <script type="text/javascript">
-    $(':file').css({'-moz-border-radius':'4px', border:"1px solid #ccc"});
-
-    $(':input').focus(function() {
-      $(this).toggleClass('active');
-    });
-
-    $(':input').blur(function() {
-      $(this).toggleClass('active');
-    });
-
-    $("#user_city").autocomplete("users/users/auto_complete_for_user_city");
-    $("#user_country").autocomplete("users/users/auto_complete_for_user_country");
-
-    $("#edit_profile_form").ajaxForm({ dataType: 'script' });
-
-  </script>
 </div>

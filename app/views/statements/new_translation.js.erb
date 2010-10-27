@@ -4,5 +4,4 @@ collapseStatements();
 var new_form = "<%= escape_javascript(render :partial => 'statements/translate') %>";
 replaceOrInsert($('#statements div.<%= dom_class(@statement_node) %>'), new_form);
 
-roundCorners();
 $('#edit_<%= dom_id(@statement_node)%>').ajaxForm({ dataType : 'script' });

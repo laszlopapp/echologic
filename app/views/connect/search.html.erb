@@ -18,12 +18,3 @@
 <%= render :partial => 'connect/profiles/results' %>
 
 <%= render :partial => 'connect/profiles/details', :locals => {:profile => Profile.new, :hidden => true} %>
-
-<script type="text/javascript">
-  $('.profile.active .avatar_holder').die("click");
-  $('.profile.active .avatar_holder').live("click", function() {
-    $.scrollTo('top', 400, function() {$('#profile_details_container').animate(toggleParams, 500)});
-    $('.profile').removeClass('active');
-    return false;
-  });
-</script>

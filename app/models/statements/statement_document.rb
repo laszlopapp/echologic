@@ -15,7 +15,6 @@ class StatementDocument < ActiveRecord::Base
   validates_presence_of :statement
   validates_associated :statement_history
 
-
   before_validation :set_history
   
   delegate :author, :author=, :author_id=, :action, :action=, :action_id=, :old_document, :old_document=, :old_document_id=,

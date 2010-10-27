@@ -4,6 +4,4 @@ collapseStatements();
 var new_form = "<%= escape_javascript(render :partial => 'statements/edit') %>";
 replaceOrInsert($('#statements div.<%= dom_class(@statement_node) %>'), new_form);
 
-makeRatiobars();
-makeTooltips();
 $('#edit_<%= dom_id(@statement_node)%>').ajaxForm({ dataType : 'script' });

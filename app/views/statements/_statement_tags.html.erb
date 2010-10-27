@@ -16,10 +16,3 @@
 	<%= content_tag :div,'', :id => "question_tags_values", :class => "tag_container", :name => "question[tags]" %>
   <%= form.input :tags, :as => :hidden, :value => tags.join(',') %>
 </div>
-
-<script type="text/javascript">
-	loadAddTagButtons();
-	bindAddTagButtonEvents();
-  $(".tag_value_autocomplete").autocomplete('../../discuss/auto_complete_for_tag_value',
-                                            {minChars: 3, selectFirst: false});
-</script>
