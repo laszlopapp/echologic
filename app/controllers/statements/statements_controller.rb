@@ -172,6 +172,7 @@ class StatementsController < ApplicationController
       @statement_node.statement ||= Statement.new
       @statement_document = @statement_node.add_statement_document(
                             doc_attrs.merge({:original_language_id => doc_attrs[:language_id],
+                                             :author_id => current_user.id,
                                              :current => true}))
       permitted = true ; @tags = []
       if @statement_node.taggable? and (permitted = check_hash_tag_permissions(form_tags))
@@ -257,6 +258,7 @@ class StatementsController < ApplicationController
               old_statement_document.save!
               @statement_document = @statement_node.add_statement_document(
                                       attrs_doc.merge({:original_language_id => @locale_language_id,
+                                                       :author_id => current_user.id,
                                                        :current => true}))
               @statement_document.save
 
