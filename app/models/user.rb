@@ -52,6 +52,11 @@ class User < ActiveRecord::Base
   def is_author?(other)
     other.author == self
   end
+  
+  # permission 
+  def permits_authorship?
+    self.authorship_permission == 1
+  end
 
   # Signup process before activation: get login name and email, ensure to not
   # handle with sessions.

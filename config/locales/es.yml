@@ -125,7 +125,7 @@ es:
   # USERS MODULE
   # ------------
   users:
-
+    anonym: Anonym
     # User sessions section
     user_sessions:
       login:

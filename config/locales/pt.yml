@@ -126,6 +126,7 @@ pt:
   # USERS MODULE
   # ------------
   users:
+    anonym: Anonym
     user_sessions:
       login:
         password: 'Senha'
