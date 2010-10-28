@@ -36,11 +36,7 @@ function replaceOrInsert(element, template){
 };
 
 function removeChildrenStatements(element){
-	element_index = $('#statements div.statement').index(element);
-	if(element_index >= 0) {
-	  $('#statements .statement').map(function(index){
-	    if(index > element_index) {$(this).remove();}
-	})};
+	element.nextAll().remove();
 };
 
 /************************/

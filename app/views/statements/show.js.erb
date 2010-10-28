@@ -18,5 +18,3 @@ collapseStatements();
 var statement = "<%= escape_javascript(render :partial => 'statements/show') %>";
 replaceOrInsert(class_element, statement);
 
-showMessageBox('div.<%= dom_class(@statement_node) %> #translation_box', <%= @translation_permission %>);
-showMessageBox('div.<%= dom_class(@statement_node) %> #original_language_box', <%= @original_language_warning %>);
