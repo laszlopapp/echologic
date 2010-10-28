@@ -1,7 +1,7 @@
 <% form_tag send("user_#{type}_path", object.user, object),
             :method => :put,
             :id => dom_id(object, :edit),
-            :class => 'component' do -%>
+            :class => 'ajax_form' do -%>
 
   <%= yield :fields %>
   <%= hidden_field :user_id,

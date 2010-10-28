@@ -5,8 +5,6 @@ $(document).ready(function () {
 	
 	addTagButtons();
 	
-	loadStatementAjaxForms();
-	
 	loadMessageBoxes();
 	
 	loadRTEEditor();
@@ -177,14 +175,6 @@ function loadRTEEditor() {
 /***********/
 /* GENERAL */
 /***********/
-
-/* Makes all statement forms ajax */
-function loadStatementAjaxForms() {
-	$('form.statement').livequery(function () {
-		$(this).ajaxForm({ dataType : 'script' });
-	});
-}
-
 
 function loadStatementAutoComplete() {
 	$('form.statement .tag_value_autocomplete').livequery(function(){

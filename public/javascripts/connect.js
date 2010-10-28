@@ -3,8 +3,6 @@ $(document).ready(function () {
   
   loadAvatarHolders();
   
-	loadReportAjaxForm();
-	
 });
 
 
@@ -16,9 +14,3 @@ function loadAvatarHolders(){
   });
 }
 
-/* Makes Report forms ajax */
-function loadReportAjaxForm() {
-  $('form.report_form').livequery(function () {
-		$(this).ajaxForm({ dataType : 'script' });
-  });
-}

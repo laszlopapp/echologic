@@ -1,6 +1,6 @@
 <%= I18n.t('users.reports.new.text') %>
 
-<% semantic_form_for @report, :html => { :id => 'new_report_form', :class => 'report_form' } do |form| %>
+<% semantic_form_for @report, :html => { :id => 'new_report_form', :class => ' ajax_form report_form' } do |form| %>
 
   <% form.inputs do %>
     <%= form.input :reason, :as => :text, :input_html => { :rows => 10 } %>

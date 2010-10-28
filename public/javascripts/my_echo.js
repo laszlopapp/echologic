@@ -1,19 +1,12 @@
 /* Do init stuff. */
 $(document).ready(function () {
 	
-  loadComponentAjaxForms();
-  
   loadComponentAutoComplete();
 	
 	loadProfileEditForm();	
 });
 
-/* Makes all Component forms ajax */
-function loadComponentAjaxForms() {
-  $('form.component').livequery(function () {
-    $(this).ajaxForm({ dataType : 'script' });
-  });
-}
+
 
 function loadComponentAutoComplete() {
   $('form.component .tag_value_autocomplete').livequery(function(){

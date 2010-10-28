@@ -21,10 +21,9 @@ $(document).ready(function () {
 
   loadTabsContainer();
 	
-	loadSearchAjaxForms();
+	loadAjaxForms();
 	
-	loadFeedbackAjaxForm();
-  
+	uploadFormSubmit();
 
   /* Always send the authenticity_token with ajax */
   $(document).ajaxSend(function(event, request, settings) {
@@ -235,16 +234,36 @@ function loadTabsContainer() {
 	});
 }
 
-/* Makes all search forms ajax */
-function loadSearchAjaxForms() {
-  $('#search_form').livequery(function () {
+
+/* loads form ajaxs */
+function loadAjaxForms() {
+  $('form.ajax_form').livequery(function () {
     $(this).ajaxForm({ dataType : 'script' });
   });
 }
 
-/* Makes feedback form ajax */
-function loadFeedbackAjaxForm() {
-  $('#new_feedback_form').livequery(function () {
-    $(this).ajaxForm({ dataType : 'script' });
-  });
+/* TODO: Load the upload picture forms here */
+function uploadFormSubmit(){
+	$('.upload_form').livequery(function(){
+		element = $(this);
+		element.submit(function(){
+			$(this).ajaxSubmit({
+				beforeSend: function(){
+					$('#uploading_progress').show();
+				},
+				complete: function(){
+					$('#uploading_progress').hide();
+				},
+				success: function(data, status){
+					$.ajax({
+						type: 'get',
+						dataType: 'script',
+						url: element.attr('data-image-redirect')
+					});
+					$('#dialogContent').dialog('close');
+				}
+			});
+			return false;
+		});
+	})
 }

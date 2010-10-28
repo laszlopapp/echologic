@@ -185,7 +185,10 @@ class StatementsController < ApplicationController
         set_statement_node_info(@statement_document)
         # load currently created statement_node to session
         load_to_session @statement_node
-        respond_to_statement
+        load_all_children
+        respond_to_statement do |format|
+          format.js {render :template => 'statements/create'}
+        end
       else
         set_error(@statement_document)
         render_with_error :template => 'statements/new'

@@ -4,7 +4,7 @@
   <% form_tag url_for(:controller => "users/users",
                       :action => "add_concernments"),
               :id => "new_concernment_#{context}",
-              :class => 'component' do -%>
+              :class => 'ajax_form' do -%>
 
     <%= text_field :tag,
                    :value,

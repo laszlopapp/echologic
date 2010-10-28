@@ -1,5 +1,5 @@
 <li>
-  <% form_tag send("user_#{type.pluralize}_path",@user), :method => :post, :id => dom_class(objectClass, :new), :class => 'component' do -%>
+  <% form_tag send("user_#{type.pluralize}_path",@user), :method => :post, :id => dom_class(objectClass, :new), :class => 'ajax_form' do -%>
 	  <%= yield type.to_sym %>
   <% end %>
 </li>
