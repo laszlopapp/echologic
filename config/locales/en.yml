@@ -30,6 +30,7 @@ en:
       incorporate: Incorporate
       welcome: Welcome
       all: All
+      authors: Authors
 
     # Roadmap - Progress
     roadmap:
@@ -125,6 +126,7 @@ en:
   # USERS MODULE
   # ------------
   users:
+    anonym: Anonym
     user_sessions:
       login:
         password: 'Password'
@@ -261,6 +263,16 @@ en:
         turned_on: Drafting notifications have been switched on.
         turned_off: Drafting notifications have been switched off.
 
+    # Permissions section
+    permissions:
+      title: Permission Settings
+      guide: Here you can set whether you would allow your data to be shown in various areas of the website.
+
+      authorship:
+        title: Authorship
+        guide: Allow yourself to be identified as the author of any type of content.
+        turned_on: Authorship has been switched on.
+        turned_off: Authorship has been switched off.     
 
     # New Users section
     users:

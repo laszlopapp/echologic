@@ -1,11 +1,8 @@
 <% @profile = profile if defined?(profile) %>
 
 <li id="<%= dom_id(@profile) %>" class="content profile">
-  <span class="name"><%=h @profile.full_name %></span> <br/>
-  <span class="location_orga">
-    <%=h @profile.location %><br/>
-    <%=h @profile.first_membership %>
-  </span>
+  <%= content_tag :span, @profile.full_name, :class => 'name' %><br/>
+	<%= content_tag :span, "#{@profile.location}#{tag('br')}#{@profile.first_membership}", :class => 'location_orga' %>
   <span class="close_hint" style="display: none;">
     <%= I18n.t('application.general.close') %>
   </span>

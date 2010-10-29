@@ -42,7 +42,7 @@ class Users::SpokenLanguagesController < ApplicationController
             current_completeness = @spoken_language.percent_completed
             set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
   
-            render_with_info do |p|
+            show_info_messages do |p|
               p.insert_html :bottom, 'spoken_language_list', :partial => 'users/spoken_languages/spoken_language'
               p << "$('#new_spoken_language').reset();"
               p << "$('#spoken_language_language').focus();"
@@ -92,7 +92,7 @@ class Users::SpokenLanguagesController < ApplicationController
   
       respond_to do |format|
         format.js do
-          render_with_info do |p|
+          show_info_messages do |p|
             p.remove dom_id(@spoken_language)
           end
         end

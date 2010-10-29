@@ -6,7 +6,8 @@
   <%= I18n.t('users.profile.upload_picture.guide') %>
 </p>
 
-<% semantic_form_for @profile, :html => { :multipart => true, :id => 'upload_picture_form' } do |form| %>
+<% semantic_form_for @profile, :html => { 'data-image-redirect' => url_for(:controller => 'users/profile', :action => 'reload_pictures'), 
+                                          :multipart => true, :id => 'upload_picture_form', :class => 'upload_form' } do |form| %>
   <% form.inputs do %>
     <%= form.input :avatar, :input_html => {:size => 70}%>
   <% end %>
@@ -15,22 +16,3 @@
 <div id="uploading_progress" style="display:none;">
   <%= I18n.t('users.profile.upload_picture.progress') %> <%= image_tag 'indicator.gif' %>
 </div>
-
-<script type="text/javascript">
-  /* Hijack the submit function of the upload picture form. Add some callbacks:
-   *   beforeSend: show progress indicator.
-   *   complete:   hide progress indicator.
-   *   success:    reload all pictures through ajax and close dialog.
-   * Return false to stop normal http processing. */
-  $('#upload_picture_form').submit(function() {
-    $(this).ajaxSubmit({
-      beforeSend: function() { $('#uploading_progress').show(); },
-      complete:   function() { $('#uploading_progress').hide(); },
-      success:    function(data, status) {
-        $.ajax({type:'get', dataType: 'script', url:"<%= url_for(:controller => 'users/profile', :action => 'reload_pictures') %>"});
-        $('#dialogContent').dialog('close');
-      }
-    });
-    return false;
-  });
-</script>

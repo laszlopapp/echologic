@@ -1,0 +1,21 @@
+<% if defined? @info %>
+  info('<%=@info%>') 
+<% end %>
+
+<% if @statement_node.parent.nil? %>
+  window.location.replace('<%= url_for(@statement_node) %>')
+<% else %>
+
+  class_element = $('#statements div.<%= dom_class(@statement_node) %>');
+	if(class_element.length == 0){class_element = $('#statements form.<%= dom_class(@statement_node) %>');};
+	
+	/* Remove all elements from the same class or children class */
+	removeChildrenStatements(class_element);
+	
+	/* Close the content of the remaining ones */
+	collapseStatements();
+	
+	var statement = "<%= escape_javascript(render :partial => 'statements/show') %>";
+	replaceOrInsert(class_element, statement);
+	
+<% end %>

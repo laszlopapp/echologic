@@ -1,0 +1,11 @@
+<li class="author">
+	<% if author.permits_authorship? %>
+		<%= image_tag(author.avatar.url(:small)) %>
+		<%= content_tag :span, author.full_name, :class => 'name' %><br/>
+	<% else %>
+		<%= image_tag('/images/default_small_avatar.png') %>
+	  <%= content_tag :span, I18n.t('users.anonym'), :class => 'name' %><br/>
+	<% end %>
+	<%= content_tag :span, author.first_membership, :class => 'location_orga' %>
+	
+</li>

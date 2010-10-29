@@ -5,7 +5,7 @@
   </div>
   <ul id="notification_list">
   	<% %w(activity drafting newsletter).each do |content| %>
-    <%= render :partial => "users/notification/check", :locals => {:notification_type => content } %>
+    <%= render :partial => "users/components/check", :locals => {:type => 'notification', :content => content } %>
 		<% end %>
   </ul>
 </div>

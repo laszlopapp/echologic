@@ -19,9 +19,6 @@ children_list.append(elements);
 
 more_element.replaceWith(pagination_buttons);
 
-makeRatiobars();
-makeTooltips();
-
 <% if @page.to_i > 1 %>
   pagination_scroll_down(children_list);
 <% end %> 

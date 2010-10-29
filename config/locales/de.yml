@@ -31,6 +31,7 @@ de:
       incorporate: Incorporate
       welcome: Willkommen
       all: Alle
+      authors: Authors
 
     # Roadmap - Progress
     roadmap:
@@ -125,7 +126,7 @@ de:
   # USERS MODULE
   # ------------
   users:
-
+    anonym: Anonym
     # User sessions section
     user_sessions:
       login:

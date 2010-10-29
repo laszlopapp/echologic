@@ -26,7 +26,7 @@ class QuestionsController < StatementsController
             EchoService.instance.published(@statement_node)
             format.js do
               set_info("discuss.statements.published")
-              render_with_info do |page|
+              show_info_messages do |page|
                 if params[:in] == 'summary'
                   page.redirect_to(url_for(@statement_node))
                 else

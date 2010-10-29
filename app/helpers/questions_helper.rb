@@ -56,6 +56,7 @@ module QuestionsHelper
     val = ''
     val << edit_statement_node_link(statement_node, statement_document) 
     val << publish_statement_node_link(statement_node, statement_document)
+    val << authors_statement_node_link(statement_node)
     content_tag :span, val
   end
   

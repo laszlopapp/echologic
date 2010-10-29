@@ -63,7 +63,7 @@ module CollectiveIdea #:nodoc:
             belongs_to :parent, :class_name => self.base_class.to_s,
               :foreign_key => parent_column_name
             has_many :children, :class_name => self.base_class.to_s,
-              :foreign_key => parent_column_name, :order => quoted_left_column_name
+              :foreign_key => parent_column_name#, :order => quoted_left_column_name
 
             attr_accessor :skip_before_destroy
           

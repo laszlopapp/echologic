@@ -3,7 +3,8 @@
 <span class="label"><%= I18n.t("users.concernments.sorts.#{context}") %></span>
   <% form_tag url_for(:controller => "users/users",
                       :action => "add_concernments"),
-              :id => "new_concernment_#{context}" do -%>
+              :id => "new_concernment_#{context}",
+              :class => 'ajax_form' do -%>
 
     <%= text_field :tag,
                    :value,
@@ -21,7 +22,3 @@
 <div id="concernments_<%= context %>" class="tag_container">
   <%= render :partial => 'users/concernments/concernment', :collection => concernments.to_a, :locals => {:context => context} %>
 </div>
-
-<script type="text/javascript">
-  $("#new_concernment_<%= context %>").ajaxForm({ dataType: 'script' });
-</script>

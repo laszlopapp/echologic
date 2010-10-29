@@ -10,6 +10,4 @@ var class_element = $('#statements div.<%= dom_class(@statement_node) %>');
 if(class_element.length > 0) {class_element.replaceWith(new_form);}
 else {$('#statements').append(new_form);};
 
-makeRatiobars();
-makeTooltips();
 $('#edit_<%= dom_id(@statement_node)%>').ajaxForm({ dataType : 'script' });

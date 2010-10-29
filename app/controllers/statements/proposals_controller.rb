@@ -22,20 +22,20 @@ class ProposalsController < StatementsController
     if still_approved && has_lock
       respond_action 'statements/proposals/edit_draft'
     elsif !still_approved
+      set_info('discuss.statements.not_approved_any_more')
       respond_to do |format|
-        set_info('discuss.statements.not_approved_any_more')
-        format.html { flash_info and redirect_to url_for(@statement_node) }
-        format.js do
-          render_with_info do |page|
-            page << "$('#approved_ip').animate(toggleParams, 500).hide();"
+        respond_to_statement do |format|
+          format.js do
+            show_info_messages do |page|
+              page << "$('#approved_ip').animate(toggleParams, 500).hide();"
+            end
           end
         end
       end
     else
-      respond_to do |format|
-        set_info('discuss.statements.being_edited')
-        format.html { flash_info and redirect_to url_for(@statement_node) }
-        format.js   { render_with_info }
+      set_info('discuss.statements.being_edited')
+      respond_to_statement do |format|
+        format.js   { show_info_messages }
       end
     end
   end

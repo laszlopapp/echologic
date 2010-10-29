@@ -5,28 +5,16 @@
   info('<%=@error%>') 
 <% end %>
 
-/* Remove all elements from the same class or children class */
+
 class_element = $('#statements div.<%= dom_class(@statement_node) %>');
 if(class_element.length == 0){class_element = $('#statements form.<%= dom_class(@statement_node) %>');};
-element_index = $('#statements div.statement').index(class_element);
-if(element_index >= 0) {
-	$('#statements .statement').map(function(index){
-	  if(index > element_index) {$(this).remove();}
-})};
 
+/* Remove all elements from the same class or children class */
+removeChildrenStatements(class_element);
 
 /* Close the content of the remaining ones */
-$('#statements .statement .header').removeClass('active');
-$('#statements .statement .content').hide();
-$('#statements .statement .supporters_label').hide();
-
+collapseStatements();
 
 var statement = "<%= escape_javascript(render :partial => 'statements/show') %>";
-if(class_element.length > 0) {class_element.replaceWith(statement);}
-else {$('#statements').append(statement);};
+replaceOrInsert(class_element, statement);
 
-makeRatiobars();
-makeTooltips();
-roundCorners();
-showMessageBox('div.<%= dom_class(@statement_node) %> #translation_box', <%= @translation_permission %>);
-showMessageBox('div.<%= dom_class(@statement_node) %> #original_language_box', <%= @original_language_warning %>);

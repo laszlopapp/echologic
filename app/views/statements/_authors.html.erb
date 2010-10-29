@@ -1,0 +1,5 @@
+<div id="authors" class="authors jcarousel-skin-tango" style='display:none'>
+	<% content_tag :ul, :id => 'authors_list', :class => 'authors_list' do %>
+	 <%= render :partial => 'statements/author', :collection => @authors %>
+	<% end %>
+</div>

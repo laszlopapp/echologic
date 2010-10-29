@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 
   # Every user must have a profile. Profiles are destroyed with the user.
   has_one :profile
-  delegate :percent_completed, :full_name, :first_name, :first_name=, :last_name, :last_name=,
+  delegate :avatar, :percent_completed, :full_name, :first_name, :first_name=, :last_name, :last_name=,
            :city, :city=, :country, :country=, :completeness, :calculate_completeness, :to => :profile
 
   #last login language, important for the activity tracking email language when the user doesn't have anything set
@@ -51,6 +51,11 @@ class User < ActiveRecord::Base
   # handy interfacing
   def is_author?(other)
     other.author == self
+  end
+  
+  # permission 
+  def permits_authorship?
+    self.authorship_permission == 1
   end
 
   # Signup process before activation: get login name and email, ensure to not
@@ -184,6 +189,13 @@ class User < ActiveRecord::Base
     spoken_languages.select{|sp| min_level.nil? or sp.level_key <= LanguageLevel[min_level].key}.collect(&:language)
   end
 
+
+  
+  # Return the first membership. If none is set return empty-string.
+  def first_membership
+    return "" if memberships.blank?
+    "#{memberships.first.organisation} - #{memberships.first.position}"
+  end
 
   ###################
   # ADMIN FUNCTIONS #

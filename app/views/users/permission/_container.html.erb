@@ -1,0 +1,11 @@
+<div id="permission_settings" class="header_block">
+  <h2><%= I18n.t("users.permissions.title") %></h2>
+  <div class="guide">
+    <%= I18n.t("users.permissions.guide") %>
+  </div>
+  <ul id="permission_list">
+    <% %w(authorship).each do |content| %>
+    <%= render :partial => "users/components/check", :locals => {:type => 'permission', :content => content } %>
+    <% end %>
+  </ul>
+</div>

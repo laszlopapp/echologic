@@ -45,7 +45,7 @@ class Users::WebAddressesController < ApplicationController
           if @web_address.save
             @after_completeness = @web_address.percent_completed
             set_info("discuss.messages.new_percentage", :percentage => @after_completeness) if @before_completeness != @after_completeness
-            render_with_info do |p|
+            show_info_messages do |p|
               p.insert_html :bottom, 'web_address_list', :partial => 'users/web_addresses/web_address'
               p << "$('#new_web_address').reset();"
   	          p << "$('#web_address_type_id').focus();"
@@ -97,7 +97,7 @@ class Users::WebAddressesController < ApplicationController
           # sorry, but this was crap. you can't add additional js actions like this...
           # either use a rjs, a js, or a render :update block
           #remove_container "web_profile_#{id}"
-          render_with_info do |p|
+          show_info_messages do |p|
             p.remove dom_id(@web_address)
           end
         end

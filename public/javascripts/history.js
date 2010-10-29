@@ -10,7 +10,7 @@ $(document).ready(function () {
 });
 
 function bindHistoryEvents() {
-	 $("#search_form .submit_button").live("click", function(){
+	$("#search_form .submit_button").live("click", function(){
     setSearchHistory();
     return false;
   });

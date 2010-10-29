@@ -104,7 +104,7 @@ class Users::UsersController < ApplicationController
       respond_to do |format|
         if @user.save and not params[:user][:password].empty?
           format.html { (flash[:notice] = I18n.t('users.password_reset.messages.reset_success')) and (redirect_to my_profile_path) }
-          format.js   { render_with_info(I18n.t('users.password_reset.messages.reset_success')) }
+          format.js   { show_info_messages(I18n.t('users.password_reset.messages.reset_success')) }
         else
           format.html { redirect_to my_profile_path }
           format.js   { show_error_messages(@user) }
@@ -144,7 +144,7 @@ class Users::UsersController < ApplicationController
               set_info("discuss.messages.new_percentage", :percentage => current_completeness)
             end
             new_concernments_hash = current_user.send("#{params[:context]}_tags_hash").to_a - old_concernments_hash.to_a
-            render_with_info do |p|
+            show_info_messages do |p|
               p.insert_html :bottom, "concernments_#{params[:context]}",
                             :partial => "users/concernments/concernment",
                             :collection => new_concernments_hash,
@@ -177,7 +177,7 @@ class Users::UsersController < ApplicationController
   
       respond_to do |format|
         format.js do
-          render_with_info do |p|
+          show_info_messages do |p|
             p.remove "#{params[:context]}_#{params[:id]}"
           end
         end

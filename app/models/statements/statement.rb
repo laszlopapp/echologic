@@ -14,7 +14,7 @@ class Statement < ActiveRecord::Base
   end
 
   def authors
-    statement_histories.select{|sh|original_language.eql?(sh.language)}.map(&:author)
+    statement_histories.by_creation.by_language(self.original_language_id).map(&:author).uniq
   end
 
   def has_author? user

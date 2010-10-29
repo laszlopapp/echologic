@@ -226,7 +226,7 @@ class StatementNode < ActiveRecord::Base
       conditions = search_fields ? [query, *([value] * search_fields.size)] : query
 
       # Executing the query
-      statement_nodes = find_by_sql(conditions)
+      find_by_sql(conditions)
     end
 
     def default_scope

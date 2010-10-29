@@ -149,7 +149,7 @@ end
           request.env["HTTP_REFERER"] ? redirect_to(:back) : redirect_to(root_path)
         }
         format.js {
-          render_with_info do |page|
+          show_info_messages do |page|
             page << "$('#user_session_email').focus();"
           end
         }
@@ -211,7 +211,7 @@ end
   end
 
   # Renders :updates a page with an a info message set by set_info.
-  def render_with_info(message=@info)
+  def show_info_messages(message=@info)
     render :update do |page|
       page << "info('#{message}');" if message
       yield page if block_given?

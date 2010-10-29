@@ -44,7 +44,7 @@ class Users::MembershipsController < ApplicationController
           if @membership.save
             current_completeness = @membership.percent_completed
             set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
-            render_with_info do |p|
+            show_info_messages do |p|
               p.insert_html :bottom, 'membership_list', :partial => 'users/memberships/membership'
               p << "$('#membership_organisation').focus();"
             end
@@ -93,7 +93,7 @@ class Users::MembershipsController < ApplicationController
   
       respond_to do |format|
         format.js do
-          render_with_info do |p|
+          show_info_messages do |p|
             p.remove dom_id(@membership)
           end
         end

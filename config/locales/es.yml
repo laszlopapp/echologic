@@ -31,6 +31,7 @@ es:
       incorporate: Incorporate
       welcome: Bienvenido
       all: Todos
+      authors: Authors
 
     # Roadmap - Progress
     roadmap:
@@ -124,7 +125,7 @@ es:
   # USERS MODULE
   # ------------
   users:
-
+    anonym: Anonym
     # User sessions section
     user_sessions:
       login:

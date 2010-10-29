@@ -9,7 +9,8 @@ class Profile < ActiveRecord::Base
   has_many :memberships,  :through => :user
   has_many :spoken_languages, :through => :user
 
-  delegate :email, :email=, :affection_tags, :expertise_tags, :engagement_tags, :decision_making_tags, :to => :user
+  delegate :email, :email=, :affection_tags, :expertise_tags, :engagement_tags, :decision_making_tags, 
+           :first_membership, :to => :user
 
 
   validates_presence_of :user_id
@@ -61,11 +62,7 @@ class Profile < ActiveRecord::Base
     [city, country].select { |s| s.try(:any?) }.collect(&:capitalize).join(', ')
   end
 
-  # Return the first membership. If none is set return empty-string.
-  def first_membership
-    return "" if memberships.blank?
-    "#{memberships.first.organisation} - #{memberships.first.position}"
-  end
+  
 
   # Self written SQL for querying profiles in echo Connect
   def self.search_profiles(competence, search_term)

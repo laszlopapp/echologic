@@ -7,7 +7,7 @@
   <% create_question_link_for params[:id] %>
 
   <!-- Search field -->
-  <% content_tag :div, :id => 'search_form' do %>
+  <% content_tag :div, :id => 'search_form', :class => 'ajax_form' do %>
     <%= text_field_tag :value %>
     <%= content_tag :span, '', :name => 'submit_button', :class => 'submit_button', :alt => 'search_button' %>  
   <% end %>

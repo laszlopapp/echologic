@@ -1,6 +1,1 @@
 <%= render :partial => 'statements/default', :locals => {:template => 'statements/show'}%>
-
-<script type="text/javascript">
-  showMessageBox("#<%= dom_id(@statement_node) %> #translation_box", <%= @translation_permission %>);
-	showMessageBox("#<%= dom_id(@statement_node) %> #original_language_box", <%= @original_language_warning %>);
-</script>

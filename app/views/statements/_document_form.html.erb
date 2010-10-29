@@ -27,7 +27,6 @@
     <br/>
 		<% if !disabled %>
       <%= doc.input :text, :input_html => {:disabled => disabled, :class => css_rte_class} %>
-      <%= doc.input :author_id, :as => :hidden, :value => current_user.id %>
 			<%= doc.input :old_document_id, :as => :hidden, :value => statement_document.id if !statement_document.new_record? %>
 			<%= doc.input :locked_at, :as => :hidden, :value => statement_document.locked_at %>
 			<%= doc.input :action_id, :as => :hidden, :value => @action.id if @action %>
@@ -42,10 +41,3 @@
 		<%= doc.hidden_field :statement_id %>
   <% end %>
 <% end -%>
-
-<% if !disabled %>
-	<script type="text/javascript">
-	   loadRTEEditor('.rte_doc', '<%= ECHO_HOST %>');
-		 $('#<%= dom_class(statement_node).downcase %>_statement_document_title').focus();
-	</script>
-<% end %>
