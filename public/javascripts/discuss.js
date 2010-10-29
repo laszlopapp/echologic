@@ -11,6 +11,8 @@ $(document).ready(function () {
 	
 	loadStatementAutoComplete();
 	
+	initExpandables();
+	
 });
 
 /********************************/
@@ -18,8 +20,8 @@ $(document).ready(function () {
 /********************************/
 
 function collapseStatements() {
-	$('#statements .statement .header').removeClass('active');
-	$('#statements .statement .content').hide();
+	$('#statements .statement .header').removeClass('active').addClass('ajax_display');
+	$('#statements .statement .content').hide('slow');
 	$('#statements .statement .supporters_label').hide();
 };
 
@@ -36,6 +38,31 @@ function replaceOrInsert(element, template){
 function removeChildrenStatements(element){
 	element.nextAll().remove();
 };
+
+function initExpandables(){
+	/* Special ajax event for the discussion (collapse/expand)*/
+	$(".ajax_display").live("click", function(){
+		$(this).toggleClass('active');
+		to_show = $(this).parents(".statement").find($(this).attr("data-show"));
+		if (to_show.length > 0) {
+			to_show.animate(toggleParams, 500);
+		}
+		else {
+			href = this.href;
+			if (href == null) {
+				href = $(this).attr('href')
+			}
+			$.getScript(href + '?expand=true');
+		}
+		return false;
+	});
+	
+	$(".question .header_buttons a").live("click", function(event){
+		window.location = this.href;
+		//event.stopPropagation();
+		return false;
+	});
+}
 
 /************************/
 /* Question Tag Helpers */

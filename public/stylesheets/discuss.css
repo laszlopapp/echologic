@@ -163,12 +163,13 @@ form.statement .discuss_right_block {
 }
 
 #statements .header .header_link a {
-  width: 600px;
   display: inline-block;
   color: #21587F;
   font-size: 18px;
   font-weight: bold;
   text-decoration: none;
+	padding-right: 21px !important;
+	max-height: 590px;
 }
 
 #statements .header .header_link a:hover {
@@ -428,7 +429,6 @@ a.statement_link {
   display:inline-block;
   min-height: 20px;
   padding-left: 21px !important;
-  width: 565px;
   vertical-align: top;
   margin-bottom: 5px;
 }
@@ -545,6 +545,10 @@ a.statement_link:hover {
 
 .children .text_button {
   margin-left: 0px;
+}
+
+.children a.statement_link {
+	width: 565px;
 }
 
 /* Others */
