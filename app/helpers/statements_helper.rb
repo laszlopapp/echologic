@@ -3,6 +3,10 @@ module StatementsHelper
   # URLs #
   ########
   
+  def statement_node_url(statement_node, type, opts={})
+    send("#{type.downcase}_url",statement_node, opts)
+  end
+  
   def new_child_url(type, opts={})
     send("new_#{type.downcase}_url",opts)
   end
@@ -136,7 +140,7 @@ module StatementsHelper
   
   def authors_statement_node_link(statement_node,type = dom_class(statement_node))
     link_to(I18n.t('application.general.authors'), authors_url(statement_node,type),
-              :class => 'ajax_display header_button text_button authors_button', :show => "#authors")
+              :class => 'ajax_display header_button text_button authors_button', 'data-show' => "#authors")
   end
   
   def delete_statement_node_link(statement_node)
@@ -263,13 +267,13 @@ module StatementsHelper
                   statement_tag(:prev, type, true)
                 else
                   s = index == 0 ? session[key][session[key].length-1] : session[key][index-1]
-                  statement_button(s, statement_tag(:prev, type), :rel => 'prev')
+                  statement_button(s, statement_tag(:prev, type), :rel => 'prev', :class => '')
                 end
       buttons << if session[key].length == 1 or statement_node.new_record?
                    statement_tag(:next, type, true)
                  else
                    s = index == session[key].length-1 ? session[key][0] : session[key][index+1]
-                   statement_button(s, statement_tag(:next, type), :rel => 'next')
+                   statement_button(s, statement_tag(:next, type), :rel => 'next', :class => '')
                  end
     end
   end
@@ -295,9 +299,9 @@ module StatementsHelper
     return link_to(title, url_for(stmt), options)
   end
 
-  def link_to_child(title,statement_node,extra_classes)
+  def link_to_child(title,statement_node,extra_classes, type = dom_class(statement_node))
     link_to h(title),
-            url_for(statement_node),
+            statement_node_url(statement_node, type, :new_level => true),
             :class => "ajax statement_link #{dom_class(statement_node)}_link #{extra_classes}"
   end
 

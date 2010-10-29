@@ -9,12 +9,28 @@
 class_element = $('#statements div.<%= dom_class(@statement_node) %>');
 if(class_element.length == 0){class_element = $('#statements form.<%= dom_class(@statement_node) %>');};
 
-/* Remove all elements from the same class or children class */
-removeChildrenStatements(class_element);
+<% if !params.has_key?(:expand) %>
+  /* Remove all elements from the same class or children class */
+  removeChildrenStatements(class_element);
+<% end %>
 
-/* Close the content of the remaining ones */
-collapseStatements();
+<% if params[:new_level] %>
+	/* Close the content of the remaining ones */
+  collapseStatements();
+<% end %>
 
-var statement = "<%= escape_javascript(render :partial => 'statements/show') %>";
-replaceOrInsert(class_element, statement);
+<% if params[:expand] %>
+  class_element = $('#statements div.<%= dom_class(@statement_node) %> .content');
+  var content = "<%= escape_javascript(render :partial => 'statements/content', :locals => {:hide_content => true}) %>";
+  replaceOrInsert(class_element, statement);
+  $('#statements div.<%= dom_class(@statement_node) %> .content').animate(toggleParams, 500);
+<% elsif params[:new_level] %>
+  var statement = "<%= escape_javascript(render :partial => 'statements/show', :locals => {:hide_content => true}) %>";
+	replaceOrInsert(class_element, statement);
+	$('#statements div.<%= dom_class(@statement_node) %> .content').animate(toggleParams, 500);
+<% else %>
+  var statement = "<%= escape_javascript(render :partial => 'statements/show') %>";
+	replaceOrInsert(class_element, statement);
+<% end %>
+
 
