@@ -1,7 +1,8 @@
 class AdminMailer < ActionMailer::Base
+
   # Send a feedback object as email to the FEEDBACK_RECIPIENT specified
   # in the environment.
-  def newsletter(user, subject, text)  
+  def newsletter(user, subject, text)
     default = user.default_language
     subject       subject
     recipients    user.email
