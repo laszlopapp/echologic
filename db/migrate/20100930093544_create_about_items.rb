@@ -5,6 +5,7 @@ class CreateAboutItems < ActiveRecord::Migration
       t.string :photo_content_type
       t.integer :photo_file_size
       t.string :name
+      t.string :responsibility
       t.text :description
       t.integer :about_category_id
       t.integer :index
@@ -15,6 +16,7 @@ class CreateAboutItems < ActiveRecord::Migration
     create_table :about_item_translations do |t|
       t.integer :about_item_id
       t.string :locale
+      t.string :responsibility
       t.text :description
     end
 

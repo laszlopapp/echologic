@@ -579,15 +579,16 @@ de:
       statement_document:
         language_id: 'Sprache'
         language: 'Sprache'
-        title:    'Titel'
-        text:     'Zusammenfassung'
-        image:    'Illustration'
+        title: 'Titel'
+        text: 'Zusammenfassung'
+        image: 'Illustration'
       about_item:
-        photo:                 'Photo'
-        name:                  'Name'
-        description:           'Description'
-        about_category_id: 'Collaboration Team'
-        index:                 'Index'
+        photo: 'Photo'
+        name: 'Name'
+        responsibility: 'Responsibility'
+        description: 'Description'
+        about_category_id: 'About Item'
+        index: 'Index'
 
     models:
       question: "Frage"
@@ -596,10 +597,10 @@ de:
 
   authlogic:
     error_messages:
-      email_invalid:      "Bitte korrigieren Sie die angegebene E-Mail Adresse."
-      password_blank:     "Bitte geben Sie ein Passwort an."
-      not_active:         "Ihr Zugang wurde noch nicht freigeschaltet. Sehen Sie bitte Ihrem Posteingang nach einer Aktivierungs E-Mail."
-      must_be_logged_in:  "Bitte melden Sie sich an."
+      email_invalid: "Bitte korrigieren Sie die angegebene E-Mail Adresse."
+      password_blank: "Bitte geben Sie ein Passwort an."
+      not_active: "Ihr Zugang wurde noch nicht freigeschaltet. Sehen Sie bitte Ihrem Posteingang nach einer Aktivierungs E-Mail."
+      must_be_logged_in: "Bitte melden Sie sich an."
       must_be_logged_out: "Bitte melden Sie sich ab."
 
     attributes:

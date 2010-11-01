@@ -589,15 +589,16 @@ es:
       statement_document:
         language_id: 'Idioma'
         language: 'Idioma'
-        text:     'Resumen'
-        title:    'Titulo'
-        image:    'Imagen'
+        text: 'Resumen'
+        title: 'Titulo'
+        image: 'Imagen'
       about_item:
-        photo:                 'Photo'
-        name:                  'Name'
-        description:           'Description'
-        about_category_id: 'Collaboration Team'
-        index:                 'Index'
+        photo: 'Photo'
+        name: 'Name'
+        responsibility: 'Responsibility'
+        description: 'Description'
+        about_category_id: 'About Item'
+        index: 'Index'
 
     models:
       question: "Cuestión"

@@ -564,15 +564,16 @@ pt:
       statement_document:
         language_id: 'Língua'
         language: 'Língua'
-        text:       'Sumário'
-        title:      'Título'
-        image:      'Ilustração'
+        text: 'Sumário'
+        title: 'Título'
+        image: 'Ilustração'
       about_item:
-        photo:                 'Photo'
-        name:                  'Name'
-        description:           'Description'
-        about_category_id: 'Collaboration Team'
-        index:                 'Index'
+        photo: 'Photo'
+        name: 'Name'
+        responsibility: 'Responsibility'
+        description: 'Description'
+        about_category_id: 'About Item'
+        index: 'Index'
 
     models:
       question: "questão"

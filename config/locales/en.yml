@@ -567,15 +567,16 @@ en:
       statement_document:
         language_id: 'Language'
         language: 'Language'
-        title:    'Title'
-        text:     'Summary'
-        image:    'Illustration'
+        title: 'Title'
+        text: 'Summary'
+        image: 'Illustration'
       about_item:
-        photo:                 'Photo'
-        name:                  'Name'
-        description:           'Description'
-        about_category_id: 'Collaboration Team'
-        index:                 'Index'
+        photo: 'Photo'
+        name: 'Name'
+        responsibility: 'Responsibility'
+        description: 'Description'
+        about_category_id: 'About Item'
+        index: 'Index'
 
     models:
       question: "question"
