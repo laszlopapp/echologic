@@ -11,7 +11,7 @@ class AboutItemsController < AdminController
 
 
   active_scaffold :about_items do |config|
-    config.label = "Members"
+    config.label = "About items"
     config.columns = [:about_category_id, :photo, :name, :responsibility, :description, :index]
     list.sorting = [{:about_category_id => 'DESC'}, {:index => 'ASC'}]
     config.columns[:about_category_id].form_ui = :select
