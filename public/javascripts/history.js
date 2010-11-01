@@ -2,10 +2,6 @@
 /*    SEARCH HISTORY      */
 /**************************/
 
-
-
-(function($) {
-
 $(document).ready(function () {
   bindHistoryEvents();
 });
@@ -15,8 +11,8 @@ function bindHistoryEvents() {
     setSearchHistory();
     return false;
   });
-	
-	$('#search_form #value').live("keypress", function(event) { 
+
+	$('#search_form #value').live("keypress", function(event) {
     if (event && event.keyCode == 13) { /* check if enter was pressed */
       setSearchHistory();
       return false;
@@ -35,7 +31,7 @@ function bindHistoryEvents() {
     return false;
   });
 	$.fragmentChange(true);
-};
+}
 
 
 
@@ -47,22 +43,22 @@ function setSearchHistory() {
 	}
 	else {
     $.setFragment({ "value": val, "page": "1"});
-	} 
+	}
 }
 
 
 
 $(function() {
   $(".pagination a").live("click", function() {
-    $.setFragment({ "page" : $.queryString(this.href).page })
+    $.setFragment({ "page" : $.queryString(this.href).page });
     return false;
   });
-  
+
   $.fragmentChange(true);
   $(document).bind("fragmentChange.page", function() {
 		$.getScript($.queryString(document.location.href, {"page" : $.fragment().page, "sort": $.fragment().sort , "value" : $.fragment().value}));
   });
-  
+
   if ($.fragment().page) {
     $(document).trigger("fragmentChange.page");
   }
@@ -87,5 +83,3 @@ function pagination_scroll_down(id) {
   }
 
 }
-
-})(jQuery);
