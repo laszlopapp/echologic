@@ -166,6 +166,8 @@ class StatementsController < ApplicationController
     attrs = params[statement_node_symbol].merge({:creator_id => current_user.id})
     doc_attrs = attrs.delete(:statement_document)
     form_tags = attrs.delete(:tags)
+    
+    echo = params.delete(:echo)
 
     begin
       @statement_node ||= statement_node_class.new(attrs)
@@ -181,6 +183,7 @@ class StatementsController < ApplicationController
       end
     
       if permitted and @statement_node.save
+        @statement_node.author_support(echo)
         EchoService.instance.created(@statement_node)
         set_statement_node_info(@statement_document)
         # load currently created statement_node to session

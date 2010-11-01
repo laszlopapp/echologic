@@ -17,6 +17,8 @@ $(document).ready(function () {
 	
 	cleanDefaultsBeforeSubmit();
 	
+	initEchoNewStatementButtons();
+	
 });
 
 /********************************/
@@ -118,6 +120,25 @@ function cleanDefaultsBeforeSubmit() {
 		});
   });
 }
+
+function initEchoNewStatementButtons() {
+	$('div#echo_button .new_record.not_supported').live('click', function(){
+		$(this).removeClass('not_supported').addClass('supported');
+		ratio_bar = $("<span class='echo_indicator' alt=10></span>");
+		
+		$(this).parents('form.statement').find('.no_echo_indicator').replaceWith(ratio_bar);
+		$(this).parent().find('#echo').val(1);
+	});
+	
+	$('div#echo_button .new_record.supported').live('click', function(){
+    $(this).removeClass('supported').addClass('not_supported');
+    ratio_bar = $("<span class='no_echo_indicator'></span>");
+    
+    $(this).parents('form.statement').find('.echo_indicator').replaceWith(ratio_bar);
+		$(this).parent().find('#echo').val(0);
+  });
+}
+
 /************************/
 /* Question Tag Helpers */
 /************************/

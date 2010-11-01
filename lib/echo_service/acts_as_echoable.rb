@@ -21,7 +21,7 @@ module ActiveRecord
             belongs_to :echo
             has_many :user_echos, :foreign_key => 'echo_id', :primary_key => 'echo_id'
             delegate :supporter_count, :visitor_count, :to => :echo
-            after_create :author_support
+            #after_create :author_support
           end
 
 
@@ -144,9 +144,11 @@ module ActiveRecord
             end
 
             # Records the creator's support for the statement.
-            def author_support
-              if (!self.incorporable? or self.parent.supported?(self.creator)) # and self.echoable? SHOULD I????
-                self.supported!(self.creator)
+            def author_support(echo)
+              if echo and echo==1
+                if (!self.incorporable? or self.parent.supported?(self.creator)) # and self.echoable? SHOULD I????
+                  self.supported!(self.creator)
+                end
               end
             end
 

@@ -23,31 +23,31 @@ module StatementsHelper
     send("edit_#{dom_class(statement_node).downcase}_url",statement_node,opts)
   end
 
-  def new_translation_url (statement_node, type, opts={})
+  def new_translation_url(statement_node, type, opts={})
     send("new_translation_#{type.downcase}_url",statement_node,opts)
   end
 
-  def create_translation_url (statement_node, type)
+  def create_translation_url(statement_node, type)
     send("create_translation_#{type.downcase}_url",statement_node)
   end
   
-  def cancel_url (statement_node, type, opts={})
+  def cancel_url(statement_node, type, opts={})
     send("cancel_#{type.downcase}_url",statement_node, opts)
   end
 
-  def upload_image_url (statement_node, type, opts={})
+  def upload_image_url(statement_node, type, opts={})
     send("upload_image_#{type.downcase}_url",statement_node, opts)
   end
 
-  def reload_image_url (statement_node, type, opts={})
+  def reload_image_url(statement_node, type, opts={})
     send("reload_image_#{type.downcase}_url",statement_node, opts)
   end
 
-  def children_url (statement_node, type, opts={})
+  def children_url(statement_node, type, opts={})
     send("children_#{type.downcase}_url",statement_node, opts)
   end
   
-  def authors_url (statement_node, type, opts={})
+  def authors_url(statement_node, type, opts={})
     send("authors_#{type.downcase}_url",statement_node, opts)
   end
 
@@ -200,12 +200,14 @@ module StatementsHelper
   # (support ratio is the calculated ratio for a statement_node,
   # representing and visualizing the agreement a statement_node has found within the community)
   def supporter_ratio_bar(statement_node, show_label = false)
-    if statement_node.supporter_count < 2
-      label = I18n.t('discuss.statements.echo_indicator.one',
-                     :supporter_count => statement_node.supporter_count)
-    else
-      label = I18n.t('discuss.statements.echo_indicator.many',
-                     :supporter_count => statement_node.supporter_count)
+    unless show_label
+      if statement_node.supporter_count < 2
+        label = I18n.t('discuss.statements.echo_indicator.one',
+                       :supporter_count => statement_node.supporter_count)
+      else
+        label = I18n.t('discuss.statements.echo_indicator.many',
+                       :supporter_count => statement_node.supporter_count)
+      end
     end
 
     html = ''.html_safe!
@@ -230,14 +232,20 @@ module StatementsHelper
   # Renders the button for echo and unecho.
   def render_echo_button(statement_node, echo = true, type = dom_class(statement_node))
     return if !statement_node.echoable?
-    title = I18n.t("discuss.tooltips.#{echo ? '' : 'un'}echo")
     link_to(url_for(echo ? echo_url(statement_node,type) : unecho_url(statement_node,type)),
                     :class => "ajax_put",
                     :id => 'echo_button') do
-       content_tag :span, '', :class => "#{echo ? 'not_' : '' }supported ttLink no_border", :title => "#{title}"
+      echo_tag(echo)
     end
     tag("br")
   end
+
+  # renders the echo/unecho button element
+  def echo_tag(echo, extra_classes = '')
+    title = I18n.t("discuss.tooltips.#{echo ? '' : 'un'}echo")
+    content_tag :span, '', :class => "#{echo ? 'not_' : '' }supported ttLink no_border #{extra_classes}", :title => "#{title}"
+  end
+
 
   # Returns the context menu link for this statement_node.
   def statement_node_context_link(statement_node, language_ids, action = 'read', last_statement_node = false)
