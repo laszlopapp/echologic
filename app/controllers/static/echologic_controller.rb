@@ -7,6 +7,9 @@
 #     - index action now handles '/echologic'
 #
 class Static::EchologicController < ApplicationController
+  helper :static_content
+
+  skip_before_filter :require_user
 
   # Default page redirected to echoLogic - The Mission
   def show

@@ -1,7 +1,7 @@
 class Users::UsersController < ApplicationController
 
   before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :only => [:show, :edit, :update, :update_password, :add_concernments, :delete_concernment]
+  skip_before_filter :require_user, :only => [:index, :new, :create]
   before_filter :fetch_user, :only => [:show, :edit, :update, :update_password, :destroy]
 
 
@@ -52,7 +52,7 @@ class Users::UsersController < ApplicationController
 
   # modified users_controller.rb
   def create
-    
+
     @user = User.new
     @user.create_profile
     begin
@@ -120,9 +120,9 @@ class Users::UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.xml
   def destroy
-    @user.destroy
+    @user.delete_account
     respond_to do |format|
-      flash[:notice] = "User removed, Sir!"
+      flash[:notice] = "User account has been removed."
       format.html { redirect_to connect_path }
     end
   end
@@ -133,7 +133,7 @@ class Users::UsersController < ApplicationController
     new_concernments = concernments.split(',').map!{|t|t.strip} - current_user.send("#{params[:context]}_tags".to_sym)
     all_concernments = current_user.send("#{params[:context]}_tags".to_sym) + new_concernments
     old_concernments_hash = current_user.send("#{params[:context]}_tags_hash".to_sym)
-    begin 
+    begin
       previous_completeness = current_user.profile.percent_completed
       current_user.send("#{params[:context]}_tags=".to_sym, all_concernments)
       respond_to do |format|
@@ -165,7 +165,7 @@ class Users::UsersController < ApplicationController
   end
 
   def delete_concernment
-    begin 
+    begin
       previous_completeness = current_user.percent_completed
       current_user.send("#{params[:context]}_tags=", current_user.send("#{params[:context]}_tags") - [params[:tag]])
       current_user.save
@@ -174,7 +174,7 @@ class Users::UsersController < ApplicationController
       if previous_completeness != current_completeness
         set_info("discuss.messages.new_percentage", :percentage => current_completeness)
       end
-  
+
       respond_to do |format|
         format.js do
           render_with_info do |p|

@@ -4,10 +4,6 @@ class AboutItemsController < AdminController
   before_filter :action_links_order
 
 
-
-  # All reporting actions require a logged in user
-  before_filter :require_user
-
   # Admin may perform everything.
   access_control do
     allow :admin

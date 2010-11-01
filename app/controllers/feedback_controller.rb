@@ -8,6 +8,9 @@ end
 
 class FeedbackController < ApplicationController
 
+  skip_before_filter :require_user, :only => [:new, :create]
+
+
   # GET /feedback/new
   def new
     render_static_new :partial => 'feedback/new'
@@ -19,7 +22,7 @@ class FeedbackController < ApplicationController
     respond_to do |format|
       format.js do
         if @feedback.save
-          RegistrationMailer.deliver_feedback(@feedback)
+          FeedbackMailer.deliver_feedback(@feedback)
           render :template => 'feedback/create'
         else
           show_error_messages(@feedback)
@@ -38,7 +41,9 @@ class FeedbackController < ApplicationController
       when Net::SMTPSyntaxError
         then flash[:error] = t('activerecord.errors.models.feedback.attributes.email.invalid')
     end
-    render_static_show :partial => 'feedback/new', :template_js => 'layouts/outerMenuDialog', :locals => { :menu_item => 'feedback/new' }
+    render_static_show :partial => 'feedback/new',
+                       :template_js => 'layouts/outerMenuDialog',
+                       :locals => { :menu_item => 'feedback/new' }
   end
 
 

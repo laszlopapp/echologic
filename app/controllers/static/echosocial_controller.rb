@@ -1,9 +1,13 @@
 class Static::EchosocialController < ApplicationController
+  helper :static_content
+
+  skip_before_filter :require_user
+
   %w(show features extensions).each do |name|
     class_eval %(
       def #{name}
         render_static_show :partial => '#{name}', :layout => 'echosocial'
-      end  
+      end
     )
   end
 

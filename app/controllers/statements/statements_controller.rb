@@ -14,11 +14,11 @@ class StatementsController < ApplicationController
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
+  skip_before_filter :require_user, :only => [:category, :show, :children]
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
   before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions,
                                                                    :new, :create, :children, :upload_image,
                                                                    :reload_image]
-  before_filter :require_user, :except => [:category, :show, :children]
   before_filter :fetch_languages, :except => [:destroy]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
@@ -508,7 +508,7 @@ rescue Exception => e
 
   # After uploading the image, this has to be reloaded.
   # Reloading:
-  #  1. loginContainer with users picture as profile link
+  #  1. login_container with users picture as profile link
   #  2. picture container of the profile
   #
   # Method:   GET
@@ -820,7 +820,7 @@ rescue Exception => e
 
   def log_home_error(e, message)
     log_message_error(e, message) do |format|
-      flash_error and redirect_to_home
+      flash_error and redirect_to_welcome
     end
   end
 end

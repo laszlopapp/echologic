@@ -1,4 +1,8 @@
 class NewsletterController < ApplicationController
+
+  skip_before_filter :require_user, :only => [:new, :create]
+
+
   # GET /new
   def new
     respond_to do |format|
@@ -29,16 +33,4 @@ class NewsletterController < ApplicationController
     end
   end
 
-  # Rescues eventually occuring errors and handles them by redirecting to
-  # the feedback page with error message in the flash storage.
-  # TODO errors as an array in flash, currently just one error per request.
-  def rescue2_action(exception)
-    case (exception)
-      when NotComplete
-        then flash[:error] = t('activerecord.errors.models.newsletter.attributes.blank')
-      when Net::SMTPSyntaxError
-        then flash[:error] = t('activerecord.errors.models.newsletter.attributes.email.invalid')
-    end
-    redirect_to new_newsletter_path
-  end
 end

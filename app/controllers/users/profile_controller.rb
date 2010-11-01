@@ -1,9 +1,18 @@
 class Users::ProfileController < ApplicationController
   helper :connect
-  before_filter :require_user, :only => [:show, :edit, :update, :get_personal, :welcome, :upload_picture, :reload_pictures]
+
+  skip_before_filter :require_user, :only => [:details]
 
   access_control do
     allow logged_in # Logged in persons are allowed to modify their profile
+  end
+
+  def details
+    @profile = Profile.find(params[:id], :include => [:web_addresses, :memberships, :user])
+    respond_to do |format|
+      format.js   { render :template => 'connect/profiles/details'}
+      format.html { render :partial => 'connect/profiles/details', :layout => 'application' }
+    end
   end
 
   # Shows details for the current user, this action is formaly known as
@@ -12,14 +21,6 @@ class Users::ProfileController < ApplicationController
     @profile = Profile.find(params[:id])
     respond_to_js :partial => 'users/profile/profile_own' do |format|
       format.js {replace_container('personal_container', :partial => 'users/profile/profile_own')}
-    end
-  end
-
-  def details
-    @profile = Profile.find(params[:id], :include => [:web_addresses, :memberships, :user])
-    respond_to do |format|
-      format.js   { render :template => 'connect/profiles/details'}
-      format.html { render :partial => 'connect/profiles/details', :layout => 'application' }
     end
   end
 
@@ -47,9 +48,9 @@ class Users::ProfileController < ApplicationController
         if @profile.update_attributes(params[:profile])
           current_completeness = @profile.percent_completed
           set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
-          
+
           format.html { flash_info and redirect_to my_profile_path }
-          format.js   {         
+          format.js   {
             render_with_info do |p|
               p.replace('personal_container', :partial => 'users/profile/profile_own')
             end
@@ -78,7 +79,7 @@ class Users::ProfileController < ApplicationController
 
   # After uploading the profile picture has to be reloaded.
   # Reloading:
-  #  1. loginContainer with users picture as profile link
+  #  1. login_container with users picture as profile link
   #  2. picture container of the profile
   def reload_pictures
     @user = current_user
@@ -86,7 +87,7 @@ class Users::ProfileController < ApplicationController
     respond_to do |format|
       format.js do
         render :update do |page|
-          page.replace 'loginContainer',    :partial => 'users/user_sessions/login'
+          page.replace 'login_container', :partial => 'users/user_sessions/login'
           page.replace 'profile_avatar_container', :partial => 'users/avatar/picture'
         end
       end
