@@ -391,6 +391,8 @@ pt:
         Poderá desta forma introduzir conteúdo em qualquer língua na qual possua conhecimentos para além de um nível intermédio.
       drafting_language_hint: |
         Por favor tome nota de que o processo de elaboração coletiva desta proposta só irá ocorrer nesta língua!
+      title_hint: 'Please enter title here...'
+      
       publish: Publicar
       published: A discussão foi publicada com sucesso.
       edit: 'Editar {{type}}'

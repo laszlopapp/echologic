@@ -9,7 +9,7 @@
     <%= text_field :tag,
                    :value,
                    :class => 'tag_value_autocomplete',
-                   :id => "tag_#{tag_context.code}_id" %>
+                   :id => "tag_#{tag_context.code}_id", 'data-default' => '' %>
      <%= content_tag :span, I18n.t('application.general.create'), :class => "add_text_button text_button addTag" %>
 	</div>
 

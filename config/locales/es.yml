@@ -406,9 +406,7 @@ es:
         Esto le permitirá introducir comentarios en el idioma en que posee al menos, conocimientos a nivel intermedio.
       drafting_language_hint: |
         Note por favor, que el proceso de elaboración colectiva de las propuestas funcionará sólo en este idioma!
-
-
-
+      title_hint: 'Please enter title here...'
 
       publish: Publicar
       published: Esta discusión fue publicada con éxito.

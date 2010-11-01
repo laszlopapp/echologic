@@ -678,7 +678,7 @@ form.statement fieldset ol li.tags_container {
 
 .tags_container .form_container {
 	display:inline-block;
-	margin:7px 0 25px;
+	margin:7px 12px 25px 0px;
 	vertical-align:top;
 	width:328px;
 }

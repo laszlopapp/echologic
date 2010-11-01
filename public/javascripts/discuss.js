@@ -13,6 +13,10 @@ $(document).ready(function () {
 	
 	initExpandables();
 	
+	loadTitleDefaultText();
+	
+	cleanDefaultsBeforeSubmit();
+	
 });
 
 /********************************/
@@ -64,6 +68,56 @@ function initExpandables(){
 	});
 }
 
+
+/****************/
+/* Form Helpers */
+/****************/
+
+/* write the default message on the text inputs while they don't get filled */
+function loadTitleDefaultText() {
+	$("form.new input[type='text']").livequery(function(){
+		var value = $(this).attr('data-default');
+		
+		if (this.value.length == 0) {
+			this.value = value;
+			$(this).css("color", '#ccc');
+		}
+		$(this).focus(function() {
+	    if (this.value == value) {
+	      this.value = '';
+	      this.style.color = '#000';
+	    }
+	    $(this).blur(function() {
+	      if (this.value == '') {
+		      this.style.color = '#ccc';
+	        this.value = value;
+	      }
+	    });
+			$(this).parents('form.new').find('li:commit input').focus();
+			$(this).blur();
+	  });
+		$(this).keypress(function(){
+      if(this.value == value) {
+        this.style.color = '#000';
+        this.value = '';
+      }
+    });
+	})
+}
+
+/* clean input text fields which might still be filled with the default message */
+function cleanDefaultsBeforeSubmit() {
+	$('form.statement').livequery(function(){
+		$(this).bind('submit', function(){
+	    $("input[type='text']", $(this)).each(function() {
+	      // If the input still with default value, clean it before the submit
+	      if ($(this).val() == $(this).attr('data-default')) {
+	        $(this).val('');
+	      }
+	    });
+		});
+  });
+}
 /************************/
 /* Question Tag Helpers */
 /************************/
