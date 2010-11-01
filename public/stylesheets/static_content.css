@@ -13,13 +13,11 @@ li {
 
 /* more buttons */
 .moreButton, .hideButton {
-  cursor:   pointer;
-  color:    #7BB031;
+  cursor: pointer;
+  color: #21587f;
+  text-decoration: underline;  
 }
 
-.moreButton:hover, .hideButton:hover {
-  border-bottom: 1px dotted #7BB031;
-}
 
 /* About echo */
 
