@@ -12,7 +12,7 @@ page.remove :new_translation
 
 
 page << "makeRatiobars()"
-page << "makeTooltips"
+page << "makeTooltips()"
 page << "roundCorners()"
 page << "showMessageBox('#translation_box', #{@translation_permission})"
 page << "showMessageBox('#original_language_box', #{@original_language_warning})"

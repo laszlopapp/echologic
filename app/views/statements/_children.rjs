@@ -12,7 +12,7 @@ page.replace :more_pagination, will_paginate(@children, :id => 'more_pagination'
                                                         :class => 'more_pagination',
                                                         :next_label => I18n.t("application.general.more"),
                                                         :renderer => StatementsHelper::MoreRenderer)
-page << "makeRatiobars()";
+page << "makeRatiobars();"
 page << "makeTooltips();"
 
 page << "pagination_scroll_down('#children_list');" if @page.to_i > 1
