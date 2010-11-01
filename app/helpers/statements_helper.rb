@@ -64,7 +64,7 @@ module StatementsHelper
   end
   
   def render_children(statement_node, children)
-    return if children.nil?
+    return content_tag :div, '', :style => "clear:right" if children.blank?
     val = ''
     statement_node.class.expected_children_types.each do |type|
       val << render(:partial => 'statements/children', :locals => {:type => type.to_s.underscore, :children => children[type]})

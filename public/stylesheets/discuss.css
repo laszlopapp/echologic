@@ -62,6 +62,7 @@ form.formtastic fieldset .rte-zone li {
   float: left;
   width: 25px;
   margin: 5px 2px;
+	padding-left: 0px;
 }
 
 form.formtastic fieldset .rte-zone li.separator {
@@ -116,6 +117,25 @@ form.statement .discuss_right_block {
   float: right;
   margin: 0px 35px 0 30px;
   border: none;
+}
+
+form.question .header li {
+  background:transparent url(../images/page/discuss/question_small.png) no-repeat scroll 0 0;	
+}
+form.proposal .header li {
+  background:transparent url(../images/page/discuss/proposal_small.png) no-repeat scroll 0 0; 
+}
+form.improvement_proposal .header li {
+  background:transparent url(../images/page/discuss/improvement_proposal_small.png) no-repeat scroll 0 0; 
+}
+
+form.statement fieldset ol li {
+  padding-left: 21px;
+  background-position:0 3px;
+}
+
+form.translation fieldset ol li {
+	padding-left: 0px;
 }
 
 /* ------- */
@@ -652,14 +672,18 @@ a.statement_link:hover {
 
 }
 
-#statement_tags_container .form_container {
+form.statement fieldset ol li.tags_container {
+	width: 609px;
+}
+
+.tags_container .form_container {
 	display:inline-block;
 	margin:7px 0 25px;
 	vertical-align:top;
-	width:395px;
+	width:328px;
 }
 
-#statement_tags_container .label {
+.tags_container .label {
   color: #7bb031;
   font-size: 15px;
   font-weight: bold;
@@ -668,13 +692,13 @@ a.statement_link:hover {
   cursor: default;
 }
 
-#statement_tags_container #tag_topic_id {
+.tags_container #tag_topic_id {
   width: 250px !important;
   padding: 2px 0;
   color: #21587F;
 }
 
-#statement_tags_container .add_text_button {
+.tags_container .add_text_button {
 	display: inline-block;
   position: relative;
   top: -2px;
