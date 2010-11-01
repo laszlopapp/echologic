@@ -1,4 +1,4 @@
-<div id="loginContainer">
+<div id="login_container">
 
   <% if current_user_session %>
     <%= link_to(image_tag(current_user.profile.avatar.url(:small), :id => 'logged_in_user_pic'), my_profile_path) %>
