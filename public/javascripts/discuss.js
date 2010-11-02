@@ -68,7 +68,6 @@ function initExpandables(){
 	
 	$(".question .header_buttons a").live("click", function(event){
 		window.location = this.href;
-		//event.stopPropagation();
 		return false;
 	});
 }
