@@ -279,6 +279,7 @@ class StatementsController < ApplicationController
           else #update image
             @statement_node.update_attributes(attrs)
             @statement_node.statement_image.save
+             @statement_node.statement.save
             update_image = true
           end
         end
