@@ -73,10 +73,6 @@ class StatementNodeTest < ActiveSupport::TestCase
         assert_equal @statement_node.document_in_preferred_language([Language.first.id]).text, "with a very short body, dude!"
       end
 
-      should "have creator as supporter" do
-        @user = @statement_node.creator
-        assert(@statement_node.supported?(@user))
-      end
 
       # TODO: Enable test again
 #      should "have have a creation event associated" do

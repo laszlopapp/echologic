@@ -8,6 +8,9 @@
                                                                'data-default' => I18n.t('discuss.statements.title_hint')}%>
 			<% end %>
 	  <% end %>
-		<%= supporter_ratio_bar(statement_node, true) if statement_node.echoable?%>
+		<% if statement_node.echoable? %>
+		  <%= supporter_ratio_bar(statement_node, true) %>
+			<%= supporters_label(statement_node, true) %>
+    <% end %>
   </div>
 </div>

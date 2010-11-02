@@ -1,20 +1,22 @@
 <% statement_node ||= @statement_node %>
+<% no_buttons ||= false %>
 <div class="action_bar" style="<%= statement_node.new_record? and !statement_node.echoable? ? 'border-width:0px' : '' %>">
 	<!-- Render Echo Button -->
-	<% if statement_node.new_record? %>
-	 <% content_tag :div, :id => 'echo_button' do %>
-	   <%= echo_tag(!(current_user && statement_node.supported?(current_user)), 'new_record')%>
-		 <%= hidden_field_tag 'echo', 0 %>
-	 <% end %>
-	<% else %>
-   <% render_echo_button(statement_node, !(current_user && statement_node.supported?(current_user))) %>
+	<% if statement_node.echoable? %>
+		<% if statement_node.new_record? %>
+		 <% content_tag :div, :id => 'echo_button' do %>
+		   <%= echo_tag(false, 'new_record')%>
+			 <%= hidden_field_tag 'echo', true %>
+		 <% end %>
+		<% else %>
+		 <% render_echo_button(statement_node, !(current_user && statement_node.supported?(current_user))) %>
+		<% end %>
 	<% end %>
-	
 	<!-- New Statement Button --> 
-  <% create_new_sibling_statement_button(statement_node) unless statement_node.new_record? %>
+  <% create_new_sibling_statement_button(statement_node) unless no_buttons %>
   
 	<!-- Delete Statement Button -->
-  <% if !statement_node.new_record? and current_user and current_user.may_delete?(statement_node) -%>
+  <% if !no_buttons and current_user and current_user.may_delete?(statement_node) -%>
     <br/><br/>
     <%= delete_statement_node_link(statement_node) %>
   <% end -%>

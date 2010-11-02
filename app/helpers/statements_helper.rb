@@ -168,9 +168,10 @@ module StatementsHelper
   end
 
   def cancel_new_statement_node(statement_node,cancel_js=false)
+    type = (session[:last_statement_node] and statement_node.parent.id == session[:last_statement_node]) ? dom_class(statement_node.parent) : dom_class(statement_node)
     link_to I18n.t('application.general.cancel'),
             session[:last_statement_node] ?
-              send("#{dom_class(statement_node)}_url",session[:last_statement_node]) : (statement_node.parent or discuss_url),
+              send("#{type}_url",session[:last_statement_node]) : (statement_node.parent or discuss_url),
             :class => 'ajax text_button cancel_text_button'
   end
 
@@ -200,33 +201,37 @@ module StatementsHelper
   # (support ratio is the calculated ratio for a statement_node,
   # representing and visualizing the agreement a statement_node has found within the community)
   def supporter_ratio_bar(statement_node, show_label = false)
-    unless show_label
+    # TODO:How to spare calculating this label two times (see next method, they're almost always sequencially triggered)
+    if show_label 
       if statement_node.supporter_count < 2
         label = I18n.t('discuss.statements.echo_indicator.one',
-                       :supporter_count => statement_node.supporter_count)
+                       :supporter_count => statement_node.new_record? ? 1 : statement_node.supporter_count)
       else
         label = I18n.t('discuss.statements.echo_indicator.many',
                        :supporter_count => statement_node.supporter_count)
       end
     end
-
-    html = ''.html_safe!
-    if show_label
-      if statement_node.ratio > 1
-        html += content_tag :span, '', :class => "echo_indicator", :alt => statement_node.ratio
-      else
-        html += content_tag :span, '', :class => "no_echo_indicator"
-      end
-      html += content_tag :span, label, :class => "supporters_label"
+    
+    extra_classes = show_label ? 'supporters_bar ttLink' : 'supporters_bar'
+    if statement_node.new_record? or statement_node.ratio > 1
+      content_tag(:span, '', :class => "echo_indicator #{extra_classes}", :title => label, 
+                  :alt => statement_node.new_record? ? 10 : statement_node.ratio)
     else
-      if statement_node.ratio > 1
-        html += content_tag :span, '', :class => "echo_indicator ttLink", :title => label, :alt => statement_node.ratio
-      else
-        html += content_tag :span, '', :class => "no_echo_indicator ttLink", :title => label
-      end
+      content_tag(:span, '', :class => "no_echo_indicator #{extra_classes}",:title => label)
     end
-
-    html
+  end
+  
+  # inserts a supporters label with the supporters number of this statement
+  def supporters_label(statement_node, show_label = false)
+    return unless show_label
+    if statement_node.supporter_count < 2
+      label = I18n.t('discuss.statements.echo_indicator.one',
+                     :supporter_count => statement_node.new_record? ? 1 : statement_node.supporter_count)
+    else
+      label = I18n.t('discuss.statements.echo_indicator.many',
+                     :supporter_count => statement_node.supporter_count)
+    end
+    content_tag(:span, label, :class => "supporters_label") 
   end
 
   # Renders the button for echo and unecho.
@@ -250,14 +255,10 @@ module StatementsHelper
   # Returns the context menu link for this statement_node.
   def statement_node_context_link(statement_node, language_ids, action = 'read', last_statement_node = false)
     return if (statement_document = statement_node.document_in_preferred_language(language_ids)).nil?
-    link = link_to(h(statement_document.title),
-                   url_for(statement_node),
-                   :class => "ajax no_border statement_link #{dom_class(statement_node)}_link ttLink",
-                   :title => I18n.t("discuss.tooltips.#{action}_#{dom_class(statement_node)}"))
-    if statement_node.echoable?
-      link << supporter_ratio_bar(statement_node, last_statement_node)
-    end
-    return link
+    link_to(h(statement_document.title),
+             url_for(statement_node),
+             :class => "ajax no_border statement_link #{dom_class(statement_node)}_link ttLink",
+             :title => I18n.t("discuss.tooltips.#{action}_#{dom_class(statement_node)}"))
   end
 
 

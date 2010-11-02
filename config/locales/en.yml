@@ -447,6 +447,10 @@ en:
         This {{type}} has just been updated by another person.
       statement_updated: |-
         This {{type}} has just been updated.
+      statement_supported: |-
+        Congratulations, you support this {{type}}.
+      statement_unsupported: |-
+        You just dropped your support from this {{type}}.
       edit_period_hint: |
         You have <strong>{{minutes}} minutes</strong> to edit the statement.
         Afterwards, your modifications might even get discarded.

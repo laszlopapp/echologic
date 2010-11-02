@@ -151,6 +151,8 @@ class StatementsController < ApplicationController
     @statement_node.topic_tags << "##{params[:category]}" if params[:category]
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     
+    
+    load_echo_messages if @statement_node.echoable?
     respond_action 'statements/new'
   end
 
@@ -167,7 +169,7 @@ class StatementsController < ApplicationController
     doc_attrs = attrs.delete(:statement_document)
     form_tags = attrs.delete(:tags)
     
-    echo = params.delete(:echo)
+    echo = params.delete(:echo).parameterize
 
     begin
       @statement_node ||= statement_node_class.new(attrs)
@@ -183,7 +185,7 @@ class StatementsController < ApplicationController
       end
     
       if permitted and @statement_node.save
-        @statement_node.author_support(echo)
+        @statement_node.author_support if echo==true
         EchoService.instance.created(@statement_node)
         set_statement_node_info(@statement_document)
         # load currently created statement_node to session
@@ -421,6 +423,7 @@ class StatementsController < ApplicationController
       return if !@statement_node.echoable?
       if !@statement_node.parent.echoable? or @statement_node.parent.supported?(current_user)
         @statement_node.supported!(current_user)
+        set_statement_node_info(@statement_node, 'discuss.statements.statement_supported')
         respond_to_js :redirect_to => @statement_node, :template_js => 'statements/echo'
       else
         set_info('discuss.statements.unsupported_parent')
@@ -456,7 +459,7 @@ class StatementsController < ApplicationController
 #      @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
 #                                                       @language_preference_list)
       
-      
+      set_statement_node_info(@statement_node, 'discuss.statements.statement_unsupported')
       respond_to_js :redirect_to => @statement_node,
                     :template_js => 'statements/unecho'
     rescue Exception => e
@@ -595,6 +598,14 @@ class StatementsController < ApplicationController
                                                              :per_page => @per_page))
     @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
                                                      @language_preference_list)
+  end
+
+  #
+  # Loads the echo/unecho messages as JSON data to handled on the client
+  #
+  def load_echo_messages
+    @messages = {:supported => set_statement_node_info(@statement_node, 'discuss.statements.statement_supported'), 
+                 :not_supported => set_statement_node_info(@statement_node, 'discuss.statements.statement_unsupported')}.to_json  
   end
 
   #

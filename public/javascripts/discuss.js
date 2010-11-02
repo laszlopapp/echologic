@@ -28,7 +28,8 @@ $(document).ready(function () {
 function collapseStatements() {
 	$('#statements .statement .header').removeClass('active').addClass('ajax_display');
 	$('#statements .statement .content').hide('slow');
-	$('#statements .statement .supporters_label').hide();
+	$('#statements .statement .header .supporters_bar');
+	$('#statements .statement .header .supporters_label').hide();
 };
 
 function replaceOrInsert(element, template){
@@ -50,8 +51,10 @@ function initExpandables(){
 	$(".ajax_display").live("click", function(){
 		$(this).toggleClass('active');
 		to_show = $(this).parents(".statement").find($(this).attr("data-show"));
+		supporters_label = $(this).find('.supporters_label'); 
 		if (to_show.length > 0) {
 			to_show.animate(toggleParams, 500);
+			supporters_label.animate(toggleParams, 500);
 		}
 		else {
 			href = this.href;
@@ -123,20 +126,30 @@ function cleanDefaultsBeforeSubmit() {
 
 function initEchoNewStatementButtons() {
 	$('div#echo_button .new_record.not_supported').live('click', function(){
-		$(this).removeClass('not_supported').addClass('supported');
-		ratio_bar = $("<span class='echo_indicator' alt=10></span>");
-		
-		$(this).parents('form.statement').find('.no_echo_indicator').replaceWith(ratio_bar);
-		$(this).parent().find('#echo').val(1);
+		initEchoStatementButton($(this),'supported','not_supported','echo_indicator','no_echo_indicator',10,'1',true)
 	});
-	
 	$('div#echo_button .new_record.supported').live('click', function(){
-    $(this).removeClass('supported').addClass('not_supported');
-    ratio_bar = $("<span class='no_echo_indicator'></span>");
-    
-    $(this).parents('form.statement').find('.echo_indicator').replaceWith(ratio_bar);
-		$(this).parent().find('#echo').val(0);
+		initEchoStatementButton($(this),'not_supported','supported','no_echo_indicator','echo_indicator',0,'0',false)
   });
+}
+
+function initEchoStatementButton(element, class_add, class_remove, ratio_class_add, ratio_class_remove, ratio, supporters_number, value) {
+	page = element.parents('form.statement');
+	/* modify echo button in element */
+	element.removeClass(class_remove).addClass(class_add);
+	
+  /* modify text in supporters label */
+  page.find('#echo').val(value);
+	supporters_label = page.find('.supporters_label');
+  supporters_text = supporters_label.text();
+  supporters_label.text(supporters_text.replace(/[0-9]/, supporters_number));
+	
+	/* modify the supporters bar */
+	old_supporter_bar = page.find('.supporters_bar');
+  new_supporter_bar = $('<span></span>').attr('class', old_supporter_bar.attr('class')).addClass(ratio_class_add).removeClass(ratio_class_remove).attr('alt', ratio);
+	new_supporter_bar.attr('title', page.find('.supporters_label').text());
+	old_supporter_bar.replaceWith(new_supporter_bar);
+	info(page.find('.action_bar').data('messages')[class_add]);
 }
 
 /************************/
@@ -282,4 +295,8 @@ function loadStatementAutoComplete() {
 	$('form.statement .tag_value_autocomplete').livequery(function(){
 		$(this).autocomplete('../../discuss/auto_complete_for_tag_value', {minChars: 3, selectFirst: false});
 	});
+}
+
+function loadMessages(element, messages) {
+	$(element).data('messages', messages);
 }

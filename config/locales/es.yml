@@ -451,6 +451,10 @@ es:
         {{type}} ya ha sido traducida.
       statement_updated: |-
         {{type}} acaba de ser actualizada.
+      statement_supported: |-
+        Congratulations, you support this {{type}}.
+      statement_unsupported: |-
+        You just dropped your support from this {{type}}.
       edit_period_hint: |
         <strong>Tienes {{minutes}} minutos</strong> para editar la propuesta.
         Passondo este plazo, posiblemente tus modificationes serán perdidas.
