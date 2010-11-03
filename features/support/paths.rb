@@ -24,17 +24,17 @@ module NavigationHelpers
       welcome_path
     when /the reports page/
       reports_path
-    when /^create a question$/
-      new_question_path
-    when /^the question$/
-      question_path(@question)
+    when /^create a discussion$/
+      new_discussion_path
+    when /^the discussion$/
+      discussion_path(@discussion)
     when /^the proposal$/
       proposal_path(@proposal)
     when /^the improvement proposal$/
       improvement_proposal_path(@improvement_proposal)
-    when /^the first question$/
-      question_path(Question.first)
-    when /^the questions first proposal/
+    when /^the first discussion$/
+      discussion_path(Discussion.first)
+    when /^the discussions first proposal/
       proposal_path(@proposal)
     when /discuss index/i
       discuss_url

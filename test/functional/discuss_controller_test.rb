@@ -19,11 +19,11 @@ class DiscussControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should cancel question update and redirect to question page" do
-    statement_node = Question.first
+  test "should cancel discussion update and redirect to discussion page" do
+    statement_node = Discussion.first
     session[:last_statement_node] = statement_node.id   
     get :cancel
-    assert_redirected_to question_url(statement_node)
+    assert_redirected_to discussion_url(statement_node)
   end
 
   test "should cancel proposal update and redirect to proposal page" do

@@ -10,10 +10,10 @@ ActionController::Routing::Routes.draw do |map|
   map.act     '/act/roadmap',     :controller => :act,     :action => :roadmap
   map.discuss '/discuss/featured', :controller => :discuss, :action => :index
   map.discuss_roadmap '/discuss/roadmap', :controller => :discuss, :action => :roadmap
-  map.discuss_search '/discuss/search', :controller => :questions, :action => :category
+  map.discuss_search '/discuss/search', :controller => :discussions, :action => :category
   map.discuss_cancel '/discuss/cancel', :controller => :discuss, :action => :cancel
-  map.question_tags '/discuss/category/:id', :controller => :questions, :action => :category, :conditions => {:id => /\w+/ }
-  map.my_discussions '/discuss/my_discussions', :controller => :questions, :action => :my_discussions
+  map.discussion_tags '/discuss/category/:id', :controller => :discussions, :action => :category, :conditions => {:id => /\w+/ }
+  map.my_discussions '/discuss/my_discussions', :controller => :discussions, :action => :my_discussions
 
   map.connect_roadmap '/connect/roadmap', :controller => :connect, :action => :roadmap
 
@@ -108,7 +108,7 @@ ActionController::Routing::Routes.draw do |map|
 
 
   # SECTION discuss - discussion tree
-  map.resources :questions,
+  map.resources :discussions,
                 :member => [:new_translation, :create_translation, :publish, :cancel, :more, :children, :upload_image, :reload_image, :authors],
                 :as => 'discussion'
   map.resources :proposals,
@@ -119,8 +119,8 @@ ActionController::Routing::Routes.draw do |map|
                 :as => 'improvement_proposal'
                 
   # old discuss paths redirection
-  map.connect 'discuss/questions/:question_id/proposals/:id', :controller => :proposals, :action => :redirect 
-  map.connect 'discuss/questions/:question_id/proposals/:proposal_id/improvement_proposals/:id',
+  map.connect 'discuss/questions/:discussion_id/proposals/:id', :controller => :proposals, :action => :redirect 
+  map.connect 'discuss/questions/:discussion_id/proposals/:proposal_id/improvement_proposals/:id',
               :controller => :improvement_proposals, :action => :redirect 
               
 

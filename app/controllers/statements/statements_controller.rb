@@ -57,16 +57,16 @@ class StatementsController < ApplicationController
                                                            :show_unpublished => current_user &&
                                                                                 current_user.has_role?(:editor))
 
-    # PREV / NEXT functionality for questions
-    session[:current_question] = statement_nodes_not_paginated.map(&:id)
+    # PREV / NEXT functionality for discussions
+    session[:current_discussion] = statement_nodes_not_paginated.map(&:id)
 
     @count    = statement_nodes_not_paginated.size
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page,
                                                               :per_page => 6)
     @statement_documents = search_statement_documents(@statement_nodes.map(&:statement_id), @language_preference_list)
 
-    respond_to_js :template => 'statements/questions/index',
-                  :template_js => 'statements/questions/questions'
+    respond_to_js :template => 'statements/discussions/index',
+                  :template_js => 'statements/discussions/discussions'
   end
 
 
@@ -169,9 +169,7 @@ class StatementsController < ApplicationController
     doc_attrs = attrs.delete(:statement_document)
     form_tags = attrs.delete(:tags)
     
-    echo = params.delete(:echo).parameterize
-
-    begin
+        begin
       @statement_node ||= statement_node_class.new(attrs)
       @statement_node.statement ||= Statement.new
       @statement_document = @statement_node.add_statement_document(
@@ -185,7 +183,10 @@ class StatementsController < ApplicationController
       end
     
       if permitted and @statement_node.save
-        @statement_node.author_support if echo==true
+        if @statement_node.echoable?
+          echo = params.delete(:echo).parameterize 
+          @statement_node.author_support if echo==true
+        end
         EchoService.instance.created(@statement_node)
         set_statement_node_info(@statement_document)
         # load currently created statement_node to session
@@ -535,7 +536,7 @@ class StatementsController < ApplicationController
     begin
       @statement_node.destroy
       set_statement_node_info(nil, "discuss.messages.deleted")
-      flash_info and redirect_to :controller => 'questions',
+      flash_info and redirect_to :controller => 'discussions',
                                  :action => :category,
                                  :id => params[:category]
     rescue Exception => e
@@ -702,7 +703,7 @@ class StatementsController < ApplicationController
   end
 
   #
-  # Returns the statement node correspondent symbol (:question, :proposal...). Must be implemented by the subclasses.
+  # Returns the statement node correspondent symbol (:discussion, :proposal...). Must be implemented by the subclasses.
   #
   def statement_node_symbol
     raise NotImplementedError.new("This method must be implemented by subclasses.")
@@ -796,10 +797,10 @@ class StatementsController < ApplicationController
   ##########
 
   #
-  # Calls the statement node sql query for questions.
+  # Calls the statement node sql query for discussions.
   #
   def search_statement_nodes (opts = {})
-    StatementNode.search_statement_nodes(opts.merge({:type => "Question"}))
+    StatementNode.search_statement_nodes(opts.merge({:type => "Discussion"}))
   end
 
   #
@@ -827,7 +828,7 @@ class StatementsController < ApplicationController
     # Load parent information to session
     load_to_session(statement_node.parent, false) if statement_node.parent
 
-    # Loads sibling (or other question) statements to session if they were not loaded yet
+    # Loads sibling (or other discussion) statements to session if they were not loaded yet
     key = ("current_" + statement_node_class.to_s.underscore).to_sym
     if session[key].nil? or (reload and !statement_node.parent.nil?)
       session[key] = statement_node.echoable? ?

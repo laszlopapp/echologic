@@ -34,7 +34,7 @@
 
 		<% else %>
 		  <% content_tag :li do -%>
-		    <%= label_tag "question_statement_document_text" , I18n.t("activerecord.attributes.statement_document.text") %>
+		    <%= label_tag "discussion_statement_document_text" , I18n.t("activerecord.attributes.statement_document.text") %>
 				<%= content_tag :div, sanitize(statement_document.text), :class => "static_text" %>
 			<% end %>
     <% end %>

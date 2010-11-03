@@ -51,7 +51,7 @@ en:
       discuss:
         index: 'echo - Discuss'
         roadmap: 'echo - Roadmap for Discuss'
-      questions:
+      discussions:
         category: 'echo - Discussion Topic'
         show: 'echo - Discussion'
         new: 'Open new discussion'

@@ -14,7 +14,7 @@
 
 <% if statement_node.taggable? -%>
 
-  <!-- Statement tags (currently only for questions) -->
+  <!-- Statement tags (currently only for discussions) -->
   <% form.inputs do %>
 	  <%= render :partial => "statements/form/statement_tags",
                :locals => {:form => form,
@@ -32,7 +32,7 @@
   <% end %>
 
 <% else -%>
-  <!-- All statement types but questions -->
+  <!-- All statement types but discussions -->
   <%= form.hidden_field :editorial_state_id, :value => StatementState[:published].id %>
 <% end -%>
 

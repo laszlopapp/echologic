@@ -13,6 +13,6 @@
      <%= content_tag :span, I18n.t('application.general.create'), :class => "add_text_button text_button addTag" %>
 	</div>
 
-	<%= content_tag :div,'', :id => "question_tags_values", :class => "tag_container", :name => "question[tags]" %>
+	<%= content_tag :div,'', :id => "discussion_tags_values", :class => "tag_container", :name => "discussion[tags]" %>
   <%= form.input :tags, :as => :hidden, :value => tags.join(',') %>
 </li>

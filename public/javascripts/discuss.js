@@ -66,7 +66,7 @@ function initExpandables(){
 		return false;
 	});
 	
-	$(".question .header_buttons a").live("click", function(event){
+	$(".discussion .header_buttons a").live("click", function(event){
 		window.location = this.href;
 		return false;
 	});
@@ -151,29 +151,29 @@ function initEchoStatementButton(element, class_add, class_remove, ratio_class_a
 	info(page.find('.action_bar').data('messages')[class_add]);
 }
 
-/************************/
-/* Question Tag Helpers */
-/************************/
+/**************************/
+/* Discussion Tag Helpers */
+/**************************/
 
 /* add new tags to be added to statement */
 function addTagButtonEvents() {
-  $('.question #tag_topic_id').live('keypress', (function(event) {
+  $('.discussion #tag_topic_id').live('keypress', (function(event) {
     if (event && event.keyCode == 13) { /* check if enter was pressed */
-      if ($('.question #tag_topic_id').val().length != 0) {
-        $('.question .addTag').click();
+      if ($('.discussion #tag_topic_id').val().length != 0) {
+        $('.discussion .addTag').click();
       }
       return false;
     }
   }));
 
-  $('.question .addTag').live('click', (function() {
-    entered_tags = $('.question #tag_topic_id').val().trim().split(",");
+  $('.discussion .addTag').live('click', (function() {
+    entered_tags = $('.discussion #tag_topic_id').val().trim().split(",");
     if (entered_tags.length != 0) {
       /* Trimming all tags */
       entered_tags = jQuery.map(entered_tags, function(tag) {
         return (tag.trim());
       });
-      existing_tags = $('.question #question_tags').val().trim();
+      existing_tags = $('.discussion #discussion_tags').val().trim();
       existing_tags = existing_tags.split(',');
 
       new_tags = new Array(0);
@@ -181,19 +181,19 @@ function addTagButtonEvents() {
         tag = entered_tags.shift().trim();
         if (existing_tags.indexOf(tag) < 0 && entered_tags.indexOf(tag) < 0) {
           if (tag.localeCompare(' ') > 0) {
-            element = createTagButton(tag, "#question_tags");
-            $('#question_tags_values').append(element);
+            element = createTagButton(tag, "#discussion_tags");
+            $('#discussion_tags_values').append(element);
             new_tags.push(tag);
           }
         }
       }
-      question_tags = $('.question #question_tags').val();
+      discussion_tags = $('.discussion #discussion_tags').val();
       if (new_tags.length > 0) {
-        question_tags = ((question_tags.trim().length > 0) ? question_tags + ',' : '') + new_tags.join(',');
-        $('.question #question_tags').val(question_tags);
+        discussion_tags = ((discussion_tags.trim().length > 0) ? discussion + ',' : '') + new_tags.join(',');
+        $('.discussion #discussion_tags').val(discussion_tags);
       }
-      $('.question #tag_topic_id').val('');
-      $('.question #tag_topic_id').focus();
+      $('.discussion #tag_topic_id').val('');
+      $('.discussion #tag_topic_id').focus();
     }
   }));
 }
@@ -206,12 +206,12 @@ function createTagButton(text, tags_id) {
   deleteButton.click(function(){
     $(this).parent().remove();
     tag_to_delete = $(this).parent().text();
-    question_tags = $(tags_id).val().split(',');
-    index_to_delete = question_tags.indexOf(tag_to_delete);
+    discussion_tags = $(tags_id).val().split(',');
+    index_to_delete = discussion_tags.indexOf(tag_to_delete);
     if (index_to_delete >= 0) {
-      question_tags.splice(index_to_delete, 1);
+      discussion_tags.splice(index_to_delete, 1);
     }
-    $('form.question').find(tags_id).val(question_tags.join(','));
+    $('form.discussion').find(tags_id).val(discussion_tags.join(','));
   });
   element.append(deleteButton);
   return element;
@@ -219,13 +219,13 @@ function createTagButton(text, tags_id) {
 
 /* load the previously existing tags */
 function addTagButtons() {
-	$('form.question.new, form.question.edit').livequery(function(){
-	  tags_to_load = $('#question_tags').val().trim().split(',');
+	$('form.discussion.new, form.discussion.edit').livequery(function(){
+	  tags_to_load = $('#discussion_tags').val().trim().split(',');
 	  while (tags_to_load.length > 0) {
 	    tag = tags_to_load.shift().trim();
 	    if (tag.localeCompare(' ') > 0) {
-	      element = createTagButton(tag, "#question_tags");
-	      $(this).find('#question_tags_values').append(element);
+	      element = createTagButton(tag, "#discussion_tags");
+	      $(this).find('#discussion_tags_values').append(element);
 	    }
 	  }
 	});

@@ -1,9 +1,9 @@
 <% content_for :submenu, tabnav(:discuss) %>
 
-<%= render 'statements/questions/search' %>
+<%= render 'statements/discussions/search' %>
 
 <!-- Search results -->
-<%= render :partial => 'statements/questions/questions',
+<%= render :partial => 'statements/discussions/discussions',
            :locals => {:statement_nodes => @statement_nodes} %>
 
 

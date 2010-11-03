@@ -121,12 +121,12 @@ class ActivityTrackingService
 
       next if events.blank? #if there are no events to send per email, take the next user
 
-      question_events = events.select{|e|JSON.parse(e.event)['type'] == 'question'}
+      discussion_events = events.select{|e|JSON.parse(e.event)['type'] == 'discussion'}
 
-      # created an Hash containing the number of ocurrences of the new tags in the new questions
-      tag_counts = question_events.each_with_object({}) do |question, tags_hash|
-        question_data = JSON.parse(question.event)
-        question_data['tags'].each{|tag| tags_hash[tag] = tags_hash.has_key?(tag) ? tags_hash[tag] + 1 : 1 }
+      # created an Hash containing the number of ocurrences of the new tags in the new discussions
+      tag_counts = discussion_events.each_with_object({}) do |discussion, tags_hash|
+        discussion_data = JSON.parse(discussion.event)
+        discussion_data['tags'].each{|tag| tags_hash[tag] = tags_hash.has_key?(tag) ? tags_hash[tag] + 1 : 1 }
       end
 
       events.sort! do |a,b|
@@ -135,16 +135,16 @@ class ActivityTrackingService
       end
 
       # Sending the mail
-      send_activity_email(recipient, question_events, tag_counts, events - question_events)
+      send_activity_email(recipient, discussion_events, tag_counts, events - discussion_events)
     end
   end
 
   #
   # Sends an activity tracking E-Mail to the given recipient.
   #
-  def send_activity_email(recipient, question_events, question_tags, events)
+  def send_activity_email(recipient, discussion_events, discussion_tags, events)
     puts "Send mail to:" + recipient.email
-    mail = ActivityTrackingMailer.create_activity_tracking_email(recipient,question_events,question_tags,events)
+    mail = ActivityTrackingMailer.create_activity_tracking_email(recipient,discussion_events,discussion_tags,events)
     ActivityTrackingMailer.deliver(mail)
   end
 

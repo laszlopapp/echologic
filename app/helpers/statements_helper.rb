@@ -118,12 +118,12 @@ module StatementsHelper
               :class => "ajax translation_link #{css_class}"
   end
 
-  def create_question_link_for(category=nil)
-    link_to(hash_for_new_question_path.merge({:category => category}),
-            :id => 'create_question_link') do
+  def create_discussion_link_for(category=nil)
+    link_to(hash_for_new_discussion_path.merge({:category => category}),
+            :id => 'create_discussion_link') do
       content_tag(:span, '',
-                  :class => "new_question create_statement_button_mid create_question_button_mid ttLink no_border",
-                  :title => I18n.t("discuss.tooltips.create_question"))
+                  :class => "new_discussion create_statement_button_mid create_discussion_button_mid ttLink no_border",
+                  :title => I18n.t("discuss.tooltips.create_discussion"))
     end
   end
 
@@ -276,13 +276,13 @@ module StatementsHelper
                   statement_tag(:prev, type, true)
                 else
                   s = index == 0 ? session[key][session[key].length-1] : session[key][index-1]
-                  statement_button(s, statement_tag(:prev, type), :rel => 'prev', :class => '')
+                  statement_button(s, type, statement_tag(:prev, type), :rel => 'prev', :class => '')
                 end
       buttons << if session[key].length == 1 or statement_node.new_record?
                    statement_tag(:next, type, true)
                  else
                    s = index == session[key].length-1 ? session[key][0] : session[key][index+1]
-                   statement_button(s, statement_tag(:next, type), :rel => 'next', :class => '')
+                   statement_button(s, type, statement_tag(:next, type), :rel => 'next', :class => '')
                  end
     end
   end
@@ -301,10 +301,12 @@ module StatementsHelper
   # Insert a button that links to the previous statement_node
   # TODO AR from the helper stinks, but who knows a better way to get the right url?
   # maybe one could code some statement_node.url method..?
-  def statement_button(id, title, options={})
+  def statement_button(id, type, title, options={})
     stmt = StatementNode.find(id)
     options[:class] ||= ''
     options[:class] += !stmt.taggable? ? ' ajax' : ''
+    options['data-id'] = id
+    options['data-path'] = type
     return link_to(title, url_for(stmt), options)
   end
 

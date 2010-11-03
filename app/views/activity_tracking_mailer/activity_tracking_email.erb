@@ -1,7 +1,7 @@
 <h2><%= I18n.t('mailers.activity_tracking.subject', :locale => @language.code) %></h2>
 
-<%= render :partial => "activity_tracking_mailer/activity_templates/questions_activity_template",
-           :locals => {:questions => @question_events, :tags => @question_tags}%>
+<%= render :partial => "activity_tracking_mailer/activity_templates/discussions_activity_template",
+           :locals => {:discussions => @discussion_events, :tags => @discussion_tags}%>
 <br/><br/>
 <% previous_event_data = nil %>
 <% @events.each do |e|%>

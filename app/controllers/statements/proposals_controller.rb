@@ -41,11 +41,7 @@ class ProposalsController < StatementsController
   end
 
   protected
-  # return a possible parent, in this case it's a Question
-#  def parent
-#    Question.find(params[:question_id])
-#  end
-
+  
   #returns the handled statement type symbol
   def statement_node_symbol
     :proposal

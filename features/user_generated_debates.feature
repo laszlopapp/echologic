@@ -21,7 +21,7 @@ Feature: User Generated Debates
     When I am on My Discussions
       And I follow "Open a New Discussion"
       And I fill in the following:
-        | question_statement_document_title | A Debate for all Seasons |
+        | discussion_statement_document_title | A Debate for all Seasons |
       And I press "Save"
     Then I should see "The field 'Summary' must not be empty."
 
@@ -31,7 +31,7 @@ Feature: User Generated Debates
     When I am on My Discussions
       And I follow "Open a New Discussion"
       And I fill in the following:
-        | question_statement_document_text | A Debate for all Seasons |
+        | discussion_statement_document_text | A Debate for all Seasons |
       And I press "Save"
     Then I should see "The field 'Title' must not be empty."
 
@@ -41,14 +41,14 @@ Feature: User Generated Debates
     When I am on My Discussions
       And I follow "Open a New Discussion"
       And I fill in the following:
-        | question_statement_document_title | A Debate for all Seasons |
-        | question_statement_document_text  | A Debate for all Seasons |
+        | discussion_statement_document_title | A Debate for all Seasons |
+        | discussion_statement_document_text  | A Debate for all Seasons |
       And I press "Save"
     Then I should see "A Debate for all Seasons"
     When I follow "Edit"
       And I fill in the following:
-        | question_statement_document_text  | I wish this text was not so repetitive |
-        | question_tags                     | first_tag |
+        | discussion_statement_document_text  | I wish this text was not so repetitive |
+        | discussion_tags                     | first_tag |
       And I press "Save"
     Then I should see "The Question has been updated successfully."
 
@@ -58,12 +58,12 @@ Feature: User Generated Debates
     When I am on My Discussions
       And I follow "Open a New Discussion"
       And I fill in the following:
-        | question_statement_document_title | A Debate for all Seasons |
-        | question_statement_document_text  | A Debate for all Seasons |
-        | question_tags                     | first_tag,second_tag,third_tag|
+        | discussion_statement_document_title | A Debate for all Seasons |
+        | discussion_statement_document_text  | A Debate for all Seasons |
+        | discussion_tags                     | first_tag,second_tag,third_tag|
       And I press "Save"
     Then I should see "The new Question has been entered successfully."
-    Then the question "A Debate for all Seasons" should have "first_tag, second_tag, third_tag" as tags
+    Then the discussion "A Debate for all Seasons" should have "first_tag, second_tag, third_tag" as tags
 
   @ok
   Scenario: user creates Debate with multiple tags, then deletes some
@@ -71,15 +71,15 @@ Feature: User Generated Debates
     When I am on My Discussions
       And I follow "Open a New Discussion"
       And I fill in the following:
-        | question_statement_document_title | A Debate for all Seasons |
-        | question_statement_document_text  | A Debate for all Seasons |
-        | question_tags                     | first_tag,second_tag,third_tag|
+        | discussion_statement_document_title | A Debate for all Seasons |
+        | discussion_statement_document_text  | A Debate for all Seasons |
+        | discussion_tags                     | first_tag,second_tag,third_tag|
       And I press "Save"
       And I follow "Edit"
       And I fill in the following:
-        | question_tags                     | first_tag |
+        | discussion_tags                     | first_tag |
       And I press "Save"
-    Then the question "A Debate for all Seasons" should have "first_tag" as tags
+    Then the discussion "A Debate for all Seasons" should have "first_tag" as tags
 
 
   @ok
@@ -88,9 +88,9 @@ Feature: User Generated Debates
     When I am on My Discussions
       And I follow "Open a New Discussion"
       And I fill in the following:
-        | question_statement_document_title | A Debate for all Seasons |
-        | question_statement_document_text  | A Debate for all Seasons |
-        | question_tags                     | #echonomyjam |
+        | discussion_statement_document_title | A Debate for all Seasons |
+        | discussion_statement_document_text  | A Debate for all Seasons |
+        | discussion_tags                     | #echonomyjam |
       And I press "Save"
     Then I should see "#echonomyjam"
     Then I should see "You do not have the permission to insert the "
@@ -101,9 +101,9 @@ Feature: User Generated Debates
     When I am on My Discussions
       And I follow "Open a New Discussion"
       And I fill in the following:
-        | question_statement_document_title | A Debate for all Seasons |
-        | question_statement_document_text  | A Debate for all Seasons |
-        | question_tags                     | #echonomyjam |
+        | discussion_statement_document_title | A Debate for all Seasons |
+        | discussion_statement_document_text  | A Debate for all Seasons |
+        | discussion_tags                     | #echonomyjam |
       And I choose "Publish immediately (no further editing is possible)"
       And I press "Save"
     When I am on the Discuss Index
@@ -119,27 +119,27 @@ Feature: User Generated Debates
     When I am on My Discussions
       And I follow "Open a New Discussion"
       And I fill in the following:
-        | question_statement_document_title | A Debate for all Seasons |
-        | question_statement_document_text  | A Debate for all Seasons |
-        | question_tags                     | first_tag |
+        | discussion_statement_document_title | A Debate for all Seasons |
+        | discussion_statement_document_text  | A Debate for all Seasons |
+        | discussion_tags                     | first_tag |
       And I press "Save"
       And I follow "Edit"
       And I fill in the following:
-        | question_tags                     | first_tag,#echonomyjam |
+        | discussion_tags                     | first_tag,#echonomyjam |
       And I press "Save"
     Then I should see "#echonomyjam"
     Then I should see "You do not have the permission to insert the "
 
   @ok
   Scenario: user creates Debate, then goes to his My Discussions area and should publish it successfully
-    Given there are no questions
+    Given there are no discussions
     Given I am logged in as "user" with password "true"
     When I am on My Discussions
       And I follow "Open a New Discussion"
       And I fill in the following:
-        | question_statement_document_title | A Debate for all Seasons |
-        | question_statement_document_text  | A Debate for all Seasons |
-        | question_tags                     | first_tag |
+        | discussion_statement_document_title | A Debate for all Seasons |
+        | discussion_statement_document_text  | A Debate for all Seasons |
+        | discussion_tags                     | first_tag |
       And I press "Save"
       And I go to "My Discussions"
       And I follow "Release"
@@ -151,10 +151,10 @@ Feature: User Generated Debates
       And I am on the discuss index
       And I follow "Featured"
       And I follow "echonomyJAM"
-      And I follow "create_question_link"
+      And I follow "create_discussion_link"
       And I fill in the following:
-        | question_statement_document_title | A Debate for all Seasons |
-        | question_statement_document_text  | A Debate for all Seasons |
+        | discussion_statement_document_title | A Debate for all Seasons |
+        | discussion_statement_document_text  | A Debate for all Seasons |
       And I press "Save"
     Then I should see "You do not have the permission to insert the '#echonomyjam' tag."
 
@@ -163,24 +163,24 @@ Feature: User Generated Debates
     Given I am logged in as "user" with password "true"
       And I have "*xyz" as decision making tags
       And I am on My Discussions
-      And I follow "create_question_link"
+      And I follow "create_discussion_link"
       And I fill in the following:
-        | question_statement_document_title | A Debate for all Seasons |
-        | question_statement_document_text  | A Debate for all Seasons |
-        | question_tags                     | #xyz |
+        | discussion_statement_document_title | A Debate for all Seasons |
+        | discussion_statement_document_text  | A Debate for all Seasons |
+        | discussion_tags                     | #xyz |
       And I press "Save"
     Then I should see "The new Question has been entered successfully."
-    Then the question "A Debate for all Seasons" should have "#xyz" as tags
+    Then the discussion "A Debate for all Seasons" should have "#xyz" as tags
 
   @ok
   Scenario: An editor should define any hash tags
     Given I am logged in as "editor" with password "true"
       And I am on My Discussions
-      And I follow "create_question_link"
+      And I follow "create_discussion_link"
       And I fill in the following:
-        | question_statement_document_title | A Debate for all Seasons |
-        | question_statement_document_text  | A Debate for all Seasons |
-        | question_tags                     | #new,#echo |
+        | discussion_statement_document_title | A Debate for all Seasons |
+        | discussion_statement_document_text  | A Debate for all Seasons |
+        | discussion_tags                     | #new,#echo |
       And I press "Save"
     Then I should see "The new Question has been entered successfully."
-    Then the question "A Debate for all Seasons" should have "#new,#echo" as tags
+    Then the discussion "A Debate for all Seasons" should have "#new,#echo" as tags

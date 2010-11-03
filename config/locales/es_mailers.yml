@@ -42,10 +42,10 @@ es:
     activity_tracking:
       subject: echo - Activity Notifications
       discussions:
-        new_questions: 'Hay <strong>{{count}} discusiones nuevas</strong> desde el ultimo update:'
+        new_discussions: 'Hay <strong>{{count}} discusiones nuevas</strong> desde el ultimo update:'
         new_tags: 'Las discusiones son relacionadas a los topicos:'
         new_proposals: 'Nueva propuesta na discusión "{{title}}"'
-        new_improvement_proposals: 'Nueva propuesta de mejoramiento para le propuesta "{{title}}" en "{{question_title}}":'
+        new_improvement_proposals: 'Nueva propuesta de mejoramiento para le propuesta "{{title}}" en "{{discussion_title}}":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         Si no quieres recibir nofiticaciones diarias sobre actividades an tus discussiones, por favor haga login a

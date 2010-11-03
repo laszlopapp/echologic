@@ -1,10 +1,10 @@
-module QuestionsHelper
+module DiscussionsHelper
   def add_discussion_link
-    link_to(new_question_url,
-            :id => "create_question_link") do
+    link_to(new_discussion_url,
+            :id => "create_discussion_link") do
       content_tag(:span, '',
-                  :class => "new_question create_statement_button_mid create_question_button_mid ttLink no_border",
-                  :title => I18n.t("discuss.tooltips.create_question"))
+                  :class => "new_discussion create_statement_button_mid create_discussion_button_mid ttLink no_border",
+                  :title => I18n.t("discuss.tooltips.create_discussion"))
 
     end
   end
@@ -13,7 +13,7 @@ module QuestionsHelper
   def publish_button_or_state(statement_node)
     if !statement_node.published?
       link_to(I18n.t("discuss.statements.publish"),
-              publish_question_path(statement_node),
+              publish_discussion_path(statement_node),
               :class => 'ajax_put publish_button ttLink',
               :title => I18n.t('discuss.tooltips.publish'))
     else
@@ -22,19 +22,19 @@ module QuestionsHelper
   end
   
   def discussion_title(title,statement_node)
-    link_to(h(title),question_url(statement_node), :class => "statement_link ttLink no_border",
+    link_to(h(title),discussion_url(statement_node), :class => "statement_link ttLink no_border",
             :title => I18n.t("discuss.tooltips.read_#{statement_node.class.name.underscore}")) 
   end
   
-  def link_to_question(title, question,long_title)
-    link_to question_url(question),
+  def link_to_discussion(title, discussion,long_title)
+    link_to discussion_url(discussion),
                :title => "#{h(title) if long_title}",
                :class => "avatar_holder#{' ttLink no_border' if long_title }" do 
-      image_tag question.image.url(:small)
+      image_tag discussion.image.url(:small)
     end
   end
   
-  def questions_count_text(count)
+  def discussions_count_text(count)
     count_text("discuss", count)
   end
   
@@ -42,7 +42,7 @@ module QuestionsHelper
     if current_user and
        statement_document.author == current_user and !statement_node.published?
       link_to(I18n.t('discuss.statements.publish'),
-              { :controller => :questions,
+              { :controller => :discussions,
                 :action => :publish,
                 :in => :summary },
               :class => 'ajax_put header_button text_button publish_text_button ttLink',

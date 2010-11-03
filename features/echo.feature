@@ -41,12 +41,12 @@ Feature: Echo
       And I am on the discuss index
       And I follow "Featured"
       And I follow "echonomyJAM"
-      And I choose the first Question
-      And the question has no proposals
+      And I choose the first Discussion
+      And the discussion has no proposals
       And I am on the discuss index
       And I follow "Featured"
       And I follow "echonomyJAM"
-      And I choose the first Question
+      And I choose the first Discussion
       And I follow "create_proposal_link"
       And I fill in the following:
         | proposal_statement_document_title | proposal title |
@@ -97,7 +97,7 @@ Feature: Echo
       And I am on the discuss index
       And I follow "Featured"
       And I follow "echonomyJAM"
-      And I choose the "Test Question2?" Question
+      And I choose the "Test Discussion2?" Discussion
       And I choose the "A first proposal!" Proposal
       And the proposal has no supporters
       And I choose the "A better first proposal" Improvement Proposal
@@ -123,7 +123,7 @@ Feature: Echo
       And I am logged in as "joe" with password "true"
       And I am on the discuss index And I follow "Featured"
       And I follow "echonomyJAM"
-      And I choose the "Test Question2?" Question
+      And I choose the "Test Discussion2?" Discussion
       And I choose the "A first proposal!" Proposal
       And I follow "echo_button"
       And I choose the "A better fourth proposal" Improvement Proposal

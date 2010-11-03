@@ -5,7 +5,7 @@ class StatementNodeTest < ActiveSupport::TestCase
 
   context "a statement node" do
 
-    setup { @statement_node = Question.new }
+    setup { @statement_node = Discussion.new }
     subject { @statement_node }
 
     should belong_to :statement
@@ -54,7 +54,7 @@ class StatementNodeTest < ActiveSupport::TestCase
 
     context "being saved" do
       setup do
-        @statement_node = Question.new
+        @statement_node = Discussion.new
         doc = @statement_node.add_statement_document({:title => 'A new Document',
                                                 :text => 'with a very short body, dude!',
                                                 :language_id => Language.first.id,
@@ -80,14 +80,14 @@ class StatementNodeTest < ActiveSupport::TestCase
 #        assert(@events.first.operation.eql?('new'))
 #        result = JSON.parse(@events.first.event)
 #
-#        question = result['question']
-#        statement = question['statement']
+#        discussion = result['discussion']
+#        statement = discussion['statement']
 #        statement_documents = statement['statement_documents']
 #        title = statement_documents.first['title']
 #        assert(title.eql?('A new Document'))
 #
-#        question = result['question']
-#        tao_tags = question['tao_tags']
+#        discussion = result['discussion']
+#        tao_tags = discussion['tao_tags']
 #        tag = tao_tags.first['tag']['value']
 #
 #        assert(tag.eql?('bebe'))

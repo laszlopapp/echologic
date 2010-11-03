@@ -350,22 +350,22 @@ en:
       in: '... in {{category}} ...'
 
     tooltips:
-      read_question: 'Go to this question'
+      read_discussion: 'Go to this question'
       read_proposal: 'Read this proposal'
       read_improvement_proposal: 'Read this improvement proposal'
-      current_question: 'The currently displayed question'
+      current_discussion: 'The currently displayed question'
       current_proposal: 'The currently displayed proposal'
       current_improvement_proposal: 'The currently displayed improvement proposal'
-      back_to_question: 'Back to current question'
+      back_to_discussion: 'Back to current question'
       back_to_proposal: 'Back to current proposal'
       back_to_improvement_proposal: 'Back to current improvement proposal'
-      prev_question: 'Read previous question'
-      next_question: 'Read next question'
+      prev_discussion: 'Read previous question'
+      next_discussion: 'Read next question'
       prev_proposal: 'Read previous proposal for the current question'
       next_proposal: 'Read next proposal for the current question'
       prev_improvement_proposal: 'Read previous improvement proposal for the current proposal'
       next_improvement_proposal: 'Read next improvement proposal for the current proposal'
-      create_question: 'Open a new discussion'
+      create_discussion: 'Open a new discussion'
       create_proposal: "Post a new idea concerning the current question"
       create_improvement_proposal: "Post a new idea to improve the current proposal"
       echo: 'echo this statement to support it!'
@@ -380,11 +380,11 @@ en:
       echo_indicator:
         one: '{{supporter_count}} supporter'
         many: '{{supporter_count}} supporters'
-      create_question_link: 'Open a new discussion'
+      create_discussion_link: 'Open a new discussion'
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
       create_improvement_proposal_link: Add new improvement proposal
-      create_question_explanation: |
+      create_discussion_explanation: |
         Here you can open a <strong>new discussion</strong> and tag it with some <strong>relevant keywords</strong>
         for better searchability.
       create_proposal_explanation: |
@@ -409,15 +409,15 @@ en:
       edit: 'Edit {{type}}'
 
       types:
-        question:  'Question'
+        discussion:  'Question'
         proposal:  'Proposal'
         improvement_proposal: 'Improvement Proposal'
       new:
-        question:  'New Discussion'
+        discussion:  'New Discussion'
         proposal:  'New Proposal'
         improvement_proposal: 'New Improvement Proposal'
       headings:
-        question: 'Questions'
+        discussion: 'Questions'
         proposal: 'Proposals'
         improvement_proposal: 'Improvement Proposals'
 
@@ -595,7 +595,7 @@ en:
         index:                 'Index'
  
     models:
-      question: "question"
+      discussion: "question"
       proposal: "proposal"
       improvement_proposal: "improvement proposal"
 

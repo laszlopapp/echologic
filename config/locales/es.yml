@@ -352,22 +352,22 @@ es:
       in: '... en {{category}} ...'
 
     tooltips:
-      read_question: 'Mirar esta cuestión'
+      read_discussion: 'Mirar esta cuestión'
       read_proposal: 'Leer esta propuesta'
       read_improvement_proposal: 'Leer esta propuesta de mejoramiento'
-      current_question: 'La cuestión actualmente indicado'
+      current_discussion: 'La cuestión actualmente indicado'
       current_proposal: 'La propuesta actualmente indicada'
       current_improvement_proposal: 'La propuesta de mejoramiento actualmente indicada'
-      back_to_question: 'Volver al cuestión actual'
+      back_to_discussion: 'Volver al cuestión actual'
       back_to_proposal: 'Volver a la propuesta actual'
       back_to_improvement_proposal: 'Volver a la propuesta de mejoramiento actual'
-      prev_question: 'Leer cuestión anterior'
-      next_question: 'Leer próxima cuestión'
+      prev_discussion: 'Leer cuestión anterior'
+      next_discussion: 'Leer próxima cuestión'
       prev_proposal: 'Leer propuesta anterior'
       next_proposal: 'Leer próxima propuesta'
       prev_improvement_proposal: 'Leer propuesta de mejoramiento anterior'
       next_improvement_proposal: 'Leer próxima propuesta de mejoramiento'
-      create_question: 'Crear nueva discusión'
+      create_discussion: 'Crear nueva discusión'
       create_proposal: 'Crear nueva propuesta'
       create_improvement_proposal: 'Crear nueva propuesta de mejoramiento'
       echo: 'Apoye a esta opinión con tu voz!'
@@ -382,11 +382,11 @@ es:
       echo_indicator:
         one: '{{supporter_count}} vozes'
         many: '{{supporter_count}} vozes'
-      create_question_link: 'Crear nueva discusión'
+      create_discussion_link: 'Crear nueva discusión'
       create_proposal_link: 'Crear nueva propuesta'
       create_internal_link: 'Nueva Idea?'
       create_improvement_proposal_link: 'Crear nueva propuesta de mejoramiento'
-      create_question_explanation: |
+      create_discussion_explanation: |
         Aquí puedes iniciar un <strong>nueva discusión</strong>.
         Por favor no te olvides de inserir algunas palabras clave, para que tu nuevo debate será hallado facilmente.
       create_proposal_explanation: |
@@ -413,15 +413,15 @@ es:
       edit: 'Editar {{type}}'
 
       types:
-        question:  'Cuestión'
+        discussion:  'Cuestión'
         proposal:  'Propuesta'
         improvement_proposal: 'Propuesta de mejoramiento'
       new:
-        question:  'Nueva Discusión'
+        discussion:  'Nueva Discusión'
         proposal:  'Nueva Propuesta'
         improvement_proposal: 'Nueva propuesta de mejoramiento'
       headings:
-        question: 'Cuestiones'
+        discussion: 'Cuestiones'
         proposal: 'Propuestas'
         improvement_proposal: 'Propuesta de mejoramiento'
 
@@ -603,7 +603,7 @@ es:
         index:                 'Index'
 
     models:
-      question: "Cuestión"
+      discussion: "Cuestión"
       proposal: "Propuesta"
       improvement_proposal: "Suplemento"
 

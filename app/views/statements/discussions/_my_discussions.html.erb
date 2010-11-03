@@ -16,7 +16,7 @@
     <div id="discussions">
     	<% unless discussions.empty? %>
 	      <ul id="discussion_list">
-	      	<%= render :partial => 'statements/questions/discussion', :collection => discussions %>
+	      	<%= render :partial => 'statements/discussions/my_discussion', :collection => discussions %>
 	      </ul>
 		  <% else %>
 			  <div class="no_discussions">
