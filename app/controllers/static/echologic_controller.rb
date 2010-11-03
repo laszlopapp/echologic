@@ -28,7 +28,7 @@ class Static::EchologicController < ApplicationController
     @about_items = AboutItem.by_index
     render_static_outer_menu :partial => 'about',
                              :locals => {:title => I18n.t('static.echologic.about.title'),
-                                         :dialog_width => 820}
+                                         :dialog_width => 950}
   end
 
   # Imprint
