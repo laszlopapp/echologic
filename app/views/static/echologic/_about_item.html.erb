@@ -1,0 +1,6 @@
+<li id="<%= dom_id(about_item) %>" class="<%= cycle('odd', 'even', :name => 'about_items') -%> about_item">
+	<%= image_tag about_item.photo.url(:small), :class => 'picture' %>
+	<span class="name"><%=h about_item.name %></span>
+  <span class="responsibility"><%=h about_item.responsibility %></span>
+	<span class="description"><%= auto_link(sanitize(about_item.description), :html => {:target => "_blank"}) %></span>
+</li>
