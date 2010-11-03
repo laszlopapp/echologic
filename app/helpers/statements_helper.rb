@@ -276,13 +276,13 @@ module StatementsHelper
                   statement_tag(:prev, type, true)
                 else
                   s = index == 0 ? session[key][session[key].length-1] : session[key][index-1]
-                  statement_button(s, type, statement_tag(:prev, type), :rel => 'prev', :class => '')
+                  statement_button(s, statement_node, statement_tag(:prev, type), :rel => 'prev', :class => 'prev_next')
                 end
       buttons << if session[key].length == 1 or statement_node.new_record?
                    statement_tag(:next, type, true)
                  else
                    s = index == session[key].length-1 ? session[key][0] : session[key][index+1]
-                   statement_button(s, type, statement_tag(:next, type), :rel => 'next', :class => '')
+                   statement_button(s, statement_node, statement_tag(:next, type), :rel => 'next', :class => 'prev_next')
                  end
     end
   end
@@ -301,13 +301,11 @@ module StatementsHelper
   # Insert a button that links to the previous statement_node
   # TODO AR from the helper stinks, but who knows a better way to get the right url?
   # maybe one could code some statement_node.url method..?
-  def statement_button(id, type, title, options={})
-    stmt = StatementNode.find(id)
+  def statement_button(id, current_node, title, options={})
     options[:class] ||= ''
-    options[:class] += !stmt.taggable? ? ' ajax' : ''
+    options[:class] += !current_node.taggable? ? ' ajax' : ''
     options['data-id'] = id
-    options['data-path'] = type
-    return link_to(title, url_for(stmt), options)
+    return link_to(title, url_for(current_node), options)
   end
 
   def link_to_child(title,statement_node,extra_classes, type = dom_class(statement_node))

@@ -19,6 +19,8 @@ $(document).ready(function () {
 	
 	initEchoNewStatementButtons();
 	
+	initPrevNextButtons();
+	
 });
 
 /********************************/
@@ -72,6 +74,12 @@ function initExpandables(){
 	});
 }
 
+
+function initPrevNextButtons() {
+	$(".statement a.prev_next").livequery(function(){
+		this.href = this.href.replace(/\/[0-9]+/, "/"+$(this).attr('data-id'));
+	});
+}
 
 /****************/
 /* Form Helpers */
