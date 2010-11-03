@@ -96,41 +96,29 @@ de:
       # about section
       about:
         title: Über uns
-        tabs: 
-          project: The Project
-          team: The Team
-        text: |
+        tabs:
+          project: Das Projekt
+          team: Das Team
+        text: |-
           <p>
-          <strong>Die Quelle</strong> von echo ist ein <strong>interdisziplinäres Team</strong> junger und erfahrener
-          Akademiker. Sie haben sein Konzept als Antwort auf die globalen Herausforderungen unserer Zeit
-          entwickelt und arbeiten zielstrebig an dessen Umsetzung.
+          Hinter echo steht ein <strong><a id="about_team_link" href="#">internationales und interdisziplinäres Team</a></strong>
+          junger und erfahrener Akademiker.
           </p><p>
-          Mittlerweile hat sich um echo ein stetig <strong>wachsendes Netzwerk</strong> von UnterstützerInnen gebildet,
-          das dem Projekt zusätzlichen Elan verleiht. Darunter sind etliche <strong>ExpertInnen</strong> mit langjähriger
-          Berufserfahrung in verschiedenen Bereichen (wie Geistes- und Naturwissenschaften, Unternehmensberatung und
-          Marketing, Softwarerecht und Public Relations), die dem Team beratend zur Seite stehen.<br/>
-          Aber auch einige <strong>namhafte PolitikerInnen</strong>, wie die ehemalige Landtagsabgeordnete
-          <a href='http://www.ruth-paulig.de' target='_blank'>Ruth Paulig</a> (die Grünen), der ehemalige Bundestagsabgeordnete
-          <a href='http://www.axel-berg.de' target='_blank'>Axel Berg</a> (SPD) sowie der Generalsekretär des
-          Europäischen Wirtschafts- und Sozialausschusses,
-          <a href='http://www.eesc.europa.eu/organisation/secretarygeneral/index-en.asp' target='_blank'>Martin Westlake</a>,
-          unterstützen echo mit Rat und Tat.
+          Um dieses Kernteam hat sich ein <strong>Netzwerk von UnterstützerInnen</strong> gebildet, die echo durch freiwilliges
+          Engagement und im Rahmen kooperativer Zusammenarbeit zusätzlichen Elan verleihen: ExpertInnen aus
+          unterschiedlichen Bereichen mit langjähriger Berufserfahrung, PolitikerInnen, Organisationen,
+          Initiativen und andere synergiensuchende Internetprojekte.
           </p><p>
-          Verschiedene <strong>Kooperationspartner</strong> aus Zivilgesellschaft
-          (<a href='http://www.netzwerk-gemeinsinn.net/' target='_blank'>Netzwerk Gemeinsinn</a>,
-          <a href='http://oneaim.org/' target='_blank'>OneAim.org</a>),
-          Wirtschaft (<a href='http://www.the-foo.de/' target='_blank'>The Foo</a>), Politik
-          (<a href='http://www.gjm.de' target='_blank'>Grüne Jugend München</a>) und Wissenschaft
-          (<a href='http://www.ztg.tu-berlin.de' target="_blank">Technische Universität Berlin / Zentrum Technik und Gesellschaft</a>,
-          <a href='http://www.isi.fraunhofer.de' target="_blank">Fraunhofer-Institut für System- und Innovationsforschung</a>)
-          helfen echo dabei, seine weit reichenden gesellschaftspolitischen Ziele zu verwirklichen. Desweiteren ist
-          echo Mitglied von <a href='http://pep-net.eu' target='_blank'>PEP-NET</a>, dem Paneuropäischen ePartizipations-Netzwerk,
-          und kooperiert mit <a href='http://www.huwy.eu/de' target='_blank'>HUWY</a>. Unsere Partner in der technischen
-          Realisierung sind das <a href='http://www.brueckenschlaeger.de' target='_blank'>brueckenschlaeger</a> Netzwerk
-          und <a href='http://www.clicks4charity.net' target='_blank'>clicks4charity</a>.
+          echo wurde im September 2008 initiiert. Im Oktober 2009 wurde der als <strong>gemeinnützig</strong> anerkannte
+          echo source e.V. gegründet. Mit Erreichen des ersten Finanzierungszieles wird für die Entwicklung,
+          Vermarktung und den Betrieb von echo die echo Systems GmbH oder AG gegründet. Das Unternehmen wird als
+          <strong><a href='http://de.wikipedia.org/wiki/Social_Business' target='_blank'>Social Business</a></strong> betrieben.
+          Seine "Your-Profit" Geschäftsphilosophie wurde von den Werten und Erfolgen vom Friedensnobelpreisträger
+          <a href='http://de.wikipedia.org/wiki/Muhammad_Yunus' target='_blank'>Muhammad Yunus</a> inspiriert.
           </p><p>
-          Wenn Ihre Organisation auch echo mitgestalten möchte, schreiben Sie uns bitte eine E-mail an
-          <a href="mailto:team@echologic.org?subject=echo mitgestalten">team@echologic.org</a>.
+          Seit 2010 wird echo im Rahmen des EXIST-Programmes <strong>durch die EU, BMWi und ESF für Deutschland gefördert</strong>. Weitere finanzielle Unterstützung erhält zurzeit echo durch einen privaten Förderer.
+          </p><p>
+          Die Arbeit des echo source e.V. konzentriert sich momentan in erster Linie auf die funktionale Weiterentwicklung der Software und die <strong>Gewinnung weiterer Partner, Förderer und (bevorzugt nachhaltiger) Investoren</strong>.
           </p>
 
       # imprint section
