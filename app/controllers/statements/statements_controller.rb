@@ -84,7 +84,8 @@ class StatementsController < ApplicationController
 
 
       # Load statement node data to session for prev/next functionality
-      load_to_session(@statement_node)
+      load_siblings(@statement_node) if params[:new_level]
+      #load_to_session(@statement_node)
 
       # Get document to show and redirect if not found
       @statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
@@ -737,6 +738,10 @@ class StatementsController < ApplicationController
   #
   def set_ancestors
     @ancestors = @statement_node.ancestors
+    @ancestors.each{|a|load_siblings(a)}
+    
+    # current statement node siblings must be loaded also on http request
+    load_siblings(@statement_node) 
   end
 
 
@@ -838,6 +843,21 @@ class StatementsController < ApplicationController
 
     # Store last statement in session (for cancel link)
     session[:last_statement_node] = statement_node.id if reload
+  end
+  
+  #
+  # Loads siblings of the current statement node
+  #
+  def load_siblings(statement_node)
+    @siblings ||= {}
+    class_name = statement_node_class.to_s.underscore
+    if statement_node.echoable?
+      siblings = statement_node.sibling_statements(@language_preference_list).map(&:id)
+    else 
+      key = ("current_" + class_name).to_sym
+      siblings = session[key] || [statement_node.id] 
+    end
+    @siblings["#{class_name}_#{statement_node.id}"] = siblings
   end
 
   #
