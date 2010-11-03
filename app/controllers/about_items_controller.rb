@@ -52,8 +52,4 @@ class AboutItemsController < AdminController
     end
   end
 
-
-
-
-
 end
