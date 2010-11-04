@@ -42,7 +42,7 @@
  * @author Kelvin Luck (kelvin AT kelvinluck DOT com || http://www.kelvinluck.com)
  */
 
-;(function($) {
+(function($) {
 
 $.jScrollPane = {
 	active : []
