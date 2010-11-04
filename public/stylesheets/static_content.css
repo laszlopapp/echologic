@@ -47,6 +47,7 @@ li {
   padding: 0;
   margin: 0;
   overflow: hidden;
+  width: 900px;
 }
 
 #team_members {
@@ -55,6 +56,7 @@ li {
 }
 
 .ai_container .header_block {
+  clear: both;
   margin: 0 10px 35px 0;
 }
 
