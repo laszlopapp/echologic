@@ -279,6 +279,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 .statement_content {
+  clear: right;
   margin: 12px 0 25px;
   line-height:1.25em;
 	width: 795px;

@@ -7,6 +7,9 @@
 #     - index action now handles '/echologic'
 #
 class Static::EchologicController < ApplicationController
+  helper :static_content
+
+  skip_before_filter :require_user
 
   # Default page redirected to echoLogic - The Mission
   def show
@@ -22,16 +25,21 @@ class Static::EchologicController < ApplicationController
 
   # About
   def about
-    render_static_outer_menu :partial => 'about', :locals => {:title => I18n.t('static.echologic.about.title')}
+    @about_items = AboutItem.by_index
+    render_static_outer_menu :partial => 'about',
+                             :locals => {:title => I18n.t('static.echologic.about.title'),
+                                         :dialog_width => 950}
   end
 
   # Imprint
   def imprint
-    render_static_outer_menu :partial => 'imprint', :locals => {:title => I18n.t('static.echologic.imprint.title')}
+    render_static_outer_menu :partial => 'imprint',
+                             :locals => {:title => I18n.t('static.echologic.imprint.title')}
   end
 
   # Data privacy
   def data_privacy
-    render_static_outer_menu :partial => 'data_privacy', :locals => {:title => I18n.t('static.echologic.data_privacy.title')}
+    render_static_outer_menu :partial => 'data_privacy',
+                             :locals => {:title => I18n.t('static.echologic.data_privacy.title')}
   end
 end

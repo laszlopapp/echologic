@@ -16,4 +16,8 @@ class ImprovementProposal < StatementNode
   def taggable?
     false
   end
+  
+  def has_children?
+    false
+  end
 end

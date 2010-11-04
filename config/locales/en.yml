@@ -137,7 +137,7 @@ en:
         login_success: "Login successful. Welcome back to echo."
         login_failed: "Unknown user or wrong password."
         logout_success: "Logout successful. See you later. Bye!"
-        session_timeout: "Your old session has been closed. Please log in again."
+        session_timeout: "Your session has expired. Please log in again."
 
     # Activations section
     activation:
@@ -238,6 +238,12 @@ en:
     notifications:
       title: E-Mail Notification Settings
       guide: Here you can set whether you would like to receive E-Mail notifications on different subjects.
+
+      newsletter:
+        title: Newsletter
+        guide: Get some regular information directly from the webmasters.
+        turned_on: Newsletter has been switched on.
+        turned_off: Newsletter has been switched off.
 
       activity:
         title: Activity Notifications
@@ -510,6 +516,11 @@ en:
             blank: 'Please fill out all fields.'
             email:
               invalid: 'Please enter a valid E-Mail address.'
+        newsletter:
+          attributes:
+            blank: 'Please fill out all fields.'
+            email:
+              invalid: 'Please enter a valid E-Mail address.'
 
         user:
           attributes:
@@ -559,6 +570,13 @@ en:
         title: 'Title'
         text: 'Summary'
         image: 'Illustration'
+      about_item:
+        photo: 'Photo'
+        name: 'Name'
+        responsibility: 'Responsibility'
+        description: 'Description'
+        about_category_id: 'About Item'
+        index: 'Index'
 
     models:
       question: "question"

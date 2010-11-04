@@ -1,7 +1,5 @@
 class MyEchoController < ApplicationController
 
-  before_filter :require_user
-
   helper :profile
 
   access_control do
@@ -31,7 +29,7 @@ class MyEchoController < ApplicationController
     render
   end
 
-  %w(activity drafting).each do |notification_type|
+  %w(newsletter activity drafting).each do |notification_type|
     class_eval %(
       def set_#{notification_type}_notification
         @user = User.find(params[:id])

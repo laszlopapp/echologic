@@ -1,13 +1,13 @@
 <%
   children ||= @children
   statement_node ||= @statement_node
-  has_children = statement_node.class.expected_children.any?
+  has_children = statement_node.has_children?
 %>
 <div id="children" class="<%= has_children ? 'header_block discuss_right_block' : '' %>">
   <% if has_children %>
 
     <!-- Title -->
-      <%= content_tag :h2, children_box_title(statement_node) %>
+      <%= content_tag :h2, children_box_title %>
 
     <!-- The children -->
     <%= render :partial => 'statements/children_list',

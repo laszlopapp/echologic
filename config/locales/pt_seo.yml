@@ -81,6 +81,11 @@ pt:
       # my_echo: de.seo.title.admin
       admin:
         show: 'echo - Área Admin'
+      # my_echo: de.seo.title.newsletter
+      newsletter:
+        new: 'echo - Newsletter'
+      about_items:
+        index: 'echo - Sobre nós'
 
     meta:
       echologic:
@@ -98,8 +103,8 @@ pt:
       echo:
         description: |-
           A echo é um projeto conjunto cujo objectivo é facilitar a mudança sustentável através da participação
-          ativa dos cidadãos. Esta providencia a base tecnológica para uma democracia aberta e participatória a um 
-          nível local, regional e global. A sua voz encontra aqui um 'echo'. Ideias tornam-se em movimentos, visões 
+          ativa dos cidadãos. Esta providencia a base tecnológica para uma democracia aberta e participatória a um
+          nível local, regional e global. A sua voz encontra aqui um 'echo'. Ideias tornam-se em movimentos, visões
           em realidade. Echo significa o fim da impotência e o princípio da auto-determinação.
         keywords: |-
           echo, agora, ágora global, democracia, democracia participatória, auto-determinação, inteligência coletiva,

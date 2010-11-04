@@ -13,10 +13,82 @@ li {
 
 /* more buttons */
 .moreButton, .hideButton {
-  cursor:   pointer;
-  color:    #7BB031;
+  cursor: pointer;
+  color: #21587f;
+  text-decoration: underline;
 }
 
-.moreButton:hover, .hideButton:hover {
-  border-bottom: 1px dotted #7BB031;
+
+/**************/
+/* About echo */
+/**************/
+
+#about_container {
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+#about_tabs {
+  margin-bottom: 20px;
+}
+
+#project {
+  padding: 0;
+  margin-top: 5px;
+  height: 395px;
+}
+
+#project .sponsors_container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#team {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  width: 920px;
+}
+
+#team_members {
+  height: 400px;
+  overflow: hidden;
+}
+
+.ai_container .header_block {
+  clear: both;
+  margin: 0 10px 35px 0;
+}
+
+.about_item {
+  clear: both;
+  margin: 15px 10px 25px 0;
+}
+
+.about_item span {
+  display: block;
+}
+
+.about_item .picture {
+  width: 120px;
+  border: 2px solid #7bb031;
+  float: left;
+  margin: 3px 0 20px;
+}
+
+.about_item .name {
+  margin-left: 145px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #7bb031;
+}
+
+.about_item .responsibility {
+  margin: 2px 0 0 145px;
+  font-weight: bold;
+}
+
+.about_item .description {
+  margin: 10px 0 0 145px;
+  display: block;
 }

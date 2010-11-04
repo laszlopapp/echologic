@@ -27,5 +27,16 @@ class EnumValue < ActiveRecord::Base
       end
     end
 
+    # Creates a new EnumValue or updates the existing one if it already exist with the unique tuple (enum_key_id, code).
+    def create_or_update!(options)
+      enum_value = find(:first, :conditions => {:enum_key_id => options[:enum_key].id,
+                                                :code => options[:code] })
+      if enum_value
+        enum_value.update_attributes!(options)
+      else
+        create!(options)
+      end
+    end
+
   end
 end

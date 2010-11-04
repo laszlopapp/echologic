@@ -1,3 +1,28 @@
-<%= I18n.t('static.echologic.about.text') %>
+<div id="about_container" class="tab_details_container discuss">
+  <ul id="about_tabs">
+    <li><a href="#project"><%= I18n.t('static.echologic.about.tabs.project') %></a></li>
+    <li><a href="#team"><%= I18n.t('static.echologic.about.tabs.team') %></a></li>
+  </ul>
 
-<%= render :partial => 'sponsors' %>
+  <div id="project" class="tab_content_container">
+    <%= I18n.t('static.echologic.about.text') %>
+    <%= render :partial => 'sponsors' %>
+  </div>
+  <div id="team" class="tab_content_container">
+    <%= render :partial => 'team' %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var $tabs = $('#about_container').tabs();
+  $('#about_team_link').click(function() {
+    $tabs.tabs('select', 1);
+    return false;
+  });
+  $('#about_container').bind('tabsshow', function(event, ui) {
+    if (ui.panel.id == "team") {
+      $('#team_members').jScrollPane({animateTo: true, wheelSpeed: 25});
+    }
+  });
+</script>
+

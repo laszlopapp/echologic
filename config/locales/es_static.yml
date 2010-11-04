@@ -96,39 +96,31 @@ es:
       # about section
       about:
         title: Sobre nosotros
-        text: |
+        tabs:
+          project: El Proyecto
+          team: El Equipo
+        text: |-
           <p>
-          <strong>La fuente</strong> de echo es un <strong>grupo interdisciplinario</strong> de académicos jóvenes y experimentados.
-          Fueron ellos quienes desarrollaron su concepto único como respuesta a los desafíos globales
-          de nuestros días y quienes continúan trabajando con gran dedicación en su realización.
+          echo is driven forward by an <strong><a id="about_team_link" href="#">international, interdisciplinary team</a>
+          </strong> of young and experienced academics.
           </p><p>
-          Se ha formado una <strong>red de colaboradores</strong> alrededor de echo, que proporciona un apoyo adicional
-          al proyecto, entre los que se encuentran varios expertos con una vasta experiencia profesional
-          en diversas áreas (ciencias humanas y naturales, asesoramiento de empresas, marketing, derecho
-          de software, relaciones públicas, etc.).
-          El proyecto también cuenta con la participación de <strong>políticos reconocidos</strong> como la ex miembro
-          del parlamento bávaro <a href='http://www.ruth-paulig.de' target='_blank'>Ruth Paulig</a>, el miembro del
-          parlamento alemán <a href='http://www.axel-berg.de' target='_blank'>Axel Berg</a>, y el secretario
-          general del Comité Económico y Social Europeo
-          <a href='http://www.eesc.europa.eu/organisation/secretarygeneral/index-en.asp' target='_blank'>Martin Westlake</a>.
+          This core team enjoys the backing of a <strong>wide network of supporters</strong> whose voluntary engagement
+          and cooperation give echo additional momentum: experts from various areas with long work experience, politicians,
+          organisations, initiatives and other synergy-seeking internet projects.
           </p><p>
-          Diversas <strong>cooperaciones</strong> con organizaciones civiles
-          (<a href='http://www.netzwerk-gemeinsinn.net/' target='_blank'>Netzwerk Gemeinsinn</a>,
-          <a href='http://oneaim.org/' target='_blank'>OneAim.org</a>), económicas (BMWi, Gründer Regio M,
-          LMU-Entrepreneurship Center, <a href='http://www.the-foo.de/' target='_blank'>The Foo</a>),
-          políticas (<a href='http://www.gjm.de' target='_blank'>Grüne Jugend München</a>),
-          científicas (LMU München, <a href='http://www.ztg.tu-berlin.de' target="_blank">Technical University Berlin /
-          Center for Technology and Society</a>, <a href='http://www.isi.fraunhofer.de/isi-en' target="_blank">
-          Fraunhofer Institute for Systems and Innovation Research</a>) y técnicas (<a href='http://www.brueckenschlaeger.de'
-          target='_blank'>brueckenschlaeger</a> red y <a href='http://www.clicks4charity.net' target='_blank'>clicks4charity</a>)
-          contribuien a la realización los objetivos ambicionados de echo.
-          Además echo source e.V. es miembro del <a href='http://pep-net.eu' target='_blank'>PEP-NET</a>.
+          echo was started in September 2008. In October 2009, a German <strong>non-profit</strong> organisation
+          echo source e.V. was founded. After successful seed-financing, echo Systems GmbH or AG will be founded to take over responsibility
+          for technical realisation, editorial work and international marketing and sales. The company will be operated as a
+          <strong><a href='http://en.wikipedia.org/wiki/Social_business' target='_blank'>social business</a></strong>.
+          Its "Your-Profit" business philosophy is inspired by the ethical principles and values of
+          Nobel Peace Prize winner <a href='http://en.wikipedia.org/wiki/Muhammad_Yunus' target='_blank'>Muhammad Yunus</a>.
           </p><p>
-          Además echo está recibiendo apoyo financiero del Fondo Social de la Unión Europea y del Estado Federal de Alemania.
+          Since 2010, echo has been funded by the EXIST program through the EU, the ESF and BMWi. Additionally, echo also
+          receives financial support of some private donors.
           </p><p>
-          Si tu organización está interesada en colaborar, por favor escribanos un E-Mail
-          a <a href="mailto:team@echologic.org?subject=echo mitgestalten">team@echologic.org</a>.
-          </p>
+          The work of echo source e.V. currently concentrates on further development of the software prototype as well as
+          finding and <strong>negotiating with new partners, sponsors and (preferably sustainable) investors</strong>.
+           </p>
 
       # imprint section
       imprint:

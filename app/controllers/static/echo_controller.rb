@@ -1,4 +1,7 @@
 class Static::EchoController < ApplicationController
+  helper :static_content
+
+  skip_before_filter :require_user
 
   # echo - The Project
   def show
@@ -10,23 +13,11 @@ class Static::EchoController < ApplicationController
     render_static_show :partial => 'echo', :locals => {:menu_item => 'echo'}
   end
 
-  # echo - Discuss
-  def discuss
-    render_static_show :partial => 'discuss', :locals => {:menu_item => 'echo', :submenu_item => 'discuss'}
-  end
-
-  # echo - Connect
-  def connect
-    render_static_show :partial => 'connect', :locals => {:menu_item => 'echo', :submenu_item => 'connect'}
-  end
-
-  # echo - Act
-  def act
-    render_static_show :partial => 'act', :locals => {:menu_item => 'echo', :submenu_item => 'act'}
-  end
-
-  # echo - echo on waves
-  def echo_on_waves
-    render_static_show :partial => 'echo_on_waves', :locals => {:menu_item => 'echo', :submenu_item => 'echo_on_waves'}
+  %w(discuss connect act echo_on_waves).each do |name|
+    class_eval %(
+      def #{name}
+        render_static_show :partial => '#{name}', :locals => {:menu_item => 'echo', :submenu_item => '#{name}'}
+      end
+    )
   end
 end

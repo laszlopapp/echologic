@@ -9,4 +9,4 @@ page.replace 'discuss_sidebar',
 page.hide 'discuss_sidebar' if !@statement_node.echoable?
 
 page << "makeRatiobars();"
-page << "makeTooltips();"
+page << "makeTooltips;"

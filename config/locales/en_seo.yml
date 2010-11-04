@@ -81,6 +81,11 @@ en:
       # my_echo: de.seo.title.admin
       admin:
         show: 'echo - Admin Bereich'
+      # my_echo: de.seo.title.newsletter
+      newsletter:
+        new: 'echo - Newsletter'
+      about_items:
+        index: 'echo - About us'
 
     meta:
       echologic:

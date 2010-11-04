@@ -60,3 +60,11 @@ statement_action_<%= code %>:
   key: <%= index+1 %>
   description: statement_action
 <% end %>
+
+<% %w(core_team supporters alumni technology_partners financial_partners).each_with_index do |code, index| %>
+about_category_<%= code %>:
+  code: <%= code %>
+  type: AboutCategory
+  key: <%= index+1 %>
+  description: about_category
+<% end %>

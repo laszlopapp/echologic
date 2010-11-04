@@ -23,4 +23,8 @@ class Question < StatementNode
   def echoable?
     false
   end
+  
+  def has_children?
+    true
+  end
 end

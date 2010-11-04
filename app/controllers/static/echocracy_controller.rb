@@ -1,27 +1,13 @@
 class Static::EchocracyController < ApplicationController
+  helper :static_content
 
-  # echocracy - The Benefits / The Actors
-  def show
-    render_static_show :partial => 'show'
-  end
+  skip_before_filter :require_user
 
-  # echocracy - Citizens
-  def citizens
-    render_static_show :partial => 'citizens'
-  end
-
-  # echocracy - Scientists
-  def scientists
-    render_static_show :partial => 'scientists'
-  end
-
-  # echocracy - Decision makers
-  def decision_makers
-    render_static_show :partial => 'decision_makers'
-  end
-
-  # echocracy - Organisations
-  def organisations
-    render_static_show :partial => 'organisations'
+  %w(show citizens scientists decision_makers organisations).each do |name|
+    class_eval %(
+      def #{name}
+        render_static_show :partial => '#{name}'
+      end
+    )
   end
 end

@@ -23,5 +23,9 @@ class Proposal < StatementNode
   def taggable?
     false
   end
+  
+  def has_children?
+    true
+  end
 
 end

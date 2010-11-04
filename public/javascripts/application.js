@@ -1,9 +1,10 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
+
 /* Do init stuff. */
 $(document).ready(function () {
-
+	
   makeTooltips();
 
   bindLanguageSelectionEvents();
@@ -81,6 +82,13 @@ function bindAjaxClickEvents() {
       dataType: 'script',
       data:   { '_method': 'put' }
     });
+    return false;
+  });
+	
+	/*special newsletter submission tag*/
+	$(".newsletter_submit_tag").live("click", function() {
+		$("#newsletter_test").val($(this).attr("value"));
+		$("#new_newsletter_form").submit();
     return false;
   });
 	
@@ -273,7 +281,7 @@ if (jQuery.support.opacity) {
  * all over our site.
  * Options and documentation:
  *   http://bassistance.de/jquery-plugins/jquery-plugin-tooltip */
-function makeTooltips() {
+var makeTooltips = function() {
   $(".ttLink[title]").tooltip({
     track:  true,
     showURL: false
@@ -282,7 +290,7 @@ function makeTooltips() {
 
 
 /* Add rounded corners to all div elements with class "rounded-box" */
-var roundCorners = function(){
+function roundCorners(){
   var str = '<b class="lr l"></b><b class="lr r"></b><b class="tb t"></b><b class="tb b"></b><b class="cn tl"></b><b class="cn tr"></b><b class="cn bl"></b><b class="cn br"></b>';
   $('.rounded-box').append(str);
 };

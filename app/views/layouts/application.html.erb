@@ -24,7 +24,8 @@
                             'connect',
                             'profile',
                             :cache => 'echo_app' %>
-
+    
+		
     <!-- Javascript -->
     <%= javascript_include_tag :defaults,
                                'history',
@@ -40,6 +41,7 @@
                                'jquery.em',
                                'jScrollPane',
                                :cache => 'echo_app' %>
+		
     <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
 
     <%# TODO remove partially needed files from inclusion. %>
@@ -69,6 +71,7 @@
 
       <!-- The chosen function -->
       <div id="function_container">
+      	<%#= tabnav :admin if current_user and current_user.has_role? :admin %>
         <%= yield %>
       </div>
 

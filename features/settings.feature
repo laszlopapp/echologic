@@ -4,8 +4,9 @@ Feature: Set my settings
   Scenario: View settings
     Given I am logged in as "user" with password "true"
     When I go to my settings
-    #Then I should see the "activity" notifications
+    Then I should see the "activity" notifications
     Then I should see the "drafting" notifications
+#    Then I should see the "newsletter" notifications
 
 
 #  Scenario: Check email notification

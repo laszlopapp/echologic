@@ -1,6 +1,5 @@
 class Users::SpokenLanguagesController < ApplicationController
 
-  before_filter :require_user
   before_filter :fetch_spoken_language, :except => [:new, :create]
 
   access_control do
@@ -41,7 +40,7 @@ class Users::SpokenLanguagesController < ApplicationController
           if @spoken_language.save
             current_completeness = @spoken_language.percent_completed
             set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
-  
+
             render_with_info do |p|
               p.insert_html :bottom, 'spoken_language_list', :partial => 'users/spoken_languages/spoken_language'
               p << "$('#new_spoken_language').reset();"
@@ -73,7 +72,7 @@ class Users::SpokenLanguagesController < ApplicationController
         end
       end
     rescue Exception => e
-      log_message_error(e, "Error updating spoken language'#{@spoken_language.id}'.") 
+      log_message_error(e, "Error updating spoken language'#{@spoken_language.id}'.")
     else
       log_message_info("Spoken Language'#{@spoken_language.id}' has been updated sucessfully.")
     end
@@ -84,12 +83,12 @@ class Users::SpokenLanguagesController < ApplicationController
   def destroy
 
     id = @spoken_language.id
-    begin 
+    begin
       previous_completeness = @spoken_language.percent_completed
       @spoken_language.destroy
       current_completeness = @spoken_language.percent_completed
       set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
-  
+
       respond_to do |format|
         format.js do
           render_with_info do |p|
@@ -103,12 +102,12 @@ class Users::SpokenLanguagesController < ApplicationController
       log_message_info("Spoken language '#{@spoken_language.id}' has been deleted sucessfully.")
     end
   end
-  
+
   private
   def fetch_spoken_language
     @spoken_language = SpokenLanguage.find(params[:id])
   end
-  
+
   def render_spoken_language(opts={})
     respond_to do |format|
       format.js do

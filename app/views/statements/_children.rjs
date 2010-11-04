@@ -11,7 +11,7 @@ page.insert_html :bottom, :children_list, create_new_child_statement_link(@state
 page.replace :more_pagination, will_paginate(@children, :id => 'more_pagination',
                                                         :class => 'more_pagination',
                                                         :next_label => I18n.t("application.general.more"),
-                                                        :renderer => StatementHelper::MoreRenderer)
+                                                        :renderer => StatementsHelper::MoreRenderer)
 page << "makeRatiobars();"
 page << "makeTooltips();"
 

@@ -95,38 +95,31 @@ en:
       #About
       about:
         title: About us
-        text: |
+        tabs:
+          project: The Project
+          team: The Team
+        text: |-
           <p>
-          <strong>The source</strong> of echo is an <strong>interdisciplinary team</strong> of young and experienced professionals.
-          They have developed its concept to address the global challenges of our time and have been working
-          determined on its implementation.
+          echo is driven forward by an <strong><a id="about_team_link" href="#">international, interdisciplinary team</a>
+          </strong> of young and experienced academics.
           </p><p>
-          Meanwhile, a <strong>growing network</strong> of supporters and consultants lends the project
-          additional impetus. Several <strong>experts</strong> from different fields (human- and natural
-          science, marketing, economy, software rights, investor & public relations etc.) support the
-          project with their know-how and engagement.<br/>
-          Furthermore, echo enjoys the backing of some <strong>renowned politicians</strong> such as
-          <a href='http://www.ruth-paulig.de' target='_blank'>Ruth Paulig</a> (Green Party), former member of the
-          Bavarian Parliament, <a href='http://www.axel-berg.de' target='_blank'>Axel Berg</a> (SPD), recent member of
-          the German Parliament and <a href='http://www.eesc.europa.eu/organisation/secretarygeneral/index-en.asp'
-          target='_blank'>Martin Westlake</a>, Secretary-General of EESC, the European Economic and Social Committee.
+          This core team enjoys the backing of a <strong>wide network of supporters</strong> whose voluntary engagement
+          and cooperation give echo additional momentum: experts from various areas with long work experience, politicians,
+          organisations, initiatives and other synergy-seeking internet projects.
           </p><p>
-          Several <strong>cooperation partners</strong> from civil society
-          (<a href='http://www.netzwerk-gemeinsinn.net/' target='_blank'>Netzwerk Gemeinsinn</a>,
-          <a href='http://oneaim.org/' target='_blank'>OneAim.org</a>), economy (<a href='http://the-foo.de'
-          target='_blank'>The Foo</a>), politics (<a href='http://www.gjm.de' target='_blank'>Grüne Jugend München</a>) and
-          science (<a href='http://www.ztg.tu-berlin.de' target="_blank">Technical University Berlin / Center for
-          Technology and Society</a>, <a href='http://www.isi.fraunhofer.de/isi-en' target="_blank">Fraunhofer Institute
-          for Systems and Innovation Research</a>) are supporting echo to achieve its far reaching sociopolitical goals.
-          Additionally, echo is member of <a href='http://pep-net.eu' target='_blank'>PEP-NET</a>, the Pan European
-          eParticiaption Network, and cooperates with <a href='http://www.huwy.eu/uk' target='_blank'>HUWY</a>.
-          Our partners for the technical realisation are the <a href='http://www.brueckenschlaeger.de'
-          target='_blank'>brueckenschlaeger</a> network and
-          <a href='http://www.clicks4charity.net' target='_blank'>clicks4charity</a>.
+          echo was started in September 2008. In October 2009, a German <strong>non-profit</strong> organisation
+          echo source e.V. was founded. After successful seed-financing, echo Systems GmbH or AG will be founded to take over responsibility
+          for technical realisation, editorial work and international marketing and sales. The company will be operated as a
+          <strong><a href='http://en.wikipedia.org/wiki/Social_business' target='_blank'>social business</a></strong>.
+          Its "Your-Profit" business philosophy is inspired by the ethical principles and values of
+          Nobel Peace Prize winner <a href='http://en.wikipedia.org/wiki/Muhammad_Yunus' target='_blank'>Muhammad Yunus</a>.
           </p><p>
-          In case your organisation would also like to shape echo, please send us an E-mail to
-          <a href="mailto:team@echologic.org?subject=echo mitgestalten">team@echologic.org</a>.
-          </p>
+          Since 2010, echo has been funded by the EXIST program through the EU, the ESF and BMWi. Additionally, echo also
+          receives financial support of some private donors.
+          </p><p>
+          The work of echo source e.V. currently concentrates on further development of the software prototype as well as
+          finding and <strong>negotiating with new partners, sponsors and (preferably sustainable) investors</strong>.
+           </p>
 
       # Static content for imprint
       imprint:

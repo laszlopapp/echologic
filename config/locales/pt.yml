@@ -239,6 +239,12 @@ pt:
       title: Configuração de notificações
       guide: Aquí pode definir que tipo de notificações deseja receber da echo.
 
+      newsletter:
+        title: Newsletter
+        guide: Get some regular information directly from the webmasters.
+        turned_on: Newsletter has been switched on.
+        turned_off: Newsletter has been switched off.
+
       activity:
         title: Notificações de actividade
         guide: Notificações diárias sobre novas discussões e novidades nos conteúdos apoiados por si.
@@ -507,6 +513,11 @@ pt:
             blank: 'Por favor preencha todos os campos.'
             email:
               invalid: 'Por favor insira um endereço de E-Mail válido.'
+        newsletter:
+          attributes:
+            blank: 'Por favor preencha todos os campos.'
+            email:
+              invalid: 'Por favor insira um endereço de E-Mail válido.'
 
         user:
           attributes:
@@ -556,7 +567,13 @@ pt:
         text: 'Sumário'
         title: 'Título'
         image: 'Ilustração'
-
+      about_item:
+        photo: 'Photo'
+        name: 'Name'
+        responsibility: 'Responsibility'
+        description: 'Description'
+        about_category_id: 'About Item'
+        index: 'Index'
 
     models:
       question: "questão"

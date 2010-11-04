@@ -1,4 +1,5 @@
 class TagsController < ApplicationController
+
   # GET /tags
   # GET /tags.xml
   def index
@@ -71,8 +72,8 @@ class TagsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
-  private 
+
+  private
   def render_xml(obj, opts={})
     respond_to do |format|
       if opts[:action]

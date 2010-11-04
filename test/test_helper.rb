@@ -36,6 +36,8 @@ class ActiveSupport::TestCase
   # -- they do not yet inherit this setting
   fixtures :all
 
+  setup :initialize_enum_keys
+
   def login_as(user)
     activate_authlogic
     UserSession.create(users(user))
@@ -51,4 +53,22 @@ class ActiveSupport::TestCase
     load File.expand_path(File.dirname(__FILE__) + "/../db/seeds.rb")
   end
 
+  def initialize_enum_keys
+    Language.enumeration_model_updates_permitted = true
+    Language.purge_enumerations_cache
+    LanguageLevel.enumeration_model_updates_permitted = true
+    LanguageLevel.purge_enumerations_cache
+    WebAddressType.enumeration_model_updates_permitted = true
+    WebAddressType.purge_enumerations_cache
+    OrganisationType.enumeration_model_updates_permitted = true
+    OrganisationType.purge_enumerations_cache
+    TagContext.enumeration_model_updates_permitted = true
+    TagContext.purge_enumerations_cache
+    StatementState.enumeration_model_updates_permitted = true
+    StatementState.purge_enumerations_cache
+    StatementAction.enumeration_model_updates_permitted = true
+    StatementAction.purge_enumerations_cache
+    AboutCategory.enumeration_model_updates_permitted = true
+    AboutCategory.purge_enumerations_cache
+  end
 end

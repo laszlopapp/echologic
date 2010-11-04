@@ -48,6 +48,8 @@
   line-height: 31px;
   vertical-align: middle;
   color: #21587f !important;
+  font-size: 15px;
+  font-weight: bold !important;
 }
 
 .header_block h3 {
@@ -669,7 +671,7 @@
 }
 
 
-/* Container for profiles and debates */
+/* Container for profiles and debates (and team)*/
 
 #results_anchor {
   height: 10px;

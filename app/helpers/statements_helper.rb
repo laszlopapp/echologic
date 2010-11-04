@@ -1,4 +1,4 @@
-module StatementHelper
+module StatementsHelper
 
   def self.included(base)
     base.instance_eval do
@@ -194,14 +194,17 @@ module StatementHelper
   # Links #
   #########
 
+  def search_category(category)
+    content_tag :span, 
+                I18n.t('discuss.search.in', :category => I18n.t("discuss.topics.#{category}.short_name")), 
+                :class => "search_category" if category
+  end
+
   #
-  # Creates a link to create a new child statement for the given statement
+  # Creates a link to create a new statement for the given statement
   # (appears INSIDE of the children statements panel).
   #
-  def create_new_child_statement_link(statement_node)
-    return unless statement_node.class.expected_children.any?
-    type = statement_node_class_dom_id(statement_node.class.expected_children.first)
-
+  def create_new_statement_link(statement_node, type)
     content_tag :li do
       link_to(I18n.t("discuss.statements.create_#{type}_link"),
               new_child_statement_node_url(statement_node, type),
@@ -249,13 +252,21 @@ module StatementHelper
        (statement_node.authors.include?(current_user) and !statement_node.published?))
       link_to(I18n.t('application.general.edit'), edit_statement_node_path(statement_node,:current_document_id => statement_document.id),
               :class => 'ajax header_button text_button edit_text_button')
+    else
+      ''
     end
   end
-
-  # Returns the block heading for the children of the given statement_node
-  def children_box_title(statement_node)
-    type = statement_node_class_dom_id(statement_node.class.expected_children.first)
-    I18n.t("discuss.statements.headings.#{type}")
+  
+  def delete_statement_node_link(statement_node)
+    link_to I18n.t('discuss.statements.delete_link'),
+            url_for(statement_node),
+            :class => 'admin_action',
+            :method => :delete,
+            :confirm => I18n.t('discuss.statements.delete_confirmation')
+  end
+  
+  def function_buttons(statement_node, statement_document)
+    edit_statement_node_link(statement_node, statement_document)
   end
 
   # Returns the block heading for entering a new child for the given statement_node
@@ -265,18 +276,10 @@ module StatementHelper
   end
 
   def cancel_new_statement_node(statement_node,cancel_js=false)
-    type = statement_node_class_dom_id(statement_node).downcase
-      if type == 'question' and !cancel_js
-        link_to I18n.t('application.general.cancel'),
-                :back,
-                :class => 'text_button cancel_text_button'
-      else
-        link_to I18n.t('application.general.cancel'),
-                session[:last_statement_node] ?
-                  statement_node_path(session[:last_statement_node]) : (statement_node.parent or discuss_url),
-                :class => 'ajax text_button cancel_text_button'
-
-      end
+    link_to I18n.t('application.general.cancel'),
+            session[:last_statement_node] ?
+              statement_node_path(session[:last_statement_node]) : (statement_node.parent or discuss_url),
+            :class => 'ajax text_button cancel_text_button'
   end
 
   def cancel_edit_statement_node(statement_node, locked_at)

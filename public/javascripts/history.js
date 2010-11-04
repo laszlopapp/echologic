@@ -2,8 +2,11 @@
 /*    SEARCH HISTORY      */
 /**************************/
 
+$(document).ready(function () {
+  bindHistoryEvents();
+});
 
-$(function() {
+function bindHistoryEvents() {
 	 $("#search_form .submit_button").live("click", function(){
     setSearchHistory();
     return false;
@@ -15,7 +18,6 @@ $(function() {
       return false;
     }
   })
-
   $(".ajax_sort").live("click", function() {
     var sort = $(this).attr('value');
 		$(':input[id=sort]').val(sort);
@@ -29,7 +31,7 @@ $(function() {
     return false;
   });
 	$.fragmentChange(true);
-});
+}
 
 
 
@@ -48,7 +50,7 @@ function setSearchHistory() {
 
 $(function() {
   $(".pagination a").live("click", function() {
-    $.setFragment({ "page" : $.queryString(this.href).page })
+    $.setFragment({ "page" : $.queryString(this.href).page });
     return false;
   });
 

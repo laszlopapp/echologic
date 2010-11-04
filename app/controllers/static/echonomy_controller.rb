@@ -1,22 +1,13 @@
 class Static::EchonomyController < ApplicationController
+  helper :static_content
 
-  # echonomy - The Values
-  def show
-    render_static_show :partial => 'show'
-  end
+  skip_before_filter :require_user
 
-  # echonomy - Your-Profit
-  def your_profit
-    render_static_show :partial => 'your_profit'
-  end
-
-  # echonomy - Foundation
-  def foundation
-    render_static_show :partial => 'foundation'
-  end
-
-  # echonomy - Public Property
-  def public_property
-    render_static_show :partial => 'public_property'
+  %w(show your_profit foundation public_property).each do |name|
+    class_eval %(
+      def #{name}
+        render_static_show :partial => '#{name}'
+      end
+    )
   end
 end

@@ -19,6 +19,26 @@ pt:
       Twitter: www.twitter.com/echologic
       </p>
 
+    newsletter:
+      title: Newsletter
+      header: |
+        <p>
+        <strong>This is the Newsletter Section!</strong><br/>
+        </p><p>
+        Here you can write a newsletter to whomever wants to read what you write.
+        </p>
+      subject: Subject
+      text: Text
+      greeting: |-
+        <p>Dear {{name}},</p>
+      unsubscribe: |-
+        <p>If you do not wish to receive newsletters, please log in to
+        <a href='{{echo_url}}'>echo</a>, go to Settings under My echo and uncheck the newsletter option.</p>
+      fields_not_filled: |-
+        You need to fill the subject and text fields in order to send the newsletter.
+      sent: |-
+        Congratulations! Your newsletter was successfully sent!
+
     activity_tracking:
       subject: echo - Notificações de Actividade
       discussions:

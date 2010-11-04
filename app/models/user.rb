@@ -217,6 +217,7 @@ class User < ActiveRecord::Base
       self.last_login_ip = nil
       self.activity_notification = 0
       self.drafting_notification = 0
+      self.newsletter_notification = 0
       self.active = 0
       self.save(false)
     rescue Exception => e

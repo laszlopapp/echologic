@@ -253,3 +253,39 @@ incorporated_<%= code %>:
   value: <%= value %>
   context:
 <% end %>
+
+<% {'en' => "Core Team",'de' => "Ständiges Team",'fr'=> "Coeur équipe",'pt' => "Equipa-Núcleo",'es' => "Equipo Permanente"}.each_pair do |code,value| %>
+core_team_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:about_category_core_team) %>
+  code: <%= code %>
+  value: <%= value %>
+  context:
+<% end %>
+<% {'en' => "Supporters",'de' => "Unterstützer",'fr'=> "Collaborateurs",'pt' => "Colaboradores",'es' => "Colaboradores"}.each_pair do |code,value| %>
+supporters_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:about_category_supporters) %>
+  code: <%= code %>
+  value: <%= value %>
+  context:
+<% end %>
+<% {'en' => "Alumni",'de' => "Absolventen",'fr'=> "Diplômées",'pt' => "Graduados",'es' => "Graduados"}.each_pair do |code,value| %>
+alumni_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:about_category_alumni) %>
+  code: <%= code %>
+  value: <%= value %>
+  context:
+<% end %>
+<% {'en' => "Technology Partners",'de' => "Technologiepartner",'fr'=> "Partenaires Tecnologiques",'pt' => "Parceiros Tecnológicos",'es' => "Colaboradores Tecnológicos"}.each_pair do |code,value| %>
+technology_partners_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:about_category_technology_partners) %>
+  code: <%= code %>
+  value: <%= value %>
+  context:
+<% end %>
+<% {'en' => "Financial Partners",'de' => "Finanzpartner",'fr'=> "Partenaires Financières",'pt' => "Parceiros Financeiros",'es' => "Colaboradores Financieros"}.each_pair do |code,value| %>
+financial_partners_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:about_category_financial_partners) %>
+  code: <%= code %>
+  value: <%= value %>
+  context:
+<% end %>
