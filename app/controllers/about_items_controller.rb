@@ -26,11 +26,11 @@ class AboutItemsController < AdminController
 
 
   def before_create_save(record)
-    record.photo = params[:record_photo]
+    record.photo = params[:record_photo] if params[:record_photo]
   end
 
   def before_update_save(record)
-    record.photo = params[:record_photo]
+    record.photo = params[:record_photo] if params[:record_photo]
   end
 
   protected
