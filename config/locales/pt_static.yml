@@ -33,8 +33,9 @@ pt:
         yucca: |-
           'Yucca elata' como símbolo de um novo começo
 
-        news_title: echo no Twitter
+        news_title: echo na web
         twitter: Siga o echo no Twitter!
+        facebook: Siga o echo no Facebook!
 
         header1: significa
         header2: |
@@ -89,7 +90,7 @@ pt:
             </p>
 
         action: |
-          Dê uma olhada e participe!
+          Para o protótipo echo »
 
       #About
       about:
