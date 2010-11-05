@@ -68,7 +68,7 @@ class DiscussionsController < StatementsController
   end
 
   # returns the statement_node class, corresponding to the controllers name
-#  def statement_node_class
-#    Discussion
-#  end
+  def statement_node_class
+    Discussion
+  end
 end

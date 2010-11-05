@@ -84,7 +84,7 @@ class StatementsController < ApplicationController
 
 
       # Load statement node data to session for prev/next functionality
-      load_siblings(@statement_node) if params[:new_level]
+      load_siblings(@statement_node) if !params[:new_level].blank?
 
       # Get document to show and redirect if not found
       @statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
@@ -742,7 +742,7 @@ class StatementsController < ApplicationController
   # Returns the statement_node class, corresponding to the controllers name. Must be implemented by the subclasses.
   #
   def statement_node_class
-    params[:controller].singularize.classify.constantize #raise NotImplementedError.new("This method must be implemented by subclasses.")
+    raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
 
   #
@@ -858,7 +858,7 @@ class StatementsController < ApplicationController
   #
   def load_siblings(statement_node)
     @siblings ||= {}
-    class_name = statement_node_class.to_s.underscore
+    class_name = statement_node.class.to_s.underscore
     # if has parent, then load siblings
     if statement_node.parent_id
       siblings = statement_node.sibling_statements(@language_preference_list).map(&:id)
@@ -910,7 +910,10 @@ class StatementsController < ApplicationController
     respond_to do |format|
       yield format if block_given?
       format.html {set_ancestors and render :template => template}
-      format.js {render :template => template}
+      format.js {
+        set_ancestors if !params[:rs].blank? 
+        render :template => template
+      }
     end
   end
 

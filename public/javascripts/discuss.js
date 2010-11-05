@@ -25,6 +25,9 @@ $(document).ready(function () {
 	
 	initChildrenPaginationButton();
 	
+	initStatementHistoryEvents();
+  
+  initFragmentStatementChange();
 });
 
 /********************************/
@@ -56,22 +59,33 @@ function removeChildrenStatements(element){
 	});
 };
 
+function renderAncestors(ancestors) {
+	$('.statement').remove();
+	$('div#statements').append(ancestors);
+}
+
 function initExpandables(){
 	/* Special ajax event for the discussion (collapse/expand)*/
 	$(".ajax_display").live("click", function(){
-		$(this).toggleClass('active');
-		to_show = $(this).parents(".statement").find($(this).attr("data-show"));
-		supporters_label = $(this).find('.supporters_label'); 
+		element = $(this);
+		to_show = element.parents(".statement").find($(this).attr("data-show"));
+		supporters_label =element.find('.supporters_label'); 
 		if (to_show.length > 0) {
+			/* if statement already has loaded content */
+			element.toggleClass('active');
 			to_show.animate(toggleParams, 500);
 			supporters_label.animate(toggleParams, 500);
 		}
-		else {
+		else 
+		{
+			/* load the content that is missing */
 			href = this.href;
 			if (href == null) {
-				href = $(this).attr('href')
+				href = element.attr('href');
 			}
-			$.getScript(href + '?expand=true');
+			$.getScript(href + '?expand=true', function(){
+				element.toggleClass('active');
+			});
 		}
 		return false;
 	});
@@ -359,14 +373,54 @@ function loadRTEEditor() {
 	});
 }
 
+/********************************/
+/* STATEMENT NAVIGATION HISTORY */
+/********************************/
 
+function initStatementHistoryEvents() {
+	$(".statement .children a.statement_link").live("click", function(){
+		path = this.href.split("/");
+		id = path.pop().split('?').shift();
+		type = path.pop();
+		$.setFragment({ "sid": type + '_' + id,"new_level": true,"rs": ''});
+		return false;
+	});
+	
+	$(".statement .header a").live("click", function(){
+    path = this.href.split("/");
+    id = path.pop().split('?').shift();
+    type = path.pop();
+    $.setFragment({ "sid": type + '_' + id,"new_level": '',"rs": ''});
+		return false;
+  });
+}
+
+function initFragmentStatementChange() {
+  $(document).bind("fragmentChange.sid", function() {
+		if ($.fragment().sid) {
+			s_id = $.fragment().sid.split("_");
+			id = s_id.pop();
+			type = s_id.join("_");
+			
+			$.getScript($.queryString(document.location.href.replace(/\/[a-zA-Z_]+\/[0-9]+/, "/" + type + "/" + id), {
+				"rs": $.fragment().rs,
+				"new_level": $.fragment().new_level
+			}));
+		}
+  });
+  
+  if ($.fragment().sid) {
+		$.setFragment({"rs" : true, "new_level": ''});
+    $(document).trigger("fragmentChange.sid");
+  }
+}
 
 /*********************************************/
 /*    CHILDREN PAGINATION AND SCROLLING      */
 /*********************************************/
 
 function initChildrenPaginationButton() {
-  $(".more_pagination a").live("click", function() {
+  $(".statement .more_pagination a").live("click", function() {
     $(this).replaceWith($('<span/>').text($(this).text()).addClass('more_loading'));
   });
 }

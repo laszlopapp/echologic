@@ -59,7 +59,7 @@ module StatementsHelper
   def render_ancestors(ancestors)
     val = ''
     ancestors.each do |ancestor|
-      val << render(:partial => 'statements/show', :locals => {:statement_node => ancestor, :no_show => true})
+      val << render(:partial => 'statements/show', :locals => {:statement_node => ancestor, :only_header => true})
     end
     val
   end
@@ -312,7 +312,6 @@ module StatementsHelper
   # maybe one could code some statement_node.url method..?
   def statement_button(current_node, title, options={})
     options[:class] ||= ''
-    options[:class] += !current_node.taggable? ? ' ajax' : ''
     options['data-id'] = current_node.id
     return link_to(title, url_for(current_node), options)
   end
@@ -322,7 +321,7 @@ module StatementsHelper
   def link_to_child(title, statement_node,extra_classes, type = dom_class(statement_node))
     link_to h(title),
             statement_node_url(statement_node, type, :new_level => true),
-            :class => "ajax statement_link #{dom_class(statement_node)}_link #{extra_classes}"
+            :class => "statement_link #{dom_class(statement_node)}_link #{extra_classes}"
   end
   
   # Loads images for the translation box

@@ -12,7 +12,7 @@ class ImprovementProposalsController < StatementsController
   end
   
   # returns the statement_node class, corresponding to the controllers name
-#  def statement_node_class
-#    ImprovementProposal
-#  end
+  def statement_node_class
+    ImprovementProposal
+  end
 end

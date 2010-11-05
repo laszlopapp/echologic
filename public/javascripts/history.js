@@ -36,7 +36,6 @@ function initHistoryEvents() {
 		setSearchHistory();
     return false;
   });
-	$.fragmentChange(true);
 };
 
 
@@ -67,7 +66,13 @@ function initPaginationButtons() {
 
 function initFragmentChange() {
   $(document).bind("fragmentChange.page", function() {
-		$.getScript($.queryString(document.location.href, {"page" : $.fragment().page, "sort": $.fragment().sort , "value" : $.fragment().value}));
+		if ($.fragment().page) {
+			$.getScript($.queryString(document.location.href, {
+				"page": $.fragment().page,
+				"sort": $.fragment().sort,
+				"value": $.fragment().value
+			}));
+		}
   });
   
   if ($.fragment().page) {
