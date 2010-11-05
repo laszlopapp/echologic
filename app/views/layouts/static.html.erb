@@ -26,8 +26,8 @@
                                'jquery.tooltip.min',
                                'jquery.cycle.lite.1.0.min',
                                'jquery.mousewheel',
+                               'jScrollPane',
                                :cache => 'echologic_home' %>
-    <%= javascript_include_tag 'jScrollPane' %>
     <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
   </head>
 
