@@ -6,7 +6,7 @@ class DiscussionsController < StatementsController
 
     discussions_not_paginated = Discussion.by_creator(current_user).by_creation
 
-    session[:current_discussion] = discussions_not_paginated.map(&:id)
+    session[:roots] = discussions_not_paginated.map(&:id)
 
     @discussions = discussions_not_paginated.paginate(:page => @page, :per_page => 5)
     @statement_documents = search_statement_documents(@discussions.map(&:statement_id),
@@ -68,7 +68,7 @@ class DiscussionsController < StatementsController
   end
 
   # returns the statement_node class, corresponding to the controllers name
-  def statement_node_class
-    Discussion
-  end
+#  def statement_node_class
+#    Discussion
+#  end
 end
