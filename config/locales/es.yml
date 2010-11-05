@@ -287,15 +287,9 @@ es:
           <p>
           <strong>echo es la democracia hecha por el pueblo para el pueblo.</strong>
           </p><p>
-          Como proyecto por el bienestar común, echo avanza por medio <strong>del esfuerzo  común</strong> de personas y
-          organizaciones comprometidas.
-          </p><p>
-          Quieres contribuir con <strong>tus ideas</strong>?<br/>
-          Pues ingrese tu nombre y tu correo electrónico aquí!<br/>
-          <strong>participe de echo</strong> y <strong>discuta sobre temas de sostenibilidad y democracia</strong> con otros
-          ciudadanos, expertos y políticos comprometidos.
+          Entra ahora y participa!
           </p>
-        action: 'Ingresar ahora!'
+        action: 'Entra ahora!'
 
       messages:
         created: "Por favor verifique tu E-Mail para activar tu nueva cuenta."

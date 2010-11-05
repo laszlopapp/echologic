@@ -216,10 +216,28 @@
   color: #7bb031;
 }
 
-#twitter_bird {
+#twitter_bird, #facebook_icon {
+  border: none;
+  cursor: pointer;
+}
+
+#twitter_bird a {
+  background: url(../images/page/echo_twitter.png) no-repeat scroll;
+  width: 75px;
+  height: 54px;
   position: absolute;
   right: 0;
-  top: -17px;
+  top: -14px;
+  z-index: 10;
+}
+
+#facebook_icon a {
+  background: url(../images/page/echo_facebook.png) no-repeat scroll;
+  width: 34px;
+  height: 38px;
+  position: absolute;
+  right: 18px;
+  top: 40px;
   z-index: 10;
 }
 
@@ -227,13 +245,15 @@
   font-size: 20px;
   font-weight: bold;
   margin: 3px 0 15px;
+  cursor: default;
 }
 
 #twitter_date {
   font-size: 14px;
   font-weight: bold;
   position: relative;
-  top: 42px;
+  top: 12px;
+  cursor: default;
 }
 
 #twitter_text {
@@ -243,7 +263,7 @@
   line-height: 16px;
   overflow: hidden;
   position: relative;
-  top: 60px;
+  top: 22px;
 }
 
 /* Featured topic teaser */
@@ -269,6 +289,7 @@
   font-size: 23px;
   font-weight: bold;
   padding-top: 2px;
+  text-decoration: underline;
 }
 
 #featured_topic_on_echo {
@@ -428,6 +449,7 @@
   font-size:   23px;
   font-weight: bold;
   color:       #21587f;
+  text-decoration: underline;
   line-height: 38px;
   position:    relative;
   top:         -85px;
@@ -543,7 +565,7 @@
 #joinIllustration {
   float:         right;
   width:         128px;
-  margin:        -21px 0 0 8px;
+  margin:        -30px 35px 0 15px;
 }
 
 #inviteIllustration {

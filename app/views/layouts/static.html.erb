@@ -39,7 +39,7 @@
 
     <div id="header">
       <div id="echologic_logo" class="main_logo">
-        <%= link_to(image_tag('page/echologic_logo.png'), root_path) %>
+        <%= link_to(image_tag('page/echo_logo.png'), root_path) %>
       </div>
       <%= render :partial => "layouts/components/top_menu"%>
       <%= render :partial => "users/user_sessions/login" %>
@@ -49,7 +49,7 @@
     <%= render :partial => 'layouts/components/messages' %>
 
     <div id="echologicContainer" <%= display_echologic_container %>>
-      <%= render :partial => "layouts/components/statement" %>
+      <%= render :partial => "layouts/components/teaser" %>
       <%= render :partial => "layouts/components/news" %>
     </div>
 
