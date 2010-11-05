@@ -1,15 +1,18 @@
+$(document).ready(function () {
+  initHistoryEvents();
+	
+	initPaginationButtons();
+	
+	initFragmentChange();
+});
+
+
 /**************************/
 /*    SEARCH HISTORY      */
 /**************************/
 
 
-
-
-$(document).ready(function () {
-  bindHistoryEvents();
-});
-
-function bindHistoryEvents() {
+function initHistoryEvents() {
 	$("#search_form .submit_button").live("click", function(){
     setSearchHistory();
     return false;
@@ -49,15 +52,20 @@ function setSearchHistory() {
 	} 
 }
 
+/**********************/
+/*    PAGINATION      */
+/**********************/
 
-
-$(function() {
-  $(".pagination a").live("click", function() {
+function initPaginationButtons() {
+	$(".pagination a").live("click", function() {
     $.setFragment({ "page" : $.queryString(this.href).page })
     return false;
   });
-  
   $.fragmentChange(true);
+}
+
+
+function initFragmentChange() {
   $(document).bind("fragmentChange.page", function() {
 		$.getScript($.queryString(document.location.href, {"page" : $.fragment().page, "sort": $.fragment().sort , "value" : $.fragment().value}));
   });
@@ -65,25 +73,6 @@ $(function() {
   if ($.fragment().page) {
     $(document).trigger("fragmentChange.page");
   }
-});
-
-
-/*********************************************/
-/*    CHILDREN PAGINATION AND SCROLLING      */
-/*********************************************/
-
-$(function() {
-	$(".more_pagination a").live("click", function() {
-		$(this).replaceWith($('<span/>').text($(this).text()).addClass('more_loading'));
-  });
-});
-
-
-function pagination_scroll_down(element) {
-	element.jScrollPane({animateTo: true});
-  if (element.data('jScrollPanePosition') != element.data('jScrollPaneMaxScroll')) {
-    element[0].scrollTo(element.data('jScrollPaneMaxScroll'));
-  }
-
 }
+
 
