@@ -109,13 +109,13 @@ ActionController::Routing::Routes.draw do |map|
 
   # SECTION discuss - discussion tree
   map.resources :discussions,
-                :member => [:new_translation, :create_translation, :publish, :cancel, :more, :children, :upload_image, :reload_image, :authors],
+                :member => [:new_translation, :create_translation, :publish, :cancel, :more, :children, :upload_image, :reload_image, :authors, :add],
                 :as => 'discussion'
   map.resources :proposals,
-                 :member => [:echo, :unecho, :new_translation, :create_translation, :incorporate, :cancel, :more, :children, :upload_image, :reload_image, :authors],
+                 :member => [:echo, :unecho, :new_translation, :create_translation, :incorporate, :cancel, :more, :children, :upload_image, :reload_image, :authors, :add],
                  :as => 'proposal'
   map.resources :improvement_proposals,
-                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, :reload_image, :authors],
+                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, :reload_image, :authors, :add],
                 :as => 'improvement_proposal'
                 
   # old discuss paths redirection

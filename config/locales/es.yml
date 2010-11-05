@@ -465,6 +465,11 @@ es:
         guide: Seleccione <strong>por favor, una imagen</strong> (JPG o PNG, max. 5MB) y descárguela.
         progress: La imagen se está cargando. Por favor, espere...
         error: 'Error cargando la imagen: Formato de la imagen no compatible.'
+      
+      add_teaser:
+        text: |
+          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
 
     summary:
       title: 'Resumen'

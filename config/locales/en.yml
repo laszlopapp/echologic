@@ -462,6 +462,10 @@ en:
         progress: The image is being uploaded. Please wait...
         error: The image couldn't be applied. Please upload a supported format (JPG or PNG and max. 5MB).
 
+      add_teaser:
+        text: |
+          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
     summary:
       title: 'Summary'
 

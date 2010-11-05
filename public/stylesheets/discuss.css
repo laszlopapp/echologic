@@ -1,4 +1,5 @@
 
+
 /* -------------- */
 /* Pilot projects */
 /* -------------- */
@@ -168,7 +169,8 @@ form.translation fieldset ol li {
   overflow: visible;
 }
 
-#statements .header_link {
+#statements .header_link,
+#statements .add_header_link {
   display: inline-block;
   min-height: 30px;
   width: 835px;
@@ -176,6 +178,10 @@ form.translation fieldset ol li {
   position: relative;
   top: 12px;
   margin-bottom: 4px;
+}
+
+#statements .add_header_link {
+	margin-top: 5px;
 }
 
 #statements .header_link .statement_link {

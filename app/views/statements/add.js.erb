@@ -1,0 +1,15 @@
+<% if defined? @info %>
+  info('<%=@info%>') 
+<% end %>
+<% if defined? @error %>
+  info('<%=@error%>') 
+<% end %>
+
+
+class_element = $('#statements div.<%= dom_class(@statement_node) %>');
+if(class_element.length == 0){class_element = $('#statements form.<%= dom_class(@statement_node) %>');};
+
+var add_teaser = "<%= escape_javascript(render :partial => 'statements/add') %>";
+replaceOrInsert(class_element, add_teaser);
+
+

@@ -5,7 +5,7 @@ class StatementsController < ApplicationController
   #        solution would be to make the "echo" button a real submit button and
   #        wrap a form around it.
 
-  verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
+  verify :method => :get, :only => [:index, :show, :add, :new, :edit, :category, :new_translation,
                                     :more, :children, :upload_image, :reload_image, :authors]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish]
@@ -15,16 +15,16 @@ class StatementsController < ApplicationController
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
   before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions,
                                                                    :new, :create, :more, :children, :upload_image,
-                                                                   :reload_image, :redirect, :authors]
-  before_filter :require_user, :except => [:category, :show, :more, :children, :authors, :redirect]
+                                                                   :reload_image, :redirect, :authors, :add]
+  before_filter :require_user, :except => [:category, :show, :more, :children, :authors, :redirect, :add]
   before_filter :fetch_languages, :except => [:destroy, :redirect]
-  before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
+  before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation, :add]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
 
   # Authlogic access control block
   access_control do
     allow :editor
-    allow anonymous, :to => [:index, :show, :category, :children]
+    allow anonymous, :to => [:index, :show, :category, :children, :add]
     allow logged_in
   end
 
@@ -58,7 +58,7 @@ class StatementsController < ApplicationController
                                                                                 current_user.has_role?(:editor))
 
     # PREV / NEXT functionality for discussions
-    session[:current_discussion] = statement_nodes_not_paginated.map(&:id)
+    session[:roots] = statement_nodes_not_paginated.map(&:id)
 
     @count    = statement_nodes_not_paginated.size
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page,
@@ -85,7 +85,6 @@ class StatementsController < ApplicationController
 
       # Load statement node data to session for prev/next functionality
       load_siblings(@statement_node) if params[:new_level]
-      #load_to_session(@statement_node)
 
       # Get document to show and redirect if not found
       @statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
@@ -120,11 +119,40 @@ class StatementsController < ApplicationController
       log_home_error(e,"Error showing statement.")
     end
   end
+  
+  # Shows an add statement teaser page
+  #
+  # Method:   GET
+  # Params:   type: string
+  # Response: HTTP or JS
+  #
+  def add
+    begin
+      respond_action 'statements/add'
+    rescue Exception => e
+      log_home_error(e,"Error showing add #{@statement_node.class.to_s.underscore.humanize} teaser.")
+    end
+  end
+  
 
+  #
+  # Loads a certain children pane that had been previously hidden.
+  #
+  # Method:   GET
+  # Params:   type: string
+  # Response: JS
+  #
   def more
     
   end
 
+  #
+  # Loads more children into the right children pane (lazy pagination).
+  #
+  # Method:   GET
+  # Params:   page: integer, type: string
+  # Response: JS
+  #
   def children
     @type = params[:type].camelize || @statement_node.class.expected_children_types.first.to_s
     @page = params[:page] || 1
@@ -190,8 +218,8 @@ class StatementsController < ApplicationController
         end
         EchoService.instance.created(@statement_node)
         set_statement_node_info(@statement_document)
-        # load currently created statement_node to session
-        load_to_session @statement_node
+        # load siblings to store in client session
+        load_siblings(@statement_node)
         load_all_children
         respond_to_statement do |format|
           format.js {render :template => 'statements/create'}
@@ -714,7 +742,7 @@ class StatementsController < ApplicationController
   # Returns the statement_node class, corresponding to the controllers name. Must be implemented by the subclasses.
   #
   def statement_node_class
-    raise NotImplementedError.new("This method must be implemented by subclasses.")
+    params[:controller].singularize.classify.constantize #raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
 
   #
@@ -824,38 +852,18 @@ class StatementsController < ApplicationController
   ########
   # MISC #
   ########
-
-  #
-  # Saves the current statement node to the session to enable back navigation
-  #
-  def load_to_session(statement_node, reload = true)
-
-    # Load parent information to session
-    load_to_session(statement_node.parent, false) if statement_node.parent
-
-    # Loads sibling (or other discussion) statements to session if they were not loaded yet
-    key = ("current_" + statement_node_class.to_s.underscore).to_sym
-    if session[key].nil? or (reload and !statement_node.parent.nil?)
-      session[key] = statement_node.echoable? ?
-                     statement_node.sibling_statements(@language_preference_list).map(&:id) :
-                     [statement_node.id]
-    end
-
-    # Store last statement in session (for cancel link)
-    session[:last_statement_node] = statement_node.id if reload
-  end
-  
+ 
   #
   # Loads siblings of the current statement node
   #
   def load_siblings(statement_node)
     @siblings ||= {}
     class_name = statement_node_class.to_s.underscore
-    if statement_node.echoable?
+    # if has parent, then load siblings
+    if statement_node.parent_id
       siblings = statement_node.sibling_statements(@language_preference_list).map(&:id)
-    else 
-      key = ("current_" + class_name).to_sym
-      siblings = session[key] || [statement_node.id] 
+    else #else, it's a root node
+      siblings = session[:roots] || [statement_node.id] 
     end
     @siblings["#{class_name}_#{statement_node.id}"] = siblings
   end

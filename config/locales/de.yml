@@ -459,6 +459,11 @@ de:
         guide: Bitte wählen sie ein passendes <strong>Bild als Illustration</strong> (JPG or PNG, max. 5MB) und laden Sie es hoch.
         progress: Das Bild wird hochgeladen. Einen kurzen Augenblick bitte...
         error: Das Bild konnte leider nicht angenommen werden. Bitte verwenden Sie nur JPG oder PNG mit max. 5MB.
+        
+      add_teaser:
+        text: |
+          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
 
     summary:
       title: 'Zusammenfassung'

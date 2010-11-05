@@ -23,6 +23,8 @@ $(document).ready(function () {
 	
 	initPrevNextButtons();
 	
+	initChildrenPaginationButton();
+	
 });
 
 /********************************/
@@ -48,6 +50,7 @@ function replaceOrInsert(element, template){
 
 function removeChildrenStatements(element){
 	element.nextAll().each(function(){
+		/* delete the session data relative to this statement first */
 		$('div#statements').removeData(this.id);
 		$(this).remove();
 	});
@@ -80,20 +83,27 @@ function initExpandables(){
 }
 
 
+/* Gets the siblings of the loaded statement and places them in the client session for navigation purposes */
 function loadStatementSessions() {
 	$("div.statement").livequery(function(){
 		siblings = $(this).attr("data-siblings");
 		if (siblings.length > 0) {
 			parent = $(this).prev();
 			if (parent.length > 0)			
-			{parent = parent.attr('id')}else{parent = 'roots'}
+			{
+				/* stores siblings with the parent node id */
+				parent = parent.attr('id');
+			}else{
+				/* no parent id, that means it's a root node, therefore, stores them into roots */
+				parent = 'roots';
+			}
 			$("div#statements").data(parent,eval(siblings));
 		}
 		$(this).removeAttr("data-siblings");
 	});
 }
 
-
+/* initializes prev/next navigation buttons with the proper url */
 function initPrevNextButtons() {
 	$(".statement .header a.prev").livequery(function(){
 		initNavigationButton(this, -1);
@@ -105,15 +115,34 @@ function initPrevNextButtons() {
 
 function initNavigationButton(element, inc) {
 	current_node_id = eval($(element).attr('data-id'));
-  parent_node = $(element).parents('.statement').prev();
+	node = $(element).parents('.statement');
+  parent_node = node.prev();
+	/* get id where the current node's siblings are stored */
   if(parent_node.length > 0)
-  {parent_node_id = parent_node.attr('id');}
-  else {parent_node_id = 'roots';}
+  {
+		parent_node_id = parent_node.attr('id');
+	} else {
+		parent_node_id = 'roots';
+	}
   parent_ids = $("div#statements").data(parent_node_id);
-  id_index = parent_ids.indexOf(current_node_id) + inc;
-  if (id_index < 0 || id_index >= parent_ids.length)
-  {id = 'add';} else {id = parent_ids[id_index];}
-  element.href = element.href.replace(/\/[0-9]+/, "/"+id);
+	if ($(element).hasClass('add')) {
+		/* Add teaser section buttons */
+  	if (inc < 0) { id_index = parent_ids.length - 1; }
+  	else { id_index = 0; }
+  }
+  else {
+  	/* get index of the prev/next sibling (according to inc) */
+	  id_index = parent_ids.indexOf(current_node_id) + inc;
+	}
+	/* if index out of bounds, than request 'add' action */
+	if (id_index < 0 || id_index >= parent_ids.length) {
+		element.href = element.href + '/add';
+	}
+	else {
+		id = parent_ids[id_index];
+		element.href = element.href.replace(/\/[0-9]+/, "/" + id);
+	}
+	
   $(element).removeAttr('data-id');
 }
 
@@ -150,7 +179,7 @@ function loadTitleDefaultText() {
         this.value = '';
       }
     });
-	})
+	});
 }
 
 /* clean input text fields which might still be filled with the default message */
@@ -329,6 +358,28 @@ function loadRTEEditor() {
 		parent_node.find('.focus').focus();
 	});
 }
+
+
+
+/*********************************************/
+/*    CHILDREN PAGINATION AND SCROLLING      */
+/*********************************************/
+
+function initChildrenPaginationButton() {
+  $(".more_pagination a").live("click", function() {
+    $(this).replaceWith($('<span/>').text($(this).text()).addClass('more_loading'));
+  });
+}
+
+
+function pagination_scroll_down(element) {
+  element.jScrollPane({animateTo: true});
+  if (element.data('jScrollPanePosition') != element.data('jScrollPaneMaxScroll')) {
+    element[0].scrollTo(element.data('jScrollPaneMaxScroll'));
+  }
+
+}
+
 
 /***********/
 /* GENERAL */
