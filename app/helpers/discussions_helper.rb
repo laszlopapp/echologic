@@ -65,4 +65,13 @@ module DiscussionsHelper
             :back,
             :class => 'text_button cancel_text_button'
   end
+  
+  def create_discussion_link_for(category=nil)
+    link_to(hash_for_new_discussion_path.merge({:category => category}),
+            :id => 'create_discussion_link') do
+      content_tag(:span, '',
+                  :class => "new_discussion create_statement_button_mid create_discussion_button_mid ttLink no_border",
+                  :title => I18n.t("discuss.tooltips.create_discussion"))
+    end
+  end
 end
