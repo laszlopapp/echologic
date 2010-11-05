@@ -14,7 +14,7 @@ var pagination_buttons = "<%= escape_javascript(will_paginate(@children, :id => 
 
 children_list.append(elements);
 <% if @children.next_page.nil? %>
-  children_list.append('<%= create_new_statement_link(@statement_node, @type.underscore) %>');
+  children_list.append('<%= create_new_child_statement_link(@statement_node, @type.underscore) %>');
 <% end %>
 
 more_element.replaceWith(pagination_buttons);
