@@ -61,7 +61,7 @@ en:
             According to its motto <strong>“Discuss – Connect – Act!”</strong>, echo empowers people to jointly
             shape their local community – and the future of our shared world. echo´s discussion area gives
             a <strong>clear overview on different opinions</strong> and facilitates <strong>constructive
-            mass collaboration</strong> to co-create your own sound statements together with others.
+            mass dialog</strong> to co-create sound statements together with others.
             In the area Act!, civic engagement is transformed into true <strong>political influence</strong> by
             the use of existing direct democractic instruments (e.g. ePetitions, referenda, demonstration, etc.)
             </p>
@@ -112,7 +112,7 @@ en:
           echo source e.V. was founded. After successful seed-financing, echo Systems GmbH or AG will be founded to take over responsibility
           for technical realisation, editorial work and international marketing and sales. The company will be operated as a
           <strong><a href='http://en.wikipedia.org/wiki/Social_business' target='_blank'>social business</a></strong>.
-          Its "Your-Profit" business philosophy is inspired by the ethical principles and values of
+          Its <strong>"Your-Profit" business philosophy</strong> is inspired by the ethical principles and values of
           Nobel Peace Prize winner <a href='http://en.wikipedia.org/wiki/Muhammad_Yunus' target='_blank'>Muhammad Yunus</a>.
           </p><p>
           Since 2010, echo has been funded by the EXIST program through the EU, the ESF and BMWi. Additionally, echo also
@@ -208,7 +208,7 @@ en:
             jointly make sound decisions and turn them into reality. Accordingly, echo comes with three main functional
             areas: <strong>Discuss – Connect – Act</strong>!
             </p><p>
-            Through the combination of these three functional areas, echo establishes a unique virtual space for a
+            Through the combination of these three functional areas, echo establishes a virtual space for a
             fully democratic collaboration, which is able to lead to <strong>visible results in everyday life</strong>
             of the people with minimal effort.<br/>
             Additionally, by spreading its functionality <strong>beyond the limits of individual websites</strong>,
@@ -235,7 +235,7 @@ en:
           </p><p>
           The discussion area of echo lets for the first time <strong>collective intelligence</strong> emerge in a
           democratic public discourse even with a nearly unlimited number of participants.<br/>
-          In order to achieve this, the <strong>novel discussion method</strong> of echo unites some essential features:
+          In order to achieve this, the <strong>discussion method</strong> of echo unites some essential features:
           </p>
 
         clarity: Clarity
@@ -259,7 +259,7 @@ en:
           What do physicists say and what about affected people living near Chernobyl or a nuclear waste repository?
           And finally, what is the position of a certain organisation?
 
-        democratic: Democratic opinion formation
+        democratic: Collective drafting
         democratic_more: |
           On echo, all positions represent sound statements elaborated by the users in a
           <span title="{{tooltip}}" class="ttLink">fully democractic process</span>.
@@ -268,7 +268,7 @@ en:
         democratic_tooltip: |
           The collective development of such statements on echo does (in the normal case) not depend on
           moderators or any users with privileged roles. This ensures that all participants have an equal
-          voice in the whole discussion process of echo.
+          voice in the whole discussion process.
 
         glocal: Glocal overview
         glocal_more: |
@@ -301,7 +301,7 @@ en:
 
         text_bottom: |
           <p>
-          echo actively motivates dialogue and collaboration between these groups. By incorporating the needs und
+          echo actively motivates dialogue and collaboration between these groups. By incorporating the needs and
           competences of these segments of society, echo enables people to jointly identify issues of common
           interest and <strong>develop the best possible solutions</strong> to these issues.
           </p>
@@ -344,8 +344,8 @@ en:
           virtual action space</strong>, providing all tools and information to collectively plan and organize the action.
           </p><p>
           In order to facilitate an effective collaboration, echo provides participants of an action with all
-          <strong>necessary information</strong> and an <strong>appropriate toolset</strong>. Besides the
-          innovative decision making function, this toolset contains by default several communication and
+          <strong>necessary information</strong> and an <strong>appropriate toolset</strong>. Besides
+          echo's decision making function, this toolset contains by default several communication and
           process tools, calendar, event- and task management, file sharing and a fundraising function.
           Thanks to its <strong>modular design</strong>, the offered set of tools can be extended to
           faciliate different sorts of collaboration with specific needs.
@@ -363,10 +363,10 @@ en:
           <strong>true synergies</strong>, instead of hamstringing competition.
           <br/>
           As a result, echo bundles the forces of all existing civil engagement on the Internet and
-          enables, for the first time ever, a <strong>broad wave of change</strong> to emerge in society.
+          enables a <strong>broad wave of change</strong> to emerge in society.
           </p><p>
-          For the realization of this goal, Google and its brand new <strong>Wave Federation Protocol</strong>
-          comes just at the right time.  This open source technology not only allows real time social
+          For the realization of this goal, Google and its <strong>Wave Federation Protocol</strong>
+          came just at the right time.  This open source technology not only allows real time social
           collaboration, but also provides the basis for a secure exchange of decentrally stored data on
           profiles, discussions and actions between public and your own organizational or private echo servers.
           </p><p>
@@ -393,7 +393,7 @@ en:
           <p>
           “echocracy” stands for the <strong>new form of participatory democracy</strong> of echo.
           It empowers you and people from all over the world to jointly discuss issues of common
-          interest and develop the best possible solutions to these issues.
+          interest and to develop and implement the best possible solutions to these issues.
           </p><p>
           echo facilitates this process through a deliberative intercultural discourse, where
           competences from the most important segments of society are all incorporated into a
@@ -563,13 +563,13 @@ en:
 
         list:
           <li><strong>Sustainability</strong> instead of unconditional growth (eco)</li>
-          <li><strong>Cooperation</strong> instead of uncontrolled greed (social)</li>
+          <li><strong>Cooperation</strong> instead of being forced to compete (social)</li>
           <li><strong>Active participation</strong> instead of passive dependence (democratic)</li>
 
         text_bottom: |
           <p>
           echo´s corporate philosophy reflects these values in several ways and aims to be a
-          model for a new kind of corporate culture. Its innovative solutions also seek to
+          model for a new kind of corporate culture. Its solutions also seek to
           foster socially and ecologically sustainable business management and a
           <strong>democratization of existing corporate and economic structures</strong>.
           </p>
@@ -629,8 +629,8 @@ en:
 
         text: |
           <p>
-          echo is designed to be a <strong>self-organizing system</strong>. Its innovative decision making
-          method is perfectly apt for decisions concerning its own rules and functions.  In this way all
+          echo is designed to be a <strong>self-organizing system</strong>. Its novel decision making
+          method is perfectly apt for decisions concerning its own rules and functions. In this way all
           users can participate increasingly in the evolution of echo, resulting in a <strong>stable
           self-administration</strong> at the end of this process.
           </p><p>
@@ -641,7 +641,7 @@ en:
           at any given time.
           </p><p>
           In this way, echo becomes the quasi <strong>property of humanity</strong>:
-          They decide what on echo happens. They define how echo works. They are echo!
+          They decide what happens on echo. They define how echo works. They are echo!
           </p>
 
         tooltip: |
