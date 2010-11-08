@@ -59,9 +59,13 @@ module StatementsHelper
   def render_ancestors(ancestors)
     val = ''
     ancestors.each do |ancestor|
-      val << render(:partial => 'statements/show', :locals => {:statement_node => ancestor, :only_header => true})
+      val << render_ancestor(ancestor)
     end
     val
+  end
+  
+  def render_ancestor(ancestor)
+    render :partial => 'statements/show', :locals => {:statement_node => ancestor, :only_header => true}
   end
   
   # Renders all the possible children of the current node (per type, ordering must be defined in the node type definition)
@@ -290,7 +294,7 @@ module StatementsHelper
     if statement_node.new_record?
       %w(prev next).each{|b| buttons << statement_tag(b.to_sym, type, true)}
     else
-      %w(prev next).each{|b| buttons << statement_button(statement_node, statement_tag(b.to_sym, type), :rel => b, :class => "#{extra_classes} #{b}")}
+      %w(prev next).each{|b| buttons << statement_button(statement_node, statement_tag(b.to_sym, type), :rel => b, :class => " statement_link #{extra_classes} #{b}")}
     end
     buttons
   end

@@ -28,6 +28,8 @@ $(document).ready(function () {
 	initStatementHistoryEvents();
   
   initFragmentStatementChange();
+	
+	
 });
 
 /********************************/
@@ -37,8 +39,15 @@ $(document).ready(function () {
 function collapseStatements() {
 	$('#statements .statement .header').removeClass('active').addClass('ajax_display');
 	$('#statements .statement .content').hide('slow');
-	$('#statements .statement .header .supporters_bar');
+	//$('#statements .statement .header .supporters_bar');
 	$('#statements .statement .header .supporters_label').hide();
+};
+
+function collapseStatement(element) {
+  element.find('.header').removeClass('active').addClass('ajax_display');
+  element.find('.content').hide('slow');
+  //$('#statements .statement .header .supporters_bar');
+  element.find('.supporters_label').hide();
 };
 
 function replaceOrInsert(element, template){
@@ -51,6 +60,13 @@ function replaceOrInsert(element, template){
 	}
 };
 
+function renderAncestor(old_ancestor, ancestor_html) {
+	type = old_ancestor.match(/[a-z]+(?:_[a-z]+)?/);
+  var ancestor_html = ancestor_html;
+  class_element = $('#statements div.'+type);
+  replaceOrInsert(class_element, ancestor_html);
+}
+
 function removeChildrenStatements(element){
 	element.nextAll().each(function(){
 		/* delete the session data relative to this statement first */
@@ -58,11 +74,6 @@ function removeChildrenStatements(element){
 		$(this).remove();
 	});
 };
-
-function renderAncestors(ancestors) {
-	$('.statement').remove();
-	$('div#statements').append(ancestors);
-}
 
 function initExpandables(){
 	/* Special ajax event for the discussion (collapse/expand)*/
@@ -87,11 +98,6 @@ function initExpandables(){
 				element.toggleClass('active');
 			});
 		}
-		return false;
-	});
-	
-	$(".discussion .header_buttons a").live("click", function(event){
-		window.location = this.href;
 		return false;
 	});
 }
@@ -377,41 +383,64 @@ function loadRTEEditor() {
 /* STATEMENT NAVIGATION HISTORY */
 /********************************/
 
+function getCurrentStatementsStack(element) {
+	/* get soon to be visible statement */
+  path = element.href.split("/");
+  id = path.pop().split('?').shift();
+  type = path.pop();
+  current_sid = type + '_' + id;
+  
+  current_stack = [];
+  /* get current_stack of visible statements (if any matches the clicked statement, then break) */
+  $(".statement").each( function(){
+    id = $(this).attr('id');
+    if (id.match(type) != null) {
+      return false;
+    }
+    else { current_stack.push($(this).attr('id')); } 
+  });
+  
+  /* insert clicked statement */
+  current_stack.push(current_sid);
+	return current_stack;
+}
+
 function initStatementHistoryEvents() {
-	$(".statement .children a.statement_link").live("click", function(){
-		path = this.href.split("/");
-		id = path.pop().split('?').shift();
-		type = path.pop();
-		$.setFragment({ "sid": type + '_' + id,"new_level": true,"rs": ''});
+	$(".statement .header a.statement_link").live("click", function(){
+		current_stack = getCurrentStatementsStack(this);
+		
+		/* set fragment */
+		$.setFragment({ "sid": current_stack.join(','), "new_level" : ''});
 		return false;
 	});
 	
-	$(".statement .header a").live("click", function(){
-    path = this.href.split("/");
-    id = path.pop().split('?').shift();
-    type = path.pop();
-    $.setFragment({ "sid": type + '_' + id,"new_level": '',"rs": ''});
-		return false;
+	$(".statement .children a.statement_link").live("click", function(){
+    current_stack = getCurrentStatementsStack(this);
+    
+    /* set fragment */
+    $.setFragment({ "sid": current_stack.join(','), "new_level" : true});
+    return false;
   });
 }
 
 function initFragmentStatementChange() {
   $(document).bind("fragmentChange.sid", function() {
 		if ($.fragment().sid) {
-			s_id = $.fragment().sid.split("_");
-			id = s_id.pop();
-			type = s_id.join("_");
-			
-			$.getScript($.queryString(document.location.href.replace(/\/[a-zA-Z_]+\/[0-9]+/, "/" + type + "/" + id), {
-				"rs": $.fragment().rs,
-				"new_level": $.fragment().new_level
-			}));
+			stack = $.fragment().sid.split(",");
+			sid = stack.pop().split("_");
+			id = sid.pop();
+			type = sid.join("_");
+		
+		  path = $.queryString(document.location.href.replace(/\/[a-zA-Z_]+\/[0-9]+/, "/" + type + "/" + id), {
+        "sid": stack.join(","),
+        "new_level": $.fragment().new_level
+      })
+			$.getScript(path);
 		}
   });
   
   if ($.fragment().sid) {
-		$.setFragment({"rs" : true, "new_level": ''});
-    $(document).trigger("fragmentChange.sid");
+		$(document).trigger("fragmentChange.sid");
   }
 }
 

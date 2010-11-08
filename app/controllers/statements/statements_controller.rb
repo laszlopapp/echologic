@@ -911,7 +911,7 @@ class StatementsController < ApplicationController
       yield format if block_given?
       format.html {set_ancestors and render :template => template}
       format.js {
-        set_ancestors if !params[:rs].blank? 
+        set_ancestors if !params[:sid].blank? 
         render :template => template
       }
     end
