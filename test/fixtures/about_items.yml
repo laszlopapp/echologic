@@ -1,59 +1,59 @@
 jan:
   name: 'Jan'
   description: 'Likes the birds and the bees'
-  collaboration_team_id: <%= Fixtures.identify(:collaboration_team_core_team) %>
+  about_category_id: <%= Fixtures.identify(:about_category_core_team) %>
   index: 1
 laszlo:
   name: 'Laszlo'
   description: 'Likes the sun and the moon'
-  collaboration_team_id: <%= Fixtures.identify(:collaboration_team_core_team) %>
+  about_category_id: <%= Fixtures.identify(:about_category_core_team) %>
   index: 2
-  
+
 leroy:
   name: 'Leeeeeeroy Jeeeeenkins'
   description: 'Leeeeeeeeeeeroy!!!!!!!!!'
-  collaboration_team_id: <%= Fixtures.identify(:collaboration_team_supporters) %>
+  about_category_id: <%= Fixtures.identify(:about_category_supporters) %>
   index: 1
-  
+
 john:
   name: 'John Lennon'
   description: 'I believe we are more famous than Jesus'
-  collaboration_team_id: <%= Fixtures.identify(:collaboration_team_alumni) %>
+  about_category_id: <%= Fixtures.identify(:about_category_alumni) %>
   index: 1
 paul:
   name: 'Sir Paul McCartney'
   description: 'Paul is dead'
-  collaboration_team_id: <%= Fixtures.identify(:collaboration_team_alumni) %>
+  about_category_id: <%= Fixtures.identify(:about_category_alumni) %>
   index: 2
 george:
   name: 'George Harrison'
   description: 'The Beatles saved the world from boredom.'
-  collaboration_team_id: <%= Fixtures.identify(:collaboration_team_alumni) %>
+  about_category_id: <%= Fixtures.identify(:about_category_alumni) %>
   index: 3
 ringo:
   name: 'Ringo Starr'
   description: 'I am just happy to be here.'
-  collaboration_team_id: <%= Fixtures.identify(:collaboration_team_alumni) %>
+  about_category_id: <%= Fixtures.identify(:about_category_alumni) %>
   index: 4
-  
+
 google:
   name: 'Google Inc.'
   description: 'Today just you. Tomorrow the world'
-  collaboration_team_id: <%= Fixtures.identify(:collaboration_team_technology_partners) %>
+  about_category_id: <%= Fixtures.identify(:about_category_technology_partners) %>
   index: 1
 microsoft:
   name: 'Microsoft Inc.'
   description: 'We suck. Really, we do'
-  collaboration_team_id: <%= Fixtures.identify(:collaboration_team_technology_partners) %>
+  about_category_id: <%= Fixtures.identify(:about_category_technology_partners) %>
   index: 2
-  
+
 federal_reserve_bank:
   name: 'Federal Reserve Bank'
   description: 'We are only in it for the money'
-  collaboration_team_id: <%= Fixtures.identify(:collaboration_team_financial_partners) %>
+  about_category_id: <%= Fixtures.identify(:about_category_financial_partners) %>
   index: 1
 deutsche_bank:
   name: 'Deutsche Bank'
   description: 'We broke. Have some change?'
-  collaboration_team_id: <%= Fixtures.identify(:collaboration_team_financial_partners) %>
+  about_category_id: <%= Fixtures.identify(:about_category_financial_partners) %>
   index: 2

@@ -2,15 +2,16 @@ require 'test_helper'
 
 class TagsControllerTest < ActionController::TestCase
   def setup
+    login_as :ben
     @controller = TagsController.new
   end
-  
+
   test "should get index" do
     get :index
     assert_response :success
     assert_not_nil assigns(:tags)
   end
-  
+
   test "should show tag" do
     get :show, :id => tags(:energy).to_param
     assert_response :success
@@ -20,7 +21,7 @@ class TagsControllerTest < ActionController::TestCase
     get :new
     assert_response :success
   end
-  
+
   test "should get edit" do
     get :edit, :id => tags(:energy).to_param
     assert_response :success

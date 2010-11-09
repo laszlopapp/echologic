@@ -5,6 +5,7 @@
 /* Write render output into JS variables for later use. */
 var content = "<%= escape_javascript(render(:partial => request[:action])) %>";
 var title = "<%= title %>";
+var dialogWidth = <%= dialog_width ||= 750 %>;
 
 $('#dialogContent').html(content);
 
@@ -14,7 +15,7 @@ $('#dialogContent').dialog({
   modal:    true,
   buttons:  { <%= I18n.t('application.general.close') %>: function() { $(this).dialog('destroy'); }},
   close:    function(event, ui) { $(this).dialog('destroy'); },
-  width:    750,
+  width:    dialogWidth,
   resizable: false,
   dialogClass: "dialog_popup"
 });

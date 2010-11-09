@@ -139,7 +139,7 @@ en:
         login_success: "Login successful. Welcome back to echo."
         login_failed: "Unknown user or wrong password."
         logout_success: "Logout successful. See you later. Bye!"
-        session_timeout: "Your old session has been closed. Please log in again."
+        session_timeout: "Your session has expired. Please log in again."
 
     # Activations section
     activation:
@@ -283,13 +283,7 @@ en:
           <p>
           <strong>echo is democracy from the people for the people.</strong>
           </p><p>
-          As a project for supporting common good, echo is driven forward by the
-          <strong>joint effort</strong> of engaged individuals and organizations.
-          </p><p>
-          Eager to <strong>participate</strong>!?<br/>
-          Please enter your name and E-Mail address below!<br/>
-          <strong>Form echo</strong> and <strong>discuss topics on sustainability</strong> and democracy with other
-          engaged citizens, experts and representatives.
+          Join us now to participate! 
           </p>
         action: 'Join now!'
 
@@ -579,16 +573,17 @@ en:
       statement_document:
         language_id: 'Language'
         language: 'Language'
-        title:    'Title'
-        text:     'Summary'
-        image:    'Illustration'
-      about_item: 
-        photo:                 'Photo'
-        name:                  'Name'
-        description:           'Description'
-        collaboration_team_id: 'Collaboration Team'
-        index:                 'Index'
- 
+        title: 'Title'
+        text: 'Summary'
+        image: 'Illustration'
+      about_item:
+        photo: 'Photo'
+        name: 'Name'
+        responsibility: 'Responsibility'
+        description: 'Description'
+        about_category_id: 'About Item'
+        index: 'Index'
+
     models:
       question: "question"
       proposal: "proposal"

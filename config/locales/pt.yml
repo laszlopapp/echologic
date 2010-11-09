@@ -273,13 +273,7 @@ pt:
           <p>
           <strong>A echo é a democracia das pessoas para as pessoas.</strong>
           </p><p>
-          Como um projecto para apoiar o bem comum, a echo avança com o apoio e
-          <strong>esforço conjunto</strong> de indivíduos e organizações comprometidos.
-          </p><p>
-          Ansioso para <strong>contribuir as suas ideias</strong> também!?<br/>
-          Por favor insira o seu nome e endereço de E-Mail abaixo!<br/>
-          <strong>Forme a echo</strong> e <strong>discuta tópicos como sustentabilidade</strong> e democracia com
-          outros cidadãos, especialistas e representantes comprometidos.
+          Junte-se a nós e participe!
           </p>
         action: 'Junte-se agora!'
 
@@ -566,16 +560,17 @@ pt:
       statement_document:
         language_id: 'Língua'
         language: 'Língua'
-        text:       'Sumário'
-        title:      'Título'
-        image:      'Ilustração'
-      about_item: 
-        photo:                 'Photo'
-        name:                  'Name'
-        description:           'Description'
-        collaboration_team_id: 'Collaboration Team'
-        index:                 'Index'
- 
+        text: 'Sumário'
+        title: 'Título'
+        image: 'Ilustração'
+      about_item:
+        photo: 'Photo'
+        name: 'Name'
+        responsibility: 'Responsibility'
+        description: 'Description'
+        about_category_id: 'About Item'
+        index: 'Index'
+
     models:
       question: "questão"
       proposal: "proposta"

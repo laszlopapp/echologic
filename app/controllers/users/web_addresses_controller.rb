@@ -1,10 +1,7 @@
 class Users::WebAddressesController < ApplicationController
-
-  before_filter :require_user
-  before_filter :fetch_web_address, :except => [:new,:create]
-  
-  
   helper :profile
+
+  before_filter :fetch_web_address, :except => [:new,:create]
 
   access_control do
     allow logged_in
@@ -38,7 +35,7 @@ class Users::WebAddressesController < ApplicationController
   def create
     begin
       @web_address = WebAddress.new(params[:web_address].merge({:user => @current_user}))
-  
+
       @before_completeness = @web_address.percent_completed
       respond_to do |format|
         format.js do
@@ -85,15 +82,15 @@ class Users::WebAddressesController < ApplicationController
   # Remove the web profile specified through id
   # method: DELETE
   def destroy
-    begin 
+    begin
       @before_completeness = @web_address.percent_completed
       @web_address.destroy
       @after_completeness = @web_address.percent_completed
       set_info("discuss.messages.new_percentage", :percentage => @after_completeness) if @before_completeness != @after_completeness
-  
+
       respond_to do |format|
         format.js do
-  
+
           # sorry, but this was crap. you can't add additional js actions like this...
           # either use a rjs, a js, or a render :update block
           #remove_container "web_profile_#{id}"
@@ -108,13 +105,13 @@ class Users::WebAddressesController < ApplicationController
       log_message_info("Web address '#{@web_address.id}' has been deleted sucessfully.")
     end
   end
-  
+
   protected
-  
+
   def fetch_web_address
     @web_address = WebAddress.find(params[:id]) || WebAddress.new(params[:web_address].merge({:user => @current_user}))
   end
-  
+
   def render_web_address(opts={})
     respond_to do |format|
       format.js do

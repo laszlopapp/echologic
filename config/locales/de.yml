@@ -279,14 +279,7 @@ de:
           <p>
           <strong>echo ist Demokratie von Menschen für Menschen.</strong>
           </p><p>
-          Als Projekt zur Förderung des Allgemeinwohls wird echo durch die
-          <strong>gemeinsamen Anstrengungen</strong> engagierter Menschen und
-          Organisationen vorangetrieben.
-          </p><p>
-          Möchten auch Sie sich <strong>beteiligen</strong>?<br/>
-          Dann tragen Sie einfach Ihren Namen und Ihre E-Mail Adresse ein!<br/>
-          <strong>Gestalten Sie echo</strong> und <strong>diskutieren Sie über Themen der Nachhaltigkeit</strong> und
-          Demokratie mit anderen engagierten BürgerInnen, ExpertInnen und PolitikerInnen.
+          Machen Sie mit! Melden Sie sich an!
           </p>
         action: 'Jetzt beitreten!'
 
@@ -580,15 +573,16 @@ de:
       statement_document:
         language_id: 'Sprache'
         language: 'Sprache'
-        title:    'Titel'
-        text:     'Zusammenfassung'
-        image:    'Illustration'
-      about_item: 
-        photo:                 'Photo'
-        name:                  'Name'
-        description:           'Description'
-        collaboration_team_id: 'Collaboration Team'
-        index:                 'Index'
+        title: 'Titel'
+        text: 'Zusammenfassung'
+        image: 'Illustration'
+      about_item:
+        photo: 'Photo'
+        name: 'Name'
+        responsibility: 'Responsibility'
+        description: 'Description'
+        about_category_id: 'About Item'
+        index: 'Index'
 
     models:
       question: "Frage"
@@ -597,10 +591,10 @@ de:
 
   authlogic:
     error_messages:
-      email_invalid:      "Bitte korrigieren Sie die angegebene E-Mail Adresse."
-      password_blank:     "Bitte geben Sie ein Passwort an."
-      not_active:         "Ihr Zugang wurde noch nicht freigeschaltet. Sehen Sie bitte Ihrem Posteingang nach einer Aktivierungs E-Mail."
-      must_be_logged_in:  "Bitte melden Sie sich an."
+      email_invalid: "Bitte korrigieren Sie die angegebene E-Mail Adresse."
+      password_blank: "Bitte geben Sie ein Passwort an."
+      not_active: "Ihr Zugang wurde noch nicht freigeschaltet. Sehen Sie bitte Ihrem Posteingang nach einer Aktivierungs E-Mail."
+      must_be_logged_in: "Bitte melden Sie sich an."
       must_be_logged_out: "Bitte melden Sie sich ab."
 
     attributes:

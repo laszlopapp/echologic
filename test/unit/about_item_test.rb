@@ -21,8 +21,8 @@ class AboutItemTest < ActiveSupport::TestCase
 
     context "being saved" do
       setup do
-        @about_item = AboutItem.new(:name => 'Jimi Hendrix', :description => 'Xcuse me while i kiss this guy!', :index => '1') 
-        @about_item.collaboration_team = CollaborationTeam[:core_team]
+        @about_item = AboutItem.new(:name => 'Jimi Hendrix', :description => 'Xcuse me while i kiss this guy!', :index => '1')
+        @about_item.about_category = AboutCategory[:core_team]
         @about_item.save!
         I18n.locale = 'de'
         @about_item.description = 'Verzeiht mir während ich diesen Kerl küsse!'
@@ -33,11 +33,11 @@ class AboutItemTest < ActiveSupport::TestCase
         I18n.locale = 'de'
         assert_equal @about_item.name, "Jimi Hendrix"
         assert_equal @about_item.description, "Verzeiht mir während ich diesen Kerl küsse!"
-        assert_equal @about_item.collaboration_team.value, "Ständiges Team"
+        assert_equal @about_item.about_category.value, "Ständiges Team"
         I18n.locale = 'en'
         assert_equal @about_item.description, "Xcuse me while i kiss this guy!"
         assert_equal @about_item.index, 1
-      end      
+      end
     end
   end
 end

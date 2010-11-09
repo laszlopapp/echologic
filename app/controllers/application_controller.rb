@@ -46,24 +46,89 @@ class ApplicationController < ActionController::Base
   #
   # False URLs are redirected to home
   #
-  rescue_from 'ActionController::RoutingError', :with => :redirect_to_home
+  rescue_from 'ActionController::RoutingError', :with => :rescure_routing_error
+
+  private
+  def rescure_routing_error
+    redirect_to_url(last_url, 'Unknown URL. Redirecting...')
+  end
 
   private
   # Called when when a routing error occurs.
-  def redirect_to_home
+  def redirect_to_welcome
     redirect_to welcome_url
   end
 
-  protected
-  def redirect_to_root_path
+  private
+  def last_url
+    request.referer || root_url
+  end
+
+  private
+  def redirect_to_url(url, message)
     respond_to do |format|
-      format.html { redirect_to root_path }
+      flash[:notice] = message
+      format.html do
+        redirect_to url
+      end
       format.js do
         render :update do |page|
-          page.redirect_to root_path
+          page.redirect_to url
         end
       end
     end
+  end
+
+
+  ############################
+  # ACCESS RIGHTS MANAGEMENT #
+  ############################
+
+  # Authlogic authentication filters
+  filter_parameter_logging :password, :password_confirmation
+  helper_method :current_user_session, :current_user
+
+  # Catch access denied exception in the whole application and handle it
+  rescue_from 'Acl9::AccessDenied', :with => :access_denied
+
+  private
+  #
+  # If access is denied display warning and redirect to users_path
+  #
+  def access_denied
+    flash[:error] = I18n.t('activerecord.errors.messages.access_denied')
+    redirect_to_welcome
+  end
+
+  before_filter :require_user
+
+  private
+  # Before filter used to define which controller actions require an active and valid user session.
+  def require_user
+    @user_required = true
+    unless current_user
+      set_info('authlogic.error_messages.must_be_logged_in')
+      respond_to do |format|
+        format.html {
+          flash_info
+          redirect_to request.url == last_url ? root_url : last_url
+        }
+        format.js {
+          show_info_messages do |page|
+            page << "$('#user_session_email').focus();"
+          end
+        }
+      end
+      return false
+    end
+  end
+
+    # Checks that the user is NOT logged in.
+  def require_no_user
+    if current_user
+      redirect_to_url(root_url, I18n.t('authlogic.error_messages.must_be_logged_out'))
+    end
+    return false
   end
 
 
@@ -72,11 +137,11 @@ class ApplicationController < ActionController::Base
   ####################
 
   # Session timeout
-  before_filter :session_expiry
+  before_filter :check_session_lifetime
 
   private
-  # Handles session expiry
-  def session_expiry
+  # Makes the session expire if it is too old
+  def check_session_lifetime
     if current_user_session and session[:expiry_time] and session[:expiry_time] < Time.now
       expire_session!
     end
@@ -90,13 +155,32 @@ class ApplicationController < ActionController::Base
     current_user_session.try(:destroy)
     reset_session
     if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'
-      # still display logout message on logout.
-      flash[:notice] = I18n.t('users.user_sessions.messages.logout_success')
+      # If the user wants to log out, we go to the root page and display the logout message.
+      redirect_to_url(root_url, I18n.t('users.user_sessions.messages.logout_success'))
     else
-      flash[:notice] = I18n.t('users.user_sessions.messages.session_timeout')
+      # Not logout
+      @user_required ||= false
+      if @user_required
+        # Login is required but the session is killed
+        redirect_to_url(last_url, I18n.t('users.user_sessions.messages.session_timeout'))
+      else
+        # Login free area
+        redirect_to_url(request.url, I18n.t('users.user_sessions.messages.session_timeout'))
+      end
     end
-    redirect_to_root_path
-end
+  end
+
+  # Return current session if one exists
+  def current_user_session
+    return @current_user_session if defined?(@current_user_session)
+    @current_user_session = UserSession.find
+  end
+
+  # Returns the currently logged in user
+  def current_user
+    return @current_user if defined?(@current_user)
+    @current_user = current_user_session && current_user_session.user
+  end
 
 
   ############
@@ -118,68 +202,6 @@ end
   end
 
 
-  ############################
-  # ACCESS RIGHTS MANAGEMENT #
-  ############################
-
-  # Authlogic authentication filters
-  filter_parameter_logging :password, :password_confirmation
-  helper_method :current_user_session, :current_user
-
-  # Catch access denied exception in the whole application and handle it
-  rescue_from 'Acl9::AccessDenied', :with => :access_denied
-
-  private
-  #
-  # If access is denied display warning and redirect to users_path
-  #
-  def access_denied
-    flash[:error] = I18n.t('activerecord.errors.messages.access_denied')
-    redirect_to welcome_path
-  end
-
-  protected
-  # Before filter used to define which controller actions require an active and valid user session.
-  def require_user
-    unless current_user
-      set_info('authlogic.error_messages.must_be_logged_in')
-      respond_to do |format|
-        format.html {
-          flash_info
-          request.env["HTTP_REFERER"] ? redirect_to(:back) : redirect_to(root_path)
-        }
-        format.js {
-          show_info_messages do |page|
-            page << "$('#user_session_email').focus();"
-          end
-        }
-      end
-      return false
-    end
-  end
-
-    # Checks that the user is NOT logged in.
-  def require_no_user
-    if current_user
-      flash[:notice] = I18n.t('authlogic.error_messages.must_be_logged_out')
-      redirect_to_root_path
-    end
-    return false
-  end
-
-  # Return current session if one exists
-  def current_user_session
-    return @current_user_session if defined?(@current_user_session)
-    @current_user_session = UserSession.find
-  end
-
-  # Returns the currently logged in user
-  def current_user
-    return @current_user if defined?(@current_user)
-    @current_user = current_user_session && current_user_session.user
-  end
-
-
   #############
   # LANGUAGES #
   #############
@@ -190,7 +212,8 @@ end
   end
 
   def language_preference_list
-    priority_languages = @statement_node.nil? ? [locale_language_id] : [locale_language_id, @statement_node.original_language.id]
+    priority_languages = @statement_node.nil? ? [locale_language_id] : [locale_language_id,
+                                                                        @statement_node.original_language.id]
     keys = priority_languages.concat(current_user ? current_user.sorted_spoken_language_ids : []).uniq
   end
 

@@ -13,61 +13,82 @@ li {
 
 /* more buttons */
 .moreButton, .hideButton {
-  cursor:   pointer;
-  color:    #7BB031;
+  cursor: pointer;
+  color: #21587f;
+  text-decoration: underline;
 }
 
-.moreButton:hover, .hideButton:hover {
-  border-bottom: 1px dotted #7BB031;
+
+/**************/
+/* About echo */
+/**************/
+
+#about_container {
+  overflow: hidden;
+  margin-top: 20px;
 }
 
-.team_results {
-	height: 388px;
-	overflow-x: hidden;
-	overflow-y: auto;
+#about_tabs {
+  margin-bottom: 20px;
 }
 
-.team_results .results_container {
-	width: 656px;
-	min-height: 60px;
+#project {
+  padding: 0;
+  margin-top: 5px;
+  height: 395px;
 }
 
-.team_results .header_block {
-	margin-left: 0px;
-	padding-right: 20px;
+#project .sponsors_container {
+  text-align: center;
+  margin-top: 20px;
 }
 
-.team_results .results_container ul {
-	min-height: 60px;
-	display: inline-block;
+#team {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  width: 920px;
 }
 
-.team_results .results_container .content .avatar_holder {
-	position: relative;
-	float: left;
-}
-.team_results .results_container .content .name, 
-.results_container .member .description {
-	position: relative;
-	float: left;
-	left: 0px;
-	width: 225px;
-	height: 18px;
-	overflow: hidden;
-}
-.results_container .member .description {
-  height: 36px;
+#team_members {
+  height: 400px;
+  overflow: hidden;
 }
 
-.team_results .results_container .odd .avatar_holder {
-	float: right;
+.ai_container .header_block {
+  clear: both;
+  margin: 0 10px 35px 0;
 }
 
-/*.results_container .member .description{
-	display:inline-block;
-	font-size:14px;
-	left:60px;
-	max-height:35px;
-	overflow:hidden;
-	position:absolute;
-}*/
+.about_item {
+  clear: both;
+  margin: 15px 10px 25px 0;
+}
+
+.about_item span {
+  display: block;
+}
+
+.about_item .picture {
+  width: 120px;
+  border: 2px solid #7bb031;
+  float: left;
+  margin: 3px 0 30px;
+}
+
+.about_item .name {
+  margin-left: 145px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #7bb031;
+}
+
+.about_item .responsibility {
+  margin: 2px 0 0 145px;
+  font-weight: bold;
+}
+
+.about_item .description {
+  margin: 10px 0 0 145px;
+  display: block;
+}

@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(:version => 20101028143517) do
   create_table "about_item_translations", :force => true do |t|
     t.integer "about_item_id"
     t.string  "locale"
+    t.string  "responsibility"
     t.text    "description"
   end
 
@@ -22,14 +23,10 @@ ActiveRecord::Schema.define(:version => 20101028143517) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.string   "name"
+    t.string   "responsibility"
     t.text     "description"
-    t.integer  "collaboration_team_id"
+    t.integer  "about_category_id"
     t.integer  "index"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "admin_mailers", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end

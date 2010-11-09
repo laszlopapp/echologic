@@ -33,8 +33,9 @@ pt:
         yucca: |-
           'Yucca elata' como símbolo de um novo começo
 
-        news_title: echo no Twitter
+        news_title: echo na web
         twitter: Siga o echo no Twitter!
+        facebook: Siga o echo no Facebook!
 
         header1: significa
         header2: |
@@ -89,44 +90,36 @@ pt:
             </p>
 
         action: |
-          Dê uma olhada e participe!
+          Para o protótipo echo »
 
       #About
       about:
         title: Sobre nós
-        tabs: 
-          project: The Project
-          team: The Team
-        text: |
+        tabs:
+          project: O Projeto
+          team: A Equipa
+        text: |-
           <p>
-          <strong>A fonte</strong> da echo é uma <strong>equipa interdisciplinária</strong> de jovens e experienciados profissionais.
-          Eles desenvolveram o seu conceito para endereçar os desafios globais do nosso tempo e têm trabalhado determinadamente na sua
-          implementação.
+          echo is driven forward by an <strong><a id="about_team_link" href="#">international, interdisciplinary team</a>
+          </strong> of young and experienced academics.
           </p><p>
-          Entretanto, uma <strong>rede crescente</strong> de apoiantes e consultores empresta ao projeto um ímpeto adicional.
-          Vários <strong>especialistas</strong> de várias áreas (ciências naturais e humanas, marketing, economia, direitos de software,
-          relações públicas & investimento, etc.) apoiam o projeto com o seu know-how e comprometimento.<br/>
-          Adicionalmente, a echo goza do apoio de alguns <strong>políticos renomeados</strong> como
-          <a href='http://www.ruth-paulig.de' target='_blank'>Ruth Paulig</a> (Green Party), antigo membro do Parlamento Bávaro,
-          <a href='http://www.axel-berg.de' target='_blank'>Axel Berg</a> (SPD), membro recente do Parlamento Alemão e
-          <a href='http://www.eesc.europa.eu/organisation/secretarygeneral/index-en.asp' target='_blank'>Martin Westlake</a>,
-          Secretário-Geral do EESC, o Comité Económico e Social Europeu.
+          This core team enjoys the backing of a <strong>wide network of supporters</strong> whose voluntary engagement
+          and cooperation give echo additional momentum: experts from various areas with long work experience, politicians,
+          organisations, initiatives and other synergy-seeking internet projects.
           </p><p>
-          Vários <strong>parceiros cooperativos</strong> da sociedade civil
-          (<a href='http://www.netzwerk-gemeinsinn.net/' target='_blank'>Netzwerk Gemeinsinn</a>,
-          <a href='http://oneaim.org/' target='_blank'>OneAim.org</a>), economia(<a href='http://the-foo.de'
-          target='_blank'>The Foo</a>), política (<a href='http://www.gjm.de' target='_blank'>Grüne Jugend München</a>) e
-          ciência (<a href='http://www.ztg.tu-berlin.de' target="_blank">Technical University Berlin / Center for Technology and Society</a>,
-          <a href='http://www.isi.fraunhofer.de/isi-en' target="_blank">Fraunhofer Institute for Systems and Innovation Research</a>)
-          estão a apoiar a echo de forma a realizar os vários objetivos ambiciosos sócio-políticos.
-          Adicionalmente, a echo é membro do <a href='http://pep-net.eu' target='_blank'>PEP-NET</a>, a Rede de
-          e-participação Pan-Europeia, e coopera com a <a href='http://www.huwy.eu/uk' target='_blank'>HUWY</a>.
-          Os nossos parceiros para a realização técnica são a rede <a href='http://www.brueckenschlaeger.de'
-          target='_blank'>brueckenschlaeger</a> e a <a href='http://www.clicks4charity.net' target='_blank'>clicks4charity</a>.
+          echo was started in September 2008. In October 2009, a German <strong>non-profit</strong> organisation
+          echo source e.V. was founded. After successful seed-financing, echo Systems GmbH or AG will be founded to take over responsibility
+          for technical realisation, editorial work and international marketing and sales. The company will be operated as a
+          <strong><a href='http://en.wikipedia.org/wiki/Social_business' target='_blank'>social business</a></strong>.
+          Its "Your-Profit" business philosophy is inspired by the ethical principles and values of
+          Nobel Peace Prize winner <a href='http://en.wikipedia.org/wiki/Muhammad_Yunus' target='_blank'>Muhammad Yunus</a>.
           </p><p>
-          Caso a vossa organização pondere a possibilidade de participar na formação da echo, por favor envie um E-mail para
-          <a href="mailto:team@echologic.org?subject=echo mitgestalten">team@echologic.org</a>.
-          </p>
+          Since 2010, echo has been funded by the EXIST program through the EU, the ESF and BMWi. Additionally, echo also
+          receives financial support of some private donors.
+          </p><p>
+          The work of echo source e.V. currently concentrates on further development of the software prototype as well as
+          finding and <strong>negotiating with new partners, sponsors and (preferably sustainable) investors</strong>.
+           </p>
 
       # Static content for imprint
       imprint:

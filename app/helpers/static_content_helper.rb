@@ -9,7 +9,7 @@ module StaticContentHelper
       end
   end
 
- 
+
   def insert_echosocial_breadcrumb(main_link, sub_link, show_illustration=true)
     controller = request[:controller].split('/')[1]
     action = request[:action]
@@ -65,7 +65,7 @@ module StaticContentHelper
     button += "<span class='menuSubtitle'>#{I18n.t(subtitle)}</span>"
     link_to(button, {:url => link}, :href => link, :class => 'staticMenuButton', :id => item.split('_')[0])
   end
-  
+
   # Returns the image filename (on of off state) for a specific item.
   # TODO all this splitting is performance critical - find solution! - singleton, class variable?
   def get_static_menu_image(item, link)
@@ -73,9 +73,5 @@ module StaticContentHelper
     active_menu = request.path.split('/')[0..2].join('/').eql?(link) ? 'activeMenu' : ''
     "<div class='menuImage #{active_menu}' style='background: url(#{image})'></div>"
   end
-
-  
-
-  
 
 end

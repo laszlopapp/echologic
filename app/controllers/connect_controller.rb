@@ -1,9 +1,5 @@
 class ConnectController < ApplicationController
 
-  before_filter :require_user
-
-  # if the users profile is not fullfilled, we display a message and won't let him into the other users profiles
-
   # Show the connect page
   # method: GET
   def show
@@ -24,7 +20,7 @@ class ConnectController < ApplicationController
     # atm we don't want to toggle profile details when we paginate, but when we search
     # TODO: if search and paginate logic drift more apart, consider seperate controller actions
 
-    respond_to_js :template => 'connect/search', :template_js => 'connect/search' 
+    respond_to_js :template => 'connect/search', :template_js => 'connect/search'
   end
 
   # Render the roadmap template.

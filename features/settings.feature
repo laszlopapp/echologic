@@ -6,7 +6,7 @@ Feature: Set my settings
     When I go to my settings
     Then I should see the "activity" notifications
     Then I should see the "drafting" notifications
-    Then I should see the "newsletter" notifications
+#    Then I should see the "newsletter" notifications
 
 
 #  Scenario: Check email notification

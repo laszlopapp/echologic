@@ -6,13 +6,21 @@
 
   <div id="project" class="tab_content_container">
     <%= I18n.t('static.echologic.about.text') %>
+    <%= render :partial => 'sponsors' %>
   </div>
   <div id="team" class="tab_content_container">
     <%= render :partial => 'team' %>
   </div>
 </div>
 
-
-
-
-<%= render :partial => 'sponsors' %>
+<script type="text/javascript">
+  $('#about_team_link').click(function() {
+    $('#about_container').tabs('select', 1);
+    return false;
+  });
+  $('#about_container').bind('tabsshow', function(event, ui) {
+    if (ui.panel.id == "team") {
+      $('#team_members').jScrollPane({animateTo: true, wheelSpeed: 25});
+    }
+  });
+</script>

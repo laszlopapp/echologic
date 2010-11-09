@@ -7,7 +7,7 @@ module NavigationHelpers
   #
   def path_to(page_name)
     case page_name
-    
+
     when /the home\s?page/
       '/'
     when /the profile/
@@ -37,11 +37,11 @@ module NavigationHelpers
     when /^the questions first proposal/
       proposal_path(@proposal)
     when /discuss index/i
-      discuss_url
+      discuss_featured_url
     when /my discussions/i
       my_discussions_url
     when /discuss featured/i
-      discuss_path
+      discuss_featured_path
     when /the proposal/
       raise [@proposal.inspect,@proposal.parent.inspect].join('\n')
       proposal_path(@proposal)
@@ -49,7 +49,7 @@ module NavigationHelpers
       register_url(@user.perishable_token)
     when /the edit password page/
       edit_password_reset_url(@user.perishable_token)
-      
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

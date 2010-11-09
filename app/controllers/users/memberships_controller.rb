@@ -1,8 +1,7 @@
 class Users::MembershipsController < ApplicationController
 
-  before_filter :require_user
   before_filter :fetch_membership, :except => [:new, :create]
-  
+
   helper :profile
 
   access_control do
@@ -35,10 +34,10 @@ class Users::MembershipsController < ApplicationController
   # through javascript if something fails.
   # method: POST
   def create
-    begin 
+    begin
       @membership = Membership.new(params[:membership].merge(:user_id => current_user.id))
       previous_completeness = @membership.percent_completed
-      
+
       respond_to do |format|
         format.js do
           if @membership.save
@@ -63,7 +62,7 @@ class Users::MembershipsController < ApplicationController
   # Update the membership attributes.
   # method: PUT
   def update
-    begin 
+    begin
       respond_to do |format|
         format.js do
           if @membership.update_attributes(params[:membership])
@@ -85,12 +84,12 @@ class Users::MembershipsController < ApplicationController
   def destroy
     id = @membership.id
 
-    begin 
+    begin
       previous_completeness = @membership.percent_completed
       @membership.destroy
       current_completeness = @membership.percent_completed
       set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
-  
+
       respond_to do |format|
         format.js do
           show_info_messages do |p|
@@ -104,13 +103,13 @@ class Users::MembershipsController < ApplicationController
       log_message_info("Membership '#{@membership.id}' has been deleted sucessfully.")
     end
   end
-  
+
   private
-  
+
   def fetch_membership
     @membership = Membership.find(params[:id])
   end
-  
+
   def render_membership(opts={})
     respond_to do |format|
       format.js do

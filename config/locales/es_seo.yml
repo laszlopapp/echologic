@@ -83,7 +83,7 @@ es:
       newsletter:
         new: 'echo - Newsletter'
       about_items:
-        index: 'echo - Members'
+        index: 'echo - Sobre nosotros'
 
     meta:
       description: |-

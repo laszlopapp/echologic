@@ -34,8 +34,9 @@ de:
         yucca: |-
           'Yucca elata' als Symbol für einen neuen Anfang
 
-        news_title: echo auf Twitter
+        news_title: echo im Netz
         twitter: Folgen Sie echo auf Twitter!
+        facebook: Folgen Sie echo auf Facebook!
 
         header1: bedeutet
         header2: |-
@@ -91,46 +92,38 @@ de:
             </p>
 
         action: |
-          Reinschnuppern und mitgestalten!
+          Zum echo Prototyp »
 
       # about section
       about:
         title: Über uns
-        tabs: 
-          project: The Project
-          team: The Team
-        text: |
+        tabs:
+          project: Das Projekt
+          team: Das Team
+        text: |-
           <p>
-          <strong>Die Quelle</strong> von echo ist ein <strong>interdisziplinäres Team</strong> junger und erfahrener
-          Akademiker. Sie haben sein Konzept als Antwort auf die globalen Herausforderungen unserer Zeit
-          entwickelt und arbeiten zielstrebig an dessen Umsetzung.
+          Hinter echo steht ein <strong><a id="about_team_link" href="#">internationales und interdisziplinäres Team</a></strong>
+          junger und erfahrener Akademiker.
           </p><p>
-          Mittlerweile hat sich um echo ein stetig <strong>wachsendes Netzwerk</strong> von UnterstützerInnen gebildet,
-          das dem Projekt zusätzlichen Elan verleiht. Darunter sind etliche <strong>ExpertInnen</strong> mit langjähriger
-          Berufserfahrung in verschiedenen Bereichen (wie Geistes- und Naturwissenschaften, Unternehmensberatung und
-          Marketing, Softwarerecht und Public Relations), die dem Team beratend zur Seite stehen.<br/>
-          Aber auch einige <strong>namhafte PolitikerInnen</strong>, wie die ehemalige Landtagsabgeordnete
-          <a href='http://www.ruth-paulig.de' target='_blank'>Ruth Paulig</a> (die Grünen), der ehemalige Bundestagsabgeordnete
-          <a href='http://www.axel-berg.de' target='_blank'>Axel Berg</a> (SPD) sowie der Generalsekretär des
-          Europäischen Wirtschafts- und Sozialausschusses,
-          <a href='http://www.eesc.europa.eu/organisation/secretarygeneral/index-en.asp' target='_blank'>Martin Westlake</a>,
-          unterstützen echo mit Rat und Tat.
+          Um dieses Kernteam hat sich ein <strong>Netzwerk von UnterstützerInnen</strong> gebildet, die echo durch freiwilliges
+          Engagement und im Rahmen kooperativer Zusammenarbeit zusätzlichen Elan verleihen: ExpertInnen aus
+          unterschiedlichen Bereichen mit langjähriger Berufserfahrung, PolitikerInnen, Organisationen,
+          Initiativen und andere synergiensuchende Internetprojekte.
           </p><p>
-          Verschiedene <strong>Kooperationspartner</strong> aus Zivilgesellschaft
-          (<a href='http://www.netzwerk-gemeinsinn.net/' target='_blank'>Netzwerk Gemeinsinn</a>,
-          <a href='http://oneaim.org/' target='_blank'>OneAim.org</a>),
-          Wirtschaft (<a href='http://www.the-foo.de/' target='_blank'>The Foo</a>), Politik
-          (<a href='http://www.gjm.de' target='_blank'>Grüne Jugend München</a>) und Wissenschaft
-          (<a href='http://www.ztg.tu-berlin.de' target="_blank">Technische Universität Berlin / Zentrum Technik und Gesellschaft</a>,
-          <a href='http://www.isi.fraunhofer.de' target="_blank">Fraunhofer-Institut für System- und Innovationsforschung</a>)
-          helfen echo dabei, seine weit reichenden gesellschaftspolitischen Ziele zu verwirklichen. Desweiteren ist
-          echo Mitglied von <a href='http://pep-net.eu' target='_blank'>PEP-NET</a>, dem Paneuropäischen ePartizipations-Netzwerk,
-          und kooperiert mit <a href='http://www.huwy.eu/de' target='_blank'>HUWY</a>. Unsere Partner in der technischen
-          Realisierung sind das <a href='http://www.brueckenschlaeger.de' target='_blank'>brueckenschlaeger</a> Netzwerk
-          und <a href='http://www.clicks4charity.net' target='_blank'>clicks4charity</a>.
+          echo wurde im September 2008 initiiert. Im Oktober 2009 wurde der als <strong>gemeinnützig</strong> anerkannte
+          echo source e.V. gegründet. Mit Erreichen des ersten Finanzierungszieles wird für die Entwicklung,
+          Vermarktung und den Betrieb von echo die echo Systems GmbH oder AG gegründet. Das Unternehmen wird als
+          <strong><a href='http://de.wikipedia.org/wiki/Social_Business' target='_blank'>Social Business</a></strong>
+          betrieben. Seine <strong>"Your-Profit" Geschäftsphilosophie</strong> wurde von den Werten und Erfolgen vom
+          Friedensnobelpreisträger <a href='http://de.wikipedia.org/wiki/Muhammad_Yunus' target='_blank'>Muhammad Yunus</a>
+          inspiriert.
           </p><p>
-          Wenn Ihre Organisation auch echo mitgestalten möchte, schreiben Sie uns bitte eine E-mail an
-          <a href="mailto:team@echologic.org?subject=echo mitgestalten">team@echologic.org</a>.
+          Seit 2010 wird echo im Rahmen des EXIST-Programmes durch die EU, BMWi und ESF für Deutschland
+          gefördert. Weitere finanzielle Unterstützung erhält zurzeit echo durch einen privaten Förderer.
+          </p><p>
+          Die Arbeit des echo source e.V. konzentriert sich momentan in erster Linie auf die funktionale
+          Weiterentwicklung des Software Prototyps und die <strong>Gewinnung weiterer Partner, Förderer und
+          (bevorzugt nachhaltiger) Investoren</strong>.
           </p>
 
       # imprint section
@@ -195,7 +188,7 @@ de:
             Die aktuellen Krisen können daher als eine allgemeine <strong>Krise der Demokratie</strong> verstanden werden.
             Es gilt eine Möglichkeit zu finden, gemeinsam <strong>konstruktive Lösungen</strong> zu entwickeln,
             um den <span title="{{tooltip}}" class="ttLink">“glokalen” Herausforderungen</span>
-            unserer Zeit effektiv begegnen zu können.
+            unserer Zeit effektiv zu begegnen.
             </p>
 
           tooltip:
@@ -217,11 +210,11 @@ de:
             gefällt und wirksam umzusetzen werden. Dementsprechend stellt echo Ihnen drei Funktionsbereiche zur Verfügung:
             <strong>Diskutieren – Vernetzen – Handeln!</strong>
             </p><p>
-            Durch die Kombination dieser drei Funktionsbereiche schafft echo einen völlig neuartigen virtuellen Raum
+            Durch die Kombination dieser drei Funktionsbereiche schafft echo einen neuartigen virtuellen Raum
             für eine demokratische Zusammenarbeit, die mit geringem Aufwand zu
             <strong>spürbaren Ergebnissen im Alltag</strong> führt.<br/>
             Indem echo seine Funktionalität <strong>plattformübergreifend</strong> zur Verfügung stellt,
-            können darüber hinaus sämtliche heute schon im Internet aktiven Kräfte für einen <strong>nachhaltigen Wandel</strong> gebündelt werden.
+            können sämtliche heute schon im Internet aktiven Kräfte für einen <strong>nachhaltigen Wandel</strong> gebündelt werden.
             </p>
 
           tooltip1: |
@@ -233,8 +226,9 @@ de:
           tooltip2: |
             Wikipedia ist heute die weltgrößte nutzergenerierte Wissensbank mit dem Ziel, möglichst objektive Fakten zu den
             unterschieldichesten Themen frei zur Verfügung zu stellen. Ähnlich wird echo das umfangreichste Meinungsbild
-            für unterschiedliche Meinungen zu verschiedenen Themen zur Verfügung stellen, welche von den NutzerInnen in
-            einem konstruktiven, vollkommen demokratischen Verfahren gemeinschaftlich erarbeitet werden.
+            für unterschiedliche Lösungsvorschläge zu verschiedenen Themen zur Verfügung stellen,
+            welche von den NutzerInnen in einem konstruktiven, vollkommen demokratischen Verfahren
+            gemeinschaftlich erarbeitet werden.
 
 
       # discuss section
@@ -270,7 +264,7 @@ de:
           <u>Ein Beispiel:</u> Wie viele Menschen haben weltweit für und wie viele gegen den Atomausstieg gestimmt? Was denken die Europäer?
           Was sagen Atomphysiker dazu und was die Einwohner von Gorleben? Welche Position beziehen bestimmte Organisationen?
 
-        democratic: Demokratische Meinungsbildung
+        democratic: Kollektive Textentwicklung
         democratic_more: |
           Jede Position auf echo repräsentiert eine fundierte Stellungnahme, welche von den NutzerInnen in einem
           <span title="{{tooltip}}" class="ttLink">vollkommen demokratischen Prozess</span> ausgearbeitet wird.
@@ -314,7 +308,7 @@ de:
           <p>
           echo motiviert aktiv Gleichgesinnte aus den verschiedenen Kompetenzgruppen zur Zusammenarbeit.
           Durch die Berücksichtigung ihrer unterschiedlichen Belange, können wichtige Probleme identifiziert und gemeinsam die
-          <strong>bestmöglichen Lösungen</strong> ausgearbeitet werden.
+          <strong>bestmöglichen Lösungen</strong> ausgearbeitet und umgesetzt werden.
           </p>
 
       # act section
@@ -328,7 +322,8 @@ de:
           Um <strong>spürbare Erfolge im Alltag</strong> zu erzielen, motiviert echo alle TeilnehmerInnen einer Debatte,
           Aktionen zu starten und ihre Lösungsvorschläge in die Tat umzusetzen. echo bündelt dabei alle lokalen,
           regionalen und globalen Aktionen, die ein gemeinsames Ziel verfolgen. Dadurch schafft echo neue Synergien und
-          vervielfacht das <strong>Einflusspotenzial</strong> des bürgerlichen Engagements. Das Spektrum der ermöglichten Aktionen reicht von:
+          vervielfacht das <strong>Einflusspotenzial</strong> des bürgerlichen Engagements.
+          Das Spektrum der ermöglichten Aktionen reicht von:
           </p>
 
         possible_actions: |
@@ -344,7 +339,7 @@ de:
           <p>
           Mit dem Aktionsbereich von echo wird so eine Brücke von virtuellen Diskussionen zu realen Aktionen geschaffen.
           Indem die Aktionen mit bestehenden <strong>legislativen Instrumenten</strong> verknüpft werden, überführt echo
-          erstmals zivilgesellschaftliches Engagement in <strong>echte politische Teilhabe</strong>.
+          zivilgesellschaftliches Engagement in <strong>echte politische Einflussnahme</strong>.
           </p>
 
         act_more: |
@@ -355,9 +350,11 @@ de:
           Nachricht enthaltenen Link, so finden sie sich in einem <strong>bestens ausgestatteten virtuellen Aktionsraum</strong> wieder.
           </p><p>
           Für eine effektive Zusammenarbeit im Rahmen der Aktionen stellt echo den Beteiligten alle
-          <strong>nötigen Informationen</strong> sowie eine <strong>adäquate „Werkzeugkiste“</strong> zur Verfügung. Darin finden sich standardmäßig und über die innovative Entscheidungsfindungsfunktion hinaus, verschiedene Kommunikationsfunktionen und Verfahrenstools,
-          Kalender, Event- und Aufgabenverwaltung, file sharing sowie eine Fundraising-Funktion.
-          Dank des <strong>modularen Aufbaus</strong> können die angebotenen Werkzeuge jederzeit um neue Möglichkeiten erweitert werden.
+          <strong>nötigen Informationen</strong> sowie eine <strong>„Werkzeugkiste“</strong> zur Verfügung.
+          Darin finden sich standardmäßig und über die Entscheidungsfindungsfunktion hinaus, verschiedene
+          Kommunikationsfunktionen und Verfahrenstools, Kalender, Event- und Aufgabenverwaltung,
+          file sharing sowie eine Fundraising-Funktion. Dank des <strong>modularen Aufbaus</strong> können die
+          angebotenen Werkzeuge jederzeit um neue Möglichkeiten erweitert werden.
           </p>
 
       # echo on waves section
@@ -368,16 +365,17 @@ de:
           Um die Grenzen einzelner Portale zu überwinden, verfolgt echo ein <strong>plattformübergreifendes Konzept</strong>.
           Relevante Diskussionen und Aktionen von echo können auf anderen Internetseiten und Blogs dargestellt und
           dort bearbeitet werden. Auf diese Weise erweitert echo die Funktionalität anderer Plattformen und schafft
-          <strong>echte Synergien</strong>, statt lähmender Konkurrenzsituationen. So bündelt echo erstmals sämtliche Kräfte des
-          bürgerlichen Engagements im Internet und ermöglicht die Entstehung einer breiten gesellschaftlichen <strong>Welle des Wandels</strong>.
+          <strong>neue Synergien</strong>, statt lähmender Konkurrenzsituationen. So bündelt echo sämtliche Kräfte des
+          bürgerlichen Engagements im Internet und ermöglicht die Entstehung einer breiten
+          gesellschaftlichen <strong>Welle des Wandels</strong>.
           </p><p>
-          Für die Realisierung dieses Ziels kommt Google und sein neues <strong>Wave Federation Protocol</strong> genau zur richtigen Zeit.
+          Für die Realisierung dieses Ziels kam Google und sein <strong>Wave Federation Protocol</strong> genau zur richtigen Zeit.
           Diese open source Technologie ermöglicht nicht nur soziale Zusammenarbeit in Echtzeit,
           sondern schafft auch die Grundlage für einen sicheren und plattformübergreifenden Austausch von Diskussionen,
           Profilen und Aktionen. Die dabei entstehenden Daten können sowohl auf öffentlichen als auch auf organisationsinternen und
           privaten echo Servern gepeichert und zwischen einander ausgetauscht werden.
           </p><p>
-          Auf der Basis des innovativen Konzepts von echo und der bahnbrechenden Technologie von Google Wave, legt
+          Auf der Basis des neuartigen Konzepts von echo und der bahnbrechenden Technologie von Google Wave, legt
           <strong>echo on waves</strong> die Grundlage für die gemeinsame Entwicklung eines der ambitioniertesten
           <strong>open source</strong> Projekte, das die Welt je gesehen hat:
           </p><p>
@@ -411,7 +409,8 @@ de:
           <p>
           Akteure dieser Kompetenzbereiche treten auf echo in einen <strong>gleichberechtigten Dialog</strong>.
           Dabei garantiert echo nicht nur <strong>vollständige Transparenz</strong> während dem gesamten Meinungsbildungs-
-          und Entscheidungsfindungsprozess, sondern bietet Ihnen und anderen Menschen auch <strong>einzigartige Möglichkeiten</strong>, bei der gemeinsamen Gestaltung unserer Welt aktiv mitzuwirken.
+          und Entscheidungsfindungsprozess, sondern bietet Ihnen und anderen Menschen
+          <strong>neue Möglichkeiten</strong>, bei der gemeinsamen Gestaltung unserer Welt aktiv mitzuwirken.
           </p><p>
           Auf echo, der globalen Agora, sind alle Beteiligten gleichberechtigte, <strong>freie Weltbürger</strong>!
           </p>
@@ -491,8 +490,8 @@ de:
           Damit ihre Bemühungen zu nachhaltigen Verbesserungen führen können, brauchen sie eine <strong>breite
           bürgergesellschaftliche Unterstützung</strong> für ihre Vorhaben. Eine transparente Darstellung ihrer
           Anliegen und eine gute Kenntnis der bürgerlichen Belange sind hierfür die wichtigste Voraussetzung.
-          echo bietet PolitikerInnen und anderen RepräsentantInnen <strong>einzigartige Möglichkeiten</strong>,
-          um die Effizienz ihrer Arbeit wesentlich zu verbessern:
+          echo bietet PolitikerInnen und anderen RepräsentantInnen <strong>einzigartige Möglichkeiten</strong>
+          und steigert die Effizienz ihrer Arbeit:
           </p>
 
         adv1: Detailliertes Meinungsbild
@@ -522,7 +521,7 @@ de:
           Städte und Kommunen) stehen heute schon im Fokus des gesellschaftlichen und politischen Geschehens und sind
           daher <strong>unentbehrliche Akteure</strong> auf echo. Sie sind Meinungsbildner, sie planen Kampagnen und Aktionen und
           versuchen die Menschen für ihre Anliegen zu mobilisieren. echo bietet Organisationen zahlreiche
-          <strong>einzigartige Möglichkeiten</strong> ihre Ziele erfolgreich zu erreichen:
+          Möglichkeiten, um ihre <strong>Ziele leichter zu erreichen</strong>:
           </p>
 
         adv1: Optimierte organisationsinterne Zusammenarbeit
@@ -568,14 +567,14 @@ de:
 
         list:
           <li><strong>Nachhaltigkeit</strong> statt bedingungslosem Wachstum (öko)</li>
-          <li><strong>Kooperation</strong> statt Konkurrenz und hemmungsloser Gier (sozial)</li>
+          <li><strong>Kooperation</strong> statt Konkurrenzzwang (sozial)</li>
           <li><strong>Aktive Teilhabe</strong> statt passiver Abhängigkeit (demokratisch)</li>
 
         text_bottom: |
           <p>
-          Das Geschäftsmodell von echo spiegelt diese Werte auf verschiedene Weise wider.
+          Die Geschäftsphilosophie von echo spiegelt diese Werte auf verschiedene Weise wider.
           Damit möchte echo nicht nur als Modell für eine neue Unternehmenskultur dienen, sondern mit
-          seinen innovativen Lösungen auch direkt zur Stärkung sozialer und nachhaltiger Unternehmensführung und zur
+          seinen konkreten Lösungen direkt zur Stärkung sozialer und nachhaltiger Unternehmensführung und zur
           <strong>Demokratisierung bestehender Unternehmens- und Wirtschaftsstrukturen</strong> beitragen.
           </p>
 
@@ -623,7 +622,7 @@ de:
           innovative Projekte, entsprechend <strong>demokratischer Entscheidungen</strong> der Nutzerschaft von echo,
           finanziell zu unterstützen.
           </p><p>
-          Indem echo eine einfache und kostenneutrale Möglichkeit zur <strong>Finanzierung von umfangreichen
+          Indem echo eine einfache und kostenneutrale Möglichkeit zur <strong>Finanzierung von großen
           Gemeinschaftsprojekten</strong> bietet, kann Ihr virtuelles Engagement unsere Welt nachhaltig verändern.
           </p>
 
@@ -633,7 +632,7 @@ de:
 
         text: |
           <p>
-          echo ist als <strong>selbstorganisierendes System</strong> konzipiert. Seine innovative Entscheidungsfindungsfunktion
+          echo ist als <strong>selbstorganisierendes System</strong> konzipiert. Seine Diskussionsfunktion
           ist für Entscheidungen über seine eigenen Regeln und Funktionen optimal geeignet.
           So können die NutzerInnen über Diskussionen und Abstimmungen schrittweise immer stärker
           in die Entwicklung von echo mit einbezogen werden, bis sich aus diesem Prozess

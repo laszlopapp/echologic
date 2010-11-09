@@ -55,13 +55,13 @@
 /* Login Container */
 /* --------------- */
 
-#loginContainer {
+#login_container {
   clear:       right;
   float:       right;
   padding:     13px 0 8px;
 }
 
-#loginContainer .label {
+#login_container .label {
   color:       #7BB031;
   width:       172px;
   display:     inline-block;
@@ -73,7 +73,7 @@
 }
 
 
-#loginContainer .bottomLabel {
+#login_container .bottomLabel {
   color: #1A4864;
   width: 172px;
   display: inline-block;
@@ -84,7 +84,7 @@
   cursor: pointer;
 }
 
-#loginContainer .loginField {
+#login_container .loginField {
   background:   #FFF url(../images/page/input/login_input_bg.png) no-repeat top left;
   color:        #1A4864;
   font-size:    12px;
@@ -96,7 +96,7 @@
   padding: 2px 8px;
 }
 
-#loginContainer .loginButton {
+#login_container .loginButton {
   background:   #FFF url(../images/page/login_button.png) no-repeat left top;
   color:        #FFF;
   -moz-border-radius: 12px;
@@ -109,7 +109,7 @@
   margin-right: -8px;
 }
 
-#loginContainer .loginButton:hover {
+#login_container .loginButton:hover {
   /*background:   #2B6894;*/
   background-position: 0px -21px;
 }
@@ -200,7 +200,11 @@
   margin: 0;
 }
 
-/* Twitter */
+/* Social media panel */
+
+#social_media_panel {
+  width: 290px;
+}
 
 #twitter_link {
   color: #21587f;
@@ -216,10 +220,28 @@
   color: #7bb031;
 }
 
-#twitter_bird {
+#twitter_bird, #facebook_icon {
+  border: none;
+  cursor: pointer;
+}
+
+#twitter_bird a {
+  background: url(../images/page/echo_twitter.png) no-repeat scroll;
+  width: 75px;
+  height: 54px;
   position: absolute;
   right: 0;
-  top: -17px;
+  top: -14px;
+  z-index: 10;
+}
+
+#facebook_icon a {
+  background: url(../images/page/echo_facebook.png) no-repeat scroll;
+  width: 34px;
+  height: 38px;
+  position: absolute;
+  right: 18px;
+  top: 40px;
   z-index: 10;
 }
 
@@ -227,23 +249,26 @@
   font-size: 20px;
   font-weight: bold;
   margin: 3px 0 15px;
+  cursor: default;
 }
 
 #twitter_date {
   font-size: 14px;
   font-weight: bold;
   position: relative;
-  top: 42px;
+  top: 12px;
+  cursor: default;
 }
 
 #twitter_text {
-  display: inline-block;
+  display: block;
   font-size: 14px;
   height: 67px;
   line-height: 16px;
   overflow: hidden;
   position: relative;
-  top: 60px;
+  top: 22px;
+  width: 290px;
 }
 
 /* Featured topic teaser */
@@ -269,6 +294,7 @@
   font-size: 23px;
   font-weight: bold;
   padding-top: 2px;
+  text-decoration: underline;
 }
 
 #featured_topic_on_echo {
@@ -425,9 +451,10 @@
 }
 
 .echoActionBig {
-  font-size:   23px;
+  font-size:   26px;
   font-weight: bold;
   color:       #21587f;
+  text-decoration: underline;
   line-height: 38px;
   position:    relative;
   top:         -85px;
@@ -543,7 +570,7 @@
 #joinIllustration {
   float:         right;
   width:         128px;
-  margin:        -21px 0 0 8px;
+  margin:        -30px 35px 0 15px;
 }
 
 #inviteIllustration {
