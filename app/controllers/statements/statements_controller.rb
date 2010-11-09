@@ -5,8 +5,9 @@ class StatementsController < ApplicationController
   #        solution would be to make the "echo" button a real submit button and
   #        wrap a form around it.
 
-  verify :method => :get, :only => [:index, :show, :add, :new, :edit, :category, :new_translation,
-                                    :more, :children, :upload_image, :reload_image, :authors]
+  verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
+                                    :more, :children, :upload_image, :reload_image, :authors, :add_discussion, :add_proposal, 
+                                    :add_improvement_proposal]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
@@ -15,16 +16,19 @@ class StatementsController < ApplicationController
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
   before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions,
                                                                    :new, :create, :more, :children, :upload_image,
-                                                                   :reload_image, :redirect, :authors, :add]
-  before_filter :require_user, :except => [:category, :show, :more, :children, :authors, :redirect, :add]
+                                                                   :reload_image, :redirect, :authors, :add_discussion,
+                                                                   :add_proposal, :add_improvement_proposal]
+  before_filter :require_user, :except => [:category, :show, :more, :children, :authors, :redirect, :add_discussion,
+                                           :add_proposal, :add_improvement_proposal]
   before_filter :fetch_languages, :except => [:destroy, :redirect]
-  before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation, :add]
+  before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation, :add_discussion,
+                                                               :add_proposal, :add_improvement_proposal]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
 
   # Authlogic access control block
   access_control do
     allow :editor
-    allow anonymous, :to => [:index, :show, :category, :children, :add]
+    allow anonymous, :to => [:index, :show, :category, :children, :add_discussion, :add_proposal, :add_improvement_proposal]
     allow logged_in
   end
 
@@ -85,6 +89,8 @@ class StatementsController < ApplicationController
 
       # Load statement node data to session for prev/next functionality
       load_siblings(@statement_node) if !params[:new_level].blank?
+      
+      load_to_session
 
       # Get document to show and redirect if not found
       @statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
@@ -120,19 +126,7 @@ class StatementsController < ApplicationController
     end
   end
   
-  # Shows an add statement teaser page
-  #
-  # Method:   GET
-  # Params:   type: string
-  # Response: HTTP or JS
-  #
-  def add
-    begin
-      respond_action 'statements/add'
-    rescue Exception => e
-      log_home_error(e,"Error showing add #{@statement_node.class.to_s.underscore.humanize} teaser.")
-    end
-  end
+  
   
 
   #
@@ -247,9 +241,9 @@ class StatementsController < ApplicationController
   #
   def edit
     @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
+    @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     if (is_current_document = (@statement_document.id == params[:current_document_id].to_i))
       has_lock = acquire_lock(@statement_document)
-      @tags ||= @statement_node.topic_tags if @statement_node.taggable?
       @action ||= StatementAction["updated"]
     end
 
@@ -591,6 +585,21 @@ class StatementsController < ApplicationController
 
   protected
 
+  # Shows an add statement teaser page
+  #
+  # Method:   GET
+  # Params:   type: string
+  # Response: HTTP or JS
+  #
+  def add(type)
+    @type = type
+    begin
+      respond_action('statements/add', true)
+    rescue Exception => e
+      log_home_error(e,"Error showing add #{@type} teaser.")
+    end
+  end
+
   #
   # Loads the approved statement if there can be any.
   #
@@ -764,14 +773,22 @@ class StatementsController < ApplicationController
   #
   # Sets the ancestors of the current statement node, in order to write the correct context down
   #
-  def set_ancestors
-    @ancestors = @statement_node.ancestors
-    @ancestors.each{|a|load_siblings(a)}
-    
-    # current statement node siblings must be loaded also on http request
-    load_siblings(@statement_node) 
+  def set_ancestors(teaser = false)
+    if @statement_node
+      @ancestors = @statement_node.ancestors
+      @ancestors.each{|a|load_siblings(a)}
+      
+      # current statement node siblings must be loaded also on http request
+      load_siblings(@statement_node) 
+      if teaser
+        @ancestors << @statement_node
+        load_children_from_parent(@statement_node, @type)
+      end 
+    else
+      @ancestors = []
+    end
   end
-
+  
 
   ###############
   # PERMISSIONS #
@@ -852,7 +869,14 @@ class StatementsController < ApplicationController
   ########
   # MISC #
   ########
- 
+  
+  #
+  # Store last statement in session (for cancel link)
+  #
+  def load_to_session
+    session[:last_statement_node] = @statement_node.id
+  end
+
   #
   # Loads siblings of the current statement node
   #
@@ -866,6 +890,13 @@ class StatementsController < ApplicationController
       siblings = session[:roots] || [statement_node.id] 
     end
     @siblings["#{class_name}_#{statement_node.id}"] = siblings
+  end
+  
+  def load_children_from_parent(statement_node, type)
+    @siblings ||= {}
+    class_name = type.classify
+    siblings = statement_node.children_statements(@language_preference_list,class_name).map(&:id)
+    @siblings["add_#{type}"] = siblings
   end
 
   #
@@ -890,7 +921,9 @@ class StatementsController < ApplicationController
       end
       
       def with_#{type}(format, opts={})
-        format.html { set_ancestors and flash_#{type} and render :template => opts[:template] }
+        format.html { set_ancestors
+                      flash_#{type} 
+                      render :template => opts[:template] }
       end
     )
   end
@@ -906,12 +939,15 @@ class StatementsController < ApplicationController
     end
   end
   
-  def respond_action(template)
+  def respond_action(template, teaser = false)
     respond_to do |format|
       yield format if block_given?
-      format.html {set_ancestors and render :template => template}
+      format.html {
+        set_ancestors(teaser) 
+        render :template => template
+      }
       format.js {
-        set_ancestors if !params[:sid].blank? 
+        set_ancestors(teaser) if !params[:sid].blank? 
         render :template => template
       }
     end

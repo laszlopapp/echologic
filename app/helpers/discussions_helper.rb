@@ -8,6 +8,18 @@ module DiscussionsHelper
 
     end
   end
+  
+  #
+  # Creates a link to create a new discussion
+  # Appears in add discussion teaser
+  #
+  def create_new_discussion_link
+    link_to(I18n.t("discuss.statements.create_discussion_link"),
+            new_discussion_url,
+            :id => "create_discussion_link",
+            :class => "add_new_button text_button create_discussion_button ttLink no_border",
+            :title => I18n.t("discuss.tooltips.create_discussion"))
+  end
 
   # Creates a 'Publish' button to release the discussion.
   def publish_button_or_state(statement_node)

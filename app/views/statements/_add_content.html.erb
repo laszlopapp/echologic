@@ -3,7 +3,7 @@
 	 <%= content_tag :div, '', :class => 'action_bar', :style => "border-width:0px" %>
 	 <div class="summary simple_header_block discuss_right_block">
 	 	 <!-- Header -->
-     <%= content_tag :h2, I18n.t("discuss.statements.types.#{dom_class(statement_node)}") %>
+     <%= content_tag :h2, I18n.t("discuss.statements.types.#{@type}") %>
 		 <!-- Teaser text and image -->
 	   <div class="statement_content">
 	     <%= content_tag :div, image_tag('add_teaser_image.png', :class => 'image') , :class => 'image_container'%>

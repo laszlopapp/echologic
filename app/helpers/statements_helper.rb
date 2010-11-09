@@ -94,13 +94,11 @@ module StatementsHelper
   # (appears INSIDE of the children statements panel).
   #
   def create_new_child_statement_link(statement_node, child_type)
-    content_tag :li do
-      link_to(I18n.t("discuss.statements.create_#{child_type}_link"),
-              new_child_url(child_type, :parent_id => statement_node.id),
-              :id => "create_#{child_type}_link",
-              :class => "ajax add_new_button text_button create_#{child_type}_button ttLink no_border",
-              :title => I18n.t("discuss.tooltips.create_#{child_type}"))
-    end
+    link_to(I18n.t("discuss.statements.create_#{child_type}_link"),
+            new_child_url(child_type, :parent_id => statement_node.id),
+            :id => "create_#{child_type}_link",
+            :class => "ajax add_new_button text_button create_#{child_type}_button ttLink no_border",
+            :title => I18n.t("discuss.tooltips.create_#{child_type}"))
   end
 
   #
@@ -291,7 +289,9 @@ module StatementsHelper
   # Insert prev/next buttons for the current statement_node.
   def prev_next_buttons(statement_node, extra_classes = '', type = dom_class(statement_node))
     buttons = ''
-    if statement_node.new_record?
+    if statement_node.nil?
+      %w(prev next).each{|b| buttons << statement_button(nil, statement_tag(b.to_sym, type), :rel => b, :class => " statement_link #{extra_classes} #{b}")}
+    elsif statement_node.new_record?
       %w(prev next).each{|b| buttons << statement_tag(b.to_sym, type, true)}
     else
       %w(prev next).each{|b| buttons << statement_button(statement_node, statement_tag(b.to_sym, type), :rel => b, :class => " statement_link #{extra_classes} #{b}")}
@@ -316,8 +316,9 @@ module StatementsHelper
   # maybe one could code some statement_node.url method..?
   def statement_button(current_node, title, options={})
     options[:class] ||= ''
-    options['data-id'] = current_node.id
-    return link_to(title, url_for(current_node), options)
+    options['data-id'] = current_node.nil? ? '' : current_node.id
+    url = current_node.nil? ? '' : url_for(current_node)
+    return link_to(title, url, options)
   end
 
   

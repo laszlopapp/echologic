@@ -39,6 +39,17 @@ class ProposalsController < StatementsController
       end
     end
   end
+  
+  
+  # Shows an add improvement proposal teaser page
+  #
+  # Method:   GET
+  # Params:   type: string
+  # Response: HTTP or JS
+  #
+  def add_improvement_proposal
+    add('improvement_proposal')
+  end
 
   protected
   

@@ -106,18 +106,19 @@ function initExpandables(){
 /* Gets the siblings of the loaded statement and places them in the client session for navigation purposes */
 function loadStatementSessions() {
 	$("div.statement").livequery(function(){
-		siblings = $(this).attr("data-siblings");
-		if (siblings.length > 0) {
-			parent = $(this).prev();
-			if (parent.length > 0)			
-			{
-				/* stores siblings with the parent node id */
-				parent = parent.attr('id');
-			}else{
-				/* no parent id, that means it's a root node, therefore, stores them into roots */
-				parent = 'roots';
-			}
-			$("div#statements").data(parent,eval(siblings));
+		
+		parent = $(this).prev();
+		if (parent.length > 0)      
+    {
+      /* stores siblings with the parent node id */
+      parent = parent.attr('id');
+    }else{
+      /* no parent id, that means it's a root node, therefore, stores them into roots */
+      parent = 'roots';
+    }
+		siblings = eval($(this).attr("data-siblings"));
+		if (siblings != null) {
+			$("div#statements").data(parent,siblings);
 		}
 		$(this).removeAttr("data-siblings");
 	});
@@ -136,15 +137,22 @@ function initPrevNextButtons() {
 function initNavigationButton(element, inc) {
 	current_node_id = eval($(element).attr('data-id'));
 	node = $(element).parents('.statement');
+	if (node.attr("id").match('add')) {
+    node_class = node.attr("id").replace('add_','');
+  }
+  else {
+  	node_class = node.attr("id").match(/[a-z]+(?:_[a-z]+)?/);
+  }
   parent_node = node.prev();
 	/* get id where the current node's siblings are stored */
   if(parent_node.length > 0)
   {
-		parent_node_id = parent_node.attr('id');
+		parent_path = parent_node_id = parent_node.attr('id');
 	} else {
 		parent_node_id = 'roots';
+		parent_path = '';
 	}
-  parent_ids = $("div#statements").data(parent_node_id);
+	parent_ids = $("div#statements").data(parent_node_id);
 	if ($(element).hasClass('add')) {
 		/* Add teaser section buttons */
   	if (inc < 0) { id_index = parent_ids.length - 1; }
@@ -156,11 +164,17 @@ function initNavigationButton(element, inc) {
 	}
 	/* if index out of bounds, than request 'add' action */
 	if (id_index < 0 || id_index >= parent_ids.length) {
-		element.href = element.href + '/add';
+		if(parent_path.length > 0) {
+			path = parent_path.split('_');
+			id = path.pop();
+			controller = path.join('_');
+			path = "/"+[controller,id].join('/');
+		} else {path = '';}
+		element.href = element.href.replace(/\/[a-z]+(?:_[a-z]+)?\/[\d]+(\/[a-z]+(?:_[a-z]+)+)?/, path + "/" + "add_" + node_class);
 	}
 	else {
-		id = parent_ids[id_index];
-		element.href = element.href.replace(/\/[0-9]+/, "/" + id);
+	  id = parent_ids[id_index];
+		element.href = element.href.replace(/\/[a-z]+(?:_[a-z]+)?\/[\d]+(\/[a-z]+(?:_[a-z]+)+)?/,"/" + node_class + "/" + id);
 	}
 	
   $(element).removeAttr('data-id');
@@ -387,8 +401,14 @@ function getCurrentStatementsStack(element) {
 	/* get soon to be visible statement */
   path = element.href.split("/");
   id = path.pop().split('?').shift();
-  type = path.pop();
-  current_sid = type + '_' + id;
+	if (id.match('add') == null) {
+  	type = path.pop();
+  	current_sid = type + '_' + id;
+  } else {
+		/* add teaser case */
+		type = id.replace('add_', '');
+		current_sid = id;
+	}
   
   current_stack = [];
   /* get current_stack of visible statements (if any matches the clicked statement, then break) */
@@ -427,11 +447,26 @@ function initFragmentStatementChange() {
   $(document).bind("fragmentChange.sid", function() {
 		if ($.fragment().sid) {
 			stack = $.fragment().sid.split(",");
-			sid = stack.pop().split("_");
-			id = sid.pop();
-			type = sid.join("_");
+			sid = stack.pop();
+			if (sid.match('add') == null) {
+		  	sid = sid.split("_");
+		  	id = sid.pop();
+		  	type = sid.join("_");
+				path = "/" + type + "/" + id;
+		  } else {
+				/* add teaser case */
+				if (stack.length > 0) {
+					parent_id = stack[stack.length-1].split('_');
+					id = parent_id.pop();
+          type = parent_id.join("_");
+					path = "/" + type + "/" + id;
+				} else {
+					path = '';
+				} 
+				path += "/" + sid;
+ 			}
 		
-		  path = $.queryString(document.location.href.replace(/\/[a-zA-Z_]+\/[0-9]+/, "/" + type + "/" + id), {
+		  path = $.queryString(document.location.href.replace(/\/[a-z]+(?:_[a-z]+)?\/[\d]+(\/[a-z]+(?:_[a-z]+)+)?/, path), {
         "sid": stack.join(","),
         "new_level": $.fragment().new_level
       })
