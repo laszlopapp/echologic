@@ -200,7 +200,11 @@
   margin: 0;
 }
 
-/* Twitter */
+/* Social media panel */
+
+#social_media_panel {
+  width: 290px;
+}
 
 #twitter_link {
   color: #21587f;
@@ -257,13 +261,14 @@
 }
 
 #twitter_text {
-  display: inline-block;
+  display: block;
   font-size: 14px;
   height: 67px;
   line-height: 16px;
   overflow: hidden;
   position: relative;
   top: 22px;
+  width: 290px;
 }
 
 /* Featured topic teaser */
