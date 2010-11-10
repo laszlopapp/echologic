@@ -17,38 +17,42 @@ function initHistoryEvents() {
     setSearchHistory();
     return false;
   });
-	
-	$('#search_form #value').live("keypress", function(event) { 
+
+	$('#search_form #value').live("keypress", function(event) {
     if (event && event.keyCode == 13) { /* check if enter was pressed */
       setSearchHistory();
       return false;
     }
-  })
-  $(".ajax_sort").live("click", function() {
+  });
+
+  $("a.ajax_sort").live("click", function() {
     var sort = $(this).attr('value');
 		$(':input[id=sort]').val(sort);
 		setSearchHistory();
     return false;
   });
 
-  $(".ajax_no_sort").live("click", function() {
+  $("a.ajax_no_sort").live("click", function() {
 		$(':input[id=sort]').val('');
 		setSearchHistory();
     return false;
   });
-};
+}
 
 
 
 function setSearchHistory() {
-  val = $("#value").val().trim();
-	if ($(':input[id=sort]').length) {
-		sort = $(':input[id=sort]').val().trim();
-		$.setFragment({ "value": val, "sort" : sort , "page": "1"});
-	}
-	else {
+  var val = $("#value").val();
+  if (val.length > 0) {
+    val = val.trim();
+  }
+
+  if ($(':input[id=sort]').length > 0) {
+    var sort = $(':input[id=sort]').val();
+	  $.setFragment({ "value": val, "sort" : sort, "page": "1"});
+  } else {
     $.setFragment({ "value": val, "page": "1"});
-	} 
+  }
 }
 
 /**********************/
@@ -74,10 +78,8 @@ function initFragmentChange() {
 			}));
 		}
   });
-  
+
   if ($.fragment().page) {
     $(document).trigger("fragmentChange.page");
   }
 }
-
-

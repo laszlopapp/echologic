@@ -2,6 +2,8 @@
 # their password. Authentification based on authlogic's perishable_token.
 #
 class Users::PasswordResetsController < ApplicationController
+
+  skip_before_filter :require_user
   # Use perishable_token on edit or update methods
   before_filter :load_user_using_perishable_token, :only => [:edit, :update]
 
@@ -43,11 +45,11 @@ class Users::PasswordResetsController < ApplicationController
   end
 
   def update
-    
+
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
     @user.active = true
-    begin 
+    begin
       if @user.save
         flash[:notice] = I18n.t('users.password_reset.messages.reset_success')
         redirect_to welcome_path

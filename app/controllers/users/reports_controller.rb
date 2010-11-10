@@ -1,7 +1,5 @@
 class Users::ReportsController < ApplicationController
 
-  # All reporting actions require a logged in user
-  before_filter :require_user
   before_filter :fetch_report, :except => [:new, :create, :index]
 
   # Users may create new reports.

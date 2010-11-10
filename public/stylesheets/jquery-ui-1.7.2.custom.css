@@ -439,7 +439,7 @@
 	text-align: center;
 	border-width: 0px;
 	background:none;
-	margin: 20px auto -6px;
+	margin: 10px auto -6px;
 	padding: 0px;
 }
 
@@ -570,4 +570,4 @@
 
 .ui-tabs .ui-tabs-hide {
 	display: none !important;
-	}
+}

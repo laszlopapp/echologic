@@ -7,8 +7,9 @@ ActionController::Routing::Routes.draw do |map|
   map.filter :locale
 
   # SECTION main parts of echologic
-  map.act     '/act/roadmap',     :controller => :act,     :action => :roadmap
-  map.discuss '/discuss/featured', :controller => :discuss, :action => :index
+  map.act '/act/roadmap', :controller => :act, :action => :roadmap
+  map.discuss '/discuss', :controller => :discussions, :action => :category
+  map.discuss_featured '/discuss/featured', :controller => :discuss, :action => :index
   map.discuss_roadmap '/discuss/roadmap', :controller => :discuss, :action => :roadmap
   map.discuss_search '/discuss/search', :controller => :discussions, :action => :category
   map.discuss_cancel '/discuss/cancel', :controller => :discuss, :action => :cancel
@@ -28,7 +29,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :profiles, :controller => 'users/profile', :path_prefix => '', :only => [:show, :edit, :update]
   map.profile_details '/profiles/:id/details', :controller => 'users/profile', :action => 'details'
 
-  map.welcome   'welcome', :controller => 'my_echo', :action => 'welcome'
+  map.welcome 'welcome', :controller => 'my_echo', :action => 'welcome'
   map.settings 'settings', :controller => 'my_echo', :action => 'settings'
 
   # SECTION autocomplete
@@ -76,7 +77,7 @@ ActionController::Routing::Routes.draw do |map|
   map.activate  '/activate/:id',              :controller => 'users/activations', :action => 'create'
 
   map.resources :reports, :controller => 'users/reports'
-  
+
   map.resources :about_items, :controller => 'about_items', :active_scaffold => true
 
 

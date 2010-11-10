@@ -85,8 +85,8 @@ en:
       newsletter:
         new: 'echo - Newsletter'
       about_items:
-        index: 'echo - Members'
- 
+        index: 'echo - About us'
+
     meta:
       echologic:
         description: |-

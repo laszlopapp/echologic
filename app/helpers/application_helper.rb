@@ -33,8 +33,8 @@ module ApplicationHelper
   def count_text(key,count)
     I18n.t("#{key}.results_count.#{count < 2 ? 'one' : 'more'}", :count => count)
   end
-  
-  
+
+
   # Inserts text area with the given text and two butt
   # Click-functions are added via jQuery, take a look at application.js
   def insert_toggle_more(text)
@@ -44,7 +44,7 @@ module ApplicationHelper
       concat("#{text}")
     concat("</div>")
   end
-  
+
   # Container is only visible in echologic
   def display_echologic_container
     request[:controller].eql?('static/echologic') ? '' : "style='display:none'"
@@ -54,7 +54,7 @@ module ApplicationHelper
   def display_tab_container
     request[:controller].eql?('static/echologic') ? "style='display:none'" : ''
   end
-  
+
   # Inserts the breadcrumb for the given main and sub menu point
   def insert_breadcrumb(main_link, sub_link, sub_menu_title='.title',sub_menu_subtitle='.subtitle', show_illustration=true)
     controller = request[:controller].split('/')[1]
@@ -71,7 +71,7 @@ module ApplicationHelper
     concat link_to(main_menu, url_for(:controller => controller, :action => 'show'))
     concat "<h2>#{subtitle_translation}</h2>"
   end
-  
+
   # gets the latest twittered content of the specified user account
   # via json.
   # RESCUES: SocketError, Exception
@@ -84,14 +84,16 @@ module ApplicationHelper
       html = content_tag(:span,
                          l(result['status']['created_at'].to_date, :format => :long),
                          :id => 'twitter_date')
-      html += content_tag(:span, auto_link(result['status']['text']), :id => 'twitter_text')
+      html += content_tag(:span, auto_link(result['status']['text'],
+                                           :html => {:target => "_blank"}), 
+                          :id => 'twitter_text')
     rescue Exception => e
       logger.error "#{Time.now.utc.strftime("%m/%d/%Y %H:%M")} - Failed to display Twitter message"
       logger.error e.backtrace
       content_tag :span, "Tweet! Tweet! :-)", :id => 'twitter_text'
     end
   end
-  
+
   def build_static_menu_button(item)
     val =  "<span class='img #{item}_image'>&nbsp;</span>"
     %w(title subtitle).each do |type|

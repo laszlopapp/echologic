@@ -13,13 +13,14 @@ class StatementsController < ApplicationController
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
+  skip_before_filter :require_user, :only => [:category, :show, :children, :more, :authors, :redirect, :add_discussion,
+                                           :add_proposal, :add_improvement_proposal]
+
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
   before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions,
                                                                    :new, :create, :more, :children, :upload_image,
                                                                    :reload_image, :redirect, :authors, :add_discussion,
                                                                    :add_proposal, :add_improvement_proposal]
-  before_filter :require_user, :except => [:category, :show, :more, :children, :authors, :redirect, :add_discussion,
-                                           :add_proposal, :add_improvement_proposal]
   before_filter :fetch_languages, :except => [:destroy, :redirect]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation, :add_discussion,
                                                                :add_proposal, :add_improvement_proposal]
@@ -119,7 +120,7 @@ class StatementsController < ApplicationController
       # Find all child statement_nodes, which are published (except user is an editor)
       # sorted by supporters count, and paginate them
       load_all_children
-      
+
       respond_action 'statements/show'
     rescue Exception => e
       log_home_error(e,"Error showing statement.")
@@ -137,7 +138,7 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def more
-    
+
   end
 
   #
@@ -153,7 +154,7 @@ class StatementsController < ApplicationController
     @per_page = 7
     @offset = @page.to_i == 1 ? 3 : 0
     load_children(@type)
-    respond_to do |format|                                                 
+    respond_to do |format|
       format.js {render :template => 'statements/children'}
     end
   end
@@ -174,8 +175,8 @@ class StatementsController < ApplicationController
     @statement_node.topic_tags << "##{params[:category]}" if params[:category]
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     
-    
     load_echo_messages if @statement_node.echoable?
+
     respond_action 'statements/new'
   end
 
@@ -204,7 +205,7 @@ class StatementsController < ApplicationController
         @statement_node.topic_tags=form_tags
         @tags=@statement_node.topic_tags
       end
-    
+
       if permitted and @statement_node.save
         if @statement_node.echoable?
           echo = params.delete(:echo).parameterize 
@@ -252,7 +253,7 @@ class StatementsController < ApplicationController
         set_statement_node_info(nil, 'discuss.statements.statement_updated')
       end
     elsif has_lock
-      respond_action 'statements/edit'      
+      respond_action 'statements/edit'
     else
       render_with_info(:template => 'statements/edit' ) do |format|
         set_info('discuss.statements.being_edited')
@@ -408,7 +409,7 @@ class StatementsController < ApplicationController
       else
         @statement_document = StatementDocument.find(new_doc_attrs[:old_document_id])
         set_error(@new_statement_document)
-        render_with_error :template => 'statements/new_translation' 
+        render_with_error :template => 'statements/new_translation'
       end
     rescue Exception => e
       log_message_error(e, "Error translating statement node '#{@statement_node.id}'.") do |format|
@@ -479,11 +480,6 @@ class StatementsController < ApplicationController
 
       # Logic to update the children caused by cascading unsupport
       @page = params[:page] || 1
-#      @children = @statement_node.children_statements(@language_preference_list).
-#                    paginate(StatementNode.default_scope.merge(:page => @page, :per_page => 5))
-#      @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
-#                                                       @language_preference_list)
-      
       set_statement_node_info(@statement_node, 'discuss.statements.statement_unsupported')
       respond_to_js :redirect_to => @statement_node,
                     :template_js => 'statements/unecho'
@@ -507,7 +503,7 @@ class StatementsController < ApplicationController
 
   # After uploading the image, this has to be reloaded.
   # Reloading:
-  #  1. loginContainer with users picture as profile link
+  #  1. login_container with users picture as profile link
   #  2. picture container of the profile
   #
   # Method:   GET
@@ -520,7 +516,7 @@ class StatementsController < ApplicationController
         format.js {
           show_info_messages do |page|
             page << "$('#statements div.#{dom_class(@statement_node)} #statement_image').replaceWith('#{render :partial => 'statements/image'}')"
-            page << "$('#statements div.#{dom_class(@statement_node)} #upload_link').remove()" if @statement_node.published? 
+            page << "$('#statements div.#{dom_class(@statement_node)} #upload_link').remove()" if @statement_node.published?
           end
         }
       else
@@ -529,7 +525,7 @@ class StatementsController < ApplicationController
       end
     end
   end
-  
+
   # Loads the authors of this statement to the view
   #
   # Method:   GET
@@ -537,7 +533,7 @@ class StatementsController < ApplicationController
   #
   def authors
     set_authors
-    respond_to do |format|                                                 
+    respond_to do |format|
       format.js {render :template => 'statements/authors'}
     end
   end
@@ -609,7 +605,7 @@ class StatementsController < ApplicationController
       @approved_document = @approved_node.document_in_preferred_language(@language_preference_list) if !@approved_node.nil?
     end
   end
-  
+
   #
   # Loads the children of the current statement, storing them in an hash by type
   #
@@ -622,13 +618,13 @@ class StatementsController < ApplicationController
                                           paginate(type_class.default_scope.merge(:page => 1,
                                                                                   :per_page => INITIAL_CHILDREN))
         @children_documents = search_statement_documents(@children[type].map(&:statement_id),
-                                                       @language_preference_list)                                                                          
+                                                       @language_preference_list)
       else
         @children[type] = nil
       end
     end
   end
-  
+
   #
   # Loads the children of the current statement from a certain type
   #
@@ -769,7 +765,7 @@ class StatementsController < ApplicationController
     set_info((string || "discuss.messages.#{statement_document.action.code}"),
              :type => I18n.t("discuss.statements.types.#{statement_node_symbol.to_s}"))
   end
-  
+
   #
   # Sets the ancestors of the current statement node, in order to write the correct context down
   #
@@ -919,7 +915,7 @@ class StatementsController < ApplicationController
           format.js   { show_#{type}_messages }
         end
       end
-      
+
       def with_#{type}(format, opts={})
         format.html { set_ancestors
                       flash_#{type} 
@@ -927,13 +923,13 @@ class StatementsController < ApplicationController
       end
     )
   end
-  
-  
+
+
   def respond_to_statement(no_errors = true)
     respond_to do |format|
       format.html {
         (no_errors ? flash_info : flash_error)
-        redirect_to url_for(@statement_node) 
+        redirect_to url_for(@statement_node)
       }
       block_given? ? yield(format) : format.js {no_errors ? show : show_error_messages}
     end
@@ -961,7 +957,7 @@ class StatementsController < ApplicationController
 
   def log_home_error(e, message)
     log_message_error(e, message) do |format|
-      flash_error and redirect_to_home
+      flash_error and redirect_to_welcome
     end
   end
 end

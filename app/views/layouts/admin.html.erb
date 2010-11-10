@@ -8,7 +8,7 @@
     <meta name="description" content="<%= I18n.t('seo.meta.echo.description') %>"/>
     <meta name="keywords" content="<%= I18n.t('seo.meta.echo.keywords') %>"/>
     <link rel="shortcut icon" href="/images/echo_browser_icon.png" type="image/gif" />
-		
+
 		<!-- Stylesheets -->
     <%= stylesheet_link_tag 'echologic',
                             'application',
@@ -24,21 +24,18 @@
                             'connect',
                             'profile',
                             :cache => 'echo_app' %>
-														
+
 		<!-- Javascript -->
-    <%#= javascript_include_tag 'jquery',
-     #                          'jquery.ba-url.min',
-      #                         'jquery.em',
-       #                        :cache => 'echo_app' %>												
+    <%= javascript_include_tag 'jquery'%>
     <%= javascript_include_tag 'temp/prototype' %>
     <%= active_scaffold_includes %>
-   
+
   	<%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
 
     <%# TODO remove partially needed files from inclusion. %>
     <%= yield :head %>
   </head>
-	
+
 	<body>
     <div id="header">
       <div id="echo_logo" class="main_logo">
