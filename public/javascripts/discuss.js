@@ -63,7 +63,7 @@ function replaceOrInsert(element, template){
 function renderAncestor(old_ancestor, ancestor_html) {
 	type = old_ancestor.match(/[a-z]+(?:_[a-z]+)?/);
   var ancestor_html = ancestor_html;
-  class_element = $('#statements div.'+type);
+  class_element = $('#statements div.'+type+', #statements form.'+type);
   replaceOrInsert(class_element, ancestor_html);
 }
 
@@ -105,7 +105,7 @@ function initExpandables(){
 
 /* Gets the siblings of the loaded statement and places them in the client session for navigation purposes */
 function loadStatementSessions() {
-	$("div.statement").livequery(function(){
+	$("div.statement, form.statement").livequery(function(){
 		
 		parent = $(this).prev();
 		if (parent.length > 0)      
@@ -142,6 +142,7 @@ function initNavigationButton(element, inc) {
   }
   else {
   	node_class = node.attr("id").match(/[a-z]+(?:_[a-z]+)?/);
+		node_class = node_class[0].replace('edit_','');
   }
   parent_node = node.prev();
 	/* get id where the current node's siblings are stored */
@@ -170,11 +171,11 @@ function initNavigationButton(element, inc) {
 			controller = path.join('_');
 			path = "/"+[controller,id].join('/');
 		} else {path = '';}
-		element.href = element.href.replace(/\/[a-z]+(?:_[a-z]+)?\/[\d]+(\/[a-z]+(?:_[a-z]+)+)?/, path + "/" + "add_" + node_class);
+		element.href = element.href.replace(/\/\w+\/\d+(\/\w+)?/, path + "/" + "add_" + node_class);
 	}
 	else {
 	  id = parent_ids[id_index];
-		element.href = element.href.replace(/\/[a-z]+(?:_[a-z]+)?\/[\d]+(\/[a-z]+(?:_[a-z]+)+)?/,"/" + node_class + "/" + id);
+		element.href = element.href.replace(/\/\w+\/\d+(\/\w+)?/,"/" + node_class + "/" + id);
 	}
 	
   $(element).removeAttr('data-id');
@@ -466,7 +467,7 @@ function initFragmentStatementChange() {
 				path += "/" + sid;
  			}
 		
-		  path = $.queryString(document.location.href.replace(/\/[a-z]+(?:_[a-z]+)?\/[\d]+(\/[a-z]+(?:_[a-z]+)+)?/, path), {
+		  path = $.queryString(document.location.href.replace(/\/\w+\/\d+(\/\w+)?/, path), {
         "sid": stack.join(","),
         "new_level": $.fragment().new_level
       })
