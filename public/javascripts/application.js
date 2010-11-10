@@ -24,6 +24,8 @@ $(document).ready(function () {
 	loadAjaxForms();
 	
 	uploadFormSubmit();
+	
+	loadAboutUs();
 
   /* Always send the authenticity_token with ajax */
   $(document).ajaxSend(function(event, request, settings) {
@@ -258,4 +260,18 @@ function uploadFormSubmit(){
 			return false;
 		});
 	})
+}
+
+function loadAboutUs() {
+	$('#about_container').livequery(function(){
+		$('#about_team_link').click(function() {
+			$('#about_container').tabs('select', 1);
+	    return false;
+	  });
+	  $(this).bind('tabsshow', function(event, ui) {
+	    if (ui.panel.id == "team") {
+	      $('#team_members').jScrollPane({animateTo: true, wheelSpeed: 25});
+	    }
+	  });
+	});
 }
