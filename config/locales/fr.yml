@@ -9,16 +9,16 @@ fr:
 
     # General purpose resources
     general:
-      more: Plus »
-      hide: « D'accord
+      more: plus »
+      hide: « d'accord
       next: Continuez
       back: retour
       email: E-Mail
       name: Nom
       first_name: prénom
-      last_name: nom de famille
+      last_name: Nom de famille
       undefined: Vous n'êtes pas encore enregistré,e?
-      ok: d'accord
+      ok: D'accord
       or: ou
       save: Sauvegarder
       edit: Editer
@@ -30,7 +30,7 @@ fr:
       create: Ajouter
       incorporate: Incorporer
       welcome: Bienvenu(e)
-      all: tous
+      all: Tous
 
     # Roadmap - progrès
     roadmap:
@@ -63,7 +63,7 @@ fr:
           fonctionnalités de base sous la rubrique "discuter", "rejoindre un réseau" et "agir"
         vision: |
          <p>
-         "Mon écho" deviendra la <strong>plate-forme personnelle d'information</strong>sur echo.
+         "Mon echo" deviendra la <strong>plate-forme personnelle d'information</strong>sur echo.
          Veuillez trouver ici une vue d'ensemble des <strong>informations les plus importantes</strong> et vous
          serez toujours au courant des <strong>discussions et actions actuelles.</strong>
          </p>
@@ -74,7 +74,7 @@ fr:
       discuss: Discuter
       connect: Rejoindre un réseau
       act: Agir
-      my_echo: Mon écho
+      my_echo: Mon echo
       admin: Admin
 
     outer_menu:
@@ -98,7 +98,8 @@ fr:
     my_echo:
       tabs:
         welcome: Bienvenu(e)
-        settings: Mon compte
+        profile: Mon Profil
+        settings: Mon Compte
       profile_complete: "{{profil complet}}% rempli"
 
 
@@ -107,7 +108,7 @@ fr:
   # ----------------
 
   welcome:
-    title: Bienvenu(e) sur echo
+    title: Bienvenu(e)
     text: |
       <p>
       <strong>Discuter - se mettre en réseau - agir!</strong><br/>
@@ -142,7 +143,7 @@ fr:
     # User sessions section
     user_sessions:
       login:
-        password: votre mot de passe
+        password: Votre mot de passe
         email: E-Mail
         signup: |
           Vous n'êtes pas encore membre?
@@ -210,7 +211,7 @@ fr:
 
       upload_picture:
         title: Télécharger une image
-        guide: Veuillez sélectionner une <strong>image</strong> (JPG oder PNG, max. 5MB) et cliquer sur "télécharger'.
+        guide: Veuillez sélectionner une <strong>image</strong> (JPG oder PNG, max. 5MB) et cliquer sur télécharger.
         progress: |-
           L'image est téléchargée. Veuillez patienter...
 
@@ -238,7 +239,7 @@ fr:
 
     # Web profiles section
     web_addresses:
-      title: Adresses @ et/ou www.
+      title: Web Adresses
       guide: |
         En indiquant ici vos coordonnées, vous donnez la possibilité  à d'autres utilisateurs de vous connaître
         et de vous contacter.<br/>
@@ -258,9 +259,8 @@ fr:
         et du soutien localement ou d'ailleurs.Dans d'autres domaines, nous nous engageons activement en
         proposant nos compétences. Dans certains domaines, nous avons des connaissances précises, voire d'experts,
         dans d'autres secteurs nous représentons peut-être d'autres personnes et groupes ou nous prenons des
-        décisions qui concernent d'autres<br/>
-        echo met à votre disposition un outil permettant aux <strong> compétences et savoirs complémentaires
-        de se connecter, vite et facilement<br/>
+        décisions qui concernent d'autres. echo met à votre disposition un outil permettant aux <strong>compétences et savoirs complémentaires</strong>
+        de se connecter, vite et facilement.<br/>
         Comment vous définiriez <strong>votre implication et vos compétences en quelques mots-clefs</strong>?
 
       sorts:
@@ -497,7 +497,7 @@ fr:
       image_uploaded: "L'image a été ajoutée à/ {{type}}"
       empty: "Aucune discussion n'a pu être trouvée. Veuillez choisir un autre mot-clef."
       empty_without_spoken_languages: |
-        Impossible de trouver une discussion. Utilisez vos <a href='{{mon_echo}}'>connaissances linguistiques</a>
+        Impossible de trouver une discussion. Utilisez vos <a href='{{my_echo}}'>connaissances linguistiques</a>
         pour accéder aux contenus dans d'autres langues.
       new_percentage: "Votre profil est maintenant complet à {{percentage}}%."
 
@@ -636,8 +636,8 @@ fr:
       email_invalid: "Veuillez corrigez l'adresse mail erronnée."
       password_blank: "Veuillez indiquer votre mot de passe."
       not_active: "Votre compte na pas été activé. Vérifiez dans votre messagerie."
-      must_be_logged_in: "Inscrivez vous"
-      must_be_logged_out: "Désincrivez-vous"
+      must_be_logged_in: "Inscrivez vous."
+      must_be_logged_out: "Désincrivez-vous."
 
     attributes:
       user_session:

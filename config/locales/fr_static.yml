@@ -18,7 +18,7 @@ fr:
     # ECHOLOGIC SECTION
     echologic:
       title: echologic
-      subtitle: Le mouvement
+      subtitle: Le Mouvement
 
       show:
         ms1: "echologic est un réseau de citoyens actifs et<br/>de leurs organisations. Ensemble nous réalisons"
@@ -170,7 +170,7 @@ fr:
     # ECHO SECTION
     echo:
       title: echo
-      subtitle: Le projet
+      subtitle: Le Projet
 
       tabs:
         echo: echo
@@ -398,7 +398,7 @@ fr:
     # ECHOCRACY SECTION
     echocracy:
       title: echocracy
-      subtitle: Les acteurs
+      subtitle: Les Acteurs
 
       tabs:
         echocracy: echocracie
