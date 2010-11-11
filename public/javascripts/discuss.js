@@ -78,8 +78,8 @@ function initExpandables(){
 	/* Special ajax event for the discussion (collapse/expand)*/
 	$(".ajax_display").live("click", function(){
 		element = $(this);
-		to_show = element.parents(".statement").find($(this).attr("data-show"));
-		supporters_label =element.find('.supporters_label'); 
+		to_show = element.parent().find($(this).attr("data-show"));
+		supporters_label = element.find('.supporters_label'); 
 		if (to_show.length > 0) {
 			/* if statement already has loaded content */
 			element.toggleClass('active');
@@ -196,6 +196,7 @@ function loadDefaultText() {
 			});
 		}
 		$(this).removeAttr('data-default');
+		$(this).blur();
 	});
 	
 	$("#statements form.new iframe.rte_doc").livequery(function(){
@@ -228,7 +229,6 @@ function loadDefaultText() {
       });
     }))
   });
-  
 }
 
 /* clean input text fields which might still be filled with the default message */
@@ -342,9 +342,11 @@ function createTagButton(text, tags_id) {
 /* load the previously existing tags */
 function addTagButtons() {
 	$('form.discussion.new, form.discussion.edit').livequery(function(){
-	  tags_to_load = $('#discussion_tags').val().trim().split(',');
+	  tags_to_load = $('#discussion_tags').val();
+		tags_to_load = $.trim(tags_to_load);
+		tags_to_load = tags_to_load.split(',');
 	  while (tags_to_load.length > 0) {
-	    tag = tags_to_load.shift().trim();
+	    tag = $.trim(tags_to_load.shift());
 	    if (tag.localeCompare(' ') > 0) {
 	      element = createTagButton(tag, "#discussion_tags");
 	      $(this).find('#discussion_tags_values').append(element);
