@@ -271,7 +271,7 @@ en:
           <p>
           <strong>echo is democracy from the people for the people.</strong>
           </p><p>
-          Join us now to participate! 
+          Join us now to participate!
           </p>
         action: 'Join now!'
 
@@ -312,16 +312,6 @@ en:
       more: '{{count}} discussions'
     featured_topics:
       title: Featured Topics
-      text: |
-        <p>
-        As you can see in the Roadmap (in the upper right corner of the screen),
-        the discussion area of echo is in an <strong>early development stage</strong>.
-        </p><p>
-        At the moment it offers you the possibility to discuss about different <strong>pilot projects</strong> and
-        jointly <strong>develop new ideas</strong> with other newthinkers of the community.
-        Additionally, you can also engage into the development of echo.<br/>
-        Currently available topics are:
-        </p>
       tabs:
         echo:
           title: About echo
