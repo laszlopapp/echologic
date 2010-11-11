@@ -24,7 +24,7 @@ en:
         ms2: |
           echo - the global <span title="{{tooltip}}" class="ttLink">agora</span>!
 
-        agora_tooltip: |
+        agora_tooltip: |-
           The agora was the central place in ancient Athens – the cradle of democracy.
           It was the hub of the social and political life of the polis: a society self-governed by its free citizens.
           echo, as the global agora, overcomes the communicative and spatial limits of the ancient agora and
@@ -561,7 +561,7 @@ en:
           committed to basic ethical values in our globalized world:
           </p>
 
-        list:
+        list: |
           <li><strong>Sustainability</strong> instead of unconditional growth (eco)</li>
           <li><strong>Cooperation</strong> instead of being forced to compete (social)</li>
           <li><strong>Active participation</strong> instead of passive dependence (democratic)</li>
