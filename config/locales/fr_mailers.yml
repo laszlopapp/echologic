@@ -1,0 +1,251 @@
+
+fr:
+
+  mailers:
+    signature: |
+      --
+      echo - l'agora globale
+
+      Web: http://echo.to
+      E-Mail: team@echologic.org
+      Twitter: www.twitter.com/echologic
+    signature_as_html: |-
+      <p>
+      --<br/>
+      echo - l'agora globale
+      </p><p>
+      Web: http://echo.to<br/>
+      E-Mail: team@echologic.org<br/>
+      Twitter: www.twitter.com/echologic
+      </p>
+
+    newsletter:
+      title: Newsletter
+      header: |
+        <p>
+        <strong>This is the Newsletter Section!</strong><br/>
+        </p><p>
+        Here you can write a newsletter to whomever wants to read what you write.
+        </p>
+      subject: Subject
+      text: Text
+      greeting: |-
+        <p>Dear {{name}},</p>
+      unsubscribe: |-
+        <p>If you do not wish to receive newsletters, please log in to
+        <a href='{{echo_url}}'>echo</a>, go to Settings under My echo and uncheck the newsletter option.</p>
+      fields_not_filled: |-
+        You need to fill the subject and text fields in order to send the newsletter.
+      sent: |-
+        Congratulations! Your newsletter was successfully sent!
+
+    activity_tracking:
+      subject: echo - Activités, notifications"
+      discussions:
+        new_questions: 'Il y a des <strong>{{count}} discussions nouvelles</strong> depuis la dernière mise à jour:'
+        new_tags: 'Les thèmes suivants y sont abordés:'
+        new_proposals: 'Propositions nouvelles "{{title}}"'
+        new_improvement_proposals: |
+          Nouvelles propositions d'amélioraton' "{{title}}" in "{{question_title}}":
+        tag_link: "{{tag}} ({{count}})"
+      unsubscribe: |-
+        Si vous ne souhaitez pas recevoir des mises à jour, cliquez sur
+        <a href='{{echo_url}}'>echo</a> allez ensuite sur "mon echo", "paramètres" et désactivez la messagerie.
+
+
+    drafting:
+      approval:
+        subject: "Ajoutez ici vos propositions d'amélioration. Merci."
+        text: |-
+          Bonjour {{name}},
+
+          Votre propositions d'amélioration
+
+          "*{{ip_title}}*"
+
+          a obtenu le plus des voix et a été sélectionnée "{{p_title}}" parmi les thèmes à développer.
+
+          A partir de maintenant, il vous reste {{hours}} pour l'élaborer.
+
+          Passé ce délai, vous ne pouvez plus intervenir comme rédacteur. Pour développer maintenant cette *proposition*, veuillez suivre ce lien et cliquez sur (la flèche vert et jaune au milieu):
+
+          {{p_link}}
+
+          N'ajoutez à la proposition que les amendements que vous avez soumis au vote.
+
+          Merci beaucoup de votre participation!
+
+          Bien à vous,
+
+          L'équipe echo
+
+      supporters_approval:
+        subject: "Vous pouvez insérer une proposition d'amélioration."
+        text: |-
+          Cher(e) supporteur/supportrice
+
+          "*{{ip_title}}*",
+
+          L'auteur de cette proposition d'amélioration n'a pas intégré votre idée dans "{{p_title}}". Ayant soutenu cet amélioration, vous avez maintentant l'occasion pendant {{hours}} heure * de vous exprimer.
+
+          Pour *intégrer votre idée*, veuillez suivre ce lien et cliquez: la flèche vert-jaune au milieu:
+
+          {{p_link}}
+
+          "Soyez le premier!" - et vous aurez la primeur -  ... pendant 60 minutes!
+
+          Soyez fair-play et insérez seulement les idées dans les propositions qui ont fait l'objet d'un vote.
+
+          Merci de votre participation et bon courage ;-)
+
+          Bien à vous,
+
+          Votre équipe echo
+
+      approval_notification:
+        subject: "Une nouvelle proposition d'amélioration est soumise."
+        text: |-
+          Cher supporteur/supportrice de cette idée,
+
+          "*{{p_title}}*",
+
+          La proposition d'amélioration  "{{ip_title}}" a obtenu le plus de voix et a été adoptée pour être insérer dans la proposition.
+
+          Pour voir la nouvelle idee, veuillez suivre ce lien:
+
+          {{p_link}}
+
+          Merci de participer et bon courage! :-)
+
+          Bien à vous,
+
+          Votre équipe echo
+
+      approval_reminder:
+        subject: "Rappel de votre proposition d'amélioration"
+        text: |-
+          Bonjour {{name}},
+
+          Vous n'avez plus que {{hour}} heure pour insérer votre
+
+          "*{{ip_title}}*"
+
+          proposition "{{p_title}}". Soyez rapide! Vous perdrez votre droit de rédacteur après expiration de ce délai.
+
+          Pour travailler la *propositon  maintenant*, suivez ce lien et cliquez sur le symbole de connection - la flèche vert-jaune au milieu:
+
+          {{p_link}}
+
+          Soyez fair play et n'insérez que les idées dans la proposition que vous avez soumise dans votre propositon d'amélioration au vote.
+
+          Merci beaucoup de votre participation - et bon courage! ;-)
+
+          Bien à vous,
+
+          Votre équipe echo
+
+      supporters_approval_reminder:
+        subject: Dernier rappel! - Elaboration d'une proposition d'amélioration
+        text: |-
+          Cher supporteur/supportrice de la proposition d'amélioration
+
+          "*{{ip_title}}*",
+
+          Il ne vous reste plus que {{hours}} heure pour insérer la proposition d'amélioration dans la proposition "{{p_title}}".
+
+          Nous vous rappelons qu'après expiration de ce délai, toutes les voix données à cette idée deviennent sont invalidées.
+
+          Pour *insérer maintenant l' idee* dans la proposition, suivez ce lien et cliquez sur la flèche verte et jaune au milieu:
+
+          {{p_link}}
+
+          Soyez fair play et n'ajoutez que les idées soumises au vote dans les propositions d'amélioration. Soyez le premier!
+
+          Merci beaucoup de votre participation- et bon courage ;-)
+
+          Bien à vous,
+
+          Votre équipe echo
+
+      passed:
+        subject: "Le délai d'insértion de votre proposition d'amélioration est expiré."
+        text: |-
+          Bonjour {{name}},
+
+          Malheureusement le délai d'insertion de votre proposition est
+
+          "*{{ip_title}}*"
+
+          expiré. Vous ne pouvez plus "{{p_title}}" accéder à la partie rédactionnelle.
+
+          Au cas où votre proposition serait quand même acceptée, vous aurez la possibilité, ainsi que les autres supporters, d'insérer votre idée dans la proposition.
+
+          Nous sommes impatients de lire vos idées! :-)
+
+          Bien à vous,
+
+          Votre équipe echo
+
+      supporters_passed:
+        subject: "Le délai de soumission d'une proposition d'amélioration est expiré."
+        text: |
+          Cher supporter/supportrice de la proposition complémentaire
+
+          "*{{ip_title}}*",
+
+          Malheureusement le délai pour insérer votre proposition d'amélioration "{{p_title}}" est expiré. Vous ne pouvez plus intervenir.
+
+          Toutes les voix supportant la proposition sont invalidées.
+
+          Pour *redonner votre voix à cette proposition* suivez ce lien:
+
+          {{ip_link}}
+
+          Merci beaucoup de votre participation - et bon courage! ;-)
+
+          Bien à vous,
+
+          Votre équipe echo
+
+      incorporated:
+        subject: Merci d'avoir amendé la proposition
+        text: |-
+          Bonjour {{name}},
+
+          Merci beaucoup d'avoir inséré la proposition d'amélioration
+
+          "*{{ip_title}}*"
+
+          dans la proposition "{{p_title}}".
+
+          Pour voir la nouvelle proposition cliquez sur ce lien:
+
+          {{p_link}}
+
+          Merci beaucoup de votre participation - et bon courage! ;-)
+
+          Bien à vous,
+
+          votre équipe echo
+
+      incorporation_notification:
+        subject: Une proposition soutenue par vous est versée au débat et va être développée.
+        text: |-
+          Cher supporter,
+
+          "*{{p_title}}*",
+
+          la proposition d'amélioration "{{ip_title}}" a obtenu le plus de voix et est ajoutée au débat.
+
+          Veuillez *jeter un regard sur les modifications* et vérifiez, si vous êtes d'accord avec la proposition d'amélioration.
+
+          {{p_link}}
+
+          Merci beaucoup de votre participation - et bon courage! ;-)
+
+          Bien à vous,
+
+          Votre équipe echo
+
+      unsubscribe: |-
+        Si vous ne recevez aucune information au sujet de l'élaboration collaborative des propositions, veuillez nous contacter - {{echo_url}}.

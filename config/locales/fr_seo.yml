@@ -1,0 +1,127 @@
+fr:
+
+  # SEO data
+  seo:
+    title:
+      # static: de.seo.title.static
+      static:
+        echologic:
+          show: &html_title "echo - l'agora globale (la démocratie revue et corrigée)"
+          about:            'echo - Qui sommes nous?'
+          imprint:          'echo - Mentions légales'
+          data_privacy:     'echo - Protection des données'
+        echo:
+          show:    "echo - L'agora globale (L'essentiel, c'est de participer - à la vie démocratique)"
+          discuss: "echo - Discuter (La formation de la volonté et de la décision - ciblée, transparente et démocratique)"
+          connect: "echo - La mise en réseau (avec tous ceux qui partagent la même cause - avec leurs compétences diverses)"
+          act:     "echo - Agir (au nom d'un succès durable)"
+          echo_on_waves: "echo - partout (des synergies pour réaliser une infrastructure décentralisée - echo on waves)"
+        echocracy:
+          show:            "echocracy - La démocratie ouverte et participative d'echo"
+          citizens:        "echocracy - Des citoyens concernés et engagés"
+          scientists:      "echocracy - Des expert(e)s et scientifiques"
+          decision_makers: "echocracy - Des décideurs de la vie politique et de l'économie"
+          organisations:   "echocracy - Les organisation non gouvernementales"
+        echonomy:
+          show:            "echonomy - Une nouvelle ère de l'économie éco-sociale, durable et démocratique"
+          your_profit:     "echonomy - Social Business fondé sur le concept du Votre-Profit"
+          foundation:      "echonomy - La Fondation Echonomy"
+          public_property: "echonomy - echo comme Bien Commun"
+        echosocial:
+          show:            'echo social - Bienvenu (e)'
+          features:        'echo social - Fonctionnalités'
+          extensions:      'echo social - Extensions'
+
+      # users: de.seo.title.users
+      users:
+        users:
+          new: 'Votre echo - echo adhérer'
+        activations:
+          new: Votre echo - Pour accéder à echo
+          create: 'Ihr echo - Bienvenu sur echo'
+        password_resets:
+          new: 'Ihr echo - Demander un nouveau mot de pass'
+          edit: 'Ihr echo - Fixer un nouveau mot de pass'
+        profile:
+          details: "Votre echo - Votre profil éloquent"
+
+      # discuss: de.seo.title.discuss
+      discuss:
+        index: 'echo - Discuter'
+        roadmap: 'echo - Votre plan de route pour participer à la discussion'
+      questions:
+        category: 'echo - Les thèmes de discussion'
+        show: 'echo - Débats'
+        new: 'Ouvrir de nouvelles discussions'
+        my_discussions: 'Mes discussions'
+      proposals:
+        show: 'echo - Prises de positions'
+      improvement_proposals:
+        show: 'echo - Propositions complémentaires'
+
+      # connect: de.seo.title.connect
+      connect:
+        roadmap: 'echo - Votre plan de route pour vous mettre en réseau'
+        show:    'echo - Connectez vous- mettez vous en réseau - découvrir des communités'
+        fill_out_profile: 'echo - Mettre en réseau - Donner et recevoir'
+
+      # act: de.seo.title.act
+      act:
+        roadmap: 'echo - Votre plande route pour agir'
+
+      # my_echo: de.seo.title.my_echo
+      my_echo:
+        roadmap: "echo - Votre plan de route pour 'agir sur echo'"
+        welcome: 'echo - Bienvenue'
+        profile: 'echo - Mon Profil'
+        settings: 'echo - Paramètres'
+
+      # my_echo: de.seo.title.admin
+      admin:
+        show: "echo - espace d'Admin"
+
+      # my_echo: de.seo.title.newsletter
+      newsletter:
+        new: 'echo - Newsletter'
+      about_items:
+        index: 'echo - Qui sommes-nous?'
+
+    meta:
+      echologic:
+        description: |-
+          echologic est un réseau de citoyen(ne)s engagé(e)s et d' organisations dans lesquelles ils impliquent.
+          Ensemble avec eux, nous réalisons echo, l'agora globale. echo est un projet collectif en faveur d'un
+          changement soutenable grâce à une participation active des citoyens. echo crée le cadre et le fondement
+          technologique  pour une démocratie transparente, participative, à l'échelle locale, régionale et globale.
+        keywords: |-
+          echologic, mouvement, mouvement global, echo, agora, agora globale, démocratie, démocratie participative,
+          une démocratie pour être de la partie,libre détermination, intélligence collective, portrait d'opinion,
+          formation d'opinion, cristallisation de la volonté politique, processus décisionnel collectif, mobilisation,
+          masses critiques, instruments législatifs, participation aux décisions politiques,collaboration sociale,
+          echocracy, égalité, transparence, echonomy, éco-social, la gestion économique écologique et sociale,
+          démocratie économique, Your-Profit, echokratie,echonomie, démocratie participative, glocal, glocalité,
+          économie soutenable, changement durable.
+
+      echo:
+        description: |-
+          echo est un projet collectif de l'humanité pour réaliser un changement soutenable par une participation de
+          citoyens actifs. echo crée le cadre technologique en faveur d'une démocratie transparente et participative
+          à l'échelle locale, Ici, votre voix trouve son écho. Les idées deviennent mouvement, les visions deviennent
+          réalité. echo signifie la fin de l'impuissance face à l'arbitraire, le début de la libre détermination,
+          echo, agora, agora globale, démocratie, démocratie participative, démocratie pour être de la partie,
+          lire détermination, intelligence collective, portrait d'opinion, formation d'opinion,
+          cristallisation de volonté, processus décisionnel, mobilisaiton, instruments législatifs,
+          prise d'influence sur les décisions politiques, echocracy, égalité, transparence, echonomy, éco-social,
+          Your-Profit, echocratie, echonomie, démocratie participative, glocal, glocalité, économy soutenable,
+          changement durable.
+
+      echosocial:
+        description: |-
+          echo social est une solution Open Source pour réaliser, avec quelques cliques seulement, votre propre réseau
+          social y compris votre site web individuel  - sans frais! Par ailleurs, echo est un vecteur parfait pour
+          réunir et rassembler les innombrables actions et projets sociaux en un mouvement global permettant une action
+          efficace, ensemble et toujours ciblée.
+        keywords: |-
+          réseau social,gratuit, open source, site web individuel, système décentralisé, association des énergies,
+          mouvement globale, influence sur des décisions politiques, éco-social, écologique, social, eco-social,
+          eco, social, free
