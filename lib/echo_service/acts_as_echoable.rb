@@ -21,7 +21,6 @@ module ActiveRecord
             belongs_to :echo
             has_many :user_echos, :foreign_key => 'echo_id', :primary_key => 'echo_id'
             delegate :supporter_count, :visitor_count, :to => :echo
-            after_create :author_support
           end
 
 
@@ -126,6 +125,13 @@ module ActiveRecord
               support_relative_to_sibblings
             end
 
+            # Records the creator's support for the statement.
+            def author_support
+              if (!self.incorporable? or self.parent.supported?(self.creator)) # and self.echoable? SHOULD I????
+                self.supported!(self.creator)
+              end
+            end
+            
             protected
 
             # Ratio of this statement's supporters relative to the most supported sibbling statement's supporters.
@@ -141,13 +147,6 @@ module ActiveRecord
             # Finds the most supported child (used by ratio of entity vs. the most supported sibbling)
             def most_supported_child
               children.by_supporters.first
-            end
-
-            # Records the creator's support for the statement.
-            def author_support
-              if (!self.incorporable? or self.parent.supported?(self.creator)) # and self.echoable? SHOULD I????
-                self.supported!(self.creator)
-              end
             end
 
             public

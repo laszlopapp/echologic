@@ -3,5 +3,11 @@
 <% hide_content ||= false %>
 <% content_tag :div, :class => "header #{only_header ? (hide_content ? 'ajax_display active' : 'ajax_display') : 'active'}", 'data-show' => '.content', :href => url_for(statement_node)  do %>
   <%= content_tag :div, prev_next_buttons(statement_node), :class => 'header_buttons'%>
-	<%= content_tag :div, statement_node_context_link(statement_node, @language_preference_list, (!only_header ? 'current' : 'back_to'), !only_header), :class => 'header_link' %>
+	<% content_tag :div, :class => 'header_link'  do %>
+		<%= statement_node_context_link(statement_node, @language_preference_list, (!only_header ? 'current' : 'back_to'), !only_header) %>
+		<% if statement_node.echoable? %>
+			<%= supporter_ratio_bar(statement_node, !only_header) %>
+			<%= supporters_label(statement_node, !only_header) %>
+		<% end %>
+	<% end %>
 <% end %>

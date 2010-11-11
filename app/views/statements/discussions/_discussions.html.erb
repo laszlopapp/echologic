@@ -1,6 +1,6 @@
-<div id="questions_container">
+<div id="discussions_container">
 
-  <% count_text = questions_count_text(@count) %>
+  <% count_text = discussions_count_text(@count) %>
 
   <span id="results_anchor"></span>
 
@@ -11,7 +11,7 @@
 
     <ul>
       <% unless statement_nodes.empty? %>
-        <%= render :partial => 'statements/questions/question', :collection => statement_nodes %>
+        <%= render :partial => 'statements/discussions/discussion', :collection => statement_nodes %>
       <% else %>
         <span class="no_results">
           <%= (!current_user or current_user.spoken_languages.blank?) ?

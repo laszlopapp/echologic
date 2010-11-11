@@ -23,31 +23,31 @@ module StatementsHelper
     send("edit_#{dom_class(statement_node).downcase}_url",statement_node,opts)
   end
 
-  def new_translation_url (statement_node, type, opts={})
+  def new_translation_url(statement_node, type, opts={})
     send("new_translation_#{type.downcase}_url",statement_node,opts)
   end
 
-  def create_translation_url (statement_node, type)
+  def create_translation_url(statement_node, type)
     send("create_translation_#{type.downcase}_url",statement_node)
   end
   
-  def cancel_url (statement_node, type, opts={})
+  def cancel_url(statement_node, type, opts={})
     send("cancel_#{type.downcase}_url",statement_node, opts)
   end
 
-  def upload_image_url (statement_node, type, opts={})
+  def upload_image_url(statement_node, type, opts={})
     send("upload_image_#{type.downcase}_url",statement_node, opts)
   end
 
-  def reload_image_url (statement_node, type, opts={})
+  def reload_image_url(statement_node, type, opts={})
     send("reload_image_#{type.downcase}_url",statement_node, opts)
   end
 
-  def children_url (statement_node, type, opts={})
+  def children_url(statement_node, type, opts={})
     send("children_#{type.downcase}_url",statement_node, opts)
   end
   
-  def authors_url (statement_node, type, opts={})
+  def authors_url(statement_node, type, opts={})
     send("authors_#{type.downcase}_url",statement_node, opts)
   end
 
@@ -55,16 +55,22 @@ module StatementsHelper
   # RENDER HELPERS #
   ##################
 
+  # Renders ancestors headers (when we have a GET operation on a child node)
   def render_ancestors(ancestors)
     val = ''
     ancestors.each do |ancestor|
-      val << render(:partial => 'statements/show', :locals => {:statement_node => ancestor, :no_show => true})
+      val << render_ancestor(ancestor)
     end
     val
   end
   
+  def render_ancestor(ancestor)
+    render :partial => 'statements/show', :locals => {:statement_node => ancestor, :only_header => true}
+  end
+  
+  # Renders all the possible children of the current node (per type, ordering must be defined in the node type definition)
   def render_children(statement_node, children)
-    return if children.nil?
+    return content_tag :div, '', :style => "clear:right" if children.blank?
     val = ''
     statement_node.class.expected_children_types.each do |type|
       val << render(:partial => 'statements/children', :locals => {:type => type.to_s.underscore, :children => children[type]})
@@ -77,30 +83,28 @@ module StatementsHelper
   # Links #
   #########
 
+  # Renders category name
   def search_category(category)
-    content_tag :span, 
-                I18n.t('discuss.search.in', :category => I18n.t("discuss.topics.#{category}.short_name")), 
+    content_tag :span, I18n.t('discuss.search.in', :category => I18n.t("discuss.topics.#{category}.short_name")), 
                 :class => "search_category" if category
   end
 
   #
-  # Creates a link to create a new statement for the given statement
+  # Creates a link to create a new child statement of a given type for the current statement
   # (appears INSIDE of the children statements panel).
   #
-  def create_new_statement_link(statement_node, type = dom_class(statement_node))
-    content_tag :li do
-      link_to(I18n.t("discuss.statements.create_#{type}_link"),
-              new_child_url(type, :parent_id => statement_node.id),
-              :id => "create_#{type}_link",
-              :class => "ajax add_new_button text_button create_#{type}_button ttLink no_border",
-              :title => I18n.t("discuss.tooltips.create_#{type}"))
-    end
+  def create_new_child_statement_link(statement_node, child_type)
+    link_to(I18n.t("discuss.statements.create_#{child_type}_link"),
+            new_child_url(child_type, :parent_id => statement_node.id),
+            :id => "create_#{child_type}_link",
+            :class => "ajax add_new_button text_button create_#{child_type}_button ttLink no_border",
+            :title => I18n.t("discuss.tooltips.create_#{child_type}"))
   end
 
   #
   # Creates a link to create a new sibling statement for the given statement (appears in the SIDEBAR).
   #
-  def create_new_sibling_statement_button(statement_node,type = dom_class(statement_node))
+  def create_new_sibling_statement_button(statement_node, type = dom_class(statement_node))
     link_to(new_child_url(type, :parent_id => statement_node.parent ? statement_node.parent.id : nil),
             :id => "create_#{type}_link",
             :class => "#{statement_node.echoable? ? 'ajax' : ''}") do
@@ -110,23 +114,32 @@ module StatementsHelper
 
     end
   end
+  
+  #
+  # Creates a link to create a new sibling statement for the given statement (appears in the SIDEBAR).
+  #
+  def add_sibling_statement_link(statement_node, type = dom_class(statement_node))
+    link_to(I18n.t("discuss.statements.create_#{type}_link"),
+            new_child_url(type, :parent_id => statement_node.parent ? statement_node.parent.id : nil),
+            :id => "create_#{type}_link",
+            :class => "#{statement_node.echoable? ? 'ajax' : ''} add_new_button text_button create_#{type}_button")
+  end
 
+  #
+  # Creates a link to translate the current document in the current language.
+  #
   def create_translate_statement_link(statement_node, statement_document, css_class = "",type = dom_class(statement_node))
-     
-     link_to I18n.t('discuss.translation_request'),
-              new_translation_url(statement_node, type, :current_document_id => statement_document.id),
-              :class => "ajax translation_link #{css_class}"
+    link = image_tag 'page/translation/babelfish_left.png', :class => 'fish_left'
+    link << content_tag(:span, statement_document.language.value.upcase, :class => "language_label from_language")
+    link << link_to(I18n.t('discuss.translation_request'),
+             new_translation_url(statement_node, type, :current_document_id => statement_document.id),
+             :class => "ajax translation_link #{css_class}")
+    link
   end
 
-  def create_question_link_for(category=nil)
-    link_to(hash_for_new_question_path.merge({:category => category}),
-            :id => 'create_question_link') do
-      content_tag(:span, '',
-                  :class => "new_question create_statement_button_mid create_question_button_mid ttLink no_border",
-                  :title => I18n.t("discuss.tooltips.create_question"))
-    end
-  end
-
+  #
+  # Creates a link to edit the current document.
+  #
   def edit_statement_node_link(statement_node, statement_document)
     if current_user and
        (current_user.may_edit? or
@@ -138,11 +151,17 @@ module StatementsHelper
     end
   end
   
+  #
+  # Creates a link to show the authors of the current node.
+  #
   def authors_statement_node_link(statement_node,type = dom_class(statement_node))
     link_to(I18n.t('application.general.authors'), authors_url(statement_node,type),
               :class => 'ajax_display header_button text_button authors_button', 'data-show' => "#authors")
   end
   
+  #
+  # Creates a link to delete the current statement.
+  #
   def delete_statement_node_link(statement_node)
     link_to I18n.t('discuss.statements.delete_link'),
             url_for(statement_node),
@@ -151,6 +170,9 @@ module StatementsHelper
             :confirm => I18n.t('discuss.statements.delete_confirmation')
   end
   
+  #
+  # Loads the function buttons of the current statement (edit, authors).
+  #
   def function_buttons(statement_node, statement_document)
     val = '' 
     val << edit_statement_node_link(statement_node, statement_document)
@@ -158,22 +180,26 @@ module StatementsHelper
     content_tag :span, val
   end
 
-  # Returns the block heading for entering a new child for the given statement_node
+  # Returns the block heading for entering a new child for the given statement node
   def children_new_box_title(statement_node)
     I18n.t("discuss.statements.new.#{dom_class(statement_node)}")
   end
   
+  # Returns the block heading for the children of the current statement node
   def children_box_title(type)
     I18n.t("discuss.statements.headings.#{type}")
   end
 
+  # Creates the cancel button in the new statement form (with the right link)
   def cancel_new_statement_node(statement_node,cancel_js=false)
+    type = (session[:last_statement_node] and statement_node.parent.id == session[:last_statement_node]) ? dom_class(statement_node.parent) : dom_class(statement_node)
     link_to I18n.t('application.general.cancel'),
             session[:last_statement_node] ?
-              send("#{dom_class(statement_node)}_url",session[:last_statement_node]) : (statement_node.parent or discuss_url),
+              send("#{type}_url",session[:last_statement_node]) : (statement_node.parent or discuss_url),
             :class => 'ajax text_button cancel_text_button'
   end
 
+  # Creates the cancel button in the edit statement form
   def cancel_edit_statement_node(statement_node, locked_at,type = dom_class(statement_node))
     link_to I18n.t('application.general.cancel'),
             cancel_url(statement_node, type, :locked_at => locked_at.to_s),
@@ -185,6 +211,7 @@ module StatementsHelper
   # Sugar & UI #
   ##############
 
+  # Loads the right add statement image 
   def statement_form_illustration(statement_node)
     image_tag("page/discuss/add_#{dom_class(statement_node)}_big.png",
               :class => 'statement_form_illustration')
@@ -200,56 +227,58 @@ module StatementsHelper
   # (support ratio is the calculated ratio for a statement_node,
   # representing and visualizing the agreement a statement_node has found within the community)
   def supporter_ratio_bar(statement_node, show_label = false)
-    if statement_node.supporter_count < 2
-      label = I18n.t('discuss.statements.echo_indicator.one',
-                     :supporter_count => statement_node.supporter_count)
-    else
-      label = I18n.t('discuss.statements.echo_indicator.many',
-                     :supporter_count => statement_node.supporter_count)
+    # TODO:How to spare calculating this label two times (see next method, they're almost always sequencially triggered)
+    if show_label 
+      label = supporters_number(statement_node)
     end
-
-    html = ''.html_safe!
-    if show_label
-      if statement_node.ratio > 1
-        html += content_tag :span, '', :class => "echo_indicator", :alt => statement_node.ratio
-      else
-        html += content_tag :span, '', :class => "no_echo_indicator"
-      end
-      html += content_tag :span, label, :class => "supporters_label"
+    
+    extra_classes = show_label ? 'supporters_bar ttLink' : 'supporters_bar'
+    if !statement_node.nil? and (statement_node.new_record? or statement_node.ratio > 1)
+      content_tag(:span, '', :class => "echo_indicator #{extra_classes}", :title => label, 
+                  :alt => statement_node.new_record? ? 10 : statement_node.ratio)
     else
-      if statement_node.ratio > 1
-        html += content_tag :span, '', :class => "echo_indicator ttLink", :title => label, :alt => statement_node.ratio
-      else
-        html += content_tag :span, '', :class => "no_echo_indicator ttLink", :title => label
-      end
+      content_tag(:span, '', :class => "no_echo_indicator #{extra_classes}",:title => label)
     end
-
-    html
+  end
+  
+  # inserts a supporters label with the supporters number of this statement
+  def supporters_label(statement_node, show_label = false)
+    return unless show_label
+    label = supporters_number(statement_node)
+    content_tag(:span, label, :class => "supporters_label") 
+  end
+  
+  # returns the right line that shows up below the ratio bar (1 supporter, 2 supporters...)
+  def supporters_number(statement_node)
+    I18n.t("discuss.statements.echo_indicator.#{ statement_node.supporter_count == 1 ? 'one' : 'many'}",
+           :supporter_count => statement_node.new_record? ? 1 : statement_node.supporter_count)
   end
 
   # Renders the button for echo and unecho.
   def render_echo_button(statement_node, echo = true, type = dom_class(statement_node))
     return if !statement_node.echoable?
-    title = I18n.t("discuss.tooltips.#{echo ? '' : 'un'}echo")
     link_to(url_for(echo ? echo_url(statement_node,type) : unecho_url(statement_node,type)),
                     :class => "ajax_put",
                     :id => 'echo_button') do
-       content_tag :span, '', :class => "#{echo ? 'not_' : '' }supported ttLink no_border", :title => "#{title}"
+      echo_tag(echo)
     end
     tag("br")
   end
 
+  # renders the echo/unecho button element
+  def echo_tag(echo, extra_classes = '')
+    title = I18n.t("discuss.tooltips.#{echo ? '' : 'un'}echo")
+    content_tag :span, '', :class => "#{echo ? 'not_' : '' }supported ttLink no_border #{extra_classes}", :title => "#{title}"
+  end
+
+
   # Returns the context menu link for this statement_node.
   def statement_node_context_link(statement_node, language_ids, action = 'read', last_statement_node = false)
     return if (statement_document = statement_node.document_in_preferred_language(language_ids)).nil?
-    link = link_to(h(statement_document.title),
-                   url_for(statement_node),
-                   :class => "ajax no_border statement_link #{dom_class(statement_node)}_link ttLink",
-                   :title => I18n.t("discuss.tooltips.#{action}_#{dom_class(statement_node)}"))
-    if statement_node.echoable?
-      link << supporter_ratio_bar(statement_node, last_statement_node)
-    end
-    return link
+    link_to(h(statement_document.title),
+             url_for(statement_node),
+             :class => "ajax no_border statement_link #{dom_class(statement_node)}_link ttLink",
+             :title => I18n.t("discuss.tooltips.#{action}_#{dom_class(statement_node)}"))
   end
 
 
@@ -258,26 +287,19 @@ module StatementsHelper
   ##############
 
   # Insert prev/next buttons for the current statement_node.
-  def prev_next_buttons(statement_node,type = dom_class(statement_node))
-    return "#{statement_tag(:prev, type, true)}#{statement_tag(:next, type, true)}" if statement_node.new_record?
-    key = ("current_" + type).to_sym
-    if session[key].present? and session[key].include?(statement_node.id)
-      index = session[key].index(statement_node.id)
-      buttons = if session[key].length == 1 or statement_node.new_record?
-                  statement_tag(:prev, type, true)
-                else
-                  s = index == 0 ? session[key][session[key].length-1] : session[key][index-1]
-                  statement_button(s, statement_tag(:prev, type), :rel => 'prev', :class => '')
-                end
-      buttons << if session[key].length == 1 or statement_node.new_record?
-                   statement_tag(:next, type, true)
-                 else
-                   s = index == session[key].length-1 ? session[key][0] : session[key][index+1]
-                   statement_button(s, statement_tag(:next, type), :rel => 'next', :class => '')
-                 end
+  def prev_next_buttons(statement_node, extra_classes = '', type = dom_class(statement_node))
+    buttons = ''
+    if statement_node.nil?
+      %w(prev next).each{|b| buttons << statement_button(nil, statement_tag(b.to_sym, type), :rel => b, :class => " statement_link #{extra_classes} #{b}")}
+    elsif statement_node.new_record?
+      %w(prev next).each{|b| buttons << statement_tag(b.to_sym, type, true)}
+    else
+      %w(prev next).each{|b| buttons << statement_button(statement_node, statement_tag(b.to_sym, type), :rel => b, :class => " statement_link #{extra_classes} #{b}")}
     end
+    buttons
   end
 
+  # Renders the correct prev/next image buttons
   def statement_tag(direction, class_identifier, disabled=false)
     if !disabled
       content_tag(:span, '&nbsp;',
@@ -292,19 +314,22 @@ module StatementsHelper
   # Insert a button that links to the previous statement_node
   # TODO AR from the helper stinks, but who knows a better way to get the right url?
   # maybe one could code some statement_node.url method..?
-  def statement_button(id, title, options={})
-    stmt = StatementNode.find(id)
+  def statement_button(current_node, title, options={})
     options[:class] ||= ''
-    options[:class] += !stmt.taggable? ? ' ajax' : ''
-    return link_to(title, url_for(stmt), options)
+    options['data-id'] = current_node.nil? ? '' : current_node.id
+    url = current_node.nil? ? '' : url_for(current_node)
+    return link_to(title, url, options)
   end
 
-  def link_to_child(title,statement_node,extra_classes, type = dom_class(statement_node))
+  
+  # Loads the link to a given statement, placed in the child panel section
+  def link_to_child(title, statement_node,extra_classes, type = dom_class(statement_node))
     link_to h(title),
             statement_node_url(statement_node, type, :new_level => true),
-            :class => "ajax statement_link #{dom_class(statement_node)}_link #{extra_classes}"
+            :class => "statement_link #{dom_class(statement_node)}_link #{extra_classes}"
   end
-
+  
+  # Loads images for the translation box
   def translation_upper_box(language_from, language_to)
     val = "#{image_tag 'page/translation/babelfish_left.png', :class => 'fish_left'}"
     val << (content_tag :span, language_from, :class => 'language_label from_language')

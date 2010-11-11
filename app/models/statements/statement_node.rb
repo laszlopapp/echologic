@@ -46,7 +46,7 @@ class StatementNode < ActiveRecord::Base
   ##
   ## NAMED SCOPES
   ##  
-  %w(question proposal improvement_proposal).each do |type|
+  %w(discussion proposal improvement_proposal).each do |type|
     class_eval %(
       named_scope :#{type.pluralize}, lambda{{ :conditions => { :type => '#{type.camelize}' } } }
     )

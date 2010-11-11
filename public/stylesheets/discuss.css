@@ -1,4 +1,5 @@
 
+
 /* -------------- */
 /* Pilot projects */
 /* -------------- */
@@ -15,7 +16,7 @@
 /* Search */
 /* ------ */
 
-#discuss_search_container .new_question {
+#discuss_search_container .new_discussion {
   position: absolute;
   top: -25px;
 }
@@ -62,6 +63,7 @@ form.formtastic fieldset .rte-zone li {
   float: left;
   width: 25px;
   margin: 5px 2px;
+	padding-left: 0px;
 }
 
 form.formtastic fieldset .rte-zone li.separator {
@@ -88,7 +90,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* New and Edit Statements forms */
 /* ----------------------------- */
 
-#statements form.formtastic fieldset #question_editorial_state_id_input li {
+#statements form.formtastic fieldset #discussion_editorial_state_id_input li {
   width: 700px;
 }
 
@@ -100,7 +102,7 @@ form.statement p {
   cursor: default;
 }
 
-form.statement #question_state_id_input li {
+form.statement #discussion_state_id_input li {
   width: 700px;
 }
 
@@ -116,6 +118,31 @@ form.statement .discuss_right_block {
   float: right;
   margin: 0px 35px 0 30px;
   border: none;
+}
+
+form.discussion .header li {
+  background:transparent url(../images/page/discuss/discussion_small.png) no-repeat scroll 0 0;	
+}
+form.proposal .header li {
+  background:transparent url(../images/page/discuss/proposal_small.png) no-repeat scroll 0 0; 
+}
+form.improvement_proposal .header li {
+  background:transparent url(../images/page/discuss/improvement_proposal_small.png) no-repeat scroll 0 0; 
+}
+
+form.statement fieldset ol li {
+  padding-left: 21px;
+  background-position:0 3px;
+}
+
+form.translation fieldset ol li {
+	padding-left: 0px;
+}
+
+form.statement fieldset ol span.defaultText {
+	position: absolute;
+	left: 4px;
+	top: 31px;
 }
 
 /* ------- */
@@ -148,7 +175,8 @@ form.statement .discuss_right_block {
   overflow: visible;
 }
 
-#statements .header_link {
+#statements .header_link,
+#statements .add_header_link {
   display: inline-block;
   min-height: 30px;
   width: 835px;
@@ -156,6 +184,10 @@ form.statement .discuss_right_block {
   position: relative;
   top: 12px;
   margin-bottom: 4px;
+}
+
+#statements .add_header_link {
+	margin-top: 5px;
 }
 
 #statements .header_link .statement_link {
@@ -433,16 +465,20 @@ a.statement_link {
   margin-bottom: 5px;
 }
 
+.header_buttons a.statement_link {
+	padding-left: 0px !important;
+}
+
 a.statement_link:hover {
   color: #7bb031;
 }
 
-.question_links {
+.discussion_links {
   list-style:none;
 }
 
-.question_link {
-   background:transparent url(../images/page/discuss/question_small.png) no-repeat scroll 0 0;
+.discussion_link {
+   background:transparent url(../images/page/discuss/discussion_small.png) no-repeat scroll 0 0;
 }
 
 .proposal_link {
@@ -453,7 +489,7 @@ a.statement_link:hover {
   background:transparent url(../images/page/discuss/improvement_proposal_small.png) no-repeat scroll 0 0;
 }
 
-.create_question_button {
+.create_discussion_button {
   background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
 
@@ -477,8 +513,8 @@ a.statement_link:hover {
   text-decoration: underline;
 }
 
-.create_question_button_mid {
-  background: transparent url(../images/page/discuss/add_question_mid.png) no-repeat scroll 0 0;
+.create_discussion_button_mid {
+  background: transparent url(../images/page/discuss/add_discussion_mid.png) no-repeat scroll 0 0;
 }
 
 .create_proposal_button_mid {
@@ -489,7 +525,7 @@ a.statement_link:hover {
   background: transparent url(../images/page/discuss/add_improvement_proposal_mid.png) no-repeat scroll 0 0;
 }
 
-.create_question_button_mid:hover, .create_proposal_button_mid:hover, .create_improvement_proposal_button_mid:hover {
+.create_discussion_button_mid:hover, .create_proposal_button_mid:hover, .create_improvement_proposal_button_mid:hover {
  background-position: 0 -55px;
 }
 
@@ -652,14 +688,18 @@ a.statement_link:hover {
 
 }
 
-#statement_tags_container .form_container {
-	display:inline-block;
-	margin:7px 0 25px;
-	vertical-align:top;
-	width:395px;
+form.statement fieldset ol li.tags_container {
+	width: 609px;
 }
 
-#statement_tags_container .label {
+.tags_container .form_container {
+	display:inline-block;
+	margin:7px 12px 25px 0px;
+	vertical-align:top;
+	width:334px;
+}
+
+.tags_container .label {
   color: #7bb031;
   font-size: 15px;
   font-weight: bold;
@@ -668,13 +708,13 @@ a.statement_link:hover {
   cursor: default;
 }
 
-#statement_tags_container #tag_topic_id {
+.tags_container #tag_topic_id {
   width: 250px !important;
   padding: 2px 0;
   color: #21587F;
 }
 
-#statement_tags_container .add_text_button {
+.tags_container .add_text_button {
 	display: inline-block;
   position: relative;
   top: -2px;
@@ -685,7 +725,7 @@ a.statement_link:hover {
 /* MY DISCUSSIONS AREA */
 /***********************/
 
-#my_discussions .new_question {
+#my_discussions .new_discussion {
   width: 55px;
   height: 55px;
   margin: 40px 0 0 37px !important;
@@ -700,7 +740,7 @@ a.statement_link:hover {
 	float: left;
 }
 
-#discussion_list li.question {
+#discussion_list li.discussion {
 	width: 100%;
   height: 52px;
   margin: 4px 0;

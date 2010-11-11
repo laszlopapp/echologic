@@ -1,9 +1,9 @@
 require 'test_helper'
 
-class QuestionsControllerTest < ActionController::TestCase
+class DiscussionsControllerTest < ActionController::TestCase
   def setup
     login_as :editor
-    @controller = QuestionsController.new
+    @controller = DiscussionsController.new
   end
 
   test "should get My Discussions" do
@@ -13,12 +13,12 @@ class QuestionsControllerTest < ActionController::TestCase
 
   test "should publish non published debate" do
     prev_published = StatementNode.published(false).count
-    put :publish, :id => statement_nodes(:non_published_question).to_param
+    put :publish, :id => statement_nodes(:non_published_discussion).to_param
     assert_equal StatementNode.published(false).count, prev_published+1
   end
   
   test "should get the statement node authors" do
-    @statement_node = Question.first
+    @statement_node = Discussion.first
     get :authors,:id => @statement_node.id
     assert_response :success
   end

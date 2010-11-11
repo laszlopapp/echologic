@@ -344,22 +344,22 @@ en:
       in: '... in {{category}} ...'
 
     tooltips:
-      read_question: 'Go to this question'
+      read_discussion: 'Go to this question'
       read_proposal: 'Read this proposal'
       read_improvement_proposal: 'Read this improvement proposal'
-      current_question: 'The currently displayed question'
+      current_discussion: 'The currently displayed question'
       current_proposal: 'The currently displayed proposal'
       current_improvement_proposal: 'The currently displayed improvement proposal'
-      back_to_question: 'Back to current question'
+      back_to_discussion: 'Back to current question'
       back_to_proposal: 'Back to current proposal'
       back_to_improvement_proposal: 'Back to current improvement proposal'
-      prev_question: 'Read previous question'
-      next_question: 'Read next question'
+      prev_discussion: 'Read previous question'
+      next_discussion: 'Read next question'
       prev_proposal: 'Read previous proposal for the current question'
       next_proposal: 'Read next proposal for the current question'
       prev_improvement_proposal: 'Read previous improvement proposal for the current proposal'
       next_improvement_proposal: 'Read next improvement proposal for the current proposal'
-      create_question: 'Open a new discussion'
+      create_discussion: 'Open a new discussion'
       create_proposal: "Post a new idea concerning the current question"
       create_improvement_proposal: "Post a new idea to improve the current proposal"
       echo: 'echo this statement to support it!'
@@ -374,11 +374,11 @@ en:
       echo_indicator:
         one: '{{supporter_count}} supporter'
         many: '{{supporter_count}} supporters'
-      create_question_link: 'Open a new discussion'
+      create_discussion_link: 'Open a new discussion'
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
       create_improvement_proposal_link: Add new improvement proposal
-      create_question_explanation: |
+      create_discussion_explanation: |
         Here you can open a <strong>new discussion</strong> and tag it with some <strong>relevant keywords</strong>
         for better searchability.
       create_proposal_explanation: |
@@ -396,21 +396,24 @@ en:
         This will enable you to enter statements in any language you speak at least at intermediate level.
       drafting_language_hint: |
         Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
+      title_hint: 'Please enter title here...'
+      text_hint: 'Please enter text here...'
+      tag_hint: 'Please enter tag here...'
 
       publish: Release
       published: Discussion has been released successfully.
       edit: 'Edit {{type}}'
 
       types:
-        question:  'Question'
+        discussion:  'Question'
         proposal:  'Proposal'
         improvement_proposal: 'Improvement Proposal'
       new:
-        question:  'New Discussion'
+        discussion:  'New Discussion'
         proposal:  'New Proposal'
         improvement_proposal: 'New Improvement Proposal'
       headings:
-        question: 'Questions'
+        discussion: 'Questions'
         proposal: 'Proposals'
         improvement_proposal: 'Improvement Proposals'
 
@@ -440,6 +443,10 @@ en:
         This {{type}} has just been updated by another person.
       statement_updated: |-
         This {{type}} has just been updated.
+      statement_supported: |-
+        Congratulations, you support this {{type}}.
+      statement_unsupported: |-
+        You just dropped your support from this {{type}}.
       edit_period_hint: |
         You have <strong>{{minutes}} minutes</strong> to edit the statement.
         Afterwards, your modifications might even get discarded.
@@ -451,6 +458,10 @@ en:
         progress: The image is being uploaded. Please wait...
         error: The image couldn't be applied. Please upload a supported format (JPG or PNG and max. 5MB).
 
+      add_teaser:
+        text: |
+          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
     summary:
       title: 'Summary'
 
@@ -585,7 +596,7 @@ en:
         index: 'Index'
 
     models:
-      question: "question"
+      discussion: "question"
       proposal: "proposal"
       improvement_proposal: "improvement proposal"
 

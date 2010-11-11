@@ -2,8 +2,8 @@
 <% tags ||= @tags %>
 
 <% semantic_form_for statement_node, :html => {:class => "ajax_form incorporate wide_form statement"} do |form| -%>
-  <%= render :partial => 'statements/form_header', :locals => {:form => form, :statement_node => statement_node} %>
-	<%= render :partial => 'statements/form_content', :locals => {:form_partial => 'statements/proposals/incorporation_form', 
+  <%= render :partial => 'statements/form/form_header', :locals => {:form => form, :statement_node => statement_node} %>
+	<%= render :partial => 'statements/form/form_content', :locals => {:form_partial => 'statements/form/incorporation_form', 
                                                                 :form => form, 
                                                                 :statement_node => statement_node} %>
 <% end -%>

@@ -2,7 +2,7 @@
 Feature: Take Part on a discussion
   In order to take part on a discussion
   As a user
-  I want to give different kind of statements on questions
+  I want to give different kind of statements on discussions
 
 
   # Within the discuss area the list of debates should be
@@ -15,46 +15,46 @@ Feature: Take Part on a discussion
      And I am on the Discuss Index
      When I follow "Featured"
      When I follow "echonomyJAM"
-       When I choose the first Question
+       When I choose the first Discussion
      And I am on the Discuss Index
      When I follow "Featured"
      When I follow "echonomyJAM"
-       When I choose the second Question
-     Then the second question must be more recent than the first question
+       When I choose the second Discussion
+     Then the second discussion must be more recent than the first discussion
 
 
   @ok
-  Scenario: Open a question
+  Scenario: Open a discussion
     Given I am logged in as "user" with password "true"
       And I am on the Discuss Index
     When I follow "Featured"
     When I follow "echonomyJAM"
-      And I choose the first Question
-    Then I should see the questions title
+      And I choose the first Discussion
+    Then I should see the discussions title
 
   @ok
-  Scenario: Add a proposal to a question
+  Scenario: Add a proposal to a discussion
     Given I am logged in as "user" with password "true"
-      And there is the first question
-      And the question has no proposals
+      And there is the first discussion
+      And the discussion has no proposals
       And I am on the Discuss Index
     When I follow "Featured"
     When I follow "echonomyJAM"
-      And I choose the first Question
+      And I choose the first Discussion
       And I follow localized "discuss.statements.create_proposal_link"
       And I fill in the following:
         | proposal_statement_document_title | a proposal to propose some proposeworthy proposal data |
         | proposal_statement_document_text | nothing to propose yet...                              |
       And I press "Save"
       Then I should see "a proposal to propose some"
-      And the question should have one proposal
+      And the discussion should have one proposal
 
   @ok
   Scenario: Add an Improvement Proposal to a Proposal
     Given I am logged in as "user" with password "true"
-      And there is the first question
-      And the question has at least on proposal
-    When I go to the questions first proposal
+      And there is the first discussion
+      And the discussion has at least on proposal
+    When I go to the discussions first proposal
       And I follow "create_improvement_proposal_link"
       And I fill in the following:
       | improvement_proposal_statement_document_title           | Improving the unimprovable                                           |
@@ -78,7 +78,7 @@ Feature: Take Part on a discussion
     Then I should see "my updated proposal"
 
 
-# Open Questions:
+# Open Discussions:
 
 # * should we always display in which other languages the statement might also exist, or always trust that the order of languages the user speaks is right"?
 # ** Do we have an order of languages anyway? If the user can only use checkboxes for selecting languages she speaks, it's impossible to figure out more order than local language, other languages.
@@ -95,13 +95,13 @@ Feature: Take Part on a discussion
        And I should see localized "discuss.statements.create_improvement_proposal_link"
 
 
-   Scenario: Question has only proposals in german, which will not be seen by a user with no defined german language
+   Scenario: Discussion has only proposals in german, which will not be seen by a user with no defined german language
     Given I am logged in as "red" with password "red"
       And I am on the Discuss Index
     When I follow "Featured"
     When I follow "echonomyJAM"
-      And I choose the "I only have kids in German" Question
-      And the question has proposals
+      And I choose the "I only have kids in German" Discussion
+      And the discussion has proposals
       Then I should see no proposals
 
 
@@ -110,7 +110,7 @@ Feature: Take Part on a discussion
       And I am on the discuss index
     When I follow "Featured"
       And I follow "echonomyJAM"
-      And I choose the "Test Question2?" Question
+      And I choose the "Test Discussion2?" Discussion
       And I choose the "A first proposal!" Proposal
       And the proposal has an approved child
       And I go to the proposal
@@ -126,26 +126,26 @@ Feature: Take Part on a discussion
 
   Scenario: User tries to edit, gets out of the form and editor can't edit it
     Given I am logged in as "user" with password "true"
-      And there is a question i have created
-      And the question was not published yet
-    When I go to the question
+      And there is a discussion i have created
+      And the discussion was not published yet
+    When I go to the discussion
       And I follow "Edit"
       And I follow "Logout"
     Given I am logged in as "editor" with password "true"
-    When I go to the question
+    When I go to the discussion
       And I follow "Edit"
     Then I should see "The statement is currently being edited. Please try again later."
 
   Scenario: User tries to edit, cancels and editor can edit it
     Given I am logged in as "user" with password "true"
-      And there is a question i have created
-      And the question was not published yet
-    When I go to the question
+      And there is a discussion i have created
+      And the discussion was not published yet
+    When I go to the discussion
       And I follow "Edit"
       And I follow "Cancel"
       And I follow "Logout"
     Given I am logged in as "editor" with password "true"
-    When I go to the question
+    When I go to the discussion
       And I follow "Edit"
     Then I should not see "The statement is currently being edited. Please try again later."
 
@@ -154,7 +154,7 @@ Feature: Take Part on a discussion
       And I am on the discuss index
     When I follow "Featured"
       And I follow "echonomyJAM"
-      And I choose the "Test Question2?" Question
+      And I choose the "Test Discussion2?" Discussion
       And I choose the "A first proposal!" Proposal
       And the proposal has an approved child
       And I go to the proposal
@@ -170,7 +170,7 @@ Feature: Take Part on a discussion
     When I am on the discuss index
       And I follow "Featured"
       And I follow "echonomyJAM"
-      And I choose the "Test Question2?" Question
+      And I choose the "Test Discussion2?" Discussion
       And I choose the "A first proposal!" Proposal
       And I follow "Edit"
       And I follow "Logout"

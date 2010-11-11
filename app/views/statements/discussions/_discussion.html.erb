@@ -1,0 +1,10 @@
+<% @discussion = discussion if defined?(discussion) %>
+<% discussion_document = @statement_documents[@discussion.statement_id] %>
+<li id="<%= dom_id(@discussion) %>" class="content discussion">
+    <% long_title = discussion_document.title.length > 70 %>
+    <span class="name">
+      <%=h (long_title ? discussion_document.title[0,69]+"..." : discussion_document.title)%>
+    </span>
+    <br/>
+		<% link_to_discussion(discussion_document.title, @discussion, long_title) %>
+</li>

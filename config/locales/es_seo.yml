@@ -49,7 +49,7 @@ es:
       discuss:
         index: 'echo - Discutir'
         roadmap: 'echo - Desarrollo de discutir'
-      questions:
+      discussions:
         category: 'echo - Temas de discusión'
         show: 'echo - Debates'
         new: 'Crear nueva discusión'

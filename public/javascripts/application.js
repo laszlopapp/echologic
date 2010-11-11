@@ -5,6 +5,8 @@
 /* Do init stuff. */
 $(document).ready(function () {
 	
+	$.fragmentChange(true);
+	
 	makeRatiobars();
 	
   makeTooltips();

@@ -1,0 +1,30 @@
+<% if defined? @info %>
+  info('<%=@info%>') 
+<% end %>
+<% if defined? @error %>
+  info('<%=@error%>') 
+<% end %>
+
+/* history handling */
+<% if !params[:sid].blank? %>
+  var stack = "<%= params[:sid] %>".split(",");
+  <% @ancestors.each_with_index do |ancestor, index| %>
+    var ancestor = stack[<%= index %>];
+    var ancestor_element = $('#statements div#'+ancestor);
+    /* if not rendered, than render */
+    if(ancestor_element.length == 0) {
+      renderAncestor(ancestor, "<%= escape_javascript(render_ancestor(ancestor)) %>");
+    } else {
+      collapseStatement(ancestor_element);
+    }
+  <% end %>
+<% end %>
+
+class_element = $('#statements div.<%= @type %>');
+if(class_element.length == 0){class_element = $('#statements form.<%= @type %>');};
+
+var add_teaser = "<%= escape_javascript(render :partial => 'statements/add') %>";
+replaceOrInsert(class_element, add_teaser);
+
+/* Remove all elements from the same class or children class */
+removeChildrenStatements($('#statements div.<%= @type %>'));

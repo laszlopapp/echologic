@@ -3,7 +3,7 @@
     <%= render :partial => 'statements/child', :collection => children %>
 
     <%if children.blank? or children.current_page == children.total_pages %>
-        <%= create_new_statement_link(@statement_node,type) %>
+        <%= content_tag :li, create_new_child_statement_link(@statement_node,type) %>
     <%end%>
   </ul>
 	<div id="more_pagination" class="more_pagination">

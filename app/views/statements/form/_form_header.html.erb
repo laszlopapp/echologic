@@ -1,0 +1,16 @@
+<% statement_document ||= @statement_document %>
+<div class="header active">
+  <div class="header_buttons"><%= prev_next_buttons(statement_node) %></div>
+	<div class="header_link">
+		<% form.inputs do %>
+			<% form.semantic_fields_for :statement_document, statement_document do |doc|  %>
+	      <%= doc.input :title, :label => false, :input_html => {:class => 'focus', 
+                                                               'data-default' => I18n.t('discuss.statements.title_hint')}%>
+			<% end %>
+	  <% end %>
+		<% if statement_node.echoable? %>
+		  <%= supporter_ratio_bar(statement_node, true) %>
+			<%= supporters_label(statement_node, true) %>
+    <% end %>
+  </div>
+</div>

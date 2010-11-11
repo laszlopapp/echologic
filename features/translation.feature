@@ -8,7 +8,7 @@ Feature: Translation permission
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the "Test Question" Question
+      And I choose the "Test Discussion" Discussion
     Then I should not see "Please translate this statement to ENGLISH"
     
   @ok
@@ -17,7 +17,7 @@ Feature: Translation permission
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the "Test Question" Question
+      And I choose the "Test Discussion" Discussion
     Then I should not see "Please translate this statement to ENGLISH"
     
   @ok
@@ -26,7 +26,7 @@ Feature: Translation permission
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the "Test Question" Question
+      And I choose the "Test Discussion" Discussion
     Then I should not see "Please translate this statement to ENGLISH"
     
   @ok
@@ -35,7 +35,7 @@ Feature: Translation permission
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the "Test Question" Question
+      And I choose the "Test Discussion" Discussion
     Then I should not see "Please translate this statement to ENGLISH"
   
   @ok
@@ -52,7 +52,7 @@ Feature: Translation permission
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the "Andere Frage?" Question
+      And I choose the "Andere Frage?" Discussion
     Then I should see "Andere Frage?"
     Then I should not see "Please translate this statement to ENGLISH"
     
@@ -62,7 +62,7 @@ Feature: Translation permission
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the "Andere Frage?" Question
+      And I choose the "Andere Frage?" Discussion
     Then I should see "Andere Frage?"
     Then I should not see "Please translate this statement to ENGLISH"
     
@@ -72,7 +72,7 @@ Feature: Translation permission
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the "Andere Frage?" Question
+      And I choose the "Andere Frage?" Discussion
     Then I should see "Andere Frage?"
     Then I should see "Please translate this statement to ENGLISH"
     
@@ -83,10 +83,10 @@ Feature: Translation permission
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the "Andere Frage?" Question
+      And I choose the "Andere Frage?" Discussion
       And I follow "Please translate this statement to ENGLISH"
       And I fill in the following:
-        | question_new_statement_document_title | Another Question? |
+        | discussion_new_statement_document_title | Another Discussion? |
       And I press "Save"
     Then I should see "The field 'Summary' must not be empty."
     
@@ -96,24 +96,24 @@ Feature: Translation permission
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the "Andere Frage?" Question
+      And I choose the "Andere Frage?" Discussion
       And I follow "Please translate this statement to ENGLISH"
       And I fill in the following:
-        | question_new_statement_document_text | new statement to ENGLISH |
+        | discussion_new_statement_document_text | new statement to ENGLISH |
       And I press "Save"
     Then I should see "The field 'Title' must not be empty."
     
   @ok
-  Scenario: luise succeeds in translating a question
+  Scenario: luise succeeds in translating a discussion
     Given I am logged in as "luise" with password "luise"
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the "Andere Frage?" Question
+      And I choose the "Andere Frage?" Discussion
       And I follow "Please translate this statement to ENGLISH"
       And I fill in the following:
-        | question_new_statement_document_title | Another Question? |
-        | question_new_statement_document_text | new statement to ENGLISH |
+        | discussion_new_statement_document_title | Another Discussion? |
+        | discussion_new_statement_document_text | new statement to ENGLISH |
       And I press "Save"
     Then I should see "new statement to ENGLISH"
     
@@ -123,7 +123,7 @@ Feature: Translation permission
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the "Andere Frage?" Question
+      And I choose the "Andere Frage?" Discussion
       And I choose the "Vorschlag auf Deutsch" Proposal
       And I follow "Please translate this statement to ENGLISH"
       And I fill in the following:
@@ -138,7 +138,7 @@ Feature: Translation permission
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the "Andere Frage?" Question
+      And I choose the "Andere Frage?" Discussion
       And I choose the "Vorschlag auf Deutsch" Proposal
       And I choose the "Verbesserungsvorschlag auf Deutsch" Improvement Proposal
       And I follow "Please translate this statement to ENGLISH"
@@ -149,11 +149,11 @@ Feature: Translation permission
     Then I should see "new statement to ENGLISH"
   
   @ok
-  Scenario: illiterate doesn't speak any languages, and sees a warning when he chooses a question which original language is german
+  Scenario: illiterate doesn't speak any languages, and sees a warning when he chooses a discussion which original language is german
     Given I am logged in as "illiterate" with password "illiterate"
     When I am on the Discuss Index
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the "Raindrops keep falling on my head" Question     
+      And I choose the "Raindrops keep falling on my head" Discussion     
     Then I should see "The original statement is in GERMAN. Set your language skills to see content in other languages."
     

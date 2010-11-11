@@ -2,19 +2,19 @@ require File.join(File.dirname(__FILE__), "/spec_helper" )
 
 describe Statement do
   
-  context "creating a question" do
+  context "creating a discussion" do
     before(:each) do 
       @user = User.find_by_email("editor@echologic.org")
-      @document = StatementDocument.new(:title => 'Is it a question?', :text => 'The question is, is this a question?') 
-      @statement_node = Question.new(:creator => @user, :document =>  @document)
+      @document = StatementDocument.new(:title => 'Is it a discussion?', :text => 'The discussion is, is this a discussion?') 
+      @statement_node = Discussion.new(:creator => @user, :document =>  @document)
     end
     
     it "should be valid" do
       @statement_node.should be_valid
     end
     
-    it "should be of Type 'Question'" do
-      @statement_node.class.name.should == "Question"  
+    it "should be of Type 'discussion'" do
+      @statement_node.class.name.should == "Discussion"  
     end
     
     it "should have an creator" do
@@ -31,8 +31,8 @@ describe Statement do
       @statement_node.should_not be_valid
     end
     
-    it "should not save without a valid parent (Question or none)" do
-      @statement_node.parent = Question.first
+    it "should not save without a valid parent (Discussion or none)" do
+      @statement_node.parent = Discussion.first
       @statement_node.should be_valid
       @statement_node.parent = Proposal.first
       @statement_node.should_not be_valid
@@ -44,19 +44,19 @@ describe Statement do
       @statement_node.root_id = nil
       @statement_node.parent = nil
       @statement_node.should be_valid
-      @statement_node.parent = Question.first
+      @statement_node.parent = Discussion.first
       @statement_node.should_not be_valid
-      @statement_node.root_id_ = Question.first.id
+      @statement_node.root_id_ = Discussion.first.id
       @statement_node.should be_valid
     end
     
   end
   
-  context "creating a proposal for a question" do
+  context "creating a proposal for a discussion" do
     before(:each) do
       @user = User.find_by_email("editor@echologic.org")
-      @document = StatementDocument.new(:title => 'A proposal', :text => 'For every question, theres a proposal!') 
-      @statement_node = Proposal.new(:parent => Question.first, :creator => @user, :document => @document)
+      @document = StatementDocument.new(:title => 'A proposal', :text => 'For every discussion, theres a proposal!') 
+      @statement_node = Proposal.new(:parent => Discussion.first, :creator => @user, :document => @document)
     end
     
     it "should be valid" do
@@ -67,7 +67,7 @@ describe Statement do
       @statement_node.class.name.should == 'Proposal'
     end
     
-    it "should not save without a valid parent (a question)" do
+    it "should not save without a valid parent (a discussion)" do
       @statement_node.parent = nil
       @statement_node.should_not be_valid
       @statement_node.parent = Proposal.first
@@ -101,26 +101,26 @@ describe Statement do
   
   context "loading a statement_node" do
     before(:each) do
-      @question = Question.first
+      @discussion = Discussion.first
     end
     
     it "should have an User associated as a creator" do
-      @question.creator.class.name.should == 'User'
+      @discussion.creator.class.name.should == 'User'
     end
     
     it "should have a StatementDocument associated as a document" do
-      @question.document.class.name.should == 'StatementDocument'
+      @discussion.document.class.name.should == 'StatementDocument'
     end
   end  
   
-  context "loading a question that already has proposals" do
+  context "loading a discussion that already has proposals" do
     before(:each) do
-      # we know that the first Question has two proposals already
-      @question = Question.first
+      # we know that the first Discussion has two proposals already
+      @discussion = Discussion.first
     end
     
     it "should have proposals accessible through .children.proposals" do
-      @question.children.proposals.any?.should be_true
+      @discussion.children.proposals.any?.should be_true
     end
   end
   

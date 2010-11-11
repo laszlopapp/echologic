@@ -3,11 +3,10 @@
 <% statement_document ||= @statement_document %>
 
 <!-- Basic fields: title + text -->
-<%= render :partial => "statements/document_form",
+<%= render :partial => "statements/form/document_form",
            :locals => { :form => form,
                         :statement_node => statement_node,
                         :statement_document => statement_document } %>
-
 
 
 <!-- Approved document -->
@@ -15,15 +14,16 @@
 
 <% if statement_node.taggable? -%>
 
-  <!-- Statement tags (currently only for questions) -->
+  <!-- Statement tags (currently only for discussions) -->
   <% form.inputs do %>
-	  <%= render :partial => "statements/statement_tags",
+	  <%= render :partial => "statements/form/statement_tags",
                :locals => {:form => form,
                            :statement_node => statement_node,
                            :tags => tags}%>
 	<% end %>
 
   <!-- Published state radio buttons -->
+	
   <% if statement_node.new_record? -%>
     <% form.inputs do %>
       <%= form.input :editorial_state_id, :as => :radio, :label => I18n.t('discuss.statements.states.label'),
@@ -32,7 +32,7 @@
   <% end %>
 
 <% else -%>
-  <!-- All statement types but questions -->
+  <!-- All statement types but discussions -->
   <%= form.hidden_field :editorial_state_id, :value => StatementState[:published].id %>
 <% end -%>
 

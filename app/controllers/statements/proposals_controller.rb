@@ -39,13 +39,20 @@ class ProposalsController < StatementsController
       end
     end
   end
+  
+  
+  # Shows an add improvement proposal teaser page
+  #
+  # Method:   GET
+  # Params:   type: string
+  # Response: HTTP or JS
+  #
+  def add_improvement_proposal
+    add('improvement_proposal')
+  end
 
   protected
-  # return a possible parent, in this case it's a Question
-#  def parent
-#    Question.find(params[:question_id])
-#  end
-
+  
   #returns the handled statement type symbol
   def statement_node_symbol
     :proposal

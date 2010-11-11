@@ -1,12 +1,12 @@
-<% if !questions.blank? %>
+<% if !discussions.blank? %>
 
-  <%= I18n.t('mailers.activity_tracking.discussions.new_questions',
-             :count => questions.size,
+  <%= I18n.t('mailers.activity_tracking.discussions.new_discussions',
+             :count => discussions.size,
              :locale => @language.code) %>
   <ul>
-    <% questions.each do |question_event| %>
+    <% discussions.each do |discussion_event| %>
       <%
-         event_data = JSON.parse(question_event.event)
+         event_data = JSON.parse(discussion_event.event)
          title = nil
          title_language_code = nil
          @preferred_language_ids.each do |l_id|
@@ -20,7 +20,7 @@
          title_language_code ||= Language[event_data['documents'].to_a[0][0].to_i].code
       %>
       <li>
-				<%= link_to title, question_url(Question.find(event_data['id'])), :locale => title_language_code %>
+				<%= link_to title, discussion_url(Discussion.find(event_data['id'])), :locale => title_language_code %>
       </li>
     <% end %>
   </ul>

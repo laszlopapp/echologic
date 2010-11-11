@@ -1,62 +1,62 @@
-test-question-doc-english-history:
-  statement_document_id: <%= Fixtures.identify('test-question-doc-english') %>
-  statement_id: <%= Fixtures.identify('test-question-statement') %>
+test-discussion-doc-english-history:
+  statement_document_id: <%= Fixtures.identify('test-discussion-doc-english') %>
+  statement_id: <%= Fixtures.identify('test-discussion-statement') %>
   author_id: <%= Fixtures.identify(:editor) %>
   action_id: <%= Fixtures.identify('statement_action_created') %>
   
-test-question-2-doc-english-history:
-  statement_document_id: <%= Fixtures.identify('test-question-2-doc-english') %>
-  statement_id: <%= Fixtures.identify('test-question-2-statement') %>
+test-discussion-2-doc-english-history:
+  statement_document_id: <%= Fixtures.identify('test-discussion-2-doc-english') %>
+  statement_id: <%= Fixtures.identify('test-discussion-2-statement') %>
   author_id: <%= Fixtures.identify(:editor) %>
   action_id: <%= Fixtures.identify('statement_action_created') %>
 
-second-question-doc-english-history:
-  statement_document_id: <%= Fixtures.identify('second-question-doc-english') %>
-  statement_id: <%= Fixtures.identify('second-question-statement') %>
+second-discussion-doc-english-history:
+  statement_document_id: <%= Fixtures.identify('second-discussion-doc-english') %>
+  statement_id: <%= Fixtures.identify('second-discussion-statement') %>
   author_id: <%= Fixtures.identify(:editor) %>
   action_id: <%= Fixtures.identify('statement_action_created') %>
 
-third-question-doc-german-history:
-  statement_document_id: <%= Fixtures.identify('third-question-doc-german') %>
-  statement_id: <%= Fixtures.identify('third-question-statement') %>
+third-discussion-doc-german-history:
+  statement_document_id: <%= Fixtures.identify('third-discussion-doc-german') %>
+  statement_id: <%= Fixtures.identify('third-discussion-statement') %>
   author_id: <%= Fixtures.identify(:user) %>
   action_id: <%= Fixtures.identify('statement_action_created') %>
   
 original-language-doc-english-history:
   statement_document_id: <%= Fixtures.identify('original-language-doc-english') %>
-  statement_id: <%= Fixtures.identify('original-language-question-statement') %>
+  statement_id: <%= Fixtures.identify('original-language-discussion-statement') %>
   author_id: <%= Fixtures.identify(:user) %>
   action_id: <%= Fixtures.identify('statement_action_created') %>
   
 original-language-doc-german-history:
   statement_document_id: <%= Fixtures.identify('original-language-doc-german') %>
-  statement_id: <%= Fixtures.identify('original-language-question-statement') %>
+  statement_id: <%= Fixtures.identify('original-language-discussion-statement') %>
   author_id: <%= Fixtures.identify(:user) %>
   action_id: <%= Fixtures.identify('statement_action_translated') %>
   old_document_id: <%= Fixtures.identify('original-language-doc-english') %>
 
 with-german-children-doc-german-history:
   statement_document_id: <%= Fixtures.identify('with-german-children-doc-german') %>
-  statement_id: <%= Fixtures.identify('with-german-children-question-statement') %>
+  statement_id: <%= Fixtures.identify('with-german-children-discussion-statement') %>
   author_id: <%= Fixtures.identify(:user) %>
   action_id: <%= Fixtures.identify('statement_action_created') %>
   
 with-german-children-doc-english-history:
   statement_document_id: <%= Fixtures.identify('with-german-children-doc-english') %>
-  statement_id: <%= Fixtures.identify('with-german-children-question-statement') %>
+  statement_id: <%= Fixtures.identify('with-german-children-discussion-statement') %>
   author_id: <%= Fixtures.identify(:user) %>
   action_id: <%= Fixtures.identify('statement_action_translated') %>
   old_document_id: <%= Fixtures.identify('with-german-children-doc-german') %>
 
-non-published-question-doc-english-history:
-  statement_document_id: <%= Fixtures.identify('non-published-question-doc-english') %>
-  statement_id: <%= Fixtures.identify('non-published-question-statement') %>
+non-published-discussion-doc-english-history:
+  statement_document_id: <%= Fixtures.identify('non-published-discussion-doc-english') %>
+  statement_id: <%= Fixtures.identify('non-published-discussion-statement') %>
   author_id: <%= Fixtures.identify(:editor) %>
   action_id: <%= Fixtures.identify('statement_action_created') %>
 
-user-question-doc-english-history:
-  statement_document_id: <%= Fixtures.identify('user-question-doc-english') %>
-  statement_id: <%= Fixtures.identify('user-question-statement') %>
+user-discussion-doc-english-history:
+  statement_document_id: <%= Fixtures.identify('user-discussion-doc-english') %>
+  statement_id: <%= Fixtures.identify('user-discussion-statement') %>
   author_id: <%= Fixtures.identify(:user) %>
   action_id: <%= Fixtures.identify('statement_action_created') %>
 
@@ -132,18 +132,18 @@ german-impro-proposal-doc-english-history:
   author_id: <%= Fixtures.identify(:ben) %>
   action_id: <%= Fixtures.identify('statement_action_created') %>
 
-test-question-doc-german-history:
-  statement_document_id: <%= Fixtures.identify('test-question-doc-german') %>
-  statement_id: <%= Fixtures.identify('test-question-statement') %>
+test-discussion-doc-german-history:
+  statement_document_id: <%= Fixtures.identify('test-discussion-doc-german') %>
+  statement_id: <%= Fixtures.identify('test-discussion-statement') %>
   author_id: <%= Fixtures.identify(:editor) %>
-  old_document_id: <%= Fixtures.identify('test-question-doc-english') %>
+  old_document_id: <%= Fixtures.identify('test-discussion-doc-english') %>
   action_id: <%= Fixtures.identify('statement_action_translated') %>
 
-second-question-doc-german-history:
-  statement_document_id: <%= Fixtures.identify('second-question-doc-german') %>
-  statement_id: <%= Fixtures.identify('second-question-statement') %>
+second-discussion-doc-german-history:
+  statement_document_id: <%= Fixtures.identify('second-discussion-doc-german') %>
+  statement_id: <%= Fixtures.identify('second-discussion-statement') %>
   author_id: <%= Fixtures.identify(:editor) %>
-  old_document_id: <%= Fixtures.identify('second-question-doc-english') %>
+  old_document_id: <%= Fixtures.identify('second-discussion-doc-english') %>
   action_id: <%= Fixtures.identify('statement_action_translated') %>
 
 first-proposal-doc-german-history:

@@ -333,22 +333,22 @@ pt:
       in: '... em {{category}} ...'
 
     tooltips:
-      read_question: 'Ir para esta questão'
+      read_discussion: 'Ir para esta questão'
       read_proposal: 'Ler esta proposta'
       read_improvement_proposal: 'Ler esta proposta de melhoria'
-      current_question: 'A questão atualmente apresentada'
+      current_discussion: 'A questão atualmente apresentada'
       current_proposal: 'A proposta atualmente apresentada'
       current_improvement_proposal: 'A proposta de melhoria atualmente apresentada'
-      back_to_question: 'De volta à questão atual'
+      back_to_discussion: 'De volta à questão atual'
       back_to_proposal: 'De volta à proposta atual'
       back_to_improvement_proposal: 'De volta à proposta de melhoria atual'
-      prev_question: 'Ler questão anterior'
-      next_question: 'Ler questão seguinte'
+      prev_discussion: 'Ler questão anterior'
+      next_discussion: 'Ler questão seguinte'
       prev_proposal: 'Ler proposta anterior da questão atual'
       next_proposal: 'Ler proposta seguinte da questão atual'
       prev_improvement_proposal: 'Ler proposta de melhoria anterior à proposta atual'
       next_improvement_proposal: 'Ler proposta de melhoria seguinte à proposta atual'
-      create_question: 'Criar uma nova discussão'
+      create_discussion: 'Criar uma nova discussão'
       create_proposal: 'Criar nova proposta na questão atual'
       create_improvement_proposal: 'Criar nova proposta de melhoria à proposta atual'
       echo: "Apoie esta afirmação (dê o seu echo)!"
@@ -363,11 +363,11 @@ pt:
       echo_indicator:
         one: '{{supporter_count}} apoiante'
         many: '{{supporter_count}} apoiantes'
-      create_question_link: 'Criar uma nova discussão'
+      create_discussion_link: 'Criar uma nova discussão'
       create_proposal_link: 'Criar nova proposta'
       create_internal_link: 'Nova ideia?'
       create_improvement_proposal_link: 'Criar nova proposta de melhoria'
-      create_question_explanation: |
+      create_discussion_explanation: |
         Aqui pode começar uma <strong>nova discussão</strong> e providenciar um conjunto de <strong>palavras-chave
         temáticas</strong> adequadas de forma a esta ser facilmente encontrada.
       create_proposal_explanation: |
@@ -385,20 +385,24 @@ pt:
         Poderá desta forma introduzir conteúdo em qualquer língua na qual possua conhecimentos para além de um nível intermédio.
       drafting_language_hint: |
         Por favor tome nota de que o processo de elaboração coletiva desta proposta só irá ocorrer nesta língua!
+      title_hint: 'Please enter title here...'
+      text_hint: 'Please enter text here...'
+      tag_hint: 'Please enter tag here...'
+      
       publish: Publicar
       published: A discussão foi publicada com sucesso.
       edit: 'Editar {{type}}'
 
       types:
-        question:  'Questão'
+        discussion:  'Questão'
         proposal:  'Proposta'
         improvement_proposal: 'Proposta de melhoria'
       new:
-        question:  'Nova Discussão'
+        discussion:  'Nova Discussão'
         proposal:  'Nova Proposta'
         improvement_proposal: 'Nova Proposta de Melhoria'
       headings:
-        question: 'Questões'
+        discussion: 'Questões'
         proposal: 'Propostas'
         improvement_proposal: 'Propostas de Melhoria'
 
@@ -428,6 +432,10 @@ pt:
         Esta {{type}} acabou de ser traduzida.
       statement_updated: |-
         Esta {{type}} acabou de ser actualizada.
+      statement_supported: |-
+        Congratulations, you support this {{type}}.
+      statement_unsupported: |-
+        You just dropped your support from this {{type}}.
       edit_period_hint: |
         <strong>Tem {{minutes}} minutos</strong> para editar a proposta.
         Depois de este tempo esgotar poderá perder as suas modificações.
@@ -438,6 +446,11 @@ pt:
         guide: Por favor <strong>selecione uma imagem</strong> (JPG or PNG, max. 5MB) e carregue-a.
         progress: A imagem está sendo carregada. Por favor aguarde...
         error: A imagem não pôde ser incluída. Por favor carregue um formato suportado (JPG ou PNG e max. 5MB).
+      
+      add_teaser:
+        text: |
+          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
 
     summary:
       title: 'Sumário'
@@ -572,7 +585,7 @@ pt:
         index: 'Index'
 
     models:
-      question: "questão"
+      discussion: "questão"
       proposal: "proposta"
       improvement_proposal: "proposta de melhoria"
 

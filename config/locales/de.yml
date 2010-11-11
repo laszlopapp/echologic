@@ -341,22 +341,22 @@ de:
       in: '... in {{category}} ...'
 
     tooltips:
-      read_question: 'Diese Frage anschauen'
+      read_discussion: 'Diese Frage anschauen'
       read_proposal: 'Diesen Vorschlag lesen'
       read_improvement_proposal: 'Diesen Ergänzgunsvorschlag lesen'
-      current_question: 'Die aktuell angezeigte Frage'
+      current_discussion: 'Die aktuell angezeigte Frage'
       current_proposal: 'Der aktuell angezeigte Vorschlag'
       current_improvement_proposal: 'Der aktuell angezeigte Ergänzgunsvorschlag'
-      back_to_question: 'Zurück zur aktuellen Frage'
+      back_to_discussion: 'Zurück zur aktuellen Frage'
       back_to_proposal: 'Zurück zum aktuellen Vorschlag'
       back_to_improvement_proposal: 'Zurück zum aktuellen Ergänzungsvorschlag'
-      prev_question: 'Vorige Frage lesen'
-      next_question: 'Nächste Frage lesen'
+      prev_discussion: 'Vorige Frage lesen'
+      next_discussion: 'Nächste Frage lesen'
       prev_proposal: 'Vorigen Vorschlag zur aktuellen Frage lesen'
       next_proposal: 'Nächsten Vorschlag zur aktuellen Frage lesen'
       prev_improvement_proposal: 'Vorigen Ergänzungsvorschlag zum aktuellen Vorschlag lesen'
       next_improvement_proposal: 'Nächsten Ergänzungsvorschlag zum aktuellen Vorschlag lesen'
-      create_question: 'Neue Diskussion eröffnen'
+      create_discussion: 'Neue Diskussion eröffnen'
       create_proposal: 'Tragen Sie Ihre neue Idee zur aktuellen Frage ein'
       create_improvement_proposal: 'Tragen Sie Ihre neue Idee zum aktuellen Vorschlag ein'
       echo: 'Unterstützen Sie diese Aussage durch Ihr Echo!'
@@ -371,11 +371,11 @@ de:
       echo_indicator:
         one: '{{supporter_count}} UnterstützerIn'
         many: '{{supporter_count}} UnterstützerInnen'
-      create_question_link: 'Neue Diskussion eröffnen'
+      create_discussion_link: 'Neue Diskussion eröffnen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
       create_internal_link: 'Neue Idee?'
       create_improvement_proposal_link: 'Neuen Ergänzungsvorschlag erstellen'
-      create_question_explanation: |
+      create_discussion_explanation: |
         Hier können Sie eine <strong>neue Diskussion</strong> eröffnen und mit den
         passenden <strong>thematischen Schlüsselwörten</strong> (sog. Tags) versehen.
       create_proposal_explanation: |
@@ -393,21 +393,24 @@ de:
         Sie können dann Aussagen in allen Sprachen erstellen, die Sie mindestens auf mittlerem Niveau beherrschen.
       drafting_language_hint: |
         Bitte beachten Sie, dass die gemeinsame Weiterentwicklung dieses Vorschlags nur in der ausgewählten Sprache möglich sein wird!
+      title_hint: 'Please enter title here...'
+      text_hint: 'Please enter text here...'
+      tag_hint: 'Please enter tag here...'
 
       publish: Freigeben
       published: Die Diskussion wurde erfolgreich freigegeben.
       edit: '{{type}} bearbeiten'
 
       types:
-        question:  'Frage'
+        discussion:  'Frage'
         proposal:  'Vorschlag'
         improvement_proposal: 'Ergänzungsvorschlag'
       new:
-        question:  'Neue Diskussion'
+        discussion:  'Neue Diskussion'
         proposal:  'Neuer Vorschlag'
         improvement_proposal: 'Neuer Ergänzungsvorschlag'
       headings:
-        question: 'Fragen'
+        discussion: 'Fragen'
         proposal: 'Vorschläge'
         improvement_proposal: 'Ergänzungsvorschläge'
 
@@ -437,6 +440,10 @@ de:
         {{type}} wurde gerade von einer anderen Person übersetzt.
       statement_updated: |-
         {{type}} wurde gerade von einer anderen Person aktualisiert.
+      statement_supported: |-
+        Congratulations, you support this {{type}}.
+      statement_unsupported: |-
+        You just dropped your support from this {{type}}.
       edit_period_hint: |
         Sie haben {{minutes}} Minuten, um den Vorschlag zu bearbeiten.
         Nach Ablauf können Ihre Änderungen eventuell nicht mehr berücksichtigt werden.
@@ -447,6 +454,11 @@ de:
         guide: Bitte wählen sie ein passendes <strong>Bild als Illustration</strong> (JPG or PNG, max. 5MB) und laden Sie es hoch.
         progress: Das Bild wird hochgeladen. Einen kurzen Augenblick bitte...
         error: Das Bild konnte leider nicht angenommen werden. Bitte verwenden Sie nur JPG oder PNG mit max. 5MB.
+        
+      add_teaser:
+        text: |
+          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
 
     summary:
       title: 'Zusammenfassung'
@@ -585,7 +597,7 @@ de:
         index: 'Index'
 
     models:
-      question: "Frage"
+      discussion: "Frage"
       proposal: "Vorschlag"
       improvement_proposal: "Ergänzungsvorschlag"
 

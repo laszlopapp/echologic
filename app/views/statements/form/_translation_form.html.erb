@@ -10,10 +10,10 @@
 
 <%= content_tag :p, I18n.t('discuss.statements.drafting_language_hint') if statement_node.draftable? %>
 
-<%= render :partial => "statements/document_form",
+<%= render :partial => "statements/form/document_form",
              :locals => { :form => form,
                           :disabled => true } %>
-<%= render :partial => "statements/translate_document_form",
+<%= render :partial => "statements/form/translate_document_form",
            :locals => { :form => form,
                         :new_statement_document => new_statement_document} %>
 <br/>

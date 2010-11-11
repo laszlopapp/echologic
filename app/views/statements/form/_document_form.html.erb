@@ -26,7 +26,7 @@
 		    
     <br/>
 		<% if !disabled %>
-      <%= doc.input :text, :input_html => {:disabled => disabled, :class => css_rte_class} %>
+      <%= doc.input :text, :input_html => {:disabled => disabled, :class => css_rte_class, 'data-default' => I18n.t('discuss.statements.text_hint')} %>
 			<%= doc.input :old_document_id, :as => :hidden, :value => statement_document.id if !statement_document.new_record? %>
 			<%= doc.input :locked_at, :as => :hidden, :value => statement_document.locked_at %>
 			<%= doc.input :action_id, :as => :hidden, :value => @action.id if @action %>
@@ -34,7 +34,7 @@
 
 		<% else %>
 		  <% content_tag :li do -%>
-		    <%= label_tag "question_statement_document_text" , I18n.t("activerecord.attributes.statement_document.text") %>
+		    <%= label_tag "discussion_statement_document_text" , I18n.t("activerecord.attributes.statement_document.text") %>
 				<%= content_tag :div, sanitize(statement_document.text), :class => "static_text" %>
 			<% end %>
     <% end %>
