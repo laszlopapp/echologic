@@ -401,6 +401,8 @@ es:
       drafting_language_hint: |
         Note por favor, que el proceso de elaboración colectiva de las propuestas funcionará sólo en este idioma!
       title_hint: 'Please enter title here...'
+      text_hint: 'Please enter text here...'
+      tag_hint: 'Please enter tag here...'
 
       publish: Publicar
       published: Esta discusión fue publicada con éxito.

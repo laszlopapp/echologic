@@ -386,6 +386,8 @@ pt:
       drafting_language_hint: |
         Por favor tome nota de que o processo de elaboração coletiva desta proposta só irá ocorrer nesta língua!
       title_hint: 'Please enter title here...'
+      text_hint: 'Please enter text here...'
+      tag_hint: 'Please enter tag here...'
       
       publish: Publicar
       published: A discussão foi publicada com sucesso.

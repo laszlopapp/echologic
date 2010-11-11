@@ -397,6 +397,8 @@ en:
       drafting_language_hint: |
         Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
       title_hint: 'Please enter title here...'
+      text_hint: 'Please enter text here...'
+      tag_hint: 'Please enter tag here...'
 
       publish: Release
       published: Discussion has been released successfully.

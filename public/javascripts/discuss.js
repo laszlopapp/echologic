@@ -13,7 +13,7 @@ $(document).ready(function () {
 	
 	initExpandables();
 	
-	loadTitleDefaultText();
+	loadDefaultText();
 	
 	cleanDefaultsBeforeSubmit();
 	
@@ -28,7 +28,6 @@ $(document).ready(function () {
 	initStatementHistoryEvents();
   
   initFragmentStatementChange();
-	
 	
 });
 
@@ -186,35 +185,50 @@ function initNavigationButton(element, inc) {
 /****************/
 
 /* write the default message on the text inputs while they don't get filled */
-function loadTitleDefaultText() {
-	$("form.new input[type='text']").livequery(function(){
+function loadDefaultText() {
+	
+	$("#statements form.new input[type='text']").livequery(function(){
 		var value = $(this).attr('data-default');
-		
 		if (this.value.length == 0) {
-			this.value = value;
-			$(this).css("color", '#ccc');
+			$(this).toggleVal({
+				populateFrom: 'custom',
+				text: value
+			});
 		}
-		$(this).focus(function() {
-	    if (this.value == value) {
-	      this.value = '';
-	      this.style.color = '#000';
-	    }
-	    $(this).blur(function() {
-	      if (this.value == '') {
-		      this.style.color = '#ccc';
-	        this.value = value;
-	      }
-	    });
-			$(this).parents('form.new').find('li:commit input').focus();
-			$(this).blur();
-	  });
-		$(this).keypress(function(){
-      if(this.value == value) {
-        this.style.color = '#000';
-        this.value = '';
-      }
-    });
+		$(this).removeAttr('data-default');
 	});
+	
+	$("#statements form.new iframe.rte_doc").livequery(function(){
+		var value = $(this).attr('data-default');
+		var doc = $(this).contents().get(0);
+		text = $(doc).find('body');
+		if(text.html().length == 0 || html.val() == '</br>') {
+			label = $("<span class='defaultText'></span>").html(value);
+			label.insertAfter($(this));
+			
+			$(doc).bind('click', function(){
+				label.hide();
+			});
+			$(doc).bind('blur', function(){
+				new_text = $(this).find('body');
+				if (new_text.html().length == 0 || new_text.html() == '</br>') {
+					label.show();
+				}
+			});
+		}
+		$(this).removeAttr('data-default');
+	});
+	
+	$("#statements form.new").livequery( function() {
+    $(this).bind('submit', (function() {
+      $(this).find(".toggleval").each(function() {
+        if($(this).val() == $(this).data("defText")) {
+          $(this).val("");
+        }
+      });
+    }))
+  });
+  
 }
 
 /* clean input text fields which might still be filled with the default message */
@@ -381,6 +395,8 @@ function loadMessageBoxes() {
 /* lwRTE editor loading */
 function loadRTEEditor() {
 	$('textarea.rte_doc, textarea.rte_tr_doc').livequery(function(){
+		defaultText = $(this).attr('data-default');
+		
 		parent_node = $(this).parents('.statement');
 	  url = 'http://' + window.location.hostname + '/stylesheets/';
 	  $(this).rte({
@@ -391,6 +407,9 @@ function loadRTEEditor() {
 	    controls_html: html_toolbar
 	  });
 		parent_node.find('.focus').focus();
+		
+		/* for default text */
+		parent_node.find('iframe').attr('data-default', defaultText);
 	});
 }
 

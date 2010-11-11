@@ -394,6 +394,8 @@ de:
       drafting_language_hint: |
         Bitte beachten Sie, dass die gemeinsame Weiterentwicklung dieses Vorschlags nur in der ausgewählten Sprache möglich sein wird!
       title_hint: 'Please enter title here...'
+      text_hint: 'Please enter text here...'
+      tag_hint: 'Please enter tag here...'
 
       publish: Freigeben
       published: Die Diskussion wurde erfolgreich freigegeben.

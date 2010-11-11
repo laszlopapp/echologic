@@ -139,6 +139,12 @@ form.translation fieldset ol li {
 	padding-left: 0px;
 }
 
+form.statement fieldset ol span.defaultText {
+	position: absolute;
+	left: 638px; 
+	top: 234px;
+}
+
 /* ------- */
 /* HEADER  */
 /* ------- */
