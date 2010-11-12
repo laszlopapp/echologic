@@ -7,10 +7,10 @@ pt:
       # static: de.seo.title.static
       static:
         echologic:
-          show: &html_title 'echo - A Ágora Global (Democracia Re-estruturada)'
-          about:            'echo - Sobre nós'
-          imprint:          'echo - Rubrica'
-          data_privacy:     'echo - Privacidade de dados'
+          show: 'echo - A Ágora Global (Democracia Re-estruturada)'
+          about: 'echo - Sobre nós'
+          imprint: 'echo - Rubrica'
+          data_privacy: 'echo - Privacidade de dados'
         echo:
           show:    'echo - A Ágora Global (Democracia Re-estruturada)'
           discuss: 'echo - Discutir (formação de opiniões e tomada de decisões - orientado à solução, transparente e democrático)'
@@ -65,7 +65,7 @@ pt:
       connect:
         roadmap:  'echo - Evolução - Conectar'
         show:   'echo - Conectar - Explore a comunidade'
-        fill_out_profile: 'echo - Conectar - Dê e receba'
+        fill_out_profile: 'echo - Conectar'
 
       # act: de.seo.title.act
       act:

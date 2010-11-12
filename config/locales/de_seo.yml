@@ -6,10 +6,10 @@ de:
       # static: de.seo.title.static
       static:
         echologic:
-          show: &html_title 'echo - die globale Agora (Demokratie neu gedacht)'
-          about:            'echo - Über uns'
-          imprint:          'echo - Impressum'
-          data_privacy:     'echo - Datenschutz'
+          show: 'echo - die globale Agora (Demokratie neu gedacht)'
+          about: 'echo - Über uns'
+          imprint: 'echo - Impressum'
+          data_privacy: 'echo - Datenschutz'
         echo:
           show:    'echo - die globale Agora (Demokratie zum Mitmachen)'
           discuss: 'echo - Diskutieren (Meinungs- & Willensbildung - lösungsorientiert, transparent & demokratisch)'

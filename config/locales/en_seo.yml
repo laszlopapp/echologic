@@ -7,10 +7,10 @@ en:
       # static: de.seo.title.static
       static:
         echologic:
-          show: &html_title 'echo - The Global Agora (Engage into Democracy)'
-          about:            'echo - About us'
-          imprint:          'echo - Imprint'
-          data_privacy:     'echo - Data Privacy'
+          show: 'echo - The Global Agora (Engage into Democracy)'
+          about: 'echo - About us'
+          imprint: 'echo - Imprint'
+          data_privacy: 'echo - Data Privacy'
         echo:
           show:    'echo - The Global Agora (Engage into Democracy)'
           discuss: 'echo - Discuss (opinion and will formation - solution-oriented, transparent & democratic)'
@@ -65,7 +65,7 @@ en:
       connect:
         roadmap:  'echo - Roadmap for Connect'
         show:   'echo - Connect - Explore Community'
-        fill_out_profile: 'echo - Connect - Give and Take'
+        fill_out_profile: 'echo - Connect'
 
       # act: de.seo.title.act
       act:

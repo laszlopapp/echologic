@@ -6,10 +6,10 @@ es:
       # static: de.seo.title.static
       static:
         echologic:
-          show: &html_title 'echo - el ágora global (democracia repensada)'
-          about:            'echo - sobre nosotros'
-          imprint:          'echo - información legal'
-          data_privacy:     'echo - protección de datos'
+          show: 'echo - el ágora global (democracia repensada)'
+          about: 'echo - sobre nosotros'
+          imprint: 'echo - información legal'
+          data_privacy: 'echo - protección de datos'
         echo:
           show:    'echo - el ágora global (democracia repensada)'
           discuss: 'echo - discutir (Formación de opiniones & toma de decisiones - constructivo, transparente & democrático)'
@@ -63,7 +63,7 @@ es:
       connect:
         roadmap: 'echo - Desarrollo de conectar'
         show:    'echo - Conectar - Descubrir la cumunidad'
-        fill_out_profile: 'echo - Conectar - Dar y recibir'
+        fill_out_profile: 'echo - Conectar'
 
       # act: de.seo.title.act
       act:
