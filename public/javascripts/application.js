@@ -4,7 +4,7 @@
 
 /* Do init stuff. */
 $(document).ready(function () {
-	
+
   makeTooltips();
 
   bindLanguageSelectionEvents();
@@ -84,14 +84,14 @@ function bindAjaxClickEvents() {
     });
     return false;
   });
-	
+
 	/*special newsletter submission tag*/
 	$(".newsletter_submit_tag").live("click", function() {
 		$("#newsletter_test").val($(this).attr("value"));
 		$("#new_newsletter_form").submit();
     return false;
   });
-	
+
 }
 
 /* If JS is enabled hijack staticMenuButtons to do AJAX requests. */
@@ -281,7 +281,7 @@ if (jQuery.support.opacity) {
  * all over our site.
  * Options and documentation:
  *   http://bassistance.de/jquery-plugins/jquery-plugin-tooltip */
-var makeTooltips = function() {
+function makeTooltips() {
   $(".ttLink[title]").tooltip({
     track:  true,
     showURL: false
@@ -290,10 +290,10 @@ var makeTooltips = function() {
 
 
 /* Add rounded corners to all div elements with class "rounded-box" */
-function roundCorners(){
+function roundCorners() {
   var str = '<b class="lr l"></b><b class="lr r"></b><b class="tb t"></b><b class="tb b"></b><b class="cn tl"></b><b class="cn tr"></b><b class="cn bl"></b><b class="cn br"></b>';
   $('.rounded-box').append(str);
-};
+}
 
 var timer = null;
 function showMessageBox(id,permission) {
