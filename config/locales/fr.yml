@@ -11,13 +11,13 @@ fr:
     general:
       more: plus »
       hide: « d'accord
-      next: Continuez
-      back: retour
+      next: Prochain
+      back: Retour
       email: E-Mail
       name: Nom
-      first_name: prénom
+      first_name: Prénom
       last_name: Nom de famille
-      undefined: Vous n'êtes pas encore enregistré,e?
+      undefined: Vous n'êtes pas encore enregistré(e)?
       ok: D'accord
       or: ou
       save: Sauvegarder
@@ -80,7 +80,7 @@ fr:
     outer_menu:
       language: Langue
       feedback: &feedback Feedback
-      about: Vous voulez savoir plus sur echo?
+      about: A propos de nous
       logout: Quitter
       imprint: &imprint Mentions légales
       data_privacy: &data_privacy Protection des données
@@ -125,7 +125,7 @@ fr:
       description: |
         Compléter votre profil afin de vous présenter à la communité d'echo.
     function_2:
-      name: 'Mettre en réseau'
+      name: 'Connecter'
       description: |
         Découvrez la communité de votre choix et mettez vous en rapport avec les personnes qui pensent
         et qui agissent comme vous.
@@ -143,11 +143,11 @@ fr:
     # User sessions section
     user_sessions:
       login:
-        password: Votre mot de passe
+        password: Mot de passe
         email: E-Mail
         signup: |
-          Vous n'êtes pas encore membre?
-        set_password: Vous avez oublié votre mot de passe?
+          Pas encore membre?
+        set_password: Mot de passe oublié?
         remember: Mémoriser mon mot de passe!
         hello: Vous êtes connecté<br/><strong>{{name}}</strong>
       messages:
@@ -657,7 +657,7 @@ fr:
 
     day_names: [Dimanche, Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi]
     abbr_day_names: [Di, Lu, Ma, Mer, Jeu, Ven, Sam]
-    month_names: [~, Janvier, Février, Mars, Avril Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre]
+    month_names: [~, Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre]
     abbr_month_names: [~, Jan, Fev, Mars, Apr, Mai, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
     order: [ :day, :month, :year ]
 

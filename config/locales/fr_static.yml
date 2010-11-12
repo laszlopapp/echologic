@@ -64,7 +64,7 @@ fr:
           title: La recherche collective des solutions locales et leur réalisation concrète au sein des instances politiques.
           more: |
             <p>
-            Selon la devise <strong>"Discuter - Se mettre en réseau - Agir!”</strong> ici tous peuvent donner forme,
+            Selon la devise <strong>"Discuter - Connecter - Agir!”</strong> ici tous peuvent donner forme,
             ensemble, à leur quotidien, à leur espace vital immédiat, et ainsi, au devenir du monde.
             echo permet la création d'une <strong>opinion et détermination fortes et fondées</strong> quel que soit
             le nombre croissant des participants, echo reste visible et lisible. Dans l'espace „Agir“ l'engagement
@@ -175,7 +175,7 @@ fr:
       tabs:
         echo: echo
         discuss: Discuter
-        connect: Se mettre en réseau
+        connect: Connecter
         act: Agir
         echo_on_waves: Partout
 
@@ -214,7 +214,7 @@ fr:
             Pour cela, echo réunit l'innovation technologique ainsi que les savoirs des Humanités dans un concept unique.
             Ce dernier vous permet  de comprendre les causes, les relations et les conséquences, de prendre ensemble des décisions,
             et de les mettre en pratique avec efficacité. Pour ce faire, echo met à votre disposition 3 espaces dynamiques:
-            <strong>Discuter – Mettre en réseau – Agir!</strong>
+            <strong>Discuter – Connecter – Agir!</strong>
             </p><p>
             Par cette alliance des trois espaces, echo crée un espace virtuel inédit qui facilite
             la coopération démocratique, à très faible coût et d'investissement personnel, aboutissant à des
@@ -300,19 +300,19 @@ fr:
 
       # connect section
       connect:
-        title: Se connecter et se mettre en réseau
+        title: Connecter
 
         text_top: |-
           <p>
           Trouvez ici les personnes partageant et soutenant vos projets, vos idées et vos causes!
           </p><p>
           A la différence des réseaux sociaux habituels, le mécanisme de recherche ciblée d'echo permet de trouver
-          vite et simplement <strong>des hommes et des femmes ,avec des compétences diverses, partageant
+          vite et simplement <strong>des hommes et des femmes, avec des compétences diverses, partageant
           la même cause</strong>. Pour cela, les acteurs sont réunis dans différents groupes reflétant les
           compétences sociétales les plus importantes.
           </p>
 
-        list: &Competences |
+        list: &competences |
           <li>Citoyen,nes et concerné,es (compétences situationnelles)</li>
           <li>Experts et Scientifiques  (expertise et expérience)</li>
           <li>Représentants politiques et de la société civile(compétences de décideur)</li>
@@ -339,10 +339,10 @@ fr:
           de nouvelles synergies et le potentiel d'influence accroît en même temps que <strong>l'engagement citoyen</strong>.
           </p>
 
-        actions possibles: |-
-          <li>les <strong>e-petitionen</strong> signées online,</li>
-          <li>l'organisation des initiatives citoyennes et des <strong>référendums</strong>,</li>
-          <li>l'organisation des <strong>conférences citoyennes, manifestations</strong>, boycottes et class actions,</li>
+        possible_actions: |-
+          <li>les <strong>e-petitionen</strong> signées online</li>
+          <li>l'organisation des initiatives citoyennes et des <strong>référendums</strong></li>
+          <li>l'organisation des <strong>conférences citoyennes, manifestations</strong>, boycottes et class actions</li>
           <li>la création d' <strong>ONG</strong> nationales et internationales (Organisations Non-Gouvernementales)</li>
           <li>la création de <strong>social entrepreneurs</strong> (social business & social entrepreneurship)</li>
           <li>jusqu'à la réalisation <strong>de projets</strong> et actions collectifs avec un objectif fixé en commun
@@ -390,9 +390,9 @@ fr:
           bien sur les serveurs publics, internes aux organisations, privés, et échangées entre eux.
           </p><p>
           Le concept innovant d'echo et la technologie révolutionnaire de Google permettent le développement en
-          commun d'un projets amibitieux "Open Source". Il est unique au monde.
+          commun d'un projets amibitieux Open Source. Il est unique au monde.
           </p><p>
-          La création d'une agora globale</strong>!
+          La création d'une <strong>agora globale</strong>!
           </p>
 
     # ECHOCRACY SECTION
@@ -404,21 +404,21 @@ fr:
         echocracy: echocracie
         citizens: Les Citoyens
         scientists: Les Experts
-        decision_makers: Les Représentants de la société civile
+        decision_makers: Les Représentants
         organisations: Les Organisations
       show:
         text_top: |-
           <p>
-          „echocracy“, la <strong>nouvelle forme de démocratie participative/strong> initiée par echo, offre à chacun
+          „echocracy“, la <strong>nouvelle forme de démocratie participative</strong> initiée par echo, offre à chacun
           et aux citoyens du monde entier la possibiité de discuter ensemble des problèmes qui concernent tous et
           dont la solutions peut être dorénanvant élaborée et portée par tous. L'echocracie prend appui sur un discours
           délibératif et interculturel associant les domaines de compétence civils majeurs grâce une
-          <strong>maïeutique collective/strong> et la met en pratique.
+          <strong>maïeutique collective</strong> et la met en pratique.
           </p>
 
         list: *competences
 
-        text_bottom:
+        text_bottom: |-
           <p>
           Les acteurs de ces domaines de compétence interviennent dans un <strong>dialogue équitable</strong>.
           echo garantit la <strong>transparence parfaite</strong> tout au long du processus de formation de
@@ -451,7 +451,7 @@ fr:
         adv2: La libre-détermination
         adv2_details: |
           <li>Une participation directe au processus décisionnels concernant aussi bien la qualité de
-          l'espace vital immédiat que le devenir du monde dans son ensemble</li>.
+          l'espace vital immédiat que le devenir du monde dans son ensemble</li>
           <li>La rencontre facile et rapide des citoyens militant pour la même cause</li>
           <li>L'organisation simple et le soutien d'actions réelles</li>
         adv3: 'Une empathie renforcée: le "je" deviens "nous“'
@@ -499,8 +499,8 @@ fr:
 
       # decision makers section
       decision_makers:
-        title: Représentants de la société civile
-        title_long:  Représentant(e)s, de la société civile et décideurs
+        title: Représentants
+        title_long:  Représentant(e)s de la société civile et décideurs
         text_top: |-
           <p>
           <strong>Les décideurs de la politique et de l'économie</strong> portent la plus grande responsabilité sociale.
@@ -567,10 +567,10 @@ fr:
         adv4: Des supports financiers à la hausse
         adv4_details: |-
           <li>Une recheche de sponsors sans que cela génère des coûts supplémentaires et une base
-          croissante d'adhérents</li>.
-          <li>Une motivation plus forte par un système de dons qui ne génère pas de coûts supplémentaires</li>.
+          croissante d'adhérents</li>
+          <li>Une motivation plus forte par un système de dons qui ne génère pas de coûts supplémentaires</li>
           <li>Plus de confiance et création de liens émotionnels entre les adhérents grâce à la transparence et
-          une participation directe aux actions</li>.
+          une participation directe aux actions</li>
 
     # ECHONOMY SECTION
     echonomy:
@@ -671,7 +671,7 @@ fr:
           echo se conçoit comme instrument de support des processus de décisions démocratiques
           <strong>et l'indépendance politique et économique</strong> est sa règle absolu.
           Afin de garantir son indépendance durablement, echo transféra progressivement des
-          <span titres="{{tooltip}}" class="ttLink">à ses utilisateurs</span>.
+          <span title="{{tooltip}}" class="ttLink">à ses utilisateurs</span>.
           </p><p>
           echo devient ainsi-<strong>le Bien Commun de tous les hommes et femmes du globe</strong>:
           Vous décidez du fonctionnement d'echo. <strong>Vous en êtes l'écho!</strong>.
