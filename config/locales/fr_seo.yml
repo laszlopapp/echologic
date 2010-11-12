@@ -6,10 +6,10 @@ fr:
       # static: de.seo.title.static
       static:
         echologic:
-          show: &html_title "echo - l'agora globale (la démocratie revue et corrigée)"
-          about:            'echo - Qui sommes nous?'
-          imprint:          'echo - Mentions légales'
-          data_privacy:     'echo - Protection des données'
+          show: "echo - L\\'agora globale (la démocratie revue et corrigée)"
+          about: 'echo - Qui sommes nous?'
+          imprint: 'echo - Mentions légales'
+          data_privacy: 'echo - Protection des données'
         echo:
           show:    "echo - L'agora globale (L'essentiel, c'est de participer - à la vie démocratique)"
           discuss: "echo - Discuter (La formation de la volonté et de la décision - ciblée, transparente et démocratique)"
@@ -28,9 +28,9 @@ fr:
           foundation:      "echonomy - La Fondation Echonomy"
           public_property: "echonomy - echo comme Bien Commun"
         echosocial:
-          show:            'echo social - Bienvenu (e)'
-          features:        'echo social - Fonctionnalités'
-          extensions:      'echo social - Extensions'
+          show:            "echo social - Bienvenu (e)"
+          features:        "echo social - Fonctionnalités"
+          extensions:      "echo social - Extensions"
 
       # users: de.seo.title.users
       users:
@@ -63,7 +63,7 @@ fr:
       connect:
         roadmap: 'echo - Votre plan de route pour vous mettre en réseau'
         show:    'echo - Connectez vous- mettez vous en réseau - découvrir des communités'
-        fill_out_profile: 'echo - Mettre en réseau - Donner et recevoir'
+        fill_out_profile: 'echo - Connecter'
 
       # act: de.seo.title.act
       act:
