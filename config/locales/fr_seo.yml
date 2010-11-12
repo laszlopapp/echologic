@@ -6,7 +6,7 @@ fr:
       # static: de.seo.title.static
       static:
         echologic:
-          show: "echo - L\\'agora globale (la démocratie revue et corrigée)"
+          show: "echo - L'agora globale (la démocratie revue et corrigée)"
           about: 'echo - Qui sommes nous?'
           imprint: 'echo - Mentions légales'
           data_privacy: 'echo - Protection des données'
