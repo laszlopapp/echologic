@@ -11,7 +11,7 @@ fr:
     general:
       more: plus »
       hide: « d'accord
-      next: Prochain
+      next: Suite
       back: Retour
       email: E-Mail
       name: Nom
@@ -72,7 +72,7 @@ fr:
   layouts:
     tabs:
       discuss: Discuter
-      connect: Rejoindre un réseau
+      connect: Connecter
       act: Agir
       my_echo: Mon echo
       admin: Admin
@@ -340,7 +340,7 @@ fr:
 
   discuss:
     my_discussions:
-      link: Mes discussions et débats
+      link: Mes discussions
       title: Mes nouvelles discussions et groupes de débat
       no_discussions: |
         Vous n'avez pas encore précisé un sujet de discussion. Pour ce faire,
@@ -636,8 +636,8 @@ fr:
       email_invalid: "Veuillez corrigez l'adresse mail erronnée."
       password_blank: "Veuillez indiquer votre mot de passe."
       not_active: "Votre compte na pas été activé. Vérifiez dans votre messagerie."
-      must_be_logged_in: "Inscrivez vous."
-      must_be_logged_out: "Désincrivez-vous."
+      must_be_logged_in: "S'il vous plaît connectez-vous."
+      must_be_logged_out: "S'il vous plaît se déconnecter."
 
     attributes:
       user_session:
