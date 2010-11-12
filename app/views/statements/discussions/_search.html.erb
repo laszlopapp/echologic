@@ -1,14 +1,11 @@
 <div id="discuss_search_container" class="search_container">
-  <%path = params[:id] ? discussion_tags_path : discuss_search_path %>
-  <!-- Display featured topic category -->
-  <%= search_category(params[:id]) %>
-
+  
   <!-- New discussion link -->
-  <% create_discussion_link_for params[:id] %>
+  <% create_discussion_link_for(params[:value]) %>
 
   <!-- Search field -->
   <% content_tag :div, :id => 'search_form', :class => 'ajax_form' do %>
-    <%= text_field_tag :value %>
+    <%= text_field_tag :value, params[:value] %>
     <%= content_tag :span, '', :name => 'submit_button', :class => 'submit_button', :alt => 'search_button' %>  
   <% end %>
 </div>

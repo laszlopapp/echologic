@@ -14,7 +14,13 @@
 		<% end %>
 	<% end %>
 	<!-- New Statement Button --> 
-  <% create_new_sibling_statement_button(statement_node) unless no_buttons %>
+	<% unless no_buttons %>
+	  <% if statement_node.taggable? %>
+		  <% create_new_discussion_button(statement_node, params[:value])  %>
+		<% else %>
+      <% create_new_sibling_statement_button(statement_node)  %>
+		<% end %>
+	<% end %>
   
 	<!-- Delete Statement Button -->
   <% if !no_buttons and current_user and current_user.may_delete?(statement_node) -%>

@@ -206,7 +206,7 @@ class StatementNode < ActiveRecord::Base
         # Filter for published statements
         and_conditions << sanitize_sql(["n.editorial_state_id = ?", StatementState['published'].id]) unless opts[:show_unpublished]
         # Filter for featured topic tags (categories)
-        and_conditions << sanitize_sql(["t.value = ?", opts[:category]]) if opts[:category]
+        #and_conditions << sanitize_sql(["t.value = ?", opts[:category]]) if opts[:category]
       else
         and_conditions << opts[:conditions]
       end

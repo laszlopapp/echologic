@@ -319,6 +319,8 @@ de:
     results_count:
       one: '{{count}} Diskussion'
       more: '{{count}} Diskussionen'
+    for: |-
+      for '{{value}}'
     featured_topics:
       title: Empfohlene Themen
       text: |

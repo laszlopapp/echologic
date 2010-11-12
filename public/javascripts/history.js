@@ -44,9 +44,9 @@ function initHistoryEvents() {
 function setSearchHistory() {
   var val = $("#value").val();
   if (val.length > 0) {
+		
     val = val.trim();
   }
-
   if ($(':input[id=sort]').length > 0) {
     var sort = $(':input[id=sort]').val();
 	  $.setFragment({ "value": val, "sort" : sort, "page": "1"});
@@ -70,11 +70,19 @@ function initPaginationButtons() {
 
 function initFragmentChange() {
   $(document).bind("fragmentChange.page", function() {
+		path = document.location.href.split('/');
+		/* if path had a search value before, then clean it */
+		if (!path[path.length - 1].match('search')) {
+			path.pop();
+		}
+		/* clean fragments on path */
+		path[path.length - 1] = 'search';
+		/* push new search value */
+		path.push(escape($.fragment().value));
 		if ($.fragment().page) {
-			$.getScript($.queryString(document.location.href, {
+			$.getScript($.queryString(path.join('/'), {
 				"page": $.fragment().page,
 				"sort": $.fragment().sort,
-				"value": $.fragment().value
 			}));
 		}
   });

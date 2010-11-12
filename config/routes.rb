@@ -8,19 +8,24 @@ ActionController::Routing::Routes.draw do |map|
 
   # SECTION main parts of echologic
   map.act '/act/roadmap', :controller => :act, :action => :roadmap
-  map.discuss '/discuss', :controller => :discussions, :action => :category
   map.discuss_featured '/discuss/featured', :controller => :discuss, :action => :index
   map.discuss_roadmap '/discuss/roadmap', :controller => :discuss, :action => :roadmap
-  map.discuss_search '/discuss/search', :controller => :discussions, :action => :category
   map.discuss_cancel '/discuss/cancel', :controller => :discuss, :action => :cancel
-  map.discussion_tags '/discuss/category/:id', :controller => :discussions, :action => :category, :conditions => {:id => /\w+/ }
   map.my_discussions '/discuss/my_discussions', :controller => :discussions, :action => :my_discussions
   
+  # SECTION discuss search
+  map.discuss_search '/discuss/search', :controller => :discussions, :action => :category
+  map.discuss_search_with_value '/discuss/search/:value', :controller => :discussions, :action => :category, :conditions => {:value => /\w+/ }
+  
+  # SECTION connect search
+  map.connect_search '/connect/search', :controller => :connect, :action => :show
+  map.connect_with_value '/connect/search/:value', :controller => :connect, :action => :show, :conditions => {:value => /\w+/ }
   map.connect_roadmap '/connect/roadmap', :controller => :connect, :action => :roadmap
 
   map.my_echo '/my_echo/roadmap', :controller => :my_echo, :action => :roadmap
 
-  map.resource :connect, :controller => 'connect', :only => [:show]
+  
+#  map.resource :connect, :controller => 'connect', :only => [:show]
   map.resource :admin,   :controller => 'admin',   :only => [:show]
 
   # SECTION my echo routing

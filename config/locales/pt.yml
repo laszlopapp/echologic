@@ -311,6 +311,8 @@ pt:
     results_count:
       one: '{{count}} discussão'
       more: '{{count}} discussões'
+    for: |-
+      for '{{value}}'
     featured_topics:
       title: Tópicos Destacados
       text: |

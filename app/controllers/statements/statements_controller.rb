@@ -54,11 +54,10 @@ class StatementsController < ApplicationController
   def category
     @value    = params[:value] || ""
     @page     = params[:page]  || 1
-    category = "##{params[:id]}" if params[:id]
-
+    
     statement_nodes_not_paginated = search_statement_nodes(:search_term => @value,
                                                            :language_ids => @language_preference_list,
-                                                           :category => category,
+                                                          # :category => category,
                                                            :show_unpublished => current_user &&
                                                                                 current_user.has_role?(:editor))
 
@@ -172,7 +171,7 @@ class StatementsController < ApplicationController
                                                  :editorial_state => StatementState[:new])
     @statement_document ||= StatementDocument.new(:language_id => @locale_language_id)
     @action ||= StatementAction["created"]
-    @statement_node.topic_tags << "##{params[:category]}" if params[:category]
+    @statement_node.topic_tags << "#{params[:category]}" if params[:category]
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     
     load_echo_messages if @statement_node.echoable?
