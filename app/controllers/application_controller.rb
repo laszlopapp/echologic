@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   private
   # Takes the locale from the URL or return the most matching one for the IP.
   def set_locale
-    available = %w{en de es pt}
+    available = %w{en de es pt fr}
     I18n.locale = params[:locale] ? params[:locale].to_sym : request.compatible_language_from(available)
   end
 
@@ -67,12 +67,12 @@ class ApplicationController < ActionController::Base
   private
   def redirect_to_url(url, message)
     respond_to do |format|
-      flash[:notice] = message
+      set_info message
       format.html do
-        redirect_to url
+        flash_info and redirect_to url
       end
       format.js do
-        render :update do |page|
+        render_with_info :update do |page|
           page.redirect_to url
         end
       end
@@ -236,7 +236,7 @@ class ApplicationController < ActionController::Base
   # Renders :updates a page with an a info message set by set_info.
   def render_with_info(message=@info)
     render :update do |page|
-      page << "info('#{message}');" if message
+      page << "info('#{escape_javascript(message)}');" if message
       yield page if block_given?
     end
   end
@@ -263,9 +263,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def show_error_message(string)
+  def show_error_message(message)
     render :update do |page|
-      page << "error('#{string}');"
+      page << "error('#{escape_javascript(message)}');"
     end
   end
 
