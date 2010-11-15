@@ -127,6 +127,10 @@ ActionController::Routing::Routes.draw do |map|
                 :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, 
                             :reload_image, :authors],
                 :as => 'improvement_proposal'
+  map.resources :arguments,
+                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, 
+                            :reload_image, :authors],
+                :as => 'argument'
                 
                 
   # old discuss paths redirection

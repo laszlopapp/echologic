@@ -415,6 +415,7 @@ de:
         discussion: 'Fragen'
         proposal: 'Vorschläge'
         improvement_proposal: 'Ergänzungsvorschläge'
+        argument: 'Arguments'
 
       topic: Thema (Tags / Schlüsselwörte)
       states:

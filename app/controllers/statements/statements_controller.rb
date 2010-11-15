@@ -82,12 +82,9 @@ class StatementsController < ApplicationController
       # Record visited
       @statement_node.visited!(current_user) if current_user
 
-
       # Load statement node data to session for prev/next functionality
       load_siblings(@statement_node) if !params[:new_level].blank?
-      
-      load_to_session
-
+  
       # Get document to show and redirect if not found
       @statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
       if @statement_document.nil?
@@ -869,13 +866,6 @@ class StatementsController < ApplicationController
   ########
   # MISC #
   ########
-  
-  #
-  # Store last statement in session (for cancel link)
-  #
-  def load_to_session
-    session[:last_statement_node] = @statement_node.id
-  end
 
   #
   # Loads siblings of the current statement node

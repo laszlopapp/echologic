@@ -418,6 +418,7 @@ en:
         discussion: 'Questions'
         proposal: 'Proposals'
         improvement_proposal: 'Improvement Proposals'
+        argument: 'Arguments'
 
       topic: Topic (Tags / Keywords)
       states:

@@ -422,6 +422,7 @@ es:
         discussion: 'Cuestiones'
         proposal: 'Propuestas'
         improvement_proposal: 'Propuesta de mejoramiento'
+        argument: 'Arguments'
 
       topic: Tema (Tags / Palabras clave)
       states:

@@ -7,7 +7,7 @@
 class Proposal < StatementNode
   acts_as_draftable :tracked, :staged, :approved, :incorporated, :passed
  
-  expects_children_types [:ImprovementProposal,true]
+  expects_children_types [:ImprovementProposal,true],[:Argument,false]
  
   # Overwriting the acts_as_taggable function saying this object is not taggable anymore
   def taggable?

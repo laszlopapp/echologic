@@ -47,6 +47,10 @@ module StatementsHelper
     send("children_#{type.downcase}_url",statement_node, opts)
   end
   
+  def more_url(statement_node, type, opts={})
+    send("more_#{type.downcase}_url",statement_node, opts)
+  end
+  
   def authors_url(statement_node, type, opts={})
     send("authors_#{type.downcase}_url",statement_node, opts)
   end
@@ -69,11 +73,13 @@ module StatementsHelper
   end
   
   # Renders all the possible children of the current node (per type, ordering must be defined in the node type definition)
-  def render_children(statement_node, children)
+  def render_children(statement_node, children, type = dom_class(statement_node))
     return content_tag :div, '', :style => "clear:right" if children.blank?
     val = ''
-    statement_node.class.expected_children_types.each do |type|
-      val << render(:partial => 'statements/children', :locals => {:type => type.to_s.underscore, :children => children[type]})
+    statement_node.class.expected_children_types.each do |child_type|
+      dom_child_class = child_type.to_s.underscore
+      type_children = children[child_type] || more_url(statement_node, type, :type => dom_child_class)
+      val << render(:partial => 'statements/children', :locals => {:type => dom_child_class, :children => type_children})
     end
     val
   end

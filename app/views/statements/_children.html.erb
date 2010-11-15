@@ -3,7 +3,7 @@
   <%= content_tag :h2, children_box_title(type) %>
 
   <!-- The children -->
-	<% if children %>
+	<% if children and children.kind_of?(Array) %>
   <%= render :partial => 'statements/children_list',
              :locals => {:type => type, :children => children}%>
   <% else %>
