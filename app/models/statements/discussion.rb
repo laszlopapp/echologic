@@ -5,7 +5,7 @@
 
 class Discussion < StatementNode
 
-  expects_children_types :Proposal
+  expects_children_types [:Proposal,true]
 
   # methods / settings to overwrite default statement_node behaviour
 

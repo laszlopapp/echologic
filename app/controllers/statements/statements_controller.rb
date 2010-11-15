@@ -606,8 +606,10 @@ class StatementsController < ApplicationController
   #
   def load_all_children
     @children = {}
-    @statement_node.class.expected_children_types.each_with_index do |type, index|
-      if index == 0
+    @statement_node.class.expected_children_types(true).each_with_index do |child, index|
+      type = child[0]
+      visibility = child[1]
+      if visibility
         type_class = type.to_s.constantize
         @children[type] = @statement_node.children_statements(@language_preference_list, type.to_s).
                                           paginate(type_class.default_scope.merge(:page => 1,

@@ -236,9 +236,12 @@ class StatementNode < ActiveRecord::Base
     
     
     
-    def expected_children_types
-      @@expected_children[self.name]
+    def expected_children_types(children_visibility = false)
+      expected_children = @@expected_children[self.name]
+      return expected_children.map{|c|c[0]} if !children_visibility
+      expected_children
     end
+    
     
     protected 
     
