@@ -1,12 +1,10 @@
 class DiscussionsController < StatementsController
-
+  
   # action: my discussions page
   def my_discussions
     @page     = params[:page]  || 1
 
-    discussions_not_paginated = Discussion.by_creator(current_user).by_creation
-
-    session[:roots] = discussions_not_paginated.map(&:id)
+    discussions_not_paginated = current_user.get_my_discussions
 
     @discussions = discussions_not_paginated.paginate(:page => @page, :per_page => 5)
     @statement_documents = search_statement_documents(@discussions.map(&:statement_id),

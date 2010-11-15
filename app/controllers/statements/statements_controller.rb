@@ -57,13 +57,9 @@ class StatementsController < ApplicationController
     
     statement_nodes_not_paginated = search_statement_nodes(:search_term => @value,
                                                            :language_ids => @language_preference_list,
-                                                          # :category => category,
                                                            :show_unpublished => current_user &&
                                                                                 current_user.has_role?(:editor))
-
-    # PREV / NEXT functionality for discussions
-    session[:roots] = statement_nodes_not_paginated.map(&:id)
-
+    
     @count    = statement_nodes_not_paginated.size
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page,
                                                               :per_page => 6)
@@ -784,6 +780,13 @@ class StatementsController < ApplicationController
     end
   end
   
+  #
+  # Sets the breadcrumbs for the current statement node view previous path
+  #
+  def set_breadcrumbs
+    add_breadcrumb I18n.t("discuss.statements.breadcrumbs.#{params[:path]}"), "#{params[:path]}_path" if params[:path]
+    add_breadcrumb I18n.t("discuss.statements.breadcrumbs.#{params[:path]}_with_value", :value => params[:value]), discuss_search_with_value_path(params[:value]) if params[:value]
+  end
 
   ###############
   # PERMISSIONS #
@@ -882,7 +885,15 @@ class StatementsController < ApplicationController
     if statement_node.parent_id
       siblings = statement_node.sibling_statements(@language_preference_list).map(&:id)
     else #else, it's a root node
-      siblings = session[:roots] || [statement_node.id] 
+      if params[:path]
+        siblings = case params[:path]
+          when 'discuss_search' then search_statement_nodes(:search_term => params[:value]||"", :language_ids => @language_preference_list,
+                                                           :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id)
+          when 'my_discussions' then current_user.get_my_discussions.map(&:id)
+        end
+      else
+        siblings = [statement_node.id]
+      end
     end
     @siblings["#{class_name}_#{statement_node.id}"] = siblings
   end
@@ -938,6 +949,7 @@ class StatementsController < ApplicationController
     respond_to do |format|
       yield format if block_given?
       format.html {
+        set_breadcrumbs
         set_ancestors(teaser) 
         render :template => template
       }

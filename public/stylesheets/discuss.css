@@ -85,6 +85,13 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   color: #21587F;
 }
 
+/* ------------*/
+/* breadcrumbs */
+/* ----------- */
+
+.breadcrumbs {
+	padding: 0px 10px;
+}
 
 /* ----------------------------- */
 /* New and Edit Statements forms */

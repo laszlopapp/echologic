@@ -458,6 +458,12 @@ es:
         Passondo este plazo, posiblemente tus modificationes serán perdidas.
       staled_modification: 'Desculpe por favor, pero tu plazo de 60 minutos para editar la propuesta caduco. Mientras otro miembro tomó su chance y edito la propuesta. Por eso, tus modificaciones lamentablemente no puedieron ser guardadas.'
 
+      breadcrumbs:
+        discuss_search: Search
+        discuss_search_with_value: |-
+          Search Results for '{{value}}'
+        my_discussions: My Discussions
+
       upload_image:
         title: Cargar imagen
         guide: Seleccione <strong>por favor, una imagen</strong> (JPG o PNG, max. 5MB) y descárguela.

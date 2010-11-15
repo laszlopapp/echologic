@@ -454,6 +454,13 @@ en:
         Afterwards, your modifications might even get discarded.
       staled_modification: 'We are very sorry, but you exceeded the 60 minutes limit to edit and save the statement. Meanwhile it has already been updated by a different user. Therefore, your changes must have been unfortunately discarded.'
 
+      breadcrumbs:
+        discuss_search: Search
+        discuss_search_with_value: |-
+          Search Results for '{{value}}'
+        my_discussions: My Discussions
+        
+
       upload_image:
         title: Upload Image
         guide: Please <strong>select an image</strong> (JPG or PNG, max. 5MB) and upload it.

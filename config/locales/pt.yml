@@ -443,6 +443,12 @@ pt:
         Depois de este tempo esgotar poderá perder as suas modificações.
       staled_modification: 'Pedimos desculpa, mas o prazo de 60 minutos para editar a proposta esgotou. Entretanto a proposta foi editada por outra pessoa. Por esta razão, as suas mudanças foram lamentavelmente perdidas.'
 
+      breadcrumbs:
+        discuss_search: Search
+        discuss_search_with_value: |-
+          Search Results for '{{value}}'
+        my_discussions: My Discussions
+
       upload_image:
         title: Carregar Imagem
         guide: Por favor <strong>selecione uma imagem</strong> (JPG or PNG, max. 5MB) e carregue-a.

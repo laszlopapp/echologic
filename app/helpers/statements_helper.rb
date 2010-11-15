@@ -190,13 +190,12 @@ module StatementsHelper
     I18n.t("discuss.statements.headings.#{type}")
   end
 
-  # Creates the cancel button in the new statement form (with the right link)
+
+  # Creates the cancel button in the new statement form (right link will be handled in jquery)
   def cancel_new_statement_node(statement_node,cancel_js=false)
-    type = (session[:last_statement_node] and statement_node.parent.id == session[:last_statement_node]) ? dom_class(statement_node.parent) : dom_class(statement_node)
     link_to I18n.t('application.general.cancel'),
-            session[:last_statement_node] ?
-              send("#{type}_url",session[:last_statement_node]) : (statement_node.parent or discuss_url),
-            :class => 'ajax text_button cancel_text_button'
+            :back,
+            :class => 'cancel text_button cancel_text_button'
   end
 
   # Creates the cancel button in the edit statement form
@@ -363,6 +362,19 @@ module StatementsHelper
   # returns a collection from possible statement states to be used on radios and select boxes
   def statement_states_collection
     StatementState.all.map{|s|[I18n.t("discuss.statements.states.initial_state.#{s.code}"),s.id]}
+  end
+  
+  
+  # renders the breadcrumb given
+  def render_breadcrumb(breadcrumbs)
+    content_tag :div, :id => 'breadcrumbs', :class => 'breadcrumbs' do 
+      elements = ''
+      @breadcrumbs.each do |txt, path|
+        elements << " > " if !elements.blank?
+        elements << link_to(h(txt), path)
+      end
+      elements
+    end
   end
 
 

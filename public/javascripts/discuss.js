@@ -448,7 +448,7 @@ function getCurrentStatementsStack(element) {
 }
 
 function initStatementHistoryEvents() {
-	$(".statement .header a.statement_link").live("click", function(){
+	$("#statements .statement .header a.statement_link").live("click", function(){
 		current_stack = getCurrentStatementsStack(this);
 		
 		/* set fragment */
@@ -456,40 +456,63 @@ function initStatementHistoryEvents() {
 		return false;
 	});
 	
-	$(".statement .children a.statement_link").live("click", function(){
+	$("#statements .statement .children a.statement_link").live("click", function(){
     current_stack = getCurrentStatementsStack(this);
     
     /* set fragment */
     $.setFragment({ "sid": current_stack.join(','), "new_level" : true});
     return false;
   });
+	
+	$("#statements form.statement.new .buttons a.cancel").livequery(function(){
+		if ($.fragment().sid) {
+			var sid = $.fragment().sid;
+			var path = getStatementStackPath($.fragment().sid);
+      var new_sid = sid.split(",");
+			new_sid.pop();
+			
+			$(this).addClass("ajax");
+			this.href = $.queryString(this.href.replace(/\/\w+\/\d+(\/\w+)?/,path), {
+				"sid": new_sid.join(","),
+				"new_level": $.fragment().new_level
+			})
+		}
+	});
+}
+
+function getStatementStackPath(stack) {
+	var stack = stack.split(",");
+  var sid = stack.pop();
+  if (sid.match('add') == null) {
+    var sid = sid.split("_");
+    var id = sid.pop();
+    var type = sid.join("_");
+    var path = "/" + type + "/" + id;
+  } else {
+    /* add teaser case */
+    if (stack.length > 0) {
+      var parent_id = stack[stack.length-1].split('_');
+      var id = parent_id.pop();
+      var type = parent_id.join("_");
+      var path = "/" + type + "/" + id;
+    } else {
+      var path = '';
+    } 
+    path += "/" + sid;
+  }
+  return path;
 }
 
 function initFragmentStatementChange() {
   $(document).bind("fragmentChange.sid", function() {
 		if ($.fragment().sid) {
-			stack = $.fragment().sid.split(",");
-			sid = stack.pop();
-			if (sid.match('add') == null) {
-		  	sid = sid.split("_");
-		  	id = sid.pop();
-		  	type = sid.join("_");
-				path = "/" + type + "/" + id;
-		  } else {
-				/* add teaser case */
-				if (stack.length > 0) {
-					parent_id = stack[stack.length-1].split('_');
-					id = parent_id.pop();
-          type = parent_id.join("_");
-					path = "/" + type + "/" + id;
-				} else {
-					path = '';
-				} 
-				path += "/" + sid;
- 			}
-		
+			var sid = $.fragment().sid;
+			var path = getStatementStackPath(sid);
+			var new_sid = sid.split(",");
+			new_sid.pop();
+			
 		  path = $.queryString(document.location.href.replace(/\/\w+\/\d+(\/\w+)?/, path), {
-        "sid": stack.join(","),
+        "sid": new_sid.join(","),
         "new_level": $.fragment().new_level
       })
 			$.getScript(path);

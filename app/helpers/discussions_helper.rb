@@ -18,7 +18,7 @@ module DiscussionsHelper
     link_to(I18n.t("discuss.statements.create_discussion_link"),
             new_discussion_url(:category => category),
             :id => "create_discussion_link",
-            :class => "add_new_button text_button create_discussion_button ttLink no_border",
+            :class => "ajax add_new_button text_button create_discussion_button ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_discussion"))
   end
   
@@ -27,7 +27,7 @@ module DiscussionsHelper
   #
   def create_new_discussion_button(discussion, value = nil)
     category = value =~ /#/ ? value : nil
-    link_to(new_discussion_url(discussion, :category => category),:id => "create_#{type}_link", :class => "ajax") do
+    link_to(new_discussion_url(:category => category),:id => "create_discussion_link", :class => "ajax") do
       content_tag(:span, '',
                   :class => "create_statement_button_mid create_discussion_button_mid ttLink no_border",
                   :title => I18n.t("discuss.tooltips.create_discussion"))
@@ -47,13 +47,21 @@ module DiscussionsHelper
     end
   end
   
-  def discussion_title(title,statement_node)
-    link_to(h(title),discussion_url(statement_node), :class => "statement_link ttLink no_border",
-            :title => I18n.t("discuss.tooltips.read_#{statement_node.class.name.underscore}")) 
+  def my_discussion_title(title,discussion)
+    link_to(h(title),discussion_url(discussion, :path => :my_discussions), :class => "statement_link ttLink no_border",
+            :title => I18n.t("discuss.tooltips.read_#{discussion.class.name.underscore}")) 
   end
   
+  def my_discussion_image(discussion)
+    link_to discussion_url(discussion, :path => :my_discussions), :class => "avatar_holder" do
+      image_tag discussion.image.url(:small)
+    end 
+  end
+  
+  
+  
   def link_to_discussion(title, discussion,long_title,value=nil)
-    link_to discussion_url(discussion, :value => value),
+    link_to discussion_url(discussion, :path => :discuss_search, :value => value),
                :title => "#{h(title) if long_title}",
                :class => "avatar_holder#{' ttLink no_border' if long_title }" do 
       image_tag discussion.image.url(:small)
@@ -86,12 +94,6 @@ module DiscussionsHelper
     val << publish_statement_node_link(statement_node, statement_document)
     val << authors_statement_node_link(statement_node)
     content_tag :span, val
-  end
-  
-  def cancel_new_statement_node(statement_node,cancel_js=false)
-    link_to I18n.t('application.general.cancel'),
-            :back,
-            :class => 'text_button cancel_text_button'
   end
   
   def create_discussion_link_for(category=nil)

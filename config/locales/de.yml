@@ -451,6 +451,12 @@ de:
         Nach Ablauf können Ihre Änderungen eventuell nicht mehr berücksichtigt werden.
       staled_modification: 'Es tut uns sehr leid, aber Ihre Bearbeitungszeit von max. 60 Minuten ist abgelaufen. Mittlerweile hat ein anderer Nutzer den Vorschlag bearbeitet. Ihre Änderungen mussten daher leider verworfen werden.'
 
+      breadcrumbs:
+        discuss_search: Search
+        discuss_search_with_value: |-
+          Search Results for '{{value}}'
+        my_discussions: My Discussions
+
       upload_image:
         title: Bild hochladen
         guide: Bitte wählen sie ein passendes <strong>Bild als Illustration</strong> (JPG or PNG, max. 5MB) und laden Sie es hoch.
