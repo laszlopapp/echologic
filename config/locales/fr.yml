@@ -352,8 +352,8 @@ fr:
       Précisez vos compétences linguistiques pour accéder à d'autres pages.
     translation_request: Veuillez traduire la définition en <strong>Français</strong>.
     results_count:
-      one: '{{count}} Discussion'
-      more: '{{count}} Discussion'
+      one: '{{count}} discussion'
+      more: '{{count}} discussion'
     featured_topics:
       title: Thèmes proposés
       tabs:
