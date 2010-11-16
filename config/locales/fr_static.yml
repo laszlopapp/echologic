@@ -105,6 +105,9 @@ fr:
       # about section
       about:
         title: Qui sommes nous?
+        tabs:
+          project: Le Projet
+          team: "L'équipe"
         text: |
           <p>
           <strong>A la source</strong> echo est une <strong>
