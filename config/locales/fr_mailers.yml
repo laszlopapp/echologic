@@ -30,14 +30,14 @@ fr:
       subject: Subject
       text: Text
       greeting: |-
-        <p>Dear {{name}},</p>
+        <p>Cher(e) {{name}},</p>
       unsubscribe: |-
-        <p>If you do not wish to receive newsletters, please log in to
-        <a href='{{echo_url}}'>echo</a>, go to Settings under My echo and uncheck the newsletter option.</p>
+        <p>Si vous ne souhaitez pas recevoir de newsletter, contactez
+        <a href='{{echo_url}}'>echo</a>, aller sur Mon echo: paramètres et désactivez Newsletter.</p>
       fields_not_filled: |-
         You need to fill the subject and text fields in order to send the newsletter.
       sent: |-
-        Congratulations! Your newsletter was successfully sent!
+        Félicitations! Votre Newsletter a été envoyé avec succès!
 
     activity_tracking:
       subject: echo - Activités, notifications"
