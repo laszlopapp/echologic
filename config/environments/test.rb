@@ -42,4 +42,4 @@ ECHO_HOST = 'localhost:3000'
 ECHOSOCIAL_HOST = 'localhost:3001'
 
 # Initial elements number on statements children pagination
-INITIAL_CHILDREN = 7
+TOP_CHILDREN = 7

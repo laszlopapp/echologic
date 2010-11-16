@@ -1,4 +1,5 @@
-<div class="sub_list">
+<% display ||= false %>
+<div class="sub_list" style="<%= display ? 'display:block' : 'display:none'%>">
   <ul id="children_list" class="children_pagination">
     <%= render :partial => 'statements/child', :collection => children %>
 

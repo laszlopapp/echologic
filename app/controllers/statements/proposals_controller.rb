@@ -50,6 +50,27 @@ class ProposalsController < StatementsController
   def add_improvement_proposal
     add('improvement_proposal')
   end
+  
+  # Shows an add pro_argument teaser page
+  #
+  # Method:   GET
+  # Params:   type: string
+  # Response: HTTP or JS
+  #
+  def add_pro_argument
+    add('pro_argument')
+  end
+
+  # Shows an add contra_argument teaser page
+  #
+  # Method:   GET
+  # Params:   type: string
+  # Response: HTTP or JS
+  #
+  def add_contra_argument
+    add('contra_argument')
+  end
+
 
   protected
   

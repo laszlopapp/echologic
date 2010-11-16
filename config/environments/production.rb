@@ -39,4 +39,4 @@ FEEDBACK_RECIPIENT = 'team@echologic.org'
 config.action_mailer.default_url_options = { :host => 'echo.to' }
 
 # Initial elements number on statements children pagination
-INITIAL_CHILDREN = 3
+TOP_CHILDREN = 3

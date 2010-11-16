@@ -36,14 +36,14 @@ $(document).ready(function () {
 /********************************/
 
 function collapseStatements() {
-	$('#statements .statement .header').removeClass('active').addClass('ajax_display');
+	$('#statements .statement .header').removeClass('active').addClass('ajax_expandable');
 	$('#statements .statement .content').hide('slow');
 	//$('#statements .statement .header .supporters_bar');
 	$('#statements .statement .header .supporters_label').hide();
 };
 
 function collapseStatement(element) {
-  element.find('.header').removeClass('active').addClass('ajax_display');
+  element.find('.header').removeClass('active').addClass('ajax_expandable');
   element.find('.content').hide('slow');
   //$('#statements .statement .header .supporters_bar');
   element.find('.supporters_label').hide();
@@ -75,10 +75,20 @@ function removeChildrenStatements(element){
 };
 
 function initExpandables(){
+	$(".ajax_expandable").livequery(function(){
+		var content = $(this).attr('data-content');
+		var path = $(this).attr('href');  
+		
+		$(this).data('content', content);
+		$(this).data('path', path);
+		
+		$(this).removeAttr('data-content');
+		$(this).removeAttr('href');
+	});
 	/* Special ajax event for the discussion (collapse/expand)*/
-	$(".ajax_display").live("click", function(){
+	$(".ajax_expandable").live("click", function(){
 		element = $(this);
-		to_show = element.parent().find($(this).attr("data-show"));
+		to_show = element.parents("div:first").find($(this).data('content'));
 		supporters_label = element.find('.supporters_label'); 
 		if (to_show.length > 0) {
 			/* if statement already has loaded content */
@@ -89,11 +99,9 @@ function initExpandables(){
 		else 
 		{
 			/* load the content that is missing */
-			href = this.href;
-			if (href == null) {
-				href = element.attr('href');
-			}
-			$.getScript(href + '?expand=true', function(){
+			href = $.queryString($(this).data('path'),{'expand' : true});
+			
+			$.getScript(href, function(){
 				element.toggleClass('active');
 			});
 		}

@@ -122,16 +122,20 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :proposals,
                  :member => [:echo, :unecho, :new_translation, :create_translation, :incorporate, :cancel, :more,
                              :children, :upload_image, :reload_image, :authors, :add_improvement_proposal],
-                 :as => 'proposal'
+                :as => 'proposal'
   map.resources :improvement_proposals,
                 :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, 
                             :reload_image, :authors],
                 :as => 'improvement_proposal'
-  map.resources :arguments,
-                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, 
-                            :reload_image, :authors],
-                :as => 'argument'
-                
+#  map.resources :arguments,
+#                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, 
+#                            :reload_image, :authors]
+  map.resources :pro_arguments,
+                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, :reload_image, :authors],
+                :as => 'pro_argument'
+  map.resources :contra_arguments,
+                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, :reload_image, :authors],
+                :as => 'contra_argument'
                 
   # old discuss paths redirection
   map.connect 'discuss/questions/:discussion_id/proposals/:id', :controller => :proposals, :action => :redirect 

@@ -496,6 +496,14 @@ a.statement_link:hover {
   background:transparent url(../images/page/discuss/improvement_proposal_small.png) no-repeat scroll 0 0;
 }
 
+.pro_argument_link {
+  background:transparent url(../images/page/discuss/pro_argument_small.png) no-repeat scroll 0 0;
+}
+
+.contra_argument_link {
+  background:transparent url(../images/page/discuss/contra_argument_small.png) no-repeat scroll 0 0;
+}
+
 .create_discussion_button {
   background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
@@ -505,6 +513,14 @@ a.statement_link:hover {
 }
 
 .create_improvement_proposal_button {
+  background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
+}
+
+.create_pro_argument_button {
+  background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
+}
+
+.create_contra_argument_button {
   background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
 
@@ -574,8 +590,24 @@ a.statement_link:hover {
 /* Children statements */
 /* ------------------- */
 
+
+.statement .children {
+	display: inline-block;
+}
+
+.statement .children .arguments {
+	float: left;
+}
+
 .children_pagination {
-  width: 815px !important;
+  width: 815px;
+}
+
+.arguments .children_pagination {
+	position: relative;
+	float: left;
+  width: 407px;
+	min-height: 91px;
 }
 
 .children_pagination ul {
@@ -592,6 +624,10 @@ a.statement_link:hover {
 
 .children a.statement_link {
 	width: 565px;
+}
+
+.children .arguments a.statement_link {
+  width: 174px;
 }
 
 /* Others */

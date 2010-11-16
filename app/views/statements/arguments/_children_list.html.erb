@@ -1,0 +1,15 @@
+<% display ||= false %>
+<% type ||= @type.downcase %>
+<% children ||= @children %>
+<% pro_arguments = children[0] %>
+<% contra_arguments = children[1] %>
+<div class="sub_list arguments" style="<%= display ? '' : 'display:none'%>">
+	<%= render :partial => 'statements/arguments/arguments_list', :locals => {:type => 'pro_argument', :children => pro_arguments}%>
+	<%= render :partial => 'statements/arguments/arguments_list', :locals => {:type => 'contra_argument', :children => contra_arguments}%>
+	<div id="more_pagination" class="more_pagination">
+    <% if !children.blank? and !children.select{|c|c.current_page != c.total_pages}.empty? %>
+      <%= more_children(@statement_node,type) %>
+    <% end %>
+  </div>
+</div>
+

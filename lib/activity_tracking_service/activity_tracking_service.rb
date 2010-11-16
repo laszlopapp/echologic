@@ -39,7 +39,7 @@ class ActivityTrackingService
     # When a proposal, then we must remove the discussion subscription in the case when no more sibling is around
     if !echoable.parent.nil?
       parent_subscription = user.subscriptions.find_by_subscribeable_id(echoable.parent_id)
-      if (user.subscriptions.map(&:subscribeable_id) & echoable.parent.children_statements.map(&:id)).empty?
+      if (user.subscriptions.map(&:subscribeable_id) & echoable.parent.child_statements.map(&:id)).empty?
         user.subscriptions.delete(parent_subscription) if parent_subscription
       end
     end

@@ -79,7 +79,7 @@ module StatementsHelper
     statement_node.class.expected_children_types.each do |child_type|
       dom_child_class = child_type.to_s.underscore
       type_children = children[child_type] || more_url(statement_node, type, :type => dom_child_class)
-      val << render(:partial => 'statements/children', :locals => {:type => dom_child_class, :children => type_children})
+      val << render(:partial => "statements/#{dom_child_class.pluralize}/children", :locals => {:type => dom_child_class, :children => type_children})
     end
     val
   end
@@ -162,7 +162,7 @@ module StatementsHelper
   #
   def authors_statement_node_link(statement_node,type = dom_class(statement_node))
     link_to(I18n.t('application.general.authors'), authors_url(statement_node,type),
-              :class => 'ajax_display header_button text_button authors_button', 'data-show' => "#authors")
+              :class => 'ajax_expandable header_button text_button authors_button', 'data-content' => "#authors")
   end
   
   #

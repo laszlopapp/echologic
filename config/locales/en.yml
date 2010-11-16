@@ -349,9 +349,13 @@ en:
       read_discussion: 'Go to this question'
       read_proposal: 'Read this proposal'
       read_improvement_proposal: 'Read this improvement proposal'
+      read_pro_argument: 'Read this pro argument'
+      read_contra_argument: 'Read this contra argument'
       current_discussion: 'The currently displayed question'
       current_proposal: 'The currently displayed proposal'
       current_improvement_proposal: 'The currently displayed improvement proposal'
+      current_pro_argument: 'The currently displayed pro argument'
+      current_contra_argument: 'The currently displayed contra argument'
       back_to_discussion: 'Back to current question'
       back_to_proposal: 'Back to current proposal'
       back_to_improvement_proposal: 'Back to current improvement proposal'
@@ -361,9 +365,15 @@ en:
       next_proposal: 'Read next proposal for the current question'
       prev_improvement_proposal: 'Read previous improvement proposal for the current proposal'
       next_improvement_proposal: 'Read next improvement proposal for the current proposal'
+      prev_pro_argument: 'Read previous pro argument for the current proposal'
+      next_pro_argument: 'Read next pro argument for the current proposal'
+      prev_contra_argument: 'Read previous contra argument for the current proposal'
+      next_contra_argument: 'Read next contra argument for the current proposal'
       create_discussion: 'Open a new discussion'
       create_proposal: "Post a new idea concerning the current question"
       create_improvement_proposal: "Post a new idea to improve the current proposal"
+      create_pro_argument: "Post a new argument agreeing with this proposal"
+      create_contra_argument: "Post a new argument disagreeing with this proposal"
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your vote to stop supporting this statement'
       publish: |
@@ -380,6 +390,8 @@ en:
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
       create_improvement_proposal_link: Add new improvement proposal
+      create_pro_argument_link: Add new pro argument
+      create_contra_argument_link: Add new contra argument
       create_discussion_explanation: |
         Here you can open a <strong>new discussion</strong> and tag it with some <strong>relevant keywords</strong>
         for better searchability.
@@ -410,10 +422,14 @@ en:
         discussion:  'Question'
         proposal:  'Proposal'
         improvement_proposal: 'Improvement Proposal'
+        pro_argument: 'Pro Argument'
+        contra_argument: 'Contra Argument'
       new:
         discussion:  'New Discussion'
         proposal:  'New Proposal'
         improvement_proposal: 'New Improvement Proposal'
+        pro_argument: 'New Pro Argument'
+        contra_argument: 'New Contra Argument'
       headings:
         discussion: 'Questions'
         proposal: 'Proposals'

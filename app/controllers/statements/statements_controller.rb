@@ -130,7 +130,11 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def more
-
+    @type = params[:type].camelize || @statement_node.class.expected_children_types.first.to_s
+    load_top_children(@type)
+    respond_to do |format|
+      format.js {render :template => 'statements/more'}
+    end
   end
 
   #
@@ -185,7 +189,7 @@ class StatementsController < ApplicationController
     doc_attrs = attrs.delete(:statement_document)
     form_tags = attrs.delete(:tags)
     
-        begin
+    begin
       @statement_node ||= statement_node_class.new(attrs)
       @statement_node.statement ||= Statement.new
       @statement_document = @statement_node.add_statement_document(
@@ -603,30 +607,37 @@ class StatementsController < ApplicationController
   #
   def load_all_children
     @children = {}
-    @statement_node.class.expected_children_types(true).each_with_index do |child, index|
-      type = child[0]
-      visibility = child[1]
-      if visibility
-        type_class = type.to_s.constantize
-        @children[type] = @statement_node.children_statements(@language_preference_list, type.to_s).
-                                          paginate(type_class.default_scope.merge(:page => 1,
-                                                                                  :per_page => INITIAL_CHILDREN))
-        @children_documents = search_statement_documents(@children[type].map(&:statement_id),
-                                                       @language_preference_list)
-      else
-        @children[type] = nil
+    children_types_with_visibility = @statement_node.class.expected_children_types(true).transpose
+    if !children_types_with_visibility.empty?
+      types = children_types_with_visibility[0]
+      types.each_with_index do |type, index|
+        visibility = children_types_with_visibility[1][index]
+        if visibility
+          type_class = type.to_s.constantize
+          @children[type] = @statement_node.get_top_child_statements(@language_preference_list, type.to_s)
+          @children_documents = search_statement_documents(@children[type].map(&:statement_id),
+                                                         @language_preference_list)
+        else
+          @children[type] = nil
+        end
       end
     end
+  end
+
+  def load_top_children(type)
+    @children = @statement_node.get_top_child_statements(@language_preference_list, type.to_s)
+    @children_documents = search_statement_documents(@children.flatten.map { |s| s.statement_id },
+                                                     @language_preference_list)
   end
 
   #
   # Loads the children of the current statement from a certain type
   #
   def load_children(type)
-    @children = @statement_node.children_statements(@language_preference_list, type).
+    @children = @statement_node.child_statements(@language_preference_list, type).
                   paginate(StatementNode.default_scope.merge(:page => @page,
                                                              :per_page => @per_page))
-    @children_documents = search_statement_documents(@children.map { |s| s.statement_id },
+    @children_documents = search_statement_documents(@children.flatten.map { |s| s.statement_id },
                                                      @language_preference_list)
   end
 
@@ -893,7 +904,7 @@ class StatementsController < ApplicationController
   def load_children_from_parent(statement_node, type)
     @siblings ||= {}
     class_name = type.classify
-    siblings = statement_node.children_statements(@language_preference_list,class_name).map(&:id)
+    siblings = statement_node.child_statements(@language_preference_list,class_name).map(&:id)
     @siblings["add_#{type}"] = siblings
   end
 

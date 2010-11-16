@@ -4,6 +4,8 @@ class StatementNode < ActiveRecord::Base
   acts_as_subscribeable
   acts_as_nested_set
 
+  
+
   after_destroy :destroy_statement
 
   def destroy_statement
@@ -145,24 +147,31 @@ class StatementNode < ActiveRecord::Base
   end
 
   # Collects a filtered list of all children statements
-  def children_statements(language_ids = nil, type = self.class.expected_children_types.first.to_s)
-    return children_statements_for_parent(self.id, type, language_ids, self.draftable?)
+  def child_statements(language_ids = nil, type = self.class.expected_children_types.first.to_s)
+    return type.constantize.statements_for_parent(self.id, language_ids, self.draftable?)
   end
 
   # Collects a filtered list of all siblings statements
   def sibling_statements(language_ids = nil, type = self.class.to_s)
-    return parent_id.nil? ? [] : children_statements_for_parent(self.parent_id, type, language_ids, self.incorporable?)
+    return parent_id.nil? ? [] : type.constantize.statements_for_parent(self.parent_id, language_ids, self.incorporable?)
   end
+  
+  # Get the top children of a specific child type
+  def get_top_child_statements(language_ids = nil, type = self.class.expected_children_types.first.to_s)
+    type_class = type.constantize
+    children = child_statements(language_ids, type)
+    if !children.empty? and children[0].kind_of? Array
+      children.map{|c|c.paginate(type_class.default_scope.merge(:page => 1, :per_page => TOP_CHILDREN))}
+    else
+      children.paginate(type_class.default_scope.merge(:page => 1, :per_page => TOP_CHILDREN))
+    end
+  end
+  
 
 
   private
 
-  def children_statements_for_parent(parent_id, type, language_ids = nil, filter_drafting_state = false)
-    conditions = {:conditions => "type = '#{type}' and parent_id = #{parent_id}"}
-    conditions.merge!({:language_ids => language_ids}) if language_ids
-    conditions.merge!({:drafting_states => %w(tracked ready staged)}) if filter_drafting_state
-    self.class.search_statement_nodes(conditions)
-  end
+  
 
 
   #################
@@ -170,9 +179,16 @@ class StatementNode < ActiveRecord::Base
   #################
 
   class << self
+    
+    def statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false)
+      conditions = {:conditions => "type = '#{self.name}' and parent_id = #{parent_id}"}
+      conditions.merge!({:language_ids => language_ids}) if language_ids
+      conditions.merge!({:drafting_states => %w(tracked ready staged)}) if filter_drafting_state
+      self.search_statement_nodes(conditions)
+    end
 
     public
-
+    
     def search_statement_nodes(opts={})
 
       # Building the search clause
@@ -237,7 +253,7 @@ class StatementNode < ActiveRecord::Base
     
     
     def expected_children_types(children_visibility = false)
-      expected_children = @@expected_children[self.name]
+      expected_children = @@expected_children[self.name] || @@expected_children[self.superclass.name] 
       return expected_children.map{|c|c[0]} if !children_visibility
       expected_children
     end
