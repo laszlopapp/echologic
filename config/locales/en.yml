@@ -241,9 +241,9 @@ en:
 
       newsletter:
         title: Newsletter
-        guide: Get some regular information directly from the webmasters.
-        turned_on: Newsletter has been switched on.
-        turned_off: Newsletter has been switched off.
+        guide: Receive echo newsletter
+        turned_on: You have subscribed to the echo newsletter
+        turned_off: You have unsubscribed from the echo newsletter 
 
       activity:
         title: Activity Notifications

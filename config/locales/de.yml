@@ -248,9 +248,9 @@ de:
 
       newsletter:
         title: Newsletter
-        guide: Get some regular information directly from the webmasters.
-        turned_on: Newsletter has been switched on.
-        turned_off: Newsletter has been switched off.
+        guide: echo Newsletter abonnieren
+        turned_on: Sie haben den echo Newsletter abonniert.
+        turned_off: Sie haben den echo Newsletter abbestellt. 
 
       activity:
         title: Neue Diskussionsbeiträge

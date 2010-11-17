@@ -30,27 +30,28 @@ de:
       subject: Subject
       text: Text
       greeting: |-
-        <p>Dear {{name}},</p>
+        <p>Hallo {{name}},</p>
       unsubscribe: |-
-        <p>If you do not wish to receive newsletters, please log in to
-        <a href='{{echo_url}}'>echo</a>, go to Settings under My echo and uncheck the newsletter option.</p>
+        <p>Wenn Sie keinen echo Newsletter mehr erhalten möchten, melden Sie sich bitte auf
+        <a href='{{echo_url}}'>echo</a> an, und gehen Sie auf "Einstellungen" unter "Mein echo".
+        Hier können Sie den Newsletter abbestellen.</p>
       fields_not_filled: |-
         You need to fill the subject and text fields in order to send the newsletter.
       sent: |-
         Congratulations! Your newsletter was successfully sent!
 
     activity_tracking:
-      subject: echo - Activity Notifications
+      subject: echo - Neue Diskussionsbeiträge
       discussions:
-        new_questions: 'Es gibt <strong>{{count}} neue Diskussionen </strong> seit dem letzten Update:'
+        new_questions: 'Es gibt <strong>{{count}} neue Diskussionen</strong> seit dem letzten Update:'
         new_tags: 'Die Diskussionen befassen sich mit folgenden Themen:'
         new_proposals: 'Neue Vorschläge in der Diskussion "{{title}}"'
-        new_improvement_proposals: 'Neue Verbesserungsvorschläge für den Vorschlag "{{title}}" in "{{question_title}}":'
+        new_improvement_proposals: 'Neue Verbesserungsideen für den Vorschlag "{{title}}" in "{{question_title}}":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
-        Wenn Sie keine Benachrichtigungen über neue Discussionen und Vorschläge erhalten möchten, melden Sie sich bitte unter
-        <a href='{{echo_url}}'>echo</a> an, gehen Sie auf "Main echo", "Einstellungen" und deactivieren Sie die
-        Aktivitäts-Benachrichtigungen.
+        Wenn Sie keine Benachrichtigungen über neue Discussionen und Vorschläge erhalten möchten, melden Sie sich bitte auf
+        <a href='{{echo_url}}'>echo</a> an, gehen Sie auf "Mein echo", "Einstellungen" und deaktivieren Sie die
+        Benachrichtigungen über neue Diskussionsbeiträge.
 
     drafting:
       approval:
