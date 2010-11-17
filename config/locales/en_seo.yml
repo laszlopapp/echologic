@@ -81,7 +81,7 @@ en:
       # my_echo: de.seo.title.admin
       admin:
         show: 'echo - Admin Bereich'
-        
+
       # my_echo: de.seo.title.newsletter
       newsletter:
         new: 'echo - Newsletter'
@@ -96,8 +96,8 @@ en:
           echo provides the technological basis for an open, participatory democracy on the local, regional and
           global level.
         keywords: |-
-          echo, agora, global agora, democracy, participatory democracy, self-determination, movement, global movement,
-          collective intelligence, opinion base, opinion formation, will formation,
+          echo, constructive mass dialog, global agora, democracy, participatory democracy,
+          self-determination, global movement, collective intelligence, opinion base, opinion formation,
           collective decision making, mobilization, critical masses, legislative instruments, political influence,
           social collaboration, echocracy, equality, transparency, echologic, echonomy, eco-social, ecosocial democratic economy,
           Your-Profit, glocal, glocality, sustainability, sustainable change
