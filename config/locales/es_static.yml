@@ -102,7 +102,9 @@ es:
           team: El Equipo
         text: |-
           <p>
-          echo está formado por un <strong>equipo internacional e interdisciplinario</strong> de jóvenes expertos del mundo académico.
+          echo está formado por un
+          <strong><a id="about_team_link" href="#">equipo internacional e interdisciplinario</a></strong>
+          de jóvenes expertos del mundo académico.
           </p><p>
           Este equipo principal cuenta con el apoyo de <strong>una red de colaboradores</strong>, cuyo trabajo
           voluntario y dedicación aporta a echo un valor adicional: expertos de varias disciplinas con una larga
@@ -111,9 +113,10 @@ es:
           echo nació en septiembre de 2008. En octubre fue fundado como organización <strong>sin ánimmo de lucro</strong>,
           echo-source e.V. (Asociación registrada). Una vez recaudada la financiación necesaria, se fundará
           echo Systems GmbH (S.L.) o A.G (S.A.), para llevar a cabo las tareas de realización técnica, trabajo editorial,
-          así como las ventas y mercado internacionales. echo es <strong>"social business"</strong>.
+          así como las ventas y mercado internacionales. echo es
+          <strong><a href='http://en.wikipedia.org/wiki/Social_business' target='_blank'>"social business"</a></strong>.
           Su filosofía “Your-Profit” (tu beneficio) está inspirada en los valores y principios éticos del premio
-          Nobel de la Paz, Mohammad Yunus.
+          Nobel de la Paz, <a href='http://es.wikipedia.org/wiki/Muhammad_Yunus' target='_blank'>Muhammad Yunus</a>.
           </p><p>
           Desde 2010, echo está financiado por el programa EXIST de la UE, por el Fondo Social Europeo,
           por el Ministerio de Economía y Tecnología alemán y por otras donaciones privadas.
