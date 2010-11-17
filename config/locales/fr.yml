@@ -406,7 +406,7 @@ fr:
       create_improvement_proposal_link: 'Soumettre de nouvelles propositions complémentaires?'
       create_question_explanation: |
         Vous pouvez ouvir ici <strong>une nouvelles discussions</strong> et de définissez
-        <strong>les mots-clefs thématiques/strong> (les "tags")
+        <strong>les mots-clefs thématiques</strong> (les "tags")
       create_proposal_explanation: |
         Vous avez <strong>bonne idée</strong> concernant la question actuelle qui n'a
         <strong>pas encore été abordée?</strong><br/>
