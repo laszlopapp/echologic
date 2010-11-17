@@ -882,7 +882,7 @@ class StatementsController < ApplicationController
     class_name = statement_node.class.to_s.underscore
     # if has parent, then load siblings
     if statement_node.parent_id
-      siblings = statement_node.sibling_statements(@language_preference_list).map(&:id)
+      siblings = statement_node.sibling_statements(@language_preference_list).flatten.map(&:id)
     else #else, it's a root node
       if params[:path]
         siblings = case params[:path]

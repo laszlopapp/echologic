@@ -3,7 +3,7 @@ class Double < StatementNode
   
   class << self 
     def expected_sub_types
-      @@expected_sub_types[self.name]
+      @@expected_sub_types[self.name] || @@expected_sub_types[self.superclass.name] 
     end
     
     
