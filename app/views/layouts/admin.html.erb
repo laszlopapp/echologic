@@ -39,7 +39,7 @@
 	<body>
     <div id="header">
       <div id="echo_logo" class="main_logo">
-        <%= link_to(image_tag('page/echo_logo.png'), current_user ? welcome_path : root_path) %>
+        <%= link_to(image_tag('page/echo_logo.png'), current_user ? discuss_search_path : root_path) %>
       </div>
       <%#= render :partial => "layouts/components/top_menu" %>
       <%= render :partial => "users/user_sessions/login" %>

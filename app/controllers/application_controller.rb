@@ -55,8 +55,8 @@ class ApplicationController < ActionController::Base
 
   private
   # Called when when a routing error occurs.
-  def redirect_to_welcome
-    redirect_to welcome_url
+  def redirect_to_home
+    redirect_to discuss_search_url
   end
 
   private
@@ -97,7 +97,7 @@ class ApplicationController < ActionController::Base
   #
   def access_denied
     flash[:error] = I18n.t('activerecord.errors.messages.access_denied')
-    redirect_to_welcome
+    redirect_to_home
   end
 
   before_filter :require_user

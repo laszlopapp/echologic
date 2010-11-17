@@ -45,17 +45,16 @@ class Users::PasswordResetsController < ApplicationController
   end
 
   def update
-
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
     @user.active = true
     begin
       if @user.save
-        flash[:notice] = I18n.t('users.password_reset.messages.reset_success')
-        redirect_to welcome_path
+        set_info 'users.password_reset.messages.reset_success'
+        flash_info and redirect_to_home
       else
-        flash[:error] = I18n.t('users.password_reset.messages.reset_failed')
-        render :action => :edit, :layout => 'static'
+        set_error 'users.password_reset.messages.reset_failed'
+        flash_error and render :action => :edit, :layout => 'static'
       end
     rescue Exception => e
       log_message_error(e, "Error updating user '#{@user.id}' password.")
