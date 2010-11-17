@@ -14,15 +14,13 @@ class Users::UserSessionsController < ApplicationController
   def create
     redirect_url = params[:user_session].delete(:redirect_url)
     @user_session = UserSession.new(params[:user_session])
-    respond_to do |wants|
+    respond_to do |format|
       if @user_session.save
-        set_info I18n.t('users.user_sessions.messages.login_success')
-        flash_info
-        wants.html { redirect_to redirect_url }
+        set_info 'users.user_sessions.messages.login_success'
+        format.html { flash_info and redirect_to redirect_url }
       else
-        set_error I18n.t('users.user_sessions.messages.login_failed')
-        flash_error
-        wants.html { redirect_to root_path }
+        set_error 'users.user_sessions.messages.login_failed'
+        format.html { flash_error and redirect_to root_path }
       end
     end
   end
@@ -31,8 +29,7 @@ class Users::UserSessionsController < ApplicationController
     current_user.update_attributes(:last_login_language => Language[params[:locale]])
     current_user_session.destroy
     reset_session
-    set_info I18n.t('users.user_sessions.messages.logout_success')
-    flash_info
-    redirect_to root_path
+    set_info 'users.user_sessions.messages.logout_success'
+    flash_info and redirect_to root_path
   end
 end
