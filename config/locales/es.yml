@@ -168,7 +168,7 @@ es:
         reset_failed:   'Lo sentimos, pero tu contraseña no puede ser utilizada. Por favor, comprueba tu entrada.'
 
     # Profile Section
-     profile:
+    profile:
       title: Informaciones personales
       edit_title: Editar informaciones personales
       guide: Aquí puedes ver tus informaciones personales. Con "editar" puedes modificarlas.
