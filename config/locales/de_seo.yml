@@ -42,6 +42,7 @@ de:
         password_resets:
           new: 'Ihr echo - Neues Passwort anfordern'
           edit: 'Ihr echo - Neues Passwort setzen'
+          create: 'Ihr echo - Neues Passwort setzen'
         profile:
           details: 'Ihr echo - Ausführliches Profil'
 

@@ -44,6 +44,7 @@ pt:
         password_resets:
           new: 'Your echo - Requira uma nova Password'
           edit: 'Your echo - Defina uma nova Password'
+          create: 'Your echo - Defina uma nova Password'
         profile:
           details: 'Your echo - Detalhes do Perfil'
 
