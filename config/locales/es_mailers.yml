@@ -30,222 +30,223 @@ es:
       subject: Subject
       text: Text
       greeting: |-
-        <p>Dear {{name}},</p>
+        <p>Estimado/a {{name}},</p>
       unsubscribe: |-
-        <p>If you do not wish to receive newsletters, please log in to
-        <a href='{{echo_url}}'>echo</a>, go to Settings under My echo and uncheck the newsletter option.</p>
+        <p>Si no deseas recibir el newsletter, regístrate en
+        <a href='{{echo_url}}'>echo</a>, ve a Definiciones en Mi echo y desactiva la opción newsletter.</p>
       fields_not_filled: |-
         You need to fill the subject and text fields in order to send the newsletter.
       sent: |-
         Congratulations! Your newsletter was successfully sent!
 
+
     activity_tracking:
-      subject: echo - Activity Notifications
+      subject: echo - Notificaciones de la actividad
       discussions:
-        new_questions: 'Hay <strong>{{count}} discusiones nuevas</strong> desde el ultimo update:'
-        new_tags: 'Las discusiones son relacionadas a los topicos:'
-        new_proposals: 'Nueva propuesta na discusión "{{title}}"'
-        new_improvement_proposals: 'Nueva propuesta de mejoramiento para le propuesta "{{title}}" en "{{question_title}}":'
+        new_questions: 'Hay <strong>{{count}} debates nuevos</strong> desde la última actualización:'
+        new_tags: 'Los debates están relacionados con los temas:'
+        new_proposals: 'Nueva propuesta a debate "{{title}}"'
+        new_improvement_proposals: 'Nueva propuesta de mejora para la propuesta "{{title}}" en "{{question_title}}":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
-        Si no quieres recibir nofiticaciones diarias sobre actividades an tus discussiones, por favor haga login a
-        <a href='{{echo_url}}'>echo</a>, vá para "Mi echo", "Definiciones" y desactive las.
+        Si no quieres recibir notificaciones sobre las actividades de tus debates, por favor, regístrate en
+        <a href='{{echo_url}}'>echo</a>, v√° para "Mi echo", "Definiciones" y desactívalas.
 
     drafting:
       approval:
-        subject: Your improvement proposal can now be incorporated
+        subject: Ya puedes introducir tu propuesta de mejora en el texto.
         text: |-
-          Dear {{name}},
+          Estimado/a {{name}},
 
-          Your improvement proposal
+          Tu propuesta de mejora
 
           "*{{ip_title}}*"
 
-          won the most votes. Therefore, you now have the opportunity to incorporate it into the proposal "{{p_title}}".
+          ha sido la más votada. Tienes ahora la oportunidad de incorporarla a la propuesta "{{p_title}}".
 
-          *You have {{hours}} hours* to do so. Afterwards you might lose the opportunity to incorporate your idea to the proposal at all - this will depend on the current support of other improvement proposals compared to yours.
+          *Tienes {{hours}} horas* para hacerlo. Transcurrido este tiempo, puedes perder esta oportunidad de forma definitiva- dependiendo del apoyo de tu propuesta de mejora en comparación con las demás.
 
-          To edit the proposal and *incorporate your idea now*, please follow the link and click the button with the yellow-green arrow in the middle:
+          Para editar la propuesta e *incorporar tu idea ahora*, sigue, por favor, el enlace y haz clic en el icono con la flecha verde-amarilla en el centro:
 
           {{p_link}}
 
-          Please be fair and add only the ideas you really proposed in your improvement proposal. The change history is already saved and will be visualized later. :-)
+          Por favor, sé sincero/a e introduce sólo las ideas que propusiste en tu propuesta de mejora. Las modificaciones han sido guardadas y se visualizarán más tarde. :-)
 
-          Many thanks for your contribution - Have fun! ;-)
+          Muchas gracias por tu aportación - Que lo disfrutes! ;-)
 
-          Best regards,
+          Saludos cordiales,
 
-          Your echo team
+          Tu equipo echo
 
       supporters_approval:
-        subject: An improvement proposal you support can now be incorporated
+        subject: Una propuesta de mejora que has votado puede ser ahora incorporada
         text: |-
-          Dear supporters of the improvement proposal
+          Estimado/a partidario/a de la propuesta de mejora,
 
           "*{{ip_title}}*",
 
-          The author of the improvement proposal did not incorporate it to the proposal "{{p_title}}". As supporters of the idea, you now all have the opportunity to do so *for the next {{hours}} hours*.
+          El/la autor/a de la propuesta de mejora no la ha incorporado a la propuesta "{{p_title}}". Ahora tienes tú la oportunidad de hacerlo *en las próximas {{hours}} horas*.
 
-          To edit the proposal and *incorporate the idea*, please follow the link and click the button with the yellow-green arrow in the middle:
+          Para editor la propuesta e *incorporar la idea*, sigue por favor el enlace y haz clic en el icono con la flecha verde-amarilla en el centro:
 
           {{p_link}}
 
-          The first of you starting to edit the proposal will have the exclusive right to do so - but only for the next 60 minutes!
+          El primero en empezar a editar tendrá el derecho exclusivo de hacerlo - pero sólo dentro de los siguientes 60 minutos!
 
-          Please be fair and add only the ideas that are really proposed in the improvement proposal. The change history is already saved and will be visualized later. :-)
+          Por favor, sé sincero/a e introduce sólo las ideas propuestas en la propuesta de mejora. Las modificaciones han sido guardadas y se visualizarán más tarde. :-)
 
-          Many thanks for your contribution - Have fun! ;-)
+          Muchas gracias por tu aportación - Que lo disfrutes! ;-)
 
-          Best regards,
+          Saludos cordiales,
 
-          Your echo team
+          Tu equipo echo
 
       approval_notification:
-        subject: A proposal you support is about to be improved
+        subject: Una propuesta que has votado va a ser mejorada
         text: |-
-          Dear supporters of the proposal
+          Estimado/a partidario/a de la propuesta
 
           "*{{p_title}}*",
 
-          The improvement proposal "{{ip_title}}" has won the most votes and can now be incorporated into the proposal.
+          la propuesta de mejora "{{ip_title}}" ha sido la más votada y puede ser ahora incorporada en la propuesta.
 
-          To *see the new idea*, please follow the link below:
+          Para *ver la nueva idea*, sigue, por favor, el enlace siguiente:
 
           {{p_link}}
 
-          Many thanks for your contribution - Have fun! ;-)
+          Muchas gracias por tu aportación - Que lo disfrutes! ;-)
 
-          Best regards,
+          Saludos cordiales,
 
-          Your echo team
+          Tu equipo echo
 
       approval_reminder:
-        subject: Reminder! - Time is running out to incorporate your winner improvement proposal
+        subject: Recuerda! - El tiempo para incorporar tu propuesta de mejora ganadora se está agotando
         text: |-
-          Dear {{name}},
+          Estimado/a {{name}},
 
-          You have *only {{hours}} hours left* to incorporate your improvement proposal
+          Te quedan *sólo {{hours}} horas* para incorporar tu propuesta de mejora
 
           "*{{ip_title}}*"
 
-          to the proposal "{{p_title}}". Afterwards you might lose the opportunity to do so depending on the support of other improvement proposals compared to yours.
+          a la propuesta "{{p_title}}". Transcurrido este tiempo, podrás perder esta oportunidad de forma definitiva, dependiendo del apoyo de tu propuesta de mejora en comparación con las demás.
 
-          To edit the proposal and *incorporate your idea now*, please follow the link and click the button with the yellow-green arrow in the middle:
+          Para editor e *incorporar tu idea ahora*, sigue por favor el enlace y haz clic en el icono con la flecha verde-amarilla en el centro:
 
           {{p_link}}
 
-          Please be fair and add only the ideas you really proposed in the improvement proposal. The change history is already saved and will be visualized later. :-)
+          Por favor, sé sincero/a e introduce sólo las ideas que propusiste en tu propuesta de mejora. Las modificaciones han sido guardadas y se visualizarán más tarde. :-)
 
-          Many thanks for your contribution - Have fun! ;-)
+          Muchas gracias por tu aportación - Que lo disfrutes! ;-)
 
-          Best regards,
+          Saludos cordiales,
 
-          Your echo team
+          Tu equipo echo
 
       supporters_approval_reminder:
-        subject: Last Reminder! - Time is running out to incorporate a winner improvement proposal
+        subject: Última llamada! - El tiempo para incorporar una propuesta de mejora ganadora se está agotando
         text: |-
-          Dear supporters of the improvement proposal
+          Estimado/a partidario/a de la propuesta de mejora
 
           "*{{ip_title}}*",
 
-          You have *only {{hours}} hours left* to incorporate the improvement proposal to the proposal "{{p_title}}".
+          Te quedan *sólo {{hours}} horas* para incorporar la propuesta de mejora a la propuesta "{{p_title}}".
 
-          Afterwards all votes for the improvement proposal will be withdrawn making your echos fade out.
+          Transcurrido este tiempo, los votos de la propuesta de mejora serán retirados haciéndola desaparecer.
 
-          To edit the proposal and *incorporate the idea now*, please follow the link and click the button with the yellow-green arrow in the middle:
+          Para editor la propuesta e *incorporar la idea ahora*, sigue, por favor, el enlace y haz clic en el icono con la flecha verde-amarilla en el centro:
 
           {{p_link}}
 
-          Please be fair and add only the ideas that are really proposed in the improvement proposal. The change history is already saved and will be visualized later. :-)
+          Por favor, sé sincero/a e introduce sólo las ideas que propusiste en la mejora de propuesta. Las modificaciones han sido guardadas y serán visualizadas más tarde. :-)
 
-          And remember: First come, first served!
+          Y recuerda: El primero gana!
 
-          Many thanks for your contribution - Have fun! ;-)
+          Muchas gracias por tu aportación - Que lo disfrutes! ;-)
 
-          Best regards,
+          Saludos cordiales,
 
-          Your echo team
+          Tu equipo echo
 
       passed:
-        subject: Passed to incorporate your winner improvement proposal
+        subject: Caducado el plazo para introducir tu propuesta de mejora ganadora
         text: |-
-          Dear {{name}},
+          Estimado/a {{name}},
 
-          Unfortunately, the time for you to incorporate your improvement proposal
+          Lo sentimos, pero el plazo para introducir la mejora de propuesta
 
           "*{{ip_title}}*"
 
-          into the proposal "{{p_title}}" has expired.
+          en la propuesta "{{p_title}}" ha caducado.
 
-          In case your improvement proposal will be selected for the second time, all supporters of your winner idea will also get the opportunity to incorporate it into the proposal.
+          En el caso de que tu propuesta de mejora sea de nuevo elegida, los/las partidarios/as de tu idea ganadora tendrán también la oportunidad de incorporarla en la propuesta.
 
-          *Looking forward to your further contributions*. :-)
+          *Esperando tus nuevas aportaciones*. :-)
 
-          Best regards,
+          Saludos cordiales,
 
-          Your echo team
+          Tu equipo echo
 
       supporters_passed:
-        subject: Passed to incorporate a winner improvement proposal
+        subject: Caducado el plazo para incorporar una propuesta de mejora ganadora
         text: |
-          Dear supporters of the improvement proposal
+          Estimado/a partidario/a de la propuesta de mejora
 
           "*{{ip_title}}*",
 
-          Unfortunately, the time for you to incorporate the idea into the proposal "{{p_title}}" has expired.
+          Lo sentimos, pero el plazo para introducir la idea en la propuesta "{{p_title}}" ha caducado.
 
-          As said, all votes for the improvement proposal will now be withdrawn making the echos for this favourite idea fade out.
+          Los votos de la propuesta de mejora serán retirados apagando su eco.
 
-          In case you would like to support the improvement proposal and make an echo again, please follow the link:
+          En caso de que quieras seguir apoyando la propuesta y mantener su eco, sigue por favor, el enlace:
 
           {{ip_link}}
 
-          *Looking forward to your further contributions*. :-)
+          *Esperando tus nuevas aportaciones*. :-)
 
-          Best regards,
+          Saludos cordiales,
 
-          Your echo team
+          Tu equipo echo
 
       incorporated:
-        subject: Thank you for improving the proposal
+        subject: Gracias por mejorar la propuesta
         text: |-
-          Dear {{name}},
+          Estimado/a {{name}},
 
-          Thank you for incorporating your winner idea
+          Gracias por incorporar tu idea ganadora
 
           "*{{ip_title}}*"
 
-          into the proposal "{{p_title}}".
+          a la propuesta "{{p_title}}".
 
-          To see the new version of the proposal, please follow the link:
+          Para ver la nueva versión de la propuesta, sigue por favor el siguiente enlace:
 
           {{p_link}}
 
-          Many thanks for your contribution and looking forward to further impulses from you. ;-)
+          Muchas gracias por tu aportación, esperamos nuevas acciones. ;-)
 
-          Best regards,
+          Saludos cordiales,
 
-          Your echo team
+          Tu equipo echo
 
       incorporation_notification:
-        subject: A proposal you support has been improved
+        subject: Una propuesta que has votado ha sido mejorada
         text: |-
-          Dear supporters of the proposal
+          Estimado/a partidario/a de la propuesta
 
           "*{{p_title}}*",
 
-          The improvement proposal with the most votes "{{ip_title}}" has been incorporated into the proposal.
+          La propuesta de mejora más votada "{{ip_title}}" ha sido incorporada a la propuesta.
 
-          You can follow the link to *see the changes* and to check that they really correspond with the original improvement proposal (later on, a detailed change history will make it much easier to do so):
+          Puedes seguir el enlace en *ver los cambios* y comprobar que corresponde con la propuesta de mejora original (posteriormente, será más sencillo con las notificaciones inmediatas):
 
           {{p_link}}
 
-          Many thanks for your contribution - Have fun! ;-)
+          Muchas gracias por tu aportación - Que lo disfrutes! ;-)
 
-          Best regards,
+          Saludos cordiales,
 
-          Your echo team
+          Tu equipo echo
 
       unsubscribe: |-
-        Si no quieres recibir notificaciones inmediatas sobre el desarrollo colectivo de propuestas, por favor haga login a {{echo_url}}, vá para "Mi echo", "Definiciones" y desactive las notificaciones.
+        Si no quieres recibir notificaciones inmediatas sobre el desarrollo de las propuestas, por favor regístrate en {{echo_url}}, "Mi echo", "Definiciones" y desactívalas.
