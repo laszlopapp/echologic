@@ -157,14 +157,10 @@ class StatementNode < ActiveRecord::Base
   end
   
   # Get the top children of a specific child type
-  def get_top_child_statements(language_ids = nil, type = self.class.expected_children_types.first.to_s)
+  def get_paginated_child_statements(language_ids = nil, type = self.class.expected_children_types.first.to_s, page = 1, per_page = TOP_CHILDREN)
     type_class = type.constantize
     children = child_statements(language_ids, type)
-    if !children.empty? and children[0].kind_of? Array
-      children.map{|c|c.paginate(type_class.default_scope.merge(:page => 1, :per_page => TOP_CHILDREN))}
-    else
-      children.paginate(type_class.default_scope.merge(:page => 1, :per_page => TOP_CHILDREN))
-    end
+    type_class.paginate_statements(children, page, per_page)
   end
   
 
@@ -179,6 +175,10 @@ class StatementNode < ActiveRecord::Base
   #################
 
   class << self
+    
+    def paginate_statements(children, page, per_page)
+      children.paginate(default_scope.merge(:page => page, :per_page => per_page))
+    end
     
     def statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false)
       conditions = {:conditions => "type = '#{self.name}' and parent_id = #{parent_id}"}
@@ -258,6 +258,13 @@ class StatementNode < ActiveRecord::Base
       expected_children
     end
     
+    def children_template
+      "statements/children"
+    end
+    
+    def more_template
+      "statements/more"
+    end
     
     protected 
     

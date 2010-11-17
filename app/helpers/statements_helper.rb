@@ -79,7 +79,7 @@ module StatementsHelper
     statement_node.class.expected_children_types.each do |child_type|
       dom_child_class = child_type.to_s.underscore
       type_children = children[child_type] || more_url(statement_node, type, :type => dom_child_class)
-      val << render(:partial => "statements/#{dom_child_class.pluralize}/children", :locals => {:type => dom_child_class, :children => type_children})
+      val << render(:partial => child_type.to_s.constantize.children_template, :locals => {:type => dom_child_class, :children => type_children})
     end
     val
   end

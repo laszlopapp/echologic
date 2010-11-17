@@ -67,7 +67,7 @@ class ActivityTrackingService
   def created_event(node)
 
     event_json = {
-      :type => node.class.name.underscore.downcase,
+      :type => node.class.name.underscore,
       :id => node.id,
       :tags => node.topic_tags,
       :documents => set_titles_hash(node.statement_documents),
@@ -75,7 +75,7 @@ class ActivityTrackingService
       :root_documents => (!node.root.nil? and node.root != node.parent) ? set_titles_hash(node.root.statement_documents) : nil,
       :parent_id => node.parent_id || -1,
       :root_id => (!node.root.nil? and node.root != node.parent) ? node.root.id : -1,
-      :parent_type => node.parent ? node.parent.class.name.underscore.downcase : nil,
+      :parent_type => node.parent ? node.parent.class.name.underscore : nil,
       :operation => 'created'
     }.to_json
 

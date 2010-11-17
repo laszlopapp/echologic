@@ -11,4 +11,5 @@ class ProArgumentsController < StatementsController
   def statement_node_class
     ProArgument
   end
+  
 end

@@ -458,7 +458,6 @@ function getCurrentStatementsStack(element) {
 function initStatementHistoryEvents() {
 	$("#statements .statement .header a.statement_link").live("click", function(){
 		current_stack = getCurrentStatementsStack(this);
-		
 		/* set fragment */
 		$.setFragment({ "sid": current_stack.join(','), "new_level" : ''});
 		return false;
@@ -466,10 +465,9 @@ function initStatementHistoryEvents() {
 	
 	$("#statements .statement .children a.statement_link").live("click", function(){
     current_stack = getCurrentStatementsStack(this);
-    
     /* set fragment */
     $.setFragment({ "sid": current_stack.join(','), "new_level" : true});
-    return false;
+		return false;
   });
 	
 	$("#statements form.statement.new .buttons a.cancel").livequery(function(){

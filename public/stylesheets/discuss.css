@@ -595,7 +595,7 @@ a.statement_link:hover {
 	display: inline-block;
 }
 
-.statement .children .arguments {
+.statement .children .doubles_list {
 	float: left;
 }
 
@@ -603,10 +603,10 @@ a.statement_link:hover {
   width: 815px;
 }
 
-.arguments .children_pagination {
+.doubles_list .children_pagination {
 	position: relative;
 	float: left;
-  width: 407px;
+  width: 390px;
 	min-height: 91px;
 }
 
@@ -626,8 +626,8 @@ a.statement_link:hover {
 	width: 565px;
 }
 
-.children .arguments a.statement_link {
-  width: 174px;
+.children .doubles_list a.statement_link {
+  width: 157px;
 }
 
 /* Others */

@@ -6,7 +6,7 @@
 
   <!-- The children -->
 	<% if children and children.kind_of?(Array) %>
-	  <%= render :partial => 'statements/arguments/children_list',
+	  <%= render :partial => 'statements/double/children_list',
 	             :locals => {:type => type, :children => children, :display => true}%>
   <% end %>
 </div>

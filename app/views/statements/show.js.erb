@@ -23,10 +23,10 @@
 class_element = $('#statements div.<%= dom_class(@statement_node) %>');
 if(class_element.length == 0){class_element = $('#statements form.<%= dom_class(@statement_node) %>');};
 
-<% if params[:expand].blank? %>
+<%# if params[:expand].blank? %>
   /* Remove all elements from the same class or children class */
-  removeChildrenStatements(class_element);
-<% end %>
+  //removeChildrenStatements(class_element);
+<%# end %>
 
 <% if !params[:new_level].blank? %>
 	/* Close the content of the remaining ones */

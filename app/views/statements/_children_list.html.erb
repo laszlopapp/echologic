@@ -1,12 +1,8 @@
 <% display ||= false %>
 <div class="sub_list" style="<%= display ? 'display:block' : 'display:none'%>">
-  <ul id="children_list" class="children_pagination">
-    <%= render :partial => 'statements/child', :collection => children %>
-
-    <%if children.blank? or children.current_page == children.total_pages %>
-        <%= content_tag :li, create_new_child_statement_link(@statement_node,type) %>
-    <%end%>
-  </ul>
+	
+	<%= render :partial => 'statements/elements_list' , :locals => { :children => children, :type => type }%>
+	
 	<div id="more_pagination" class="more_pagination">
 		<% if !children.blank? and children.current_page != children.total_pages %>
 		  <%= more_children(@statement_node,type) %>
