@@ -113,9 +113,9 @@ es:
              </ul>
            </p>
 
-      klimaherbsttv:
-        name: Klimaherbst TV (Climate Autumn TV)
-        short_name: Klimaherbst TV
+      klimaherbst:
+        name: Klimaherbst (Climate Autumn)
+        short_name: Klimaherbst
         teaser: |
           Debate sobre "temas del día a día, pautas de vida y de salud" en relación al manual ecológico que la ciudad de Munich está preparando.
         description: |-
