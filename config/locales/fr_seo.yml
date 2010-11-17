@@ -79,7 +79,6 @@ fr:
       # my_echo: de.seo.title.admin
       admin:
         show: "echo - espace d'Admin"
-
       # my_echo: de.seo.title.newsletter
       newsletter:
         new: 'echo - Newsletter'
