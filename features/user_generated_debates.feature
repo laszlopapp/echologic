@@ -106,7 +106,7 @@ Feature: User Generated Debates
         | question_tags                     | #echonomyjam |
       And I choose "Publish immediately (no further editing is possible)"
       And I press "Save"
-    When I am on the Discuss Index
+    When I am on the discuss featured
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
       Then I should see "A Debate for all Seasons"

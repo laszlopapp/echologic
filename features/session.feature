@@ -3,14 +3,14 @@ Feature: Sessions
 Scenario: Surfing the page, and logging in
   Given I am on the discuss index
   When I login as "user" with password "true"
-  Then I should be on the discuss featured
+  Then I should be on the discuss search
 
 Scenario: Logging out and In again
   Given I am logged in as "user" with password "true"
   When I am on the discuss index
   And I follow "Logout"
   And I login as "user" with password "true"
-  Then I should be on the welcome page
+  Then I should be on the discuss search page
 
 Scenario: Login after expired Session
   Given I am logged in as "user" with password "true"
@@ -20,7 +20,7 @@ Scenario: Login after expired Session
   And I go to the Discuss Index
   And I restore normal session expiry time
   And I login as "user" with password "true"
-  Then I should be on the discuss featured
+  Then I should be on the discuss search
 
 Scenario: Logout and save last login language
   Given I am logged in as "user" with password "true"
