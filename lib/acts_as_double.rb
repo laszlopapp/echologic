@@ -47,6 +47,19 @@ module ActsAsDouble
           
           
         end
+        
+        # Collects a filtered list of all siblings statements
+        def siblings_to_session(language_ids = nil, type = self.class.to_s)
+          siblings = []
+          sibling_statements(language_ids, type).map{|s|s.map(&:id)}.each_with_index do |s, index|
+            siblings << s + ["add_#{self.class.expected_sub_types[index].to_s.underscore}"]
+          end
+          #order them properly, as you want them to be navigated
+          min = siblings.map(&:length).min
+          ordered_siblings = siblings.map{|s|s.slice(0,min)}.transpose + siblings.map{|s|s[min..-1]}
+          ordered_siblings.flatten
+        end
+        
       end # --- class_eval
       expects_sub_types args
     end

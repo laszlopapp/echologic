@@ -7,20 +7,20 @@ class StatementsController < ApplicationController
 
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
                                     :more, :children, :upload_image, :reload_image, :authors, :add_discussion, :add_proposal, 
-                                    :add_improvement_proposal]
+                                    :add_improvement_proposal, :add_pro_argument, :add_contra_argument]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
   skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :redirect, :add_discussion,
-                                           :add_proposal, :add_improvement_proposal]
+                                           :add_proposal, :add_improvement_proposal,:add_pro_argument, :add_contra_argument]
 
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
   before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions,
                                                                    :new, :create, :more, :children, :upload_image,
                                                                    :reload_image, :redirect, :authors, :add_discussion,
-                                                                   :add_proposal, :add_improvement_proposal]
+                                                                   :add_proposal, :add_improvement_proposal,:add_pro_argument, :add_contra_argument]
   before_filter :fetch_languages, :except => [:destroy, :redirect]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
@@ -28,7 +28,7 @@ class StatementsController < ApplicationController
   # Authlogic access control block
   access_control do
     allow :editor
-    allow anonymous, :to => [:index, :show, :category, :more, :children, :add_discussion, :add_proposal, :add_improvement_proposal]
+    allow anonymous, :to => [:index, :show, :category, :more, :children, :add_discussion, :add_proposal, :add_improvement_proposal,:add_pro_argument, :add_contra_argument]
     allow logged_in
   end
 
@@ -881,17 +881,9 @@ class StatementsController < ApplicationController
     class_name = statement_node.class.to_s.underscore
     # if has parent, then load siblings
     if statement_node.parent_id
-      siblings = statement_node.sibling_statements(@language_preference_list).flatten.map(&:id)
+      siblings = statement_node.siblings_to_session(@language_preference_list)
     else #else, it's a root node
-      if params[:path]
-        siblings = case params[:path]
-          when 'discuss_search' then search_statement_nodes(:search_term => params[:value]||"", :language_ids => @language_preference_list,
-                                                           :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id)
-          when 'my_discussions' then current_user.get_my_discussions.map(&:id)
-        end
-      else
-        siblings = [statement_node.id]
-      end
+      siblings = get_roots_to_session
     end
     @siblings["#{class_name}_#{statement_node.id}"] = siblings
   end
@@ -899,8 +891,22 @@ class StatementsController < ApplicationController
   def load_children_from_parent(statement_node, type)
     @siblings ||= {}
     class_name = type.classify
-    siblings = statement_node.child_statements(@language_preference_list,class_name).map(&:id)
+    siblings = statement_node.children_to_session(@language_preference_list,class_name)
     @siblings["add_#{type}"] = siblings
+  end
+  
+  #gets the root ids that need to be loaded to the session
+  def get_roots_to_session
+    if params[:path]
+      siblings = case params[:path]
+        when 'discuss_search' then search_statement_nodes(:search_term => params[:value]||"", :language_ids => @language_preference_list,
+                                                          :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id)
+        when 'my_discussions' then current_user.get_my_discussions.map(&:id)
+      end
+    else
+      siblings = [@statement_node.id]
+    end
+    siblings + ["add_discussion"]
   end
 
   #

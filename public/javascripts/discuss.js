@@ -144,8 +144,10 @@ function initPrevNextButtons() {
 function initNavigationButton(element, inc) {
 	current_node_id = eval($(element).attr('data-id'));
 	node = $(element).parents('.statement');
+	
+	if (current_node_id == null) {current_node_id = node.attr("id");}
 	/* get current node statement type */
-	if (node.attr("id").match('add')) {
+	if (node.attr("id").match('add_')) {
     node_class = node.attr("id").replace('add_','');
   }
   else {
@@ -164,27 +166,25 @@ function initNavigationButton(element, inc) {
 	}
 	/* get siblings ids */
 	siblings_ids = $("div#statements").data(parent_node_id);
+	
 	/* get index of the prev/next sibling */
-	if ($(element).hasClass('add')) {
-		if (inc < 0) { id_index = siblings_ids.length - 1; }
-  	else { id_index = 0; }
-  }
-  else {
-  	id_index = siblings_ids.indexOf(current_node_id) + inc;
-	}
-	/* if index out of bounds, than request 'add' action */
-	if (id_index < 0 || id_index >= siblings_ids.length) {
+	id_index = (siblings_ids.indexOf(current_node_id) + inc) % siblings_ids.length;
+	//BUG: % operator is not working properly in jquery for negative values (-1%7 => -1)?????????
+	if (id_index < 0) {id_index = siblings_ids.length - 1;}
+  new_node_id = new String(siblings_ids[id_index]);
+	/* if 'add' action, then write add link */
+	if (new_node_id.match('add_')) {
 		if(parent_path.length > 0) {
 			path = parent_path.split('_');
 			id = path.pop();
 			controller = path.join('_');
 			path = "/"+[controller,id].join('/');
 		} else {path = '';}
-		element.href = element.href.replace(/\/\w+\/\d+(\/\w+)?/, path + "/" + "add_" + node_class);
+		element.href = element.href.replace(/\/\w+\/\d+(\/\w+)?/, path + "/" + new_node_id);
 	}
 	else {
-	  id = siblings_ids[id_index];
-		element.href = element.href.replace(/\/\w+\/\d+(\/\w+)?/,"/" + node_class + "/" + id);
+		
+		element.href = element.href.replace(/\/\w+\/\d+(\/\w+)?/,"/" + node_class + "/" + new_node_id);
 	}
 	
   $(element).removeAttr('data-id');
@@ -452,7 +452,7 @@ function getCurrentStatementsStack(element) {
 	
   /* get current_stack of visible statements (if any matches the clicked statement, then break) */
   $(".statement").each( function(index){
-		if (index <= parent_index) {
+		if (index < parent_index) {
 			id = $(this).attr('id');
 			if (id.match(type) != null) {
 				return false;

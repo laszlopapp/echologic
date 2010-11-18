@@ -20,7 +20,7 @@
   <% end %>
 <% end %>
 
-class_element = $('#statements div.<%= @type %>');
+var class_element = $('#statements div.statement:eq(<%= @statement_node.level + 1%>)');
 if(class_element.length == 0){class_element = $('#statements form.<%= @type %>');};
 
 var add_teaser = "<%= escape_javascript(render :partial => 'statements/add') %>";

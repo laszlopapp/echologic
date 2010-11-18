@@ -156,6 +156,16 @@ class StatementNode < ActiveRecord::Base
     return parent_id.nil? ? [] : type.constantize.statements_for_parent(self.parent_id, language_ids, self.incorporable?)
   end
   
+  # Collects a filtered list of all siblings statements
+  def siblings_to_session(language_ids = nil, type = self.class.to_s)
+    sibling_statements(language_ids, type).map(&:id) + ["add_#{type.underscore}"]
+  end
+  
+  # Collects a filtered list of all siblings statements
+  def children_to_session(language_ids = nil, type = self.class.expected_children_types.first.to_s)
+    child_statements(language_ids, type).map(&:id) + ["add_#{type.underscore}"]
+  end
+  
   # Get the top children of a specific child type
   def get_paginated_child_statements(language_ids = nil, type = self.class.expected_children_types.first.to_s, page = 1, per_page = TOP_CHILDREN)
     type_class = type.constantize
