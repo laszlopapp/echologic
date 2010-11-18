@@ -13,7 +13,7 @@ class StatementsController < ApplicationController
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
-  skip_before_filter :require_user, :only => [:category, :show, :children, :more, :authors, :redirect, :add_discussion,
+  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :redirect, :add_discussion,
                                            :add_proposal, :add_improvement_proposal]
 
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
@@ -22,14 +22,13 @@ class StatementsController < ApplicationController
                                                                    :reload_image, :redirect, :authors, :add_discussion,
                                                                    :add_proposal, :add_improvement_proposal]
   before_filter :fetch_languages, :except => [:destroy, :redirect]
-  before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation, :add_discussion,
-                                                               :add_proposal, :add_improvement_proposal]
+  before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
 
   # Authlogic access control block
   access_control do
     allow :editor
-    allow anonymous, :to => [:index, :show, :category, :children, :add_discussion, :add_proposal, :add_improvement_proposal]
+    allow anonymous, :to => [:index, :show, :category, :more, :children, :add_discussion, :add_proposal, :add_improvement_proposal]
     allow logged_in
   end
 

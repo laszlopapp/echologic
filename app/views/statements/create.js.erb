@@ -6,7 +6,7 @@
   window.location.replace('<%= url_for(@statement_node) %>')
 <% else %>
 
-  class_element = $('#statements div.<%= dom_class(@statement_node) %>');
+  var class_element = $('#statements div.statement:eq(<%= @statement_node.level %>)');
 	if(class_element.length == 0){class_element = $('#statements form.<%= dom_class(@statement_node) %>');};
 	
 	/* Remove all elements from the same class or children class */

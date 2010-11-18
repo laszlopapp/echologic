@@ -144,6 +144,7 @@ function initPrevNextButtons() {
 function initNavigationButton(element, inc) {
 	current_node_id = eval($(element).attr('data-id'));
 	node = $(element).parents('.statement');
+	/* get current node statement type */
 	if (node.attr("id").match('add')) {
     node_class = node.attr("id").replace('add_','');
   }
@@ -151,6 +152,7 @@ function initNavigationButton(element, inc) {
   	node_class = node.attr("id").match(/[a-z]+(?:_[a-z]+)?/);
 		node_class = node_class[0].replace('edit_','');
   }
+	/* get parent node from the visited node */
   parent_node = node.prev();
 	/* get id where the current node's siblings are stored */
   if(parent_node.length > 0)
@@ -160,18 +162,18 @@ function initNavigationButton(element, inc) {
 		parent_node_id = 'roots';
 		parent_path = '';
 	}
-	parent_ids = $("div#statements").data(parent_node_id);
+	/* get siblings ids */
+	siblings_ids = $("div#statements").data(parent_node_id);
+	/* get index of the prev/next sibling */
 	if ($(element).hasClass('add')) {
-		/* Add teaser section buttons */
-  	if (inc < 0) { id_index = parent_ids.length - 1; }
+		if (inc < 0) { id_index = siblings_ids.length - 1; }
   	else { id_index = 0; }
   }
   else {
-  	/* get index of the prev/next sibling (according to inc) */
-	  id_index = parent_ids.indexOf(current_node_id) + inc;
+  	id_index = siblings_ids.indexOf(current_node_id) + inc;
 	}
 	/* if index out of bounds, than request 'add' action */
-	if (id_index < 0 || id_index >= parent_ids.length) {
+	if (id_index < 0 || id_index >= siblings_ids.length) {
 		if(parent_path.length > 0) {
 			path = parent_path.split('_');
 			id = path.pop();
@@ -181,7 +183,7 @@ function initNavigationButton(element, inc) {
 		element.href = element.href.replace(/\/\w+\/\d+(\/\w+)?/, path + "/" + "add_" + node_class);
 	}
 	else {
-	  id = parent_ids[id_index];
+	  id = siblings_ids[id_index];
 		element.href = element.href.replace(/\/\w+\/\d+(\/\w+)?/,"/" + node_class + "/" + id);
 	}
 	
@@ -428,6 +430,11 @@ function loadRTEEditor() {
 /********************************/
 
 function getCurrentStatementsStack(element) {
+	/* get the statement element */
+	parent = $(element).parents('.statement');
+	/* get parent id current index in the list of statements */
+  parent_index = $('.statement').index(parent);
+	
 	/* get soon to be visible statement */
   path = element.href.split("/");
   id = path.pop().split('?').shift();
@@ -441,13 +448,19 @@ function getCurrentStatementsStack(element) {
 	}
   
   current_stack = [];
+	
+	
   /* get current_stack of visible statements (if any matches the clicked statement, then break) */
-  $(".statement").each( function(){
-    id = $(this).attr('id');
-    if (id.match(type) != null) {
-      return false;
-    }
-    else { current_stack.push($(this).attr('id')); } 
+  $(".statement").each( function(index){
+		if (index <= parent_index) {
+			id = $(this).attr('id');
+			if (id.match(type) != null) {
+				return false;
+			}
+			else {
+				current_stack.push($(this).attr('id'));
+			}
+		} 
   });
   
   /* insert clicked statement */
@@ -515,13 +528,16 @@ function initFragmentStatementChange() {
 			var sid = $.fragment().sid;
 			var path = getStatementStackPath(sid);
 			var new_sid = sid.split(",");
-			new_sid.pop();
 			
 		  path = $.queryString(document.location.href.replace(/\/\w+\/\d+(\/\w+)?/, path), {
         "sid": new_sid.join(","),
         "new_level": $.fragment().new_level
       })
-			$.getScript(path);
+			$.ajax({
+				url:      path,
+	      type:     'get',
+	      dataType: 'script'
+			});
 		}
   });
   

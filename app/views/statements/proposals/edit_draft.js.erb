@@ -5,7 +5,7 @@ $('#statements .statement .supporters_label').hide();
 
 var new_form = "<%= escape_javascript(render :partial => 'statements/proposals/edit_draft') %>";
 
-var class_element = $('#statements div.<%= dom_class(@statement_node) %>');
+var class_element = $('#statements div.statement:eq(<%= @statement_node.level %>)');
 
 if(class_element.length > 0) {class_element.replaceWith(new_form);}
 else {$('#statements').append(new_form);};
