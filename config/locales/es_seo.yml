@@ -43,6 +43,7 @@ es:
           new: 'Tu echo - Solicitar nueva contraseña'
           edit: 'Tu echo - Definir nueva contraseña'
           create: 'Tu echo - Definir nueva contraseña'
+          update: 'Tu echo - Definir nueva contraseña'
         profile:
           details: 'Tu echo - Tu perfil detallado'
 
