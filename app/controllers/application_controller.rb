@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
 
   private
   def rescure_routing_error
-    redirect_to_url(last_url, 'Unknown URL. Redirecting...')
+    redirect_to_url last_url, 'application.routing_error'
   end
 
   private
@@ -126,7 +126,7 @@ class ApplicationController < ActionController::Base
     # Checks that the user is NOT logged in.
   def require_no_user
     if current_user
-      redirect_to_url(root_url, I18n.t('authlogic.error_messages.must_be_logged_out'))
+      redirect_to_url root_url, 'authlogic.error_messages.must_be_logged_out'
     end
     return false
   end
@@ -156,16 +156,16 @@ class ApplicationController < ActionController::Base
     reset_session
     if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'
       # If the user wants to log out, we go to the root page and display the logout message.
-      redirect_to_url(root_url, I18n.t('users.user_sessions.messages.logout_success'))
+      redirect_to_url root_url, 'users.user_sessions.messages.logout_success'
     else
       # Not logout
       @user_required ||= false
       if @user_required
         # Login is required but the session is killed
-        redirect_to_url(last_url, I18n.t('users.user_sessions.messages.session_timeout'))
+        redirect_to_url last_url, 'users.user_sessions.messages.session_timeout'
       else
         # Login free area
-        redirect_to_url(request.url, I18n.t('users.user_sessions.messages.session_timeout'))
+        redirect_to_url request.url, 'users.user_sessions.messages.session_timeout'
       end
     end
   end
@@ -228,12 +228,12 @@ class ApplicationController < ActionController::Base
     @info = I18n.t(string, options)
   end
 
-  # Sets the @info variable for the flash object
+  # Sets the @info variable for the flash object (used for HTTP requests)
   def flash_info
     flash[:notice] = @info
   end
 
-  # Renders :updates a page with an a info message set by set_info.
+  # Renders :updates a page with an a info message set by set_info (used for Ajax requests)
   def render_with_info(message=@info)
     render :update do |page|
       page << "info('#{escape_javascript(message)}');" if message
@@ -263,7 +263,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def show_error_message(message)
+  # Sets the @error variable for the flash object (used for HTTP requests).
+  def flash_error
+    flash[:error] = @error
+  end
+
+  # Displays the error message (used for Ajax requests).
+  def show_error_message(message=@error)
     render :update do |page|
       page << "error('#{escape_javascript(message)}');"
     end
@@ -281,11 +287,6 @@ class ApplicationController < ActionController::Base
       page << "error('#{escape_javascript(message)}');"
       yield page if block_given?
     end
-  end
-
-  # Sets the @error variable for the flash object
-  def flash_error
-    flash[:error] = @error
   end
 
 

@@ -6,6 +6,7 @@ pt:
 
     # Unexpected Error
     unexpected_error: Ocorreu um erro inesperado. Pedimos desculpas pela inconveniência.
+    routing_error: URL desconhecido. Redireccionando...
 
     # General purpose resources
     general:

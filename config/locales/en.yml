@@ -5,6 +5,7 @@ en:
   application:
     # Unexpected Error
     unexpected_error: An unexpected error has occurred. Sorry for the inconvenience.
+    routing_error: Unknown URL. Redirecting...
 
     # General purpose resources
     general:
@@ -243,7 +244,7 @@ en:
         title: Newsletter
         guide: Receive echo newsletter
         turned_on: You have subscribed to the echo newsletter
-        turned_off: You have unsubscribed from the echo newsletter 
+        turned_off: You have unsubscribed from the echo newsletter
 
       activity:
         title: Activity Notifications

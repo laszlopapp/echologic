@@ -6,6 +6,7 @@ es:
 
     # Unexpected Error
     unexpected_error: Se ha detectado un error inesperado en el servidor.
+    routing_error: URL desconocida. Redireccionando...
 
     # General purpose resources
     general:
