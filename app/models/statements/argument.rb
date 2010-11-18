@@ -1,6 +1,5 @@
-class Argument < Double
-
-  expects_sub_types :ProArgument, :ContraArgument
+class Argument < StatementNode
+  acts_as_double :ProArgument, :ContraArgument
 
   expects_children_types
   
