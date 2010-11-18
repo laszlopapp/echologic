@@ -21,13 +21,13 @@ class Users::PasswordResetsController < ApplicationController
       respond_to do |format|
         if @user
           @user.deliver_password_reset_instructions!
-          set_info('users.password_reset.messages.success')
+          set_info 'users.password_reset.messages.success'
           format.html { flash_info and redirect_to root_url }
-          format.js   { render_with_info(message) }
+          format.js   { render_with_info }
         else
-          set_error('users.password_reset.messages.not_found')
+          set_error 'users.password_reset.messages.not_found'
           format.html { flash_error and render :action => :new, :layout => 'static' }
-          format.js   { show_error_message(message) }
+          format.js   { show_error_message }
         end
       end
     rescue Exception => e
