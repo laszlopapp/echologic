@@ -70,17 +70,4 @@ class ProposalsController < StatementsController
   def add_contra_argument
     add('contra_argument')
   end
-
-
-  protected
-  
-  #returns the handled statement type symbol
-  def statement_node_symbol
-    :proposal
-  end
-
-  # returns the statement_node class, corresponding to the controllers name
-  def statement_node_class
-    Proposal
-  end
 end

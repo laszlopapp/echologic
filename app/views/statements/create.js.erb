@@ -3,7 +3,7 @@
 <% end %>
 
 <% if @statement_node.parent.nil? %>
-  window.location.replace('<%= url_for(@statement_node) %>')
+  window.location.replace('<%= statement_node_url(@statement_node) %>')
 <% else %>
 
   var class_element = $('#statements div.statement:eq(<%= @statement_node.level %>)');

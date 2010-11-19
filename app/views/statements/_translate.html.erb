@@ -4,7 +4,8 @@
 
 
 
-<% semantic_form_for statement_node, :url => create_translation_url(statement_node, dom_class(statement_node)),
+<% semantic_form_for statement_node, :url => create_translation_statement_node_url(statement_node),
+                                     :method => :put,
                                      :html => {:class => "ajax_form wide_form translation statement"} do |form| -%>
   <%= render :partial => 'statements/header', :locals => {:statement_node => statement_node} %>
   <%= render :partial => 'statements/form/form_content', :locals => {:form_partial => 'statements/form/translation_form', 

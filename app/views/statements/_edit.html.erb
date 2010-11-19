@@ -2,8 +2,8 @@
 <% statement_document ||= @statement_document %>
 
 <% semantic_form_for statement_node, :html => {:class => "ajax_form edit wide_form statement", 
-                                               'data-siblings' => @siblings ? @siblings[dom_id(statement_node)].to_json : ''} do |form| -%>
-  <%= render :partial => 'statements/form/form_header', :locals => {:form => form, :statement_node => statement_node} %>
+                            'data-siblings' => @siblings ? @siblings[dom_id(statement_node)].to_json : ''} do |form| -%>
+	<%= render :partial => 'statements/form/form_header', :locals => {:form => form, :statement_node => statement_node} %>
   <%= render :partial => 'statements/form/form_content', :locals => {:form => form, :statement_node => statement_node} %>
 <% end -%>
 

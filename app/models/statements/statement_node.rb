@@ -78,6 +78,10 @@ class StatementNode < ActiveRecord::Base
   ######### ACTIONS ############
   ##############################
 
+  def publishable? 
+    false
+  end
+
   # static for now
   def published?
     self.editorial_state == StatementState["published"]

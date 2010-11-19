@@ -11,7 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   map.discuss_featured '/discuss/featured', :controller => :discuss, :action => :index
   map.discuss_roadmap '/discuss/roadmap', :controller => :discuss, :action => :roadmap
   map.discuss_cancel '/discuss/cancel', :controller => :discuss, :action => :cancel
-  map.my_discussions '/discuss/my_discussions', :controller => :discussions, :action => :my_discussions
+  map.my_discussions '/discuss/my_discussions', :controller => :statements, :action => :my_discussions
   
   # SECTION discuss search
   map.discuss_search '/discuss/search', :controller => :discussions, :action => :category
@@ -114,31 +114,42 @@ ActionController::Routing::Routes.draw do |map|
 
 
   # SECTION discuss - discussion tree
-  map.add_discussion '/add_discussion', :controller => :discussions, :action => :add_discussion
-  map.resources :discussions,
-                :member => [:new_translation, :create_translation, :publish, :cancel, :more, :children, :upload_image, 
-                            :reload_image, :authors, :add_proposal],
-                :as => 'discussion'
-  map.resources :proposals,
-                 :member => [:echo, :unecho, :new_translation, :create_translation, :incorporate, :cancel, :more,
-                             :children, :upload_image, :reload_image, :authors, :add_improvement_proposal,
-                             :add_pro_argument, :add_contra_argument],
-                :as => 'proposal'
-  map.resources :improvement_proposals,
-                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, 
-                            :reload_image, :authors],
-                :as => 'improvement_proposal'
-  map.resources :pro_arguments,
-                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, :reload_image, :authors],
-                :as => 'pro_argument'
-  map.resources :contra_arguments,
-                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, :reload_image, :authors],
-                :as => 'contra_argument'
-
-#  map.resources :arguments,
+#  map.add_discussion '/add_discussion', :controller => :discussions, :action => :add_discussion
+#  map.resources :discussions,
+#                :member => [:new_translation, :create_translation, :publish, :cancel, :more, :children, :upload_image, 
+#                            :reload_image, :authors, :add_proposal],
+#                :as => 'discussion'
+#  map.resources :proposals,
+#                 :member => [:echo, :unecho, :new_translation, :create_translation, :incorporate, :cancel, :more,
+#                             :children, :upload_image, :reload_image, :authors, :add_improvement_proposal,
+#                             :add_pro_argument, :add_contra_argument],
+#                :as => 'proposal'
+#  map.resources :improvement_proposals,
 #                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, 
-#                            :reload_image, :authors]
+#                            :reload_image, :authors],
+#                :as => 'improvement_proposal'
+#  map.resources :pro_arguments,
+#                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, :reload_image, :authors],
+#                :as => 'pro_argument'
+#  map.resources :contra_arguments,
+#                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, :reload_image, :authors],
+#                :as => 'contra_argument'
 
+
+  map.resources :statement_nodes, :controller => :statements, 
+                :path_names => { :new => ':id/new/:type'}, 
+
+                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, 
+                            :reload_image, :children, :more, :authors, :publish, :incorporate],
+                :as => 'statement'
+  map.new_discussion 'statement/new/discussion', :controller => :statements, :action => :new, :type => :discussion                
+ 
+  map.resources :discussions, :controller => :statements, :type => :discussion, :only => [:create, :update]
+  map.resources :proposals, :controller => :statements, :only => [:create, :update]
+  map.resources :improvement_proposals, :controller => :statements, :only => [:create, :update]
+  map.resources :pro_arguments, :controller => :statements, :only => [:create, :update]
+  map.resources :contra_arguments, :controller => :statements, :only => [:create, :update]
+ 
 
   # old discuss paths redirection
   map.connect 'discuss/questions/:discussion_id/proposals/:id', :controller => :proposals, :action => :redirect 

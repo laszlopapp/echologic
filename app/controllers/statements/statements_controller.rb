@@ -9,7 +9,7 @@ class StatementsController < ApplicationController
                                     :more, :children, :upload_image, :reload_image, :authors, :add_discussion, :add_proposal, 
                                     :add_improvement_proposal, :add_pro_argument, :add_contra_argument]
   verify :method => :post, :only => [:create]
-  verify :method => :put, :only => [:update, :create_translation, :publish]
+  verify :method => :put, :only => [:update, :create_translation, :publish, :echo, :unecho]
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
@@ -17,6 +17,7 @@ class StatementsController < ApplicationController
                                            :add_proposal, :add_improvement_proposal,:add_pro_argument, :add_contra_argument]
 
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
+  before_filter :fetch_statement_node_type, :only => [:new, :create]
   before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions,
                                                                    :new, :create, :more, :children, :upload_image,
                                                                    :reload_image, :redirect, :authors, :add_discussion,
@@ -43,6 +44,25 @@ class StatementsController < ApplicationController
   ###########
   # ACTIONS #
   ###########
+
+  # Shows all current users' existing discussions
+  #
+  # Method:   GET
+  # Params:   value: string, id (category): string
+  # Response: JS
+  #
+  def my_discussions
+    @page     = params[:page]  || 1
+
+    discussions_not_paginated = current_user.get_my_discussions
+
+    @discussions = discussions_not_paginated.paginate(:page => @page, :per_page => 5)
+    @statement_documents = search_statement_documents(@discussions.map(&:statement_id),
+                                                      @language_preference_list)
+
+    respond_to_js :template => 'statements/discussions/my_discussions', :template_js => 'statements/discussions/my_discussions'
+  end
+  
 
   # Shows all the existing debates according to the given search string and a possible category.
   #
@@ -163,7 +183,7 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def new
-    @statement_node ||= statement_node_class.new(:parent => parent,
+    @statement_node ||= @statement_node_type.new(:parent => parent,
                                                  :editorial_state => StatementState[:new])
     @statement_document ||= StatementDocument.new(:language_id => @locale_language_id)
     @action ||= StatementAction["created"]
@@ -189,7 +209,7 @@ class StatementsController < ApplicationController
     form_tags = attrs.delete(:tags)
     
     begin
-      @statement_node ||= statement_node_class.new(attrs)
+      @statement_node ||= @statement_node_type.new(attrs)
       @statement_node.statement ||= Statement.new
       @statement_document = @statement_node.add_statement_document(
                             doc_attrs.merge({:original_language_id => doc_attrs[:language_id],
@@ -533,6 +553,53 @@ class StatementsController < ApplicationController
     end
   end
 
+  # publishes the statement
+  #
+  # Method:   PUT
+  # Response: JS
+  #
+  def publish
+    begin
+      StatementNode.transaction do
+        @statement_node.publish
+        respond_to do |format|
+          if @statement_node.save
+            EchoService.instance.published(@statement_node)
+            format.js do
+              set_info("discuss.statements.published")
+              show_info_messages do |page|
+                if params[:in] == 'summary'
+                  page.redirect_to(statement_node_url(@statement_node))
+                else
+                  @statement_documents =
+                    search_statement_documents([@statement_node.statement_id])
+                  page.replace(dom_id(@statement_node),
+                               :partial => 'statements/discussions/my_discussion',
+                               :locals => {:my_discussion => @statement_node ,
+                                           :statement_document => @statement_documents[@statement_node.statement_id]})
+                end
+              end
+            end
+          else
+            format.js do
+              show_error_messages(@statement_node)
+            end
+          end
+        end
+      end
+    rescue Exception => e
+      log_message_error(e, "Error publishing statement node '#{@statement_node.id}'.") do |format|
+        if params[:in] == 'summary'
+          format.html { flash_error and redirect_to statement_node_url(@statement_node) }
+        else
+          format.html { flash_error and redirect_to my_discussions_url }
+        end
+      end
+    else
+      log_message_info("Statement node '#{@statement_node.id}' has been published sucessfully.")
+    end
+  end
+  
 
 
   #################
@@ -555,7 +622,7 @@ class StatementsController < ApplicationController
                                  :id => params[:category]
     rescue Exception => e
       log_message_error(e, "Error deleting statement node '#{@statement_node.id}'.") do |format|
-        format.html { flash_error and redirect_to url_for(@statement_node) }
+        format.html { flash_error and redirect_to statement_node_url(@statement_node) }
       end
     else
       log_message_info("Statement node '#{@statement_node.id}' has been deleted sucessfully.")
@@ -567,7 +634,7 @@ class StatementsController < ApplicationController
   ###############
 
   def redirect
-    redirect_to url_for(@statement_node)
+    redirect_to statement_node_url(@statement_node)
   end
 
   #############
@@ -687,7 +754,14 @@ class StatementsController < ApplicationController
   # Gets the correspondent statement node to the id that is given in the request
   #
   def fetch_statement_node
-    @statement_node ||= statement_node_class.find(params[:id]) if params[:id].try(:any?) && params[:id] =~ /\d+/
+    @statement_node ||= StatementNode.find(params[:id]) if params[:id].try(:any?) && params[:id] =~ /\d+/
+  end
+
+  #
+  # Gets the correspondent statement node type to be used in the forms
+  #
+  def fetch_statement_node_type
+    @statement_node_type = params[:type] ? params[:type].to_s.classify.constantize : nil
   end
 
   #
@@ -737,10 +811,12 @@ class StatementsController < ApplicationController
   end
 
   #
-  # Returns the statement node correspondent symbol (:discussion, :proposal...). Must be implemented by the subclasses.
+  # Returns the statement node correspondent symbol (:discussion, :proposal...).
   #
   def statement_node_symbol
-    raise NotImplementedError.new("This method must be implemented by subclasses.")
+    symbol = @statement_node_type.nil? ? @statement_node.class : @statement_node_type
+    symbol.name.underscore.to_sym
+   # raise NotImplementedError.new("This method must be implemented by subclasses.")
   end
 
   #
@@ -754,16 +830,16 @@ class StatementsController < ApplicationController
   # Returns the parent statement node of the current statement.
   #
   def parent
-    params.has_key?(:parent_id) ? StatementNode.find(params[:parent_id]) : nil
+    params.has_key?(:id) ? StatementNode.find(params[:id]) : nil
   end
 
   #
   # Sets the info to displayed along with the response.
   # The action name is automagically incorporated into the I18n key.
   #
-  def set_statement_node_info(statement_document, string=nil)
+  def set_statement_node_info(statement_document, string=nil, statement_node = @statement_node)
     set_info((string || "discuss.messages.#{statement_document.action.code}"),
-             :type => I18n.t("discuss.statements.types.#{statement_node_symbol.to_s}"))
+             :type => I18n.t("discuss.statements.types.#{statement_node.class.name.underscore}"))
   end
 
   #
@@ -811,7 +887,7 @@ class StatementsController < ApplicationController
       if !decision_making_tags.include? tag
         set_info('discuss.statements.read_only_permission')
         respond_to do |format|
-          format.html { flash_info and redirect_to(url_for(statement)) }
+          format.html { flash_info and redirect_to(statement_node_url(statement)) }
           format.js do
             show_info_messages
           end
@@ -915,7 +991,7 @@ class StatementsController < ApplicationController
   def being_edited
     respond_to do |format|
       set_error('discuss.statements.staled_modification')
-      format.html { flash_error and redirect_to url_for(@statement_node) }
+      format.html { flash_error and redirect_to statement_node_url(@statement_node) }
       format.js { show }
     end
   end
@@ -943,7 +1019,7 @@ class StatementsController < ApplicationController
     respond_to do |format|
       format.html {
         (no_errors ? flash_info : flash_error)
-        redirect_to url_for(@statement_node)
+        redirect_to statement_node_url(@statement_node)
       }
       block_given? ? yield(format) : format.js {no_errors ? show : show_error_messages}
     end
@@ -967,7 +1043,7 @@ class StatementsController < ApplicationController
 
   def log_statement_error(e, message)
     log_message_error(e, message) do |format|
-      flash_error and redirect_to url_for(@statement_node)
+      flash_error and redirect_to statement_node_url(@statement_node)
     end
   end
 

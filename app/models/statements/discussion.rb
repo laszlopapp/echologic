@@ -14,7 +14,11 @@ class Discussion < StatementNode
   def self.default_scope
     { :order => %Q[created_at ASC] }
   end
-
+  
+  def publishable?
+    true
+  end
+  
   # Discussions are NOT echoable.
   def echoable?
     false

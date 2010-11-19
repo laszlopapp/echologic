@@ -64,7 +64,6 @@ function initPaginationButtons() {
     $.setFragment({ "page" : $.queryString(this.href).page })
     return false;
   });
-  $.fragmentChange(true);
 }
 
 
@@ -78,7 +77,9 @@ function initFragmentChange() {
 		/* clean fragments on path */
 		path[path.length - 1] = 'search';
 		/* push new search value */
-		path.push(escape($.fragment().value));
+		if ($.fragment().value) {
+			path.push(escape($.fragment().value));
+		}
 		if ($.fragment().page) {
 			$.getScript($.queryString(path.join('/'), {
 				"page": $.fragment().page,
