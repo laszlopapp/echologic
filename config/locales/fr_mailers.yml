@@ -126,7 +126,7 @@ fr:
         text: |-
           Bonjour {{name}},
 
-          Vous n'avez plus que {{hour}} heure pour insérer votre
+          Vous n'avez plus que {{hours}} heure pour insérer votre
 
           "*{{ip_title}}*"
 
