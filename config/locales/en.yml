@@ -34,7 +34,7 @@ en:
 
     # Roadmap - Progress
     roadmap:
-      title: ready
+      title: Roadmap
       progress_tooltip: 'This area of echo is {{progress}}% ready.'
       status_quo: 'Status Quo'
       next_steps: 'Next Steps'

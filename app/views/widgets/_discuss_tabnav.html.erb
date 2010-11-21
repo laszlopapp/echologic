@@ -25,7 +25,7 @@ render_tabnav :discuss,
   end
 
   add_tab :html => {:id => 'roadmap_tab'} do |t|
-    value = "#{Development::DISCUSS_PROGRESS}%  " + I18n.t('application.roadmap.title')
+    value = I18n.t('application.roadmap.title')
     t.named value
     t.links_to hash_for_discuss_roadmap_path
   end

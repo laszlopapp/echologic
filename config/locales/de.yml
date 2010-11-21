@@ -35,7 +35,7 @@ de:
 
     # Roadmap - Progress
     roadmap:
-      title: fertig
+      title: Fahrplan
       progress_tooltip: 'Dieser Bereich ist zu {{progress}}% fertig.'
       status_quo: 'Status Quo'
       next_steps: 'Nächste Schritte'

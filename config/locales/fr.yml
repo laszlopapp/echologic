@@ -35,7 +35,7 @@ fr:
 
     # Roadmap - progrès
     roadmap:
-      title: terminé
+      title: Feuille de route
       progress_tooltip: 'Cette section est réalisée à {{progress}}%.'
       status_quo: 'Status Quo'
       next_steps: 'Les prochains pas'
@@ -91,7 +91,7 @@ fr:
 
     connect:
       tabs:
-        search: Découvrir les communités et les réseaux
+        search: Découvrir le Communité
 
     act:
       tabs:
@@ -354,9 +354,9 @@ fr:
     translation_request: Veuillez traduire la formulation en <strong>Français</strong>.
     results_count:
       one: '{{count}} question'
-      more: '{{count}} question'
+      more: '{{count}} questions'
     featured_topics:
-      title: Thèmes proposés
+      title: Thèmes Proposés
       tabs:
         echo:
           title: A propos d'echo
@@ -407,7 +407,7 @@ fr:
       create_improvement_proposal_link: 'Soumettre un amendement'
       create_question_explanation: |
         Vous pouvez ouvrir ici <strong>une nouvelles discussions</strong> et définir
-        <strong>les mots-clefs thématiques</strong> (les "tags")
+        <strong>les mots-clefs thématiques</strong> (les "tags").
       create_proposal_explanation: |
         Vous avez une <strong>bonne idée</strong> concernant la question actuelle qui n'a
         <strong>pas encore été abordée?</strong><br/>
@@ -434,7 +434,7 @@ fr:
         proposal: 'Proposition'
         improvement_proposal: 'Amendement proposé'
       new:
-        question:  'Nouvelle discussion'
+        question:  'Nouvelle question'
         proposal:  'Nouvelle proposition'
         improvement_proposal: 'Amendement proposé'
       headings:

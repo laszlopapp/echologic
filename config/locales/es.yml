@@ -35,7 +35,7 @@ es:
 
     # Roadmap - Progress
     roadmap:
-      title: completo
+      title: Hoja de ruta
       progress_tooltip: 'Este área de echo está {{progress}}% completo.'
       status_quo: 'Status Quo'
       next_steps: 'Próximos pasos'
