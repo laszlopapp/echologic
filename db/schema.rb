@@ -9,13 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101005140925) do
+ActiveRecord::Schema.define(:version => 20101118180125) do
 
   create_table "about_item_translations", :force => true do |t|
     t.integer "about_item_id"
     t.string  "locale"
     t.string  "responsibility"
     t.text    "description"
+    t.string  "name"
   end
 
   create_table "about_items", :force => true do |t|
