@@ -10,7 +10,7 @@ class AboutItem < ActiveRecord::Base
   has_enumerated :about_category, :class_name => 'AboutCategory'
 
   has_many :translations, :class_name => 'AboutItemTranslation'
-  translate_columns :responsibility, :description
+  translate_columns :name, :responsibility, :description
 
   validates_numericality_of :index, :greater_than => 0
   validates_presence_of :name, :index

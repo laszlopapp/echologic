@@ -66,7 +66,7 @@ pt:
             (e.g. ePetições, referendos, demonstrações, etc.)
             </p>
         text_3:
-          title: Abertura e Filosofia “O-Seu-Lucro”
+          title: Abertura e Filosofia “Your-Profit”
           more: |
             <p>
             echo é <strong><a href="{{github_url}}" target="_blank">open source</a></strong> e será a base de uma
@@ -74,7 +74,7 @@ pt:
             limitações das plataformas e iniciativas isoladas – agrupa e multiplica o seu <strong>potencial de influência</strong>.
             </p><p>
             echo é uma <strong>empresa social</strong> e comprometida com os valores básicos éticos de uma economia socialmente e
-            económicamente sustentável. Seguindo a sua <strong>filosofia “O-Seu-Lucro”</strong>, todos os seus excedentes irão
+            económicamente sustentável. Seguindo a sua <strong>filosofia “Your-Profit”</strong> (O-Seu-Lucro), todos os seus excedentes irão
             ser aplicados em ações e projetos da comunidade echo. À sua maneira, o comprometimento virtual pode influenciar o nosso
             mundo real de uma maneira positiva e ajudar pessoas a realizar a sua <strong>auto-determinação política e económica</strong>.
             </p>
@@ -100,26 +100,29 @@ pt:
           team: A Equipa
         text: |-
           <p>
-          echo is driven forward by an <strong><a id="about_team_link" href="#">international, interdisciplinary team</a>
-          </strong> of young and experienced academics.
+          A echo é impulsionada por uma
+          <strong><a id="about_team_link" href="#">equipa internacional e interdisciplinária</a></strong> formada por
+          académicos jovens e experientes.
           </p><p>
-          This core team enjoys the backing of a <strong>wide network of supporters</strong> whose voluntary engagement
-          and cooperation give echo additional momentum: experts from various areas with long work experience, politicians,
-          organisations, initiatives and other synergy-seeking internet projects.
+          Esta equipa goza do apoio de uma <strong>rede de colaboradores</strong>, cujos compromisso e cooperação voluntários dão à echo
+          ímpeto adicional: especialistas de várias áreas com larga experiência de trabalho, políticos, organizações,
+          iniciativas e outros projectos na internet que procuram sinergias.
           </p><p>
-          echo was started in September 2008. In October 2009, a German <strong>non-profit</strong> organisation
-          echo source e.V. was founded. After successful seed-financing, echo Systems GmbH or AG will be founded to take over responsibility
-          for technical realisation, editorial work and international marketing and sales. The company will be operated as a
-          <strong><a href='http://en.wikipedia.org/wiki/Social_business' target='_blank'>social business</a></strong>.
-          Its "Your-Profit" business philosophy is inspired by the ethical principles and values of
-          Nobel Peace Prize winner <a href='http://en.wikipedia.org/wiki/Muhammad_Yunus' target='_blank'>Muhammad Yunus</a>.
+          A echo começou em Setembro de 2008. Em Outubro de 2009, foi fundada como organização
+          <strong>sem fins lucrativos</strong> sob o nome de echo source e.V..
+          Depois de financiamento inicial bem sucedido, serão fundadas a echo Systems GmbH ou AG, que tomarão
+          responsabilidade pela realização técnica, trabalho editorial e marketing e vendas internacional. A companhia será
+          operada como uma <strong><a href='http://en.wikipedia.org/wiki/Social_business' target='_blank'>"social business"</a></strong>.
+          A sua <strong>filosofia de negócio "Your-Profit"</strong> (O-Seu-Lucro) é inspirada nos princípios e valores
+          éticos do vencedor do Prémio Nobel da Paz
+          <a href='http://pt.wikipedia.org/wiki/Muhammad_Yunus' target='_blank'>Muhammad Yunus</a>.
           </p><p>
-          Since 2010, echo has been funded by the EXIST program through the EU, the ESF and BMWi. Additionally, echo also
-          receives financial support of some private donors.
+          Desde 2010 que a echo tem sido financiada pelo programa EXIST bem como pela UE, a ESF, a BMWi, entre outros
+          doadores privados.
           </p><p>
-          The work of echo source e.V. currently concentrates on further development of the software prototype as well as
-          finding and <strong>negotiating with new partners, sponsors and (preferably sustainable) investors</strong>.
-           </p>
+          A echo source e.V. concentra-se de momento em desenvolver o software e procurar e negociar com novos
+          <strong>parceiros, patrocinadores e (preferencialmente sustentáveis) investidores</strong>.
+          </p>
 
       # Static content for imprint
       imprint:
@@ -864,7 +867,7 @@ pt:
       text2: |
         Se clicar no URL não abrir uma nova janela no seu browser automaticamente, por favor copie e cole o URL no seu browser manualmente.
 
-        Se continuar a ter problemas para ativar a sua conta, não hesite em contactar-nos em support@echo.org.
+        Se continuar a ter problemas para ativar a sua conta, não hesite em contactar-nos em support@echologic.org.
 
         Esperamos vê-lo/a em breve na echo,
 
@@ -898,7 +901,7 @@ pt:
       text2: |
         Se clicar no URL não abre uma nova janela no seu browser automaticamente, por favor copie e cole o URL no seu browser automaticamente.
 
-        Se continua a ter problemas com a ativação da sua conta, não hesite em contactar-nos em support@echo.org.
+        Se continua a ter problemas com a ativação da sua conta, não hesite em contactar-nos em support@echologic.org.
 
         Desejamos-lhe muita inspiração e boa disposição com a comunidade echo.
         Com os melhores cumprimentos,

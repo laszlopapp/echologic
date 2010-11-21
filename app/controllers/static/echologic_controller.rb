@@ -15,7 +15,7 @@ class Static::EchologicController < ApplicationController
   def show
     respond_to do |format|
       if current_user
-        format.html { redirect_to welcome_path }
+        format.html { redirect_to_home }
       else
         format.html { render :partial => 'show', :layout => 'static' }
         format.js { render :template => 'layouts/headContainer' }

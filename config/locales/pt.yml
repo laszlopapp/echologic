@@ -6,6 +6,7 @@ pt:
 
     # Unexpected Error
     unexpected_error: Ocorreu um erro inesperado. Pedimos desculpas pela inconveniência.
+    routing_error: URL desconhecido. Redireccionando...
 
     # General purpose resources
     general:
@@ -34,7 +35,7 @@ pt:
 
     # Roadmap - Progress
     roadmap:
-      title: pronto
+      title: Roteiro
       progress_tooltip: 'Esta área da echo está {{progress}}% pronta.'
       status_quo: 'Status Quo'
       next_steps: 'Próximos Passos'
@@ -241,9 +242,9 @@ pt:
 
       newsletter:
         title: Newsletter
-        guide: Get some regular information directly from the webmasters.
-        turned_on: Newsletter has been switched on.
-        turned_off: Newsletter has been switched off.
+        guide: Receber a newsletter da echo
+        turned_on: Subscrição para a newsletter da echo ativada.
+        turned_off: Subscrição para a newsletter da echo desativada.
 
       activity:
         title: Notificações de actividade
@@ -562,12 +563,12 @@ pt:
         title: 'Título'
         image: 'Ilustração'
       about_item:
-        photo: 'Photo'
-        name: 'Name'
-        responsibility: 'Responsibility'
-        description: 'Description'
-        about_category_id: 'About Item'
-        index: 'Index'
+        photo: Foto
+        name: Nome
+        description: Descrição
+        responsibility: Responsabildade
+        about_category_id: About Item
+        index: Índice
 
     models:
       question: "questão"

@@ -820,7 +820,7 @@ rescue Exception => e
 
   def log_home_error(e, message)
     log_message_error(e, message) do |format|
-      flash_error and redirect_to_welcome
+      flash_error and redirect_to_home
     end
   end
 end

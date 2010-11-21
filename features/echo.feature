@@ -121,7 +121,7 @@ Feature: Echo
   Scenario: User echoes an improvement proposal, and this becomes ready
     Given the minimum number of votes is 1
       And I am logged in as "joe" with password "true"
-      And I am on the discuss index And I follow "Featured"
+      And I am on the discuss featured And I follow "Featured"
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal

@@ -2,11 +2,11 @@ es:
 
   # Supporters & Sponsors
   sponsors:
-    text: 'Con el apoio de'
+    text: 'Con el apoyo de'
     exist: EXIST
     eu: Unión Europea
     esf: Fondo Social de la Unión Europea
-    bmwi: Ministerio Alemán de Tecnologia y Economia
+    bmwi: Ministerio Alemán de Economía y Tecnología
     grm: GründerRegio M
     lmu_ec: Ludwig-Maximilians-University Munich - Entrepreneurship Center
     tu: Technical University Berlin / Center for Technology and Society
@@ -26,68 +26,68 @@ es:
           echo - el <span title="{{tooltip}}" class="ttLink">ágora</span> global!
 
         agora_tooltip: |
-          El ágora era la plaza central de la antigua Atenas - la cuna de la democracia.
-          Ella era el núcleo de la vida social y política de la polis, que se basaba en
+          El ágora era la plaza central de la antigua Atenas - cuna de la democracia.
+          Era núcleo de la vida social y política de la polis, basada en
           una ciudadanía libre y autodeterminada. Como ágora global, echo
-          traspasa las fronteras espaciales y comunicativas del antiguo ágora, para que
-          el principio participativo del mismo sea accesible a todos.
+          traspasa las fronteras espaciales y comunicativas del antiguo ágora, posibilitando que
+          este principio participativo sea accesible a todos.
 
         yucca: |-
           'Yucca elata' como símbolo de un comienzo nuevo
 
         news_title: echo en la web
-        twitter: Siga echo por Twitter!
-        facebook: Siga echo por Facebook!
+        twitter: Siga echo en Twitter!
+        facebook: Siga echo en Facebook!
 
         header1: significa
         header2: |-
             el fin de la impotencia política!&nbsp;&nbsp;<br/>el comienzo de la autodeterminación!
         text_1: |
-          <p>echo es un <strong>proyecto común</strong>. Su objetivo es alcanzar un cambio ecologicamente y socialmente
+          <p>echo es un <strong>proyecto común</strong>. Su objetivo es alcanzar un cambio ecológico y socialmente
           sostenible a través de la <strong>participación activa de los ciudadanos</strong>.
-          Está direccionado a todos los miembros de la sociedad:
-          Ciudadanos, expertos, determinantes y representantes de organizaciones y empresas.
+          Está dirigido a todos los miembros de la sociedad:
+          Ciudadanos, expertos, personas influyentes de la política y representantes de organizaciones y empresas.
           </p><p>
-          <strong>echo</strong> cría la base para una <strong>democracia participativa</strong> a nivel local,
-          regional y <span title="{{subsidiarity_tooltip}}" class="ttLink">global</span>. Aquí tu voz tendrá un eco. Ideas se tornarán en
-          movimiento, visiones en realidad.
+          <strong>echo</strong> alimenta la base de una <strong>democracia participativa</strong> a nivel local,
+          regional y <span title="{{subsidiarity_tooltip}}" class="ttLink">global</span>. Aquí tu voz tendrá eco. Las ideas se transformarán en
+          movimiento, las visiones, en realidad.
           echo significa el <strong>fin de la impotencia</strong> y <strong>el inicio de la auto-determinación</strong>!
           </p>
 
-        subsidiarity_tooltip: "echo sigue al principio de la subsidiariedad, fortaleciendo siempre la instancia más local."
+        subsidiarity_tooltip: "echo sigue el principio de subsidiariedad, dando prioridad a la instancia local."
         text_2:
-          title: Elaboración colectiva de soluciones y influencia política
+          title: Elaboración colectiva de soluciones e influencia política
           more: |
             <p>
-            Siguiendo al lema de <strong>“Discutir - Conectar - Actuar!”</strong> gente por todo el mundo puede plasmar su espacio
+            Siguiendo el lema <strong>“Discutir - Conectar - Actuar!”</strong> La gente de todo el mundo puede plasmar su espacio
             vital y el futuro de nuestro planeta.
-            El área de discusión de echo posibilita la formación de <strong>opiniones fundadas</strong> resultando en una sinopsis
-            clara mismo con un gran numero de participantes.
-            En el área de actuar! el compromiso social será directamente transformado en verdadera participación política a través de
+            El área de debate de echo posibilita la formación de <strong>opiniones fundadas</strong>, dentro de una estructura clara
+            donde intervienen un gran número de participantes.
+            En el área actuar! el compromiso social se transformará directamente en verdadera participación política a través de
             un proceso democrático.
             </p>
         text_3:
-          title: Franqueza y filosofía de "Your-Profit"
+          title: Apertura y filosofía de "Your-Profit"
           more: |
             <p>El <strong><a href="{{github_url}}" target="_blank">código abierto</a></strong> de echo servirá como base de una
-            <strong>infraestructura distribuida</strong> y variopinta.
-            Ligando varias plataformas y sitios de web echo extralimitará el aislamiento de las iniciativas existentes,
+            <strong>infraestructura descentralizada</strong> y variopinta.
+            Conectando diferentes plataformas y sitios web, echo superará el aislamiento de las iniciativas existentes,
             focalizando y multiplicando su potencial.
             </p><p>
-            echo es <strong>social business</strong> y su obligación es promover altos valores éticos y democráticos.
+            echo es <strong>social business</strong> y su óptimo rendimiento alcanzará el refuerzo de valores éticos y democráticos.
             Siguiendo su <strong>filosofía de "Your-Profit"</strong> todos los lucros sobrantes serán reinvertidos en proyectos
             sociales y ecológicos.
-            Así la acción virtual puede resultar en un cambio real y gradualmente traerá mas <strong>auto-determinación</strong>
-            política y económica a la gente.
+            De esta forma, a través de una acción virtual, se puede obtener un cambio real. Gradualmente se irá generando una mayor <strong>auto-determinación</strong>
+            política y económica de la gente.
             </p>
         text_4:
           title:  Tu echo
           more: |
             <p>
-            Tu voz necesita un ec(h)o. echo necesita tu voz. Ayúdenos a guiar la democracia hacia un futuro en el que
-            <strong>cualquier voz vale</strong> lo mismo en todo el mundo.
+            Tu voz necesita ec(h)o. echo necesita tu voz. Ayúdanos a guiar la democracia hacia un futuro en el que
+            <strong>cualquier voz cuenta </strong> por igual, en todo el mundo.
             </p><p>
-            Más y más personas se reúnen para <strong>realizar conjuntamente la visión de echo</strong>.
+            Cad vez más personas se reúnen para <strong>realizar conjuntamente la visión de echo</strong>.
             Aunque echo todavía está empezando a gatear, ya puedes:
             </p>
 
@@ -102,26 +102,28 @@ es:
           team: El Equipo
         text: |-
           <p>
-          echo is driven forward by an <strong><a id="about_team_link" href="#">international, interdisciplinary team</a>
-          </strong> of young and experienced academics.
+          echo está formado por un
+          <strong><a id="about_team_link" href="#">equipo internacional e interdisciplinario</a></strong>
+          de jóvenes expertos del mundo académico.
           </p><p>
-          This core team enjoys the backing of a <strong>wide network of supporters</strong> whose voluntary engagement
-          and cooperation give echo additional momentum: experts from various areas with long work experience, politicians,
-          organisations, initiatives and other synergy-seeking internet projects.
+          Este equipo principal cuenta con el apoyo de <strong>una red de colaboradores</strong>, cuyo trabajo
+          voluntario y dedicación aporta a echo un valor adicional: expertos de varias disciplinas con una larga
+          carrera profesional, políticos, organizaciones, iniciativas y otros proyectos de la red en busca de participación.
           </p><p>
-          echo was started in September 2008. In October 2009, a German <strong>non-profit</strong> organisation
-          echo source e.V. was founded. After successful seed-financing, echo Systems GmbH or AG will be founded to take over responsibility
-          for technical realisation, editorial work and international marketing and sales. The company will be operated as a
-          <strong><a href='http://en.wikipedia.org/wiki/Social_business' target='_blank'>social business</a></strong>.
-          Its "Your-Profit" business philosophy is inspired by the ethical principles and values of
-          Nobel Peace Prize winner <a href='http://en.wikipedia.org/wiki/Muhammad_Yunus' target='_blank'>Muhammad Yunus</a>.
+          echo nació en septiembre de 2008. En octubre fue fundado como organización <strong>sin ánimmo de lucro</strong>,
+          echo-source e.V. (Asociación registrada). Una vez recaudada la financiación necesaria, se fundará
+          echo Systems GmbH (S.L.) o A.G (S.A.), para llevar a cabo las tareas de realización técnica, trabajo editorial,
+          así como las ventas y mercado internacionales. echo es
+          <strong><a href='http://en.wikipedia.org/wiki/Social_business' target='_blank'>"social business"</a></strong>.
+          Su <strong>filosofía de negocio “Your-Profit”</strong> (tu beneficio) está inspirada en los valores y principios éticos del premio
+          Nobel de la Paz, <a href='http://es.wikipedia.org/wiki/Muhammad_Yunus' target='_blank'>Muhammad Yunus</a>.
           </p><p>
-          Since 2010, echo has been funded by the EXIST program through the EU, the ESF and BMWi. Additionally, echo also
-          receives financial support of some private donors.
+          Desde 2010, echo está financiado por el programa EXIST de la UE, por el Fondo Social Europeo,
+          por el Ministerio de Economía y Tecnología alemán y por otras donaciones privadas.
           </p><p>
-          The work of echo source e.V. currently concentrates on further development of the software prototype as well as
-          finding and <strong>negotiating with new partners, sponsors and (preferably sustainable) investors</strong>.
-           </p>
+          La entidad echo-surce está en estos momentos desarrollando su software y <strong>buscando colaboración con nuevos socios,
+          patrocinadores e inversores (preferentemente sostenibles)</strong>.
+          </p>
 
       # imprint section
       imprint:
@@ -129,24 +131,24 @@ es:
         text: |
           <p>
           Esta página está mantenida por <strong>echo source e.V.</strong>
-          Los responsables por el contenido en el sentido de la ley alemana & 6 MDStV son Jan Linhart y László Papp.
+          Los responsables del contenido conforme a la regulación alemana, & 6 MDStV, son Jan Linhart y László Papp.
           </p><p>
-          <strong>La dirección oficial</strong> seguindo la ley alemana TMG es:<br/>
+          <strong>La dirección oficial</strong> conforme a la regulación alemana TMG es:<br/>
           echo source e.V.<br/>
           Senefelderstr. 22<br/>
           10437 Berlin<br/>
           E-Mail: team@echologic.org<br/>
           </p><p>
           <strong>Responsabilidad con respecto a los contenidos de los enlaces</strong>:<br/>
-          Como parte de esta página son incluidos también enlaces a contenidos de otras páginas. No podemos influenciar
+          Como parte de esta página se incluyen también enlaces a contenidos de otras páginas. No podemos influenciar
           este contenido; el responsable por ello es únicamente la operadora de la página en cuestión.
-          Por lo tanto, a pesar de la comprobación legalmente obligada, tenemos que rehusar cualquier responsabilidad en relación
-          a los contenidos y las páginas conectadas por enlaces ofrecidos por nuestro servicio.
+          Por lo tanto, a pesar de la comprobación exigida legalmente, rehusamos cualquier responsabilidad en relación
+          a los contenidos y a las páginas conectadas por enlaces ofrecidos por nuestro servicio.
           </p><p>
           Los <strong>estatutos de echo source e.V.</strong> se pueden leer aquí.
           </p>
 
-        open_statute: Abrir estatutos!
+        open_statute: Ver estatutos!
 
       # data privacy section
       data_privacy:
@@ -174,71 +176,71 @@ es:
 
       show:
         why:
-          title: Porqué necesitamos echo?
+          title: Por qué necesitamos echo?
 
           text:
             <p>
-            La humanidad está confrontada con desafíos ecológicos, económicos
-            y humanitarios de dimensiones desconocidas. Sin embargo, aún no han sido elaboradas soluciones
+            La humanidad se enfrenta a desafíos ecológicos, económicos
+            y humanitarios de dimensiones desconocidas. Sin embargo, aún no se han elaboradas soluciones
             satisfactorias. La falta de transparencia en las decisiones políticas provocan una creciente
-            sensación de <strong>impotencia</strong> y <strong>resignación política</strong> en la población y enflaquecen
-            la fe en la democracia. El clamor por la <strong>transparencia</strong> y el <strong>derecho de
-            intervención</strong> suenan cada vez más alto.
+            sensación de <strong>impotencia</strong> y <strong>resignación política</strong> en la población y debilitan
+            la fe en la democracia. La necesidad de <strong>transparencia</strong> y el <strong>derecho de
+            intervención</strong> se hacen cada vez más evidente.
             </p><p>
-            Por lo tanto, las crisis actuales pueden ser entendidas como una <strong>crisis general de la democracia</strong> y
-            por eso hay que capacitar a las personas para que puedan elaborar colectivamente soluciones
-            constructivas, criando la posibilidad de afrontar los <span title="{{tooltip}}" class="ttLink">desafíos “glocales”</span>
+            La crisis actual puede ser entendida como una <strong>crisis general de la democracia</strong>.
+            Para salir de esta situación, es necesario capacitar a las personas de forma que puedan elaborar colectivamente soluciones
+            constructivas, elaborar planes conjuntos que afronten los <span title="{{tooltip}}" class="ttLink">desafíos “glocales”</span>
             de nuestra época de forma efectiva.
             </p>
 
           tooltip:
             Nuestros desafíos económicos, ecológicos y humanitarios están entrelazados a nivel local y global.
-            Por lo tanto, no pueden ser analizados insoladas de forma aislada, sino únicamente teniendo en cuenta
-            sus interrelaciones complejas.
+            No pueden, por lo tanto, ser analizados de forma aislada, sino únicamente teniendo en cuenta
+            sus complejas interrelaciones.
         what:
           title: Qué es echo?
 
           text: |
             <p>
-            echo es el instrumento de una <strong>nueva democracia participativa</strong> que se afronta estos desafíos.
+            echo es el instrumento de una <strong>nueva democracia participativa</strong> que afronta estos desafíos.
             A diferencia de <span title="{{tooltip1}}" class="ttLink">aplicaciones web 2.0 convencionales</span>,
             echo proporciona un <strong>cuadro sinóptico de <span title="{{tooltip2}}" class="ttLink">opiniones</span></strong>
             y posibilita una colaboración social <strong>constructiva</strong> y orientada para las soluciones.
             Para eso, echo reúne innovación tecnológica y conocimiento científico dentro de un concepto único.
-            Esto ayuda a la gente a entender mejor los trasfondos y las interrelaciones, tomar decisiones en
+            Esto ayuda a la gente a entender mejor el trasfondo y las interrelaciones, tomar decisiones en
             común y ponerlas en práctica.
-            Así, echo proporciona tres áreas funcionales a sus usuarios:
+            Así, echo proporciona a sus usuarios tres áreas funcionales:
             <strong>Discutir - Conectar - Actuar!</strong>
             </p><p>
             Combinando estas tres áreas, echo genera un espacio virtual único para una colaboración democrática,
-            que con un esfuerzo mínimo, trae a <strong>resultados visibles en la vidao cotidiana</strong>.
+            que con un esfuerzo mínimo, consigue <strong>resultados visibles en la vida cotidiana</strong>.
             echo pone sus servicios a disposición de forma >strong>descentralizada</strong>, siendo accesible desde otros
-            sitios en toda la red. Así, se pretende la unificación de las fuerzas en lucha para un <strong>cambio sostenible</strong>.
+            sitios en toda la red. De esta forma, se unen las fuerzas para la búsqueda de un <strong>cambio sostenible</strong>.
             </p>
 
           tooltip1: |
-            Los foros sí permiten una discusión abierta, pero no proporcionan ningún resultado estructurado, ni mensurable.
+            Los foros permiten una discusión abierta, pero no proporcionan ningún resultado estructurado, ni mensurable.
             Los "group blogs" no pueden ser editados por centenas o miles de autores. Wikipedia logra mantener la calidad
-            del contenido solamente a través del control efectuado por unos pocos administradores con derechos privilegiados -
+            del contenido solamente a través del control efectuado por ciertos administradores privilegiados -
             lo cual es completamente anti-democrático.
 
           tooltip2: |
-            Wikipedia actualmente es el mayor banco de dados generado por sus usuarios, ofreciendo hechos objetivos relacionados
-            a infinitos temas. En este sentido, echo será el mayor banco de diferentes opiniones relacionados a diversos temas,
-            las cuales serán elaboradas por los usuarios en discusiones constructivas.
+            Wikipedia es actualmente el mayor banco de datos generado por sus usuarios, ofreciendo hechos objetivos relacionados
+            con infinitos temas. En este sentido, echo será el mayor banco de opiniones plurales sobre diversos temas,
+            que los usuarios elaborarán dentro de debates constructivos.
 
       # discuss section
       discuss:
-        title: Discutir
+        title: Debatir
 
         text: |
           <p>
-          Descubra una visión conjunta de la opinión publica actual!
-          Participe en discusiones! Convenza a otros de tu opinión!
+          Descubre una visión conjunta de la opinión pública actual!
+          Participa en debates! Convence a otros con tu opinión!
           </p><p>
-          El área de discusión de echo permite por la primera vez la aparición de una inteligencia colectiva a
+          El área de debate de echo permite por primera vez, la creación de una inteligencia colectiva a
           través de un discurso público y democrático con un número ilimitado de participantes. Para ello, su nuevo
-          método de discusión aglutina a varias innovaciones decisivas:<p>
+          método de debate integra innovaciones decisivas:<p>
 
         clarity: Visión conjunta
         clarity_more:
@@ -248,15 +250,15 @@ es:
         transparency: Transparencia
         transparency_more:
           Todas las opiniones son siempre contrastadas con su respectiva oposición.
-          Esto ayuda a los lectores a obtener rápidamente una visión diversificada y profunda del tema,
+          Esto ayuda a los lectores a obtener rápidamente una visión profunda, y desde varios enfoques, sobre un tema,
           y contribuye a evitar polémica y populismo.
         detailed: Sinopsis de opiniones
         detailed_more: |
           Las opiniones y los argumentos pueden ser votados con un "clic". Así, el apoyo con el que cuenta cada opinión por
-          parte de diferentes grupos sociales puede ser entendido en todo momento de forma exacta.
+          parte de diferentes grupos sociales puede ser evaluado en todo momento de forma exacta.
           <br/><br/>
-          <u>Un ejemplo:</u> Cuantas personas en el mundo han votado a favor de la energía nuclear y cuantas en contra?
-          Qué piensan los Europeos? Qué dicen los físicos y los vecinos de las centrales nucleares?
+          <u>Un ejemplo:</u> Cuántas personas en el mundo han votado a favor de la energía nuclear y cuántas en contra?
+          Qué piensan los europeos? Qué dicen los físicos y los vecinos de las centrales nucleares?
           Cuál es la posición de ciertas organizaciones o partidos políticos?
           <br/>
         democratic: Formación democrática de opinión
@@ -269,7 +271,7 @@ es:
         democratic_tooltip:
           La edición colectiva de textos en echo no está manejado por moderadores y ningún participante tiene derechos
           privilegiados.
-          O sea, todos los participantes tienen los mismos derechos de intervención.
+          Es decir, todos los participantes tienen los mismos derechos de intervención.
         glocal: Visión glocal
         glocal_more: |
           echo ayuda a las personas a entender las inter-relaciones entre los temas locales, regionales y globales.
@@ -279,7 +281,7 @@ es:
           <br/><br/>
           Esta representación "glocal" permite a los usuarios a entender <strong>temas locales</strong> frente al contexto
           global y temas globales como resultado de múltiples contextos locales. Quien llega  a echo con
-          interés particular por un tema local (precios en el supermercado), rápidamente será confrontado
+          intereses particulares por un tema local (precios en el supermercado), rápidamente será confrontado
           con sus <strong>implicaciones globales</strong> (cambio climático).
 
       # connect section
@@ -288,11 +290,11 @@ es:
 
         text_top: |
           <p>
-          Halle los aliados ciertos para tus propuestas y proyectos!
+          Encuentra tus aliados idóneos para tus propuestas y proyectos!
           </p><p>
-          A diferencia de las redes sociales convencionales, el preciso buscador de echo permite hallar fácilmente
-          aliados con <strong>diferentes formas de competencia</strong> en relación a ciertos asuntos. Para eso, los participantes
-          son divididos en distintos grupos que representan las competencias que constituyen la sociedad:</p>
+          A diferencia de las redes sociales convencionales, el buscador de echo permite hallar, de forma fácil y precisa,
+          aliados con <strong>diferentes competencias</strong> en relación a ciertos asuntos. Para eso, los participantes
+          son divididos en distintos grupos representando las competencias existentes en la sociedad:</p>
 
         list: &competences |
           <li>Ciudadanos y personas afectadas (competencia en relación a necesidades)</li>
@@ -303,7 +305,7 @@ es:
         text_bottom: |
           <p>
           echo motiva activamente a los miembros de los distintos grupos para que colaboren.
-          La consideración conjunta de diversos asuntos, lleva a la identificación y resolución común de importantes problemas.
+          La consideración conjunta los asuntos lleva a una mejor identificación y resolución común de importantes problemas.
           </p>
 
       # act section
@@ -312,35 +314,35 @@ es:
 
         text_top: |
           <p>
-          Póngase activo! Realice tus objetivos con éxito!
+          Sé activo! Realiza tus objetivos con éxito!
           </p><p>
           Para lograr <strong>resultados notables en la vida cotidiana</strong> de las personas, echo anima a los
-          participantes de discusiones a iniciar acciones y transformar sus propuestas en realidad. echo enfoca todas las
-          acciones locales, regionales y globales con un objetivo común. De tal forma, echo unifica las fuerzas sinérgicas
-          y multiplica el potencial de influenciar la participación social. echo posibilita un espectro amplio de acciones:
+          participantes de debates a iniciar acciones y transformar sus propuestas en realidad. echo dirige todas las
+          acciones locales, regionales y globales hacia un objetivo común. De esta forma, echo unifica las fuerzas sinérgicas
+          y multiplica el potencial de la participación social. echo posibilita un amplio espectro de acciones:
           </p>
 
         possible_actions: |
           <li><strong>Peticiones</strong> electrónicas,</li>
-          <li>Organización de <strong>plebicitos</strong>,</li>
+          <li>Organización de <strong>consultas</strong>,</li>
           <li>Organización de <strong>conferencias ciudadanas, manifestaciones</strong>, boicots y demandas civiles colectivas</li>
           <li><strong>Fundación de organizaciones</strong> nacionales e internacionales</li>
-          <li>Fundación de <strong>empresas socialmente y ecológicamente sostenibles</strong></li>
+          <li>Fundación de <strong>empresas social y ecológicamente sostenibles</strong></li>
           <li>Otros proyectos y acciones con un objetivo comúnmente definido (p.ej. un movimiento popular, la organización de una guardería,
           el día europeo de la bicicleta)</li>
 
         text_middle: |
           <p>
           El área funcional de acción de echo crea un puente entre las discusiones virtuales y las acciones reales.
-          Vinculando las acciones con <strong>instrumentos legislativos</strong> existentes, echo, por la primera vez,
+          Vinculando las acciones con <strong>instrumentos legislativos</strong> existentes, echo, por primera vez,
           transforma el compromiso social en una <strong>verdadera participación política</strong>.
           </p>
 
         act_more: |
           <p>
           <u>Un ejemplo:</u> 20 000 usuarios bávaros votaron a favor de la abolición de la energía nuclear -
-          suficiente para iniciar un referéndum en la Baviera. Al momento todos los electores reciben una noticia,
-          invitándoles a organizar el referéndum.
+          suficiente para iniciar un referéndum en Baviera. En el mismo momento, todos los electores reciben una invitación
+          para organizar el referéndum.
           Siguiendo el enlace incluido en el email, se encuentran dentro de un <strong>espacio virtual de acción</strong> bien equipado.
           </p><p>
           Para fomentar de forma efectiva la colaboración y organización de acciones, echo proporciona todas las <strong>informaciones
@@ -357,12 +359,12 @@ es:
           Para vencer los límites de plataformas singulares, echo sigue un modelo descentralizado.
           Las discusiones y acciones de echo también pueden ser halladas y editadas en otras páginas web.
           De esta manera, echo ayuda a otras plataformas a ampliar su funcionalidad y genera, en vez de una
-          competición paralizante, <strong>verdaderas sinergias</strong>. Así, por la primera vez, echo enfoca todas las fuerzas
-          presentes en el Internet y facilita el desarrollo de una <strong>ola de cambio</strong>.
+          competición paralizante, <strong>verdaderas sinergias</strong>. Así, por primera vez, echo enfoca todas las fuerzas
+          presentes en Internet y facilita el desarrollo de una <strong>ola de cambio</strong>.
           </p><p>
           Para la realización de este objetivo el nuevo Protocolo de Google, <strong>Wave Federation Protocol</strong> llega en el
           momento perfecto.
-          Esta tecnología de código abierto posibilita no solamente una colaboración en tiempo real, sino que además también aporta
+          Esta tecnología de código abierto posibilita no sólo una colaboración en tiempo real, sino que además también aporta
           la base para un intercambio seguro de datos (almacenados en perfiles, discusiones e acciones)
           entre el público y los servidores de organizaciones o servidores de echo.
           </p><p>
@@ -374,11 +376,11 @@ es:
 
     # ECHOCRACY SECTION
     echocracy:
-      title: echocracy
+      title: echocracia
       subtitle: Los Participantes
 
       tabs:
-        echocracy: echocracy
+        echocracy: echocracia
         citizens: Ciudadanos
         scientists: Expertos
         decision_makers: Representantes
@@ -387,9 +389,9 @@ es:
       show:
         text_top: |
           <p>
-          "echocracy", la <strong>nueva forma de democracia</strong> realizada por echo, le ofrece a usted y a la gente de todo el mundo la
-          posibilidad de discutir cuestiones de importancia social y la posibilidad de efectuar juntamente un verdadero cambio.
-          echocracy se basa en un discurso intercultural y deliberativo,
+          "echocracia", la <strong>nueva forma de democracia</strong> realizada por echo, te ofrece a ti y a la gente de todo el mundo la
+          posibilidad de debatir cuestiones de importancia social y la posibilidad de efectuar conjuntamente un verdadero cambio.
+          echocracia se basa en un discurso intercultural y deliberativo,
           que reúne las cuatro competencias constituyentes de la sociedad dentro de un proceso de <strong>decisión colectiva</strong>:
           </p>
 
@@ -397,10 +399,9 @@ es:
 
         text_bottom:
           <p>
-          En echo actores o miembros de los diversos grupos de competencia establecen un <strong>dialogo igualitario</strong>. Lo que
-          genera no sólo un proceso de toma de decisión <strong>plenamente transparente</strong> pero también posibilita
-          que echo pueda ofrecerle a
-          todos los participantes nuevos y únicos medios de contribución colectiva para la creación de nuestro mundo en común.
+          En echo actores o miembros de los diversos grupos de competencia establecen un <strong>diálogo igualitario</strong>. Lo que
+          genera no sólo un proceso de toma de decisión <strong>plenamente transparente</strong>, sino que también posibilita
+          que echo pueda ofrecer a todos los participantes, medios innovativos de contribución para la creación en común de nuestro mundo.
           </p><p>
           En echo, en el ágora global, todos los participantes son <strong>ciudadanos de un mundo libre</strong>!
           </p>
@@ -420,17 +421,17 @@ es:
 
         adv1: Sinopsis informativa
         adv1_details: |
-          <li>Hallar fácilmente discusiones públicas en la vecindad, la región y el mundo</li>
+          <li>Hallar fácilmente debates públicos en la vecindad, la región y el mundo</li>
           <li>Facilidad de entender las opiniones de determinados grupos o regiones</li>
         adv2: Autodeterminación
         adv2_details: |
           <li>Participación directa y conjunta en la toma de decisiones, tanto del propio espacio vital, como del futuro de nuestro mundo </li>
           <li>Persuasión de la opinión propia a terceros</li>
-          <li>Conexión rapida con gente con ideas semejantes</li>
-          <li>Facilitación de la organización y apoyo de acciones en el mundo real</li>
+          <li>Conexión rápida con gente que comparte ideas semejantes</li>
+          <li>Facilitar la organización y apoyo de acciones en el mundo real</li>
         adv3: sentido de comunidad
         adv3_details: |
-          <li>Contribución colectiva y directa a un mundo más sostenible y justo</li>
+          <li>Contribución colectiva hacia un mundo más sostenible y justo</li>
         adv4: Alivio de la sensación de impotencia
         adv4_details: |
           <li>Impacto visible en la vida cotidiana de cada uno</li>
@@ -470,12 +471,12 @@ es:
       # decision makers section
       decision_makers:
         title: Representantes
-        title_long: Representantes y tomadores de decisión
+        title_long: Representantes y personas decisivas en las tomas de decisión
         text_top: |
           <p>
           Las personas con poder de decisión, como <strong>políticos y economistas</strong>, han asumido la mayor responsabilidad social.
           Son ellos quienes deciden lo que sirve al mayor bienestar colectivo y los encargados de negociar soluciones viables.
-          Por eso su participación en los debates en echo es de especial importancia. Para que sus esfuerzos puedan llevar a una
+          Por eso, su participación en los debates en echo es de especial importancia. Para que sus esfuerzos contribuyan a una
           mejora sostenible, necesitan del <strong>amplio apoyo de los ciudadanos</strong>. Una representación transparente de sus intenciones y
           un conocimiento profundo de las demandas de la población son las condiciones básicas para el éxito de este desafío.
           Al ofrecer algunas herramientas únicas a políticos y otras personas con poder de decisión, echo puede contribuir a la eficiencia de su
@@ -487,21 +488,21 @@ es:
           <li>Sinopsis clara de las necesidades y opiniones de los votantes</li>
           <li>Presentación exacta del apoyo de distintas posiciones por parte de diferentes grupos sociales y regiones</li>
 
-        adv2: Infraestructura optima para la colaboración
+        adv2: Infraestructura óptima para la colaboración
         adv2_details: |
-          <li>Colaboración énter- e intra-parlamentaria a distancia (p.ej. grupos parlamentarios nacionales <> nternacionales en la UE)</li>        adv3_details: |
+          <li>Colaboración inter- e intra-parlamentaria a distancia (p.ej. grupos parlamentarios nacionales <> internacionales en la UE)</li>        adv3_details: |
           <li>Toma de decisiones rápida y transparente entre los diferentes niveles administrativos (p.ej. ciudad <> gobierno <> UE)</li>
 
       # organisations section
       organisations:
-        title: Organizasiones
+        title: Organizaciones
         title_long: Organizaciones gubernamentales y no-gubernamentales
 
         text_top: |
           <p>
           Las organizaciones gubernamentales y no-gubernamentales (ONGs, movimientos sociales, partidos políticos, sindicatos,
           ciudades y comunidades) ya están en el foco de la vida social y política y son <strong>participantes decisivos</strong> en echo. Son
-          portadores de opinión, planean acciones, tienen una gran base de seguidores e intentan a movilizar a un gran número de
+          portadores de opinión, planean acciones, tienen una gran base de seguidores e intentan movilizar a un gran número de
           personas para lograr sus objetivos. echo apoya el trabajo de las organizaciones de varias formas:
           </p>
 
@@ -522,17 +523,17 @@ es:
 
         adv4: Aumento del apoyo económico
         adv4_details: |
-          <li>Recaudación de fondos gratuito y aumento de la base de donantes</li>
+          <li>Recaudación gratuita de fondos y aumento de la base de donantes</li>
           <li>Mayor motivación a través de donaciones sin costos para los donantes</li>
           <li>Más confianza y mayor vínculo emocional de los colaboradores gracias a la total transparencia y participación directa en las acciones</li>
 
     # ECHONOMY SECTION
     echonomy:
-      title: echonomy
+      title: echonomia
       subtitle: Los Valores
 
       tabs:
-        echonomy: echonomy
+        echonomy: echonomia
         your_profit: Your-Profit
         foundation: La Fundación
         public_property: Propriedad colectiva
@@ -542,7 +543,7 @@ es:
           <p>
           Una pequeña “h” puede significar una gran diferencia!
           </p><p>
-          Así “echonomy” simboliza una nueva economía democrática y responsabilidad eco-social, que se compromete con valores
+          Así “echonomia” simboliza una nueva economía democrática y responsabilidad eco-social, que se compromete con valores
           éticos fundamentales:!
           </p>
 
@@ -559,7 +560,7 @@ es:
 
       # your profit section
       your_profit:
-        title: Su beneficio
+        title: Tu beneficio
 
         text: |
           <p>
@@ -579,16 +580,16 @@ es:
           </p>
 
         tooltip_nonprofit: |
-          Inicialmente echo se reserva el derecho de utilizar una parte de los fondos recaudados para cubrir los gastos de servicio.
-          Es importante mencionar, que la comisión de fundraising será reducida a
+          Inicialmente, echo se reserva el derecho de utilizar una parte de los fondos recaudados para cubrir los gastos de servicio.
+          Es importante mencionar que la comisión de fundraising será reducida a
           cero en cuanto las demás transacciones realizadas a través de modelos de empresa dirigidos a clientes comerciales
           cubran los gastos.
 
         tooltip_costneutral: |
           Donar cuesta? No necesariamente! Los usuarios de echo pueden comprar cualquier producto a través de diversas
           tiendas-online.
-          La comisión será transferida a su cuenta virtual personal al momento. Gracias a las advertencias de productos
-          relevantes en las acciones y discusiones, se ayuda al usuario a consumir de una forma estratégica y responsable.
+          La comisión será transferida en el momento a tu cuenta virtual personal. Gracias a la publicidad de productos
+          relevantes en las acciones y debates, se ayuda al usuario a consumir de una forma estratégica y responsable.
 
       # foundation section
       foundation:
@@ -609,7 +610,7 @@ es:
 
       # public property section:
       public_property:
-        title: Propiedad Publica
+        title: Propiedad Pública
 
         text: |
           <p>
@@ -617,7 +618,7 @@ es:
           decisiones sobre sus propias reglas y mecanismos. A través de votaciones, los usuarios serán introducidos en el desarrollo de
           echo cada vez más, hasta que este proceso lleve a una <strong>auto-administración estable</strong>.
           </p><p>
-          Como instrumento del fomento de procesos democráticos, para echo el mantenerse <strong>política y económicamente independiente</strong> es de suma importancia.
+          En su misión de propmover los procesos democráticos, para echo el mantenerse <strong>política y económicamente independiente</strong> es de suma importancia.
           Para garantizar su independencia a largo plazo, echo será <span title="{{tooltip}}" class="ttLink">entregado</span> progresivamente a los propios usuarios.
           </p><p>
           De esta manera echo se convertirá en <strong>propiedad de la población mundial</strong>: Serán los participantes los que decidan lo que pasa en echo.
@@ -632,36 +633,36 @@ es:
     echosocial:
       show:
         title: echo social
-        subtitle: De que se trata?
+        subtitle: De qué se trata?
         text: |
           <p>
-          Solo podemos cambiar algo, si <strong>actuamos juntos</strong>!
+          Sólo podemos cambiar algo, si <strong>actuamos juntos</strong>!
           </p><p>
-          Con echo social queremos unir la multidud de acciones y projectos aislados a un movimiento global y posibilitar la acción conjunta.
+          Con echo social queremos unir la multidud de acciones y projectos aislados a un movimiento global y posibilitar una acción conjunta.
           </p><p>
-          echo social les proporciona los instrumentos para visibilizar su <strong>organización, sus accioines y proyectos</strong>
-          y para colaborar mas efectivamante con sus colaboradores por todo el mundo.
+          echo social les proporciona los instrumentos para hacer visible su <strong>organización, sus accioines y proyectos</strong>
+          y para interactuar de forma más efectiva con sus colaboradores por todo el mundo.
           </p><p>
-          echo social es la solución de <strong>código abierto</strong> para criar su propia <strong>red social</strong> inclusive su
-          propia <strong>página de web</strong> solamente con unos clic - <strong>gratis</strong>!
+          echo social es la solución de <strong>código abierto</strong> para crear tu propia <strong>red social</strong> incluso puedes
+          abrir tu propia <strong>página web</strong> sólo con unos clics - <strong>gratis</strong>!
           </p>
         part_2:
-          title: Heramientas
+          title: Herramientas
           text: |
-            <p>Cada página de echo social les ofrece una extensa caja de heramientas para un eficiente <strong>trabajo en equipo</strong>.
-            Las heramientas disponibles les ayudarán a juntamente elaborar soluciones, coordinarse y realizar sus planos.</p>
+            <p>Cada página de echo social os ofrece una extensa caja de heramientas para un eficiente <strong>trabajo en equipo</strong>.
+            Las herramientas disponibles os ayudarán a elaborar conjuntamente soluciones, a coordinaros y a realizar vuestros proyectos.</p>
         part_3:
           title: Alcance multiplicado
           text: |
             <p>
-            Aparte de funciones extensas para su propia red, las redes de echo social tambien pueden conectarse entre si y actuar como parte de un
-            <strong>movimiento superior</strong>. Así hallarán <strong>más colaboradores</strong> y juntamente <strong>alcancarán más</strong>.
+            Aparte de funciones extensas para tu propia red, las redes de echo social también pueden conectarse entre si y actuar como parte de un
+            <strong>movimiento superior</strong>. Así encontrarás <strong>más colaboradores</strong> y conjuntamente <strong>alcancarás más</strong>.
             </p><p>
-            Las páginas de echo social serán conectadas a través de <strong><a href='{{echo_link}}' target='_blank'>echo</a></strong>
+            Las páginas de echo social estarán conectadas a través de <strong><a href='{{echo_link}}' target='_blank'>echo</a></strong>
             - el ágora global. echo sirve como una <strong>infraestructura comunicativa decentralizada</strong> para la participación activa de los ciudadanos
             <br/>
-            A lo largo de la realización de echo las acciones y proyectos serán conectados con otros debates y acciones tematicamente relevantes también de otras paginas de web.
-            Todas las fuerzas con un objetivo común serán unidas. El alcance y el <strong>impacto de sus acciones</strong> será muliltiplicado.
+            A lo largo de la realización de echo, las acciones y proyectos estarán conectados con otros debates y acciones temáticamente relevantes también de otras paginas web.
+            Se unirán así todas las fuerzas con un objetivo común. El alcance y el <strong>impacto de sus acciones</strong> se muliltiplicará.
             </p>
 
       features:
@@ -669,65 +670,65 @@ es:
         subtitle: Qué me ofrece?
         text: |
           <p>
-          En </strong>pocas semanas</strong> puedarán criar su propia página de echo social.
-          Esta página les orfecerá:
+          En </strong>pocas semanas</strong> podrás crear tu propia página de echo social.
+          Esta página te ofrecerá:
           </p>
         internet_presence:
-          title: Su presencia internet individual
+          title: Tu perfil internet individual
           text: |
-            <p>Ponga su logo, defina colores y layout con unos pocos clic.</p>
+            <p>Introduce tu logo, define colores y configuración con unos pocos clics.</p>
         community_management:
-          title: Community Management
+          title: Gestión de la comunidad
           text: |
-            <p>Mantenga sus colaboradores informados a través de su Blog, RSS-Feeds, Facebook y Twitter.</p>
+            <p>Mantén a tus colaboradores informados a través de tu Blog, RSS-Feeds, Facebook y Twitter.</p>
         group_administration:
-          title: Manegamiento de grupos flexibilizado
+          title: Gestión flexibilizada de grupos
           text: |
-            <p>Organize su colaboración en grupos y sub-grupos con derechos de accesso diferenciados.</p>
+            <p>Organiza tu colaboración en grupos y sub-grupos con derechos de accesso diferenciados.</p>
         project_management:
-          title: Manegamiento de projectos
+          title: Gestión de projectos
           text: |
-            <p>Colaboren independentemente de tiempo y espacio! Grupos de trabajo, tarea de gestión, intercambio de archivos, wikis y forums les apoyarán.
+            <p>Colabora más allá del tiempo y espacio! Grupos de trabajo, tarea de gestión, intercambio de archivos, wikis y forums te apoyarán.
             </p>
         calendar_event:
           title: Calendario
           text: |
-            <p>Informen sus colaboradores sobre las próximas acciones y coordine fechas importantes juntamente.</p>
+            <p>Informa a tus colaboradores sobre las próximas acciones y coordina fechas importantes conjuntamente.</p>
         votings_polls:
           title: Votaciones y encuestas
           text: |
-            <p>Tomen sus decisiones facilmente. Con las heramientas de vocacion y encuesta llegarán rapidamente de la tormenta de ideas a decisiones comúnes.
+            <p>Toma tus decisiones fácilmente. Con las herramientas de votacion y encuesta pasarás rapidamente de un brainstroming a la elaboración de decisiones comúnes.
             </p>
         photo_video_gallery:
           title: Galerias de foto y video
           text: |
-            <p>Demonstren sus acciones en imagen y sonido! Fotos y videos darán un visual multimedial a su presencia de web.
+            <p>Muestra tus acciones con imágenes y sonido! Las fotos y videos favorecen tu visibilidad en la web.
             </p>
         cost_neutral_fundraising:
           title: Recaudación de fondos sin gastos
           text: |
-            <p>Apoyen a sus colaboradores a apoyarles utilizando la heramienta de recaudación de fondos de cklicks4charity.
-            Así sus colaboradores puedarán juntar fondos para sus acciones simplemente haciendo sus compras online, sin gastar ningun dinero extra.
+            <p>Consigue que tus colaboradores te apoyen utilizando la herramienta de recaudación de fondos de cklicks4charity.
+            Así tus colaboradores podrán recaudar fondos para tus acciones simplemente haciendo sus compras online, sin gastar ningun dinero extra.
             </p>
         discussion_methods:
-          title: El nuevo método de discusión de echo
+          title: El nuevo método de debate de echo
           text: |
-            <p>Utilizen el nuevo método de discusión de echo para debates internos y para la elaboración colectiva de textos!
-            A través del manegamiento flexible de grupos pueden invitar expertos o mienbros de su organizasion a participar en discusiones internas
-            y despues transferir los resultados al discurso publico. Así su organización y sus acciones siempre estarán dentro de un contexto discursivo.
-            Sus objetivos y razones estarán transparentes y intelegibles generando más confianza y apoyo.</p>
+            <p>Utiliza el nuevo método de debate de echo para debates internos y para la elaboración colectiva de textos!
+            A través de la gestión flexible de grupos puedes invitar a expertos o miembros de tu organización a participar en debates internas
+            y despues transferir los resultados al discurso público. Así tu organización y tus acciones siempre estarán dentro de un contexto discursivo.
+            Tus objetivos y razones se harán transparentes y intelegibles generando más confianza y apoyo.</p>
         decentral_infrastructure:
-          title: echo como infraestructura decentralizada
+          title: echo como infraestructura descentralizada
           text: |
-            <p>Demonstren sus actividades tambien en otras plataformas y redes sociales!
-            echo les sirve como infraestructura decentralizada para su comunicación, que hace sus acciones visibles en otras plataformas y redes sociales.
-            Así automaticamente alcanzarán toda la gente interesada en el tema de su acción. Eso multiplicará el impacto de sus esfuerzos.</p>
+            <p>Demuestra tus actividades también en otras plataformas y redes sociales!
+            echo te sirve como infraestructura descentralizada para tu comunicación, haicendo tus acciones visibles en otras plataformas y redes sociales.
+            Así serán accesibles automáticamente a toda la gente interesada en el tema de tu acción. Eso multiplicará el impacto de tus esfuerzos.</p>
         your_wishes:
-          title: ... y todo más que necesitan ...
+          title: ... y todo lo que necesites ...
           text_pre: |
-            <p>Queremos con echo social criar la heramienta perfecta para su colaboración y su compromiso social. Por favor nos digan
-            cuales serán las funciones más importantes para ustedes. Su
-          text_link: Feedback
+            <p>Queremos con echo social crear la herramienta perfecta para tu colaboración y su compromiso social. Por favor, dinos
+            cuales son las funciones más importantes para ti. Su
+          text_link: Observaciones
           text_end: |
             apoyorá a desarrollar y mejorar echo social cada vez más.</p>
 
@@ -736,40 +737,40 @@ es:
         subtitle: Qué más?
         text: |
           <p>
-          echo social les posibilitará a criar su <strong>propia red social</strong> para su organización, su projectos y
-          actiones, y tornarlo parte de un movimiento global.
-          Sus ideas y pensamientos, sus actividades apoyarán a realmente cambiar algo.
+          echo social te posibilitará la creación de tu <strong>propia red social</strong>, organizar tus projectos y
+          acciones, y transformarlo en parte de un movimiento global.
+          Tus ideas y pensamientos, tus actividades conseguirán realmente cambiar algo.
           </p><p>
-          echo social es la solución de <strong>Open Source</strong> para criar con unos pocos clic <strong>su propria
-          página web</strong> con su visual individual - <strong>gratis!</strong>
+          echo social es la solución de <strong>código abierto</strong> para crear con unos pocos clics <strong>tu propria
+          página web</strong> con tu visual individual - <strong>gratis!</strong>
           Les ofrece:
           </p>
         toolbox:
-          title: Umfangreiche Werkzeugkiste
+          title: Amplia caja de herramientas
           text: |
-            <p>Ihr bekommt für Eure Organisation, Aktionen und Projekte umfangreiche Netzwerkfunktionen
-            und wichtige Web Tools für eine effiziente Zusammenarbeit mit Euren Unterstütrzern.</p>
+            <p>Con vuestra participación, conseguiréis amplias posibilidades para vuestra organización, acciones y proyectos,
+            así como instrumentos disponibles en la web para coordinar de forma más eficiente el trabajo en colaboración y apoyo de vuestros socios.</p>
         cooperation:
-          title: Koordinierte Zusammenarbeit
+          title: Trabajo en colaboración
           text: |
-            <p>Alle echo social Netzwerke können sich untereinander vernetzen und gemeinsam an
-            einem Strang ziehen. Dadurch könnt Ihr schneller die richtigen Mitstreiter
-            finden oder selbst gefunden werden. Die verfügbaren Tools helfen, Eure Zusammenarbeit
-            zu koordinieren und Eure Ideen in die Tat umzusetzen.</p>
+            <p>Todas las redes echosocial pueden comunicarse entre sí y conjuntamente
+            perseguir los mismos objetivos. De esta forma, puedes encontrar fácilmente los socios adecuados
+            o ellos a ti. Los instrumentos disponibles ayudan a coordinar vuestro trabajo
+            y a poner en marcha vuestras ideas.</p>
         coverage:
-          title: Vervielfachte Reichweite
+          title: Alcance pluridisciplinar
           text: |
-            <p>Wir können Dinge nur verändern, wenn wir gemeinsam handeln!</p><p>echo social Webseiten werden
-            verbunden durch echo - eine dezentrale Kommunikationsinfrastruktur für aktive Bürgerbeteiligung und
-            teilnehmende Demokratie. Im Laufe der weiteren Realisierung echos werden Aktionen und Projekte auf
-            echo social Webseiten stets mit thematisch relevanten Debatten und Aktionen von anderen
-            (nicht nur echo social) Webseiten verknüpft. Dies hilft bisher unabhängige Communities
-            mit Eurer eigenen zu vernetzen und die Reichweite Eurer Aktionen zu verfielfachen.</p>
+            <p>Sólo podemos cambiar las cosas trabajando juntos! las páginas de echo social conectarán
+            a través de echo - una infraestructura comunicativa para una ciudadanía activa y
+            una democracia participativa. A lo largo del desarrollo de echo, los proyectos y acciones
+            de las páginas de echo social se enriquecen continuamente con relevantes debates temáticos
+            y acciones de otras (no sólo de echo social) páginas web. Esto facilita la comunicación entre comunidades independientes
+            con la tuya propia, garantizando la pluralidad de acciones.</p>
 
 
       have_your_say:
-        title: echo social para ustedes
-        text: Diganos lo qué necesitan!
+        title: echo social para ti
+        text: Dinos lo que necesitas!
 
 
       #About
@@ -783,10 +784,10 @@ es:
           Un <strong>grupo interdisciplinario</strong> de académicos jóvenes y experimentados continúan trabajando
           con gran dedicación en la realización de nuestros objetivos comúnes.
           Estes esfuerzos intensivos son posibles gracias al apoyo financiero del Fondo Social de la Unión Europea, del Ministerio
-          Alemán de Economía y Tecnología, y donantes particulares.
+          Alemán de Economía y Tecnología, y donantes privados.
           </p><p>
           Como proyecto de reticulación sinergética, el mismo echo social es producto de la colaboración común!
-          Si su organizasión quisiera colaborar en la criación de echo social, por favor escribanos a
+          Si tu organización quisiera colaborar en la creación de echo social, por favor escríbenos a
           <a href="mailto:team@echosocial.org?subject=echo social mitgestalten">team@echosocial.org</a>.
           </p>
 
@@ -796,24 +797,24 @@ es:
         text: |
           <p>
           Esta página está mantenida por <strong>echo source e.V.</strong>
-          Los responsables por el contenido en el sentido de la ley alemana & 6 MDStV son Jan Linhart y László Papp.
+          Los responsables por el contenido conforme a la regulación alemana & 6 MDStV son Jan Linhart y László Papp.
           </p><p>
-          La dirección oficial seguindo la ley alemana TMG es:<br/>
+          La dirección oficial conforme a la regulación alemana TMG es:<br/>
           echo source e.V.<br/>
           Senefelderstr. 22<br/>
           10437 Berlin<br/>
           E-Mail: team@echologic.org<br/>
           </p><p>
           Responsabilidad con respecto a los contenidos de los enlaces:<br/>
-          Como parte de esta página son incluidos también enlaces a contenidos de otras páginas. No podemos influenciar este contenido;
+          Como parte de esta página se incluyen también los enlaces a contenidos de otras páginas. No podemos influenciar este contenido;
           el responsable por ello es únicamente la operadora de la página en cuestión. Por lo tanto, a pesar de la comprobación
-          legalmente obligada, tenemos que rehusar cualquier responsabilidad en relación a los contenidos y las páginas conectadas por
+          legalmente exigida, rehusamos cualquier responsabilidad en relación a los contenidos y las páginas conectadas por
           enlaces ofrecidos por nuestro servicio.
           </p><p>
           Los <strong>estatutos de echo source e.V.</strong> se pueden leer aquí.
           </p>
 
-        open_statute: Abrir estatutos!
+        open_statute: Ver estatutos!
 
       # data privacy section
       data_privacy:
@@ -821,8 +822,8 @@ es:
 
         text: |
           <p>
-          Agradecemos por tu interés en echo!<br/>
-          Aquí puede leer nuestra política de privacidad.
+          Agradecemos tu interés en echo!<br/>
+          Aquí puedes leer nuestra política de privacidad.
           </p>
 
         open_document: Abrir Documento!
@@ -833,7 +834,7 @@ es:
       subtitle: &join 'Unirse a echo'
       tabs:
         join: 'Unirse a echo'
-        forgot: 'Nueva seña'
+        forgot: 'Nueva contraseña'
 
     invite:
       title: &invite 'causar un echo'
@@ -847,16 +848,16 @@ es:
       text1: |
         Estimado/a {{name}},
 
-        gracias por tu registro en echo! Por favor active tu cuenta siguiendo el link de abajo.
+        gracias por registrarte en echo! Por favor activa tu cuenta siguiendo el enlace de abajo.
       text2: |
-        Si por acaso este link no funciona, copie el link a tu browser.
+        En caso de que este enlace no funcione, copia el enlace en tu buscador.
 
-        Si usted tuvo problemas con el acceso a echo, no se detenga y contáctenos por support@echo.org.
+        Si has tenido problemas con el acceso a echo, no lo dudes, y contáctanos en support@echologic.org.
 
-        Esperamos reencontrarle en echo en breve!
+        Esperamos reencontrarte en echo en breve!
 
         Atentamente
-        tu equipe de echo
+        tu equipo de echo
 
     # Welcome section
     welcome:
@@ -866,27 +867,27 @@ es:
 
         Bienvenido a echo!
 
-        Estamos felices que usted decidió contribuir al desarrollo de echo!
-        Como parte de echo usted podrá contribuir al éxito de echo con tus ideas y propuestas.
-        Le deseamos un tiempo muy inspirador con echo.
+        Estamos felices que has decidido contribuir al desarrollo de echo!
+        Como parte de echo, podrás contribuir al éxito de echo con tus ideas y propuestas.
+        Te deseamos un tiempo muy fructífero con echo.
 
         Hasta pronto!
 
-        Tu equipe de echo
+        Tu equipo de echo
 
     # New password section
     new_password:
-      subject: "pedir una nueva seña "
+      subject: "pedir una nueva contraseña "
       text1: |
         Estimado/a (nombre),
 
-        gracias por tu registro en echo! Por favor active tu cuenta siguiendo el link de abajo.
+        gracias por registrate en echo! Por favor, activa tu cuenta siguiendo el enlace de abajo.
       text2: |
-        Si por acaso este link no funciona, copie el link a tu browser.
+        En caso de que este enace no funciones, copia el enlace tu buscador.
 
-        Si usted tuvo problemas con el acceso a echo, no se detenga y contáctenos por support@echo.org.
+        Si has tenido problemas con el acceso a echo, no lo dudes y contáctanos por support@echologic.org.
 
-        Esperamos reencontrarle en echo en breve!
+        Esperamos reencontrarte en echo en breve!
 
         Atentamente
         Tu equipe de echo

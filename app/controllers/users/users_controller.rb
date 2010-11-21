@@ -59,10 +59,12 @@ class Users::UsersController < ApplicationController
       respond_to do |format|
         if @user.signup!(params)
           @user.deliver_activation_instructions!
-          flash[:notice] = I18n.t('users.users.messages.created')
-          format.html { redirect_to root_url }
+          set_info 'users.users.messages.created'
+          format.html {
+            flash_info and redirect_to root_url
+          }
           format.js do
-            render :update do |page|
+            render_with_info do |page|
               page.redirect_to root_url
             end
           end
@@ -103,8 +105,11 @@ class Users::UsersController < ApplicationController
       @user.password_confirmation = params[:user][:password_confirmation]
       respond_to do |format|
         if @user.save and not params[:user][:password].empty?
-          format.html { (flash[:notice] = I18n.t('users.password_reset.messages.reset_success')) and (redirect_to my_profile_path) }
-          format.js   { render_with_info(I18n.t('users.password_reset.messages.reset_success')) }
+          set_info 'users.password_reset.messages.reset_success'
+          format.html {
+            flash_info and redirect_to my_profile_path
+          }
+          format.js   { render_with_info }
         else
           format.html { redirect_to my_profile_path }
           format.js   { show_error_messages(@user) }

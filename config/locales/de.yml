@@ -6,6 +6,7 @@ de:
 
     # Unexpected Error
     unexpected_error: Ein unerwarteter Fehler ist aufgetreten. Bitte entschuldigen Sie die Unannehmlichkeiten.
+    routing_error: Unbekannte URL. Umleitung...
 
     # General purpose resources
     general:
@@ -34,7 +35,7 @@ de:
 
     # Roadmap - Progress
     roadmap:
-      title: fertig
+      title: Fahrplan
       progress_tooltip: 'Dieser Bereich ist zu {{progress}}% fertig.'
       status_quo: 'Status Quo'
       next_steps: 'Nächste Schritte'
@@ -248,9 +249,9 @@ de:
 
       newsletter:
         title: Newsletter
-        guide: Get some regular information directly from the webmasters.
-        turned_on: Newsletter has been switched on.
-        turned_off: Newsletter has been switched off.
+        guide: echo Newsletter abonnieren
+        turned_on: Sie haben den echo Newsletter abonniert.
+        turned_off: Sie haben den echo Newsletter abbestellt.
 
       activity:
         title: Neue Diskussionsbeiträge

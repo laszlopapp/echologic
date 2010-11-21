@@ -5,6 +5,7 @@ en:
   application:
     # Unexpected Error
     unexpected_error: An unexpected error has occurred. Sorry for the inconvenience.
+    routing_error: Unknown URL. Redirecting...
 
     # General purpose resources
     general:
@@ -33,7 +34,7 @@ en:
 
     # Roadmap - Progress
     roadmap:
-      title: ready
+      title: Roadmap
       progress_tooltip: 'This area of echo is {{progress}}% ready.'
       status_quo: 'Status Quo'
       next_steps: 'Next Steps'
@@ -241,9 +242,9 @@ en:
 
       newsletter:
         title: Newsletter
-        guide: Get some regular information directly from the webmasters.
-        turned_on: Newsletter has been switched on.
-        turned_off: Newsletter has been switched off.
+        guide: Receive echo newsletter
+        turned_on: You have subscribed to the echo newsletter
+        turned_off: You have unsubscribed from the echo newsletter
 
       activity:
         title: Activity Notifications
@@ -271,7 +272,7 @@ en:
           <p>
           <strong>echo is democracy from the people for the people.</strong>
           </p><p>
-          Join us now to participate! 
+          Join us now to participate!
           </p>
         action: 'Join now!'
 
@@ -312,16 +313,6 @@ en:
       more: '{{count}} discussions'
     featured_topics:
       title: Featured Topics
-      text: |
-        <p>
-        As you can see in the Roadmap (in the upper right corner of the screen),
-        the discussion area of echo is in an <strong>early development stage</strong>.
-        </p><p>
-        At the moment it offers you the possibility to discuss about different <strong>pilot projects</strong> and
-        jointly <strong>develop new ideas</strong> with other newthinkers of the community.
-        Additionally, you can also engage into the development of echo.<br/>
-        Currently available topics are:
-        </p>
       tabs:
         echo:
           title: About echo

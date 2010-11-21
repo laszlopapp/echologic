@@ -24,7 +24,7 @@ en:
         ms2: |
           echo - the global <span title="{{tooltip}}" class="ttLink">agora</span>!
 
-        agora_tooltip: |
+        agora_tooltip: |-
           The agora was the central place in ancient Athens – the cradle of democracy.
           It was the hub of the social and political life of the polis: a society self-governed by its free citizens.
           echo, as the global agora, overcomes the communicative and spatial limits of the ancient agora and
@@ -120,7 +120,7 @@ en:
           </p><p>
           The work of echo source e.V. currently concentrates on further development of the software prototype as well as
           finding and <strong>negotiating with new partners, sponsors and (preferably sustainable) investors</strong>.
-           </p>
+          </p>
 
       # Static content for imprint
       imprint:
@@ -321,10 +321,10 @@ en:
           </p>
 
         possible_actions: |
-          <li>online signed <strong>e-petitions</strong>,</li>
-          <li>organisation of <strong>referenda</strong>,</li>
+          <li>online signed <strong>e-petitions</strong></li>
+          <li>organisation of <strong>referenda</strong></li>
           <li>organization of <strong>citizen conferences, demonstrations</strong>, boycotts and collective legal actions</li>
-          <li>formation of national and international <strong>NGOs</strong> (non-governmental organizations),</li>
+          <li>formation of national and international <strong>NGOs</strong> (non-governmental organizations)</li>
           <li>formation of <strong>social ventures</strong> (social business and social entrepreneurship)</li>
           <li><strong>any kind of project</strong> with a commonly defined goal (e.g. the formation of civil movements,
           a day nursery in the neighborhood or a European day of bicycling).</li>
@@ -561,7 +561,7 @@ en:
           committed to basic ethical values in our globalized world:
           </p>
 
-        list:
+        list: |
           <li><strong>Sustainability</strong> instead of unconditional growth (eco)</li>
           <li><strong>Cooperation</strong> instead of being forced to compete (social)</li>
           <li><strong>Active participation</strong> instead of passive dependence (democratic)</li>
@@ -879,7 +879,7 @@ en:
       text2: |
         If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
 
-        If you keep having problems with activating your account, please feel free to contact us at support@echo.org.
+        If you keep having problems with activating your account, please feel free to contact us at support@echologic.org.
 
         Looking forward to seeing you soon at echo,
 
@@ -894,7 +894,7 @@ en:
         welcome to echo!
 
         We are happy seeing you join us to participate in the evolution of echo.
-        As a member at echo you can contribuite your ideas and take part in discussions and provide helpful
+        As a member you can take part in discussions and also provide helpful
         impulses for a successfull development of echo.
 
         We wish you an inspiring and enriching time.
@@ -913,7 +913,7 @@ en:
       text2: |
         If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
 
-        If you keep having problems with activating your account, please feel free to contact us at support@echo.org.
+        If you keep having problems with activating your account, please feel free to contact us at support@echologic.org.
 
         We wish you further much inspiration and fun at echo.
         With best regards,
