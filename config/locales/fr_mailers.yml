@@ -68,9 +68,9 @@ fr:
 
           a obtenu le plus des voix et a été sélectionnée "{{p_title}}" parmi les thèmes à développer.
 
-          A partir de maintenant, il vous reste {{hours}} pour l'élaborer.
+          A partir de maintenant, il vous reste *{{hours}} heure pour l'élaborer*.
 
-          Passé ce délai, vous ne pouvez plus intervenir comme rédacteur. Pour développer maintenant cette *proposition*, veuillez suivre ce lien et cliquez sur (la flèche vert et jaune au milieu):
+          Passé ce délai, vous ne pouvez plus intervenir comme rédacteur. Pour développer maintenant cette proposition, veuillez suivre ce lien et cliquez sur (la flèche vert et jaune au milieu):
 
           {{p_link}}
 
@@ -89,7 +89,7 @@ fr:
 
           "*{{ip_title}}*",
 
-          L'auteur de cet amendement n'a pas intégré à votre proposition dans "{{p_title}}". Ayant soutenu cet amendement, vous avez maintentant l'occasion pendant {{hours}} heure * de vous exprimer.
+          L'auteur de cet amendement n'a pas intégré à votre proposition dans "{{p_title}}". Ayant soutenu cet amendement, vous avez maintentant l'occasion pendant *{{hours}} heure* de vous exprimer.
 
           Pour *intégrer votre idée*, veuillez suivre ce lien et cliquez sur la flèche vert-jaune au milieu:
 
@@ -135,7 +135,7 @@ fr:
 
           proposition "{{p_title}}". Soyez rapide! Vous perdrez votre droit de rédacteur après expiration de ce délai.
 
-          Pour travailler la *propositon  maintenant*, suivez ce lien et cliquez sur le symbole de connection - la flèche vert-jaune au milieu:
+          Pour travailler la *propositon maintenant*, suivez ce lien et cliquez sur le symbole de connection - la flèche vert-jaune au milieu:
 
           {{p_link}}
 
