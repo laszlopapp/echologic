@@ -11,7 +11,7 @@ fr:
           imprint: 'echo - Mentions légales'
           data_privacy: 'echo - Protection des données'
         echo:
-          show:    "echo - L'agora globale (L'essentiel, c'est de participer - à la vie démocratique)"
+          show:    "echo - L'agora globale (L'essentiel, c'est de participer à la vie démocratique)"
           discuss: "echo - Discuter (La formation de la volonté et de la décision - ciblée, transparente et démocratique)"
           connect: "echo - La mise en réseau (avec tous ceux qui partagent la même cause - avec leurs compétences diverses)"
           act:     "echo - Agir (au nom d'un succès durable)"
@@ -24,7 +24,7 @@ fr:
           organisations:   "echocracy - Les organisation non gouvernementales"
         echonomy:
           show:            "echonomy - Une nouvelle ère de l'économie éco-sociale, durable et démocratique"
-          your_profit:     "echonomy - Social Business fondé sur le concept du Votre-Profit"
+          your_profit:     "echonomy - Social Business fondé sur le concept du Your-Profit "
           foundation:      "echonomy - La Fondation Echonomy"
           public_property: "echonomy - echo comme Bien Commun"
         echosocial:
@@ -38,10 +38,12 @@ fr:
           new: 'Votre echo - echo adhérer'
         activations:
           new: Votre echo - Pour accéder à echo
-          create: 'Ihr echo - Bienvenu sur echo'
+          create: 'Ihr echo - Bienvenue sur echo'
         password_resets:
-          new: 'Ihr echo - Demander un nouveau mot de pass'
-          edit: 'Ihr echo - Fixer un nouveau mot de pass'
+          new: 'Ihr echo - Demander un nouveau mot de passe'
+          edit: 'Ihr echo - Fixer un nouveau mot de passe'
+          create: 'Ihr echo - Fixer un nouveau mot de passe'
+          update: 'Ihr echo - Fixer un nouveau mot de passe'
         profile:
           details: "Votre echo - Votre profil éloquent"
 
@@ -61,13 +63,13 @@ fr:
 
       # connect: de.seo.title.connect
       connect:
-        roadmap: 'echo - Votre plan de route pour vous mettre en réseau'
-        show:    'echo - Connectez vous- mettez vous en réseau - découvrir des communités'
+        roadmap: 'echo - Votre plan de route pour vous connecter'
+        show:    'echo - Connectez vous - mettez vous en réseau - découvrir des communités'
         fill_out_profile: 'echo - Connecter'
 
       # act: de.seo.title.act
       act:
-        roadmap: 'echo - Votre plande route pour agir'
+        roadmap: 'echo - Votre plan de route pour agir'
 
       # my_echo: de.seo.title.my_echo
       my_echo:
@@ -79,6 +81,7 @@ fr:
       # my_echo: de.seo.title.admin
       admin:
         show: "echo - espace d'Admin"
+
       # my_echo: de.seo.title.newsletter
       newsletter:
         new: 'echo - Newsletter'
@@ -88,7 +91,7 @@ fr:
     meta:
       echologic:
         description: |-
-          echologic est un réseau de citoyen(ne)s engagé(e)s et d' organisations dans lesquelles ils impliquent.
+          echologic est un réseau de citoyen(ne)s engagé(e)s et d' organisations dans lesquelles ils s'impliquent.
           Ensemble avec eux, nous réalisons echo, l'agora globale. echo est un projet collectif en faveur d'un
           changement soutenable grâce à une participation active des citoyens. echo crée le cadre et le fondement
           technologique  pour une démocratie transparente, participative, à l'échelle locale, régionale et globale.

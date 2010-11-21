@@ -1,4 +1,4 @@
-# Localization in German.
+# Localization in French.
 
 fr:
 
@@ -6,6 +6,7 @@ fr:
 
     # Unexpected Error
     unexpected_error: Zut ..encore un bug informatique. Nous sommes désolés de ce désagrément.
+    routing_error: URL inconnue. Redirection...
 
     # General purpose resources
     general:
@@ -29,7 +30,7 @@ fr:
       delete: Effacer
       create: Ajouter
       incorporate: Incorporer
-      welcome: Bienvenu(e)
+      welcome: Bienvenue
       all: Tous
 
     # Roadmap - progrès
@@ -42,12 +43,12 @@ fr:
       discuss:
         status_quo: |
           L'espace "discussions" est fermé <strong>{{progress}}% terminé</strong>.
-        next_steps: 'Les premières fonctionnalités de discussion sont terminées et sont sans cesse mises à jour.'
+        next_steps: 'Les premières fonctionnalités de discussion sont terminées et seront sans cesse mises à jour.'
       connect:
         status_quo: |
-          L'espace "mettre en réseau" est fermé<strong>{{progress}}%</strong>.
+          L'espace "Connecter" est fermé <strong>{{progress}}%</strong>.
         next_steps: |
-          Une recherche simple de personne est publiée. Le développement de l'espace "mettre en réseau"se
+          Une recherche simple de personne est publiée. Le développement de l'espace "Connecter" se
           poursuivra dès que les premières foncitionnalités  dans "Discuter" et "Agir" seront prêtes.
       act:
         status_quo: |
@@ -60,10 +61,10 @@ fr:
           L'espace "mon echo" est fermé <strong>{{progress}}%</strong>.
         next_steps: |
           De développements ultérieurs sont prévus pour l'espace "mon echo" après la publication des
-          fonctionnalités de base sous la rubrique "discuter", "rejoindre un réseau" et "agir"
+          fonctionnalités de base sous la rubrique "discuter", "Connecter" et "Agir"
         vision: |
          <p>
-         "Mon echo" deviendra la <strong>plate-forme personnelle d'information</strong>sur echo.
+         "Mon echo" deviendra la <strong>plate-forme personnelle d'information</strong> sur echo.
          Veuillez trouver ici une vue d'ensemble des <strong>informations les plus importantes</strong> et vous
          serez toujours au courant des <strong>discussions et actions actuelles.</strong>
          </p>
@@ -90,17 +91,17 @@ fr:
 
     connect:
       tabs:
-        search: Decouvrir des communités et des réseaux
+        search: Découvrir les communités et les réseaux
 
     act:
       tabs:
 
     my_echo:
       tabs:
-        welcome: Bienvenu(e)
+        welcome: Bienvenue
         profile: Mon Profil
         settings: Mon Compte
-      profile_complete: "{{profil complet}}% rempli"
+      profile_complete: "{{complete}}% rempli"
 
 
   # ----------------
@@ -108,22 +109,22 @@ fr:
   # ----------------
 
   welcome:
-    title: Bienvenu(e)
+    title: Bienvenue
     text: |
       <p>
-      <strong>Discuter - se mettre en réseau - agir!</strong><br/>
-      Nous allons construire ensemble avec vous, pas à pas,les trois espaces de fonctionnalités.
+      <strong>Discuter - Connecter  - Agir!</strong><br/>
+      Nous allons construire ensemble avec vous, pas à pas, les trois espaces de fonctionnalités.
       Sur la feuille de route (en haut à gauche de l'image) vous pouvez suivre à l'intérieur de chaque espace l'état
       actuel <strong>et le pas suivant</strong> de l'avancée des discussions.
       </p><p>
-      Comme élément moteur d'echo, nous vous invitons très cordialement, de participer
+      Comme élément moteur d'echo, nous vous invitons très cordialement, à participer
       <strong>au développement d'echo</strong>!<br/>
       Jusqu'à présent nous avons rendu public les liens suivant:
       </p>
     function_1:
       name: 'Mon profil'
       description: |
-        Compléter votre profil afin de vous présenter à la communité d'echo.
+        Complétez votre profil afin de vous présenter à la communité d'echo.
     function_2:
       name: 'Connecter'
       description: |
@@ -132,7 +133,7 @@ fr:
     function_3:
       name: 'Discussion'
       description: |-
-        Echanger vos idées avec les nouveaux adhérents. Participez au développement futur d'echo.
+        Echangez vos idées avec les nouveaux adhérents. Participez au développement futur d'echo.
 
 
   # ------------
@@ -149,9 +150,9 @@ fr:
           Pas encore membre?
         set_password: Mot de passe oublié?
         remember: Mémoriser mon mot de passe!
-        hello: Vous êtes connecté<br/><strong>{{name}}</strong>
+        hello: Vous êtes connecté(e)<br/><strong>{{name}}</strong>
       messages:
-        login_success: "Votre inscription a réussi.<br/>Bienvenu(e) sur echo!"
+        login_success: "Votre inscription a réussi.<br/>Bienvenue sur echo!"
         login_failed: "Utilisateur inconnu ou erreur de mot de passe."
         logout_success: "Vous vous êtes déconnecté(e).<br/>Au revoir et à bientôt!"
         session_timeout: "Votre ancienne session a été fermée. Veuillez recommencer."
@@ -159,7 +160,7 @@ fr:
     # Activations section
     activation:
       messages:
-        success: Vous vous êtes connecté(e) avec succès. Bienvenu(e) sur echo!
+        success: Vous vous êtes connecté(e) avec succès. Bienvenue sur echo!
         failed: La connexion a échoué. Veuillez vérifier vos données.
 
     # Password resets section
@@ -171,16 +172,16 @@ fr:
         <strong>Vous avez oublié votre mot de passe</strong> ou voulez vous un nouveau mot de passe?
         </p><p>
         C'est simple! Indiquez simplement l' adresse <strong>E-Mail</strong>, avec laquelle vous vous êtes enregistré(e).
-        Nous vous enverrons ensuite un courriel qui vous permet de réinitialiser <strong>votre mot de passe</strong>.
+        Nous vous enverrons ensuite un courriel vous permettant de réinitialiser <strong>votre mot de passe</strong>.
         </p>
       step1_mail: Envoyer un courriel
 
       step2_text: |
-        Veuillez indiquer <strong>le nouveau mot de passe</strong>avec lequel vous souhaitez vous inscrire à echo.
-      step2_ok: Indiquer un mot de passe et connectez vous
+        Veuillez indiquer <strong>le nouveau mot de passe</strong> avec lequel vous souhaitez vous inscrire à echo.
+      step2_ok: Indiquer un mot de passe et connectez-vous
       messages:
         success: |
-          Nous vous avons envoyé un courriel vous permetant de réinitialiser votre mot de passe.
+          Nous vous avons envoyé un courriel vous permettant de réinitialiser votre mot de passe.
           Veuillez regarder dans votre messagerie mail.
         not_found: |
           L'adresse Email est introuvable
@@ -210,13 +211,13 @@ fr:
         upload_button: Remplacer
 
       upload_picture:
-        title: Télécharger une image
-        guide: Veuillez sélectionner une <strong>image</strong> (JPG oder PNG, max. 5MB) et cliquer sur télécharger.
+        title: Télécharger une photo
+        guide: Veuillez sélectionner une <strong>photo</strong> (JPG oder PNG, max. 5MB) et cliquer sur télécharger.
         progress: |-
-          L'image est téléchargée. Veuillez patienter...
+          La photo est téléchargée. Veuillez patienter...
 
       messages:
-        updated: "Vous avez modifié votre image avec succès."
+        updated: "Vous avez modifié votre photo avec succès."
 
     # Spoken Languages section
     spoken_languages:
@@ -232,7 +233,7 @@ fr:
     memberships:
       title: Vos activités
       guide: |
-        Veuillez indiquer ici vos activités bénévoles, professionnelles ou autres au sein d' organisations,
+        Veuillez indiquer ici vos activités bénévoles, professionnelles ou autres au sein d' organisations, groupes,
         associations, mouvements.
       organisation: Organisation
       position: Mon rôle
@@ -241,8 +242,8 @@ fr:
     web_addresses:
       title: Web Adresses
       guide: |
-        En indiquant ici vos coordonnées, vous donnez la possibilité  à d'autres utilisateurs de vous connaître
-        et de vous contacter.<br/>
+        En indiquant ici vos coordonnées, vous donnez la possibilité à d'autres utilisateurs de vous connaître
+        et à vous contacter.<br/>
         <strong>ATTENTION</strong>: Toutes les indications données ici ne sont visibles par <strong>tous</strong>
         les membres d'écho.
 
@@ -259,8 +260,8 @@ fr:
         et du soutien localement ou d'ailleurs.Dans d'autres domaines, nous nous engageons activement en
         proposant nos compétences. Dans certains domaines, nous avons des connaissances précises, voire d'experts,
         dans d'autres secteurs nous représentons peut-être d'autres personnes et groupes ou nous prenons des
-        décisions qui concernent d'autres. echo met à votre disposition un outil permettant aux <strong>compétences et savoirs complémentaires</strong>
-        de se connecter, vite et facilement.<br/>
+        décisions qui concernent d'autres. echo met à votre disposition un outil permettant aux
+        <strong>compétences et savoirs complémentaires</strong> de se connecter, vite et facilement.<br/>
         Comment vous définiriez <strong>votre implication et vos compétences en quelques mots-clefs</strong>?
 
       sorts:
@@ -274,7 +275,7 @@ fr:
     notifications:
       title: Informations par courriel
       guide: |-
-        Vous souhaitez être informé par courriel. Veuillez indiquer ici le domaine d'intérêt et la
+        Vous souhaitez être informé(e) par courriel? Veuillez indiquer ici le domaine d'intérêt et la
         fréquence de l'information souhaitée.
 
       newsletter:
@@ -309,11 +310,11 @@ fr:
         subtitle: 'Joindre echo'
         text: |
           <p>
-          <strong>echo est la démocratie à visage humaine faites par des êtres humains</strong>
+          <strong>echo est la démocratie à visage humain façonnée par des hommes et des femmes.</strong>
           </p><p>
-          Participez - adhérer maintenant!
+          Participez - adhérez maintenant!
           </p>
-        action: 'Adhérer maintenant!'
+        action: 'Adhérez maintenant!'
 
       messages:
         created: |-
@@ -331,7 +332,7 @@ fr:
           Nous allons donner suite à votre information au plus vite.
           </p>
       messages:
-        created: "Merci de votre information. Nous allons donner suite à votre avis et nous vous tenons informé(e)."
+        created: "Merci de votre information. Nous allons donner suite à votre avis et nous vous tiendrons au courant."
 
 
   # ---------------
@@ -340,20 +341,20 @@ fr:
 
   discuss:
     my_discussions:
-      link: Mes discussions
-      title: Mes nouvelles discussions et groupes de débat
+      link: Mes Questions
+      title: Mes nouvelles questions et discussions
       no_discussions: |
         Vous n'avez pas encore précisé un sujet de discussion. Pour ce faire,
         cliquez sur le point d'interrogation à gauche.
     tag_permission: |
       Ce tag '{{tag}}' n'est pas autorisé.
     original_language_warning: |
-      La définition originale est en  <strong>{{language}}</strong>.<br/>
+      La formulaton originale est en  <strong>{{language}}</strong>.<br/>
       Précisez vos compétences linguistiques pour accéder à d'autres pages.
-    translation_request: Veuillez traduire la définition en <strong>Français</strong>.
+    translation_request: Veuillez traduire la formulation en <strong>Français</strong>.
     results_count:
-      one: '{{count}} discussion'
-      more: '{{count}} discussion'
+      one: '{{count}} question'
+      more: '{{count}} question'
     featured_topics:
       title: Thèmes proposés
       tabs:
@@ -368,29 +369,29 @@ fr:
     tooltips:
       read_question: 'Regarder cette question'
       read_proposal: 'Lire cette proposition'
-      read_improvement_proposal: 'Lire la proposition complémentaire'
+      read_improvement_proposal: "Lire l'amendement"
       current_question: 'La question actuellement affichée'
-      current_proposal: 'La proposition actuellement affichée'
-      current_improvement_proposal: 'La proposition complémentaire affichée'
+      current_proposal: 'La proposition actuellement affichée '
+      current_improvement_proposal: "L'amendement affiché"
       back_to_question: 'Retour à la question actuelle'
-      back_to_proposal: 'Retour à la question actuelle'
-      back_to_improvement_proposal: 'Retour à la proposition complémentaire'
+      back_to_proposal: 'Retour à la proposition actuelle'
+      back_to_improvement_proposal: "Retour à l'amendement"
       prev_question: 'Lire la question précédente'
       next_question: 'Lire la question suivante'
-      prev_proposal: 'Lire la proposition précédente à la question actuelle'
-      next_proposal: 'Lire la proposition suivante à la question actuelle'
-      prev_improvement_proposal: 'Lire la proposition complémentaire à la proposition actuelle'
-      next_improvement_proposal: 'La proposition complémentaire suivante à la proposition actuelle'
-      create_question: 'Ouvrir une nouvelle discussion'
+      prev_proposal: 'Lire la proposition précédente '
+      next_proposal: 'Lire la proposition suivante '
+      prev_improvement_proposal: "Lire la proposition d'amendement"
+      next_improvement_proposal: "La proposition d'amendement suivante à la proposition actuelle"
+      create_question: 'Poser une nouvelle question'
       create_proposal: |
         Vous avez une nouvelle idée concernant la question actuelle? Veuillez l'indiquer ici
       create_improvement_proposal: |
-        Vous avez une idée concernant la proposition actuelle? Veuillez l'indiquer ici
+        Vous avez une idée concernant la proposition actuelle? Veuillez l'indiquer ici!
       echo: |
         Apportez votre 'echo' à cette proposition!
       unecho: 'Si vous ne souhaitez plus soutenir cette proposition, vous pouvez vous désister ici!'
       publish: |
-        Vous souhaitez rendre cette discussion publique?
+        Vous souhaitez rendre cette question publique?
         (Toute modification ultérieure est impossible.)
       incorporate: |
         Cliquez ici afin 'insérer' la proposition complémentaire dans le texte ci-dessus.
@@ -401,26 +402,26 @@ fr:
         one: '{{supporter_count}} Supporter'
         many: '{{supporter_count}} Supporter'
       create_question_link: 'Ouvrir de nouvelles discussions'
-      create_proposal_link: 'soumettre de nouvelles discussions'
-      create_internal_link: 'Une idée nouvelle?'
-      create_improvement_proposal_link: 'Soumettre de nouvelles propositions complémentaires?'
+      create_proposal_link: 'Soumettre de nouvelles propositions'
+      create_internal_link: 'Une idée nouvelle'
+      create_improvement_proposal_link: 'Soumettre un amendement'
       create_question_explanation: |
-        Vous pouvez ouvir ici <strong>une nouvelles discussions</strong> et de définissez
+        Vous pouvez ouvrir ici <strong>une nouvelles discussions</strong> et définir
         <strong>les mots-clefs thématiques</strong> (les "tags")
       create_proposal_explanation: |
-        Vous avez <strong>bonne idée</strong> concernant la question actuelle qui n'a
+        Vous avez une <strong>bonne idée</strong> concernant la question actuelle qui n'a
         <strong>pas encore été abordée?</strong><br/>
         Vous pouvez faire ici <strong>une proposition nouvelle</strong>.
       create_improvement_proposal_explanation: |
         Vous avez une <strong>bonne idée</strong> comment <strong>améliorer la proposition actuelle?</strong><br/>
-        Vous pouvez faire ici<strong>une nouvelle proposition complémentaire</strong>.
+        Vous pouvez faire ici <strong>proposer votre amendement</strong>.
       create_statement_language_hint: |
-        Veuillez décrire votre proposition en <strong>Français</strong> ou sélectionnez une autre langue proposée
-        par notre petit poisson de Babel ci-dessus.
+        Veuillez décrire votre proposition en <strong>Français</strong> ou sélectionnez une autre langue
+        Notre petit poisson de Babel ci-dessus en parle plus d'une...
       statement_language_hint: |
-        Veuillez préciser vos connaissances linguistiques et leur niveau dans <a href='{{url}}'>profil</a>.
+        Veuillez préciser vos connaissances linguistiques et votre niveau respectif dans <a href='{{url}}'>profil</a>.
       statement_language_hint_tooltip: |
-        Vous pouvez alors vous exprimer dans toutes les langues que vous maîtrisez au moins au niveau moyen.
+        Vous pouvez alors vous exprimer dans toutes les langues que vous maîtrisez à partir du degré moyen.
       drafting_language_hint: |
         La poursuite collaborative ne sera possibile que dans la langue sélectionnée!
 
@@ -431,15 +432,15 @@ fr:
       types:
         question: 'Question'
         proposal: 'Proposition'
-        improvement_proposal: 'Proposition complémentaire'
+        improvement_proposal: 'Amendement proposé'
       new:
         question:  'Nouvelle discussion'
         proposal:  'Nouvelle proposition'
-        improvement_proposal: 'Nouvelle proposition complémentaire'
+        improvement_proposal: 'Amendement proposé'
       headings:
         question: 'Questions'
         proposal: 'Propositions'
-        improvement_proposal: 'Propositions complémentaires'
+        improvement_proposal: 'Amendement proposé'
 
       topic: Thème (Tags / mots-clefs)
       states:
@@ -456,30 +457,30 @@ fr:
       read_only_permission: |-
         Cette discussion est déjà fermée, mais vous pouvez lire les contributions.
       unsupported_parent: |-
-        Des propositions complémentaires ne sont soutenues que si la projet initial a été soutenu.
-        Cet amendement ne peut plus être prise en considération. Nous sommes désolés.
+        Les amendements proposés ne sont soutenus que si la projet initial a été approuvé.
+        Cet amendement ne peut plus être pris en considération. Nous sommes désolés.
       see_parent_if_approved: |-
         Cet amendement a été accepté afin d'améliorer la proposition ci-dessous.
       see_parent_if_incorporated: |-
         Cet amendement a déjà été intégré au projet.
       being_edited: |-
-        Cette proposition est à l'étude actuellement. Veuillez recommencez ultérieurement.
+        Cette proposition est à l'étude actuellement. Veuillez recommencer ultérieurement.
       already_translated: |-
         {{type}} vient d'être traduite par une autre personne.
       statement_updated: |-
         {{type}} vient d'être actualisée par une autre personne.
       edit_period_hint: |-
-        Vous avez <strong>{{minutes}} minutes</strong> pour rédiger vos suggestions ou commentaires.
+        Vous avez <strong>{{minutes}} minutes</strong> pour rédiger vos suggestions ou vos commentaires.
         Après expiration de ce délai, vos corrections ne pourront probablement plus être prises en considération.
       staled_modification: |-
-        Désolé, mais le délai de 60 minutes maximum a expiré. Entretemps, la proposition a été traitée par un
+        Désolé, mais le délai de 60 minutes maximum est terminé. Entretemps, la proposition a été traitée par un
         autre utilisateur. Votre amendement ne peut pas être pris en compte.
 
       upload_image:
         title: |
           Télécharger l'image
         guide: |
-          Veuillez choisir une image <strong> pour illustrer votre projet</strong> (JPG or PNG, max. 5MB)
+          Veuillez choisir une image <strong>pour illustrer votre projet</strong> (JPG or PNG, max. 5MB)
           et téléchargez la ensuite.
         progress: |
           L'image a été téléchargée. Veuillez patienter un instant...
@@ -493,12 +494,12 @@ fr:
       updated: "{{type}} a été traité avec succès."
       deleted: "{{type}} a été effacé avec succès."
       translated: "{{type}} a été traduit avec succès."
-      incorporated: "Les propositions d'amendement ont été intégrées avec succès au projet."
+      incorporated: "L'amendement proposé  a été intégré au projet avec succès ."
       image_uploaded: "L'image a été ajoutée à/ {{type}}"
       empty: "Aucune discussion n'a pu être trouvée. Veuillez choisir un autre mot-clef."
       empty_without_spoken_languages: |
         Impossible de trouver une discussion. Utilisez vos <a href='{{my_echo}}'>connaissances linguistiques</a>
-        pour accéder aux contenus dans d'autres langues.
+        pour accéder aux contenus thématiques dans les autres langues.
       new_percentage: "Votre profil est maintenant complet à {{percentage}}%."
 
 
@@ -510,7 +511,7 @@ fr:
 
     fill_out_profile:
       text: |-
-        Veuillez établir votre profil <strong> au moins à {{percentage}}%</strong> pour "le bonheur du logiciel"
+        Veuillez établir votre profil <strong>au moins à {{percentage}}%</strong> pour "faire plaisir à notre logiciel"
         et pour faire disparaître cette partie.
 
     segments:
@@ -546,7 +547,7 @@ fr:
         <strong>Votre opinion nous importe!</strong><br/>
         </p><p>
         Vous avez des questions ou des suggestions? Vous souhaitez formuler une critique, attirer notre attention sur
-        un problème important ou vous voulez simplement nous féliciter? Nous en serions ravis et attentifs à vos propos!
+        un problème important ou vous voulez simplement nous féliciter? Nous en serions ravis et très attentifs à vos propos!
         </p>
       message: Message
       send: Envoyer le message
@@ -567,7 +568,7 @@ fr:
           attributes:
             blank: 'Remplissez les cases rescpectives.'
             email:
-              invalid: Vous vous êtes trompé (e) en inscrivant votre adresse. Veuillez recommencer svp.
+              invalid: Vous vous êtes trompé (e) en inscrivant votre adresse. Veuillez recommencer. Merci.
         user:
           attributes:
             email:
@@ -601,11 +602,11 @@ fr:
         about_me: Quelques renseignements sur vous
         motivation: "Que pensez-vous d'echo?"
         memberships: Activités
-        spoken_languages: Vos onnaissances linguistiques
+        spoken_languages: Vos connaissances linguistiques
       report:
         reason: 'Motif'
       web_address:
-        location: 'Web Adresse'
+        location: 'Votre adresse sur le web'
       membership:
         position: 'Mon rôle'
       feedback:
@@ -629,15 +630,15 @@ fr:
     models:
       question: "Question"
       proposal: "proposition"
-      improvement_proposal: "Proposition complémentaire"
+      improvement_proposal: "Amendement proposé"
 
   authlogic:
     error_messages:
       email_invalid: "Veuillez corrigez l'adresse mail erronnée."
       password_blank: "Veuillez indiquer votre mot de passe."
       not_active: "Votre compte na pas été activé. Vérifiez dans votre messagerie."
-      must_be_logged_in: "S'il vous plaît connectez-vous."
-      must_be_logged_out: "S'il vous plaît se déconnecter."
+      must_be_logged_in: "Connectez-vous. Merci."
+      must_be_logged_out: " Veuillez vous déconnecter."
 
     attributes:
       user_session:

@@ -7,7 +7,7 @@ fr:
 
       echonomyjam:
         continues: 'echo poursuit sa route online!'
-        register_here: 'Pour la première inscirpiton, suivez cette piste!'
+        register_here: "Pour la première inscription, c'est par ici...!"
         name: echonomyJAM
         short_name: echonomyJAM
         teaser: Développez des parcours nouveaux conduisant à une économie durable.
@@ -19,9 +19,9 @@ fr:
           <strong>echonomyJAM</strong> réunit des têtes creatives et des idées innovantes, des financiers et sponsors,
           des compétences expérimentées ainsi que des décideurs de l'économie et de la politique en leur permettant de
           <strong>réaliser ensemble le développement, le financement et la concrétisation de projets collectifs.</strong> -
-          dans l'esprit d'une échonomie durable et d'un Bien Commun et bien-être soutenables.<br/>
+          dans l'esprit d'une économie durable et d'un Bien Commun et bien-être soutenables.<br/>
           Les thèmes les plus importants présentés par les <strong>150 participants/strong> à
-          <strong>la séance d'ouverture au parlement régional de Bavière</strong>, sont maintenant poursuivis et
+          <strong>la séance d'ouverture au Parlement régional de Bavière</strong>, sont maintenant poursuivis et
           développés sur Internet. (Plus d'info: <a href='http://www.echonomyJAM.org' target='_blank'>www.echonomyJAM.org</a>)
           </p>
 
@@ -31,12 +31,12 @@ fr:
         teaser: Debattez du nouveau mode opératoire de la démocratie participative proposée par echo.
         description: |-
           <p>
-          echo est conçu comme une agora globale offrant<strong>nouveau mode de démocratie participative</strong>
+          echo est conçu comme une agora globale offrant <strong>nouveau mode de démocratie participative</strong>
           der echocracy.<br/>
-          <strong>echocracy</strong> est un concept constructif, accordant les mêmes droits à tous et s'organise en
+          <strong>echocracy</strong> est un concept constructif, accordant les mêmes droits à tous et qui s'organise en
           lui même par lui même- mondialement!
           </p><p>
-          Participez y avec vos idées et aidez pour que la vision d'<strong>une démocratie globale devienne réalité</strong>!
+          Participez-y avec vos idées et aidez-nous pour que la vision d'<strong>une démocratie globale devienne réalité</strong>!
           </p>
 
       echo:
@@ -79,9 +79,9 @@ fr:
         description: |-
           <p>
           Quels sont les composants d'un prix et d'un produit et quels sont les
-          <strong>"arrières coûts" écologique, humain et social?</strong> cachés.
+          <strong>"arrières coûts" écologiques, humains et sociaux?</strong> cachés.
           Quels sont les avantages d'actions et de comportements des consommateurs donnant priorité à la région,
-          l'écologie et au commece équitable? Comment les rendre transparents et les intégrer dans les modes de
+          l'écologie et au commerce équitable? Comment les rendre transparents et les intégrer dans les modes de
           consommations de tous?
           </p><p>
           Lors des deux <strong>symposiums supra-régionaux</strong> le 26.04.2010 nous avons initié à Berlin et Munich,
@@ -107,11 +107,11 @@ fr:
            Le IGF-D a comme objectifs précis
              <ul>
                <li>
-                 Promouvoir le dialogue entre les Stakeholder pour des questions concrètes de l'évolution des
+                 Promouvoir le dialogue entre les parties prenantes pour des questions concrètes de l'évolution des
                  NTIC et en particulier de l'Internet afin de libérer de potentialités et ressources nouvelles.
                </li>
                <li>
-                 Préparer et renforcer la participation des Stakeholder au débat au sein des Nationa Unies.
+                 Préparer et renforcer la participation des parties prenantes au débat des Nations Unies.
                  et d'assister le Internet Governance Forum.
                </li>
              </ul>
@@ -121,7 +121,7 @@ fr:
         name: Klimaherbst ("automne climatique")
         short_name: Klimaherbst
         teaser: |
-          Participez au débat sur les futures directives de la ville de Munich.
+          Participer au débat sur les futures directives de la ville de Munich.
         description: |-
           <p>
           La <strong>directive écologie</strong> sur la protection du climat sera présentée à Munich au Conseil Municipal.
