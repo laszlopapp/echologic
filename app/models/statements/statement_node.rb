@@ -162,12 +162,12 @@ class StatementNode < ActiveRecord::Base
   
   # Collects a filtered list of all siblings statements
   def siblings_to_session(language_ids = nil, type = self.class.to_s)
-    sibling_statements(language_ids, type).map(&:id) + ["add_#{type.underscore}"]
+    sibling_statements(language_ids, type).map(&:id) + ["add/#{type.underscore}"]
   end
   
   # Collects a filtered list of all siblings statements
   def children_to_session(language_ids = nil, type = self.class.expected_children_types.first.to_s)
-    child_statements(language_ids, type).map(&:id) + ["add_#{type.underscore}"]
+    child_statements(language_ids, type).map(&:id) + ["add/#{type.underscore}"]
   end
   
   # Get the top children of a specific child type

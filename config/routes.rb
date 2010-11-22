@@ -137,11 +137,13 @@ ActionController::Routing::Routes.draw do |map|
 
 
   map.resources :statement_nodes, :controller => :statements, 
-                :path_names => { :new => ':id/new/:type'}, 
+                :path_names => { :new => ':id/new/:type', :add => ':id/add/:type'}, 
 
                 :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, 
-                            :reload_image, :children, :more, :authors, :publish, :incorporate],
+                            :reload_image, :children, :more, :authors, :publish, :incorporate, :add],
                 :as => 'statement'
+  
+  map.add_discussion 'statement/add/discussion', :controller => :statements, :action => :new, :type => :discussion              
   map.new_discussion 'statement/new/discussion', :controller => :statements, :action => :new, :type => :discussion                
  
   map.resources :discussions, :controller => :statements, :type => :discussion, :only => [:create, :update]

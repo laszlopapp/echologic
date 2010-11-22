@@ -147,12 +147,12 @@ function initNavigationButton(element, inc) {
 	
 	if (current_node_id == null) {current_node_id = node.attr("id");}
 	/* get current node statement type */
-	if (node.attr("id").match('add_')) {
-    node_class = node.attr("id").replace('add_','');
+	if (node.attr("id").match('add/')) {
+    node_class = node.attr("id").replace('add/','');
   }
   else {
   	node_class = node.attr("id").match(/[a-z]+(?:_[a-z]+)?/);
-		node_class = node_class[0].replace('edit_','');
+		node_class = node_class[0].replace('edit_',''); //edit form has prev/next buttons too!!
   }
 	/* get parent node from the visited node */
   parent_node = node.prev();
@@ -171,20 +171,19 @@ function initNavigationButton(element, inc) {
 	id_index = (siblings_ids.indexOf(current_node_id) + inc) % siblings_ids.length;
 	//BUG: % operator is not working properly in jquery for negative values (-1%7 => -1)?????????
 	if (id_index < 0) {id_index = siblings_ids.length - 1;}
+	
+	
   new_node_id = new String(siblings_ids[id_index]);
 	/* if 'add' action, then write add link */
-	if (new_node_id.match('add_')) {
+	if (new_node_id.match('add')) {
 		if(parent_path.length > 0) {
-			path = parent_path.split('_');
-			id = path.pop();
-			controller = path.join('_');
-			path = "/"+[controller,id].join('/');
+			path = "/" + parent_path.split('_').pop();
 		} else {path = '';}
-		element.href = element.href.replace(/\/\w+\/\d+(\/\w+)?/, path + "/" + new_node_id);
+		element.href = element.href.replace(/\/\d+(\/\w+)?/, path + "/" + new_node_id);
 	}
 	else {
 		
-		element.href = element.href.replace(/\/\w+\/\d+(\/\w+)?/,"/" + node_class + "/" + new_node_id);
+		element.href = element.href.replace(/\/\d+(\/\w+)?/, "/" + new_node_id);
 	}
 	
   $(element).removeAttr('data-id');

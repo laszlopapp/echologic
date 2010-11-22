@@ -982,7 +982,7 @@ class StatementsController < ApplicationController
     else
       siblings = [@statement_node.id]
     end
-    siblings + ["add_discussion"]
+    siblings + ["add/discussion"]
   end
 
   #
