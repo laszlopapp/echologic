@@ -22,13 +22,18 @@ module ActsAsDouble
           end
         
           #overwrite method: look for pro arguments and contra arguments and interpolate them
-          def statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false)
+          def statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
             
             statements = []
             expected_sub_types.each do |type|
               conditions = {:conditions => "type = '#{type.to_s}' and parent_id = #{parent_id}"}
               conditions.merge!({:language_ids => language_ids}) if language_ids
-              statements << StatementNode.search_statement_nodes(conditions)  
+              statements << StatementNode.search_statement_nodes(conditions)
+            end
+            if for_session
+              statements.map!{|s|s.map(&:id)}
+              expected_sub_types.each_with_index{|type, index| statements[index] += ["add/#{type.to_s.underscore}"]}
+              statements = session_ordering(statements)
             end
             statements
           end
@@ -45,7 +50,11 @@ module ActsAsDouble
             "statements/double/more"
           end
           
-          
+          def session_ordering(list)
+            min = list.map(&:length).min
+            ordered_list = list.map{|s|s.slice(0,min)}.transpose + list.map{|s|s[min..-1]}
+            ordered_list.flatten
+          end
         end
         
         # Collects a filtered list of all siblings statements
@@ -55,11 +64,9 @@ module ActsAsDouble
             siblings << s + ["add/#{self.class.expected_sub_types[index].to_s.underscore}"]
           end
           #order them properly, as you want them to be navigated
-          min = siblings.map(&:length).min
-          ordered_siblings = siblings.map{|s|s.slice(0,min)}.transpose + siblings.map{|s|s[min..-1]}
-          ordered_siblings.flatten
+          ordered_siblings = self.class.session_ordering(siblings)
+          ordered_siblings
         end
-        
       end # --- class_eval
       expects_sub_types args
     end

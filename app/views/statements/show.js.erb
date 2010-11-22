@@ -9,19 +9,20 @@
 <% if !params[:sid].blank? %>
   var stack = "<%= params[:sid] %>".split(",");
 	<% @ancestors.each_with_index do |ancestor, index| %>
-	  var ancestor = stack[<%= index %>];
-		var ancestor_element = $('#statements div#'+ancestor);
-		/* if not rendered, than render */
-		if(ancestor_element.length == 0) {
-		  renderAncestor(ancestor, "<%= escape_javascript(render_ancestor(ancestor)) %>");
-	  } else {
-		  collapseStatement(ancestor_element);
-		}
-	<% end %>
+   <% type = ancestor.class.name.underscore %>
+    var ancestor = stack[<%= index %>];
+    var ancestor_element = $('#statements div#<%= type %>_'+ancestor);
+    /* if not rendered, than render */
+    if(ancestor_element.length == 0) {
+      renderAncestor(ancestor, "<%= escape_javascript(render_ancestor(ancestor)) %>");
+    } else {
+      collapseStatement(ancestor_element);
+    }
+  <% end %>
 <% end %>
 
-var class_element = $('#statements div.statement:eq(<%= @statement_node.level %>)');
-if(class_element.length == 0){class_element = $('#statements form.<%= dom_class(@statement_node) %>');};
+
+var class_element = $('#statements .statement').eq(<%= @statement_node.level %>);
 
 <% if params[:expand].blank? %>
   /* Remove all elements from the same class or children class */
@@ -32,7 +33,6 @@ if(class_element.length == 0){class_element = $('#statements form.<%= dom_class(
 	/* Close the content of the remaining ones */
   collapseStatements();
 <% end %>
-
 <% if !params[:expand].blank? %>
   //class_element = $('#statements div.<%= dom_class(@statement_node) %>');
   var content = "<%= escape_javascript(render :partial => 'statements/content', :locals => {:hide_content => true}) %>";

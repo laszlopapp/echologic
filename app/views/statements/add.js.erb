@@ -9,8 +9,9 @@
 <% if !params[:sid].blank? %>
   var stack = "<%= params[:sid] %>".split(",");
   <% @ancestors.each_with_index do |ancestor, index| %>
+   <% type = ancestor.class.name.underscore %>
     var ancestor = stack[<%= index %>];
-    var ancestor_element = $('#statements div#'+ancestor);
+    var ancestor_element = $('#statements div#<%= type %>_'+ancestor);
     /* if not rendered, than render */
     if(ancestor_element.length == 0) {
       renderAncestor(ancestor, "<%= escape_javascript(render_ancestor(ancestor)) %>");
@@ -20,8 +21,7 @@
   <% end %>
 <% end %>
 
-var class_element = $('#statements div.statement:eq(<%= @statement_node.level + 1%>)');
-if(class_element.length == 0){class_element = $('#statements form.<%= @type %>');};
+var class_element = $('#statements .statement:eq(<%= @statement_node ? @statement_node.level + 1 : 0%>)');
 
 var add_teaser = "<%= escape_javascript(render :partial => 'statements/add') %>";
 replaceOrInsert(class_element, add_teaser);

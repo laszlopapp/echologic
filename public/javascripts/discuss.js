@@ -118,15 +118,15 @@ function loadStatementSessions() {
 		if (parent.length > 0)      
     {
       /* stores siblings with the parent node id */
-      parent = parent.attr('id');
+      var parent = parent.attr('id');
     }else{
       /* no parent id, that means it's a root node, therefore, stores them into roots */
-      parent = 'roots';
+      var parent = 'roots';
     }
 		siblings = eval($(this).attr("data-siblings"));
 		if (siblings != null) {
-			$("div#statements").data(parent,siblings);
-		}
+			$("div#statements").data(parent, siblings);
+	  }
 		$(this).removeAttr("data-siblings");
 	});
 }
@@ -145,9 +145,13 @@ function initNavigationButton(element, inc) {
 	current_node_id = eval($(element).attr('data-id'));
 	node = $(element).parents('.statement');
 	
-	if (current_node_id == null) {current_node_id = node.attr("id");}
+	if (current_node_id == null) {
+		current_node_id = node.attr("id").split('_');
+		current_node_id.shift();
+		current_node_id = "add/" + current_node_id.join('_');
+	}
 	/* get current node statement type */
-	if (node.attr("id").match('add/')) {
+	if (node.attr("id").match('add_')) {
     node_class = node.attr("id").replace('add/','');
   }
   else {
@@ -166,12 +170,10 @@ function initNavigationButton(element, inc) {
 	}
 	/* get siblings ids */
 	siblings_ids = $("div#statements").data(parent_node_id);
-	
 	/* get index of the prev/next sibling */
 	id_index = (siblings_ids.indexOf(current_node_id) + inc) % siblings_ids.length;
 	//BUG: % operator is not working properly in jquery for negative values (-1%7 => -1)?????????
 	if (id_index < 0) {id_index = siblings_ids.length - 1;}
-	
 	
   new_node_id = new String(siblings_ids[id_index]);
 	/* if 'add' action, then write add link */
@@ -428,38 +430,36 @@ function loadRTEEditor() {
 /* STATEMENT NAVIGATION HISTORY */
 /********************************/
 
-function getCurrentStatementsStack(element) {
+function getCurrentStatementsStack(element, new_level) {
 	/* get the statement element */
-	parent = $(element).parents('.statement');
-	/* get parent id current index in the list of statements */
-  parent_index = $('.statement').index(parent);
+	statement = $(element).parents('.statement');
+	/* get statement id current index in the list of statements */
+  statement_index = $('.statement').index(statement);
 	
 	/* get soon to be visible statement */
   path = element.href.split("/");
   id = path.pop().split('?').shift();
-	if (id.match('add') == null) {
-  	type = path.pop();
-  	current_sid = type + '_' + id;
+	if (id.match(/\d+/)) {
+  	current_sid = id;
   } else {
 		/* add teaser case */
-		type = id.replace('add_', '');
-		current_sid = id;
+		current_sid = [path.pop(),id].join('/');
 	}
-  
   current_stack = [];
 	
-	
-  /* get current_stack of visible statements (if any matches the clicked statement, then break) */
+	/* get current_stack of visible statements (if any matches the clicked statement, then break) */
   $(".statement").each( function(index){
-		if (index < parent_index) {
-			id = $(this).attr('id');
-			if (id.match(type) != null) {
-				return false;
+		if (index < statement_index) {
+			id = $(this).attr('id').split('_').pop();
+			if(!id.match(/\d+/)){
+				id = "add/" + id;
 			}
-			else {
-				current_stack.push($(this).attr('id'));
-			}
-		} 
+			current_stack.push(id);
+		} else if (index == statement_index) {
+			 if (new_level) {
+			 	current_stack.push($(this).attr('id').split('_').pop());
+			 }
+		  }
   });
   
   /* insert clicked statement */
@@ -469,15 +469,15 @@ function getCurrentStatementsStack(element) {
 
 function initStatementHistoryEvents() {
 	$("#statements .statement .header a.statement_link").live("click", function(){
-		current_stack = getCurrentStatementsStack(this);
+		current_stack = getCurrentStatementsStack(this, false);
 		/* set fragment */
 		$.setFragment({ "sid": current_stack.join(','), "new_level" : ''});
 		return false;
 	});
 	
 	$("#statements .statement .children a.statement_link").live("click", function(){
-    current_stack = getCurrentStatementsStack(this);
-    /* set fragment */
+    current_stack = getCurrentStatementsStack(this, true);
+		/* set fragment */
     $.setFragment({ "sid": current_stack.join(','), "new_level" : true});
 		return false;
   });
@@ -490,9 +490,9 @@ function initStatementHistoryEvents() {
 			new_sid.pop();
 			
 			$(this).addClass("ajax");
-			this.href = $.queryString(this.href.replace(/\/\w+\/\d+(\/\w+)?/,path), {
+			this.href = $.queryString(this.href.replace(/\/\d+(\/\w+)?/,path), {
 				"sid": new_sid.join(","),
-				"new_level": $.fragment().new_level
+				"new_level": ''
 			})
 		}
 	});
@@ -501,18 +501,13 @@ function initStatementHistoryEvents() {
 function getStatementStackPath(stack) {
 	var stack = stack.split(",");
   var sid = stack.pop();
-  if (sid.match('add') == null) {
-    var sid = sid.split("_");
-    var id = sid.pop();
-    var type = sid.join("_");
-    var path = "/" + type + "/" + id;
+  if (sid.match(/\d+/)) {
+    var path = "/" + sid;
   } else {
     /* add teaser case */
     if (stack.length > 0) {
-      var parent_id = stack[stack.length-1].split('_');
-      var id = parent_id.pop();
-      var type = parent_id.join("_");
-      var path = "/" + type + "/" + id;
+      var parent_id = stack[stack.length-1];
+      var path = "/" + parent_id;
     } else {
       var path = '';
     } 
@@ -528,7 +523,7 @@ function initFragmentStatementChange() {
 			var path = getStatementStackPath(sid);
 			var new_sid = sid.split(",");
 			
-		  path = $.queryString(document.location.href.replace(/\/\w+\/\d+(\/\w+)?/, path), {
+			path = $.queryString(document.location.href.replace(/\/\d+(\/\w+)?/, path), {
         "sid": new_sid.join(","),
         "new_level": $.fragment().new_level
       })

@@ -333,6 +333,18 @@ module StatementsHelper
   # DISCUSSION #
   ##############
 
+  #
+  # Creates a link to create a new discussion
+  # Appears in add discussion teaser
+  #
+  def create_new_discussion_link(value=nil)
+    category = value =~ /#/ ? value : nil
+    link_to(I18n.t("discuss.statements.create_discussion_link"),
+            new_discussion_url(:category => category),
+            :id => "create_discussion_link",
+            :class => "ajax add_new_button text_button create_discussion_button ttLink no_border",
+            :title => I18n.t("discuss.tooltips.create_discussion"))
+  end
 
   #
   # Creates a link to create a new discussion (appears in the SIDEBAR).
@@ -375,12 +387,12 @@ module StatementsHelper
   end
 
   def my_discussion_title(title,discussion)
-    link_to(h(title),discussion_url(discussion, :path => :my_discussions), :class => "statement_link ttLink no_border",
+    link_to(h(title),statement_node_url(discussion, :path => :my_discussions), :class => "statement_link ttLink no_border",
             :title => I18n.t("discuss.tooltips.read_#{discussion.class.name.underscore}")) 
   end
   
   def my_discussion_image(discussion)
-    link_to discussion_url(discussion, :path => :my_discussions), :class => "avatar_holder" do
+    link_to statement_node_url(discussion, :path => :my_discussions), :class => "avatar_holder" do
       image_tag discussion.image.url(:small)
     end 
   end

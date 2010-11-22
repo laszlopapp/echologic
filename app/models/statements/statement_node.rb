@@ -151,8 +151,10 @@ class StatementNode < ActiveRecord::Base
   end
 
   # Collects a filtered list of all children statements
-  def child_statements(language_ids = nil, type = self.class.expected_children_types.first.to_s)
-    return type.constantize.statements_for_parent(self.id, language_ids, self.draftable?)
+  #
+  # for_session argument: when true, returns a list of ids + the "add_type" teaser name
+  def child_statements(language_ids = nil, type = self.class.expected_children_types.first.to_s, for_session = false)
+    return type.constantize.statements_for_parent(self.id, language_ids, self.draftable?, for_session)
   end
 
   # Collects a filtered list of all siblings statements
@@ -167,7 +169,7 @@ class StatementNode < ActiveRecord::Base
   
   # Collects a filtered list of all siblings statements
   def children_to_session(language_ids = nil, type = self.class.expected_children_types.first.to_s)
-    child_statements(language_ids, type).map(&:id) + ["add/#{type.underscore}"]
+    child_statements(language_ids, type, true)
   end
   
   # Get the top children of a specific child type
@@ -194,11 +196,16 @@ class StatementNode < ActiveRecord::Base
       children.paginate(default_scope.merge(:page => page, :per_page => per_page))
     end
     
-    def statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false)
+    def statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
       conditions = {:conditions => "type = '#{self.name}' and parent_id = #{parent_id}"}
       conditions.merge!({:language_ids => language_ids}) if language_ids
       conditions.merge!({:drafting_states => %w(tracked ready staged)}) if filter_drafting_state
-      self.search_statement_nodes(conditions)
+      statements = self.search_statement_nodes(conditions)
+      if for_session
+        statements.map!(&:id)
+        statements << "add_#{self.name.underscore}"
+      end
+      statements
     end
 
     public

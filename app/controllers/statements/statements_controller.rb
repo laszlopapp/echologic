@@ -6,22 +6,19 @@ class StatementsController < ApplicationController
   #        wrap a form around it.
 
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
-                                    :more, :children, :upload_image, :reload_image, :authors, :add_discussion, :add_proposal, 
-                                    :add_improvement_proposal, :add_pro_argument, :add_contra_argument]
+                                    :more, :children, :upload_image, :reload_image, :authors, :add]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish, :echo, :unecho]
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
-  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :redirect, :add_discussion,
-                                           :add_proposal, :add_improvement_proposal,:add_pro_argument, :add_contra_argument]
+  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :redirect, :add]
 
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
   before_filter :fetch_statement_node_type, :only => [:new, :create]
   before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions,
                                                                    :new, :create, :more, :children, :upload_image,
-                                                                   :reload_image, :redirect, :authors, :add_discussion,
-                                                                   :add_proposal, :add_improvement_proposal,:add_pro_argument, :add_contra_argument]
+                                                                   :reload_image, :redirect, :authors, :add]
   before_filter :fetch_languages, :except => [:destroy, :redirect]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
@@ -29,7 +26,7 @@ class StatementsController < ApplicationController
   # Authlogic access control block
   access_control do
     allow :editor
-    allow anonymous, :to => [:index, :show, :category, :more, :children, :add_discussion, :add_proposal, :add_improvement_proposal,:add_pro_argument, :add_contra_argument]
+    allow anonymous, :to => [:index, :show, :category, :more, :children, :add]
     allow logged_in
   end
 
@@ -447,6 +444,45 @@ class StatementsController < ApplicationController
     respond_to_statement
   end
 
+  #
+  # Edit action to incorporate improvement proposals.
+  # FIXME: should be handled RESTfully ind the Edit action with an additional
+  #        parameter in the URL: .../Pid?approved_node=IPid
+  #        Also the edit views should be reused (no edit_draft views)!!!
+  #
+  def incorporate
+    still_approved = true
+    has_lock = false
+    @approved_node = ImprovementProposal.find params[:approved_ip]
+    if @approved_node.approved?
+      @approved_document = @approved_node.document_in_preferred_language(@language_preference_list)
+    else
+      still_approved = false
+    end
+
+    @statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
+    has_lock = acquire_lock(@statement_document)
+    @action ||= StatementAction["incorporated"]
+    if still_approved && has_lock
+      respond_action 'statements/proposals/edit_draft'
+    elsif !still_approved
+      set_info('discuss.statements.not_approved_any_more')
+      respond_to do |format|
+        respond_to_statement do |format|
+          format.js do
+            show_info_messages do |page|
+              page << "$('#approved_ip').animate(toggleParams, 500).hide();"
+            end
+          end
+        end
+      end
+    else
+      set_info('discuss.statements.being_edited')
+      respond_to_statement do |format|
+        format.js   { show_info_messages }
+      end
+    end
+  end
 
   ###################
   # ECHO STATEMENTS #
@@ -600,6 +636,20 @@ class StatementsController < ApplicationController
     end
   end
   
+  # Shows an add statement teaser page
+  #
+  # Method:   GET
+  # Params:   type: string
+  # Response: HTTP or JS
+  #
+  def add
+    @type = params[:type]
+    begin
+      respond_action('statements/add', true)
+    rescue Exception => e
+      log_home_error(e,"Error showing add #{@type} teaser.")
+    end
+  end
 
 
   #################
@@ -617,7 +667,7 @@ class StatementsController < ApplicationController
     begin
       @statement_node.destroy
       set_statement_node_info(nil, "discuss.messages.deleted")
-      flash_info and redirect_to :controller => 'discussions',
+      flash_info and redirect_to :controller => :statements,
                                  :action => :category,
                                  :id => params[:category]
     rescue Exception => e
@@ -643,20 +693,7 @@ class StatementsController < ApplicationController
 
   protected
 
-  # Shows an add statement teaser page
-  #
-  # Method:   GET
-  # Params:   type: string
-  # Response: HTTP or JS
-  #
-  def add(type)
-    @type = type
-    begin
-      respond_action('statements/add', true)
-    rescue Exception => e
-      log_home_error(e,"Error showing add #{@type} teaser.")
-    end
-  end
+  
 
   #
   # Loads the approved statement if there can be any.
@@ -857,7 +894,11 @@ class StatementsController < ApplicationController
         load_children_from_parent(@statement_node, @type)
       end 
     else
-      @ancestors = []
+      if teaser
+        load_roots_to_session
+      else
+        @ancestors = []
+      end
     end
   end
   
@@ -959,7 +1000,7 @@ class StatementsController < ApplicationController
     if statement_node.parent_id
       siblings = statement_node.siblings_to_session(@language_preference_list)
     else #else, it's a root node
-      siblings = get_roots_to_session
+      siblings = get_roots_to_session(statement_node)
     end
     @siblings["#{class_name}_#{statement_node.id}"] = siblings
   end
@@ -971,8 +1012,13 @@ class StatementsController < ApplicationController
     @siblings["add_#{type}"] = siblings
   end
   
+  def load_roots_to_session
+    @siblings ||= {}
+    @siblings["add_discussion"] = get_roots_to_session
+  end
+  
   #gets the root ids that need to be loaded to the session
-  def get_roots_to_session
+  def get_roots_to_session(statement_node)
     if params[:path]
       siblings = case params[:path]
         when 'discuss_search' then search_statement_nodes(:search_term => params[:value]||"", :language_ids => @language_preference_list,
@@ -980,7 +1026,7 @@ class StatementsController < ApplicationController
         when 'my_discussions' then current_user.get_my_discussions.map(&:id)
       end
     else
-      siblings = [@statement_node.id]
+      siblings = statement_node ? [statement_node.id] : []
     end
     siblings + ["add/discussion"]
   end

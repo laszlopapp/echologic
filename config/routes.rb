@@ -114,37 +114,15 @@ ActionController::Routing::Routes.draw do |map|
 
 
   # SECTION discuss - discussion tree
-#  map.add_discussion '/add_discussion', :controller => :discussions, :action => :add_discussion
-#  map.resources :discussions,
-#                :member => [:new_translation, :create_translation, :publish, :cancel, :more, :children, :upload_image, 
-#                            :reload_image, :authors, :add_proposal],
-#                :as => 'discussion'
-#  map.resources :proposals,
-#                 :member => [:echo, :unecho, :new_translation, :create_translation, :incorporate, :cancel, :more,
-#                             :children, :upload_image, :reload_image, :authors, :add_improvement_proposal,
-#                             :add_pro_argument, :add_contra_argument],
-#                :as => 'proposal'
-#  map.resources :improvement_proposals,
-#                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, 
-#                            :reload_image, :authors],
-#                :as => 'improvement_proposal'
-#  map.resources :pro_arguments,
-#                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, :reload_image, :authors],
-#                :as => 'pro_argument'
-#  map.resources :contra_arguments,
-#                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, :reload_image, :authors],
-#                :as => 'contra_argument'
-
+  map.add_discussion 'statement/add/discussion', :controller => :statements, :action => :add, :type => :discussion              
+  map.new_discussion 'statement/new/discussion', :controller => :statements, :action => :new, :type => :discussion      
+  map.connect        'statement/:id/add/:type',  :controller => :statements, :action => :add
 
   map.resources :statement_nodes, :controller => :statements, 
-                :path_names => { :new => ':id/new/:type', :add => ':id/add/:type'}, 
-
                 :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, 
-                            :reload_image, :children, :more, :authors, :publish, :incorporate, :add],
+                            :reload_image, :children, :more, :authors, :publish, :incorporate],
+                :path_names => { :new => ':id/new/:type', :add => ':id/add/:type'}, 
                 :as => 'statement'
-  
-  map.add_discussion 'statement/add/discussion', :controller => :statements, :action => :new, :type => :discussion              
-  map.new_discussion 'statement/new/discussion', :controller => :statements, :action => :new, :type => :discussion                
  
   map.resources :discussions, :controller => :statements, :type => :discussion, :only => [:create, :update]
   map.resources :proposals, :controller => :statements, :only => [:create, :update]

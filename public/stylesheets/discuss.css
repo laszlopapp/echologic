@@ -548,6 +548,14 @@ a.statement_link:hover {
   background: transparent url(../images/page/discuss/add_improvement_proposal_mid.png) no-repeat scroll 0 0;
 }
 
+.create_contra_argument_button_mid {
+  background: transparent url(../images/page/discuss/add_contra_argument_mid.png) no-repeat scroll 0 0;
+}
+
+.create_pro_argument_button_mid {
+  background: transparent url(../images/page/discuss/add_pro_argument_mid.png) no-repeat scroll 0 0;
+}
+
 .create_discussion_button_mid:hover, .create_proposal_button_mid:hover, .create_improvement_proposal_button_mid:hover {
  background-position: 0 -55px;
 }

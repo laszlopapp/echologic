@@ -2,20 +2,27 @@
   info('<%=@info%>') 
 <% end %>
 
-<% if @statement_node.parent.nil? %>
-  window.location.replace('<%= statement_node_url(@statement_node) %>')
+/* load new statement to session */
+<% if @statement_node.parent %>
+  var session_id = '<%= dom_class(@statement_node.parent) %>';
 <% else %>
-
-  var class_element = $('#statements div.statement:eq(<%= @statement_node.level %>)');
-	if(class_element.length == 0){class_element = $('#statements form.<%= dom_class(@statement_node) %>');};
-	
-	/* Remove all elements from the same class or children class */
-	removeChildrenStatements(class_element);
-	
-	/* Close the content of the remaining ones */
-	collapseStatements();
-	
-	var statement = "<%= escape_javascript(render :partial => 'statements/show') %>";
-	replaceOrInsert(class_element, statement);
-	
+  var session_id = 'roots';
 <% end %>
+  var session_data =  $('div#statements').data(session_id);
+	if (session_data != null) {
+		session_data.unshift(<%= @statement_node.id %>);
+		$('div#statements').data(session_id, session_data);
+	}
+	
+
+var class_element = $('#statements .statement:eq(<%= @statement_node.level %>)');
+
+/* Remove all elements from the same class or children class */
+removeChildrenStatements(class_element);
+
+/* Close the content of the remaining ones */
+collapseStatements();
+
+var statement = "<%= escape_javascript(render :partial => 'statements/show') %>";
+replaceOrInsert(class_element, statement);
+	
