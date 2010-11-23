@@ -3,6 +3,7 @@
 fr:
 
   application:
+    beta_stamp: 'Issued by the "Citizen Center of The Peoples" ;-)'
 
     # Unexpected Error
     unexpected_error: Zut ..encore un bug informatique. Nous sommes désolés de ce désagrément.

@@ -3,6 +3,7 @@
 de:
 
   application:
+    beta_stamp: 'Ausgestellt vom "Bürgeramt der Völker" ;-)'
 
     # Unexpected Error
     unexpected_error: Ein unerwarteter Fehler ist aufgetreten. Bitte entschuldigen Sie die Unannehmlichkeiten.
