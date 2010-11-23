@@ -16,7 +16,7 @@ module EchoableModule
       if !@statement_node.parent.echoable? or @statement_node.parent.supported?(current_user)
         @statement_node.supported!(current_user)
         set_statement_node_info(@statement_node, 'discuss.statements.statement_supported')
-        respond_to_js :redirect_to => @statement_node, :template_js => 'statements/echo'
+        respond_to_js :redirect_to => statement_node_url(@statement_node), :template_js => 'statements/echo'
       else
         set_info('discuss.statements.unsupported_parent')
         respond_to_statement do |format|
@@ -47,7 +47,7 @@ module EchoableModule
       # Logic to update the children caused by cascading unsupport
       @page = params[:page] || 1
       set_statement_node_info(@statement_node, 'discuss.statements.statement_unsupported')
-      respond_to_js :redirect_to => @statement_node,
+      respond_to_js :redirect_to => statement_node_url(@statement_node),
                     :template_js => 'statements/unecho'
     rescue Exception => e
       log_statement_error(e, "Error unechoing statement node '#{@statement_node.id}'.")

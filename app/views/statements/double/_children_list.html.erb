@@ -9,7 +9,7 @@
 		<% end %>
 	</div>
 	<div id="more_pagination" class="more_pagination">
-    <% if !children.blank? and !children.select{|c|c.current_page != c.total_pages}.empty? %>
+    <% if !children.select{|c|!c.blank?}.empty? and !children.select{|c|c.current_page != c.total_pages}.empty? %>
       <%= more_children(@statement_node,type) %>
     <% end %>
   </div>

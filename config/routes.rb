@@ -121,7 +121,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :statement_nodes, :controller => :statements, 
                 :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, 
                             :reload_image, :children, :more, :authors, :publish, :incorporate],
-                :path_names => { :new => ':id/new/:type', :add => ':id/add/:type'}, 
+                :path_names => { :new => ':id/new/:type', :add => ':id/add/:type', :more => ':id/more/:type', 
+                                 :children => ':id/children/:type', :incorporate => ':id/incorporate/:approved_ip'}, 
                 :as => 'statement'
  
   map.resources :discussions, :controller => :statements, :type => :discussion, :only => [:create, :update]

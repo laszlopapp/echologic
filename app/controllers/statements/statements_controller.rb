@@ -2,7 +2,7 @@ class StatementsController < ApplicationController
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
                                     :more, :children, :upload_image, :reload_image, :authors, :add]
   verify :method => :post, :only => [:create]
-  verify :method => :put, :only => [:update, :create_translation, :publish, :echo, :unecho]
+  verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
@@ -374,7 +374,7 @@ class StatementsController < ApplicationController
   # Response: HTTP or JS
   #
   def add
-    @type = params[:type]
+    @type = params[:type].to_s
     begin
       respond_action('statements/add', true)
     rescue Exception => e

@@ -24,10 +24,12 @@ module ActsAsDouble
           #overwrite method: look for pro arguments and contra arguments and interpolate them
           def statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
             
+            conditions = {:conditions => "type = '#{self.name.to_s}' and parent_id = #{parent_id}"}
+            conditions.merge!({:language_ids => language_ids}) if language_ids
+            conditions.merge!({:drafting_states => %w(tracked ready staged)}) if filter_drafting_state
+            
             statements = []
             expected_sub_types.each do |type|
-              conditions = {:conditions => "type = '#{type.to_s}' and parent_id = #{parent_id}"}
-              conditions.merge!({:language_ids => language_ids}) if language_ids
               statements << StatementNode.search_statement_nodes(conditions)
             end
             if for_session

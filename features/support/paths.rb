@@ -27,15 +27,15 @@ module NavigationHelpers
     when /^create a discussion$/
       new_discussion_path
     when /^the discussion$/
-      discussion_path(@discussion)
+      statement_node_path(@discussion)
     when /^the proposal$/
-      proposal_path(@proposal)
+      statement_node_path(@proposal)
     when /^the improvement proposal$/
-      improvement_proposal_path(@improvement_proposal)
+      statement_node_path(@improvement_proposal)
     when /^the first discussion$/
-      discussion_path(Discussion.first)
+      statement_node_path(Discussion.first)
     when /^the discussions first proposal/
-      proposal_path(@proposal)
+      statement_node_path(@proposal)
     when /discuss index/i
       discuss_featured_url
     when /my discussions/i
@@ -44,7 +44,7 @@ module NavigationHelpers
       discuss_featured_path
     when /the proposal/
       raise [@proposal.inspect,@proposal.parent.inspect].join('\n')
-      proposal_path(@proposal)
+      statement_node_path(@proposal)
     when /the activation page/
       register_url(@user.perishable_token)
     when /the edit password page/
