@@ -1,2 +1,0 @@
-class ImprovementProposalsController < StatementsController
-end

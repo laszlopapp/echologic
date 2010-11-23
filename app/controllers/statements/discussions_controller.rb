@@ -1,3 +1,0 @@
-class DiscussionsController < StatementsController
- 
-end

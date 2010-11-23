@@ -49,15 +49,20 @@ de:
       discuss:
         index: 'echo - Diskussion'
         roadmap: 'echo - Fahrplan für Diskutieren'
-      discussions:
+      statements:
         category: 'echo - Diskussionsthemen'
         show: 'echo - Debatten'
         new: 'Neue Diskussion eröffnen'
         my_discussions: 'Meine Diskussionen'
-      proposals:
-        show: 'echo - Stellungnahmen in der Debate'
-      improvement_proposals:
-        show: 'echo - Ergänzungsvorschläge für die Stellungnahme'
+#      discussions:
+#        category: 'echo - Diskussionsthemen'
+#        show: 'echo - Debatten'
+#        new: 'Neue Diskussion eröffnen'
+#        my_discussions: 'Meine Diskussionen'
+#      proposals:
+#        show: 'echo - Stellungnahmen in der Debate'
+#      improvement_proposals:
+#        show: 'echo - Ergänzungsvorschläge für die Stellungnahme'
 
       # connect: de.seo.title.connect
       connect:

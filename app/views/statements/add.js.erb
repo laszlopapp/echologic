@@ -6,15 +6,15 @@
 <% end %>
 
 /* history handling */
-<% if !params[:sid].blank? %>
+<% if !params[:sid].blank? and @ancestors %>
   var stack = "<%= params[:sid] %>".split(",");
   <% @ancestors.each_with_index do |ancestor, index| %>
    <% type = ancestor.class.name.underscore %>
     var ancestor = stack[<%= index %>];
-    var ancestor_element = $('#statements div#<%= type %>_'+ancestor);
+    var ancestor_element = $('#statements .statement').eq(<%= index %>);
     /* if not rendered, than render */
-    if(ancestor_element.length == 0) {
-      renderAncestor(ancestor, "<%= escape_javascript(render_ancestor(ancestor)) %>");
+    if(ancestor_element.length == 0 || !ancestor_element.attr('id').match(ancestor)) {
+      renderAncestor(ancestor_element, "<%= escape_javascript(render_ancestor(ancestor)) %>");
     } else {
       collapseStatement(ancestor_element);
     }

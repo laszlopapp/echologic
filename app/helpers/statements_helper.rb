@@ -333,6 +333,30 @@ module StatementsHelper
   # DISCUSSION #
   ##############
 
+  def discussions_count_text(count, value = nil)
+    text = count_text("discuss", count)
+    text << " #{I18n.t('discuss.for', :value => value)}" if value
+    text
+  end
+
+  def create_discussion_link_for(category=nil)
+    link_to(new_discussion_path(:category => category),
+            :id => 'create_discussion_link') do
+      content_tag(:span, '',
+                  :class => "new_discussion create_statement_button_mid create_discussion_button_mid ttLink no_border",
+                  :title => I18n.t("discuss.tooltips.create_discussion"))
+    end
+  end
+  
+  def link_to_discussion(title, discussion,long_title,value=nil)
+    link_to statement_node_url(discussion, :path => :discuss_search, :value => value),
+               :title => "#{h(title) if long_title}",
+               :class => "avatar_holder#{' ttLink no_border' if long_title }" do 
+      image_tag discussion.image.url(:small)
+    end
+  end
+  
+
   #
   # Creates a link to create a new discussion
   # Appears in add discussion teaser
@@ -406,6 +430,28 @@ module StatementsHelper
               :title => I18n.t('discuss.tooltips.publish'))
     else
       "<span class='publish_button'>#{I18n.t('discuss.statements.states.published')}</span>"
+    end
+  end
+  
+  #############
+  # DRAFTABLE #
+  #############
+  
+  def incorporate_statement_node_link(parent_node, parent_document, statement_node, statement_document)
+    if !current_user or 
+       (statement_node.published? and
+        parent_document.language == statement_node.drafting_language and
+        statement_document.language. == statement_node.drafting_language and
+        ((statement_node.times_passed == 0 and statement_document.author == current_user) or
+         (statement_node.times_passed == 1 and statement_node.supported?(current_user))))
+
+      link_to(incorporate_statement_node_url(parent_node,:approved_ip => statement_node.id),
+             :id => 'incorporate_link',
+             :class => 'ajax') do
+         content_tag(:span, '',
+              :class => "incorporate_statement_button_mid ttLink no_border",
+              :title => I18n.t("discuss.tooltips.incorporate"))
+      end
     end
   end
 

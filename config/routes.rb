@@ -14,8 +14,8 @@ ActionController::Routing::Routes.draw do |map|
   map.my_discussions '/discuss/my_discussions', :controller => :statements, :action => :my_discussions
   
   # SECTION discuss search
-  map.discuss_search '/discuss/search', :controller => :discussions, :action => :category
-  map.discuss_search_with_value '/discuss/search/:value', :controller => :discussions, :action => :category, :conditions => {:value => /\w+/ }
+  map.discuss_search '/discuss/search', :controller => :statements, :action => :category
+  map.discuss_search_with_value '/discuss/search/:value', :controller => :statements, :action => :category, :conditions => {:value => /\w+/ }
   
   # SECTION connect search
   map.connect_search '/connect/search', :controller => :connect, :action => :show
@@ -132,9 +132,12 @@ ActionController::Routing::Routes.draw do |map|
  
 
   # old discuss paths redirection
-  map.connect 'discuss/questions/:discussion_id/proposals/:id', :controller => :proposals, :action => :redirect 
+  map.connect 'question/:id', :controller => :statements, :action => :redirect
+  map.connect 'proposal/:id', :controller => :statements, :action => :redirect
+  map.connect 'improvement_proposal/:id', :controller => :statements, :action => :redirect
+  map.connect 'discuss/questions/:discussion_id/proposals/:id', :controller => :statements, :action => :redirect 
   map.connect 'discuss/questions/:discussion_id/proposals/:proposal_id/improvement_proposals/:id',
-              :controller => :improvement_proposals, :action => :redirect 
+              :controller => :statements, :action => :redirect 
               
 
   # SECTION root

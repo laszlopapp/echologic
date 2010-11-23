@@ -59,11 +59,8 @@ function replaceOrInsert(element, template){
 	}
 };
 
-function renderAncestor(old_ancestor, ancestor_html) {
-	type = old_ancestor.match(/[a-z]+(?:_[a-z]+)?/);
-  var ancestor_html = ancestor_html;
-  class_element = $('#statements div.'+type+', #statements form.'+type);
-  replaceOrInsert(class_element, ancestor_html);
+function renderAncestor(ancestor_element, ancestor_html) {
+	replaceOrInsert(ancestor_element, ancestor_html);
 }
 
 function removeChildrenStatements(element){

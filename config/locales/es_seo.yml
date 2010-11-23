@@ -49,15 +49,20 @@ es:
       discuss:
         index: 'echo - Discutir'
         roadmap: 'echo - Desarrollo de discutir'
-      discussions:
+      statements:
         category: 'echo - Temas de discusión'
         show: 'echo - Debates'
         new: 'Crear nueva discusión'
         my_discussions: 'Mis Discusiones'
-      proposals:
-        show: 'echo - Propuestas en este debate'
-      improvement_proposals:
-        show: 'echo - Propuesta de mejoramiento'
+#      discussions:
+#        category: 'echo - Temas de discusión'
+#        show: 'echo - Debates'
+#        new: 'Crear nueva discusión'
+#        my_discussions: 'Mis Discusiones'
+#      proposals:
+#        show: 'echo - Propuestas en este debate'
+#      improvement_proposals:
+#        show: 'echo - Propuesta de mejoramiento'
 
       # connect: de.seo.title.connect
       connect:
