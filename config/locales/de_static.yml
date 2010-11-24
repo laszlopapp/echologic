@@ -17,8 +17,8 @@ de:
 
     # ECHOLOGIC SECTION
     echologic:
-      title: echologic
-      subtitle: Die Bewegung
+      title: echo
+      subtitle: Startseite
 
       show:
         ms1: echologic ist ein Netzwerk von BewegerInnen und <br/>ihren Organisationen. Gemeinsam verwirklichen wir

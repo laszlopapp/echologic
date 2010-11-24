@@ -17,8 +17,8 @@ fr:
 
     # ECHOLOGIC SECTION
     echologic:
-      title: echologic
-      subtitle: Le Mouvement
+      title: echo
+      subtitle: Page d'Accueil
 
       show:
         ms1: "echologic est un réseau de citoyens actifs et<br/>de leurs organisations. Ensemble nous réalisons"
