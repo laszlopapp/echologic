@@ -11,7 +11,7 @@ var element = "<%= escape_javascript(render :partial => "statements/action_bar")
 page.find('.action_bar').replaceWith(element);
 
 var new_supporters_bar = "<%= escape_javascript(supporter_ratio_bar(@statement_node, true)) %>";
-page.find('.supporters_bar').replaceWith(new_supporters_bar);
+page.find('.supporters_bar:first').replaceWith(new_supporters_bar);
 
 var new_supporters_label = "<%= escape_javascript(supporters_label(@statement_node, true)) %>";
 page.find('.supporters_label').replaceWith(new_supporters_label);

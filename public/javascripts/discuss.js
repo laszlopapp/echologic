@@ -38,14 +38,12 @@ $(document).ready(function () {
 function collapseStatements() {
 	$('#statements .statement .header').removeClass('active').addClass('ajax_expandable');
 	$('#statements .statement .content').hide('slow');
-	//$('#statements .statement .header .supporters_bar');
 	$('#statements .statement .header .supporters_label').hide();
 };
 
 function collapseStatement(element) {
   element.find('.header').removeClass('active').addClass('ajax_expandable');
   element.find('.content').hide('slow');
-  //$('#statements .statement .header .supporters_bar');
   element.find('.supporters_label').hide();
 };
 
