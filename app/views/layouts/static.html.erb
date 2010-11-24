@@ -40,9 +40,9 @@
     <div id="header">
       <div class="main_logo">
         <%= link_to(image_tag('page/echo_logo.png'), root_path) %>
-        <%= link_to(image_tag('page/beta_stamp.png',
-                              :class => 'stamp ttLink no_border',
-                              :title => I18n.t('application.beta_stamp')), root_path) %>
+        <%# link_to(image_tag('page/beta_stamp.png',
+                              :class => 'stamp'), root_path) %>
+        <%= image_tag('page/beta_label.png', :class => 'label') %>
       </div>
       <%= render :partial => "layouts/components/top_menu"%>
       <%= render :partial => "users/user_sessions/login" %>

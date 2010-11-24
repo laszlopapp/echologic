@@ -32,6 +32,12 @@
   cursor: pointer !important;
 }
 
+.main_logo .label {
+  left: 177px;
+  top: 5px;
+  position: absolute;
+}
+
 #invite_bubble {
   position: relative;
   float: left;

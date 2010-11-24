@@ -3,7 +3,6 @@
 
 en:
   application:
-    beta_stamp: 'Issued by the "Citizen Center of The Peoples" ;-)'
 
     # Unexpected Error
     unexpected_error: An unexpected error has occurred. Sorry for the inconvenience.
