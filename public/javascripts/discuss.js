@@ -29,6 +29,8 @@ $(document).ready(function () {
   
   initFragmentStatementChange();
 	
+	initFormStatementType();
+	
 });
 
 /********************************/
@@ -567,4 +569,16 @@ function loadStatementAutoComplete() {
 
 function loadMessages(element, messages) {
 	$(element).data('messages', messages);
+}
+
+function initFormStatementType() {
+	$("#statements form.new").livequery(function(){
+	 input_type = $(this).find('input#type');
+	 type = input_type.attr('value');
+	 input_type.removeAttr('value');
+	 $(this).bind('submit', function() {
+	 	 input_type = $(this).find('input#type');
+		 input_type.attr('value', type);
+	 });
+	});
 }
