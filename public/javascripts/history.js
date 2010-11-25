@@ -70,14 +70,17 @@ function initPaginationButtons() {
 function initFragmentChange() {
   $(document).bind("fragmentChange.page", function() {
 		path = document.location.href.split('/');
-		/* if path had a search value before, then clean it */
-		if (!path[path.length - 1].match('search')) {
-			path.pop();
-		}
-		/* clean fragments on path */
-		path[path.length - 1] = 'search';
+		
+		/* clean arguments */
+		if ((arg_index = path[path.length - 1].indexOf('#')) > 0 ) {
+      path[path.length - 1] = path[path.length - 1].substring(0, arg_index);
+    }
+	
 		/* push new search value */
 		if ($.fragment().value) {
+			if(!path[path.length - 1].match('search')) {
+				path.pop();
+			}
 			path.push(escape($.fragment().value));
 		}
 		if ($.fragment().page) {
