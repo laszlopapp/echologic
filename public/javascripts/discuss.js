@@ -178,11 +178,11 @@ function initNavigationButton(element, inc) {
 		if(parent_path.length > 0) {
 			path = "/" + parent_path.split('_').pop();
 		} else {path = '';}
-		element.href = element.href.replace(/\/\d+(\/\w+)?/, path + "/" + new_node_id);
+		element.href = element.href.replace(/\/\d+(\/\w+(\/\w+)?)?/, path + "/" + new_node_id);
 	}
 	else {
 		
-		element.href = element.href.replace(/\/\d+(\/\w+)?/, "/" + new_node_id);
+		element.href = element.href.replace(/\/\d+(\/\w+(\/\w+)?)?/, "/" + new_node_id);
 	}
 	
   $(element).removeAttr('data-id');
@@ -487,7 +487,7 @@ function initStatementHistoryEvents() {
 			new_sid.pop();
 			
 			$(this).addClass("ajax");
-			this.href = $.queryString(this.href.replace(/\/\d+(\/\w+)?/,path), {
+			this.href = $.queryString(this.href.replace(/\/\d+(\/\w+(\/\w+)?)?/,path), {
 				"sid": new_sid.join(","),
 				"new_level": ''
 			})
@@ -520,8 +520,14 @@ function initFragmentStatementChange() {
 			var path = getStatementStackPath(sid);
 			var new_sid = sid.split(",");
 			
-			path = $.queryString(document.location.href.replace(/\/\d+(\/\w+)?/, path), {
-        "sid": new_sid.join(","),
+			var visible_sid = $("#statements .statement").map(function(){
+				return eval(this.id.replace(/[^0-9]+/, ''));
+			}).get();
+			
+			sid = $.grep(new_sid, function (a) {return $.inArray(a, visible_sid) == -1 ;});
+			
+			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
+        "sid": sid.join(","),
         "new_level": $.fragment().new_level
       })
 			$.ajax({

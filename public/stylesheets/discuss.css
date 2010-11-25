@@ -90,7 +90,8 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* ----------- */
 
 .breadcrumbs {
-	padding: 0px 10px;
+	padding:7px 10px 10px;
+	font-size: 12px;
 }
 
 /* ----------------------------- */
