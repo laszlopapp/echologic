@@ -94,7 +94,7 @@ function initExpandables(){
 		else 
 		{
 			/* load the content that is missing */
-			href = $.queryString($(this).data('path'),{'expand' : true});
+			href = $(this).data('path');
 			
 			$.getScript(href, function(){
 				element.toggleClass('active');
