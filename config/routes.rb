@@ -113,17 +113,23 @@ ActionController::Routing::Routes.draw do |map|
                  :conditions=>{:rails_env => 'production', :host => "echosocial-prod-clone.echo-test.org" }
 
 
-  # SECTION discuss - discussion tree
+  # SECTION discuss - statement's tree
   map.add_discussion 'statement/add/discussion', :controller => :statements, :action => :add, :type => :discussion              
   map.new_discussion 'statement/new/discussion', :controller => :statements, :action => :new, :type => :discussion      
   map.connect        'statement/:id/add/:type',  :controller => :statements, :action => :add
-
+  
   map.resources :statement_nodes, :controller => :statements, 
                 :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, 
                             :reload_image, :children, :more, :authors, :publish, :incorporate],
-                :path_names => { :new => ':id/new/:type', :add => ':id/add/:type', :more => ':id/more/:type', 
+                :path_names => { :new => ':id/new/:type', :more => ':id/more/:type', 
+                                 :edit => 'edit/:current_document_id', :new_translation => 'translation/:current_document_id',
                                  :children => ':id/children/:type', :incorporate => ':id/incorporate/:approved_ip'}, 
                 :as => 'statement'
+  map.node_with_path               'statement/:id/:path',        :controller => :statements, :action => :show   
+  map.node_with_path_and_value     'statement/:id/:path/:value', :controller => :statements, :action => :show
+  
+  
+  
  
   map.resources :discussions, :controller => :statements, :type => :discussion, :only => [:create, :update]
   map.resources :proposals, :controller => :statements, :only => [:create, :update]
