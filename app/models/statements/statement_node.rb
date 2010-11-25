@@ -48,7 +48,9 @@ class StatementNode < ActiveRecord::Base
   ##
   ## NAMED SCOPES
   ##  
-  %w(discussion proposal improvement_proposal).each do |type|
+  
+  #auxiliar named scopes only used for tests
+  %w(discussion proposal improvement_proposal pro_argument contra_argument).each do |type|
     class_eval %(
       named_scope :#{type.pluralize}, lambda{{ :conditions => { :type => '#{type.camelize}' } } }
     )
@@ -274,7 +276,7 @@ class StatementNode < ActiveRecord::Base
     
     
     def expected_children_types(children_visibility = false)
-      expected_children = @@expected_children[self.name] || @@expected_children[self.superclass.name] 
+      expected_children = @@expected_children[self.name] || @@expected_children[self.superclass.name]
       return expected_children.map{|c|c[0]} if !children_visibility
       expected_children
     end
@@ -287,12 +289,12 @@ class StatementNode < ActiveRecord::Base
       "statements/more"
     end
     
-    protected 
+    #protected 
     
     def expects_children_types(*klasses)
       @@expected_children ||= { }
       @@expected_children[self.name] ||= []
-      @@expected_children[self.name] += klasses
+      @@expected_children[self.name] = klasses + @@expected_children[self.name] 
     end
   end
 end
