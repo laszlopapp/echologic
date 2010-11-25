@@ -4,7 +4,8 @@
 <% semantic_form_for statement_node, :html => {:class => "ajax_form new wide_form statement #{dom_class(statement_node)}" } do |form| -%>
   <%= hidden_field_tag :type, @statement_node_type.name %>
 	<%= render :partial => 'statements/form/form_header', :locals => {:form => form, :statement_node => statement_node} %>
-  <%= render :partial => 'statements/form/form_content', :locals => {:form => form, :statement_node => statement_node} %>
+  <%= render :partial => 'statements/form/form_content', :locals => {:form => form, :statement_node => statement_node,
+                                                                     :headline => I18n.t("discuss.statements.new.#{dom_class(statement_node)}") }%>
 <% end -%>
 
 <!-- TODO: What to do with these elements?     

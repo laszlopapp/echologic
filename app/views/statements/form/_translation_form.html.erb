@@ -2,7 +2,6 @@
 <% new_statement_document ||= @new_statement_document %>
 <% statement_document ||= @statement_document %>
 
-<%= content_tag :h2, I18n.t("discuss.statements.types.#{dom_class(statement_node)}") %>
 <div class="translation_box_class rounded-box rounded-box-gray-itow with_bg_bw_grad_small">
 	<%= translation_upper_box statement_document.language.value.upcase,
                           Language[params[:locale]].value.upcase %>
