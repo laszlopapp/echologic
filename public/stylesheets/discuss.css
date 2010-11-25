@@ -97,6 +97,11 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* New and Edit Statements forms */
 /* ----------------------------- */
 
+#statements form.new .simple_header_block h2,
+#statements form.edit .simple_header_block h2 {
+	margin-left: 20px;
+} 
+
 #statements form.formtastic fieldset #discussion_editorial_state_id_input li {
   width: 700px;
 }
