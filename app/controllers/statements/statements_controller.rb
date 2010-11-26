@@ -102,8 +102,8 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def new
-    @statement_node ||= @statement_node_type.new(:parent => parent,
-                                                 :editorial_state => StatementState[:new])
+    @statement_node ||= @statement_node_type.new_instance(:parent_id => params[:id],
+                                                          :editorial_state => StatementState[:new])
     @statement_document ||= StatementDocument.new(:language_id => @locale_language_id)
     @action ||= StatementAction["created"]
     @statement_node.topic_tags << "#{params[:category]}" if params[:category]
@@ -125,10 +125,10 @@ class StatementsController < ApplicationController
   def create
     attrs = params[statement_node_symbol].merge({:creator_id => current_user.id})
     doc_attrs = attrs.delete(:statement_document)
-    form_tags = attrs.delete(:tags)
+    form_tags = attrs.delete(:topic_tags)
     
     begin
-      @statement_node ||= @statement_node_type.new(attrs)
+      @statement_node ||= @statement_node_type.new_instance(attrs)
       @statement_node.statement ||= Statement.new
       @statement_document = @statement_node.add_statement_document(
                             doc_attrs.merge({:original_language_id => doc_attrs[:language_id],
@@ -140,7 +140,7 @@ class StatementsController < ApplicationController
         @tags=@statement_node.topic_tags
       end
 
-      if permitted and @statement_node.save
+      if permitted and @statement_node.save and @statement_node.statement.save
         if @statement_node.echoable?
           echo = params.delete(:echo).parameterize 
           @statement_node.author_support if echo==true
@@ -211,7 +211,7 @@ class StatementsController < ApplicationController
       locked_at = attrs_doc.delete(:locked_at) if attrs_doc
 
       # Updating tags of the statement
-      form_tags = attrs.delete(:tags)
+      form_tags = attrs.delete(:topic_tags)
       has_tag_permissions = form_tags.nil? || !@statement_node.taggable? || check_hash_tag_permissions(form_tags)
 
       holds_lock = true
