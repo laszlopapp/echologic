@@ -1,9 +1,9 @@
 /* Do init stuff. */
 $(document).ready(function () {
 	
-	addTagButtonEvents();
-	
 	addTagButtons();
+	
+	addTagButtonEvents();
 	
 	loadMessageBoxes();
 	
@@ -319,45 +319,64 @@ function showNewStatementType(element) {
 /* Discussion Tag Helpers */
 /**************************/
 
+
+/* load the previously existing tags */
+function addTagButtons() {
+  $('form.taggable').livequery(function(){
+		tags_to_load = $(this).find('input.discussion_tags').val();
+    tags_to_load = $.trim(tags_to_load);
+    tags_to_load = tags_to_load.split(',');
+    while (tags_to_load.length > 0) {
+      tag = $.trim(tags_to_load.shift());
+      if (tag.localeCompare(' ') > 0) {
+        element = createTagButton(tag, $(this).find(".discussion_tags"));
+        $(this).find('#discussion_tags_values').append(element);
+      }
+    }
+  });
+}
 /* add new tags to be added to statement */
 function addTagButtonEvents() {
-  $('.discussion #tag_topic_id').live('keypress', (function(event) {
+  $('#statements form.statement #tag_topic_id').live('keypress', (function(event) {
+		statement = $(this).parents('form.statement'); 
     if (event && event.keyCode == 13) { /* check if enter was pressed */
-      if ($('.discussion #tag_topic_id').val().length != 0) {
-        $('.discussion .addTag').click();
+      if (statement.find('#tag_topic_id').val().length != 0) {
+        statement.find('.addTag').click();
       }
       return false;
     }
   }));
 
-  $('.discussion .addTag').live('click', (function() {
-    entered_tags = $('.discussion #tag_topic_id').val().trim().split(",");
+  $('#statements form.statement .addTag').live('click', (function() {
+		statement = $(this).parents('form.statement');
+    entered_tags = statement.find('#tag_topic_id').val().trim().split(",");
     if (entered_tags.length != 0) {
       /* Trimming all tags */
       entered_tags = jQuery.map(entered_tags, function(tag) {
         return (tag.trim());
       });
-      existing_tags = $('.discussion #discussion_tags').val().trim();
-      existing_tags = existing_tags.split(',');
+			existing_tags = statement.find('.discussion_tags').val();
+			existing_tags = existing_tags.split(',');
+			existing_tags = $.map(existing_tags,function(q){return q.trim()});
 
       new_tags = new Array(0);
       while (entered_tags.length > 0) {
         tag = entered_tags.shift().trim();
         if (existing_tags.indexOf(tag) < 0 && entered_tags.indexOf(tag) < 0) {
           if (tag.localeCompare(' ') > 0) {
-            element = createTagButton(tag, "#discussion_tags");
+            element = createTagButton(tag, ".discussion_tags");
             $('#discussion_tags_values').append(element);
             new_tags.push(tag);
           }
         }
       }
-      discussion_tags = $('.discussion #discussion_tags').val();
+      discussion_tags = statement.find('.discussion_tags').val();
       if (new_tags.length > 0) {
-        discussion_tags = ((discussion_tags.trim().length > 0) ? discussion + ',' : '') + new_tags.join(',');
-        $('.discussion #discussion_tags').val(discussion_tags);
+        discussion_tags = ((discussion_tags.trim().length > 0) ? discussion_tags + ',' : '') + new_tags.join(',');
+        statement.find('.discussion_tags').val(discussion_tags);
       }
-      $('.discussion #tag_topic_id').val('');
-      $('.discussion #tag_topic_id').focus();
+      statement.find('#tag_topic_id').val('');
+      statement.find('#tag_topic_id').focus();
     }
   }));
 }
@@ -370,32 +389,21 @@ function createTagButton(text, tags_id) {
   deleteButton.click(function(){
     $(this).parent().remove();
     tag_to_delete = $(this).parent().text();
-    discussion_tags = $(tags_id).val().split(',');
-    index_to_delete = discussion_tags.indexOf(tag_to_delete);
-    if (index_to_delete >= 0) {
+		discussion_tags = tags_id.val();
+		discussion_tags = discussion_tags.split(',');
+		discussion_tags = $.map(discussion_tags,function(q){return q.trim()});
+		index_to_delete = discussion_tags.indexOf(tag_to_delete);
+		if (index_to_delete >= 0) {
       discussion_tags.splice(index_to_delete, 1);
     }
-    $('form.discussion').find(tags_id).val(discussion_tags.join(','));
+		
+    $("#"+tags_id.attr('id')).val(discussion_tags.join(','));
   });
   element.append(deleteButton);
   return element;
 }
 
-/* load the previously existing tags */
-function addTagButtons() {
-	$('form.discussion.new, form.discussion.edit').livequery(function(){
-	  tags_to_load = $('#discussion_tags').val();
-		tags_to_load = $.trim(tags_to_load);
-		tags_to_load = tags_to_load.split(',');
-	  while (tags_to_load.length > 0) {
-	    tag = $.trim(tags_to_load.shift());
-	    if (tag.localeCompare(' ') > 0) {
-	      element = createTagButton(tag, "#discussion_tags");
-	      $(this).find('#discussion_tags_values').append(element);
-	    }
-	  }
-	});
-}
+
 
 /* select approved text in the form */
 /*function selectApprovedText(id) {
