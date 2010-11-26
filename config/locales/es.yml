@@ -376,6 +376,7 @@ es:
       create_improvement_proposal: 'Crear nueva propuesta de mejoramiento'
       create_pro_argument: "Post a new argument agreeing with this proposal"
       create_contra_argument: "Post a new argument disagreeing with this proposal"
+      create_follow_up_question: "Post a new follow-up question"
       echo: 'Apoye a esta opinión con tu voz!'
       unecho: 'Retire tu voto, si ya no estes de acuerdo'
       publish: |
@@ -394,6 +395,7 @@ es:
       create_improvement_proposal_link: 'Crear nueva propuesta de mejoramiento'
       create_pro_argument_link: Add new pro argument
       create_contra_argument_link: Add new contra argument
+      create_follow_up_question_link: Add new follow-up question
       create_discussion_explanation: |
         Aquí puedes iniciar un <strong>nueva discusión</strong>.
         Por favor no te olvides de inserir algunas palabras clave, para que tu nuevo debate será hallado facilmente.
@@ -428,17 +430,20 @@ es:
         improvement_proposal: 'Propuesta de mejoramiento'
         pro_argument: 'Pro Argument'
         contra_argument: 'Contra Argument'
+        follow_up_question: 'Follow-Up Question'
       new:
         discussion:  'Nueva Discusión'
         proposal:  'Nueva Propuesta'
         improvement_proposal: 'Nueva propuesta de mejoramiento'
         pro_argument: 'New Pro Argument'
         contra_argument: 'New Contra Argument'
+        follow_up_question: 'New Follow-Up Question'
       headings:
         discussion: 'Cuestiones'
         proposal: 'Propuestas'
         improvement_proposal: 'Propuesta de mejoramiento'
         argument: 'Arguments'
+        follow_up_question: 'Follow-up Questions'
 
       topic: Tema (Tags / Palabras clave)
       states:

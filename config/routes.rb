@@ -146,6 +146,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :improvement_proposals, :controller => :statements, :only => [:create, :update]
   map.resources :pro_arguments, :controller => :statements, :only => [:create, :update]
   map.resources :contra_arguments, :controller => :statements, :only => [:create, :update]
+  map.resources :follow_up_questions, :controller => :statements, :only => [:create, :update]
  
 
   # old discuss paths redirection

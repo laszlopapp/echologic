@@ -371,6 +371,7 @@ de:
       create_improvement_proposal: 'Tragen Sie Ihre neue Idee zum aktuellen Vorschlag ein'
       create_pro_argument: "Post a new argument agreeing with this proposal"
       create_contra_argument: "Post a new argument disagreeing with this proposal"
+      create_follow_up_question: "Post a new follow-up question"
       echo: 'Unterstützen Sie diese Aussage durch Ihr Echo!'
       unecho: 'Ziehen Sie Ihre Stimme zurück, wenn Sie die Aussage nicht mehr unterstützen möchten'
       publish: |
@@ -389,6 +390,7 @@ de:
       create_improvement_proposal_link: 'Neuen Ergänzungsvorschlag erstellen'
       create_pro_argument_link: Add new pro argument
       create_contra_argument_link: Add new contra argument
+      create_follow_up_question_link: Add new follow-up question
       create_discussion_explanation: |
         Hier können Sie eine <strong>neue Diskussion</strong> eröffnen und mit den
         passenden <strong>thematischen Schlüsselwörten</strong> (sog. Tags) versehen.
@@ -421,17 +423,20 @@ de:
         improvement_proposal: 'Ergänzungsvorschlag'
         pro_argument: 'Pro Argument'
         contra_argument: 'Contra Argument'
+        follow_up_question: 'Follow-Up Question'
       new:
         discussion:  'Neue Diskussion'
         proposal:  'Neuer Vorschlag'
         improvement_proposal: 'Neuer Ergänzungsvorschlag'
         pro_argument: 'New Pro Argument'
         contra_argument: 'New Contra Argument'
+        follow_up_question: 'New Follow-Up Question'
       headings:
         discussion: 'Fragen'
         proposal: 'Vorschläge'
         improvement_proposal: 'Ergänzungsvorschläge'
         argument: 'Arguments'
+        follow_up_question: 'Follow-up Questions'
 
       topic: Thema (Tags / Schlüsselwörte)
       states:

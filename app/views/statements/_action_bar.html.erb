@@ -15,7 +15,7 @@
 	<% end %>
 	<!-- New Statement Button --> 
 	<% unless no_buttons %>
-	  <% if statement_node.taggable? %>
+	  <% if statement_node.parent.nil? %>
 		  <% create_new_discussion_button(params[:value])  %>
 		<% else %>
       <% create_new_sibling_statement_button(statement_node)  %>

@@ -12,6 +12,8 @@
 	if (session_data != null) {
 		session_data.unshift(<%= @statement_node.id %>);
 		$('div#statements').data(session_id, session_data);
+	} else {
+	  session_data = [<%= @statement_node.id %>, "add/<%= dom_class(@statement_node) %>"]
 	}
 	
 

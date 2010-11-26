@@ -374,6 +374,7 @@ en:
       create_improvement_proposal: "Post a new idea to improve the current proposal"
       create_pro_argument: "Post a new argument agreeing with this proposal"
       create_contra_argument: "Post a new argument disagreeing with this proposal"
+      create_follow_up_question: "Post a new follow-up question"
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your vote to stop supporting this statement'
       publish: |
@@ -392,6 +393,7 @@ en:
       create_improvement_proposal_link: Add new improvement proposal
       create_pro_argument_link: Add new pro argument
       create_contra_argument_link: Add new contra argument
+      create_follow_up_question_link: Add new follow-up question
       create_discussion_explanation: |
         Here you can open a <strong>new discussion</strong> and tag it with some <strong>relevant keywords</strong>
         for better searchability.
@@ -424,17 +426,20 @@ en:
         improvement_proposal: 'Improvement Proposal'
         pro_argument: 'Pro Argument'
         contra_argument: 'Contra Argument'
+        follow_up_question: 'Follow-Up Question'
       new:
         discussion:  'New Discussion'
         proposal:  'New Proposal'
         improvement_proposal: 'New Improvement Proposal'
         pro_argument: 'New Pro Argument'
         contra_argument: 'New Contra Argument'
+        follow_up_question: 'New Follow-Up Question'
       headings:
         discussion: 'Questions'
         proposal: 'Proposals'
         improvement_proposal: 'Improvement Proposals'
         argument: 'Arguments'
+        follow_up_question: 'Follow-up Questions'
 
       topic: Topic (Tags / Keywords)
       states:
