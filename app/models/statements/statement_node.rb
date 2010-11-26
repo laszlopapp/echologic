@@ -9,7 +9,7 @@ class StatementNode < ActiveRecord::Base
   after_destroy :destroy_statement
 
   def destroy_statement
-    self.statement.destroy if (statement.statement_nodes - [self]).empty?
+    self.statement.destroy if (self.statement.statement_nodes - [self]).empty?
   end
 
   ##
@@ -194,12 +194,17 @@ class StatementNode < ActiveRecord::Base
 
   class << self
     
+    def new_instance(attributes = nil)
+      self.new(attributes)
+    end
+    
+    
     def paginate_statements(children, page, per_page)
       children.paginate(default_scope.merge(:page => page, :per_page => per_page))
     end
     
     def statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
-      conditions = {:conditions => "type = '#{self.name}' and parent_id = #{parent_id}"}
+      conditions = {:conditions => "n.type = '#{self.name}' and n.parent_id = #{parent_id}"}
       conditions.merge!({:language_ids => language_ids}) if language_ids
       conditions.merge!({:drafting_states => %w(tracked ready staged)}) if filter_drafting_state
       statements = self.search_statement_nodes(conditions)
@@ -210,12 +215,9 @@ class StatementNode < ActiveRecord::Base
       statements
     end
 
-    public
     
-    def search_statement_nodes(opts={})
-
-      # Building the search clause
-      select_clause = <<-END
+    def join_clause
+      <<-END
         select distinct n.*
         from
           statement_nodes n
@@ -225,7 +227,16 @@ class StatementNode < ActiveRecord::Base
           LEFT JOIN echos e                  ON n.echo_id = e.id
         where
       END
+    end
+    
+    
+    public
+    
+    def search_statement_nodes(opts={})
 
+      # Building the search clause
+      select_clause = join_clause
+      
       # Building the where clause
       # Handling the search term
       search_term = opts[:search_term]
@@ -289,12 +300,17 @@ class StatementNode < ActiveRecord::Base
       "statements/more"
     end
     
-    #protected 
+    #protected
+
+    def default_children_types(*klasses)
+      @@default_children_types = klasses
+    end
     
     def expects_children_types(*klasses)
       @@expected_children ||= { }
-      @@expected_children[self.name] ||= []
+      @@expected_children[self.name] ||= @@default_children_types.nil? ? [] : @@default_children_types
       @@expected_children[self.name] = klasses + @@expected_children[self.name] 
     end
   end
+  default_children_types [:FollowUpQuestion,false]
 end
