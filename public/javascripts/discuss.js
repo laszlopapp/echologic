@@ -31,6 +31,8 @@ $(document).ready(function () {
 	
 	initFormStatementType();
 	
+	handleStatementFormsSubmit();
+	
 });
 
 /********************************/
@@ -281,6 +283,38 @@ function initEchoStatementButton(element, class_add, class_remove, ratio_class_a
 	info(page.find('.action_bar').data('messages')[class_add]);
 }
 
+
+function handleStatementFormsSubmit() {
+	$('#statements form.new').livequery(function(){
+		var form = this;
+		element = $(this);
+    element.bind('submit', (function(){
+			showNewStatementType(form);
+			$.ajax({
+			  url: this.action,
+				type: "POST",
+				data: $(this).serialize(),
+			  dataType: 'script',
+        success: function(data, status){
+          hideNewStatementType(form);
+        }
+      });
+      return false;
+    }));
+  })
+}
+
+function hideNewStatementType(element) {
+	input_type = $(element).find('input#type');
+	input_type.data('value',input_type.attr('value'));
+  input_type.removeAttr('value');
+}
+
+function showNewStatementType(element) {
+  input_type = $(element).find('input#type');
+	input_type.attr('value', input_type.data('value'));
+}
+
 /**************************/
 /* Discussion Tag Helpers */
 /**************************/
@@ -519,11 +553,17 @@ function initFragmentStatementChange() {
 			var sid = $.fragment().sid;
 			var path = getStatementStackPath(sid);
 			var new_sid = sid.split(",");
-			new_sid.pop();
+			
+			last_sid = new_sid.pop();
+			
 			
 			var visible_sid = $("#statements .statement").map(function(){
 				return this.id.replace(/[^0-9]+/, '');
 			}).get();
+			
+			
+			if ($.inArray(last_sid, visible_sid) != -1) {return;}
+			
 			sid = $.grep(new_sid, function (a) {
 				return $.inArray(a, visible_sid) == -1 ;});
 			
@@ -582,12 +622,8 @@ function loadMessages(element, messages) {
 
 function initFormStatementType() {
 	$("#statements form.new").livequery(function(){
-	 input_type = $(this).find('input#type');
-	 type = input_type.attr('value');
-	 input_type.removeAttr('value');
-	 $(this).bind('submit', function() {
-	 	 input_type = $(this).find('input#type');
-		 input_type.attr('value', type);
-	 });
+	 hideNewStatementType(this);
 	});
 }
+
+

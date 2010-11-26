@@ -114,9 +114,19 @@ ActionController::Routing::Routes.draw do |map|
 
 
   # SECTION discuss - statement's tree
-  map.add_discussion 'statement/add/discussion', :controller => :statements, :action => :add, :type => :discussion              
-  map.new_discussion 'statement/new/discussion', :controller => :statements, :action => :new, :type => :discussion      
+     
+  #route for new discussion              
+  map.new_discussion 'statement/new/discussion', :controller => :statements, :action => :new, :type => :discussion
+  
+  #Add Teaser section (with path, path and value, and none of the previous) 
+  map.connect        'statement/add/discussion', :controller => :statements, :action => :add, :type => :discussion
   map.connect        'statement/:id/add/:type',  :controller => :statements, :action => :add
+  
+  map.connect        'statement/add/discussion/:path',        :controller => :statements, :action => :add, :type => :discussion
+  map.connect        'statement/add/discussion/:path/:value', :controller => :statements, :action => :add, :type => :discussion
+  
+  map.connect        'statement/:id/add/:type/:path',         :controller => :statements, :action => :add
+  map.connect        'statement/:id/add/:type/:path/:value',  :controller => :statements, :action => :add
   
   map.resources :statement_nodes, :controller => :statements, 
                 :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, 

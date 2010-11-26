@@ -26,3 +26,8 @@ collapseStatements();
 var statement = "<%= escape_javascript(render :partial => 'statements/show') %>";
 replaceOrInsert(class_element, statement);
 	
+var stack = $('div#statements .statement').map(function(){
+  return this.id.replace(/[^0-9]+/, "");
+}).get();
+
+$.setFragment({ "sid": stack.join(','), "new_level" : ''});
