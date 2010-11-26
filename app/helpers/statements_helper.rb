@@ -130,7 +130,7 @@ module StatementsHelper
 
 
   # Creates the cancel button in the new statement form (right link will be handled in jquery)
-  def cancel_new_statement_node(statement_node,cancel_js=false)
+  def cancel_new_statement_node(cancel_js=false)
     link_to I18n.t('application.general.cancel'),
             :back,
             :class => 'cancel text_button cancel_text_button'

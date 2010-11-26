@@ -6,7 +6,6 @@
 <!-- Basic fields: title + text -->
 <%= render :partial => "statements/form/document_form",
            :locals => { :form => form,
-                        :statement_node => statement_node,
                         :statement_document => statement_document } %>
 
 
@@ -19,7 +18,6 @@
   <% form.inputs do %>
 	  <%= render :partial => "statements/form/statement_tags",
                :locals => {:form => form,
-                           :statement_node => statement_node,
                            :tags => tags}%>
 	<% end %>
 
@@ -46,5 +44,5 @@
   <%= form.commit_button I18n.t('application.general.save'),
                          :button_html => { :alt => 'save_button' } %>
   <%= content_tag :span, I18n.t('application.general.or'), :class => "or_cancel" %>
-  <%= statement_node.new_record? ? cancel_new_statement_node(statement_node) : cancel_edit_statement_node(statement_node, statement_document.locked_at) %>
+  <%= statement_node.new_record? ? cancel_new_statement_node : cancel_edit_statement_node(statement_node, statement_document.locked_at) %>
 <% end %>
