@@ -510,6 +510,10 @@ a.statement_link:hover {
   background:transparent url(../images/page/discuss/contra_argument_small.png) no-repeat scroll 0 0;
 }
 
+.follow_up_question_link {
+  background:transparent url(../images/page/discuss/follow_up_question_small.png) no-repeat scroll 0 0;
+}
+
 .create_discussion_button {
   background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
@@ -527,6 +531,10 @@ a.statement_link:hover {
 }
 
 .create_contra_argument_button {
+  background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
+}
+
+.create_follow_up_question_button {
   background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
 
@@ -560,6 +568,10 @@ a.statement_link:hover {
 
 .create_pro_argument_button_mid {
   background: transparent url(../images/page/discuss/add_pro_argument_mid.png) no-repeat scroll 0 0;
+}
+
+.create_follow_up_question_button_mid {
+  background: transparent url(../images/page/discuss/add_follow_up_question_mid.png) no-repeat scroll 0 0;
 }
 
 .create_discussion_button_mid:hover, .create_proposal_button_mid:hover, .create_improvement_proposal_button_mid:hover {
