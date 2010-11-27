@@ -9,7 +9,7 @@ class DraftingService
   ##############
 
   @@min_quorum = 50
-  @@min_votes  = 2
+  @@min_votes  = 3
   @@time_ready  = 24.hours
   @@time_approved  = 24.hours
   @@time_approval_reminder  = 18.hours
