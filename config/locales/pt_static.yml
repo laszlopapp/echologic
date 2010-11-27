@@ -17,8 +17,8 @@ pt:
 
     # Static content for the echoLogic main menu point
     echologic:
-      title: echologic
-      subtitle: O Movimento
+      title: echo
+      subtitle: Página Principal
       show:
         ms1: A echologic é uma rede de pessoas que querem mudança <br/>e das suas organizações unidas para realizar
         ms2: |

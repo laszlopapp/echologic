@@ -23,6 +23,7 @@
                             'discuss',
                             'connect',
                             'profile',
+                            'admin',
                             :cache => 'echo_app' %>
 
 
@@ -51,8 +52,11 @@
 
   <body>
     <div id="header">
-      <div id="echo_logo" class="main_logo">
+      <div class="main_logo">
         <%= link_to(image_tag('page/echo_logo.png'), current_user ? discuss_search_path : root_path) %>
+        <%#= link_to(image_tag('page/beta_stamp.png', :class => 'stamp'),
+                    current_user ? discuss_search_path : root_path) %>
+        <%= image_tag('page/beta_label.png', :class => 'label') %>
       </div>
       <%= render :partial => "layouts/components/top_menu" %>
       <%= render :partial => "users/user_sessions/login" %>

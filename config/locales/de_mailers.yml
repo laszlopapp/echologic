@@ -41,7 +41,7 @@ de:
       fields_not_filled: |-
         You need to fill the subject and text fields in order to send the newsletter.
       sent: |-
-        Congratulations! Your newsletter was successfully sent!
+        Your newsletter mails are being delivered...
 
     activity_tracking:
       subject: echo - Neue Diskussionsbeiträge

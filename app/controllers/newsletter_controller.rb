@@ -18,19 +18,32 @@ class NewsletterController < ApplicationController
       format.js do
         if !subject.blank? and !text.blank?
           if params[:newsletter][:test].eql?('true')
-            AdminMailer.deliver_newsletter(current_user, subject, text)
+            NewsletterMailer.deliver_newsletter(current_user, subject, text)
+            render_with_info "Test newsletter mail has been sent to your address."
           else
-            User.all.select{|u| u.newsletter_notification == 1}.each do |user|
-              AdminMailer.deliver_newsletter(user, subject, text)
-            end
+            send_newsletter_mails(subject, text)
+            render :template => 'newsletter/create'
           end
-          render :template => 'newsletter/create'
         else
-          set_error("mailers.newsletter.fields_not_filled")
-          show_error_messages
+          show_error_message I18n.t("mailers.newsletter.fields_not_filled")
         end
       end
     end
   end
+
+  private
+  def send_newsletter_mails(subject, text)
+    User.find(:all, :conditions => {:newsletter_notification => 1}).each do |recipient|
+      NewsletterMailer.deliver_newsletter(recipient, subject, text)
+      puts "Newsletter has been delivered to: " + recipient.email
+      #sleep 5
+    end
+  end
+
+  ###############
+  # Async calls #
+  ###############
+
+  #handle_asynchronously :send_newsletter_mails
 
 end

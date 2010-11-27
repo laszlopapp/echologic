@@ -38,8 +38,11 @@
     </script>
 
     <div id="header">
-      <div id="echologic_logo" class="main_logo">
+      <div class="main_logo">
         <%= link_to(image_tag('page/echo_logo.png'), root_path) %>
+        <%# link_to(image_tag('page/beta_stamp.png',
+                              :class => 'stamp'), root_path) %>
+        <%= image_tag('page/beta_label.png', :class => 'label') %>
       </div>
       <%= render :partial => "layouts/components/top_menu"%>
       <%= render :partial => "users/user_sessions/login" %>

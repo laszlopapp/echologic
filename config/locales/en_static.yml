@@ -17,8 +17,8 @@ en:
 
     # Static content for the echoLogic main menu point
     echologic:
-      title: echologic
-      subtitle: The Movement
+      title: echo
+      subtitle: Home
       show:
         ms1: echologic is a network of newthinkers and <br/>their organizations united to realize
         ms2: |

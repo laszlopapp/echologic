@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <%= stylesheet_link_tag 'mails' %>
+    <%= content_tag :title, I18n.t('mailers.newsletter.title') %>
+  </head>
+
+  <body>
+    <div id="mail_container">
+
+      <!-- Header -->
+      <div id="mail_header">
+        <div id="mail_logo">
+          <%= link_to(image_tag('page/echo_logo.png'), root_url) %>
+          <%= image_tag('page/beta_label.png', :class => 'label') %>
+        </div>
+        <%= content_tag :h1, I18n.t('mailers.newsletter.title') %>
+      </div>
+
+      <!-- Content -->
+      <p>
+        <%= I18n.t('mailers.newsletter.greeting', :name => @name) %>
+      </p>
+      <br/>
+      <%= yield %>
+      <br/>
+      <p>
+        <%= content_tag :p, I18n.t('mailers.signature_as_html',
+                                   :locale => @language.code) %>
+      </p>
+      <br/>
+      <p>
+        <%= content_tag :p, I18n.t('mailers.newsletter.unsubscribe',
+                                   :echo_url => root_url,
+                                   :locale => @language.code) %>
+      </p>
+    </div>
+  </body>
+</html>

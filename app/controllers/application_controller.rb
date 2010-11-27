@@ -72,7 +72,7 @@ class ApplicationController < ActionController::Base
         flash_info and redirect_to url
       end
       format.js do
-        render_with_info :update do |page|
+        render_with_info do |page|
           page.redirect_to url
         end
       end

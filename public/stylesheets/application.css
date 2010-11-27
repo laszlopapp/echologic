@@ -402,6 +402,7 @@
   vertical-align: middle;
   margin:       10px 0 0 -6px;
   padding:      0;
+  cursor: pointer;
 }
 
 .button_150:hover {
