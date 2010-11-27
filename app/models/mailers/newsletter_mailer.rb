@@ -1,5 +1,5 @@
 class NewsletterMailer < ActionMailer::Base
-  default_url_options[:host] = ECHO_HOST
+  #default_url_options[:host] = ECHO_HOST
 
   # Send a newletter to the given user.
   def newsletter(recipient, subject, text)
