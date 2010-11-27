@@ -83,7 +83,8 @@ module ActiveRecord
 
             # Returns Ratio between number of supporters and number of visitors
             def quorum
-              (supporter_count.to_i/parent.supporter_count.to_i)*100
+              parent_echos = parent.supporter_count.to_f
+              parent_echos != 0 ? supporter_count.to_f / parent_echos : 0
             end
 
             #
