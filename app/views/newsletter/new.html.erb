@@ -5,23 +5,28 @@
 
 <%= t('mailers.newsletter.header') %>
 
-<% form_for :newsletter, :url => {:controller => :newsletter, :action => :create}, 
+<% form_for :newsletter, :url => {:controller => :newsletter, :action => :create},
             :html => {:id => 'new_newsletter_form', :class => 'echoForm'} do |f| -%>
 
   <p>
-    <%= label_tag I18n.t('mailers.newsletter.subject'), nil %><br />
-    <%= f.text_field :subject %><br/>
+    <%= label_tag I18n.t('mailers.newsletter.subject'), nil %><br/>
+    <%= f.text_field :subject, :size => 50 %><br/>
   </p>
 
   <p>
     <%= label_tag I18n.t('mailers.newsletter.text'), nil %><br/>
-    <%= f.text_area :text, :rows => 4, :cols => 30, :html => {:id => 'newsletter_message'} %>
+    <%= f.text_area :text, :rows => 15, :cols => 80, :html => {:id => 'newsletter_message'} %>
   </p>
     <%= f.hidden_field :test, :value => true %>
-<% end %>
 
-<%= content_tag :span, 'Send Test Mail', :class => 'newsletter_submit_tag', :value => true %>
-<%= content_tag :span, 'Send To All', :class => 'newsletter_submit_tag', :value => false %>
+  <%= content_tag :span, 'Send TEST MAIL to my own address',
+                  :class => 'newsletter_submit_tag text_button edit_text_button',
+                  :value => true %>
+  <br/><br/><br/><br/><br/>
+  <%= content_tag :span, 'CHECKED EVERYTHING??? Click here to send the newsletter to ALL SUBSCRIBERS!',
+                  :class => 'newsletter_submit_tag text_button save_button',
+                  :value => false %>
+<% end %>
 
 <script type="text/javascript">
   $('#new_newsletter_form').ajaxForm({ dataType : 'script' });

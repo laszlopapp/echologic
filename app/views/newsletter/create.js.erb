@@ -1,5 +1,4 @@
-/* On success close the dialog and show the 'thanks' message. */
 
-var success  = "<%= escape_javascript(render :partial => 'newsletter/success') %>";
+var sent  = "<%= escape_javascript(render :partial => 'newsletter/sent') %>";
 
-$('#new_newsletter_form').replaceWith(success);
+$('#new_newsletter_form').replaceWith(sent);

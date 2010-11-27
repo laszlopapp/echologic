@@ -40,7 +40,7 @@ pt:
       fields_not_filled: |-
         Necessita de preencher o Título e o texto de forma a poder enviar a newsletter.
       sent: |-
-        Parabéns! A sua newsletter foi enviada com sucesso!
+        Your newsletter mails are being delivered...
 
     activity_tracking:
       subject: echo - Notificações de Actividade

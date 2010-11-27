@@ -1,0 +1,10 @@
+/* Newsletter stuff */
+
+#newsletter_subject {
+  width: 400px;
+}
+
+#newsletter_text {
+  width: 800px;
+  height: 400px;
+}

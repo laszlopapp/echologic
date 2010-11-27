@@ -40,7 +40,7 @@ fr:
       fields_not_filled: |-
         Veuillez préciser l'objet et le texte de votre Newsletter. Merci.
       sent: |-
-        Félicitations! Votre Newsletter a été envoyé avec succès!
+        Your newsletter mails are being delivered...
 
     activity_tracking:
       subject: echo - Activités, notifications"
