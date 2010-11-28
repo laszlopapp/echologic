@@ -21,6 +21,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
         DraftingService.min_votes=1
         @user = users(:user)
         @statement = statement_nodes('first-impro-proposal')
+        @statement.parent.supported!(@user)
         EchoService.instance.supported!(@statement, @user)
       }
       should("then this improvement proposal shall be ready ") do
@@ -74,6 +75,8 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_1.reload
 
         @statement_2 = statement_nodes('first-impro-proposal')
+        @statement_2.parent.supported!(users(:red))
+        @statement_2.parent.supported!(users(:luise))
         @statement_2.user_echos.destroy_all
         @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:red),
@@ -87,6 +90,9 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_2.save
         @statement_2.reload
         DraftingService.min_votes=2
+
+        @statement_1.parent.supported!(users(:luise))
+        @statement_1.parent.supported!(users(:green))
 
         EchoService.instance.supported!(@statement_1, users(:luise))
         @statement_1.reload
