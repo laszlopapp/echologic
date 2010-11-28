@@ -256,10 +256,10 @@ en:
       drafting:
         title: Drafting Notifications
         guide: |
-          Immediate updates to follow the co-creative drafting process of your improvement proposals and
-          proposals - e.g. when your improvement proposal was approved to be incorporated.<br/>
+          Immediate updates to follow the co-creative drafting process of your proposals and improvements -
+          e.g. when your improvements was approved to be incorporated.<br/>
           <strong>Attention!</strong> If this notification is turned off, you might easily miss the opportunity to
-          incorporate your improvement proposals into proposals you support.
+          incorporate your improvements into proposals you support.
         turned_on: Drafting notifications have been switched on.
         turned_off: Drafting notifications have been switched off.
 
@@ -299,10 +299,10 @@ en:
 
   discuss:
     my_discussions:
-      link: My Discussions
-      title: My new & published discussions
+      link: My Questions / Issues
+      title: My new & published questions / issues
       no_discussions: |
-        You haven't opened any discussions yet. To do so, please click on the question mark button on the left.
+        You haven't created any questions / issues yet. To do so, please click on the question mark button on the left.
     tag_permission: |
       You do not have the permission to insert the '{{tag}}' tag.
     translation_request: Please translate this statement to <strong>ENGLISH</strong>.
@@ -310,8 +310,8 @@ en:
       The original statement is in <strong>{{language}}</strong>. Set your <br/>
       language skills to see content in other languages.
     results_count:
-      one: '{{count}} discussion'
-      more: '{{count}} discussions'
+      one: '{{count}} question / issue'
+      more: '{{count}} questions / issues'
     featured_topics:
       title: Featured Topics
       tabs:
@@ -324,49 +324,49 @@ en:
       in: '... in {{category}} ...'
 
     tooltips:
-      read_question: 'Go to this question'
+      read_question: 'Go to this question / issue'
       read_proposal: 'Read this proposal'
-      read_improvement_proposal: 'Read this improvement proposal'
-      current_question: 'The currently displayed question'
+      read_improvement_proposal: 'Read this improvement'
+      current_question: 'The currently displayed question / issue'
       current_proposal: 'The currently displayed proposal'
-      current_improvement_proposal: 'The currently displayed improvement proposal'
-      back_to_question: 'Back to current question'
+      current_improvement_proposal: 'The currently displayed improvement'
+      back_to_question: 'Back to current question / issue'
       back_to_proposal: 'Back to current proposal'
-      back_to_improvement_proposal: 'Back to current improvement proposal'
-      prev_question: 'Read previous question'
-      next_question: 'Read next question'
-      prev_proposal: 'Read previous proposal for the current question'
-      next_proposal: 'Read next proposal for the current question'
-      prev_improvement_proposal: 'Read previous improvement proposal for the current proposal'
-      next_improvement_proposal: 'Read next improvement proposal for the current proposal'
-      create_question: 'Open a new discussion'
-      create_proposal: "Post a new idea concerning the current question"
-      create_improvement_proposal: "Post a new idea to improve the current proposal"
+      back_to_improvement_proposal: 'Back to current improvement'
+      prev_question: 'Read previous question / issue'
+      next_question: 'Read next question / issue'
+      prev_proposal: 'Read previous proposal for the current question / issue'
+      next_proposal: 'Read next proposal for the current question / issue'
+      prev_improvement_proposal: 'Read previous improvement for the current proposal'
+      next_improvement_proposal: 'Read next improvement for the current proposal'
+      create_question: 'Create a new question / issue'
+      create_proposal: "Propose a new answer concerning the current question / issue"
+      create_improvement_proposal: "Post a new improvement to the current proposal"
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your vote to stop supporting this statement'
       publish: |
-        Release the discussion to make it visible for everybody.
+        Release the question / issue to make it visible for everybody.
         (Afterwards no further editing is possible.)
-      incorporate: 'Click here to incorporate this improvement proposal into the proposal above.'
+      incorporate: 'Click here to incorporate this improvement into the proposal above.'
 
     statements:
       label: 'votes'
       echo_indicator:
         one: '{{supporter_count}} supporter'
         many: '{{supporter_count}} supporters'
-      create_question_link: 'Open a new discussion'
+      create_question_link: 'New question / issue'
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
-      create_improvement_proposal_link: Add new improvement proposal
+      create_improvement_proposal_link: Propose new improvement
       create_question_explanation: |
-        Here you can open a <strong>new discussion</strong> and tag it with some <strong>relevant keywords</strong>
+        Here you can create a <strong>new question / issue</strong> and tag it with some <strong>relevant keywords</strong>
         for better searchability.
       create_proposal_explanation: |
-        Do you have a <strong>good idea</strong> concerning the current question, which <strong>isn't entered</strong> yet?<br/>
+        Do you have a <strong>good idea</strong> concerning the current question / issue, which <strong>isn't entered</strong> yet?<br/>
         Here you can create a <strong>new proposal</strong>.
       create_improvement_proposal_explanation: |
         Do you have a <strong>good idea</strong> to <strong>make the current proposal even better</strong>?<br/>
-        Here you can create a <strong>new improvement proposal</strong>.
+        Here you can propose a <strong>new improvement</strong>.
       create_statement_language_hint: |
         Please post the statement in <strong>ENGLISH</strong> or choose another language
         using the babelfish in the upper menu.
@@ -378,25 +378,25 @@ en:
         Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
 
       publish: Release
-      published: Discussion has been released successfully.
+      published: The question / issue has been released successfully.
       edit: 'Edit {{type}}'
 
       types:
-        question:  'Question'
+        question:  'Question / Issue'
         proposal:  'Proposal'
-        improvement_proposal: 'Improvement Proposal'
+        improvement_proposal: 'Improvement'
       new:
-        question:  'New Discussion'
+        question:  'New Question / Issue'
         proposal:  'New Proposal'
-        improvement_proposal: 'New Improvement Proposal'
+        improvement_proposal: 'New Improvement'
       headings:
-        question: 'Questions'
+        question: 'Questions / Issues'
         proposal: 'Proposals'
-        improvement_proposal: 'Improvement Proposals'
+        improvement_proposal: 'Improvements'
 
       topic: Topic (Tags / Keywords)
       states:
-        label: 'Publish discussion immediately?'
+        label: 'Publish question / issue immediately?'
         initial_state:
           new: 'Set up at first and publish later'
           published: 'Publish immediately (no further editing is possible)'
@@ -407,13 +407,13 @@ en:
       read_only_permission: |-
         This is a transparent but currently closed discussion, you are only allowed to read.
       unsupported_parent: |-
-        You can only support improvement proposals if you support the proposal itself.
+        You can only support improvements if you support the proposal itself.
       not_approved_any_more: |-
-        Unfortunately, this improvement proposal cannot be incorporated any longer.
+        Unfortunately, this improvement cannot be incorporated any longer.
       see_parent_if_approved: |-
-        The requested improvement proposal is currently approved to be incorporated into the proposal below.
+        The requested improvement is currently approved to be incorporated into the proposal below.
       see_parent_if_incorporated: |-
-        The requested improvement proposal has already been incorporated into the proposal below.
+        The requested improvement has already been incorporated into the proposal below.
       being_edited: |-
         The statement is currently being edited. Please try again later.
       statement_updated: |-
@@ -439,11 +439,11 @@ en:
       updated: "The {{type}} has been updated successfully."
       deleted: "The {{type}} has been deleted successfully."
       translated: "The {{type}} has been translated successfully."
-      incorporated: "The improvement proposal has been successfully incorporated into the proposal."
+      incorporated: "The improvement has been successfully incorporated into the proposal."
       image_uploaded: "The illustration image has been added to the {{type}}."
-      empty:   "No discussions found. Please change your search criteria."
+      empty:   "No questions / issues found. Please change your search criteria."
       empty_without_spoken_languages: |
-        No discussions found. You can try defining your <a href='{{my_echo}}'>language skills</a>
+        No questions / issues found. You can try defining your <a href='{{my_echo}}'>language skills</a>
         to see content in other languages.
       new_percentage: "Your profile is {{percentage}}% complete."
 
@@ -565,9 +565,9 @@ en:
         index: 'Index'
 
     models:
-      question: "question"
+      question: "question / issue"
       proposal: "proposal"
-      improvement_proposal: "improvement proposal"
+      improvement_proposal: "improvement"
 
 
   authlogic:
