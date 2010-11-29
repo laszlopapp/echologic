@@ -351,11 +351,13 @@ en:
       read_improvement_proposal: 'Read this improvement proposal'
       read_pro_argument: 'Read this pro argument'
       read_contra_argument: 'Read this contra argument'
+      read_follow_up_question: 'Read this follow-up question'
       current_discussion: 'The currently displayed question'
       current_proposal: 'The currently displayed proposal'
       current_improvement_proposal: 'The currently displayed improvement proposal'
       current_pro_argument: 'The currently displayed pro argument'
       current_contra_argument: 'The currently displayed contra argument'
+      current_follow_up_question: 'The currently displayed follow-up question'
       back_to_discussion: 'Back to current question'
       back_to_proposal: 'Back to current proposal'
       back_to_improvement_proposal: 'Back to current improvement proposal'
@@ -369,6 +371,8 @@ en:
       next_pro_argument: 'Read next pro argument for the current proposal'
       prev_contra_argument: 'Read previous contra argument for the current proposal'
       next_contra_argument: 'Read next contra argument for the current proposal'
+      prev_follow_up_question: 'Read previous follow-up question'
+      next_follow_up_question: 'Read next follow-up question'
       create_discussion: 'Open a new discussion'
       create_proposal: "Post a new idea concerning the current question"
       create_improvement_proposal: "Post a new idea to improve the current proposal"

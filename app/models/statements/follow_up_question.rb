@@ -23,6 +23,11 @@ class FollowUpQuestion < StatementNode
       self.new({:parent_id => parent, :discussion => discussion})
     end
     
+    # helper function to diferenciate this model as a level 0 model
+    def is_top_statement?
+      true
+    end
+    
     def join_clause
       <<-END
         select distinct n.*

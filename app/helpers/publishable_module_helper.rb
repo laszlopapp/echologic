@@ -1,4 +1,4 @@
-module DiscussionModuleHelper
+module PublishableModuleHelper
   ##############
   # DISCUSSION #
   ##############
@@ -64,6 +64,7 @@ module DiscussionModuleHelper
                 :action => :publish,
                 :in => :summary,
                 :method => :put},
+              :id => 'publish_button', 
               :class => 'ajax_put header_button text_button publish_text_button ttLink',
               :title => I18n.t('discuss.tooltips.publish'))
     else

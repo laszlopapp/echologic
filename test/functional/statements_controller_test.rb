@@ -115,6 +115,10 @@ class StatementsControllerTest < ActionController::TestCase
     get :add, :type => :contra_argument, :id => statement_nodes('first-proposal').to_param
     assert_response :success
   end
+  test "should get to view the follow-up question teaser" do
+    get :add, :type => :follow_up_question, :id => statement_nodes('first-proposal').to_param
+    assert_response :success
+  end
   
   test "should get the new discussion form" do
     get :new, :type => :discussion
@@ -136,9 +140,13 @@ class StatementsControllerTest < ActionController::TestCase
     get :new, :id => statement_nodes('first-proposal').to_param, :type => :contra_argument
     assert_response :success
   end
+  test "should get the new follow-up question form" do
+    get :new, :id => statement_nodes('first-proposal').to_param, :type => :follow_up_question
+    assert_response :success
+  end
   
   
-#  test "should create new statement form" do
+  test "should create new statement form" do
 #    assert_difference('Discussion.count', 1) do
 #      post :create, :type => "Discussion", 
 #      :discussion => { 
@@ -146,7 +154,8 @@ class StatementsControllerTest < ActionController::TestCase
 #                                :action_id => StatementAction[:created] , :locked_at => ""}, 
 #        :editorial_state_id => StatementState[:published], 
 #        :statement_id => "", 
-#        :parent_id => nil }
+#        :parent_id => nil,
+#        :topic_tags => "" }
 #    end
 #    assert_difference('Proposal.count', 1) do
 #      post :create, :type => "Proposal", :echo => true, 
@@ -184,33 +193,42 @@ class StatementsControllerTest < ActionController::TestCase
 #        :statement_id => "", 
 #        :parent_id => statement_nodes('first-proposal').to_param }
 #    end
-#  end
+#    assert_difference('FollowUpQuestion.count', 1) do
+#      post :create, :type => "FollowUpQuestion", :echo => true, 
+#      :contra_argument => { 
+#        :statement_document => {:title => "Super Follow Up Question", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en], 
+#                                :action_id => StatementAction[:created] , :locked_at => ""}, 
+#        :editorial_state_id => StatementState[:published], 
+#        :statement_id => "", 
+#        :parent_id => statement_nodes('first-proposal').to_param }
+#    end
+  end
   
-#  test "should get the edit statement form" do
-#    get :edit, :id => statement_nodes('test-discussion').to_param, :type => :discussion
-#    assert_response :success
-#    get :edit, :id => statement_nodes('first-proposal').to_param, :type => :proposal
-#    assert_response :success
-#    get :edit, :id => statement_nodes('third-impro-proposal').to_param, :type => :improvement_proposal
-#    assert_response :success
-#  end
-#  
-#  
-#  
-#  test "should get more argument children" do
-#    get :more, :id => statement_nodes('first-proposal').to_param, :type => "argument"
-#    assert_response :success
-#  end
-#  
-#  test "should get more children" do
-#    get :children, :id => statement_nodes('test-discussion').to_param, :type => "proposal"
-#    assert_response :success
-#  end
-#  
-#  
-#  test "should get the statement node authors" do
-#    @statement_node = Discussion.first
-#    get :authors,:id => @statement_node.id
-#    assert_response :success
-#  end
+  test "should get the edit statement form" do
+    get :edit, :id => statement_nodes('test-discussion').to_param, :type => :discussion
+    assert_response :success
+    get :edit, :id => statement_nodes('first-proposal').to_param, :type => :proposal
+    assert_response :success
+    get :edit, :id => statement_nodes('third-impro-proposal').to_param, :type => :improvement_proposal
+    assert_response :success
+  end
+  
+  
+  
+  test "should get more argument children" do
+    get :more, :id => statement_nodes('first-proposal').to_param, :type => "argument"
+    assert_response :success
+  end
+  
+  test "should get more children" do
+    get :children, :id => statement_nodes('test-discussion').to_param, :type => "proposal"
+    assert_response :success
+  end
+  
+  
+  test "should get the statement node authors" do
+    @statement_node = Discussion.first
+    get :authors,:id => @statement_node.id
+    assert_response :success
+  end
 end

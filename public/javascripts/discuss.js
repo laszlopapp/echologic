@@ -57,6 +57,7 @@ function replaceOrInsert(element, template){
 	}
   else 
 	{
+		collapseStatements();
 		$('div#statements').append(template);
 	}
 };
@@ -141,14 +142,15 @@ function initPrevNextButtons() {
 }
 
 function initNavigationButton(element, inc) {
-	current_node_id = eval($(element).attr('data-id'));
+	
+	current_node_id = $(element).attr('data-id');
 	node = $(element).parents('.statement');
 	
-	if (current_node_id == null) {
-		current_node_id = node.attr("id").split('_');
-		current_node_id.shift();
-		current_node_id = "add/" + current_node_id.join('_');
-	}
+	if (current_node_id.match('add')) {
+		aux = current_node_id.split('_');
+		current_node_id = [];/* get parent id */  current_node_id.push(aux.shift()); /* get 'add' */  current_node_id.push(aux.shift());
+		current_node_id.push(aux.join('_')); current_node_id = "/"+current_node_id.join('/');
+	} else {current_node_id = eval(current_node_id);}
 	/* get current node statement type */
 	if (node.attr("id").match('add_')) {
     node_class = node.attr("id").replace('add/','');
@@ -177,14 +179,10 @@ function initNavigationButton(element, inc) {
   new_node_id = new String(siblings_ids[id_index]);
 	/* if 'add' action, then write add link */
 	if (new_node_id.match('add')) {
-		if(parent_path.length > 0) {
-			path = "/" + parent_path.split('_').pop();
-		} else {path = '';}
-		element.href = element.href.replace(/\/\d+/, path + "/" + new_node_id);
+		element.href = element.href.replace(/\/\d+(\/\w+(\/\w+)?)?/, new_node_id);
 	}
 	else {
-		
-		element.href = element.href.replace(/\/\d+/, "/" + new_node_id);
+		element.href = element.href.replace(/\/\d+(\/\w+(\/\w+)?)?/, "/" + new_node_id);
 	}
 	
   $(element).removeAttr('data-id');
@@ -482,7 +480,9 @@ function getCurrentStatementsStack(element, new_level) {
   	current_sid = id;
   } else {
 		/* add teaser case */
-		current_sid = [path.pop(),id].join('/');
+		current_sid = path.splice(path.length - 2, 2);
+		current_sid.push(id);
+		current_sid = current_sid.join('/');
 	}
   current_stack = [];
 	
@@ -514,6 +514,13 @@ function initStatementHistoryEvents() {
 		return false;
 	});
 	
+	/* Follow-Up Question special case */
+	$("#statements .statement #follow_up_questions.children a.statement_link").live("click", function(){
+    question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
+    /* set fragment */
+    $.setFragment({ "sid": question, "new_level" : true});
+    return false;
+  });
 	$("#statements .statement .children a.statement_link").live("click", function(){
     current_stack = getCurrentStatementsStack(this, true);
 		/* set fragment */
@@ -545,7 +552,6 @@ function getStatementStackPath(stack) {
   } else {
     /* add teaser case */
     if (stack.length > 0) {
-      var parent_id = stack[stack.length-1];
       var path = "/" + parent_id;
     } else {
       var path = '';
@@ -564,20 +570,17 @@ function initFragmentStatementChange() {
 			
 			last_sid = new_sid.pop();
 			
-			
 			var visible_sid = $("#statements .statement").map(function(){
 				return this.id.replace(/[^0-9]+/, '');
 			}).get();
-			
 			
 			if ($.inArray(last_sid, visible_sid) != -1) {return;}
 			
 			sid = $.grep(new_sid, function (a) {
 				return $.inArray(a, visible_sid) == -1 ;});
 			
-      
 			
-			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
+			path = $.queryString(document.location.href.replace(/\/\d+(\/\w+(\/\w+)?)?/, path), {
         "sid": sid.join(","),
         "new_level": $.fragment().new_level
       })
@@ -590,6 +593,7 @@ function initFragmentStatementChange() {
   });
   
   if ($.fragment().sid) {
+		$.setFragment({ "new_level" : true });
 		$(document).trigger("fragmentChange.sid");
   }
 }

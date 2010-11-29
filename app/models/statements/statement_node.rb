@@ -166,7 +166,7 @@ class StatementNode < ActiveRecord::Base
   
   # Collects a filtered list of all siblings statements
   def siblings_to_session(language_ids = nil, type = self.class.to_s)
-    sibling_statements(language_ids, type).map(&:id) + ["add/#{type.underscore}"]
+    sibling_statements(language_ids, type).map(&:id) + ["#{self.parent_id ? "/#{self.parent_id}" : ''}/add/#{type.underscore}"]
   end
   
   # Collects a filtered list of all siblings statements
@@ -198,6 +198,9 @@ class StatementNode < ActiveRecord::Base
       self.new(attributes)
     end
     
+    def is_top_statement?
+      false
+    end
     
     def paginate_statements(children, page, per_page)
       children.paginate(default_scope.merge(:page => page, :per_page => per_page))
@@ -210,7 +213,7 @@ class StatementNode < ActiveRecord::Base
       statements = self.search_statement_nodes(conditions)
       if for_session
         statements.map!(&:id)
-        statements << "add_#{self.name.underscore}"
+        statements << "/#{parent_id.nil? ? '' : "#{parent_id}/" }add/#{self.name.underscore}"
       end
       statements
     end

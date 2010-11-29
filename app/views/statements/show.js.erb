@@ -29,12 +29,7 @@ var class_element = $('#statements .statement').eq(<%= @statement_node.level %>)
   removeChildrenStatements(class_element);
 <% end %>
 
-<% if !params[:new_level].blank? %>
-	/* Close the content of the remaining ones */
-  collapseStatements();
-<% end %>
 <% if !params[:expand].blank? %>
-  //class_element = $('#statements div.<%= dom_class(@statement_node) %>');
   var content = "<%= escape_javascript(render :partial => 'statements/content', :locals => {:hide_content => true}) %>";
 	class_element.append(content);
   $('#statements div.<%= dom_class(@statement_node) %> .content').animate(toggleParams, 500);

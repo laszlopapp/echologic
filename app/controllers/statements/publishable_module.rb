@@ -1,4 +1,4 @@
-module DiscussionModule
+module PublishableModule
   
   
   ###########
@@ -64,7 +64,7 @@ module DiscussionModule
               set_info("discuss.statements.published")
               show_info_messages do |page|
                 if params[:in] == 'summary'
-                  page.redirect_to(statement_node_url(@statement_node))
+                  page.remove 'edit_button', 'publish_button'
                 else
                   @statement_documents =
                     search_statement_documents([@statement_node.statement_id])

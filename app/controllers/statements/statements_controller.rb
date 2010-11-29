@@ -18,7 +18,7 @@ class StatementsController < ApplicationController
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
 
   
-  include DiscussionModule
+  include PublishableModule
   before_filter :is_publishable?, :only => [:publish]
   include EchoableModule
   before_filter :is_echoable?, :only => [:echo, :unecho]
@@ -29,7 +29,7 @@ class StatementsController < ApplicationController
   # Authlogic access control block
   access_control do
     allow :editor
-    allow anonymous, :to => [:index, :show, :category, :more, :children, :add]
+    allow anonymous, :to => [:index, :show, :category, :more, :children, :authors, :add]
     allow logged_in
   end
 
@@ -139,7 +139,6 @@ class StatementsController < ApplicationController
         @statement_node.topic_tags=form_tags
         @tags=@statement_node.topic_tags
       end
-
       if permitted and @statement_node.save and @statement_node.statement.save
         if @statement_node.echoable?
           echo = params.delete(:echo).parameterize 
@@ -731,7 +730,7 @@ class StatementsController < ApplicationController
     else
       siblings = statement_node ? [statement_node.id] : []
     end
-    siblings + ["add/discussion"]
+    siblings + ["/add/discussion"]
   end
 
   #
@@ -783,7 +782,7 @@ class StatementsController < ApplicationController
         render :template => template
       }
       format.js {
-        set_ancestors(teaser) if !params[:sid].blank? 
+        set_ancestors(teaser) if !params[:sid].blank? or teaser or @statement_node.class.is_top_statement?
         render :template => template
       }
     end

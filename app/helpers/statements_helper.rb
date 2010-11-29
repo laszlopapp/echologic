@@ -1,5 +1,5 @@
 module StatementsHelper
-  include DiscussionModuleHelper
+  include PublishableModuleHelper
   include EchoableModuleHelper
   include IncorporationModuleHelper
   include TranslationModuleHelper
@@ -82,7 +82,7 @@ module StatementsHelper
        (current_user.may_edit? or
        (statement_node.authors.include?(current_user) and !statement_node.published?))
       link_to(I18n.t('application.general.edit'), edit_statement_node_url(statement_node, :current_document_id => statement_document.id),
-              :class => 'ajax header_button text_button edit_text_button')
+              :id => 'edit_button', :class => 'ajax header_button text_button edit_text_button')
     else
       ''
     end
@@ -93,7 +93,7 @@ module StatementsHelper
   #
   def authors_statement_node_link(statement_node,type = dom_class(statement_node))
     link_to(I18n.t('application.general.authors'), authors_statement_node_url(statement_node),
-              :class => 'ajax_expandable header_button text_button authors_button', 'data-content' => "#authors")
+              :id => 'authors_button', :class => 'ajax_expandable header_button text_button authors_button', 'data-content' => "#authors")
   end
   
   #
@@ -177,12 +177,10 @@ module StatementsHelper
   # Insert prev/next buttons for the current statement_node.
   def prev_next_buttons(statement_node, extra_classes = '', type = dom_class(statement_node))
     buttons = ''
-    if statement_node.nil?
-      %w(prev next).each{|b| buttons << statement_button(nil, statement_tag(b.to_sym, type), :rel => b, :class => " statement_link #{extra_classes} #{b}")}
-    elsif statement_node.new_record?
+    if statement_node and statement_node.new_record?
       %w(prev next).each{|b| buttons << statement_tag(b.to_sym, type, true)}
     else
-      %w(prev next).each{|b| buttons << statement_button(statement_node, statement_tag(b.to_sym, type), :rel => b, :class => " statement_link #{extra_classes} #{b}")}
+      %w(prev next).each{|b| buttons << statement_button(statement_node, statement_tag(b.to_sym, type), type, :rel => b, :class => " statement_link #{extra_classes} #{b}")}
     end
     buttons
   end
@@ -200,9 +198,10 @@ module StatementsHelper
   end
 
   # Insert a button that links to the previous statement_node
-  def statement_button(current_node, title, options={})
+  def statement_button(current_node, title, type, options={})
     options[:class] ||= ''
-    options['data-id'] = current_node.nil? ? '' : current_node.id
+    teaser = options[:class].include? 'add'
+    options['data-id'] = teaser ? "#{current_node.nil? ? '' : "#{current_node.id}_"}add_#{type}" : current_node.id
     url = current_node.nil? ? '' : statement_node_url(current_node)
     return link_to(title, url, options)
   end

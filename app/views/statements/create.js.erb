@@ -22,9 +22,6 @@ var class_element = $('#statements .statement:eq(<%= @statement_node.level %>)')
 /* Remove all elements from the same class or children class */
 removeChildrenStatements(class_element);
 
-/* Close the content of the remaining ones */
-collapseStatements();
-
 var statement = "<%= escape_javascript(render :partial => 'statements/show') %>";
 replaceOrInsert(class_element, statement);
 	

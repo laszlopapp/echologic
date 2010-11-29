@@ -1,6 +1,3 @@
-/* Close the content of the remaining ones */
-collapseStatements();
-
 var new_form = "<%= escape_javascript(render :partial => 'statements/translate') %>";
 replaceOrInsert($('#statements div.<%= dom_class(@statement_node) %>'), new_form);
 
