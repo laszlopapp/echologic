@@ -21,9 +21,10 @@
   <% end %>
 <% end %>
 
-var class_element = $('#statements .statement:eq(<%= @statement_node.nil? or @type.classify.constantize.is_top_statement? ? 0 : @statement_node.level + 1 %>)');
+var class_element = $('#statements .statement:eq(<%= (@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 0 : @statement_node.level + 1 %>)');
 
 var add_teaser = "<%= escape_javascript(render :partial => 'statements/add') %>";
+
 replaceOrInsert(class_element, add_teaser);
 
 /* Remove all elements from the same class or children class */
