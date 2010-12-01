@@ -4,16 +4,29 @@
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <%= stylesheet_link_tag 'mails' %>
     <%= content_tag :title, I18n.t('mailers.newsletter.title') %>
+
+    <style type="text/css">
+      .logo_image {
+        background: url(http://<%= ECHO_HOST %>/images/page/echo_logo.png) no-repeat scroll left top;
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+      }
+    </style>
   </head>
 
   <body>
+    <div class="logo_image"> lalala </div>
     <div id="mail_container">
 
       <!-- Header -->
       <div id="mail_header">
         <div id="mail_logo">
-          <%= link_to(image_tag('page/echo_logo.png'), root_url) %>
-          <%= image_tag('page/beta_label.png', :class => 'label') %>
+
+          <% link_to root_url do %>
+            <img src="http://<%= ECHO_HOST %>/images/page/echo_logo.png"/>
+          <% end %>
+          <%= image_tag('http://' + ECHO_HOST + '/images/page/beta_label.png', :class => 'label') %>
         </div>
         <%= content_tag :h1, I18n.t('mailers.newsletter.title') %>
       </div>

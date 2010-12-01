@@ -43,51 +43,58 @@ en:
 
         text_1: |
           <p>
-          echo is a <strong>joint project</strong> for ecological and socially sustainable change through
-          <strong>proactive citizen participation</strong>. It addresses and unites all
-          members of society: citizens, experts, decision makers and representatives of organizations and businesses.
+          echo is a joint <a href="{{github_url}}" target="_blank">Open Source</a> project for
+          <strong>active citizen participation</strong> -
+          <span title="{{subsidiarity_tooltip}}" class="ttLink">worldwide</span> and for all people.
+          echo addresses and unites all players of society for a sustainable change.
           </p><p>
-          <strong>echo</strong> provides the technological basis for an open, <strong>participatory democracy</strong> on the local,
-          regional and <span title="{{subsidiarity_tooltip}}" class="ttLink">global level</span>. Your voice finds here an echo.
-          Ideas turn into movements, visions into reality. echo means the <strong>end of powerlessness</strong> and the
-          <strong>beginning of self-determination</strong>.
+          "Discuss - Connect - Act!“ - The Social Software facilitates <strong>constructive mass dialog</strong> crossing
+          the borders of languages and communties. It connects people sharing the same purpose worldwide and supports
+          them in creating <strong>joint actions</strong>. Wherever you are in the virtual or real world, echo gives
+          you the proof: You are no longer alone with your opinion and convictions - the echo of your voice can
+          <strong>change the world</strong>.
           </p>
         gender_tooltip: ''
         subsidiarity_tooltip: According to the principles of subsidiarity
         text_2:
-          title: Collective solution finding and political influence
+          title: Collective solution finding
           more: |
             <p>
-            According to its motto <strong>“Discuss – Connect – Act!”</strong>, echo empowers people to jointly
-            shape their local community – and the future of our shared world. echo´s discussion area gives
-            a <strong>clear overview on different opinions</strong> and facilitates <strong>constructive
-            mass dialog</strong> to co-create sound statements together with others.
-            In the area Act!, civic engagement is transformed into true <strong>political influence</strong> by
-            the use of existing direct democractic instruments (e.g. ePetitions, referenda, demonstration, etc.)
+            Newspaper articles, blogs, videos and any kind of Internet content become the gateways into well
+            structured echo discussions, which can be embedded in any website. Wherever on the web they are,
+            people can elaborate their ideas and solutions by writing the same drafts together - in a democratic process
+            without moderators or admins.
+            In this way, echo <strong>connects knowledge and opinions scattered all over the web and
+            their different communities</strong>.
+            </p><p>
+            echo discussions give a fast and clear <strong>overview on alternative proposals</strong>, pro/contra arguments and
+            multimedia background information. They make interrelations of topics easily comprehensible and
+            provide a <strong>clearly structured "opinion base"</strong>. E.g. which parts of society and how many
+            people are really against Genfood. What are the arguments of biotechnologists and ecologists? What is the
+            position of political parties, NGOs and other organisations?
             </p>
         text_3:
-          title: Openness and “Your-profit” philosophy
+          title: Participatory democracy
           more: |
             <p>
-            echo is <strong><a href="{{github_url}}" target="_blank">open source</a></strong> and will be the
-            basis of a heterogenious, <strong>decentral infrastructure</strong>. Its distributed approach overcomes
-            the limitations of isolated platforms and initiatives – it bundles and multiplies their
-            <strong>power of influence</strong>.
+            In order to achieve noticeable results in everyday life, echo actively motivates like-minded participants of
+            discussions to create <strong>joint projects</strong> and utilize direct democractic instruments (e.g. European Citizens'
+            Initiative, ePetition, referenda, carrot mob). echo helps to <strong>finance these projects</strong> with
+            cost-neutral fundraising and a user-driven, democratic redistribution of all its surpluses
+            (<strong>“Your-Profit” business philosophy</strong>).
             </p><p>
-            echo is <strong>social business</strong> and committed to basic ethical values of a socially and ecologically sustainable
-            economy. According to its <strong>“Your-profit” philosophy</strong>, all surpluses will flow back into actions and
-            projects of the echo community. In this way, your virtual engagement can influence our real
-            world in a positive way and help people achieve <strong>political and economical self-determination</strong>.
+            Through the promotion of <strong>constructive collaboration between citizens, states and their
+            organizations</strong> at every level, echo helps to avoid destructive confrontation and enables us to
+            <strong>jointly develop innovative responses</strong> to the challenges of our time.
             </p>
         text_4:
-          title: Your voice
+          title: Your echo
           more: |
             <p>
             Your voice needs an echo. echo needs your voice. Be part of creating a future democracy where <strong>every
             voice counts</strong> the same – all over the world.
             </p><p>
-            More and more people join our common mission to <strong>turn echo's vision
-            into reality</strong>. Although echo is still in its embryonic stage, you can already:
+            echo is still wearing its prototype shirt, but you can already:
             </p>
 
         action: |

@@ -43,54 +43,61 @@ pt:
 
         text_1: |
           <p>
-          A echo é um <strong>projeto conjunto</strong> que promove uma mudança ecologicamente e socialmente
-          sustentável através da  <strong>participação pró-ativa dos cidadãos</strong>. A echo
-          visa e une todos os membros da sociedade: cidadãos, especialistas, responsáveis pela tomada de decisões e
-          representantes de organizações e firmas.
+          A echo é um projeto comunitário <a href="{{github_url}}" target="_blank">Open Source</a> desenvolvido para a
+          <strong>participação ativa dos cidadãos</strong> - por
+          <span title="{{subsidiarity_tooltip}}" class="ttLink">todo o mundo</span> e para todos os cidadãos.
+          A echo congrega todos os agentes sociais de modo a que estes construam juntos uma mudança sustentável.
           </p><p>
-          <strong>echo</strong> providencia uma base tecnológica para uma <strong>democracia participatória</strong>, aberta, no nível local,
-          regional e <span title="{{subsidiarity_tooltip}}" class="ttLink">global</span>. A usa voz encontra aqui um echo.
-          Ideias tornam-se movimentos, visões tornam-se realidade. echo significa o <strong>fim da impotência</strong> e o
-          <strong>princípio da auto-determinação</strong>.
+          "Discutir - Conectar - Agir!" - A aplicação permite <strong>construtivamente dialogar em massa em
+          todas as línguas</strong>, conectando cidadãos por todo o mundo com os mesmos objetivos e auxiliando-os na
+          <strong>ação conjunta</strong>. Onde quer que estejamos no mundo real ou virtual, a echo mostra-nos:
+          nós (e a nossa opinião) não estamos sozinhos - o ec(h)o das nossas vozes pode <strong>mudar o mundo</strong>.
           </p>
         subsidiarity_tooltip: De acordo com os princípios da subsidiaridade
         text_2:
-          title: Descoberta de soluções e influência política coletiva
+          title: Determinação de soluções participativa
           more: |
             <p>
-            De acordo com o moto <strong>“Discutir – Conectar – Agir!”</strong>, pessoas à volta do mundo podem conjuntamente
-            influenciar o seu próprio espaço vivencial – e o futuro do nosso mundo comum. A área de discussão da echo permite a
-            clara <strong>formação de opiniões e vontades</strong>, que permanece clara e compreensível mesmo com com um número
-            ilimitado de participantes. Na área Agir!, o envolvimento civil é transformado em
-            <strong>influência política</strong> ligando os meios democráticos diretos existentes
-            (e.g. ePetições, referendos, demonstrações, etc.)
+            Artigos de jornal, Blogues, Videos e todos os restantes tipos de conteúdos na Internet tornam-se pontos
+            de partida na estruturação de discussões na echo, que por sua vez poderão também ser embebidas em qualquer
+            site web. Aí poderão as pessoas elaborar as suas ideias e soluções coletivamente de forma textual, seguindo
+            um processo democrático - sem moderação ou administração. É esse conhecimento e opiniões que será por sua
+            vez reproduzido e <strong>resumido por todos os sites web e grupos de discussão</strong>.
+            </p><p>
+            As discussões na echo permitem <strong>visualizar imediata e transparentemente propostas alternativas</strong>,
+            pro- e contra-argumentos e informação multimédia, aleviando deste modo a sua contextualização,
+            e oferecem a todo o momento uma <strong>visualização de opiniões diferenciada</strong> - p. ex., Que categorias sociais e
+            quantas pessoas concordam com a nova política relativa às minorias ou com o novo orçamento de estado?
+            Que argumentos trazem os sociólogos ou os economistas para a "mesa"? O que têm as minorias ou o povo
+            em geral a dizer? Para que lado pendem os partidos, as ONG's ou outras organizações?
             </p>
         text_3:
-          title: Abertura e Filosofia “Your-Profit”
+          title: Viver a democracia participando
           more: |
             <p>
-            echo é <strong><a href="{{github_url}}" target="_blank">open source</a></strong> e será a base de uma
-            <strong>infra-estrutura descentral</strong>, heterogénea. O seu método distribuído suplanta as
-            limitações das plataformas e iniciativas isoladas – agrupa e multiplica o seu <strong>potencial de influência</strong>.
+            Para uma mudança perceptível no dia-a-dia, a echo motiva todas as pessoas que partilham a mesma
+            opinião a <strong>agir conjuntamente</strong> e ativamente e promove explicitamente o emprego de instrumentos de
+            democracia direta (p. ex. Iniciativa dos Cidadãos Europeus, ePetition, Referendos, CarrotMob).
+            A echo auxilia o <strong>financiamento das ações</strong> através do angariamento de fundos sem custos envolvidos e
+            da distribuição democrática e definida pelos participantes dos seus recursos
+            (<strong>filosofia de negócio "Your-Profit"</strong> (o seu lucro)).
             </p><p>
-            echo é uma <strong>empresa social</strong> e comprometida com os valores básicos éticos de uma economia socialmente e
-            económicamente sustentável. Seguindo a sua <strong>filosofia “Your-Profit”</strong> (O-Seu-Lucro), todos os seus excedentes irão
-            ser aplicados em ações e projetos da comunidade echo. À sua maneira, o comprometimento virtual pode influenciar o nosso
-            mundo real de uma maneira positiva e ajudar pessoas a realizar a sua <strong>auto-determinação política e económica</strong>.
+            Através da promoção da <strong>cooperação construtiva entre cidadãos, estado e as suas organizações</strong>
+            a todos os níveis, a echo ajuda a evitar a confrontação destrutiva e permite-nos a todos, no que diz respeito aos
+            desafios do nosso tempo, <strong>desenvolver conjuntamente respostas inovadoras</strong>.
             </p>
         text_4:
-          title: A sua voz
+          title: O seu ec(h)o
           more: |
             <p>
-            A sua voz precisa de um ec(h)o. A echo precisa da sua voz. Ajude-nos a criar uma democracia futura onde <strong>todas
-            as vozes contam</strong> o mesmo – em todo o mundo.
+            A sua voz precisa de um ec(h)o. A echo precisa da sua voz. Ajude-nos a criar uma democracia futura onde
+            <strong>todas as vozes contam</strong> o mesmo – em todo o mundo.
             </p><p>
-            Cada vez mais pessoas aderem à nossa missão de <strong>tornar a visão da echo
-            realidade</strong>. Apesar de a echo ainda se encontrar no estado embrionário, já lhe permite:
+            A echo encontra-se de momento ainda a dar os seus primeiros passos. No entanto, já é possível:
             </p>
 
         action: |
-          Para o protótipo echo »
+          Ir para o protótipo echo »
 
       #About
       about:
