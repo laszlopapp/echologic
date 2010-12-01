@@ -1,24 +1,22 @@
 class StatementsController < ApplicationController
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
-                                    :more, :children, :upload_image, :reload_image, :authors, :add, :breadcrumb]
+                                    :more, :children, :upload_image, :reload_image, :authors, :add]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
-  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :redirect, :add, :breadcrumb]
+  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :redirect, :add]
 
-  before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create, :breadcrumb]
+  before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
   before_filter :fetch_statement_node_type, :only => [:new, :create]
   before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions,
                                                                    :new, :create, :more, :children, :upload_image,
-                                                                   :reload_image, :redirect, :authors, :add, :breadcrumb]
+                                                                   :reload_image, :redirect, :authors, :add]
   before_filter :fetch_languages, :except => [:destroy, :redirect]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
-  before_filter :fetch_breadcrumb, :only => [:show, :breadcrumb]
-
-  
+    
   include PublishableModule
   before_filter :is_publishable?, :only => [:publish]
   include EchoableModule
@@ -30,7 +28,7 @@ class StatementsController < ApplicationController
   # Authlogic access control block
   access_control do
     allow :editor
-    allow anonymous, :to => [:index, :show, :category, :more, :children, :authors, :add, :breadcrumb]
+    allow anonymous, :to => [:index, :show, :category, :more, :children, :authors, :add]
     allow logged_in
   end
 
@@ -418,18 +416,6 @@ class StatementsController < ApplicationController
     redirect_to statement_node_url(@statement_node)
   end
 
-  ##############
-  # BREADCRUMB #
-  ##############
-
-  def breadcrumb
-    statement_nodes = StatementNode.find(@breadcrumbs)
-    statement_documents = search_statement_documents(statement_nodes.map(&:statement_id), @language_preference_list)
-    respond_to do |format|
-      format.json { render :json => statement_nodes.map{|n|[statement_node_url(n), statement_documents[n.statement_id].title]} }
-    end
-  end
-
   #############
   # PROTECTED #
   #############
@@ -525,13 +511,6 @@ class StatementsController < ApplicationController
   end
   
   #
-  # Gets the correspondent statement node type to be used in the forms
-  #
-  def fetch_breadcrumb
-    @breadcrumbs = params[:breadcrumb] ? params[:breadcrumb].split(",") : []
-  end
-
-  #
   # Redirect to parent if incorporable is approved or already incorporated.
   #
   def redirect_if_approved_or_incorporated
@@ -625,9 +604,19 @@ class StatementsController < ApplicationController
   end
   
   #
-  # Sets the breadcrumbs for the current statement node view previous path
+  # Sets the new breadcrumb of the current statement node
   #
   def set_breadcrumbs
+    breadcrumbs = params[:breadcrumb].split(",")
+    statement_nodes = StatementNode.find(breadcrumbs)
+    statement_documents = search_statement_documents(statement_nodes.map(&:statement_id), @language_preference_list)
+    @breadcrumbs = statement_nodes.map{|n|["#{n.class.name.underscore}_#{n.id}", statement_node_url(n), statement_documents[n.statement_id].title]}
+  end
+  
+  #
+  # Sets the breadcrumbs for the current statement node view previous path
+  #
+  def initialize_breadcrumbs
     add_breadcrumb I18n.t("discuss.statements.breadcrumbs.#{params[:path]}"), "#{params[:path]}_path" if params[:path]
     add_breadcrumb I18n.t("discuss.statements.breadcrumbs.#{params[:path]}_with_value", :value => params[:value]), discuss_search_with_value_path(params[:value]) if params[:value]
   end
@@ -797,12 +786,13 @@ class StatementsController < ApplicationController
     respond_to do |format|
       yield format if block_given?
       format.html {
-        set_breadcrumbs
+        initialize_breadcrumbs
         set_ancestors(teaser) 
         render :template => template
       }
       format.js {
         set_ancestors(teaser) if !params[:sid].blank? or teaser or @statement_node.class.is_top_statement?
+        set_breadcrumbs if !params[:breadcrumb].blank?
         render :template => template
       }
     end
