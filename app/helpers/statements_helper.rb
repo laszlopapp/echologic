@@ -238,12 +238,11 @@ module StatementsHelper
   # renders the breadcrumb given
   def render_breadcrumb(breadcrumbs)
     content_tag :div, :id => 'breadcrumbs', :class => 'breadcrumbs' do 
-      elements = ''
+      elements = []
       @breadcrumbs.each do |txt, path|
-        elements << " > " if !elements.blank?
         elements << link_to(h(txt), path)
       end
-      elements
+      elements.join('_')
     end
   end
   

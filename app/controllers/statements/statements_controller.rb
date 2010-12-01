@@ -1,21 +1,22 @@
 class StatementsController < ApplicationController
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
-                                    :more, :children, :upload_image, :reload_image, :authors, :add]
+                                    :more, :children, :upload_image, :reload_image, :authors, :add, :breadcrumb]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
-  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :redirect, :add]
+  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :redirect, :add, :breadcrumb]
 
-  before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
+  before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create, :breadcrumb]
   before_filter :fetch_statement_node_type, :only => [:new, :create]
   before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions,
                                                                    :new, :create, :more, :children, :upload_image,
-                                                                   :reload_image, :redirect, :authors, :add]
+                                                                   :reload_image, :redirect, :authors, :add, :breadcrumb]
   before_filter :fetch_languages, :except => [:destroy, :redirect]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
+  before_filter :fetch_breadcrumb, :only => [:show, :breadcrumb]
 
   
   include PublishableModule
@@ -29,7 +30,7 @@ class StatementsController < ApplicationController
   # Authlogic access control block
   access_control do
     allow :editor
-    allow anonymous, :to => [:index, :show, :category, :more, :children, :authors, :add]
+    allow anonymous, :to => [:index, :show, :category, :more, :children, :authors, :add, :breadcrumb]
     allow logged_in
   end
 
@@ -417,6 +418,18 @@ class StatementsController < ApplicationController
     redirect_to statement_node_url(@statement_node)
   end
 
+  ##############
+  # BREADCRUMB #
+  ##############
+
+  def breadcrumb
+    statement_nodes = StatementNode.find(@breadcrumbs)
+    statement_documents = search_statement_documents(statement_nodes.map(&:statement_id), @language_preference_list)
+    respond_to do |format|
+      format.json { render :json => statement_nodes.map{|n|[statement_node_url(n), statement_documents[n.statement_id].title]} }
+    end
+  end
+
   #############
   # PROTECTED #
   #############
@@ -509,6 +522,13 @@ class StatementsController < ApplicationController
   #
   def fetch_statement_node_type
     @statement_node_type = params[:type] ? params[:type].to_s.classify.constantize : nil
+  end
+  
+  #
+  # Gets the correspondent statement node type to be used in the forms
+  #
+  def fetch_breadcrumb
+    @breadcrumbs = params[:breadcrumb] ? params[:breadcrumb].split(",") : []
   end
 
   #

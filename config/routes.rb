@@ -128,6 +128,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect        'statement/:id/add/:type/:path',         :controller => :statements, :action => :add
   map.connect        'statement/:id/add/:type/:path/:value',  :controller => :statements, :action => :add
   
+  
+  map.connect        'statement/breadcrumb/:breadcrumb',      :controller => :statements, :action => :breadcrumb
+  
   map.resources :statement_nodes, :controller => :statements, 
                 :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, 
                             :reload_image, :children, :more, :authors, :publish, :incorporate],
