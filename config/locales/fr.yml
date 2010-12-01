@@ -498,7 +498,7 @@ fr:
       image_uploaded: "L'image a été ajoutée à/ {{type}}"
       empty: "Aucune discussion n'a pu être trouvée. Veuillez choisir un autre mot-clef."
       empty_without_spoken_languages: |
-        Impossible de trouver une discussion. Utilisez vos <a href='{{my_echo}}'>connaissances linguistiques</a>
+        Pas de r'esultat. Cliquez sur <a href='{{my_echo}}'>connaissances linguistiques</a>
         pour accéder aux contenus thématiques dans les autres langues.
       new_percentage: "Votre profil est maintenant complet à {{percentage}}%."
 
