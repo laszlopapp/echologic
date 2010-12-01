@@ -1,6 +1,7 @@
 <% insert_breadcrumb(echologic_path, echologic_path) %>
 
 <%= I18n.t('static.echologic.show.text_1',
+    :github_url => GITHUB_URL,
     :gender_tooltip => I18n.t('static.echologic.show.gender_tooltip'),
     :subsidiarity_tooltip => I18n.t('static.echologic.show.subsidiarity_tooltip')) %>
 
@@ -11,7 +12,7 @@
 	</li>
 	<li>
 		<strong><%= I18n.t('static.echologic.show.text_3.title') %></strong>
-		<% insert_toggle_more(I18n.t('static.echologic.show.text_3.more', :github_url => GITHUB_URL)) %>
+		<% insert_toggle_more(I18n.t('static.echologic.show.text_3.more')) %>
 	</li>
 	<li>
 		<strong><%= I18n.t('static.echologic.show.text_4.title') %></strong>
