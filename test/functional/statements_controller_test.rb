@@ -231,4 +231,11 @@ class StatementsControllerTest < ActionController::TestCase
     get :authors,:id => @statement_node.id
     assert_response :success
   end
+  
+  
+  test "should get me the right breadcrumb" do
+    statement_nodes = StatementNode.all(:limit => 3)
+    get :breadcrumb, :breadcrumb => statement_nodes.map(&:id).join(",")
+    assert_response :success
+  end
 end
