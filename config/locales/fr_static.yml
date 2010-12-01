@@ -45,57 +45,61 @@ fr:
 
         text_1: |
           <p>
-          echo est un <strong>projet collectif et collaboratif</strong> pour un changement soutenable de la vie
-          économique et écologique grâce à <strong>la participation de citoyens actifs</strong>. echo s'adresse à
-          <span title="{{gender_tooltip}}" class="ttLink">tous les membres de la société</span>:
-          Citoyens, décideurs et représentants d'organisations et d'entreprises.
+          echo est un projet collaboratif <a href="{{github_url}}" target="_blank">open source</a> en faveur d'une
+          <strong>participation citoyenne active</strong> s'adressant à tous les hommes et femmes de bonne volonté.
+          echo réunit les acteurs sociaux pour réaliser ensemble les <strong>changements soutenables</strong>
+          et acceptables pour tous.
           </p><p>
-          <strong>echo</strong> crée les fondements matériels d'une <strong>participation active à la démocratie</strong>
-          au niveau local, regional et <span title="{{subsidiarity_tooltip}}" class="ttLink">global</span>. Ici, votre
-          voix trouve son écho. Les idées deviennent mouvement, les visions deviennent réalité. echo signifie
-          <strong>la fin de l'impuissance politique</strong> et le
-          <strong>commencement de la libre détermination de chacun</strong>.
+          "Discuter– Connecter – Agir!" - Les applications de notre logiciel permettent la
+          <strong>communication constructive, à grande échelle, dépassant les frontières linguistiques</strong> en
+          connectant les hommes et les femmes, partageant les mêmes idées et les mêmes buts, en les soutenant dans leur
+          <strong>action commune</strong>. Où que nous nous trouvions dans le monde virtuel ou réel, echo nous fait
+          prendre conscience: Nous ne sommes pas seuls avec notre opinion. L'echo de nos voix communes peut
+          <strong>changer le monde</strong>.
           </p>
         gender_tooltip: |
          Evidemment, pour tous les hommes et les femmes, et au delà des désinences du masculin/féminin
          du grammaticalement correct  :-)
         subsidiarity_tooltip: "Mot-clef: Subsidiarité"
         text_2:
-          title: La recherche collective des solutions et leur réalisation au sein des instances politiques
+          title: La recherche commune de solutions
           more: |
             <p>
-            Selon la devise <strong>"Discuter - Connecter - Agir!”</strong> ici, tous peuvent donner forme,
-            ensemble, à leur quotidien, à leur espace vital immédiat, et ainsi, au devenir du monde.
-            echo permet la création d'une <strong>opinion et détermination fortes et fondées</strong> quel que soit
-            le nombre croissant des participants, echo reste visible et lisible. Dans l'espace „Agir“ l'engagement
-            social existant devient <strong>avec l'outil d'une démocratie directe</strong> (par ex.la. e-pétition,
-            le référendum, des manifestations) et encourage une <strong>participation réelle aux décisions politiques</strong>.
-
+            Des articles de journaux, des blogs et des videos publiés sur Internet fournissent l'accès aux
+            discussions structurées d'echo. Celles-ci peuvent être insérées dans tous les sites web et partout,
+            il sera possible d' élaborer ensemble les textes, sans modération ou administrateur. Ainsi <strong>les
+            connaissances et les opinions</strong> propagées à travers le web et les communités <strong>sont agrégées
+            d'une manière intelligible</strong>, à l'intérieur et en dehors des groupes de discussion et des plate-formes.
+            </p><p>
+            Les discussions sur echo donnent un <strong>aperçu rapide, clair et transparent des propositions
+            alternatives</strong>, des arguments pour et contre, et des contextes d'informations contextuelles. Ainsi il
+            sera facile d'établir les rapports entre les différentes opinions et d'avoir une <strong>vision différenciée
+            de l'opinion en progrès</strong>, à tout moment. Vous voulez un exemple? Quel est l'avis des habitants sur
+            la nécessité de contruire un tunnel? Qu'en pensent les écologistes, les ingénieurs des BTP, que pensent les
+            professionnels du tourisme ou les géologues?
             </p>
         text_3:
-          title: 'Transparence et le concept: "Your-Profit"'
+          title: Vivre la démocratie en participant
           more: |
             <p>
-            echo est <strong><a href="{{github_url}}" target="_blank">Open Source</a></strong> et servira aussi de cadre à
-            une <strong>infrastructure décentralisée</strong>. Son concept initial dépasse les limites d'un
-            site web et va au-delà du champ visuel et opératoire des ilots d'initiatives ou des plates-formes locales.
-            echo crée à partir de ce potentiel un faisceau d'influence et <strong>amplifie leur résonance respective</strong>.
-            Voilà "l'effet echo".
+            Au nom d'un changement sensible et soutenable de notre quotidien, echo donne aux hommes et femmes de
+            bonne volonté, partageant les mêmes idées, de concevoir des <strong>actions communes</strong> en s'appuyant sur des
+            outils de la vie démocratique comme la participation citoyenne européenne, la e-petition, référendum etc.
+            Pour <strong>financer ces actions</strong>, echo recourt à la collecte de fonds sans frais de
+            fonctionnement et redistribue démocratiquement les surplus selon la <strong>conception "Your-Profit"</strong>
+            de l'entrepreneuriat social.
             </p><p>
-            echo place son activité dans la ligne du <strong>Social Business</strong> et la soustend des valeurs
-            éthiques de la démocratie soutenable. Les excédents seront versés, conformément à ce concept,
-            <strong>aux actions et aux entreprises à caractère social</strong>. Ainsi l'engagement virtuel permet de
-            récolter des fruits réels permettant à un nombre croissant d'hommes et de femmes d'atteindre une
-            <strong>libre-détermination économique</strong>.
+            En promouvant la <strong>collaboration constructive entre les citoyens, l'Etat et de leurs organisations à
+            tous les niveaux</strong>, echo contribue à éluder le choc des confrontation et nous permet
+            <strong>d'élaborer ensemble des réponses innovatives</strong> aux défis de notre temps.
             </p>
         text_4:
-          title: Votre voix
+          title: Votre echo
           more: |-
             <p>
-            Votre voix a besoin d'un écho et et votre voix fait vibrer echo. Contribuez à mener la démocratie vers
+            Votre voix a besoin d'un echo. echo a besoin de votre voix. Contribuez à mener la démocratie vers
             un futur où comptera encore <strong>la voix de tout un chacun</strong>. Au quotidien et partout.
             </p><p>
-            De plus en plus de personnes veulent se rejoindre pour réaliser en commun, <strong>la vision d'echo</strong>.
             echo est encore au début de son parcours, mais vous pouvez d'ores et déjà participer à son développement.
             </p>
 

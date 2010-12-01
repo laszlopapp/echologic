@@ -43,51 +43,61 @@ es:
         header2: |-
             el fin de la impotencia política!&nbsp;&nbsp;<br/>el comienzo de la autodeterminación!
         text_1: |
-          <p>echo es un <strong>proyecto común</strong>. Su objetivo es alcanzar un cambio ecológico y socialmente
-          sostenible a través de la <strong>participación activa de los ciudadanos</strong>.
-          Está dirigido a todos los miembros de la sociedad:
-          Ciudadanos, expertos, personas influyentes de la política y representantes de organizaciones y empresas.
+          <p>
+          echo es un proyecto común de <a href="{{github_url}}" target="_blank">código abierto</a> para la
+          <strong>participación ciudadana activa</strong> - por
+          <span title="{{subsidiarity_tooltip}}" class="ttLink">todo el mundo</span>
+          y para todos. echo reúne a todos los actores de la sociedad, para elaborar de forma colectiva un
+          <strong>cambio sostenible</strong>.
           </p><p>
-          <strong>echo</strong> alimenta la base de una <strong>democracia participativa</strong> a nivel local,
-          regional y <span title="{{subsidiarity_tooltip}}" class="ttLink">global</span>. Aquí tu voz tendrá eco. Las ideas se transformarán en
-          movimiento, las visiones, en realidad.
-          echo significa el <strong>fin de la impotencia</strong> y <strong>el inicio de la auto-determinación</strong>!
+          "Debatir- Conectar- Actuar!" - El software social permite un <strong>diálogo en masa
+          constructivo y multilingüe</strong>. Conecta a nivel mundial a personas con los mismos intereses y apoya
+          <strong>acciones comunes</strong>.
+          Tanto en mundos reales como virtuales, echo nos lo deja claro: no estamos solos con nuestras ideas -
+          el ec(h)o de nuestras voces puede <strong>cambiar el mundo</strong>.
           </p>
 
         subsidiarity_tooltip: "echo sigue el principio de subsidiariedad, dando prioridad a la instancia local."
         text_2:
-          title: Elaboración colectiva de soluciones e influencia política
+          title: Búsqueda común de ideas
           more: |
             <p>
-            Siguiendo el lema <strong>“Discutir - Conectar - Actuar!”</strong> La gente de todo el mundo puede plasmar su espacio
-            vital y el futuro de nuestro planeta.
-            El área de debate de echo posibilita la formación de <strong>opiniones fundadas</strong>, dentro de una estructura clara
-            donde intervienen un gran número de participantes.
-            En el área actuar! el compromiso social se transformará directamente en verdadera participación política a través de
-            un proceso democrático.
+            Artículos de periódico, blogs, videos y todo tipo de contenido de internet serán tema de debate en echo
+            de una forma estructurada, pudiéndose introducir en las páginas web de diferentes campañas. En todo el
+            mundo podrán las personas tomar parte de un proceso democrático - sin moderadores ni administradores -
+            con sus ideas y soluciones colectivas y proponerlas sobre un texto. De esta forma, se <strong>engloba el
+            conocimiento y las opiniones de todas las páginas web y comunidades</strong>.
+            </p><p>
+            Los debates de echo ofrecen una <strong>visión rápida y transparente sobre propuestas alternativas</strong>.
+            Argumentos a favor, en contra e información multimedia se visualiza a través de enlaces fáciles de seguir,
+            teniendo en todo momento una <strong>diferenciada impresión óptica de opiniones</strong>.
+            P.ej, Qué sector de la sociedad está a favor de las corridas de toros? Qué argumentos en contra
+            presentan los defensores de los animales? Qué opinan los ciudadanos? Cuál es la posición de
+            organizaciones y partidos políticos?
             </p>
         text_3:
-          title: Apertura y filosofía de "Your-Profit"
+          title: Democracia activa
           more: |
-            <p>El <strong><a href="{{github_url}}" target="_blank">código abierto</a></strong> de echo servirá como base de una
-            <strong>infraestructura descentralizada</strong> y variopinta.
-            Conectando diferentes plataformas y sitios web, echo superará el aislamiento de las iniciativas existentes,
-            focalizando y multiplicando su potencial.
+            <p>
+            Para lograr un cambio sustantivo en la vida diaria, echo promueve la participación en el debate de las
+            personas con ideales comunes, para que <strong>actúen conjuntamente</strong>. Asímismo, se incentiva los
+            instrumentos de democracia directa (p.ej, Iniciativa Ciudadana Europea, ePeticiones, Referendums,
+            Carrot Mobs). La <strong>financiación de esta actividad</strong> corre a cargo de echo a través de la
+            recaudación de fondos sin coste y el apoyo de los usuarios, mediante una distribución democrática del
+            lucro sobrante (<strong>filosofía de negocio "Your-Profit"</strong>).
             </p><p>
-            echo es <strong>social business</strong> y su óptimo rendimiento alcanzará el refuerzo de valores éticos y democráticos.
-            Siguiendo su <strong>filosofía de "Your-Profit"</strong> todos los lucros sobrantes serán reinvertidos en proyectos
-            sociales y ecológicos.
-            De esta forma, a través de una acción virtual, se puede obtener un cambio real. Gradualmente se irá generando una mayor <strong>auto-determinación</strong>
-            política y económica de la gente.
+            A través del <strong>trabajo común y constructivo de los ciudadanos, las autoridades públicas y las
+            organizaciones</strong> en todos los niveles, echo evita una confrontación destructiva y nos posibilita a
+            todos nosotros, <strong>construir conjuntamente soluciones innovadoras</strong> para hacer frente a los desafíos actuales de
+            nuestro tiempo.
             </p>
         text_4:
           title:  Tu echo
           more: |
             <p>
             Tu voz necesita ec(h)o. echo necesita tu voz. Ayúdanos a guiar la democracia hacia un futuro en el que
-            <strong>cualquier voz cuenta </strong> por igual, en todo el mundo.
+            <strong>cualquier voz cuenta</strong> por igual, en todo el mundo.
             </p><p>
-            Cad vez más personas se reúnen para <strong>realizar conjuntamente la visión de echo</strong>.
             Aunque echo todavía está empezando a gatear, ya puedes:
             </p>
 
