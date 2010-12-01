@@ -41,9 +41,10 @@ $(document).ready(function () {
 /* Statement navigation helpers */
 /********************************/
 
-function loadBreadcrumb(url, value) {
+function loadBreadcrumb(id, url, value) {
 	var breadcrumbs = $('#breadcrumbs');
 	var breadcrumb = $('<a></a>');
+	breadcrumb.attr('id', id);
 	breadcrumb.addClass('statement ajax');
 	breadcrumb.attr('href',url);
 	breadcrumb.text(value);
@@ -531,6 +532,17 @@ function getCurrentStatementsStack(element, new_level) {
 	return current_stack;
 }
 
+function getBreadcrumbStack(element){
+	var breadcrumbs = $("#breadcrumbs a.statement").map(function(){
+    return this.id.replace(/[^0-9]+/, '');
+  }).get();
+  
+	var statement_id = element.parents('.statement').attr('id').replace(/[^0-9]+/, '');
+	breadcrumbs.push(statement_id);
+  return breadcrumbs;
+}
+
+
 function initStatementHistoryEvents() {
 	$("#statements .statement .header a.statement_link").live("click", function(){
 		current_stack = getCurrentStatementsStack(this, false);
@@ -541,12 +553,10 @@ function initStatementHistoryEvents() {
 	
 	/* Follow-Up Question special case */
 	$("#statements .statement #follow_up_questions.children a.statement_link").live("click", function(){
-    question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
+    var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
+		var breadcrumbs = getBreadcrumbStack($(this));
 		
-		breadcrumbs = $("#breadcrumbs a.statement").map(function(){
-        return this.id.replace(/[^0-9]+/, '');
-      }).get();
-	  breadcrumbs.push($(this).parents('.statement').attr('id').replace(/[^0-9]+/, ''));
+		
 		
     /* set fragment */
     $.setFragment({"bid": breadcrumbs.join(','), "sid": question, "new_level" : true});
@@ -592,6 +602,7 @@ function getBreadcrumbsToLoad(bid) {
 	/* get bid's that are not visible (don't repeat yourself) */
 	var bid_to_load = $.grep(bid_stack, function(a){
 		return $.inArray(a, visible_bid) == -1 ;});
+	
 	return bid_to_load;
 }
 
@@ -630,21 +641,6 @@ function initFragmentStatementChange() {
 		}
   });
   
-	$(document).bind("fragmentChange.bid", function() {
-	 	if ($.fragment().bid) {
-	    var bid = $.fragment().bid;
-			var bid_to_load = getBreadcrumbsToLoad(bid);
-			if (bid_to_load.length == 0) { return; }
-			path = document.location.href.replace(/\/\d+.*/, '/breadcrumb/'+bid_to_load.join(','));
-			$.getJSON(path, function(data) {
-			  $.each(data, function() {
-					loadBreadcrumb(this[0], this[1]);
-				});
-			});
-	  }
-  });
-	
-	
 	/* Statement Stack */
   if ($.fragment().sid) {
 		$.setFragment({ "new_level" : true });
