@@ -33,11 +33,32 @@ $(document).ready(function () {
 	
 	handleStatementFormsSubmit();
 	
+	initBreadcrumbs();
+	
 });
 
 /********************************/
 /* Statement navigation helpers */
 /********************************/
+
+function loadBreadcrumb(url, value) {
+	var breadcrumbs = $('#breadcrumbs');
+	var breadcrumb = $('<a></a>');
+	breadcrumb.addClass('statement ajax');
+	breadcrumb.attr('href',url);
+	breadcrumb.text(value);
+	
+	breadcrumbs.append(' ');
+	breadcrumbs.append(breadcrumb);
+	
+}
+
+function initBreadcrumbs() {
+	$('#breadcrumbs a.statement').live('click', function(){
+		$(this).nextAll().remove();
+		$(this).remove();
+	});
+}
 
 function collapseStatements() {
 	$('#statements .statement .header').removeClass('active').addClass('ajax_expandable');
@@ -112,7 +133,7 @@ function initExpandables(){
 
 /* Gets the siblings of the loaded statement and places them in the client session for navigation purposes */
 function loadStatementSessions() {
-	$("div.statement, form.statement").livequery(function(){
+	$("#statements div.statement, #statements form.statement").livequery(function(){
 		
 		parent = $(this).prev();
 		if (parent.length > 0)      
@@ -133,10 +154,10 @@ function loadStatementSessions() {
 
 /* initializes prev/next navigation buttons with the proper url */
 function initPrevNextButtons() {
-	$(".statement .header a.prev").livequery(function(){
+	$("#statements .statement .header a.prev").livequery(function(){
 		initNavigationButton(this, -1);
 	});
-	$(".statement .header a.next").livequery(function(){
+	$("#statements .statement .header a.next").livequery(function(){
     initNavigationButton(this, 1);
   });
 }
@@ -148,7 +169,9 @@ function initNavigationButton(element, inc) {
 	
 	if (current_node_id.match('add')) {
 		aux = current_node_id.split('_');
-		current_node_id = [];/* get parent id */  current_node_id.push(aux.shift()); /* get 'add' */  current_node_id.push(aux.shift());
+		current_node_id = [];
+		/* get parent id */  if(aux[0].match(/\d+/)) {current_node_id.push(aux.shift());} 
+		/* get 'add' */  current_node_id.push(aux.shift());
 		current_node_id.push(aux.join('_')); current_node_id = "/"+current_node_id.join('/');
 	} else {current_node_id = eval(current_node_id);}
 	/* get current node statement type */
@@ -241,7 +264,7 @@ function loadDefaultText() {
 
 /* clean input text fields which might still be filled with the default message */
 function cleanDefaultsBeforeSubmit() {
-	$('form.statement').livequery(function(){
+	$('#statements form.statement').livequery(function(){
 		$(this).bind('submit', function(){
 	    $("input[type='text']", $(this)).each(function() {
 	      // If the input still with default value, clean it before the submit
@@ -426,7 +449,7 @@ function createTagButton(text, tags_id) {
 
 var timer = null;
 function loadMessageBoxes() {
-	$('.statement .message_box').livequery(function(){
+	$('#statements .statement .message_box').livequery(function(){
 		element = $(this);
 		if (timer != null) {
       clearTimeout (timer);
@@ -469,28 +492,31 @@ function loadRTEEditor() {
 
 function getCurrentStatementsStack(element, new_level) {
 	/* get the statement element */
-	statement = $(element).parents('.statement');
+	var statement = $(element).parents('.statement');
 	/* get statement id current index in the list of statements */
-  statement_index = $('.statement').index(statement);
+  var statement_index = $('#statements .statement').index(statement);
 	
 	/* get soon to be visible statement */
-  path = element.href.split("/");
-  id = path.pop().split('?').shift();
+  var path = element.href.split("/");
+	var id = path.pop().split('?').shift();
+	
 	if (id.match(/\d+/)) {
-  	current_sid = id;
+  	var current_sid = id;
   } else {
 		/* add teaser case */
-		current_sid = path.splice(path.length - 2, 2);
+		/* when there's a parent id attached, copy :id/add/:type, or else, just copy the add/:type */
+		var index_backwards = path[path.length - 2].match(/\d+/) ? 2 : 1;
+		var current_sid = path.splice(path.length - index_backwards, 2);
 		current_sid.push(id);
 		current_sid = current_sid.join('/');
 	}
   current_stack = [];
 	
 	/* get current_stack of visible statements (if any matches the clicked statement, then break) */
-  $(".statement").each( function(index){
+  $("#statements .statement").each( function(index){
 		if (index < statement_index) {
 			id = $(this).attr('id').split('_').pop();
-			if(!id.match(/\d+/)){
+			if(id.match("add")){
 				id = "add/" + id;
 			}
 			current_stack.push(id);
@@ -500,7 +526,6 @@ function getCurrentStatementsStack(element, new_level) {
 			 }
 		  }
   });
-  
   /* insert clicked statement */
   current_stack.push(current_sid);
 	return current_stack;
@@ -517,8 +542,14 @@ function initStatementHistoryEvents() {
 	/* Follow-Up Question special case */
 	$("#statements .statement #follow_up_questions.children a.statement_link").live("click", function(){
     question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
+		
+		breadcrumbs = $("#breadcrumbs a.statement").map(function(){
+        return this.id.replace(/[^0-9]+/, '');
+      }).get();
+	  breadcrumbs.push($(this).parents('.statement').attr('id').replace(/[^0-9]+/, ''));
+		
     /* set fragment */
-    $.setFragment({ "sid": question, "new_level" : true});
+    $.setFragment({"bid": breadcrumbs.join(','), "sid": question, "new_level" : true});
     return false;
   });
 	$("#statements .statement .children a.statement_link").live("click", function(){
@@ -546,20 +577,24 @@ function initStatementHistoryEvents() {
 
 function getStatementStackPath(stack) {
 	var stack = stack.split(",");
-  var sid = stack.pop();
-  if (sid.match(/\d+/)) {
-    var path = "/" + sid;
-  } else {
-    /* add teaser case */
-    if (stack.length > 0) {
-      var path = "/" + parent_id;
-    } else {
-      var path = '';
-    } 
-    path += "/" + sid;
-  }
-  return path;
+  return "/" + stack.pop();
 }
+
+function getBreadcrumbsToLoad(bid) {
+	if (bid == null) { return []; }
+	/* current bid in stack */
+	var bid_stack = bid.split(",");
+	/* current breadcrumb entries */
+	var visible_bid = $("#breadcrumbs a.statement").map(function(){
+    return this.id.replace(/[^0-9]+/, '');
+  }).get();
+	
+	/* get bid's that are not visible (don't repeat yourself) */
+	var bid_to_load = $.grep(bid_stack, function(a){
+		return $.inArray(a, visible_bid) == -1 ;});
+	return bid_to_load;
+}
+
 
 function initFragmentStatementChange() {
   $(document).bind("fragmentChange.sid", function() {
@@ -570,18 +605,21 @@ function initFragmentStatementChange() {
 			
 			last_sid = new_sid.pop();
 			
+			
 			var visible_sid = $("#statements .statement").map(function(){
 				return this.id.replace(/[^0-9]+/, '');
 			}).get();
 			
-			if ($.inArray(last_sid, visible_sid) != -1) {return;}
+			//if ($.inArray(last_sid, visible_sid) != -1) {return;}
 			
 			sid = $.grep(new_sid, function (a) {
 				return $.inArray(a, visible_sid) == -1 ;});
 			
+			var bid = getBreadcrumbsToLoad($.fragment().bid);
 			
-			path = $.queryString(document.location.href.replace(/\/\d+(\/\w+(\/\w+)?)?/, path), {
+			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sid": sid.join(","),
+				"breadcrumb": bid.join(","),
         "new_level": $.fragment().new_level
       })
 			$.ajax({
@@ -592,10 +630,32 @@ function initFragmentStatementChange() {
 		}
   });
   
+	$(document).bind("fragmentChange.bid", function() {
+	 	if ($.fragment().bid) {
+	    var bid = $.fragment().bid;
+			var bid_to_load = getBreadcrumbsToLoad(bid);
+			if (bid_to_load.length == 0) { return; }
+			path = document.location.href.replace(/\/\d+.*/, '/breadcrumb/'+bid_to_load.join(','));
+			$.getJSON(path, function(data) {
+			  $.each(data, function() {
+					loadBreadcrumb(this[0], this[1]);
+				});
+			});
+	  }
+  });
+	
+	
+	/* Statement Stack */
   if ($.fragment().sid) {
 		$.setFragment({ "new_level" : true });
 		$(document).trigger("fragmentChange.sid");
   }
+	
+	
+	/* Breadcrumbs */
+	if ($.fragment().bid) {
+		$(document).trigger("fragmentChange.bid");
+	}
 }
 
 /*********************************************/
@@ -603,7 +663,7 @@ function initFragmentStatementChange() {
 /*********************************************/
 
 function initChildrenPaginationButton() {
-  $(".statement .more_pagination a").live("click", function() {
+  $("#statements .statement .more_pagination a").live("click", function() {
     $(this).replaceWith($('<span/>').text($(this).text()).addClass('more_loading'));
   });
 }
@@ -623,7 +683,7 @@ function pagination_scroll_down(element) {
 /***********/
 
 function loadStatementAutoComplete() {
-	$('form.statement .tag_value_autocomplete').livequery(function(){
+	$('#statements form.statement .tag_value_autocomplete').livequery(function(){
 		$(this).autocomplete('../../discuss/auto_complete_for_tag_value', {minChars: 3, selectFirst: false});
 	});
 }
