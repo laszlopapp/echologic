@@ -45,13 +45,23 @@ function loadBreadcrumb(id, url, value) {
 	var breadcrumbs = $('#breadcrumbs');
 	var breadcrumb = $('<a></a>');
 	breadcrumb.attr('id', id);
-	breadcrumb.addClass('statement ajax');
+	breadcrumb.addClass('statement');
 	breadcrumb.attr('href',url);
 	breadcrumb.text(value);
 	
 	breadcrumbs.append(' ');
 	breadcrumbs.append(breadcrumb);
 	
+}
+
+function deleteBreadcrumbs() {
+	var links_to_delete = $('#breadcrumbs').data('to_delete');
+	if (links_to_delete != null) {
+  	$.each(links_to_delete, function(){
+  		$('#breadcrumbs').find('#' + this).remove();
+  	});
+  	$('#breadcrumbs').removeData('to_delete');
+  }
 }
 
 function initBreadcrumbs() {
@@ -544,6 +554,9 @@ function getBreadcrumbStack(element){
 
 
 function initStatementHistoryEvents() {
+	/********************/
+	/* NEXT/PREV, TITLE */
+	/********************/
 	$("#statements .statement .header a.statement_link").live("click", function(){
 		current_stack = getCurrentStatementsStack(this, false);
 		/* set fragment */
@@ -551,17 +564,21 @@ function initStatementHistoryEvents() {
 		return false;
 	});
 	
-	/* Follow-Up Question special case */
+	/****************************/
+  /* FOLLOW-UP QUESTION CHILD */
+  /****************************/
 	$("#statements .statement #follow_up_questions.children a.statement_link").live("click", function(){
     var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
 		var breadcrumbs = getBreadcrumbStack($(this));
-		
-		
 		
     /* set fragment */
     $.setFragment({"bid": breadcrumbs.join(','), "sid": question, "new_level" : true});
     return false;
   });
+	
+	/*******************/
+  /* STATEMENT CHILD */
+  /*******************/
 	$("#statements .statement .children a.statement_link").live("click", function(){
     current_stack = getCurrentStatementsStack(this, true);
 		/* set fragment */
@@ -569,6 +586,10 @@ function initStatementHistoryEvents() {
 		return false;
   });
 	
+	
+	/*******************************/
+  /* NEW STATEMENT CANCEL BUTTON */
+  /*******************************/
 	$("#statements form.statement.new .buttons a.cancel").livequery(function(){
 		if ($.fragment().sid) {
 			var sid = $.fragment().sid;
@@ -583,6 +604,46 @@ function initStatementHistoryEvents() {
 			})
 		}
 	});
+	/*******************/
+  /* BREADCRUMB LINK */
+  /*******************/
+	$("#breadcrumbs a.statement").livequery(function(){
+		
+		var path_id = this.href.match(/\/\d+/);
+		var path = this.href.replace(/\/\d+.*/, path_id + '/' + 'parents');
+		element = $(this);
+		$.getJSON(path, function(data) {
+		  var sid = data;
+			element.data('sid', sid);
+		});
+	});
+	
+	$("#breadcrumbs a.statement").live("click", function(){
+		/* get bids from fragment */
+		var bid = $.fragment().bid;
+		bid = (bid == null) ? [] : bid.split(','); 
+		
+		/* get links that must vanish from the breadcrumbs */
+    var links_to_delete = $(this).nextAll().map(function(){
+	    return this.id;
+	  }).get();
+		links_to_delete.push($(this).attr('id'));
+		
+		/* set new bids to save in fragment */
+		id_links_to_delete = $.map(links_to_delete, function(a){
+			return a.replace(/[^0-9]+/, '');
+		});
+		new_bid = $.grep(bid, function(a){
+			return $.inArray(a, id_links_to_delete) == -1;
+		});
+		
+		/* save them to be deleted after the request */
+		$("#breadcrumbs").data('to_delete', links_to_delete);
+    /* set fragment */
+		var sid = $(this).data('sid');
+    $.setFragment({"bid" : new_bid.join(","), "sid": sid.join(","), "new_level" : ''});
+    return false;
+  });
 }
 
 function getStatementStackPath(stack) {

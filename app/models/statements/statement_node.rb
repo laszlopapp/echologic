@@ -209,7 +209,8 @@ class StatementNode < ActiveRecord::Base
     def statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
       conditions = {:conditions => "n.type = '#{self.name}' and n.parent_id = #{parent_id}"}
       conditions.merge!({:language_ids => language_ids}) if language_ids
-      conditions.merge!({:drafting_states => %w(tracked ready staged)}) if filter_drafting_state
+      conditions.merge!(special_query_conditions) if filter_drafting_state
+      
       statements = self.search_statement_nodes(conditions)
       if for_session
         statements.map!(&:id)
@@ -217,7 +218,10 @@ class StatementNode < ActiveRecord::Base
       end
       statements
     end
-
+    
+    def special_query_conditions
+      {}
+    end
     
     def join_clause
       <<-END

@@ -38,6 +38,10 @@ module ActiveRecord
 
           class_eval do
 
+            def self.special_query_conditions
+              {:drafting_states => %w(tracked ready staged)}
+            end
+            
             def draftable?
               true
             end

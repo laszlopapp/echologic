@@ -1,19 +1,19 @@
 class StatementsController < ApplicationController
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
-                                    :more, :children, :upload_image, :reload_image, :authors, :add]
+                                    :more, :children, :upload_image, :reload_image, :authors, :add, :parents]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
-  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :redirect, :add]
+  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :redirect, :add, :parents]
 
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
   before_filter :fetch_statement_node_type, :only => [:new, :create]
   before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions,
                                                                    :new, :create, :more, :children, :upload_image,
-                                                                   :reload_image, :redirect, :authors, :add]
-  before_filter :fetch_languages, :except => [:destroy, :redirect]
+                                                                   :reload_image, :redirect, :authors, :add, :parents]
+  before_filter :fetch_languages, :except => [:destroy, :redirect, :parents]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
     
@@ -28,7 +28,7 @@ class StatementsController < ApplicationController
   # Authlogic access control block
   access_control do
     allow :editor
-    allow anonymous, :to => [:index, :show, :category, :more, :children, :authors, :add]
+    allow anonymous, :to => [:index, :show, :category, :more, :children, :authors, :add,:parents]
     allow logged_in
   end
 
@@ -414,6 +414,17 @@ class StatementsController < ApplicationController
 
   def redirect
     redirect_to statement_node_url(@statement_node)
+  end
+
+  ##############
+  # BREADCRUMB #
+  ##############
+
+  def parents
+    sid = @statement_node.self_and_ancestors.map(&:id)
+    respond_to do |format|
+      format.json{render :json => sid}
+    end
   end
 
   #############
