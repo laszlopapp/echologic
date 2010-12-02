@@ -46,13 +46,13 @@ en:
           echo is a joint <a href="{{github_url}}" target="_blank">Open Source</a> project for
           <strong>active citizen participation</strong> -
           <span title="{{subsidiarity_tooltip}}" class="ttLink">worldwide</span> and for all people.
-          echo addresses and unites all players of society for a sustainable change.
+          echo addresses and unites all players of society for a <strong>sustainable change</strong>.
           </p><p>
           "Discuss - Connect - Act!“ - The Social Software facilitates <strong>constructive mass dialog</strong> crossing
           the borders of languages and communties. It connects people sharing the same purpose worldwide and supports
           them in creating <strong>joint actions</strong>. Wherever you are in the virtual or real world, echo gives
           you the proof: You are no longer alone with your opinion and convictions - the echo of your voice can
-          <strong>change the world</strong>.
+          <strong>create a better world</strong>.
           </p>
         gender_tooltip: ''
         subsidiarity_tooltip: According to the principles of subsidiarity
@@ -62,14 +62,14 @@ en:
             <p>
             Newspaper articles, blogs, videos and any kind of Internet content become the gateways into well
             structured echo discussions, which can be embedded in any website. Wherever on the web they are,
-            people can elaborate their ideas and solutions by writing the same drafts together - in a democratic process
-            without moderators or admins.
-            In this way, echo <strong>connects knowledge and opinions scattered all over the web and
-            their different communities</strong>.
+            people can elaborate their ideas and solutions by writing the same drafts together - in a democratic
+            process without moderators or admins.
+            In this way, echo <strong>summarizes knowledge and opinions scattered all over the web and its different
+            communities</strong>.
             </p><p>
-            echo discussions give a fast and clear <strong>overview on alternative proposals</strong>, pro/contra arguments and
-            multimedia background information. They make interrelations of topics easily comprehensible and
-            provide a <strong>clearly structured "opinion base"</strong>. E.g. which parts of society and how many
+            echo discussions give a <strong>fast and clear overview</strong> on alternative proposals, pro/contra
+            arguments and multimedia background information. They make interrelations of topics easily comprehensible
+            and provide a <strong>clearly structured "opinion base"</strong>. E.g. which parts of society and how many
             people are really against Genfood? What are the arguments of biotechnologists and ecologists? What is the
             position of political parties, NGOs and other organisations?
             </p>
