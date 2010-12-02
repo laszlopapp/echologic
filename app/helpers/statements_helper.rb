@@ -56,23 +56,14 @@ module StatementsHelper
   def create_new_sibling_statement_button(statement_node, type = dom_class(statement_node))
     link_to(new_statement_node_url(statement_node.parent, type),
             :id => "create_#{type}_link",
-            :class => "#{statement_node.echoable? ? 'ajax' : ''}") do
+            :class => "ajax") do
       content_tag(:span, '',
                   :class => "create_statement_button_mid create_#{type}_button_mid ttLink no_border",
                   :title => I18n.t("discuss.tooltips.create_#{type}"))
 
     end
   end
-  
-  #
-  # Creates a link to create a new sibling statement for the given statement (appears in the SIDEBAR).
-  #
-  def add_sibling_statement_link(statement_node, type = dom_class(statement_node))
-    link_to(I18n.t("discuss.statements.create_#{type}_link"),
-            new_child_url(type, :parent_id => statement_node.parent ? statement_node.parent.id : nil),
-            :id => "create_#{type}_link",
-            :class => "#{statement_node.echoable? ? 'ajax' : ''} add_new_button text_button create_#{type}_button")
-  end
+ 
 
   #
   # Creates a link to edit the current document.
