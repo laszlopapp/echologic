@@ -6,48 +6,153 @@
     <%= content_tag :title, I18n.t('mailers.newsletter.title') %>
 
     <style type="text/css">
-      .logo_image {
-        background: url(http://<%= ECHO_HOST %>/images/page/echo_logo.png) no-repeat scroll left top;
-        width: 100px;
-        height: 100px;
-        display: inline-block;
+
+      body {
+        background: #A8C642 url(<%= full_url('/images/page/background.png') %>) repeat-x scroll left top;
+        font-family: "Lucida Sans",Arial,Helvetica,sans-serif;
+        font-size: 14px;
+        color: #21587f;
       }
+
+      h1 {
+        font-size: 30px;
+        color: #7bb031;
+        margin: 0px;
+        padding: 0px;
+      }
+
+      a, a:hover, a:visited {
+        color: #21587f;
+        text-decoration: underline;
+      }
+
+      #mail_container {
+        min-width: 600px;
+        max-width: 990px;
+        margin: 15px auto;
+        padding: 0 23px;
+      }
+
+      #mail_header {
+        margin-top: 15px;
+        height: 90px;
+        padding: 0 10px;
+        position: relative;
+      }
+
+      #mail_logo {
+        float: left;
+        background: url(<%= full_url('/images/page/echo_logo.png') %>) no-repeat scroll left top;
+        width: 207px;
+        height: 87px;
+        margin: 5px 0 10px 5px;
+        border: none;
+      }
+
+      #beta_label {
+        background: url(<%= full_url('/images/page/beta_label.png') %>) no-repeat scroll left top;
+        width: 45px;
+        height: 19px;
+        left: 192px;
+        top: 5px;
+        position: absolute;
+      }
+
+      #links_label {
+        font-size: 20px;
+        font-weight: bold;
+        position: relative;
+        top: 4px;
+        text-align: right;
+        cursor: default;
+      }
+
+      .web_link {
+        background: url(<%= full_url('/images/mails/mail_links.png') %>) no-repeat scroll left top;
+        width: 32px;
+        height: 32px;
+        float: right;
+        margin-left: 13px;
+        position: relative;
+        top: 13px;
+      }
+
+      #echo_link {
+        background-position: 0 0;
+        width: 38px;
+      }
+
+      #blog_link {
+        background-position: -38px 0;
+      }
+
+      #twitter_link {
+        background-position: -70px 0;
+      }
+
+      #facebook_link {
+        background-position: -102px 0;
+      }
+
+      #content_container {
+        margin-top: 15px;
+        background: #FFF;
+        padding: 15px 20px;
+        border: 1px solid #7bb031;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+      }
+
     </style>
   </head>
 
   <body>
-    <div class="logo_image"> lalala </div>
     <div id="mail_container">
 
       <!-- Header -->
       <div id="mail_header">
-        <div id="mail_logo">
-
-          <% link_to root_url do %>
-            <img src="http://<%= ECHO_HOST %>/images/page/echo_logo.png"/>
-          <% end %>
-          <%= image_tag('http://' + ECHO_HOST + '/images/page/beta_label.png', :class => 'label') %>
-        </div>
-        <%= content_tag :h1, I18n.t('mailers.newsletter.title') %>
+        <% link_to root_url do %>
+          <div id="mail_logo"></div>
+        <% end %>
+        <span id="beta_label"></span>
+        <%= content_tag :div, I18n.t('mailers.header.follow_echo'), :id => 'links_label' %>
+        <% link_to 'http://facebook.com/echo.agora', :target => '_blank' do %>
+          <span id="facebook_link" class="web_link"></span>
+        <% end %>
+        <% link_to 'http://twitter.com/echologic', :target => '_blank' do %>
+          <span id="twitter_link" class="web_link"></span>
+        <% end %>
+        <% link_to 'http://blog.echo.to', :target => '_blank' do %>
+          <span id="blog_link" class="web_link"></span>
+        <% end %>
+        <% link_to 'http://echo.to', :target => '_blank' do %>
+          <span id="echo_link" class="web_link"></span>
+        <% end %>
       </div>
 
-      <!-- Content -->
-      <p>
-        <%= I18n.t('mailers.newsletter.greeting', :name => @name) %>
-      </p>
-      <br/>
-      <%= yield %>
-      <br/>
-      <p>
-        <%= content_tag :p, I18n.t('mailers.signature_as_html',
-                                   :locale => @language.code) %>
-      </p>
-      <br/>
-      <p>
-        <%= content_tag :p, I18n.t('mailers.newsletter.unsubscribe',
-                                   :echo_url => root_url,
-                                   :locale => @language.code) %>
-      </p>
+      <div id="content_container">
+        <!-- Title -->
+        <%= content_tag :h1, I18n.t('mailers.newsletter.title') %>
+
+        <!-- Content -->
+        <p>
+          <%= I18n.t('mailers.newsletter.greeting', :name => @name) %>
+        </p>
+        <br/>
+        <%= yield %>
+        <br/>
+        <p>
+          <%= content_tag :p, I18n.t('mailers.signature_as_html',
+                                     :locale => @language.code) %>
+        </p>
+        <br/>
+        <p>
+          <%= content_tag :p, I18n.t('mailers.newsletter.unsubscribe',
+                                     :echo_url => root_url,
+                                     :locale => @language.code) %>
+        </p>
+      </div>
     </div>
   </body>
 </html>
