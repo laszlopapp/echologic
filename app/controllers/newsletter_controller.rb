@@ -4,7 +4,7 @@ class NewsletterController < ApplicationController
 
   access_control do
     allow :admin
-    allow anonymous, :to => :send_newsletter_mails 
+    allow anonymous, :to => [:send_newsletter_mails]
   end
 
   # GET /new
