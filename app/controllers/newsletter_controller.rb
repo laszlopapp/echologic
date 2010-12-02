@@ -39,7 +39,7 @@ class NewsletterController < ApplicationController
     User.find(:all, :conditions => {:newsletter_notification => 1}).each do |recipient|
       NewsletterMailer.deliver_newsletter_mail(recipient, subject, text)
       puts "Newsletter has been delivered to: " + recipient.email
-      #sleep 5
+      sleep 3
     end
   end
 
@@ -47,6 +47,6 @@ class NewsletterController < ApplicationController
   # Async calls #
   ###############
 
-  #handle_asynchronously :send_newsletter_mails
+  handle_asynchronously :send_newsletter_mails
 
 end
