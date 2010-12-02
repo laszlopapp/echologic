@@ -233,9 +233,8 @@ class StatementsControllerTest < ActionController::TestCase
   end
   
   
-  test "should get me the right breadcrumb" do
-    statement_nodes = StatementNode.all(:limit => 3)
-    get :breadcrumb, :breadcrumb => statement_nodes.map(&:id).join(",")
+  test "should get me the right parents list" do
+    get :parents, :id => statement_nodes('first-impro-proposal').to_param
     assert_response :success
   end
 end
