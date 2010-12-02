@@ -612,7 +612,7 @@ function initStatementHistoryEvents() {
 	$("#breadcrumbs a.statement").livequery(function(){
 		var path_id = this.href.match(/\/\d+/);
 		var path = this.href.replace(/\/\d+.*/, path_id + '/' + 'parents');
-		element = $(this);
+		var element = $(this);
 		$.getJSON(path, function(data) {
 		  var sid = data;
 			element.data('sid', sid);
@@ -659,8 +659,18 @@ function getBreadcrumbsToLoad(bid) {
 	var bid_stack = bid.split(",");
 	/* current breadcrumb entries */
 	var visible_bid = $("#breadcrumbs a.statement").map(function(){
-    return this.id.replace(/[^0-9]+/, '');
+		var id = this.id.replace(/[^0-9]+/, '');
+		if($.inArray(id, bid_stack) == -1) {
+      $(this).remove();
+    }
+    return id;
   }).get();
+	
+	 $.map(visible_bid, function(a) {
+	 	if($.inArray(a, bid_stack) == -1) {
+			$("#"+a).remove();
+		}
+	 });
 	
 	/* get bid's that are not visible (don't repeat yourself) */
 	var bid_to_load = $.grep(bid_stack, function(a){
@@ -684,12 +694,15 @@ function initFragmentStatementChange() {
 				return this.id.replace(/[^0-9]+/, '');
 			}).get();
 			
-			//if ($.inArray(last_sid, visible_sid) != -1) {return;}
+			
+			/* after new statement was created and added to the stack, we needn't load again */
+			if ($.inArray(last_sid, visible_sid) != -1 && visible_sid[visible_sid.length-1]==last_sid) {return;}
 			
 			sid = $.grep(new_sid, function (a) {
 				return $.inArray(a, visible_sid) == -1 ;});
-			
+				
 			var bid = getBreadcrumbsToLoad($.fragment().bid);
+			
 			
 			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sid": sid.join(","),
