@@ -18,10 +18,10 @@ class NewsletterControllerTest < ActionController::TestCase
     assert_difference('ActionMailer::Base.deliveries.length', 0) do
       post :create, :newsletter => {:subject => '' ,
                                     :text => "I got blisters on my fingers!",
-                                    :test => true}
+                                    :test => 'true'}
       post :create, :newsletter => {:subject => 'I got blisters on my fingers!',
                                     :text => '',
-                                    :test => true}
+                                    :test => 'true'}
     end
   end
 
@@ -30,7 +30,7 @@ class NewsletterControllerTest < ActionController::TestCase
     assert_difference('ActionMailer::Base.deliveries.length', 1) do
       post :create, :newsletter => {:subject => 'Paul is dead' ,
                                     :text => 'I got blisters on my fingers!',
-                                    :test => true}
+                                    :test => 'true'}
     end
   end
 end
