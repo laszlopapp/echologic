@@ -249,7 +249,7 @@ de:
 
       newsletter:
         title: Newsletter
-        guide: echo Newsletter abonnieren
+        guide: echo Newsletter abonnieren.
         turned_on: Sie haben den echo Newsletter abonniert.
         turned_off: Sie haben den echo Newsletter abbestellt.
 

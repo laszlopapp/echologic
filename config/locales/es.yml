@@ -258,9 +258,9 @@ es:
 
       newsletter:
         title: Newsletter
-        guide: Recibe el newsletter de echo
-        turned_on: Te has registrado en el newsletter de echo
-        turned_off: Te has dado de baja del servicio de newsletter de echo
+        guide: Recibe el newsletter de echo.
+        turned_on: Te has registrado en el newsletter de echo.
+        turned_off: Te has dado de baja del servicio de newsletter de echo.
 
       activity:
         title: Notificaciones diarias (activity)

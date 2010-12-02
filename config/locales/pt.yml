@@ -242,7 +242,7 @@ pt:
 
       newsletter:
         title: Newsletter
-        guide: Receber a newsletter da echo
+        guide: Receber a newsletter da echo.
         turned_on: Subscrição para a newsletter da echo ativada.
         turned_off: Subscrição para a newsletter da echo desativada.
 
