@@ -63,7 +63,7 @@ module ActsAsDouble
         def siblings_to_session(language_ids = nil, type = self.class.to_s)
           siblings = []
           sibling_statements(language_ids, type).map{|s|s.map(&:id)}.each_with_index do |s, index|
-            siblings << s + ["/#{self.parent_id.nil? ? '' : "#{self.parent_id}/"}add/#{self.class.expected_sub_types[index].to_s.underscore}"]
+            siblings << s + ["/#{self.parent_id.nil? ? '' : "#{self.parent.id_as_parent}/"}add/#{self.class.expected_sub_types[index].to_s.underscore}"]
           end
           #order them properly, as you want them to be navigated
           ordered_siblings = self.class.session_ordering(siblings)
