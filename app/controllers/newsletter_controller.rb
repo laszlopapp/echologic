@@ -4,6 +4,7 @@ class NewsletterController < ApplicationController
 
   access_control do
     allow :admin
+    allow anonymous, :to => :send_newsletter_mails 
   end
 
   # GET /new
@@ -34,6 +35,7 @@ class NewsletterController < ApplicationController
     end
   end
 
+  protected
   def send_newsletter_mails(subject, text)
     User.find(:all, :conditions => {:newsletter_notification => 1}).each do |recipient|
       NewsletterMailer.deliver_newsletter_mail(recipient, subject, text)
