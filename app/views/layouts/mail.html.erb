@@ -2,11 +2,9 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-    <%= stylesheet_link_tag 'mails' %>
-    <%= content_tag :title, I18n.t('mailers.newsletter.title') %>
+    <title><%= yield :title %></title>
 
     <style type="text/css">
-
       body {
         background: #A8C642 url(<%= full_url('/images/page/background.png') %>) repeat-x scroll left top;
         font-family: "Lucida Sans",Arial,Helvetica,sans-serif;
@@ -15,7 +13,7 @@
       }
 
       h1 {
-        font-size: 30px;
+        font-size: 28px;
         color: #7bb031;
         margin: 0px;
         padding: 0px;
@@ -103,7 +101,9 @@
         -moz-border-radius: 10px;
         -webkit-border-radius: 10px;
       }
-
+      #unsubscribe {
+        font-style: italic;
+      }
     </style>
   </head>
 
@@ -133,24 +133,15 @@
 
       <div id="content_container">
         <!-- Title -->
-        <%= content_tag :h1, I18n.t('mailers.newsletter.title') %>
+        <h1><%= yield :title %></h1>
 
         <!-- Content -->
-        <p>
-          <%= I18n.t('mailers.newsletter.greeting', :name => @name) %>
-        </p>
-        <br/>
         <%= yield %>
+        <br/><br/>
+        <%= content_tag :p, I18n.t('mailers.signature_as_html', :locale => @language.code) %>
         <br/>
-        <p>
-          <%= content_tag :p, I18n.t('mailers.signature_as_html',
-                                     :locale => @language.code) %>
-        </p>
-        <br/>
-        <p>
-          <%= content_tag :p, I18n.t('mailers.newsletter.unsubscribe',
-                                     :echo_url => root_url,
-                                     :locale => @language.code) %>
+        <p id="unsubscribe">
+          <%= yield :unsubscribe %>
         </p>
       </div>
     </div>
