@@ -5,7 +5,7 @@ class FollowUpQuestion < StatementNode
   delegate :level, :ancestors, :topic_tags, :topic_tags=, :taggable?, :echoable?, :statement, :statement=, :statement_id, 
            :statement_documents, :supporter_count, :ratio, :editorial_state_id, :editorial_state_id=, 
            :publishable?, :published, :publish, :locked_at, :supported?, :taggable?, :creator_id=, :creator_id, 
-           :creator, :author_support, :ancestors, :to => :discussion
+           :creator, :author_support, :ancestors, :id_as_parent, :to => :discussion
   
   before_save :save_discussion
   
@@ -14,9 +14,11 @@ class FollowUpQuestion < StatementNode
     discussion.save
   end
   
-  expects_children_types
-  
   class << self
+    def expected_children_types(children_visibility = false)
+      Discussion.expected_children_types(children_visibility)
+    end
+    
     def new_instance(attributes = nil)
       parent = attributes ? attributes.delete(:parent_id) : nil 
       discussion = Discussion.new(attributes)

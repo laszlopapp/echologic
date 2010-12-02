@@ -44,7 +44,7 @@ module StatementsHelper
   #
   def create_new_child_statement_link(statement_node, child_type)
     link_to(I18n.t("discuss.statements.create_#{child_type}_link"),
-            new_statement_node_url(statement_node,child_type),
+            new_statement_node_url(statement_node.id_as_parent,child_type),
             :id => "create_#{child_type}_link",
             :class => "ajax add_new_button text_button create_#{child_type}_button ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_#{child_type}"))
