@@ -3,8 +3,8 @@
 <% end %>
 
 /* if we came directly from one of the new statement links in search or my discussions, then html response */
-if(!window.url.match(/\/\d+/)) {
-  window.location.replace("<%= send("statement_node#{params[:path] ? '_with_path' : ''}#{params[:value] ? '_and_value' : ''}_url",@statement_node, params[:path], params[:value]) %>");
+if(!window.location.href.match(/\/\d+/)) {
+  window.location.replace("<%= send("statement_node#{params[:path] ? '_with_path' : ''}#{params[:value] ? '_and_value' : ''}_url",@statement_node, :path => params[:path], :value => params[:value]) %>");
 }
 
 /* load new statement to session */
@@ -29,9 +29,20 @@ removeChildrenStatements(class_element);
 
 var statement = "<%= escape_javascript(render :partial => 'statements/show') %>";
 replaceOrInsert(class_element, statement);
-	
-var stack = $('div#statements .statement').map(function(){
+
+
+/* Breadcrumb's stack */
+var bid = $.fragment().bid;
+if (bid == null) {bid = '';}
+bid = bid.split(',');
+<% if @statement_node.class.is_top_statement? %>
+	var followed = <%= @statement_node.parent_id %>;
+	bid.push(followed);
+<% end %>
+
+/* Statements' stack */	
+var sid = $('div#statements .statement').map(function(){
   return this.id.replace(/[^0-9]+/, "");
 }).get();
 
-$.setFragment({ "sid": stack.join(','), "new_level" : ''});
+$.setFragment({ "sid": sid.join(','), "new_level" : '', "bid" : bid.join(',')});
