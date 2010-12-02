@@ -5,7 +5,7 @@
 	  <% if !statement_node.nil? %>
       <%= create_new_child_statement_link(statement_node,@type) %>
 		<% else %>
-		  <%= create_new_discussion_link %>
+		  <%= create_new_discussion_link(params[:path], params[:value]) %>
 		<% end %>
 		<%# if statement_node.echoable? %>
       <%#= supporter_ratio_bar(nil, false) %>

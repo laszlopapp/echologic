@@ -39,10 +39,11 @@ module PublishableModuleHelper
   # Creates a link to create a new discussion
   # Appears in add discussion teaser
   #
-  def create_new_discussion_link(value=nil)
-    category = (value =~ /#/) ? value : nil
+  def create_new_discussion_link(path=nil, value=nil)
+    value = (value =~ /#/) ? value : nil
     link_to(I18n.t("discuss.statements.create_discussion_link"),
-            new_discussion_url(:category => category),
+            send("new_discussion#{path ? '_with_path' : '' }#{value ? '_and_value' : ''}_url", 
+            :path => path, :value => value),
             :id => "create_discussion_link",
             :class => "ajax add_new_button text_button create_discussion_button ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_discussion"))

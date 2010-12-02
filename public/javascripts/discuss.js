@@ -213,10 +213,10 @@ function initNavigationButton(element, inc) {
   new_node_id = new String(siblings_ids[id_index]);
 	/* if 'add' action, then write add link */
 	if (new_node_id.match('add')) {
-		element.href = element.href.replace(/\/\d+(\/\w+(\/\w+)?)?/, new_node_id);
+		element.href = element.href.replace(/\/\d+.*/, new_node_id);
 	}
 	else {
-		element.href = element.href.replace(/\/\d+(\/\w+(\/\w+)?)?/, "/" + new_node_id);
+		element.href = element.href.replace(/\/\d+.*/, "/" + new_node_id);
 	}
 	
   $(element).removeAttr('data-id');
