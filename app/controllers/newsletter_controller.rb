@@ -2,6 +2,9 @@ class NewsletterController < ApplicationController
 
   skip_before_filter :require_user, :only => [:new, :create]
 
+  access_control do
+    allow :admin
+  end
 
   # GET /new
   def new
