@@ -116,7 +116,9 @@ ActionController::Routing::Routes.draw do |map|
   # SECTION discuss - statement's tree
      
   #route for new discussion              
-  map.new_discussion 'statement/new/discussion', :controller => :statements, :action => :new, :type => :discussion
+  map.new_discussion                     'statement/new/discussion', :controller => :statements, :action => :new, :type => :discussion
+  map.new_discussion_with_path           'statement/new/discussion/:path', :controller => :statements, :action => :new, :type => :discussion
+  map.new_discussion_with_path_and_value 'statement/new/discussion/:path/:value', :controller => :statements, :action => :new, :type => :discussion
   
   #Add Teaser section (with path, path and value, and none of the previous) 
   map.connect        'statement/add/discussion', :controller => :statements, :action => :add, :type => :discussion
@@ -135,10 +137,12 @@ ActionController::Routing::Routes.draw do |map|
                                  :edit => 'edit/:current_document_id', :new_translation => 'translation/:current_document_id',
                                  :children => ':id/children/:type', :incorporate => ':id/incorporate/:approved_ip'}, 
                 :as => 'statement'
-  map.node_with_path               'statement/:id/:path',        :controller => :statements, :action => :show   
-  map.node_with_path_and_value     'statement/:id/:path/:value', :controller => :statements, :action => :show
-  
-  
+                
+  #show                
+  map.statement_node_with_path               'statement/:id/:path',        :controller => :statements, :action => :show   
+  map.statement_node_with_path_and_value     'statement/:id/:path/:value', :controller => :statements, :action => :show
+  #publish
+  map.connect   'statements/:id/publish/:in',   :controller => :statements, :action => :publish
   
  
   map.resources :discussions, :controller => :statements, :type => :discussion, :only => [:create, :update]

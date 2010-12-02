@@ -1,16 +1,19 @@
 module PublishableModuleHelper
-  ##############
-  # DISCUSSION #
-  ##############
-
+  #
+  # get the text that shows up on the top left corner of discuss search results
+  #
   def discussions_count_text(count, value = nil)
     text = count_text("discuss", count)
     text << " #{I18n.t('discuss.for', :value => value)}" if value
     text
   end
 
-  def create_discussion_link_for(category=nil)
-    link_to(new_discussion_path(:category => category),
+
+  #
+  # create discussion button above the discuss search results and on the left corner of my discussions
+  #
+  def create_discussion_link_for(path, value=nil)
+    link_to(send("new_discussion_with_path#{value ? '_and_value' : ''}_url", :path => path, :value => value),
             :id => 'create_discussion_link') do
       content_tag(:span, '',
                   :class => "new_discussion create_statement_button_mid create_discussion_button_mid ttLink no_border",
@@ -18,8 +21,12 @@ module PublishableModuleHelper
     end
   end
   
+  
+  #
+  # discussion link for the discuss search results
+  #
   def link_to_discussion(title, discussion,long_title,value=nil)
-    link_to send("node_with_path#{value ? '_and_value' : ''}_url", 
+    link_to send("statement_node_with_path#{value ? '_and_value' : ''}_url", 
                  discussion, :path => :discuss_search, :value => value),
                :title => "#{h(title) if long_title}",
                :class => "avatar_holder#{' ttLink no_border' if long_title }" do 
@@ -33,7 +40,7 @@ module PublishableModuleHelper
   # Appears in add discussion teaser
   #
   def create_new_discussion_link(value=nil)
-    category = value =~ /#/ ? value : nil
+    category = (value =~ /#/) ? value : nil
     link_to(I18n.t("discuss.statements.create_discussion_link"),
             new_discussion_url(:category => category),
             :id => "create_discussion_link",
@@ -42,11 +49,13 @@ module PublishableModuleHelper
   end
 
   #
-  # Creates a link to create a new discussion (appears in the SIDEBAR).
+  # Creates a button link to create a new discussion (SIDEBAR).
   #
-  def create_new_discussion_button(value = nil)
-    category = value =~ /#/ ? value : nil
-    link_to(new_discussion_url(:category => category),:id => "create_discussion_link", :class => "ajax") do
+  def create_new_discussion_button(path = nil, value = nil)
+    value = (value =~ /#/) ? value : nil
+    link_to(send("new_discussion#{path ? '_with_path' :''}#{value ? '_and_value' : '' }_url", 
+                  :path => path, :value => value),
+                  :id => "create_discussion_link", :class => "ajax") do
       content_tag(:span, '',
                   :class => "create_statement_button_mid create_discussion_button_mid ttLink no_border",
                   :title => I18n.t("discuss.tooltips.create_discussion"))
@@ -56,14 +65,16 @@ module PublishableModuleHelper
 
 
 
+  #
+  # publish button that appears on the right top corner of the statement 
+  #
   def publish_statement_node_link(statement_node, statement_document)
     if current_user and
        statement_document.author == current_user and !statement_node.published?
       link_to(I18n.t('discuss.statements.publish'),
               { :controller => :statements,
                 :action => :publish,
-                :in => :summary,
-                :method => :put},
+                :in => :summary },
               :id => 'publish_button', 
               :class => 'ajax_put header_button text_button publish_text_button ttLink',
               :title => I18n.t('discuss.tooltips.publish'))
@@ -72,28 +83,24 @@ module PublishableModuleHelper
     end
   end
   
-  def add_discussion_link
-    link_to(new_discussion_url,
-            :id => "create_discussion_link") do
-      content_tag(:span, '',
-                  :class => "new_discussion create_statement_button_mid create_discussion_button_mid ttLink no_border",
-                  :title => I18n.t("discuss.tooltips.create_discussion"))
-
-    end
-  end
-
+  #
+  # linked title of discussion on my discussion area 
+  #
   def my_discussion_title(title,discussion)
-    link_to(h(title),node_with_path_url(discussion, :path => :my_discussions), :class => "statement_link ttLink no_border",
+    link_to(h(title),statement_node_with_path_url(discussion, :path => :my_discussions), :class => "statement_link ttLink no_border",
             :title => I18n.t("discuss.tooltips.read_#{discussion.class.name.underscore}")) 
   end
   
+  #
+  # linked image of discussion on my discussion area 
+  #
   def my_discussion_image(discussion)
-    link_to node_with_path_url(discussion, :path => :my_discussions), :class => "avatar_holder" do
+    link_to statement_node_with_path_url(discussion, :path => :my_discussions), :class => "avatar_holder" do
       image_tag discussion.image.url(:small)
     end 
   end
 
-  # Creates a 'Publish' button to release the discussion.
+  # Creates a 'Publish' button to release the discussion on my discussions area.
   def publish_button_or_state(statement_node)
     if !statement_node.published?
       link_to(I18n.t("discuss.statements.publish"),

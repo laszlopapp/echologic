@@ -1,7 +1,7 @@
 <div id="discuss_search_container" class="search_container">
   
   <!-- New discussion link -->
-  <% create_discussion_link_for(params[:value]) %>
+  <% create_discussion_link_for(:discuss_search, params[:value]) %>
 
   <!-- Search field -->
   <% content_tag :div, :id => 'search_form', :class => 'ajax_form' do %>

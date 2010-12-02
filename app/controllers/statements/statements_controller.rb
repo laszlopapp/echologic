@@ -105,7 +105,7 @@ class StatementsController < ApplicationController
                                                           :editorial_state => StatementState[:new])
     @statement_document ||= StatementDocument.new(:language_id => @locale_language_id)
     @action ||= StatementAction["created"]
-    @statement_node.topic_tags << "#{params[:category]}" if params[:category]
+    @statement_node.topic_tags << "#{params[:value]}" if params[:value]
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
     
     load_echo_messages if @statement_node.echoable?
