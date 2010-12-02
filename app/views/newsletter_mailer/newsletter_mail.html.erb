@@ -1,0 +1,17 @@
+
+<% content_for :title do %>
+  <%= I18n.t('mailers.newsletter.title', :locale => @language.code) %>
+<% end %>
+
+
+<!-- Content -->
+<p>
+  <%= I18n.t('mailers.newsletter.greeting', :name => @name, :locale => @language.code) %>
+</p>
+<br/>
+<%= @text %>
+
+
+<% content_for :unsubscribe do %>
+  <%= I18n.t('mailers.newsletter.unsubscribe', :echo_url => root_url, :locale => @language.code) %>
+<% end %>

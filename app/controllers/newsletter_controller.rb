@@ -21,7 +21,7 @@ class NewsletterController < ApplicationController
       format.js do
         if !subject.blank? and !text.blank?
           if params[:newsletter][:test].eql?('true')
-            NewsletterMailer.deliver_newsletter(current_user, subject, text)
+            NewsletterMailer.deliver_newsletter_mail(current_user, subject, text)
             render_with_info "Test newsletter mail has been sent to your address."
           else
             send_newsletter_mails(subject, text)
@@ -37,7 +37,7 @@ class NewsletterController < ApplicationController
   private
   def send_newsletter_mails(subject, text)
     User.find(:all, :conditions => {:newsletter_notification => 1}).each do |recipient|
-      NewsletterMailer.deliver_newsletter(recipient, subject, text)
+      NewsletterMailer.deliver_newsletter_mail(recipient, subject, text)
       puts "Newsletter has been delivered to: " + recipient.email
       #sleep 5
     end
