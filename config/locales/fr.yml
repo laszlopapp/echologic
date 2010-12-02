@@ -294,7 +294,7 @@ fr:
         title: Elaboration collaborative de texte(s)
         guide: |
           Vous souhaitez être informé (e) à chaque modification/développement des textes élaborés en commun ou des
-          propositions d'amélioration et si vous pouvez y ajoutez vos propres modifications.<br/>
+          propositions d'amélioration et si vous pouvez y ajoutez vos propres modifications.<br/><br/>
           <strong>Attention!</strong> Si vous désactivez cette fonctionnalité, vous ratez peut-être l'occasion
           de pouvoir y insérer vos amendements.
         turned_on: |
