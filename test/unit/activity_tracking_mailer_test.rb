@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ActivityTrackingMailerTest < ActionMailer::TestCase
   include StatementsHelper
-  def test_activity_tracking_email_question
+  def test_activity_tracking_mail_question
     user = users(:user)
     question_event = events(:event_test_question)
     question_events = [question_event]
@@ -13,7 +13,7 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     en = Language['en']
     title = JSON.parse(question_event.event)['documents'][en.id]
     # Send the email, then test that it got queued
-    email = ActivityTrackingMailer.deliver_activity_tracking_email!(user,question_events,tags,events)
+    email = ActivityTrackingMailer.deliver_activity_tracking_mail!(user,question_events,tags,events)
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal [user.email], email.to
@@ -27,7 +27,7 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert_match /(2)/, email.encoded
   end
 
-  def test_activity_tracking_email_proposal
+  def test_activity_tracking_mail_proposal
     user = users(:user)
     question_events = []
     tags = {}
@@ -38,7 +38,7 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     title = JSON.parse(proposal_event.event)['documents'][en.id]
     events = [proposal_event]
     # Send the email, then test that it got queued
-    email = ActivityTrackingMailer.deliver_activity_tracking_email!(user,question_events,tags,events)
+    email = ActivityTrackingMailer.deliver_activity_tracking_mail!(user,question_events,tags,events)
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal [user.email], email.to
@@ -50,7 +50,7 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert_match /#{title}/, email.encoded
   end
 
-  def test_activity_tracking_email_improvement_proposal
+  def test_activity_tracking_mail_improvement_proposal
     user = users(:user)
     question_events = []
     tags = {}
@@ -61,7 +61,7 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     title = JSON.parse(impro_proposal_event.event)['documents'][en.id]
     events = [impro_proposal_event]
     # Send the email, then test that it got queued
-    email = ActivityTrackingMailer.deliver_activity_tracking_email!(user,question_events,tags,events)
+    email = ActivityTrackingMailer.deliver_activity_tracking_mail!(user,question_events,tags,events)
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal [user.email], email.to
