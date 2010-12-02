@@ -299,10 +299,10 @@ en:
 
   discuss:
     my_discussions:
-      link: My Questions / Issues
-      title: My new & published questions / issues
+      link: My Issues
+      title: My new & published issues
       no_discussions: |
-        You haven't created any questions / issues yet. To do so, please click on the question mark button on the left.
+        You haven't created any issues yet. To do so, please click on the question mark button on the left.
     tag_permission: |
       You do not have the permission to insert the '{{tag}}' tag.
     translation_request: Please translate this statement to <strong>ENGLISH</strong>.
@@ -310,8 +310,8 @@ en:
       The original statement is in <strong>{{language}}</strong>. Set your <br/>
       language skills to see content in other languages.
     results_count:
-      one: '{{count}} question / issue'
-      more: '{{count}} questions / issues'
+      one: '{{count}} issue'
+      more: '{{count}} issues'
     featured_topics:
       title: Featured Topics
       tabs:
@@ -324,28 +324,28 @@ en:
       in: '... in {{category}} ...'
 
     tooltips:
-      read_question: 'Go to this question / issue'
+      read_question: 'Go to this issue'
       read_proposal: 'Read this proposal'
       read_improvement_proposal: 'Read this improvement'
-      current_question: 'The currently displayed question / issue'
+      current_question: 'The currently displayed issue'
       current_proposal: 'The currently displayed proposal'
       current_improvement_proposal: 'The currently displayed improvement'
-      back_to_question: 'Back to current question / issue'
+      back_to_question: 'Back to current issue'
       back_to_proposal: 'Back to current proposal'
       back_to_improvement_proposal: 'Back to current improvement'
-      prev_question: 'Read previous question / issue'
-      next_question: 'Read next question / issue'
-      prev_proposal: 'Read previous proposal for the current question / issue'
-      next_proposal: 'Read next proposal for the current question / issue'
+      prev_question: 'Read previous issue'
+      next_question: 'Read next issue'
+      prev_proposal: 'Read previous proposal for the current issue'
+      next_proposal: 'Read next proposal for the current issue'
       prev_improvement_proposal: 'Read previous improvement for the current proposal'
       next_improvement_proposal: 'Read next improvement for the current proposal'
-      create_question: 'Create a new question / issue'
-      create_proposal: "Propose a new answer concerning the current question / issue"
+      create_question: 'Create a new issue'
+      create_proposal: "Propose a new answer concerning the current issue"
       create_improvement_proposal: "Post a new improvement to the current proposal"
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your vote to stop supporting this statement'
       publish: |
-        Release the question / issue to make it visible for everybody.
+        Release the issue to make it visible for everybody.
         (Afterwards no further editing is possible.)
       incorporate: 'Click here to incorporate this improvement into the proposal above.'
 
@@ -354,15 +354,15 @@ en:
       echo_indicator:
         one: '{{supporter_count}} supporter'
         many: '{{supporter_count}} supporters'
-      create_question_link: 'New question / issue'
+      create_question_link: 'New issue'
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
       create_improvement_proposal_link: Propose new improvement
       create_question_explanation: |
-        Here you can create a <strong>new question / issue</strong> and tag it with some <strong>relevant keywords</strong>
-        for better searchability.
+        Please formulate the <strong>question</strong> to be discussed, describe the issue with some more details
+        and tag it with <strong>relevant keywords</strong> for better searchability.
       create_proposal_explanation: |
-        Do you have a <strong>good idea</strong> concerning the current question / issue, which <strong>isn't entered</strong> yet?<br/>
+        Do you have a <strong>good idea</strong> concerning the current issue, which <strong>isn't entered</strong> yet?<br/>
         Here you can create a <strong>new proposal</strong>.
       create_improvement_proposal_explanation: |
         Do you have a <strong>good idea</strong> to <strong>make the current proposal even better</strong>?<br/>
@@ -378,25 +378,25 @@ en:
         Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
 
       publish: Release
-      published: The question / issue has been released successfully.
+      published: The issue has been released successfully.
       edit: 'Edit {{type}}'
 
       types:
-        question:  'Question / Issue'
+        question:  'Issue'
         proposal:  'Proposal'
         improvement_proposal: 'Improvement'
       new:
-        question:  'New Question / Issue'
+        question:  'New Issue'
         proposal:  'New Proposal'
         improvement_proposal: 'New Improvement'
       headings:
-        question: 'Questions / Issues'
+        question: 'Issues'
         proposal: 'Proposals'
         improvement_proposal: 'Improvements'
 
       topic: Topic (Tags / Keywords)
       states:
-        label: 'Publish question / issue immediately?'
+        label: 'Publish issue immediately?'
         initial_state:
           new: 'Set up at first and publish later'
           published: 'Publish immediately (no further editing is possible)'
@@ -441,9 +441,9 @@ en:
       translated: "The {{type}} has been translated successfully."
       incorporated: "The improvement has been successfully incorporated into the proposal."
       image_uploaded: "The illustration image has been added to the {{type}}."
-      empty:   "No questions / issues found. Please change your search criteria."
+      empty:   "No issues found. Please change your search criteria."
       empty_without_spoken_languages: |
-        No questions / issues found. You can try defining your <a href='{{my_echo}}'>language skills</a>
+        No issues found. You can try defining your <a href='{{my_echo}}'>language skills</a>
         to see content in other languages.
       new_percentage: "Your profile is {{percentage}}% complete."
 
@@ -565,7 +565,7 @@ en:
         index: 'Index'
 
     models:
-      question: "question / issue"
+      question: "issue"
       proposal: "proposal"
       improvement_proposal: "improvement"
 
