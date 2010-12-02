@@ -233,7 +233,7 @@ module StatementsHelper
       @breadcrumbs.each do |txt, path|
         elements << link_to(h(txt), path)
       end
-      elements.join('_')
+      elements.join(' ')
     end
   end
   

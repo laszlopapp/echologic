@@ -2,6 +2,11 @@
   info('<%=@info%>') 
 <% end %>
 
+/* if we came directly from one of the new statement links in search or my discussions, then html response */
+if(!window.url.match(/\/\d+/)) {
+  window.location.replace("<%= send("statement_node#{params[:path] ? '_with_path' : ''}#{params[:value] ? '_and_value' : ''}_url",@statement_node, params[:path], params[:value]) %>");
+}
+
 /* load new statement to session */
 <% if @statement_node.parent %>
   var session_id = '<%= dom_class(@statement_node.parent) %>';
