@@ -20,6 +20,7 @@ de:
       echo - die globale Agora
       </p><p>
       Web: <a href="http://echo.to">http://echo.to</a><br/>
+      Blog: <a href="http://blog.echo.to">http://blog.echo.to</a><br/>
       Twitter: <a href="http://twitter.com/echologic">http://twitter.com/echologic</a><br/>
       Facebook: <a href="http://www.facebook.com/echo.agora">http://www.facebook.com/echo.agora</a><br/>
       E-Mail: <a href="mailto:team@echologic.org">team@echologic.org</a>
@@ -36,11 +37,11 @@ de:
       subject: Subject
       text: Text
       greeting: |-
-        <p>Hallo {{name}},</p>
+        Hallo {{name}},
       unsubscribe: |-
-        <p>Wenn Sie keinen echo Newsletter mehr erhalten möchten, melden Sie sich bitte auf
+        Wenn Sie keinen echo Newsletter mehr erhalten möchten, melden Sie sich bitte auf
         <a href='{{echo_url}}'>echo</a> an, und gehen Sie auf "Einstellungen" unter "Mein echo".
-        Hier können Sie den Newsletter abbestellen.</p>
+        Dort können Sie den Newsletter abbestellen.
       fields_not_filled: |-
         You need to fill the subject and text fields in order to send the newsletter.
       sent: |-

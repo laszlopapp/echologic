@@ -4,7 +4,7 @@ en:
   mailers:
     header:
       follow_echo: Follow echo on the Web
-    
+
     signature: |
       --
       echo - the global agora
@@ -20,6 +20,7 @@ en:
       echo - the global agora
       </p><p>
       Web: <a href="http://echo.to">http://echo.to</a><br/>
+      Blog: <a href="http://blog.echo.to">http://blog.echo.to</a><br/>
       Twitter: <a href="http://twitter.com/echologic">http://twitter.com/echologic</a><br/>
       Facebook: <a href="http://www.facebook.com/echo.agora">http://www.facebook.com/echo.agora</a><br/>
       E-Mail: <a href="mailto:team@echologic.org">team@echologic.org</a>
@@ -36,10 +37,10 @@ en:
       subject: Subject
       text: Text
       greeting: |-
-        <p>Dear {{name}},</p>
+        Dear {{name}},
       unsubscribe: |-
-        <p>If you do not wish to receive newsletters, please log in to
-        <a href='{{echo_url}}'>echo</a>, go to Settings under My echo and uncheck the newsletter option.</p>
+        If you do not wish to receive newsletters, please log in to
+        <a href='{{echo_url}}'>echo</a>, go to Settings under My echo and uncheck the newsletter option.
       fields_not_filled: |-
         You need to fill the subject and text fields in order to send the newsletter.
       sent: |-
