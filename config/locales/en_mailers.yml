@@ -2,6 +2,9 @@
 en:
 
   mailers:
+    header:
+      follow_echo: Follow echo on the Web
+    
     signature: |
       --
       echo - the global agora

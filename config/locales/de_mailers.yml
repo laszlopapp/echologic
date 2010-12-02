@@ -2,6 +2,9 @@
 de:
 
   mailers:
+    header:
+      follow_echo: Folgen Sie echo im Netz
+
     signature: |
       --
       echo - die globale Agora

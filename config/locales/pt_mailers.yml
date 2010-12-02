@@ -2,6 +2,9 @@
 pt:
 
   mailers:
+    header:
+      follow_echo: Siga o echo na web
+
     signature: |
       --
       echo - a Ágora Global

@@ -2,6 +2,9 @@
 es:
 
   mailers:
+    header:
+      follow_echo: Siga echo en la web
+
     signature: |
       --
       echo - el ágora global
