@@ -607,8 +607,9 @@ function initStatementHistoryEvents() {
 	/*******************/
   /* BREADCRUMB LINK */
   /*******************/
+	
+	/*loads statement stack of ids into the button itself */
 	$("#breadcrumbs a.statement").livequery(function(){
-		
 		var path_id = this.href.match(/\/\d+/);
 		var path = this.href.replace(/\/\d+.*/, path_id + '/' + 'parents');
 		element = $(this);
@@ -617,6 +618,7 @@ function initStatementHistoryEvents() {
 			element.data('sid', sid);
 		});
 	});
+	
 	
 	$("#breadcrumbs a.statement").live("click", function(){
 		/* get bids from fragment */
