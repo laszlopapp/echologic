@@ -34,7 +34,6 @@ class NewsletterController < ApplicationController
     end
   end
 
-  private
   def send_newsletter_mails(subject, text)
     User.find(:all, :conditions => {:newsletter_notification => 1}).each do |recipient|
       NewsletterMailer.deliver_newsletter_mail(recipient, subject, text)
