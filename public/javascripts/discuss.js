@@ -41,15 +41,18 @@ $(document).ready(function () {
 /* Statement navigation helpers */
 /********************************/
 
-function loadBreadcrumb(id, url, value) {
+function loadBreadcrumb(type, id, url, value) {
 	var breadcrumbs = $('#breadcrumbs');
 	var breadcrumb = $('<a></a>');
-	breadcrumb.attr('id', id);
-	breadcrumb.addClass('statement');
+	breadcrumb.attr('id', type + '_' + id);
+	breadcrumb.addClass('statement statement_link ' + type + '_link');
+	//if (breadcrumbs.length == 0){breadcrumb.addClass('first');}
 	breadcrumb.attr('href',url);
 	breadcrumb.text(value);
 	
-	breadcrumbs.append(' ');
+	if (breadcrumbs.length != 0) {
+  	breadcrumbs.append($("<span class='delimitator'>></span>"));
+  }
 	breadcrumbs.append(breadcrumb);
 	
 }
@@ -57,17 +60,18 @@ function loadBreadcrumb(id, url, value) {
 function deleteBreadcrumbs() {
 	var links_to_delete = $('#breadcrumbs').data('to_delete');
 	if (links_to_delete != null) {
-  	$.each(links_to_delete, function(){
-  		$('#breadcrumbs').find('#' + this).remove();
+		$.each(links_to_delete, function(index, value){
+			var link = $('#breadcrumbs').find('#' + value);
+			link.prev().remove();
+			link.remove();
   	});
   	$('#breadcrumbs').removeData('to_delete');
   }
 }
 
 function initBreadcrumbs() {
-	$('#breadcrumbs a.statement').live('click', function(){
-		$(this).nextAll().remove();
-		$(this).remove();
+	$('#breadcrumbs').livequery(function(){
+		$(this).jScrollPane({animateTo: true});
 	});
 }
 
@@ -626,7 +630,7 @@ function initStatementHistoryEvents() {
 		bid = (bid == null) ? [] : bid.split(','); 
 		
 		/* get links that must vanish from the breadcrumbs */
-    var links_to_delete = $(this).nextAll().map(function(){
+    var links_to_delete = $(this).nextAll(".statement").map(function(){
 	    return this.id;
 	  }).get();
 		links_to_delete.push($(this).attr('id'));
@@ -638,10 +642,9 @@ function initStatementHistoryEvents() {
 		new_bid = $.grep(bid, function(a){
 			return $.inArray(a, id_links_to_delete) == -1;
 		});
-		
 		/* save them to be deleted after the request */
 		$("#breadcrumbs").data('to_delete', links_to_delete);
-    /* set fragment */
+		/* set fragment */
 		var sid = $(this).data('sid');
     $.setFragment({"bid" : new_bid.join(","), "sid": sid.join(","), "new_level" : ''});
     return false;
@@ -660,9 +663,10 @@ function getBreadcrumbsToLoad(bid) {
 	/* current breadcrumb entries */
 	var visible_bid = $("#breadcrumbs a.statement").map(function(){
 		var id = this.id.replace(/[^0-9]+/, '');
-		if($.inArray(id, bid_stack) == -1) {
+		/*if($.inArray(id, bid_stack) == -1) {
+			$(this).prev().remove();
       $(this).remove();
-    }
+    }*/
     return id;
   }).get();
 	

@@ -148,6 +148,10 @@ class StatementsController < ApplicationController
         # load siblings to store in client session
         load_siblings(@statement_node)
         load_all_children
+        
+        #if top statement, then load parent and title
+        set_parent_breadcrumb if @statement_node.class.is_top_statement?
+        
         respond_to_statement do |format|
           format.js {render :template => 'statements/create'}
         end
@@ -621,7 +625,16 @@ class StatementsController < ApplicationController
     breadcrumbs = params[:breadcrumb].split(",")
     statement_nodes = StatementNode.find(breadcrumbs)
     statement_documents = search_statement_documents(statement_nodes.map(&:statement_id), @language_preference_list)
-    @breadcrumbs = statement_nodes.map{|n|["#{n.class.name.underscore}_#{n.id}", statement_node_url(n), statement_documents[n.statement_id].title]}
+    @breadcrumbs = statement_nodes.map{|n|[n.class.name.underscore, n.id, statement_node_url(n), statement_documents[n.statement_id].title]}
+  end
+  
+  #
+  # Sets the breadcrumb of the current statement node's parent
+  #
+  def set_parent_breadcrumb
+    parent_node = @statement_node.parent
+    statement_documents = search_statement_documents(parent_node.statement_id, @language_preference_list)
+    @breadcrumb = [parent_node.class.name.underscore, parent_node.id, statement_node_url(parent_node), statement_documents[parent_node.statement_id].title]
   end
   
   #

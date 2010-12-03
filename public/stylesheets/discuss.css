@@ -90,8 +90,18 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* ----------- */
 
 .breadcrumbs {
-	padding:7px 10px 10px;
+	padding:7px 10px 7px;
 	font-size: 12px;
+	background: url("../images/page/separator_no_shadow.png") no-repeat scroll center bottom transparent;
+	margin-bottom: 18px;
+}
+
+.breadcrumbs a.statement_link {
+	padding-right: 20px;
+}
+
+.breadcrumbs span.delimitator {
+	padding-right: 20px;
 }
 
 /* ----------------------------- */
@@ -488,6 +498,10 @@ a.statement_link:hover {
 
 .discussion_links {
   list-style:none;
+}
+
+.search_link {
+   background:transparent url(../images/page/discuss/search_icon_small.png) no-repeat scroll 0 0;
 }
 
 .discussion_link {

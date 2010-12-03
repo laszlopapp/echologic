@@ -230,10 +230,10 @@ module StatementsHelper
   def render_breadcrumb(breadcrumbs)
     content_tag :div, :id => 'breadcrumbs', :class => 'breadcrumbs' do 
       elements = []
-      @breadcrumbs.each do |txt, path|
-        elements << link_to(h(txt), path)
+      breadcrumbs.each do |txt, path|
+        elements << link_to(h(txt), path, :class => "search_link statement_link")
       end
-      elements.join(' ')
+      elements.join(content_tag(:span, '>', :class => 'delimitator'))
     end
   end
   

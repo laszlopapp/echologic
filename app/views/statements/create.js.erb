@@ -35,9 +35,10 @@ replaceOrInsert(class_element, statement);
 var bid = $.fragment().bid;
 if (bid == null) {bid = '';}
 bid = bid.split(',');
-<% if @statement_node.class.is_top_statement? %>
+<% if @statement_node.class.is_top_statement? and @breadcrumb %>
 	var followed = <%= @statement_node.parent_id %>;
 	bid.push(followed);
+	loadBreadcrumb("<%= @breadcrumb[0]%>" , "<%= @breadcrumb[1] %>", "<%= @breadcrumb[2] %>", "<%= @breadcrumb[3] %>");
 <% end %>
 
 /* Statements' stack */	
