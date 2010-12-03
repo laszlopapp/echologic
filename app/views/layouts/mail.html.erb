@@ -28,7 +28,7 @@
         min-width: 400px;
         max-width: 1000px;
         margin: 10px auto;
-        padding: 0 20px;
+        padding: 0;
       }
 
       #mail_header {
@@ -40,17 +40,11 @@
 
       #mail_logo {
         float: left;
-        background: url(<%= full_url('/images/page/echo_logo.png') %>) no-repeat scroll left top;
-        width: 207px;
-        height: 87px;
         margin: 5px 0 10px 5px;
         border: none;
       }
 
       #beta_label {
-        background: url(<%= full_url('/images/page/beta_label.png') %>) no-repeat scroll left top;
-        width: 45px;
-        height: 19px;
         left: 192px;
         top: 5px;
         position: absolute;
@@ -59,9 +53,9 @@
       #links_label {
         font-size: 20px;
         font-weight: bold;
+        float: right;
         position: relative;
         top: 4px;
-        text-align: right;
         cursor: default;
       }
 
@@ -90,6 +84,7 @@
 
       #facebook_link {
         background-position: -102px 0;
+        clear: right;
       }
 
       #content_container {
@@ -101,6 +96,12 @@
         -moz-border-radius: 10px;
         -webkit-border-radius: 10px;
       }
+
+      .separator {
+        width: 100%;
+        padding: 35px 0 15px;
+      }
+
       #unsubscribe {
         font-style: italic;
       }
@@ -110,12 +111,12 @@
   <body>
     <div id="mail_container">
 
-      <!-- Header -->
       <div id="mail_header">
         <% link_to root_url do %>
-          <div id="mail_logo"></div>
+          <img id="mail_logo" src="<%= full_url('/images/page/echo_logo.png') %>" alt="echo - the global agora"/>
         <% end %>
-        <span id="beta_label"></span>
+        <img id="beta_label" src="<%= full_url('/images/page/beta_label.png') %>" alt="- BETA -"/>
+
         <%= content_tag :div, I18n.t('mailers.header.follow_echo'), :id => 'links_label' %>
         <% link_to 'http://facebook.com/echo.agora', :target => '_blank' do %>
           <span id="facebook_link" class="web_link"></span>
@@ -132,12 +133,10 @@
       </div>
 
       <div id="content_container">
-        <!-- Title -->
         <h1><%= yield :title %></h1>
-
-        <!-- Content -->
         <%= yield %>
-        <br/><br/>
+        <br/>
+        <img class="separator" src="<%= full_url('/images/page/separator_no_shadow.png') %>"/>
         <%= content_tag :p, I18n.t('mailers.signature_as_html', :locale => @language.code) %>
         <br/>
         <p id="unsubscribe">
