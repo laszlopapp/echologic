@@ -14,20 +14,17 @@ en:
       Twitter: http://twitter.com/echologic
       Facebook: http://www.facebook.com/echo.agora
       E-Mail: team@echologic.org
-    signature_as_html: |
-      <p>
-      --<br/>
-      echo - the global agora
-      </p><p>
+    signature_as_html: |-
+      <strong>echo</strong> - the global agora
+      <br/><br/>
       Web: <a href="http://echo.to">http://echo.to</a><br/>
       Blog: <a href="http://blog.echo.to">http://blog.echo.to</a><br/>
       Twitter: <a href="http://twitter.com/echologic">http://twitter.com/echologic</a><br/>
       Facebook: <a href="http://www.facebook.com/echo.agora">http://www.facebook.com/echo.agora</a><br/>
       E-Mail: <a href="mailto:team@echologic.org">team@echologic.org</a>
-      </p>
 
     newsletter:
-      title: Newsletter
+      title: echo Newsletter
       header: |
         <p>
         <strong>This is the Newsletter Section!</strong><br/>
@@ -49,9 +46,9 @@ en:
     activity_tracking:
       subject: echo - Activity Notifications
       discussions:
-        new_questions: 'There are <strong>{{count}} new discussions</strong> since the last update:'
-        new_tags: 'The new discussions are related the following topics:'
-        new_proposals: 'New proposals in the discussion "{{title}}"'
+        new_questions: 'There are <strong>{{count}} new issues</strong> since the last update:'
+        new_tags: 'The new issues are related the following topics:'
+        new_proposals: 'New proposals in the issue "{{title}}"'
         new_improvement_proposals: 'New improvement ideas for the proposal "{{title}}" in "{{question_title}}":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-

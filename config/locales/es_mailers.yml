@@ -14,20 +14,17 @@ es:
       Twitter: http://twitter.com/echologic
       Facebook: http://www.facebook.com/echo.agora
       E-Mail: team@echologic.org
-    signature_as_html: |
-      <p>
-      --<br/>
-      echo - el ágora global
-      </p><p>
+    signature_as_html: |-
+      <strong>echo</strong> - el ágora global
+      <br/><br/>
       Web: <a href="http://echo.to">http://echo.to</a><br/>
       Blog: <a href="http://blog.echo.to">http://blog.echo.to</a><br/>
       Twitter: <a href="http://twitter.com/echologic">http://twitter.com/echologic</a><br/>
       Facebook: <a href="http://www.facebook.com/echo.agora">http://www.facebook.com/echo.agora</a><br/>
       E-Mail: <a href="mailto:team@echologic.org">team@echologic.org</a>
-      </p>
 
     newsletter:
-      title: Newsletter
+      title: echo Newsletter
       header: |
         <p>
         <strong>This is the Newsletter Section!</strong><br/>
