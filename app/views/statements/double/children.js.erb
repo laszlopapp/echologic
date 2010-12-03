@@ -1,18 +1,23 @@
 var double_list = $('div.<%=dom_class(@statement_node)%> #<%= @type.underscore.pluralize %> .doubles_list');
 <%if @page.to_i == 1 %> 
   panel_height = <%= !@children.select{|c|c.total_entries == 7}.empty? ? 225 : 205 %>
-  double_list.animate({height: panel_height, width: 800}, 400, function() {
-    pagination_scroll_down(double_list);
+  double_list.animate({height: panel_height, width: '100%'}, 400, function() {
+    double_list.jScrollPane({animateScroll: true});
   });
+	double_list = $('div.<%=dom_class(@statement_node)%> #<%=@type.underscore.pluralize%> .doubles_list');
 <% end %>
 <% @children.each_with_index do |children_group, index| %>
   <% next if children_group.empty? %>
   <% type = @type.to_s.constantize.expected_sub_types[index].to_s.underscore %>
 	
 	var children_list = $('div.<%=dom_class(@statement_node)%> #<%= @type.underscore.pluralize %> #children_list.<%= type %>');
+	
 	var elements_list = "<%= escape_javascript(render :partial => 'statements/child', :collection => children_group[@offset, @per_page]) %>";
 
-  
+  <% if @page.to_i > 1 %>
+	  var api = $('div.<%=dom_class(@statement_node)%> #<%=@type.underscore.pluralize%> .doubles_list').data('jsp');
+	  children_list = api.getContentPane();
+	<% end %>
 
   children_list.append(elements_list);
 	
@@ -37,6 +42,7 @@ var pagination_buttons = "<%= escape_javascript(will_paginate(@children.sort{|a,
 more_element.replaceWith(pagination_buttons);
 
 <% if @page.to_i > 1 %>
-  pagination_scroll_down(double_list);
+  api.reinitialise();
+  api.scrollToBottom();
 <% end %> 
 $('div.<%=dom_class(@statement_node)%> #<%= @type.underscore.pluralize %> .more_pagination a').addClass('ajax');

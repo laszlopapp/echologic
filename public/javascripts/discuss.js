@@ -71,7 +71,7 @@ function deleteBreadcrumbs() {
 
 function initBreadcrumbs() {
 	$('#breadcrumbs').livequery(function(){
-		$(this).jScrollPane({animateTo: true});
+		//$(this).jScrollPane({animateTo: true});
 	});
 }
 
@@ -746,10 +746,16 @@ function initChildrenPaginationButton() {
 
 
 function pagination_scroll_down(element) {
-  element.jScrollPane({animateTo: true});
-  if (element.data('jScrollPanePosition') != element.data('jScrollPaneMaxScroll')) {
+  element.jScrollPane({animateScroll: true});
+	//api = element.data('jsp');
+  
+	//api.scrollTo(0, api.jspMaxScroll());
+
+  //api.scrollToBottom();
+
+  /*if (element.data('jScrollPanePosition') != element.data('jScrollPaneMaxScroll')) {
     element[0].scrollTo(element.data('jScrollPaneMaxScroll'));
-  }
+  }*/
 
 }
 

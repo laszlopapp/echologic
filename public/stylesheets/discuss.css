@@ -901,3 +901,41 @@ form.statement fieldset ol li.tags_container {
 .children_pagination {
   overflow: hidden;
 }
+
+
+/*********************/
+/* CHILDREN'S SCROLL */
+/*********************/
+
+.jspContainer {
+    /*overflow: hidden;
+    position: relative;*/
+    z-index: 1;
+}
+
+.jspVerticalBar {
+	background-color: transparent;
+}
+
+.jspVerticalBar .jspTrack {
+position: absolute;
+cursor: pointer;
+right: 3px;
+top: 0;
+height: 100%;
+background: #f1f1f1;
+  width: 6px !important;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+.jspVerticalBar .jspDrag {
+position: absolute;
+  left: -2px;
+background: #97b0bf;
+cursor: pointer;
+overflow: hidden;
+  width: 10px !important;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
