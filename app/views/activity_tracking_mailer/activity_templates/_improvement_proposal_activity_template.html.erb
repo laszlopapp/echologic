@@ -2,5 +2,6 @@
   <%= link_to title,
             question_proposal_improvement_proposal_url(Question.find(event_data['root_id']),
                                                        Proposal.find(event_data['parent_id']),
-                                                       ImprovementProposal.find(event_data['id']), :locale => language_code) %>
+                                                       ImprovementProposal.find(event_data['id']),
+                                                       :locale => language_code) %>
 </li>
