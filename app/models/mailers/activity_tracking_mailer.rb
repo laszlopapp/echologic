@@ -11,7 +11,8 @@ class ActivityTrackingMailer < ActionMailer::Base
     recipients    recipient.email
     sent_on       Time.now
     content_type "text/html"
-    body          :question_events => question_events,
+    body          :name => recipient.full_name,
+                  :question_events => question_events,
                   :question_tags => question_tags,
                   :events => events,
                   :language => language,
