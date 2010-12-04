@@ -4,6 +4,13 @@
     <%= I18n.t('mailers.activity_tracking.discussions.new_questions',
              :count => questions.size,
              :locale => @language.code) %>
+    <%= I18n.t('mailers.activity_tracking.discussions.new_tags',
+             :locale => @language.code) %>
+    <%= tags.to_a.map{|tag|
+        I18n.t('mailers.activity_tracking.discussions.tag_link',
+               :tag => link_to(tag[0], discuss_search_url(:value => tag[0], :locale => @language.code)),
+               :count => tag[1],
+               :locale => @language.code)}.join(", ") %>
   </p>
 
   <ul>
@@ -28,11 +35,4 @@
     <% end %>
   </ul>
 
-  <%= I18n.t('mailers.activity_tracking.discussions.new_tags',
-             :locale => @language.code) %>
-  <%= tags.to_a.map{|tag|
-      I18n.t('mailers.activity_tracking.discussions.tag_link',
-             :tag => link_to(tag[0], discuss_search_url(:value => tag[0], :locale => @language.code)),
-             :count => tag[1],
-             :locale => @language.code)}.join(", ") %>
 <% end %>
