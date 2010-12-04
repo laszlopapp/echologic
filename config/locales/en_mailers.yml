@@ -49,7 +49,7 @@ en:
       subject: echo - Activity Notifications
       discussions:
         new_questions: 'There are <strong>{{count}} new issue(s)</strong> since the last update. '
-        new_tags: 'They are about the following topics:'
+        new_tags: 'They are related to the following topics:'
         new_proposals: 'New proposals in the issue "{{title}}"'
         new_improvement_proposals: 'New improvement ideas for the proposal "{{title}}" in "{{question_title}}":'
         tag_link: "{{tag}} ({{count}})"
