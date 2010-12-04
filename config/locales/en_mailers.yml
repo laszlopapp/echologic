@@ -4,7 +4,11 @@ en:
   mailers:
     header:
       follow_echo: Follow echo on the Web
-
+    greeting: 'Dear {{name}},'
+    bye_as_html: |-
+      Best regards,
+      <br/><br/>
+      Your echo team
     signature: |
       --
       echo - the global agora
@@ -33,8 +37,6 @@ en:
         </p>
       subject: Subject
       text: Text
-      greeting: |-
-        Dear {{name}},
       unsubscribe: |-
         If you do not wish to receive newsletters, please log in to
         <a href='{{echo_url}}'>echo</a>, go to Settings under My echo and uncheck the newsletter option.
@@ -46,8 +48,8 @@ en:
     activity_tracking:
       subject: echo - Activity Notifications
       discussions:
-        new_questions: 'There are <strong>{{count}} new issues</strong> since the last update:'
-        new_tags: 'The new issues are related the following topics:'
+        new_questions: 'There are <strong>{{count}} new issue(s)</strong> since the last update. '
+        new_tags: 'They are about the following topics:'
         new_proposals: 'New proposals in the issue "{{title}}"'
         new_improvement_proposals: 'New improvement ideas for the proposal "{{title}}" in "{{question_title}}":'
         tag_link: "{{tag}} ({{count}})"

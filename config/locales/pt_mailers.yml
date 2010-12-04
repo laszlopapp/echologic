@@ -4,7 +4,11 @@ pt:
   mailers:
     header:
       follow_echo: Siga o echo na web
-
+    greeting: 'Caro/a {{name}},'
+    bye_as_html: |-
+      Os melhores cumprimentos,
+      <br/><br/>
+      A sua equipa echo
     signature: |
       --
       echo - a Ágora Global
@@ -33,8 +37,6 @@ pt:
         </p>
       subject: Título
       text: Texto
-      greeting: |-
-        Caro/a {{name}},
       unsubscribe: |-
         Se não deseja receber a newsletters, por favor logue-se na <a href='{{echo_url}}'>echo</a>,
         vá á seção das Definições em O meu echo e desselecione a opção de newsletter.
@@ -46,7 +48,7 @@ pt:
     activity_tracking:
       subject: echo - Notificações de Actividade
       discussions:
-        new_questions: 'Existem <strong>{{count}} discussões novas</strong> desde a última actualização:'
+        new_questions: 'Existem <strong>{{count}} discussões novas</strong> desde a última actualização. '
         new_tags: 'Os debates estão relacionados com os seguintes tópicos:'
         new_proposals: 'Novas propostas na discussão "{{title}}"'
         new_improvement_proposals: 'Novas propostas de melhoria na proposta "{{title}}" em "{{question_title}}":'

@@ -4,7 +4,11 @@ fr:
   mailers:
     header:
       follow_echo: Suivez echo sur Internet
-
+    greeting: 'Cher(e) {{name}},'
+    bye_as_html: |-
+      Bien à vous,
+      <br/><br/>
+      L'équipe echo
     signature: |
       --
       echo - l'agora globale
@@ -33,8 +37,6 @@ fr:
         </p>
       subject: Objet
       text: Texte
-      greeting: |-
-        Cher(e) {{name}},
       unsubscribe: |-
         Si vous ne souhaitez pas recevoir de newsletter, contactez
         <a href='{{echo_url}}'>echo</a>, allez sur Mon echo: paramètres et désactivez Newsletter.
@@ -46,7 +48,7 @@ fr:
     activity_tracking:
       subject: echo - Activités, notifications"
       discussions:
-        new_questions: 'Il y a des <strong>{{count}} discussions nouvelles</strong> depuis la dernière mise à jour:'
+        new_questions: 'Il y a des <strong>{{count}} discussions nouvelles</strong> depuis la dernière mise à jour. '
         new_tags: 'Les thèmes suivants y sont abordés:'
         new_proposals: 'Propositions nouvelles "{{title}}"'
         new_improvement_proposals: |

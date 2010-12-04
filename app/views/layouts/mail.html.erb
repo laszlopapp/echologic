@@ -88,7 +88,7 @@
       }
 
       #content_container {
-        margin: 15px 10px 10px;
+        margin: 15px 10px;
         background: #FFF;
         padding: 15px 20px;
         border: 1px solid #7bb031;
@@ -99,7 +99,7 @@
 
       .separator {
         width: 100%;
-        padding: 35px 0 15px;
+        padding: 20px 0 10px;
       }
 
       #unsubscribe {
@@ -134,8 +134,11 @@
 
       <div id="content_container">
         <h1><%= yield :title %></h1>
+        <%= content_tag :p, I18n.t('mailers.greeting', :name => @name, :locale => @language.code) %>
+        <br/>
         <%= yield %>
         <br/>
+        <%= content_tag :p, I18n.t('mailers.bye_as_html', :locale => @language.code) %>
         <img class="separator" src="<%= full_url('/images/page/separator_no_shadow.png') %>"/>
         <%= content_tag :p, I18n.t('mailers.signature_as_html', :locale => @language.code) %>
         <br/>
