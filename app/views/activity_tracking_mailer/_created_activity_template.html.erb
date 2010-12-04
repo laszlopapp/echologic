@@ -15,12 +15,13 @@
    end
 %>
 <% if previous_event_data.nil? or event_data['parent_id'] != previous_event_data['parent_id'] %>
-	<br/>
 	</ul>
-	<%= I18n.t("mailers.activity_tracking.discussions.new_#{event_data['type']}s",
+  <p>
+    <%= I18n.t("mailers.activity_tracking.discussions.new_#{event_data['type']}s",
              :title => @parent_title,
              :question_title => @root_title,
              :locale => @language.code) %>
+  </p>
 	<ul>
 <% end %>
 <%= render :partial => "activity_tracking_mailer/activity_templates/#{event_data['type']}_activity_template",
