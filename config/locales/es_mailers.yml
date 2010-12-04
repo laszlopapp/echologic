@@ -2,6 +2,13 @@
 es:
 
   mailers:
+    header:
+      follow_echo: Siga echo en la web
+    greeting: 'Estimado/a {{name}},'
+    bye_as_html: |-
+      Saludos cordiales,
+      <br/><br/>
+      Tu equipo echo
     signature: |
       --
       echo - el ágora global
@@ -9,21 +16,19 @@ es:
       Web: http://echo.to
       Blog: http://blog.echo.to
       Twitter: http://twitter.com/echologic
-      Facebook: http://www.facebook.com/pages/echologic/389781660790
+      Facebook: http://www.facebook.com/echo.agora
       E-Mail: team@echologic.org
-    signature_as_html: |
-      <p>
-      --<br/>
-      echo - el ágora global
-      </p><p>
+    signature_as_html: |-
+      <strong>echo</strong> - el ágora global
+      <br/><br/>
       Web: <a href="http://echo.to">http://echo.to</a><br/>
+      Blog: <a href="http://blog.echo.to">http://blog.echo.to</a><br/>
       Twitter: <a href="http://twitter.com/echologic">http://twitter.com/echologic</a><br/>
-      Facebook: <a href="http://www.facebook.com/pages/echologic/389781660790">Facebook Page</a><br/>
+      Facebook: <a href="http://www.facebook.com/echo.agora">http://www.facebook.com/echo.agora</a><br/>
       E-Mail: <a href="mailto:team@echologic.org">team@echologic.org</a>
-      </p>
 
     newsletter:
-      title: Newsletter
+      title: echo Newsletter
       header: |
         <p>
         <strong>This is the Newsletter Section!</strong><br/>
@@ -32,11 +37,9 @@ es:
         </p>
       subject: Subject
       text: Text
-      greeting: |-
-        <p>Estimado/a {{name}},</p>
       unsubscribe: |-
-        <p>Si no deseas recibir el newsletter, regístrate en
-        <a href='{{echo_url}}'>echo</a>, ve a Definiciones en Mi echo y desactiva la opción newsletter.</p>
+        Si no deseas recibir el newsletter, regístrate en
+        <a href='{{echo_url}}'>echo</a>, ve a Definiciones en Mi echo y desactiva la opción newsletter.
       fields_not_filled: |-
         You need to fill the subject and text fields in order to send the newsletter.
       sent: |-
@@ -46,7 +49,7 @@ es:
     activity_tracking:
       subject: echo - Notificaciones de la actividad
       discussions:
-        new_questions: 'Hay <strong>{{count}} debates nuevos</strong> desde la última actualización:'
+        new_questions: 'Hay <strong>{{count}} debates nuevos</strong> desde la última actualización. '
         new_tags: 'Los debates están relacionados con los temas:'
         new_proposals: 'Nueva propuesta a debate "{{title}}"'
         new_improvement_proposals: 'Nueva propuesta de mejora para la propuesta "{{title}}" en "{{question_title}}":'

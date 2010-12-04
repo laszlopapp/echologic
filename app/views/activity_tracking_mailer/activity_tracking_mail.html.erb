@@ -1,13 +1,22 @@
-<h2><%= I18n.t('mailers.activity_tracking.subject', :locale => @language.code) %></h2>
+
+<% content_for :title do %>
+  <%= I18n.t('mailers.activity_tracking.subject', :locale => @language.code) %>
+<% end %>
+
 
 <%= render :partial => "activity_tracking_mailer/activity_templates/questions_activity_template",
            :locals => {:questions => @question_events, :tags => @question_tags}%>
-<br/><br/>
+
 <% previous_event_data = nil %>
 <% @events.each do |e|%>
   <% event_data = JSON.parse(e.event) %>
-	<%= render :partial => "activity_tracking_mailer/#{event_data['operation']}_activity_template", 
+	<%= render :partial => "activity_tracking_mailer/#{event_data['operation']}_activity_template",
              :locals => {:event_data => event_data, :previous_event_data => previous_event_data} %>
 	<% previous_event_data = event_data %>
 <% end %>
 </ul>
+
+
+<% content_for :unsubscribe do %>
+  <%= I18n.t('mailers.activity_tracking.unsubscribe', :echo_url => root_url, :locale => @language.code) %>
+<% end %>

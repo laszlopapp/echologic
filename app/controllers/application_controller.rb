@@ -47,6 +47,7 @@ class ApplicationController < ActionController::Base
   # False URLs are redirected to home
   #
   rescue_from 'ActionController::RoutingError', :with => :rescure_routing_error
+  rescue_from 'ActionController::UnknownAction', :with => :rescure_routing_error
 
   private
   def rescure_routing_error

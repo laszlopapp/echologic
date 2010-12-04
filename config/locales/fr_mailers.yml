@@ -2,6 +2,13 @@
 fr:
 
   mailers:
+    header:
+      follow_echo: Suivez echo sur Internet
+    greeting: 'Cher(e) {{name}},'
+    bye_as_html: |-
+      Bien à vous,
+      <br/><br/>
+      L'équipe echo
     signature: |
       --
       echo - l'agora globale
@@ -9,21 +16,19 @@ fr:
       Web: http://echo.to
       Blog: http://blog.echo.to
       Twitter: http://twitter.com/echologic
-      Facebook: http://www.facebook.com/pages/echologic/389781660790
+      Facebook: http://www.facebook.com/echo.agora
       E-Mail: team@echologic.org
     signature_as_html: |-
-      <p>
-      --<br/>
-      echo - l'agora globale
-      </p><p>
+      <strong>echo</strong> - l'agora globale
+      <br/><br/>
       Web: <a href="http://echo.to">http://echo.to</a><br/>
+      Blog: <a href="http://blog.echo.to">http://blog.echo.to</a><br/>
       Twitter: <a href="http://twitter.com/echologic">http://twitter.com/echologic</a><br/>
-      Facebook: <a href="http://www.facebook.com/pages/echologic/389781660790">Facebook Page</a><br/>
+      Facebook: <a href="http://www.facebook.com/echo.agora">http://www.facebook.com/echo.agora</a><br/>
       E-Mail: <a href="mailto:team@echologic.org">team@echologic.org</a>
-      </p>
 
     newsletter:
-      title: Newsletter
+      title: echo Newsletter
       header: |
         <p>
         <strong>Voici la partie "Newsletter"!</strong><br/>
@@ -32,11 +37,9 @@ fr:
         </p>
       subject: Objet
       text: Texte
-      greeting: |-
-        <p>Cher(e) {{name}},</p>
       unsubscribe: |-
-        <p>Si vous ne souhaitez pas recevoir de newsletter, contactez
-        <a href='{{echo_url}}'>echo</a>, allez sur Mon echo: paramètres et désactivez Newsletter.</p>
+        Si vous ne souhaitez pas recevoir de newsletter, contactez
+        <a href='{{echo_url}}'>echo</a>, allez sur Mon echo: paramètres et désactivez Newsletter.
       fields_not_filled: |-
         Veuillez préciser l'objet et le texte de votre Newsletter. Merci.
       sent: |-
@@ -45,7 +48,7 @@ fr:
     activity_tracking:
       subject: echo - Activités, notifications"
       discussions:
-        new_questions: 'Il y a des <strong>{{count}} discussions nouvelles</strong> depuis la dernière mise à jour:'
+        new_questions: 'Il y a des <strong>{{count}} discussions nouvelles</strong> depuis la dernière mise à jour. '
         new_tags: 'Les thèmes suivants y sont abordés:'
         new_proposals: 'Propositions nouvelles "{{title}}"'
         new_improvement_proposals: |

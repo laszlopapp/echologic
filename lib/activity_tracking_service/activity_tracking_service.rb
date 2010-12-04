@@ -144,7 +144,7 @@ class ActivityTrackingService
   #
   def send_activity_email(recipient, question_events, question_tags, events)
     puts "Send mail to:" + recipient.email
-    mail = ActivityTrackingMailer.create_activity_tracking_email(recipient,question_events,question_tags,events)
+    mail = ActivityTrackingMailer.create_activity_tracking_mail(recipient,question_events,question_tags,events)
     ActivityTrackingMailer.deliver(mail)
   end
 

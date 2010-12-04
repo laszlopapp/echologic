@@ -242,7 +242,7 @@ pt:
 
       newsletter:
         title: Newsletter
-        guide: Receber a newsletter da echo
+        guide: Receber a newsletter da echo.
         turned_on: Subscrição para a newsletter da echo ativada.
         turned_off: Subscrição para a newsletter da echo desativada.
 
@@ -256,7 +256,7 @@ pt:
         title: Notificações de elaboração de textos
         guide: |
           Notificações relativas ao processo de elaboração coletiva dos seus conteúdos -
-          por exemplo quando a sua proposta de melhoria foi aprovada para ser incorporada.<br/>
+          por exemplo quando a sua proposta de melhoria foi aprovada para ser incorporada.<br/><br/>
           <strong>Atenção!</strong> Caso estas notificações se encontrem desativadas poderá vir a perder a oportunidade de
           incorporar as suas propostas de melhoria.
         turned_on: Notificações imediatas foram ativadas.

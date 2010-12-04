@@ -2,6 +2,9 @@ class NewsletterController < ApplicationController
 
   skip_before_filter :require_user, :only => [:new, :create]
 
+  access_control do
+    allow :admin
+  end
 
   # GET /new
   def new
@@ -18,10 +21,10 @@ class NewsletterController < ApplicationController
       format.js do
         if !subject.blank? and !text.blank?
           if params[:newsletter][:test].eql?('true')
-            NewsletterMailer.deliver_newsletter(current_user, subject, text)
+            NewsletterMailer.deliver_newsletter_mail(current_user, subject, text)
             render_with_info "Test newsletter mail has been sent to your address."
           else
-            send_newsletter_mails(subject, text)
+            MailerService.instance.send_newsletter_mails(subject, text)
             render :template => 'newsletter/create'
           end
         else
@@ -30,20 +33,5 @@ class NewsletterController < ApplicationController
       end
     end
   end
-
-  private
-  def send_newsletter_mails(subject, text)
-    User.find(:all, :conditions => {:newsletter_notification => 1}).each do |recipient|
-      NewsletterMailer.deliver_newsletter(recipient, subject, text)
-      puts "Newsletter has been delivered to: " + recipient.email
-      #sleep 5
-    end
-  end
-
-  ###############
-  # Async calls #
-  ###############
-
-  #handle_asynchronously :send_newsletter_mails
 
 end

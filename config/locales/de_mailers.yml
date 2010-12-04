@@ -2,6 +2,13 @@
 de:
 
   mailers:
+    header:
+      follow_echo: Folgen Sie echo im Netz
+    greeting: 'Hallo {{name}},'
+    bye_as_html: |-
+      Herzliche Grüße,
+      <br/><br/>
+      Ihr echo Team
     signature: |
       --
       echo - die globale Agora
@@ -9,21 +16,19 @@ de:
       Web: http://echo.to
       Blog: http://blog.echo.to
       Twitter: http://twitter.com/echologic
-      Facebook: http://www.facebook.com/pages/echologic/389781660790
+      Facebook: http://www.facebook.com/echo.agora
       E-Mail: team@echologic.org
-    signature_as_html: |
-      <p>
-      --<br/>
-      echo - die globale Agora
-      </p><p>
+    signature_as_html: |-
+      <strong>echo</strong> - die globale Agora
+      <br/><br/>
       Web: <a href="http://echo.to">http://echo.to</a><br/>
+      Blog: <a href="http://blog.echo.to">http://blog.echo.to</a><br/>
       Twitter: <a href="http://twitter.com/echologic">http://twitter.com/echologic</a><br/>
-      Facebook: <a href="http://www.facebook.com/pages/echologic/389781660790">Facebook Page</a><br/>
+      Facebook: <a href="http://www.facebook.com/echo.agora">http://www.facebook.com/echo.agora</a><br/>
       E-Mail: <a href="mailto:team@echologic.org">team@echologic.org</a>
-      </p>
 
     newsletter:
-      title: Newsletter
+      title: echo Newsletter
       header: |
         <p>
         <strong>This is the Newsletter Section!</strong><br/>
@@ -32,12 +37,10 @@ de:
         </p>
       subject: Subject
       text: Text
-      greeting: |-
-        <p>Hallo {{name}},</p>
       unsubscribe: |-
-        <p>Wenn Sie keinen echo Newsletter mehr erhalten möchten, melden Sie sich bitte auf
+        Wenn Sie keinen echo Newsletter mehr erhalten möchten, melden Sie sich bitte auf
         <a href='{{echo_url}}'>echo</a> an, und gehen Sie auf "Einstellungen" unter "Mein echo".
-        Hier können Sie den Newsletter abbestellen.</p>
+        Dort können Sie den Newsletter abbestellen.
       fields_not_filled: |-
         You need to fill the subject and text fields in order to send the newsletter.
       sent: |-
@@ -46,10 +49,10 @@ de:
     activity_tracking:
       subject: echo - Neue Diskussionsbeiträge
       discussions:
-        new_questions: 'Es gibt <strong>{{count}} neue Diskussionen</strong> seit dem letzten Update:'
-        new_tags: 'Die Diskussionen befassen sich mit folgenden Themen:'
-        new_proposals: 'Neue Vorschläge in der Diskussion "{{title}}"'
-        new_improvement_proposals: 'Neue Verbesserungsideen für den Vorschlag "{{title}}" in "{{question_title}}":'
+        new_questions: 'Es gibt <strong>{{count}} neue Fragestellung(en)</strong> seit dem letzten Update. '
+        new_tags: 'Sie befassen sich mit den folgenden Themen:'
+        new_proposals: 'Neue Vorschläge in der Fragestellung "{{title}}"'
+        new_improvement_proposals: 'Neue Ergänzungsideen für den Vorschlag "{{title}}" in "{{question_title}}":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         Wenn Sie keine Benachrichtigungen über neue Discussionen und Vorschläge erhalten möchten, melden Sie sich bitte auf

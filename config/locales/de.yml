@@ -249,7 +249,7 @@ de:
 
       newsletter:
         title: Newsletter
-        guide: echo Newsletter abonnieren
+        guide: echo Newsletter abonnieren.
         turned_on: Sie haben den echo Newsletter abonniert.
         turned_off: Sie haben den echo Newsletter abbestellt.
 
@@ -263,7 +263,7 @@ de:
         title: Gemeinsame Textentwicklung
         guide: |
           Sofortige Benachrichtigungen zum Verlauf der gemeinsamen Textenwicklung Ihrer Vorschläge und
-          Ergänzungen - z.B. wenn Sie Ihre Ergänzung einarbeiten dürfen.<br/>
+          Ergänzungen - z.B. wenn Sie Ihre Ergänzung einarbeiten dürfen.<br/><br/>
           <strong>Achtung!</strong> Wenn Sie diese Benachrichtigungen ausschalten, können Sie leicht Ihre
           Gelegenheit verpassen, Ihre Ergänzungen einzuarbeiten.
         turned_on: Benachrichtigungen zur gemeinsamen Textenwicklung wurden eingeschaltet.
