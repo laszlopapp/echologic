@@ -48,6 +48,7 @@ class ApplicationController < ActionController::Base
   #
   rescue_from 'ActionController::RoutingError', :with => :rescure_routing_error
   rescue_from 'ActionController::UnknownAction', :with => :rescure_routing_error
+  rescue_from 'ActiveRecord::RecordNotFound', :with => :rescure_routing_error
 
   private
   def rescure_routing_error
