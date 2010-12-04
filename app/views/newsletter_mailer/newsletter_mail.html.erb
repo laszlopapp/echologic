@@ -4,11 +4,8 @@
 <% end %>
 
 
-<p>
-  <%= I18n.t('mailers.newsletter.greeting', :name => @name, :locale => @language.code) %>
-</p>
-<br/>
 <%= @text %>
+<br/>
 
 
 <% content_for :unsubscribe do %>
