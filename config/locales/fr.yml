@@ -244,8 +244,8 @@ fr:
       guide: |
         En indiquant ici vos coordonnées, vous donnez la possibilité à d'autres utilisateurs de vous connaître
         et à vous contacter.<br/>
-        <strong>ATTENTION</strong>: Toutes les indications données ici ne sont visibles par <strong>tous</strong>
-        les membres d'écho.
+        <strong>ATTENTION</strong>: Toutes les indications données ici ne sont <strong>visibles par tous
+        les membres</strong> d'écho.
 
       type:  Vos coordonnés
       address: Votre

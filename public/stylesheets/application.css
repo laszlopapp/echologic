@@ -141,14 +141,16 @@
   color: #21587F;
   font-size: 14px;
   min-height: 18px;
-  width: 195px;
+  width: 194px;
   margin: 1px;
+  padding: 2px 0;
 }
 
 .header_block select {
   border: 1px solid #999999;
   color: #21587F;
-  padding: 2px;
+  padding: 2px 2px 2px 0;
+  margin: 1px;
   width: 195px;
 }
 
@@ -198,7 +200,7 @@
   background-position: 0 -17px
 }
 
-.save_button {
+.save_text_button {
   background:transparent url(../images/page/icons/save_button.png) no-repeat scroll 0 0;
   height: 16px;
   line-height: 16px;

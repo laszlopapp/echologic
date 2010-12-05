@@ -216,7 +216,8 @@ en:
       title: Web Addresses
       guide: |
         Here you can enter some of your contact data and other web profiles.<br/>
-        <strong>PLEASE NOTE</strong>: for now, all information entered here will be visible to all members of the echo community.
+        <strong>PLEASE NOTE</strong>: for now, all information entered here will be
+        <strong>visible to all members</strong> of the echo community.
       type: Kind of address
       address: Web Address
 
@@ -340,7 +341,7 @@ en:
       prev_improvement_proposal: 'Read previous improvement for the current proposal'
       next_improvement_proposal: 'Read next improvement for the current proposal'
       create_question: 'Create a new issue'
-      create_proposal: "Propose a new answer concerning the current issue"
+      create_proposal: "Post a new proposal for the current issue"
       create_improvement_proposal: "Post a new improvement to the current proposal"
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your vote to stop supporting this statement'

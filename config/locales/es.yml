@@ -218,8 +218,8 @@ es:
       title: Dirección Web
       guide: |
         Completando tus datos de contacto posibilitas que los demás usuarios te conozcan y se pongan en contacto contigo.<br/>
-        <strong>ATENCIÓN</strong>: Todas la información insertada aquí es <strong>visible</strong> para los
-        demás miembros de echo.
+        <strong>ATENCIÓN</strong>: Todas la información insertada aquí es <strong>visible para los
+        demás miembros</strong> de echo.
       type: Tipo de dirección
       address: Dirección Web
       sorts:
