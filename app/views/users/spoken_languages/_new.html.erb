@@ -3,8 +3,8 @@
                    options_for_select(Language.all.collect { |l| [l.value,l.id] }) %>
     <%= select_tag 'spoken_language[level_id]',
                    options_for_select(LanguageLevel.all.collect { |l| [l.value,l.id] }) %>
-    <%= submit_tag I18n.t('application.general.create'),
-                   :class => 'text_button add_text_button',
+    <%= submit_tag I18n.t('application.general.save'),
+                   :class => 'text_button save_button',
                    :id => 'new_spoken_language_submit' %>
 <% end %>
 <%= render :partial => 'users/components/new', :locals => {:type => 'spoken_language', :objectClass => SpokenLanguage} %>
