@@ -10,7 +10,7 @@ module ApplicationHelper
   # Creates a 'Save or Cancel' block at the bottom of forms.
   def save_or_cancel(cancel_action)
     val = submit_tag I18n.t('application.general.save'),
-                     :class => 'text_button save_button'
+                     :class => 'text_button save_text_button'
     val << content_tag(:span, I18n.t('application.general.or'), :class => 'or_button')
     val << link_to(I18n.t('application.general.cancel'),
                    cancel_action,
@@ -85,7 +85,7 @@ module ApplicationHelper
                          l(result['status']['created_at'].to_date, :format => :long),
                          :id => 'twitter_date')
       html += content_tag(:span, auto_link(result['status']['text'],
-                                           :html => {:target => "_blank"}), 
+                                           :html => {:target => "_blank"}),
                           :id => 'twitter_text')
     rescue Exception => e
       logger.error "#{Time.now.utc.strftime("%m/%d/%Y %H:%M")} - Failed to display Twitter message"
