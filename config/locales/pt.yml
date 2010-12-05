@@ -215,7 +215,8 @@ pt:
       title: Endereços Web
       guide: |
         Aqui pode inserir alguns dos seus contactos e outros perfis web que possua.<br/>
-        <strong>TOME NOTA</strong>: por agora, toda a informação inserida estará visível para todos os membros da comunidade echo.
+        <strong>TOME NOTA</strong>: por agora, toda a informação inserida estará <strong>visível para
+        todos os membros</strong> da comunidade echo.
       type: Tipo de endereço
       address: Endereço Web
 

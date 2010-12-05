@@ -220,8 +220,8 @@ de:
       guide: |
         Indem Sie hier Ihre Kontaktdaten eintragen, geben Sie anderen Nutzern die Möglichkeit,
         sich ein Bild von Ihnen zu machen und Sie zu kontaktieren.<br/>
-        <strong>ACHTUNG</strong>: Alle hier eingetragen Informationen sind vorerst für <strong>alle</strong>
-        Mitglieder von echo zu sehen.
+        <strong>ACHTUNG</strong>: Alle hier eingetragen Informationen sind vorerst
+        <strong>für alle Mitglieder von echo sichtbar</strong>.
       type: Art der Adresse
       address: Web Adresse
     # Concernments section

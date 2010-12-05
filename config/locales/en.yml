@@ -216,7 +216,8 @@ en:
       title: Web Addresses
       guide: |
         Here you can enter some of your contact data and other web profiles.<br/>
-        <strong>PLEASE NOTE</strong>: for now, all information entered here will be visible to all members of the echo community.
+        <strong>PLEASE NOTE</strong>: for now, all information entered here will be
+        <strong>visible to all members</strong> of the echo community.
       type: Kind of address
       address: Web Address
 
