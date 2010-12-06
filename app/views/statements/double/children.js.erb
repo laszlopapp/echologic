@@ -1,6 +1,6 @@
 var double_list = $('div.<%=dom_class(@statement_node)%> #<%= @type.underscore.pluralize %> .doubles_list');
 <%if @page.to_i == 1 %> 
-  panel_height = <%= !@children.select{|c|c.total_entries == 7}.empty? ? 225 : 205 %>
+  panel_height = <%= !@children.select{|c|c.total_entries == 7}.empty? ? 230 : 210 %>
   double_list.animate({height: panel_height, width: '100%'}, 400, function() {
     double_list.jScrollPane({animateScroll: true});
   });
@@ -16,7 +16,7 @@ var double_list = $('div.<%=dom_class(@statement_node)%> #<%= @type.underscore.p
 
   <% if @page.to_i > 1 %>
 	  var api = $('div.<%=dom_class(@statement_node)%> #<%=@type.underscore.pluralize%> .doubles_list').data('jsp');
-	  children_list = api.getContentPane();
+	  //children_list = api.getContentPane();
 	<% end %>
 
   children_list.append(elements_list);
