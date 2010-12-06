@@ -233,7 +233,8 @@ module StatementsHelper
       breadcrumbs.each do |txt, path|
         elements << link_to(h(txt), path, :class => "search_link statement_link")
       end
-      elements.join(content_tag(:span, '>', :class => 'delimitator'))
+#      elements.join(content_tag(:span, '>', :class => 'delimitator'))
+      content_tag(:div, elements.join(content_tag(:span, '>', :class => 'delimitator')), :class => 'elements')
     end
   end
   

@@ -41,8 +41,24 @@ $(document).ready(function () {
 /* Statement navigation helpers */
 /********************************/
 
+function reinitialiseBreadcrumb(){
+	var breadcrumbs = $('#breadcrumbs');
+  var elements = breadcrumbs.find('.elements');
+	var api = breadcrumbs.data('jsp');
+	
+	var width = 0;
+	elements.children().each(function(){
+		width += $(this).width() + parseInt($(this).css('padding-right')) + parseInt($(this).css('padding-left'));
+	});
+	
+	elements.width(width);
+	api.reinitialise();
+  api.scrollToBottom();
+}
+
 function loadBreadcrumb(type, id, url, value) {
 	var breadcrumbs = $('#breadcrumbs');
+	var elements = breadcrumbs.find('.elements');
 	var breadcrumb = $('<a></a>');
 	breadcrumb.attr('id', type + '_' + id);
 	breadcrumb.addClass('statement statement_link ' + type + '_link');
@@ -50,11 +66,15 @@ function loadBreadcrumb(type, id, url, value) {
 	breadcrumb.attr('href',url);
 	breadcrumb.text(value);
 	
-	if (breadcrumbs.length != 0) {
-  	breadcrumbs.append($("<span class='delimitator'>></span>"));
-  }
-	breadcrumbs.append(breadcrumb);
 	
+	//var contents = api.getContentPane();
+	
+	if (breadcrumbs.length != 0) {
+	  var del = $("<span class='delimitator'>></span>");
+		elements.append(del);
+  }
+	
+	elements.append(breadcrumb);
 }
 
 function deleteBreadcrumbs() {
@@ -71,7 +91,7 @@ function deleteBreadcrumbs() {
 
 function initBreadcrumbs() {
 	$('#breadcrumbs').livequery(function(){
-		//$(this).jScrollPane({animateTo: true});
+		$(this).jScrollPane({animateTo: true});
 	});
 }
 

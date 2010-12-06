@@ -26,6 +26,7 @@
   <% @breadcrumbs.each do |b| %>
     loadBreadcrumb("<%= b[0]%>" , "<%= b[1] %>", "<%= b[2] %>");
   <% end %>
+	reinitialiseBreadcrumb();
 <% end %>
 
 var class_element = $('#statements .statement:eq(<%= (@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 0 : @statement_node.level + 1 %>)');

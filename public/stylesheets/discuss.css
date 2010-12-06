@@ -93,7 +93,16 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	padding:7px 10px 7px;
 	font-size: 12px;
 	background: url("../images/page/separator_no_shadow.png") no-repeat scroll center bottom transparent;
-	margin-bottom: 18px;
+	height: 40px;
+	
+}
+
+.breadcrumbs .elements {
+	
+}
+
+.breadcrumbs {
+	width: 100%;
 }
 
 .breadcrumbs a.statement_link {
@@ -653,6 +662,7 @@ a.statement_link:hover {
 	float: left;
   /*width: 390px;*/
 	min-height: 91px;
+	min-width: 402px;
 }
 
 .children_pagination ul {

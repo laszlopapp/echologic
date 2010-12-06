@@ -39,6 +39,7 @@ bid = bid.split(',');
 	var followed = <%= @statement_node.parent_id %>;
 	bid.push(followed);
 	loadBreadcrumb("<%= @breadcrumb[0]%>" , "<%= @breadcrumb[1] %>", "<%= @breadcrumb[2] %>", "<%= @breadcrumb[3] %>");
+	reinitialiseBreadcrumb();
 <% end %>
 
 /* Statements' stack */	
