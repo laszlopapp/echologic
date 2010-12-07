@@ -1,12 +1,20 @@
-class DiscussionsController < StatementsController
+module PublishableModule
+  
+  
+  ###########
+  # ACTIONS #
+  ###########
 
-  # action: my discussions page
+  # Shows all current users' existing discussions
+  #
+  # Method:   GET
+  # Params:   value: string, id (category): string
+  # Response: JS
+  #
   def my_discussions
     @page     = params[:page]  || 1
 
-    discussions_not_paginated = Discussion.by_creator(current_user).by_creation
-
-    session[:roots] = discussions_not_paginated.map(&:id)
+    discussions_not_paginated = current_user.get_my_discussions
 
     @discussions = discussions_not_paginated.paginate(:page => @page, :per_page => 5)
     @statement_documents = search_statement_documents(@discussions.map(&:statement_id),
@@ -14,9 +22,37 @@ class DiscussionsController < StatementsController
 
     respond_to_js :template => 'statements/discussions/my_discussions', :template_js => 'statements/discussions/my_discussions'
   end
+  
 
+  # Shows all the existing debates according to the given search string and a possible category.
+  #
+  # Method:   GET
+  # Params:   value: string, id (category): string
+  # Response: JS
+  #
+  def category
+    @value    = params[:value] || ""
+    @page     = params[:page]  || 1
+    
+    statement_nodes_not_paginated = search_statement_nodes(:search_term => @value,
+                                                           :language_ids => @language_preference_list,
+                                                           :show_unpublished => current_user &&
+                                                                                current_user.has_role?(:editor))
+    
+    @count    = statement_nodes_not_paginated.size
+    @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page,
+                                                              :per_page => 6)
+    @statement_documents = search_statement_documents(@statement_nodes.map(&:statement_id), @language_preference_list)
 
-  # action: publish a statement
+    respond_to_js :template => 'statements/discussions/index',
+                  :template_js => 'statements/discussions/discussions'
+  end
+  
+  # publishes the statement
+  #
+  # Method:   PUT
+  # Response: JS
+  #
   def publish
     begin
       StatementNode.transaction do
@@ -28,7 +64,7 @@ class DiscussionsController < StatementsController
               set_info("discuss.statements.published")
               show_info_messages do |page|
                 if params[:in] == 'summary'
-                  page.redirect_to(url_for(@statement_node))
+                  page.remove 'edit_button', 'publish_button'
                 else
                   @statement_documents =
                     search_statement_documents([@statement_node.statement_id])
@@ -49,7 +85,7 @@ class DiscussionsController < StatementsController
     rescue Exception => e
       log_message_error(e, "Error publishing statement node '#{@statement_node.id}'.") do |format|
         if params[:in] == 'summary'
-          format.html { flash_error and redirect_to url_for(@statement_node) }
+          format.html { flash_error and redirect_to statement_node_url(@statement_node) }
         else
           format.html { flash_error and redirect_to my_discussions_url }
         end
@@ -58,37 +94,10 @@ class DiscussionsController < StatementsController
       log_message_info("Statement node '#{@statement_node.id}' has been published sucessfully.")
     end
   end
-
-
-  # Shows an add discussion teaser page
-  #
-  # Method:   GET
-  # Params:   type: string
-  # Response: HTTP or JS
-  #
-  def add_discussion
-    add('discussion')
-  end
-
-  # Shows an add proposal teaser page
-  #
-  # Method:   GET
-  # Params:   type: string
-  # Response: HTTP or JS
-  #
-  def add_proposal
-    add('proposal')
-  end
-
+  
   protected
- 
-  #returns the handled statement type symbol
-  def statement_node_symbol
-    :discussion
-  end
-
-  # returns the statement_node class, corresponding to the controllers name
-  def statement_node_class
-    Discussion
+  
+  def is_publishable?
+    @statement_node.publishable?
   end
 end

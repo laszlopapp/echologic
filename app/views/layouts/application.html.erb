@@ -45,13 +45,13 @@
                                'jquery.mousewheel',
                                'jquery.jcarousel.min',
                                'jquery.em',
-                               'jScrollPane',
+                               'jquery.jscrollpane.min.js',
                                'jquery.livequery',
                                'jquery.toggleval',
                                :cache => 'echo_app' %>
 
     <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
-
+    
     <%# TODO remove partially needed files from inclusion. %>
     <%= yield :head %>
   </head>

@@ -53,15 +53,20 @@ en:
       discuss:
         index: 'echo - Discuss'
         roadmap: 'echo - Roadmap for Discuss'
-      discussions:
+      statements:
         category: 'echo - Discussion Topic'
         show: 'echo - Discussion'
         new: 'Open new discussion'
         my_discussions: 'My Discussions'
-      proposals:
-        show: 'echo - Positions in the Debate'
-      improvement_proposals:
-        show: 'echo - Ideas to Improve the Position'
+#      discussions:
+#        category: 'echo - Discussion Topic'
+#        show: 'echo - Discussion'
+#        new: 'Open new discussion'
+#        my_discussions: 'My Discussions'
+#      proposals:
+#        show: 'echo - Positions in the Debate'
+#      improvement_proposals:
+#        show: 'echo - Ideas to Improve the Position'
 
       # connect: de.seo.title.connect
       connect:

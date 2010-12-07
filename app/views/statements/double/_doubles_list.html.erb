@@ -1,0 +1,8 @@
+<ul id="children_list" class="<%= type %> children_pagination">
+  <%= render :partial => 'statements/child', :collection => children %>
+
+  <%if children.blank? or children.current_page == children.total_pages %>
+      <%= content_tag :li, create_new_child_statement_link(@statement_node,type) %>
+  <%end%>
+</ul>
+  

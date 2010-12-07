@@ -197,6 +197,14 @@ class User < ActiveRecord::Base
     "#{memberships.first.organisation} - #{memberships.first.position}"
   end
 
+  ####################
+  # AUTHOR FUNCTIONS #
+  ####################
+
+  def get_my_discussions
+    Discussion.by_creator(self).by_creation
+  end
+
   ###################
   # ADMIN FUNCTIONS #
   ###################

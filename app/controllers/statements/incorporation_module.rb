@@ -1,5 +1,4 @@
-class ProposalsController < StatementsController
-
+module IncorporationModule
   #
   # Edit action to incorporate improvement proposals.
   # FIXME: should be handled RESTfully ind the Edit action with an additional
@@ -39,27 +38,19 @@ class ProposalsController < StatementsController
       end
     end
   end
-  
-  
-  # Shows an add improvement proposal teaser page
-  #
-  # Method:   GET
-  # Params:   type: string
-  # Response: HTTP or JS
-  #
-  def add_improvement_proposal
-    add('improvement_proposal')
-  end
 
-  protected
-  
-  #returns the handled statement type symbol
-  def statement_node_symbol
-    :proposal
+  protected 
+  #
+  # Loads the approved statement if there can be any.
+  #
+  def load_approved_statement
+    if @statement_node.draftable?
+      @approved_node = @statement_node.approved_children.first || nil
+      @approved_document = @approved_node.document_in_preferred_language(@language_preference_list) if !@approved_node.nil?
+    end
   end
-
-  # returns the statement_node class, corresponding to the controllers name
-  def statement_node_class
-    Proposal
+  
+  def is_draftable?
+    @statement_node.draftable?
   end
 end

@@ -48,7 +48,7 @@ Feature: User Generated Debates
     When I follow "Edit"
       And I fill in the following:
         | discussion_statement_document_text  | I wish this text was not so repetitive |
-        | discussion_tags                     | first_tag |
+        | discussion_topic_tags                     | first_tag |
       And I press "Save"
     Then I should see "The Issue has been updated successfully."
 
@@ -60,7 +60,7 @@ Feature: User Generated Debates
       And I fill in the following:
         | discussion_statement_document_title | A Debate for all Seasons |
         | discussion_statement_document_text  | A Debate for all Seasons |
-        | discussion_tags                     | first_tag,second_tag,third_tag|
+        | discussion_topic_tags                     | first_tag,second_tag,third_tag|
       And I press "Save"
     Then I should see "The new Issue has been entered successfully."
     Then the discussion "A Debate for all Seasons" should have "first_tag, second_tag, third_tag" as tags
@@ -73,11 +73,11 @@ Feature: User Generated Debates
       And I fill in the following:
         | discussion_statement_document_title | A Debate for all Seasons |
         | discussion_statement_document_text  | A Debate for all Seasons |
-        | discussion_tags                     | first_tag,second_tag,third_tag|
+        | discussion_topic_tags                     | first_tag,second_tag,third_tag|
       And I press "Save"
       And I follow "Edit"
       And I fill in the following:
-        | discussion_tags                     | first_tag |
+        | discussion_topic_tags                     | first_tag |
       And I press "Save"
     Then the discussion "A Debate for all Seasons" should have "first_tag" as tags
 
@@ -90,7 +90,7 @@ Feature: User Generated Debates
       And I fill in the following:
         | discussion_statement_document_title | A Debate for all Seasons |
         | discussion_statement_document_text  | A Debate for all Seasons |
-        | discussion_tags                     | #echonomyjam |
+        | discussion_topic_tags                     | #echonomyjam |
       And I press "Save"
     Then I should see "#echonomyjam"
     Then I should see "You do not have the permission to insert the "
@@ -103,7 +103,7 @@ Feature: User Generated Debates
       And I fill in the following:
         | discussion_statement_document_title | A Debate for all Seasons |
         | discussion_statement_document_text  | A Debate for all Seasons |
-        | discussion_tags                     | #echonomyjam |
+        | discussion_topic_tags                     | #echonomyjam |
       And I choose "Publish immediately (no further editing is possible)"
       And I press "Save"
     When I am on the discuss featured
@@ -121,11 +121,11 @@ Feature: User Generated Debates
       And I fill in the following:
         | discussion_statement_document_title | A Debate for all Seasons |
         | discussion_statement_document_text  | A Debate for all Seasons |
-        | discussion_tags                     | first_tag |
+        | discussion_topic_tags                     | first_tag |
       And I press "Save"
       And I follow "Edit"
       And I fill in the following:
-        | discussion_tags                     | first_tag,#echonomyjam |
+        | discussion_topic_tags                     | first_tag,#echonomyjam |
       And I press "Save"
     Then I should see "#echonomyjam"
     Then I should see "You do not have the permission to insert the "
@@ -139,7 +139,7 @@ Feature: User Generated Debates
       And I fill in the following:
         | discussion_statement_document_title | A Debate for all Seasons |
         | discussion_statement_document_text  | A Debate for all Seasons |
-        | discussion_tags                     | first_tag |
+        | discussion_topic_tags                     | first_tag |
       And I press "Save"
       And I go to "My Issues"
       And I follow "Release"
@@ -167,7 +167,7 @@ Feature: User Generated Debates
       And I fill in the following:
         | discussion_statement_document_title | A Debate for all Seasons |
         | discussion_statement_document_text  | A Debate for all Seasons |
-        | discussion_tags                     | #xyz |
+        | discussion_topic_tags                     | #xyz |
       And I press "Save"
     Then I should see "The new Issue has been entered successfully."
     Then the discussion "A Debate for all Seasons" should have "#xyz" as tags
@@ -180,7 +180,7 @@ Feature: User Generated Debates
       And I fill in the following:
         | discussion_statement_document_title | A Debate for all Seasons |
         | discussion_statement_document_text  | A Debate for all Seasons |
-        | discussion_tags                     | #new,#echo |
+        | discussion_topic_tags                     | #new,#echo |
       And I press "Save"
     Then I should see "The new Issue has been entered successfully."
     Then the discussion "A Debate for all Seasons" should have "#new,#echo" as tags

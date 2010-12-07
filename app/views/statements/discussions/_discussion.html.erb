@@ -6,5 +6,5 @@
       <%=h (long_title ? discussion_document.title[0,69]+"..." : discussion_document.title)%>
     </span>
     <br/>
-		<% link_to_discussion(discussion_document.title, @discussion, long_title) %>
+		<% link_to_discussion(discussion_document.title, @discussion, long_title, params[:value]) %>
 </li>

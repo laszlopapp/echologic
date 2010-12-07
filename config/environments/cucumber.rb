@@ -31,4 +31,4 @@ config.gem 'rspec-rails',      :lib => false, :version => '>=1.3.2' unless File.
 
 
 # Initial elements number on statements children pagination
-INITIAL_CHILDREN = 7
+TOP_CHILDREN = 7

@@ -36,6 +36,6 @@ Then /^I should be redirected to "(.*)"$/ do |url|
 end
 
 When /^I search for "([^\"]*)"$/ do |value|
-  visit connect_path(:value => value)
+  visit connect_search_path(:value => value)
 end
 

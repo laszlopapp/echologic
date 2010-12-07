@@ -6,8 +6,7 @@
   <%= I18n.t('discuss.statements.upload_image.guide') %>
 </p>
 
-<% semantic_form_for @statement_node,:html => { 'data-image-redirect' => reload_image_url(@statement_node,  
-                                                                                         dom_class(@statement_node), 
+<% semantic_form_for @statement_node,:html => { 'data-image-redirect' => reload_image_statement_node_url(@statement_node, 
                                                                         :date => @statement_node.image.updated_at),
                                                  :multipart => true, 
                                                  :id => 'upload_image_form', 

@@ -44,9 +44,9 @@ function initHistoryEvents() {
 function setSearchHistory() {
   var val = $("#value").val();
   if (val.length > 0) {
+		
     val = val.trim();
   }
-
   if ($(':input[id=sort]').length > 0) {
     var sort = $(':input[id=sort]').val();
 	  $.setFragment({ "value": val, "sort" : sort, "page": "1"});
@@ -64,17 +64,29 @@ function initPaginationButtons() {
     $.setFragment({ "page" : $.queryString(this.href).page })
     return false;
   });
-  $.fragmentChange(true);
 }
 
 
 function initFragmentChange() {
   $(document).bind("fragmentChange.page", function() {
+		path = document.location.href.split('/');
+		
+		/* clean arguments */
+		if ((arg_index = path[path.length - 1].indexOf('#')) > 0 ) {
+      path[path.length - 1] = path[path.length - 1].substring(0, arg_index);
+    }
+	
+		/* push new search value */
+		if ($.fragment().value) {
+			if(!path[path.length - 1].match('search')) {
+				path.pop();
+			}
+			path.push(escape($.fragment().value));
+		}
 		if ($.fragment().page) {
-			$.getScript($.queryString(document.location.href, {
+			$.getScript($.queryString(path.join('/'), {
 				"page": $.fragment().page,
 				"sort": $.fragment().sort,
-				"value": $.fragment().value
 			}));
 		}
   });

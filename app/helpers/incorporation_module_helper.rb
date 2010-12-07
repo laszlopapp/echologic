@@ -1,4 +1,8 @@
-module ProposalsHelper
+module IncorporationModuleHelper
+  #############
+  # DRAFTABLE #
+  #############
+  
   def incorporate_statement_node_link(parent_node, parent_document, statement_node, statement_document)
     if !current_user or 
        (statement_node.published? and
@@ -7,7 +11,7 @@ module ProposalsHelper
         ((statement_node.times_passed == 0 and statement_document.author == current_user) or
          (statement_node.times_passed == 1 and statement_node.supported?(current_user))))
 
-      link_to(incorporate_proposal_url(parent_node,:approved_ip => statement_node.id),
+      link_to(incorporate_statement_node_url(parent_node,:approved_ip => statement_node.id),
              :id => 'incorporate_link',
              :class => 'ajax') do
          content_tag(:span, '',

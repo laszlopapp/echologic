@@ -8,19 +8,22 @@ ActionController::Routing::Routes.draw do |map|
 
   # SECTION main parts of echologic
   map.act '/act/roadmap', :controller => :act, :action => :roadmap
-  map.discuss '/discuss', :controller => :discussions, :action => :category
   map.discuss_featured '/discuss/featured', :controller => :discuss, :action => :index
   map.discuss_roadmap '/discuss/roadmap', :controller => :discuss, :action => :roadmap
-  map.discuss_search '/discuss/search', :controller => :discussions, :action => :category
   map.discuss_cancel '/discuss/cancel', :controller => :discuss, :action => :cancel
-  map.discussion_tags '/discuss/category/:id', :controller => :discussions, :action => :category, :conditions => {:id => /\w+/ }
-  map.my_discussions '/discuss/my_issues', :controller => :discussions, :action => :my_discussions
+  map.my_discussions '/discuss/my_issues', :controller => :statements, :action => :my_discussions
 
+  # SECTION discuss search
+  map.discuss_search '/discuss/search', :controller => :statements, :action => :category
+  map.discuss_search_with_value '/discuss/search/:value', :controller => :statements, :action => :category, :conditions => {:value => /\w+/ }
+
+  # SECTION connect search
+  map.connect_search '/connect/search', :controller => :connect, :action => :show
+  map.connect_with_value '/connect/search/:value', :controller => :connect, :action => :show, :conditions => {:value => /\w+/ }
   map.connect_roadmap '/connect/roadmap', :controller => :connect, :action => :roadmap
 
   map.my_echo '/my_echo/roadmap', :controller => :my_echo, :action => :roadmap
 
-  map.resource :connect, :controller => 'connect', :only => [:show]
   map.resource :admin,   :controller => 'admin',   :only => [:show]
 
   # SECTION my echo routing
@@ -108,26 +111,51 @@ ActionController::Routing::Routes.draw do |map|
                  :conditions=>{:rails_env => 'production', :host => "echosocial-prod-clone.echo-test.org" }
 
 
-  # SECTION discuss - discussion tree
-  map.add_discussion '/add_discussion', :controller => :discussions, :action => :add_discussion
-  map.resources :discussions,
-                :member => [:new_translation, :create_translation, :publish, :cancel, :more, :children, :upload_image,
-                            :reload_image, :authors, :add_proposal],
-                :as => 'discussion'
-  map.resources :proposals,
-                 :member => [:echo, :unecho, :new_translation, :create_translation, :incorporate, :cancel, :more,
-                             :children, :upload_image, :reload_image, :authors, :add_improvement_proposal],
-                 :as => 'proposal'
-  map.resources :improvement_proposals,
+  # SECTION discuss - statement's tree
+
+  #route for new discussion
+  map.new_discussion                     'statement/new/discussion', :controller => :statements, :action => :new, :type => :discussion
+  map.new_discussion_with_path           'statement/new/discussion/:path', :controller => :statements, :action => :new, :type => :discussion
+  map.new_discussion_with_path_and_value 'statement/new/discussion/:path/:value', :controller => :statements, :action => :new, :type => :discussion
+
+  #Add Teaser section (with path, path and value, and none of the previous)
+  map.connect        'statement/add/discussion', :controller => :statements, :action => :add, :type => :discussion
+  map.connect        'statement/:id/add/:type',  :controller => :statements, :action => :add
+
+  map.connect        'statement/add/discussion/:path',        :controller => :statements, :action => :add, :type => :discussion
+  map.connect        'statement/add/discussion/:path/:value', :controller => :statements, :action => :add, :type => :discussion
+
+  map.connect        'statement/:id/add/:type/:path',         :controller => :statements, :action => :add
+  map.connect        'statement/:id/add/:type/:path/:value',  :controller => :statements, :action => :add
+
+  map.resources :statement_nodes, :controller => :statements,
                 :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image,
-                            :reload_image, :authors],
-                :as => 'improvement_proposal'
+                            :reload_image, :children, :more, :authors, :publish, :incorporate, :parents],
+                :path_names => { :new => ':id/new/:type', :more => 'more/:type',
+                                 :edit => 'edit/:current_document_id', :new_translation => 'translation/:current_document_id',
+                                 :children => 'children/:type', :incorporate => 'incorporate/:approved_ip'},
+                :as => 'statement'
+
+  #show
+  map.statement_node_with_path               'statement/:id/:path',        :controller => :statements, :action => :show
+  map.statement_node_with_path_and_value     'statement/:id/:path/:value', :controller => :statements, :action => :show
+  #publish
+  map.connect   'statements/:id/publish/:in',   :controller => :statements, :action => :publish
+
+
+  map.resources :discussions, :controller => :statements, :type => :discussion, :only => [:create, :update]
+  map.resources :proposals, :controller => :statements, :only => [:create, :update]
+  map.resources :improvement_proposals, :controller => :statements, :only => [:create, :update]
+  map.resources :pro_arguments, :controller => :statements, :only => [:create, :update]
+  map.resources :contra_arguments, :controller => :statements, :only => [:create, :update]
+  map.resources :follow_up_questions, :controller => :statements, :only => [:create, :update]
 
 
   # old discuss paths redirection
-  map.connect 'discuss/questions/:discussion_id/proposals/:id', :controller => :proposals, :action => :redirect
+  map.connect 'discuss/questions/:discussion_id/proposals/:id', :controller => :statements, :action => :redirect
   map.connect 'discuss/questions/:discussion_id/proposals/:proposal_id/improvement_proposals/:id',
-              :controller => :improvement_proposals, :action => :redirect
+              :controller => :statements, :action => :redirect
+
 
 
   # SECTION root

@@ -85,10 +85,34 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   color: #21587F;
 }
 
+/* ------------*/
+/* breadcrumbs */
+/* ----------- */
+
+.breadcrumbs {
+	padding:7px 10px 7px;
+	font-size: 12px;
+	height: 40px;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.breadcrumbs a.statement_link {
+	padding-right: 20px;
+}
+
+.breadcrumbs span.delimitator {
+	padding-right: 20px;
+}
 
 /* ----------------------------- */
 /* New and Edit Statements forms */
 /* ----------------------------- */
+
+#statements form.new .simple_header_block h2,
+#statements form.edit .simple_header_block h2 {
+	margin-left: 20px;
+} 
 
 #statements form.formtastic fieldset #discussion_editorial_state_id_input li {
   width: 700px;
@@ -433,6 +457,11 @@ form.statement fieldset ol span.defaultText {
   float:        right;
 }
 
+.doubles_list .echo_indicator, 
+.doubles_list .no_echo_indicator {
+	margin:       0 17px;
+}
+
 .header .echo_indicator, .header .no_echo_indicator {
   margin-top: 3px;
   background-color: #FFF;
@@ -477,6 +506,10 @@ a.statement_link:hover {
   list-style:none;
 }
 
+.search_link {
+   background:transparent url(../images/page/discuss/search_icon_small.png) no-repeat scroll 0 0;
+}
+
 .discussion_link {
    background:transparent url(../images/page/discuss/discussion_small.png) no-repeat scroll 0 0;
 }
@@ -489,6 +522,18 @@ a.statement_link:hover {
   background:transparent url(../images/page/discuss/improvement_proposal_small.png) no-repeat scroll 0 0;
 }
 
+.pro_argument_link {
+  background:transparent url(../images/page/discuss/pro_argument_small.png) no-repeat scroll 0 0;
+}
+
+.contra_argument_link {
+  background:transparent url(../images/page/discuss/contra_argument_small.png) no-repeat scroll 0 0;
+}
+
+.follow_up_question_link {
+  background:transparent url(../images/page/discuss/follow_up_question_small.png) no-repeat scroll 0 0;
+}
+
 .create_discussion_button {
   background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
@@ -498,6 +543,18 @@ a.statement_link:hover {
 }
 
 .create_improvement_proposal_button {
+  background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
+}
+
+.create_pro_argument_button {
+  background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
+}
+
+.create_contra_argument_button {
+  background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
+}
+
+.create_follow_up_question_button {
   background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
 
@@ -523,6 +580,18 @@ a.statement_link:hover {
 
 .create_improvement_proposal_button_mid {
   background: transparent url(../images/page/discuss/add_improvement_proposal_mid.png) no-repeat scroll 0 0;
+}
+
+.create_contra_argument_button_mid {
+  background: transparent url(../images/page/discuss/add_contra_argument_mid.png) no-repeat scroll 0 0;
+}
+
+.create_pro_argument_button_mid {
+  background: transparent url(../images/page/discuss/add_pro_argument_mid.png) no-repeat scroll 0 0;
+}
+
+.create_follow_up_question_button_mid {
+  background: transparent url(../images/page/discuss/add_follow_up_question_mid.png) no-repeat scroll 0 0;
 }
 
 .create_discussion_button_mid:hover, .create_proposal_button_mid:hover, .create_improvement_proposal_button_mid:hover {
@@ -567,8 +636,24 @@ a.statement_link:hover {
 /* Children statements */
 /* ------------------- */
 
+
+.statement .children {
+	display: inline-block;
+}
+
+.statement .children .doubles_list {
+  display: inline-block;	
+}
+
 .children_pagination {
-  width: 815px !important;
+  
+}
+
+.doubles_list .children_pagination {
+	position: relative;
+	float: left;
+	min-height: 91px;
+	min-width: 402px;
 }
 
 .children_pagination ul {
@@ -585,6 +670,10 @@ a.statement_link:hover {
 
 .children a.statement_link {
 	width: 565px;
+}
+
+.children .doubles_list a.statement_link {
+  width: 174px;
 }
 
 /* Others */
@@ -818,4 +907,64 @@ form.statement fieldset ol li.tags_container {
 
 .children_pagination {
   overflow: hidden;
+}
+
+
+/*********************/
+/* CHILDREN'S SCROLL */
+/*********************/
+
+.jspContainer {
+    z-index: 1;
+}
+
+.jspVerticalBar, .jspHorizontalBar {
+	background-color: transparent;
+}
+
+.jspHorizontalBar {
+	bottom: 2px;
+}
+
+.jspVerticalBar .jspTrack,
+.jspHorizontalBar .jspTrack {
+	position: absolute;
+	cursor: pointer;
+	background: #f1f1f1;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+.jspVerticalBar .jspTrack {
+	width: 6px !important;
+	right: 3px;
+  top: 0;
+	height: 100%;
+}
+
+.jspHorizontalBar .jspTrack {
+	width: 100%;
+  bottom: 1px;
+  left: 0;
+  height: 6px !important;
+}
+
+.jspVerticalBar .jspDrag,
+.jspHorizontalBar .jspDrag {
+  position: absolute;
+	background: #97b0bf;
+	cursor: pointer;
+	overflow: hidden;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+.jspVerticalBar .jspDrag {
+	left: -2px;
+	width: 10px !important;
+}
+
+.jspHorizontalBar .jspDrag {
+	top: -2px;
+  height: 10px !important;
 }

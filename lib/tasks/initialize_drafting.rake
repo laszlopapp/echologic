@@ -3,7 +3,7 @@ namespace :drafting do
   task :initialize => :environment do
     DraftingService.time_ready = 1.hours   #   In order to make the approval process start faster
     Proposal.all.each do |proposal|
-      proposal.children_statements.each do |ip|
+      proposal.child_statements.each do |ip|
         if DraftingService.instance.test_readiness(ip)
           DraftingService.instance.readify(ip)
           sleep(5)  #  So that we don't create a flood of Jobs at the very same time

@@ -5,7 +5,7 @@
 
 class Discussion < StatementNode
 
-  expects_children_types :Proposal
+  expects_children_types [:Proposal,true]
 
   # methods / settings to overwrite default statement_node behaviour
 
@@ -14,7 +14,11 @@ class Discussion < StatementNode
   def self.default_scope
     { :order => %Q[created_at ASC] }
   end
-
+  
+  def publishable?
+    true
+  end
+  
   # Discussions are NOT echoable.
   def echoable?
     false

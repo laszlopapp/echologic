@@ -1,4 +1,3 @@
-<% statement_node ||= @statement_node %>
 <% tags ||= @tags %>
 <li id="statement_tags_container" class="two_columns_block tags_container">
 
@@ -14,5 +13,5 @@
 	</div>
 
 	<%= content_tag :div,'', :id => "discussion_tags_values", :class => "tag_container", :name => "discussion[tags]" %>
-  <%= form.input :tags, :as => :hidden, :value => tags.join(',') %>
+  <%= form.input :topic_tags, :as => :hidden, :input_html => {:class => 'discussion_tags' } %>
 </li>

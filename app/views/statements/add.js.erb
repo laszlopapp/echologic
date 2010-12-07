@@ -6,24 +6,33 @@
 <% end %>
 
 /* history handling */
-<% if !params[:sid].blank? %>
+<% if !params[:sid].blank? and @ancestors %>
   var stack = "<%= params[:sid] %>".split(",");
   <% @ancestors.each_with_index do |ancestor, index| %>
+   <% type = ancestor.class.name.underscore %>
     var ancestor = stack[<%= index %>];
-    var ancestor_element = $('#statements div#'+ancestor);
+    var ancestor_element = $('#statements .statement').eq(<%= index %>);
     /* if not rendered, than render */
-    if(ancestor_element.length == 0) {
-      renderAncestor(ancestor, "<%= escape_javascript(render_ancestor(ancestor)) %>");
+    if(ancestor_element.length == 0 || !ancestor_element.attr('id').match(ancestor)) {
+      renderAncestor(ancestor_element, "<%= escape_javascript(render_ancestor(ancestor)) %>");
     } else {
       collapseStatement(ancestor_element);
     }
   <% end %>
 <% end %>
 
-class_element = $('#statements div.<%= @type %>');
-if(class_element.length == 0){class_element = $('#statements form.<%= @type %>');};
+/* breadcrumb */
+<% if @breadcrumbs %>
+  <% @breadcrumbs.each do |b| %>
+    loadBreadcrumb("<%= b[0]%>" , "<%= b[1] %>", "<%= b[2] %>");
+  <% end %>
+	reinitialiseBreadcrumb();
+<% end %>
+
+var class_element = $('#statements .statement:eq(<%= (@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 0 : @statement_node.level + 1 %>)');
 
 var add_teaser = "<%= escape_javascript(render :partial => 'statements/add') %>";
+
 replaceOrInsert(class_element, add_teaser);
 
 /* Remove all elements from the same class or children class */

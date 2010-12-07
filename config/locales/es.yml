@@ -332,6 +332,8 @@ es:
     results_count:
       one: '{{count}} debates'
       more: '{{count}} debates'
+    for: |-
+      for '{{value}}'
     featured_topics:
       title: Nuestros Temas
       text: |
@@ -357,9 +359,15 @@ es:
       read_discussion: 'Ver esta cuestión'
       read_proposal: 'Leer esta propuesta'
       read_improvement_proposal: 'Leer esta propuesta de mejora'
+      read_pro_argument: 'Read this pro argument'
+      read_contra_argument: 'Read this contra argument'
+      read_follow_up_question: 'Read this follow-up question'
       current_discussion: 'Cuestión actual'
       current_proposal: 'Propuesta actual'
       current_improvement_proposal: 'Propuesta de mejora actual'
+      current_pro_argument: 'The currently displayed pro argument'
+      current_contra_argument: 'The currently displayed contra argument'
+      current_follow_up_question: 'The currently displayed follow-up question'
       back_to_discussion: 'Volver a la cuestión actual'
       back_to_proposal: 'Volver a la propuesta actual'
       back_to_improvement_proposal: 'Volver a la propuesta de mejora actual'
@@ -369,9 +377,18 @@ es:
       next_proposal: 'Leer propuesta siguiente'
       prev_improvement_proposal: 'Leer propuesta de mejora anterior'
       next_improvement_proposal: 'Leer propuesta de mejora siguiente'
+      prev_pro_argument: 'Read previous pro argument for the current proposal'
+      next_pro_argument: 'Read next pro argument for the current proposal'
+      prev_contra_argument: 'Read previous contra argument for the current proposal'
+      next_contra_argument: 'Read next contra argument for the current proposal'
+      prev_follow_up_question: 'Read previous follow-up question'
+      next_follow_up_question: 'Read next follow-up question'
       create_discussion: 'Crear nueva discusión'
       create_proposal: 'Crear nueva propuesta'
       create_improvement_proposal: 'Crear nueva propuesta de mejora'
+      create_pro_argument: "Post a new argument agreeing with this proposal"
+      create_contra_argument: "Post a new argument disagreeing with this proposal"
+      create_follow_up_question: "Post a new follow-up question"
       echo: 'Apoya esta opinión con tu voto!'
       unecho: 'Retira tu voto si ya no estás de acuerdo'
       publish: |
@@ -388,6 +405,9 @@ es:
       create_proposal_link: 'Crear nueva propuesta'
       create_internal_link: 'Nueva Idea?'
       create_improvement_proposal_link: 'Crear nueva propuesta de mejora'
+      create_pro_argument_link: Add new pro argument
+      create_contra_argument_link: Add new contra argument
+      create_follow_up_question_link: Add new follow-up question
       create_discussion_explanation: |
         Aquí puedes iniciar un <strong>nuevo debate</strong>.
         Por favor, no te olvides de insertar palabras clave para que tu nuevo debate sea hallado fácilmente.
@@ -420,14 +440,22 @@ es:
         discussion:  'Cuestión'
         proposal:  'Propuesta'
         improvement_proposal: 'Propuesta de mejora'
+        pro_argument: 'Pro Argument'
+        contra_argument: 'Contra Argument'
+        follow_up_question: 'Follow-Up Question'
       new:
         discussion:  'Nuevo Debate'
         proposal:  'Nueva Propuesta'
         improvement_proposal: 'Nueva propuesta de mejora'
+        pro_argument: 'New Pro Argument'
+        contra_argument: 'New Contra Argument'
+        follow_up_question: 'New Follow-Up Question'
       headings:
         discussion: 'Cuestiones'
         proposal: 'Propuestas'
         improvement_proposal: 'Propuesta de mejora'
+        argument: 'Arguments'
+        follow_up_question: 'Follow-up Questions'
 
       topic: Tema (Tags / Palabras clave)
       states:
@@ -463,6 +491,12 @@ es:
         <strong>Te quedan {{minutes}} minutos</strong> para editar la propuesta.
         Transcurrido este tiempo, podrás perder tus modificationes.
       staled_modification: 'Lo sentimos, pero han transcurrido los 60 minutos que tenías para editar la propuesta. Otro miembro ha aprovechado su oportunidad y ha editado la propuesta, por lo que no se han podido guardar tus modificaciones.'
+
+      breadcrumbs:
+        discuss_search: Search
+        discuss_search_with_value: |-
+          Search Results for '{{value}}'
+        my_discussions: My Discussions
 
       upload_image:
         title: Cargar imagen

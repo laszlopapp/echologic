@@ -10,7 +10,7 @@ module ConnectHelper
   end
 
   def close_profile_details
-    link_to I18n.t('application.general.close'), connect_path,
+    link_to I18n.t('application.general.close'), connect_search_path,
         :id => 'close_details_container',
         :class => 'close_link',
         :onclick => "$('.profile').removeClass('active');

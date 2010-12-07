@@ -1,18 +1,28 @@
-var children_list = $('div.<%=dom_class(@statement_node)%> #children_list');
-var more_element = $('div.<%=dom_class(@statement_node)%> .more_pagination');
+var children_list = $('div.<%=dom_class(@statement_node)%> #<%=@type.underscore.pluralize%> #children_list');
+var more_element = $('div.<%=dom_class(@statement_node)%> #<%=@type.underscore.pluralize%> .more_pagination');
 <%if @page.to_i == 1 %> 
-  panel_height = <%= @children.total_entries == 7 ? 225 : 205 %>
+  panel_height = <%= @children.total_entries == 7 ? 227 : 207 %>
 	children_list.animate({height: panel_height}, 400, function() {
-    pagination_scroll_down(children_list);
+    children_list.jScrollPane({animateScroll: true});
   });
+	children_list = $('div.<%=dom_class(@statement_node)%> #<%=@type.underscore.pluralize%> #children_list');
 <% end %>
 
-var elements = "<%= escape_javascript(render :partial => 'statements/child', :collection => @children[@offset, @per_page]) %>";
+
+var elements_list = "<%= escape_javascript(render :partial => 'statements/child', :collection => @children[@offset, @per_page]) %>";
+
+
 var pagination_buttons = "<%= escape_javascript(will_paginate(@children, :id => 'more_pagination',:class => 'more_pagination',
                                                    :next_label => I18n.t("application.general.more"),
                                                    :renderer => StatementsHelper::MoreRenderer)) %>";
 
-children_list.append(elements);
+<% if @page.to_i > 1 %>
+  var api = $('div.<%=dom_class(@statement_node)%> #<%=@type.underscore.pluralize%> #children_list').data('jsp');
+  children_list = api.getContentPane();
+<% end %>
+																								 
+children_list.append(elements_list);
+
 <% if @children.next_page.nil? %>
   children_list.append('<%= content_tag :li, create_new_child_statement_link(@statement_node, @type.underscore) %>');
 <% end %>
@@ -20,6 +30,7 @@ children_list.append(elements);
 more_element.replaceWith(pagination_buttons);
 
 <% if @page.to_i > 1 %>
-  pagination_scroll_down(children_list);
+  api.reinitialise();
+  api.scrollToBottom();
 <% end %> 
-$('div.<%=dom_class(@statement_node)%> .more_pagination a').addClass('ajax');
+$('div.<%=dom_class(@statement_node)%> #<%=@type.underscore.pluralize%> .more_pagination a').addClass('ajax');

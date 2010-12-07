@@ -2,12 +2,10 @@
 
 <% if statement_document %>
 	<li id="<%= dom_id(my_discussion) %>" class="<%=my_discussion.class.name.downcase%>">
-		<% link_to discussion_url(my_discussion), :class => "avatar_holder" do %>
-      <%= image_tag my_discussion.image.url(:small) %>
-    <% end %>
-
+		<% my_discussion_image(my_discussion) %>
+		
     <!-- Statement title -->
-		<%= discussion_title(statement_document.title, my_discussion) %>
+		<%= my_discussion_title(statement_document.title, my_discussion) %>
 
     <!-- Tags -->
 		<div class="tags_list"><%= my_discussion.topic_tags %></div>

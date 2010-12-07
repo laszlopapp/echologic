@@ -1,7 +1,10 @@
 <% content_for :submenu, tabnav(:discuss) %>
 
+
+<%= render_breadcrumb(@breadcrumbs) if @breadcrumbs %>
+ 
 <div id="statements">
-  <%= render_ancestors(@ancestors) %>
+  <%= render_ancestors(@ancestors) if @ancestors %>
   <%= render :partial => template %>
 </div>
 

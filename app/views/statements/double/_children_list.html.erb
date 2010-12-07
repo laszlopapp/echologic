@@ -1,0 +1,17 @@
+<% display ||= false %>
+<% type ||= @type.downcase %>
+<% children ||= @children %>
+<div class="sub_list" style="<%= display ? '' : 'display:none'%>">
+	<div class="doubles_list">
+		<% children.each_with_index do |c, index| %>
+		  <% t = @type.constantize.expected_sub_types[index].to_s.underscore %>
+		  <%= render :partial => 'statements/double/doubles_list', :locals => {:type => t, :children => c}%>
+		<% end %>
+	</div>
+	<div id="more_pagination" class="more_pagination">
+    <% if !children.select{|c|!c.blank?}.empty? and !children.select{|c|c.current_page != c.total_pages}.empty? %>
+      <%= more_children(@statement_node,type) %>
+    <% end %>
+  </div>
+</div>
+

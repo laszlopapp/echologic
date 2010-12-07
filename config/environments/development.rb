@@ -26,4 +26,4 @@ ECHOSOCIAL_HOST = 'localhost:3001'
 FEEDBACK_RECIPIENT = 'laszlo.papp@echologic.org'
 
 # Initial elements number on statements children pagination
-INITIAL_CHILDREN = 3
+TOP_CHILDREN = 3

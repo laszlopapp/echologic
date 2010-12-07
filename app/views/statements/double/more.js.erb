@@ -1,0 +1,5 @@
+<% type_dom_class = @type.underscore %>
+var elements = $("<%= escape_javascript(render :partial => "statements/double/children_list") %>");
+var element = $('div.<%=dom_class(@statement_node)%> #<%= type_dom_class.pluralize %> .headline');
+
+elements.insertAfter(element).animate(toggleParams, 500);

@@ -1,8 +1,8 @@
-/* Close the content of the remaining ones */
-collapseStatements();
+var class_element = $('#statements .statement').eq(<%= @statement_node.parent.nil? ? 0 : @statement_node.parent.level + 1 %>);
 
 var new_form = "<%= escape_javascript(render :partial => 'statements/new') %>";
-replaceOrInsert($('#statements div.<%= dom_class(@statement_node) %>'), new_form);
+replaceOrInsert(class_element, new_form);
 
-loadMessages('form.<%= dom_class(@statement_node) %> .action_bar', <%= @messages %>);
-
+<% if @statement_node.echoable? %>
+  loadMessages('form.<%= dom_class(@statement_node) %> .action_bar', <%= @messages %>);
+<% end %>

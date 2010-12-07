@@ -6,35 +6,40 @@
 <% end %>
 
 /* history handling */
-<% if !params[:sid].blank? %>
+<% if !params[:sid].blank? and @ancestors %>
   var stack = "<%= params[:sid] %>".split(",");
 	<% @ancestors.each_with_index do |ancestor, index| %>
-	  var ancestor = stack[<%= index %>];
-		var ancestor_element = $('#statements div#'+ancestor);
+   <% type = ancestor.class.name.underscore %>
+    var ancestor = stack[<%= index %>];
+		var ancestor_element = $('#statements .statement').eq(<%= index %>);
 		/* if not rendered, than render */
-		if(ancestor_element.length == 0) {
-		  renderAncestor(ancestor, "<%= escape_javascript(render_ancestor(ancestor)) %>");
-	  } else {
-		  collapseStatement(ancestor_element);
-		}
-	<% end %>
+    if(ancestor_element.length == 0 || !ancestor_element.attr('id').match(ancestor)) {
+		  renderAncestor(ancestor_element, "<%= escape_javascript(render_ancestor(ancestor)) %>");
+    } else {
+      collapseStatement(ancestor_element);
+    }
+  <% end %>
 <% end %>
 
-class_element = $('#statements div.<%= dom_class(@statement_node) %>');
-if(class_element.length == 0){class_element = $('#statements form.<%= dom_class(@statement_node) %>');};
+/* breadcrumb */
+<% if @breadcrumbs %>
+  <% @breadcrumbs.each do |b| %>
+    loadBreadcrumb("<%= b[0]%>" , "<%= b[1] %>", "<%= b[2] %>", "<%= b[3] %>");
+  <% end %>
+	reinitialiseBreadcrumb();
+<% end %>
+
+deleteBreadcrumbs();
+
+
+var class_element = $('#statements .statement').eq(<%= @statement_node.level %>);
 
 <% if params[:expand].blank? %>
   /* Remove all elements from the same class or children class */
   removeChildrenStatements(class_element);
 <% end %>
 
-<% if !params[:new_level].blank? %>
-	/* Close the content of the remaining ones */
-  collapseStatements();
-<% end %>
-
 <% if !params[:expand].blank? %>
-  class_element = $('#statements div.<%= dom_class(@statement_node) %>');
   var content = "<%= escape_javascript(render :partial => 'statements/content', :locals => {:hide_content => true}) %>";
 	class_element.append(content);
   $('#statements div.<%= dom_class(@statement_node) %> .content').animate(toggleParams, 500);

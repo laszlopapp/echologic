@@ -53,15 +53,20 @@ pt:
       discuss:
         index: 'echo - Discutir'
         roadmap: 'echo - Evolução - Discutir'
-      discussions:
+      statements:
         category: 'echo - Tópico de Discussão'
         show: 'echo - Discussão'
         new: 'Abra uma nova discussão'
-        my_discussions: 'Minhas Discussões'
-      proposals:
-        show: 'echo - Posições no Debate'
-      improvement_proposals:
-        show: 'echo - Ideias para melhorar a posição'
+        my_discussions: 'Minhas Discussões'  
+#      discussions:
+#        category: 'echo - Tópico de Discussão'
+#        show: 'echo - Discussão'
+#        new: 'Abra uma nova discussão'
+#        my_discussions: 'Minhas Discussões'
+#      proposals:
+#        show: 'echo - Posições no Debate'
+#      improvement_proposals:
+#        show: 'echo - Ideias para melhorar a posição'
 
       # connect: de.seo.title.connect
       connect:
