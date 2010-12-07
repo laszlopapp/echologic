@@ -6,6 +6,7 @@ pt:
 
     # Unexpected Error
     unexpected_error: Ocorreu um erro inesperado. Pedimos desculpas pela inconveniência.
+    routing_error: URL desconhecido. Redireccionando...
 
     # General purpose resources
     general:
@@ -35,7 +36,7 @@ pt:
 
     # Roadmap - Progress
     roadmap:
-      title: pronto
+      title: Roteiro
       progress_tooltip: 'Esta área da echo está {{progress}}% pronta.'
       status_quo: 'Status Quo'
       next_steps: 'Próximos Passos'
@@ -216,7 +217,8 @@ pt:
       title: Endereços Web
       guide: |
         Aqui pode inserir alguns dos seus contactos e outros perfis web que possua.<br/>
-        <strong>TOME NOTA</strong>: por agora, toda a informação inserida estará visível para todos os membros da comunidade echo.
+        <strong>TOME NOTA</strong>: por agora, toda a informação inserida estará <strong>visível para
+        todos os membros</strong> da comunidade echo.
       type: Tipo de endereço
       address: Endereço Web
 
@@ -243,9 +245,9 @@ pt:
 
       newsletter:
         title: Newsletter
-        guide: Get some regular information directly from the webmasters.
-        turned_on: Newsletter has been switched on.
-        turned_off: Newsletter has been switched off.
+        guide: Receber a newsletter da echo.
+        turned_on: Subscrição para a newsletter da echo ativada.
+        turned_off: Subscrição para a newsletter da echo desativada.
 
       activity:
         title: Notificações de actividade
@@ -257,7 +259,7 @@ pt:
         title: Notificações de elaboração de textos
         guide: |
           Notificações relativas ao processo de elaboração coletiva dos seus conteúdos -
-          por exemplo quando a sua proposta de melhoria foi aprovada para ser incorporada.<br/>
+          por exemplo quando a sua proposta de melhoria foi aprovada para ser incorporada.<br/><br/>
           <strong>Atenção!</strong> Caso estas notificações se encontrem desativadas poderá vir a perder a oportunidade de
           incorporar as suas propostas de melhoria.
         turned_on: Notificações imediatas foram ativadas.
@@ -577,12 +579,12 @@ pt:
         title: 'Título'
         image: 'Ilustração'
       about_item:
-        photo: 'Photo'
-        name: 'Name'
-        responsibility: 'Responsibility'
-        description: 'Description'
-        about_category_id: 'About Item'
-        index: 'Index'
+        photo: Foto
+        name: Nome
+        description: Descrição
+        responsibility: Responsabildade
+        about_category_id: About Item
+        index: Índice
 
     models:
       discussion: "questão"

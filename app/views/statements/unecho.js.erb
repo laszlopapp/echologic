@@ -1,8 +1,8 @@
 <% if defined? @info %>
-  info('<%=@info%>') 
+  info('<%=@info%>');
 <% end %>
 <% if defined? @error %>
-  info('<%=@error%>') 
+  error('<%=@error%>');
 <% end %>
 
 var page = $('#statements div.<%= dom_class(@statement_node) %>, #statements form.<%= dom_class(@statement_node) %>');

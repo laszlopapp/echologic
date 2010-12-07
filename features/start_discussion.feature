@@ -10,8 +10,8 @@ Feature: Start a discussion
     Given there are no discussions
       And I am logged in as "editor" with password "true"
       And I am on the discuss index
-    When I follow "My Discussions"
-      And I follow "Open a new discussion"
+    When I follow "My Issues"
+      And I follow "Create a new issue"
       And I fill in the following:
         | discussion_statement_document_title | Is this a Discussion?   |
         | discussion_statement_document_text | Blablabla bla bla bla |

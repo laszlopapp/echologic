@@ -6,10 +6,10 @@ de:
       # static: de.seo.title.static
       static:
         echologic:
-          show: &html_title 'echo - die globale Agora (Demokratie neu gedacht)'
-          about:            'echo - Über uns'
-          imprint:          'echo - Impressum'
-          data_privacy:     'echo - Datenschutz'
+          show: 'echo - die globale Agora (Demokratie neu gedacht)'
+          about: 'echo - Über uns'
+          imprint: 'echo - Impressum'
+          data_privacy: 'echo - Datenschutz'
         echo:
           show:    'echo - die globale Agora (Demokratie zum Mitmachen)'
           discuss: 'echo - Diskutieren (Meinungs- & Willensbildung - lösungsorientiert, transparent & demokratisch)'
@@ -42,6 +42,8 @@ de:
         password_resets:
           new: 'Ihr echo - Neues Passwort anfordern'
           edit: 'Ihr echo - Neues Passwort setzen'
+          create: 'Ihr echo - Neues Passwort setzen'
+          update: 'Ihr echo - Neues Passwort setzen'
         profile:
           details: 'Ihr echo - Ausführliches Profil'
 
@@ -107,7 +109,7 @@ de:
           regionaler und globaler Ebene. Ihre Stimme findet hier ein Echo. Aus Ideen wird Bewegung,
           aus Visionen Realität. echo bedeutet das Ende der Machtlosigkeit, den Anfang der Selbstbestimmung.
         keywords: |-
-          echo, Agora, globale Agora, Demokratie, teilnehmende Demokratie, Demokratie zum Mitmachen,
+          echo, lösungsorientierte Massendialog, globale Agora, Demokratie, Demokratie zum Mitmachen,
           Selbstbestimmung, kollektive Intelligenz, Meinungsbild, Meinungsbildung, Willensbildung, Entscheidungsfindung,
           Mobilisierung, legislative Instrumente, politische Einflussnahme, echocracy, Gleichberechtigung, Transparenz,
           echonomy, öko-sozial, Your-Profit, Echokratie, Echonomie, partizipative Demokratie, glokal, Glokalität,

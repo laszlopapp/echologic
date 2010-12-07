@@ -4,9 +4,9 @@
                  WebAddressType.all.collect { |wa| [wa.value,wa.id] } %>
 
       <%= text_field :web_address, :address, :value => '' %>
-    
-      <%= submit_tag I18n.t('application.general.create'),
-                     :class => 'text_button add_text_button',
+
+      <%= submit_tag I18n.t('application.general.save'),
+                     :class => 'text_button save_text_button',
                      :id => 'new_web_address_submit' %>
 <% end %>
 <%= render :partial => 'users/components/new', :locals => {:type => 'web_address', :objectClass => WebAddress} %>

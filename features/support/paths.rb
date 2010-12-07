@@ -37,11 +37,13 @@ module NavigationHelpers
     when /^the discussions first proposal/
       proposal_path(@proposal)
     when /discuss index/i
-      discuss_featured_url
-    when /my discussions/i
+      discuss_search_url
+    when /my issues/i
       my_discussions_url
     when /discuss featured/i
       discuss_featured_path
+    when /discuss search/i
+      discuss_search_path
     when /the proposal/
       raise [@proposal.inspect,@proposal.parent.inspect].join('\n')
       proposal_path(@proposal)

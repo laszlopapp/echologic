@@ -1,4 +1,5 @@
 class StatementsController < ApplicationController
+
   # Remodelling the RESTful constraints, as a default route is currently active
   # FIXME: the echo and unecho actions should be accessible via PUT/DELETE only,
   #        but that is currently undoable without breaking non-js requests. A
@@ -6,7 +7,7 @@ class StatementsController < ApplicationController
   #        wrap a form around it.
 
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
-                                    :more, :children, :upload_image, :reload_image, :authors, :add_discussion, :add_proposal, 
+                                    :more, :children, :upload_image, :reload_image, :authors, :add_discussion, :add_proposal,
                                     :add_improvement_proposal]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish]
@@ -90,7 +91,7 @@ class StatementsController < ApplicationController
 
       # Load statement node data to session for prev/next functionality
       load_siblings(@statement_node) if !params[:new_level].blank?
-      
+
       load_to_session
 
       # Get document to show and redirect if not found
@@ -126,9 +127,9 @@ class StatementsController < ApplicationController
       log_home_error(e,"Error showing statement.")
     end
   end
-  
-  
-  
+
+
+
 
   #
   # Loads a certain children pane that had been previously hidden.
@@ -174,7 +175,7 @@ class StatementsController < ApplicationController
     @action ||= StatementAction["created"]
     @statement_node.topic_tags << "##{params[:category]}" if params[:category]
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
-    
+
     load_echo_messages if @statement_node.echoable?
 
     respond_action 'statements/new'
@@ -192,8 +193,8 @@ class StatementsController < ApplicationController
     attrs = params[statement_node_symbol].merge({:creator_id => current_user.id})
     doc_attrs = attrs.delete(:statement_document)
     form_tags = attrs.delete(:tags)
-    
-        begin
+
+    begin
       @statement_node ||= statement_node_class.new(attrs)
       @statement_node.statement ||= Statement.new
       @statement_document = @statement_node.add_statement_document(
@@ -208,7 +209,7 @@ class StatementsController < ApplicationController
 
       if permitted and @statement_node.save
         if @statement_node.echoable?
-          echo = params.delete(:echo).parameterize 
+          echo = params.delete(:echo).parameterize
           @statement_node.author_support if echo==true
         end
         EchoService.instance.created(@statement_node)
@@ -304,7 +305,7 @@ class StatementsController < ApplicationController
           else #update image
             @statement_node.update_attributes(attrs)
             @statement_node.statement_image.save
-             @statement_node.statement.save
+            @statement_node.statement.save
             update_image = true
           end
         end
@@ -476,10 +477,11 @@ class StatementsController < ApplicationController
       return if !@statement_node.echoable?
 
       @statement_node.unsupported!(current_user)
-      @statement_node.children.each{|c|c.unsupported!(current_user) if c.supported?(current_user)}
 
-      # Logic to update the children caused by cascading unsupport
-      @page = params[:page] || 1
+      if @statement_node.draftable?
+        @statement_node.children.each{|c|c.unsupported!(current_user) if c.supported?(current_user)}
+      end
+
       set_statement_node_info(@statement_node, 'discuss.statements.statement_unsupported')
       respond_to_js :redirect_to => @statement_node,
                     :template_js => 'statements/unecho'
@@ -521,7 +523,7 @@ class StatementsController < ApplicationController
         }
       else
         set_error('discuss.statements.upload_image.error')
-        format.js{ show_error_messages }
+        format.js { show_error_messages }
       end
     end
   end
@@ -640,12 +642,12 @@ class StatementsController < ApplicationController
   # Loads the echo/unecho messages as JSON data to handled on the client
   #
   def load_echo_messages
-    @messages = {:supported => set_statement_node_info(@statement_node, 'discuss.statements.statement_supported'), 
-                 :not_supported => set_statement_node_info(@statement_node, 'discuss.statements.statement_unsupported')}.to_json  
+    @messages = {:supported => set_statement_node_info(@statement_node, 'discuss.statements.statement_supported'),
+                 :not_supported => set_statement_node_info(@statement_node, 'discuss.statements.statement_unsupported')}.to_json
   end
 
   #
-  # Sets the authors of the current statement 
+  # Sets the authors of the current statement
   #
   def set_authors
     @authors = @statement_node.authors
@@ -773,18 +775,18 @@ class StatementsController < ApplicationController
     if @statement_node
       @ancestors = @statement_node.ancestors
       @ancestors.each{|a|load_siblings(a)}
-      
+
       # current statement node siblings must be loaded also on http request
-      load_siblings(@statement_node) 
+      load_siblings(@statement_node)
       if teaser
         @ancestors << @statement_node
         load_children_from_parent(@statement_node, @type)
-      end 
+      end
     else
       @ancestors = []
     end
   end
-  
+
 
   ###############
   # PERMISSIONS #
@@ -865,7 +867,7 @@ class StatementsController < ApplicationController
   ########
   # MISC #
   ########
-  
+
   #
   # Store last statement in session (for cancel link)
   #
@@ -883,11 +885,11 @@ class StatementsController < ApplicationController
     if statement_node.parent_id
       siblings = statement_node.sibling_statements(@language_preference_list).map(&:id)
     else #else, it's a root node
-      siblings = session[:roots] || [statement_node.id] 
+      siblings = session[:roots] || [statement_node.id]
     end
     @siblings["#{class_name}_#{statement_node.id}"] = siblings
   end
-  
+
   def load_children_from_parent(statement_node, type)
     @siblings ||= {}
     class_name = type.classify
@@ -918,7 +920,7 @@ class StatementsController < ApplicationController
 
       def with_#{type}(format, opts={})
         format.html { set_ancestors
-                      flash_#{type} 
+                      flash_#{type}
                       render :template => opts[:template] }
       end
     )
@@ -934,16 +936,16 @@ class StatementsController < ApplicationController
       block_given? ? yield(format) : format.js {no_errors ? show : show_error_messages}
     end
   end
-  
+
   def respond_action(template, teaser = false)
     respond_to do |format|
       yield format if block_given?
       format.html {
-        set_ancestors(teaser) 
+        set_ancestors(teaser)
         render :template => template
       }
       format.js {
-        set_ancestors(teaser) if !params[:sid].blank? 
+        set_ancestors(teaser) if !params[:sid].blank?
         render :template => template
       }
     end
@@ -957,7 +959,7 @@ class StatementsController < ApplicationController
 
   def log_home_error(e, message)
     log_message_error(e, message) do |format|
-      flash_error and redirect_to_welcome
+      flash_error and redirect_to_home
     end
   end
 end

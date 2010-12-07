@@ -36,6 +36,13 @@ class Users::WebAddressesController < ApplicationController
     begin
       @web_address = WebAddress.new(params[:web_address].merge({:user => @current_user}))
 
+      # Adding HTTP:// suffix if missing
+      if !@web_address.type.code.eql?("email") &&
+         !@web_address.address.starts_with?('http://') &&
+         !@web_address.address.starts_with?('www.')
+        @web_address.address = 'http://' + @web_address.address
+      end
+
       @before_completeness = @web_address.percent_completed
       respond_to do |format|
         format.js do

@@ -9,11 +9,6 @@ render_tabnav :my_echo,
               :generate_css => false, :html => {:class => 'submenu'} do
 
   add_tab do |t|
-    t.named I18n.t('layouts.my_echo.tabs.welcome')
-    t.links_to hash_for_welcome_path
-  end
-
-  add_tab do |t|
     t.named I18n.t('layouts.my_echo.tabs.profile')
     t.links_to hash_for_my_profile_path
   end
@@ -24,17 +19,10 @@ render_tabnav :my_echo,
   end
 
   add_tab :html => {:id => 'roadmap_tab'} do |t|
-    value = "#{Development::MY_ECHO_PROGRESS}%  " + I18n.t('application.roadmap.title')
+    value = I18n.t('application.roadmap.title')
     t.named value
     t.links_to hash_for_my_echo_path
   end
-
-  #add_tab :html => {:id => 'roadmap_tab'} do |t|
-   # value = '<span id="roadmap_tab_title">' + I18n.t('application.roadmap.title') + '</span>'
-  #  value += insert_progressbar(Development::MY_ECHO_PROGRESS)
-  #  t.named value
-  #  t.links_to hash_for_my_echo_path
-  #end
 
 end
 %>

@@ -4,13 +4,13 @@
 
 /* Do init stuff. */
 $(document).ready(function () {
-	
+
 	$.fragmentChange(true);
-	
+
 	makeRatiobars();
-	
+
   makeTooltips();
-	
+
 	roundCorners();
 
   bindLanguageSelectionEvents();
@@ -22,11 +22,11 @@ $(document).ready(function () {
   ajaxClickEvents();
 
   loadTabsContainer();
-	
+
 	loadAjaxForms();
-	
+
 	uploadFormSubmit();
-	
+
 	loadAboutUs();
 
   /* Always send the authenticity_token with ajax */
@@ -92,15 +92,14 @@ function ajaxClickEvents() {
     });
     return false;
   });
-	
-	
+
 	/*special newsletter submission tag*/
 	$(".newsletter_submit_tag").live("click", function() {
 		$("#newsletter_test").val($(this).attr("value"));
 		$("#new_newsletter_form").submit();
     return false;
   });
-	
+
 }
 
 /* If JS is enabled hijack staticMenuButtons to do AJAX requests. */
@@ -194,12 +193,12 @@ function makeTooltips() {
 }
 
 /* Add rounded corners to all div elements with class "rounded-box" */
-function roundCorners(){
+function roundCorners() {
   var str = '<b class="lr l"></b><b class="lr r"></b><b class="tb t"></b><b class="tb b"></b><b class="cn tl"></b><b class="cn tr"></b><b class="cn bl"></b><b class="cn br"></b>';
   $('.rounded-box').livequery(function(){
 		$(this).append(str);
 	});
-};
+}
 
 /* Show error or info messages in messagesContainer and hide it with delay. */
 function info(text) {

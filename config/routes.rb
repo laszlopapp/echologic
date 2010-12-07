@@ -14,8 +14,8 @@ ActionController::Routing::Routes.draw do |map|
   map.discuss_search '/discuss/search', :controller => :discussions, :action => :category
   map.discuss_cancel '/discuss/cancel', :controller => :discuss, :action => :cancel
   map.discussion_tags '/discuss/category/:id', :controller => :discussions, :action => :category, :conditions => {:id => /\w+/ }
-  map.my_discussions '/discuss/my_discussions', :controller => :discussions, :action => :my_discussions
-  
+  map.my_discussions '/discuss/my_issues', :controller => :discussions, :action => :my_discussions
+
   map.connect_roadmap '/connect/roadmap', :controller => :connect, :action => :roadmap
 
   map.my_echo '/my_echo/roadmap', :controller => :my_echo, :action => :roadmap
@@ -111,7 +111,7 @@ ActionController::Routing::Routes.draw do |map|
   # SECTION discuss - discussion tree
   map.add_discussion '/add_discussion', :controller => :discussions, :action => :add_discussion
   map.resources :discussions,
-                :member => [:new_translation, :create_translation, :publish, :cancel, :more, :children, :upload_image, 
+                :member => [:new_translation, :create_translation, :publish, :cancel, :more, :children, :upload_image,
                             :reload_image, :authors, :add_proposal],
                 :as => 'discussion'
   map.resources :proposals,
@@ -119,16 +119,16 @@ ActionController::Routing::Routes.draw do |map|
                              :children, :upload_image, :reload_image, :authors, :add_improvement_proposal],
                  :as => 'proposal'
   map.resources :improvement_proposals,
-                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, 
+                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image,
                             :reload_image, :authors],
                 :as => 'improvement_proposal'
-                
-                
+
+
   # old discuss paths redirection
-  map.connect 'discuss/questions/:discussion_id/proposals/:id', :controller => :proposals, :action => :redirect 
+  map.connect 'discuss/questions/:discussion_id/proposals/:id', :controller => :proposals, :action => :redirect
   map.connect 'discuss/questions/:discussion_id/proposals/:proposal_id/improvement_proposals/:id',
-              :controller => :improvement_proposals, :action => :redirect 
-              
+              :controller => :improvement_proposals, :action => :redirect
+
 
   # SECTION root
   map.root :controller => 'static/echologic', :action => 'show'

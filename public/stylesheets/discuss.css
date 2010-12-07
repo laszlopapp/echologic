@@ -641,6 +641,7 @@ a.statement_link:hover {
   top: 19px;
   font: 14px;
   color: #21587f;
+  text-decoration: underline;
 }
 
 .translation_box_class .translation_link strong {

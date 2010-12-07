@@ -6,48 +6,48 @@ es:
       on_echo: en echo
 
       echonomyjam:
-        continues: 'continua online!'
-        register_here: 'Por acá al registro!'
+        continues: 'continua en línea!'
+        register_here: 'Regístrate aquí!'
         name: echonomyJAM
         short_name: echonomyJAM
-        teaser: 'Elabore nuevos caminos hacia un futuro mas sostenible!'
+        teaser: 'Elabora nuevos caminos hacia un futuro más sostenible!'
         description: |-
          <p>
-          <strong>echonomy</strong> simboliza una <strong>economía ecológica y socialmente sostenible y democrática</strong>,
-          que define "lucro" como un verdadero aumento del bienestar de las personas y de la naturaleza.
+          <strong>echonomy</strong> simboliza una <strong>economía democrática, ecológica y socialmente sostenible</strong>,
+          que define "lucro" como la optimización del bienestar humano y del medio ambiente.
           </p><p>
-          <strong>echonomyJAM</strong> reúne portadores de innovación, capital y conocimiento, tanto cuanto determinantes
-          de la política y del negocio. Así echonomy JAM auspicia que <strong>juntos elaboren, financien y realicen
+          <strong>echonomyJAM</strong> reúne portadores de innovación, capital y conocimiento, así como políticos e influyentes
+          personas de negocios. Echonomy JAM facilita que <strong>elaboren conjuntamente, financien y realicen
           proyectos concretos</strong> -
-          que sigan al ideal de la sostenibilidad echologica.<br/>
-          Los temas y las ideas de los casi <strong>150 participantes</strong> del <strong>evento en el parlamento
-          Bávaro</strong> ahora pueden ser discutidas aquí.
-          (Para mas informaciones visite <a href='http://www.echonomyJAM.org' target='_blank'>www.echonomyJAM.org</a>)
+          hacia el ideal de sostenibilidad echologica.<br/>
+          Los temas y las ideas de los casi <strong>150 participantes</strong> en <strong>la sesión del Parlamento
+          Bávaro</strong> pueden ser ahora debatidos aquí.
+          (Para más información visita <a href='http://www.echonomyJAM.org' target='_blank'>www.echonomyJAM.org</a>)
           </p>
 
       echocracy:
-        name: echocracy
-        short_name: echocracy
-        teaser: Discuta sobre la nueva forma de democracia participativa de echo.
+        name: echocracia
+        short_name: echocracia
+        teaser: Debate sobre la nueva forma de democracia participativa de echo.
         description: |-
           <p>
           echo será establecido como ágora global de una nueva forma de <strong>democracia participativa</strong>  -
-          la echocracy.<br/>
-          <strong>echocracy</strong> es constructiva, igualitaria y auto-determinada – y es global!
+          la echocracia.<br/>
+          <strong>echocracia</strong> es constructiva, igualitaria y auto-determinativa – y es global!
           </p><p>
-          Contribuya tus ideas y ayúdenos a realizar la visión de una democracia global!
+          Contribuye con tus ideas y ayúdanos a realizar la visión de una democracia global!
           </p>
 
       echo:
         name: echo
         short_name: echo
-        teaser: Participe en el desarrollo de echo.
+        teaser: Participa en el desarrollo de echo.
         description: |-
           <p>
-          Como miembro de echo estás invitado a participar en el <strong>desarrollo de echo</strong>.
+          Como miembro de echo estás invitado a participar en su <strong>desarrollo</strong>.
           </p><p>
-          Cuáles son las funciones que ves como importantes y cuales deberían ser los próximos pasos?
-          Diganos tu opinión, discútela con otros participantes y contribuya a tornar echo algo mas, que nosotros
+          Qué funciones son importantes para ti y qué pasos deberían seguirse?
+          Expresa tu opinión, debate con otros participantes y contribuye a transformar echo en algo más, más de lo que nosotros
           mismos imaginamos!
           </p>
 
@@ -55,61 +55,60 @@ es:
         name: echo social
         short_name: echo social
         teaser: |
-          Para el eco de su red. Acompañe el desdobramiento de echo social!
+          Para el eco de tu red. Participa en el desarrollo de echo social!
         description: |-
           <p>
           <a href='http://www.echosocial.org' target='_blank'>echo social</a> es la solución de <strong>código
-          abierto</strong> para crear su propia <strong>red social</strong> inclusive su
-          propia <strong>página de web</strong> solamente con unos clic - <strong>gratis</strong>!
+          abierto</strong> para crear tu propia <strong>red social</strong> incluso tu
+          propia <strong>página web</strong> sólo con unos clics - <strong>gratis</strong>!
           </p><p>
-          Diganos lo que será lo más importante, para coordinar su colaboración mejor, para conectarse con otros y
-          para juntamente llevar sus acciones al éxito!
+          Lo más importante es coordinar de forma óptima tu colaboración, conectarte con otros y alcanzar el éxito
+          de tus acciones de forma conjunta!
           echo social será lanzado en <string>pocas semanas</strong>. Tus <strong>necesidades y prioridades</strong>
           serán un impulso importante para el desarrollo de echo social.
-          Más informaciones hallarás aquí:
+          Aquí encontrarás más información:
           <a href='http://www.echosocial.org' target='_blank'>www.echosocial.org</a>.
           </p>
 
       realprices:
-        name: Transparencia de presios - ecónomico, ecológico, justo!
-        short_name: Transparencia de precios
-        teaser: Intercambio de experiencias y ideas sobre productos y servicios entre ciudades y instituciones.
+        name: Transparencia en los precios - ecónomico, ecológico, justo!
+        short_name: Transparencia en los precios
+        teaser: Intercambio de experiencias e ideas sobre productos y servicios entre ciudades e instituciones.
         description: |-
           <p>
-          Como son compuestos los precios de los productos y cuales son las <strong>consecuencias ecológicas y
+          Cómo se fijan los precios de los productos y cuáles son las <strong>consecuencias ecológicas y
           sociales</strong>?
-          Cuales son las ventajas del comercio regional y justo? Como podemos hacer eso transparente y parte de
-          las decision de los consumidores?
+          Cuáles son las ventajas del comercio regional y justo? Cómo podemos regularlo de forma transparente, para que
+          los consumidores tengan voz y puedan decidir en estos asuntos?
           </p><p>
-          Durante dos <strong>encuentros tranacionales</strong> en el 26.04.2010 participantes de Berlin, Munich,
-          Austria y Suiza iniciaron un dialogo interaktivo.
+          Durante dos <strong>encuentros transnacionales</strong> el 26.04.2010, participantes de Berlin, Munich,
+          Austria y Suiza iniciaron un diálogo interactivo.
           </p><p>
-          Más informaciones puedes hallar aquí:
+          Aquí encontrarás más información:
           <a href='http://www.netzwerk-gemeinsinn.net/content/view/625/218' target='_blank'>Blog de Netzwerk Gemeinsinn</a>.
 
       igf:
         name: Internet Governance Forum - Deutschland
         short_name: IGF-Deutschland
         teaser: |
-          The <a href='http://www.igf-d.org' target='_blank'>IGF-D</a> is an open and informal multistakeholder
-          discussion platform for government, private business und civil society.
+          El <a href='http://www.igf-d.org' target='_blank'>IGF-D</a> es una plataforma de debate informal, abierta y multidisciplionar
+          dirigida a los miembros del gobierno, de la política, de los negocios y a la sociedad civil.
         description: |-
            <p>
-           With the inclusion of the German technological and academic community, it discusses the future development
-           of the internet. The work of the IGF-D focuses on the global topics of the
-           <strong><a href='http://www.intgovforum.org' target='_blank'>IGF of the United Nations (UN-IGF)</a></strong>
-           (diversity, openness, security, critical internet resources and the <strong>future of the internet</strong>)
-           with specific consideration for the problems and interests in Germany.
+           A través de la participación de la Comunidad académica y científica alemana, se promueve el debate sobre el futuro desarrollo de internet.
+           El trabajo de IGF-D se centra en los temas globales del
+           <strong><a href='http://www.intgovforum.org' target='_blank'>IGF de Naciones Unidas (UN-IGF)</a></strong>
+           (diversidad, apertura, seguridad, herramientas clave de internet y el <strong>futuro de internet </strong>)
+           con especial énfasis en los problemas e intereses de Alemania.
            </p><p>
            Goals of the IGF-D are:
              <ul>
                <li>
-                 Promoting dialogue between stakeholders on specific topics concerning internet development to
-                 further increase German potencial.
+                 Promover el diálogo entre individuos con diferentes intereses sobre aspectos relativos al futuro de internet
+                 aumenta el potencial de Alemania.
                </li>
                <li>
-                 Preparing and enriching the German stakeholders' contribution to the Internet Governance Forum of the
-                 United Nations.
+                 Seleccionar y definir los intereses que constituyen la contribución alemana al 'Internet Governance Forum' de Naciones Unidas.
                </li>
              </ul>
            </p>
@@ -118,17 +117,17 @@ es:
         name: Klimaherbst (Climate Autumn)
         short_name: Klimaherbst
         teaser: |
-          Discuss about events of "Klimaherbst Munich" and the ecology guideline being prepared for the city.
+          Debate sobre "temas del día a día, pautas de vida y de salud" en relación al manual ecológico que la ciudad de Munich está preparando.
         description: |-
           <p>
-          In Munich, the <strong>ecology guideline</strong> to climate protection is going to be submitted to the
-          council - currently we are in the public phase, which  allows citizens to
-          <strong>participate in the discussions</strong> and to take position.
-          Some of the discussed questions are: How much are we willing to waive?
-          How far do we want to go rebuilding our transport system? Where should be invested?
-          How can the city support the change of lifestyle?
+          En Munich, el <strong>manual ecológico</strong> para la protección contra el cambio climático va a ser presentado ante el
+          Consejo - en estos momentos, se encuentra en fase pública, durante la cual, los ciudadanos pueden
+          <strong>participar en el debate</strong> y expresar sus opiniones.
+          Some of the discussed questions are: Cuánto estamos dispuestos a renunciar?
+          hasta dónde queremos que nuestras infraestructuras de transporte sean reconstruidas? Dónde deberíamos invertir?
+          Cómo puede una ciudad influir en el cambio de vida?
           <br/>
-          For more infos about the Klimaherbst event series, click
+          Para obterner más información sobre el programa Klimaherbst TV, haz clic aquí
           <a href='http://www.klimaherbst.de/hallo-offentlichkeit' target='_blank'>here</a>.
           </p>
 
@@ -136,89 +135,88 @@ es:
         name: Pan European eParticipation Network
         short_name: PEP-NET
         teaser: |
-          All PEP-NET members are invited to join this discussion on the future of PEP-NET.
+          Todos los miembros de PEP-NET están invitados a participar en el debate sobre el futuro de PEP-NET.
         description: |-
           <p>
-          In May 2010, a Temporary Steering Committee was formed after the general meeting of PEP‐NET held in Krems,
-          Austria. The aim of this committee was to <strong>prepare a vision statement and agenda for the
-          new entity</strong> that many partners would appreciate to be born after the end of the EU funding for
-          the project – approximately by the end of this year.
-          In order to collect meaningful and useful information from the current members on the future of
-          PEP‐NET, the results of the steering committee's work were taken over to echo to be further
-          deliberated.
-          The results of this online-deliberation will serve as a starting point for the PEP-NET conference on
-          the 23th of September in Hamburg.
+          En mayo de 2010, se nombró un Comité Directivo Temporal tras la celebración de una reunión general del PEP‐NET en la ciudad de Krems,
+          Austria. El objetivo de este Comité es <strong>preparar una declaración de visión y una agenda para la
+          nueva entidad </strong> que muchos socios esperan vea la luz, una vez completada la financiación Europea
+          del proyecto – a finales de este año.
+          Presentadas las propuestas de futuro del PEP-NET por sus miembros actuales,
+          se han recogido los resultados del trabajo del Comité, que serán posteriormente evaluados.
+          Estos resultados del proceso de deliberación en línea servirán como punto de partida para la conferencia del PEP-NET el
+          23 de septiembre en Hamburgo.
           </p><p>
-          The deliberative process is divided into two stages:
+          El proceso de deliberación está dividido en dos fases:
             <ol>
               <li>
-                An initial <strong>brainstorming stage</strong> (taking place from July 19. to Aug. 15) to
-                collect problems, opinions and make the support for different positions visible.
+                Un <strong>brainstorming inicial</strong> en la primera fase (desde el 19 de julio hasta el 15 de agosto) para
+                recoger intereses y opiniones, haciendo visible las diferentes posiciones.
               </li>
               <li>
-                A <strong>drafting stage</strong> (starting on Aug. 16 and lasting until Sept. 19) to aggregate brainstorming
-                results into jointly elaborated proposals.
+                Una <strong>fase borrador</strong> (desde el 16 de agosto hasta el 19 de septiembre), plasmando los resultados
+                del brainstorming en propuestas elaboradas colectivamente.
               </li>
             </ol>
           </p>
 
       huwy:
-        name: HUWY - Hub Websites for Youth Participation
+        name: HUWY - Hub Websites para la Participación Joven
         short_name: HUWY
         teaser: |
-          The HUWY project invites all young people to talk about and influence policies
-          and laws affecting the Internet.
+          El proyecto HUWY invita a todos los jóvenes a opinar y a decidir en las políticas
+          y en la regulación normativa de Internet.
         description: |-
           <p>
-          <a href='http://www.huwy.eu/uk' target='_blank'>HUWY</a> aims to channel the results of the discussions to
-          representatives in governments and parliaments working on these policies. HUWY supports
-          <strong>young people</strong> and youth groups to investigate various <strong>issues about the net</strong>
-          in their own way and help to publish their results and ideas in a way that is
-          <strong>useful for policy makers</strong>.
+          <a href='http://www.huwy.eu/uk' target='_blank'>HUWY</a> quiere llevar los resultados de estos debates a la mesa de
+          los representantes del gobierno y los diputados que tratan estos temas. HUWY apoya
+          <strong>a los jóvenes</strong> y a las asociaciones de jóvenes en la investigación de <strong>temas relacionados con la red</strong>
+          de forma autónoma y ayuda a publicar sus resultados e ideas para que sean tenidos en cuenta
+          <strong>de forma efectiva, en el proceso de toma de decisiones</strong>.
           </p><p>
           Discussion topics are:
           <ul>
             <li>Cyberbullying</li>
-            <li>Freedom of speech and censorship</li>
-            <li>Phishing, ID theft and privacy</li>
-            <li>Filesharing</li>
-            <li>Open Topic</li>
+            <li>Libertad de Expresión y censura</li>
+            <li>Phishing, robo de identidad y delitos contra la privacidad</li>
+            <li>Compartir carpeta</li>
+            <li>Abrir Tema</li>
           </ul>
           </p>
           <p>
-          To find out more about the project or to get involved in HUWY, please visit
+          Encontrarás más información sobre el proyecto HUWY, en
           <a href='http://www.huwy.eu' target='_blank'>www.huwy.eu</a>.
           </p>
 
       eci:
-        name: Advisory Board on the European Citizens' Initiative
+        name: Junta Consultiva sobre la Iniciativa Ciudadana Europea
         short_name: ECI Advisory Board
         teaser: |
-          The ECI Advisory Board creates recommendations on how to make the European Citizens´ Initiative an
-          effective instrument for a more participative Europe.
+          La Junta Consultiva ECI elabora recomendaciones para optimizar la Iniciativa Ciudadana Europea
+          y convertirla en un instrumento eficaz para promover una Europa más participativa.
         description: |-
           <p>
-          The ECI Advisory Board is a non official forum. Together with Matthias Groote and Gerald Haefner,
-          it was founded by a <strong>core of experts</strong> from a range of member states
-          with backing from a growing number of MEPs.
+          La Junta Consultiva ECI es una plataforma extraoficial. Fundada, junto con Matthias Groote
+          y Gerald Haefner, por un <strong>grupo de expertos </strong> de diferentes Estados Miembros
+          con el respaldo de un creciente número de Eurodiputados.
           </p><p>
-          Its overall goal is to <strong>bail out ECIs potential</strong> to become a means of discursive
-          appropriation of Europe by its citizens, making them co-authors of the European endeavor and thus to
-          reestablish citizens´ faith in European democracy. The board will <strong>elaborate recommendations</strong>
-          on the different aspects concerning ECIs effective implementation. This includes the development of concepts
-          for a consistent combination of <strong>offline and online methods for deliberation and proactive agenda
-          setting</strong>. The recommendations elaborated by the board will be presented to the
-          European Parliament, the responsible committees and the European Commission.
+          Su objetivo principal es <strong>rescatar el potencial de la Iniciativa Ciudadana Europea</strong> como medio para la
+          apropiación de Europa por sus ciudadanos, haciéndoles co-autores del proyecto europeo y consiguiendo de este modo,
+          reestablecer su fe en la democracia europea. La Junta <strong>elaborará recomendaciones </strong>
+          sobre los diferentes aspectos prácticos en la implementación de la Iniciativa. Esto incluye el desarrollo de acciones
+          que combinen consistentemente <strong>métodos para la deliberación en línea y otros medios, así como promover una definición proactiva de la
+          agenda</strong>. Las recomendaciones elaboradas por la Junta serán presentadas a
+          los comités responsables del Parlamento Europeo y a la Comisión Europea.
           </p><p>
-            The deliberative process is divided into two stages:
+            El proceso deliberativo está dividido en dos fases:
             <ol>
               <li>
-                An initial <strong>brainstorming stage</strong> (taking place from Aug. 6 to Aug. 18) to collect
-                problems, opinions and make the support for different positions visible.
+                Una fase inicial de <strong>brainstorming</strong> (desde el 6 al 18 de agosto) para recoger
+                intereses, opiniones y hacer visible las diferentes posiciones.
               </li>
               <li>
-                A <strong>drafting stage</strong> (starting on Aug. 18 and lasting until Sept. 6) to aggregate
-                brainstorming results into jointly elaborated proposals.
+                Una <strong>fase borrador</strong> (del 18 de agosto hasta el 6 de septiembre) que plasme los resultados del
+                brainstorming en propuestas elaboradas colectivamente.
               </li>
             </ol>
           </p>

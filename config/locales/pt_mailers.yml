@@ -2,47 +2,53 @@
 pt:
 
   mailers:
+    header:
+      follow_echo: Siga o echo na web
+    greeting: 'Caro/a {{name}},'
+    bye_as_html: |-
+      Os melhores cumprimentos,
+      <br/><br/>
+      A sua equipa echo
     signature: |
       --
       echo - a Ágora Global
 
       Web: http://echo.to
+      Blog: http://blog.echo.to
+      Twitter: http://twitter.com/echologic
+      Facebook: http://www.facebook.com/echo.agora
       E-Mail: team@echologic.org
-      Twitter: www.twitter.com/echologic
-    signature_as_html: |
-      <p>
-      --<br/>
-      echo - a Ágora Global
-      </p><p>
-      Web: http://echo.to<br/>
-      E-Mail: team@echologic.org<br/>
-      Twitter: www.twitter.com/echologic
-      </p>
+    signature_as_html: |-
+      <strong>echo</strong> - a Ágora Global
+      <br/><br/>
+      Web: <a href="http://echo.to">http://echo.to</a><br/>
+      Blog: <a href="http://blog.echo.to">http://blog.echo.to</a><br/>
+      Twitter: <a href="http://twitter.com/echologic">http://twitter.com/echologic</a><br/>
+      Facebook: <a href="http://www.facebook.com/echo.agora">http://www.facebook.com/echo.agora</a><br/>
+      E-Mail: <a href="mailto:team@echologic.org">team@echologic.org</a>
 
     newsletter:
-      title: Newsletter
+      title: echo Newsletter
       header: |
         <p>
-        <strong>This is the Newsletter Section!</strong><br/>
+        <strong>Esta é a secção da Newsletter!</strong><br/>
         </p><p>
-        Here you can write a newsletter to whomever wants to read what you write.
+        Aqui pode escrever a newsletter para quem acha que a quererá ler.
         </p>
-      subject: Subject
-      text: Text
-      greeting: |-
-        <p>Dear {{name}},</p>
+      subject: Título
+      text: Texto
       unsubscribe: |-
-        <p>If you do not wish to receive newsletters, please log in to
-        <a href='{{echo_url}}'>echo</a>, go to Settings under My echo and uncheck the newsletter option.</p>
+        Se não deseja receber a newsletters, por favor logue-se na <a href='{{echo_url}}'>echo</a>,
+        vá á seção das Definições em O meu echo e desselecione a opção de newsletter.
       fields_not_filled: |-
-        You need to fill the subject and text fields in order to send the newsletter.
+        Necessita de preencher o Título e o texto de forma a poder enviar a newsletter.
       sent: |-
-        Congratulations! Your newsletter was successfully sent!
+        Your newsletter mails are being delivered...
 
     activity_tracking:
       subject: echo - Notificações de Actividade
       discussions:
-        new_discussions: 'Existem <strong>{{count}} discussões novas</strong> desde a última actualização:'
+        new_discussions: 'Existem <strong>{{count}} discussões novas</strong> desde a última actualização. '
         new_tags: 'Os debates estão relacionados com os seguintes tópicos:'
         new_proposals: 'Novas propostas na discussão "{{title}}"'
         new_improvement_proposals: 'Novas propostas de melhoria na proposta "{{title}}" em "{{discussion_title}}":'
