@@ -94,15 +94,8 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	font-size: 12px;
 	background: url("../images/page/separator_no_shadow.png") no-repeat scroll center bottom transparent;
 	height: 40px;
-	
-}
-
-.breadcrumbs .elements {
-	
-}
-
-.breadcrumbs {
 	width: 100%;
+	margin-bottom: 10px;
 }
 
 .breadcrumbs a.statement_link {
@@ -650,17 +643,16 @@ a.statement_link:hover {
 }
 
 .statement .children .doubles_list {
-	/*float: left;*/
+	
 }
 
 .children_pagination {
-  /*width: 815px;*/
+  
 }
 
 .doubles_list .children_pagination {
 	position: relative;
 	float: left;
-  /*width: 390px;*/
 	min-height: 91px;
 	min-width: 402px;
 }
@@ -923,34 +915,56 @@ form.statement fieldset ol li.tags_container {
 /*********************/
 
 .jspContainer {
-    /*overflow: hidden;
-    position: relative;*/
     z-index: 1;
 }
 
-.jspVerticalBar {
+.jspVerticalBar, .jspHorizontalBar {
 	background-color: transparent;
 }
 
-.jspVerticalBar .jspTrack {
-position: absolute;
-cursor: pointer;
-right: 3px;
-top: 0;
-height: 100%;
-background: #f1f1f1;
-  width: 6px !important;
+.jspHorizontalBar {
+	bottom: 2px;
+}
+
+.jspVerticalBar .jspTrack,
+.jspHorizontalBar .jspTrack {
+	position: absolute;
+	cursor: pointer;
+	background: #f1f1f1;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
 }
-.jspVerticalBar .jspDrag {
-position: absolute;
-  left: -2px;
-background: #97b0bf;
-cursor: pointer;
-overflow: hidden;
-  width: 10px !important;
+
+.jspVerticalBar .jspTrack {
+	width: 6px !important;
+	right: 3px;
+  top: 0;
+	height: 100%;
+}
+
+.jspHorizontalBar .jspTrack {
+	width: 100%;
+  bottom: 0;
+  left: 0;
+  height: 6px !important;
+}
+
+.jspVerticalBar .jspDrag,
+.jspHorizontalBar .jspDrag {
+  position: absolute;
+	background: #97b0bf;
+	cursor: pointer;
+	overflow: hidden;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
 }
 
+.jspVerticalBar .jspDrag {
+	left: -2px;
+	width: 10px !important;
+}
+
+.jspHorizontalBar .jspDrag {
+	top: -1px;
+  height: 10px !important;
+}
