@@ -53,7 +53,7 @@ function reinitialiseBreadcrumb(){
 	
 	elements.width(width);
 	api.reinitialise();
-  api.scrollToBottom();
+  api.scrollByX(width);
 }
 
 function loadBreadcrumb(type, id, url, value) {

@@ -92,7 +92,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .breadcrumbs {
 	padding:7px 10px 7px;
 	font-size: 12px;
-	background: url("../images/page/separator_no_shadow.png") no-repeat scroll center bottom transparent;
 	height: 40px;
 	width: 100%;
 	margin-bottom: 10px;
@@ -944,7 +943,7 @@ form.statement fieldset ol li.tags_container {
 
 .jspHorizontalBar .jspTrack {
 	width: 100%;
-  bottom: 0;
+  bottom: 1px;
   left: 0;
   height: 6px !important;
 }
@@ -965,6 +964,6 @@ form.statement fieldset ol li.tags_container {
 }
 
 .jspHorizontalBar .jspDrag {
-	top: -1px;
+	top: -2px;
   height: 10px !important;
 }
