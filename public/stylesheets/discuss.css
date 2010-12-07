@@ -642,7 +642,7 @@ a.statement_link:hover {
 }
 
 .statement .children .doubles_list {
-	
+  display: inline-block;	
 }
 
 .children_pagination {
