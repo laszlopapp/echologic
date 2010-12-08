@@ -313,15 +313,19 @@
 
 #featured_topic_on_echo {
   display: block;
-  padding-bottom: 30px;
+  padding-bottom: 25px;
 }
 
 #featured_topic_description {
   font-size: 14px;
-  font-weight: bold;
-  height: 70px;
+  height: 75px;
   line-height: 18px;
   overflow: hidden;
+}
+
+#featured_topic_description a.external_link {
+  color: #21587f;
+  text-decoration: underline;
 }
 
 /* Main box */

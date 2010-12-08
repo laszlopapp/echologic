@@ -131,6 +131,14 @@ es:
           <a href='http://www.klimaherbst.de/hallo-offentlichkeit' target='_blank'>here</a>.
           </p>
 
+      hochschultage:
+        name: Hochschultage 2010
+        short_name: Hochschultage
+        teaser: |
+          Diskussionen über Wirtschaftsethik, Nachhaltigkeit, ökosoziale Marktwirtschaft und weiteres.
+          Passend zu den ökosozialen Hochschultagen.
+        description: ''
+
       pep-net:
         name: Pan European eParticipation Network
         short_name: PEP-NET

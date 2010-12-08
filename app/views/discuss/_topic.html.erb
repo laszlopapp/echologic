@@ -1,3 +1,4 @@
+
 <div class="function_button_holder">
   <% link_to hash_for_question_tags_path.merge({:id=>category}) do %>
     <span class="function_button">
@@ -9,8 +10,5 @@
   <% end %>
   <span class="function_description">
   	<%= I18n.t("discuss.topics.#{category}.teaser") %>
-  </span>
-  <span class="function_more">
-  	<% insert_toggle_more(I18n.t("discuss.topics.#{category}.description")) %>
   </span>
 </div>
