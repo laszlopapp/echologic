@@ -116,7 +116,7 @@ class ApplicationController < ActionController::Base
           redirect_to request.url == last_url ? root_url : last_url
         }
         format.js {
-          show_info_messages do |page|
+          render_with_info do |page|
             page << "$('#user_session_email').focus();"
           end
         }
@@ -236,7 +236,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Renders :updates a page with an a info message set by set_info.
-  def show_info_messages(message=@info)
+  def render_with_info(message=@info)
     render :update do |page|
       page << "info('#{escape_javascript(message)}');" if message
       yield page if block_given?
@@ -270,22 +270,10 @@ class ApplicationController < ActionController::Base
     flash[:error] = @error
   end
 
-  # Displays the error message (used for Ajax requests).
-  def show_error_message(message=@error)
-    render :update do |page|
-      page << "error('#{escape_javascript(message)}');"
-    end
-  end
-
   # Get formatted error string from error partial for a given object, then show
   # it on the page object as an error message.
-  def show_error_messages(object=nil)
+  def render_with_error(message=@error)
     render :update do |page|
-      if object.blank?
-        message = @error
-      else
-        message = render(:partial => 'layouts/components/error', :locals => {:object => object})
-      end
       page << "error('#{escape_javascript(message)}');"
       yield page if block_given?
     end
@@ -378,7 +366,7 @@ class ApplicationController < ActionController::Base
     url = eval(url) if url =~ /_path|_url|@/
     @breadcrumbs << [name, url]
   end
- 
+
   def self.add_breadcrumb name, url, options = {}
     before_filter options do |controller|
       controller.send(:add_breadcrumb, name, url)
@@ -407,8 +395,8 @@ class ApplicationController < ActionController::Base
     log_error e
     respond_to do |format|
       set_error('application.unexpected_error')
-      yield format if block_given?
-      format.js   { show_error_messages }
+      format.html {yield if block_given?}
+      format.js   { render_with_error }
     end
   end
 end

@@ -55,7 +55,7 @@ class StatementsController < ApplicationController
       load_siblings(@statement_node) if !params[:new_level].blank?
 
       # Get document to show and redirect if not found
-      @statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
+      @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
       if @statement_document.nil?
         redirect_to(discuss_search_path)
         return
@@ -82,7 +82,7 @@ class StatementsController < ApplicationController
       # sorted by supporters count, and paginate them
       load_all_children
 
-      respond_action 'statements/show'
+      render_template 'statements/show'
     rescue Exception => e
       log_home_error(e,"Error showing statement.")
     end
@@ -105,7 +105,7 @@ class StatementsController < ApplicationController
 
     load_echo_messages if @statement_node.echoable?
 
-    respond_action 'statements/new'
+    render_template 'statements/new'
   end
 
 
@@ -139,7 +139,7 @@ class StatementsController < ApplicationController
           @statement_node.author_support if echo==true
         end
         EchoService.instance.created(@statement_node)
-        set_statement_node_info(@statement_document)
+        set_statement_info(@statement_document)
         # load siblings to store in client session
         load_siblings(@statement_node)
         load_all_children
@@ -147,16 +147,16 @@ class StatementsController < ApplicationController
         #if top statement, then load parent and title
         set_parent_breadcrumb if @statement_node.class.is_top_statement?
 
-        respond_to_statement do |format|
-          format.js {render :template => 'statements/create'}
+        show_statement do
+          render :template => 'statements/create'
         end
       else
         set_error(@statement_document)
-        render_with_error :template => 'statements/new'
+        render_statement_with_error :template => 'statements/new'
       end
     rescue Exception => e
-      log_message_error(e, "Error creating statement node.") do |format|
-        with_info format, :template => 'statements/new'
+      log_message_error(e, "Error creating statement node.") do
+      set_ancestors and flash_error and render :template => 'statements/new'
       end
     else
       log_message_info("Statement node has been created sucessfully.") if @statement_node
@@ -180,15 +180,13 @@ class StatementsController < ApplicationController
     end
 
     if !is_current_document
-      render_with_info(:template => 'statements/edit' ) do |format|
-        set_statement_node_info(nil, 'discuss.statements.statement_updated')
-      end
-    elsif has_lock
-      respond_action 'statements/edit'
+      set_statement_info('discuss.statements.statement_updated')
+      render_statement_with_info
+    elsif !has_lock
+      set_info('discuss.statements.being_edited')
+      render_statement_with_info
     else
-      render_with_info(:template => 'statements/edit' ) do |format|
-        set_info('discuss.statements.being_edited')
-      end
+      render_template 'statements/edit'
     end
   end
 
@@ -246,15 +244,15 @@ class StatementsController < ApplicationController
             being_edited
         elsif has_tag_permissions and @statement_node.valid? and @statement_document.valid?
           update = true
-          set_statement_node_info(@statement_document)
-          respond_to_statement
+          set_statement_info(@statement_document)
+          show_statement
         else
           set_error(@statement_document) if @statement_document
           set_error(@statement_node)
-          respond_to_statement false
+          show_statement true
         end
       else
-        respond_to_statement
+        show_statement
       end
     rescue Exception => e
       log_statement_error(e, "Error updating statement node '#{@statement_node.id}'.")
@@ -273,7 +271,7 @@ class StatementsController < ApplicationController
     if holds_lock?(statement_document, locked_at)
       statement_document.unlock
     end
-    respond_to_statement
+    show_statement
   end
 
 
@@ -303,16 +301,15 @@ class StatementsController < ApplicationController
   def reload_image
     respond_to do |format|
       if @statement_node.image.exists? and @statement_node.image.updated_at != params[:date].to_i
-        set_statement_node_info(nil, 'discuss.messages.image_uploaded')
+        set_statement_info('discuss.messages.image_uploaded')
         format.js {
-          show_info_messages do |page|
+          render_with_info do |page|
             page << "$('#statements div.#{dom_class(@statement_node)} #statement_image').replaceWith('#{render :partial => 'statements/image'}')"
             page << "$('#statements div.#{dom_class(@statement_node)} #upload_link').remove()" if @statement_node.published?
           end
         }
       else
-        set_error('discuss.statements.upload_image.error')
-        format.js { show_error_messages }
+        format.js { set_error 'discuss.statements.upload_image.error' and render_with_error }
       end
     end
   end
@@ -373,7 +370,7 @@ class StatementsController < ApplicationController
   def add
     @type = params[:type].to_s
     begin
-      respond_action('statements/add', true)
+      render_template('statements/add', true)
     rescue Exception => e
       log_home_error(e,"Error showing add #{@type} teaser.")
     end
@@ -394,13 +391,13 @@ class StatementsController < ApplicationController
   def destroy
     begin
       @statement_node.destroy
-      set_statement_node_info(nil, "discuss.messages.deleted")
+      set_statement_info("discuss.messages.deleted")
       flash_info and redirect_to :controller => :statements,
                                  :action => :category,
                                  :id => params[:category]
     rescue Exception => e
-      log_message_error(e, "Error deleting statement node '#{@statement_node.id}'.") do |format|
-        format.html { flash_error and redirect_to statement_node_url(@statement_node) }
+      log_message_error(e, "Error deleting statement node '#{@statement_node.id}'.") do
+        flash_error and redirect
       end
     else
       log_message_info("Statement node '#{@statement_node.id}' has been deleted sucessfully.")
@@ -585,9 +582,9 @@ class StatementsController < ApplicationController
   # Sets the info to displayed along with the response.
   # The action name is automagically incorporated into the I18n key.
   #
-  def set_statement_node_info(statement_document, string=nil, statement_node = @statement_node)
-    set_info((string || "discuss.messages.#{statement_document.action.code}"),
-             :type => I18n.t("discuss.statements.types.#{statement_node.class.name.underscore}"))
+  def set_statement_info(object)
+    code = object.kind_of?(String) ? object : "discuss.messages.#{object.action.code}"
+    set_info code, :type => I18n.t("discuss.statements.types.#{@statement_node.class.name.underscore}")
   end
 
   #
@@ -661,7 +658,7 @@ class StatementsController < ApplicationController
         respond_to do |format|
           format.html { flash_info and redirect_to(statement_node_url(statement)) }
           format.js do
-            show_info_messages
+            render_with_info
           end
         end
         return false
@@ -775,36 +772,30 @@ class StatementsController < ApplicationController
 
   %w(info error).each do |type|
     class_eval %(
-      def render_with_#{type}(opts={})
+      def render_statement_with_#{type}(opts={}, &block)
         respond_to do |format|
-          yield format if block_given?
-          with_#{type} format, :template => opts[:template]
-          format.js   { show_#{type}_messages }
+          format.html { flash_#{type} and (opts[:template] ? render :template => opts[:template] : redirect) }
+          format.js { render_with_#{type} &block }
         end
-      end
-
-      def with_#{type}(format, opts={})
-        format.html { set_ancestors
-                      flash_#{type}
-                      render :template => opts[:template] }
       end
     )
   end
 
-
-  def respond_to_statement(no_errors = true)
+  #
+  def show_statement(errors = false)
     respond_to do |format|
       format.html {
-        (no_errors ? flash_info : flash_error)
-        redirect_to statement_node_url(@statement_node)
+        flash_error if errors
+        redirect
       }
-      block_given? ? yield(format) : format.js {no_errors ? show : show_error_messages}
+      format.js {
+        block_given? ? yield : (errors ? render_with_error : show)
+      }
     end
   end
 
-  def respond_action(template, teaser = false)
+  def render_template(template, teaser = false)
     respond_to do |format|
-      yield format if block_given?
       format.html {
         initialize_breadcrumbs
         set_ancestors(teaser)
@@ -820,13 +811,13 @@ class StatementsController < ApplicationController
 
 
   def log_statement_error(e, message)
-    log_message_error(e, message) do |format|
-      flash_error and redirect_to statement_node_url(@statement_node)
+    log_message_error(e, message) do
+      flash_error and redirect
     end
   end
 
   def log_home_error(e, message)
-    log_message_error(e, message) do |format|
+    log_message_error(e, message) do
       flash_error and redirect_to_home
     end
   end

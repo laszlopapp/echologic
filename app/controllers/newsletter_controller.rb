@@ -22,13 +22,13 @@ class NewsletterController < ApplicationController
         if !subject.blank? and !text.blank?
           if params[:newsletter][:test].eql?('true')
             NewsletterMailer.deliver_newsletter_mail(current_user, subject, text)
-            show_info_messages "Test newsletter mail has been sent to your address."
+            render_with_info "Test newsletter mail has been sent to your address."
           else
             MailerService.instance.send_newsletter_mails(subject, text)
             render :template => 'newsletter/create'
           end
         else
-          show_error_message I18n.t("mailers.newsletter.fields_not_filled")
+          set_error 'mailers.newsletter.fields_not_filled' and render_with_error 
         end
       end
     end

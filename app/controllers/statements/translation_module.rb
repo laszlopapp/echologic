@@ -18,19 +18,16 @@ module TranslationModule
       @action ||= StatementAction["translated"]
     end
     if !is_current_document
-      render_with_info(:template => 'statements/new_translation' ) do |format|
-        set_statement_node_info(nil,'discuss.statements.statement_updated')
-      end
+      set_statement_info('discuss.statements.statement_updated')
+      render_statement_with_info
     elsif already_translated
-      render_with_info(:template => 'statements/new_translation' ) do |format|
-        set_statement_node_info(nil,'discuss.statements.already_translated')
-      end
-    elsif has_lock
-      respond_action 'statements/new_translation'
+      set_statement_info('discuss.statements.already_translated')
+      render_statement_with_info
+    elsif !has_lock
+      set_info('discuss.statements.being_edited')
+      render_statement_with_info
     else
-      render_with_info(:template => 'statements/new_translation' ) do |format|
-        set_info('discuss.statements.being_edited')
-      end
+      render_template 'statements/new_translation'
     end
   end
 
@@ -69,16 +66,16 @@ module TranslationModule
       elsif @new_statement_document.valid?
         translated = true
         @statement_document = @new_statement_document
-        set_statement_node_info(@statement_document)
-        respond_to_statement
+        set_statement_info(@statement_document)
+        show_statement
       else
         @statement_document = StatementDocument.find(new_doc_attrs[:old_document_id])
         set_error(@new_statement_document)
-        render_with_error :template => 'statements/new_translation'
+        render_statement_with_error :template => 'statements/new_translation'
       end
     rescue Exception => e
-      log_message_error(e, "Error translating statement node '#{@statement_node.id}'.") do |format|
-        with_error format, :template => 'statements/new_translation'
+      log_message_error(e, "Error translating statement node '#{@statement_node.id}'.") do
+        set_ancestors and flash_error and render :template => 'statements/new_translation'
       end
     else
       log_message_info("Statement node '#{@statement_node.id}' has been translated sucessfully.") if translated

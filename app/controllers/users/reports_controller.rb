@@ -58,7 +58,7 @@ class Users::ReportsController < ApplicationController
         format.js   # create.js.erb
       else
         format.html { render :action => "new" }
-        format.js   { show_error_messages(@report) }
+        format.js   { set_error @report and render_with_error }
       end
     end
   end

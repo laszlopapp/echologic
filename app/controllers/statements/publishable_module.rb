@@ -1,6 +1,6 @@
 module PublishableModule
-  
-  
+
+
   ###########
   # ACTIONS #
   ###########
@@ -22,7 +22,7 @@ module PublishableModule
 
     respond_to_js :template => 'statements/discussions/my_discussions', :template_js => 'statements/discussions/my_discussions'
   end
-  
+
 
   # Shows all the existing debates according to the given search string and a possible category.
   #
@@ -33,12 +33,12 @@ module PublishableModule
   def category
     @value    = params[:value] || ""
     @page     = params[:page]  || 1
-    
+
     statement_nodes_not_paginated = search_statement_nodes(:search_term => @value,
                                                            :language_ids => @language_preference_list,
                                                            :show_unpublished => current_user &&
                                                                                 current_user.has_role?(:editor))
-    
+
     @count    = statement_nodes_not_paginated.size
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page,
                                                               :per_page => 6)
@@ -47,7 +47,7 @@ module PublishableModule
     respond_to_js :template => 'statements/discussions/index',
                   :template_js => 'statements/discussions/discussions'
   end
-  
+
   # publishes the statement
   #
   # Method:   PUT
@@ -62,7 +62,7 @@ module PublishableModule
             EchoService.instance.published(@statement_node)
             format.js do
               set_info("discuss.statements.published")
-              show_info_messages do |page|
+              render_with_info do |page|
                 if params[:in] == 'summary'
                   page.remove 'edit_button', 'publish_button'
                 else
@@ -77,26 +77,26 @@ module PublishableModule
             end
           else
             format.js do
-              show_error_messages(@statement_node)
+              set_error @statement_node and render_with_error
             end
           end
         end
       end
     rescue Exception => e
-      log_message_error(e, "Error publishing statement node '#{@statement_node.id}'.") do |format|
+      log_message_error(e, "Error publishing statement node '#{@statement_node.id}'.") do
         if params[:in] == 'summary'
-          format.html { flash_error and redirect_to statement_node_url(@statement_node) }
+          flash_error and redirect_to statement_node_url(@statement_node)
         else
-          format.html { flash_error and redirect_to my_discussions_url }
+          flash_error and redirect_to my_discussions_url
         end
       end
     else
       log_message_info("Statement node '#{@statement_node.id}' has been published sucessfully.")
     end
   end
-  
+
   protected
-  
+
   def is_publishable?
     @statement_node.publishable?
   end

@@ -19,27 +19,19 @@ module IncorporationModule
     has_lock = acquire_lock(@statement_document)
     @action ||= StatementAction["incorporated"]
     if still_approved && has_lock
-      respond_action 'statements/proposals/edit_draft'
+      render_template 'statements/proposals/edit_draft'
     elsif !still_approved
       set_info('discuss.statements.not_approved_any_more')
-      respond_to do |format|
-        respond_to_statement do |format|
-          format.js do
-            show_info_messages do |page|
-              page << "$('#approved_ip').animate(toggleParams, 500).hide();"
-            end
-          end
-        end
+      render_statement_with_info do |page|
+        page << "$('#approved_ip').animate(toggleParams, 500).hide();"
       end
     else
       set_info('discuss.statements.being_edited')
-      respond_to_statement do |format|
-        format.js   { show_info_messages }
-      end
+      render_statement_with_info
     end
   end
 
-  protected 
+  protected
   #
   # Loads the approved statement if there can be any.
   #
@@ -49,7 +41,7 @@ module IncorporationModule
       @approved_document = @approved_node.document_in_preferred_language(@language_preference_list) if !@approved_node.nil?
     end
   end
-  
+
   def is_draftable?
     @statement_node.draftable?
   end
