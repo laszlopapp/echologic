@@ -377,13 +377,16 @@ de:
           bürgerlichen Engagements im Internet und ermöglicht die Entstehung einer breiten
           gesellschaftlichen <strong>Welle des Wandels</strong>.
           </p><p>
-          Für die Realisierung dieses Ziels kam Google und sein <strong>Wave Federation Protocol</strong> genau zur richtigen Zeit.
-          Diese open source Technologie ermöglicht nicht nur soziale Zusammenarbeit in Echtzeit,
+          Für die Realisierung dieses Ziels kam Googles open source <strong>Wave Federation Protocol</strong>
+          genau zur richtigen Zeit, und wurde vor kurzem in das Inkubator Programm vom
+          <strong><a href="http://www.apache.org/" target="_blank">Apache Software Foundation</a></strong> aufgenommen.
+
+          Diese Technologie ermöglicht nicht nur soziale Zusammenarbeit in Echtzeit,
           sondern schafft auch die Grundlage für einen sicheren und plattformübergreifenden Austausch von Diskussionen,
           Profilen und Aktionen. Die dabei entstehenden Daten können sowohl auf öffentlichen als auch auf organisationsinternen und
           privaten echo Servern gepeichert und zwischen einander ausgetauscht werden.
           </p><p>
-          Auf der Basis des neuartigen Konzepts von echo und der bahnbrechenden Technologie von Google Wave, legt
+          Auf der Basis des Konzepts und Prototyps von echo und der zukunftsweisenden Technologie von Wave, legt
           <strong>echo on waves</strong> die Grundlage für die gemeinsame Entwicklung eines der ambitioniertesten
           <strong>open source</strong> Projekte, das die Welt je gesehen hat:
           </p><p>
