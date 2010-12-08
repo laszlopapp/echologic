@@ -774,7 +774,10 @@ class StatementsController < ApplicationController
     class_eval %(
       def render_statement_with_#{type}(opts={}, &block)
         respond_to do |format|
-          format.html { flash_#{type} and (opts[:template] ? render :template => opts[:template] : redirect) }
+          format.html do
+            flash_#{type}
+            opts[:template] ? (render :template => opts[:template]) : redirect
+          end
           format.js { render_with_#{type} &block }
         end
       end
