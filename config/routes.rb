@@ -156,8 +156,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'discuss/questions/:discussion_id/proposals/:proposal_id/improvement_proposals/:id',
               :controller => :statements, :action => :redirect
 
-
-
   # SECTION root
   map.root :controller => 'static/echologic', :action => 'show'
 

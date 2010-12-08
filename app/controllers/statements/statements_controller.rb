@@ -180,10 +180,10 @@ class StatementsController < ApplicationController
     end
 
     if !is_current_document
-      set_statement_info('discuss.statements.statement_updated')
+      set_statement_info 'discuss.statements.statement_updated'
       render_statement_with_info
     elsif !has_lock
-      set_info('discuss.statements.being_edited')
+      set_info 'discuss.statements.being_edited'
       render_statement_with_info
     else
       render_template 'statements/edit'
@@ -397,7 +397,7 @@ class StatementsController < ApplicationController
                                  :id => params[:category]
     rescue Exception => e
       log_message_error(e, "Error deleting statement node '#{@statement_node.id}'.") do
-        flash_error and redirect
+        flash_error and redirect_to_statement
       end
     else
       log_message_info("Statement node '#{@statement_node.id}' has been deleted sucessfully.")
@@ -408,7 +408,7 @@ class StatementsController < ApplicationController
   # REDIRECTION #
   ###############
 
-  def redirect
+  def redirect_to_statement
     redirect_to statement_node_url(@statement_node)
   end
 
@@ -776,7 +776,7 @@ class StatementsController < ApplicationController
         respond_to do |format|
           format.html do
             flash_#{type}
-            opts[:template] ? (render :template => opts[:template]) : redirect
+            opts[:template] ? (render :template => opts[:template]) : redirect_to_statement
           end
           format.js { render_with_#{type} &block }
         end
@@ -788,8 +788,8 @@ class StatementsController < ApplicationController
   def show_statement(errors = false)
     respond_to do |format|
       format.html {
-        flash_error if errors
-        redirect
+        errors ? flash_error : flash_info
+        redirect_to_statement
       }
       format.js {
         block_given? ? yield : (errors ? render_with_error : show)
@@ -815,7 +815,7 @@ class StatementsController < ApplicationController
 
   def log_statement_error(e, message)
     log_message_error(e, message) do
-      flash_error and redirect
+      flash_error and redirect_to_statement
     end
   end
 

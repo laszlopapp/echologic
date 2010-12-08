@@ -59,8 +59,8 @@ module EchoableModule
   # Loads the echo/unecho messages as JSON data to handled on the client
   #
   def load_echo_messages
-    @messages = {:supported => set_statement_info(nil, 'discuss.statements.statement_supported'),
-                 :not_supported => set_statement_info(nil, 'discuss.statements.statement_unsupported')}.to_json
+    @messages = {:supported => set_statement_info('discuss.statements.statement_supported'),
+                 :not_supported => set_statement_info('discuss.statements.statement_unsupported')}.to_json
   end
 
 
