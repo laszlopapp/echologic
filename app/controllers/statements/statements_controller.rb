@@ -10,9 +10,9 @@ class StatementsController < ApplicationController
 
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
   before_filter :fetch_statement_node_type, :only => [:new, :create]
-  before_filter :redirect_if_approved_or_incorporated, :except => [:category, :my_discussions,
-                                                                   :new, :create, :more, :children, :upload_image,
-                                                                   :reload_image, :redirect, :authors, :add, :parents]
+  before_filter :redirect_if_approved_or_incorporated, :only => [:show, :edit, :update, :destroy,
+                                                                 :new_translation, :create_translation,
+                                                                 :echo, :unecho]
   before_filter :fetch_languages, :except => [:destroy, :redirect, :parents]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
