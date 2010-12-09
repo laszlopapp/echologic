@@ -152,9 +152,9 @@ ActionController::Routing::Routes.draw do |map|
 
 
   # old discuss paths redirection
-  map.connect 'discuss/questions/:discussion_id/proposals/:id', :controller => :statements, :action => :redirect
+  map.connect 'discuss/questions/:discussion_id/proposals/:id', :controller => :statements, :action => :redirect_to_statement
   map.connect 'discuss/questions/:discussion_id/proposals/:proposal_id/improvement_proposals/:id',
-              :controller => :statements, :action => :redirect
+              :controller => :statements, :action => :redirect_to_statement
 
   # SECTION root
   map.root :controller => 'static/echologic', :action => 'show'
