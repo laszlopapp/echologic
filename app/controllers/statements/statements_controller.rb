@@ -776,7 +776,7 @@ class StatementsController < ApplicationController
         respond_to do |format|
           format.html do
             flash_#{type}
-            opts[:template] ? (render :template => opts[:template]) : redirect_to_statement
+            opts[:template] ? (render :template => opts[:template]) : show
           end
           format.js { render_with_#{type} &block }
         end
