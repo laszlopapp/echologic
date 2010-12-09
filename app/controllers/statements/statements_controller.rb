@@ -6,14 +6,15 @@ class StatementsController < ApplicationController
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
-  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :redirect, :add, :parents]
+  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :add, :parents,
+                                              :redirect_to_statement]
 
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
   before_filter :fetch_statement_node_type, :only => [:new, :create]
   before_filter :redirect_if_approved_or_incorporated, :only => [:show, :edit, :update, :destroy,
                                                                  :new_translation, :create_translation,
                                                                  :echo, :unecho]
-  before_filter :fetch_languages, :except => [:destroy, :redirect, :parents]
+  before_filter :fetch_languages, :except => [:destroy, :redirect_to_statement, :parents]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
 
@@ -48,21 +49,21 @@ class StatementsController < ApplicationController
   def show
 
     begin
+
+      # Get document to show or redirect if not found
+      @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
+      if @statement_document.nil?
+        redirect_to_url discuss_search_url, 'discuss.statements.no_document_in_language'
+      end
+
       # Record visited
       @statement_node.visited!(current_user) if current_user
 
-      # Load statement node data to session for prev/next functionality
+      # Transfer statement node data to client for prev/next functionality
       load_siblings(@statement_node) if !params[:new_level].blank?
 
-      # Get document to show and redirect if not found
-      @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
-      if @statement_document.nil?
-        redirect_to(discuss_search_path)
-        return
-      end
-
       # Test for special links
-      @original_language_warning = @statement_node.not_original_language?(current_user, @locale_language_id)
+      @set_language_skills_teaser = @statement_node.not_original_language?(current_user, @locale_language_id)
       @translation_permission = @statement_node.original_language == @statement_document.language &&
                                 @statement_node.translatable?(current_user,
                                                               @statement_document.language,
@@ -80,11 +81,11 @@ class StatementsController < ApplicationController
 
       # Find all child statement_nodes, which are published (except user is an editor)
       # sorted by supporters count, and paginate them
-      load_all_children
+      load_children
 
       render_template 'statements/show'
     rescue Exception => e
-      log_home_error(e,"Error showing statement.")
+      log_error_home(e, "Error showing statement.")
     end
   end
 
@@ -128,25 +129,30 @@ class StatementsController < ApplicationController
                             doc_attrs.merge({:original_language_id => doc_attrs[:language_id],
                                              :author_id => current_user.id,
                                              :current => true}))
-      permitted = true ; @tags = []
-      if @statement_node.taggable? and (permitted = check_hash_tag_permissions(form_tags))
-        @statement_node.topic_tags=form_tags
-        @tags=@statement_node.topic_tags
-      end
-      if permitted and @statement_node.save and @statement_node.statement.save
-        if @statement_node.echoable?
-          echo = params.delete(:echo).parameterize
-          @statement_node.author_support if echo==true
-        end
-        EchoService.instance.created(@statement_node)
-        set_statement_info(@statement_document)
-        # load siblings to store in client session
-        load_siblings(@statement_node)
-        load_all_children
+      @tags = []
+      has_tag_permissions = true
 
-        #if top statement, then load parent and title
+      if @statement_node.taggable? and (has_tag_permissions = check_hash_tag_permissions(form_tags))
+        @tags = @statement_node.topic_tags = form_tags
+      end
+
+      if has_tag_permissions and @statement_node.save and @statement_node.statement.save
+        if @statement_node.echoable?
+          echo = params.delete(:echo)
+          @statement_node.author_support if echo=='true'
+        end
+
+        # Propagating the creation event
+        EchoService.instance.created(@statement_node)
+
+        # Loading siblings to transfer them to the client
+        load_siblings @statement_node
+        load_children
+
+        # If it is a top level statement -> load parent and title
         set_parent_breadcrumb if @statement_node.class.is_top_statement?
 
+        set_statement_info @statement_document
         show_statement do
           render :template => 'statements/create'
         end
@@ -156,7 +162,7 @@ class StatementsController < ApplicationController
       end
     rescue Exception => e
       log_message_error(e, "Error creating statement node.") do
-      set_ancestors and flash_error and render :template => 'statements/new'
+        set_ancestors and flash_error and render :template => 'statements/new'
       end
     else
       log_message_info("Statement node has been created sucessfully.") if @statement_node
@@ -212,10 +218,10 @@ class StatementsController < ApplicationController
       holds_lock = true
       if has_tag_permissions
         StatementNode.transaction do
-          if attrs_doc # normal edit or incorporate form
+          if attrs_doc # Edit or Incorporate form
             old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
             holds_lock = holds_lock?(old_statement_document, locked_at)
-            if (holds_lock)
+            if holds_lock
               old_statement_document.update_attribute(:current, false)
               old_statement_document.save!
               @statement_document = @statement_node.add_statement_document(
@@ -225,12 +231,11 @@ class StatementsController < ApplicationController
               @statement_document.save
 
               if @statement_node.taggable? and form_tags
-                @statement_node.topic_tags=form_tags
-                @tags=@statement_node.topic_tags
+                @tags = @statement_node.topic_tags = form_tags
               end
               @statement_node.save
             end
-          else #update image
+          else # Uploaded statement illustration image
             @statement_node.update_attributes(attrs)
             @statement_node.statement_image.save
             @statement_node.statement.save
@@ -239,7 +244,7 @@ class StatementsController < ApplicationController
         end
       end
 
-      if attrs_doc #normal form POST
+      if attrs_doc # Normal form POST
         if !holds_lock
             being_edited
         elsif has_tag_permissions and @statement_node.valid? and @statement_document.valid?
@@ -255,7 +260,7 @@ class StatementsController < ApplicationController
         show_statement
       end
     rescue Exception => e
-      log_statement_error(e, "Error updating statement node '#{@statement_node.id}'.")
+      log_error_statement(e, "Error updating statement node '#{@statement_node.id}'.")
     else
       log_message_info("Statement node '#{@statement_node.id}' has been updated sucessfully.") if update
       log_message_info("Statement node '#{@statement_node.id}' has a new image.") if update_image
@@ -320,7 +325,7 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def authors
-    set_authors
+    load_authors
     respond_to do |format|
       format.js {render :template => 'statements/authors'}
     end
@@ -334,10 +339,10 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def more
-    @type = params[:type].camelize || @statement_node.class.expected_children_types.first.to_s
+    @type = params[:type].camelize || @statement_node.class.children_types.first.to_s
     load_top_children(@type)
     respond_to do |format|
-      format.js {render :template => @type.constantize.more_template}
+      format.js { render :template => @type.constantize.more_template }
     end
   end
 
@@ -349,19 +354,18 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def children
-    @type = params[:type].camelize || @statement_node.class.expected_children_types.first.to_s
+    @type = params[:type].camelize || @statement_node.class.children_types.first.to_s
     @page = params[:page] || 1
-    @per_page = 7
+    @per_page = MORE_CHILDREN
     @offset = @page.to_i == 1 ? TOP_CHILDREN : 0
-    load_children(@type)
+    load_children @type
     respond_to do |format|
       format.js {render :template => @type.constantize.children_template}
     end
   end
 
-
-
-  # Shows an add statement teaser page
+  #
+  # Shows add statement teaser page.
   #
   # Method:   GET
   # Params:   type: string
@@ -372,7 +376,7 @@ class StatementsController < ApplicationController
     begin
       render_template('statements/add', true)
     rescue Exception => e
-      log_home_error(e,"Error showing add #{@type} teaser.")
+      log_error_home(e,"Error showing add #{@type} teaser.")
     end
   end
 
@@ -432,18 +436,18 @@ class StatementsController < ApplicationController
   #
   # Loads the children of the current statement, storing them in an hash by type
   #
-  def load_all_children
+  def load_children
     @children = {}
-    children_types_with_visibility = @statement_node.class.expected_children_types(true).transpose
-    if !children_types_with_visibility.empty?
-      types = children_types_with_visibility[0]
+    children_types = @statement_node.class.children_types(true).transpose
+    if !children_types.empty?
+      types = children_types[0]
+      @children_documents = {}
       types.each_with_index do |type, index|
-        visibility = children_types_with_visibility[1][index]
-        if visibility
-          type_class = type.to_s.constantize
+        immediate_render = children_types[1][index]
+        if immediate_render
           @children[type] = @statement_node.get_paginated_child_statements(@language_preference_list, type.to_s)
-          @children_documents = search_statement_documents(@children[type].map(&:statement_id),
-                                                         @language_preference_list)
+          @children_documents.merge!(search_statement_documents(@children[type].map(&:statement_id),
+                                                                @language_preference_list))
         else
           @children[type] = nil
         end
@@ -459,15 +463,16 @@ class StatementsController < ApplicationController
   # Loads the children of the current statement from a certain type
   #
   def load_children(type, page = @page, per_page = @per_page)
-    @children = @statement_node.get_paginated_child_statements(@language_preference_list, type.to_s, page, per_page)
+    @children = @statement_node.get_paginated_child_statements(@language_preference_list,
+                                                               type.to_s, page, per_page)
     @children_documents = search_statement_documents(@children.flatten.map { |s| s.statement_id },
                                                      @language_preference_list)
   end
 
   #
-  # Sets the authors of the current statement
+  # Load the authors of the current statement for rendering.
   #
-  def set_authors
+  def load_authors
     @authors = @statement_node.authors
   end
 
@@ -498,7 +503,7 @@ class StatementsController < ApplicationController
 
 
   ###########
-  # PRIVATE #
+  # FILTERS #
   ###########
 
   private
@@ -540,7 +545,7 @@ class StatementsController < ApplicationController
         return
       end
     rescue Exception => e
-      log_home_error(e,"Error running redirect approved/incorporated IP filter")
+      log_error_home(e,"Error running redirect approved/incorporated IP filter")
     end
   end
 
@@ -567,8 +572,8 @@ class StatementsController < ApplicationController
   # Returns the statement node correspondent symbol (:discussion, :proposal...).
   #
   def statement_node_symbol
-    symbol = @statement_node_type.nil? ? @statement_node.class : @statement_node_type
-    symbol.name.underscore.to_sym
+    klass = @statement_node_type.nil? ? @statement_node.class : @statement_node_type
+    klass.name.underscore.to_sym
   end
 
   #
@@ -617,24 +622,35 @@ class StatementsController < ApplicationController
     breadcrumbs = params[:breadcrumb].split(",")
     statement_nodes = StatementNode.find(breadcrumbs)
     statement_documents = search_statement_documents(statement_nodes.map(&:statement_id), @language_preference_list)
-    @breadcrumbs = statement_nodes.map{|n|[n.class.name.underscore, n.id, statement_node_url(n), statement_documents[n.statement_id].title]}
+    @breadcrumbs = statement_nodes.map do |n|
+      [n.class.name.underscore,
+       n.id,
+       statement_node_url(n),
+       statement_documents[n.statement_id].title]
+    end
   end
 
   #
-  # Sets the breadcrumb of the current statement node's parent
+  # Sets the breadcrumb of the current statement node's parent.
   #
   def set_parent_breadcrumb
     parent_node = @statement_node.parent
-    statement_documents = search_statement_documents(parent_node.statement_id, @language_preference_list)
-    @breadcrumb = [parent_node.class.name.underscore, parent_node.id, statement_node_url(parent_node), statement_documents[parent_node.statement_id].title]
+    statement_documents = search_statement_documents(parent_node.statement_id,
+                                                     @language_preference_list)
+    @breadcrumb = [parent_node.class.name.underscore,
+                   parent_node.id,
+                   statement_node_url(parent_node),
+                   statement_documents[parent_node.statement_id].title]
   end
 
   #
   # Sets the breadcrumbs for the current statement node view previous path
   #
   def initialize_breadcrumbs
-    add_breadcrumb I18n.t("discuss.statements.breadcrumbs.#{params[:path]}"), "#{params[:path]}_path" if params[:path]
-    add_breadcrumb I18n.t("discuss.statements.breadcrumbs.#{params[:path]}_with_value", :value => params[:value]), discuss_search_with_value_path(params[:value]) if params[:value]
+    add_breadcrumb I18n.t("discuss.statements.breadcrumbs.#{params[:path]}"),
+                   "#{params[:path]}_path" if params[:path]
+    add_breadcrumb I18n.t("discuss.statements.breadcrumbs.#{params[:path]}_with_value", :value => params[:value]),
+                   discuss_search_with_value_path(params[:value]) if params[:value]
   end
 
 
@@ -719,12 +735,12 @@ class StatementsController < ApplicationController
   ########
 
   #
-  # Loads siblings of the current statement node
+  # Loads siblings of the current statement node.
   #
   def load_siblings(statement_node)
     @siblings ||= {}
-    class_name = statement_node.class.to_s.underscore
-    # if has parent, then load siblings
+    class_name = statement_node.class.name.underscore
+    # if has parent then load siblings
     if statement_node.parent_id
       siblings = statement_node.siblings_to_session(@language_preference_list)
     else #else, it's a root node
@@ -745,11 +761,12 @@ class StatementsController < ApplicationController
     @siblings["add_discussion"] = get_roots_to_session(@statement_node)
   end
 
-  #gets the root ids that need to be loaded to the session
+  # Gets the root ids that need to be loaded to the session.
   def get_roots_to_session(statement_node)
     if params[:path]
       siblings = case params[:path]
-        when 'discuss_search' then search_statement_nodes(:search_term => params[:value]||"", :language_ids => @language_preference_list,
+        when 'discuss_search' then search_statement_nodes(:search_term => params[:value]||"",
+                                                          :language_ids => @language_preference_list,
                                                           :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id)
         when 'my_discussions' then current_user.get_my_discussions.map(&:id)
       end
@@ -760,12 +777,12 @@ class StatementsController < ApplicationController
   end
 
   #
-  # show "being edited" info message
+  # Shows "being edited" info message and refreshes the statement.
   #
   def being_edited
     respond_to do |format|
       set_error('discuss.statements.staled_modification')
-      format.html { flash_error and redirect_to statement_node_url(@statement_node) }
+      format.html { flash_error and redirect_to_statement }
       format.js { show }
     end
   end
@@ -812,14 +829,15 @@ class StatementsController < ApplicationController
     end
   end
 
-
-  def log_statement_error(e, message)
+  # Logs the exception and redirects to the statement.
+  def log_error_statement(e, message)
     log_message_error(e, message) do
       flash_error and redirect_to_statement
     end
   end
 
-  def log_home_error(e, message)
+  # Logs the exception and redirects to home.
+  def log_error_home(e, message)
     log_message_error(e, message) do
       flash_error and redirect_to_home
     end

@@ -2,9 +2,9 @@ class StatementNode < ActiveRecord::Base
   acts_as_extaggable :topics
   acts_as_echoable
   acts_as_subscribeable
-  acts_as_nested_set
+  acts_as_nested_set :scope => :root
 
-  
+
 
   after_destroy :destroy_statement
 
@@ -47,8 +47,8 @@ class StatementNode < ActiveRecord::Base
 
   ##
   ## NAMED SCOPES
-  ##  
-  
+  ##
+
   #auxiliar named scopes only used for tests
   %w(discussion proposal improvement_proposal pro_argument contra_argument).each do |type|
     class_eval %(
@@ -75,12 +75,12 @@ class StatementNode < ActiveRecord::Base
       end
     )
   end
-  
+
   ##############################
   ######### ACTIONS ############
   ##############################
 
-  def publishable? 
+  def publishable?
     false
   end
 
@@ -155,7 +155,7 @@ class StatementNode < ActiveRecord::Base
   # Collects a filtered list of all children statements
   #
   # for_session argument: when true, returns a list of ids + the "add_type" teaser name
-  def child_statements(language_ids = nil, type = self.class.expected_children_types.first.to_s, for_session = false)
+  def child_statements(language_ids = nil, type = self.class.children_types.first.to_s, for_session = false)
     return type.constantize.statements_for_parent(self.id_as_parent, language_ids, self.draftable?, for_session)
   end
 
@@ -163,24 +163,27 @@ class StatementNode < ActiveRecord::Base
   def sibling_statements(language_ids = nil, type = self.class.to_s)
     return parent_id.nil? ? [] : type.constantize.statements_for_parent(self.parent.id_as_parent, language_ids, self.incorporable?)
   end
-  
+
   # Collects a filtered list of all siblings statements
   def siblings_to_session(language_ids = nil, type = self.class.to_s)
     sibling_statements(language_ids, type).map(&:id) + ["#{self.parent_id ? "/#{self.parent.id_as_parent}" : ''}/add/#{type.underscore}"]
   end
-  
+
   # Collects a filtered list of all siblings statements
-  def children_to_session(language_ids = nil, type = self.class.expected_children_types.first.to_s)
+  def children_to_session(language_ids = nil, type = self.class.children_types.first.to_s)
     child_statements(language_ids, type, true)
   end
-  
+
   # Get the top children of a specific child type
-  def get_paginated_child_statements(language_ids = nil, type = self.class.expected_children_types.first.to_s, page = 1, per_page = TOP_CHILDREN)
+  def get_paginated_child_statements(language_ids = nil,
+                                     type = self.class.children_types.first.to_s,
+                                     page = 1,
+                                     per_page = TOP_CHILDREN)
     type_class = type.constantize
     children = child_statements(language_ids, type)
     type_class.paginate_statements(children, page, per_page)
   end
-  
+
 
   ###################
   # CHILDREN HELPER #
@@ -190,7 +193,7 @@ class StatementNode < ActiveRecord::Base
 
   private
 
-  
+
 
 
   #################
@@ -198,24 +201,24 @@ class StatementNode < ActiveRecord::Base
   #################
 
   class << self
-    
+
     def new_instance(attributes = nil)
       self.new(attributes)
     end
-    
+
     def is_top_statement?
       false
     end
-    
+
     def paginate_statements(children, page, per_page)
       children.paginate(default_scope.merge(:page => page, :per_page => per_page))
     end
-    
+
     def statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
       conditions = {:conditions => "n.type = '#{self.name}' and n.parent_id = #{parent_id}"}
       conditions.merge!({:language_ids => language_ids}) if language_ids
       conditions.merge!(special_query_conditions) if filter_drafting_state
-      
+
       statements = self.search_statement_nodes(conditions)
       if for_session
         statements.map!(&:id)
@@ -223,11 +226,11 @@ class StatementNode < ActiveRecord::Base
       end
       statements
     end
-    
+
     def special_query_conditions
       {}
     end
-    
+
     def join_clause
       <<-END
         select distinct n.*
@@ -240,15 +243,15 @@ class StatementNode < ActiveRecord::Base
         where
       END
     end
-    
-    
+
+
     public
-    
+
     def search_statement_nodes(opts={})
 
       # Building the search clause
       select_clause = join_clause
-      
+
       # Building the where clause
       # Handling the search term
       search_term = opts[:search_term]
@@ -295,33 +298,33 @@ class StatementNode < ActiveRecord::Base
       { :include => :echo,
         :order => %Q[echos.supporter_count DESC, created_at ASC] }
     end
-    
-    
-    
-    def expected_children_types(children_visibility = false)
+
+
+
+    def children_types(children_visibility = false)
       expected_children = @@expected_children[self.name] || @@expected_children[self.superclass.name]
       return expected_children.map{|c|c[0]} if !children_visibility
       expected_children
     end
-    
+
     def children_template
       "statements/children"
     end
-    
+
     def more_template
       "statements/more"
     end
-    
+
     #protected
 
     def default_children_types(*klasses)
       @@default_children_types = klasses
     end
-    
-    def expects_children_types(*klasses)
+
+    def has_children_of_types(*klasses)
       @@expected_children ||= { }
       @@expected_children[self.name] ||= @@default_children_types.nil? ? [] : @@default_children_types
-      @@expected_children[self.name] = klasses + @@expected_children[self.name] 
+      @@expected_children[self.name] = klasses + @@expected_children[self.name]
     end
   end
   default_children_types [:FollowUpQuestion,false]

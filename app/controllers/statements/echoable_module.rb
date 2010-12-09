@@ -22,7 +22,7 @@ module EchoableModule
         render_statement_with_info
       end
     rescue Exception => e
-      log_statement_error(e, "Error echoing statement node '#{@statement_node.id}'.")
+      log_error_statement(e, "Error echoing statement node '#{@statement_node.id}'.")
     else
       log_message_info("Statement node '#{@statement_node.id}' has been echoed sucessfully.")
     end
@@ -48,7 +48,7 @@ module EchoableModule
       respond_to_js :redirect_to => statement_node_url(@statement_node),
                     :template_js => 'statements/unecho'
     rescue Exception => e
-      log_statement_error(e, "Error unechoing statement node '#{@statement_node.id}'.")
+      log_error_statement(e, "Error unechoing statement node '#{@statement_node.id}'.")
     else
       log_message_info("Statement node '#{@statement_node.id}' has been unechoed sucessfully.")
     end

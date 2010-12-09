@@ -38,5 +38,6 @@ FEEDBACK_RECIPIENT = 'team@echologic.org'
 # For using link_to and url_for in ActionMailer, hostname has to be given.
 config.action_mailer.default_url_options = { :host => 'echo.to' }
 
-# Initial elements number on statements children pagination
+# Number of children statements shown
 TOP_CHILDREN = 3
+MORE_CHILDREN = 7

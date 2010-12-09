@@ -1,8 +1,16 @@
 class AddLftAndRgtToStatementNode < ActiveRecord::Migration
   def self.up
+    Question.all.each do |q|
+      q.root_id = q.id
+      q.save
+    end
+    Proposal.all.each do |p|
+      p.root_id = p.parent_id
+      p.save
+    end
     add_column :statement_nodes, :lft, :integer
     add_column :statement_nodes, :rgt, :integer
-    
+
     StatementNode.rebuild!
   end
 

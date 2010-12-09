@@ -1,40 +1,40 @@
 /* Do init stuff. */
 $(document).ready(function () {
-	
+
 	addTagButtons();
-	
+
 	addTagButtonEvents();
-	
+
 	loadMessageBoxes();
-	
+
 	loadRTEEditor();
-	
+
 	loadStatementAutoComplete();
-	
+
 	initExpandables();
-	
+
 	loadDefaultText();
-	
+
 	cleanDefaultsBeforeSubmit();
-	
+
 	initEchoNewStatementButtons();
-	
+
 	loadStatementSessions();
-	
+
 	initPrevNextButtons();
-	
+
 	initChildrenPaginationButton();
-	
+
 	initStatementHistoryEvents();
-  
+
   initFragmentStatementChange();
-	
+
 	initFormStatementType();
-	
+
 	handleStatementFormsSubmit();
-	
+
 	initBreadcrumbs();
-	
+
 });
 
 /********************************/
@@ -45,12 +45,12 @@ function reinitialiseBreadcrumb(){
 	var breadcrumbs = $('#breadcrumbs');
   var elements = breadcrumbs.find('.elements');
 	var api = breadcrumbs.data('jsp');
-	
+
 	var width = 0;
 	elements.children().each(function(){
 		width += $(this).width() + parseInt($(this).css('padding-right')) + parseInt($(this).css('padding-left'));
 	});
-	
+
 	elements.width(width);
 	api.reinitialise();
   api.scrollByX(width);
@@ -65,15 +65,15 @@ function loadBreadcrumb(type, id, url, value) {
 	//if (breadcrumbs.length == 0){breadcrumb.addClass('first');}
 	breadcrumb.attr('href',url);
 	breadcrumb.text(value);
-	
-	
+
+
 	//var contents = api.getContentPane();
-	
+
 	if (breadcrumbs.length != 0) {
 	  var del = $("<span class='delimitator'>></span>");
 		elements.append(del);
   }
-	
+
 	elements.append(breadcrumb);
 }
 
@@ -111,7 +111,7 @@ function replaceOrInsert(element, template){
 	if(element.length > 0) {
 		element.replaceWith(template);
 	}
-  else 
+  else
 	{
 		collapseStatements();
 		$('div#statements').append(template);
@@ -133,11 +133,11 @@ function removeChildrenStatements(element){
 function initExpandables(){
 	$(".ajax_expandable").livequery(function(){
 		var content = $(this).attr('data-content');
-		var path = $(this).attr('href');  
-		
+		var path = $(this).attr('href');
+
 		$(this).data('content', content);
 		$(this).data('path', path);
-		
+
 		$(this).removeAttr('data-content');
 		$(this).removeAttr('href');
 	});
@@ -145,18 +145,18 @@ function initExpandables(){
 	$(".ajax_expandable").live("click", function(){
 		element = $(this);
 		to_show = element.parents("div:first").find($(this).data('content'));
-		supporters_label = element.find('.supporters_label'); 
+		supporters_label = element.find('.supporters_label');
 		if (to_show.length > 0) {
 			/* if statement already has loaded content */
 			element.toggleClass('active');
 			to_show.animate(toggleParams, 500);
 			supporters_label.animate(toggleParams, 500);
 		}
-		else 
+		else
 		{
 			/* load the content that is missing */
 			href = $(this).data('path');
-			
+
 			$.getScript(href, function(){
 				element.toggleClass('active');
 			});
@@ -169,9 +169,9 @@ function initExpandables(){
 /* Gets the siblings of the loaded statement and places them in the client session for navigation purposes */
 function loadStatementSessions() {
 	$("#statements div.statement, #statements form.statement").livequery(function(){
-		
+
 		parent = $(this).prev();
-		if (parent.length > 0)      
+		if (parent.length > 0)
     {
       /* stores siblings with the parent node id */
       var parent = parent.attr('id');
@@ -198,14 +198,14 @@ function initPrevNextButtons() {
 }
 
 function initNavigationButton(element, inc) {
-	
+
 	current_node_id = $(element).attr('data-id');
 	node = $(element).parents('.statement');
-	
+
 	if (current_node_id.match('add')) {
 		aux = current_node_id.split('_');
 		current_node_id = [];
-		/* get parent id */  if(aux[0].match(/\d+/)) {current_node_id.push(aux.shift());} 
+		/* get parent id */  if(aux[0].match(/\d+/)) {current_node_id.push(aux.shift());}
 		/* get 'add' */  current_node_id.push(aux.shift());
 		current_node_id.push(aux.join('_')); current_node_id = "/"+current_node_id.join('/');
 	} else {current_node_id = eval(current_node_id);}
@@ -233,7 +233,7 @@ function initNavigationButton(element, inc) {
 	id_index = (siblings_ids.indexOf(current_node_id) + inc) % siblings_ids.length;
 	//BUG: % operator is not working properly in jquery for negative values (-1%7 => -1)?????????
 	if (id_index < 0) {id_index = siblings_ids.length - 1;}
-	
+
   new_node_id = new String(siblings_ids[id_index]);
 	/* if 'add' action, then write add link */
 	if (new_node_id.match('add')) {
@@ -242,7 +242,7 @@ function initNavigationButton(element, inc) {
 	else {
 		element.href = element.href.replace(/\/\d+.*/, "/" + new_node_id);
 	}
-	
+
   $(element).removeAttr('data-id');
 }
 
@@ -252,7 +252,7 @@ function initNavigationButton(element, inc) {
 
 /* write the default message on the text inputs while they don't get filled */
 function loadDefaultText() {
-	
+
 	$("#statements form.new input[type='text']").livequery(function(){
 		var value = $(this).attr('data-default');
 		if (this.value.length == 0) {
@@ -264,7 +264,7 @@ function loadDefaultText() {
 		$(this).removeAttr('data-default');
 		$(this).blur();
 	});
-	
+
 	$("#statements form.new iframe.rte_doc").livequery(function(){
 		var value = $(this).attr('data-default');
 		var doc = $(this).contents().get(0);
@@ -272,7 +272,7 @@ function loadDefaultText() {
 		if(text.html().length == 0 || html.val() == '</br>') {
 			label = $("<span class='defaultText'></span>").html(value);
 			label.insertAfter($(this));
-			
+
 			$(doc).bind('click', function(){
 				label.hide();
 			});
@@ -285,7 +285,7 @@ function loadDefaultText() {
 		}
 		$(this).removeAttr('data-default');
 	});
-	
+
 	$("#statements form.new").livequery( function() {
     $(this).bind('submit', (function() {
       $(this).find(".toggleval").each(function() {
@@ -324,13 +324,13 @@ function initEchoStatementButton(element, class_add, class_remove, ratio_class_a
 	page = element.parents('form.statement');
 	/* modify echo button in element */
 	element.removeClass(class_remove).addClass(class_add);
-	
+
   /* modify text in supporters label */
   page.find('#echo').val(value);
 	supporters_label = page.find('.supporters_label');
   supporters_text = supporters_label.text();
   supporters_label.text(supporters_text.replace(/[0-9]/, supporters_number));
-	
+
 	/* modify the supporters bar */
 	old_supporter_bar = page.find('.supporters_bar');
   new_supporter_bar = $('<span></span>').attr('class', old_supporter_bar.attr('class')).addClass(ratio_class_add).removeClass(ratio_class_remove).attr('alt', ratio);
@@ -379,13 +379,13 @@ function showNewStatementType(element) {
 /* load the previously existing tags */
 function addTagButtons() {
   $('form.taggable').livequery(function(){
-		tags_to_load = $(this).find('input.discussion_tags').val();
+		var tags_to_load = $(this).find('input.discussion_tags').val();
     tags_to_load = $.trim(tags_to_load);
     tags_to_load = tags_to_load.split(',');
     while (tags_to_load.length > 0) {
-      tag = $.trim(tags_to_load.shift());
+      var tag = $.trim(tags_to_load.shift());
       if (tag.localeCompare(' ') > 0) {
-        element = createTagButton(tag, $(this).find(".discussion_tags"));
+        var element = createTagButton(tag, $(this).find(".discussion_tags"));
         $(this).find('#discussion_tags_values').append(element);
       }
     }
@@ -394,7 +394,7 @@ function addTagButtons() {
 /* add new tags to be added to statement */
 function addTagButtonEvents() {
   $('#statements form.statement #tag_topic_id').live('keypress', (function(event) {
-		statement = $(this).parents('form.statement'); 
+		statement = $(this).parents('form.statement');
     if (event && event.keyCode == 13) { /* check if enter was pressed */
       if (statement.find('#tag_topic_id').val().length != 0) {
         statement.find('.addTag').click();
@@ -452,7 +452,7 @@ function createTagButton(text, tags_id) {
 		if (index_to_delete >= 0) {
       discussion_tags.splice(index_to_delete, 1);
     }
-		
+
     $("#"+tags_id.attr('id')).val(discussion_tags.join(','));
   });
   element.append(deleteButton);
@@ -504,9 +504,8 @@ function loadMessageBoxes() {
 function loadRTEEditor() {
 	$('textarea.rte_doc, textarea.rte_tr_doc').livequery(function(){
 		defaultText = $(this).attr('data-default');
-		
 		parent_node = $(this).parents('.statement');
-	  url = 'http://' + window.location.hostname + '/stylesheets/';
+	  url = $(this).attr('data-css-url');
 	  $(this).rte({
 	    css: ['jquery.rte.css'],
 	    base_url: url,
@@ -515,9 +514,12 @@ function loadRTEEditor() {
 	    controls_html: html_toolbar
 	  });
 		parent_node.find('.focus').focus();
-		
+
 		/* for default text */
 		parent_node.find('iframe').attr('data-default', defaultText);
+
+    /* Cleaning up data meta tags */
+    $(this).removeAttr('data-css-url');
 	});
 }
 
@@ -530,11 +532,11 @@ function getCurrentStatementsStack(element, new_level) {
 	var statement = $(element).parents('.statement');
 	/* get statement id current index in the list of statements */
   var statement_index = $('#statements .statement').index(statement);
-	
+
 	/* get soon to be visible statement */
   var path = element.href.split("/");
 	var id = path.pop().split('?').shift();
-	
+
 	if (id.match(/\d+/)) {
   	var current_sid = id;
   } else {
@@ -546,7 +548,7 @@ function getCurrentStatementsStack(element, new_level) {
 		current_sid = current_sid.join('/');
 	}
   current_stack = [];
-	
+
 	/* get current_stack of visible statements (if any matches the clicked statement, then break) */
   $("#statements .statement").each( function(index){
 		if (index < statement_index) {
@@ -570,7 +572,7 @@ function getBreadcrumbStack(element){
 	var breadcrumbs = $("#breadcrumbs a.statement").map(function(){
     return this.id.replace(/[^0-9]+/, '');
   }).get();
-  
+
 	var statement_id = element.parents('.statement').attr('id').replace(/[^0-9]+/, '');
 	breadcrumbs.push(statement_id);
   return breadcrumbs;
@@ -587,19 +589,19 @@ function initStatementHistoryEvents() {
 		$.setFragment({ "sid": current_stack.join(','), "new_level" : ''});
 		return false;
 	});
-	
+
 	/****************************/
   /* FOLLOW-UP QUESTION CHILD */
   /****************************/
 	$("#statements .statement #follow_up_questions.children a.statement_link").live("click", function(){
     var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
 		var breadcrumbs = getBreadcrumbStack($(this));
-		
+
     /* set fragment */
     $.setFragment({"bid": breadcrumbs.join(','), "sid": question, "new_level" : true});
     return false;
   });
-	
+
 	/*******************/
   /* STATEMENT CHILD */
   /*******************/
@@ -609,8 +611,8 @@ function initStatementHistoryEvents() {
     $.setFragment({ "sid": current_stack.join(','), "new_level" : true});
 		return false;
   });
-	
-	
+
+
 	/*******************************/
   /* NEW STATEMENT CANCEL BUTTON */
   /*******************************/
@@ -620,7 +622,7 @@ function initStatementHistoryEvents() {
 			var path = getStatementStackPath($.fragment().sid);
       var new_sid = sid.split(",");
 			new_sid.pop();
-			
+
 			$(this).addClass("ajax");
 			this.href = $.queryString(this.href.replace(/\/\d+/,path), {
 				"sid": new_sid.join(","),
@@ -631,7 +633,7 @@ function initStatementHistoryEvents() {
 	/*******************/
   /* BREADCRUMB LINK */
   /*******************/
-	
+
 	/*loads statement stack of ids into the button itself */
 	$("#breadcrumbs a.statement").livequery(function(){
 		var path_id = this.href.match(/\/\d+/);
@@ -642,19 +644,19 @@ function initStatementHistoryEvents() {
 			element.data('sid', sid);
 		});
 	});
-	
-	
+
+
 	$("#breadcrumbs a.statement").live("click", function(){
 		/* get bids from fragment */
 		var bid = $.fragment().bid;
-		bid = (bid == null) ? [] : bid.split(','); 
-		
+		bid = (bid == null) ? [] : bid.split(',');
+
 		/* get links that must vanish from the breadcrumbs */
     var links_to_delete = $(this).nextAll(".statement").map(function(){
 	    return this.id;
 	  }).get();
 		links_to_delete.push($(this).attr('id'));
-		
+
 		/* set new bids to save in fragment */
 		id_links_to_delete = $.map(links_to_delete, function(a){
 			return a.replace(/[^0-9]+/, '');
@@ -689,17 +691,17 @@ function getBreadcrumbsToLoad(bid) {
     }*/
     return id;
   }).get();
-	
+
 	 $.map(visible_bid, function(a) {
 	 	if($.inArray(a, bid_stack) == -1) {
 			$("#"+a).remove();
 		}
 	 });
-	
+
 	/* get bid's that are not visible (don't repeat yourself) */
 	var bid_to_load = $.grep(bid_stack, function(a){
 		return $.inArray(a, visible_bid) == -1 ;});
-	
+
 	return bid_to_load;
 }
 
@@ -710,24 +712,24 @@ function initFragmentStatementChange() {
 			var sid = $.fragment().sid;
 			var path = getStatementStackPath(sid);
 			var new_sid = sid.split(",");
-			
+
 			last_sid = new_sid.pop();
-			
-			
+
+
 			var visible_sid = $("#statements .statement").map(function(){
 				return this.id.replace(/[^0-9]+/, '');
 			}).get();
-			
-			
+
+
 			/* after new statement was created and added to the stack, we needn't load again */
 			if ($.inArray(last_sid, visible_sid) != -1 && visible_sid[visible_sid.length-1]==last_sid) {return;}
-			
+
 			sid = $.grep(new_sid, function (a) {
 				return $.inArray(a, visible_sid) == -1 ;});
-				
+
 			var bid = getBreadcrumbsToLoad($.fragment().bid);
-			
-			
+
+
 			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sid": sid.join(","),
 				"breadcrumb": bid.join(","),
@@ -740,14 +742,14 @@ function initFragmentStatementChange() {
 			});
 		}
   });
-  
+
 	/* Statement Stack */
   if ($.fragment().sid) {
 		$.setFragment({ "new_level" : true });
 		$(document).trigger("fragmentChange.sid");
   }
-	
-	
+
+
 	/* Breadcrumbs */
 	if ($.fragment().bid) {
 		$(document).trigger("fragmentChange.bid");
@@ -765,28 +767,13 @@ function initChildrenPaginationButton() {
 }
 
 
-function pagination_scroll_down(element) {
-  element.jScrollPane({animateScroll: true});
-	//api = element.data('jsp');
-  
-	//api.scrollTo(0, api.jspMaxScroll());
-
-  //api.scrollToBottom();
-
-  /*if (element.data('jScrollPanePosition') != element.data('jScrollPaneMaxScroll')) {
-    element[0].scrollTo(element.data('jScrollPaneMaxScroll'));
-  }*/
-
-}
-
-
 /***********/
 /* GENERAL */
 /***********/
 
 function loadStatementAutoComplete() {
 	$('#statements form.statement .tag_value_autocomplete').livequery(function(){
-		$(this).autocomplete('../../discuss/auto_complete_for_tag_value', {minChars: 3, selectFirst: false});
+		$(this).autocomplete('../../../discuss/auto_complete_for_tag_value', {minChars: 3, selectFirst: false});
 	});
 }
 

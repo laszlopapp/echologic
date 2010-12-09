@@ -1,35 +1,35 @@
-class FollowUpQuestion < StatementNode 
-  
+class FollowUpQuestion < StatementNode
+
   belongs_to :discussion, :dependent => :destroy #is it dependent?
-  
-  delegate :level, :ancestors, :topic_tags, :topic_tags=, :taggable?, :echoable?, :statement, :statement=, :statement_id, 
-           :statement_documents, :supporter_count, :ratio, :editorial_state_id, :editorial_state_id=, 
-           :publishable?, :published, :publish, :locked_at, :supported?, :taggable?, :creator_id=, :creator_id, 
+
+  delegate :level, :ancestors, :topic_tags, :topic_tags=, :taggable?, :echoable?, :statement, :statement=, :statement_id,
+           :statement_documents, :supporter_count, :ratio, :editorial_state_id, :editorial_state_id=,
+           :publishable?, :published, :publish, :locked_at, :supported?, :taggable?, :creator_id=, :creator_id,
            :creator, :author_support, :ancestors, :id_as_parent, :to => :discussion
-  
+
   before_save :save_discussion
-  
-  
+
+
   def save_discussion
     discussion.save
   end
-  
+
   class << self
-    def expected_children_types(children_visibility = false)
-      Discussion.expected_children_types(children_visibility)
+    def children_types(children_visibility = false)
+      Discussion.children_types(children_visibility)
     end
-    
+
     def new_instance(attributes = nil)
-      parent = attributes ? attributes.delete(:parent_id) : nil 
+      parent = attributes ? attributes.delete(:parent_id) : nil
       discussion = Discussion.new(attributes)
       self.new({:parent_id => parent, :discussion => discussion})
     end
-    
-    # helper function to diferenciate this model as a level 0 model
+
+    # helper function to differentiate this model as a level 0 model
     def is_top_statement?
       true
     end
-    
+
     def join_clause
       <<-END
         select distinct n.*
@@ -44,5 +44,5 @@ class FollowUpQuestion < StatementNode
       END
     end
   end
-  
+
 end

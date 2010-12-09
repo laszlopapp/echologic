@@ -22,10 +22,12 @@
 	    <%= doc.input :language_id, :as => :hidden, :value => statement_document.language_id %>
 			<%= doc.input :title, :input_html => {:disabled => disabled} if disabled %>
 	  <% end %>
-		    
+
     <br/>
 		<% if !disabled %>
-      <%= doc.input :text, :input_html => {:disabled => disabled, :class => css_rte_class, 'data-default' => I18n.t('discuss.statements.text_hint')} %>
+      <%= doc.input :text, :input_html => {:disabled => disabled, :class => css_rte_class,
+                                           'data-default' => I18n.t('discuss.statements.text_hint'),
+                                           'data-css-url' => 'http://' + ECHO_HOST + '/stylesheets/'} %>
 			<%= doc.input :old_document_id, :as => :hidden, :value => statement_document.id if !statement_document.new_record? %>
 			<%= doc.input :locked_at, :as => :hidden, :value => statement_document.locked_at %>
 			<%= doc.input :action_id, :as => :hidden, :value => @action.id if @action %>

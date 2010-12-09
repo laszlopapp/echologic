@@ -13,5 +13,5 @@
 	</div>
 
 	<%= content_tag :div,'', :id => "discussion_tags_values", :class => "tag_container", :name => "discussion[tags]" %>
-  <%= form.input :topic_tags, :as => :hidden, :input_html => {:class => 'discussion_tags' } %>
+  <%= form.input :topic_tags, :input_html => {:class => 'discussion_tags' },:as => :hidden  %>
 </li>

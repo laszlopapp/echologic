@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
     request.referer || root_url
   end
 
-  private
+  protected
   def redirect_to_url(url, message)
     respond_to do |format|
       set_info message

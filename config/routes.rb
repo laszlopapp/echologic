@@ -114,9 +114,18 @@ ActionController::Routing::Routes.draw do |map|
   # SECTION discuss - statement's tree
 
   #route for new discussion
-  map.new_discussion                     'statement/new/discussion', :controller => :statements, :action => :new, :type => :discussion
-  map.new_discussion_with_path           'statement/new/discussion/:path', :controller => :statements, :action => :new, :type => :discussion
-  map.new_discussion_with_path_and_value 'statement/new/discussion/:path/:value', :controller => :statements, :action => :new, :type => :discussion
+  map.new_discussion 'statement/new/discussion',
+                     :controller => :statements,
+                     :action => :new,
+                     :type => :discussion
+  map.new_discussion_with_path 'statement/new/discussion/:path',
+                               :controller => :statements,
+                               :action => :new,
+                               :type => :discussion
+  map.new_discussion_with_path_and_value 'statement/new/discussion/:path/:value',
+                                         :controller => :statements,
+                                         :action => :new,
+                                         :type => :discussion
 
   #Add Teaser section (with path, path and value, and none of the previous)
   map.connect        'statement/add/discussion', :controller => :statements, :action => :add, :type => :discussion

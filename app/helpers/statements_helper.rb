@@ -3,7 +3,7 @@ module StatementsHelper
   include EchoableModuleHelper
   include IncorporationModuleHelper
   include TranslationModuleHelper
-  
+
   ##################
   # RENDER HELPERS #
   ##################
@@ -16,16 +16,16 @@ module StatementsHelper
     end
     val
   end
-  
+
   def render_ancestor(ancestor)
     render :partial => 'statements/show', :locals => {:statement_node => ancestor, :only_header => true}
   end
-  
+
   # Renders all the possible children of the current node (per type, ordering must be defined in the node type definition)
   def render_children(statement_node, children, type = dom_class(statement_node))
     return content_tag :div, '', :style => "clear:right" if children.blank?
     val = ''
-    statement_node.class.expected_children_types.each do |child_type|
+    statement_node.class.children_types.each do |child_type|
       dom_child_class = child_type.to_s.underscore
       type_children = children[child_type] || more_statement_node_url(statement_node, :type => dom_child_class)
       val << render(:partial => child_type.to_s.constantize.children_template, :locals => {:type => dom_child_class, :children => type_children})
@@ -37,7 +37,7 @@ module StatementsHelper
   #########
   # Links #
   #########
- 
+
   #
   # Creates a link to create a new child statement of a given type for the current statement
   # (appears INSIDE of the children statements panel).
@@ -63,7 +63,7 @@ module StatementsHelper
 
     end
   end
- 
+
 
   #
   # Creates a link to edit the current document.
@@ -78,7 +78,7 @@ module StatementsHelper
       ''
     end
   end
-  
+
   #
   # Creates a link to show the authors of the current node.
   #
@@ -86,7 +86,7 @@ module StatementsHelper
     link_to(I18n.t('application.general.authors'), authors_statement_node_url(statement_node),
               :id => 'authors_button', :class => 'ajax_expandable header_button text_button authors_button', 'data-content' => "#authors")
   end
-  
+
   #
   # Creates a link to delete the current statement.
   #
@@ -97,14 +97,14 @@ module StatementsHelper
             :method => :delete,
             :confirm => I18n.t('discuss.statements.delete_confirmation')
   end
-  
+
   #
   # Loads the function buttons of the current statement (edit, authors).
   #
   def function_buttons(statement_node, statement_document)
-    val = '' 
+    val = ''
     val << edit_statement_node_link(statement_node, statement_document)
-    val << publish_statement_node_link(statement_node, statement_document) if statement_node.publishable? 
+    val << publish_statement_node_link(statement_node, statement_document) if statement_node.publishable?
     val << authors_statement_node_link(statement_node)
     content_tag :span, val
   end
@@ -113,7 +113,7 @@ module StatementsHelper
   def children_new_box_title(statement_node)
     I18n.t("discuss.statements.new.#{dom_class(statement_node)}")
   end
-  
+
   # Returns the block heading for the children of the current statement node
   def children_box_title(type)
     I18n.t("discuss.statements.headings.#{type}")
@@ -139,7 +139,7 @@ module StatementsHelper
   # Sugar & UI #
   ##############
 
-  # Loads the right add statement image 
+  # Loads the right add statement image
   def statement_form_illustration(statement_node)
     image_tag("page/discuss/add_#{dom_class(statement_node)}_big.png",
               :class => 'statement_form_illustration')
@@ -197,14 +197,14 @@ module StatementsHelper
     return link_to(title, url, options)
   end
 
-  
+
   # Loads the link to a given statement, placed in the child panel section
   def link_to_child(title, statement_node,extra_classes, type = dom_class(statement_node))
     link_to h(title),
             statement_node_url(statement_node, :new_level => true),
             :class => "statement_link #{dom_class(statement_node)}_link #{extra_classes}"
   end
-  
+
   # draws the statement image container
   def statement_image(statement_node, current_user)
     val = ""
@@ -225,10 +225,10 @@ module StatementsHelper
             children_statement_node_url(statement_node, :page => 1, :type => type),
             :class => 'more_children ajax'
   end
-  
+
   # renders the breadcrumb given
   def render_breadcrumb(breadcrumbs)
-    content_tag :div, :id => 'breadcrumbs', :class => 'breadcrumbs' do 
+    content_tag :div, :id => 'breadcrumbs', :class => 'breadcrumbs' do
       elements = []
       breadcrumbs.each do |txt, path|
         elements << link_to(h(txt), path, :class => "search_link statement_link")
@@ -237,7 +237,7 @@ module StatementsHelper
       content_tag(:div, elements.join(content_tag(:span, '>', :class => 'delimitator')), :class => 'elements')
     end
   end
-  
+
   # This class does the heavy lifting of actually building the pagination
   # links. It is used by the <tt>will_paginate</tt> helper internally.
   class MoreRenderer < WillPaginate::LinkRenderer

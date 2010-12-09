@@ -112,9 +112,9 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 #statements form.new .simple_header_block h2,
 #statements form.edit .simple_header_block h2 {
 	margin-left: 20px;
-} 
+}
 
-#statements form.formtastic fieldset #discussion_editorial_state_id_input li {
+#statements form.formtastic .editorial_state li {
   width: 700px;
 }
 
@@ -145,13 +145,13 @@ form.statement .discuss_right_block {
 }
 
 form.discussion .header li {
-  background:transparent url(../images/page/discuss/discussion_small.png) no-repeat scroll 0 0;	
+  background:transparent url(../images/page/discuss/discussion_small.png) no-repeat scroll 0 0;
 }
 form.proposal .header li {
-  background:transparent url(../images/page/discuss/proposal_small.png) no-repeat scroll 0 0; 
+  background:transparent url(../images/page/discuss/proposal_small.png) no-repeat scroll 0 0;
 }
 form.improvement_proposal .header li {
-  background:transparent url(../images/page/discuss/improvement_proposal_small.png) no-repeat scroll 0 0; 
+  background:transparent url(../images/page/discuss/improvement_proposal_small.png) no-repeat scroll 0 0;
 }
 
 form.statement fieldset ol li {
@@ -457,7 +457,7 @@ form.statement fieldset ol span.defaultText {
   float:        right;
 }
 
-.doubles_list .echo_indicator, 
+.doubles_list .echo_indicator,
 .doubles_list .no_echo_indicator {
 	margin:       0 17px;
 }
@@ -642,11 +642,11 @@ a.statement_link:hover {
 }
 
 .statement .children .doubles_list {
-  display: inline-block;	
+  display: inline-block;
 }
 
 .children_pagination {
-  
+
 }
 
 .doubles_list .children_pagination {
@@ -779,14 +779,14 @@ a.statement_link:hover {
 }
 
 form.statement fieldset ol li.tags_container {
-	width: 609px;
+	width: 800px;
 }
 
 .tags_container .form_container {
-	display:inline-block;
-	margin:7px 12px 25px 0px;
-	vertical-align:top;
-	width:334px;
+	display: inline-block;
+	margin: 7px 12px 25px 0;
+	vertical-align: top;
+	width: 385px;
 }
 
 .tags_container .label {
