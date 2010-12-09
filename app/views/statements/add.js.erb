@@ -14,9 +14,9 @@
     var ancestor_element = $('#statements .statement').eq(<%= index %>);
     /* if not rendered, than render */
     if(ancestor_element.length == 0 || !ancestor_element.attr('id').match(ancestor)) {
-      renderAncestor(ancestor_element, "<%= escape_javascript(render_ancestor(ancestor)) %>");
+      $("<%= escape_javascript(render_ancestor(ancestor)) %>").statement('insert', <%= index%>);
     } else {
-      collapseStatement(ancestor_element);
+      ancestor_element.statement('collapse');
     }
   <% end %>
 <% end %>
@@ -29,11 +29,5 @@
 	reinitialiseBreadcrumb();
 <% end %>
 
-var class_element = $('#statements .statement:eq(<%= (@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 0 : @statement_node.level + 1 %>)');
-
-var add_teaser = "<%= escape_javascript(render :partial => 'statements/add') %>";
-
-replaceOrInsert(class_element, add_teaser);
-
-/* Remove all elements from the same class or children class */
-removeChildrenStatements($('#statements div.<%= @type %>'));
+var add_teaser = $("<%= escape_javascript(render :partial => 'statements/add') %>");
+add_teaser.statement('insert', <%= (@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 0 : @statement_node.level + 1 %>).statement('removeBelow');

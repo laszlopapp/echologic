@@ -5,13 +5,10 @@
   info('<%=@error%>') 
 <% end %>
 
-var page = $('#statements div.<%= dom_class(@statement_node) %>, #statements form.<%= dom_class(@statement_node) %>');
+var element = $('#statements .statement').eq(<%= @statement_node.level %>);
 
-var element = "<%= escape_javascript(render :partial => "statements/action_bar") %>";
-page.find('.action_bar').replaceWith(element);
-
+var action_bar = $("<%= escape_javascript(render :partial => "statements/action_bar") %>");
 var new_supporters_bar = "<%= escape_javascript(supporter_ratio_bar(@statement_node, true)) %>";
-page.find('.supporters_bar:first').replaceWith(new_supporters_bar);
-
 var new_supporters_label = "<%= escape_javascript(supporters_label(@statement_node, true)) %>";
-page.find('.supporters_label').replaceWith(new_supporters_label);
+
+element.statement('updateSupport', action_bar, new_supporters_bar, new_supporters_label);

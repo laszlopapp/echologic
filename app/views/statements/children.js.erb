@@ -2,10 +2,7 @@ var children_list = $('div.<%=dom_class(@statement_node)%> #<%=@type.underscore.
 var more_element = $('div.<%=dom_class(@statement_node)%> #<%=@type.underscore.pluralize%> .more_pagination');
 <%if @page.to_i == 1 %> 
   panel_height = <%= @children.total_entries == 7 ? 227 : 207 %>
-	children_list.animate({height: panel_height}, 400, function() {
-    children_list.jScrollPane({animateScroll: true});
-  });
-	children_list = $('div.<%=dom_class(@statement_node)%> #<%=@type.underscore.pluralize%> #children_list');
+  resetChildrenList(children_list, {height: panel_height});
 <% end %>
 
 

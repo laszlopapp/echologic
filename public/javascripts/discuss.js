@@ -35,11 +35,18 @@ $(document).ready(function () {
 	
 	initBreadcrumbs();
 	
+	initStatements();
+	
 });
 
 /********************************/
 /* Statement navigation helpers */
 /********************************/
+
+function initStatements(){
+	$('.statement').statement();
+}
+
 
 function reinitialiseBreadcrumb(){
 	var breadcrumbs = $('#breadcrumbs');
@@ -95,40 +102,6 @@ function initBreadcrumbs() {
 	});
 }
 
-function collapseStatements() {
-	$('#statements .statement .header').removeClass('active').addClass('ajax_expandable');
-	$('#statements .statement .content').hide('slow');
-	$('#statements .statement .header .supporters_label').hide();
-};
-
-function collapseStatement(element) {
-  element.find('.header').removeClass('active').addClass('ajax_expandable');
-  element.find('.content').hide('slow');
-  element.find('.supporters_label').hide();
-};
-
-function replaceOrInsert(element, template){
-	if(element.length > 0) {
-		element.replaceWith(template);
-	}
-  else 
-	{
-		collapseStatements();
-		$('div#statements').append(template);
-	}
-};
-
-function renderAncestor(ancestor_element, ancestor_html) {
-	replaceOrInsert(ancestor_element, ancestor_html);
-}
-
-function removeChildrenStatements(element){
-	element.nextAll().each(function(){
-		/* delete the session data relative to this statement first */
-		$('div#statements').removeData(this.id);
-		$(this).remove();
-	});
-};
 
 function initExpandables(){
 	$(".ajax_expandable").livequery(function(){
@@ -764,19 +737,15 @@ function initChildrenPaginationButton() {
   });
 }
 
+function resetChildrenList(list, properties) {
+	list.animate(properties, 400, function() {
+    list.jScrollPane({animateScroll: true});
+  });
+}
+
 
 function pagination_scroll_down(element) {
   element.jScrollPane({animateScroll: true});
-	//api = element.data('jsp');
-  
-	//api.scrollTo(0, api.jspMaxScroll());
-
-  //api.scrollToBottom();
-
-  /*if (element.data('jScrollPanePosition') != element.data('jScrollPaneMaxScroll')) {
-    element[0].scrollTo(element.data('jScrollPaneMaxScroll'));
-  }*/
-
 }
 
 
@@ -788,10 +757,6 @@ function loadStatementAutoComplete() {
 	$('#statements form.statement .tag_value_autocomplete').livequery(function(){
 		$(this).autocomplete('../../discuss/auto_complete_for_tag_value', {minChars: 3, selectFirst: false});
 	});
-}
-
-function loadMessages(element, messages) {
-	$(element).data('messages', messages);
 }
 
 function initFormStatementType() {

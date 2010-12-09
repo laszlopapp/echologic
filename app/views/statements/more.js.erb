@@ -1,5 +1,3 @@
 <% type_dom_class = @type.underscore %>
 var elements = $("<%= escape_javascript(render :partial => "statements/children_list", :locals => {:type => type_dom_class}) %>");
-var element = $('div.<%=dom_class(@statement_node)%> #<%= type_dom_class.pluralize %> .headline');
-
-elements.insertAfter(element).animate(toggleParams, 500);
+elements.statement('insertMore', <%= @statement_node.level %>, '#<%= type_dom_class.pluralize %>');
