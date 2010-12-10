@@ -75,7 +75,7 @@ module TranslationModule
       end
     rescue Exception => e
       log_message_error(e, "Error translating statement node '#{@statement_node.id}'.") do
-        set_ancestors and flash_error and render :template => 'statements/new_translation'
+        load_ancestors and flash_error and render :template => 'statements/new_translation'
       end
     else
       log_message_info("Statement node '#{@statement_node.id}' has been translated sucessfully.") if translated

@@ -1,12 +1,13 @@
 class StatementsController < ApplicationController
+
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
-                                    :more, :children, :upload_image, :reload_image, :authors, :add, :parents]
+                                    :more, :children, :upload_image, :reload_image, :authors, :add, :ancestors]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
-  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :add, :parents,
+  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :add, :ancestors,
                                               :redirect_to_statement]
 
   before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
@@ -14,7 +15,7 @@ class StatementsController < ApplicationController
   before_filter :redirect_if_approved_or_incorporated, :only => [:show, :edit, :update, :destroy,
                                                                  :new_translation, :create_translation,
                                                                  :echo, :unecho]
-  before_filter :fetch_languages, :except => [:destroy, :redirect_to_statement, :parents]
+  before_filter :fetch_languages, :except => [:destroy, :redirect_to_statement, :ancestors]
   before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
 
@@ -28,9 +29,9 @@ class StatementsController < ApplicationController
 
   # Authlogic access control block
   access_control do
-    allow :editor
-    allow anonymous, :to => [:index, :show, :category, :more, :children, :authors, :add,:parents]
-    allow logged_in
+    allow :admin
+    allow logged_in, :editor, :except => [:destroy]
+    allow anonymous, :to => [:index, :show, :category, :more, :children, :authors, :add,:ancestors]
   end
 
 
@@ -126,11 +127,12 @@ class StatementsController < ApplicationController
 
       # Preapre in memory
       @statement_node ||= @statement_node_type.new_instance(attrs)
-      @statement_node.statement ||= Statement.new
       @statement_document = @statement_node.add_statement_document(
                             doc_attrs.merge({:original_language_id => doc_attrs[:language_id],
                                              :author_id => current_user.id,
                                              :current => true}))
+
+
       @tags = []
       has_permission = true
       created = false
@@ -174,7 +176,7 @@ class StatementsController < ApplicationController
 
     rescue Exception => e
       log_message_error(e, "Error creating statement node.") do
-        set_ancestors and flash_error and render :template => 'statements/new'
+        load_ancestors and flash_error and render :template => 'statements/new'
       end
     else
       log_message_info("Statement node has been created sucessfully.") if created
@@ -238,8 +240,7 @@ class StatementsController < ApplicationController
               old_statement_document.update_attribute(:current, false)
               old_statement_document.save!
               @statement_document = @statement_node.add_statement_document(
-                                      attrs_doc.merge({:original_language_id => @locale_language_id,
-                                                       :author_id => current_user.id,
+                                      attrs_doc.merge({:author_id => current_user.id,
                                                        :current => true}))
               @statement_document.save
 
@@ -390,7 +391,7 @@ class StatementsController < ApplicationController
     begin
       render_template('statements/add', true)
     rescue Exception => e
-      log_error_home(e,"Error showing add #{@type} teaser.")
+      log_error_home(e, "Error showing add #{@type} teaser.")
     end
   end
 
@@ -410,15 +411,14 @@ class StatementsController < ApplicationController
     begin
       @statement_node.destroy
       set_statement_info("discuss.messages.deleted")
-      flash_info and redirect_to :controller => :statements,
-                                 :action => :category,
-                                 :id => params[:category]
+      flash_info
+      redirect_to(@statement_node.parent ? statement_node_url(@statement_node.parent) : discuss_search_url)
     rescue Exception => e
       log_message_error(e, "Error deleting statement node '#{@statement_node.id}'.") do
         flash_error and redirect_to_statement
       end
     else
-      log_message_info("Statement node '#{@statement_node.id}' has been deleted sucessfully.")
+      log_message_info("Statement node '#{@statement_node.id}' has been deleted successfully.")
     end
   end
 
@@ -434,7 +434,7 @@ class StatementsController < ApplicationController
   # BREADCRUMB #
   ##############
 
-  def parents
+  def ancestors
     sid = @statement_node.self_and_ancestors.map(&:id)
     respond_to do |format|
       format.json{render :json => sid}
@@ -479,7 +479,7 @@ class StatementsController < ApplicationController
   def load_children(type, page = @page, per_page = @per_page)
     @children = @statement_node.get_paginated_child_statements(@language_preference_list,
                                                                type.to_s, page, per_page)
-    @children_documents = search_statement_documents(@children.flatten.map { |s| s.statement_id },
+    @children_documents = search_statement_documents(@children.flatten.map(&:statement_id),
                                                      @language_preference_list)
   end
 
@@ -489,6 +489,11 @@ class StatementsController < ApplicationController
   def load_authors
     @authors = @statement_node.authors
   end
+
+
+  ######################
+  # Editoing / Locking #
+  ######################
 
   #
   # Returns true if the current user could successfully acquire the lock.
@@ -523,14 +528,14 @@ class StatementsController < ApplicationController
   private
 
   #
-  # Gets the correspondent statement node to the id that is given in the request
+  # Gets the correspondent statement node to the id that is given in the request.
   #
   def fetch_statement_node
     @statement_node ||= StatementNode.find(params[:id]) if params[:id].try(:any?) && params[:id] =~ /\d+/
   end
 
   #
-  # Gets the correspondent statement node type to be used in the forms
+  # Gets the correspondent statement node type to be used in the forms.
   #
   def fetch_statement_node_type
     @statement_node_type = params[:type] ? params[:type].to_s.classify.constantize : nil
@@ -564,7 +569,7 @@ class StatementsController < ApplicationController
   end
 
   #
-  # Loads the locale language and the language preference list
+  # Loads the locale language and the language preference list.
   #
   def fetch_languages
     @locale_language_id = locale_language_id
@@ -575,15 +580,17 @@ class StatementsController < ApplicationController
   # Checks if text that comes with the form is actually empty, even with the escape parameters from the iframe
   #
   def check_empty_text
-    if params[statement_node_symbol].include? :new_statement_document or params[statement_node_symbol].include? :statement_document
-      document_param = params[statement_node_symbol][:new_statement_document] || params[statement_node_symbol][:statement_document]
+    if params[statement_node_symbol].include? :new_statement_document or
+       params[statement_node_symbol].include? :statement_document
+      document_param = params[statement_node_symbol][:new_statement_document] ||
+                       params[statement_node_symbol][:statement_document]
       text = document_param[:text]
       document_param[:text] = "" if text.eql?('<br>')
     end
   end
 
   #
-  # Returns the statement node correspondent symbol (:discussion, :proposal...).
+  # Returns the statement node corresponding symbol (:discussion, :proposal...).
   #
   def statement_node_symbol
     klass = @statement_node_type.nil? ? @statement_node.class : @statement_node_type
@@ -607,18 +614,18 @@ class StatementsController < ApplicationController
   end
 
   #
-  # Sets the ancestors of the current statement node, in order to write the correct context down
+  # Loads the ancestors of the current statement node, in order to display the correct context. Only used for HTTP.
   #
-  def set_ancestors(teaser = false)
+  def load_ancestors(teaser = false)
     if @statement_node
       @ancestors = @statement_node.ancestors
-      @ancestors.each{|a|load_siblings(a)}
+      @ancestors.each {|a| load_siblings(a) }
 
-      # current statement node siblings must be loaded also on http request
+      # Current statement node siblings must be loaded also on http request
       load_siblings(@statement_node)
       if teaser
         @ancestors << @statement_node
-        load_children_from_parent(@statement_node, @type)
+        load_children_for_parent(@statement_node, @type)
       end
     else
       if teaser
@@ -629,8 +636,15 @@ class StatementsController < ApplicationController
     end
   end
 
+  def load_children_for_parent(statement_node, type)
+    @siblings ||= {}
+    class_name = type.classify
+    siblings = statement_node.children_to_session(@language_preference_list,class_name)
+    @siblings["add_#{type}"] = siblings
+  end
+
   #
-  # Sets the new breadcrumb of the current statement node
+  # Sets the new breadcrumb of the current statement node.
   #
   def set_breadcrumbs
     breadcrumbs = params[:breadcrumb].split(",")
@@ -658,7 +672,7 @@ class StatementsController < ApplicationController
   end
 
   #
-  # Sets the breadcrumbs for the current statement node view previous path
+  # Sets the breadcrumbs for the current statement node view previous path.
   #
   def initialize_breadcrumbs
     add_breadcrumb I18n.t("discuss.statements.breadcrumbs.#{params[:path]}"),
@@ -727,14 +741,14 @@ class StatementsController < ApplicationController
   #
   # Calls the statement node sql query for discussions.
   #
-  def search_statement_nodes (opts = {})
+  def search_statement_nodes(opts = {})
     StatementNode.search_statement_nodes(opts.merge({:type => "Discussion"}))
   end
 
   #
   # Gets all the statement documents belonging to a group of statements, and orders them per language ids.
   #
-  def search_statement_documents (statement_ids, language_ids = @language_preference_list)
+  def search_statement_documents(statement_ids, language_ids = @language_preference_list)
     statement_documents = StatementDocument.search_statement_documents(statement_ids, language_ids).sort! {|a, b|
       language_ids.index(a.language_id) <=> language_ids.index(b.language_id)
     }
@@ -758,25 +772,23 @@ class StatementsController < ApplicationController
     if statement_node.parent_id
       siblings = statement_node.siblings_to_session(@language_preference_list)
     else #else, it's a root node
-      siblings = get_roots_to_session(statement_node)
+      siblings = roots_to_session(statement_node)
     end
     @siblings["#{class_name}_#{statement_node.id}"] = siblings
   end
 
-  def load_children_from_parent(statement_node, type)
-    @siblings ||= {}
-    class_name = type.classify
-    siblings = statement_node.children_to_session(@language_preference_list,class_name)
-    @siblings["add_#{type}"] = siblings
-  end
-
+  #
+  # Only for HTTP and add discussion teaser.
+  #
   def load_roots_to_session
     @siblings ||= {}
-    @siblings["add_discussion"] = get_roots_to_session(@statement_node)
+    @siblings["add_discussion"] = roots_to_session(@statement_node)
   end
 
+  #
   # Gets the root ids that need to be loaded to the session.
-  def get_roots_to_session(statement_node)
+  #
+  def roots_to_session(statement_node)
     if params[:path]
       siblings = case params[:path]
         when 'discuss_search' then search_statement_nodes(:search_term => params[:value]||"",
@@ -815,7 +827,6 @@ class StatementsController < ApplicationController
     )
   end
 
-  #
   def show_statement(errors = false)
     respond_to do |format|
       format.html {
@@ -832,11 +843,11 @@ class StatementsController < ApplicationController
     respond_to do |format|
       format.html {
         initialize_breadcrumbs
-        set_ancestors(teaser)
+        load_ancestors(teaser)
         render :template => template
       }
       format.js {
-        set_ancestors(teaser) if !params[:sid].blank? or teaser or @statement_node.class.is_top_statement?
+        load_ancestors(teaser) if !params[:sid].blank? or teaser or @statement_node.class.is_top_statement?
         set_breadcrumbs if !params[:breadcrumb].blank?
         render :template => template
       }

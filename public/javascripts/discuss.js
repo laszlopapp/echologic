@@ -630,6 +630,7 @@ function initStatementHistoryEvents() {
 			})
 		}
 	});
+
 	/*******************/
   /* BREADCRUMB LINK */
   /*******************/
@@ -637,7 +638,7 @@ function initStatementHistoryEvents() {
 	/*loads statement stack of ids into the button itself */
 	$("#breadcrumbs a.statement").livequery(function(){
 		var path_id = this.href.match(/\/\d+/);
-		var path = this.href.replace(/\/\d+.*/, path_id + '/' + 'parents');
+		var path = this.href.replace(/\/\d+.*/, path_id + '/' + 'ancestors');
 		var element = $(this);
 		$.getJSON(path, function(data) {
 		  var sid = data;

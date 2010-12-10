@@ -2,9 +2,7 @@ class StatementNode < ActiveRecord::Base
   acts_as_extaggable :topics
   acts_as_echoable
   acts_as_subscribeable
-  acts_as_nested_set :scope => :root
-
-
+  acts_as_nested_set :scope => :root_id
 
   after_destroy :destroy_statement
 
@@ -105,8 +103,10 @@ class StatementNode < ActiveRecord::Base
 
   # creates a new statement_document
   def add_statement_document(attributes={ },opts={})
-    original_language_id = attributes.delete(:original_language_id).to_i
-    self.statement = Statement.new(:original_language_id => original_language_id) if self.statement_id.nil?
+    if self.statement.nil?
+      original_language_id = attributes.delete(:original_language_id).to_i
+      self.statement = Statement.new(:original_language_id => original_language_id)
+    end
     doc = StatementDocument.new
     doc.statement = self.statement
     attributes.each {|k,v|doc.send("#{k.to_s}=", v)}
@@ -115,15 +115,15 @@ class StatementNode < ActiveRecord::Base
   end
 
   # creates and saves a  statement_document with given parameters a
-  def add_statement_document!(*args)
-    original_language_id = args[0].delete(:original_language_id)
-    self.statement = Statement.new(:original_language_id => original_language_id) if self.statement_id.nil?
-    doc = StatementDocument.new(:statement_id => self.statement.id)
-    doc.statement = self.statement
-    doc.update_attributes!(*args)
-    self.statement.statement_documents << doc
-    return doc
-  end
+#  def add_statement_document!(*args)
+#    original_language_id = args[0].delete(:original_language_id)
+#    self.statement = Statement.new(:original_language_id => original_language_id) if self.statement_id.nil?
+#    doc = StatementDocument.new(:statement_id => self.statement.id)
+#    doc.statement = self.statement
+#    doc.update_attributes!(*args)
+#    self.statement.statement_documents << doc
+#    return doc
+#  end
 
 
   #
@@ -188,13 +188,13 @@ class StatementNode < ActiveRecord::Base
   ###################
   # CHILDREN HELPER #
   ###################
-  def id_as_parent; self.id; end
+
+  def id_as_parent
+    self.id
+  end
 
 
   private
-
-
-
 
   #################
   # Class methods #
@@ -215,6 +215,10 @@ class StatementNode < ActiveRecord::Base
     end
 
     def statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
+      do_statements_for_parent(parent_id, language_ids, filter_drafting_state, for_session)
+    end
+
+    def do_statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
       conditions = {:conditions => "n.type = '#{self.name}' and n.parent_id = #{parent_id}"}
       conditions.merge!({:language_ids => language_ids}) if language_ids
       conditions.merge!(special_query_conditions) if filter_drafting_state

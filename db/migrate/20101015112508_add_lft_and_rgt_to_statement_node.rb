@@ -8,6 +8,10 @@ class AddLftAndRgtToStatementNode < ActiveRecord::Migration
       p.root_id = p.parent_id
       p.save
     end
+    ImprovementProposal.all.each do |ip|
+      ip.root_id = ip.parent.root_id
+      ip.save
+    end
     add_column :statement_nodes, :lft, :integer
     add_column :statement_nodes, :rgt, :integer
 

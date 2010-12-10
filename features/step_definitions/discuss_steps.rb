@@ -144,13 +144,13 @@ end
 Given /^a "([^\"]*)" discussion in "([^\"]*)"$/ do |state, category|
   state = StatementState[state.downcase]
   @discussion = Discussion.new(:editorial_state => state, :creator => @user)
-  @discussion.add_statement_document!({:title => "Am I a new statement?",
-                                     :text => "I wonder what i really am! Maybe a statement? Or even a discussion?",
-                                     :author => @user,
-                                     :current => 1,
-                                     :language_id => @user.sorted_spoken_language_ids.first,
-                                     :action_id => StatementAction["created"].id,
-                                     :original_language_id => @user.sorted_spoken_language_ids.first})
+  @discussion.add_statement_document({:title => "Am I a new statement?",
+                                      :text => "I wonder what i really am! Maybe a statement? Or even a discussion?",
+                                      :author => @user,
+                                      :current => 1,
+                                      :language_id => @user.sorted_spoken_language_ids.first,
+                                      :action_id => StatementAction["created"].id,
+                                      :original_language_id => @user.sorted_spoken_language_ids.first})
   @discussion.topic_tags << category
   @discussion.save!
 end
