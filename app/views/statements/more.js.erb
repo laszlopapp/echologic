@@ -1,5 +1,35 @@
-<% type_dom_class = @type.underscore %>
-var elements = $("<%= escape_javascript(render :partial => "statements/children_list", :locals => {:type => type_dom_class}) %>");
-var element = $('div.<%=dom_class(@statement_node)%> #<%= type_dom_class.pluralize %> .headline');
+var children_list = $('div.<%=dom_class(@statement_node)%> #<%=@type.underscore.pluralize%> #children_list');
+var more_element = $('div.<%=dom_class(@statement_node)%> #<%=@type.underscore.pluralize%> .more_pagination');
+<%if @page.to_i == 1 %>
+  panel_height = <%= @children.total_entries == 7 ? 227 : 207 %>
+	children_list.animate({height: panel_height}, 400, function() {
+    children_list.jScrollPane({animateScroll: true});
+  });
+	children_list = $('div.<%=dom_class(@statement_node)%> #<%=@type.underscore.pluralize%> #children_list');
+<% end %>
 
-elements.insertAfter(element).animate(toggleParams, 500);
+
+var elements_list = "<%= escape_javascript(render :partial => 'statements/child', :collection => @children[@offset, @per_page]) %>";
+
+var pagination_buttons = "<%= escape_javascript(will_paginate(@children, :id => 'more_pagination',:class => 'more_pagination',
+                                                   :next_label => I18n.t("application.general.more"),
+                                                   :renderer => StatementsHelper::MoreRenderer)) %>";
+
+<% if @page.to_i > 1 %>
+  var api = $('div.<%=dom_class(@statement_node)%> #<%=@type.underscore.pluralize%> #children_list').data('jsp');
+  children_list = api.getContentPane();
+<% end %>
+
+children_list.append(elements_list);
+
+<% if @children.next_page.nil? %>
+  children_list.append('<%= content_tag :li, create_new_child_statement_link(@statement_node, @type.underscore) %>');
+<% end %>
+
+more_element.replaceWith(pagination_buttons);
+
+<% if @page.to_i > 1 %>
+  api.reinitialise();
+  api.scrollToBottom();
+<% end %>
+$('div.<%=dom_class(@statement_node)%> #<%=@type.underscore.pluralize%> .more_pagination a').addClass('ajax');

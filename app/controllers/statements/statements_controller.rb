@@ -81,7 +81,7 @@ class StatementsController < ApplicationController
 
       # Find all child statement_nodes, which are published (except user is an editor)
       # sorted by supporters count, and paginate them
-      load_children
+      load_all_children
 
       render_template 'statements/show'
     rescue Exception => e
@@ -123,6 +123,8 @@ class StatementsController < ApplicationController
     form_tags = attrs.delete(:topic_tags)
 
     begin
+
+      # Preapre in memory
       @statement_node ||= @statement_node_type.new_instance(attrs)
       @statement_node.statement ||= Statement.new
       @statement_document = @statement_node.add_statement_document(
@@ -130,26 +132,35 @@ class StatementsController < ApplicationController
                                              :author_id => current_user.id,
                                              :current => true}))
       @tags = []
-      has_tag_permissions = true
+      has_permission = true
+      created = false
 
-      if @statement_node.taggable? and (has_tag_permissions = check_hash_tag_permissions(form_tags))
+      if @statement_node.taggable? and (has_permission = check_hash_tag_permissions(form_tags))
         @tags = @statement_node.topic_tags = form_tags
       end
 
-      if has_tag_permissions and @statement_node.save and @statement_node.statement.save
-        if @statement_node.echoable?
-          echo = params.delete(:echo)
-          @statement_node.author_support if echo=='true'
+      # Persisting
+      if has_permission
+        StatementNode.transaction do
+          if @statement_node.save and @statement_node.statement.save
+            if @statement_node.echoable?
+              echo = params.delete(:echo)
+              @statement_node.author_support if echo=='true'
+            end
+
+            # Propagating the creation event
+            EchoService.instance.created(@statement_node)
+            created = true
+          end
         end
+      end
 
-        # Propagating the creation event
-        EchoService.instance.created(@statement_node)
-
-        # Loading siblings to transfer them to the client
+      # Rendering
+      if has_permission and created
         load_siblings @statement_node
-        load_children
+        load_all_children
 
-        # If it is a top level statement -> load parent and title
+        # TODO: adjust!
         set_parent_breadcrumb if @statement_node.class.is_top_statement?
 
         set_statement_info @statement_document
@@ -160,12 +171,13 @@ class StatementsController < ApplicationController
         set_error(@statement_document)
         render_statement_with_error :template => 'statements/new'
       end
+
     rescue Exception => e
       log_message_error(e, "Error creating statement node.") do
         set_ancestors and flash_error and render :template => 'statements/new'
       end
     else
-      log_message_info("Statement node has been created sucessfully.") if @statement_node
+      log_message_info("Statement node has been created sucessfully.") if created
     end
   end
 
@@ -180,6 +192,7 @@ class StatementsController < ApplicationController
   def edit
     @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
     @tags ||= @statement_node.topic_tags if @statement_node.taggable?
+
     if (is_current_document = (@statement_document.id == params[:current_document_id].to_i))
       has_lock = acquire_lock(@statement_document)
       @action ||= StatementAction["updated"]
@@ -213,10 +226,10 @@ class StatementsController < ApplicationController
 
       # Updating tags of the statement
       form_tags = attrs.delete(:topic_tags)
-      has_tag_permissions = form_tags.nil? || !@statement_node.taggable? || check_hash_tag_permissions(form_tags)
+      has_permission = form_tags.nil? || !@statement_node.taggable? || check_hash_tag_permissions(form_tags)
 
       holds_lock = true
-      if has_tag_permissions
+      if has_permission
         StatementNode.transaction do
           if attrs_doc # Edit or Incorporate form
             old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
@@ -246,8 +259,8 @@ class StatementsController < ApplicationController
 
       if attrs_doc # Normal form POST
         if !holds_lock
-            being_edited
-        elsif has_tag_permissions and @statement_node.valid? and @statement_document.valid?
+          being_edited
+        elsif has_permission and @statement_node.valid? and @statement_document.valid?
           update = true
           set_statement_info(@statement_document)
           show_statement
@@ -295,6 +308,7 @@ class StatementsController < ApplicationController
     respond_to_js :template_js => 'statements/upload_image'
   end
 
+  #
   # After uploading the image, this has to be reloaded.
   # Reloading:
   #  1. login_container with users picture as profile link
@@ -338,11 +352,11 @@ class StatementsController < ApplicationController
   # Params:   type: string
   # Response: JS
   #
-  def more
+  def children
     @type = params[:type].camelize || @statement_node.class.children_types.first.to_s
     load_top_children(@type)
     respond_to do |format|
-      format.js { render :template => @type.constantize.more_template }
+      format.js { render :template => @type.constantize.children_template }
     end
   end
 
@@ -353,14 +367,14 @@ class StatementsController < ApplicationController
   # Params:   page: integer, type: string
   # Response: JS
   #
-  def children
+  def more
     @type = params[:type].camelize || @statement_node.class.children_types.first.to_s
     @page = params[:page] || 1
     @per_page = MORE_CHILDREN
     @offset = @page.to_i == 1 ? TOP_CHILDREN : 0
     load_children @type
     respond_to do |format|
-      format.js {render :template => @type.constantize.children_template}
+      format.js {render :template => @type.constantize.more_template}
     end
   end
 
@@ -436,7 +450,7 @@ class StatementsController < ApplicationController
   #
   # Loads the children of the current statement, storing them in an hash by type
   #
-  def load_children
+  def load_all_children
     @children = {}
     children_types = @statement_node.class.children_types(true).transpose
     if !children_types.empty?

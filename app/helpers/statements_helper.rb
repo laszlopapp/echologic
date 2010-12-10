@@ -27,7 +27,7 @@ module StatementsHelper
     val = ''
     statement_node.class.children_types.each do |child_type|
       dom_child_class = child_type.to_s.underscore
-      type_children = children[child_type] || more_statement_node_url(statement_node, :type => dom_child_class)
+      type_children = children[child_type] || children_statement_node_url(statement_node, :type => dom_child_class)
       val << render(:partial => child_type.to_s.constantize.children_template, :locals => {:type => dom_child_class, :children => type_children})
     end
     val
@@ -222,7 +222,7 @@ module StatementsHelper
   #draws the "more" link when the statement is loaded
   def more_children(statement_node,type)
     link_to I18n.t("application.general.more"),
-            children_statement_node_url(statement_node, :page => 1, :type => type),
+            more_statement_node_url(statement_node, :page => 1, :type => type),
             :class => 'more_children ajax'
   end
 
