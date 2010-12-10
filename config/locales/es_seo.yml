@@ -6,13 +6,13 @@ es:
       # static: de.seo.title.static
       static:
         echologic:
-          show: &html_title 'echo - el ágora global (democracia repensada)'
-          about:            'echo - sobre nosotros'
-          imprint:          'echo - información legal'
-          data_privacy:     'echo - protección de datos'
+          show: 'echo - el ágora global (democracia repensada)'
+          about: 'echo - sobre nosotros'
+          imprint: 'echo - información legal'
+          data_privacy: 'echo - protección de datos'
         echo:
           show:    'echo - el ágora global (democracia repensada)'
-          discuss: 'echo - discutir (Formación de opiniones & toma de decisiones - constructivo, transparente & democrático)'
+          discuss: 'echo - debatir (Formación de opiniones & toma de decisiones - constructivo, transparente & democrático)'
           connect: 'echo - conectar (con colaboradores con diversas competencias)'
           act:     'echo - actuar! (para alcanzar un cambio notable en la vida cotidiana)'
           echo_on_waves: 'echo - dondequiera (sinergias a través de infraestructuras descentralizadas - echo on waves)'
@@ -40,35 +40,32 @@ es:
           new: 'Tu echo - Activar tu cuenta en echo'
           create: 'Tu echo - Activar tu cuenta en echo'
         password_resets:
-          new: 'Tu echo - Pedir nueva seña'
-          edit: 'Tu echo - Definir nueva seña'
+          new: 'Tu echo - Solicitar nueva contraseña'
+          edit: 'Tu echo - Definir nueva contraseña'
+          create: 'Tu echo - Definir nueva contraseña'
+          update: 'Tu echo - Definir nueva contraseña'
         profile:
           details: 'Tu echo - Tu perfil detallado'
 
       # discuss: de.seo.title.discuss
       discuss:
-        index: 'echo - Discutir'
-        roadmap: 'echo - Desarrollo de discutir'
-      statements:
-        category: 'echo - Temas de discusión'
+        index: 'echo - Debatir'
+        roadmap: 'echo - Desarrollo de debatir'
+      discussions:
+        category: 'echo - Temas de debate'
         show: 'echo - Debates'
-        new: 'Crear nueva discusión'
-        my_discussions: 'Mis Discusiones'
-#      discussions:
-#        category: 'echo - Temas de discusión'
-#        show: 'echo - Debates'
-#        new: 'Crear nueva discusión'
-#        my_discussions: 'Mis Discusiones'
-#      proposals:
-#        show: 'echo - Propuestas en este debate'
-#      improvement_proposals:
-#        show: 'echo - Propuesta de mejoramiento'
+        new: 'Crear nuevo debate'
+        my_discussions: 'Mis Debates'
+      proposals:
+        show: 'echo - Propuestas en este debate'
+      improvement_proposals:
+        show: 'echo - Propuesta de mejora'
 
       # connect: de.seo.title.connect
       connect:
         roadmap: 'echo - Desarrollo de conectar'
         show:    'echo - Conectar - Descubrir la cumunidad'
-        fill_out_profile: 'echo - Conectar - Dar y recibir'
+        fill_out_profile: 'echo - Conectar - Aportar y recibir'
 
       # act: de.seo.title.act
       act:
@@ -93,15 +90,14 @@ es:
     meta:
       description: |-
         echologic es una red de librepensadores. Nuestro objetivo es la realización de echo,
-        el ágora global. echo es un proyecto de Internet para la empoderamiento de
-        ciudadanos. Nuestro objetivo no es la implantación de una nueva <strong>democracia participativa</strong> a nivel local,
+        el ágora global. echo es un proyecto de Internet para fortalecer el concepto de ciudadanía.
+        Nuestro objetivo es la implantación de una nueva y efectiva <strong>democracia participativa</strong> a nivel local,
         regional y global.
         echo significa el fin de la impotencia y el inicio de la auto-determinación!
 
       keywords: |-
-        echo, ágora, ágora global, democracía, democracía participativa, autodeterminación,
+        echo, ágora, ágora global, democracia, democracia participativa, autodeterminación,
         inteligencia colectiva, futuro sostenible, base de opiniones, sinopsis de opiniones, formación de opiniones,
         toma de decisión, transparencia, colaboración democrática,
         echocracy, equidad, echonomy, socio-ecológico, economía eco-socialmente sostenible,
-        democracia económica, Your-Profit, echologic, echokracia, echonomía, glocal, glocalidad
-
+        democracia económica, Your-Profit, echologic, echocracia, echonomía, glocal, glocalidad

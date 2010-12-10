@@ -17,8 +17,8 @@ de:
 
     # ECHOLOGIC SECTION
     echologic:
-      title: echologic
-      subtitle: Die Bewegung
+      title: echo
+      subtitle: Startseite
 
       show:
         ms1: echologic ist ein Netzwerk von BewegerInnen und <br/>ihren Organisationen. Gemeinsam verwirklichen wir
@@ -44,50 +44,58 @@ de:
 
         text_1: |
           <p>
-          echo ist ein <strong>Gemeinschaftsprojekt</strong> für einen ökologisch und sozial
-          nachhaltigen Wandel durch <strong>aktive Bürgerbeteiligung</strong>. Es wendet sich an
-          <span title="{{gender_tooltip}}" class="ttLink">alle Mitglieder der Gesellschaft</span>:
-          BürgerInnen, ExpertenInnen, EntscheidungsträgerInnen und VertreterInnen von Organisationen und Unternehmen.
+          echo ist ein <a href="{{github_url}}" target="_blank">Open Source</a> Gemeinschaftsprojekt für
+          <strong>aktive Bürgerbeteiligung</strong> - <span title="{{subsidiarity_tooltip}}" class="ttLink">weltweit</span>
+          und für alle Menschen. echo bringt alle gesellschaftlichen Akteure zusammen, um gemeinsam einen
+          <strong>nachhaltigen Wandel</strong> zu gestalten.
           </p><p>
-          <strong>echo</strong> schafft die technische Grundlage für eine offene, <strong>teilnehmende Demokratie</strong> auf lokaler,
-          regionaler und <span title="{{subsidiarity_tooltip}}" class="ttLink">globaler Ebene</span>. Ihre Stimme findet hier ein Echo.
-          Aus Ideen wird Bewegung, aus Visionen Realität. echo bedeutet das <strong>Ende der Machtlosigkeit</strong>,
-          den <strong>Anfang der Selbstbestimmung</strong>.
+          „Diskutieren – Vernetzen – Handeln!“ - Die soziale Anwendung ermöglicht <strong>konstruktive,
+          sprachübergreifende Massendialoge</strong>.
+          Sie vernetzt weltweit Menschen mit den gleichen Zielen und unterstützt sie im <strong>gemeinsamen Handeln</strong>.
+          Wo auch immer wir in der virtuellen oder realen Welt sind, echo macht uns deutlich: wir sind mit unserer
+          Meinung nicht alleine – das „Echo“ unserer Stimmen kann <strong>die Welt verändern</strong>.
           </p>
         gender_tooltip: Selbstverständlich Frauen und Männer - unabhängig vom grammatischen Geschlecht :-)
         subsidiarity_tooltip: Stichwort Subsidiarität
         text_2:
-          title: Kollektive Lösungsfindung und politische Einflussnahme
+          title: Gemeinsame Lösungsfindung
           more: |
             <p>
-            Nach dem Motto <strong>“Diskutieren – Vernetzen – Handeln!”</strong> können hier Menschen gemeinsam ihren
-            unmittelbaren Lebensraum gestalten – und die Zukunft unserer Welt. echos Diskussionsbereich
-            ermöglicht eine fundierte <strong>Meinungs- und Willensbildung</strong> und bleibt auch mit beliebig vielen Teilnehmern
-            übersichtlich. Im Bereich „Handeln“ wird gesellschaftliches Engagement mit bestehenden <strong>direkt
-            demokratischen Mitteln</strong> (z.B. ePetition, Volksentscheid, Demonstration) in echte
-            <strong>politische Einflussnahme</strong> überführt.
+            Zeitungsartikel, Blogs, Videos und alle sonstigen Inhalte im Internet werden zu Einstiegspunkten in
+            strukturierte echo Diskussionen, die in jede Webseite eingebettet werden können. Überall dort können
+            Menschen in einem demokratischen Verfahren - ohne Moderatoren oder Administratoren - ihre Ideen und
+            Lösungen kollektiv als Texte ausarbeiten. So werden <strong>Wissen und Meinungen über alle Webseiten und
+            Communities hinaus zusammengefasst</strong>.
+            </p><p>
+            echo Diskussionen liefern jederzeit einen <strong>schnellen und transparenten Überblick</strong> über
+            alternative Vorschläge, Pro/Kontra Argumente und multimediale Hintergrundinformationen. Sie machen
+            Zusammenhänge leicht nachvollziehbar und liefern ein <strong>differenziertes Meinungsbild</strong> –
+            z.B. welche Gesellschaftsgruppen und wie viele Menschen sind für die Verlängerung der AKW Laufzeiten?
+            Welche Gegenargumente bringen Bauingenieure? Was meinen die Bürger von Gorleben? Wie stehen dazu Parteien,
+            NGOs und andere Organisationen?
             </p>
         text_3:
-          title: Offenheit und “Your-Profit“ Philosophie
-          more: |
-            <p>echo ist <strong><a href="{{github_url}}" target="_blank">Open Source</a></strong> und wird als die Basis einer vielfaltigen,
-            <strong>verteilten Infrastruktur</strong> dienen. Sein webseitenübergreifender Ansatz überwindet die Grenzen
-            verinselter Plattformen und Initiativen. So bündelt und vervielfacht echo deren <strong>Einflusspotential</strong>.
-            </p><p>
-            echo ist als <strong>Social Business</strong> tätig und den ethischen Werten der Demokratie sowie
-            ökologisch und sozial nachhaltigen Wirtschaftens verpflichtet. Überschüsse fließen gemäß seiner
-            <strong>„Your-Profit“ Philosophie</strong> vollständig zurück in Aktionen und Unternehmungen der Gemeinschaft.
-            So kann das virtuelle Engagement reale Früchte tragen und immer mehr Menschen zur <strong>politischen und
-            wirtschaftlichen Selbstbestimmung</strong> verhelfen.
-            </p>
-        text_4:
-          title: Ihre Stimme
+          title: Demokratie zum Mitmachen
           more: |
             <p>
-            Ihre Stimme braucht ein Echo. echo braucht Ihre Stimme. Helfen Sie mit, die Demokratie in eine Zukunft zu führen,
-            in der <strong>jede Stimme zählt</strong> – jeden Tag und überall auf der Welt.
+            Für eine spürbare Veränderung des Alltags, motiviert echo gleichgesinnte Menschen aus den Diskussionen
+            <strong>gemeinsam zu handeln</strong>, und fördert explizit die Nutzung direkt demokratischer
+            Instrumente (z.B. Europäische Bürgerinitiative, ePetition, Volksentscheid, Carrot Mob).
+            Die <strong>Finanzierung dieser Handlungen</strong> unterstützt echo durch kostenneutrales Fundraising und
+            nutzerbestimmte, demokratische Verteilung seiner überschüssigen Einnahmen (<strong>“Your-Profit”
+            Geschäftsphilosophie</strong>).
             </p><p>
-            Immer mehr Menschen finden sich zusammen und beginnen gemeinsam <strong>echos Vision zu verwirklichen</strong>.
+            Durch Förderung <strong>konstruktiver Zusammenarbeit von Bürgern, Staat und deren Organisationen</strong>
+            auf allen Ebenen, hilft echo destruktive Konfrontation zu vermeiden und ermöglicht uns allen,
+            für die Herausforderungen unserer Zeit <strong>gemeinsam innovative Antworten zu entwickeln</strong>.
+            </p>
+        text_4:
+          title: Ihr echo
+          more: |
+            <p>
+            Ihre Stimme braucht ein Echo. echo braucht Ihre Stimme! Helfen Sie mit, die Demokratie in eine Zukunft
+            zu führen, in der <strong>jede Stimme zählt</strong> – jeden Tag und überall auf der Welt.
+            </p><p>
             echo steckt zwar momentan noch in den Kinderschuhen, Sie können aber bereits jetzt:
             </p>
 
@@ -369,13 +377,16 @@ de:
           bürgerlichen Engagements im Internet und ermöglicht die Entstehung einer breiten
           gesellschaftlichen <strong>Welle des Wandels</strong>.
           </p><p>
-          Für die Realisierung dieses Ziels kam Google und sein <strong>Wave Federation Protocol</strong> genau zur richtigen Zeit.
-          Diese open source Technologie ermöglicht nicht nur soziale Zusammenarbeit in Echtzeit,
+          Für die Realisierung dieses Ziels kam Googles open source <strong>Wave Federation Protocol</strong>
+          genau zur richtigen Zeit, und wurde vor kurzem in das Inkubator Programm vom
+          <strong><a href="http://www.apache.org/" target="_blank">Apache Software Foundation</a></strong> aufgenommen.
+
+          Diese Technologie ermöglicht nicht nur soziale Zusammenarbeit in Echtzeit,
           sondern schafft auch die Grundlage für einen sicheren und plattformübergreifenden Austausch von Diskussionen,
           Profilen und Aktionen. Die dabei entstehenden Daten können sowohl auf öffentlichen als auch auf organisationsinternen und
           privaten echo Servern gepeichert und zwischen einander ausgetauscht werden.
           </p><p>
-          Auf der Basis des neuartigen Konzepts von echo und der bahnbrechenden Technologie von Google Wave, legt
+          Auf der Basis des Konzepts und Prototyps von echo und der zukunftsweisenden Technologie von Wave, legt
           <strong>echo on waves</strong> die Grundlage für die gemeinsame Entwicklung eines der ambitioniertesten
           <strong>open source</strong> Projekte, das die Welt je gesehen hat:
           </p><p>

@@ -1,0 +1,31 @@
+
+body {
+  background: #FFF url(../images/mails/mail_header_background.png) repeat-x scroll left top;
+}
+
+#mail_container {
+  width: 500px;
+  margin: 0 auto;
+  padding: 0 23px;
+}
+
+#mail_header {
+  height: 120px;
+  position: relative;
+}
+
+.mail_logo {
+  float: left;
+  margin: 23px 0 -27px 0;
+}
+
+.mail_logo a img {
+  border: none;
+  margin: -2px 0 2px;
+}
+
+.mail_logo .label {
+  left: 177px;
+  top: 5px;
+  position: absolute;
+}

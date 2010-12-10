@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   private
   # Takes the locale from the URL or return the most matching one for the IP.
   def set_locale
-    available = %w{en de es pt}
+    available = %w{en de es pt fr}
     I18n.locale = params[:locale] ? params[:locale].to_sym : request.compatible_language_from(available)
   end
 
@@ -47,16 +47,18 @@ class ApplicationController < ActionController::Base
   # False URLs are redirected to home
   #
   rescue_from 'ActionController::RoutingError', :with => :rescure_routing_error
+  rescue_from 'ActionController::UnknownAction', :with => :rescure_routing_error
+  rescue_from 'ActiveRecord::RecordNotFound', :with => :rescure_routing_error
 
   private
   def rescure_routing_error
-    redirect_to_url(last_url, 'Unknown URL. Redirecting...')
+    redirect_to_url last_url, 'application.routing_error'
   end
 
   private
   # Called when when a routing error occurs.
-  def redirect_to_welcome
-    redirect_to welcome_url
+  def redirect_to_home
+    redirect_to discuss_search_url
   end
 
   private
@@ -67,12 +69,12 @@ class ApplicationController < ActionController::Base
   private
   def redirect_to_url(url, message)
     respond_to do |format|
-      flash[:notice] = message
+      set_info message
       format.html do
-        redirect_to url
+        flash_info and redirect_to url
       end
       format.js do
-        render :update do |page|
+        render_with_info do |page|
           page.redirect_to url
         end
       end
@@ -97,7 +99,7 @@ class ApplicationController < ActionController::Base
   #
   def access_denied
     flash[:error] = I18n.t('activerecord.errors.messages.access_denied')
-    redirect_to_welcome
+    redirect_to_home
   end
 
   before_filter :require_user
@@ -114,7 +116,7 @@ class ApplicationController < ActionController::Base
           redirect_to request.url == last_url ? root_url : last_url
         }
         format.js {
-          show_info_messages do |page|
+          render_with_info do |page|
             page << "$('#user_session_email').focus();"
           end
         }
@@ -126,7 +128,7 @@ class ApplicationController < ActionController::Base
     # Checks that the user is NOT logged in.
   def require_no_user
     if current_user
-      redirect_to_url(root_url, I18n.t('authlogic.error_messages.must_be_logged_out'))
+      redirect_to_url root_url, 'authlogic.error_messages.must_be_logged_out'
     end
     return false
   end
@@ -156,16 +158,16 @@ class ApplicationController < ActionController::Base
     reset_session
     if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'
       # If the user wants to log out, we go to the root page and display the logout message.
-      redirect_to_url(root_url, I18n.t('users.user_sessions.messages.logout_success'))
+      redirect_to_url root_url, 'users.user_sessions.messages.logout_success'
     else
       # Not logout
       @user_required ||= false
       if @user_required
         # Login is required but the session is killed
-        redirect_to_url(last_url, I18n.t('users.user_sessions.messages.session_timeout'))
+        redirect_to_url last_url, 'users.user_sessions.messages.session_timeout'
       else
         # Login free area
-        redirect_to_url(request.url, I18n.t('users.user_sessions.messages.session_timeout'))
+        redirect_to_url request.url, 'users.user_sessions.messages.session_timeout'
       end
     end
   end
@@ -228,15 +230,15 @@ class ApplicationController < ActionController::Base
     @info = I18n.t(string, options)
   end
 
-  # Sets the @info variable for the flash object
+  # Sets the @info variable for the flash object (used for HTTP requests)
   def flash_info
     flash[:notice] = @info
   end
 
   # Renders :updates a page with an a info message set by set_info.
-  def show_info_messages(message=@info)
+  def render_with_info(message=@info)
     render :update do |page|
-      page << "info('#{message}');" if message
+      page << "info('#{escape_javascript(message)}');" if message
       yield page if block_given?
     end
   end
@@ -263,29 +265,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def show_error_message(string)
-    render :update do |page|
-      page << "error('#{string}');"
-    end
+  # Sets the @error variable for the flash object (used for HTTP requests).
+  def flash_error
+    flash[:error] = @error
   end
 
   # Get formatted error string from error partial for a given object, then show
   # it on the page object as an error message.
-  def show_error_messages(object=nil)
+  def render_with_error(message=@error)
     render :update do |page|
-      if object.blank?
-        message = @error
-      else
-        message = render(:partial => 'layouts/components/error', :locals => {:object => object})
-      end
       page << "error('#{escape_javascript(message)}');"
       yield page if block_given?
     end
-  end
-
-  # Sets the @error variable for the flash object
-  def flash_error
-    flash[:error] = @error
   end
 
 
@@ -375,7 +366,7 @@ class ApplicationController < ActionController::Base
     url = eval(url) if url =~ /_path|_url|@/
     @breadcrumbs << [name, url]
   end
- 
+
   def self.add_breadcrumb name, url, options = {}
     before_filter options do |controller|
       controller.send(:add_breadcrumb, name, url)
@@ -404,8 +395,8 @@ class ApplicationController < ActionController::Base
     log_error e
     respond_to do |format|
       set_error('application.unexpected_error')
-      yield format if block_given?
-      format.js   { show_error_messages }
+      format.html {yield if block_given?}
+      format.js   { render_with_error }
     end
   end
 end

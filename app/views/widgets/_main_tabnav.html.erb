@@ -28,7 +28,7 @@ render_tabnav :main,
 
   add_tab :html => { :id => 'my_echo_tab', :class => "#{'ajax' unless current_user}" } do |t|
     t.named I18n.t('layouts.tabs.my_echo')
-    t.links_to hash_for_welcome_path
+    t.links_to hash_for_my_profile_path
     t.highlights_on :controller => 'users/profile'
     t.highlights_on :controller => 'my_echo'
   end

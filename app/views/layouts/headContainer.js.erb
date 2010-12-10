@@ -22,4 +22,4 @@ $('#staticContent').html(content);
 $('#staticContent').appear(400);
 
 /* Set document title for SEO. */
-document.title = '<%= title %>'
+document.title = '<%= escape_javascript(title) %>'

@@ -72,7 +72,7 @@ StatementAction.enumeration_model_updates_permitted = false
 # ABOUT CATEGORIES
 AboutCategory.enumeration_model_updates_permitted = true
 AboutCategory.purge_enumerations_cache
-%w(core_team supporters interns alumni technology_partners financial_partners).each_with_index do |code, index|
+%w(core_team supporters translators interns alumni technology_partners financial_partners).each_with_index do |code, index|
   AboutCategory.create(:code => code, :key => index+1, :description => "about_category")
 end
 AboutCategory.enumeration_model_updates_permitted = false
@@ -280,6 +280,11 @@ end
 ["External Staff & Supporters","Externe Mitarbeiter & Unterstützer","Personnel Externe & Collaborateurs",
  "Pessoal Externo & Colaboradores","Personal Externo & Colaboradores"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('supporters','AboutCategory'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
+["Translators","Übersetzer","Traducteurs","Tradutores","Traductores"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('translators','AboutCategory'),
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end

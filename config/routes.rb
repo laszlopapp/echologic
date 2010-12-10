@@ -11,12 +11,12 @@ ActionController::Routing::Routes.draw do |map|
   map.discuss_featured '/discuss/featured', :controller => :discuss, :action => :index
   map.discuss_roadmap '/discuss/roadmap', :controller => :discuss, :action => :roadmap
   map.discuss_cancel '/discuss/cancel', :controller => :discuss, :action => :cancel
-  map.my_discussions '/discuss/my_discussions', :controller => :statements, :action => :my_discussions
-  
+  map.my_discussions '/discuss/my_issues', :controller => :statements, :action => :my_discussions
+
   # SECTION discuss search
   map.discuss_search '/discuss/search', :controller => :statements, :action => :category
   map.discuss_search_with_value '/discuss/search/:value', :controller => :statements, :action => :category, :conditions => {:value => /\w+/ }
-  
+
   # SECTION connect search
   map.connect_search '/connect/search', :controller => :connect, :action => :show
   map.connect_with_value '/connect/search/:value', :controller => :connect, :action => :show, :conditions => {:value => /\w+/ }
@@ -24,8 +24,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.my_echo '/my_echo/roadmap', :controller => :my_echo, :action => :roadmap
 
-  
-#  map.resource :connect, :controller => 'connect', :only => [:show]
   map.resource :admin,   :controller => 'admin',   :only => [:show]
 
   # SECTION my echo routing
@@ -114,53 +112,49 @@ ActionController::Routing::Routes.draw do |map|
 
 
   # SECTION discuss - statement's tree
-     
-  #route for new discussion              
+
+  #route for new discussion
   map.new_discussion                     'statement/new/discussion', :controller => :statements, :action => :new, :type => :discussion
   map.new_discussion_with_path           'statement/new/discussion/:path', :controller => :statements, :action => :new, :type => :discussion
   map.new_discussion_with_path_and_value 'statement/new/discussion/:path/:value', :controller => :statements, :action => :new, :type => :discussion
-  
-  #Add Teaser section (with path, path and value, and none of the previous) 
+
+  #Add Teaser section (with path, path and value, and none of the previous)
   map.connect        'statement/add/discussion', :controller => :statements, :action => :add, :type => :discussion
   map.connect        'statement/:id/add/:type',  :controller => :statements, :action => :add
-  
+
   map.connect        'statement/add/discussion/:path',        :controller => :statements, :action => :add, :type => :discussion
   map.connect        'statement/add/discussion/:path/:value', :controller => :statements, :action => :add, :type => :discussion
-  
+
   map.connect        'statement/:id/add/:type/:path',         :controller => :statements, :action => :add
   map.connect        'statement/:id/add/:type/:path/:value',  :controller => :statements, :action => :add
-  
-  map.resources :statement_nodes, :controller => :statements, 
-                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, 
+
+  map.resources :statement_nodes, :controller => :statements,
+                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image,
                             :reload_image, :children, :more, :authors, :publish, :incorporate, :parents],
-                :path_names => { :new => ':id/new/:type', :more => 'more/:type', 
+                :path_names => { :new => ':id/new/:type', :more => 'more/:type',
                                  :edit => 'edit/:current_document_id', :new_translation => 'translation/:current_document_id',
-                                 :children => 'children/:type', :incorporate => 'incorporate/:approved_ip'}, 
+                                 :children => 'children/:type', :incorporate => 'incorporate/:approved_ip'},
                 :as => 'statement'
-                
-  #show                
-  map.statement_node_with_path               'statement/:id/:path',        :controller => :statements, :action => :show   
+
+  #show
+  map.statement_node_with_path               'statement/:id/:path',        :controller => :statements, :action => :show
   map.statement_node_with_path_and_value     'statement/:id/:path/:value', :controller => :statements, :action => :show
   #publish
   map.connect   'statements/:id/publish/:in',   :controller => :statements, :action => :publish
-  
- 
+
+
   map.resources :discussions, :controller => :statements, :type => :discussion, :only => [:create, :update]
   map.resources :proposals, :controller => :statements, :only => [:create, :update]
   map.resources :improvement_proposals, :controller => :statements, :only => [:create, :update]
   map.resources :pro_arguments, :controller => :statements, :only => [:create, :update]
   map.resources :contra_arguments, :controller => :statements, :only => [:create, :update]
   map.resources :follow_up_questions, :controller => :statements, :only => [:create, :update]
- 
+
 
   # old discuss paths redirection
-  map.connect 'question/:id', :controller => :statements, :action => :redirect
-  map.connect 'proposal/:id', :controller => :statements, :action => :redirect
-  map.connect 'improvement_proposal/:id', :controller => :statements, :action => :redirect
-  map.connect 'discuss/questions/:discussion_id/proposals/:id', :controller => :statements, :action => :redirect 
+  map.connect 'discuss/questions/:discussion_id/proposals/:id', :controller => :statements, :action => :redirect_to_statement
   map.connect 'discuss/questions/:discussion_id/proposals/:proposal_id/improvement_proposals/:id',
-              :controller => :statements, :action => :redirect 
-              
+              :controller => :statements, :action => :redirect_to_statement
 
   # SECTION root
   map.root :controller => 'static/echologic', :action => 'show'

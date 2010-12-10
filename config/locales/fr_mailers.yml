@@ -1,0 +1,257 @@
+
+fr:
+
+  mailers:
+    header:
+      follow_echo: Suivez echo sur Internet
+    greeting: 'Cher(e) {{name}},'
+    bye_as_html: |-
+      Bien à vous,
+      <br/><br/>
+      L'équipe echo
+    signature: |
+      --
+      echo - l'agora globale
+
+      Web: http://echo.to
+      Blog: http://blog.echo.to
+      Twitter: http://twitter.com/echologic
+      Facebook: http://www.facebook.com/echo.agora
+      E-Mail: team@echologic.org
+    signature_as_html: |-
+      <strong>echo</strong> - l'agora globale
+      <br/><br/>
+      Web: <a href="http://echo.to">http://echo.to</a><br/>
+      Blog: <a href="http://blog.echo.to">http://blog.echo.to</a><br/>
+      Twitter: <a href="http://twitter.com/echologic">http://twitter.com/echologic</a><br/>
+      Facebook: <a href="http://www.facebook.com/echo.agora">http://www.facebook.com/echo.agora</a><br/>
+      E-Mail: <a href="mailto:team@echologic.org">team@echologic.org</a>
+
+    newsletter:
+      title: echo Newsletter
+      header: |
+        <p>
+        <strong>Voici la partie "Newsletter"!</strong><br/>
+        </p><p>
+        Vous pouvez écrire ici un "Newsletter" à qui vous voudrez!
+        </p>
+      subject: Objet
+      text: Texte
+      unsubscribe: |-
+        Si vous ne souhaitez pas recevoir de newsletter, contactez
+        <a href='{{echo_url}}'>echo</a>, allez sur Mon echo: paramètres et désactivez Newsletter.
+      fields_not_filled: |-
+        Veuillez préciser l'objet et le texte de votre Newsletter. Merci.
+      sent: |-
+        Your newsletter mails are being delivered...
+
+    activity_tracking:
+      subject: echo - Activités, notifications"
+      discussions:
+        new_discussions: 'Il y a des <strong>{{count}} discussions nouvelles</strong> depuis la dernière mise à jour. '
+        new_tags: 'Les thèmes suivants y sont abordés:'
+        new_proposals: 'Propositions nouvelles "{{title}}"'
+        new_improvement_proposals: |
+          Nouvelles propositions d'amélioraton' "{{title}}" in "{{discussion_title}}":
+        tag_link: "{{tag}} ({{count}})"
+      unsubscribe: |-
+        Si vous ne souhaitez pas recevoir des mises à jour, cliquez sur
+        <a href='{{echo_url}}'>echo</a> allez ensuite sur "mon echo", "paramètres" et désactivez la messagerie.
+
+
+    drafting:
+      approval:
+        subject: "Ajoutez ici votre amendement proposé . Merci."
+        text: |-
+          Bonjour {{name}},
+
+          Votre amendement
+
+          "*{{ip_title}}*"
+
+          a obtenu le plus des voix et a été sélectionnée "{{p_title}}" parmi les thèmes à développer.
+
+          A partir de maintenant, il vous reste *{{hours}} heure pour l'élaborer*.
+
+          Passé ce délai, vous ne pouvez plus intervenir comme rédacteur. Pour développer maintenant cette proposition, veuillez suivre ce lien et cliquez sur (la flèche vert et jaune au milieu):
+
+          {{p_link}}
+
+          N'ajoutez que les amendements à une proposition soumise au vote.
+
+          Merci beaucoup de votre participation!
+
+          Bien à vous,
+
+          L'équipe echo
+
+      supporters_approval:
+        subject: "Vous pouvez insérer un amendement."
+        text: |-
+          Cher(e) supporteur/supportrice
+
+          "*{{ip_title}}*",
+
+          L'auteur de cet amendement n'a pas intégré à votre proposition dans "{{p_title}}". Ayant soutenu cet amendement, vous avez maintentant l'occasion pendant *{{hours}} heure* de vous exprimer.
+
+          Pour *intégrer votre idée*, veuillez suivre ce lien et cliquez sur la flèche vert-jaune au milieu:
+
+          {{p_link}}
+
+          "Soyez le premier!" - et vous aurez la primeur d'ébaucher votre texte-  ... pendant 60 minutes!
+
+          Soyez fair-play et insérez seulement les idées dans les propositions ayant fait l'objet d'un vote.
+
+          Merci de votre participation et bon courage ;-)
+
+          Bien à vous,
+
+          Votre équipe echo
+
+      approval_notification:
+        subject: "Un nouvel amendement a été soumis."
+        text: |-
+          Cher supporteur/supportrice de cette idée,
+
+          "*{{p_title}}*",
+
+          L'amendement proposé  "{{ip_title}}" a obtenu le plus de voix et a été adopté pour être inséré dans la proposition.
+
+          Pour voir la nouvelle idee, veuillez suivre ce lien:
+
+          {{p_link}}
+
+          Merci de participer et bon courage! :-)
+
+          Bien à vous,
+
+          Votre équipe echo
+
+      approval_reminder:
+        subject: "Rappel de votre amendement proposé"
+        text: |-
+          Bonjour {{name}},
+
+          Vous n'avez plus que {{hours}} heure pour insérer votre
+
+          "*{{ip_title}}*"
+
+          proposition "{{p_title}}". Soyez rapide! Vous perdrez votre droit de rédacteur après expiration de ce délai.
+
+          Pour travailler la *propositon maintenant*, suivez ce lien et cliquez sur le symbole de connection - la flèche vert-jaune au milieu:
+
+          {{p_link}}
+
+          Soyez fair play et n'insérez que les amendements à une proposition soumise au vote.
+
+          Merci beaucoup de votre participation - et bon courage! ;-)
+
+          Bien à vous,
+
+          Votre équipe echo
+
+      supporters_approval_reminder:
+        subject: Dernier rappel! - Elaboration d'un amendment
+        text: |-
+          Cher supporteur/supportrice de l'amendement
+
+          "*{{ip_title}}*",
+
+          Il ne vous reste plus que {{hours}} heure pour insérer l'amendement dans la proposition "{{p_title}}".
+
+          Nous vous rappelons qu'après expiration de ce délai, toutes les voix données à cette idée deviennent caduques.
+
+          Pour *insérer maintenant l' idee* dans la proposition, suivez ce lien et cliquez sur la flèche verte et jaune au milieu:
+
+          {{p_link}}
+
+          Soyez fair play et ajoutez les idées seulement à un amendement soumis au vote. Soyez le premier!
+
+          Merci beaucoup de votre participation- et bon courage ;-)
+
+          Bien à vous,
+
+          Votre équipe echo
+
+      passed:
+        subject: "Le délai d'insértion de votre amendement est expiré."
+        text: |-
+          Bonjour {{name}},
+
+          Malheureusement le délai d'insertion de votre proposition est
+
+          "*{{ip_title}}*"
+
+          terminé. Vous ne pouvez plus "{{p_title}}" accéder à la partie rédactionnelle.
+
+          Au cas où votre proposition serait quand même acceptée, vous aurez la possibilité, ainsi que les autres supporters, d'insérer votre idée dans la proposition.
+
+          Nous sommes impatients de lire vos idées! :-)
+
+          Bien à vous,
+
+          Votre équipe echo
+
+      supporters_passed:
+        subject: "Le délai de soumission d'un amendement est terminé."
+        text: |
+          Cher supporter/supportrice de la proposition complémentaire
+
+          "*{{ip_title}}*",
+
+          Malheureusement le délai pour insérer votre amendement "{{p_title}}" est expiré. Vous ne pouvez plus intervenir.
+
+          Toutes les voix supportant la proposition sont invalidées.
+
+          Pour *redonner votre voix à cette proposition* suivez ce lien:
+
+          {{ip_link}}
+
+          Merci beaucoup de votre participation - et bon courage! ;-)
+
+          Bien à vous,
+
+          Votre équipe echo
+
+      incorporated:
+        subject: Merci d'avoir amélioré la proposition
+        text: |-
+          Bonjour {{name}},
+
+          Merci beaucoup d'avoir inséré la proposition d'amélioration
+
+          "*{{ip_title}}*"
+
+          dans la proposition "{{p_title}}".
+
+          Pour voir la nouvelle proposition cliquez sur ce lien:
+
+          {{p_link}}
+
+          Merci beaucoup de votre participation - et bon courage! ;-)
+
+          Bien à vous,
+
+          votre équipe echo
+
+      incorporation_notification:
+        subject: Une proposition soutenue par vous est versée au débat et va être développée.
+        text: |-
+          Cher supporter,
+
+          "*{{p_title}}*",
+
+          l'amendement "{{ip_title}}" a obtenu le plus de voix et est ajouté au débat.
+
+          Veuillez *jeter un regard sur les modifications* et vérifiez, si vous êtes d'accord avec la proposition d'amélioration.
+
+          {{p_link}}
+
+          Merci beaucoup de votre participation - et bon courage! ;-)
+
+          Bien à vous,
+
+          Votre équipe echo
+
+      unsubscribe: |-
+        Si vous ne recevez aucune information au sujet de l'élaboration collaborative des propositions, veuillez nous contacter - {{echo_url}}.

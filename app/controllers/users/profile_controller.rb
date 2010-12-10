@@ -51,12 +51,12 @@ class Users::ProfileController < ApplicationController
 
           format.html { flash_info and redirect_to my_profile_path }
           format.js   {
-            show_info_messages do |p|
+            render_with_info do |p|
               p.replace('personal_container', :partial => 'users/profile/profile_own')
             end
           }
         else
-          format.js   { show_error_messages(@profile) }
+          format.js { set_error @profile and render_with_error }
         end
       end
     rescue Exception => e

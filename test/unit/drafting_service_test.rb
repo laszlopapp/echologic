@@ -5,25 +5,26 @@ class DraftingServiceTest < ActiveSupport::TestCase
   context "concerning the drafting service" do
     setup { @drafting_service = DraftingService.instance}
     subject { @drafting_service }
-    context "when user supports the first improvement proposal" do
+    context "when user supports the first improvement" do
       setup {
         @user = users(:user)
         @statement = statement_nodes('first-impro-proposal')
         EchoService.instance.supported!(@statement, @user)
       }
-      should("then this improvement proposal shall remain tracked") do
+      should("then this improvement shall remain tracked") do
         assert @statement.tracked?
       end
     end
 
-    context "when user supports the first improvement proposal and min_votes = 1" do
+    context "when user supports the first improvement and min_votes = 1" do
       setup {
         DraftingService.min_votes=1
         @user = users(:user)
         @statement = statement_nodes('first-impro-proposal')
+        @statement.parent.supported!(@user)
         EchoService.instance.supported!(@statement, @user)
       }
-      should("then this improvement proposal shall be ready ") do
+      should("then this improvement shall be ready ") do
         @statement.reload
         assert @statement.ready?
       end
@@ -32,7 +33,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
       end
     end
 
-    context "when user unsupports the second improvement proposal which is ready and ranking changes" do
+    context "when user unsupports the second improvement which is ready and ranking changes" do
       setup {
         @statement_1 = statement_nodes('first-impro-proposal')
         @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
@@ -56,13 +57,13 @@ class DraftingServiceTest < ActiveSupport::TestCase
         DraftingService.min_votes=2
         EchoService.instance.unsupported!(@statement_2, users(:red))
       }
-      should("track the former first improvement proposal") do
+      should("track the former first improvement") do
         @statement_2.reload
         assert @statement_2.tracked?
       end
     end
 
-    context "user supports the second improvement proposal which is tracked and ranking changes" do
+    context "user supports the second improvement which is tracked and ranking changes" do
       setup {
         @statement_1 = statement_nodes('second-impro-proposal')
         @statement_1.user_echos.destroy_all
@@ -74,6 +75,8 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_1.reload
 
         @statement_2 = statement_nodes('first-impro-proposal')
+        @statement_2.parent.supported!(users(:red))
+        @statement_2.parent.supported!(users(:luise))
         @statement_2.user_echos.destroy_all
         @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:red),
@@ -88,17 +91,20 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_2.reload
         DraftingService.min_votes=2
 
+        @statement_1.parent.supported!(users(:luise))
+        @statement_1.parent.supported!(users(:green))
+
         EchoService.instance.supported!(@statement_1, users(:luise))
         @statement_1.reload
         @statement_2.reload
         EchoService.instance.supported!(@statement_1, users(:green))
       }
 
-      should(" readify the former second improvement proposal") do
+      should(" readify the former second improvement") do
         @statement_1.reload
         assert @statement_1.ready?
       end
-      should(" readify the former first improvement proposal (that was staged)") do
+      should(" readify the former first improvement (that was staged)") do
         @statement_2.reload
         assert_equal "ready", @statement_2.drafting_state
       end
@@ -107,7 +113,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
       end
     end
 
-    context "ready improvement proposal that went Tr unchanged" do
+    context "ready improvement that went Tr unchanged" do
       setup {
 
         DraftingService.min_votes=2
@@ -156,11 +162,11 @@ class DraftingServiceTest < ActiveSupport::TestCase
         act.perform
       }
 
-      should(" stage that improvement proposal") do
+      should(" stage that improvement") do
         @statement_1.reload
         assert StatementNode.find(@statement_1.id).staged?
       end
-      should(" approve the staged improvement proposal with most votes") do
+      should(" approve the staged improvement with most votes") do
         @statement_2.reload
         assert StatementNode.find(@statement_2.id).approved?
       end
@@ -168,7 +174,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
         email = ActionMailer::Base.deliveries[ActionMailer::Base.deliveries.length-2]
         assert !ActionMailer::Base.deliveries.empty?
         assert_equal [@statement_2.document_in_drafting_language.author.email], email.to
-        assert_equal "Your improvement proposal can now be incorporated", email.subject
+        assert_equal "Your improvement can now be incorporated", email.subject
       end
       should("set a delayed task for approval reminder email sending") do
         assert Delayed::Job.all.map{|d|d.name}.include?("ApprovalReminderMailJob")
@@ -187,7 +193,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
       end
     end
 
-    context "ready improvement proposal that went Tr unchanged for the second time" do
+    context "ready improvement that went Tr unchanged for the second time" do
       setup {
 
         DraftingService.min_votes=2
@@ -237,11 +243,11 @@ class DraftingServiceTest < ActiveSupport::TestCase
         act.perform
       }
 
-      should(" stage that improvement proposal") do
+      should(" stage that improvement") do
         @statement_1.reload
         assert StatementNode.find(@statement_1.id).staged?
       end
-      should(" approve the staged improvement proposal with most votes") do
+      should(" approve the staged improvement with most votes") do
         @statement_2.reload
         assert StatementNode.find(@statement_2.id).approved?
       end
@@ -252,7 +258,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
         email = ActionMailer::Base.deliveries[ActionMailer::Base.deliveries.length-2]
         assert !ActionMailer::Base.deliveries.empty?
         assert_equal supporters.map{|u|u.email}, email.bcc
-        assert_equal "An improvement proposal you support can now be incorporated", email.subject
+        assert_equal "An improvement you support can now be incorporated", email.subject
       end
       should("set a delayed task for approval reminder email sending") do
         assert Delayed::Job.all.map{|d|d.name}.include?("ApprovalReminderMailJob")
@@ -264,14 +270,14 @@ class DraftingServiceTest < ActiveSupport::TestCase
         }
         assert !ActionMailer::Base.deliveries.empty?
         assert_equal supporters.map{|u|u.email}, email.bcc
-        assert_equal "An improvement proposal you support can now be incorporated", email.subject
+        assert_equal "An improvement you support can now be incorporated", email.subject
       end
       should("set a delayed task for test passed") do
         assert Delayed::Job.all.map{|d|d.name}.include?("TestForPassedJob")
       end
     end
 
-    context "approved improvement proposal that went Ta unchanged" do
+    context "approved improvement that went Ta unchanged" do
       setup {
 
         DraftingService.min_votes=2
@@ -322,7 +328,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
         act.perform
       }
 
-      should(" stage that improvement proposal") do
+      should(" stage that improvement") do
         @statement_1.reload
         assert StatementNode.find(@statement_1.id).staged?
       end
@@ -330,7 +336,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
         email = ActionMailer::Base.deliveries[ActionMailer::Base.deliveries.length-3]
         assert !ActionMailer::Base.deliveries.empty?
         assert_equal [@statement_1.document_in_drafting_language.author.email], email.to
-        assert_equal "Passed to incorporate your winner improvement proposal", email.subject
+        assert_equal "Passed to incorporate your winner improvement", email.subject
       end
       should("set the next best staged to approved") do
         @statement_2.reload
@@ -338,7 +344,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
       end
     end
 
-    context "approved improvement proposal that went Ta unchanged for the second time" do
+    context "approved improvement that went Ta unchanged for the second time" do
       setup {
 
         DraftingService.min_votes=2
@@ -392,13 +398,13 @@ class DraftingServiceTest < ActiveSupport::TestCase
         act.perform
       }
 
-      should(" reset that improvement proposal") do
+      should(" reset that improvement") do
         assert StatementNode.find(@statement_1.id).tracked?
       end
       should("send passed email") do
         assert !ActionMailer::Base.deliveries.empty?
         email = ActionMailer::Base.deliveries[ActionMailer::Base.deliveries.length-3]
-        assert_equal "Passed to incorporate a winner improvement proposal", email.subject
+        assert_equal "Passed to incorporate a winner improvement", email.subject
         assert_equal @supporters.map{|u|u.email}, email.bcc
 
       end
@@ -408,7 +414,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
       end
     end
 
-    context " improvement proposal incorporation in proposal" do
+    context " improvement incorporation in proposal" do
       setup {
 
         @statement_1 = statement_nodes('fourth-impro-proposal')
@@ -445,7 +451,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_2.save
       }
 
-      should("incorporate that improvement proposal") do
+      should("incorporate that improvement") do
         @statement_1.reload
         assert @statement_1.incorporated?
       end

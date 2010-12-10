@@ -6,6 +6,7 @@ de:
 
     # Unexpected Error
     unexpected_error: Ein unerwarteter Fehler ist aufgetreten. Bitte entschuldigen Sie die Unannehmlichkeiten.
+    routing_error: Unbekannte URL. Umleitung...
 
     # General purpose resources
     general:
@@ -35,7 +36,7 @@ de:
 
     # Roadmap - Progress
     roadmap:
-      title: fertig
+      title: Fahrplan
       progress_tooltip: 'Dieser Bereich ist zu {{progress}}% fertig.'
       status_quo: 'Status Quo'
       next_steps: 'Nächste Schritte'
@@ -220,8 +221,8 @@ de:
       guide: |
         Indem Sie hier Ihre Kontaktdaten eintragen, geben Sie anderen Nutzern die Möglichkeit,
         sich ein Bild von Ihnen zu machen und Sie zu kontaktieren.<br/>
-        <strong>ACHTUNG</strong>: Alle hier eingetragen Informationen sind vorerst für <strong>alle</strong>
-        Mitglieder von echo zu sehen.
+        <strong>ACHTUNG</strong>: Alle hier eingetragen Informationen sind vorerst
+        <strong>für alle Mitglieder von echo sichtbar</strong>.
       type: Art der Adresse
       address: Web Adresse
     # Concernments section
@@ -249,9 +250,9 @@ de:
 
       newsletter:
         title: Newsletter
-        guide: Get some regular information directly from the webmasters.
-        turned_on: Newsletter has been switched on.
-        turned_off: Newsletter has been switched off.
+        guide: echo Newsletter abonnieren.
+        turned_on: Sie haben den echo Newsletter abonniert.
+        turned_off: Sie haben den echo Newsletter abbestellt.
 
       activity:
         title: Neue Diskussionsbeiträge
@@ -263,9 +264,9 @@ de:
         title: Gemeinsame Textentwicklung
         guide: |
           Sofortige Benachrichtigungen zum Verlauf der gemeinsamen Textenwicklung Ihrer Vorschläge und
-          Verbesserungsvorschläge - z.B. wenn Sie Ihren Verbesserungsvorschlag einarbeiten dürfen.<br/>
+          Ergänzungen - z.B. wenn Sie Ihre Ergänzung einarbeiten dürfen.<br/><br/>
           <strong>Achtung!</strong> Wenn Sie diese Benachrichtigungen ausschalten, können Sie leicht Ihre
-          Gelegenheit verpassen, Ihre Verbesserungsvorschläge einzuarbeiten.
+          Gelegenheit verpassen, Ihre Ergänzungen einzuarbeiten.
         turned_on: Benachrichtigungen zur gemeinsamen Textenwicklung wurden eingeschaltet.
         turned_off: Benachrichtigungen zur gemeinsamen Textenwicklung wurden ausgeschaltet.
 
@@ -306,10 +307,10 @@ de:
 
   discuss:
     my_discussions:
-      link: Meine Diskussionen
-      title: Meine neuen & freigegebenen Diskussionen
+      link: Meine Fragestellungen
+      title: Meine neuen & freigegebenen Fragestellungen
       no_discussions: |
-        Sie haben bislang noch keine Diskussionen eröffnet. Um eine Diskussion anzulegen, klicken Sie bitte links auf das Fragezeichen.
+        Sie haben bislang keine Fragestellungen hinzugefügt. Um welche anzulegen, klicken Sie bitte links auf das Fragezeichen.
     tag_permission: |
       Sie dürfen leider den Tag '{{tag}}' nicht vergeben.
     original_language_warning: |
@@ -317,8 +318,8 @@ de:
       Ihre Sprachkenntnisse, um weitere Inhalte zu sehen.
     translation_request: Bitte übersetzen Sie die Aussage auf <strong>DEUTSCH</strong>.
     results_count:
-      one: '{{count}} Diskussion'
-      more: '{{count}} Diskussionen'
+      one: '{{count}} Fragestellung'
+      more: '{{count}} Fragestellungen'
     for: |-
       for '{{value}}'
     featured_topics:
@@ -345,33 +346,33 @@ de:
     tooltips:
       read_discussion: 'Diese Frage anschauen'
       read_proposal: 'Diesen Vorschlag lesen'
-      read_improvement_proposal: 'Diesen Ergänzgunsvorschlag lesen'
+      read_improvement_proposal: 'Diese Ergänzung lesen'
       read_pro_argument: 'Read this pro argument'
       read_contra_argument: 'Read this contra argument'
       read_follow_up_question: 'Read this follow-up question'
       current_discussion: 'Die aktuell angezeigte Frage'
       current_proposal: 'Der aktuell angezeigte Vorschlag'
-      current_improvement_proposal: 'Der aktuell angezeigte Ergänzgunsvorschlag'
+      current_improvement_proposal: 'Die aktuell angezeigte Ergänzung'
       current_pro_argument: 'The currently displayed pro argument'
       current_contra_argument: 'The currently displayed contra argument'
       current_follow_up_question: 'The currently displayed follow-up question'
       back_to_discussion: 'Zurück zur aktuellen Frage'
       back_to_proposal: 'Zurück zum aktuellen Vorschlag'
-      back_to_improvement_proposal: 'Zurück zum aktuellen Ergänzungsvorschlag'
+      back_to_improvement_proposal: 'Zurück zur aktuellen Ergänzung'
       prev_discussion: 'Vorige Frage lesen'
       next_discussion: 'Nächste Frage lesen'
       prev_proposal: 'Vorigen Vorschlag zur aktuellen Frage lesen'
       next_proposal: 'Nächsten Vorschlag zur aktuellen Frage lesen'
-      prev_improvement_proposal: 'Vorigen Ergänzungsvorschlag zum aktuellen Vorschlag lesen'
-      next_improvement_proposal: 'Nächsten Ergänzungsvorschlag zum aktuellen Vorschlag lesen'
+      prev_improvement_proposal: 'Vorige Ergänzung zum aktuellen Vorschlag lesen'
+      next_improvement_proposal: 'Nächste Ergänzung zum aktuellen Vorschlag lesen'
       prev_pro_argument: 'Read previous pro argument for the current proposal'
       next_pro_argument: 'Read next pro argument for the current proposal'
       prev_contra_argument: 'Read previous contra argument for the current proposal'
       next_contra_argument: 'Read next contra argument for the current proposal'
       prev_follow_up_question: 'Read previous follow-up question'
       next_follow_up_question: 'Read next follow-up question'
-      create_discussion: 'Neue Diskussion eröffnen'
-      create_proposal: 'Tragen Sie Ihre neue Idee zur aktuellen Frage ein'
+      create_discussion: 'Neue Fragestellung hinzufügen'
+      create_proposal: 'Tragen Sie Ihre neue Idee zur aktuellen Fragestellung ein'
       create_improvement_proposal: 'Tragen Sie Ihre neue Idee zum aktuellen Vorschlag ein'
       create_pro_argument: "Post a new argument agreeing with this proposal"
       create_contra_argument: "Post a new argument disagreeing with this proposal"
@@ -379,31 +380,31 @@ de:
       echo: 'Unterstützen Sie diese Aussage durch Ihr Echo!'
       unecho: 'Ziehen Sie Ihre Stimme zurück, wenn Sie die Aussage nicht mehr unterstützen möchten'
       publish: |
-        Geben Sie die Diskussion frei, um sie für alle sichtbar zu machen.
+        Geben Sie die Fragestellung frei, um sie für alle sichtbar zu machen.
         (Danach ist keine Bearbeitung mehr möglich.)
-      incorporate: 'Klicken Sie hier, um diesen ausgewählten Ergänzungsvorschlag in den obigen Text einzuarbeiten.'
+      incorporate: 'Klicken Sie hier, um diesen ausgewählten Ergänzung in den obigen Text einzuarbeiten.'
 
     statements:
       label: 'Stimmen'
       echo_indicator:
         one: '{{supporter_count}} UnterstützerIn'
         many: '{{supporter_count}} UnterstützerInnen'
-      create_discussion_link: 'Neue Diskussion eröffnen'
+      create_discussion_link: 'Neue Fragestellung hinzufügen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
       create_internal_link: 'Neue Idee?'
-      create_improvement_proposal_link: 'Neuen Ergänzungsvorschlag erstellen'
+      create_improvement_proposal_link: 'Neue Ergänzung vorschlagen'
       create_pro_argument_link: Add new pro argument
       create_contra_argument_link: Add new contra argument
       create_follow_up_question_link: Add new follow-up question
       create_discussion_explanation: |
-        Hier können Sie eine <strong>neue Diskussion</strong> eröffnen und mit den
+        Hier können Sie eine <strong>neue Fragestellung</strong> hinzufügen und mit den
         passenden <strong>thematischen Schlüsselwörten</strong> (sog. Tags) versehen.
       create_proposal_explanation: |
-        Haben Sie eine <strong>gute Idee</strong> zur aktuellen Frage, die noch <strong>nicht vorhandenen</strong> ist?<br/>
+        Haben Sie eine <strong>gute Idee</strong> zur aktuellen Fragestellung, die noch <strong>nicht vorhandenen</strong> ist?<br/>
         Hier können Sie einen <strong>neuen Vorschlag</strong> erstellen.
       create_improvement_proposal_explanation: |
         Haben Sie eine <strong>gute Idee</strong>, wie man den aktuellen <strong>Vorschlag noch besser machen</strong> kann?<br/>
-        Hier können Sie einen <strong>neuen Ergänzungsvorschlag</strong> erstellen.
+        Hier können Sie eine <strong>neue Ergänzung</strong> vorschlagen.
       create_statement_language_hint: |
         Bitte schreiben Sie Ihre Idee auf <strong>DEUTSCH</strong> oder wählen Sie über
         den Babelfish im oberen Menü eine andere Sprache aus.
@@ -418,33 +419,33 @@ de:
       tag_hint: 'Please enter tag here...'
 
       publish: Freigeben
-      published: Die Diskussion wurde erfolgreich freigegeben.
+      published: Die Fragestellung wurde erfolgreich freigegeben.
       edit: '{{type}} bearbeiten'
 
       types:
-        discussion:  'Frage'
+        discussion:  'Fragestellung'
         proposal:  'Vorschlag'
-        improvement_proposal: 'Ergänzungsvorschlag'
+        improvement_proposal: 'Ergänzung'
         pro_argument: 'Pro Argument'
         contra_argument: 'Contra Argument'
         follow_up_question: 'Follow-Up Question'
       new:
-        discussion:  'Neue Diskussion'
+        discussion:  'Neue Fragestellung'
         proposal:  'Neuer Vorschlag'
-        improvement_proposal: 'Neuer Ergänzungsvorschlag'
+        improvement_proposal: 'Neue Ergänzung'
         pro_argument: 'New Pro Argument'
         contra_argument: 'New Contra Argument'
         follow_up_question: 'New Follow-Up Question'
       headings:
-        discussion: 'Fragen'
+        discussion: 'Fragestellungen'
         proposal: 'Vorschläge'
-        improvement_proposal: 'Ergänzungsvorschläge'
+        improvement_proposal: 'Ergänzungen'
         argument: 'Arguments'
         follow_up_question: 'Follow-up Questions'
 
       topic: Thema (Tags / Schlüsselwörte)
       states:
-        label: 'Diskussion sofort veröffentlichen?'
+        label: 'Fragestellung sofort veröffentlichen?'
         initial_state:
           new: 'Erstmal weiter vorbereiten und später veröffentlichen'
           published: 'Sofort veröffentlichen (danach ist keine Bearbeitung mehr möglich)'
@@ -455,13 +456,13 @@ de:
       read_only_permission: |-
         Diese ist eine transparente aber geschlossene Diskussion, die Sie nur mitlesen dürfen.
       unsupported_parent: |-
-        Ergänzungsvorschläge können nur unterstützt werden, wenn der Vorschlag selbst unterstützt wurde.
+        Ergänzungen können nur unterstützt werden, wenn der Vorschlag selbst unterstützt wurde.
       not_approved_any_more: |-
-        Dieser Verbesserungsvorschlag kann leider nicht mehr eingearbeitet werden.
+        Diese Ergänzung kann leider nicht mehr eingearbeitet werden.
       see_parent_if_approved: |-
-        Dieser Verbesserungsvoschlag wurde zur Einarbeitung in den untern stehenden Vorschlag angenommen.
+        Diese Ergänzung wurde zur Einarbeitung in den untern stehenden Vorschlag angenommen.
       see_parent_if_incorporated: |-
-        Dieser Verbeserungsvorschlag wurde bereits eingearbeitet.
+        Diese Ergänzung wurde bereits eingearbeitet.
       being_edited: |-
         Dieser Vorschlag wird gerade bearbeitet. Bitte versuchen Sie es später noch einmal.
       already_translated: |-
@@ -473,9 +474,9 @@ de:
       statement_unsupported: |-
         You just dropped your support from this {{type}}.
       edit_period_hint: |
-        Sie haben {{minutes}} Minuten, um den Vorschlag zu bearbeiten.
+        Sie haben {{minutes}} Minuten, um den Beitrag zu bearbeiten.
         Nach Ablauf können Ihre Änderungen eventuell nicht mehr berücksichtigt werden.
-      staled_modification: 'Es tut uns sehr leid, aber Ihre Bearbeitungszeit von max. 60 Minuten ist abgelaufen. Mittlerweile hat ein anderer Nutzer den Vorschlag bearbeitet. Ihre Änderungen mussten daher leider verworfen werden.'
+      staled_modification: 'Es tut uns sehr leid, aber Ihre Bearbeitungszeit von max. 60 Minuten ist abgelaufen. Mittlerweile hat ein anderer Nutzer den Beitrag bearbeitet. Ihre Änderungen mussten daher leider verworfen werden.'
 
       breadcrumbs:
         discuss_search: Search
@@ -488,7 +489,7 @@ de:
         guide: Bitte wählen sie ein passendes <strong>Bild als Illustration</strong> (JPG or PNG, max. 5MB) und laden Sie es hoch.
         progress: Das Bild wird hochgeladen. Einen kurzen Augenblick bitte...
         error: Das Bild konnte leider nicht angenommen werden. Bitte verwenden Sie nur JPG oder PNG mit max. 5MB.
-        
+
       add_teaser:
         text: |
           <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
@@ -501,11 +502,11 @@ de:
       updated: "{{type}} wurde erfolgreich bearbeitet."
       deleted: "{{type}} wurde erfolgreich gelöscht."
       translated: "{{type}} wurde erfolgreich übersetzt."
-      incorporated: "Der Verbesserungsvorschlag wurde erfolgreich in den Vorschlag übernommen."
+      incorporated: "Die Ergänzung wurde erfolgreich in den Vorschlag übernommen."
       image_uploaded: "Das Bild wurde als Illustration zum/zur {{type}} hinzugefügt."
-      empty: "Es wurden keine Diskussionen gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
+      empty: "Es wurden keine Fragestellungen gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff."
       empty_without_spoken_languages: |
-        Keine Diskussion gefunden. Versuchen Sie Ihre <a href='{{my_echo}}'>Sprachkenntnisse</a> einzustellen,
+        Keine Fragestellung gefunden. Versuchen Sie Ihre <a href='{{my_echo}}'>Sprachkenntnisse</a> einzustellen,
         um Inhalte in anderen Sprachen zu sehen.
       new_percentage: "Ihr Profil ist jetzt zu {{percentage}}% ausgefüllt."
 
@@ -631,9 +632,9 @@ de:
         index: 'Index'
 
     models:
-      discussion: "Frage"
+      discussion: "Fragestellung"
       proposal: "Vorschlag"
-      improvement_proposal: "Ergänzungsvorschlag"
+      improvement_proposal: "Ergänzung"
 
   authlogic:
     error_messages:

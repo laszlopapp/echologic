@@ -26,4 +26,4 @@ $('#staticContent').appear(400);
 changeMenuImage("<%= controller_name %>");
 
 /* Set document title for SEO. */
-document.title = '<%= title %>'
+document.title = "<%= escape_javascript(title) %>";

@@ -9,27 +9,41 @@
 @import "jquery-ui-1.7.2.custom.css";
 
 #header {
-  width:       945px;
-  margin:      0 auto;
-  padding:     0 23px;
+  width: 945px;
+  margin: 0 auto;
+  padding: 0 23px;
 }
 
 .main_logo {
-  float:       left;
-  margin:      23px 0 -27px 0;
+  float: left;
+  margin: 23px 0 -27px 0;
+  position: relative;
 }
 
-.main_logo img {
-  border:      none;
-  margin:      -2px 0 2px;
+.main_logo a img {
+  border: none;
+  margin: -2px 0 2px;
+}
+
+.main_logo .stamp {
+  position: absolute;
+  left: 20px;
+  top: 13px;
+  cursor: pointer !important;
+}
+
+.main_logo .label {
+  left: 177px;
+  top: 5px;
+  position: absolute;
 }
 
 #invite_bubble {
-  position:    relative;
-  float:       left;
+  position: relative;
+  float: left;
   background:  url(../images/page/invitebubble_left.png) no-repeat;
-  left:        -5px;
-  top: 		   15px;
+  left: -5px;
+  top: 15px;
 }
 
 #invite_bubble a {

@@ -2,25 +2,33 @@
 de:
 
   mailers:
+    header:
+      follow_echo: Folgen Sie echo im Netz
+    greeting: 'Hallo {{name}},'
+    bye_as_html: |-
+      Herzliche Grüße,
+      <br/><br/>
+      Ihr echo Team
     signature: |
       --
       echo - die globale Agora
 
       Web: http://echo.to
+      Blog: http://blog.echo.to
+      Twitter: http://twitter.com/echologic
+      Facebook: http://www.facebook.com/echo.agora
       E-Mail: team@echologic.org
-      Twitter: www.twitter.com/echologic
-    signature_as_html: |
-      <p>
-      --<br/>
-      echo - die globale Agora
-      </p><p>
-      Web: http://echo.to<br/>
-      E-Mail: team@echologic.org<br/>
-      Twitter: www.twitter.com/echologic
-      </p>
+    signature_as_html: |-
+      <strong>echo</strong> - die globale Agora
+      <br/><br/>
+      Web: <a href="http://echo.to">http://echo.to</a><br/>
+      Blog: <a href="http://blog.echo.to">http://blog.echo.to</a><br/>
+      Twitter: <a href="http://twitter.com/echologic">http://twitter.com/echologic</a><br/>
+      Facebook: <a href="http://www.facebook.com/echo.agora">http://www.facebook.com/echo.agora</a><br/>
+      E-Mail: <a href="mailto:team@echologic.org">team@echologic.org</a>
 
     newsletter:
-      title: Newsletter
+      title: echo Newsletter
       header: |
         <p>
         <strong>This is the Newsletter Section!</strong><br/>
@@ -29,36 +37,35 @@ de:
         </p>
       subject: Subject
       text: Text
-      greeting: |-
-        <p>Dear {{name}},</p>
       unsubscribe: |-
-        <p>If you do not wish to receive newsletters, please log in to
-        <a href='{{echo_url}}'>echo</a>, go to Settings under My echo and uncheck the newsletter option.</p>
+        Wenn Sie keinen echo Newsletter mehr erhalten möchten, melden Sie sich bitte auf
+        <a href='{{echo_url}}'>echo</a> an, und gehen Sie auf "Einstellungen" unter "Mein echo".
+        Dort können Sie den Newsletter abbestellen.
       fields_not_filled: |-
         You need to fill the subject and text fields in order to send the newsletter.
       sent: |-
-        Congratulations! Your newsletter was successfully sent!
+        Your newsletter mails are being delivered...
 
     activity_tracking:
-      subject: echo - Activity Notifications
+      subject: echo - Neue Diskussionsbeiträge
       discussions:
-        new_discussions: 'Es gibt <strong>{{count}} neue Diskussionen </strong> seit dem letzten Update:'
-        new_tags: 'Die Diskussionen befassen sich mit folgenden Themen:'
-        new_proposals: 'Neue Vorschläge in der Diskussion "{{title}}"'
-        new_improvement_proposals: 'Neue Verbesserungsvorschläge für den Vorschlag "{{title}}" in "{{discussion_title}}":'
+        new_discussions: 'Es gibt <strong>{{count}} neue Fragestellung(en)</strong> seit dem letzten Update. '
+        new_tags: 'Sie befassen sich mit den folgenden Themen:'
+        new_proposals: 'Neue Vorschläge in der Fragestellung "{{title}}"'
+        new_improvement_proposals: 'Neue Ergänzungsideen für den Vorschlag "{{title}}" in "{{discussion_title}}":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
-        Wenn Sie keine Benachrichtigungen über neue Discussionen und Vorschläge erhalten möchten, melden Sie sich bitte unter
-        <a href='{{echo_url}}'>echo</a> an, gehen Sie auf "Main echo", "Einstellungen" und deactivieren Sie die
-        Aktivitäts-Benachrichtigungen.
+        Wenn Sie keine Benachrichtigungen über neue Discussionen und Vorschläge erhalten möchten, melden Sie sich bitte auf
+        <a href='{{echo_url}}'>echo</a> an, gehen Sie auf "Mein echo", "Einstellungen" und deaktivieren Sie die
+        Benachrichtigungen über neue Diskussionsbeiträge.
 
     drafting:
       approval:
-        subject: Sie können Ihren Verbesserungsvorschlag einfügen
+        subject: Sie können Ihre Ergänzung einfügen
         text: |-
           Hallo {{name}},
 
-          Ihr Verbesserungsvorschlag
+          Ihre Ergänzung
 
           "*{{ip_title}}*"
 
@@ -70,7 +77,7 @@ de:
 
           {{p_link}}
 
-          Seien Sie fair und fügen Sie bitte nur diejenigen Ideen in den Vorschlag ein, die Sie in Ihrem Verbesserungsvorschlag zur Abstimmung angeboten haben.
+          Seien Sie fair und fügen Sie bitte nur diejenigen Ideen in den Vorschlag ein, die Sie in Ihrer Ergänzung zur Abstimmung angeboten haben.
 
           Vielen Dank für Ihre Teilnahme - und viel Spaß! ;-)
 
@@ -79,14 +86,14 @@ de:
           Ihr echo Team
 
       supporters_approval:
-        subject: Sie können einen Verbesserungsvorschlag einfügen
+        subject: Sie können eine Ergänzung einfügen
         text: |-
-          Liebe UnterstützerInnen des Verbesserungsvorschlags
+          Liebe UnterstützerInnen der Ergänzung
 
           "*{{ip_title}}*",
 
-          der Author des Verbesserungsvorschlags hat leider die Idee nicht in den Vorschlag "{{p_title}}" eingearbeitet.
-          Als UnterstützerIn dieses Verbesserungsvorschlags haben Sie jetzt die Gelegenheit dies zu tun - *innerhalb der nächsten {{hours}} Stunden*.
+          der Author der Ergänzung hat leider die Idee nicht in den Vorschlag "{{p_title}}" eingearbeitet.
+          Als UnterstützerIn dieser Ergänzung haben Sie jetzt die Gelegenheit dies zu tun - *innerhalb der nächsten {{hours}} Stunden*.
 
           Um die *Idee jetzt in den Vorschlag einzuarbeiten*, folgen Sie bitte diesem Link und klicken Sie auf das Übernahmesymbol (grün-gelber Pfeil in der Mitte):
 
@@ -94,7 +101,7 @@ de:
 
           "Wer zuerst mahlt, mahlt am besten!" - D.h. wer von ihnen als erster mit der Bearbeitung des Vorschlags beginnt, hat das exklusive Recht dazu - aber nur für 60 Minuten!
 
-          Seien Sie fair und fügen Sie bitte nur diejenigen Ideen in den Vorschlag ein, die im Verbesserungsvorschlag zur Abstimmung angeboten waren.
+          Seien Sie fair und fügen Sie bitte nur diejenigen Ideen in den Vorschlag ein, die in der Ergänzung zur Abstimmung angeboten waren.
 
           Vielen Dank für Ihre Teilnahme - und viel Spaß! ;-)
 
@@ -103,13 +110,13 @@ de:
           Ihr echo Team
 
       approval_notification:
-        subject: Ein neuer Verbesserungsvorschlag wird bald eingearbeitet
+        subject: Eine neue Ergänzung wird bald eingearbeitet
         text: |-
           Liebe UnterstützerInnen des Vorschlags
 
           "*{{p_title}}*",
 
-          der Verbesserungsvorschlag "{{ip_title}}" hat die meisten Stimmen bekommen und wurde zur Übernahme in den Vorschlag angenommen.
+          die Ergänzung "{{ip_title}}" hat die meisten Stimmen bekommen und wurde zur Übernahme in den Vorschlag angenommen.
 
           Um die *neue Idee zu sehen*, folgen Sie bitte diesem Link:
 
@@ -122,11 +129,11 @@ de:
           Ihr echo Team
 
       approval_reminder:
-        subject: Erinnerung! - Übernahme Ihres Verbesserungsvorschlags
+        subject: Erinnerung! - Übernahme Ihrer Ergänzung
         text: |-
           Hallo {{name}},
 
-          Sie haben nur noch {{hours}} Stunden, um Ihren Verbesserungsvorschlag
+          Sie haben nur noch {{hours}} Stunden, um Ihre Ergänzung
 
           "*{{ip_title}}*"
 
@@ -136,7 +143,7 @@ de:
 
           {{p_link}}
 
-          Seien Sie fair und fügen Sie bitte nur diejenigen Ideen in den Vorschlag ein, die Sie in Ihrem Verbesserungsvorschlag zur Abstimmung angeboten haben.
+          Seien Sie fair und fügen Sie bitte nur diejenigen Ideen in den Vorschlag ein, die Sie in Ihrer Ergänzung zur Abstimmung angeboten haben.
 
           Vielen Dank für Ihre Teilnahme - und viel Spaß! ;-)
 
@@ -145,13 +152,13 @@ de:
           Ihr echo Team
 
       supporters_approval_reminder:
-        subject: Letzte Erinnerung! - Übernahme eines Verbesserungsvorschlags
+        subject: Letzte Erinnerung! - Übernahme einer Ergänzung
         text: |-
-          Liebe UnterstützerInnen des Verbesserungsvorschlags
+          Liebe UnterstützerInnen der Ergänzung
 
           "*{{ip_title}}*",
 
-          Sie haben nur noch {{hours}} Stunden, um den Verbesserungsvorschlag in den Vorschlag "{{p_title}}" einzuarbeiten.
+          Sie haben nur noch {{hours}} Stunden, um die Ergänzung in den Vorschlag "{{p_title}}" einzuarbeiten.
 
           Bitte beachten Sie, dass der Idee nach Ablauf dieser Frist alle bisherigen Stimmen entzogen werden.
 
@@ -159,7 +166,7 @@ de:
 
           {{p_link}}
 
-          Seien Sie fair und fügen Sie bitte nur diejenigen Ideen in den Vorschlag ein, die im Verbesserungsvorschlag zur Abstimmung angeboten waren.
+          Seien Sie fair und fügen Sie bitte nur diejenigen Ideen in den Vorschlag ein, die in der Ergänzung zur Abstimmung angeboten waren.
 
           Und denken Sie daran: Wer zuerst mahlt, mahlt am besten!
 
@@ -170,17 +177,17 @@ de:
           Ihr echo Team
 
       passed:
-        subject: Die Einarbeitungszeit für Ihren Verbesserungsvorschlag ist abgelaufen
+        subject: Die Einarbeitungszeit für Ihre Ergänzung ist abgelaufen
         text: |-
           Hallo {{name}},
 
-          leider ist die Einarbeitungszeit für Ihren Verbesserungsvorschlag
+          leider ist die Einarbeitungszeit für Ihre Ergänzung
 
           "*{{ip_title}}*"
 
           abgelaufen. Sie können den Vorschlag "{{p_title}}" jetzt nicht mehr bearbeiten.
 
-          Sollte Ihr Verbesserungsvorschlag erneut angenommen werden, werden auch andere UnterstützerInnen Ihrer Idee die Möglichkeit bekommen, diese in den Vorschlag einzuarbeiten.
+          Sollte Ihre Ergänzung erneut angenommen werden, werden auch andere UnterstützerInnen Ihrer Idee die Möglichkeit bekommen, diese in den Vorschlag einzuarbeiten.
 
           Wir sind gespannt auf die nächsten Ideen und Beiträge von Ihnen! :-)
 
@@ -189,15 +196,15 @@ de:
           Ihr echo Team
 
       supporters_passed:
-        subject: Die Einarbeitungszeit für einen Verbesserungsvorschlag ist abgelaufen
+        subject: Die Einarbeitungszeit für eine Ergänzung ist abgelaufen
         text: |
-          Liebe UnterstützerInnen des Verbesserungsvorschlags
+          Liebe UnterstützerInnen der Ergänzung
 
           "*{{ip_title}}*",
 
-          leider ist die Einarbeitungszeit für den Verbesserungsvorschlag abgelaufen. Sie können den Vorschlag "{{p_title}}" jetzt nicht mehr bearbeiten.
+          leider ist die Einarbeitungszeit für die Ergänzung abgelaufen. Sie können den Vorschlag "{{p_title}}" jetzt nicht mehr bearbeiten.
 
-          Alle bisherigen Stimmen wurden dem Verbesserungsvorschlag entzogen.
+          Alle bisherigen Stimmen wurden der Ergänzung entzogen.
 
           Um die *Idee erneut mit Ihrer Stimme zu unterstützen*, folgen Sie bitte diesem Link:
 
@@ -214,7 +221,7 @@ de:
         text: |-
           Hallo {{name}},
 
-          vielen Dank für die Einarbeitung des Verbesserungsvorschlags
+          vielen Dank für die Einarbeitung der Ergänzung
 
           "*{{ip_title}}*"
 
@@ -237,9 +244,9 @@ de:
 
           "*{{p_title}}*",
 
-          der Verbesserungsvorschlag "{{ip_title}}" hat die meisten Stimmen bekommen und wurde in den Vorschlag eingearbeitet.
+          die Ergänzung "{{ip_title}}" hat die meisten Stimmen bekommen und wurde in den Vorschlag eingearbeitet.
 
-          Bitte *werfen Sie einen Blick auf die Veränderungen* und überprüfen Sie, ob diese mit dem Verbesserungsvorschlag übereinstimmen:
+          Bitte *werfen Sie einen Blick auf die Veränderungen* und überprüfen Sie, ob diese mit der Ergänzung übereinstimmen:
 
           {{p_link}}
 

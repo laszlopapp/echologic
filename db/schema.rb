@@ -9,13 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101126103013) do
+ActiveRecord::Schema.define(:version => 20101203223755) do
 
   create_table "about_item_translations", :force => true do |t|
     t.integer "about_item_id"
     t.string  "locale"
     t.string  "responsibility"
     t.text    "description"
+    t.string  "name"
   end
 
   create_table "about_items", :force => true do |t|
@@ -309,7 +310,7 @@ ActiveRecord::Schema.define(:version => 20101126103013) do
     t.integer  "last_login_language_id"
     t.integer  "activity_notification",   :default => 1
     t.integer  "drafting_notification",   :default => 1
-    t.integer  "newsletter_notification", :default => 0
+    t.integer  "newsletter_notification", :default => 1
     t.integer  "authorship_permission",   :default => 0
   end
 

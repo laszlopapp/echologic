@@ -6,6 +6,7 @@ es:
 
     # Unexpected Error
     unexpected_error: Se ha detectado un error inesperado en el servidor.
+    routing_error: URL desconocida. Redireccionando...
 
     # General purpose resources
     general:
@@ -27,49 +28,49 @@ es:
       send: Enviar
       upload: Subir
       delete: Borrar
-      create: Adicionar
-      incorporate: Incorporate
+      create: Editar
+      incorporate: Incorporar
       welcome: Bienvenido
       all: Todos
       authors: Authors
 
     # Roadmap - Progress
     roadmap:
-      title: completo
+      title: Hoja de ruta
       progress_tooltip: 'Este área de echo está {{progress}}% completo.'
       status_quo: 'Status Quo'
       next_steps: 'Próximos pasos'
       vision: 'Al final del camino'
       discuss:
-        status_quo: 'El área "discutir" está <strong>{{progress}}%</strong> completo.'
-        next_steps: 'Las primeras funciones de discusión están online. El área será desarrollada continuamente.'
+        status_quo: 'El área "debatir" está <strong>{{progress}}%</strong> completo.'
+        next_steps: 'Las primeras funciones de debate están en línea. El área se desarrollará a continuación.'
       connect:
-        status_quo: 'El área "conectar" está <strong>{{progress}}%</strong> completo.'
-        next_steps: 'La primera búsqueda simple por personas está online. El área "conectar" será desarrollado después que los áreas "discutir" y "actuar!" estén suficientemente desarrollados.'
+        status_quo: 'El área "conectar" está <strong>{{progress}}%</strong> completa.'
+        next_steps: 'La primera búsqueda simple por personas está en línea. El área "conectar" estará disponible cuando las áreas "discutir" y "actuar!" estén suficientemente completas.'
       act:
-        status_quo: 'El área "actuar!" está <strong>{{progress}}%</strong> completo.'
-        next_steps: 'El área "actuar" será desarrollado después de las primeras funciones básicas de "discutir".'
+        status_quo: 'El área "actuar!" está <strong>{{progress}}%</strong> completa.'
+        next_steps: 'El área "actuar" estará disponible tras completar las primeras funciones básicas de "debatir".'
       my_echo:
         status_quo: 'El área "mi echo" está <strong>{{progress}}% </strong> completo.'
-        next_steps: 'Futuros desarrollos en "mi echo" están planeados para después del desarrollo de los tres áreas principales "discutir, conectar y actuar!"'
+        next_steps: 'Están previstos nuevas acciones en "mi echo" después de completar las tres áreas principales "discutir, conectar y actuar!"'
         vision: |
          <p>
-         "Mi echo" será tu <strong>central particular de información</strong> en echo.
-         Aquí tendrás una sinopsis de las <strong>noticias mas importantes</strong> y las <strong>discusiones y acciones mas recientes</strong>.
+         "Mi echo" será tu <strong>central personal de información</strong> en echo.
+         Aquí tendrás un resumen de las <strong>noticias mas importantes</strong> y los <strong>debates y actividades más recientes</strong>.
          </p>
 
 # Localizations for the layout components
   layouts:
     tabs:
-      discuss: Discutir
+      discuss: Debatir
       connect: Conectar
       act: Actuar
       my_echo: Mi echo
       admin: Admin
 
     outer_menu:
-      language: Lengua
-      feedback: &feedback Feedback
+      language: Idioma
+      feedback: &feedback Observaciones
       about: &about Sobre nosotros
       logout: Salir
       imprint: &imprint Información legal
@@ -80,7 +81,7 @@ es:
 
     connect:
       tabs:
-        search: Descubra la comunidad
+        search: Descubre la comunidad
 
     act:
       tabs:
@@ -101,25 +102,25 @@ es:
     title: Bienvenido a echo!
     text: |
       <p>
-      <strong>Discutir - Conectar - Actuar!</strong><br/>
-      Estas son las tres áreas que desarrollaremos en echo paso a paso juntos contigo.<br/>
-      En el <strong>"desarrollo"</strong> (arriba en el lado derecho de la pantalla) puedes seguir
-      el desarrollo actual de cada área y los próximos pasos planeados.
+      <strong>Debatir - Conectar - Actuar!</strong><br/>
+      Estas son las tres áreas que desarrollaremos en echo paso a paso contigo.<br/>
+      En <strong>"desarrollo"</strong> (arriba en el lado derecho de la pantalla) puedes seguir
+      el desarrollo actual de cada área y los próximos pasos a seguir.
       </p><p>
-      Como miembro de echo estas invitado a contribuir con tus ideas a la <strong>evolución de echo</strong>!<br/>
-      Hasta la hora solamente las funciones simples fueron publicadas en las siguientes áreas:
+      Como miembro de echo estás invitado a contribuir con tus ideas a su <strong>evolución </strong>!<br/>
+      Por el momento sólo han sido publicadas funciones simples en las siguientes áreas:
       </p>
     function_1:
       name: 'Mi Perfil'
       description: |
-        Complete tu perfil para que otros puedan hallarle, cuando tus competencias sean solicitadas.
+        Completa tu perfil para que otros que buscan tus competencias puedan encontrarte.
     function_2:
       name: 'Conectar'
-      description: 'Descubra la comunidad y conectase con otras personas interesantes del movimiento.'
+      description: 'Descubre la comunidad y conéctate con otras personas interesadas en el movimiento.'
     function_3:
-      name: 'Discutir'
+      name: 'Debatir'
       description: |
-        Intercambie con otros pensadores tus ideas. Participe en la evolución de echo.
+        Intercambia tus ideas con otros participantes. Contribuye a la evolución de echo.
 
   # ------------
   # USERS MODULE
@@ -129,87 +130,87 @@ es:
     # User sessions section
     user_sessions:
       login:
-        password: Seña
+        password: Contraseña
         email: E-Mail
-        signup: Todavía no es miembro?
-        set_password: Se olvidó de la seña?
-        remember: Acuerde de mi!
-        hello: Logged in <br/><strong>{{name}}</strong>
+        signup: Aún no eres miembro?
+        set_password: Has olvidado la contraseña?
+        remember: Recuérdame!
+        hello: Registrado <br/><strong>{{name}}</strong>
       messages:
-        login_success:  "Login exitoso.<br/>Bienvenido de vuelta a echo!"
-        login_failed:   "Usuario desconocido o seña incorrecta."
-        logout_success: "Logout exitoso.<br/>Hasta la próxima vez!"
-        session_timeout: "Tu sesión fue terminada. Por favor entre otra vez."
+        login_success:  "Te has registrado correctamente.<br/>Bienvenido de nuevo a echo!"
+        login_failed:   "Usuario desconocido o contraseña incorrecta."
+        logout_success: "Has cerrado tu cuenta.<br/>Hasta la próxima!"
+        session_timeout: "Tu sesión ha caducado. Por favor, entra de nuevo."
 
     # Activations section
     activation:
       messages:
-        success: Tu cuenta fue activada. Bienvenido a echo!
-        failed: Lamentablemente no era posible activar tu cuenta. Por favor verifique tu entrada.
+        success: Tu cuenta ha sido activada. Bienvenido a echo!
+        failed: Lo sentimos, pero no ha sido posible activar tu cuenta. Por favor, comprueba tu entrada.
 
     # Password resets section
     password_reset:
-      step1: Solicitar nueva seña
-      step2: Definir nueva seña
+      step1: Solicitar nueva contraseña
+      step2: Definir nueva contraseña
       step1_text: |
-        <p><strong>Te olvidaste de tu seña</strong> o simplemente desea una nueva?
+        <p><strong>Has olvidado tu contraseña</strong> o simplemente deseas cambiarla?
         </p><p>
-        No hay problema! Simplemente entre tu <strong>E-Mail</strong> con la cual estas registrado en echo.
-        Nosotros le enviaremos un E-Mail que le posibilitará <strong>definir una nueva seña</strong>.
+        No hay problema! Sólo tienes que introducir tu <strong>dirección de correo electrónico</strong> con la que estás registrado en echo.
+        Te enviaremos un correo electrónico que te permitirá <strong>definir una nueva contraseña</strong>.
         </p>
-      step1_mail: Enviar E-Mail
+      step1_mail: Enviar correo electrónico
 
       step2_text: |
-        Por favor entre <strong>tu nueva seña</strong> con la cual deseas entrar a echo la próxima vez.
-      step2_ok: Definir seña y entrar
+        Por favor, introduce <strong>una nueva contraseña</strong> con la que entrarás en echo la próxima vez.
+      step2_ok: Definir contraseña y entrar
       messages:
-        success:        'Le enviamos un E-Mail, que le posibilita definir una nueva seña.<br/>Por favor cheque tu correo electrónico.'
-        not_found:      'El E-Mail indicado no fue encontrado.'
-        reset_success:  'Tu nueva seña fue guardada con éxito.'
-        reset_failed:   'Lamentablemente tu seña no puede ser utilizada. Por favor cheque tu entrada.'
+        success:        'Te enviamos un correo electrónico, que te permite definir una nueva contraseña.<br/>Por favor, comprueba tu cuenta de correo.'
+        not_found:      'No se ha encontrado la dirección electrónica indicada.'
+        reset_success:  'Tu nueva contraseña ha sido guardada correctamente.'
+        reset_failed:   'Lo sentimos, pero tu contraseña no puede ser utilizada. Por favor, comprueba tu entrada.'
 
     # Profile Section
     profile:
-      title: Informaciones particulares
-      edit_title: Editar informaciones particulares
-      guide: Aquí ves tus informaciones particulares. Con "editar" puedes modificarlas.
+      title: Informaciones personales
+      edit_title: Editar informaciones personales
+      guide: Aquí puedes ver tus informaciones personales. Con "editar" puedes modificarlas.
 
       gender:
         male: Masculino
-        female: Femenina
+        female: Femenino
 
       location: Sitio
 
       password:
-        title: Cambiar seña
-        new: Tu nueva seña
-        confirm: Verificar seña
+        title: Cambiar contraseña
+        new: Tu nueva contraseña
+        confirm: Verificar contraseña
 
       picture:
         upload_button: Cambiar
 
       upload_picture:
-        title: Subir foto
-        guide: Por favor <strong>elija una foto</strong> (JPG o PNG, max. 5MB) y clique 'subir'
-        progress: Tu foto está siendo guardada. Espere por favor ...
+        title: Cargar foto
+        guide: Por favor <strong>elige una foto</strong> (JPG o PNG, max. 5MB) y haz clic en 'cargar'
+        progress: Tu foto se está cargando. Espera por favor ...
 
       messages:
-        updated: "Tu foto fue cambiada."
+        updated: "Tu foto ha sido modificada."
 
     # Spoken Languages section
     spoken_languages:
-      title: Idiomes que hablo
-      guide:  Por favor indique las lenguas, que hablas y el nivel que tienes en cada idioma.
+      title: Idiomas que hablo
+      guide:  Por favor indica los idiomas que hablas y el nivel que tienes en cada uno.
       language: Idioma
       level: Nivel
       error_messages:
-        repeated_instance: Ya escojeó este idioma
+        repeated_instance: Ya has elegido este idioma
 
 
     # Memberships section
     memberships:
       title: Actividades
-      guide:  Por favor entre aquí tu actividades voluntarias, profesionales o las demás actividades en organizaciones.
+      guide:  Por favor introduce aquí tu actividades de voluntariado, profesionales u otras actividades en organizaciones.
       organisation: Organización
       position: Mi cargo
 
@@ -217,9 +218,9 @@ es:
     web_addresses:
       title: Dirección Web
       guide: |
-        Completando tus datos de contacto posibilitas que los demás usuarios le conozcan y entren en contacto contigo.<br/>
-        <strong>ATENCIÓN</strong>: Todas las informaciones inseridas aquí actualmente son <strong>visibles</strong> para todos los
-        demás miembros de echo.
+        Completando tus datos de contacto posibilitas que los demás usuarios te conozcan y se pongan en contacto contigo.<br/>
+        <strong>ATENCIÓN</strong>: Todas la información insertada aquí es <strong>visible para los
+        demás miembros</strong> de echo.
       type: Tipo de dirección
       address: Dirección Web
       sorts:
@@ -234,22 +235,22 @@ es:
 
     # Concernments section
     concernments:
-      title: Soy afectado y tengo competencias
+      title: Estoy afectado y tengo competencias
       guide: |
-        Todos nosotros estamos conectados con los <strong>diversos aspectos</strong> de nuestro mundo.
-        Podemos ser afectados de ciertas circunstancias y necesitar ayuda de los otros. En otras áreas de la vida estamos
-        implicados y podemos ofrecer ayuda a otras personas. En ciertas áreas tenemos conocimientos profundos, en otras áreas
-        posiblemente representamos a otros y tomamos decisiones por ellos.<br/>
-        echo ayuda a la gente con pensamientos o preocupaciones semejantes y <strong>competencias complementares</strong>
-        encontrarse y conectarse fácilmente.<br/>
-        Como definirías <strong>tus necessidades, preocupaciones y competencias con algunos tópicos (tags)</strong>?
+        Todos estamos conectados con los <strong>diversos aspectos</strong> de nuestro mundo.
+        Ciertos acontecimientos afectan nuestra vida y podemos necesitar ayuda de otros para afrontarlos. Sin embargo, en áreas donde estamos directamente
+        implicados, pueden ser otros los que se beneficien de nuestra ayuda. Por último, en otras áreas tenemos conocimientos tan profundos, que podemos
+        representar a otros e incluso tomar decisiones por ellos.<br/>
+        echo ayuda a la gente con ideas y preocupaciones semejantes o con <strong>competencias complementarias</strong>
+        a encontrarse y conectarse fácilmente.<br/>
+        Como definirías <strong>tus necesidades, preocupaciones y competencias en algunos temas (tags)</strong>?
 
       sorts:
         affection: <strong>Afectado</strong> por
-        engagement: <strong>Comprometido</strong> en
+        engagement: <strong>Comprometido</strong> con
         expertise: <strong>Experto</strong> en
-        decision_making: <strong>Determinante</strong> en
-      tags: Tópicos (tags)
+        decision_making: <strong>Decisivo</strong> para
+      tags: Temas (tags)
 
     # Email notifications section
     notifications:
@@ -258,25 +259,25 @@ es:
 
       newsletter:
         title: Newsletter
-        guide: Get some regular information directly from the webmasters.
-        turned_on: Newsletter has been switched on.
-        turned_off: Newsletter has been switched off.
+        guide: Recibe el newsletter de echo.
+        turned_on: Te has registrado en el newsletter de echo.
+        turned_off: Te has dado de baja del servicio de newsletter de echo.
 
       activity:
         title: Notificaciones diarias (activity)
-        guide: Noticias diarias sobre nuevas discusiones y novedades en tus discusiones y propuestas.
-        turned_on: Notificaciones diarias fueron activadas.
-        turned_off: Notificaciones diarias fueron desactivadas.
+        guide: Notificaciones sobre nuevos debates y novedades en tus previos debates y propuestas.
+        turned_on: Notificaciones diarias han sido activadas.
+        turned_off: Notificaciones diarias han sido desactivadas.
 
       drafting:
         title: Notificaciones inmediatas (drafting)
         guide: |
-          Notificaciones inmediatas sobre el proceso de la elaboracion colectiva y el progreso de tus propuestas y
-          tus propuestas de mejoramiento - por ejemplo cuando tu propuesta de mejoramiento fue aprobada para ser incorporada.<br/>
-          <strong>Atencion!</strong> Si estas notificaciones fueran desactivadas, posiblemente pierderás la
-          oportunidad de incorporar tus propuestas de mejoramiento.
-        turned_on: Notificaciones inmediatas fueron activadas.
-        turned_off: Notificaciones inmediatas fueron desactivadas.
+          Notificaciones inmediatas sobre el proceso de elaboración colectiva y el progreso de tus propuestas y
+          propuestas de mejora - por ejemplo, cuando se aprueba tu propuesta de mejora para ser incorporada.<br/><br/>
+          <strong>Atención!</strong> Si desactivas estas notificaciones, puedes perder la
+          oportunidad de introducir propuestas de mejora.
+        turned_on: Notificaciones inmediatas han sido activadas.
+        turned_off: Notificaciones inmediatas han sido desactivadas.
 
 
     # New Users section
@@ -288,21 +289,28 @@ es:
           <p>
           <strong>echo es la democracia hecha por el pueblo para el pueblo.</strong>
           </p><p>
-          Entra ahora y participa!
+          Proyecto para el bienestar común, echo avanza por medio <strong>del esfuerzo colectivo</strong> de personas y
+          organizaciones comprometidas.
+          </p><p>
+          Quieres contribuir con <strong>tus ideas</strong>?<br/>
+          Entonces, introduce tu nombre y correo electrónico aquí!<br/>
+          <strong>participa en echo</strong> y <strong>debate sobre temas de sostenibilidad y democracia</strong> con otros
+          ciudadanos, expertos y políticos comprometidos.
           </p>
-        action: 'Entra ahora!'
+        action: 'Entrar ahora!'
 
       messages:
-        created: "Por favor verifique tu E-Mail para activar tu nueva cuenta."
+        created: "Por favor, verifica tu cuenta de correo electrónico para activar tu nueva cuenta."
 
     # Reports section
     reports:
       new:
-        title:  "Denunciar usuario"
-        text:  "<p>Viste algún contenido <strong>ofensivo, anti-ético o ilegal?</strong><br/> Si la respuesta es sí,
-            puedes denunciar este usuario, nosotros nos encargaremos a resolver este problema.<p>"
+        title: "Denunciar usuario"
+        text: |
+          <p>Has visto algún contenido <strong>ofensivo, anti-ético o ilegal?</strong><br/> Si es así,
+          puedes denunciar a este usuario, nosotros resolvemos el problema.<p>"
       messages:
-        created: "Gracias por tu mensaje. Nosotros nos encargaremos a este asunto."
+        created: "Gracias por tu mensaje. Nosotros nos encargamos de este asunto."
 
 
   # ---------------
@@ -311,31 +319,31 @@ es:
 
   discuss:
     my_discussions:
-      link: Mis Discusiones
-      title: Mis discusiones nuevas y ya publicadas
+      link: Mis Debates
+      title: Mis debates nuevos y ya publicados
       no_discussions: |
-        Lo sentimos, no hay debates por el momento. Para abrir un nuevo debate, haga click en el signo de interrogación a la izquierda.
+        Lo sentimos, pero no hay debates por el momento. Para abrir un nuevo debate, haz clic en el signo de interrogación de la izquierda.
     tag_permission: |
-      Disculpe, pero no tienes permiso para inserir este '{{tag}}' tag.
+      Lo sentimos, pero no tienes permiso para insertar esta '{{tag}}' nota.
     original_language_warning: |
-      El texto original es <strong>{{language}}</strong>. Por favor <br/>
-      indique quales son las lenguas que intiendes.
-    translation_request: Por favor tradusca este texto al <strong>ESPAÑOL</strong>.
+      El texto original es <strong>{{language}}</strong>. Por favor, <br/>
+      indica los idiomas que conoces.
+    translation_request: Por favor, traduce este texto al <strong>ESPAÑOL</strong>.
     results_count:
-      one: '{{count}} discusión'
-      more: '{{count}} discusiones'
+      one: '{{count}} debates'
+      more: '{{count}} debates'
     for: |-
       for '{{value}}'
     featured_topics:
       title: Nuestros Temas
       text: |
         <p>
-        Como muestra el desarrollo (arriba al lado derecho de la pantalla), la área de discusión de echo todavía está <strong>en
+        Como muestra el desarrollo (arriba en el lado derecho de la pantalla), el área de debate de echo todavía está <strong>en
         construcción</strong>.
         </p><p>
-        Pero ya puedes elaborar <strong>ideas nuevas</strong> en relación a diversos <strong>proyectos </strong> junto con
-        otros miembros.
-        Ademas tienes la opción de contribuir al desarrollo de echo.<br/>
+        No obstante, puedes elaborar <strong> ideas </strong> sobre nuevos temas <strong>con otros miembros </strong>.
+
+        Además, tienes la oportunidad de contribuir al desarrollo de echo.<br/>
         Las discusiones actuales son:
         </p>
       tabs:
@@ -348,27 +356,27 @@ es:
       in: '... en {{category}} ...'
 
     tooltips:
-      read_discussion: 'Mirar esta cuestión'
+      read_discussion: 'Ver esta cuestión'
       read_proposal: 'Leer esta propuesta'
-      read_improvement_proposal: 'Leer esta propuesta de mejoramiento'
+      read_improvement_proposal: 'Leer esta propuesta de mejora'
       read_pro_argument: 'Read this pro argument'
       read_contra_argument: 'Read this contra argument'
       read_follow_up_question: 'Read this follow-up question'
-      current_discussion: 'La cuestión actualmente indicado'
-      current_proposal: 'La propuesta actualmente indicada'
-      current_improvement_proposal: 'La propuesta de mejoramiento actualmente indicada'
+      current_discussion: 'Cuestión actual'
+      current_proposal: 'Propuesta actual'
+      current_improvement_proposal: 'Propuesta de mejora actual'
       current_pro_argument: 'The currently displayed pro argument'
       current_contra_argument: 'The currently displayed contra argument'
       current_follow_up_question: 'The currently displayed follow-up question'
-      back_to_discussion: 'Volver al cuestión actual'
+      back_to_discussion: 'Volver a la cuestión actual'
       back_to_proposal: 'Volver a la propuesta actual'
-      back_to_improvement_proposal: 'Volver a la propuesta de mejoramiento actual'
+      back_to_improvement_proposal: 'Volver a la propuesta de mejora actual'
       prev_discussion: 'Leer cuestión anterior'
-      next_discussion: 'Leer próxima cuestión'
+      next_discussion: 'Leer cuestión siguiente'
       prev_proposal: 'Leer propuesta anterior'
-      next_proposal: 'Leer próxima propuesta'
-      prev_improvement_proposal: 'Leer propuesta de mejoramiento anterior'
-      next_improvement_proposal: 'Leer próxima propuesta de mejoramiento'
+      next_proposal: 'Leer propuesta siguiente'
+      prev_improvement_proposal: 'Leer propuesta de mejora anterior'
+      next_improvement_proposal: 'Leer propuesta de mejora siguiente'
       prev_pro_argument: 'Read previous pro argument for the current proposal'
       next_pro_argument: 'Read next pro argument for the current proposal'
       prev_contra_argument: 'Read previous contra argument for the current proposal'
@@ -377,100 +385,100 @@ es:
       next_follow_up_question: 'Read next follow-up question'
       create_discussion: 'Crear nueva discusión'
       create_proposal: 'Crear nueva propuesta'
-      create_improvement_proposal: 'Crear nueva propuesta de mejoramiento'
+      create_improvement_proposal: 'Crear nueva propuesta de mejora'
       create_pro_argument: "Post a new argument agreeing with this proposal"
       create_contra_argument: "Post a new argument disagreeing with this proposal"
       create_follow_up_question: "Post a new follow-up question"
-      echo: 'Apoye a esta opinión con tu voz!'
-      unecho: 'Retire tu voto, si ya no estes de acuerdo'
+      echo: 'Apoya esta opinión con tu voto!'
+      unecho: 'Retira tu voto si ya no estás de acuerdo'
       publish: |
-        Si publicas la discusión, otras personas podran participar en ella.
-        (No será possible modificar la discusión.)
-      incorporate: 'Clique aquí para incorporar esta propuesta de mejoramiento a la propuesta (texto arriba).'
+        Publicando el debate, otras personas podrán participar.
+        (No será posible modificar el debate.)
+      incorporate: 'Haz clic aquí para incorporar esta propuesta de mejora a la propuesta (texto arriba).'
 
     statements:
       label: 'votos'
       echo_indicator:
-        one: '{{supporter_count}} vozes'
-        many: '{{supporter_count}} vozes'
-      create_discussion_link: 'Crear nueva discusión'
+        one: '{{supporter_count}} votos.'
+        many: '{{supporter_count}} votos.'
+      create_discussion_link: 'Crear nuevo debate'
       create_proposal_link: 'Crear nueva propuesta'
       create_internal_link: 'Nueva Idea?'
-      create_improvement_proposal_link: 'Crear nueva propuesta de mejoramiento'
+      create_improvement_proposal_link: 'Crear nueva propuesta de mejora'
       create_pro_argument_link: Add new pro argument
       create_contra_argument_link: Add new contra argument
       create_follow_up_question_link: Add new follow-up question
       create_discussion_explanation: |
-        Aquí puedes iniciar un <strong>nueva discusión</strong>.
-        Por favor no te olvides de inserir algunas palabras clave, para que tu nuevo debate será hallado facilmente.
+        Aquí puedes iniciar un <strong>nuevo debate</strong>.
+        Por favor, no te olvides de insertar palabras clave para que tu nuevo debate sea hallado fácilmente.
       create_proposal_explanation: |
         Tienes una <strong>buena idea</strong>, que todavia <strong>no existe</strong>?<br/>
         Aquí puedes crear una <strong>nueva propuesta</strong>.
       create_improvement_proposal_explanation: |
-        Tienes una <strong>buena idea</strong>, como esta propuesta poderia ser <strong>mejorada</strong>?<br/>
-        Aquí puedes crear una <strong>nueva propuesta de mejoramiento</strong>.
+        Tienes una <strong>buena idea</strong>, para mejorar esta <strong>propuesta</strong>?<br/>
+        Aquí puedes crear una <strong> propuesta de mejora</strong>.
       create_statement_language_hint: |
-        Esta discusión está transparente pero el accesso astá restricto - solamente puedes leer.
+        Este debate es visible pero la edición está restringida - sólo puedes leerlo.
       create_statement_language_hint: |
-        Por favor escriba su idea en <strong>ESPAÑOL</strong> o escoja un otro idioma utilizando el
-        babelfish en el menu arriba.
+        Por favor, escribe tu idea en <strong>ESPAÑOL</strong> o escoge otro idioma utilizando el
+        babelfish del menu de arriba.
       statement_language_hint: |
-        Para realizar algún comentario, seleccione por favor, el conocimiento de idiomas en su <a href='{{url}}'>Perfil</a>.
+        Para realizar algún comentario, selecciona por favor, el conocimiento de idiomas en tu <a href='{{url}}'>Perfil</a>.
       statement_language_hint_tooltip: |
-        Esto le permitirá introducir comentarios en el idioma en que posee al menos, conocimientos a nivel intermedio.
+        Esto te permitirá introducir comentarios en el idioma en que posees al menos, conocimientos a nivel intermedio.
       drafting_language_hint: |
-        Note por favor, que el proceso de elaboración colectiva de las propuestas funcionará sólo en este idioma!
+        Ten en cuenta que el proceso de elaboración colectiva de las propuestas funcionará sólo en este idioma!
       title_hint: 'Please enter title here...'
       text_hint: 'Please enter text here...'
       tag_hint: 'Please enter tag here...'
 
       publish: Publicar
-      published: Esta discusión fue publicada con éxito.
+      published: Este debate ha sido publicada con éxito.
       edit: 'Editar {{type}}'
 
       types:
         discussion:  'Cuestión'
         proposal:  'Propuesta'
-        improvement_proposal: 'Propuesta de mejoramiento'
+        improvement_proposal: 'Propuesta de mejora'
         pro_argument: 'Pro Argument'
         contra_argument: 'Contra Argument'
         follow_up_question: 'Follow-Up Question'
       new:
-        discussion:  'Nueva Discusión'
+        discussion:  'Nuevo Debate'
         proposal:  'Nueva Propuesta'
-        improvement_proposal: 'Nueva propuesta de mejoramiento'
+        improvement_proposal: 'Nueva propuesta de mejora'
         pro_argument: 'New Pro Argument'
         contra_argument: 'New Contra Argument'
         follow_up_question: 'New Follow-Up Question'
       headings:
         discussion: 'Cuestiones'
         proposal: 'Propuestas'
-        improvement_proposal: 'Propuesta de mejoramiento'
+        improvement_proposal: 'Propuesta de mejora'
         argument: 'Arguments'
         follow_up_question: 'Follow-up Questions'
 
       topic: Tema (Tags / Palabras clave)
       states:
-        label: 'Publicar discusión de inmediato?'
+        label: 'Publicar debate de inmediato?'
         initial_state:
-          new: 'Solamente guardar y publicar mas tarde'
-          published: 'Publicar de inmediato (no será possible modificar la discusión)'
+          new: 'Sólo guardar y publicar más tarde'
+          published: 'Publicar de inmediato (no será posible modificar el debate)'
         published: Publicado
-        approved: Approved
+        approved: Aprobado
       delete_link: "Borrar"
-      delete_confirmation: "Está seguro, que realmente quiere borrar esta propuesta?"
+      delete_confirmation: "Estás seguro de borrar esta propuesta?"
       read_only_permission: |-
-        Esta discusión está transparente pero el accesso astá restricto - solamente puedes leer.
+        Este debate es visible pero la edición está restringida - sólo puedes leerlo.
       unsupported_parent: |-
-        Solamente puedes apoyar a las propuestas de mejoramiento, si tambien apoyas a la correspondiente propuesta.
+        Sólo puedes apoyar las propuestas de mejora si apoyas también la correspondiente propuesta.
       not_approved_any_more: |-
-        Lamentablemente esta propuesta de mejoramiento no puede ser incorporada mas.
+        Lo sentimos, pero esta propuesta de mejora ya no puede ser incorporada.
       see_parent_if_approved: |-
-        Esta propuesta de mejoramiento fue aprovada para ser incorporada a la propuesta abajo.
+        Se ha aprobado la incorporación de esta propuesta de mejora a la propuesta de abajo.
       see_parent_if_incorporated: |-
-        Esta propuesta de mejoramiento ya fue incorporada.
+        Esta propuesta de mejora ya ha sido incorporada.
       being_edited: |-
-        Esta propuesta actualmente está siendo editada. Por favor vuelva mas tarde.
+        Esta propuesta está siendo editada en estos momentos. Por favor, vuelve mas tarde.
       already_translated: |-
         {{type}} ya ha sido traducida.
       statement_updated: |-
@@ -480,9 +488,9 @@ es:
       statement_unsupported: |-
         You just dropped your support from this {{type}}.
       edit_period_hint: |
-        <strong>Tienes {{minutes}} minutos</strong> para editar la propuesta.
-        Passondo este plazo, posiblemente tus modificationes serán perdidas.
-      staled_modification: 'Desculpe por favor, pero tu plazo de 60 minutos para editar la propuesta caduco. Mientras otro miembro tomó su chance y edito la propuesta. Por eso, tus modificaciones lamentablemente no puedieron ser guardadas.'
+        <strong>Te quedan {{minutes}} minutos</strong> para editar la propuesta.
+        Transcurrido este tiempo, podrás perder tus modificationes.
+      staled_modification: 'Lo sentimos, pero han transcurrido los 60 minutos que tenías para editar la propuesta. Otro miembro ha aprovechado su oportunidad y ha editado la propuesta, por lo que no se han podido guardar tus modificaciones.'
 
       breadcrumbs:
         discuss_search: Search
@@ -492,10 +500,10 @@ es:
 
       upload_image:
         title: Cargar imagen
-        guide: Seleccione <strong>por favor, una imagen</strong> (JPG o PNG, max. 5MB) y descárguela.
-        progress: La imagen se está cargando. Por favor, espere...
+        guide: Selecciona <strong>por favor, una imagen</strong> (JPG o PNG, max. 5MB) y descárgala.
+        progress: La imagen se está cargando. Por favor, espera...
         error: 'Error cargando la imagen: Formato de la imagen no compatible.'
-      
+
       add_teaser:
         text: |
           <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
@@ -504,17 +512,17 @@ es:
     summary:
       title: 'Resumen'
     messages:
-      created: "La {{type}} fue publicada con éxito."
-      updated: "La {{type}} fue editada con éxito."
-      deleted: "La {{type}} fue borrada con éxito."
-      translated: "La {{type}} fue traducida con éxito."
-      incorporated: "A propuesta de mejoramiento fue incorporada a la propuesta con exito."
+      created: "La {{type}} ha sido publicada correctamente."
+      updated: "La {{type}} ha sido editada correctamente."
+      deleted: "La {{type}} ha sido borrada correctamente."
+      translated: "La {{type}} ha sido traducida correctamente."
+      incorporated: "La propuesta de mejora ha sido incorporada a la propuesta correctamente."
       image_uploaded: "La imagen se ha cargado correctamente en el {{type}}."
-      empty:   "No fue encontrado ningun debate. Por favor intente buscar por otra palavra."
+      empty: "No se ha encontrado ningún debate. Por favor, intenta la búsqueda con otra palabra"
       empty_without_spoken_languages: |
-        No fue encontrada ninguna cuestión. Intente definir tus <a href='{{my_echo}}'>lenguas conocidas</a>
-        para ver contenidos en otras lenguas.
-      new_percentage: "Ahora tu perfil está completo por {{percentage}}%."
+        No se ha encontrado ninguna cuestión. Intenta definir tus <a href='{{my_echo}}'>idiomas conocidos</a>
+        para ver contenidos en otros idiomas.
+      new_percentage: "Ahora tu perfil está completo en un {{percentage}}%."
 
 
   # ---------------
@@ -524,15 +532,16 @@ es:
   connect:
 
     fill_out_profile:
-      text: Por favor complete tu perfil <strong>por lo menos por {{percentage}}%</strong>, para hacer feliz al servidor (HAL)
-         y retirar este bloque ;-)
+      text: |-
+        Por favor completa tu perfil <strong>por lo menos en un {{percentage}}%</strong>, para hacer feliz al servidor (HAL)
+        y retirar este bloque ;-)
 
     segments:
       all: Todos
       affection:  'Afectados'
       engagement:   'Comprometidos'
       expertise: 'Expertos'
-      decision_making: 'Determinantes'
+      decision_making: 'Decisivos'
     results_count:
       one: '{{count}} miembros'
       more: '{{count}} miembros'
@@ -544,20 +553,20 @@ es:
       actions:
         report: "Denunciar"
     messages:
-      empty:           'No fueron encontrados resultados para tu búsqueda. Por favor intente de nuevo con otras palablas.'
-      no_concernments: 'Este miembro todavía no ingresó ninguna preocupación o competencia.'
-      no_web_addresses: 'Este miembro todavía no ingresó ninguna dirección de Web'
+      empty:           'No se han encontrado resultados para tu búsqueda. Por favor, intenta de nuevo con otra palabra.'
+      no_concernments: 'Este miembro no ha introducido todavía sus preocupaciones o competencias.'
+      no_web_addresses: 'Este miembro no ha introducido todavía su dirección Web'
 
   # Feedback resources
   feedback:
     new:
-      title: Feedback
+      title: Observaciones
       welcome: |
         <p>
         <strong>Tu opinión es importante!</strong><br/>
         </p><p>
-        Tienes alguna pregunta o sugerencia? Quieres criticar algo, apuntar algo o simplemente derramar un montón de elogio en nosotros?
-        Nosotros siempre estamos atentos por ti!
+        Tienes alguna pregunta o sugerencia? Quieres criticar algo, hacer alguna observación o simplemente deshacerte en elogios hacia nosotros?
+        Esperamos siempre con interés tus observaciones!
         </p>
       message: Mensaje
       send: Enviar mensaje
@@ -571,34 +580,34 @@ es:
       models:
         feedback:
           attributes:
-            blank: 'Por favor rellene todos los espacios.'
+            blank: 'Por favor rellena todos los espacios.'
             email:
-              invalid: 'Erraste tu E-Mail. Por favor ingréselo otra vez.'
-        newsletter:
-          attributes:
-            blank: 'Por favor rellene todos los espacios.'
-            email:
-              invalid: 'Erraste tu E-Mail. Por favor ingréselo otra vez.'
+              invalid: 'Te has equivocado en tu E-Mail. Por favor introdúcelo de nuevo.'
+          newsletter:
+            attributes:
+              blank: 'Por favor rellena todos los espacios.'
+              email:
+                invalid: 'Te has equivocado en tu E-Mail. Por favor introdúcelo de nuevo.'
 
         user:
           attributes:
             email:
-              taken: 'Erraste tu E-Mail. Por favor ingréselo otra vez.'
+              taken: 'Te has equivocado en tu E-Mail. Por favor, introdúcelo de nuevo.'
 
       messages:
         blank: "Tienes que rellenar el espacio '{{attribute}}' ."
-        taken: 'La entrada deseada lamentablemente ya está siendo utilizada.'
+        taken: 'Lo sentimos, pero la entrada deseada ya está siendo utilizada.'
         too_short: "Tu entrada en el espacio '{{attribute}}' es muy corta."
         too_long: "Tu entrada en el espacio '{{attribute}}' es muy larga."
         invalid: "Tu entrada en el espacio '{{attribute}}' tiene un formato inválido."
-        confirmation: '{{attribute}} hay que concordar.'
-        access_denied: "Lamentablemente le falta el permiso de acceso necesario."
+        confirmation: '{{attribute}} tienen que coincidir.'
+        access_denied: "Lo sentimos, pero no tiene el permiso de acceso necesario."
 
       template:
         header:
-          one: "Un espacio no fue rellenado correctamente."
-          other: "{{count}} espacios no fueron rellenados correctamente."
-        body: "Por favor cheque tu entrada:"
+          one: "Un espacio no ha sido rellenado correctamente."
+          other: "{{count}} espacios no han sido rellenados correctamente."
+        body: "Por favor, commprueba tu entrada:"
 
     attributes:
       profile:
@@ -615,46 +624,45 @@ es:
         memberships: Actividades
         spoken_languages: Idiomes que hablo
       report:
-        reason: 'Causa'
+        reason: 'Razón'
       web_profile:
         location: 'Dirección Web'
       membership:
         position: 'Mi cargo'
       feedback:
         message: Mensaje
-      statement_node:
-        image: 'Imagen de archivo'
       statement_document:
         language_id: 'Idioma'
         language: 'Idioma'
         text: 'Resumen'
         title: 'Titulo'
         image: 'Imagen'
+
       about_item:
-        photo: 'Photo'
-        name: 'Name'
-        responsibility: 'Responsibility'
-        description: 'Description'
-        about_category_id: 'About Item'
-        index: 'Index'
+        photo: 'Foto'
+        name: 'Nombre'
+        responsibility: 'Responsabilidad'
+        description: 'Descripción'
+        about_category_id: 'Entrada'
+        index: 'Indice'
 
     models:
       discussion: "Cuestión"
       proposal: "Propuesta"
-      improvement_proposal: "Suplemento"
+      improvement_proposal: "Propuesta de mejora"
 
   authlogic:
     error_messages:
-      email_invalid:      "Por favor corrija la dirección de E-Mail."
-      password_blank:     "Por favor ingrese la seña."
-      not_active:         "Tu cuenta todavía no fue activada. Por favor mire tus E-Mail y siga el link en el E-Mail de activación que le enviamos."
+      email_invalid:      "Por favor, corrige la dirección de E-Mail."
+      password_blank:     "Por favor, introduce la contraseña."
+      not_active:         "Tu cuenta no ha sido aún activada. Por favor, comprueba tu cuenta de correo y sigue el enlace en el E-Mail de activación que te enviamos."
       must_be_logged_in:  "Conéctate por favor."
       must_be_logged_out: "Desconéctate por favor."
 
     attributes:
       user_session:
         email:    'E-Mail'
-        password: 'seña'
+        password: 'contraseña'
 
 
 # Date / time / number formatting
@@ -680,23 +688,23 @@ es:
       long: "%A, %e. %B %Y, %H:%M Uhr"
       time: "%H:%M"
 
-    am: "por la mañana"
+    am: "de la mañana"
     pm: "de la tarde"
 
   datetime:
     distance_in_words:
       half_a_minute: 'medio minuto'
       less_than_x_seconds:
-        zero: 'menos que un segundo'
-        one: 'menos que un segundo'
-        other: 'menos que {{count}} segundos'
+        zero: 'menos de un segundo'
+        one: 'menos de un segundo'
+        other: 'menos de {{count}} segundos'
       x_seconds:
         one: '1 segundo'
         other: '{{count}} segundos'
       less_than_x_minutes:
-        zero: 'menos que un minuto'
-        one: 'menos que un minuto'
-        other: 'menos que {{count}} minuto'
+        zero: 'menos de un minuto'
+        one: 'menos de un minuto'
+        other: 'menos de {{count}} minutos'
       x_minutes:
         one: '1 minuto'
         other: '{{count}} minutos'
@@ -714,10 +722,10 @@ es:
         other: '{{count}} meses'
       about_x_years:
         one: 'cerca de un año'
-        other: 'cerca de {{count}} año'
+        other: 'cerca de {{count}} años'
       over_x_years:
-        one: 'más que un año'
-        other: 'más que {{count}} años'
+        one: 'más de un año'
+        other: 'más de {{count}} años'
     prompts:
       second: "segundos"
       minute: "minutos"

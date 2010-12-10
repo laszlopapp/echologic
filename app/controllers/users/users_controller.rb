@@ -59,16 +59,19 @@ class Users::UsersController < ApplicationController
       respond_to do |format|
         if @user.signup!(params)
           @user.deliver_activation_instructions!
-          flash[:notice] = I18n.t('users.users.messages.created')
-          format.html { redirect_to root_url }
+          set_info 'users.users.messages.created'
+          format.html {
+            flash_info and redirect_to root_url
+          }
           format.js do
-            render :update do |page|
+            render_with_info do |page|
               page.redirect_to root_url
             end
           end
         else
-          format.js   { show_error_messages(@user) }
-          format.html { render :template => 'users/users/new', :layout => 'static' }
+          set_error @user
+          format.html { flash_error and render :template => 'users/users/new', :layout => 'static' }
+          format.js   { render_with_error }
         end
       end
     rescue Exception => e
@@ -103,11 +106,15 @@ class Users::UsersController < ApplicationController
       @user.password_confirmation = params[:user][:password_confirmation]
       respond_to do |format|
         if @user.save and not params[:user][:password].empty?
-          format.html { (flash[:notice] = I18n.t('users.password_reset.messages.reset_success')) and (redirect_to my_profile_path) }
-          format.js   { show_info_messages(I18n.t('users.password_reset.messages.reset_success')) }
+          set_info 'users.password_reset.messages.reset_success'
+          format.html {
+            flash_info and redirect_to my_profile_path
+          }
+          format.js   { render_with_info }
         else
-          format.html { redirect_to my_profile_path }
-          format.js   { show_error_messages(@user) }
+          set_error @user
+          format.html { flash_error and redirect_to my_profile_path }
+          format.js   { render_with_error }
         end
       end
     rescue Exception => e
@@ -144,7 +151,7 @@ class Users::UsersController < ApplicationController
               set_info("discuss.messages.new_percentage", :percentage => current_completeness)
             end
             new_concernments_hash = current_user.send("#{params[:context]}_tags_hash").to_a - old_concernments_hash.to_a
-            show_info_messages do |p|
+            render_with_info do |p|
               p.insert_html :bottom, "concernments_#{params[:context]}",
                             :partial => "users/concernments/concernment",
                             :collection => new_concernments_hash,
@@ -153,7 +160,7 @@ class Users::UsersController < ApplicationController
               p << "$('#concernment_#{params[:context]}_id').focus();"
             end
           else
-            show_error_messages(current_user)
+            set_error current_user and render_with_error
           end
         end
       end
@@ -177,7 +184,7 @@ class Users::UsersController < ApplicationController
 
       respond_to do |format|
         format.js do
-          show_info_messages do |p|
+          render_with_info do |p|
             p.remove "#{params[:context]}_#{params[:id]}"
           end
         end

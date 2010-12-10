@@ -4,6 +4,23 @@
       
     };
 
+  function replaceOrInsert(element, template){
+		if(element.length > 0) {
+		element.replaceWith(template);
+		}
+		  else
+		{
+		collapseStatements();
+		$('div#statements').append(template);
+		}
+	};
+	
+	function collapseStatements() {
+		$('#statements .statement .header').removeClass('active').addClass('ajax_expandable');
+		$('#statements .statement .content').hide('slow');
+		$('#statements .statement .header .supporters_label').hide();
+	};
+
 
   var methods = {
      init : function( options ) {
@@ -23,13 +40,38 @@
 			$(this).remove();
 			});
 		 },
-		 insert: function (){},
-		 loadAuthors: function (){},
-		 updateSupport: function () {},
-		 insertMore: function () {},
-		 loadEchoMessages: function () {},
-		 
-		 
+		 insert: function (level) {
+		 	var element = $('div#statements .statement').eq(level);
+		 	if(element.length > 0) {
+	    element.replaceWith(this);
+	    }
+	      else
+	    {
+	    collapseStatements();
+	    $('div#statements').append(this);
+	    }
+		 },
+		 loadAuthors: function (authors, length){
+		 	authors.insertAfter(this.find('.summary h2')).animate(toggleParams, 500);
+			this.find('#authors_list').jcarousel({
+			  scroll: 3,
+				buttonNextHTML: "<div class='next_button'></div>",
+				buttonPrevHTML: "<div class='prev_button'></div>",
+				size: length
+			});
+		 },
+		 updateSupport: function (action_bar, supporters_bar, supporters_label) {
+		 	this.find('.action_bar').replaceWith(action_bar);
+			this.find('.supporters_bar:first').replaceWith(supporters_bar);
+			this.find('.supporters_label').replaceWith(supporters_label);
+		 },
+		 insertMore: function (level, type_id) {
+		 	var element = $('#statements div.statement:eq(' + level + ') ' + type_id + ' .headline');
+			this.insertAfter(element).animate(toggleParams, 500);
+		 },
+		 loadEchoMessages: function (messages) {
+		 	 this.find('.action_bar').data('messages', messages);
+		 },
 		 
      show : function( ) {},
      hide : function( ) {},

@@ -8,7 +8,7 @@ class DraftingService
   # Parameters #
   ##############
 
-  @@min_quorum = 50
+  @@min_quorum = 0.5
   @@min_votes  = 2
   @@time_ready  = 24.hours
   @@time_approved  = 24.hours
@@ -100,7 +100,7 @@ class DraftingService
     elsif echoable.draftable?
       children = echoable.child_statements
       children.each do |child|
-        adjust_readiness(child, false, false)
+        adjust_readiness(child, false, true)
       end
     end
   end
@@ -146,7 +146,7 @@ class DraftingService
   # Test if incorporable fulfills all conditions to become ready.
   #
   def test_readiness(incorporable)
-    incorporable.supporter_count >= @@min_votes # and incorporable.quorum >= @@min_quorum
+    incorporable.supporter_count >= @@min_votes and incorporable.quorum > @@min_quorum
   end
 
   #

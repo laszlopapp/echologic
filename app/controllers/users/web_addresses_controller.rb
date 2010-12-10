@@ -36,19 +36,26 @@ class Users::WebAddressesController < ApplicationController
     begin
       @web_address = WebAddress.new(params[:web_address].merge({:user => @current_user}))
 
+      # Adding HTTP:// suffix if missing
+      if !@web_address.type.code.eql?("email") &&
+         !@web_address.address.starts_with?('http://') &&
+         !@web_address.address.starts_with?('www.')
+        @web_address.address = 'http://' + @web_address.address
+      end
+
       @before_completeness = @web_address.percent_completed
       respond_to do |format|
         format.js do
           if @web_address.save
             @after_completeness = @web_address.percent_completed
             set_info("discuss.messages.new_percentage", :percentage => @after_completeness) if @before_completeness != @after_completeness
-            show_info_messages do |p|
+            render_with_info do |p|
               p.insert_html :bottom, 'web_address_list', :partial => 'users/web_addresses/web_address'
               p << "$('#new_web_address').reset();"
   	          p << "$('#web_address_type_id').focus();"
             end
           else
-            show_error_messages(@web_address)
+            set_error @web_address and render_with_error
           end
         end
       end
@@ -68,7 +75,7 @@ class Users::WebAddressesController < ApplicationController
           if @web_address.update_attributes(params[:web_address])
             replace_content(dom_id(@web_address), :partial => @web_address)
           else
-            show_error_messages(@web_address)
+            set_error @web_address and render_with_error
           end
         end
       end
@@ -94,7 +101,7 @@ class Users::WebAddressesController < ApplicationController
           # sorry, but this was crap. you can't add additional js actions like this...
           # either use a rjs, a js, or a render :update block
           #remove_container "web_profile_#{id}"
-          show_info_messages do |p|
+          render_with_info do |p|
             p.remove dom_id(@web_address)
           end
         end

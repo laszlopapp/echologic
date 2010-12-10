@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <title><%= yield :title %></title>
+
+    <style type="text/css">
+      body {
+        background: #A8C642 url(<%= full_url('/images/page/background.png') %>) repeat-x scroll left top;
+        font-family: "Lucida Sans",Arial,Helvetica,sans-serif;
+        font-size: 14px;
+        color: #21587f;
+      }
+
+      h1 {
+        font-size: 28px;
+        color: #7bb031;
+        margin: 0 0 25px -2px;
+        padding: 0px;
+      }
+
+      a, a:hover, a:visited {
+        color: #21587f;
+        text-decoration: underline;
+      }
+
+      #mail_container {
+        min-width: 400px;
+        max-width: 1000px;
+        margin: 10px auto;
+        padding: 0;
+      }
+
+      #mail_header {
+        margin: 15px 10px 0;
+        height: 90px;
+        padding: 0 10px;
+        position: relative;
+      }
+
+      #mail_logo {
+        float: left;
+        margin: 5px 0 10px 5px;
+        border: none;
+      }
+
+      #beta_label {
+        left: 192px;
+        top: 5px;
+        position: absolute;
+      }
+
+      #links_label {
+        font-size: 20px;
+        font-weight: bold;
+        float: right;
+        position: relative;
+        top: 4px;
+        cursor: default;
+      }
+
+      .web_link {
+        background: url(<%= full_url('/images/mails/mail_links.png') %>) no-repeat scroll left top;
+        width: 32px;
+        height: 32px;
+        float: right;
+        margin-left: 13px;
+        position: relative;
+        top: 13px;
+      }
+
+      #echo_link {
+        background-position: 0 0;
+        width: 38px;
+      }
+
+      #blog_link {
+        background-position: -38px 0;
+      }
+
+      #twitter_link {
+        background-position: -70px 0;
+      }
+
+      #facebook_link {
+        background-position: -102px 0;
+        clear: right;
+      }
+
+      #content_container {
+        margin: 15px 10px;
+        background: #FFF;
+        padding: 15px 20px;
+        border: 1px solid #7bb031;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+      }
+
+      .separator {
+        width: 100%;
+        padding: 20px 0 10px;
+      }
+
+      #unsubscribe {
+        font-style: italic;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="mail_container">
+
+      <div id="mail_header">
+        <% link_to root_url do %>
+          <img id="mail_logo" src="<%= full_url('/images/page/echo_logo.png') %>" alt="echo - the global agora"/>
+        <% end %>
+        <img id="beta_label" src="<%= full_url('/images/page/beta_label.png') %>" alt="- BETA -"/>
+
+        <%= content_tag :div, I18n.t('mailers.header.follow_echo'), :id => 'links_label' %>
+        <% link_to 'http://facebook.com/echo.agora', :target => '_blank' do %>
+          <span id="facebook_link" class="web_link"></span>
+        <% end %>
+        <% link_to 'http://twitter.com/echologic', :target => '_blank' do %>
+          <span id="twitter_link" class="web_link"></span>
+        <% end %>
+        <% link_to 'http://blog.echo.to', :target => '_blank' do %>
+          <span id="blog_link" class="web_link"></span>
+        <% end %>
+        <% link_to 'http://echo.to', :target => '_blank' do %>
+          <span id="echo_link" class="web_link"></span>
+        <% end %>
+      </div>
+
+      <div id="content_container">
+        <h1><%= yield :title %></h1>
+        <%= content_tag :p, I18n.t('mailers.greeting', :name => @name, :locale => @language.code) %>
+        <br/>
+        <%= yield %>
+        <br/>
+        <%= content_tag :p, I18n.t('mailers.bye_as_html', :locale => @language.code) %>
+        <img class="separator" src="<%= full_url('/images/page/separator_no_shadow.png') %>"/>
+        <%= content_tag :p, I18n.t('mailers.signature_as_html', :locale => @language.code) %>
+        <br/>
+        <p id="unsubscribe">
+          <%= yield :unsubscribe %>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

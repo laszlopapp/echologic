@@ -25,7 +25,7 @@ class FeedbackController < ApplicationController
           FeedbackMailer.deliver_feedback(@feedback)
           render :template => 'feedback/create'
         else
-          show_error_messages(@feedback)
+          set_error @feedback and render_with_error
         end
       end
     end

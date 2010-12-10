@@ -204,12 +204,21 @@ class StatementsControllerTest < ActionController::TestCase
 #    end
   end
   
-  test "should get the edit statement form" do
-    get :edit, :id => statement_nodes('test-discussion').to_param, :type => :discussion
+  test "should get the edit discussion form" do
+    get :edit, :id => statement_nodes('test-discussion').to_param, :type => :discussion, :current_document_id => statement_documents('test-discussion-doc-english').to_param
     assert_response :success
-    get :edit, :id => statement_nodes('first-proposal').to_param, :type => :proposal
+  end
+  test "should get the edit proposal form" do
+    get :edit, :id => statement_nodes('first-proposal').to_param, :type => :proposal, :current_document_id => statement_documents('first-proposal-doc-english').to_param
     assert_response :success
-    get :edit, :id => statement_nodes('third-impro-proposal').to_param, :type => :improvement_proposal
+  end
+  test "should get the edit improvement proposal form" do
+    get :edit, :id => statement_nodes('third-impro-proposal').to_param, :type => :improvement_proposal, :current_document_id => statement_documents('third-impro-proposal-doc-english').to_param
+    assert_response :success
+  end
+  test "should not get the edit discussion form" do
+    get :edit, :id => statement_nodes('test-discussion').to_param, :type => :discussion, :current_document_id => 0
+    assert_template 'statements/show'
     assert_response :success
   end
   

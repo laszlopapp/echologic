@@ -1,8 +1,8 @@
 <% if defined? @info %>
-  info('<%=@info%>') 
+  info('<%=@info%>');
 <% end %>
 <% if defined? @error %>
-  info('<%=@error%>') 
+  error('<%=@error%>');
 <% end %>
 
 var element = $('#statements .statement').eq(<%= @statement_node.level %>);

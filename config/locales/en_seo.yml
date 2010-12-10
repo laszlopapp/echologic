@@ -7,10 +7,10 @@ en:
       # static: de.seo.title.static
       static:
         echologic:
-          show: &html_title 'echo - The Global Agora (Engage into Democracy)'
-          about:            'echo - About us'
-          imprint:          'echo - Imprint'
-          data_privacy:     'echo - Data Privacy'
+          show: 'echo - The Global Agora (Engage into Democracy)'
+          about: 'echo - About us'
+          imprint: 'echo - Imprint'
+          data_privacy: 'echo - Data Privacy'
         echo:
           show:    'echo - The Global Agora (Engage into Democracy)'
           discuss: 'echo - Discuss (opinion and will formation - solution-oriented, transparent & democratic)'
@@ -44,6 +44,8 @@ en:
         password_resets:
           new: 'Your echo - Require New Password'
           edit: 'Your echo - Set New Password'
+          create: 'Your echo - Set New Password'
+          update: 'Your echo - Set New Password'
         profile:
           details: 'Your echo - Profile Details'
 
@@ -70,7 +72,7 @@ en:
       connect:
         roadmap:  'echo - Roadmap for Connect'
         show:   'echo - Connect - Explore Community'
-        fill_out_profile: 'echo - Connect - Give and Take'
+        fill_out_profile: 'echo - Connect'
 
       # act: de.seo.title.act
       act:
@@ -86,6 +88,7 @@ en:
       # my_echo: de.seo.title.admin
       admin:
         show: 'echo - Admin Bereich'
+
       # my_echo: de.seo.title.newsletter
       newsletter:
         new: 'echo - Newsletter'
@@ -100,8 +103,8 @@ en:
           echo provides the technological basis for an open, participatory democracy on the local, regional and
           global level.
         keywords: |-
-          echo, agora, global agora, democracy, participatory democracy, self-determination, movement, global movement,
-          collective intelligence, opinion base, opinion formation, will formation,
+          echo, constructive mass dialog, global agora, democracy, participatory democracy,
+          self-determination, global movement, collective intelligence, opinion base, opinion formation,
           collective decision making, mobilization, critical masses, legislative instruments, political influence,
           social collaboration, echocracy, equality, transparency, echologic, echonomy, eco-social, ecosocial democratic economy,
           Your-Profit, glocal, glocality, sustainability, sustainable change

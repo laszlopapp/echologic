@@ -21,11 +21,11 @@ class Users::ActivationsController < ApplicationController
 
     if @user.activate!(params)
       @user.deliver_activation_confirmation!
-      flash[:notice] = I18n.t('users.activation.messages.success')
-      redirect_to welcome_path
+      set_info 'users.activation.messages.success'
+      flash_info and redirect_to_home
     else
-      flash[:error] = I18n.t('users.activation.messages.failed')
-      render :template => 'users/activations/new', :layout => 'static'
+      set_error 'users.activation.messages.failed'
+      flash_error and render :template => 'users/activations/new', :layout => 'static'
     end
   end
 

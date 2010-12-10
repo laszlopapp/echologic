@@ -11,3 +11,19 @@
   </ul>
 <% end %>
 
+
+
+
+elsif object.class.kind_of?(ActiveRecord::Base.class) && object.errors.count > 0
+  value = I18n.t('activerecord.errors.template.body')
+  value += "<ul>"
+  object.errors.each do |attr_name, message|
+    value += "<li>#{message}</li>"
+  end
+  value += "</ul>"
+  if @error.nil?
+    @error = value
+  else
+    @error << value
+  end
+end
