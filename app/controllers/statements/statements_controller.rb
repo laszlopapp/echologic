@@ -617,7 +617,7 @@ class StatementsController < ApplicationController
     breadcrumbs = params[:breadcrumb].split(",")
     statement_nodes = StatementNode.find(breadcrumbs)
     statement_documents = search_statement_documents(statement_nodes.map(&:statement_id), @language_preference_list)
-    @breadcrumbs = statement_nodes.map{|n|[n.class.name.underscore, n.id, statement_node_url(n), statement_documents[n.statement_id].title]}
+    @breadcrumbs = statement_nodes.map{|n|[n.class.name.underscore, n.id, statement_node_url(n), statement_documents[n.statement_id].title].to_json}
   end
 
   #

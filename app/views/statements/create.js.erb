@@ -31,8 +31,8 @@ bid = bid.split(',');
 <% if @statement_node.class.is_top_statement? and @breadcrumb %>
 	var followed = <%= @statement_node.parent_id %>;
 	bid.push(followed);
-	loadBreadcrumb("<%= @breadcrumb[0]%>" , "<%= @breadcrumb[1] %>", "<%= @breadcrumb[2] %>", "<%= @breadcrumb[3] %>");
-	reinitialiseBreadcrumb();
+	$('#breadcrumbs').breadcrumb("add",eval(<%= @breadcrumb.to_json %>));
+	$('#breadcrumbs').breadcrumb('resize');
 <% end %>
 
 /* Statements' stack */	
