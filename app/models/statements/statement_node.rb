@@ -2,7 +2,7 @@ class StatementNode < ActiveRecord::Base
   acts_as_extaggable :topics
   acts_as_echoable
   acts_as_subscribeable
-  acts_as_nested_set :scope => :root_id
+  acts_as_nested_set #:scope => :root_id
 
   after_destroy :destroy_statement
 
@@ -306,9 +306,9 @@ class StatementNode < ActiveRecord::Base
 
 
     def children_types(children_visibility = false)
-      expected_children = @@expected_children[self.name] || @@expected_children[self.superclass.name]
-      return expected_children.map{|c|c[0]} if !children_visibility
-      expected_children
+      children_types = @@children_types[self.name] || @@children_types[self.superclass.name]
+      return children_types.map{|c|c[0]} if !children_visibility
+      children_types
     end
 
     def children_template
@@ -326,9 +326,9 @@ class StatementNode < ActiveRecord::Base
     end
 
     def has_children_of_types(*klasses)
-      @@expected_children ||= { }
-      @@expected_children[self.name] ||= @@default_children_types.nil? ? [] : @@default_children_types
-      @@expected_children[self.name] = klasses + @@expected_children[self.name]
+      @@children_types ||= { }
+      @@children_types[self.name] ||= @@default_children_types.nil? ? [] : @@default_children_types
+      @@children_types[self.name] = klasses + @@children_types[self.name]
     end
   end
   default_children_types [:FollowUpQuestion,false]

@@ -4,7 +4,7 @@
 <div class="sub_list" style="<%= display ? '' : 'display:none'%>">
 	<div class="doubles_list">
 		<% children.each_with_index do |c, index| %>
-		  <% t = @type.constantize.expected_sub_types[index].to_s.underscore %>
+		  <% t = @type.constantize.sub_types[index].to_s.underscore %>
 		  <%= render :partial => 'statements/double/doubles_list', :locals => {:type => t, :children => c}%>
 		<% end %>
 	</div>

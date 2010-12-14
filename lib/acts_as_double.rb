@@ -10,26 +10,27 @@ module ActsAsDouble
       class_eval do
         class << self
 
-          def expected_sub_types
-            @@expected_sub_types[self.name] || @@expected_sub_types[self.superclass.name]
+          def sub_types
+            @@expected_sub_types[self.name] || @@sub_types[self.superclass.name]
           end
 
 
-          def expects_sub_types(klasses)
-            @@expected_sub_types ||= { }
-            @@expected_sub_types[self.name] ||= []
-            @@expected_sub_types[self.name] |= klasses
+          def has_sub_types(klasses)
+            @@sub_types ||= { }
+            @@sub_types[self.name] ||= []
+            @@sub_types[self.name] |= klasses
           end
 
           def statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
             statements = []
-            expected_sub_types.each do |type|
+            sub_types.each do |type|
               statements << type.to_s.constantize.do_statements_for_parent(parent_id,
                                                                            language_ids,
                                                                            filter_drafting_state,
                                                                            for_session)
             end
-            statements.flatten if for_session
+            statements.flatten! if for_session
+            statements
           end
 
           def paginate_statements(children, page, per_page)
@@ -55,7 +56,7 @@ module ActsAsDouble
         def siblings_to_session(language_ids = nil, type = self.class.to_s)
           siblings = []
           sibling_statements(language_ids, type).map{|s|s.map(&:id)}.each_with_index do |s, index|
-            siblings << s + ["/#{self.parent_id.nil? ? '' : "#{self.parent.id_as_parent}/"}add/#{self.class.expected_sub_types[index].to_s.underscore}"]
+            siblings << s + ["/#{self.parent_id.nil? ? '' : "#{self.parent.id_as_parent}/"}add/#{self.class.sub_types[index].to_s.underscore}"]
           end
           #order them properly, as you want them to be navigated
           ordered_siblings = self.class.merge_statement_lists(siblings)
@@ -63,7 +64,7 @@ module ActsAsDouble
         end
       end # --- class_eval
 
-      expects_sub_types args
+      has_sub_types args
     end
   end
 end
