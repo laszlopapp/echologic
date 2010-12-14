@@ -114,7 +114,7 @@
 	/*
 	 * handles the click on the more Button event (replaces it with an element of class 'more_loading')
 	 */
-  function initChildrenPaginationButton(statement) {
+  function initMoreButton(statement) {
 		statement.find(".more_pagination a").live("click", function() {
 		  $(this).replaceWith($('<span/>').text($(this).text()).addClass('more_loading'));
 		});
@@ -298,19 +298,19 @@
 	/*
 	 * Initializes echo button click handling on new statement forms
 	 */
-	function initEchoNewStatementButtons(form) {
+	function initEchoButton(form) {
 	  form.find('div#echo_button .new_record.not_supported').live('click', function(){
-			supportEchoNewStatementButton($(this));
+			supportEchoButton($(this));
 	  });
 	  form.find('div#echo_button .new_record.supported').live('click', function(){
-			unsupportEchoNewStatementButton($(this));
+			unsupportEchoButton($(this));
 	  });
 	}
 	
 	/*
 	 * triggers all the visual events associated with a support from an echo statement 
 	 */
-	function supportEchoNewStatementButton(button) {
+	function supportEchoButton(button) {
 		form = button.parents('form.statement');
 		updateEchoButton(form, button, 'supported', 'not_supported');
 		form.find('#echo').val(true);
@@ -321,7 +321,7 @@
 	/*
    * triggers all the visual events associated with an unsupport from an echo statement 
    */
-	function unsupportEchoNewStatementButton(button) {
+	function unsupportEchoButton(button) {
     var form = button.parents('form.statement');
     updateEchoButton(form, button, 'not_supported', 'supported');
 		form.find('#echo').val(false);
@@ -353,7 +353,7 @@
 	/*
 	 * load this current statement's already existing tags into the tags input box 
 	 */ 
-	function addTagButtons(form) {
+	function loadTags(form) {
 	  tags_to_load = form.find('input.discussion_tags').val();
     tags_to_load = $.trim(tags_to_load);
     tags_to_load = tags_to_load.split(',');
@@ -368,7 +368,7 @@
 	/*
 	 * adds event handling to all the possible interactions with the tags box 
 	 */ 
-	function addTagButtonEvents(form) {
+	function loadTagEvents(form) {
 		/* Pressing 'enter' button */
 	  form.find('#tag_topic_id').live('keypress', (function(event) {
 	    form = $(this).parents('form.statement'); 
@@ -485,45 +485,43 @@
      init : function( options ) {
 		 	this.each(function(){
 				
+				var element = $(this);
+				
 				/* Navigation through Siblings */
-		  	loadSession($(this));
-				initNavigationButton($(this).find(".header a.prev"), -1);
-			  initNavigationButton($(this).find(".header a.next"),  1);
+		  	loadSession(element);
+				initNavigationButton(element.find(".header a.prev"), -1); /* Prev */
+			  initNavigationButton(element.find(".header a.next"),  1); /* Next */
 				
 				/* Statement Form Helpers */
-				if($(this).is('form')) {
-				  loadRTEEditor($(this));
+				if(element.is('form')) {
+				  loadRTEEditor(element);
 					
 					/*New Statement Form Helpers */
-					if ($(this).hasClass('new')) {
-						hideNewStatementType($(this));
-						loadDefaultText($(this));
-						handleStatementFormsSubmit($(this));
-						initFormCancelButton($(this));
-						if ($(this).hasClass('echoable')) {
-							initEchoNewStatementButtons($(this));
+					if (element.hasClass('new')) {
+						hideNewStatementType(element);
+						loadDefaultText(element);
+						handleStatementFormsSubmit(element);
+						initFormCancelButton(element);
+						if (element.hasClass('echoable')) {
+							initEchoButton(element);
 						}
 					}
 					
 					/* Taggable Form Helpers */
-          if ($(this).hasClass('taggable')) {
-				  	addTagButtons($(this));
-				  	addTagButtonEvents($(this));
-						loadStatementAutoComplete($(this));
+          if (element.hasClass('taggable')) {
+				  	loadTags(element);
+				  	loadTagEvents(element);
+						loadStatementAutoComplete(element);
 				  }
 				}
 				else {
 					/* Pagination */
-          initChildrenPaginationButton($(this));
-					initStatementHistoryEvents($(this));
+          initMoreButton(element);
+					initStatementHistoryEvents(element);
+					/* Message Alerts */
+          loadMessageBoxes(element);
 				}
-				
-				/* Teasers */
-				loadMessageBoxes($(this));
-				
 		  });
-      
-       
      },
 		 insertContent: function(content){
 		 	this.append(content);
