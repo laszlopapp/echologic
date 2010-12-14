@@ -1,11 +1,3 @@
-var elements = $("<%= escape_javascript(render :partial => 'statements/authors') %>");
-var content = $('#statements div.<%= dom_class(@statement_node) %> .summary .statement_content');
-
-elements.insertBefore(content).animate(toggleParams, 500);
-
-$('#statements div.<%= dom_class(@statement_node) %> #authors #authors_list').jcarousel({
-  scroll: 3, 
-	buttonNextHTML: "<div class='next_button'></div>",
-	buttonPrevHTML: "<div class='prev_button'></div>",
-	size: <%= @authors.length %>
-});
+var element = $('#statements div.<%= dom_class(@statement_node) %>');
+var authors = $("<%= escape_javascript(render :partial => 'statements/authors') %>");
+element.statement('loadAuthors', authors, <%= @authors.length %>);

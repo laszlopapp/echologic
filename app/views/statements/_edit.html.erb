@@ -1,7 +1,9 @@
 <% statement_node ||= @statement_node %>
 <% statement_document ||= @statement_document %>
 
-<% semantic_form_for statement_node, :html => {:class => "ajax_form edit wide_form statement #{statement_node.taggable? ? 'taggable' : ''}", 
+<% semantic_form_for statement_node, :html => {:class => "ajax_form edit wide_form statement 
+                                                          #{statement_node.taggable? ? 'taggable' : ''} 
+                                                          #{statement_node.echoable? ? 'echoable' : ''}", 
                             'data-siblings' => @siblings ? @siblings[dom_id(statement_node)].to_json : ''} do |form| -%>
 	<%= render :partial => 'statements/form/form_header', :locals => {:form => form, :statement_node => statement_node} %>
   <%= render :partial => 'statements/form/form_content', 

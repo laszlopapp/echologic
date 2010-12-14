@@ -106,7 +106,7 @@ module StatementsHelper
     val << edit_statement_node_link(statement_node, statement_document)
     val << publish_statement_node_link(statement_node, statement_document) if statement_node.publishable?
     val << authors_statement_node_link(statement_node)
-    content_tag :span, val
+    content_tag :span, val, :class => 'action_buttons'
   end
 
   # Returns the block heading for entering a new child for the given statement node

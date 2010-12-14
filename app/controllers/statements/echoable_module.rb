@@ -15,7 +15,7 @@ module EchoableModule
       return if !@statement_node.echoable?
       if !@statement_node.parent.echoable? or @statement_node.parent.supported?(current_user)
         @statement_node.supported!(current_user)
-        set_statement_info(nil, 'discuss.statements.statement_supported')
+        set_statement_info('discuss.statements.statement_supported')
         respond_to_js :redirect_to => statement_node_url(@statement_node), :template_js => 'statements/echo'
       else
         set_info('discuss.statements.unsupported_parent')
@@ -44,7 +44,7 @@ module EchoableModule
 
       # Logic to update the children caused by cascading unsupport
       @page = params[:page] || 1
-      set_statement_info(nil, 'discuss.statements.statement_unsupported')
+      set_statement_info('discuss.statements.statement_unsupported')
       respond_to_js :redirect_to => statement_node_url(@statement_node),
                     :template_js => 'statements/unecho'
     rescue Exception => e
