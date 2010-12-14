@@ -1,9 +1,9 @@
 <% children ||= @children %>
 <% display ||= false %>
-<div class="sub_list" style="<%= display ? 'display:block' : 'display:none'%>">
-	
+<div class="expandable_content" style="<%= display ? 'display:block' : 'display:none'%>">
+
 	<%= render :partial => 'statements/elements_list' , :locals => { :children => children, :type => type }%>
-	
+
 	<div id="more_pagination" class="more_pagination">
 		<% if !children.blank? and children.current_page != children.total_pages %>
 		  <%= more_children(@statement_node,type) %>

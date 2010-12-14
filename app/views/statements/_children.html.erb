@@ -1,13 +1,15 @@
 <% path = children.kind_of?(String) ? children : '' %>
 <div id="<%= type.pluralize %>" class="children header_block discuss_right_block">
   <!-- Title -->
-  <%= content_tag :h2, children_box_title(type), :class => 'headline ajax_expandable', 'data-content' => '.sub_list', :href => path %>
+  <%= content_tag :h2, children_box_title(type),
+                  :class => 'headline ajax_expandable', 'data-content' => '.expandable_content',
+                  :href => path %>
 
   <!-- The children -->
 	<% if children and children.kind_of?(Array) %>
   <%= render :partial => 'statements/children_list',
              :locals => {:type => type, :children => children, :display => true}%>
   <% else %>
-	
+
 	<% end %>
 </div>

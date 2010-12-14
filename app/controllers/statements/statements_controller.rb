@@ -388,6 +388,13 @@ class StatementsController < ApplicationController
   #
   def add
     @type = params[:type].to_s
+    if !params[:new_level].blank?
+      if @statement_node # this is the teaser's parent (e.g.: 1212345/add/proposal)
+        load_children_for_parent @statement_node, @type
+      else # this is the discussion's teaser (e.g.: /add/discussion
+        load_roots_to_session
+      end
+    end
     begin
       render_template('statements/add', true)
     rescue Exception => e
@@ -615,16 +622,16 @@ class StatementsController < ApplicationController
 
   #
   # Loads the ancestors of the current statement node, in order to display the correct context. Only used for HTTP.
+  # When teaser=true, @statement_node is the PARENT node of the teaser.
   #
   def load_ancestors(teaser = false)
     if @statement_node
       @ancestors = @statement_node.ancestors
       @ancestors.each {|a| load_siblings(a) }
 
-      # Current statement node siblings must be loaded also on http request
-      load_siblings(@statement_node)
+      load_siblings(@statement_node) # if teaser: @statement_node is the teaser's parent, otherwise the node on the bottom-most level
       if teaser
-        @ancestors << @statement_node
+        @ancestors << @statement_node # if teaser: @statement_node is the teaser's parent, therefore, an ancestor
         load_children_for_parent(@statement_node, @type)
       end
     else
@@ -847,7 +854,7 @@ class StatementsController < ApplicationController
         render :template => template
       }
       format.js {
-        load_ancestors(teaser) if !params[:sid].blank? or teaser or @statement_node.class.is_top_statement?
+        load_ancestors(teaser) if !params[:sid].blank? or @statement_node.class.is_top_statement?
         set_breadcrumbs if !params[:breadcrumb].blank?
         render :template => template
       }
