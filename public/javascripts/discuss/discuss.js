@@ -1,22 +1,19 @@
 /* Do init stuff. */
+
+/* Initialization on loading the document */
 $(document).ready(function () {
-
 	initFragmentStatementChange();
-
 	initBreadcrumbs();
-
 	initFollowUpQuestionHistoryEvents();
-
 	initStatements();
-
+  initExpandables();
 });
 
 
-function initStatements(){
+function initStatements() {
 	$('#statements .statement').livequery(function(){
 		$(this).statement();
 	});
-	initExpandables();
 }
 
 function initBreadcrumbs() {
@@ -29,9 +26,8 @@ function initBreadcrumbs() {
 }
 
 function initFollowUpQuestionHistoryEvents() {
-	/****************************/
+
   /* FOLLOW-UP QUESTION CHILD */
-  /****************************/
   $("#statements .statement #follow_up_questions.children a.statement_link").live("click", function(){
     var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
     var breadcrumbs = getBreadcrumbStack($(this));
@@ -46,7 +42,7 @@ function initFollowUpQuestionHistoryEvents() {
   });
 }
 
-function initExpandables(){
+function initExpandables() {
 	$(".ajax_expandable").livequery(function(){
 		var content = $(this).attr('data-content');
 		var path = $(this).attr('href');
@@ -83,29 +79,9 @@ function initExpandables(){
 }
 
 
-/* select approved text in the form */
-/*function selectApprovedText(id) {
-  if (document.selection) document.selection.empty();
-  else if (window.getSelection)
-          window.getSelection().removeAllRanges();
-  if (document.selection) {
-    var range = document.body.createTextRange();
-        range.moveToElementText(document.getElementById("ip_text"));
-    range.select();
-    }
-    else if (window.getSelection) {
-    var range = document.createRange();
-    range.selectNode(document.getElementById("ip_text"));
-    window.getSelection().addRange(range);
-  }
-}*/
-
-
 /********************************/
 /* STATEMENT NAVIGATION HISTORY */
 /********************************/
-
-
 
 function getBreadcrumbStack(element){
 	var breadcrumbs = $("#breadcrumbs a.statement").map(function(){
@@ -116,11 +92,6 @@ function getBreadcrumbStack(element){
 	breadcrumbs.push(statement_id);
   return breadcrumbs;
 }
-
-
-
-
-
 
 
 function getBreadcrumbsToLoad(bid) {

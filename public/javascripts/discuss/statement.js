@@ -1,11 +1,11 @@
 (function( $ ){
 
   var settings = {
-      'animation_speed': 500, 
+      'animation_speed': 500
     };
-	
+
 	var timer = null;
-	
+
 	/*
 	 * Sets the Timer for the Message Boxes to show up (p.ex., the translation message box)
 	 */
@@ -19,11 +19,11 @@
       messageBox.animate(toggleParams, settings['animation_speed']);
     }, 1500);
 	}
-	
-	
-	
-	/* 
-	 * collapses all visible statements 
+
+
+
+	/*
+	 * collapses all visible statements
 	 */
 	function hideStatements() {
 		$('#statements .statement .header').removeClass('active').addClass('ajax_expandable');
@@ -31,12 +31,12 @@
 		$('#statements .statement .header .supporters_label').hide();
 	};
 
-  /* 
+  /*
    * Gets the siblings of the statement and places them in the client session for navigation purposes
    */
   function loadSession(statement) {
 	  parent = statement.prev();
-	  if (parent.length > 0)      
+	  if (parent.length > 0)
 	  {
 	    /* stores siblings with the parent node id */
 	    var parent = parent.attr('id');
@@ -51,21 +51,21 @@
 	  statement.removeAttr("data-siblings");
 	}
 
-  /* 
-	 * Generates the right link for the prev/next button according to the statements stored in session 
+  /*
+	 * Generates the right link for the prev/next button according to the statements stored in session
 	 * navigation is circular
-	 * element: button ; inc: position of the statement to be added relative to the current statement  
+	 * element: button ; inc: position of the statement to be added relative to the current statement
 	 */
   function initNavigationButton(element, inc) {
-  
+
 	  if (!element || element.length == 0) {return;}
 	  current_node_id = element.attr('data-id');
 	  node = element.parents('.statement');
-	  
+
 	  if (current_node_id.match('add')) {
 	    aux = current_node_id.split('_');
 	    current_node_id = [];
-	    /* get parent id */  if(aux[0].match(/\d+/)) {current_node_id.push(aux.shift());} 
+	    /* get parent id */  if(aux[0].match(/\d+/)) {current_node_id.push(aux.shift());}
 	    /* get 'add' */  current_node_id.push(aux.shift());
 	    current_node_id.push(aux.join('_')); current_node_id = "/"+current_node_id.join('/');
 	  } else {current_node_id = eval(current_node_id);}
@@ -93,7 +93,7 @@
 	  id_index = (siblings_ids.indexOf(current_node_id) + inc) % siblings_ids.length;
 	  //BUG: % operator is not working properly in jquery for negative values (-1%7 => -1)?????????
 	  if (id_index < 0) {id_index = siblings_ids.length - 1;}
-	  
+
 	  new_node_id = new String(siblings_ids[id_index]);
 	  /* if 'add' action, then write add link */
 	  if (new_node_id.match('add')) {
@@ -102,7 +102,7 @@
 	  else {
 			element.attr('href', element.attr('href').replace(/\/\d+.*/, "/" + new_node_id));
 	  }
-	  
+
 	  $(element).removeAttr('data-id');
 	}
 
@@ -110,7 +110,7 @@
   /*
    * PAGINATION AND HISTORY HANDLING
    */
-	
+
 	/*
 	 * handles the click on the more Button event (replaces it with an element of class 'more_loading')
 	 */
@@ -119,7 +119,7 @@
 		  $(this).replaceWith($('<span/>').text($(this).text()).addClass('more_loading'));
 		});
   }
-	
+
 	/*
 	 * Sets the different links on the statement view handling, after the user clicked on them (fragment history handling)
 	 */
@@ -136,7 +136,7 @@
 	    });
 	    return false;
 	  });
-	  
+
 	  /**************/
 	  /* child link */
 	  /**************/
@@ -150,23 +150,23 @@
 	    return false;
 	  });
 	}
-	
-	
+
+
 	/*
 	 * returns an array of the statement ids that should be loaded to the stack after 'element' was clicked
 	 * (and a new statement is loaded)
 	 * element: HTML element that was clicked ; new_level: true or false (child statement link)
-	 */ 
+	 */
 	function getStatementsStack(element, new_level) {
 	  /* get the statement element */
 	  var statement = $(element).parents('.statement');
 	  /* get statement id current index in the list of statements */
 	  var statement_index = $('#statements .statement').index(statement);
-	  
+
 	  /* get soon to be visible statement */
 	  var path = element.href.split("/");
 	  var id = path.pop().split('?').shift();
-	  
+
 	  if (id.match(/\d+/)) {
 	    var current_sid = id;
 	  } else {
@@ -178,7 +178,7 @@
 	    current_sid = current_sid.join('/');
 	  }
 	  current_stack = [];
-	  
+
 	  /* get current_stack of visible statements (if any matches the clicked statement, then break) */
 	  $("#statements .statement").each( function(index){
 	    if (index < statement_index) {
@@ -197,7 +197,7 @@
 	  current_stack.push(current_sid);
 	  return current_stack;
 	}
-	
+
   /*
    * FORM HELPERS
    */
@@ -211,9 +211,9 @@
       var sid = $.fragment().sid;
 			var new_sid = sid.split(",");
 			var path = "/" + new_sid[new_sid.length-1];
-      
+
       new_sid.pop();
-      
+
       cancelButton.addClass("ajax");
 			cancelButton.attr('href', $.queryString(cancelButton.attr('href').replace(/\/\d+/, path), {
         "sid": new_sid.join(",")
@@ -221,13 +221,13 @@
     }
   }
 
-  /* 
-   * loads the statement text RTE editor 
+  /*
+   * loads the statement text RTE editor
    */
   function loadRTEEditor(form) {
     var textArea = form.find('textarea.rte_doc, textarea.rte_tr_doc');
     defaultText = textArea.attr('data-default');
-    
+
     parent_node = textArea.parents('.statement');
     url = 'http://' + window.location.hostname + '/stylesheets/';
     textArea.rte({
@@ -238,7 +238,7 @@
       controls_html: html_toolbar
     });
     parent_node.find('.focus').focus();
-    
+
     /* for default text */
     parent_node.find('iframe').attr('data-default', defaultText);
   }
@@ -248,8 +248,8 @@
    */
 	function loadDefaultText(form) {
 	  if (!form.hasClass('new')) {return;}
-		
-		
+
+
 		/* Text Inputs */
 	  var inputText = form.find("input[type='text']");
 		var value = inputText.attr('data-default');
@@ -261,8 +261,8 @@
     }
     inputText.removeAttr('data-default');
     inputText.blur();
-		
-		
+
+
 	  /* Text Area (RTE Editor) */
 	  var editor = form.find("iframe.rte_doc");
 	    var value = editor.attr('data-default');
@@ -271,7 +271,7 @@
     if(text.html().length == 0 || html.val() == '</br>') {
       label = $("<span class='defaultText'></span>").html(value);
       label.insertAfter(editor);
-      
+
       $(doc).bind('click', function(){
         label.hide();
       });
@@ -283,8 +283,8 @@
       });
     }
 	  editor.removeAttr('data-default');
-	  
-		
+
+
 		/* Clean text inputs on submit */
 	  form.bind('submit', (function() {
       $(this).find(".toggleval").each(function() {
@@ -294,7 +294,7 @@
       });
     }));
 	}
-	
+
 	/*
 	 * Initializes echo button click handling on new statement forms
 	 */
@@ -306,9 +306,9 @@
 			unsupportEchoButton($(this));
 	  });
 	}
-	
+
 	/*
-	 * triggers all the visual events associated with a support from an echo statement 
+	 * triggers all the visual events associated with a support from an echo statement
 	 */
 	function supportEchoButton(button) {
 		form = button.parents('form.statement');
@@ -317,9 +317,9 @@
 		updateSupportersNumber(form,'1');
 		updateSupportersBar(form, 'echo_indicator', 'no_echo_indicator', '10');
 	}
-	
+
 	/*
-   * triggers all the visual events associated with an unsupport from an echo statement 
+   * triggers all the visual events associated with an unsupport from an echo statement
    */
 	function unsupportEchoButton(button) {
     var form = button.parents('form.statement');
@@ -328,7 +328,7 @@
     updateSupportersNumber(form,'0');
 		updateSupportersBar(form, 'no_echo_indicator', 'echo_indicator', '0');
   }
-	
+
 	function updateEchoButton(form, button, classToAdd, classToRemove) {
 		button.removeClass(classToRemove).addClass(classToAdd);
     info(form.find('.action_bar').data('messages')[classToAdd]);
@@ -344,15 +344,15 @@
 		new_supporter_bar.attr('title', form.find('.supporters_label').text());
     old_supporter_bar.replaceWith(new_supporter_bar);
 	}
-	
+
   /***************/
 	/* Tag Helpers */
 	/***************/
-	
-	
+
+
 	/*
-	 * load this current statement's already existing tags into the tags input box 
-	 */ 
+	 * load this current statement's already existing tags into the tags input box
+	 */
 	function loadTags(form) {
 	  tags_to_load = form.find('input.discussion_tags').val();
     tags_to_load = $.trim(tags_to_load);
@@ -366,12 +366,12 @@
     }
 	}
 	/*
-	 * adds event handling to all the possible interactions with the tags box 
-	 */ 
+	 * adds event handling to all the possible interactions with the tags box
+	 */
 	function loadTagEvents(form) {
 		/* Pressing 'enter' button */
 	  form.find('#tag_topic_id').live('keypress', (function(event) {
-	    form = $(this).parents('form.statement'); 
+	    form = $(this).parents('form.statement');
 	    if (event && event.keyCode == 13) { /* check if enter was pressed */
 	      if (form.find('#tag_topic_id').val().length != 0) {
 	        form.find('.addTag').click();
@@ -379,7 +379,7 @@
 	      return false;
 	    }
 	  }));
-	
+
 	  /* Clicking 'add tag' button */
 	  form.find('.addTag').live('click', (function() {
 	    form = $(this).parents('form.statement');
@@ -392,7 +392,7 @@
 	      existing_tags = form.find('.discussion_tags').val();
 	      existing_tags = existing_tags.split(',');
 	      existing_tags = $.map(existing_tags,function(q){return q.trim()});
-	
+
 	      new_tags = new Array(0);
 	      while (entered_tags.length > 0) {
 	        tag = entered_tags.shift().trim();
@@ -414,11 +414,11 @@
 	    }
 	  }));
 	}
-	
+
 	/*
 	 * Aux: Creates the statement tag HTML Element
 	 * text: tag text ; tags_class: css class of the tags hidden input container
-	 */ 
+	 */
 	function createTagButton(form, text, tags_class) {
 		element = $('<span/>').addClass('tag');
 	  element.text(text);
@@ -438,14 +438,14 @@
 	  element.append(deleteButton);
 	  return element;
 	}
-  
+
 	/*
 	 * Initializes auto_complete property for the tags text input
 	 */
   function loadStatementAutoComplete(form) {
     form.find('.tag_value_autocomplete').autocomplete('../../discuss/auto_complete_for_tag_value', {minChars: 3, selectFirst: false});
   }
-	
+
 	function handleStatementFormsSubmit(form) {
 	  form.bind('submit', (function(){
       showNewStatementType(form);
@@ -461,7 +461,7 @@
       return false;
 	  }));
 	}
-	
+
   /*
    * Hides the statement type on new statement forms
    */
@@ -470,7 +470,7 @@
 	  input_type.data('value',input_type.attr('value'));
 	  input_type.removeAttr('value');
 	}
-	
+
 	/*
    * Shows the statement type on new statement forms
    */
@@ -479,23 +479,23 @@
 	  input_type.attr('value', input_type.data('value'));
 	}
 
-  
+
 
   var methods = {
      init : function( options ) {
 		 	this.each(function(){
-				
+
 				var element = $(this);
-				
+
 				/* Navigation through Siblings */
 		  	loadSession(element);
 				initNavigationButton(element.find(".header a.prev"), -1); /* Prev */
 			  initNavigationButton(element.find(".header a.next"),  1); /* Next */
-				
+
 				/* Statement Form Helpers */
 				if(element.is('form')) {
 				  loadRTEEditor(element);
-					
+
 					/*New Statement Form Helpers */
 					if (element.hasClass('new')) {
 						hideNewStatementType(element);
@@ -506,7 +506,7 @@
 							initEchoButton(element);
 						}
 					}
-					
+
 					/* Taggable Form Helpers */
           if (element.hasClass('taggable')) {
 				  	loadTags(element);
@@ -526,7 +526,7 @@
 		 insertContent: function(content){
 		 	this.append(content);
 		 },
-		 
+
 		 removeBelow: function(){
 		 	this.nextAll().each(function(){
 			/* delete the session data relative to this statement first */
@@ -578,14 +578,14 @@
   };
 
   $.fn.statement = function( method ) {
-    
+
     if ( methods[method] ) {
       methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
     } else if ( typeof method === 'object' || ! method ) {
       methods.init.apply( this, arguments );
     } else {
       $.error( 'Method ' +  method + ' does not exist on jQuery.statement' );
-    }    
+    }
     return this;
   };
 

@@ -1,8 +1,8 @@
 <% if defined? @info %>
-  info('<%=@info%>') 
+  info('<%=@info%>');
 <% end %>
 <% if defined? @error %>
-  info('<%=@error%>') 
+  info('<%=@error%>');
 <% end %>
 
 /* history handling */
@@ -20,13 +20,13 @@
     }
   <% end %>
 <% end %>
+
 /* breadcrumb */
 <% if @breadcrumbs %>
   <% @breadcrumbs.each do |b| %>
 	 $('#breadcrumbs').breadcrumb("add",eval(<%= b.to_json %>));
   <% end %>
 <% end %>
-
 $('#breadcrumbs').breadcrumb('update').breadcrumb('resize');
 
 

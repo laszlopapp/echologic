@@ -1,10 +1,10 @@
 (function( $ ){
 
   var settings = {
-      'animation_speed': 500, 
+      'animation_speed': 500
     };
-	
-	
+
+
 	function initBreadcrumbHistoryEvents(breadcrumb) {
 	  /*loads statement stack of ids into the button itself */
 	  var path_id = breadcrumb.attr('href').match(/\/\d+/);
@@ -13,18 +13,18 @@
 	    var sid = data;
 	    breadcrumb.data('sid', sid);
 	  });
-	  
+
 	  breadcrumb.bind("click", function(){
 			/* get bids from fragment */
 	    var bid = $.fragment().bid;
-	    bid = (bid == null) ? [] : bid.split(','); 
-	    
+	    bid = (bid == null) ? [] : bid.split(',');
+
 	    /* get links that must vanish from the breadcrumbs */
 	    var links_to_delete = $(this).nextAll(".statement").map(function(){
 	      return this.id;
 	    }).get();
 	    links_to_delete.push($(this).attr('id'));
-	    
+
 	    /* set new bids to save in fragment */
 	    id_links_to_delete = $.map(links_to_delete, function(a){
 	      return a.replace(/[^0-9]+/, '');
@@ -40,7 +40,7 @@
 	    return false;
 	  });
 	}
-	
+
   var methods = {
      init : function( options ) {
 		 	this.each(function(){
@@ -51,28 +51,28 @@
 		  var elements = this.find('.elements');
 		  var breadcrumb = $('<a></a>').attr('id', attrs[0] + '_' + attrs[1]).addClass('statement statement_link ' + attrs[0] + '_link')
 			                             .attr('href',attrs[2]).text(attrs[3]);
-																 
+
 		  if (this.length != 0) {
 		    var del = $("<span class='delimitator'>></span>");
 		    elements.append(del);
 		  }
 		  elements.append(breadcrumb);
 		 },
-		 
+
 		 resize: function () {
 		 	var elements = this.find('.elements');
 	    var api = this.data('jsp');
-	    
+
 	    var width = 0;
 	    elements.children().each(function(){
 	      width += $(this).width() + parseInt($(this).css('padding-right')) + parseInt($(this).css('padding-left'));
 	    });
-	    
+
 	    elements.width(width);
 	    api.reinitialise();
 	    api.scrollByX(width);
 		 },
-		 
+
 		 update: function () {
 		 	var breadcrumbs = this;
 		 	var links_to_delete = breadcrumbs.data('to_delete');
@@ -88,14 +88,14 @@
   };
 
   $.fn.breadcrumb = function( method ) {
-    
+
     if ( methods[method] ) {
       methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
     } else if ( typeof method === 'object' || ! method ) {
       methods.init.apply( this, arguments );
     } else {
       $.error( 'Method ' +  method + ' does not exist on jQuery.breadcrumb' );
-    }    
+    }
     return this;
   };
 
