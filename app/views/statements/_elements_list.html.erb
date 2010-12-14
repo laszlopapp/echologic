@@ -1,4 +1,4 @@
-<ul id="children_list" class="children_pagination">
+<ul class="children_list children_pagination">
   <%= render :partial => 'statements/child', :collection => children %>
 
   <%if children.blank? or children.current_page == children.total_pages %>

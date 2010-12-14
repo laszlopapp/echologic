@@ -467,7 +467,7 @@ class StatementsController < ApplicationController
         immediate_render = children_types[1][index]
         if immediate_render
           @children[type] = @statement_node.get_paginated_child_statements(@language_preference_list, type.to_s)
-          @children_documents.merge!(search_statement_documents(@children[type].map(&:statement_id),
+          @children_documents.merge!(search_statement_documents(@children[type].flatten.map(&:statement_id),
                                                                 @language_preference_list))
         else
           @children[type] = nil

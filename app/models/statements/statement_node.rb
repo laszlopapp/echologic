@@ -311,6 +311,10 @@ class StatementNode < ActiveRecord::Base
       children_types
     end
 
+    def children_list_template
+      "statements/children_list"
+    end
+
     def children_template
       "statements/children"
     end

@@ -42,6 +42,13 @@ module ActsAsDouble
           #
           # Overrides default behaviour. Returns a template to render both sub_types.
           #
+          def children_list_template
+            "statements/double/children_list"
+          end
+
+          #
+          # Overrides default behaviour. Returns a template to render both sub_types.
+          #
           def children_template
             "statements/double/children"
           end
