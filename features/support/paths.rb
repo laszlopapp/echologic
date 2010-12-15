@@ -39,7 +39,7 @@ module NavigationHelpers
     when /discuss index/i
       discuss_search_url
     when /my issues/i
-      my_questions_url
+      my_issues_url
     when /discuss featured/i
       discuss_featured_path
     when /discuss search/i

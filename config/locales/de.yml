@@ -306,7 +306,7 @@ de:
   # ---------------
 
   discuss:
-    my_questions:
+    my_issues:
       link: Meine Fragestellungen
       title: Meine neuen & freigegebenen Fragestellungen
       no_questions: |
@@ -482,7 +482,7 @@ de:
         discuss_search: Search
         discuss_search_with_value: |-
           Search Results for '{{value}}'
-        my_questions: My Discussions
+        my_issues: My Discussions
 
       upload_image:
         title: Bild hochladen

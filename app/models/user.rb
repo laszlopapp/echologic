@@ -201,7 +201,7 @@ class User < ActiveRecord::Base
   # AUTHOR FUNCTIONS #
   ####################
 
-  def get_my_questions
+  def get_my_issues
     Question.by_creator(self).by_creation
   end
 

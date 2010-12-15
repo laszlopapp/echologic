@@ -299,7 +299,7 @@ pt:
   # ---------------
 
   discuss:
-    my_questions:
+    my_issues:
       link: Minhas Discussões
       title: As minhas discussões novas e publicadas
       no_questions: |
@@ -475,7 +475,7 @@ pt:
         discuss_search: Search
         discuss_search_with_value: |-
           Search Results for '{{value}}'
-        my_questions: My Discussions
+        my_issues: My Discussions
 
       upload_image:
         title: Carregar Imagem

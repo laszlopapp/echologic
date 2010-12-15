@@ -311,7 +311,7 @@ en:
   # ---------------
 
   discuss:
-    my_questions:
+    my_issues:
       link: My Issues
       title: My new & published issues
       no_questions: |
@@ -478,7 +478,7 @@ en:
         discuss_search: Search
         discuss_search_with_value: |-
           Search Results for '{{value}}'
-        my_questions: My Discussions
+        my_issues: My Issues
 
 
       upload_image:

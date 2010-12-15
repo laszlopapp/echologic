@@ -55,12 +55,12 @@ de:
         category: 'echo - Diskussionsthemen'
         show: 'echo - Debatten'
         new: 'Neue Diskussion eröffnen'
-        my_questions: 'Meine Diskussionen'
+        my_issues: 'Meine Diskussionen'
 #      questions:
 #        category: 'echo - Diskussionsthemen'
 #        show: 'echo - Debatten'
 #        new: 'Neue Diskussion eröffnen'
-#        my_questions: 'Meine Diskussionen'
+#        my_issues: 'Meine Diskussionen'
 #      proposals:
 #        show: 'echo - Stellungnahmen in der Debate'
 #      improvements:

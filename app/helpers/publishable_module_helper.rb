@@ -82,16 +82,16 @@ module PublishableModuleHelper
   #
   # linked title of question on my question area 
   #
-  def my_question_title(title,question)
-    link_to(h(title),statement_node_url(question, :origin => :my_questions), :class => "statement_link ttLink no_border",
+  def my_issue_title(title,question)
+    link_to(h(title),statement_node_url(question, :origin => :my_issues), :class => "statement_link ttLink no_border",
             :title => I18n.t("discuss.tooltips.read_#{question.class.name.underscore}")) 
   end
   
   #
   # linked image of question on my question area 
   #
-  def my_question_image(question)
-    link_to statement_node_url(question, :origin => :my_questions), :class => "avatar_holder" do
+  def my_issue_image(question)
+    link_to statement_node_url(question, :origin => :my_issues), :class => "avatar_holder" do
       image_tag question.image.url(:small)
     end 
   end

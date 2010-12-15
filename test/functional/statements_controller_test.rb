@@ -21,7 +21,7 @@ class StatementsControllerTest < ActionController::TestCase
   end
 
   test "should get my questions" do
-    get :my_questions
+    get :my_issues
     assert_response :success
   end
 

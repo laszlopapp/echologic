@@ -20,8 +20,8 @@ render_tabnav :discuss,
   end
 
   add_tab do |t|
-    t.named I18n.t('discuss.my_questions.link')
-    t.links_to hash_for_my_questions_path
+    t.named I18n.t('discuss.my_issues.link')
+    t.links_to hash_for_my_issues_path
   end
 
   add_tab :html => {:id => 'roadmap_tab'} do |t|

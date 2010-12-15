@@ -1,0 +1,18 @@
+<% statement_document ||= @statement_documents[my_issue.statement_id] %>
+
+<% if statement_document %>
+	<li id="<%= dom_id(my_issue) %>" class="<%=my_issue.class.name.downcase%>">
+		<% my_issue_image(my_issue) %>
+		
+    <!-- Statement title -->
+		<%= my_issue_title(statement_document.title, my_issue) %>
+
+    <!-- Tags -->
+		<div class="tags_list"><%= my_issue.topic_tags %></div>
+
+    <!-- Publish button -->
+		<div class="buttons">
+		  <%= publish_button_or_state(my_issue) %>
+		</div>
+	</li>
+<% end %>

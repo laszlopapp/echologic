@@ -318,7 +318,7 @@ es:
   # ---------------
 
   discuss:
-    my_questions:
+    my_issues:
       link: Mis Debates
       title: Mis debates nuevos y ya publicados
       no_questions: |
@@ -496,7 +496,7 @@ es:
         discuss_search: Search
         discuss_search_with_value: |-
           Search Results for '{{value}}'
-        my_questions: My Discussions
+        my_issues: My Discussions
 
       upload_image:
         title: Cargar imagen

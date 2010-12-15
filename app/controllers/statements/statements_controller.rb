@@ -10,7 +10,7 @@ class StatementsController < ApplicationController
   skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :add, :ancestors,
                                               :redirect_to_statement]
 
-  before_filter :fetch_statement_node, :except => [:category, :my_questions, :new, :create]
+  before_filter :fetch_statement_node, :except => [:category, :my_issues, :new, :create]
   before_filter :fetch_statement_node_type, :only => [:new, :create]
   before_filter :redirect_if_approved_or_incorporated, :only => [:show, :edit, :update, :destroy,
                                                                  :new_translation, :create_translation,
@@ -805,7 +805,7 @@ class StatementsController < ApplicationController
         when 'discuss_search' then search_statement_nodes(:search_term => params[:search_terms]||"",
                                                           :language_ids => @language_preference_list,
                                                           :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id)
-        when 'my_questions' then current_user.get_my_questions.map(&:id)
+        when 'my_issues' then current_user.get_my_issues.map(&:id)
       end
     else
       siblings = statement_node ? [statement_node.id] : []
