@@ -6,8 +6,8 @@
 <% end %>
 
 /* history handling */
-<% if !params[:sid].blank? and @ancestors %>
-  var stack = "<%= params[:sid] %>".split(",");
+<% if !params[:sids].blank? and @ancestors %>
+  var stack = "<%= params[:sids] %>".split(",");
 	<% @ancestors.each_with_index do |ancestor, index| %>
    <% type = ancestor.class.name.underscore %>
     var ancestor = stack[<%= index %>];

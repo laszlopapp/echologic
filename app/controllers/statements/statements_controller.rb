@@ -448,9 +448,9 @@ class StatementsController < ApplicationController
   ##############
 
   def ancestors
-    sid = @statement_node.self_and_ancestors.map(&:id)
+    statement_ids = @statement_node.self_and_ancestors.map(&:id)
     respond_to do |format|
-      format.json{render :json => sid}
+      format.json{render :json => statement_ids}
     end
   end
 
@@ -627,8 +627,8 @@ class StatementsController < ApplicationController
   # Sets the new breadcrumb of the current statement node.
   #
   def set_breadcrumbs
-    breadcrumbs = params[:breadcrumb].split(",")
-    statement_nodes = StatementNode.find(breadcrumbs)
+    breadcrumb_ids = params[:bids].split(",")
+    statement_nodes = StatementNode.find(breadcrumb_ids)
     statement_documents = search_statement_documents(statement_nodes.map(&:statement_id), @language_preference_list)
     @breadcrumbs = statement_nodes.map{|n|[n.class.name.underscore,
                                            n.id, statement_node_url(n),
@@ -852,8 +852,8 @@ class StatementsController < ApplicationController
         render :template => template
       }
       format.js {
-        load_ancestors(teaser) if !params[:sid].blank? or @statement_node.class.is_top_statement?
-        set_breadcrumbs if !params[:breadcrumb].blank?
+        load_ancestors(teaser) if !params[:sids].blank? or @statement_node.class.is_top_statement?
+        set_breadcrumbs if !params[:bids].blank?
         render :template => template
       }
     end

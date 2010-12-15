@@ -25,19 +25,19 @@ var element = $("<%= escape_javascript(render :partial => 'statements/show') %>"
 element.statement('insert',<%= @statement_node.level %>).statement('removeBelow');
 
 /* Breadcrumb's stack */
-var bid = $.fragment().bid;
-if (bid == null) {bid = '';}
-bid = bid.split(',');
+var bids = $.fragment().bids;
+if (bids == null) {bids = '';}
+bids = bids.split(',');
 <% if @statement_node.class.is_top_statement? and @breadcrumb %>
 	var followed = <%= @statement_node.parent_id %>;
-	bid.push(followed);
+	bids.push(followed);
 	$('#breadcrumbs').breadcrumb("add",eval(<%= @breadcrumb.to_json %>));
 	$('#breadcrumbs').breadcrumb('resize');
 <% end %>
 
 /* Statements' stack */	
-var sid = $('div#statements .statement').map(function(){
+var sids = $('div#statements .statement').map(function(){
   return this.id.replace(/[^0-9]+/, "");
 }).get();
 
-$.setFragment({ "sid": sid.join(','), "new_level" : '', "bid" : bid.join(',')});
+$.setFragment({ "sids": sids.join(','), "new_level" : '', "bids" : bids.join(',')});

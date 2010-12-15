@@ -34,8 +34,8 @@ function initFollowUpQuestionHistoryEvents() {
 
     /* set fragment */
     $.setFragment({
-      "bid": breadcrumbs.join(','),
-      "sid": question,
+      "bids": breadcrumbs.join(','),
+      "sids": question,
       "new_level": true
     });
     return false;
@@ -94,58 +94,58 @@ function getBreadcrumbStack(element){
 }
 
 
-function getBreadcrumbsToLoad(bid) {
-	if (bid == null) { return []; }
-	/* current bid in stack */
-	var bid_stack = bid.split(",");
+function getBreadcrumbsToLoad(bids) {
+	if (bids == null) { return []; }
+	/* current bids in stack */
+	var bids_stack = bids.split(",");
 	/* current breadcrumb entries */
-	var visible_bid = $("#breadcrumbs a.statement").map(function(){
+	var visible_bids = $("#breadcrumbs a.statement").map(function(){
 		return this.id.replace(/[^0-9]+/, '');
   }).get();
 
-	 $.map(visible_bid, function(a) {
-	 	if($.inArray(a, bid_stack) == -1) {
+	 $.map(visible_bids, function(a) {
+	 	if($.inArray(a, bids_stack) == -1) {
 			$("#"+a).remove();
 		}
 	 });
 
-	/* get bid's that are not visible (don't repeat yourself) */
-	var bid_to_load = $.grep(bid_stack, function(a){
-		return $.inArray(a, visible_bid) == -1 ;});
+	/* get bids that are not visible (don't repeat yourself) */
+	var bids_to_load = $.grep(bids_stack, function(a){
+		return $.inArray(a, visible_bids) == -1 ;});
 
-	return bid_to_load;
+	return bids_to_load;
 }
 
 
 function initFragmentStatementChange() {
-  $(document).bind("fragmentChange.sid", function() {
-		if ($.fragment().sid) {
-			var sid = $.fragment().sid;
-			var new_sid = sid.split(",");
+  $(document).bind("fragmentChange.sids", function() {
+		if ($.fragment().sids) {
+			var sids = $.fragment().sids;
+			var new_sids = sids.split(",");
 
-			var path = "/" + new_sid[new_sid.length-1];
-
-
-			last_sid = new_sid.pop();
+			var path = "/" + new_sids[new_sids.length-1];
 
 
-			var visible_sid = $("#statements .statement").map(function(){
+			last_sids = new_sids.pop();
+
+
+			var visible_sids = $("#statements .statement").map(function(){
 				return this.id.replace(/[^0-9]+/, '');
 			}).get();
 
 
 			/* after new statement was created and added to the stack, we needn't load again */
-			if ($.inArray(last_sid, visible_sid) != -1 && visible_sid[visible_sid.length-1]==last_sid) {return;}
+			if ($.inArray(last_sids, visible_sids) != -1 && visible_sids[visible_sids.length-1]==last_sids) {return;}
 
-			sid = $.grep(new_sid, function (a) {
-				return $.inArray(a, visible_sid) == -1 ;});
+			sids = $.grep(new_sids, function (a) {
+				return $.inArray(a, visible_sids) == -1 ;});
 
-			var bid = getBreadcrumbsToLoad($.fragment().bid);
+			var bids = getBreadcrumbsToLoad($.fragment().bids);
 
 
 			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
-        "sid": sid.join(","),
-				"breadcrumb": bid.join(","),
+        "sids": sids.join(","),
+				"bids": bids.join(","),
         "new_level": $.fragment().new_level
       })
 			$.ajax({
@@ -157,15 +157,15 @@ function initFragmentStatementChange() {
   });
 
 	/* Statement Stack */
-  if ($.fragment().sid) {
+  if ($.fragment().sids) {
 		$.setFragment({ "new_level" : true });
-		$(document).trigger("fragmentChange.sid");
+		$(document).trigger("fragmentChange.sids");
   }
 
 
 	/* Breadcrumbs */
-	if ($.fragment().bid) {
-		$(document).trigger("fragmentChange.bid");
+	if ($.fragment().bids) {
+		$(document).trigger("fragmentChange.bids");
 	}
 }
 

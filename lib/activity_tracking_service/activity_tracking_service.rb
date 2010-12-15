@@ -131,7 +131,7 @@ class ActivityTrackingService
 
       events.sort! do |a,b|
         a_parsed = JSON.parse(a.event) ; b_parsed = JSON.parse(b.event)
-        [a_parsed['root_id'],a_parsed['parent_id']] <=> [b_parsed['root_id'],b_parsed['parent_id']]
+        [a_parsed['root_id'],a_parsed['parent_id'],a_parsed['type']] <=> [b_parsed['root_id'],b_parsed['parent_id'],b_parsed['type']]
       end
 
       # Sending the mail

@@ -131,7 +131,7 @@
 	    current_stack = getStatementsStack(this, false);
 	    /* set fragment */
 	    $.setFragment({
-	      "sid": current_stack.join(','),
+	      "sids": current_stack.join(','),
 	      "new_level": ''
 	    });
 	    return false;
@@ -144,7 +144,7 @@
 	    current_stack = getStatementsStack(this, true);
 	    /* set fragment */
 	    $.setFragment({
-	      "sid": current_stack.join(','),
+	      "sids": current_stack.join(','),
 	      "new_level": true
 	    });
 	    return false;
@@ -168,14 +168,14 @@
 	  var id = path.pop().split('?').shift();
 
 	  if (id.match(/\d+/)) {
-	    var current_sid = id;
+	    var current_sids = id;
 	  } else {
 	    /* add teaser case */
 	    /* when there's a parent id attached, copy :id/add/:type, or else, just copy the add/:type */
 	    var index_backwards = path[path.length - 2].match(/\d+/) ? 2 : 1;
-	    var current_sid = path.splice(path.length - index_backwards, 2);
-	    current_sid.push(id);
-	    current_sid = current_sid.join('/');
+	    var current_sids = path.splice(path.length - index_backwards, 2);
+	    current_sids.push(id);
+	    current_sids = current_sids.join('/');
 	  }
 	  current_stack = [];
 
@@ -194,7 +194,7 @@
 	      }
 	  });
 	  /* insert clicked statement */
-	  current_stack.push(current_sid);
+	  current_stack.push(current_sids);
 	  return current_stack;
 	}
 
@@ -207,16 +207,16 @@
    */
   function initFormCancelButton(form) {
     var cancelButton = form.find('.buttons a.cancel');
-    if ($.fragment().sid) {
-      var sid = $.fragment().sid;
-			var new_sid = sid.split(",");
-			var path = "/" + new_sid[new_sid.length-1];
+    if ($.fragment().sids) {
+      var sids = $.fragment().sids;
+			var new_sids = sids.split(",");
+			var path = "/" + new_sids[new_sids.length-1];
 
-      new_sid.pop();
+      new_sids.pop();
 
       cancelButton.addClass("ajax");
 			cancelButton.attr('href', $.queryString(cancelButton.attr('href').replace(/\/\d+/, path), {
-        "sid": new_sid.join(",")
+        "sids": new_sids.join(",")
       }));
     }
   }

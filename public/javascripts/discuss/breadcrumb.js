@@ -10,14 +10,14 @@
 	  var path_id = breadcrumb.attr('href').match(/\/\d+/);
 	  var path = breadcrumb.attr('href').replace(/\/\d+.*/, path_id + '/' + 'parents');
 	  $.getJSON(path, function(data) {
-	    var sid = data;
-	    breadcrumb.data('sid', sid);
+	    var sids = data;
+	    breadcrumb.data('sids', sids);
 	  });
 
 	  breadcrumb.bind("click", function(){
 			/* get bids from fragment */
-	    var bid = $.fragment().bid;
-	    bid = (bid == null) ? [] : bid.split(',');
+	    var bids = $.fragment().bids;
+	    bids = (bids == null) ? [] : bids.split(',');
 
 	    /* get links that must vanish from the breadcrumbs */
 	    var links_to_delete = $(this).nextAll(".statement").map(function(){
@@ -29,14 +29,14 @@
 	    id_links_to_delete = $.map(links_to_delete, function(a){
 	      return a.replace(/[^0-9]+/, '');
 	    });
-	    new_bid = $.grep(bid, function(a){
+	    new_bids = $.grep(bids, function(a){
 	      return $.inArray(a, id_links_to_delete) == -1;
 	    });
 	    /* save them to be deleted after the request */
 	    $("#breadcrumbs").data('to_delete', links_to_delete);
 	    /* set fragment */
-	    var sid = $(this).data('sid');
-	    $.setFragment({"bid" : new_bid.join(","), "sid": sid.join(","), "new_level" : ''});
+	    var sids = $(this).data('sids');
+	    $.setFragment({"bids" : new_bids.join(","), "sids": sids.join(","), "new_level" : ''});
 	    return false;
 	  });
 	}
