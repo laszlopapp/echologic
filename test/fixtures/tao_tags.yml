@@ -13,7 +13,7 @@ joe_water_ngo:
   tao_type: User
   context_id: <%= Fixtures.identify(:tag_context_engagement) %>
   
-<% %w(test-discussion test-discussion-2 german-discussion original-language-discussion with-german-children-discussion user-discussion).each do |statement| %>
+<% %w(test-question test-question-2 german-question original-language-question with-german-children-question user-question).each do |statement| %>
 <%= statement %>_echonomyjam_topic:
   tag_id: <%= Fixtures.identify('echonomy-jam') %>
   tao_id: <%= Fixtures.identify(statement) %>

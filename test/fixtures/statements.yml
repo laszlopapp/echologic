@@ -1,18 +1,18 @@
-test-discussion-statement:
+test-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
-test-discussion-2-statement:
+test-question-2-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
-original-language-discussion-statement:
+original-language-question-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
-second-discussion-statement:
+second-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
-third-discussion-statement:
+third-question-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
-with-german-children-discussion-statement:
+with-german-children-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
-non-published-discussion-statement:
+non-published-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
-user-discussion-statement:
+user-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
 first-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>

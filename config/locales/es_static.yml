@@ -720,7 +720,7 @@ es:
             <p>Consigue que tus colaboradores te apoyen utilizando la herramienta de recaudación de fondos de cklicks4charity.
             Así tus colaboradores podrán recaudar fondos para tus acciones simplemente haciendo sus compras online, sin gastar ningun dinero extra.
             </p>
-        discussion_methods:
+        question_methods:
           title: El nuevo método de debate de echo
           text: |
             <p>Utiliza el nuevo método de debate de echo para debates internos y para la elaboración colectiva de textos!

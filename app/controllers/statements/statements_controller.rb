@@ -10,7 +10,7 @@ class StatementsController < ApplicationController
   skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :add, :ancestors,
                                               :redirect_to_statement]
 
-  before_filter :fetch_statement_node, :except => [:category, :my_discussions, :new, :create]
+  before_filter :fetch_statement_node, :except => [:category, :my_questions, :new, :create]
   before_filter :fetch_statement_node_type, :only => [:new, :create]
   before_filter :redirect_if_approved_or_incorporated, :only => [:show, :edit, :update, :destroy,
                                                                  :new_translation, :create_translation,
@@ -391,7 +391,7 @@ class StatementsController < ApplicationController
     if !params[:new_level].blank?
       if @statement_node # this is the teaser's parent (e.g.: 1212345/add/proposal)
         load_children_for_parent @statement_node, @type
-      else # this is the discussion's teaser (e.g.: /add/discussion
+      else # this is the question's teaser (e.g.: /add/question
         load_roots_to_session
       end
     end
@@ -597,7 +597,7 @@ class StatementsController < ApplicationController
   end
 
   #
-  # Returns the statement node corresponding symbol (:discussion, :proposal...).
+  # Returns the statement node corresponding symbol (:question, :proposal...).
   #
   def statement_node_symbol
     klass = @statement_node_type.nil? ? @statement_node.class : @statement_node_type
@@ -743,10 +743,10 @@ class StatementsController < ApplicationController
   ##########
 
   #
-  # Calls the statement node sql query for discussions.
+  # Calls the statement node sql query for questions.
   #
   def search_statement_nodes(opts = {})
-    StatementNode.search_statement_nodes(opts.merge({:type => "Discussion"}))
+    StatementNode.search_statement_nodes(opts.merge({:type => "Question"}))
   end
 
   #
@@ -782,11 +782,11 @@ class StatementsController < ApplicationController
   end
 
   #
-  # Only for HTTP and add discussion teaser.
+  # Only for HTTP and add question teaser.
   #
   def load_roots_to_session
     @siblings ||= {}
-    @siblings["add_discussion"] = roots_to_session(@statement_node)
+    @siblings["add_question"] = roots_to_session(@statement_node)
   end
 
   #
@@ -798,12 +798,12 @@ class StatementsController < ApplicationController
         when 'discuss_search' then search_statement_nodes(:search_term => params[:value]||"",
                                                           :language_ids => @language_preference_list,
                                                           :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id)
-        when 'my_discussions' then current_user.get_my_discussions.map(&:id)
+        when 'my_questions' then current_user.get_my_questions.map(&:id)
       end
     else
       siblings = statement_node ? [statement_node.id] : []
     end
-    siblings + ["/add/discussion"]
+    siblings + ["/add/question"]
   end
 
   #

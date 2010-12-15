@@ -23,7 +23,7 @@ class ActivityTrackingService
                      Subscription.new(:subscriber => user, :subscriber_type => user.class.name,
                                       :subscribeable => echoable, :subscribeable_type => echoable.class.name)
     echoable.subscriptions << subscription if subscription.new_record?
-    # When echoable is a proposal, then we must follow the main discussion too
+    # When echoable is a proposal, then we must follow the main question too
     if !echoable.parent.nil?
       parent_subscription = echoable.parent.subscriptions.find_by_subscriber_id(user.id) ||
                        Subscription.new(:subscriber => user, :subscriber_type => user.class.name,
@@ -36,7 +36,7 @@ class ActivityTrackingService
     return if user.nil?
     subscription = echoable.subscriptions.find_by_subscriber_id(user.id)
     echoable.subscriptions.delete(subscription) if subscription
-    # When a proposal, then we must remove the discussion subscription in the case when no more sibling is around
+    # When a proposal, then we must remove the question subscription in the case when no more sibling is around
     if !echoable.parent.nil?
       parent_subscription = user.subscriptions.find_by_subscribeable_id(echoable.parent_id)
       if (user.subscriptions.map(&:subscribeable_id) & echoable.parent.child_statements.map(&:id)).empty?
@@ -121,12 +121,12 @@ class ActivityTrackingService
 
       next if events.blank? #if there are no events to send per email, take the next user
 
-      discussion_events = events.select{|e|JSON.parse(e.event)['type'] == 'discussion'}
+      question_events = events.select{|e|JSON.parse(e.event)['type'] == 'question'}
 
-      # created an Hash containing the number of ocurrences of the new tags in the new discussions
-      tag_counts = discussion_events.each_with_object({}) do |discussion, tags_hash|
-        discussion_data = JSON.parse(discussion.event)
-        discussion_data['tags'].each{|tag| tags_hash[tag] = tags_hash.has_key?(tag) ? tags_hash[tag] + 1 : 1 }
+      # created an Hash containing the number of ocurrences of the new tags in the new questions
+      tag_counts = question_events.each_with_object({}) do |question, tags_hash|
+        question_data = JSON.parse(question.event)
+        question_data['tags'].each{|tag| tags_hash[tag] = tags_hash.has_key?(tag) ? tags_hash[tag] + 1 : 1 }
       end
 
       events.sort! do |a,b|
@@ -135,16 +135,16 @@ class ActivityTrackingService
       end
 
       # Sending the mail
-      send_activity_email(recipient, discussion_events, tag_counts, events - discussion_events)
+      send_activity_email(recipient, question_events, tag_counts, events - question_events)
     end
   end
 
   #
   # Sends an activity tracking E-Mail to the given recipient.
   #
-  def send_activity_email(recipient, discussion_events, discussion_tags, events)
+  def send_activity_email(recipient, question_events, question_tags, events)
     puts "Send mail to:" + recipient.email
-    mail = ActivityTrackingMailer.create_activity_tracking_email(recipient,discussion_events,discussion_tags,events)
+    mail = ActivityTrackingMailer.create_activity_tracking_email(recipient,question_events,question_tags,events)
     ActivityTrackingMailer.deliver(mail)
   end
 

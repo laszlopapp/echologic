@@ -24,22 +24,22 @@ module NavigationHelpers
       welcome_path
     when /the reports page/
       reports_path
-    when /^create a discussion$/
-      new_discussion_path
-    when /^the discussion$/
-      statement_node_path(@discussion)
+    when /^create a question$/
+      new_question_path
+    when /^the question$/
+      statement_node_path(@question)
     when /^the proposal$/
       statement_node_path(@proposal)
     when /^the improvement proposal$/
       statement_node_path(@improvement_proposal)
-    when /^the first discussion$/
-      statement_node_path(Discussion.first)
-    when /^the discussions first proposal/
+    when /^the first question$/
+      statement_node_path(Question.first)
+    when /^the questions first proposal/
       statement_node_path(@proposal)
     when /discuss index/i
       discuss_search_url
     when /my issues/i
-      my_discussions_url
+      my_questions_url
     when /discuss featured/i
       discuss_featured_path
     when /discuss search/i

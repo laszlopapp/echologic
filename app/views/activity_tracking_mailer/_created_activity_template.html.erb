@@ -17,9 +17,9 @@
 <% if previous_event_data.nil? or event_data['parent_id'] != previous_event_data['parent_id'] %>
 	</ul>
   <p>
-    <%= I18n.t("mailers.activity_tracking.discussions.new_#{event_data['type'].pluralize}",
+    <%= I18n.t("mailers.activity_tracking.questions.new_#{event_data['type'].pluralize}",
              :title => @parent_title,
-             :discussion_title => @root_title,
+             :question_title => @root_title,
              :locale => @language.code) %>
   </p>
 	<ul>

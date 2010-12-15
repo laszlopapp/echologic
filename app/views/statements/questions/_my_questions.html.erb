@@ -1,0 +1,30 @@
+<% questions ||= @questions %>
+
+<!-- List my new and published questions -->
+<div id="my_questions">
+
+  <!-- Create new question-->
+  <% create_question_link_for(:my_questions) %>
+
+  <div class="header_block discuss_right_block">
+    <!-- Header -->
+    <h2>
+      <%= I18n.t('discuss.my_questions.title') %>
+    </h2>
+
+    <!-- Question list -->
+    <div id="questions">
+    	<% unless questions.empty? %>
+	      <ul id="question_list">
+	      	<%= render :partial => 'statements/questions/my_question', :collection => questions %>
+	      </ul>
+		  <% else %>
+			  <div class="no_questions">
+			  	<%= I18n.t("discuss.my_questions.no_questions") %>
+			  </div> 
+			<% end %>
+      <!-- Pagination -->
+      <%= will_paginate questions, :previous_label => '', :next_label => '' %>
+    </div>
+  </div>
+</div>

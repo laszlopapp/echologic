@@ -47,11 +47,11 @@ en:
 
     activity_tracking:
       subject: echo - Activity Notifications
-      discussions:
-        new_discussions: 'There are <strong>{{count}} new issue(s)</strong> since the last update. '
+      questions:
+        new_questions: 'There are <strong>{{count}} new issue(s)</strong> since the last update. '
         new_tags: 'They are related to the following topics:'
         new_proposals: 'New proposals in the issue "{{title}}"'
-        new_improvement_proposals: 'New improvement ideas for the proposal "{{title}}" in "{{discussion_title}}":'
+        new_improvement_proposals: 'New improvement ideas for the proposal "{{title}}" in "{{question_title}}":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         If you do not wish to receive regular updates on new discussion entries, please log in to

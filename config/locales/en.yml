@@ -311,10 +311,10 @@ en:
   # ---------------
 
   discuss:
-    my_discussions:
+    my_questions:
       link: My Issues
       title: My new & published issues
-      no_discussions: |
+      no_questions: |
         You haven't created any issues yet. To do so, please click on the question mark button on the left.
     tag_permission: |
       You do not have the permission to insert the '{{tag}}' tag.
@@ -339,23 +339,23 @@ en:
       in: '... in {{category}} ...'
 
     tooltips:
-      read_discussion: 'Go to this issue'
+      read_question: 'Go to this issue'
       read_proposal: 'Read this proposal'
       read_improvement_proposal: 'Read this improvement'
       read_pro_argument: 'Read this pro argument'
       read_contra_argument: 'Read this contra argument'
       read_follow_up_question: 'Read this follow-up question'
-      current_discussion: 'The currently displayed issue'
+      current_question: 'The currently displayed issue'
       current_proposal: 'The currently displayed proposal'
       current_improvement_proposal: 'The currently displayed improvement'
       current_pro_argument: 'The currently displayed pro argument'
       current_contra_argument: 'The currently displayed contra argument'
       current_follow_up_question: 'The currently displayed follow-up question'
-      back_to_discussion: 'Back to current issue'
+      back_to_question: 'Back to current issue'
       back_to_proposal: 'Back to current proposal'
       back_to_improvement_proposal: 'Back to current improvement'
-      prev_discussion: 'Read previous issue'
-      next_discussion: 'Read next issue'
+      prev_question: 'Read previous issue'
+      next_question: 'Read next issue'
       prev_proposal: 'Read previous proposal for the current issue'
       next_proposal: 'Read next proposal for the current issue'
       prev_improvement_proposal: 'Read previous improvement for the current proposal'
@@ -366,7 +366,7 @@ en:
       next_contra_argument: 'Read next contra argument for the current proposal'
       prev_follow_up_question: 'Read previous follow-up question'
       next_follow_up_question: 'Read next follow-up question'
-      create_discussion: 'Create a new issue'
+      create_question: 'Create a new issue'
       create_proposal: "Post a new proposal for the current issue"
       create_improvement_proposal: "Post a new improvement to the current proposal"
       create_pro_argument: "Post a new argument agreeing with this proposal"
@@ -384,14 +384,14 @@ en:
       echo_indicator:
         one: '{{supporter_count}} supporter'
         many: '{{supporter_count}} supporters'
-      create_discussion_link: 'New issue'
+      create_question_link: 'New issue'
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
       create_improvement_proposal_link: Propose new improvement
       create_pro_argument_link: Add new pro argument
       create_contra_argument_link: Add new contra argument
       create_follow_up_question_link: Add new follow-up question
-      create_discussion_explanation: |
+      create_question_explanation: |
         Please formulate the <strong>question</strong> to be discussed, describe the issue with some more details
         and tag it with <strong>relevant keywords</strong> for better searchability.
       create_proposal_explanation: |
@@ -418,21 +418,21 @@ en:
       edit: 'Edit {{type}}'
 
       types:
-        discussion:  'Issue'
+        question:  'Issue'
         proposal:  'Proposal'
         improvement_proposal: 'Improvement'
         pro_argument: 'Pro Argument'
         contra_argument: 'Contra Argument'
         follow_up_question: 'Follow-Up Issue'
       new:
-        discussion:  'New Issue'
+        question:  'New Issue'
         proposal:  'New Proposal'
         improvement_proposal: 'New Improvement'
         pro_argument: 'New Pro Argument'
         contra_argument: 'New Contra Argument'
         follow_up_question: 'New Follow-Up Issue'
       headings:
-        discussion: 'Issues'
+        question: 'Issues'
         proposal: 'Proposals'
         improvement_proposal: 'Improvements'
         argument: 'Arguments'
@@ -478,7 +478,7 @@ en:
         discuss_search: Search
         discuss_search_with_value: |-
           Search Results for '{{value}}'
-        my_discussions: My Discussions
+        my_questions: My Discussions
 
 
       upload_image:
@@ -625,7 +625,7 @@ en:
         index: 'Index'
 
     models:
-      discussion: "issue"
+      question: "issue"
       proposal: "proposal"
       improvement_proposal: "improvement"
 

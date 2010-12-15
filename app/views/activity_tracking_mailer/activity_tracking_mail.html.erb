@@ -4,8 +4,8 @@
 <% end %>
 
 
-<%= render :partial => "activity_tracking_mailer/activity_templates/discussions_activity_template",
-           :locals => {:discussions => @discussion_events, :tags => @discussion_tags}%>
+<%= render :partial => "activity_tracking_mailer/activity_templates/questions_activity_template",
+           :locals => {:questions => @question_events, :tags => @question_tags}%>
 
 <% previous_event_data = nil %>
 <% @events.each do |e|%>

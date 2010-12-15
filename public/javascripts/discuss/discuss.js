@@ -54,7 +54,7 @@ function initExpandables() {
 		$(this).removeAttr('href');
 	});
 
-	/* Special ajax event for the discussion (collapse/expand)*/
+	/* Special ajax event for the statement (collapse/expand)*/
 	$(".ajax_expandable").live("click", function(){
 		element = $(this);
 		to_show = element.parents("div:first").find($(this).data('content'));

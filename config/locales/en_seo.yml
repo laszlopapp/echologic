@@ -57,12 +57,12 @@ en:
         category: 'echo - Discussion Topic'
         show: 'echo - Discussion'
         new: 'Open new discussion'
-        my_discussions: 'My Discussions'
-#      discussions:
+        my_questions: 'My Discussions'
+#      questions:
 #        category: 'echo - Discussion Topic'
 #        show: 'echo - Discussion'
 #        new: 'Open new discussion'
-#        my_discussions: 'My Discussions'
+#        my_questions: 'My Discussions'
 #      proposals:
 #        show: 'echo - Positions in the Debate'
 #      improvement_proposals:

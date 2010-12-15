@@ -40,8 +40,8 @@
     <% insert_toggle_more(I18n.t('static.echosocial.features.cost_neutral_fundraising.text')) %>
   </li>
   <li>
-    <strong><%= I18n.t('static.echosocial.features.discussion_methods.title') %></strong>
-    <% insert_toggle_more(I18n.t('static.echosocial.features.discussion_methods.text')) %>
+    <strong><%= I18n.t('static.echosocial.features.question_methods.title') %></strong>
+    <% insert_toggle_more(I18n.t('static.echosocial.features.question_methods.text')) %>
   </li>
   <li>
     <strong><%= I18n.t('static.echosocial.features.decentral_infrastructure.title') %></strong>
@@ -51,7 +51,7 @@
     <%= I18n.t('static.echosocial.features.your_wishes.title') %>
     <% more_text = I18n.t('static.echosocial.features.your_wishes.text_pre') + '<strong>' +
                    link_to(I18n.t('static.echosocial.features.your_wishes.text_link'),
-                           url_for(hash_for_discussion_tags_path.merge({
+                           url_for(hash_for_question_tags_path.merge({
                                    :only_path => false, :host => ECHO_HOST, :id=>'echosocial'})), :target => '_blank') +
                    '</strong>' + ' ' + I18n.t('static.echosocial.features.your_wishes.text_end') %>
     <% insert_toggle_more(more_text) %>

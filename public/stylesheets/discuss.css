@@ -16,7 +16,7 @@
 /* Search */
 /* ------ */
 
-#discuss_search_container .new_discussion {
+#discuss_search_container .new_question {
   position: absolute;
   top: -25px;
 }
@@ -126,7 +126,7 @@ form.statement p {
   cursor: default;
 }
 
-form.statement #discussion_state_id_input li {
+form.statement #question_state_id_input li {
   width: 700px;
 }
 
@@ -144,8 +144,8 @@ form.statement .discuss_right_block {
   border: none;
 }
 
-form.discussion .header li {
-  background:transparent url(../images/page/discuss/discussion_small.png) no-repeat scroll 0 0;
+form.question .header li {
+  background:transparent url(../images/page/discuss/question_small.png) no-repeat scroll 0 0;
 }
 form.proposal .header li {
   background:transparent url(../images/page/discuss/proposal_small.png) no-repeat scroll 0 0;
@@ -502,7 +502,7 @@ a.statement_link:hover {
   color: #7bb031;
 }
 
-.discussion_links {
+.question_links {
   list-style:none;
 }
 
@@ -510,8 +510,8 @@ a.statement_link:hover {
    background:transparent url(../images/page/discuss/search_icon_small.png) no-repeat scroll 0 0;
 }
 
-.discussion_link {
-   background:transparent url(../images/page/discuss/discussion_small.png) no-repeat scroll 0 0;
+.question_link {
+   background:transparent url(../images/page/discuss/question_small.png) no-repeat scroll 0 0;
 }
 
 .proposal_link {
@@ -534,7 +534,7 @@ a.statement_link:hover {
   background:transparent url(../images/page/discuss/follow_up_question_small.png) no-repeat scroll 0 0;
 }
 
-.create_discussion_button {
+.create_question_button {
   background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
 
@@ -570,8 +570,8 @@ a.statement_link:hover {
   text-decoration: underline;
 }
 
-.create_discussion_button_mid {
-  background: transparent url(../images/page/discuss/add_discussion_mid.png) no-repeat scroll 0 0;
+.create_question_button_mid {
+  background: transparent url(../images/page/discuss/add_question_mid.png) no-repeat scroll 0 0;
 }
 
 .create_proposal_button_mid {
@@ -594,7 +594,7 @@ a.statement_link:hover {
   background: transparent url(../images/page/discuss/add_follow_up_question_mid.png) no-repeat scroll 0 0;
 }
 
-.create_discussion_button_mid:hover, .create_proposal_button_mid:hover, .create_improvement_proposal_button_mid:hover {
+.create_question_button_mid:hover, .create_proposal_button_mid:hover, .create_improvement_proposal_button_mid:hover {
  background-position: 0 -55px;
 }
 
@@ -811,11 +811,11 @@ form.statement fieldset ol li.tags_container {
 }
 
 
-/***********************/
-/* MY DISCUSSIONS AREA */
-/***********************/
+/*********************/
+/* MY QUESTIONS AREA */
+/*********************/
 
-#my_discussions .new_discussion {
+#my_questions .new_question {
   width: 55px;
   height: 55px;
   margin: 40px 0 0 37px !important;
@@ -826,11 +826,11 @@ form.statement fieldset ol li.tags_container {
 
 
 
-#discussion_list a.avatar_holder{
+#question_list a.avatar_holder{
 	float: left;
 }
 
-#discussion_list li.discussion {
+#question_list li.question {
 	width: 100%;
   height: 52px;
   margin: 4px 0;
@@ -838,7 +838,7 @@ form.statement fieldset ol li.tags_container {
   clear: both;
 }
 
-#discussion_list a.statement_link {
+#question_list a.statement_link {
 	float: left;
 	width: 290px;
   height: 52px;
@@ -847,7 +847,7 @@ form.statement fieldset ol li.tags_container {
   overflow: hidden;
 }
 
-#discussion_list .tags_list {
+#question_list .tags_list {
 	float: left;
 	padding-left: 25px !important;
 	width: 215px;
@@ -856,13 +856,13 @@ form.statement fieldset ol li.tags_container {
   overflow: hidden;
 }
 
-#discussion_list .buttons {
+#question_list .buttons {
 	float: right;
 	width: 200px;
   text-align: center;
 }
 
-#discussion_list a.publish_button {
+#question_list a.publish_button {
 	background: url("../images/page/publish_button_200.png") no-repeat scroll left top transparent;
 	border: medium none;
 	color: #21587F;
@@ -877,11 +877,11 @@ form.statement fieldset ol li.tags_container {
   top: -5px;
 }
 
-#discussion_list a.publish_button:hover {
+#question_list a.publish_button:hover {
   background-position: 0 -43px;
 }
 
-#discussion_list span.publish_button {
+#question_list span.publish_button {
   background:transparent url(../images/page/icons/publish_button.png) no-repeat scroll 0 0;
   background-position: 0 -17px;
   height: 17px;
@@ -890,17 +890,17 @@ form.statement fieldset ol li.tags_container {
   padding-left: 20px;
 }
 
-#my_discussions .pagination {
+#my_questions .pagination {
 	width: 100%;
 }
 
-#my_discussions .avatar_holder img {
+#my_questions .avatar_holder img {
   max-width: 45px;
   max-height: 45px;
   border: 2px solid #7bb031;
 }
 
-#my_discussions .no_discussions {
+#my_questions .no_questions {
   margin-top: 30px;
 }
 

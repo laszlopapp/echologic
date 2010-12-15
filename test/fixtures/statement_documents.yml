@@ -1,71 +1,71 @@
-test-discussion-doc-english:
-  title: 'Test Discussion?'
-  text: 'The Discussion is: is this a discussion?'
+test-question-doc-english:
+  title: 'Test Question?'
+  text: 'The Question is: is this a question?'
   language_id: <%= Fixtures.identify('language_en') %>
-  statement_id: <%= Fixtures.identify('test-discussion-statement') %>
+  statement_id: <%= Fixtures.identify('test-question-statement') %>
   current: 1
   
-test-discussion-2-doc-english:
-  title: 'Test Discussion2?'
-  text: 'The Discussion is: is this a discussion?'
+test-question-2-doc-english:
+  title: 'Test Question2?'
+  text: 'The Question is: is this a question?'
   language_id: <%= Fixtures.identify('language_en') %>
-  statement_id: <%= Fixtures.identify('test-discussion-2-statement') %>
+  statement_id: <%= Fixtures.identify('test-question-2-statement') %>
   current: 1
   
-second-discussion-doc-english:
-  title: 'Another Discussion?'
-  text: 'Is this yet another discussion?'
+second-question-doc-english:
+  title: 'Another Question?'
+  text: 'Is this yet another question?'
   language_id: <%= Fixtures.identify('language_en') %>
-  statement_id: <%= Fixtures.identify('second-discussion-statement') %>
+  statement_id: <%= Fixtures.identify('second-question-statement') %>
   current: 1
 
-third-discussion-doc-german:
+third-question-doc-german:
   title: 'Andere Frage?'
   text: 'Ich will deine Seele!'
   language_id: <%= Fixtures.identify('language_de') %>
-  statement_id: <%= Fixtures.identify('third-discussion-statement') %>
+  statement_id: <%= Fixtures.identify('third-question-statement') %>
   current: 1
   
 original-language-doc-english:
   title: 'Raindrops keep falling on my head'
   text: 'And just like the guy whose feet are too big for his bed, nothing seems to fit!'
   language_id: <%= Fixtures.identify('language_en') %>
-  statement_id: <%= Fixtures.identify('original-language-discussion-statement') %>
+  statement_id: <%= Fixtures.identify('original-language-question-statement') %>
   current: 1
   
 original-language-doc-german:
   title: 'Regentropfen fallen auf mein Kopf weiter'
   text: 'und genau wie der Kerl, deren Füsse zu gross für sein Bett sind, nichts passt an!'
   language_id: <%= Fixtures.identify('language_de') %>
-  statement_id: <%= Fixtures.identify('original-language-discussion-statement') %>
+  statement_id: <%= Fixtures.identify('original-language-question-statement') %>
   current: 1
   
 with-german-children-doc-german:
   title: 'Ich habe Kinder nur auf Deutsch'
   text: 'Ich habe Kinder nur auf Deutsch'
   language_id: <%= Fixtures.identify('language_de') %>
-  statement_id: <%= Fixtures.identify('with-german-children-discussion-statement') %>
+  statement_id: <%= Fixtures.identify('with-german-children-question-statement') %>
   current: 1
   
 with-german-children-doc-english:
   title: 'I only have kids in German'
   text: 'I only have kids in German'
   language_id: <%= Fixtures.identify('language_en') %>
-  statement_id: <%= Fixtures.identify('with-german-children-discussion-statement') %>
+  statement_id: <%= Fixtures.identify('with-german-children-question-statement') %>
   current: 1
   
-non-published-discussion-doc-english:
-  title: 'This is a non-published discussion'
-  text: 'This is a non-published discussion'
+non-published-question-doc-english:
+  title: 'This is a non-published question'
+  text: 'This is a non-published question'
   language_id: <%= Fixtures.identify('language_en') %>
-  statement_id: <%= Fixtures.identify('non-published-discussion-statement') %>
+  statement_id: <%= Fixtures.identify('non-published-question-statement') %>
   current: 1
   
-user-discussion-doc-english:
+user-question-doc-english:
   title: 'I am the mighty user'
   text: 'One User to rule them all'
   language_id: <%= Fixtures.identify('language_en') %>
-  statement_id: <%= Fixtures.identify('user-discussion-statement') %>
+  statement_id: <%= Fixtures.identify('user-question-statement') %>
   current: 1
 
 first-proposal-doc-english:
@@ -152,18 +152,18 @@ german-impro-proposal-doc-english:
   statement_id: <%= Fixtures.identify('german-impro-proposal-statement') %>
   current: 1
   
-test-discussion-doc-german:
+test-question-doc-german:
   title: 'Eine Test-Frage?'
   text: 'Die Frage ist: Ist das eine Frage?'
   language_id: <%= Fixtures.identify('language_de') %>
-  statement_id: <%= Fixtures.identify('test-discussion-statement') %>
+  statement_id: <%= Fixtures.identify('test-question-statement') %>
   current: 1
   
-second-discussion-doc-german:
+second-question-doc-german:
   title: 'Noch ne Frage?'
   text: 'Ist das etwa noch eine Frage?'
   language_id: <%= Fixtures.identify('language_de') %>
-  statement_id: <%= Fixtures.identify('second-discussion-statement') %>
+  statement_id: <%= Fixtures.identify('second-question-statement') %>
   current: 1
   
 first-proposal-doc-german:

@@ -1,7 +1,7 @@
 # Specification of a Proposal
 
 # * Proposals can be either seen as Proposals or as Positions (/Standpoints) as which they are commonly refered to in concepts and ui
-# * currently a Position expects only Improvement Proposals as valid children, and only Discussions as parents
+# * currently a Position expects only Improvement Proposals as valid children, and only Questions as parents
 
 
 class Proposal < StatementNode

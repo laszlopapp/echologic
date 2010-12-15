@@ -1,22 +1,22 @@
-<% if !discussions.blank? %>
+<% if !questions.blank? %>
 
   <p>
-    <%= I18n.t('mailers.activity_tracking.discussions.new_discussions',
-             :count => discussions.size,
+    <%= I18n.t('mailers.activity_tracking.questions.new_questions',
+             :count => questions.size,
              :locale => @language.code) %>
-    <%= I18n.t('mailers.activity_tracking.discussions.new_tags',
+    <%= I18n.t('mailers.activity_tracking.questions.new_tags',
              :locale => @language.code) %>
     <%= tags.to_a.map{|tag|
-        I18n.t('mailers.activity_tracking.discussions.tag_link',
+        I18n.t('mailers.activity_tracking.questions.tag_link',
                :tag => link_to(tag[0], discuss_search_url(:value => tag[0], :locale => @language.code)),
                :count => tag[1],
                :locale => @language.code)}.join(", ") %>
   </p>
 
   <ul>
-    <% discussions.each do |discussion_event| %>
+    <% questions.each do |question_event| %>
       <%
-         event_data = JSON.parse(discussion_event.event)
+         event_data = JSON.parse(question_event.event)
          title = nil
          title_language_code = nil
          @preferred_language_ids.each do |l_id|
@@ -30,7 +30,7 @@
          title_language_code ||= Language[event_data['documents'].to_a[0][0].to_i].code
       %>
       <li>
-				<%= link_to title, discussion_url(Discussion.find(event_data['id'])), :locale => title_language_code %>
+				<%= link_to title, question_url(Question.find(event_data['id'])), :locale => title_language_code %>
       </li>
     <% end %>
   </ul>

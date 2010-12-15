@@ -7,7 +7,7 @@ class StatementTest < ActiveSupport::TestCase
       
       
     should "be able to access its authors" do
-      @statement = StatementDocument.find_by_title("Test Discussion?").statement
+      @statement = StatementDocument.find_by_title("Test Question?").statement
       @authors = @statement.authors
       assert @authors.length, 1
       assert @authors[0], User.find_by_email("editor@echologic.org")

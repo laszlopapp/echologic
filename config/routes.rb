@@ -11,7 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   map.discuss_featured '/discuss/featured', :controller => :discuss, :action => :index
   map.discuss_roadmap '/discuss/roadmap', :controller => :discuss, :action => :roadmap
   map.discuss_cancel '/discuss/cancel', :controller => :discuss, :action => :cancel
-  map.my_discussions '/discuss/my_issues', :controller => :statements, :action => :my_discussions
+  map.my_questions '/discuss/my_issues', :controller => :statements, :action => :my_questions
 
   # SECTION discuss search
   map.discuss_search '/discuss/search', :controller => :statements, :action => :category
@@ -113,26 +113,26 @@ ActionController::Routing::Routes.draw do |map|
 
   # SECTION discuss - statement's tree
 
-  #route for new discussion
-  map.new_discussion 'statement/new/discussion',
+  #route for new question
+  map.new_question 'statement/new/question',
                      :controller => :statements,
                      :action => :new,
-                     :type => :discussion
-  map.new_discussion_with_path 'statement/new/discussion/:path',
+                     :type => :question
+  map.new_question_with_path 'statement/new/question/:path',
                                :controller => :statements,
                                :action => :new,
-                               :type => :discussion
-  map.new_discussion_with_path_and_value 'statement/new/discussion/:path/:value',
+                               :type => :question
+  map.new_question_with_path_and_value 'statement/new/question/:path/:value',
                                          :controller => :statements,
                                          :action => :new,
-                                         :type => :discussion
+                                         :type => :question
 
   #Add Teaser section (with path, path and value, and none of the previous)
-  map.connect        'statement/add/discussion', :controller => :statements, :action => :add, :type => :discussion
+  map.connect        'statement/add/question', :controller => :statements, :action => :add, :type => :question
   map.connect        'statement/:id/add/:type',  :controller => :statements, :action => :add
 
-  map.connect        'statement/add/discussion/:path',        :controller => :statements, :action => :add, :type => :discussion
-  map.connect        'statement/add/discussion/:path/:value', :controller => :statements, :action => :add, :type => :discussion
+  map.connect        'statement/add/question/:path',        :controller => :statements, :action => :add, :type => :question
+  map.connect        'statement/add/question/:path/:value', :controller => :statements, :action => :add, :type => :question
 
   map.connect        'statement/:id/add/:type/:path',         :controller => :statements, :action => :add
   map.connect        'statement/:id/add/:type/:path/:value',  :controller => :statements, :action => :add
@@ -152,7 +152,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect   'statements/:id/publish/:in',   :controller => :statements, :action => :publish
 
 
-  map.resources :discussions, :controller => :statements, :type => :discussion, :only => [:create, :update]
+  map.resources :questions, :controller => :statements, :type => :question, :only => [:create, :update]
   map.resources :proposals, :controller => :statements, :only => [:create, :update]
   map.resources :improvement_proposals, :controller => :statements, :only => [:create, :update]
   map.resources :pro_arguments, :controller => :statements, :only => [:create, :update]
@@ -161,8 +161,8 @@ ActionController::Routing::Routes.draw do |map|
 
 
   # old discuss paths redirection
-  map.connect 'discuss/questions/:discussion_id/proposals/:id', :controller => :statements, :action => :redirect_to_statement
-  map.connect 'discuss/questions/:discussion_id/proposals/:proposal_id/improvement_proposals/:id',
+  map.connect 'discuss/questions/:question_id/proposals/:id', :controller => :statements, :action => :redirect_to_statement
+  map.connect 'discuss/questions/:question_id/proposals/:proposal_id/improvement_proposals/:id',
               :controller => :statements, :action => :redirect_to_statement
 
   # SECTION root

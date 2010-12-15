@@ -1,46 +1,46 @@
-Given /^there are no discussions$/ do
-  Discussion.destroy_all
+Given /^there are no questions$/ do
+  Question.destroy_all
 end
 
-Then /^there should be no discussions$/ do
-  Discussion.count.should == 0
+Then /^there should be no questions$/ do
+  Question.count.should == 0
 end
 
-Then /^there should be one discussion$/ do
-  Discussion.count.should == 1
+Then /^there should be one question$/ do
+  Question.count.should == 1
 end
 
-When /^I choose the first Discussion$/ do
-  response.should have_selector("li.discussion a") do |selector|
-    @discussion = Discussion.find(URI.parse(selector.first['href']).path.match(/\d+/)[0].to_i)
+When /^I choose the first Question$/ do
+  response.should have_selector("li.question a") do |selector|
+    @question = Question.find(URI.parse(selector.first['href']).path.match(/\d+/)[0].to_i)
     visit selector.first['href']
   end
 end
 
-When /^I choose the second Discussion$/ do
-  response.should have_selector("li.discussion a") do |selector|
-    if discussion_id = URI.parse(selector[1]['href']).path.match(/\d+/)[0].to_i
-      @second_discussion = Discussion.find(discussion_id)
+When /^I choose the second Question$/ do
+  response.should have_selector("li.question a") do |selector|
+    if question_id = URI.parse(selector[1]['href']).path.match(/\d+/)[0].to_i
+      @second_question = Question.find(question_id)
       visit selector.first['href']
     else
-      raise 'there is no second discussion dude... this test does not work'
+      raise 'there is no second question dude... this test does not work'
     end
   end
 end
 
-When /^I choose the "([^\"]*)" Discussion$/ do |name|
-  response.should have_selector("li.discussion") do |selector|
-    selector.each do |discussion|
-      if name.eql?(discussion.at_css("span.name").inner_text.strip)
-        @discussion = Discussion.find(URI.parse(discussion.at_css("a")['href']).path.match(/\d+/)[0].to_i)
-        visit discussion.at_css("a")['href']
+When /^I choose the "([^\"]*)" Question$/ do |name|
+  response.should have_selector("li.question") do |selector|
+    selector.each do |question|
+      if name.eql?(question.at_css("span.name").inner_text.strip)
+        @question = Question.find(URI.parse(question.at_css("a")['href']).path.match(/\d+/)[0].to_i)
+        visit question.at_css("a")['href']
       end
     end
   end
 end
 
 When /^I choose the "([^\"]*)" Proposal$/ do |name|
-  response.should have_selector("li.discussion") do |selector|
+  response.should have_selector("li.question") do |selector|
     selector.each do |proposal|
       if name.eql?(proposal.at_css("a.proposal_link").inner_text.strip)
         @proposal = Proposal.find(URI.parse(proposal.at_css("a")['href']).path.match(/\d+/)[0].to_i)
@@ -65,39 +65,39 @@ Then /^I should see an error message$/i do
   Then 'I should see "error"'
 end
 
-Given /^there is the first discussion$/i do
-  @discussion = Discussion.last
+Given /^there is the first question$/i do
+  @question = Question.last
 end
 
-Given /^there is the second discussion$/i do
-  @discussion = Discussion.first
+Given /^there is the second question$/i do
+  @question = Question.first
 end
 
-Given /^there is a discussion "([^\"]*)"$/ do |id| # not in use right now
-  @discussion = Discussion.find(id)
+Given /^there is a question "([^\"]*)"$/ do |id| # not in use right now
+  @question = Question.find(id)
 end
 
-Given /^there is a discussion i have created$/ do # not in use right now
-   @discussion = Discussion.find_by_creator_id(@user.id)
+Given /^there is a question i have created$/ do # not in use right now
+   @question = Question.find_by_creator_id(@user.id)
 end
 
-Given /^the discussion was not published yet$/ do
-  @discussion.editorial_state = StatementState["new"]
-  @discussion.save
+Given /^the question was not published yet$/ do
+  @question.editorial_state = StatementState["new"]
+  @question.save
 end
 
-Given /^the discussion has proposals$/ do
-  @discussion.reload
-  @discussion.children.proposals.count.should >= 1
+Given /^the question has proposals$/ do
+  @question.reload
+  @question.children.proposals.count.should >= 1
 end
 
-Given /^the discussion has "([^\"]*)" for tags$/i do |tags|
-  @discussion.topic_tags = tags
-  @discussion.save
+Given /^the question has "([^\"]*)" for tags$/i do |tags|
+  @question.topic_tags = tags
+  @question.save
 end
 
-Given /^the discussion has no proposals$/ do
-  @discussion.children.proposals.destroy_all
+Given /^the question has no proposals$/ do
+  @question.children.proposals.destroy_all
 end
 
 When /^I follow the create proposal link$/ do
@@ -105,30 +105,30 @@ When /^I follow the create proposal link$/ do
   When 'I follow the "Create proposal" link within the "children" list'
 end
 
-Then /^the discussion should have one proposal$/ do
-  @discussion.reload
-  @discussion.children.proposals.count.should >= 1
+Then /^the question should have one proposal$/ do
+  @question.reload
+  @question.children.proposals.count.should >= 1
 end
 
-Then /^the discussion "([^\"]*)" should have "([^\"]*)" as tags$/ do |title, tags|
+Then /^the question "([^\"]*)" should have "([^\"]*)" as tags$/ do |title, tags|
   tags = tags.split(',').map{|t| t.strip}
-  @discussion = StatementNode.search_statement_nodes(:type => "Discussion",
+  @question = StatementNode.search_statement_nodes(:type => "Question",
                                                    :search_term => title,
                                                    :language_ids => [Language["en"]],
                                                    :show_unpublished => true).first
-  res = @discussion.topic_tags - tags
+  res = @question.topic_tags - tags
   res.should == []
 end
 
-Then /^the second discussion must be more recent than the first discussion$/ do
-  @discussion.created_at < @second_discussion.created_at
+Then /^the second question must be more recent than the first question$/ do
+  @question.created_at < @second_question.created_at
 end
 
 # Is it okay to give a condition in a 'Given' step?
-Given /^the discussion has at least on proposal$/ do
-  @discussion.reload
-  @discussion.children.proposals.count.should >= 1
-  @proposal = @discussion.children.proposals.first
+Given /^the question has at least on proposal$/ do
+  @question.reload
+  @question.children.proposals.count.should >= 1
+  @proposal = @question.children.proposals.first
 end
 
 Then /^the proposal should have one improvement proposal$/ do
@@ -141,27 +141,27 @@ Then /^I should not see the create proposal link$/ do
   Then 'I should not see the "Create proposal" link'
 end
 
-Given /^a "([^\"]*)" discussion in "([^\"]*)"$/ do |state, category|
+Given /^a "([^\"]*)" question in "([^\"]*)"$/ do |state, category|
   state = StatementState[state.downcase]
-  @discussion = Discussion.new(:editorial_state => state, :creator => @user)
-  @discussion.add_statement_document({:title => "Am I a new statement?",
-                                      :text => "I wonder what i really am! Maybe a statement? Or even a discussion?",
+  @question = Question.new(:editorial_state => state, :creator => @user)
+  @question.add_statement_document({:title => "Am I a new statement?",
+                                      :text => "I wonder what i really am! Maybe a statement? Or even a question?",
                                       :author => @user,
                                       :current => 1,
                                       :language_id => @user.sorted_spoken_language_ids.first,
                                       :action_id => StatementAction["created"].id,
                                       :original_language_id => @user.sorted_spoken_language_ids.first})
-  @discussion.topic_tags << category
-  @discussion.save!
+  @question.topic_tags << category
+  @question.save!
 end
 
-Then /^the discussion should be published$/ do
-  @discussion.reload
-  assert @discussion.state.eql?(StatementState["published"])
+Then /^the question should be published$/ do
+  @question.reload
+  assert @question.state.eql?(StatementState["published"])
 end
 
-Then /^I should see the discussions title$/ do
-  Then 'I should see "'+@discussion.document_in_preferred_language([Language["en"].id, Language["de"].id]).title+'"'
+Then /^I should see the questions title$/ do
+  Then 'I should see "'+@question.document_in_preferred_language([Language["en"].id, Language["de"].id]).title+'"'
 end
 
 Given /^there is a proposal I have created$/ do
@@ -169,7 +169,7 @@ Given /^there is a proposal I have created$/ do
 end
 
 Given /^there is a proposal$/ do
-  @proposal = Discussion.find_all_by_editorial_state_id(StatementState['published'].id).last.children.proposals.first
+  @proposal = Question.find_all_by_editorial_state_id(StatementState['published'].id).last.children.proposals.first
 end
 
 Given /^the proposal was not published yet$/ do
@@ -182,8 +182,8 @@ Given /^I have "([^\"]*)" as decision making tags$/ do |tags|
   @user.save
 end
 
-Then /^the discussions title should be "([^\"]*)"$/ do |title|
-  @discussion.document.title.should == title
+Then /^the questions title should be "([^\"]*)"$/ do |title|
+  @question.document.title.should == title
 end
 
 
@@ -193,21 +193,21 @@ Then /^I should see the proposals data$/ do
 end
 
 Then /^I should see no proposals$/ do
-  assert_have_no_selector("li.discussion")
+  assert_have_no_selector("li.question")
 end
 
-Then /^I should be a subscriber from "([^\"]*)"$/ do |discussion|
-  @discussion = StatementNode.search_statement_nodes(:type => "Discussion",
-                                                   :search_term => discussion,
+Then /^I should be a subscriber from "([^\"]*)"$/ do |question|
+  @question = StatementNode.search_statement_nodes(:type => "Question",
+                                                   :search_term => question,
                                                    :language_ids => [Language["en"]]).first
-  assert(@discussion.followed_by?(@user))
+  assert(@question.followed_by?(@user))
 end
 
-Then /^"([^\"]*)" should have a "([^\"]*)" event$/ do |discussion, op_type|
-  @discussion = StatementNode.search_statement_nodes(:type => "Discussion",
-                                                   :search_term => discussion,
+Then /^"([^\"]*)" should have a "([^\"]*)" event$/ do |question, op_type|
+  @question = StatementNode.search_statement_nodes(:type => "Question",
+                                                   :search_term => question,
                                                    :language_ids => [Language["en"]]).first
-  event = Event.find_by_subscribeable_id(@discussion.id)
+  event = Event.find_by_subscribeable_id(@question.id)
   assert !event.nil?
   assert event.operation.eql?(op_type)
 end

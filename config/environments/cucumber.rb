@@ -31,5 +31,5 @@ config.gem 'rspec-rails',      :lib => false, :version => '>=1.3.2' unless File.
 
 
 # Number of children statements shown
-TOP_CHILDREN = 3
+TOP_CHILDREN = 7
 MORE_CHILDREN = 7

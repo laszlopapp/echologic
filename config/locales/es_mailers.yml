@@ -48,11 +48,11 @@ es:
 
     activity_tracking:
       subject: echo - Notificaciones de la actividad
-      discussions:
-        new_discussions: 'Hay <strong>{{count}} debates nuevos</strong> desde la última actualización. '
+      questions:
+        new_questions: 'Hay <strong>{{count}} debates nuevos</strong> desde la última actualización. '
         new_tags: 'Los debates están relacionados con los temas:'
         new_proposals: 'Nueva propuesta a debate "{{title}}"'
-        new_improvement_proposals: 'Nueva propuesta de mejora para la propuesta "{{title}}" en "{{discussion_title}}":'
+        new_improvement_proposals: 'Nueva propuesta de mejora para la propuesta "{{title}}" en "{{question_title}}":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         Si no quieres recibir notificaciones sobre las actividades de tus debates, por favor, regístrate en

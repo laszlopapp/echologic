@@ -7,7 +7,7 @@ class StatementsControllerTest < ActionController::TestCase
   end
 
   #####################
-  # DISCUSSION MODULE #
+  # QUESTION MODULE #
   #####################
 
   test "should get discuss search" do
@@ -20,14 +20,14 @@ class StatementsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get My Discussions" do
-    get :my_discussions
+  test "should get my questions" do
+    get :my_questions
     assert_response :success
   end
 
   test "should publish non published debate" do
     prev_published = StatementNode.published(false).count
-    put :publish, :id => statement_nodes(:non_published_discussion).to_param
+    put :publish, :id => statement_nodes(:non_published_question).to_param
     assert_equal StatementNode.published(false).count, prev_published+1
   end
 
@@ -60,15 +60,15 @@ class StatementsControllerTest < ActionController::TestCase
 
   test "should translate the statement" do
     user = users(:editor)
-    document = statement_documents('test-discussion-doc-english')
+    document = statement_documents('test-question-doc-english')
     document.lock(user)
 
     assert_difference('StatementDocument.count', 1) do
       I18n.locale = 'pt'
       put :create_translation,
-       :id => statement_nodes('test-discussion').to_param,
-       :discussion => { :statement_document =>{
-                        :statement_id => statements('test-discussion-statement').to_param,
+       :id => statement_nodes('test-question').to_param,
+       :question => { :statement_document =>{
+                        :statement_id => statements('test-question-statement').to_param,
                         :language_id => Language[:en]
                       },
                       :new_statement_document => {
@@ -87,7 +87,7 @@ class StatementsControllerTest < ActionController::TestCase
   ##############################
 
   test "should get to view the statement" do
-    get :show, :id => statement_nodes('test-discussion').to_param
+    get :show, :id => statement_nodes('test-question').to_param
     assert_response :success
     get :show, :id => statement_nodes('first-proposal').to_param
     assert_response :success
@@ -95,12 +95,12 @@ class StatementsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get to view the discussion teaser" do
-    get :add, :type => :discussion
+  test "should get to view the question teaser" do
+    get :add, :type => :question
     assert_response :success
   end
   test "should get to view the proposal teaser" do
-    get :add, :type => :proposal, :id => statement_nodes('test-discussion').to_param
+    get :add, :type => :proposal, :id => statement_nodes('test-question').to_param
     assert_response :success
   end
   test "should get to view the improvement proposal teaser" do
@@ -120,12 +120,12 @@ class StatementsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get the new discussion form" do
-    get :new, :type => :discussion
+  test "should get the new question form" do
+    get :new, :type => :question
     assert_response :success
   end
   test "should get the new proposal form" do
-    get :new, :id => statement_nodes('test-discussion').to_param, :type => :proposal
+    get :new, :id => statement_nodes('test-question').to_param, :type => :proposal
     assert_response :success
   end
   test "should get the new improvement proposal form" do
@@ -147,10 +147,10 @@ class StatementsControllerTest < ActionController::TestCase
 
 
   test "should create new statement form" do
-#    assert_difference('Discussion.count', 1) do
-#      post :create, :type => "Discussion",
-#      :discussion => {
-#        :statement_document => {:title => "Super Discussion", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en],
+#    assert_difference('Question.count', 1) do
+#      post :create, :type => "Question",
+#      :question => {
+#        :statement_document => {:title => "Super Question", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en],
 #                                :action_id => StatementAction[:created] , :locked_at => ""},
 #        :editorial_state_id => StatementState[:published],
 #        :statement_id => "",
@@ -164,7 +164,7 @@ class StatementsControllerTest < ActionController::TestCase
 #                                :action_id => StatementAction[:created] , :locked_at => ""},
 #        :editorial_state_id => StatementState[:published],
 #        :statement_id => "",
-#        :parent_id => statement_nodes('test-discussion').to_param }
+#        :parent_id => statement_nodes('test-question').to_param }
 #    end
 #    assert_difference('ImprovementProposal.count', 1) do
 #      post :create, :type => "ImprovementProposal", :echo => true,
@@ -204,8 +204,8 @@ class StatementsControllerTest < ActionController::TestCase
 #    end
   end
 
-  test "should get the edit discussion form" do
-    get :edit, :id => statement_nodes('test-discussion').to_param, :type => :discussion, :current_document_id => statement_documents('test-discussion-doc-english').to_param
+  test "should get the edit question form" do
+    get :edit, :id => statement_nodes('test-question').to_param, :type => :question, :current_document_id => statement_documents('test-question-doc-english').to_param
     assert_response :success
   end
   test "should get the edit proposal form" do
@@ -216,8 +216,8 @@ class StatementsControllerTest < ActionController::TestCase
     get :edit, :id => statement_nodes('third-impro-proposal').to_param, :type => :improvement_proposal, :current_document_id => statement_documents('third-impro-proposal-doc-english').to_param
     assert_response :success
   end
-  test "should not get the edit discussion form" do
-    get :edit, :id => statement_nodes('test-discussion').to_param, :type => :discussion, :current_document_id => 0
+  test "should not get the edit question form" do
+    get :edit, :id => statement_nodes('test-question').to_param, :type => :question, :current_document_id => 0
     assert_template 'statements/show'
     assert_response :success
   end
@@ -230,13 +230,13 @@ class StatementsControllerTest < ActionController::TestCase
   end
 
   test "should get more children" do
-    get :children, :id => statement_nodes('test-discussion').to_param, :type => "proposal"
+    get :children, :id => statement_nodes('test-question').to_param, :type => "proposal"
     assert_response :success
   end
 
 
   test "should get the statement node authors" do
-    @statement_node = Discussion.first
+    @statement_node = Question.first
     get :authors,:id => @statement_node.id
     assert_response :success
   end

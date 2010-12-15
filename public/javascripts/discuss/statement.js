@@ -354,14 +354,14 @@
 	 * load this current statement's already existing tags into the tags input box
 	 */
 	function loadTags(form) {
-	  tags_to_load = form.find('input.discussion_tags').val();
+	  tags_to_load = form.find('input.question_tags').val();
     tags_to_load = $.trim(tags_to_load);
     tags_to_load = tags_to_load.split(',');
     while (tags_to_load.length > 0) {
       tag = $.trim(tags_to_load.shift());
       if (tag.localeCompare(' ') > 0) {
-        element = createTagButton(form, tag, form.find(".discussion_tags"));
-        form.find('#discussion_tags_values').append(element);
+        element = createTagButton(form, tag, form.find(".question_tags"));
+        form.find('#question_tags_values').append(element);
       }
     }
 	}
@@ -389,7 +389,7 @@
 	      entered_tags = jQuery.map(entered_tags, function(tag) {
 	        return (tag.trim());
 	      });
-	      existing_tags = form.find('.discussion_tags').val();
+	      existing_tags = form.find('.question_tags').val();
 	      existing_tags = existing_tags.split(',');
 	      existing_tags = $.map(existing_tags,function(q){return q.trim()});
 
@@ -398,16 +398,16 @@
 	        tag = entered_tags.shift().trim();
 	        if (existing_tags.indexOf(tag) < 0 && entered_tags.indexOf(tag) < 0) {
 	          if (tag.localeCompare(' ') > 0) {
-	            element = createTagButton(form, tag, ".discussion_tags");
-	            $('#discussion_tags_values').append(element);
+	            element = createTagButton(form, tag, ".question_tags");
+	            $('#question_tags_values').append(element);
 	            new_tags.push(tag);
 	          }
 	        }
 	      }
-	      discussion_tags = form.find('.discussion_tags').val();
+	      question_tags = form.find('.question_tags').val();
 	      if (new_tags.length > 0) {
-	        discussion_tags = ((discussion_tags.trim().length > 0) ? discussion_tags + ',' : '') + new_tags.join(',');
-	        form.find('.discussion_tags').val(discussion_tags);
+	        question_tags = ((question_tags.trim().length > 0) ? question_tags + ',' : '') + new_tags.join(',');
+	        form.find('.question_tags').val(question_tags);
 	      }
 	      form.find('#tag_topic_id').val('');
 	      form.find('#tag_topic_id').focus();
