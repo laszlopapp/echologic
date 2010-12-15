@@ -2,9 +2,9 @@ module PublishableModuleHelper
   #
   # get the text that shows up on the top left corner of discuss search results
   #
-  def questions_count_text(count, value = nil)
+  def questions_count_text(count, search_terms = nil)
     text = count_text("discuss", count)
-    text << " #{I18n.t('discuss.for', :value => value)}" if value
+    text << " #{I18n.t('discuss.for', :value => search_terms)}" if search_terms
     text
   end
 
@@ -12,8 +12,8 @@ module PublishableModuleHelper
   #
   # create question button above the discuss search results and on the left corner of my questions
   #
-  def create_question_link_for(path, value=nil)
-    link_to(send("new_question_with_path#{value ? '_and_value' : ''}_url", :path => path, :value => value),
+  def create_question_link_for(origin, search_terms=nil)
+    link_to(new_question_url(:origin => origin, :search_terms => search_terms),
             :id => 'create_question_link') do
       content_tag(:span, '',
                   :class => "new_question create_statement_button_mid create_question_button_mid ttLink no_border",
@@ -25,9 +25,8 @@ module PublishableModuleHelper
   #
   # question link for the discuss search results
   #
-  def link_to_question(title, question,long_title,value=nil)
-    link_to send("statement_node_with_path#{value ? '_and_value' : ''}_url", 
-                 question, :path => :discuss_search, :value => value),
+  def link_to_question(title, question,long_title,search_terms=nil)
+    link_to statement_node_url(question, :origin => :discuss_search, :search_terms => search_terms),
                :title => "#{h(title) if long_title}",
                :class => "avatar_holder#{' ttLink no_border' if long_title }" do 
       image_tag question.image.url(:small)
@@ -39,11 +38,9 @@ module PublishableModuleHelper
   # Creates a link to create a new question
   # Appears in add question teaser
   #
-  def create_new_question_link(path=nil, value=nil)
-    value = (value =~ /#/) ? value : nil
+  def create_new_question_link(origin=nil, search_terms=nil)
     link_to(I18n.t("discuss.statements.create_question_link"),
-            send("new_question#{path ? '_with_path' : '' }#{value ? '_and_value' : ''}_url", 
-            :path => path, :value => value),
+            new_question_url(:origin => origin, :search_terms => search_terms),
             :id => "create_question_link",
             :class => "ajax add_new_button text_button create_question_button ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_question"))
@@ -52,10 +49,8 @@ module PublishableModuleHelper
   #
   # Creates a button link to create a new question (SIDEBAR).
   #
-  def create_new_question_button(path = nil, value = nil)
-    value = (value =~ /#/) ? value : nil
-    link_to(send("new_question#{path ? '_with_path' :''}#{value ? '_and_value' : '' }_url", 
-                  :path => path, :value => value),
+  def create_new_question_button(origin = nil, search_terms = nil)
+    link_to(new_question_url(:origin => origin, :search_terms => search_terms),
                   :id => "create_question_link", :class => "ajax") do
       content_tag(:span, '',
                   :class => "create_statement_button_mid create_question_button_mid ttLink no_border",
@@ -88,7 +83,7 @@ module PublishableModuleHelper
   # linked title of question on my question area 
   #
   def my_question_title(title,question)
-    link_to(h(title),statement_node_with_path_url(question, :path => :my_questions), :class => "statement_link ttLink no_border",
+    link_to(h(title),statement_node_url(question, :origin => :my_questions), :class => "statement_link ttLink no_border",
             :title => I18n.t("discuss.tooltips.read_#{question.class.name.underscore}")) 
   end
   
@@ -96,7 +91,7 @@ module PublishableModuleHelper
   # linked image of question on my question area 
   #
   def my_question_image(question)
-    link_to statement_node_with_path_url(question, :path => :my_questions), :class => "avatar_holder" do
+    link_to statement_node_url(question, :origin => :my_questions), :class => "avatar_holder" do
       image_tag question.image.url(:small)
     end 
   end

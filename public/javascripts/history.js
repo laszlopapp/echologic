@@ -18,7 +18,7 @@ function initHistoryEvents() {
     return false;
   });
 
-	$('#search_form #value').live("keypress", function(event) {
+	$('#search_form #search_terms').live("keypress", function(event) {
     if (event && event.keyCode == 13) { /* check if enter was pressed */
       setSearchHistory();
       return false;
@@ -42,16 +42,16 @@ function initHistoryEvents() {
 
 
 function setSearchHistory() {
-  var val = $("#value").val();
-  if (val.length > 0) {
+  var search_terms = $("#search_terms").val();
+  if (search_terms.length > 0) {
 		
-    val = val.trim();
+    search_terms = search_terms.trim();
   }
   if ($(':input[id=sort]').length > 0) {
     var sort = $(':input[id=sort]').val();
-	  $.setFragment({ "value": val, "sort" : sort, "page": "1"});
+	  $.setFragment({ "search_terms": search_terms, "sort" : sort, "page": "1"});
   } else {
-    $.setFragment({ "value": val, "page": "1"});
+    $.setFragment({ "search_terms": search_terms, "page": "1"});
   }
 }
 
@@ -69,24 +69,11 @@ function initPaginationButtons() {
 
 function initFragmentChange() {
   $(document).bind("fragmentChange.page", function() {
-		path = document.location.href.split('/');
-		
-		/* clean arguments */
-		if ((arg_index = path[path.length - 1].indexOf('#')) > 0 ) {
-      path[path.length - 1] = path[path.length - 1].substring(0, arg_index);
-    }
-	
-		/* push new search value */
-		if ($.fragment().value) {
-			if(!path[path.length - 1].match('search')) {
-				path.pop();
-			}
-			path.push(escape($.fragment().value));
-		}
 		if ($.fragment().page) {
-			$.getScript($.queryString(path.join('/'), {
+			$.getScript($.queryString(document.location.href, { 
 				"page": $.fragment().page,
 				"sort": $.fragment().sort,
+				"search_terms": $.fragment().search_terms
 			}));
 		}
   });

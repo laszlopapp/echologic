@@ -102,14 +102,20 @@ class StatementsController < ApplicationController
                                                           :editorial_state => StatementState[:new])
     @statement_document ||= StatementDocument.new(:language_id => @locale_language_id)
     @action ||= StatementAction["created"]
-    @statement_node.topic_tags << "#{params[:value]}" if params[:value]
-    @tags ||= @statement_node.topic_tags if @statement_node.taggable?
-
+    
+    #search terms as tags
+    if @statement_node.taggable? and params[:search_terms]
+      loadSearchTermsAsTags(params[:search_terms])
+      
+      
+    end
+    
     load_echo_messages if @statement_node.echoable?
 
     render_template 'statements/new'
   end
 
+  
 
   #
   # Creates a new statement.
@@ -498,9 +504,9 @@ class StatementsController < ApplicationController
   end
 
 
-  ######################
-  # Editoing / Locking #
-  ######################
+  #####################
+  # Editing / Locking #
+  #####################
 
   #
   # Returns true if the current user could successfully acquire the lock.
@@ -611,44 +617,11 @@ class StatementsController < ApplicationController
     params.has_key?(:id) ? StatementNode.find(params[:id]) : nil
   end
 
-  #
-  # Sets the info to displayed along with the response.
-  # The action name is automagically incorporated into the I18n key.
-  #
-  def set_statement_info(object)
-    code = object.kind_of?(String) ? object : "discuss.messages.#{object.action.code}"
-    set_info code, :type => I18n.t("discuss.statements.types.#{@statement_node.class.name.underscore}")
-  end
-
-  #
-  # Loads the ancestors of the current statement node, in order to display the correct context. Only used for HTTP.
-  # When teaser=true, @statement_node is the PARENT node of the teaser.
-  #
-  def load_ancestors(teaser = false)
-    if @statement_node
-      @ancestors = @statement_node.ancestors
-      @ancestors.each {|a| load_siblings(a) }
-
-      load_siblings(@statement_node) # if teaser: @statement_node is the teaser's parent, otherwise the node on the bottom-most level
-      if teaser
-        @ancestors << @statement_node # if teaser: @statement_node is the teaser's parent, therefore, an ancestor
-        load_children_for_parent(@statement_node, @type)
-      end
-    else
-      if teaser
-        load_roots_to_session
-      else
-        @ancestors = []
-      end
-    end
-  end
-
-  def load_children_for_parent(statement_node, type)
-    @siblings ||= {}
-    class_name = type.classify
-    siblings = statement_node.children_to_session(@language_preference_list,class_name)
-    @siblings["add_#{type}"] = siblings
-  end
+  
+  ######################
+  # BREADCRUMB HELPERS #
+  ######################
+  
 
   #
   # Sets the new breadcrumb of the current statement node.
@@ -679,10 +652,10 @@ class StatementsController < ApplicationController
   # Sets the breadcrumbs for the current statement node view previous path.
   #
   def initialize_breadcrumbs
-    add_breadcrumb I18n.t("discuss.statements.breadcrumbs.#{params[:path]}"),
-                   "#{params[:path]}_path" if params[:path]
-    add_breadcrumb I18n.t("discuss.statements.breadcrumbs.#{params[:path]}_with_value", :value => params[:value]),
-                   discuss_search_with_value_path(params[:value]) if params[:value]
+    add_breadcrumb I18n.t("discuss.statements.breadcrumbs.#{params[:origin]}"),
+                   "#{params[:origin]}_path" if params[:origin]
+    add_breadcrumb I18n.t("discuss.statements.breadcrumbs.#{params[:origin]}_with_value", :value => params[:search_terms]),
+                   discuss_search_path(:search_terms => params[:search_terms]) if params[:search_terms]
   end
 
 
@@ -762,9 +735,43 @@ class StatementsController < ApplicationController
   end
 
 
-  ########
-  # MISC #
-  ########
+  
+
+
+  ############################
+  # SESSION HANDLING HELPERS #
+  ############################
+
+
+  #
+  # Loads the ancestors of the current statement node, in order to display the correct context. Only used for HTTP.
+  # When teaser=true, @statement_node is the PARENT node of the teaser.
+  #
+  def load_ancestors(teaser = false)
+    if @statement_node
+      @ancestors = @statement_node.ancestors
+      @ancestors.each {|a| load_siblings(a) }
+
+      load_siblings(@statement_node) # if teaser: @statement_node is the teaser's parent, otherwise the node on the bottom-most level
+      if teaser
+        @ancestors << @statement_node # if teaser: @statement_node is the teaser's parent, therefore, an ancestor
+        load_children_for_parent(@statement_node, @type)
+      end
+    else
+      if teaser
+        load_roots_to_session
+      else
+        @ancestors = []
+      end
+    end
+  end
+
+  def load_children_for_parent(statement_node, type)
+    @siblings ||= {}
+    class_name = type.classify
+    siblings = statement_node.children_to_session(@language_preference_list,class_name)
+    @siblings["add_#{type}"] = siblings
+  end
 
   #
   # Loads siblings of the current statement node.
@@ -793,9 +800,9 @@ class StatementsController < ApplicationController
   # Gets the root ids that need to be loaded to the session.
   #
   def roots_to_session(statement_node)
-    if params[:path]
-      siblings = case params[:path]
-        when 'discuss_search' then search_statement_nodes(:search_term => params[:value]||"",
+    if params[:origin]
+      siblings = case params[:origin]
+        when 'discuss_search' then search_statement_nodes(:search_term => params[:search_terms]||"",
                                                           :language_ids => @language_preference_list,
                                                           :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id)
         when 'my_questions' then current_user.get_my_questions.map(&:id)
@@ -805,18 +812,12 @@ class StatementsController < ApplicationController
     end
     siblings + ["/add/question"]
   end
-
-  #
-  # Shows "being edited" info message and refreshes the statement.
-  #
-  def being_edited
-    respond_to do |format|
-      set_error('discuss.statements.staled_modification')
-      format.html { flash_error and redirect_to_statement }
-      format.js { show }
-    end
-  end
-
+  
+  
+  ####################
+  # RESPONSE RENDERS #
+  ####################
+  
   %w(info error).each do |type|
     class_eval %(
       def render_statement_with_#{type}(opts={}, &block)
@@ -857,6 +858,45 @@ class StatementsController < ApplicationController
       }
     end
   end
+
+  ########
+  # MISC #
+  ########
+
+  #
+  # Sets the info to displayed along with the response.
+  # The action name is automagically incorporated into the I18n key.
+  #
+  def set_statement_info(object)
+    code = object.kind_of?(String) ? object : "discuss.messages.#{object.action.code}"
+    set_info code, :type => I18n.t("discuss.statements.types.#{@statement_node.class.name.underscore}")
+  end
+
+  #
+  # Loads search terms from the search as tags for the statement node.
+  #
+  def loadSearchTermsAsTags(search_terms)
+    default_tags = search_terms
+    default_tags[/[\s]+/] = ',' if default_tags[/[\s]+/] 
+    default_tags = default_tags.split(',').compact
+    default_tags.each{|t| @statement_node.topic_tags << t }
+    @tags ||= @statement_node.topic_tags if @statement_node.taggable?
+  end
+  
+  #
+  # Shows "being edited" info message and refreshes the statement.
+  #
+  def being_edited
+    respond_to do |format|
+      set_error('discuss.statements.staled_modification')
+      format.html { flash_error and redirect_to_statement }
+      format.js { show }
+    end
+  end
+
+  ###########
+  # LOGGERS #
+  ###########
 
   # Logs the exception and redirects to the statement.
   def log_error_statement(e, message)

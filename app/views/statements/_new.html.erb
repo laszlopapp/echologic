@@ -6,8 +6,8 @@
                     #{statement_node.taggable? ? 'taggable' : ''} 
                     #{statement_node.echoable? ? 'echoable' : ''}" } do |form| -%>
   <%= hidden_field_tag :type, @statement_node_type.name %>
-	<%= hidden_field_tag :path, params[:path] if params[:path] %>
-	<%= hidden_field_tag :value, params[:value] if params[:value] %>
+	<%= hidden_field_tag :path, params[:origin] if params[:origin] %>
+	<%= hidden_field_tag :search_terms, params[:search_terms] if params[:search_terms] %>
 	<%= render :partial => 'statements/form/form_header', :locals => {:form => form, :statement_node => statement_node} %>
   <%= render :partial => 'statements/form/form_content', 
                          :locals => {:form => form, :statement_node => statement_node,

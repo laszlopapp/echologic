@@ -31,7 +31,7 @@ module PublishableModule
   # Response: JS
   #
   def category
-    @value    = params[:value] || ""
+    @value    = params[:search_terms] || ""
     @page     = params[:page]  || 1
 
     statement_nodes_not_paginated = search_statement_nodes(:search_term => @value,

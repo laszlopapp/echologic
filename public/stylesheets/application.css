@@ -645,7 +645,7 @@
   text-align: center;
 }
 
-#search_form #value {
+#search_form #search_terms {
   background: #FFF url(../images/page/searchbar_left.png) no-repeat scroll left top;
   width: 365px;
   height: 29px;

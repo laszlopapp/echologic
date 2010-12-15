@@ -260,7 +260,7 @@ class StatementNode < ActiveRecord::Base
       # Handling the search term
       search_term = opts[:search_term]
       if !search_term.blank?
-        terms = search_term.split(" ")
+        terms = search_term.split(/[,\s]+/)
         search_fields = %w(d.title d.text)
         or_conditions = search_fields.map{|attr|"#{attr} LIKE ?"}.join(" OR ")
         or_conditions << " OR #{terms.map{|term| term.length > 3 ?

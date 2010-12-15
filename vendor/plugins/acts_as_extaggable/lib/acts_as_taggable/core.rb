@@ -28,13 +28,13 @@ module ActsAsTaggable::Taggable
           
           class_eval %(
           def #{tag_type}_tags
-          tag_list_on('#{tags_type}')
+            tag_list_on('#{tags_type}')
           end
           def #{tag_type}_tags_hash
-          tag_list_hash_on('#{tags_type}')
+            tag_list_hash_on('#{tags_type}')
           end
           def #{tag_type}_tags=(new_tags)
-          set_tag_list_on('#{tags_type}', new_tags)
+            set_tag_list_on('#{tags_type}', new_tags)
           end
           # def all_#{tag_type}_tags
           # all_tags_list_on('#{tags_type}')

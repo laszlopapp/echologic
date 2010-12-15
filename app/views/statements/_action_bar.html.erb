@@ -16,7 +16,7 @@
 	<!-- New Statement Button -->
 	<% unless no_buttons %>
 	  <% if statement_node.parent.nil? %>
-		  <% create_new_question_button(params[:path], params[:value])  %>
+		  <% create_new_question_button(params[:origin], params[:search_terms])  %>
 		<% else %>
       <% create_new_sibling_statement_button(statement_node)  %>
 		<% end %>

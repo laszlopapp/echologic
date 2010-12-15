@@ -15,11 +15,9 @@ ActionController::Routing::Routes.draw do |map|
 
   # SECTION discuss search
   map.discuss_search '/discuss/search', :controller => :statements, :action => :category
-  map.discuss_search_with_value '/discuss/search/:value', :controller => :statements, :action => :category, :conditions => {:value => /\w+/ }
-
+ 
   # SECTION connect search
   map.connect_search '/connect/search', :controller => :connect, :action => :show
-  map.connect_with_value '/connect/search/:value', :controller => :connect, :action => :show, :conditions => {:value => /\w+/ }
   map.connect_roadmap '/connect/roadmap', :controller => :connect, :action => :roadmap
 
   map.my_echo '/my_echo/roadmap', :controller => :my_echo, :action => :roadmap
@@ -114,28 +112,11 @@ ActionController::Routing::Routes.draw do |map|
   # SECTION discuss - statement's tree
 
   #route for new question
-  map.new_question 'statement/new/question',
-                     :controller => :statements,
-                     :action => :new,
-                     :type => :question
-  map.new_question_with_path 'statement/new/question/:path',
-                               :controller => :statements,
-                               :action => :new,
-                               :type => :question
-  map.new_question_with_path_and_value 'statement/new/question/:path/:value',
-                                         :controller => :statements,
-                                         :action => :new,
-                                         :type => :question
-
-  #Add Teaser section (with path, path and value, and none of the previous)
+  map.new_question 'statement/new/question', :controller => :statements, :action => :new, :type => :question
+  
+  #Add Teaser section
   map.connect        'statement/add/question', :controller => :statements, :action => :add, :type => :question
   map.connect        'statement/:id/add/:type',  :controller => :statements, :action => :add
-
-  map.connect        'statement/add/question/:path',        :controller => :statements, :action => :add, :type => :question
-  map.connect        'statement/add/question/:path/:value', :controller => :statements, :action => :add, :type => :question
-
-  map.connect        'statement/:id/add/:type/:path',         :controller => :statements, :action => :add
-  map.connect        'statement/:id/add/:type/:path/:value',  :controller => :statements, :action => :add
 
   map.resources :statement_nodes, :controller => :statements,
                 :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image,
@@ -144,10 +125,6 @@ ActionController::Routing::Routes.draw do |map|
                                  :edit => 'edit/:current_document_id', :new_translation => 'translation/:current_document_id',
                                  :children => 'children/:type', :incorporate => 'incorporate/:approved_ip'},
                 :as => 'statement'
-
-  #show
-  map.statement_node_with_path               'statement/:id/:path',        :controller => :statements, :action => :show
-  map.statement_node_with_path_and_value     'statement/:id/:path/:value', :controller => :statements, :action => :show
   #publish
   map.connect   'statements/:id/publish/:in',   :controller => :statements, :action => :publish
 
