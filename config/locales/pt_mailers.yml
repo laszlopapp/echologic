@@ -51,7 +51,7 @@ pt:
         new_questions: 'Existem <strong>{{count}} discussões novas</strong> desde a última actualização. '
         new_tags: 'Os debates estão relacionados com os seguintes tópicos:'
         new_proposals: 'Novas propostas na discussão "{{title}}"'
-        new_improvement_proposals: 'Novas propostas de melhoria na proposta "{{title}}" em "{{question_title}}":'
+        new_improvements: 'Novas propostas de melhoria na proposta "{{title}}" em "{{question_title}}":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         Se não deseja receber notificações diárias sobre novidades nas suas discussões, por favor logue-se em

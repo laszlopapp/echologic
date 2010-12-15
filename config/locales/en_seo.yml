@@ -65,7 +65,7 @@ en:
 #        my_questions: 'My Discussions'
 #      proposals:
 #        show: 'echo - Positions in the Debate'
-#      improvement_proposals:
+#      improvements:
 #        show: 'echo - Ideas to Improve the Position'
 
       # connect: de.seo.title.connect

@@ -48,7 +48,7 @@ class StatementNode < ActiveRecord::Base
   ##
 
   #auxiliar named scopes only used for tests
-  %w(question proposal improvement_proposal pro_argument contra_argument follow_up_question).each do |type|
+  %w(question proposal improvement pro_argument contra_argument follow_up_question).each do |type|
     class_eval %(
       named_scope :#{type.pluralize}, lambda{{ :conditions => { :type => '#{type.camelize}' } } }
     )

@@ -63,7 +63,7 @@ de:
 #        my_questions: 'Meine Diskussionen'
 #      proposals:
 #        show: 'echo - Stellungnahmen in der Debate'
-#      improvement_proposals:
+#      improvements:
 #        show: 'echo - Ergänzungsvorschläge für die Stellungnahme'
 
       # connect: de.seo.title.connect

@@ -58,7 +58,7 @@ es:
         my_questions: 'Mis Debates'
       proposals:
         show: 'echo - Propuestas en este debate'
-      improvement_proposals:
+      improvements:
         show: 'echo - Propuesta de mejora'
 
       # connect: de.seo.title.connect

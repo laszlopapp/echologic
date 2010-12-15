@@ -1,5 +1,5 @@
 
-class ImprovementProposal < StatementNode
+class Improvement < StatementNode
   acts_as_incorporable
 
   has_children_of_types

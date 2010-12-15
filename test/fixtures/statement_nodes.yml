@@ -157,7 +157,7 @@ german-child-proposal:
 first-impro-proposal:
   parent_id: <%= Fixtures.identify('first-proposal') %>
   root_id: <%= Fixtures.identify('test-question') %>
-  type: ImprovementProposal
+  type: Improvement
   creator_id: <%= Fixtures.identify(:ben) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('first-impro-proposal-statement') %>
@@ -169,7 +169,7 @@ first-impro-proposal:
 second-impro-proposal:
   parent_id: <%= Fixtures.identify('first-proposal') %>
   root_id: <%= Fixtures.identify('test-question') %>
-  type: ImprovementProposal
+  type: Improvement
   creator_id: <%= Fixtures.identify(:joe) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('second-impro-proposal-statement') %>
@@ -181,7 +181,7 @@ second-impro-proposal:
 third-impro-proposal:
   parent_id: <%= Fixtures.identify('first-proposal') %>
   root_id: <%= Fixtures.identify('test-question') %>
-  type: ImprovementProposal
+  type: Improvement
   creator_id: <%= Fixtures.identify(:user) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('third-impro-proposal-statement') %>
@@ -193,7 +193,7 @@ third-impro-proposal:
 fourth-impro-proposal:
   parent_id: <%= Fixtures.identify('first-proposal') %>
   root_id: <%= Fixtures.identify('test-question') %>
-  type: ImprovementProposal
+  type: Improvement
   creator_id: <%= Fixtures.identify(:ben) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('fourth-impro-proposal-statement') %>
@@ -205,7 +205,7 @@ fourth-impro-proposal:
 fifth-impro-proposal:
   parent_id: <%= Fixtures.identify('first-proposal') %>
   root_id: <%= Fixtures.identify('test-question') %>
-  type: ImprovementProposal
+  type: Improvement
   creator_id: <%= Fixtures.identify(:ben) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('fifth-impro-proposal-statement') %>
@@ -217,7 +217,7 @@ fifth-impro-proposal:
 german-impro-proposal:
   parent_id: <%= Fixtures.identify('german-proposal') %>
   root_id: <%= Fixtures.identify('german-question') %>
-  type: ImprovementProposal
+  type: Improvement
   creator_id: <%= Fixtures.identify(:ben) %>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
   statement_id: <%= Fixtures.identify('german-impro-proposal-statement') %>

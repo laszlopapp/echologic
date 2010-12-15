@@ -9,9 +9,9 @@ Given /^the proposal has an ([^\"]*) child$/ do |state|
   imp.save
 end
 
-Then /^the state of the improvement proposal must be "([^\"]*)"$/ do |state|
-  @improvement_proposal.reload
-  assert @improvement_proposal.send("#{state}?")
+Then /^the state of the improvement must be "([^\"]*)"$/ do |state|
+  @improvement.reload
+  assert @improvement.send("#{state}?")
 end
 
 Then /^the proposal has ([^\"]*) children$/ do |state|

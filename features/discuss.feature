@@ -50,18 +50,18 @@ Feature: Take Part on a question
       And the question should have one proposal
 
   @ok
-  Scenario: Add an Improvement Proposal to a Proposal
+  Scenario: Add an Improvement to a Proposal
     Given I am logged in as "user" with password "true"
       And there is the first question
       And the question has at least on proposal
     When I go to the questions first proposal
-      And I follow "create_improvement_proposal_link"
+      And I follow "create_improvement_link"
       And I fill in the following:
-      | improvement_proposal_statement_document_title           | Improving the unimprovable                                           |
-      | improvement_proposal_statement_document_text           | blubb (oh, and of cause a lot of foo and a little bit of (mars-)bar) |
+      | improvement_statement_document_title           | Improving the unimprovable                                           |
+      | improvement_statement_document_text           | blubb (oh, and of cause a lot of foo and a little bit of (mars-)bar) |
       And I press "Save"
     Then I should see "Improving the unimprovable"
-      And the proposal should have one improvement proposal
+      And the proposal should have one improvement
 
   @ok
   Scenario: Edit a proposal i created
@@ -92,7 +92,7 @@ Feature: Take Part on a question
      When I go to the proposal
      Then I should see "Proposal"
        And I should see the proposals data
-       And I should see localized "discuss.statements.create_improvement_proposal_link"
+       And I should see localized "discuss.statements.create_improvement_link"
 
 
    Scenario: Question has only proposals in german, which will not be seen by a user with no defined german language

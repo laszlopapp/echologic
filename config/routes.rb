@@ -154,7 +154,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :questions, :controller => :statements, :type => :question, :only => [:create, :update]
   map.resources :proposals, :controller => :statements, :only => [:create, :update]
-  map.resources :improvement_proposals, :controller => :statements, :only => [:create, :update]
+  map.resources :improvements, :controller => :statements, :only => [:create, :update]
   map.resources :pro_arguments, :controller => :statements, :only => [:create, :update]
   map.resources :contra_arguments, :controller => :statements, :only => [:create, :update]
   map.resources :follow_up_questions, :controller => :statements, :only => [:create, :update]

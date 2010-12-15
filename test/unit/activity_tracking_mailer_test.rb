@@ -49,7 +49,7 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert_match /#{title}/, email.encoded
   end
 
-  def test_activity_tracking_mail_improvement_proposal
+  def test_activity_tracking_mail_improvement
     user = users(:user)
     question_events = []
     tags = {}

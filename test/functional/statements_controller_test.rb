@@ -46,7 +46,7 @@ class StatementsControllerTest < ActionController::TestCase
   ########################
 
   test "should get incorporation form" do
-    i = ImprovementProposal.first
+    i = Improvement.first
     i.readify! ; i.stage! ; i.approve!
     get :incorporate, :id => statement_nodes('first-proposal').to_param, :approved_ip => i.to_param
     assert_response :success
@@ -103,8 +103,8 @@ class StatementsControllerTest < ActionController::TestCase
     get :add, :type => :proposal, :id => statement_nodes('test-question').to_param
     assert_response :success
   end
-  test "should get to view the improvement proposal teaser" do
-    get :add, :type => :improvement_proposal, :id => statement_nodes('first-proposal').to_param
+  test "should get to view the improvement teaser" do
+    get :add, :type => :improvement, :id => statement_nodes('first-proposal').to_param
     assert_response :success
   end
   test "should get to view the pro argument teaser" do
@@ -128,8 +128,8 @@ class StatementsControllerTest < ActionController::TestCase
     get :new, :id => statement_nodes('test-question').to_param, :type => :proposal
     assert_response :success
   end
-  test "should get the new improvement proposal form" do
-    get :new, :id => statement_nodes('first-proposal').to_param, :type => :improvement_proposal
+  test "should get the new improvement form" do
+    get :new, :id => statement_nodes('first-proposal').to_param, :type => :improvement
     assert_response :success
   end
   test "should get the new pro argument form" do
@@ -168,8 +168,8 @@ class StatementsControllerTest < ActionController::TestCase
 #    end
 #    assert_difference('ImprovementProposal.count', 1) do
 #      post :create, :type => "ImprovementProposal", :echo => true,
-#      :improvement_proposal => {
-#        :statement_document => {:title => "Super Improvement Proposal", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en],
+#      :improvement => {
+#        :statement_document => {:title => "Super Improvement", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en],
 #                                :action_id => StatementAction[:created] , :locked_at => ""},
 #        :editorial_state_id => StatementState[:published],
 #        :statement_id => "",
@@ -212,8 +212,8 @@ class StatementsControllerTest < ActionController::TestCase
     get :edit, :id => statement_nodes('first-proposal').to_param, :type => :proposal, :current_document_id => statement_documents('first-proposal-doc-english').to_param
     assert_response :success
   end
-  test "should get the edit improvement proposal form" do
-    get :edit, :id => statement_nodes('third-impro-proposal').to_param, :type => :improvement_proposal, :current_document_id => statement_documents('third-impro-proposal-doc-english').to_param
+  test "should get the edit improvement form" do
+    get :edit, :id => statement_nodes('third-impro-proposal').to_param, :type => :improvement, :current_document_id => statement_documents('third-impro-proposal-doc-english').to_param
     assert_response :success
   end
   test "should not get the edit question form" do

@@ -50,12 +50,12 @@ When /^I choose the "([^\"]*)" Proposal$/ do |name|
   end
 end
 
-When /^I choose the "([^\"]*)" Improvement Proposal$/ do |name|
+When /^I choose the "([^\"]*)" Improvement$/ do |name|
   response.should have_selector("li.proposal") do |selector|
-    selector.each do |improvement_proposal|
-      if name.eql?(improvement_proposal.at_css("a.improvement_proposal_link").inner_text.strip)
-        @improvement_proposal = ImprovementProposal.find(URI.parse(improvement_proposal.at_css("a")['href']).path.match(/\d+/)[0].to_i)
-        visit improvement_proposal.at_css("a")['href']
+    selector.each do |improvement|
+      if name.eql?(improvement.at_css("a.improvement_link").inner_text.strip)
+        @improvement = Improvement.find(URI.parse(improvement.at_css("a")['href']).path.match(/\d+/)[0].to_i)
+        visit improvement.at_css("a")['href']
       end
     end
   end
@@ -131,9 +131,9 @@ Given /^the question has at least on proposal$/ do
   @proposal = @question.children.proposals.first
 end
 
-Then /^the proposal should have one improvement proposal$/ do
+Then /^the proposal should have one improvement$/ do
   @proposal.reload
-  @proposal.children.improvement_proposals.count.should >= 1
+  @proposal.children.improvements.count.should >= 1
 end
 
 Then /^I should not see the create proposal link$/ do

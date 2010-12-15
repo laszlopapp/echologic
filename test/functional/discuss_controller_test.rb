@@ -34,10 +34,10 @@ class DiscussControllerTest < ActionController::TestCase
   end
 
   test "should cancel improvement update and redirect to improvement page" do
-    statement_node = ImprovementProposal.first
+    statement_node = Improvement.first
     session[:last_statement_node] = statement_node.id
     get :cancel
-    assert_redirected_to improvement_proposal_url(statement_node)
+    assert_redirected_to improvement_url(statement_node)
   end
 
 end

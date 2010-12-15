@@ -92,7 +92,7 @@ Feature: Echo
       And the proposal should have "user, luise" as visitors
 
 
-  Scenario: User tries to echo an improvement proposal without echoing the respective proposal
+  Scenario: User tries to echo an improvement without echoing the respective proposal
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
       And I follow "Featured"
@@ -100,25 +100,25 @@ Feature: Echo
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
       And the proposal has no supporters
-      And I choose the "A better first proposal" Improvement Proposal
+      And I choose the "A better first proposal" Improvement
     Given I follow "echo_button"
-    Then I am not supporter of the improvement proposal
-  #    And I should see "You can only support improvement proposals if you support the proposal itself."
+    Then I am not supporter of the improvement
+  #    And I should see "You can only support improvements if you support the proposal itself."
       And I go to the proposal
       And I follow "echo_button"
     Then I am supporter of the proposal
       And I go to the proposal
-      And I choose the "A better first proposal" Improvement Proposal
+      And I choose the "A better first proposal" Improvement
     Given I follow "echo_button"
-    Then I am supporter of the improvement proposal
-   #   And I should not see "You can only support improvement proposals if you support the proposal itself."
+    Then I am supporter of the improvement
+   #   And I should not see "You can only support improvements if you support the proposal itself."
       And I go to the proposal
       And I follow "echo_button"
     Then I am not supporter of the proposal
-      And I am not supporter of the improvement proposal
- #     And I should see "You can only support improvement proposals if you support the proposal itself."
+      And I am not supporter of the improvement
+ #     And I should see "You can only support improvements if you support the proposal itself."
 
-  Scenario: User echoes an improvement proposal, and this becomes ready
+  Scenario: User echoes an improvement, and this becomes ready
     Given the minimum number of votes is 1
       And I am logged in as "joe" with password "true"
       And I am on the discuss featured And I follow "Featured"
@@ -126,7 +126,6 @@ Feature: Echo
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
       And I follow "echo_button"
-      And I choose the "A better fourth proposal" Improvement Proposal
-    Given I follow "echo_button"
-    Then I am supporter of the improvement proposal
+      And I choose the "A better fourth proposal" improvementen I follow "echo_button"
+    Then I am supporter of the improvement
       And the state of the improvement proposal must be "ready"

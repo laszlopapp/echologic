@@ -30,8 +30,8 @@ module NavigationHelpers
       statement_node_path(@question)
     when /^the proposal$/
       statement_node_path(@proposal)
-    when /^the improvement proposal$/
-      statement_node_path(@improvement_proposal)
+    when /^the improvement$/
+      statement_node_path(@improvement)
     when /^the first question$/
       statement_node_path(Question.first)
     when /^the questions first proposal/

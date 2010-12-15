@@ -80,7 +80,7 @@ class DraftingMailer < ActionMailer::Base
     sent_on       Time.now
     body          :ip_title => mail_data[:incorporable_document].title,
                   :p_title => mail_data[:draftable_document].title,
-                  :ip_link => improvement_proposal_url(mail_data[:incorporable]),
+                  :ip_link => improvement_url(mail_data[:incorporable]),
                   :language => mail_data[:language]
   end
 

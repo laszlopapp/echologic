@@ -58,7 +58,7 @@ fr:
         my_questions: 'Mes discussions'
       proposals:
         show: 'echo - Prises de positions'
-      improvement_proposals:
+      improvements:
         show: 'echo - Propositions complémentaires'
 
       # connect: de.seo.title.connect

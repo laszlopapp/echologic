@@ -51,7 +51,7 @@ fr:
         new_questions: 'Il y a des <strong>{{count}} discussions nouvelles</strong> depuis la dernière mise à jour. '
         new_tags: 'Les thèmes suivants y sont abordés:'
         new_proposals: 'Propositions nouvelles "{{title}}"'
-        new_improvement_proposals: |
+        new_improvements: |
           Nouvelles propositions d'amélioraton' "{{title}}" in "{{question_title}}":
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-

@@ -346,25 +346,25 @@ de:
     tooltips:
       read_question: 'Diese Frage anschauen'
       read_proposal: 'Diesen Vorschlag lesen'
-      read_improvement_proposal: 'Diese Ergänzung lesen'
+      read_improvement: 'Diese Ergänzung lesen'
       read_pro_argument: 'Read this pro argument'
       read_contra_argument: 'Read this contra argument'
       read_follow_up_question: 'Read this follow-up question'
       current_question: 'Die aktuell angezeigte Frage'
       current_proposal: 'Der aktuell angezeigte Vorschlag'
-      current_improvement_proposal: 'Die aktuell angezeigte Ergänzung'
+      current_improvement: 'Die aktuell angezeigte Ergänzung'
       current_pro_argument: 'The currently displayed pro argument'
       current_contra_argument: 'The currently displayed contra argument'
       current_follow_up_question: 'The currently displayed follow-up question'
       back_to_question: 'Zurück zur aktuellen Frage'
       back_to_proposal: 'Zurück zum aktuellen Vorschlag'
-      back_to_improvement_proposal: 'Zurück zur aktuellen Ergänzung'
+      back_to_improvement: 'Zurück zur aktuellen Ergänzung'
       prev_question: 'Vorige Frage lesen'
       next_question: 'Nächste Frage lesen'
       prev_proposal: 'Vorigen Vorschlag zur aktuellen Frage lesen'
       next_proposal: 'Nächsten Vorschlag zur aktuellen Frage lesen'
-      prev_improvement_proposal: 'Vorige Ergänzung zum aktuellen Vorschlag lesen'
-      next_improvement_proposal: 'Nächste Ergänzung zum aktuellen Vorschlag lesen'
+      prev_improvement: 'Vorige Ergänzung zum aktuellen Vorschlag lesen'
+      next_improvement: 'Nächste Ergänzung zum aktuellen Vorschlag lesen'
       prev_pro_argument: 'Read previous pro argument for the current proposal'
       next_pro_argument: 'Read next pro argument for the current proposal'
       prev_contra_argument: 'Read previous contra argument for the current proposal'
@@ -373,7 +373,7 @@ de:
       next_follow_up_question: 'Read next follow-up question'
       create_question: 'Neue Fragestellung hinzufügen'
       create_proposal: 'Tragen Sie Ihre neue Idee zur aktuellen Fragestellung ein'
-      create_improvement_proposal: 'Tragen Sie Ihre neue Idee zum aktuellen Vorschlag ein'
+      create_improvement: 'Tragen Sie Ihre neue Idee zum aktuellen Vorschlag ein'
       create_pro_argument: "Post a new argument agreeing with this proposal"
       create_contra_argument: "Post a new argument disagreeing with this proposal"
       create_follow_up_question: "Post a new follow-up question"
@@ -392,7 +392,7 @@ de:
       create_question_link: 'Neue Fragestellung hinzufügen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
       create_internal_link: 'Neue Idee?'
-      create_improvement_proposal_link: 'Neue Ergänzung vorschlagen'
+      create_improvement_link: 'Neue Ergänzung vorschlagen'
       create_pro_argument_link: Add new pro argument
       create_contra_argument_link: Add new contra argument
       create_follow_up_question_link: Add new follow-up question
@@ -402,7 +402,7 @@ de:
       create_proposal_explanation: |
         Haben Sie eine <strong>gute Idee</strong> zur aktuellen Fragestellung, die noch <strong>nicht vorhandenen</strong> ist?<br/>
         Hier können Sie einen <strong>neuen Vorschlag</strong> erstellen.
-      create_improvement_proposal_explanation: |
+      create_improvement_explanation: |
         Haben Sie eine <strong>gute Idee</strong>, wie man den aktuellen <strong>Vorschlag noch besser machen</strong> kann?<br/>
         Hier können Sie eine <strong>neue Ergänzung</strong> vorschlagen.
       create_statement_language_hint: |
@@ -425,21 +425,21 @@ de:
       types:
         question:  'Fragestellung'
         proposal:  'Vorschlag'
-        improvement_proposal: 'Ergänzung'
+        improvement: 'Ergänzung'
         pro_argument: 'Pro Argument'
         contra_argument: 'Contra Argument'
         follow_up_question: 'Follow-Up Question'
       new:
         question:  'Neue Fragestellung'
         proposal:  'Neuer Vorschlag'
-        improvement_proposal: 'Neue Ergänzung'
+        improvement: 'Neue Ergänzung'
         pro_argument: 'New Pro Argument'
         contra_argument: 'New Contra Argument'
         follow_up_question: 'New Follow-Up Question'
       headings:
         question: 'Fragestellungen'
         proposal: 'Vorschläge'
-        improvement_proposal: 'Ergänzungen'
+        improvement: 'Ergänzungen'
         argument: 'Arguments'
         follow_up_question: 'Follow-up Questions'
 
@@ -634,7 +634,7 @@ de:
     models:
       question: "Fragestellung"
       proposal: "Vorschlag"
-      improvement_proposal: "Ergänzung"
+      improvement: "Ergänzung"
 
   authlogic:
     error_messages:

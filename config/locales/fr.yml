@@ -369,23 +369,23 @@ fr:
     tooltips:
       read_question: 'Regarder cette question'
       read_proposal: 'Lire cette proposition'
-      read_improvement_proposal: "Lire l'amendement"
+      read_improvement: "Lire l'amendement"
       current_question: 'La question actuellement affichée'
       current_proposal: 'La proposition actuellement affichée '
-      current_improvement_proposal: "L'amendement affiché"
+      current_improvement: "L'amendement affiché"
       back_to_question: 'Retour à la question actuelle'
       back_to_proposal: 'Retour à la proposition actuelle'
-      back_to_improvement_proposal: "Retour à l'amendement"
+      back_to_improvement: "Retour à l'amendement"
       prev_question: 'Lire la question précédente'
       next_question: 'Lire la question suivante'
       prev_proposal: 'Lire la proposition précédente '
       next_proposal: 'Lire la proposition suivante '
-      prev_improvement_proposal: "Lire la proposition d'amendement"
-      next_improvement_proposal: "La proposition d'amendement suivante à la proposition actuelle"
+      prev_improvement: "Lire la proposition d'amendement"
+      next_improvement: "La proposition d'amendement suivante à la proposition actuelle"
       create_question: 'Poser une nouvelle question'
       create_proposal: |
         Vous avez une nouvelle idée concernant la question actuelle? Veuillez l'indiquer ici
-      create_improvement_proposal: |
+      create_improvement: |
         Vous avez une idée concernant la proposition actuelle? Veuillez l'indiquer ici!
       echo: |
         Apportez votre 'echo' à cette proposition!
@@ -404,7 +404,7 @@ fr:
       create_question_link: 'Ouvrir de nouvelles discussions'
       create_proposal_link: 'Soumettre de nouvelles propositions'
       create_internal_link: 'Une idée nouvelle'
-      create_improvement_proposal_link: 'Soumettre un amendement'
+      create_improvement_link: 'Soumettre un amendement'
       create_question_explanation: |
         Vous pouvez ouvrir ici <strong>une nouvelles discussions</strong> et définir
         <strong>les mots-clefs thématiques</strong> (les "tags").
@@ -412,7 +412,7 @@ fr:
         Vous avez une <strong>bonne idée</strong> concernant la question actuelle qui n'a
         <strong>pas encore été abordée?</strong><br/>
         Vous pouvez faire ici <strong>une proposition nouvelle</strong>.
-      create_improvement_proposal_explanation: |
+      create_improvement_explanation: |
         Vous avez une <strong>bonne idée</strong> comment <strong>améliorer la proposition actuelle?</strong><br/>
         Vous pouvez faire ici <strong>proposer votre amendement</strong>.
       create_statement_language_hint: |
@@ -432,15 +432,15 @@ fr:
       types:
         question: 'Question'
         proposal: 'Proposition'
-        improvement_proposal: 'Amendement proposé'
+        improvement: 'Amendement proposé'
       new:
         question:  'Nouvelle question'
         proposal:  'Nouvelle proposition'
-        improvement_proposal: 'Amendement proposé'
+        improvement: 'Amendement proposé'
       headings:
         question: 'Questions'
         proposal: 'Propositions'
-        improvement_proposal: 'Amendement proposé'
+        improvement: 'Amendement proposé'
 
       topic: Thème (Tags / mots-clefs)
       states:
@@ -630,7 +630,7 @@ fr:
     models:
       question: "Question"
       proposal: "proposition"
-      improvement_proposal: "Amendement proposé"
+      improvement: "Amendement proposé"
 
   authlogic:
     error_messages:

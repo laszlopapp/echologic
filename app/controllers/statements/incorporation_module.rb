@@ -1,6 +1,6 @@
 module IncorporationModule
   #
-  # Edit action to incorporate improvement proposals.
+  # Edit action to incorporate improvements.
   # FIXME: should be handled RESTfully ind the Edit action with an additional
   #        parameter in the URL: .../Pid?approved_node=IPid
   #        Also the edit views should be reused (no edit_draft views)!!!
@@ -8,7 +8,7 @@ module IncorporationModule
   def incorporate
     still_approved = true
     has_lock = false
-    @approved_node = ImprovementProposal.find params[:approved_ip]
+    @approved_node = Improvement.find params[:approved_ip]
     if @approved_node.approved?
       @approved_document = @approved_node.document_in_preferred_language(@language_preference_list)
     else

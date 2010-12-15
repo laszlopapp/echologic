@@ -150,8 +150,8 @@ form.question .header li {
 form.proposal .header li {
   background:transparent url(../images/page/discuss/proposal_small.png) no-repeat scroll 0 0;
 }
-form.improvement_proposal .header li {
-  background:transparent url(../images/page/discuss/improvement_proposal_small.png) no-repeat scroll 0 0;
+form.improvement .header li {
+  background:transparent url(../images/page/discuss/improvement_small.png) no-repeat scroll 0 0;
 }
 
 form.statement fieldset ol li {
@@ -518,8 +518,8 @@ a.statement_link:hover {
   background:transparent url(../images/page/discuss/proposal_small.png) no-repeat scroll 0 0;
 }
 
-.improvement_proposal_link {
-  background:transparent url(../images/page/discuss/improvement_proposal_small.png) no-repeat scroll 0 0;
+.improvement_link {
+  background:transparent url(../images/page/discuss/improvement_small.png) no-repeat scroll 0 0;
 }
 
 .pro_argument_link {
@@ -542,7 +542,7 @@ a.statement_link:hover {
   background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
 
-.create_improvement_proposal_button {
+.create_improvement_button {
   background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
 }
 
@@ -578,8 +578,8 @@ a.statement_link:hover {
   background: transparent url(../images/page/discuss/add_proposal_mid.png) no-repeat scroll 0 0;
 }
 
-.create_improvement_proposal_button_mid {
-  background: transparent url(../images/page/discuss/add_improvement_proposal_mid.png) no-repeat scroll 0 0;
+.create_improvement_button_mid {
+  background: transparent url(../images/page/discuss/add_improvement_mid.png) no-repeat scroll 0 0;
 }
 
 .create_contra_argument_button_mid {
@@ -594,7 +594,7 @@ a.statement_link:hover {
   background: transparent url(../images/page/discuss/add_follow_up_question_mid.png) no-repeat scroll 0 0;
 }
 
-.create_question_button_mid:hover, .create_proposal_button_mid:hover, .create_improvement_proposal_button_mid:hover {
+.create_question_button_mid:hover, .create_proposal_button_mid:hover, .create_improvement_button_mid:hover {
  background-position: 0 -55px;
 }
 
@@ -613,7 +613,7 @@ a.statement_link:hover {
 }
 
 .incorporate_statement_button_mid {
-  background: transparent url(../images/page/discuss/inc_improvement_proposal_mid.png) no-repeat scroll 0 0;
+  background: transparent url(../images/page/discuss/inc_improvement_mid.png) no-repeat scroll 0 0;
   width: 55px;
   height: 55px;
   cursor: pointer;
