@@ -7,13 +7,6 @@ element.statement('insert', <%= @statement_node.parent.nil? or @statement_node.c
 
 /* Breadcrumb's stack (if follow-up question */
 <% if @statement_node.class.is_top_statement? and @breadcrumb %>
-  var bids = $.fragment().bids;
-  if (bids == null) {bids = '';}
-  bids = bids.split(',');
-
-  var followed = <%= @statement_node.parent_id %>;
-  bids.push(followed);
-  $('#breadcrumbs').breadcrumb("add",eval(<%= @breadcrumb.to_json %>));
+   $('#breadcrumbs').breadcrumb("add",eval(<%= @breadcrumb.to_json %>));
   $('#breadcrumbs').breadcrumb('resize');
-	//$.setFragment({ "sids" : null, "bids" : bids.join(',')});
 <% end %>

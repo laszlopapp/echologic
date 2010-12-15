@@ -52,6 +52,11 @@ function initFollowUpQuestionHistoryEvents() {
       "new_level": true
     });
   });
+	
+	$("#statements form.follow_up_question.new a.cancel_text_button").live("click", function(){
+		bid_to_delete = $('#breadcrumbs a.statement:last').attr('id');
+		$('#breadcrumbs').data('to_delete', [bid_to_delete]);
+	});
 }
 
 function initExpandables() {
