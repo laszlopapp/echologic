@@ -1,7 +1,7 @@
 <% if !questions.blank? %>
 
   <p>
-    <%= I18n.t('mailers.activity_tracking.questions.new_questions',
+    <%= I18n.t('mailers.activity_tracking.statements.new_questions',
              :count => questions.size,
              :locale => @language.code) %>
     <%= I18n.t('mailers.activity_tracking.questions.new_tags',

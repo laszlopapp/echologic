@@ -276,8 +276,8 @@
         label.hide();
       });
       $(doc).bind('blur', function(){
-        new_text = editor.find('body');
-        if (new_text.html().length == 0 || new_text.html() == '</br>') {
+        new_text = $(editor.contents().get(0)).find('body');
+				if (new_text.html().length == 0 || new_text.html() == '</br>') {
           label.show();
         }
       });
