@@ -126,6 +126,7 @@ Feature: Echo
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
       And I follow "echo_button"
-      And I choose the "A better fourth proposal" improvementen I follow "echo_button"
+      And I choose the "A better fourth proposal" Improvement
+      Given I follow "echo_button"
     Then I am supporter of the improvement
-      And the state of the improvement proposal must be "ready"
+      And the state of the improvement must be "ready"

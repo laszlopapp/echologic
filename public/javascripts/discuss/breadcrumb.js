@@ -8,7 +8,7 @@
 	function initBreadcrumbHistoryEvents(breadcrumb) {
 	  /*loads statement stack of ids into the button itself */
 	  var path_id = breadcrumb.attr('href').match(/\/\d+/);
-	  var path = breadcrumb.attr('href').replace(/\/\d+.*/, path_id + '/' + 'parents');
+	  var path = breadcrumb.attr('href').replace(/\/\d+.*/, path_id + '/' + 'ancestors');
 	  $.getJSON(path, function(data) {
 	    var sids = data;
 	    breadcrumb.data('sids', sids);

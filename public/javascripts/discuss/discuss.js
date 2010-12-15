@@ -7,6 +7,7 @@ $(document).ready(function () {
 	initFollowUpQuestionHistoryEvents();
 	initStatements();
   initExpandables();
+	
 });
 
 
@@ -30,15 +31,26 @@ function initFollowUpQuestionHistoryEvents() {
   /* FOLLOW-UP QUESTION CHILD */
   $("#statements .statement #follow_up_questions.children a.statement_link").live("click", function(){
     var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
-    var breadcrumbs = getBreadcrumbStack($(this));
-
+    var bids = getBreadcrumbStack($(this));
+		bids.push(question);
+		
     /* set fragment */
     $.setFragment({
-      "bids": breadcrumbs.join(','),
+      "bids": bids.join(','),
       "sids": question,
       "new_level": true
     });
     return false;
+  });
+	
+	$("#statements .statement #follow_up_questions.children a.create_follow_up_question_button").live("click", function(){
+    var bids = getBreadcrumbStack($(this));
+    
+    /* set fragment */
+    $.setFragment({
+      "bids": bids.join(','),
+      "new_level": true
+    });
   });
 }
 

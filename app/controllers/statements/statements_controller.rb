@@ -104,11 +104,10 @@ class StatementsController < ApplicationController
     @action ||= StatementAction["created"]
     
     #search terms as tags
-    if @statement_node.taggable? and params[:search_terms]
-      loadSearchTermsAsTags(params[:search_terms])
-      
-      
-    end
+    loadSearchTermsAsTags(params[:search_terms]) if @statement_node.taggable? and params[:search_terms]
+    
+    # set new breadcrumb
+    set_parent_breadcrumb if @statement_node.class.is_top_statement?
     
     load_echo_messages if @statement_node.echoable?
 
@@ -167,9 +166,6 @@ class StatementsController < ApplicationController
       if has_permission and created
         load_siblings @statement_node
         load_all_children
-
-        # TODO: adjust!
-        set_parent_breadcrumb if @statement_node.class.is_top_statement?
 
         set_statement_info @statement_document
         show_statement do
