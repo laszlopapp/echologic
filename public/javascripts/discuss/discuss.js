@@ -31,8 +31,7 @@ function initFollowUpQuestionHistoryEvents() {
   /* FOLLOW-UP QUESTION CHILD */
   $("#statements .statement #follow_up_questions.children a.statement_link").live("click", function(){
     var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
-    var bids = getBreadcrumbStack($(this));
-		bids.push(question);
+    var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', $(this));
 		
     /* set fragment */
     $.setFragment({
@@ -100,38 +99,6 @@ function initExpandables() {
 /* STATEMENT NAVIGATION HISTORY */
 /********************************/
 
-function getBreadcrumbStack(element){
-	var breadcrumbs = $("#breadcrumbs a.statement").map(function(){
-    return this.id.replace(/[^0-9]+/, '');
-  }).get();
-
-	var statement_id = element.parents('.statement').attr('id').replace(/[^0-9]+/, '');
-	breadcrumbs.push(statement_id);
-  return breadcrumbs;
-}
-
-
-function getBreadcrumbsToLoad(bids) {
-	if (bids == null) { return []; }
-	/* current bids in stack */
-	var bids_stack = bids.split(",");
-	/* current breadcrumb entries */
-	var visible_bids = $("#breadcrumbs a.statement").map(function(){
-		return this.id.replace(/[^0-9]+/, '');
-  }).get();
-
-	 $.map(visible_bids, function(a) {
-	 	if($.inArray(a, bids_stack) == -1) {
-			$("#"+a).remove();
-		}
-	 });
-
-	/* get bids that are not visible (don't repeat yourself) */
-	var bids_to_load = $.grep(bids_stack, function(a){
-		return $.inArray(a, visible_bids) == -1 ;});
-
-	return bids_to_load;
-}
 
 
 function initFragmentStatementChange() {
@@ -157,9 +124,10 @@ function initFragmentStatementChange() {
 			sids = $.grep(new_sids, function (a) {
 				return $.inArray(a, visible_sids) == -1 ;});
 
-			var bids = getBreadcrumbsToLoad($.fragment().bids);
-
-
+			//var bids = getBreadcrumbsToLoad($.fragment().bids);
+      
+			var bids = $("#breadcrumbs").breadcrumb('breadcrumbsToLoad', $.fragment().bids);
+			
 			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sids": sids.join(","),
 				"bids": bids.join(","),

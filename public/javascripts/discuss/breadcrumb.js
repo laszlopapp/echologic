@@ -48,14 +48,16 @@
       });
 		 },
 		 add : function (attrs) { /* Array: [type, id, url, value] */
-		  var elements = this.find('.elements');
-		  var breadcrumb = $('<a></a>').attr('id', attrs[0] + '_' + attrs[1]).addClass('statement statement_link ' + attrs[0] + '_link')
-			                             .attr('href',attrs[2]).text(attrs[3]);
-
-		  if (this.length != 0) {
-		    var del = $("<span class='delimitator'>></span>");
-		    elements.append(del);
-		  }
+		  var api = this.data('jsp');
+		  var elements = api.getContentPane().find(".elements");//this.find('.elements');
+		  var breadcrumb = $('<div/>').addClass('breadcrumb');
+			if (this.length != 0) {
+        var del = $("<span class='delimitator'>></span>");
+        breadcrumb.append(del);
+      }
+		  breadcrumb.append($('<a></a>').addClass('statement statement_link ' + attrs[0] + '_link')
+			                             .attr('id', attrs[0] + '_' + attrs[1])
+			                             .attr('href',attrs[2]).text(attrs[3]));
 		  elements.append(breadcrumb);
 		 },
 
@@ -65,7 +67,7 @@
 
 	    var width = 0;
 	    elements.children().each(function(){
-	      width += $(this).width() + parseInt($(this).css('padding-right')) + parseInt($(this).css('padding-left'));
+				width += $(this).outerWidth();
 	    });
 
 	    elements.width(width);
@@ -79,24 +81,56 @@
 		  if (links_to_delete != null) {
 		    $.each(links_to_delete, function(index, value){
 		      var link = breadcrumbs.find('#' + value);
-		      link.prev().remove();
-		      link.remove();
+					link.parent().remove();
 		    });
 		    this.removeData('to_delete');
 		  }
-		 }
+		 },
+		 
+		 breadcrumbsToLoad: function(bids) {
+		 	if (bids == null) { return []; }
+		  /* current bids in stack */
+		  var bids_stack = bids.split(",");
+		  /* current breadcrumb entries */
+		  var visible_bids = this.find("a.statement").map(function(){
+		    return this.id.replace(/[^0-9]+/, '');
+		  }).get();
+		
+	    $.map(visible_bids, function(a) {
+	     if($.inArray(a, bids_stack) == -1) {
+	       $("#"+a).remove();
+	     }
+	    });
+		
+		  /* get bids that are not visible (don't repeat yourself) */
+		  var bids_to_load = $.grep(bids_stack, function(a){
+		    return $.inArray(a, visible_bids) == -1 ;});
+		
+		  return bids_to_load;
+		 },
+		 
+		 getBreadcrumbStack: function(element){
+		  var breadcrumbs = this.find("a.statement").map(function(){
+		    return this.id.replace(/[^0-9]+/, '');
+		  }).get();
+		
+		  var statement_id = element.parents('.statement').attr('id').replace(/[^0-9]+/, '');
+		  breadcrumbs.push(statement_id);
+		  return breadcrumbs;
+		}
   };
 
   $.fn.breadcrumb = function( method ) {
-
+    
+		var return_value = null;
     if ( methods[method] ) {
-      methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
+      return_value = methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
     } else if ( typeof method === 'object' || ! method ) {
       methods.init.apply( this, arguments );
     } else {
       $.error( 'Method ' +  method + ' does not exist on jQuery.breadcrumb' );
     }
-    return this;
+		return (return_value == null) ? this : return_value;
   };
 
 })( jQuery );

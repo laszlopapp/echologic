@@ -631,6 +631,7 @@ class StatementsController < ApplicationController
                                            statement_documents[n.statement_id].title].to_json}
   end
 
+
   #
   # Sets the breadcrumb of the current statement node's parent.
   #

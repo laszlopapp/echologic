@@ -229,12 +229,20 @@ module StatementsHelper
   # renders the breadcrumb given
   def render_breadcrumb(breadcrumbs)
     content_tag :div, :id => 'breadcrumbs', :class => 'breadcrumbs' do
-      elements = []
-      breadcrumbs.each do |txt, path|
-        elements << link_to(h(txt), path, :class => "search_link statement_link")
+      elements = content_tag :div, :class => 'elements' do
+        breadcrumb_trail = ""
+        breadcrumbs.each_with_index do |breadcrumb, index|
+          breadcrumb = content_tag :div, :class => 'breadcrumb' do 
+            content = ""
+            content << content_tag(:span, '>', :class => 'delimitator') if index != 0
+            content << link_to(h(breadcrumb[0]), breadcrumb[1], :class => "search_link statement_link")
+            content
+          end
+          breadcrumb_trail << breadcrumb
+        end
+        breadcrumb_trail
       end
-#      elements.join(content_tag(:span, '>', :class => 'delimitator'))
-      content_tag(:div, elements.join(content_tag(:span, '>', :class => 'delimitator')), :class => 'elements')
+      elements
     end
   end
 

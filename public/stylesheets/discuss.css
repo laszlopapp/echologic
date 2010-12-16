@@ -97,6 +97,12 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	margin-bottom: 10px;
 }
 
+.breadcrumbs .breadcrumb {
+	float:left;
+	width: 245px;
+	overflow: hidden;
+}
+
 .breadcrumbs a.statement_link {
 	padding-right: 20px;
 }
