@@ -25,9 +25,9 @@ class StatementsController < ApplicationController
 
   # Authlogic access control block
   access_control do
-    allow :editor
+    allow :admin
+    allow logged_in, :editor, :except => [:destroy]
     allow anonymous, :to => [:index, :show, :category, :children]
-    allow logged_in
   end
 
 
