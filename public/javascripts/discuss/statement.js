@@ -467,7 +467,7 @@
    */
   function hideNewStatementType(element) {
 	  input_type = element.find('input#type');
-	  input_type.data('value',input_type.attr('value'));
+		input_type.data('value',input_type.attr('value'));
 	  input_type.removeAttr('value');
 	}
 
@@ -498,7 +498,7 @@
 
 					/*New Statement Form Helpers */
 					if (element.hasClass('new')) {
-						hideNewStatementType(element);
+					  hideNewStatementType(element);
 						loadDefaultText(element);
 						handleStatementFormsSubmit(element);
 						initFormCancelButton(element);

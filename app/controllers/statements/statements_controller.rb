@@ -589,8 +589,7 @@ class StatementsController < ApplicationController
   # Checks if text that comes with the form is actually empty, even with the escape parameters from the iframe
   #
   def check_empty_text
-    if params[statement_node_symbol].include? :new_statement_document or
-       params[statement_node_symbol].include? :statement_document
+    if params[statement_node_symbol].include? :new_statement_document or params[statement_node_symbol].include? :statement_document
       document_param = params[statement_node_symbol][:new_statement_document] ||
                        params[statement_node_symbol][:statement_document]
       text = document_param[:text]
@@ -648,7 +647,7 @@ class StatementsController < ApplicationController
     bids.each do |bid| #[id, classes, url, title]
       @breadcrumbs << case bid[0]
         when "ds" then ["ds","search_link statement_link", discuss_search_url, I18n.t("discuss.statements.breadcrumbs.discuss_search")]
-        when "sr" then ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :search_terms => bid[1]), I18n.t("discuss.statements.breadcrumbs.discuss_search_with_value", :value => bid[1])]        when "mi" then ["mi","search_link statement_link", my_issues_url, I18n.t("discuss.statements.breadcrumbs.my_issues")]
+        when "sr" then ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :search_terms => bid[1].gsub(/\\/, ',')), I18n.t("discuss.statements.breadcrumbs.discuss_search_with_value", :value => bid[1])]        when "mi" then ["mi","search_link statement_link", my_issues_url, I18n.t("discuss.statements.breadcrumbs.my_issues")]
         when "fq" then statement_node = StatementNode.find(bid[1])
                        statement_document = search_statement_documents(statement_node.statement_id, @language_preference_list)
                        ["#{statement_node.class.name.underscore}_#{bid[1]}", 
@@ -656,12 +655,6 @@ class StatementsController < ApplicationController
                         statement_node_url(statement_node), statement_document[statement_node.statement_id].title]
       end
     end
-      
-      
-#    add_breadcrumb I18n.t("discuss.statements.breadcrumbs.#{params[:origin]}"),
-#                   "#{params[:origin]}_path" if params[:origin]
-#    add_breadcrumb I18n.t("discuss.statements.breadcrumbs.#{params[:origin]}_with_value", :value => params[:search_terms]),
-#                   discuss_search_path(:search_terms => params[:search_terms]) if params[:search_terms]
   end
 
 

@@ -5,9 +5,13 @@
           :html => {:class => "new wide_form statement #{dom_class(statement_node)} 
                     #{statement_node.taggable? ? 'taggable' : ''} 
                     #{statement_node.echoable? ? 'echoable' : ''}" } do |form| -%>
-  <%= hidden_field_tag :type, @statement_node_type.name %>
-	<%= hidden_field_tag :path, params[:origin] if params[:origin] %>
-	<%= hidden_field_tag :search_terms, params[:search_terms] if params[:search_terms] %>
+										
+	<%= hidden_field_tag :origin, params[:origin] if params[:origin] %>
+  <%= hidden_field_tag :search_terms, params[:search_terms] if params[:search_terms] %>
+	<%= hidden_field_tag :bids, params[:bids] if params[:bids] %>
+	<%= hidden_field_tag :type, @statement_node_type.name if @statement_node_type %>
+	
+	
 	<%= render :partial => 'statements/form/form_header', :locals => {:form => form, :statement_node => statement_node} %>
   <%= render :partial => 'statements/form/form_content', 
                          :locals => {:form => form, :statement_node => statement_node,

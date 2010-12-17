@@ -230,6 +230,8 @@ module StatementsHelper
   # BREADCRUMBS #
   ###############
 
+  
+  
   # sets the breadcrumb ids stack that will be passed as an argument to statement rendering
   def setBreadcrumbStack(opts={})
     bids = []
@@ -237,17 +239,15 @@ module StatementsHelper
     bids << case opts[:origin].to_s
       when 'my_issues' then [:mi]
       when 'discuss_search' then [:ds]
-    end
+    end unless opts[:origin].nil?
     # search_terms
     bids << [:sr, opts[:search_terms].gsub(/,/,'\\')] if opts[:search_terms]
     # statement_node_ids
     opts[:statement_node_ids].split(',').each do |node_id|
       bids << [:fq, node_id]
     end unless opts[:statement_node_ids].blank?
-    bids.empty? ? nil : bids.map{|b|b.join('=>')}.join(',')
+    return bids.empty? ? nil : bids.map{|b|b.join('=>')}.join(',')
   end
-  
-  
 
   # renders the breadcrumb given
   def render_breadcrumb(breadcrumbs)

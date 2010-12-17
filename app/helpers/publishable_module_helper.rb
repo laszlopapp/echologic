@@ -62,8 +62,7 @@ module PublishableModuleHelper
 
     end
   end
-
-
+  
 
   #
   # publish button that appears on the right top corner of the statement 

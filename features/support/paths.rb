@@ -27,7 +27,7 @@ module NavigationHelpers
     when /^create a question$/
       new_question_path
     when /^the question$/
-      statement_node_path(@question)
+      statement_node_url(@question)
     when /^the proposal$/
       statement_node_path(@proposal)
     when /^the improvement$/
