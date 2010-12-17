@@ -620,27 +620,15 @@ class StatementsController < ApplicationController
   
 
   #
-  # Sets the new breadcrumb of the current statement node.
-  #
-  def set_breadcrumbs
-    breadcrumb_ids = params[:bids].split(",")
-    statement_nodes = StatementNode.find(breadcrumb_ids)
-    statement_documents = search_statement_documents(statement_nodes.map(&:statement_id), @language_preference_list)
-    @breadcrumbs = statement_nodes.map{|n|[n.class.name.underscore,
-                                           n.id, statement_node_url(n),
-                                           statement_documents[n.statement_id].title].to_json}
-  end
-
-
-  #
   # Sets the breadcrumb of the current statement node's parent.
   #
   def set_parent_breadcrumb
     parent_node = @statement_node.parent
     statement_documents = search_statement_documents(parent_node.statement_id,
                                                      @language_preference_list)
-    @breadcrumb = [parent_node.class.name.underscore,
-                   parent_node.id,
+    #[id, classes, url, title]                                                     
+    @breadcrumb = ["#{parent_node.class.name.underscore}_#{parent_node.id}",
+                   "statement statement_link #{parent_node.class.name.underscore}_link",
                    statement_node_url(parent_node),
                    statement_documents[parent_node.statement_id].title]
   end
@@ -648,11 +636,32 @@ class StatementsController < ApplicationController
   #
   # Sets the breadcrumbs for the current statement node view previous path.
   #
-  def initialize_breadcrumbs
-    add_breadcrumb I18n.t("discuss.statements.breadcrumbs.#{params[:origin]}"),
-                   "#{params[:origin]}_path" if params[:origin]
-    add_breadcrumb I18n.t("discuss.statements.breadcrumbs.#{params[:origin]}_with_value", :value => params[:search_terms]),
-                   discuss_search_path(:search_terms => params[:search_terms]) if params[:search_terms]
+  def load_breadcrumbs
+    return if params[:bids].blank?
+    
+    # get bids into an array structure
+    bids = params[:bids].split(',')
+    bids = bids.map{|b|b.split('=>')}
+    
+    @breadcrumbs = []
+    
+    bids.each do |bid| #[id, classes, url, title]
+      @breadcrumbs << case bid[0]
+        when "ds" then ["ds","search_link statement_link", discuss_search_url, I18n.t("discuss.statements.breadcrumbs.discuss_search")]
+        when "sr" then ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :search_terms => bid[1]), I18n.t("discuss.statements.breadcrumbs.discuss_search_with_value", :value => bid[1])]        when "mi" then ["mi","search_link statement_link", my_issues_url, I18n.t("discuss.statements.breadcrumbs.my_issues")]
+        when "fq" then statement_node = StatementNode.find(bid[1])
+                       statement_document = search_statement_documents(statement_node.statement_id, @language_preference_list)
+                       ["#{statement_node.class.name.underscore}_#{bid[1]}", 
+                        "statement statement_link #{statement_node.class.name.underscore}_link", 
+                        statement_node_url(statement_node), statement_document[statement_node.statement_id].title]
+      end
+    end
+      
+      
+#    add_breadcrumb I18n.t("discuss.statements.breadcrumbs.#{params[:origin]}"),
+#                   "#{params[:origin]}_path" if params[:origin]
+#    add_breadcrumb I18n.t("discuss.statements.breadcrumbs.#{params[:origin]}_with_value", :value => params[:search_terms]),
+#                   discuss_search_path(:search_terms => params[:search_terms]) if params[:search_terms]
   end
 
 
@@ -844,13 +853,13 @@ class StatementsController < ApplicationController
   def render_template(template, teaser = false)
     respond_to do |format|
       format.html {
-        initialize_breadcrumbs
+        load_breadcrumbs
         load_ancestors(teaser)
         render :template => template
       }
       format.js {
         load_ancestors(teaser) if !params[:sids].blank? or @statement_node.class.is_top_statement?
-        set_breadcrumbs if !params[:bids].blank?
+        load_breadcrumbs if !params[:bids].blank?
         render :template => template
       }
     end

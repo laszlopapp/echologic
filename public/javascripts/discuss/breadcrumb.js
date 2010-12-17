@@ -16,8 +16,14 @@
 
 	  breadcrumb.bind("click", function(){
 			/* get bids from fragment */
-	    var bids = $.fragment().bids;
-	    bids = (bids == null) ? [] : bids.split(',');
+	    var bids_stack = $.fragment().bids;
+	    bids_stack = (bids_stack == null) ? [] : bids_stack.split(',');
+
+      /* get keys for comparison */
+      var bid_keys = $.map(bids_stack, function(a) {
+        var aux = a.split('=>');
+        return aux[0]!='fq' ? aux[0] : aux[1];
+      });
 
 	    /* get links that must vanish from the breadcrumbs */
 	    var links_to_delete = $(this).nextAll(".statement").map(function(){
@@ -29,10 +35,10 @@
 	    id_links_to_delete = $.map(links_to_delete, function(a){
 	      return a.replace(/[^0-9]+/, '');
 	    });
-	    new_bids = $.grep(bids, function(a){
-	      return $.inArray(a, id_links_to_delete) == -1;
+	    new_bids = $.grep(bids_stack, function(a, index){
+	      return $.inArray(bid_keys[index], id_links_to_delete) == -1;
 	    });
-	    /* save them to be deleted after the request */
+	    /* save the§ to be deleted after the request */
 	    $("#breadcrumbs").data('to_delete', links_to_delete);
 	    /* set fragment */
 	    var sids = $(this).data('sids');
@@ -47,7 +53,8 @@
 				initBreadcrumbHistoryEvents($(this));
       });
 		 },
-		 add : function (attrs) { /* Array: [type, id, url, value] */
+		 
+		 add : function (attrs) { /* Array: [id, classes, url, title] */
 		  var api = this.data('jsp');
 		  var elements = api.getContentPane().find(".elements");//this.find('.elements');
 		  var breadcrumb = $('<div/>').addClass('breadcrumb');
@@ -55,9 +62,7 @@
         var del = $("<span class='delimitator'>></span>");
         breadcrumb.append(del);
       }
-		  breadcrumb.append($('<a></a>').addClass('statement statement_link ' + attrs[0] + '_link')
-			                             .attr('id', attrs[0] + '_' + attrs[1])
-			                             .attr('href',attrs[2]).text(attrs[3]));
+		  breadcrumb.append($('<a></a>').attr('id', attrs[0]).addClass(attrs[1]).attr('href',attrs[2]).text(attrs[3]));
 		  elements.append(breadcrumb);
 		 },
 
@@ -91,32 +96,51 @@
 		 	if (bids == null) { return []; }
 		  /* current bids in stack */
 		  var bids_stack = bids.split(",");
+			
+			/* get keys for comparison */
+			var bid_keys = $.map(bids_stack, function(a) {
+				var aux = a.split('=>');
+				return aux[0]!='fq' ? aux[0] : aux[1];
+			});
 		  /* current breadcrumb entries */
-		  var visible_bids = this.find("a.statement").map(function(){
-		    return this.id.replace(/[^0-9]+/, '');
+		  var visible_bids = this.find("a").map(function(){
+				if ($(this).hasClass('statement')) {
+					return this.id.replace(/[^0-9]+/, '');
+				} else {
+					return this.id;
+				}
 		  }).get();
 		
-	    $.map(visible_bids, function(a) {
-	     if($.inArray(a, bids_stack) == -1) {
-	       $("#"+a).remove();
+		  /* delete entries that do not belong to the breadcrumbs' stack */
+	    $.map(visible_bids, function(a, index) {
+	     if($.inArray(a, bid_keys) == -1) {
+	       $("#breadcrumbs a").eq(index).parent().remove();
 	     }
 	    });
-		
-		  /* get bids that are not visible (don't repeat yourself) */
-		  var bids_to_load = $.grep(bids_stack, function(a){
-		    return $.inArray(a, visible_bids) == -1 ;});
+		  
+			/* get bids that are not visible (don't repeat yourself) */
+		  var bids_to_load = $.grep(bids_stack, function(a, index){
+			  return $.inArray(bid_keys[index], visible_bids) == -1 ;});
 		
 		  return bids_to_load;
 		 },
 		 
 		 getBreadcrumbStack: function(element){
-		  var breadcrumbs = this.find("a.statement").map(function(){
-		    return this.id.replace(/[^0-9]+/, '');
+		 	var breadcrumbs = this.find(".breadcrumb a.search_link").map(function(){
+				if (this.id == 'sr') {
+					return 'sr=>'+ $(this).getUrlParam('search_terms');
+				} else
+			  {
+					return this.id;
+				}
+			}).get();
+			var node_breadcrumbs = this.find(".breadcrumb a.statement").map(function(){
+		    return 'fq=>'+ this.id.replace(/[^0-9]+/, '');
 		  }).get();
-		
-		  var statement_id = element.parents('.statement').attr('id').replace(/[^0-9]+/, '');
-		  breadcrumbs.push(statement_id);
-		  return breadcrumbs;
+		  $.merge(breadcrumbs, node_breadcrumbs);
+			var statement_id = element.parents('.statement').attr('id').replace(/[^0-9]+/, '');
+		  breadcrumbs.push('fq=>'+ statement_id);
+			return breadcrumbs;
 		}
   };
 

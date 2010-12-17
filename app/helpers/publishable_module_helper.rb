@@ -13,7 +13,8 @@ module PublishableModuleHelper
   # create question button above the discuss search results and on the left corner of my questions
   #
   def create_question_link_for(origin, search_terms=nil)
-    link_to(new_question_url(:origin => origin, :search_terms => search_terms),
+    bids = setBreadcrumbStack :origin => origin, :search_terms => search_terms
+    link_to(new_question_url(:origin => origin, :search_terms => search_terms, :bids => bids),
             :id => 'create_question_link') do
       content_tag(:span, '',
                   :class => "new_question create_statement_button_mid create_question_button_mid ttLink no_border",
@@ -26,7 +27,8 @@ module PublishableModuleHelper
   # question link for the discuss search results
   #
   def link_to_question(title, question,long_title,search_terms=nil)
-    link_to statement_node_url(question, :origin => :discuss_search, :search_terms => search_terms),
+    bids = setBreadcrumbStack :origin => :discuss_search, :search_terms => search_terms
+    link_to statement_node_url(question, :origin => :discuss_search, :search_terms => search_terms, :bids => bids),
                :title => "#{h(title) if long_title}",
                :class => "avatar_holder#{' ttLink no_border' if long_title }" do 
       image_tag question.image.url(:small)
@@ -39,8 +41,9 @@ module PublishableModuleHelper
   # Appears in add question teaser
   #
   def create_new_question_link(origin=nil, search_terms=nil)
+    bids = setBreadcrumbStack :origin => origin, :search_terms => search_terms
     link_to(I18n.t("discuss.statements.create_question_link"),
-            new_question_url(:origin => origin, :search_terms => search_terms),
+            new_question_url(:origin => origin, :search_terms => search_terms, :bids => bids),
             :id => "create_question_link",
             :class => "ajax add_new_button text_button create_question_button ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_question"))
@@ -50,7 +53,8 @@ module PublishableModuleHelper
   # Creates a button link to create a new question (SIDEBAR).
   #
   def create_new_question_button(origin = nil, search_terms = nil)
-    link_to(new_question_url(:origin => origin, :search_terms => search_terms),
+    bids = setBreadcrumbStack :origin => origin, :search_terms => search_terms
+    link_to(new_question_url(:origin => origin, :search_terms => search_terms, :bids => bids),
                   :id => "create_question_link", :class => "ajax") do
       content_tag(:span, '',
                   :class => "create_statement_button_mid create_question_button_mid ttLink no_border",

@@ -6,7 +6,7 @@ $(document).ready(function () {
 	initBreadcrumbs();
 	initFollowUpQuestionHistoryEvents();
 	initStatements();
-  initExpandables();
+	initExpandables();
 	
 });
 
@@ -33,6 +33,7 @@ function initFollowUpQuestionHistoryEvents() {
     var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
     var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', $(this));
 		
+		
     /* set fragment */
     $.setFragment({
       "bids": bids.join(','),
@@ -43,7 +44,7 @@ function initFollowUpQuestionHistoryEvents() {
   });
 	
 	$("#statements .statement #follow_up_questions.children a.create_follow_up_question_button").live("click", function(){
-    var bids = getBreadcrumbStack($(this));
+    var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', $(this));
     
     /* set fragment */
     $.setFragment({
@@ -102,7 +103,7 @@ function initExpandables() {
 
 
 function initFragmentStatementChange() {
-  $(document).bind("fragmentChange.sids", function() {
+	$(document).bind("fragmentChange.sids", function() {
 		if ($.fragment().sids) {
 			var sids = $.fragment().sids;
 			var new_sids = sids.split(",");
@@ -124,15 +125,14 @@ function initFragmentStatementChange() {
 			sids = $.grep(new_sids, function (a) {
 				return $.inArray(a, visible_sids) == -1 ;});
 
-			//var bids = getBreadcrumbsToLoad($.fragment().bids);
-      
 			var bids = $("#breadcrumbs").breadcrumb('breadcrumbsToLoad', $.fragment().bids);
 			
 			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sids": sids.join(","),
 				"bids": bids.join(","),
         "new_level": $.fragment().new_level
-      })
+      });
+			
 			$.ajax({
 				url:      path,
 	      type:     'get',
@@ -143,8 +143,8 @@ function initFragmentStatementChange() {
 
 	/* Statement Stack */
   if ($.fragment().sids) {
-		$.setFragment({ "new_level" : true });
-		$(document).trigger("fragmentChange.sids");
+	  $.setFragment({ "new_level" : true, "bids" : $.fragment().bids });
+	  $(document).trigger("fragmentChange.sids");
   }
 
 
