@@ -149,7 +149,7 @@ class StatementsController < ApplicationController
       # Persisting
       if has_permission
         StatementNode.transaction do
-          if @statement_node.save and @statement_node.statement.save
+          if @statement_node.save
             if @statement_node.echoable?
               echo = params.delete(:echo)
               @statement_node.author_support if echo=='true'

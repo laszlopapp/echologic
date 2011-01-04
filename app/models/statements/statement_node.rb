@@ -100,12 +100,16 @@ class StatementNode < ActiveRecord::Base
   def translated_document?(lang_ids)
     return statement_documents.for_languages(lang_ids).nil?
   end
+  
+  def set_statement(attrs)
+    self.statement = Statement.new(attrs)
+  end
 
   # creates a new statement_document
   def add_statement_document(attributes={ },opts={})
     if self.statement.nil?
       original_language_id = attributes.delete(:original_language_id).to_i
-      self.statement = Statement.new(:original_language_id => original_language_id)
+      set_statement(:original_language_id => original_language_id)
     end
     doc = StatementDocument.new
     doc.statement = self.statement
@@ -114,16 +118,6 @@ class StatementNode < ActiveRecord::Base
     return doc
   end
 
-  # creates and saves a  statement_document with given parameters a
-#  def add_statement_document!(*args)
-#    original_language_id = args[0].delete(:original_language_id)
-#    self.statement = Statement.new(:original_language_id => original_language_id) if self.statement_id.nil?
-#    doc = StatementDocument.new(:statement_id => self.statement.id)
-#    doc.statement = self.statement
-#    doc.update_attributes!(*args)
-#    self.statement.statement_documents << doc
-#    return doc
-#  end
 
 
   #

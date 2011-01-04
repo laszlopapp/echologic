@@ -2,16 +2,15 @@ class FollowUpQuestion < StatementNode
 
   belongs_to :question, :dependent => :destroy #is it dependent?
 
-  delegate :level, :ancestors, :topic_tags, :topic_tags=, :taggable?, :echoable?, :statement, :statement=, :statement_id,
-           :statement_documents, :supporter_count, :ratio, :editorial_state_id, :editorial_state_id=,
+  delegate :level, :ancestors, :topic_tags, :topic_tags=, :taggable?, :echoable?,
+           :supporter_count, :ratio, :editorial_state_id, :editorial_state_id=,
            :publishable?, :published, :publish, :locked_at, :supported?, :taggable?, :creator_id=, :creator_id,
            :creator, :author_support, :ancestors, :id_as_parent, :to => :question
 
-  before_save :save_question
+  validates_associated :question
 
-
-  def save_question
-    question.save
+  def set_statement(attrs)
+    self.statement = self.question.statement = Statement.new(attrs)
   end
 
   class << self
@@ -30,19 +29,6 @@ class FollowUpQuestion < StatementNode
       true
     end
 
-    def join_clause
-      <<-END
-        select distinct n.*
-        from
-          statement_nodes n
-          LEFT JOIN statement_nodes n2       ON n.question_id = n2.id
-          LEFT JOIN statement_documents d    ON n2.statement_id = d.statement_id
-          LEFT JOIN tao_tags tt              ON (tt.tao_id = n2.id and tt.tao_type = 'StatementNode')
-          LEFT JOIN tags t                   ON tt.tag_id = t.id
-          LEFT JOIN echos e                  ON n2.echo_id = e.id
-        where
-      END
-    end
   end
 
 end
