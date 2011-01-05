@@ -251,22 +251,17 @@ module StatementsHelper
 
   # renders the breadcrumb given
   def render_breadcrumb(breadcrumbs)
-    content_tag :div, :id => 'breadcrumbs', :class => 'breadcrumbs' do
-      elements = content_tag :div, :class => 'elements' do
-        breadcrumb_trail = ""
-        breadcrumbs.each_with_index do |b, index| #[id, classes, url, title]
-          breadcrumb = content_tag :div, :class => 'breadcrumb' do 
-            content = ""
-            content << content_tag(:span, '>', :class => 'delimitator') if index != 0
-            content << link_to(h(b[3].gsub(/\\/, ',')), b[2], :id => b[0], :class => b[1])
-            content
-          end
-          breadcrumb_trail << breadcrumb
-        end
-        breadcrumb_trail
+    breadcrumb_trail = ""
+    breadcrumbs.each_with_index do |b, index| #[id, classes, url, title]
+      breadcrumb = content_tag :div, :class => 'breadcrumb' do 
+        content = ""
+        content << content_tag(:span, '>', :class => 'delimitator') if index != 0
+        content << link_to(h(b[3].gsub(/\\/, ',')), b[2], :id => b[0], :class => b[1])
+        content
       end
-      elements
+      breadcrumb_trail << breadcrumb
     end
+    breadcrumb_trail
   end
 
   # This class does the heavy lifting of actually building the pagination

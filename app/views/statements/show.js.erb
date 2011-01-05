@@ -26,8 +26,8 @@
   <% @breadcrumbs.each do |b| %>
 	 $('#breadcrumbs').breadcrumb("add",eval(<%= b.to_json %>));
   <% end %>
-	$('#breadcrumbs').breadcrumb('update').breadcrumb('resize');
 <% end %>
+$('#breadcrumbs').breadcrumb('update').breadcrumb('resize');
 
 <% if !params[:expand].blank? %>
   var content = "<%= escape_javascript(render :partial => 'statements/content', :locals => {:hide_content => true}) %>";

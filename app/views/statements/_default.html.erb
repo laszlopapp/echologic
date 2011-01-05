@@ -1,7 +1,11 @@
 <% content_for :submenu, tabnav(:discuss) %>
 
 
-<%= render_breadcrumb(@breadcrumbs) if @breadcrumbs %>
+<% content_tag :div, :id => 'breadcrumbs', :class => 'breadcrumbs' do %>
+  <% content_tag :div, :class => 'elements' do %>
+    <%= render_breadcrumb(@breadcrumbs) if @breadcrumbs %>
+	<% end %>
+<% end %>
  
 <div id="statements">
   <%= render_ancestors(@ancestors) if @ancestors %>
