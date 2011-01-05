@@ -107,7 +107,7 @@ class StatementsController < ApplicationController
     loadSearchTermsAsTags(params[:search_terms]) if @statement_node.taggable? and params[:search_terms]
     
     # set new breadcrumb
-    set_parent_breadcrumb if @statement_node.class.is_top_statement?
+#    set_parent_breadcrumb if @statement_node.class.is_top_statement?
     
     load_echo_messages if @statement_node.echoable?
 
@@ -621,16 +621,16 @@ class StatementsController < ApplicationController
   #
   # Sets the breadcrumb of the current statement node's parent.
   #
-  def set_parent_breadcrumb
-    parent_node = @statement_node.parent
-    statement_documents = search_statement_documents(parent_node.statement_id,
-                                                     @language_preference_list)
-    #[id, classes, url, title]                                                     
-    @breadcrumb = ["#{parent_node.class.name.underscore}_#{parent_node.id}",
-                   "statement statement_link #{parent_node.class.name.underscore}_link",
-                   statement_node_url(parent_node),
-                   statement_documents[parent_node.statement_id].title]
-  end
+#  def set_parent_breadcrumb
+#    parent_node = @statement_node.parent
+#    statement_documents = search_statement_documents(parent_node.statement_id,
+#                                                     @language_preference_list)
+#    #[id, classes, url, title]                                                     
+#    @breadcrumb = ["#{parent_node.class.name.underscore}_#{parent_node.id}",
+#                   "statement statement_link #{parent_node.class.name.underscore}_link",
+#                   statement_node_url(parent_node),
+#                   statement_documents[parent_node.statement_id].title]
+#  end
 
   #
   # Sets the breadcrumbs for the current statement node view previous path.

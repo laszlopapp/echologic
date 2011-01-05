@@ -29,4 +29,7 @@ var sids = $('div#statements .statement').map(function(){
   return this.id.replace(/[^0-9]+/, "");
 }).get();
 
-$.setFragment({ "sids": sids.join(','), "new_level" : ''});
+
+var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', $(this));
+
+$.setFragment({ "bids" : bids.join(','), "sids": sids.join(','), "new_level" : ''});

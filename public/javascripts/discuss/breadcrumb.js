@@ -129,8 +129,8 @@
 			/* get bids that are not visible (don't repeat yourself) */
 		  var bids_to_load = $.grep(bids_stack, function(a, index){
 			  return $.inArray(bid_keys[index], visible_bids) == -1 ;});
-		
-		  return bids_to_load;
+		  
+			return bids_to_load;
 		 },
 		 
 		 getBreadcrumbStack: function(element){

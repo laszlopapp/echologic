@@ -46,7 +46,15 @@ function initFollowUpQuestionHistoryEvents() {
 	$("#statements .statement #follow_up_questions.children a.create_follow_up_question_button").live("click", function(){
     var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', $(this));
     
-    /* set fragment */
+		/* set new breadcrumb for parent */
+		var statement = $(this).parents('.statement');
+		var header_link = statement.find('.header_link a');
+	  var attrs = [statement.attr('id'), 
+	               "statement statement_link " + statement.attr('id').replace(/_\d+/, '') + "_link", 
+	               header_link.attr('href'), header_link.text()];
+		$('#breadcrumbs').breadcrumb("add",attrs).breadcrumb('resize');
+		
+	  /* set fragment */
     $.setFragment({
       "bids": bids.join(','),
       "new_level": true
@@ -126,8 +134,8 @@ function initFragmentStatementChange() {
 				return $.inArray(a, visible_sids) == -1 ;});
 
 			var bids = $("#breadcrumbs").breadcrumb('breadcrumbsToLoad', $.fragment().bids);
-			
-			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
+
+      path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sids": sids.join(","),
 				"bids": bids.join(","),
         "new_level": $.fragment().new_level
