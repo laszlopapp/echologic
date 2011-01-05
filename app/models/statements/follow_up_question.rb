@@ -5,7 +5,7 @@ class FollowUpQuestion < StatementNode
   delegate :level, :ancestors, :topic_tags, :topic_tags=, :taggable?, :echoable?,
            :supporter_count, :ratio, :editorial_state_id, :editorial_state_id=,
            :publishable?, :published, :publish, :locked_at, :supported?, :taggable?, :creator_id=, :creator_id,
-           :creator, :author_support, :ancestors, :id_as_parent, :to => :question
+           :creator, :author_support, :ancestors, :target_id, :to => :question
 
   validates_associated :question
 

@@ -150,17 +150,17 @@ class StatementNode < ActiveRecord::Base
   #
   # for_session argument: when true, returns a list of ids + the "add_type" teaser name
   def child_statements(language_ids = nil, type = self.class.children_types.first.to_s, for_session = false)
-    return type.constantize.statements_for_parent(self.id_as_parent, language_ids, self.draftable?, for_session)
+    return type.constantize.statements_for_parent(self.target_id, language_ids, self.draftable?, for_session)
   end
 
   # Collects a filtered list of all siblings statements
   def sibling_statements(language_ids = nil, type = self.class.to_s)
-    return parent_id.nil? ? [] : type.constantize.statements_for_parent(self.parent.id_as_parent, language_ids, self.incorporable?)
+    return parent_id.nil? ? [] : type.constantize.statements_for_parent(self.parent.target_id, language_ids, self.incorporable?)
   end
 
   # Collects a filtered list of all siblings statements
   def siblings_to_session(language_ids = nil, type = self.class.to_s)
-    sibling_statements(language_ids, type).map(&:id) + ["#{self.parent_id ? "/#{self.parent.id_as_parent}" : ''}/add/#{type.underscore}"]
+    sibling_statements(language_ids, type).map(&:id) + ["#{self.parent_id ? "/#{self.parent.target_id}" : ''}/add/#{type.underscore}"]
   end
 
   # Collects a filtered list of all siblings statements
@@ -183,7 +183,7 @@ class StatementNode < ActiveRecord::Base
   # CHILDREN HELPER #
   ###################
 
-  def id_as_parent
+  def target_id
     self.id
   end
 
