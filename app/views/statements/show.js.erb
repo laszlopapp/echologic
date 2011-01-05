@@ -5,6 +5,7 @@
   info('<%=@error%>');
 <% end %>
 
+
 /* history handling */
 <% if !params[:sids].blank? and @ancestors %>
   var stack = "<%= params[:sids] %>".split(",");
@@ -21,6 +22,7 @@
   <% end %>
 <% end %>
 
+
 /* breadcrumb */
 <% if !@breadcrumbs.blank? %>
   <% @breadcrumbs.each do |b| %>
@@ -28,6 +30,7 @@
   <% end %>
 <% end %>
 $('#breadcrumbs').breadcrumb('update').breadcrumb('resize');
+
 
 <% if !params[:expand].blank? %>
   var content = "<%= escape_javascript(render :partial => 'statements/content', :locals => {:hide_content => true}) %>";

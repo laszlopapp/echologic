@@ -1,7 +1,7 @@
 class StatementsController < ApplicationController
 
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
-                                    :more, :children, :upload_image, :reload_image, :authors, :add, :ancestors]
+                                    :more, :children, :authors, :add, :ancestors]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
@@ -235,46 +235,36 @@ class StatementsController < ApplicationController
       holds_lock = true
       if has_permission
         StatementNode.transaction do
-          if attrs_doc # Edit or Incorporate form
-            old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
-            holds_lock = holds_lock?(old_statement_document, locked_at)
-            if holds_lock
-              old_statement_document.update_attribute(:current, false)
-              old_statement_document.save!
-              @statement_document = @statement_node.add_statement_document(
-                                      attrs_doc.merge({:author_id => current_user.id,
-                                                       :current => true}))
-              @statement_document.save
+          old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
+          holds_lock = holds_lock?(old_statement_document, locked_at)
+          if holds_lock
+            old_statement_document.update_attribute(:current, false)
+            old_statement_document.save!
+            @statement_document = @statement_node.add_statement_document(
+                                    attrs_doc.merge({:author_id => current_user.id,
+                                                     :current => true}))
+            @statement_document.save
 
-              if @statement_node.taggable? and form_tags
-                @tags = @statement_node.topic_tags = form_tags
-              end
-              @statement_node.save
+            if @statement_node.taggable? and form_tags
+              @tags = @statement_node.topic_tags = form_tags
             end
-          else # Uploaded statement illustration image
-            @statement_node.update_attributes(attrs)
-            @statement_node.statement_image.save
-            @statement_node.statement.save
-            update_image = true
+            @statement_node.save
           end
         end
       end
 
-      if attrs_doc # Normal form POST
-        if !holds_lock
-          being_edited
-        elsif has_permission and @statement_node.valid? and @statement_document.valid?
-          update = true
-          set_statement_info(@statement_document)
-          show_statement
-        else
-          set_error(@statement_document) if @statement_document
-          set_error(@statement_node)
-          show_statement true
-        end
-      else
+      if !holds_lock
+        being_edited
+      elsif has_permission and @statement_node.valid? and @statement_document.valid?
+        update = true
+        set_statement_info(@statement_document)
         show_statement
+      else
+        set_error(@statement_document) if @statement_document
+        set_error(@statement_node)
+        show_statement true
       end
+      
     rescue Exception => e
       log_error_statement(e, "Error updating statement node '#{@statement_node.id}'.")
     else
@@ -299,42 +289,7 @@ class StatementsController < ApplicationController
   ###################
   # STATEMENT IMAGE #
   ###################
-
-  #
-  # Loads the form to insert an image in the current statement.
-  #
-  # Method:   GET
-  # Response: JS
-  #
-  # Calls a js template which opens the upload picture dialog.
-  def upload_image
-    respond_to_js :template_js => 'statements/upload_image'
-  end
-
-  #
-  # After uploading the image, this has to be reloaded.
-  # Reloading:
-  #  1. login_container with users picture as profile link
-  #  2. picture container of the profile
-  #
-  # Method:   GET
-  # Response: JS
-  #
-  def reload_image
-    respond_to do |format|
-      if @statement_node.image.exists? and @statement_node.image.updated_at != params[:date].to_i
-        set_statement_info('discuss.messages.image_uploaded')
-        format.js {
-          render_with_info do |page|
-            page << "$('#statements div.#{dom_class(@statement_node)} #statement_image').replaceWith('#{render :partial => 'statements/image'}')"
-            page << "$('#statements div.#{dom_class(@statement_node)} #upload_link').remove()" if @statement_node.published?
-          end
-        }
-      else
-        format.js { set_error 'discuss.statements.upload_image.error' and render_with_error }
-      end
-    end
-  end
+  
 
   # Loads the authors of this statement to the view
   #

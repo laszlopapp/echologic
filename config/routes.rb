@@ -119,8 +119,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect        'statement/:id/add/:type',  :controller => :statements, :action => :add
 
   map.resources :statement_nodes, :controller => :statements,
-                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image,
-                            :reload_image, :children, :more, :authors, :publish, :incorporate, :ancestors],
+                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, 
+                            :children, :more, :authors, :publish, :incorporate, :ancestors],
                 :path_names => { :new => ':id/new/:type', :more => 'more/:type',
                                  :edit => 'edit/:current_document_id', :new_translation => 'translation/:current_document_id',
                                  :children => 'children/:type', :incorporate => 'incorporate/:approved_ip'},
@@ -135,6 +135,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :pro_arguments, :controller => :statements, :only => [:create, :update]
   map.resources :contra_arguments, :controller => :statements, :only => [:create, :update]
   map.resources :follow_up_questions, :controller => :statements, :only => [:create, :update]
+
+  #statement images
+  map.resources :statement_images, 
+                :member => [:reload], :only => [:edit, :update], 
+                :path_names => {:edit => 'statement/:node_id/edit',
+                                :reload => 'statement/:node_id/reload'}, :as => 'image'
 
 
   # old discuss paths redirection

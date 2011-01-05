@@ -213,7 +213,7 @@ module StatementsHelper
     end
     if statement_node.has_author? current_user and (!statement_node.published? or !statement_node.image.exists?)
       val << link_to(I18n.t('users.profile.picture.upload_button'),
-                upload_image_statement_node_url(statement_node),
+                edit_statement_image_url(statement_node.statement_image, statement_node),
                 :class => 'ajax upload_link button_150', :id => 'upload_image_link')
     end
     content_tag :div, val, :class => 'image_container', :id => 'image_container' if !val.blank?

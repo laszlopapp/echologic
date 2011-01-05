@@ -1,52 +1,78 @@
 test-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 test-question-2-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 original-language-question-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 second-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 third-question-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 with-german-children-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 non-published-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 user-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 first-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 second-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 third-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 inbetween-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 fourth-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 fifth-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 sixth-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 german-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 second-german-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 not-published-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 german-child-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 english-child-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 first-impro-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 second-impro-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 third-impro-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 fourth-impro-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 fifth-impro-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
 german-impro-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
