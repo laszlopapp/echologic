@@ -30,6 +30,6 @@ var sids = $('div#statements .statement').map(function(){
 }).get();
 
 
-var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', $(this));
+var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', null);
 
 $.setFragment({ "bids" : bids.join(','), "sids": sids.join(','), "new_level" : ''});

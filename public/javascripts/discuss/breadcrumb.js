@@ -146,8 +146,10 @@
 		    return 'fq=>'+ this.id.replace(/[^0-9]+/, '');
 		  }).get();
 		  $.merge(breadcrumbs, node_breadcrumbs);
-			var statement_id = element.parents('.statement').attr('id').replace(/[^0-9]+/, '');
-		  breadcrumbs.push('fq=>'+ statement_id);
+			if (element) {
+		  	var statement_id = element.parents('.statement').attr('id').replace(/[^0-9]+/, '');
+		  	breadcrumbs.push('fq=>' + statement_id);
+		  }
 			return breadcrumbs;
 		}
   };
