@@ -4,6 +4,9 @@ class StatementNode < ActiveRecord::Base
   acts_as_subscribeable
   acts_as_nested_set #:scope => :root_id
 
+
+  alias_attribute :target_id, :id
+
   after_destroy :destroy_statement
 
   def destroy_statement
@@ -183,9 +186,9 @@ class StatementNode < ActiveRecord::Base
   # CHILDREN HELPER #
   ###################
 
-  def target_id
-    self.id
-  end
+#  def target_id
+#    self.id
+#  end
 
 
   private
