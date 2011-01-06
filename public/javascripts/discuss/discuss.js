@@ -31,7 +31,7 @@ function initFollowUpQuestionHistoryEvents() {
   /* FOLLOW-UP QUESTION CHILD */
   $("#statements .statement #follow_up_questions.children a.statement_link").live("click", function(){
     var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
-    var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', $(this));
+		var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', $(this));
 		
 		
     /* set fragment */
@@ -133,8 +133,8 @@ function initFragmentStatementChange() {
 			sids = $.grep(new_sids, function (a) {
 				return $.inArray(a, visible_sids) == -1 ;});
 
-			var bids = $("#breadcrumbs").breadcrumb('breadcrumbsToLoad', $.fragment().bids);
-
+      var bids = $("#breadcrumbs").breadcrumb('breadcrumbsToLoad', $.fragment().bids);
+			
       path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sids": sids.join(","),
 				"bids": bids.join(","),

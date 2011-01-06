@@ -222,7 +222,7 @@ class StatementNode < ActiveRecord::Base
 
       statements = self.search_statement_nodes(conditions)
       if for_session
-        statements.map!(&:id)
+        statements.map!(&:target_id)
         statements << "/#{parent_id.nil? ? '' : "#{parent_id}/" }add/#{self.name.underscore}"
       end
       statements

@@ -201,7 +201,7 @@ module StatementsHelper
   # Loads the link to a given statement, placed in the child panel section
   def link_to_child(title, statement_node,extra_classes, type = dom_class(statement_node))
     link_to h(title),
-            statement_node_url(statement_node, :new_level => true),
+            statement_node_url(statement_node.target_id, :new_level => true),
             :class => "statement_link #{dom_class(statement_node)}_link #{extra_classes}"
   end
 
