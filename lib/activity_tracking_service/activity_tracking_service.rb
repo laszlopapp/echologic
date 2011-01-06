@@ -24,6 +24,7 @@ class ActivityTrackingService
                                       :subscribeable => echoable, :subscribeable_type => echoable.class.name)
     echoable.subscriptions << subscription if subscription.new_record?
     # When echoable is a proposal, then we must follow the main question too
+    # When echoable is an improvement/pro-contra, then we must follow the parent proposal too
     if !echoable.parent.nil?
       parent_subscription = echoable.parent.subscriptions.find_by_subscriber_id(user.id) ||
                        Subscription.new(:subscriber => user, :subscriber_type => user.class.name,
@@ -37,6 +38,7 @@ class ActivityTrackingService
     subscription = echoable.subscriptions.find_by_subscriber_id(user.id)
     echoable.subscriptions.delete(subscription) if subscription
     # When a proposal, then we must remove the question subscription in the case when no more sibling is around
+    # When an improvement/pro-contra, then we must remove the proposal subscription in the case when no more sibling is around
     if !echoable.parent.nil?
       parent_subscription = user.subscriptions.find_by_subscribeable_id(echoable.parent_id)
       if (user.subscriptions.map(&:subscribeable_id) & echoable.parent.child_statements.map(&:id)).empty?
