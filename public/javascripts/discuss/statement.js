@@ -128,11 +128,11 @@
 	  /* prev/next buttons, title */
 	  /****************************/
 	  statement.find('.header a.statement_link').live("click", function(){
-		  current_stack = getStatementsStack(this, false);
-	    /* set fragment */
+		  var current_stack = getStatementsStack(this, false);
+			
+		  /* set fragment */
 	    $.setFragment({
 	      "sids": current_stack.join(','),
-				"bids": $.fragment().bids,
 				"new_level": ''
 	    });
 	    return false;
@@ -142,7 +142,7 @@
 	  /* child link */
 	  /**************/
 	  statement.find('.children a.statement_link').live("click", function(){
-	    current_stack = getStatementsStack(this, true);
+	    var current_stack = getStatementsStack(this, true);
 	    /* set fragment */
 	    $.setFragment({
 	      "sids": current_stack.join(','),
