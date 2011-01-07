@@ -2,16 +2,16 @@ module EchoableModuleHelper
   # inserts a status bar based on the support ratio  value
   # (support ratio is the calculated ratio for a statement_node,
   # representing and visualizing the agreement a statement_node has found within the community)
-  def supporter_ratio_bar(statement_node, show_label = false)
+  def supporter_ratio_bar(statement_node, show_label = false, previous_statement = statement_node.parent, type = statement_node.class.name)
     # TODO:How to spare calculating this label two times (see next method, they're almost always sequencially triggered)
     if show_label 
       label = supporters_number(statement_node)
     end
     
     extra_classes = show_label ? 'supporters_bar ttLink' : 'supporters_bar'
-    if !statement_node.nil? and (statement_node.new_record? or statement_node.ratio > 1)
+    if !statement_node.nil? and (statement_node.new_record? or statement_node.ratio(previous_statement,type) > 1)
       content_tag(:span, '', :class => "echo_indicator #{extra_classes}", :title => label, 
-                  :alt => statement_node.new_record? ? 10 : statement_node.ratio)
+                  :alt => statement_node.new_record? ? 10 : statement_node.ratio(previous_statement,type))
     else
       content_tag(:span, '', :class => "no_echo_indicator #{extra_classes}",:title => label)
     end

@@ -21,6 +21,11 @@ module ActiveRecord
             belongs_to :echo
             has_many :user_echos, :foreign_key => 'echo_id', :primary_key => 'echo_id'
             delegate :supporter_count, :visitor_count, :to => :echo
+            
+            def after_initialize
+              self.echo = Echo.new if self.echo.nil?
+            end
+            
           end
 
 
@@ -121,8 +126,8 @@ module ActiveRecord
             public
 
             # Delegates to 'support_relative_to_siblings'
-            def ratio
-              support_relative_to_sibblings
+            def ratio(parent_statement = parent, type = self.class.name)
+              support_relative_to_sibblings(parent_statement, type)
             end
 
             # Records the creator's support for the statement.
@@ -135,18 +140,26 @@ module ActiveRecord
             protected
 
             # Ratio of this statement's supporters relative to the most supported sibbling statement's supporters.
-            def support_relative_to_sibblings
-              if parent && parent.most_supported_child.try(:supporter_count).to_i > 0
-                max_support_count = parent.most_supported_child.supporter_count
-                ((supporter_count.to_f / max_support_count.to_f) * [10*max_support_count, 100].min).to_i
-              else
-                0
+            def support_relative_to_sibblings(parent_statement, type)
+              if parent_statement # child statement
+               if parent_statement.most_supported_child(type).try(:supporter_count).to_i > 0
+                  max_support_count = parent_statement.most_supported_child(type).supporter_count
+                else
+                  return 0
+                end
+              else # root statement
+                max_support_count = self.class.most_supported_root.supporter_count
               end
+              max_support_count == 0 ? 0 : ((supporter_count.to_f / max_support_count.to_f) * [10*max_support_count, 100].min).to_i
             end
 
             # Finds the most supported child (used by ratio of entity vs. the most supported sibbling)
-            def most_supported_child
-              children.by_supporters.first
+            def most_supported_child(type)
+              children.scoped(:conditions => "type = '#{type}'").by_supporters.first
+            end
+            
+            def self.most_supported_root
+              by_supporters.first
             end
 
             public

@@ -18,9 +18,4 @@ class Question < StatementNode
   def publishable?
     true
   end
-
-  # Questions are NOT echoable.
-  def echoable?
-    false
-  end
 end
