@@ -33,12 +33,14 @@ function initFollowUpQuestionHistoryEvents() {
     var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
 		var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', $(this));
 		
+		var last_bid = bids[bids.length-1];
 		
     /* set fragment */
     $.setFragment({
       "bids": bids.join(','),
       "sids": question,
-      "new_level": true
+      "new_level": true,
+			"prev": last_bid
     });
     return false;
   });
@@ -68,13 +70,24 @@ function initFollowUpQuestionHistoryEvents() {
 			last_sid = '';
 		}
 		if (last_bid.match(last_sid)) { /* create follow up question button was pressed */
-			bid_to_delete = $('#breadcrumbs a.statement:last').attr('id');
-			$('#breadcrumbs').data('to_delete', [bid_to_delete]);
+			var bid_to_delete = $('#breadcrumbs a.statement:last');
+			$('#breadcrumbs').data('to_delete', [bid_to_delete.attr('id')]);
+			
+			/* get previous bid in order to load the proper siblings to session */
+			var prev_bid = bid_to_delete.parent().prev().find('a');
+			if (prev_bid && prev_bid.hasClass('statement')) {
+				prev_bid = "fq=>" + prev_bid.attr('id').match(/\d+/);
+			}
+			else
+			{
+				prev_bid = "";
+			}
 			
 			bids.pop();
 			$.setFragment({
 	      "bids": bids.join(','),
-	      "new_level": true
+	      "new_level": true,
+				"prev": prev_bid
       });
 			return false;
 		}
@@ -152,7 +165,8 @@ function initFragmentStatementChange() {
 			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sids": sids.join(","),
 				"bids": bids.join(","),
-        "new_level": $.fragment().new_level
+        "new_level": $.fragment().new_level,
+				"prev": $.fragment().prev
       });
 			
 			$.ajax({
@@ -165,7 +179,7 @@ function initFragmentStatementChange() {
 
 	/* Statement Stack */
   if ($.fragment().sids) {
-	  $.setFragment({ "new_level" : true, "bids" : $.fragment().bids });
+	  $.setFragment({ "new_level" : true, "bids" : $.fragment().bids, "prev" : $.fragment().prev });
 	  $(document).trigger("fragmentChange.sids");
   }
 

@@ -43,7 +43,11 @@
 	    $("#breadcrumbs").data('to_delete', links_to_delete);
 	    /* set fragment */
 	    var sids = $(this).data('sids');
-	    $.setFragment({"bids" : new_bids.join(","), "sids": sids.join(","), "new_level" : ''});
+			
+			/* get previous breadcrumb entry, in order to load the proper siblings to session */
+			var prev = new_bids[new_bids.length -1];
+			
+	    $.setFragment({"bids" : new_bids.join(","), "sids": sids.join(","), "new_level" : '', "prev" : prev});
 	    return false;
 	  });
 	}

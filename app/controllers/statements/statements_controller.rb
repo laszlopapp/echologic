@@ -755,8 +755,8 @@ class StatementsController < ApplicationController
   # Gets the root ids that need to be loaded to the session.
   #
   def roots_to_session(statement_node)
-    if !params[:bids].blank? #statement node is fq or as, therefore, get the right siblings
-      bid = params[:bids].split(',').last.split('=>')
+    if !params[:prev].blank? #statement node is fq or as, therefore, get the right siblings
+      bid = params[:prev].split(',').last.split('=>')
       type_given = case bid[0]
         when "fq" then "FollowUpQuestion"
         #when "as" then "Alternative"
@@ -816,7 +816,7 @@ class StatementsController < ApplicationController
         render :template => template
       }
       format.js {
-        load_ancestors(teaser) if !params[:sids].blank? or @statement_node.class.is_top_statement?
+        load_ancestors(teaser) if !params[:sids].blank? or !params[:prev].blank?#@statement_node.class.is_top_statement?
         load_breadcrumbs if !params[:bids].blank?
         render :template => template
       }
