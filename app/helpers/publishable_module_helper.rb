@@ -71,9 +71,7 @@ module PublishableModuleHelper
     if current_user and
        statement_document.author == current_user and !statement_node.published?
       link_to(I18n.t('discuss.statements.publish'),
-              { :controller => :statements,
-                :action => :publish,
-                :in => :summary },
+              { :controller => :statements, :id => statement_node.id, :action => :publish, :in => :summary },
               :id => 'publish_button', 
               :class => 'ajax_put header_button text_button publish_text_button ttLink',
               :title => I18n.t('discuss.tooltips.publish'))
