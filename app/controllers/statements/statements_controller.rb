@@ -107,7 +107,7 @@ class StatementsController < ApplicationController
     loadSearchTermsAsTags(params[:search_terms]) if @statement_node.taggable? and params[:search_terms]
     
     # set new breadcrumb
-    #    set_parent_breadcrumb if @statement_node.class.is_top_statement?
+    set_parent_breadcrumb if @statement_node.class.is_top_statement?
     
     load_echo_messages if @statement_node.echoable?
     
@@ -576,16 +576,17 @@ class StatementsController < ApplicationController
   #
   # Sets the breadcrumb of the current statement node's parent.
   #
-  #  def set_parent_breadcrumb
-  #    parent_node = @statement_node.parent
-  #    statement_documents = search_statement_documents(parent_node.statement_id,
-  #                                                     @language_preference_list)
-  #    #[id, classes, url, title]                                                     
-  #    @breadcrumb = ["#{parent_node.class.name.underscore}_#{parent_node.id}",
-  #                   "statement statement_link #{parent_node.class.name.underscore}_link",
-  #                   statement_node_url(parent_node),
-  #                   statement_documents[parent_node.statement_id].title]
-  #  end
+  def set_parent_breadcrumb
+    return if @statement_node.parent.nil?
+    parent_node = @statement_node.parent
+    statement_documents = search_statement_documents(parent_node.statement_id,
+                                                     @language_preference_list)
+    #[id, classes, url, title]                                                     
+    @breadcrumb = ["#{parent_node.class.name.underscore}_#{parent_node.id}",
+                   "statement statement_link #{parent_node.class.name.underscore}_link",
+                   statement_node_url(parent_node),
+                   statement_documents[parent_node.statement_id].title]
+  end
   
   #
   # Sets the breadcrumbs for the current statement node view previous path.
@@ -732,14 +733,14 @@ class StatementsController < ApplicationController
   #
   def load_siblings(statement_node)
     @siblings ||= {}
-    class_name = statement_node.class.name.underscore
+    class_name = statement_node.target_statement.class.name.underscore
     # if has parent then load siblings
     if statement_node.parent_id
       siblings = statement_node.siblings_to_session(@language_preference_list)
     else #else, it's a root node
       siblings = roots_to_session(statement_node)
     end
-    @siblings["#{class_name}_#{statement_node.id}"] = siblings
+    @siblings["#{class_name}_#{statement_node.target_id}"] = siblings
   end
   
   #

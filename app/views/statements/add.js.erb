@@ -28,7 +28,7 @@
   <% end %>
 <% end %>
 
-$('#breadcrumbs').breadcrumb('resize');
+$('#breadcrumbs').breadcrumb('update').breadcrumb('resize');
 
 var add_teaser = $("<%= escape_javascript(render :partial => 'statements/add') %>");
 add_teaser.statement('insert', <%= (@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 0 : @statement_node.level + 1 %>).statement('removeBelow');

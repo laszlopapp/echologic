@@ -3,7 +3,7 @@
   <%= content_tag :div, prev_next_buttons(statement_node, "add", @type), :class => 'header_buttons'%>
   <% content_tag :div, :class => 'add_header_link'  do %>
 	  <% if !statement_node.nil? %>
-      <%= create_new_child_statement_link(statement_node,@type) %>
+      <%= create_new_child_statement_link(statement_node,@type,false) %>
 		<% else %>
 		  <%= create_new_question_link(params[:origin], params[:search_terms]) %>
 		<% end %>

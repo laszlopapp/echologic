@@ -59,6 +59,10 @@
 		  var api = this.data('jsp');
 		  var elements = api.getContentPane().find(".elements");//this.find('.elements');
 		  
+			if (elements.find('a#' + attrs[0]).length > 0) {
+			 return;
+			}
+			
 		  var breadcrumb = $('<div/>').addClass('breadcrumb');
 			if (this.length != 0) {
         var del = $("<span class='delimitator'>></span>");
@@ -115,13 +119,16 @@
 				}
 		  }).get();
 		 
-		  /* delete entries that do not belong to the breadcrumbs' stack */
+		   /* delete entries that do not belong to the breadcrumbs' stack */
 			var to_remove = [];
       $.map(visible_bids, function(a, index) {
 			 if($.inArray(a, bid_keys) == -1) {
 			   to_remove.push($("#breadcrumbs a").eq(index).parent());
 	     }
 	    });
+			
+			
+			
 			$.each(to_remove, function(){
 				this.remove();
 			});

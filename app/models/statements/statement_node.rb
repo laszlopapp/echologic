@@ -6,7 +6,11 @@ class StatementNode < ActiveRecord::Base
 
 
   alias_attribute :target_id, :id
-
+  
+  def target_statement
+    self
+  end
+  
   after_destroy :destroy_statement
 
   def destroy_statement
@@ -163,7 +167,7 @@ class StatementNode < ActiveRecord::Base
 
   # Collects a filtered list of all siblings statements
   def siblings_to_session(language_ids = nil, type = self.class.to_s)
-    sibling_statements(language_ids, type).map(&:id) + ["#{self.parent_id ? "/#{self.parent.target_id}" : ''}/add/#{type.underscore}"]
+    sibling_statements(language_ids, type).map(&:target_id) + ["#{self.parent_id ? "/#{self.parent.target_id}" : ''}/add/#{type.underscore}"]
   end
 
   # Collects a filtered list of all siblings statements

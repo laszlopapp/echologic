@@ -31,7 +31,6 @@
 <% end %>
 $('#breadcrumbs').breadcrumb('update').breadcrumb('resize');
 
-
 <% if !params[:expand].blank? %>
   var content = "<%= escape_javascript(render :partial => 'statements/content', :locals => {:hide_content => true}) %>";
   $('#statements .statement').eq(<%= @statement_node.level %>).statement('insertContent', content).statement('show');

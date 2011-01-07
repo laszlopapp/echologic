@@ -43,17 +43,11 @@ function initFollowUpQuestionHistoryEvents() {
     return false;
   });
 	
+	
+	/* NEW FOLLOW-UP QUESTION BUTTON ON CHILDREN */
 	$("#statements .statement #follow_up_questions.children a.create_follow_up_question_button").live("click", function(){
     var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', $(this));
     
-		/* set new breadcrumb for parent */
-		var statement = $(this).parents('.statement');
-		var header_link = statement.find('.header_link a');
-	  var attrs = [statement.attr('id'), 
-	               "statement statement_link " + statement.attr('id').replace(/_\d+/, '') + "_link", 
-	               header_link.attr('href'), header_link.text()];
-		$('#breadcrumbs').breadcrumb("add",attrs).breadcrumb('resize');
-		
 	  /* set fragment */
     $.setFragment({
       "bids": bids.join(','),
@@ -62,8 +56,28 @@ function initFollowUpQuestionHistoryEvents() {
   });
 	
 	$("#statements form.follow_up_question.new a.cancel_text_button").live("click", function(){
-		bid_to_delete = $('#breadcrumbs a.statement:last').attr('id');
-		$('#breadcrumbs').data('to_delete', [bid_to_delete]);
+		var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', null);
+		
+		/* get last breadcrumb id */
+		var last_bid = bids[bids.length-1].split('=>').pop();
+		/* get last statement view id (if teaser, parent id + '/' */
+		var last_sid = $.fragment().sids;
+		if (last_sid) {
+			last_sid = $.fragment().sids.split(',').pop().match(/\d+\/?/).shift();
+		} else {
+			last_sid = '';
+		}
+		if (last_bid.match(last_sid)) { /* create follow up question button was pressed */
+			bid_to_delete = $('#breadcrumbs a.statement:last').attr('id');
+			$('#breadcrumbs').data('to_delete', [bid_to_delete]);
+			
+			bids.pop();
+			$.setFragment({
+	      "bids": bids.join(','),
+	      "new_level": true
+      });
+			return false;
+		}
 	});
 }
 
@@ -135,7 +149,7 @@ function initFragmentStatementChange() {
 
       var bids = $("#breadcrumbs").breadcrumb('breadcrumbsToLoad', $.fragment().bids);
 			
-      path = $.queryString(document.location.href.replace(/\/\d+/, path), {
+			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sids": sids.join(","),
 				"bids": bids.join(","),
         "new_level": $.fragment().new_level

@@ -8,27 +8,27 @@ if(!window.location.href.match(/\/\d+/)) {
 }
 
 /* load new statement to session */
-<% if @statement_node.parent %>
-  var session_id = '<%= dom_class(@statement_node.parent) %>';
-<% else %>
+<% if @statement_node.class.is_top_statement? %>
   var session_id = 'roots';
+<% else %>
+  var session_id = '<%= dom_class(@statement_node.parent) %>';
 <% end %>
-  var session_data =  $('div#statements').data(session_id);
-	if (session_data != null) {
-		session_data.unshift(<%= @statement_node.id %>);
-		$('div#statements').data(session_id, session_data);
-	} else {
-	  session_data = [<%= @statement_node.id %>, "add/<%= dom_class(@statement_node) %>"]
-	}
+
+var session_data =  $('div#statements').data(session_id);
+if (session_data != null) {
+	session_data.unshift(<%= @statement_node.target_id %>);
+	$('div#statements').data(session_id, session_data);
+} else {
+  session_data = [<%= @statement_node.target_id %>, "add/<%= dom_class(@statement_node) %>"]
+}
 	
-var element = $("<%= escape_javascript(render :partial => 'statements/show') %>");
+var element = $("<%= escape_javascript(render :partial => 'statements/show', :locals => {:statement_node => @statement_node.target_statement}) %>");
 element.statement('insert',<%= @statement_node.level %>).statement('removeBelow');
 
 /* Statements' stack */	
 var sids = $('div#statements .statement').map(function(){
   return this.id.replace(/[^0-9]+/, "");
 }).get();
-
 
 var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', null);
 

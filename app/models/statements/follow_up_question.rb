@@ -8,7 +8,11 @@ class FollowUpQuestion < StatementNode
            :creator, :author_support, :ancestors, :target_id, :to => :question
 
   validates_associated :question
-
+  
+  def target_statement
+    self.question
+  end
+  
   def set_statement(attrs)
     self.statement = self.question.statement = Statement.new(attrs)
   end

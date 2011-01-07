@@ -128,7 +128,7 @@
 	  /* prev/next buttons, title */
 	  /****************************/
 	  statement.find('.header a.statement_link').live("click", function(){
-			current_stack = getStatementsStack(this, false);
+		  current_stack = getStatementsStack(this, false);
 	    /* set fragment */
 	    $.setFragment({
 	      "sids": current_stack.join(','),
@@ -220,6 +220,8 @@
         "sids": new_sids.join(",")
       }));
     }
+		
+		
   }
 
   /*
