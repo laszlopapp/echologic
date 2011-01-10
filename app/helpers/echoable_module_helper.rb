@@ -33,14 +33,27 @@ module EchoableModuleHelper
   # Renders the button for echo and unecho.
   def render_echo_button(statement_node, echo = true, type = dom_class(statement_node))
     return if !statement_node.echoable?
-    link_to(echo ? echo_statement_node_url(statement_node) : unecho_statement_node_url(statement_node),
-                    :class => "ajax_put",
-                    :id => 'echo_button') do
-      echo_tag(echo)
+    content = ''
+    content << content_tag(:div, :class => 'button_container') do
+      if statement_node.new_record? 
+        content_tag :div, :id => 'echo_button' do 
+          echo_content = '' 
+          echo_content << echo_tag(false, 'new_record')
+          echo_content << hidden_field_tag('echo', true)
+          echo_content 
+        end
+      else 
+        link_to(echo ? echo_statement_node_url(statement_node) : unecho_statement_node_url(statement_node),
+                           :class => "ajax_put",
+                           :id => 'echo_button') do
+          echo_tag(echo)
+        end
+      end
     end
-    tag("br")
+    content << "#{tag("br")}#{tag("br")}"
+    content
   end
-
+  
   # renders the echo/unecho button element
   def echo_tag(echo, extra_classes = '')
     title = I18n.t("discuss.tooltips.#{echo ? '' : 'un'}echo")

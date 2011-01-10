@@ -108,6 +108,17 @@
 
 
   /*
+   * SIDEBAR
+   */
+  function initAddNewButton(statement) {
+		statement.find(".action_bar span.add_new_button").live("click", function() {
+			$(this).next().toggle();
+			return false;
+		
+		});
+	}
+
+  /*
    * PAGINATION AND HISTORY HANDLING
    */
 
@@ -518,6 +529,8 @@
 				  }
 				}
 				else {
+					/* Sidebar Add Button */
+					initAddNewButton(element);
 					/* Pagination */
           initMoreButton(element);
 					initStatementHistoryEvents(element);

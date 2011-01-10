@@ -306,8 +306,14 @@ class StatementNode < ActiveRecord::Base
 
 
 
-    def children_types(children_visibility = false)
+    def children_types(children_visibility = false, default = true, expand = false)
       children_types = @@children_types[self.name] || @@children_types[self.superclass.name]
+      children_types = children_types - @@default_children_types if !default
+      if expand
+        array = []
+        children_types.each{|c| array += c[0].to_s.constantize.sub_types.map{|st|[st, c[1]]} }
+        children_types = array
+      end
       return children_types.map{|c|c[0]} if !children_visibility
       children_types
     end
@@ -325,6 +331,10 @@ class StatementNode < ActiveRecord::Base
     end
 
     #protected
+
+    def sub_types
+      [self.name.to_sym]
+    end
 
     def default_children_types(*klasses)
       @@default_children_types = klasses

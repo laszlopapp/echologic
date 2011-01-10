@@ -3,24 +3,10 @@
 <% border = (no_buttons and !statement_node.echoable?) %>
 <div class="action_bar" style="<%= border ? 'border-width:0px' : '' %>">
 	<!-- Render Echo Button -->
-	<% if statement_node.echoable? %>
-		<% if statement_node.new_record? %>
-		 <% content_tag :div, :id => 'echo_button' do %>
-		   <%= echo_tag(false, 'new_record')%>
-			 <%= hidden_field_tag 'echo', true %>
-		 <% end %>
-		<% else %>
-		 <% render_echo_button(statement_node, !(current_user && statement_node.supported?(current_user))) %>
-		<% end %>
-	<% end %>
-	<!-- New Statement Button -->
-	<% unless no_buttons %>
-	  <% if statement_node.parent.nil? %>
-		  <% create_new_question_button(params[:origin], params[:search_terms])  %>
-		<% else %>
-      <% create_new_sibling_statement_button(statement_node)  %>
-		<% end %>
-	<% end %>
+	<%= render_echo_button(statement_node, !(current_user && statement_node.supported?(current_user))) %>
+	
+	<!-- Add New Button -->
+	<%= add_new_button(statement_node, params[:origin], params[:search_terms], params[:prev]) unless no_buttons %>
 
 	<!-- Delete Statement Button -->
   <% if !no_buttons and current_user and current_user.may_delete?(statement_node) -%>

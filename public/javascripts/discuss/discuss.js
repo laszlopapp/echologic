@@ -179,7 +179,14 @@ function initFragmentStatementChange() {
 
 	/* Statement Stack */
   if ($.fragment().sids) {
-	  $.setFragment({ "new_level" : true, "bids" : $.fragment().bids, "prev" : $.fragment().prev });
+		if (!$.fragment().bids || $.fragment().bids == 'undefined') {
+			var bids = $("#breadcrumbs").breadcrumb('getBreadcrumbStack', null).join(',');} 
+		else {var bids = $.fragment().bids;}
+		
+		if (!$.fragment().prev || $.fragment().prev == 'undefined') {var prev = '';}
+		else {var prev = $.fragment().prev;}
+			
+		$.setFragment({ "new_level" : true, "bids" : bids, "prev" : prev });
 	  $(document).trigger("fragmentChange.sids");
   }
 

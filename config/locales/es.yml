@@ -401,6 +401,7 @@ es:
       echo_indicator:
         one: '{{supporter_count}} votos.'
         many: '{{supporter_count}} votos.'
+      add_new: Add new...
       create_question_link: 'Crear nuevo debate'
       create_proposal_link: 'Crear nueva propuesta'
       create_internal_link: 'Nueva Idea?'

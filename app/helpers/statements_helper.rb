@@ -63,7 +63,86 @@ module StatementsHelper
 
     end
   end
+  
+  #
+  # Creates a link to add a new resource for the given statement (appears in the SIDEBAR).
+  #
+  def add_new_button(statement_node, origin = nil, search_terms = nil, prev = nil)
+    content_tag :div, :class => 'button_container' do
+      content = ''
+      content << content_tag(:span, '', :class => 'add_new_button')
+      content << content_tag(:div, :class => 'resources_container', :style => "display:none") do 
+        resources = ''
+        resources << content_tag(:div, :class => 'header container') do
+          I18n.t("discuss.statements.add_new")
+        end
+        resources << content_tag(:div, '', :class => 'separator')
+        resources << add_new_sibling_button(statement_node, origin, search_terms, prev)
+        resources << add_new_child_buttons(statement_node)
+        resources << add_new_follow_up_question_button(statement_node)
+        resources
+      end
+      content
+    end
+  end
+  
+  #
+  # Creates a link to add a new sibling for the given statement (appears in the SIDEBAR).
+  #
+  def add_new_sibling_button(statement_node, origin = nil, search_terms = nil, prev = nil, type = dom_class(statement_node))
+    content = ''
+    content << content_tag(:div, :class => 'siblings container') do
+      if statement_node.parent
+        link_to(I18n.t("discuss.statements.types.#{type}"),
+                new_statement_node_url(statement_node.parent, type), 
+                :id => "create_#{type}_link", :class => "resource_link ajax")
+      else
+        if prev.blank? # create new question
+          create_new_question_button(origin, search_terms)
+        else #create sibling follow up question
+          link_to(I18n.t("discuss.statements.types.follow_up_question"),
+                new_statement_node_url(prev, "follow_up_question"), 
+                :id => "create_follow_up_question_link", :class => "resource_link ajax")
+        end
+      end
+    end
+    content << content_tag(:div, '', :class => 'separator')
+    content
+  end
 
+  #
+  # Creates a link to add a new child for the given statement (appears in the SIDEBAR).
+  #
+  def add_new_child_buttons(statement_node)
+    children_types = statement_node.class.children_types(false, false, true)
+    return '' if children_types.empty?
+    content = ''
+    content << content_tag(:div, :class => 'children container') do
+      children = ''
+      children_types.each do |type|
+        children << new_child_link(statement_node, type.to_s.underscore)
+      end
+      children
+    end
+    content << content_tag(:div, '', :class => 'separator')
+    content
+  end
+  
+  #
+  # Creates a link to add a new follow up question for the given statement (appears in the SIDEBAR).
+  #
+  def add_new_follow_up_question_button(statement_node)
+    content_tag(:div, new_child_link(statement_node, "follow_up_question"), :class => 'children container')
+  end
+  
+  #
+  # Returns a link to create a new child statement from a given type for the given statement (appears in the SIDEBAR).
+  #
+  def new_child_link(statement_node, type)
+    link_to(I18n.t("discuss.statements.types.#{type}"),
+            new_statement_node_url(statement_node, type, :new_level => true), 
+            :id => "create_#{type}_link", :class => "resource_link ajax")
+  end
 
   #
   # Creates a link to edit the current document.

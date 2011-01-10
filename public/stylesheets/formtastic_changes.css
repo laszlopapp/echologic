@@ -19,7 +19,7 @@ form.formtastic textarea {
 
 form.formtastic fieldset ol li {
   display: inline-block;
-  width: 388px;
+  width: 362px;
 }
 
 form.formtastic fieldset ol li.select {
@@ -72,17 +72,17 @@ form.formtastic fieldset ol li.text textarea, form.formtastic fieldset ol li.str
 
 form.formtastic.wide_form fieldset ol li.text textarea,
 form.formtastic.wide_form fieldset ol li.string input {
-  width: 790px;
+  width: 721px;
 }
 
 
 form.formtastic.translation fieldset ol li.string input {
-  width: 380px;
+  width: 354px;
 }
 
 
 form.formtastic.translation fieldset ol li.text textarea {
-  width: 385px;
+  width: 354px;
   height: 200px;
 }
 
