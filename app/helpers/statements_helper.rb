@@ -68,7 +68,7 @@ module StatementsHelper
   # Creates a link to add a new resource for the given statement (appears in the SIDEBAR).
   #
   def add_new_button(statement_node, origin = nil, search_terms = nil, prev = nil)
-    content_tag :div, :class => 'button_container' do
+    content_tag :div, :class => 'button_container', :id => 'add_new_container' do
       content = ''
       content << content_tag(:span, '', :class => 'add_new_button')
       content << content_tag(:div, :class => 'resources_container', :style => "display:none") do 
