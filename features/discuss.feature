@@ -71,7 +71,7 @@ Feature: Take Part on a question
       And I am on the discuss index
     When I follow "Search"
       And I choose the "Test Question2?" Question
-      And I follow "create_question_link" within "#add_new_container"
+      And I follow "add_new_question_link" within "#add_new_options"
       And I fill in the following:
       | question_statement_document_title           | Question on the side              |
       | question_statement_document_text            | i like big butts and i cannot lie |
@@ -86,7 +86,7 @@ Feature: Take Part on a question
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
-      And I follow "create_proposal_link" within "#add_new_container"
+      And I follow "add_new_proposal_link" within "#add_new_options"
       And I fill in the following:
       | proposal_statement_document_title           | How to propose to women   |
       | proposal_statement_document_text            | i find you very atractive |
@@ -102,7 +102,7 @@ Feature: Take Part on a question
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
       And I choose the "A better first proposal" Improvement
-      And I follow "create_improvement_link" within "#add_new_container"
+      And I follow "add_new_improvement_link" within "#add_new_options"
       And I fill in the following:
       | improvement_statement_document_title           | How to improve yer status    |
       | improvement_statement_document_text            | Eat the poor                 |
@@ -116,7 +116,7 @@ Feature: Take Part on a question
     When I follow "Featured"
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
-      And I follow "create_proposal_link" within "#add_new_container"
+      And I follow "add_new_proposal_link" within "#add_new_options"
       And I fill in the following:
       | proposal_statement_document_title           | How to propose to women   |
       | proposal_statement_document_text            | i find you very atractive |
@@ -131,7 +131,7 @@ Feature: Take Part on a question
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
-      And I follow "create_improvement_link" within "#add_new_container"
+      And I follow "add_new_improvement_link" within "#add_new_options"
       And I fill in the following:
       | improvement_statement_document_title           | How to improve yer status    |
       | improvement_statement_document_text            | Eat the poor                 |
@@ -146,7 +146,7 @@ Feature: Take Part on a question
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
-      And I follow "create_pro_argument_link" within "#add_new_container"
+      And I follow "add_new_pro_argument_link" within "#add_new_options"
       And I fill in the following:
       | pro_argument_statement_document_title           | Pro 4 life                   |
       | pro_argument_statement_document_text            | I submit this pro-life stand |
@@ -161,7 +161,7 @@ Feature: Take Part on a question
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
-      And I follow "create_contra_argument_link" within "#add_new_container"
+      And I follow "add_new_contra_argument_link" within "#add_new_options"
       And I fill in the following:
       | contra_argument_statement_document_title           | Contra is cool    |
       | contra_argument_statement_document_text            | Best Game... EVA! |
@@ -175,7 +175,7 @@ Feature: Take Part on a question
     When I follow "Featured"
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
-      And I follow "create_follow_up_question_link" within "#add_new_container"
+      And I follow "add_new_follow_up_question_link" within "#add_new_options"
       And I fill in the following:
       | follow_up_question_statement_document_title           | Livin it up      |
       | follow_up_question_statement_document_text            | I love this game |
@@ -191,7 +191,7 @@ Feature: Take Part on a question
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
-      And I follow "create_follow_up_question_link" within "#add_new_container"
+      And I follow "add_new_follow_up_question_link" within "#add_new_options"
       And I fill in the following:
       | follow_up_question_statement_document_title           | Livin it up      |
       | follow_up_question_statement_document_text            | I love this game |
@@ -208,7 +208,7 @@ Feature: Take Part on a question
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
       And I choose the "A better first proposal" Improvement
-      And I follow "create_follow_up_question_link" within "#add_new_container"
+      And I follow "add_new_follow_up_question_link" within "#add_new_options"
       And I fill in the following:
       | follow_up_question_statement_document_title           | Livin it up      |
       | follow_up_question_statement_document_text            | I love this game |
