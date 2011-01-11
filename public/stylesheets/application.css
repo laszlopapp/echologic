@@ -124,10 +124,6 @@
   width: 750px
 }
 
-.add_new_button {
-  vertical-align: top;
-}
-
 .column_200 {
   width: 195px !important;
   padding: 2px !important;
@@ -233,10 +229,13 @@
   padding-left: 25px;
 }
 
-.authors_text_button:hover {
+.authors_text_button:hover, .authors_text_button.active {
   background-position: 0 -16px;
 }
 
+.authors_text_button.active:hover {
+  background-position: 0 0;
+}
 
 /* All buttons in a block header */
 .header_block .header_button {

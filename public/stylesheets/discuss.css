@@ -117,7 +117,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 #statements form.new .simple_header_block h2,
 #statements form.edit .simple_header_block h2 {
-	margin-left: 20px;
+	/*margin-left: 20px;*/
 }
 
 #statements form.formtastic .editorial_state li {
@@ -137,7 +137,7 @@ form.statement #question_state_id_input li {
 }
 
 form.statement .discuss_right_block {
-	margin-left: 215px;
+	margin-left: 190px;
 }
 
 .new_statement_button_illustration {
@@ -146,7 +146,7 @@ form.statement .discuss_right_block {
 
 .statement_form_illustration {
   float: right;
-  margin: 0px 35px 0 30px;
+  margin: 0 35px 0 30px;
   border: none;
 }
 
@@ -154,19 +154,18 @@ form.question .header li {
   background:transparent url(../images/page/discuss/question_small.png) no-repeat scroll 0 0;
 }
 form.proposal .header li {
-  background:transparent url(../images/page/discuss/proposal_small.png) no-repeat scroll 0 0;
+  background: transparent url(../images/page/discuss/proposal_small.png) no-repeat scroll 0 0;
 }
 form.improvement .header li {
-  background:transparent url(../images/page/discuss/improvement_small.png) no-repeat scroll 0 0;
+  background: transparent url(../images/page/discuss/improvement_small.png) no-repeat scroll 0 0;
 }
 
-form.statement fieldset ol li {
-  padding-left: 21px;
-  background-position:0 3px;
+form.statement .header_link fieldset ol li {
+  padding-left: 20px;
 }
 
 form.translation fieldset ol li {
-	padding-left: 0px;
+	padding-left: 0;
 }
 
 form.statement fieldset ol span.defaultText {
@@ -175,17 +174,20 @@ form.statement fieldset ol span.defaultText {
 	top: 31px;
 }
 
+#statements .statement {
+  display: inline-block;
+}
+
 /* ------- */
 /* HEADER  */
 /* ------- */
-
-
 
 #statements .header {
   background:  url(../images/page/discuss/stack_separator.png) no-repeat scroll 7px 0;
   clear: both;
   min-height: 34px;
   display: inline-block;
+  width: 990px;
 }
 
 #statements .header.active {
@@ -194,13 +196,13 @@ form.statement fieldset ol span.defaultText {
 }
 
 #statements .header_buttons {
-  width: 222px;
+  width: 183px;
   min-height: 1px;
   display: inline-block;
   float: left;
   position: relative;
   top: 4px;
-  left: 72px;
+  left: 48px;
   height: 30px;
   overflow: visible;
 }
@@ -209,7 +211,7 @@ form.statement fieldset ol span.defaultText {
 #statements .add_header_link {
   display: inline-block;
   min-height: 30px;
-  width: 768px;
+  width: 800px;
   float: left;
   position: relative;
   top: 12px;
@@ -291,7 +293,7 @@ form.statement fieldset ol span.defaultText {
   float: right;
   font-size: 12px;
   position: absolute;
-  right: 22px;
+  right: 27px;
   top: 21px;
   cursor: default;
 }
@@ -309,23 +311,24 @@ form.statement fieldset ol span.defaultText {
 /* ------- */
 
 #statements .action_bar {
+  width: 160px;
   clear: both;
   float: left;
   position: relative;
-  left: 23px;
+  left: 7px;
   top: 25px;
-  width: 100px;
-  padding: 5px 0 17px 5px;
+  padding: 5px 0 17px;
   text-align: center;
+  margin: 15px 0 20px;
 }
 
 #statements .action_bar .button_container {
   height:   80px;
   width:    160px;
-  display:  inline-block;
+  display:  block;
   background-image: url(../images/page/discuss/add_new_container.png);
   cursor: pointer;
-} 
+}
 #statements .action_bar .button_container:hover     { background-position: 0 80px; }
 
 /* echo button */
@@ -454,9 +457,9 @@ form.statement fieldset ol span.defaultText {
 .statement .authors .author .location_orga {
   position: relative;
 	top: 8px;
-	font-size:14px;
+	font-size: 14px;
 	overflow: hidden;
-	left:10px;
+	left: 10px;
 }
 
 /* --------- */
@@ -464,21 +467,27 @@ form.statement fieldset ol span.defaultText {
 /* --------- */
 
 .discuss_right_block {
-  margin-left:  215px;
-  width:        757px;
+  margin-left: 190px;
+  width: 785px;
   padding-left: 15px;
   clear: right;
 }
 
 .summary.discuss_right_block {
-  width: 737px;
+  width: 765px;
+}
+
+.summary .action_buttons {
+  display: block;
+  position: relative;
+  right: 15px;
 }
 
 .statement_content {
 	clear: right;
   margin: 12px 0 25px;
   line-height:1.25em;
-	width: 737px;
+	width: 765px;
 }
 
 .statement_content .image_container {
@@ -486,13 +495,13 @@ form.statement fieldset ol span.defaultText {
 	margin: 4px 0 20px 20px;
   position: relative;
   text-align: right;
-  width: 170px;
+  width: 200px;
 }
 
 .statement_content .image {
   border: 1px solid #a8a8a8;
-  max-height: 113px;
-  max-width: 170px;
+  max-height: 133px;
+  max-width: 200px;
 }
 
 .statement_content .upload_link {
@@ -520,20 +529,15 @@ form.statement fieldset ol span.defaultText {
 /* echo indicators */
 
 .echo_indicator, .no_echo_indicator {
-  height:       12px !important;
-  width:        170px;
-  display:      inline-block;
-  margin:       0 20px;
-  float:        right;
-}
-
-.doubles_list .echo_indicator,
-.doubles_list .no_echo_indicator {
-	margin:       0 17px;
+  height: 12px !important;
+  width: 170px;
+  display: inline-block;
+  margin: 0 30px;
+  float: right;
 }
 
 .header .echo_indicator, .header .no_echo_indicator {
-  margin-top: 3px;
+  margin: 3px 25px 0;
   background-color: #FFF;
 }
 
@@ -542,16 +546,30 @@ form.statement fieldset ol span.defaultText {
 }
 
 .no_echo_indicator {
-  border:       1px solid #A9B6BD;
+  border: 1px solid #A9B6BD;
   -moz-border-radius: 12px;
   -webkit-border-radius: 12px;
 }
 
 .no_echo_indicator:hover  {
-  border:       1px solid #A9B6BD !important;
+  border: 1px solid #A9B6BD !important;
+}
+
+.doubles_list .echo_indicator, .doubles_list .no_echo_indicator {
+	margin: 1px 17px 0;
+  width: 85px;
+  height: 11px !important;
 }
 
 /* Statement links & buttons */
+
+.add_new_button {
+  vertical-align: top;
+}
+
+.add_header_link .add_new_button {
+  margin-left: 0;
+}
 
 a.statement_link {
   color: #21587f;
@@ -708,7 +726,7 @@ a.statement_link:hover {
 
 
 .statement .children {
-	display: inline-block;
+	display: block;
 }
 
 .statement .children .doubles_list {
@@ -720,10 +738,10 @@ a.statement_link:hover {
 }
 
 .doubles_list .children_pagination {
-	position: relative;
 	float: left;
+  /*position: relative;*/
 	min-height: 91px;
-	min-width: 378px;
+	min-width: 390px;
 }
 
 .children_pagination ul {
@@ -735,15 +753,15 @@ a.statement_link:hover {
 }
 
 .children .text_button {
-  margin-left: 0px;
+  margin-left: 0;
 }
 
 .children a.statement_link {
-	width: 524px;
+	width: 525px;
 }
 
 .children .doubles_list a.statement_link {
-  width: 152px;
+  width: 240px;
 }
 
 /* Others */

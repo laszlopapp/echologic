@@ -7,7 +7,7 @@ $(document).ready(function () {
 	initFollowUpQuestionHistoryEvents();
 	initStatements();
 	initExpandables();
-	
+
 });
 
 
@@ -32,9 +32,9 @@ function initFollowUpQuestionHistoryEvents() {
   $("#statements .statement #follow_up_questions.children a.statement_link").live("click", function(){
     var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
 		var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', $(this));
-		
+
 		var last_bid = bids[bids.length-1];
-		
+
     /* set fragment */
     $.setFragment({
       "bids": bids.join(','),
@@ -44,22 +44,22 @@ function initFollowUpQuestionHistoryEvents() {
     });
     return false;
   });
-	
-	
+
+
 	/* NEW FOLLOW-UP QUESTION BUTTON ON CHILDREN */
 	$("#statements .statement #follow_up_questions.children a.create_follow_up_question_button").live("click", function(){
     var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', $(this));
-    
+
 	  /* set fragment */
     $.setFragment({
       "bids": bids.join(','),
       "new_level": true
     });
   });
-	
+
 	$("#statements form.follow_up_question.new a.cancel_text_button").live("click", function(){
 		var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', null);
-		
+
 		/* get last breadcrumb id */
 		var last_bid = bids[bids.length-1].split('=>').pop();
 		/* get last statement view id (if teaser, parent id + '/' */
@@ -72,7 +72,7 @@ function initFollowUpQuestionHistoryEvents() {
 		if (last_bid.match(last_sid)) { /* create follow up question button was pressed */
 			var bid_to_delete = $('#breadcrumbs a.statement:last');
 			$('#breadcrumbs').data('to_delete', [bid_to_delete.attr('id')]);
-			
+
 			/* get previous bid in order to load the proper siblings to session */
 			var prev_bid = bid_to_delete.parent().prev().find('a');
 			if (prev_bid && prev_bid.hasClass('statement')) {
@@ -82,7 +82,7 @@ function initFollowUpQuestionHistoryEvents() {
 			{
 				prev_bid = "";
 			}
-			
+
 			bids.pop();
 			$.setFragment({
 	      "bids": bids.join(','),
@@ -108,9 +108,9 @@ function initExpandables() {
 
 	/* Special ajax event for the statement (collapse/expand)*/
 	$(".ajax_expandable").live("click", function(){
-		element = $(this);
+		var element = $(this);
 		to_show = element.parents("div:first").find($(this).data('content'));
-		if (to_show.length > 0) {
+    if (to_show.length > 0) {
 			/* if statement already has loaded content */
 			supporters_label = element.find('.supporters_label');
 			element.toggleClass('active');
@@ -122,8 +122,8 @@ function initExpandables() {
 			/* load the content that is missing */
 			href = $(this).data('path');
 
-			$.getScript(href, function(){
-				element.toggleClass('active');
+			$.getScript(href, function(e) {
+				element.addClass('active');
 			});
 		}
 		return false;
@@ -161,14 +161,14 @@ function initFragmentStatementChange() {
 				return $.inArray(a, visible_sids) == -1 ;});
 
       var bids = $("#breadcrumbs").breadcrumb('breadcrumbsToLoad', $.fragment().bids);
-			
+
 			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sids": sids.join(","),
 				"bids": bids.join(","),
         "new_level": $.fragment().new_level,
 				"prev": $.fragment().prev
       });
-			
+
 			$.ajax({
 				url:      path,
 	      type:     'get',
@@ -180,12 +180,12 @@ function initFragmentStatementChange() {
 	/* Statement Stack */
   if ($.fragment().sids) {
 		if (!$.fragment().bids || $.fragment().bids == 'undefined') {
-			var bids = $("#breadcrumbs").breadcrumb('getBreadcrumbStack', null).join(',');} 
+			var bids = $("#breadcrumbs").breadcrumb('getBreadcrumbStack', null).join(',');}
 		else {var bids = $.fragment().bids;}
-		
+
 		if (!$.fragment().prev || $.fragment().prev == 'undefined') {var prev = '';}
 		else {var prev = $.fragment().prev;}
-			
+
 		$.setFragment({ "new_level" : true, "bids" : bids, "prev" : prev });
 	  $(document).trigger("fragmentChange.sids");
   }
