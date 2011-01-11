@@ -211,3 +211,24 @@ Then /^"([^\"]*)" should have a "([^\"]*)" event$/ do |question, op_type|
   assert !event.nil?
   assert event.operation.eql?(op_type)
 end
+
+Then /^the ([^\"]*) should have ([^\"]*) siblings in session$/ do |statement_type, siblings_number|
+  response.should have_selector("#statements div.#{statement_type.split(" ").map(&:downcase).join("_")}") do |selector|
+    statement = selector.first
+    siblings = eval(statement.get_attribute("data-siblings"))
+    assert siblings.select{|s|s.is_a?(Numeric)}.length == siblings_number.to_i
+  end
+end
+
+Then /^there should be a "([^\"]*)" breadcrumb$/ do |title|
+  response.should have_selector("#breadcrumbs a.statement") do |selector|
+    result = false
+    selector.each do |breadcrumb|
+      if title.eql?(breadcrumb.inner_text.strip)
+        result = true
+        break
+      end
+    end
+    assert result
+  end
+end

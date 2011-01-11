@@ -77,6 +77,7 @@ Feature: Take Part on a question
       | question_statement_document_text            | i like big butts and i cannot lie |
       And I press "Save"
     Then I should see "Question on the side"
+      And the question should have 6 siblings in session
   
   Scenario: Add a sibling Proposal
     Given I am logged in as "user" with password "true"
@@ -91,6 +92,7 @@ Feature: Take Part on a question
       | proposal_statement_document_text            | i find you very atractive |
       And I press "Save"
     Then I should see "How to propose to women"
+      And the proposal should have 2 siblings in session
     
   Scenario: Add a sibling Improvement 
     Given I am logged in as "user" with password "true"
@@ -106,6 +108,7 @@ Feature: Take Part on a question
       | improvement_statement_document_text            | Eat the poor                 |
       And I press "Save"
     Then I should see "How to improve yer status"
+      And the improvement should have 6 siblings in session
   
   Scenario: Add a Proposal to a Question
     Given I am logged in as "user" with password "true"
@@ -119,6 +122,7 @@ Feature: Take Part on a question
       | proposal_statement_document_text            | i find you very atractive |
       And I press "Save"
     Then I should see "How to propose to women"
+      And the proposal should have 2 siblings in session
   
   Scenario: Add an Improvement to a proposal
     Given I am logged in as "user" with password "true"
@@ -133,6 +137,7 @@ Feature: Take Part on a question
       | improvement_statement_document_text            | Eat the poor                 |
       And I press "Save"
     Then I should see "How to improve yer status"
+      And the improvement should have 6 siblings in session
     
   Scenario: Add a Pro Argument to a proposal
     Given I am logged in as "user" with password "true"
@@ -147,6 +152,7 @@ Feature: Take Part on a question
       | pro_argument_statement_document_text            | I submit this pro-life stand |
       And I press "Save"
     Then I should see "Pro 4 life"
+      And the pro argument should have 1 siblings in session
   
   Scenario: Add a Pro Argument to a proposal
     Given I am logged in as "user" with password "true"
@@ -161,6 +167,55 @@ Feature: Take Part on a question
       | contra_argument_statement_document_text            | Best Game... EVA! |
       And I press "Save"
     Then I should see "Contra is cool"
+      And the contra argument should have 1 siblings in session
+  
+  Scenario: Add a Follow Up Question to a Question
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I follow "create_follow_up_question_link" within "#add_new_container"
+      And I fill in the following:
+      | follow_up_question_statement_document_title           | Livin it up      |
+      | follow_up_question_statement_document_text            | I love this game |
+      And I press "Save"
+    Then I should see "Livin it up"
+      And the question should have 1 siblings in session
+      And there should be a "Test Question2?" breadcrumb
+      
+  Scenario: Add a Follow Up Question to a Proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow "create_follow_up_question_link" within "#add_new_container"
+      And I fill in the following:
+      | follow_up_question_statement_document_title           | Livin it up      |
+      | follow_up_question_statement_document_text            | I love this game |
+      And I press "Save"
+    Then I should see "Livin it up"
+      And the question should have 1 siblings in session
+      And there should be a "A first proposal!" breadcrumb
+  
+  Scenario: Add a Follow Up Question to an Improvement
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I choose the "A better first proposal" Improvement
+      And I follow "create_follow_up_question_link" within "#add_new_container"
+      And I fill in the following:
+      | follow_up_question_statement_document_title           | Livin it up      |
+      | follow_up_question_statement_document_text            | I love this game |
+      And I press "Save"
+    Then I should see "Livin it up"
+      And the question should have 1 siblings in session
+      And there should be a "A better first proposal" breadcrumb
 
   @ok
   Scenario: Edit a proposal i created
