@@ -108,6 +108,17 @@
 
 
   /*
+   * SIDEBAR
+   */
+  function initAddNewButton(statement) {
+		statement.find(".action_bar span.add_new_button").live("click", function() {
+			$(this).next().toggle();
+			return false;
+		
+		});
+	}
+
+  /*
    * PAGINATION AND HISTORY HANDLING
    */
 
@@ -128,11 +139,11 @@
 	  /* prev/next buttons, title */
 	  /****************************/
 	  statement.find('.header a.statement_link').live("click", function(){
-		  current_stack = getStatementsStack(this, false);
-	    /* set fragment */
+		  var current_stack = getStatementsStack(this, false);
+			
+		  /* set fragment */
 	    $.setFragment({
 	      "sids": current_stack.join(','),
-				"bids": $.fragment().bids,
 				"new_level": ''
 	    });
 	    return false;
@@ -142,7 +153,7 @@
 	  /* child link */
 	  /**************/
 	  statement.find('.children a.statement_link').live("click", function(){
-	    current_stack = getStatementsStack(this, true);
+	    var current_stack = getStatementsStack(this, true);
 	    /* set fragment */
 	    $.setFragment({
 	      "sids": current_stack.join(','),
@@ -518,6 +529,8 @@
 				  }
 				}
 				else {
+					/* Sidebar Add Button */
+					initAddNewButton(element);
 					/* Pagination */
           initMoreButton(element);
 					initStatementHistoryEvents(element);

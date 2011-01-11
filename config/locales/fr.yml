@@ -401,6 +401,7 @@ fr:
       echo_indicator:
         one: '{{supporter_count}} Supporter'
         many: '{{supporter_count}} Supporter'
+      add_new: Add new...
       create_question_link: 'Ouvrir de nouvelles discussions'
       create_proposal_link: 'Soumettre de nouvelles propositions'
       create_internal_link: 'Une idée nouvelle'

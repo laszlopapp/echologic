@@ -384,6 +384,7 @@ en:
       echo_indicator:
         one: '{{supporter_count}} supporter'
         many: '{{supporter_count}} supporters'
+      add_new: Add new...
       create_question_link: 'New issue'
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'

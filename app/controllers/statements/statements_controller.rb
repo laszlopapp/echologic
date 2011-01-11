@@ -761,7 +761,11 @@ class StatementsController < ApplicationController
         when "fq" then "FollowUpQuestion"
         #when "as" then "Alternative"
       end
-      return StatementNode.find(bid[1]).child_statements(@language_preference_list, type_given, true) if type_given
+      if type_given
+        @previous_node = StatementNode.find(bid[1])
+        @previous_type = type_given
+        return @previous_node.child_statements(@language_preference_list, type_given, true)
+      end
     end
     
     if params[:origin] #statement node is a question

@@ -382,6 +382,7 @@ pt:
       echo_indicator:
         one: '{{supporter_count}} apoiante'
         many: '{{supporter_count}} apoiantes'
+      add_new: Add new...
       create_question_link: 'Criar uma nova discussão'
       create_proposal_link: 'Criar nova proposta'
       create_internal_link: 'Nova ideia?'

@@ -62,6 +62,105 @@ Feature: Take Part on a question
       And I press "Save"
     Then I should see "Improving the unimprovable"
       And the proposal should have one improvement
+      
+  # TEST THE 'ADD NEW' SECTION
+  
+  @ok
+  Scenario: Add a sibling question
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Search"
+      And I choose the "Test Question2?" Question
+      And I follow "create_question_link" within "#add_new_container"
+      And I fill in the following:
+      | question_statement_document_title           | Question on the side              |
+      | question_statement_document_text            | i like big butts and i cannot lie |
+      And I press "Save"
+    Then I should see "Question on the side"
+  
+  Scenario: Add a sibling Proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow "create_proposal_link" within "#add_new_container"
+      And I fill in the following:
+      | proposal_statement_document_title           | How to propose to women   |
+      | proposal_statement_document_text            | i find you very atractive |
+      And I press "Save"
+    Then I should see "How to propose to women"
+    
+  Scenario: Add a sibling Improvement 
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I choose the "A better first proposal" Improvement
+      And I follow "create_improvement_link" within "#add_new_container"
+      And I fill in the following:
+      | improvement_statement_document_title           | How to improve yer status    |
+      | improvement_statement_document_text            | Eat the poor                 |
+      And I press "Save"
+    Then I should see "How to improve yer status"
+  
+  Scenario: Add a Proposal to a Question
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I follow "create_proposal_link" within "#add_new_container"
+      And I fill in the following:
+      | proposal_statement_document_title           | How to propose to women   |
+      | proposal_statement_document_text            | i find you very atractive |
+      And I press "Save"
+    Then I should see "How to propose to women"
+  
+  Scenario: Add an Improvement to a proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow "create_improvement_link" within "#add_new_container"
+      And I fill in the following:
+      | improvement_statement_document_title           | How to improve yer status    |
+      | improvement_statement_document_text            | Eat the poor                 |
+      And I press "Save"
+    Then I should see "How to improve yer status"
+    
+  Scenario: Add a Pro Argument to a proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow "create_pro_argument_link" within "#add_new_container"
+      And I fill in the following:
+      | pro_argument_statement_document_title           | Pro 4 life                   |
+      | pro_argument_statement_document_text            | I submit this pro-life stand |
+      And I press "Save"
+    Then I should see "Pro 4 life"
+  
+  Scenario: Add a Pro Argument to a proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow "create_contra_argument_link" within "#add_new_container"
+      And I fill in the following:
+      | contra_argument_statement_document_title           | Contra is cool    |
+      | contra_argument_statement_document_text            | Best Game... EVA! |
+      And I press "Save"
+    Then I should see "Contra is cool"
 
   @ok
   Scenario: Edit a proposal i created

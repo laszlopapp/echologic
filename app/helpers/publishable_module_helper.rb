@@ -54,13 +54,9 @@ module PublishableModuleHelper
   #
   def create_new_question_button(origin = nil, search_terms = nil)
     bids = setBreadcrumbStack :origin => origin, :search_terms => search_terms
-    link_to(new_question_url(:origin => origin, :search_terms => search_terms, :bids => bids),
-                  :id => "create_question_link", :class => "ajax") do
-      content_tag(:span, '',
-                  :class => "create_statement_button_mid create_question_button_mid ttLink no_border",
-                  :title => I18n.t("discuss.tooltips.create_question"))
-
-    end
+    link_to(I18n.t("discuss.statements.types.question"),
+            new_question_url(:origin => origin, :search_terms => search_terms, :bids => bids),
+            :id => "create_question_link", :class => "resource_link ajax")   
   end
   
 
@@ -71,9 +67,7 @@ module PublishableModuleHelper
     if current_user and
        statement_document.author == current_user and !statement_node.published?
       link_to(I18n.t('discuss.statements.publish'),
-              { :controller => :statements,
-                :action => :publish,
-                :in => :summary },
+              { :controller => :statements, :id => statement_node.id, :action => :publish, :in => :summary },
               :id => 'publish_button', 
               :class => 'ajax_put header_button text_button publish_text_button ttLink',
               :title => I18n.t('discuss.tooltips.publish'))

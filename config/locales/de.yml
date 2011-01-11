@@ -389,6 +389,7 @@ de:
       echo_indicator:
         one: '{{supporter_count}} UnterstützerIn'
         many: '{{supporter_count}} UnterstützerInnen'
+      add_new: Add new...
       create_question_link: 'Neue Fragestellung hinzufügen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
       create_internal_link: 'Neue Idee?'
