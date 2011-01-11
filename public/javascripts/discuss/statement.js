@@ -111,10 +111,13 @@
    * SIDEBAR
    */
   function initAddNewButton(statement) {
-		statement.find(".action_bar span.add_new_button").live("click", function() {
-			$(this).next().toggle();
+		statement.find(".action_bar span.add_new_button").bind("click", function() {
+			$(this).parent().next().toggle();
 			return false;
 		
+		});
+		statement.find(".action_bar div#add_new_options").bind("mouseleave", function (){
+			$(this).animate(toggleParams,settings['animation_speed']);
 		});
 	}
 

@@ -52,11 +52,11 @@ module PublishableModuleHelper
   #
   # Creates a button link to create a new question (SIDEBAR).
   #
-  def create_new_question_button(origin = nil, search_terms = nil)
+  def add_new_question_button(origin = nil, search_terms = nil)
     bids = setBreadcrumbStack :origin => origin, :search_terms => search_terms
     link_to(I18n.t("discuss.statements.types.question"),
             new_question_url(:origin => origin, :search_terms => search_terms, :bids => bids),
-            :id => "create_question_link", :class => "resource_link ajax")   
+            :id => "add_new_question_link", :class => "question_link resource_link ajax")   
   end
   
 
