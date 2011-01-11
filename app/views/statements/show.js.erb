@@ -15,9 +15,10 @@
 		var ancestor_element = $('#statements .statement').eq(<%= index %>);
 		/* if not rendered, than render */
     if(ancestor_element.length == 0 || !ancestor_element.attr('id').match(ancestor)) {
-		  $("<%= escape_javascript(render_ancestor(ancestor)) %>").statement('insert', <%= index%>);
+		  var ancestor = $("<%= escape_javascript(render_ancestor(ancestor)) %>").statement();
+			ancestor.data('api').insert(<%= index%>);
     } else {
-      ancestor_element.statement('hide');
+      ancestor_element.data('api').hide();
     }
   <% end %>
 <% end %>
@@ -33,12 +34,15 @@ $('#breadcrumbs').breadcrumb('update').breadcrumb('resize');
 
 <% if !params[:expand].blank? %>
   var content = "<%= escape_javascript(render :partial => 'statements/content', :locals => {:hide_content => true}) %>";
-  $('#statements .statement').eq(<%= @statement_node.level %>).statement('insertContent', content).statement('show');
+  var statement = $('#statements .statement').eq(<%= @statement_node.level %>).statement();
+	var api = statement.data('api');
+	api.insertContent(content).show();
 <% elsif !params[:new_level].blank? %>
-  var element = $("<%= escape_javascript(render :partial => 'statements/show', :locals => {:hide_content => true}) %>");
-	element.statement('insert', <%= @statement_node.level %>).statement('show').statement('removeBelow');
+  var element = $("<%= escape_javascript(render :partial => 'statements/show', :locals => {:hide_content => true}) %>").statement();
+	var api = element.data('api');
+	api.insert(<%= @statement_node.level %>).show().removeBelow();
 <% else %>
-  var element = $("<%= escape_javascript(render :partial => 'statements/show') %>");
-	element.statement('insert',<%= @statement_node.level %>).statement('removeBelow');
+  var element = $("<%= escape_javascript(render :partial => 'statements/show') %>").statement();
+	var api = element.data('api').insert(<%= @statement_node.level %>).removeBelow();
 <% end %>
 

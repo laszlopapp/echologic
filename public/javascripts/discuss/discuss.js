@@ -12,7 +12,7 @@ $(document).ready(function () {
 
 
 function initStatements() {
-	$('#statements .statement').livequery(function(){
+	$('#statements .statement').each(function(){
 		$(this).statement();
 	});
 }
