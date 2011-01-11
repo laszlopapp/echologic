@@ -50,19 +50,6 @@ module StatementsHelper
             :title => I18n.t("discuss.tooltips.create_#{child_type}"))
   end
 
-  #
-  # Creates a link to create a new sibling statement for the given statement (appears in the SIDEBAR).
-  #
-  def create_new_sibling_statement_button(statement_node, type = dom_class(statement_node))
-    link_to(new_statement_node_url(statement_node.parent, type),
-            :id => "create_#{type}_link",
-            :class => "ajax") do
-      content_tag(:span, '',
-                  :class => "create_statement_button_mid create_#{type}_button_mid ttLink no_border",
-                  :title => I18n.t("discuss.tooltips.create_#{type}"))
-
-    end
-  end
   
   #
   # Creates a link to add a new resource for the given statement (appears in the SIDEBAR).
@@ -94,14 +81,14 @@ module StatementsHelper
       if statement_node.parent
         link_to(I18n.t("discuss.statements.types.#{type}"),
                 new_statement_node_url(statement_node.parent, type), 
-                :id => "add_new_#{type}_link", :class => "resource_link ajax")
+                :id => "add_new_#{type}_link", :class => "#{type}_link resource_link ajax")
       else
         if prev.blank? # create new question
-          create_new_question_button(origin, search_terms)
+          add_new_question_button(origin, search_terms)
         else #create sibling follow up question
           link_to(I18n.t("discuss.statements.types.follow_up_question"),
                 new_statement_node_url(prev, "follow_up_question"), 
-                :id => "add_new_follow_up_question_link", :class => "resource_link ajax")
+                :id => "add_new_follow_up_question_link", :class => "follow_up_question_link resource_link ajax")
         end
       end
     end
@@ -119,7 +106,7 @@ module StatementsHelper
     content << content_tag(:div, :class => 'children container') do
       children = ''
       children_types.each do |type|
-        children << new_child_link(statement_node, type.to_s.underscore)
+        children << add_new_child_link(statement_node, type.to_s.underscore)
       end
       children
     end
@@ -143,7 +130,7 @@ module StatementsHelper
     opts[:new_level] = true
     link_to(I18n.t("discuss.statements.types.#{type}"),
             new_statement_node_url(statement_node, type, opts), 
-            :id => "add_new_#{type}_link", :class => "resource_link ajax")
+            :id => "add_new_#{type}_link", :class => "#{type}_link resource_link ajax")
   end
 
   #

@@ -395,7 +395,8 @@ form.statement fieldset ol span.defaultText {
 
 #statements .action_bar .resources_container .resource_link {
 	color: #21587F;
-	margin-left: 40px;
+	margin-left: 28px;
+	padding-left: 21px !important;
 }
 
 
