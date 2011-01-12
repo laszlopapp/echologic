@@ -13,7 +13,7 @@ $(document).ready(function () {
 
 function initStatements() {
 	$('#statements .statement').each(function(){
-		$(this).statement();
+		$(this).statement({'insertStatement' : false});
 	});
 }
 

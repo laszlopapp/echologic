@@ -9,6 +9,9 @@
       initialise(s);
 
       function initialise(s) {
+				
+				insertStatement(s);
+				
         /* Navigation through Siblings */
         loadSession(elem);
         initNavigationButton(elem.find(".header a.prev"), -1); /* Prev */
@@ -50,6 +53,23 @@
       // Auxiliary functions
       var timer = null;
 
+
+      function insertStatement(settings) {
+				//if ($('div#statements').find('> #' + elem.attr('id')).length > 0) {return;}
+				
+				if (!settings['insertStatement']){return;}
+				
+				var element = $('div#statements .statement').eq(settings['level']);
+				if(element.length > 0) {
+          element.replaceWith(elem);
+        }
+        else
+        {
+          hideStatements();
+          $('div#statements').append(elem);
+        }
+			}
+
 		  /*
 		   * Sets the Timer for the Message Boxes to show up (p.ex., the translation message box)
 		   */
@@ -80,7 +100,7 @@
 		   */
 		  function loadSession(statement) {
 		    parent = statement.prev();
-		    if (parent.length > 0)
+		    if (parent.length)
 		    {
 		      /* stores siblings with the parent node id */
 		      var parent = parent.attr('id');
@@ -187,7 +207,7 @@
 		    /****************************/
 		    statement.find('.header a.statement_link').live("click", function(){
 		      var current_stack = getStatementsStack(this, false);
-		      
+					
 		      /* set fragment */
 		      $.setFragment({
 		        "sids": current_stack.join(','),
@@ -563,8 +583,8 @@
 		     });
 				 return this;
 		    },
-        insert: function(level) {
-		      var element = $('div#statements .statement').eq(level);
+        insert: function() {
+		      var element = $('div#statements .statement').eq(settings['level']);
 		      if(element.length > 0) {
 		        element.replaceWith(elem);
 		      }
@@ -614,6 +634,15 @@
       });
 	  }
       
+			
+	  $.fn.statement.defaults = {
+      'animation_speed': 500,
+      'taggableClass' : 'taggable',
+      'echoableClass' : 'echoable', 
+      'level' : 0,
+			'insertStatement' : true
+    };
+		
     // Pluginifying code...
     settings = $.extend({}, $.fn.statement.defaults, settings);
 
@@ -631,11 +660,7 @@
     })
     return ret;
     
-    $.fn.statement.defaults = {
-      'animation_speed': 500,
-			'taggableClass' : 'taggable',
-			'echoableClass' : 'echoable'
-    };
+    
   };
   
 })(jQuery,this);
