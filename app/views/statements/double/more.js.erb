@@ -1,4 +1,5 @@
-var double_list = $('div.<%=dom_class(@statement_node)%> #<%= @type.underscore.pluralize %> .doubles_list');
+var statement = $('#div.<%=dom_class(@statement_node)%>');
+var double_list = statement.find('#<%= @type.underscore.pluralize %> .doubles_list');
 
 <%if @page.to_i == 1 %>
   panel_height = <%= !@children.select{|c|c.total_entries == 7}.empty? ? 230 : 210 %>
@@ -9,11 +10,11 @@ var double_list = $('div.<%=dom_class(@statement_node)%> #<%= @type.underscore.p
 
   <% next if children_group.empty? %>
   <% type = @type.to_s.constantize.sub_types[index].to_s.underscore %>
-	var children_list = $('div.<%=dom_class(@statement_node)%> #<%= @type.underscore.pluralize %> .children_list:eq(<%= index %>)');
+	var children_list = statement.find('#<%= @type.underscore.pluralize %> .children_list:eq(<%= index %>)');
 	var elements_list = "<%= escape_javascript(render :partial => 'statements/child', :collection => children_group[@offset, @per_page]) %>";
 
   <% if @page.to_i > 1 %>
-	  var api = $('div.<%=dom_class(@statement_node)%> #<%=@type.underscore.pluralize%> .doubles_list').data('jsp');
+	  var api = statement.find('#<%=@type.underscore.pluralize%> .doubles_list').data('jsp');
 	  children_list = api.getContentPane().find('.children_list:eq(<%= index %>)');
 	<% end %>
 
@@ -27,7 +28,7 @@ var double_list = $('div.<%=dom_class(@statement_node)%> #<%= @type.underscore.p
 
 <% end %>
 
-var more_element = $('div.<%=dom_class(@statement_node)%> #<%= @type.underscore.pluralize %> .more_pagination');
+var more_element = statement.find('#<%= @type.underscore.pluralize %> .more_pagination');
 var pagination_buttons = "<%= escape_javascript(will_paginate(@children.sort{|a, b| b.length <=> a.length}.first,
                                                    :id => 'more_pagination',:class => 'more_pagination',
                                                    :next_label => I18n.t("application.general.more"),
@@ -38,4 +39,6 @@ more_element.replaceWith(pagination_buttons);
   api.reinitialise();
   api.scrollToBottom();
 <% end %>
-$('div.<%=dom_class(@statement_node)%> #<%= @type.underscore.pluralize %> .more_pagination a').addClass('ajax');
+statement.find('#<%= @type.underscore.pluralize %> .more_pagination a').addClass('ajax');
+
+statement.data('api').reinitialise();

@@ -9,13 +9,18 @@
       initialise(s);
 
       function initialise(s) {
+        
+        
+        if (s['load']) {
+          insertStatement(s);
+	        /* Navigation through Siblings */
+	        loadSession(elem);
+	        initNavigationButton(elem.find(".header a.prev"), -1); /* Prev */
+	        initNavigationButton(elem.find(".header a.next"),  1); /* Next */
+				}
 				
-				insertStatement(s);
+				initExpandables(elem, s);
 				
-        /* Navigation through Siblings */
-        loadSession(elem);
-        initNavigationButton(elem.find(".header a.prev"), -1); /* Prev */
-        initNavigationButton(elem.find(".header a.next"),  1); /* Next */
 
         /* Statement Form Helpers */
         if(elem.is('form')) {
@@ -38,15 +43,22 @@
             loadTagEvents(elem);
             loadStatementAutoComplete(elem);
           }
+					
+					if (elem.hasClass('follow_up_question')) {
+						initFollowUpQuestionFormEvents(elem);
+					}
         }
         else {
           /* Sidebar Add Button */
-          initAddNewButton(elem);
+          initAddNewButton(elem, s);
           /* Pagination */
           initMoreButton(elem);
           initStatementHistoryEvents(elem);
+					initFollowUpQuestionEvents(elem);
           /* Message Alerts */
-          loadMessageBoxes(elem);
+					if (s['load']) {
+            loadMessageBoxes(elem, s);
+					}
         }
       }
       
@@ -65,15 +77,62 @@
         }
         else
         {
-          hideStatements();
+          hideStatements(settings);
           $('div#statements').append(elem);
         }
+			}
+
+      function initExpandable(expandable, settings) {
+				var content = expandable.attr('data-content');
+        var path = expandable.attr('href');
+    
+		    
+		    if (!content) {return;}
+		
+        expandable.data('content', content);
+        expandable.data('path', path);
+    
+        expandable.removeAttr('data-content');
+        expandable.removeAttr('href');
+        
+        
+        /* Special ajax event for the statement (collapse/expand)*/
+        expandable.bind("click", function(){
+          
+          var element = $(this);
+          var to_show = element.parents("div:first").find($(this).data('content'));
+					if (to_show.length > 0) {
+						/* if statement already has loaded content */
+            supporters_label = element.find('.supporters_label');
+						element.toggleClass('active');
+						to_show.animate(toggleParams, settings['animation_speed']);
+						supporters_label.animate(toggleParams, settings['animation_speed']);
+          }
+          else
+          {
+            /* load the content that is missing */
+            href = $(this).data('path');
+      
+            $.getScript(href, function(e) {
+              element.addClass('active');
+            });
+          }
+          return false;
+        });
+			}
+			
+      function initExpandables(statement, settings) {
+				statement.find(".ajax_expandable").each(function(){
+			    initExpandable($(this), settings);
+			  });
+			
+			  
 			}
 
 		  /*
 		   * Sets the Timer for the Message Boxes to show up (p.ex., the translation message box)
 		   */
-		  function loadMessageBoxes(statement) {
+		  function loadMessageBoxes(statement, settings) {
 		    var messageBox = statement.find('.message_box');
 		    if (timer != null) {
 		      clearTimeout (timer);
@@ -89,8 +148,10 @@
 		  /*
 		   * collapses all visible statements
 		   */
-		  function hideStatements() {
-		    $('#statements .statement .header').removeClass('active').addClass('ajax_expandable');
+		  function hideStatements(settings) {
+		    $('#statements .statement .header').removeClass('active').addClass('ajax_expandable').each(function(){
+					initExpandable($(this), settings);
+				});
 		    $('#statements .statement .content').hide('slow');
 		    $('#statements .statement .header .supporters_label').hide();
 		  };
@@ -174,7 +235,7 @@
 		  /*
 		   * SIDEBAR
 		   */
-		  function initAddNewButton(statement) {
+		  function initAddNewButton(statement, settings) {
 		    statement.find(".action_bar span.add_new_button").bind("click", function() {
 		      $(this).parent().next().toggle();
 		      return false;
@@ -193,10 +254,84 @@
 		   * handles the click on the more Button event (replaces it with an element of class 'more_loading')
 		   */
 		  function initMoreButton(statement) {
-		    statement.find(".more_pagination a").live("click", function() {
-		      $(this).replaceWith($('<span/>').text($(this).text()).addClass('more_loading'));
+		    statement.find(".more_pagination a").bind("click", function() {
+					$(this).replaceWith($('<span/>').text($(this).text()).addClass('more_loading'));
 		    });
 		  }
+		
+		  /* 
+		   * handles the follow up question related events(click on the statement's fuq child, new fuq button, 
+		   * and fuq form's cancel button
+		   */
+		  function initFollowUpQuestionEvents(statement) {
+
+			  /* FOLLOW-UP QUESTION CHILD */
+			  statement.find("#follow_up_questions.children a.statement_link").bind("click", function(){
+			    var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
+			    var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', $(this));
+			
+			    var last_bid = bids[bids.length-1];
+			
+			    /* set fragment */
+			    $.setFragment({
+			      "bids": bids.join(','),
+			      "sids": question,
+			      "new_level": true,
+			      "prev": last_bid
+			    });
+			    return false;
+			  });
+			
+			
+			  /* NEW FOLLOW-UP QUESTION BUTTON (ON CHILDREN AND SIDEBAR)*/
+			  statement.find("a.create_follow_up_question_button").bind("click", function(){
+			    var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', $(this));
+			
+			    /* set fragment */
+			    $.setFragment({
+			      "bids": bids.join(','),
+			      "new_level": true
+			    });
+			  });
+			}
+			
+			function initFollowUpQuestionFormEvents(statement) {
+				statement.find("a.cancel_text_button").("click", function(){
+          var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', null);
+      
+          /* get last breadcrumb id */
+          var last_bid = bids[bids.length-1].split('=>').pop();
+          /* get last statement view id (if teaser, parent id + '/' */
+          var last_sid = $.fragment().sids;
+          if (last_sid) {
+            last_sid = $.fragment().sids.split(',').pop().match(/\d+\/?/).shift();
+          } else {
+            last_sid = '';
+          }
+          if (last_bid.match(last_sid)) { /* create follow up question button was pressed */
+            var bid_to_delete = $('#breadcrumbs a.statement:last');
+            $('#breadcrumbs').data('to_delete', [bid_to_delete.attr('id')]);
+      
+            /* get previous bid in order to load the proper siblings to session */
+            var prev_bid = bid_to_delete.parent().prev().find('a');
+            if (prev_bid && prev_bid.hasClass('statement')) {
+              prev_bid = "fq=>" + prev_bid.attr('id').match(/\d+/);
+            }
+            else
+            {
+              prev_bid = "";
+            }
+      
+            bids.pop();
+            $.setFragment({
+              "bids": bids.join(','),
+              "new_level": true,
+              "prev": prev_bid
+            });
+            return false;
+          }
+        });
+			}
 		
 		  /*
 		   * Sets the different links on the statement view handling, after the user clicked on them (fragment history handling)
@@ -205,7 +340,7 @@
 				/****************************/
 		    /* prev/next buttons, title */
 		    /****************************/
-		    statement.find('.header a.statement_link').live("click", function(){
+		    statement.find('.header a.statement_link').bind("click", function(){
 		      var current_stack = getStatementsStack(this, false);
 					
 		      /* set fragment */
@@ -219,7 +354,8 @@
 		    /**************/
 		    /* child link */
 		    /**************/
-		    statement.find('.children a.statement_link').live("click", function(){
+				/* Note: this handler is for only not follow up question child link. fuq's have their own handler */
+		    statement.find('.children a.statement_link:not(.follow_up_question_link)').bind("click", function(){
 		      var current_stack = getStatementsStack(this, true);
 		      /* set fragment */
 		      $.setFragment({
@@ -380,10 +516,10 @@
 		   * Initializes echo button click handling on new statement forms
 		   */
 		  function initEchoButton(form) {
-		    form.find('div#echo_button .new_record.not_supported').live('click', function(){
+		    form.find('div#echo_button .new_record.not_supported').bind('click', function(){
 		      supportEchoButton($(this));
 		    });
-		    form.find('div#echo_button .new_record.supported').live('click', function(){
+		    form.find('div#echo_button .new_record.supported').bind('click', function(){
 		      unsupportEchoButton($(this));
 		    });
 		  }
@@ -451,7 +587,7 @@
 		   */
 		  function loadTagEvents(form) {
 		    /* Pressing 'enter' button */
-		    form.find('#tag_topic_id').live('keypress', (function(event) {
+		    form.find('#tag_topic_id').bind('keypress', (function(event) {
 		      form = $(this).parents('form.statement');
 		      if (event && event.keyCode == 13) { /* check if enter was pressed */
 		        if (form.find('#tag_topic_id').val().length != 0) {
@@ -462,7 +598,7 @@
 		    }));
 		
 		    /* Clicking 'add tag' button */
-		    form.find('.addTag').live('click', (function() {
+		    form.find('.addTag').bind('click', (function() {
 		      form = $(this).parents('form.statement');
 		      entered_tags = form.find('#tag_topic_id').val().trim().split(",");
 		      if (entered_tags.length != 0) {
@@ -565,7 +701,7 @@
       {
         reinitialise: function(s)
         {
-          s = $.extend({}, s, settings);
+          s = $.extend({}, s, settings, {'load' : false});
           initialise(s);
         },
         // API Functions
@@ -590,7 +726,7 @@
 		      }
 		      else
 		      {
-		        hideStatements();
+		        hideStatements(settings);
 		        $('div#statements').append(elem);
 		      }
 					return this;
@@ -640,7 +776,8 @@
       'taggableClass' : 'taggable',
       'echoableClass' : 'echoable', 
       'level' : 0,
-			'insertStatement' : true
+			'insertStatement' : true,
+			'load' : true
     };
 		
     // Pluginifying code...
