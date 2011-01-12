@@ -124,10 +124,6 @@
   width: 750px
 }
 
-.add_new_button {
-  vertical-align: top;
-}
-
 .column_200 {
   width: 195px !important;
   padding: 2px !important;
@@ -176,32 +172,21 @@
 }
 
 .add_text_button {
-  background:transparent url(../images/page/icons/add_button.png) no-repeat scroll 0 0;
+  background: transparent url(../images/page/icons/add_button.png) no-repeat scroll 0 0;
   height: 20px;
   padding-left: 23px;
 	display: inline-block;
 }
 
 .edit_text_button {
-  background:transparent url(../images/page/icons/edit_button.png) no-repeat scroll 0 0;
+  background: transparent url(../images/page/icons/edit_button.png) no-repeat scroll 0 0;
   height: 17px;
   line-height: 17px;
   display: inline-block;
-}
-
-.publish_text_button {
-  background:transparent url(../images/page/icons/publish_button.png) no-repeat scroll 0 0;
-  height: 17px;
-  line-height: 17px;
-  display: inline-block;
-}
-
-.publish_text_button:hover {
-  background-position: 0 -17px
 }
 
 .save_text_button {
-  background:transparent url(../images/page/icons/save_button.png) no-repeat scroll 0 0;
+  background: transparent url(../images/page/icons/save_button.png) no-repeat scroll 0 0;
   height: 16px;
   line-height: 16px;
   display: inline-block;
@@ -219,10 +204,37 @@
 }
 
 .delete_text_button {
-  background:transparent url(../images/page/icons/delete_button.png) no-repeat scroll 0 0;
+  background: transparent url(../images/page/icons/delete_button.png) no-repeat scroll 0 0;
   height: 16px;
   line-height: 17px;
   display: inline-block;
+}
+
+.publish_text_button {
+  background: transparent url(../images/page/icons/publish_button.png) no-repeat scroll 0 0;
+  height: 17px;
+  line-height: 17px;
+  display: inline-block;
+}
+
+.publish_text_button:hover {
+  background-position: 0 -17px;
+}
+
+.authors_text_button {
+  background: transparent url(../images/page/icons/authors_button.png) no-repeat scroll 0 0;
+  height: 16px;
+  line-height: 16px;
+  display: inline-block;
+  padding-left: 25px;
+}
+
+.authors_text_button:hover, .authors_text_button.active {
+  background-position: 0 -16px;
+}
+
+.authors_text_button.active:hover {
+  background-position: 0 0;
 }
 
 /* All buttons in a block header */

@@ -152,7 +152,9 @@ module StatementsHelper
   #
   def authors_statement_node_link(statement_node,type = dom_class(statement_node))
     link_to(I18n.t('application.general.authors'), authors_statement_node_url(statement_node),
-              :id => 'authors_button', :class => 'ajax_expandable header_button text_button authors_button', 'data-content' => "#authors")
+            :id => 'authors_button',
+            :class => 'ajax_expandable header_button text_button authors_text_button',
+            'data-content' => "#authors")
   end
 
   #
@@ -293,13 +295,13 @@ module StatementsHelper
             more_statement_node_url(statement_node, :page => 1, :type => type),
             :class => 'more_children ajax'
   end
-  
+
   ###############
   # BREADCRUMBS #
   ###############
 
-  
-  
+
+
   # sets the breadcrumb ids stack that will be passed as an argument to statement rendering
   def setBreadcrumbStack(opts={})
     bids = []
@@ -321,7 +323,7 @@ module StatementsHelper
   def render_breadcrumb(breadcrumbs)
     breadcrumb_trail = ""
     breadcrumbs.each_with_index do |b, index| #[id, classes, url, title]
-      breadcrumb = content_tag :div, :class => 'breadcrumb' do 
+      breadcrumb = content_tag :div, :class => 'breadcrumb' do
         content = ""
         content << content_tag(:span, '>', :class => 'delimitator') if index != 0
         content << link_to(h(b[3].gsub(/\\/, ',')), b[2], :id => b[0], :class => b[1])
