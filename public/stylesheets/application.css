@@ -779,3 +779,59 @@
   top: 2px;
 }
 
+
+/* jScrollPane customization */
+
+.jspContainer {
+    z-index: 1;
+}
+
+.jspVerticalBar, .jspHorizontalBar {
+	background-color: transparent;
+}
+
+.jspHorizontalBar {
+	bottom: 2px;
+}
+
+.jspTrack {
+	position: absolute;
+	cursor: pointer;
+	background: #f1f1f1;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+.jspVerticalBar .jspTrack {
+	width: 6px !important;
+	right: 3px;
+  top: 0;
+	height: 100%;
+}
+
+.jspHorizontalBar .jspTrack {
+	width: 100%;
+  bottom: 1px;
+  left: 0;
+  height: 6px !important;
+}
+
+.jspVerticalBar .jspDrag,
+.jspHorizontalBar .jspDrag {
+  position: absolute;
+	background: #97b0bf;
+	cursor: pointer;
+	overflow: hidden;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+.jspVerticalBar .jspDrag {
+	left: -2px;
+	width: 10px !important;
+}
+
+.jspHorizontalBar .jspDrag {
+	top: -2px;
+  height: 10px !important;
+}
