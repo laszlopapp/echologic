@@ -50,7 +50,7 @@ module StatementsHelper
             :title => I18n.t("discuss.tooltips.create_#{child_type}"))
   end
 
-  
+
   #
   # Creates a link to add a new resource for the given statement (appears in the SIDEBAR).
   #
@@ -59,7 +59,7 @@ module StatementsHelper
     content << content_tag(:div, :class => 'button_container', :id => 'add_new_container') do
       content_tag(:span, '', :class => 'add_new_button')
     end
-    content << content_tag(:div, :class => 'resources_container', :id => 'add_new_options', :style => "display:none") do 
+    content << content_tag(:div, :class => 'resources_container', :id => 'add_new_options', :style => "display:none") do
       resources = ''
       resources << content_tag(:div, :class => 'header container') do
         I18n.t("discuss.statements.add_new")
@@ -71,7 +71,7 @@ module StatementsHelper
       resources
     end
   end
-  
+
   #
   # Creates a link to add a new sibling for the given statement (appears in the SIDEBAR).
   #
@@ -80,14 +80,14 @@ module StatementsHelper
     content << content_tag(:div, :class => 'siblings container') do
       if statement_node.parent
         link_to(I18n.t("discuss.statements.types.#{type}"),
-                new_statement_node_url(statement_node.parent, type), 
+                new_statement_node_url(statement_node.parent, type),
                 :id => "add_new_#{type}_link", :class => "#{type}_link resource_link ajax")
       else
         if prev.blank? # create new question
           add_new_question_button(origin, search_terms)
         else #create sibling follow up question
           link_to(I18n.t("discuss.statements.types.follow_up_question"),
-                new_statement_node_url(prev, "follow_up_question"), 
+                new_statement_node_url(prev, "follow_up_question"),
                 :id => "add_new_follow_up_question_link", :class => "follow_up_question_link resource_link ajax")
         end
       end
@@ -113,7 +113,7 @@ module StatementsHelper
     content << content_tag(:div, '', :class => 'separator')
     content
   end
-  
+
   #
   # Creates a link to add a new follow up question for the given statement (appears in the SIDEBAR).
   #
@@ -122,14 +122,14 @@ module StatementsHelper
     bids << "fq=>#{statement_node.id}"
     content_tag(:div, add_new_child_link(statement_node, "follow_up_question", :bids => bids.join(",")), :class => 'children container')
   end
-  
+
   #
   # Returns a link to create a new child statement from a given type for the given statement (appears in the SIDEBAR).
   #
   def add_new_child_link(statement_node, type, opts={})
     opts[:new_level] = true
     link_to(I18n.t("discuss.statements.types.#{type}"),
-            new_statement_node_url(statement_node, type, opts), 
+            new_statement_node_url(statement_node, type, opts),
             :id => "add_new_#{type}_link", :class => "#{type}_link resource_link ajax")
   end
 
@@ -289,7 +289,7 @@ module StatementsHelper
     content_tag :div, val, :class => 'image_container', :id => 'image_container' if !val.blank?
   end
 
-  #draws the "more" link when the statement is loaded
+  # Renders the "more" link when the statement is loaded
   def more_children(statement_node,type)
     link_to I18n.t("application.general.more"),
             more_statement_node_url(statement_node, :page => 1, :type => type),
