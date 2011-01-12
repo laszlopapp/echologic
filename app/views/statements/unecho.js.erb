@@ -12,3 +12,5 @@ var new_supporters_bar = "<%= escape_javascript(supporter_ratio_bar(@statement_n
 var new_supporters_label = "<%= escape_javascript(supporters_label(@statement_node, true)) %>";
 
 element.data('api').updateSupport(action_bar, new_supporters_bar, new_supporters_label);
+
+element.data('api').reinitialise();

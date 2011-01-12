@@ -1,6 +1,9 @@
 
 <% type_dom_class = @type.underscore %>
 var elements = $("<%= escape_javascript(render :partial => "statements/children_list", :locals => {:type => type_dom_class}) %>");
-var element = $('div.<%=dom_class(@statement_node)%> #<%= type_dom_class.pluralize %> .headline');
+var statement = $('#statements div.<%=dom_class(@statement_node)%>');
+var element = statement.find('#<%= type_dom_class.pluralize %> .headline');
 
 elements.insertAfter(element).animate(toggleParams, 500);
+
+statement.data('api').reinitialise();
