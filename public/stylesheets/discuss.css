@@ -210,11 +210,12 @@ form.statement fieldset ol span.defaultText {
 #statements .header_link,
 #statements .add_header_link {
   display: inline-block;
-  min-height: 30px;
+  min-height: 20px;
   width: 800px;
   float: left;
   position: relative;
-  top: 12px;
+  top: 10px;
+  left: 1px;
   margin-bottom: 4px;
 }
 
@@ -507,8 +508,8 @@ form.statement fieldset ol span.defaultText {
 .statement_content .upload_link {
   background: url(../images/page/discuss/statement_image_button.png) no-repeat scroll left top transparent;
 	position: absolute;
-  top: 29px;
-	left: 44px;
+  top: 38px;
+	left: 32px;
 }
 
 #upload_image_link {
@@ -744,7 +745,7 @@ a.statement_link:hover {
 }
 
 .children_pagination li {
-  margin: 4px 0;
+  margin: 4px 0 0;
 }
 
 .children .text_button {
