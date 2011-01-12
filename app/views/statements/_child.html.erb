@@ -5,5 +5,5 @@
 
 <li id="<%= dom_class(child) %>_<%= child.target_id%>" class="<%=child.parent.class.name.downcase%>">
 	<%= link_to_child(statement_document.title,child,extra_classes) %>
-  <%= supporter_ratio_bar(child) %>
+  <%= supporter_ratio_bar(child, true) %>
 </li>
