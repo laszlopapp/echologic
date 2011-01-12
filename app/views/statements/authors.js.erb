@@ -1,3 +1,3 @@
 var element = $('#statements div.<%= dom_class(@statement_node) %>');
 var authors = $("<%= escape_javascript(render :partial => 'statements/authors') %>");
-element.statement('loadAuthors', authors, <%= @authors.length %>);
+element.data('api').loadAuthors(authors, <%= @authors.length %>);

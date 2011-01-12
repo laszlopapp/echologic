@@ -14,9 +14,10 @@
     var ancestor_element = $('#statements .statement').eq(<%= index %>);
     /* if not rendered, than render */
     if(ancestor_element.length == 0 || !ancestor_element.attr('id').match(ancestor)) {
-      $("<%= escape_javascript(render_ancestor(ancestor)) %>").statement('insert', <%= index%>);
+      var new_ancestor = $("<%= escape_javascript(render_ancestor(ancestor)) %>").statement();
+			new_ancestor.data('api').insert(<%= index%>);
     } else {
-      ancestor_element.statement('hide');
+      ancestor_element.data('api').hide();
     }
   <% end %>
 <% end %>
@@ -30,5 +31,5 @@
 
 $('#breadcrumbs').breadcrumb('update').breadcrumb('resize');
 
-var add_teaser = $("<%= escape_javascript(render :partial => 'statements/add') %>");
-add_teaser.statement('insert', <%= (@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 0 : @statement_node.level + 1 %>).statement('removeBelow');
+var add_teaser = $("<%= escape_javascript(render :partial => 'statements/add') %>").statement();
+add_teaser.data('api').insert(<%= (@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 0 : @statement_node.level + 1 %>).removeBelow();

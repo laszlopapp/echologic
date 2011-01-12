@@ -1,3 +1,3 @@
-var element = $("<%= escape_javascript(render :partial => 'statements/edit') %>");
-element.statement('insert',<%= @statement_node.level %>).statement('removeBelow');
+var element = $("<%= escape_javascript(render :partial => 'statements/edit') %>").statement();
+element.data('api').insert(<%= @statement_node.level %>).removeBelow();
 
