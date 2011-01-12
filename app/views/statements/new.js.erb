@@ -1,12 +1,13 @@
-var element = $("<%= escape_javascript(render :partial => 'statements/new') %>").statement({'level' : <%= (@statement_node.parent.nil? or @statement_node.class.is_top_statement?) ? 0 : @statement_node.parent.level + 1 %>});
+<% level = (@statement_node.parent.nil? or @statement_node.class.is_top_statement?) ? 0 : @statement_node.parent.level + 1 %>
+var element = $("<%= escape_javascript(render :partial => 'statements/new') %>").statement({'level' : <%= level %>});
 element.data('api').removeBelow();
 
 <% if @statement_node.echoable? %>
-  element.loadEchoMessages(<%= @messages %>);
+  element.data('api').loadEchoMessages(<%= @messages %>);
 <% end %>
 
 /* Breadcrumb's stack (if follow-up question */
 <% if !params[:new_level].blank? and @statement_node.class.is_top_statement? and @breadcrumb %>
-   $('#breadcrumbs').breadcrumb("add",eval(<%= @breadcrumb.to_json %>));
-  $('#breadcrumbs').breadcrumb('resize');
+   $('#breadcrumbs').data('api').add(eval(<%= @breadcrumb.to_json %>));
+  $('#breadcrumbs').data('api').resize();
 <% end %>

@@ -9,19 +9,17 @@ $(document).ready(function () {
 });
 
 
-function initStatements() {
+function initStatements(){
 	$('#statements .statement').each(function(){
-		$(this).statement({'insertStatement' : false});
+		$(this).statement({'insertStatement': false});
 	});
 }
 
 function initBreadcrumbs() {
-	$('#breadcrumbs').livequery(function(){
+	$('#breadcrumbs').each(function(){
 		$(this).jScrollPane({animateTo: true});
+		$(this).breadcrumb();
 	});
-	$('#breadcrumbs a.statement').livequery(function(){
-    $(this).breadcrumb();
-  });
 }
 
 /********************************/
@@ -51,7 +49,7 @@ function initFragmentStatementChange() {
 			sids = $.grep(new_sids, function (a) {
 				return $.inArray(a, visible_sids) == -1 ;});
 
-      var bids = $("#breadcrumbs").breadcrumb('breadcrumbsToLoad', $.fragment().bids);
+      var bids = $("#breadcrumbs").data('api').breadcrumbsToLoad($.fragment().bids);
 
 			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sids": sids.join(","),
@@ -71,7 +69,7 @@ function initFragmentStatementChange() {
 	/* Statement Stack */
   if ($.fragment().sids) {
 		if (!$.fragment().bids || $.fragment().bids == 'undefined') {
-			var bids = $("#breadcrumbs").breadcrumb('getBreadcrumbStack', null).join(',');}
+			var bids = $("#breadcrumbs").data('api').getBreadcrumbStack(null).join(',');}
 		else {var bids = $.fragment().bids;}
 
 		if (!$.fragment().prev || $.fragment().prev == 'undefined') {var prev = '';}

@@ -24,11 +24,11 @@
 /* breadcrumb */
 <% if @breadcrumbs %>
   <% @breadcrumbs.each do |b| %>
-	  $('#breadcrumbs').breadcrumb("add",eval(<%= b.to_json %>));
+	  $('#breadcrumbs').data('api').add(eval(<%= b.to_json %>));
   <% end %>
 <% end %>
 
-$('#breadcrumbs').breadcrumb('update').breadcrumb('resize');
+$('#breadcrumbs').data('api').update().resize();
 
 var add_teaser = $("<%= escape_javascript(render :partial => 'statements/add') %>").statement({'level' : <%= (@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 0 : @statement_node.level + 1 %>});
 add_teaser.data('api').removeBelow();

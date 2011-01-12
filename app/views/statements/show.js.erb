@@ -26,10 +26,10 @@
 /* breadcrumb */
 <% if !@breadcrumbs.blank? %>
   <% @breadcrumbs.each do |b| %>
-	 $('#breadcrumbs').breadcrumb("add",eval(<%= b.to_json %>));
+	 $('#breadcrumbs').data('api').add(eval(<%= b.to_json %>));
   <% end %>
 <% end %>
-$('#breadcrumbs').breadcrumb('update').breadcrumb('resize');
+$('#breadcrumbs').data('api').update().resize();
 
 <% if !params[:expand].blank? %>
   var content = "<%= escape_javascript(render :partial => 'statements/content', :locals => {:hide_content => true}) %>";
