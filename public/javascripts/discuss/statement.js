@@ -10,15 +10,13 @@
 
       function initialise(s) {
         
-        
         if (s['load']) {
           insertStatement(s);
 	        /* Navigation through Siblings */
 	        loadSession(elem);
-	        initNavigationButton(elem.find(".header a.prev"), -1); /* Prev */
+					initNavigationButton(elem.find(".header a.prev"), -1); /* Prev */
 	        initNavigationButton(elem.find(".header a.next"),  1); /* Next */
 				}
-				
 				initExpandables(elem, s);
 				
 
@@ -182,9 +180,12 @@
 		   * element: button ; inc: position of the statement to be added relative to the current statement
 		   */
 		  function initNavigationButton(element, inc) {
-		
 		    if (!element || element.length == 0) {return;}
-		    current_node_id = element.attr('data-id');
+				if (element.attr('href').length == 0) {
+					element.attr('href', window.location.pathname);
+				}
+				
+				current_node_id = element.attr('data-id');
 		    node = element.parents('.statement');
 		
 		    if (current_node_id.match('add')) {
@@ -214,18 +215,18 @@
 		    }
 		    /* get siblings ids */
 		    siblings_ids = $("div#statements").data(parent_node_id);
-		    /* get index of the prev/next sibling */
+				/* get index of the prev/next sibling */
 		    id_index = (siblings_ids.indexOf(current_node_id) + inc) % siblings_ids.length;
-		    //BUG: % operator is not working properly in jquery for negative values (-1%7 => -1)?????????
+				//BUG: % operator is not working properly in jquery for negative values (-1%7 => -1)?????????
 		    if (id_index < 0) {id_index = siblings_ids.length - 1;}
-		
+		    
 		    new_node_id = new String(siblings_ids[id_index]);
 		    /* if 'add' action, then write add link */
-		    if (new_node_id.match('add')) {
-		      element.attr('href', element.attr('href').replace(/\/\d+.*/, new_node_id));
+				if (new_node_id.match('add')) {
+					element.attr('href', element.attr('href').replace(/\/\d+.*/, new_node_id));
 		    }
 		    else {
-		      element.attr('href', element.attr('href').replace(/\/\d+.*/, "/" + new_node_id));
+					element.attr('href', element.attr('href').replace(/\/\d+.*/, "/" + new_node_id));
 		    }
 		
 		    $(element).removeAttr('data-id');
@@ -268,7 +269,7 @@
 			  /* FOLLOW-UP QUESTION CHILD */
 			  statement.find("#follow_up_questions.children a.statement_link").bind("click", function(){
 			    var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
-			    var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', $(this));
+			    var bids = $('#breadcrumbs').data('api').getBreadcrumbStack($(this));
 			
 			    var last_bid = bids[bids.length-1];
 			
@@ -285,7 +286,7 @@
 			
 			  /* NEW FOLLOW-UP QUESTION BUTTON (ON CHILDREN AND SIDEBAR)*/
 			  statement.find("a.create_follow_up_question_button").bind("click", function(){
-			    var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', $(this));
+			    var bids = $('#breadcrumbs').data('api').getBreadcrumbStack($(this));
 			
 			    /* set fragment */
 			    $.setFragment({
@@ -297,7 +298,7 @@
 			
 			function initFollowUpQuestionFormEvents(statement) {
 				statement.find("a.cancel_text_button").("click", function(){
-          var bids = $('#breadcrumbs').breadcrumb('getBreadcrumbStack', null);
+          var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
       
           /* get last breadcrumb id */
           var last_bid = bids[bids.length-1].split('=>').pop();
@@ -768,7 +769,7 @@
 					return this;
 		    }
       });
-	  }
+	  };
       
 			
 	  $.fn.statement.defaults = {
@@ -784,17 +785,16 @@
     settings = $.extend({}, $.fn.statement.defaults, settings);
 
     var ret;
-    this.each(function(){
-    
-      var elem = $(this), api = elem.data('api');
-      if (api) {
-        api.reinitialise(settings);
-      } else {
-      api = new Statement(elem, settings);
-        elem.data('api', api);
-      }
-      ret = ret ? ret.add(elem) : elem;
-    })
+		
+		var elem = $(this), api = elem.data('api');
+    if (api) {
+      api.reinitialise(settings);
+    } else {
+    api = new Statement(elem, settings);
+      elem.data('api', api);
+    }
+    ret = ret ? ret.add(elem) : elem;
+		
     return ret;
     
     
