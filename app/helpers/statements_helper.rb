@@ -54,21 +54,21 @@ module StatementsHelper
   #
   # Creates a link to add a new resource for the given statement (appears in the SIDEBAR).
   #
-  def add_new_button(statement_node, origin = nil, search_terms = nil, prev = nil, bids = nil)
+  def render_add_new_button(statement_node, origin = nil, search_terms = nil, prev = nil, bids = nil)
     content = ''
-    content << content_tag(:div, :class => 'button_container', :id => 'add_new_container') do
-      content_tag(:span, '', :class => 'add_new_button')
+    content << content_tag(:div, :class => 'add_new_button') do
+      content_tag(:span, '', :class => 'add_new_button_icon')
     end
-    content << content_tag(:div, :class => 'resources_container', :id => 'add_new_options', :style => "display:none") do
-      resources = ''
-      resources << content_tag(:div, :class => 'header container') do
+    content << content_tag(:div, :class => 'add_new_panel', :style => "display:none") do
+      panel = ''
+      panel << content_tag(:div, :class => 'panel_header') do
         I18n.t("discuss.statements.add_new")
       end
-      resources << content_tag(:div, '', :class => 'separator')
-      resources << add_new_sibling_button(statement_node, origin, search_terms, prev)
-      resources << add_new_child_buttons(statement_node)
-      resources << add_new_follow_up_question_button(statement_node, bids)
-      resources
+      panel << content_tag(:div, '', :class => 'block_separator')
+      panel << add_new_sibling_button(statement_node, origin, search_terms, prev)
+      panel << add_new_child_buttons(statement_node)
+      panel << add_new_follow_up_question_button(statement_node, bids)
+      panel
     end
   end
 
@@ -92,7 +92,7 @@ module StatementsHelper
         end
       end
     end
-    content << content_tag(:div, '', :class => 'separator')
+    content << content_tag(:div, '', :class => 'block_separator')
     content
   end
 
@@ -110,7 +110,7 @@ module StatementsHelper
       end
       children
     end
-    content << content_tag(:div, '', :class => 'separator')
+    content << content_tag(:div, '', :class => 'block_separator')
     content
   end
 

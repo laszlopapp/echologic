@@ -1,15 +1,15 @@
 (function($, window, undefined){
- 
+
   $.fn.statement = function(settings) {
-    
+
     function Statement(elem, s) {
-      
+
 			var jsp = this;
-		
+
       initialise(s);
 
       function initialise(s) {
-        
+
         if (s['load']) {
 					insertStatement(s);
 					/* Navigation through Siblings */
@@ -18,11 +18,11 @@
 	        initNavigationButton(elem.find(".header a.next"),  1); /* Next */
 				}
 				initExpandables(elem, s);
-				
+
         if (elem.hasClass(settings['echoableClass'])) {
           elem.echoable();
         }
-				
+
         /* Statement Form Helpers */
         if(elem.is('form')) {
 					elem.statement_form();
@@ -40,16 +40,16 @@
 					}
         }
       }
-      
+
       // Auxiliary functions
       var timer = null;
 
 
       function insertStatement(settings) {
 				//if ($('div#statements').find('> #' + elem.attr('id')).length > 0) {return;}
-				
+
 				if (!settings['insertStatement']){return;}
-				
+
 				var element = $('div#statements .statement').eq(settings['level']);
 				if(element.length > 0) {
           element.replaceWith(elem);
@@ -64,20 +64,20 @@
       function initExpandable(expandable, settings) {
 				var content = expandable.attr('data-content');
         var path = expandable.attr('href');
-    
-		    
+
+
 		    if (!content) {return;}
-		
+
         expandable.data('content', content);
         expandable.data('path', path);
-    
+
         expandable.removeAttr('data-content');
         expandable.removeAttr('href');
-        
-        
+
+
         /* Special ajax event for the statement (collapse/expand)*/
         expandable.bind("click", function(){
-          
+
           var element = $(this);
           var to_show = element.parents("div:first").find($(this).data('content'));
 					if (to_show.length > 0) {
@@ -91,7 +91,7 @@
           {
             /* load the content that is missing */
             href = $(this).data('path');
-      
+
             $.getScript(href, function(e) {
               element.addClass('active');
             });
@@ -99,13 +99,13 @@
           return false;
         });
 			}
-			
+
       function initExpandables(statement, settings) {
 				statement.find(".ajax_expandable").each(function(){
 			    initExpandable($(this), settings);
 			  });
-			
-			  
+
+
 			}
 
 		  /*
@@ -121,9 +121,9 @@
 		      messageBox.animate(toggleParams, settings['animation_speed']);
 		    }, 1500);
 		  }
-		
-		
-		
+
+
+
 		  /*
 		   * collapses all visible statements
 		   */
@@ -134,7 +134,7 @@
 		    $('#statements .statement .content').hide('slow');
 		    $('#statements .statement .header .supporters_label').hide();
 		  };
-		
+
 		  /*
 		   * Gets the siblings of the statement and places them in the client session for navigation purposes
 		   */
@@ -154,7 +154,7 @@
 		    }
 		    statement.removeAttr("data-siblings");
 		  }
-		
+
 		  /*
 		   * Generates the right link for the prev/next button according to the statements stored in session
 		   * navigation is circular
@@ -165,10 +165,10 @@
 				if (element.attr('href').length == 0) {
 					element.attr('href', window.location.pathname);
 				}
-				
+
 				current_node_id = element.attr('data-id');
 		    node = element.parents('.statement');
-		
+
 		    if (current_node_id.match('add')) {
 		      aux = current_node_id.split('_');
 		      current_node_id = [];
@@ -200,7 +200,7 @@
 		    id_index = (siblings_ids.indexOf(current_node_id) + inc) % siblings_ids.length;
 				//BUG: % operator is not working properly in jquery for negative values (-1%7 => -1)?????????
 		    if (id_index < 0) {id_index = siblings_ids.length - 1;}
-		    
+
 		    new_node_id = new String(siblings_ids[id_index]);
 		    /* if 'add' action, then write add link */
 				if (new_node_id.match('add')) {
@@ -209,29 +209,29 @@
 		    else {
 					element.attr('href', element.attr('href').replace(/\/\d+.*/, "/" + new_node_id));
 		    }
-		
+
 		    $(element).removeAttr('data-id');
 		  }
-		
-		
+
+
 		  /*
 		   * SIDEBAR
 		   */
 		  function initAddNewButton(statement, settings) {
-		    statement.find(".action_bar span.add_new_button").bind("click", function() {
-		      $(this).parent().next().toggle();
+		    statement.find(".action_bar .add_new_button").bind("click", function() {
+		      $(this).next().toggle();
 		      return false;
-		    
+
 		    });
-		    statement.find(".action_bar div#add_new_options").bind("mouseleave", function (){
-		      $(this).animate(toggleParams,settings['animation_speed']);
+		    statement.find(".action_bar .add_new_panel").bind("mouseleave", function() {
+		      $(this).fadeOut();
 		    });
 		  }
-		
+
 		  /*
 		   * PAGINATION AND HISTORY HANDLING
 		   */
-		
+
 		  /*
 		   * handles the click on the more Button event (replaces it with an element of class 'more_loading')
 		   */
@@ -240,9 +240,9 @@
 					$(this).replaceWith($('<span/>').text($(this).text()).addClass('more_loading'));
 		    });
 		  }
-		
-		  /* 
-		   * handles the follow up question related events(click on the statement's fuq child, new fuq button, 
+
+		  /*
+		   * handles the follow up question related events(click on the statement's fuq child, new fuq button,
 		   * and fuq form's cancel button
 		   */
 		  function initFollowUpQuestionEvents(statement) {
@@ -251,9 +251,9 @@
 			  statement.find("#follow_up_questions.children a.statement_link").bind("click", function(){
 			    var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
 			    var bids = $('#breadcrumbs').data('api').getBreadcrumbStack($(this));
-			
+
 			    var last_bid = bids[bids.length-1];
-			
+
 			    /* set fragment */
 			    $.setFragment({
 			      "bids": bids.join(','),
@@ -263,12 +263,12 @@
 			    });
 			    return false;
 			  });
-			
-			
+
+
 			  /* NEW FOLLOW-UP QUESTION BUTTON (ON CHILDREN AND SIDEBAR)*/
 			  statement.find("a.create_follow_up_question_button").bind("click", function(){
 			    var bids = $('#breadcrumbs').data('api').getBreadcrumbStack($(this));
-			
+
 			    /* set fragment */
 			    $.setFragment({
 			      "bids": bids.join(','),
@@ -276,7 +276,7 @@
 			    });
 			  });
 			}
-			
+
 		  /*
 		   * Sets the different links on the statement view handling, after the user clicked on them (fragment history handling)
 		   */
@@ -286,7 +286,7 @@
 		    /****************************/
 		    statement.find('.header a.statement_link').bind("click", function(){
 		      var current_stack = getStatementsStack(this, false);
-					
+
 		      /* set fragment */
 		      $.setFragment({
 		        "sids": current_stack.join(','),
@@ -294,7 +294,7 @@
 		      });
 		      return false;
 		    });
-		
+
 		    /**************/
 		    /* child link */
 		    /**************/
@@ -308,15 +308,15 @@
 		      });
 		      return false;
 		    });
-				
+
 				statement.find('.children a.add_new_button').bind("click", function(){
 					$.setFragment({
 						"new_level": true
 					})
 				});
 		  }
-		
-		
+
+
 		  /*
 		   * returns an array of the statement ids that should be loaded to the stack after 'element' was clicked
 		   * (and a new statement is loaded)
@@ -327,11 +327,11 @@
 		    var statement = $(element).parents('.statement');
 		    /* get statement id current index in the list of statements */
 		    var statement_index = $('#statements .statement').index(statement);
-		
+
 		    /* get soon to be visible statement */
 		    var path = element.href.split("/");
 		    var id = path.pop().split('?').shift();
-		
+
 		    if (id.match(/\d+/)) {
 		      var current_sids = id;
 		    } else {
@@ -343,7 +343,7 @@
 		      current_sids = current_sids.join('/');
 		    }
 		    current_stack = [];
-		
+
 		    /* get current_stack of visible statements (if any matches the clicked statement, then break) */
 		    $("#statements .statement").each( function(index){
 		      if (index < statement_index) {
@@ -362,15 +362,15 @@
 		    current_stack.push(current_sids);
 		    return current_stack;
 		  }
-		
-		 
+
+
 		  /*
 		   * loads the statement text RTE editor
 		   */
 		  function loadRTEEditor(form) {
 		    var textArea = form.find('textarea.rte_doc, textarea.rte_tr_doc');
 		    defaultText = textArea.attr('data-default');
-		
+
 		    parent_node = textArea.parents('.statement');
 		    url = 'http://' + window.location.hostname + '/stylesheets/';
 		    textArea.rte({
@@ -381,13 +381,13 @@
 		      controls_html: html_toolbar
 		    });
 		    parent_node.find('.focus').focus();
-		
+
 		    /* for default text */
 		    parent_node.find('iframe').attr('data-default', defaultText);
 		  }
-		  
+
       // Public API
-      $.extend(jsp, 
+      $.extend(jsp,
       {
         reinitialise: function(s)
         {
@@ -399,13 +399,13 @@
 		      elem.append(content);
 					return this;
 		    },
-		
+
 		    removeBelow: function(){
 		     elem.nextAll().each(function(){
 			     /* delete the session data relative to this statement first */
 			     $('div#statements').removeData(this.id);
 			     $(this).remove();
-					 
+
 		     });
 				 return this;
 		    },
@@ -449,8 +449,8 @@
 		    }
       });
 	  };
-      
-			
+
+
 	  $.fn.statement.defaults = {
       'animation_speed': 500,
       'level' : 0,
@@ -458,12 +458,12 @@
 			'load' : true,
       'echoableClass' : 'echoable'
     };
-		
+
     // Pluginifying code...
     settings = $.extend({}, $.fn.statement.defaults, settings);
 
     var ret;
-		
+
 		var elem = $(this), api = elem.data('api');
     if (api) {
       api.reinitialise(settings);
@@ -472,13 +472,12 @@
       elem.data('api', api);
     }
     ret = ret ? ret.add(elem) : elem;
-		
+
     return ret;
-    
-    
+
+
   };
-  
+
 })(jQuery,this);
-      
-      
- 
+
+

@@ -151,13 +151,19 @@ form.statement .discuss_right_block {
 }
 
 form.question .header li {
-  background:transparent url(../images/page/discuss/question_small.png) no-repeat scroll 0 0;
+  background:transparent url(../images/page/discuss/question_16.png) no-repeat scroll 0 2px;
 }
 form.proposal .header li {
-  background: transparent url(../images/page/discuss/proposal_small.png) no-repeat scroll 0 0;
+  background: transparent url(../images/page/discuss/proposal_16.png) no-repeat scroll 0 2px;
 }
 form.improvement .header li {
-  background: transparent url(../images/page/discuss/improvement_small.png) no-repeat scroll 0 0;
+  background: transparent url(../images/page/discuss/improvement_16.png) no-repeat scroll 0 2px;
+}
+form.pro_argument .header li {
+  background: transparent url(../images/page/discuss/pro_argument_16.png) no-repeat scroll 0 2px;
+}
+form.contra_argument .header li {
+  background: transparent url(../images/page/discuss/contra_argument_16.png) no-repeat scroll 0 2px;
 }
 
 form.statement .header_link fieldset ol li {
@@ -202,7 +208,7 @@ form.statement fieldset ol span.defaultText {
   float: left;
   position: relative;
   top: 4px;
-  left: 48px;
+  left: 49px;
   height: 30px;
   overflow: visible;
 }
@@ -214,7 +220,7 @@ form.statement fieldset ol span.defaultText {
   width: 800px;
   float: left;
   position: relative;
-  top: 10px;
+  top: 12px;
   left: 1px;
   margin-bottom: 4px;
 }
@@ -318,89 +324,107 @@ form.statement fieldset ol span.defaultText {
   position: relative;
   left: 7px;
   top: 25px;
-  padding: 5px 0 17px;
+  padding: 0 0 17px;
   text-align: center;
-  margin: 15px 0 20px;
+  margin: 0 0 20px;
 }
-
-#statements .action_bar .button_container {
-  height:   80px;
-  width:    160px;
-  display:  block;
-  background-image: url(../images/page/discuss/add_new_container.png);
-  cursor: pointer;
-}
-#statements .action_bar .button_container:hover     { background-position: 0 80px; }
 
 /* echo button */
-#echo_button span {
-  height:   80px;
-  width:    80px;
-  display:  inline-block;
-  background-image: url(../images/page/discuss/echo_all.png);
+.action_bar .echo_button {
+  height:   120px;
+  width:    160px;
+  display:  block;
+  background-image: url(../images/page/discuss/echo_button.png);
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
-#echo_button .supported           { background-position: 0 -80px; }
-#echo_button .supported:hover     { background-position: 0 80px; }
-#echo_button .not_supported:hover { background-position: 0 -80px; }
+.action_bar .echo_button:hover {
+  background-position: 0 -120px;
+}
+
+.action_bar .echo_button_icon span {
+  height:   85px;
+  width:    85px;
+  display:  inline-block;
+  background-image: url(../images/page/discuss/echo_button_icon.png);
+  cursor: pointer;
+  margin: 3px 0 0 4px;
+}
+
+.action_bar .echo_button:hover .echo_button_icon .not_supported { background-position: 0 -85px; }
+.action_bar .echo_button_icon .supported { background-position: 0 -170px; }
+.action_bar .echo_button:hover .echo_button_icon .supported { background-position: 0 -255px; }
 
 
 /* add new button */
+
 #statements .action_bar .add_new_button {
+  height:   80px;
+  width:    160px;
+  display:  block;
+  background-image: url(../images/page/discuss/add_new_button.png);
+  cursor: pointer;
+}
+
+.action_bar .add_new_button:hover {
+  background-position: 0 80px;
+}
+
+.action_bar .add_new_button_icon {
 	height:   42px;
   width:    42px;
   display:  inline-block;
-  background-image: url(../images/page/discuss/add_new_button.png);
+  background-image: url(../images/page/discuss/add_new_button_icon.png);
   cursor: pointer;
 	margin-top: 12px;
 }
-#statements .action_bar .add_new_button:hover     { background-position: 0 42px; }
 
-#statements .action_bar .resources_container {
-	position: absolute;
-	width: 470px;
-	height: 235px;
-	border: 1px solid #DDDDDD;
-	-moz-border-radius: 15px 15px 15px 15px;
-	background-color: #FFFFFF;
-	top: 0px;
-	left: 118px;
-	z-index: 1;
+.action_bar .add_new_button:hover .add_new_button_icon {
+  background-position: 0 42px;
 }
 
-#statements .action_bar .resources_container .separator {
-	height: 1px;
-	width: 100%;
-	background-color: #DDDDDD;
-}
-
-#statements .action_bar .resources_container .container {
-	display: inline-block;
-  padding-top: 20px;
+/* Add new panel */
+.action_bar .add_new_panel {
+  width: 520px;
+	border: 3px solid #BBB;
+	background: #FFF;
+  position: absolute;
+	top: 37px;
+	left: 136px;
+	z-index: 5;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
   text-align: left;
-  width: 470px;
-  min-height: 30px;
-  text-decoration: none;
 }
 
-#statements .action_bar .resources_container .header {
+
+.action_bar .add_new_panel .panel_header {
+	background: none;
+  width: 400px;
+  margin: 16px 0 16px 60px;
   font-size: 16px;
   font-weight: bold;
-	background: none;
-	padding-left: 45px;
-	width: 425px;
 }
 
-#statements .action_bar .resources_container .siblings,
-#statements .action_bar .resources_container .children {
-	font-size: 14px;
+.action_bar .add_new_panel .block_separator {
+	height: 1px;
+	width: 100%;
+	background: #DDD;
+  margin: 0;
+  border: none;
 }
 
-#statements .action_bar .resources_container .resource_link {
+.action_bar .add_new_panel .container {
+  margin: 20px 0 22px;
+}
+
+.action_bar .add_new_panel .resource_link {
 	color: #21587F;
-	margin-left: 28px;
-	padding-left: 21px !important;
+  text-decoration: underline;
+	margin-left: 25px;
+	padding-left: 35px;
 }
 
 
@@ -580,7 +604,7 @@ a.statement_link {
 }
 
 .header_buttons a.statement_link {
-	padding-left: 0px !important;
+	padding-left: 0 !important;
 }
 
 a.statement_link:hover {
@@ -596,27 +620,27 @@ a.statement_link:hover {
 }
 
 .question_link {
-   background:transparent url(../images/page/discuss/question_small.png) no-repeat scroll 0 0;
+   background:transparent url(../images/page/discuss/question_16.png) no-repeat scroll 0 0;
 }
 
 .proposal_link {
-  background:transparent url(../images/page/discuss/proposal_small.png) no-repeat scroll 0 0;
+  background:transparent url(../images/page/discuss/proposal_16.png) no-repeat scroll 0 0;
 }
 
 .improvement_link {
-  background:transparent url(../images/page/discuss/improvement_small.png) no-repeat scroll 0 0;
+  background:transparent url(../images/page/discuss/improvement_16.png) no-repeat scroll 0 0;
 }
 
 .pro_argument_link {
-  background:transparent url(../images/page/discuss/pro_argument_small.png) no-repeat scroll 0 0;
+  background:transparent url(../images/page/discuss/pro_argument_16.png) no-repeat scroll 0 0;
 }
 
 .contra_argument_link {
-  background:transparent url(../images/page/discuss/contra_argument_small.png) no-repeat scroll 0 0;
+  background:transparent url(../images/page/discuss/contra_argument_16.png) no-repeat scroll 0 0;
 }
 
 .follow_up_question_link {
-  background:transparent url(../images/page/discuss/follow_up_question_small.png) no-repeat scroll 0 0;
+  background:transparent url(../images/page/discuss/follow_up_question_16.png) no-repeat scroll 0 0;
 }
 
 .create_question_button {
@@ -735,9 +759,7 @@ a.statement_link:hover {
 
 .doubles_list .children_pagination {
 	float: left;
-  /*position: relative;*/
-	min-height: 91px;
-	min-width: 390px;
+	width: 390px !important;
 }
 
 .children_pagination ul {
