@@ -452,7 +452,7 @@
 
 
 	  $.fn.statement.defaults = {
-      'animation_speed': 500,
+      'animation_speed': 300,
       'level' : 0,
 			'insertStatement' : true,
 			'load' : true,
