@@ -25,25 +25,7 @@
 				
         /* Statement Form Helpers */
         if(elem.is('form')) {
-          loadRTEEditor(elem);
-
-          /*New Statement Form Helpers */
-          if (elem.hasClass('new')) {
-            hideNewStatementType(elem);
-            loadDefaultText(elem);
-            handleStatementFormsSubmit(elem);
-            initFormCancelButton(elem);
-            
-          }
-
-          /* Taggable Form Helpers */
-          if (elem.hasClass(settings['taggableClass'])) {
-						elem.taggable();
-          }
-					
-					if (elem.hasClass('follow_up_question')) {
-						initFollowUpQuestionFormEvents(elem);
-					}
+					elem.statement_form();
         }
         else {
           /* Sidebar Add Button */
@@ -295,44 +277,6 @@
 			  });
 			}
 			
-			function initFollowUpQuestionFormEvents(statement) {
-				statement.find("a.cancel_text_button").bind("click", function(){
-          var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
-      
-          /* get last breadcrumb id */
-          var last_bid = bids[bids.length-1].split('=>').pop();
-          /* get last statement view id (if teaser, parent id + '/' */
-          var last_sid = $.fragment().sids;
-          if (last_sid) {
-            last_sid = $.fragment().sids.split(',').pop().match(/\d+\/?/).shift();
-          } else {
-            last_sid = '';
-          }
-          if (last_bid.match(last_sid)) { /* create follow up question button was pressed */
-            var bid_to_delete = $('#breadcrumbs a.statement:last');
-            $('#breadcrumbs').data('to_delete', [bid_to_delete.attr('id')]);
-      
-            /* get previous bid in order to load the proper siblings to session */
-            var prev_bid = bid_to_delete.parent().prev().find('a');
-            if (prev_bid && prev_bid.hasClass('statement')) {
-              prev_bid = "fq=>" + prev_bid.attr('id').match(/\d+/);
-            }
-            else
-            {
-              prev_bid = "";
-            }
-      
-            bids.pop();
-            $.setFragment({
-              "bids": bids.join(','),
-              "new_level": true,
-              "prev": prev_bid
-            });
-            return false;
-          }
-        });
-			}
-		
 		  /*
 		   * Sets the different links on the statement view handling, after the user clicked on them (fragment history handling)
 		   */
@@ -413,31 +357,7 @@
 		    return current_stack;
 		  }
 		
-		  /*
-		   * FORM HELPERS
-		   */
-		
-		  /*
-		   * Handles Cancel Button click on new statement forms
-		   */
-		  function initFormCancelButton(form) {
-		    var cancelButton = form.find('.buttons a.cancel');
-		    if ($.fragment().sids) {
-		      var sids = $.fragment().sids;
-		      var new_sids = sids.split(",");
-		      var path = "/" + new_sids[new_sids.length-1];
-		
-		      new_sids.pop();
-		
-		      cancelButton.addClass("ajax");
-		      cancelButton.attr('href', $.queryString(cancelButton.attr('href').replace(/\/\d+/, path), {
-		        "sids": new_sids.join(",")
-		      }));
-		    }
-		    
-		    
-		  }
-		
+		 
 		  /*
 		   * loads the statement text RTE editor
 		   */
@@ -459,92 +379,7 @@
 		    /* for default text */
 		    parent_node.find('iframe').attr('data-default', defaultText);
 		  }
-		
-		  /*
-		   * Loads Form's Default Text to title, text and tags
-		   */
-		  function loadDefaultText(form) {
-		    if (!form.hasClass('new')) {return;}
-		
-		
-		    /* Text Inputs */
-		    var inputText = form.find("input[type='text']");
-		    var value = inputText.attr('data-default');
-		    if (inputText.val().length == 0) {
-		      inputText.toggleVal({
-		        populateFrom: 'custom',
-		        text: value
-		      });
-		    }
-		    inputText.removeAttr('data-default');
-		    inputText.blur();
-		
-		
-		    /* Text Area (RTE Editor) */
-		    var editor = form.find("iframe.rte_doc");
-		      var value = editor.attr('data-default');
-		    var doc = editor.contents().get(0);
-		    text = $(doc).find('body');
-		    if(text.html().length == 0 || html.val() == '</br>') {
-		      label = $("<span class='defaultText'></span>").html(value);
-		      label.insertAfter(editor);
-		
-		      $(doc).bind('click', function(){
-		        label.hide();
-		      });
-		      $(doc).bind('blur', function(){
-		        new_text = $(editor.contents().get(0)).find('body');
-		        if (new_text.html().length == 0 || new_text.html() == '</br>') {
-		          label.show();
-		        }
-		      });
-		    }
-		    editor.removeAttr('data-default');
-		
-		
-		    /* Clean text inputs on submit */
-		    form.bind('submit', (function() {
-		      $(this).find(".toggleval").each(function() {
-		        if($(this).val() == $(this).data("defText")) {
-		          $(this).val("");
-		        }
-		      });
-		    }));
-		  }
-		
-		  function handleStatementFormsSubmit(form) {
-		    form.bind('submit', (function(){
-		      showNewStatementType(form);
-		      $.ajax({
-		        url: this.action,
-		        type: "POST",
-		        data: $(this).serialize(),
-		        dataType: 'script',
-		        success: function(data, status){
-		          hideNewStatementType(form);
-		        }
-		      });
-		      return false;
-		    }));
-		  }
-		
-		  /*
-		   * Hides the statement type on new statement forms
-		   */
-		  function hideNewStatementType(element) {
-		    input_type = element.find('input#type');
-		    input_type.data('value',input_type.attr('value'));
-		    input_type.removeAttr('value');
-		  }
-		
-		  /*
-		   * Shows the statement type on new statement forms
-		   */
-		  function showNewStatementType(element) {
-		    input_type = element.find('input#type');
-		    input_type.attr('value', input_type.data('value'));
-		  }
-	
+		  
       // Public API
       $.extend(jsp, 
       {
@@ -612,11 +447,10 @@
 			
 	  $.fn.statement.defaults = {
       'animation_speed': 500,
-      'taggableClass' : 'taggable',
-      'echoableClass' : 'echoable', 
       'level' : 0,
 			'insertStatement' : true,
-			'load' : true
+			'load' : true,
+      'echoableClass' : 'echoable'
     };
 		
     // Pluginifying code...
