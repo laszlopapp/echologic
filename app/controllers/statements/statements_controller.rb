@@ -50,7 +50,6 @@ class StatementsController < ApplicationController
   def show
     
     begin
-      
       # Get document to show or redirect if not found
       @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
       if @statement_document.nil?
@@ -129,6 +128,8 @@ class StatementsController < ApplicationController
     form_tags = attrs.delete(:topic_tags)
     
     begin
+      parent_node_id = attrs[:parent_id]
+      attrs.merge!({:root_id => StatementNode.find(parent_node_id).root_id}) if !parent_node_id.blank?
       
       # Preapre in memory
       @statement_node ||= @statement_node_type.new_instance(attrs)
@@ -141,15 +142,20 @@ class StatementsController < ApplicationController
       @tags = []
       has_permission = true
       created = false
-      
+       
       if @statement_node.taggable? and (has_permission = check_hash_tag_permissions(form_tags))
         @tags = @statement_node.topic_tags = form_tags
       end
-      
+       
       # Persisting
       if has_permission
         StatementNode.transaction do
           if @statement_node.save
+            # add to tree
+            if parent_node_id.blank? or @statement_node.class.is_top_statement?
+              @statement_node.target_statement.update_attribute(:root_id, @statement_node.target_id)
+            end 
+
             if @statement_node.echoable?
               echo = params.delete(:echo)
               @statement_node.author_support if echo=='true'

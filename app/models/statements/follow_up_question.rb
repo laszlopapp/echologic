@@ -23,8 +23,9 @@ class FollowUpQuestion < StatementNode
 
     def new_instance(attributes = nil)
       parent = attributes ? attributes.delete(:parent_id) : nil
+      root = attributes.delete(:root_id)
       question = Question.new(attributes)
-      self.new({:parent_id => parent, :question => question, :echo => question.echo})
+      self.new({:parent_id => parent, :root_id => root, :question => question, :echo => question.echo})
     end
 
     # helper function to differentiate this model as a level 0 model

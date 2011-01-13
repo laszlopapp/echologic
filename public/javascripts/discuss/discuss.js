@@ -12,7 +12,9 @@ function initStatements(){
 	var sids = [];
 	$('#statements .statement').each(function(){
 		$(this).statement({'insertStatement': false});
-		sids.push($(this).attr('id').match(/\d+/));
+		if ($(this).is("div")) {
+			sids.push($(this).attr('id').match(/\d+/));
+		}
 	});
 	if (sids.length > 0 && (!$.fragment().sids || $.fragment().sids.length == 0)) {
   	$.setFragment({
