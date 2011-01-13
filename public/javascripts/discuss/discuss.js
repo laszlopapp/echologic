@@ -14,7 +14,7 @@ function initStatements(){
 		$(this).statement({'insertStatement': false});
 		sids.push($(this).attr('id').match(/\d+/));
 	});
-	if (sids.length > 0) {
+	if (sids.length > 0 && (!$.fragment().sids || $.fragment().sids.length == 0)) {
   	$.setFragment({
   		"sids": sids.join(",")
   	});

@@ -6,6 +6,7 @@ class Statement < ActiveRecord::Base
   
   
   validates_associated :statement_documents
+  validates_associated :statement_image
 
   has_many :statement_histories, :source => :statement_histories
 
