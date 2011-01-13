@@ -11,8 +11,8 @@
       function initialise(s) {
         
         if (s['load']) {
-          insertStatement(s);
-	        /* Navigation through Siblings */
+					insertStatement(s);
+					/* Navigation through Siblings */
 	        loadSession(elem);
 					initNavigationButton(elem.find(".header a.prev"), -1); /* Prev */
 	        initNavigationButton(elem.find(".header a.next"),  1); /* Next */
