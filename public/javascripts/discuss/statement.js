@@ -308,6 +308,12 @@
 		      });
 		      return false;
 		    });
+				
+				statement.find('.children a.add_new_button').bind("click", function(){
+					$.setFragment({
+						"new_level": true
+					})
+				});
 		  }
 		
 		
