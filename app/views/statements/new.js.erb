@@ -3,7 +3,7 @@ var element = $("<%= escape_javascript(render :partial => 'statements/new') %>")
 element.data('api').removeBelow();
 
 <% if @statement_node.echoable? %>
-  element.data('api').loadEchoMessages(<%= @messages %>);
+  element.data('echoableApi').loadEchoMessages(<%= @messages %>);
 <% end %>
 
 /* Breadcrumb's stack (if follow-up question */

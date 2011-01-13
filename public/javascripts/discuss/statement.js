@@ -19,7 +19,10 @@
 				}
 				initExpandables(elem, s);
 				
-
+        if (elem.hasClass(settings['echoableClass'])) {
+          elem.echoable();
+        }
+				
         /* Statement Form Helpers */
         if(elem.is('form')) {
           loadRTEEditor(elem);
@@ -30,9 +33,7 @@
             loadDefaultText(elem);
             handleStatementFormsSubmit(elem);
             initFormCancelButton(elem);
-            if (elem.hasClass(settings['echoableClass'])) {
-              initEchoButton(elem);
-            }
+            
           }
 
           /* Taggable Form Helpers */
@@ -513,55 +514,6 @@
 		    }));
 		  }
 		
-		  /*
-		   * Initializes echo button click handling on new statement forms
-		   */
-		  function initEchoButton(form) {
-		    form.find('div#echo_button .new_record.not_supported').bind('click', function(){
-		      supportEchoButton($(this));
-		    });
-		    form.find('div#echo_button .new_record.supported').bind('click', function(){
-		      unsupportEchoButton($(this));
-		    });
-		  }
-		
-		  /*
-		   * triggers all the visual events associated with a support from an echo statement
-		   */
-		  function supportEchoButton(button) {
-		    form = button.parents('form.statement');
-		    updateEchoButton(form, button, 'supported', 'not_supported');
-		    form.find('#echo').val(true);
-		    updateSupportersNumber(form,'1');
-		    updateSupportersBar(form, 'echo_indicator', 'no_echo_indicator', '10');
-		  }
-		
-		  /*
-		   * triggers all the visual events associated with an unsupport from an echo statement
-		   */
-		  function unsupportEchoButton(button) {
-		    var form = button.parents('form.statement');
-		    updateEchoButton(form, button, 'not_supported', 'supported');
-		    form.find('#echo').val(false);
-		    updateSupportersNumber(form,'0');
-		    updateSupportersBar(form, 'no_echo_indicator', 'echo_indicator', '0');
-		  }
-		
-		  function updateEchoButton(form, button, classToAdd, classToRemove) {
-		    button.removeClass(classToRemove).addClass(classToAdd);
-		    info(form.find('.action_bar').data('messages')[classToAdd]);
-		  }
-		  function updateSupportersNumber(form, value) {
-		    var supporters_label = form.find('.supporters_label');
-		    var supporters_text = supporters_label.text();
-		    supporters_label.text(supporters_text.replace(/[0-9]/, value));
-		  }
-		  function updateSupportersBar(form, classToAdd, classToRemove, ratio) {
-		    var old_supporter_bar = form.find('.supporters_bar');
-		    var new_supporter_bar = $('<span></span>').attr('class', old_supporter_bar.attr('class')).addClass(classToAdd).removeClass(classToRemove).attr('alt', ratio);
-		    new_supporter_bar.attr('title', form.find('.supporters_label').text());
-		    old_supporter_bar.replaceWith(new_supporter_bar);
-		  }
 		
 		  /***************/
 		  /* Tag Helpers */
@@ -742,19 +694,9 @@
 		      });
 					return this;
 		    },
-		    updateSupport: function (action_bar, supporters_bar, supporters_label) {
-		      elem.find('.action_bar').replaceWith(action_bar);
-		      elem.find('.supporters_bar:first').replaceWith(supporters_bar);
-		      elem.find('.supporters_label').replaceWith(supporters_label);
-					return this;
-		    },
 		    insertMore: function (level, type_id) {
 		      var element = $('#statements div.statement:eq(' + level + ') ' + type_id + ' .headline');
 		      elem.insertAfter(element).animate(toggleParams, settings['animation_speed']);
-					return this;
-		    },
-		    loadEchoMessages: function (messages) {
-		      elem.find('.action_bar').data('messages', messages);
 					return this;
 		    },
 		    /* Expandable Flow */

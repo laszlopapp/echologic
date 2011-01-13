@@ -2,9 +2,9 @@
 
 /* Initialization on loading the document */
 $(document).ready(function () {
-	initFragmentStatementChange();
 	initBreadcrumbs();
 	initStatements();
+	initFragmentStatementChange();
 });
 
 
