@@ -297,7 +297,7 @@
 			}
 			
 			function initFollowUpQuestionFormEvents(statement) {
-				statement.find("a.cancel_text_button").("click", function(){
+				statement.find("a.cancel_text_button").bind("click", function(){
           var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
       
           /* get last breadcrumb id */

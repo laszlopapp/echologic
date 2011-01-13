@@ -5,14 +5,20 @@ $(document).ready(function () {
 	initFragmentStatementChange();
 	initBreadcrumbs();
 	initStatements();
-
 });
 
 
 function initStatements(){
+	var sids = [];
 	$('#statements .statement').each(function(){
 		$(this).statement({'insertStatement': false});
+		sids.push($(this).attr('id').match(/\d+/));
 	});
+	if (sids.length > 0) {
+  	$.setFragment({
+  		"sids": sids.join(",")
+  	});
+  }
 }
 
 function initBreadcrumbs() {
