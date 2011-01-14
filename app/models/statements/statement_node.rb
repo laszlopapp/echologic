@@ -6,11 +6,11 @@ class StatementNode < ActiveRecord::Base
 
 
   alias_attribute :target_id, :id
-  
+
   def target_statement
     self
   end
-  
+
   after_destroy :destroy_statement
 
   def destroy_statement
@@ -107,7 +107,7 @@ class StatementNode < ActiveRecord::Base
   def translated_document?(lang_ids)
     return statement_documents.for_languages(lang_ids).nil?
   end
-  
+
   def set_statement(attrs)
     self.statement = Statement.new(attrs)
   end
@@ -346,5 +346,5 @@ class StatementNode < ActiveRecord::Base
       @@children_types[self.name] = klasses + @@children_types[self.name]
     end
   end
-  default_children_types [:FollowUpQuestion,false]
+  default_children_types [:FollowUpQuestion,true]
 end

@@ -3,8 +3,7 @@ var children_list = statement.find('#<%=@type.underscore.pluralize%> .children_l
 var more_element = statement.find('#<%=@type.underscore.pluralize%> .more_pagination');
 
 <%if @page.to_i == 1 %>
-  /*panel_height = <%# @children.total_entries == 7 ? 232 : 210 %>*/
-  panel_height = <%= (@children.total_entries + 1) * 29 %>
+  panel_height = <%= @children.total_entries <= 7 ? ((@children.total_entries + 1) * 29) : 203 %>
 	resetChildrenList(children_list, {height: panel_height});
 <% end %>
 

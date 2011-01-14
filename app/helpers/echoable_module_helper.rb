@@ -41,9 +41,9 @@ module EchoableModuleHelper
   def render_echo_button(statement_node, echo = true, type = dom_class(statement_node))
     return if !statement_node.echoable?
     content = ''
-    content << content_tag(:div, :class => 'button_container') do
+    content << content_tag(:div, :class => 'echo_button') do
       if statement_node.new_record?
-        content_tag :div, :id => 'echo_button' do
+        content_tag :div, :class => 'echo_button_icon' do
           echo_content = ''
           echo_content << echo_tag(false, 'new_record')
           echo_content << hidden_field_tag('echo', true)
@@ -51,13 +51,11 @@ module EchoableModuleHelper
         end
       else
         link_to(echo ? echo_statement_node_url(statement_node) : unecho_statement_node_url(statement_node),
-                           :class => "ajax_put",
-                           :id => 'echo_button') do
+                           :class => "echo_button_icon ajax_put") do
           echo_tag(echo)
         end
       end
     end
-    content << "#{tag("br")}#{tag("br")}"
     content
   end
 

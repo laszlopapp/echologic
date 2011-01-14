@@ -101,7 +101,7 @@ function initFragmentStatementChange() {
 
 
 function resetChildrenList(list, properties) {
-	list.animate(properties, 400, function() {
+	list.animate(properties, 300, function() {
     list.jScrollPane({animateScroll: true});
   });
 }

@@ -15,13 +15,13 @@ $('#tabContainer').html(tabs);
 
 /* If tab container isn't visible, toggle it and hide echologic container.
  * For parameter details see toggleParams in application.js */
-$('#tabContainer:hidden').animate(toggleParams, 500,
-    function() { $('#echologicContainer').animate(toggleParams, 500); });
+$('#tabContainer:hidden').animate(toggleParams, 300,
+    function() { $('#echologicContainer').animate(toggleParams, 300); });
 
 /* Replace content with new rendered content. */
 $('#staticContent').hide();
 $('#staticContent').html(content);
-$('#staticContent').appear(400);
+$('#staticContent').appear(300);
 
 /* Change css class through javascript for setting state of staticMenu. */
 changeMenuImage(''+'join');

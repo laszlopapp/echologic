@@ -3,6 +3,6 @@ var elements = $("<%= escape_javascript(render :partial => "statements/double/ch
 var statement = $('#statements div.<%=dom_class(@statement_node)%>');
 var element = statement.find('#<%= type_dom_class.pluralize %> .headline');
 
-elements.insertAfter(element).animate(toggleParams, 500);
+elements.insertAfter(element).animate(toggleParams, 300);
 
 statement.data('api').reinitialise();
