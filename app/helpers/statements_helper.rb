@@ -54,7 +54,7 @@ module StatementsHelper
   #
   # Creates a link to add a new resource for the given statement (appears in the SIDEBAR).
   #
-  def render_add_new_button(statement_node, origin = nil, search_terms = nil, prev = nil, bids = nil)
+  def render_add_new_button(statement_node, origin = nil, bids = nil)
     content = ''
     content << content_tag(:div, :class => 'add_new_button') do
       content_tag(:span, '', :class => 'add_new_button_icon')
@@ -65,7 +65,7 @@ module StatementsHelper
         I18n.t("discuss.statements.add_new")
       end
       panel << content_tag(:div, '', :class => 'block_separator')
-      panel << add_new_sibling_button(statement_node, origin, search_terms, prev)
+      panel << add_new_sibling_button(statement_node, origin)
       panel << add_new_child_buttons(statement_node)
       panel << add_new_follow_up_question_button(statement_node, bids)
       panel
@@ -75,7 +75,7 @@ module StatementsHelper
   #
   # Creates a link to add a new sibling for the given statement (appears in the SIDEBAR).
   #
-  def add_new_sibling_button(statement_node, origin = nil, search_terms = nil, prev = nil, type = dom_class(statement_node))
+  def add_new_sibling_button(statement_node, origin = nil, type = dom_class(statement_node))
     content = ''
     content << content_tag(:div, :class => 'siblings container') do
       if statement_node.parent
@@ -83,12 +83,18 @@ module StatementsHelper
                 new_statement_node_url(statement_node.parent, type),
                 :id => "add_new_#{type}_link", :class => "#{type}_link resource_link ajax")
       else
-        if prev.blank? # create new question
-          add_new_question_button(origin, search_terms)
+        origin = !origin.blank? ? origin.split('=>') : nil
+        if origin.nil? or %w(ds mi sr).include? origin[0].to_s # create new question
+          add_new_question_button(origin ? origin.join('=>') : nil)
         else #create sibling follow up question
-          link_to(I18n.t("discuss.statements.types.follow_up_question"),
-                new_statement_node_url(prev, "follow_up_question"),
-                :id => "add_new_follow_up_question_link", :class => "follow_up_question_link resource_link ajax")
+          context_type = '' 
+          context_type << case origin[0].to_s
+            when 'fq' then "follow_up_question"
+          end
+          
+          link_to(I18n.t("discuss.statements.types.#{context_type}"),
+                new_statement_node_url(origin[1], context_type),
+                :id => "add_new_#{context_type}_link", :class => "#{context_type}_link resource_link ajax")
         end
       end
     end
@@ -307,16 +313,14 @@ module StatementsHelper
     bids = []
      # Origin first
     bids << case opts[:origin].to_s
-      when 'my_issues' then [:mi]
-      when 'discuss_search' then [:ds]
+      when 'mi', 'ds' then [opts[:origin]]
+      when 'sr' then [:sr, opts[:search_terms].gsub(/,/,'\\')]
     end unless opts[:origin].nil?
-    # search_terms
-    bids << [:sr, opts[:search_terms].gsub(/,/,'\\')] if opts[:search_terms]
     # statement_node_ids
     opts[:statement_node_ids].split(',').each do |node_id|
       bids << [:fq, node_id]
     end unless opts[:statement_node_ids].blank?
-    return bids.empty? ? nil : bids.map{|b|b.join('=>')}.join(',')
+    return bids.empty? ? nil : bids.map{|b|b.join('=>')}
   end
 
   # renders the breadcrumb given
@@ -326,7 +330,7 @@ module StatementsHelper
       breadcrumb = content_tag :div, :class => 'breadcrumb' do
         content = ""
         content << content_tag(:span, '>', :class => 'delimitator') if index != 0
-        content << link_to(h(b[3].gsub(/\\/, ',')), b[2], :id => b[0], :class => b[1])
+        content << link_to(h(b[3].gsub(/\\\\/, ',')), b[2], :id => b[0], :class => b[1])
         content
       end
       breadcrumb_trail << breadcrumb

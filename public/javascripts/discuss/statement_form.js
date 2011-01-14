@@ -172,20 +172,20 @@
             $('#breadcrumbs').data('to_delete', [bid_to_delete.attr('id')]);
       
             /* get previous bid in order to load the proper siblings to session */
-            var prev_bid = bid_to_delete.parent().prev().find('a');
-            if (prev_bid && prev_bid.hasClass('statement')) {
-              prev_bid = "fq=>" + prev_bid.attr('id').match(/\d+/);
+            var origin_bid = bid_to_delete.parent().prev().find('a');
+            if (origin_bid && origin_bid.hasClass('statement')) {
+              origin_bid = "fq=>" + origin_bid.attr('id').match(/\d+/);
             }
             else
             {
-              prev_bid = "";
+              origin_bid = "";
             }
       
             bids.pop();
             $.setFragment({
               "bids": bids.join(','),
               "new_level": true,
-              "prev": prev_bid
+              "origin": origin_bid
             });
             return false;
           }

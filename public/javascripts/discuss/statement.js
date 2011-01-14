@@ -269,7 +269,7 @@
 
       function initChildrenFollowUpQuestionEvents(children_block) {
 				/* FOLLOW-UP QUESTION CHILD */
-        children_block.find("a.statement_link.follow_up_question_link:Event(!click)").bind("click", function(){
+				children_block.find("a.statement_link.follow_up_question_link:Event(!click)").bind("click", function(){
           var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
           var bids = $('#breadcrumbs').data('api').getBreadcrumbStack($(this));
 
@@ -280,7 +280,7 @@
             "bids": bids.join(','),
             "sids": question,
             "new_level": true,
-            "prev": last_bid
+            "origin": last_bid
           });
           return false;
         });
@@ -288,11 +288,12 @@
 				/* NEW FOLLOW-UP QUESTION BUTTON (ON CHILDREN)*/
         children_block.find("a.create_follow_up_question_button:Event(!click)").bind("click", function(){
           var bids = $('#breadcrumbs').data('api').getBreadcrumbStack($(this));
-
+					
           /* set fragment */
           $.setFragment({
             "bids": bids.join(','),
-            "new_level": true
+            "new_level": true, 
+						"origin" : bids[bids.length -1]
           });
         });
 			}
@@ -336,7 +337,7 @@
           return false;
         });
 
-        children_block.find('a.add_new_button').bind("click", function(){
+        children_block.find('a.add_new_button:not(.create_follow_up_question_button):Event(!click)').bind("click", function(){
           $.setFragment({
             "new_level": true
           })

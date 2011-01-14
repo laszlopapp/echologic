@@ -63,7 +63,7 @@ function initFragmentStatementChange() {
         "sids": sids.join(","),
 				"bids": bids.join(","),
         "new_level": $.fragment().new_level,
-				"prev": $.fragment().prev
+				"origin": $.fragment().origin
       });
 
 			$.ajax({
@@ -80,10 +80,10 @@ function initFragmentStatementChange() {
 			var bids = $("#breadcrumbs").data('api').getBreadcrumbStack(null).join(',');}
 		else {var bids = $.fragment().bids;}
 
-		if (!$.fragment().prev || $.fragment().prev == 'undefined') {var prev = '';}
-		else {var prev = $.fragment().prev;}
+		if (!$.fragment().origin || $.fragment().origin == 'undefined') {var origin = bids.split(',').pop();}
+		else {var origin = $.fragment().origin;}
 
-		$.setFragment({ "new_level" : true, "bids" : bids, "prev" : prev });
+		$.setFragment({ "new_level" : true, "bids" : bids, "origin" : origin });
 	  $(document).trigger("fragmentChange.sids");
   }
 
