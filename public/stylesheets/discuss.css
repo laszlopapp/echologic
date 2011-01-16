@@ -377,7 +377,7 @@ form.statement fieldset ol span.defaultText {
   display:  inline-block;
   background-image: url(../images/page/discuss/add_new_button_icon.png);
   cursor: pointer;
-	margin-top: 12px;
+	margin-top: 10px;
 }
 
 .action_bar .add_new_button:hover .add_new_button_icon {
