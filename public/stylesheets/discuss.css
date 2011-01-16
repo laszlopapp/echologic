@@ -313,9 +313,9 @@ form.statement fieldset ol span.defaultText {
   margin-top: 10px;
 }
 
-/* ------- */
-/* Sidebar */
-/* ------- */
+/* ---------- */
+/* Action bar */
+/* ---------- */
 
 #statements .action_bar {
   width: 160px;
@@ -759,7 +759,7 @@ a.statement_link:hover {
 
 .doubles_list .children_pagination {
 	float: left;
-	width: 390px !important;
+	width: 386px !important;
 }
 
 .children_pagination ul {
@@ -787,7 +787,7 @@ a.statement_link:hover {
 }
 
 .children_pagination .jspVerticalBar {
-  right: 8px;
+  right: 7px;
 }
 
 
@@ -923,6 +923,41 @@ form.statement fieldset ol li.tags_container {
 	display: inline-block;
   position: relative;
   top: -2px;
+}
+
+/**************/
+/* Expandable */
+/**************/
+
+.expandable {
+  cursor: pointer;
+  position: relative;
+}
+
+.expandable .expand_icon {
+  background: transparent url(../images/page/discuss/expandable_icons.png) no-repeat scroll 0 0;
+  width: 13px;
+  height: 7px;
+  position: absolute;
+  right: 13px;
+  top: 18px;
+}
+
+.headline.expandable .expand_icon {
+  right: 15px;
+  top: 12px;
+}
+
+.expandable:hover .expand_icon {
+  background-position: 0 -14px;
+}
+
+.expandable.active .expand_icon {
+  background-position: 0 -21px;
+}
+
+.expandable.active:hover .expand_icon {
+  background-position: 0 -35px;
 }
 
 

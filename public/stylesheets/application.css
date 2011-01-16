@@ -41,7 +41,7 @@
   margin: 0 0 25px 165px;
 }
 
-.header_block h2 {
+.header_block h2, .header_block .headline {
   background: url(../images/page/header_right.png) no-repeat scroll right top;
   height: 31px;
   margin: -6px 0 10px !important;

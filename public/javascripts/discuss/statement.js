@@ -61,52 +61,45 @@
         }
 			}
 
+      function initExpandables(statement, settings) {
+				statement.find(".expandable").each(function(){
+			    initExpandable($(this), settings);
+			  });
+			}
+
       function initExpandable(expandable, settings) {
 				var content = expandable.attr('data-content');
-        var path = expandable.attr('href');
-
-
-		    if (!content) {return;}
-
+		    if (!content) {
+          return;
+        }
         expandable.data('content', content);
-        expandable.data('path', path);
-
         expandable.removeAttr('data-content');
-        expandable.removeAttr('href');
 
+        var path = expandable.attr('href');
+        expandable.data('path', path);
+        expandable.removeAttr('href');
 
         /* Special ajax event for the statement (collapse/expand)*/
         expandable.bind("click", function(){
-
-          var element = $(this);
-          var to_show = element.parents("div:first").find($(this).data('content'));
+          var to_show = expandable.siblings(content);
 					if (to_show.length > 0) {
-						/* if statement already has loaded content */
-            supporters_label = element.find('.supporters_label');
-						element.toggleClass('active');
+						/* Content is already loaded */
+						expandable.toggleClass('active');
 						to_show.animate(toggleParams, settings['animation_speed']);
-						supporters_label.animate(toggleParams, settings['animation_speed']);
-          }
-          else
-          {
-            /* load the content that is missing */
-            href = $(this).data('path');
-
-            $.getScript(href, function(e) {
-              element.addClass('active');
+            supporters_label = expandable.find('.supporters_label');
+            if (supporters_label) {
+              supporters_label.animate(toggleParams, settings['animation_speed']);
+            }
+          } else {
+            /* Load content */
+            $.getScript(path, function() {
+              expandable.addClass('active');
             });
           }
           return false;
         });
 			}
 
-      function initExpandables(statement, settings) {
-				statement.find(".ajax_expandable").each(function(){
-			    initExpandable($(this), settings);
-			  });
-
-
-			}
 
 		  /*
 		   * Sets the Timer for the Message Boxes to show up (p.ex., the translation message box)
@@ -128,7 +121,7 @@
 		   * collapses all visible statements
 		   */
 		  function hideStatements(settings) {
-		    $('#statements .statement .header').removeClass('active').addClass('ajax_expandable').each(function(){
+		    $('#statements .statement .header').removeClass('active').addClass('expandable').each(function(){
 					initExpandable($(this), settings);
 				});
 		    $('#statements .statement .content').hide('slow');
@@ -442,7 +435,7 @@
 					return this;
 		    },
 		    hide: function () {
-		      elem.find('.header').removeClass('active').addClass('ajax_expandable');
+		      elem.find('.header').removeClass('active').addClass('expandable');
 		      elem.find('.content').hide('slow');
 		      elem.find('.supporters_label').hide();
 					return this;

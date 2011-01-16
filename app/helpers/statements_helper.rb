@@ -153,7 +153,7 @@ module StatementsHelper
   def authors_statement_node_link(statement_node,type = dom_class(statement_node))
     link_to(I18n.t('application.general.authors'), authors_statement_node_url(statement_node),
             :id => 'authors_button',
-            :class => 'ajax_expandable header_button text_button authors_text_button',
+            :class => 'expandable header_button text_button authors_text_button',
             'data-content' => "#authors")
   end
 
