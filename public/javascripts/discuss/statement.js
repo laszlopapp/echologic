@@ -81,7 +81,7 @@
 
         /* Special ajax event for the statement (collapse/expand)*/
         expandable.bind("click", function(){
-          var to_show = expandable.siblings(content);
+          var to_show = expandable.parents('div:first').children(content);
 					if (to_show.length > 0) {
 						/* Content is already loaded */
 						expandable.toggleClass('active');
@@ -245,7 +245,7 @@
         statement.find("#follow_up_questions.children").each(function(){
 					initChildrenFollowUpQuestionEvents($(this));
 				});
-			  
+
 
 
 			  /* NEW FOLLOW-UP QUESTION BUTTON (ON CHILDREN AND SIDEBAR)*/
@@ -277,15 +277,15 @@
           });
           return false;
         });
-				
+
 				/* NEW FOLLOW-UP QUESTION BUTTON (ON CHILDREN)*/
         children_block.find("a.create_follow_up_question_button:Event(!click)").bind("click", function(){
           var bids = $('#breadcrumbs').data('api').getBreadcrumbStack($(this));
-					
+
           /* set fragment */
           $.setFragment({
             "bids": bids.join(','),
-            "new_level": true, 
+            "new_level": true,
 						"origin" : bids[bids.length -1]
           });
         });
@@ -314,7 +314,7 @@
 					initChildrenStatementHistoryEvents($(this));
 				});
 		  }
-			
+
 			function initChildrenStatementHistoryEvents(children_block) {
 				/**************/
         /* child link */
