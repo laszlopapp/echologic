@@ -6,7 +6,7 @@
 	<%= render_echo_button(statement_node, !(current_user && statement_node.supported?(current_user))) %>
 
 	<!-- Add New Button -->
-	<%= render_add_new_button(statement_node, params[:origin], params[:search_terms], params[:prev], params[:bids]) unless no_buttons %>
+	<%= render_add_new_button(statement_node, params[:origin], params[:bids]) unless no_buttons %>
 
 	<!-- Delete Statement Button -->
   <% if !no_buttons and current_user and current_user.may_delete?(statement_node) -%>

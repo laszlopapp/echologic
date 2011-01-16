@@ -8,7 +8,7 @@ class AddLftAndRgtToStatementNode < ActiveRecord::Migration
       p.root_id = p.parent_id
       p.save
     end
-    ImprovementProposal.all.each do |ip|
+    Improvement.all.each do |ip|
       ip.root_id = ip.parent.root_id
       ip.save
     end

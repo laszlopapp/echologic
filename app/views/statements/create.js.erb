@@ -4,7 +4,7 @@
 
 /* if we came directly from one of the new statement links in search or my questions, then html response */
 if(!window.location.href.match(/\/\d+/)) {
-  window.location.replace("<%= statement_node_url(@statement_node, :origin => params[:origin], :search_terms => params[:search_terms], :bids => params[:bids]) %>");
+  window.location.replace("<%= statement_node_url(@statement_node, :origin => params[:origin], :bids => params[:bids]) %>");
 }
 
 /* load new statement to session */
@@ -32,4 +32,7 @@ var sids = $('div#statements .statement').map(function(){
 
 var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
 
-$.setFragment({ "bids" : bids.join(','), "sids": sids.join(','), "new_level" : ''});
+var origin = bids[bids.length-1];
+if (origin == null || origin == "undefined"){origin = '';}
+
+$.setFragment({ "bids" : bids.join(','), "sids": sids.join(','), "new_level" : '', "origin" : origin});

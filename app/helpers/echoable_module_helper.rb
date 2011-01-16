@@ -51,7 +51,7 @@ module EchoableModuleHelper
         end
       else
         link_to(echo ? echo_statement_node_url(statement_node) : unecho_statement_node_url(statement_node),
-                           :class => "echo_button_icon ajax_put") do
+                           :class => "echo_button_icon ajax_put", :id => "echo_button") do
           echo_tag(echo)
         end
       end

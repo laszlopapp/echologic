@@ -125,7 +125,7 @@ Then /^the second question must be more recent than the first question$/ do
 end
 
 # Is it okay to give a condition in a 'Given' step?
-Given /^the question has at least on proposal$/ do
+Given /^the question has at least one proposal$/ do
   @question.reload
   @question.children.proposals.count.should >= 1
   @proposal = @question.children.proposals.first

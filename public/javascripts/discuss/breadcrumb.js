@@ -55,9 +55,12 @@
 		      var sids = $(this).data('sids');
 		      
 		      /* get previous breadcrumb entry, in order to load the proper siblings to session */
-		      var prev = new_bids[new_bids.length -1];
+		      var origin = new_bids[new_bids.length -1];
+					if (origin == null || origin == "undefined") {
+				  	origin = '';
+				  }
 		      
-		      $.setFragment({"bids" : new_bids.join(","), "sids": sids.join(","), "new_level" : '', "prev" : prev});
+		      $.setFragment({"bids" : new_bids.join(","), "sids": sids.join(","), "new_level" : '', "origin" : origin});
 		      return false;
 		    });
 		  }
@@ -81,7 +84,7 @@
 				  }
 				  
 				  var breadcrumb = $('<div/>').addClass('breadcrumb');
-				  if (elem.length != 0) {
+					if (api.getContentPane().find(".elements .breadcrumb").length != 0) {
 				    var del = $("<span class='delimitator'>></span>");
 				    breadcrumb.append(del);
 				  }

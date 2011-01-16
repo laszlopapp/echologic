@@ -28,9 +28,9 @@
 					elem.statement_form();
         }
         else {
-          /* Sidebar Add Button */
-          initAddNewButton(elem, s);
-          /* Pagination */
+					/* Sidebar Add Button */
+					initAddNewButton(elem, s);
+					/* Pagination */
           initMoreButton(elem);
           initStatementHistoryEvents(elem);
 					initFollowUpQuestionEvents(elem);
@@ -106,13 +106,15 @@
 		   */
 		  function loadMessageBoxes(statement, settings) {
 		    var messageBox = statement.find('.message_box');
-		    if (timer != null) {
-		      clearTimeout (timer);
-		      messageBox.stop(true).hide;
-		    }
-		    timer = setTimeout( function(){
-		      messageBox.animate(toggleParams, settings['animation_speed']);
-		    }, 1500);
+				if (!messageBox.is(":visible")) {
+			    if (timer != null) {
+			      clearTimeout (timer);
+			      messageBox.stop(true).hide;
+			    }
+			    timer = setTimeout( function(){
+			      messageBox.animate(toggleParams, settings['animation_speed']);
+			    }, 1500);
+				}
 		  }
 
 
@@ -212,7 +214,7 @@
 		   */
 		  function initAddNewButton(statement, settings) {
 		    statement.find(".action_bar .add_new_button").bind("click", function() {
-		      $(this).next().toggle();
+					$(this).next().toggle();
 		      return false;
 
 		    });
@@ -229,7 +231,7 @@
 		   * handles the click on the more Button event (replaces it with an element of class 'more_loading')
 		   */
 		  function initMoreButton(statement) {
-		    statement.find(".more_pagination a").bind("click", function() {
+		    statement.find(".more_pagination a:Event(!click)").bind("click", function() {
 					$(this).replaceWith($('<span/>').text($(this).text()).addClass('more_loading'));
 		    });
 		  }
@@ -240,26 +242,14 @@
 		   */
 		  function initFollowUpQuestionEvents(statement) {
 
-			  /* FOLLOW-UP QUESTION CHILD */
-			  statement.find("#follow_up_questions.children a.statement_link").bind("click", function(){
-			    var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
-			    var bids = $('#breadcrumbs').data('api').getBreadcrumbStack($(this));
-
-			    var last_bid = bids[bids.length-1];
-
-			    /* set fragment */
-			    $.setFragment({
-			      "bids": bids.join(','),
-			      "sids": question,
-			      "new_level": true,
-			      "prev": last_bid
-			    });
-			    return false;
-			  });
+        statement.find("#follow_up_questions.children").each(function(){
+					initChildrenFollowUpQuestionEvents($(this));
+				});
+			  
 
 
 			  /* NEW FOLLOW-UP QUESTION BUTTON (ON CHILDREN AND SIDEBAR)*/
-			  statement.find("a.create_follow_up_question_button").bind("click", function(){
+			  statement.find(".action_bar a.create_follow_up_question_button").bind("click", function(){
 			    var bids = $('#breadcrumbs').data('api').getBreadcrumbStack($(this));
 
 			    /* set fragment */
@@ -268,6 +258,37 @@
 			      "new_level": true
 			    });
 			  });
+			}
+
+      function initChildrenFollowUpQuestionEvents(children_block) {
+				/* FOLLOW-UP QUESTION CHILD */
+				children_block.find("a.statement_link.follow_up_question_link:Event(!click)").bind("click", function(){
+          var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
+          var bids = $('#breadcrumbs').data('api').getBreadcrumbStack($(this));
+
+          var last_bid = bids[bids.length-1];
+
+          /* set fragment */
+          $.setFragment({
+            "bids": bids.join(','),
+            "sids": question,
+            "new_level": true,
+            "origin": last_bid
+          });
+          return false;
+        });
+				
+				/* NEW FOLLOW-UP QUESTION BUTTON (ON CHILDREN)*/
+        children_block.find("a.create_follow_up_question_button:Event(!click)").bind("click", function(){
+          var bids = $('#breadcrumbs').data('api').getBreadcrumbStack($(this));
+					
+          /* set fragment */
+          $.setFragment({
+            "bids": bids.join(','),
+            "new_level": true, 
+						"origin" : bids[bids.length -1]
+          });
+        });
 			}
 
 		  /*
@@ -288,26 +309,33 @@
 		      return false;
 		    });
 
-		    /**************/
-		    /* child link */
-		    /**************/
-				/* Note: this handler is for only not follow up question child link. fuq's have their own handler */
-		    statement.find('.children a.statement_link:not(.follow_up_question_link)').bind("click", function(){
-		      var current_stack = getStatementsStack(this, true);
-		      /* set fragment */
-		      $.setFragment({
-		        "sids": current_stack.join(','),
-		        "new_level": true
-		      });
-		      return false;
-		    });
 
-				statement.find('.children a.add_new_button').bind("click", function(){
-					$.setFragment({
-						"new_level": true
-					})
+        statement.find('.children').each(function(){
+					initChildrenStatementHistoryEvents($(this));
 				});
 		  }
+			
+			function initChildrenStatementHistoryEvents(children_block) {
+				/**************/
+        /* child link */
+        /**************/
+        /* Note: this handler is for only not follow up question child link. fuq's have their own handler */
+				children_block.find('a.statement_link:not(.follow_up_question_link):Event(!click)').bind("click", function(){
+					var current_stack = getStatementsStack(this, true);
+          /* set fragment */
+          $.setFragment({
+            "sids": current_stack.join(','),
+            "new_level": true
+          });
+          return false;
+        });
+
+        children_block.find('a.add_new_button:not(.create_follow_up_question_button):Event(!click)').bind("click", function(){
+          $.setFragment({
+            "new_level": true
+          })
+        });
+			}
 
 
 		  /*
@@ -388,6 +416,13 @@
           initialise(s);
         },
         // API Functions
+				reinitialiseChildren: function(children_id)
+				{
+					var children_block = elem.find("#" + children_id);
+					initMoreButton(children_block);
+          initChildrenStatementHistoryEvents(children_block);
+          initChildrenFollowUpQuestionEvents(children_block);
+				},
         insertContent: function(content){
 		      elem.append(content);
 					return this;

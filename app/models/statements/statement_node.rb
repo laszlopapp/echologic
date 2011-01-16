@@ -2,7 +2,7 @@ class StatementNode < ActiveRecord::Base
   acts_as_extaggable :topics
   acts_as_echoable
   acts_as_subscribeable
-  acts_as_nested_set #:scope => :root_id
+  acts_as_nested_set :scope => :root_id
 
 
   alias_attribute :target_id, :id
