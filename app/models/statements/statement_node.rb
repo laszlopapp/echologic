@@ -161,13 +161,13 @@ class StatementNode < ActiveRecord::Base
   end
 
   # Collects a filtered list of all siblings statements
-  def sibling_statements(language_ids = nil, type = self.class.to_s)
-    return parent_id.nil? ? [] : type.constantize.statements_for_parent(self.parent.target_id, language_ids, self.incorporable?)
+  def sibling_statements(language_ids = nil, type = self.class.to_s, for_session = false)
+    return parent_id.nil? ? [] : type.constantize.statements_for_parent(self.parent.target_id, language_ids, self.incorporable?, for_session)
   end
 
   # Collects a filtered list of all siblings statements
   def siblings_to_session(language_ids = nil, type = self.class.to_s)
-    sibling_statements(language_ids, type).map(&:target_id) + ["#{self.parent_id ? "/#{self.parent.target_id}" : ''}/add/#{type.underscore}"]
+    sibling_statements(language_ids, type, true)
   end
 
   # Collects a filtered list of all siblings statements
@@ -184,17 +184,7 @@ class StatementNode < ActiveRecord::Base
     children = child_statements(language_ids, type)
     type_class.paginate_statements(children, page, per_page)
   end
-
-
-  ###################
-  # CHILDREN HELPER #
-  ###################
-
-#  def target_id
-#    self.id
-#  end
-
-
+ 
   private
 
   #################
@@ -220,20 +210,29 @@ class StatementNode < ActiveRecord::Base
     end
 
     def do_statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
-      conditions = {:conditions => "n.type = '#{self.name}' and n.parent_id = #{parent_id}"}
-      conditions.merge!({:language_ids => language_ids}) if language_ids
-      conditions.merge!(special_query_conditions) if filter_drafting_state
-
-      statements = self.search_statement_nodes(conditions)
+      opts = {}
+      opts[:readonly] = false
+      opts[:joins] =  "LEFT JOIN statement_documents d    ON statement_nodes.statement_id = d.statement_id "
+      opts[:joins] << "LEFT JOIN echos e                  ON statement_nodes.echo_id = e.id"
+      opts[:conditions] = "statement_nodes.type = '#{self.name}' AND statement_nodes.parent_id = #{parent_id}"
+      opts[:conditions] << " and d.language_id IN (#{language_ids.join(',')})" if language_ids
+      opts[:conditions] << drafting_conditions if filter_drafting_state
+      opts[:order] = "e.supporter_count DESC, statement_nodes.created_at DESC"
+      statements = []
+      
       if for_session
-        statements.map!(&:target_id)
+        opts[:select] = "DISTINCT statement_nodes.id, statement_nodes.question_id"
+        statements = self.all(opts).map{|s| s.question_id.nil? ? s.id : s.question_id}
         statements << "/#{parent_id.nil? ? '' : "#{parent_id}/" }add/#{self.name.underscore}"
+      else
+        opts[:select] = "DISTINCT statement_nodes.*"
+        statements = self.all(opts)
       end
       statements
     end
 
-    def special_query_conditions
-      {}
+    def drafting_conditions
+      ''
     end
 
     def join_clause

@@ -103,7 +103,7 @@ class StatementsController < ApplicationController
     @action ||= StatementAction["created"]
     
     #search terms as tags
-    loadSearchTermsAsTags(params[:search_terms]) if @statement_node.taggable? and params[:search_terms]
+    loadSearchTermsAsTags(params[:origin]) if @statement_node.taggable? and params[:origin]
     
     # set new breadcrumb
     if @statement_node.class.is_top_statement?
@@ -854,8 +854,10 @@ class StatementsController < ApplicationController
   #
   # Loads search terms from the search as tags for the statement node.
   #
-  def loadSearchTermsAsTags(search_terms)
-    default_tags = search_terms
+  def loadSearchTermsAsTags(origin)
+    origin = origin.split('=>')
+    return if !origin[0].eql?('sr')
+    default_tags = origin[1]
     default_tags[/[\s]+/] = ',' if default_tags[/[\s]+/] 
     default_tags = default_tags.split(',').compact
     default_tags.each{|t| @statement_node.topic_tags << t }
