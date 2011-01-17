@@ -307,22 +307,6 @@ module StatementsHelper
   ###############
 
 
-
-  # sets the breadcrumb ids stack that will be passed as an argument to statement rendering
-  def setBreadcrumbStack(opts={})
-    bids = []
-     # Origin first
-    bids << case opts[:origin].to_s
-      when 'mi', 'ds' then [opts[:origin]]
-      when 'sr' then [:sr, opts[:search_terms].gsub(/,/,'\\')]
-    end unless opts[:origin].nil?
-    # statement_node_ids
-    opts[:statement_node_ids].split(',').each do |node_id|
-      bids << [:fq, node_id]
-    end unless opts[:statement_node_ids].blank?
-    return bids.empty? ? nil : bids.map{|b|b.join('=>')}
-  end
-
   # renders the breadcrumb given
   def render_breadcrumb(breadcrumbs)
     breadcrumb_trail = ""

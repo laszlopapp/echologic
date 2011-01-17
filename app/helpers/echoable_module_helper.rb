@@ -24,9 +24,8 @@ module EchoableModuleHelper
 
   # Inserts a supporters label with the supporters number of this statement
   def supporters_label(statement_node, show_label = false)
-    return unless show_label
     label = supporters_number(statement_node)
-    content_tag(:span, label, :class => "supporters_label")
+    content_tag(:span, label, :class => "supporters_label", :style => "#{show_label ? '' : 'display:none' }")
   end
 
 

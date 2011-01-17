@@ -82,19 +82,27 @@
         /* Special ajax event for the statement (collapse/expand)*/
         expandable.bind("click", function(){
           var to_show = expandable.parents('div:first').children(content);
+					var supporters_label = expandable.find('.supporters_label');
 					if (to_show.length > 0) {
 						/* Content is already loaded */
 						expandable.toggleClass('active');
 						to_show.animate(toggleParams, settings['animation_speed']);
-            supporters_label = expandable.find('.supporters_label');
-            if (supporters_label) {
-              supporters_label.animate(toggleParams, settings['animation_speed']);
-            }
+						if (supporters_label) {
+	            supporters_label.animate(toggleParams, settings['animation_speed']);
+	          }
           } else {
             /* Load content */
-            $.getScript(path, function() {
-              expandable.addClass('active');
-            });
+						$.ajax({
+			        url:      path,
+			        type:     'get',
+			        dataType: 'script',
+							success: function(){
+								expandable.addClass('active');
+								if (supporters_label) {
+		              supporters_label.animate(toggleParams, settings['animation_speed']);
+		            }
+							}
+			      })
           }
           return false;
         });
@@ -300,11 +308,14 @@
 		    /****************************/
 		    statement.find('.header a.statement_link').bind("click", function(){
 		      var current_stack = getStatementsStack(this, false);
-
-		      /* set fragment */
+					var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
+					var origin = bids.length == 0 ? '' : bids[bids.length-1];
+					/* set fragment */
 		      $.setFragment({
 		        "sids": current_stack.join(','),
-		        "new_level": ''
+		        "new_level": '',
+						"bids": bids.join(','), 
+						"origin": origin 
 		      });
 		      return false;
 		    });
@@ -316,23 +327,30 @@
 		  }
 
 			function initChildrenStatementHistoryEvents(children_block) {
+				var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
+        var origin = bids.length == 0 ? '' : bids[bids.length-1];
 				/**************/
         /* child link */
         /**************/
         /* Note: this handler is for only not follow up question child link. fuq's have their own handler */
 				children_block.find('a.statement_link:not(.follow_up_question_link):Event(!click)').bind("click", function(){
 					var current_stack = getStatementsStack(this, true);
+					
           /* set fragment */
           $.setFragment({
             "sids": current_stack.join(','),
-            "new_level": true
+            "new_level": true,
+						"bids": bids.join(','), 
+            "origin": origin 
           });
           return false;
         });
 
         children_block.find('a.add_new_button:not(.create_follow_up_question_button):Event(!click)').bind("click", function(){
           $.setFragment({
-            "new_level": true
+            "new_level": true,
+						"bids": bids.join(','), 
+            "origin": origin 
           })
         });
 			}
