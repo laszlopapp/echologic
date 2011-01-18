@@ -65,7 +65,7 @@ module StatementsHelper
         I18n.t("discuss.statements.add_new")
       end
       panel << content_tag(:div, '', :class => 'block_separator')
-      panel << add_new_sibling_button(statement_node, origin)
+      panel << add_new_sibling_buttons(statement_node, origin)
       panel << add_new_child_buttons(statement_node)
       panel << add_new_follow_up_question_button(statement_node, bids)
       panel
@@ -75,13 +75,11 @@ module StatementsHelper
   #
   # Creates a link to add a new sibling for the given statement (appears in the SIDEBAR).
   #
-  def add_new_sibling_button(statement_node, origin = nil, type = dom_class(statement_node))
+  def add_new_sibling_buttons(statement_node, origin = nil, type = dom_class(statement_node))
     content = ''
     content << content_tag(:div, :class => 'siblings container') do
       if statement_node.parent
-        link_to(I18n.t("discuss.statements.types.#{type}"),
-                new_statement_node_url(statement_node.parent, type),
-                :id => "add_new_#{type}_link", :class => "#{type}_link resource_link ajax")
+        add_new_sibling_button(statement_node)
       else
         origin = !origin.blank? ? origin.split('=>') : nil
         if origin.nil? or %w(ds mi sr).include? origin[0].to_s # create new question
@@ -99,6 +97,20 @@ module StatementsHelper
       end
     end
     content << content_tag(:div, '', :class => 'block_separator')
+    content
+  end
+
+  #
+  # Creates a link to add a new sibling for the given statement (appears in the SIDEBAR).
+  #
+  def add_new_sibling_button(statement_node)
+    content = ''
+    statement_node.class.sub_types.map.each do |sub_type|
+      sub_type = sub_type.to_s.underscore
+      content << link_to(I18n.t("discuss.statements.types.#{sub_type}"),
+                         new_statement_node_url(statement_node.parent, sub_type),
+                         :id => "add_new_#{sub_type}_link", :class => "#{sub_type}_link resource_link ajax")
+    end
     content
   end
 

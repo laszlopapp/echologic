@@ -144,7 +144,7 @@
 		      }).get();
 		     
 		       /* delete entries that do not belong to the breadcrumbs' stack */
-		      var to_remove = [];
+		     /* var to_remove = [];
 		      $.map(visible_bids, function(a, index) {
 		       if($.inArray(a, bid_keys) == -1) {
 		         to_remove.push($("#breadcrumbs a").eq(index).parent());
@@ -156,7 +156,7 @@
 		      $.each(to_remove, function(){
 		        this.remove();
 		      });
-		      
+		      */
 		      /* get bids that are not visible (don't repeat yourself) */
 		      var bids_to_load = $.grep(bids_stack, function(a, index){
 		        return $.inArray(bid_keys[index], visible_bids) == -1 ;});
