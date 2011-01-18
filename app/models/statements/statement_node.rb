@@ -236,20 +236,6 @@ class StatementNode < ActiveRecord::Base
       ''
     end
 
-    def join_clause
-      <<-END
-        select distinct n.*
-        from
-          statement_nodes n
-          LEFT JOIN statement_documents d    ON n.statement_id = d.statement_id
-          LEFT JOIN tao_tags tt              ON (tt.tao_id = n.id and tt.tao_type = 'StatementNode')
-          LEFT JOIN tags t                   ON tt.tag_id = t.id
-          LEFT JOIN echos e                  ON n.echo_id = e.id
-        where
-      END
-    end
-
-
     public
 
     def search_statement_nodes(opts={})
