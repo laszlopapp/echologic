@@ -60,22 +60,11 @@ class StatementDocument < ActiveRecord::Base
   end
 
   def self.search_statement_documents(statement_ids, language_ids, opts={} )
-
-      #Rambo 1
-      query_part_1 = <<-END
-          select distinct sd.title, sd.statement_id, sd.language_id, sd.current
-          from
-            statement_documents sd
-            where
-      END
-      #Rambo 2
-      query_part_2 = sanitize_sql(["sd.current = 1 AND sd.statement_id IN (?) AND sd.language_id IN (?) ",
+      opts[:readonly] = false
+      opts[:select] ||= "DISTINCT title, statement_id, language_id, current"
+      opts[:conditions] ||= sanitize_sql(["current = 1 AND statement_id IN (?) AND language_id IN (?) ",
                                    statement_ids, language_ids])
-      #Rambo 3
-      query_part_3 = " order by sd.language_id;"
-
-      #All Rambo's in one
-      query = query_part_1+query_part_2+query_part_3
-      statement_nodes = find_by_sql(query)
+      opts[:order] ||= "language_id"
+      all opts
     end
 end

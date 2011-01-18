@@ -290,7 +290,7 @@ class StatementNode < ActiveRecord::Base
       # Building the order clause
       opts[:order] ||= "e.supporter_count DESC, statement_nodes.created_at DESC"
       
-      self.all opts
+      all opts
     end
 
     def default_scope
