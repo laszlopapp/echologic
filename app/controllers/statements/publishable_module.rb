@@ -14,7 +14,7 @@ module PublishableModule
   def my_issues
     @page     = params[:page]  || 1
 
-    questions_not_paginated = current_user.get_my_issues
+    questions_not_paginated = Question.by_creator(current_user).by_creation
 
     @questions = questions_not_paginated.paginate(:page => @page, :per_page => 5)
     @statement_documents = search_statement_documents(@questions.map(&:statement_id),

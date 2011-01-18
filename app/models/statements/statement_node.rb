@@ -69,6 +69,7 @@ class StatementNode < ActiveRecord::Base
   named_scope :by_ratio, :include => :echo, :order => '(echos.supporter_count/echos.visitor_count) DESC'
   named_scope :by_supporters, :include => :echo, :order => 'echos.supporter_count DESC'
   named_scope :by_creation, :order => 'created_at DESC'
+  named_scope :only_id, :select => 'statement_nodes.id'
 
 
   ## ACCESSORS
@@ -214,8 +215,8 @@ class StatementNode < ActiveRecord::Base
       opts[:readonly] = false
       opts[:joins] =  "LEFT JOIN statement_documents d    ON statement_nodes.statement_id = d.statement_id "
       opts[:joins] << "LEFT JOIN echos e                  ON statement_nodes.echo_id = e.id"
-      opts[:conditions] = "statement_nodes.type = '#{self.name}' AND statement_nodes.parent_id = #{parent_id}"
-      opts[:conditions] << " and d.language_id IN (#{language_ids.join(',')})" if language_ids
+      opts[:conditions] = sanitize_sql(["statement_nodes.type = ? AND statement_nodes.parent_id = ?", self.name, parent_id])
+      opts[:conditions] << sanitize_sql([" and d.language_id IN (?)", language_ids]) if language_ids
       opts[:conditions] << drafting_conditions if filter_drafting_state
       opts[:order] = "e.supporter_count DESC, statement_nodes.created_at DESC"
       statements = []
@@ -253,49 +254,43 @@ class StatementNode < ActiveRecord::Base
 
     def search_statement_nodes(opts={})
 
-      # Building the search clause
-      select_clause = join_clause
+      opts[:readonly] = false
+      opts[:select] ||= "DISTINCT statement_nodes.*"
 
-      # Building the where clause
-      # Handling the search term
-      search_term = opts[:search_term]
+      # join clauses
+      opts[:joins] =  "LEFT JOIN statement_documents d       ON statement_nodes.statement_id = d.statement_id "
+      opts[:joins] << "LEFT JOIN tao_tags tt                 ON (tt.tao_id = statement_nodes.id and tt.tao_type = 'StatementNode') "
+      opts[:joins] << "LEFT JOIN tags t                      ON tt.tag_id = t.id "
+      opts[:joins] << "LEFT JOIN echos e                     ON statement_nodes.echo_id = e.id"
+
+
+      opts[:conditions] ||= []
+      
+      # building the where clause
+      
+      or_conditions = ""
+      search_term = opts.delete(:search_term)
       if !search_term.blank?
         terms = search_term.split(/[,\s]+/)
-        search_fields = %w(d.title d.text)
-        or_conditions = search_fields.map{|attr|"#{attr} LIKE ?"}.join(" OR ")
-        or_conditions << " OR #{terms.map{|term| term.length > 3 ?
-                          sanitize_sql(["t.value LIKE ?","%#{term}%"]) :
-                          sanitize_sql(["t.value = ?",term])}.join(" OR ")}"
+        or_conditions << %w(d.title d.text).map{|attr|sanitize_sql(["#{attr} LIKE ?", "%#{search_term}%"])}.join(" OR ")
+        or_conditions << " OR #{terms.map{|term| term.length > 3 ? sanitize_sql(["t.value LIKE ?","%#{term}%"]) :
+                                                                   sanitize_sql(["t.value = ?",term])}.join(" OR ")}"
       end
-      and_conditions = !or_conditions.blank? ? ["(#{or_conditions})"] : []
-
+      
+      
       # Filter for statement type
-      if opts[:conditions].nil?
-        and_conditions << "n.type = '#{opts[:type]}'"
-        # Filter for published statements
-        and_conditions << sanitize_sql(["n.editorial_state_id = ?", StatementState['published'].id]) unless opts[:show_unpublished]
-        # Filter for featured topic tags (categories)
-        #and_conditions << sanitize_sql(["t.value = ?", opts[:category]]) if opts[:category]
-      else
-        and_conditions << opts[:conditions]
-      end
-      # Filter for the preferred languages
-      and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]]) if opts[:language_ids]
-      # Filter for drafting states
-      and_conditions << sanitize_sql(["n.drafting_state IN (?)", opts[:drafting_states]]) if opts[:drafting_states]
+      opts[:conditions] << "statement_nodes.type = '#{opts.delete(:type)}'" if opts[:type]
+      opts[:conditions] << sanitize_sql(["statement_nodes.editorial_state_id = ?", StatementState['published'].id]) unless opts.delete(:show_unpublished)
+      opts[:conditions] << sanitize_sql(["d.language_id IN (?)", opts.delete(:language_ids)]) if opts[:language_ids]
+      opts[:conditions] << sanitize_sql(["statement_nodes.drafting_state IN (?)", opts.delete(:drafting_states)]) if opts[:drafting_states]
       # Constructing the where clause
-      where_clause = and_conditions.join(" AND ")
-
+      opts[:conditions] << "(#{or_conditions})" if !or_conditions.blank?
+      opts[:conditions] = opts[:conditions].join(" AND ")
+      
       # Building the order clause
-      order_clause = " order by e.supporter_count DESC, n.created_at DESC;"
-
-      # Composing the query and substituting the values
-      query = select_clause + where_clause + order_clause
-      value = "%#{search_term}%"
-      conditions = search_fields ? [query, *([value] * search_fields.size)] : query
-
-      # Executing the query
-      find_by_sql(conditions)
+      opts[:order] ||= "e.supporter_count DESC, statement_nodes.created_at DESC"
+      
+      self.all opts
     end
 
     def default_scope

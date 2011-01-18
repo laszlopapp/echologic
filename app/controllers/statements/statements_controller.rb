@@ -776,12 +776,14 @@ class StatementsController < ApplicationController
     if params[:origin] #statement node is a question
       origin = params[:origin].split("=>")
       siblings = case origin[0]
-        when 'ds' then search_statement_nodes(:search_term => "", :language_ids => @language_preference_list,
+        when 'ds' then search_statement_nodes(:select => 'DISTINCT statement_nodes.id',
+                                              :language_ids => @language_preference_list,
                                               :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id) + ["/add/question"]
         when 'sr'then search_statement_nodes(:search_term => origin[1].gsub(/\\\\/,','),
+                                             :select => 'DISTINCT statement_nodes.id',
                                              :language_ids => @language_preference_list,
                                              :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id) + ["/add/question"]
-        when 'mi' then current_user.get_my_issues.map(&:id) + ["/add/question"]
+        when 'mi' then Question.by_creator(current_user).by_creation.only_id.map(&:id) + ["/add/question"]
         when 'fq' then @previous_node = StatementNode.find(origin[1])
                        @previous_type = "FollowUpQuestion"
                        @previous_node.child_statements(@language_preference_list, @previous_type, true)
