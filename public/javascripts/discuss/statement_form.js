@@ -159,7 +159,7 @@
           var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
       
           /* get last breadcrumb id */
-          var last_bid = bids[bids.length-1].split('=>').pop();
+          var last_bid = bids[bids.length-1].pop();
           /* get last statement view id (if teaser, parent id + '/' */
           var last_sid = $.fragment().sids;
           if (last_sid) {
@@ -174,7 +174,7 @@
             /* get previous bid in order to load the proper siblings to session */
             var origin_bid = bid_to_delete.parent().prev().find('a');
             if (origin_bid && origin_bid.hasClass('statement')) {
-              origin_bid = "fq=>" + origin_bid.attr('id').match(/\d+/);
+              origin_bid = "fq" + origin_bid.attr('id').match(/\d+/);
             }
             else
             {

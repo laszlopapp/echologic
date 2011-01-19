@@ -14,7 +14,7 @@ module PublishableModuleHelper
   #
   def create_question_link_for(search_terms=nil)
     search_terms = search_terms.nil? ? '' : search_terms.gsub(/,/,'\\;')
-    origin = search_terms.blank? ? "ds" : "sr=>#{search_terms}"
+    origin = search_terms.blank? ? "ds" : "sr#{search_terms}"
     link_to(new_question_url(:origin => origin, :bids => origin),
             :id => 'create_question_link') do
       content_tag(:span, '',
@@ -29,7 +29,7 @@ module PublishableModuleHelper
   #
   def link_to_question(title, question,long_title,search_terms=nil)
     search_terms = search_terms.nil? ? '' : search_terms.gsub(/,/,'\\;')
-    origin = search_terms.blank? ? "ds" : "sr=>#{search_terms}"
+    origin = search_terms.blank? ? "ds" : "sr#{search_terms}"
     link_to statement_node_url(question, :origin => origin, :bids => origin),
                :title => "#{h(title) if long_title}",
                :class => "avatar_holder#{' ttLink no_border' if long_title }" do 

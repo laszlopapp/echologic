@@ -607,17 +607,17 @@ class StatementsController < ApplicationController
     
     # get bids into an array structure
     bids = params[:bids].split(',')
-    bids = bids.map{|b|b.split('=>')}
     
     @breadcrumbs = []
     
     bids.each do |bid| #[id, classes, url, title]
-      @breadcrumbs << case bid[0]
+      key = bid[0,2]
+      @breadcrumbs << case key
         when "ds" then ["ds","search_link statement_link", discuss_search_url, I18n.t("discuss.statements.breadcrumbs.discuss_search")]
-        when "sr" then ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :search_terms => bid[1].gsub(/\\;/, ',')), I18n.t("discuss.statements.breadcrumbs.discuss_search_with_value", :value => bid[1])]        when "mi" then ["mi","search_link statement_link", my_issues_url, I18n.t("discuss.statements.breadcrumbs.my_issues")]
-        when "fq" then statement_node = StatementNode.find(bid[1])
+        when "sr" then ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :search_terms => bid[2..-1].gsub(/\\;/, ',')), I18n.t("discuss.statements.breadcrumbs.discuss_search_with_value", :value => bid[2..-1])]        when "mi" then ["mi","search_link statement_link", my_issues_url, I18n.t("discuss.statements.breadcrumbs.my_issues")]
+        when "fq" then statement_node = StatementNode.find(bid[2..-1])
         statement_document = search_statement_documents(statement_node.statement_id, @language_preference_list)
-        ["#{statement_node.class.name.underscore}_#{bid[1]}", 
+        ["#{statement_node.class.name.underscore}_#{bid[2..-1]}", 
                         "statement statement_link #{statement_node.class.name.underscore}_link", 
         statement_node_url(statement_node), statement_document[statement_node.statement_id].title]
       end
@@ -773,18 +773,19 @@ class StatementsController < ApplicationController
   # Gets the root ids that need to be loaded to the session.
   #
   def roots_to_session(statement_node)
-    if params[:origin] #statement node is a question
-      origin = params[:origin].split("=>")
-      siblings = case origin[0]
+    if !params[:origin].blank? #statement node is a question
+      origin = params[:origin]
+      key = origin[0,2]
+      siblings = case key
         when 'ds' then search_statement_nodes(:select => 'DISTINCT statement_nodes.id',
                                               :language_ids => @language_preference_list,
                                               :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id) + ["/add/question"]
-        when 'sr'then search_statement_nodes(:search_term => origin[1].gsub(/\\;/,','),
+        when 'sr'then search_statement_nodes(:search_term => origin[2..-1].gsub(/\\;/,','),
                                              :select => 'DISTINCT statement_nodes.id',
                                              :language_ids => @language_preference_list,
                                              :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id) + ["/add/question"]
         when 'mi' then Question.by_creator(current_user).by_creation.only_id.map(&:id) + ["/add/question"]
-        when 'fq' then @previous_node = StatementNode.find(origin[1])
+        when 'fq' then @previous_node = StatementNode.find(origin[2..-1])
                        @previous_type = "FollowUpQuestion"
                        @previous_node.child_statements(@language_preference_list, @previous_type, true)
       end
@@ -857,9 +858,8 @@ class StatementsController < ApplicationController
   # Loads search terms from the search as tags for the statement node.
   #
   def loadSearchTermsAsTags(origin)
-    origin = origin.split('=>')
-    return if !origin[0].eql?('sr')
-    default_tags = origin[1]
+    return if !origin[0,2].eql?('sr')
+    default_tags = origin[2..-1]
     default_tags[/[\s]+/] = ',' if default_tags[/[\s]+/] 
     default_tags = default_tags.split(',').compact
     default_tags.each{|t| @statement_node.topic_tags << t }
