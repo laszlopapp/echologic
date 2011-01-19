@@ -99,16 +99,9 @@ class StatementNode < ActiveRecord::Base
   def publish
     self.editorial_state = StatementState["published"]
   end
-
-  # returns a translated document for passed language_codes (or nil if none is found)
-  def document_in_preferred_language(lang_ids)
-    @current_document ||= statement_documents.for_languages(lang_ids)
-  end
-
-  def translated_document?(lang_ids)
-    return statement_documents.for_languages(lang_ids).nil?
-  end
-
+  
+  
+  # Initializes this statement node's statement
   def set_statement(attrs)
     self.statement = Statement.new(attrs)
   end
@@ -126,6 +119,23 @@ class StatementNode < ActiveRecord::Base
     return doc
   end
 
+  ########################
+  # DOCUMENTS' LANGUAGES #
+  ########################
+
+  #
+  # Checks if there is a document in any of the languages passed as argument
+  #
+  def translated_document?(lang_ids)
+    return statement_documents.for_languages(lang_ids).nil?
+  end
+
+  #
+  # returns a translated document for passed language_codes (or nil if none is found)
+  #
+  def document_in_preferred_language(lang_ids)
+    @current_document ||= statement_documents.for_languages(lang_ids)
+  end
 
 
   #
@@ -154,14 +164,20 @@ class StatementNode < ActiveRecord::Base
     document_in_language(original_language)
   end
 
+  #####################
+  # CHILDREN/SIBLINGS #
+  #####################
+
   # Collects a filtered list of all children statements
   #
   # for_session argument: when true, returns a list of ids + the "add_type" teaser name
   def child_statements(language_ids = nil, type = self.class.children_types.first.to_s, for_session = false)
     return type.constantize.statements_for_parent(self.target_id, language_ids, self.draftable?, for_session)
   end
-
+  
   # Collects a filtered list of all siblings statements
+  #
+  # for_session argument: when true, returns a list of ids + the "add_type" teaser name
   def sibling_statements(language_ids = nil, type = self.class.to_s, for_session = false)
     return parent_id.nil? ? [] : type.constantize.statements_for_parent(self.parent.target_id, language_ids, self.incorporable?, for_session)
   end
@@ -176,7 +192,7 @@ class StatementNode < ActiveRecord::Base
     child_statements(language_ids, type, true)
   end
 
-  # Get the top children of a specific child type
+  # Get the top children given a certain child type
   def get_paginated_child_statements(language_ids = nil,
                                      type = self.class.children_types.first.to_s,
                                      page = 1,
@@ -194,22 +210,27 @@ class StatementNode < ActiveRecord::Base
 
   class << self
 
+    # Aux Function: generates new instance (overwritten in follow up question)
     def new_instance(attributes = nil)
       self.new(attributes)
     end
 
+    # Aux Function: GUI Helper (overwritten in follow up question)
     def is_top_statement?
       false
     end
 
+    # Aux Function: paginates a set of ActiveRecord Objects
     def paginate_statements(children, page, per_page)
       children.paginate(default_scope.merge(:page => page, :per_page => per_page))
     end
 
+    # Aux Function: gets a set of children given a certain parent (used to get siblings and children)
     def statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
       do_statements_for_parent(parent_id, language_ids, filter_drafting_state, for_session)
     end
-
+    
+    # Aux Function: gets a set of children given a certain parent (used above)
     def do_statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
       opts = {}
       opts[:readonly] = false
@@ -223,21 +244,24 @@ class StatementNode < ActiveRecord::Base
       
       if for_session
         opts[:select] = "DISTINCT statement_nodes.id, statement_nodes.question_id"
-        statements = self.all(opts).map{|s| s.question_id.nil? ? s.id : s.question_id}
+        statements = self.scoped(opts).map{|s| s.question_id.nil? ? s.id : s.question_id}
         statements << "/#{parent_id.nil? ? '' : "#{parent_id}/" }add/#{self.name.underscore}"
       else
         opts[:select] = "DISTINCT statement_nodes.*"
-        statements = self.all(opts)
+        statements = self.scoped(opts)
       end
       statements
     end
 
+    # Aux Function: drafting conditions on a query (overwritten in acts_as_incorporable)
     def drafting_conditions
       ''
     end
 
     public
 
+
+    # gets a set of statement nodes given an hash of arguments
     def search_statement_nodes(opts={})
 
       opts[:readonly] = false
@@ -276,17 +300,26 @@ class StatementNode < ActiveRecord::Base
       # Building the order clause
       opts[:order] ||= "e.supporter_count DESC, statement_nodes.created_at DESC"
       
-      all opts
+      scoped opts
     end
+
 
     def default_scope
       { :include => :echo,
-        :order => %Q[echos.supporter_count DESC, created_at ASC] }
+        :order => %Q[echos.supporter_count DESC, statement_nodes.created_at ASC] }
     end
 
+    ###################################
+    # EXPANDABLE CHILDREN GUI HELPERS #
+    ###################################
 
-
-    def children_types(children_visibility = false, default = true, expand = false)
+    # 
+    # visibility = false: returns an array of symbols of the possible children types
+    # visibility = true: returns an array of sub arrays representing pairs [type: symbol class , visibility : true/false]
+    # default: whether we should take out from or let the default children types in the array
+    # expand: whether we should replace a children type for it's sub-types
+    #
+    def children_types(visibility = false, default = true, expand = false)
       children_types = @@children_types[self.name] || @@children_types[self.superclass.name]
       children_types = children_types - @@default_children_types if !default
       if expand
@@ -294,10 +327,12 @@ class StatementNode < ActiveRecord::Base
         children_types.each{|c| array += c[0].to_s.constantize.sub_types.map{|st|[st, c[1]]} }
         children_types = array
       end
-      return children_types.map{|c|c[0]} if !children_visibility
+      return children_types.map{|c|c[0]} if !visibility
       children_types
     end
 
+    
+    # PARTIAL PATHS #
     def children_list_template
       "statements/children_list"
     end
