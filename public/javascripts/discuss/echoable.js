@@ -12,24 +12,84 @@
        * Initializes echo button click handling on new statement forms
        */
 			function initialise(s){
-		    elem.find('.echo_button .new_record').bind('click', function(){
-					if ($(this).hasClass('not_supported')) {
-				  	supportEchoButton($(this));
-				  } else if ($(this).hasClass('supported')) {
-						unsupportEchoButton($(this));
-					}
-        });
+				if (elem.hasClass('new')) {
+					initNewStatementEchoButton(elem);
+				} else {
+					initEchoButton(elem);
+				}
+				
 		  }
 
 			// Auxiliary Functions
+      function initNewStatementEchoButton(element) {
+				initLabelMessages(element);
+				element.find('#echo_button .new_record').bind('click', function(){
+					var label = $(this).next();
+          if ($(this).hasClass('not_supported')) {
+            supportEchoButton($(this));
+						label.text(label.data('messages')['not_supported']);
+          } else if ($(this).hasClass('supported')) {
+            unsupportEchoButton($(this));
+						label.text(label.data('messages')['supported']);
+          }
+        });
+			}
 
+      function initEchoButton(element) {
+				initLabelMessages(element);
+				
+				
+				
+				element.find('#echo_button').bind('click', function(){
+					if($(this).hasClass('locked')) {
+						return false;
+					} else {
+						$(this).addClass('locked');
+					}
+					var button = $(this).find('span.echo_label');
+					var label = button.next();
+					if (button.hasClass('supported')) {
+						var to_remove = 'supported', to_add = 'not_supported';
+					} else {
+            var to_remove = 'not_supported', to_add = 'supported';
+					}
+					/* update image */
+					updateEchoButton(button, to_add, to_remove);
+					label.text(label.data('messages')[to_remove]);
+					$.ajax({
+			      url:      this.href,
+			      type:     'post',
+			      dataType: 'script',
+			      data:   { '_method': 'put' },
+						success: function() {
+							$(this).removeClass('locked');
+						},
+						error: function() {
+							$(this).removeClass('locked');
+							updateEchoButton(button, to_remove, to_add);
+							label.text(label.data('messages')[to_add]);
+						}
+			    });
+					return false;
+        });
+			}
+			
+			function initLabelMessages(element){
+				var desc = element.find('span.label');
+        var messages = {'supported' : desc.attr('data-supported'), 'not_supported' : desc.attr('data-not-supported')};
+        desc.data('messages', messages);
+        desc.removeAttr('data-supported');desc.removeAttr('data-not-supported');
+        var type = desc.prev().hasClass('supported') ? 'not_supported' : 'supported'
+        desc.text(desc.data('messages')[type]);
+			}
 
 			/*
        * triggers all the visual events associated with a support from an echo statement
        */
       function supportEchoButton(button) {
 				var form = button.parents('form.statement');
-				updateEchoButton(form, button, 'supported', 'not_supported');
+				updateEchoButton(button, 'supported', 'not_supported');
+				info(form.find('.action_bar').data('messages')['supported']);
         elem.find('#echo').val(true);
         updateSupportersNumber(form,'1');
         updateSupportersBar(form, 'echo_indicator', 'no_echo_indicator', '10');
@@ -40,15 +100,15 @@
        */
       function unsupportEchoButton(button) {
 				var form = button.parents('form.statement');
-				updateEchoButton(form, button, 'not_supported', 'supported');
+				updateEchoButton(button, 'not_supported', 'supported');
+				info(form.find('.action_bar').data('messages')['not_supported']);
         elem.find('#echo').val(false);
         updateSupportersNumber(form,'0');
         updateSupportersBar(form, 'no_echo_indicator', 'echo_indicator', '0');
       }
 
-			function updateEchoButton(form, button, classToAdd, classToRemove) {
+			function updateEchoButton(button, classToAdd, classToRemove) {
         button.removeClass(classToRemove).addClass(classToAdd);
-				info(form.find('.action_bar').data('messages')[classToAdd]);
       }
 
       function updateSupportersNumber(form, value) {
@@ -80,7 +140,11 @@
           elem.find('.supporters_label').replaceWith(supporters_label);
           return this;
         },
-				loadEchoMessages: function (messages) {
+				loadEchoLabelMessages: function (messages) {
+          elem.find('.action_bar .label').data('messages', messages);
+          return this;
+        },
+				loadEchoInfoMessages: function (messages) {
           elem.find('.action_bar').data('messages', messages);
           return this;
         }

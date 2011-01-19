@@ -343,7 +343,7 @@ form.statement fieldset ol span.defaultText {
   background-position: 0 -120px;
 }
 
-.action_bar .echo_button_icon span {
+.action_bar .echo_button_icon span.echo_label {
   height:   85px;
   width:    85px;
   display:  inline-block;
@@ -352,6 +352,16 @@ form.statement fieldset ol span.defaultText {
   margin: 3px 0 0 4px;
 }
 
+.action_bar .echo_button_icon span.label {
+  color: #21587F;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  vertical-align: top;
+}
+
+
+.action_bar .echo_button:hover .echo_button_icon span.label{color: #7BB031; }
 .action_bar .echo_button:hover .echo_button_icon .not_supported { background-position: 0 -85px; }
 .action_bar .echo_button_icon .supported { background-position: 0 -170px; }
 .action_bar .echo_button:hover .echo_button_icon .supported { background-position: 0 -255px; }

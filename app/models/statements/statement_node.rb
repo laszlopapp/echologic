@@ -236,8 +236,8 @@ class StatementNode < ActiveRecord::Base
       opts[:readonly] = false
       opts[:joins] =  "LEFT JOIN statement_documents d    ON statement_nodes.statement_id = d.statement_id "
       opts[:joins] << "LEFT JOIN echos e                  ON statement_nodes.echo_id = e.id"
-      opts[:conditions] = sanitize_sql(["statement_nodes.type = ? AND statement_nodes.parent_id = ?", self.name, parent_id])
-      opts[:conditions] << sanitize_sql([" and d.language_id IN (?)", language_ids]) if language_ids
+      opts[:conditions] = children_conditions(parent_id)
+      opts[:conditions] << sanitize_sql([" and d.language_id IN (?) ", language_ids]) if language_ids
       opts[:conditions] << drafting_conditions if filter_drafting_state
       opts[:order] = "e.supporter_count DESC, statement_nodes.created_at DESC"
       statements = []
@@ -256,6 +256,10 @@ class StatementNode < ActiveRecord::Base
     # Aux Function: drafting conditions on a query (overwritten in acts_as_incorporable)
     def drafting_conditions
       ''
+    end
+    
+    def children_conditions(parent_id)
+      sanitize_sql(["statement_nodes.type = ? AND statement_nodes.parent_id = ? ", self.name, parent_id])
     end
 
     public

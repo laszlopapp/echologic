@@ -42,16 +42,19 @@ module EchoableModuleHelper
     content = ''
     content << content_tag(:div, :class => 'echo_button') do
       if statement_node.new_record?
-        content_tag :div, :class => 'echo_button_icon' do
+        content_tag :div, :class => 'echo_button_icon' , :id => 'echo_button' do
           echo_content = ''
           echo_content << echo_tag(false, 'new_record')
+          echo_content << label_tag(type)
           echo_content << hidden_field_tag('echo', true)
           echo_content
         end
       else
         link_to(echo ? echo_statement_node_url(statement_node) : unecho_statement_node_url(statement_node),
-                           :class => "echo_button_icon ajax_put", :id => "echo_button") do
-          echo_tag(echo)
+                           :class => "echo_button_icon", :id => "echo_button") do
+          echo_content = ''
+          echo_content << echo_tag(echo)
+          echo_content << label_tag(type)
         end
       end
     end
@@ -63,7 +66,13 @@ module EchoableModuleHelper
   def echo_tag(echo, extra_classes = '')
     title = I18n.t("discuss.tooltips.#{echo ? '' : 'un'}echo")
     content_tag :span, '',
-                :class => "#{echo ? 'not_' : '' }supported ttLink no_border #{extra_classes}",
+                :class => "#{echo ? 'not_' : '' }supported ttLink no_border #{extra_classes} echo_label",
                 :title => "#{title}"
+  end
+  
+  def label_tag(type)
+    content_tag(:span, '', :class => 'label', 
+                                      'data-supported' => I18n.t("discuss.statements.echo_#{type}_link"), 
+                                      'data-not-supported' => I18n.t("discuss.statements.unecho_#{type}_link"))
   end
 end

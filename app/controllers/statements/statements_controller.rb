@@ -111,7 +111,7 @@ class StatementsController < ApplicationController
       load_origin_statement
     end
     
-    load_echo_messages if @statement_node.echoable?
+    load_echo_info_messages if @statement_node.echoable?
     
     render_template 'statements/new'
   end
