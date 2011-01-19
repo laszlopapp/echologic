@@ -17,8 +17,8 @@ class FollowUpQuestion < StatementNode
   end
 
   class << self
-    def children_types(children_visibility = false, default = true, expand = false)
-      Question.children_types(children_visibility, default, expand)
+    def children_types(visibility = false, default = true, expand = false)
+      Question.children_types(visibility, default, expand)
     end
 
     def new_instance(attributes = nil)
@@ -31,6 +31,11 @@ class FollowUpQuestion < StatementNode
     # helper function to differentiate this model as a level 0 model
     def is_top_statement?
       true
+    end
+    
+    def children_conditions(parent_id)
+      parent = StatementNode.find(parent_id)
+      sanitize_sql(["statement_nodes.type = ? AND statement_nodes.root_id = ? AND statement_nodes.lft >= ? AND statement_nodes.rgt <= ? ", self.name, parent.root_id, parent.lft, parent.rgt])
     end
 
   end

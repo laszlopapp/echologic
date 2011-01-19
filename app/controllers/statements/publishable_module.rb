@@ -14,7 +14,7 @@ module PublishableModule
   def my_issues
     @page     = params[:page]  || 1
 
-    questions_not_paginated = current_user.get_my_issues
+    questions_not_paginated = Question.by_creator(current_user).by_creation
 
     @questions = questions_not_paginated.paginate(:page => @page, :per_page => 5)
     @statement_documents = search_statement_documents(@questions.map(&:statement_id),
@@ -39,7 +39,7 @@ module PublishableModule
                                                            :show_unpublished => current_user &&
                                                                                 current_user.has_role?(:editor))
 
-    @count    = statement_nodes_not_paginated.size
+    @count    = statement_nodes_not_paginated.count
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page,
                                                               :per_page => 6)
     @statement_documents = search_statement_documents(@statement_nodes.map(&:statement_id), @language_preference_list)

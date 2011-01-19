@@ -65,51 +65,43 @@ class Profile < ActiveRecord::Base
   
 
   # Self written SQL for querying profiles in echo Connect
-  def self.search_profiles(competence, search_term)
-
-    # Building the select clause
-    select_clause = <<-END
-      select distinct p.*, u.email
-      from
-        profiles p
-        LEFT JOIN users u        ON u.id = p.user_id
-        LEFT JOIN memberships m  ON u.id = m.user_id
-        LEFT JOIN tao_tags tt    ON (u.id = tt.tao_id and tt.tao_type = 'User')
-        LEFT JOIN tags t         ON t.id = tt.tag_id
-      where
-    END
-
+  def self.search_profiles(competence, search_term, opts={})
+    
+    opts[:readonly] = false
+    opts[:select] ||= "DISTINCT profiles.*, u.email"
+    
+    
+    # join clauses
+    opts[:joins] =  "LEFT JOIN users u        ON u.id = profiles.user_id "
+    opts[:joins] << "LEFT JOIN memberships m  ON u.id = m.user_id "
+    opts[:joins] << "LEFT JOIN tao_tags tt    ON (u.id = tt.tao_id and tt.tao_type = 'User') "
+    opts[:joins] << "LEFT JOIN tags t         ON t.id = tt.tag_id "
+    
+    
     # Building the where clause
-    # Filtering active users
-    and_conditions = ["u.active = 1"]
 
+    # Filtering active users
+    opts[:conditions] = ["u.active = 1"]
+    
     # Searching for different competences
-    if (competence.blank?)
+    if competence.blank?
       # General search
-      searched_fields =
-        %w(p.first_name p.last_name p.city p.country p.about_me p.motivation u.email t.value m.position m.organisation)
+      searched_fields = %w(profiles.first_name profiles.last_name profiles.city profiles.country profiles.about_me 
+                           profiles.motivation u.email t.value m.position m.organisation)
     else
       # Search for a certain competence area
-      searched_fields =
-        %w(p.first_name p.last_name p.city p.country t.value)
-      and_conditions << "tt.context_id = #{competence}"
+      searched_fields = %w(profiles.first_name profiles.last_name profiles.city profiles.country t.value)
+      opts[:conditions] << "tt.context_id = #{competence}"
     end
-    search_conditions = searched_fields.map{|field|"#{field} LIKE ?"}.join(" OR ")
-    and_conditions << "(#{search_conditions})"
-    where_clause = and_conditions.join(" AND ")
-
+    search_conditions = searched_fields.map{|field|sanitize_sql(["#{field} LIKE ?", "%#{search_term}%"])}.join(" OR ")
+    opts[:conditions] << "(#{search_conditions})"
+    opts[:conditions] = opts[:conditions].join(" AND ")
+    
     # Building the order clause
-    order_clause = " order by
-      CASE WHEN p.completeness >= #{COMPLETENESS_THRESHOLD} THEN 0 ELSE 1 END,
-      CASE WHEN p.last_name IS NULL OR p.last_name='' THEN 1 ELSE 0 END,
-      p.last_name, p.first_name, u.id asc;"
-
-    # Composing the query and substituting the values
-    query = select_clause + where_clause + order_clause
-    value = "%#{search_term}%"
-    conditions = [query, *([value] * searched_fields.size)]
-
-    # Executing the query
-    profiles = find_by_sql(conditions)
+    opts[:order] = "CASE WHEN profiles.completeness >= #{COMPLETENESS_THRESHOLD} THEN 0 ELSE 1 END,
+                    CASE WHEN profiles.last_name IS NULL OR profiles.last_name='' THEN 1 ELSE 0 END,
+                    profiles.last_name, profiles.first_name, u.id asc;"
+      
+    all opts
   end
 end

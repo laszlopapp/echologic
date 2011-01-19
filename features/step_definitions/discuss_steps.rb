@@ -73,6 +73,10 @@ Given /^there is the second question$/i do
   @question = Question.first
 end
 
+Given /^there is a question$/ do
+  @question = Question.first
+end
+
 Given /^there is a question "([^\"]*)"$/ do |id| # not in use right now
   @question = Question.find(id)
 end

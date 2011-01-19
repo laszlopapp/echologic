@@ -31,8 +31,8 @@
 		
 		      /* get keys for comparison */
 		      var bid_keys = $.map(bids_stack, function(a) {
-		        var aux = a.split('=>');
-		        return aux[0]!='fq' ? aux[0] : aux[1];
+		        var key = a.substring(0, 2);
+		        return key!='fq' ? key : a.substring(0, a.length);
 		      });
 		      /* get links that must vanish from the breadcrumbs */
 		      var links_to_delete = $(this).parent().nextAll().map(function(){
@@ -130,8 +130,8 @@
 		      
 		      /* get keys for comparison */
 		      var bid_keys = $.map(bids_stack, function(a) {
-		        var aux = a.split('=>');
-		        return aux[0]!='fq' ? aux[0] : aux[1];
+		        var key = a.substring(0, 2);
+		        return key!='fq' ? key : a.substring(2, a.length);
 		      });
 		      
 		      /* current breadcrumb entries */
@@ -144,7 +144,7 @@
 		      }).get();
 		     
 		       /* delete entries that do not belong to the breadcrumbs' stack */
-		      var to_remove = [];
+		     /* var to_remove = [];
 		      $.map(visible_bids, function(a, index) {
 		       if($.inArray(a, bid_keys) == -1) {
 		         to_remove.push($("#breadcrumbs a").eq(index).parent());
@@ -156,7 +156,7 @@
 		      $.each(to_remove, function(){
 		        this.remove();
 		      });
-		      
+		      */
 		      /* get bids that are not visible (don't repeat yourself) */
 		      var bids_to_load = $.grep(bids_stack, function(a, index){
 		        return $.inArray(bid_keys[index], visible_bids) == -1 ;});
@@ -166,19 +166,19 @@
 				getBreadcrumbStack : function (element){
 		      var breadcrumbs = elem.find(".breadcrumb a.search_link").map(function(){
 		        if (this.id == 'sr') {
-		          return 'sr=>'+ $(this).getUrlParam('search_terms');
+		          return 'sr'+ $(this).getUrlParam('search_terms');
 		        } else
 		        {
 		          return this.id;
 		        }
 		      }).get();
 		      var node_breadcrumbs = elem.find(".breadcrumb a.statement").map(function(){
-		        return 'fq=>'+ this.id.replace(/[^0-9]+/, '');
+		        return 'fq'+ this.id.replace(/[^0-9]+/, '');
 		      }).get();
 		      $.merge(breadcrumbs, node_breadcrumbs);
 					if (element) {
 		        var statement_id = element.parents('.statement').attr('id').replace(/[^0-9]+/, '');
-		        breadcrumbs.push('fq=>' + statement_id);
+		        breadcrumbs.push('fq' + statement_id);
 		      }
 		      return breadcrumbs;
 		    }

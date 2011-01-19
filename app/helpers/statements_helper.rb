@@ -65,7 +65,7 @@ module StatementsHelper
         I18n.t("discuss.statements.add_new")
       end
       panel << content_tag(:div, '', :class => 'block_separator')
-      panel << add_new_sibling_button(statement_node, origin)
+      panel << add_new_sibling_buttons(statement_node, origin)
       panel << add_new_child_buttons(statement_node)
       panel << add_new_follow_up_question_button(statement_node, bids)
       panel
@@ -75,30 +75,41 @@ module StatementsHelper
   #
   # Creates a link to add a new sibling for the given statement (appears in the SIDEBAR).
   #
-  def add_new_sibling_button(statement_node, origin = nil, type = dom_class(statement_node))
+  def add_new_sibling_buttons(statement_node, origin = nil, type = dom_class(statement_node))
     content = ''
     content << content_tag(:div, :class => 'siblings container') do
       if statement_node.parent
-        link_to(I18n.t("discuss.statements.types.#{type}"),
-                new_statement_node_url(statement_node.parent, type),
-                :id => "add_new_#{type}_link", :class => "#{type}_link resource_link ajax")
+        add_new_sibling_button(statement_node)
       else
-        origin = !origin.blank? ? origin.split('=>') : nil
-        if origin.nil? or %w(ds mi sr).include? origin[0].to_s # create new question
-          add_new_question_button(origin ? origin.join('=>') : nil)
+        if origin.nil? or %w(ds mi sr).include? origin[0,2] # create new question
+          add_new_question_button(origin ? origin : nil)
         else #create sibling follow up question
           context_type = ''
-          context_type << case origin[0].to_s
+          context_type << case origin[0,2]
             when 'fq' then "follow_up_question"
           end
 
           link_to(I18n.t("discuss.statements.types.#{context_type}"),
-                new_statement_node_url(origin[1], context_type),
+                new_statement_node_url(origin[2..-1], context_type),
                 :id => "add_new_#{context_type}_link", :class => "#{context_type}_link resource_link ajax")
         end
       end
     end
     content << content_tag(:div, '', :class => 'block_separator')
+    content
+  end
+
+  #
+  # Creates a link to add a new sibling for the given statement (appears in the SIDEBAR).
+  #
+  def add_new_sibling_button(statement_node)
+    content = ''
+    statement_node.class.sub_types.map.each do |sub_type|
+      sub_type = sub_type.to_s.underscore
+      content << link_to(I18n.t("discuss.statements.types.#{sub_type}"),
+                         new_statement_node_url(statement_node.parent, sub_type),
+                         :id => "add_new_#{sub_type}_link", :class => "#{sub_type}_link resource_link ajax")
+    end
     content
   end
 
@@ -125,7 +136,7 @@ module StatementsHelper
   #
   def add_new_follow_up_question_button(statement_node, bids)
     bids = bids ? bids.split(",") : []
-    bids << "fq=>#{statement_node.id}"
+    bids << "fq#{statement_node.id}"
     content_tag(:div, add_new_child_link(statement_node, "follow_up_question", :bids => bids.join(",")), :class => 'children container')
   end
 
@@ -307,22 +318,6 @@ module StatementsHelper
   ###############
 
 
-
-  # sets the breadcrumb ids stack that will be passed as an argument to statement rendering
-  def setBreadcrumbStack(opts={})
-    bids = []
-     # Origin first
-    bids << case opts[:origin].to_s
-      when 'mi', 'ds' then [opts[:origin]]
-      when 'sr' then [:sr, opts[:search_terms].gsub(/,/,'\\')]
-    end unless opts[:origin].nil?
-    # statement_node_ids
-    opts[:statement_node_ids].split(',').each do |node_id|
-      bids << [:fq, node_id]
-    end unless opts[:statement_node_ids].blank?
-    return bids.empty? ? nil : bids.map{|b|b.join('=>')}
-  end
-
   # renders the breadcrumb given
   def render_breadcrumb(breadcrumbs)
     breadcrumb_trail = ""
@@ -330,7 +325,7 @@ module StatementsHelper
       breadcrumb = content_tag :div, :class => 'breadcrumb' do
         content = ""
         content << content_tag(:span, '>', :class => 'delimitator') if index != 0
-        content << link_to(h(b[3].gsub(/\\\\/, ',')), b[2], :id => b[0], :class => b[1])
+        content << link_to(h(b[3].gsub(/\\;/, ',')), b[2], :id => b[0], :class => b[1])
         content
       end
       breadcrumb_trail << breadcrumb
