@@ -326,7 +326,7 @@ module StatementsHelper
       breadcrumb = content_tag :div, :class => 'breadcrumb' do
         content = ""
         content << content_tag(:span, '>', :class => 'delimitator') if index != 0
-        content << link_to(h(b[3].gsub(/\\\\/, ',')), b[2], :id => b[0], :class => b[1])
+        content << link_to(h(b[3].gsub(/\\;/, ',')), b[2], :id => b[0], :class => b[1])
         content
       end
       breadcrumb_trail << breadcrumb

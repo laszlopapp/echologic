@@ -596,7 +596,7 @@ class StatementsController < ApplicationController
     @breadcrumb = ["#{parent_node.class.name.underscore}_#{parent_node.id}",
                    "statement statement_link #{parent_node.class.name.underscore}_link",
                    statement_node_url(parent_node),
-                   statement_documents[parent_node.statement_id].title]
+                   statement_documents[parent_node.statement_id].title.gsub(/\\;/, ',')]
   end
   
   #
@@ -614,7 +614,7 @@ class StatementsController < ApplicationController
     bids.each do |bid| #[id, classes, url, title]
       @breadcrumbs << case bid[0]
         when "ds" then ["ds","search_link statement_link", discuss_search_url, I18n.t("discuss.statements.breadcrumbs.discuss_search")]
-        when "sr" then ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :search_terms => bid[1].gsub(/\\\\/, ',')), I18n.t("discuss.statements.breadcrumbs.discuss_search_with_value", :value => bid[1])]        when "mi" then ["mi","search_link statement_link", my_issues_url, I18n.t("discuss.statements.breadcrumbs.my_issues")]
+        when "sr" then ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :search_terms => bid[1].gsub(/\\;/, ',')), I18n.t("discuss.statements.breadcrumbs.discuss_search_with_value", :value => bid[1])]        when "mi" then ["mi","search_link statement_link", my_issues_url, I18n.t("discuss.statements.breadcrumbs.my_issues")]
         when "fq" then statement_node = StatementNode.find(bid[1])
         statement_document = search_statement_documents(statement_node.statement_id, @language_preference_list)
         ["#{statement_node.class.name.underscore}_#{bid[1]}", 
@@ -779,7 +779,7 @@ class StatementsController < ApplicationController
         when 'ds' then search_statement_nodes(:select => 'DISTINCT statement_nodes.id',
                                               :language_ids => @language_preference_list,
                                               :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id) + ["/add/question"]
-        when 'sr'then search_statement_nodes(:search_term => origin[1].gsub(/\\\\/,','),
+        when 'sr'then search_statement_nodes(:search_term => origin[1].gsub(/\\;/,','),
                                              :select => 'DISTINCT statement_nodes.id',
                                              :language_ids => @language_preference_list,
                                              :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id) + ["/add/question"]
