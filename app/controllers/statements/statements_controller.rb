@@ -69,13 +69,6 @@ class StatementsController < ApplicationController
                                                               @statement_document.language,
                                                               Language[params[:locale]])
       
-      # When creating an issue, we save the flash message within the session, to be able to display it here
-      if session[:last_info]
-        @info = session[:last_info]
-        flash_info
-        session[:last_info] = nil
-      end
-      
       # If statement node is draftable, then try to get the approved one
       load_approved_statement
       
@@ -777,11 +770,9 @@ class StatementsController < ApplicationController
       origin = params[:origin]
       key = origin[0,2]
       siblings = case key
-        when 'ds' then search_statement_nodes(:select => 'DISTINCT statement_nodes.id',
-                                              :language_ids => @language_preference_list,
+        when 'ds' then search_statement_nodes(:language_ids => @language_preference_list,
                                               :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id) + ["/add/question"]
         when 'sr'then search_statement_nodes(:search_term => origin[2..-1].gsub(/\\;/,','),
-                                             :select => 'DISTINCT statement_nodes.id',
                                              :language_ids => @language_preference_list,
                                              :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id) + ["/add/question"]
         when 'mi' then Question.by_creator(current_user).by_creation.only_id.map(&:id) + ["/add/question"]
