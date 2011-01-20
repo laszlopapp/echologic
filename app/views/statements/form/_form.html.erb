@@ -27,7 +27,8 @@
     <% form.inputs :class => 'editorial_state' do %>
       <%= form.input :editorial_state_id, :as => :radio,
                      :label => I18n.t('discuss.statements.states.label'),
-                     :collection => statement_states_collection  %>
+                     :collection => statement_states_collection  
+      -%>
     <% end %>
   <% end %>
 

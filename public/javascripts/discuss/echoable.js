@@ -46,7 +46,7 @@
 					} else {
 						$(this).addClass('locked');
 					}
-					var button = $(this).find('span.echo_label');
+					var button = $(this).find('span.echo_icon');
 					var label = button.next();
 					if (button.hasClass('supported')) {
 						var to_remove = 'supported', to_add = 'not_supported';
