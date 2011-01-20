@@ -17,7 +17,7 @@
 				} else {
 					initEchoButton(elem);
 				}
-				
+
 		  }
 
 			// Auxiliary Functions
@@ -37,14 +37,12 @@
 
       function initEchoButton(element) {
 				initLabelMessages(element);
-				
-				
-				
+
 				element.find('#echo_button').bind('click', function(){
-					if($(this).hasClass('locked')) {
+					if($(this).hasClass('pending')) {
 						return false;
 					} else {
-						$(this).addClass('locked');
+						$(this).addClass('pending');
 					}
 					var button = $(this).find('span.echo_label');
 					var label = button.next();
@@ -62,10 +60,10 @@
 			      dataType: 'script',
 			      data:   { '_method': 'put' },
 						success: function() {
-							$(this).removeClass('locked');
+							$(this).removeClass('pending');
 						},
 						error: function() {
-							$(this).removeClass('locked');
+							$(this).removeClass('pending');
 							updateEchoButton(button, to_remove, to_add);
 							label.text(label.data('messages')[to_add]);
 						}
@@ -73,9 +71,9 @@
 					return false;
         });
 			}
-			
+
 			function initLabelMessages(element){
-				var desc = element.find('span.label');
+				var desc = element.find('#echo_button .label');
         var messages = {'supported' : desc.attr('data-supported'), 'not_supported' : desc.attr('data-not-supported')};
         desc.data('messages', messages);
         desc.removeAttr('data-supported');desc.removeAttr('data-not-supported');
@@ -119,7 +117,8 @@
 
       function updateSupportersBar(form, classToAdd, classToRemove, ratio) {
         var old_supporter_bar = form.find('.supporters_bar');
-        var new_supporter_bar = $('<span></span>').attr('class', old_supporter_bar.attr('class')).addClass(classToAdd).removeClass(classToRemove).attr('alt', ratio);
+        var new_supporter_bar = $('<span></span>').attr('class', old_supporter_bar.attr('class')).
+                                addClass(classToAdd).removeClass(classToRemove).attr('alt', ratio);
         new_supporter_bar.attr('title', form.find('.supporters_label').text());
         old_supporter_bar.replaceWith(new_supporter_bar);
       }
@@ -141,7 +140,7 @@
           return this;
         },
 				loadEchoLabelMessages: function (messages) {
-          elem.find('.action_bar .label').data('messages', messages);
+          elem.find('.action_bar #echo_button .label').data('messages', messages);
           return this;
         },
 				loadEchoInfoMessages: function (messages) {
@@ -152,7 +151,7 @@
 		};
 
 		$.fn.echoable.defaults = {
-      'animation_speed': 500
+      'animation_speed': 300
     };
 
 	  // Pluginifying code...
