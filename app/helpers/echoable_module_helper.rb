@@ -35,32 +35,29 @@ module EchoableModuleHelper
            :supporter_count => statement_node.new_record? ? 1 : statement_node.supporter_count)
   end
 
-
-  # Renders the button for echo and unecho.
-  def render_echo_button(statement_node, echo = true, type = dom_class(statement_node))
-    return if !statement_node.echoable?
-    content = ''
-    content << content_tag(:div, :class => 'echo_button') do
-      if statement_node.new_record?
-        content_tag :div, :class => 'echo_button_icon' , :id => 'echo_button' do
-          echo_content = ''
-          echo_content << echo_button(false, 'new_record')
-          echo_content << echo_button_label(type)
-          echo_content << hidden_field_tag('echo', true)
-          echo_content
-        end
-      else
-        link_to(echo ? echo_statement_node_url(statement_node) : unecho_statement_node_url(statement_node),
-                           :class => "echo_button_icon", :id => "echo_button") do
-          echo_content = ''
-          echo_content << echo_button(echo)
-          echo_content << echo_button_label(type)
-        end
+  def new_forms_echo_button(statement_node, type = dom_class(statement_node))
+    content_tag(:div, :class => 'echo_button_icon' , :id => 'echo_button') do
+      content_tag(:div, :class => 'echo_button') do
+        echo_content = ''
+        echo_content << echo_button(false, 'new_record')
+        echo_content << echo_button_label(type)
+        echo_content << hidden_field_tag('echo', true)
+        echo_content
       end
     end
-    content
   end
 
+  def show_forms_echo_button(statement_node, echo = true, type = dom_class(statement_node))
+    link_to(echo ? echo_statement_node_url(statement_node) : unecho_statement_node_url(statement_node),
+                       :class => "echo_button_icon", :id => "echo_button") do
+      content_tag(:div, :class => 'echo_button') do
+        echo_content = ''
+        echo_content << echo_button(echo)
+        echo_content << echo_button_label(type)
+        echo_content
+      end
+    end
+  end
 
   # Renders the echo/unecho button element.
   def echo_button(echo, extra_classes = '')

@@ -23,13 +23,14 @@
 			// Auxiliary Functions
       function initNewStatementEchoButton(element) {
 				initLabelMessages(element);
-				element.find('#echo_button .new_record').bind('click', function(){
-					var label = $(this).next();
-          if ($(this).hasClass('not_supported')) {
-            supportEchoButton($(this));
+				element.find('#echo_button').bind('click', function(){
+					var button = $(this).find('.new_record')
+					var label = button.next();
+          if (button.hasClass('not_supported')) {
+            supportEchoButton(button);
 						label.text(label.data('messages')['not_supported']);
-          } else if ($(this).hasClass('supported')) {
-            unsupportEchoButton($(this));
+          } else if (button.hasClass('supported')) {
+            unsupportEchoButton(button);
 						label.text(label.data('messages')['supported']);
           }
         });
@@ -38,15 +39,19 @@
       function initEchoButton(element) {
 				initLabelMessages(element);
 				
-				
+				element.find('#echo_button').bind('mouseleave', function(){
+					$(this).removeClass('clicked').removeClass('pending');
+				});
 				
 				element.find('#echo_button').bind('click', function(){
-					if($(this).hasClass('locked')) {
+					var echo_button = $(this);
+					if(echo_button.hasClass('pending') || echo_button.hasClass('clicked')) {
 						return false;
 					} else {
-						$(this).addClass('locked');
+						echo_button.addClass('pending');
+						echo_button.addClass('clicked');
 					}
-					var button = $(this).find('span.echo_icon');
+					var button = echo_button.find('span.echo_icon');
 					var label = button.next();
 					if (button.hasClass('supported')) {
 						var to_remove = 'supported', to_add = 'not_supported';
@@ -62,10 +67,10 @@
 			      dataType: 'script',
 			      data:   { '_method': 'put' },
 						success: function() {
-							$(this).removeClass('locked');
+							echo_button.removeClass('pending');
 						},
 						error: function() {
-							$(this).removeClass('locked');
+							echo_button.removeClass('pending');
 							updateEchoButton(button, to_remove, to_add);
 							label.text(label.data('messages')[to_add]);
 						}
@@ -134,8 +139,8 @@
           initialise(s);
         },
 				// API Functions
-				updateSupport: function (action_bar, supporters_bar, supporters_label) {
-          elem.find('.action_bar').replaceWith(action_bar);
+				updateState: function (href, supporters_bar, supporters_label) {
+          elem.find('a#echo_button').attr('href', href);
           elem.find('.supporters_bar:first').replaceWith(supporters_bar);
           elem.find('.supporters_label').replaceWith(supporters_label);
           return this;

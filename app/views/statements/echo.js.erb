@@ -8,10 +8,10 @@
 
 var element = $('#statements .statement').eq(<%= @statement_node.level %>);
 
-var action_bar = $("<%= escape_javascript(render :partial => "statements/action_bar") %>");
+<% href = @statement_node.supported?(current_user) ? unecho_statement_node_url(@statement_node) : echo_statement_node_url(@statement_node)%>
 var new_supporters_bar = "<%= escape_javascript(supporter_ratio_bar(@statement_node, true)) %>";
 var new_supporters_label = "<%= escape_javascript(supporters_label(@statement_node, true)) %>";
 
-element.data('echoableApi').updateSupport(action_bar, new_supporters_bar, new_supporters_label);
+element.data('echoableApi').updateState('<%= href %>', new_supporters_bar, new_supporters_label);
 
 element.data('api').reinitialise();
