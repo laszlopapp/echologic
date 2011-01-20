@@ -84,11 +84,11 @@ module StatementsHelper
         if origin.nil? or %w(ds mi sr).include? origin[0,2] # create new question
           add_new_question_button(origin ? origin : nil)
         else #create sibling follow up question
-          context_type = '' 
+          context_type = ''
           context_type << case origin[0,2]
             when 'fq' then "follow_up_question"
           end
-          
+
           link_to(I18n.t("discuss.statements.types.#{context_type}"),
                 new_statement_node_url(origin[2..-1], context_type),
                 :id => "add_new_#{context_type}_link", :class => "#{context_type}_link resource_link ajax")

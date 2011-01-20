@@ -1,4 +1,4 @@
-var statement = $('#statements div.<%=dom_class(@statement_node)%>');
+var statement = $('#statements > #<%=dom_id(@statement_node)%>');
 var children_list = statement.find('#<%=@type.underscore.pluralize%> .children_list');
 var more_element = statement.find('#<%=@type.underscore.pluralize%> .more_pagination');
 
@@ -14,8 +14,8 @@ var pagination_buttons = "<%= escape_javascript(will_paginate(@children, :id => 
                                                    :renderer => StatementsHelper::MoreRenderer)) %>";
 
 <% if @page.to_i > 1 %>
-  var api = statement.find('#<%=@type.underscore.pluralize%> .children_list').data('jsp');
-  children_list = api.getContentPane();
+  var scrollpane = statement.find('#<%=@type.underscore.pluralize%> .children_list').data('jsp');
+  children_list = scrollpane.getContentPane();
 <% end %>
 
 children_list.append(elements_list);
@@ -26,8 +26,8 @@ children_list.append(elements_list);
 more_element.replaceWith(pagination_buttons);
 
 <% if @page.to_i > 1 %>
-  api.reinitialise();
-  api.scrollToBottom();
+  scrollpane.reinitialise();
+  scrollpane.scrollToBottom();
 <% end %>
 statement.find('#<%=@type.underscore.pluralize%> .more_pagination a').addClass('ajax');
 

@@ -108,9 +108,10 @@
 
 .jspCorner
 {
-  background: #eeeef4;
+  /*background: #eeeef4;
   float: left;
-  height: 100%;
+  height: 100%;*/
+  display: none;
 }
 
 /* Yuk! CSS Hack for IE6 3 pixel bug :( */

@@ -759,17 +759,14 @@ a.statement_link:hover {
 	display: block;
 }
 
-.statement .children .doubles_list {
-  display: inline-block;
-}
-
-.children_pagination, .children_pagination .jspPane {
+.children_pagination, .children_pagination .jspPane, .doubles_list, .doubles_list .jspPane {
   width: 785px !important;
 }
 
 .doubles_list .children_pagination {
 	float: left;
 	width: 386px !important;
+  display: block;
 }
 
 .children_pagination ul {
@@ -792,14 +789,17 @@ a.statement_link:hover {
   width: 240px;
 }
 
-.children_pagination {
+.children_pagination, .doubles_list {
   overflow: hidden;
 }
 
-.children_pagination .jspVerticalBar {
+.children_pagination .jspVerticalBar, .doubles_list .jspVerticalBar {
   right: 7px;
 }
 
+#statements .jspHorizontalBar {
+  display: none;
+}
 
 /* Others */
 #echo.tab_content_container, #pilot_projects.tab_content_container {

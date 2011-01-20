@@ -72,11 +72,9 @@
 		    if (!content) {
           return;
         }
-        expandable.data('content', content);
         expandable.removeAttr('data-content');
 
         var path = expandable.attr('href');
-        expandable.data('path', path);
         expandable.removeAttr('href');
 
         /* Special ajax event for the statement (collapse/expand)*/
