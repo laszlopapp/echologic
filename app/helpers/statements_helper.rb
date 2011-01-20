@@ -57,7 +57,10 @@ module StatementsHelper
   def render_add_new_button(statement_node, origin = nil, bids = nil)
     content = ''
     content << content_tag(:div, :class => 'add_new_button') do
-      content_tag(:span, '', :class => 'add_new_button_icon')
+      button = ''
+      button << content_tag(:span, '', :class => 'add_new_button_icon')
+      button << content_tag(:span, I18n.t('discuss.statements.add_new'), :class => 'label')
+      button
     end
     content << content_tag(:div, :class => 'add_new_panel', :style => "display:none") do
       panel = ''
