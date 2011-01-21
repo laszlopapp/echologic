@@ -290,7 +290,7 @@ class StatementNode < ActiveRecord::Base
                            "ORDER BY COUNT(statement_node_ids.id) DESC,e.supporter_count DESC, statement_nodes.created_at DESC;"
       else
         statements_query = "SELECT DISTINCT s.* from statement_nodes s
-                            LEFT JOIN statements st               ON st.id = s.statement_id
+                            LEFT JOIN statements st ON st.id = s.statement_id
                             LEFT JOIN statement_documents d ON s.statement_id = d.statement_id
                             LEFT JOIN echos e ON e.id = s.echo_id
                             WHERE " + and_conditions.join(" AND ") +
