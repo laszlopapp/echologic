@@ -255,13 +255,19 @@ module StatementsHelper
   # Navigation #
   ##############
 
-  # Insert prev/next buttons for the current statement_node.
-  def prev_next_buttons(statement_node, extra_classes = '', type = dom_class(statement_node))
+  # Renders prev/next/siblings buttons for the current statement_node.
+  def navigation_buttons(statement_node, extra_classes = '', type = dom_class(statement_node))
     buttons = ''
     if statement_node and statement_node.new_record?
       %w(prev next).each{|b| buttons << statement_tag(b.to_sym, type, true)}
     else
-      %w(prev next).each{|b| buttons << statement_button(statement_node, statement_tag(b.to_sym, type), type, :rel => b, :class => " statement_link #{extra_classes} #{b}")}
+      %w(prev next).each do |b|
+        buttons << statement_button(statement_node,
+                                    statement_tag(b.to_sym, type),
+                                    type,
+                                    :rel => b,
+                                    :class => " statement_link #{extra_classes} #{b}")
+      end
     end
     buttons
   end
@@ -278,15 +284,15 @@ module StatementsHelper
     end
   end
 
-  # Insert a button that links to the previous statement_node
+  # Inserts a button that links to the previous statement_node
   def statement_button(current_node, title, type, options={})
     options[:class] ||= ''
     teaser = options[:class].include? 'add'
-    options['data-id'] = teaser ? "#{current_node.nil? ? '' : "#{current_node.id}_"}add_#{type}" : current_node.id
+    options['data-id'] =
+      teaser ? "#{current_node.nil? ? '' : "#{current_node.id}_"}add_#{type}" : current_node.id
     url = current_node.nil? ? '' : statement_node_url(current_node)
     return link_to(title, url, options)
   end
-
 
   # Loads the link to a given statement, placed in the child panel section
   def link_to_child(title, statement_node,extra_classes, type = dom_class(statement_node))
