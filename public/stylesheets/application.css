@@ -378,7 +378,7 @@
 }
 
 .pagination .next_page {
-  background:  url(../images/page/prev_next_buttons.png) no-repeat scroll right top;
+  background:  url(../images/page/prev_next_buttons.png) no-repeat scroll -37px 0;
 }
 
 .pagination .prev_page:hover {
