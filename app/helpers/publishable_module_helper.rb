@@ -4,7 +4,7 @@ module PublishableModuleHelper
   #
   def questions_count_text(count, search_terms = nil)
     text = count_text("discuss", count)
-    text << " #{I18n.t('discuss.for', :value => search_terms)}" if search_terms
+    text << " #{I18n.t('discuss.for', :value => search_terms)}" if !search_terms.blank?
     text
   end
 
@@ -22,8 +22,8 @@ module PublishableModuleHelper
                   :title => I18n.t("discuss.tooltips.create_question"))
     end
   end
-  
-  
+
+
   #
   # question link for the discuss search results
   #
@@ -32,11 +32,11 @@ module PublishableModuleHelper
     origin = search_terms.blank? ? "ds" : "sr#{search_terms}"
     link_to statement_node_url(question, :origin => origin, :bids => origin),
                :title => "#{h(title) if long_title}",
-               :class => "avatar_holder#{' ttLink no_border' if long_title }" do 
+               :class => "avatar_holder#{' ttLink no_border' if long_title }" do
       image_tag question.image.url(:small)
     end
   end
-  
+
 
   #
   # Creates a link to create a new question
@@ -56,43 +56,43 @@ module PublishableModuleHelper
   def add_new_question_button(origin = nil)
     link_to(I18n.t("discuss.statements.types.question"),
             new_question_url(:origin => origin, :bids => origin),
-            :id => "add_new_question_link", :class => "question_link resource_link ajax")   
+            :id => "add_new_question_link", :class => "question_link resource_link ajax")
   end
-  
+
 
   #
-  # publish button that appears on the right top corner of the statement 
+  # publish button that appears on the right top corner of the statement
   #
   def publish_statement_node_link(statement_node, statement_document)
     if current_user and
        statement_document.author == current_user and !statement_node.published?
       link_to(I18n.t('discuss.statements.publish'),
               { :controller => :statements, :id => statement_node.id, :action => :publish, :in => :summary },
-              :id => 'publish_button', 
+              :id => 'publish_button',
               :class => 'ajax_put header_button text_button publish_text_button ttLink',
               :title => I18n.t('discuss.tooltips.publish'))
     else
       ''
     end
   end
-  
+
   #
-  # linked title of question on my question area 
+  # linked title of question on my question area
   #
   def my_issue_title(title,question)
     link_to(h(title),statement_node_url(question, :origin => :mi, :bids => :mi), :class => "statement_link ttLink no_border",
-            :title => I18n.t("discuss.tooltips.read_#{question.class.name.underscore}")) 
+            :title => I18n.t("discuss.tooltips.read_#{question.class.name.underscore}"))
   end
-  
+
   #
-  # linked image of question on my question area 
+  # linked image of question on my question area
   #
   def my_issue_image(question)
     link_to statement_node_url(question, :origin => :mi, :bids => :mi), :class => "avatar_holder" do
       image_tag question.image.url(:small)
-    end 
+    end
   end
-  
+
   #
   # create question button above the discuss search results and on the left corner of my questions
   #
@@ -116,7 +116,7 @@ module PublishableModuleHelper
       "<span class='publish_button'>#{I18n.t('discuss.statements.states.published')}</span>"
     end
   end
-  
+
   # returns a collection from possible statement states to be used on radios and select boxes
   def statement_states_collection
     StatementState.all.map{|s|[I18n.t("discuss.statements.states.initial_state.#{s.code}"),s.id]}
