@@ -2,13 +2,8 @@
 <% only_echo_button ||= false %>
 
 <div class="action_bar">
-
-	<% if statement_node.new_record? %>
-	  <%= new_form_echo_button(statement_node) %>
-	<% else %>
-	  <%= show_echo_button(statement_node) %>
-	<% end %>
-
+  <%= render_echo_button statement_node %>
+	
   <% if !only_echo_button %>
     <%= render_add_new_button(statement_node, params[:origin], params[:bids]) %>
 

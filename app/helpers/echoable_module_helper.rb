@@ -35,42 +35,38 @@ module EchoableModuleHelper
            :supporter_count => statement_node.new_record? ? 1 : statement_node.supporter_count)
   end
 
+  # Render the appropriate echo button onto the action bar
+  def render_echo_button(statement_node)
+    statement_node.new_record? ? new_form_echo_button(statement_node) : show_echo_button(statement_node)
+  end
+
+
+  # Renders echo button on new statement forms
   def new_form_echo_button(statement_node)
-    echo_button :div, 'new_record', nil, false, dom_class(statement_node) do |button|
+    echo_button :div, true, dom_class(statement_node), :class => 'new_record' do |button|
       button << hidden_field_tag('echo', true)
     end
-
-#    content_tag(:div, :class => 'echo_button') do
-#      content = ''
-#      content << echo_button_icon(false, 'new_record')
-#      content << hidden_field_tag('echo', true)
-#      content << echo_button_label(type)
-#      content
-#    end
   end
 
+  # Renders echo button on statement views
   def show_echo_button(statement_node)
-    echo = !(current_user && statement_node.supported?(current_user))
-    href = echo ? echo_statement_node_url(statement_node) : unecho_statement_node_url(statement_node)
-
-    echo_button :a, '', {:href => "#{href}"}, echo, dom_class(statement_node)
-
-#    link_to(href, :class => "echo_button") do
-#      content = ''
-#      content << echo_button_icon(echo)
-#      content << echo_button_label(type)
-#      content
-#    end
+    echoed = current_user && statement_node.supported?(current_user)
+    href = echoed ? unecho_statement_node_url(statement_node) : echo_statement_node_url(statement_node) 
+    echo_button :a, echoed, dom_class(statement_node), :href => href
   end
 
-  def echo_button(botton_class, extra_classes, botton_attrs, echo, type)
-    #title = I18n.t("discuss.tooltips.#{echo ? '' : 'un'}echo")
-    options = {
-      :class => "echo_button #{echo ? 'not_' : '' }supported #{extra_classes}"
-    }
-    options.merge!(botton_attrs) unless botton_attrs.blank?
-
-    content_tag(botton_class, '', options) do
+  #
+  # Renders echo button
+  # button_tag : symbol : html tag that contains the elements
+  # echoed: true/false : whether button state is echoed or not
+  # type : string (statement_node class) : selects the right label 
+  #
+  def echo_button(button_tag, echoed, type, opts={})
+    opts[:class] ||= ''
+    opts[:class] << " echo_button #{echoed ? '' : 'not_' }supported"
+    opts[:id] ||= "echo_button"
+    
+    content_tag(button_tag, opts) do
       button = ''
       button << content_tag(:span, '', :class => 'echo_button_icon')
       yield button if block_given?
@@ -85,14 +81,4 @@ module EchoableModuleHelper
                 'data-not-supported' => I18n.t("discuss.statements.echo_#{type}_link"),
                 'data-supported' => I18n.t("discuss.statements.unecho_#{type}_link"))
   end
-
-  # Renders the echo/unecho button element.
-  def echo_button_icon(echo, extra_classes = '')
-#    title = I18n.t("discuss.tooltips.#{echo ? '' : 'un'}echo")
-#    content_tag :span, '',
-#                :class => "#{echo ? 'not_' : '' }supported ttLink no_border #{extra_classes} echo_icon",
-#                :title => "#{title}"
-  end
-
-
 end

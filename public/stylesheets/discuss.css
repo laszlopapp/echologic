@@ -382,7 +382,7 @@ form.statement fieldset ol span.defaultText {
   cursor: pointer;
 }
 
-.add_new_button:hover {
+#statements .action_bar .add_new_button:hover {
   background-position: 0 80px;
 }
 

@@ -40,14 +40,14 @@
       function initNewStatementEchoButton() {
         initLabelMessages();
 				echo_button.bind('click', function(){
-					var button = $(this).find('.new_record');
-					var label = button.next();
-          if (button.hasClass('not_supported')) {
-            supportEchoButton(button);
-						label.text(label.data('messages')['not_supported']);
-          } else if (button.hasClass('supported')) {
-            unsupportEchoButton(button);
+					var button = $(this).find('.echo_button_icon');
+					var label = $(this).find('.label');
+          if ($(this).hasClass('not_supported')) {
+            supportEchoButton();
 						label.text(label.data('messages')['supported']);
+          } else if ($(this).hasClass('supported')) {
+            unsupportEchoButton();
+						label.text(label.data('messages')['not_supported']);
           }
         });
 			}
@@ -55,10 +55,10 @@
       /*
        * Triggers all the visual events associated with a support from an echo statement
        */
-      function supportEchoButton(button) {
-				var form = button.parents('form.statement');
-				updateEchoButton(button, 'supported', 'not_supported');
-				info(button.parent().data('messages')['supported']);
+      function supportEchoButton() {
+				var form = echo_button.parents('form.statement');
+				updateEchoButton('supported', 'not_supported');
+				info(echo_button.data('messages')['supported']);
         echoable.find('#echo').val(true);
         updateSupportersNumber(form,'1');
         updateSupportersBar(form, 'echo_indicator', 'no_echo_indicator', '10');
@@ -67,10 +67,10 @@
 			/*
        * Triggers all the visual events associated with an unsupport from an echo statement
        */
-      function unsupportEchoButton(button) {
-				var form = button.parents('form.statement');
-				updateEchoButton(button, 'not_supported', 'supported');
-				info(button.parent().data('messages')['not_supported']);
+      function unsupportEchoButton() {
+				var form = echo_button.parents('form.statement');
+				updateEchoButton('not_supported', 'supported');
+				info(echo_button.data('messages')['not_supported']);
         echoable.find('#echo').val(false);
         updateSupportersNumber(form,'0');
         updateSupportersBar(form, 'no_echo_indicator', 'echo_indicator', '0');
@@ -116,6 +116,7 @@
             to_add = 'supported';
 					}
 					updateEchoButton(to_add, to_remove);
+					var href = echo_button.attr('href');
 
           // Label
 					echo_label.text(echo_label.data('messages')[to_add]);
@@ -124,7 +125,10 @@
 			      type:     'post',
 			      dataType: 'script',
 			      data:   { '_method': 'put' },
-						success: function() {
+						success: function(data, textStatus, XMLHttpRequest) {
+							/* if button was pressed while not logged in, rollback as well */
+							if(href == echo_button.attr('href')) { updateEchoButton(to_remove, to_add); }
+							
 							echo_button.removeClass('pending');
 						},
 						error: function() {
