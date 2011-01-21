@@ -5,7 +5,7 @@
     function Statement(elem, s) {
 
 			var jsp = this;
-      
+
       initialise(s);
 
       function initialise(s) {
@@ -26,8 +26,7 @@
         /* Statement Form Helpers */
         if(elem.is('form')) {
 					elem.statement_form();
-        }
-        else {
+        } else {
 					/* Sidebar Add Button */
 					initAddNewButton(elem, s);
 					/* Pagination */
@@ -312,8 +311,8 @@
 		      $.setFragment({
 		        "sids": current_stack.join(','),
 		        "new_level": '',
-						"bids": bids.join(','), 
-						"origin": origin 
+						"bids": bids.join(','),
+						"origin": origin
 		      });
 		      return false;
 		    });
@@ -333,13 +332,13 @@
         /* Note: this handler is for only not follow up question child link. fuq's have their own handler */
 				children_block.find('a.statement_link:not(.follow_up_question_link):Event(!click)').bind("click", function(){
 					var current_stack = getStatementsStack(this, true);
-					
+
           /* set fragment */
           $.setFragment({
             "sids": current_stack.join(','),
             "new_level": true,
-						"bids": bids.join(','), 
-            "origin": origin 
+						"bids": bids.join(','),
+            "origin": origin
           });
           return false;
         });
@@ -347,8 +346,8 @@
         children_block.find('a.add_new_button:not(.create_follow_up_question_button):Event(!click)').bind("click", function(){
           $.setFragment({
             "new_level": true,
-						"bids": bids.join(','), 
-            "origin": origin 
+						"bids": bids.join(','),
+            "origin": origin
           })
         });
 			}
