@@ -3,7 +3,11 @@
 <% border = (no_buttons and !statement_node.echoable?) %>
 <div class="action_bar" style="<%= border ? 'border-width:0px' : '' %>">
 	<!-- Render Echo Button -->
-	<%= render_echo_button(statement_node, !(current_user && statement_node.supported?(current_user))) %>
+	<% if statement_node.new_record? %>
+	 <%= new_forms_echo_button(statement_node) %>
+	<% else %>
+	 <% show_forms_echo_button(statement_node, !(current_user && statement_node.supported?(current_user))) %>
+	<% end %>
 
 	<!-- Add New Button -->
 	<%= render_add_new_button(statement_node, params[:origin], params[:bids]) unless no_buttons %>
