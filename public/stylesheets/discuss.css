@@ -320,12 +320,15 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .echo_button:hover { background-position: 0 -120px; }
 
+.echo_button.clicked, .echo_button.pending {
+  cursor: default !important;
+}
+
 .echo_button_icon {
   height:   85px;
   width:    85px;
   display:  inline-block;
   background-image: url(../images/page/discuss/echo_button_icon.png);
-  cursor: pointer;
   margin: 3px 0 0 4px;
 }
 
@@ -652,6 +655,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 .children_pagination, .doubles_list {
+  margin-bottom: 3px !important;
   overflow: hidden;
 }
 
