@@ -4,15 +4,19 @@
 
 	  function Echoable(element) {
       var echoable = element;
-      var echo_button = echoable.find('.action_bar .echo_button');
-      var echo_label = echo_button.find('.label');
-			
+      var echo_button, echo_label;
       initialize();
-			
+
 			/*
        * Initializes an echoable statement in a form or in normal mode.
        */
 			function initialize() {
+        echo_button = echoable.find('.action_bar .echo_button');
+        if (echo_button.length == 0) {
+          return;
+        }
+        echo_label = echo_button.find('.label');
+
 				if (echoable.hasClass('new')) {
 					initNewStatementEchoButton();
 				} else {
@@ -120,29 +124,37 @@
           /* pre-request */
 					updateEchoButton(to_add, to_remove);
 					echo_label.text(echo_label.data('messages')[to_add]);
-					
+
 					var href = echo_button.attr('href');
-					
+
 					$.ajax({
 			      url:      echo_button.attr('href'),
 			      type:     'post',
 			      dataType: 'script',
 			      data:   { '_method': 'put' },
 						success: function(data, textStatus, XMLHttpRequest) {
-							/* if button was pressed while not logged in, rollback as well */
-							if(href == echo_button.attr('href')) { 
-							 updateEchoButton(to_remove, to_add);
-							 echo_label.text(echo_label.data('messages')[to_remove]); 
+              echo_button.removeClass('pending');
+              // Request returns with successful with an info, but the echo itself failed
+              if(href == echo_button.attr('href')) {
+							  rollback(to_remove, to_add);
 							}
-							
-							echo_button.removeClass('pending');
 						},
+
 						error: function() {
 							echo_button.removeClass('pending');
-							updateEchoButton(to_remove, to_add);
-							echo_label.text(echo_label.data('messages')[to_remove]);
+							rollback(to_remove, to_add);
 						}
 			    });
+
+          function rollback(to_remove, to_add) {
+            updateEchoButton(to_remove, to_add);
+					  echo_label.text(echo_label.data('messages')[to_remove]);
+            var error_lamp = echo_button.find('.error_lamp');
+            error_lamp.css('opacity','0.70').show().fadeTo(1000, 0, function() {
+              error_lamp.hide();
+            });
+          }
+
 					return false;
         });
 
@@ -191,4 +203,5 @@
     }
     return element;
   };
+
 })(jQuery);
