@@ -4,20 +4,15 @@ module EchoableModuleHelper
   # (The support ratio is the calculated ratio for a statement_node,
   # representing and visualizing the agreement a statement_node has found within the community.)
   def supporter_ratio_bar(statement_node,
-                          show_label = false,
                           previous_statement = statement_node.parent,
                           type = statement_node.class.name)
     # TODO:How to spare calculating this label two times (see next method, they're almost always sequencially triggered)
-    if show_label
-      label = supporters_number(statement_node)
-    end
-
-    extra_classes = show_label ? 'supporters_bar ttLink' : 'supporters_bar'
+    label = supporters_number(statement_node)
     if !statement_node.nil? and (statement_node.new_record? or statement_node.ratio(previous_statement,type) > 1)
-      content_tag(:span, '', :class => "echo_indicator #{extra_classes}", :title => label,
+      content_tag(:span, '', :class => "echo_indicator supporters_bar ttLink", :title => label,
                   :alt => statement_node.new_record? ? 10 : statement_node.ratio(previous_statement,type))
     else
-      content_tag(:span, '', :class => "no_echo_indicator #{extra_classes}",:title => label)
+      content_tag(:span, '', :class => "no_echo_indicator supporters_bar ttLink",:title => label)
     end
   end
 
@@ -31,7 +26,7 @@ module EchoableModuleHelper
 
   # Returns the right line that shows up below the ratio bar (1 supporter, 2 supporters...)
   def supporters_number(statement_node)
-    I18n.t("discuss.statements.echo_indicator.#{ statement_node.supporter_count <= 1 ? 'one' : 'many'}",
+    I18n.t("discuss.statements.echo_indicator.#{ statement_node.supporter_count == 1 ? 'one' : 'many'}",
            :supporter_count => statement_node.new_record? ? 1 : statement_node.supporter_count)
   end
 
@@ -51,7 +46,7 @@ module EchoableModuleHelper
   # Renders echo button on statement views
   def show_echo_button(statement_node)
     echoed = current_user && statement_node.supported?(current_user)
-    href = echoed ? unecho_statement_node_url(statement_node) : echo_statement_node_url(statement_node) 
+    href = echoed ? unecho_statement_node_url(statement_node) : echo_statement_node_url(statement_node)
     echo_button :a, echoed, statement_node, :href => href
   end
 
@@ -59,18 +54,19 @@ module EchoableModuleHelper
   # Renders echo button
   # button_tag : symbol : html tag that contains the elements
   # echoed: true/false : whether button state is echoed or not
-  # type : string (statement_node class) : selects the right label 
+  # type : string (statement_node class) : selects the right label
   #
   def echo_button(button_tag, echoed, statement_node, opts={})
     opts[:class] ||= ''
     opts[:class] << " echo_button #{echoed ? '' : 'not_' }supported"
     opts[:id] ||= "echo_button"
-    
+
     content_tag(button_tag, opts) do
       button = ''
       button << content_tag(:span, '', :class => 'echo_button_icon')
       yield button if block_given?
       button << echo_button_label(statement_node)
+      button << content_tag(:span, '', :class => 'error_lamp')
       button
     end
   end

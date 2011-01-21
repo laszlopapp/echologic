@@ -4,13 +4,12 @@
 <% content_tag :div, :class => "header #{only_header ? (hide_content ? 'expandable active' : 'expandable') : 'active'}",
                'data-content' => '.expandable_content',
                :href => statement_node_url(statement_node, :expand => true) do %>
-  <%= content_tag :div, prev_next_buttons(statement_node), :class => 'header_buttons'%>
+  <%= content_tag :div, navigation_buttons(statement_node), :class => 'header_buttons'%>
 	<% content_tag :div, :class => 'header_link'  do %>
 		<%= statement_node_context_link(statement_node, @language_preference_list,
                                     (!only_header ? 'current' : 'back_to'), !only_header) %>
 		<% if statement_node.echoable? %>
 			<%= supporter_ratio_bar(statement_node,
-                              !only_header,
                               @previous_node,
                               @previous_type || statement_node.class.name) %>
 			<%= supporters_label(statement_node, !only_header) %>
