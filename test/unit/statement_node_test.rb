@@ -10,27 +10,12 @@ class StatementNodeTest < ActiveSupport::TestCase
 
     should belong_to :statement
     should belong_to :creator
-    should have_many :tao_tags
     should have_many :statement_documents
-    should have_many :tags
+    
 
-    # should be visited and supported
-
-    # validates no invalid states
-    [nil, "invalid state"].each do |value|
-      context("with state set to #{value}") do
-        setup {
-          @statement_node.send("editorial_state_id=", value)
-          assert ! @statement_node.valid?
-        }
-        should("include state in it's errors") {
-          assert @statement_node.errors["editorial_state_id"]
-        }
-      end
-    end
-
+    
     # check for validations (should_validate_presence_of didn't work)
-    %w(creator_id editorial_state_id).each do |attr|
+    %w(creator_id).each do |attr|
       context "with no #{attr} set" do
         setup { @statement_node.send("#{attr}=", nil)
           assert ! @statement_node.valid?

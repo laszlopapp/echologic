@@ -87,7 +87,7 @@ end
 
 Given /^the question was not published yet$/ do
   @question.editorial_state = StatementState["new"]
-  @question.save
+  @question.statement.save
 end
 
 Given /^the question has proposals$/ do
@@ -97,7 +97,7 @@ end
 
 Given /^the question has "([^\"]*)" for tags$/i do |tags|
   @question.topic_tags = tags
-  @question.save
+  @question.statement.save
 end
 
 Given /^the question has no proposals$/ do
@@ -147,7 +147,7 @@ end
 
 Given /^a "([^\"]*)" question in "([^\"]*)"$/ do |state, category|
   state = StatementState[state.downcase]
-  @question = Question.new(:editorial_state => state, :creator => @user)
+  @question = Question.new_instance(:editorial_state => state, :creator => @user)
   @question.add_statement_document({:title => "Am I a new statement?",
                                       :text => "I wonder what i really am! Maybe a statement? Or even a question?",
                                       :author => @user,
@@ -173,12 +173,12 @@ Given /^there is a proposal I have created$/ do
 end
 
 Given /^there is a proposal$/ do
-  @proposal = Question.find_all_by_editorial_state_id(StatementState['published'].id).last.children.proposals.first
+  @proposal = Question.all(:joins => :statement, :conditions => "statements.editorial_state_id = #{StatementState['published'].id}").last.children.proposals.first
 end
 
 Given /^the proposal was not published yet$/ do
   @proposal.editorial_state = StatementState["new"]
-  @proposal.save
+  @proposal.statement.save
 end
 
 Given /^I have "([^\"]*)" as decision making tags$/ do |tags|
