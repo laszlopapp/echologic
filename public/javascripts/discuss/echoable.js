@@ -1,30 +1,46 @@
-(function($, window, undefined){
+(function($){
 
-  $.fn.echoable = function(settings){
+  $.fn.echoable = function() {
 
-	  function Echoable(elem, s){
-		  var jsp = this;
-
-      initialise(s);
-
+	  function Echoable(element) {
+      var echoable = element;
+      var echo_button = echoable.find('.action_bar .echo_button');
+      var echo_label = echo_button.find('.label');
+      initialize();
 
 			/*
-       * Initializes echo button click handling on new statement forms
+       * Initializes an echoable statement in a form or in normal mode.
        */
-			function initialise(s){
-				if (elem.hasClass('new')) {
-					initNewStatementEchoButton(elem);
+			function initialize() {
+				if (echoable.hasClass('new')) {
+					initNewStatementEchoButton();
 				} else {
-					initEchoButton(elem);
+					initEchoButton();
 				}
-				
+
 		  }
 
+      function initLabelMessages() {
+        var messages = {
+          'supported'     : echo_label.attr('data-supported'),
+          'not_supported' : echo_label.attr('data-not-supported')
+        };
+        echo_label.data('messages', messages);
+        echo_label.removeAttr('data-supported').removeAttr('data-not-supported');
+        var state = echo_button.hasClass('supported') ? 'supported' : 'not_supported';
+        echo_label.text(echo_label.data('messages')[state]);
+			}
+
+
+      /****************************/
+      /* Forms for new statements */
+      /****************************/
+
 			// Auxiliary Functions
-      function initNewStatementEchoButton(element) {
-				initLabelMessages(element);
-				element.find('#echo_button').bind('click', function(){
-					var button = $(this).find('.new_record')
+      function initNewStatementEchoButton() {
+        initLabelMessages();
+				echo_button.bind('click', function(){
+					var button = $(this).find('.new_record');
 					var label = button.next();
           if (button.hasClass('not_supported')) {
             supportEchoButton(button);
@@ -36,84 +52,28 @@
         });
 			}
 
-      function initEchoButton(element) {
-				initLabelMessages(element);
-				
-				element.find('#echo_button').bind('mouseleave', function(){
-					$(this).removeClass('clicked').removeClass('pending');
-				});
-				
-				element.find('#echo_button').bind('click', function(){
-					var echo_button = $(this);
-					if(echo_button.hasClass('pending') || echo_button.hasClass('clicked')) {
-						return false;
-					} else {
-						echo_button.addClass('pending');
-						echo_button.addClass('clicked');
-					}
-					var button = echo_button.find('span.echo_icon');
-					var label = button.next();
-					if (button.hasClass('supported')) {
-						var to_remove = 'supported', to_add = 'not_supported';
-					} else {
-            var to_remove = 'not_supported', to_add = 'supported';
-					}
-					/* update image */
-					updateEchoButton(button, to_add, to_remove);
-					label.text(label.data('messages')[to_remove]);
-					$.ajax({
-			      url:      this.href,
-			      type:     'post',
-			      dataType: 'script',
-			      data:   { '_method': 'put' },
-						success: function() {
-							echo_button.removeClass('pending');
-						},
-						error: function() {
-							echo_button.removeClass('pending');
-							updateEchoButton(button, to_remove, to_add);
-							label.text(label.data('messages')[to_add]);
-						}
-			    });
-					return false;
-        });
-			}
-			
-			function initLabelMessages(element){
-				var desc = element.find('span.label');
-        var messages = {'supported' : desc.attr('data-supported'), 'not_supported' : desc.attr('data-not-supported')};
-        desc.data('messages', messages);
-        desc.removeAttr('data-supported');desc.removeAttr('data-not-supported');
-        var type = desc.prev().hasClass('supported') ? 'not_supported' : 'supported'
-        desc.text(desc.data('messages')[type]);
-			}
-
-			/*
-       * triggers all the visual events associated with a support from an echo statement
+      /*
+       * Triggers all the visual events associated with a support from an echo statement
        */
       function supportEchoButton(button) {
 				var form = button.parents('form.statement');
 				updateEchoButton(button, 'supported', 'not_supported');
-				info(form.find('.action_bar').data('messages')['supported']);
-        elem.find('#echo').val(true);
+				info(button.parent().data('messages')['supported']);
+        echoable.find('#echo').val(true);
         updateSupportersNumber(form,'1');
         updateSupportersBar(form, 'echo_indicator', 'no_echo_indicator', '10');
       }
 
 			/*
-       * triggers all the visual events associated with an unsupport from an echo statement
+       * Triggers all the visual events associated with an unsupport from an echo statement
        */
       function unsupportEchoButton(button) {
 				var form = button.parents('form.statement');
 				updateEchoButton(button, 'not_supported', 'supported');
-				info(form.find('.action_bar').data('messages')['not_supported']);
-        elem.find('#echo').val(false);
+				info(button.parent().data('messages')['not_supported']);
+        echoable.find('#echo').val(false);
         updateSupportersNumber(form,'0');
         updateSupportersBar(form, 'no_echo_indicator', 'echo_indicator', '0');
-      }
-
-			function updateEchoButton(button, classToAdd, classToRemove) {
-        button.removeClass(classToRemove).addClass(classToAdd);
       }
 
       function updateSupportersNumber(form, value) {
@@ -124,57 +84,101 @@
 
       function updateSupportersBar(form, classToAdd, classToRemove, ratio) {
         var old_supporter_bar = form.find('.supporters_bar');
-        var new_supporter_bar = $('<span></span>').attr('class', old_supporter_bar.attr('class')).addClass(classToAdd).removeClass(classToRemove).attr('alt', ratio);
+        var new_supporter_bar = $('<span></span>').attr('class', old_supporter_bar.attr('class')).
+                                addClass(classToAdd).removeClass(classToRemove).attr('alt', ratio);
         new_supporter_bar.attr('title', form.find('.supporters_label').text());
         old_supporter_bar.replaceWith(new_supporter_bar);
       }
 
 
+      /************************************/
+      /* For normal statements (not form) */
+      /************************************/
+
+      function initEchoButton() {
+        initLabelMessages();
+				echo_button.bind('click', function() {
+
+          // Abandon or proceed
+					if(echo_button.hasClass('pending') || echo_button.hasClass('clicked')) {
+						return false;
+					} else {
+						echo_button.addClass('clicked').addClass('pending');
+					}
+
+          // Icon
+          var to_remove, to_add;
+					if (echo_button.hasClass('supported')) {
+					  to_remove = 'supported';
+            to_add = 'not_supported';
+					} else {
+            to_remove = 'not_supported';
+            to_add = 'supported';
+					}
+					updateEchoButton(to_add, to_remove);
+
+          // Label
+					echo_label.text(echo_label.data('messages')[to_add]);
+					$.ajax({
+			      url:      echo_button.attr('href'),
+			      type:     'post',
+			      dataType: 'script',
+			      data:   { '_method': 'put' },
+						success: function() {
+							echo_button.removeClass('pending');
+						},
+						error: function() {
+							echo_button.removeClass('pending');
+							updateEchoButton(to_remove, to_add);
+							echo_label.text(echo_label.data('messages')[to_remove]);
+						}
+			    });
+					return false;
+        });
+
+        // Removing the clicked class
+        echo_button.bind('mouseleave', function() {
+					echo_button.removeClass('clicked');
+				});
+			}
+
+			function updateEchoButton(classToAdd, classToRemove) {
+        echo_button.removeClass(classToRemove).addClass(classToAdd);
+      }
+
+
 			// Public API
-      $.extend(jsp,
+      $.extend(this,
       {
-				reinitialise: function(s)
-        {
-          s = $.extend({}, s, settings);
-          initialise(s);
+				reinitialize: function() {
+          initialize();
         },
 				// API Functions
-				updateState: function (href, supporters_bar, supporters_label) {
-          elem.find('a#echo_button').attr('href', href);
-          elem.find('.supporters_bar:first').replaceWith(supporters_bar);
-          elem.find('.supporters_label').replaceWith(supporters_label);
+				updateState: function(href, supporters_bar, supporters_label) {
+          echo_button.attr('href', href);
+          echoable.find('.header .supporters_bar').replaceWith(supporters_bar);
+          echoable.find('.header .supporters_label').replaceWith(supporters_label);
           return this;
         },
-				loadEchoLabelMessages: function (messages) {
-          elem.find('.action_bar .label').data('messages', messages);
+				loadEchoLabelMessages: function(messages) {
+          echo_label.data('messages', messages);
           return this;
         },
-				loadEchoInfoMessages: function (messages) {
-          elem.find('.action_bar').data('messages', messages);
+				loadEchoInfoMessages: function(messages) {
+          echo_button.data('messages', messages);
           return this;
         }
 			});
-		};
+		}
 
-		$.fn.echoable.defaults = {
-      'animation_speed': 500
-    };
-
-	  // Pluginifying code...
-    settings = $.extend({}, $.fn.echoable.defaults, settings);
-
-		var ret;
-
-    var elem = $(this), api = elem.data('echoableApi');
-    if (api) {
-      api.reinitialise(settings);
+    var element = $(this);
+    var echoableApi = element.data('echoableApi');
+    if (echoableApi) {
+      echoableApi.reinitialize();
     } else {
-    api = new Echoable(elem, settings);
-      elem.data('echoableApi', api);
+      echoableApi = new Echoable(element);
+      element.data('echoableApi', echoableApi);
     }
-    ret = ret ? ret.add(elem) : elem;
-
-    return ret;
-
+    return element;
   };
-})(jQuery,this);
+})(jQuery);

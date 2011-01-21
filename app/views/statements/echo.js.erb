@@ -2,7 +2,7 @@
   info('<%=@info%>');
 <% end %>
 <% if defined? @error %>
-  info('<%=@error%>'); 
+  info('<%=@error%>');
 <% end %>
 
 
@@ -14,4 +14,4 @@ var new_supporters_label = "<%= escape_javascript(supporters_label(@statement_no
 
 element.data('echoableApi').updateState('<%= href %>', new_supporters_bar, new_supporters_label);
 
-element.data('api').reinitialise();
+//element.data('api').reinitialise();
