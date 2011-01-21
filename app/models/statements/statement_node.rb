@@ -267,44 +267,93 @@ class StatementNode < ActiveRecord::Base
 
     # gets a set of statement nodes given an hash of arguments
     def search_statement_nodes(opts={})
-
-      opts[:readonly] = false
-      opts[:select] ||= "DISTINCT statement_nodes.*"
-
-      # join clauses
-      opts[:joins] =  "LEFT JOIN statement_documents d       ON statement_nodes.statement_id = d.statement_id "
-      opts[:joins] << "LEFT JOIN tao_tags tt                 ON (tt.tao_id = statement_nodes.id and tt.tao_type = 'StatementNode') "
-      opts[:joins] << "LEFT JOIN tags t                      ON tt.tag_id = t.id "
-      opts[:joins] << "LEFT JOIN echos e                     ON statement_nodes.echo_id = e.id"
-
-
-      opts[:conditions] ||= []
-      
-      # building the where clause
-      
-      or_conditions = ""
       search_term = opts.delete(:search_term)
-      if !search_term.blank?
-        terms = search_term.split(/[,\s]+/)
-        or_conditions << %w(d.title d.text).map{|attr|sanitize_sql(["#{attr} LIKE ?", "%#{search_term}%"])}.join(" OR ")
-        or_conditions << " OR #{terms.map{|term| term.length > 3 ? sanitize_sql(["t.value LIKE ?","%#{term}%"]) :
-                                                                   sanitize_sql(["t.value = ?",term])}.join(" OR ")}"
+      if (!search_term.blank?)
+        tag_clause = "SELECT DISTINCT s.* FROM statement_nodes s 
+          LEFT JOIN tao_tags tt                 ON (tt.tao_id = s.id and tt.tao_type = 'StatementNode')
+          LEFT JOIN statement_documents d       ON s.statement_id = d.statement_id
+          LEFT JOIN tags t                      ON tt.tag_id = t.id
+          LEFT JOIN echos e                     ON s.echo_id = e.id
+          WHERE 
+        "
+        
+        tags_query = ''
+        if !search_term.blank?
+          tags_query = []
+          terms = search_term.split(/[,\s]+/)
+          terms.each do |term|
+            clause = tag_clause + sanitize_sql(["(t.value LIKE ? OR t.value = ?)", "%#{term}%", term])
+            clause << sanitize_sql([" AND d.language_id IN (?)", opts.delete(:language_ids)]) if opts[:language_ids]
+            tags_query << clause
+          end
+          
+        end
+        tags_query = tags_query.join(" UNION ALL ")
+        tags_query = "SELECT nodes_by_tag_count.*, COUNT(nodes_by_tag_count.id) count FROM (#{tags_query}) nodes_by_tag_count " +
+                     "LEFT JOIN echos e               ON nodes_by_tag_count.echo_id = e.id" + 
+                     " GROUP BY nodes_by_tag_count.id order by count DESC, e.supporter_count DESC, nodes_by_tag_count.created_at ASC;"
+        
+        statement_nodes_by_tags = find_by_sql tags_query
+      else
+        statement_nodes_by_tags = []
       end
+      title_text_query = "SELECT DISTINCT  s.* FROM statement_nodes s
+        LEFT JOIN statement_documents d       ON s.statement_id = d.statement_id
+        LEFT JOIN echos e                     ON s.echo_id = e.id
+        WHERE "
+      title_text_conditions = []
+      title_text_conditions << sanitize_sql(["(d.title LIKE ? OR d.text = ?)", "%#{search_term}%", search_term]) if !search_term.blank?
+      title_text_conditions << sanitize_sql(["s.type = '#{opts.delete(:type)}'"]) if opts[:type]
+      title_text_conditions << sanitize_sql(["s.id NOT IN (?)", statement_nodes_by_tags.map(&:id)]) if !statement_nodes_by_tags.empty?
+      title_text_conditions << sanitize_sql(["s.editorial_state_id = ?", StatementState['published'].id]) unless opts.delete(:show_unpublished)
+      title_text_conditions << sanitize_sql(["d.language_id IN (?)", opts.delete(:language_ids)]) if opts[:language_ids]
+      title_text_conditions << sanitize_sql(["s.drafting_state IN (?)", opts.delete(:drafting_states)]) if opts[:drafting_states]
       
+      title_text_query << title_text_conditions.join(" AND ")
       
-      # Filter for statement type
-      opts[:conditions] << "statement_nodes.type = '#{opts.delete(:type)}'" if opts[:type]
-      opts[:conditions] << sanitize_sql(["statement_nodes.editorial_state_id = ?", StatementState['published'].id]) unless opts.delete(:show_unpublished)
-      opts[:conditions] << sanitize_sql(["d.language_id IN (?)", opts.delete(:language_ids)]) if opts[:language_ids]
-      opts[:conditions] << sanitize_sql(["statement_nodes.drafting_state IN (?)", opts.delete(:drafting_states)]) if opts[:drafting_states]
-      # Constructing the where clause
-      opts[:conditions] << "(#{or_conditions})" if !or_conditions.blank?
-      opts[:conditions] = opts[:conditions].join(" AND ")
+      title_text_query << " ORDER BY e.supporter_count DESC, s.created_at ASC;"
       
-      # Building the order clause
-      opts[:order] ||= "e.supporter_count DESC, statement_nodes.created_at DESC"
+      statement_nodes_by_title_and_text = find_by_sql title_text_query
       
-      scoped opts
+      statement_nodes_by_title_and_text + statement_nodes_by_tags
+      
+#      opts[:readonly] = false
+#      opts[:select] ||= "DISTINCT statement_nodes.*"
+#
+#      # join clauses
+#      opts[:joins] =  "LEFT JOIN statement_documents d       ON statement_nodes.statement_id = d.statement_id "
+#      opts[:joins] << "LEFT JOIN tao_tags tt                 ON (tt.tao_id = statement_nodes.id and tt.tao_type = 'StatementNode') "
+#      opts[:joins] << "LEFT JOIN tags t                      ON tt.tag_id = t.id "
+#      opts[:joins] << "LEFT JOIN echos e                     ON statement_nodes.echo_id = e.id"
+#
+#
+#      opts[:conditions] ||= []
+#      
+#      # building the where clause
+#      
+#      or_conditions = ""
+#      search_term = opts.delete(:search_term)
+#      if !search_term.blank?
+#        terms = search_term.split(/[,\s]+/)
+#        or_conditions << %w(d.title d.text).map{|attr|sanitize_sql(["#{attr} LIKE ?", "%#{search_term}%"])}.join(" OR ")
+#        or_conditions << " OR #{terms.map{|term| term.length > 3 ? sanitize_sql(["t.value LIKE ?","%#{term}%"]) :
+#                                                                   sanitize_sql(["t.value = ?",term])}.join(" OR ")}"
+#      end
+#      
+#      
+#      # Filter for statement type
+#      opts[:conditions] << "statement_nodes.type = '#{opts.delete(:type)}'" if opts[:type]
+#      opts[:conditions] << sanitize_sql(["statement_nodes.editorial_state_id = ?", StatementState['published'].id]) unless opts.delete(:show_unpublished)
+#      opts[:conditions] << sanitize_sql(["d.language_id IN (?)", opts.delete(:language_ids)]) if opts[:language_ids]
+#      opts[:conditions] << sanitize_sql(["statement_nodes.drafting_state IN (?)", opts.delete(:drafting_states)]) if opts[:drafting_states]
+#      # Constructing the where clause
+#      opts[:conditions] << "(#{or_conditions})" if !or_conditions.blank?
+#      opts[:conditions] = opts[:conditions].join(" AND ")
+#      
+#      # Building the order clause
+#      opts[:order] ||= "e.supporter_count DESC, statement_nodes.created_at DESC"
+#      
+#      scoped opts
     end
 
 

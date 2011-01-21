@@ -32,7 +32,7 @@
 		      /* get keys for comparison */
 		      var bid_keys = $.map(bids_stack, function(a) {
 		        var key = a.substring(0, 2);
-		        return key!='fq' ? key : a.substring(0, a.length);
+		        return key!='fq' ? key : a.substring(2, a.length);
 		      });
 		      /* get links that must vanish from the breadcrumbs */
 		      var links_to_delete = $(this).parent().nextAll().map(function(){
@@ -45,6 +45,7 @@
 		      id_links_to_delete = $.map(links_to_delete, function(a){
 		        return a.replace(/[^0-9]+/, '');
 		      });
+
 		      new_bids = $.grep(bids_stack, function(a, index){
 		        return $.inArray(bid_keys[index], id_links_to_delete) == -1;
 		      });
@@ -143,17 +144,21 @@
 		        }
 		      }).get();
 
-	       /* delete entries that do not belong to the breadcrumbs' stack */
-		     var to_remove = [];
+		      /* delete entries that do not belong to the breadcrumbs' stack */
+		      var to_remove = [];
 		      $.map(visible_bids, function(a, index) {
 		       if($.inArray(a, bid_keys) == -1) {
-		         to_remove.push($("#breadcrumbs a").eq(index).parent());
+		         to_remove.push($("#breadcrumbs a").eq(index).attr('id'));
 		       }
 		      });
 
-		      $.each(to_remove, function(){
+					var to_delete = $("#breadcrumbs").data('to_delete');
+					if (to_delete) {$.merge(to_remove, to_delete);}
+					$("#breadcrumbs").data('to_delete', to_remove);
+
+		      /*$.each(to_remove, function(){
 		        this.remove();
-		      });
+		      });*/
 
 		      /* get bids that are not visible (don't repeat yourself) */
 		      var bids_to_load = $.grep(bids_stack, function(a, index){
