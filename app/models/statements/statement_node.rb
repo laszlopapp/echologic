@@ -4,7 +4,6 @@ class StatementNode < ActiveRecord::Base
   acts_as_subscribeable
   acts_as_nested_set :scope => :root_id
 
-
   alias_attribute :target_id, :id
 
   def target_statement
@@ -100,8 +99,8 @@ class StatementNode < ActiveRecord::Base
     self.editorial_state = StatementState["published"]
     self.created_at = Time.now
   end
-  
-  
+
+
   # Initializes this statement node's statement
   def set_statement(attrs)
     self.statement = Statement.new(attrs)
@@ -175,7 +174,7 @@ class StatementNode < ActiveRecord::Base
   def child_statements(language_ids = nil, type = self.class.children_types.first.to_s, for_session = false)
     return type.constantize.statements_for_parent(self.target_id, language_ids, self.draftable?, for_session)
   end
-  
+
   # Collects a filtered list of all siblings statements
   #
   # for_session argument: when true, returns a list of ids + the "add_type" teaser name
@@ -202,7 +201,7 @@ class StatementNode < ActiveRecord::Base
     children = child_statements(language_ids, type)
     type_class.paginate_statements(children, page, per_page)
   end
- 
+
   private
 
   #################
@@ -230,7 +229,7 @@ class StatementNode < ActiveRecord::Base
     def statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
       do_statements_for_parent(parent_id, language_ids, filter_drafting_state, for_session)
     end
-    
+
     # Aux Function: gets a set of children given a certain parent (used above)
     def do_statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
       opts = {}
@@ -242,7 +241,7 @@ class StatementNode < ActiveRecord::Base
       opts[:conditions] << drafting_conditions if filter_drafting_state
       opts[:order] = "e.supporter_count DESC, statement_nodes.created_at DESC"
       statements = []
-      
+
       if for_session
         opts[:select] = "DISTINCT statement_nodes.id, statement_nodes.question_id"
         statements = self.scoped(opts).map{|s| s.question_id.nil? ? s.id : s.question_id}
@@ -258,7 +257,7 @@ class StatementNode < ActiveRecord::Base
     def drafting_conditions
       ''
     end
-    
+
     def children_conditions(parent_id)
       sanitize_sql(["statement_nodes.type = ? AND statement_nodes.parent_id = ? ", self.name, parent_id])
     end
@@ -269,14 +268,14 @@ class StatementNode < ActiveRecord::Base
     # gets a set of statement nodes given an hash of arguments
     def search_statement_nodes(opts={})
       search_term = opts.delete(:search_term)
-      
-      tag_clause = "SELECT DISTINCT s.id FROM statement_nodes s 
+
+      tag_clause = "SELECT DISTINCT s.id FROM statement_nodes s
         LEFT JOIN tao_tags tt                 ON (tt.tao_id = s.id and tt.tao_type = 'StatementNode')
         LEFT JOIN statement_documents d       ON s.statement_id = d.statement_id
         LEFT JOIN tags t                      ON tt.tag_id = t.id
-        WHERE 
+        WHERE
       "
-      
+
       tags_query = ''
       and_conditions = []
       and_conditions << sanitize_sql(["s.type = '#{opts.delete(:type)}'"]) if opts[:type]
@@ -293,11 +292,11 @@ class StatementNode < ActiveRecord::Base
         end
         tags_query = tags_query.join(" UNION ALL ")
         statements_query = "SELECT statement_nodes.* " +
-                           "FROM (#{tags_query}) statement_node_ids " + 
+                           "FROM (#{tags_query}) statement_node_ids " +
                            "LEFT JOIN statement_nodes ON statement_nodes.id = statement_node_ids.id " +
-                           "LEFT JOIN echos e ON e.id = statement_nodes.echo_id " + 
+                           "LEFT JOIN echos e ON e.id = statement_nodes.echo_id " +
                            "GROUP BY statement_node_ids.id " +
-                           "ORDER BY COUNT(statement_node_ids.id) DESC,e.supporter_count DESC, statement_nodes.created_at ASC;" 
+                           "ORDER BY COUNT(statement_node_ids.id) DESC,e.supporter_count DESC, statement_nodes.created_at ASC;"
       else
         statements_query = "SELECT DISTINCT s.* from statement_nodes s
                             LEFT JOIN statement_documents d ON s.statement_id = d.statement_id
@@ -311,14 +310,14 @@ class StatementNode < ActiveRecord::Base
 
     def default_scope
       { :include => :echo,
-        :order => %Q[echos.supporter_count DESC, statement_nodes.created_at ASC] }
+        :order => %Q[echos.supporter_count DESC, statement_nodes.created_at DESC] }
     end
 
     ###################################
     # EXPANDABLE CHILDREN GUI HELPERS #
     ###################################
 
-    # 
+    #
     # visibility = false: returns an array of symbols of the possible children types
     # visibility = true: returns an array of sub arrays representing pairs [type: symbol class , visibility : true/false]
     # default: whether we should take out from or let the default children types in the array
@@ -336,7 +335,7 @@ class StatementNode < ActiveRecord::Base
       children_types
     end
 
-    
+
     # PARTIAL PATHS #
     def children_list_template
       "statements/children_list"
