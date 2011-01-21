@@ -1,119 +1,111 @@
 
-
-/* -------------- */
+/******************/
 /* Pilot projects */
-/* -------------- */
+/******************/
 
 #echo.tab_content_container, #pilot_projects.tab_content_container {
   width: 945px;
 }
 
-.function_button img{
+.function_button img {
   border: medium none;
 }
 
-/* ------ */
-/* Search */
-/* ------ */
 
-#discuss_search_container .new_question {
-  position: absolute;
-  top: -25px;
-}
+/****************/
+/* My Questions */
+/****************/
 
-#discuss_search_container.search_container {
-  margin:   35px auto 25px;
-}
-
-#function_container .simple_header_block h2 {
-  color: #21587f !important;
-  border-bottom: 1px solid #a8a8a8;
-  padding-bottom: 6px;
-  margin-bottom: 15px;
-}
-
-#function_container .search_category {
-  position: absolute;
-  left: 66px;
-  top: 6px;
-  width: 195px;
-  font-weight: bold;
-  text-align: center;
-  cursor: default;
-}
-
-#discuss_results .box_header_icon {
-  background: url(../images/page/box/box_icon_discuss.png) repeat-x left top;
-}
-
-#discuss_results .ttLink img {
-  color: #7BB031;
-}
-
-
-/************************/
-/****** lwRTE ***********/
-/************************/
-
-form.formtastic fieldset .rte-zone {
-  color: #21587f;
-}
-
-form.formtastic fieldset .rte-zone li {
+#my_issues .new_question {
+  width: 55px;
+  height: 55px;
+  margin: 40px 0 0 37px !important;
+  display: inline-block;
   float: left;
-  width: 25px;
-  margin: 5px 2px;
-	padding-left: 0px;
+  cursor: pointer;
 }
 
-form.formtastic fieldset .rte-zone li.separator {
-  border-right: 0px;
-  width: 1px;
-
+#question_list a.avatar_holder{
+	float: left;
 }
 
-form.formtastic fieldset ol li.text .rte-zone textarea {
-  border: 0px;
-  padding: 0px;
-}
-
-.rte-resizer {
-  display: none;
-}
-
-.document_frame {
-  color: #21587F;
-}
-
-/* ------------*/
-/* breadcrumbs */
-/* ----------- */
-
-.breadcrumbs {
-	padding:7px 10px 7px;
-	font-size: 12px;
-	height: 40px;
+#question_list li.question {
 	width: 100%;
-	margin-bottom: 10px;
+  height: 52px;
+  margin: 4px 0;
+  display: inline-block;
+  clear: both;
 }
 
-.breadcrumbs .breadcrumb {
-	float:left;
-	width: 245px;
-	overflow: hidden;
+#question_list a.statement_link {
+	float: left;
+	width: 290px;
+  height: 52px;
+	margin: -2px 5px 0 0;
+	padding: 0;
+  overflow: hidden;
 }
 
-.breadcrumbs a.statement_link {
-	padding-right: 20px;
+#question_list .tags_list {
+	float: left;
+	padding-left: 20px !important;
+	width: 195px;
+	margin-top: -2px;
+  height: 52px;
+  overflow: hidden;
 }
 
-.breadcrumbs span.delimitator {
-	padding-right: 20px;
+#question_list .buttons {
+	float: right;
+	width: 200px;
+  text-align: center;
 }
 
-/* ----------------------------- */
+#question_list a.publish_button {
+	background: url("../images/page/publish_button_200.png") no-repeat scroll left top transparent;
+	border: medium none;
+	color: #21587F;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: bold;
+	height: 25px;
+	padding: 12px 0 4px 15px;
+	text-align: center;
+	width: 200px !important;
+  position: relative;
+  top: -5px;
+}
+
+#question_list a.publish_button:hover {
+  background-position: 0 -43px;
+}
+
+#question_list span.publish_button {
+  background:transparent url(../images/page/icons/publish_button.png) no-repeat scroll 0 0;
+  background-position: 0 -17px;
+  height: 17px;
+  line-height: 17px;
+  display: inline-block;
+  padding-left: 20px;
+}
+
+#my_issues .pagination {
+	width: 100%;
+}
+
+#my_issues .avatar_holder img {
+  max-width: 45px;
+  max-height: 45px;
+  border: 2px solid #7bb031;
+}
+
+#my_issues .no_questions {
+  margin-top: 30px;
+}
+
+/*********************************/
 /* New and Edit Statements forms */
-/* ----------------------------- */
+/*********************************/
 
 #statements form.new .simple_header_block h2,
 #statements form.edit .simple_header_block h2 {
@@ -184,9 +176,259 @@ form.statement fieldset ol span.defaultText {
   display: inline-block;
 }
 
-/* ------- */
-/* HEADER  */
-/* ------- */
+/*********/
+/* lwRTE */
+/*********/
+
+form.formtastic fieldset .rte-zone {
+  color: #21587f;
+}
+
+form.formtastic fieldset .rte-zone li {
+  float: left;
+  width: 25px;
+  margin: 5px 2px;
+	padding-left: 0;
+}
+
+form.formtastic fieldset .rte-zone li.separator {
+  border-right: 0;
+  width: 1px;
+
+}
+
+form.formtastic fieldset ol li.text .rte-zone textarea {
+  border: 0;
+  padding: 0;
+}
+
+.rte-resizer {
+  display: none;
+}
+
+.document_frame {
+  color: #21587F;
+}
+
+
+/**********/
+/* Search */
+/**********/
+
+#discuss_search_container .new_question {
+  position: absolute;
+  top: -25px;
+}
+
+#discuss_search_container.search_container {
+  margin:   35px auto 25px;
+}
+
+#function_container .simple_header_block h2 {
+  color: #21587f !important;
+  border-bottom: 1px solid #a8a8a8;
+  padding-bottom: 6px;
+  margin-bottom: 15px;
+}
+
+#function_container .search_category {
+  position: absolute;
+  left: 66px;
+  top: 6px;
+  width: 195px;
+  font-weight: bold;
+  text-align: center;
+  cursor: default;
+}
+
+#discuss_results .box_header_icon {
+  background: url(../images/page/box/box_icon_discuss.png) repeat-x left top;
+}
+
+#discuss_results .ttLink img {
+  color: #7BB031;
+}
+
+#discuss_results .ttLink img {
+	color: #7BB031;
+}
+
+/***************/
+/* Breadcrumbs */
+/***************/
+
+.breadcrumbs {
+	padding:7px 10px 7px;
+	font-size: 12px;
+	height: 40px;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.breadcrumbs .breadcrumb {
+	float:left;
+	width: 245px;
+	overflow: hidden;
+}
+
+.breadcrumbs a.statement_link {
+	padding-right: 20px;
+}
+
+.breadcrumbs span.delimitator {
+	padding-right: 20px;
+}
+
+/**************/
+/* Action bar */
+/**************/
+
+#statements .action_bar {
+  width: 160px;
+  clear: both;
+  float: left;
+  position: relative;
+  left: 7px;
+  top: 25px;
+  padding: 0 0 17px;
+  text-align: center;
+  margin: 0 0 20px;
+}
+
+.action_bar .label {
+  color: #21587F;
+  font-size: 14px;
+  font-weight: bold;
+  position: relative;
+  top: 3px;
+  display: block;
+}
+
+/***************/
+/* echo button */
+/***************/
+
+.action_bar .echo_button {
+  width:    160px;
+  height:   120px;
+  display:  block;
+  background-image: url(../images/page/discuss/echo_button.png);
+  cursor: pointer;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.echo_button:hover { background-position: 0 -120px; }
+
+.echo_button_icon {
+  height:   85px;
+  width:    85px;
+  display:  inline-block;
+  background-image: url(../images/page/discuss/echo_button_icon.png);
+  cursor: pointer;
+  margin: 3px 0 0 4px;
+}
+
+.echo_button:hover.not_supported .echo_button_icon { background-position: 0 -85px; }
+.echo_button:hover.not_supported.pending .echo_button_icon,
+.echo_button:hover.not_supported.clicked .echo_button_icon
+{ background-position: 0 0; }
+.echo_button.supported .echo_button_icon { background-position: 0 -170px; }
+.echo_button:hover.supported .echo_button_icon { background-position: 0 -255px; }
+.echo_button:hover.supported.pending .echo_button_icon,
+.echo_button:hover.supported.clicked .echo_button_icon
+{ background-position: 0 -170px; }
+
+.echo_button .error_lamp {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 160px;
+  height: 120px;
+  background: #F00;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  display: none;
+}
+
+/****************************/
+/* Add New statement button */
+/****************************/
+
+#statements .action_bar .add_new_button {
+  height:   80px;
+  width:    160px;
+  display:  block;
+  background-image: url(../images/page/discuss/add_new_button.png);
+  cursor: pointer;
+}
+
+#statements .action_bar .add_new_button:hover {
+  background-position: 0 80px;
+}
+
+.add_new_button_icon {
+	height:   42px;
+  width:    42px;
+  display:  inline-block;
+  background-image: url(../images/page/discuss/add_new_button_icon.png);
+  cursor: pointer;
+	margin-top: 9px;
+}
+
+.add_new_button:hover .add_new_button_icon {
+  background-position: 0 42px;
+}
+
+/***************************/
+/* Add new statement panel */
+/***************************/
+
+.add_new_panel {
+  width: 520px;
+	border: 3px solid #BBB;
+	background: #FFF;
+  position: absolute;
+	top: 37px;
+	left: 136px;
+	z-index: 5;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  text-align: left;
+}
+
+.add_new_panel .panel_header {
+	background: none;
+  width: 400px;
+  margin: 16px 0 16px 60px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.add_new_panel .block_separator {
+	height: 1px;
+	width: 100%;
+	background: #DDD;
+  margin: 0;
+  border: none;
+}
+
+.add_new_panel .container {
+  margin: 20px 0 22px;
+}
+
+.add_new_panel .resource_link {
+	color: #21587F;
+  text-decoration: underline;
+	margin-left: 25px;
+	padding-left: 35px;
+}
+
+/*********************/
+/* Statement header  */
+/*********************/
 
 #statements .header {
   background:  url(../images/page/discuss/stack_separator.png) no-repeat scroll 7px 0;
@@ -207,7 +449,7 @@ form.statement fieldset ol span.defaultText {
   display: inline-block;
   float: left;
   position: relative;
-  top: 4px;
+  top: 3px;
   left: 49px;
   height: 30px;
   overflow: visible;
@@ -225,10 +467,6 @@ form.statement fieldset ol span.defaultText {
   margin-bottom: 4px;
 }
 
-#statements .add_header_link {
-	margin-top: 5px;
-}
-
 #statements .header_link .statement_link {
   background-position: 0 2px;
 }
@@ -240,7 +478,7 @@ form.statement fieldset ol span.defaultText {
   font-weight: bold;
   text-decoration: none;
 	padding-right: 21px !important;
-	max-height: 590px;
+	max-width: 550px;
 }
 
 #statements .header .header_link a:hover {
@@ -251,7 +489,10 @@ form.statement fieldset ol span.defaultText {
   color: #7bb031;
 }
 
+/*******************************/
 /* Prev/Next Statement buttons */
+/*******************************/
+
 .header_buttons .prev_stmt, .header_buttons .next_stmt {
   display: inline-block;
   width: 37px;
@@ -305,206 +546,13 @@ form.statement fieldset ol span.defaultText {
   cursor: default;
 }
 
-/* ------- */
-/* Content */
-/* ------- */
+/*********************/
+/* Statement content */
+/*********************/
 
 #statements .content {
   margin-top: 10px;
 }
-
-/* ---------- */
-/* Action bar */
-/* ---------- */
-
-#statements .action_bar {
-  width: 160px;
-  clear: both;
-  float: left;
-  position: relative;
-  left: 7px;
-  top: 25px;
-  padding: 0 0 17px;
-  text-align: center;
-  margin: 0 0 20px;
-}
-
-/* echo button */
-.action_bar .echo_button {
-  height:   120px;
-  width:    160px;
-  display:  block;
-  background-image: url(../images/page/discuss/echo_button.png);
-  cursor: pointer;
-  margin-bottom: 20px;
-}
-
-.echo_button:hover { background-position: 0 -120px; }
-/*.echo_button:hover.pending,
-.echo_button:hover.clicked { background-position: 0 0; }*/
-
-.echo_button_icon {
-  height:   85px;
-  width:    85px;
-  display:  inline-block;
-  background-image: url(../images/page/discuss/echo_button_icon.png);
-  cursor: pointer;
-  margin: 3px 0 0 4px;
-}
-
-.action_bar .label {
-  color: #21587F;
-  font-size: 14px;
-  font-weight: bold;
-  position: relative;
-  top: 3px;
-  display: block;
-}
-
-.echo_button:hover.not_supported .echo_button_icon { background-position: 0 -85px; }
-.echo_button:hover.not_supported.pending .echo_button_icon,
-.echo_button:hover.not_supported.clicked .echo_button_icon
-{ background-position: 0 0; }
-.echo_button.supported .echo_button_icon { background-position: 0 -170px; }
-.echo_button:hover.supported .echo_button_icon { background-position: 0 -255px; }
-.echo_button:hover.supported.pending .echo_button_icon,
-.echo_button:hover.supported.clicked .echo_button_icon
-{ background-position: 0 -170px; }
-
-
-/* Add New button */
-
-#statements .action_bar .add_new_button {
-  height:   80px;
-  width:    160px;
-  display:  block;
-  background-image: url(../images/page/discuss/add_new_button.png);
-  cursor: pointer;
-}
-
-#statements .action_bar .add_new_button:hover {
-  background-position: 0 80px;
-}
-
-.add_new_button_icon {
-	height:   42px;
-  width:    42px;
-  display:  inline-block;
-  background-image: url(../images/page/discuss/add_new_button_icon.png);
-  cursor: pointer;
-	margin-top: 9px;
-}
-
-.add_new_button:hover .add_new_button_icon {
-  background-position: 0 42px;
-}
-
-/* Add new panel */
-.add_new_panel {
-  width: 520px;
-	border: 3px solid #BBB;
-	background: #FFF;
-  position: absolute;
-	top: 37px;
-	left: 136px;
-	z-index: 5;
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-  border-radius: 15px;
-  text-align: left;
-}
-
-
-.add_new_panel .panel_header {
-	background: none;
-  width: 400px;
-  margin: 16px 0 16px 60px;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.add_new_panel .block_separator {
-	height: 1px;
-	width: 100%;
-	background: #DDD;
-  margin: 0;
-  border: none;
-}
-
-.add_new_panel .container {
-  margin: 20px 0 22px;
-}
-
-.add_new_panel .resource_link {
-	color: #21587F;
-  text-decoration: underline;
-	margin-left: 25px;
-	padding-left: 35px;
-}
-
-
-/* --------- */
-/*  Authors  */
-/* --------- */
-
-.statement .authors .next_button {
-	background-image: url("../images/next-horizontal.png");
-}
-.statement .authors .prev_button {
-  background-image: url("../images/prev-horizontal.png");
-}
-
-.statement .results_container,
-.statement .results_container ul {
-	min-height: 0px;
-	width: 0px;
-}
-
-.statement .authors .jcarousel-clip-horizontal {
-	width: 660px;
-}
-
-.statement .authors .jcarousel-container {
-	width: 660px;
-}
-
-.statement .authors .jcarousel-item {
-	display: none;
-}
-
-.statement .authors .author {
-	width: 229px;
-	height: 50px;
-	display: inline-block;
-}
-
-.statement .authors .author img {
-  float: left;
-	border:2px solid #7BB031;
-	max-height:45px;
-	max-width:45px;
-}
-
-.statement .authors .author .name {
-	position: relative;
-	top: 8px;
-	font-size: 14px;
-  font-weight: bold;
-	overflow: hidden;
-	left:10px;
-}
-
-.statement .authors .author .location_orga {
-  position: relative;
-	top: 8px;
-	font-size: 14px;
-	overflow: hidden;
-	left: 10px;
-}
-
-/* --------- */
-/* Main area */
-/* --------- */
 
 .discuss_right_block {
   margin-left: 190px;
@@ -565,8 +613,59 @@ form.statement fieldset ol span.defaultText {
   font-weight: normal; /* Just to fix some old texts generated with strong. WYSIWYG uses <b> tag - unfortunately. */
 }
 
+/***********************/
+/* Children statements */
+/***********************/
 
+.statement .children {
+	display: block;
+}
+
+.children_pagination, .children_pagination .jspPane, .doubles_list, .doubles_list .jspPane {
+  width: 785px !important;
+}
+
+.doubles_list .children_pagination {
+	float: left;
+	width: 386px !important;
+  display: block;
+}
+
+.children_pagination ul {
+  min-height: 145px;
+}
+
+.children_pagination li {
+  margin: 4px 0 0;
+}
+
+.children .text_button {
+  margin-left: 0;
+}
+
+.children a.statement_link {
+	width: 530px;
+}
+
+.children .doubles_list a.statement_link {
+  width: 240px;
+}
+
+.children_pagination, .doubles_list {
+  overflow: hidden;
+}
+
+.children_pagination .jspVerticalBar, .doubles_list .jspVerticalBar {
+  right: 7px;
+}
+
+#statements .jspHorizontalBar {
+  display: none;
+}
+
+/*******************/
 /* echo indicators */
+/*******************/
 
 .echo_indicator, .no_echo_indicator {
   height: 12px !important;
@@ -585,6 +684,7 @@ form.statement fieldset ol span.defaultText {
   border: 1px solid #A9B6BD;
   -moz-border-radius: 12px;
   -webkit-border-radius: 12px;
+  border-radius: 12px;
 }
 
 .no_echo_indicator:hover  {
@@ -592,19 +692,26 @@ form.statement fieldset ol span.defaultText {
 }
 
 .doubles_list .echo_indicator, .doubles_list .no_echo_indicator {
-	margin: 1px 17px 0;
+	margin: 3px 17px 0;
   width: 85px;
   height: 11px !important;
 }
 
+/*****************************/
 /* Statement links & buttons */
+/*****************************/
 
 .add_new_button {
   vertical-align: top;
 }
 
 .add_header_link .add_new_button {
+  font-size: 18px;
   margin-left: 0;
+  padding-left: 22px;
+  background-position: 0 3px;
+  position: relative;
+  top: -2px;
 }
 
 a.statement_link {
@@ -651,7 +758,7 @@ a.statement_link:hover {
 }
 
 .contra_argument_link {
-  background:transparent url(../images/page/discuss/contra_argument_16.png) no-repeat scroll 0 0;
+  background:transparent url(../images/page/discuss/contra_argument_16.png) no-repeat scroll 0 2px;
 }
 
 .follow_up_question_link {
@@ -722,7 +829,9 @@ a.statement_link:hover {
  background-position: 0 -55px;
 }
 
+/*****************/
 /* Incorporation */
+/*****************/
 
 #approved_ip {
   border-top: 1px dashed #CCC;
@@ -755,71 +864,9 @@ a.statement_link:hover {
   margin-top: 10px;
 }
 
-
-/* ------------------- */
-/* Children statements */
-/* ------------------- */
-
-.statement .children {
-	display: block;
-}
-
-.children_pagination, .children_pagination .jspPane, .doubles_list, .doubles_list .jspPane {
-  width: 785px !important;
-}
-
-.doubles_list .children_pagination {
-	float: left;
-	width: 386px !important;
-  display: block;
-}
-
-.children_pagination ul {
-  min-height: 145px;
-}
-
-.children_pagination li {
-  margin: 4px 0 0;
-}
-
-.children .text_button {
-  margin-left: 0;
-}
-
-.children a.statement_link {
-	width: 530px;
-}
-
-.children .doubles_list a.statement_link {
-  width: 240px;
-}
-
-.children_pagination, .doubles_list {
-  overflow: hidden;
-}
-
-.children_pagination .jspVerticalBar, .doubles_list .jspVerticalBar {
-  right: 7px;
-}
-
-#statements .jspHorizontalBar {
-  display: none;
-}
-
-/* Others */
-#echo.tab_content_container, #pilot_projects.tab_content_container {
-  width: 945px;
-}
-
-/* Title in discuss listing */
-#discuss_results .ttLink img{
-	color:#7BB031;
-}
-
-
-/* ------------------- */
-/* Translations        */
-/* ------------------- */
+/***************/
+/* Translation */
+/***************/
 
 .translation_box_class {
   height: 55px;
@@ -881,7 +928,9 @@ a.statement_link:hover {
   top: 11px;
 }
 
+/********************/
 /* Translation form */
+/********************/
 
 .translation form {
   margin-top: 15px;
@@ -940,6 +989,65 @@ form.statement fieldset ol li.tags_container {
   top: -2px;
 }
 
+/*************/
+/*  Authors  */
+/*************/
+
+.statement .authors .next_button {
+	background-image: url("../images/next-horizontal.png");
+}
+.statement .authors .prev_button {
+  background-image: url("../images/prev-horizontal.png");
+}
+
+.statement .results_container,
+.statement .results_container ul {
+	min-height: 0px;
+	width: 0px;
+}
+
+.statement .authors .jcarousel-clip-horizontal {
+	width: 660px;
+}
+
+.statement .authors .jcarousel-container {
+	width: 660px;
+}
+
+.statement .authors .jcarousel-item {
+	display: none;
+}
+
+.statement .authors .author {
+	width: 229px;
+	height: 50px;
+	display: inline-block;
+}
+
+.statement .authors .author img {
+  float: left;
+	border:2px solid #7BB031;
+	max-height:45px;
+	max-width:45px;
+}
+
+.statement .authors .author .name {
+	position: relative;
+	top: 8px;
+	font-size: 14px;
+  font-weight: bold;
+	overflow: hidden;
+	left:10px;
+}
+
+.statement .authors .author .location_orga {
+  position: relative;
+	top: 8px;
+	font-size: 14px;
+	overflow: hidden;
+	left: 10px;
+}
+
 /**************/
 /* Expandable */
 /**************/
@@ -973,98 +1081,4 @@ form.statement fieldset ol li.tags_container {
 
 .expandable.active:hover .expand_icon {
   background-position: 0 -35px;
-}
-
-
-/*********************/
-/* MY QUESTIONS AREA */
-/*********************/
-
-#my_issues .new_question {
-  width: 55px;
-  height: 55px;
-  margin: 40px 0 0 37px !important;
-  display: inline-block;
-  float: left;
-  cursor: pointer;
-}
-
-
-
-#question_list a.avatar_holder{
-	float: left;
-}
-
-#question_list li.question {
-	width: 100%;
-  height: 52px;
-  margin: 4px 0;
-  display: inline-block;
-  clear: both;
-}
-
-#question_list a.statement_link {
-	float: left;
-	width: 290px;
-  height: 52px;
-	margin: -2px 5px 0 0;
-	padding: 0;
-  overflow: hidden;
-}
-
-#question_list .tags_list {
-	float: left;
-	padding-left: 25px !important;
-	width: 215px;
-	margin-top: -2px;
-  height: 52px;
-  overflow: hidden;
-}
-
-#question_list .buttons {
-	float: right;
-	width: 200px;
-  text-align: center;
-}
-
-#question_list a.publish_button {
-	background: url("../images/page/publish_button_200.png") no-repeat scroll left top transparent;
-	border: medium none;
-	color: #21587F;
-	display: inline-block;
-	font-size: 14px;
-	font-weight: bold;
-	height: 25px;
-	padding: 12px 0 4px 15px;
-	text-align: center;
-	width: 200px !important;
-  position: relative;
-  top: -5px;
-}
-
-#question_list a.publish_button:hover {
-  background-position: 0 -43px;
-}
-
-#question_list span.publish_button {
-  background:transparent url(../images/page/icons/publish_button.png) no-repeat scroll 0 0;
-  background-position: 0 -17px;
-  height: 17px;
-  line-height: 17px;
-  display: inline-block;
-  padding-left: 20px;
-}
-
-#my_issues .pagination {
-	width: 100%;
-}
-
-#my_issues .avatar_holder img {
-  max-width: 45px;
-  max-height: 45px;
-  border: 2px solid #7bb031;
-}
-
-#my_issues .no_questions {
-  margin-top: 30px;
 }
