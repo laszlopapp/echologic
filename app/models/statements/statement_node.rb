@@ -1,5 +1,4 @@
 class StatementNode < ActiveRecord::Base
-  acts_as_extaggable :topics
   acts_as_echoable
   acts_as_subscribeable
   acts_as_nested_set :scope => :root_id
@@ -25,9 +24,11 @@ class StatementNode < ActiveRecord::Base
   belongs_to :statement
 
   delegate :original_language, :document_in_language, :authors, :has_author?,
-           :statement_image, :statement_image=, :image, :image=, :to => :statement
+           :statement_image, :statement_image=, :image, :image=, :published?, :publish, 
+           :taggable?, :topic_tags, :topic_tags=, :tags, :editorial_state_id, :editorial_state_id=,
+           :editorial_state, :editorial_state=, :to => :statement
 
-  has_enumerated :editorial_state, :class_name => 'StatementState'
+  
 
   has_many :statement_documents, :through => :statement, :source => :statement_documents do
     def for_languages(lang_ids)
@@ -42,9 +43,7 @@ class StatementNode < ActiveRecord::Base
   ##
   ## VALIDATIONS
   ##
-
-  validates_presence_of :editorial_state_id
-  validates_numericality_of :editorial_state_id
+  
   validates_presence_of :creator_id
   validates_presence_of :statement
   validates_associated :creator
@@ -60,10 +59,11 @@ class StatementNode < ActiveRecord::Base
       named_scope :#{type.pluralize}, lambda{{ :conditions => { :type => '#{type.camelize}' } } }
     )
   end
-  named_scope :published, lambda {|auth|
-    { :conditions => { :editorial_state_id => StatementState['published'].id } } unless auth }
+  
   named_scope :by_creator, lambda {|id|
   {:conditions => ["creator_id = ?", id]}}
+  named_scope :published, lambda {|auth|
+  {:joins => :statement, :conditions => ["statements.editorial_state_id = ?", StatementState['published'].id] } unless auth }
 
   # orders
   named_scope :by_ratio, :include => :echo, :order => '(echos.supporter_count/echos.visitor_count) DESC'
@@ -90,29 +90,17 @@ class StatementNode < ActiveRecord::Base
     false
   end
 
-  # static for now
-  def published?
-    self.editorial_state == StatementState["published"]
-  end
-
-  # Publish a statement.
-  def publish
-    self.editorial_state = StatementState["published"]
-    self.created_at = Time.now
-  end
   
   
   # Initializes this statement node's statement
-  def set_statement(attrs)
+  def set_statement(attrs={})
     self.statement = Statement.new(attrs)
   end
 
   # creates a new statement_document
   def add_statement_document(attributes={ },opts={})
-    if self.statement.nil?
-      original_language_id = attributes.delete(:original_language_id).to_i
-      set_statement(:original_language_id => original_language_id)
-    end
+    self.set_statement if self.statement.nil?
+    self.statement.original_language_id = attributes.delete(:original_language_id).to_i if attributes[:original_language_id]
     doc = StatementDocument.new
     doc.statement = self.statement
     attributes.each {|k,v|doc.send("#{k.to_s}=", v)}
@@ -212,8 +200,12 @@ class StatementNode < ActiveRecord::Base
   class << self
 
     # Aux Function: generates new instance (overwritten in follow up question)
-    def new_instance(attributes = nil)
-      self.new(attributes)
+    def new_instance(attributes = {})
+      attributes[:editorial_state] = StatementState[attributes.delete(:editorial_state_id).to_i] if attributes[:editorial_state_id]
+      editorial_state = attributes.delete(:editorial_state)
+      node = self.new(attributes)
+      node.set_statement(:editorial_state => editorial_state)
+      node
     end
 
     # Aux Function: GUI Helper (overwritten in follow up question)
@@ -270,17 +262,18 @@ class StatementNode < ActiveRecord::Base
     def search_statement_nodes(opts={})
       search_term = opts.delete(:search_term)
       
-      tag_clause = "SELECT DISTINCT s.id FROM statement_nodes s 
-        LEFT JOIN tao_tags tt                 ON (tt.tao_id = s.id and tt.tao_type = 'StatementNode')
-        LEFT JOIN statement_documents d       ON s.statement_id = d.statement_id
-        LEFT JOIN tags t                      ON tt.tag_id = t.id
-        WHERE 
-      "
+      tag_clause = "SELECT DISTINCT s.id FROM statement_nodes s "
+      tag_clause << "LEFT JOIN statements st               ON st.id = s.statement_id
+                     LEFT JOIN tao_tags tt                 ON (tt.tao_id = st.id and tt.tao_type = 'Statement')
+                     LEFT JOIN statement_documents d       ON s.statement_id = d.statement_id
+                     LEFT JOIN tags t                      ON tt.tag_id = t.id "
+      tag_clause << "WHERE " 
+      
       
       tags_query = ''
       and_conditions = []
       and_conditions << sanitize_sql(["s.type = '#{opts.delete(:type)}'"]) if opts[:type]
-      and_conditions << sanitize_sql(["s.editorial_state_id = ?", StatementState['published'].id]) unless opts[:show_unpublished]
+      and_conditions << sanitize_sql(["st.editorial_state_id = ?", StatementState['published'].id]) unless opts[:show_unpublished]
       and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]]) if opts[:language_ids]
       and_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]]) if opts[:drafting_states]
       if !search_term.blank?
@@ -300,6 +293,7 @@ class StatementNode < ActiveRecord::Base
                            "ORDER BY COUNT(statement_node_ids.id) DESC,e.supporter_count DESC, statement_nodes.created_at ASC;" 
       else
         statements_query = "SELECT DISTINCT s.* from statement_nodes s
+                            LEFT JOIN statements st               ON st.id = s.statement_id
                             LEFT JOIN statement_documents d ON s.statement_id = d.statement_id
                             LEFT JOIN echos e ON e.id = s.echo_id
                             WHERE " + and_conditions.join(" AND ") +

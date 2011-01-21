@@ -57,7 +57,7 @@ module PublishableModule
       StatementNode.transaction do
         @statement_node.publish
         respond_to do |format|
-          if @statement_node.save
+          if @statement_node.statement.save
             EchoService.instance.published(@statement_node)
             format.js do
               set_info("discuss.statements.published")

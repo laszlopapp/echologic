@@ -247,9 +247,11 @@ class StatementsController < ApplicationController
                                                      :current => true}))
             @statement_document.save
             
+            @statement_node.update_attributes(attrs)
             if @statement_node.taggable? and form_tags
               @tags = @statement_node.topic_tags = form_tags
             end
+            @statement_node.statement.save
             @statement_node.save
           end
         end

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101215120547) do
+ActiveRecord::Schema.define(:version => 20110121153259) do
 
   create_table "about_item_translations", :force => true do |t|
     t.integer "about_item_id"
@@ -219,11 +219,10 @@ ActiveRecord::Schema.define(:version => 20101215120547) do
     t.integer  "root_id"
     t.integer  "creator_id"
     t.integer  "echo_id"
-    t.integer  "editorial_state_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "statement_id"
-    t.string   "drafting_state",     :limit => 20
+    t.string   "drafting_state", :limit => 20
     t.integer  "lft"
     t.integer  "rgt"
     t.integer  "question_id"
@@ -231,13 +230,13 @@ ActiveRecord::Schema.define(:version => 20101215120547) do
 
   add_index "statement_nodes", ["creator_id"], :name => "index_statement_nodes_on_creator_id"
   add_index "statement_nodes", ["echo_id", "id"], :name => "index_statement_nodes_on_echo_id_and_id"
-  add_index "statement_nodes", ["editorial_state_id"], :name => "index_statement_nodes_on_state_id"
   add_index "statement_nodes", ["id", "statement_id"], :name => "index_statement_nodes_on_id_and_statement_id"
   add_index "statement_nodes", ["type"], :name => "index_statement_nodes_on_type"
 
   create_table "statements", :force => true do |t|
     t.integer "original_language_id"
     t.integer "statement_image_id"
+    t.integer "editorial_state_id"
   end
 
   create_table "subscriptions", :force => true do |t|
