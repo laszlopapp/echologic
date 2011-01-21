@@ -11,7 +11,7 @@
 
     <ul>
       <% unless statement_nodes.empty? %>
-        <%= render :partial => 'statements/questions/question', :collection => statement_nodes %>
+			  <%= render :partial => 'statements/questions/question', :collection => statement_nodes %>
       <% else %>
         <span class="no_results">
           <%= (!current_user or current_user.spoken_languages.blank?) ?
