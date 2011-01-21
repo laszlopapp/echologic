@@ -5,7 +5,7 @@
     function Statement(elem, s) {
 
 			var jsp = this;
-
+      
       initialise(s);
 
       function initialise(s) {

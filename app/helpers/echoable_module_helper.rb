@@ -43,7 +43,7 @@ module EchoableModuleHelper
 
   # Renders echo button on new statement forms
   def new_form_echo_button(statement_node)
-    echo_button :div, true, dom_class(statement_node), :class => 'new_record' do |button|
+    echo_button :div, true, statement_node, :class => 'new_record' do |button|
       button << hidden_field_tag('echo', true)
     end
   end
@@ -52,7 +52,7 @@ module EchoableModuleHelper
   def show_echo_button(statement_node)
     echoed = current_user && statement_node.supported?(current_user)
     href = echoed ? unecho_statement_node_url(statement_node) : echo_statement_node_url(statement_node) 
-    echo_button :a, echoed, dom_class(statement_node), :href => href
+    echo_button :a, echoed, statement_node, :href => href
   end
 
   #
@@ -61,7 +61,7 @@ module EchoableModuleHelper
   # echoed: true/false : whether button state is echoed or not
   # type : string (statement_node class) : selects the right label 
   #
-  def echo_button(button_tag, echoed, type, opts={})
+  def echo_button(button_tag, echoed, statement_node, opts={})
     opts[:class] ||= ''
     opts[:class] << " echo_button #{echoed ? '' : 'not_' }supported"
     opts[:id] ||= "echo_button"
@@ -70,15 +70,15 @@ module EchoableModuleHelper
       button = ''
       button << content_tag(:span, '', :class => 'echo_button_icon')
       yield button if block_given?
-      button << echo_button_label(type)
+      button << echo_button_label(statement_node)
       button
     end
   end
 
-  def echo_button_label(type)
+  def echo_button_label(statement_node)
     content_tag(:span, '',
                 :class => 'label',
-                'data-not-supported' => I18n.t("discuss.statements.echo_#{type}_link"),
-                'data-supported' => I18n.t("discuss.statements.unecho_#{type}_link"))
+                'data-not-supported' => I18n.t("discuss.statements.#{statement_node.class.support_tag}_link"),
+                'data-supported' => I18n.t("discuss.statements.#{statement_node.class.unsupport_tag}_link"))
   end
 end

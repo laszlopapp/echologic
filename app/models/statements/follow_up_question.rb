@@ -15,6 +15,14 @@ class FollowUpQuestion < StatementNode
   def set_statement(attrs)
     self.statement = self.question.statement = Statement.new(attrs)
   end
+  
+  #################################################
+  # string helpers (acts_as_echoable overwriting) #
+  #################################################
+  
+  
+
+
 
   class << self
     def children_types(visibility = false, default = true, expand = false)
@@ -37,7 +45,18 @@ class FollowUpQuestion < StatementNode
       parent = StatementNode.find(parent_id)
       sanitize_sql(["statement_nodes.type = ? AND statement_nodes.root_id = ? AND statement_nodes.lft >= ? AND statement_nodes.rgt <= ? ", self.name, parent.root_id, parent.lft, parent.rgt])
     end
-
+    
+    #################################################
+    # string helpers (acts_as_echoable overwriting) #
+    #################################################
+    
+    def support_tag
+      "recommend"
+    end
+    
+    def unsupport_tag
+      "unrecommend"
+    end
   end
 
 end

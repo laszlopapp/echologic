@@ -18,4 +18,16 @@ class Question < StatementNode
   def publishable?
     true
   end
+  
+  #################################################
+  # string helpers (acts_as_echoable overwriting) #
+  #################################################
+  
+  def self.support_tag
+    "recommend"
+  end
+  
+  def self.unsupport_tag
+    "unrecommend"
+  end
 end

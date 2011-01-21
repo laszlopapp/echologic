@@ -392,18 +392,10 @@ en:
       create_pro_argument_link: Add new pro argument
       create_contra_argument_link: Add new contra argument
       create_follow_up_question_link: Add new follow-up question
-      echo_question_link: 'Recommend this'
-      echo_proposal_link: 'Support this'
-      echo_improvement_link: 'Support this'
-      echo_pro_argument_link: 'Support this'
-      echo_contra_argument_link: 'Support this'
-      echo_follow_up_question_link: 'Recommend this'
-      unecho_question_link: 'Unrecommend this'
-      unecho_proposal_link: 'Unsupport this'
-      unecho_improvement_link: 'Unsupport this'
-      unecho_pro_argument_link: 'Unsupport this'
-      unecho_contra_argument_link: 'Unsupport this'
-      unecho_follow_up_question_link: 'Unrecommend this'
+      recommend_link: 'Recommend this'
+      unrecommend_link: 'Unrecommend this'
+      support_link: 'Support this'
+      unsupport_link: 'Unsupport this'
       create_question_explanation: |
         Please formulate the <strong>question</strong> to be discussed, describe the issue with some more details
         and tag it with <strong>relevant keywords</strong> for better searchability.

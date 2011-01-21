@@ -98,6 +98,7 @@ class StatementNode < ActiveRecord::Base
   # Publish a statement.
   def publish
     self.editorial_state = StatementState["published"]
+    self.created_at = Time.now
   end
   
   
@@ -305,44 +306,6 @@ class StatementNode < ActiveRecord::Base
                            " ORDER BY e.supporter_count DESC, s.created_at ASC;"
       end
       find_by_sql statements_query
-      
-#      opts[:readonly] = false
-#      opts[:select] ||= "DISTINCT statement_nodes.*"
-#
-#      # join clauses
-#      opts[:joins] =  "LEFT JOIN statement_documents d       ON statement_nodes.statement_id = d.statement_id "
-#      opts[:joins] << "LEFT JOIN tao_tags tt                 ON (tt.tao_id = statement_nodes.id and tt.tao_type = 'StatementNode') "
-#      opts[:joins] << "LEFT JOIN tags t                      ON tt.tag_id = t.id "
-#      opts[:joins] << "LEFT JOIN echos e                     ON statement_nodes.echo_id = e.id"
-#
-#
-#      opts[:conditions] ||= []
-#      
-#      # building the where clause
-#      
-#      or_conditions = ""
-#      search_term = opts.delete(:search_term)
-#      if !search_term.blank?
-#        terms = search_term.split(/[,\s]+/)
-#        or_conditions << %w(d.title d.text).map{|attr|sanitize_sql(["#{attr} LIKE ?", "%#{search_term}%"])}.join(" OR ")
-#        or_conditions << " OR #{terms.map{|term| term.length > 3 ? sanitize_sql(["t.value LIKE ?","%#{term}%"]) :
-#                                                                   sanitize_sql(["t.value = ?",term])}.join(" OR ")}"
-#      end
-#      
-#      
-#      # Filter for statement type
-#      opts[:conditions] << "statement_nodes.type = '#{opts.delete(:type)}'" if opts[:type]
-#      opts[:conditions] << sanitize_sql(["statement_nodes.editorial_state_id = ?", StatementState['published'].id]) unless opts.delete(:show_unpublished)
-#      opts[:conditions] << sanitize_sql(["d.language_id IN (?)", opts.delete(:language_ids)]) if opts[:language_ids]
-#      opts[:conditions] << sanitize_sql(["statement_nodes.drafting_state IN (?)", opts.delete(:drafting_states)]) if opts[:drafting_states]
-#      # Constructing the where clause
-#      opts[:conditions] << "(#{or_conditions})" if !or_conditions.blank?
-#      opts[:conditions] = opts[:conditions].join(" AND ")
-#      
-#      # Building the order clause
-#      opts[:order] ||= "e.supporter_count DESC, statement_nodes.created_at DESC"
-#      
-#      scoped opts
     end
 
 

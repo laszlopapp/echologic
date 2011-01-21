@@ -6,8 +6,9 @@
       var echoable = element;
       var echo_button = echoable.find('.action_bar .echo_button');
       var echo_label = echo_button.find('.label');
+			
       initialize();
-
+			
 			/*
        * Initializes an echoable statement in a form or in normal mode.
        */
@@ -115,11 +116,13 @@
             to_remove = 'not_supported';
             to_add = 'supported';
 					}
-					updateEchoButton(to_add, to_remove);
-					var href = echo_button.attr('href');
 
-          // Label
+          /* pre-request */
+					updateEchoButton(to_add, to_remove);
 					echo_label.text(echo_label.data('messages')[to_add]);
+					
+					var href = echo_button.attr('href');
+					
 					$.ajax({
 			      url:      echo_button.attr('href'),
 			      type:     'post',
@@ -127,7 +130,10 @@
 			      data:   { '_method': 'put' },
 						success: function(data, textStatus, XMLHttpRequest) {
 							/* if button was pressed while not logged in, rollback as well */
-							if(href == echo_button.attr('href')) { updateEchoButton(to_remove, to_add); }
+							if(href == echo_button.attr('href')) { 
+							 updateEchoButton(to_remove, to_add);
+							 echo_label.text(echo_label.data('messages')[to_remove]); 
+							}
 							
 							echo_button.removeClass('pending');
 						},
@@ -175,7 +181,7 @@
 			});
 		}
 
-    var element = $(this);
+    var element = this;
     var echoableApi = element.data('echoableApi');
     if (echoableApi) {
       echoableApi.reinitialize();
