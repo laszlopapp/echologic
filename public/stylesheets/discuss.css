@@ -339,11 +339,11 @@ form.statement fieldset ol span.defaultText {
   margin-bottom: 20px;
 }
 
-.action_bar .echo_button:hover {
-  background-position: 0 -120px;
-}
+.echo_button:hover { background-position: 0 -120px; }
+/*.echo_button:hover.pending,
+.echo_button:hover.clicked { background-position: 0 0; }*/
 
-.action_bar .echo_button_icon .echo_icon {
+.echo_button_icon {
   height:   85px;
   width:    85px;
   display:  inline-block;
@@ -361,12 +361,18 @@ form.statement fieldset ol span.defaultText {
   display: block;
 }
 
-.action_bar .echo_button:hover .echo_button_icon .not_supported { background-position: 0 -85px; }
-.action_bar .echo_button_icon .supported { background-position: 0 -170px; }
-.action_bar .echo_button:hover .echo_button_icon .supported { background-position: 0 -255px; }
+.echo_button:hover.not_supported .echo_button_icon { background-position: 0 -85px; }
+.echo_button:hover.not_supported.pending .echo_button_icon,
+.echo_button:hover.not_supported.clicked .echo_button_icon
+{ background-position: 0 0; }
+.echo_button.supported .echo_button_icon { background-position: 0 -170px; }
+.echo_button:hover.supported .echo_button_icon { background-position: 0 -255px; }
+.echo_button:hover.supported.pending .echo_button_icon,
+.echo_button:hover.supported.clicked .echo_button_icon
+{ background-position: 0 -170px; }
 
 
-/* add new button */
+/* Add New button */
 
 #statements .action_bar .add_new_button {
   height:   80px;
@@ -376,25 +382,25 @@ form.statement fieldset ol span.defaultText {
   cursor: pointer;
 }
 
-.action_bar .add_new_button:hover {
+.add_new_button:hover {
   background-position: 0 80px;
 }
 
-.action_bar .add_new_button_icon {
+.add_new_button_icon {
 	height:   42px;
   width:    42px;
   display:  inline-block;
   background-image: url(../images/page/discuss/add_new_button_icon.png);
   cursor: pointer;
-	margin-top: 10px;
+	margin-top: 9px;
 }
 
-.action_bar .add_new_button:hover .add_new_button_icon {
+.add_new_button:hover .add_new_button_icon {
   background-position: 0 42px;
 }
 
 /* Add new panel */
-.action_bar .add_new_panel {
+.add_new_panel {
   width: 520px;
 	border: 3px solid #BBB;
 	background: #FFF;
@@ -409,7 +415,7 @@ form.statement fieldset ol span.defaultText {
 }
 
 
-.action_bar .add_new_panel .panel_header {
+.add_new_panel .panel_header {
 	background: none;
   width: 400px;
   margin: 16px 0 16px 60px;
@@ -417,7 +423,7 @@ form.statement fieldset ol span.defaultText {
   font-weight: bold;
 }
 
-.action_bar .add_new_panel .block_separator {
+.add_new_panel .block_separator {
 	height: 1px;
 	width: 100%;
 	background: #DDD;
@@ -425,11 +431,11 @@ form.statement fieldset ol span.defaultText {
   border: none;
 }
 
-.action_bar .add_new_panel .container {
+.add_new_panel .container {
   margin: 20px 0 22px;
 }
 
-.action_bar .add_new_panel .resource_link {
+.add_new_panel .resource_link {
 	color: #21587F;
   text-decoration: underline;
 	margin-left: 25px;
