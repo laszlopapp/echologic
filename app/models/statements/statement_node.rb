@@ -287,14 +287,14 @@ class StatementNode < ActiveRecord::Base
                            "LEFT JOIN statement_nodes ON statement_nodes.id = statement_node_ids.id " +
                            "LEFT JOIN echos e ON e.id = statement_nodes.echo_id " +
                            "GROUP BY statement_node_ids.id " +
-                           "ORDER BY COUNT(statement_node_ids.id) DESC,e.supporter_count DESC, statement_nodes.created_at ASC;"
+                           "ORDER BY COUNT(statement_node_ids.id) DESC,e.supporter_count DESC, statement_nodes.created_at DESC;"
       else
         statements_query = "SELECT DISTINCT s.* from statement_nodes s
                             LEFT JOIN statements st               ON st.id = s.statement_id
                             LEFT JOIN statement_documents d ON s.statement_id = d.statement_id
                             LEFT JOIN echos e ON e.id = s.echo_id
                             WHERE " + and_conditions.join(" AND ") +
-                           " ORDER BY e.supporter_count DESC, s.created_at ASC;"
+                           " ORDER BY e.supporter_count DESC, s.created_at DESC;"
       end
       find_by_sql statements_query
     end
