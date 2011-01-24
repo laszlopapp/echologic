@@ -5,7 +5,7 @@
 	<div class="doubles_list">
 		<% children.each_with_index do |c, index| %>
 		  <% t = type.classify.constantize.sub_types[index].to_s.underscore %>
-		  <%= render :partial => 'statements/elements_list', :locals => {:type => t, :children => c, :parent => parent}%>
+		  <%= render :partial => 'statements/elements_list', :locals => {:type => t, :children => c}%>
 		<% end %>
 	</div>
 	<div id="more_pagination" class="more_pagination">

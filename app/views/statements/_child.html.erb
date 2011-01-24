@@ -1,9 +1,9 @@
 <%
   statement_document = @children_documents[child.statement_id]
-  extra_classes ||= (child == @statement_node ? 'active' : '') 
+  extra_classes ||= (@current_node && child == @current_node ? 'active' : '') 
 %>
 
-<li id="<%= dom_class(child) %>_<%= child.target_id%>" class="<%=child.parent.class.name.downcase%>">
+<li id="<%= dom_class(child) %>_<%= child.target_id%>" class="<%=dom_class(child)%>">
 	<%= link_to_child(statement_document.title,child,extra_classes) %>
   <%= supporter_ratio_bar(child) %>
 </li>

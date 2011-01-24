@@ -53,7 +53,18 @@ module StatementsHelper
   end
   
   def create_new_question_link(origin)
-    create_new_child_statement_link(nil, 'question', :url => new_question_url(:origin => origin))
+    type = 'question'
+    parent = nil
+    if !origin.blank?
+      key = origin[0, 2]
+      parent = case key
+        when 'ds', 'sr', 'mi' then nil
+        when 'fq' then type = 'follow_up_question'
+                       origin[2..-1]
+      end
+    end
+    url = parent.nil? ? new_question_url(:origin => origin) : new_statement_node_url(parent, type)
+    create_new_child_statement_link(parent, type, :url => url)
   end
 
 
@@ -280,14 +291,33 @@ module StatementsHelper
                                     :rel => b,
                                     :class => " statement_link #{opts[:classes]} #{b}")
       end
-      if !(opts[:classes] =~ /add/)
-      buttons << content_tag(:span, '', :class => 'show_siblings_button expandable',
-                           'data-content' => '.expandable_content',
-                           :href => siblings_statement_node_url(statement_node, :origin => opts[:origin]))
-      end 
+      
+      buttons << descendants_button(statement_node, type, opts)
     end
     
     buttons
+  end
+  
+  def descendants_button(statement_node, type, opts={})
+    origin = opts[:origin]
+    url = if statement_node.nil? or statement_node.class.name.underscore != type # ADD TEASERS
+      if statement_node.nil?
+        question_descendants_url(:origin => origin)
+      else
+        descendants_statement_node_url(statement_node, type)
+      end
+    else  # STATEMENT NODES
+      if statement_node.parent_id.nil?
+        question_descendants_url(:origin => origin, :current_node => statement_node)
+      else
+        descendants_statement_node_url(statement_node.parent, 
+                                       statement_node.class.name_for_siblings.underscore, 
+                                       :current_node => statement_node)
+      end
+    end
+    content_tag(:span, '', :class => 'show_siblings_button expandable',
+                           'data-content' => '.expandable_content',
+                           :href => url)
   end
 
   # Renders the correct prev/next image buttons

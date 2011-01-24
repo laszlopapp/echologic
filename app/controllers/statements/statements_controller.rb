@@ -1,13 +1,13 @@
 class StatementsController < ApplicationController
   
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
-                                    :more, :children, :authors, :add, :ancestors, :siblings]
+                                    :more, :children, :authors, :add, :ancestors, :descendants]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
   
   # The order of these filters matters. change with caution.
-  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :add, :ancestors, :siblings,
+  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :add, :ancestors, :descendants,
                                               :redirect_to_statement]
   
   before_filter :fetch_statement_node, :except => [:category, :my_issues, :new, :create]
@@ -31,7 +31,7 @@ class StatementsController < ApplicationController
   access_control do
     allow :admin
     allow logged_in, :editor, :except => [:destroy]
-    allow anonymous, :to => [:index, :show, :category, :more, :children, :authors, :add, :ancestors, :siblings]
+    allow anonymous, :to => [:index, :show, :category, :more, :children, :authors, :add, :ancestors, :descendants]
   end
   
   
@@ -305,19 +305,20 @@ class StatementsController < ApplicationController
   # Loads a certain siblings pane that had been previously hidden.
   #
   # Method:   GET
-  # Params:   type: string
+  # Params:   id : parent node id ; type: string
   # Response: JS
   #
-  def siblings
-    if @statement_node.parent_id
-      @siblings = @statement_node.get_paginated_sibling_statements(@language_preference_list)
+  def descendants
+    @type = params[:type].to_s.camelize || @statement_node.class.children_types.first.to_s
+    @current_node = StatementNode.find(params[:current_node]) if params[:current_node]
+    if @statement_node
+      load_children(@type, 1, -1)
     else
-      @siblings = load_roots(@statement_node).paginate
+      @children = load_roots(@current_node).paginate
     end
-    @type = @previous_type || @statement_node.class.name_for_siblings
-    @children_documents = search_statement_documents(@siblings.flatten.map(&:statement_id),@language_preference_list)
+    @children_documents = search_statement_documents(@children.flatten.map(&:statement_id),@language_preference_list)
     respond_to do |format|
-      format.js { render :template => @type.constantize.siblings_template }
+      format.js { render :template => @type.constantize.descendants_template }
     end
   end
   
@@ -372,11 +373,11 @@ class StatementsController < ApplicationController
         load_roots_to_session
       end
     end
-    begin
+#    begin
       render_template('statements/add', true)
-    rescue Exception => e
-      log_error_home(e, "Error showing add #{@type} teaser.")
-    end
+#    rescue Exception => e
+#      log_error_home(e, "Error showing add #{@type} teaser.")
+#    end
   end
   
   
@@ -810,7 +811,7 @@ class StatementsController < ApplicationController
     if !params[:origin].blank? #statement node is a question
       origin = params[:origin]
       key = origin[0,2]
-      siblings = case key
+      roots = case key
         when 'ds' then search_statement_nodes(:language_ids => @language_preference_list,
                                               :show_unpublished => current_user && current_user.has_role?(:editor))
         when 'sr'then search_statement_nodes(:search_term => origin[2..-1].gsub(/\\;/,','),
@@ -819,12 +820,12 @@ class StatementsController < ApplicationController
         when 'mi' then Question.by_creator(current_user).by_creation
         when 'fq' then @previous_node = StatementNode.find(origin[2..-1])
                        @previous_type = "FollowUpQuestion"
-                       @previous_node.child_statements(@language_preference_list, @previous_type)
+                       @previous_node.child_statements(@language_preference_list, @previous_type).map(&:target_statement)
       end
     else
-      siblings = statement_node.nil? ? [] :[statement_node]
+      roots = statement_node.nil? ? [] :[statement_node]
     end
-    siblings
+    roots
   end
   
   

@@ -178,14 +178,6 @@ class StatementNode < ActiveRecord::Base
     child_statements(language_ids, type, true)
   end
 
-  # Get the paginated siblings
-  def get_paginated_sibling_statements(language_ids = nil,page = 1)
-#                                     per_page = TOP_CHILDREN)
-    siblings = sibling_statements(language_ids)
-    self.class.paginate_statements(siblings, 1)#, page, per_page)
-    #TODO: last argument still a temporary solution, until we paginate the siblings with the more button or smth else
-  end
-
   # Get the top children given a certain child type
   def get_paginated_child_statements(language_ids = nil,
                                      type = self.class.children_types.first.to_s,
@@ -225,7 +217,7 @@ class StatementNode < ActiveRecord::Base
 
     # Aux Function: paginates a set of ActiveRecord Objects
     def paginate_statements(children, page, per_page = nil)
-      per_page = children.length if per_page.nil?
+      per_page = children.length if per_page.nil? or per_page < 0
       children.paginate(default_scope.merge(:page => page, :per_page => per_page))
     end
 
@@ -355,8 +347,8 @@ class StatementNode < ActiveRecord::Base
       "statements/more"
     end
 
-    def siblings_template
-      "statements/siblings"
+    def descendants_template
+      "statements/descendants"
     end
 
     #protected

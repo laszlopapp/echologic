@@ -440,9 +440,9 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
     left: 141px;
     position: absolute;
     text-align: left;
-    top: 0;
     width: 784px;
 		_width: 794px;
+		top: 0;
     z-index: 5;
 		padding: 10px 0 15px 10px;
 }

@@ -234,14 +234,8 @@ class StatementsControllerTest < ActionController::TestCase
     assert_response :success
   end
   
-  test "should get more siblings" do
-    get :siblings, :id => statement_nodes('test-question').to_param
-    assert_response :success
-    get :siblings, :id => statement_nodes('test-question').to_param, :origin => 'ds'
-    assert_response :success
-    get :siblings, :id => statement_nodes('test-question').to_param, :origin => 'mi'
-    assert_response :success
-    get :siblings, :id => statement_nodes('test-question').to_param, :origin => 'srtest'
+  test "should get statement's descendants" do
+    get :descendants, :id => statement_nodes('test-question').to_param, :type => :proposal
     assert_response :success
   end
 

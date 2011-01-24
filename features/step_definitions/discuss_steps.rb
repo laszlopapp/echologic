@@ -40,7 +40,7 @@ When /^I choose the "([^\"]*)" Question$/ do |name|
 end
 
 When /^I choose the "([^\"]*)" Proposal$/ do |name|
-  response.should have_selector("li.question") do |selector|
+  response.should have_selector("li.proposal") do |selector|
     selector.each do |proposal|
       if name.eql?(proposal.at_css("a.proposal_link").inner_text.strip)
         @proposal = Proposal.find(URI.parse(proposal.at_css("a")['href']).path.match(/\d+/)[0].to_i)
@@ -51,7 +51,7 @@ When /^I choose the "([^\"]*)" Proposal$/ do |name|
 end
 
 When /^I choose the "([^\"]*)" Improvement$/ do |name|
-  response.should have_selector("li.proposal") do |selector|
+  response.should have_selector("li.improvement") do |selector|
     selector.each do |improvement|
       if name.eql?(improvement.at_css("a.improvement_link").inner_text.strip)
         @improvement = Improvement.find(URI.parse(improvement.at_css("a")['href']).path.match(/\d+/)[0].to_i)
@@ -217,7 +217,8 @@ Then /^"([^\"]*)" should have a "([^\"]*)" event$/ do |question, op_type|
 end
 
 Then /^the ([^\"]*) should have ([^\"]*) siblings in session$/ do |statement_type, siblings_number|
-  response.should have_selector("#statements div.#{statement_type.split(" ").map(&:downcase).join("_")}") do |selector|
+  type = statement_type.split(" ").map(&:downcase).join("_").classify.constantize.name_for_siblings.underscore
+  response.should have_selector("#statements div.#{type}") do |selector|
     statement = selector.first
     siblings = eval(statement.get_attribute("data-siblings"))
     assert siblings.select{|s|s.is_a?(Numeric)}.length - 1 == siblings_number.to_i
