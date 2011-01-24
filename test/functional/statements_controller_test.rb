@@ -233,7 +233,17 @@ class StatementsControllerTest < ActionController::TestCase
     get :children, :id => statement_nodes('test-question').to_param, :type => "proposal"
     assert_response :success
   end
-
+  
+  test "should get more siblings" do
+    get :siblings, :id => statement_nodes('test-question').to_param
+    assert_response :success
+    get :siblings, :id => statement_nodes('test-question').to_param, :origin => 'ds'
+    assert_response :success
+    get :siblings, :id => statement_nodes('test-question').to_param, :origin => 'mi'
+    assert_response :success
+    get :siblings, :id => statement_nodes('test-question').to_param, :origin => 'srtest'
+    assert_response :success
+  end
 
   test "should get the statement node authors" do
     @statement_node = Question.first

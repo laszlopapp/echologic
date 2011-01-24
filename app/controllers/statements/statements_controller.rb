@@ -1,13 +1,13 @@
 class StatementsController < ApplicationController
   
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
-                                    :more, :children, :authors, :add, :ancestors]
+                                    :more, :children, :authors, :add, :ancestors, :siblings]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
   
   # The order of these filters matters. change with caution.
-  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :add, :ancestors,
+  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :add, :ancestors, :siblings,
                                               :redirect_to_statement]
   
   before_filter :fetch_statement_node, :except => [:category, :my_issues, :new, :create]
@@ -31,7 +31,7 @@ class StatementsController < ApplicationController
   access_control do
     allow :admin
     allow logged_in, :editor, :except => [:destroy]
-    allow anonymous, :to => [:index, :show, :category, :more, :children, :authors, :add,:ancestors]
+    allow anonymous, :to => [:index, :show, :category, :more, :children, :authors, :add, :ancestors, :siblings]
   end
   
   
@@ -49,7 +49,7 @@ class StatementsController < ApplicationController
   #
   def show
     
-#    begin
+    begin
       # Get document to show or redirect if not found
       @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
       if @statement_document.nil?
@@ -77,9 +77,9 @@ class StatementsController < ApplicationController
       load_all_children
       
       render_template 'statements/show'
-#    rescue Exception => e
-#      log_error_home(e, "Error showing statement.")
-#    end
+    rescue Exception => e
+      log_error_home(e, "Error showing statement.")
+    end
   end
   
   #
@@ -289,12 +289,6 @@ class StatementsController < ApplicationController
     show_statement
   end
   
-  
-  ###################
-  # STATEMENT IMAGE #
-  ###################
-  
-  
   # Loads the authors of this statement to the view
   #
   # Method:   GET
@@ -304,6 +298,26 @@ class StatementsController < ApplicationController
     load_authors
     respond_to do |format|
       format.js {render :template => 'statements/authors'}
+    end
+  end
+  
+  #
+  # Loads a certain siblings pane that had been previously hidden.
+  #
+  # Method:   GET
+  # Params:   type: string
+  # Response: JS
+  #
+  def siblings
+    if @statement_node.parent_id
+      @siblings = @statement_node.get_paginated_sibling_statements(@language_preference_list)
+    else
+      @siblings = load_roots(@statement_node).paginate
+    end
+    @type = @previous_type || @statement_node.class.name_for_siblings
+    @children_documents = search_statement_documents(@siblings.flatten.map(&:statement_id),@language_preference_list)
+    respond_to do |format|
+      format.js { render :template => @type.constantize.siblings_template }
     end
   end
   
@@ -321,6 +335,8 @@ class StatementsController < ApplicationController
       format.js { render :template => @type.constantize.children_template }
     end
   end
+  
+  
   
   #
   # Loads more children into the right children pane (lazy pagination).
@@ -773,10 +789,12 @@ class StatementsController < ApplicationController
       key = origin[0,2]
       siblings = case key
         when 'ds' then search_statement_nodes(:language_ids => @language_preference_list,
-                                              :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id) + ["/add/question"]
+                                              :show_unpublished => current_user && current_user.has_role?(:editor), 
+                                              :only_id => true).map(&:id) + ["/add/question"]
         when 'sr'then search_statement_nodes(:search_term => origin[2..-1].gsub(/\\;/,','),
                                              :language_ids => @language_preference_list,
-                                             :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id) + ["/add/question"]
+                                             :show_unpublished => current_user && current_user.has_role?(:editor),
+                                             :only_id => true).map(&:id) + ["/add/question"]
         when 'mi' then Question.by_creator(current_user).by_creation.only_id.map(&:id) + ["/add/question"]
         when 'fq' then @previous_node = StatementNode.find(origin[2..-1])
                        @previous_type = "FollowUpQuestion"
@@ -784,6 +802,27 @@ class StatementsController < ApplicationController
       end
     else
       siblings = (statement_node ? [statement_node.id] : []) + ["/add/question"]
+    end
+    siblings
+  end
+  
+  def load_roots(statement_node)
+    if !params[:origin].blank? #statement node is a question
+      origin = params[:origin]
+      key = origin[0,2]
+      siblings = case key
+        when 'ds' then search_statement_nodes(:language_ids => @language_preference_list,
+                                              :show_unpublished => current_user && current_user.has_role?(:editor))
+        when 'sr'then search_statement_nodes(:search_term => origin[2..-1].gsub(/\\;/,','),
+                                             :language_ids => @language_preference_list,
+                                             :show_unpublished => current_user && current_user.has_role?(:editor))
+        when 'mi' then Question.by_creator(current_user).by_creation
+        when 'fq' then @previous_node = StatementNode.find(origin[2..-1])
+                       @previous_type = "FollowUpQuestion"
+                       @previous_node.child_statements(@language_preference_list, @previous_type)
+      end
+    else
+      siblings = statement_node.nil? ? [] :[statement_node]
     end
     siblings
   end

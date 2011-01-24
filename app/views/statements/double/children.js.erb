@@ -5,4 +5,4 @@ var element = statement.find('#<%= type_dom_class.pluralize %> .headline');
 
 elements.insertAfter(element).animate(toggleParams, 300);
 
-statement.data('api').reinitialiseChildren("<%=type_dom_class.pluralize%>");
+statement.data('api').reinitialiseChildren("#<%=type_dom_class.pluralize%>");

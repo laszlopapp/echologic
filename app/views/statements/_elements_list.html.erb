@@ -1,6 +1,10 @@
 <ul class="children_list children_pagination">
   <%= render :partial => 'statements/child', :collection => children %>
   <%if children.blank? or children.current_page == children.total_pages %>
-      <%= content_tag :li, create_new_child_statement_link(@statement_node,type) %>
+	    <% if parent.nil? %>
+			  <%= content_tag :li, create_new_question_link(params[:origin]) %>
+			<% else %>
+        <%= content_tag :li, create_new_child_statement_link(parent,type) %>
+		  <% end %>
   <%end%>
 </ul>

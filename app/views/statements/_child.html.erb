@@ -1,6 +1,6 @@
 <%
   statement_document = @children_documents[child.statement_id]
-  extra_classes ||= nil
+  extra_classes ||= (child == @statement_node ? 'active' : '') 
 %>
 
 <li id="<%= dom_class(child) %>_<%= child.target_id%>" class="<%=child.parent.class.name.downcase%>">

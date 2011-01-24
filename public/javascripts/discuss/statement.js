@@ -431,9 +431,9 @@
           initialise(s);
         },
         // API Functions
-				reinitialiseChildren: function(children_id)
+				reinitialiseChildren: function(children_container)
 				{
-					var children_block = elem.find("#" + children_id);
+					var children_block = elem.find(children_container);
 					initMoreButton(children_block);
           initChildrenStatementHistoryEvents(children_block);
           initChildrenFollowUpQuestionEvents(children_block);

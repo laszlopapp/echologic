@@ -429,6 +429,42 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	padding-left: 35px;
 }
 
+/**********************/
+/* SIBLINGS CONTAINER */
+/**********************/
+
+.statement .header .siblings {
+    -moz-border-radius: 15px 15px 15px 15px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 3px solid #BBBBBB;
+    left: 141px;
+    position: absolute;
+    text-align: left;
+    top: 0;
+    width: 784px;
+		_width: 794px;
+    z-index: 5;
+		padding: 10px 0 15px 10px;
+}
+
+.statement .header .siblings .label {
+    color: #21587F;
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+    top: 3px;
+}
+
+.statement .header .siblings .children_list{
+	margin: 0;
+	padding: 0;
+}
+
+.statement .header .siblings .children_container {
+	margin-top: 25px;
+}
+
 /*********************/
 /* Statement header  */
 /*********************/
@@ -496,7 +532,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* Prev/Next Statement buttons */
 /*******************************/
 
-.header_buttons .prev_stmt, .header_buttons .next_stmt {
+.header_buttons .prev_stmt, .header_buttons .next_stmt, .header_buttons .show_siblings_button {
   display: inline-block;
   width: 37px;
   height: 39px;
@@ -512,6 +548,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   background:  url(../images/page/prev_next_buttons.png) no-repeat scroll -37px -117px;
 }
 
+.header_buttons .show_siblings_button {
+  background:  url(../images/page/prev_next_buttons.png) no-repeat scroll -74px -117px;
+}
+
 .header:hover .prev_stmt, .header.active .prev_stmt {
   background-position: 0 0;
   cursor: pointer;
@@ -519,6 +559,11 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .header:hover .next_stmt, .header.active .next_stmt {
   background-position: -37px 0px;
+  cursor: pointer;
+}
+
+.header:hover .show_siblings_button, .header.active .show_siblings_button {
+	background-position: -74px 0px;
   cursor: pointer;
 }
 
@@ -530,6 +575,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   background-position: -37px -39px;
 }
 
+.header:hover .show_siblings_button:hover {
+  background-position: -74px -39px;
+}
+
 .header:hover .prev_stmt.disabled, .header.active .prev_stmt.disabled {
   background-position: 0 -78px;
   cursor: default;
@@ -537,6 +586,11 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .header:hover .next_stmt.disabled, .header.active .next_stmt.disabled {
   background-position: -37px -78px;
+  cursor: default;
+}
+
+.header:hover .next_stmt.disabled, .header.active .next_stmt.disabled {
+	background-position: -74px -78px;
   cursor: default;
 }
 
@@ -642,7 +696,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   margin: 4px 0 0;
 }
 
-.children .text_button {
+.children_list .text_button {
   margin-left: 0;
 }
 
@@ -728,8 +782,11 @@ a.statement_link {
   vertical-align: top;
   margin-bottom: 5px;
 }
+a.statement_link.active {
+	color: #7bb031;
+}
 
-.header_buttons a.statement_link {
+.header_buttons a.statement_link.prev, .header_buttons a.statement_link.next {
 	padding-left: 0 !important;
 }
 

@@ -42,12 +42,18 @@ module StatementsHelper
   # Creates a link to create a new child statement of a given type for the current statement
   # (appears INSIDE of the children statements panel).
   #
-  def create_new_child_statement_link(statement_node, child_type, new_level = true)
+  def create_new_child_statement_link(statement_node, child_type, opts={})
+    opts[:new_level] ||= true
+    url = opts.delete(:url) if opts[:url]
     link_to(I18n.t("discuss.statements.create_#{child_type}_link"),
-            new_statement_node_url(statement_node.target_id,child_type, :new_level => new_level),
+            url ? url : new_statement_node_url(statement_node.nil? ? nil : statement_node.target_id,child_type, opts),
             :id => "create_#{child_type}_link",
             :class => "ajax add_new_button text_button create_#{child_type}_button ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_#{child_type}"))
+  end
+  
+  def create_new_question_link(origin)
+    create_new_child_statement_link(nil, 'question', :url => new_question_url(:origin => origin))
   end
 
 
@@ -208,6 +214,11 @@ module StatementsHelper
   def children_box_title(type)
     I18n.t("discuss.statements.headings.#{type}")
   end
+  
+  # Returns the block heading for the siblings of the current statement node
+  def sibling_box_title(type)
+    content_tag :span, I18n.t("discuss.statements.headings.#{type}"), :class => 'label'
+  end
 
 
   # Creates the cancel button in the new statement form (right link will be handled in jquery)
@@ -256,19 +267,26 @@ module StatementsHelper
   ##############
 
   # Renders prev/next/siblings buttons for the current statement_node.
-  def navigation_buttons(statement_node, extra_classes = '', type = dom_class(statement_node))
+  def navigation_buttons(statement_node, type, opts={})
     buttons = ''
     if statement_node and statement_node.new_record?
       %w(prev next).each{|b| buttons << statement_tag(b.to_sym, type, true)}
+      buttons << content_tag(:span, '', :class => 'show_siblings')
     else
       %w(prev next).each do |b|
         buttons << statement_button(statement_node,
                                     statement_tag(b.to_sym, type),
                                     type,
                                     :rel => b,
-                                    :class => " statement_link #{extra_classes} #{b}")
+                                    :class => " statement_link #{opts[:classes]} #{b}")
       end
+      if !(opts[:classes] =~ /add/)
+      buttons << content_tag(:span, '', :class => 'show_siblings_button expandable',
+                           'data-content' => '.expandable_content',
+                           :href => siblings_statement_node_url(statement_node, :origin => opts[:origin]))
+      end 
     end
+    
     buttons
   end
 

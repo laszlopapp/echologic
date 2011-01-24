@@ -31,4 +31,4 @@ more_element.replaceWith(pagination_buttons);
 <% end %>
 statement.find('#<%=@type.underscore.pluralize%> .more_pagination a').addClass('ajax');
 
-statement.data('api').reinitialiseChildren("<%=@type.underscore.pluralize%>");
+statement.data('api').reinitialiseChildren("#<%=@type.underscore.pluralize%>");

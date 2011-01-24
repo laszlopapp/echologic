@@ -1,0 +1,11 @@
+<% siblings ||= @siblings %>
+<div class='siblings expandable_content' style="<%= display ? 'display:block' : 'display:none'%>">
+  <%= sibling_box_title(type) %> 
+	
+	<!-- The siblings -->
+  <% if siblings and siblings.kind_of?(Array) %>
+  <%= render :partial => type.classify.constantize.children_list_template,
+             :locals => {:type => type, :children => siblings, :parent => @statement_node.parent, :display => true}%>
+  <% end %>
+</div>
+	
