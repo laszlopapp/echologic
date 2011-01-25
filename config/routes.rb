@@ -112,18 +112,20 @@ ActionController::Routing::Routes.draw do |map|
   # SECTION discuss - statement's tree
 
   #route for new question
-  map.new_question 'statement/new/question', :controller => :statements, :action => :new, :type => :question
+  map.new_question         'statement/new/question', :controller => :statements, :action => :new, :type => :question
   
   #Add Teaser section
-  map.connect        'statement/add/question', :controller => :statements, :action => :add, :type => :question
-  map.connect        'statement/:id/add/:type',  :controller => :statements, :action => :add
+  map.connect  'statement/add/question', :controller => :statements, :action => :add, :type => :question
+  map.connect  'statement/:id/add/:type',  :controller => :statements, :action => :add
+  map.question_descendants 'statement/descendants/question', :controller => :statements, :action => :descendants, :type => :question
 
   map.resources :statement_nodes, :controller => :statements,
                 :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, 
-                            :children, :more, :authors, :publish, :incorporate, :ancestors],
+                            :children, :more, :authors, :publish, :incorporate, :ancestors, :descendants],
                 :path_names => { :new => ':id/new/:type', :more => 'more/:type',
                                  :edit => 'edit/:current_document_id', :new_translation => 'translation/:current_document_id',
-                                 :children => 'children/:type', :incorporate => 'incorporate/:approved_ip'},
+                                 :children => 'children/:type', :incorporate => 'incorporate/:approved_ip',
+                                 :descendants => 'descendants/:type'},
                 :as => 'statement'
   #publish
   map.connect   'statements/:id/publish/:in',   :controller => :statements, :action => :publish

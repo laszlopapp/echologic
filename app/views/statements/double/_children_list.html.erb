@@ -1,7 +1,7 @@
 <% display ||= false %>
 <% type ||= @type.downcase %>
 <% children ||= @children %>
-<div class="expandable_content" style="<%= display ? 'display:block' : 'display:none'%>">
+<div class="expandable_content children_container" style="<%= display ? 'display:block' : 'display:none'%>">
 	<div class="doubles_list">
 		<% children.each_with_index do |c, index| %>
 		  <% t = type.classify.constantize.sub_types[index].to_s.underscore %>

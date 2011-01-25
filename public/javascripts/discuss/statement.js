@@ -265,7 +265,42 @@
 			  });
 			}
 
+      
+			function initSiblingsFollowUpQuestionEvents(siblings_block) {
+        
+        /* FOLLOW-UP QUESTION SIBLING */
+        siblings_block.find("a.statement_link.follow_up_question_link:Event(!click)").bind("click", function(){
+          var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
+          var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
+
+          var last_bid = bids[bids.length-1];
+
+          /* set fragment */
+          $.setFragment({
+            "bids": bids.join(','),
+            "sids": question,
+            "new_level": false,
+            "origin": $.fragment().origin
+          });
+          return false;
+        });
+        
+        /* NEW FOLLOW-UP QUESTION BUTTON (ON SIBLINGS)*/
+        siblings_block.find("a.create_follow_up_question_button:Event(!click)").bind("click", function(){
+          var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
+          
+         /* set fragment */
+          $.setFragment({
+            "bids": bids.join(','),
+            "new_level": false,
+            "origin" : $.fragment().origin
+          });
+        });
+      }
+
+
       function initChildrenFollowUpQuestionEvents(children_block) {
+				
 				/* FOLLOW-UP QUESTION CHILD */
 				children_block.find("a.statement_link.follow_up_question_link:Event(!click)").bind("click", function(){
           var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
@@ -282,12 +317,12 @@
           });
           return false;
         });
-
+        
 				/* NEW FOLLOW-UP QUESTION BUTTON (ON CHILDREN)*/
         children_block.find("a.create_follow_up_question_button:Event(!click)").bind("click", function(){
           var bids = $('#breadcrumbs').data('api').getBreadcrumbStack($(this));
-
-          /* set fragment */
+          
+				 /* set fragment */
           $.setFragment({
             "bids": bids.join(','),
             "new_level": true,
@@ -323,13 +358,47 @@
 				});
 		  }
 
+      function initSiblingsStatementHistoryEvents(siblings_block){
+	      var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
+				var origin = bids.length == 0 ? '' : bids[bids.length-1];
+				
+				/**************/
+        /* child link */
+        /**************/
+        /* Note: this handler is for only not follow up question child link. fq's have their own handler */
+        siblings_block.find('a.statement_link:not(.follow_up_question_link):Event(!click)').bind("click", function(){
+          var current_stack = getStatementsStack(this, false);
+
+          /* set fragment */
+          $.setFragment({
+            "sids": current_stack.join(','),
+            "new_level": true,
+            "bids": bids.join(','),
+            "origin": origin
+          });
+          return false;
+        });
+
+        siblings_block.find('a.add_new_button:not(.create_follow_up_question_button):Event(!click)').bind("click", function(){
+          $.setFragment({
+            "new_level": false,
+            "bids": bids.join(','),
+            "origin": origin
+          })
+        });
+				
+	    }
+			
+			
+			
+
 			function initChildrenStatementHistoryEvents(children_block) {
 				var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
         var origin = bids.length == 0 ? '' : bids[bids.length-1];
 				/**************/
         /* child link */
         /**************/
-        /* Note: this handler is for only not follow up question child link. fuq's have their own handler */
+        /* Note: this handler is for only not follow up question child link. fq's have their own handler */
 				children_block.find('a.statement_link:not(.follow_up_question_link):Event(!click)').bind("click", function(){
 					var current_stack = getStatementsStack(this, true);
 
@@ -431,9 +500,9 @@
           initialise(s);
         },
         // API Functions
-				reinitialiseChildren: function(children_id)
+				reinitialiseChildren: function(children_container)
 				{
-					var children_block = elem.find("#" + children_id);
+					var children_block = elem.find(children_container);
 					initMoreButton(children_block);
           initChildrenStatementHistoryEvents(children_block);
           initChildrenFollowUpQuestionEvents(children_block);
@@ -442,6 +511,16 @@
 		      elem.append(content);
 					return this;
 		    },
+				reinitialiseSiblings: function(siblings_container)
+        {
+          var siblings_block = elem.find(siblings_container);
+          initSiblingsStatementHistoryEvents(siblings_block);
+          initSiblingsFollowUpQuestionEvents(siblings_block);
+        },
+        insertContent: function(content){
+          elem.append(content);
+          return this;
+        },
 
 		    removeBelow: function(){
 		     elem.nextAll().each(function(){

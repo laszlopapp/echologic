@@ -1,13 +1,13 @@
 class StatementsController < ApplicationController
   
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
-                                    :more, :children, :authors, :add, :ancestors]
+                                    :more, :children, :authors, :add, :ancestors, :descendants]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
   
   # The order of these filters matters. change with caution.
-  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :add, :ancestors,
+  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :add, :ancestors, :descendants,
                                               :redirect_to_statement]
   
   before_filter :fetch_statement_node, :except => [:category, :my_issues, :new, :create]
@@ -31,7 +31,7 @@ class StatementsController < ApplicationController
   access_control do
     allow :admin
     allow logged_in, :editor, :except => [:destroy]
-    allow anonymous, :to => [:index, :show, :category, :more, :children, :authors, :add,:ancestors]
+    allow anonymous, :to => [:index, :show, :category, :more, :children, :authors, :add, :ancestors, :descendants]
   end
   
   
@@ -49,7 +49,7 @@ class StatementsController < ApplicationController
   #
   def show
     
-#    begin
+    begin
       # Get document to show or redirect if not found
       @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
       if @statement_document.nil?
@@ -77,9 +77,9 @@ class StatementsController < ApplicationController
       load_all_children
       
       render_template 'statements/show'
-#    rescue Exception => e
-#      log_error_home(e, "Error showing statement.")
-#    end
+    rescue Exception => e
+      log_error_home(e, "Error showing statement.")
+    end
   end
   
   #
@@ -289,12 +289,6 @@ class StatementsController < ApplicationController
     show_statement
   end
   
-  
-  ###################
-  # STATEMENT IMAGE #
-  ###################
-  
-  
   # Loads the authors of this statement to the view
   #
   # Method:   GET
@@ -304,6 +298,27 @@ class StatementsController < ApplicationController
     load_authors
     respond_to do |format|
       format.js {render :template => 'statements/authors'}
+    end
+  end
+  
+  #
+  # Loads a certain siblings pane that had been previously hidden.
+  #
+  # Method:   GET
+  # Params:   id : parent node id ; type: string
+  # Response: JS
+  #
+  def descendants
+    @type = params[:type].to_s.camelize || @statement_node.class.children_types.first.to_s
+    @current_node = StatementNode.find(params[:current_node]) if params[:current_node]
+    if @statement_node
+      load_children(@type, 1, -1)
+    else
+      @children = load_roots(@current_node).paginate
+    end
+    @children_documents = search_statement_documents(@children.flatten.map(&:statement_id),@language_preference_list)
+    respond_to do |format|
+      format.js { render :template => @type.constantize.descendants_template }
     end
   end
   
@@ -321,6 +336,8 @@ class StatementsController < ApplicationController
       format.js { render :template => @type.constantize.children_template }
     end
   end
+  
+  
   
   #
   # Loads more children into the right children pane (lazy pagination).
@@ -356,11 +373,11 @@ class StatementsController < ApplicationController
         load_roots_to_session
       end
     end
-    begin
+#    begin
       render_template('statements/add', true)
-    rescue Exception => e
-      log_error_home(e, "Error showing add #{@type} teaser.")
-    end
+#    rescue Exception => e
+#      log_error_home(e, "Error showing add #{@type} teaser.")
+#    end
   end
   
   
@@ -773,10 +790,12 @@ class StatementsController < ApplicationController
       key = origin[0,2]
       siblings = case key
         when 'ds' then search_statement_nodes(:language_ids => @language_preference_list,
-                                              :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id) + ["/add/question"]
+                                              :show_unpublished => current_user && current_user.has_role?(:editor), 
+                                              :only_id => true).map(&:id) + ["/add/question"]
         when 'sr'then search_statement_nodes(:search_term => origin[2..-1].gsub(/\\;/,','),
                                              :language_ids => @language_preference_list,
-                                             :show_unpublished => current_user && current_user.has_role?(:editor)).map(&:id) + ["/add/question"]
+                                             :show_unpublished => current_user && current_user.has_role?(:editor),
+                                             :only_id => true).map(&:id) + ["/add/question"]
         when 'mi' then Question.by_creator(current_user).by_creation.only_id.map(&:id) + ["/add/question"]
         when 'fq' then @previous_node = StatementNode.find(origin[2..-1])
                        @previous_type = "FollowUpQuestion"
@@ -786,6 +805,27 @@ class StatementsController < ApplicationController
       siblings = (statement_node ? [statement_node.id] : []) + ["/add/question"]
     end
     siblings
+  end
+  
+  def load_roots(statement_node)
+    if !params[:origin].blank? #statement node is a question
+      origin = params[:origin]
+      key = origin[0,2]
+      roots = case key
+        when 'ds' then search_statement_nodes(:language_ids => @language_preference_list,
+                                              :show_unpublished => current_user && current_user.has_role?(:editor))
+        when 'sr'then search_statement_nodes(:search_term => origin[2..-1].gsub(/\\;/,','),
+                                             :language_ids => @language_preference_list,
+                                             :show_unpublished => current_user && current_user.has_role?(:editor))
+        when 'mi' then Question.by_creator(current_user).by_creation
+        when 'fq' then @previous_node = StatementNode.find(origin[2..-1])
+                       @previous_type = "FollowUpQuestion"
+                       @previous_node.child_statements(@language_preference_list, @previous_type).map(&:target_statement)
+      end
+    else
+      roots = statement_node.nil? ? [] :[statement_node]
+    end
+    roots
   end
   
   
@@ -852,7 +892,7 @@ class StatementsController < ApplicationController
   #
   def loadSearchTermsAsTags(origin)
     return if !origin[0,2].eql?('sr')
-    default_tags = origin[2..-1]
+    default_tags = origin[2..-1].gsub(/\\;/, ',')
     default_tags[/[\s]+/] = ',' if default_tags[/[\s]+/] 
     default_tags = default_tags.split(',').compact
     default_tags.each{|t| @statement_node.topic_tags << t }

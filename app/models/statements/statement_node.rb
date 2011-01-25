@@ -210,8 +210,14 @@ class StatementNode < ActiveRecord::Base
       false
     end
 
+    # Aux Function: Get Siblings Helper (overwritten in doubles)
+    def name_for_siblings
+      self.name
+    end
+
     # Aux Function: paginates a set of ActiveRecord Objects
-    def paginate_statements(children, page, per_page)
+    def paginate_statements(children, page, per_page = nil)
+      per_page = children.length if per_page.nil? or per_page < 0
       children.paginate(default_scope.merge(:page => page, :per_page => per_page))
     end
 
@@ -238,7 +244,7 @@ class StatementNode < ActiveRecord::Base
         statements << "/#{parent_id.nil? ? '' : "#{parent_id}/" }add/#{self.name.underscore}"
       else
         opts[:select] = "DISTINCT statement_nodes.*"
-        statements = self.scoped(opts)
+        statements = self.all(opts)
       end
       statements
     end
@@ -258,7 +264,7 @@ class StatementNode < ActiveRecord::Base
     # gets a set of statement nodes given an hash of arguments
     def search_statement_nodes(opts={})
       search_term = opts.delete(:search_term)
-
+      opts[:only_id] ||= false
       tag_clause = "SELECT DISTINCT s.id FROM statement_nodes s "
       tag_clause << "LEFT JOIN statements st               ON st.id = s.statement_id
                      LEFT JOIN tao_tags tt                 ON (tt.tao_id = st.id and tt.tao_type = 'Statement')
@@ -282,14 +288,14 @@ class StatementNode < ActiveRecord::Base
           tags_query << (tag_clause + (and_conditions + ["(#{or_conditions})"]).join(" AND "))
         end
         tags_query = tags_query.join(" UNION ALL ")
-        statements_query = "SELECT statement_nodes.* " +
+        statements_query = "SELECT statement_nodes.#{opts[:only_id] ? 'id' : '*'} " +
                            "FROM (#{tags_query}) statement_node_ids " +
                            "LEFT JOIN statement_nodes ON statement_nodes.id = statement_node_ids.id " +
                            "LEFT JOIN echos e ON e.id = statement_nodes.echo_id " +
                            "GROUP BY statement_node_ids.id " +
                            "ORDER BY COUNT(statement_node_ids.id) DESC,e.supporter_count DESC, statement_nodes.created_at DESC;"
       else
-        statements_query = "SELECT DISTINCT s.* from statement_nodes s
+        statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? 'id' : '*'} from statement_nodes s
                             LEFT JOIN statements st ON st.id = s.statement_id
                             LEFT JOIN statement_documents d ON s.statement_id = d.statement_id
                             LEFT JOIN echos e ON e.id = s.echo_id
@@ -339,6 +345,10 @@ class StatementNode < ActiveRecord::Base
 
     def more_template
       "statements/more"
+    end
+
+    def descendants_template
+      "statements/descendants"
     end
 
     #protected

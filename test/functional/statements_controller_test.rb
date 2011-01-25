@@ -233,7 +233,11 @@ class StatementsControllerTest < ActionController::TestCase
     get :children, :id => statement_nodes('test-question').to_param, :type => "proposal"
     assert_response :success
   end
-
+  
+  test "should get statement's descendants" do
+    get :descendants, :id => statement_nodes('test-question').to_param, :type => :proposal
+    assert_response :success
+  end
 
   test "should get the statement node authors" do
     @statement_node = Question.first

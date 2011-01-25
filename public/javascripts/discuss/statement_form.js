@@ -147,7 +147,8 @@
     
           cancelButton.addClass("ajax");
           cancelButton.attr('href', $.queryString(cancelButton.attr('href').replace(/\/\d+/, path), {
-            "sids": new_sids.join(",")
+            "sids": new_sids.join(","), 
+						"origin": $.fragment().origin
           }));
         }
       }
@@ -159,7 +160,8 @@
           var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
       
           /* get last breadcrumb id */
-          var last_bid = bids[bids.length-1].pop();
+					var last_bid = bids[bids.length-1];
+					
           /* get last statement view id (if teaser, parent id + '/' */
           var last_sid = $.fragment().sids;
           if (last_sid) {
@@ -167,12 +169,19 @@
           } else {
             last_sid = '';
           }
-          if (last_bid.match(last_sid)) { /* create follow up question button was pressed */
+					if (last_bid.match(last_sid)) { /* create follow up question button was pressed */
             var bid_to_delete = $('#breadcrumbs a.statement:last');
             $('#breadcrumbs').data('to_delete', [bid_to_delete.attr('id')]);
       
             /* get previous bid in order to load the proper siblings to session */
-            var origin_bid = bid_to_delete.parent().prev().find('a');
+						var new_level = $.fragment().new_level;
+						
+						if (new_level == 'true') {
+							var origin_bid = bid_to_delete.parent().prev().find('a');
+						} else {
+							var origin_bid = bid_to_delete;
+						}
+						
             if (origin_bid && origin_bid.hasClass('statement')) {
               origin_bid = "fq" + origin_bid.attr('id').match(/\d+/);
             }
@@ -180,6 +189,7 @@
             {
               origin_bid = "";
             }
+						
       
             bids.pop();
             $.setFragment({

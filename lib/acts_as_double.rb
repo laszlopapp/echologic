@@ -6,10 +6,11 @@ module ActsAsDouble
 
   module ClassMethods
 
+        
     def acts_as_double(*args)
       class_eval do
+        
         class << self
-
           # Setting the sub_types.
           def sub_types
             @@sub_types[self.name] || @@sub_types[self.superclass.name]
@@ -22,7 +23,9 @@ module ActsAsDouble
             @@sub_types[self.name] |= klasses
           end
 
-
+          def name_for_siblings
+            self.superclass.name
+          end
 
           #
           # Overrides normal behaviour. Delegates to sub_types and merges the results.
@@ -60,11 +63,18 @@ module ActsAsDouble
             "statements/double/more"
           end
 
+          #
+          # Overrides default behaviour. Returns a template to render both sub_types.
+          #
+          def descendants_template
+            "statements/double/descendants"
+          end
 
           #
           # Overrides default behaviour.
           #
-          def paginate_statements(children, page, per_page)
+          def paginate_statements(children, page, per_page = nil)
+            per_page = children.map(&:length).max if per_page.nil? or per_page < 0
             children.map{|c|c.paginate(default_scope.merge(:page => page, :per_page => per_page))}
           end
 

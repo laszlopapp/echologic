@@ -59,7 +59,6 @@ function initFragmentStatementChange() {
 
       var bids = $("#breadcrumbs").data('api').breadcrumbsToLoad($.fragment().bids);
 			
-			
 			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sids": sids.join(","),
 				"bids": bids.join(","),
