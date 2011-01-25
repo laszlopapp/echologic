@@ -892,7 +892,7 @@ class StatementsController < ApplicationController
   #
   def loadSearchTermsAsTags(origin)
     return if !origin[0,2].eql?('sr')
-    default_tags = origin[2..-1]
+    default_tags = origin[2..-1].gsub(/\\;/, ',')
     default_tags[/[\s]+/] = ',' if default_tags[/[\s]+/] 
     default_tags = default_tags.split(',').compact
     default_tags.each{|t| @statement_node.topic_tags << t }
