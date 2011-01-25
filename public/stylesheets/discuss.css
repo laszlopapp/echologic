@@ -460,9 +460,9 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /******************/
 
 .statement .siblings_panel {
-  left: 136px;
+  left: 120px;
   top: -39px;
-  width: 802px;
+  width: 819px;
   max-height: 360px;
   padding: 10px 0;
 }
@@ -470,7 +470,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .statement .siblings_panel .label {
   color: #21587F;
   display: block;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: bold;
   position: relative;
   left: 15px;
@@ -484,11 +484,16 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 .statement .siblings_panel .children_container {
-	margin: 14px 0 0 12px;
+	margin: 15px 0 0 12px;
 }
 
 .siblings_panel a.statement_link {
-  width: 530px;
+  width: 550px;
+}
+
+.siblings_panel .children_pagination,
+.siblings_panel .children_pagination .jspPane {
+  width: 800px !important;
 }
 
 .siblings_panel .children_pagination .jspVerticalBar {
