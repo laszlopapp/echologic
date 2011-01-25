@@ -518,7 +518,22 @@ es:
         error: 'Error cargando la imagen: Formato de la imagen no compatible.'
 
       add_teaser:
-        text: |
+        question: |
+          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
+        proposal: |
+          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
+        improvement: |
+          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
+        pro_argument: |
+          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
+        contra_argument: |
+          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
+        follow_up_question: |
           <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
           button above to enter it NOW!
 

@@ -8,7 +8,7 @@
 	   <div class="statement_content">
 	     <%= content_tag :div, image_tag('add_statement_teaser_image.png', :class => 'image') ,
                        :class => 'image_container'%>
-	     <%= I18n.t("discuss.statements.add_teaser.text") %>
+	     <%= I18n.t("discuss.statements.add_teaser.#{@type}") %>
 	   </div>
 	 </div>
 </div>
