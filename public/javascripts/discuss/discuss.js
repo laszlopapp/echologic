@@ -79,11 +79,11 @@ function initFragmentStatementChange() {
 		if (!$.fragment().bids || $.fragment().bids == 'undefined') {
 			var bids = $("#breadcrumbs").data('api').getBreadcrumbStack(null).join(',');}
 		else {var bids = $.fragment().bids;}
-      
+    
 		if (!$.fragment().origin || $.fragment().origin == 'undefined') {var origin = bids.split(',').pop();}
 		else {var origin = $.fragment().origin;}
 
-		$.setFragment({ "new_level" : true, "bids" : bids, "origin" : origin });
+    $.setFragment({ "new_level" : true, "bids" : bids, "origin" : origin });
 	  $(document).trigger("fragmentChange.sids");
   }
 

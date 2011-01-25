@@ -382,6 +382,8 @@ module StatementsHelper
       breadcrumb = content_tag :div, :class => 'breadcrumb' do
         content = ""
         content << content_tag(:span, '>', :class => 'delimitator') if index != 0
+        content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.#{b[0][0,2]}"), :class => 'label')
+        content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.over.#{b[0][0,2]}"), :class => 'over', :style => 'display:none')
         content << link_to(h(b[3].gsub(/\\;/, ',')), b[2], :id => b[0], :class => b[1])
         content
       end

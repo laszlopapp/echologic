@@ -499,9 +499,17 @@ es:
 
       breadcrumbs:
         discuss_search: Search
-        discuss_search_with_value: |-
-          Search Results for '{{value}}'
         my_issues: My Discussions
+        labels:
+          ds: ''
+          mi: ''
+          sr: 'Search Results for'
+          fq: 'Follow-Up Questions for'
+          over:
+            ds: 'back to'
+            mi: 'back to'
+            sr: 'back to results of'
+            fq: 'back to'
 
       upload_image:
         title: Cargar imagen

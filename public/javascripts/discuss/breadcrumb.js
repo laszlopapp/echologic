@@ -9,11 +9,18 @@
       initialise(s);
 
 			function initialise(s){
-				elem.find('a.breadcrumb').each(function(){
-				  initBreadcrumbHistoryEvents($(this));
+				elem.find('a').each(function(){
+				  initBreadcrumb($(this));
 				});
 	    }
-
+        
+				
+			function initBreadcrumb(breadcrumb) {
+				if (!breadcrumb.hasClass('.search_link')) {
+					initBreadcrumbHistoryEvents(breadcrumb);
+				}
+        initLabelOnMouseOver(breadcrumb);
+			}
 			// Auxiliary functions
 			function initBreadcrumbHistoryEvents(breadcrumb) {
 		    /*loads statement stack of ids into the button itself */
@@ -66,6 +73,18 @@
 		    });
 		  }
 
+      function initLabelOnMouseOver(breadcrumb) {
+				var label = breadcrumb.parent().find('.label');
+				var over = breadcrumb.parent().find('.over');
+				breadcrumb.bind('mouseover', function(){
+					label.hide();
+					over.show();
+				});
+				breadcrumb.bind('mouseleave', function(){
+          label.show();
+          over.hide();
+        });
+			}
 
 			// Public API
       $.extend(jsp,
@@ -76,7 +95,7 @@
           initialise(s);
         },
 				// API Functions
-				add : function (attrs) { /* Array: [id, classes, url, title] */
+				add : function (attrs) { /* Array: [id, classes, url, title, label] */
 				  var api = elem.data('jsp');
 				  var elements = api.getContentPane().find(".elements");//this.find('.elements');
 
@@ -85,13 +104,15 @@
 				  }
 
 				  var breadcrumb = $('<div/>').addClass('breadcrumb');
+					breadcrumb.append($('<span/>').addClass('label').text(attrs[4]));
+					breadcrumb.append($('<span/>').addClass('over').text(attrs[5]).hide());
 					if (api.getContentPane().find(".elements .breadcrumb").length != 0) {
 				    var del = $("<span class='delimitator'>></span>");
 				    breadcrumb.append(del);
 				  }
 				  breadcrumb.append($('<a></a>').attr('id', attrs[0]).addClass(attrs[1]).attr('href',attrs[2]).text(attrs[3]));
 				  elements.append(breadcrumb);
-					initBreadcrumbHistoryEvents(breadcrumb.find('a'));
+					initBreadcrumb(breadcrumb.find('a'));
 
 					return elem;
 				},

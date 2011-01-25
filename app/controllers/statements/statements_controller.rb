@@ -604,11 +604,13 @@ class StatementsController < ApplicationController
     parent_node = @statement_node.parent
     statement_documents = search_statement_documents(parent_node.statement_id,
                                                      @language_preference_list)
-    #[id, classes, url, title]                                                     
-    @breadcrumb = ["#{parent_node.class.name.underscore}_#{parent_node.id}",
+    #[id, classes, url, title, label, over]                                                     
+    @breadcrumb = ["fq_#{parent_node.id}",
                    "statement statement_link #{parent_node.class.name.underscore}_link",
                    statement_node_url(parent_node),
-                   statement_documents[parent_node.statement_id].title.gsub(/\\;/, ',')]
+                   statement_documents[parent_node.statement_id].title.gsub(/\\;/, ','),
+                   I18n.t("discuss.statements.breadcrumbs.labels.fq"),
+                   I18n.t("discuss.statements.breadcrumbs.labels.over.fq")]
   end
   
   #
@@ -622,17 +624,22 @@ class StatementsController < ApplicationController
     
     @breadcrumbs = []
     
-    bids.each do |bid| #[id, classes, url, title]
+    bids.each do |bid| #[id, classes, url, title, label, over]
       key = bid[0,2]
-      @breadcrumbs << case key
+      label = I18n.t("discuss.statements.breadcrumbs.labels.#{key}")
+      over = I18n.t("discuss.statements.breadcrumbs.labels.over.#{key}")
+      breadcrumb = case key
         when "ds" then ["ds","search_link statement_link", discuss_search_url, I18n.t("discuss.statements.breadcrumbs.discuss_search")]
-        when "sr" then ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :search_terms => bid[2..-1].gsub(/\\;/, ',')), I18n.t("discuss.statements.breadcrumbs.discuss_search_with_value", :value => bid[2..-1])]        when "mi" then ["mi","search_link statement_link", my_issues_url, I18n.t("discuss.statements.breadcrumbs.my_issues")]
+        when "sr" then ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :search_terms => bid[2..-1].gsub(/\\;/, ',')), bid[2..-1]]        when "mi" then ["mi","search_link statement_link", my_issues_url, I18n.t("discuss.statements.breadcrumbs.my_issues")]
         when "fq" then statement_node = StatementNode.find(bid[2..-1])
-        statement_document = search_statement_documents(statement_node.statement_id, @language_preference_list)
-        ["#{statement_node.class.name.underscore}_#{bid[2..-1]}", 
-                        "statement statement_link #{statement_node.class.name.underscore}_link", 
-        statement_node_url(statement_node), statement_document[statement_node.statement_id].title]
+          statement_document = search_statement_documents(statement_node.statement_id, @language_preference_list)
+                          ["fq_#{bid[2..-1]}", 
+                          "statement statement_link #{statement_node.class.name.underscore}_link", 
+          statement_node_url(statement_node), statement_document[statement_node.statement_id].title]
       end
+      breadcrumb << label
+      breadcrumb << over
+      @breadcrumbs << breadcrumb
     end
   end
   

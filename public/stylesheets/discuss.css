@@ -260,7 +260,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .breadcrumbs {
 	padding:7px 10px 7px;
 	font-size: 12px;
-	height: 40px;
+	height: 60px;
 	width: 100%;
 	margin-bottom: 10px;
 }
@@ -269,6 +269,14 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	float:left;
 	width: 245px;
 	overflow: hidden;
+}
+
+.breadcrumbs .breadcrumb .label, .breadcrumbs .breadcrumb .over {
+  width: 215px;
+	display: inline-block;
+	height: 20px;
+	padding-left: 30px;
+	cursor:default;
 }
 
 .breadcrumbs a.statement_link {
