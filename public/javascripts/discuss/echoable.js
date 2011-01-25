@@ -176,10 +176,10 @@
           initialize();
         },
 				// API Functions
-				updateState: function(href, supporters_bar, supporters_label) {
+				updateState: function(href, supporters_bar, supporters_number) {
           echo_button.attr('href', href);
           echoable.find('.header .supporters_bar').replaceWith(supporters_bar);
-          echoable.find('.header .supporters_label').replaceWith(supporters_label);
+          echoable.find('.header .supporters_label').text(supporters_number);
           return this;
         },
 				loadEchoLabelMessages: function(messages) {
