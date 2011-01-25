@@ -491,12 +491,23 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   width: 550px;
 }
 
+.siblings_panel .doubles_list a.statement_link {
+  width: 245px;
+}
+
+.siblings_panel .doubles_list .children_pagination {
+  width: 395px !important;
+}
+
 .siblings_panel .children_pagination,
-.siblings_panel .children_pagination .jspPane {
+.siblings_panel .children_pagination .jspPane,
+.siblings_panel .doubles_list,
+.siblings_panel .doubles_list .jspPane {
   width: 800px !important;
 }
 
-.siblings_panel .children_pagination .jspVerticalBar {
+.siblings_panel .children_pagination .jspVerticalBar,
+.siblings_panel .doubles_list .jspVerticalBar {
   right: 2px;
 }
 

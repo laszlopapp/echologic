@@ -1,12 +1,16 @@
 <% type_dom_class = @type.underscore %>
-var elements = $("<%= escape_javascript(render :partial => "statements/double/descendants", :locals => {:type => type_dom_class})%>");
+var siblings_panel = $("<%= escape_javascript(render :partial => "statements/double/descendants",
+                                                     :locals => {:type => type_dom_class})%>");
+
 var statement = $('#statements div.<%= type_dom_class %>');
-var element = statement.find('.show_siblings_button');
+var siblings_button = statement.find('.show_siblings_button');
 
-elements.insertAfter(element).animate(toggleParams, 300);
+siblings_panel.insertAfter(siblings_button).bind("mouseleave", function() {
+  $(this).fadeOut();
+}).fadeIn();
 
-var panel_height = <%= @children.map{|c| c.total_entries <= 7 ? ((c.total_entries + 1) * 29) : 203}.max %>
-var children_list = statement.find('.header .siblings .doubles_list');
-resetChildrenList(children_list, {height: panel_height});
+var panel_height = <%= @children.map{|c| c.total_entries <= 10 ? ((c.total_entries + 1) * 29) : 290}.max %>
+var children_list = statement.find('.header .siblings_panel .doubles_list');
+children_list.height(panel_height).jScrollPane({animateScroll: false});
 
-statement.data('api').reinitialiseSiblings(".siblings");
+statement.data('api').reinitialiseSiblings(".siblings_panel");
