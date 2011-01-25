@@ -1,9 +1,12 @@
 <%form_partial ||= 'statements/form/form' %>
+<% no_language_info ||= false %>
 <% headline ||= nil %>
 <div class="content">
 	<%= render :partial => 'statements/action_bar', :locals => {:statement_node => statement_node,
                                                               :only_echo_button => true } if statement_node.new_record? %>
 	<div class="summary simple_header_block discuss_right_block">
+		<%= render :partial => 'statements/form/language_info', :locals => {:form => form} if !no_language_info %>
+		
 		<%=content_tag :h2, headline if !headline.nil? %>
 	  <%= render :partial => form_partial, :locals => {:form => form} %>
 	</div>
