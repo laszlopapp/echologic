@@ -14,8 +14,6 @@ class AddLftAndRgtToStatementNode < ActiveRecord::Migration
     end
     add_column :statement_nodes, :lft, :integer
     add_column :statement_nodes, :rgt, :integer
-
-    StatementNode.rebuild!
   end
 
   def self.down
