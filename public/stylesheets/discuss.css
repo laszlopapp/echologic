@@ -401,7 +401,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	border: 3px solid #BBB;
 	background: #FFF;
   position: absolute;
-	top: 37px;
+	bottom: -33px;
 	left: 136px;
 	z-index: 5;
   -moz-border-radius: 15px;
@@ -559,7 +559,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .header_buttons .show_siblings_button {
   background:  url(../images/page/prev_next_buttons.png) no-repeat scroll -74px -117px;
-  left: -5px;
+  left: -6px;
 }
 
 .header:hover .prev_stmt, .header.active .prev_stmt {
