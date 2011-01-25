@@ -107,6 +107,10 @@
 /* New and Edit Statements forms */
 /*********************************/
 
+form.new.statement input {
+  width: 550px;
+}
+
 #statements form.new .simple_header_block h2,
 #statements form.edit .simple_header_block h2 {
 	/*margin-left: 20px;*/
@@ -392,6 +396,25 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   background-position: 0 42px;
 }
 
+/****************/
+/* Popup panels */
+/****************/
+
+.statement .popup_panel {
+  border: 3px solid #BBB;
+	background: #FEFEFE;
+  position: absolute;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  -moz-box-shadow: 0 5px 25px #999;
+  -webkit-box-shadow: 0 5px 25px #999;
+  box-shadow: 0 5px 25px #999;
+  text-align: left;
+  z-index: 5;
+  cursor: default;
+}
+
 /***************************/
 /* Add new statement panel */
 /***************************/
@@ -399,15 +422,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .add_new_panel {
   width: 520px;
 	border: 3px solid #BBB;
-	background: #FFF;
+	background: #FEFEFE;
   position: absolute;
 	bottom: -33px;
 	left: 136px;
-	z-index: 5;
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-  border-radius: 15px;
-  text-align: left;
 }
 
 .add_new_panel .panel_header {
@@ -437,40 +455,44 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	padding-left: 35px;
 }
 
-/**********************/
-/* SIBLINGS CONTAINER */
-/**********************/
+/******************/
+/* SIBLINGS PANEL */
+/******************/
 
-.statement .header .siblings {
-    -moz-border-radius: 15px 15px 15px 15px;
-    background: none repeat scroll 0 0 #FFFFFF;
-    border: 3px solid #BBBBBB;
-    left: 141px;
-    position: absolute;
-    text-align: left;
-    width: 784px;
-		_width: 794px;
-		top: 0;
-    z-index: 5;
-		padding: 10px 0 15px 10px;
+.statement .siblings_panel {
+  left: 136px;
+  top: -39px;
+  width: 802px;
+  max-height: 360px;
+  padding: 10px 0;
 }
 
-.statement .header .siblings .label {
-    color: #21587F;
-    display: block;
-    font-size: 14px;
-    font-weight: bold;
-    position: relative;
-    top: 3px;
+.statement .siblings_panel .label {
+  color: #21587F;
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  position: relative;
+  left: 15px;
+  top: 2px;
 }
 
-.statement .header .siblings .children_list{
+.statement .siblings_panel .children_list {
 	margin: 0;
 	padding: 0;
+  list-style: none;
 }
 
-.statement .header .siblings .children_container {
-	margin-top: 25px;
+.statement .siblings_panel .children_container {
+	margin: 16px 0 0 12px;
+}
+
+.siblings_panel a.statement_link {
+  width: 530px;
+}
+
+.siblings_panel .children_pagination .jspVerticalBar {
+  right: 2px;
 }
 
 /*********************/
@@ -525,7 +547,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   font-size: 18px;
   font-weight: bold;
   text-decoration: none;
-	padding-right: 21px !important;
+	/*padding-right: 21px !important;*/
 	max-width: 550px;
 }
 
@@ -559,6 +581,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .header_buttons .show_siblings_button {
   background:  url(../images/page/prev_next_buttons.png) no-repeat scroll -74px -117px;
+  position: relative;
   left: -6px;
 }
 

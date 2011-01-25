@@ -51,7 +51,7 @@ module StatementsHelper
             :class => "ajax add_new_button text_button create_#{child_type}_button ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_#{child_type}"))
   end
-  
+
   def create_new_question_link(origin)
     type = 'question'
     parent = nil
@@ -76,10 +76,12 @@ module StatementsHelper
     content << content_tag(:div, :class => 'add_new_button') do
       button = ''
       button << content_tag(:span, '', :class => 'add_new_button_icon')
-      button << content_tag(:span, I18n.t('discuss.statements.add_new'), :class => 'label')
+      button << content_tag(:span, I18n.t('discuss.statements.add_new'),
+                            :class => 'label')
       button
     end
-    content << content_tag(:div, :class => 'add_new_panel', :style => "display:none") do
+    content << content_tag(:div, :class => 'add_new_panel popup_panel',
+                           :style => "display:none") do
       panel = ''
       panel << content_tag(:div, :class => 'panel_header') do
         I18n.t("discuss.statements.add_new")
@@ -225,7 +227,7 @@ module StatementsHelper
   def children_box_title(type)
     I18n.t("discuss.statements.headings.#{type}")
   end
-  
+
   # Returns the block heading for the siblings of the current statement node
   def sibling_box_title(type)
     content_tag :span, I18n.t("discuss.statements.headings.#{type}"), :class => 'label'
@@ -271,7 +273,7 @@ module StatementsHelper
              :class => "ajax no_border statement_link #{dom_class(statement_node)}_link ttLink",
              :title => I18n.t("discuss.tooltips.#{action}_#{dom_class(statement_node)}"))
   end
-  
+
   #render the hint on the new statement forms for users with no spoken language defined
   def define_languages_hint
     content = ''
@@ -281,7 +283,7 @@ module StatementsHelper
     content << tag('br')
     content
   end
-  
+
   #render the hint on the edit statement forms to warn about the time the users have to edit it
   def edit_period_hint
     content = ''
@@ -301,7 +303,7 @@ module StatementsHelper
     buttons = ''
     if statement_node and statement_node.new_record?
       %w(prev next).each{|b| buttons << statement_tag(b.to_sym, type, true)}
-      buttons << content_tag(:span, '', :class => 'show_siblings')
+      buttons << content_tag(:span, '&nbsp;', :class => 'show_siblings_button disabled')
     else
       %w(prev next).each do |b|
         buttons << statement_button(statement_node,
@@ -310,13 +312,13 @@ module StatementsHelper
                                     :rel => b,
                                     :class => " statement_link #{opts[:classes]} #{b}")
       end
-      
+
       buttons << descendants_button(statement_node, type, opts)
     end
-    
+
     buttons
   end
-  
+
   def descendants_button(statement_node, type, opts={})
     origin = opts[:origin]
     url = if statement_node.nil? or statement_node.class.name.underscore != type # ADD TEASERS
@@ -329,14 +331,14 @@ module StatementsHelper
       if statement_node.parent_id.nil?
         question_descendants_url(:origin => origin, :current_node => statement_node)
       else
-        descendants_statement_node_url(statement_node.parent, 
-                                       statement_node.class.name_for_siblings.underscore, 
+        descendants_statement_node_url(statement_node.parent,
+                                       statement_node.class.name_for_siblings.underscore,
                                        :current_node => statement_node)
       end
     end
-    content_tag(:span, '', :class => 'show_siblings_button expandable',
-                           'data-content' => '.expandable_content',
-                           :href => url)
+    content_tag(:span, '&nbsp;', :class => 'show_siblings_button expandable',
+                                 'data-content' => '.expandable_content',
+                                 :href => url)
   end
 
   # Renders the correct prev/next image buttons
