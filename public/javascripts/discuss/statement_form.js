@@ -40,7 +40,7 @@
         defaultText = textArea.attr('data-default');
     
         parent_node = textArea.parents('.statement');
-        url = 'http://' + window.location.hostname + '/stylesheets/';
+				url = 'http://' + window.location.host + '/stylesheets/';
         textArea.rte({
           css: ['jquery.rte.css'],
           base_url: url,

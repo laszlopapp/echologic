@@ -271,6 +271,25 @@ module StatementsHelper
              :class => "ajax no_border statement_link #{dom_class(statement_node)}_link ttLink",
              :title => I18n.t("discuss.tooltips.#{action}_#{dom_class(statement_node)}"))
   end
+  
+  #render the hint on the new statement forms for users with no spoken language defined
+  def define_languages_hint
+    content = ''
+    content << content_tag(:li, :class => 'hint ttLink', :title => I18n.t('discuss.statements.statement_language_hint_tooltip')) do
+      content_tag :p, I18n.t('discuss.statements.statement_language_hint', :url => my_profile_url)
+    end
+    content << tag('br')
+    content
+  end
+  
+  #render the hint on the edit statement forms to warn about the time the users have to edit it
+  def edit_period_hint
+    content = ''
+    content << content_tag(:li, :class => 'hint ttLink') do
+      content_tag :p, I18n.t('discuss.statements.edit_period_hint', :minutes => 60)
+    end
+    content
+  end
 
 
   ##############
@@ -382,6 +401,8 @@ module StatementsHelper
       breadcrumb = content_tag :div, :class => 'breadcrumb' do
         content = ""
         content << content_tag(:span, '>', :class => 'delimitator') if index != 0
+        content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.#{b[0][0,2]}"), :class => 'label')
+        content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.over.#{b[0][0,2]}"), :class => 'over', :style => 'display:none')
         content << link_to(h(b[3].gsub(/\\;/, ',')), b[2], :id => b[0], :class => b[1])
         content
       end

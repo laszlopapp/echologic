@@ -481,9 +481,18 @@ en:
 
       breadcrumbs:
         discuss_search: Search
-        discuss_search_with_value: |-
-          Search Results for '{{value}}'
         my_issues: My Issues
+        labels:
+          ds: ''
+          mi: ''
+          sr: 'Search Results for'
+          fq: 'Follow-Up Questions for'
+          over:
+            ds: 'back to'
+            mi: 'back to'
+            sr: 'back to results of'
+            fq: 'back to'
+            
 
 
       upload_image:
@@ -493,7 +502,22 @@ en:
         error: The image couldn't be applied. Please upload a supported format (JPG or PNG and max. 5MB).
 
       add_teaser:
-        text: |
+        question: |
+          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
+        proposal: |
+          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
+        improvement: |
+          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
+        pro_argument: |
+          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
+        contra_argument: |
+          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
+        follow_up_question: |
           <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
           button above to enter it NOW!
     summary:

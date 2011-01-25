@@ -23,7 +23,7 @@ form.formtastic fieldset ol li {
 }
 
 form.formtastic fieldset ol li.select {
-  width: 322px;
+  width: 226px;
 }
 
 html[xmlns] form.formtastic fieldset ol li {
@@ -105,7 +105,7 @@ form.formtastic fieldset ol li.radio fieldset ol li label {
 
 form.formtastic select {
   border: 1px solid #999;
-  width: 307px;
+  width: 195px;
   padding: 2px;
   color: #21587f;
 }
@@ -143,8 +143,8 @@ form.formtastic .buttons ol {
 form.formtastic li.hint {
 	background: url("../images/page/icons/pin.png") no-repeat scroll 120px 2px #FBF3BB;
 	border: 1px solid #7bb031;
-	width: 245px;
+	width: 310px;
 	padding: 33px 10px 5px;
   position: relative;
-	top: 5px;
+	top: 24px;
 }

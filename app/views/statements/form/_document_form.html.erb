@@ -6,26 +6,14 @@
 
 <% form.semantic_fields_for :statement_document, statement_document do |doc|  %>
   <% doc.inputs :class => 'inputs left_panel' do %>
-	  <% if !disabled and statement_document.new_record? %>
-		  <% if user_languages.empty? %>
-				<%= doc.input :language_id,
-                      :collection => [[local_language.value,local_language.id]] ,
-                      :include_blank => false %>
-				<% content_tag :li, :class => 'hint ttLink', :title => I18n.t('discuss.statements.statement_language_hint_tooltip') do -%>
-				  <%= content_tag :p, I18n.t('discuss.statements.statement_language_hint', :url => my_profile_url) %>
-				<% end %>
-				<%= tag('br')%>
-			<% else %>
-		    <%= doc.input :language_id, :collection => user_languages.collect{|l|[l.value,l.id]}, :include_blank => false %>
-			<% end %>
-		<% else %>
+	  <% if disabled or !statement_document.new_record? %>
 	    <%= doc.input :language_id, :as => :hidden, :value => statement_document.language_id %>
 			<%= doc.input :title, :input_html => {:disabled => disabled} if disabled %>
 	  <% end %>
 
     <br/>
 		<% if !disabled %>
-      <%= doc.input :text, :input_html => {:disabled => disabled, :class => css_rte_class,
+      <%= doc.input :text, :label => false,:input_html => {:disabled => disabled, :class => css_rte_class,
                                            'data-default' => I18n.t('discuss.statements.text_hint'),
                                            'data-css-url' => 'http://' + ECHO_HOST + '/stylesheets/'} %>
 			<%= doc.input :old_document_id, :as => :hidden, :value => statement_document.id if !statement_document.new_record? %>
