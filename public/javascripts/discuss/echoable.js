@@ -2,8 +2,7 @@
 
   $.fn.echoable = function() {
 
-	  function Echoable(element) {
-      var echoable = element;
+	  function Echoable(echoable) {
       var echo_button, echo_label;
       initialize();
 
@@ -193,15 +192,14 @@
 			});
 		}
 
-    var element = this;
-    var echoableApi = element.data('echoableApi');
+    var echoableApi = this.data('echoableApi');
     if (echoableApi) {
       echoableApi.reinitialize();
     } else {
-      echoableApi = new Echoable(element);
-      element.data('echoableApi', echoableApi);
+      echoableApi = new Echoable(this);
+      this.data('echoableApi', echoableApi);
     }
-    return element;
+    return this;
   };
 
 })(jQuery);
