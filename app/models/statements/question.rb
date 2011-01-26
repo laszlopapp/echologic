@@ -5,7 +5,7 @@
 
 class Question < StatementNode
 
-  has_children_of_types [:Proposal,true]
+  has_children_of_types [:Proposal,false]
 
   # methods / settings to overwrite default statement_node behaviour
 

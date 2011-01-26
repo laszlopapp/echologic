@@ -28,37 +28,43 @@
             /* Content is already loaded */
             expandable.toggleClass('active');
 						if (settings['animate']) {
-							to_show.animate(toggleParams, settings['animation_speed']);
+							to_show.animate(settings['animation_params'], settings['animation_speed']);
 						} else {
 							to_show.toggle();
 						}
             if (supporters_label) {
 							if (settings['animate']) {
-						  	supporters_label.animate(toggleParams, settings['animation_speed']);
+						  	supporters_label.animate(settings['animation_params'], settings['animation_speed']);
 						  } else {
 								supporters_label.toggle();
 							}
             }
           } else {
-						var loading = $('<span/>').addClass('loading');
-						loading.insertAfter(expandable);
+						var loading = expandable.parent().find(settings['loading_class']);
+						if (loading.length > 0) {
+							loading.show();
+						}
+						else {
+							loading = $('<span/>').addClass('loading');
+							loading.insertAfter(expandable);
+						}
             /* Load content */
             $.ajax({
               url:      path,
               type:     'get',
               dataType: 'script',
               success: function(){
-								loading.remove();
+								loading.hide();
                 expandable.addClass('active');
                 if (supporters_label) {
 		              if (settings['animate']) {
-		                supporters_label.animate(toggleParams, settings['animation_speed']);
+		                supporters_label.animate(settings['animation_params'], settings['animation_speed']);
 		              } else {
 		                supporters_label.toggle();
 		              }
 		            }
               },
-							error: function(){loading.remove();}
+							error: function(){loading.hide();}
             })
           }
           return false;
@@ -81,9 +87,15 @@
 
     $.fn.expandable.defaults = {
       'animation_speed': 300, 
-			'animate': true
+			'animate': true,
+			'animation_params' : {
+        'height' : 'toggle',
+        'opacity': 'toggle'
+      },
+			'loading_class': '.loading'
+			
     };
-
+		
     // Pluginifying code...
     settings = $.extend({}, $.fn.expandable.defaults, settings);
 

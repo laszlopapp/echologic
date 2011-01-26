@@ -17,7 +17,7 @@
 					initNavigationButton(elem.find(".header a.prev"), -1); /* Prev */
 	        initNavigationButton(elem.find(".header a.next"),  1); /* Next */
 				}
-				initExpandables(elem, s);
+				initExpandables(elem);
         
         if (elem.hasClass(settings['echoableClass'])) {
           elem.echoable();
@@ -60,9 +60,25 @@
         }
 			}
 
-      function initExpandables(statement, settings) {
+      function initExpandables(statement) {
 				statement.find(".expandable").each(function(){
-					$(this).expandable(settings);
+					/* siblings button */
+					if ($(this).hasClass('show_siblings_button')) {
+				  	$(this).expandable({
+				  		'animation_params': {
+				  			'opacity': 'toggle'
+				  		}
+				  	});
+				  }
+					/* header button */
+				  else if ($(this).hasClass('header')) {
+						$(this).expandable({
+              'loading_class': '.header_buttons .loading'
+            });
+					}
+					else{
+				  	$(this).expandable();
+				  }
 			  });
 			}
 
@@ -179,7 +195,7 @@
 		   */
 		  function initAddNewButton(statement, settings) {
 		    statement.find(".action_bar .add_new_button").bind("click", function() {
-					$(this).next().toggle();
+					$(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
 		      return false;
 
 		    });
@@ -298,8 +314,14 @@
 				/****************************/
 		    /* prev/next buttons, title */
 		    /****************************/
+				var statement_id = statement.attr('id').replace(/[^0-9]+/, '');
+				
+        var loading = statement.find('.header .loading');
 		    statement.find('.header a.statement_link').bind("click", function(){
 		      var current_stack = getStatementsStack(this, false);
+					
+					if (current_stack[current_stack.length-1] != statement_id){loading.show();}
+					
 					var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
 					var origin = bids.length == 0 ? '' : bids[bids.length-1];
 					/* set fragment */

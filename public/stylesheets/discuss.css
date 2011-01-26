@@ -178,6 +178,7 @@ form.statement fieldset ol span.defaultText {
 
 #statements .statement {
   display: inline-block;
+	position:relative;
 }
 
 /*********/
@@ -264,9 +265,9 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .breadcrumbs {
 	padding:7px 10px 7px;
 	font-size: 12px;
-	height: 60px;
 	width: 100%;
 	margin-bottom: 10px;
+	height: 55px;
 }
 
 .breadcrumbs .breadcrumb {
@@ -285,6 +286,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .breadcrumbs a.statement_link {
 	padding-right: 20px;
+	margin-bottom: 0px;
 }
 
 .breadcrumbs span.delimitator {
@@ -725,6 +727,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .statement .children {
 	display: block;
+	position: relative;
 }
 
 .children_pagination, .children_pagination .jspPane, .doubles_list, .doubles_list .jspPane {
@@ -1161,6 +1164,27 @@ form.statement fieldset ol li.tags_container {
 /**************/
 /* Expandable */
 /**************/
+.statement .loading {
+	background: url('../images/indicator.gif') left center no-repeat;
+  width: 25px;
+  height: 20px;
+	position: absolute;
+  right: 211px;
+  top: 12px;
+}
+
+.statement .header .loading {
+	right: 0px;
+	left: -23px;
+}
+.statement .children .loading {
+  right: 32px;
+	top: 5px;
+}
+.statement .action_buttons .loading {
+  right: -35px;
+	top: 17px;
+}
 
 .expandable {
   cursor: pointer;

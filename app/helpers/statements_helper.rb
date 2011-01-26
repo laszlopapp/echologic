@@ -305,6 +305,7 @@ module StatementsHelper
       %w(prev next).each{|b| buttons << statement_tag(b.to_sym, type, true)}
       buttons << content_tag(:span, '&nbsp;', :class => 'show_siblings_button disabled')
     else
+      buttons << content_tag(:span, '', :class => 'loading', :style => 'display:none')
       %w(prev next).each do |b|
         buttons << statement_button(statement_node,
                                     statement_tag(b.to_sym, type),
