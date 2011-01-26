@@ -20,13 +20,13 @@
        * load this current statement's already existing tags into the tags input box
        */
       function loadTags(form) {
-        tags_to_load = form.find('input.question_tags').val();
+        var tags_to_load = form.find('input.question_tags').val();
         tags_to_load = $.trim(tags_to_load);
         tags_to_load = tags_to_load.split(',');
         while (tags_to_load.length > 0) {
-          tag = $.trim(tags_to_load.shift());
+          var tag = $.trim(tags_to_load.shift());
           if (tag.localeCompare(' ') > 0) {
-            element = createTagButton(form, tag, ".question_tags");
+            var element = createTagButton(form, tag, ".question_tags");
             form.find('#question_tags_values').append(element);
           }
         }
@@ -38,7 +38,7 @@
       function loadTagEvents(form) {
         /* Pressing 'enter' button */
         form.find('#tag_topic_id').bind('keypress', (function(event) {
-          form = $(this).parents('form.statement');
+          var form = $(this).parents('form.statement');
           if (event && event.keyCode == 13) { /* check if enter was pressed */
             if (form.find('#tag_topic_id').val().length != 0) {
               form.find('.addTag').click();
@@ -59,7 +59,7 @@
             var existing_tags = form.find('.question_tags').val();
             existing_tags = existing_tags.split(',');
             existing_tags = $.map(existing_tags,function(q){return q.trim()});
-    
+            
             var new_tags = new Array(0);
             while (entered_tags.length > 0) {
               var tag = entered_tags.shift().trim();
@@ -71,7 +71,7 @@
                 }
               }
             }
-            var question_tags = form.find('.question_tags').val();
+						var question_tags = form.find('.question_tags').val();
 						if (new_tags.length > 0) {
               question_tags = ((question_tags.trim().length > 0) ? question_tags + ',' : '') + new_tags.join(',');
               form.find('.question_tags').val(question_tags);

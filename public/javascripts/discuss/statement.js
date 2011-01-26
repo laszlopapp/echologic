@@ -18,7 +18,7 @@
 	        initNavigationButton(elem.find(".header a.next"),  1); /* Next */
 				}
 				initExpandables(elem, s);
-
+        
         if (elem.hasClass(settings['echoableClass'])) {
           elem.echoable();
         }
@@ -62,49 +62,9 @@
 
       function initExpandables(statement, settings) {
 				statement.find(".expandable").each(function(){
-			    initExpandable($(this), settings);
+					$(this).expandable(settings);
 			  });
 			}
-
-      function initExpandable(expandable, settings) {
-				var content = expandable.attr('data-content');
-		    if (!content) {
-          return;
-        }
-        expandable.removeAttr('data-content');
-
-        var path = expandable.attr('href');
-        expandable.removeAttr('href');
-
-        /* Special ajax event for the statement (collapse/expand)*/
-        expandable.bind("click", function(){
-          var to_show = expandable.parents('div:first').children(content);
-					var supporters_label = expandable.find('.supporters_label');
-					if (to_show.length > 0) {
-						/* Content is already loaded */
-						expandable.toggleClass('active');
-						to_show.animate(toggleParams, settings['animation_speed']);
-						if (supporters_label) {
-	            supporters_label.animate(toggleParams, settings['animation_speed']);
-	          }
-          } else {
-            /* Load content */
-						$.ajax({
-			        url:      path,
-			        type:     'get',
-			        dataType: 'script',
-							success: function(){
-								expandable.addClass('active');
-								if (supporters_label) {
-		              supporters_label.animate(toggleParams, settings['animation_speed']);
-		            }
-							}
-			      })
-          }
-          return false;
-        });
-			}
-
 
 		  /*
 		   * Sets the Timer for the Message Boxes to show up (p.ex., the translation message box)
@@ -129,7 +89,7 @@
 		   */
 		  function hideStatements(settings) {
 		    $('#statements .statement .header').removeClass('active').addClass('expandable').each(function(){
-					initExpandable($(this), settings);
+					$(this).expandable();
 				});
 		    $('#statements .statement .content').hide('slow');
 		    $('#statements .statement .header .supporters_label').hide();
