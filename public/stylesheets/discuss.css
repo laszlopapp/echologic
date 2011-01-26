@@ -600,7 +600,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .header_buttons .show_siblings_button {
   background:  url(../images/page/prev_next_buttons.png) no-repeat scroll -74px -117px;
   position: relative;
-  left: -6px;
+  left: -5px;
 }
 
 .header:hover .prev_stmt, .header.active .prev_stmt {
@@ -1164,21 +1164,23 @@ form.statement fieldset ol li.tags_container {
 /**************/
 /* Expandable */
 /**************/
+
 .statement .loading {
 	background: url('../images/indicator.gif') left center no-repeat;
-  width: 25px;
+  width: 20px;
   height: 20px;
 	position: absolute;
   right: 211px;
-  top: 12px;
+  top: 10px;
 }
 
 .statement .header .loading {
-	right: 0px;
-	left: -23px;
+  right: 0;
+  left: -22px;
+  top: 10px;
 }
 .statement .children .loading {
-  right: 32px;
+  right: 33px;
 	top: 5px;
 }
 .statement .action_buttons .loading {
