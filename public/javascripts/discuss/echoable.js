@@ -2,7 +2,22 @@
 
   $.fn.echoable = function() {
 
-	  function Echoable(echoable) {
+    /* Creating echoable and binding its API */
+    var echoableApi = this.data('echoableApi');
+    if (echoableApi) {
+      echoableApi.reinitialize();
+    } else {
+      echoableApi = echoable(this);
+      this.data('echoableApi', echoableApi);
+    }
+    return this;
+
+
+    /****************/
+    /* The echoable */
+    /****************/
+
+	  function echoable(echoable) {
       var echo_button, echo_label;
       initialize();
 
@@ -21,7 +36,6 @@
 				} else {
 					initEchoButton();
 				}
-
 		  }
 
       function initLabelMessages() {
@@ -174,7 +188,6 @@
 				reinitialize: function() {
           initialize();
         },
-				// API Functions
 				updateState: function(href, supporters_bar, supporters_number) {
           echo_button.attr('href', href);
           echoable.find('.header .supporters_bar').replaceWith(supporters_bar);
@@ -192,14 +205,6 @@
 			});
 		}
 
-    var echoableApi = this.data('echoableApi');
-    if (echoableApi) {
-      echoableApi.reinitialize();
-    } else {
-      echoableApi = new Echoable(this);
-      this.data('echoableApi', echoableApi);
-    }
-    return this;
   };
 
 })(jQuery);
