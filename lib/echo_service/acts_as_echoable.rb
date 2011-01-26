@@ -159,7 +159,7 @@ module ActiveRecord
             end
             
             def self.most_supported_root
-              by_supporters.first
+              roots.by_supporters.first
             end
 
             public
