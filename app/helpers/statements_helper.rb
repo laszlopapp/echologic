@@ -302,16 +302,16 @@ module StatementsHelper
   def navigation_buttons(statement_node, type, opts={})
     buttons = ''
     if statement_node and statement_node.new_record?
-      %w(prev next).each{|b| buttons << statement_tag(b.to_sym, type, true)}
+      %w(prev next).each{|button| buttons << statement_tag(button.to_sym, type, true)}
       buttons << content_tag(:span, '&nbsp;', :class => 'show_siblings_button disabled')
     else
       buttons << content_tag(:span, '', :class => 'loading', :style => 'display:none')
-      %w(prev next).each do |b|
+      %w(prev next).each do |button|
         buttons << statement_button(statement_node,
-                                    statement_tag(b.to_sym, type),
+                                    statement_tag(button.to_sym, type),
                                     type,
-                                    :rel => b,
-                                    :class => " statement_link #{opts[:classes]} #{b}")
+                                    :rel => button,
+                                    :class => " statement_link #{opts[:classes]} #{button}")
       end
 
       buttons << descendants_button(statement_node, type, opts)
@@ -355,12 +355,12 @@ module StatementsHelper
   end
 
   # Inserts a button that links to the previous statement_node
-  def statement_button(current_node, title, type, options={})
+  def statement_button(statement_node, title, type, options={})
     options[:class] ||= ''
     teaser = options[:class].include? 'add'
     options['data-id'] =
-      teaser ? "#{current_node.nil? ? '' : "#{current_node.id}_"}add_#{type}" : current_node.id
-    url = current_node.nil? ? '' : statement_node_url(current_node)
+      teaser ? "#{statement_node.nil? ? '' : "#{statement_node.id}_"}add_#{type}" : statement_node.id
+    url = statement_node.nil? ? '' : statement_node_url(statement_node)
     return link_to(title, url, options)
   end
 
