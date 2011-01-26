@@ -5,7 +5,7 @@
 
 class Question < StatementNode
 
-  has_children_of_types [:Proposal,false]
+  has_children_of_types [:Proposal,true]
 
   # methods / settings to overwrite default statement_node behaviour
 
@@ -18,15 +18,15 @@ class Question < StatementNode
   def publishable?
     true
   end
-  
+
   #################################################
   # string helpers (acts_as_echoable overwriting) #
   #################################################
-  
+
   def self.support_tag
     "recommend"
   end
-  
+
   def self.unsupport_tag
     "unrecommend"
   end
