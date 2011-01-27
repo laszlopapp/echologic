@@ -12,7 +12,8 @@ namespace :notifications do
   task :turn_on_for_testers => :environment do
      User.find_all_by_email(['laszlo.papp@echologic.org',
                              'cardoso_tiago@hotmail.com',
-                             'jan.linhart@echologic.org']).each do |user|
+                             'jan.linhart@echologic.org',
+                             'soeren.rogoll@echologic.org']).each do |user|
       user.activity_notification = 1
       user.drafting_notification = 1
       user.newsletter_notification = 1
