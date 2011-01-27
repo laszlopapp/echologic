@@ -30,10 +30,19 @@
 
     function Statement(statement) {
       var timer = null;
-      var statementId = statement.attr('id');
+      var statementDomId = statement.attr('id');
+      var statementId = getStatementId(statementDomId);
 
+      /* Extracts the statement node Id from the statement DOM Id. */
+      function getStatementId(domId) {
+        return domId.replace(/[^0-9]+/, '');
+      }
+
+      // Initialize the statement
       initialise();
 
+
+      /* Initializes the statement. */
       function initialise() {
 
         if (settings['load']) {
@@ -54,12 +63,10 @@
         if(statement.is('form')) {
 					statement.statement_form();
         } else {
-					/* Sidebar Add Button */
 					initAddNewButton();
-					/* Pagination */
           initMoreButton();
-          initStatementLinks();
-					initFUQLinks();
+          initAllStatementLinks();
+					initAllFUQLinks();
           /* Message Alerts */
 					if (settings['load']) {
             loadMessageBoxes();
@@ -169,30 +176,21 @@
 				}
 
         // Get statement node id to link to
-				var currentNodeId = button.attr('data-id');
-		    if (currentNodeId.match('add')) {
-		      var idParts = currentNodeId.split('_');
-		      currentNodeId = [];
+				var currentStatementId = button.attr('data-id');
+		    if (currentStatementId.match('add')) {
+		      var idParts = currentStatementId.split('_');
+		      currentStatementId = [];
 		      // Get parent id
           if(idParts[0].match(/\d+/)) {
-            currentNodeId.push(idParts.shift());
+            currentStatementId.push(idParts.shift());
           }
 		      // Get 'add'
-          currentNodeId.push(idParts.shift());
-		      currentNodeId.push(idParts.join('_'));
-          currentNodeId = "/"+currentNodeId.join('/');
+          currentStatementId.push(idParts.shift());
+		      currentStatementId.push(idParts.join('_'));
+          currentStatementId = "/"+currentStatementId.join('/');
 		    } else {
-          currentNodeId = eval(currentNodeId);
+          currentStatementId = eval(currentStatementId);
         }
-		    // Get statement type of current node
-        /*var node_class;
-		    if (statement.attr("id").match('add_')) {
-		      node_class = statement.attr("id").replace('add/','');
-		    } else {
-		      node_class = statement.attr("id").match(/[a-z]+(?:_[a-z]+)?/);
-          // Edit form has prev/next buttons, too
-		      node_class = node_class[0].replace('edit_','');
-		    }*/
 
 		    // Get parent element (statement)
 		    var parent = statement.prev();
@@ -208,15 +206,15 @@
 		    // Get siblings ids
 		    var siblingIds = $("div#statements").data(siblingsKey);
 				// Get index of the prev/next sibling
-		    var targetIndex = (siblingIds.indexOf(currentNodeId) + inc + siblingIds.length) % siblingIds.length;
+		    var targetIndex = (siblingIds.indexOf(currentStatementId) + inc + siblingIds.length) % siblingIds.length;
 
-		    var targetNodeId = new String(siblingIds[targetIndex]);
-				if (targetNodeId.match('add')) {
+		    var targetStatementId = new String(siblingIds[targetIndex]);
+				if (targetStatementId.match('add')) {
           // Add (teaser) link
-					button.attr('href', button.attr('href').replace(/\/\d+.*/, targetNodeId));
+					button.attr('href', button.attr('href').replace(/\/\d+.*/, targetStatementId));
 		    }
 		    else {
-					button.attr('href', button.attr('href').replace(/\/\d+.*/, "/" + targetNodeId));
+					button.attr('href', button.attr('href').replace(/\/\d+.*/, "/" + targetStatementId));
 		    }
 
 		    button.removeAttr('data-id');
@@ -238,9 +236,6 @@
 		    });
 		  }
 
-		  /*
-		   * PAGINATION AND HISTORY HANDLING
-		   */
 
 		  /*
 		   * Handles the click on the more Button event (replaces it with an element of class 'more_loading')
@@ -254,12 +249,83 @@
 
 
 		  /*
-		   * Handles the follow up question (FUQ) related events:
+		   * Sets the different links on the statement UI, after the user clicked on them.
+		   */
+		  function initAllStatementLinks() {
+		    statement.find('.header a.statement_link').bind("click", function() {
+		      var current_stack = getStatementsStack(this, false);
+					var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
+					var origin = bids.length == 0 ? '' : bids[bids.length-1];
+		      $.setFragment({
+		        "sids": current_stack.join(','),
+		        "new_level": '',
+						"bids": bids.join(','),
+						"origin": origin
+		      });
+
+          if (current_stack[current_stack.length-1] != statementId) {
+            statement.find('.header .loading').show();
+          }
+
+		      return false;
+		    });
+
+        statement.find('.children').each(function() {
+					initChildrenLinks($(this));
+				});
+		  }
+
+      /*
+       * Initializes links for all statements but Follow-up Questions.
+       * new_level = false
+       */
+      function initSiblingsLinks(container){
+        initStatementLinks(container, false)
+	    }
+
+      /*
+       * Initializes links for all statements but Follow-up Questions.
+       * new_level = true
+       */
+			function initChildrenLinks(container) {
+        initStatementLinks(container, true)
+			}
+
+      /*
+       * Initializes links for all statements but Follow-up Questions.
+       */
+      function initStatementLinks(container, newLevel) {
+        var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
+        var origin = bids.length == 0 ? '' : bids[bids.length - 1];
+
+				container.find('a.statement_link:not(.follow_up_question_link):Event(!click)').bind("click", function() {
+					var current_stack = getStatementsStack(this, newLevel);
+          $.setFragment({
+            "sids": current_stack.join(','),
+            "new_level": true,
+						"bids": bids.join(','),
+            "origin": origin
+          });
+          return false;
+        });
+
+        container.find('a.add_new_button:not(.create_follow_up_question_button):Event(!click)').bind("click", function() {
+          $.setFragment({
+            "new_level": newLevel,
+						"bids": bids.join(','),
+            "origin": origin
+          })
+        });
+      }
+
+
+      /*
+		   * Handles the follow up question (FUQ) related behaviour:
 		   * - click on the statement's FUQ child
 		   * - new FUQ button,
 		   * - FUQ form's cancel button
 		   */
-		  function initFUQLinks() {
+		  function initAllFUQLinks() {
         statement.find("#follow_up_questions.children").each(function(){
 					initFUQChildrenLinks($(this));
 				});
@@ -275,172 +341,73 @@
 			}
 
       /* Initializes follow up question children. */
-      function initFUQChildrenLinks(fuq_children) {
-				fuq_children.find("a.statement_link.follow_up_question_link:Event(!click)").bind("click", function() {
-          var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
-          var bids = $('#breadcrumbs').data('api').getBreadcrumbStack($(this));
-          var last_bid = bids[bids.length-1];
+      function initFUQChildrenLinks(container) {
+				initFUQLinks(container, true);
+			}
+
+
+      /* Initializes follow up question siblings. */
+			function initFUQSiblingsLinks(container) {
+        initFUQLinks(container, false);
+      }
+
+
+      /* Initializes follow up question links. */
+      function initFUQLinks(container, newLevel) {
+        container.find("a.statement_link.follow_up_question_link:Event(!click)").bind("click", function() {
+          var questionId = getStatementId($(this).parent().attr('id'));
+          var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(newLevel ? $(this) : null);
           $.setFragment({
             "bids": bids.join(','),
-            "sids": question,
-            "new_level": true,
-            "origin": last_bid
+            "sids": questionId,
+            "new_level": newLevel,
+            "origin": bids[bids.length - 1]
           });
           return false;
         });
 
 				/* NEW FOLLOW-UP QUESTION BUTTON (ON CHILDREN)*/
-        fuq_children.find("a.create_follow_up_question_button:Event(!click)").bind("click", function() {
-          var bids = $('#breadcrumbs').data('api').getBreadcrumbStack($(this));
+        container.find("a.create_follow_up_question_button:Event(!click)").bind("click", function() {
+          var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(newLevel ? $(this) : null);
           $.setFragment({
             "bids": bids.join(','),
-            "new_level": true,
-						"origin" : bids[bids.length -1]
-          });
-        });
-			}
-
-
-			function initFUQSiblingsLinks(siblings_block) {
-
-        /* FOLLOW-UP QUESTION SIBLING */
-        siblings_block.find("a.statement_link.follow_up_question_link:Event(!click)").bind("click", function() {
-          var question = $(this).parent().attr('id').replace(/[^0-9]+/, '');
-          var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
-          var last_bid = bids[bids.length-1];
-          $.setFragment({
-            "bids": bids.join(','),
-            "sids": question,
-            "new_level": false,
-            "origin": $.fragment().origin
-          });
-          return false;
-        });
-
-        /* NEW FOLLOW-UP QUESTION BUTTON (ON SIBLINGS)*/
-        siblings_block.find("a.create_follow_up_question_button:Event(!click)").bind("click", function() {
-          var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
-          $.setFragment({
-            "bids": bids.join(','),
-            "new_level": false,
-            "origin" : $.fragment().origin
+            "new_level": newLevel,
+						"origin" : bids[bids.length - 1]
           });
         });
       }
 
 
 		  /*
-		   * Sets the different links on the statement UI, after the user clicked on them (fragment history handling).
+		   * Returns an array of statement ids that should be loaded to the stack after 'statementLink' was clicked
+		   * (and a new statement is loaded).
+		   * - statementLink: HTML element that was clicked
+		   * - newLevel: true or false (child statement link)
 		   */
-		  function initStatementLinks() {
-				var nodeId = statement.attr('id').replace(/[^0-9]+/, '');
-
-		    statement.find('.header a.statement_link').bind("click", function() {
-		      var current_stack = getStatementsStack(this, false);
-					var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
-					var origin = bids.length == 0 ? '' : bids[bids.length-1];
-		      $.setFragment({
-		        "sids": current_stack.join(','),
-		        "new_level": '',
-						"bids": bids.join(','),
-						"origin": origin
-		      });
-
-          if (current_stack[current_stack.length-1] != nodeId) {
-            statement.find('.header .loading').show();
-          }
-
-		      return false;
-		    });
-
-        statement.find('.children').each(function() {
-					initChildrenLinks($(this));
-				});
-		  }
-
-      function initSiblingsLinks(siblings_block){
-	      var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
-				var origin = bids.length == 0 ? '' : bids[bids.length-1];
-
-        // Child link
-        // Note: this handler is for not follow up question child links only. FUQs have their own handler.
-        siblings_block.find('a.statement_link:not(.follow_up_question_link):Event(!click)').bind("click", function() {
-          var current_stack = getStatementsStack(this, false);
-          $.setFragment({
-            "sids": current_stack.join(','),
-            "new_level": true,
-            "bids": bids.join(','),
-            "origin": origin
-          });
-          return false;
-        });
-
-        siblings_block.find('a.add_new_button:not(.create_follow_up_question_button):Event(!click)').bind("click", function() {
-          $.setFragment({
-            "new_level": false,
-            "bids": bids.join(','),
-            "origin": origin
-          })
-        });
-
-	    }
-
-      /* */
-			function initChildrenLinks(children_block) {
-				var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
-        var origin = bids.length == 0 ? '' : bids[bids.length-1];
-
-        // Child link
-        // Note: this handler is for not follow up question child link only. FUQs have their own handler.
-				children_block.find('a.statement_link:not(.follow_up_question_link):Event(!click)').bind("click", function() {
-					var current_stack = getStatementsStack(this, true);
-          $.setFragment({
-            "sids": current_stack.join(','),
-            "new_level": true,
-						"bids": bids.join(','),
-            "origin": origin
-          });
-          return false;
-        });
-
-        children_block.find('a.add_new_button:not(.create_follow_up_question_button):Event(!click)').bind("click", function(){
-          $.setFragment({
-            "new_level": true,
-						"bids": bids.join(','),
-            "origin": origin
-          })
-        });
-			}
-
-
-		  /*
-		   * returns an array of the statement ids that should be loaded to the stack after 'element' was clicked
-		   * (and a new statement is loaded)
-		   * element: HTML element that was clicked ; new_level: true or false (child statement link)
-		   */
-		  function getStatementsStack(element, new_level) {
-		    /* get the statement element */
-		    var statement = $(element).parents('.statement');
-		    /* get statement id current index in the list of statements */
+		  function getStatementsStack(statementLink, newLevel) {
+		    // Get the statement element
+		    var statement = $(statementLink).parents('.statement');
+		    // Get index of current statement in the list of statements
 		    var statement_index = $('#statements .statement').index(statement);
 
-		    /* get soon to be visible statement */
-		    var path = element.href.split("/");
+		    // Get soon to be visible statement
+		    var path = statementLink.href.split("/");
 		    var id = path.pop().split('?').shift();
 
+        var current_sids;
 		    if (id.match(/\d+/)) {
-		      var current_sids = id;
+		      current_sids = id;
 		    } else {
-		      /* add teaser case */
-		      /* when there's a parent id attached, copy :id/add/:type, or else, just copy the add/:type */
+		      // Add teaser case
+		      // When there's a parent id attached, copy :id/add/:type, or else, just copy the add/:type
 		      var index_backwards = path[path.length - 2].match(/\d+/) ? 2 : 1;
-		      var current_sids = path.splice(path.length - index_backwards, 2);
+		      current_sids = path.splice(path.length - index_backwards, 2);
 		      current_sids.push(id);
 		      current_sids = current_sids.join('/');
 		    }
-		    current_stack = [];
 
-		    /* get current_stack of visible statements (if any matches the clicked statement, then break) */
+		    // Get current_stack of visible statements (if any matches the clicked statement, then break)
+        var current_stack = [];
 		    $("#statements .statement").each( function(index){
 		      if (index < statement_index) {
 		        id = $(this).attr('id').split('_').pop();
@@ -449,7 +416,7 @@
 		        }
 		        current_stack.push(id);
 		      } else if (index == statement_index) {
-		         if (new_level) {
+		         if (newLevel) {
 		          current_stack.push($(this).attr('id').split('_').pop());
 		         }
 		        }
@@ -461,14 +428,14 @@
 
 
 		  /*
-		   * loads the statement text RTE editor
+		   * Loads the statement text RTE editor.
 		   */
 		  function loadRTEEditor(form) {
 		    var textArea = form.find('textarea.rte_doc, textarea.rte_tr_doc');
-		    defaultText = textArea.attr('data-default');
+		    var defaultText = textArea.attr('data-default');
+		    var parentNode = textArea.parents('.statement');
+		    var url = 'http://' + window.location.hostname + '/stylesheets/';
 
-		    parent_node = textArea.parents('.statement');
-		    url = 'http://' + window.location.hostname + '/stylesheets/';
 		    textArea.rte({
 		      css: ['jquery.rte.css'],
 		      base_url: url,
@@ -476,49 +443,43 @@
 		      controls_rte: rte_toolbar,
 		      controls_html: html_toolbar
 		    });
-		    parent_node.find('.focus').focus();
+		    parentNode.find('.focus').focus();
 
-		    /* for default text */
-		    parent_node.find('iframe').attr('data-default', defaultText);
+		    // Default placeholder text
+		    parentNode.find('iframe').attr('data-default', defaultText);
 		  }
 
-      // Public API
+
+      // Public API of statement
       $.extend(this,
       {
-        reinitialise: function(s)
+        reinitialise: function(resettings)
         {
-          s = $.extend({}, s, settings, {'load' : false});
-          initialise(s);
+          var new_settings = $.extend({}, resettings, settings, {'load' : false});
+          initialise(new_settings);
         },
-        // API Functions
-				reinitialiseChildren: function(children_container)
+				reinitialiseChildren: function(childrenContainerSelector)
 				{
-					var children_block = statement.find(children_container);
-					initMoreButton(children_block);
-          initChildrenLinks(children_block);
-          initFUQChildrenLinks(children_block);
+					var container = statement.find(childrenContainerSelector);
+					initMoreButton();
+          initChildrenLinks(container);
+          initFUQChildrenLinks(container);
 				},
-        insertContent: function(content){
-		      statement.append(content);
-					return this;
-		    },
-				reinitialiseSiblings: function(siblings_container)
+				reinitialiseSiblings: function(siblingsContainerSelector)
         {
-          var siblings_block = statement.find(siblings_container);
-          initSiblingsLinks(siblings_block);
-          initFUQSiblingsLinks(siblings_block);
+          var container = statement.find(siblingsContainerSelector);
+          initSiblingsLinks(container);
+          initFUQSiblingsLinks(container);
         },
         insertContent: function(content){
           statement.append(content);
           return this;
         },
-
 		    removeBelow: function(){
 		     statement.nextAll().each(function(){
-			     /* delete the session data relative to this statement first */
+			     // Delete the session data relative to this statement first
 			     $('div#statements').removeData(this.id);
 			     $(this).remove();
-
 		     });
 				 return this;
 		    },
@@ -529,7 +490,7 @@
 		      }
 		      else
 		      {
-		        hideStatements(settings);
+		        hideStatements();
 		        $('div#statements').append(statement);
 		      }
 					return this;
