@@ -138,7 +138,7 @@
 		    $('#statements .statement .header').removeClass('active').addClass('expandable').each(function() {
 					$(this).expandable();
 				});
-		    $('#statements .statement .content').hide();
+		    $('#statements .statement .content').hide('slow');
 		    $('#statements .statement .header .supporters_label').hide();
 		  }
 
