@@ -157,10 +157,10 @@
         
       function initFollowUpQuestionFormEvents(statement) {
         statement.find("a.cancel_text_button").bind("click", function(){
-          var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
+          var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
       
           /* get last breadcrumb id */
-					var last_bid = bids[bids.length-1];
+					var last_bid = getStatementId(bids[bids.length-1]);
 					
           /* get last statement view id (if teaser, parent id + '/' */
           var last_sid = $.fragment().sids;
@@ -169,28 +169,15 @@
           } else {
             last_sid = '';
           }
-					if (last_bid.match(last_sid)) { /* create follow up question button was pressed */
+					
+					if (last_bid.match(last_sid)) { /* create follow up question button had been pressed */
             var bid_to_delete = $('#breadcrumbs a.statement:last');
             $('#breadcrumbs').data('to_delete', [bid_to_delete.attr('id')]);
       
-            /* get previous bid in order to load the proper siblings to session */
-						var new_level = $.fragment().new_level;
+            var origin_bid = bid_to_delete.parent().prev().find('a');
 						
-						if (new_level == 'true') {
-							var origin_bid = bid_to_delete.parent().prev().find('a');
-						} else {
-							var origin_bid = bid_to_delete;
-						}
+						origin_bid = origin_bid.attr('id').split('_').join('');
 						
-            if (origin_bid && origin_bid.hasClass('statement')) {
-              origin_bid = "fq" + origin_bid.attr('id').match(/\d+/);
-            }
-            else
-            {
-              origin_bid = "";
-            }
-						
-      
             bids.pop();
             $.setFragment({
               "bids": bids.join(','),

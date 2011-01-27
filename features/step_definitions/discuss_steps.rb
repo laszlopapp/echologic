@@ -217,7 +217,7 @@ Then /^"([^\"]*)" should have a "([^\"]*)" event$/ do |question, op_type|
 end
 
 Then /^the ([^\"]*) should have ([^\"]*) siblings in session$/ do |statement_type, siblings_number|
-  type = statement_type.split(" ").map(&:downcase).join("_").classify.constantize.name_for_siblings.underscore
+  type = statement_type.split(" ").map(&:downcase).join("_").classify.constantize.name_for_siblings
   response.should have_selector("#statements div.#{type}") do |selector|
     statement = selector.first
     siblings = eval(statement.get_attribute("data-siblings"))

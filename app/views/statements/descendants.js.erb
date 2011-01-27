@@ -12,7 +12,7 @@ var panel_height = <%= @children.total_entries <= 10 ? ((@children.total_entries
 var children_list = statement.find('.header .siblings_panel .children_list');
 children_list.height(panel_height).jScrollPane({animateScroll: false});
 
-var jsp = children_list.data('jsp')
+var jsp = children_list.data('jsp');
 
 
 var active = jsp.getContentPane().find('li a.active');

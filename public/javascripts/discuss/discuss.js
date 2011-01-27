@@ -30,6 +30,12 @@ function initBreadcrumbs() {
 	});
 }
 
+
+/* Extracts the statement node Id from the statement DOM Id. */
+function getStatementId(domId) {
+  return domId.replace(/[^0-9]+/, '');
+}
+
 /********************************/
 /* STATEMENT NAVIGATION HISTORY */
 /********************************/
@@ -47,7 +53,7 @@ function initFragmentStatementChange() {
 
 
 			var visible_sids = $("#statements .statement").map(function(){
-				return this.id.replace(/[^0-9]+/, '');
+				return getStatementId(this.id);
 			}).get();
 
 
@@ -57,7 +63,7 @@ function initFragmentStatementChange() {
 			sids = $.grep(new_sids, function (a) {
 				return $.inArray(a, visible_sids) == -1 ;});
 
-      var bids = $("#breadcrumbs").data('api').breadcrumbsToLoad($.fragment().bids);
+      var bids = $("#breadcrumbs").data('breadcrumbApi').breadcrumbsToLoad($.fragment().bids);
 			
 			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sids": sids.join(","),
@@ -77,7 +83,7 @@ function initFragmentStatementChange() {
 	/* Statement Stack */
   if ($.fragment().sids) {
 		if (!$.fragment().bids || $.fragment().bids == 'undefined') {
-			var bids = $("#breadcrumbs").data('api').getBreadcrumbStack(null).join(',');}
+			var bids = $("#breadcrumbs").data('breadcrumbApi').getBreadcrumbStack(null).join(',');}
 		else {var bids = $.fragment().bids;}
     
 		if (!$.fragment().origin || $.fragment().origin == 'undefined') {var origin = bids.split(',').pop();}

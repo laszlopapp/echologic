@@ -624,7 +624,7 @@ class StatementsController < ApplicationController
     
     @breadcrumbs = []
     
-    bids.each do |bid| #[id, classes, url, title, label, over]
+    bids.each_with_index do |bid, index| #[id, classes, url, title, label, over]
       key = bid[0,2]
       label = I18n.t("discuss.statements.breadcrumbs.labels.#{key}")
       over = I18n.t("discuss.statements.breadcrumbs.labels.over.#{key}")
@@ -632,7 +632,7 @@ class StatementsController < ApplicationController
         when "ds" then ["ds","search_link statement_link", discuss_search_url, I18n.t("discuss.statements.breadcrumbs.discuss_search")]
         when "sr" then ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :search_terms => bid[2..-1].gsub(/\\;/, ',')), bid[2..-1]]        when "mi" then ["mi","search_link statement_link", my_issues_url, I18n.t("discuss.statements.breadcrumbs.my_issues")]
         when "fq" then statement_node = StatementNode.find(bid[2..-1])
-          statement_document = search_statement_documents(statement_node.statement_id, @language_preference_list)
+                       statement_document = search_statement_documents(statement_node.statement_id, @language_preference_list)
                           ["fq_#{bid[2..-1]}", 
                           "statement statement_link #{statement_node.class.name.underscore}_link", 
           statement_node_url(statement_node), statement_document[statement_node.statement_id].title]

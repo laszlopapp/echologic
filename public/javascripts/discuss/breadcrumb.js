@@ -2,20 +2,17 @@
 
   $.fn.breadcrumb = function(settings){
 
-    function Breadcrumb(elem, s){
+    function Breadcrumb(breadcrumbs_container){
+      var breadcrumbs = breadcrumbs_container;
+      initialise();
 
-      var jsp = this;
-
-      initialise(s);
-
-			function initialise(s){
-				elem.find('a').each(function(){
+			function initialise(){
+				breadcrumbs.find('a').each(function(){
 				  initBreadcrumb($(this));
 				});
 	    }
         
-				
-			function initBreadcrumb(breadcrumb) {
+		  function initBreadcrumb(breadcrumb) {
 				if (!breadcrumb.hasClass('.search_link')) {
 					initBreadcrumbHistoryEvents(breadcrumb);
 				}
@@ -50,7 +47,7 @@
 
 		      /* set new bids to save in fragment */
 		      id_links_to_delete = $.map(links_to_delete, function(a){
-		        return a.replace(/[^0-9]+/, '');
+		        return getStatementId(a);
 		      });
 
 		      new_bids = $.grep(bids_stack, function(a, index){
@@ -68,7 +65,7 @@
 				  	origin = '';
 				  }
 
-		      $.setFragment({"bids" : new_bids.join(","), "sids": sids.join(","), "new_level" : '', "origin" : origin});
+		      $.setFragment({"bids" : new_bids.join(","), "sids": sids.join(","), "new_level" : true, "origin" : origin});
 		      return false;
 		    });
 		  }
@@ -87,7 +84,7 @@
 			}
 
 			// Public API
-      $.extend(jsp,
+      $.extend(this,
       {
         reinitialise: function(s)
         {
@@ -96,7 +93,7 @@
         },
 				// API Functions
 				add : function (attrs) { /* Array: [id, classes, url, title, label] */
-				  var api = elem.data('jsp');
+				  var api = breadcrumbs.data('jsp');
 				  var elements = api.getContentPane().find(".elements");//this.find('.elements');
 
 				  if (elements.find('a#' + attrs[0]).length > 0) {
@@ -114,11 +111,10 @@
 				  elements.append(breadcrumb);
 					initBreadcrumb(breadcrumb.find('a'));
 
-					return elem;
+					return this;
 				},
 
 				update : function () {
-					var breadcrumbs = elem;
 					var links_to_delete = breadcrumbs.data('to_delete');
 		      if (links_to_delete != null) {
 		        $.each(links_to_delete, function(index, value){
@@ -127,11 +123,11 @@
 		        });
 		        breadcrumbs.removeData('to_delete');
 		      }
-					return elem;
+					return this;
 		    },
 				resize : function () {
-		      var elements = elem.find('.elements');
-		      var api = elem.data('jsp');
+		      var elements = breadcrumbs.find('.elements');
+		      var api = breadcrumbs.data('jsp');
 
 		      var width = 0;
 		      elements.children().each(function(){
@@ -142,7 +138,7 @@
 		      api.reinitialise();
 		      api.scrollByX(width);
 
-					return elem;
+					return this;
 		    },
 				breadcrumbsToLoad : function (bids) {
 		      if (bids == null) { return []; }
@@ -157,9 +153,9 @@
 		      });
 
 		      /* current breadcrumb entries */
-		      var visible_bids = elem.find("a").map(function(){
+		      var visible_bids = breadcrumbs.find("a").map(function(){
 		        if ($(this).hasClass('statement')) {
-		          return this.id.replace(/[^0-9]+/, '');
+		          return getStatementId(this.id);
 		        } else {
 		          return this.id;
 		        }
@@ -188,23 +184,14 @@
 		      return bids_to_load;
 		    },
 				getBreadcrumbStack : function (element){
-		      var breadcrumbs = elem.find(".breadcrumb a.search_link").map(function(){
-		        if (this.id == 'sr') {
-		          return 'sr'+ $(this).getUrlParam('search_terms');
-		        } else
-		        {
-		          return this.id;
-		        }
-		      }).get();
-		      var node_breadcrumbs = elem.find(".breadcrumb a.statement").map(function(){
-		        return 'fq'+ this.id.replace(/[^0-9]+/, '');
-		      }).get();
-		      $.merge(breadcrumbs, node_breadcrumbs);
+		      var current_breadcrumbs = breadcrumbs.find(".breadcrumb a").map(function(){
+						return this.id.split('_').join('');
+					}).get();
 					if (element) {
-		        var statement_id = element.parents('.statement').attr('id').replace(/[^0-9]+/, '');
-		        breadcrumbs.push('fq' + statement_id);
+		        var statement_id = getStatementId(element.parents('.statement').attr('id'));
+		        current_breadcrumbs.push('fq' + statement_id);
 		      }
-		      return breadcrumbs;
+		      return current_breadcrumbs;
 		    }
 			});
     };
@@ -219,12 +206,12 @@
 	  var ret;
     this.each(function(){
 
-      var elem = $(this), api = elem.data('api');
+      var elem = $(this), api = elem.data('breadcrumbApi');
       if (api) {
         api.reinitialise(settings);
       } else {
       api = new Breadcrumb(elem, settings);
-        elem.data('api', api);
+        elem.data('breadcrumbApi', api);
       }
       ret = ret ? ret.add(elem) : elem;
     })

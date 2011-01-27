@@ -333,7 +333,7 @@ module StatementsHelper
         question_descendants_url(:origin => origin, :current_node => statement_node)
       else
         descendants_statement_node_url(statement_node.parent,
-                                       statement_node.class.name_for_siblings.underscore,
+                                       statement_node.class.name_for_siblings,
                                        :current_node => statement_node)
       end
     end

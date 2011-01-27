@@ -29,14 +29,12 @@
     /*************************/
 
     function Statement(statement) {
-      var timer = null;
+      var timer;
       var statementDomId = statement.attr('id');
       var statementId = getStatementId(statementDomId);
+			var statement_index;
 
-      /* Extracts the statement node Id from the statement DOM Id. */
-      function getStatementId(domId) {
-        return domId.replace(/[^0-9]+/, '');
-      }
+      
 
       // Initialize the statement
       initialise();
@@ -44,15 +42,21 @@
 
       /* Initializes the statement. */
       function initialise() {
+				/* Initialize Variables */
+				timer = null;
 
         if (settings['load']) {
 					insertStatement();
+					
+          /* Initialise index of the current statement */
+          statement_index = $('#statements .statement').index(statement);
+					
 					/* Navigation through siblings */
 	        storeSiblings();
 					initNavigationButton(statement.find(".header a.prev"), -1); /* Prev */
 	        initNavigationButton(statement.find(".header a.next"),  1); /* Next */
 				}
-
+        
 				initExpandables();
 
         if (isEchoable()) {
@@ -148,16 +152,17 @@
 		  function storeSiblings() {
         var key;
 		    var parent = statement.prev();
-		    if (parent.length) {
+				if (statement_index > 0) {
 		      // Store siblings with the parent node id
-		      key = parent.attr('id');
+					var index = statement_index-1;
+					key = $('#statements .statement:eq(' + index + ')').attr('id');
 		    } else {
 		      // No parent means it's a root node, therefore, store siblings under the key 'roots'
 		      key = 'roots';
 		    }
 		    var siblings = eval(statement.attr("data-siblings"));
 		    if (siblings != null) {
-		      $("div#statements").data(key, siblings);
+		      $("#statements").data(key, siblings);
 		    }
 		    statement.removeAttr("data-siblings");
 		  }
@@ -253,9 +258,16 @@
 		   */
 		  function initAllStatementLinks() {
 		    statement.find('.header a.statement_link').bind("click", function() {
+					var old_stack = $.fragment().sids;
 		      var current_stack = getStatementsStack(this, false);
-					var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
+					var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
 					var origin = bids.length == 0 ? '' : bids[bids.length-1];
+					
+					if (current_stack.join(',') != old_stack) {
+            statement.find('.header .loading').show();
+          }
+
+					
 		      $.setFragment({
 		        "sids": current_stack.join(','),
 		        "new_level": '',
@@ -263,10 +275,7 @@
 						"origin": origin
 		      });
 
-          if (current_stack[current_stack.length-1] != statementId) {
-            statement.find('.header .loading').show();
-          }
-
+          
 		      return false;
 		    });
 
@@ -295,7 +304,7 @@
        * Initializes links for all statements but Follow-up Questions.
        */
       function initStatementLinks(container, newLevel) {
-        var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
+        var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
         var origin = bids.length == 0 ? '' : bids[bids.length - 1];
 
 				container.find('a.statement_link:not(.follow_up_question_link):Event(!click)').bind("click", function() {
@@ -332,7 +341,7 @@
 
 			  // NEW FOLLOW-UP QUESTION BUTTON (ON CHILDREN AND SIDEBAR)
 			  statement.find(".action_bar a.create_follow_up_question_button").bind("click", function(){
-			    var bids = $('#breadcrumbs').data('api').getBreadcrumbStack($(this));
+			    var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack($(this));
 			    $.setFragment({
 			      "bids": bids.join(','),
 			      "new_level": true
@@ -356,7 +365,7 @@
       function initFUQLinks(container, newLevel) {
         container.find("a.statement_link.follow_up_question_link:Event(!click)").bind("click", function() {
           var questionId = getStatementId($(this).parent().attr('id'));
-          var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(newLevel ? $(this) : null);
+          var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(newLevel ? $(this) : null);
           $.setFragment({
             "bids": bids.join(','),
             "sids": questionId,
@@ -368,7 +377,7 @@
 
 				/* NEW FOLLOW-UP QUESTION BUTTON (ON CHILDREN)*/
         container.find("a.create_follow_up_question_button:Event(!click)").bind("click", function() {
-          var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(newLevel ? $(this) : null);
+          var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(newLevel ? $(this) : null);
           $.setFragment({
             "bids": bids.join(','),
             "new_level": newLevel,
@@ -385,12 +394,7 @@
 		   * - newLevel: true or false (child statement link)
 		   */
 		  function getStatementsStack(statementLink, newLevel) {
-		    // Get the statement element
-		    var statement = $(statementLink).parents('.statement');
-		    // Get index of current statement in the list of statements
-		    var statement_index = $('#statements .statement').index(statement);
-
-		    // Get soon to be visible statement
+				// Get soon to be visible statement
 		    var path = statementLink.href.split("/");
 		    var id = path.pop().split('?').shift();
 
@@ -423,7 +427,7 @@
 		    });
 		    /* insert clicked statement */
 		    current_stack.push(current_sids);
-		    return current_stack;
+				return current_stack;
 		  }
 
 
@@ -455,8 +459,8 @@
       {
         reinitialise: function(resettings)
         {
-          var new_settings = $.extend({}, resettings, settings, {'load' : false});
-          initialise(new_settings);
+          settings = $.extend({}, resettings, settings, {'load' : false});
+          initialise();
         },
 				reinitialiseChildren: function(childrenContainerSelector)
 				{
