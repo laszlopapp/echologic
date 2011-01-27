@@ -341,7 +341,7 @@
 
 			  // NEW FOLLOW-UP QUESTION BUTTON (ON CHILDREN AND SIDEBAR)
 			  statement.find(".action_bar a.create_follow_up_question_button").bind("click", function(){
-			    var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack($(this));
+			    var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack('fq'+statementId);
 			    $.setFragment({
 			      "bids": bids.join(','),
 			      "new_level": true
@@ -365,7 +365,7 @@
       function initFUQLinks(container, newLevel) {
         container.find("a.statement_link.follow_up_question_link:Event(!click)").bind("click", function() {
           var questionId = getStatementId($(this).parent().attr('id'));
-          var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(newLevel ? $(this) : null);
+          var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(newLevel ? 'fq'+statementId : null);
           $.setFragment({
             "bids": bids.join(','),
             "sids": questionId,
@@ -377,7 +377,7 @@
 
 				/* NEW FOLLOW-UP QUESTION BUTTON (ON CHILDREN)*/
         container.find("a.create_follow_up_question_button:Event(!click)").bind("click", function() {
-          var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(newLevel ? $(this) : null);
+          var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(newLevel ? 'fq'+statementId : null);
           $.setFragment({
             "bids": bids.join(','),
             "new_level": newLevel,

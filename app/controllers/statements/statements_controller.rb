@@ -605,7 +605,7 @@ class StatementsController < ApplicationController
     statement_documents = search_statement_documents(parent_node.statement_id,
                                                      @language_preference_list)
     #[id, classes, url, title, label, over]                                                     
-    @breadcrumb = ["fq_#{parent_node.id}",
+    @breadcrumb = ["fq#{parent_node.id}",
                    "statement statement_link #{parent_node.class.name.underscore}_link",
                    statement_node_url(parent_node),
                    statement_documents[parent_node.statement_id].title.gsub(/\\;/, ','),
@@ -633,7 +633,7 @@ class StatementsController < ApplicationController
         when "sr" then ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :search_terms => bid[2..-1].gsub(/\\;/, ',')), bid[2..-1]]        when "mi" then ["mi","search_link statement_link", my_issues_url, I18n.t("discuss.statements.breadcrumbs.my_issues")]
         when "fq" then statement_node = StatementNode.find(bid[2..-1])
                        statement_document = search_statement_documents(statement_node.statement_id, @language_preference_list)
-                          ["fq_#{bid[2..-1]}", 
+                          ["fq#{bid[2..-1]}", 
                           "statement statement_link #{statement_node.class.name.underscore}_link", 
           statement_node_url(statement_node), statement_document[statement_node.statement_id].title]
       end
