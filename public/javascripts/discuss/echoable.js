@@ -7,7 +7,7 @@
     if (echoableApi) {
       echoableApi.reinitialize();
     } else {
-      echoableApi = echoable(this);
+      echoableApi = new Echoable(this);
       this.data('echoableApi', echoableApi);
     }
     return this;
@@ -17,7 +17,7 @@
     /* The echoable */
     /****************/
 
-	  function echoable(echoable) {
+	  function Echoable(echoable) {
       var echo_button, echo_label;
       initialize();
 
