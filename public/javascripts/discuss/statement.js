@@ -98,7 +98,7 @@
 			}
 
       function initExpandables() {
-				statement.find(".expandable").each(function(){
+				statement.find(".expandable:Event(!click)").each(function(){
           var expandableElement = $(this);
 					if (expandableElement.hasClass('show_siblings_button')) {
             // Siblings button
@@ -139,9 +139,8 @@
 		   * Collapses all visible statements.
 		   */
 		  function hideStatements() {
-		    $('#statements .statement .header').removeClass('active').addClass('expandable').each(function() {
-					$(this).expandable();
-				});
+				$('#statements .statement .header').removeClass('active').addClass('expandable');
+				$('#statements .statement .header:Event(!click)').expandable();
 		    $('#statements .statement .content').hide('slow');
 		    $('#statements .statement .header .supporters_label').hide();
 		  }
