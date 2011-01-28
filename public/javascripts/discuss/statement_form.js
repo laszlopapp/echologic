@@ -2,21 +2,20 @@
 
   $.fn.statement_form = function(settings) {
 
-    function StatementForm(elem, s){
-	
-			var jsp = this;
+    function StatementForm(stForm){
+	    var statementForm = stForm; 
 			
-			initialise(s);
+			initialise();
 			
-			function initialise(s){
-			  loadRTEEditor(elem);
+			function initialise(){
+			  loadRTEEditor();
 
         /*New Statement Form Helpers */
         if (elem.hasClass('new')) {
-          hideNewStatementType(elem);
-          loadDefaultText(elem);
-          handleStatementFormsSubmit(elem);
-          initFormCancelButton(elem);
+          hideNewStatementType();
+          loadDefaultText();
+          handleStatementFormsSubmit();
+          initFormCancelButton();
           
         }
 
@@ -26,7 +25,7 @@
         }
         
         if (elem.hasClass('follow_up_question')) {
-          initFollowUpQuestionFormEvents(elem);
+					initFollowUpQuestionFormEvents();
         }
 			}
 			
@@ -35,12 +34,11 @@
 			/*
        * loads the statement text RTE editor
        */
-      function loadRTEEditor(form) {
-        var textArea = form.find('textarea.rte_doc, textarea.rte_tr_doc');
+      function loadRTEEditor() {
+        var textArea = statementForm.find('textarea.rte_doc, textarea.rte_tr_doc');
         defaultText = textArea.attr('data-default');
     
-        parent_node = textArea.parents('.statement');
-				url = 'http://' + window.location.host + '/stylesheets/';
+        url = 'http://' + window.location.host + '/stylesheets/';
         textArea.rte({
           css: ['jquery.rte.css'],
           base_url: url,
@@ -48,17 +46,17 @@
           controls_rte: rte_toolbar,
           controls_html: html_toolbar
         });
-        parent_node.find('.focus').focus();
+        statementForm.find('.focus').focus();
     
         /* for default text */
-        parent_node.find('iframe').attr('data-default', defaultText);
+        statementForm.find('iframe').attr('data-default', defaultText);
       }
 			
 			/*
        * Hides the statement type on new statement forms
        */
-      function hideNewStatementType(element) {
-        input_type = element.find('input#type');
+      function hideNewStatementType() {
+        input_type = statementForm.find('input#type');
         input_type.data('value',input_type.attr('value'));
         input_type.removeAttr('value');
       }
@@ -67,12 +65,12 @@
 			/*
        * Loads Form's Default Text to title, text and tags
        */
-			function loadDefaultText(form) {
-        if (!form.hasClass('new')) {return;}
+			function loadDefaultText() {
+        if (!statementForm.hasClass('new')) {return;}
     
     
         /* Text Inputs */
-        var inputText = form.find("input[type='text']");
+        var inputText = statementForm.find("input[type='text']");
         var value = inputText.attr('data-default');
         if (inputText.val().length == 0) {
           inputText.toggleVal({
@@ -85,7 +83,7 @@
     
     
         /* Text Area (RTE Editor) */
-        var editor = form.find("iframe.rte_doc");
+        var editor = statementForm.find("iframe.rte_doc");
           var value = editor.attr('data-default');
         var doc = editor.contents().get(0);
         text = $(doc).find('body');
@@ -107,7 +105,7 @@
     
     
         /* Clean text inputs on submit */
-        form.bind('submit', (function() {
+        statementForm.bind('submit', (function() {
           $(this).find(".toggleval").each(function() {
             if($(this).val() == $(this).data("defText")) {
               $(this).val("");
@@ -117,16 +115,16 @@
       }
 			
 			
-			function handleStatementFormsSubmit(form) {
-        form.bind('submit', (function(){
-          showNewStatementType(form);
+			function handleStatementFormsSubmit() {
+        statementForm.bind('submit', (function(){
+          showNewStatementType();
           $.ajax({
             url: this.action,
             type: "POST",
             data: $(this).serialize(),
             dataType: 'script',
             success: function(data, status){
-              hideNewStatementType(form);
+              hideNewStatementType();
             }
           });
           return false;
@@ -136,8 +134,8 @@
 			/*
        * Handles Cancel Button click on new statement forms
        */
-      function initFormCancelButton(form) {
-        var cancelButton = form.find('.buttons a.cancel');
+      function initFormCancelButton() {
+        var cancelButton = statementForm.find('.buttons a.cancel');
         if ($.fragment().sids) {
           var sids = $.fragment().sids;
           var new_sids = sids.split(",");
@@ -155,10 +153,10 @@
 			
 			
         
-      function initFollowUpQuestionFormEvents(statement) {
-        statement.find("a.cancel_text_button").bind("click", function(){
-          var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
-      
+      function initFollowUpQuestionFormEvents() {
+        statementForm.find("a.cancel_text_button").bind("click", function(){
+          var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
+					
           /* get last breadcrumb id */
 					var last_bid = bids[bids.length-1];
 					
@@ -169,50 +167,32 @@
           } else {
             last_sid = '';
           }
-					if (last_bid.match(last_sid)) { /* create follow up question button was pressed */
-            var bid_to_delete = $('#breadcrumbs a.statement:last');
-            $('#breadcrumbs').data('to_delete', [bid_to_delete.attr('id')]);
-      
-            /* get previous bid in order to load the proper siblings to session */
-						var new_level = $.fragment().new_level;
-						
-						if (new_level == 'true') {
-							var origin_bid = bid_to_delete.parent().prev().find('a');
-						} else {
-							var origin_bid = bid_to_delete;
-						}
-						
-            if (origin_bid && origin_bid.hasClass('statement')) {
-              origin_bid = "fq" + origin_bid.attr('id').match(/\d+/);
-            }
-            else
-            {
-              origin_bid = "";
-            }
-						
-      
+					
+					
+					
+					if (getStatementId(last_bid).match(last_sid)) { /* create follow up question button in children had been pressed */
+					  var origin_bid = $('#breadcrumbs a.statement:last').parent().prev().find('a').attr('id');
             bids.pop();
-            $.setFragment({
-              "bids": bids.join(','),
-              "new_level": true,
-              "origin": origin_bid
-            });
+            $.setFragment({ "bids": bids.join(','), "new_level": true, "origin": origin_bid });
             return false;
-          }
+          } else { /* create follow up question button in siblings had been pressed */
+					  $.setFragment({ "bids": '', "new_level": true, "origin": last_bid });
+            return false;
+					}
         });
       }
 			
 			/*
        * Shows the statement type on new statement forms
        */
-      function showNewStatementType(element) {
-        input_type = element.find('input#type');
+      function showNewStatementType() {
+        input_type = statementForm.find('input#type');
         input_type.attr('value', input_type.data('value'));
       }
 			
 			// API Functions
 			
-			$.extend(jsp, 
+			$.extend(this, 
       {
         reinitialise: function(s)
         {
@@ -237,7 +217,7 @@
     if (api) {
       api.reinitialise(settings);
     } else {
-    api = new StatementForm(elem, settings);
+    api = new StatementForm(elem);
       elem.data('statementFormApi', api);
     }
     ret = ret ? ret.add(elem) : elem;

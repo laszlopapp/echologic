@@ -270,6 +270,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	height: 55px;
 }
 
+.breadcrumbs .elements {
+  display: inline-block;	
+}
+
 .breadcrumbs .breadcrumb {
 	float:left;
 	width: 245px;
@@ -289,7 +293,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	margin-bottom: 0px;
 }
 
-.breadcrumbs span.delimitator {
+.breadcrumbs span.delimiter {
 	padding-right: 20px;
 }
 

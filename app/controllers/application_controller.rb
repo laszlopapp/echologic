@@ -75,7 +75,7 @@ class ApplicationController < ActionController::Base
       end
       format.js do
         render_with_info do |page|
-          page.redirect_to url
+          page << "redirectToUrl('#{params[:controller]}', '#{url}');"
         end
       end
     end

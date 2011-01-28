@@ -549,8 +549,32 @@ pt:
       expertise: 'Especialistas'
       decision_making: 'Tomadores de decisão'
     results_count:
-      one: '{{count}} movedor'
-      more: '{{count}} movedores'
+      member:
+        one: ' movedor '
+        more: ' movedores '
+      sort:
+        one:
+          affection: affected
+          engagement: engaged
+          expertise: expert
+          decision_making: decision-maker
+        more:
+          affection: affected
+          engagement: engaged
+          expertise: experts
+          decision_making: decision-makers
+      sorted_member:
+        one: ' {{sort}} movedor'
+        more: ' {{sort}} movedores'
+        with_terms:
+          one: ' movedor {{sort}} '
+          more: ' movedores {{sort}} '
+      terms:
+        no_sort: "by '{{terms}}'"
+        affection: "by '{{terms}}'"
+        engagement: "by '{{terms}}'"
+        expertise: "in '{{terms}}'"
+        decision_making: "in '{{terms}}'"
     details:
       tabs:
         overview:     'Visão global'

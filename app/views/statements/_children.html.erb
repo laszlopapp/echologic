@@ -2,7 +2,7 @@
 <% path = children.kind_of?(String) ? children : '' %>
 <div id="<%= type.pluralize %>" class="children header_block discuss_right_block">
   <!-- Title -->
-  <div class="headline expandable<%= ' active' if path.blank? %>" data-content=".expandable_content" href="<%= path %>">
+  <div class="headline expandable<%= ' active' if path.blank? %>" href="<%= path %>">
     <%= children_box_title(type) %>
     <%= content_tag :div, '', :class => 'expand_icon' %>
   </div>

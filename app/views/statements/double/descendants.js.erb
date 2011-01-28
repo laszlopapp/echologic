@@ -13,4 +13,22 @@ var panel_height = <%= @children.map{|c| c.total_entries <= 10 ? ((c.total_entri
 var children_list = statement.find('.header .siblings_panel .doubles_list');
 children_list.height(panel_height).jScrollPane({animateScroll: false});
 
+
+var jsp = children_list.data('jsp');
+
+var containers = jsp.getContentPane().find('.children_list');
+
+var container_index = 0;
+var active = "";
+containers.each(function(index){
+  container_index = index;
+  active = $(this).find('li a.active');
+	if (active.length > 0) {return false;}
+});
+
+if(active.length > 0) {
+  var height = containers.eq(container_index).find('li a').index(active) * 29;
+  jsp.scrollToY(height);
+}
+
 statement.data('api').reinitialiseSiblings(".siblings_panel");

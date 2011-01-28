@@ -212,7 +212,7 @@ class StatementNode < ActiveRecord::Base
 
     # Aux Function: Get Siblings Helper (overwritten in doubles)
     def name_for_siblings
-      self.name
+      self.name.underscore
     end
 
     # Aux Function: paginates a set of ActiveRecord Objects

@@ -30,7 +30,7 @@ var sids = $('div#statements .statement').map(function(){
   return this.id.replace(/[^0-9]+/, "");
 }).get();
 
-var bids = $('#breadcrumbs').data('api').getBreadcrumbStack(null);
+var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
 
 var origin = bids[bids.length-1];
 if (origin == null || origin == "undefined"){origin = '';}

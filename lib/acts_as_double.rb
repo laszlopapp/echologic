@@ -24,7 +24,7 @@ module ActsAsDouble
           end
 
           def name_for_siblings
-            self.superclass.name
+            self.superclass.name.underscore
           end
 
           #

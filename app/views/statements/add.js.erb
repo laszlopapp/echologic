@@ -22,13 +22,12 @@
 <% end %>
 
 /* breadcrumb */
-<% if @breadcrumbs %>
-  <% @breadcrumbs.each do |b| %>
-	  $('#breadcrumbs').data('api').add(eval(<%= b.to_json %>));
-  <% end %>
+<% if !params[:origin].blank? %>
+  $('#breadcrumbs').data('breadcrumbApi').deleteAfter('<%= params[:origin] %>');
 <% end %>
-
-$('#breadcrumbs').data('api').update().resize();
+<% if @breadcrumbs %>
+  $('#breadcrumbs').data('breadcrumbApi').addBreadcrumbs(<%= @breadcrumbs.to_json %>);
+<% end %>
 
 var add_teaser = $("<%= escape_javascript(render :partial => 'statements/add') %>").statement({'level' : <%= (@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 0 : @statement_node.level + 1 %>});
 add_teaser.data('api').removeBelow();

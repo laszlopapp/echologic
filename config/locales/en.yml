@@ -554,8 +554,32 @@ en:
       expertise: 'Experts'
       decision_making: 'Decision Makers'
     results_count:
-      one: '{{count}} mover'
-      more: '{{count}} movers'
+      member:
+        one: ' member '
+        more: ' members '
+      sort:
+        one:
+          affection: affected
+          engagement: engaged
+          expertise: expert
+          decision_making: decision-maker
+        more:
+          affection: affected
+          engagement: engaged
+          expertise: experts
+          decision_making: decision-makers
+      sorted_member:
+        one: ' {{sort}} member'
+        more: ' {{sort}} members'
+        with_terms:
+          one: ' member {{sort}} '
+          more: ' members {{sort}} '
+      terms:
+        no_sort: "by '{{terms}}'"
+        affection: "by '{{terms}}'"
+        engagement: "by '{{terms}}'"
+        expertise: "in '{{terms}}'"
+        decision_making: "in '{{terms}}'"
     details:
       tabs:
         overview:     'Overview'
