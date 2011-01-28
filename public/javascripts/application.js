@@ -276,3 +276,16 @@ function loadAboutUs() {
 	  });
 	});
 }
+
+
+/* REDIRECTION AFTER SESSION EXPIRE */
+function redirectToUrl(controller, url) {
+	switch(controller)
+	{
+	case 'statements': redirectToStatementUrl();
+	break;
+	default: window.location.replace(url);
+	}
+}
+
+

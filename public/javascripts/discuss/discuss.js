@@ -112,3 +112,26 @@ function resetChildrenList(list, properties) {
   });
 }
 
+
+/* REDIRECTION AFTER SESSION EXPIRE */
+function redirectToStatementUrl() {
+	var url = window.location.href.split('#');
+	if (url.length > 1) {
+		var fragment = url.pop();
+		if (fragment.length > 0) {
+			var path = url[0].split('?');
+			var sids = $.fragment().sids;
+			if (sids) {
+				var current_statement = sids.split(',').pop();
+				path[0] = path[0].replace(/\/\d+/, '/' + current_statement);
+			}
+      path[1] = fragment;
+      url = path.join('?');
+		}
+	} else {
+		url = url.pop();
+	}
+	window.location.replace(url);
+}
+
+

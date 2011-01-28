@@ -555,8 +555,32 @@ de:
       expertise: 'ExpertInnen'
       decision_making: 'EntscheiderInnen'
     results_count:
-      one: '{{count}} BewegerIn'
-      more: '{{count}} BewegerInnen'
+      member:
+        one: ' BewegerIn '
+        more: ' BewegerInnen '
+      sort:
+        one:
+          affection: affected
+          engagement: engaged
+          expertise: expert
+          decision_making: decision-maker
+        more:
+          affection: affected
+          engagement: engaged
+          expertise: experts
+          decision_making: decision-makers
+      sorted_member:
+        one: ' {{sort}} BewegerIn'
+        more: ' {{sort}} BewegerInnen'
+        with_terms:
+          one: ' BewegerIn {{sort}} '
+          more: ' BewegerInnen {{sort}} '
+      terms:
+        no_sort: "by '{{terms}}'"
+        affection: "by '{{terms}}'"
+        engagement: "by '{{terms}}'"
+        expertise: "in '{{terms}}'"
+        decision_making: "in '{{terms}}'"
     details:
       tabs:
         overview:     'Überblick'

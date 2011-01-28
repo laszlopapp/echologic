@@ -2,7 +2,7 @@
 
   <%= tabnav :connect_segments %>
 
-  <% count_text = profiles_count_text(@profiles.total_entries) %>
+  <% count_text = profiles_count_text(@profiles.total_entries, params[:search_terms], params[:sort]) %>
 
   <!--<span class="results_count"><%- count_text %></span>-->
   <!--<span class="results_sort"/>-->

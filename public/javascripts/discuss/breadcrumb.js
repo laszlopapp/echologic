@@ -7,16 +7,24 @@
       initialise();
 
 			function initialise(){
+				breadcrumbs.find('a');
 				breadcrumbs.find('a').each(function(){
 				  initBreadcrumb($(this));
 				});
-				var elements = breadcrumbs.data('jsp').getContentPane();
+				
+				var jsp = breadcrumbs.data('jsp');
+				
+				var width = updateContainerWidth();
+				jsp.reinitialise();
+        jsp.scrollByX(width);
+				
+				var elements = jsp.getContentPane();
 				if (elements.children().length == 0) {breadcrumbs.fadeOut(settings['animation_speed']);}
 	    }
         
 		  function initBreadcrumb(breadcrumb) {
 				if (!breadcrumb.hasClass('.search_link')) {
-					initBreadcrumbHistoryEvents(breadcrumb);
+					initBreadcrumbLinks(breadcrumb);
 				}
         initLabelOnMouseOver(breadcrumb);
 			}
@@ -25,7 +33,7 @@
 			
 			
 			// Auxiliary functions
-			function initBreadcrumbHistoryEvents(breadcrumb) {
+			function initBreadcrumbLinks(breadcrumb) {
 		    /*loads statement stack of ids into the button itself */
 		    var path_id = breadcrumb.attr('id');
 				path_id = path_id.substring(2, path_id.length);
