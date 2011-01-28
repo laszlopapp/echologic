@@ -94,7 +94,7 @@
 			}
 
       function initExpandables() {
-				statement.find(".expandable").each(function(){
+				statement.find(".expandable").each(function() {
           var expandableElement = $(this);
 					if (expandableElement.hasClass('show_siblings_button')) {
             // Siblings button
