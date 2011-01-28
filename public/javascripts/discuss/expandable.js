@@ -15,20 +15,18 @@
     // Merging settings with defaults
     var settings = $.extend({}, $.fn.expandable.defaults, current_settings);
 
-    var ret;
-    this.each(function(){
+    return this.each(function() {
 
-	    // /* Creating expandable and binding its API */
-	    var elem = $(this), expandableApi = elem.data('expandableApi');
+	    // Creating expandable and binding its API
+	    var elem = $(this);
+      var expandableApi = elem.data('expandableApi');
 	    if (expandableApi) {
 				expandableApi.reinitialise();
 	    } else {
 	      expandableApi = new Expandable(elem);
 	      elem.data('expandableApi', expandableApi);
 	    }
-			ret = ret ? ret.add(elem) : elem;
 		});
-    return ret;
 
 
     /* The expandable handler */
@@ -36,17 +34,17 @@
       initialise();
 
       function initialise() {
-				
+
         var path = expandable.attr('href');
         expandable.removeAttr('href');
-        
-			  /* Collapse/expand clicks */
+
+			  // Collapse/expand clicks
         expandable.bind("click", function(){
 					var parent = expandable.parents('div:first');
 					var to_show = parent.children('.expandable_content');
           var supporters_label = expandable.find('.supporters_label');
           if (to_show.length > 0) {
-            /* Content is already loaded */
+            // Content is already loaded
             expandable.toggleClass('active');
 						if (settings['animate']) {
 							to_show.animate(settings['animation_params'],
@@ -63,7 +61,7 @@
 							}
             }
           } else {
-            /* Load content now */
+            // Load content now
 						var loading = expandable.parent().find(settings['loading_class']);
 						if (loading.length > 0) {
 							loading.show();
@@ -104,7 +102,7 @@
         }
       });
     }
-    
+
   };
 
 })(jQuery);
