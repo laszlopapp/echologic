@@ -421,7 +421,7 @@
 		         }
 		        }
 		    });
-		    /* insert clicked statement */
+		    // Insert clicked statement
 		    current_stack.push(current_sids);
 		    return current_stack;
 		  }
