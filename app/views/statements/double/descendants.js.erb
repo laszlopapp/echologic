@@ -18,15 +18,17 @@ var jsp = children_list.data('jsp');
 
 var containers = jsp.getContentPane().find('.children_list');
 
-containers.each(function(){
-  var container = $(this);
-  var active = $(this).find('li a.active');
+var container_index = 0;
+var active = "";
+containers.each(function(index){
+  container_index = index;
+  active = $(this).find('li a.active');
 	if (active.length > 0) {return false;}
 });
 
 if(active.length > 0) {
-  var height = container.find('li a').index(active) * 29;
-  jsp.scrollTo(0, height);
+  var height = containers.eq(container_index).find('li a').index(active) * 29;
+  jsp.scrollToY(height);
 }
 
 statement.data('api').reinitialiseSiblings(".siblings_panel");

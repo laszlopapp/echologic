@@ -18,7 +18,7 @@
 				jsp.reinitialise();
         jsp.scrollByX(width);
 				
-				var elements = jsp.getContentPane();
+				var elements = jsp.getContentPane().find('.elements');
 				if (elements.children().length == 0) {breadcrumbs.fadeOut(settings['animation_speed']);}
 	    }
         
