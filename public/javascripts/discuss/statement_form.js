@@ -24,6 +24,7 @@
     /******************************/
     /* The statement form handler */
     /******************************/
+    
     function StatementForm() {
 
 			initialise();

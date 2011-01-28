@@ -1,4 +1,4 @@
-(function($){
+(function($) {
 
   $.fn.expandable = function(current_settings) {
 
