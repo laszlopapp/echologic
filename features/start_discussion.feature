@@ -83,7 +83,7 @@ Feature: Start a question
     Given I am logged in as "user" with password "true"
       And there is a question i have created
     When I go to the question
-      And I follow "Change" within "#image_container"
+      And I follow "Change" within ".image_container"
     Then I should see "Upload Image"
       And I should see "Cancel"
       And I should see "Upload"

@@ -63,7 +63,8 @@ module PublishableModule
               set_info("discuss.statements.published")
               render_with_info do |page|
                 if params[:in] == 'summary'
-                  page.remove 'edit_button', 'publish_button'
+                  page << "$('#statements .#{dom_class(@statement_node)} .edit_text_button').remove();"
+                  page << "$('#statements .#{dom_class(@statement_node)} .publish_text_button').remove();"
                 else
                   @statement_documents =
                     search_statement_documents([@statement_node.statement_id])

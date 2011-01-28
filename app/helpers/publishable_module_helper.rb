@@ -56,7 +56,7 @@ module PublishableModuleHelper
   def add_new_question_button(origin = nil)
     link_to(I18n.t("discuss.statements.types.question"),
             new_question_url(:origin => origin, :bids => origin),
-            :id => "add_new_question_link", :class => "question_link resource_link ajax")
+            :class => "question_link resource_link ajax")
   end
 
 
@@ -68,7 +68,6 @@ module PublishableModuleHelper
        statement_document.author == current_user and !statement_node.published?
       link_to(I18n.t('discuss.statements.publish'),
               { :controller => :statements, :id => statement_node.id, :action => :publish, :in => :summary },
-              :id => 'publish_button',
               :class => 'ajax_put header_button text_button publish_text_button ttLink',
               :title => I18n.t('discuss.tooltips.publish'))
     else
@@ -113,7 +112,7 @@ module PublishableModuleHelper
               :class => 'ajax_put publish_button ttLink',
               :title => I18n.t('discuss.tooltips.publish'))
     else
-      "<span class='publish_button'>#{I18n.t('discuss.statements.states.published')}</span>"
+      content_tag :span , I18n.t('discuss.statements.states.published'), :class => 'publish_button'
     end
   end
 
