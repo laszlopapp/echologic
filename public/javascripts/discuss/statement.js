@@ -43,7 +43,7 @@
 				/* Initialize Variables */
 				timer = null;
 
-        if (settings['load']) {
+        if (settings['load_header']) {
 					insertStatement();
 
           /* Initialise index of the current statement */
@@ -63,14 +63,14 @@
 
         /* Statement Form Helpers */
         if(statement.is('form')) {
-					statement.statement_form();
+					statement.statementForm();
         } else {
 					initAddNewButton();
           initMoreButton();
           initAllStatementLinks();
 					initAllFUQLinks();
           /* Message Alerts */
-					if (settings['load']) {
+					if (settings['load_header']) {
             loadMessageBoxes();
 					}
         }
