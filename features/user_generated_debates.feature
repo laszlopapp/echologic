@@ -151,7 +151,7 @@ Feature: User Generated Debates
       And I am on the discuss index
       And I follow "Featured"
       And I follow "echonomyJAM"
-      And I follow "create_question_link"
+      And I follow localized "discuss.statements.create_question_link"
       And I fill in the following:
         | question_statement_document_title | A Debate for all Seasons |
         | question_statement_document_text  | A Debate for all Seasons |
@@ -163,7 +163,7 @@ Feature: User Generated Debates
     Given I am logged in as "user" with password "true"
       And I have "*xyz" as decision making tags
       And I am on My Issues
-      And I follow "create_question_link"
+      And I follow localized "discuss.statements.create_question_link"
       And I fill in the following:
         | question_statement_document_title | A Debate for all Seasons |
         | question_statement_document_text  | A Debate for all Seasons |
@@ -176,7 +176,7 @@ Feature: User Generated Debates
   Scenario: An editor should define any hash tags
     Given I am logged in as "editor" with password "true"
       And I am on My Issues
-      And I follow "create_question_link"
+      And I follow localized "discuss.statements.create_question_link"
       And I fill in the following:
         | question_statement_document_title | A Debate for all Seasons |
         | question_statement_document_text  | A Debate for all Seasons |

@@ -20,11 +20,11 @@
         }
 
         /* Taggable Form Helpers */
-        if (elem.hasClass(settings['taggableClass'])) {
+        if (statementForm.hasClass(settings['taggableClass'])) {
           elem.taggable();
         }
         
-        if (elem.hasClass('follow_up_question')) {
+        if (statementForm.hasClass('follow_up_question')) {
 					initFollowUpQuestionFormEvents();
         }
 			}
@@ -144,8 +144,9 @@
           new_sids.pop();
     
           cancelButton.addClass("ajax");
-          cancelButton.attr('href', $.queryString(cancelButton.attr('href').replace(/\/\d+/, path), {
+				  cancelButton.attr('href', $.queryString(cancelButton.attr('href').replace(/\/\d+/, path), {
             "sids": new_sids.join(","), 
+						"bids": '',
 						"origin": $.fragment().origin
           }));
         }

@@ -55,7 +55,7 @@ Feature: Take Part on a question
       And there is the first question
       And the question has at least one proposal
     When I go to the questions first proposal
-      And I follow "create_improvement_link"
+      And I follow localized "discuss.statements.create_improvement_link"
       And I fill in the following:
       | improvement_statement_document_title           | Improving the unimprovable                                           |
       | improvement_statement_document_text           | blubb (oh, and of cause a lot of foo and a little bit of (mars-)bar) |

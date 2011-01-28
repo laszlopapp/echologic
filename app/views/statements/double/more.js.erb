@@ -1,5 +1,6 @@
+<% type_plural = @type.underscore.pluralize %>
 var statement = $('#statements > #<%=dom_id(@statement_node)%>');
-var double_list = statement.find('#<%= @type.underscore.pluralize %> .doubles_list');
+var double_list = statement.find('.<%= type_plural %> .doubles_list');
 
 <%if @page.to_i == 1 %>
   panel_height = <%= @children.map{|c| c.total_entries <= 7 ? ((c.total_entries + 1) * 29) : 203}.max %>
@@ -10,12 +11,12 @@ var double_list = statement.find('#<%= @type.underscore.pluralize %> .doubles_li
 
   <% next if children_group.empty? %>
   <% type = @type.to_s.constantize.sub_types[index].to_s.underscore %>
-	var children_list = statement.find('#<%= @type.underscore.pluralize %> .children_list:eq(<%= index %>)');
+	var children_list = statement.find('.<%= type_plural %> .children_list:eq(<%= index %>)');
 	var elements_list =
       "<%= escape_javascript(render :partial => 'statements/child', :collection => children_group[@offset, @per_page]) %>";
 
   <% if @page.to_i > 1 %>
-	  var scrollpane = statement.find('#<%=@type.underscore.pluralize%> .doubles_list').data('jsp');
+	  var scrollpane = statement.find('.<%=type_plural%> .doubles_list').data('jsp');
 	  children_list = scrollpane.getContentPane().find('.children_list:eq(<%= index %>)');
 	<% end %>
 
@@ -29,9 +30,9 @@ var double_list = statement.find('#<%= @type.underscore.pluralize %> .doubles_li
 
 <% end %>
 
-var more_element = statement.find('#<%= @type.underscore.pluralize %> .more_pagination');
+var more_element = statement.find('.<%= type_plural %> .more_pagination');
 var pagination_buttons = "<%= escape_javascript(will_paginate(@children.sort{|a, b| b.length <=> a.length}.first,
-                                                   :id => 'more_pagination',:class => 'more_pagination',
+                                                   :class => 'more_pagination',
                                                    :next_label => I18n.t("application.general.more"),
                                                    :renderer => StatementsHelper::MoreRenderer)) %>";
 more_element.replaceWith(pagination_buttons);
@@ -40,6 +41,6 @@ more_element.replaceWith(pagination_buttons);
   scrollpane.reinitialise();
   scrollpane.scrollToBottom();
 <% end %>
-statement.find('#<%= @type.underscore.pluralize %> .more_pagination a').addClass('ajax');
+statement.find('.<%= type_plural %> .more_pagination a').addClass('ajax');
 
-statement.data('api').reinitialiseChildren("#<%= @type.underscore.pluralize %>");
+statement.data('api').reinitialiseChildren(".<%= type_plural %>");

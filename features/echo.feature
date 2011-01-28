@@ -47,7 +47,7 @@ Feature: Echo
       And I follow "Featured"
       And I follow "echonomyJAM"
       And I choose the first Question
-      And I follow "create_proposal_link"
+      And I follow localized "discuss.statements.create_proposal_link"
       And I fill in the following:
         | proposal_statement_document_title | proposal title |
         | proposal_statement_document_text  | proposal text. |

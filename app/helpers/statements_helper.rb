@@ -47,7 +47,6 @@ module StatementsHelper
     url = opts.delete(:url) if opts[:url]
     link_to(I18n.t("discuss.statements.create_#{child_type}_link"),
             url ? url : new_statement_node_url(statement_node.nil? ? nil : statement_node.target_id,child_type, opts),
-            :id => "create_#{child_type}_link",
             :class => "ajax add_new_button text_button create_#{child_type}_button ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_#{child_type}"))
   end

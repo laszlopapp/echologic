@@ -4,7 +4,7 @@
 
 	<%= render :partial => 'statements/elements_list' , :locals => { :children => children, :type => type}%>
 
-	<div id="more_pagination" class="more_pagination">
+	<div class="more_pagination">
 		<% if !children.blank? and children.current_page != children.total_pages %>
 		  <%= more_children(@statement_node,type) %>
 	  <% end %>
