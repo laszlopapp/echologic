@@ -262,7 +262,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	margin: 0 0 8px;
   /*text-align: center;*/
   overflow: auto;
-  height: 53px;
+  height: 60px;
   width: 970px;
 }
 
@@ -417,6 +417,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* Add New statement button */
 /****************************/
 
+#statements .action_bar .add_new_container {
+  position: relative;
+}
+
 #statements .action_bar .add_new_button {
   height:   80px;
   width:    160px;
@@ -470,7 +474,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	border: 3px solid #BBB;
 	background: #FEFEFE;
   position: absolute;
-	bottom: -33px;
+	bottom: -51px;
 	left: 136px;
 }
 
