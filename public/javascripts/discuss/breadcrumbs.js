@@ -37,7 +37,7 @@
 
 			function initialise(){
 				breadcrumbs.find('a');
-				breadcrumbs.find('a').each(function(){
+				breadcrumbs.find('a').each(function() {
 				  initBreadcrumb($(this));
 				});
 
@@ -181,9 +181,9 @@
 						});
 					}
 
-					var width = updateContainerWidth();
+          jsp.scrollToX(0);
+					updateContainerWidth();
           jsp.reinitialise();
-					jsp.scrollToX(width);
 					if (jsp.getContentPane().find('a').length == 0) {
             toggleContainer();
           }
