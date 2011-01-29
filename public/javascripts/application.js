@@ -1,8 +1,6 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
-(function($) {
-
   /* Do init stuff. */
   $(function() {
 
@@ -239,7 +237,7 @@
           complete: function(){
             $('#uploading_progress').hide();
           },
-          success: function(data) {
+          success: function(data, status) {
             $.ajax({
               type: 'get',
               dataType: 'script',
@@ -276,8 +274,4 @@
       default: window.location.replace(url);
     }
   }
-
-})(jQuery);
-
-
 

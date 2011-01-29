@@ -81,7 +81,7 @@
 		      }).get();
 		      links_to_delete.unshift($(this).attr('id'));
 
-		      var new_bids = $.grep(bids_stack, function(a) {
+		      var new_bids = $.grep(bids_stack, function(a, index) {
 		        return $.inArray(a, links_to_delete) == -1;
 		      });
 
@@ -120,17 +120,8 @@
        * (actually, there are no breadcrumbs when it gets hidden).
        */
       function toggleContainer() {
-        breadcrumbs.animate(settings['container_animation_speed'],
+        breadcrumbs.animate(settings['container_animation_params'],
                             settings['animation_speed']);
-      }
-
-
-      /*
-       * Shows / hides the given breadcrumb.
-       */
-      function toggleBreadcrumb(breadcrumb) {
-        breadcrumb.animate(settings['breadcrumb_animation_speed'],
-                           settings['animation_speed']);
       }
 
 
@@ -173,9 +164,8 @@
 
 					jsp.reinitialise();
 					jsp.scrollToX(width);
-				  elements.find('.breadcrumb:hidden').each(function() {
-            toggleBreadcrumb($(this));
-          });
+          elements.find('.breadcrumb:hidden').animate(settings['breadcrumb_animation_params'],
+                                                      settings['animation_speed']);
 				},
 
 				deleteAfter : function (originId) {
@@ -211,12 +201,12 @@
 		      }).get();
 
 		      // Get bids that are not visible (DRY)
-          return $.grep(bid_list, function(a) {
+          return $.grep(bid_list, function(a, index) {
 		        return $.inArray(a, visible_bids) == -1;
           });
 		    },
 
-				getBreadcrumbStack : function (newBreadcrumb = null) {
+				getBreadcrumbStack : function (newBreadcrumb) {
 		      var currentBreadcrumbs = breadcrumbs.find(".breadcrumb a").map(function() {
 						return this.id;
 					}).get();

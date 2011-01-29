@@ -38,18 +38,18 @@
       initialise();
 
 
-      /* Initializes the statement. */
+      // Initializes the statement.
       function initialise() {
-				/* Initialize Variables */
+				// Initialize Variables
 				timer = null;
 
-        if (settings['load_header']) {
+        if (settings['load']) {
 					insertStatement();
 
-          /* Initialise index of the current statement */
+          // Initialise index of the current statement
           statement_index = $('#statements .statement').index(statement);
 
-					/* Navigation through siblings */
+					// Navigation through siblings
 	        storeSiblings();
 					initNavigationButton(statement.find(".header a.prev"), -1); /* Prev */
 	        initNavigationButton(statement.find(".header a.next"),  1); /* Next */
@@ -70,7 +70,7 @@
           initAllStatementLinks();
 					initAllFUQLinks();
           /* Message Alerts */
-					if (settings['load_header']) {
+					if (settings['load']) {
             loadMessageBoxes();
 					}
         }
@@ -82,7 +82,7 @@
       }
 
       function insertStatement() {
-				if (!settings['insertStatement']){return;}
+				if (!settings['insertStatement']) {return;}
 
 				var element = $('div#statements .statement').eq(settings['level']);
 				if(element.length > 0) {

@@ -24,7 +24,7 @@ function initStatements(){
 }
 
 function initBreadcrumbs() {
-	$('#breadcrumbs').each(function(){
+	$('#breadcrumbs').each(function() {
 		$(this).jScrollPane({animateTo: true});
 		$(this).breadcrumbs();
 	});

@@ -15,7 +15,7 @@
     if (api) {
       api.reinitialise(settings);
     } else {
-      api = new StatementForm();
+      api = new StatementForm(this);
       this.data('statementFormApi', api);
     }
     return this;
@@ -24,29 +24,28 @@
     /******************************/
     /* The statement form handler */
     /******************************/
-    
-    function StatementForm() {
+
+    function StatementForm(form) {
 
 			initialise();
 
-			function initialise(){
+			function initialise() {
 			  loadRTEEditor();
 
         // New Statement Form Helpers
-        if (this.hasClass('new')) {
+        if (form.hasClass('new')) {
           hideNewStatementType();
           loadDefaultText();
           handleStatementFormsSubmit();
           initFormCancelButton();
-
         }
 
         // Taggable Form Helpers
-        if (this.hasClass(settings['taggableClass'])) {
-          this.taggable();
+        if (form.hasClass(settings['taggableClass'])) {
+          form.taggable();
         }
 
-        if (this.hasClass('follow_up_question')) {
+        if (form.hasClass('follow_up_question')) {
 					initCancelFUQLink();
         }
 			}
@@ -55,7 +54,7 @@
        * Loads the Rich Text Editor for the statement text.
        */
       function loadRTEEditor() {
-        var textArea = this.find('textarea.rte_doc, textarea.rte_tr_doc');
+        var textArea = form.find('textarea.rte_doc, textarea.rte_tr_doc');
         var defaultText = textArea.attr('data-default');
         var url = 'http://' + window.location.host + '/stylesheets/';
 
@@ -66,10 +65,10 @@
           controls_rte: rte_toolbar,
           controls_html: html_toolbar
         });
-        this.find('.focus').focus();
+        form.find('.focus').focus();
 
         // The default placeholder text
-        this.find('iframe').attr('data-default', defaultText);
+        form.find('iframe').attr('data-default', defaultText);
       }
 
 
@@ -77,7 +76,7 @@
        * Shows the statement type on new statement forms
        */
       function showNewStatementType() {
-        var input_type = this.find('input#type');
+        var input_type = form.find('input#type');
         input_type.attr('value', input_type.data('value'));
       }
 
@@ -86,7 +85,7 @@
        * Hides the statement type on new statement forms.
        */
       function hideNewStatementType() {
-        var input_type = this.find('input#type');
+        var input_type = form.find('input#type');
         input_type.data('value', input_type.attr('value'));
         input_type.removeAttr('value');
       }
@@ -96,10 +95,10 @@
        * Loads the form's default texts for title, text and tags.
        */
 			function loadDefaultText() {
-        if (!this.hasClass('new')) {return;}
+        if (!form.hasClass('new')) {return;}
 
         // Text Inputs
-        var inputText = this.find("input[type='text']");
+        var inputText = form.find("input[type='text']");
         var value = inputText.attr('data-default');
         if (inputText.val().length == 0) {
           inputText.toggleVal({
@@ -112,7 +111,7 @@
 
 
         // Text Area (RTE Editor)
-        var editor = this.find("iframe.rte_doc");
+        var editor = form.find("iframe.rte_doc");
         value = editor.attr('data-default');
         var doc = editor.contents().get(0);
         var text = $(doc).find('body');
@@ -133,7 +132,7 @@
         editor.removeAttr('data-default');
 
         // Clean text inputs on submit
-        this.bind('submit', (function() {
+        form.bind('submit', (function() {
           $(this).find(".toggleval").each(function() {
             if($(this).val() == $(this).data("defText")) {
               $(this).val("");
@@ -146,7 +145,7 @@
        * Submits the form.
        */
 			function handleStatementFormsSubmit() {
-        this.bind('submit', (function() {
+        form.bind('submit', (function() {
           showNewStatementType();
           $.ajax({
             url: this.action,
@@ -165,7 +164,7 @@
        * Handles Cancel Button click on new statement forms.
        */
       function initFormCancelButton() {
-        var cancelButton = this.find('.buttons a.cancel');
+        var cancelButton = form.find('.buttons a.cancel');
         if ($.fragment().sids) {
           var sids = $.fragment().sids;
           var new_sids = sids.split(",");
@@ -181,7 +180,7 @@
       }
 
       function initCancelFUQLink() {
-        this.find("a.cancel_text_button").bind("click", function(){
+        form.find("a.cancel_text_button").bind("click", function(){
           var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
 
           // Get last breadcrumb id
@@ -230,4 +229,5 @@
 		}
 
   };
+
 })(jQuery);
