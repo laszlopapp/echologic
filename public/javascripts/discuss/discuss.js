@@ -10,7 +10,7 @@ $(document).ready(function () {
 
 function initStatements(){
 	var sids = [];
-	$('#statements .statement').each(function(){
+	$('#statements .statement').each(function() {
 		$(this).statement({'insertStatement': false});
 		if ($(this).is("div")) {
 			sids.push($(this).attr('id').match(/\d+/));
@@ -24,10 +24,10 @@ function initStatements(){
 }
 
 function initBreadcrumbs() {
-	$('#breadcrumbs').each(function() {
-		$(this).jScrollPane({animateTo: true});
-		$(this).breadcrumbs();
-	});
+	var breadcrumbs = $('#breadcrumbs');
+  if (breadcrumbs.length > 0) {
+   breadcrumbs.breadcrumbs();
+  }
 }
 
 

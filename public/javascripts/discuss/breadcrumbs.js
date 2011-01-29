@@ -41,6 +41,7 @@
 				  initBreadcrumb($(this));
 				});
 
+        breadcrumbs.jScrollPane({animateScroll: true});
 				var jsp = breadcrumbs.data('jsp');
 
 				var width = updateContainerWidth();
@@ -103,14 +104,14 @@
 
 			function updateContainerWidth() {
 				var jsp = breadcrumbs.data('jsp');
-        var elements = jsp.getContentPane().find(".elements");
+        var container = jsp.getContentPane().find(".elements");
 
 				// Calculate width
         var width = 0;
-        elements.children().each(function(){
+        container.children().each(function(){
           width += $(this).outerWidth();
         });
-        elements.width(width);
+        container.width(width);
 				return width;
 			}
 
@@ -161,8 +162,7 @@
 						});
 					}
 					var width = updateContainerWidth();
-
-					jsp.reinitialise();
+          jsp.reinitialise();
 					jsp.scrollToX(width);
           elements.find('.breadcrumb:hidden').animate(settings['breadcrumb_animation_params'],
                                                       settings['animation_speed']);
@@ -181,9 +181,9 @@
 						});
 					}
 
-					updateContainerWidth();
-					jsp.scrollToX(0);
-					jsp.reinitialise();
+					var width = updateContainerWidth();
+          jsp.reinitialise();
+					jsp.scrollToX(width);
 					if (jsp.getContentPane().find('a').length == 0) {
             toggleContainer();
           }

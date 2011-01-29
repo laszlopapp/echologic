@@ -107,10 +107,6 @@
 /* New and Edit Statements forms */
 /*********************************/
 
-form.new.statement input {
-  width: 550px;
-}
-
 #statements form.new .simple_header_block h2,
 #statements form.edit .simple_header_block h2 {
 	/*margin-left: 20px;*/
@@ -263,16 +259,24 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /***************/
 
 .breadcrumbs {
-	margin: 0 auto 10px;
-  text-align: center;
-}
-
-.breadcrumbs, .breadcrumbs .jspPane {
-  width: 980px !important;
+	margin: 0 0 8px;
+  /*text-align: center;*/
+  overflow: auto;
+  height: 53px;
+  width: 970px;
 }
 
 .breadcrumbs .jspVerticalBar {
   display: none;
+}
+
+.breadcrumbs .jspHorizontalBar {
+  bottom: 0;
+}
+
+.breadcrumbs .jspHorizontalBar .jspDrag {
+ height: 8px !important;
+ top: -1px;
 }
 
 .breadcrumbs .elements {
