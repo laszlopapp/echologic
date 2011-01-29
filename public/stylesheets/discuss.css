@@ -271,7 +271,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 .breadcrumbs .elements {
-  display: inline-block;	
+  display: inline-block;
 }
 
 .breadcrumbs .breadcrumb {
@@ -1174,22 +1174,22 @@ form.statement fieldset ol li.tags_container {
   width: 20px;
   height: 20px;
 	position: absolute;
-  right: 211px;
-  top: 10px;
+  opacity: 0.4;
 }
 
 .statement .header .loading {
-  right: 0;
-  left: -22px;
+  left: -33px;
   top: 10px;
 }
+
+.statement .action_buttons .loading {
+  right: -30px;
+	top: 17px;
+}
+
 .statement .children .loading {
   right: 33px;
 	top: 5px;
-}
-.statement .action_buttons .loading {
-  right: -35px;
-	top: 17px;
 }
 
 .expandable {
