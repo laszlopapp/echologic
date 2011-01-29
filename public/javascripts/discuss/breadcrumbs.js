@@ -11,7 +11,7 @@
         'width' : 'toggle',
         'opacity': 'toggle'
       },
-      'animation_speed': 500
+      'animation_speed': 700
     };
 
 		// Merging settings with defaults
@@ -145,11 +145,11 @@
 			  	  // Assemble new breadcrumb entries
 						$.each(breadcrumbsData, function(index, breadcrumbData) {
 							var breadcrumb = $('<div/>').addClass('breadcrumb');
-							breadcrumb.append($('<span/>').addClass('label').text(breadcrumbData[4]));
-							breadcrumb.append($('<span/>').addClass('over').text(breadcrumbData[5]));
 							if (index != 0 || elements.find(".breadcrumb").length != 0) {
-								breadcrumb.append($("<span/>").addClass('delimiter'));
+								breadcrumb.append($("<span/>").addClass('delimiter').text(">"));
 							}
+              breadcrumb.append($('<span/>').addClass('label').text(breadcrumbData[4]));
+							breadcrumb.append($('<span/>').addClass('over').text(breadcrumbData[5]));
 							breadcrumb.append($('<a/>').
                          attr('id', breadcrumbData[0]).
                          addClass(breadcrumbData[1]).

@@ -263,39 +263,75 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /***************/
 
 .breadcrumbs {
-	padding:7px 10px 7px;
-	font-size: 12px;
-	width: 100%;
-	margin-bottom: 10px;
-	height: 55px;
+	margin: 0 auto 10px;
+  text-align: center;
+}
+
+.breadcrumbs, .breadcrumbs .jspPane {
+  width: 980px !important;
+}
+
+.breadcrumbs .jspVerticalBar {
+  display: none;
 }
 
 .breadcrumbs .elements {
   display: inline-block;
+  text-align: left;
 }
 
-.breadcrumbs .breadcrumb {
-	float:left;
-	width: 245px;
+.breadcrumb {
+  height: 50px;
+	float: left;
+	width: 280px;
 	overflow: hidden;
+  position: relative;
+  cursor: default;
 }
 
-.breadcrumbs .breadcrumb .label, .breadcrumbs .breadcrumb .over {
-  width: 215px;
+.breadcrumb:hover {
+  cursor: pointer;
+}
+
+.breadcrumb .delimiter {
+  font-weight: bold;
+  position: absolute;
+  left: 20px;
+  top: 18px;
+}
+
+.breadcrumb .label,
+.breadcrumb .over {
 	display: inline-block;
-	height: 20px;
-	padding-left: 30px;
-	cursor:default;
+  font-size: 12px;
+  position: absolute;
+  left: 62px;
+  top: 0;
+  width: 215px;
 }
 
-.breadcrumbs a.statement_link {
-	padding-right: 20px;
-	margin-bottom: 0px;
+.breadcrumb .over,
+.breadcrumb:hover .label {
+  display: none;
 }
 
-.breadcrumbs span.delimiter {
-	padding-right: 20px;
+.breadcrumb:hover .over {
+  display: block;
 }
+
+.breadcrumb a.statement_link {
+  padding-top: 1px;
+  position: absolute;
+  top: 19px;
+  left: 40px;
+  font-size: 12px;
+  width: 215px;
+}
+
+.breadcrumb:hover a.statement_link {
+  color: #7bb031;
+}
+
 
 /**************/
 /* Action bar */
