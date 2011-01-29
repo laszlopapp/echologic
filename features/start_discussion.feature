@@ -50,7 +50,7 @@ Feature: Start a question
     When I follow "Featured"
     When I follow "echonomyJAM"
       And I choose the first Question
-      And I follow "create_proposal_link"
+      And I follow localized "discuss.statements.create_proposal_link"
       And I fill in the following:
         | proposal_statement_document_title | a proposal to propose some proposeworthy proposal data |
         | proposal_statement_document_text | nothing to propose yet...                              |
@@ -75,7 +75,7 @@ Feature: Start a question
       And there is a question
       And the question has "*beer" for tags
       And I go to the question
-      And I follow "create_proposal_link"
+      And I follow localized "discuss.statements.create_proposal_link"
     Then I should see localized "discuss.statements.read_only_permission"
 
   @ok
@@ -83,7 +83,7 @@ Feature: Start a question
     Given I am logged in as "user" with password "true"
       And there is a question i have created
     When I go to the question
-      And I follow "Change" within "#image_container"
+      And I follow "Change" within ".image_container"
     Then I should see "Upload Image"
       And I should see "Cancel"
       And I should see "Upload"

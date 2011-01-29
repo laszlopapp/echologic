@@ -9,13 +9,13 @@ Feature: Echo
     When I go to the proposal
       And I follow "echo_button"
     # Todo: This test will always fail. Echo link does not work without js atm
-    Then I should see the "echo" button
+    Then I should see a "echo" button
       And the proposal should have one echo
       And the proposal should have "user" as supporters
       #And the proposal should have "user" as follower
     Given I go to the proposal
       And I follow "echo_button"
-    Then I should see the "echo" button
+    Then I should see a "echo" button
       And the proposal should have no more echo
       #And the proposal should not have "user" as follower
 
@@ -25,7 +25,7 @@ Feature: Echo
     When I go to the proposal
       And I follow "echo_button"
     # Todo: This test will always fail. Echo link does not work without js atm
-    Then I should see the "echo" button
+    Then I should see a "echo" button
       And the proposal should have no more echo
       #And the proposal should not have "user" as follower
 
@@ -47,7 +47,7 @@ Feature: Echo
       And I follow "Featured"
       And I follow "echonomyJAM"
       And I choose the first Question
-      And I follow "create_proposal_link"
+      And I follow localized "discuss.statements.create_proposal_link"
       And I fill in the following:
         | proposal_statement_document_title | proposal title |
         | proposal_statement_document_text  | proposal text. |

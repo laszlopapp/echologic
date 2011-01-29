@@ -47,7 +47,6 @@ module StatementsHelper
     url = opts.delete(:url) if opts[:url]
     link_to(I18n.t("discuss.statements.create_#{child_type}_link"),
             url ? url : new_statement_node_url(statement_node.nil? ? nil : statement_node.target_id,child_type, opts),
-            :id => "create_#{child_type}_link",
             :class => "ajax add_new_button text_button create_#{child_type}_button ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_#{child_type}"))
   end
@@ -113,7 +112,7 @@ module StatementsHelper
 
           link_to(I18n.t("discuss.statements.types.#{context_type}"),
                 new_statement_node_url(origin[2..-1], context_type),
-                :id => "add_new_#{context_type}_link", :class => "#{context_type}_link resource_link ajax")
+                :class => "#{context_type}_link resource_link ajax")
         end
       end
     end
@@ -123,14 +122,14 @@ module StatementsHelper
 
   #
   # Creates a link to add a new sibling for the given statement (appears in the SIDEBAR).
-  #
   def add_new_sibling_button(statement_node)
+  #
     content = ''
     statement_node.class.sub_types.map.each do |sub_type|
       sub_type = sub_type.to_s.underscore
       content << link_to(I18n.t("discuss.statements.types.#{sub_type}"),
                          new_statement_node_url(statement_node.parent, sub_type),
-                         :id => "add_new_#{sub_type}_link", :class => "#{sub_type}_link resource_link ajax")
+                         :class => "#{sub_type}_link resource_link ajax")
     end
     content
   end
@@ -169,7 +168,7 @@ module StatementsHelper
     opts[:new_level] = true
     link_to(I18n.t("discuss.statements.types.#{type}"),
             new_statement_node_url(statement_node, type, opts),
-            :id => "add_new_#{type}_link", :class => "#{type}_link resource_link ajax")
+            :class => "#{type}_link resource_link ajax")
   end
 
   #
@@ -180,7 +179,7 @@ module StatementsHelper
        (current_user.may_edit? or
        (statement_node.authors.include?(current_user) and !statement_node.published?))
       link_to(I18n.t('application.general.edit'), edit_statement_node_url(statement_node, :current_document_id => statement_document.id),
-              :id => 'edit_button', :class => 'ajax header_button text_button edit_text_button')
+              :class => 'ajax header_button text_button edit_text_button')
     else
       ''
     end
@@ -191,7 +190,6 @@ module StatementsHelper
   #
   def authors_statement_node_link(statement_node,type = dom_class(statement_node))
     link_to(I18n.t('application.general.authors'), authors_statement_node_url(statement_node),
-            :id => 'authors_button',
             :class => 'expandable header_button text_button authors_text_button')
   end
 
@@ -373,14 +371,14 @@ module StatementsHelper
   def statement_image(statement_node, current_user)
     val = ""
     if statement_node.image.exists? or statement_node.has_author? current_user
-      val << image_tag(statement_node.image.url(:medium), :id => 'statement_image', :class => 'image')
+      val << image_tag(statement_node.image.url(:medium), :class => 'image')
     end
     if statement_node.has_author? current_user and (!statement_node.published? or !statement_node.image.exists?)
       val << link_to(I18n.t('users.profile.picture.upload_button'),
                 edit_statement_image_url(statement_node.statement_image, statement_node),
-                :class => 'ajax upload_link button_150', :id => 'upload_image_link')
+                :class => 'ajax upload_link button_150')
     end
-    content_tag :div, val, :class => 'image_container', :id => 'image_container' if !val.blank?
+    content_tag :div, val, :class => 'image_container' if !val.blank?
   end
 
   # Renders the "more" link when the statement is loaded

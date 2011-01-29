@@ -50,8 +50,8 @@ class StatementImagesController < ApplicationController
         set_info 'discuss.messages.image_uploaded', :type => I18n.t("discuss.statements.types.#{@statement_node.class.name.underscore}")
         format.js {
           render_with_info do |page|
-            page << "$('#statements div.#{dom_class(@statement_node)} #statement_image').replaceWith('#{render :partial => 'statement_images/image'}')"
-            page << "$('#statements div.#{dom_class(@statement_node)} #upload_link').remove()" if @statement_node.published?
+            page << "$('#statements div.#{dom_class(@statement_node)} .image_container .image').replaceWith('#{render :partial => 'statement_images/image'}')"
+            page << "$('#statements div.#{dom_class(@statement_node)} .image_container .upload_link').remove()" if @statement_node.published?
           end
         }
       else

@@ -331,7 +331,7 @@
 		   * - FUQ form's cancel button
 		   */
 		  function initAllFUQLinks() {
-        statement.find("#follow_up_questions.children").each(function(){
+        statement.find(".follow_up_questions.children").each(function(){
 					initFUQChildrenLinks($(this));
 				});
 
@@ -360,7 +360,7 @@
       /* Initializes follow up question links. */
       function initFUQLinks(container, newLevel) {
         container.find("a.statement_link.follow_up_question_link:Event(!click)").bind("click", function() {
-          var questionId = getStatementId($(this).parent().attr('id'));
+          var questionId = $(this).parent().attr('statement-id');
           var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(newLevel ? 'fq'+statementId : null);
           $.setFragment({
             "bids": bids.join(','),
@@ -497,7 +497,7 @@
 		    },
 		    loadAuthors: function (authors, length){
 		      authors.insertAfter(statement.find('.summary h2')).animate(toggleParams, settings['animation_speed']);
-		      statement.find('#authors_list').jcarousel({
+		      statement.find('.authors_list').jcarousel({
 		        scroll: 3,
 		        buttonNextHTML: "<div class='next_button'></div>",
 		        buttonPrevHTML: "<div class='prev_button'></div>",

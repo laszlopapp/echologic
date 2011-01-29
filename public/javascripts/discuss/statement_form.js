@@ -152,7 +152,7 @@
             type: "POST",
             data: $(this).serialize(),
             dataType: 'script',
-            success: function() {
+            success: function(data, status){
               hideNewStatementType();
             }
           });
@@ -174,6 +174,7 @@
           cancelButton.addClass("ajax");
           cancelButton.attr('href', $.queryString(cancelButton.attr('href').replace(/\/\d+/, path), {
             "sids": new_sids.join(","),
+            "bids": '',
 						"origin": $.fragment().origin
           }));
         }
