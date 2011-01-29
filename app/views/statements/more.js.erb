@@ -14,8 +14,9 @@ var pagination_buttons = "<%= escape_javascript(will_paginate(@children, :class 
                                                    :next_label => I18n.t("application.general.more"),
                                                    :renderer => StatementsHelper::MoreRenderer)) %>";
 
+var scrollpane;
 <% if @page.to_i > 1 %>
-  var scrollpane = statement.find('.<%=type_plural%> .children_list').data('jsp');
+  scrollpane = statement.find('.<%=type_plural%> .children_list').data('jsp');
   children_list = scrollpane.getContentPane();
 <% end %>
 

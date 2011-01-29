@@ -15,8 +15,9 @@ var double_list = statement.find('.<%= type_plural %> .doubles_list');
 	var elements_list =
       "<%= escape_javascript(render :partial => 'statements/child', :collection => children_group[@offset, @per_page]) %>";
 
+  var scrollpane;
   <% if @page.to_i > 1 %>
-	  var scrollpane = statement.find('.<%=type_plural%> .doubles_list').data('jsp');
+	  scrollpane = statement.find('.<%=type_plural%> .doubles_list').data('jsp');
 	  children_list = scrollpane.getContentPane().find('.children_list:eq(<%= index %>)');
 	<% end %>
 
