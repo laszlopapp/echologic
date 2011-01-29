@@ -11,7 +11,7 @@
         'width' : 'toggle',
         'opacity': 'toggle'
       },
-      'animation_speed': 700
+      'animation_speed': 600
     };
 
 		// Merging settings with defaults

@@ -259,10 +259,9 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /***************/
 
 .breadcrumbs {
-	margin: 0 0 8px;
-  /*text-align: center;*/
   overflow: auto;
-  height: 60px;
+  height: 62px;
+  margin: 0 0 8px;
   width: 970px;
 }
 
