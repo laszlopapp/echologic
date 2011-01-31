@@ -4,7 +4,7 @@
 
     $.fn.breadcrumbs.defaults = {
       'container_animation_params' : {
-        'width' : 'toggle',
+        'height' : 'toggle',
         'opacity': 'toggle'
       },
       'breadcrumb_animation_params' : {
@@ -125,7 +125,7 @@
        */
       function toggleContainer() {
         breadcrumbs.animate(settings['container_animation_params'],
-                            settings['animation_speed']);
+                            settings['animation_speed']/2);
       }
 
 
