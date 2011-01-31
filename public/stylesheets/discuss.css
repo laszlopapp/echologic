@@ -177,12 +177,64 @@ form.statement fieldset ol span.defaultText {
 	position:relative;
 }
 
+#statements form .content {
+  margin-top: 0;
+}
+
+#statements form .action_bar {
+  top: 70px;
+}
+
+#statements form.formtastic fieldset.statement_title,
+  #statements form.formtastic fieldset.statement_title li,
+#statements form.formtastic fieldset.statement_title input {
+  margin-bottom: 0;
+  width: 545px;
+}
+
+#statements form.formtastic fieldset.statement_language li,
+#statements form.formtastic fieldset.statement_language select {
+  margin: 0;
+  width: 200px;
+  vertical-align: top;
+}
+
+#statements form.formtastic fieldset.statement_language li {
+  margin-right: 24px;
+}
+
+#statements form.formtastic fieldset.statement_language .language_combo {
+  margin-bottom: 20px;
+}
+
+#statements form.formtastic fieldset.statement_language li.hint {
+	background: url("../images/page/icons/pin.png") no-repeat scroll 142px 2px #FBF3BB;
+	border: 1px solid #7bb031;
+	width: 300px;
+	padding: 33px 10px 5px;
+  margin-bottom: 20px;
+}
+
+form.formtastic fieldset.statement_tags .tag_container {
+  width: 365px;
+}
+
+form.formtastic fieldset.publish_radios .label,
+form.formtastic fieldset.publish_radios li {
+  width: 700px;
+}
+
 /*********/
 /* lwRTE */
 /*********/
 
 form.formtastic fieldset .rte-zone {
   color: #21587f;
+  width: 763px !important;
+}
+
+form.formtastic fieldset.right_panel .rte-zone {
+  width: 358px !important;
 }
 
 form.formtastic fieldset .rte-zone li {
@@ -263,6 +315,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   height: 62px;
   margin: 0 0 8px;
   width: 970px;
+}
+
+.breadcrumbs .jspContainer {
+  height: 62px !important;
 }
 
 .breadcrumbs .jspVerticalBar {

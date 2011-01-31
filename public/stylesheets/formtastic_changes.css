@@ -140,11 +140,3 @@ form.formtastic .buttons ol {
   vertical-align: middle;
 }
 
-form.formtastic li.hint {
-	background: url("../images/page/icons/pin.png") no-repeat scroll 120px 2px #FBF3BB;
-	border: 1px solid #7bb031;
-	width: 310px;
-	padding: 33px 10px 5px;
-  position: relative;
-	top: 24px;
-}
