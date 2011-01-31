@@ -2,15 +2,16 @@
 
   $.fn.echoable = function() {
 
-    /* Creating echoable and binding its API */
-    var echoableApi = this.data('echoableApi');
-    if (echoableApi) {
-      echoableApi.reinitialize();
-    } else {
-      echoableApi = new Echoable(this);
-      this.data('echoableApi', echoableApi);
-    }
-    return this;
+    return this.each(function() {
+	    /* Creating echoable and binding its API */
+	    var elem = $(this), echoableApi = elem.data('echoableApi');
+	    if (echoableApi) {
+	      echoableApi.reinitialize();
+	    } else {
+	      echoableApi = new Echoable(elem);
+	      elem.data('echoableApi', echoableApi);
+	    }
+    });
 
 
     /****************/

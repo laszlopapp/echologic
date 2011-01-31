@@ -14,15 +14,16 @@
     // Merging settings with defaults
     var settings = $.extend({}, $.fn.statement.defaults, current_settings);
 
-    // Creating and binding the statement API
-		var statementApi = this.data('api');
-    if (statementApi) {
-      statementApi.reinitialise(settings);
-    } else {
-      statementApi = new Statement(this);
-      this.data('api', statementApi);
-    }
-    return this;
+    return this.each(function() {
+	    // Creating and binding the statement API
+			var elem = $(this), statementApi = elem.data('api');
+	    if (statementApi) {
+	      statementApi.reinitialise(settings);
+	    } else {
+	      statementApi = new Statement(elem);
+	      elem.data('api', statementApi);
+	    }
+		});
 
 
     /*************************/

@@ -10,15 +10,16 @@
     // Merging settings with defaults
     var settings = $.extend({}, $.fn.statementForm.defaults, currentSettings);
 
-    // Creating and binding the statement form API
-    var api = this.data('statementFormApi');
-    if (api) {
-      api.reinitialise(settings);
-    } else {
-      api = new StatementForm(this);
-      this.data('statementFormApi', api);
-    }
-    return this;
+    return this.each(function() {
+	    // Creating and binding the statement form API
+	    var elem = $(this), statementFormApi = elem.data('statementFormApi');
+	    if (statementFormApi) {
+	      statementFormApi.reinitialise();
+	    } else {
+	      statementFormApi = new StatementForm(elem);
+	      elem.data('statementFormApi', statementFormApi);
+	    }
+		});
 
 
     /******************************/
