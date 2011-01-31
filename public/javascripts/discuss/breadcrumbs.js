@@ -173,7 +173,12 @@
 					var elements = jsp.getContentPane().find('.elements');
 					if (originId.length > 0) {
             // There is an origin, so delete breadcrumbs to the right
-				  	elements.find('a#' + originId).parent().nextAll().remove();
+				  	var to_remove = elements.find('a#' + originId).parent().nextAll();
+						if (to_remove.length > 0) {
+							to_remove.remove();
+						} else { // no breadcrumbs to delete; breadcrumbs should remain as it is
+							return this;
+						}
 				  } else {
             // No origin, that means first breadcrumb pressed, no predecessor, so delete everything
 						elements.find('a').each(function() {
