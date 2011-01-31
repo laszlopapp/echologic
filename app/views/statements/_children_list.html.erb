@@ -1,11 +1,12 @@
 <% children ||= @children %>
 <% display ||= false %>
+<% no_more ||= false %>
 <div class="expandable_content children_container" style="<%= display ? 'display:block' : 'display:none'%>">
 
 	<%= render :partial => 'statements/elements_list' , :locals => { :children => children, :type => type}%>
 
 	<div class="more_pagination">
-		<% if !children.blank? and children.current_page != children.total_pages %>
+		<% if !no_more and !children.blank? and children.current_page != children.total_pages %>
 		  <%= more_children(@statement_node,type) %>
 	  <% end %>
 	</div>
