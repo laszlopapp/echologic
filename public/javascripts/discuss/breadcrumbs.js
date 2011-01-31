@@ -7,6 +7,7 @@
         'height' : 'toggle',
         'opacity': 'toggle'
       },
+      'container_animation_speed': 400,
       'breadcrumb_animation_params' : {
         'width' : 'toggle',
         'opacity': 'toggle'
@@ -125,7 +126,7 @@
        */
       function toggleContainer() {
         breadcrumbs.animate(settings['container_animation_params'],
-                            settings['animation_speed']/2);
+                            settings['container_animation_speed']);
       }
 
 
