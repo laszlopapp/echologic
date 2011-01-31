@@ -214,9 +214,9 @@ class ApplicationController < ActionController::Base
   end
 
   def language_preference_list
-    priority_languages = @statement_node.nil? ? [locale_language_id] : [locale_language_id,
-                                                                        @statement_node.original_language.id]
-    keys = priority_languages.concat(current_user ? current_user.sorted_spoken_language_ids : []).uniq
+    priority_languages = (@statement_node.nil? ? [locale_language_id] : [locale_language_id,
+                                                                        @statement_node.original_language.id])
+    priority_languages.concat(current_user ? current_user.sorted_spoken_language_ids : []).uniq
   end
 
 
