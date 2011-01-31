@@ -24,7 +24,7 @@
 
 
 /* breadcrumb */
-<% if !params[:origin].blank? or @statement_node.level == 0 %>
+<% if params[:origin] %>
   $('#breadcrumbs').data('breadcrumbApi').deleteAfter('<%= params[:origin] %>');
 <% end %>
 <% if @breadcrumbs %>

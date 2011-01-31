@@ -11,22 +11,23 @@
         'height' : 'hide',
         'opacity': 'hide'
       },
-      'hide_animation_speed': 500, 
+      'hide_animation_speed': 500,
       'animation_speed': 300
     };
 
     // Merging settings with defaults
     var settings = $.extend({}, $.fn.statement.defaults, current_settings);
 
-    // Creating and binding the statement API
-		var statementApi = this.data('api');
-    if (statementApi) {
-      statementApi.reinitialise(settings);
-    } else {
-      statementApi = new Statement(this);
-      this.data('api', statementApi);
-    }
-    return this;
+    return this.each(function() {
+	    // Creating and binding the statement API
+			var elem = $(this), statementApi = elem.data('api');
+	    if (statementApi) {
+	      statementApi.reinitialise(settings);
+	    } else {
+	      statementApi = new Statement(elem);
+	      elem.data('api', statementApi);
+	    }
+		});
 
 
     /*************************/
@@ -81,12 +82,13 @@
         }
       }
 
+
       // Returns true if the statement is echoable.
       function isEchoable() {
         return statement.hasClass(settings['echoableClass']);
       }
 
-      function insertStatement() {
+			function insertStatement() {
 				if (!settings['insertStatement']) {return;}
 
 				var element = $('div#statements .statement').eq(settings['level']);
@@ -256,7 +258,6 @@
 		    });
 		  }
 
-
 		  /*
 		   * Sets the different links on the statement UI, after the user clicked on them.
 		   */
@@ -367,7 +368,7 @@
       /* Initializes follow up question links. */
       function initFUQLinks(container, newLevel) {
         container.find("a.statement_link.follow_up_question_link:Event(!click)").bind("click", function() {
-          var questionId = $(this).parent().attr('statement-id');
+					var questionId = $(this).parent().attr('statement-id');
           var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(newLevel ? 'fq'+statementId : null);
           $.setFragment({
             "bids": bids.join(','),
@@ -380,11 +381,10 @@
 
 				/* NEW FOLLOW-UP QUESTION BUTTON (ON CHILDREN)*/
         container.find("a.create_follow_up_question_button:Event(!click)").bind("click", function() {
-          var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(newLevel ? 'fq'+statementId : null);
+					var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(newLevel ? 'fq'+statementId : null);
           $.setFragment({
             "bids": bids.join(','),
-            "new_level": newLevel,
-						"origin" : bids[bids.length - 1]
+            "new_level": newLevel
           });
         });
       }

@@ -39,18 +39,6 @@ module PublishableModuleHelper
 
 
   #
-  # Creates a link to create a new question
-  # Appears in add question teaser
-  #
-  def create_new_question_link(origin=nil)
-    link_to(I18n.t("discuss.statements.create_question_link"),
-            new_question_url(:origin => origin, :bids => origin),
-            :id => "create_question_link",
-            :class => "ajax add_new_button text_button create_question_button ttLink no_border",
-            :title => I18n.t("discuss.tooltips.create_question"))
-  end
-
-  #
   # Creates a button link to create a new question (SIDEBAR).
   #
   def add_new_question_button(origin = nil)

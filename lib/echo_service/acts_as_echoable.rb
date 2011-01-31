@@ -22,6 +22,9 @@ module ActiveRecord
             has_many :user_echos, :foreign_key => 'echo_id', :primary_key => 'echo_id'
             delegate :supporter_count, :visitor_count, :to => :echo
             
+            named_scope :by_ratio, :include => :echo, :order => '(echos.supporter_count/echos.visitor_count) DESC'
+            named_scope :by_supporters, :include => :echo, :order => 'echos.supporter_count DESC'
+            
             def after_initialize
               self.echo = Echo.new if self.echo.nil?
             end
@@ -159,7 +162,7 @@ module ActiveRecord
             end
             
             def self.most_supported_root
-              roots.by_supporters.first
+              first(:include => :echo, :conditions => {:parent_id => nil}, :order => 'echos.supporter_count DESC')
             end
 
             public

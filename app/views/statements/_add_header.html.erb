@@ -3,9 +3,9 @@
   <%= content_tag :div, navigation_buttons(statement_node, @type, :classes => "add", :origin => params[:origin]), :class => 'header_buttons'%>
   <% content_tag :div, :class => 'add_header_link'  do %>
 	  <% if !statement_node.nil? %>
-      <%= create_new_child_statement_link(statement_node,@type, :new_level => false) %>
+      <%= create_new_child_statement_link(statement_node,@type, :new_level => nil) %>
 		<% else %>
-		  <%= create_new_question_link(params[:origin]) %>
+		  <%= create_new_question_link %>
 		<% end %>
   <% end %>
 <% end %>

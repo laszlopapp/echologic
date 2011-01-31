@@ -380,8 +380,12 @@ pt:
     statements:
       label: 'votos'
       echo_indicator:
-        one: '{{supporter_count}} apoiante'
-        many: '{{supporter_count}} apoiantes'
+        support:
+          one: '{{supporter_count}} apoiante'
+          many: '{{supporter_count}} apoiantes'
+        recommend:
+          one: '{{supporter_count}} recommendation'
+          many: '{{supporter_count}} recommendations'
       add_new: Add new...
       create_question_link: 'Criar uma nova discussão'
       create_proposal_link: 'Criar nova proposta'

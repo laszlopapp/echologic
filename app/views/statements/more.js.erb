@@ -22,7 +22,7 @@ var scrollpane;
 
 children_list.append(elements_list);
 <% if @children.next_page.nil? %>
-  children_list.append('<%= content_tag :li, create_new_child_statement_link(@statement_node, @type.underscore) %>');
+  children_list.append('<%= content_tag :li, create_new_child_statement_link(@statement_node, @type.underscore, :new_level => true) %>');
 <% end %>
 
 more_element.replaceWith(pagination_buttons);

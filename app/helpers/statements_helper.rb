@@ -43,7 +43,6 @@ module StatementsHelper
   # (appears INSIDE of the children statements panel).
   #
   def create_new_child_statement_link(statement_node, child_type, opts={})
-    opts[:new_level] ||= true
     url = opts.delete(:url) if opts[:url]
     link_to(I18n.t("discuss.statements.create_#{child_type}_link"),
             url ? url : new_statement_node_url(statement_node.nil? ? nil : statement_node.target_id,child_type, opts),
@@ -51,7 +50,7 @@ module StatementsHelper
             :title => I18n.t("discuss.tooltips.create_#{child_type}"))
   end
 
-  def create_new_question_link(origin)
+  def create_new_question_link(origin=nil)
     type = 'question'
     parent = nil
     if !origin.blank?
@@ -111,7 +110,7 @@ module StatementsHelper
           end
 
           link_to(I18n.t("discuss.statements.types.#{context_type}"),
-                new_statement_node_url(origin[2..-1], context_type),
+                new_statement_node_url(origin[2..-1], context_type, :origin => origin),
                 :class => "#{context_type}_link resource_link ajax")
         end
       end

@@ -239,6 +239,7 @@ Feature: Take Part on a question
       | follow_up_question_statement_document_text            | I still love this game    |
       And I press "Save"
     Then I should see "Livin it up Part Deux"
+      #WRONG: TODO: siblings count must be 1, because i want to generate a child follow up. this happens because the labels are the same for sibling and child
       And the question should have 1 siblings in session
      
       

@@ -399,8 +399,12 @@ es:
     statements:
       label: 'votos'
       echo_indicator:
-        one: '{{supporter_count}} votos.'
-        many: '{{supporter_count}} votos.'
+        support:
+          one: '{{supporter_count}} votos.'
+          many: '{{supporter_count}} votos.'
+        recommend:
+          one: '{{supporter_count}} recommendation'
+          many: '{{supporter_count}} recommendations'
       add_new: Add new...
       create_question_link: 'Crear nuevo debate'
       create_proposal_link: 'Crear nueva propuesta'

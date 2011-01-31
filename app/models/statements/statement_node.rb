@@ -63,8 +63,6 @@ class StatementNode < ActiveRecord::Base
   {:joins => :statement, :conditions => ["statements.editorial_state_id = ?", StatementState['published'].id] } unless auth }
 
   # orders
-  named_scope :by_ratio, :include => :echo, :order => '(echos.supporter_count/echos.visitor_count) DESC'
-  named_scope :by_supporters, :include => :echo, :order => 'echos.supporter_count DESC'
   named_scope :by_creation, :order => 'created_at DESC'
   named_scope :only_id, :select => 'statement_nodes.id'
 
@@ -233,7 +231,7 @@ class StatementNode < ActiveRecord::Base
       opts[:joins] =  "LEFT JOIN statement_documents d    ON statement_nodes.statement_id = d.statement_id "
       opts[:joins] << "LEFT JOIN echos e                  ON statement_nodes.echo_id = e.id"
       opts[:conditions] = children_conditions(parent_id)
-      opts[:conditions] << sanitize_sql([" and d.language_id IN (?) ", language_ids]) if language_ids
+      opts[:conditions] << sanitize_sql([" AND d.language_id IN (?) ", language_ids]) if language_ids
       opts[:conditions] << drafting_conditions if filter_drafting_state
       opts[:order] = "e.supporter_count DESC, statement_nodes.created_at DESC"
       statements = []

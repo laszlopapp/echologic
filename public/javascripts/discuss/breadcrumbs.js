@@ -17,15 +17,16 @@
 		// Merging settings with defaults
     var settings = $.extend({}, $.fn.breadcrumbs.defaults, currentSettings);
 
-    // Creating and binding the breadcrumb API
-    var api = this.data('breadcrumbApi');
-    if (api) {
-      api.reinitialise(settings);
-    } else {
-    api = new Breadcrumbs(this);
-      this.data('breadcrumbApi', api);
-    }
-    return this;
+    return this.each(function() {
+	    // Creating and binding the breadcrumb API
+	    var elem = $(this), breadcrumbApi = elem.data('breadcrumbApi');
+	    if (breadcrumbApi) {
+	      breadcrumbApi.reinitialise();
+	    } else {
+	    breadcrumbApi = new Breadcrumbs(elem);
+	      elem.data('breadcrumbApi', breadcrumbApi);
+	    }
+		});
 
 
     /***************************/
@@ -50,7 +51,9 @@
 
 				var elements = jsp.getContentPane().find('.elements');
 				if (elements.children().length == 0) {
-          toggleContainer();
+					if (breadcrumbs.is(':visible')) {
+				  	toggleContainer();
+				  }
         }
 	    }
 
@@ -173,21 +176,23 @@
 					var elements = jsp.getContentPane().find('.elements');
 					if (originId.length > 0) {
             // There is an origin, so delete breadcrumbs to the right
-				  	elements.find('a#' + originId).parent().nextAll().remove();
+				  	var to_remove = elements.find('a#' + originId).parent().nextAll().remove();
 				  } else {
-            // No origin, that means first breadcrumb pressed, no predecessor, so delete everything
+						// No origin, that means first breadcrumb pressed, no predecessor, so delete everything
 						elements.find('a').each(function() {
 						  $(this).parent().remove();
 						});
 					}
 
           jsp.scrollToX(0);
-					updateContainerWidth();
-          jsp.reinitialise();
-					if (jsp.getContentPane().find('a').length == 0) {
-            toggleContainer();
-          }
-					return this;
+			  	updateContainerWidth();
+			  	jsp.reinitialise();
+			  	if (jsp.getContentPane().find('a').length == 0) {
+						if (breadcrumbs.is(':visible')) {
+							toggleContainer();
+						}
+			  	}
+			  	return this;
 				},
 
 				breadcrumbsToLoad : function (bids) {
