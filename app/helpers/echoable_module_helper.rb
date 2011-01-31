@@ -26,7 +26,7 @@ module EchoableModuleHelper
 
   # Returns the right line that shows up below the ratio bar (1 supporter, 2 supporters...)
   def supporters_number(statement_node)
-    I18n.t("discuss.statements.echo_indicator.#{ statement_node.supporter_count == 1 ? 'one' : 'many'}",
+    I18n.t("discuss.statements.echo_indicator.#{statement_node.class.support_tag}.#{ statement_node.supporter_count == 1 ? 'one' : 'many'}",
            :supporter_count => statement_node.new_record? ? 1 : statement_node.supporter_count)
   end
 
