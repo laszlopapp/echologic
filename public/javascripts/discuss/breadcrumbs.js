@@ -176,7 +176,9 @@
 					var elements = jsp.getContentPane().find('.elements');
 					if (originId.length > 0) {
             // There is an origin, so delete breadcrumbs to the right
-				  	var to_remove = elements.find('a#' + originId).parent().nextAll().remove();
+				  	var to_remove = elements.find('a#' + originId).parent().nextAll();
+            var remove_length = to_remove.length;
+            to_remove.remove();
 				  } else {
 						// No origin, that means first breadcrumb pressed, no predecessor, so delete everything
 						elements.find('a').each(function() {
@@ -184,9 +186,11 @@
 						});
 					}
 
-          jsp.scrollToX(0);
-			  	updateContainerWidth();
-			  	jsp.reinitialise();
+          if (remove_length > 0) {
+            jsp.scrollToX(0);
+            updateContainerWidth();
+            jsp.reinitialise();
+          }
 			  	if (jsp.getContentPane().find('a').length == 0) {
 						if (breadcrumbs.is(':visible')) {
 							toggleContainer();
