@@ -63,8 +63,6 @@ class StatementNode < ActiveRecord::Base
   {:joins => :statement, :conditions => ["statements.editorial_state_id = ?", StatementState['published'].id] } unless auth }
 
   # orders
-  named_scope :by_ratio, :include => :echo, :order => '(echos.supporter_count/echos.visitor_count) DESC'
-  named_scope :by_supporters, :include => :echo, :order => 'echos.supporter_count DESC'
   named_scope :by_creation, :order => 'created_at DESC'
   named_scope :only_id, :select => 'statement_nodes.id'
 
