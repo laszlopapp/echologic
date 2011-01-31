@@ -469,13 +469,13 @@
 }
 
 .echoActionBig {
-  font-size:   26px;
+  font-size:   25px;
   font-weight: bold;
   color:       #21587f;
   text-decoration: underline;
   line-height: 38px;
   position:    relative;
-  top:         -85px;
+  top:         -110px;
   left:        142px;
   z-index:     5;
   cursor:      pointer;
