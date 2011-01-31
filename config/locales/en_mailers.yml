@@ -48,9 +48,9 @@ en:
     activity_tracking:
       subject: echo - Activity Notifications
       statements:
-        new_questions: 'There are <strong>{{count}} new issue(s)</strong> since the last update. '
+        new_questions: 'There are <strong>{{count}} new question(s)</strong> since the last update. '
         new_tags: 'They are related to the following topics:'
-        new_proposals: 'New proposals in the issue "{{title}}"'
+        new_proposals: 'New proposals in the question "{{title}}"'
         new_improvements: 'New improvement ideas for the proposal "{{title}}" in "{{question_title}}":'
         new_pro_arguments: 'New pro arguments for the proposal "{{title}}" in "{{question_title}}":'
         new_contra_arguments: 'New contra arguments for the proposal "{{title}}" in "{{question_title}}":'
