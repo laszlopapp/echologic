@@ -7,6 +7,7 @@
 			'insertStatement' : true,
 			'load' : true,
       'echoableClass' : 'echoable',
+			'teaserClass' : 'add',
       'animation_speed': 300
     };
 
@@ -60,7 +61,7 @@
         if (isEchoable()) {
           statement.echoable();
         }
-
+			
         /* Statement Form Helpers */
         if(statement.is('form')) {
 					statement.statementForm();
@@ -75,13 +76,15 @@
 					}
         }
       }
+			
+			
 
       // Returns true if the statement is echoable.
       function isEchoable() {
         return statement.hasClass(settings['echoableClass']);
       }
-
-      function insertStatement() {
+			
+			function insertStatement() {
 				if (!settings['insertStatement']) {return;}
 
 				var element = $('div#statements .statement').eq(settings['level']);
@@ -249,7 +252,6 @@
 		    });
 		  }
 
-
 		  /*
 		   * Sets the different links on the statement UI, after the user clicked on them.
 		   */
@@ -360,7 +362,7 @@
       /* Initializes follow up question links. */
       function initFUQLinks(container, newLevel) {
         container.find("a.statement_link.follow_up_question_link:Event(!click)").bind("click", function() {
-          var questionId = $(this).parent().attr('statement-id');
+					var questionId = $(this).parent().attr('statement-id');
           var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(newLevel ? 'fq'+statementId : null);
           $.setFragment({
             "bids": bids.join(','),
@@ -373,11 +375,10 @@
 
 				/* NEW FOLLOW-UP QUESTION BUTTON (ON CHILDREN)*/
         container.find("a.create_follow_up_question_button:Event(!click)").bind("click", function() {
-          var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(newLevel ? 'fq'+statementId : null);
+					var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(newLevel ? 'fq'+statementId : null);
           $.setFragment({
             "bids": bids.join(','),
-            "new_level": newLevel,
-						"origin" : bids[bids.length - 1]
+            "new_level": newLevel
           });
         });
       }

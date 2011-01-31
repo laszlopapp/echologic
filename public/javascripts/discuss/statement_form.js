@@ -44,10 +44,6 @@
         if (form.hasClass(settings['taggableClass'])) {
           form.taggable();
         }
-
-        if (form.hasClass('follow_up_question')) {
-					initCancelFUQLink();
-        }
 			}
 
 			/*
@@ -179,44 +175,6 @@
           }));
         }
       }
-
-      function initCancelFUQLink() {
-        form.find("a.cancel_text_button").bind("click", function(){
-          var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
-
-          // Get last breadcrumb id
-					var last_bid = bids[bids.length-1];
-
-          // Get last statement view id (if teaser, parent id + '/'
-          var last_sid = $.fragment().sids;
-          if (last_sid) {
-            last_sid = $.fragment().sids.split(',').pop().match(/\d+\/?/).shift();
-          } else {
-            last_sid = '';
-          }
-
-					if (getStatementId(last_bid).match(last_sid)) {
-            // Create follow up question button in children had been pressed
-					  var origin_bid = $('#breadcrumbs a.statement:last').parent().prev().find('a').attr('id');
-            bids.pop();
-            $.setFragment({
-              "bids": bids.join(','),
-              "new_level": true,
-              "origin": origin_bid
-            });
-          } else {
-            // Create follow up question button in siblings had been pressed
-					  $.setFragment({
-              "bids": '',
-              "new_level": true,
-              "origin": last_bid
-            });
-
-					}
-          return false;
-        });
-      }
-
 
 			// Public API functions
 			$.extend(this,

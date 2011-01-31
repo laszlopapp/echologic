@@ -1,5 +1,5 @@
 <% type_dom_class = @type.underscore %>
-var elements = $("<%= escape_javascript(render :partial => "statements/double/children_list") %>");
+var elements = $("<%= escape_javascript(render :partial => "statements/double/children_list", :new_level => true) %>");
 var statement = $('#statements div.<%=dom_class(@statement_node)%>');
 var element = statement.find('.<%= type_dom_class.pluralize %> .headline');
 
