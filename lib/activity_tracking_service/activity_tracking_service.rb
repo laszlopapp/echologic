@@ -71,6 +71,7 @@ class ActivityTrackingService
     event_json = {
       :type => node.class.name.underscore,
       :id => node.target_id,
+      :level => node.level,
       :tags => node.filtered_topic_tags,
       :documents => set_titles_hash(node.statement_documents),
       :parent_documents => node.parent ? set_titles_hash(node.parent.statement_documents) : nil,
