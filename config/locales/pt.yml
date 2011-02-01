@@ -444,6 +444,8 @@ pt:
         improvement: 'Propostas de Melhoria'
         argument: 'Arguments'
         follow_up_question: 'Follow-up Questions'
+      siblings:
+        follow_up_question: 'Follow-Up Issue (Sibling)'
 
       topic: Tópico (Tags / Palavras-chave)
       states:

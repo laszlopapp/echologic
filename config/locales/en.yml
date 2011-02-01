@@ -446,6 +446,8 @@ en:
         improvement: 'Improvements'
         argument: 'Arguments'
         follow_up_question: 'Follow-up Questions'
+      siblings:
+        follow_up_question: 'Follow-Up Issue (Sibling)'
 
       topic: Topic (Tags / Keywords)
       states:

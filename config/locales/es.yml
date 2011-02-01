@@ -465,6 +465,9 @@ es:
         improvement: 'Propuesta de mejora'
         argument: 'Arguments'
         follow_up_question: 'Follow-up Questions'
+      siblings:
+        follow_up_question: 'Follow-Up Issue (Sibling)'
+        
 
       topic: Tema (Tags / Palabras clave)
       states:

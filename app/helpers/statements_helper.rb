@@ -109,7 +109,7 @@ module StatementsHelper
             when 'fq' then "follow_up_question"
           end
 
-          link_to(I18n.t("discuss.statements.types.#{context_type}"),
+          link_to(I18n.t("discuss.statements.siblings.#{context_type}"),
                 new_statement_node_url(origin[2..-1], context_type, :origin => origin),
                 :class => "#{context_type}_link resource_link ajax")
         end

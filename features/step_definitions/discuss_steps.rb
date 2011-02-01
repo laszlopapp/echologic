@@ -226,7 +226,7 @@ Then /^the ([^\"]*) should have ([^\"]*) siblings in session$/ do |statement_typ
 end
 
 Then /^there should be a "([^\"]*)" breadcrumb$/ do |title|
-  response.should have_selector("#breadcrumbs a.statement") do |selector|
+  response.should have_selector("#breadcrumbs span.statement") do |selector|
     result = false
     selector.each do |breadcrumb|
       if title.eql?(breadcrumb.inner_text.strip)
