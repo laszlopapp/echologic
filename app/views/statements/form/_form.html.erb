@@ -15,7 +15,7 @@
 <% if statement_node.publishable? -%>
 
   <!-- Statement tags (currently only for questions) -->
-  <% form.inputs do %>
+  <% form.inputs :class => 'statement_tags' do %>
 	  <%= render :partial => "statements/form/statement_tags",
                :locals => {:form => form,
                            :tags => tags}%>
@@ -24,11 +24,10 @@
   <!-- Published state radio buttons -->
 
   <% if statement_node.new_record? -%>
-    <% form.inputs :class => 'editorial_state' do %>
+    <% form.inputs :class => 'publish_radios' do %>
       <%= form.input :editorial_state_id, :as => :radio,
                      :label => I18n.t('discuss.statements.states.label'),
-                     :collection => statement_states_collection  
-      -%>
+                     :collection => statement_states_collection -%>
     <% end %>
   <% end %>
 

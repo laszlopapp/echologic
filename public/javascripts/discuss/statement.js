@@ -7,7 +7,11 @@
 			'insertStatement' : true,
 			'load' : true,
       'echoableClass' : 'echoable',
-			'teaserClass' : 'add',
+      'hide_animation_params' : {
+        'height' : 'hide',
+        'opacity': 'hide'
+      },
+      'hide_animation_speed': 500,
       'animation_speed': 300
     };
 
@@ -42,8 +46,6 @@
 
       // Initializes the statement.
       function initialise() {
-				// Initialize Variables
-				timer = null;
 
         if (settings['load']) {
 					insertStatement();
@@ -62,7 +64,7 @@
         if (isEchoable()) {
           statement.echoable();
         }
-			
+
         /* Statement Form Helpers */
         if(statement.is('form')) {
 					statement.statementForm();
@@ -71,20 +73,15 @@
           initMoreButton();
           initAllStatementLinks();
 					initAllFUQLinks();
-          /* Message Alerts */
-					if (settings['load']) {
-            loadMessageBoxes();
-					}
         }
       }
-			
-			
+
 
       // Returns true if the statement is echoable.
       function isEchoable() {
         return statement.hasClass(settings['echoableClass']);
       }
-			
+
 			function insertStatement() {
 				if (!settings['insertStatement']) {return;}
 
@@ -121,21 +118,6 @@
 			  });
 			}
 
-		  /*
-		   * Sets the Timer for the Message Boxes to show up (p.ex., the translation message box)
-		   */
-		  function loadMessageBoxes() {
-		    var messageBox = statement.find('.message_box');
-				if (!messageBox.is(":visible")) {
-			    if (timer != null) {
-			      clearTimeout(timer);
-			      messageBox.stop(true).hide();
-			    }
-			    timer = setTimeout( function() {
-			      messageBox.animate(toggleParams, settings['animation_speed']);
-			    }, 1500);
-				}
-		  }
 
 		  /*
 		   * Collapses all visible statements.
@@ -143,8 +125,10 @@
 		  function hideStatements() {
 				$('#statements .statement .header').removeClass('active').addClass('expandable');
 				$('#statements .statement .header:Event(!click)').expandable();
-		    $('#statements .statement .content').hide('slow');
-		    $('#statements .statement .header .supporters_label').hide();
+		    $('#statements .statement .content').animate(settings['hide_animation_params'],
+                                                     settings['hide_animation_speed']);
+		    $('#statements .statement .header .supporters_label').animate(settings['hide_animation_params'],
+                                                                      settings['hide_animation_speed']);
 		  }
 
 		  /*
@@ -152,7 +136,6 @@
 		   */
 		  function storeSiblings() {
         var key;
-		    var parent = statement.prev();
 				if (statement_index > 0) {
 		      // Store siblings with the parent node id
 					var index = statement_index-1;
@@ -287,7 +270,7 @@
        * Initializes links for all statements but Follow-up Questions.
        * new_level = false
        */
-      function initSiblingsLinks(container){
+      function initSiblingsLinks(container) {
         initStatementLinks(container, false)
 	    }
 
@@ -429,29 +412,6 @@
 		  }
 
 
-		  /*
-		   * Loads the statement text RTE editor.
-		   */
-		  function loadRTEEditor(form) {
-		    var textArea = form.find('textarea.rte_doc, textarea.rte_tr_doc');
-		    var defaultText = textArea.attr('data-default');
-		    var parentNode = textArea.parents('.statement');
-		    var url = 'http://' + window.location.hostname + '/stylesheets/';
-
-		    textArea.rte({
-		      css: ['jquery.rte.css'],
-		      base_url: url,
-		      frame_class: 'wysiwyg',
-		      controls_rte: rte_toolbar,
-		      controls_html: html_toolbar
-		    });
-		    parentNode.find('.focus').focus();
-
-		    // Default placeholder text
-		    parentNode.find('iframe').attr('data-default', defaultText);
-		  }
-
-
       // Public API of statement
       $.extend(this,
       {
@@ -460,31 +420,34 @@
           settings = $.extend({}, resettings, settings, {'load' : false});
           initialise();
         },
-				reinitialiseChildren: function(childrenContainerSelector)
-				{
+
+				reinitialiseChildren: function(childrenContainerSelector) {
 					var container = statement.find(childrenContainerSelector);
 					initMoreButton();
           initChildrenLinks(container);
           initFUQChildrenLinks(container);
 				},
-				reinitialiseSiblings: function(siblingsContainerSelector)
-        {
+
+				reinitialiseSiblings: function(siblingsContainerSelector) {
           var container = statement.find(siblingsContainerSelector);
           initSiblingsLinks(container);
           initFUQSiblingsLinks(container);
         },
-        insertContent: function(content){
+
+        insertContent: function(content) {
           statement.append(content);
           return this;
         },
+
 		    removeBelow: function(){
-		     statement.nextAll().each(function(){
+		     statement.nextAll().each(function() {
 			     // Delete the session data relative to this statement first
 			     $('div#statements').removeData(this.id);
 			     $(this).remove();
 		     });
 				 return this;
 		    },
+
         insert: function() {
 		      var element = $('div#statements .statement').eq(settings['level']);
 		      if(element.length > 0) {
@@ -497,7 +460,8 @@
 		      }
 					return this;
 		    },
-		    loadAuthors: function (authors, length){
+
+		    loadAuthors: function (authors, length) {
 		      authors.insertAfter(statement.find('.summary h2')).animate(toggleParams, settings['animation_speed']);
 		      statement.find('.authors_list').jcarousel({
 		        scroll: 3,
@@ -507,16 +471,19 @@
 		      });
 					return this;
 		    },
+
 		    insertMore: function (level, type_id) {
 		      var element = $('#statements div.statement:eq(' + level + ') ' + type_id + ' .headline');
 		      statement.insertAfter(element).animate(toggleParams, settings['animation_speed']);
 					return this;
 		    },
+
 		    /* Expandable Flow */
-		    show: function(){
+		    show: function() {
 		      statement.find('.content').animate(toggleParams, settings['animation_speed']);
 					return this;
 		    },
+
 		    hide: function () {
 		      statement.find('.header').removeClass('active').addClass('expandable');
 		      statement.find('.content').hide('slow');

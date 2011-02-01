@@ -493,15 +493,15 @@ de:
         discuss_search: Search
         my_issues: My Discussions
         labels:
-          ds: ''
-          mi: ''
-          sr: 'Search Results for'
-          fq: 'Follow-Up Questions for'
+          ds: 'Suche'
+          mi: 'Meine Diskussionen'
+          sr: 'Suchergebnisse für'
+          fq: 'Folgefragen von'
           over:
-            ds: 'back to'
-            mi: 'back to'
-            sr: 'back to results of'
-            fq: 'back to'
+            ds: 'Zurück zur Suche'
+            mi: 'Zurück zu Meine Diskussionen'
+            sr: 'Zurück zu Suchergebnisse für'
+            fq: 'Zurück zur Aussage'
 
       upload_image:
         title: Bild hochladen

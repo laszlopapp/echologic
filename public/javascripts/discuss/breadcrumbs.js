@@ -4,9 +4,10 @@
 
     $.fn.breadcrumbs.defaults = {
       'container_animation_params' : {
-        'width' : 'toggle',
+        'height' : 'toggle',
         'opacity': 'toggle'
       },
+      'container_animation_speed': 400,
       'breadcrumb_animation_params' : {
         'width' : 'toggle',
         'opacity': 'toggle'
@@ -124,7 +125,7 @@
        */
       function toggleContainer() {
         breadcrumbs.animate(settings['container_animation_params'],
-                            settings['animation_speed']);
+                            settings['container_animation_speed']);
       }
 
 
@@ -172,6 +173,8 @@
 					if (originId.length > 0) {
             // There is an origin, so delete breadcrumbs to the right
 				  	var to_remove = elements.find('a#' + originId).nextAll().remove();
+            var remove_length = to_remove.length;
+            to_remove.remove();
 				  } else {
 						// No origin, that means first breadcrumb pressed, no predecessor, so delete everything
 						elements.find('a').each(function() {
@@ -179,9 +182,11 @@
 						});
 					}
 
-          jsp.scrollToX(0);
-			  	updateContainerWidth();
-			  	jsp.reinitialise();
+          if (remove_length > 0) {
+            jsp.scrollToX(0);
+            updateContainerWidth();
+            jsp.reinitialise();
+          }
 			  	if (jsp.getContentPane().find('a').length == 0) {
 						if (breadcrumbs.is(':visible')) {
 							toggleContainer();
