@@ -489,13 +489,13 @@ en:
         discuss_search: Search
         my_questions: My Questions
         labels:
-          ds: 'Search'
-          mi: 'My Questions'
+          ds: ''
+          mi: ''
           sr: 'Search results for'
           fq: 'Follow-up Questions for'
           over:
-            ds: 'Back to Search'
-            mi: 'Back to My Questions'
+            ds: 'Back to'
+            mi: 'Back to'
             sr: 'Back to search results for'
             fq: 'Back to statement'
 
