@@ -71,13 +71,13 @@ class ActivityTrackingService
     event_json = {
       :type => node.class.name.underscore,
       :id => node.target_id,
-      :level => node.level,
+      :level => node.class.is_top_statement? ? node.parent.level + 1 : node.level,
       :tags => node.filtered_topic_tags,
       :documents => set_titles_hash(node.statement_documents),
       :parent_documents => node.parent ? set_titles_hash(node.parent.statement_documents) : nil,
-      :root_documents => (!node.root.nil? and node.root != node.parent) ? set_titles_hash(node.root.statement_documents) : nil,
+      :root_documents => set_titles_hash(node.root.statement_documents),
       :parent_id => node.parent_id || -1,
-      :root_id => (!node.root.nil? and node.root != node.parent) ? node.root.id : -1,
+      :root_id => node.root_id,
       :parent_type => node.parent ? node.parent.class.name.underscore : nil,
       :operation => 'created'
     }.to_json
@@ -125,7 +125,7 @@ class ActivityTrackingService
       next if events.blank? #if there are no events to send per email, take the next user
 
       question_events = events.select{|e|JSON.parse(e.event)['type'] == 'question'}
-
+      
       # created an Hash containing the number of ocurrences of the new tags in the new questions
       tag_counts = question_events.each_with_object({}) do |question, tags_hash|
         question_data = JSON.parse(question.event)
@@ -134,11 +134,23 @@ class ActivityTrackingService
 
       events.sort! do |a,b|
         a_parsed = JSON.parse(a.event) ; b_parsed = JSON.parse(b.event)
-        [a_parsed['root_id'],a_parsed['parent_id'],a_parsed['type']] <=> [b_parsed['root_id'],b_parsed['parent_id'],b_parsed['type']]
+        [a_parsed['root_id'],a_parsed['level'],a_parsed['type']] <=> [b_parsed['root_id'],b_parsed['level'],b_parsed['type']]
+      end
+
+      #turn array of events into an hash
+      events = events.each_with_object({}) do |event, hash|
+        e = JSON.parse(event.event)
+        if e['parent_id'] == -1 
+          hash[e['parent_id']] ||= [] ; hash[e['parent_id']] << e
+        else
+          hash[e['parent_id']] ||= {}
+          hash[e['parent_id']][e['type']] ||= {}
+          hash[e['parent_id']][e['type']][e['operation']] ||= [] ; hash[e['parent_id']][e['type']][e['operation']] << e
+        end
       end
 
       # Sending the mail
-      send_activity_email(recipient, question_events, tag_counts, events - question_events)
+      send_activity_email(recipient, question_events, tag_counts, events)
     end
   end
 

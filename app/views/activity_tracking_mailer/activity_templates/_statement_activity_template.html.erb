@@ -1,3 +1,9 @@
-<li>
-  <%= link_to title, statement_node_url(event_data['id'].to_i, :locale => language_code) %>
-</li>
+<% language_id = nil %>
+<%@preferred_language_ids.each do |l_id| %>
+  <% if event["documents"].has_key?(l_id.to_s) %>
+	  <% language_id = l_id %>
+		<% break %>
+  <% end %>
+<% end %>
+<% language_id = event["documents"].keys[0] if language_id.nil? %>
+<%= content_tag :li, link_to(event["documents"][language_id.to_s], statement_node_url(event['id'], :locale => Language[language_id.to_i].code)) %>
