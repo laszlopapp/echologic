@@ -159,7 +159,7 @@ class StatementsController < ApplicationController
 
             # Propagating the creation event
             EchoService.instance.created(@statement_node)
-            EchoService.instance.created(@statement_node.question) if @statement_node.question
+            EchoService.instance.created(@statement_node.question) if @statement_node.question_id
 
             created = true
           end
