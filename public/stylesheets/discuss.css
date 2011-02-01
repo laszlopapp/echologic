@@ -215,6 +215,11 @@ form.statement fieldset ol span.defaultText {
   margin-bottom: 20px;
 }
 
+form.formtastic fieldset.statement_tags .tags_container {
+  margin-bottom: 10px;
+}
+
+
 form.formtastic fieldset.statement_tags .tag_container {
   width: 365px;
 }
@@ -340,6 +345,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 .breadcrumb {
+  color: #21587f;
   height: 50px;
 	float: left;
 	width: 280px;
@@ -362,8 +368,8 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .breadcrumb .label,
 .breadcrumb .over {
 	display: inline-block;
-  font-size: 12px;
   position: absolute;
+  font-size: 12px;
   left: 62px;
   top: 0;
   width: 215px;
@@ -384,9 +390,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   top: 19px;
   left: 40px;
   font-size: 12px;
+  font-weight: bold;
   width: 215px;
+  height: 32px;
 	padding-left: 21px;
-	color: #21587F;
 }
 
 .breadcrumb:hover .statement_link {
