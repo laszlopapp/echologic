@@ -20,10 +20,6 @@ class FollowUpQuestion < StatementNode
   # string helpers (acts_as_echoable overwriting) #
   #################################################
   
-  
-
-
-
   class << self
     def children_types(visibility = false, default = true, expand = false)
       Question.children_types(visibility, default, expand)

@@ -55,4 +55,8 @@ class Statement < ActiveRecord::Base
   def publish
     self.editorial_state = StatementState["published"]
   end
+  
+  def filtered_topic_tags
+    self.topic_tags.select{|tag|tag.index('*') != 0}
+  end
 end
