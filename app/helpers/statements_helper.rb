@@ -396,12 +396,12 @@ module StatementsHelper
   def render_breadcrumb(breadcrumbs)
     breadcrumb_trail = ""
     breadcrumbs.each_with_index do |b, index| #[id, classes, url, title]
-      breadcrumb = content_tag :div, :class => 'breadcrumb' do
+      breadcrumb = content_tag(:a, :href => b[2], :id => b[0], :class => 'breadcrumb') do
         content = ""
-        content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.#{b[0][0,2]}"), :class => 'label')
-        content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.over.#{b[0][0,2]}"), :class => 'over', :style => 'display:none')
         content << content_tag(:span, '>', :class => 'delimiter') if index != 0
-        content << link_to(h(b[3].gsub(/\\;/, ',')), b[2], :id => b[0], :class => b[1])
+        content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.#{b[0][0,2]}"), :class => 'label')
+        content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.over.#{b[0][0,2]}"), :class => 'over')
+        content << content_tag(:span, h(b[3].gsub(/\\;/, ',')), :class => b[1])
         content
       end
       breadcrumb_trail << breadcrumb

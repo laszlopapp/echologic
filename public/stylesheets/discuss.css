@@ -322,16 +322,18 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   display: block;
 }
 
-.breadcrumb a.statement_link {
+.breadcrumb .statement_link {
   padding-top: 1px;
   position: absolute;
   top: 19px;
   left: 40px;
   font-size: 12px;
   width: 215px;
+	padding-left: 21px;
+	color: #21587F;
 }
 
-.breadcrumb:hover a.statement_link {
+.breadcrumb:hover .statement_link {
   color: #7bb031;
 }
 

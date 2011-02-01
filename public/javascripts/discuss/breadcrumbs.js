@@ -37,8 +37,7 @@
       initialise();
 
 			function initialise(){
-				breadcrumbs.find('a');
-				breadcrumbs.find('a').each(function() {
+				breadcrumbs.find('.breadcrumb').each(function() {
 				  initBreadcrumb($(this));
 				});
 
@@ -63,7 +62,7 @@
        */
 			function initBreadcrumb(breadcrumb) {
 
-        if (breadcrumb.hasClass('.search_link')) {return;}
+        if (breadcrumb.children().hasClass('.search_link')) {return;}
 
         // Loads ids of the statements appearing in the stack
 		    var path_id = breadcrumb.attr('id');
@@ -80,8 +79,8 @@
 		      bids_stack = (bids_stack == null) ? [] : bids_stack.split(',');
 
 		      // Getting links that must be removed from the breadcrumbs
-		      var links_to_delete = $(this).parent().nextAll().map(function() {
-		        return $(this).find('.statement').attr('id');
+		      var links_to_delete = $(this).nextAll().map(function() {
+		        return $(this).attr('id');
 		      }).get();
 		      links_to_delete.unshift($(this).attr('id'));
 
@@ -147,20 +146,16 @@
               toggleContainer();
             }
 			  	  // Assemble new breadcrumb entries
-						$.each(breadcrumbsData, function(index, breadcrumbData) {
-							var breadcrumb = $('<div/>').addClass('breadcrumb');
+						$.each(breadcrumbsData, function(index, breadcrumbData) { //[id, classes, url, title, label, over]
+							var breadcrumb = $('<a/>').addClass('breadcrumb').attr('id',breadcrumbData[0]).attr('href',breadcrumbData[2]);
 							if (index != 0 || elements.find(".breadcrumb").length != 0) {
 								breadcrumb.append($("<span/>").addClass('delimiter').text(">"));
 							}
               breadcrumb.append($('<span/>').addClass('label').text(breadcrumbData[4]));
 							breadcrumb.append($('<span/>').addClass('over').text(breadcrumbData[5]));
-							breadcrumb.append($('<a/>').
-                         attr('id', breadcrumbData[0]).
-                         addClass(breadcrumbData[1]).
-                         attr('href', breadcrumbData[2]).
-                         text(breadcrumbData[3]));
+							breadcrumb.append($('<span/>').addClass(breadcrumbData[1]).text(breadcrumbData[3]));
 							breadcrumb.hide();
-							initBreadcrumb(breadcrumb.find('a'));
+							initBreadcrumb(breadcrumb);
 							elements.append(breadcrumb);
 						});
 					}
@@ -176,11 +171,11 @@
 					var elements = jsp.getContentPane().find('.elements');
 					if (originId.length > 0) {
             // There is an origin, so delete breadcrumbs to the right
-				  	var to_remove = elements.find('a#' + originId).parent().nextAll().remove();
+				  	var to_remove = elements.find('a#' + originId).nextAll().remove();
 				  } else {
 						// No origin, that means first breadcrumb pressed, no predecessor, so delete everything
 						elements.find('a').each(function() {
-						  $(this).parent().remove();
+						  $(this).remove();
 						});
 					}
 
@@ -201,7 +196,7 @@
 		      var bid_list = bids.split(",");
 
 		      // Current breadcrumb entries
-		      var visible_bids = breadcrumbs.find("a").map(function() {
+		      var visible_bids = breadcrumbs.find(".breadcrumb").map(function() {
 						return this.id;
 		      }).get();
 
@@ -212,7 +207,7 @@
 		    },
 
 				getBreadcrumbStack : function (newBreadcrumb) {
-		      var currentBreadcrumbs = breadcrumbs.find(".breadcrumb a").map(function() {
+		      var currentBreadcrumbs = breadcrumbs.find(".breadcrumb").map(function() {
 						return this.id;
 					}).get();
 					if (newBreadcrumb) {
