@@ -121,7 +121,7 @@
           });
           $(doc).bind('blur', function(){
             var new_text = $(editor.contents().get(0)).find('body');
-            if (new_text.html().length == 0 || new_text.html().val() == '</br>') {
+            if (new_text.html().length == 0 || new_text.html() == '</br>') {
               label.show();
             }
           });

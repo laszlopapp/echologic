@@ -13,14 +13,14 @@
 
     // Merging settings with defaults
     var settings = $.extend({}, $.fn.statement.defaults, current_settings);
-
+    
     return this.each(function() {
-	    // Creating and binding the statement API
+			// Creating and binding the statement API
 			var elem = $(this), statementApi = elem.data('api');
 	    if (statementApi) {
-	      statementApi.reinitialise(settings);
+	      statementApi.reinitialise(current_settings);
 	    } else {
-	      statementApi = new Statement(elem);
+				statementApi = new Statement(elem);
 	      elem.data('api', statementApi);
 	    }
 		});
@@ -31,10 +31,10 @@
     /*************************/
 
     function Statement(statement) {
-      var timer;
+			var timer;
       var statementDomId = statement.attr('id');
       var statementId = getStatementId(statementDomId);
-			var statement_index;
+      var statement_index;
 
       // Initialize the statement
       initialise();
