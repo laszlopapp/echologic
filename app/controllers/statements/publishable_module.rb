@@ -38,7 +38,7 @@ module PublishableModule
                                                            :language_ids => @language_preference_list,
                                                            :show_unpublished => current_user &&
                                                                                 current_user.has_role?(:editor))
-  
+
     @count    = statement_nodes_not_paginated.count
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => 6)
     @statement_documents = search_statement_documents(@statement_nodes.map(&:statement_id), @language_preference_list)
@@ -58,7 +58,9 @@ module PublishableModule
         @statement_node.publish
         respond_to do |format|
           if @statement_node.statement.save
-            EchoService.instance.published(@statement_node)
+            @statement_node.statement.statement_nodes.each do |node|
+              EchoService.instance.published(node)
+            end
             format.js do
               set_info("discuss.statements.published")
               render_with_info do |page|

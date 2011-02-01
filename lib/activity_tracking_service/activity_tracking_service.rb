@@ -48,7 +48,7 @@ class ActivityTrackingService
   end
 
   def created(node)
-    created_event(node) if node.published?
+    published(node) if node.published?
   end
 
   def published(node)
