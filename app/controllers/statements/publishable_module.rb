@@ -11,7 +11,7 @@ module PublishableModule
   # Params:   value: string, id (category): string
   # Response: JS
   #
-  def my_issues
+  def my_questions
     @page     = params[:page]  || 1
 
     questions_not_paginated = Question.by_creator(current_user).by_creation
@@ -20,7 +20,7 @@ module PublishableModule
     @statement_documents = search_statement_documents(@questions.map(&:statement_id),
                                                       @language_preference_list)
 
-    respond_to_js :template => 'statements/questions/my_issues', :template_js => 'statements/questions/my_issues'
+    respond_to_js :template => 'statements/questions/my_questions', :template_js => 'statements/questions/my_questions'
   end
 
 
@@ -69,8 +69,8 @@ module PublishableModule
                   @statement_documents =
                     search_statement_documents([@statement_node.statement_id])
                   page.replace(dom_id(@statement_node),
-                               :partial => 'statements/questions/my_issue',
-                               :locals => {:my_issue => @statement_node ,
+                               :partial => 'statements/questions/my_question',
+                               :locals => {:my_question => @statement_node ,
                                            :statement_document => @statement_documents[@statement_node.statement_id]})
                 end
               end
@@ -87,7 +87,7 @@ module PublishableModule
         if params[:in] == 'summary'
           flash_error and redirect_to statement_node_url(@statement_node)
         else
-          flash_error and redirect_to my_issues_url
+          flash_error and redirect_to my_questions_url
         end
       end
     else

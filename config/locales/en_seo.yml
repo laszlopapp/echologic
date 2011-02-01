@@ -54,15 +54,15 @@ en:
         index: 'echo - Discuss'
         roadmap: 'echo - Roadmap for Discuss'
       statements:
-        category: 'echo - Discussion Topic'
-        show: 'echo - Discussion'
-        new: 'Open new discussion'
-        my_issues: 'My Discussions'
+        category: 'echo - Question Topic'
+        show: 'echo - Question'
+        new: 'Open new question'
+        my_questions: 'My Questions'
 #      questions:
-#        category: 'echo - Discussion Topic'
-#        show: 'echo - Discussion'
-#        new: 'Open new discussion'
-#        my_issues: 'My Discussions'
+#        category: 'echo - Question Topic'
+#        show: 'echo - Question'
+#        new: 'Open new question'
+#        my_questions: 'My Questions'
 #      proposals:
 #        show: 'echo - Positions in the Debate'
 #      improvements:

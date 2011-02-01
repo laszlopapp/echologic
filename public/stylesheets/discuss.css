@@ -16,7 +16,7 @@
 /* My Questions */
 /****************/
 
-#my_issues .new_question {
+#my_questions .new_question {
   width: 55px;
   height: 55px;
   margin: 40px 0 0 37px !important;
@@ -89,17 +89,17 @@
   padding-left: 20px;
 }
 
-#my_issues .pagination {
+#my_questions .pagination {
 	width: 100%;
 }
 
-#my_issues .avatar_holder img {
+#my_questions .avatar_holder img {
   max-width: 45px;
   max-height: 45px;
   border: 2px solid #7bb031;
 }
 
-#my_issues .no_questions {
+#my_questions .no_questions {
   margin-top: 30px;
 }
 

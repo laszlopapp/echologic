@@ -11,7 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   map.discuss_featured '/discuss/featured', :controller => :discuss, :action => :index
   map.discuss_roadmap '/discuss/roadmap', :controller => :discuss, :action => :roadmap
   map.discuss_cancel '/discuss/cancel', :controller => :discuss, :action => :cancel
-  map.my_issues '/discuss/my_issues', :controller => :statements, :action => :my_issues
+  map.my_questions '/discuss/my_questions', :controller => :statements, :action => :my_questions
 
   # SECTION discuss search
   map.discuss_search '/discuss/search', :controller => :statements, :action => :category

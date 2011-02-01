@@ -340,7 +340,7 @@ fr:
   # ---------------
 
   discuss:
-    my_issues:
+    my_questions:
       link: Mes Questions
       title: Mes nouvelles questions et discussions
       no_questions: |

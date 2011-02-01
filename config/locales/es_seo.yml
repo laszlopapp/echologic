@@ -55,7 +55,7 @@ es:
         category: 'echo - Temas de debate'
         show: 'echo - Debates'
         new: 'Crear nuevo debate'
-        my_issues: 'Mis Debates'
+        my_questions: 'Mis Debates'
       proposals:
         show: 'echo - Propuestas en este debate'
       improvements:

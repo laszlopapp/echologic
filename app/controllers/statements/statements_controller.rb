@@ -10,7 +10,7 @@ class StatementsController < ApplicationController
   skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :add, :ancestors, :descendants,
                                               :redirect_to_statement]
   
-  before_filter :fetch_statement_node, :except => [:category, :my_issues, :new, :create]
+  before_filter :fetch_statement_node, :except => [:category, :my_questions, :new, :create]
   before_filter :fetch_statement_node_type, :only => [:new, :create]
   before_filter :redirect_if_approved_or_incorporated, :only => [:show, :edit, :update, :destroy,
                                                                  :new_translation, :create_translation,
@@ -630,7 +630,7 @@ class StatementsController < ApplicationController
       over = I18n.t("discuss.statements.breadcrumbs.labels.over.#{key}")
       breadcrumb = case key
         when "ds" then ["ds","search_link statement_link", discuss_search_url, I18n.t("discuss.statements.breadcrumbs.discuss_search")]
-        when "sr" then ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :search_terms => bid[2..-1].gsub(/\\;/, ',')), bid[2..-1]]        when "mi" then ["mi","search_link statement_link", my_issues_url, I18n.t("discuss.statements.breadcrumbs.my_issues")]
+        when "sr" then ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :search_terms => bid[2..-1].gsub(/\\;/, ',')), bid[2..-1]]        when "mi" then ["mi","search_link statement_link", my_questions_url, I18n.t("discuss.statements.breadcrumbs.my_questions")]
         when "fq" then statement_node = StatementNode.find(bid[2..-1])
                        statement_document = search_statement_documents(statement_node.statement_id, @language_preference_list)[statement_node.statement_id] ||
                                             statement_node.document_in_original_language

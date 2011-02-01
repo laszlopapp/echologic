@@ -38,8 +38,8 @@ module NavigationHelpers
       statement_node_path(@proposal)
     when /discuss index/i
       discuss_search_url
-    when /my issues/i
-      my_issues_url
+    when /my questions/i
+      my_questions_url
     when /discuss featured/i
       discuss_featured_path
     when /discuss search/i

@@ -299,7 +299,7 @@ pt:
   # ---------------
 
   discuss:
-    my_issues:
+    my_questions:
       link: Minhas Discussões
       title: As minhas discussões novas e publicadas
       no_questions: |
@@ -445,7 +445,7 @@ pt:
         argument: 'Arguments'
         follow_up_question: 'Follow-up Questions'
       siblings:
-        follow_up_question: 'Follow-Up Issue (Sibling)'
+        follow_up_question: 'Follow-Up Question (Sibling)'
 
       topic: Tópico (Tags / Palavras-chave)
       states:
@@ -484,7 +484,7 @@ pt:
 
       breadcrumbs:
         discuss_search: Search
-        my_issues: My Discussions
+        my_questions: My Questions
         labels:
           ds: ''
           mi: ''

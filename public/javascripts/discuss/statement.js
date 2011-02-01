@@ -86,12 +86,12 @@
 				if (!settings['insertStatement']) {return;}
 
 				var element = $('div#statements .statement').eq(settings['level']);
+				hideStatements(settings);
 				if(element.length > 0) {
           element.replaceWith(statement);
         }
         else
-        {
-          hideStatements(settings);
+        { 
           $('div#statements').append(statement);
         }
 			}

@@ -306,7 +306,7 @@ de:
   # ---------------
 
   discuss:
-    my_issues:
+    my_questions:
       link: Meine Fragestellungen
       title: Meine neuen & freigegebenen Fragestellungen
       no_questions: |
@@ -452,7 +452,7 @@ de:
         argument: 'Arguments'
         follow_up_question: 'Follow-up Questions'
       siblings:
-        follow_up_question: 'Follow-Up Issue (Sibling)'
+        follow_up_question: 'Follow-Up Question (Sibling)'
 
       topic: Thema (Tags / Schlüsselwörte)
       states:
@@ -491,7 +491,7 @@ de:
 
       breadcrumbs:
         discuss_search: Search
-        my_issues: My Discussions
+        my_questions: My Questions
         labels:
           ds: 'Suche'
           mi: 'Meine Diskussionen'

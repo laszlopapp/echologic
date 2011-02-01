@@ -311,8 +311,8 @@ en:
   # ---------------
 
   discuss:
-    my_issues:
-      link: My Discussions
+    my_questions:
+      link: My Questions
       title: My new & published questions
       no_questions: |
         You haven't created any questions yet. To do so, please click on the question mark button on the left.
@@ -447,7 +447,7 @@ en:
         argument: 'Arguments'
         follow_up_question: 'Follow-up Questions'
       siblings:
-        follow_up_question: 'Follow-Up Issue (Sibling)'
+        follow_up_question: 'Follow-Up Question (Sibling)'
 
       topic: Topic (Tags / Keywords)
       states:
@@ -487,15 +487,15 @@ en:
 
       breadcrumbs:
         discuss_search: Search
-        my_issues: My Discussions
+        my_questions: My Questions
         labels:
           ds: 'Search'
-          mi: 'My Discussions'
+          mi: 'My Questions'
           sr: 'Search results for'
           fq: 'Follow-up Questions for'
           over:
             ds: 'Back to Search'
-            mi: 'Back to My Discussions'
+            mi: 'Back to My Questions'
             sr: 'Back to search results for'
             fq: 'Back to statement'
 

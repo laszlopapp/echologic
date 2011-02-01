@@ -10,8 +10,8 @@ Feature: Start a question
     Given there are no questions
       And I am logged in as "editor" with password "true"
       And I am on the discuss index
-    When I follow "My Issues"
-      And I follow "Create a new issue"
+    When I follow "My Questions"
+      And I follow "Create a new question"
       And I fill in the following:
         | question_statement_document_title | Is this a Question?   |
         | question_statement_document_text | Blablabla bla bla bla |

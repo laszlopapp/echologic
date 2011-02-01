@@ -19,7 +19,7 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert_equal [user.email], email.to
     assert_equal "echo - Activity Notifications", email.subject
     assert_match /echo - Activity Notifications/, email.encoded
-    assert_match /1 new issue/, email.encoded
+    assert_match /1 new question/, email.encoded
     assert_match /#{title}/, email.encoded
     assert_match /#{id}/, email.encoded
     assert_match /They are related to the following topics:/, email.encoded

@@ -66,7 +66,7 @@ module PublishableModuleHelper
   #
   # linked title of question on my question area
   #
-  def my_issue_title(title,question)
+  def my_question_title(title,question)
     link_to(h(title),statement_node_url(question, :origin => :mi, :bids => :mi), :class => "statement_link ttLink no_border",
             :title => I18n.t("discuss.tooltips.read_#{question.class.name.underscore}"))
   end
@@ -74,7 +74,7 @@ module PublishableModuleHelper
   #
   # linked image of question on my question area
   #
-  def my_issue_image(question)
+  def my_question_image(question)
     link_to statement_node_url(question, :origin => :mi, :bids => :mi), :class => "avatar_holder" do
       image_tag question.image.url(:small)
     end
@@ -83,7 +83,7 @@ module PublishableModuleHelper
   #
   # create question button above the discuss search results and on the left corner of my questions
   #
-  def create_my_issue_link_for
+  def create_my_question_link_for
     link_to(new_question_url(:origin => :mi, :bids => :mi),
             :id => 'create_question_link') do
       content_tag(:span, '',

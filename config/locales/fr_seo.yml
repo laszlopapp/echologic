@@ -55,7 +55,7 @@ fr:
         category: 'echo - Les thèmes de discussion'
         show: 'echo - Débats'
         new: 'Ouvrir de nouvelles discussions'
-        my_issues: 'Mes discussions'
+        my_questions: 'Mes discussions'
       proposals:
         show: 'echo - Prises de positions'
       improvements:
