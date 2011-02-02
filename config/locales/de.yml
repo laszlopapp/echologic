@@ -311,7 +311,7 @@ de:
       title: Meine neuen & freigegebenen Fragestellungen
       no_questions: |
         Sie haben bislang keine Fragestellungen hinzugefügt. Um welche anzulegen, klicken Sie bitte links auf das Fragezeichen.
-      add: Create new Question
+      add: Add New Question
     tag_permission: |
       Sie dürfen leider den Tag '{{tag}}' nicht vergeben.
     original_language_warning: |
