@@ -1,9 +1,2 @@
-<% language_id = nil %>
-<%@preferred_language_ids.each do |l_id| %>
-  <% if event["documents"].has_key?(l_id.to_s) %>
-	  <% language_id = l_id %>
-		<% break %>
-  <% end %>
-<% end %>
-<% language_id = event["documents"].keys[0] if language_id.nil? %>
-<%= content_tag :li, link_to(event["documents"][language_id.to_s], statement_node_url(event['id'], :locale => Language[language_id.to_i].code)) %>
+<% document = get_document_in_preferred_language(event["documents"], @preferred_language_ids) %>
+<%= content_tag :li, link_to(document[1], statement_node_url(event['id'], :locale => Language[document[0].to_i].code)) %>

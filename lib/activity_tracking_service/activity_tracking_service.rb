@@ -75,10 +75,7 @@ class ActivityTrackingService
       :tags => node.filtered_topic_tags,
       :documents => set_titles_hash(node.statement_documents),
       :parent_documents => node.parent ? set_titles_hash(node.parent.statement_documents) : nil,
-      :root_documents => set_titles_hash(node.root.statement_documents),
       :parent_id => node.parent_id || -1,
-      :root_id => node.root_id,
-      :parent_type => node.parent ? node.parent.class.name.underscore : nil,
       :operation => 'created'
     }.to_json
 
@@ -118,48 +115,41 @@ class ActivityTrackingService
     User.all(:conditions => ["(id % ?) = ? and activity_notification = 1", @charges, current_charge]).each do |recipient|
 
       # Collecting events
-      events = Event.find_tracked_events(recipient, after_time)
+      events = Event.find_tracked_events(recipient, after_time).map{|e|JSON.parse(e.event)}
       # Filter only events whose titles languages the recipient speaks
-      events = events.select{|e| !(JSON.parse(e.event)['documents'].keys.map{|id|id.to_i} & recipient.sorted_spoken_language_ids).empty? }
+      events = events.select{|e| !(e['documents'].keys.map{|id|id.to_i} & recipient.sorted_spoken_language_ids).empty? }
 
       next if events.blank? #if there are no events to send per email, take the next user
 
-      question_events = events.select{|e|JSON.parse(e.event)['type'] == 'question'}
+      # take the question events apart
+      root_events = events.select{|e|e['level'] == 0}
+      events -= root_events
       
       # created an Hash containing the number of ocurrences of the new tags in the new questions
-      tag_counts = question_events.each_with_object({}) do |question, tags_hash|
-        question_data = JSON.parse(question.event)
-        question_data['tags'].each{|tag| tags_hash[tag] = tags_hash.has_key?(tag) ? tags_hash[tag] + 1 : 1 }
-      end
-
-      events.sort! do |a,b|
-        a_parsed = JSON.parse(a.event) ; b_parsed = JSON.parse(b.event)
-        [a_parsed['root_id'],a_parsed['level'],a_parsed['type']] <=> [b_parsed['root_id'],b_parsed['level'],b_parsed['type']]
+      tag_counts = root_events.each_with_object({}) do |root, tags_hash|
+        root['tags'].each{|tag| tags_hash[tag] = tags_hash.has_key?(tag) ? tags_hash[tag] + 1 : 1 }
       end
 
       #turn array of events into an hash
-      events = events.each_with_object({}) do |event, hash|
-        e = JSON.parse(event.event)
-        if e['parent_id'] == -1 
-          hash[e['parent_id']] ||= [] ; hash[e['parent_id']] << e
-        else
-          hash[e['parent_id']] ||= {}
-          hash[e['parent_id']][e['type']] ||= {}
-          hash[e['parent_id']][e['type']][e['operation']] ||= [] ; hash[e['parent_id']][e['type']][e['operation']] << e
-        end
+      events = events.each_with_object({}) do |e, hash|
+        hash[e['level']] ||= {}
+        hash[e['level']][e['parent_id']] ||= {}
+        hash[e['level']][e['parent_id']][e['type']] ||= {}
+        hash[e['level']][e['parent_id']][e['type']][e['operation']] ||= [] 
+        hash[e['level']][e['parent_id']][e['type']][e['operation']] << e
       end
 
       # Sending the mail
-      send_activity_email(recipient, question_events, tag_counts, events)
+      send_activity_email(recipient, root_events, tag_counts, events)
     end
   end
 
   #
   # Sends an activity tracking E-Mail to the given recipient.
   #
-  def send_activity_email(recipient, question_events, question_tags, events)
+  def send_activity_email(recipient, root_events, question_tags, events)
     puts "Send mail to:" + recipient.email
-    mail = ActivityTrackingMailer.create_activity_tracking_mail(recipient,question_events,question_tags,events)
+    mail = ActivityTrackingMailer.create_activity_tracking_mail(recipient,root_events,question_tags,events)
     ActivityTrackingMailer.deliver(mail)
   end
 

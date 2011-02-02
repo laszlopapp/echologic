@@ -4,12 +4,13 @@
 <% end %>
 
 
-<%= render :partial => "activity_tracking_mailer/activity_templates/questions_activity_template",
-           :locals => {:questions => @question_events, :tags => @question_tags}%>
+<%= render :partial => "activity_tracking_mailer/activity_templates/root_statements_activity_template" %>
 
-<% @events[-1].each do |parent| %>
-  <%= render :partial => "activity_tracking_mailer/children_template", 
-             :locals => {:parent_id => parent['id'], :events => @events[parent['id']]} if @events[parent['id']] %>
+<% @events.keys.sort.each do |level| %>
+  <% @events[level].each do |parent_id, events| %>
+	  <%= render :partial => "activity_tracking_mailer/children_template", 
+	             :locals => {:parent_id => parent_id, :events => events} %>
+	<% end %>
 <% end %>
 
 

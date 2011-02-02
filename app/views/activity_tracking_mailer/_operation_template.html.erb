@@ -1,23 +1,20 @@
 <ul>
+	<% puts events.inspect %>
 	<% events.each_with_index do |event, index| %>
 	 <% if index == 0 %>
-		 <% language_id = nil %>
-		 <%@preferred_language_ids.each do |l_id| %>
-		   <% if event["parent_documents"].has_key?(l_id.to_s) %>
-			    <% language_id = l_id %>
-			    <% break %>
-			  <% end %>
-			<% end %>
-			<% language_id = event["parent_documents"].keys[0] if language_id.nil? %>
+		 <% parent_document = get_document_in_preferred_language(event["parent_documents"], @preferred_language_ids) %>
 		 <li><p><%= I18n.t("mailers.activity_tracking.statements.#{operation}_#{type.pluralize}",
-		             :title => event["parent_documents"][language_id.to_s],
-		             :locale => Language[@preferred_language_ids.first].code) %>
+		             :title => parent_document[1],
+		             :locale => Language[parent_document[0].to_i].code) %>
 		 </p></li>
+		 <ul>
 	 <% end %>
-	 <% children = @events[event['id']] %>
+	 <% children_level = @events[event['level']+1] %>
+	 <% @events[event['level']][event['parent_id']][event['type']][event['operation']] -= [event] %>
 	 <%= render :partial => "activity_tracking_mailer/activity_templates/statement_activity_template", 
               :locals => {:event => event} %>
 	 <%= render :partial => "activity_tracking_mailer/children_template", 
-              :locals => {:parent_id => event['id'], :events => children} if children %>
+              :locals => {:parent_id => event['id'], :events => children_level[event['id']]} if children_level and children_level[event['id']] %>
 	<% end %>
+	</ul>
 </ul>
