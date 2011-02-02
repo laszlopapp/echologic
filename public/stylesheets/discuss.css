@@ -288,7 +288,8 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 #discuss_search_container .new_question {
   position: absolute;
-  top: -25px;
+  top: 5px;
+  margin-left: 10px;
 }
 
 #discuss_search_container.search_container {

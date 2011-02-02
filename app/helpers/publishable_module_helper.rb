@@ -15,12 +15,10 @@ module PublishableModuleHelper
   def create_question_link_for(search_terms=nil)
     search_terms = search_terms.nil? ? '' : search_terms.gsub(/,/,'\\;')
     origin = search_terms.blank? ? "ds" : "sr#{search_terms}"
-    link_to(new_question_url(:origin => origin, :bids => origin),
-            :id => 'create_question_link') do
-      content_tag(:span, '',
-                  :class => "new_question create_statement_button_mid create_question_button_mid ttLink no_border",
-                  :title => I18n.t("discuss.tooltips.create_question"))
-    end
+    link_to(I18n.t("discuss.statements.create_question_link"),
+            new_question_url(:origin => origin, :bids => origin),
+            :id => 'create_question_link',
+            :class => 'new_question add_new_button text_button create_question_button')
   end
 
   #

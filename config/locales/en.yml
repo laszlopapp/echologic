@@ -392,7 +392,7 @@ en:
           one: '{{supporter_count}} recommendation'
           many: '{{supporter_count}} recommendations'
       add_new: Add new...
-      create_question_link: 'New question'
+      create_question_link: 'Create new question'
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
       create_improvement_link: Propose new improvement
