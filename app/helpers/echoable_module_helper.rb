@@ -58,8 +58,7 @@ module EchoableModuleHelper
   #
   def echo_button(button_tag, echoed, statement_node, opts={})
     opts[:class] ||= ''
-    opts[:class] << " echo_button #{echoed ? '' : 'not_' }supported"
-    opts[:title] ||= "echo_button"
+    opts[:class] << " echo_button #{echoed ? '' : 'not_'}supported"
 
     content_tag(button_tag, opts) do
       button = ''
