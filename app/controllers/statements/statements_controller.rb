@@ -633,7 +633,7 @@ class StatementsController < ApplicationController
       breadcrumb = case key
         when "ds" then ["ds","search_link statement_link", discuss_search_url, I18n.t("discuss.statements.breadcrumbs.discuss_search")]
         when "sr" then ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :search_terms => bid[2..-1].gsub(/\\;/, ',')), bid[2..-1]]
-        when "mi" then ["mi","search_link statement_link", my_questions_url, I18n.t("discuss.statements.breadcrumbs.my_questions")]
+        when "mi" then ["mi","my_discussions_link statement_link", my_questions_url, I18n.t("discuss.statements.breadcrumbs.my_questions")]
         when "fq" then statement_node = StatementNode.find(bid[2..-1])
                        statement_document = search_statement_documents(statement_node.statement_id, @language_preference_list)[statement_node.statement_id] ||
                                             statement_node.document_in_original_language
