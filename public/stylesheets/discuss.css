@@ -288,7 +288,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 #discuss_search_container .new_question {
   position: absolute;
-  top: 5px;
+  top: -1px;
   margin-left: 10px;
 }
 
@@ -1038,7 +1038,14 @@ a.statement_link:hover {
 }
 
 .create_question_button {
-  background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
+  background:transparent url(../images/page/discuss/add_question_32.png) no-repeat scroll 0 0;
+  height: 24px;
+  padding: 8px 0 0 38px;
+
+}
+
+.create_question_button:hover {
+  background-position: 0 -32px;
 }
 
 .create_proposal_button {
