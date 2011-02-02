@@ -343,7 +343,7 @@ de:
     search:
       title: Suchen
       in: '... in {{category}} ...'
-      add: "Create a new question for '{{terms}}'"
+      add: "Create a new question for the topic"
 
     tooltips:
       read_question: 'Diese Frage anschauen'

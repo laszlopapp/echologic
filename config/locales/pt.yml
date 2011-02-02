@@ -336,7 +336,7 @@ pt:
     search:
       title: Procura
       in: '... em {{category}} ...'
-      add: "Create a new question for '{{terms}}'"
+      add: "Create a new question for the topic"
 
     tooltips:
       read_question: 'Ir para esta questão'
@@ -422,7 +422,7 @@ pt:
       title_hint: 'Please enter title here...'
       text_hint: 'Please enter text here...'
       tag_hint: 'Please enter tag here...'
-      
+
       publish: Publicar
       published: A discussão foi publicada com sucesso.
       edit: 'Editar {{type}}'
@@ -504,7 +504,7 @@ pt:
         guide: Por favor <strong>selecione uma imagem</strong> (JPG or PNG, max. 5MB) e carregue-a.
         progress: A imagem está sendo carregada. Por favor aguarde...
         error: A imagem não pôde ser incluída. Por favor carregue um formato suportado (JPG ou PNG e max. 5MB).
-      
+
       add_teaser:
         question: |
           <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the

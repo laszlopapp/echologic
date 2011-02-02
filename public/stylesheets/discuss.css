@@ -35,7 +35,7 @@
   display: inline-block;
   float: left;
 	width: 140px;
-  
+
 }
 
 #question_list a.avatar_holder{
@@ -324,13 +324,30 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	color: #7BB031;
 }
 
+#questions_container .results_container .no_results {
+  top: 85px;
+}
 
-#questions_container .results_container .create_teaser_question_button {
-  background: transparent url(../images/page/discuss/add_question_teaser.png) no-repeat scroll 0 0;
-	width: 290px;
-	height: 35px;
-	text-align: right;
-	padding-top: 20px;
+#questions_container .results_container .create_first_question_button {
+  background: transparent url(../images/page/discuss/add_first_question_button.png) no-repeat scroll 0 0;
+	width: 400px;
+	height: 50px;
+	text-align: center;
+  position: relative;
+  top: 75px;
+  color: #21587f;
+}
+
+#questions_container .results_container .create_first_question_button:hover {
+  background-position: 0 -50px;
+}
+
+#questions_container .results_container .create_first_question_button span {
+  font-weight: bold;
+  top: 15px;
+  position: relative;
+  left: 10px;
+  top: 18px;
 }
 
 #questions_container .results_container .add_teaser {

@@ -355,7 +355,7 @@ es:
     search:
       title: Buscar
       in: '... en {{category}} ...'
-      add: "Create a new question for '{{terms}}'"
+      add: "Create a new question for the topic"
 
     tooltips:
       read_question: 'Ver esta cuestión'
@@ -470,7 +470,7 @@ es:
         follow_up_question: 'Follow-up Questions'
       siblings:
         follow_up_question: 'Follow-Up Question (Sibling)'
-        
+
 
       topic: Tema (Tags / Palabras clave)
       states:

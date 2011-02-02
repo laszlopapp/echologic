@@ -22,17 +22,16 @@ module PublishableModuleHelper
                   :title => I18n.t("discuss.tooltips.create_question"))
     end
   end
-  
+
   #
   # create question button on the search results area when no results where found
   #
-  def create_teaser_question_link_for(search_terms='')
+  def create_first_question_link_for(search_terms='')
     origin = "sr#{search_terms}"
     link_to(new_question_url(:origin => origin, :bids => origin),
-            :id => 'create_question_link') do
-      content_tag(:span, I18n.t("discuss.search.add", :terms => search_terms),
-                  :class => "add_teaser new_question create_teaser_question_button ttLink no_border",
-                  :title => I18n.t("discuss.tooltips.create_question"))
+            :id => 'create_question_link',
+            :class => 'no_results create_first_question_button') do
+      content_tag(:span, I18n.t('discuss.search.add'))
     end
   end
 
