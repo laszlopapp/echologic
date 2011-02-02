@@ -24,6 +24,7 @@ li {
 /**************/
 
 #about_container {
+  max-height: 470px;
   overflow: hidden;
   margin-top: 20px;
 }
@@ -44,6 +45,7 @@ li {
 }
 
 #team {
+  height: 400px;
   padding: 0;
   margin: 0;
   overflow: hidden;
