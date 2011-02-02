@@ -22,6 +22,19 @@ module PublishableModuleHelper
                   :title => I18n.t("discuss.tooltips.create_question"))
     end
   end
+  
+  #
+  # create question button on the search results area when no results where found
+  #
+  def create_teaser_question_link_for(search_terms='')
+    origin = "sr#{search_terms}"
+    link_to(new_question_url(:origin => origin, :bids => origin),
+            :id => 'create_question_link') do
+      content_tag(:span, I18n.t("discuss.search.add", :terms => search_terms),
+                  :class => "add_teaser new_question create_teaser_question_button ttLink no_border",
+                  :title => I18n.t("discuss.tooltips.create_question"))
+    end
+  end
 
 
   #
@@ -84,11 +97,17 @@ module PublishableModuleHelper
   # create question button above the discuss search results and on the left corner of my questions
   #
   def create_my_question_link_for
-    link_to(new_question_url(:origin => :mi, :bids => :mi),
-            :id => 'create_question_link') do
-      content_tag(:span, '',
-                  :class => "new_question create_statement_button_mid create_question_button_mid ttLink no_border",
-                  :title => I18n.t("discuss.tooltips.create_question"))
+    content_tag :span, '', :class => 'button_container' do
+      content = ''
+      content << link_to(new_question_url(:origin => :mi, :bids => :mi), :id => 'create_question_link') do
+        link_content = ''
+        link_content << content_tag(:span, '',
+                        :class => "new_question create_statement_button_mid create_question_button_mid ttLink no_border",
+                        :title => I18n.t("discuss.tooltips.create_question"))
+        link_content <<  content_tag(:span, I18n.t("discuss.my_questions.add"), :class => 'label')
+        link_content
+      end
+      content
     end
   end
 

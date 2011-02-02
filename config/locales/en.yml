@@ -316,6 +316,7 @@ en:
       title: My new & published questions
       no_questions: |
         You haven't created any questions yet. To do so, please click on the question mark button on the left.
+      add: Create new Question
     tag_permission: |
       You do not have the permission to insert the '{{tag}}' tag.
     translation_request: Please translate this statement to <strong>ENGLISH</strong>.
@@ -337,6 +338,7 @@ en:
     search:
       title: Search
       in: '... in {{category}} ...'
+      add: "Create a new question for '{{terms}}'"
 
     tooltips:
       read_question: 'Go to this question'
@@ -378,6 +380,7 @@ en:
         Release the question to make it visible for everybody.
         (Afterwards no further editing is possible.)
       incorporate: 'Click here to incorporate this improvement into the proposal above.'
+      siblings: 'See the list of siblings of this statement'
 
     statements:
       label: 'votes'

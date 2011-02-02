@@ -16,13 +16,26 @@
 /* My Questions */
 /****************/
 
+#my_questions .button_container {
+	display: inline-block;
+  float: left;
+	cursor: pointer;
+	width: 140px;
+}
+
 #my_questions .new_question {
   width: 55px;
   height: 55px;
   margin: 40px 0 0 37px !important;
   display: inline-block;
   float: left;
-  cursor: pointer;
+}
+
+#my_questions .button_container .label{
+  display: inline-block;
+  float: left;
+	width: 140px;
+  
 }
 
 #question_list a.avatar_holder{
@@ -309,6 +322,22 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 #discuss_results .ttLink img {
 	color: #7BB031;
+}
+
+
+#questions_container .results_container .create_teaser_question_button {
+  background: transparent url(../images/page/discuss/add_question_teaser.png) no-repeat scroll 0 0;
+	width: 290px;
+	height: 35px;
+	text-align: right;
+	padding-top: 20px;
+}
+
+#questions_container .results_container .add_teaser {
+	left: 260px;
+  position: absolute;
+  top: 147px;
+	cursor: pointer;
 }
 
 /***************/

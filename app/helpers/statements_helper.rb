@@ -310,13 +310,13 @@ module StatementsHelper
                                     :class => " statement_link #{opts[:classes]} #{button}")
       end
 
-      buttons << descendants_button(statement_node, type, opts)
+      buttons << siblings_button(statement_node, type, opts)
     end
 
     buttons
   end
 
-  def descendants_button(statement_node, type, opts={})
+  def siblings_button(statement_node, type, opts={})
     origin = opts[:origin]
     url = if statement_node.nil? or statement_node.class.name.underscore != type # ADD TEASERS
       if statement_node.nil?
@@ -333,8 +333,9 @@ module StatementsHelper
                                        :current_node => statement_node)
       end
     end
-    content_tag(:span, '&nbsp;', :class => 'show_siblings_button expandable',
-                                 :href => url)
+    content_tag(:span, '&nbsp;', :class => 'show_siblings_button expandable ttLink no_border',
+                                 :href => url,
+                                 :title => I18n.t("discuss.tooltips.siblings"))
   end
 
   # Renders the correct prev/next image buttons

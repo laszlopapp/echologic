@@ -323,6 +323,7 @@ es:
       title: Mis debates nuevos y ya publicados
       no_questions: |
         Lo sentimos, pero no hay debates por el momento. Para abrir un nuevo debate, haz clic en el signo de interrogación de la izquierda.
+      add: Create new Question
     tag_permission: |
       Lo sentimos, pero no tienes permiso para insertar esta '{{tag}}' nota.
     original_language_warning: |
@@ -354,6 +355,7 @@ es:
     search:
       title: Buscar
       in: '... en {{category}} ...'
+      add: "Create a new question for '{{terms}}'"
 
     tooltips:
       read_question: 'Ver esta cuestión'
@@ -395,6 +397,7 @@ es:
         Publicando el debate, otras personas podrán participar.
         (No será posible modificar el debate.)
       incorporate: 'Haz clic aquí para incorporar esta propuesta de mejora a la propuesta (texto arriba).'
+      siblings: 'See the list of siblings of this statement'
 
     statements:
       label: 'votos'

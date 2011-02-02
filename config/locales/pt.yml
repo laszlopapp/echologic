@@ -304,6 +304,7 @@ pt:
       title: As minhas discussões novas e publicadas
       no_questions: |
         Ainda não criou nenhuma discussão. Para o fazer, por favor clique no ponto de interrogação que se encontra à esquerda.
+      add: Create new Question
     tag_permission: |
       Não tem permissão para inserir a tag '{{tag}}'.
     translation_request: Por favor traduza este texto em <strong>PORTUGUÊS</strong>.
@@ -335,6 +336,7 @@ pt:
     search:
       title: Procura
       in: '... em {{category}} ...'
+      add: "Create a new question for '{{terms}}'"
 
     tooltips:
       read_question: 'Ir para esta questão'
@@ -376,6 +378,7 @@ pt:
         Publique a discussão, de forma a esta se tornar visível para todos.
         (Não será mais possível editar a discussão.)
       incorporate: 'Clique aquí para incorporar as suas propostas de melhoria na proposta (texto acima).'
+      siblings: 'See the list of siblings of this statement'
 
     statements:
       label: 'votos'

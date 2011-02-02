@@ -311,6 +311,7 @@ de:
       title: Meine neuen & freigegebenen Fragestellungen
       no_questions: |
         Sie haben bislang keine Fragestellungen hinzugefügt. Um welche anzulegen, klicken Sie bitte links auf das Fragezeichen.
+      add: Create new Question
     tag_permission: |
       Sie dürfen leider den Tag '{{tag}}' nicht vergeben.
     original_language_warning: |
@@ -342,6 +343,7 @@ de:
     search:
       title: Suchen
       in: '... in {{category}} ...'
+      add: "Create a new question for '{{terms}}'"
 
     tooltips:
       read_question: 'Diese Frage anschauen'
@@ -383,6 +385,7 @@ de:
         Geben Sie die Fragestellung frei, um sie für alle sichtbar zu machen.
         (Danach ist keine Bearbeitung mehr möglich.)
       incorporate: 'Klicken Sie hier, um diesen ausgewählten Ergänzung in den obigen Text einzuarbeiten.'
+      siblings: 'See the list of siblings of this statement'
 
     statements:
       label: 'Stimmen'
