@@ -1,7 +1,5 @@
 <% disabled ||= false %>
 <% statement_document ||= @statement_document %>
-<%# user_languages = current_user.spoken_languages_at_min_level("intermediate") %>
-<%# local_language = Language[@locale_language_id] %>
 
 <% form.semantic_fields_for :statement_document, statement_document do |doc|  %>
   <% doc.inputs :class => 'inputs left_panel statement_text' do %>
@@ -35,8 +33,10 @@
 
 		<% else %>
 		  <% content_tag :li do -%>
-		    <%= label_tag "question_statement_document_text", I18n.t("activerecord.attributes.statement_document.text") %>
-				<%= content_tag :div, sanitize(statement_document.text), :class => "static_text" %>
+		    <%= label_tag "question_statement_document_text",
+                      I18n.t("activerecord.attributes.statement_document.text") %>
+				<%= content_tag :div, sanitize(statement_document.text),
+                        :class => "static_text" %>
 			<% end %>
     <% end %>
 		<%= doc.hidden_field :statement_id %>
