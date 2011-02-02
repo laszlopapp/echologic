@@ -231,8 +231,8 @@ class ApplicationController < ActionController::Base
   end
 
   # Sets the @info variable for the flash object (used for HTTP requests)
-  def flash_info
-    flash[:notice] = @info
+  def flash_info(message=@info)
+    flash[:notice] = message
   end
 
   # Renders :updates a page with an a info message set by set_info.

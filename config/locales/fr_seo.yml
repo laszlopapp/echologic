@@ -83,8 +83,8 @@ fr:
         show: "echo - espace d'Admin"
 
       # my_echo: de.seo.title.newsletter
-      newsletter:
-        new: 'echo - Newsletter'
+      newsletters:
+        index: 'echo - Newsletter'
       about_items:
         index: 'echo - Qui sommes-nous?'
 
