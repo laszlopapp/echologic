@@ -1162,10 +1162,12 @@ a.statement_link:hover {
 
 .translation .left_panel {
   float: left;
+  width: 365px;
 }
 
 .translation .right_panel {
   float: right;
+  width: 365px;
 }
 
 .translation fieldset.buttons {
@@ -1254,7 +1256,7 @@ form.statement fieldset ol li.tags_container {
 
 .statement .authors .author .name {
 	position: absolute;
-	top: -3px;
+	top: -2px;
   left: 60px;
 	font-size: 14px;
   font-weight: bold;
@@ -1263,7 +1265,7 @@ form.statement fieldset ol li.tags_container {
 
 .statement .authors .author .location_orga {
   position: absolute;
-	top: 15px;
+	top: 16px;
   left: 60px;
 	font-size: 14px;
 	overflow: hidden;

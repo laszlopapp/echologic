@@ -10,8 +10,8 @@
 <%= content_tag :p, I18n.t('discuss.statements.drafting_language_hint') if statement_node.draftable? %>
 
 <%= render :partial => "statements/form/document_form",
-             :locals => { :form => form,
-                          :disabled => true } %>
+           :locals => { :form => form,
+                        :disabled => true } %>
 <%= render :partial => "statements/form/translate_document_form",
            :locals => { :form => form,
                         :new_statement_document => new_statement_document} %>
@@ -19,7 +19,7 @@
 
 <%= form.hidden_field :parent_id %>
 <%= form.hidden_field :state_id, :value => StatementState[:published].id %>
-	
+
 
 <!-- Save and cancel buttons -->
 <% form.buttons do %>
