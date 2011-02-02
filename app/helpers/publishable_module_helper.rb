@@ -18,7 +18,7 @@ module PublishableModuleHelper
     link_to(I18n.t("discuss.statements.create_question_link"),
             new_question_url(:origin => origin, :bids => origin),
             :id => 'create_question_link',
-            :class => 'new_question add_new_button text_button create_question_button')
+            :class => 'new_question add_new_button text_button create_question_button_32')
   end
 
   #
