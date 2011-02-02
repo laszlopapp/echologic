@@ -1,0 +1,116 @@
+.jcarousel-echo-skin .jcarousel-container {
+}
+
+.jcarousel-echo-skin .jcarousel-direction-rtl {
+	direction: rtl;
+}
+
+.jcarousel-echo-skin .jcarousel-container-horizontal {
+  padding: 0 45px;
+}
+
+.jcarousel-echo-skin .jcarousel-container-vertical {
+  padding: 45px 0;
+}
+
+.jcarousel-echo-skin .jcarousel-clip-horizontal {
+  height: 60px;
+}
+
+.jcarousel-echo-skin .jcarousel-clip-vertical {
+    width:  75px;
+    height: 245px;
+}
+
+.jcarousel-echo-skin .jcarousel-item {
+    width: 75px;
+    height: 75px;
+}
+
+.jcarousel-echo-skin .jcarousel-item-horizontal {
+	margin-left: 0;
+  margin-right: 10px;
+}
+
+.jcarousel-echo-skin .jcarousel-direction-rtl .jcarousel-item-horizontal {
+	margin-left: 10px;
+  margin-right: 0;
+}
+
+.jcarousel-echo-skin .jcarousel-item-vertical {
+    margin-bottom: 10px;
+}
+
+.jcarousel-echo-skin .jcarousel-item-placeholder {
+    background: #fff;
+    color: #000;
+}
+
+/**
+ *  Horizontal Buttons
+ */
+
+.jcarousel-echo-skin .jcarousel-prev-horizontal,
+.jcarousel-echo-skin .jcarousel-next-horizontal {
+  display: inline-block;
+  width: 37px;
+  height: 39px;
+  padding: 0;
+  cursor: pointer;
+  position: absolute;
+}
+
+.jcarousel-echo-skin .jcarousel-next-horizontal {
+  top: 10px;
+  right: 0;
+  background: url(../images/page/prev_next_buttons.png) no-repeat scroll -37px 0;
+}
+
+.jcarousel-echo-skin .jcarousel-direction-rtl .jcarousel-next-horizontal {
+  left: 0;
+  right: auto;
+  background: url(../images/page/prev_next_buttons.png) no-repeat scroll 0 0;
+}
+
+.jcarousel-echo-skin .jcarousel-next-horizontal:hover {
+  background-position: -37px -39px;
+}
+
+.jcarousel-echo-skin .jcarousel-next-horizontal:active {
+  background-position: -37px 0;
+}
+
+.jcarousel-echo-skin .jcarousel-next-disabled-horizontal,
+.jcarousel-echo-skin .jcarousel-next-disabled-horizontal:hover,
+.jcarousel-echo-skin .jcarousel-next-disabled-horizontal:active {
+  cursor: default;
+  background-position: -37px -78px;
+}
+
+.jcarousel-echo-skin .jcarousel-prev-horizontal {
+  top: 10px;
+  left: 0;
+  background: url(../images/page/prev_next_buttons.png) no-repeat scroll 0 0;
+}
+
+.jcarousel-echo-skin .jcarousel-direction-rtl .jcarousel-prev-horizontal {
+  left: auto;
+  right: 0;
+  background: url(../images/page/prev_next_buttons.png) no-repeat scroll -37px 0;
+}
+
+.jcarousel-echo-skin .jcarousel-prev-horizontal:hover {
+    background-position: 0 -39px;
+}
+
+.jcarousel-echo-skin .jcarousel-prev-horizontal:active {
+    background-position: 0 0;
+}
+
+.jcarousel-echo-skin .jcarousel-prev-disabled-horizontal,
+.jcarousel-echo-skin .jcarousel-prev-disabled-horizontal:hover,
+.jcarousel-echo-skin .jcarousel-prev-disabled-horizontal:active {
+    cursor: default;
+    background-position: 0 -78px;
+}
+
