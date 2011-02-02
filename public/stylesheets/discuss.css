@@ -370,7 +370,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	display: inline-block;
   position: absolute;
   font-size: 12px;
-  left: 62px;
+  left: 61px;
   top: 0;
   width: 215px;
 }
@@ -961,7 +961,7 @@ a.statement_link:hover {
 }
 
 .search_link {
-   background:transparent url(../images/page/discuss/search_icon_small.png) no-repeat scroll 0 0;
+   background:transparent url(../images/page/discuss/search_icon_16.png) no-repeat scroll 0 0;
 }
 
 .question_link {
@@ -1139,7 +1139,6 @@ a.statement_link:hover {
 
 .translation_box_class .translation_link:hover {
   cursor: pointer;
-  color: #7bb031;
 }
 
 .translation_box_class .arrow {
@@ -1216,59 +1215,61 @@ form.statement fieldset ol li.tags_container {
 /*  Authors  */
 /*************/
 
-.statement .authors .next_button {
-	background-image: url("../images/next-horizontal.png");
-}
-.statement .authors .prev_button {
-  background-image: url("../images/prev-horizontal.png");
-}
-
-.statement .results_container,
-.statement .results_container ul {
-	min-height: 0px;
-	width: 0px;
-}
-
-.statement .authors .jcarousel-clip-horizontal {
-	width: 660px;
-}
-
 .statement .authors .jcarousel-container {
-	width: 660px;
+  width: 685px;
+  left: -5px;
+  background: #F8F8F8;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  -moz-box-shadow: 0 0 33px #F0F0F0;
+  -webkit-box-shadow: 0 0 33px #F0F0F0;
+  box-shadow: 0 0 33px #F0F0F0;
+}
+.statement .authors .jcarousel-clip-horizontal {
+	width: 685px;
 }
 
 .statement .authors .jcarousel-item {
 	display: none;
 }
 
-.statement .authors .author {
-	width: 229px;
-	height: 50px;
+.statement .authors li.author {
+  width: 229px;
+	height: 55px;
+  margin: 4px 15px 0 0;
 	display: inline-block;
+  position: relative;
+  cursor: default;
 }
 
 .statement .authors .author img {
   float: left;
-	border:2px solid #7BB031;
-	max-height:45px;
-	max-width:45px;
+	border: 2px solid #7BB031;
+	max-height: 45px;
+	max-width: 45px;
 }
 
 .statement .authors .author .name {
-	position: relative;
-	top: 8px;
+	position: absolute;
+	top: -2px;
+  left: 60px;
 	font-size: 14px;
   font-weight: bold;
 	overflow: hidden;
-	left:10px;
 }
 
 .statement .authors .author .location_orga {
-  position: relative;
-	top: 8px;
+  position: absolute;
+	top: 18px;
+  left: 60px;
 	font-size: 14px;
 	overflow: hidden;
-	left: 10px;
+}
+
+.statement .authors .separator_image {
+  width: 810px;
+  margin: 15px 0 0 -20px;
 }
 
 /**************/
