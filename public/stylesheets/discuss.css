@@ -12,30 +12,59 @@
 }
 
 
+/**************/
+/* Action bar */
+/**************/
+
+.action_bar {
+  width: 160px;
+  clear: both;
+  float: left;
+  position: relative;
+  left: 7px;
+  top: 25px;
+  padding: 0 0 17px;
+  text-align: center;
+  margin: 0 0 20px;
+}
+
+.action_bar .label {
+  color: #21587F;
+  font-size: 14px;
+  font-weight: bold;
+  position: relative;
+  top: 3px;
+  display: block;
+}
+
+
 /****************/
 /* My Questions */
 /****************/
 
-#my_questions .button_container {
-	display: inline-block;
-  float: left;
-	cursor: pointer;
-	width: 140px;
+#my_questions .action_bar {
+  top: 0;
 }
 
-#my_questions .new_question {
-  width: 55px;
-  height: 55px;
-  margin: 40px 0 0 37px !important;
-  display: inline-block;
-  float: left;
+#my_questions .add_new_button {
+  text-align: center;
 }
 
-#my_questions .button_container .label{
-  display: inline-block;
-  float: left;
-	width: 140px;
+#my_questions .add_new_question_icon {
+	height:   32px;
+  width:    32px;
+  display:  inline-block;
+  background-image: url(../images/page/discuss/add_question_32.png);
+  cursor: pointer;
+	margin-top: 10px;
+}
 
+#my_questions .add_new_button:hover .add_new_question_icon {
+  background-position: 0 -32px;
+}
+
+#my_questions .action_bar .label {
+  top: 9px;
 }
 
 #question_list a.avatar_holder{
@@ -448,31 +477,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 
-/**************/
-/* Action bar */
-/**************/
-
-#statements .action_bar {
-  width: 160px;
-  clear: both;
-  float: left;
-  position: relative;
-  left: 7px;
-  top: 25px;
-  padding: 0 0 17px;
-  text-align: center;
-  margin: 0 0 20px;
-}
-
-.action_bar .label {
-  color: #21587F;
-  font-size: 14px;
-  font-weight: bold;
-  position: relative;
-  top: 3px;
-  display: block;
-}
-
 /***************/
 /* echo button */
 /***************/
@@ -532,6 +536,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   position: relative;
 }
 
+#my_questions .add_new_button,
 #statements .action_bar .add_new_button {
   height:   80px;
   width:    160px;
@@ -540,6 +545,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   cursor: pointer;
 }
 
+#my_questions .add_new_button:hover,
 #statements .action_bar .add_new_button:hover {
   background-position: 0 80px;
 }
@@ -1011,6 +1017,10 @@ a.statement_link:hover {
 
 .search_link {
    background:transparent url(../images/page/discuss/search_icon_16.png) no-repeat scroll 0 0;
+}
+
+.my_discussions_link {
+   background:transparent url(../images/page/discuss/my_discussions_16.png) no-repeat scroll 0 -1px;
 }
 
 .question_link {
