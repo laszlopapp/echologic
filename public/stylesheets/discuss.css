@@ -567,6 +567,8 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   text-decoration: underline;
 	margin-left: 25px;
 	padding-left: 35px;
+  display: inline-block;
+  height: 18px;
 }
 
 /******************/
@@ -1252,7 +1254,7 @@ form.statement fieldset ol li.tags_container {
 
 .statement .authors .author .name {
 	position: absolute;
-	top: -2px;
+	top: -3px;
   left: 60px;
 	font-size: 14px;
   font-weight: bold;
@@ -1261,7 +1263,7 @@ form.statement fieldset ol li.tags_container {
 
 .statement .authors .author .location_orga {
   position: absolute;
-	top: 18px;
+	top: 15px;
   left: 60px;
 	font-size: 14px;
 	overflow: hidden;
