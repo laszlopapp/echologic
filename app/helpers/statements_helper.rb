@@ -360,7 +360,7 @@ module StatementsHelper
     end
     content_tag(:span, '&nbsp;', :class => 'show_siblings_button expandable ttLink no_border',
                                  :href => url,
-                                 :title => I18n.t("discuss.tooltips.siblings"))
+                                 :title => I18n.t("discuss.tooltips.siblings.#{dom_class(statement_node)}"))
   end
 
   # Renders the correct prev/next image buttons

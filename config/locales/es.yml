@@ -397,7 +397,12 @@ es:
         Publicando el debate, otras personas podrán participar.
         (No será posible modificar el debate.)
       incorporate: 'Haz clic aquí para incorporar esta propuesta de mejora a la propuesta (texto arriba).'
-      siblings: 'See the list of siblings of this statement'
+      siblings:
+        question: See all the questions that belong to the context show above
+        proposal: See all the proposals that belong to the current question
+        improvement: See all the improvements that belong to the current proposal
+        pro_argument: See all the pro arguments that belong to the current proposal
+        contra_argument: See all the contra arguments that belong to the current proposal
 
     statements:
       label: 'votos'
