@@ -287,8 +287,18 @@ module StatementsHelper
   #render the hint on the edit statement forms to warn about the time the users have to edit it
   def edit_period_hint
     content = ''
-    content << content_tag(:li, :class => 'hint ttLink') do
+    content << content_tag(:li, :class => 'hint') do
       content_tag :p, I18n.t('discuss.statements.edit_period_hint', :minutes => 60)
+    end
+    content
+  end
+  
+  
+  #render the hint on the new draftable statement forms to warn about drafting language on collective text creation
+  def drafting_language_hint
+    content = ''
+    content << content_tag(:li, :class => 'hint') do
+      content_tag :p, I18n.t('discuss.statements.drafting_language_hint')
     end
     content
   end

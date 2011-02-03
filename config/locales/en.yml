@@ -444,6 +444,7 @@ en:
         contra_argument: 'New Contra Argument'
         follow_up_question: 'New Follow-Up Question'
       headings:
+        proposal: 'Questions'
         proposal: 'Proposals'
         improvement: 'Improvements'
         argument: 'Arguments'
