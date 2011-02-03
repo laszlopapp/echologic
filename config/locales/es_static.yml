@@ -101,9 +101,10 @@ es:
             Aunque echo todavía está empezando a gatear, ya puedes:
             </p>
 
-        action: |
-          Al prototipo echo »<br/>
-          (NUEVO en pocos días)
+        action: |-
+          El nuevo echo está ON-LINE<br/>
+          Al prototipo »
+
 
       # about section
       about:

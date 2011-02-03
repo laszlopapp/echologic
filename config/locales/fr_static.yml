@@ -103,9 +103,10 @@ fr:
             echo est encore au début de son parcours, mais vous pouvez d'ores et déjà participer à son développement.
             </p>
 
-        action: |
-          Essayez le prototype d'echo »<br/>
-          (NOUVEAU dans quelques jours)
+        action: |-
+          La nouvelle echo est ON-LINE<br/>
+          Essayez le prototype »
+
 
       # about section
       about:

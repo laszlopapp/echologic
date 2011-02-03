@@ -97,9 +97,9 @@ en:
             Although echo is still in its embryonic stage, you can already:
             </p>
 
-        action: |
-          Go to echo prototype »<br/>
-          (NEW in a few days)
+        action: |-
+          echo "quantum leap" is ONLINE!<br/>
+          Go to new prototype »
 
       #About
       about:
