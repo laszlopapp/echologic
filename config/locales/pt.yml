@@ -419,7 +419,7 @@ pt:
         Poderá desta forma introduzir conteúdo em qualquer língua na qual possua conhecimentos para além de um nível intermédio.
       drafting_language_hint: |
         Por favor tome nota de que o processo de elaboração coletiva desta proposta só irá ocorrer nesta língua!
-      title_hint: 'Please enter title here...'
+      title_hint: 'Please enter {{type}}'
       text_hint: 'Please enter text here...'
       tag_hint: 'Please enter tag here...'
       

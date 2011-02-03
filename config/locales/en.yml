@@ -421,7 +421,7 @@ en:
         This will enable you to enter statements in any language you speak at least at intermediate level.
       drafting_language_hint: |
         Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
-      title_hint: 'Please enter title here...'
+      title_hint: 'Please enter {{type}}'
       text_hint: 'Please enter text here...'
       tag_hint: 'Please enter tag here...'
 

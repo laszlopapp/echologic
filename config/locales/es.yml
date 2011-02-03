@@ -440,7 +440,7 @@ es:
         Esto te permitirá introducir comentarios en el idioma en que posees al menos, conocimientos a nivel intermedio.
       drafting_language_hint: |
         Ten en cuenta que el proceso de elaboración colectiva de las propuestas funcionará sólo en este idioma!
-      title_hint: 'Please enter title here...'
+      title_hint: 'Please enter {{type}}'
       text_hint: 'Please enter text here...'
       tag_hint: 'Please enter tag here...'
 

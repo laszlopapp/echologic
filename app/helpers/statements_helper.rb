@@ -244,6 +244,10 @@ module StatementsHelper
            :class => "text_button cancel_text_button ajax"
   end
 
+  def title_hint_text(statement_node)
+    I18n.t('discuss.statements.title_hint', :type => I18n.t("discuss.statements.types.#{dom_class(statement_node)}"))
+  end
+
 
   ##############
   # Sugar & UI #

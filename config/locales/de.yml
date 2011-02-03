@@ -426,7 +426,7 @@ de:
         Sie können dann Aussagen in allen Sprachen erstellen, die Sie mindestens auf mittlerem Niveau beherrschen.
       drafting_language_hint: |
         Bitte beachten Sie, dass die gemeinsame Weiterentwicklung dieses Vorschlags nur in der ausgewählten Sprache möglich sein wird!
-      title_hint: 'Please enter title here...'
+      title_hint: 'Please enter {{type}}'
       text_hint: 'Please enter text here...'
       tag_hint: 'Please enter tag here...'
 

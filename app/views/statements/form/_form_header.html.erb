@@ -6,7 +6,7 @@
 			<% form.semantic_fields_for :statement_document, statement_document do |doc| %>
 	      <%= doc.input :title, :label => false,
                       :input_html => {:class => 'focus',
-                                      'data-default' => I18n.t('discuss.statements.title_hint')} %>
+                                      'data-default' => title_hint_text(statement_node)} %>
 			<% end %>
 	  <% end %>
 		<% if statement_node.echoable? %>
