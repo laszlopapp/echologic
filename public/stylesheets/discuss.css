@@ -255,6 +255,10 @@ form.statement fieldset ol span.defaultText {
 	width: 300px;
 	padding: 33px 10px 5px;
   margin-bottom: 20px;
+  color: #21587f;
+  position: absolute;
+  right: 210px;
+  top: 47px;
 }
 
 form.formtastic fieldset.statement_tags .tags_container {
@@ -364,7 +368,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	height: 50px;
 	text-align: center;
   position: relative;
-  top: 75px;
+  top: 80px;
   color: #21587f;
 }
 
