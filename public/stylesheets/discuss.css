@@ -149,11 +149,6 @@
 /* New and Edit Statements forms */
 /*********************************/
 
-#statements form.new .simple_header_block h2,
-#statements form.edit .simple_header_block h2 {
-	/*margin-left: 20px;*/
-}
-
 #statements form.formtastic .editorial_state li {
   width: 700px;
 }
@@ -223,10 +218,6 @@ form.statement fieldset ol span.defaultText {
   margin-top: 0;
 }
 
-#statements form .action_bar {
-  top: 70px;
-}
-
 #statements form.formtastic fieldset.statement_title,
   #statements form.formtastic fieldset.statement_title li,
 #statements form.formtastic fieldset.statement_title input {
@@ -256,9 +247,16 @@ form.statement fieldset ol span.defaultText {
 	padding: 33px 10px 5px;
   margin-bottom: 20px;
   color: #21587f;
+}
+
+form.formtastic fieldset.statement_text {
+  position: relative;
+}
+
+#statements form fieldset.statement_text .action_bar {
   position: absolute;
-  right: 210px;
-  top: 47px;
+  left: -198px;
+  top: -39px;
 }
 
 form.formtastic fieldset.statement_tags .tags_container {
