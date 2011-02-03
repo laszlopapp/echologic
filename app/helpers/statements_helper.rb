@@ -245,9 +245,13 @@ module StatementsHelper
   end
 
   def title_hint_text(statement_node)
-    I18n.t('discuss.statements.title_hint', :type => I18n.t("discuss.statements.types.#{dom_class(statement_node)}"))
+    I18n.t("discuss.statements.title_hint.#{dom_class(statement_node)}")
   end
 
+  def summary_hint_text(statement_node)
+    I18n.t("discuss.statements.text_hint.#{dom_class(statement_node)}")
+  end
+  
 
   ##############
   # Sugar & UI #

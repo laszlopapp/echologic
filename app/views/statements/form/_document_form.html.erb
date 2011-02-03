@@ -1,4 +1,5 @@
 <% disabled ||= false %>
+<% statement_node ||= @statement_node %>
 <% statement_document ||= @statement_document %>
 
 <% form.semantic_fields_for :statement_document, statement_document do |doc|  %>
@@ -16,7 +17,7 @@
                     :label => false,
                     :input_html => {:disabled => disabled,
                                     :class => 'rte_doc statement_text',
-                                    'data-default' => I18n.t('discuss.statements.text_hint'),
+                                    'data-default' => summary_hint_text(statement_node),
                                     'data-css-url' => 'http://' + ECHO_HOST + '/stylesheets/'} %>
 			<%= doc.input :old_document_id,
                     :as => :hidden,
