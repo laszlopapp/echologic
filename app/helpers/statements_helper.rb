@@ -252,7 +252,6 @@ module StatementsHelper
     I18n.t("discuss.statements.text_hint.#{dom_class(statement_node)}")
   end
   
-
   ##############
   # Sugar & UI #
   ##############
@@ -303,6 +302,14 @@ module StatementsHelper
     content = ''
     content << content_tag(:li, :class => 'hint') do
       content_tag :p, I18n.t('discuss.statements.drafting_language_hint')
+    end
+    content
+  end
+  
+  def top_statement_hint
+    content = ''
+    content << content_tag(:li, :class => 'hint') do
+      content_tag :p, I18n.t("discuss.statements.fuq_formulation_hint")
     end
     content
   end

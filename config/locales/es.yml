@@ -440,6 +440,8 @@ es:
         Esto te permitirá introducir comentarios en el idioma en que posees al menos, conocimientos a nivel intermedio.
       drafting_language_hint: |
         Ten en cuenta que el proceso de elaboración colectiva de las propuestas funcionará sólo en este idioma!
+      fuq_formulation_hint: |
+        Since follow-up questions also appear as questions in "Search", title and description should both be comprehensible independently of the original discussion.
       title_hint:
         question: Please enter the question title in... 
         proposal: Please enter the proposal title in...
