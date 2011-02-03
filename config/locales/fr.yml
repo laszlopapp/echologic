@@ -522,7 +522,7 @@ fr:
       expertise: 'Experts'
       decision_making: 'Décideurs'
     results_count:
-      members:
+      all:
         no_filter:
           one: 'person'
           more: 'people'
