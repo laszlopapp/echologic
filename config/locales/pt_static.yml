@@ -98,7 +98,8 @@ pt:
             </p>
 
         action: |
-          Ir para o protótipo echo »
+          Ir para o protótipo echo »<br/>
+          (NOVO em poucos dias)
 
       #About
       about:

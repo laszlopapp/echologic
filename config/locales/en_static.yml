@@ -98,7 +98,8 @@ en:
             </p>
 
         action: |
-          Go to echo prototype »
+          Go to echo prototype »<br/>
+          (NEW in a few days)
 
       #About
       about:
