@@ -581,32 +581,41 @@ es:
       expertise: 'Expertos'
       decision_making: 'Decisivos'
     results_count:
-      member:
-        one: ' miembro '
-        more: ' miembros '
-      sort:
-        one:
-          affection: affected
-          engagement: engaged
-          expertise: expert
-          decision_making: decision-maker
-        more:
-          affection: affected
-          engagement: engaged
-          expertise: experts
-          decision_making: decision-makers
-      sorted_member:
-        one: ' {{sort}} miembro'
-        more: ' {{sort}} miembros'
-        with_terms:
-          one: ' miembro {{sort}} '
-          more: ' miembros {{sort}} '
-      terms:
-        no_sort: "by '{{terms}}'"
-        affection: "by '{{terms}}'"
-        engagement: "by '{{terms}}'"
-        expertise: "in '{{terms}}'"
-        decision_making: "in '{{terms}}'"
+      members:
+        no_filter:
+          one: 'person'
+          more: 'people'
+        with_filter:
+          one: "person related to '{{filter}}'"
+          more: "people related to '{{filter}}'"
+      affection:
+        no_filter:
+          one: affected person
+          more: affected people
+        with_filter:
+          one: "person affected by '{{filter}}'"
+          more: "people affected by '{{filter}}'"
+      engagement:
+        no_filter:
+          one: engaged person
+          more: engaged people
+        with_filter:
+          one: "person engaged in '{{filter}}'"
+          more: "people engaged in '{{filter}}'"
+      expertise:
+        no_filter:
+          one: expert
+          more: experts
+        with_filter:
+          one: "expert in '{{filter}}'"
+          more: "experts in '{{filter}}'"
+      decision_making:
+        no_filter:
+          one: decision maker
+          more: decision makers
+        with_filter:
+          one: "decision maker in '{{filter}}'"
+          more: "decision makers in '{{filter}}'"
     details:
       tabs:
         overview:     'Sinopsis'

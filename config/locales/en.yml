@@ -338,7 +338,7 @@ en:
     search:
       title: Search
       in: '... in {{category}} ...'
-      add: "Create a new question for the topic"
+      add: "Create the first question about the topic"
 
     tooltips:
       read_question: 'Go to this question'
@@ -444,7 +444,6 @@ en:
         contra_argument: 'New Contra Argument'
         follow_up_question: 'New Follow-Up Question'
       headings:
-        question: 'Questions'
         proposal: 'Proposals'
         improvement: 'Improvements'
         argument: 'Arguments'
@@ -563,32 +562,41 @@ en:
       expertise: 'Experts'
       decision_making: 'Decision Makers'
     results_count:
-      member:
-        one: ' member '
-        more: ' members '
-      sort:
-        one:
-          affection: affected
-          engagement: engaged
-          expertise: expert
-          decision_making: decision-maker
-        more:
-          affection: affected
-          engagement: engaged
-          expertise: experts
-          decision_making: decision-makers
-      sorted_member:
-        one: ' {{sort}} member'
-        more: ' {{sort}} members'
-        with_terms:
-          one: ' member {{sort}} '
-          more: ' members {{sort}} '
-      terms:
-        no_sort: "by '{{terms}}'"
-        affection: "by '{{terms}}'"
-        engagement: "by '{{terms}}'"
-        expertise: "in '{{terms}}'"
-        decision_making: "in '{{terms}}'"
+      members:
+        no_filter:
+          one: 'person'
+          more: 'people'
+        with_filter:
+          one: "person related to '{{filter}}'"
+          more: "people related to '{{filter}}'"
+      affection:
+        no_filter:
+          one: affected person
+          more: affected people
+        with_filter:
+          one: "person affected by '{{filter}}'"
+          more: "people affected by '{{filter}}'"
+      engagement:
+        no_filter:
+          one: engaged person
+          more: engaged people
+        with_filter:
+          one: "person engaged in '{{filter}}'"
+          more: "people engaged in '{{filter}}'"
+      expertise:
+        no_filter:
+          one: expert
+          more: experts
+        with_filter:
+          one: "expert in '{{filter}}'"
+          more: "experts in '{{filter}}'"
+      decision_making:
+        no_filter:
+          one: decision maker
+          more: decision makers
+        with_filter:
+          one: "decision maker in '{{filter}}'"
+          more: "decision makers in '{{filter}}'"
     details:
       tabs:
         overview:     'Overview'

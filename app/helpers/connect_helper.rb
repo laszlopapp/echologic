@@ -21,17 +21,19 @@ module ConnectHelper
   end
 
   def profiles_count_text(count, search_terms, sort_id)
-    key = "connect.results_count"
-    sort = sort_id.blank? ? nil : TagContext[sort_id.to_i] 
-    num = count == 1 ? 'one' : 'more'
-    cond = search_terms.blank? ? '' : '.with_terms'
-    count_text = count.to_s
-    count_text << if sort.nil? 
-                    I18n.t("#{key}.member.#{num}")
-                  else
-                    I18n.t("#{key}.sorted_member#{cond}.#{num}", :sort => I18n.t("#{key}.sort.#{num}.#{sort.code}"))
-                end
-    count_text << (search_terms.blank? ? '' : I18n.t("#{key}.terms.#{sort.nil? ? 'no_sort' : sort.code}", :terms => search_terms))
+    sort = sort_id.blank? ? nil : TagContext[sort_id.to_i]
+    category = sort.nil? ? 'members' : sort.code
+    filter = search_terms.blank? ? 'no_filter' : 'with_filter'
+    one_or_many = count == 1 ? 'one' : 'more'
+
+    # Assembling the string
+    count_text = count.to_s + ' '
+    if !filter
+      count_text << I18n.t("connect.results_count.#{category}.#{filter}.#{one_or_many}")
+    else
+      count_text << I18n.t("connect.results_count.#{category}.#{filter}.#{one_or_many}",
+                           :filter => search_terms)
+    end
     count_text
   end
 end
