@@ -64,7 +64,7 @@ function initFragmentStatementChange() {
 				return $.inArray(a, visible_sids) == -1 ;});
 
       var bids = $("#breadcrumbs").data('breadcrumbApi').breadcrumbsToLoad($.fragment().bids);
-
+			
 			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sids": sids.join(","),
 				"bids": bids.join(","),
@@ -83,9 +83,10 @@ function initFragmentStatementChange() {
 	/* Statement Stack */
   if ($.fragment().sids) {
 		if (!$.fragment().bids || $.fragment().bids == 'undefined') {
-			var bids = $("#breadcrumbs").data('breadcrumbApi').getBreadcrumbStack(null).join(',');}
+			var bids = $("#breadcrumbs").data('breadcrumbApi').getBreadcrumbStack(null).join(',');
+			}
 		else {var bids = $.fragment().bids;}
-
+    
 		if (!$.fragment().origin || $.fragment().origin == 'undefined') {var origin = bids.split(',').pop();}
 		else {var origin = $.fragment().origin;}
 

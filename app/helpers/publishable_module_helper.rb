@@ -27,9 +27,10 @@ module PublishableModuleHelper
   def create_first_question_link_for(search_terms='')
     origin = "sr#{search_terms}"
     link_to(new_question_url(:origin => origin, :bids => origin),
-            :id => 'create_question_link',
+            :id => 'create_question_teaser_link', 
             :class => 'no_results create_first_question_button') do
       content_tag(:span, I18n.t('discuss.search.add'))
+    
     end
   end
 

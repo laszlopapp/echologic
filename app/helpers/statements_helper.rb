@@ -244,7 +244,14 @@ module StatementsHelper
            :class => "text_button cancel_text_button ajax"
   end
 
+  def title_hint_text(statement_node)
+    I18n.t("discuss.statements.title_hint.#{dom_class(statement_node)}")
+  end
 
+  def summary_hint_text(statement_node)
+    I18n.t("discuss.statements.text_hint.#{dom_class(statement_node)}")
+  end
+  
   ##############
   # Sugar & UI #
   ##############
@@ -283,8 +290,26 @@ module StatementsHelper
   #render the hint on the edit statement forms to warn about the time the users have to edit it
   def edit_period_hint
     content = ''
-    content << content_tag(:li, :class => 'hint ttLink') do
+    content << content_tag(:li, :class => 'hint') do
       content_tag :p, I18n.t('discuss.statements.edit_period_hint', :minutes => 60)
+    end
+    content
+  end
+  
+  
+  #render the hint on the new draftable statement forms to warn about drafting language on collective text creation
+  def drafting_language_hint
+    content = ''
+    content << content_tag(:li, :class => 'hint') do
+      content_tag :p, I18n.t('discuss.statements.drafting_language_hint')
+    end
+    content
+  end
+  
+  def top_statement_hint
+    content = ''
+    content << content_tag(:li, :class => 'hint') do
+      content_tag :p, I18n.t("discuss.statements.fuq_formulation_hint")
     end
     content
   end

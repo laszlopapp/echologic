@@ -316,7 +316,7 @@ class StatementsController < ApplicationController
     if @statement_node
       load_children(@type, 1, -1)
     else
-      @children = load_roots(@current_node).paginate
+      @children = load_roots(@current_node,1, -1)
     end
     @children_documents = search_statement_documents(@children.flatten.map(&:statement_id),@language_preference_list)
     respond_to do |format|
@@ -818,7 +818,7 @@ class StatementsController < ApplicationController
     siblings
   end
 
-  def load_roots(statement_node)
+  def load_roots(statement_node, page, per_page)
     if !params[:origin].blank? #statement node is a question
       origin = params[:origin]
       key = origin[0,2]
@@ -835,8 +835,10 @@ class StatementsController < ApplicationController
       end
     else
       roots = statement_node.nil? ? [] :[statement_node]
+      roots
     end
-    roots
+    per_page = per_page == -1 ? roots.length : per_page
+    roots.paginate :page => page, :per_page => per_page
   end
 
 
