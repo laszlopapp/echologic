@@ -311,7 +311,7 @@ de:
       title: Meine neuen & freigegebenen Fragestellungen
       no_questions: |
         Sie haben bislang keine Fragestellungen hinzugefügt. Um welche anzulegen, klicken Sie bitte links auf das Fragezeichen.
-      add: Create new Question
+      add: Add New Question
     tag_permission: |
       Sie dürfen leider den Tag '{{tag}}' nicht vergeben.
     original_language_warning: |
@@ -343,7 +343,7 @@ de:
     search:
       title: Suchen
       in: '... in {{category}} ...'
-      add: "Create a new question for '{{terms}}'"
+      add: "Create a new question for the topic"
 
     tooltips:
       read_question: 'Diese Frage anschauen'
@@ -564,32 +564,41 @@ de:
       expertise: 'ExpertInnen'
       decision_making: 'EntscheiderInnen'
     results_count:
-      member:
-        one: ' BewegerIn '
-        more: ' BewegerInnen '
-      sort:
-        one:
-          affection: affected
-          engagement: engaged
-          expertise: expert
-          decision_making: decision-maker
-        more:
-          affection: affected
-          engagement: engaged
-          expertise: experts
-          decision_making: decision-makers
-      sorted_member:
-        one: ' {{sort}} BewegerIn'
-        more: ' {{sort}} BewegerInnen'
-        with_terms:
-          one: ' BewegerIn {{sort}} '
-          more: ' BewegerInnen {{sort}} '
-      terms:
-        no_sort: "by '{{terms}}'"
-        affection: "by '{{terms}}'"
-        engagement: "by '{{terms}}'"
-        expertise: "in '{{terms}}'"
-        decision_making: "in '{{terms}}'"
+      members:
+        no_filter:
+          one: 'person'
+          more: 'people'
+        with_filter:
+          one: "person related to '{{filter}}'"
+          more: "people related to '{{filter}}'"
+      affection:
+        no_filter:
+          one: affected person
+          more: affected people
+        with_filter:
+          one: "person affected by '{{filter}}'"
+          more: "people affected by '{{filter}}'"
+      engagement:
+        no_filter:
+          one: engaged person
+          more: engaged people
+        with_filter:
+          one: "person engaged in '{{filter}}'"
+          more: "people engaged in '{{filter}}'"
+      expertise:
+        no_filter:
+          one: expert
+          more: experts
+        with_filter:
+          one: "expert in '{{filter}}'"
+          more: "experts in '{{filter}}'"
+      decision_making:
+        no_filter:
+          one: decision maker
+          more: decision makers
+        with_filter:
+          one: "decision maker in '{{filter}}'"
+          more: "decision makers in '{{filter}}'"
     details:
       tabs:
         overview:     'Überblick'

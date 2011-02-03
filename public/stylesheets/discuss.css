@@ -12,30 +12,59 @@
 }
 
 
+/**************/
+/* Action bar */
+/**************/
+
+.action_bar {
+  width: 160px;
+  clear: both;
+  float: left;
+  position: relative;
+  left: 7px;
+  top: 25px;
+  padding: 0 0 17px;
+  text-align: center;
+  margin: 0 0 20px;
+}
+
+.action_bar .label {
+  color: #21587F;
+  font-size: 14px;
+  font-weight: bold;
+  position: relative;
+  top: 3px;
+  display: block;
+}
+
+
 /****************/
 /* My Questions */
 /****************/
 
-#my_questions .button_container {
-	display: inline-block;
-  float: left;
-	cursor: pointer;
-	width: 140px;
+#my_questions .action_bar {
+  top: 0;
 }
 
-#my_questions .new_question {
-  width: 55px;
-  height: 55px;
-  margin: 40px 0 0 37px !important;
-  display: inline-block;
-  float: left;
+#my_questions .add_new_button {
+  text-align: center;
 }
 
-#my_questions .button_container .label{
-  display: inline-block;
-  float: left;
-	width: 140px;
-  
+#my_questions .add_new_question_icon {
+	height:   32px;
+  width:    32px;
+  display:  inline-block;
+  background-image: url(../images/page/discuss/add_question_32.png);
+  cursor: pointer;
+	margin-top: 10px;
+}
+
+#my_questions .add_new_button:hover .add_new_question_icon {
+  background-position: 0 -32px;
+}
+
+#my_questions .action_bar .label {
+  top: 9px;
 }
 
 #question_list a.avatar_holder{
@@ -288,7 +317,8 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 #discuss_search_container .new_question {
   position: absolute;
-  top: -25px;
+  top: -1px;
+  margin-left: 10px;
 }
 
 #discuss_search_container.search_container {
@@ -324,13 +354,29 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	color: #7BB031;
 }
 
+#questions_container .results_container .no_results {
+  top: 85px;
+}
 
-#questions_container .results_container .create_teaser_question_button {
-  background: transparent url(../images/page/discuss/add_question_teaser.png) no-repeat scroll 0 0;
-	width: 290px;
-	height: 35px;
-	text-align: right;
-	padding-top: 20px;
+#questions_container .results_container .create_first_question_button {
+  background: transparent url(../images/page/discuss/add_first_question_button.png) no-repeat scroll 0 0;
+	width: 400px;
+	height: 50px;
+	text-align: center;
+  position: relative;
+  top: 75px;
+  color: #21587f;
+}
+
+#questions_container .results_container .create_first_question_button:hover {
+  background-position: 0 -50px;
+}
+
+#questions_container .results_container .create_first_question_button span {
+  font-weight: bold;
+  position: relative;
+  left: 23px;
+  top: 18px;
 }
 
 #questions_container .results_container .add_teaser {
@@ -430,31 +476,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 
-/**************/
-/* Action bar */
-/**************/
-
-#statements .action_bar {
-  width: 160px;
-  clear: both;
-  float: left;
-  position: relative;
-  left: 7px;
-  top: 25px;
-  padding: 0 0 17px;
-  text-align: center;
-  margin: 0 0 20px;
-}
-
-.action_bar .label {
-  color: #21587F;
-  font-size: 14px;
-  font-weight: bold;
-  position: relative;
-  top: 3px;
-  display: block;
-}
-
 /***************/
 /* echo button */
 /***************/
@@ -514,6 +535,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   position: relative;
 }
 
+#my_questions .add_new_button,
 #statements .action_bar .add_new_button {
   height:   80px;
   width:    160px;
@@ -522,6 +544,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   cursor: pointer;
 }
 
+#my_questions .add_new_button:hover,
 #statements .action_bar .add_new_button:hover {
   background-position: 0 80px;
 }
@@ -995,6 +1018,10 @@ a.statement_link:hover {
    background:transparent url(../images/page/discuss/search_icon_16.png) no-repeat scroll 0 0;
 }
 
+.my_discussions_link {
+   background:transparent url(../images/page/discuss/my_discussions_16.png) no-repeat scroll 0 -1px;
+}
+
 .question_link {
    background:transparent url(../images/page/discuss/question_16.png) no-repeat scroll 0 0;
 }
@@ -1021,6 +1048,16 @@ a.statement_link:hover {
 
 .create_question_button {
   background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
+}
+
+.create_question_button_32 {
+  background:transparent url(../images/page/discuss/add_question_32.png) no-repeat scroll 0 0;
+  height: 24px;
+  padding: 8px 0 0 38px;
+}
+
+.create_question_button_32:hover {
+  background-position: 0 -32px;
 }
 
 .create_proposal_button {

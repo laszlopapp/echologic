@@ -15,24 +15,22 @@ module PublishableModuleHelper
   def create_question_link_for(search_terms=nil)
     search_terms = search_terms.nil? ? '' : search_terms.gsub(/,/,'\\;')
     origin = search_terms.blank? ? "ds" : "sr#{search_terms}"
-    link_to(new_question_url(:origin => origin, :bids => origin),
-            :id => 'create_question_link') do
-      content_tag(:span, '',
-                  :class => "new_question create_statement_button_mid create_question_button_mid ttLink no_border",
-                  :title => I18n.t("discuss.tooltips.create_question"))
-    end
+    link_to(I18n.t("discuss.statements.create_question_link"),
+            new_question_url(:origin => origin, :bids => origin),
+            :id => 'create_question_link',
+            :class => 'new_question add_new_button text_button create_question_button_32')
   end
-  
+
   #
   # create question button on the search results area when no results where found
   #
-  def create_teaser_question_link_for(search_terms='')
+  def create_first_question_link_for(search_terms='')
     origin = "sr#{search_terms}"
     link_to(new_question_url(:origin => origin, :bids => origin),
-            :id => 'create_question_teaser_link') do
-      content_tag(:span, I18n.t("discuss.search.add", :terms => search_terms),
-                  :class => "add_teaser new_question create_teaser_question_button ttLink no_border",
-                  :title => I18n.t("discuss.tooltips.create_question"))
+            :id => 'create_question_teaser_link', 
+            :class => 'no_results create_first_question_button') do
+      content_tag(:span, I18n.t('discuss.search.add'))
+    
     end
   end
 
@@ -97,14 +95,17 @@ module PublishableModuleHelper
   # create question button above the discuss search results and on the left corner of my questions
   #
   def create_my_question_link_for
-    content_tag :span, '', :class => 'button_container' do
+    content_tag :div, '', :class => 'action_bar' do
       content = ''
-      content << link_to(new_question_url(:origin => :mi, :bids => :mi), :id => 'create_question_link') do
+      content << link_to(new_question_url(:origin => :mi, :bids => :mi),
+                         :id => 'create_question_link',
+                         :class => 'add_new_button') do
         link_content = ''
         link_content << content_tag(:span, '',
-                        :class => "new_question create_statement_button_mid create_question_button_mid ttLink no_border",
+                        :class => "add_new_question_icon ttLink no_border",
                         :title => I18n.t("discuss.tooltips.create_question"))
-        link_content <<  content_tag(:span, I18n.t("discuss.my_questions.add"), :class => 'label')
+        link_content <<  content_tag(:span, I18n.t("discuss.my_questions.add"),
+                                     :class => 'label')
         link_content
       end
       content
