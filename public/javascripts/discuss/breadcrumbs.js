@@ -202,7 +202,7 @@
 
 		      // Current breadcrumb entries
 		      var visible_bids = breadcrumbs.find(".breadcrumb").map(function() {
-						return this.id;
+						return  this.id == 'sr' ? (this.id + $(this).find('.search_link').text()) : this.id;
 		      }).get();
 
 		      // Get bids that are not visible (DRY)
@@ -213,7 +213,7 @@
 
 				getBreadcrumbStack : function (newBreadcrumb) {
 		      var currentBreadcrumbs = breadcrumbs.find(".breadcrumb").map(function() {
-						return this.id;
+						return  this.id == 'sr' ? (this.id + $(this).find('.search_link').text()) : this.id;
 					}).get();
 					if (newBreadcrumb) {
             currentBreadcrumbs.push(newBreadcrumb);
