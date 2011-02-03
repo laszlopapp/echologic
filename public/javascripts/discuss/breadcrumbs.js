@@ -171,6 +171,7 @@
 					var jsp = breadcrumbs.data('jsp');
 					var elements = jsp.getContentPane().find('.elements');
 					if (originId.length > 0) {
+						if(originId.substring(0,2) == 'sr'){originId = 'sr';}
             // There is an origin, so delete breadcrumbs to the right
 				  	var to_remove = elements.find('a#' + originId).nextAll().remove();
             var remove_length = to_remove.length;
@@ -200,20 +201,20 @@
 		      // Current bids in the list
 		      var bid_list = bids.split(",");
 
-		      // Current breadcrumb entries
+          // Current breadcrumb entries
 		      var visible_bids = breadcrumbs.find(".breadcrumb").map(function() {
-						return  this.id == 'sr' ? (this.id + $(this).find('.search_link').text()) : this.id;
+						return  this.id == 'sr' ? (this.id + $(this).find('.search_link').text().replace(/,/, "\\;")) : this.id;
 		      }).get();
-
-		      // Get bids that are not visible (DRY)
+					
+					// Get bids that are not visible (DRY)
           return $.grep(bid_list, function(a, index) {
-		        return $.inArray(a, visible_bids) == -1;
+					  return $.inArray(a, visible_bids) == -1;
           });
 		    },
 
 				getBreadcrumbStack : function (newBreadcrumb) {
 		      var currentBreadcrumbs = breadcrumbs.find(".breadcrumb").map(function() {
-						return  this.id == 'sr' ? (this.id + $(this).find('.search_link').text()) : this.id;
+						return  this.id == 'sr' ? (this.id + $(this).find('.search_link').text().replace(/,/, "\\;")) : this.id;
 					}).get();
 					if (newBreadcrumb) {
             currentBreadcrumbs.push(newBreadcrumb);
