@@ -29,7 +29,7 @@ module PublishableModuleHelper
   def create_teaser_question_link_for(search_terms='')
     origin = "sr#{search_terms}"
     link_to(new_question_url(:origin => origin, :bids => origin),
-            :id => 'create_question_link') do
+            :id => 'create_question_teaser_link') do
       content_tag(:span, I18n.t("discuss.search.add", :terms => search_terms),
                   :class => "add_teaser new_question create_teaser_question_button ttLink no_border",
                   :title => I18n.t("discuss.tooltips.create_question"))
