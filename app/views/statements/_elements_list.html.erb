@@ -1,3 +1,4 @@
+<% children ||= @children %>
 <% new_level ||= false %>
 <ul class="children_list children_pagination">
   <%= render :partial => 'statements/child', :collection => children %>
