@@ -385,7 +385,12 @@ de:
         Geben Sie die Fragestellung frei, um sie für alle sichtbar zu machen.
         (Danach ist keine Bearbeitung mehr möglich.)
       incorporate: 'Klicken Sie hier, um diesen ausgewählten Ergänzung in den obigen Text einzuarbeiten.'
-      siblings: 'See the list of siblings of this statement'
+      siblings:
+        question: See all the questions that belong to the context show above
+        proposal: See all the proposals that belong to the current question
+        improvement: See all the improvements that belong to the current proposal
+        pro_argument: See all the pro arguments that belong to the current proposal
+        contra_argument: See all the contra arguments that belong to the current proposal
 
     statements:
       label: 'Stimmen'

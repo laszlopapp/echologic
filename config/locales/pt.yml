@@ -265,6 +265,17 @@ pt:
         turned_on: Notificações imediatas foram ativadas.
         turned_off: Notificações imediatas foram desativadas.
 
+    # Permissions section
+    permissions:
+      title: Permission Settings
+      guide: Here you can set whether you would allow your data to be shown in various areas of the website.
+
+      authorship:
+        title: Authorship
+        guide: Allow yourself to be identified as the author of any type of content.
+        turned_on: Authorship has been switched on.
+        turned_off: Authorship has been switched off.
+
 
     # New Users section
     users:
@@ -334,7 +345,7 @@ pt:
         pilot_projects:
           title: Projetos-piloto
     search:
-      title: Procura
+      title: Pesquisa
       in: '... em {{category}} ...'
       add: "Create a new question for the topic"
 
@@ -378,7 +389,12 @@ pt:
         Publique a discussão, de forma a esta se tornar visível para todos.
         (Não será mais possível editar a discussão.)
       incorporate: 'Clique aquí para incorporar as suas propostas de melhoria na proposta (texto acima).'
-      siblings: 'See the list of siblings of this statement'
+      siblings:
+        question: See all the questions that belong to the context show above
+        proposal: See all the proposals that belong to the current question
+        improvement: See all the improvements that belong to the current proposal
+        pro_argument: See all the pro arguments that belong to the current proposal
+        contra_argument: See all the contra arguments that belong to the current proposal
 
     statements:
       label: 'votos'
@@ -548,7 +564,7 @@ pt:
       translated: "A {{type}} foi traduzida com sucesso."
       incorporated: "A proposta de melhoria foi incorporada na proposta com sucesso."
       image_uploaded: "A imagem acabou de ser incluída na {{type}}."
-      empty:   "Nenhuma questão encontrada. Por favor altere os seus critérios de procura."
+      empty:   "Nenhuma questão encontrada. Por favor altere os seus critérios de pesquisa."
       empty_without_spoken_languages: |
         Nenhuma questão encontrada. Pode tentar definir as suas <a href='{{my_echo}}'><u>Línguas Faladas</u></a>
         de forma a aceder a conteúdos noutras línguas.
@@ -615,7 +631,7 @@ pt:
       actions:
         report: "Relatório"
     messages:
-      empty:           'Nenhum membro encontrado. Por favor altere os seus critérios de procura.'
+      empty:           'Nenhum membro encontrado. Por favor altere os seus critérios de pesquisa.'
       no_concernments: "Este membro ainda não definiu interesses ou competências."
       no_web_addresses: "Este membro ainda não definiu endereços web."
 
