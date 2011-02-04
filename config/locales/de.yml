@@ -32,7 +32,7 @@ de:
       incorporate: Incorporate
       welcome: Willkommen
       all: Alle
-      authors: Authors
+      authors: Autoren
 
     # Roadmap - Progress
     roadmap:
@@ -270,6 +270,15 @@ de:
         turned_on: Benachrichtigungen zur gemeinsamen Textenwicklung wurden eingeschaltet.
         turned_off: Benachrichtigungen zur gemeinsamen Textenwicklung wurden ausgeschaltet.
 
+    # Permissions section
+    permissions:
+      title: Privatsphäre
+      guide: Hier können Sie einstellen, ob Ihre Daten in verschiedenen Bereichen der Website angezeigt werden sollen.
+      authorship:
+        title: Autorenschaft von Inhalten
+        guide: Eingeloggte Mitglieder (aber keine Suchmaschinen) können die Autorenschaft von Inhalten in echo Diskussionen nachvollziehen.
+        turned_on: Sie werden als Co-Autor zu Inhalten angezeigt.
+        turned_off: Sie werden als Anonym angezeigt.
 
     # New Users section
     users:
@@ -311,7 +320,7 @@ de:
       title: Meine neuen & freigegebenen Fragestellungen
       no_questions: |
         Sie haben bislang keine Fragestellungen hinzugefügt. Um welche anzulegen, klicken Sie bitte links auf das Fragezeichen.
-      add: Add New Question
+      add: Neue Fragestellung
     tag_permission: |
       Sie dürfen leider den Tag '{{tag}}' nicht vergeben.
     original_language_warning: |
@@ -322,7 +331,7 @@ de:
       one: '{{count}} Fragestellung'
       more: '{{count}} Fragestellungen'
     for: |-
-      for '{{value}}'
+      für '{{value}}'
     featured_topics:
       title: Empfohlene Themen
       text: |
@@ -343,21 +352,21 @@ de:
     search:
       title: Suchen
       in: '... in {{category}} ...'
-      add: "Create a new question for the topic"
+      add: "Erste Fragestellung zum Thema erstellen"
 
     tooltips:
       read_question: 'Diese Frage anschauen'
       read_proposal: 'Diesen Vorschlag lesen'
       read_improvement: 'Diese Ergänzung lesen'
-      read_pro_argument: 'Read this pro argument'
-      read_contra_argument: 'Read this contra argument'
-      read_follow_up_question: 'Read this follow-up question'
+      read_pro_argument: 'Dieses Pro-Argument lesen'
+      read_contra_argument: 'Dieses Kontra-Argument lesen'
+      read_follow_up_question: 'Diese Folgefrage lesen'
       current_question: 'Die aktuell angezeigte Frage'
       current_proposal: 'Der aktuell angezeigte Vorschlag'
       current_improvement: 'Die aktuell angezeigte Ergänzung'
-      current_pro_argument: 'The currently displayed pro argument'
-      current_contra_argument: 'The currently displayed contra argument'
-      current_follow_up_question: 'The currently displayed follow-up question'
+      current_pro_argument: 'Das gegenwärtig angezeigte Pro-Argument'
+      current_contra_argument: 'Das gegenwärtig angezeigte Kontra-Argument'
+      current_follow_up_question: 'Die gegenwärtig angezeigte Folgefrage'
       back_to_question: 'Zurück zur aktuellen Frage'
       back_to_proposal: 'Zurück zum aktuellen Vorschlag'
       back_to_improvement: 'Zurück zur aktuellen Ergänzung'
@@ -367,18 +376,18 @@ de:
       next_proposal: 'Nächsten Vorschlag zur aktuellen Frage lesen'
       prev_improvement: 'Vorige Ergänzung zum aktuellen Vorschlag lesen'
       next_improvement: 'Nächste Ergänzung zum aktuellen Vorschlag lesen'
-      prev_pro_argument: 'Read previous pro argument for the current proposal'
-      next_pro_argument: 'Read next pro argument for the current proposal'
-      prev_contra_argument: 'Read previous contra argument for the current proposal'
-      next_contra_argument: 'Read next contra argument for the current proposal'
-      prev_follow_up_question: 'Read previous follow-up question'
-      next_follow_up_question: 'Read next follow-up question'
+      prev_pro_argument: 'Das vorherige Argument für den aktuellen Vorschlag lesen'
+      next_pro_argument: Das nächste Argument für den aktuellen Vorschlag lesen'
+      prev_contra_argument: 'Das vorherige Argument für den aktuellen Vorschlag lesen'
+      next_contra_argument: 'Das nächste Argument für den aktuellen Vorschlag lesen'
+      prev_follow_up_question: 'Die vorherige Folgefrage in diesem Zusammenhang lesen'
+      next_follow_up_question: 'Die nächste Folgefrage in diesem Zusammenhang lesen'
       create_question: 'Neue Fragestellung hinzufügen'
       create_proposal: 'Tragen Sie Ihre neue Idee zur aktuellen Fragestellung ein'
       create_improvement: 'Tragen Sie Ihre neue Idee zum aktuellen Vorschlag ein'
-      create_pro_argument: "Post a new argument agreeing with this proposal"
-      create_contra_argument: "Post a new argument disagreeing with this proposal"
-      create_follow_up_question: "Post a new follow-up question"
+      create_pro_argument: "Ein neues Pro-Argument für diese Antwort hinzufügen"
+      create_contra_argument: "Ein neues Kontra-Argument für diese Antwort hinzufügen"
+      create_follow_up_question: "Eine neue Folgefrage im aktuellen Zusammenhang hinzufügen"
       echo: 'Unterstützen Sie diese Aussage durch Ihr Echo!'
       unecho: 'Ziehen Sie Ihre Stimme zurück, wenn Sie die Aussage nicht mehr unterstützen möchten'
       publish: |
@@ -386,11 +395,11 @@ de:
         (Danach ist keine Bearbeitung mehr möglich.)
       incorporate: 'Klicken Sie hier, um diesen ausgewählten Ergänzung in den obigen Text einzuarbeiten.'
       siblings:
-        question: See all the questions that belong to the context show above
-        proposal: See all the proposals that belong to the current question
-        improvement: See all the improvements that belong to the current proposal
-        pro_argument: See all the pro arguments that belong to the current proposal
-        contra_argument: See all the contra arguments that belong to the current proposal
+        question: Alle Fragestellungen im obigen Kontext ansehen.
+        proposal: Alle Vorschläge zur gegenwärtigen Fragestellung anzeigen.
+        improvement: Alle Ergänzungsideen zum gegenwärtigen Vorschlag anzeigen.
+        pro_argument: Alle Argumente zum gegenwärtigen Vorschlag anzeigen.
+        contra_argument:  Alle Argumente zum gegenwärtigen Vorschlag anzeigen.
 
     statements:
       label: 'Stimmen'
@@ -399,20 +408,20 @@ de:
           one: '{{supporter_count}} UnterstützerIn'
           many: '{{supporter_count}} UnterstützerInnen'
         recommend:
-          one: '{{supporter_count}} recommendation'
-          many: '{{supporter_count}} recommendations'
-      add_new: Add new...
+          one: '{{supporter_count}} Empfehlung'
+          many: '{{supporter_count}} Empfehlungen'
+      add_new: Neues hinzufügen...
       create_question_link: 'Neue Fragestellung hinzufügen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
       create_internal_link: 'Neue Idee?'
       create_improvement_link: 'Neue Ergänzung vorschlagen'
-      create_pro_argument_link: Add new pro argument
-      create_contra_argument_link: Add new contra argument
-      create_follow_up_question_link: Add new follow-up question
-      recommend_link: 'Recommend this'
-      unrecommend_link: 'Unrecommend this'
-      support_link: 'Support this'
-      unsupport_link: 'Unsupport this'
+      create_pro_argument_link: Neues Pro-Argument hinzufügen
+      create_contra_argument_link: Neues Kontra-Argument hinzufügen
+      create_follow_up_question_link: Neue Folgefrage hinzufügen
+      recommend_link: 'Empfehlen'
+      unrecommend_link: 'echo widerrufen'
+      support_link: 'Unterstützen'
+      unsupport_link: 'echo widerrufen'
       create_question_explanation: |
         Hier können Sie eine <strong>neue Fragestellung</strong> hinzufügen und mit den
         passenden <strong>thematischen Schlüsselwörten</strong> (sog. Tags) versehen.
@@ -434,20 +443,24 @@ de:
       fuq_formulation_hint: |
         Since follow-up questions also appear as questions in "Search", title and description should both be comprehensible independently of the original discussion.
       title_hint:
-        question: Please enter the question title in...
-        proposal: Please enter the proposal title in...
-        improvement: Please enter the improvement title in...
-        pro_argument: Please enter the pro argument title in...
-        contra_argument: Please enter the contra argument title in...
-        follow_up_question: Please enter the follow-up question title in...
+        question: Überschrift der Fragestellung auf...
+        proposal: Überschrift des Vorschlags auf...
+        improvement: Überschrift der Ergänzungsidee auf...
+        pro_argument: Überschrift des Pro-Arguments auf...
+        contra_argument: Überschrift des Kontra-Arguments auf...
+        follow_up_question: Überschrift der Folgefrage auf...
       text_hint:
-        question: Please enter some more details and explanation here...
-        proposal: Please enter some more details and explanation here...
-        improvement: Please enter some more details and explanation here...
-        pro_argument: Please enter some more details and explanation here...
-        contra_argument: Please enter some more details and explanation here...
-        follow_up_question: Please enter some more details and explanation here...
-      tag_hint: 'Please enter tag here...'
+        question: Bitte erläutern Sie das Problem und beschreiben Sie das Thema näher...
+        proposal: Bitte erläutern Sie Ihren Vorschlag näher...
+        improvement: Bitte erläutern Sie Ihre Ergänzungsidee näher...
+        pro_argument: Bitte erläutern Sie Ihr Pro-Argument näher...
+        contra_argument: Bitte erläutern Sie Ihr Kontra-Argument näher...
+        follow_up_question: Bitte erläutern Sie Ihre Folgefrage näher...
+      fuq_formulation_hint: |
+        Da Folgefragen auch wie andere Fragestellungen in der Suche erscheinen,
+        sollten Überschrift und Erläuterung auch ausserhalb der ursprünglichen
+        Diskussion verständlich sein.
+      tag_hint: 'Schlagworte hier eingeben...'
 
       publish: Freigeben
       published: Die Fragestellung wurde erfolgreich freigegeben.
@@ -457,24 +470,24 @@ de:
         question:  'Fragestellung'
         proposal:  'Vorschlag'
         improvement: 'Ergänzung'
-        pro_argument: 'Pro Argument'
-        contra_argument: 'Contra Argument'
-        follow_up_question: 'Follow-Up Question'
+        pro_argument: 'Pro-Argument'
+        contra_argument: 'Kontra-Argument'
+        follow_up_question: 'Folgefrage'
       new:
         question:  'Neue Fragestellung'
         proposal:  'Neuer Vorschlag'
         improvement: 'Neue Ergänzung'
-        pro_argument: 'New Pro Argument'
-        contra_argument: 'New Contra Argument'
-        follow_up_question: 'New Follow-Up Question'
+        pro_argument: 'Neues Pro-Argument'
+        contra_argument: 'Neues Kontra-Argument'
+        follow_up_question: 'Neue Folgefrage'
       headings:
         question: 'Fragestellungen'
         proposal: 'Vorschläge'
         improvement: 'Ergänzungen'
-        argument: 'Arguments'
-        follow_up_question: 'Follow-up Questions'
+        argument: 'Argumente'
+        follow_up_question: 'Folgefragen'
       siblings:
-        follow_up_question: 'Follow-Up Question (Sibling)'
+        follow_up_question: 'Folgefrage im obigen Kontext'
 
       topic: Thema (Tags / Schlüsselwörte)
       states:
@@ -503,27 +516,28 @@ de:
       statement_updated: |-
         {{type}} wurde gerade von einer anderen Person aktualisiert.
       statement_supported: |-
-        Congratulations, you support this {{type}}.
+        Vielen Dank für Ihr Echo zum Beitrag.
       statement_unsupported: |-
-        You just dropped your support from this {{type}}.
+        Ihr Echo zum Beitrag wurde zurückgezogen.
       edit_period_hint: |
         Sie haben {{minutes}} Minuten, um den Beitrag zu bearbeiten.
         Nach Ablauf können Ihre Änderungen eventuell nicht mehr berücksichtigt werden.
       staled_modification: 'Es tut uns sehr leid, aber Ihre Bearbeitungszeit von max. 60 Minuten ist abgelaufen. Mittlerweile hat ein anderer Nutzer den Beitrag bearbeitet. Ihre Änderungen mussten daher leider verworfen werden.'
+      no_document_in_language: 'Diese Aussage ist noch nicht auf Deutsch verfügbar.'
 
       breadcrumbs:
-        discuss_search: Search
-        my_questions: My Questions
+        discuss_search: Suche
+        my_questions: Meine Fragestellungen
         labels:
-          ds: 'Suche'
-          mi: 'Meine Diskussionen'
+          ds: ''
+          mi: ''
           sr: 'Suchergebnisse für'
-          fq: 'Folgefragen von'
+          fq: 'Folgefragen zu'
           over:
-            ds: 'Zurück zur Suche'
-            mi: 'Zurück zu Meine Diskussionen'
-            sr: 'Zurück zu Suchergebnisse für'
-            fq: 'Zurück zur Aussage'
+            ds: 'Zurück zu'
+            mi: 'Zurück zu'
+            sr: 'Zurück zu Suchergebnissen für'
+            fq: 'Zurück zu'
 
       upload_image:
         title: Bild hochladen
@@ -533,26 +547,26 @@ de:
 
       add_teaser:
         question: |
-          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
-          button above to enter it NOW!
+          Hier könnte IHRE Frage stehen.<br/><br/>Haben Sie eine?<br/><br/>
+          Nutzen Sie den obenstehenden Link, um sie JETZT einzugeben!
         proposal: |
-          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
-          button above to enter it NOW!
+          Hier könnte IHR Vorschlag stehen .<br/><br/>Haben Sie einen?<br/><br/>
+          Nutzen Sie den obenstehenden Link, um ihn JETZT einzugeben!
         improvement: |
-          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
-          button above to enter it NOW!
+          Hier könnte IHRE Ergänzungsidee stehen.<br/><br/>Haben Sie eine?<br/><br/>
+          Nutzen Sie den obenstehenden Link, um sie JETZT einzugeben!
         pro_argument: |
-          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
-          button above to enter it NOW!
+          Hier könnte IHR Pro-Argument stehen.<br/><br/>Haben Sie eines?<br/><br/>
+          Nutzen Sie den obenstehenden Link, um es JETZT einzugeben!
         contra_argument: |
-          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
-          button above to enter it NOW!
+          Hier könnte IHR Kontra-Argument stehen.<br/><br/>Haben Sie eines?<br/><br/>
+          Nutzen Sie den obenstehenden Link, um es JETZT einzugeben!
         follow_up_question: |
-          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
-          button above to enter it NOW!
+          Hier könnte IHRE Folgefrage stehen.<br/><br/>Haben Sie eine?<br/><br/>
+          Nutzen Sie den obenstehenden Link, um sie JETZT einzugeben!
 
     summary:
-      title: 'Zusammenfassung'
+      title: 'Erläuterung'
     messages:
       created: "{{type}} wurde erfolgreich erstellt."
       updated: "{{type}} wurde erfolgreich bearbeitet."
@@ -585,39 +599,39 @@ de:
     results_count:
       all:
         no_filter:
-          one: 'person'
-          more: 'people'
+          one: 'Person'
+          more: 'Menschen'
         with_filter:
-          one: "person related to '{{filter}}'"
-          more: "people related to '{{filter}}'"
+          one: "Person passend zu '{{filter}}'"
+          more: "Menschen passend zu '{{filter}}'"
       affection:
         no_filter:
-          one: affected person
-          more: affected people
+          one: betroffene Person
+          more: betroffene Menschen
         with_filter:
-          one: "person affected by '{{filter}}'"
-          more: "people affected by '{{filter}}'"
+          one: "Person betroffen von '{{filter}}'"
+          more: "Menschen betroffen von '{{filter}}'"
       engagement:
         no_filter:
-          one: engaged person
-          more: engaged people
+          one: engagierte Person
+          more: engagierte Menschen
         with_filter:
-          one: "person engaged in '{{filter}}'"
-          more: "people engaged in '{{filter}}'"
+          one: "Person engagiert in '{{filter}}'"
+          more: "Menschen engagiert in '{{filter}}'"
       expertise:
         no_filter:
-          one: expert
-          more: experts
+          one: ExpertIn
+          more: ExpertInnen
         with_filter:
-          one: "expert in '{{filter}}'"
-          more: "experts in '{{filter}}'"
+          one: "ExpertIn in '{{filter}}'"
+          more: "ExpertInnen in '{{filter}}'"
       decision_making:
         no_filter:
-          one: decision maker
-          more: decision makers
+          one: EntscheidungsträgerIn
+          more: EntscheidungsträgerInnen
         with_filter:
-          one: "decision maker in '{{filter}}'"
-          more: "decision makers in '{{filter}}'"
+          one: "EntscheidungsträgerIn bei '{{filter}}'"
+          more: "EntscheidungsträgerInnen bei '{{filter}}'"
     details:
       tabs:
         overview:     'Überblick'
