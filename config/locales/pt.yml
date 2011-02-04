@@ -251,7 +251,7 @@ pt:
 
       activity:
         title: Notificações de actividade
-        guide: Notificações diárias sobre novas discussões e novidades nos conteúdos apoiados por si.
+        guide: Notificações diárias sobre novas questões e novidades nos conteúdos apoiados por si.
         turned_on: Notificações diárias foram ativadas.
         turned_off: Notificações diárias foram desativadas.
 
@@ -315,10 +315,10 @@ pt:
 
   discuss:
     my_questions:
-      link: Minhas Discussões
-      title: As minhas discussões novas e publicadas
+      link: Minhas Questões
+      title: As minhas questões novas e publicadas
       no_questions: |
-        Ainda não criou nenhuma discussão. Para o fazer, por favor clique no ponto de interrogação que se encontra à esquerda.
+        Ainda não criou nenhuma questão. Para o fazer, por favor clique no ponto de interrogação que se encontra à esquerda.
       add: Adicionar nova questão 
     tag_permission: |
       Não tem permissão para inserir a tag '{{tag}}'.
@@ -327,8 +327,8 @@ pt:
       O texto original encontra-se em <strong>{{language}}</strong>. Defina os seus conheci-<br/>
       mentos linguísticos para poder visualizar conteúdo noutras línguas.
     results_count:
-      one: '{{count}} discussão'
-      more: '{{count}} discussões'
+      one: '{{count}} questão'
+      more: '{{count}} questões'
     for: |-
       para '{{value}}'
     featured_topics:
@@ -381,7 +381,7 @@ pt:
       next_contra_argument: 'Ler argumento seguinte da proposta atual'
       prev_follow_up_question: 'Ler questão complementar anterior no contexto exposto acima'
       next_follow_up_question: 'Ler questão complementar seguinte no contexto exposto acima'
-      create_question: 'Criar uma nova discussão'
+      create_question: 'Criar uma nova questão'
       create_proposal: 'Criar nova proposta na questão atual'
       create_improvement: 'Criar nova melhoria à proposta atual'
       create_pro_argument: "Criar novo argumento a favor da proposta atual"
@@ -390,8 +390,8 @@ pt:
       echo: "Apoie esta afirmação (dê o seu echo)!"
       unecho: 'Retire o seu apoio a esta afirmação (retire o seu echo)'
       publish: |
-        Publique a discussão, de forma a esta se tornar visível para todos.
-        (Não será mais possível editar a discussão.)
+        Publique a questão, de forma a esta se tornar visível para todos.
+        (Não será mais possível editar a questão.)
       incorporate: 'Clique aqui para incorporar as suas propostas de melhoria na proposta (texto acima).'
       siblings:
         question: Visualizar todas as questões do contexto acima
@@ -411,7 +411,7 @@ pt:
           one: '{{supporter_count}} recomendação'
           many: '{{supporter_count}} recomendações'
       add_new: Adicionar novo/a... 
-      create_question_link: 'Criar uma nova discussão'
+      create_question_link: 'Criar uma nova questão'
       create_proposal_link: 'Criar nova proposta'
       create_internal_link: 'Nova ideia?'
       create_improvement_link: 'Criar nova melhoria'
@@ -423,7 +423,7 @@ pt:
       support_link: 'Apoiar'
       unsupport_link: 'Desapoiar'
       create_question_explanation: |
-        Aqui pode começar uma <strong>nova discussão</strong> e providenciar um conjunto de <strong>palavras-chave
+        Aqui pode começar uma <strong>nova questão</strong> e providenciar um conjunto de <strong>palavras-chave
         temáticas</strong> adequadas de forma a esta ser facilmente encontrada.
       create_proposal_explanation: |
         Tem uma <strong>boa ideia</strong> no que diz respeito à questão actual, que ainda <strong>não existe</strong>?<br/>
@@ -460,7 +460,7 @@ pt:
  
 
       publish: Publicar
-      published: A discussão foi publicada com sucesso.
+      published: A questão foi publicada com sucesso.
       edit: 'Editar {{type}}'
 
       types:
@@ -472,7 +472,7 @@ pt:
         follow_up_question: 'Questão Complementar'
      
       new:
-        question:  'Nova Discussão'
+        question:  'Nova Questão'
         proposal:  'Nova Proposta'
         improvement: 'Nova Melhoria'
         pro_argument: 'Novo Argumento a Favor'
@@ -490,16 +490,16 @@ pt:
 
       topic: Tópico (Tags / Palavras-chave)
       states:
-        label: 'Publicar discussão?'
+        label: 'Publicar questão?'
         initial_state:
           new: 'Primeiro criar e mais tarde publicar.'
-          published: 'Imediatamente publicar (não será mais possível editar a discussão)'
+          published: 'Imediatamente publicar (não será mais possível editar a questão)'
         published: Publicado
         approved: Aprovado
       delete_link: "Apagar"
       delete_confirmation: "Tem a certeza que quer apagar este conteúdo?"
       read_only_permission: |-
-        Esta é uma discussão transparente, mas de accesso restrito - somente pode lêr.
+        Esta é uma questão transparente, mas de accesso restrito - somente pode lêr.
       unsupported_parent: |-
         Só poderá apoiar a propostas de melhoria depois de apoiar a proposta correspondente.
       not_approved_any_more: |-
