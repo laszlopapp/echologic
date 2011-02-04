@@ -55,18 +55,9 @@ en:
         roadmap: 'echo - Roadmap for Discuss'
       statements:
         category: 'echo - Question Topic'
-        show: 'echo - Question'
+        show: 'echo - Statement'
         new: 'Open new question'
         my_questions: 'My Questions'
-#      questions:
-#        category: 'echo - Question Topic'
-#        show: 'echo - Question'
-#        new: 'Open new question'
-#        my_questions: 'My Questions'
-#      proposals:
-#        show: 'echo - Positions in the Debate'
-#      improvements:
-#        show: 'echo - Ideas to Improve the Position'
 
       # connect: de.seo.title.connect
       connect:

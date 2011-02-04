@@ -51,15 +51,11 @@ es:
       discuss:
         index: 'echo - Debatir'
         roadmap: 'echo - Desarrollo de debatir'
-      questions:
+      statements:
         category: 'echo - Temas de debate'
-        show: 'echo - Debates'
+        show: 'echo - Documento de debate'
         new: 'Crear nuevo debate'
-        my_questions: 'Mis Debates'
-      proposals:
-        show: 'echo - Propuestas en este debate'
-      improvements:
-        show: 'echo - Propuesta de mejora'
+        my_questions: 'Mis Preguntas'
 
       # connect: de.seo.title.connect
       connect:

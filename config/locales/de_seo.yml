@@ -53,18 +53,9 @@ de:
         roadmap: 'echo - Fahrplan für Diskutieren'
       statements:
         category: 'echo - Diskussionsthemen'
-        show: 'echo - Debatten'
+        show: 'echo - Aussage'
         new: 'Neue Diskussion eröffnen'
         my_questions: 'Meine Diskussionen'
-#      questions:
-#        category: 'echo - Diskussionsthemen'
-#        show: 'echo - Debatten'
-#        new: 'Neue Diskussion eröffnen'
-#        my_questions: 'Meine Diskussionen'
-#      proposals:
-#        show: 'echo - Stellungnahmen in der Debate'
-#      improvements:
-#        show: 'echo - Ergänzungsvorschläge für die Stellungnahme'
 
       # connect: de.seo.title.connect
       connect:

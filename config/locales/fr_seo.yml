@@ -51,15 +51,11 @@ fr:
       discuss:
         index: 'echo - Discuter'
         roadmap: 'echo - Votre plan de route pour participer à la discussion'
-      questions:
+      statements:
         category: 'echo - Les thèmes de discussion'
         show: 'echo - Débats'
         new: 'Ouvrir de nouvelles discussions'
         my_questions: 'Mes discussions'
-      proposals:
-        show: 'echo - Prises de positions'
-      improvements:
-        show: 'echo - Propositions complémentaires'
 
       # connect: de.seo.title.connect
       connect:
