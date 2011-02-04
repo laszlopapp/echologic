@@ -95,17 +95,21 @@
         if (!form.hasClass('new')) {return;}
 
         // Text Inputs
-        var inputText = form.find("input[type='text']");
-        var value = inputText.attr('data-default');
-        if (inputText.val().length == 0) {
-          inputText.toggleVal({
-            populateFrom: 'custom',
-            text: value
-          });
-        }
-        inputText.removeAttr('data-default');
-        inputText.blur();
-
+         
+				form.find("input[type='text']").each(function(index){
+	        var inputText = $(this);
+					var value = inputText.attr('data-default');
+	        if (inputText.val().length == 0) {
+	          inputText.toggleVal({
+	            populateFrom: 'custom',
+	            text: value
+	          });
+	        }
+	        inputText.removeAttr('data-default');
+					if (index == 0) {
+				  	inputText.blur();
+				  }
+        });
 
         // Text Area (RTE Editor)
         var editor = form.find("iframe.rte_doc");

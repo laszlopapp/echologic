@@ -52,9 +52,9 @@ pt:
         new_tags: 'Os debates estão relacionados com os seguintes tópicos:'
         new_proposals: 'Novas propostas na discussão "{{title}}"'
         new_improvements: 'Novas propostas de melhoria na proposta "{{title}}" em "{{question_title}}":'
-        new_pro_arguments: 'New pro arguments for the proposal "{{title}}" in "{{question_title}}":'
-        new_contra_arguments: 'New contra arguments for the proposal "{{title}}" in "{{question_title}}":'
-        new_follow_up_questions: 'New follow-up questions for "{{title}}":'
+        new_pro_arguments: 'Novos argumentos a favor da proposta "{{title}}" em "{{question_title}}":'
+        new_contra_arguments: 'Novos argumentos contra a proposta "{{title}}" em "{{question_title}}":'
+        new_follow_up_questions: 'Novas questões complementares de "{{title}}":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         Se não deseja receber notificações diárias sobre novidades nas suas discussões, por favor logue-se em
@@ -62,11 +62,11 @@ pt:
 
     drafting:
       approval:
-        subject: A sua proposta de melhoria pode ser incorporada
+        subject: A sua melhoria pode ser incorporada
         text: |-
           Caro/a {{name}},
 
-          A sua proposta de melhoria
+          A sua melhoria
 
           "*{{ip_title}}*"
 
@@ -78,7 +78,7 @@ pt:
 
           {{p_link}}
 
-          Por favor seja honesto e insira na proposta apenas as ideias expostas na sua proposta de melhoria! O historial de edição das propostas é guardado e poderá ser visualizado por nós. :-)
+          Por favor seja honesto e insira na proposta apenas as ideias expostas na sua melhoria! O historial de edição das propostas é guardado e poderá ser visualizado por nós. :-)
 
           Muito obrigado pela sua contribuição - e divirta-se! ;-)
 
@@ -87,13 +87,13 @@ pt:
           A sua equipa echo
 
       supporters_approval:
-        subject: Uma proposta de melhoria que você apoia pode ser incorporada
+        subject: Uma melhoria que você apoia pode ser incorporada
         text: |-
-          Caros/as apoiantes da proposta de melhoria
+          Caros/as apoiantes da melhoria
 
           "*{{ip_title}}*"
 
-          O autor da proposta de melhoria não chegou a aproveitar a sua oportunidade de melhorar a proposta "{{p_title}}". Como apoiantes dessa proposta de melhoria, terão agora a oportunidade de o fazer por ele *durante as próximas {{hours}} horas*.
+          O autor da melhoria não chegou a aproveitar a sua oportunidade de melhorar a proposta "{{p_title}}". Como apoiantes dessa melhoria, terão agora a oportunidade de o fazer por ele *durante as próximas {{hours}} horas*.
 
           Para editar a proposta e *incorporar a ideia*, siga o link e clique no botão de incorporação (flecha verde-amarela no meio):
 
@@ -101,7 +101,7 @@ pt:
 
           O primeiro de vós que inicie o processo de edição da proposta terá o direito exclusivo de o fazer - mas apenas durante 60 minutos!
 
-          Por favor sejam honestos e insiram na proposta apenas as ideias expostas na proposta de melhoria! O historial de edição das propostas é guardado e poderá ser visualizado por nós. :-)
+          Por favor sejam honestos e insiram na proposta apenas as ideias expostas na melhoria! O historial de edição das propostas é guardado e poderá ser visualizado por nós. :-)
 
           Muito obrigado pela vossa contribuição! - e divirtam-se! ;-)
 
@@ -116,7 +116,7 @@ pt:
 
           "*{{p_title}}*"
 
-          A proposta de melhoria "{{ip_title}}" foi selecionada para ser incorporada na proposta "{{p_title}}".
+          A melhoria "{{ip_title}}" foi selecionada para ser incorporada na proposta "{{p_title}}".
 
           Clique no link para *visualizar a nova ideia*:
 
@@ -129,11 +129,11 @@ pt:
           A sua equipa echo
 
       approval_reminder:
-        subject: Aviso! - O tempo para a incorporação da sua proposta de melhoria está a acabar
+        subject: Aviso! - O tempo para a incorporação da sua melhoria está a acabar
         text: |-
           Caro/a {{name}},
 
-          *Já só lhe restam {{hours}} horas* para incorporar a sua proposta de melhoria
+          *Já só lhe restam {{hours}} horas* para incorporar a sua melhoria
 
           "*{{ip_title}}*"
 
@@ -143,7 +143,7 @@ pt:
 
           {{p_link}}
 
-          Por favor seja honesto e insira na proposta apenas as ideias expostas na sua proposta de melhoria! O historial de edição das propostas é guardado e poderá ser visualizado por nós. :-)
+          Por favor seja honesto e insira na proposta apenas as ideias expostas na sua melhoria! O historial de edição das propostas é guardado e poderá ser visualizado por nós. :-)
 
           Muito obrigado pela sua contribuição! - e divirta-se! ;-)
 
@@ -152,21 +152,21 @@ pt:
           A sua equipa echo
 
       supporters_approval_reminder:
-        subject: Último Aviso! - O tempo para a incorporação da proposta de melhoria está a acabar
+        subject: Último Aviso! - O tempo para a incorporação da melhoria está a acabar
         text: |-
-          Caros/as apoiantes da proposta de melhoria
+          Caros/as apoiantes da melhoria
 
           "{{ip_title}}"
 
-          *Já só lhes restam {{hours}} horas* para incorporarem a proposta de melhoria "{{ip_title}}".
+          *Já só lhes restam {{hours}} horas* para incorporarem a melhoria "{{ip_title}}".
 
-          Caso não o façam, serão eliminados todos os votos da proposta de melhoria, retirando à mesma o vosso apoio.
+          Caso não o façam, serão eliminados todos os votos da melhoria, retirando à mesma o vosso apoio.
 
           Para editar a proposta sigam o link e cliquem no botão de incorporação (flecha verde-amarela no meio):
 
           {{p_link}}
 
-          Por favor sejam honestos e insiram na proposta apenas as ideias expostas na proposta de melhoria! O historial de edição das propostas é guardado e poderá ser visualizado por nós. :-)
+          Por favor sejam honestos e insiram na proposta apenas as ideias expostas na melhoria! O historial de edição das propostas é guardado e poderá ser visualizado por nós. :-)
 
           Muito obrigado pela vossa contribuição! - e divirtam-se ;-)
 
@@ -175,17 +175,17 @@ pt:
           A sua equipa echo
 
       passed:
-        subject: O tempo para incorporação da proposta de melhoria esgotou!
+        subject: O tempo para incorporação da melhoria esgotou!
         text: |-
           Caro/a {{name}},
 
-          Infelizmente, o tempo para incorporar a proposta de melhoria
+          Infelizmente, o tempo para incorporar a melhoria
 
           "*{{ip_title}}*"
 
           na proposta "{{p_title}}" esgotou.
 
-          Caso a sua proposta de melhoria seja selecionada novamente, o privilégio de incorporação da mesma será dado igualmente a todos os apoiantes da mesma.
+          Caso a sua melhoria seja selecionada novamente, o privilégio de incorporação da mesma será dado igualmente a todos os apoiantes da mesma.
 
           Estaremos à espera das suas contribuições seguintes. :-)
 
@@ -194,17 +194,17 @@ pt:
           A sua equipa echo
 
       supporters_passed:
-        subject: O tempo para incorporação da proposta de melhoria esgotou!
+        subject: O tempo para incorporação da melhoria esgotou!
         text: |-
-          Caros/as apoiantes da proposta de melhoria
+          Caros/as apoiantes da melhoria
 
           "*{{ip_title}}*"
 
           Infelizmente, o tempo para incorporar a ideia na proposta "{{p_title}}" esgotou.
 
-          Como lhes foi previamente comunicado, todos os votos da proposta de melhoria serão eliminados, retirando-lhe assim o vosso apoio.
+          Como lhes foi previamente comunicado, todos os votos da melhoria serão eliminados, retirando-lhe assim o vosso apoio.
 
-          Caso queiram *apoiar novamente a proposta de melhoria*, por favor sigam o link:
+          Caso queiram *apoiar novamente a melhoria*, por favor sigam o link:
 
           {{ip_link}}
 
@@ -242,9 +242,9 @@ pt:
 
           "*{{p_title}}*"
 
-          A proposta de melhoria com mais votos "{{ip_title}}" foi incorporada na proposta.
+          A melhoria com mais votos "{{ip_title}}" foi incorporada na proposta.
 
-          Podem seguir o link e ver as mudanças, para além de verificarem se estas estão de acordo com a proposta de melhoria original (futuramente, um historial de edições tornará esta tarefa mais fácil para todos):
+          Podem seguir o link e ver as mudanças, para além de verificarem se estas estão de acordo com a melhoria original (futuramente, um historial de edições tornará esta tarefa mais fácil para todos):
 
           {{p_link}}
 
