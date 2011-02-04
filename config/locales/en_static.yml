@@ -98,7 +98,7 @@ en:
             </p>
 
         action: |-
-          echo "quantum leap" is ONLINE!<br/>
+          First quantum leap ONLINE!<br/>
           Go to new prototype »
 
       #About

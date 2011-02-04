@@ -100,7 +100,7 @@ de:
             </p>
 
         action: |-
-          echo "Quantensprung" ist ONLINE!<br/>
+          Erster Quantensprung ONLINE!<br/>
           Zum neuen Prototyp »
 
       # about section
