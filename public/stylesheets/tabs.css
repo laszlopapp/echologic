@@ -1,18 +1,4 @@
 
-/*  Container which holds all tabs. With specified height and negative margin
-    it takes care for the correct positioning and overlapping with 'mainBox'
-
-    20.8.2009 - Joe (tested: ie8, ff3, ff2):
-        - margin to margin-left: centering in ff2
-        - display block and min-height for jquery's visible check
-        - margin moved to single tabs
-    10.10.2009 - Joe
-        - min-height for empty tab container
-    13.10.2009 - Joe
-        - now wraps 'applicationTabs' container, which is generated through
-          rails-widgets.
-*/
-
 .tabContainer {
   margin:       0 auto;
   padding-top:  1px;
