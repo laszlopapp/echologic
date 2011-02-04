@@ -525,8 +525,6 @@ en:
             sr: 'Back to search results for'
             fq: 'Back to'
 
-
-
       upload_image:
         title: Upload Image
         guide: Please <strong>select an image</strong> (JPG or PNG, max. 5MB) and upload it.
