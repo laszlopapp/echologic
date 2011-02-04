@@ -549,22 +549,22 @@ de:
 
       add_teaser:
         question: |
-          Hier könnte IHRE Frage stehen.<br/><br/>Haben Sie eine?<br/><br/>
+          Hier könnte Ihre Frage stehen.<br/><br/>Haben Sie eine?<br/><br/>
           Nutzen Sie den obenstehenden Link, um sie JETZT einzugeben!
         proposal: |
-          Hier könnte IHR Vorschlag stehen .<br/><br/>Haben Sie einen?<br/><br/>
+          Hier könnte Ihr Vorschlag stehen .<br/><br/>Haben Sie einen?<br/><br/>
           Nutzen Sie den obenstehenden Link, um ihn JETZT einzugeben!
         improvement: |
-          Hier könnte IHRE Ergänzungsidee stehen.<br/><br/>Haben Sie eine?<br/><br/>
+          Hier könnte Ihre Ergänzungsidee stehen.<br/><br/>Haben Sie eine?<br/><br/>
           Nutzen Sie den obenstehenden Link, um sie JETZT einzugeben!
         pro_argument: |
-          Hier könnte IHR Pro-Argument stehen.<br/><br/>Haben Sie eines?<br/><br/>
+          Hier könnte Ihr Pro-Argument stehen.<br/><br/>Haben Sie eines?<br/><br/>
           Nutzen Sie den obenstehenden Link, um es JETZT einzugeben!
         contra_argument: |
-          Hier könnte IHR Kontra-Argument stehen.<br/><br/>Haben Sie eines?<br/><br/>
+          Hier könnte Ihr Kontra-Argument stehen.<br/><br/>Haben Sie eines?<br/><br/>
           Nutzen Sie den obenstehenden Link, um es JETZT einzugeben!
         follow_up_question: |
-          Hier könnte IHRE Folgefrage stehen.<br/><br/>Haben Sie eine?<br/><br/>
+          Hier könnte Ihre Folgefrage stehen.<br/><br/>Haben Sie eine?<br/><br/>
           Nutzen Sie den obenstehenden Link, um sie JETZT einzugeben!
 
     summary:

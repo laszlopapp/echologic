@@ -3,9 +3,15 @@ class AddLevelToEvents < ActiveRecord::Migration
     Event.all.each do |event|
       jevent = JSON.parse(event.event)
       if (!jevent['id'].blank?)
-        jevent['level'] = StatementNode.find(jevent['id']).level
-        event.event = jevent.to_json
-        event.save
+        begin
+          jevent['level'] = StatementNode.find(jevent['id']).level
+          event.event = jevent.to_json
+          event.save
+        rescue
+          event.destroy
+        end
+      else
+        event.destroy
       end
     end
   end
