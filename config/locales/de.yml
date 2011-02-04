@@ -276,7 +276,9 @@ de:
       guide: Hier können Sie einstellen, ob Ihre Daten in verschiedenen Bereichen der Website angezeigt werden sollen.
       authorship:
         title: Autorenschaft von Inhalten
-        guide: Eingeloggte Mitglieder (aber keine Suchmaschinen) können die Autorenschaft von Inhalten in echo Diskussionen nachvollziehen.
+        guide: |
+          Eingeloggte Mitglieder (aber keine Suchmaschinen) können Sie als Co-AutorIn
+          von Beiträgen in echo Diskussionen nachvollziehen.
         turned_on: Sie werden als Co-Autor zu Inhalten angezeigt.
         turned_off: Sie werden als Anonym angezeigt.
 
