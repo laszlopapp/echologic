@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110201172527) do
+ActiveRecord::Schema.define(:version => 20110204044040) do
 
   create_table "about_item_translations", :force => true do |t|
     t.integer "about_item_id"
@@ -310,7 +310,7 @@ ActiveRecord::Schema.define(:version => 20110201172527) do
     t.integer  "activity_notification",   :default => 1
     t.integer  "drafting_notification",   :default => 1
     t.integer  "newsletter_notification", :default => 1
-    t.integer  "authorship_permission",   :default => 0
+    t.integer  "authorship_permission",   :default => 1
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
