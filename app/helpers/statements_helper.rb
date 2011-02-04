@@ -111,7 +111,7 @@ module StatementsHelper
 
           link_to(I18n.t("discuss.statements.siblings.#{context_type}"),
                 new_statement_node_url(origin[2..-1], context_type, :origin => origin),
-                :class => "#{context_type}_link resource_link ajax")
+                :class => "create_#{context_type}_button_32 resource_link ajax")
         end
       end
     end
@@ -128,7 +128,7 @@ module StatementsHelper
       sub_type = sub_type.to_s.underscore
       content << link_to(I18n.t("discuss.statements.types.#{sub_type}"),
                          new_statement_node_url(statement_node.parent, sub_type),
-                         :class => "#{sub_type}_link resource_link ajax")
+                         :class => "create_#{sub_type}_button_32 resource_link ajax")
     end
     content
   end
@@ -157,7 +157,9 @@ module StatementsHelper
   def add_new_follow_up_question_button(statement_node, bids)
     bids = bids ? bids.split(",") : []
     bids << "fq#{statement_node.id}"
-    content_tag(:div, add_new_child_link(statement_node, "follow_up_question", :bids => bids.join(",")), :class => 'children container')
+    content_tag(:div, add_new_child_link(statement_node, "follow_up_question",
+                                         :bids => bids.join(",")),
+                :class => 'children container')
   end
 
   #
@@ -167,7 +169,7 @@ module StatementsHelper
     opts[:new_level] = true
     link_to(I18n.t("discuss.statements.types.#{type}"),
             new_statement_node_url(statement_node, type, opts),
-            :class => "#{type}_link resource_link ajax")
+            :class => "create_#{type}_button_32 resource_link ajax")
   end
 
   #
@@ -251,7 +253,7 @@ module StatementsHelper
   def summary_hint_text(statement_node)
     I18n.t("discuss.statements.text_hint.#{dom_class(statement_node)}")
   end
-  
+
   ##############
   # Sugar & UI #
   ##############
@@ -295,8 +297,8 @@ module StatementsHelper
     end
     content
   end
-  
-  
+
+
   #render the hint on the new draftable statement forms to warn about drafting language on collective text creation
   def drafting_language_hint
     content = ''
@@ -305,7 +307,7 @@ module StatementsHelper
     end
     content
   end
-  
+
   def top_statement_hint
     content = ''
     content << content_tag(:li, :class => 'hint') do

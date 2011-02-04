@@ -1,10 +1,10 @@
 @import "general.css";
 @import "forms.css";
 @import "tabs.css";
-@import "static_menu.css";
 @import "box.css";
-@import "static_content.css";
 @import "tooltips.css";
+@import "static_menu.css";
+@import "static_content.css";
 @import "outer_menus.css";
 @import "jquery-ui-1.7.2.custom.css";
 
@@ -469,16 +469,13 @@
 }
 
 .echoActionBig {
-  font-size:   26px;
-
-
-
+  font-size:   25px;
   font-weight: bold;
   color:       #21587f;
   text-decoration: underline;
   line-height: 38px;
   position:    relative;
-  top:         -85px;
+  top:         -110px;
   left:        142px;
   z-index:     5;
   cursor:      pointer;

@@ -144,7 +144,6 @@ pt:
 
     # Activations section
     activation:
-
       messages:
         success: A sua conta foi ativada com sucesso. Bemvindo à echo!
         failed: A sua conta não pode ser ativada. Por favor verifique os dados inseridos.
@@ -269,8 +268,6 @@ pt:
     permissions:
       title: Configurações de Privacidade
       guide: Aqui pode dar autorização para que a sua informação pessoal seja visível em certas áreas da aplicação web.
- 
-
       authorship:
         title: Autoria de conteúdos
         guide: |
@@ -278,8 +275,6 @@ pt:
           na secção de co-autoria de um dos conteúdos na secção da echo 'Discutir'.
         turned_on: A sua informação pessoal será exposta na secção de co-autores de um conteúdo.
         turned_off: Será exposto anonimamente entre os outros autores de um conteúdo.
- 
-
 
     # New Users section
     users:
@@ -319,7 +314,7 @@ pt:
       title: As minhas questões novas e publicadas
       no_questions: |
         Ainda não criou nenhuma questão. Para o fazer, por favor clique no ponto de interrogação que se encontra à esquerda.
-      add: Adicionar nova questão 
+      add: Criar nova questão 
     tag_permission: |
       Não tem permissão para inserir a tag '{{tag}}'.
     translation_request: Por favor traduza este texto em <strong>PORTUGUÊS</strong>.
@@ -399,7 +394,6 @@ pt:
         improvement: Visualizar todas as melhorias pertencentes à proposta atual
         pro_argument: Visualizar todos os argumentos pertencentes à proposta atual
         contra_argument: Visualizar todos os argumentos pertencentes à proposta atual
-                 
 
     statements:
       label: 'votos'
@@ -443,12 +437,12 @@ pt:
       fuq_formulation_hint: |
         Como as questões complementares também podem ser encontradas em "Pesquisa", o seu conteúdo deve poder ser compreendido fora do contexto da discussão original.
       title_hint:
-        question: Por favor introduza o título da questão em...
-        proposal: Por favor introduza o título da proposta em...
-        improvement: Por favor introduza o título da melhoria em...
-        pro_argument: Por favor introduza o título do argumento a favor em...
-        contra_argument: Por favor introduza o título do argumento contra em...
-        follow_up_question: Por favor introduza o título da questão complementar em...
+        question: Introduza o título da questão em...
+        proposal: Introduza o título da proposta em...
+        improvement: Introduza o título da melhoria em...
+        pro_argument: Introduza o título do argumento a favor em...
+        contra_argument: Introduza o título do argumento contra em...
+        follow_up_question: Introduza o título da questão complementar em...
       text_hint:
         question: Por favor descreva a questão e acrescente alguns detalhes sobre o tema...
         proposal: Por favor descreva a proposta mais detalhadamente...
@@ -457,7 +451,6 @@ pt:
         contra_argument: Por favor descreva o argumento contra mais detalhadamente...
         follow_up_question: Por favor descreva a questão complementar mais detalhadamente...
       tag_hint: 'Palavra-chave (tags) do tema'
- 
 
       publish: Publicar
       published: A questão foi publicada com sucesso.
@@ -470,7 +463,6 @@ pt:
         pro_argument: 'Argumento a Favor'
         contra_argument: 'Argumento Contra'
         follow_up_question: 'Questão Complementar'
-     
       new:
         question:  'Nova Questão'
         proposal:  'Nova Proposta'
@@ -478,7 +470,6 @@ pt:
         pro_argument: 'Novo Argumento a Favor'
         contra_argument: 'Novo Argumento Contra'
         follow_up_question: 'Nova Questão Complementar'
-     
       headings:
         question: 'Questões'
         proposal: 'Propostas'
@@ -486,7 +477,7 @@ pt:
         argument: 'Argumentos'
         follow_up_question: 'Questões Complementares'
       siblings:
-        follow_up_question: 'Pergunta Complementar no contexto exposto acima'
+        follow_up_question: 'Questão Complementar no contexto exposto acima'
 
       topic: Tópico (Tags / Palavras-chave)
       states:
@@ -514,8 +505,8 @@ pt:
         Esta {{type}} acabou de ser traduzida.
       statement_updated: |-
         Esta {{type}} acabou de ser actualizada.
-      statement_supported: "O seu echo foi registado com sucesso."
-      statement_unsupported: "O seu echo foi retirado."
+      statement_supported: "O seu ec(h)o foi registado com sucesso."
+      statement_unsupported: "O seu ec(h)o foi retirado."
       edit_period_hint: |
         <strong>Tem {{minutes}} minutos</strong> para editar a proposta.
         Depois de este tempo esgotar poderá perder as suas modificações.
@@ -536,7 +527,6 @@ pt:
           mi: 'Voltar para'
           sr: 'Voltar para a pesquisa de resultados'
           fq: 'Voltar para'
- 
 
       upload_image:
         title: Carregar Imagem
@@ -597,7 +587,7 @@ pt:
       expertise: 'Especialistas'
       decision_making: 'Tomadores de decisão'
     results_count:
-      members:
+      all:
         no_filter:
           one: 'pessoa'
           more: 'pessoas'

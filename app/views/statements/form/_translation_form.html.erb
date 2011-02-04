@@ -7,8 +7,6 @@
                           Language[params[:locale]].value.upcase %>
 </div>
 
-<%= content_tag :p, I18n.t('discuss.statements.drafting_language_hint') if statement_node.draftable? %>
-
 <%= render :partial => "statements/form/document_form",
            :locals => { :form => form,
                         :disabled => true } %>

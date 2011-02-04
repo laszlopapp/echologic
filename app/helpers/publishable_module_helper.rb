@@ -18,7 +18,7 @@ module PublishableModuleHelper
     link_to(I18n.t("discuss.statements.create_question_link"),
             new_question_url(:origin => origin, :bids => origin),
             :id => 'create_question_link',
-            :class => 'new_question add_new_button text_button create_question_button_32')
+            :class => 'new_question add_new_button text_button add_question_button_32')
   end
 
   #
@@ -27,10 +27,10 @@ module PublishableModuleHelper
   def create_first_question_link_for(search_terms='')
     origin = "sr#{search_terms}"
     link_to(new_question_url(:origin => origin, :bids => origin),
-            :id => 'create_question_teaser_link', 
+            :id => 'create_question_teaser_link',
             :class => 'no_results create_first_question_button') do
       content_tag(:span, I18n.t('discuss.search.add'))
-    
+
     end
   end
 
@@ -55,7 +55,7 @@ module PublishableModuleHelper
   def add_new_question_button(origin = nil)
     link_to(I18n.t("discuss.statements.types.question"),
             new_question_url(:origin => origin, :bids => origin),
-            :class => "question_link resource_link ajax")
+            :class => "create_question_button_32 resource_link ajax")
   end
 
 

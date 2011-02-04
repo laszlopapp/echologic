@@ -53,18 +53,9 @@ de:
         roadmap: 'echo - Fahrplan für Diskutieren'
       statements:
         category: 'echo - Diskussionsthemen'
-        show: 'echo - Debatten'
+        show: 'echo - Aussage'
         new: 'Neue Diskussion eröffnen'
         my_questions: 'Meine Diskussionen'
-#      questions:
-#        category: 'echo - Diskussionsthemen'
-#        show: 'echo - Debatten'
-#        new: 'Neue Diskussion eröffnen'
-#        my_questions: 'Meine Diskussionen'
-#      proposals:
-#        show: 'echo - Stellungnahmen in der Debate'
-#      improvements:
-#        show: 'echo - Ergänzungsvorschläge für die Stellungnahme'
 
       # connect: de.seo.title.connect
       connect:
@@ -95,12 +86,16 @@ de:
     meta:
       echologic:
         description: |-
-          echologic ist ein Netzwerk von BewegerInnen und ihren Organisationen. Gemeinsam verwirklichen wir
-          echo, die globale Agora. echo ist ein Gemeinschaftsprojekt für einen nachhaltigen Wandel durch
-          aktive Bürgerbeteiligung. echo schafft die technische Grundlage für eine offene, teilnehmende Demokratie
-          auf lokaler, regionaler und globaler Ebene.
+          echo ermöglicht konstruktive öffentliche Dialoge zur Meinungsbildung und Meinungsäußerung. Die Diskussionen
+          liefern einen schnellen Überblick über alternative Sichtweisen, Pro/Kontra Argumente und multimediale
+          Hintergrundinformationen. Die Position verschiedener Gesellschaftsgruppen wird transparent und leicht
+          nachvollziehbar. Wissen, Meinungen und deren Befürworter werden über Webseiten, Communities und
+          Sprachgrenzen hinaus im gesamten Internet zusammengefasst.
+          echo vernetzt so weltweit Menschen mit den gleichen Zielen und unterstützt sie im gemeinsamen Handeln.
+          Wo auch immer wir in der virtuellen oder realen Welt sind, echo macht uns deutlich: wir sind mit unserer
+          Meinung nicht alleine – das „Echo“ unserer Stimmen kann die Welt verändern.
         keywords: |-
-          echologic, Bewegung, globale Bewegung, echo, Agora, globale Agora, Demokratie, teilnehmende Demokratie,
+          echo, Agora, globale Agora, Demokratie, teilnehmende Demokratie,
           Demokratie zum Mitmachen, Selbstbestimmung, kollektive Intelligenz, Meinungsbild, Meinungsbildung, Willensbildung,
           kollektive Entscheidungsfindung, Mobilisierung, kritische Massen, legislative Instrumente, politische Einflussnahme,
           soziale Kollaboration, echocracy, Gleichberechtigung, Transparenz, echonomy, öko-sozial,
@@ -109,10 +104,14 @@ de:
 
       echo:
         description: |-
-          echo ist ein Gemeinschaftsprojekt der Menschheit für einen nachhaltigen Wandel durch aktive Bürgerbeteiligung.
-          Es schafft die technische Grundlage für eine offene, teilnehmende Demokratie auf lokaler,
-          regionaler und globaler Ebene. Ihre Stimme findet hier ein Echo. Aus Ideen wird Bewegung,
-          aus Visionen Realität. echo bedeutet das Ende der Machtlosigkeit, den Anfang der Selbstbestimmung.
+          echo ermöglicht konstruktive öffentliche Dialoge zur Meinungsbildung und Meinungsäußerung. Die Diskussionen
+          liefern einen schnellen Überblick über alternative Sichtweisen, Pro/Kontra Argumente und multimediale
+          Hintergrundinformationen. Die Position verschiedener Gesellschaftsgruppen wird transparent und leicht
+          nachvollziehbar. Wissen, Meinungen und deren Befürworter werden über Webseiten, Communities und
+          Sprachgrenzen hinaus im gesamten Internet zusammengefasst.
+          echo vernetzt so weltweit Menschen mit den gleichen Zielen und unterstützt sie im gemeinsamen Handeln.
+          Wo auch immer wir in der virtuellen oder realen Welt sind, echo macht uns deutlich: wir sind mit unserer
+          Meinung nicht alleine – das „Echo“ unserer Stimmen kann die Welt verändern.
         keywords: |-
           echo, lösungsorientierte Massendialog, globale Agora, Demokratie, Demokratie zum Mitmachen,
           Selbstbestimmung, kollektive Intelligenz, Meinungsbild, Meinungsbildung, Willensbildung, Entscheidungsfindung,

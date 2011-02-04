@@ -21,7 +21,7 @@ en:
     signature_as_html: |-
       <strong>echo</strong> - the global agora
       <br/><br/>
-      Web: <a href="http://echo.to">http://echo.to</a><br/>
+      Web: <a href="http://echo.tof">http://echo.to</a><br/>
       Blog: <a href="http://blog.echo.to">http://blog.echo.to</a><br/>
       Twitter: <a href="http://twitter.com/echologic">http://twitter.com/echologic</a><br/>
       Facebook: <a href="http://www.facebook.com/echo.agora">http://www.facebook.com/echo.agora</a><br/>
@@ -54,7 +54,7 @@ en:
         new_improvements: 'New improvement ideas for the proposal "{{title}}" in "{{question_title}}":'
         new_pro_arguments: 'New pro arguments for the proposal "{{title}}" in "{{question_title}}":'
         new_contra_arguments: 'New contra arguments for the proposal "{{title}}" in "{{question_title}}":'
-        new_follow_up_questions: 'New follow-up questions for "{{title}}":'
+        new_follow_up_questions: 'New follow-up questions for "{{title}}":' 
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         If you do not wish to receive regular updates on new discussion entries, please log in to

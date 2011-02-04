@@ -22,7 +22,7 @@ module ConnectHelper
 
   def profiles_count_text(count, search_terms, sort_id)
     sort = sort_id.blank? ? nil : TagContext[sort_id.to_i]
-    category = sort.nil? ? 'members' : sort.code
+    category = sort.nil? ? 'all' : sort.code
     filter = search_terms.blank? ? 'no_filter' : 'with_filter'
     one_or_many = count == 1 ? 'one' : 'more'
 

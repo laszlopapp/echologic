@@ -4,6 +4,11 @@
 
 <% form.semantic_fields_for :statement_document, statement_document do |doc|  %>
   <% doc.inputs :class => 'inputs left_panel statement_text' do %>
+
+    <%= render :partial => 'statements/action_bar',
+             :locals => {:statement_node => statement_node,
+                         :only_echo_button => true } if statement_node.new_record? %>
+
 	  <% if disabled or !statement_document.new_record? %>
 	    <%= doc.input :language_id,
                     :as => :hidden,

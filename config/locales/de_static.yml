@@ -99,8 +99,9 @@ de:
             echo steckt zwar momentan noch in den Kinderschuhen, Sie können aber bereits jetzt:
             </p>
 
-        action: |
-          Zum echo Prototyp »
+        action: |-
+          Das NEUE echo ist ONLINE!<br/>
+          Jetzt zum Prototyp »
 
       # about section
       about:

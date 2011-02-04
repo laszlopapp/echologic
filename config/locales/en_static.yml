@@ -97,8 +97,9 @@ en:
             Although echo is still in its embryonic stage, you can already:
             </p>
 
-        action: |
-          Go to echo prototype »
+        action: |-
+          The NEW echo is ONLINE!<br/>
+          Check out prototype »
 
       #About
       about:

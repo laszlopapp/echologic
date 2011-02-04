@@ -268,14 +268,13 @@ en:
 
     # Permissions section
     permissions:
-      title: Permission Settings
-      guide: Here you can set whether you would allow your data to be shown in various areas of the website.
-
+      title: Privacy Settings
+      guide: Where in echo your personal data should be shown or be hidden?
       authorship:
-        title: Authorship
-        guide: Allow yourself to be identified as the author of any type of content.
-        turned_on: Authorship has been switched on.
-        turned_off: Authorship has been switched off.
+        title: Authorship of statements
+        guide: Let other logged in members (but no search engines) see your profile information as being a co-author of a statement in echo Discuss.
+        turned_on: Your profile information will be shown when displaying co-authors of statements.
+        turned_off: You will be displayed as Anonym among other authors of a statement.
 
     # New Users section
     users:
@@ -362,31 +361,31 @@ en:
       next_proposal: 'Read next proposal for the current question'
       prev_improvement: 'Read previous improvement for the current proposal'
       next_improvement: 'Read next improvement for the current proposal'
-      prev_pro_argument: 'Read previous pro argument for the current proposal'
-      next_pro_argument: 'Read next pro argument for the current proposal'
-      prev_contra_argument: 'Read previous contra argument for the current proposal'
-      next_contra_argument: 'Read next contra argument for the current proposal'
-      prev_follow_up_question: 'Read previous follow-up question'
-      next_follow_up_question: 'Read next follow-up question'
+      prev_pro_argument: 'Read previous argument for the current proposal'
+      next_pro_argument: 'Read next argument for the current proposal'
+      prev_contra_argument: 'Read previous argument for the current proposal'
+      next_contra_argument: 'Read next argument for the current proposal'
+      prev_follow_up_question: 'Read previous follow-up question in the context shown above'
+      next_follow_up_question: 'Read next follow-up question in the context shown above'
       create_question: 'Create a new question'
       create_proposal: "Post a new proposal for the current question"
       create_improvement: "Post a new improvement to the current proposal"
-      create_pro_argument: "Post a new argument agreeing with this proposal"
-      create_contra_argument: "Post a new argument disagreeing with this proposal"
-      create_follow_up_question: "Post a new follow-up question"
+      create_pro_argument: "Post a new pro argument to this proposal"
+      create_contra_argument: "Post a new contra argument to this proposal"
+      create_follow_up_question: "Post a new new follow-up question"
       echo: 'echo this statement to support it!'
-      unecho: 'Withdraw your vote to stop supporting this statement'
+      unecho: 'Withdraw your echo to stop supporting this statement'
       publish: |
         Release the question to make it visible for everybody.
         (Afterwards no further editing is possible.)
       incorporate: 'Click here to incorporate this improvement into the proposal above.'
       siblings:
-        question: See all the questions that belong to the context show above
-        proposal: See all the proposals that belong to the current question
-        improvement: See all the improvements that belong to the current proposal
-        pro_argument: See all the pro arguments that belong to the current proposal
-        contra_argument: See all the contra arguments that belong to the current proposal
-                 
+        question: See all questions in the context shown above
+        proposal: See all proposals belonging to the current question
+        improvement: See all improvements proposed for the current proposal
+        pro_argument: See all arguments belonging to the current proposal
+        contra_argument:  See all arguments belonging to the current proposal
+
 
     statements:
       label: 'votes'
@@ -406,9 +405,9 @@ en:
       create_contra_argument_link: Add new contra argument
       create_follow_up_question_link: Add new follow-up question
       recommend_link: 'Recommend this'
-      unrecommend_link: 'Unrecommend this'
+      unrecommend_link: 'Withdraw echo'
       support_link: 'Support this'
-      unsupport_link: 'Unsupport this'
+      unsupport_link: 'Withdraw echo'
       create_question_explanation: |
         Please formulate the <strong>question</strong> to be discussed, describe the issue with some more details
         and tag it with <strong>relevant keywords</strong> for better searchability.
@@ -430,20 +429,24 @@ en:
       fuq_formulation_hint: |
         Since follow-up questions also appear as questions in "Search", title and description should both be comprehensible independently of the original discussion.
       title_hint:
-        question: Please enter the question title in... 
+        question: Please enter the question title in...
         proposal: Please enter the proposal title in...
         improvement: Please enter the improvement title in...
         pro_argument: Please enter the pro argument title in...
         contra_argument: Please enter the contra argument title in...
-        follow_up_question: Please enter the follow-up question title in... 
+        follow_up_question: Please enter the follow-up question title in...
       text_hint:
-        question: Please enter some more details and explanation here...
-        proposal: Please enter some more details and explanation here...
-        improvement: Please enter some more details and explanation here...
-        pro_argument: Please enter some more details and explanation here...
-        contra_argument: Please enter some more details and explanation here...
-        follow_up_question: Please enter some more details and explanation here...
-      tag_hint: 'Please enter tag here...'
+        question: Describe the issue and write some details about the topic...
+        proposal: Describe your proposal in more detail...
+        improvement: Describe your improvement idea in more detail...
+        pro_argument: Describe your pro argument in more detail...
+        contra_argument: Describe your contra argument in more detail...
+        follow_up_question: Describe your follow-up question in more detail...
+      fuq_formulation_hint: |
+        Since follow-up questions also appear as questions in "Search",
+        title and description should both be understandable also independently of
+        the original discussion.
+      tag_hint: 'Enter tags here...'
 
       publish: Release
       published: The question has been released successfully.
@@ -470,7 +473,7 @@ en:
         argument: 'Arguments'
         follow_up_question: 'Follow-up Questions'
       siblings:
-        follow_up_question: 'Follow-Up Question (Sibling)'
+        follow_up_question: 'Follow-up Question in the context shown above'
 
       topic: Topic (Tags / Keywords)
       states:
@@ -499,14 +502,14 @@ en:
       statement_updated: |-
         This {{type}} has just been updated.
       statement_supported: |-
-        Congratulations, you support this {{type}}.
+         Thanks for making an echo to the {{type}}.
       statement_unsupported: |-
-        You just dropped your support from this {{type}}.
+         You withdrew your echo from the {{type}}.
       edit_period_hint: |
         You have <strong>{{minutes}} minutes</strong> to edit the statement.
         Afterwards, your modifications might even get discarded.
       staled_modification: 'We are very sorry, but you exceeded the 60 minutes limit to edit and save the statement. Meanwhile it has already been updated by a different user. Therefore, your changes must have been unfortunately discarded.'
-      no_document_in_language: 'The statement does not exist in English.'
+      no_document_in_language: 'The statement does not exist in English yet.'
 
       breadcrumbs:
         discuss_search: Search
@@ -522,8 +525,6 @@ en:
             sr: 'Back to search results for'
             fq: 'Back to'
 
-
-
       upload_image:
         title: Upload Image
         guide: Please <strong>select an image</strong> (JPG or PNG, max. 5MB) and upload it.
@@ -532,22 +533,22 @@ en:
 
       add_teaser:
         question: |
-          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
           button above to enter it NOW!
         proposal: |
-          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
           button above to enter it NOW!
         improvement: |
-          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
           button above to enter it NOW!
         pro_argument: |
-          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
           button above to enter it NOW!
         contra_argument: |
-          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
           button above to enter it NOW!
         follow_up_question: |
-          <br/>This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
           button above to enter it NOW!
     summary:
       title: 'Summary'
@@ -583,7 +584,7 @@ en:
       expertise: 'Experts'
       decision_making: 'Decision Makers'
     results_count:
-      members:
+      all:
         no_filter:
           one: 'person'
           more: 'people'

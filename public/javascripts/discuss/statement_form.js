@@ -113,19 +113,22 @@
 
         // Text Area (RTE Editor)
         var editor = form.find("iframe.rte_doc");
-        value = editor.attr('data-default');
-        var doc = editor.contents().get(0);
+        var value = editor.attr('data-default');
+        var doc = $(editor.contents().get(0));
         var text = $(doc).find('body');
-        if(text.html().length == 0 || text.html().val() == '</br>') {
+        if(text.html().length == 0) {
           var label = $("<span class='defaultText'></span>").html(value);
-          label.insertAfter(editor);
-
-          $(doc).bind('click', function(){
-            label.hide();
+          label.insertAfter(editor).click(function() {
+            doc.click();
           });
-          $(doc).bind('blur', function(){
+
+          doc.bind('click', function(){
+            label.hide();
+            editor.focus();
+          });
+          doc.bind('blur', function(){
             var new_text = $(editor.contents().get(0)).find('body');
-            if (new_text.html().length == 0 || new_text.html() == '</br>') {
+            if (new_text.html().length == 0) {
               label.show();
             }
           });
