@@ -271,7 +271,7 @@ pt:
       authorship:
         title: Autoria de conteúdos
         guide: |
-          Permita que outros utilizadores logados (mas não motores de busca) visualizem a sua informação pessoal 
+          Permita que outros utilizadores logados (mas não motores de busca) visualizem a sua informação pessoal
           na secção de co-autoria de um dos conteúdos na secção da echo 'Discutir'.
         turned_on: A sua informação pessoal será exposta na secção de co-autores de um conteúdo.
         turned_off: Será exposto anonimamente entre os outros autores de um conteúdo.
@@ -314,7 +314,7 @@ pt:
       title: As minhas questões novas e publicadas
       no_questions: |
         Ainda não criou nenhuma questão. Para o fazer, por favor clique no ponto de interrogação que se encontra à esquerda.
-      add: Criar nova questão 
+      add: Criar nova questão
     tag_permission: |
       Não tem permissão para inserir a tag '{{tag}}'.
     translation_request: Por favor traduza este texto em <strong>PORTUGUÊS</strong>.
@@ -346,7 +346,7 @@ pt:
     search:
       title: Pesquisa
       in: '... em {{category}} ...'
-      add: "Crie a primeira pergunta sobre o tema" 
+      add: "Crie a primeira pergunta sobre o tema"
 
     tooltips:
       read_question: 'Ir para esta questão'
@@ -404,7 +404,7 @@ pt:
         recommend:
           one: '{{supporter_count}} recomendação'
           many: '{{supporter_count}} recomendações'
-      add_new: Adicionar novo/a... 
+      add_new: Adicionar novo/a...
       create_question_link: 'Criar uma nova questão'
       create_proposal_link: 'Criar nova proposta'
       create_internal_link: 'Nova ideia?'
@@ -512,7 +512,7 @@ pt:
         Depois de este tempo esgotar poderá perder as suas modificações.
       staled_modification: 'Pedimos desculpa, mas o prazo de 60 minutos para editar a proposta esgotou. Entretanto a proposta foi editada por outra pessoa. Por esta razão, as suas mudanças foram lamentavelmente perdidas.'
       no_document_in_language: 'O conteúdo ainda não existe em Português.'
- 
+
 
       breadcrumbs:
         discuss_search: Pesquisa
@@ -536,23 +536,23 @@ pt:
 
       add_teaser:
         question: |
-          <br/>Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>Prima o botão
-          acima e insira-a AGORA!
+          Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>
+          Prima o botão acima e insira-a AGORA!
         proposal: |
-          <br/>Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>Prima o botão
-          acima e insira-a AGORA!
+          Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>
+          Prima o botão acima e insira-a AGORA!
         improvement: |
-          <br/>Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>Prima o botão
-          acima e insira-a AGORA!
+          Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>
+          Prima o botão acima e insira-a AGORA!
         pro_argument: |
-          <br/>Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>Prima o botão
-          acima e insira-a AGORA!
+          Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>
+          Prima o botão acima e insira-a AGORA!
         contra_argument: |
-          <br/>Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>Prima o botão
-          acima e insira-a AGORA!
+          Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>
+          Prima o botão acima e insira-a AGORA!
         follow_up_question: |
-          <br/>Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>Prima o botão
-          acima e insira-a AGORA!
+          Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>
+          Prima o botão acima e insira-a AGORA!
 
     summary:
       title: 'Sumário'
@@ -621,7 +621,7 @@ pt:
           more: tomadores de decisão
         with_filter:
           one: "tomador de decisão em '{{filter}}'"
-          more: "tomadores de decisão '{{filter}}'" 
+          more: "tomadores de decisão '{{filter}}'"
     details:
       tabs:
         overview:     'Visão global'
