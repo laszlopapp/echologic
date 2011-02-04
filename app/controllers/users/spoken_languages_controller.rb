@@ -47,7 +47,7 @@ class Users::SpokenLanguagesController < ApplicationController
               p << "$('#spoken_language_language').focus();"
             end
           else
-            show_error_messages(@spoken_language)
+            set_error @spoken_language and render_with_error
           end
         end
       end
@@ -67,7 +67,7 @@ class Users::SpokenLanguagesController < ApplicationController
           if @spoken_language.update_attributes(params[:spoken_language])
             replace_content(dom_id(@spoken_language), :partial => @spoken_language)
           else
-            show_error_messages(@spoken_language)
+            set_error @spoken_language and render_with_error
           end
         end
       end

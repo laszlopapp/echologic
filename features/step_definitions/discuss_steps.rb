@@ -40,22 +40,22 @@ When /^I choose the "([^\"]*)" Question$/ do |name|
 end
 
 When /^I choose the "([^\"]*)" Proposal$/ do |name|
-  response.should have_selector("li.question") do |selector|
+  response.should have_selector("li.proposal") do |selector|
     selector.each do |proposal|
       if name.eql?(proposal.at_css("a.proposal_link").inner_text.strip)
-        @proposal = Proposal.find(URI.parse(proposal.at_css("a")['href']).path.match(/\/proposals\/\d+/)[0].split('/')[2].to_i)
+        @proposal = Proposal.find(URI.parse(proposal.at_css("a")['href']).path.match(/\d+/)[0].to_i)
         visit proposal.at_css("a")['href']
       end
     end
   end
 end
 
-When /^I choose the "([^\"]*)" Improvement Proposal$/ do |name|
-  response.should have_selector("li.proposal") do |selector|
-    selector.each do |improvement_proposal|
-      if name.eql?(improvement_proposal.at_css("a.improvement_proposal_link").inner_text.strip)
-        @improvement_proposal = ImprovementProposal.find(URI.parse(improvement_proposal.at_css("a")['href']).path.match(/\/improvement_proposals\/\d+/)[0].split('/')[2].to_i)
-        visit improvement_proposal.at_css("a")['href']
+When /^I choose the "([^\"]*)" Improvement$/ do |name|
+  response.should have_selector("li.improvement") do |selector|
+    selector.each do |improvement|
+      if name.eql?(improvement.at_css("a.improvement_link").inner_text.strip)
+        @improvement = Improvement.find(URI.parse(improvement.at_css("a")['href']).path.match(/\d+/)[0].to_i)
+        visit improvement.at_css("a")['href']
       end
     end
   end
@@ -73,6 +73,10 @@ Given /^there is the second question$/i do
   @question = Question.first
 end
 
+Given /^there is a question$/ do
+  @question = Question.first
+end
+
 Given /^there is a question "([^\"]*)"$/ do |id| # not in use right now
   @question = Question.find(id)
 end
@@ -83,7 +87,7 @@ end
 
 Given /^the question was not published yet$/ do
   @question.editorial_state = StatementState["new"]
-  @question.save
+  @question.statement.save
 end
 
 Given /^the question has proposals$/ do
@@ -93,7 +97,7 @@ end
 
 Given /^the question has "([^\"]*)" for tags$/i do |tags|
   @question.topic_tags = tags
-  @question.save
+  @question.statement.save
 end
 
 Given /^the question has no proposals$/ do
@@ -125,15 +129,15 @@ Then /^the second question must be more recent than the first question$/ do
 end
 
 # Is it okay to give a condition in a 'Given' step?
-Given /^the question has at least on proposal$/ do
+Given /^the question has at least one proposal$/ do
   @question.reload
   @question.children.proposals.count.should >= 1
   @proposal = @question.children.proposals.first
 end
 
-Then /^the proposal should have one improvement proposal$/ do
+Then /^the proposal should have one improvement$/ do
   @proposal.reload
-  @proposal.children.improvement_proposals.count.should >= 1
+  @proposal.children.improvements.count.should >= 1
 end
 
 Then /^I should not see the create proposal link$/ do
@@ -143,14 +147,14 @@ end
 
 Given /^a "([^\"]*)" question in "([^\"]*)"$/ do |state, category|
   state = StatementState[state.downcase]
-  @question = Question.new(:editorial_state => state, :creator => @user)
-  @question.add_statement_document!({:title => "Am I a new statement?",
-                                     :text => "I wonder what i really am! Maybe a statement? Or even a question?",
-                                     :author => @user,
-                                     :current => 1,
-                                     :language_id => @user.sorted_spoken_language_ids.first,
-                                     :action_id => StatementAction["created"].id,
-                                     :original_language_id => @user.sorted_spoken_language_ids.first})
+  @question = Question.new_instance(:editorial_state => state, :creator => @user)
+  @question.add_statement_document({:title => "Am I a new statement?",
+                                      :text => "I wonder what i really am! Maybe a statement? Or even a question?",
+                                      :author => @user,
+                                      :current => 1,
+                                      :language_id => @user.sorted_spoken_language_ids.first,
+                                      :action_id => StatementAction["created"].id,
+                                      :original_language_id => @user.sorted_spoken_language_ids.first})
   @question.topic_tags << category
   @question.save!
 end
@@ -169,12 +173,12 @@ Given /^there is a proposal I have created$/ do
 end
 
 Given /^there is a proposal$/ do
-  @proposal = Question.find_all_by_editorial_state_id(StatementState['published'].id).last.children.proposals.first
+  @proposal = Question.all(:joins => :statement, :conditions => "statements.editorial_state_id = #{StatementState['published'].id}").last.children.proposals.first
 end
 
 Given /^the proposal was not published yet$/ do
   @proposal.editorial_state = StatementState["new"]
-  @proposal.save
+  @proposal.statement.save
 end
 
 Given /^I have "([^\"]*)" as decision making tags$/ do |tags|
@@ -210,4 +214,26 @@ Then /^"([^\"]*)" should have a "([^\"]*)" event$/ do |question, op_type|
   event = Event.find_by_subscribeable_id(@question.id)
   assert !event.nil?
   assert event.operation.eql?(op_type)
+end
+
+Then /^the ([^\"]*) should have ([^\"]*) siblings in session$/ do |statement_type, siblings_number|
+  type = statement_type.split(" ").map(&:downcase).join("_").classify.constantize.name_for_siblings
+  response.should have_selector("#statements div.#{type}") do |selector|
+    statement = selector.first
+    siblings = eval(statement.get_attribute("data-siblings"))
+    assert siblings.select{|s|s.is_a?(Numeric)}.length - 1 == siblings_number.to_i
+  end
+end
+
+Then /^there should be a "([^\"]*)" breadcrumb$/ do |title|
+  response.should have_selector("#breadcrumbs span.statement") do |selector|
+    result = false
+    selector.each do |breadcrumb|
+      if title.eql?(breadcrumb.inner_text.strip)
+        result = true
+        break
+      end
+    end
+    assert result
+  end
 end

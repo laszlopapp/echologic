@@ -8,19 +8,20 @@ ActionController::Routing::Routes.draw do |map|
 
   # SECTION main parts of echologic
   map.act '/act/roadmap', :controller => :act, :action => :roadmap
-  map.discuss '/discuss', :controller => :questions, :action => :category
   map.discuss_featured '/discuss/featured', :controller => :discuss, :action => :index
   map.discuss_roadmap '/discuss/roadmap', :controller => :discuss, :action => :roadmap
-  map.discuss_search '/discuss/search', :controller => :questions, :action => :category
   map.discuss_cancel '/discuss/cancel', :controller => :discuss, :action => :cancel
-  map.question_tags '/discuss/category/:id', :controller => :questions, :action => :category, :conditions => {:id => /\w+/ }
-  map.my_discussions '/discuss/my_issues', :controller => :questions, :action => :my_discussions
+  map.my_questions '/discuss/my_questions', :controller => :statements, :action => :my_questions
 
+  # SECTION discuss search
+  map.discuss_search '/discuss/search', :controller => :statements, :action => :category
+ 
+  # SECTION connect search
+  map.connect_search '/connect/search', :controller => :connect, :action => :show
   map.connect_roadmap '/connect/roadmap', :controller => :connect, :action => :roadmap
 
   map.my_echo '/my_echo/roadmap', :controller => :my_echo, :action => :roadmap
 
-  map.resource :connect, :controller => 'connect', :only => [:show]
   map.resource :admin,   :controller => 'admin',   :only => [:show]
 
   # SECTION my echo routing
@@ -108,18 +109,46 @@ ActionController::Routing::Routes.draw do |map|
                  :conditions=>{:rails_env => 'production', :host => "echosocial-prod-clone.echo-test.org" }
 
 
-  # SECTION discuss - discussion tree
-  map.resources :questions,
-              :member => [:new_translation, :create_translation, :publish, :cancel, :children, :upload_image, :reload_image],
-                :as => 'discuss/questions' do |question|
-    question.resources :proposals,
-                       :member => [:echo, :unecho, :new_translation, :create_translation, :incorporate, :cancel, :children, :upload_image, :reload_image] do |proposal|
-      proposal.resources :improvement_proposals,
-                         :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :upload_image, :reload_image] do |improvement_proposal|
-      end
-    end
-  end
+  # SECTION discuss - statement's tree
 
+  #route for new question
+  map.new_question         'statement/new/question', :controller => :statements, :action => :new, :type => :question
+  
+  #Add Teaser section
+  map.connect  'statement/add/question', :controller => :statements, :action => :add, :type => :question
+  map.connect  'statement/:id/add/:type',  :controller => :statements, :action => :add
+  map.question_descendants 'statement/descendants/question', :controller => :statements, :action => :descendants, :type => :question
+
+  map.resources :statement_nodes, :controller => :statements,
+                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, 
+                            :children, :more, :authors, :publish, :incorporate, :ancestors, :descendants],
+                :path_names => { :new => ':id/new/:type', :more => 'more/:type',
+                                 :edit => 'edit/:current_document_id', :new_translation => 'translation/:current_document_id',
+                                 :children => 'children/:type', :incorporate => 'incorporate/:approved_ip',
+                                 :descendants => 'descendants/:type'},
+                :as => 'statement'
+  #publish
+  map.connect   'statements/:id/publish/:in',   :controller => :statements, :action => :publish
+
+
+  map.resources :questions, :controller => :statements, :type => :question, :only => [:create, :update]
+  map.resources :proposals, :controller => :statements, :only => [:create, :update]
+  map.resources :improvements, :controller => :statements, :only => [:create, :update]
+  map.resources :pro_arguments, :controller => :statements, :only => [:create, :update]
+  map.resources :contra_arguments, :controller => :statements, :only => [:create, :update]
+  map.resources :follow_up_questions, :controller => :statements, :only => [:create, :update]
+
+  #statement images
+  map.resources :statement_images, 
+                :member => [:reload], :only => [:edit, :update], 
+                :path_names => {:edit => 'statement/:node_id/edit',
+                                :reload => 'statement/:node_id/reload'}, :as => 'image'
+
+
+  # old discuss paths redirection
+  map.connect 'discuss/questions/:question_id/proposals/:id', :controller => :statements, :action => :redirect_to_statement
+  map.connect 'discuss/questions/:question_id/proposals/:proposal_id/improvement_proposals/:id',
+              :controller => :statements, :action => :redirect_to_statement
 
   # SECTION root
   map.root :controller => 'static/echologic', :action => 'show'

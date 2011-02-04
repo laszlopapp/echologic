@@ -48,11 +48,14 @@ de:
 
     activity_tracking:
       subject: echo - Neue Diskussionsbeiträge
-      discussions:
+      statements:
         new_questions: 'Es gibt <strong>{{count}} neue Fragestellung(en)</strong> seit dem letzten Update. '
         new_tags: 'Sie befassen sich mit den folgenden Themen:'
         new_proposals: 'Neue Vorschläge in der Fragestellung "{{title}}"'
-        new_improvement_proposals: 'Neue Ergänzungsideen für den Vorschlag "{{title}}" in "{{question_title}}":'
+        new_improvements: 'Neue Ergänzungsideen für den Vorschlag "{{title}}" in "{{question_title}}":'
+        new_pro_arguments: 'Neues Pro-Argument zum Vorschlag "{{title}}" in "{{question_title}}":'
+        new_contra_arguments: Neues Kontra-Argument zum Vorschlag "{{title}}" in "{{question_title}}":'
+        new_follow_up_questions: 'Neue Folgefrage zu "{{title}}":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         Wenn Sie keine Benachrichtigungen über neue Discussionen und Vorschläge erhalten möchten, melden Sie sich bitte auf

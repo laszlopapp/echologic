@@ -1,6 +1,6 @@
 @discuss @UserSession
-Feature: Take Part on a discussion
-  In order to take part on a discussion
+Feature: Take Part on a question
+  In order to take part on a question
   As a user
   I want to give different kind of statements on questions
 
@@ -50,18 +50,198 @@ Feature: Take Part on a discussion
       And the question should have one proposal
 
   @ok
-  Scenario: Add an Improvement Proposal to a Proposal
+  Scenario: Add an Improvement to a Proposal
     Given I am logged in as "user" with password "true"
       And there is the first question
-      And the question has at least on proposal
+      And the question has at least one proposal
     When I go to the questions first proposal
-      And I follow "create_improvement_proposal_link"
+      And I follow localized "discuss.statements.create_improvement_link"
       And I fill in the following:
-      | improvement_proposal_statement_document_title           | Improving the unimprovable                                           |
-      | improvement_proposal_statement_document_text           | blubb (oh, and of cause a lot of foo and a little bit of (mars-)bar) |
+      | improvement_statement_document_title           | Improving the unimprovable                                           |
+      | improvement_statement_document_text           | blubb (oh, and of cause a lot of foo and a little bit of (mars-)bar) |
       And I press "Save"
     Then I should see "Improving the unimprovable"
-      And the proposal should have one improvement proposal
+      And the proposal should have one improvement
+      
+  # TEST THE 'ADD NEW' SECTION
+  
+  @ok
+  Scenario: Add a sibling question
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Search"
+      And I choose the "Test Question2?" Question
+      And I follow localized "discuss.statements.types.question" within ".add_new_panel"
+      And I fill in the following:
+      | question_statement_document_title           | Question on the side              |
+      | question_statement_document_text            | i like big butts and i cannot lie |
+      And I press "Save"
+    Then I should see "Question on the side"
+      And the question should have 5 siblings in session
+  
+  Scenario: Add a sibling Proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow localized "discuss.statements.types.proposal" within ".add_new_panel"
+      And I fill in the following:
+      | proposal_statement_document_title           | How to propose to women   |
+      | proposal_statement_document_text            | i find you very atractive |
+      And I press "Save"
+    Then I should see "How to propose to women"
+      And the proposal should have 1 siblings in session
+    
+  Scenario: Add a sibling Improvement 
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I choose the "A better first proposal" Improvement
+      And I follow localized "discuss.statements.types.improvement" within ".add_new_panel"
+      And I fill in the following:
+      | improvement_statement_document_title           | How to improve yer status    |
+      | improvement_statement_document_text            | Eat the poor                 |
+      And I press "Save"
+    Then I should see "How to improve yer status"
+      And the improvement should have 5 siblings in session
+  
+  Scenario: Add a Proposal to a Question
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I follow localized "discuss.statements.types.proposal" within ".add_new_panel"
+      And I fill in the following:
+      | proposal_statement_document_title           | How to propose to women   |
+      | proposal_statement_document_text            | i find you very atractive |
+      And I press "Save"
+    Then I should see "How to propose to women"
+      And the proposal should have 1 siblings in session
+  
+  Scenario: Add an Improvement to a proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow localized "discuss.statements.types.improvement" within ".add_new_panel"
+      And I fill in the following:
+      | improvement_statement_document_title           | How to improve yer status    |
+      | improvement_statement_document_text            | Eat the poor                 |
+      And I press "Save"
+    Then I should see "How to improve yer status"
+      And the improvement should have 5 siblings in session
+    
+  Scenario: Add a Pro Argument to a proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow localized "discuss.statements.types.pro_argument" within ".add_new_panel"
+      And I fill in the following:
+      | pro_argument_statement_document_title           | Pro 4 life                   |
+      | pro_argument_statement_document_text            | I submit this pro-life stand |
+      And I press "Save"
+    Then I should see "Pro 4 life"
+      And the pro argument should have 0 siblings in session
+  
+  Scenario: Add a Pro Argument to a proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow localized "discuss.statements.types.contra_argument" within ".add_new_panel"
+      And I fill in the following:
+      | contra_argument_statement_document_title           | Contra is cool    |
+      | contra_argument_statement_document_text            | Best Game... EVA! |
+      And I press "Save"
+    Then I should see "Contra is cool"
+      And the contra argument should have 0 siblings in session
+  
+  Scenario: Add a Follow Up Question to a Question
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I follow localized "discuss.statements.types.follow_up_question" within ".add_new_panel"
+      And I fill in the following:
+      | follow_up_question_statement_document_title           | Livin it up      |
+      | follow_up_question_statement_document_text            | I love this game |
+      And I press "Save"
+    Then I should see "Livin it up"
+      And the question should have 0 siblings in session
+      And there should be a "Test Question2?" breadcrumb
+      
+  Scenario: Add a Follow Up Question to a Proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow localized "discuss.statements.types.follow_up_question" within ".add_new_panel"
+      And I fill in the following:
+      | follow_up_question_statement_document_title           | Livin it up      |
+      | follow_up_question_statement_document_text            | I love this game |
+      And I press "Save"
+    Then I should see "Livin it up"
+      And the question should have 0 siblings in session
+      And there should be a "A first proposal!" breadcrumb
+  
+  Scenario: Add a Follow Up Question to an Improvement
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I choose the "A better first proposal" Improvement
+      And I follow localized "discuss.statements.types.follow_up_question" within ".add_new_panel"
+      And I fill in the following:
+      | follow_up_question_statement_document_title           | Livin it up      |
+      | follow_up_question_statement_document_text            | I love this game |
+      And I press "Save"
+    Then I should see "Livin it up"
+      And the question should have 0 siblings in session
+      And there should be a "A better first proposal" breadcrumb
+      
+  Scenario: Add a Follow Up Question to an Improvement, then a Follow Up Question to that question
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I choose the "A better first proposal" Improvement
+      And I follow localized "discuss.statements.types.follow_up_question" within ".add_new_panel"
+      And I fill in the following:
+      | follow_up_question_statement_document_title           | Livin it up      |
+      | follow_up_question_statement_document_text            | I love this game |
+      And I press "Save"
+    Then I should see "Livin it up"
+      And the question should have 0 siblings in session
+      And there should be a "A better first proposal" breadcrumb
+    When I follow localized "discuss.statements.types.follow_up_question" within ".add_new_panel"
+      And I fill in the following:
+      | follow_up_question_statement_document_title           | Livin it up Part Deux     |
+      | follow_up_question_statement_document_text            | I still love this game    |
+      And I press "Save"
+    Then I should see "Livin it up Part Deux"
+      And the question should have 0 siblings in session
+     
+      
 
   @ok
   Scenario: Edit a proposal i created
@@ -92,7 +272,7 @@ Feature: Take Part on a discussion
      When I go to the proposal
      Then I should see "Proposal"
        And I should see the proposals data
-       And I should see localized "discuss.statements.create_improvement_proposal_link"
+       And I should see localized "discuss.statements.create_improvement_link"
 
 
    Scenario: Question has only proposals in german, which will not be seen by a user with no defined german language

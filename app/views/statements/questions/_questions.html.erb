@@ -1,6 +1,6 @@
 <div id="questions_container">
 
-  <% count_text = questions_count_text(@count) %>
+  <% count_text = questions_count_text(@count, params[:search_terms]) %>
 
   <span id="results_anchor"></span>
 
@@ -11,13 +11,15 @@
 
     <ul>
       <% unless statement_nodes.empty? %>
-        <%= render :partial => 'statements/questions/question', :collection => statement_nodes %>
+			  <%= render :partial => 'statements/questions/question', :collection => statement_nodes %>
       <% else %>
         <span class="no_results">
           <%= (!current_user or current_user.spoken_languages.blank?) ?
-              I18n.t('discuss.messages.empty_without_spoken_languages', :my_echo => my_profile_path) : 
+              I18n.t('discuss.messages.empty_without_spoken_languages', :my_echo => my_profile_path) :
               I18n.t('discuss.messages.empty') %>
         </span>
+        <br/>
+        <% create_first_question_link_for(params[:search_terms]) %>
       <% end %>
 	  </ul>
 
@@ -27,8 +29,3 @@
                       :params => {:controller => :discuss} if defined? statement_nodes.total_pages %>
   </div>
 </div>
-
-<script type="text/javascript">
-	makeTooltips();
-  roundCorners();
-</script>

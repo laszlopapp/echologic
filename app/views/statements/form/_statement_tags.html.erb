@@ -1,0 +1,25 @@
+<% tags ||= @tags %>
+
+<li id="statement_tags_container" class="two_columns_block tags_container">
+
+  <% tag_context = TagContext[:topic] %>
+
+	<div class="form_container">
+	  <%= content_tag :span, I18n.t('discuss.statements.topic'),
+                    :class => "label" %>
+    <%= text_field :tag,
+                   :value,
+                   :class => 'tag_value_autocomplete',
+                   :id => "tag_#{tag_context.code}_id",
+                   'data-default' => I18n.t('discuss.statements.tag_hint') %>
+     <%= content_tag :span, I18n.t('application.general.create'),
+                     :class => "add_text_button text_button addTag" %>
+	</div>
+	<%= content_tag :div, '',
+                  :id => "question_tags_values",
+                  :class => "tag_container",
+                  :name => "question[tags]" %>
+  <%= form.input :topic_tags,
+                 :input_html => {:class => 'question_tags' },
+                 :as => :hidden  %>
+</li>

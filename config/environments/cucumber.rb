@@ -30,5 +30,6 @@ config.gem 'rspec',            :lib => false, :version => '>=1.3.0' unless File.
 config.gem 'rspec-rails',      :lib => false, :version => '>=1.3.2' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
 
 
-# Initial elements number on statements children pagination
-INITIAL_CHILDREN = 7
+# Number of children statements shown
+TOP_CHILDREN = 7
+MORE_CHILDREN = 7

@@ -45,10 +45,11 @@ class Users::MembershipsController < ApplicationController
             set_info("discuss.messages.new_percentage", :percentage => current_completeness) if previous_completeness != current_completeness
             render_with_info do |p|
               p.insert_html :bottom, 'membership_list', :partial => 'users/memberships/membership'
-              p << "$('#membership_organisation').focus();"
+              p << "$('#membership_organisation').val('').focus();"
+              p << "$('#membership_position').val('');"
             end
           else
-            show_error_messages(@membership)
+            set_error @membership and render_with_error
           end
         end
       end
@@ -68,7 +69,7 @@ class Users::MembershipsController < ApplicationController
           if @membership.update_attributes(params[:membership])
             replace_content(dom_id(@membership), :partial => 'membership')
           else
-            show_error_messages(@membership)
+            set_error @membership and render_with_error
           end
         end
       end

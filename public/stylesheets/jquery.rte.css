@@ -19,6 +19,7 @@
     clear: both;
     font: 14px "Lucida Sans",Arial,Helvetica,sans-serif;
     color: #21587f;
+		position: relative;
 }
 
 .rte-zone textarea {

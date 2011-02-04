@@ -438,8 +438,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
                                                 :user => users(:green),
                                                 :supported => true)
         @statement_2.find_or_create_echo.update_counter!
-        @statement_2.add_statement_document :original_language_id => @statement_2.original_language.id,
-                                            :title => old_doc.title,
+        @statement_2.add_statement_document :title => old_doc.title,
                                             :text => old_doc.text + @statement_1.document_in_drafting_language.text,
                                             :statement_id => @statement_2.statement_id,
                                             :language_id => old_doc.language.id,

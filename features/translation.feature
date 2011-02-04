@@ -59,7 +59,7 @@ Feature: Translation permission
   @ok
   Scenario: user has language level smaller than intermediate, thus can not translate
     Given I am logged in as "user" with password "true"
-    When I am on the discuss featured 
+    When I am on the discuss featured
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
       And I choose the "Andere Frage?" Question
@@ -133,18 +133,18 @@ Feature: Translation permission
     Then I should see "new statement to ENGLISH"
 
   @ok
-  Scenario: luise succeeds in translating an improvement proposal
+  Scenario: luise succeeds in translating an improvement
     Given I am logged in as "luise" with password "luise"
     When I am on the discuss featured
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
       And I choose the "Andere Frage?" Question
       And I choose the "Vorschlag auf Deutsch" Proposal
-      And I choose the "Verbesserungsvorschlag auf Deutsch" Improvement Proposal
+      And I choose the "Verbesserungsvorschlag auf Deutsch" Improvement
       And I follow "Please translate this statement to ENGLISH"
       And I fill in the following:
-        | improvement_proposal_new_statement_document_title | Improvement Proposal in German |
-        | improvement_proposal_new_statement_document_text | new statement to ENGLISH |
+        | improvement_new_statement_document_title | Improvement in German |
+        | improvement_new_statement_document_text | new statement to ENGLISH |
       And I press "Save"
     Then I should see "new statement to ENGLISH"
 

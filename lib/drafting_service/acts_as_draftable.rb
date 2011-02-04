@@ -37,7 +37,7 @@ module ActiveRecord
           end
 
           class_eval do
-
+            
             def draftable?
               true
             end

@@ -32,6 +32,7 @@ pt:
       incorporate: Incorporate
       welcome: Bemvindo
       all: Tudo
+      authors: Autores
 
     # Roadmap - Progress
     roadmap:
@@ -126,6 +127,7 @@ pt:
   # USERS MODULE
   # ------------
   users:
+    anonym: Anónimo
     user_sessions:
       login:
         password: 'Senha'
@@ -142,7 +144,6 @@ pt:
 
     # Activations section
     activation:
-
       messages:
         success: A sua conta foi ativada com sucesso. Bemvindo à echo!
         failed: A sua conta não pode ser ativada. Por favor verifique os dados inseridos.
@@ -263,6 +264,19 @@ pt:
         turned_on: Notificações imediatas foram ativadas.
         turned_off: Notificações imediatas foram desativadas.
 
+    # Permissions section
+    permissions:
+      title: Configurações de Privacidade
+      guide: Aqui pode dar autorização para que a sua informação pessoal seja exposta em certas áreas da aplicação web.
+      authorship:
+        title: Autoria de conteúdos
+        guide: |
+          Permita que outros utilizadores logados (mas não motores de busca)
+          visualizem a sua informação pessoal como sendo um co-autor de um dos
+          conteúdos na secção da echo 'Discutir'.
+        turned_on: A sua informação pessoal será exposta na visualização dos co-autores de um conteúdo.
+        turned_off: Será exposto anonimamente entre os outros autores de um conteúdo.
+
 
     # New Users section
     users:
@@ -297,11 +311,12 @@ pt:
   # ---------------
 
   discuss:
-    my_discussions:
-      link: Minhas Discussões
-      title: As minhas discussões novas e publicadas
-      no_discussions: |
+    my_questions:
+      link: Minhas Questões
+      title: As minhas questões novas e publicadas
+      no_questions: |
         Ainda não criou nenhuma discussão. Para o fazer, por favor clique no ponto de interrogação que se encontra à esquerda.
+      add: Criar nova questão
     tag_permission: |
       Não tem permissão para inserir a tag '{{tag}}'.
     translation_request: Por favor traduza este texto em <strong>PORTUGUÊS</strong>.
@@ -309,8 +324,10 @@ pt:
       O texto original encontra-se em <strong>{{language}}</strong>. Defina os seus conheci-<br/>
       mentos linguísticos para poder visualizar conteúdo noutras línguas.
     results_count:
-      one: '{{count}} discussão'
-      more: '{{count}} discussões'
+      one: '{{count}} questão'
+      more: '{{count}} questões'
+    for: |-
+      para '{{value}}'
     featured_topics:
       title: Tópicos Destacados
       text: |
@@ -329,53 +346,87 @@ pt:
         pilot_projects:
           title: Projetos-piloto
     search:
-      title: Procura
+      title: Pesquisa
       in: '... em {{category}} ...'
+      add: "Crie a primeira pergunta sobre o tema"
 
     tooltips:
       read_question: 'Ir para esta questão'
       read_proposal: 'Ler esta proposta'
-      read_improvement_proposal: 'Ler esta proposta de melhoria'
+      read_improvement: 'Ler esta melhoria'
+      read_pro_argument: 'Ler este argumento a favor'
+      read_contra_argument: 'Ler este argumento contra'
+      read_follow_up_question: 'Ler este questão complementar'
       current_question: 'A questão atualmente apresentada'
       current_proposal: 'A proposta atualmente apresentada'
-      current_improvement_proposal: 'A proposta de melhoria atualmente apresentada'
+      current_improvement: 'A melhoria atualmente apresentada'
+      current_pro_argument: 'O argumento a favor atualmente apresentado'
+      current_contra_argument: 'O argumento contra atualmente apresentado'
+      current_follow_up_question: 'A questão complementar atualmente apresentada'
       back_to_question: 'De volta à questão atual'
       back_to_proposal: 'De volta à proposta atual'
-      back_to_improvement_proposal: 'De volta à proposta de melhoria atual'
+      back_to_improvement: 'De volta à melhoria atual'
       prev_question: 'Ler questão anterior'
       next_question: 'Ler questão seguinte'
       prev_proposal: 'Ler proposta anterior da questão atual'
       next_proposal: 'Ler proposta seguinte da questão atual'
-      prev_improvement_proposal: 'Ler proposta de melhoria anterior à proposta atual'
-      next_improvement_proposal: 'Ler proposta de melhoria seguinte à proposta atual'
+      prev_improvement: 'Ler melhoria anterior à proposta atual'
+      next_improvement: 'Ler melhoria seguinte à proposta atual'
+      prev_pro_argument:  'Ler argumento anterior da proposta atual'
+      next_pro_argument: 'Ler argumento seguinte da proposta atual'
+      prev_contra_argument: 'Ler argumento anterior da proposta atual'
+      next_contra_argument:  'Ler argumento seguinte da proposta atual'
+      prev_follow_up_question:  'Ler questão complementar anterior no contexto exposto acima'
+      next_follow_up_question: 'Ler questão complementar seguinte no contexto exposto acima'
       create_question: 'Criar uma nova discussão'
       create_proposal: 'Criar nova proposta na questão atual'
-      create_improvement_proposal: 'Criar nova proposta de melhoria à proposta atual'
+      create_improvement: 'Criar nova melhoria à proposta atual'
+      create_pro_argument: "Criar novo argumento a favor da proposta atual"
+      create_contra_argument: "Criar novo argumento contra a proposta atual"
+      create_follow_up_question: "Criar nova questão complementar ao conteúdo atual"
       echo: "Apoie esta afirmação (dê o seu echo)!"
       unecho: 'Retire o seu apoio a esta afirmação (retire o seu echo)'
       publish: |
         Publique a discussão, de forma a esta se tornar visível para todos.
         (Não será mais possível editar a discussão.)
       incorporate: 'Clique aquí para incorporar as suas propostas de melhoria na proposta (texto acima).'
+      siblings:
+        question: Visualizar todas as questões do contexto acima
+        proposal: Visualizar todas as propostas pertencentes à questão atual
+        improvement: Visualizar todas as melhorias pertencentes à proposta atual
+        pro_argument: Visualizar todos os argumentos pertencentes à proposta atual
+        contra_argument:  Visualizar todos os argumentos pertencentes à proposta atual
 
     statements:
       label: 'votos'
       echo_indicator:
-        one: '{{supporter_count}} apoiante'
-        many: '{{supporter_count}} apoiantes'
+        support:
+          one: '{{supporter_count}} apoiante'
+          many: '{{supporter_count}} apoiantes'
+        recommend:
+          one: '{{supporter_count}} recomendação'
+          many: '{{supporter_count}} recomendações'
+      add_new: Adicionar novo/a...
       create_question_link: 'Criar uma nova discussão'
       create_proposal_link: 'Criar nova proposta'
       create_internal_link: 'Nova ideia?'
-      create_improvement_proposal_link: 'Criar nova proposta de melhoria'
+      create_improvement_link: 'Criar nova melhoria'
+      create_pro_argument_link: Criar novo argumento a favor
+      create_contra_argument_link: Criar novo argumento contra
+      create_follow_up_question_link: Criar nova questão complementar
+      recommend_link: 'Aconselhar'
+      unrecommend_link: 'Desaconselhar'
+      support_link: 'Apoiar'
+      unsupport_link: 'Desapoiar'
       create_question_explanation: |
         Aqui pode começar uma <strong>nova discussão</strong> e providenciar um conjunto de <strong>palavras-chave
         temáticas</strong> adequadas de forma a esta ser facilmente encontrada.
       create_proposal_explanation: |
         Tem uma <strong>boa ideia</strong> no que diz respeito à questão actual, que ainda <strong>não existe</strong>?<br/>
         Aqui pode criar uma <strong>nova proposta</strong>.
-      create_improvement_proposal_explanation: |
+      create_improvement_explanation: |
         Tem uma <strong>boa ideia</strong> para <strong>tornar a proposta actual ainda melhor</strong>?<br/>
-        Aqui pode criar uma <strong>nova proposta de melhoria</strong>.
+        Aqui pode criar uma <strong>nova melhoria</strong>.
       create_statement_language_hint: |
         Por favor escreva sua ideia em <strong>PORTUGUÊS</strong> ou escolha um outro idioma usando o
         babelfish no canto superior direito.
@@ -385,6 +436,27 @@ pt:
         Poderá desta forma introduzir conteúdo em qualquer língua na qual possua conhecimentos para além de um nível intermédio.
       drafting_language_hint: |
         Por favor tome nota de que o processo de elaboração coletiva desta proposta só irá ocorrer nesta língua!
+      fuq_formulation_hint: |
+        Since follow-up questions also appear as questions in "Search", title and description should both be comprehensible independently of the original discussion.
+      title_hint:
+        question: Introduza o título da questão em...
+        proposal: Introduza o título da proposta em...
+        improvement: Introduza o título da melhoria em...
+        pro_argument: Introduza o título do argumento a favor em...
+        contra_argument: Introduza o título do argumento contra em...
+        follow_up_question: Introduza o título da questão complementar em...
+      text_hint:
+        question: Por favor descreva a questão e acrescente alguns detalhes sobre o tema...
+        proposal: Por favor descreva a proposta mais detalhadamente...
+        improvement: Por favor descreva a melhoria mais detalhadamente...
+        pro_argument: Por favor descreva o argumento a favor mais detalhadamente...
+        contra_argument: Por favor descreva o argumento contra mais detalhadamente...
+        follow_up_question: Por favor descreva a questão complementar mais detalhadamente...
+      fuq_formulation_hint: |
+        Como as questões complementares também podem ser encontradas em "Pesquisa", o seu
+        conteúdo deve poder ser compreendido fora do contexto da discussão original.
+      tag_hint: 'Palavra-chave (tags) do tema'
+
       publish: Publicar
       published: A discussão foi publicada com sucesso.
       edit: 'Editar {{type}}'
@@ -392,15 +464,25 @@ pt:
       types:
         question:  'Questão'
         proposal:  'Proposta'
-        improvement_proposal: 'Proposta de melhoria'
+        improvement: 'Melhoria'
+        pro_argument: 'Argumento a Favor'
+        contra_argument: 'Argumento Contra'
+        follow_up_question: 'Questão Complementar'
       new:
-        question:  'Nova Discussão'
+        question:  'Nova Questão'
         proposal:  'Nova Proposta'
-        improvement_proposal: 'Nova Proposta de Melhoria'
+        improvement: 'Nova Melhoria'
+        pro_argument: 'Novo Argumento a Favor'
+        contra_argument: 'Novo Argumento Contra'
+        follow_up_question: 'Nova Questão Complementar'
       headings:
         question: 'Questões'
         proposal: 'Propostas'
-        improvement_proposal: 'Propostas de Melhoria'
+        improvement: 'Propostas de Melhoria'
+        argument: 'Argumentos'
+        follow_up_question: 'Questões Complementares'
+      siblings:
+         follow_up_question: 'Questão Complementar no contexto exposto acima'
 
       topic: Tópico (Tags / Palavras-chave)
       states:
@@ -417,27 +499,69 @@ pt:
       unsupported_parent: |-
         Só poderá apoiar a propostas de melhoria depois de apoiar a proposta correspondente.
       not_approved_any_more: |-
-        Infelizmente esta proposta de melhoria não pode ser mais incorporada.
+        Infelizmente esta melhoria não pode ser mais incorporada.
       see_parent_if_approved: |-
-        Esta proposta de melhoria foi aprovada para ser incorporada na proposta em baixo.
+        Esta melhoria foi aprovada para ser incorporada na proposta em baixo.
       see_parent_if_incorporated: |-
-        Esta proposta de melhoria já foi incorporada.
+        Esta melhoria já foi incorporada.
       being_edited: |-
         Esta proposta está a ser editada. Volte mais tarde por favor.
       already_translated: |-
         Esta {{type}} acabou de ser traduzida.
       statement_updated: |-
         Esta {{type}} acabou de ser actualizada.
+      statement_supported: |-
+        O seu ec(h)o foi registado com sucesso.
+      statement_unsupported: |-
+        O seu ec(h)o foi retirado.
       edit_period_hint: |
         <strong>Tem {{minutes}} minutos</strong> para editar a proposta.
         Depois de este tempo esgotar poderá perder as suas modificações.
-      staled_modification: 'Pedimos desculpa, mas o prazo de 60 minutos para editar a proposta esgotou. Entretanto a proposta foi editada por outra pessoa. Por esta razão, as suas mudanças foram lamentavelmente perdidas.'
+      staled_modification: |-
+        Pedimos desculpa, mas o prazo de 60 minutos para editar a proposta esgotou.
+        Entretanto a proposta foi editada por outra pessoa. Por esta razão,
+        as suas mudanças foram lamentavelmente perdidas.'
+      no_document_in_language: 'O conteúdo ainda não existe em Português.'
+
+      breadcrumbs:
+        discuss_search: Pesquisa
+        my_discussions: Minhas Questões
+        labels:
+          ds: ''
+          mi: ''
+          sr: 'Pesquisar resultados para'
+          fq: 'Questões complementares para'
+          over:
+            ds: 'Voltar para'
+            mi: 'Voltar para'
+            sr: 'Voltar para a pesquisa de resultados'
+            fq: 'Voltar para'
 
       upload_image:
         title: Carregar Imagem
         guide: Por favor <strong>selecione uma imagem</strong> (JPG or PNG, max. 5MB) e carregue-a.
         progress: A imagem está sendo carregada. Por favor aguarde...
         error: A imagem não pôde ser incluída. Por favor carregue um formato suportado (JPG ou PNG e max. 5MB).
+
+      add_teaser:
+        question: |
+          Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>
+          Prima o botão acima e insira-a AGORA!
+        proposal: |
+          Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>
+          Prima o botão acima e insira-a AGORA!
+        improvement: |
+          Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>
+          Prima o botão acima e insira-a AGORA!
+        pro_argument: |
+          Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>
+          Prima o botão acima e insira-a AGORA!
+        contra_argument: |
+          Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>
+          Prima o botão acima e insira-a AGORA!
+        follow_up_question: |
+          Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>
+          Prima o botão acima e insira-a AGORA!
 
     summary:
       title: 'Sumário'
@@ -446,9 +570,9 @@ pt:
       updated: "A {{type}} foi atualizada com sucesso."
       deleted: "A {{type}} foi apagada com sucesso."
       translated: "A {{type}} foi traduzida com sucesso."
-      incorporated: "A proposta de melhoria foi incorporada na proposta com sucesso."
+      incorporated: "A melhoria foi incorporada na proposta com sucesso."
       image_uploaded: "A imagem acabou de ser incluída na {{type}}."
-      empty:   "Nenhuma questão encontrada. Por favor altere os seus critérios de procura."
+      empty:   "Nenhuma questão encontrada. Por favor altere os seus critérios de pesquisa."
       empty_without_spoken_languages: |
         Nenhuma questão encontrada. Pode tentar definir as suas <a href='{{my_echo}}'><u>Línguas Faladas</u></a>
         de forma a aceder a conteúdos noutras línguas.
@@ -472,8 +596,41 @@ pt:
       expertise: 'Especialistas'
       decision_making: 'Tomadores de decisão'
     results_count:
-      one: '{{count}} movedor'
-      more: '{{count}} movedores'
+      all:
+        no_filter:
+          one: 'pessoa'
+          more: 'pessoas'
+        with_filter:
+          one: "pessoa ligada a '{{filter}}'"
+          more: "pessoas ligadas a '{{filter}}'"
+      affection:
+        no_filter:
+          one: pessoa relacionada
+          more: pessoas relacionadas
+        with_filter:
+          one: "pessoa relacionada com '{{filter}}'"
+          more: "pessoas relacionadas com '{{filter}}'"
+      engagement:
+        no_filter:
+          one: pessoa comprometida
+          more: pessoas comprometidas
+        with_filter:
+          one: "pessoa comprometida com '{{filter}}'"
+          more: "pessoas comprometida com '{{filter}}'"
+      expertise:
+        no_filter:
+          one: especialista
+          more: especialistas
+        with_filter:
+          one: "especialista em '{{filter}}'"
+          more: "especialistas em '{{filter}}'"
+      decision_making:
+        no_filter:
+          one: tomador de decisão
+          more: tomadores de decisão
+        with_filter:
+          one: "tomador de decisão em '{{filter}}'"
+          more: "tomadores de decisão '{{filter}}'"
     details:
       tabs:
         overview:     'Visão global'
@@ -482,7 +639,7 @@ pt:
       actions:
         report: "Relatório"
     messages:
-      empty:           'Nenhum membro encontrado. Por favor altere os seus critérios de procura.'
+      empty:           'Nenhum membro encontrado. Por favor altere os seus critérios de pesquisa.'
       no_concernments: "Este membro ainda não definiu interesses ou competências."
       no_web_addresses: "Este membro ainda não definiu endereços web."
 
@@ -574,7 +731,7 @@ pt:
     models:
       question: "questão"
       proposal: "proposta"
-      improvement_proposal: "proposta de melhoria"
+      improvement: "melhoria"
 
 
   authlogic:

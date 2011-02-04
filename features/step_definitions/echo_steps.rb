@@ -71,9 +71,9 @@ Then /^I am supporter of the proposal$/ do
   assert @proposal.supported?(@user)
 end
 
-Then /^I am supporter of the improvement proposal$/ do
-  @improvement_proposal.reload
-  assert @improvement_proposal.supported?(@user)
+Then /^I am supporter of the improvement$/ do
+  @improvement.reload
+  assert @improvement.supported?(@user)
 end
 
 Then /^I am not supporter of the proposal$/ do
@@ -81,9 +81,9 @@ Then /^I am not supporter of the proposal$/ do
   assert !@proposal.supported?(@user)
 end
 
-Then /^I am not supporter of the improvement proposal$/ do
-  @improvement_proposal.reload
-  assert !@improvement_proposal.supported?(@user)
+Then /^I am not supporter of the improvement$/ do
+  @improvement.reload
+  assert !@improvement.supported?(@user)
 end
 
 Then /^the proposal should have "([^\"]*)" as supporters$/ do |users|

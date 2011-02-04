@@ -1,7 +1,3 @@
-<% content_for :submenu, tabnav(:discuss) %>
+<%= render :partial => 'statements/default', :locals => {:template => 'statements/new'}%>
 
-<%= render :partial => 'statements/new',
-           :locals => {:statement_node => @statement_node,
-                       :statement_document => @statement_document, 
-                       :tags => @tags } %>
 

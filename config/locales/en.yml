@@ -32,6 +32,7 @@ en:
       incorporate: Incorporate
       welcome: Welcome
       all: All
+      authors: Authors
 
     # Roadmap - Progress
     roadmap:
@@ -127,6 +128,7 @@ en:
   # USERS MODULE
   # ------------
   users:
+    anonym: Anonym
     user_sessions:
       login:
         password: 'Password'
@@ -264,6 +266,15 @@ en:
         turned_on: Drafting notifications have been switched on.
         turned_off: Drafting notifications have been switched off.
 
+    # Permissions section
+    permissions:
+      title: Privacy Settings
+      guide: Where in echo your personal data should be shown or be hidden?
+      authorship:
+        title: Authorship of statements
+        guide: Let other logged in members (but no search engines) see your profile information as being a co-author of a statement in echo Discuss.
+        turned_on: Your profile information will be shown when displaying co-authors of statements.
+        turned_off: You will be displayed as Anonym among other authors of a statement.
 
     # New Users section
     users:
@@ -299,11 +310,12 @@ en:
   # ---------------
 
   discuss:
-    my_discussions:
-      link: My Issues
-      title: My new & published issues
-      no_discussions: |
-        You haven't created any issues yet. To do so, please click on the question mark button on the left.
+    my_questions:
+      link: My Questions
+      title: My new & published questions
+      no_questions: |
+        You haven't created any questions yet. To do so, please click on the question mark button on the left.
+      add: Add New Question
     tag_permission: |
       You do not have the permission to insert the '{{tag}}' tag.
     translation_request: Please translate this statement to <strong>ENGLISH</strong>.
@@ -311,8 +323,10 @@ en:
       The original statement is in <strong>{{language}}</strong>. Set your <br/>
       language skills to see content in other languages.
     results_count:
-      one: '{{count}} issue'
-      more: '{{count}} issues'
+      one: '{{count}} question'
+      more: '{{count}} questions'
+    for: |-
+      for '{{value}}'
     featured_topics:
       title: Featured Topics
       tabs:
@@ -323,49 +337,84 @@ en:
     search:
       title: Search
       in: '... in {{category}} ...'
+      add: "Create the first question about the topic"
 
     tooltips:
-      read_question: 'Go to this issue'
+      read_question: 'Go to this question'
       read_proposal: 'Read this proposal'
-      read_improvement_proposal: 'Read this improvement'
-      current_question: 'The currently displayed issue'
+      read_improvement: 'Read this improvement'
+      read_pro_argument: 'Read this pro argument'
+      read_contra_argument: 'Read this contra argument'
+      read_follow_up_question: 'Read this follow-up question'
+      current_question: 'The currently displayed question'
       current_proposal: 'The currently displayed proposal'
-      current_improvement_proposal: 'The currently displayed improvement'
-      back_to_question: 'Back to current issue'
+      current_improvement: 'The currently displayed improvement'
+      current_pro_argument: 'The currently displayed pro argument'
+      current_contra_argument: 'The currently displayed contra argument'
+      current_follow_up_question: 'The currently displayed follow-up question'
+      back_to_question: 'Back to current question'
       back_to_proposal: 'Back to current proposal'
-      back_to_improvement_proposal: 'Back to current improvement'
-      prev_question: 'Read previous issue'
-      next_question: 'Read next issue'
-      prev_proposal: 'Read previous proposal for the current issue'
-      next_proposal: 'Read next proposal for the current issue'
-      prev_improvement_proposal: 'Read previous improvement for the current proposal'
-      next_improvement_proposal: 'Read next improvement for the current proposal'
-      create_question: 'Create a new issue'
-      create_proposal: "Post a new proposal for the current issue"
-      create_improvement_proposal: "Post a new improvement to the current proposal"
+      back_to_improvement: 'Back to current improvement'
+      prev_question: 'Read previous question'
+      next_question: 'Read next question'
+      prev_proposal: 'Read previous proposal for the current question'
+      next_proposal: 'Read next proposal for the current question'
+      prev_improvement: 'Read previous improvement for the current proposal'
+      next_improvement: 'Read next improvement for the current proposal'
+      prev_pro_argument: 'Read previous argument for the current proposal'
+      next_pro_argument: 'Read next argument for the current proposal'
+      prev_contra_argument: 'Read previous argument for the current proposal'
+      next_contra_argument: 'Read next argument for the current proposal'
+      prev_follow_up_question: 'Read previous follow-up question in the context shown above'
+      next_follow_up_question: 'Read next follow-up question in the context shown above'
+      create_question: 'Create a new question'
+      create_proposal: "Post a new proposal for the current question"
+      create_improvement: "Post a new improvement to the current proposal"
+      create_pro_argument: "Post a new pro argument to this proposal"
+      create_contra_argument: "Post a new contra argument to this proposal"
+      create_follow_up_question: "Post a new new follow-up question"
       echo: 'echo this statement to support it!'
-      unecho: 'Withdraw your vote to stop supporting this statement'
+      unecho: 'Withdraw your echo to stop supporting this statement'
       publish: |
-        Release the issue to make it visible for everybody.
+        Release the question to make it visible for everybody.
         (Afterwards no further editing is possible.)
       incorporate: 'Click here to incorporate this improvement into the proposal above.'
+      siblings:
+        question: See all questions in the context shown above
+        proposal: See all proposals belonging to the current question
+        improvement: See all improvements proposed for the current proposal
+        pro_argument: See all arguments belonging to the current proposal
+        contra_argument:  See all arguments belonging to the current proposal
+
 
     statements:
       label: 'votes'
       echo_indicator:
-        one: '{{supporter_count}} supporter'
-        many: '{{supporter_count}} supporters'
-      create_question_link: 'New issue'
+        support:
+          one: '{{supporter_count}} supporter'
+          many: '{{supporter_count}} supporters'
+        recommend:
+          one: '{{supporter_count}} recommendation'
+          many: '{{supporter_count}} recommendations'
+      add_new: Add new...
+      create_question_link: 'Create new question'
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
-      create_improvement_proposal_link: Propose new improvement
+      create_improvement_link: Propose new improvement
+      create_pro_argument_link: Add new pro argument
+      create_contra_argument_link: Add new contra argument
+      create_follow_up_question_link: Add new follow-up question
+      recommend_link: 'Recommend this'
+      unrecommend_link: 'Withdraw echo'
+      support_link: 'Support this'
+      unsupport_link: 'Withdraw echo'
       create_question_explanation: |
         Please formulate the <strong>question</strong> to be discussed, describe the issue with some more details
         and tag it with <strong>relevant keywords</strong> for better searchability.
       create_proposal_explanation: |
-        Do you have a <strong>good idea</strong> concerning the current issue, which <strong>isn't entered</strong> yet?<br/>
+        Do you have a <strong>good idea</strong> concerning the current question, which <strong>isn't entered</strong> yet?<br/>
         Here you can create a <strong>new proposal</strong>.
-      create_improvement_proposal_explanation: |
+      create_improvement_explanation: |
         Do you have a <strong>good idea</strong> to <strong>make the current proposal even better</strong>?<br/>
         Here you can propose a <strong>new improvement</strong>.
       create_statement_language_hint: |
@@ -377,27 +426,58 @@ en:
         This will enable you to enter statements in any language you speak at least at intermediate level.
       drafting_language_hint: |
         Please note, that the co-creative drafting process to collectively improve this proposal will only run in this language!
+      fuq_formulation_hint: |
+        Since follow-up questions also appear as questions in "Search", title and description should both be comprehensible independently of the original discussion.
+      title_hint:
+        question: Please enter the question title in...
+        proposal: Please enter the proposal title in...
+        improvement: Please enter the improvement title in...
+        pro_argument: Please enter the pro argument title in...
+        contra_argument: Please enter the contra argument title in...
+        follow_up_question: Please enter the follow-up question title in...
+      text_hint:
+        question: Describe the issue and write some details about the topic...
+        proposal: Describe your proposal in more detail...
+        improvement: Describe your improvement idea in more detail...
+        pro_argument: Describe your pro argument in more detail...
+        contra_argument: Describe your contra argument in more detail...
+        follow_up_question: Describe your follow-up question in more detail...
+      fuq_formulation_hint: |
+        Since follow-up questions also appear as questions in "Search",
+        title and description should both be understandable also independently of
+        the original discussion.
+      tag_hint: 'Enter tags here...'
 
       publish: Release
-      published: The issue has been released successfully.
+      published: The question has been released successfully.
       edit: 'Edit {{type}}'
 
       types:
-        question:  'Issue'
+        question:  'Question'
         proposal:  'Proposal'
-        improvement_proposal: 'Improvement'
+        improvement: 'Improvement'
+        pro_argument: 'Pro Argument'
+        contra_argument: 'Contra Argument'
+        follow_up_question: 'Follow-Up Question'
       new:
-        question:  'New Issue'
+        question:  'New Question'
         proposal:  'New Proposal'
-        improvement_proposal: 'New Improvement'
+        improvement: 'New Improvement'
+        pro_argument: 'New Pro Argument'
+        contra_argument: 'New Contra Argument'
+        follow_up_question: 'New Follow-Up Question'
       headings:
-        question: 'Issues'
+        question: 'Questions'
         proposal: 'Proposals'
-        improvement_proposal: 'Improvements'
+        improvement: 'Improvements'
+        argument: 'Arguments'
+        follow_up_question: 'Follow-up Questions'
+      siblings:
+        follow_up_question: 'Follow-up Question in the context shown above'
 
       topic: Topic (Tags / Keywords)
       states:
-        label: 'Publish issue immediately?'
+        label: 'Publish question immediately?'
         initial_state:
           new: 'Set up at first and publish later'
           published: 'Publish immediately (no further editing is possible)'
@@ -421,10 +501,29 @@ en:
         This {{type}} has just been updated by another person.
       statement_updated: |-
         This {{type}} has just been updated.
+      statement_supported: |-
+         Thanks for making an echo to the {{type}}.
+      statement_unsupported: |-
+         You withdrew your echo from the {{type}}.
       edit_period_hint: |
         You have <strong>{{minutes}} minutes</strong> to edit the statement.
         Afterwards, your modifications might even get discarded.
       staled_modification: 'We are very sorry, but you exceeded the 60 minutes limit to edit and save the statement. Meanwhile it has already been updated by a different user. Therefore, your changes must have been unfortunately discarded.'
+      no_document_in_language: 'The statement does not exist in English yet.'
+
+      breadcrumbs:
+        discuss_search: Search
+        my_questions: My Questions
+        labels:
+          ds: ''
+          mi: ''
+          sr: 'Search results for'
+          fq: 'Follow-up Questions for'
+          over:
+            ds: 'Back to'
+            mi: 'Back to'
+            sr: 'Back to search results for'
+            fq: 'Back to'
 
       upload_image:
         title: Upload Image
@@ -432,6 +531,25 @@ en:
         progress: The image is being uploaded. Please wait...
         error: The image couldn't be applied. Please upload a supported format (JPG or PNG and max. 5MB).
 
+      add_teaser:
+        question: |
+          This is where YOUR winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
+        proposal: |
+          This is where YOUR winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
+        improvement: |
+          This is where YOUR winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
+        pro_argument: |
+          This is where YOUR winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
+        contra_argument: |
+          This is where YOUR winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
+        follow_up_question: |
+          This is where YOUR winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
+          button above to enter it NOW!
     summary:
       title: 'Summary'
 
@@ -442,9 +560,9 @@ en:
       translated: "The {{type}} has been translated successfully."
       incorporated: "The improvement has been successfully incorporated into the proposal."
       image_uploaded: "The illustration image has been added to the {{type}}."
-      empty:   "No issues found. Please change your search criteria."
+      empty:   "No questions found. Please change your search criteria."
       empty_without_spoken_languages: |
-        No issues found. You can try defining your <a href='{{my_echo}}'>language skills</a>
+        No questions found. You can try defining your <a href='{{my_echo}}'>language skills</a>
         to see content in other languages.
       new_percentage: "Your profile is {{percentage}}% complete."
 
@@ -466,8 +584,41 @@ en:
       expertise: 'Experts'
       decision_making: 'Decision Makers'
     results_count:
-      one: '{{count}} mover'
-      more: '{{count}} movers'
+      all:
+        no_filter:
+          one: 'person'
+          more: 'people'
+        with_filter:
+          one: "person related to '{{filter}}'"
+          more: "people related to '{{filter}}'"
+      affection:
+        no_filter:
+          one: affected person
+          more: affected people
+        with_filter:
+          one: "person affected by '{{filter}}'"
+          more: "people affected by '{{filter}}'"
+      engagement:
+        no_filter:
+          one: engaged person
+          more: engaged people
+        with_filter:
+          one: "person engaged in '{{filter}}'"
+          more: "people engaged in '{{filter}}'"
+      expertise:
+        no_filter:
+          one: expert
+          more: experts
+        with_filter:
+          one: "expert in '{{filter}}'"
+          more: "experts in '{{filter}}'"
+      decision_making:
+        no_filter:
+          one: decision maker
+          more: decision makers
+        with_filter:
+          one: "decision maker in '{{filter}}'"
+          more: "decision makers in '{{filter}}'"
     details:
       tabs:
         overview:     'Overview'
@@ -566,9 +717,9 @@ en:
         index: 'Index'
 
     models:
-      question: "issue"
+      question: "question"
       proposal: "proposal"
-      improvement_proposal: "improvement"
+      improvement: "improvement"
 
 
   authlogic:

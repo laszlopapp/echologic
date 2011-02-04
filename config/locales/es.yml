@@ -32,6 +32,7 @@ es:
       incorporate: Incorporar
       welcome: Bienvenido
       all: Todos
+      authors: Autores
 
     # Roadmap - Progress
     roadmap:
@@ -125,7 +126,7 @@ es:
   # USERS MODULE
   # ------------
   users:
-
+    anonym: Anónimo
     # User sessions section
     user_sessions:
       login:
@@ -272,12 +273,22 @@ es:
         title: Notificaciones inmediatas (drafting)
         guide: |
           Notificaciones inmediatas sobre el proceso de elaboración colectiva y el progreso de tus propuestas y
-          propuestas de mejora - por ejemplo, cuando se aprueba tu propuesta de mejora para ser incorporada.<br/><br/>
+          mejoras - por ejemplo, cuando se aprueba tu mejora para ser incorporada.<br/><br/>
           <strong>Atención!</strong> Si desactivas estas notificaciones, puedes perder la
-          oportunidad de introducir propuestas de mejora.
+          oportunidad de introducir mejora.
         turned_on: Notificaciones inmediatas han sido activadas.
         turned_off: Notificaciones inmediatas han sido desactivadas.
 
+    permissions:
+      title: Ajustes de privacidad
+      guide: Dónde pueden ser visibles tus datos personales.
+      authorship:
+        title: Autoría del contenido
+        guide: |
+          Dejar a otros miembros registrados (no por buscador) acceder a la información de tu perfil como
+          co-autor del contenido de un debate de echo.
+        turned_on: La información de tu perfil será visible cuando se muestren los autores de un contenido.
+        turned_off: Serás visualizado como "anónimo" entre otros autores del contenido.
 
     # New Users section
     users:
@@ -304,9 +315,10 @@ es:
     # Reports section
     reports:
       new:
-        title:  "Denunciar usuario"
-        text:  "<p>Has visto algún contenido <strong>ofensivo, anti-ético o ilegal?</strong><br/> Si es así,
-            puedes denunciar a este usuario, nosotros resolvemos el problema.<p>"
+        title: "Denunciar usuario"
+        text: |
+          <p>Has visto algún contenido <strong>ofensivo, anti-ético o ilegal?</strong><br/> Si es así,
+          puedes denunciar a este usuario, nosotros resolvemos el problema.<p>"
       messages:
         created: "Gracias por tu mensaje. Nosotros nos encargamos de este asunto."
 
@@ -316,11 +328,12 @@ es:
   # ---------------
 
   discuss:
-    my_discussions:
-      link: Mis Debates
-      title: Mis debates nuevos y ya publicados
-      no_discussions: |
+    my_questions:
+      link: Mis Preguntas
+      title: Mis preguntas nuevos y ya publicados
+      no_questions: |
         Lo sentimos, pero no hay debates por el momento. Para abrir un nuevo debate, haz clic en el signo de interrogación de la izquierda.
+      add: Crea nueva pregunta
     tag_permission: |
       Lo sentimos, pero no tienes permiso para insertar esta '{{tag}}' nota.
     original_language_warning: |
@@ -330,6 +343,8 @@ es:
     results_count:
       one: '{{count}} debates'
       more: '{{count}} debates'
+    for: |-
+      para '{{value}}'
     featured_topics:
       title: Nuestros Temas
       text: |
@@ -350,51 +365,85 @@ es:
     search:
       title: Buscar
       in: '... en {{category}} ...'
+      add: "Crea la primera pregunta sobre el tema"
 
     tooltips:
       read_question: 'Ver esta cuestión'
       read_proposal: 'Leer esta propuesta'
-      read_improvement_proposal: 'Leer esta propuesta de mejora'
+      read_improvement: 'Leer esta mejora'
+      read_pro_argument: 'Lee este argumento a favor'
+      read_contra_argument: 'Lee este argumento en contra'
+      read_follow_up_question: 'Lee esta pregunta de seguimiento'
       current_question: 'Cuestión actual'
       current_proposal: 'Propuesta actual'
-      current_improvement_proposal: 'Propuesta de mejora actual'
+      current_improvement: 'Mejora actual'
+      current_pro_argument: 'El argumento a favor actual'
+      current_contra_argument: 'El argumento en contra actuat'
+      current_follow_up_question: 'La pregunta de seguimiento actual'
       back_to_question: 'Volver a la cuestión actual'
       back_to_proposal: 'Volver a la propuesta actual'
-      back_to_improvement_proposal: 'Volver a la propuesta de mejora actual'
+      back_to_improvement: 'Volver a la mejora actual'
       prev_question: 'Leer cuestión anterior'
       next_question: 'Leer cuestión siguiente'
       prev_proposal: 'Leer propuesta anterior'
       next_proposal: 'Leer propuesta siguiente'
-      prev_improvement_proposal: 'Leer propuesta de mejora anterior'
-      next_improvement_proposal: 'Leer propuesta de mejora siguiente'
+      prev_improvement: 'Leer mejora anterior'
+      next_improvement: 'Leer mejora siguiente'
+      prev_pro_argument: 'Lee el argumento previo de esta propuesta'
+      next_pro_argument: 'Lee el siguiente argumento de esta propuesta'
+      prev_contra_argument: 'Lee el argumento previo de este propuesta'
+      next_contra_argument: 'Lee el siguiente argumento de esta propuesta'
+      prev_follow_up_question: 'Lee la pregunta de seguimiento previa según lo indicado arriba'
+      next_follow_up_question: 'Lee la siguiente pregunta de seguimiento según lo indicado arriba'
       create_question: 'Crear nueva discusión'
       create_proposal: 'Crear nueva propuesta'
-      create_improvement_proposal: 'Crear nueva propuesta de mejora'
+      create_improvement: 'Crear nueva mejora'
+      create_pro_argument: "Edita un nuevo argumento a favor de esta propuesta"
+      create_contra_argument: "Edita un nuevo argumento en contra de esta propuesta"
+      create_follow_up_question: "Edita una nueva pregunta de seguimiento en relación a este contenido"
       echo: 'Apoya esta opinión con tu voto!'
       unecho: 'Retira tu voto si ya no estás de acuerdo'
       publish: |
         Publicando el debate, otras personas podrán participar.
         (No será posible modificar el debate.)
-      incorporate: 'Haz clic aquí para incorporar esta propuesta de mejora a la propuesta (texto arriba).'
+      incorporate: 'Haz clic aquí para incorporar esta mejora a la propuesta (texto arriba).'
+      siblings:
+        question: Accede a todas las preguntas según lo indicado arriba
+        proposal: Accede a todas las propuestas relativas a la pregunta actual
+        improvement: Accede a todas las mejoras lanzadas para la propuesta actual
+        pro_argument: Accede a todos los argumentos relativos a la propuesta actual
+        contra_argument:  Accede a todos los argumentos relativos a la propuesta actual
 
     statements:
       label: 'votos'
       echo_indicator:
-        one: '{{supporter_count}} votos.'
-        many: '{{supporter_count}} votos.'
+        support:
+          one: '{{supporter_count}} votos.'
+          many: '{{supporter_count}} votos.'
+        recommend:
+          one: '{{supporter_count}} recommendation'
+          many: '{{supporter_count}} recommendations'
+      add_new: Crear nuevo/a...
       create_question_link: 'Crear nuevo debate'
       create_proposal_link: 'Crear nueva propuesta'
       create_internal_link: 'Nueva Idea?'
-      create_improvement_proposal_link: 'Crear nueva propuesta de mejora'
+      create_improvement_link: 'Crear nueva mejora'
+      create_pro_argument_link: Crea un nuevo argumento a favor
+      create_contra_argument_link: Crea un nuevo argumento en contra
+      create_follow_up_question_link: Formula una nueva pregunta de seguimiento
+      recommend_link: 'Recomienda esto'
+      unrecommend_link: 'Retira tu ec(h)o'
+      support_link: 'Apoya esto'
+      unsupport_link: 'Retira tu ec(h)o'
       create_question_explanation: |
         Aquí puedes iniciar un <strong>nuevo debate</strong>.
         Por favor, no te olvides de insertar palabras clave para que tu nuevo debate sea hallado fácilmente.
       create_proposal_explanation: |
         Tienes una <strong>buena idea</strong>, que todavia <strong>no existe</strong>?<br/>
         Aquí puedes crear una <strong>nueva propuesta</strong>.
-      create_improvement_proposal_explanation: |
+      create_improvement_explanation: |
         Tienes una <strong>buena idea</strong>, para mejorar esta <strong>propuesta</strong>?<br/>
-        Aquí puedes crear una <strong> propuesta de mejora</strong>.
+        Aquí puedes crear una <strong> mejora</strong>.
       create_statement_language_hint: |
         Este debate es visible pero la edición está restringida - sólo puedes leerlo.
       create_statement_language_hint: |
@@ -406,6 +455,27 @@ es:
         Esto te permitirá introducir comentarios en el idioma en que posees al menos, conocimientos a nivel intermedio.
       drafting_language_hint: |
         Ten en cuenta que el proceso de elaboración colectiva de las propuestas funcionará sólo en este idioma!
+      fuq_formulation_hint: |
+        Since follow-up questions also appear as questions in "Search", title and description should both be comprehensible independently of the original discussion.
+      title_hint:
+        question: Introduce el título de la pregunta en...
+        proposal: Introduce el título de la propuesta en...
+        improvement: Introduce el título de la mejora en...
+        pro_argument: Introduce el título del argumento a favor en...
+        contra_argument: Introduce el título del argumento en contra en...
+        follow_up_question: Introduce el título de la pregunta de seguimiento en...
+      text_hint:
+        question: Por favor, describe el asunto y desarrolla algunos detalles sobre el tema...
+        proposal: Por favor, formula tu propuesta en detalle...
+        improvement: Por favor, formula tu idea de mejora en detalle...
+        pro_argument: Por favor, formula tu argumento a favor en detalle...
+        contra_argument: Por favor, formula tu argumento en contra en detalle...
+        follow_up_question: Por favor, formula tu pregunta de seguimiento en detalle...
+      fuq_formulation_hint: |
+        Las preguntas de seguimiento aparecen también como preguntas en "Buscar", por ello, el título y la
+        descripción deben ser comprensibles también fuera de contexto del debate principal.
+      tag_hint: 'Clasificado por temas'
+
       publish: Publicar
       published: Este debate ha sido publicada con éxito.
       edit: 'Editar {{type}}'
@@ -413,15 +483,25 @@ es:
       types:
         question:  'Cuestión'
         proposal:  'Propuesta'
-        improvement_proposal: 'Propuesta de mejora'
+        improvement: 'Mejora'
+        pro_argument: 'Argumento a favor'
+        contra_argument: 'Argumento en contra'
+        follow_up_question: 'Pregunta de seguimiento'
       new:
         question:  'Nuevo Debate'
         proposal:  'Nueva Propuesta'
-        improvement_proposal: 'Nueva propuesta de mejora'
+        improvement: 'Nueva Mejora'
+        pro_argument: 'Nuevo argumento a favor'
+        contra_argument: 'Nuevo argumento en contra'
+        follow_up_question: 'Nueva pregunta de seguimiento'
       headings:
         question: 'Cuestiones'
         proposal: 'Propuestas'
-        improvement_proposal: 'Propuesta de mejora'
+        improvement: 'Mejora'
+        argument: 'Argumentos'
+        follow_up_question: 'Preguntas de Seguimiento'
+      siblings:
+        follow_up_question: 'Pregunta de seguimiento según lo indicado arriba'
 
       topic: Tema (Tags / Palabras clave)
       states:
@@ -436,29 +516,71 @@ es:
       read_only_permission: |-
         Este debate es visible pero la edición está restringida - sólo puedes leerlo.
       unsupported_parent: |-
-        Sólo puedes apoyar las propuestas de mejora si apoyas también la correspondiente propuesta.
+        Sólo puedes apoyar las mejoras si apoyas también la correspondiente propuesta.
       not_approved_any_more: |-
-        Lo sentimos, pero esta propuesta de mejora ya no puede ser incorporada.
+        Lo sentimos, pero esta mejora ya no puede ser incorporada.
       see_parent_if_approved: |-
-        Se ha aprobado la incorporación de esta propuesta de mejora a la propuesta de abajo.
+        Se ha aprobado la incorporación de esta mejora a la propuesta de abajo.
       see_parent_if_incorporated: |-
-        Esta propuesta de mejora ya ha sido incorporada.
+        Esta mejora ya ha sido incorporada.
       being_edited: |-
         Esta propuesta está siendo editada en estos momentos. Por favor, vuelve mas tarde.
       already_translated: |-
         {{type}} ya ha sido traducida.
       statement_updated: |-
         {{type}} acaba de ser actualizada.
+      statement_supported: |-
+         Has hecho ec(h)o en {{type}} con éxito.
+      statement_unsupported: |-
+         Has retirado tu ec(h)o de {{type}} con éxito.
       edit_period_hint: |
         <strong>Te quedan {{minutes}} minutos</strong> para editar la propuesta.
         Transcurrido este tiempo, podrás perder tus modificationes.
-      staled_modification: 'Lo sentimos, pero han transcurrido los 60 minutos que tenías para editar la propuesta. Otro miembro ha aprovechado su oportunidad y ha editado la propuesta, por lo que no se han podido guardar tus modificaciones.'
+      staled_modification: |
+        Lo sentimos, pero han transcurrido los 60 minutos que tenías para editar
+        la propuesta. Otro miembro ha aprovechado su oportunidad y ha editado la
+        propuesta, por lo que no se han podido guardar tus modificaciones.
+      no_document_in_language: 'Este contenido no está disponible en inglés.'
+
+      breadcrumbs:
+        discuss_search: Buscar
+        my_questions: Mis preguntas
+        labels:
+          ds: ''
+          mi: ''
+          sr: 'Buscar resultados para'
+          fq: 'Preguntas de seguimiento para'
+          over:
+            ds: 'Volver a'
+            mi: 'Volver a'
+            sr: 'Volver a buscar resultados para'
+            fq: 'Volver a'
 
       upload_image:
         title: Cargar imagen
         guide: Selecciona <strong>por favor, una imagen</strong> (JPG o PNG, max. 5MB) y descárgala.
         progress: La imagen se está cargando. Por favor, espera...
         error: 'Error cargando la imagen: Formato de la imagen no compatible.'
+
+      add_teaser:
+        question: |
+          Aquí podría aparecer tu idea ganadora.<br/><br/>Tienes una?<br/><br/>
+          Presiona el botón de arriba para introducirla AHORA!
+        proposal: |
+          Aquí podría aparecer tu idea ganadora.<br/><br/>Tienes una?<br/><br/>
+          Presiona el botón de arriba para introducirla AHORA!
+        improvement: |
+          Aquí podría aparecer tu idea ganadora.<br/><br/>Tienes una?<br/><br/>
+          Presiona el botón de arriba para introducirla AHORA!
+        pro_argument: |
+          Aquí podría aparecer tu idea ganadora.<br/><br/>Tienes una?<br/><br/>
+          Presiona el botón de arriba para introducirla AHORA!
+        contra_argument: |
+          Aquí podría aparecer tu idea ganadora.<br/><br/>Tienes una?<br/><br/>
+          Presiona el botón de arriba para introducirla AHORA!
+        follow_up_question: |
+          Aquí podría aparecer tu idea ganadora.<br/><br/>Tienes una?<br/><br/>
+          Presiona el botón de arriba para introducirla AHORA!
 
     summary:
       title: 'Resumen'
@@ -467,7 +589,7 @@ es:
       updated: "La {{type}} ha sido editada correctamente."
       deleted: "La {{type}} ha sido borrada correctamente."
       translated: "La {{type}} ha sido traducida correctamente."
-      incorporated: "La propuesta de mejora ha sido incorporada a la propuesta correctamente."
+      incorporated: "La mejora ha sido incorporada a la propuesta correctamente."
       image_uploaded: "La imagen se ha cargado correctamente en el {{type}}."
       empty: "No se ha encontrado ningún debate. Por favor, intenta la búsqueda con otra palabra"
       empty_without_spoken_languages: |
@@ -483,8 +605,9 @@ es:
   connect:
 
     fill_out_profile:
-      text: Por favor completa tu perfil <strong>por lo menos en un {{percentage}}%</strong>, para hacer feliz al servidor (HAL)
-         y retirar este bloque ;-)
+      text: |-
+        Por favor completa tu perfil <strong>por lo menos en un {{percentage}}%</strong>, para hacer feliz al servidor (HAL)
+        y retirar este bloque ;-)
 
     segments:
       all: Todos
@@ -493,8 +616,41 @@ es:
       expertise: 'Expertos'
       decision_making: 'Decisivos'
     results_count:
-      one: '{{count}} miembros'
-      more: '{{count}} miembros'
+      all:
+        no_filter:
+          one: 'persona'
+          more: 'gente'
+        with_filter:
+          one: "persona relacionada con '{{filter}}'"
+          more: "gente relacionada con '{{filter}}'"
+      affection:
+        no_filter:
+          one: persona afectada
+          more: gente afectada
+        with_filter:
+          one: "persona afectada por '{{filter}}'"
+          more: "gente afectada por '{{filter}}'"
+      engagement:
+        no_filter:
+          one: persona comprometida
+          more: gente comprometida
+        with_filter:
+          one: "persona comprometida con '{{filter}}'"
+          more: "gente comprometida con '{{filter}}'"
+      expertise:
+        no_filter:
+          one: experto/a
+          more: expertos/as
+        with_filter:
+          one: "experto/a en '{{filter}}'"
+          more: "expertos/as en '{{filter}}'"
+      decision_making:
+        no_filter:
+          one: responsable
+          more: responsables
+        with_filter:
+          one: "responsable de '{{filter}}'"
+          more: "responsables de '{{filter}}'"
     details:
       tabs:
         overview:     'Sinopsis'
@@ -582,10 +738,11 @@ es:
       feedback:
         message: Mensaje
       statement_document:
+        language_id: 'Idioma'
         language: 'Idioma'
-        text:     'Resumen'
-        title:    'Titulo'
-        image:    'Imagen'
+        text: 'Resumen'
+        title: 'Titulo'
+        image: 'Imagen'
 
       about_item:
         photo: 'Foto'
@@ -598,7 +755,7 @@ es:
     models:
       question: "Cuestión"
       proposal: "Propuesta"
-      improvement_proposal: "Propuesta de mejora"
+      improvement: "Mejora"
 
   authlogic:
     error_messages:

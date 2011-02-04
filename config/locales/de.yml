@@ -32,6 +32,7 @@ de:
       incorporate: Incorporate
       welcome: Willkommen
       all: Alle
+      authors: Autoren
 
     # Roadmap - Progress
     roadmap:
@@ -126,7 +127,7 @@ de:
   # USERS MODULE
   # ------------
   users:
-
+    anonym: Anonym
     # User sessions section
     user_sessions:
       login:
@@ -269,6 +270,17 @@ de:
         turned_on: Benachrichtigungen zur gemeinsamen Textenwicklung wurden eingeschaltet.
         turned_off: Benachrichtigungen zur gemeinsamen Textenwicklung wurden ausgeschaltet.
 
+    # Permissions section
+    permissions:
+      title: Privatsphäre
+      guide: Hier können Sie einstellen, ob Ihre Daten in verschiedenen Bereichen der Website angezeigt werden sollen.
+      authorship:
+        title: Autorenschaft von Inhalten
+        guide: |
+          Eingeloggte Mitglieder (aber keine Suchmaschinen) können Sie als Co-AutorIn
+          von Beiträgen in echo Diskussionen nachvollziehen.
+        turned_on: Sie werden als Co-Autor zu Inhalten angezeigt.
+        turned_off: Sie werden als Anonym angezeigt.
 
     # New Users section
     users:
@@ -305,11 +317,12 @@ de:
   # ---------------
 
   discuss:
-    my_discussions:
+    my_questions:
       link: Meine Fragestellungen
       title: Meine neuen & freigegebenen Fragestellungen
-      no_discussions: |
+      no_questions: |
         Sie haben bislang keine Fragestellungen hinzugefügt. Um welche anzulegen, klicken Sie bitte links auf das Fragezeichen.
+      add: Neue Fragestellung
     tag_permission: |
       Sie dürfen leider den Tag '{{tag}}' nicht vergeben.
     original_language_warning: |
@@ -319,6 +332,8 @@ de:
     results_count:
       one: '{{count}} Fragestellung'
       more: '{{count}} Fragestellungen'
+    for: |-
+      für '{{value}}'
     featured_topics:
       title: Empfohlene Themen
       text: |
@@ -339,49 +354,83 @@ de:
     search:
       title: Suchen
       in: '... in {{category}} ...'
+      add: "Erste Fragestellung zum Thema erstellen"
 
     tooltips:
       read_question: 'Diese Frage anschauen'
       read_proposal: 'Diesen Vorschlag lesen'
-      read_improvement_proposal: 'Diese Ergänzung lesen'
+      read_improvement: 'Diese Ergänzung lesen'
+      read_pro_argument: 'Dieses Pro-Argument lesen'
+      read_contra_argument: 'Dieses Kontra-Argument lesen'
+      read_follow_up_question: 'Diese Folgefrage lesen'
       current_question: 'Die aktuell angezeigte Frage'
       current_proposal: 'Der aktuell angezeigte Vorschlag'
-      current_improvement_proposal: 'Die aktuell angezeigte Ergänzung'
+      current_improvement: 'Die aktuell angezeigte Ergänzung'
+      current_pro_argument: 'Das gegenwärtig angezeigte Pro-Argument'
+      current_contra_argument: 'Das gegenwärtig angezeigte Kontra-Argument'
+      current_follow_up_question: 'Die gegenwärtig angezeigte Folgefrage'
       back_to_question: 'Zurück zur aktuellen Frage'
       back_to_proposal: 'Zurück zum aktuellen Vorschlag'
-      back_to_improvement_proposal: 'Zurück zur aktuellen Ergänzung'
+      back_to_improvement: 'Zurück zur aktuellen Ergänzung'
       prev_question: 'Vorige Frage lesen'
       next_question: 'Nächste Frage lesen'
       prev_proposal: 'Vorigen Vorschlag zur aktuellen Frage lesen'
       next_proposal: 'Nächsten Vorschlag zur aktuellen Frage lesen'
-      prev_improvement_proposal: 'Vorige Ergänzung zum aktuellen Vorschlag lesen'
-      next_improvement_proposal: 'Nächste Ergänzung zum aktuellen Vorschlag lesen'
+      prev_improvement: 'Vorige Ergänzung zum aktuellen Vorschlag lesen'
+      next_improvement: 'Nächste Ergänzung zum aktuellen Vorschlag lesen'
+      prev_pro_argument: 'Das vorherige Argument für den aktuellen Vorschlag lesen'
+      next_pro_argument: Das nächste Argument für den aktuellen Vorschlag lesen'
+      prev_contra_argument: 'Das vorherige Argument für den aktuellen Vorschlag lesen'
+      next_contra_argument: 'Das nächste Argument für den aktuellen Vorschlag lesen'
+      prev_follow_up_question: 'Die vorherige Folgefrage in diesem Zusammenhang lesen'
+      next_follow_up_question: 'Die nächste Folgefrage in diesem Zusammenhang lesen'
       create_question: 'Neue Fragestellung hinzufügen'
       create_proposal: 'Tragen Sie Ihre neue Idee zur aktuellen Fragestellung ein'
-      create_improvement_proposal: 'Tragen Sie Ihre neue Idee zum aktuellen Vorschlag ein'
+      create_improvement: 'Tragen Sie Ihre neue Idee zum aktuellen Vorschlag ein'
+      create_pro_argument: "Ein neues Pro-Argument für diese Antwort hinzufügen"
+      create_contra_argument: "Ein neues Kontra-Argument für diese Antwort hinzufügen"
+      create_follow_up_question: "Eine neue Folgefrage im aktuellen Zusammenhang hinzufügen"
       echo: 'Unterstützen Sie diese Aussage durch Ihr Echo!'
       unecho: 'Ziehen Sie Ihre Stimme zurück, wenn Sie die Aussage nicht mehr unterstützen möchten'
       publish: |
         Geben Sie die Fragestellung frei, um sie für alle sichtbar zu machen.
         (Danach ist keine Bearbeitung mehr möglich.)
       incorporate: 'Klicken Sie hier, um diesen ausgewählten Ergänzung in den obigen Text einzuarbeiten.'
+      siblings:
+        question: Alle Fragestellungen im obigen Kontext ansehen.
+        proposal: Alle Vorschläge zur gegenwärtigen Fragestellung anzeigen.
+        improvement: Alle Ergänzungsideen zum gegenwärtigen Vorschlag anzeigen.
+        pro_argument: Alle Argumente zum gegenwärtigen Vorschlag anzeigen.
+        contra_argument:  Alle Argumente zum gegenwärtigen Vorschlag anzeigen.
 
     statements:
       label: 'Stimmen'
       echo_indicator:
-        one: '{{supporter_count}} UnterstützerIn'
-        many: '{{supporter_count}} UnterstützerInnen'
+        support:
+          one: '{{supporter_count}} UnterstützerIn'
+          many: '{{supporter_count}} UnterstützerInnen'
+        recommend:
+          one: '{{supporter_count}} Empfehlung'
+          many: '{{supporter_count}} Empfehlungen'
+      add_new: Neues hinzufügen...
       create_question_link: 'Neue Fragestellung hinzufügen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
       create_internal_link: 'Neue Idee?'
-      create_improvement_proposal_link: 'Neue Ergänzung vorschlagen'
+      create_improvement_link: 'Neue Ergänzung vorschlagen'
+      create_pro_argument_link: Neues Pro-Argument hinzufügen
+      create_contra_argument_link: Neues Kontra-Argument hinzufügen
+      create_follow_up_question_link: Neue Folgefrage hinzufügen
+      recommend_link: 'Empfehlen'
+      unrecommend_link: 'echo widerrufen'
+      support_link: 'Unterstützen'
+      unsupport_link: 'echo widerrufen'
       create_question_explanation: |
         Hier können Sie eine <strong>neue Fragestellung</strong> hinzufügen und mit den
         passenden <strong>thematischen Schlüsselwörten</strong> (sog. Tags) versehen.
       create_proposal_explanation: |
         Haben Sie eine <strong>gute Idee</strong> zur aktuellen Fragestellung, die noch <strong>nicht vorhandenen</strong> ist?<br/>
         Hier können Sie einen <strong>neuen Vorschlag</strong> erstellen.
-      create_improvement_proposal_explanation: |
+      create_improvement_explanation: |
         Haben Sie eine <strong>gute Idee</strong>, wie man den aktuellen <strong>Vorschlag noch besser machen</strong> kann?<br/>
         Hier können Sie eine <strong>neue Ergänzung</strong> vorschlagen.
       create_statement_language_hint: |
@@ -393,6 +442,27 @@ de:
         Sie können dann Aussagen in allen Sprachen erstellen, die Sie mindestens auf mittlerem Niveau beherrschen.
       drafting_language_hint: |
         Bitte beachten Sie, dass die gemeinsame Weiterentwicklung dieses Vorschlags nur in der ausgewählten Sprache möglich sein wird!
+      fuq_formulation_hint: |
+        Since follow-up questions also appear as questions in "Search", title and description should both be comprehensible independently of the original discussion.
+      title_hint:
+        question: Überschrift der Fragestellung auf...
+        proposal: Überschrift des Vorschlags auf...
+        improvement: Überschrift der Ergänzungsidee auf...
+        pro_argument: Überschrift des Pro-Arguments auf...
+        contra_argument: Überschrift des Kontra-Arguments auf...
+        follow_up_question: Überschrift der Folgefrage auf...
+      text_hint:
+        question: Bitte erläutern Sie das Problem und beschreiben Sie das Thema näher...
+        proposal: Bitte erläutern Sie Ihren Vorschlag näher...
+        improvement: Bitte erläutern Sie Ihre Ergänzungsidee näher...
+        pro_argument: Bitte erläutern Sie Ihr Pro-Argument näher...
+        contra_argument: Bitte erläutern Sie Ihr Kontra-Argument näher...
+        follow_up_question: Bitte erläutern Sie Ihre Folgefrage näher...
+      fuq_formulation_hint: |
+        Da Folgefragen auch wie andere Fragestellungen in der Suche erscheinen,
+        sollten Überschrift und Erläuterung auch ausserhalb der ursprünglichen
+        Diskussion verständlich sein.
+      tag_hint: 'Schlagworte hier eingeben...'
 
       publish: Freigeben
       published: Die Fragestellung wurde erfolgreich freigegeben.
@@ -401,15 +471,25 @@ de:
       types:
         question:  'Fragestellung'
         proposal:  'Vorschlag'
-        improvement_proposal: 'Ergänzung'
+        improvement: 'Ergänzung'
+        pro_argument: 'Pro-Argument'
+        contra_argument: 'Kontra-Argument'
+        follow_up_question: 'Folgefrage'
       new:
         question:  'Neue Fragestellung'
         proposal:  'Neuer Vorschlag'
-        improvement_proposal: 'Neue Ergänzung'
+        improvement: 'Neue Ergänzung'
+        pro_argument: 'Neues Pro-Argument'
+        contra_argument: 'Neues Kontra-Argument'
+        follow_up_question: 'Neue Folgefrage'
       headings:
         question: 'Fragestellungen'
         proposal: 'Vorschläge'
-        improvement_proposal: 'Ergänzungen'
+        improvement: 'Ergänzungen'
+        argument: 'Argumente'
+        follow_up_question: 'Folgefragen'
+      siblings:
+        follow_up_question: 'Folgefrage im obigen Kontext'
 
       topic: Thema (Tags / Schlüsselwörte)
       states:
@@ -437,10 +517,29 @@ de:
         {{type}} wurde gerade von einer anderen Person übersetzt.
       statement_updated: |-
         {{type}} wurde gerade von einer anderen Person aktualisiert.
+      statement_supported: |-
+        Vielen Dank für Ihr Echo zum Beitrag.
+      statement_unsupported: |-
+        Ihr Echo zum Beitrag wurde zurückgezogen.
       edit_period_hint: |
         Sie haben {{minutes}} Minuten, um den Beitrag zu bearbeiten.
         Nach Ablauf können Ihre Änderungen eventuell nicht mehr berücksichtigt werden.
       staled_modification: 'Es tut uns sehr leid, aber Ihre Bearbeitungszeit von max. 60 Minuten ist abgelaufen. Mittlerweile hat ein anderer Nutzer den Beitrag bearbeitet. Ihre Änderungen mussten daher leider verworfen werden.'
+      no_document_in_language: 'Diese Aussage ist noch nicht auf Deutsch verfügbar.'
+
+      breadcrumbs:
+        discuss_search: Suche
+        my_questions: Meine Fragestellungen
+        labels:
+          ds: ''
+          mi: ''
+          sr: 'Suchergebnisse für'
+          fq: 'Folgefragen zu'
+          over:
+            ds: 'Zurück zu'
+            mi: 'Zurück zu'
+            sr: 'Zurück zu Suchergebnissen für'
+            fq: 'Zurück zu'
 
       upload_image:
         title: Bild hochladen
@@ -448,8 +547,28 @@ de:
         progress: Das Bild wird hochgeladen. Einen kurzen Augenblick bitte...
         error: Das Bild konnte leider nicht angenommen werden. Bitte verwenden Sie nur JPG oder PNG mit max. 5MB.
 
+      add_teaser:
+        question: |
+          Hier könnte IHRE Frage stehen.<br/><br/>Haben Sie eine?<br/><br/>
+          Nutzen Sie den obenstehenden Link, um sie JETZT einzugeben!
+        proposal: |
+          Hier könnte IHR Vorschlag stehen .<br/><br/>Haben Sie einen?<br/><br/>
+          Nutzen Sie den obenstehenden Link, um ihn JETZT einzugeben!
+        improvement: |
+          Hier könnte IHRE Ergänzungsidee stehen.<br/><br/>Haben Sie eine?<br/><br/>
+          Nutzen Sie den obenstehenden Link, um sie JETZT einzugeben!
+        pro_argument: |
+          Hier könnte IHR Pro-Argument stehen.<br/><br/>Haben Sie eines?<br/><br/>
+          Nutzen Sie den obenstehenden Link, um es JETZT einzugeben!
+        contra_argument: |
+          Hier könnte IHR Kontra-Argument stehen.<br/><br/>Haben Sie eines?<br/><br/>
+          Nutzen Sie den obenstehenden Link, um es JETZT einzugeben!
+        follow_up_question: |
+          Hier könnte IHRE Folgefrage stehen.<br/><br/>Haben Sie eine?<br/><br/>
+          Nutzen Sie den obenstehenden Link, um sie JETZT einzugeben!
+
     summary:
-      title: 'Zusammenfassung'
+      title: 'Erläuterung'
     messages:
       created: "{{type}} wurde erfolgreich erstellt."
       updated: "{{type}} wurde erfolgreich bearbeitet."
@@ -480,8 +599,41 @@ de:
       expertise: 'ExpertInnen'
       decision_making: 'EntscheiderInnen'
     results_count:
-      one: '{{count}} BewegerIn'
-      more: '{{count}} BewegerInnen'
+      all:
+        no_filter:
+          one: 'Person'
+          more: 'Menschen'
+        with_filter:
+          one: "Person passend zu '{{filter}}'"
+          more: "Menschen passend zu '{{filter}}'"
+      affection:
+        no_filter:
+          one: betroffene Person
+          more: betroffene Menschen
+        with_filter:
+          one: "Person betroffen von '{{filter}}'"
+          more: "Menschen betroffen von '{{filter}}'"
+      engagement:
+        no_filter:
+          one: engagierte Person
+          more: engagierte Menschen
+        with_filter:
+          one: "Person engagiert in '{{filter}}'"
+          more: "Menschen engagiert in '{{filter}}'"
+      expertise:
+        no_filter:
+          one: ExpertIn
+          more: ExpertInnen
+        with_filter:
+          one: "ExpertIn in '{{filter}}'"
+          more: "ExpertInnen in '{{filter}}'"
+      decision_making:
+        no_filter:
+          one: EntscheidungsträgerIn
+          more: EntscheidungsträgerInnen
+        with_filter:
+          one: "EntscheidungsträgerIn bei '{{filter}}'"
+          more: "EntscheidungsträgerInnen bei '{{filter}}'"
     details:
       tabs:
         overview:     'Überblick'
@@ -587,7 +739,7 @@ de:
     models:
       question: "Fragestellung"
       proposal: "Vorschlag"
-      improvement_proposal: "Ergänzung"
+      improvement: "Ergänzung"
 
   authlogic:
     error_messages:

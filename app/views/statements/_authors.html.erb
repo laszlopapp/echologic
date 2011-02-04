@@ -1,0 +1,6 @@
+<div id="authors" class="expandable_content authors jcarousel-echo-skin" style='display:none'>
+	<% content_tag :ul, :class => 'authors_list' do %>
+	 <%= render :partial => 'statements/author', :collection => @authors %>
+	<% end %>
+  <%= image_tag('page/separator_no_shadow.png', :class =>'separator_image') %>
+</div>

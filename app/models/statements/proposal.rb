@@ -1,31 +1,16 @@
 # Specification of a Proposal
 
 # * Proposals can be either seen as Proposals or as Positions (/Standpoints) as which they are commonly refered to in concepts and ui
-# * currently a Position expects only Improvement Proposals as valid children, and only Questions as parents
+# * currently a Position expects only improvements as valid children, and only Questions as parents
 
 
 class Proposal < StatementNode
   acts_as_draftable :tracked, :staged, :approved, :incorporated, :passed
-  # methods / settings to overwrite default statement_node behaviour
 
-  validates_parent :Question
-  expects_children :ImprovementProposal
+  has_children_of_types [:Improvement,true], [:Argument,true]
 
-  # the default scope defines basic rules for the sql query sent on this model
-  # for questions we do not need to include the echo, and we don't order by supporters count, as they are not supportable
-
-  # def self.default_scope
-  #   super
-  # end
-
-  # uncomment and overwrite me to change this subclasses display name...
-  # default is: self.name.underscore.gsub(/_/,' ').split(' ').each{|word| word.capitalize!}.join(' ')
+  # Overwriting the acts_as_taggable function saying this object is not taggable anymore
   def taggable?
     false
   end
-  
-  def has_children?
-    true
-  end
-
 end

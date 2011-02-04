@@ -51,15 +51,11 @@ es:
       discuss:
         index: 'echo - Debatir'
         roadmap: 'echo - Desarrollo de debatir'
-      questions:
+      statements:
         category: 'echo - Temas de debate'
-        show: 'echo - Debates'
+        show: 'echo - Documento de debate'
         new: 'Crear nuevo debate'
-        my_discussions: 'Mis Debates'
-      proposals:
-        show: 'echo - Propuestas en este debate'
-      improvement_proposals:
-        show: 'echo - Propuesta de mejora'
+        my_questions: 'Mis Preguntas'
 
       # connect: de.seo.title.connect
       connect:
@@ -88,16 +84,38 @@ es:
         index: 'echo - Sobre nosotros'
 
     meta:
-      description: |-
-        echologic es una red de librepensadores. Nuestro objetivo es la realización de echo,
-        el ágora global. echo es un proyecto de Internet para fortalecer el concepto de ciudadanía.
-        Nuestro objetivo es la implantación de una nueva y efectiva <strong>democracia participativa</strong> a nivel local,
-        regional y global.
-        echo significa el fin de la impotencia y el inicio de la auto-determinación!
+      echologic:
+        description: |-
+          echo facilitates constructive mass dialogs for the formation and expression of opinion.
+          The discussions provide a fast and clear overview on alternative views, pro/contra arguments and
+          multimedia background information. The position of different social groups is made transparent and
+          easily comprehensible. Knowledge, opinions and their advocates become connected beyond the borders of
+          different websites, communities and languages.
+          In this way, echo brings together people sharing the same purposes worldwide and supports them in creating
+          joint actions. Wherever we are in the virtual or real world, echo gives us the proof: We are no longer
+          alone with our opinion and convictions - the echo of our voice can change the world.
 
-      keywords: |-
-        echo, ágora, ágora global, democracia, democracia participativa, autodeterminación,
-        inteligencia colectiva, futuro sostenible, base de opiniones, sinopsis de opiniones, formación de opiniones,
-        toma de decisión, transparencia, colaboración democrática,
-        echocracy, equidad, echonomy, socio-ecológico, economía eco-socialmente sostenible,
-        democracia económica, Your-Profit, echologic, echocracia, echonomía, glocal, glocalidad
+        keywords: |-
+          echo, ágora, ágora global, democracia, democracia participativa, autodeterminación,
+          inteligencia colectiva, futuro sostenible, base de opiniones, sinopsis de opiniones, formación de opiniones,
+          toma de decisión, transparencia, colaboración democrática,
+          echocracy, equidad, echonomy, socio-ecológico, economía eco-socialmente sostenible,
+          democracia económica, Your-Profit, echologic, echocracia, echonomía, glocal, glocalidad
+
+      echo:
+        description: |-
+          echo facilitates constructive mass dialogs for the formation and expression of opinion.
+          The discussions provide a fast and clear overview on alternative views, pro/contra arguments and
+          multimedia background information. The position of different social groups is made transparent and
+          easily comprehensible. Knowledge, opinions and their advocates become connected beyond the borders of
+          different websites, communities and languages.
+          In this way, echo brings together people sharing the same purposes worldwide and supports them in creating
+          joint actions. Wherever we are in the virtual or real world, echo gives us the proof: We are no longer
+          alone with our opinion and convictions - the echo of our voice can change the world.
+
+        keywords: |-
+          echo, ágora, ágora global, democracia, democracia participativa, autodeterminación,
+          inteligencia colectiva, futuro sostenible, base de opiniones, sinopsis de opiniones, formación de opiniones,
+          toma de decisión, transparencia, colaboración democrática,
+          echocracy, equidad, echonomy, socio-ecológico, economía eco-socialmente sostenible,
+          democracia económica, Your-Profit, echologic, echocracia, echonomía, glocal, glocalidad

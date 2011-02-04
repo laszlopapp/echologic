@@ -1,17 +1,17 @@
 <% children ||= @children %>
+<% display ||= false %>
+<% no_more ||= false %>
+<% new_level ||= false %>
+<div class="expandable_content children_container" style="<%= display ? 'display:block' : 'display:none'%>">
 
-<div class="sub_list">
-  <ul id="children_list" class="children_pagination">
-    <%= render :partial => 'statements/child', :collection => children if !children.blank? %>
+	<%= render :partial => 'statements/elements_list' , :locals => { :children => children, :type => type, :new_level => new_level }%>
 
-    <%if children.blank? or children.current_page == children.total_pages %>
-        <%= create_new_child_statement_link(@statement_node) %>
-    <%end%>
-  </ul>
-	<div id="more_pagination" class="more_pagination">
-		<% if !children.blank? and children.current_page != children.total_pages %>
-		  <%= more_children(@statement_node) %>
-	  <% end %>
-	</div>
+  <% if !no_more%> 
+		<div class="more_pagination">
+			<% if !children.blank? and children.current_page != children.total_pages %>
+			  <%= more_children(@statement_node,type) %>
+		  <% end %>
+		</div>
+	<% end %>
 </div>
 

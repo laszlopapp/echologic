@@ -1,10 +1,9 @@
 class ActivityTrackingMailer < ActionMailer::Base
-  include StatementsHelper
   layout 'mail'
   helper :mail
 
   # Send the activities on the subscribed objects to the subscribable
-  def activity_tracking_mail(recipient,question_events, question_tags, events)
+  def activity_tracking_mail(recipient, question_events, question_tags, events)
     language = recipient.default_language
     subject       I18n.t('mailers.activity_tracking.subject', :locale => language.code)
     from          "noreply@echologic.org"

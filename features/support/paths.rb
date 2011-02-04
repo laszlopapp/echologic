@@ -17,7 +17,7 @@ module NavigationHelpers
     when /the start page/
       root_path
     when /the connect page/
-      connect_path
+      connect_search_path
     when /the connect roadmap/
       connect_roadmap_path
     when /the welcome page/
@@ -27,26 +27,26 @@ module NavigationHelpers
     when /^create a question$/
       new_question_path
     when /^the question$/
-      question_path(@question)
+      statement_node_url(@question)
     when /^the proposal$/
-      question_proposal_path(@proposal.parent,@proposal)
-    when /^the improvement proposal$/
-      question_proposal_improvement_proposal_path(@improvement_proposal.root,@improvement_proposal.parent,@improvement_proposal)
+      statement_node_path(@proposal)
+    when /^the improvement$/
+      statement_node_path(@improvement)
     when /^the first question$/
-      question_path(Question.first)
+      statement_node_path(Question.first)
     when /^the questions first proposal/
-      question_proposal_path(@question, @proposal)
+      statement_node_path(@proposal)
     when /discuss index/i
       discuss_search_url
-    when /my issues/i
-      my_discussions_url
+    when /my questions/i
+      my_questions_url
     when /discuss featured/i
       discuss_featured_path
     when /discuss search/i
       discuss_search_path
     when /the proposal/
       raise [@proposal.inspect,@proposal.parent.inspect].join('\n')
-      question_proposal_path(@proposal.parent, @proposal)
+      statement_node_path(@proposal)
     when /the activation page/
       register_url(@user.perishable_token)
     when /the edit password page/

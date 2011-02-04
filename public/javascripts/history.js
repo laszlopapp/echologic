@@ -1,20 +1,24 @@
+$(document).ready(function () {
+  initHistoryEvents();
+	
+	initPaginationButtons();
+	
+	initFragmentChange();
+});
+
+
 /**************************/
 /*    SEARCH HISTORY      */
 /**************************/
 
-$(document).ready(function () {
-  $.fragmentChange(true);
 
-  bindHistoryEvents();
-});
-
-function bindHistoryEvents() {
-	 $("#search_form .submit_button").live("click", function(){
+function initHistoryEvents() {
+	$("#search_form .submit_button").live("click", function(){
     setSearchHistory();
     return false;
   });
 
-	$('#search_form #value').live("keypress", function(event) {
+	$('#search_form #search_terms').live("keypress", function(event) {
     if (event && event.keyCode == 13) { /* check if enter was pressed */
       setSearchHistory();
       return false;
@@ -38,53 +42,43 @@ function bindHistoryEvents() {
 
 
 function setSearchHistory() {
-  var val = $("#value").val();
-  if (val.length > 0) {
-    val = val.trim();
+  var search_terms = $("#search_terms").val();
+  if (search_terms.length > 0) {
+		
+    search_terms = search_terms.trim();
   }
-
   if ($(':input[id=sort]').length > 0) {
     var sort = $(':input[id=sort]').val();
-	  $.setFragment({ "value": val, "sort" : sort, "page": "1"});
+	  $.setFragment({ "search_terms": search_terms, "sort" : sort, "page": "1"});
   } else {
-    $.setFragment({ "value": val, "page": "1"});
+    $.setFragment({ "search_terms": search_terms, "page": "1"});
   }
 }
 
+/**********************/
+/*    PAGINATION      */
+/**********************/
 
-
-$(function() {
-  $(".pagination a").live("click", function() {
-    $.setFragment({ "page" : $.queryString(this.href).page });
+function initPaginationButtons() {
+	$(".pagination a").live("click", function() {
+    $.setFragment({ "page" : $.queryString(this.href).page })
     return false;
   });
+}
 
 
+function initFragmentChange() {
   $(document).bind("fragmentChange.page", function() {
-    $.getScript($.queryString(document.location.href, {"page" : $.fragment().page, "sort": $.fragment().sort , "value" : $.fragment().value}));
+		if ($.fragment().page) {
+			$.getScript($.queryString(document.location.href, { 
+				"page": $.fragment().page,
+				"sort": $.fragment().sort,
+				"search_terms": $.fragment().search_terms
+			}));
+		}
   });
 
   if ($.fragment().page) {
     $(document).trigger("fragmentChange.page");
   }
-});
-
-
-/*********************************************/
-/*    CHILDREN PAGINATION AND SCROLLING      */
-/*********************************************/
-
-$(function() {
-	$(".more_pagination a").live("click", function() {
-		$(this).replaceWith($('<span/>').text($(this).text()).addClass('more_loading'));
-  });
-});
-
-
-function pagination_scroll_down(id) {
-	$(id).jScrollPane({animateTo: true});
-  if ($(id).data('jScrollPanePosition') != $(id).data('jScrollPaneMaxScroll')) {
-    $(id)[0].scrollTo($(id).data('jScrollPaneMaxScroll'));
-  }
-
 }

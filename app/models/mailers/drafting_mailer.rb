@@ -1,8 +1,6 @@
 require 'drafting_service'
 
 class DraftingMailer < ActionMailer::Base
-  include StatementsHelper
-
   def approval(mail_data)
     subject       I18n.t('mailers.drafting.approval.subject')
     from          "noreply@echologic.org"
@@ -12,7 +10,7 @@ class DraftingMailer < ActionMailer::Base
                   :ip_title => mail_data[:incorporable_document].title,
                   :hours => DraftingService.approved_hours,
                   :p_title => mail_data[:draftable_document].title,
-                  :p_link => proposal_path(mail_data[:draftable]),
+                  :p_link => proposal_url(mail_data[:draftable]),
                   :language => mail_data[:language]
   end
 
@@ -24,7 +22,7 @@ class DraftingMailer < ActionMailer::Base
     body          :ip_title => mail_data[:incorporable_document].title,
                   :p_title => mail_data[:draftable_document].title,
                   :hours => DraftingService.approved_hours,
-                  :p_link => proposal_path(mail_data[:draftable]),
+                  :p_link => proposal_url(mail_data[:draftable]),
                   :language => mail_data[:language]
   end
 
@@ -35,7 +33,7 @@ class DraftingMailer < ActionMailer::Base
     sent_on       Time.now
     body          :ip_title => mail_data[:incorporable_document].title,
                   :p_title => mail_data[:draftable_document].title,
-                  :p_link => proposal_path(mail_data[:draftable]),
+                  :p_link => proposal_url(mail_data[:draftable]),
                   :language => mail_data[:language]
   end
 
@@ -48,7 +46,7 @@ class DraftingMailer < ActionMailer::Base
                   :hours => DraftingService.approved_hours_left,
                   :ip_title => mail_data[:incorporable_document].title,
                   :p_title => mail_data[:draftable_document].title,
-                  :p_link => proposal_path(mail_data[:draftable]),
+                  :p_link => proposal_url(mail_data[:draftable]),
                   :language => mail_data[:language]
   end
 
@@ -60,7 +58,7 @@ class DraftingMailer < ActionMailer::Base
     body          :hours => DraftingService.approved_hours_left,
                   :ip_title => mail_data[:incorporable_document].title,
                   :p_title => mail_data[:draftable_document].title,
-                  :p_link => proposal_path(mail_data[:draftable]),
+                  :p_link => proposal_url(mail_data[:draftable]),
                   :language => mail_data[:language]
   end
 
@@ -82,7 +80,7 @@ class DraftingMailer < ActionMailer::Base
     sent_on       Time.now
     body          :ip_title => mail_data[:incorporable_document].title,
                   :p_title => mail_data[:draftable_document].title,
-                  :ip_link => improvement_proposal_path(mail_data[:incorporable]),
+                  :ip_link => improvement_url(mail_data[:incorporable]),
                   :language => mail_data[:language]
   end
 
@@ -94,7 +92,7 @@ class DraftingMailer < ActionMailer::Base
     body          :name => mail_data[:draftable_document].author.full_name,
                   :ip_title => mail_data[:incorporable_document].title,
                   :p_title => mail_data[:draftable_document].title,
-                  :p_link => proposal_path(mail_data[:draftable]),
+                  :p_link => proposal_url(mail_data[:draftable]),
                   :language => mail_data[:language]
   end
 
@@ -105,7 +103,7 @@ class DraftingMailer < ActionMailer::Base
     sent_on       Time.now
     body          :ip_title => mail_data[:incorporable_document].title,
                   :p_title => mail_data[:draftable_document].title,
-                  :p_link => proposal_path(mail_data[:draftable]),
+                  :p_link => proposal_url(mail_data[:draftable]),
                   :language => mail_data[:language]
   end
 

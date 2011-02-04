@@ -99,10 +99,9 @@ de:
             echo steckt zwar momentan noch in den Kinderschuhen, Sie können aber bereits jetzt:
             </p>
 
-        action: |
-          Zum echo Prototyp »<br/>
-          (NEU in wenigen Tagen)
-
+        action: |-
+          Erster Quantensprung ONLINE!<br/>
+          Zum neuen Prototyp »
 
       # about section
       about:
@@ -756,7 +755,7 @@ de:
             <p>Helft Euren Mitstreitern Euch zu helfen, indem Ihr das kostenlose Fundraising-Tool von Click4Charity nutzt.
             So können Eure Unterstützer Euch bei Ihrem nächsten Online-Kauf mit einem Teil des Umsatzes unterstützen,
             ohne selbst Geld in Eure Kasse legen zu müssen.</p>
-        discussion_methods:
+        question_methods:
           title: echos neuartige Diskussionsmethode
           text: |
             <p>Nutzt die innovative Diskussionsmethode echos für konstruktive interne Debatten und zur gemeinsamen,

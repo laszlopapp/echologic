@@ -100,6 +100,10 @@ module ActiveRecord
             def document_in_drafting_language
               document_in_language(drafting_language)
             end
+            
+            def self.drafting_conditions 
+              " and statement_nodes.drafting_state IN ('tracked', 'ready', 'staged') "
+            end
 
           end # --- class_eval
 

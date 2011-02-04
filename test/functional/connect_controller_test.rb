@@ -15,19 +15,19 @@ class ConnectControllerTest < ActionController::TestCase
   end
   
   test "should get Joe" do
-    get :show, :value => "Joe"
+    get :show, :search_terms => "Joe"
     assert_response :success
     assert_true(assigns(:profiles).include?(@user))
   end
   
   test "should get Joe in Affected" do
-    get :show, :value => "Joe", :sort => TagContext["affection"].id
+    get :show, :search_terms => "Joe", :sort => TagContext["affection"].id
     assert_response :success
     assert_true(assigns(:profiles).include?(@user))
   end
   
   test "should not get Joe in Experts" do
-    get :show, :value => "Joe", :sort => TagContext["expertise"].id
+    get :show, :search_terms => "Joe", :sort => TagContext["expertise"].id
     assert_response :success
     assert_true(!assigns(:profiles).include?(@user))
   end

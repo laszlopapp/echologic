@@ -23,7 +23,8 @@ class ActivityTrackingService
                      Subscription.new(:subscriber => user, :subscriber_type => user.class.name,
                                       :subscribeable => echoable, :subscribeable_type => echoable.class.name)
     echoable.subscriptions << subscription if subscription.new_record?
-    # When echoable is a proposal, then we must follow the main discussion too
+    # When echoable is a proposal, then we must follow the main question too
+    # When echoable is an improvement/pro-contra, then we must follow the parent proposal too
     if !echoable.parent.nil?
       parent_subscription = echoable.parent.subscriptions.find_by_subscriber_id(user.id) ||
                        Subscription.new(:subscriber => user, :subscriber_type => user.class.name,
@@ -36,17 +37,18 @@ class ActivityTrackingService
     return if user.nil?
     subscription = echoable.subscriptions.find_by_subscriber_id(user.id)
     echoable.subscriptions.delete(subscription) if subscription
-    # When a proposal, then we must remove the discussion subscription in the case when no more sibling is around
+    # When a proposal, then we must remove the question subscription in the case when no more sibling is around
+    # When an improvement/pro-contra, then we must remove the proposal subscription in the case when no more sibling is around
     if !echoable.parent.nil?
       parent_subscription = user.subscriptions.find_by_subscribeable_id(echoable.parent_id)
-      if (user.subscriptions.map(&:subscribeable_id) & echoable.parent.children_statements.map(&:id)).empty?
+      if (user.subscriptions.map(&:subscribeable_id) & echoable.parent.child_statements.map(&:id)).empty?
         user.subscriptions.delete(parent_subscription) if parent_subscription
       end
     end
   end
 
   def created(node)
-    created_event(node) if node.published?
+    published(node) if node.published?
   end
 
   def published(node)
@@ -67,15 +69,16 @@ class ActivityTrackingService
   def created_event(node)
 
     event_json = {
-      :type => node.class.name.underscore.downcase,
-      :id => node.id,
-      :tags => node.topic_tags,
+      :type => node.class.name.underscore,
+      :id => node.target_id,
+      :level => node.level,
+      :tags => node.filtered_topic_tags,
       :documents => set_titles_hash(node.statement_documents),
       :parent_documents => node.parent ? set_titles_hash(node.parent.statement_documents) : nil,
-      :root_documents => (!node.root_id.nil? and node.root != node.parent) ? set_titles_hash(node.root.statement_documents) : nil,
+      :root_documents => (!node.root.nil? and node.root != node.parent) ? set_titles_hash(node.root.statement_documents) : nil,
       :parent_id => node.parent_id || -1,
-      :root_id => (!node.root_id.nil? and node.root_id != node.parent_id) ? node.root_id : -1,
-      :parent_type => node.parent ? node.parent.class.name.underscore.downcase : nil,
+      :root_id => (!node.root.nil? and node.root != node.parent) ? node.root.id : -1,
+      :parent_type => node.parent ? node.parent.class.name.underscore : nil,
       :operation => 'created'
     }.to_json
 
@@ -131,7 +134,7 @@ class ActivityTrackingService
 
       events.sort! do |a,b|
         a_parsed = JSON.parse(a.event) ; b_parsed = JSON.parse(b.event)
-        [a_parsed['root_id'],a_parsed['parent_id']] <=> [b_parsed['root_id'],b_parsed['parent_id']]
+        [a_parsed['root_id'],a_parsed['parent_id'],a_parsed['type']] <=> [b_parsed['root_id'],b_parsed['parent_id'],b_parsed['type']]
       end
 
       # Sending the mail

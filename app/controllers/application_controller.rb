@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
     request.referer || root_url
   end
 
-  private
+  protected
   def redirect_to_url(url, message)
     respond_to do |format|
       set_info message
@@ -75,7 +75,7 @@ class ApplicationController < ActionController::Base
       end
       format.js do
         render_with_info do |page|
-          page.redirect_to url
+          page << "redirectToUrl('#{params[:controller]}', '#{url}');"
         end
       end
     end
@@ -214,9 +214,9 @@ class ApplicationController < ActionController::Base
   end
 
   def language_preference_list
-    priority_languages = @statement_node.nil? ? [locale_language_id] : [locale_language_id,
-                                                                        @statement_node.original_language.id]
-    keys = priority_languages.concat(current_user ? current_user.sorted_spoken_language_ids : []).uniq
+    priority_languages = (@statement_node.nil? ? [locale_language_id] : [locale_language_id,
+                                                                        @statement_node.original_language.id])
+    priority_languages.concat(current_user ? current_user.sorted_spoken_language_ids : []).uniq
   end
 
 
@@ -235,7 +235,7 @@ class ApplicationController < ActionController::Base
     flash[:notice] = @info
   end
 
-  # Renders :updates a page with an a info message set by set_info (used for Ajax requests)
+  # Renders :updates a page with an a info message set by set_info.
   def render_with_info(message=@info)
     render :update do |page|
       page << "info('#{escape_javascript(message)}');" if message
@@ -270,22 +270,10 @@ class ApplicationController < ActionController::Base
     flash[:error] = @error
   end
 
-  # Displays the error message (used for Ajax requests).
-  def show_error_message(message=@error)
-    render :update do |page|
-      page << "error('#{escape_javascript(message)}');"
-    end
-  end
-
   # Get formatted error string from error partial for a given object, then show
   # it on the page object as an error message.
-  def show_error_messages(object=nil)
+  def render_with_error(message=@error)
     render :update do |page|
-      if object.blank?
-        message = @error
-      else
-        message = render(:partial => 'layouts/components/error', :locals => {:object => object})
-      end
       page << "error('#{escape_javascript(message)}');"
       yield page if block_given?
     end
@@ -368,6 +356,26 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  ################
+  #  BreadCrumb  #
+  ################
+
+  protected
+  def add_breadcrumb name, url = ''
+    @breadcrumbs ||= []
+    url = eval(url) if url =~ /_path|_url|@/
+    @breadcrumbs << [name, url]
+  end
+
+  def self.add_breadcrumb name, url, options = {}
+    before_filter options do |controller|
+      controller.send(:add_breadcrumb, name, url)
+    end
+  end
+
+ 
+
+
   #############
   #  LOGGING  #
   #############
@@ -389,8 +397,8 @@ class ApplicationController < ActionController::Base
     log_error e
     respond_to do |format|
       set_error('application.unexpected_error')
-      yield format if block_given?
-      format.js   { show_error_messages }
+      format.html {yield if block_given?}
+      format.js   { render_with_error }
     end
   end
 end

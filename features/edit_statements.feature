@@ -1,6 +1,6 @@
 @discuss @edit
-Feature: Edit Statements within a discussion
-  In order to keep discussions free from inappropriate content
+Feature: Edit Statements within a question
+  In order to keep questions free from inappropriate content
   As an editor
   I want to edit statements other users created
 

@@ -41,7 +41,7 @@
   margin: 0 0 25px 165px;
 }
 
-.header_block h2 {
+.header_block h2, .header_block .headline {
   background: url(../images/page/header_right.png) no-repeat scroll right top;
   height: 31px;
   margin: -6px 0 10px !important;
@@ -124,10 +124,6 @@
   width: 750px
 }
 
-.add_new_button {
-  vertical-align: top;
-}
-
 .column_200 {
   width: 195px !important;
   padding: 2px !important;
@@ -176,32 +172,21 @@
 }
 
 .add_text_button {
-  background:transparent url(../images/page/icons/add_button.png) no-repeat scroll 0 0;
+  background: transparent url(../images/page/icons/add_button.png) no-repeat scroll 0 0;
   height: 20px;
   padding-left: 23px;
 	display: inline-block;
 }
 
 .edit_text_button {
-  background:transparent url(../images/page/icons/edit_button.png) no-repeat scroll 0 0;
+  background: transparent url(../images/page/icons/edit_button.png) no-repeat scroll 0 0;
   height: 17px;
   line-height: 17px;
   display: inline-block;
-}
-
-.publish_text_button {
-  background:transparent url(../images/page/icons/publish_button.png) no-repeat scroll 0 0;
-  height: 17px;
-  line-height: 17px;
-  display: inline-block;
-}
-
-.publish_text_button:hover {
-  background-position: 0 -17px
 }
 
 .save_text_button {
-  background:transparent url(../images/page/icons/save_button.png) no-repeat scroll 0 0;
+  background: transparent url(../images/page/icons/save_button.png) no-repeat scroll 0 0;
   height: 16px;
   line-height: 16px;
   display: inline-block;
@@ -219,10 +204,37 @@
 }
 
 .delete_text_button {
-  background:transparent url(../images/page/icons/delete_button.png) no-repeat scroll 0 0;
+  background: transparent url(../images/page/icons/delete_button.png) no-repeat scroll 0 0;
   height: 16px;
   line-height: 17px;
   display: inline-block;
+}
+
+.publish_text_button {
+  background: transparent url(../images/page/icons/publish_button.png) no-repeat scroll 0 0;
+  height: 17px;
+  line-height: 17px;
+  display: inline-block;
+}
+
+.publish_text_button:hover {
+  background-position: 0 -17px;
+}
+
+.authors_text_button {
+  background: transparent url(../images/page/icons/authors_button.png) no-repeat scroll 0 0;
+  height: 16px;
+  line-height: 16px;
+  display: inline-block;
+  padding-left: 25px;
+}
+
+.authors_text_button:hover, .authors_text_button.active {
+  background-position: 0 -16px;
+}
+
+.authors_text_button.active:hover {
+  background-position: 0 0;
 }
 
 /* All buttons in a block header */
@@ -366,7 +378,7 @@
 }
 
 .pagination .next_page {
-  background:  url(../images/page/prev_next_buttons.png) no-repeat scroll right top;
+  background:  url(../images/page/prev_next_buttons.png) no-repeat scroll -37px 0;
 }
 
 .pagination .prev_page:hover {
@@ -645,7 +657,7 @@
   text-align: center;
 }
 
-#search_form #value {
+#search_form #search_terms {
   background: #FFF url(../images/page/searchbar_left.png) no-repeat scroll left top;
   width: 365px;
   height: 29px;
@@ -767,3 +779,59 @@
   top: 2px;
 }
 
+
+/* jScrollPane customization */
+
+.jspContainer {
+    z-index: 1;
+}
+
+.jspVerticalBar, .jspHorizontalBar {
+	background-color: transparent;
+}
+
+.jspHorizontalBar {
+	bottom: 2px;
+}
+
+.jspTrack {
+	position: absolute;
+	cursor: pointer;
+	background: #f1f1f1;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+.jspVerticalBar .jspTrack {
+	width: 6px !important;
+	right: 3px;
+  top: 0;
+	height: 100%;
+}
+
+.jspHorizontalBar .jspTrack {
+	width: 100%;
+  bottom: 1px;
+  left: 0;
+  height: 6px !important;
+}
+
+.jspVerticalBar .jspDrag,
+.jspHorizontalBar .jspDrag {
+  position: absolute;
+	background: #97b0bf;
+	cursor: pointer;
+	overflow: hidden;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+.jspVerticalBar .jspDrag {
+	left: -2px;
+	width: 10px !important;
+}
+
+.jspHorizontalBar .jspDrag {
+	top: -2px;
+  height: 10px !important;
+}

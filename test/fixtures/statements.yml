@@ -1,52 +1,104 @@
 test-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 test-question-2-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 original-language-question-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 second-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_new) %>
 third-question-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 with-german-children-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 non-published-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_new) %>
 user-question-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 first-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 second-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 third-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 inbetween-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 fourth-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 fifth-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 sixth-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 german-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 second-german-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 not-published-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 german-child-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 english-child-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 first-impro-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 second-impro-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 third-impro-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 fourth-impro-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 fifth-impro-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 german-impro-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>

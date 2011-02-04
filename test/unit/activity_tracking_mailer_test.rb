@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ActivityTrackingMailerTest < ActionMailer::TestCase
-  include StatementsHelper
+
   def test_activity_tracking_mail_question
     user = users(:user)
     question_event = events(:event_test_question)
@@ -19,10 +19,10 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert_equal [user.email], email.to
     assert_equal "echo - Activity Notifications", email.subject
     assert_match /echo - Activity Notifications/, email.encoded
-    assert_match /There are <strong>1 new discussions<\/strong> since the last update:/, email.encoded
+    assert_match /1 new question/, email.encoded
     assert_match /#{title}/, email.encoded
     assert_match /#{id}/, email.encoded
-    assert_match /The new discussions are related the following topics:/, email.encoded
+    assert_match /They are related to the following topics:/, email.encoded
     assert_match /user/, email.encoded
     assert_match /(2)/, email.encoded
   end
@@ -46,15 +46,15 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert_match /echo - Activity Notifications/, email.encoded
     assert_match /#{Question.find(parent_id).document_in_preferred_language(Language['en']).title}/, email.encoded
     assert_match /#{id}/, email.encoded
-    assert_match /#{parent_id}/, email.encoded
     assert_match /#{title}/, email.encoded
   end
 
-  def test_activity_tracking_mail_improvement_proposal
+  def test_activity_tracking_mail_improvement
     user = users(:user)
     question_events = []
     tags = {}
     impro_proposal_event = events(:event_first_impro_proposal)
+    id = JSON.parse(impro_proposal_event.event)['id']
     parent_id = JSON.parse(impro_proposal_event.event)['parent_id']
     root_id = JSON.parse(impro_proposal_event.event)['root_id']
     en = Language['en']
@@ -69,9 +69,7 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert_match /echo - Activity Notifications/, email.encoded
     assert_match /#{Proposal.find(parent_id).document_in_preferred_language(Language['en']).title}/, email.encoded
     assert_match /#{Question.find(root_id).document_in_preferred_language(Language['en']).title}/, email.encoded
-    assert_match /#{impro_proposal_event.subscribeable.id}/, email.encoded
-    assert_match /#{impro_proposal_event.subscribeable.parent.id}/, email.encoded
-    assert_match /#{impro_proposal_event.subscribeable.root.id}/, email.encoded
+    assert_match /#{id}/, email.encoded
     assert_match /#{title}/, email.encoded
   end
 

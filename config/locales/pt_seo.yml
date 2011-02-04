@@ -53,15 +53,11 @@ pt:
       discuss:
         index: 'echo - Discutir'
         roadmap: 'echo - Evolução - Discutir'
-      questions:
+      statements:
         category: 'echo - Tópico de Discussão'
         show: 'echo - Discussão'
         new: 'Abra uma nova discussão'
-        my_discussions: 'Minhas Discussões'
-      proposals:
-        show: 'echo - Posições no Debate'
-      improvement_proposals:
-        show: 'echo - Ideias para melhorar a posição'
+        my_questions: 'Minhas Discussões'
 
       # connect: de.seo.title.connect
       connect:
@@ -92,10 +88,14 @@ pt:
     meta:
       echologic:
         description: |-
-          A echologic é uma rede de mentes abertas e suas organizações unidas para realizar a Echo, a Ágora global.
-          Echo é um meio social que concede o poder ao cidadão. O nosso objective é estabelecer um novo tipo de
-          democracia participatória tanto a nível local, como a nível regional ou até global. De acordo com este ideal,
-          echo significa o fim da impotência e o princípio da auto-determinação.
+          echo facilitates constructive mass dialogs for the formation and expression of opinion.
+          The discussions provide a fast and clear overview on alternative views, pro/contra arguments and
+          multimedia background information. The position of different social groups is made transparent and
+          easily comprehensible. Knowledge, opinions and their advocates become connected beyond the borders of
+          different websites, communities and languages.
+          In this way, echo brings together people sharing the same purposes worldwide and supports them in creating
+          joint actions. Wherever we are in the virtual or real world, echo gives us the proof: We are no longer
+          alone with our opinion and convictions - the echo of our voice can change the world.
         keywords: |-
           echo, ágora, ágora global, democracia, democracia participatória, auto-determinação,
           inteligência colectiva, futuro sustentável, base de opiniões, formação de opiniões, tomada de decisões,
@@ -104,10 +104,14 @@ pt:
 
       echo:
         description: |-
-          A echo é um projeto conjunto cujo objectivo é facilitar a mudança sustentável através da participação
-          ativa dos cidadãos. Esta providencia a base tecnológica para uma democracia aberta e participatória a um
-          nível local, regional e global. A sua voz encontra aqui um 'echo'. Ideias tornam-se em movimentos, visões
-          em realidade. Echo significa o fim da impotência e o princípio da auto-determinação.
+          echo facilitates constructive mass dialogs for the formation and expression of opinion.
+          The discussions provide a fast and clear overview on alternative views, pro/contra arguments and
+          multimedia background information. The position of different social groups is made transparent and
+          easily comprehensible. Knowledge, opinions and their advocates become connected beyond the borders of
+          different websites, communities and languages.
+          In this way, echo brings together people sharing the same purposes worldwide and supports them in creating
+          joint actions. Wherever we are in the virtual or real world, echo gives us the proof: We are no longer
+          alone with our opinion and convictions - the echo of our voice can change the world.
         keywords: |-
           echo, agora, ágora global, democracia, democracia participatória, auto-determinação, inteligência coletiva,
           base de opinião, formação de opinião, formaçao da determinação, tomada de decisões coletiva, mobilização, massas críticas,

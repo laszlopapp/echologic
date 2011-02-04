@@ -13,7 +13,7 @@ describe Statement do
       @statement_node.should be_valid
     end
     
-    it "should be of Type 'Question'" do
+    it "should be of Type 'question'" do
       @statement_node.class.name.should == "Question"  
     end
     
@@ -36,7 +36,7 @@ describe Statement do
       @statement_node.should be_valid
       @statement_node.parent = Proposal.first
       @statement_node.should_not be_valid
-      @statement_node.parent = ImprovementProposal.first
+      @statement_node.parent = Improvement.first
       @statement_node.should_not be_valid
     end
     
@@ -75,25 +75,25 @@ describe Statement do
     end
   end
   
-  context "creating an improvementproposal for a proposal" do
+  context "creating an Improvement for a proposal" do
     before(:each) do
       @user = User.find_by_email("editor@echologic.org")
       @document = StatementDocument.new(:title => 'Improvement', :text => 'I am a proposal to improve this proposal!!')
-      @statement_node = ImprovementProposal.new(:parent => Proposal.first, :creator => @user, :document => @document)
+      @statement_node = Improvement.new(:parent => Proposal.first, :creator => @user, :document => @document)
     end
    
     it "should be valid" do
       @statement_node.should be_valid
     end
     
-    it "should be of type 'ImprovementProposal" do
-      @statement_node.class.name.should == 'ImprovementProposal'
+    it "should be of type 'Improvement" do
+      @statement_node.class.name.should == 'Improvement'
     end
     
     it "should not save without a valid parent (a proposal)" do
       @statement_node.parent = nil
       @statement_node.should_not be_valid
-      @statement_node.parent = ImprovementProposal.first
+      @statement_node.parent = Improvement.first
       @statement_node.should_not be_valid
     end
     

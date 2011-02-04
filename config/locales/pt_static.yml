@@ -97,9 +97,9 @@ pt:
             A echo encontra-se de momento ainda a dar os seus primeiros passos. No entanto, já é possível:
             </p>
 
-        action: |
-          Ir para o protótipo echo »<br/>
-          (NOVO em poucos dias)
+        action: |-
+          O novo echo está ONLINE<br/>
+          Ir para o protótipo »
 
       #About
       about:
@@ -733,7 +733,7 @@ pt:
           text: |
             <p>Ajude os seus apoiantes a ajudar-lhe usando a ferramente de recolha de fundos de custo neutro da clicks4charity.
             As pessoas podem auxiliar-lhe ao comprar online sem gastar dinheiro extra.</p>
-        discussion_methods:
+        question_methods:
           title: A original ferramenta de discussão da echo
           text: |
             <p>Utilize a inovativa ferramenta de Discussão da echo para debater construtivamente e para co-editar creativamente

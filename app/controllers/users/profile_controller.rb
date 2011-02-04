@@ -56,7 +56,7 @@ class Users::ProfileController < ApplicationController
             end
           }
         else
-          format.js   { show_error_messages(@profile) }
+          format.js { set_error @profile and render_with_error }
         end
       end
     rescue Exception => e

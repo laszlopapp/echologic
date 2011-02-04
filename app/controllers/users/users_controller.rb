@@ -69,8 +69,9 @@ class Users::UsersController < ApplicationController
             end
           end
         else
-          format.js   { show_error_messages(@user) }
-          format.html { render :template => 'users/users/new', :layout => 'static' }
+          set_error @user
+          format.html { flash_error and render :template => 'users/users/new', :layout => 'static' }
+          format.js   { render_with_error }
         end
       end
     rescue Exception => e
@@ -111,8 +112,9 @@ class Users::UsersController < ApplicationController
           }
           format.js   { render_with_info }
         else
-          format.html { redirect_to my_profile_path }
-          format.js   { show_error_messages(@user) }
+          set_error @user
+          format.html { flash_error and redirect_to my_profile_path }
+          format.js   { render_with_error }
         end
       end
     rescue Exception => e
@@ -158,7 +160,7 @@ class Users::UsersController < ApplicationController
               p << "$('#concernment_#{params[:context]}_id').focus();"
             end
           else
-            show_error_messages(current_user)
+            set_error current_user and render_with_error
           end
         end
       end

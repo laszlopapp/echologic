@@ -19,15 +19,19 @@ form.formtastic textarea {
 
 form.formtastic fieldset ol li {
   display: inline-block;
-  width: 388px;
+  width: 362px;
 }
 
 form.formtastic fieldset ol li.select {
-  width: 322px;
+  width: 226px;
 }
 
 html[xmlns] form.formtastic fieldset ol li {
   display: inline-block;
+}
+
+html[xmlns] form.formtastic .header fieldset {
+	display: inline-block;
 }
 
 form.formtastic fieldset ol li fieldset legend {
@@ -66,8 +70,20 @@ form.formtastic fieldset ol li.text textarea, form.formtastic fieldset ol li.str
   color: #21587f;
 }
 
-form.formtastic.wide_form fieldset ol li.text textarea, form.formtastic.wide_form fieldset ol li.string input {
-  width: 803px;
+form.formtastic.wide_form fieldset ol li.text textarea,
+form.formtastic.wide_form fieldset ol li.string input {
+  width: 721px;
+}
+
+
+form.formtastic.translation fieldset ol li.string input {
+  width: 354px;
+}
+
+
+form.formtastic.translation fieldset ol li.text textarea {
+  width: 354px;
+  height: 200px;
 }
 
 form.formtastic fieldset ol li.text textarea {
@@ -89,7 +105,7 @@ form.formtastic fieldset ol li.radio fieldset ol li label {
 
 form.formtastic select {
   border: 1px solid #999;
-  width: 307px;
+  width: 195px;
   padding: 2px;
   color: #21587f;
 }
@@ -124,11 +140,3 @@ form.formtastic .buttons ol {
   vertical-align: middle;
 }
 
-form.formtastic li.hint {
-	background: url("../images/page/icons/pin.png") no-repeat scroll 120px 2px #FBF3BB;
-	border: 1px solid #7bb031;
-	width: 245px;
-	padding: 33px 10px 5px;
-  position: relative;
-	top: 5px;
-}

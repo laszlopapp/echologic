@@ -1,16 +1,15 @@
-<%
-  children ||= @children
-  statement_node ||= @statement_node
-  has_children = statement_node.has_children?
-%>
-<div id="children" class="<%= has_children ? 'header_block discuss_right_block' : '' %>">
-  <% if has_children %>
+<% children ||= @children %>
+<% path = children.kind_of?(String) ? children : '' %>
+<div class="<%= type.pluralize %> children header_block discuss_right_block">
+  <!-- Title -->
+  <div class="headline expandable<%= ' active' if path.blank? %>" href="<%= path %>">
+    <%= children_box_title(type) %>
+    <%= content_tag :div, '', :class => 'expand_icon' %>
+  </div>
 
-    <!-- Title -->
-      <%= content_tag :h2, children_box_title %>
-
-    <!-- The children -->
-    <%= render :partial => 'statements/children_list',
-               :locals => {:statement_nodes => children}%>
-  <% end -%>
+  <!-- The children -->
+	<% if children and children.kind_of?(Array) %>
+  <%= render :partial => type.classify.constantize.children_list_template,
+             :locals => {:type => type, :children => children, :parent => @statement_node, :display => true, :new_level => true}%>
+	<% end %>
 </div>

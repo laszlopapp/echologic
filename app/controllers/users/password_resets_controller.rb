@@ -27,7 +27,7 @@ class Users::PasswordResetsController < ApplicationController
         else
           set_error 'users.password_reset.messages.not_found'
           format.html { flash_error and render :action => :new, :layout => 'static' }
-          format.js   { show_error_message }
+          format.js   { render_with_error }
         end
       end
     rescue Exception => e

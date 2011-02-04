@@ -1,5 +1,5 @@
 var content = "<%= escape_javascript(render(:partial => 'statements/questions/questions', :locals => {:statement_nodes => @statement_nodes})) %>";
 
 $("#questions_container").replaceWith(content);
-        
-roundCorners();
+
+$("#create_question_link").replaceWith('<%= create_question_link_for(params[:search_terms]) %>');

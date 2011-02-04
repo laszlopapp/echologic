@@ -1,0 +1,2 @@
+var element = $("<%= escape_javascript(render :partial => 'statements/proposals/edit_draft') %>").statement({'level' : <%= @statement_node.level %>});
+element.data('api').removeBelow();

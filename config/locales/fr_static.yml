@@ -103,9 +103,10 @@ fr:
             echo est encore au début de son parcours, mais vous pouvez d'ores et déjà participer à son développement.
             </p>
 
-        action: |
-          Essayez le prototype d'echo »<br/>
-          (NOUVEAU dans quelques jours)
+        action: |-
+          La nouvelle echo est ON-LINE<br/>
+          Essayez le prototype »
+
 
       # about section
       about:
@@ -785,7 +786,7 @@ fr:
             <p>Aidez vos sympathisants à vous soutenir en utilisant l'outil de collecte de fonds gratuit de
             <strong>Click4Charity</strong>. Lors de leur prochain achat en ligne,ils peuvent vous soutenir avec
             une partie de la marge bénéficiaire sans mettre la main au porte-feuille et de le mettre au profit de votre cause.</p>
-        discussion_methods:
+        question_methods:
           title: echos est un mode de discussion inédit
           text: |
             <p>Utilisez la méthode innovante d'echo afin de dynamiser les discussion dans vos debats internes et de

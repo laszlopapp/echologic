@@ -10,19 +10,19 @@ module ActsAsTaggable::Taggable
       def initialize_acts_as_taggable_on_collection
         tag_types.map(&:to_s).each do |tags_type|
           class_eval %(
-def self.#{tags_type.singularize}_counts(options={})
-tag_counts_on('#{tags_type.singularize}', options)
-end
-def #{tags_type.singularize}_counts(options = {})
-tag_counts_on('#{tags_type.singularize}', options)
-end
-def top_#{tags_type.singularize}(limit = 10)
-tag_counts_on('#{tags_type.singularize}', :order => 'count desc', :limit => limit.to_i)
-end
-def self.top_#{tags_type.singularize}(limit = 10)
-tag_counts_on('#{tags_type.singularize}', :order => 'count desc', :limit => limit.to_i)
-end
-)
+            def self.#{tags_type.singularize}_counts(options={})
+              tag_counts_on('#{tags_type.singularize}', options)
+            end
+            def #{tags_type.singularize}_counts(options = {})
+              tag_counts_on('#{tags_type.singularize}', options)
+            end
+            def top_#{tags_type.singularize}(limit = 10)
+              tag_counts_on('#{tags_type.singularize}', :order => 'count desc', :limit => limit.to_i)
+            end
+            def self.top_#{tags_type.singularize}(limit = 10)
+              tag_counts_on('#{tags_type.singularize}', :order => 'count desc', :limit => limit.to_i)
+            end
+          )
         end
       end
       

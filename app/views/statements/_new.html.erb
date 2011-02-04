@@ -1,26 +1,19 @@
-<% statement_node ||= @statement_node -%>
-<% tags ||= @tags %>
+<% statement_node ||= @statement_node %>
 <% statement_document ||= @statement_document %>
 
-<div id="new_statement">
+<% semantic_form_for statement_node, 
+          :html => {:class => "new wide_form statement #{dom_class(statement_node)} 
+                    #{statement_node.taggable? ? 'taggable' : ''} 
+                    #{statement_node.echoable? ? 'echoable' : ''}" } do |form| -%>
 
-  <!-- The block with the form -->
-  <div class="header_block discuss_right_block">
-    <%= content_tag :h2, children_new_box_title(statement_node) %>
-
-    <!-- Illustration -->
-    <%= statement_form_illustration(statement_node) %>
-
-    <%= content_tag :p, I18n.t("discuss.statements.create_#{statement_node.class.name.underscore}_explanation") %>
-
-    <%= render :partial => 'statements/form',
-               :locals => {:statement_node => statement_node,
-                           :tags => tags,
-                           :statement_document => statement_document } %>
-  </div>
-</div>
-
-<script type="text/javascript">
-  $('#new_<%=statement_node_class_dom_id(statement_node)%>').ajaxForm({ dataType : 'script' });
-</script>
-
+	<%= hidden_field_tag :origin, @previous_node ? "#{@previous_type}#{@previous_node.id}" : (params[:origin]||"") %>
+  <%= hidden_field_tag :bids, params[:bids] if params[:bids] %>
+	<%= hidden_field_tag :sids, params[:sids] if params[:sids] %>
+	<%= hidden_field_tag :type, @statement_node_type.name if @statement_node_type %>
+	
+	
+	<%= render :partial => 'statements/form/form_header', :locals => {:form => form, :statement_node => statement_node} %>
+  <%= render :partial => 'statements/form/form_content', 
+                         :locals => {:form => form, :statement_node => statement_node,
+                                     :headline => I18n.t("discuss.statements.new.#{dom_class(statement_node)}") }%>
+<% end -%>

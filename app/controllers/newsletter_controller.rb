@@ -28,7 +28,7 @@ class NewsletterController < ApplicationController
             render :template => 'newsletter/create'
           end
         else
-          show_error_message I18n.t("mailers.newsletter.fields_not_filled")
+          set_error 'mailers.newsletter.fields_not_filled' and render_with_error 
         end
       end
     end

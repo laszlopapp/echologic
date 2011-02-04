@@ -8,8 +8,8 @@
 %>
 
 <div id="connect_search_container" class="search_container">
-  <% content_tag :div, :id => 'search_form' do %>
-    <%= text_field_tag :value %>
+  <% content_tag :div, :id => 'search_form', :class => 'ajax_form' do %>
+    <%= text_field_tag :search_terms %>
     <%= hidden_field_tag :sort, @sort %>
   	<%= content_tag :span, '', :name => 'submit_button', :class => 'submit_button', :alt => 'search_button' %>
   <% end %>
@@ -18,12 +18,3 @@
 <%= render :partial => 'connect/profiles/results' %>
 
 <%= render :partial => 'connect/profiles/details', :locals => {:profile => Profile.new, :hidden => true} %>
-
-<script type="text/javascript">
-  $('.profile.active .avatar_holder').die("click");
-  $('.profile.active .avatar_holder').live("click", function() {
-    $.scrollTo('top', 400, function() {$('#profile_details_container').animate(toggleParams, 500)});
-    $('.profile').removeClass('active');
-    return false;
-  });
-</script>

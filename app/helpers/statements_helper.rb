@@ -1,366 +1,319 @@
 module StatementsHelper
+  include PublishableModuleHelper
+  include EchoableModuleHelper
+  include IncorporationModuleHelper
+  include TranslationModuleHelper
 
-  def self.included(base)
-    base.instance_eval do
-      alias_method :proposal_path, :proposal_url
-      alias_method :new_proposal_path, :new_proposal_url
-      alias_method :new_translation_proposal_path, :new_translation_proposal_url
-      alias_method :upload_image_proposal_path, :upload_image_proposal_url
-      alias_method :reload_image_proposal_path, :reload_image_proposal_url
-      alias_method :children_proposal_path, :children_proposal_url
-      alias_method :children_path, :children_url
+  ##################
+  # RENDER HELPERS #
+  ##################
 
-      alias_method :improvement_proposal_path, :improvement_proposal_url
-      alias_method :new_improvement_proposal_path, :new_improvement_proposal_url
-      alias_method :new_translation_improvement_proposal_path, :new_translation_improvement_proposal_url
-      alias_method :upload_image_improvement_proposal_path, :upload_image_improvement_proposal_url
-      alias_method :reload_image_improvement_proposal_path, :reload_image_improvement_proposal_url
+  # Renders ancestors headers (when we have a GET operation on a child node)
+  def render_ancestors(ancestors)
+    val = ''
+    ancestors.each do |ancestor|
+      val << render_ancestor(ancestor)
     end
+    val
   end
 
-  ########
-  # URLs #
-  ########
-
-  def new_child_statement_node_url(parent, type)
-    send("new_#{type.downcase}_url",parent)
+  def render_ancestor(ancestor)
+    render :partial => 'statements/show', :locals => {:statement_node => ancestor, :only_header => true}
   end
 
-  def edit_statement_node_path(statement_node, opts={})
-    send("edit_#{statement_node_class_dom_id(statement_node).downcase}_url",statement_node,opts)
+  # Renders all the possible children of the current node (per type, ordering must be defined in the node type definition)
+  def render_children(statement_node, children, type = dom_class(statement_node))
+    return content_tag :div, '', :style => "clear:right" if children.blank?
+    val = ''
+    statement_node.class.children_types.each do |child_type|
+      dom_child_class = child_type.to_s.underscore
+      type_children = children[child_type] || children_statement_node_url(statement_node, :type => dom_child_class)
+      val << render(:partial => 'statements/children', :locals => {:type => dom_child_class, :children => type_children})
+    end
+    val
   end
-
-  def new_translation_url (parent, type, opts={})
-    send("new_translation_#{type.downcase}_url",parent,opts)
-  end
-
-  def create_translation_url (parent, type)
-    send("create_translation_#{type.downcase}_url",parent)
-  end
-
-  def upload_image_url (parent, type, opts={})
-    send("upload_image_#{type.downcase}_url",parent, opts)
-  end
-
-  def reload_image_url (parent, type, opts={})
-    send("reload_image_#{type.downcase}_url",parent, opts)
-  end
-
-  def children_url (parent, type, opts={})
-    send("children_#{type.downcase}_url",parent, opts)
-  end
-
-  # returns the path to a statement_node, according to its type
-  def statement_node_path(statement_node)
-    statement_node = StatementNode.find(statement_node) if statement_node.kind_of?(Integer)
-    send("#{statement_node_class_dom_id(statement_node).downcase}_url", statement_node)
-  end
-
-  ## Proposal
-
-  def proposal_url(proposal)
-    question_proposal_url(proposal.parent,proposal)
-  end
-
-  def new_proposal_url(parent)
-    new_question_proposal_url(parent)
-  end
-
-  def edit_proposal_url(proposal,opts={})
-    edit_question_proposal_url(proposal.parent, proposal,opts)
-  end
-
-  def edit_proposal_path(proposal,opts={})
-    edit_question_proposal_path(proposal.parent, proposal,opts)
-  end
-
-  def new_translation_proposal_url(proposal, opts={})
-    new_translation_question_proposal_url(proposal.parent, proposal,opts)
-  end
-
-  def new_translation_proposal_path(proposal, opts={})
-    new_translation_question_proposal_path(proposal.parent, proposal, opts)
-  end
-
-  def create_translation_proposal_url(proposal)
-    create_translation_question_proposal_url(proposal.parent, proposal)
-  end
-
-  def create_translation_proposal_path(proposal)
-    create_translation_question_proposal_path(proposal.parent, proposal)
-  end
-
-  def upload_image_proposal_url(proposal, opts={})
-    upload_image_question_proposal_url(proposal.parent, proposal, opts)
-  end
-
-  def upload_image_proposal_path(proposal, opts={})
-    upload_image_question_proposal_path(proposal.parent, proposal, opts)
-  end
-
-  def reload_image_proposal_url(proposal, opts={})
-    reload_image_question_proposal_url(proposal.parent, proposal, opts)
-  end
-
-  def reload_image_proposal_path(proposal, opts={})
-    reload_image_question_proposal_path(proposal.parent, proposal, opts)
-  end
-
-  def children_proposal_url(proposal, opts={})
-    children_question_proposal_url(proposal.parent, proposal, opts)
-  end
-
-  def children_proposal_path(proposal, opts={})
-    children_question_proposal_path(proposal.parent, proposal, opts)
-  end
-
-  ## ImprovementProposal
-
-  def improvement_proposal_url(improvement_proposal)
-    question_proposal_improvement_proposal_url(improvement_proposal.root,
-                                               improvement_proposal.parent,
-                                               improvement_proposal)
-  end
-
-  def new_improvement_proposal_url(parent)
-    raise ArgumentError.new("Expected `parent' to be a Proposal (is: #{parent})") unless parent.kind_of?(Proposal)
-    raise ArgumentError.new("Expected `parent.parent' to be a Question (is: #{parent.parent})") unless parent.parent.kind_of?(Question)
-    new_question_proposal_improvement_proposal_url(parent.parent, parent)
-  end
-
-  def edit_improvement_proposal_url(improvement_proposal,opts={})
-    edit_question_proposal_improvement_proposal_url(improvement_proposal.root,
-                                                    improvement_proposal.parent,
-                                                    improvement_proposal,opts)
-  end
-
-  def edit_improvement_proposal_path(improvement_proposal,opts={})
-    edit_question_proposal_improvement_proposal_path(improvement_proposal.root,
-                                                     improvement_proposal.parent,
-                                                     improvement_proposal,opts)
-  end
-
-  def new_translation_improvement_proposal_url(improvement_proposal, opts={})
-    new_translation_question_proposal_improvement_proposal_url(improvement_proposal.root,
-                                                               improvement_proposal.parent,
-                                                               improvement_proposal, opts)
-  end
-
-  def new_translation_improvement_proposal_path(improvement_proposal, opts={})
-    new_translation_question_proposal_improvement_proposal_path(improvement_proposal.root,
-                                                                improvement_proposal.parent,
-                                                                improvement_proposal, opts)
-  end
-
-  def create_translation_improvement_proposal_url(improvement_proposal)
-    create_translation_question_proposal_improvement_proposal_url(improvement_proposal.root,
-                                                                  improvement_proposal.parent,
-                                                                  improvement_proposal)
-  end
-
-  def create_translation_improvement_proposal_path(improvement_proposal)
-    create_translation_question_proposal_improvement_proposal_path(improvement_proposal.root,
-                                                                   improvement_proposal.parent,
-                                                                   improvement_proposal)
-  end
-
-  def upload_image_improvement_proposal_url(improvement_proposal, opts={})
-    upload_image_question_proposal_improvement_proposal_url(improvement_proposal.root,
-                                                                  improvement_proposal.parent,
-                                                                  improvement_proposal, opts)
-  end
-
-  def upload_image_improvement_proposal_path(improvement_proposal, opts={})
-    upload_image_question_proposal_improvement_proposal_path(improvement_proposal.root,
-                                                                   improvement_proposal.parent,
-                                                                   improvement_proposal, opts)
-  end
-
-  def reload_image_improvement_proposal_url(improvement_proposal, opts={})
-    reload_image_question_proposal_improvement_proposal_url(improvement_proposal.root,
-                                                                  improvement_proposal.parent,
-                                                                  improvement_proposal, opts)
-  end
-
-  def reload_image_improvement_proposal_path(improvement_proposal, opts={})
-    reload_image_question_proposal_improvement_proposal_path(improvement_proposal.root,
-                                                                   improvement_proposal.parent,
-                                                                   improvement_proposal, opts)
-  end
-
 
 
   #########
   # Links #
   #########
 
-  def search_category(category)
-    content_tag :span, 
-                I18n.t('discuss.search.in', :category => I18n.t("discuss.topics.#{category}.short_name")), 
-                :class => "search_category" if category
-  end
-
   #
-  # Creates a link to create a new statement for the given statement
+  # Creates a link to create a new child statement of a given type for the current statement
   # (appears INSIDE of the children statements panel).
   #
-  def create_new_statement_link(statement_node, type)
-    content_tag :li do
-      link_to(I18n.t("discuss.statements.create_#{type}_link"),
-              new_child_statement_node_url(statement_node, type),
-              :id => "create_#{type}_link",
-              :class => "ajax add_new_button text_button create_#{type}_button ttLink no_border",
-              :title => I18n.t("discuss.tooltips.create_#{type}"))
+  def create_new_child_statement_link(statement_node, child_type, opts={})
+    url = opts.delete(:url) if opts[:url]
+    link_to(I18n.t("discuss.statements.create_#{child_type}_link"),
+            url ? url : new_statement_node_url(statement_node.nil? ? nil : statement_node.target_id,child_type, opts),
+            :class => "ajax add_new_button text_button create_#{child_type}_button ttLink no_border",
+            :title => I18n.t("discuss.tooltips.create_#{child_type}"))
+  end
+
+  def create_new_question_link(origin=nil)
+    type = 'question'
+    parent = nil
+    if !origin.blank?
+      key = origin[0, 2]
+      parent = case key
+        when 'ds', 'sr', 'mi' then nil
+        when 'fq' then type = 'follow_up_question'
+                       origin[2..-1]
+      end
+    end
+    url = parent.nil? ? new_question_url(:origin => origin) : new_statement_node_url(parent, type)
+    create_new_child_statement_link(parent, type, :url => url)
+  end
+
+
+  #
+  # Creates a link to add a new resource for the given statement (appears in the SIDEBAR).
+  #
+  def render_add_new_button(statement_node, origin = nil, bids = nil)
+    content = ''
+    content << content_tag(:div, :class => 'add_new_button') do
+      button = ''
+      button << content_tag(:span, '', :class => 'add_new_button_icon')
+      button << content_tag(:span, I18n.t('discuss.statements.add_new'),
+                            :class => 'label')
+      button
+    end
+    content << content_tag(:div, :class => 'add_new_panel popup_panel',
+                           :style => "display:none") do
+      panel = ''
+      panel << content_tag(:div, :class => 'panel_header') do
+        I18n.t("discuss.statements.add_new")
+      end
+      panel << content_tag(:div, '', :class => 'block_separator')
+      panel << add_new_sibling_buttons(statement_node, origin)
+      panel << add_new_child_buttons(statement_node)
+      panel << add_new_follow_up_question_button(statement_node, bids)
+      panel
     end
   end
 
   #
-  # Creates a link to create a new sibling statement for the given statement (appears in the SIDEBAR).
+  # Creates a link to add a new sibling for the given statement (appears in the SIDEBAR).
   #
-  def create_new_sibling_statement_button(statement_node)
-    type = statement_node_class_dom_id(statement_node)
+  def add_new_sibling_buttons(statement_node, origin = nil, type = dom_class(statement_node))
+    content = ''
+    content << content_tag(:div, :class => 'siblings container') do
+      if statement_node.parent
+        add_new_sibling_button(statement_node)
+      else
+        if origin.blank? or %w(ds mi sr).include? origin[0,2] # create new question
+          add_new_question_button(!origin.blank? ? origin : nil)
+        else #create sibling follow up question
+          context_type = ''
+          context_type << case origin[0,2]
+            when 'fq' then "follow_up_question"
+          end
 
-    link_to(new_child_statement_node_url(statement_node.parent, type),
-            :id => "create_#{type}_link",
-            :class => "#{statement_node.echoable? ? 'ajax' : ''}") do
-      content_tag(:span, '',
-                  :class => "create_statement_button_mid create_#{type}_button_mid ttLink no_border",
-                  :title => I18n.t("discuss.tooltips.create_#{type}"))
-
+          link_to(I18n.t("discuss.statements.siblings.#{context_type}"),
+                new_statement_node_url(origin[2..-1], context_type, :origin => origin),
+                :class => "create_#{context_type}_button_32 resource_link ajax")
+        end
+      end
     end
+    content << content_tag(:div, '', :class => 'block_separator')
+    content
   end
 
-  def create_translate_statement_link(statement_node, statement_document, css_class = "")
-     type = statement_node_class_dom_id(statement_node)
-     link_to I18n.t('discuss.translation_request'),
-              new_translation_url(statement_node, type, :current_document_id => statement_document.id),
-              :class => "ajax translation_link #{css_class}"
-  end
-
-  def create_question_link_for(category=nil)
-    link_to(hash_for_new_question_path.merge({:category => category}),
-            :id => 'create_question_link') do
-      content_tag(:span, '',
-                  :class => "new_question create_statement_button_mid create_question_button_mid ttLink no_border",
-                  :title => I18n.t("discuss.tooltips.create_question"))
+  #
+  # Creates a link to add a new sibling for the given statement (appears in the SIDEBAR).
+  def add_new_sibling_button(statement_node)
+  #
+    content = ''
+    statement_node.class.sub_types.map.each do |sub_type|
+      sub_type = sub_type.to_s.underscore
+      content << link_to(I18n.t("discuss.statements.types.#{sub_type}"),
+                         new_statement_node_url(statement_node.parent, sub_type),
+                         :class => "create_#{sub_type}_button_32 resource_link ajax")
     end
+    content
   end
 
+  #
+  # Creates a link to add a new child for the given statement (appears in the SIDEBAR).
+  #
+  def add_new_child_buttons(statement_node)
+    children_types = statement_node.class.children_types(false, false, true)
+    return '' if children_types.empty?
+    content = ''
+    content << content_tag(:div, :class => 'children container') do
+      children = ''
+      children_types.each do |type|
+        children << add_new_child_link(statement_node, type.to_s.underscore)
+      end
+      children
+    end
+    content << content_tag(:div, '', :class => 'block_separator')
+    content
+  end
+
+  #
+  # Creates a link to add a new follow up question for the given statement (appears in the SIDEBAR).
+  #
+  def add_new_follow_up_question_button(statement_node, bids)
+    bids = bids ? bids.split(",") : []
+    bids << "fq#{statement_node.id}"
+    content_tag(:div, add_new_child_link(statement_node, "follow_up_question",
+                                         :bids => bids.join(",")),
+                :class => 'children container')
+  end
+
+  #
+  # Returns a link to create a new child statement from a given type for the given statement (appears in the SIDEBAR).
+  #
+  def add_new_child_link(statement_node, type, opts={})
+    opts[:new_level] = true
+    link_to(I18n.t("discuss.statements.types.#{type}"),
+            new_statement_node_url(statement_node, type, opts),
+            :class => "create_#{type}_button_32 resource_link ajax")
+  end
+
+  #
+  # Creates a link to edit the current document.
+  #
   def edit_statement_node_link(statement_node, statement_document)
     if current_user and
        (current_user.may_edit? or
        (statement_node.authors.include?(current_user) and !statement_node.published?))
-      link_to(I18n.t('application.general.edit'), edit_statement_node_path(statement_node,:current_document_id => statement_document.id),
+      link_to(I18n.t('application.general.edit'), edit_statement_node_url(statement_node, :current_document_id => statement_document.id),
               :class => 'ajax header_button text_button edit_text_button')
     else
       ''
     end
   end
-  
+
+  #
+  # Creates a link to show the authors of the current node.
+  #
+  def authors_statement_node_link(statement_node,type = dom_class(statement_node))
+    link_to(I18n.t('application.general.authors'), authors_statement_node_url(statement_node),
+            :class => 'expandable header_button text_button authors_text_button')
+  end
+
+  #
+  # Creates a link to delete the current statement.
+  #
   def delete_statement_node_link(statement_node)
     link_to I18n.t('discuss.statements.delete_link'),
-            url_for(statement_node),
+            statement_node_url(statement_node),
             :class => 'admin_action',
             :method => :delete,
             :confirm => I18n.t('discuss.statements.delete_confirmation')
   end
-  
+
+  #
+  # Loads the function buttons of the current statement (edit, authors).
+  #
   def function_buttons(statement_node, statement_document)
-    edit_statement_node_link(statement_node, statement_document)
+    val = ''
+    val << edit_statement_node_link(statement_node, statement_document)
+    val << publish_statement_node_link(statement_node, statement_document) if statement_node.publishable?
+    val << authors_statement_node_link(statement_node)
+    content_tag :span, val, :class => 'action_buttons'
   end
 
-  # Returns the block heading for entering a new child for the given statement_node
+  # Returns the block heading for entering a new child for the given statement node
   def children_new_box_title(statement_node)
-    type = statement_node_class_dom_id(statement_node)
-    I18n.t("discuss.statements.new.#{type}")
+    I18n.t("discuss.statements.new.#{dom_class(statement_node)}")
   end
 
-  def cancel_new_statement_node(statement_node,cancel_js=false)
-    link_to I18n.t('application.general.cancel'),
-            session[:last_statement_node] ?
-              statement_node_path(session[:last_statement_node]) : (statement_node.parent or discuss_url),
-            :class => 'ajax text_button cancel_text_button'
+  # Returns the block heading for the children of the current statement node
+  def children_box_title(type)
+    I18n.t("discuss.statements.headings.#{type}")
   end
 
-  def cancel_edit_statement_node(statement_node, locked_at)
-    type = statement_node_class_dom_id(statement_node).downcase.pluralize
+  # Returns the block heading for the siblings of the current statement node
+  def sibling_box_title(type)
+    content_tag :span, I18n.t("discuss.statements.headings.#{type}"), :class => 'label'
+  end
+
+
+  # Creates the cancel button in the new statement form (right link will be handled in jquery)
+  def cancel_new_statement_node(cancel_js=false)
     link_to I18n.t('application.general.cancel'),
-            { :controller => type,
-              :action => :cancel,
-              :locked_at => locked_at.to_s },
+            :back,
+            :class => 'cancel text_button cancel_text_button'
+  end
+
+  # Creates the cancel button in the edit statement form
+  def cancel_edit_statement_node(statement_node, locked_at,type = dom_class(statement_node))
+    link_to I18n.t('application.general.cancel'),
+            cancel_statement_node_url(statement_node, :locked_at => locked_at.to_s),
            :class => "text_button cancel_text_button ajax"
   end
 
+  def title_hint_text(statement_node)
+    I18n.t("discuss.statements.title_hint.#{dom_class(statement_node)}")
+  end
+
+  def summary_hint_text(statement_node)
+    I18n.t("discuss.statements.text_hint.#{dom_class(statement_node)}")
+  end
 
   ##############
   # Sugar & UI #
   ##############
 
+  # Loads the right add statement image
   def statement_form_illustration(statement_node)
-    image_tag("page/discuss/add_#{statement_node.class.name.underscore}_big.png",
+    image_tag("page/discuss/add_#{dom_class(statement_node)}_big.png",
               :class => 'statement_form_illustration')
   end
 
   # returns the right icon for a statement_node, determined from statement_node class and given size
   def statement_node_icon(statement_node, size = :medium)
     # remove me to have different sizes again
-    image_tag("page/discuss/#{statement_node_class_dom_id(statement_node)}_#{size.to_s}.png")
-  end
-
-  # inserts a status bar based on the support ratio  value
-  # (support ratio is the calculated ratio for a statement_node,
-  # representing and visualizing the agreement a statement_node has found within the community)
-  def supporter_ratio_bar(statement_node, show_label = false)
-    if statement_node.supporter_count < 2
-      label = I18n.t('discuss.statements.echo_indicator.one',
-                     :supporter_count => statement_node.supporter_count)
-    else
-      label = I18n.t('discuss.statements.echo_indicator.many',
-                     :supporter_count => statement_node.supporter_count)
-    end
-
-    html = ''.html_safe!
-    if show_label
-      if statement_node.ratio > 1
-        html += content_tag :span, '', :class => "echo_indicator", :alt => statement_node.ratio
-      else
-        html += content_tag :span, '', :class => "no_echo_indicator"
-      end
-      html += content_tag :span, label, :class => "supporters_label"
-    else
-      if statement_node.ratio > 1
-        html += content_tag :span, '', :class => "echo_indicator ttLink", :title => label, :alt => statement_node.ratio
-      else
-        html += content_tag :span, '', :class => "no_echo_indicator ttLink", :title => label
-      end
-    end
-
-    html
-  end
-
-  # Renders the button for echo and unecho.
-  def render_echo_button(statement_node, url_options, echo = true)
-    return if !statement_node.echoable?
-    title = I18n.t("discuss.tooltips.#{echo ? '' : 'un'}echo")
-    link_to(url_for(url_options.merge({:action => (echo ? :echo : :unecho)})),
-                    :class => "ajax_put",
-                    :id => 'echo_button') do
-       content_tag :span, '', :class => "#{echo ? 'not_' : '' }supported ttLink no_border", :title => "#{title}"
-    end
-    tag("br")
+    image_tag("page/discuss/#{dom_class(statement_node)}_#{size.to_s}.png")
   end
 
   # Returns the context menu link for this statement_node.
   def statement_node_context_link(statement_node, language_ids, action = 'read', last_statement_node = false)
     return if (statement_document = statement_node.document_in_preferred_language(language_ids)).nil?
-    link = link_to(h(statement_document.title),
-                   url_for(statement_node),
-                   :class => "ajax no_border statement_link #{statement_node.class.name.underscore}_link ttLink",
-                   :title => I18n.t("discuss.tooltips.#{action}_#{statement_node.class.name.underscore}"))
-    if statement_node.echoable?
-      link << supporter_ratio_bar(statement_node, last_statement_node)
+    link_to(h(statement_document.title),
+             statement_node_url(statement_node),
+             :class => "ajax no_border statement_link #{dom_class(statement_node)}_link ttLink",
+             :title => I18n.t("discuss.tooltips.#{action}_#{dom_class(statement_node)}"))
+  end
+
+  #render the hint on the new statement forms for users with no spoken language defined
+  def define_languages_hint
+    content = ''
+    content << content_tag(:li, :class => 'hint ttLink', :title => I18n.t('discuss.statements.statement_language_hint_tooltip')) do
+      content_tag :p, I18n.t('discuss.statements.statement_language_hint', :url => my_profile_url)
     end
-    return link
+    content << tag('br')
+    content
+  end
+
+  #render the hint on the edit statement forms to warn about the time the users have to edit it
+  def edit_period_hint
+    content = ''
+    content << content_tag(:li, :class => 'hint') do
+      content_tag :p, I18n.t('discuss.statements.edit_period_hint', :minutes => 60)
+    end
+    content
+  end
+
+
+  #render the hint on the new draftable statement forms to warn about drafting language on collective text creation
+  def drafting_language_hint
+    content = ''
+    content << content_tag(:li, :class => 'hint') do
+      content_tag :p, I18n.t('discuss.statements.drafting_language_hint')
+    end
+    content
+  end
+
+  def top_statement_hint
+    content = ''
+    content << content_tag(:li, :class => 'hint') do
+      content_tag :p, I18n.t("discuss.statements.fuq_formulation_hint")
+    end
+    content
   end
 
 
@@ -368,27 +321,51 @@ module StatementsHelper
   # Navigation #
   ##############
 
-  # Insert prev/next buttons for the current statement_node.
-  def prev_next_buttons(statement_node)
-    type = statement_node.class.to_s.underscore
-    key = ("current_" + type).to_sym
-    if session[key].present? and session[key].include?(statement_node.id)
-      index = session[key].index(statement_node.id)
-      buttons = if session[key].length == 1
-                  statement_tag(:prev, type, true)
-                else
-                  s = index == 0 ? session[key][session[key].length-1] : session[key][index-1]
-                  statement_button(s, statement_tag(:prev, type), :rel => 'prev')
-                end
-      buttons << if session[key].length == 1
-                   statement_tag(:next, type, true)
-                 else
-                   s = index == session[key].length-1 ? session[key][0] : session[key][index+1]
-                   statement_button(s, statement_tag(:next, type), :rel => 'next')
-                 end
+  # Renders prev/next/siblings buttons for the current statement_node.
+  def navigation_buttons(statement_node, type, opts={})
+    buttons = ''
+    if statement_node and statement_node.new_record?
+      %w(prev next).each{|button| buttons << statement_tag(button.to_sym, type, true)}
+      buttons << content_tag(:span, '&nbsp;', :class => 'show_siblings_button disabled')
+    else
+      buttons << content_tag(:span, '', :class => 'loading', :style => 'display:none')
+      %w(prev next).each do |button|
+        buttons << statement_button(statement_node,
+                                    statement_tag(button.to_sym, type),
+                                    type,
+                                    :rel => button,
+                                    :class => " statement_link #{opts[:classes]} #{button}")
+      end
+
+      buttons << siblings_button(statement_node, type, opts)
     end
+
+    buttons
   end
 
+  def siblings_button(statement_node, type, opts={})
+    origin = opts[:origin]
+    url = if statement_node.nil? or statement_node.class.name.underscore != type # ADD TEASERS
+      if statement_node.nil?
+        question_descendants_url(:origin => origin)
+      else
+        descendants_statement_node_url(statement_node, type)
+      end
+    else  # STATEMENT NODES
+      if statement_node.parent_id.nil?
+        question_descendants_url(:origin => origin, :current_node => statement_node)
+      else
+        descendants_statement_node_url(statement_node.parent,
+                                       statement_node.class.name_for_siblings,
+                                       :current_node => statement_node)
+      end
+    end
+    content_tag(:span, '&nbsp;', :class => 'show_siblings_button expandable ttLink no_border',
+                                 :href => url,
+                                 :title => I18n.t("discuss.tooltips.siblings.#{dom_class(statement_node)}"))
+  end
+
+  # Renders the correct prev/next image buttons
   def statement_tag(direction, class_identifier, disabled=false)
     if !disabled
       content_tag(:span, '&nbsp;',
@@ -400,78 +377,65 @@ module StatementsHelper
     end
   end
 
-  # Insert a button that links to the previous statement_node
-  # TODO AR from the helper stinks, but who knows a better way to get the right url?
-  # maybe one could code some statement_node.url method..?
-  def statement_button(id, title, options={})
-    stmt = StatementNode.find(id)
+  # Inserts a button that links to the previous statement_node
+  def statement_button(statement_node, title, type, options={})
     options[:class] ||= ''
-    options[:class] += !stmt.taggable? ? ' ajax' : ''
-    return link_to(title, url_for(stmt), options)
+    teaser = options[:class].include? 'add'
+    options['data-id'] =
+      teaser ? "#{statement_node.nil? ? '' : "#{statement_node.id}_"}add_#{type}" : statement_node.id
+    url = statement_node.nil? ? '' : statement_node_url(statement_node)
+    return link_to(title, url, options)
   end
 
-
-  ##################
-  # DOM-ID Helpers #
-  ##################
-
-  # returns the statement_node class dom identifier (used to identifiy dom objects, e.g. for javascript)
-  def statement_node_class_dom_id(statement_node)
-    if statement_node.kind_of?(Symbol)
-      statement_node_class = statement_node.to_s.constantize
-     elsif statement_node.kind_of?(StatementNode)
-      statement_node_class = statement_node.class
-    end
-    statement_node_class.name.underscore.downcase
-  end
-
-  # returns the dom identifier for a particular statement_node
-  # consisting out of the statement_node class dom identifier, and the statement_nodes id
-  def statement_node_dom_id(statement_node)
-    "#{statement_node_class_dom_id(statement_node)}_#{statement_node.id}"
-  end
-
-  def link_to_child(title,statement_node,extra_classes)
+  # Loads the link to a given statement, placed in the child panel section
+  def link_to_child(title, statement_node,extra_classes, type = dom_class(statement_node))
     link_to h(title),
-            url_for(statement_node),
-            :class => "ajax statement_link #{statement_node.class.name.underscore}_link #{extra_classes}"
-  end
-
-  def translation_upper_box(language_from, language_to)
-    val = "#{image_tag 'page/translation/babelfish_left.png', :class => 'fish_left'}"
-    val << (content_tag :span, language_from, :class => 'language_label from_language')
-    val << "#{image_tag 'page/translation/translation_arrow.png',:class => 'arrow'}"
-    val << "#{image_tag 'page/translation/babelfish_right.png', :class => 'fish_right'}"
-    val << (content_tag :span, language_to, :class => "language_label to_language")
-    val
+            statement_node_url(statement_node.target_id, :new_level => true),
+            :class => "statement_link #{dom_class(statement_node)}_link #{extra_classes}"
   end
 
   # draws the statement image container
   def statement_image(statement_node, current_user)
     val = ""
     if statement_node.image.exists? or statement_node.has_author? current_user
-      val << image_tag(statement_node.image.url(:medium), :id => 'statement_image', :class => 'image')
+      val << image_tag(statement_node.image.url(:medium), :class => 'image')
     end
     if statement_node.has_author? current_user and (!statement_node.published? or !statement_node.image.exists?)
       val << link_to(I18n.t('users.profile.picture.upload_button'),
-                upload_image_url(statement_node, statement_node_class_dom_id(statement_node)),
-                :class => 'ajax upload_link button_150', :id => 'upload_image_link')
+                edit_statement_image_url(statement_node.statement_image, statement_node),
+                :class => 'ajax upload_link button_150')
     end
-    content_tag :div, val, :class => 'image_container', :id => 'image_container' if !val.blank?
+    content_tag :div, val, :class => 'image_container' if !val.blank?
   end
 
-  #draws the "more" link when the statement is loaded
-  def more_children(statement_node)
+  # Renders the "more" link when the statement is loaded
+  def more_children(statement_node,type)
     link_to I18n.t("application.general.more"),
-            children_url(statement_node, statement_node_class_dom_id(statement_node).downcase, :page => 1),
+            more_statement_node_url(statement_node, :page => 1, :type => type),
             :class => 'more_children ajax'
   end
 
-  # returns a collection from possible statement states to be used on radios and select boxes
-  def statement_states_collection
-    StatementState.all.map{|s|[I18n.t("discuss.statements.states.initial_state.#{s.code}"),s.id]}
-  end
+  ###############
+  # BREADCRUMBS #
+  ###############
 
+
+  # renders the breadcrumb given
+  def render_breadcrumb(breadcrumbs)
+    breadcrumb_trail = ""
+    breadcrumbs.each_with_index do |b, index| #[id, classes, url, title]
+      breadcrumb = content_tag(:a, :href => b[2], :id => b[0], :class => 'breadcrumb') do
+        content = ""
+        content << content_tag(:span, '>', :class => 'delimiter') if index != 0
+        content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.#{b[0][0,2]}"), :class => 'label')
+        content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.over.#{b[0][0,2]}"), :class => 'over')
+        content << content_tag(:span, h(b[3].gsub(/\\;/, ',')), :class => b[1])
+        content
+      end
+      breadcrumb_trail << breadcrumb
+    end
+    breadcrumb_trail
+  end
 
   # This class does the heavy lifting of actually building the pagination
   # links. It is used by the <tt>will_paginate</tt> helper internally.

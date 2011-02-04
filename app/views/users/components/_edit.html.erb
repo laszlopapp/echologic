@@ -1,6 +1,7 @@
 <% form_tag send("user_#{type}_path", object.user, object),
             :method => :put,
-            :id => dom_id(object, :edit) do -%>
+            :id => dom_id(object, :edit),
+            :class => 'ajax_form' do -%>
 
   <%= yield :fields %>
   <%= hidden_field :user_id,
@@ -9,7 +10,3 @@
   <%= save_or_cancel send("user_#{type}_path",object.user, object) %>
 
 <% end %>
-
-<script type="text/javascript">
-  $("#<%= dom_id(object, :edit) %>").ajaxForm({ dataType: 'script' });
-</script>

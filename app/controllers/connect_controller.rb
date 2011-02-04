@@ -3,7 +3,7 @@ class ConnectController < ApplicationController
   # Show the connect page
   # method: GET
   def show
-    @value    = params[:value] || ""
+    @value    = params[:search_terms] || ""
     @sort     = params[:sort]  || ""
     @page     = params[:page]  || 1
     @profiles = Profile.search_profiles(@sort, @value.split(' ').first)

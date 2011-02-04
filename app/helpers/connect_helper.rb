@@ -10,7 +10,7 @@ module ConnectHelper
   end
 
   def close_profile_details
-    link_to I18n.t('application.general.close'), connect_path,
+    link_to I18n.t('application.general.close'), connect_search_path,
         :id => 'close_details_container',
         :class => 'close_link',
         :onclick => "$('.profile').removeClass('active');
@@ -20,7 +20,20 @@ module ConnectHelper
                      return false;"
   end
 
-  def profiles_count_text(count)
-    count_text("connect", count)
+  def profiles_count_text(count, search_terms, sort_id)
+    sort = sort_id.blank? ? nil : TagContext[sort_id.to_i]
+    category = sort.nil? ? 'all' : sort.code
+    filter = search_terms.blank? ? 'no_filter' : 'with_filter'
+    one_or_many = count == 1 ? 'one' : 'more'
+
+    # Assembling the string
+    count_text = count.to_s + ' '
+    if !filter
+      count_text << I18n.t("connect.results_count.#{category}.#{filter}.#{one_or_many}")
+    else
+      count_text << I18n.t("connect.results_count.#{category}.#{filter}.#{one_or_many}",
+                           :filter => search_terms)
+    end
+    count_text
   end
 end

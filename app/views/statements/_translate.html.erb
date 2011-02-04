@@ -2,23 +2,17 @@
 <% old_statement_document ||= @statement_document%>
 <% new_statement_document ||= @new_statement_document %>
 
-<div id="summary" class="simple_header_block discuss_right_block">
-	<%= content_tag :h2, I18n.t("discuss.statements.types.#{statement_node.class.name.underscore}") %>
 
-  <!-- Building the translation box with the two babelfishes -->
-	<div id="new_translation">
-    <div class="translation_box_class rounded-box rounded-box-gray-itow with_bg_bw_grad_small">
-    	<%= translation_upper_box old_statement_document.language.value.upcase,
-                              Language[params[:locale]].value.upcase %>
-		</div>
 
-    <!-- The form for translating the statement -->
-	  <%= render :partial => 'statements/translation_form',
-               :locals => {:statement_node => statement_node,
-                           :new_statement_document => new_statement_document } %>
-	</div>
-</div>
+<% semantic_form_for statement_node, :url => create_translation_statement_node_url(statement_node),
+                                     :method => :put,
+                                     :html => {:class => "ajax_form wide_form translation statement"} do |form| -%>
+  <%= render :partial => 'statements/header', :locals => {:statement_node => statement_node} %>
+  <%= render :partial => 'statements/form/form_content', 
+                         :locals => {:form_partial => 'statements/form/translation_form', 
+                                     :form => form, 
+                                     :statement_node => statement_node,
+                                     :headline =>  I18n.t("discuss.statements.types.#{dom_class(statement_node)}"),
+                                     :no_language_info => true} %>
+<% end -%>
 
-<script type="text/javascript">
- $('#edit_<%=statement_node_class_dom_id(statement_node)%>_<%=statement_node.id%>').ajaxForm({ dataType : 'script' });
-</script>

@@ -5,13 +5,9 @@
 
 class Question < StatementNode
 
+  has_children_of_types [:Proposal,true]
 
   # methods / settings to overwrite default statement_node behaviour
-
-  validates_parent :Question, :NilClass
-  expects_children :Proposal
-  named_scope(:roots, lambda { { :conditions => { :root_id => nil } } })
-
 
   # the default scope defines basic rules for the sql query sent on this model
   # for questions we do not need to include the echo, and we don't order by supporters count, as they are not supportable
@@ -19,12 +15,19 @@ class Question < StatementNode
     { :order => %Q[created_at ASC] }
   end
 
-  # Questions are NOT echoable.
-  def echoable?
-    false
-  end
-  
-  def has_children?
+  def publishable?
     true
+  end
+
+  #################################################
+  # string helpers (acts_as_echoable overwriting) #
+  #################################################
+
+  def self.support_tag
+    "recommend"
+  end
+
+  def self.unsupport_tag
+    "unrecommend"
   end
 end

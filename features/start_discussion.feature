@@ -1,6 +1,6 @@
 @discuss @editor
-Feature: Start a discussion
-  In order to start a proper discussion
+Feature: Start a question
+  In order to start a proper question
   As an editor
   I want to create questions and add proposals to it
 
@@ -10,8 +10,8 @@ Feature: Start a discussion
     Given there are no questions
       And I am logged in as "editor" with password "true"
       And I am on the discuss index
-    When I follow "My Issues"
-      And I follow "Create a new issue"
+    When I follow "My Questions"
+      And I follow "Create a new question"
       And I fill in the following:
         | question_statement_document_title | Is this a Question?   |
         | question_statement_document_text | Blablabla bla bla bla |
@@ -50,7 +50,7 @@ Feature: Start a discussion
     When I follow "Featured"
     When I follow "echonomyJAM"
       And I choose the first Question
-      And I follow "create_proposal_link"
+      And I follow localized "discuss.statements.create_proposal_link"
       And I fill in the following:
         | proposal_statement_document_title | a proposal to propose some proposeworthy proposal data |
         | proposal_statement_document_text | nothing to propose yet...                              |
@@ -72,12 +72,10 @@ Feature: Start a discussion
   @ok
   Scenario: Fail to add a proposal to a question with * tag
     Given I am logged in as "user" with password "true"
-      And I am on the discuss index
-    When I follow "Featured"
-    When I follow "echonomyJAM"
-      And I choose the first Question
+      And there is a question
       And the question has "*beer" for tags
-      And I follow "create_proposal_link"
+      And I go to the question
+      And I follow localized "discuss.statements.create_proposal_link"
     Then I should see localized "discuss.statements.read_only_permission"
 
   @ok
@@ -85,7 +83,7 @@ Feature: Start a discussion
     Given I am logged in as "user" with password "true"
       And there is a question i have created
     When I go to the question
-      And I follow "Change" within "#image_container"
+      And I follow "Change" within ".image_container"
     Then I should see "Upload Image"
       And I should see "Cancel"
       And I should see "Upload"

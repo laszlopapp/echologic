@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101203223755) do
+ActiveRecord::Schema.define(:version => 20110204044040) do
 
   create_table "about_item_translations", :force => true do |t|
     t.integer "about_item_id"
@@ -28,6 +28,11 @@ ActiveRecord::Schema.define(:version => 20101203223755) do
     t.text     "description"
     t.integer  "about_category_id"
     t.integer  "index"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "admin_mailers", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -214,22 +219,24 @@ ActiveRecord::Schema.define(:version => 20101203223755) do
     t.integer  "root_id"
     t.integer  "creator_id"
     t.integer  "echo_id"
-    t.integer  "editorial_state_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "statement_id"
-    t.string   "drafting_state",     :limit => 20
+    t.string   "drafting_state", :limit => 20
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.integer  "question_id"
   end
 
   add_index "statement_nodes", ["creator_id"], :name => "index_statement_nodes_on_creator_id"
   add_index "statement_nodes", ["echo_id", "id"], :name => "index_statement_nodes_on_echo_id_and_id"
-  add_index "statement_nodes", ["editorial_state_id"], :name => "index_statement_nodes_on_state_id"
   add_index "statement_nodes", ["id", "statement_id"], :name => "index_statement_nodes_on_id_and_statement_id"
   add_index "statement_nodes", ["type"], :name => "index_statement_nodes_on_type"
 
   create_table "statements", :force => true do |t|
     t.integer "original_language_id"
     t.integer "statement_image_id"
+    t.integer "editorial_state_id"
   end
 
   create_table "subscriptions", :force => true do |t|
@@ -303,6 +310,7 @@ ActiveRecord::Schema.define(:version => 20101203223755) do
     t.integer  "activity_notification",   :default => 1
     t.integer  "drafting_notification",   :default => 1
     t.integer  "newsletter_notification", :default => 1
+    t.integer  "authorship_permission",   :default => 1
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

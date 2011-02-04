@@ -55,7 +55,7 @@ class Users::WebAddressesController < ApplicationController
   	          p << "$('#web_address_type_id').focus();"
             end
           else
-            show_error_messages(@web_address)
+            set_error @web_address and render_with_error
           end
         end
       end
@@ -75,7 +75,7 @@ class Users::WebAddressesController < ApplicationController
           if @web_address.update_attributes(params[:web_address])
             replace_content(dom_id(@web_address), :partial => @web_address)
           else
-            show_error_messages(@web_address)
+            set_error @web_address and render_with_error
           end
         end
       end

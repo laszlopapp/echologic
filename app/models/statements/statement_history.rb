@@ -20,4 +20,8 @@ class StatementHistory < ActiveRecord::Base
   validates_presence_of :action_id
   validates_associated :author
   
+  #named scopes
+  named_scope :by_language, lambda {|id|
+  {:joins => :statement_document, :conditions => ["statement_documents.language_id = ?", id]}}
+  named_scope :by_creation, :order => 'statement_histories.created_at ASC'
 end
