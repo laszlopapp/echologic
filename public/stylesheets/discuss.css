@@ -179,7 +179,8 @@ form.statement .discuss_right_block {
   border: none;
 }
 
-form.question .header li {
+form.question .header li,
+form.follow_up_question .header li {
   background:transparent url(../images/page/discuss/question_16.png) no-repeat scroll 0 2px;
 }
 form.proposal .header li {
