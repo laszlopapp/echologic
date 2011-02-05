@@ -10,9 +10,9 @@
 		});
 		return b
 	};
-	
-	
-	
+
+
+
 	var lwRTE_resizer = function(a){
 		this.drag = false;
 		this.rte_zone = $(a).parents(".rte-zone")
@@ -89,7 +89,7 @@
 		this.iframe.contentWindow.focus();
 		try {
 			this.iframe_doc.execCommand(c, false, a)
-		} 
+		}
 		catch (b) {
 		}
 		this.iframe.contentWindow.focus()
@@ -136,7 +136,7 @@
 		a.iframe_doc = a.iframe.contentWindow.document;
 		try {
 			a.iframe_doc.designMode = "on"
-		} 
+		}
 		catch (h) {
 			$(a.iframe_doc).focus(function(){
 				a.iframe_doc.designMode()
@@ -205,7 +205,7 @@
 			}
 			try {
 				b.apply(this, a)
-			} 
+			}
 			catch (c) {
 			}
 		}
@@ -233,7 +233,7 @@
 				if (d[f].init) {
 					try {
 						d[f].init.apply(d[f], [this])
-					} 
+					}
 					catch (g) {
 					}
 				}
@@ -275,7 +275,7 @@
 		var f, b;
 		var d = i.event.pageX;
 		var g = i.event.pageY;
-		var a = $("<div></div>").hide().addClass("rte-panel").css({
+		var a = $("<div></div>").hide().addClass("rte-panel").addClass("popup_panel").css({
 			left: d + 15,
 			top: g - 200
 		});
@@ -354,7 +354,7 @@
 				}
 				while (a = a.parentNode)
 			}
-		} 
+		}
 		catch (g) {
 		}
 		return true
@@ -367,7 +367,7 @@
 				b = d.getSelection();
 				a = b.getRangeAt(0);
 				c = a.commonAncestorContainer
-			} 
+			}
 			catch (f) {
 				return false
 			}
@@ -377,7 +377,7 @@
 				b = d.document.selection;
 				a = b.createRange();
 				c = a.parentElement()
-			} 
+			}
 			catch (f) {
 				return false
 			}
@@ -444,5 +444,4 @@
 			a.pasteHTML(b)
 		}
 	};
-	
-	
+

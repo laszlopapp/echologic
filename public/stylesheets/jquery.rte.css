@@ -78,8 +78,8 @@
 .rte-panel {
   background: #FFF url("../images/jquery-ui/background_dialog_buttonbar.gif") repeat-x scroll center bottom;
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 180px !important;
+  top: -220px !important;
   border: 1px solid #AAA;
   display: block;
   clear: both;
