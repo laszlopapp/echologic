@@ -17,7 +17,7 @@
 
     // Merging settings with defaults
     var settings = $.extend({}, $.fn.statement.defaults, current_settings);
-    
+
     return this.each(function() {
 			// Creating and binding the statement API
 			var elem = $(this), statementApi = elem.data('api');
@@ -65,6 +65,8 @@
           statement.echoable();
         }
 
+        initContentLinks();
+
         /* Statement Form Helpers */
         if(statement.is('form')) {
 					statement.statementForm();
@@ -91,7 +93,7 @@
           element.replaceWith(statement);
         }
         else
-        { 
+        {
           $('div#statements').append(statement);
         }
 			}
@@ -118,6 +120,16 @@
 			  });
 			}
 
+      function initContentLinks() {
+        statement.find(".statement_content a").each(function() {
+          var link = $(this);
+          link.attr("target", "_blank");
+          var url = link.attr("href");
+          if (url.substring(0,7) != "http://") {
+            link.attr("href", "http://" + url);
+          }
+        });
+      }
 
 		  /*
 		   * Collapses all visible statements.
