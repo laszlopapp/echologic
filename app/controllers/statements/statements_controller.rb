@@ -7,7 +7,7 @@ class StatementsController < ApplicationController
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
-  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :authors, :add, :ancestors, :descendants,
+  skip_before_filter :require_user, :only => [:category, :show, :more, :children, :add, :ancestors, :descendants,
                                               :redirect_to_statement]
 
   before_filter :fetch_statement_node, :except => [:category, :my_questions, :new, :create]
