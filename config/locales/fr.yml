@@ -32,7 +32,7 @@ fr:
       incorporate: Incorporer
       welcome: Bienvenue
       all: Tous
-      authors: Authors
+      authors: Auteurs
 
     # Roadmap - progrès
     roadmap:
@@ -304,13 +304,15 @@ fr:
 
     # Permissions section
     permissions:
-      title: Privacy Settings
-      guide: Where in echo your personal data should be shown or be hidden?
+      title: Paramètres confidentiels
+      guide: Les espaces publics/privés sur echo
       authorship:
-        title: Authorship of statements
-        guide: Let other logged in members (but no search engines) see your profile information as being a co-author of a statement in echo Discuss.
-        turned_on: Your profile information will be shown when displaying co-authors of statements.
-        turned_off: You will be displayed as Anonym among other authors of a statement.
+        title: "Identité de l'auteur du constat"
+        guide: |
+          Les autres participants enregistrés peuvent accéder á votre profil de co-auteur d'une
+          proposition dans "echo-discussion".
+        turned_on: Les informations de votre profil seront affichées avec les autres  propositions thématiques.
+        turned_off: Votre profil restera anonyme.
 
     # New Users section
     users:
@@ -355,7 +357,7 @@ fr:
       no_questions: |
         Vous n'avez pas encore précisé un sujet de discussion. Pour ce faire,
         cliquez sur le point d'interrogation à gauche.
-      add: Add New Question
+      add: Nouvelle question
     tag_permission: |
       Ce tag '{{tag}}' n'est pas autorisé.
     original_language_warning: |
@@ -366,7 +368,7 @@ fr:
       one: '{{count}} question'
       more: '{{count}} questions'
     for: |-
-      for '{{value}}'
+      pour '{{value}}'
     featured_topics:
       title: Thèmes Proposés
       tabs:
@@ -377,44 +379,44 @@ fr:
     search:
       title: Chercher
       in: '... dans {{category}} ...'
-      add: "Create the first question about the topic"
+      add: "Créer la première question à ce sujet"
 
     tooltips:
       read_question: 'Regarder cette question'
       read_proposal: 'Lire cette proposition'
       read_improvement: "Lire l'amendement"
-      read_pro_argument: 'Read this pro argument'
-      read_contra_argument: 'Read this contra argument'
-      read_follow_up_question: 'Read this follow-up question'
+      read_pro_argument: 'Lire cet argument PRO'
+      read_contra_argument: 'Lire cet argument CONTRE'
+      read_follow_up_question: 'Lire cette question suivie"'
       current_question: 'La question actuellement affichée'
       current_proposal: 'La proposition actuellement affichée '
       current_improvement: "L'amendement affiché"
-      current_pro_argument: 'The currently displayed pro argument'
-      current_contra_argument: 'The currently displayed contra argument'
-      current_follow_up_question: 'The currently displayed follow-up question'
+      current_pro_argument: "L'argument PRO actuellement publié"
+      current_contra_argument: "L'argument CONTRE actuellement publié"
+      current_follow_up_question: "L'actuelle question suivie publiée"
       back_to_question: 'Retour à la question actuelle'
       back_to_proposal: 'Retour à la proposition actuelle'
       back_to_improvement: "Retour à l'amendement"
       prev_question: 'Lire la question précédente'
       next_question: 'Lire la question suivante'
       prev_proposal: 'Lire la proposition précédente '
-      next_proposal: 'Lire la proposition suivante '
+      next_proposal: 'Lire la proposition suivante'
       prev_improvement: "Lire la proposition d'amendement"
       next_improvement: "La proposition d'amendement suivante à la proposition actuelle"
-      prev_pro_argument: 'Read previous argument for the current proposal'
-      next_pro_argument: 'Read next argument for the current proposal'
-      prev_contra_argument: 'Read previous argument for the current proposal'
-      next_contra_argument: 'Read next argument for the current proposal'
-      prev_follow_up_question: 'Read previous follow-up question in the context shown above'
-      next_follow_up_question: 'Read next follow-up question in the context shown above'
+      prev_pro_argument: "Lire l'argument précédent de la proposition actuellel"
+      next_pro_argument: "Lire l'argument suivant de la proposition actuelle"
+      prev_contra_argument: "Lire l'argument antérieur concernant la proposition actuelle"
+      next_contra_argument: "Lire l'argument au sujet de la proposition actuelle"
+      prev_follow_up_question: 'Lire la question suivie précédente dans le contexte affiché ci-dessus'
+      next_follow_up_question: 'Lire laprochaine "question suivie" dans le contexte affiché ci-dessus'
       create_question: 'Poser une nouvelle question'
       create_proposal: |
         Vous avez une nouvelle idée concernant la question actuelle? Veuillez l'indiquer ici
       create_improvement: |
         Vous avez une idée concernant la proposition actuelle? Veuillez l'indiquer ici!
-      create_pro_argument: "Post a new pro argument to this proposal"
-      create_contra_argument: "Post a new contra argument to this proposal"
-      create_follow_up_question: "Post a new new follow-up question"
+      create_pro_argument: 'Envoyer un nouvel argument PRO concernant cette proposition'
+      create_contra_argument: 'Envoyer un nouvel argument CONTRE concernant cette proposition'
+      create_follow_up_question: 'Envoyer une question suivie soulevée par le constat actuel'
       echo: |
         Apportez votre 'echo' à cette proposition!
       unecho: 'Si vous ne souhaitez plus soutenir cette proposition, vous pouvez vous désister ici!'
@@ -424,29 +426,37 @@ fr:
       incorporate: |
         Cliquez ici afin 'insérer' la proposition complémentaire dans le texte ci-dessus.
       siblings:
-        question: See all questions in the context shown above
-        proposal: See all proposals belonging to the current question
-        improvement: See all improvements proposed for the current proposal
-        pro_argument: See all arguments belonging to the current proposal
-        contra_argument:  See all arguments belonging to the current proposal
+        question: Regarder toutes les questions posées dans le contexte ci-dessus
+        proposal: Regarder toutes les propositions concernant la question actuelle
+        improvement: "Regarder tous les amendements proposés concernant l'actuelle proposition"
+        pro_argument: "Regarder tous les arguments concernant l'actuelle proposition"
+        contra_argument: "Regarder tous les arguments concernant l'actuelle proposition"
 
     statements:
       label: 'Voter'
       echo_indicator:
-        one: '{{supporter_count}} Supporter'
-        many: '{{supporter_count}} Supporter'
-      add_new: Add new...
-      create_question_link: 'Ouvrir de nouvelles discussions'
+        support:
+          one: '{{supporter_count}} supporter'
+          many: '{{supporter_count}} supporters'
+        recommend:
+          one: '{{supporter_count}} suggestion'
+          many: '{{supporter_count}} les suggestions'
+      add_new: Nouvel élément...
+      create_question_link: 'Poser une nouvelle question'
       create_proposal_link: 'Soumettre de nouvelles propositions'
       create_internal_link: 'Une idée nouvelle'
       create_improvement_link: 'Soumettre un amendement'
-      create_pro_argument_link: Add new pro argument
-      create_contra_argument_link: Add new contra argument
-      create_follow_up_question_link: Add new follow-up question
-      recommend_link: 'Recommend this'
-      unrecommend_link: 'Withdraw echo'
-      support_link: 'Support this'
-      unsupport_link: 'Withdraw echo'
+      create_pro_argument_link: Ajouter un nouvel argument PRO
+      create_contra_argument_link: Ajouter un nouvel argument CONTRE
+      create_follow_up_question_link: Ajouter une nouvelle question suivie
+      recommend_link: 'Recommander ceci'
+      unrecommend_link: 'Retirer ce lien'
+      support_link: 'Soutener ce lien'
+      unsupport_link: 'Lien non soutenu'
+      recommend_link: 'Recommander ce'
+      unrecommend_link: 'Retirer écho'
+      support_link: 'Soutenez ce'
+      unsupport_link: 'Retirer écho'
       create_question_explanation: |
         Vous pouvez ouvrir ici <strong>une nouvelles discussions</strong> et définir
         <strong>les mots-clefs thématiques</strong> (les "tags").
@@ -467,24 +477,25 @@ fr:
       drafting_language_hint: |
         La poursuite collaborative ne sera possibile que dans la langue sélectionnée!
       title_hint:
-        question: Please enter the question title in...
-        proposal: Please enter the proposal title in...
-        improvement: Please enter the improvement title in...
-        pro_argument: Please enter the pro argument title in...
-        contra_argument: Please enter the contra argument title in...
-        follow_up_question: Please enter the follow-up question title in...
+        question: Entrez le titre de la question en... français?
+        proposal: Entrer le titre de votre proposition en... français?
+        improvement: "Entrer le titre de l'amendement en... français?"
+        pro_argument: |
+          Entrer le titre de l'argument PRO en... français?
+        contra_argument: |
+          Entrer le titre de l'argument CONTRE en... français?
+        follow_up_question: Entrer le titre de la question de suivi en... français?
       text_hint:
-        question: Describe the issue and write some details about the topic...
-        proposal: Describe your proposal in more detail...
-        improvement: Describe your improvement idea in more detail...
-        pro_argument: Describe your pro argument in more detail...
-        contra_argument: Describe your contra argument in more detail...
-        follow_up_question: Describe your follow-up question in more detail...
+        question: Veuillez décrire la thématique et donnez quelques détails...
+        proposal: Veuillez fournir davantage de détails sur votre proposition...
+        improvement: Veuillez décrire votre idée d'amélioration avec plus de détails...
+        pro_argument: Veuillez donner davantage de détails de votre argument PRO...
+        contra_argument: Veuillez donner davantage de détails de votre argument CONTRE...
+        follow_up_question: Veuillez donner davantage de détails de votre question suivie...
       fuq_formulation_hint: |
-        Since follow-up questions also appear as questions in "Search",
-        title and description should both be understandable also independently of
-        the original discussion.
-      tag_hint: 'Enter tags here...'
+        La "question suivie" apparaissant aussi comme question dans le registre "Chercher",
+        son titre et sa description doivent etre clairs et compréhensibles indépendemment de la discusion d'origine.
+      tag_hint: 'Mots-clefs idoines...'
 
       publish: Publier
       published: La discussion a été publiée avec succès.
@@ -493,25 +504,25 @@ fr:
       types:
         question: 'Question'
         proposal: 'Proposition'
-        improvement: 'Amendement proposé'
-        pro_argument: 'Pro Argument'
-        contra_argument: 'Contra Argument'
-        follow_up_question: 'Follow-Up Question'
+        improvement: 'Amendement'
+        pro_argument: 'Argument PRO'
+        contra_argument: 'Argument CONTRE'
+        follow_up_question: 'Question suivie'
       new:
         question:  'Nouvelle question'
         proposal:  'Nouvelle proposition'
-        improvement: 'Amendement proposé'
-        pro_argument: 'New Pro Argument'
-        contra_argument: 'New Contra Argument'
-        follow_up_question: 'New Follow-Up Question'
+        improvement: 'Nouvel amendement'
+        pro_argument: 'Nouvel argument PRO'
+        contra_argument: 'Nouvel argument CONTRE'
+        follow_up_question: 'Nouvelle question suivie'
       headings:
         question: 'Questions'
         proposal: 'Propositions'
-        improvement: 'Amendement proposé'
+        improvement: 'Amendements'
         argument: 'Arguments'
-        follow_up_question: 'Follow-up Questions'
+        follow_up_question: 'Question suivie'
       siblings:
-        follow_up_question: 'Follow-up Question in the context shown above'
+        follow_up_question: 'Question suivie dans le contexte affiché ci-dessus'
 
       topic: Thème (Tags / mots-clefs)
       states:
@@ -528,7 +539,7 @@ fr:
       read_only_permission: |-
         Cette discussion est déjà fermée, mais vous pouvez lire les contributions.
       unsupported_parent: |-
-        Les amendements proposés ne sont soutenus que si la projet initial a été approuvé.
+        Les amendements ne sont soutenus que si la projet initial a été approuvé.
         Cet amendement ne peut plus être pris en considération. Nous sommes désolés.
       see_parent_if_approved: |-
         Cet amendement a été accepté afin d'améliorer la proposition ci-dessous.
@@ -541,30 +552,30 @@ fr:
       statement_updated: |-
         {{type}} vient d'être actualisée par une autre personne.
       statement_supported: |-
-         Thanks for making an echo to the {{type}}.
+        Vous avez crée un echo {{type}} avec succès.
       statement_unsupported: |-
-         You withdrew your echo from the {{type}}.
+        Vous avez retiré votre echo {{type}} avec succès.
       edit_period_hint: |-
         Vous avez <strong>{{minutes}} minutes</strong> pour rédiger vos suggestions ou vos commentaires.
         Après expiration de ce délai, vos corrections ne pourront probablement plus être prises en considération.
       staled_modification: |-
         Désolé, mais le délai de 60 minutes maximum est terminé. Entretemps, la proposition a été traitée par un
         autre utilisateur. Votre amendement ne peut pas être pris en compte.
-      no_document_in_language: 'The statement does not exist in English yet.'
+      no_document_in_language: "Le constat n'existe pas dans votre langue."
 
       breadcrumbs:
-        discuss_search: Search
-        my_questions: My Questions
+        discuss_search: Chercher
+        my_questions: Mes questions
         labels:
           ds: ''
           mi: ''
-          sr: 'Search results for'
-          fq: 'Follow-up Questions for'
+          sr: 'Rechercher des résultats pour'
+          fq: 'Questions suivies pour'
           over:
-            ds: 'Back to'
-            mi: 'Back to'
-            sr: 'Back to search results for'
-            fq: 'Back to'
+            ds: 'Retour à'
+            mi: 'Retour à'
+            sr: 'Retour à chercher des résultats pour'
+            fq: 'Retour à'
 
       upload_image:
         title: |
@@ -579,23 +590,23 @@ fr:
 
       add_teaser:
         question: |
-          This is where YOUR winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
-          button above to enter it NOW!
+          Voici le rang qu'aurait votre idée gagnante.<br/><br/>Quelle serait la votre?<br/><br/>
+          Cliquez sur le bouton ci-dessus pour la soumettre MAINTENANT!
         proposal: |
-          This is where YOUR winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
-          button above to enter it NOW!
+          Voici le rang qu'aurait votre idée gagnante.<br/><br/>Avez vous une proposition à faire?<br/><br/>
+          Cliquez sur le bouton ci-dessus pour la soumettre MAINTENANT!
         improvement: |
-          This is where YOUR winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
-          button above to enter it NOW!
+          Voici le rang qu'aurait votre idée gagnante.<br/><br/>La proposition pourrait etre améliorée?<br/><br/>
+          Cliquez sur le bouton ci-dessus et entrez votre amendement MAINTENANT!
         pro_argument: |
-          This is where YOUR winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
-          button above to enter it NOW!
+          Voici le rang qu'aurait votre idée gagnante.<br/><br/>Quel serait votre argument PRO?<br/><br/>
+          Cliquez sur le bouton ci-dessus pour entrer votre argument pro MAINTENANT!
         contra_argument: |
-          This is where YOUR winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
-          button above to enter it NOW!
+          Voici le rang qu'aurait votre idée gagnante.<br/><br/>Quel serait votre argument CONTRE?<br/><br/>
+          Cliquez sur le bouton ci-dessus pour entrer votre argument contre MAINTENANT!
         follow_up_question: |
-          This is where YOUR winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
-          button above to enter it NOW!
+          Voici le rang qu'aurait votre idée gagnante.<br/><br/>En avez vous une question suivie?<br/><br/>
+          Cliquez sur le bouton ci-dessus pour la soumettre MAINTENANT!
 
     summary:
       title: 'Résumé'
@@ -604,7 +615,7 @@ fr:
       updated: "{{type}} a été traité avec succès."
       deleted: "{{type}} a été effacé avec succès."
       translated: "{{type}} a été traduit avec succès."
-      incorporated: "L'amendement proposé  a été intégré au projet avec succès ."
+      incorporated: "L'amendement a été intégré au projet avec succès."
       image_uploaded: "L'image a été ajoutée à/ {{type}}"
       empty: "Aucune discussion n'a pu être trouvée. Veuillez choisir un autre mot-clef."
       empty_without_spoken_languages: |
@@ -633,39 +644,39 @@ fr:
     results_count:
       all:
         no_filter:
-          one: 'person'
-          more: 'people'
+          one: 'personne'
+          more: 'les gens'
         with_filter:
-          one: "person related to '{{filter}}'"
-          more: "people related to '{{filter}}'"
+          one: "personne en rapport avec '{{filter}}'"
+          more: "les gens en rapport avec '{{filter}}'"
       affection:
         no_filter:
-          one: affected person
-          more: affected people
+          one: personne concernée
+          more: les gens concernés
         with_filter:
-          one: "person affected by '{{filter}}'"
-          more: "people affected by '{{filter}}'"
+          one: "personne concernée '{{filter}}'"
+          more: "les gens concernés par '{{filter}}'"
       engagement:
         no_filter:
-          one: engaged person
-          more: engaged people
+          one: personne impliquée
+          more: les gens impliqués
         with_filter:
-          one: "person engaged in '{{filter}}'"
-          more: "people engaged in '{{filter}}'"
+          one: "personne impliquée dans '{{filter}}'"
+          more: "les gens impliqués dans '{{filter}}'"
       expertise:
         no_filter:
           one: expert
           more: experts
         with_filter:
-          one: "expert in '{{filter}}'"
-          more: "experts in '{{filter}}'"
+          one: "expert en '{{filter}}'"
+          more: "experts en '{{filter}}'"
       decision_making:
         no_filter:
-          one: decision maker
-          more: decision makers
+          one: décideur
+          more: les décideurs
         with_filter:
-          one: "decision maker in '{{filter}}'"
-          more: "decision makers in '{{filter}}'"
+          one: "décideur dans '{{filter}}'"
+          more: "les décideurs dans '{{filter}}'"
     details:
       tabs:
         overview:  'Aperçu'
@@ -773,7 +784,7 @@ fr:
     models:
       question: "Question"
       proposal: "proposition"
-      improvement: "Amendement proposé"
+      improvement: "Amendement"
 
   authlogic:
     error_messages:
