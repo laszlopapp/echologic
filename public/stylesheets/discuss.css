@@ -1153,6 +1153,11 @@ a.statement_link:hover {
   top: 11px;
 }
 
+form.translation .rte-panel {
+  left: -30px !important;
+  top: -218px !important;
+}
+
 /********************/
 /* Translation form */
 /********************/
