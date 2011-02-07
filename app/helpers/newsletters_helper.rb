@@ -1,6 +1,6 @@
 module NewslettersHelper
   def text_form_column(record, input_name)
-    fckeditor_textarea(:record, :text, :toolbarSet => "Easy", :width => "740px", :height => "500px")
+    fckeditor_textarea(:record, :text, :toolbarSet => "Easy", :name => input_name, :width => "740px", :height => "500px")
   end
 
   def text_column(record)

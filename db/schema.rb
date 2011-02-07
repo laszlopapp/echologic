@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(:version => 20110202134733) do
 
   add_index "memberships", ["user_id", "id"], :name => "index_memberships_on_user_id_and_id"
 
-  create_table "newletter_translations", :force => true do |t|
+  create_table "newsletter_translations", :force => true do |t|
     t.integer "newsletter_id"
     t.string  "locale"
     t.string  "title"

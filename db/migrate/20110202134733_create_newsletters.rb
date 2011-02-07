@@ -7,7 +7,7 @@ class CreateNewsletters < ActiveRecord::Migration
     end
     
     # Translation table for descriptions
-    create_table :newletter_translations do |t|
+    create_table :newsletter_translations do |t|
       t.integer :newsletter_id
       t.string  :locale
       t.string  :title
@@ -17,6 +17,6 @@ class CreateNewsletters < ActiveRecord::Migration
 
   def self.down
     drop_table :newsletters
-    drop_table :newletter_translations
+    drop_table :newsletter_translations
   end
 end

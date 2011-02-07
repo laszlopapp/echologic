@@ -58,5 +58,4 @@ class NewslettersController < ApplicationController
     MailerService.instance.send_newsletter_mails(newsletter)
     redirect_to newsletters_path
   end
-
 end

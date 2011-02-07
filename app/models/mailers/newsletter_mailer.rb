@@ -2,7 +2,7 @@ class NewsletterMailer < ActionMailer::Base
   layout 'mail'
   helper :mail
 
-  # Send a newletter to the given user.
+  # Send a newsletter to the given user.
   def newsletter_mail(recipient, newsletter)
     language = recipient.default_language
     subject       newsletter.subject
