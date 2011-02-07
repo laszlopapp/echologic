@@ -5,22 +5,22 @@ class NewsletterMailer < ActionMailer::Base
   # Send a newsletter to the given user.
   def newsletter_mail(recipient, newsletter)
     spoken_languages = recipient.sorted_spoken_languages.map{|id|Language[id].code}
-    current_code = I18n.locale
     newsletter.disable_translation
+    language_code = I18n.default_locale.to_s
     title = newsletter.title
     text = newsletter.text
     newsletter.enable_translation
     
     spoken_languages.each do |code|
-      I18n.locale = code
-      if newsletter.translation_locale == code or code == I18n.default_locale.to_s
-        title = newsletter.title
-        text = newsletter.text
+      break if code == I18n.default_locale.to_s
+      translation = newsletter.translations.find_by_locale(code)
+      if !translation.nil?
+        language_code = code
+        title = translation.title
+        text = translation.text
         break
       end
     end
-    I18n.locale = current_code
-    
     
     language = recipient.default_language
     subject       title
@@ -30,6 +30,6 @@ class NewsletterMailer < ActionMailer::Base
     content_type  "text/html"
     body          :name => recipient.full_name,
                   :text => text,
-                  :language => language
+                  :language => Language[language_code]
   end
 end
