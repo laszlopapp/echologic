@@ -827,4 +827,5 @@ es:
           mb: "MB"
           gb: "GB"
           tb: "TB"
-
+  newsletters:
+    send_confirmation: Are you sure?

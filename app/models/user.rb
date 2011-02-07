@@ -164,8 +164,8 @@ class User < ActiveRecord::Base
   # Returns an array with the language_ids of the users spoken languages in order of language levels
   # (from mother tongue to basic).
   #
-  def sorted_spoken_language_ids
-    spoken_languages.sort{|sl1, sl2| sl1.level_key <=> sl2.level_key}.map(&:language_id)
+  def sorted_spoken_languages(attr = :language_id)
+    spoken_languages.sort{|sl1, sl2| sl1.level_key <=> sl2.level_key}.map(&attr)
   end
 
   #

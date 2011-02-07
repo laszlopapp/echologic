@@ -28,7 +28,7 @@ class UserTest < ActiveSupport::TestCase
 
         should "return spoken languages as an array of keys" do
           # TODO - this will only work when fixtures do not change. see todos above
-          assert_equal @user.sorted_spoken_language_ids, @user.spoken_languages.collect{|sl| sl.language.id}
+          assert_equal @user.sorted_spoken_languages, @user.spoken_languages.collect{|sl| sl.language.id}
         end
 
       end
