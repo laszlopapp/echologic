@@ -296,7 +296,7 @@ fr:
           Vous souhaitez être informé (e) à chaque modification/développement des textes élaborés en commun ou des
           propositions d'amélioration et si vous pouvez y ajoutez vos propres modifications.<br/><br/>
           <strong>Attention!</strong> Si vous désactivez cette fonctionnalité, vous ratez peut-être l'occasion
-          de pouvoir y insérer vos amendements.
+          de pouvoir y insérer vos rajouts.
         turned_on: |
           La demande d'information sur l'avancée du projet collaboratif a été activée.
         turned_off: |
@@ -384,25 +384,25 @@ fr:
     tooltips:
       read_question: 'Regarder cette question'
       read_proposal: 'Lire cette proposition'
-      read_improvement: "Lire l'amendement"
+      read_improvement: "Lire l'rajout"
       read_pro_argument: 'Lire cet argument PRO'
       read_contra_argument: 'Lire cet argument CONTRE'
       read_follow_up_question: 'Lire cette question suivie"'
       current_question: 'La question actuellement affichée'
       current_proposal: 'La proposition actuellement affichée '
-      current_improvement: "L'amendement affiché"
+      current_improvement: "Le rajout affiché"
       current_pro_argument: "L'argument PRO actuellement publié"
       current_contra_argument: "L'argument CONTRE actuellement publié"
       current_follow_up_question: "L'actuelle question suivie publiée"
       back_to_question: 'Retour à la question actuelle'
       back_to_proposal: 'Retour à la proposition actuelle'
-      back_to_improvement: "Retour à l'amendement"
-      prev_question: 'Lire la question précédente'
-      next_question: 'Lire la question suivante'
-      prev_proposal: 'Lire la proposition précédente '
-      next_proposal: 'Lire la proposition suivante'
-      prev_improvement: "Lire la proposition d'amendement"
-      next_improvement: "La proposition d'amendement suivante à la proposition actuelle"
+      back_to_improvement: "Retour au rajout"
+      prev_question: 'Lire la question précédente dans le contexte affiché ci-dessus'
+      next_question: 'Lire la question suivante dans le contexte affiché ci-dessus'
+      prev_proposal: 'Lire la proposition précédente à la question actuelle'
+      next_proposal: 'Lire la proposition suivante à la question actuelle'
+      prev_improvement: "Lire le rajout précédent à la proposition actuelle"
+      next_improvement: "Lire le rajout suivant à la proposition actuelle"
       prev_pro_argument: "Lire l'argument précédent de la proposition actuellel"
       next_pro_argument: "Lire l'argument suivant de la proposition actuelle"
       prev_contra_argument: "Lire l'argument antérieur concernant la proposition actuelle"
@@ -428,7 +428,7 @@ fr:
       siblings:
         question: Regarder toutes les questions posées dans le contexte ci-dessus
         proposal: Regarder toutes les propositions concernant la question actuelle
-        improvement: "Regarder tous les amendements proposés concernant l'actuelle proposition"
+        improvement: "Regarder tous les rajouts proposés concernant l'actuelle proposition"
         pro_argument: "Regarder tous les arguments concernant l'actuelle proposition"
         contra_argument: "Regarder tous les arguments concernant l'actuelle proposition"
 
@@ -445,7 +445,7 @@ fr:
       create_question_link: 'Poser une nouvelle question'
       create_proposal_link: 'Soumettre de nouvelles propositions'
       create_internal_link: 'Une idée nouvelle'
-      create_improvement_link: 'Soumettre un amendement'
+      create_improvement_link: 'Soumettre un rajout'
       create_pro_argument_link: Ajouter un nouvel argument PRO
       create_contra_argument_link: Ajouter un nouvel argument CONTRE
       create_follow_up_question_link: Ajouter une nouvelle question suivie
@@ -466,7 +466,7 @@ fr:
         Vous pouvez faire ici <strong>une proposition nouvelle</strong>.
       create_improvement_explanation: |
         Vous avez une <strong>bonne idée</strong> comment <strong>améliorer la proposition actuelle?</strong><br/>
-        Vous pouvez faire ici <strong>proposer votre amendement</strong>.
+        Vous pouvez faire ici <strong>proposer votre rajout</strong>.
       create_statement_language_hint: |
         Veuillez décrire votre proposition en <strong>Français</strong> ou sélectionnez une autre langue
         Notre petit poisson de Babel ci-dessus en parle plus d'une...
@@ -479,7 +479,7 @@ fr:
       title_hint:
         question: Entrez le titre de la question en... français?
         proposal: Entrer le titre de votre proposition en... français?
-        improvement: "Entrer le titre de l'amendement en... français?"
+        improvement: "Entrer le titre du rajout en... français?"
         pro_argument: |
           Entrer le titre de l'argument PRO en... français?
         contra_argument: |
@@ -504,21 +504,21 @@ fr:
       types:
         question: 'Question'
         proposal: 'Proposition'
-        improvement: 'Amendement'
+        improvement: 'Rajout'
         pro_argument: 'Argument PRO'
         contra_argument: 'Argument CONTRE'
         follow_up_question: 'Question suivie'
       new:
         question:  'Nouvelle question'
         proposal:  'Nouvelle proposition'
-        improvement: 'Nouvel amendement'
+        improvement: 'Nouveau rajout'
         pro_argument: 'Nouvel argument PRO'
         contra_argument: 'Nouvel argument CONTRE'
         follow_up_question: 'Nouvelle question suivie'
       headings:
         question: 'Questions'
         proposal: 'Propositions'
-        improvement: 'Amendements'
+        improvement: 'Rajouts'
         argument: 'Arguments'
         follow_up_question: 'Question suivie'
       siblings:
@@ -539,12 +539,12 @@ fr:
       read_only_permission: |-
         Cette discussion est déjà fermée, mais vous pouvez lire les contributions.
       unsupported_parent: |-
-        Les amendements ne sont soutenus que si la projet initial a été approuvé.
-        Cet amendement ne peut plus être pris en considération. Nous sommes désolés.
+        Les rajouts ne sont soutenus que si la projet initial a été approuvé.
+        Ce rajout ne peut plus être pris en considération. Nous sommes désolés.
       see_parent_if_approved: |-
-        Cet amendement a été accepté afin d'améliorer la proposition ci-dessous.
+        Ce rajout a été accepté afin d'améliorer la proposition ci-dessous.
       see_parent_if_incorporated: |-
-        Cet amendement a déjà été intégré au projet.
+        Ce rajout a déjà été intégré au projet.
       being_edited: |-
         Cette proposition est à l'étude actuellement. Veuillez recommencer ultérieurement.
       already_translated: |-
@@ -560,7 +560,7 @@ fr:
         Après expiration de ce délai, vos corrections ne pourront probablement plus être prises en considération.
       staled_modification: |-
         Désolé, mais le délai de 60 minutes maximum est terminé. Entretemps, la proposition a été traitée par un
-        autre utilisateur. Votre amendement ne peut pas être pris en compte.
+        autre utilisateur. Votre rajout ne peut pas être pris en compte.
       no_document_in_language: "Le constat n'existe pas dans votre langue."
 
       breadcrumbs:
@@ -569,7 +569,7 @@ fr:
         labels:
           ds: ''
           mi: ''
-          sr: 'Rechercher des résultats pour'
+          sr: 'Chercher des résultats pour'
           fq: 'Questions suivies pour'
           over:
             ds: 'Retour à'
@@ -597,7 +597,7 @@ fr:
           Cliquez sur le bouton ci-dessus pour la soumettre MAINTENANT!
         improvement: |
           Voici le rang qu'aurait votre idée gagnante.<br/><br/>La proposition pourrait etre améliorée?<br/><br/>
-          Cliquez sur le bouton ci-dessus et entrez votre amendement MAINTENANT!
+          Cliquez sur le bouton ci-dessus et entrez votre rajout MAINTENANT!
         pro_argument: |
           Voici le rang qu'aurait votre idée gagnante.<br/><br/>Quel serait votre argument PRO?<br/><br/>
           Cliquez sur le bouton ci-dessus pour entrer votre argument pro MAINTENANT!
@@ -615,7 +615,7 @@ fr:
       updated: "{{type}} a été traité avec succès."
       deleted: "{{type}} a été effacé avec succès."
       translated: "{{type}} a été traduit avec succès."
-      incorporated: "L'amendement a été intégré au projet avec succès."
+      incorporated: "Le rajout a été intégré au projet avec succès."
       image_uploaded: "L'image a été ajoutée à/ {{type}}"
       empty: "Aucune discussion n'a pu être trouvée. Veuillez choisir un autre mot-clef."
       empty_without_spoken_languages: |
@@ -782,9 +782,9 @@ fr:
 
 
     models:
-      question: "Question"
+      question: "question"
       proposal: "proposition"
-      improvement: "Amendement"
+      improvement: "rajout"
 
   authlogic:
     error_messages:
