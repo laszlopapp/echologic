@@ -522,11 +522,11 @@ pt:
           mi: ''
           sr: 'Pesquisar resultados para'
           fq: 'Questões complementares para'
-        over:
-          ds: 'Voltar para'
-          mi: 'Voltar para'
-          sr: 'Voltar para a pesquisa de resultados'
-          fq: 'Voltar para'
+          over:
+            ds: 'Voltar para'
+            mi: 'Voltar para'
+            sr: 'Voltar para a pesquisa de resultados'
+            fq: 'Voltar para'
 
       upload_image:
         title: Carregar Imagem
