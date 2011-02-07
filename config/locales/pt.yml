@@ -260,7 +260,7 @@ pt:
           Notificações relativas ao processo de elaboração coletiva dos seus conteúdos -
           por exemplo quando a sua melhoria foi aprovada para ser incorporada.<br/><br/>
           <strong>Atenção!</strong> Caso estas notificações se encontrem desativadas poderá vir a perder a oportunidade de
-          incorporar as suas propostas de melhoria.
+          incorporar as suas melhorias.
         turned_on: Notificações imediatas foram ativadas.
         turned_off: Notificações imediatas foram desativadas.
 
@@ -387,7 +387,7 @@ pt:
       publish: |
         Publique a questão, de forma a esta se tornar visível para todos.
         (Não será mais possível editar a questão.)
-      incorporate: 'Clique aqui para incorporar as suas propostas de melhoria na proposta (texto acima).'
+      incorporate: 'Clique aqui para incorporar as suas melhorias na proposta (texto acima).'
       siblings:
         question: Visualizar todas as questões do contexto acima
         proposal: Visualizar todas as propostas pertencentes à questão atual
@@ -473,7 +473,7 @@ pt:
       headings:
         question: 'Questões'
         proposal: 'Propostas'
-        improvement: 'Propostas de Melhoria'
+        improvement: 'melhorias'
         argument: 'Argumentos'
         follow_up_question: 'Questões Complementares'
       siblings:
@@ -492,7 +492,7 @@ pt:
       read_only_permission: |-
         Esta é uma questão transparente, mas de accesso restrito - somente pode lêr.
       unsupported_parent: |-
-        Só poderá apoiar a propostas de melhoria depois de apoiar a proposta correspondente.
+        Só poderá apoiar a melhorias depois de apoiar a proposta correspondente.
       not_approved_any_more: |-
         Infelizmente esta melhoria não pode ser mais incorporada.
       see_parent_if_approved: |-
