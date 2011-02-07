@@ -30,7 +30,7 @@
          title_language_code ||= Language[event_data['documents'].to_a[0][0].to_i].code
       %>
       <li>
-				<%= link_to title, question_url(Question.find(event_data['id'])), :locale => title_language_code %>
+				<%= link_to title, statement_node_url(event_data['id']), :locale => title_language_code %>
       </li>
     <% end %>
   </ul>
