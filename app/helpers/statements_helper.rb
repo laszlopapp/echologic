@@ -35,7 +35,10 @@ module StatementsHelper
         type_children = arg
         count = child_type.to_s.constantize.double? ? type_children.map(&:total_entries).sum : type_children.total_entries
       end
-      val << render(:partial => 'statements/children', :locals => {:type => dom_child_class, :count => count, :children => type_children})
+      val << render(:partial => 'statements/children',
+                    :locals => {:type => dom_child_class,
+                                :count => count,
+                                :children => type_children})
     end
     val
   end
@@ -229,9 +232,11 @@ module StatementsHelper
   end
 
   # Returns the block heading for the children of the current statement node
-  def children_box_title(type, count)
-    title = I18n.t("discuss.statements.headings.#{type}")
-    "#{title} - #{count}"
+  def children_heading_title(type, count)
+    title = ''
+    title << I18n.t("discuss.statements.headings.#{type}")
+    title << content_tag(:span, " (#{count})", :class => 'count')   # ·
+    title
   end
 
   # Returns the block heading for the siblings of the current statement node

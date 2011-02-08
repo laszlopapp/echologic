@@ -901,6 +901,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	position: relative;
 }
 
+.statement .children .headline .count {
+  font-weight: normal;
+}
+
 .children_pagination, .children_pagination .jspPane, .doubles_list, .doubles_list .jspPane {
   width: 785px !important;
 }
