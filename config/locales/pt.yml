@@ -130,7 +130,7 @@ pt:
     anonym: Anónimo
     authors:
       teaser:
-        title: 'Become a co-author!'
+        title: 'Torne-se um co-autor!'
     user_sessions:
       login:
         password: 'Senha'
