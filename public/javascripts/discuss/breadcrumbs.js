@@ -76,9 +76,11 @@
 
 		    breadcrumb.bind("click", function() {
 		      // Getting bids from fragment
-		      var bids_stack = $.fragment().bids;
-		      bids_stack = (bids_stack == null) ? [] : bids_stack.split(',');
-
+					var bids_stack = $(this).prevAll().map(function() {
+            return  this.id == 'sr' ? (this.id + $(this).find('.search_link').text().replace(/,/, "\\;")) : this.id;
+          }).get().reverse();
+					
+					
 		      // Getting links that must be removed from the breadcrumbs
 		      var links_to_delete = $(this).nextAll().map(function() {
 		        return $(this).attr('id');

@@ -389,18 +389,18 @@ es:
       next_proposal: 'Leer propuesta siguiente'
       prev_improvement: 'Leer mejora anterior'
       next_improvement: 'Leer mejora siguiente'
-      prev_pro_argument: 'Lee el argumento previo de esta propuesta'
-      next_pro_argument: 'Lee el siguiente argumento de esta propuesta'
-      prev_contra_argument: 'Lee el argumento previo de este propuesta'
-      next_contra_argument: 'Lee el siguiente argumento de esta propuesta'
-      prev_follow_up_question: 'Lee la pregunta de seguimiento previa según lo indicado arriba'
-      next_follow_up_question: 'Lee la siguiente pregunta de seguimiento según lo indicado arriba'
+      prev_pro_argument: 'Leer el argumento previo de esta propuesta'
+      next_pro_argument: 'Leer el siguiente argumento de esta propuesta'
+      prev_contra_argument: 'Leer el argumento previo de este propuesta'
+      next_contra_argument: 'Leer el siguiente argumento de esta propuesta'
+      prev_follow_up_question: 'Leer la pregunta de seguimiento previa según lo indicado arriba'
+      next_follow_up_question: 'Leer la siguiente pregunta de seguimiento según lo indicado arriba'
       create_question: 'Crear nueva discusión'
       create_proposal: 'Crear nueva propuesta'
       create_improvement: 'Crear nueva mejora'
-      create_pro_argument: "Edita un nuevo argumento a favor de esta propuesta"
-      create_contra_argument: "Edita un nuevo argumento en contra de esta propuesta"
-      create_follow_up_question: "Edita una nueva pregunta de seguimiento en relación a este contenido"
+      create_pro_argument: "Crear un nuevo argumento a favor de esta propuesta"
+      create_contra_argument: "Crear un nuevo argumento en contra de esta propuesta"
+      create_follow_up_question: "Crear una nueva pregunta de seguimiento en relación a este contenido"
       echo: 'Apoya esta opinión con tu voto!'
       unecho: 'Retira tu voto si ya no estás de acuerdo'
       publish: |
@@ -418,8 +418,8 @@ es:
       label: 'votos'
       echo_indicator:
         support:
-          one: '{{supporter_count}} votos.'
-          many: '{{supporter_count}} votos.'
+          one: '{{supporter_count}} votos'
+          many: '{{supporter_count}} votos'
         recommend:
           one: '{{supporter_count}} recommendation'
           many: '{{supporter_count}} recommendations'
@@ -428,9 +428,9 @@ es:
       create_proposal_link: 'Crear nueva propuesta'
       create_internal_link: 'Nueva Idea?'
       create_improvement_link: 'Crear nueva mejora'
-      create_pro_argument_link: Crea un nuevo argumento a favor
-      create_contra_argument_link: Crea un nuevo argumento en contra
-      create_follow_up_question_link: Formula una nueva pregunta de seguimiento
+      create_pro_argument_link: Crear un nuevo argumento a favor
+      create_contra_argument_link: Crear un nuevo argumento en contra
+      create_follow_up_question_link: Formular una nueva pregunta de seguimiento
       recommend_link: 'Recomienda esto'
       unrecommend_link: 'Retira tu ec(h)o'
       support_link: 'Apoya esto'

@@ -53,9 +53,9 @@ fr:
         new_proposals: 'Propositions nouvelles "{{title}}"'
         new_improvements: |
           Nouvelles propositions d'amélioraton' "{{title}}" in "{{question_title}}":
-        new_pro_arguments: 'New pro arguments for the proposal "{{title}}" in "{{question_title}}":'
-        new_contra_arguments: 'New contra arguments for the proposal "{{title}}" in "{{question_title}}":'
-        new_follow_up_questions: 'New follow-up questions for "{{title}}":'
+        new_pro_arguments: 'Nouveaux arguments PRO "{{title}}" concernant la question "{{question_title}}":'
+        new_contra_arguments: 'Nouveaux arguments CONTRE concernant la proposition "{{title}}" in "{{question_title}}":'
+        new_follow_up_questions: 'Nouvelle question suivie concernant "{{title}}":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         Si vous ne souhaitez pas recevoir des mises à jour, cliquez sur
@@ -64,11 +64,11 @@ fr:
 
     drafting:
       approval:
-        subject: "Ajoutez ici votre amendement proposé . Merci."
+        subject: "Ajoutez ici votre rajout proposé . Merci."
         text: |-
           Bonjour {{name}},
 
-          Votre amendement
+          Votre rajout
 
           "*{{ip_title}}*"
 
@@ -80,7 +80,7 @@ fr:
 
           {{p_link}}
 
-          N'ajoutez que les amendements à une proposition soumise au vote.
+          N'ajoutez que les rajouts à une proposition soumise au vote.
 
           Merci beaucoup de votre participation!
 
@@ -89,13 +89,13 @@ fr:
           L'équipe echo
 
       supporters_approval:
-        subject: "Vous pouvez insérer un amendement."
+        subject: "Vous pouvez insérer un rajout."
         text: |-
           Cher(e) supporteur/supportrice
 
           "*{{ip_title}}*",
 
-          L'auteur de cet amendement n'a pas intégré à votre proposition dans "{{p_title}}". Ayant soutenu cet amendement, vous avez maintentant l'occasion pendant *{{hours}} heure* de vous exprimer.
+          L'auteur de cet rajout n'a pas intégré à votre proposition dans "{{p_title}}". Ayant soutenu ce rajout, vous avez maintentant l'occasion pendant *{{hours}} heure* de vous exprimer.
 
           Pour *intégrer votre idée*, veuillez suivre ce lien et cliquez sur la flèche vert-jaune au milieu:
 
@@ -112,13 +112,13 @@ fr:
           Votre équipe echo
 
       approval_notification:
-        subject: "Un nouvel amendement a été soumis."
+        subject: "Une proposition que vous soutenez est en cours d'approbation."
         text: |-
           Cher supporteur/supportrice de cette idée,
 
           "*{{p_title}}*",
 
-          L'amendement proposé  "{{ip_title}}" a obtenu le plus de voix et a été adopté pour être inséré dans la proposition.
+          Le rajout "{{ip_title}}" a obtenu le plus de voix et a été adopté pour être inséré dans la proposition.
 
           Pour voir la nouvelle idee, veuillez suivre ce lien:
 
@@ -131,11 +131,11 @@ fr:
           Votre équipe echo
 
       approval_reminder:
-        subject: "Rappel de votre amendement proposé"
+        subject: "Rappel: Il vous reste peu de temps pour insérer votre rajout"
         text: |-
           Bonjour {{name}},
 
-          Vous n'avez plus que {{hours}} heure pour insérer votre
+          Vous n'avez plus que {{hours}} heure pour insérer votre rajout.
 
           "*{{ip_title}}*"
 
@@ -145,7 +145,7 @@ fr:
 
           {{p_link}}
 
-          Soyez fair play et n'insérez que les amendements à une proposition soumise au vote.
+          Soyez fair play et n'insérez que les rajouts à une proposition soumise au vote.
 
           Merci beaucoup de votre participation - et bon courage! ;-)
 
@@ -154,13 +154,13 @@ fr:
           Votre équipe echo
 
       supporters_approval_reminder:
-        subject: Dernier rappel! - Elaboration d'un amendment
+        subject: Dernier rappel! - Il vous reste peu de temps pour insérer votre rajout
         text: |-
-          Cher supporteur/supportrice de l'amendement
+          Cher supporteur/supportrice du rajout!
 
           "*{{ip_title}}*",
 
-          Il ne vous reste plus que {{hours}} heure pour insérer l'amendement dans la proposition "{{p_title}}".
+          Il ne vous reste plus que {{hours}} heure pour insérer le rajout dans la proposition "{{p_title}}".
 
           Nous vous rappelons qu'après expiration de ce délai, toutes les voix données à cette idée deviennent caduques.
 
@@ -168,7 +168,7 @@ fr:
 
           {{p_link}}
 
-          Soyez fair play et ajoutez les idées seulement à un amendement soumis au vote. Soyez le premier!
+          Soyez fair play et ajoutez les idées seulement à un rajout soumis au vote. Soyez le premier!
 
           Merci beaucoup de votre participation- et bon courage ;-)
 
@@ -177,7 +177,7 @@ fr:
           Votre équipe echo
 
       passed:
-        subject: "Le délai d'insértion de votre amendement est expiré."
+        subject: "Le délai d'insértion de votre rajout est expiré."
         text: |-
           Bonjour {{name}},
 
@@ -196,13 +196,13 @@ fr:
           Votre équipe echo
 
       supporters_passed:
-        subject: "Le délai de soumission d'un amendement est terminé."
+        subject: "Le délai de soumission d'un rajout est terminé."
         text: |
           Cher supporter/supportrice de la proposition complémentaire
 
           "*{{ip_title}}*",
 
-          Malheureusement le délai pour insérer votre amendement "{{p_title}}" est expiré. Vous ne pouvez plus intervenir.
+          Malheureusement le délai pour insérer votre rajout "{{p_title}}" est expiré. Vous ne pouvez plus intervenir.
 
           Toutes les voix supportant la proposition sont invalidées.
 
@@ -221,7 +221,7 @@ fr:
         text: |-
           Bonjour {{name}},
 
-          Merci beaucoup d'avoir inséré la proposition d'amélioration
+          Merci beaucoup d'avoir inséré votre rajout
 
           "*{{ip_title}}*"
 
@@ -244,7 +244,7 @@ fr:
 
           "*{{p_title}}*",
 
-          l'amendement "{{ip_title}}" a obtenu le plus de voix et est ajouté au débat.
+          le rajout "{{ip_title}}" a obtenu le plus de voix et est ajouté au débat.
 
           Veuillez *jeter un regard sur les modifications* et vérifiez, si vous êtes d'accord avec la proposition d'amélioration.
 

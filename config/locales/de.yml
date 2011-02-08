@@ -357,23 +357,23 @@ de:
       add: "Erste Fragestellung zum Thema erstellen"
 
     tooltips:
-      read_question: 'Diese Frage anschauen'
+      read_question: 'Diese Fragestellung anschauen'
       read_proposal: 'Diesen Vorschlag lesen'
       read_improvement: 'Diese Ergänzung lesen'
       read_pro_argument: 'Dieses Pro-Argument lesen'
       read_contra_argument: 'Dieses Kontra-Argument lesen'
       read_follow_up_question: 'Diese Folgefrage lesen'
-      current_question: 'Die aktuell angezeigte Frage'
+      current_question: 'Die aktuell angezeigte Fragestellung'
       current_proposal: 'Der aktuell angezeigte Vorschlag'
       current_improvement: 'Die aktuell angezeigte Ergänzung'
       current_pro_argument: 'Das gegenwärtig angezeigte Pro-Argument'
       current_contra_argument: 'Das gegenwärtig angezeigte Kontra-Argument'
       current_follow_up_question: 'Die gegenwärtig angezeigte Folgefrage'
-      back_to_question: 'Zurück zur aktuellen Frage'
+      back_to_question: 'Zurück zur aktuellen Fragestellung'
       back_to_proposal: 'Zurück zum aktuellen Vorschlag'
       back_to_improvement: 'Zurück zur aktuellen Ergänzung'
-      prev_question: 'Vorige Frage lesen'
-      next_question: 'Nächste Frage lesen'
+      prev_question: 'Vorige Fragestellung im obigen Kontext lesen'
+      next_question: 'Nächste Fragestellung im obigen Kontext lesen'
       prev_proposal: 'Vorigen Vorschlag zur aktuellen Frage lesen'
       next_proposal: 'Nächsten Vorschlag zur aktuellen Frage lesen'
       prev_improvement: 'Vorige Ergänzung zum aktuellen Vorschlag lesen'
@@ -397,11 +397,11 @@ de:
         (Danach ist keine Bearbeitung mehr möglich.)
       incorporate: 'Klicken Sie hier, um diesen ausgewählten Ergänzung in den obigen Text einzuarbeiten.'
       siblings:
-        question: Alle Fragestellungen im obigen Kontext ansehen.
-        proposal: Alle Vorschläge zur gegenwärtigen Fragestellung anzeigen.
-        improvement: Alle Ergänzungsideen zum gegenwärtigen Vorschlag anzeigen.
-        pro_argument: Alle Argumente zum gegenwärtigen Vorschlag anzeigen.
-        contra_argument:  Alle Argumente zum gegenwärtigen Vorschlag anzeigen.
+        question: Alle Fragestellungen im obigen Kontext ansehen
+        proposal: Alle Vorschläge zur gegenwärtigen Fragestellung anzeigen
+        improvement: Alle Ergänzungsideen zum gegenwärtigen Vorschlag anzeigen
+        pro_argument: Alle Argumente zum gegenwärtigen Vorschlag anzeigen
+        contra_argument:  Alle Argumente zum gegenwärtigen Vorschlag anzeigen
 
     statements:
       label: 'Stimmen'
@@ -445,12 +445,12 @@ de:
       fuq_formulation_hint: |
         Since follow-up questions also appear as questions in "Search", title and description should both be comprehensible independently of the original discussion.
       title_hint:
-        question: Überschrift der Fragestellung auf...
-        proposal: Überschrift des Vorschlags auf...
-        improvement: Überschrift der Ergänzungsidee auf...
-        pro_argument: Überschrift des Pro-Arguments auf...
-        contra_argument: Überschrift des Kontra-Arguments auf...
-        follow_up_question: Überschrift der Folgefrage auf...
+        question: Überschrift der Fragestellung auf... Deutsch?
+        proposal: Überschrift des Vorschlags auf... Deutsch?
+        improvement: Überschrift der Ergänzungsidee auf... Deutsch?
+        pro_argument: Überschrift des Pro-Arguments auf... Deutsch?
+        contra_argument: Überschrift des Kontra-Arguments auf... Deutsch?
+        follow_up_question: Überschrift der Folgefrage auf... Deutsch?
       text_hint:
         question: Bitte erläutern Sie das Problem und beschreiben Sie das Thema näher...
         proposal: Bitte erläutern Sie Ihren Vorschlag näher...
@@ -524,7 +524,10 @@ de:
       edit_period_hint: |
         Sie haben {{minutes}} Minuten, um den Beitrag zu bearbeiten.
         Nach Ablauf können Ihre Änderungen eventuell nicht mehr berücksichtigt werden.
-      staled_modification: 'Es tut uns sehr leid, aber Ihre Bearbeitungszeit von max. 60 Minuten ist abgelaufen. Mittlerweile hat ein anderer Nutzer den Beitrag bearbeitet. Ihre Änderungen mussten daher leider verworfen werden.'
+      staled_modification: |
+        Es tut uns sehr leid, aber Ihre Bearbeitungszeit von max. 60 Minuten ist abgelaufen.
+        Mittlerweile hat ein anderer Nutzer den Beitrag bearbeitet. Ihre Änderungen mussten
+        daher leider verworfen werden.
       no_document_in_language: 'Diese Aussage ist noch nicht auf Deutsch verfügbar.'
 
       breadcrumbs:

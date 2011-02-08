@@ -432,32 +432,32 @@ function lwrte_cleanup_word(){
 function lwrte_link(){
     var self = this;
     var panel = self.create_panel("Create link", 385);
-    panel.append('<p><label>URL</label><input type="text" id="url" size="30" value=""><button id="view">View</button></p><div class="clear"></div><p><label>Tooltip (optional)</label><input type="text" id="title" size="30" value=""><label>Open in</label><select id="target"><option value="_blank">New browser window/tab</option><option value="">Same browser window/tab</option></select></p><div class="clear"></div><p class="submit"><button id="ok">Ok</button><button id="cancel">Cancel</button></p>').show();
+    panel.append('<p><label>URL</label><input type="text" id="url" size="30" value=""><button id="view">View</button></p><div class="clear"></div><p><label>Tooltip (optional)</label><input type="text" id="title" size="30" value=""></p><div class="clear"></div><p class="submit"><button id="ok">Ok</button><button id="cancel">Cancel</button></p>').show();
     var ok = $("#ok", panel).click(function(){
-        panel.remove();
         var url = $("#url", panel).val();
-        var target = $("#target", panel).val();
         var title = $("#title", panel).val();
         if (self.get_selected_text().length <= 0) {
-            alert("Select the text you wish to link!");
-            return false
+            alert("Please select the text you wish to link");
+            return false;
+        }
+        if (url.length <= 0) {
+            alert("Please enter the URL");
+            return false;
         }
         panel.remove();
-        if (url.length <= 0) {
-            return false
+        if (url.substring(0, 7) != "http://") {
+          url = "http://" + url;
         }
         self.editor_cmd("unlink");
         self.editor_cmd("createLink", rte_tag);
         var tmp = $("<span></span>").append(self.get_selected_html());
-        if (target.length > 0) {
-            $('a[href*="' + rte_tag + '"]', tmp).attr("target", target)
-        }
+        $('a[href*="' + rte_tag + '"]', tmp).attr("target", "_blank");
         if (title.length > 0) {
-            $('a[href*="' + rte_tag + '"]', tmp).attr("title", title)
+          $('a[href*="' + rte_tag + '"]', tmp).attr("title", title);
         }
         $('a[href*="' + rte_tag + '"]', tmp).attr("href", url);
         self.selection_replace_with(tmp.html());
-        return false
+        return false;
     });
     $("#cancel", panel).click(function(){
         panel.remove();
@@ -470,8 +470,13 @@ function lwrte_link(){
       }
     });
     $("#view", panel).click(function(){
-      (url.val().length > 0) ? window.open(url.val()) : alert("Please enter the URL");
-      return false
+      var urlText = url.val();
+
+      if (urlText.substring(0, 7) != "http://") {
+        urlText = "http://" + url;
+      }
+      (urlText.length > 0) ? window.open(urlText) : alert("Please enter the URL");
+      return false;
     });
     $("#title", panel).keypress(function(e) {
       if (e.which == 13) {
