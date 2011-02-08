@@ -142,6 +142,9 @@ fr:
   # ------------
   users:
     anonym: Anonym
+    authors:
+      teaser:
+        title: 'Become a co-author!'
     user_sessions:
       login:
         password: Mot de passe
