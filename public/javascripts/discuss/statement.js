@@ -447,8 +447,9 @@
 					return this;
 		    },
 
-		    loadAuthors: function (authors, length) {
+		    loadAuthors: function (authors) {
 		      authors.insertAfter(statement.find('.summary h2')).animate(toggleParams, settings['animation_speed']);
+					var length = authors.find('.author').length;
 		      statement.find('.authors_list').jcarousel({
 		        scroll: 3,
 		        buttonNextHTML: "<div class='next_button'></div>",

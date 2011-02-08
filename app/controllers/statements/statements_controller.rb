@@ -299,6 +299,7 @@ class StatementsController < ApplicationController
   def authors
     load_authors
     respond_to do |format|
+      format.html{show}
       format.js {render :template => 'statements/authors'}
     end
   end
