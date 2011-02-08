@@ -299,14 +299,6 @@
           });
           return false;
         });
-
-        container.find('a.add_new_button:not(.create_follow_up_question_button):Event(!click)').bind("click", function() {
-          $.setFragment({
-            "new_level": newLevel,
-						"bids": bids.join(','),
-            "origin": origin
-          })
-        });
       }
 
 
@@ -319,16 +311,7 @@
 		  function initAllFUQLinks() {
         statement.find(".follow_up_questions.children").each(function(){
 					initFUQChildrenLinks($(this));
-				});
-
-			  // NEW FOLLOW-UP QUESTION BUTTON (ON CHILDREN AND SIDEBAR)
-			  statement.find(".action_bar a.create_follow_up_question_button").bind("click", function(){
-			    var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack('fq'+statementId);
-			    $.setFragment({
-			      "bids": bids.join(','),
-			      "new_level": true
-			    });
-			  });
+				});			  
 			}
 
       /* Initializes follow up question children. */
@@ -355,15 +338,6 @@
             "origin": bids[bids.length - 1]
           });
           return false;
-        });
-
-				/* NEW FOLLOW-UP QUESTION BUTTON (ON CHILDREN)*/
-        container.find("a.create_follow_up_question_button:Event(!click)").bind("click", function() {
-					var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(newLevel ? 'fq'+statementId : null);
-          $.setFragment({
-            "bids": bids.join(','),
-            "new_level": newLevel
-          });
         });
       }
 

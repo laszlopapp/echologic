@@ -452,7 +452,7 @@ class StatementsController < ApplicationController
           @children_documents.merge!(search_statement_documents(@children[type].flatten.map(&:statement_id),
                                                                 @language_preference_list))
         else
-          @children[type] = nil
+          @children[type] = @statement_node.count_child_statements(@language_preference_list, type.to_s)
         end
       end
     end

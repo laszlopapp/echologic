@@ -27,8 +27,15 @@ module StatementsHelper
     val = ''
     statement_node.class.children_types.each do |child_type|
       dom_child_class = child_type.to_s.underscore
-      type_children = children[child_type] || children_statement_node_url(statement_node, :type => dom_child_class)
-      val << render(:partial => 'statements/children', :locals => {:type => dom_child_class, :children => type_children})
+      arg = children[child_type]
+      if (arg.kind_of?(Integer))
+        type_children = children_statement_node_url(statement_node, :type => dom_child_class)
+        count = arg
+      else
+        type_children = arg
+        count = child_type.to_s.constantize.double? ? type_children.map(&:total_entries).sum : type_children.total_entries
+      end
+      val << render(:partial => 'statements/children', :locals => {:type => dom_child_class, :count => count, :children => type_children})
     end
     val
   end
@@ -222,8 +229,9 @@ module StatementsHelper
   end
 
   # Returns the block heading for the children of the current statement node
-  def children_box_title(type)
-    I18n.t("discuss.statements.headings.#{type}")
+  def children_box_title(type, count)
+    title = I18n.t("discuss.statements.headings.#{type}")
+    "#{title} - #{count}"
   end
 
   # Returns the block heading for the siblings of the current statement node

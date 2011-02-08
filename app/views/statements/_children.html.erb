@@ -3,7 +3,7 @@
 <div class="<%= type.pluralize %> children header_block discuss_right_block">
   <!-- Title -->
   <div class="headline expandable<%= ' active' if path.blank? %>" href="<%= path %>">
-    <%= children_box_title(type) %>
+    <%= children_box_title(type, count) %>
     <%= content_tag :div, '', :class => 'expand_icon' %>
   </div>
 

@@ -185,6 +185,12 @@ class StatementNode < ActiveRecord::Base
     children = child_statements(language_ids, type)
     type_class.paginate_statements(children, page, per_page)
   end
+  
+  # counts the children the statement has of a certain type
+  def count_child_statements(language_ids = nil, type = self.class.children_types.first.to_s)
+    type_class = type.constantize
+    type.constantize.count_statements_for_parent(self.target_id, language_ids, self.draftable?)
+  end
 
   private
 
@@ -221,19 +227,13 @@ class StatementNode < ActiveRecord::Base
 
     # Aux Function: gets a set of children given a certain parent (used to get siblings and children)
     def statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
-      do_statements_for_parent(parent_id, language_ids, filter_drafting_state, for_session)
+      get_statements_for_parent(parent_id, language_ids, filter_drafting_state, for_session)
     end
 
     # Aux Function: gets a set of children given a certain parent (used above)
-    def do_statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
-      opts = {}
-      opts[:readonly] = false
-      opts[:joins] =  "LEFT JOIN statement_documents d    ON statement_nodes.statement_id = d.statement_id "
-      opts[:joins] << "LEFT JOIN echos e                  ON statement_nodes.echo_id = e.id"
-      opts[:conditions] = children_conditions(parent_id)
-      opts[:conditions] << sanitize_sql([" AND d.language_id IN (?) ", language_ids]) if language_ids
-      opts[:conditions] << drafting_conditions if filter_drafting_state
-      opts[:order] = "e.supporter_count DESC, statement_nodes.created_at DESC"
+    def get_statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
+      opts = parent_conditions(parent_id, language_ids, filter_drafting_state)
+      
       statements = []
 
       if for_session
@@ -247,13 +247,31 @@ class StatementNode < ActiveRecord::Base
       statements
     end
 
+    def count_statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false)
+      opts = parent_conditions(parent_id, language_ids, filter_drafting_state, sub_types.map(&:to_s))
+      opts[:select] = "DISTINCT statement_nodes.id"
+      self.count(:all, opts)
+    end
+
+    def parent_conditions(parent_id, language_ids = nil, filter_drafting_state = false, types = nil)
+      opts = {}
+      opts.delete(:readonly)
+      opts[:joins] =  "LEFT JOIN statement_documents d    ON statement_nodes.statement_id = d.statement_id "
+      opts[:joins] << "LEFT JOIN echos e                  ON statement_nodes.echo_id = e.id"
+      opts[:conditions] = children_conditions(parent_id, types)
+      opts[:conditions] << sanitize_sql([" AND d.language_id IN (?) ", language_ids]) if language_ids
+      opts[:conditions] << drafting_conditions if filter_drafting_state
+      opts[:order] = "e.supporter_count DESC, statement_nodes.created_at DESC"
+      opts
+    end
+
     # Aux Function: drafting conditions on a query (overwritten in acts_as_incorporable)
     def drafting_conditions
       ''
     end
 
-    def children_conditions(parent_id)
-      sanitize_sql(["statement_nodes.type = ? AND statement_nodes.parent_id = ? ", self.name, parent_id])
+    def children_conditions(parent_id, types = nil)
+      sanitize_sql(["statement_nodes.type IN (?) AND statement_nodes.parent_id = ? ", types.nil? ? [self.name] : types, parent_id])
     end
 
     public

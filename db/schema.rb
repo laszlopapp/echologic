@@ -116,6 +116,22 @@ ActiveRecord::Schema.define(:version => 20110204044040) do
 
   add_index "memberships", ["user_id", "id"], :name => "index_memberships_on_user_id_and_id"
 
+  create_table "newsletter_translations", :force => true do |t|
+    t.integer "newsletter_id"
+    t.string  "locale"
+    t.string  "subject"
+    t.text    "text"
+  end
+
+  create_table "newsletters", :force => true do |t|
+    t.string   "subject"
+    t.text     "text"
+    t.boolean  "default_greeting", :default => true
+    t.boolean  "default_goodbye",  :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "profiles", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
