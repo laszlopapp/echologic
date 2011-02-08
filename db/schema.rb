@@ -119,13 +119,15 @@ ActiveRecord::Schema.define(:version => 20110202134733) do
   create_table "newsletter_translations", :force => true do |t|
     t.integer "newsletter_id"
     t.string  "locale"
-    t.string  "title"
+    t.string  "subject"
     t.text    "text"
   end
 
   create_table "newsletters", :force => true do |t|
-    t.string   "title"
+    t.string   "subject"
     t.text     "text"
+    t.boolean  "default_greeting", :default => true
+    t.boolean  "default_goodbye",  :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -17,6 +17,6 @@ class MailerService
   # Async calls #
   ###############
 
-  handle_asynchronously :send_newsletter_mails
+#  handle_asynchronously :send_newsletter_mails
 
 end
