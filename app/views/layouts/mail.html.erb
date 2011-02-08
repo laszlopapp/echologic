@@ -134,11 +134,11 @@
 
       <div id="content_container">
         <h1><%= yield :title %></h1>
-        <%= content_tag :p, I18n.t('mailers.greeting', :name => @name, :locale => @language.code) %>
+        <%= content_tag :p, I18n.t('mailers.greeting', :name => @name, :locale => @language.code) if !@no_greeting%>
         <br/>
         <%= yield %>
         <br/>
-        <%= content_tag :p, I18n.t('mailers.bye_as_html', :locale => @language.code) %>
+        <%= content_tag :p, I18n.t('mailers.bye_as_html', :locale => @language.code) if !@no_goodbye %>
         <img class="separator" src="<%= full_url('/images/page/separator_no_shadow.png') %>"/>
         <%= content_tag :p, I18n.t('mailers.signature_as_html', :locale => @language.code) %>
         <br/>

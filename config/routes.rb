@@ -56,7 +56,7 @@ ActionController::Routing::Routes.draw do |map|
   # SECTION feedback
   map.resources :feedback, :only => [:new, :create]
   # SECTION newsletter
-  map.resources :newsletter, :only => [:new, :create]
+  map.resources :newsletters
 
   # SECTION user signup and login
   map.resource  :user_session, :controller => 'users/user_sessions',
