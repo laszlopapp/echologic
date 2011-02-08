@@ -1257,10 +1257,6 @@ form.statement fieldset ol li.tags_container {
   cursor: default;
 }
 
-.statement .authors li.teaser {
-	width: 282px;
-}
-
 .statement .authors .author img {
   float: left;
 	border: 2px solid #7BB031;
@@ -1285,10 +1281,14 @@ form.statement fieldset ol li.tags_container {
 	overflow: hidden;
 }
 
-.statement .authors .author .add_new_button {
+.statement .authors .author.teaser {
+	width: 290px;
+}
+
+.statement .authors .author.teaser .add_new_button {
 	position: absolute;
-  top: 16px;
-  left: 40px;
+  top: 30px;
+  left: 39px;
   overflow: hidden;
 }
 
