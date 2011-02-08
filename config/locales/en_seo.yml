@@ -81,8 +81,8 @@ en:
         show: 'echo - Admin Bereich'
 
       # my_echo: de.seo.title.newsletter
-      newsletter:
-        new: 'echo - Newsletter'
+      newsletters:
+        index: 'echo - Newsletter'
       about_items:
         index: 'echo - About us'
 

@@ -127,6 +127,9 @@ es:
   # ------------
   users:
     anonym: Anónimo
+    authors:
+      teaser:
+        title: 'Conviértete en un co-autor!'
     # User sessions section
     user_sessions:
       login:
@@ -874,4 +877,5 @@ es:
           mb: "MB"
           gb: "GB"
           tb: "TB"
-
+  newsletters:
+    send_confirmation: Are you sure?

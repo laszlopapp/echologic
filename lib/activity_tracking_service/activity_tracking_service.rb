@@ -120,7 +120,7 @@ class ActivityTrackingService
       # Collecting events
       events = Event.find_tracked_events(recipient, after_time)
       # Filter only events whose titles languages the recipient speaks
-      events = events.select{|e| !(JSON.parse(e.event)['documents'].keys.map{|id|id.to_i} & recipient.sorted_spoken_language_ids).empty? }
+      events = events.select{|e| !(JSON.parse(e.event)['documents'].keys.map{|id|id.to_i} & recipient.sorted_spoken_languages).empty? }
 
       next if events.blank? #if there are no events to send per email, take the next user
 

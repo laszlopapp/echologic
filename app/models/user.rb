@@ -159,13 +159,18 @@ class User < ActiveRecord::Base
     lang = !mother_tongues.empty? ? mother_tongues.first : self.last_login_language
     lang ? lang : Language[:en]
   end
+  
+  def preferred_languages
+    last_login_id = self.last_login_language_id.nil? ? Language[:en].id : self.last_login_language_id
+    sorted_spoken_languages(:language_id).concat([last_login_id]).uniq.map{|id|Language[id]}
+  end
 
   #
   # Returns an array with the language_ids of the users spoken languages in order of language levels
   # (from mother tongue to basic).
   #
-  def sorted_spoken_language_ids
-    spoken_languages.sort{|sl1, sl2| sl1.level_key <=> sl2.level_key}.map(&:language_id)
+  def sorted_spoken_languages(attr = :language_id)
+    spoken_languages.sort{|sl1, sl2| sl1.level_key <=> sl2.level_key}.map(&attr)
   end
 
   #

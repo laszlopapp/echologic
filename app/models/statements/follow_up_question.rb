@@ -37,7 +37,7 @@ class FollowUpQuestion < StatementNode
       true
     end
     
-    def children_conditions(parent_id)
+    def children_conditions(parent_id, types = nil)
       parent = StatementNode.find(parent_id)
       sanitize_sql(["statement_nodes.type = ? AND statement_nodes.root_id = ? AND statement_nodes.lft >= ? AND statement_nodes.rgt <= ? ", self.name, parent.root_id, parent.lft, parent.rgt])
     end

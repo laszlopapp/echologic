@@ -3,14 +3,21 @@ module ActsAsDouble
   def self.included(base)
     base.extend(ClassMethods)
   end
-
+    
   module ClassMethods
 
-        
+    def double?
+      false
+    end
+    
     def acts_as_double(*args)
       class_eval do
-        
         class << self
+          
+          def double?
+            true
+          end
+          
           # Setting the sub_types.
           def sub_types
             @@sub_types[self.name] || @@sub_types[self.superclass.name]
@@ -33,7 +40,7 @@ module ActsAsDouble
           def statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
             statements = []
             sub_types.each do |type|
-              statements << type.to_s.constantize.do_statements_for_parent(parent_id,
+              statements << type.to_s.constantize.get_statements_for_parent(parent_id,
                                                                            language_ids,
                                                                            filter_drafting_state,
                                                                            for_session)
@@ -41,7 +48,7 @@ module ActsAsDouble
             statements = merge_statement_lists(statements) if for_session
             statements
           end
-
+          
           #
           # Overrides default behaviour. Returns a template to render both sub_types.
           #

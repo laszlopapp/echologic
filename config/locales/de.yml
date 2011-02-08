@@ -128,6 +128,9 @@ de:
   # ------------
   users:
     anonym: Anonym
+    authors:
+      teaser:
+        title: 'Werden Sie MitautorIn!'
     # User sessions section
     user_sessions:
       login:
@@ -861,3 +864,6 @@ de:
           mb: "MB"
           gb: "GB"
           tb: "TB"
+  newsletters:
+    send_confirmation: Are you sure?
+

@@ -152,9 +152,9 @@ Given /^a "([^\"]*)" question in "([^\"]*)"$/ do |state, category|
                                       :text => "I wonder what i really am! Maybe a statement? Or even a question?",
                                       :author => @user,
                                       :current => 1,
-                                      :language_id => @user.sorted_spoken_language_ids.first,
+                                      :language_id => @user.sorted_spoken_languages.first,
                                       :action_id => StatementAction["created"].id,
-                                      :original_language_id => @user.sorted_spoken_language_ids.first})
+                                      :original_language_id => @user.sorted_spoken_languages.first})
   @question.topic_tags << category
   @question.save!
 end

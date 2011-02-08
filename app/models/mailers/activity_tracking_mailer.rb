@@ -15,7 +15,7 @@ class ActivityTrackingMailer < ActionMailer::Base
                   :question_tags => question_tags,
                   :events => events,
                   :language => language,
-                  :preferred_language_ids => recipient.sorted_spoken_language_ids
+                  :preferred_language_ids => recipient.sorted_spoken_languages
   end
 
 end
