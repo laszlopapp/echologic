@@ -142,6 +142,9 @@ fr:
   # ------------
   users:
     anonym: Anonym
+    authors:
+      teaser:
+        title: 'Devenez co-auteur!'
     user_sessions:
       login:
         password: Mot de passe
@@ -903,3 +906,5 @@ fr:
           mb: "MB"
           gb: "GB"
           tb: "TB"
+  newsletters:
+    send_confirmation: Are you sure?

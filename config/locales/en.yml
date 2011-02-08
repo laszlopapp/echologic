@@ -129,6 +129,9 @@ en:
   # ------------
   users:
     anonym: Anonym
+    authors:
+      teaser:
+        title: 'Become a co-author!'
     user_sessions:
       login:
         password: 'Password'
@@ -838,4 +841,5 @@ en:
           mb: "MB"
           gb: "GB"
           tb: "TB"
-
+  newsletters:
+    send_confirmation: Are you sure?

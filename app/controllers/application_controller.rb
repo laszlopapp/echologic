@@ -216,7 +216,7 @@ class ApplicationController < ActionController::Base
   def language_preference_list
     priority_languages = (@statement_node.nil? ? [locale_language_id] : [locale_language_id,
                                                                         @statement_node.original_language.id])
-    priority_languages.concat(current_user ? current_user.sorted_spoken_language_ids : []).uniq
+    priority_languages.concat(current_user ? current_user.sorted_spoken_languages : []).uniq
   end
 
 
@@ -231,8 +231,8 @@ class ApplicationController < ActionController::Base
   end
 
   # Sets the @info variable for the flash object (used for HTTP requests)
-  def flash_info
-    flash[:notice] = @info
+  def flash_info(message=@info)
+    flash[:notice] = message
   end
 
   # Renders :updates a page with an a info message set by set_info.

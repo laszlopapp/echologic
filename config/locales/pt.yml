@@ -128,6 +128,9 @@ pt:
   # ------------
   users:
     anonym: Anónimo
+    authors:
+      teaser:
+        title: 'Torne-se um co-autor!'
     user_sessions:
       login:
         password: 'Senha'
@@ -841,3 +844,5 @@ pt:
           mb: "MB"
           gb: "GB"
           tb: "TB"
+  newsletters:
+    send_confirmation: Are you sure?
