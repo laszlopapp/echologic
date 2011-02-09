@@ -41,6 +41,7 @@ module PublishableModule
 
     @count    = statement_nodes_not_paginated.count
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => 6)
+    @images = @statement_nodes.each_with_object({}){|obj, hash| hash[obj.statement_id] = obj.image}
     @statement_documents = search_statement_documents(@statement_nodes.map(&:statement_id), @language_preference_list)
 
     respond_to_js :template => 'statements/questions/index',

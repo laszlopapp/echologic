@@ -5,5 +5,5 @@
 
 <% content_tag :li, :class => dom_class(child), 'statement-id' => child.target_id do %>
 	<%= link_to_child(statement_document.title,child,extra_classes) %>
-  <%= supporter_ratio_bar(child) %>
+  <%= supporter_ratio_bar(child, @statement_node) %>
 <% end %>

@@ -6,5 +6,5 @@
       <%=h (long_title ? question_document.title[0,69]+"..." : question_document.title)%>
     </span>
     <br/>
-		<% link_to_question(question_document.title, @question, long_title, params[:search_terms]) %>
+		<% link_to_question(question_document.title, @question, @images[@question.statement_id], long_title, params[:search_terms]) %>
 </li>

@@ -158,7 +158,8 @@ module ActiveRecord
 
             # Finds the most supported child (used by ratio of entity vs. the most supported sibbling)
             def most_supported_child(type)
-              children.scoped(:conditions => "type = '#{type}'").by_supporters.first
+              @most_supported_child ||= children.scoped(:include => :echo, :conditions => "type = '#{type}'").by_supporters.first
+              @most_supported_child
             end
             
             def self.most_supported_root
