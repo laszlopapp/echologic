@@ -56,6 +56,7 @@ de:
         show: 'echo - Aussage'
         new: 'Neue Diskussion eröffnen'
         my_questions: 'Meine Diskussionen'
+        add: 'Ihre Aussage'
 
       # connect: de.seo.title.connect
       connect:

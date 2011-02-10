@@ -74,9 +74,11 @@
               url:      path,
               type:     'get',
               dataType: 'script',
-              success:  function(){
+              success:  function() {
 								loading.hide();
-                expandable.addClass('active');
+								if (parent.children('.expandable_content').length > 0) {
+									expandable.addClass('active');
+								}
                 if (supporters_label) {
 		              if (settings['animate']) {
 		                supporters_label.animate(settings['animation_params'],

@@ -58,6 +58,7 @@ en:
         show: 'echo - Statement'
         new: 'Open new question'
         my_questions: 'My Questions'
+        add: 'Have YOUR say'
 
       # connect: de.seo.title.connect
       connect:
