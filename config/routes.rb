@@ -61,6 +61,8 @@ ActionController::Routing::Routes.draw do |map|
   # SECTION user signup and login
   map.resource  :user_session, :controller => 'users/user_sessions',
                 :path_prefix => '', :only => [:new, :create, :destroy]
+  map.addrpxauth "addrpxauth", :controller => "users", :action => "addrpxauth", :method => :post
+
 
   map.resources :users, :controller => 'users/users', :path_prefix => '' do |user|
     user.resources :web_addresses, :controller => 'users/web_addresses', :except => [:index]

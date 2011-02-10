@@ -27,8 +27,11 @@ Rails::Initializer.run do |config|
   config.gem "acl9", :lib => "acl9", :source => "http://gemcutter.org"
   config.gem 'ezcrypto'
 
-  # Authlogic authentication gem.
-  config.gem "authlogic", :lib => "authlogic", :source => "http://gems.github.com"
+  # Authlogic authentication gem with RPX extension.
+  config.gem 'authlogic', :version => '= 2.1.6', :lib => "authlogic", :source => "http://gems.github.com"
+  config.gem 'rpx_now', :version => '= 0.6.23'
+  config.gem 'authlogic_rpx', :version => '>= 1.2.0'
+
 
   # Require formtastic gem to build semantic forms
   config.gem "formtastic"
@@ -69,6 +72,9 @@ Rails::Initializer.run do |config|
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :en
+
+  # Authologic RPX
+  RPX_API_KEY = ENV['RPX_API_KEY']
 
   # Session Storage
   config.action_controller.session_store = :active_record_store

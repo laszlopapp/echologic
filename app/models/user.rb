@@ -24,10 +24,11 @@ class User < ActiveRecord::Base
 
   # Authlogic plugin to do authentication
   acts_as_authentic do |c|
-#    c.logged_in_timeout = 10.minutes #1.hour
+    c.account_mapping_mode :internal
+    c.account_merge_enabled true
     c.validates_length_of_password_field_options = {:on => :update,
-                                                    :minimum => 4,
-                                                    :if => :has_no_credentials?}
+                                                      :minimum => 4,
+                                                      :if => :has_no_credentials?}
     c.validates_length_of_password_confirmation_field_options = {:on => :update,
                                                                  :minimum => 4,
                                                                  :if => :has_no_credentials?}

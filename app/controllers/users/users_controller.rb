@@ -196,6 +196,29 @@ class Users::UsersController < ApplicationController
     end
   end
 
+  # This action has the special purpose of receiving an update of the RPX identity information
+  # for current user - to add RPX authentication to an existing non-RPX account.
+  # RPX only supports :post, so this cannot simply go to update method (:put)
+  def addrpxauth
+    @user = current_user
+    if @user.save
+      @user.deliver_activation_instructions!
+      set_info  = "Successfully added RPX authentication for this account."
+      format.html {
+        flash_info and redirect_to root_url
+      }
+      format.js do
+        render_with_info do |page|
+          page.redirect_to root_url
+        end
+      end
+    else
+      set_error @user
+      format.html { flash_error and render :template => 'users/users/new', :layout => 'static' }
+      format.js   { render_with_error }
+    end
+  end
+
   private
 
   def fetch_user
