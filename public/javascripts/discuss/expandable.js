@@ -74,7 +74,7 @@
               url:      path,
               type:     'get',
               dataType: 'script',
-              success:  function(a, t){
+              success:  function() {
 								loading.hide();
 								if (parent.children('.expandable_content').length > 0) {
 									expandable.addClass('active');
