@@ -125,7 +125,7 @@
           var link = $(this);
           link.attr("target", "_blank");
           var url = link.attr("href");
-          if (url.substring(0,7) != "http://") {
+          if (url.substring(0,7) != "http://" && url.substring(0,8) != "https://") {
             link.attr("href", "http://" + url);
           }
         });
@@ -323,7 +323,7 @@
 		  function initAllFUQLinks() {
         statement.find(".follow_up_questions.children").each(function(){
 					initFUQChildrenLinks($(this));
-				});			  
+				});
 			}
 
       /* Initializes follow up question children. */
