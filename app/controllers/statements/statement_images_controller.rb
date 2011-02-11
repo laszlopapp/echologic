@@ -31,7 +31,6 @@ class StatementImagesController < ApplicationController
   #
   def update
     @statement_image.update_attributes(params[:statement_image])
-    respond_to_js :template_js => 'statement_images/update'
   end
   
   
