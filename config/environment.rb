@@ -74,8 +74,10 @@ Rails::Initializer.run do |config|
   # config.i18n.default_locale = :en
 
   # Authologic RPX
-  RPX_API_KEY = "55a326c81a3d58f736c4c69b3672a9e2b9ce8675"
-  RPX_APP_NAME = "echo"
+  RPX_API_KEY = ENV['RARS_RPX_API_KEY']
+  RPX_APP_NAME = ENV['RARS_RPX_APP_NAME']
+  raise "RPX/Janrain Engage API key must be defined ENV['RARS_RPX_API_KEY']" unless RPX_API_KEY
+  raise "RPX/Janrain Engage Application Name must be defined ENV['RARS_RPX_APP_NAME']" unless RPX_APP_NAME
 
   # Session Storage
   config.action_controller.session_store = :active_record_store
