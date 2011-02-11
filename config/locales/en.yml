@@ -134,12 +134,20 @@ en:
         title: 'Become a co-author!'
     user_sessions:
       login:
+        signin: 'Sign In'
+        signup: 'Sign Up'
         password: 'Password'
         email: 'E-Mail'
-        signup: Not a member yet?
+        no_member: Not a member yet?
+        already_member: Already a member?
+        via_echo: '... via echo'
+        via_another: '... via another Account'
+        new_echo_account: '... for a new echo Account'
+        existing_account: '... via another Existing Account'
         set_password: Forgot your password?
         remember: Remember me!
         hello: Logged in<br/><strong>{{name}}</strong>
+        
       messages:
         login_success: "Login successful. Welcome back to echo."
         login_failed: "Unknown user or wrong password."

@@ -11,7 +11,7 @@
 
     <!-- Stylesheets -->
     <%= stylesheet_link_tag 'echologic',
-                            'thickbox',
+                            'registry_menus',
                             'application',
                             'formtastic',
                             'formtastic_changes',
@@ -39,39 +39,8 @@
     <script type="text/javascript">
       <%= "var currentLocale = '#{I18n.locale}';" %>
     </script>
-
-    <div id="header">
-      <div class="main_logo">
-        <%= link_to(image_tag('page/echo_logo.png'), root_path) %>
-        <%# link_to(image_tag('page/beta_stamp.png',
-                              :class => 'stamp'), root_path) %>
-        <%= image_tag('page/beta_label.png', :class => 'label') %>
-      </div>
-      <%= render :partial => "layouts/components/top_menu"%>
-      <%= render :partial => "users/user_sessions/login" %>
-    </div>
-
-    <!-- Messaging section. -->
-    <%= render :partial => 'layouts/components/messages' %>
-
-    <div id="echologicContainer" <%= display_echologic_container %>>
-      <%= render :partial => "layouts/components/teaser" %>
-      <%= render :partial => "layouts/components/news" %>
-    </div>
-
-    <div class="tabContainer" id="tabContainer" <%= display_tab_container %>>
-      <%= yield :tabContainer %>
-    </div>
-
-    <div class="mainBox rounded-box rounded-box-green-iwot">
-      <%= navigation :static_menu %>
-      <div id="staticContent">
-        <%= yield %>
-      </div>
-    </div>
-
-    <%= render :partial => "layouts/components/bottom_menu" %>
-
+    <%= yield %>
+		
     <!-- Dialog container for outer menu. -->
     <div id="dialogContent" style="display:none;"></div>
 

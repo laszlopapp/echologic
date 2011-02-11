@@ -17,6 +17,7 @@
     loadAjaxForms();
     uploadFormSubmit();
     loadAboutUs();
+		loadRegistryButtons();
 
     /* Always send the authenticity_token with Ajax */
     $(document).ajaxSend(function(event, request, settings) {
@@ -275,3 +276,11 @@
     }
   }
 
+  function loadRegistryButtons() {
+		$('.registry_container .registry_button').live('click', function(){
+			var to_show = $(this).attr('href');
+			$(to_show).show();
+			$(this).parents('.registry_container').hide();
+			return false;
+		});
+	}

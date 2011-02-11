@@ -76,7 +76,8 @@ ActionController::Routing::Routes.draw do |map|
                 :path_prefix => '', :except => [:destroy]
 
   map.register  '/register/:activation_code', :controller => 'users/activations', :action => 'new'
-  map.join      '/join',                      :controller => 'users/users',       :action => 'new'
+  map.signin      '/signin',                      :controller => 'users/users',       :action => 'new', :id => 'signin'
+  map.signup      '/signup',                      :controller => 'users/users',       :action => 'new', :id => 'signup'
   map.activate  '/activate/:id',              :controller => 'users/activations', :action => 'create'
 
   map.resources :reports, :controller => 'users/reports'

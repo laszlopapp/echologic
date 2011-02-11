@@ -42,7 +42,8 @@ class Users::UsersController < ApplicationController
   # GET /users/new.xml
   def new
     @user = User.new
-    render_static_new :template => 'users/users/new'
+    @to_show = params[:id]
+    render_static_new :template => 'users/users/new', :layout => 'lightbox'
   end
 
   # GET /users/1/edit
