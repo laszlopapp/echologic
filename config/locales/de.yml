@@ -363,14 +363,14 @@ de:
       read_question: 'Diese Fragestellung anschauen'
       read_proposal: 'Diesen Vorschlag lesen'
       read_improvement: 'Diese Ergänzung lesen'
-      read_pro_argument: 'Dieses Pro-Argument lesen'
-      read_contra_argument: 'Dieses Kontra-Argument lesen'
+      read_pro_argument: 'Dieses PRO-Argument lesen'
+      read_contra_argument: 'Dieses KONTRA-Argument lesen'
       read_follow_up_question: 'Diese Folgefrage lesen'
       current_question: 'Die aktuell angezeigte Fragestellung'
       current_proposal: 'Der aktuell angezeigte Vorschlag'
       current_improvement: 'Die aktuell angezeigte Ergänzung'
-      current_pro_argument: 'Das gegenwärtig angezeigte Pro-Argument'
-      current_contra_argument: 'Das gegenwärtig angezeigte Kontra-Argument'
+      current_pro_argument: 'Das gegenwärtig angezeigte PRO-Argument'
+      current_contra_argument: 'Das gegenwärtig angezeigte KONTRA-Argument'
       current_follow_up_question: 'Die gegenwärtig angezeigte Folgefrage'
       back_to_question: 'Zurück zur aktuellen Fragestellung'
       back_to_proposal: 'Zurück zum aktuellen Vorschlag'
@@ -390,8 +390,8 @@ de:
       create_question: 'Neue Fragestellung hinzufügen'
       create_proposal: 'Tragen Sie Ihre neue Idee zur aktuellen Fragestellung ein'
       create_improvement: 'Tragen Sie Ihre neue Idee zum aktuellen Vorschlag ein'
-      create_pro_argument: "Ein neues Pro-Argument für diese Antwort hinzufügen"
-      create_contra_argument: "Ein neues Kontra-Argument für diese Antwort hinzufügen"
+      create_pro_argument: "Ein neues PRO-Argument für diese Antwort hinzufügen"
+      create_contra_argument: "Ein neues KONTRA-Argument für diese Antwort hinzufügen"
       create_follow_up_question: "Eine neue Folgefrage im aktuellen Zusammenhang hinzufügen"
       echo: 'Unterstützen Sie diese Aussage durch Ihr Echo!'
       unecho: 'Ziehen Sie Ihre Stimme zurück, wenn Sie die Aussage nicht mehr unterstützen möchten'
@@ -420,8 +420,8 @@ de:
       create_proposal_link: 'Neuen Vorschlag erstellen'
       create_internal_link: 'Neue Idee?'
       create_improvement_link: 'Neue Ergänzung vorschlagen'
-      create_pro_argument_link: Neues Pro-Argument hinzufügen
-      create_contra_argument_link: Neues Kontra-Argument hinzufügen
+      create_pro_argument_link: Neues PRO-Argument hinzufügen
+      create_contra_argument_link: Neues KONTRA-Argument hinzufügen
       create_follow_up_question_link: Neue Folgefrage hinzufügen
       recommend_link: 'Empfehlen'
       unrecommend_link: 'echo widerrufen'
@@ -451,15 +451,18 @@ de:
         question: Überschrift der Fragestellung auf... Deutsch?
         proposal: Überschrift des Vorschlags auf... Deutsch?
         improvement: Überschrift der Ergänzungsidee auf... Deutsch?
-        pro_argument: Überschrift des Pro-Arguments auf... Deutsch?
-        contra_argument: Überschrift des Kontra-Arguments auf... Deutsch?
+        pro_argument: Überschrift des PRO-Arguments auf... Deutsch?
+        contra_argument: Überschrift des KONTRA-Arguments auf... Deutsch?
         follow_up_question: Überschrift der Folgefrage auf... Deutsch?
       text_hint:
-        question: Bitte erläutern Sie das Problem und beschreiben Sie das Thema näher...
-        proposal: Bitte erläutern Sie Ihren Vorschlag näher...
-        improvement: Bitte erläutern Sie Ihre Ergänzungsidee näher...
-        pro_argument: Bitte erläutern Sie Ihr Pro-Argument näher...
-        contra_argument: Bitte erläutern Sie Ihr Kontra-Argument näher...
+        question: Bitte erläutern Sie das Thema näher und stellen Sie eine konkrete Frage...
+        proposal: |
+          Bitte erläutern Sie Ihren Vorschlag näher...<br/><br/>
+          Er kann je nach Art der Fragestellung als mögliche Antwort, Lösungsansatz oder Stellungnahme auf die
+          Frage verstanden werden.
+        improvement: Bitte erläutern Sie Ihre Ergänzungsidee zum Vorschlag näher...
+        pro_argument: Bitte erläutern Sie Ihren Grund FÜR den Vorschlag näher...
+        contra_argument: Bitte erläutern Sie Ihren Grund GEGEN den Vorschlag näher...
         follow_up_question: Bitte erläutern Sie Ihre Folgefrage näher...
       fuq_formulation_hint: |
         Da Folgefragen auch wie andere Fragestellungen in der Suche erscheinen,
@@ -555,19 +558,19 @@ de:
 
       add_teaser:
         question: |
-          Hier könnte Ihre Frage stehen.<br/><br/>Haben Sie eine?<br/><br/>
+          Hier könnte IHRE Fragestellung stehen.<br/><br/>Haben Sie eine?<br/><br/>
           Nutzen Sie den obenstehenden Link, um sie JETZT einzugeben!
         proposal: |
-          Hier könnte Ihr Vorschlag stehen .<br/><br/>Haben Sie einen?<br/><br/>
+          Hier könnte IHR Vorschlag auf die Frage stehen.<br/><br/>Haben Sie einen?<br/><br/>
           Nutzen Sie den obenstehenden Link, um ihn JETZT einzugeben!
         improvement: |
-          Hier könnte Ihre Ergänzungsidee stehen.<br/><br/>Haben Sie eine?<br/><br/>
+          Hier könnte IHRE Ergänzungsidee zum Vorschlag stehen.<br/><br/>Haben Sie eine?<br/><br/>
           Nutzen Sie den obenstehenden Link, um sie JETZT einzugeben!
         pro_argument: |
-          Hier könnte Ihr Pro-Argument stehen.<br/><br/>Haben Sie eines?<br/><br/>
+          Hier könnte Ihr Argument FÜR den Vorschlag stehen.<br/><br/>Haben Sie eines?<br/><br/>
           Nutzen Sie den obenstehenden Link, um es JETZT einzugeben!
         contra_argument: |
-          Hier könnte Ihr Kontra-Argument stehen.<br/><br/>Haben Sie eines?<br/><br/>
+          Hier könnte Ihr Argument GEGEN den Vorschlag stehen.<br/><br/>Haben Sie eines?<br/><br/>
           Nutzen Sie den obenstehenden Link, um es JETZT einzugeben!
         follow_up_question: |
           Hier könnte Ihre Folgefrage stehen.<br/><br/>Haben Sie eine?<br/><br/>
@@ -732,7 +735,7 @@ de:
         language_id: 'Sprache'
         language: 'Sprache'
         title: 'Titel'
-        text: 'Zusammenfassung'
+        text: 'Erläuterung'
         image: 'Illustration'
       about_item:
         photo: 'Photo'

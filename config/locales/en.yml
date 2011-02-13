@@ -346,14 +346,14 @@ en:
       read_question: 'Go to this question'
       read_proposal: 'Read this proposal'
       read_improvement: 'Read this addition'
-      read_pro_argument: 'Read this pro argument'
-      read_contra_argument: 'Read this contra argument'
+      read_pro_argument: 'Read this PRO argument'
+      read_contra_argument: 'Read this CONTRA argument'
       read_follow_up_question: 'Read this follow-up question'
       current_question: 'The currently displayed question'
       current_proposal: 'The currently displayed proposal'
       current_improvement: 'The currently displayed addition'
-      current_pro_argument: 'The currently displayed pro argument'
-      current_contra_argument: 'The currently displayed contra argument'
+      current_pro_argument: 'The currently displayed PRO argument'
+      current_contra_argument: 'The currently displayed CONTRA argument'
       current_follow_up_question: 'The currently displayed follow-up question'
       back_to_question: 'Back to current question'
       back_to_proposal: 'Back to current proposal'
@@ -373,8 +373,8 @@ en:
       create_question: 'Create a new question'
       create_proposal: "Post a new proposal for the current question"
       create_improvement: "Post a new addition to the current proposal"
-      create_pro_argument: "Post a new pro argument to this proposal"
-      create_contra_argument: "Post a new contra argument to this proposal"
+      create_pro_argument: "Post a new PRO argument to this proposal"
+      create_contra_argument: "Post a new CONTRA argument to this proposal"
       create_follow_up_question: "Post a new new follow-up question"
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your echo to stop supporting this statement'
@@ -404,8 +404,8 @@ en:
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
       create_improvement_link: Propose new addition
-      create_pro_argument_link: Add new pro argument
-      create_contra_argument_link: Add new contra argument
+      create_pro_argument_link: Add new PRO argument
+      create_contra_argument_link: Add new CONTRA argument
       create_follow_up_question_link: Add new follow-up question
       recommend_link: 'Recommend this'
       unrecommend_link: 'Withdraw echo'
@@ -435,15 +435,18 @@ en:
         question: Enter the question title in... English?
         proposal: Enter the proposal title in... English?
         improvement: Enter the addition title in... English?
-        pro_argument: Enter the pro argument title in... English?
-        contra_argument: Enter the contra argument title in... English?
+        pro_argument: Enter the PRO argument title in... English?
+        contra_argument: Enter the CONTRA argument title in... English?
         follow_up_question: Enter the follow-up question title in... English?
       text_hint:
-        question: Please describe the issue and write some details about the topic...
-        proposal: Please describe your proposal in more detail...
-        improvement: Please describe your additional idea to the proposal in more detail...
-        pro_argument: Please describe your pro argument in more detail...
-        contra_argument: Please describe your contra argument in more detail...
+        question: Please describe the issue in more detail and ask a concrete question...
+        proposal: |
+          Please describe your proposal in more detail...<br/><br/>
+          Depending on the kind of question, a proposal can be understood as a possible answer,
+          solution approach or position to the question.
+        improvement: Please describe your addition to the proposal in more detail...
+        pro_argument: Please describe your point FOR the proposal in more detail...
+        contra_argument: Please describe your point AGAINST the proposal in more detail...
         follow_up_question: Please describe your follow-up question in more detail...
       fuq_formulation_hint: |
         Since follow-up questions also appear as questions in "Search",
@@ -536,23 +539,23 @@ en:
 
       add_teaser:
         question: |
-          This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
-          button above to enter it NOW!
+          This is where YOUR question could stand.<br/><br/>Have you got one?<br/><br/>
+          Press the button above to enter it NOW!
         proposal: |
-          This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
-          button above to enter it NOW!
+          This is where YOUR proposal to the question could stand.<br/><br/>Have you got one?<br/><br/>
+          Press the button above to enter it NOW!
         improvement: |
-          This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
-          button above to enter it NOW!
+          This is where YOUR addition to the proposal could stand.<br/><br/>Have you got one?<br/><br/>
+          Press the button above to enter it NOW!
         pro_argument: |
-          This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
-          button above to enter it NOW!
+          This is where your argument FOR the proposal could stand.<br/><br/>Have you got one?<br/><br/>
+          Press the button above to enter it NOW!
         contra_argument: |
-          This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
-          button above to enter it NOW!
+          This is where your argument AGAINST the proposal could stand.<br/><br/>Have you got one?<br/><br/>
+          Press the button above to enter it NOW!
         follow_up_question: |
-          This is where your winner idea could stand.<br/><br/>Have you got one?<br/><br/>Press the
-          button above to enter it NOW!
+          This is where YOUR follow-up question could stand.<br/><br/>Have you got one?<br/><br/>
+          Press the button above to enter it NOW!
     summary:
       title: 'Summary'
 
