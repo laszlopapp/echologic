@@ -383,5 +383,5 @@ class StatementNode < ActiveRecord::Base
       @@children_types[self.name] = klasses + @@children_types[self.name]
     end
   end
-  default_children_types [:FollowUpQuestion, false]
+  default_children_types [:FollowUpQuestion, true]
 end
