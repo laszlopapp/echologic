@@ -230,15 +230,15 @@
     $('.upload_form').livequery(function(){
       var element = $(this);
       element.submit(function(){
-        $(this).ajaxSubmit({
+				$(this).ajaxSubmit({
           beforeSend: function(){
-            $('#uploading_progress').show();
+						$('#uploading_progress').show();
           },
           complete: function(){
-            $('#uploading_progress').hide();
+						$('#uploading_progress').hide();
           },
           success: function(data, status) {
-            $.ajax({
+				    $.ajax({
               type: 'get',
               dataType: 'script',
               url: element.attr('data-image-redirect')
