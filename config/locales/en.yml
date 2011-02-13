@@ -262,10 +262,10 @@ en:
       drafting:
         title: Drafting Notifications
         guide: |
-          Immediate updates to follow the co-creative drafting process of your proposals and improvements -
-          e.g. when your improvements was approved to be incorporated.<br/><br/>
+          Immediate updates to follow the co-creative drafting process of your proposals and additions -
+          e.g. when your additions were approved to be incorporated.<br/><br/>
           <strong>Attention!</strong> If this notification is turned off, you might easily miss the opportunity to
-          incorporate your improvements into proposals you support.
+          incorporate your additional ideas into proposals you support.
         turned_on: Drafting notifications have been switched on.
         turned_off: Drafting notifications have been switched off.
 
@@ -345,25 +345,25 @@ en:
     tooltips:
       read_question: 'Go to this question'
       read_proposal: 'Read this proposal'
-      read_improvement: 'Read this improvement'
+      read_improvement: 'Read this addition'
       read_pro_argument: 'Read this pro argument'
       read_contra_argument: 'Read this contra argument'
       read_follow_up_question: 'Read this follow-up question'
       current_question: 'The currently displayed question'
       current_proposal: 'The currently displayed proposal'
-      current_improvement: 'The currently displayed improvement'
+      current_improvement: 'The currently displayed addition'
       current_pro_argument: 'The currently displayed pro argument'
       current_contra_argument: 'The currently displayed contra argument'
       current_follow_up_question: 'The currently displayed follow-up question'
       back_to_question: 'Back to current question'
       back_to_proposal: 'Back to current proposal'
-      back_to_improvement: 'Back to current improvement'
+      back_to_improvement: 'Back to current addition'
       prev_question: 'Read previous question in the context shown above'
       next_question: 'Read next question in the context shown above'
       prev_proposal: 'Read previous proposal for the current question'
       next_proposal: 'Read next proposal for the current question'
-      prev_improvement: 'Read previous improvement for the current proposal'
-      next_improvement: 'Read next improvement for the current proposal'
+      prev_improvement: 'Read previous addition for the current proposal'
+      next_improvement: 'Read next addition for the current proposal'
       prev_pro_argument: 'Read previous argument for the current proposal'
       next_pro_argument: 'Read next argument for the current proposal'
       prev_contra_argument: 'Read previous argument for the current proposal'
@@ -372,7 +372,7 @@ en:
       next_follow_up_question: 'Read next follow-up question in the context shown above'
       create_question: 'Create a new question'
       create_proposal: "Post a new proposal for the current question"
-      create_improvement: "Post a new improvement to the current proposal"
+      create_improvement: "Post a new addition to the current proposal"
       create_pro_argument: "Post a new pro argument to this proposal"
       create_contra_argument: "Post a new contra argument to this proposal"
       create_follow_up_question: "Post a new new follow-up question"
@@ -381,11 +381,11 @@ en:
       publish: |
         Release the question to make it visible for everybody.
         (Afterwards no further editing is possible.)
-      incorporate: 'Click here to incorporate this improvement into the proposal above.'
+      incorporate: 'Click here to incorporate this addition into the proposal above.'
       siblings:
         question: See all questions in the context shown above
         proposal: See all proposals belonging to the current question
-        improvement: See all improvements proposed for the current proposal
+        improvement: See all additions proposed for the current proposal
         pro_argument: See all arguments belonging to the current proposal
         contra_argument:  See all arguments belonging to the current proposal
 
@@ -403,7 +403,7 @@ en:
       create_question_link: 'Create new question'
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
-      create_improvement_link: Propose new improvement
+      create_improvement_link: Propose new addition
       create_pro_argument_link: Add new pro argument
       create_contra_argument_link: Add new contra argument
       create_follow_up_question_link: Add new follow-up question
@@ -419,7 +419,7 @@ en:
         Here you can create a <strong>new proposal</strong>.
       create_improvement_explanation: |
         Do you have a <strong>good idea</strong> to <strong>make the current proposal even better</strong>?<br/>
-        Here you can propose a <strong>new improvement</strong>.
+        Here you can propose a <strong>new addition</strong>.
       create_statement_language_hint: |
         Please post the statement in <strong>ENGLISH</strong> or choose another language
         using the babelfish in the upper menu.
@@ -434,14 +434,14 @@ en:
       title_hint:
         question: Enter the question title in... English?
         proposal: Enter the proposal title in... English?
-        improvement: Enter the improvement title in... English?
+        improvement: Enter the addition title in... English?
         pro_argument: Enter the pro argument title in... English?
         contra_argument: Enter the contra argument title in... English?
         follow_up_question: Enter the follow-up question title in... English?
       text_hint:
         question: Please describe the issue and write some details about the topic...
         proposal: Please describe your proposal in more detail...
-        improvement: Please describe your improvement idea in more detail...
+        improvement: Please describe your additional idea to the proposal in more detail...
         pro_argument: Please describe your pro argument in more detail...
         contra_argument: Please describe your contra argument in more detail...
         follow_up_question: Please describe your follow-up question in more detail...
@@ -458,21 +458,21 @@ en:
       types:
         question:  'Question'
         proposal:  'Proposal'
-        improvement: 'Improvement'
+        improvement: 'Addition'
         pro_argument: 'Pro Argument'
         contra_argument: 'Contra Argument'
         follow_up_question: 'Follow-Up Question'
       new:
         question:  'New Question'
         proposal:  'New Proposal'
-        improvement: 'New Improvement'
+        improvement: 'New Addition'
         pro_argument: 'New Pro Argument'
         contra_argument: 'New Contra Argument'
         follow_up_question: 'New Follow-Up Question'
       headings:
         question: 'Questions'
         proposal: 'Proposals'
-        improvement: 'Improvements'
+        improvement: 'Additions'
         argument: 'Arguments'
         follow_up_question: 'Follow-up Questions'
       siblings:
@@ -491,13 +491,13 @@ en:
       read_only_permission: |-
         This is a transparent but currently closed discussion, you are only allowed to read.
       unsupported_parent: |-
-        You can only support improvements if you support the proposal itself.
+        You can only support additions if you support the proposal itself.
       not_approved_any_more: |-
-        Unfortunately, this improvement cannot be incorporated any longer.
+        Unfortunately, this addition cannot be incorporated any longer.
       see_parent_if_approved: |-
-        The requested improvement is currently approved to be incorporated into the proposal below.
+        The requested addition is currently approved to be incorporated into the proposal below.
       see_parent_if_incorporated: |-
-        The requested improvement has already been incorporated into the proposal below.
+        The requested addition has already been incorporated into the proposal below.
       being_edited: |-
         The statement is currently being edited. Please try again later.
       statement_updated: |-
@@ -561,7 +561,7 @@ en:
       updated: "The {{type}} has been updated successfully."
       deleted: "The {{type}} has been deleted successfully."
       translated: "The {{type}} has been translated successfully."
-      incorporated: "The improvement has been successfully incorporated into the proposal."
+      incorporated: "The addition has been successfully incorporated into the proposal."
       image_uploaded: "The illustration image has been added to the {{type}}."
       empty:   "No questions found. Please change your search criteria."
       empty_without_spoken_languages: |
@@ -722,7 +722,7 @@ en:
     models:
       question: "question"
       proposal: "proposal"
-      improvement: "improvement"
+      improvement: "addition"
 
 
   authlogic:
