@@ -45,6 +45,10 @@
   font-weight: bold !important;
 }
 
+.header_block .headline:hover {
+  color: #7bb031 !important;
+}
+
 .header_block h3 {
   color: #7bb031;
   font-size: 14px;
