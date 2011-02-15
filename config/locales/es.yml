@@ -459,7 +459,8 @@ es:
       drafting_language_hint: |
         Ten en cuenta que el proceso de elaboración colectiva de las propuestas funcionará sólo en este idioma!
       fuq_formulation_hint: |
-        Since follow-up questions also appear as questions in "Search", title and description should both be comprehensible independently of the original discussion.
+        Las preguntas de seguimiento aparecen también como preguntas en "Buscar", por ello, el título y la
+        descripción deben ser comprensibles también fuera de contexto del debate principal.
       title_hint:
         question: Introduce el título de la pregunta en...
         proposal: Introduce el título de la propuesta en...
@@ -474,9 +475,6 @@ es:
         pro_argument: Por favor, formula tu argumento a favor en detalle...
         contra_argument: Por favor, formula tu argumento en contra en detalle...
         follow_up_question: Por favor, formula tu pregunta de seguimiento en detalle...
-      fuq_formulation_hint: |
-        Las preguntas de seguimiento aparecen también como preguntas en "Buscar", por ello, el título y la
-        descripción deben ser comprensibles también fuera de contexto del debate principal.
       tag_hint: 'Clasificado por temas'
 
       publish: Publicar

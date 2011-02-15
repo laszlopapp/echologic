@@ -479,6 +479,9 @@ fr:
         Vous pouvez alors vous exprimer dans toutes les langues que vous maîtrisez à partir du degré moyen.
       drafting_language_hint: |
         La poursuite collaborative ne sera possibile que dans la langue sélectionnée!
+      fuq_formulation_hint: |
+        La "question suivie" apparaissant aussi comme question dans le registre "Chercher",
+        son titre et sa description doivent etre clairs et compréhensibles indépendemment de la discusion d'origine.
       title_hint:
         question: Entrez le titre de la question en... français?
         proposal: Entrer le titre de votre proposition en... français?
@@ -495,9 +498,6 @@ fr:
         pro_argument: Veuillez donner davantage de détails de votre argument PRO...
         contra_argument: Veuillez donner davantage de détails de votre argument CONTRE...
         follow_up_question: Veuillez donner davantage de détails de votre question suivie...
-      fuq_formulation_hint: |
-        La "question suivie" apparaissant aussi comme question dans le registre "Chercher",
-        son titre et sa description doivent etre clairs et compréhensibles indépendemment de la discusion d'origine.
       tag_hint: 'Mots-clefs idoines...'
 
       publish: Publier

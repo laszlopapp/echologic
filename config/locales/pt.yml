@@ -438,7 +438,8 @@ pt:
       drafting_language_hint: |
         Por favor tome nota de que o processo de elaboração coletiva desta proposta só irá ocorrer nesta língua!
       fuq_formulation_hint: |
-        Como as questões complementares também podem ser encontradas em "Pesquisa", o seu conteúdo deve poder ser compreendido fora do contexto da discussão original.
+        Como as questões complementares também podem ser encontradas em "Pesquisa", o seu conteúdo deve poder ser
+        compreendido fora do contexto da discussão original.
       title_hint:
         question: Introduza o título da questão em...
         proposal: Introduza o título da proposta em...
