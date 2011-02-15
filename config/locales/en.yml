@@ -430,7 +430,8 @@ en:
       drafting_language_hint: |
         Please note, that the collective advancement of this proposal will only be possible in the selected language!
       fuq_formulation_hint: |
-        Since follow-up questions also appear as questions in "Search", title and description should both be comprehensible independently of the original discussion.
+        Since follow-up questions also appear as questions in "Search", title and description should both be
+        comprehensible independently of the original discussion.
       title_hint:
         question: Enter the question title in... English?
         proposal: Enter the proposal title in... English?
@@ -448,10 +449,6 @@ en:
         pro_argument: Please describe your point FOR the proposal in more detail...
         contra_argument: Please describe your point AGAINST the proposal in more detail...
         follow_up_question: Please describe your follow-up question in more detail...
-      fuq_formulation_hint: |
-        Since follow-up questions also appear as questions in "Search",
-        title and description should both be understandable also independently of
-        the original discussion.
       tag_hint: 'Enter tags here...'
 
       publish: Release

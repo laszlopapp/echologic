@@ -447,7 +447,7 @@ de:
         Bitte beachten Sie, dass die gemeinsame Weiterentwicklung dieses Vorschlags nur in der ausgewählten Sprache möglich sein wird!
       fuq_formulation_hint: |
         Da Folgefragen auch wie andere Fragestellungen in der Suche erscheinen, sollten Überschrift und Erläuterung auch
-        ausserhalb der ursprünglichen Diskussion verständlich sein. 
+        ausserhalb der ursprünglichen Diskussion verständlich sein.
       title_hint:
         question: Überschrift der Fragestellung auf... Deutsch?
         proposal: Überschrift des Vorschlags auf... Deutsch?
@@ -464,10 +464,6 @@ de:
         pro_argument: Bitte erläutern Sie Ihren Grund FÜR den Vorschlag näher...
         contra_argument: Bitte erläutern Sie Ihren Grund GEGEN den Vorschlag näher...
         follow_up_question: Bitte erläutern Sie Ihre Folgefrage näher...
-      fuq_formulation_hint: |
-        Da Folgefragen auch wie andere Fragestellungen in der Suche erscheinen,
-        sollten Überschrift und Erläuterung auch ausserhalb der ursprünglichen
-        Diskussion verständlich sein.
       tag_hint: 'Schlagworte hier eingeben...'
 
       publish: Freigeben
