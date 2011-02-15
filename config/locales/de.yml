@@ -446,7 +446,8 @@ de:
       drafting_language_hint: |
         Bitte beachten Sie, dass die gemeinsame Weiterentwicklung dieses Vorschlags nur in der ausgewählten Sprache möglich sein wird!
       fuq_formulation_hint: |
-        Since follow-up questions also appear as questions in "Search", title and description should both be comprehensible independently of the original discussion.
+        Da Folgefragen auch wie andere Fragestellungen in der Suche erscheinen, sollten Überschrift und Erläuterung auch
+        ausserhalb der ursprünglichen Diskussion verständlich sein. 
       title_hint:
         question: Überschrift der Fragestellung auf... Deutsch?
         proposal: Überschrift des Vorschlags auf... Deutsch?
@@ -458,8 +459,7 @@ de:
         question: Bitte erläutern Sie das Thema näher und stellen Sie eine konkrete Frage...
         proposal: |
           Bitte erläutern Sie Ihren Vorschlag näher...<br/><br/>
-          Er kann je nach Art der Fragestellung als mögliche Antwort, Lösungsansatz oder Stellungnahme auf die
-          Frage verstanden werden.
+          Er kann je nach Art der Fragestellung als mögliche Antwort, Lösungsansatz oder Stellungnahme verstanden werden.
         improvement: Bitte erläutern Sie Ihre Ergänzungsidee zum Vorschlag näher...
         pro_argument: Bitte erläutern Sie Ihren Grund FÜR den Vorschlag näher...
         contra_argument: Bitte erläutern Sie Ihren Grund GEGEN den Vorschlag näher...
