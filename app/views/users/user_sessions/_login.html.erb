@@ -6,9 +6,9 @@
       <%= I18n.t('users.user_sessions.login.hello', :name => current_user.full_name) %><br/>
     </span>
   <% else %>
-    <%= link_to I18n.t('users.user_sessions.login.signin'), signin_path %>
+    <%= link_to I18n.t('users.user_sessions.login.signin'), signin_path, :class => 'ajax' %>
 		<%= I18n.t('application.general.or') %>
-		<%= link_to I18n.t('users.user_sessions.login.signup'), signup_path %>
+		<%= link_to I18n.t('users.user_sessions.login.signup'), signup_path, :class => 'ajax' %>
     <%# form_for UserSession.new, :url => user_session_path do |f| %>
       <%#= content_tag :span, I18n.t('users.user_sessions.login.email'), :class => 'label' %>
       <%#= content_tag :span, I18n.t('users.user_sessions.login.password'), :class => 'label' %>

@@ -14,9 +14,10 @@ class AddAuthlogicRpxMigration < ActiveRecord::Migration
     # (e.g. crypted_password and password_salt to make password authentication optional). 
     # If you are using auto-registration, you must also remove any database constraints for fields that will be automatically mapped
     # e.g.:
-    #change_column :users, :crypted_password, :string, :default => nil, :null => true
-    #change_column :users, :password_salt, :string, :default => nil, :null => true
     
+    change_column :users, :crypted_password, :string, :default => nil, :null => true
+    change_column :users, :password_salt, :string, :default => nil, :null => true
+  
   end
   
   def self.down
@@ -25,10 +26,9 @@ class AddAuthlogicRpxMigration < ActiveRecord::Migration
     # == Customisation may be required here ==
     # Restore user model database constraints as appropriate
     # e.g.:
-    #[:crypted_password, :password_salt].each do |field|
-    #  User.all(:conditions => "#{field} is NULL").each { |user| user.update_attribute(field, "") if user.send(field).nil? }
-    #  change_column :users, field, :string, :default => "", :null => false
-    #end
-
+    [:crypted_password, :password_salt].each do |field|
+      User.all(:conditions => "#{field} is NULL").each { |user| user.update_attribute(field, "") if user.send(field).nil? }
+      change_column :users, field, :string, :default => "", :null => false
+    end
   end
 end

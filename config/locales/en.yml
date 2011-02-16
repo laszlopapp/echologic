@@ -153,6 +153,7 @@ en:
         login_failed: "Unknown user or wrong password."
         logout_success: "Logout successful. See you later. Bye!"
         session_timeout: "Your session has expired. Please log in again."
+        login_failed_rpx: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account"
 
     # Activations section
     activation:

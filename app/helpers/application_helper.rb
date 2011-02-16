@@ -101,4 +101,27 @@ module ApplicationHelper
     end
     val
   end
+  
+  ##################
+  # JANRAIN WIDGET #
+  ##################
+  
+  def janrain_login_widget(token_url, options={})
+    url = token_url + '?' + (
+      { :authenticity_token => form_authenticity_token }.collect { |n| "#{n[0]}=#{ u(n[1]) }" if n[1] }
+    ).compact.join('&')
+    <<-EOF
+    <iframe src='http://#{ENV['ECHO_RPX_APP_NAME']}/openid/embed?#{embed_params(url)}' scrolling='no' frameBorder='no'  
+    allowtransparency='true' style='width:400px;height:240px'></iframe>
+    EOF
+  end
+  
+  def embed_params(url, options={})
+    {
+      :token_url => CGI::escape( url ),
+      :language_preference => options[:language],
+      :flags => options[:flags],
+      :default_provider => options[:default_provider]
+    }.map{|k,v| "#{k}=#{v}" if v}.compact.join('&amp;')
+  end
 end

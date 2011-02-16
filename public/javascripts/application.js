@@ -5,7 +5,6 @@
   $(function() {
 
     $.fragmentChange(true);
-
     makeRatiobars();
     makeTooltips();
     roundCorners();
@@ -284,3 +283,5 @@
 			return false;
 		});
 	}
+	
+	

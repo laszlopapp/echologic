@@ -1,1 +1,24 @@
-$("<%= escape_javascript(render(:partial => 'users/users/new')) %>").lightBox();
+/**
+ * Template to view the sign in modal dialog.
+ */
+
+/* Write render output into JS variables for later use. */
+var content = "<%= escape_javascript(render(:partial => 'users/users/new')) %>";
+
+$('#dialogContent').html(content);
+
+$('#dialogContent').dialog({
+  bgiframe: true,
+  modal:    true,
+  close:    function(event, ui) { $(this).dialog('destroy'); },
+  width:    900,
+  height:   700,
+  resizable: false,
+	dialogClass: 'signin_box'
+});
+
+$('#dialogContent').find('.close_button').bind('click', function (){
+  $('#dialogContent').dialog('destroy');
+});
+
+$('.signin_box').find(".ui-dialog-titlebar").hide();

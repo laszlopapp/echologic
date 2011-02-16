@@ -41,9 +41,11 @@ class Users::UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.xml
   def new
-    @user = User.new
-    @to_show = params[:id]
-    render_static_new :template => 'users/users/new', :layout => 'lightbox'
+    session[:redirect_url] = request.referer
+    @user ||= User.new
+    @user_session ||= UserSession.new
+    @to_show = "signup"
+    render_static_new :template => 'users/users/new'
   end
 
   # GET /users/1/edit
@@ -194,29 +196,6 @@ class Users::UsersController < ApplicationController
       log_message_error(e, "Error deleting concernment '#{params[:tag]}'.")
     else
       log_message_info("Concernment '#{params[:tag]}' has been deleted sucessfully.")
-    end
-  end
-
-  # This action has the special purpose of receiving an update of the RPX identity information
-  # for current user - to add RPX authentication to an existing non-RPX account.
-  # RPX only supports :post, so this cannot simply go to update method (:put)
-  def addrpxauth
-    @user = current_user
-    if @user.save
-      @user.deliver_activation_instructions!
-      set_info  = "Successfully added RPX authentication for this account."
-      format.html {
-        flash_info and redirect_to root_url
-      }
-      format.js do
-        render_with_info do |page|
-          page.redirect_to root_url
-        end
-      end
-    else
-      set_error @user
-      format.html { flash_error and render :template => 'users/users/new', :layout => 'static' }
-      format.js   { render_with_error }
     end
   end
 

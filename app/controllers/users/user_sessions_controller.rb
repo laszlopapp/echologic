@@ -1,18 +1,22 @@
 class Users::UserSessionsController < ApplicationController
 
-  before_filter :require_no_user, :only => [:new, :create]
-  skip_before_filter :require_user, :only => [:new, :create]
+  before_filter :require_no_user, :only => [:new, :create, :create_rpx]
+  skip_before_filter :require_user, :only => [:new, :create, :create_rpx]
 
   def new
+    session[:redirect_url] = request.referer
     @user_session = UserSession.new
-    respond_to do |format|
-      format.html
+    @user ||= User.new
+    @to_show = "signin"
+    render_static_new :template => 'users/users/new' do |format|
+      format.js {render :template => 'users/users/new'}
     end
+    
   end
 
   # TODO use redirect back or default! see application controller!
   def create
-    redirect_url = params[:user_session].delete(:redirect_url)
+    redirect_url = session[:redirect_url]
     @user_session = UserSession.new(params[:user_session])
     respond_to do |format|
       if @user_session.save
@@ -21,6 +25,33 @@ class Users::UserSessionsController < ApplicationController
       else
         set_error 'users.user_sessions.messages.login_failed'
         format.html { flash_error and redirect_to root_path }
+      end
+    end
+  end
+
+  def create_rpx
+    redirect_url = session[:redirect_url]
+    rpx_helper = RpxHelper.new(ENV['ECHO_RPX_API_KEY'], "https://#{ENV['ECHO_RPX_APP_NAME']}", nil)
+    token = params[:token]
+    profile_info = rpx_helper.auth_info(token)
+    identifier = profile_info['identifier']
+    user = User.find_by_rpx_identifier(identifier)
+    if user.nil?
+      respond_to do |format|
+        set_error 'users.user_sessions.messages.login_failed_rpx'
+        set_later_call signin_path
+        format.html { flash_error and flash_later_call and redirect_to root_path }
+      end
+    else
+      @user_session = UserSession.new :email => user.email, :password => user.password
+      respond_to do |format|
+        if @user_session.save
+          set_info 'users.user_sessions.messages.login_success'
+          format.html { flash_info and redirect_to redirect_url }
+        else
+          set_error 'users.user_sessions.messages.login_failed'
+          format.html { flash_error and redirect_to root_path }
+        end
       end
     end
   end

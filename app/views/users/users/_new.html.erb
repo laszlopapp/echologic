@@ -1,55 +1,59 @@
-<div id="signin" class='registry_container' style="<%= @to_show.eql?('signin') ? '' : 'display:none'%>">
-	<%= content_tag :span, content_tag(:h1, I18n.t('users.user_sessions.login.signin')), :class => 'sign_in logo'%>
-	<%= content_tag :span, "#{I18n.t('users.user_sessions.login.no_member')} >>>", :class => 'registry_label' %>
-	<%= content_tag :a, I18n.t('users.user_sessions.login.signup'), :class => 'registry_button', :href => '#signup' %>
-	
-	<%= content_tag :span, content_tag(:h2, I18n.t('users.user_sessions.login.via_echo')), :class => 'box_label' %>
-	<%= I18n.t('application.general.or') %>
-	<%= content_tag :span, content_tag(:h2, I18n.t('users.user_sessions.login.via_another')), :class => 'box_label' %>
-	<div class='signin_container'>
-		<% form_for UserSession.new, :url => user_session_path do |f| %>
-		  <p>
-      <%= content_tag :label, I18n.t('users.user_sessions.login.email') %>
-			<%= tag('br') %>
-			<%= f.text_field :email, :class => 'loginField' %>
-			</p>
-			<p>
-      <%= content_tag :label, I18n.t('users.user_sessions.login.password') %>
-			<%= tag('br') %>
-      <%= f.password_field :password, :class => 'loginField' %>
-			<%= tag('br') %>
-			<%= link_to I18n.t('users.user_sessions.login.set_password'), new_password_reset_path, :class => "bottomLabel" %>
-			</p>
-			
-      <%= f.hidden_field :redirect_url, :value => request.url %>
-			<%= tag('br') %>
-      <%= f.submit I18n.t('users.user_sessions.login.signin'), :class => 'signinButton registry_button' %>
-    <% end %>
+<div class='registry'>
+	<div id="signin" class='registry_container' style="<%= @to_show.eql?('signin') ? '' : 'display:none'%>">
+		<%= content_tag :span, content_tag(:h1, I18n.t('users.user_sessions.login.signin')), :class => 'sign_in logo'%>
+		<%= content_tag :span, "#{I18n.t('users.user_sessions.login.no_member')} >>>", :class => 'registry_label' %>
+		<%= content_tag :a, I18n.t('users.user_sessions.login.signup'), :class => 'registry_button', :href => '#signup' %>
+		
+		<%= content_tag :span, content_tag(:h2, I18n.t('users.user_sessions.login.via_echo')), :class => 'box_label' %>
+		<%= I18n.t('application.general.or') %>
+		<%= content_tag :span, content_tag(:h2, I18n.t('users.user_sessions.login.via_another')), :class => 'box_label' %>
+		<div class='signin_container'>
+			<% form_for UserSession.new, :url => user_sessions_path do |f| %>
+			  <p>
+	      <%= content_tag :label, I18n.t('users.user_sessions.login.email') %>
+				<%= tag('br') %>
+				<%= f.text_field :email, :class => 'loginField' %>
+				</p>
+				<p>
+	      <%= content_tag :label, I18n.t('users.user_sessions.login.password') %>
+				<%= tag('br') %>
+	      <%= f.password_field :password, :class => 'loginField' %>
+				<%= tag('br') %>
+				<%= link_to I18n.t('users.user_sessions.login.set_password'), new_password_reset_path, :class => "bottomLabel" %>
+				</p>
+				
+	      <%= f.hidden_field :redirect_url, :value => request.referer %>
+				<%= tag('br') %>
+	      <%= f.submit I18n.t('users.user_sessions.login.signin'), :class => 'signinButton registry_button' %>
+	    <% end %>
+		</div>
+		<div class='signin_container'>
+			<%= janrain_login_widget signin_remote_url, :language => I18n.locale  %>
+	  </div>
 	</div>
-	<div class='signin_container'>
-		<%= rpx_embed(:app_name => RPX_APP_NAME, :return_url => request.url ) %> 
-  </div>
-</div>
-
-<div id="signup" class='registry_container' style="<%= @to_show.eql?('signup') ? '' : 'display:none'%>">
-  <%= content_tag :span, content_tag(:h1, I18n.t('users.user_sessions.login.signup')), :class => 'sign_up logo'%>
-  <%= content_tag :span, "#{I18n.t('users.user_sessions.login.already_member')} >>>", :class => 'registry_label' %>
-  <%= content_tag :a, I18n.t('users.user_sessions.login.signin'), :class => 'registry_button', :href => '#signin' %>
-  
-  <%= content_tag :span, content_tag(:h2, I18n.t('users.user_sessions.login.new_echo_account')), :class => 'box_label' %>
-  <%= I18n.t('application.general.or') %>
-  <%= content_tag :span, content_tag(:h2, I18n.t('users.user_sessions.login.existing_account')), :class => 'box_label' %>
-  <div class='signup_container'>
-    <% form_for @user, :url => users_path, :html => {:class => 'echoForm ajax_form', :id => 'new_user_form'} do |f| %>
-	    <p>
-	      <%= f.label I18n.t('application.general.email') %><br />
-        <%= f.text_field :email %><br />
-			</p>
-			<br /><br/>
-			<%= f.submit I18n.t('users.user_sessions.login.signup'), :class => 'signupButton registry_button' %>
-    <% end %>
-  </div>
-  <div class='signup_container'>
-     
-  </div>
+	
+	<div id="signup" class='registry_container' style="<%= @to_show.eql?('signup') ? '' : 'display:none'%>">
+	  <%= content_tag :span, content_tag(:h1, I18n.t('users.user_sessions.login.signup')), :class => 'sign_up logo'%>
+	  <%= content_tag :span, "#{I18n.t('users.user_sessions.login.already_member')} >>>", :class => 'registry_label' %>
+	  <%= content_tag :a, I18n.t('users.user_sessions.login.signin'), :class => 'registry_button', :href => '#signin' %>
+	  
+	  <%= content_tag :span, content_tag(:h2, I18n.t('users.user_sessions.login.new_echo_account')), :class => 'box_label' %>
+	  <%= I18n.t('application.general.or') %>
+	  <%= content_tag :span, content_tag(:h2, I18n.t('users.user_sessions.login.existing_account')), :class => 'box_label' %>
+	  <div class='signup_container'>
+	    <% form_for @user, :url => users_path, :html => {:class => 'ajax_form', :id => 'new_user_form'} do |f| %>
+		    <p>
+		      <%= f.label I18n.t('application.general.email') %><br />
+	        <%= f.text_field :email %><br />
+				</p>
+				<br /><br/>
+				<%= f.submit I18n.t('users.user_sessions.login.signup'), :class => 'signupButton registry_button' %>
+	    <% end %>
+	  </div>
+	  <div class='signup_container'>
+	     <%= janrain_login_widget signup_remote_url, :language => I18n.locale  %>
+	  </div>
+	</div>
+	<span class='close_button'>
+	</span>
 </div>

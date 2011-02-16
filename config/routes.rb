@@ -59,8 +59,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :newsletters
 
   # SECTION user signup and login
-  map.resource  :user_session, :controller => 'users/user_sessions',
-                :path_prefix => '', :only => [:new, :create, :destroy]
+  map.resources  :user_sessions, :controller => 'users/user_sessions',
+                :path_prefix => ''
   map.addrpxauth "addrpxauth", :controller => "users", :action => "addrpxauth", :method => :post
 
 
@@ -75,10 +75,13 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :password_resets, :controller => 'users/password_resets',
                 :path_prefix => '', :except => [:destroy]
 
-  map.register  '/register/:activation_code', :controller => 'users/activations', :action => 'new'
-  map.signin      '/signin',                      :controller => 'users/users',       :action => 'new', :id => 'signin'
-  map.signup      '/signup',                      :controller => 'users/users',       :action => 'new', :id => 'signup'
-  map.activate  '/activate/:id',              :controller => 'users/activations', :action => 'create'
+  map.register   '/register/:activation_code', :controller => 'users/activations', :action => 'new'
+  map.signin     '/signin',                    :controller => 'users/user_sessions', :action => 'new'
+  map.signin_remote '/signin_remote',          :controller => 'users/user_sessions', :action => 'create_rpx', :method => :post
+  map.signup     '/signup',                    :controller => 'users/users',       :action => 'new'
+  map.signup_remote '/signup_remote',          :controller => 'users/users',       :action => 'create_rpx', :method => :post
+  map.signout    '/signout',                   :controller => 'users/user_sessions', :action => 'destroy'
+  map.activate   '/activate/:id',              :controller => 'users/activations', :action => 'create'
 
   map.resources :reports, :controller => 'users/reports'
 

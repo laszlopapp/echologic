@@ -29,10 +29,7 @@ Rails::Initializer.run do |config|
 
   # Authlogic authentication gem with RPX extension.
   config.gem 'authlogic', :version => '= 2.1.6', :lib => "authlogic", :source => "http://gems.github.com"
-  config.gem 'rpx_now', :version => '= 0.6.23'
-  config.gem 'authlogic_rpx', :version => '>= 1.2.0'
-
-
+ 
   # Require formtastic gem to build semantic forms
   config.gem "formtastic"
 
@@ -74,8 +71,9 @@ Rails::Initializer.run do |config|
   # config.i18n.default_locale = :en
 
   # Authologic RPX
-  RPX_API_KEY = ENV['RARS_RPX_API_KEY']
-  RPX_APP_NAME = ENV['RARS_RPX_APP_NAME']
+  RPX_APP_NAME = ENV['ECHO_RPX_APP_NAME']
+  RPX_API_KEY = ENV['ECHO_RPX_API_KEY']
+  
   raise "RPX/Janrain Engage API key must be defined ENV['RARS_RPX_API_KEY']" unless RPX_API_KEY
   raise "RPX/Janrain Engage Application Name must be defined ENV['RARS_RPX_APP_NAME']" unless RPX_APP_NAME
 
@@ -87,5 +85,5 @@ Rails::Initializer.run do |config|
   # the same for controllers
   config.load_paths += %w(statements).collect{|dir|"#{RAILS_ROOT}/app/controllers/#{dir}"}
   # libs
-  config.load_paths += %w(activity_tracking_service drafting_service echo_service).collect{|dir|"#{RAILS_ROOT}/lib/#{dir}"}
+  config.load_paths += %w(activity_tracking_service drafting_service echo_service authentication_service).collect{|dir|"#{RAILS_ROOT}/lib/#{dir}"}
 end
