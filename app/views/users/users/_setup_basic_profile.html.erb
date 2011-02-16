@@ -1,0 +1,24 @@
+<div class='registry'>
+	<div id="setup_basic_profile" class='registry_container'>
+	   <%= content_tag :span, content_tag(:h1, I18n.t('users.user_sessions.login.setup_basic_profile')), :class => 'sign_in logo'%>
+		 <% form_for @user, :url => users_path, :html => {:class => 'ajax_form', :id => 'new_user_form'} do |f| %>
+		 <div class='setup_basic_profile_container'>
+		 	  <p>
+          <%= f.label I18n.t('application.general.first_name') %><br />
+          <%= f.text_field :first_name %><br />
+        </p>
+        <p>
+          <%= f.label I18n.t('application.general.last_name') %><br />
+          <%= f.text_field :last_name %><br />
+        </p>
+        
+        <%= tag('br')tag('br') %>
+        <%= f.submit I18n.t('application.general.save'), :class => 'signinButton registry_button' %>
+		 </div>
+		 <div class='setup_basic_profile_container'>
+		 	  <%= image_tag @profile_info['photo'], :size => "60x40" %>
+        <%= check_box_tag :inherit_photo, I18n.t("users.user_sessions.login.use_photo") %>
+     </div>
+		 <% end %>
+	</div>
+</div>

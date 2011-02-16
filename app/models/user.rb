@@ -60,10 +60,12 @@ class User < ActiveRecord::Base
 
   # Signup process before activation: get login name and email, ensure to not
   # handle with sessions.
-  def signup!(params)
-    self.first_name = params[:user][:profile][:first_name]
-    self.last_name  = params[:user][:profile][:last_name]
-    self.email              = params[:user][:email]
+  def signup!(opts={}, with_session_maintenance=false)
+    opts[:identifiers] ||= []
+    self.first_name = opts[:profile][:first_name]
+    self.last_name  = opts[:profile][:last_name]
+    self.email              = opts[:email]
+    self.identifiers = opts[:identifiers]
     save_without_session_maintenance
   end
 

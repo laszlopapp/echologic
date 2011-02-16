@@ -10,7 +10,7 @@ module ActiveRecord
         def acts_as_social(*args)
           
           class_eval do
-            has_many :rpx_identifiers, :class_name => 'RPXIdentifier', :dependent => :destroy
+            has_many :rpx_identifiers, :class_name => 'RpxIdentifier', :dependent => :destroy
           
             #
             # test if account it using RPX authentication
@@ -39,7 +39,7 @@ module ActiveRecord
               # Add custom find_by_rpx_identifier class method
               #
               def find_by_rpx_identifier(id)
-                identifier = RPXIdentifier.find_by_identifier(id)
+                identifier = RpxIdentifier.find_by_identifier(id)
                 if identifier.nil?
                   if self.column_names.include? 'rpx_identifier'
                     # check for authentication using <=1.0.4, migrate identifier to rpx_identifiers table

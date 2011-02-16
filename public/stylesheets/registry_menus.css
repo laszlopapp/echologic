@@ -46,7 +46,7 @@
   height: 50px;
 }
 
-.signin_container, .signup_container {
+.signin_container, .signup_container, .setup_basic_profile_container {
 	float: left;
   padding-left: 50px;
   width: 320px;

@@ -38,7 +38,7 @@ Given /^"([^\"]*)" is an unregistered user with "([^\"]*)" as an email$/ do |use
   user_names = user_full_name.split(" ")
   @user = User.new
   @user.create_profile
-  @user.signup!(:user => {:profile => {:first_name => user_names.first, :last_name => user_names.last}, :email => email})
+  @user.signup!(:first_name => user_names.first, :last_name => user_names.last, :email => email)
 end
 
 Then /^"([^\"]*)" should have "([^\"]*)" as "([^\"]*)"$/ do |user, code, attribute|

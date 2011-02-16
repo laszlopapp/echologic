@@ -147,7 +147,8 @@ en:
         set_password: Forgot your password?
         remember: Remember me!
         hello: Logged in<br/><strong>{{name}}</strong>
-        
+        setup_basic_profile: 'Setup Basic Profile'
+        use_photo: 'Use in echo, too'
       messages:
         login_success: "Login successful. Welcome back to echo."
         login_failed: "Unknown user or wrong password."

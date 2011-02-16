@@ -64,7 +64,7 @@ ActionController::Routing::Routes.draw do |map|
   map.addrpxauth "addrpxauth", :controller => "users", :action => "addrpxauth", :method => :post
 
 
-  map.resources :users, :controller => 'users/users', :path_prefix => '' do |user|
+  map.resources :users, :controller => 'users/users', :path_prefix => '',:member => [:setup_basic_profile] do |user|
     user.resources :web_addresses, :controller => 'users/web_addresses', :except => [:index]
     user.resources :spoken_languages, :controller => 'users/spoken_languages', :except => [:index]
     user.resources :activities,   :controller => 'users/activities',   :except => [:index]
@@ -82,6 +82,7 @@ ActionController::Routing::Routes.draw do |map|
   map.signup_remote '/signup_remote',          :controller => 'users/users',       :action => 'create_rpx', :method => :post
   map.signout    '/signout',                   :controller => 'users/user_sessions', :action => 'destroy'
   map.activate   '/activate/:id',              :controller => 'users/activations', :action => 'create'
+  
 
   map.resources :reports, :controller => 'users/reports'
 

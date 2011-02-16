@@ -181,6 +181,7 @@ ActiveRecord::Schema.define(:version => 20110210152851) do
   create_table "rpx_identifiers", :force => true do |t|
     t.string   "identifier",    :null => false
     t.string   "provider_name"
+    t.string   "profile_info"
     t.integer  "user_id",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"

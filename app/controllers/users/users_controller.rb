@@ -1,14 +1,14 @@
 class Users::UsersController < ApplicationController
 
-  before_filter :require_no_user, :only => [:new, :create]
-  skip_before_filter :require_user, :only => [:index, :new, :create]
-  before_filter :fetch_user, :only => [:show, :edit, :update, :update_password, :destroy]
+  before_filter :require_no_user, :only => [:new, :create, :create_rpx]
+  skip_before_filter :require_user, :only => [:index, :new, :create, :create_rpx]
+  before_filter :fetch_user, :only => [:show, :set_names, :edit, :update, :update_password, :destroy]
 
 
   access_control do
-    allow logged_in, :to => [:show, :index, :update_password, :add_concernments, :delete_concernment, :auto_complete_for_tag_value]
+    allow logged_in, :to => [:show, :set_names, :index, :update_password, :add_concernments, :delete_concernment, :auto_complete_for_tag_value]
     allow :admin
-    allow anonymous, :to => [:new, :create]
+    allow anonymous, :to => [:new, :create, :create_rpx]
   end
 
   # Generate auto completion based on values in the database. Load only 5
@@ -38,6 +38,12 @@ class Users::UsersController < ApplicationController
     end
   end
 
+  def setup_basic_profile
+    session[:redirect_url] = request.referer
+    @profile_info = JSON.parse(@user.identifiers.first.profile_info)
+    render_static_new :template => 'users/users/setup_basic_profile'
+  end
+
   # GET /users/new
   # GET /users/new.xml
   def new
@@ -60,7 +66,8 @@ class Users::UsersController < ApplicationController
     @user.create_profile
     begin
       respond_to do |format|
-        if @user.signup!(params)
+        profile = params[:user].delete(:profile)
+        if @user.signup!(params[:user].merge(profile))
           @user.deliver_activation_instructions!
           set_info 'users.users.messages.created'
           format.html {
@@ -75,6 +82,42 @@ class Users::UsersController < ApplicationController
           set_error @user
           format.html { flash_error and render :template => 'users/users/new', :layout => 'static' }
           format.js   { render_with_error }
+        end
+      end
+    rescue Exception => e
+      log_message_error(e, "Error creating user")
+    else
+      log_message_info("User '#{@user.id}' has been created sucessfully.")
+    end
+  end
+
+  def create_rpx
+    redirect_url = session[:redirect_url]
+    rpx_helper = RpxHelper.new(ENV['ECHO_RPX_API_KEY'], "https://#{ENV['ECHO_RPX_APP_NAME']}", nil)
+    token = params[:token]
+    profile_info = rpx_helper.auth_info(token)
+    
+    @user = User.new
+    @user.create_profile
+    
+    opts={}
+    opts[:email]=profile_info['email']
+    opts[:first_name]=profile_info['name']['givenName']
+    opts[:last_name]=profile_info['name']['familyName']
+    opts[:identifiers] = []
+    opts[:identifiers] << RpxIdentifier.new(:identifier => profile_info['identifier'], 
+                                            :provider_name => profile_info['providerName'],
+                                            :profile_info => profile_info.to_json)
+    
+    begin
+      respond_to do |format|
+        if @user.signup!(opts)
+          set_later_call user_setup_basic_profile_url(@user)
+          format.html { flash_later_call and redirect_to redirect_url }
+        else
+          set_error @user
+          set_later_call signup_url
+          format.html { flash_later_call and flash_error and redirect_to redirect_url }
         end
       end
     rescue Exception => e
