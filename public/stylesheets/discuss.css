@@ -881,7 +881,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	text-decoration: none;
 }
 
-
 .statement_content a {
   color: #21587f;
   text-decoration: underline;
@@ -1067,6 +1066,7 @@ a.statement_link:hover {
   border-top: 1px dashed #CCC;
   margin-top: 15px;
   padding: 5px 0 0;
+  width: 750px;
 }
 
 #approved_ip.only_text {
