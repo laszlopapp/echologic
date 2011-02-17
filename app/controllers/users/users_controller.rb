@@ -40,7 +40,7 @@ class Users::UsersController < ApplicationController
 
   def setup_basic_profile
     session[:redirect_url] = request.referer
-    @profile_info = JSON.parse(@user.rpx_identifiers.first.profile_info)
+    @profile_info = JSON.parse(@user.social_identifiers.first.profile_info)
     render_static_new :template => 'users/users/setup_basic_profile'
   end
 
@@ -91,9 +91,8 @@ class Users::UsersController < ApplicationController
 
   def create_rpx
     redirect_url = session[:redirect_url] || root_path
-    rpx_helper = RpxHelper.new(ENV['ECHO_RPX_API_KEY'], "https://#{ENV['ECHO_RPX_APP_NAME']}", nil)
     token = params[:token]
-    profile_info = rpx_helper.auth_info(token)
+    profile_info = SocialService.get_profile_info(token)
     
     @user = User.new
     @user.create_profile
@@ -102,10 +101,10 @@ class Users::UsersController < ApplicationController
     opts[:email] = profile_info['email']
     opts[:first_name] = profile_info['name']['givenName']
     opts[:last_name] = profile_info['name']['familyName']
-    opts[:rpx_identifiers] = []
-    opts[:rpx_identifiers] << RpxIdentifier.new(:identifier => profile_info['identifier'], 
-                                            :provider_name => profile_info['providerName'],
-                                            :profile_info => profile_info.to_json )
+    opts[:social_identifiers] = []
+    opts[:social_identifiers] << SocialIdentifier.new(:identifier => profile_info['identifier'], 
+                                                      :provider_name => profile_info['providerName'],
+                                                      :profile_info => profile_info.to_json )
     
     begin
       User.transaction do
@@ -115,7 +114,7 @@ class Users::UsersController < ApplicationController
             format.html { flash_later_call and redirect_to redirect_url }
           else
             set_error @user
-            @user.rpx_identifiers.each {|id| set_error(id)} if !@user.rpx_identifiers.blank?
+            @user.social_identifiers.each {|id| set_error(id)} if !@user.social_identifiers.blank?
             set_later_call signup_url
             format.html { flash_later_call and flash_error and redirect_to redirect_url }
           end

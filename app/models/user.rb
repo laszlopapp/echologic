@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   # we need to make sure that either a password or openid gets set
   # when the user activates his account
   def password_required?
-    !self.crypted_password.blank? or (self.crypted_password.blank? and self.rpx_identifiers.empty?)
+    !self.crypted_password.blank? or (self.crypted_password.blank? and self.social_identifiers.empty?)
   end
 
   # Return true if user is activated.

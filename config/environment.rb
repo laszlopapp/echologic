@@ -87,5 +87,5 @@ Rails::Initializer.run do |config|
   # the same for controllers
   config.load_paths += %w(statements).collect{|dir|"#{RAILS_ROOT}/app/controllers/#{dir}"}
   # libs
-  config.load_paths += %w(activity_tracking_service drafting_service echo_service authentication_service).collect{|dir|"#{RAILS_ROOT}/lib/#{dir}"}
+  config.load_paths += %w(activity_tracking_service drafting_service echo_service social_service).collect{|dir|"#{RAILS_ROOT}/lib/#{dir}"}
 end

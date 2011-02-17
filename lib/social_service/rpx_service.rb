@@ -6,15 +6,16 @@ require 'net/http'
 require 'net/https'
 require 'json'
 
-  
-class RpxHelper
+
+class RpxService
   attr_reader :api_key, :base_url, :realm
+  
   def initialize(api_key, base_url, realm)
     @api_key = api_key
     @base_url = base_url.sub(/\/*$/, '')
     @realm = realm
   end
-  def auth_info(token)
+  def get_profile_info(token)
     data = api_call 'auth_info', :token => token
     data['profile']
   end

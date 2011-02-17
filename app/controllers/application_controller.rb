@@ -281,7 +281,7 @@ class ApplicationController < ActionController::Base
   def flash_later_call
     flash[:later_call] = @later_call
   end
-
+  
   # Get formatted error string from error partial for a given object, then show
   # it on the page object as an error message.
   def render_with_error(message=@error)

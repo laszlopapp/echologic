@@ -1,14 +1,14 @@
 class AddAuthlogicRpxMigration < ActiveRecord::Migration
   def self.up
-    create_table :rpx_identifiers do |t|
+    create_table :social_identifiers do |t|
       t.string  :identifier, :null => false
       t.string  :provider_name
       t.text  :profile_info
       t.integer :user_id, :null => false
       t.timestamps
     end
-    add_index :rpx_identifiers, :identifier, :unique => true, :null => false
-    add_index :rpx_identifiers, :user_id, :unique => false, :null => false
+    add_index :social_identifiers, :identifier, :unique => true, :null => false
+    add_index :social_identifiers, :user_id, :unique => false, :null => false
     
     # == Customisation may be required here ==
     # You may need to remove database constraints on other fields if they will be unused in the RPX case
@@ -18,12 +18,12 @@ class AddAuthlogicRpxMigration < ActiveRecord::Migration
     
     change_column :users, :crypted_password, :string, :default => nil, :null => true
     change_column :users, :password_salt, :string, :default => nil, :null => true
-  
+    remove_column :users, :openid_identifier
   end
   
   def self.down
-    drop_table :rpx_identifiers
-    
+    drop_table :social_identifiers
+    add_column :users, :openid_identifier, :string
     # == Customisation may be required here ==
     # Restore user model database constraints as appropriate
     # e.g.:

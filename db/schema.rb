@@ -179,18 +179,6 @@ ActiveRecord::Schema.define(:version => 20110217145006) do
     t.datetime "updated_at"
   end
 
-  create_table "rpx_identifiers", :force => true do |t|
-    t.string   "identifier",    :null => false
-    t.string   "provider_name"
-    t.text     "profile_info"
-    t.integer  "user_id",       :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "rpx_identifiers", ["identifier"], :name => "index_rpx_identifiers_on_identifier", :unique => true
-  add_index "rpx_identifiers", ["user_id"], :name => "index_rpx_identifiers_on_user_id"
-
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
@@ -200,6 +188,18 @@ ActiveRecord::Schema.define(:version => 20110217145006) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "social_identifiers", :force => true do |t|
+    t.string   "identifier",    :null => false
+    t.string   "provider_name"
+    t.text     "profile_info"
+    t.integer  "user_id",       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "social_identifiers", ["identifier"], :name => "index_social_identifiers_on_identifier", :unique => true
+  add_index "social_identifiers", ["user_id"], :name => "index_social_identifiers_on_user_id"
 
   create_table "spoken_languages", :force => true do |t|
     t.integer "user_id"
@@ -334,7 +334,6 @@ ActiveRecord::Schema.define(:version => 20110217145006) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "active",                  :default => false, :null => false
-    t.string   "openid_identifier"
     t.integer  "last_login_language_id"
     t.integer  "activity_notification",   :default => 1
     t.integer  "drafting_notification",   :default => 1
