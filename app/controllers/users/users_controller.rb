@@ -2,11 +2,11 @@ class Users::UsersController < ApplicationController
 
   before_filter :require_no_user, :only => [:new, :create, :create_rpx]
   skip_before_filter :require_user, :only => [:index, :new, :create, :create_rpx]
-  before_filter :fetch_user, :only => [:show, :set_names, :edit, :update, :update_password, :destroy]
-
+  before_filter :fetch_user, :only => [:show, :setup_basic_profile, :edit, :update, :update_password, :destroy]
+  
 
   access_control do
-    allow logged_in, :to => [:show, :set_names, :index, :update_password, :add_concernments, :delete_concernment, :auto_complete_for_tag_value]
+    allow logged_in, :to => [:show, :index, :setup_basic_profile, :update_password, :add_concernments, :delete_concernment, :auto_complete_for_tag_value, :update]
     allow :admin
     allow anonymous, :to => [:new, :create, :create_rpx]
   end
@@ -40,7 +40,7 @@ class Users::UsersController < ApplicationController
 
   def setup_basic_profile
     session[:redirect_url] = request.referer
-    @profile_info = JSON.parse(@user.identifiers.first.profile_info)
+    @profile_info = JSON.parse(@user.rpx_identifiers.first.profile_info)
     render_static_new :template => 'users/users/setup_basic_profile'
   end
 
@@ -61,27 +61,25 @@ class Users::UsersController < ApplicationController
 
   # modified users_controller.rb
   def create
-
+    redirect_url = session[:redirect_url] || root_path
     @user = User.new
     @user.create_profile
     begin
       respond_to do |format|
-        profile = params[:user].delete(:profile)
-        if @user.signup!(params[:user].merge(profile))
+        if @user.signup!(params[:user])
           @user.deliver_activation_instructions!
           set_info 'users.users.messages.created'
-          format.html {
-            flash_info and redirect_to root_url
-          }
-          format.js do
+          format.html { flash_info and redirect_to redirect_url }
+          format.js {
             render_with_info do |page|
-              page.redirect_to root_url
+              page << "$('#dialogContent').dialog('close');"
             end
-          end
+          }
         else
           set_error @user
-          format.html { flash_error and render :template => 'users/users/new', :layout => 'static' }
-          format.js   { render_with_error }
+          set_later_call signup_url
+          format.html { flash_error and flash_later_call and redirect_to redirect_url }
+          format.js{render_with_error}
         end
       end
     rescue Exception => e
@@ -92,7 +90,7 @@ class Users::UsersController < ApplicationController
   end
 
   def create_rpx
-    redirect_url = session[:redirect_url]
+    redirect_url = session[:redirect_url] || root_path
     rpx_helper = RpxHelper.new(ENV['ECHO_RPX_API_KEY'], "https://#{ENV['ECHO_RPX_APP_NAME']}", nil)
     token = params[:token]
     profile_info = rpx_helper.auth_info(token)
@@ -101,23 +99,26 @@ class Users::UsersController < ApplicationController
     @user.create_profile
     
     opts={}
-    opts[:email]=profile_info['email']
-    opts[:first_name]=profile_info['name']['givenName']
-    opts[:last_name]=profile_info['name']['familyName']
-    opts[:identifiers] = []
-    opts[:identifiers] << RpxIdentifier.new(:identifier => profile_info['identifier'], 
+    opts[:email] = profile_info['email']
+    opts[:first_name] = profile_info['name']['givenName']
+    opts[:last_name] = profile_info['name']['familyName']
+    opts[:rpx_identifiers] = []
+    opts[:rpx_identifiers] << RpxIdentifier.new(:identifier => profile_info['identifier'], 
                                             :provider_name => profile_info['providerName'],
-                                            :profile_info => profile_info.to_json)
+                                            :profile_info => profile_info.to_json )
     
     begin
-      respond_to do |format|
-        if @user.signup!(opts)
-          set_later_call user_setup_basic_profile_url(@user)
-          format.html { flash_later_call and redirect_to redirect_url }
-        else
-          set_error @user
-          set_later_call signup_url
-          format.html { flash_later_call and flash_error and redirect_to redirect_url }
+      User.transaction do
+        respond_to do |format|
+          if @user.activate!(opts)
+            set_later_call setup_basic_profile_user_url(@user)
+            format.html { flash_later_call and redirect_to redirect_url }
+          else
+            set_error @user
+            @user.rpx_identifiers.each {|id| set_error(id)} if !@user.rpx_identifiers.blank?
+            set_later_call signup_url
+            format.html { flash_later_call and flash_error and redirect_to redirect_url }
+          end
         end
       end
     rescue Exception => e
@@ -130,13 +131,17 @@ class Users::UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.xml
   def update
+    redirect_url = session[:redirect_url] || my_profile_path
     begin
-      respond_to do |format|
-        if @user.update_attributes(params[:user])
-          flash[:notice] = "User was successfully updated."
-          format.html { redirect_to(profile_path) }
-        else
-          format.html { render :action => "edit" }
+      User.transaction do 
+        respond_to do |format|
+          if @user.update_attributes(params[:user]) and @user.profile.save
+            set_info "users.activation.messages.success"
+            format.html { flash_info and redirect_to redirect_url}
+          else
+            set_error @user
+            format.html { flash_error and redirect_to request.referer }
+          end
         end
       end
     rescue Exception => e
@@ -246,6 +251,10 @@ class Users::UsersController < ApplicationController
 
   def fetch_user
     @user = User.find(params[:id]) || current_user
+  end
+
+  def user_not_active?
+    !@user.active
   end
 
 end

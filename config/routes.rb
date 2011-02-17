@@ -27,8 +27,8 @@ ActionController::Routing::Routes.draw do |map|
   # SECTION my echo routing
   map.my_profile 'my_profile', :controller => 'my_echo', :action => 'profile'
 
-  map.resources :profiles, :controller => 'users/profile', :path_prefix => '', :only => [:show, :edit, :update]
-  map.profile_details '/profiles/:id/details', :controller => 'users/profile', :action => 'details'
+  map.resources :profiles, :controller => 'users/profiles', :path_prefix => '', :only => [:show, :edit, :update]
+  map.profile_details '/profiles/:id/details', :controller => 'users/profiles', :action => 'details'
 
   map.welcome 'welcome', :controller => 'my_echo', :action => 'welcome'
   map.settings 'settings', :controller => 'my_echo', :action => 'settings'
@@ -64,7 +64,7 @@ ActionController::Routing::Routes.draw do |map|
   map.addrpxauth "addrpxauth", :controller => "users", :action => "addrpxauth", :method => :post
 
 
-  map.resources :users, :controller => 'users/users', :path_prefix => '',:member => [:setup_basic_profile] do |user|
+  map.resources :users, :controller => 'users/users', :path_prefix => '', :member => [:setup_basic_profile] do |user|
     user.resources :web_addresses, :controller => 'users/web_addresses', :except => [:index]
     user.resources :spoken_languages, :controller => 'users/spoken_languages', :except => [:index]
     user.resources :activities,   :controller => 'users/activities',   :except => [:index]

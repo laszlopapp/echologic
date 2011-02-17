@@ -19,7 +19,7 @@ class Users::ActivationsController < ApplicationController
 
     raise Exception if @user.active?
 
-    if @user.activate!(params)
+    if @user.activate!(params[:user])
       @user.deliver_activation_confirmation!
       set_info 'users.activation.messages.success'
       flash_info and redirect_to_home

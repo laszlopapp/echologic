@@ -1,3 +1,5 @@
+require 'rest-open-uri'
+
 class Profile < ActiveRecord::Base
 
   # Constants
@@ -42,13 +44,18 @@ class Profile < ActiveRecord::Base
   end
 
   # Handle attached user picture through paperclip plugin
+  attr_accessor :avatar_url
   has_attached_file :avatar, :styles => { :big => "128x>", :small => "x45>" },
                     :default_url => "/images/default_:style_avatar.png"
   validates_attachment_size :avatar, :less_than => 5.megabytes
   validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/pjpeg', 'image/x-png']
+  before_validation :get_remote_avatar, :if => :avatar_url?
+  
   
   # paperclip callback, used to recalculate completeness when uploading an avatar
   after_avatar_post_process :calculate_completeness
+  
+  
 
   # Return the full name of the user composed of first- and lastname
   def full_name
@@ -103,5 +110,16 @@ class Profile < ActiveRecord::Base
                     profiles.last_name, profiles.first_name, u.id asc;"
       
     all opts
+  end
+  
+  private
+  def avatar_url?
+    !self.avatar_url.blank?
+  end
+
+  #
+  #block of aux functions to support the download of an external profile image
+  def get_remote_avatar
+    self.avatar = open(avatar_url)
   end
 end

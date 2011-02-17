@@ -16,21 +16,29 @@ class Users::UserSessionsController < ApplicationController
 
   # TODO use redirect back or default! see application controller!
   def create
-    redirect_url = session[:redirect_url]
+    redirect_url = session[:redirect_url] || root_path
     @user_session = UserSession.new(params[:user_session])
     respond_to do |format|
       if @user_session.save
         set_info 'users.user_sessions.messages.login_success'
-        format.html { flash_info and redirect_to redirect_url }
+        flash_info
+        format.html { redirect_to redirect_url }
+        format.js{
+          render :update do |page|
+            page.redirect_to redirect_url
+          end
+        }
       else
         set_error 'users.user_sessions.messages.login_failed'
-        format.html { flash_error and redirect_to root_path }
+        set_later_call signin_path
+        format.html { flash_error and flash_later_call and redirect_to redirect_url }
+        format.js{ render_with_error }
       end
     end
   end
 
   def create_rpx
-    redirect_url = session[:redirect_url]
+    redirect_url = session[:redirect_url] || root_path
     rpx_helper = RpxHelper.new(ENV['ECHO_RPX_API_KEY'], "https://#{ENV['ECHO_RPX_APP_NAME']}", nil)
     token = params[:token]
     profile_info = rpx_helper.auth_info(token)
@@ -40,17 +48,17 @@ class Users::UserSessionsController < ApplicationController
       respond_to do |format|
         set_error 'users.user_sessions.messages.login_failed_rpx'
         set_later_call signin_path
-        format.html { flash_error and flash_later_call and redirect_to root_path }
+        format.html { flash_error and flash_later_call and redirect_to redirect_url }
       end
     else
-      @user_session = UserSession.new :email => user.email, :password => user.password
+      @user_session = UserSession.new(user)
       respond_to do |format|
         if @user_session.save
           set_info 'users.user_sessions.messages.login_success'
           format.html { flash_info and redirect_to redirect_url }
         else
           set_error 'users.user_sessions.messages.login_failed'
-          format.html { flash_error and redirect_to root_path }
+          format.html { flash_error and redirect_to redirect_url }
         end
       end
     end

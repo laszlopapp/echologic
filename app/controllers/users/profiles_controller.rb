@@ -1,4 +1,4 @@
-class Users::ProfileController < ApplicationController
+class Users::ProfilesController < ApplicationController
   helper :connect
 
   skip_before_filter :require_user, :only => [:details]

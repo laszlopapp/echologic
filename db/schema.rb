@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110210152851) do
+ActiveRecord::Schema.define(:version => 20110217145006) do
 
   create_table "about_item_translations", :force => true do |t|
     t.integer "about_item_id"
@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(:version => 20110210152851) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.float    "completeness",        :default => 0.01
+    t.string   "avatar_remote_url"
   end
 
   add_index "profiles", ["user_id", "id"], :name => "index_profiles_on_user_id_and_id"
@@ -181,7 +182,7 @@ ActiveRecord::Schema.define(:version => 20110210152851) do
   create_table "rpx_identifiers", :force => true do |t|
     t.string   "identifier",    :null => false
     t.string   "provider_name"
-    t.string   "profile_info"
+    t.text     "profile_info"
     t.integer  "user_id",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -160,7 +160,7 @@ en:
     activation:
 
       messages:
-        success: Your account has been successfully activated. Welcome to echo!
+        success: Your account has been successfully created. Welcome to echo!
         failed: Your account could not be activated. Please check your input.
 
     # Password resets section
@@ -201,6 +201,7 @@ en:
 
       picture:
         upload_button: Change
+        
 
       upload_picture:
         title: Upload Picture
@@ -208,7 +209,8 @@ en:
         progress: Your avatar is being uploaded. Please wait...
 
       messages:
-        updated: "Profile information updated successful."
+        updated: "Profile information updated successfully."
+        image_invalid: 'is invalid or inaccessible'
 
     # Spoken Languages section
     spoken_languages:

@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   # Every user must have a profile. Profiles are destroyed with the user.
   has_one :profile
-  delegate :avatar, :percent_completed, :full_name, :first_name, :first_name=, :last_name, :last_name=,
+  delegate :avatar, :avatar=, :avatar_url=, :percent_completed, :full_name, :first_name, :first_name=, :last_name, :last_name=,
            :city, :city=, :country, :country=, :completeness, :calculate_completeness, :location, :to => :profile
 
   #last login language, important for the activity tracking email language when the user doesn't have anything set
@@ -27,10 +27,10 @@ class User < ActiveRecord::Base
   acts_as_authentic do |c|
     c.validates_length_of_password_field_options = {:on => :update,
                                                     :minimum => 4,
-                                                    :if => :has_no_credentials?}
+                                                    :if => :password_required?}
     c.validates_length_of_password_confirmation_field_options = {:on => :update,
                                                                  :minimum => 4,
-                                                                 :if => :has_no_credentials?}
+                                                                 :if => :password_required?}
   end
 
   # acl9 plugin to do authorization
@@ -39,8 +39,8 @@ class User < ActiveRecord::Base
 
   # we need to make sure that either a password or openid gets set
   # when the user activates his account
-  def has_no_credentials?
-    self.crypted_password.blank? && self.openid_identifier.blank?
+  def password_required?
+    !self.crypted_password.blank? or (self.crypted_password.blank? and self.rpx_identifiers.empty?)
   end
 
   # Return true if user is activated.
@@ -60,12 +60,8 @@ class User < ActiveRecord::Base
 
   # Signup process before activation: get login name and email, ensure to not
   # handle with sessions.
-  def signup!(opts={}, with_session_maintenance=false)
-    opts[:identifiers] ||= []
-    self.first_name = opts[:profile][:first_name]
-    self.last_name  = opts[:profile][:last_name]
-    self.email              = opts[:email]
-    self.identifiers = opts[:identifiers]
+  def signup!(opts={})
+    opts.each{|k,v|self.send("#{k}=", v)}
     save_without_session_maintenance
   end
 
@@ -78,10 +74,9 @@ class User < ActiveRecord::Base
 
   # Activation process. Set user active and add its password and openID and
   # save with session handling afterwards.
-  def activate!(params)
-    u = params[:user]
+  def activate!(opts)
     self.active = true
-    self.update_attributes(params[:user])
+    self.update_attributes(opts)
   end
 
   # Uses mailer to deliver activation instructions
