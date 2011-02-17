@@ -1,5 +1,6 @@
 class NewslettersController < ApplicationController
   layout 'admin'
+  helper :mail
   
   skip_before_filter :require_user, :only => [:new, :create]
 
@@ -17,6 +18,7 @@ class NewslettersController < ApplicationController
     config.create.columns = [:subject, :text]
     config.update.columns = [:subject, :text]
     list.sorting = [{:created_at => 'DESC'}]
+    config.show.link.page = true
     config.action_links.add 'test_newsletter', :label => 'TEST MAIL', :type => :record, :method => :put, :page => true
     config.action_links.add 'send_newsletter', :label => 'Send Newsletter!', :type => :record, :method => :put, :page => true, :confirm => I18n.t("newsletters.send_confirmation")
     config.list.per_page = 10
@@ -35,5 +37,18 @@ class NewslettersController < ApplicationController
     newsletter = Newsletter.find(params[:id])
     MailerService.instance.send_newsletter_mails(newsletter)
     redirect_to newsletters_path
+  end
+  
+  def show 
+    newsletter = Newsletter.find(params[:id])
+    user = params[:user_id].nil? ? current_user : User.find(params[:user_id])
+    @name = user.full_name
+    @text = newsletter.text
+    @language = Language[I18n.locale]
+    @no_greeting = !newsletter.default_greeting
+    @no_goodbye = !newsletter.default_goodbye
+    respond_to do |format|
+      format.html {render :template => 'newsletters/show', :layout => 'mail'}
+    end
   end
 end
