@@ -52,6 +52,10 @@ li {
   width: 920px;
 }
 
+#team .jspVerticalBar {
+  right: -5px;
+}
+
 #team_members {
   height: 400px;
   overflow: hidden;

@@ -784,7 +784,7 @@
 }
 
 .jspVerticalBar, .jspHorizontalBar {
-	background-color: transparent;
+	background-color: transparent !important;
 }
 
 .jspHorizontalBar {
