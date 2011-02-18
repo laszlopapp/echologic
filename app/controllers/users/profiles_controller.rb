@@ -19,8 +19,8 @@ class Users::ProfilesController < ApplicationController
   # profile! ;)
   def show
     @profile = Profile.find(params[:id])
-    respond_to_js :partial => 'users/profile/profile_own' do |format|
-      format.js {replace_container('personal_container', :partial => 'users/profile/profile_own')}
+    respond_to_js :partial => 'users/profiles/profile_own' do |format|
+      format.js {replace_container('personal_container', :partial => 'users/profiles/profile_own')}
     end
   end
 
@@ -52,7 +52,7 @@ class Users::ProfilesController < ApplicationController
           format.html { flash_info and redirect_to my_profile_path }
           format.js   {
             render_with_info do |p|
-              p.replace('personal_container', :partial => 'users/profile/profile_own')
+              p.replace('personal_container', :partial => 'users/profiles/profile_own')
             end
           }
         else

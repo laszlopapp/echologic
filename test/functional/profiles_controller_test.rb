@@ -3,7 +3,7 @@ require 'test_helper'
 class ProfilesControllerTest < ActionController::TestCase
   def setup
     login_as :user
-    @controller = Users::ProfileController.new
+    @controller = Users::ProfilesController.new
   end
   
   test "should get show" do

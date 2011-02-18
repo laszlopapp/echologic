@@ -2,7 +2,7 @@
 # the standard mail ending will be appended.
 When /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |user, password|
   user += "@echologic.org" unless user =~ /.*@.*\..{2,3}/
-  visit root_url
+  visit signin_url
   fill_in('user_session_email', :with => user)
   fill_in('user_session_password', :with => password)
   click_button('user_session_submit')
@@ -10,11 +10,7 @@ When /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |user, passwor
 end
 
 When /^I login as "([^\"]*)" with password "([^\"]*)"$/ do |user, password|
-  user += "@echologic.org" unless user =~ /.*@.*\..{2,3}/
-  fill_in('user_session_email', :with => user)
-  fill_in('user_session_password', :with => password)
-  click_button('user_session_submit')
-  @user = User.find_by_email(user)
+  Then "I am logged in as \"#{user}\" with password \"#{password}\""
 end
 
 Given /^"([^\"]*)" forgot his password$/ do |user_full_name|
@@ -48,12 +44,13 @@ Then /^"([^\"]*)" should have "([^\"]*)" as "([^\"]*)"$/ do |user, code, attribu
   assert @user.send(attribute.to_sym).eql?(key)
 end
 
-Then /^an "([^\"]*)" email should be sent to "([^\"]*)"$/ do |email_type, user_full_name|
+Then /^an "([^\"]*)" email should be sent to "([^\"]*)"$/ do |email_type, email_address|
   assert !ActionMailer::Base.deliveries.empty?
   email = ActionMailer::Base.deliveries.first
+  assert_equal [email_address], email.to
   assert_match /#{email_type}/, email.subject
-  assert_match /Dear #{user_full_name}/, email.encoded
 end
+
 
 Then /^"([^\"]*)" should have "([^\"]*)" as password$/ do |user_full_name, password|
   user_names = user_full_name.split(" ")

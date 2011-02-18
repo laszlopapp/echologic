@@ -1,7 +1,7 @@
 module ConnectHelper
 
   def open_profile_details(profile)
-    link_to url_for(:controller => 'users/profile',
+    link_to url_for(:controller => 'users/profiles',
                     :action => 'details',
                     :id => profile),
             :class => 'ajax show_link avatar_holder' do

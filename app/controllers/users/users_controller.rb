@@ -92,7 +92,7 @@ class Users::UsersController < ApplicationController
   def create_rpx
     redirect_url = session[:redirect_url] || root_path
     token = params[:token]
-    profile_info = SocialService.get_profile_info(token)
+    profile_info = SocialService.instance.get_profile_info(token)
     
     @user = User.new
     @user.create_profile

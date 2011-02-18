@@ -27,10 +27,10 @@ class User < ActiveRecord::Base
   acts_as_authentic do |c|
     c.validates_length_of_password_field_options = {:on => :update,
                                                     :minimum => 4,
-                                                    :if => :password_required?}
+                                                    :if => :has_no_credentials?}
     c.validates_length_of_password_confirmation_field_options = {:on => :update,
                                                                  :minimum => 4,
-                                                                 :if => :password_required?}
+                                                                 :if => :has_no_credentials?}
   end
 
   # acl9 plugin to do authorization
@@ -39,8 +39,8 @@ class User < ActiveRecord::Base
 
   # we need to make sure that either a password or openid gets set
   # when the user activates his account
-  def password_required?
-    !self.crypted_password.blank? or (self.crypted_password.blank? and self.social_identifiers.empty?)
+  def has_no_credentials?
+    self.crypted_password.blank? && self.social_identifiers.empty?
   end
 
   # Return true if user is activated.
