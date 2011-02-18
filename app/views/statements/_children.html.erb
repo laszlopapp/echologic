@@ -10,6 +10,10 @@
   <!-- The children -->
 	<% if children and children.kind_of?(Array) %>
   <%= render :partial => type.classify.constantize.children_list_template,
-             :locals => {:type => type, :children => children, :parent => @statement_node, :display => true, :new_level => true}%>
+             :locals => {:type => type,
+                         :children => children,
+                         :parent => @statement_node,
+                         :display => true,
+                         :new_level => true}%>
 	<% end %>
 </div>
