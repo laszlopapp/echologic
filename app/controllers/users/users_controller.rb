@@ -136,10 +136,17 @@ class Users::UsersController < ApplicationController
         respond_to do |format|
           if @user.update_attributes(params[:user]) and @user.profile.save
             set_info "users.activation.messages.success"
-            format.html { flash_info and redirect_to redirect_url}
+            flash_info
+            format.html { redirect_to redirect_url}
+            format.js {
+              render :update do |page|
+                page.redirect_to redirect_url
+              end
+            }
           else
             set_error @user
             format.html { flash_error and redirect_to request.referer }
+            format.js{ render_with_error }
           end
         end
       end

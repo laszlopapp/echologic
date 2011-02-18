@@ -23,6 +23,11 @@
   
 }
 
+.registry_container .logo.password_resets {
+  width: 350px;
+}
+
+
 .registry_label {
 	display: inline-block;
   width: 170px;

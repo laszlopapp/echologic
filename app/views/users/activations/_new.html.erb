@@ -1,0 +1,30 @@
+<div class='registry'>
+  <div id="setup_basic_profile" class='registry_container'>
+     <%= content_tag :span, content_tag(:h1, I18n.t('users.user_sessions.login.setup_basic_profile')), :class => 'sign_in logo'%>
+     <% form_for @user, :url => activate_path(@user.id), :html => {:method => :post, :class => "echoForm ajax_form",:id => 'new_user_form'} do |f| %>
+     <div class='setup_basic_profile_container'>
+        <p>
+          <%= f.label I18n.t('application.general.first_name') %><br />
+          <%= f.text_field :first_name %><br />
+        </p>
+        <p>
+          <%= f.label I18n.t('application.general.last_name') %><br />
+          <%= f.text_field :last_name %><br />
+        </p>
+				<p>
+			    <%= f.label :password, I18n.t('users.profile.password.new') %><br/>
+			    <%= f.password_field :password %>
+			  </p>
+				<p>
+			    <%= f.label I18n.t('users.profile.password.confirm') %><br/>
+			    <%= f.password_field :password_confirmation %>
+			  </p>
+        
+        <%= tag('br');tag('br') %>
+        <%= f.submit I18n.t('application.general.save'), :class => 'signinButton registry_button' %>
+     </div>
+     <div class='setup_basic_profile_container'>
+     </div>
+     <% end %>
+  </div>
+</div>

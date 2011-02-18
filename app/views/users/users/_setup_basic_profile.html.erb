@@ -1,7 +1,7 @@
 <div class='registry'>
 	<div id="setup_basic_profile" class='registry_container'>
 	   <%= content_tag :span, content_tag(:h1, I18n.t('users.user_sessions.login.setup_basic_profile')), :class => 'sign_in logo'%>
-		 <% form_for @user, :url => user_path, :method => :put, :html => {:id => 'new_user_form'} do |f| %>
+		 <% form_for @user, :url => user_path, :method => :put, :html => {:class => "echoForm ajax_form",:id => 'new_user_form'} do |f| %>
 		 <div class='setup_basic_profile_container'>
 		 	  <p>
           <%= f.label I18n.t('application.general.first_name') %><br />

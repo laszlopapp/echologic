@@ -8,7 +8,7 @@
 		<%= I18n.t('application.general.or') %>
 		<%= content_tag :span, content_tag(:h2, I18n.t('users.user_sessions.login.via_another')), :class => 'box_label' %>
 		<div class='signin_container'>
-			<% form_for @user_session, :url => user_sessions_path, :html => {:class => "ajax_form", :id => 'new_login_form'} do |f| %>
+			<% form_for @user_session, :url => user_sessions_path, :html => {:class => "echoForm ajax_form", :id => 'new_login_form'} do |f| %>
 			  <p>
 	      <%= content_tag :label, I18n.t('users.user_sessions.login.email') %>
 				<%= tag('br') %>
@@ -19,7 +19,7 @@
 				<%= tag('br') %>
 	      <%= f.password_field :password, :class => 'loginField' %>
 				<%= tag('br') %>
-				<%= link_to I18n.t('users.user_sessions.login.set_password'), new_password_reset_path, :class => "bottomLabel" %>
+				<%= link_to I18n.t('users.user_sessions.login.set_password'), new_password_reset_path, :class => "ajax bottomLabel" %>
 				</p>
 				
 				<%= f.hidden_field :redirect_url, :value => request.referer %>
@@ -41,7 +41,7 @@
 	  <%= I18n.t('application.general.or') %>
 	  <%= content_tag :span, content_tag(:h2, I18n.t('users.user_sessions.login.existing_account')), :class => 'box_label' %>
 	  <div class='signup_container'>
-	    <% form_for @user, :url => users_path, :html => {:class => "ajax_form", :id => 'new_user_form'} do |f| %>
+	    <% form_for @user, :url => users_path, :html => {:class => "echoForm ajax_form", :id => 'new_user_form'} do |f| %>
 		    <p>
 		      <%= f.label I18n.t('application.general.email') %><br />
 	        <%= f.text_field :email %><br />
