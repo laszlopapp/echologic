@@ -7,7 +7,9 @@
 
   <% User.tag_types.each do |context| %>
 	  <% context = context.to_s.singularize %>
-    <%= render :partial => 'users/concernments/list', :locals => { :concernments => @user.send("#{context}_tags_hash".to_s), :context => context} %><br/>
+    <%= render :partial => 'users/concernments/list',
+               :locals => { :concernments => @user.send("#{context}_tags_hash".to_s),
+                            :context => context} %><br/>
   <% end %>
 
 </div>
