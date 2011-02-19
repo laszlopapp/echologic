@@ -7,6 +7,12 @@ class Users::ProfileController < ApplicationController
     allow logged_in # Logged in persons are allowed to modify their profile
   end
 
+  auto_complete_for :profile, :city, :limit => 5 do |profiles|
+    profiles.map {|p|
+      p.city
+    }.uniq.join("\n")
+  end
+
   def details
     @profile = Profile.find(params[:id], :include => [:web_addresses, :memberships, :user])
     respond_to do |format|

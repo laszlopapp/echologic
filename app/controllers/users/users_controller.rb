@@ -4,17 +4,19 @@ class Users::UsersController < ApplicationController
   skip_before_filter :require_user, :only => [:index, :new, :create]
   before_filter :fetch_user, :only => [:show, :edit, :update, :update_password, :destroy]
 
-
   access_control do
-    allow logged_in, :to => [:show, :index, :update_password, :add_concernments, :delete_concernment, :auto_complete_for_tag_value]
+    allow logged_in, :to => [:show,
+                             :index,
+                             :update_password,
+                             :add_concernments,
+                             :delete_concernment,
+                             :auto_complete_for_tag_value]
     allow :admin
-    allow anonymous, :to => [:new, :create]
+    allow anonymous, :to => [:new,
+                             :create]
   end
 
-  # Generate auto completion based on values in the database. Load only 5
-  # suggestions a time.
-  auto_complete_for :user, :city,    :limit => 5
-  auto_complete_for :user, :country, :limit => 5
+  # Generate auto completion based on tags in the database
   auto_complete_for :tag, :value, :limit => 20 do |tags|
     @@tag_filter.call %w(* #), tags
   end
