@@ -1,9 +1,14 @@
 <div id="login_container">
 
   <% if current_user_session %>
-    <%= link_to(image_tag(current_user.profile.avatar.url(:small), :id => 'logged_in_user_pic'), my_profile_path) %>
+    <%= link_to(image_tag(current_user.profile.avatar.url(:small),
+                          :id => 'logged_in_user_pic',
+                          :class => 'ttLink pointer',
+                          :title => I18n.t('users.profile.to')),
+                my_profile_path) %>
     <span id="logged_in_user">
-      <%= I18n.t('users.user_sessions.login.hello', :name => current_user.full_name) %><br/>
+      <%= I18n.t('users.user_sessions.login.hello',
+                 :name => current_user.full_name) %><br/>
     </span>
   <% else %>
 
