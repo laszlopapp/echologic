@@ -195,6 +195,7 @@ fr:
 
     # Profile Section
     profile:
+      to: Pour le profil
       title: Informations personnelles
       edit_title: Etablissez votre fiche personnelle
       guide: Vos informations personnelles ont été saisies. En cliquant sur"Editer" vous pouvez les modifier.
@@ -567,7 +568,7 @@ fr:
       no_document_in_language: "Le constat n'existe pas dans votre langue."
 
       breadcrumbs:
-        discuss_search: Chercher
+        discuss_search: Chercher des résultats
         my_questions: Mes questions
         labels:
           ds: ''

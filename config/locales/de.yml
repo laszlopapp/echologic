@@ -175,6 +175,7 @@ de:
 
     # Profile Section
     profile:
+      to: Zum Profil
       title: Persönliche Informationen
       edit_title: Persönliche Informationen bearbeiten
       guide: Hier sehen Sie Ihre persönlichen Informationen. Via "Editieren" können Sie Veränderungen vornehmen.
@@ -533,7 +534,7 @@ de:
       no_document_in_language: 'Diese Aussage ist noch nicht auf Deutsch verfügbar.'
 
       breadcrumbs:
-        discuss_search: Suche
+        discuss_search: Suchergebnisse
         my_questions: Meine Fragestellungen
         labels:
           ds: ''
