@@ -1,11 +1,23 @@
 class Users::MembershipsController < ApplicationController
 
-  before_filter :fetch_membership, :except => [:new, :create]
+  before_filter :fetch_membership, :only => [:show, :edit, :update, :destroy]
 
   helper :profile
 
   access_control do
     allow logged_in
+  end
+
+  auto_complete_for :membership, :organisation do |memberships|
+    memberships.map {|m|
+      m.organisation
+    }.uniq.join("\n")
+  end
+
+  auto_complete_for :membership, :position do |memberships|
+    memberships.map {|m|
+      m.position
+    }.uniq.join("\n")
   end
 
   # Shows the membership identified through params[:id]
