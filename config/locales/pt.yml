@@ -172,6 +172,7 @@ pt:
 
     # Profile Section
     profile:
+      to: Para o perfil
       title: Informação Pessoal
       edit_title: Edite a sua informação pessoal
       guide: Abaixo encontra a sua informação pessoal básica. Por favor carregue no botão 'Editar' para a mudar.
@@ -519,7 +520,7 @@ pt:
 
 
       breadcrumbs:
-        discuss_search: Pesquisa
+        discuss_search: Pesquisa resultados
         my_questions: Minhas Questões
         labels:
           ds: ''
