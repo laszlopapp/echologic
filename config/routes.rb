@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # SECTION discuss search
   map.discuss_search '/discuss/search', :controller => :statements, :action => :category
- 
+
   # SECTION connect search
   map.connect_search '/connect/search', :controller => :connect, :action => :show
   map.connect_roadmap '/connect/roadmap', :controller => :connect, :action => :roadmap
@@ -68,7 +68,6 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :activities,   :controller => 'users/activities',   :except => [:index]
     user.resources :memberships,  :controller => 'users/memberships',  :except => [:index]
   end
-  #map.resources :tao_tags, :controller => 'tao_tags', :except => [:index]
 
   map.resources :password_resets, :controller => 'users/password_resets',
                 :path_prefix => '', :except => [:destroy]
@@ -113,14 +112,14 @@ ActionController::Routing::Routes.draw do |map|
 
   #route for new question
   map.new_question         'statement/new/question', :controller => :statements, :action => :new, :type => :question
-  
+
   #Add Teaser section
   map.connect  'statement/add/question', :controller => :statements, :action => :add, :type => :question
   map.connect  'statement/:id/add/:type',  :controller => :statements, :action => :add
   map.question_descendants 'statement/descendants/question', :controller => :statements, :action => :descendants, :type => :question
 
   map.resources :statement_nodes, :controller => :statements,
-                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, 
+                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel,
                             :children, :more, :authors, :publish, :incorporate, :ancestors, :descendants],
                 :path_names => { :new => ':id/new/:type', :more => 'more/:type',
                                  :edit => 'edit/:current_document_id', :new_translation => 'translation/:current_document_id',
@@ -139,8 +138,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :follow_up_questions, :controller => :statements, :only => [:create, :update]
 
   #statement images
-  map.resources :statement_images, 
-                :member => [:reload], :only => [:edit, :update], 
+  map.resources :statement_images,
+                :member => [:reload], :only => [:edit, :update],
                 :path_names => {:edit => 'statement/:node_id/edit',
                                 :reload => 'statement/:node_id/reload'}, :as => 'image'
 
