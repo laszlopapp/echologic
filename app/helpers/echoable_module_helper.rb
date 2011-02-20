@@ -9,10 +9,14 @@ module EchoableModuleHelper
     # TODO:How to spare calculating this label two times (see next method, they're almost always sequencially triggered)
     label = supporters_number(statement_node)
     if !statement_node.nil? and (statement_node.new_record? or statement_node.ratio(previous_statement,type) > 1)
-      content_tag(:span, '', :class => "echo_indicator supporters_bar ttLink", :title => label,
+      content_tag(:span, '',
+                  :class => "echo_indicator supporters_bar ttLink",
+                  :title => label,
                   :alt => statement_node.new_record? ? 10 : statement_node.ratio(previous_statement,type))
     else
-      content_tag(:span, '', :class => "no_echo_indicator supporters_bar ttLink",:title => label)
+      content_tag(:span, '',
+                  :class => "no_echo_indicator supporters_bar ttLink",
+                  :title => label)
     end
   end
 
