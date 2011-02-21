@@ -19,6 +19,7 @@ en:
       undefined: Not yet entered
       name: Name
       email: E-Mail
+      email_confirmation: confirm E-Mail
       ok: Ok
       or: or
       save: Save
@@ -200,6 +201,7 @@ en:
 
       password:
         title: Change my password
+        old: Old password
         new: New password
         confirm: Confirm password
 
@@ -294,6 +296,24 @@ en:
         guide: Let other logged in members (but no search engines) see your profile information as being a co-author of a statement in echo Discuss.
         turned_on: Your profile information will be shown when displaying co-authors of statements.
         turned_off: You will be displayed as Anonym among other authors of a statement.
+        
+    # Manage Echo Account section
+    echo_account:
+      title: Manage your echo Account
+      guide: Here you can handle your personal account information 
+      change_email:
+        title: Change E-Mail
+        guide: Please define new E-Mail address that echo should use to keep in touch with you.
+        success: E-Mail changed successfully!
+        failed: Failed to change E-Mail!
+      change_password:
+        title: Change Password
+        guide: Please define your new password.
+        success: Password changed successfully!
+        failed: Failed to change Password!
+        wrong_password: The password you entered is not your password!
+      delete_account:
+        title: Delete Account
 
     # New Users section
     users:
@@ -683,6 +703,8 @@ en:
           attributes:
             email:
               taken: 'Your e-Mail address is already in use.'
+              invalid: 'Your e-Mail must be in a valid format.'
+              
 
       messages:
         blank: "The field '{{attribute}}' must not be empty."

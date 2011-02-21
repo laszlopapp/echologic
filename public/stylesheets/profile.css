@@ -50,3 +50,10 @@
   display: inline-block;
   margin-left: 10px;
 }
+
+#echo_account_list .button {
+	display: inline-block !important;
+  padding: 10px 10px 10px 10px;
+	margin-left: 10px;
+	border: 1px solid #000000;
+}

@@ -32,6 +32,11 @@ class User < ActiveRecord::Base
                                                                  :minimum => 4,
                                                                  :if => :has_no_credentials?}
   end
+  
+  validates_confirmation_of :email
+  validates_format_of :email, :with => /^([a-z0-9!\#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!\#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum|[a-z]{2}))$/i
+
+  
 
   # acl9 plugin to do authorization
   acts_as_authorization_subject

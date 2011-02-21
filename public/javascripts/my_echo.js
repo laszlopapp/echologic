@@ -4,6 +4,7 @@ $(document).ready(function () {
   loadComponentAutoComplete();
 	
 	loadProfileEditForm();	
+	initEchoAccountButtons();
 });
 
 
@@ -32,4 +33,32 @@ function loadProfileEditForm() {
 
     $(this).ajaxForm({ dataType : 'script' });
   });
+}
+
+function initEchoAccountButtons() {
+	var container = $('#echo_account_settings');
+	$('#echo_account_settings').find('a.header').live('click', function(){
+		var button = $(this);
+		if (!$(this).hasClass('active')) {
+			var content = container.children('.content');
+			if (content.length > 0) {
+				content.slideUp(500, function(){
+			   $(this).remove();
+			  });
+			}
+			$.ajax({
+				url: button.attr('href'),
+				type: 'get',
+				dataType: 'script',
+				success: function(){
+					button.addClass('active').siblings().removeClass('active');
+					container.children('.content').slideDown(500);
+				},
+				error: function(){
+				
+				}
+			});
+	 }
+	 return false;
+	});
 }

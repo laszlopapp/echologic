@@ -70,10 +70,8 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :activities,   :controller => 'users/activities',   :except => [:index]
     user.resources :memberships,  :controller => 'users/memberships',  :except => [:index]
   end
-  #map.resources :tao_tags, :controller => 'tao_tags', :except => [:index]
-
-  map.resources :password_resets, :controller => 'users/password_resets',
-                :path_prefix => '', :except => [:destroy]
+  
+  map.resources :password_resets, :controller => 'users/password_resets', :path_prefix => '', :except => [:destroy]
 
   map.register   '/register/:activation_code', :controller => 'users/activations', :action => 'new'
   map.signin     '/signin',                    :controller => 'users/user_sessions', :action => 'new'
