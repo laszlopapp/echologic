@@ -1,12 +1,12 @@
 .registry {
 	position: relative;
 }
-.registry_container {
+.modal_form_container {
 	width: 870px;
 	line-height: 4.5em;
 }
 
-.registry_container .logo {
+.modal_form_container .logo {
 	display: inline-block;
   width: 290px;
   height: 90px;
@@ -15,33 +15,32 @@
 	background: url(../images/page/echo_logo.png) no-repeat bottom left;
 }
 
-.registry_container .logo.sign_in {
+.modal_form_container .logo.sign_in {
 	
 }
 
-.registry_container .logo.sign_up {
+.modal_form_container .logo.sign_up {
   
 }
 
-.registry_container .logo.password_resets {
+.modal_form_container .logo.password_resets {
   width: 350px;
 }
 
+.toggle_button {
+ display: inline-block;
+ width: 90px;
+ height: 30px;
+ text-align: center;
+ border: #000000 1px solid;
+ background-color: #FFFFFF;
+ line-height: 2em;
+}
 
 .registry_label {
 	display: inline-block;
   width: 170px;
   height: 90px;
-}
-
-.registry_button {
-	display: inline-block;
-	width: 90px;
-	height: 30px;
-	text-align: center;
-	border: #000000 1px solid;
-	background-color: #FFFFFF;
-	line-height: 2em;
 }
 
 .box_label {

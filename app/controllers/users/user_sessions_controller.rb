@@ -1,4 +1,5 @@
 class Users::UserSessionsController < ApplicationController
+  helper :signings_form
 
   before_filter :require_no_user, :only => [:new, :create, :create_rpx]
   skip_before_filter :require_user, :only => [:new, :create, :create_rpx]
@@ -8,8 +9,9 @@ class Users::UserSessionsController < ApplicationController
     @user_session = UserSession.new
     @user ||= User.new
     @to_show = "signin"
-    render_static_new :template => 'users/users/new' do |format|
-      format.js {render :template => 'users/users/new'}
+    render_static_new :template => 'users/user_sessions/new' do |format|
+      format.js {render :template => 'users/components/users_form', 
+                        :locals => {:partial => 'users/user_sessions/new'}}
     end
     
   end
@@ -31,7 +33,7 @@ class Users::UserSessionsController < ApplicationController
     respond_to do |format|
       if @user_session.save
         s_id.save if s_id
-        set_info 'users.user_sessions.messages.login_success'
+        set_info 'users.signin.messages.success'
         flash_info
         format.html { redirect_to redirect_url }
         format.js{
@@ -40,7 +42,7 @@ class Users::UserSessionsController < ApplicationController
           end
         }
       else
-        set_error 'users.user_sessions.messages.login_failed'
+        set_error 'users.signin.messages.failed'
         set_later_call signin_path
         format.html { flash_error and flash_later_call and redirect_to redirect_url }
         format.js{ render_with_error }
@@ -57,7 +59,7 @@ class Users::UserSessionsController < ApplicationController
     
     if user.nil?
       respond_to do |format|
-        set_error 'users.user_sessions.messages.login_failed_rpx'
+        set_error 'users.signin.messages.failed_rpx'
         set_later_call signin_path
         session[:identifier] = profile_info.to_json
         format.html { flash_error and flash_later_call and redirect_to redirect_url }
@@ -66,10 +68,10 @@ class Users::UserSessionsController < ApplicationController
       @user_session = UserSession.new(user)
       respond_to do |format|
         if @user_session.save
-          set_info 'users.user_sessions.messages.login_success'
+          set_info 'users.signin.messages.success'
           format.html { flash_info and redirect_to redirect_url }
         else
-          set_error 'users.user_sessions.messages.login_failed'
+          set_error 'users.signin.messages.failed'
           format.html { flash_error and redirect_to redirect_url }
         end
       end
@@ -80,7 +82,7 @@ class Users::UserSessionsController < ApplicationController
     current_user.update_attributes(:last_login_language => Language[params[:locale]])
     current_user_session.destroy
     reset_session
-    set_info 'users.user_sessions.messages.logout_success'
+    set_info 'users.signout.messages.success'
     flash_info and redirect_to root_path
   end
 end

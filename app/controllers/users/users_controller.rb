@@ -1,4 +1,5 @@
 class Users::UsersController < ApplicationController
+  helper :signings_form
 
   before_filter :require_no_user, :only => [:new, :create, :create_rpx]
   skip_before_filter :require_user, :only => [:index, :new, :create, :create_rpx]
@@ -41,7 +42,10 @@ class Users::UsersController < ApplicationController
   def setup_basic_profile
     session[:redirect_url] = request.referer
     @profile_info = JSON.parse(@user.social_identifiers.first.profile_info)
-    render_static_new :template => 'users/users/setup_basic_profile'
+    render_static_new :template => 'users/users/setup_basic_profile' do |format|
+      format.js {render :template => 'users/components/users_form', 
+                        :locals => {:partial => 'users/users/setup_basic_profile', :css_class => "basic_profile_box"}}
+    end
   end
 
   # GET /users/new
@@ -51,7 +55,10 @@ class Users::UsersController < ApplicationController
     @user ||= User.new
     @user_session ||= UserSession.new
     @to_show = "signup"
-    render_static_new :template => 'users/users/new'
+    render_static_new :template => 'users/users/new' do |format|
+      format.js {render :template => 'users/components/users_form', 
+                        :locals => {:partial => 'users/users/new'}}
+    end
   end
 
   # GET /users/1/edit

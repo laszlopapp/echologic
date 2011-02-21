@@ -158,7 +158,7 @@ class ApplicationController < ActionController::Base
     reset_session
     if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'
       # If the user wants to log out, we go to the root page and display the logout message.
-      redirect_to_url root_url, 'users.user_sessions.messages.logout_success'
+      redirect_to_url root_url, 'users.signout.messages.success'
     else
       # Not logout
       @user_required ||= false

@@ -10,7 +10,8 @@ class Users::PasswordResetsController < ApplicationController
   # Render password reset creation partial
   def new
     render_static_new :template => 'users/password_resets/new' do |format|
-      format.js { render :template => 'users/password_resets/new' }
+      format.js {render :template => 'users/components/users_form', 
+                        :locals => {:partial => 'users/password_resets/new', :css_class => "basic_profile_box"}}
     end
   end
 
@@ -52,7 +53,8 @@ class Users::PasswordResetsController < ApplicationController
       }
       format.js {
         load_user_using_perishable_token(true)
-        render :template => 'users/password_resets/edit'
+        render :template => 'users/components/users_form', 
+               :locals => {:partial => 'users/password_resets/edit', :css_class => "basic_profile_box"}
       }
     end
   end

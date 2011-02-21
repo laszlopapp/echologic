@@ -132,20 +132,33 @@ de:
       teaser:
         title: 'Werden Sie MitautorIn!'
     # User sessions section
-    user_sessions:
-      login:
-        password: Passwort
-        email: E-Mail
-        signup: Noch kein Mitglied?
-        set_password: Passwort vergessen?
-        remember: Merke mich!
-        hello: Eingeloggt<br/><strong>{{name}}</strong>
+    signin:
+      label: 'Sign In'
+      password: 'Passwort'
+      member_tag: Already a member?
+      via_echo: '... via echo'
+      via_social: '... via another Account'
+      set_password: Passwort vergessen?
+      remember: Merke mich!
+      hello: Eingeloggt<br/><strong>{{name}}</strong>
+      setup_basic_profile: 'Setup Basic Profile'
       messages:
-        login_success:  "Login erfolgreich.<br/>Willkommen zurück auf echo!"
-        login_failed:   "Unbekannter Nutzer oder falsches Passwort."
-        logout_success: "Logout erfolgreich.<br/>Tschüß - Bis zum nächsten Mal!"
+        success: "Login erfolgreich.<br/>Willkommen zurück auf echo!"
+        failed: "Unbekannter Nutzer oder falsches Passwort."
+        failed_rpx: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account" 
+    signup:
+      label: 'Sign Up'
+      member_tag: Noch kein Mitglied?
+      via_echo: '... for a new echo Account'
+      via_social: '... via another Existing Account'
+      use_photo: 'Use in echo, too'
+    signout:
+      messages:
+        success: "Logout erfolgreich.<br/>Tschüß - Bis zum nächsten Mal!"
+    user_sessions:
+      messages:
         session_timeout: "Ihre alte Sitzung wurde beendet. Bitte melden Sie sich erneut an."
-
+     
     # Activations section
     activation:
       messages:

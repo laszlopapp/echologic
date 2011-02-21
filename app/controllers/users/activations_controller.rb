@@ -12,7 +12,8 @@ class Users::ActivationsController < ApplicationController
       format.js {
         @user = User.find_by_perishable_token(params[:activation_code], 1.week) || (raise Exception)
         raise Exception if @user.active?
-        render :template => 'users/activations/new'
+        render :template => 'users/components/users_form', 
+               :locals => {:partial => 'users/activations/new', :css_class => "basic_profile_box"}
       }
     end
   end
