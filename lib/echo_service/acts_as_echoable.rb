@@ -21,14 +21,14 @@ module ActiveRecord
             belongs_to :echo
             has_many :user_echos, :foreign_key => 'echo_id', :primary_key => 'echo_id'
             delegate :supporter_count, :visitor_count, :to => :echo
-            
+
             named_scope :by_ratio, :include => :echo, :order => '(echos.supporter_count/echos.visitor_count) DESC'
             named_scope :by_supporters, :include => :echo, :order => 'echos.supporter_count DESC'
-            
+
             def after_initialize
               self.echo = Echo.new if self.echo.nil?
             end
-            
+
           end
 
 
@@ -139,50 +139,49 @@ module ActiveRecord
                 self.supported!(self.creator)
               end
             end
-            
+
             protected
 
             # Ratio of this statement's supporters relative to the most supported sibbling statement's supporters.
-            def support_relative_to_sibblings(parent_statement, type)
-              if parent_statement # child statement
-               if parent_statement.most_supported_child(type).try(:supporter_count).to_i > 0
-                  max_support_count = parent_statement.most_supported_child(type).supporter_count
-                else
-                  return 0
-                end
-              else # root statement
-                max_support_count = self.class.most_supported_root.supporter_count
-              end
-              max_support_count == 0 ? 0 : ((supporter_count.to_f / max_support_count.to_f) * [10*max_support_count, 100].min).to_i
+            def support_relative_to_sibblings(parent_node, type)
+              max_support_count = parent_node ?
+                                  parent_node.max_child_support(type) : max_root_support
+              max_support_count == 0 ? 0 : ((supporter_count.to_f / max_support_count.to_f) *
+                                           [10*max_support_count, 100].min).to_i
             end
 
-            # Finds the most supported child (used by ratio of entity vs. the most supported sibbling)
-            def most_supported_child(type)
-              descendants.scoped(:include => :echo, :conditions => "type = '#{type}'").by_supporters.first
+            # Returns the supporter count of the most supported child of the given type.
+            def max_child_support(type)
+              descendants.scoped(:select => "MAX(echos.supporter_count) AS max_sc",
+                                 :joins => :echo,
+                                 :conditions => "statement_nodes.type = '#{type}'").first.max_sc.to_i
             end
-            
-            def self.most_supported_root
-              first(:include => :echo, :conditions => {:parent_id => nil}, :order => 'echos.supporter_count DESC')
+
+            # Returns the supporter count of the most supported root (Question for now).
+            def max_root_support
+              self.class.base_class.scoped(:select => "MAX(echos.supporter_count) AS max_sc",
+                           :joins => :echo,
+                           :conditions => {:parent_id => nil}).first.max_sc.to_i
             end
 
             public
             def supporters
               User.find(self.user_echos.supported.all.map(&:user_id))
             end
-            
+
             ##################
             # string helpers #
             ##################
-            
+
             def self.support_tag
               "support"
             end
-            
+
             def self.unsupport_tag
               "unsupport"
             end
-            
-            
+
+
           end # --- class_eval
 
         end
