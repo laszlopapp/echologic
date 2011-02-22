@@ -182,29 +182,29 @@ class Users::UsersController < ApplicationController
 
   def update_password
     old_password = params[:old_password]
-#    begin
-respond_to do |format|
-      if old_password.eql? current_user.password
-        if current_user.update_attributes(params[:user])
-          set_info 'users.echo_account.change_password.success'
-          format.html { flash_info and redirect_to my_profile_path }
-          format.js   { render_with_info }
+    begin
+      respond_to do |format|
+        if current_user.has_password? old_password
+          if current_user.update_attributes(params[:user])
+            set_info 'users.echo_account.change_password.success'
+            format.html { flash_info and redirect_to my_profile_path }
+            format.js   { render_with_info }
+          else
+            set_error current_user
+            format.html { flash_error and redirect_to my_profile_path }
+            format.js   { render_with_error }
+          end
         else
-          set_error current_user
+          set_error "users.echo_account.change_password.wrong_password"
           format.html { flash_error and redirect_to my_profile_path }
           format.js   { render_with_error }
         end
-      else
-        set_error "users.echo_account.change_password.wrong_password"
-        format.html { flash_error and redirect_to my_profile_path }
-        format.js   { render_with_error }
       end
+    rescue Exception => e
+      log_message_error(e, "Error updating user #{current_user.id} password")
+    else
+      log_message_info("User '#{current_user.id}' password has been updated sucessfully.")
     end
-#    rescue Exception => e
-#      log_message_error(e, "Error updating user #{current_user.id} password")
-#    else
-#      log_message_info("User '#{current_user.id}' password has been updated sucessfully.")
-#    end
   end
 
   # DELETE /users/1

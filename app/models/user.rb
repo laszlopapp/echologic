@@ -34,8 +34,12 @@ class User < ActiveRecord::Base
   end
   
   validates_confirmation_of :email
-  validates_format_of :email, :with => /^([a-z0-9!\#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!\#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum|[a-z]{2}))$/i
-
+  
+  
+  def has_password?(password)
+    salt = self.password_salt
+    Authlogic::CryptoProviders::Sha512.encrypt(password + salt).eql? self.crypted_password
+  end
   
 
   # acl9 plugin to do authorization
