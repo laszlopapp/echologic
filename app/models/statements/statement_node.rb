@@ -57,10 +57,10 @@ class StatementNode < ActiveRecord::Base
     )
   end
 
-  named_scope :by_creator, lambda {|id|
-  {:conditions => ["creator_id = ?", id]}}
+  named_scope :by_creator, lambda {|id| {:conditions => ["creator_id = ?", id]}}
   named_scope :published, lambda {|auth|
-  {:joins => :statement, :conditions => ["statements.editorial_state_id = ?", StatementState['published'].id] } unless auth }
+    {:joins => :statement, :conditions => ["statements.editorial_state_id = ?", StatementState['published'].id] } unless auth
+  }
 
   # orders
   named_scope :by_creation, :order => 'created_at DESC'
@@ -185,7 +185,7 @@ class StatementNode < ActiveRecord::Base
     children = child_statements(language_ids, type)
     type_class.paginate_statements(children, page, per_page)
   end
-  
+
   # counts the children the statement has of a certain type
   def count_child_statements(language_ids = nil, type = self.class.children_types.first.to_s)
     type_class = type.constantize
@@ -233,7 +233,7 @@ class StatementNode < ActiveRecord::Base
     # Aux Function: gets a set of children given a certain parent (used above)
     def get_statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
       opts = parent_conditions(parent_id, language_ids, filter_drafting_state)
-      
+
       statements = []
 
       if for_session
