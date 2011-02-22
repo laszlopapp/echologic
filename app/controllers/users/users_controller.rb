@@ -18,7 +18,7 @@ class Users::UsersController < ApplicationController
 
   # Generate auto completion based on tags in the database
   auto_complete_for :tag, :value, :limit => 20 do |tags|
-    @@tag_filter.call %w(* #), tags
+    @@tag_filter.call %w(* #), tags, 7
   end
 
 

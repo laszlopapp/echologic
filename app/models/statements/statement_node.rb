@@ -57,10 +57,10 @@ class StatementNode < ActiveRecord::Base
     )
   end
 
-  named_scope :by_creator, lambda {|id|
-  {:conditions => ["creator_id = ?", id]}}
+  named_scope :by_creator, lambda {|id| {:conditions => ["creator_id = ?", id]}}
   named_scope :published, lambda {|auth|
-  {:joins => :statement, :conditions => ["statements.editorial_state_id = ?", StatementState['published'].id] } unless auth }
+    {:joins => :statement, :conditions => ["statements.editorial_state_id = ?", StatementState['published'].id] } unless auth
+  }
 
   # orders
   named_scope :by_creation, :order => 'created_at DESC'

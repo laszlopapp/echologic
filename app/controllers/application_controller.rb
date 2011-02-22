@@ -3,17 +3,6 @@
 
 class ApplicationController < ActionController::Base
 
-  ####################
-  # CLASS ATTRIBUTES #
-  ####################
-
-  # Tag filter
-  @@tag_filter = lambda do |prefixes, tags|
-    tags.map {|tag|
-      !prefixes.select{|p| tag.value.index(p) == 0}.empty? ? nil : "#{tag.value}|#{tag.id}"
-    }.compact[0..4].join("\n")
-  end
-
   ###########
   # ROUTING #
   ###########
@@ -203,6 +192,13 @@ class ApplicationController < ActionController::Base
     expire_session!
   end
 
+  # Filters out tags that should not be displayed. It's a lambda in order to be callable from closures.
+  @@tag_filter = lambda do |prefixes, tags, max_length|
+    tags.map {|tag|
+      !prefixes.select{|p| tag.value.index(p) == 0}.empty? ? nil : "#{tag.value}"
+    }.compact[0..(max_length-1)].join("\n")
+  end
+
 
   #############
   # LANGUAGES #
@@ -355,25 +351,6 @@ class ApplicationController < ActionController::Base
       format.js   { render :template => 'layouts/outerMenuDialog' , :locals => opts[:locals]}
     end
   end
-
-  ################
-  #  BreadCrumb  #
-  ################
-
-  protected
-  def add_breadcrumb name, url = ''
-    @breadcrumbs ||= []
-    url = eval(url) if url =~ /_path|_url|@/
-    @breadcrumbs << [name, url]
-  end
-
-  def self.add_breadcrumb name, url, options = {}
-    before_filter options do |controller|
-      controller.send(:add_breadcrumb, name, url)
-    end
-  end
-
- 
 
 
   #############

@@ -7,17 +7,16 @@ $(document).ready(function () {
 
 
 function loadComponentAutoComplete() {
+  var options = {minChars: 3, selectFirst: false};
   $('#membership_container form #membership_organisation').livequery(function() {
-    $(this).autocomplete("users/memberships/auto_complete_for_membership_organisation",
-                         {minChars: 3, selectFirst: false});
+    $(this).autocomplete("users/memberships/auto_complete_for_membership_organisation", options);
   });
   $('#membership_container form #membership_position').livequery(function() {
-    $(this).autocomplete("users/memberships/auto_complete_for_membership_position",
-                         {minChars: 3, selectFirst: false});
+    $(this).autocomplete("users/memberships/auto_complete_for_membership_position", options);
   });
   $('#concernment_container form .tag_value_autocomplete').livequery(function() {
     $(this).autocomplete("users/users/auto_complete_for_tag_value",
-                         {minChars: 3, selectFirst: false});
+                         {minChars: 3, selectFirst: false, multiple: true});
   });
 }
 

@@ -446,7 +446,7 @@ en:
           Please describe your proposal in more detail...<br/><br/>
           Depending on the kind of question, a proposal can be understood as a possible answer,
           solution approach or position to the question.
-        improvement: Please describe your addition to the proposal in more detail...
+        improvement: Please describe your addition or amendment to the proposal in more detail...
         pro_argument: Please describe your point FOR the proposal in more detail...
         contra_argument: Please describe your point AGAINST the proposal in more detail...
         follow_up_question: Please describe your follow-up question in more detail...
@@ -537,22 +537,22 @@ en:
 
       add_teaser:
         question: |
-          This is where YOUR question could stand.<br/><br/>Have you got one?<br/><br/>
+          This is where YOUR question could appear.<br/><br/>Have you got one?<br/><br/>
           Press the button above to enter it NOW!
         proposal: |
-          This is where YOUR proposal to the question could stand.<br/><br/>Have you got one?<br/><br/>
+          This is where YOUR proposal to the question could appear.<br/><br/>Have you got one?<br/><br/>
           Press the button above to enter it NOW!
         improvement: |
-          This is where YOUR addition to the proposal could stand.<br/><br/>Have you got one?<br/><br/>
+          This is where YOUR addition or amendment to the proposal could appear.<br/><br/>Have you got one?<br/><br/>
           Press the button above to enter it NOW!
         pro_argument: |
-          This is where your argument FOR the proposal could stand.<br/><br/>Have you got one?<br/><br/>
+          This is where your argument FOR the proposal could appear.<br/><br/>Have you got one?<br/><br/>
           Press the button above to enter it NOW!
         contra_argument: |
-          This is where your argument AGAINST the proposal could stand.<br/><br/>Have you got one?<br/><br/>
+          This is where your argument AGAINST the proposal could appear.<br/><br/>Have you got one?<br/><br/>
           Press the button above to enter it NOW!
         follow_up_question: |
-          This is where YOUR follow-up question could stand.<br/><br/>Have you got one?<br/><br/>
+          This is where YOUR follow-up question could appear.<br/><br/>Have you got one?<br/><br/>
           Press the button above to enter it NOW!
     summary:
       title: 'Summary'

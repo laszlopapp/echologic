@@ -1217,6 +1217,7 @@ form.statement fieldset ol li.tags_container {
   width: 250px !important;
   padding: 2px 0;
   color: #21587F;
+  border: 1px solid #999;
 }
 
 .tags_container .add_text_button {
