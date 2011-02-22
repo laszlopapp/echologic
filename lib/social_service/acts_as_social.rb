@@ -22,14 +22,18 @@ module ActiveRecord
             # adds RPX identification to the instance.
             # Abstracts how the RPX identifier is added to allow for multiplicity of underlying implementations
             #
-            def add_social_identifier( rpx_id, rpx_provider_name )
-              self.social_identifiers.build(:identifier => rpx_id, :provider_name => rpx_provider_name )
+            def add_social_identifier( rpx_id, rpx_provider_name, profile_info )
+              self.social_identifiers.build(:identifier => rpx_id, :provider_name => rpx_provider_name, :profile_info => profile_info )
             end
         
             # Checks if given identifier is an identity for this account
             #
             def identified_by?( id )
               self.social_identifiers.find_by_identifier( id )
+            end
+            
+            def has_provider? (provider_name)
+              !self.social_identifiers.find_by_provider_name(provider_name.camelize).nil?
             end
 
             def delete_social_accounts

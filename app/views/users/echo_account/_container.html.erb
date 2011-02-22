@@ -7,7 +7,7 @@
 		<li>
 			<% %w(change_email change_password delete_account).each do |type| %>
 				<% link_to url_for(:controller => :my_echo, :action => type), :class => 'header', :id => type do %>
-	        <%= content_tag :span, I18n.t("users.echo_account.#{type}.title"), :class => 'button' %>
+	        <%= content_tag :span, I18n.t("users.echo_account.#{type}.title"), :class => 'button_150' %>
 	      <% end %>
 			<% end %>
     </li>

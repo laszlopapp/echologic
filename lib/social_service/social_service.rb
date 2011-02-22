@@ -4,7 +4,7 @@ require 'singleton'
 class SocialService
   include Singleton
   
-  attr_accessor :service
+  attr_accessor :service, :social_providers
   
   def initialize
   end

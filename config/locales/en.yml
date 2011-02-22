@@ -321,6 +321,18 @@ en:
         confirm: Yes, delete my account permanently
         last_confirm: Are you really really sure?
         success: Your echo account was successfully deleted.  
+    social_accounts:
+      title: Connected Accounts
+      guide: Connect your social accounts with your echo account so you can easily share and amplify your echo throughout the web. 
+      providers:
+        facebook: Facebook
+        twitter: Twitter
+        yahoo: Yahoo!
+        linked_in: Linked-In
+        google: Google
+      connect: Connect
+      disconnect: Disconnect 
+      
 
     # New Users section
     users:

@@ -41,18 +41,19 @@ function initEchoAccountButtons() {
 		var button = $(this);
 		if (!$(this).hasClass('active')) {
 			var content = container.children('.content');
-			if (content.length > 0) {
-				content.animate(toggleParams, 500, function() {
-					$(this).remove();
-				});
-			}
+			
 			$.ajax({
 				url: button.attr('href'),
 				type: 'get',
 				dataType: 'script',
 				success: function(){
 					button.addClass('active').siblings().removeClass('active');
-					container.children('.content').animate(toggleParams, 500);
+					
+					if (content) { 
+					  content.replaceWith(container.children(':last').show()); 
+					} else {
+						container.children('.content').animate(toggleParams, 500);
+					}
 				},
 				error: function(){
 				

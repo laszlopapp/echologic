@@ -51,13 +51,30 @@
   margin-left: 10px;
 }
 
-#echo_account_settings .button {
-	display: inline-block !important;
-  padding: 10px 10px 10px 10px;
-	margin-left: 10px;
-	border: 1px solid #000000;
-}
-
 #echo_account_settings .delete_account .guide {
 	color: #FF0000;
+}
+
+#social_accounts_settings .social_label,
+#social_accounts_settings .connect,
+#social_accounts_settings .disconnect {
+	display: inline-block;
+	width: 150px;
+	text-align: center;
+}
+
+#social_accounts_settings .social_label {
+	
+  font-weight:bold;
+}
+
+#social_accounts_settings .connect {
+	
+}
+#social_accounts_settings .disconnect {
+  
+}
+
+#social_accounts_settings .disconnect .button {
+  text-decoration: underline;
 }
