@@ -391,8 +391,8 @@ de:
       create_question: 'Neue Fragestellung hinzufügen'
       create_proposal: 'Tragen Sie Ihre neue Idee zur aktuellen Fragestellung ein'
       create_improvement: 'Tragen Sie Ihre neue Idee zum aktuellen Vorschlag ein'
-      create_pro_argument: "Ein neues PRO-Argument für diese Antwort hinzufügen"
-      create_contra_argument: "Ein neues KONTRA-Argument für diese Antwort hinzufügen"
+      create_pro_argument: "Ein neues PRO-Argument für diesen Vorschlag hinzufügen"
+      create_contra_argument: "Ein neues KONTRA-Argument für diesen Vorschlag hinzufügen"
       create_follow_up_question: "Eine neue Folgefrage im aktuellen Zusammenhang hinzufügen"
       echo: 'Unterstützen Sie diese Aussage durch Ihr Echo!'
       unecho: 'Ziehen Sie Ihre Stimme zurück, wenn Sie die Aussage nicht mehr unterstützen möchten'
