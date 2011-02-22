@@ -8,17 +8,8 @@ class Users::MembershipsController < ApplicationController
     allow logged_in
   end
 
-  auto_complete_for :membership, :organisation do |memberships|
-    memberships.map {|m|
-      m.organisation
-    }.uniq.join("\n")
-  end
-
-  auto_complete_for :membership, :position do |memberships|
-    memberships.map {|m|
-      m.position
-    }.uniq.join("\n")
-  end
+  auto_complete_for :membership, :organisation, :limit => 7
+  auto_complete_for :membership, :position, :limit => 7 
 
   # Shows the membership identified through params[:id]
   # method: GET

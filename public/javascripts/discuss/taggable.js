@@ -3,17 +3,17 @@
   $.fn.taggable = function(settings) {
 
     function Taggable(taggable){
-	
+
 			initialise();
-			
+
 			function initialise(){
 			  loadTags();
 				loadTagEvents();
 				loadStatementAutoComplete();
 			}
-			
+
 			// Auxiliary Functions
-			
+
 			/*
        * load this current statement's already existing tags into the tags input box
        */
@@ -29,7 +29,7 @@
           }
         }
       }
-			
+
 			/*
        * adds event handling to all the possible interactions with the tags box
        */
@@ -43,7 +43,7 @@
             return false;
           }
         }));
-    
+
         /* Clicking 'add tag' button */
         taggable.find('.addTag').bind('click', (function() {
           var entered_tags = taggable.find('#tag_topic_id').val().trim().split(",");
@@ -55,7 +55,7 @@
             var existing_tags = taggable.find('.question_tags').val();
             existing_tags = existing_tags.split(',');
             existing_tags = $.map(existing_tags,function(q){return q.trim()});
-            
+
             var new_tags = new Array(0);
             while (entered_tags.length > 0) {
               var tag = entered_tags.shift().trim();
@@ -77,7 +77,7 @@
           }
         }));
       }
-			
+
 			/*
        * Aux: Creates the statement tag HTML Element
        * text: tag text ; tags_class: css class of the tags hidden input container
@@ -101,18 +101,19 @@
         element.append(deleteButton);
         return element;
       }
-			
+
 			/*
        * Initializes auto_complete property for the tags text input
        */
       function loadStatementAutoComplete() {
-        taggable.find('.tag_value_autocomplete').autocomplete('../../discuss/auto_complete_for_tag_value', {minChars: 3, selectFirst: false});
+        taggable.find('.tag_value_autocomplete').autocomplete('../../discuss/auto_complete_for_tag_value',
+                                                              {minChars: 3, selectFirst: false, multiple: true});
       }
-    
-			
+
+
 		  // API Functions
-		
-		  $.extend(this, 
+
+		  $.extend(this,
       {
 				reinitialise: function()
         {
@@ -124,7 +125,7 @@
     $.fn.taggable.defaults = {
       'animation_speed': 500
     };
-    
+
     // Pluginifying code...
     var settings = $.extend({}, $.fn.taggable.defaults, settings);
 
