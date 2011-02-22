@@ -51,9 +51,13 @@
   margin-left: 10px;
 }
 
-#echo_account_list .button {
+#echo_account_settings .button {
 	display: inline-block !important;
   padding: 10px 10px 10px 10px;
 	margin-left: 10px;
 	border: 1px solid #000000;
+}
+
+#echo_account_settings .delete_account .guide {
+	color: #FF0000;
 }

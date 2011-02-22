@@ -144,7 +144,7 @@ pt:
       messages:
         success: "Autenticação bem-sucedida. Bemvindo de volta à echo."
         failed: "Utilizador desconhecido ou senha errada."
-        failed_rpx: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account" 
+        failed_social: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account" 
     signup:
       label: 'Sign Up'
       member_tag: Ainda não é um membro?

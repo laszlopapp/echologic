@@ -54,6 +54,7 @@ end
 
 Then /^"([^\"]*)" should have "([^\"]*)" as password$/ do |user_full_name, password|
   user_names = user_full_name.split(" ")
+  puts user_names.inspect
   user = Profile.find_by_first_name_and_last_name(user_names.first,user_names.last).user
   u_session = UserSession.new(:email => user.email, :password => password)
   assert u_session.save
@@ -63,4 +64,12 @@ Then /^"([^\"]*)" should have a profile$/ do |user_full_name|
   user_names = user_full_name.split(" ")
   profile = Profile.find_by_first_name_and_last_name(user_names.first,user_names.last)
   assert !profile.nil?
+end
+
+Then /^I should have "([^\"]*)" as ([^\"]*)$/ do |value, attr|
+  assert @user.reload.send(attr).eql? value
+end
+
+Then /^I should be inactive$/ do 
+  assert !@user.reload.active
 end

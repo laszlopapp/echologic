@@ -146,7 +146,7 @@ en:
       messages:
         success: "Login successful. Welcome back to echo."
         failed: "Unknown user or wrong password."
-        failed_rpx: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account" 
+        failed_social: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account" 
     signup:
       label: 'Sign Up'
       member_tag: Not a member yet?
@@ -314,6 +314,13 @@ en:
         wrong_password: The password you entered is not your password!
       delete_account:
         title: Delete Account
+        guide: |
+          <p>ATTENTION! Your account and ALL your personal data will be <strong>permanently deleted</strong>. 
+          The echos you have made will be kept fully anonymously.</p><br/>
+          <p>Are you sure you want to proceed?</p><br/>
+        confirm: Yes, delete my account permanently
+        last_confirm: Are you really really sure?
+        success: Your echo account was successfully deleted.  
 
     # New Users section
     users:

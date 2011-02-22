@@ -1,15 +1,15 @@
 class Users::UsersController < ApplicationController
   helper :signings_form
 
-  before_filter :require_no_user, :only => [:new, :create, :create_rpx]
-  skip_before_filter :require_user, :only => [:index, :new, :create, :create_rpx]
+  before_filter :require_no_user, :only => [:new, :create, :create_social]
+  skip_before_filter :require_user, :only => [:index, :new, :create, :create_social]
   before_filter :fetch_user, :only => [:show, :setup_basic_profile, :edit, :update, :destroy]
   
 
   access_control do
-    allow logged_in, :to => [:show, :index, :setup_basic_profile, :update_email, :update_password, :add_concernments, :delete_concernment, :auto_complete_for_tag_value, :update]
+    allow logged_in, :to => [:show, :index, :setup_basic_profile, :update_email, :update_password, :add_concernments, :delete_concernment, :auto_complete_for_tag_value, :update, :destroy_account]
     allow :admin
-    allow anonymous, :to => [:new, :create, :create_rpx]
+    allow anonymous, :to => [:new, :create, :create_social]
   end
 
   # Generate auto completion based on values in the database. Load only 5
@@ -96,7 +96,7 @@ class Users::UsersController < ApplicationController
     end
   end
 
-  def create_rpx
+  def create_social
     redirect_url = session[:redirect_url] || root_path
     token = params[:token]
     profile_info = SocialService.instance.get_profile_info(token)
@@ -168,13 +168,13 @@ class Users::UsersController < ApplicationController
     respond_to do |format|
       if current_user.update_attributes(params[:user])
         set_info "users.echo_account.change_email.success"
-        format.html {flash_info and redirect_to redirect_url}
+        format.html {flash_info and redirect_to settings_path}
         format.js {
           render_with_info
         }
       else
         set_error current_user
-        format.html { flash_error and redirect_to my_profile_path }
+        format.html { flash_error and redirect_to settings_path }
         format.js{ render_with_error }
       end
     end
@@ -187,16 +187,16 @@ class Users::UsersController < ApplicationController
         if current_user.has_password? old_password
           if current_user.update_attributes(params[:user])
             set_info 'users.echo_account.change_password.success'
-            format.html { flash_info and redirect_to my_profile_path }
+            format.html { flash_info and redirect_to settings_path }
             format.js   { render_with_info }
           else
             set_error current_user
-            format.html { flash_error and redirect_to my_profile_path }
+            format.html { flash_error and redirect_to settings_path }
             format.js   { render_with_error }
           end
         else
           set_error "users.echo_account.change_password.wrong_password"
-          format.html { flash_error and redirect_to my_profile_path }
+          format.html { flash_error and redirect_to settings_path }
           format.js   { render_with_error }
         end
       end
@@ -210,13 +210,34 @@ class Users::UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.xml
   def destroy
-    @user.delete_account
-    respond_to do |format|
-      flash[:notice] = "User account has been removed."
-      format.html { redirect_to connect_path }
+    begin
+      @user.delete_account
+      respond_to do |format|
+        flash[:notice] = "User account has been removed."
+        format.html { redirect_to connect_path }
+      end
+    rescue Exception => e
+      log_message_error(e, "Error deleting account from user '#{@user.id}'.")
+    else
+      log_message_info("User '#{@user.id}' account has been sucessfully deleted.")
     end
   end
 
+  def destroy_account
+    begin
+      current_user_session.destroy
+      reset_session
+      current_user.delete_account
+      respond_to do |format|
+        set_info "users.echo_account.delete_account.success"
+        format.html { flash_info and redirect_to root_path }
+      end
+    rescue Exception => e
+      log_message_error(e, "Error deleting account from user '#{current_user.id}'.")
+    else
+      log_message_info("User '#{current_user.id}' account has been sucessfully deleted.")
+    end
+  end
 
   def add_concernments
     concernments = params[:tag][:value]

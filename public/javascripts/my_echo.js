@@ -42,9 +42,9 @@ function initEchoAccountButtons() {
 		if (!$(this).hasClass('active')) {
 			var content = container.children('.content');
 			if (content.length > 0) {
-				content.slideUp(500, function(){
-			   $(this).remove();
-			  });
+				content.animate(toggleParams, 500, function() {
+					$(this).remove();
+				});
 			}
 			$.ajax({
 				url: button.attr('href'),
@@ -52,7 +52,7 @@ function initEchoAccountButtons() {
 				dataType: 'script',
 				success: function(){
 					button.addClass('active').siblings().removeClass('active');
-					container.children('.content').slideDown(500);
+					container.children('.content').animate(toggleParams, 500);
 				},
 				error: function(){
 				

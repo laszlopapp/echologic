@@ -36,3 +36,46 @@ Feature: Set my settings
 #    When I go to my settings
 #      And I uncheck "drafting_notification"
 #    Then I must have the drafting notification disabled
+
+  Scenario: Change Email
+    Given I am logged in as "user" with password "true"
+    When I go to my settings
+      And I follow "change_email"
+      And I fill in the following:
+      | user_email                | thedarksideofthemoon@sun.com |
+      | user_email_confirmation   | thedarksideofthemoon@sun.com |
+      And I press "Ok"
+    Then I should see "E-Mail changed successfully!"
+      And I should have "thedarksideofthemoon@sun.com" as email
+  
+  Scenario: Change Password Fail
+    Given I am logged in as "user" with password "true"
+    When I go to my settings
+      And I follow "change_password"
+      And I fill in the following:
+      | old_password                 | malaka  |
+      | user_password                | dzenkui |
+      | user_password_confirmation   | dzenkui |
+      And I press "Ok"
+    Then I should see "The password you entered is not your password!"
+    
+  Scenario: Change Password 
+    Given I am logged in as "user" with password "true"
+    When I go to my settings
+      And I follow "change_password"
+      And I fill in the following:
+      | old_password                 | true  |
+      | user_password                | dzenkui |
+      | user_password_confirmation   | dzenkui |
+      And I press "Ok"
+    Then I should see "Password changed successfully!"
+      And "User Test" should have "dzenkui" as password
+      
+      
+  Scenario: Delete Account
+    Given I am logged in as "user" with password "true"
+    When I go to my settings
+      And I follow "delete_account"
+      And I follow "destroy_account"
+    Then I should see "Your echo account was successfully deleted."
+      And I should be inactive

@@ -158,7 +158,7 @@ fr:
       messages:
         success: "Votre inscription a réussi.<br/>Bienvenue sur echo!"
         failed: "Utilisateur inconnu ou erreur de mot de passe."
-        failed_rpx: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account" 
+        failed_social: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account" 
     signup:
       label: 'Sign Up'
       member_tag: |

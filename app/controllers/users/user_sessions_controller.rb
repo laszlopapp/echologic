@@ -1,8 +1,8 @@
 class Users::UserSessionsController < ApplicationController
   helper :signings_form
 
-  before_filter :require_no_user, :only => [:new, :create, :create_rpx]
-  skip_before_filter :require_user, :only => [:new, :create, :create_rpx]
+  before_filter :require_no_user, :only => [:new, :create, :create_social]
+  skip_before_filter :require_user, :only => [:new, :create, :create_social]
 
   def new
     session[:redirect_url] = request.referer
@@ -50,7 +50,7 @@ class Users::UserSessionsController < ApplicationController
     end
   end
 
-  def create_rpx
+  def create_social
     redirect_url = session[:redirect_url] || root_path
     token = params[:token]
     profile_info = SocialService.instance.get_profile_info(token)
@@ -59,7 +59,7 @@ class Users::UserSessionsController < ApplicationController
     
     if user.nil?
       respond_to do |format|
-        set_error 'users.signin.messages.failed_rpx'
+        set_error 'users.signin.messages.failed_social'
         set_later_call signin_path
         session[:identifier] = profile_info.to_json
         format.html { flash_error and flash_later_call and redirect_to redirect_url }

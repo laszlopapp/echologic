@@ -1,3 +1,3 @@
 
-var content = "<%=escape_javascript(render :partial => partial, :style => 'display:none;')%>";
+var content = "<%=escape_javascript(render :partial => partial, :locals => {:style => 'display:none;'})%>";
 $('#echo_account_settings').append(content);

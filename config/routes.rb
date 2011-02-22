@@ -61,7 +61,6 @@ ActionController::Routing::Routes.draw do |map|
   # SECTION user signup and login
   map.resources  :user_sessions, :controller => 'users/user_sessions',
                 :path_prefix => ''
-  map.addrpxauth "addrpxauth", :controller => "users", :action => "addrpxauth", :method => :post
 
 
   map.resources :users, :controller => 'users/users', :path_prefix => '', :member => [:setup_basic_profile] do |user|
@@ -75,9 +74,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.register   '/register/:activation_code', :controller => 'users/activations', :action => 'new'
   map.signin     '/signin',                    :controller => 'users/user_sessions', :action => 'new'
-  map.signin_remote '/signin_remote',          :controller => 'users/user_sessions', :action => 'create_rpx', :method => :post
+  map.signin_remote '/signin_remote',          :controller => 'users/user_sessions', :action => 'create_social', :method => :post
   map.signup     '/signup',                    :controller => 'users/users',       :action => 'new'
-  map.signup_remote '/signup_remote',          :controller => 'users/users',       :action => 'create_rpx', :method => :post
+  map.signup_remote '/signup_remote',          :controller => 'users/users',       :action => 'create_social', :method => :post
   map.signout    '/signout',                   :controller => 'users/user_sessions', :action => 'destroy'
   map.activate   '/activate/:id',              :controller => 'users/activations', :action => 'create'
   

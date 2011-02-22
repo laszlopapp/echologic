@@ -32,6 +32,9 @@ module ActiveRecord
               self.social_identifiers.find_by_identifier( id )
             end
 
+            def delete_social_accounts
+              self.social_identifiers.destroy_all
+            end
 
           
             class << self
