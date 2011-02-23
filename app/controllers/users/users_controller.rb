@@ -5,12 +5,17 @@ class Users::UsersController < ApplicationController
   skip_before_filter :require_user, :only => [:index, :new, :create, :create_social]
   before_filter :fetch_user, :only => [:show, :setup_basic_profile, :edit, :update, :destroy]
   
+  
 
   access_control do
-    allow logged_in, :to => [:show, :index, :setup_basic_profile, :update_email, :update_password, :add_concernments, :delete_concernment, :auto_complete_for_tag_value, :update, :destroy_account]
+    allow logged_in, :to => [:show, :index, :setup_basic_profile, :update_email, :update_password, :add_concernments, 
+                             :delete_concernment, :auto_complete_for_tag_value, :update, :destroy_account, :add_social,
+                             :remove_social]
     allow :admin
     allow anonymous, :to => [:new, :create, :create_social]
   end
+
+  include SocialModule
 
   # Generate auto completion based on values in the database. Load only 5
   # suggestions a time.
@@ -96,43 +101,7 @@ class Users::UsersController < ApplicationController
     end
   end
 
-  def create_social
-    redirect_url = session[:redirect_url] || root_path
-    token = params[:token]
-    profile_info = SocialService.instance.get_profile_info(token)
-    
-    @user = User.new
-    @user.create_profile
-    
-    opts={}
-    opts[:email] = profile_info['email']
-    opts[:first_name] = profile_info['name']['givenName']
-    opts[:last_name] = profile_info['name']['familyName']
-    opts[:social_identifiers] = []
-    opts[:social_identifiers] << SocialIdentifier.new(:identifier => profile_info['identifier'], 
-                                                      :provider_name => profile_info['providerName'],
-                                                      :profile_info => profile_info.to_json )
-    
-    begin
-      User.transaction do
-        respond_to do |format|
-          if @user.activate!(opts)
-            set_later_call setup_basic_profile_user_url(@user)
-            format.html { flash_later_call and redirect_to redirect_url }
-          else
-            set_error @user
-            @user.social_identifiers.each {|id| set_error(id)} if !@user.social_identifiers.blank?
-            set_later_call signup_url
-            format.html { flash_later_call and flash_error and redirect_to redirect_url }
-          end
-        end
-      end
-    rescue Exception => e
-      log_message_error(e, "Error creating user")
-    else
-      log_message_info("User '#{@user.id}' has been created sucessfully.")
-    end
-  end
+  
 
   # PUT /users/1
   # PUT /users/1.xml

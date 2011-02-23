@@ -106,6 +106,7 @@ module ApplicationHelper
   # JANRAIN WIDGET #
   ##################
   
+  
   def janrain_login_widget(token_url, options={})
     url = token_url + '?' + (
       { :authenticity_token => form_authenticity_token }.collect { |n| "#{n[0]}=#{ u(n[1]) }" if n[1] }

@@ -33,7 +33,7 @@ module ActiveRecord
             end
             
             def has_provider? (provider_name)
-              !self.social_identifiers.find_by_provider_name(provider_name.camelize).nil?
+              self.social_identifiers.find_by_provider_name(provider_name.camelize)
             end
 
             def delete_social_accounts

@@ -29,5 +29,16 @@ class SocialService
   def unmap(identifier, key)
     @service.unmap(identifier, key)
   end
+  def get_provider_signup_url(provider, token_url)
+    @service.get_provider_signup_url(provider, token_url)
+  end
+  def load_basic_profile_options(profile_info)
+    opts= {:email => profile_info['email'], :first_name => profile_info['name']['givenName'],
+           :last_name => profile_info['name']['familyName'], 
+           :social_identifiers => [SocialIdentifier.new(:identifier => profile_info['identifier'], 
+                                                        :provider_name => profile_info['providerName'],
+                                                        :profile_info => profile_info.to_json )]}
+    opts
+  end
 end
 

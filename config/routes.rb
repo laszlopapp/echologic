@@ -74,11 +74,15 @@ ActionController::Routing::Routes.draw do |map|
 
   map.register   '/register/:activation_code', :controller => 'users/activations', :action => 'new'
   map.signin     '/signin',                    :controller => 'users/user_sessions', :action => 'new'
-  map.signin_remote '/signin_remote',          :controller => 'users/user_sessions', :action => 'create_social', :method => :post
   map.signup     '/signup',                    :controller => 'users/users',       :action => 'new'
-  map.signup_remote '/signup_remote',          :controller => 'users/users',       :action => 'create_social', :method => :post
   map.signout    '/signout',                   :controller => 'users/user_sessions', :action => 'destroy'
   map.activate   '/activate/:id',              :controller => 'users/activations', :action => 'create'
+  
+  # Social Accout Routes
+  map.signin_remote '/signin_remote',          :controller => 'users/user_sessions', :action => 'create_social', :method => :post
+  map.signup_remote '/signup_remote',          :controller => 'users/users',       :action => 'create_social', :method => :post
+  map.add_remote    '/add_remote/',            :controller => 'users/users', :action => 'add_social', :method => :post
+  map.remove_remote '/remove_remote/:provider',:controller => 'users/users', :action => 'remove_social', :method => :put
   
 
   map.resources :reports, :controller => 'users/reports'

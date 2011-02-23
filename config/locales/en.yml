@@ -327,11 +327,18 @@ en:
       providers:
         facebook: Facebook
         twitter: Twitter
-        yahoo: Yahoo!
+        yahoo!: Yahoo!
         linked_in: Linked-In
         google: Google
-      connect: Connect
-      disconnect: Disconnect 
+      connect: 
+        title: Connect
+        success: Added your {{account}} account successfully!
+        failed: Failed to add your {{account}} account!
+      disconnect: 
+        title: Disconnect
+        success: Removed your {{account}} account successfully!
+        failed: Failed to remove your {{account}} account! 
+       
       
 
     # New Users section
