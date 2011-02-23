@@ -9,10 +9,9 @@ siblings_panel.insertAfter(siblings_button).bind("mouseleave", function() {
   $(this).fadeOut();
 }).fadeIn();
 
-var panel_height = <%= @children.map{|c| c.total_entries <= 10 ? ((c.total_entries + 1) * 29) : 290}.max %>
+var panel_height = <%= @children.map{|c| c.total_entries <= 7 ? ((c.total_entries + 1) * 44) : 314}.max %>
 var children_list = statement.find('.header .siblings_panel .doubles_list');
 children_list.height(panel_height).jScrollPane({animateScroll: false});
-
 
 var jsp = children_list.data('jsp');
 
