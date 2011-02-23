@@ -3,7 +3,7 @@ var statement = $('#statements > #<%=dom_id(@statement_node)%>');
 var double_list = statement.find('.<%= type_plural %> .doubles_list');
 
 <%if @page.to_i == 1 %>
-  panel_height = <%= @children.map{|c| c.total_entries <= 7 ? ((c.total_entries + 1) * 29) : 203}.max %>
+  panel_height = <%= @children.map{|c| c.total_entries <= 5 ? ((c.total_entries + 1) * 44) : 225}.max %>
   resetChildrenList(double_list, {height: panel_height});
 <% end %>
 
