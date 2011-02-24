@@ -4,8 +4,9 @@ fr:
   mailers:
     show_online: "Click here if the newsletter isn't displayed correctly."
     header:
-      follow_echo: Suivez echo sur Internet
+      follow_echo: Suivez echo
     greeting: 'Cher(e) {{name}},'
+    echo_community: 'echo community'
     bye_as_html: |-
       Bien à vous,
       <br/><br/>

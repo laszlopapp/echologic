@@ -54,15 +54,14 @@ class NewslettersController < ApplicationController
 
   def show
     newsletter = Newsletter.find(params[:id])
-    user = params[:user_id].nil? ? current_user : User.find(params[:user_id])
-    @name = user.full_name
+    @name = current_user ? current_user.full_name : I18n.t('mailers.echo_community')
     @text = newsletter.text
     @language = Language[I18n.locale]
     @no_greeting = !newsletter.default_greeting
     @no_goodbye = !newsletter.default_goodbye
     respond_to do |format|
       format.html {render :template => 'newsletters/show',
-                          :layout => 'mail'}
+                          :layout => 'mail_online'}
     end
   end
 end

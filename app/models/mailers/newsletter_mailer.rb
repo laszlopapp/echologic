@@ -29,7 +29,7 @@ class NewsletterMailer < ActionMailer::Base
     from          "noreply@echologic.org"
     sent_on       Time.now
     content_type  "text/html"
-    body          :online_url => newsletter_url(newsletter, :user_id => recipient.id),
+    body          :online_url => newsletter_url(newsletter),
                   :name => recipient.full_name,
                   :text => text,
                   :language => Language[language_code],
