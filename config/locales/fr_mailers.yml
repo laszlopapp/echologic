@@ -2,6 +2,7 @@
 fr:
 
   mailers:
+    show_online: "Click here if the newsletter isn't displayed correctly."
     header:
       follow_echo: Suivez echo sur Internet
     greeting: 'Cher(e) {{name}},'

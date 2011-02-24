@@ -2,6 +2,7 @@
 es:
 
   mailers:
+    show_online: "Click here if the newsletter isn't displayed correctly."
     header:
       follow_echo: Siga echo en la web
     greeting: 'Estimado/a {{name}},'

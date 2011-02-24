@@ -105,11 +105,21 @@
       #unsubscribe {
         font-style: italic;
       }
+
+      .show_online {
+        width: 100%;
+        text-align: center;
+        padding: 10px 0 10px 0;
+        border-bottom: 1px solid #999;
+      }
+
     </style>
   </head>
 
   <body>
     <div id="mail_container">
+
+      <div class="show_online"><%= link_to(I18n.t('mailers.show_online'), @online_url) %></div>
 
       <div id="mail_header">
         <% link_to root_url do %>

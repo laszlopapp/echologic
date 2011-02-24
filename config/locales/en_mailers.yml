@@ -2,6 +2,7 @@
 en:
 
   mailers:
+    show_online: "Click here if the newsletter isn't displayed correctly."
     header:
       follow_echo: Follow echo on the Web
     greeting: 'Dear {{name}},'
