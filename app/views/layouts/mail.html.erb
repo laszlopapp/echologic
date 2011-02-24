@@ -1,12 +1,13 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="/images/echo_browser_icon.png" type="image/png" />
     <title><%= yield :title %></title>
 
     <style type="text/css">
+
       body {
-        background: #A8C642 url(<%= full_url('/images/page/background.png') %>) repeat-x scroll left top;
         font-family: "Lucida Sans",Arial,Helvetica,sans-serif;
         font-size: 14px;
         color: #21587f;
@@ -25,29 +26,29 @@
       }
 
       #mail_container {
-        min-width: 400px;
-        max-width: 1000px;
-        margin: 10px auto;
+        width: 550px;
+        margin: 0 auto;
         padding: 0;
       }
 
+      #show_online {
+        width: 100%;
+        text-align: center;
+        padding: 5px 0;
+        font-size: 13px;
+      }
+
       #mail_header {
-        margin: 15px 10px 0;
         height: 90px;
-        padding: 0 10px;
-        position: relative;
+        margin: 10px 0;
+        padding: 10px 0;
+        border-top: 3px solid #7BB031;
+        border-bottom: 3px solid #7BB031;
       }
 
       #mail_logo {
         float: left;
-        margin: 5px 0 10px 5px;
         border: none;
-      }
-
-      #beta_label {
-        left: 192px;
-        top: 5px;
-        position: absolute;
       }
 
       #links_label {
@@ -88,13 +89,8 @@
       }
 
       #content_container {
-        margin: 15px 10px;
-        background: #FFF;
-        padding: 15px 20px;
-        border: 1px solid #7bb031;
-        border-radius: 10px;
-        -moz-border-radius: 10px;
-        -webkit-border-radius: 10px;
+        margin: 10px 0;
+        padding: 10px 5px;
       }
 
       .separator {
@@ -103,14 +99,8 @@
       }
 
       #unsubscribe {
+        font-size: 13px;
         font-style: italic;
-      }
-
-      .show_online {
-        width: 100%;
-        text-align: center;
-        padding: 10px 0 10px 0;
-        border-bottom: 1px solid #999;
       }
 
     </style>
@@ -119,13 +109,12 @@
   <body>
     <div id="mail_container">
 
-      <div class="show_online"><%= link_to(I18n.t('mailers.show_online'), @online_url) %></div>
+      <div id="show_online"><%= link_to(I18n.t('mailers.show_online'), @online_url) %></div>
 
       <div id="mail_header">
         <% link_to root_url do %>
-          <img id="mail_logo" src="<%= full_url('/images/page/echo_logo.png') %>" alt="echo - the global agora"/>
+          <img id="mail_logo" src="<%= full_url('/images/mails/echo_beta_logo.png') %>" alt="echo - the global agora"/>
         <% end %>
-        <img id="beta_label" src="<%= full_url('/images/page/beta_label.png') %>" alt="- BETA -"/>
 
         <%= content_tag :div, I18n.t('mailers.header.follow_echo'), :id => 'links_label' %>
         <% link_to 'http://facebook.com/echo.agora', :target => '_blank' do %>
@@ -144,13 +133,18 @@
 
       <div id="content_container">
         <h1><%= yield :title %></h1>
-        <%= content_tag :p, I18n.t('mailers.greeting', :name => @name, :locale => @language.code) if !@no_greeting%>
+        <%= content_tag :p, I18n.t('mailers.greeting',
+                                   :name => @name,
+                                   :locale => @language.code) unless @no_greeting%>
         <br/>
         <%= yield %>
         <br/>
-        <%= content_tag :p, I18n.t('mailers.bye_as_html', :locale => @language.code) if !@no_goodbye %>
-        <img class="separator" src="<%= full_url('/images/page/separator_no_shadow.png') %>"/>
-        <%= content_tag :p, I18n.t('mailers.signature_as_html', :locale => @language.code) %>
+        <%= content_tag :p, I18n.t('mailers.bye_as_html',
+                                   :locale => @language.code) unless @no_goodbye %>
+        <img class="separator"
+             src="<%= full_url('/images/page/separator_no_shadow.png') %>"/>
+        <%= content_tag :p, I18n.t('mailers.signature_as_html',
+                                   :locale => @language.code) %>
         <br/>
         <p id="unsubscribe">
           <%= yield :unsubscribe %>
