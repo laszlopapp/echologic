@@ -22,6 +22,6 @@ class ProfilesControllerTest < ActionController::TestCase
   end
   
   test "should update profile" do
-    put :update, :id => profiles(:user_profile).to_param, :profile => {:first_name => "Joe", :last_name => "Doe" }
+    put :update, :id => profiles(:user_profile).to_param, :profile => {:full_name => "Joe Doe" }
   end  
 end

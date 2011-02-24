@@ -14,10 +14,8 @@ pt:
       hide: « ok
       next: Seguinte
       back: de volta
-      last_name: Sobrenome
-      first_name: Nome Próprio
-      undefined: Ainda não inserido
       name: Nome
+      undefined: Ainda não inserido
       email: E-Mail
       ok: Ok
       or: ou
@@ -702,8 +700,6 @@ pt:
     attributes:
       profile:
         email:      E-Mail
-        first_name: Nome Próprio
-        last_name:  Sobrenome
         full_name:  Nome
         gender:     Sexo
         city:       Cidade

@@ -16,8 +16,6 @@ de:
       back: Zurück
       email: E-Mail
       name: Name
-      first_name: Vorname
-      last_name: Nachname
       undefined: Noch nicht eingetragen
       ok: Ok
       or: oder
@@ -720,8 +718,6 @@ de:
     attributes:
       profile:
         email:      E-Mail
-        first_name: Vorname
-        last_name:  Nachname
         full_name:  Name
         gender:     Geschlecht
         city:       Stadt

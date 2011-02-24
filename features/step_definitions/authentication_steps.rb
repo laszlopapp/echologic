@@ -13,9 +13,8 @@ When /^I login as "([^\"]*)" with password "([^\"]*)"$/ do |user, password|
   Then "I am logged in as \"#{user}\" with password \"#{password}\""
 end
 
-Given /^"([^\"]*)" forgot his password$/ do |user_full_name|
-  user_names = user_full_name.split(" ")
-  @user = Profile.find_by_first_name_and_last_name(user_names.first,user_names.last).user
+Given /^"([^\"]*)" forgot his password$/ do |name|
+  @user = Profile.find_by_full_name(name).user
 end
 
 
@@ -30,11 +29,10 @@ When /^I restore normal session expiry time$/ do
   # controller.send(:current_user_session).destroy
 end
 
-Given /^"([^\"]*)" is an unregistered user with "([^\"]*)" as an email$/ do |user_full_name, email|
-  user_names = user_full_name.split(" ")
+Given /^"([^\"]*)" is an unregistered user with "([^\"]*)" as an email$/ do |name, email|
   @user = User.new
   @user.create_profile
-  @user.signup!(:first_name => user_names.first, :last_name => user_names.last, :email => email)
+  @user.signup!(:full_name => name, :email => email)
 end
 
 Then /^"([^\"]*)" should have "([^\"]*)" as "([^\"]*)"$/ do |user, code, attribute|
@@ -52,17 +50,14 @@ Then /^an "([^\"]*)" email should be sent to "([^\"]*)"$/ do |email_type, email_
 end
 
 
-Then /^"([^\"]*)" should have "([^\"]*)" as password$/ do |user_full_name, password|
-  user_names = user_full_name.split(" ")
-  puts user_names.inspect
-  user = Profile.find_by_first_name_and_last_name(user_names.first,user_names.last).user
+Then /^"([^\"]*)" should have "([^\"]*)" as password$/ do |name, password|
+  user = Profile.find_by_full_name(name).user
   u_session = UserSession.new(:email => user.email, :password => password)
   assert u_session.save
 end
 
-Then /^"([^\"]*)" should have a profile$/ do |user_full_name|
-  user_names = user_full_name.split(" ")
-  profile = Profile.find_by_first_name_and_last_name(user_names.first,user_names.last)
+Then /^"([^\"]*)" should have a profile$/ do |name|
+  profile = Profile.find_by_full_name(name)
   assert !profile.nil?
 end
 

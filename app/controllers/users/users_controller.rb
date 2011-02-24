@@ -15,7 +15,7 @@ class Users::UsersController < ApplicationController
     allow anonymous, :to => [:new, :create, :create_social]
   end
 
-  include SocialModule
+  include Users::SocialModule
 
   # Generate auto completion based on values in the database. Load only 5
   # suggestions a time.

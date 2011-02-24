@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110217145006) do
+ActiveRecord::Schema.define(:version => 20110224103427) do
 
   create_table "about_item_translations", :force => true do |t|
     t.integer "about_item_id"
@@ -133,8 +133,6 @@ ActiveRecord::Schema.define(:version => 20110217145006) do
   end
 
   create_table "profiles", :force => true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
     t.boolean  "female"
     t.string   "city"
     t.string   "country"
@@ -150,6 +148,7 @@ ActiveRecord::Schema.define(:version => 20110217145006) do
     t.datetime "avatar_updated_at"
     t.float    "completeness",        :default => 0.01
     t.string   "avatar_remote_url"
+    t.string   "full_name"
   end
 
   add_index "profiles", ["user_id", "id"], :name => "index_profiles_on_user_id_and_id"
@@ -339,6 +338,7 @@ ActiveRecord::Schema.define(:version => 20110217145006) do
     t.integer  "drafting_notification",   :default => 1
     t.integer  "newsletter_notification", :default => 1
     t.integer  "authorship_permission",   :default => 1
+    t.string   "desired_email"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

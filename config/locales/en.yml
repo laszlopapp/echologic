@@ -14,10 +14,8 @@ en:
       hide: « okay
       next: Next
       back: Back
-      last_name: Last Name
-      first_name: First Name
-      undefined: Not yet entered
       name: Name
+      undefined: Not yet entered
       email: E-Mail
       email_confirmation: confirm E-Mail
       ok: Ok
@@ -750,8 +748,6 @@ en:
     attributes:
       profile:
         email:      E-Mail
-        first_name: First name
-        last_name:  Last name
         full_name:  Name
         gender:     Gender
         city:       City
