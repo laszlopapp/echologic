@@ -49,20 +49,20 @@ module Users::SocialModule
   
   def remove_social
     provider = params[:provider]
-    begin
+#    begin
       if social_id = current_user.has_provider?(provider)
          social_id.destroy
          redirect_or_render_with_info(settings_path, "users.social_accounts.disconnect.success", 
-                  :account => I18n.t("users.social_accounts.providers.#{profile_info['providerName'].underscore}"))
+                  :account => I18n.t("users.social_accounts.providers.#{provider}"))
       else
-        redirect_or_render_with_error(redirect_url, "users.social_accounts.disconnect.failed", 
-                                      :account => I18n.t("users.social_accounts.providers.#{profile_info['providerName'].underscore}"))
+        redirect_or_render_with_error(settings_path, "users.social_accounts.disconnect.failed", 
+                                      :account => I18n.t("users.social_accounts.providers.#{provider}"))
       end
-    rescue Exception => e
-      log_message_error(e, "Error removing social account to user")
-    else
-      log_message_info("User '#{current_user.id}' removed a social account successfully.")
-    end
+#    rescue Exception => e
+#      log_message_error(e, "Error removing social account to user")
+#    else
+#      log_message_info("User '#{current_user.id}' removed a social account successfully.")
+#    end
   end
   
   def setup_basic_profile
