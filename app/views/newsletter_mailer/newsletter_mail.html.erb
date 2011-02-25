@@ -1,4 +1,10 @@
 
+<% content_for :show_online do %>
+  <div id="show_online" style="width: 100%; text-align: center; padding: 13px 0 5px; font-size: 13px;">
+    <%= link_to(I18n.t('mailers.newsletter.show_online'), @online_url) %>
+  </div>
+<% end %>
+
 <% content_for :title do %>
   <%= I18n.t('mailers.newsletter.title', :locale => @language.code) %>
 <% end %>
