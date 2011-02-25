@@ -2,7 +2,6 @@
 de:
 
   mailers:
-    show_online: "Click here if the newsletter isn't displayed correctly."
     header:
       follow_echo: Folgen Sie echo
     greeting: 'Hallo {{name}},'
@@ -30,7 +29,8 @@ de:
       E-Mail: <a href="mailto:team@echologic.org">team@echologic.org</a>
 
     newsletter:
-      title: echo Newsletter
+      show_online: "Click here if the newsletter isn't displaying correctly."
+      title: Newsletter
       header: |
         <p>
         <strong>This is the Newsletter Section!</strong><br/>
