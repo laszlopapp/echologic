@@ -122,13 +122,14 @@ class Users::UsersController < ApplicationController
           format.html {flash_info and redirect_to settings_path}
           format.js { render_with_info }
         else
-          current_user.deliver_activation_confirmation!
+          current_user.deliver_activation_request!
           current_user_session.destroy
           reset_session
-          set_info 'users.activation.messages.email_updated'
-          format.html { flash_info and redirect_to root_path }
-          format.js {
-            render_with_info do |page|
+          set_info 'users.users.messages.email_updated'
+          flash_info
+          format.html { redirect_to root_path }
+          format.js{
+            render :update do |page|
               page.redirect_to root_path
             end
           }
