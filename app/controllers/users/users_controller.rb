@@ -116,12 +116,23 @@ class Users::UsersController < ApplicationController
   
   def update_email
     respond_to do |format|
-      if current_user.update_attributes(params[:user])
-        set_info "users.echo_account.change_email.success"
-        format.html {flash_info and redirect_to settings_path}
-        format.js {
-          render_with_info
-        }
+      if current_user.update_attributes(params[:user].merge({:active => current_user.has_verified_email?(params[:user][:email])}))
+        if current_user.active?
+          set_info "users.echo_account.change_email.success"
+          format.html {flash_info and redirect_to settings_path}
+          format.js { render_with_info }
+        else
+          current_user.deliver_activation_confirmation!
+          current_user_session.destroy
+          reset_session
+          set_info 'users.activation.messages.email_updated'
+          format.html { flash_info and redirect_to root_path }
+          format.js {
+            render_with_info do |page|
+              page.redirect_to root_path
+            end
+          }
+        end
       else
         set_error current_user
         format.html { flash_error and redirect_to settings_path }

@@ -360,6 +360,7 @@ en:
 
       messages:
         created: "Please check your E-Mails to activate your newly created account!"
+        email_updated: "Please check your E-Mails to activate your new email!"
 
     # Reports section
     reports:
