@@ -50,20 +50,19 @@
   height: 50px;
 }
 
-.signin_container, .signup_container, .setup_basic_profile_container {
+.signin_container, .signup_container, .setup_basic_profile_container, .password_resets_container {
 	float: left;
   padding-left: 50px;
   width: 320px;
 	height: 300px;
 }
 
-.setup_basic_profile_container {
+.setup_basic_profile_container, .password_resets_container {
+  float: left; {
 	padding-top: 137px;
 }
 
-.setup_basic_profile_container .avatar {
-	
-}
+
 
 .registry .close_button {
 	display: block;

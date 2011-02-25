@@ -5,7 +5,7 @@
 		  <%= I18n.t('users.password_reset.step2_text') %>
 		</p>
      <% form_for @user, :url => password_reset_path, :method => :put, :html => {:class => 'echoForm ajax_form'} do |f| %>
-     <div class='setup_basic_profile_container'>
+     <div class='password_resets_container'>
         <p>
 			    <%= f.label I18n.t('users.profile.password.new') %><br/>
 			    <%= f.password_field :password %>
@@ -19,7 +19,7 @@
         <%= tag('br');tag('br') %>
 				<%= f.submit I18n.t('users.password_reset.step2_ok'), :class => 'signinButton formButton300' %>
      </div>
-     <div class='setup_basic_profile_container'>
+     <div class='password_resets_container'>
         
      </div>
      <% end %>

@@ -78,7 +78,7 @@ class Users::UserSessionsController < ApplicationController
         end
       else # user doesn't have an email account, so he should go get it
         respond_to do |format|
-          set_later_call setup_basic_profile_user_url(user)
+          set_later_call setup_basic_profile_url(user.perishable_token)
           format.html { flash_later_call and redirect_to redirect_url }
         end
       end
