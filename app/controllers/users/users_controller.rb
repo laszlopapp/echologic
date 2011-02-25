@@ -52,10 +52,7 @@ class Users::UsersController < ApplicationController
     @user ||= User.new
     @user_session ||= UserSession.new
     @to_show = "signup"
-    render_static_new :template => 'users/users/new' do |format|
-      format.js {render :template => 'users/components/users_form', 
-                        :locals => {:partial => 'users/users/new'}}
-    end
+    render_signings "users"
   end
 
   # GET /users/1/edit
@@ -69,22 +66,13 @@ class Users::UsersController < ApplicationController
     @user = User.new
     @user.create_profile
     begin
-      respond_to do |format|
-        if @user.signup!(params[:user])
-          @user.deliver_activation_instructions!
-          set_info 'users.users.messages.created'
-          format.html { flash_info and redirect_to redirect_url }
-          format.js {
-            render_with_info do |page|
-              page << "$('#dialogContent').dialog('close');"
-            end
-          }
-        else
-          set_error @user
-          set_later_call signup_url
-          format.html { flash_error and flash_later_call and redirect_to redirect_url }
-          format.js{render_with_error}
+      if @user.signup!(params[:user])
+        @user.deliver_activation_instructions!
+        redirect_or_render_with_info(redirect_url, 'users.users.messages.created') do |page|
+          page << "$('#dialogContent').dialog('close');"
         end
+      else
+        later_call_with_error(redirect_url, signup_url, @user)
       end
     rescue Exception => e
       log_message_error(e, "Error creating user")
@@ -115,52 +103,31 @@ class Users::UsersController < ApplicationController
   end
   
   def update_email
-    respond_to do |format|
-      if current_user.update_attributes(params[:user].merge({:active => current_user.has_verified_email?(params[:user][:email])}))
-        if current_user.active?
-          set_info "users.echo_account.change_email.success"
-          format.html {flash_info and redirect_to settings_path}
-          format.js { render_with_info }
-        else
-          current_user.deliver_activation_request!
-          current_user_session.destroy
-          reset_session
-          set_info 'users.users.messages.email_updated'
-          flash_info
-          format.html { redirect_to root_path }
-          format.js{
-            render :update do |page|
-              page.redirect_to root_path
-            end
-          }
-        end
+    if current_user.update_attributes(params[:user].merge({:active => current_user.has_verified_email?(params[:user][:email])}))
+      if current_user.active?
+        redirect_or_render_with_info(settings_path, "users.echo_account.change_email.success")
       else
-        set_error current_user
-        format.html { flash_error and redirect_to settings_path }
-        format.js{ render_with_error }
+        current_user.deliver_activate!
+        current_user_session.destroy
+        reset_session
+        redirect_with_info(root_path, 'users.users.messages.email_updated')
       end
+    else
+      redirect_or_render_with_error(settings_path, current_user)
     end
   end
 
   def update_password
     old_password = params[:old_password]
     begin
-      respond_to do |format|
-        if current_user.has_password? old_password
-          if current_user.update_attributes(params[:user])
-            set_info 'users.echo_account.change_password.success'
-            format.html { flash_info and redirect_to settings_path }
-            format.js   { render_with_info }
-          else
-            set_error current_user
-            format.html { flash_error and redirect_to settings_path }
-            format.js   { render_with_error }
-          end
+      if current_user.has_password?(old_password)
+        if current_user.update_attributes(params[:user])
+          redirect_or_render_with_info(settings_path, 'users.echo_account.change_password.success')
         else
-          set_error "users.echo_account.change_password.wrong_password"
-          format.html { flash_error and redirect_to settings_path }
-          format.js   { render_with_error }
+          redirect_or_render_with_error(settings_path, current_user)
         end
+      else
+        redirect_or_render_with_error(settings_path, "users.echo_account.change_password.wrong_password")
       end
     rescue Exception => e
       log_message_error(e, "Error updating user #{current_user.id} password")

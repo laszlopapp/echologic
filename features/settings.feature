@@ -45,7 +45,7 @@ Feature: Set my settings
       | user_email                | thedarksideofthemoon@sun.com |
       | user_email_confirmation   | thedarksideofthemoon@sun.com |
       And I press "Ok"
-    Then I should see "E-Mail changed successfully!"
+    Then I should see localized "users.users.messages.email_updated"
       And I should have "thedarksideofthemoon@sun.com" as email
   
   Scenario: Change Password Fail

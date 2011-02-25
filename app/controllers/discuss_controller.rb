@@ -18,11 +18,4 @@ class DiscussController < ApplicationController
       format.html
     end
   end
-
-  # Processes a cancel request, and redirects back to the last shown statement_node
-  def cancel
-    @statement_node = StatementNode.find(session[:last_statement_node])
-    redirect_to @statement_node
-  end
-
 end

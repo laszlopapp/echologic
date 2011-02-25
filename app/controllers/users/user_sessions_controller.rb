@@ -9,11 +9,7 @@ class Users::UserSessionsController < ApplicationController
     @user_session = UserSession.new
     @user ||= User.new
     @to_show = "signin"
-    render_static_new :template => 'users/user_sessions/new' do |format|
-      format.js {render :template => 'users/components/users_form', 
-                        :locals => {:partial => 'users/user_sessions/new'}}
-    end
-    
+    render_signings "user_sessions"
   end
 
   # TODO use redirect back or default! see application controller!
@@ -30,23 +26,11 @@ class Users::UserSessionsController < ApplicationController
     end
     
     @user_session = UserSession.new(params[:user_session])
-    respond_to do |format|
-      if @user_session.save
-        s_id.save if s_id
-        set_info 'users.signin.messages.success'
-        flash_info
-        format.html { redirect_to redirect_url }
-        format.js{
-          render :update do |page|
-            page.redirect_to redirect_url
-          end
-        }
-      else
-        set_error 'users.signin.messages.failed'
-        set_later_call signin_path
-        format.html { flash_error and flash_later_call and redirect_to redirect_url }
-        format.js{ render_with_error }
-      end
+    if @user_session.save
+      s_id.save if s_id
+      redirect_with_info(redirect_url, 'users.signin.messages.success')
+    else
+      later_call_with_error(redirect_url, signin_path, 'users.signin.messages.failed')
     end
   end
 
@@ -58,29 +42,18 @@ class Users::UserSessionsController < ApplicationController
     user = User.find_by_social_identifier(identifier)
     
     if user.nil?
-      respond_to do |format|
-        set_error 'users.signin.messages.failed_social'
-        set_later_call signin_path
-        session[:identifier] = profile_info.to_json
-        format.html { flash_error and flash_later_call and redirect_to redirect_url }
-      end
+      session[:identifier] = profile_info.to_json
+      later_call_with_error(redirect_url, signin_path, 'users.signin.messages.failed_social')
     else
       if user.active? # user was already actived, i.e. he has an email account defined
         @user_session = UserSession.new(user)
-        respond_to do |format|
-          if @user_session.save
-            set_info 'users.signin.messages.success'
-            format.html { flash_info and redirect_to redirect_url }
-          else
-            set_error 'users.signin.messages.failed'
-            format.html { flash_error and redirect_to redirect_url }
-          end
+        if @user_session.save
+          redirect_or_render_with_info(redirect_url, 'users.signin.messages.success')
+        else
+          redirect_or_render_with_error(redirect_url, 'users.signin.messages.failed')
         end
       else # user doesn't have an email account, so he should go get it
-        respond_to do |format|
-          set_later_call setup_basic_profile_url(user.perishable_token)
-          format.html { flash_later_call and redirect_to redirect_url }
-        end
+        later_call(redirect_url, setup_basic_profile_url(user.perishable_token))
       end
     end
   end

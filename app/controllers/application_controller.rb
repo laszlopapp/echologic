@@ -367,6 +367,67 @@ class ApplicationController < ActionController::Base
       format.js   { render :template => 'layouts/outerMenuDialog' , :locals => opts[:locals]}
     end
   end
+  
+  def render_signings(type)
+    render_static_new :template => "users/#{type}/new" do |format|
+      format.js {render :template => 'users/components/users_form', 
+                        :locals => {:partial => "users/#{type}/new"}}
+    end
+  end
+
+  def redirect_or_render_with_info(url, message_or_object, opts={})
+    respond_to do |format|
+      set_info message_or_object, opts
+      format.html { flash_info and redirect_to url }
+      format.js   { 
+        render_with_info do |page|
+          yield page if block_given?
+        end
+      }
+    end
+  end
+  
+  def redirect_or_render_with_error(url, message_or_object, opts={})
+    respond_to do |format|
+      set_error message_or_object, opts
+      format.html { flash_error and redirect_to url }
+      format.js   { 
+        render_with_error do |page|
+          yield page if block_given?
+        end
+      }
+    end
+  end
+  
+  def redirect_with_info(url, message_or_object, opts={})
+    set_info message_or_object, opts
+    flash_info
+    respond_to do |format|
+      format.html { redirect_to url }
+      format.js{
+        render :update do |page|
+          page.redirect_to url
+        end
+      }
+    end
+  end
+  
+  def later_call(url, later_url)
+    respond_to do |format|
+      set_later_call later_url
+      format.html { flash_later_call and redirect_to url }
+      yield format if block_given? 
+    end
+  end
+  
+  def later_call_with_error(url, later_url, message_or_object, opts={})
+    respond_to do |format|
+      set_error message_or_object, opts
+      set_later_call later_url
+      format.html { flash_error and flash_later_call and redirect_to url }
+      format.js{ render_with_error }
+    end
+  end
 
   ################
   #  BreadCrumb  #

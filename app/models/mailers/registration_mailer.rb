@@ -14,7 +14,7 @@ class RegistrationMailer < ActionMailer::Base
   
   # Delivers activation request to the given user.
   # TODO i18n see view
-  def activation_request(user)
+  def activate(user)
     subject       I18n.t('mail.activation.subject')
     from          "noreply@echologic.org"
     recipients    user.email

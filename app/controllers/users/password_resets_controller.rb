@@ -19,23 +19,11 @@ class Users::PasswordResetsController < ApplicationController
   def create
     @user = User.find_by_email(params[:email])
     begin
-      respond_to do |format|
-        if @user
-          @user.deliver_password_reset_instructions!
-          set_info 'users.password_reset.messages.success'
-          flash_info
-          format.html { redirect_to root_url }
-          format.js   { 
-            render :update do |page|
-              page.redirect_to root_url
-            end
-          }
-        else
-          set_error 'users.password_reset.messages.not_found'
-          set_later_call new_password_reset_path
-          format.html { flash_error and flash_later_call and redirect_to root_url }
-          format.js   { render_with_error }
-        end
+      if @user
+        @user.deliver_password_reset_instructions!
+        redirect_with_info(root_path, 'users.password_reset.messages.success')
+      else
+        later_call_with_error(root_path, new_password_reset_path, 'users.password_reset.messages.not_found')
       end
     rescue Exception => e
       log_message_error(e, "Error creating user '#{@user.nil? ? params[:email] : @user.id}' password.")
@@ -46,11 +34,7 @@ class Users::PasswordResetsController < ApplicationController
 
   # Render the edit partial
   def edit
-    respond_to do |format|
-      format.html { 
-        set_later_call request.url
-        flash_later_call and redirect_to root_url 
-      }
+    later_call(root_path, request.url) do |format|
       format.js {
         load_user_using_perishable_token(true)
         render :template => 'users/components/users_form', 
@@ -64,23 +48,11 @@ class Users::PasswordResetsController < ApplicationController
     @user.password_confirmation = params[:user][:password_confirmation]
     @user.active = true
     begin
-      respond_to do |format|
-        if @user.save
-          set_info 'users.password_reset.messages.reset_success'
-          flash_info
-          format.html { redirect_to root_url }
-          format.js   { 
-            render :update do |page|
-              page.redirect_to root_url
-            end
-          }
-        else
-          set_error 'users.password_reset.messages.reset_failed'
-          set_error @user
-          set_later_call request.referer
-          format.html { flash_error and flash_later_call and redirect_to root_url }
-          format.js   { render_with_error }
-        end
+      if @user.save
+        redirect_with_info(root_path, 'users.password_reset.messages.reset_success')
+      else
+        set_error 'users.password_reset.messages.reset_failed'
+        later_call_with_error(root_path, request.referer, @user)
       end
     rescue Exception => e
       log_message_error(e, "Error updating user '#{@user.id}' password.")
