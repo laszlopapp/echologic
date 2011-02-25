@@ -63,7 +63,7 @@ ActionController::Routing::Routes.draw do |map|
                 :path_prefix => ''
 
 
-  map.resources :users, :controller => 'users/users', :path_prefix => '', :member => [:setup_basic_profile] do |user|
+  map.resources :users, :controller => 'users/users', :path_prefix => '' do |user|
     user.resources :web_addresses, :controller => 'users/web_addresses', :except => [:index]
     user.resources :spoken_languages, :controller => 'users/spoken_languages', :except => [:index]
     user.resources :activities,   :controller => 'users/activities',   :except => [:index]
@@ -77,7 +77,7 @@ ActionController::Routing::Routes.draw do |map|
   map.signin     '/signin',                    :controller => 'users/user_sessions', :action => 'new'
   map.signup     '/signup',                    :controller => 'users/users',       :action => 'new'
   map.signout    '/signout',                   :controller => 'users/user_sessions', :action => 'destroy'
-  
+  map.setup_basic_profile '/setup_basic_profile/:activation_code', :controller => 'users/users', :action => 'setup_basic_profile'
   
   # Social Accout Routes
   map.signin_remote '/signin_remote',          :controller => 'users/user_sessions', :action => 'create_social', :method => :post

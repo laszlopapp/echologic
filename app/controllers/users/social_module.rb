@@ -17,7 +17,7 @@ module Users::SocialModule
       User.transaction do
         respond_to do |format|
           if @user.signup!(opts)
-            set_later_call setup_basic_profile_user_url(@user)
+            set_later_call setup_basic_profile_url(@user.perishable_token)
             format.html { flash_later_call and redirect_to redirect_url }
           else
             set_error @user
@@ -85,10 +85,21 @@ module Users::SocialModule
   
   def setup_basic_profile
     session[:redirect_url] = request.referer
+    @user = User.find_by_perishable_token(params[:activation_code], 1.week)
     @profile_info = JSON.parse(@user.social_identifiers.first.profile_info)
-    render_static_new :template => 'users/users/setup_basic_profile' do |format|
-      format.js {render :template => 'users/components/users_form', 
-                        :locals => {:partial => 'users/users/setup_basic_profile', :css_class => "basic_profile_box"}}
+    if @user.nil?
+      set_error "users.activation.messages.no_account"
+      format.html { flash_error and redirect_to root_url }
+      format.js{ render_with_error }
+    elsif @user.active?
+      set_error "users.activation.messages.already_active"
+      format.html { flash_error and redirect_to root_url }
+      format.js{ render_with_error }
+    else
+      render_static_new :template => 'users/users/setup_basic_profile' do |format|
+        format.js {render :template => 'users/components/users_form', 
+                          :locals => {:partial => 'users/users/setup_basic_profile', :css_class => "basic_profile_box"}}
+      end
     end
   end
 

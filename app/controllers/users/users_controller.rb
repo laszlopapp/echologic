@@ -3,7 +3,7 @@ class Users::UsersController < ApplicationController
 
   before_filter :require_no_user, :only => [:new, :create, :create_social, :setup_basic_profile]
   skip_before_filter :require_user, :only => [:index, :new, :create, :create_social, :setup_basic_profile]
-  before_filter :fetch_user, :only => [:show, :setup_basic_profile, :edit, :update, :destroy]
+  before_filter :fetch_user, :only => [:show, :edit, :update, :destroy]
   
   
 
