@@ -43,7 +43,7 @@ a, a:hover, a:visited {
   font-weight: bold;
   float: right;
   position: relative;
-  top: 4px;
+  top: 6px;
   cursor: default;
 }
 
@@ -54,7 +54,7 @@ a, a:hover, a:visited {
   float: right;
   margin-left: 13px;
   position: relative;
-  top: 13px;
+  top: 17px;
 }
 
 #echo_link {
