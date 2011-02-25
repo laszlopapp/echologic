@@ -73,10 +73,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :password_resets, :controller => 'users/password_resets', :path_prefix => '', :except => [:destroy]
 
   map.register   '/register/:activation_code', :controller => 'users/activations', :action => 'new'
+  map.activate   '/activate/:activation_code', :controller => 'users/activations', :action => 'create', :method => :post
   map.signin     '/signin',                    :controller => 'users/user_sessions', :action => 'new'
   map.signup     '/signup',                    :controller => 'users/users',       :action => 'new'
   map.signout    '/signout',                   :controller => 'users/user_sessions', :action => 'destroy'
-  map.activate   '/activate/:id',              :controller => 'users/activations', :action => 'create'
+  
   
   # Social Accout Routes
   map.signin_remote '/signin_remote',          :controller => 'users/user_sessions', :action => 'create_social', :method => :post

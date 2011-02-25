@@ -1,5 +1,7 @@
 class RegistrationMailer < ActionMailer::Base
 
+  
+
   # Delivers activation instructions to the given user.
   # TODO i18n see view
   def activation_instructions(user)
@@ -8,6 +10,16 @@ class RegistrationMailer < ActionMailer::Base
     recipients    user.email
     sent_on       Time.now
     body          :name => user.full_name, :activation_url => register_url(user.perishable_token)
+  end
+  
+  # Delivers activation request to the given user.
+  # TODO i18n see view
+  def activation_request(user)
+    subject       I18n.t('mail.activation.subject')
+    from          "noreply@echologic.org"
+    recipients    user.email
+    sent_on       Time.now
+    body          :name => user.full_name, :activation_url => activate_url(user.perishable_token)
   end
 
   # Provides an activation for the given user.

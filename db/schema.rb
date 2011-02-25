@@ -318,7 +318,7 @@ ActiveRecord::Schema.define(:version => 20110224103427) do
   add_index "user_echos", ["user_id"], :name => "index_echo_details_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                      :null => false
+    t.string   "email"
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "persistence_token",                          :null => false

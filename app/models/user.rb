@@ -23,8 +23,14 @@ class User < ActiveRecord::Base
   # TODO uncomment attr_accessible :active if needed.
   #attr_accessible :active
 
+  
+  
+
   # Authlogic plugin to do authentication
   acts_as_authentic do |c|
+    c.validates_length_of_email_field_options = {:minimum => 6, :if => :active_or_email_defined?}
+    c.validates_format_of_email_field_options = {:with => Authlogic::Regex.email, :if => :active_or_email_defined?}
+#    c.validates_uniqueness_of_email_field_options = {:if => :active_or_email_defined?}
     c.validates_length_of_password_field_options = {:on => :update,
                                                     :minimum => 4,
                                                     :if => :has_no_credentials?}
@@ -35,6 +41,9 @@ class User < ActiveRecord::Base
   
   validates_confirmation_of :email
   
+  def active_or_email_defined?
+    !(!self.active and !self.social_identifiers.empty?)
+  end
   
   def has_password?(password)
     salt = self.password_salt
@@ -85,6 +94,13 @@ class User < ActiveRecord::Base
   def deliver_activation_instructions!
     reset_perishable_token!
     mail = RegistrationMailer.create_activation_instructions(self)
+    RegistrationMailer.deliver(mail)
+  end
+  
+  # Uses mailer to deliver activation instructions
+  def deliver_activation_request!
+    reset_perishable_token!
+    mail = RegistrationMailer.create_activation_request(self)
     RegistrationMailer.deliver(mail)
   end
 

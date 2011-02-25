@@ -8,12 +8,15 @@ module Users::SocialModule
     @user = User.new
     @user.create_profile
     
-    opts = SocialService.instance.load_basic_profile_options(profile_info)
+    opts = SocialService.instance.load_basic_profile_options(profile_info) || {}
+    opts[:social_identifiers] = [SocialIdentifier.new(:identifier => profile_info['identifier'], 
+                                                        :provider_name => profile_info['providerName'],
+                                                        :profile_info => profile_info.to_json )]
     
     begin
       User.transaction do
         respond_to do |format|
-          if @user.activate!(opts)
+          if @user.signup!(opts)
             set_later_call setup_basic_profile_user_url(@user)
             format.html { flash_later_call and redirect_to redirect_url }
           else
@@ -80,5 +83,13 @@ module Users::SocialModule
     end
   end
   
-  
+  def setup_basic_profile
+    session[:redirect_url] = request.referer
+    @profile_info = JSON.parse(@user.social_identifiers.first.profile_info)
+    render_static_new :template => 'users/users/setup_basic_profile' do |format|
+      format.js {render :template => 'users/components/users_form', 
+                        :locals => {:partial => 'users/users/setup_basic_profile', :css_class => "basic_profile_box"}}
+    end
+  end
+
 end

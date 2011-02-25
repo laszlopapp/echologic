@@ -32,8 +32,15 @@ module ActiveRecord
               self.social_identifiers.find_by_identifier( id )
             end
             
-            def has_provider? (provider_name)
+            def has_provider?(provider_name)
               self.social_identifiers.find_by_provider_name(provider_name.camelize)
+            end
+            
+            def has_verified_email?(email)
+              self.social_identifiers.each do |si|
+                return true if email.eql? JSON.parse(si.profile_info)['verifiedEmail']
+              end
+              return false
             end
 
             def delete_social_accounts

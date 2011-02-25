@@ -1,18 +1,18 @@
 class Users::UsersController < ApplicationController
   helper :signings_form
 
-  before_filter :require_no_user, :only => [:new, :create, :create_social]
-  skip_before_filter :require_user, :only => [:index, :new, :create, :create_social]
+  before_filter :require_no_user, :only => [:new, :create, :create_social, :setup_basic_profile]
+  skip_before_filter :require_user, :only => [:index, :new, :create, :create_social, :setup_basic_profile]
   before_filter :fetch_user, :only => [:show, :setup_basic_profile, :edit, :update, :destroy]
   
   
 
   access_control do
-    allow logged_in, :to => [:show, :index, :setup_basic_profile, :update_email, :update_password, :add_concernments, 
+    allow logged_in, :to => [:show, :index, :update_email, :update_password, :add_concernments, 
                              :delete_concernment, :auto_complete_for_tag_value, :update, :destroy_account, :add_social,
                              :remove_social]
     allow :admin
-    allow anonymous, :to => [:new, :create, :create_social]
+    allow anonymous, :to => [:new, :create, :create_social, :setup_basic_profile]
   end
 
   include Users::SocialModule
@@ -44,15 +44,7 @@ class Users::UsersController < ApplicationController
     end
   end
 
-  def setup_basic_profile
-    session[:redirect_url] = request.referer
-    @profile_info = JSON.parse(@user.social_identifiers.first.profile_info)
-    render_static_new :template => 'users/users/setup_basic_profile' do |format|
-      format.js {render :template => 'users/components/users_form', 
-                        :locals => {:partial => 'users/users/setup_basic_profile', :css_class => "basic_profile_box"}}
-    end
-  end
-
+  
   # GET /users/new
   # GET /users/new.xml
   def new
@@ -106,24 +98,13 @@ class Users::UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.xml
   def update
-    redirect_url = session[:redirect_url] || my_profile_path
     begin
-      User.transaction do 
-        respond_to do |format|
-          if @user.update_attributes(params[:user]) and @user.profile.save
-            set_info "users.activation.messages.success"
-            flash_info
-            format.html { redirect_to redirect_url}
-            format.js {
-              render :update do |page|
-                page.redirect_to redirect_url
-              end
-            }
-          else
-            set_error @user
-            format.html { flash_error and redirect_to request.referer }
-            format.js{ render_with_error }
-          end
+      respond_to do |format|
+        if @user.update_attributes(params[:user])
+          flash[:notice] = "User was successfully updated."
+          format.html { redirect_to(profile_path) }
+        else
+          format.html { render :action => "edit" }
         end
       end
     rescue Exception => e

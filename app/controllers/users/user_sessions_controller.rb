@@ -65,14 +65,21 @@ class Users::UserSessionsController < ApplicationController
         format.html { flash_error and flash_later_call and redirect_to redirect_url }
       end
     else
-      @user_session = UserSession.new(user)
-      respond_to do |format|
-        if @user_session.save
-          set_info 'users.signin.messages.success'
-          format.html { flash_info and redirect_to redirect_url }
-        else
-          set_error 'users.signin.messages.failed'
-          format.html { flash_error and redirect_to redirect_url }
+      if user.active? # user was already actived, i.e. he has an email account defined
+        @user_session = UserSession.new(user)
+        respond_to do |format|
+          if @user_session.save
+            set_info 'users.signin.messages.success'
+            format.html { flash_info and redirect_to redirect_url }
+          else
+            set_error 'users.signin.messages.failed'
+            format.html { flash_error and redirect_to redirect_url }
+          end
+        end
+      else # user doesn't have an email account, so he should go get it
+        respond_to do |format|
+          set_later_call setup_basic_profile_user_url(user)
+          format.html { flash_later_call and redirect_to redirect_url }
         end
       end
     end

@@ -1,5 +1,4 @@
 require 'singleton'
-
   
 class SocialService
   include Singleton
@@ -33,11 +32,8 @@ class SocialService
     @service.get_provider_signup_url(provider, token_url)
   end
   def load_basic_profile_options(profile_info)
-    opts= {:email => profile_info['email'], :first_name => profile_info['preferredUsername'],
-           :social_identifiers => [SocialIdentifier.new(:identifier => profile_info['identifier'], 
-                                                        :provider_name => profile_info['providerName'],
-                                                        :profile_info => profile_info.to_json )]}
-    opts
+    {:email => profile_info['verifiedEmail']||profile_info['email'], 
+     :full_name => profile_info['preferredUsername']||profile_info['displayName']}
   end
 end
 

@@ -140,7 +140,10 @@ en:
       set_password: Forgot your password?
       remember: Remember me!
       hello: Logged in<br/><strong>{{name}}</strong>
-      setup_basic_profile: 'Setup Basic Profile'
+      setup_basic_profile: 
+        title: 'Setup Basic Profile'
+        guide: Please, fill your basic information in and publish your account!
+        agreement: I agree with the terms of data policy...
       messages:
         success: "Login successful. Welcome back to echo."
         failed: "Unknown user or wrong password."
@@ -164,7 +167,10 @@ en:
 
       messages:
         success: Your account has been successfully created. Welcome to echo!
-        failed: Your account could not be activated. Please check your input.
+        failed: |-
+          <p>Your account could not be activated. Please check your input.</p>
+        already_active: Your account is already active!
+        no_account: Your account does not exist!
 
     # Password resets section
     password_reset:

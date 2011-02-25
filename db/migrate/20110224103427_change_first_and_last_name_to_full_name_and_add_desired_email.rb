@@ -7,6 +7,7 @@ class ChangeFirstAndLastNameToFullNameAndAddDesiredEmail < ActiveRecord::Migrati
     end
     remove_column :profiles, :first_name, :last_name
     add_column :users, :desired_email, :string
+    change_column :users, :email, :string, :null => true
   end
 
   def self.down
@@ -20,5 +21,6 @@ class ChangeFirstAndLastNameToFullNameAndAddDesiredEmail < ActiveRecord::Migrati
     end
     remove_column :profiles, :full_name
     remove_column :users, :desired_email
+    change_column :users, :email, :string, :null => false
   end
 end

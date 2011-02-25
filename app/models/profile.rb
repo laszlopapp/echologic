@@ -22,11 +22,6 @@ class Profile < ActiveRecord::Base
   # To calculate profile completeness
   include ProfileExtension::Completeness
 
-  # TODO: do we need this ?
-  named_scope :by_full_name_id,
-              :include => :user,
-              :order => 'CASE WHEN full_name="" THEN 1 ELSE 0 END, full_name, user.id asc'
-
   # There are two kind of people in the world..
   @@gender = {
     false => I18n.t('users.profile.gender.male'),
