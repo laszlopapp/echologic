@@ -30,7 +30,6 @@ class User < ActiveRecord::Base
   acts_as_authentic do |c|
     c.validates_length_of_email_field_options = {:minimum => 6, :if => :active_or_email_defined?}
     c.validates_format_of_email_field_options = {:with => Authlogic::Regex.email, :if => :active_or_email_defined?}
-#    c.validates_uniqueness_of_email_field_options = {:if => :active_or_email_defined?}
     c.validates_length_of_password_field_options = {:on => :update,
                                                     :minimum => 4,
                                                     :if => :has_no_credentials?}
