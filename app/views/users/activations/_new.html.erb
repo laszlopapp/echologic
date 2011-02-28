@@ -23,6 +23,7 @@
         <%= f.submit I18n.t('application.general.save'), :class => 'signinButton formButton200' %><br/>
         <p>
          <%= I18n.t('users.signin.setup_basic_profile.agreement') %>
+				 <%= check_box_tag :agreement, 1, false %>
        </p>
      </div>
      <div class='setup_basic_profile_container'>
