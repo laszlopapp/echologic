@@ -23,7 +23,7 @@ class Users::ActivationsController < ApplicationController
 
   def create
     @user = User.find_by_perishable_token(params[:activation_code], 1.week)
-
+  
     User.transaction do 
       if @user.nil?
         redirect_or_render_with_error(root_path, "users.activation.messages.no_account")

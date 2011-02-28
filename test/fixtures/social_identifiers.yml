@@ -1,0 +1,5 @@
+joe_facebook:
+  user_id: <%= Fixtures.identify(:joe) %>
+  provider_name: Facebook
+  identifier: @qwerfdglkngfd322@dfgnlkdfgfdlkegr
+  profile_info: "it is supposed to be a string"
