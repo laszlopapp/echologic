@@ -4,14 +4,14 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
 
   def test_activity_tracking_mail_question
     user = users(:user)
-    question_event = events(:event_test_question)
+    question_event = JSON.parse(events(:event_test_question).event)
     question_events = [question_event]
 
     tags = {'#echonomyjam' => 1,'user' => 2}
-    events = []
-    id = JSON.parse(question_event.event)['id']
+    events = {}
+    id = question_event['id']
     en = Language['en']
-    title = JSON.parse(question_event.event)['documents'][en.id]
+    title = question_event['documents'][en.id]
     # Send the email, then test that it got queued
     email = ActivityTrackingMailer.deliver_activity_tracking_mail!(user,question_events,tags,events)
     assert !ActionMailer::Base.deliveries.empty?
@@ -31,12 +31,15 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     user = users(:user)
     question_events = []
     tags = {}
-    proposal_event = events(:event_second_proposal)
-    id = JSON.parse(proposal_event.event)['id']
-    parent_id = JSON.parse(proposal_event.event)['parent_id']
+    proposal_event = JSON.parse(events(:event_second_proposal).event)
+    id = proposal_event['id']
+    parent_id = proposal_event['parent_id']
     en = Language['en']
-    title = JSON.parse(proposal_event.event)['documents'][en.id]
-    events = [proposal_event]
+    title = proposal_event['documents'][en.id]
+    events = {proposal_event['level'] => {
+              proposal_event['parent_id'] => {
+              proposal_event['type'] => {
+              proposal_event['operation'] => [proposal_event]}}} }
     # Send the email, then test that it got queued
     email = ActivityTrackingMailer.deliver_activity_tracking_mail!(user,question_events,tags,events)
     assert !ActionMailer::Base.deliveries.empty?
@@ -53,13 +56,15 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     user = users(:user)
     question_events = []
     tags = {}
-    impro_proposal_event = events(:event_first_impro_proposal)
-    id = JSON.parse(impro_proposal_event.event)['id']
-    parent_id = JSON.parse(impro_proposal_event.event)['parent_id']
-    root_id = JSON.parse(impro_proposal_event.event)['root_id']
+    impro_proposal_event = JSON.parse(events(:event_first_impro_proposal).event)
+    id = impro_proposal_event['id']
+    parent_id = impro_proposal_event['parent_id']
     en = Language['en']
-    title = JSON.parse(impro_proposal_event.event)['documents'][en.id]
-    events = [impro_proposal_event]
+    title = impro_proposal_event['documents'][en.id]
+    events = {impro_proposal_event['level'] => {
+              impro_proposal_event['parent_id'] => {
+              impro_proposal_event['type'] => {
+              impro_proposal_event['operation'] => [impro_proposal_event]}}} }
     # Send the email, then test that it got queued
     email = ActivityTrackingMailer.deliver_activity_tracking_mail!(user,question_events,tags,events)
     assert !ActionMailer::Base.deliveries.empty?
@@ -68,7 +73,6 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert_equal "echo - Activity Notifications", email.subject
     assert_match /echo - Activity Notifications/, email.encoded
     assert_match /#{Proposal.find(parent_id).document_in_preferred_language(Language['en']).title}/, email.encoded
-    assert_match /#{Question.find(root_id).document_in_preferred_language(Language['en']).title}/, email.encoded
     assert_match /#{id}/, email.encoded
     assert_match /#{title}/, email.encoded
   end

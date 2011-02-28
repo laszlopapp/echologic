@@ -48,20 +48,21 @@ fr:
         Your newsletter mails are being delivered...
 
     activity_tracking:
-      subject: echo - Activités, notifications"
+      subject: echo - Notifications d'activité
+      title: Notifications d'activité
       statements:
         new_questions: 'Il y a des <strong>{{count}} discussions nouvelles</strong> depuis la dernière mise à jour. '
         new_tags: 'Les thèmes suivants y sont abordés:'
-        new_proposals: 'Propositions nouvelles "{{title}}"'
-        new_improvements: |
-          Nouvelles propositions d'amélioraton' "{{title}}" in "{{question_title}}":
-        new_pro_arguments: 'Nouveaux arguments PRO "{{title}}" concernant la question "{{question_title}}":'
-        new_contra_arguments: 'Nouveaux arguments CONTRE concernant la proposition "{{title}}" in "{{question_title}}":'
-        new_follow_up_questions: 'Nouvelle question suivie concernant "{{title}}":'
+        created_proposals: 'Propositions nouvelles concernant la question "{{title}}"'
+        created_improvements: |
+          Nouvelles propositions d'amélioraton' concernant la proposition "{{title}}":
+        created_pro_arguments: 'Nouveaux arguments PRO concernant la proposition "{{title}}":'
+        created_contra_arguments: 'Nouveaux arguments CONTRE concernant la proposition "{{title}}":'
+        created_follow_up_questions: 'Nouvelle question suivie concernant "{{title}}":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         Si vous ne souhaitez pas recevoir des mises à jour, cliquez sur
-        <a href='{{echo_url}}'>echo</a> allez ensuite sur "mon echo", "paramètres" et désactivez la messagerie.
+        <a href='{{echo_url}}'>echo</a> allez ensuite sur "Mon echo", "Paramètres" et désactivez la messagerie.
 
 
     drafting:

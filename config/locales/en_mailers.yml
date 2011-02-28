@@ -48,15 +48,16 @@ en:
         Your newsletter mails are being delivered...
 
     activity_tracking:
-      subject: echo - Activity Notifications
+      subject: echo - New discussion content
+      title: New discussion content
       statements:
         new_questions: 'There are <strong>{{count}} new question(s)</strong> since the last update. '
         new_tags: 'They are related to the following topics:'
-        new_proposals: 'New proposals in the question "{{title}}"'
-        new_improvements: 'New addition ideas for the proposal "{{title}}" in "{{question_title}}":'
-        new_pro_arguments: 'New pro arguments for the proposal "{{title}}" in "{{question_title}}":'
-        new_contra_arguments: 'New contra arguments for the proposal "{{title}}" in "{{question_title}}":'
-        new_follow_up_questions: 'New follow-up questions for "{{title}}":'
+        created_proposals: 'New content in the question "{{title}}":'
+        created_improvements: 'New content in the proposal "{{title}}":'
+        created_pro_arguments: 'New content in the proposal "{{title}}":'
+        created_contra_arguments: 'New content in the proposal "{{title}}":'
+        created_follow_up_questions: 'New follow-up questions for "{{title}}":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         If you do not wish to receive regular updates on new discussion entries, please log in to

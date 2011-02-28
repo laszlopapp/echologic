@@ -101,7 +101,7 @@ fr:
       tabs:
         welcome: Bienvenue
         profile: Mon Profil
-        settings: Mon Compte
+        settings: Paramètres
       profile_complete: "{{complete}}% rempli"
 
 
