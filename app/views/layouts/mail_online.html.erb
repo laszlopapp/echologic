@@ -35,9 +35,8 @@
         <%= content_tag :p, I18n.t('mailers.greeting',
                                    :name => @name,
                                    :locale => @language.code) unless @no_greeting%>
-        <br/>
         <%= yield %>
-        <br/>
+        
         <%= content_tag :p, I18n.t('mailers.bye_as_html',
                                    :locale => @language.code) unless @no_goodbye %>
         <img class="separator"

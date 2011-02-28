@@ -2,23 +2,21 @@
 
   <p>
     <%= I18n.t('mailers.activity_tracking.statements.new_questions',
-             :count => @root_events.size,
-             :locale => @language.code) %>
+               :count => @root_events.size,
+               :locale => @language.code) %>
     <%= I18n.t('mailers.activity_tracking.statements.new_tags',
-             :locale => @language.code) %>
+               :locale => @language.code) %>
     <%= @tags.to_a.map{|tag|
         I18n.t('mailers.activity_tracking.statements.tag_link',
-               :tag => link_to(tag[0], discuss_search_url(:value => tag[0], :locale => @language.code)),
+               :tag => link_to(tag[0], discuss_search_url(:search_terms => tag[0], :locale => @language.code)),
                :count => tag[1],
                :locale => @language.code)}.join(", ") %>
   </p>
 
-  <ul>
-    <% @root_events.each do |root_event| %>
-      <% document = get_document_in_preferred_language(root_event["documents"], @preferred_language_ids) %>
-      <li>
-				<%= link_to document[1], question_url(root_event['id']), :locale => Language[document[0].to_i].code %>
-      </li>
+  <ul style="padding-left: 20px;">
+    <% @root_events.each do |event| %>
+      <% document = get_document_in_preferred_language(event["documents"], @preferred_language_ids) %>
+      <%= inline_statement_link(document, event) %>
     <% end %>
   </ul>
 

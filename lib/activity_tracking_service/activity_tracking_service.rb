@@ -153,9 +153,6 @@ class ActivityTrackingService
     ActivityTrackingMailer.deliver(mail)
   end
 
-  #handle_asynchronously :send_activity_email
-
-
 
   def set_titles_hash(documents)
     documents.each_with_object({}) do |document, titles_hash|
