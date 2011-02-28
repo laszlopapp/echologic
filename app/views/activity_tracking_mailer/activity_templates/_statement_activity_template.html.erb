@@ -1,3 +1,2 @@
-<li>
-  <%= link_to title, statement_node_url(event_data['id'], :locale => language_code) %>
-</li>
+<% document = get_document_in_preferred_language(event["documents"], @preferred_language_ids) %>
+<%= content_tag :li, link_to(document[1], statement_node_url(event['id'], :locale => Language[document[0].to_i].code)) %>
