@@ -3,17 +3,18 @@ module Users::SocialModule
   def create_social
     redirect_url = session[:redirect_url] || root_path
     token = params[:token]
-    profile_info = SocialService.instance.get_profile_info(token)
-    
-    @user = User.new
-    @user.create_profile
-    
-    opts = SocialService.instance.load_basic_profile_options(profile_info) || {}
-    opts[:social_identifiers] = [SocialIdentifier.new(:identifier => profile_info['identifier'], 
-                                                        :provider_name => profile_info['providerName'],
-                                                        :profile_info => profile_info.to_json )]
-    
     begin
+      profile_info = SocialService.instance.get_profile_info(token)
+      
+      @user = User.new
+      @user.create_profile
+      
+      opts = SocialService.instance.load_basic_profile_options(profile_info) || {}
+      opts[:social_identifiers] = [SocialIdentifier.new(:identifier => profile_info['identifier'], 
+                                                          :provider_name => profile_info['providerName'],
+                                                          :profile_info => profile_info.to_json )]
+      
+      
       User.transaction do
         if @user.signup!(opts)
           later_call(redirect_url, setup_basic_profile_url(@user.perishable_token))
