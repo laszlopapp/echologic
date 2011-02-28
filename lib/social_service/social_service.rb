@@ -18,6 +18,7 @@ class SocialService
   end
   def get_profile_info(token)
     @service.get_profile_info(token)
+    with_indifferent_access(data)
   end
   def mappings(primary_key)
     @service.mappings(primary_key)
@@ -34,6 +35,11 @@ class SocialService
   def load_basic_profile_options(profile_info)
     {:email => profile_info['verifiedEmail']||profile_info['email'], 
      :full_name => profile_info['preferredUsername']||profile_info['displayName']}
+ end
+ 
+ private
+  def with_indifferent_access(hash)
+    hash.respond_to?(:with_indifferent_access) ? hash.with_indifferent_access : hash
   end
 end
 
