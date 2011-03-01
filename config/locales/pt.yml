@@ -247,10 +247,10 @@ pt:
       guide: Aquí pode definir que tipo de notificações deseja receber da echo.
 
       newsletter:
-        title: Newsletter
-        guide: Receber a newsletter da echo.
-        turned_on: Subscrição para a newsletter da echo ativada.
-        turned_off: Subscrição para a newsletter da echo desativada.
+        title: Boletim Informativo
+        guide: Receber o boletim informativo da echo.
+        turned_on: Subscrição para o boletim informativo da echo ativada.
+        turned_off: Subscrição para o boletim informativo da echo desativada.
 
       activity:
         title: Notificações de actividade
@@ -847,4 +847,4 @@ pt:
           gb: "GB"
           tb: "TB"
   newsletters:
-    send_confirmation: Are you sure?
+    send_confirmation: Tem a certeza?

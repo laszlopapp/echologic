@@ -82,7 +82,7 @@ pt:
         show: 'echo - Área Admin'
       # my_echo: de.seo.title.newsletter
       newsletters:
-        index: 'echo - Newsletter'
+        index: 'echo - Boletim Informativo'
       about_items:
         index: 'echo - Sobre nós'
 
