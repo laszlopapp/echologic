@@ -22,9 +22,11 @@ class ActivationsControllerTest < ActionController::TestCase
   end
   
   test "should activate coming from the change email form" do
-    u = flexmock(User.new(:email => "mainguy@g5.com", :password => "pass", :desired_email => "maingirl@g5.com", :active => true))
-    u.save
-    post :create, :activation_code => u.perishable_token
+    u = users(:user)
+    p = PendingAction.new(:user => u, :action => {:email => "maingirl@g5.com", :email_confirmation => "maingirl@g5.com"}.to_json)
+    p.save
+    p.reload
+    post :activate_email, :token => p.uuid
     assert_not_nil User.find_by_email("maingirl@g5.com")
   end
   

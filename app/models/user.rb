@@ -99,9 +99,9 @@ class User < ActiveRecord::Base
   end
   
   # Uses mailer to deliver activation instructions
-  def deliver_activate!(email=self.email)
+  def deliver_activate!
     reset_perishable_token!
-    mail = RegistrationMailer.create_activate(self,email)
+    mail = RegistrationMailer.create_activate(self)
     RegistrationMailer.deliver(mail)
   end
   
