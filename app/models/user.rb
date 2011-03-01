@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   has_many :spoken_languages, :order => 'level_id asc'
 
   has_many :reports, :foreign_key => 'suspect_id'
+  
+  has_many :pending_actions, :foreign_key => 'uuid'
 
   named_scope :no_member, :conditions => { :memberships => nil }, :order => :email
 
@@ -97,9 +99,16 @@ class User < ActiveRecord::Base
   end
   
   # Uses mailer to deliver activation instructions
-  def deliver_activate!
+  def deliver_activate!(email=self.email)
     reset_perishable_token!
-    mail = RegistrationMailer.create_activate(self)
+    mail = RegistrationMailer.create_activate(self,email)
+    RegistrationMailer.deliver(mail)
+  end
+  
+  # Uses mailer to deliver activation instructions
+  def deliver_activate_email!(email, token)
+    reset_perishable_token!
+    mail = RegistrationMailer.create_activate_email(self, email, token)
     RegistrationMailer.deliver(mail)
   end
 

@@ -21,6 +21,13 @@ class ActivationsControllerTest < ActionController::TestCase
     assert u.has_password?("pass")
   end
   
+  test "should activate coming from the change email form" do
+    u = flexmock(User.new(:email => "mainguy@g5.com", :password => "pass", :desired_email => "maingirl@g5.com", :active => true))
+    u.save
+    post :create, :activation_code => u.perishable_token
+    assert_not_nil User.find_by_email("maingirl@g5.com")
+  end
+  
   test "should activate coming from the setup basic profile form with an unverified email" do
     u = flexmock(User.create(:profile => Profile.new, :social_identifiers => [
                  SocialIdentifier.new(:identifier => "mi", :provider_name => "o2", 

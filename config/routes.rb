@@ -77,6 +77,7 @@ ActionController::Routing::Routes.draw do |map|
   map.signup     '/signup',                    :controller => 'users/users',       :action => 'new'
   map.signout    '/signout',                   :controller => 'users/user_sessions', :action => 'destroy'
   map.setup_basic_profile '/setup_basic_profile/:activation_code', :controller => 'users/users', :action => 'setup_basic_profile'
+  map.pending_action '/pending_action/:token', :controller => 'users/activations', :action => 'activate_email'
   
   # Social Accout Routes
   map.signin_remote '/signin_remote',          :controller => 'users/user_sessions', :action => 'create_social', :method => :post

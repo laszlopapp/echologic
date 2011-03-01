@@ -14,12 +14,22 @@ class RegistrationMailer < ActionMailer::Base
   
   # Delivers activation request to the given user.
   # TODO i18n see view
-  def activate(user)
+  def activate(user, email)
     subject       I18n.t('mail.activation.subject')
     from          "noreply@echologic.org"
-    recipients    user.email
+    recipients    email
     sent_on       Time.now
     body          :name => user.full_name, :activation_url => activate_url(user.perishable_token)
+  end
+  
+  # Delivers activation request to the given user.
+  # TODO i18n see view
+  def activate_email(user, email, token)
+    subject       I18n.t('mail.activation.subject')
+    from          "noreply@echologic.org"
+    recipients    email
+    sent_on       Time.now
+    body          :name => user.full_name, :activation_url => pending_action_url(token)
   end
 
   # Provides an activation for the given user.

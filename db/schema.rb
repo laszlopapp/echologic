@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110224103427) do
+ActiveRecord::Schema.define(:version => 20110228183745) do
 
   create_table "about_item_translations", :force => true do |t|
     t.integer "about_item_id"
@@ -128,6 +128,15 @@ ActiveRecord::Schema.define(:version => 20110224103427) do
     t.text     "text"
     t.boolean  "default_greeting", :default => true
     t.boolean  "default_goodbye",  :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pending_actions", :id => false, :force => true do |t|
+    t.string   "uuid",       :limit => 36
+    t.text     "action"
+    t.boolean  "status",                   :default => false, :null => false
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -338,7 +347,6 @@ ActiveRecord::Schema.define(:version => 20110224103427) do
     t.integer  "drafting_notification",   :default => 1
     t.integer  "newsletter_notification", :default => 1
     t.integer  "authorship_permission",   :default => 1
-    t.string   "desired_email"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

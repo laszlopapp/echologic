@@ -103,17 +103,22 @@ class Users::UsersController < ApplicationController
   end
   
   def update_email
-    if current_user.update_attributes(params[:user].merge({:active => current_user.has_verified_email?(params[:user][:email])}))
-      if current_user.active?
-        redirect_or_render_with_info(settings_path, "users.echo_account.change_email.success")
+    User.transaction do 
+      if params[:user][:email].eql? params[:user][:email_confirmation]
+        if current_user.has_verified_email?(params[:user][:email])
+          if current_user.update_attributes(params[:user])
+            redirect_or_render_with_info(settings_path, "users.echo_account.change_email.success")
+          else
+            redirect_or_render_with_error(settings_path, current_user)
+          end
+        else
+          pending_action = PendingAction.create(:action => params[:user].to_json, :user => current_user)
+          current_user.deliver_activate_email!(params[:user][:email], pending_action.uuid)
+          redirect_or_render_with_info(settings_path, "users.users.messages.email_updated")
+        end
       else
-        current_user.deliver_activate!
-        current_user_session.destroy
-        reset_session
-        redirect_with_info(root_path, 'users.users.messages.email_updated')
+        redirect_or_render_with_error(settings_path, "active_record.errors.messages.confirmation", :attribute => I18n.t("application.general.email"))
       end
-    else
-      redirect_or_render_with_error(settings_path, current_user)
     end
   end
 

@@ -39,19 +39,18 @@ class UsersControllerTest < ActionController::TestCase
   
   test "should change users email" do
     login_as :user
-    put :update_email, :user => {:email => 'jokini@gmail.com', :email_confirmation => 'jokini@gmail.com'}
+    put :update_email, :user => {:desired_email => 'jokini@gmail.com', :desired_email_confirmation => 'jokini@gmail.com'}
     assert_response :redirect
-    u = User.find_by_email('jokini@gmail.com')
-    assert_not_nil u
-    assert !u.active?
+    u = users(:user).reload
+    assert u.desired_email.eql?('jokini@gmail.com')
   end
   
   test "should fail to change users email" do
     login_as :user
-    put :update_email, :user => {:email => 'jokini@gmail.com', :email_confirmation => ''}
+    put :update_email, :user => {:desired_email => 'jokini@gmail.com', :desired_email_confirmation => ''}
     assert_response :redirect
-    u = User.find_by_email('jokini@gmail.com')
-    assert_nil u
+    u = users(:user).reload
+    assert !u.desired_email.eql?('jokini@gmail.com')
   end
 
   test "should change users password" do
