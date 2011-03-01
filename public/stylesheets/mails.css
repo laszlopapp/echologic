@@ -1,31 +1,91 @@
 
+/* Used only when displaying mails in the browser (not in the E-Mail client). */
+
 body {
-  background: #FFF url(../images/mails/mail_header_background.png) repeat-x scroll left top;
+  font-family: "Lucida Sans",Arial,Helvetica,sans-serif;
+  font-size: 14px;
+  color: #21587f;
+}
+
+h1 {
+  font-size: 28px;
+  color: #7bb031;
+  margin: 0 0 25px -2px;
+  padding: 0;
+}
+
+a, a:hover, a:visited {
+  color: #21587f;
+  text-decoration: underline;
 }
 
 #mail_container {
-  width: 500px;
+  width: 650px;
   margin: 0 auto;
-  padding: 0 23px;
+  padding: 0;
 }
 
 #mail_header {
-  height: 120px;
-  position: relative;
+  height: 90px;
+  margin: 20px 0 0;
+  padding: 10px 0;
+  border-top: 3px solid #7BB031;
+  border-bottom: 3px solid #7BB031;
 }
 
-.mail_logo {
+#mail_logo {
   float: left;
-  margin: 23px 0 -27px 0;
-}
-
-.mail_logo a img {
   border: none;
-  margin: -2px 0 2px;
 }
 
-.mail_logo .label {
-  left: 177px;
-  top: 5px;
-  position: absolute;
+#links_label {
+  font-size: 20px;
+  font-weight: bold;
+  float: right;
+  position: relative;
+  top: 6px;
+  cursor: default;
+}
+
+.web_link {
+  background: url('/images/mails/mail_links.png') no-repeat scroll left top;
+  width: 32px;
+  height: 32px;
+  float: right;
+  margin-left: 13px;
+  position: relative;
+  top: 17px;
+}
+
+#echo_link {
+  background-position: 0 0;
+  width: 38px;
+}
+
+#blog_link {
+  background-position: -38px 0;
+}
+
+#twitter_link {
+  background-position: -70px 0;
+}
+
+#facebook_link {
+  background-position: -102px 0;
+  clear: right;
+}
+
+#content_container {
+  margin: 10px 0;
+  padding: 10px 5px;
+}
+
+.separator {
+  width: 100%;
+  padding: 20px 0 10px;
+}
+
+#unsubscribe {
+  font-size: 13px;
+  font-style: italic;
 }

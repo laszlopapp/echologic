@@ -3,8 +3,9 @@ pt:
 
   mailers:
     header:
-      follow_echo: Siga o echo na web
+      follow_echo: Siga o echo
     greeting: 'Caro/a {{name}},'
+    echo_community: 'comunidade echo'
     bye_as_html: |-
       Os melhores cumprimentos,
       <br/><br/>
@@ -28,33 +29,35 @@ pt:
       E-Mail: <a href="mailto:team@echologic.org">team@echologic.org</a>
 
     newsletter:
-      title: echo Newsletter
+      show_online: "Clique aqui se não consegue visualizar o boletim informativo corretamente."
+      title: Boletim Informativo
       header: |
         <p>
-        <strong>Esta é a secção da Newsletter!</strong><br/>
+        <strong>Esta é a secção do Boletim Informativo!</strong><br/>
         </p><p>
-        Aqui pode escrever a newsletter para quem acha que a quererá ler.
+        Aqui pode escrever o Boletim Informativo para quem acha que o quererá ler.
         </p>
       subject: Título
       text: Texto
       unsubscribe: |-
-        Se não deseja receber a newsletters, por favor logue-se na <a href='{{echo_url}}'>echo</a>,
-        vá á seção das Definições em O meu echo e desselecione a opção de newsletter.
+        Se não deseja receber o boletim informativo, por favor logue-se na <a href='{{echo_url}}'>echo</a>,
+        vá á seção das Definições em O meu echo e desselecione a opção de boletim informativo.
       fields_not_filled: |-
-        Necessita de preencher o Título e o texto de forma a poder enviar a newsletter.
+        Necessita de preencher o Título e o texto de forma a poder enviar o boletim informativo
       sent: |-
         Your newsletter mails are being delivered...
 
     activity_tracking:
       subject: echo - Notificações de Actividade
+      title: Notificações de Actividade
       statements:
         new_questions: 'Existem <strong>{{count}} questões novas</strong> desde a última actualização. '
         new_tags: 'Os debates estão relacionados com os seguintes tópicos:'
-        new_proposals: 'Novas propostas na questão "{{title}}"'
-        new_improvements: 'Novas melhorias na proposta "{{title}}" em "{{question_title}}":'
-        new_pro_arguments: 'Novos argumentos a favor da proposta "{{title}}" em "{{question_title}}":'
-        new_contra_arguments: 'Novos argumentos contra a proposta "{{title}}" em "{{question_title}}":'
-        new_follow_up_questions: 'Novas questões complementares de "{{title}}":'
+        created_proposals: 'Novo conteúdo na questão "{{title}}"'
+        created_improvements: 'Novo conteúdo na proposta "{{title}}":'
+        created_pro_arguments: 'Novo conteúdo na proposta "{{title}}":'
+        created_contra_arguments: 'Novo conteúdo na proposta "{{title}}":'
+        created_follow_up_questions: 'Novas questões complementares de "{{title}}":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         Se não deseja receber notificações diárias sobre novidades nas suas discussões, por favor logue-se em

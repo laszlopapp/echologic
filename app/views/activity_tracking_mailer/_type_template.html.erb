@@ -1,0 +1,8 @@
+<% events.each do |operation, events| %>
+  <%= render :partial => "activity_tracking_mailer/operation_template",
+             :locals => {:parent_id => parent_id,
+                         :type => type,
+                         :operation => operation,
+                         :events => events,
+                         :render_level => render_level} %>
+<% end %>

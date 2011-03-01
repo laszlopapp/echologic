@@ -3,8 +3,9 @@ es:
 
   mailers:
     header:
-      follow_echo: Siga echo en la web
+      follow_echo: Siga echo
     greeting: 'Estimado/a {{name}},'
+    echo_community: 'comunidad echo'
     bye_as_html: |-
       Saludos cordiales,
       <br/><br/>
@@ -28,7 +29,8 @@ es:
       E-Mail: <a href="mailto:team@echologic.org">team@echologic.org</a>
 
     newsletter:
-      title: echo Newsletter
+      show_online: "Haz clic aquí si no puedes visualizar el boletín correctamente."
+      title: Newsletter
       header: |
         <p>
         <strong>This is the Newsletter Section!</strong><br/>
@@ -48,18 +50,19 @@ es:
 
     activity_tracking:
       subject: echo - Notificaciones de la actividad
+      title: Notificaciones de la actividad
       statements:
         new_questions: 'Hay <strong>{{count}} debates nuevos</strong> desde la última actualización. '
         new_tags: 'Los debates están relacionados con los temas:'
-        new_proposals: 'Nueva propuesta a debate "{{title}}"'
-        new_improvement_proposals: 'Nueva mejora para la propuesta "{{title}}" en "{{question_title}}":'
-        new_pro_arguments: 'Nuevos argumentos a favor para la propuesta "{{title}}" en "{{question_title}}":'
-        new_contra_arguments: 'Nuevos argumentos en contra para la propuesta "{{title}}" en "{{question_title}}":'
-        new_follow_up_questions: 'Nuevas preguntas de seguimiento para "{{title}}":'
+        created_proposals: 'Nuevo contenido a debate "{{title}}":'
+        created_improvement_proposals: 'Nuevo contenido para la propuesta "{{title}}":'
+        created_pro_arguments: 'Nuevo contenido para la propuesta "{{title}}":'
+        created_contra_arguments: 'Nuevo contenido para la propuesta "{{title}}":'
+        created_follow_up_questions: 'Nuevas preguntas de seguimiento para "{{title}}":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
-        Si no quieres recibir notificaciones sobre las actividades de tus debates, por favor, regístrate en
-        <a href='{{echo_url}}'>echo</a>, v√° para "Mi echo", "Definiciones" y desactívalas.
+        Si no quieres recibir notificaciones sobre las actividades de tus debates, por favor, entra en
+        <a href='{{echo_url}}'>echo</a>, ve a "Mi echo", "Definiciones" y desactívalas.
 
     drafting:
       approval:

@@ -12,7 +12,7 @@ class NewsletterMailer < ActionMailer::Base
     default_greeting = newsletter.default_greeting
     default_goodbye = newsletter.default_goodbye
     newsletter.enable_translation
-    
+
     spoken_languages.each do |code|
       break if code == I18n.default_locale.to_s
       translation = newsletter.translations.find_by_locale(code)
@@ -23,13 +23,14 @@ class NewsletterMailer < ActionMailer::Base
         break
       end
     end
-    
+
     subject       subject
     recipients    recipient.email
     from          "noreply@echologic.org"
     sent_on       Time.now
     content_type  "text/html"
-    body          :name => recipient.full_name,
+    body          :online_url => newsletter_url(newsletter),
+                  :name => recipient.full_name,
                   :text => text,
                   :language => Language[language_code],
                   :no_greeting => !default_greeting,

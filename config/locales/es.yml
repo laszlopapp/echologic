@@ -129,7 +129,7 @@ es:
     anonym: Anónimo
     authors:
       teaser:
-        title: 'Conviértete en un co-autor!'
+        title: 'Conviértete en co-autor!'
     # User sessions section
     user_sessions:
       login:
@@ -174,7 +174,7 @@ es:
 
     # Profile Section
     profile:
-      to: Para el perfil
+      to: Muestra el perfil
       title: Informaciones personales
       edit_title: Editar informaciones personales
       guide: Aquí puedes ver tus informaciones personales. Con "editar" puedes modificarlas.

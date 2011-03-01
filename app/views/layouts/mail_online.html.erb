@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="/images/echo_browser_icon.png" type="image/png" />
+    <title><%= yield :title %></title>
+    <%= stylesheet_link_tag 'mails' %>
+  </head>
+
+  <body>
+    <div id="mail_container">
+
+      <div id="mail_header">
+        <% link_to root_url do %>
+          <img id="mail_logo" src="<%= full_url('/images/mails/echo_beta_logo.png') %>" alt="echo - the global agora"/>
+        <% end %>
+
+        <%= content_tag :div, I18n.t('mailers.header.follow_echo'), :id => 'links_label' %>
+        <% link_to 'http://facebook.com/echo.agora', :target => '_blank' do %>
+          <span id="facebook_link" class="web_link"></span>
+        <% end %>
+        <% link_to 'http://twitter.com/echologic', :target => '_blank' do %>
+          <span id="twitter_link" class="web_link"></span>
+        <% end %>
+        <% link_to 'http://blog.echo.to', :target => '_blank' do %>
+          <span id="blog_link" class="web_link"></span>
+        <% end %>
+        <% link_to 'http://echo.to', :target => '_blank' do %>
+          <span id="echo_link" class="web_link"></span>
+        <% end %>
+      </div>
+
+      <div id="content_container">
+        <h1><%= yield :title %></h1>
+        <%= content_tag :p, I18n.t('mailers.greeting',
+                                   :name => @name,
+                                   :locale => @language.code) unless @no_greeting%>
+        <%= yield %>
+        
+        <%= content_tag :p, I18n.t('mailers.bye_as_html',
+                                   :locale => @language.code) unless @no_goodbye %>
+        <img class="separator"
+             src="<%= full_url('/images/page/separator_no_shadow.png') %>"/>
+        <%= content_tag :p, I18n.t('mailers.signature_as_html',
+                                   :locale => @language.code) %>
+        <br/>
+        <p id="unsubscribe">
+          <%= yield :unsubscribe %>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

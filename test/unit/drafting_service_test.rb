@@ -174,7 +174,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
         email = ActionMailer::Base.deliveries[ActionMailer::Base.deliveries.length-2]
         assert !ActionMailer::Base.deliveries.empty?
         assert_equal [@statement_2.document_in_drafting_language.author.email], email.to
-        assert_equal "Your improvement can now be incorporated", email.subject
+        assert_equal "Your addition can now be incorporated", email.subject
       end
       should("set a delayed task for approval reminder email sending") do
         assert Delayed::Job.all.map{|d|d.name}.include?("ApprovalReminderMailJob")
@@ -258,7 +258,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
         email = ActionMailer::Base.deliveries[ActionMailer::Base.deliveries.length-2]
         assert !ActionMailer::Base.deliveries.empty?
         assert_equal supporters.map{|u|u.email}, email.bcc
-        assert_equal "An improvement you support can now be incorporated", email.subject
+        assert_equal "An addition you support can now be incorporated", email.subject
       end
       should("set a delayed task for approval reminder email sending") do
         assert Delayed::Job.all.map{|d|d.name}.include?("ApprovalReminderMailJob")
@@ -270,7 +270,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
         }
         assert !ActionMailer::Base.deliveries.empty?
         assert_equal supporters.map{|u|u.email}, email.bcc
-        assert_equal "An improvement you support can now be incorporated", email.subject
+        assert_equal "An addition you support can now be incorporated", email.subject
       end
       should("set a delayed task for test passed") do
         assert Delayed::Job.all.map{|d|d.name}.include?("TestForPassedJob")
@@ -336,7 +336,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
         email = ActionMailer::Base.deliveries[ActionMailer::Base.deliveries.length-3]
         assert !ActionMailer::Base.deliveries.empty?
         assert_equal [@statement_1.document_in_drafting_language.author.email], email.to
-        assert_equal "Passed to incorporate your winner improvement", email.subject
+        assert_equal "Passed to incorporate your winner addition", email.subject
       end
       should("set the next best staged to approved") do
         @statement_2.reload
@@ -404,7 +404,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
       should("send passed email") do
         assert !ActionMailer::Base.deliveries.empty?
         email = ActionMailer::Base.deliveries[ActionMailer::Base.deliveries.length-3]
-        assert_equal "Passed to incorporate a winner improvement", email.subject
+        assert_equal "Passed to incorporate a winner addition", email.subject
         assert_equal @supporters.map{|u|u.email}, email.bcc
 
       end

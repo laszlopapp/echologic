@@ -54,7 +54,7 @@ module StatementsHelper
   #
   def create_new_child_statement_link(statement_node, child_type, opts={})
     url = opts.delete(:url) if opts[:url]
-    title = opts[:no_text] ? '' :  
+    title = opts[:no_text] ? '' :
     link_to(I18n.t("discuss.statements.create_#{child_type}_link"),
             url ? url : new_statement_node_url(statement_node.nil? ? nil : statement_node.target_id,child_type, opts),
             :class => "ajax add_new_button text_button create_#{child_type}_button ttLink no_border",
@@ -204,7 +204,7 @@ module StatementsHelper
     link_to(I18n.t('application.general.authors'), authors_statement_node_url(statement_node),
             :class => 'expandable header_button text_button authors_text_button')
   end
-  
+
   #
   # Render authors' list
   #
@@ -216,21 +216,21 @@ module StatementsHelper
       content
     end
   end
-  
-  
+
+
   #
   # Creates a teaser for authors with author styling
   #
   def author_teaser(statement_node, user)
     content_tag :li, :class => 'author teaser' do
       content = ''
-      content << image_tag(user.avatar.url(:small), :alt => '') 
+      content << image_tag(user.avatar.url(:small), :alt => '')
       content << content_tag(:span, I18n.t('users.authors.teaser.title'), :class => 'name')
       content << create_new_child_statement_link(statement_node, 'improvement', :new_level => true)
       content
     end
   end
-  
+
 
   #
   # Creates a link to delete the current statement.
@@ -390,7 +390,7 @@ module StatementsHelper
       if statement_node.nil?
         question_descendants_url(:origin => origin)
       else
-        descendants_statement_node_url(statement_node, type)
+        descendants_statement_node_url(statement_node, type.classify.constantize.name_for_siblings)
       end
     else  # STATEMENT NODES
       if statement_node.parent_id.nil?

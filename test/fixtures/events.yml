@@ -1,21 +1,21 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 event_test_question:
-  event: '{"type":"question","id":<%= Fixtures.identify('test-question')%>,"tags":["#echonomyjam"],"documents":{"<%= Fixtures.identify('language_en') %>":"Test Question?"},"parent_documents":null,"root_documents":null,"parent_id":-1,"root_id":-1,"parent_type":null,"operation":"created"}'
+  event: '{"type":"question","id":<%= Fixtures.identify('test-question')%>,"tags":["#echonomyjam"],"documents":{"<%= Fixtures.identify('language_en') %>":"Test Question?"},"parent_documents":null,"parent_id":-1,"operation":"created","level":0}'
   subscribeable_type: StatementNode
   operation: new
   created_at: <%= Time.now.yesterday.strftime("%d/%m/%y %H:%M") %>
 
   
 event_second_proposal:
-  event: '{"type":"proposal","id":<%= Fixtures.identify('second-proposal')%>,"tags":[],"documents":{"<%= Fixtures.identify('language_en') %>":"Second Proposal"},"parent_documents":{"<%= Fixtures.identify('language_en') %>":"Test Question?"},"root_documents":null,"parent_id":<%= Fixtures.identify('test-question')%>,"root_id":-1,"parent_type":"question","operation":"created"}'
+  event: '{"type":"proposal","id":<%= Fixtures.identify('second-proposal')%>,"tags":[],"documents":{"<%= Fixtures.identify('language_en') %>":"Second Proposal"},"parent_documents":{"<%= Fixtures.identify('language_en') %>":"Test Question?"},"parent_id":<%= Fixtures.identify('test-question')%>,"operation":"created","level":1}'
   subscribeable_id: <%= Fixtures.identify('test-question')%>
   subscribeable_type: StatementNode
   operation: new
   created_at: <%= Time.now.utc.yesterday.strftime("%d/%m/%y %H:%M") %>
   
 event_first_impro_proposal:
-  event: '{"type":"improvement","id":<%= Fixtures.identify('first-impro-proposal')%>,"tags":[],"documents":{"<%= Fixtures.identify('language_en') %>":"A better first proposal"},"parent_documents":{"<%= Fixtures.identify('language_en') %>":"A first proposal!","<%= Fixtures.identify('language_de') %>":"Ein erster Vorschlag"},"root_documents":{"<%= Fixtures.identify('language_en') %>":"Test Question2?"},"parent_id":<%= Fixtures.identify('first-proposal')%>,"root_id":<%= Fixtures.identify('test-question-2')%>,"parent_type":"proposal","operation":"created"}'
+  event: '{"type":"improvement","id":<%= Fixtures.identify('first-impro-proposal')%>,"tags":[],"documents":{"<%= Fixtures.identify('language_en') %>":"A better first proposal"},"parent_documents":{"<%= Fixtures.identify('language_en') %>":"A first proposal!","<%= Fixtures.identify('language_de') %>":"Ein erster Vorschlag"},"parent_id":<%= Fixtures.identify('first-proposal')%>,"operation":"created","level":2}'
   subscribeable_id: <%= Fixtures.identify('first-proposal')%>
   subscribeable_type: StatementNode
   operation: new

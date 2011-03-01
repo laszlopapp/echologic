@@ -3,8 +3,9 @@ de:
 
   mailers:
     header:
-      follow_echo: Folgen Sie echo im Netz
+      follow_echo: Folgen Sie echo
     greeting: 'Hallo {{name}},'
+    echo_community: 'echo Community'
     bye_as_html: |-
       Herzliche Grüße,
       <br/><br/>
@@ -28,7 +29,8 @@ de:
       E-Mail: <a href="mailto:team@echologic.org">team@echologic.org</a>
 
     newsletter:
-      title: echo Newsletter
+      show_online: "Click here if the newsletter isn't displaying correctly."
+      title: Newsletter
       header: |
         <p>
         <strong>This is the Newsletter Section!</strong><br/>
@@ -48,14 +50,15 @@ de:
 
     activity_tracking:
       subject: echo - Neue Diskussionsbeiträge
+      title: Neue Diskussionsbeiträge
       statements:
         new_questions: 'Es gibt <strong>{{count}} neue Fragestellung(en)</strong> seit dem letzten Update. '
         new_tags: 'Sie befassen sich mit den folgenden Themen:'
-        new_proposals: 'Neue Vorschläge in der Fragestellung "{{title}}"'
-        new_improvements: 'Neue Ergänzungsideen für den Vorschlag "{{title}}" in "{{question_title}}":'
-        new_pro_arguments: 'Neues Pro-Argument zum Vorschlag "{{title}}" in "{{question_title}}":'
-        new_contra_arguments: Neues Kontra-Argument zum Vorschlag "{{title}}" in "{{question_title}}":'
-        new_follow_up_questions: 'Neue Folgefrage zu "{{title}}":'
+        created_proposals: 'Neue Inhalte in der Fragestellung "{{title}}":'
+        created_improvements: 'Neue Inhalte zum Vorschlag "{{title}}":'
+        created_pro_arguments: 'Neue Inhalte zum Vorschlag "{{title}}":'
+        created_contra_arguments: Neue Inhalte zum Vorschlag "{{title}}":'
+        created_follow_up_questions: 'Neue Folgefrage zu "{{title}}":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         Wenn Sie keine Benachrichtigungen über neue Discussionen und Vorschläge erhalten möchten, melden Sie sich bitte auf

@@ -9,7 +9,7 @@ class DraftingMailerTest < ActionMailer::TestCase
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal [statement_document.author.email], email.to
-    assert_equal "Your improvement can now be incorporated", email.subject
+    assert_equal "Your addition can now be incorporated", email.subject
     assert_match /#{statement_document.author.full_name}/, email.encoded
     assert_match /#{statement_document.title}/, email.encoded
     assert_match /#{statement_node.parent.id}/, email.encoded
@@ -24,7 +24,7 @@ class DraftingMailerTest < ActionMailer::TestCase
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal users.map{|u|u.email}, email.bcc
-    assert_equal "An improvement you support can now be incorporated", email.subject
+    assert_equal "An addition you support can now be incorporated", email.subject
     assert_match /#{statement_document.title}/, email.encoded
     assert_match /#{statement_node.parent.id}/, email.encoded
   end
@@ -37,7 +37,7 @@ class DraftingMailerTest < ActionMailer::TestCase
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal [statement_document.author.email], email.to
-    assert_equal "Reminder! - Time is running out to incorporate your winner improvement", email.subject
+    assert_equal "Reminder! - Time is running out to incorporate your winner addition", email.subject
     assert_match /#{statement_document.author.full_name}/, email.encoded
     assert_match /#{statement_document.title}/, email.encoded
     assert_match /#{statement_node.parent.id}/, email.encoded
@@ -52,7 +52,7 @@ class DraftingMailerTest < ActionMailer::TestCase
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal users.map{|u|u.email}, email.bcc
-    assert_equal "Last Reminder! - Time is running out to incorporate a winner improvement", email.subject
+    assert_equal "Last Reminder! - Time is running out to incorporate a winner addition", email.subject
     assert_match /#{statement_document.title}/, email.encoded
     assert_match /#{statement_node.parent.id}/, email.encoded
   end
@@ -65,7 +65,7 @@ class DraftingMailerTest < ActionMailer::TestCase
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal [statement_document.author.email], email.to
-    assert_equal "Passed to incorporate your winner improvement", email.subject
+    assert_equal "Passed to incorporate your winner addition", email.subject
     assert_match /#{statement_document.author.full_name}/, email.encoded
     assert_match /#{statement_document.title}/, email.encoded
   end
@@ -79,7 +79,7 @@ class DraftingMailerTest < ActionMailer::TestCase
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal users.map{|u|u.email}, email.bcc
-    assert_equal "Passed to incorporate a winner improvement", email.subject
+    assert_equal "Passed to incorporate a winner addition", email.subject
     assert_match /#{statement_document.title}/, email.encoded
   end
 
