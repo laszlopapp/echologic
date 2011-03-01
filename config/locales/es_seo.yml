@@ -56,7 +56,7 @@ es:
         show: 'echo - Documento de debate'
         new: 'Crear nuevo debate'
         my_questions: 'Mis Preguntas'
-        add: 'Have YOUR say'
+        add: 'Expresa TU opinión'
 
       # connect: de.seo.title.connect
       connect:

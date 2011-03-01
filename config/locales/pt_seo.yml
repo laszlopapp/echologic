@@ -58,7 +58,7 @@ pt:
         show: 'echo - Discussão'
         new: 'Abra uma nova discussão'
         my_questions: 'Minhas Questões'
-        add: 'Have YOUR say'
+        add: 'Dê a SUA opinião'
 
       # connect: de.seo.title.connect
       connect:

@@ -5,7 +5,7 @@ pt:
     header:
       follow_echo: Siga o echo
     greeting: 'Caro/a {{name}},'
-    echo_community: 'echo community'
+    echo_community: 'comunidade echo'
     bye_as_html: |-
       Os melhores cumprimentos,
       <br/><br/>
@@ -29,7 +29,7 @@ pt:
       E-Mail: <a href="mailto:team@echologic.org">team@echologic.org</a>
 
     newsletter:
-      show_online: "Click here if the newsletter isn't displaying correctly."
+      show_online: "Clique aqui se não consegue visualizar o boletim informativo corretamente."
       title: Boletim Informativo
       header: |
         <p>

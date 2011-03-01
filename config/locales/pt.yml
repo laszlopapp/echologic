@@ -172,7 +172,7 @@ pt:
 
     # Profile Section
     profile:
-      to: Para o perfil
+      to: Mostrar Perfil
       title: Informação Pessoal
       edit_title: Edite a sua informação pessoal
       guide: Abaixo encontra a sua informação pessoal básica. Por favor carregue no botão 'Editar' para a mudar.
