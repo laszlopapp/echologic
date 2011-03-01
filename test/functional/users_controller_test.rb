@@ -9,6 +9,8 @@ class UsersControllerTest < ActionController::TestCase
     @controller = Users::UsersController.new
     profile_template = {'identifier' => "@asdas12dgfkj54oi", 'providerName' => "yahoy!", 'email' => "mymailprofile", 'preferredUsername' => "Chuck Norris"}
     flexmock(SocialService.instance).should_receive(:get_profile_info).with(:token).and_return(profile_template)
+    flexmock(SocialService.instance).should_receive(:map).with(String, Integer).and_return(nil)
+    flexmock(SocialService.instance).should_receive(:unmap).with(String, Integer).and_return(nil)
   end
 
   test "should get new" do

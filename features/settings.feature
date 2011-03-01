@@ -46,7 +46,7 @@ Feature: Set my settings
       | user_email_confirmation   | thedarksideofthemoon@sun.com |
       And I press "Ok"
     Then I should see localized "users.users.messages.email_updated"
-      And I should have "thedarksideofthemoon@sun.com" as email
+    Then an "activate" email should be sent to "thedarksideofthemoon@sun.com"
   
   Scenario: Change Password Fail
     Given I am logged in as "user" with password "true"

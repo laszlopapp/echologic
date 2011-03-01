@@ -17,8 +17,7 @@ class SocialService
     return user
   end
   def get_profile_info(token)
-    @service.get_profile_info(token)
-    with_indifferent_access(data)
+    data = @service.get_profile_info(token)
   end
   def mappings(primary_key)
     @service.mappings(primary_key)
@@ -36,10 +35,5 @@ class SocialService
     {:email => profile_info['verifiedEmail']||profile_info['email'], 
      :full_name => profile_info['preferredUsername']||profile_info['displayName']}
  end
- 
- private
-  def with_indifferent_access(hash)
-    hash.respond_to?(:with_indifferent_access) ? hash.with_indifferent_access : hash
-  end
 end
 

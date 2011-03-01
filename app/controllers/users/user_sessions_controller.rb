@@ -16,18 +16,12 @@ class Users::UserSessionsController < ApplicationController
   def create
     redirect_url = session[:redirect_url] || root_path
     
-    # if the user failed to log in with a social account just previously, 
-    # this will be added as the user logs in with its' echo account
-    if session[:identifier]
-      profile_info = JSON.parse(session[:identifier])
-      s_id = SocialIdentifier.new(:identifier => profile_info['identifier'], :provider_name => profile_info['providerName'],
-                                  :profile_info => session[:identifier], :user => User.find_by_email(params[:user_session][:email]))
-      session[:identifier] = nil
-    end
-    
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
-      s_id.save if s_id
+      # if the user failed to log in with a social account just previously, 
+    # this will be added as the user logs in with its' echo account
+      add_social_to_user(User.find_by_email(params[:user_session][:email])) if session[:identifier]
+      
       redirect_with_info(redirect_url, 'users.signin.messages.success')
     else
       later_call_with_error(redirect_url, signin_path, 'users.signin.messages.failed')
@@ -36,10 +30,8 @@ class Users::UserSessionsController < ApplicationController
 
   def create_social
     redirect_url = session[:redirect_url] || root_path
-    token = params[:token]
-    profile_info = SocialService.instance.get_profile_info(token)
-    identifier = profile_info['identifier']
-    user = User.find_by_social_identifier(identifier)
+    profile_info = SocialService.instance.get_profile_info(params[:token])
+    user = profile_info['primaryKey'].nil? ? User.find_by_social_identifier(profile_info['identifier']) : User.find(profile_info['primaryKey']) 
     
     if user.nil?
       session[:identifier] = profile_info.to_json
@@ -64,5 +56,16 @@ class Users::UserSessionsController < ApplicationController
     reset_session
     set_info 'users.signout.messages.success'
     flash_info and redirect_to root_path
+  end
+  
+  protected
+  def add_social_to_user(user)
+    profile_info = JSON.parse(session[:identifier])
+    social_identifier =  SocialIdentifier.create(:identifier => profile_info['identifier'], 
+                                                 :provider_name => profile_info['providerName'],
+                                                 :profile_info => session[:identifier], 
+                                                 :user => user)
+    session.delete(:identifier)
+    SocialService.instance.map(social_identifier.identifier, user.id)
   end
 end

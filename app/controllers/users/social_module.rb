@@ -17,6 +17,7 @@ module Users::SocialModule
       
       User.transaction do
         if @user.signup!(opts)
+          SocialService.instance.map(profile_info['identifier'], @user.id)
           later_call(redirect_url, setup_basic_profile_url(@user.perishable_token))
         else
           @user.social_identifiers.each {|id| set_error(id)} if !@user.social_identifiers.blank?
@@ -36,6 +37,7 @@ module Users::SocialModule
       profile_info = SocialService.instance.get_profile_info(token)
       social_id = current_user.add_social_identifier( profile_info['identifier'], profile_info['providerName'], profile_info.to_json )
       if social_id.save
+        SocialService.instance.map(profile_info['identifier'], current_user.id)
         redirect_or_render_with_info(settings_path, "users.social_accounts.connect.success", 
                                      :account => I18n.t("users.social_accounts.providers.#{profile_info['providerName'].underscore}"))
       else
@@ -53,6 +55,7 @@ module Users::SocialModule
     begin
       if social_id = current_user.has_provider?(provider)
          social_id.destroy
+         SocialService.instance.unmap(social_id.identifier,current_user.id)
          redirect_or_render_with_info(settings_path, "users.social_accounts.disconnect.success", 
                   :account => I18n.t("users.social_accounts.providers.#{provider}"))
       else
