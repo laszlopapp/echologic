@@ -6,7 +6,7 @@ class MailerService
 
   # Sends newsletters to all subscribers.
   def send_newsletter_mails(newsletter)
-    User.find(:all, :conditions => {:newsletter_notification => 1}).each do |recipient|
+    User.newsletter_recipients.each do |recipient|
       NewsletterMailer.deliver_newsletter_mail(recipient, newsletter)
       puts "Newsletter has been delivered to: " + recipient.email
       sleep 2

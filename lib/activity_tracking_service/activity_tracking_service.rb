@@ -112,7 +112,7 @@ class ActivityTrackingService
     after_time = @period.ago.utc - 5.minutes  # with 5 minutes safety buffer (some events might be delivered twice)
 
     # Iterating over users in the current charge
-    User.all(:conditions => ["(id % ?) = ? and activity_notification = 1", @charges, current_charge]).each do |recipient|
+    User.activity_recipients.scoped(:conditions => ["(id % ?) = ?", @charges, current_charge]).each do |recipient|
 
       # Collecting events
       events = Event.find_tracked_events(recipient, after_time).map{|e|JSON.parse(e.event)}
