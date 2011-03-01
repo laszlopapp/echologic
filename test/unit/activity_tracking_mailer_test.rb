@@ -17,8 +17,8 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal [user.email], email.to
-    assert_equal "echo - Activity Notifications", email.subject
-    assert_match /echo - Activity Notifications/, email.encoded
+    assert_equal "echo - New discussion content", email.subject
+    assert_match /New discussion content/, email.encoded
     assert_match /1 new question/, email.encoded
     assert_match /#{title}/, email.encoded
     assert_match /#{id}/, email.encoded
@@ -45,8 +45,8 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal [user.email], email.to
-    assert_equal "echo - Activity Notifications", email.subject
-    assert_match /echo - Activity Notifications/, email.encoded
+    assert_equal "echo - New discussion content", email.subject
+    assert_match /New discussion content/, email.encoded
     assert_match /#{Question.find(parent_id).document_in_preferred_language(Language['en']).title}/, email.encoded
     assert_match /#{id}/, email.encoded
     assert_match /#{title}/, email.encoded
@@ -70,8 +70,8 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal [user.email], email.to
-    assert_equal "echo - Activity Notifications", email.subject
-    assert_match /echo - Activity Notifications/, email.encoded
+    assert_equal "echo - New discussion content", email.subject
+    assert_match /New discussion content/, email.encoded
     assert_match /#{Proposal.find(parent_id).document_in_preferred_language(Language['en']).title}/, email.encoded
     assert_match /#{id}/, email.encoded
     assert_match /#{title}/, email.encoded
