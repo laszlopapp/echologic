@@ -52,8 +52,8 @@ class User < ActiveRecord::Base
   def is_author?(other)
     other.author == self
   end
-  
-  # permission 
+
+  # permission
   def permits_authorship?
     self.authorship_permission == 1
   end
@@ -103,6 +103,23 @@ class User < ActiveRecord::Base
     RegistrationMailer.deliver(mail)
   end
 
+  ##
+  ## Scopes
+  ##
+
+  named_scope :active, :conditions => {:active => true}
+
+  def self.newsletter_recipients
+    self.active.scoped :conditions => {:newsletter_notification => true}
+  end
+
+  def self.activity_recipients
+    self.active.scoped :conditions => {:activity_notification => true}
+  end
+
+  def self.drafting_recipients
+    self.active.scoped :conditions => {:drafting_notification => true}
+  end
 
   ##
   ## PERMISSIONS
@@ -159,7 +176,7 @@ class User < ActiveRecord::Base
     lang = !mother_tongues.empty? ? mother_tongues.first : self.last_login_language
     lang ? lang : Language[:en]
   end
-  
+
   def preferred_languages
     last_login_id = self.last_login_language_id.nil? ? Language[:en].id : self.last_login_language_id
     sorted_spoken_languages(:language_id).concat([last_login_id]).uniq.map{|id|Language[id]}
@@ -195,7 +212,7 @@ class User < ActiveRecord::Base
   end
 
 
-  
+
   # Return the first membership. If none is set return empty-string.
   def first_membership
     return "" if memberships.blank?

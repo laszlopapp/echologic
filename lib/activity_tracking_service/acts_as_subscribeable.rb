@@ -18,9 +18,7 @@ module ActiveRecord
           class_eval do
             has_many :subscriptions,
                      :as => :subscribeable,
-                     :dependent => :destroy,
-                     :class_name => 'Subscription',
-                     :foreign_key => 'subscribeable_id'
+                     :dependent => :destroy
 
             has_many :subscribers,
                      :class_name => 'User',
@@ -57,17 +55,28 @@ module ActiveRecord
           args.compact! if args
 
           class_eval do
+            has_one :subscriber_data,
+                    :as => :subscriber,
+                    :dependent => :destroy
+
             has_many :subscriptions,
                      :as => :subscriber,
-                     :dependent => :destroy,
-                     :class_name => 'Subscription',
-                     :foreign_key => 'subscriber_id'
+                     :dependent => :destroy
 
             has_many :subscribeables,
                      :class_name => 'StatementNode',
                      :finder_sql => 'SELECT DISTINCT * FROM statement_nodes sn ' +
                                     'LEFT JOIN subscriptions s ON s.subscribeable_id = sn.id ' +
                                     'WHERE s.subscriber_id = #{id}'
+
+            after_create :initialize_subscriber_data
+
+            def initialize_subscriber_data
+              subscriber_data = SubscriberData.create(:subscriber => self, :last_processed_event => Event.last)
+            end
+
+            delegate :last_processed_event,
+                     :last_processed_event_id, :to => :subscriber_data
 
             def self.subscriber?
               true

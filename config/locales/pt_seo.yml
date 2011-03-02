@@ -58,7 +58,7 @@ pt:
         show: 'echo - Discussão'
         new: 'Abra uma nova discussão'
         my_questions: 'Minhas Questões'
-        add: 'Have YOUR say'
+        add: 'Dê a SUA opinião'
 
       # connect: de.seo.title.connect
       connect:
@@ -82,7 +82,7 @@ pt:
         show: 'echo - Área Admin'
       # my_echo: de.seo.title.newsletter
       newsletters:
-        index: 'echo - Newsletter'
+        index: 'echo - Boletim Informativo'
       about_items:
         index: 'echo - Sobre nós'
 

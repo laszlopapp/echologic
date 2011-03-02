@@ -784,11 +784,13 @@ fr:
         about_category_id: 'Qui sommes-nous?'
         index: 'Index'
 
-
     models:
       question: "question"
       proposal: "proposition"
       improvement: "rajout"
+      pro_argument: 'argument PRO'
+      contra_argument: 'argument CONTRE'
+      follow_up_question: 'question suivie'
 
   authlogic:
     error_messages:

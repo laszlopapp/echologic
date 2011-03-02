@@ -25,9 +25,15 @@ module MailHelper
 
   def inline_statement_link(document, event)
     icon_url = full_url("/images/page/discuss/#{event['type']}_16.png")
-    content_tag(:li, link_to(document[1], statement_node_url(event['id'], :locale => Language[document[0].to_i].code)),
-                :class => "statement_link #{event['type']}",
-                :style => "list-style: none; background: url(#{icon_url}) no-repeat 0 0; padding-left: 20px; margin: 7px 0;")
+    content_tag(:li,
+                :class => "statement_link #{event['type']}_link",
+                :style => "list-style: none; margin: 7px 0;") do
+      link = ""
+      link << image_tag(icon_url, :alt => '')
+      link << link_to(document[1], statement_node_url(event['id'], :locale => Language[document[0].to_i].code),
+                      :style => "color: #21587f; text-decoration: none; font-weight: bold; padding-left: 5px; vertical-align: top;")
+      link
+    end
   end
 
 end

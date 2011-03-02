@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  subscriber_id: 1
+  subscriber_type: 
+  last_processed_event_id: 1
+
+two:
+  subscriber_id: 1
+  subscriber_type: 
+  last_processed_event_id: 1

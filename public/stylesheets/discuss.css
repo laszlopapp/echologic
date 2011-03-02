@@ -254,6 +254,10 @@ form.statement fieldset ol span.defaultText {
   color: #21587f;
 }
 
+form .hint p {
+  margin: 10px 0;
+}
+
 form.formtastic fieldset.statement_text {
   position: relative;
 }

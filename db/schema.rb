@@ -1,4 +1,4 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file,
+# This file is auto-generated from the current state of the database. Instead of editing this file, 
 # please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110204044040) do
+ActiveRecord::Schema.define(:version => 20110302121041) do
 
   create_table "about_item_translations", :force => true do |t|
     t.integer "about_item_id"
@@ -253,6 +253,12 @@ ActiveRecord::Schema.define(:version => 20110204044040) do
     t.integer "original_language_id"
     t.integer "statement_image_id"
     t.integer "editorial_state_id"
+  end
+
+  create_table "subscriber_datas", :force => true do |t|
+    t.integer "subscriber_id"
+    t.string  "subscriber_type"
+    t.integer "last_processed_event_id"
   end
 
   create_table "subscriptions", :force => true do |t|
