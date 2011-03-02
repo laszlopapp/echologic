@@ -746,6 +746,9 @@ de:
       question: "Fragestellung"
       proposal: "Vorschlag"
       improvement: "Ergänzung"
+      pro_argument: 'Pro-Argument'
+      contra_argument: 'Kontra-Argument'
+      follow_up_question: 'Folgefrage'
 
   authlogic:
     error_messages:
