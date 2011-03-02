@@ -724,6 +724,9 @@ en:
       question: "question"
       proposal: "proposal"
       improvement: "addition"
+      pro_argument: 'pro argument'
+      contra_argument: 'contra argument'
+      follow_up_question: 'follow-up question'
 
 
   authlogic:

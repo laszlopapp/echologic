@@ -4,7 +4,7 @@
       <% parent_document = get_document_in_preferred_language(event["parent_documents"], @preferred_language_ids) %>
       <%= content_tag :p, I18n.t("mailers.activity_tracking.statements.#{operation}_#{type.pluralize}",
                                  :title => parent_document[1],
-                                 :locale => Language[parent_document[0].to_i].code) if render_level == 0 %>
+                                 :locale => @language.code) if render_level == 0 %>
       <ul style="padding-left: 20px;">
     <% end %>
     <% children_level = @events[event['level']+1] %>

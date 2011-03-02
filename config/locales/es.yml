@@ -758,6 +758,9 @@ es:
       question: "Cuestión"
       proposal: "Propuesta"
       improvement: "Mejora"
+      pro_argument: 'Argumento a favor'
+      contra_argument: 'Argumento en contra'
+      follow_up_question: 'Pregunta de seguimiento'
 
   authlogic:
     error_messages:

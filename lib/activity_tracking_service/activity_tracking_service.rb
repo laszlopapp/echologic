@@ -19,17 +19,13 @@ class ActivityTrackingService
 
   def supported(echoable, user)
     return if user.nil?
-    subscription = echoable.subscriptions.find_by_subscriber_id(user.id) ||
-                     Subscription.new(:subscriber => user, :subscriber_type => user.class.name,
-                                      :subscribeable => echoable, :subscribeable_type => echoable.class.name)
-    echoable.subscriptions << subscription if subscription.new_record?
-    # When echoable is a proposal, then we must follow the main question too
-    # When echoable is an improvement/pro-contra, then we must follow the parent proposal too
-    if !echoable.parent.nil?
-      parent_subscription = echoable.parent.subscriptions.find_by_subscriber_id(user.id) ||
-                       Subscription.new(:subscriber => user, :subscriber_type => user.class.name,
-                                        :subscribeable => echoable.parent, :subscribeable_type => echoable.parent.class.name)
-      user.subscriptions << parent_subscription if parent_subscription.new_record?
+    if !echoable.subscriptions.find_by_subscriber_id(user.id)
+      user.subscriptions << Subscription.new(:subscriber => user,
+                                             :subscribeable => echoable)
+    end
+    if echoable.parent && !echoable.parent.subscriptions.find_by_subscriber_id(user.id)
+      user.subscriptions << Subscription.new(:subscriber => user,
+                                             :subscribeable => echoable.parent)
     end
   end
 
@@ -37,9 +33,8 @@ class ActivityTrackingService
     return if user.nil?
     subscription = echoable.subscriptions.find_by_subscriber_id(user.id)
     echoable.subscriptions.delete(subscription) if subscription
-    # When a proposal, then we must remove the question subscription in the case when no more sibling is around
-    # When an improvement/pro-contra, then we must remove the proposal subscription in the case when no more sibling is around
-    if !echoable.parent.nil?
+
+    if echoable.parent
       parent_subscription = user.subscriptions.find_by_subscribeable_id(echoable.parent_id)
       if (user.subscriptions.map(&:subscribeable_id) & echoable.parent.child_statements.map(&:id)).empty?
         user.subscriptions.delete(parent_subscription) if parent_subscription
@@ -80,9 +75,8 @@ class ActivityTrackingService
     }.to_json
 
     Event.create(:event => event_json,
-                 :operation => node.parent.nil? ? "new" : "new_child",
-                 :subscribeable_type => node.class.name,
-                 :subscribeable => node.parent)
+                 :operation => 'created',
+                 :subscribeable => node.parent.nil? ? node : node.parent)
   end
 
   #
@@ -107,26 +101,25 @@ class ActivityTrackingService
     # Enqueuing the next job
     enqueue_activity_tracking_job(current_job_id)
 
-    # Calculating 'after time' to minimize timeframe errors due to long lasting processes
-    # FIXME: correct solution should be to persist the last_notification time per user
-    after_time = @period.ago.utc - 5.minutes  # with 5 minutes safety buffer (some events might be delivered twice)
-
     # Iterating over users in the current charge
     User.activity_recipients.scoped(:conditions => ["(id % ?) = ?", @charges, current_charge]).each do |recipient|
 
       # Collecting events
-      events = Event.find_tracked_events(recipient, after_time).map{|e|JSON.parse(e.event)}
+      events = Event.find_tracked_events(recipient)
+      last_event = events.first
+      events.map!{|e| JSON.parse(e.event)}
+
       # Filter only events whose titles languages the recipient speaks
-      events = events.select{|e| !(e['documents'].keys.map{|id|id.to_i} & recipient.sorted_spoken_languages).empty? }
+      events.reject!{|e| (e['documents'].keys.map{|id|id.to_i} & recipient.sorted_spoken_languages).empty? }
 
       next if events.blank? #if there are no events to send per email, take the next user
 
       # take the question events apart
-      root_events = events.select{|e|e['level'] == 0}
+      root_events = events.select{|e| e['level'] == 0}
       events -= root_events
 
       # created an Hash containing the number of ocurrences of the new tags in the new questions
-      tag_counts = root_events.each_with_object({}) do |root, tags_hash|
+      question_tag_counts = root_events.each_with_object({}) do |root, tags_hash|
         root['tags'].each{|tag| tags_hash[tag] = tags_hash.has_key?(tag) ? tags_hash[tag] + 1 : 1 }
       end
 
@@ -140,16 +133,19 @@ class ActivityTrackingService
       end
 
       # Sending the mail
-      send_activity_email(recipient, root_events, tag_counts, events)
+      send_activity_email(recipient, root_events, question_tag_counts, events)
+
+      # Adjust last processed event
+      recipient.subscriber_data.update_attribute :last_processed_event, last_event
     end
   end
 
   #
   # Sends an activity tracking E-Mail to the given recipient.
   #
-  def send_activity_email(recipient, root_events, question_tags, events)
+  def send_activity_email(recipient, root_events, question_tag_counts, events)
     puts "Send mail to:" + recipient.email
-    mail = ActivityTrackingMailer.create_activity_tracking_mail(recipient,root_events,question_tags,events)
+    mail = ActivityTrackingMailer.create_activity_tracking_mail(recipient, root_events, question_tag_counts, events)
     ActivityTrackingMailer.deliver(mail)
   end
 

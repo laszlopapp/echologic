@@ -728,6 +728,9 @@ pt:
       question: "questão"
       proposal: "proposta"
       improvement: "melhoria"
+      pro_argument: 'argumento a favor'
+      contra_argument: 'argumento contra'
+      follow_up_question: 'questão complementar'
 
 
   authlogic:
