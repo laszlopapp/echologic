@@ -42,7 +42,7 @@ class NewslettersController < ApplicationController
 
   def test_newsletter
     newsletter = Newsletter.find(params[:id])
-    NewsletterMailer.deliver_newsletter_mail(current_user, newsletter)
+    NewsletterMailer.deliver_newsletter_mail(current_user, newsletter, true)
     redirect_to newsletters_path
   end
 
