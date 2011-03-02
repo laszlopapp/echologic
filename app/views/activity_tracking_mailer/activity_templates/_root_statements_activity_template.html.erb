@@ -6,10 +6,11 @@
                :locale => @language.code) %>
     <%= I18n.t('mailers.activity_tracking.statements.new_tags',
                :locale => @language.code) %>
-    <%= @tags.to_a.map{|tag|
+    <%= @question_tag_counts.to_a.map{|tag_count|
         I18n.t('mailers.activity_tracking.statements.tag_link',
-               :tag => link_to(tag[0], discuss_search_url(:search_terms => tag[0], :locale => @language.code)),
-               :count => tag[1],
+               :tag => link_to(tag_count[0], discuss_search_url(:search_terms => tag_count[0],
+                                                                :locale => @language.code)),
+               :count => tag_count[1],
                :locale => @language.code)}.join(", ") %>
   </p>
 
