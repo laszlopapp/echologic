@@ -322,12 +322,18 @@ module StatementsHelper
 
   #render the hint on the new statement forms for users with no spoken language defined
   def define_languages_hint
-    content = ''
-    content << content_tag(:li, :class => 'hint ttLink', :title => I18n.t('discuss.statements.statement_language_hint_tooltip')) do
-      content_tag :p, I18n.t('discuss.statements.statement_language_hint', :url => my_profile_url)
-    end
-    content << tag('br')
-    content
+    content_tag :p, I18n.t('discuss.statements.statement_language_hint', :url => my_profile_url),
+                :class => 'ttLink no_border',
+                :title => I18n.t('discuss.statements.statement_language_hint_tooltip')
+  end
+
+  #render the hint on the new draftable statement forms to warn about drafting language on collective text creation
+  def drafting_language_hint
+    content_tag :p, I18n.t('discuss.statements.drafting_language_hint')
+  end
+
+  def top_statement_hint
+    content_tag :p, I18n.t("discuss.statements.fuq_formulation_hint")
   end
 
   #render the hint on the edit statement forms to warn about the time the users have to edit it
@@ -338,25 +344,6 @@ module StatementsHelper
     end
     content
   end
-
-
-  #render the hint on the new draftable statement forms to warn about drafting language on collective text creation
-  def drafting_language_hint
-    content = ''
-    content << content_tag(:li, :class => 'hint') do
-      content_tag :p, I18n.t('discuss.statements.drafting_language_hint')
-    end
-    content
-  end
-
-  def top_statement_hint
-    content = ''
-    content << content_tag(:li, :class => 'hint') do
-      content_tag :p, I18n.t("discuss.statements.fuq_formulation_hint")
-    end
-    content
-  end
-
 
   ##############
   # Navigation #
