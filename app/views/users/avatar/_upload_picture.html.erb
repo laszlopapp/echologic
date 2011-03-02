@@ -6,7 +6,7 @@
   <%= I18n.t('users.profile.upload_picture.guide') %>
 </p>
 
-<% semantic_form_for @profile, :html => { 'data-image-redirect' => url_for(:controller => 'users/profile', :action => 'reload_pictures'), 
+<% semantic_form_for @profile, :html => { 'data-image-redirect' => url_for(:controller => 'users/profiles', :action => 'reload_pictures'), 
                                           :multipart => true, :id => 'upload_picture_form', :class => 'upload_form' } do |form| %>
   <% form.inputs do %>
     <%= form.input :avatar, :input_html => {:size => 70}%>

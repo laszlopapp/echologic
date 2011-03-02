@@ -16,8 +16,6 @@ fr:
       back: Retour
       email: E-Mail
       name: Nom
-      first_name: Prénom
-      last_name: Nom de famille
       undefined: Vous n'êtes pas encore enregistré(e)?
       ok: D'accord
       or: ou
@@ -145,21 +143,34 @@ fr:
     authors:
       teaser:
         title: 'Devenez co-auteur!'
-    user_sessions:
-      login:
-        password: Mot de passe
-        email: E-Mail
-        signup: |
-          Pas encore membre?
-        set_password: Mot de passe oublié?
-        remember: Mémoriser mon mot de passe!
-        hello: Vous êtes connecté(e)<br/><strong>{{name}}</strong>
+    signin:
+      label: 'Sign In'
+      password: Mot de passe
+      member_tag: Already a member?
+      via_echo: '... via echo'
+      via_social: '... via another Account'
+      set_password: Mot de passe oublié?
+      remember: Mémoriser mon mot de passe!
+      hello: Vous êtes connecté(e)<br/><strong>{{name}}</strong>
+      setup_basic_profile: 'Setup Basic Profile'
       messages:
-        login_success: "Votre inscription a réussi.<br/>Bienvenue sur echo!"
-        login_failed: "Utilisateur inconnu ou erreur de mot de passe."
-        logout_success: "Vous vous êtes déconnecté(e).<br/>Au revoir et à bientôt!"
+        success: "Votre inscription a réussi.<br/>Bienvenue sur echo!"
+        failed: "Utilisateur inconnu ou erreur de mot de passe."
+        failed_social: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account" 
+    signup:
+      label: 'Sign Up'
+      member_tag: |
+        Pas encore membre?
+      via_echo: '... for a new echo Account'
+      via_social: '... via another Existing Account'
+      use_photo: 'Use in echo, too'
+    signout:
+      messages:
+        success: "Vous vous êtes déconnecté(e).<br/>Au revoir et à bientôt!"
+    user_sessions:
+      messages:
         session_timeout: "Votre ancienne session a été fermée. Veuillez recommencer."
-
+     
     # Activations section
     activation:
       messages:
@@ -750,9 +761,7 @@ fr:
     attributes:
       profile:
         email: E-Mail
-        first_name: Prenom
-        last_name: Nom de famille
-        full_name: Nom complet
+        full_name: Nom
         gender: Sexe
         city: Ville
         country: Pays

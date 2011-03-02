@@ -1,0 +1,19 @@
+<div id="social_accounts_settings" class="header_block">
+  <h2><%= I18n.t("users.social_accounts.title") %></h2>
+  <div class="guide">
+    <%= I18n.t("users.social_accounts.guide") %>
+  </div>
+	<ul id="social_account_list">
+		<% social_providers = SocialService.instance.social_providers %>
+		<li>
+      <% social_providers.each do |social_provider| %>
+				<%= content_tag :span, I18n.t("users.social_accounts.providers.#{social_provider}"), :class => 'social_label' %>
+			<% end %>
+    </li>
+		<li>
+      <% social_providers.each do |social_provider| %>
+			  <% social_account_button social_provider %>
+      <% end %>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,33 @@
+<div class='registry'>
+  <div id="setup_basic_profile" class='modal_form_container'>
+     <%= content_tag :span, content_tag(:h1, I18n.t('users.signin.setup_basic_profile.title')), :class => 'sign_in logo'%>
+		 <p>
+      <%= I18n.t('users.signin.setup_basic_profile.guide') %>
+    </p>
+     <% form_for @user, :url => activate_path(@user.perishable_token), :html => {:method => :post, :class => "echoForm ajax_form",:id => 'new_user_form'} do |f| %>
+     <div class='setup_basic_profile_container'>
+        <p>
+          <%= f.label I18n.t('application.general.name') %><br />
+          <%= f.text_field :full_name %><br />
+        </p>
+				<p>
+			    <%= f.label :password, I18n.t('users.profile.password.new') %><br/>
+			    <%= f.password_field :password %>
+			  </p>
+				<p>
+			    <%= f.label I18n.t('users.profile.password.confirm') %><br/>
+			    <%= f.password_field :password_confirmation %>
+			  </p>
+        
+        <%= tag('br');tag('br') %>
+        <%= f.submit I18n.t('application.general.save'), :class => 'signinButton formButton200' %><br/>
+        <p>
+         <%= I18n.t('users.signin.setup_basic_profile.agreement') %>
+				 <%= check_box_tag :agreement, 1, false %>
+       </p>
+     </div>
+     <div class='setup_basic_profile_container'>
+     </div>
+     <% end %>
+  </div>
+</div>

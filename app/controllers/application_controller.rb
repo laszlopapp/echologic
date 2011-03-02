@@ -147,7 +147,7 @@ class ApplicationController < ActionController::Base
     reset_session
     if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'
       # If the user wants to log out, we go to the root page and display the logout message.
-      redirect_to_url root_url, 'users.user_sessions.messages.logout_success'
+      redirect_to_url root_url, 'users.signout.messages.success'
     else
       # Not logout
       @user_required ||= false
@@ -261,11 +261,23 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  #
+  # sets an url which will be called assynchronously as the page loads on the user's side
+  #
+  def set_later_call(url)
+    @later_call = url
+  end
+
   # Sets the @error variable for the flash object (used for HTTP requests).
   def flash_error
     flash[:error] = @error
   end
-
+  
+  # Sets the @later_call variable for the flash object (used for HTTP requests).
+  def flash_later_call
+    flash[:later_call] = @later_call
+  end
+  
   # Get formatted error string from error partial for a given object, then show
   # it on the page object as an error message.
   def render_with_error(message=@error)
@@ -349,6 +361,67 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.html { render :partial => opts[:partial], :layout => opts[:layout], :locals => opts[:locals]}
       format.js   { render :template => 'layouts/outerMenuDialog' , :locals => opts[:locals]}
+    end
+  end
+  
+  def render_signings(type)
+    render_static_new :template => "users/#{type}/new" do |format|
+      format.js {render :template => 'users/components/users_form', 
+                        :locals => {:partial => "users/#{type}/new"}}
+    end
+  end
+
+  def redirect_or_render_with_info(url, message_or_object, opts={})
+    respond_to do |format|
+      set_info message_or_object, opts
+      format.html { flash_info and redirect_to url }
+      format.js   { 
+        render_with_info do |page|
+          yield page if block_given?
+        end
+      }
+    end
+  end
+  
+  def redirect_or_render_with_error(url, message_or_object, opts={})
+    respond_to do |format|
+      set_error message_or_object, opts
+      format.html { flash_error and redirect_to url }
+      format.js   { 
+        render_with_error do |page|
+          yield page if block_given?
+        end
+      }
+    end
+  end
+  
+  def redirect_with_info(url, message_or_object, opts={})
+    set_info message_or_object, opts
+    flash_info
+    respond_to do |format|
+      format.html { redirect_to url }
+      format.js{
+        render :update do |page|
+          page.redirect_to url
+        end
+      }
+    end
+  end
+  
+  def later_call(url, later_url)
+    respond_to do |format|
+      set_later_call later_url
+      format.html { flash_later_call and redirect_to url }
+      yield format if block_given? 
+    end
+  end
+  
+  def later_call_with_error(url, later_url, message_or_object, opts={})
+    respond_to do |format|
+      set_error message_or_object, opts
+      set_later_call later_url
+      format.html { flash_error and flash_later_call and redirect_to url }
+      format.js{ render_with_error }
     end
   end
 

@@ -14,11 +14,10 @@ en:
       hide: « okay
       next: Next
       back: Back
-      last_name: Last Name
-      first_name: First Name
-      undefined: Not yet entered
       name: Name
+      undefined: Not yet entered
       email: E-Mail
+      email_confirmation: confirm E-Mail
       ok: Ok
       or: or
       save: Save
@@ -132,26 +131,46 @@ en:
     authors:
       teaser:
         title: 'Become a co-author!'
-    user_sessions:
-      login:
-        password: 'Password'
-        email: 'E-Mail'
-        signup: Not a member yet?
-        set_password: Forgot your password?
-        remember: Remember me!
-        hello: Logged in<br/><strong>{{name}}</strong>
+    signin:
+      label: 'Sign In'
+      password: 'Password'
+      member_tag: Already a member?
+      via_echo: '... via echo'
+      via_social: '... via another Account'
+      set_password: Forgot your password?
+      remember: Remember me!
+      hello: Logged in<br/><strong>{{name}}</strong>
+      setup_basic_profile: 
+        title: 'Setup Basic Profile'
+        guide: Please, fill your basic information in and publish your account!
+        agreement: I agree with the terms of data policy...
       messages:
-        login_success: "Login successful. Welcome back to echo."
-        login_failed: "Unknown user or wrong password."
-        logout_success: "Logout successful. See you later. Bye!"
+        success: "Login successful. Welcome back to echo."
+        failed: "Unknown user or wrong password."
+        failed_social: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account" 
+    signup:
+      label: 'Sign Up'
+      member_tag: Not a member yet?
+      via_echo: '... for a new echo Account'
+      via_social: '... via another Existing Account'
+      use_photo: 'Use in echo, too'
+    signout:
+      messages:
+        success: "Logout successful. See you later. Bye!"
+    user_sessions:
+      messages:
         session_timeout: "Your session has expired. Please log in again."
+        
 
     # Activations section
     activation:
 
       messages:
-        success: Your account has been successfully activated. Welcome to echo!
-        failed: Your account could not be activated. Please check your input.
+        success: Your account has been successfully created. Welcome to echo!
+        failed: |-
+          <p>Your account could not be activated. Please check your input.</p>
+        already_active: Your account is already active!
+        no_account: Your account does not exist!
 
     # Password resets section
     password_reset:
@@ -187,11 +206,13 @@ en:
 
       password:
         title: Change my password
+        old: Old password
         new: New password
         confirm: Confirm password
 
       picture:
         upload_button: Change
+        
 
       upload_picture:
         title: Upload Picture
@@ -199,7 +220,8 @@ en:
         progress: Your avatar is being uploaded. Please wait...
 
       messages:
-        updated: "Profile information updated successful."
+        updated: "Profile information updated successfully."
+        image_invalid: 'is invalid or inaccessible'
 
     # Spoken Languages section
     spoken_languages:
@@ -279,6 +301,50 @@ en:
         guide: Let other logged in members (but no search engines) see your profile information as being a co-author of a statement in echo Discuss.
         turned_on: Your profile information will be shown when displaying co-authors of statements.
         turned_off: You will be displayed as Anonym among other authors of a statement.
+        
+    # Manage Echo Account section
+    echo_account:
+      title: Manage your echo Account
+      guide: Here you can handle your personal account information 
+      change_email:
+        title: Change E-Mail
+        guide: Please define new E-Mail address that echo should use to keep in touch with you.
+        success: E-Mail changed successfully!
+        failed: Failed to change E-Mail!
+      change_password:
+        title: Change Password
+        guide: Please define your new password.
+        success: Password changed successfully!
+        failed: Failed to change Password!
+        wrong_password: The password you entered is not your password!
+      delete_account:
+        title: Delete Account
+        guide: |
+          <p>ATTENTION! Your account and ALL your personal data will be <strong>permanently deleted</strong>. 
+          The echos you have made will be kept fully anonymously.</p><br/>
+          <p>Are you sure you want to proceed?</p><br/>
+        confirm: Yes, delete my account permanently
+        last_confirm: Are you really really sure?
+        success: Your echo account was successfully deleted.  
+    social_accounts:
+      title: Connected Accounts
+      guide: Connect your social accounts with your echo account so you can easily share and amplify your echo throughout the web. 
+      providers:
+        facebook: Facebook
+        twitter: Twitter
+        yahoo!: Yahoo!
+        linked_in: Linked-In
+        google: Google
+      connect: 
+        title: Connect
+        success: Added your {{account}} account successfully!
+        failed: Failed to add your {{account}} account!
+      disconnect: 
+        title: Disconnect
+        success: Removed your {{account}} account successfully!
+        failed: Failed to remove your {{account}} account! 
+       
+      
 
     # New Users section
     users:
@@ -295,6 +361,7 @@ en:
 
       messages:
         created: "Please check your E-Mails to activate your newly created account!"
+        email_updated: "Please check your E-Mails to activate your new email!"
 
     # Reports section
     reports:
@@ -668,6 +735,8 @@ en:
           attributes:
             email:
               taken: 'Your e-Mail address is already in use.'
+              invalid: 'Your e-Mail must be in a valid format.'
+              
 
       messages:
         blank: "The field '{{attribute}}' must not be empty."
@@ -687,8 +756,6 @@ en:
     attributes:
       profile:
         email:      E-Mail
-        first_name: First name
-        last_name:  Last name
         full_name:  Name
         gender:     Gender
         city:       City

@@ -14,10 +14,8 @@ pt:
       hide: « ok
       next: Seguinte
       back: de volta
-      last_name: Sobrenome
-      first_name: Nome Próprio
-      undefined: Ainda não inserido
       name: Nome
+      undefined: Ainda não inserido
       email: E-Mail
       ok: Ok
       or: ou
@@ -131,20 +129,33 @@ pt:
     authors:
       teaser:
         title: 'Torne-se um co-autor!'
-    user_sessions:
-      login:
-        password: 'Senha'
-        email: 'E-Mail'
-        signup: Ainda não é um membro?
-        set_password: Esqueceu-se da senha?
-        remember: Lembre-me!
-        hello: Autenticado<br/><strong>{{name}}</strong>
+    signin:
+      label: 'Sign In'
+      password: 'Senha'
+      member_tag: Already a member?
+      via_echo: '... via echo'
+      via_social: '... via another Account'
+      set_password: Esqueceu-se da senha?
+      remember: Lembre-me!
+      hello: Autenticado<br/><strong>{{name}}</strong>
+      setup_basic_profile: 'Setup Basic Profile'
       messages:
-        login_success: "Autenticação bem-sucedida. Bemvindo de volta à echo."
-        login_failed: "Utilizador desconhecido ou senha errada."
-        logout_success: "Saída bem-sucedida. Até breve!"
+        success: "Autenticação bem-sucedida. Bemvindo de volta à echo."
+        failed: "Utilizador desconhecido ou senha errada."
+        failed_social: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account" 
+    signup:
+      label: 'Sign Up'
+      member_tag: Ainda não é um membro?
+      via_echo: '... for a new echo Account'
+      via_social: '... via another Existing Account'
+      use_photo: 'Use in echo, too'
+    signout:
+      messages:
+        success: "Saída bem-sucedida. Até breve!"
+    user_sessions:
+      messages:
         session_timeout: "A sua sessão foi terminada. Por favor autentique-se de novo."
-
+    
     # Activations section
     activation:
       messages:
@@ -691,8 +702,6 @@ pt:
     attributes:
       profile:
         email:      E-Mail
-        first_name: Nome Próprio
-        last_name:  Sobrenome
         full_name:  Nome
         gender:     Sexo
         city:       Cidade

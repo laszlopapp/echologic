@@ -3,6 +3,7 @@
 $(document).ready(function () {
   loadComponentAutoComplete();
 	loadProfileEditForm();
+	initEchoAccountButtons();
 });
 
 
@@ -34,4 +35,34 @@ function loadProfileEditForm() {
                                                {minChars: 3, selectFirst: false});
     $(this).ajaxForm({ dataType : 'script' });
   });
+}
+
+
+function initEchoAccountButtons() {
+	var container = $('#echo_account_settings');
+	$('#echo_account_settings').find('a.header').live('click', function(){
+		var button = $(this);
+		if (!$(this).hasClass('active')) {
+			var content = container.children('.content');
+
+			$.ajax({
+				url: button.attr('href'),
+				type: 'get',
+				dataType: 'script',
+				success: function(){
+					button.addClass('active').siblings().removeClass('active');
+
+					if (content) {
+					  content.replaceWith(container.children(':last').show());
+					} else {
+						container.children('.content').animate(toggleParams, 500);
+					}
+				},
+				error: function(){
+
+				}
+			});
+	 }
+	 return false;
+	});
 }

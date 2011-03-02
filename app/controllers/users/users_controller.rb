@@ -1,19 +1,17 @@
 class Users::UsersController < ApplicationController
+  helper :signings_form
+  include Users::SocialModule
 
-  before_filter :require_no_user, :only => [:new, :create]
-  skip_before_filter :require_user, :only => [:index, :new, :create]
-  before_filter :fetch_user, :only => [:show, :edit, :update, :update_password, :destroy]
+  before_filter :require_no_user, :only => [:new, :create, :create_social, :setup_basic_profile]
+  skip_before_filter :require_user, :only => [:index, :new, :create, :create_social, :setup_basic_profile]
+  before_filter :fetch_user, :only => [:show, :edit, :update, :destroy]
 
   access_control do
-    allow logged_in, :to => [:show,
-                             :index,
-                             :update_password,
-                             :add_concernments,
-                             :delete_concernment,
-                             :auto_complete_for_tag_value]
+    allow logged_in, :to => [:show, :index, :update, :destroy_account, :update_email, :update_password,
+                             :add_concernments, :delete_concernment, :auto_complete_for_tag_value,
+                             :add_social, :remove_social]
     allow :admin
-    allow anonymous, :to => [:new,
-                             :create]
+    allow anonymous, :to => [:new, :create, :create_social, :setup_basic_profile]
   end
 
   # Generate auto completion based on tags in the database
@@ -40,11 +38,15 @@ class Users::UsersController < ApplicationController
     end
   end
 
+
   # GET /users/new
   # GET /users/new.xml
   def new
-    @user = User.new
-    render_static_new :template => 'users/users/new'
+    session[:redirect_url] = request.referer
+    @user ||= User.new
+    @user_session ||= UserSession.new
+    @to_show = "signup"
+    render_signings "users"
   end
 
   # GET /users/1/edit
@@ -54,27 +56,17 @@ class Users::UsersController < ApplicationController
 
   # modified users_controller.rb
   def create
-
+    redirect_url = session[:redirect_url] || root_path
     @user = User.new
     @user.create_profile
     begin
-      respond_to do |format|
-        if @user.signup!(params)
-          @user.deliver_activation_instructions!
-          set_info 'users.users.messages.created'
-          format.html {
-            flash_info and redirect_to root_url
-          }
-          format.js do
-            render_with_info do |page|
-              page.redirect_to root_url
-            end
-          end
-        else
-          set_error @user
-          format.html { flash_error and render :template => 'users/users/new', :layout => 'static' }
-          format.js   { render_with_error }
+      if @user.signup!(params[:user])
+        @user.deliver_activation_instructions!
+        redirect_or_render_with_info(redirect_url, 'users.users.messages.created') do |page|
+          page << "$('#dialogContent').dialog('close');"
         end
+      else
+        later_call_with_error(redirect_url, signup_url, @user)
       end
     rescue Exception => e
       log_message_error(e, "Error creating user")
@@ -82,6 +74,7 @@ class Users::UsersController < ApplicationController
       log_message_info("User '#{@user.id}' has been created sucessfully.")
     end
   end
+
 
   # PUT /users/1
   # PUT /users/1.xml
@@ -102,40 +95,76 @@ class Users::UsersController < ApplicationController
     end
   end
 
-  def update_password
-    begin
-      @user.password = params[:user][:password]
-      @user.password_confirmation = params[:user][:password_confirmation]
-      respond_to do |format|
-        if @user.save and not params[:user][:password].empty?
-          set_info 'users.password_reset.messages.reset_success'
-          format.html {
-            flash_info and redirect_to my_profile_path
-          }
-          format.js   { render_with_info }
+  def update_email
+    User.transaction do
+      if params[:user][:email].eql? params[:user][:email_confirmation]
+        if current_user.has_verified_email?(params[:user][:email])
+          if current_user.update_attributes(params[:user])
+            redirect_or_render_with_info(settings_path, "users.echo_account.change_email.success")
+          else
+            redirect_or_render_with_error(settings_path, current_user)
+          end
         else
-          set_error @user
-          format.html { flash_error and redirect_to my_profile_path }
-          format.js   { render_with_error }
+          pending_action = PendingAction.create(:action => params[:user].to_json, :user => current_user)
+          current_user.deliver_activate_email!(params[:user][:email], pending_action.uuid)
+          redirect_or_render_with_info(settings_path, "users.users.messages.email_updated")
         end
+      else
+        redirect_or_render_with_error(settings_path, "active_record.errors.messages.confirmation", :attribute => I18n.t("application.general.email"))
+      end
+    end
+  end
+
+  def update_password
+    old_password = params[:old_password]
+    begin
+      if current_user.has_password?(old_password)
+        if current_user.update_attributes(params[:user])
+          redirect_or_render_with_info(settings_path, 'users.echo_account.change_password.success')
+        else
+          redirect_or_render_with_error(settings_path, current_user)
+        end
+      else
+        redirect_or_render_with_error(settings_path, "users.echo_account.change_password.wrong_password")
       end
     rescue Exception => e
-      log_message_error(e, "Error updating user #{@user.id} password")
+      log_message_error(e, "Error updating user #{current_user.id} password")
     else
-      log_message_info("User '#{@user.id}' password has been updated sucessfully.")
+      log_message_info("User '#{current_user.id}' password has been updated sucessfully.")
     end
   end
 
   # DELETE /users/1
   # DELETE /users/1.xml
   def destroy
-    @user.delete_account
-    respond_to do |format|
-      flash[:notice] = "User account has been removed."
-      format.html { redirect_to connect_path }
+    begin
+      @user.delete_account
+      respond_to do |format|
+        flash[:notice] = "User account has been removed."
+        format.html { redirect_to connect_path }
+      end
+    rescue Exception => e
+      log_message_error(e, "Error deleting account from user '#{@user.id}'.")
+    else
+      log_message_info("User '#{@user.id}' account has been sucessfully deleted.")
     end
   end
 
+  def destroy_account
+    begin
+      current_user_session.destroy
+      reset_session
+      current_user.delete_account
+      respond_to do |format|
+        set_info "users.echo_account.delete_account.success"
+        format.html { flash_info and redirect_to root_path }
+      end
+    rescue Exception => e
+      log_message_error(e, "Error deleting account from user '#{current_user.id}'.")
+    else
+      log_message_info("User '#{current_user.id}' account has been sucessfully deleted.")
+    end
+  end
 
   def add_concernments
     concernments = params[:tag][:value]
@@ -202,6 +231,10 @@ class Users::UsersController < ApplicationController
 
   def fetch_user
     @user = User.find(params[:id]) || current_user
+  end
+
+  def user_not_active?
+    !@user.active
   end
 
 end

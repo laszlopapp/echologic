@@ -18,26 +18,4 @@ class DiscussControllerTest < ActionController::TestCase
     get :roadmap
     assert_response :success
   end
-
-  test "should cancel question update and redirect to question page" do
-    statement_node = Question.first
-    session[:last_statement_node] = statement_node.id
-    get :cancel
-    assert_redirected_to question_url(statement_node)
-  end
-
-  test "should cancel proposal update and redirect to proposal page" do
-    statement_node = Proposal.first
-    session[:last_statement_node] = statement_node.id
-    get :cancel
-    assert_redirected_to proposal_url(statement_node)
-  end
-
-  test "should cancel improvement update and redirect to improvement page" do
-    statement_node = Improvement.first
-    session[:last_statement_node] = statement_node.id
-    get :cancel
-    assert_redirected_to improvement_url(statement_node)
-  end
-
 end

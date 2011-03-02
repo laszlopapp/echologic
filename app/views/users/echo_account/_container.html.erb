@@ -1,0 +1,15 @@
+<div id="echo_account_settings" class="header_block">
+  <h2><%= I18n.t("users.echo_account.title") %></h2>
+  <div class="guide">
+    <%= I18n.t("users.echo_account.guide") %>
+  </div>
+	<ul id="echo_account_list">
+		<li>
+			<% %w(change_email change_password delete_account).each do |type| %>
+				<% link_to url_for(:controller => :my_echo, :action => type), :class => 'header', :id => type do %>
+	        <%= content_tag :span, I18n.t("users.echo_account.#{type}.title"), :class => 'button_150' %>
+	      <% end %>
+			<% end %>
+    </li>
+  </ul>
+</div>

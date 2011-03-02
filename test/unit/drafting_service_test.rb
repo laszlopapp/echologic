@@ -36,21 +36,21 @@ class DraftingServiceTest < ActiveSupport::TestCase
     context "when user unsupports the second improvement which is ready and ranking changes" do
       setup {
         @statement_1 = statement_nodes('first-impro-proposal')
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+        @statement_1.user_echos << flexmock(UserEcho.new(:echo => @statement_1.find_or_create_echo,
                                                 :user => users(:luise),
-                                                :supported => true)
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+                                                :supported => true))
+        @statement_1.user_echos << flexmock(UserEcho.new(:echo => @statement_1.find_or_create_echo,
                                                 :user => users(:red),
-                                                :supported => true)
+                                                :supported => true))
         @statement_1.find_or_create_echo.update_counter!
 
         @statement_2 = statement_nodes('second-impro-proposal')
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+        @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:luise),
-                                                :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :supported => true))
+        @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:red),
-                                                :supported => true)
+                                                :supported => true))
         @statement_2.find_or_create_echo.update_counter!
         @statement_2.readify!
         @statement_2.save
@@ -66,10 +66,10 @@ class DraftingServiceTest < ActiveSupport::TestCase
     context "user supports the second improvement which is tracked and ranking changes" do
       setup {
         @statement_1 = statement_nodes('second-impro-proposal')
-        @statement_1.user_echos.destroy_all
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+#        @statement_1.user_echos.destroy_all
+        @statement_1.user_echos << flexmock(UserEcho.new(:echo => @statement_1.find_or_create_echo,
                                                 :user => users(:red),
-                                                :supported => true)
+                                                :supported => true))
         @statement_1.find_or_create_echo.update_counter!
         @statement_1.save
         @statement_1.reload
@@ -77,13 +77,13 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_2 = statement_nodes('first-impro-proposal')
         @statement_2.parent.supported!(users(:red))
         @statement_2.parent.supported!(users(:luise))
-        @statement_2.user_echos.destroy_all
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+#        @statement_2.user_echos.destroy_all
+        @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:red),
-                                                :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :supported => true))
+        @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:luise),
-                                                :supported => true)
+                                                :supported => true))
         @statement_2.find_or_create_echo.update_counter!
         @statement_2.readify!
         @statement_2.stage!
@@ -118,42 +118,42 @@ class DraftingServiceTest < ActiveSupport::TestCase
 
         DraftingService.min_votes=2
         @statement_1 = statement_nodes('first-impro-proposal')
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+        @statement_1.user_echos << flexmock(UserEcho.new(:echo => @statement_1.find_or_create_echo,
                                                 :user => users(:red),
-                                                :supported => true)
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+                                                :supported => true))
+        @statement_1.user_echos << flexmock(UserEcho.new(:echo => @statement_1.find_or_create_echo,
                                                 :user => users(:luise),
-                                                :supported => true)
+                                                :supported => true))
         @statement_1.find_or_create_echo.update_counter!
         @statement_1.readify!
         @statement_1.state_since = Time.now
         @statement_1.save
 
         @statement_2 = statement_nodes('second-impro-proposal')
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+        @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:red),
-                                                :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :supported => true))
+        @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:luise),
-                                                :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :supported => true))
+        @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:green),
-                                                :supported => true)
+                                                :supported => true))
         @statement_2.find_or_create_echo.update_counter!
         @statement_2.readify!
         @statement_2.stage!
         @statement_2.state_since = Time.now
         @statement_2.save
 
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
                                                        :user => users(:red),
-                                                       :supported => true)
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :supported => true))
+        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
                                                        :user => users(:luise),
-                                                       :supported => true)
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :supported => true))
+        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
                                                        :user => users(:green),
-                                                       :supported => true)
+                                                       :supported => true))
         @statement_2.parent.find_or_create_echo.update_counter!
         @statement_2.parent.save
 
@@ -198,27 +198,27 @@ class DraftingServiceTest < ActiveSupport::TestCase
 
         DraftingService.min_votes=2
         @statement_1 = statement_nodes('first-impro-proposal')
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+        @statement_1.user_echos << flexmock(UserEcho.new(:echo => @statement_1.find_or_create_echo,
                                                 :user => users(:red),
-                                                :supported => true)
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+                                                :supported => true))
+        @statement_1.user_echos << flexmock(UserEcho.new(:echo => @statement_1.find_or_create_echo,
                                                 :user => users(:luise),
-                                                :supported => true)
+                                                :supported => true))
         @statement_1.find_or_create_echo.update_counter!
         @statement_1.readify!
         @statement_1.state_since = Time.now
         @statement_1.save
 
         @statement_2 = statement_nodes('third-impro-proposal')
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+        @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:red),
-                                                :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :supported => true))
+        @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:luise),
-                                                :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :supported => true))
+        @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:green),
-                                                :supported => true)
+                                                :supported => true))
         @statement_2.find_or_create_echo.update_counter!
         @statement_2.readify!
         @statement_2.stage!
@@ -226,15 +226,15 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_2.times_passed = 1
         @statement_2.save
 
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
                                                        :user => users(:red),
-                                                       :supported => true)
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :supported => true))
+        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
                                                        :user => users(:luise),
-                                                       :supported => true)
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :supported => true))
+        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
                                                        :user => users(:green),
-                                                       :supported => true)
+                                                       :supported => true))
         @statement_2.parent.find_or_create_echo.update_counter!
         @statement_2.parent.save
 
@@ -282,12 +282,12 @@ class DraftingServiceTest < ActiveSupport::TestCase
 
         DraftingService.min_votes=2
         @statement_1 = statement_nodes('first-impro-proposal')
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+        @statement_1.user_echos << flexmock(UserEcho.new(:echo => @statement_1.find_or_create_echo,
                                                 :user => users(:red),
-                                                :supported => true)
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+                                                :supported => true))
+        @statement_1.user_echos << flexmock(UserEcho.new(:echo => @statement_1.find_or_create_echo,
                                                  :user => users(:luise),
-                                                 :supported => true)
+                                                 :supported => true))
         @statement_1.find_or_create_echo.update_counter!
         @statement_1.readify!
         @statement_1.stage!
@@ -296,15 +296,15 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_1.save
 
         @statement_2 = statement_nodes('second-impro-proposal')
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+        @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:red),
-                                                :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :supported => true))
+        @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:luise),
-                                                :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :supported => true))
+        @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:green),
-                                                :supported => true)
+                                                :supported => true))
         @statement_2.find_or_create_echo.update_counter!
         @statement_2.readify!
         @statement_2.stage!
@@ -312,15 +312,15 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_2.times_passed = 1
         @statement_2.save
 
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
                                                        :user => users(:red),
-                                                       :supported => true)
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :supported => true))
+        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
                                                        :user => users(:luise),
-                                                       :supported => true)
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :supported => true))
+        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
                                                        :user => users(:green),
-                                                       :supported => true)
+                                                       :supported => true))
         @statement_2.parent.find_or_create_echo.update_counter!
         @statement_2.parent.save
 
@@ -349,12 +349,12 @@ class DraftingServiceTest < ActiveSupport::TestCase
 
         DraftingService.min_votes=2
         @statement_1 = statement_nodes('third-impro-proposal')
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+        @statement_1.user_echos << flexmock(UserEcho.new(:echo => @statement_1.find_or_create_echo,
                                                 :user => users(:red),
-                                                :supported => true)
-        @statement_1.user_echos << UserEcho.new(:echo => @statement_1.find_or_create_echo,
+                                                :supported => true))
+        @statement_1.user_echos << flexmock(UserEcho.new(:echo => @statement_1.find_or_create_echo,
                                                 :user => users(:luise),
-                                                :supported => true)
+                                                :supported => true))
         @statement_1.find_or_create_echo.update_counter!
         @statement_1.readify!
         @statement_1.stage!
@@ -363,15 +363,15 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_1.save
 
         @statement_2 = statement_nodes('second-impro-proposal')
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+        @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:red),
-                                                :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :supported => true))
+        @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:luise),
-                                                :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :supported => true))
+        @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:green),
-                                                :supported => true)
+                                                :supported => true))
         @statement_2.find_or_create_echo.update_counter!
         @statement_2.readify!
         @statement_2.stage!
@@ -379,15 +379,15 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_2.times_passed = 1
         @statement_2.save
 
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
                                                        :user => users(:red),
-                                                       :supported => true)
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :supported => true))
+        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
                                                        :user => users(:luise),
-                                                       :supported => true)
-        @statement_2.parent.user_echos << UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+                                                       :supported => true))
+        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
                                                        :user => users(:green),
-                                                       :supported => true)
+                                                       :supported => true))
         @statement_2.parent.find_or_create_echo.update_counter!
         @statement_2.parent.save
 
@@ -428,15 +428,15 @@ class DraftingServiceTest < ActiveSupport::TestCase
         old_doc = @statement_2.document_in_drafting_language
 
         @statement_2.document_in_drafting_language.update_attribute(:current, false)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+        @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:red),
-                                                :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :supported => true))
+        @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:luise),
-                                                :supported => true)
-        @statement_2.user_echos << UserEcho.new(:echo => @statement_2.find_or_create_echo,
+                                                :supported => true))
+        @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:green),
-                                                :supported => true)
+                                                :supported => true))
         @statement_2.find_or_create_echo.update_counter!
         @statement_2.add_statement_document :title => old_doc.title,
                                             :text => old_doc.text + @statement_1.document_in_drafting_language.text,

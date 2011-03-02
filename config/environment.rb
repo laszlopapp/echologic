@@ -27,9 +27,9 @@ Rails::Initializer.run do |config|
   config.gem "acl9", :lib => "acl9", :source => "http://gemcutter.org"
   config.gem 'ezcrypto'
 
-  # Authlogic authentication gem.
-  config.gem "authlogic", :lib => "authlogic", :source => "http://gems.github.com"
-
+  # Authlogic authentication gem with RPX extension.
+  config.gem 'authlogic', :version => '= 2.1.6', :lib => "authlogic", :source => "http://gems.github.com"
+ 
   # Require formtastic gem to build semantic forms
   config.gem "formtastic"
 
@@ -47,6 +47,10 @@ Rails::Initializer.run do |config|
 
   # gems for endless pagination
   config.gem 'will_paginate', :lib => 'will_paginate', :source => 'http://gems.github.com'
+  
+  config.gem 'rest-open-uri'
+  
+  config.gem 'uuidtools'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -70,6 +74,13 @@ Rails::Initializer.run do |config|
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :en
 
+  # Authologic RPX
+  RPX_APP_NAME = ENV['ECHO_RPX_APP_NAME']
+  RPX_API_KEY = ENV['ECHO_RPX_API_KEY']
+  
+  raise "RPX/Janrain Engage API key must be defined ENV['RARS_RPX_API_KEY']" unless RPX_API_KEY
+  raise "RPX/Janrain Engage Application Name must be defined ENV['RARS_RPX_APP_NAME']" unless RPX_APP_NAME
+
   # Session Storage
   config.action_controller.session_store = :active_record_store
 
@@ -78,5 +89,5 @@ Rails::Initializer.run do |config|
   # the same for controllers
   config.load_paths += %w(statements).collect{|dir|"#{RAILS_ROOT}/app/controllers/#{dir}"}
   # libs
-  config.load_paths += %w(activity_tracking_service drafting_service echo_service).collect{|dir|"#{RAILS_ROOT}/lib/#{dir}"}
+  config.load_paths += %w(activity_tracking_service drafting_service echo_service social_service).collect{|dir|"#{RAILS_ROOT}/lib/#{dir}"}
 end

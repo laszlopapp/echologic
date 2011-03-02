@@ -1,0 +1,29 @@
+<% css_class ||= "register_box" %>
+/**
+ * Template to view user registration/signin/basic profile modal dialog.
+ */
+
+/* Write render output into JS variables for later use. */
+var content = "<%= escape_javascript(render(:partial => partial)) %>";
+
+
+$('#dialogContent').html(content);
+
+$('#dialogContent').dialog({
+  bgiframe: true,
+  modal:    true,
+  close:    function(event, ui) { $(this).dialog('destroy'); },
+  buttons: {
+  
+  },
+  width:    900,
+  height:   700,
+  resizable: false,
+  dialogClass: '<%= css_class %>'
+});
+
+$('#dialogContent').find('.close_button').bind('click', function (){
+  $('#dialogContent').dialog('close');
+});
+
+$('.<%= css_class %>').find(".ui-dialog-titlebar").hide();

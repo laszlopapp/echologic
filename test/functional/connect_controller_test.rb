@@ -5,7 +5,7 @@ class ConnectControllerTest < ActionController::TestCase
   def setup
     login_as :user
     @controller = ConnectController.new
-    @user = Profile.find_by_first_name('Joe')
+    @user = Profile.find_by_full_name('Joe Test')
   end
   
   test "should get show" do

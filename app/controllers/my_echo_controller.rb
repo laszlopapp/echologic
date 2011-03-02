@@ -1,7 +1,6 @@
 class MyEchoController < ApplicationController
-
   helper :profile
-
+  
   access_control do
     allow logged_in
   end
@@ -29,6 +28,20 @@ class MyEchoController < ApplicationController
     render
   end
 
+  %w(change_email change_password delete_account).each do |action_name|
+    class_eval %(
+      def #{action_name}
+        respond_to do |format|
+          format.html {  }
+          format.js {
+            render :template => 'users/echo_account/insert_form', :locals => {:partial => "users/users/#{action_name}"}
+          }
+        end
+      end
+    )
+  end
+  
+  
   {'notification' => ['newsletter','activity','drafting'], 'permission' => ['authorship']}.each do |type, contents|
     contents.each do |content|
       class_eval %(

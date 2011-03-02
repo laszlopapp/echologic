@@ -10,7 +10,6 @@ ActionController::Routing::Routes.draw do |map|
   map.act '/act/roadmap', :controller => :act, :action => :roadmap
   map.discuss_featured '/discuss/featured', :controller => :discuss, :action => :index
   map.discuss_roadmap '/discuss/roadmap', :controller => :discuss, :action => :roadmap
-  map.discuss_cancel '/discuss/cancel', :controller => :discuss, :action => :cancel
   map.my_questions '/discuss/my_questions', :controller => :statements, :action => :my_questions
 
   # SECTION discuss search
@@ -27,8 +26,8 @@ ActionController::Routing::Routes.draw do |map|
   # SECTION my echo routing
   map.my_profile 'my_profile', :controller => 'my_echo', :action => 'profile'
 
-  map.resources :profiles, :controller => 'users/profile', :path_prefix => '', :only => [:show, :edit, :update]
-  map.profile_details '/profiles/:id/details', :controller => 'users/profile', :action => 'details'
+  map.resources :profiles, :controller => 'users/profiles', :path_prefix => '', :only => [:show, :edit, :update]
+  map.profile_details '/profiles/:id/details', :controller => 'users/profiles', :action => 'details'
 
   map.welcome 'welcome', :controller => 'my_echo', :action => 'welcome'
   map.settings 'settings', :controller => 'my_echo', :action => 'settings'
@@ -59,8 +58,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :newsletters
 
   # SECTION user signup and login
-  map.resource  :user_session, :controller => 'users/user_sessions',
-                :path_prefix => '', :only => [:new, :create, :destroy]
+  map.resources  :user_sessions, :controller => 'users/user_sessions',
+                 :path_prefix => ''
+
 
   map.resources :users, :controller => 'users/users', :path_prefix => '' do |user|
     user.resources :web_addresses, :controller => 'users/web_addresses', :except => [:index]
@@ -69,17 +69,25 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :memberships,  :controller => 'users/memberships',  :except => [:index]
   end
 
-  map.resources :password_resets, :controller => 'users/password_resets',
-                :path_prefix => '', :except => [:destroy]
+  map.resources :password_resets, :controller => 'users/password_resets', :path_prefix => '', :except => [:destroy]
 
-  map.register  '/register/:activation_code', :controller => 'users/activations', :action => 'new'
-  map.join      '/join',                      :controller => 'users/users',       :action => 'new'
-  map.activate  '/activate/:id',              :controller => 'users/activations', :action => 'create'
+  map.register   '/register/:activation_code', :controller => 'users/activations', :action => 'new'
+  map.activate   '/activate/:activation_code', :controller => 'users/activations', :action => 'create', :method => :post
+  map.signin     '/signin',                    :controller => 'users/user_sessions', :action => 'new'
+  map.signup     '/signup',                    :controller => 'users/users',       :action => 'new'
+  map.signout    '/signout',                   :controller => 'users/user_sessions', :action => 'destroy'
+  map.setup_basic_profile '/setup_basic_profile/:activation_code', :controller => 'users/users', :action => 'setup_basic_profile'
+  map.pending_action '/pending_action/:token', :controller => 'users/activations', :action => 'activate_email'
+
+  # Social Accout Routes
+  map.signin_remote '/signin_remote',          :controller => 'users/user_sessions', :action => 'create_social', :method => :post
+  map.signup_remote '/signup_remote',          :controller => 'users/users',       :action => 'create_social', :method => :post
+  map.add_remote    '/add_remote/',            :controller => 'users/users', :action => 'add_social', :method => :post
+  map.remove_remote '/remove_remote/:provider',:controller => 'users/users', :action => 'remove_social', :method => :put
 
   map.resources :reports, :controller => 'users/reports'
 
   map.resources :about_items, :controller => 'about_items', :active_scaffold => true
-
 
 
   # SECTION static - contents per controller

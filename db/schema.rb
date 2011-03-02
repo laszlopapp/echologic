@@ -1,4 +1,4 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file, 
+# This file is auto-generated from the current state of the database. Instead of editing this file,
 # please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
@@ -132,9 +132,16 @@ ActiveRecord::Schema.define(:version => 20110302121041) do
     t.datetime "updated_at"
   end
 
+  create_table "pending_actions", :id => false, :force => true do |t|
+    t.string   "uuid",       :limit => 36
+    t.text     "action"
+    t.boolean  "status",                   :default => false, :null => false
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "profiles", :force => true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
     t.boolean  "female"
     t.string   "city"
     t.string   "country"
@@ -149,6 +156,8 @@ ActiveRecord::Schema.define(:version => 20110302121041) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.float    "completeness",        :default => 0.01
+    t.string   "avatar_remote_url"
+    t.string   "full_name"
   end
 
   add_index "profiles", ["user_id", "id"], :name => "index_profiles_on_user_id_and_id"
@@ -187,6 +196,18 @@ ActiveRecord::Schema.define(:version => 20110302121041) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "social_identifiers", :force => true do |t|
+    t.string   "identifier",    :null => false
+    t.string   "provider_name"
+    t.text     "profile_info"
+    t.integer  "user_id",       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "social_identifiers", ["identifier"], :name => "index_social_identifiers_on_identifier", :unique => true
+  add_index "social_identifiers", ["user_id"], :name => "index_social_identifiers_on_user_id"
 
   create_table "spoken_languages", :force => true do |t|
     t.integer "user_id"
@@ -312,7 +333,7 @@ ActiveRecord::Schema.define(:version => 20110302121041) do
   add_index "user_echos", ["user_id"], :name => "index_echo_details_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                      :null => false
+    t.string   "email"
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "persistence_token",                          :null => false
@@ -327,7 +348,6 @@ ActiveRecord::Schema.define(:version => 20110302121041) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "active",                  :default => false, :null => false
-    t.string   "openid_identifier"
     t.integer  "last_login_language_id"
     t.integer  "activity_notification",   :default => 1
     t.integer  "drafting_notification",   :default => 1

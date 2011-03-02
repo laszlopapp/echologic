@@ -16,6 +16,8 @@ module NavigationHelpers
       settings_path
     when /the start page/
       root_path
+    when /the sign in page/
+      signin_path
     when /the connect page/
       connect_search_path
     when /the connect roadmap/

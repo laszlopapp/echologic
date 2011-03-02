@@ -4,8 +4,7 @@
   <% semantic_form_for @profile, :html => { :id => 'edit_profile_form' } do |form| %>
 
     <% form.inputs do %>
-      <%= form.input :first_name %>
-      <%= form.input :last_name %>
+      <%= form.input :full_name %>
       <%= form.input :female,
                      :as => :radio,
                      :label => Profile.human_attribute_name(:gender),

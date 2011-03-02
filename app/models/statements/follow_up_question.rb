@@ -1,6 +1,6 @@
 class FollowUpQuestion < StatementNode
 
-  belongs_to :question, :dependent => :destroy #is it dependent?
+  belongs_to :question, :dependent => :destroy
 
   delegate :level, :ancestors, :topic_tags, :topic_tags=, :tags, :taggable?, :echoable?, :editorial_state_id, 
            :editorial_state_id=, :publishable?, :published, :locked_at, :supported?, :taggable?, :creator_id=, 

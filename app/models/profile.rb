@@ -1,3 +1,5 @@
+require 'rest-open-uri'
+
 class Profile < ActiveRecord::Base
 
   # Constants
@@ -20,11 +22,6 @@ class Profile < ActiveRecord::Base
   # To calculate profile completeness
   include ProfileExtension::Completeness
 
-  # TODO: do we need this ?
-  named_scope :by_last_name_first_name_id,
-              :include => :user,
-              :order => 'CASE WHEN last_name IS NULL OR last_name="" THEN 1 ELSE 0 END, last_name, first_name, user.id asc'
-
   # There are two kind of people in the world..
   @@gender = {
     false => I18n.t('users.profile.gender.male'),
@@ -42,18 +39,16 @@ class Profile < ActiveRecord::Base
   end
 
   # Handle attached user picture through paperclip plugin
+  attr_accessor :avatar_url
   has_attached_file :avatar, :styles => { :big => "128x>", :small => "x45>" },
                     :default_url => "/images/default_:style_avatar.png"
   validates_attachment_size :avatar, :less_than => 5.megabytes
   validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/pjpeg', 'image/x-png']
+  before_validation :get_remote_avatar, :if => :avatar_url?
+  
   
   # paperclip callback, used to recalculate completeness when uploading an avatar
   after_avatar_post_process :calculate_completeness
-
-  # Return the full name of the user composed of first- and lastname
-  def full_name
-    [first_name, last_name].select { |s| s.try(:any?) }.join(' ')
-  end
 
   # Return the formatted location of the user
   # TODO conditions in compact form?
@@ -86,11 +81,11 @@ class Profile < ActiveRecord::Base
     # Searching for different competences
     if competence.blank?
       # General search
-      searched_fields = %w(profiles.first_name profiles.last_name profiles.city profiles.country profiles.about_me 
+      searched_fields = %w(profiles.full_name profiles.city profiles.country profiles.about_me 
                            profiles.motivation u.email t.value m.position m.organisation)
     else
       # Search for a certain competence area
-      searched_fields = %w(profiles.first_name profiles.last_name profiles.city profiles.country t.value)
+      searched_fields = %w(profiles.full_name profiles.city profiles.country t.value)
       opts[:conditions] << "tt.context_id = #{competence}"
     end
     search_conditions = searched_fields.map{|field|sanitize_sql(["#{field} LIKE ?", "%#{search_term}%"])}.join(" OR ")
@@ -98,10 +93,21 @@ class Profile < ActiveRecord::Base
     opts[:conditions] = opts[:conditions].join(" AND ")
     
     # Building the order clause
-    opts[:order] = "CASE WHEN profiles.completeness >= #{COMPLETENESS_THRESHOLD} THEN 0 ELSE 1 END,
-                    CASE WHEN profiles.last_name IS NULL OR profiles.last_name='' THEN 1 ELSE 0 END,
-                    profiles.last_name, profiles.first_name, u.id asc;"
+    opts[:order] = "CASE WHEN profiles.completeness >= #{COMPLETENESS_THRESHOLD} THEN 0 ELSE 1 END, " +
+                   "CASE WHEN profiles.full_name='' THEN 1 ELSE 0 END, " +
+                   "profiles.full_name, u.id asc;"
       
     all opts
+  end
+  
+  private
+  def avatar_url?
+    !self.avatar_url.blank?
+  end
+
+  #
+  #block of aux functions to support the download of an external profile image
+  def get_remote_avatar
+    self.avatar = open(avatar_url)
   end
 end

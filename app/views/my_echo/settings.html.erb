@@ -1,7 +1,13 @@
 <% content_for :submenu, tabnav(:my_echo) %>
 
+<!-- Social Accounts -->
+<%= render :partial => 'users/social_accounts/container' %>
+
 <!-- E-Mail Notifications -->
 <%= render :partial => 'users/notification/container' %>
 
 <!-- Permissions -->
 <%= render :partial => 'users/permission/container' %>
+
+<!-- Manage Echo Account -->
+<%= render :partial => 'users/echo_account/container' %>

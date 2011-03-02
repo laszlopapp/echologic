@@ -16,8 +16,6 @@ es:
       back: Regresar
       email: E-Mail
       name: Nombre
-      first_name: Nombre
-      last_name: Apellido
       undefined: No definido
       ok: Ok
       or: o
@@ -131,18 +129,31 @@ es:
       teaser:
         title: 'Conviértete en co-autor!'
     # User sessions section
-    user_sessions:
-      login:
-        password: Contraseña
-        email: E-Mail
-        signup: Aún no eres miembro?
-        set_password: Has olvidado la contraseña?
-        remember: Recuérdame!
-        hello: Registrado <br/><strong>{{name}}</strong>
+    signin:
+      label: 'Sign In'
+      password: 'Contraseña'
+      member_tag: Already a member?
+      via_echo: '... via echo'
+      via_social: '... via another Account'
+      set_password: Has olvidado la contraseña?
+      remember: Recuérdame!
+      hello: Registrado <br/><strong>{{name}}</strong>
+      setup_basic_profile: 'Setup Basic Profile'
       messages:
-        login_success:  "Te has registrado correctamente.<br/>Bienvenido de nuevo a echo!"
-        login_failed:   "Usuario desconocido o contraseña incorrecta."
-        logout_success: "Has cerrado tu cuenta.<br/>Hasta la próxima!"
+        success:  "Te has registrado correctamente.<br/>Bienvenido de nuevo a echo!"
+        failed:   "Usuario desconocido o contraseña incorrecta."
+        failed_social: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account" 
+    signup:
+      label: 'Sign Up'
+      member_tag: Aún no eres miembro?
+      via_echo: '... for a new echo Account'
+      via_social: '... via another Existing Account'
+      use_photo: 'Use in echo, too'
+    signout:
+      messages:
+        success: "Has cerrado tu cuenta.<br/>Hasta la próxima!"
+    user_sessions:
+      messages:
         session_timeout: "Tu sesión ha caducado. Por favor, entra de nuevo."
 
     # Activations section
@@ -720,8 +731,6 @@ es:
     attributes:
       profile:
         email:      E-Mail
-        first_name: Nombre
-        last_name:  Apellido
         full_name:  Nombre
         gender:     Sexo
         city:       Ciudad

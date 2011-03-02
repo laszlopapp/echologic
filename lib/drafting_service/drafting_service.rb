@@ -111,7 +111,7 @@ class DraftingService
   def update_incorporable_states(incorporables, changed_incorporable, old_supporter_count)
     # Get array order with id and supporter count
     old_order = incorporables.map{|inc| [inc.id, inc.supporter_count.to_i, inc.created_at.to_i]}
-
+    
     # Set the old supporter count on the changed incorporable
     old_order[incorporables.index(changed_incorporable)][1] = old_supporter_count
 
@@ -120,6 +120,7 @@ class DraftingService
       position_diff = b[1] <=> a[1] # Desc by position
       position_diff != 0 ? position_diff : a[2] <=> b[2] # Asc by created_at
     end
+    
     old_order.map!{|i| i[0]}
     incorporables.each_with_index do |inc, new_position|
       old_position = old_order.index(inc.id)

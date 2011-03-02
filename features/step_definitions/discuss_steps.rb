@@ -28,34 +28,15 @@ When /^I choose the second Question$/ do
   end
 end
 
-When /^I choose the "([^\"]*)" Question$/ do |name|
-  response.should have_selector("li.question") do |selector|
-    selector.each do |question|
-      if name.eql?(question.at_css("span.name").inner_text.strip)
-        @question = Question.find(URI.parse(question.at_css("a")['href']).path.match(/\d+/)[0].to_i)
-        visit question.at_css("a")['href']
-      end
-    end
-  end
-end
-
-When /^I choose the "([^\"]*)" Proposal$/ do |name|
-  response.should have_selector("li.proposal") do |selector|
-    selector.each do |proposal|
-      if name.eql?(proposal.at_css("a.proposal_link").inner_text.strip)
-        @proposal = Proposal.find(URI.parse(proposal.at_css("a")['href']).path.match(/\d+/)[0].to_i)
-        visit proposal.at_css("a")['href']
-      end
-    end
-  end
-end
-
-When /^I choose the "([^\"]*)" Improvement$/ do |name|
-  response.should have_selector("li.improvement") do |selector|
-    selector.each do |improvement|
-      if name.eql?(improvement.at_css("a.improvement_link").inner_text.strip)
-        @improvement = Improvement.find(URI.parse(improvement.at_css("a")['href']).path.match(/\d+/)[0].to_i)
-        visit improvement.at_css("a")['href']
+When /^I choose the "([^\"]*)" ([^\"]*)$/ do |name, type|
+  type_class = type.classify.constantize
+  type = type.underscore
+  response.should have_selector("li.#{type}") do |selector|
+    selector.each do |statement|
+      css_element = (type.eql?('question') ? "span.name" : "a.#{type}_link")
+      if name.eql?(statement.at_css(css_element).inner_text.strip)
+        instance_variable_set("@#{type}", type_class.find(URI.parse(statement.at_css("a")['href']).path.match(/\d+/)[0]))
+        visit statement.at_css("a")['href']
       end
     end
   end

@@ -5,7 +5,6 @@
   $(function() {
 
     $.fragmentChange(true);
-
     makeRatiobars();
     makeTooltips();
     roundCorners();
@@ -17,6 +16,7 @@
     loadAjaxForms();
     uploadFormSubmit();
     loadAboutUs();
+		loadModalFormButtons();
 
     /* Always send the authenticity_token with Ajax */
     $(document).ajaxSend(function(event, request, settings) {
@@ -275,3 +275,13 @@
     }
   }
 
+  function loadModalFormButtons() {
+		$('.modal_form_container > .toggle_button').live('click', function(){
+			var to_show = $(this).attr('href');
+			$(to_show).show();
+			$(this).parents('.modal_form_container').hide();
+			return false;
+		});
+	}
+	
+	

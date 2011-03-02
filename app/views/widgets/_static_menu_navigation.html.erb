@@ -28,9 +28,9 @@ render_navigation :static_menu, :separator => '' , :generate_css => false, :html
     i.links_to :controller => 'static/echonomy', :action => 'show'
   end
 
-  add_item :html => { :id => 'join_button' } do |i|
-    i.named build_static_menu_button('join')
-    i.links_to hash_for_join_path
+  add_item :html => { :id => 'signup_button' } do |i|
+    i.named build_static_menu_button('signup')
+    i.links_to hash_for_signup_path
     i.highlights_on :controller => 'users/password_resets'
     i.highlights_on :controller => 'users/activations'
   end
