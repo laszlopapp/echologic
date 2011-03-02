@@ -3,8 +3,8 @@ class NewsletterMailer < ActionMailer::Base
   helper :mail
 
   # Send a newsletter to the given user.
-  def newsletter_mail(recipient, newsletter)
-    spoken_languages = recipient.preferred_languages.map(&:code)
+  def newsletter_mail(recipient, newsletter, current_language = false)
+    preferred_languages = current_language ? [I18n.locale.to_s] : recipient.preferred_languages.map(&:code)
     newsletter.disable_translation
     language_code = I18n.default_locale.to_s
     subject = newsletter.subject
@@ -13,7 +13,7 @@ class NewsletterMailer < ActionMailer::Base
     default_goodbye = newsletter.default_goodbye
     newsletter.enable_translation
 
-    spoken_languages.each do |code|
+    preferred_languages.each do |code|
       break if code == I18n.default_locale.to_s
       translation = newsletter.translations.find_by_locale(code)
       if !translation.nil?
