@@ -29,7 +29,7 @@ de:
       E-Mail: <a href="mailto:team@echologic.org">team@echologic.org</a>
 
     newsletter:
-      show_online: "Click here if the newsletter isn't displaying correctly."
+      show_online: "Wird der Newsletter nicht richtig dargestellt, klicken Sie bitte hier."
       title: Newsletter
       header: |
         <p>
