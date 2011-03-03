@@ -47,8 +47,8 @@ class NewslettersController < ApplicationController
   end
 
   def send_newsletter
-    newsletter = Newsletter.find(params[:id])
-    MailerService.instance.send_newsletter_mails(newsletter)
+    newsletter_id = params[:id]
+    MailerService.instance.send_newsletter_mails(newsletter_id)
     redirect_to newsletters_path
   end
 

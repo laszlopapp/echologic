@@ -79,6 +79,13 @@ class ActivityTrackingService
                  :subscribeable => node.parent.nil? ? node : node.parent)
   end
 
+  def set_titles_hash(documents)
+    documents.each_with_object({}) do |document, titles_hash|
+      titles_hash[document.language_id] = document.title
+    end
+  end
+
+
   #
   # Manages the counter to calculate current charge and schedules the next job with it.
   #
@@ -93,6 +100,7 @@ class ActivityTrackingService
                          Time.now.utc.advance(:seconds => @period/@charges)
   end
 
+
   #
   # Actually executes the job, generates activity mails, sends them and schedules the next job.
   #
@@ -102,57 +110,68 @@ class ActivityTrackingService
     enqueue_activity_tracking_job(current_job_id)
 
     # Iterating over users in the current charge
-    User.activity_recipients.scoped(:conditions => ["(id % ?) = ?", @charges, current_charge]).each do |recipient|
-
-      # Collecting events
-      events = Event.find_tracked_events(recipient)
-      last_event = events.first
-      events.map!{|e| JSON.parse(e.event)}
-
-      # Filter only events whose titles languages the recipient speaks
-      events.reject!{|e| (e['documents'].keys.map{|id|id.to_i} & recipient.sorted_spoken_languages).empty? }
-
-      next if events.blank? #if there are no events to send per email, take the next user
-
-      # take the question events apart
-      root_events = events.select{|e| e['level'] == 0}
-      events -= root_events
-
-      # created an Hash containing the number of ocurrences of the new tags in the new questions
-      question_tag_counts = root_events.each_with_object({}) do |root, tags_hash|
-        root['tags'].each{|tag| tags_hash[tag] = tags_hash.has_key?(tag) ? tags_hash[tag] + 1 : 1 }
-      end
-
-      #turn array of events into an hash
-      events = events.each_with_object({}) do |e, hash|
-        hash[e['level']] ||= {}
-        hash[e['level']][e['parent_id']] ||= {}
-        hash[e['level']][e['parent_id']][e['type']] ||= {}
-        hash[e['level']][e['parent_id']][e['type']][e['operation']] ||= []
-        hash[e['level']][e['parent_id']][e['type']][e['operation']] << e
-      end
-
-      # Sending the mail
-      send_activity_email(recipient, root_events, question_tag_counts, events)
-
-      # Adjust last processed event
-      recipient.subscriber_data.update_attribute :last_processed_event, last_event
+    User.activity_recipients.scoped(:conditions => ["(id % ?) = ?", @charges, current_charge]).map(&:id).each do |recipient_id|
+      generate_activity_mail(recipient_id)
     end
   end
 
+
   #
-  # Sends an activity tracking E-Mail to the given recipient.
+  # Assembles and sends an activity mail to the given recipient.
+  # Executed async in production environment.
   #
-  def send_activity_email(recipient, root_events, question_tag_counts, events)
+  def generate_activity_mail(recipient_id)
+    recipient = User.find(recipient_id)
+
+    # Collecting events
+    events = Event.find_tracked_events(recipient)
+    last_event = events.first
+    events.map!{|e| JSON.parse(e.event)}
+
+    # Filter only events whose titles languages the recipient speaks
+    events.reject!{|e| (e['documents'].keys.map{|id|id.to_i} & recipient.sorted_spoken_languages).empty? }
+
+    return if events.blank? #if there are no events to send per email, take the next user
+
+    # take the question events apart
+    root_events = events.select{|e| e['level'] == 0}
+    events -= root_events
+
+    # created an Hash containing the number of ocurrences of the new tags in the new questions
+    question_tag_counts = root_events.each_with_object({}) do |root, tags_hash|
+      root['tags'].each{|tag| tags_hash[tag] = tags_hash.has_key?(tag) ? tags_hash[tag] + 1 : 1 }
+    end
+
+    #turn array of events into an hash
+    events = events.each_with_object({}) do |e, hash|
+      hash[e['level']] ||= {}
+      hash[e['level']][e['parent_id']] ||= {}
+      hash[e['level']][e['parent_id']][e['type']] ||= {}
+      hash[e['level']][e['parent_id']][e['type']][e['operation']] ||= []
+      hash[e['level']][e['parent_id']][e['type']][e['operation']] << e
+    end
+
+    # Sending the mail
+    send_activity_mail(recipient, root_events, question_tag_counts, events)
+
+    # Adjust last processed event
+    recipient.subscriber_data.update_attribute :last_processed_event, last_event
+  end
+
+
+  #
+  # Sends an activity tracking mail to the given recipient.
+  #
+  def send_activity_mail(recipient, root_events, question_tag_counts, events)
     puts "Send mail to:" + recipient.email
-    mail = ActivityTrackingMailer.create_activity_tracking_mail(recipient, root_events, question_tag_counts, events)
-    ActivityTrackingMailer.deliver(mail)
+    ActivityTrackingMailer.deliver_activity_tracking_mail(recipient, root_events, question_tag_counts, events)
   end
 
 
-  def set_titles_hash(documents)
-    documents.each_with_object({}) do |document, titles_hash|
-      titles_hash[document.language_id] = document.title
-    end
-  end
+  ###############
+  # Async calls #
+  ###############
+
+  handle_asynchronously :generate_activity_mail
+
 end
