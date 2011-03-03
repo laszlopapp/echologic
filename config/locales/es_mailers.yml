@@ -30,7 +30,7 @@ es:
 
     newsletter:
       show_online: "Haz clic aquí si no puedes visualizar el boletín correctamente."
-      title: Newsletter
+      title: Boletín Informativo
       header: |
         <p>
         <strong>This is the Newsletter Section!</strong><br/>
