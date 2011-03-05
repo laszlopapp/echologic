@@ -7,7 +7,7 @@ require 'echo_service/echo_service'
 
 if !RAILS_ENV.eql? 'production'
   ActivityTrackingService.instance.charges = 3
-  ActivityTrackingService.instance.period = 15.minutes
+  ActivityTrackingService.instance.period = 6.minutes
 else
   ActivityTrackingService.instance.charges = 36
   ActivityTrackingService.instance.period = 3.days
@@ -18,8 +18,10 @@ ActiveRecord::Base.send :include, ActiveRecord::Acts::Subscriber
 
 Delayed::Worker.destroy_failed_jobs = false
 Delayed::Worker.sleep_delay = 60
-Delayed::Worker.max_attempts = 3
-Delayed::Worker.max_run_time = 15.minutes
+Delayed::Worker.max_attempts = 2
+Delayed::Worker.max_run_time = 30.minutes
+Delayed::Worker.logger = Rails.logger
+Delayed::Worker.logger.auto_flushing = 1
 
 # Observers
 EchoService.instance.add_observer(ActivityTrackingService.instance)

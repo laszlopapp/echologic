@@ -1,7 +1,7 @@
 
 <% content_for :show_online do %>
   <div id="show_online" style="width: 100%; text-align: center; padding: 13px 0 5px; font-size: 13px;">
-    <%= link_to(I18n.t('mailers.newsletter.show_online'), @online_url) %>
+    <%= link_to(I18n.t('mailers.newsletter.show_online', :locale => @language.code), @online_url) %>
   </div>
 <% end %>
 
@@ -12,5 +12,7 @@
 <%= @text %>
 
 <% content_for :unsubscribe do %>
-  <%= I18n.t('mailers.newsletter.unsubscribe', :echo_url => root_url, :locale => @language.code) %>
+  <%= I18n.t('mailers.newsletter.unsubscribe',
+             :echo_url => root_url(:locale => @language.code),
+             :locale => @language.code) %>
 <% end %>

@@ -985,6 +985,14 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   height: 11px !important;
 }
 
+/******************/
+/* Add new teaser */
+/******************/
+
+.statement.add_teaser {
+  min-height: 350px;
+}
+
 /*****************************/
 /* Statement links & buttons */
 /*****************************/

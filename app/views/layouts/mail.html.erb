@@ -24,7 +24,7 @@
       </tr>
       <tr id="mail_header">
         <td align="left">
-          <% link_to root_url do %>
+          <% link_to root_url(:locale => @language.code) do %>
             <img id="echo_logo" alt="echo - the global agora"
                  src="<%= full_url('/images/mails/echo_beta_logo.png') %>"
                  style="border: none;"/>
@@ -37,7 +37,7 @@
                           :alt => I18n.t('mailers.header.follow_echo'),
                           :style => "font-size: 20px; font-weight: bold; cursor: default;" %>
 
-          <a href="http://echo.to" target="_blank" alt="echo" style="text-decoration: none;">
+          <a href="<%= root_url(:locale => @language.code) %>" target="_blank" alt="echo" style="text-decoration: none;">
             <img id="echo_link"
                  src="<%= full_url('/images/mails/echo_icon.png') %>"
                  style="margin: 13px 0 10px 10px; border: none"/>
