@@ -32,6 +32,7 @@ en:
       welcome: Welcome
       all: All
       authors: Authors
+      share_comment: Share your comment
 
     # Roadmap - Progress
     roadmap:
@@ -343,6 +344,9 @@ en:
         title: Disconnect
         success: Removed your {{account}} account successfully!
         failed: Failed to remove your {{account}} account! 
+      share:
+        success: Your entry was successfully shared throughout your accounts.
+        error: Something went wrong while sharing your entry.
        
       
 
@@ -581,6 +585,7 @@ en:
         Afterwards, your modifications might even get discarded.
       staled_modification: 'We are very sorry, but you exceeded the 60 minutes limit to edit and save the statement. Meanwhile it has already been updated by a different user. Therefore, your changes must have been unfortunately discarded.'
       no_document_in_language: 'The statement does not exist in English yet.'
+      supporter_to_share: 'You must be a supporter of this statement in order to share it!'
 
       breadcrumbs:
         discuss_search: Search results

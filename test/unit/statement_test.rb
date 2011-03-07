@@ -10,7 +10,7 @@ class StatementTest < ActiveSupport::TestCase
     should have_many :statement_nodes
     should have_many :statement_documents
     should have_many :tao_tags
-    should_have_many :tags
+    should have_many :tags
       
     # validates no invalid states
     [nil, "invalid state"].each do |value|

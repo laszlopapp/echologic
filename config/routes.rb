@@ -54,8 +54,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # SECTION feedback
   map.resources :feedback, :only => [:new, :create]
-  # SECTION newsletter
-  map.resources :newsletters
+  
 
   # SECTION user signup and login
   map.resources  :user_sessions, :controller => 'users/user_sessions',
@@ -85,10 +84,12 @@ ActionController::Routing::Routes.draw do |map|
   map.add_remote    '/add_remote/',            :controller => 'users/users', :action => 'add_social', :method => :post
   map.remove_remote '/remove_remote/:provider',:controller => 'users/users', :action => 'remove_social', :method => :put
 
+
+  
   map.resources :reports, :controller => 'users/reports'
-
   map.resources :about_items, :controller => 'about_items', :active_scaffold => true
-
+  map.resources :newsletters
+  
 
   # SECTION static - contents per controller
   map.echo      'echo/:action',      :controller => 'static/echo',      :action => 'show'
@@ -127,7 +128,7 @@ ActionController::Routing::Routes.draw do |map|
   map.question_descendants 'statement/descendants/question', :controller => :statements, :action => :descendants, :type => :question
 
   map.resources :statement_nodes, :controller => :statements,
-                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel,
+                :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :social_widget,
                             :children, :more, :authors, :publish, :incorporate, :ancestors, :descendants],
                 :path_names => { :new => ':id/new/:type', :more => 'more/:type',
                                  :edit => 'edit/:current_document_id', :new_translation => 'translation/:current_document_id',
@@ -160,7 +161,11 @@ ActionController::Routing::Routes.draw do |map|
   # SECTION root
   map.root :controller => 'static/echologic', :action => 'show'
 
+
   # SECTION default routes
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
+  
+  # SECTION shortcut urls
+  map.shortcut ':shortcut', :controller => :application, :action => :shortcut
 end

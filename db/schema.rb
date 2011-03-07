@@ -1,4 +1,4 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file,
+# This file is auto-generated from the current state of the database. Instead of editing this file, 
 # please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110302121041) do
+ActiveRecord::Schema.define(:version => 20110304123708) do
 
   create_table "about_item_translations", :force => true do |t|
     t.integer "about_item_id"
@@ -196,6 +196,20 @@ ActiveRecord::Schema.define(:version => 20110302121041) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "shortcut_commands", :force => true do |t|
+    t.string "command"
+  end
+
+  create_table "shortcut_urls", :id => false, :force => true do |t|
+    t.string   "shortcut"
+    t.boolean  "human_readable"
+    t.string   "base_shortcut"
+    t.integer  "iterator",            :default => 0
+    t.integer  "shortcut_command_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "social_identifiers", :force => true do |t|
     t.string   "identifier",    :null => false

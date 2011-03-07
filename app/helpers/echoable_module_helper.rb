@@ -51,7 +51,9 @@ module EchoableModuleHelper
   def show_echo_button(statement_node)
     echoed = current_user && statement_node.supported?(current_user)
     href = echoed ? unecho_statement_node_url(statement_node) : echo_statement_node_url(statement_node)
-    echo_button :a, echoed, statement_node, :href => href
+    content = ''
+    content << echo_button(:a, echoed, statement_node, :href => href)
+    content << social_echo_panel(statement_node, echoed)
   end
 
   #
@@ -67,9 +69,9 @@ module EchoableModuleHelper
     content_tag(button_tag, opts) do
       button = ''
       button << content_tag(:span, '', :class => 'echo_button_icon')
-      yield button if block_given?
       button << echo_button_label(statement_node)
       button << content_tag(:span, '', :class => 'error_lamp')
+      yield button if block_given?
       button
     end
   end
@@ -79,5 +81,13 @@ module EchoableModuleHelper
                 :class => 'label',
                 'data-not-supported' => I18n.t("discuss.statements.#{statement_node.class.support_tag}_link"),
                 'data-supported' => I18n.t("discuss.statements.#{statement_node.class.unsupport_tag}_link"))
+  end
+  
+  def social_echo_panel(statement_node, echoed=false) 
+    content_tag(:div, :class => 'social_echo_panel') do 
+      content_tag(:a, :class => 'ajax', :href => social_widget_statement_node_url(statement_node)) do
+        content_tag(:span, '', :class => 'social_echo_button', :style => "#{echoed ? '' : 'display:none'}")
+      end
+    end
   end
 end

@@ -19,6 +19,10 @@ class RpxService
     data = api_call 'auth_info', :token => token
     data['profile']
   end
+  def get_user_data(identifier)
+    data = api_call 'get_user_data', :identifier => identifier
+    data['profile']
+  end
   def mappings(primary_key)
     data = api_call 'mappings', :primaryKey => primary_key
     data['identifiers']

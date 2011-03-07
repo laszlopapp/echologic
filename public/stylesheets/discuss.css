@@ -497,7 +497,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   display:  block;
   background-image: url(../images/page/discuss/echo_button.png);
   cursor: pointer;
-  margin-bottom: 20px;
   position: relative;
 }
 
@@ -538,12 +537,27 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   display: none;
 }
 
+.social_echo_panel {
+	display: inline-block;
+}
+
+.social_echo_panel .social_echo_button {
+	background-image: url(../images/page/discuss/social_echo.png);
+	width: 150px;
+	height: 50px;
+	display: inline-block;
+}
+.social_echo_panel .social_echo_button:hover {
+	background-position: 0 50px;
+}
+
 /****************************/
 /* Add New statement button */
 /****************************/
 
 #statements .action_bar .add_new_container {
   position: relative;
+	margin-top: 20px;
 }
 
 #my_questions .add_new_button,

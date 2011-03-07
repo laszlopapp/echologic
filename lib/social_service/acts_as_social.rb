@@ -19,6 +19,7 @@ module ActiveRecord
               !social_identifiers.empty?
             end
             
+            
             # adds RPX identification to the instance.
             # Abstracts how the RPX identifier is added to allow for multiplicity of underlying implementations
             #
@@ -50,6 +51,14 @@ module ActiveRecord
               self.social_identifiers.destroy_all
             end
 
+            def update_social_accounts
+              mappings = SocialService.instance.mappings(self.id)
+              mappings.each do |identifier|
+                profile = SocialService.instance.get_user_data(identifier)
+                add_social_identifier(identifier, profile['providerName'], profile_info)
+              end
+              save
+            end
           
             class << self
               #

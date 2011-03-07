@@ -5,6 +5,7 @@ $(document).ready(function () {
 	initBreadcrumbs();
 	initStatements();
 	initFragmentStatementChange();
+	loadSocialMessages();
 });
 
 
@@ -135,4 +136,34 @@ function redirectToStatementUrl() {
 	window.location.replace(url);
 }
 
+/******************/
+/* SOCIAL SHARING */
+/******************/
 
+function loadSocialMessages(){
+	var social_messages = $('#social_messages');
+  var messages = {
+    'success'     : social_messages.attr('data-success'),
+    'error'       : social_messages.attr('data-error')
+  };
+  social_messages.data('messages', messages);
+  social_messages.removeAttr('data-success').removeAttr('data-error');
+}
+
+function socialSharingFinished(array) {
+	var aux = false;
+	$('#social_messages').data('stuff', array);
+	$.map(array, function(elem) {
+		if (elem['attempted']) {
+			aux = true;
+			if (!elem['success']) {
+		  	error($('#social_messages').data('messages')['error']);
+				return; 
+			}
+		}
+	});
+	if (aux) {
+		$('.rpxnow_lightbox').hide();
+		info($('#social_messages').data('messages')['success']);
+	}
+}

@@ -19,7 +19,7 @@
     /****************/
 
 	  function Echoable(echoable) {
-      var echo_button, echo_label;
+      var echo_button, echo_label, social_echo_button, social_panel;
       initialize();
 
 			/*
@@ -31,6 +31,9 @@
           return;
         }
         echo_label = echo_button.find('.label');
+				
+				social_panel = echo_button.siblings('.social_echo_panel');
+        social_echo_button = social_panel.find('.social_echo_button');
 
 				if (echoable.hasClass('new')) {
 					initNewStatementEchoButton();
@@ -138,6 +141,7 @@
           /* pre-request */
 					updateEchoButton(to_add, to_remove);
 					echo_label.text(echo_label.data('messages')[to_add]);
+					toggleSocialEchoButton();
 
 					var href = echo_button.attr('href');
 
@@ -149,9 +153,9 @@
 						success: function(data, textStatus, XMLHttpRequest) {
               echo_button.removeClass('pending');
               // Request returns with successful with an info, but the echo itself failed
-              if(href == echo_button.attr('href')) {
-							  rollback(to_remove, to_add);
-							}
+							if (href == echo_button.attr('href')) {
+						  	rollback(to_remove, to_add);
+						  }
 						},
 
 						error: function() {
@@ -163,6 +167,7 @@
           function rollback(to_remove, to_add) {
             updateEchoButton(to_remove, to_add);
 					  echo_label.text(echo_label.data('messages')[to_remove]);
+						toggleSocialEchoButton();
             var error_lamp = echo_button.find('.error_lamp');
             error_lamp.css('opacity','0.70').show().fadeTo(1000, 0, function() {
               error_lamp.hide();
@@ -177,11 +182,11 @@
 					echo_button.removeClass('clicked');
 				});
 			}
+			
 
 			function updateEchoButton(classToAdd, classToRemove) {
         echo_button.removeClass(classToRemove).addClass(classToAdd);
       }
-
 
 			// Public API
       $.extend(this,

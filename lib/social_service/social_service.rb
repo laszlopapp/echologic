@@ -17,7 +17,10 @@ class SocialService
     return user
   end
   def get_profile_info(token)
-    data = @service.get_profile_info(token)
+    @service.get_profile_info(token)
+  end
+  def get_user_data(identifier)
+    @service.get_user_data(identifier)
   end
   def mappings(primary_key)
     @service.mappings(primary_key)

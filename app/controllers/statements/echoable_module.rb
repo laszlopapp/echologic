@@ -57,6 +57,28 @@ module EchoableModule
       log_message_info("Statement node '#{@statement_node.id}' has been unechoed sucessfully.")
     end
   end
+  
+  #
+  # Called if user wants to share his echo in his social networks. Creates a shortcut url for this.
+  #
+  # Method:   GET
+  # Response: HTTP or JS
+  #
+  def social_widget
+    if @statement_node.supported?(current_user)
+#      current_user.update_social_accounts
+      @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
+      command = {:operation => "statement_node", :params => {:id => @statement_node.id}, :language => @statement_document.language.code}.to_json
+      @shortcut_url = ShortcutUrl.find_or_create(:shortcut => @statement_document.title, 
+                                                 :human_readable => true, :shortcut_command => {:command => command})
+      respond_to do |format|
+        format.js { render :template => "statements/social_widget" }
+      end
+    else
+      set_error "discuss.statements.supporter_to_share"
+      render_statement_with_error
+    end
+  end
 
   protected
   #

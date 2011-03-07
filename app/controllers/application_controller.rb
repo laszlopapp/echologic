@@ -451,4 +451,17 @@ class ApplicationController < ActionController::Base
       format.js   { render_with_error }
     end
   end
+  
+  public
+  def shortcut
+    respond_to do |format|
+      if shortcut = ShortcutUrl.find(params[:shortcut])
+         command = JSON.parse(shortcut.command)
+         url = send("#{command['operation']}_path", command['params'].merge({:locale => command['language']}))
+         format.html{redirect_to url}
+      else
+        redirect_or_render_with_error(root_url, 'application.unexpected_error')
+      end
+    end
+  end
 end

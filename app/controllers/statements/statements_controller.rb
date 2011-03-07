@@ -1,7 +1,7 @@
 class StatementsController < ApplicationController
 
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
-                                    :more, :children, :authors, :add, :ancestors, :descendants]
+                                    :more, :children, :authors, :add, :ancestors, :descendants, :social_widget]
   verify :method => :post, :only => [:create]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
@@ -22,7 +22,7 @@ class StatementsController < ApplicationController
   include PublishableModule
   before_filter :is_publishable?, :only => [:publish]
   include EchoableModule
-  before_filter :is_echoable?, :only => [:echo, :unecho]
+  before_filter :is_echoable?, :only => [:echo, :unecho, :social_widget]
   include TranslationModule
   include IncorporationModule
   before_filter :is_draftable?, :only => [:incorporate]
