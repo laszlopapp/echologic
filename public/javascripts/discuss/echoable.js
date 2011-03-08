@@ -32,13 +32,14 @@
         }
         echo_label = echo_button.find('.label');
 				
-				social_panel = echo_button.siblings('.social_echo_panel');
+				social_panel = echo_button.siblings('.social_echo_container');
         social_echo_button = social_panel.find('.social_echo_button');
 
 				if (echoable.hasClass('new')) {
 					initNewStatementEchoButton();
 				} else {
 					initEchoButton();
+					initSocialPanel();
 				}
 		  }
 
@@ -152,10 +153,14 @@
 			      data:   { '_method': 'put' },
 						success: function(data, textStatus, XMLHttpRequest) {
               echo_button.removeClass('pending');
+							
               // Request returns with successful with an info, but the echo itself failed
 							if (href == echo_button.attr('href')) {
 						  	rollback(to_remove, to_add);
-						  }
+						  } else if(social_echo_button.hasClass('clicked')) {
+                $.getScript(social_echo_button.parent().attr('href'));
+              }
+							social_echo_button.removeClass('clicked');
 						},
 
 						error: function() {
@@ -182,10 +187,33 @@
 					echo_button.removeClass('clicked');
 				});
 			}
+		
 			
 
 			function updateEchoButton(classToAdd, classToRemove) {
         echo_button.removeClass(classToRemove).addClass(classToAdd);
+      }
+
+      // Social Sharing
+			function initSocialPanel() {
+				social_echo_button.bind('click', function() {
+					// if statement is echoed and no request is pending
+					if (echo_button.hasClass('supported')) {
+						if(!echo_button.hasClass('pending')) {
+							$.getScript(social_echo_button.parent().attr('href'));
+						} else {
+							social_echo_button.addClass('clicked');
+						}
+					}
+					return false;
+				});
+			}
+			
+			
+      function toggleSocialEchoButton() {
+        if (social_echo_button.length > 0) {
+          social_echo_button.animate(toggleParams, 500);
+        }
       }
 
 			// Public API

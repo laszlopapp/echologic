@@ -53,7 +53,7 @@ module EchoableModuleHelper
     href = echoed ? unecho_statement_node_url(statement_node) : echo_statement_node_url(statement_node)
     content = ''
     content << echo_button(:a, echoed, statement_node, :href => href)
-    content << social_echo_panel(statement_node, echoed)
+    content << social_echo_container(statement_node, echoed)
   end
 
   #
@@ -83,8 +83,8 @@ module EchoableModuleHelper
                 'data-supported' => I18n.t("discuss.statements.#{statement_node.class.unsupport_tag}_link"))
   end
   
-  def social_echo_panel(statement_node, echoed=false) 
-    content_tag(:div, :class => 'social_echo_panel') do 
+  def social_echo_container(statement_node, echoed=false) 
+    content_tag(:div, :class => 'social_echo_container') do 
       content_tag(:a, :class => 'ajax', :href => social_widget_statement_node_url(statement_node)) do
         content_tag(:span, '', :class => 'social_echo_button', :style => "#{echoed ? '' : 'display:none'}")
       end

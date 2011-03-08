@@ -66,7 +66,6 @@ module EchoableModule
   #
   def social_widget
     if @statement_node.supported?(current_user)
-#      current_user.update_social_accounts
       @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
       command = {:operation => "statement_node", :params => {:id => @statement_node.id}, :language => @statement_document.language.code}.to_json
       @shortcut_url = ShortcutUrl.find_or_create(:shortcut => @statement_document.title, 
@@ -75,8 +74,8 @@ module EchoableModule
         format.js { render :template => "statements/social_widget" }
       end
     else
-      set_error "discuss.statements.supporter_to_share"
-      render_statement_with_error
+      set_info "discuss.statements.supporter_to_share"
+      render_statement_with_info
     end
   end
 

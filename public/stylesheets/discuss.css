@@ -537,17 +537,17 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   display: none;
 }
 
-.social_echo_panel {
+.social_echo_container {
 	display: inline-block;
 }
 
-.social_echo_panel .social_echo_button {
+.social_echo_container .social_echo_button {
 	background-image: url(../images/page/discuss/social_echo.png);
 	width: 150px;
 	height: 50px;
 	display: inline-block;
 }
-.social_echo_panel .social_echo_button:hover {
+.social_echo_container .social_echo_button:hover {
 	background-position: 0 50px;
 }
 
