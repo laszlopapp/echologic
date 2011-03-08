@@ -31,12 +31,32 @@ class SocialService
   def unmap(identifier, key)
     @service.unmap(identifier, key)
   end
+  def activity(identifier, provider, opts={})
+    activity_structure = create_activity_structure(provider, opts)
+    @service.activity(identifier, activity_structure)
+  end
   def get_provider_signup_url(provider, token_url)
     @service.get_provider_signup_url(provider, token_url)
   end
   def load_basic_profile_options(profile_info)
     {:email => profile_info['verifiedEmail']||profile_info['email'], 
      :full_name => profile_info['preferredUsername']||profile_info['displayName']}
- end
+  end
+  private
+  def create_activity_structure(providerName, opts={})
+    images = opts.delete(:images) || []
+    images.each do |im|
+      opts[:media] ||= []
+      opts[:media] << {:href => opts[:url], :src => im, :type => 'image'}
+    end
+    action_links = opts.delete(:action_links) || []
+    action_links.each do |al|
+      opts[:action_links] ||= []
+      opts[:action_links] << {:text => al, :href => opts[:url]}
+    end
+    opts[:user_generated_content] = opts[:action]
+    opts[:action] = "made an echo" if providerName.eql?('facebook')
+    opts.to_json
+  end
 end
 

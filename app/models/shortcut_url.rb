@@ -8,10 +8,14 @@ class ShortcutUrl < ActiveRecord::Base
   
  
   class << self
+    def truncate(title)
+      title.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').gsub(/\s/, '-').gsub(/[^a-zA-Z0-9\-]/, '').downcase.to_s[0,101]
+    end
+    
     def find_or_create(opts={})
       opts[:base_shortcut] = Base64.encode64(opts[:shortcut])
       
-      shortcut = opts[:shortcut].mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').gsub(/\s/, '-').gsub(/[^a-zA-Z0-9\-]/, '').downcase.to_s[0,101]
+      shortcut = truncate(opts[:shortcut])
       
       shortcut_command = opts.delete(:shortcut_command)
       

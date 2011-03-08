@@ -36,6 +36,9 @@ class RpxService
   def signin_url(dest)
     "#{rp_url}/openid/signin?token_url=#{CGI.escape(dest)}"
   end
+  def activity(identifier, activity)
+    api_call 'activity', :identifier => identifier, :activity => activity, :truncate => true
+  end
   def get_provider_signup_url(provider, token_url)
     url = CGI::escape(token_url)
     case provider

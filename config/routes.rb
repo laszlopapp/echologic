@@ -130,7 +130,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :statement_nodes, :controller => :statements,
                 :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :social_widget,
-                            :children, :more, :authors, :publish, :incorporate, :ancestors, :descendants],
+                            :children, :more, :authors, :publish, :incorporate, :ancestors, :descendants, :share],
                 :path_names => { :new => ':id/new/:type', :more => 'more/:type',
                                  :edit => 'edit/:current_document_id', :new_translation => 'translation/:current_document_id',
                                  :children => 'children/:type', :incorporate => 'incorporate/:approved_ip',

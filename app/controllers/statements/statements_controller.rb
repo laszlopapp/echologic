@@ -2,7 +2,7 @@ class StatementsController < ApplicationController
 
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
                                     :more, :children, :authors, :add, :ancestors, :descendants, :social_widget]
-  verify :method => :post, :only => [:create]
+  verify :method => :post, :only => [:create, :share]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
 

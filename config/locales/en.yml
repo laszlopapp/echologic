@@ -32,7 +32,7 @@ en:
       welcome: Welcome
       all: All
       authors: Authors
-      share_comment: Share your comment
+      share_comment: 'Have your say'
 
     # Roadmap - Progress
     roadmap:
@@ -256,7 +256,6 @@ en:
       guide: |
         All of us have <strong>different facets</strong>. In some areas we might be affected and need help from others,
         in other areas we engage ourselves and offer help to others. In certain fields we have professional expertise,
-        in others we might represent other people and make decisions.<br/>
         echo helps like-minded people to find each other with <strong>knowledge complementing each other</strong>.<br/>
         Which <strong>keywords (tags)</strong> would you describe <strong>your concernments and competences</strong> with?
       sorts:
@@ -345,8 +344,14 @@ en:
         success: Removed your {{account}} account successfully!
         failed: Failed to remove your {{account}} account! 
       share:
-        success: Your entry was successfully shared throughout your accounts.
+        title: Amplify your echo via
+        text: Text
+        preview: Preview
+        submit: Send out the voice! Make an echo!
+        success: Your entry was successfully shared throughout your {{accounts}} accounts.
         error: Something went wrong while sharing your entry.
+        enabled: Enabled
+        disabled: Disabled
        
       
 

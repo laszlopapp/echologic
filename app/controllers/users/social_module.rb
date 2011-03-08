@@ -32,13 +32,14 @@ module Users::SocialModule
   end
   
   def add_social
+    redirect_url = params[:redirect_url] || settings_path
     token = params[:token]
     begin
       profile_info = SocialService.instance.get_profile_info(token)
       social_id = current_user.add_social_identifier( profile_info['identifier'], profile_info['providerName'], profile_info.to_json )
       if social_id.save
         SocialService.instance.map(profile_info['identifier'], current_user.id)
-        redirect_or_render_with_info(settings_path, "users.social_accounts.connect.success", 
+        redirect_or_render_with_info(redirect_url, "users.social_accounts.connect.success", 
                                      :account => I18n.t("users.social_accounts.providers.#{profile_info['providerName'].underscore}"))
       else
         redirect_or_render_with_error(redirect_url, "users.social_accounts.connect.failed", :account => I18n.t("users.social_accounts.providers.#{profile_info['providerName'].underscore}"))
