@@ -83,7 +83,8 @@ ActionController::Routing::Routes.draw do |map|
   map.signup_remote '/signup_remote',          :controller => 'users/users',       :action => 'create_social', :method => :post
   map.add_remote    '/add_remote/',            :controller => 'users/users', :action => 'add_social', :method => :post
   map.remove_remote '/remove_remote/:provider',:controller => 'users/users', :action => 'remove_social', :method => :put
-
+  
+  map.redirect_from_popup '/redirect_from_popup', :controller => 'application', :action => 'redirect_from_popup', :method => :post
 
   
   map.resources :reports, :controller => 'users/reports'

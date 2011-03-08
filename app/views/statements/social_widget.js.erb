@@ -6,8 +6,6 @@ RPXNOW.loadAndRun(['Social'], function () {
 		 
 	activity.setTitle("Echo Made!");
 	
-	activity.addProviderUrl("twitter", "");
-	
 	activity.setDescription("<%= @statement_document.text[0,255] %>...");
 		 
   activity.addActionLink("Have your say!", "<%= root_url %>");

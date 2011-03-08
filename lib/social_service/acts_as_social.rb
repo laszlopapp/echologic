@@ -52,12 +52,10 @@ module ActiveRecord
             end
 
             def update_social_accounts
-              mappings = SocialService.instance.mappings(self.id)
-              mappings.each do |identifier|
-                profile = SocialService.instance.get_user_data(identifier)
-                add_social_identifier(identifier, profile['providerName'], profile_info)
-              end
-              save
+              outer_mappings = SocialService.instance.mappings(self.id)
+              inner_mappings = social_identifiers.map(&:identifier)
+              to_remove_mappings = inner_mappings - outer_mappings 
+              social_identifiers.destroy :conditions => ["identifier IN (?)", to_remove_mappings] if !to_remove_mappings.empty?
             end
           
             class << self
