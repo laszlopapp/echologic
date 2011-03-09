@@ -63,58 +63,60 @@
 			
 			function toggleExpandable () {
         if (expandable_content.length > 0) {
-          // Content is already loaded
-          expandable.toggleClass('active');
-          if (settings['animate']) {
-            expandable_content.animate(settings['animation_params'], settings['animation_speed']);
-          }
-          else {
-            expandable_content.toggle();
-          }
-          if (expandable_supporters_label) {
-            if (settings['animate']) {
-              expandable_supporters_label.animate(settings['animation_params'], settings['animation_speed']);
-            }
-            else {
-              expandable_supporters_label.toggle();
-            }
-          }
-        }
-        else {
-          // Load content now
-          if (expandable_loading.length > 0) {
-            expandable_loading.show();
-          }
-          else {
-            expandable_loading = $('<span/>').addClass('loading');
-            expandable_loading.insertAfter(expandable);
-          }
-          $.ajax({
-            url: path,
-            type: 'get',
-            dataType: 'script',
-            success: function(){
-              expandable_loading.hide();
+					// Content is already loaded
+					expandable.toggleClass('active');
+					if (settings['animate']) {
+						expandable_content.animate(settings['animation_params'], settings['animation_speed']);
+					}
+					else {
+						expandable_content.toggle();
+					}
+					if (expandable_supporters_label) {
+						if (settings['animate']) {
+							expandable_supporters_label.animate(settings['animation_params'], settings['animation_speed']);
+						}
+						else {
+							expandable_supporters_label.toggle();
+						}
+					}
+				} else if (!expandable.hasClass('pending')) {
+				  expandable.addClass('pending');
+			  	// Load content now
+					if (expandable_loading.length > 0) {
+						expandable_loading.show();
+					}
+					else {
+						expandable_loading = $('<span/>').addClass('loading');
+						expandable_loading.insertAfter(expandable);
+					}
+					$.ajax({
+						url: path,
+						type: 'get',
+						dataType: 'script',
+						success: function(){
+							expandable_loading.hide();
 							expandable_content = expandable_parent.children('.expandable_content');
-              if (expandable_content.length > 0) {
-                expandable.addClass('active');
-              }
-              if (expandable_supporters_label) {
-                if (settings['animate']) {
-                  expandable_supporters_label.animate(settings['animation_params'], settings['animation_speed']);
-                }
-                else {
-                  expandable_supporters_label.toggle();
-                }
-              }
-            },
-            error: function(){
-              expandable_loading.hide();
-            }
-          })
-        }
+							if (expandable_content.length > 0) {
+								expandable.addClass('active');
+							}
+							if (expandable_supporters_label) {
+								if (settings['animate']) {
+									expandable_supporters_label.animate(settings['animation_params'], settings['animation_speed']);
+								}
+								else {
+									expandable_supporters_label.toggle();
+								}
+							}
+							expandable.removeClass('pending');
+						},
+						error: function(){
+							expandable_loading.hide();
+							expandable.removeClass('pending');
+						}
+					});
+				}
 			}
-
+				
 			// Public API
       $.extend(this,
       {
