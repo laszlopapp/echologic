@@ -4,7 +4,7 @@
 
 /* if we came directly from one of the new statement links in search or my questions, then html response */
 if(!window.location.href.match(/\/\d+/)) {
-  window.location.replace("<%= statement_node_url(@statement_node, :origin => params[:origin], :bids => params[:bids]) %>");
+  window.location.replace("<%= escape_javascript(statement_node_url(@statement_node, :origin => params[:origin], :bids => params[:bids])) %>");
 }
 
 /* load new statement to session */

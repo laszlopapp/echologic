@@ -553,7 +553,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 .social_echo_panel {
-	width: 575px;
+	width: 615px;
   border: 3px solid #BBB;
   background: #FEFEFE;
   position: absolute;
@@ -567,7 +567,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .social_echo_panel .button_container {
 	display: inline-block;
-	width: 139px;
+	width: 150px;
 	text-align: center;
 	padding-top: 10px;
 }
@@ -607,7 +607,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 .social_echo_panel .share_form .counter {
   text-align: right;
-	padding: 0px 34px;
+	padding: 0px 56px;
 }
 
 .social_echo_panel .share_form .preview {

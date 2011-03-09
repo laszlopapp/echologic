@@ -223,7 +223,8 @@ class ApplicationController < ActionController::Base
   protected
   # Sets the @info variable to the localisation given through the string
   def set_info(string, options = {})
-    @info = I18n.t(string, options)
+    @info ||= ""
+    @info << I18n.t(string, options)
   end
 
   # Sets the @info variable for the flash object (used for HTTP requests)
@@ -408,10 +409,11 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def later_call(url, later_url)
+  def later_call_with_info(url, later_url, message_or_object=nil, opts={})
     respond_to do |format|
+      set_info message_or_object, opts
       set_later_call later_url
-      format.html { flash_later_call and redirect_to url }
+      format.html { flash_info and flash_later_call and redirect_to url }
       yield format if block_given? 
     end
   end

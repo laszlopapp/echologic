@@ -348,8 +348,11 @@ en:
         text: Text
         preview: Preview
         submit: Send out the voice! Make an echo!
-        success: Your entry was successfully shared throughout your {{accounts}} accounts.
         error: Something went wrong while sharing your entry.
+        success: |
+          <p>Made an echo via {{accounts}}.</p>
+        failed: |
+          <p>Failed via {{accounts}}.</p>
         enabled: Enabled
         disabled: Disabled
        

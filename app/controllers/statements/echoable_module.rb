@@ -99,7 +99,7 @@ module EchoableModule
       command = {:operation => "statement_node", :params => {:id => @statement_node.id}, :language => @statement_document.language.code}.to_json
       @shortcut_url = ShortcutUrl.find_or_create(:shortcut => @statement_document.title, 
                                                  :human_readable => true, :shortcut_command => {:command => command})
-      providers = params[:providers]
+      provider_states = params[:providers]
       opts = {}
       opts[:url] = "http://#{ECHO_HOST}/#{@shortcut_url.shortcut}"
       opts[:action] = "#{params[:text].strip} #{opts[:url]}"
@@ -109,18 +109,22 @@ module EchoableModule
       #insert default image in this line
       opts[:title] = @statement_document.title
       opts[:description] = "#{@statement_document.text[0,255]}..."
-      providers_reached = []
-      %w(facebook twitter yahoo! linked_in).each do |provider|
-        if providers[provider].eql? 'enabled'
-          if social = current_user.has_provider?(provider)
-            SocialService.instance.activity(social.identifier, provider, opts)
-            providers_reached << provider
-          end
-        end
-      end
+      
+      providers = %w(facebook twitter yahoo! linked_in)
+      providers.reject!{|p|provider_states[p].nil? || provider_states[p].eql?('disabled')}
+      providers_hash = providers.each_with_object({}) {|prov, hash|
+        social = current_user.has_provider?(prov)
+        hash[prov] = social if social
+      }
+      providers_success = SocialService.instance.share_activities(providers_hash, opts)
+      providers_failed = providers - providers_success
       respond_to do |format|
-        set_info "users.social_accounts.share.success", 
-                 :accounts => providers_reached.map{|c|I18n.t("users.social_accounts.providers.#{c}")}.join("/")
+        %w(success failed).each do |state|
+          providers_state = eval("providers_#{state}")
+          set_info("users.social_accounts.share.#{state}", 
+                 :accounts => providers_state.map{|c|I18n.t("users.social_accounts.providers.#{c}")}.join("/")) if !providers_state.empty?
+        end
+        
         format.html{flash_info and redirect_to @statement_node}
         format.js {
           render_with_info do |page|

@@ -45,7 +45,7 @@ class Users::UserSessionsController < ApplicationController
           redirect_or_render_with_error(redirect_url, 'users.signin.messages.failed')
         end
       else # user doesn't have an email account, so he should go get it
-        later_call(redirect_url, setup_basic_profile_url(user.perishable_token))
+        later_call_with_info(redirect_url, setup_basic_profile_url(user.perishable_token))
       end
     end
   end

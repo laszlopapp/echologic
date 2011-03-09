@@ -22,7 +22,7 @@ class StatementsController < ApplicationController
   include PublishableModule
   before_filter :is_publishable?, :only => [:publish]
   include EchoableModule
-  before_filter :is_echoable?, :only => [:echo, :unecho, :social_widget]
+  before_filter :is_echoable?, :only => [:echo, :unecho, :social_widget, :share]
   include TranslationModule
   include IncorporationModule
   before_filter :is_draftable?, :only => [:incorporate]

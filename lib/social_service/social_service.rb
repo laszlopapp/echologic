@@ -31,9 +31,32 @@ class SocialService
   def unmap(identifier, key)
     @service.unmap(identifier, key)
   end
-  def activity(identifier, provider, opts={})
-    activity_structure = create_activity_structure(provider, opts)
-    @service.activity(identifier, activity_structure)
+  def share_activities(providers, opts={})
+    
+    providers_reached = []
+    threads = []
+    providers.each do |provider, social_identifier|
+        activity = create_activity(provider, opts)
+        threads << SharingJob.new(social_identifier.identifier, provider, activity)
+    end
+    threads.each do |t|
+      t.join(3)
+    end
+    threads.each do |t|
+      providers_reached << t.provider if t.succeeded?
+    end
+    providers_reached
+  end
+  def share_activity(identifier, activity)
+    begin
+      @service.activity(identifier, activity)
+    rescue Exception => e
+      puts "Something went wrong with #{identifier}"
+      false
+    else
+      puts "Successfully shared to #{identifier}"
+      true
+    end
   end
   def get_provider_signup_url(provider, token_url)
     @service.get_provider_signup_url(provider, token_url)
@@ -43,7 +66,7 @@ class SocialService
      :full_name => profile_info['preferredUsername']||profile_info['displayName']}
   end
   private
-  def create_activity_structure(providerName, opts={})
+  def create_activity(providerName, opts={})
     images = opts.delete(:images) || []
     images.each do |im|
       opts[:media] ||= []

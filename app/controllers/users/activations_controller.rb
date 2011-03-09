@@ -4,7 +4,7 @@ class Users::ActivationsController < ApplicationController
   before_filter :require_no_user
 
   def new
-    later_call(root_path, request.url) do |format|
+    later_call_with_info(root_path, request.url) do |format|
       format.js {
        @user = User.find_by_perishable_token(params[:activation_code], 1.week)
        if @user.nil?
