@@ -1,6 +1,5 @@
 class Users::UsersController < ApplicationController
   helper :signings_form
-  helper :social_module
   include Users::SocialModule
 
   before_filter :require_no_user, :only => [:new, :create, :create_social, :setup_basic_profile]

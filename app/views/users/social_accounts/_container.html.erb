@@ -11,8 +11,9 @@
 			<% end %>
     </li>
 		<li>
+			<% token_url = redirect_token_url %>
       <% social_providers.each do |social_provider| %>
-			  <%= social_account_button social_provider %>
+			  <%= social_account_button social_provider, token_url %>
       <% end %>
     </li>
   </ul>

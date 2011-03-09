@@ -1,6 +1,5 @@
 class MyEchoController < ApplicationController
   helper :profile
-  helper :social_module
   
   access_control do
     allow logged_in
