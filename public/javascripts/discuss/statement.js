@@ -101,7 +101,17 @@
       function initExpandables() {
 				statement.find(".expandable:Event(!click)").each(function() {
           var expandableElement = $(this);
-					if (expandableElement.hasClass('show_siblings_button')) {
+					if (expandableElement.hasClass('social_echo_button')) {
+						// Social Widget button
+            expandableElement.expandable({
+              'condition_element': expandableElement.parent().prev(),
+							'condition_class': 'supported',
+							'animation_params': {
+                'opacity': 'toggle'
+              }
+            });
+					}
+					else if (expandableElement.hasClass('show_siblings_button')) {
             // Siblings button
 				  	expandableElement.expandable({
 				  		'animation_params': {

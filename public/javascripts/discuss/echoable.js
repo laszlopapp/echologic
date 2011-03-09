@@ -39,7 +39,6 @@
 					initNewStatementEchoButton();
 				} else {
 					initEchoButton();
-					initSocialButton();
 				}
 		  }
 
@@ -158,7 +157,8 @@
 							if (href == echo_button.attr('href')) {
 						  	rollback(to_remove, to_add);
 						  } else if(social_echo_button.hasClass('clicked')) {
-                $.getScript(social_echo_button.attr('href'));
+								//IMPORTANT: social echo button must be expandable!
+								social_echo_button.data('expandableApi').toggle();
               }
 							social_echo_button.removeClass('clicked');
 						},
@@ -195,20 +195,6 @@
       }
 
       // Social Sharing
-			function initSocialButton() {
-				social_echo_button.bind('click', function() {
-					// if statement is echoed and no request is pending
-					if (echo_button.hasClass('supported')) {
-						if(!echo_button.hasClass('pending')) {
-							$.getScript(social_echo_button.attr('href'));
-						} else {
-							social_echo_button.addClass('clicked');
-						}
-					}
-					return false;
-				});
-			}
-			
 			function toggleSocialEchoButton() {
         if (social_echo_button.length > 0) {
           social_echo_button.animate(toggleParams, 500);
@@ -216,7 +202,12 @@
       }
 			
 			function initSocialPanel() {
-				social_panel = social_container.find('.social_echo_panel'); 
+				social_panel = social_container.find('.social_echo_panel');
+				
+				social_panel.bind("mouseleave", function() {
+				  $(this).fadeOut();
+				})
+				 
 				initSocialAccountButtons();
 				initTextCounter();
 			}

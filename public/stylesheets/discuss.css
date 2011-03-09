@@ -1396,6 +1396,11 @@ form.statement fieldset ol li.tags_container {
   opacity: 0.4;
 }
 
+.statement .social_echo_container .loading {
+	left: 156px;
+  top: 130px;
+}
+
 .statement .header .loading {
   left: -33px;
   top: 10px;

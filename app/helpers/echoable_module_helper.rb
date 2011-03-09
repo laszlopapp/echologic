@@ -86,7 +86,7 @@ module EchoableModuleHelper
   def social_echo_container(statement_node, echoed=false) 
     content_tag(:div, :class => 'social_echo_container') do 
       content = ''
-      content << content_tag(:span, '', :class => 'social_echo_button', 
+      content << content_tag(:span, '', :class => 'social_echo_button expandable', 
                   :href => social_widget_statement_node_url(statement_node), 
                   :style => "#{echoed ? '' : 'display:none'}")
       content
