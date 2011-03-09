@@ -36,8 +36,8 @@ class SocialService
     providers_reached = []
     threads = []
     providers.each do |provider, social_identifier|
-        activity = create_activity(provider, opts)
-        threads << SharingJob.new(social_identifier.identifier, provider, activity)
+      activity = create_activity(provider, opts)
+      threads << SharingJob.new(social_identifier.identifier, provider, activity)
     end
     threads.each do |t|
       t.join(3)
@@ -66,7 +66,8 @@ class SocialService
      :full_name => profile_info['preferredUsername']||profile_info['displayName']}
   end
   private
-  def create_activity(providerName, opts={})
+  def create_activity(providerName, attrs={})
+    opts = attrs.clone
     images = opts.delete(:images) || []
     images.each do |im|
       opts[:media] ||= []
@@ -77,7 +78,10 @@ class SocialService
       opts[:action_links] ||= []
       opts[:action_links] << {:text => al, :href => opts[:url]}
     end
+    
+    opts[:action] += " #{opts[:url]}" if !providerName.eql?('twitter')
     opts[:user_generated_content] = opts[:action]
+    
     opts[:action] = "made an echo" if providerName.eql?('facebook')
     opts.to_json
   end

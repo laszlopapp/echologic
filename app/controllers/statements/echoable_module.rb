@@ -102,7 +102,7 @@ module EchoableModule
       provider_states = params[:providers]
       opts = {}
       opts[:url] = "http://#{ECHO_HOST}/#{@shortcut_url.shortcut}"
-      opts[:action] = "#{params[:text].strip} #{opts[:url]}"
+      opts[:action] = "#{params[:text].strip}"
       opts[:action_links] = [I18n.t("application.general.share_comment")]
       opts[:images] = []
       opts[:images] << "http://#{ECHO_HOST}/#{@statement_node.image.url(:medium)}" if @statement_node.image.exists?
