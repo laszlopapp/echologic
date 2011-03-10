@@ -2,8 +2,7 @@ class ChangeFirstAndLastNameToFullNameAndAddDesiredEmail < ActiveRecord::Migrati
   def self.up
     add_column :profiles, :full_name, :string
     Profile.all.each do |profile|
-      profile.full_name = [profile.first_name, profile.last_name].select { |s| s.try(:any?) }.join(' ')
-      profile.save
+      profile.update_attribute :full_name, [profile.first_name, profile.last_name].reject{|s| s.blank? }.join(' ') if profile.user
     end
     remove_column :profiles, :first_name, :last_name
     add_column :users, :desired_email, :string
