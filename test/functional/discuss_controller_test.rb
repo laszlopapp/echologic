@@ -18,4 +18,5 @@ class DiscussControllerTest < ActionController::TestCase
     get :roadmap
     assert_response :success
   end
+
 end
