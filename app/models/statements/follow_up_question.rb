@@ -50,7 +50,7 @@ class FollowUpQuestion < StatementNode
       parent = StatementNode.find(parent_id)
       conditions = ""
       conditions << sanitize_sql(["(statements.editorial_state_id = ? OR statement_nodes.creator_id = ?) AND ",
-                                  StatementState['published'].id, user.id]) if user
+                                  StatementState['published'].id, user ? user.id : -1])
       conditions << sanitize_sql(["statement_nodes.type = ? AND
                                    statement_nodes.root_id = ? AND
                                    statement_nodes.lft >= ? AND statement_nodes.rgt <= ? ",

@@ -62,9 +62,9 @@ Feature: Take Part on a question
       And I press "Save"
     Then I should see "Improving the unimprovable"
       And the proposal should have one improvement
-      
+
   # TEST THE 'ADD NEW' SECTION
-  
+
   @ok
   Scenario: Add a sibling question
     Given I am logged in as "user" with password "true"
@@ -78,7 +78,7 @@ Feature: Take Part on a question
       And I press "Save"
     Then I should see "Question on the side"
       And the question should have 5 siblings in session
-  
+
   Scenario: Add a sibling Proposal
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
@@ -93,8 +93,8 @@ Feature: Take Part on a question
       And I press "Save"
     Then I should see "How to propose to women"
       And the proposal should have 1 siblings in session
-    
-  Scenario: Add a sibling Improvement 
+
+  Scenario: Add a sibling Improvement
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
     When I follow "Featured"
@@ -109,7 +109,7 @@ Feature: Take Part on a question
       And I press "Save"
     Then I should see "How to improve yer status"
       And the improvement should have 5 siblings in session
-  
+
   Scenario: Add a Proposal to a Question
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
@@ -123,7 +123,7 @@ Feature: Take Part on a question
       And I press "Save"
     Then I should see "How to propose to women"
       And the proposal should have 1 siblings in session
-  
+
   Scenario: Add an Improvement to a proposal
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
@@ -138,7 +138,7 @@ Feature: Take Part on a question
       And I press "Save"
     Then I should see "How to improve yer status"
       And the improvement should have 5 siblings in session
-    
+
   Scenario: Add a Pro Argument to a proposal
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
@@ -153,7 +153,7 @@ Feature: Take Part on a question
       And I press "Save"
     Then I should see "Pro 4 life"
       And the pro argument should have 0 siblings in session
-  
+
   Scenario: Add a Pro Argument to a proposal
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
@@ -168,7 +168,7 @@ Feature: Take Part on a question
       And I press "Save"
     Then I should see "Contra is cool"
       And the contra argument should have 0 siblings in session
-  
+
   Scenario: Add a Follow Up Question to a Question
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
@@ -183,7 +183,13 @@ Feature: Take Part on a question
     Then I should see "Livin it up"
       And the question should have 0 siblings in session
       And there should be a "Test Question2?" breadcrumb
-      
+    Given I go to the question
+    Then I should see "Livin it up"
+    Given I follow "Logout"
+    Then I should not see "Livin it up"
+    Given I login as "ben" with password "benrocks"
+    Then I should not see "Livin it up"
+
   Scenario: Add a Follow Up Question to a Proposal
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
@@ -199,7 +205,7 @@ Feature: Take Part on a question
     Then I should see "Livin it up"
       And the question should have 0 siblings in session
       And there should be a "A first proposal!" breadcrumb
-  
+
   Scenario: Add a Follow Up Question to an Improvement
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
@@ -216,7 +222,7 @@ Feature: Take Part on a question
     Then I should see "Livin it up"
       And the question should have 0 siblings in session
       And there should be a "A better first proposal" breadcrumb
-      
+
   Scenario: Add a Follow Up Question to an Improvement, then a Follow Up Question to that question
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
@@ -240,8 +246,8 @@ Feature: Take Part on a question
       And I press "Save"
     Then I should see "Livin it up Part Deux"
       And the question should have 0 siblings in session
-     
-      
+
+
 
   @ok
   Scenario: Edit a proposal i created
