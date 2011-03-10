@@ -28,8 +28,8 @@ Rails::Initializer.run do |config|
   config.gem 'ezcrypto'
 
   # Authlogic authentication gem with RPX extension.
-  config.gem 'authlogic', :version => '= 2.1.6', :lib => "authlogic", :source => "http://gems.github.com"
- 
+  config.gem 'authlogic', :version => '>= 2.1.5', :lib => "authlogic", :source => "http://gems.github.com"
+
   # Require formtastic gem to build semantic forms
   config.gem "formtastic"
 
@@ -47,9 +47,9 @@ Rails::Initializer.run do |config|
 
   # gems for endless pagination
   config.gem 'will_paginate', :lib => 'will_paginate', :source => 'http://gems.github.com'
-  
+
   config.gem 'rest-open-uri'
-  
+
   config.gem 'uuidtools'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
@@ -77,9 +77,9 @@ Rails::Initializer.run do |config|
   # Authologic RPX
   RPX_APP_NAME = ENV['ECHO_RPX_APP_NAME']
   RPX_API_KEY = ENV['ECHO_RPX_API_KEY']
-  
-  raise "RPX/Janrain Engage API key must be defined ENV['RARS_RPX_API_KEY']" unless RPX_API_KEY
-  raise "RPX/Janrain Engage Application Name must be defined ENV['RARS_RPX_APP_NAME']" unless RPX_APP_NAME
+
+  raise "RPX/Janrain Engage API key must be defined ENV['ECHO_RPX_API_KEY']" unless RPX_API_KEY
+  raise "RPX/Janrain Engage Application Name must be defined ENV['ECHO_RPX_APP_NAME']" unless RPX_APP_NAME
 
   # Session Storage
   config.action_controller.session_store = :active_record_store
