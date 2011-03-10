@@ -3,21 +3,21 @@ module ActsAsDouble
   def self.included(base)
     base.extend(ClassMethods)
   end
-    
+
   module ClassMethods
 
     def double?
       false
     end
-    
+
     def acts_as_double(*args)
       class_eval do
         class << self
-          
+
           def double?
             true
           end
-          
+
           # Setting the sub_types.
           def sub_types
             @@sub_types[self.name] || @@sub_types[self.superclass.name]
@@ -37,18 +37,20 @@ module ActsAsDouble
           #
           # Overrides normal behaviour. Delegates to sub_types and merges the results.
           #
-          def statements_for_parent(parent_id, language_ids = nil, filter_drafting_state = false, for_session = false)
+          def statements_for_parent(parent_id, language_ids = nil, user = nil,
+                                    filter_drafting_state = false, for_session = false)
             statements = []
             sub_types.each do |type|
               statements << type.to_s.constantize.get_statements_for_parent(parent_id,
                                                                            language_ids,
+                                                                           user,
                                                                            filter_drafting_state,
                                                                            for_session)
             end
             statements = merge_statement_lists(statements) if for_session
             statements
           end
-          
+
           #
           # Overrides default behaviour. Returns a template to render both sub_types.
           #
@@ -95,10 +97,10 @@ module ActsAsDouble
         #
         # Overrides default behaviour. Collects a filtered list of all siblings statements.
         #
-        def siblings_to_session(language_ids = nil, type = self.class.to_s)
+        def siblings_to_session(language_ids = nil, user = nil, type = self.class.to_s)
           siblings = []
-          sibling_statements(language_ids, type).map{|s|s.map(&:id)}.each_with_index do |s, index|
-            siblings << s + ["/#{self.parent_id.nil? ? '' : 
+          sibling_statements(language_ids, user, type).map{|s|s.map(&:id)}.each_with_index do |s, index|
+            siblings << s + ["/#{self.parent_id.nil? ? '' :
                               "#{self.parent.target_id}/"}add/#{self.class.sub_types[index].to_s.underscore}"]
           end
           #order them properly, as you want them to be navigated
