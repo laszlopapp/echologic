@@ -35,8 +35,7 @@ class ShortcutUrl < ActiveRecord::Base
       
       s.shortcut_command = ShortcutCommand.find_by_command(shortcut_command[:command]) || ShortcutCommand.new(shortcut_command)
       opts.each {|k,v| s.send("#{k}=", v)}
-      s.save
-      s
+      s.save ? s : nil
     end
   end
   

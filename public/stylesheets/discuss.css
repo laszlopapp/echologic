@@ -601,7 +601,12 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	width: 90px;
 	display: inline-block;
 }
- 
+
+.social_echo_panel .share_form .hint {
+	text-align: left;
+	padding: 0px 52px;
+}
+
 .social_echo_panel .share_form .text {
 	width: 407px;
 }

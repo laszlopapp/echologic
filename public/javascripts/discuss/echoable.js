@@ -204,9 +204,9 @@
 			function initSocialPanel() {
 				social_panel = social_container.find('.social_echo_panel');
 				
-				social_panel.bind("mouseleave", function() {
+				/*social_panel.bind("mouseleave", function() {
 				  $(this).fadeOut();
-				})
+				})*/
 				 
 				initSocialAccountButtons();
 				initTextCounter();
