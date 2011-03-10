@@ -126,15 +126,15 @@ class StatementsController < ApplicationController
     begin
       parent_node_id = attrs[:parent_id]
       attrs.merge!({:root_id => StatementNode.find(parent_node_id).root_id}) if !parent_node_id.blank?
-
+      
+      
       # Preapre in memory
       @statement_node ||= @statement_node_type.new_instance(attrs)
       @statement_document = @statement_node.add_statement_document(
                             doc_attrs.merge({:original_language_id => doc_attrs[:language_id],
                                              :author_id => current_user.id,
                                              :current => true}))
-
-
+      
       @tags = []
       has_permission = true
       created = false
@@ -142,6 +142,8 @@ class StatementsController < ApplicationController
       if @statement_node.taggable? and (has_permission = check_hash_tag_permissions(form_tags))
         @tags = @statement_node.topic_tags = form_tags
       end
+
+      
 
       # Persisting
       if has_permission
@@ -425,9 +427,9 @@ class StatementsController < ApplicationController
   ##############
 
   def ancestors
-    statement_ids = @statement_node.self_and_ancestors.map(&:id)
+    @statement_ids = @statement_node.self_and_ancestors.map(&:id)
     respond_to do |format|
-      format.json{render :json => statement_ids}
+      format.json{render :json => @statement_ids}
     end
   end
 

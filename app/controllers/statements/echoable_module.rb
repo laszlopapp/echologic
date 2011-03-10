@@ -70,9 +70,6 @@ module EchoableModule
         @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
         @title = "made an"
         @proposed_url = "http://#{ECHO_HOST}/#{ShortcutUrl.truncate(@statement_document.title)}"
-  #      command = {:operation => "statement_node", :params => {:id => @statement_node.id}, :language => @statement_document.language.code}.to_json
-  #      @shortcut_url = ShortcutUrl.find_or_create(:shortcut => @statement_document.title, 
-  #                                                 :human_readable => true, :shortcut_command => {:command => command})
         respond_to do |format|
           format.js { render :template => "statements/social_widget" }
         end
@@ -96,48 +93,51 @@ module EchoableModule
   def share
     begin 
       @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
-      command = {:operation => "statement_node", :params => {:id => @statement_node.id}, :language => @statement_document.language.code}.to_json
-      @shortcut_url = ShortcutUrl.find_or_create(:shortcut => @statement_document.title, 
-                                                 :human_readable => true, :shortcut_command => {:command => command})
-      if @shortcut_url
-        provider_states = params[:providers]
-        opts = {}
-        opts[:url] = "http://#{ECHO_HOST}/#{@shortcut_url.shortcut}"
-        opts[:action] = "#{params[:text].strip}"
-        opts[:action_links] = [I18n.t("application.general.share_comment")]
-        opts[:images] = []
-        opts[:images] << "http://#{ECHO_HOST}/#{@statement_node.image.url(:medium)}" if @statement_node.image.exists?
-        #insert default image in this line
-        opts[:title] = @statement_document.title
-        opts[:description] = "#{@statement_document.text[0,255]}..."
-        
-        providers = %w(facebook twitter yahoo! linked_in)
-        providers.reject!{|p|provider_states[p].nil? || provider_states[p].eql?('disabled')}
-        providers_hash = providers.each_with_object({}) {|prov, hash|
-          social = current_user.has_provider?(prov)
-          hash[prov] = social if social
-        }
-        providers_success = SocialService.instance.share_activities(providers_hash, opts)
-        providers_failed = providers - providers_success
-        respond_to do |format|
-          %w(success failed).each do |state|
-            providers_state = eval("providers_#{state}")
-            set_info("users.social_accounts.share.#{state}", 
-                   :accounts => providers_state.map{|c|I18n.t("users.social_accounts.providers.#{c}")}.join("/")) if !providers_state.empty?
-          end
-          
-          format.html{flash_info and redirect_to @statement_node}
-          format.js {
-            render_with_info do |page|
-              page << "$('#statements .#{dom_class(@statement_node)} .social_echo_panel').fadeOut();"
-            end
-          }
-        end
+      
+      if !@statement_node.supported?(current_user)
+        set_info "discuss.statements.supporter_to_share"
+        render_statement_with_info
       else
-        respond_to do |format|
+        command = {:operation => "statement_node", :params => {:id => @statement_node.id}, :language => @statement_document.language.code}.to_json
+        @shortcut_url = ShortcutUrl.find_or_create(:shortcut => @statement_document.title, 
+                                                   :human_readable => true, :shortcut_command => {:command => command})
+        if !@shortcut_url
           set_error @shortcut_url
-          format.html {set_error and redirect_to @statement_node}
-          format.js {render_with_error}
+          render_statement_with_error
+        else
+          provider_states = params[:providers]
+          opts = {}
+          opts[:url] = "http://#{ECHO_HOST}/#{@shortcut_url.shortcut}"
+          opts[:action] = "#{params[:text].strip}"
+          opts[:action_links] = [I18n.t("application.general.share_comment")]
+          opts[:images] = []
+          opts[:images] << "http://#{ECHO_HOST}/#{@statement_node.image.url(:medium)}" if @statement_node.image.exists?
+          #insert default image in this line
+          opts[:title] = @statement_document.title
+          opts[:description] = "#{@statement_document.text[0,255]}..."
+          
+          providers = %w(facebook twitter yahoo! linked_in)
+          providers.reject!{|p|provider_states[p].nil? || provider_states[p].eql?('disabled')}
+          providers_hash = providers.each_with_object({}) {|prov, hash|
+            social = current_user.has_provider?(prov)
+            hash[prov] = social if social
+          }
+          @providers_success = SocialService.instance.share_activities(providers_hash, opts)
+          @providers_failed = providers - @providers_success
+          respond_to do |format|
+            %w(success failed).each do |state|
+              providers_state = eval("@providers_#{state}")
+              set_info("users.social_accounts.share.#{state}", 
+                     :accounts => providers_state.map{|c|I18n.t("users.social_accounts.providers.#{c}")}.join("/")) if !providers_state.empty?
+            end
+            
+            format.html{flash_info and redirect_to @statement_node}
+            format.js {
+              render_with_info do |page|
+                page << "$('#statements .#{dom_class(@statement_node)} .social_echo_panel').fadeOut();"
+              end
+            }
+          end
         end
       end
     rescue Exception => e

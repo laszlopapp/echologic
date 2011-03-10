@@ -83,6 +83,9 @@ class SocialService
     opts[:user_generated_content] = opts[:action]
     
     opts[:action] = "made an echo" if providerName.eql?('facebook')
+    
+    #TAG TEST
+    opts[:url] += " #test" if providerName.eql?('twitter')
     opts.to_json
   end
 end
