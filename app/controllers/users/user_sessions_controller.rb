@@ -37,6 +37,7 @@ class Users::UserSessionsController < ApplicationController
       session[:identifier] = profile_info.to_json
       later_call_with_error(redirect_url, signin_path, 'users.signin.messages.failed_social')
     else
+      user.identified_by?(profile_info['identifier']).update_attribute(:profile_info, profile_info.to_json)
       if user.active? # user was already actived, i.e. he has an email account defined
         @user_session = UserSession.new(user)
         if @user_session.save
@@ -45,7 +46,7 @@ class Users::UserSessionsController < ApplicationController
           redirect_or_render_with_error(redirect_url, 'users.signin.messages.failed')
         end
       else # user doesn't have an email account, so he should go get it
-        later_call(redirect_url, setup_basic_profile_url(user.perishable_token))
+        later_call_with_info(redirect_url, setup_basic_profile_url(user.perishable_token))
       end
     end
   end

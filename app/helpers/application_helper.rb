@@ -102,9 +102,23 @@ module ApplicationHelper
     val
   end
   
-  ##################
-  # JANRAIN WIDGET #
-  ##################
+  ########################
+  # POP-UP LOGIN HELPERS #
+  ########################
+  
+  def redirect_token_url(opts= {})
+    # first step: create the url to redirect everything in the end
+    redirect_url = add_remote_url + '?' + (
+      opts.merge({:authenticity_token => form_authenticity_token}).collect { |n| "#{n[0]}=#{ u(n[1]) }" if n[1] }
+    ).compact.join('&')
+    
+    # second step: create the url to which we will be redirect at the end of the external login
+    token_url = redirect_from_popup_url + '?' + (
+    { :redirect_url => redirect_url, 
+      :authenticity_token => form_authenticity_token }.collect { |n| "#{n[0]}=#{ u(n[1]) }" if n[1] }
+    ).compact.join('&')
+    token_url
+  end
   
   
   def janrain_login_widget(token_url, options={})

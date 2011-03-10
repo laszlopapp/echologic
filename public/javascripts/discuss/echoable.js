@@ -19,7 +19,7 @@
     /****************/
 
 	  function Echoable(echoable) {
-      var echo_button, echo_label;
+      var echo_button, echo_label, social_echo_button, social_container, social_panel;
       initialize();
 
 			/*
@@ -31,6 +31,9 @@
           return;
         }
         echo_label = echo_button.find('.label');
+				
+				social_container = echo_button.siblings('.social_echo_container');
+        social_echo_button = social_container.find('.social_echo_button');
 
 				if (echoable.hasClass('new')) {
 					initNewStatementEchoButton();
@@ -138,6 +141,7 @@
           /* pre-request */
 					updateEchoButton(to_add, to_remove);
 					echo_label.text(echo_label.data('messages')[to_add]);
+					toggleSocialEchoButton();
 
 					var href = echo_button.attr('href');
 
@@ -148,10 +152,15 @@
 			      data:   { '_method': 'put' },
 						success: function(data, textStatus, XMLHttpRequest) {
               echo_button.removeClass('pending');
+							
               // Request returns with successful with an info, but the echo itself failed
-              if(href == echo_button.attr('href')) {
-							  rollback(to_remove, to_add);
-							}
+							if (href == echo_button.attr('href')) {
+						  	rollback(to_remove, to_add);
+						  } else if(social_echo_button.hasClass('clicked')) {
+								//IMPORTANT: social echo button must be expandable!
+								social_echo_button.data('expandableApi').toggle();
+              }
+							social_echo_button.removeClass('clicked');
 						},
 
 						error: function() {
@@ -163,6 +172,7 @@
           function rollback(to_remove, to_add) {
             updateEchoButton(to_remove, to_add);
 					  echo_label.text(echo_label.data('messages')[to_remove]);
+						toggleSocialEchoButton();
             var error_lamp = echo_button.find('.error_lamp');
             error_lamp.css('opacity','0.70').show().fadeTo(1000, 0, function() {
               error_lamp.hide();
@@ -177,11 +187,84 @@
 					echo_button.removeClass('clicked');
 				});
 			}
+		
+			
 
 			function updateEchoButton(classToAdd, classToRemove) {
         echo_button.removeClass(classToRemove).addClass(classToAdd);
       }
 
+      // Social Sharing
+			function toggleSocialEchoButton() {
+        if (social_echo_button.length > 0) {
+          social_echo_button.animate(toggleParams, 500);
+        }
+      }
+			
+			function initSocialPanel() {
+				social_panel = social_container.find('.social_echo_panel');
+				
+				/*social_panel.bind("mouseleave", function() {
+				  $(this).fadeOut();
+				})*/
+				 
+				initSocialAccountButtons();
+				initTextCounter();
+			}
+      
+			function initSocialAccountButtons() {
+				//1 step: load enable/disable tags
+				var buttons_container = social_panel.find('.buttons_container');
+				var messages = {
+					'enabled': buttons_container.attr('data-enabled'),
+					'disabled': buttons_container.attr('data-disabled')
+				}
+				buttons_container.find('.button').each(function() {
+					var button_container = $(this);
+					var tag = null, toggle_tag = null;
+					if (button_container.hasClass('enabled')) {
+				  	tag = 'enabled'; toggle_tag = 'disabled';
+				  }
+				  else if (button_container.hasClass('disabled')) {
+			  		tag = 'disabled'; toggle_tag = 'enabled';
+			  	} 
+					if (tag) {
+						button_container.text(messages[tag]);
+						button_container.bind('click', function(){
+							if (button_container.hasClass(tag)) {
+								button_container.text(messages[toggle_tag]).removeClass(tag).addClass(toggle_tag);
+								button_container.next().val(toggle_tag);
+							} else {
+								button_container.text(messages[tag]).removeClass(toggle_tag).addClass(tag);
+								button_container.next().val(tag);
+							}
+						});
+					}
+				});
+			}
+			
+			function initTextCounter() {
+				var text = social_panel.find('.text');
+				var preview = social_panel.find('.preview');
+				var url = preview.attr('data-url');
+				var maxChar = 140 - url.length-1; //-1 = white space
+				text.simplyCountable({
+			    counter: text.next(),
+			    countable: 'characters',
+			    maxCount: maxChar, 
+					strictMax: true,
+			    countDirection: 'down',
+			    safeClass: 'safe',
+			    overClass: 'over',
+					onMaxCount: function() {
+						text.val(text.val().substring(0, maxChar));
+					}
+				});
+				text.bind('keyup', function(){
+					preview.text($.trim(text.val()) + ' ' + url);
+				});
+				preview.removeAttr('data-url');
+			}
 
 			// Public API
       $.extend(this,
@@ -202,7 +285,11 @@
 				loadEchoInfoMessages: function(messages) {
           echo_button.data('messages', messages);
           return this;
-        }
+        },
+				loadSocialEchoPanel: function() {
+					initSocialPanel();
+					return this;
+				}
 			});
 		}
 

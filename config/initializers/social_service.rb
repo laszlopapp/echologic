@@ -1,6 +1,7 @@
 require 'social_service/acts_as_social'
 require 'social_service/social_service'
 require 'social_service/rpx_service'
+require 'social_service/sharing_job'
 
 ActiveRecord::Base.send :include, ActiveRecord::Acts::Social
 

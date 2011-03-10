@@ -34,7 +34,7 @@ class Users::PasswordResetsController < ApplicationController
 
   # Render the edit partial
   def edit
-    later_call(root_path, request.url) do |format|
+    later_call_with_info(root_path, request.url) do |format|
       format.js {
         load_user_using_perishable_token(true)
         render :template => 'users/components/users_form', 

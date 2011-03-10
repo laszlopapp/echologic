@@ -9,7 +9,11 @@
         'opacity': 'toggle'
       },
       'animation_speed': 300,
-			'loading_class': '.loading'
+			'loading_class': '.loading',
+			
+			// SPECIAL CONDITION ELEMENTS
+			'condition_element': null,
+      'condition_class': ''
     };
 
     // Merging settings with defaults
@@ -31,77 +35,99 @@
 
     /* The expandable handler */
     function Expandable(expandable) {
+			var expandable_parent = expandable.parents('div:first');
+			var expandable_supporters_label = expandable.find('.supporters_label');
+			var expandable_loading = expandable.parent().find(settings['loading_class']);
+			var expandable_content = expandable_parent.children('.expandable_content');
+			
+			var path = expandable.attr('href');
+			expandable.removeAttr('href');
+			
       initialise();
 
       function initialise() {
-
-        var path = expandable.attr('href');
-        expandable.removeAttr('href');
-
 			  // Collapse/expand clicks
         expandable.bind("click", function(){
-					var parent = expandable.parents('div:first');
-					var to_show = parent.children('.expandable_content');
-          var supporters_label = expandable.find('.supporters_label');
-          if (to_show.length > 0) {
-            // Content is already loaded
-            expandable.toggleClass('active');
-						if (settings['animate']) {
-							to_show.animate(settings['animation_params'],
-                              settings['animation_speed']);
+					if (!settings['condition_element']) {
+						toggleExpandable();
+					} else if(settings['condition_element'].hasClass(settings['condition_class'])) {
+						if(settings['condition_element'].hasClass('pending')) {
+							expandable.addClass('clicked');
 						} else {
-							to_show.toggle();
+							toggleExpandable();
 						}
-            if (supporters_label) {
-							if (settings['animate']) {
-						  	supporters_label.animate(settings['animation_params'],
-                                         settings['animation_speed']);
-						  } else {
-								supporters_label.toggle();
-							}
-            }
-          } else {
-            // Load content now
-						var loading = expandable.parent().find(settings['loading_class']);
-						if (loading.length > 0) {
-							loading.show();
-						}
-						else {
-							loading = $('<span/>').addClass('loading');
-							loading.insertAfter(expandable);
-						}
-            $.ajax({
-              url:      path,
-              type:     'get',
-              dataType: 'script',
-              success:  function() {
-								loading.hide();
-								if (parent.children('.expandable_content').length > 0) {
-									expandable.addClass('active');
-								}
-                if (supporters_label) {
-		              if (settings['animate']) {
-		                supporters_label.animate(settings['animation_params'],
-                                             settings['animation_speed']);
-		              } else {
-		                supporters_label.toggle();
-		              }
-		            }
-              },
-							error: function(){loading.hide();}
-            })
-          }
+					}
           return false;
         });
 			}
-
+			
+			function toggleExpandable () {
+        if (expandable_content.length > 0) {
+					// Content is already loaded
+					expandable.toggleClass('active');
+					if (settings['animate']) {
+						expandable_content.animate(settings['animation_params'], settings['animation_speed']);
+					}
+					else {
+						expandable_content.toggle();
+					}
+					if (expandable_supporters_label) {
+						if (settings['animate']) {
+							expandable_supporters_label.animate(settings['animation_params'], settings['animation_speed']);
+						}
+						else {
+							expandable_supporters_label.toggle();
+						}
+					}
+				} else if (!expandable.hasClass('pending')) {
+				  expandable.addClass('pending');
+			  	// Load content now
+					if (expandable_loading.length > 0) {
+						expandable_loading.show();
+					}
+					else {
+						expandable_loading = $('<span/>').addClass('loading');
+						expandable_loading.insertAfter(expandable);
+					}
+					$.ajax({
+						url: path,
+						type: 'get',
+						dataType: 'script',
+						success: function(){
+							expandable_loading.hide();
+							expandable_content = expandable_parent.children('.expandable_content');
+							if (expandable_content.length > 0) {
+								expandable.addClass('active');
+							}
+							if (expandable_supporters_label) {
+								if (settings['animate']) {
+									expandable_supporters_label.animate(settings['animation_params'], settings['animation_speed']);
+								}
+								else {
+									expandable_supporters_label.toggle();
+								}
+							}
+							expandable.removeClass('pending');
+						},
+						error: function(){
+							expandable_loading.hide();
+							expandable.removeClass('pending');
+						}
+					});
+				}
+			}
+				
 			// Public API
       $.extend(this,
       {
         reinitialise: function()
         {
           initialise();
-        }
+        },
+				toggle: function()
+				{
+					toggleExpandable();
+				}
       });
     }
 

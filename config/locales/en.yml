@@ -32,6 +32,7 @@ en:
       welcome: Welcome
       all: All
       authors: Authors
+      share_comment: 'Have your say'
 
     # Roadmap - Progress
     roadmap:
@@ -255,7 +256,6 @@ en:
       guide: |
         All of us have <strong>different facets</strong>. In some areas we might be affected and need help from others,
         in other areas we engage ourselves and offer help to others. In certain fields we have professional expertise,
-        in others we might represent other people and make decisions.<br/>
         echo helps like-minded people to find each other with <strong>knowledge complementing each other</strong>.<br/>
         Which <strong>keywords (tags)</strong> would you describe <strong>your concernments and competences</strong> with?
       sorts:
@@ -343,6 +343,21 @@ en:
         title: Disconnect
         success: Removed your {{account}} account successfully!
         failed: Failed to remove your {{account}} account! 
+      share:
+        title: Amplify your echo via
+        text: Text
+        data_privacy:
+          title: Data Privacy Notice
+          description: Mind the privacy policy of other networks before sharing your views on them...
+        preview: Preview
+        submit: Send out the voice! Make an echo!
+        error: Something went wrong while sharing your entry.
+        success: |
+          <p>Made an echo via {{accounts}}.</p>
+        failed: |
+          <p>Failed via {{accounts}}.</p>
+        enabled: Enabled
+        disabled: Disabled
        
       
 
@@ -581,6 +596,7 @@ en:
         Afterwards, your modifications might even get discarded.
       staled_modification: 'We are very sorry, but you exceeded the 60 minutes limit to edit and save the statement. Meanwhile it has already been updated by a different user. Therefore, your changes must have been unfortunately discarded.'
       no_document_in_language: 'The statement does not exist in English yet.'
+      supporter_to_share: 'You must be a supporter of this statement in order to share it!'
 
       breadcrumbs:
         discuss_search: Search results

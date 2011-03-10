@@ -25,6 +25,7 @@ class MyEchoController < ApplicationController
   def settings
     @profile = @current_user.profile
     @user    = @current_user
+    @current_user.update_social_accounts
     render
   end
 

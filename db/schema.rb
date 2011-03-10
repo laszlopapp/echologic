@@ -197,6 +197,20 @@ ActiveRecord::Schema.define(:version => 20110310161551) do
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
+  create_table "shortcut_commands", :force => true do |t|
+    t.string "command"
+  end
+
+  create_table "shortcut_urls", :id => false, :force => true do |t|
+    t.string   "shortcut"
+    t.boolean  "human_readable"
+    t.string   "base_shortcut"
+    t.integer  "iterator",            :default => 0
+    t.integer  "shortcut_command_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "social_identifiers", :force => true do |t|
     t.string   "identifier",    :null => false
     t.string   "provider_name"
