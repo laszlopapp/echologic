@@ -1,5 +1,5 @@
 class MyEchoController < ApplicationController
-  helper :profile
+  helper :profiles
   
   access_control do
     allow logged_in

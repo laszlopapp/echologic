@@ -182,7 +182,7 @@ class DraftingService
   def select_approved(incorporable)
     incorporable.reload
     if incorporable.parent.approved_children.empty?
-      siblings = incorporable.sibling_statements([incorporable.drafting_language.id]).select{|s|s.staged?}
+      siblings = incorporable.sibling_statements(:language_ids => [incorporable.drafting_language.id]).select(&:staged?)
       approve(siblings.first) if !siblings.empty?
     end
   end

@@ -1,5 +1,5 @@
 class Users::SpokenLanguagesController < ApplicationController
-
+  helper :my_echo
   before_filter :fetch_spoken_language, :except => [:new, :create]
 
   access_control do

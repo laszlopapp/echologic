@@ -155,50 +155,52 @@ class StatementNode < ActiveRecord::Base
   # Collects a filtered list of all children statements
   #
   # for_session argument: when true, returns a list of ids + the "add_type" teaser name
-  def child_statements(language_ids = nil, type = self.class.children_types.first.to_s, user = nil, for_session = false)
-    return type.constantize.statements_for_parent(self.target_id,
-                                                  language_ids,
-                                                  user,
-                                                  self.draftable?,
-                                                  for_session)
+  def child_statements(opts={})
+    opts[:parent_id] = self.target_id
+    opts[:filter_drafting_state] = self.draftable?
+    opts[:type] ||= self.class.children_types.first.to_s
+    return opts[:type].constantize.statements_for_parent(opts)
   end
 
   # Collects a filtered list of all siblings statements
   #
   # for_session argument: when true, returns a list of ids + the "add_type" teaser name
-  def sibling_statements(language_ids = nil, user = nil, type = self.class.to_s, for_session = false)
-    return parent_id.nil? ? [] : type.constantize.statements_for_parent(self.parent.target_id,
-                                                                        language_ids,
-                                                                        user,
-                                                                        self.incorporable?,
-                                                                        for_session)
+  def sibling_statements(opts={})
+    opts[:parent_id] = self.parent.target_id
+    opts[:filter_drafting_state] = self.incorporable?
+    opts[:type] ||= self.class.to_s
+    return opts[:parent_id].nil? ? [] : opts[:type].constantize.statements_for_parent(opts)
   end
 
   # Collects a filtered list of all siblings statements
-  def siblings_to_session(language_ids = nil, user = nil, type = self.class.to_s)
-    sibling_statements(language_ids, user, type, true)
+  def siblings_to_session(opts)
+    opts[:type] ||= self.class.to_s
+    opts[:for_session] = true
+    sibling_statements(opts)
   end
 
   # Collects a filtered list of all siblings statements
-  def children_to_session(language_ids = nil, type = self.class.children_types.first.to_s, user = nil)
-    child_statements(language_ids, type, user, true)
+  def children_to_session(opts)
+    opts[:type] ||= self.class.children_types.first.to_s
+    opts[:for_session] = true
+    child_statements(opts)
   end
 
   # Get the top children given a certain child type
-  def get_paginated_child_statements(language_ids = nil,
-                                     type = self.class.children_types.first.to_s,
-                                     user = nil,
-                                     page = 1,
-                                     per_page = TOP_CHILDREN)
-    type_class = type.constantize
-    children = child_statements(language_ids, type, user)
-    type_class.paginate_statements(children, page, per_page)
+  def get_paginated_child_statements(opts)
+    opts[:type] ||= self.class.children_types.first.to_s
+    opts[:page] ||= 1
+    opts[:per_page] ||= TOP_CHILDREN
+    children = child_statements(opts)
+    opts[:type].constantize.paginate_statements(children, opts[:page], opts[:per_page])
   end
 
   # counts the children the statement has of a certain type
-  def count_child_statements(language_ids = nil, user = nil, type = self.class.children_types.first.to_s)
-    type_class = type.constantize
-    type.constantize.count_statements_for_parent(self.target_id, language_ids, user, self.draftable?)
+  def count_child_statements(opts)
+    opts[:parent_id] = self.target_id
+    opts[:filter_drafting_state] = self.draftable?
+    opts[:type] ||= self.class.children_types.first.to_s
+    type.constantize.count_statements_for_parent(opts)
   end
 
   private
@@ -235,46 +237,44 @@ class StatementNode < ActiveRecord::Base
     end
 
     # Aux Function: gets a set of children given a certain parent (used to get siblings and children)
-    def statements_for_parent(parent_id, language_ids = nil, user = nil,
-                              filter_drafting_state = false, for_session = false)
-      get_statements_for_parent(parent_id, language_ids, user, filter_drafting_state, for_session)
+    def statements_for_parent(opts)
+      get_statements_for_parent(opts)
     end
 
     # Aux Function: gets a set of children given a certain parent (used above)
-    def get_statements_for_parent(parent_id, language_ids = nil, user = nil,
-                                  filter_drafting_state = false, for_session = false)
-      opts = parent_conditions(parent_id, language_ids, user, filter_drafting_state)
+    def get_statements_for_parent(opts)
+      fields = parent_conditions(opts)
 
       statements = []
 
-      if for_session
-        opts[:select] = "DISTINCT statement_nodes.id, statement_nodes.question_id"
-        statements = self.scoped(opts).map{|s| s.question_id.nil? ? s.id : s.question_id}
-        statements << "/#{parent_id.nil? ? '' : "#{parent_id}/" }add/#{self.name.underscore}" # ADD TEASER
+      if opts[:for_session]
+        fields[:select] = "DISTINCT statement_nodes.id, statement_nodes.question_id"
+        statements = self.scoped(fields).map{|s| s.question_id.nil? ? s.id : s.question_id}
+        statements << "/#{opts[:parent_id].nil? ? '' : "#{opts[:parent_id]}/" }add/#{self.name.underscore}" # ADD TEASER
       else
-        opts[:select] = "DISTINCT statement_nodes.*"
-        statements = self.all(opts)
+        fields[:select] = "DISTINCT statement_nodes.*"
+        statements = self.all(fields)
       end
       statements
     end
 
-    def count_statements_for_parent(parent_id, language_ids = nil, user = nil, filter_drafting_state = false)
-      opts = parent_conditions(parent_id, language_ids, user, filter_drafting_state, sub_types.map(&:to_s))
-      opts[:select] = "DISTINCT statement_nodes.id"
-      self.count(:all, opts)
+    def count_statements_for_parent(opts)
+      fields = parent_conditions(opts.merge({:types => sub_types.map(&:to_s)}))
+      fields[:select] = "DISTINCT statement_nodes.id"
+      self.count(:all, fields)
     end
 
-    def parent_conditions(parent_id, language_ids = nil, user = nil, filter_drafting_state = false, types = nil)
-      opts = {}
-      opts.delete(:readonly)
-      opts[:joins] =  "LEFT JOIN statement_documents d ON statement_nodes.statement_id = d.statement_id "
-      opts[:joins] << "LEFT JOIN echos e ON statement_nodes.echo_id = e.id"
-      opts[:joins] << children_joins
-      opts[:conditions] = children_conditions(parent_id, types, user)
-      opts[:conditions] << sanitize_sql([" AND d.language_id IN (?) ", language_ids]) if language_ids
-      opts[:conditions] << drafting_conditions if filter_drafting_state
-      opts[:order] = "e.supporter_count DESC, statement_nodes.created_at DESC"
-      opts
+    def parent_conditions(opts)
+      fields = {}
+      fields.delete(:readonly)
+      fields[:joins] =  "LEFT JOIN statement_documents d ON statement_nodes.statement_id = d.statement_id "
+      fields[:joins] << "LEFT JOIN echos e ON statement_nodes.echo_id = e.id"
+      fields[:joins] << children_joins
+      fields[:conditions] = children_conditions(opts)
+      fields[:conditions] << sanitize_sql([" AND d.language_id IN (?) ", opts[:language_ids]]) if opts[:language_ids]
+      fields[:conditions] << drafting_conditions if opts[:filter_drafting_state]
+      fields[:order] = "e.supporter_count DESC, statement_nodes.created_at DESC"
+      fields
     end
 
     # Aux Function: drafting conditions on a query (overwritten in acts_as_incorporable)
@@ -286,9 +286,9 @@ class StatementNode < ActiveRecord::Base
       ''
     end
 
-    def children_conditions(parent_id, types = nil, user = nil)
+    def children_conditions(opts)
       sanitize_sql(["statement_nodes.type IN (?) AND statement_nodes.parent_id = ? ",
-                    types.nil? ? [self.name] : types, parent_id])
+                    opts[:types] || [self.name], opts[:parent_id]])
     end
 
     public
