@@ -37,17 +37,12 @@ module ActsAsDouble
           #
           # Overrides normal behaviour. Delegates to sub_types and merges the results.
           #
-          def statements_for_parent(parent_id, language_ids = nil, user = nil,
-                                    filter_drafting_state = false, for_session = false)
+          def statements_for_parent(opts)
             statements = []
             sub_types.each do |type|
-              statements << type.to_s.constantize.get_statements_for_parent(parent_id,
-                                                                           language_ids,
-                                                                           user,
-                                                                           filter_drafting_state,
-                                                                           for_session)
+              statements << type.to_s.constantize.get_statements_for_parent(opts)
             end
-            statements = merge_statement_lists(statements) if for_session
+            statements = merge_statement_lists(statements) if opts[:for_session]
             statements
           end
 
@@ -97,9 +92,10 @@ module ActsAsDouble
         #
         # Overrides default behaviour. Collects a filtered list of all siblings statements.
         #
-        def siblings_to_session(language_ids = nil, user = nil, type = self.class.to_s)
+        def siblings_to_session(opts)
           siblings = []
-          sibling_statements(language_ids, user, type).map{|s|s.map(&:id)}.each_with_index do |s, index|
+          opts[:type] ||= self.class.to_s
+          sibling_statements(opts).map{|s|s.map(&:id)}.each_with_index do |s, index|
             siblings << s + ["/#{self.parent_id.nil? ? '' :
                               "#{self.parent.target_id}/"}add/#{self.class.sub_types[index].to_s.underscore}"]
           end

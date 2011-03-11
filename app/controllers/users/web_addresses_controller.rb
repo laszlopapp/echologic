@@ -1,5 +1,6 @@
 class Users::WebAddressesController < ApplicationController
-  helper :profile
+  helper :profiles
+  helper :my_echo
 
   before_filter :fetch_web_address, :except => [:new,:create]
 

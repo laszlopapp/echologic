@@ -5,4 +5,4 @@
 <% content_for "web_address_#{web_address.id}_value".to_sym do %>
   <%= auto_link sanitize(web_address.address), :html => { :target => '_blank' } %>
 <% end %>
-<%= render :partial => 'users/components/object', :locals => {:type => 'web_address', :object => web_address} %>
+<%= render :partial => 'users/components/entry', :locals => {:type => 'web_address', :entry => web_address} %>

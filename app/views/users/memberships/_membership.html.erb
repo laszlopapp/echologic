@@ -5,4 +5,4 @@
 <% content_for "membership_#{membership.id}_value".to_sym do %>
   <%= h membership.position %>
 <% end %>
-<%= render :partial => 'users/components/object', :locals => {:type => 'membership', :object => membership} %>
+<%= render :partial => 'users/components/entry', :locals => {:type => 'membership', :entry => membership} %>

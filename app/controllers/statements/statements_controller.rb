@@ -451,15 +451,15 @@ class StatementsController < ApplicationController
       types.each_with_index do |type, index|
         immediate_render = children_types[1][index]
         if immediate_render
-          @children[type] = @statement_node.get_paginated_child_statements(@language_preference_list,
-                                                                           type.to_s,
-                                                                           current_user)
+          @children[type] = @statement_node.get_paginated_child_statements(:language_ids => @language_preference_list,
+                                                                           :type => type.to_s,
+                                                                           :user => current_user)
           @children_documents.merge!(search_statement_documents(@children[type].flatten.map(&:statement_id),
                                                                 @language_preference_list))
         else
-          @children[type] = @statement_node.count_child_statements(@language_preference_list,
-                                                                   current_user,
-                                                                   type.to_s)
+          @children[type] = @statement_node.count_child_statements :language_ids => @language_preference_list,
+                                                                   :user => current_user,
+                                                                   :type => type.to_s
         end
       end
     end
@@ -473,11 +473,11 @@ class StatementsController < ApplicationController
   # Loads the children of the current statement from a certain type
   #
   def load_children(type, page = @page, per_page = @per_page)
-    @children = @statement_node.get_paginated_child_statements(@language_preference_list,
-                                                               type.to_s,
-                                                               current_user,
-                                                               page,
-                                                               per_page)
+    @children = @statement_node.get_paginated_child_statements(:language_ids => @language_preference_list,
+                                                               :type => type.to_s,
+                                                               :user => current_user,
+                                                               :page => page,
+                                                               :per_page => per_page)
     @children_documents = search_statement_documents(@children.flatten.map(&:statement_id),
                                                      @language_preference_list)
   end
@@ -775,7 +775,8 @@ class StatementsController < ApplicationController
   def load_children_for_parent(statement_node, type)
     @siblings ||= {}
     class_name = type.classify
-    siblings = statement_node.children_to_session(@language_preference_list,class_name, current_user)
+    siblings = statement_node.children_to_session :language_ids => @language_preference_list, 
+                                                  :type => class_name, :user => current_user
     @siblings["add_#{type}"] = siblings
   end
 
@@ -787,7 +788,7 @@ class StatementsController < ApplicationController
     class_name = statement_node.target_statement.class.name.underscore
     # if has parent then load siblings
     if statement_node.parent_id
-      siblings = statement_node.siblings_to_session(@language_preference_list, current_user)
+      siblings = statement_node.siblings_to_session :language_ids => @language_preference_list, :user => current_user
     else #else, it's a root node
       siblings = roots_to_session(statement_node)
     end
@@ -820,7 +821,10 @@ class StatementsController < ApplicationController
         when 'mi' then Question.by_creator(current_user).by_creation.only_id.map(&:id) + ["/add/question"]
         when 'fq' then @previous_node = StatementNode.find(origin[2..-1])
                        @previous_type = "FollowUpQuestion"
-                       @previous_node.child_statements(@language_preference_list, @previous_type, current_user, true)
+                       @previous_node.child_statements :language_ids => @language_preference_list, 
+                                                       :type => @previous_type, 
+                                                       :user => current_user, 
+                                                       :for_session => true
       end
     else
       siblings = (statement_node ? [statement_node.id] : []) + ["/add/question"]
@@ -841,9 +845,9 @@ class StatementsController < ApplicationController
         when 'mi' then Question.by_creator(current_user).by_creation
         when 'fq' then @previous_node = StatementNode.find(origin[2..-1])
                        @previous_type = "FollowUpQuestion"
-                       @previous_node.child_statements(@language_preference_list,
-                                                       @previous_type,
-                                                       current_user).map(&:target_statement)
+                       @previous_node.child_statements(:language_ids => @language_preference_list,
+                                                       :type => @previous_type,
+                                                       :user => current_user).map(&:target_statement)
       end
     else
       roots = statement_node.nil? ? [] :[statement_node]
