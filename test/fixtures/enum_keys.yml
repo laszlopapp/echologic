@@ -61,7 +61,7 @@ statement_action_<%= code %>:
   description: statement_action
 <% end %>
 
-<% %w(core_team supporters alumni technology_partners financial_partners).each_with_index do |code, index| %>
+<% %w(core_team supporters translators interns alumni technology_partners financial_partners).each_with_index do |code, index| %>
 about_category_<%= code %>:
   code: <%= code %>
   type: AboutCategory
