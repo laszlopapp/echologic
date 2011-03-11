@@ -1,6 +1,7 @@
 <div id="login_container">
 
   <% if current_user_session %>
+
     <%= link_to(image_tag(current_user.profile.avatar.url(:small),
                           :id => 'logged_in_user_pic',
                           :class => 'ttLink pointer',
@@ -10,10 +11,11 @@
       <%= I18n.t('users.signin.hello',
                  :name => current_user.full_name) %><br/>
     </span>
+
   <% else %>
-    <%= link_to I18n.t('users.signin.label'), signin_path, :class => 'ajax' %>
-		<%= I18n.t('application.general.or') %>
-		<%= link_to I18n.t('users.signup.label'), signup_path, :class => 'ajax' %>
+    <%= link_to I18n.t('users.signup.label').capitalize(), signup_path, :class => 'ajax signup' %>
+		<%= content_tag :span, I18n.t('application.general.or'), :class => 'or_label' %>
+		<%= link_to I18n.t('users.signin.label').capitalize(), signin_path, :class => 'ajax signin' %>
   <% end %>
 
 </div>

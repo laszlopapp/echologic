@@ -207,7 +207,9 @@
    * the value from the alt-attribute. */
   function makeRatiobars() {
     $('.echo_indicator').livequery(function() {
-      $(this).progressbar({ value: $(this).attr('alt') });
+      var indicator = $(this);
+      var echo_value = parseInt(indicator.attr('alt'));
+      indicator.progressbar({ value: echo_value });
     });
   }
 
@@ -216,7 +218,6 @@
      $(this).tabs();
     });
   }
-
 
   /* loads form ajaxs */
   function loadAjaxForms() {
@@ -283,5 +284,5 @@
 			return false;
 		});
 	}
-	
-	
+
+

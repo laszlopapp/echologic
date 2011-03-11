@@ -70,62 +70,27 @@
 /* --------------- */
 
 #login_container {
-  clear:       right;
-  float:       right;
-  padding:     13px 0 8px;
+  clear: right;
+  float: right;
+  padding: 13px 0 8px;
+  height: 40px;
+  margin-top: 20px;
 }
 
-#login_container .label {
-  color:       #7BB031;
-  width:       172px;
-  display:     inline-block;
-  margin-bottom: 3px;
-  padding:     0 8px;
-  font-size:   12px;
+#login_container .signup {
+  color: #21587f;
   font-weight: bold;
-  cursor:      default;
-}
-
-
-#login_container .bottomLabel {
-  color: #1A4864;
-  width: 172px;
-  display: inline-block;
-  margin: 4px 0 3px 0;
-  padding: 0 8px;
-  font-size: 11px;
   text-decoration: underline;
-  cursor: pointer;
 }
 
-#login_container .loginField {
-  background:   #FFF url(../images/page/input/login_input_bg.png) no-repeat top left;
-  color:        #1A4864;
-  font-size:    12px;
-  width:        170px;
-  height:       17px;
-  border:       1px solid transparent;
-  -moz-border-radius: 12px;
-  -webkit-border-radius: 12px;
-  padding: 2px 8px;
+#login_container .or_label {
+  margin: 0 10px;
 }
 
-#login_container .loginButton {
-  background:   #FFF url(../images/page/login_button.png) no-repeat left top;
-  color:        #FFF;
-  -moz-border-radius: 12px;
-  -webkit-border-radius: 12px;
-  font-size:    12px;
-  width:        53px;
-  height:       21px;
-  padding:      0px 8px 2px;
-  border:       none;
-  margin-right: -8px;
-}
-
-#login_container .loginButton:hover {
-  /*background:   #2B6894;*/
-  background-position: 0px -21px;
+#login_container .signin {
+  color: #21587f;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 /* ------------------- */
