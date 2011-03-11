@@ -261,6 +261,9 @@
         if (ui.panel.id == "team") {
           $('#team_members').jScrollPane({animateTo: true, wheelSpeed: 25});
         }
+				if (ui.panel.id == "partners") {
+          $('#partners_members').jScrollPane({animateTo: true, wheelSpeed: 25});
+        }
       });
     });
   }

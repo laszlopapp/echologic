@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110311171246) do
+ActiveRecord::Schema.define(:version => 20110311174559) do
 
   create_table "about_item_translations", :force => true do |t|
     t.integer "about_item_id"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20110311171246) do
     t.integer  "index"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "url"
   end
 
   create_table "admin_mailers", :force => true do |t|

@@ -44,7 +44,7 @@ li {
   margin-top: 20px;
 }
 
-#team {
+#team, #partners {
   height: 400px;
   padding: 0;
   margin: 0;
@@ -52,10 +52,11 @@ li {
   width: 920px;
 }
 
-#team_members {
+#team_members, #partners_members {
   height: 400px;
   overflow: hidden;
 }
+
 
 .ai_container .header_block {
   clear: both;
@@ -93,4 +94,18 @@ li {
 .about_item .description {
   margin: 10px 0 0 145px;
   display: block;
+}
+
+.about_logo {
+	float: left;
+  text-align: center;
+  width: 290px;
+}
+
+.about_logo a {
+	display: inline-block;
+}
+
+.about_logo img {
+	color: #FFFFFF;
 }
