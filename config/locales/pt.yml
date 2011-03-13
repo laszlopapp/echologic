@@ -489,7 +489,7 @@ pt:
       headings:
         question: 'Questões'
         proposal: 'Propostas'
-        improvement: 'melhorias'
+        improvement: 'Melhorias'
         argument: 'Argumentos'
         follow_up_question: 'Questões Complementares'
       siblings:
