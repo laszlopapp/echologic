@@ -95,13 +95,19 @@
 	          if (origin == null || origin == "undefined") {
 	            origin = '';
 	          }
-	
-	          $.setFragment({
-	            "bids" : new_bids.join(","),
-	            "sids": sids.join(","),
-	            "new_level" : true,
-	            "origin" : origin
-	          });
+	           
+						if (sids.join(",") == $.fragment().sids) {
+			        /* sids won't change, we are inside a new form, and we press the breadcrumb to go back*/
+							$.getScript($(this).attr('href'));
+						}
+						else {
+							$.setFragment({
+								"bids": new_bids.join(","),
+								"sids": sids.join(","),
+								"new_level": true,
+								"origin": origin
+							});
+						}
 	          return false;
 	        });
 		    });
