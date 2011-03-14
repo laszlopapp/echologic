@@ -70,6 +70,7 @@ module EchoableModule
         @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
         @title = "made an"
         @proposed_url = "http://#{ECHO_HOST}/#{ShortcutUrl.truncate(@statement_document.title)}"
+        @proposed_url << " #{@statement_node.root.hash_topic_tags}" if !@statement_node.root.hash_topic_tags.empty? 
         respond_to do |format|
           format.js { render :template => "statements/social_widget" }
         end
@@ -135,6 +136,7 @@ module EchoableModule
             format.js {
               render_with_info do |page|
                 page << "$('#statements .#{dom_class(@statement_node)} .social_echo_panel').fadeOut();"
+                page << "$('#statements .#{dom_class(@statement_node)} .social_echo_button').removeClass('active');"
               end
             }
           end

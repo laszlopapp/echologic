@@ -24,7 +24,7 @@ class StatementNode < ActiveRecord::Base
 
   delegate :original_language, :document_in_language, :authors, :has_author?,
            :statement_image, :statement_image=, :image, :image=, :published?, :publish,
-           :taggable?, :filtered_topic_tags, :topic_tags, :topic_tags=, :tags, :editorial_state_id,
+           :taggable?, :filtered_topic_tags, :topic_tags, :topic_tags=, :hash_topic_tags, :tags, :editorial_state_id,
            :editorial_state_id=, :editorial_state, :editorial_state=, :to => :statement
 
   has_many :statement_documents, :through => :statement, :source => :statement_documents do

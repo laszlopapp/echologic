@@ -291,7 +291,16 @@ class StatementsControllerTest < ActionController::TestCase
   test "should get social widget" do
     statement_nodes('test-question').supported!(users(:editor))
     get :social_widget, :id => statement_nodes('test-question').to_param
-    assert assigns(:proposed_url).eql?("http://#{ECHO_HOST}/test-question")
+    assert assigns(:proposed_url).include?("http://#{ECHO_HOST}/test-question")
+    assert assigns(:proposed_url).include?(tags('echonomy-jam').value)
+    assert_response :success
+  end
+  
+  test "should get social widget and message must have the hash tag of root" do
+    statement_nodes('second-proposal').supported!(users(:editor))
+    get :social_widget, :id => statement_nodes('second-proposal').to_param
+    assert assigns(:proposed_url).include?("http://#{ECHO_HOST}/second-proposal")
+    assert assigns(:proposed_url).include?(tags('echonomy-jam').value)
     assert_response :success
   end
   
