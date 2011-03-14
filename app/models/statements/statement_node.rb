@@ -248,11 +248,11 @@ class StatementNode < ActiveRecord::Base
       statements = []
 
       if opts[:for_session]
-        fields[:select] = "DISTINCT statement_nodes.id, statement_nodes.question_id"
+        fields[:select] = "DISTINCT #{table_name}.id, #{table_name}.question_id"
         statements = self.scoped(fields).map{|s| s.question_id.nil? ? s.id : s.question_id}
         statements << "/#{opts[:parent_id].nil? ? '' : "#{opts[:parent_id]}/" }add/#{self.name.underscore}" # ADD TEASER
       else
-        fields[:select] = "DISTINCT statement_nodes.*"
+        fields[:select] = "DISTINCT #{table_name}.*"
         statements = self.all(fields)
       end
       statements
@@ -260,20 +260,20 @@ class StatementNode < ActiveRecord::Base
 
     def count_statements_for_parent(opts)
       fields = parent_conditions(opts.merge({:types => sub_types.map(&:to_s)}))
-      fields[:select] = "DISTINCT statement_nodes.id"
+      fields[:select] = "DISTINCT #{table_name}.id"
       self.count(:all, fields)
     end
 
     def parent_conditions(opts)
       fields = {}
       fields.delete(:readonly)
-      fields[:joins] =  "LEFT JOIN statement_documents d ON statement_nodes.statement_id = d.statement_id "
-      fields[:joins] << "LEFT JOIN echos e ON statement_nodes.echo_id = e.id"
+      fields[:joins] =  "LEFT JOIN #{StatementDocument.table_name} d ON #{table_name}.statement_id = d.statement_id "
+      fields[:joins] << "LEFT JOIN #{Echo.table_name} e ON #{table_name}.echo_id = e.id"
       fields[:joins] << children_joins
       fields[:conditions] = children_conditions(opts)
       fields[:conditions] << sanitize_sql([" AND d.language_id IN (?) ", opts[:language_ids]]) if opts[:language_ids]
       fields[:conditions] << drafting_conditions if opts[:filter_drafting_state]
-      fields[:order] = "e.supporter_count DESC, statement_nodes.created_at DESC"
+      fields[:order] = "e.supporter_count DESC, #{table_name}.created_at DESC"
       fields
     end
 
@@ -287,7 +287,7 @@ class StatementNode < ActiveRecord::Base
     end
 
     def children_conditions(opts)
-      sanitize_sql(["statement_nodes.type IN (?) AND statement_nodes.parent_id = ? ",
+      sanitize_sql(["#{table_name}.type IN (?) AND #{table_name}.parent_id = ? ",
                     opts[:types] || [self.name], opts[:parent_id]])
     end
 
@@ -298,41 +298,40 @@ class StatementNode < ActiveRecord::Base
     def search_statement_nodes(opts={})
       search_term = opts.delete(:search_term)
       opts[:only_id] ||= false
-      tag_clause = "SELECT DISTINCT s.id FROM statement_nodes s "
-      tag_clause << "LEFT JOIN statements st               ON st.id = s.statement_id
-                     LEFT JOIN tao_tags tt                 ON (tt.tao_id = st.id and tt.tao_type = 'Statement')
-                     LEFT JOIN statement_documents d       ON s.statement_id = d.statement_id
-                     LEFT JOIN tags t                      ON tt.tag_id = t.id "
+      tag_clause = "SELECT DISTINCT s.id FROM #{table_name} s "
+      tag_clause << "LEFT JOIN #{Statement.table_name}               ON #{Statement.table_name}.id = s.statement_id " +
+                    "LEFT JOIN #{StatementDocument.table_name} d        ON s.statement_id = d.statement_id "
+      tag_clause << Statement.extaggable_joins_clause
       tag_clause << "WHERE "
 
 
       tags_query = ''
       and_conditions = []
       and_conditions << sanitize_sql(["s.type = '#{opts.delete(:type)}'"]) if opts[:type]
-      and_conditions << sanitize_sql(["st.editorial_state_id = ?", StatementState['published'].id]) unless opts[:show_unpublished]
+      and_conditions << sanitize_sql(["#{Statement.table_name}.editorial_state_id = ?", StatementState['published'].id]) unless opts[:show_unpublished]
       and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]]) if opts[:language_ids]
       and_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]]) if opts[:drafting_states]
       if !search_term.blank?
         tags_query = []
         terms = search_term.split(/[,\s]+/)
         terms.each do |term|
-          or_conditions = (term.length > 3 ? sanitize_sql(["t.value LIKE ?","%#{term}%"]) : sanitize_sql(["t.value = ?",term]))
+          or_conditions = Statement.extaggable_conditions_for_term(term)
           or_conditions << sanitize_sql([" OR d.title LIKE ? OR d.text LIKE ?", "%#{term}%", "%#{term}%"])
           tags_query << (tag_clause + (and_conditions + ["(#{or_conditions})"]).join(" AND "))
         end
         tags_query = tags_query.join(" UNION ALL ")
-        statements_query = "SELECT statement_nodes.#{opts[:only_id] ? 'id' : '*'} " +
+        statements_query = "SELECT #{table_name}.#{opts[:only_id] ? 'id' : '*'} " +
                            "FROM (#{tags_query}) statement_node_ids " +
-                           "LEFT JOIN statement_nodes ON statement_nodes.id = statement_node_ids.id " +
-                           "LEFT JOIN echos e ON e.id = statement_nodes.echo_id " +
+                           "LEFT JOIN #{table_name} ON #{table_name}.id = statement_node_ids.id " +
+                           "LEFT JOIN #{Echo.table_name} e ON e.id = #{table_name}.echo_id " +
                            "GROUP BY statement_node_ids.id " +
-                           "ORDER BY COUNT(statement_node_ids.id) DESC,e.supporter_count DESC, statement_nodes.created_at DESC;"
+                           "ORDER BY COUNT(statement_node_ids.id) DESC,e.supporter_count DESC, #{table_name}.created_at DESC;"
       else
-        statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? 'id' : '*'} from statement_nodes s
-                            LEFT JOIN statements st ON st.id = s.statement_id
-                            LEFT JOIN statement_documents d ON s.statement_id = d.statement_id
-                            LEFT JOIN echos e ON e.id = s.echo_id
-                            WHERE " + and_conditions.join(" AND ") +
+        statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? 'id' : '*'} from #{table_name} s " +
+                           "LEFT JOIN #{Statement.table_name} ON #{Statement.table_name}.id = s.statement_id " +
+                           "LEFT JOIN #{StatementDocument.table_name} d ON s.statement_id = d.statement_id " +
+                           "LEFT JOIN #{Echo.table_name} e ON e.id = s.echo_id " +
+                           "WHERE " + and_conditions.join(' AND ') + 
                            " ORDER BY e.supporter_count DESC, s.created_at DESC;"
       end
       find_by_sql statements_query
@@ -341,7 +340,7 @@ class StatementNode < ActiveRecord::Base
 
     def default_scope
       { :include => :echo,
-        :order => %Q[echos.supporter_count DESC, statement_nodes.created_at DESC] }
+        :order => "echos.supporter_count DESC, #{table_name}.created_at DESC" }
     end
 
     ###################################

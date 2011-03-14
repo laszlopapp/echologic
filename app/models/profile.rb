@@ -63,39 +63,40 @@ class Profile < ActiveRecord::Base
   def self.search_profiles(competence, search_term, opts={})
     
     opts[:readonly] = false
-    opts[:select] ||= "DISTINCT profiles.*, u.email"
+    opts[:select] ||= "DISTINCT #{self.table_name}.*, #{User.table_name}.email"
     
     
     # join clauses
-    opts[:joins] =  "LEFT JOIN users u        ON u.id = profiles.user_id "
-    opts[:joins] << "LEFT JOIN memberships m  ON u.id = m.user_id "
-    opts[:joins] << "LEFT JOIN tao_tags tt    ON (u.id = tt.tao_id and tt.tao_type = 'User') "
-    opts[:joins] << "LEFT JOIN tags t         ON t.id = tt.tag_id "
+    opts[:joins] =  "LEFT JOIN #{User.table_name} ON #{User.table_name}.id = profiles.user_id "
+    opts[:joins] << "LEFT JOIN #{Membership.table_name} m  ON #{User.table_name}.id = m.user_id "
+    opts[:joins] << User.extaggable_joins_clause
     
     
     # Building the where clause
 
     # Filtering active users
-    opts[:conditions] = ["u.active = 1"]
+    opts[:conditions] = ["#{User.table_name}.active = 1"]
     
     # Searching for different competences
     if competence.blank?
       # General search
-      searched_fields = %w(profiles.full_name profiles.city profiles.country profiles.about_me 
-                           profiles.motivation u.email t.value m.position m.organisation)
+      searched_fields = ["#{self.table_name}.full_name", "#{self.table_name}.city", "#{self.table_name}.country",
+                         "#{self.table_name}.about_me", "#{self.table_name}.motivation", 
+                         "#{User.table_name}.email", "m.position", "m.organisation"]
     else
       # Search for a certain competence area
-      searched_fields = %w(profiles.full_name profiles.city profiles.country t.value)
-      opts[:conditions] << "tt.context_id = #{competence}"
+      searched_fields = ["#{self.table_name}.full_name", "#{self.table_name}.city", "#{self.table_name}.country"]
+      opts[:conditions] << User.extaggable_filter_by_type(competence)
     end
-    search_conditions = searched_fields.map{|field|sanitize_sql(["#{field} LIKE ?", "%#{search_term}%"])}.join(" OR ")
-    opts[:conditions] << "(#{search_conditions})"
+    search_conditions = searched_fields.map{|field|sanitize_sql(["#{field} LIKE ?", "%#{search_term}%"])}
+    search_conditions << User.extaggable_conditions_for_term(search_term||'', 0)
+    opts[:conditions] << "(#{search_conditions.join(' OR ')})"
     opts[:conditions] = opts[:conditions].join(" AND ")
     
     # Building the order clause
-    opts[:order] = "CASE WHEN profiles.completeness >= #{COMPLETENESS_THRESHOLD} THEN 0 ELSE 1 END, " +
-                   "CASE WHEN profiles.full_name='' THEN 1 ELSE 0 END, " +
-                   "profiles.full_name, u.id asc;"
+    opts[:order] = "CASE WHEN #{self.table_name}.completeness >= #{COMPLETENESS_THRESHOLD} THEN 0 ELSE 1 END, " +
+                   "CASE WHEN #{self.table_name}.full_name='' THEN 1 ELSE 0 END, " +
+                   "#{self.table_name}.full_name, #{User.table_name}.id asc;"
       
     all opts
   end

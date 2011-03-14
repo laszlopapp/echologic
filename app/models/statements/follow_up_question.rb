@@ -43,17 +43,17 @@ class FollowUpQuestion < StatementNode
     end
 
     def children_joins
-      " LEFT JOIN statements ON statement_nodes.statement_id = statements.id"
+      " LEFT JOIN #{Statement.table_name} ON #{self.table_name}.statement_id = #{Statement.table_name}.id"
     end
 
     def children_conditions(opts)
       parent = StatementNode.find opts[:parent_id]
       conditions = ""
-      conditions << sanitize_sql(["(statements.editorial_state_id = ? OR statement_nodes.creator_id = ?) AND ",
+      conditions << sanitize_sql(["(#{Statement.table_name}.editorial_state_id = ? OR #{self.table_name}.creator_id = ?) AND ",
                                   StatementState['published'].id, opts[:user] ? opts[:user].id : -1])
-      conditions << sanitize_sql(["statement_nodes.type = ? AND
-                                   statement_nodes.root_id = ? AND
-                                   statement_nodes.lft >= ? AND statement_nodes.rgt <= ? ",
+      conditions << sanitize_sql(["#{self.table_name}.type = ? AND
+                                   #{self.table_name}.root_id = ? AND
+                                   #{self.table_name}.lft >= ? AND #{self.table_name}.rgt <= ? ",
                                    self.name, parent.root_id, parent.lft, parent.rgt])
     end
 
