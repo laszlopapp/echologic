@@ -102,6 +102,18 @@ sixth-proposal-doc-english-history:
   author_id: <%= Fixtures.identify(:editor) %>
   action_id: <%= Fixtures.identify('statement_action_created') %>
 
+seventh-proposal-doc-english-history:
+  statement_document_id: <%= Fixtures.identify('seventh-proposal-doc-english') %>
+  statement_id: <%= Fixtures.identify('seventh-proposal-statement') %>
+  author_id: <%= Fixtures.identify(:editor) %>
+  action_id: <%= Fixtures.identify('statement_action_created') %>
+
+eighth-proposal-doc-english-history:
+  statement_document_id: <%= Fixtures.identify('eighth-proposal-doc-english') %>
+  statement_id: <%= Fixtures.identify('eighth-proposal-statement') %>
+  author_id: <%= Fixtures.identify(:editor) %>
+  action_id: <%= Fixtures.identify('statement_action_created') %>
+
 german-proposal-doc-german-history:
   statement_document_id: <%= Fixtures.identify('german-proposal-doc-german') %>
   statement_id: <%= Fixtures.identify('german-proposal-statement') %>

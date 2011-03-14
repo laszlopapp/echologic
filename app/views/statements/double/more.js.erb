@@ -1,13 +1,13 @@
-<% type_plural = @type.underscore.pluralize %>
+<% type_plural = @type.to_s.underscore.pluralize %>
 var statement = $('#statements > #<%=dom_id(@statement_node)%>');
 var double_list = statement.find('.<%= type_plural %> .doubles_list');
 
 <%if @page.to_i == 1 %>
-  panel_height = <%= @children.map{|c| c.total_entries <= 5 ? ((c.total_entries + 1) * 44) : 225}.max %>
+  panel_height = <%= @children[@type].map{|c| c.total_entries <= 5 ? ((c.total_entries + 1) * 44) : 225}.max %>
   resetChildrenList(double_list, {height: panel_height});
 <% end %>
 
-<% @children.each_with_index do |children_group, index| %>
+<% @children[@type].each_with_index do |children_group, index| %>
 
   <% next if children_group.empty? %>
   <% type = @type.to_s.constantize.sub_types[index].to_s.underscore %>
@@ -32,7 +32,7 @@ var double_list = statement.find('.<%= type_plural %> .doubles_list');
 <% end %>
 
 var more_element = statement.find('.<%= type_plural %> .more_pagination');
-var pagination_buttons = "<%= escape_javascript(will_paginate(@children.sort{|a, b| b.length <=> a.length}.first,
+var pagination_buttons = "<%= escape_javascript(will_paginate(@children[@type].sort{|a, b| b.length <=> a.length}.first,
                                                    :class => 'more_pagination',
                                                    :next_label => I18n.t("application.general.more"),
                                                    :renderer => StatementsHelper::MoreRenderer)) %>";

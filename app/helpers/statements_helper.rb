@@ -148,7 +148,7 @@ module StatementsHelper
   # Creates a link to add a new child for the given statement (appears in the SIDEBAR).
   #
   def add_new_child_buttons(statement_node)
-    children_types = statement_node.class.children_types(false, false, true)
+    children_types = statement_node.class.children_types(:default => false, :expand => true)
     return '' if children_types.empty?
     content = ''
     content << content_tag(:div, :class => 'children container') do
@@ -354,7 +354,7 @@ module StatementsHelper
     buttons = ''
     if statement_node and statement_node.new_record?
       %w(prev next).each{|button| buttons << statement_tag(button.to_sym, type, true)}
-      buttons << content_tag(:span, '&nbsp;', :class => 'show_siblings_button disabled')
+      buttons << content_tag(:span, '&nbsp;', :class => 'show_siblings_label disabled')
     else
       buttons << content_tag(:span, '', :class => 'loading', :style => 'display:none')
       %w(prev next).each do |button|
@@ -367,7 +367,6 @@ module StatementsHelper
 
       buttons << siblings_button(statement_node, type, opts)
     end
-
     buttons
   end
 
@@ -388,9 +387,10 @@ module StatementsHelper
                                        :current_node => statement_node)
       end
     end
-    content_tag(:span, '&nbsp;', :class => 'show_siblings_button expandable ttLink no_border',
-                                 :href => url,
-                                 :title => I18n.t("discuss.tooltips.siblings.#{dom_class(statement_node)}"))
+    content_tag(:a, :href => url, :class => 'show_siblings_button expandable', :title => 'show_siblings_button') do
+      content_tag(:span, '&nbsp;', :class => 'show_siblings_label ttLink no_border',
+                                   :title => I18n.t("discuss.tooltips.siblings.#{dom_class(statement_node)}"))
+    end
   end
 
   # Renders the correct prev/next image buttons
@@ -437,9 +437,9 @@ module StatementsHelper
   end
 
   # Renders the "more" link when the statement is loaded
-  def more_children(statement_node,type)
+  def more_children(statement_node,type,page=0)
     link_to I18n.t("application.general.more"),
-            more_statement_node_url(statement_node, :page => 1, :type => type),
+            more_statement_node_url(statement_node, :page => page.to_i+1, :type => type),
             :class => 'more_children ajax'
   end
 

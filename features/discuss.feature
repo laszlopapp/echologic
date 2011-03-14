@@ -40,7 +40,7 @@ Feature: Take Part on a question
       And I am on the Discuss Index
     When I follow "Featured"
     When I follow "echonomyJAM"
-      And I choose the first Question
+      And I choose the "Test Question2?" Question
       And I follow localized "discuss.statements.create_proposal_link"
       And I fill in the following:
         | proposal_statement_document_title | a proposal to propose some proposeworthy proposal data |
@@ -179,6 +179,7 @@ Feature: Take Part on a question
       And I fill in the following:
       | follow_up_question_statement_document_title           | Livin it up      |
       | follow_up_question_statement_document_text            | I love this game |
+      | follow_up_question_topic_tags                         |                  |
       And I press "Save"
     Then I should see "Livin it up"
       And the question should have 0 siblings in session
@@ -201,6 +202,7 @@ Feature: Take Part on a question
       And I fill in the following:
       | follow_up_question_statement_document_title           | Livin it up      |
       | follow_up_question_statement_document_text            | I love this game |
+      | follow_up_question_topic_tags                         |                  |
       And I press "Save"
     Then I should see "Livin it up"
       And the question should have 0 siblings in session
@@ -218,6 +220,7 @@ Feature: Take Part on a question
       And I fill in the following:
       | follow_up_question_statement_document_title           | Livin it up      |
       | follow_up_question_statement_document_text            | I love this game |
+      | follow_up_question_topic_tags                         |                  |
       And I press "Save"
     Then I should see "Livin it up"
       And the question should have 0 siblings in session
@@ -235,6 +238,7 @@ Feature: Take Part on a question
       And I fill in the following:
       | follow_up_question_statement_document_title           | Livin it up      |
       | follow_up_question_statement_document_text            | I love this game |
+      | follow_up_question_topic_tags                         |                  |
       And I press "Save"
     Then I should see "Livin it up"
       And the question should have 0 siblings in session
@@ -365,3 +369,60 @@ Feature: Take Part on a question
       And I go to the proposal
       And I follow localized "discuss.tooltips.incorporate"
     Then I should see "The statement is currently being edited. Please try again later."
+    
+    
+  Scenario: User checks authors from a statement
+    Given I am logged in as "user" with password "true"
+    When I am on the discuss index
+      And I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I follow "Authors"
+    Then I should see "Edi Tor"
+    
+  Scenario: User open a previously closed children's block
+    Given proposals are not immediately loaded on questions
+      And I am logged in as "user" with password "true"
+      And I am on the discuss index
+      And I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question?" Question
+    Then I should not see "Fifth Proposal"
+      And I go to the question
+      And I follow "proposals"
+    Then I should see "Fifth Proposal"
+        
+  Scenario: User opens proposals on another page under a children's block
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+      And I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question?" Question
+    Then I should not see "Eighth Proposal"
+      And I go to the question
+      And I follow localized "application.general.more" within ".proposals"
+      # needed because of the TOP CHILDREN mechanism
+      And I follow localized "application.general.more" within ".proposals"
+    Then I should see "Eighth Proposal"
+    
+  Scenario: User opens question's siblings block
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+      And I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question?" Question
+    Then I should not see "Test Question2?"
+      And I follow "show_siblings_button" within ".header_buttons"
+    Then I should see "Test Question2?"
+  
+  Scenario: User opens proposal's siblings block
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+      And I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question?" Question
+      And I choose the "Second Proposal" Proposal
+    Then I should not see "Eighth Proposal"
+      And I follow "show_siblings_button" within ".header_buttons"
+    Then I should see "Eighth Proposal"
+      

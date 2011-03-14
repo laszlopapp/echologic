@@ -202,7 +202,7 @@ class StatementNode < ActiveRecord::Base
     opts[:parent_id] = self.target_id
     opts[:filter_drafting_state] = self.draftable?
     opts[:type] ||= self.class.children_types.first.to_s
-    type.constantize.count_statements_for_parent(opts)
+    opts[:type].constantize.count_statements_for_parent(opts)
   end
 
   private
@@ -355,16 +355,19 @@ class StatementNode < ActiveRecord::Base
     # default: whether we should take out from or let the default children types in the array
     # expand: whether we should replace a children type for it's sub-types
     #
-    def children_types(visibility = false, default = true, expand = false)
-      children_types = @@children_types[self.name] || @@children_types[self.superclass.name]
-      children_types = children_types - @@default_children_types if !default
-      if expand
+    def children_types(opts={})
+      opts[:visibility] ||= false
+      opts[:default] ||= true
+      opts[:expand] ||= false
+      types = @@children_types[self.name] || @@children_types[self.superclass.name]
+      types = types - @@default_children_types if !opts[:default]
+      if opts[:expand]
         array = []
-        children_types.each{|c| array += c[0].to_s.constantize.sub_types.map{|st|[st, c[1]]} }
-        children_types = array
+        types.each{|c| array += c[0].to_s.constantize.sub_types.map{|st|[st, c[1]]} }
+        types = array
       end
-      return children_types.map{|c|c[0]} if !visibility
-      children_types
+      return types.map{|c|c[0]} if !opts[:visibility]
+      types
     end
 
 
@@ -384,8 +387,6 @@ class StatementNode < ActiveRecord::Base
     def descendants_template
       "statements/descendants"
     end
-
-    #protected
 
     def sub_types
       [self.name.to_sym]

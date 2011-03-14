@@ -317,16 +317,17 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def descendants
-    @type = params[:type].to_s.camelize || @statement_node.class.children_types.first.to_s
+    @type = params[:type].to_s.camelize.to_sym || @statement_node.class.children_types.first
     @current_node = StatementNode.find(params[:current_node]) if params[:current_node]
     if @statement_node
       load_children(@type, 1, -1)
     else
-      @children = load_roots(@current_node,1, -1)
+      load_roots(@current_node,1, -1)
     end
-    @children_documents = search_statement_documents(@children.flatten.map(&:statement_id),@language_preference_list)
+    
     respond_to do |format|
-      format.js { render :template => @type.constantize.descendants_template }
+      format.html{show}
+      format.js { render :template => @type.to_s.constantize.descendants_template }
     end
   end
 
@@ -338,10 +339,11 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def children
-    @type = params[:type].camelize || @statement_node.class.children_types.first.to_s
-    load_top_children(@type)
+    @type = params[:type].camelize.to_sym || @statement_node.class.children_types.first
+    load_top_children @type
     respond_to do |format|
-      format.js { render :template => @type.constantize.children_template }
+      format.html{show}
+      format.js { render :template => @type.to_s.constantize.children_template }
     end
   end
 
@@ -355,13 +357,14 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def more
-    @type = params[:type].camelize || @statement_node.class.children_types.first.to_s
+    @type = params[:type].camelize.to_sym || @statement_node.class.children_types.first
     @page = params[:page] || 1
     @per_page = MORE_CHILDREN
     @offset = @page.to_i == 1 ? TOP_CHILDREN : 0
     load_children @type
     respond_to do |format|
-      format.js {render :template => @type.constantize.more_template}
+      format.html{show}
+      format.js {render :template => @type.to_s.constantize.more_template}
     end
   end
 
@@ -421,7 +424,7 @@ class StatementsController < ApplicationController
 
   def redirect_to_statement
     options = {}
-    %w(origin bids).each{|s| options[s] = params[s]}
+    %w(origin bids).each{|s| options[s.to_sym] = params[s.to_sym]}
     redirect_to statement_node_url(@statement_node.target_statement, options)
   end
 
@@ -446,23 +449,25 @@ class StatementsController < ApplicationController
   # Loads the children of the current statement, storing them in an hash by type
   #
   def load_all_children
-    @children = {}
-    children_types = @statement_node.class.children_types(true).transpose
+    @children ||= {}
+    children_types = @statement_node.class.children_types(:visibility => true).transpose
     if !children_types.empty?
       types = children_types[0]
-      @children_documents = {}
+      @children_documents ||= {}
       types.each_with_index do |type, index|
         immediate_render = children_types[1][index]
-        if immediate_render
-          @children[type] = @statement_node.get_paginated_child_statements(:language_ids => @language_preference_list,
-                                                                           :type => type.to_s,
-                                                                           :user => current_user)
-          @children_documents.merge!(search_statement_documents(@children[type].flatten.map(&:statement_id),
-                                                                @language_preference_list))
-        else
-          @children[type] = @statement_node.count_child_statements :language_ids => @language_preference_list,
-                                                                   :user => current_user,
-                                                                   :type => type.to_s
+        if @children[type].nil?
+          if immediate_render
+            @children[type] ||= @statement_node.get_paginated_child_statements(:language_ids => @language_preference_list,
+                                                                             :type => type.to_s,
+                                                                             :user => current_user)
+            @children_documents.merge!(search_statement_documents(@children[type].flatten.map(&:statement_id),
+                                                                  @language_preference_list))
+          else
+            @children[type] ||= @statement_node.count_child_statements :language_ids => @language_preference_list,
+                                                                       :user => current_user,
+                                                                       :type => type.to_s
+          end
         end
       end
     end
@@ -476,12 +481,13 @@ class StatementsController < ApplicationController
   # Loads the children of the current statement from a certain type
   #
   def load_children(type, page = @page, per_page = @per_page)
-    @children = @statement_node.get_paginated_child_statements(:language_ids => @language_preference_list,
-                                                               :type => type.to_s,
-                                                               :user => current_user,
-                                                               :page => page,
-                                                               :per_page => per_page)
-    @children_documents = search_statement_documents(@children.flatten.map(&:statement_id),
+    @children = {}
+    @children[type] = @statement_node.get_paginated_child_statements(:language_ids => @language_preference_list,
+                                                                     :type => type.to_s,
+                                                                     :user => current_user,
+                                                                     :page => page,
+                                                                     :per_page => per_page)
+    @children_documents = search_statement_documents(@children[type].flatten.map(&:statement_id),
                                                      @language_preference_list)
   end
 
@@ -857,7 +863,11 @@ class StatementsController < ApplicationController
       roots
     end
     per_page = per_page == -1 ? roots.length : per_page
-    roots.paginate :page => page, :per_page => per_page
+    @children = {}
+    type = @previousNode || @current_node.class.name
+    @children[type.to_sym] = roots.paginate :page => page, :per_page => per_page
+    
+    @children_documents = search_statement_documents(@children[type.to_sym].flatten.map(&:statement_id),@language_preference_list)
   end
 
 

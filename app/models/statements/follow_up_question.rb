@@ -28,8 +28,8 @@ class FollowUpQuestion < StatementNode
   #################################################
 
   class << self
-    def children_types(visibility = false, default = true, expand = false)
-      Question.children_types(visibility, default, expand)
+    def children_types(opts={})
+      Question.children_types(opts)
     end
 
     def new_instance(attributes = nil)

@@ -1,3 +1,5 @@
+require 'flexmock/test_unit'
+
 Given /^there are no questions$/ do
   Question.destroy_all
 end
@@ -210,6 +212,7 @@ Then /^there should be a "([^\"]*)" breadcrumb$/ do |title|
   response.should have_selector("#breadcrumbs span.statement") do |selector|
     result = false
     selector.each do |breadcrumb|
+      puts breadcrumb.inner_text.strip
       if title.eql?(breadcrumb.inner_text.strip)
         result = true
         break
@@ -217,4 +220,10 @@ Then /^there should be a "([^\"]*)" breadcrumb$/ do |title|
     end
     assert result
   end
+end
+
+
+Given /^([^\"]*) are not immediately loaded on ([^\"]*)$/ do |child_type, parent_type|
+  flexmock(parent_type.singularize.classify.constantize).should_receive(:children_types).with({:visibility => true}).and_return([[child_type.singularize.classify.to_sym, false]])
+  flexmock(parent_type.singularize.classify.constantize).should_receive(:children_types).and_return([child_type.singularize.classify.to_sym])
 end

@@ -845,7 +845,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* Prev/Next Statement buttons */
 /*******************************/
 
-.header_buttons .prev_stmt, .header_buttons .next_stmt, .header_buttons .show_siblings_button {
+.header_buttons .prev_stmt, .header_buttons .next_stmt, .header_buttons .show_siblings_label {
   display: inline-block;
   width: 37px;
   height: 39px;
@@ -861,7 +861,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   background:  url(../images/page/prev_next_buttons.png) no-repeat scroll -37px -117px;
 }
 
-.header_buttons .show_siblings_button {
+.header_buttons .show_siblings_label {
   background:  url(../images/page/prev_next_buttons.png) no-repeat scroll -74px -117px;
   position: relative;
   left: -5px;
@@ -877,7 +877,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   cursor: pointer;
 }
 
-.header:hover .show_siblings_button, .header.active .show_siblings_button {
+.header:hover .show_siblings_label, .header.active .show_siblings_label {
 	background-position: -74px 0;
   cursor: pointer;
 }
@@ -890,7 +890,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   background-position: -37px -39px;
 }
 
-.header:hover .show_siblings_button:hover {
+.header:hover .show_siblings_label:hover {
   background-position: -74px -39px;
 }
 
@@ -1431,7 +1431,10 @@ form.statement fieldset ol li.tags_container {
 
 .expandable {
   cursor: pointer;
-  position: relative;
+}
+
+.expandable .headline {
+	position: relative;
 }
 
 .expandable .expand_icon {
@@ -1440,10 +1443,10 @@ form.statement fieldset ol li.tags_container {
   height: 7px;
   position: absolute;
   right: 13px;
-  top: 18px;
+  top: 12px;
 }
 
-.headline.expandable .expand_icon {
+.expandable .headline .expand_icon {
   right: 15px;
   top: 12px;
 }
