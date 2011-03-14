@@ -46,7 +46,6 @@ function initFragmentStatementChange() {
 		if ($.fragment().sids) {
 			var sids = $.fragment().sids;
 			var new_sids = sids.split(",");
-
 			var path = "/" + new_sids[new_sids.length-1];
 
 
