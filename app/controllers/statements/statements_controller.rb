@@ -622,7 +622,7 @@ class StatementsController < ApplicationController
     #[id, classes, url, title, label, over]
     @breadcrumb = ["fq#{parent_node.id}",
                    "statement statement_link #{parent_node.class.name.underscore}_link",
-                   statement_node_url(parent_node, :origin => params[:origin]),
+                   statement_node_url(parent_node, :bids => params[:bids], :origin => params[:origin]),
                    statement_document.title.gsub(/\\;/, ','),
                    I18n.t("discuss.statements.breadcrumbs.labels.fq"),
                    I18n.t("discuss.statements.breadcrumbs.labels.over.fq")]
@@ -652,7 +652,7 @@ class StatementsController < ApplicationController
                                             statement_node.document_in_original_language
                           ["fq#{bid[2..-1]}",
                           "statement statement_link #{statement_node.class.name.underscore}_link",
-          statement_node_url(statement_node, :origin => params[:origin]), statement_document.title]
+          statement_node_url(statement_node, :bids => params[:bids], :origin => params[:origin]), statement_document.title]
       end
       breadcrumb << label
       breadcrumb << over
