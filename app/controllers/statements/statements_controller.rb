@@ -96,7 +96,10 @@ class StatementsController < ApplicationController
     @action ||= StatementAction["created"]
 
     #search terms as tags
-    loadSearchTermsAsTags(params[:origin]) if @statement_node.taggable? and params[:origin]
+    if @statement_node.taggable?
+      @statement_node.load_root_tags if @statement_node.class.is_top_statement?
+      loadSearchTermsAsTags(params[:origin]) if params[:origin]
+    end
 
     # set new breadcrumb
     if @statement_node.class.is_top_statement? and !params[:new_level].blank?

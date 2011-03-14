@@ -147,6 +147,8 @@ class StatementNode < ActiveRecord::Base
   def document_in_original_language
     document_in_language(original_language)
   end
+  
+  
 
   #####################
   # CHILDREN/SIBLINGS #
