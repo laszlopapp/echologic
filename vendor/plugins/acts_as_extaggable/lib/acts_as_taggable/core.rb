@@ -30,6 +30,9 @@ module ActsAsTaggable::Taggable
           def #{tag_type}_tags
             tag_list_on('#{tags_type}')
           end
+          def hash_#{tag_type}_tags
+            hash_tag_list_on('#{tags_type}')
+          end
           def #{tag_type}_tags_hash
             tag_list_hash_on('#{tags_type}')
           end
@@ -150,10 +153,10 @@ module ActsAsTaggable::Taggable
         !instance_variable_get(variable_name).nil?
       end
       
-      def tag_list_cache_on(context)
+      def tag_list_cache_on(context, type = '', opts = {})
         context_sing = context.to_s.singularize
-        variable_name = "@#{context_sing}_list"
-        instance_variable_get(variable_name) || instance_variable_set(variable_name, ActsAsTaggable::TagList.new(tags_on(context_sing).map(&:value)))
+        variable_name = (type.empty? ? '@' : "@#{type}_") + "#{context_sing}_list"
+        instance_variable_get(variable_name) || instance_variable_set(variable_name, ActsAsTaggable::TagList.new(tags_on(context_sing, opts).map(&:value)))
       end
       
       def tag_list_hash_cache_on(context)
@@ -169,6 +172,11 @@ module ActsAsTaggable::Taggable
       def tag_list_on(context)
         add_custom_context(context)
         tag_list_cache_on(context)
+      end
+      
+      def hash_tag_list_on(context)
+        add_custom_context(context)
+        tag_list_cache_on(context, 'hash', :conditions => "#{Tag.table_name}.value LIKE '#%'")
       end
       
       def tag_list_hash_on(context)
@@ -205,8 +213,9 @@ module ActsAsTaggable::Taggable
       
       ##
       # Returns all tags that are not owned of a given context
-      def tags_on(context)
-        tags.where(["#{TaoTag.table_name}.context_id = ?", EnumKey.find_by_type_and_code('TagContext',context)]).all
+      def tags_on(context, opts={})
+        conditions = opts[:conditions].nil? ? '' : "#{opts[:conditions ]} AND "
+        tags.where(["#{conditions}#{TaoTag.table_name}.context_id = ?", EnumKey.find_by_type_and_code('TagContext',context)]).all
       end
       
       def set_tag_list_on(context, new_list)
