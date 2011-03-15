@@ -1,14 +1,14 @@
 require 'singleton'
-  
+
 class SocialService
   include Singleton
-  
+
   attr_accessor :service, :social_providers
-  
+
   def initialize
   end
-  
-  
+
+
   def get_user(token)
     profile_info = get_profile_info(token)
     return nil if profile_info.blank?
@@ -16,23 +16,30 @@ class SocialService
     user = User.find_by_social_identifier(identifier)
     return user
   end
+
   def get_profile_info(token)
     @service.get_profile_info(token)
   end
+
   def get_user_data(identifier)
     @service.get_user_data(identifier)
   end
+
   def mappings(primary_key)
     @service.mappings(primary_key)
   end
+
   def map(identifier, key)
     @service.map(identifier, key)
   end
+
   def unmap(identifier, key)
     @service.unmap(identifier, key)
   end
+
+
   def share_activities(providers, opts={})
-    
+
     providers_reached = []
     threads = []
     providers.each do |provider, social_identifier|
@@ -47,6 +54,8 @@ class SocialService
     end
     providers_reached
   end
+
+
   def share_activity(identifier, activity)
     begin
       @service.activity(identifier, activity)
@@ -58,13 +67,19 @@ class SocialService
       true
     end
   end
+
+
   def get_provider_signup_url(provider, token_url)
     @service.get_provider_signup_url(provider, token_url)
   end
+
+
   def load_basic_profile_options(profile_info)
-    {:email => profile_info['verifiedEmail']||profile_info['email'], 
-     :full_name => profile_info['preferredUsername']||profile_info['displayName']}
+    {:email => profile_info['verifiedEmail'] || profile_info['email'],
+     :full_name => profile_info['displayName'] || profile_info['preferredUsername']}
   end
+
+
   private
   def create_activity(providerName, attrs={})
     opts = attrs.clone
@@ -78,12 +93,12 @@ class SocialService
       opts[:action_links] ||= []
       opts[:action_links] << {:text => al, :href => opts[:url]}
     end
-    
+
     opts[:action] += " #{opts[:url]}" if !providerName.eql?('twitter')
     opts[:user_generated_content] = opts[:action]
-    
+
     opts[:action] = "made an echo" if providerName.eql?('facebook')
-    
+
     #TAG TEST
     opts[:url] += " #test" if providerName.eql?('twitter')
     opts.to_json
