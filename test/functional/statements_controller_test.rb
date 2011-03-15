@@ -159,7 +159,7 @@ class StatementsControllerTest < ActionController::TestCase
         :topic_tags => "" }
     end
   end
-  
+
   test "shoud create proposal" do
     assert_difference('Proposal.count', 1) do
       post :create, :type => "Proposal", :echo => true,
@@ -171,7 +171,7 @@ class StatementsControllerTest < ActionController::TestCase
         :parent_id => statement_nodes('test-question').to_param }
     end
   end
-  
+
   test "should create improvement" do
     assert_difference('Improvement.count', 1) do
       post :create, :type => "Improvement", :echo => true,
@@ -252,7 +252,7 @@ class StatementsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:children_documents)
     assert_response :success
   end
-  
+
   test "should get statement's descendants" do
     get :descendants, :id => statement_nodes('test-question').to_param, :type => "proposal"
     assert_not_nil assigns(:children)
@@ -276,25 +276,25 @@ class StatementsControllerTest < ActionController::TestCase
     assert assigns(:statement_ids).include?(statement_nodes('first-proposal').to_param.to_i)
     assert_response :success
   end
-  
-  
+
+
   ########################
   # SOCIAL SHARING TESTS #
   ########################
-  
+
   test "should not get social widget bcuz im not a supporter of this statement" do
     get :social_widget, :id => statement_nodes('test-question').to_param
     assert assigns(:info).eql?(I18n.t("discuss.statements.supporter_to_share"))
     assert_response :success
   end
-  
+
   test "should get social widget" do
     statement_nodes('test-question').supported!(users(:editor))
     get :social_widget, :id => statement_nodes('test-question').to_param
     assert assigns(:proposed_url).eql?("http://#{ECHO_HOST}/test-question")
     assert_response :success
   end
-  
+
   test "should not share bcuz i'm not a supporter of this statement" do
     assert_difference('ShortcutUrl.count', 0) do
       post :share, {:id => statement_nodes('test-question').to_param,
@@ -305,7 +305,7 @@ class StatementsControllerTest < ActionController::TestCase
       assert assigns(:info).eql?(I18n.t("discuss.statements.supporter_to_share"))
     end
   end
-  
+
   test "should share message to twitter and facebook account" do
     statement_nodes('test-question').supported!(users(:editor))
     assert_difference('ShortcutUrl.count', 1) do
@@ -314,26 +314,26 @@ class StatementsControllerTest < ActionController::TestCase
                     :text => "i would like to make an echo"
                     }
       assert_not_nil assigns(:shortcut_url)
-      assert assigns(:shortcut_url).shortcut.eql?("test-question") 
+      assert assigns(:shortcut_url).shortcut.eql?("test-question")
       assert assigns(:providers_success).include?('facebook')
       assert assigns(:providers_success).include?('twitter')
       assert assigns(:providers_failed).empty?
     end
   end
-  
-  test "should share message to twitter and facebook account, but fail to share to linked_in" do
+
+  test "should share message to twitter and facebook account, but fail to share to linkedin" do
     statement_nodes('test-question').supported!(users(:editor))
     assert_difference('ShortcutUrl.count', 1) do
       post :share, {:id => statement_nodes('test-question').to_param,
-                    :providers => {'facebook' => 'enabled', 'twitter' => 'enabled', 'linked_in' => 'enabled'},
+                    :providers => {'facebook' => 'enabled', 'twitter' => 'enabled', 'linkedin' => 'enabled'},
                     :text => "i would like to make an echo"
                     }
       assert_not_nil assigns(:shortcut_url)
-      assert assigns(:shortcut_url).shortcut.eql?("test-question") 
+      assert assigns(:shortcut_url).shortcut.eql?("test-question")
       assert assigns(:providers_success).include?('facebook')
       assert assigns(:providers_success).include?('twitter')
-      assert assigns(:providers_failed).include?('linked_in')
+      assert assigns(:providers_failed).include?('linkedin')
     end
   end
-  
+
 end
