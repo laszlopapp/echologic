@@ -40,7 +40,7 @@ function loadProfileEditForm() {
 
 function initEchoAccountButtons() {
 	var container = $('#echo_account_settings');
-	$('#echo_account_settings').find('a.header').live('click', function(){
+	container.find('a.header').live('click', function(){
 		var button = $(this);
 		if (!$(this).hasClass('active')) {
 			var content = container.children('.content');
@@ -49,13 +49,14 @@ function initEchoAccountButtons() {
 				url: button.attr('href'),
 				type: 'get',
 				dataType: 'script',
-				success: function(){
+				success: function() {
 					button.addClass('active').siblings().removeClass('active');
 
-					if (content) {
+					if (content.length > 0) {
 					  content.replaceWith(container.children(':last').show());
 					} else {
-						container.children('.content').animate(toggleParams, 500);
+						container.find('.content').show();
+            $.scrollTo('#echo_account_settings', 500);
 					}
 				},
 				error: function(){
