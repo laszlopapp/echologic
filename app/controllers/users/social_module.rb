@@ -20,8 +20,7 @@ module Users::SocialModule
           SocialService.instance.map(profile_info['identifier'], @user.id)
           later_call_with_info(redirect_url, setup_basic_profile_url(@user.perishable_token))
         else
-          @user.social_identifiers.each {|id| set_error(id)} if !@user.social_identifiers.blank?
-          later_call_with_error(redirect_url, signup_url, @user)
+          later_call_with_error(redirect_url, signup_url, @user.social_identifiers.first)
         end
       end
     rescue Exception => e

@@ -1,13 +1,18 @@
 <% statement_node ||= @statement_node %>
+<% statement_type = statement_node.class.name %>
 <% only_header ||= false %>
 <% hide_content ||= false %>
 <% content_tag :div,
                :class => "header #{only_header ? (hide_content ? 'expandable active' : 'expandable') : 'active'}",
                :href => only_header ? statement_node_url(statement_node,
                                                          :expand => true) : nil do %>
-  <%= content_tag :div, navigation_buttons(statement_node,dom_class(statement_node),
-                                           :origin => params[:origin]),
-                  :class => 'header_buttons'%>
+  <% content_tag :div, :class => 'header_buttons' do %>
+	 <%= navigation_buttons statement_node, dom_class(statement_node), :origin => params[:origin] %>
+	 
+	 <%= render :partial => "statements/descendants", 
+              :locals => {:type => dom_class(statement_node), :display => true,
+              :children => @children[statement_type.to_sym]} if @children and @children[statement_type.to_sym] %>
+	<% end %>
 	<% content_tag :div, :class => 'header_link'  do %>
 		<%= statement_node_context_link(statement_node, @language_preference_list,
                                     (!only_header ? 'current' : 'back_to'), !only_header) %>

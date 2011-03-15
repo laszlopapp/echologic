@@ -5,7 +5,7 @@ test-question:
   statement_id: <%= Fixtures.identify('test-question-statement') %>
   echo_id: <%= Echo.create.id %>
   lft: 1
-  rgt: 16
+  rgt: 20
 
 test-question-2:
   root_id: <%= Fixtures.identify('test-question-2') %>
@@ -23,7 +23,7 @@ german-question:
   statement_id: <%= Fixtures.identify('third-question-statement') %>
   echo_id: <%= Echo.create.id %>
   lft: 1
-  rgt: 8
+  rgt: 4
 
 original-language-question:
   root_id: <%= Fixtures.identify('original-language-question') %>
@@ -41,8 +41,8 @@ second-question:
   creator_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('second-question-statement') %>
   echo_id: <%= Echo.create.id %>
-  lft: 1
-  rgt: 4
+  #lft: 1
+  #rgt: 4
 
 with-german-children-question:
   root_id: <%= Fixtures.identify('with-german-children-question') %>
@@ -88,8 +88,8 @@ second-proposal:
   creator_id: <%= Fixtures.identify(:user) %>
   statement_id: <%= Fixtures.identify('second-proposal-statement') %>
   echo_id: <%= Echo.create.id %>
-  lft: 8
-  rgt: 9
+  lft: 10
+  rgt: 11
 
 third-proposal:
   root_id: <%= Fixtures.identify('test-question') %>
@@ -98,8 +98,8 @@ third-proposal:
   creator_id: <%= Fixtures.identify(:user) %>
   statement_id: <%= Fixtures.identify('third-proposal-statement') %>
   echo_id: <%= Echo.create.id %>
-  lft: 10
-  rgt: 11
+  lft: 12
+  rgt: 13
 
 inbetween-proposal:
   root_id: <%= Fixtures.identify('test-question') %>
@@ -118,8 +118,8 @@ fourth-proposal:
   creator_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('fourth-proposal-statement') %>
   echo_id: <%= Echo.create.id %>
-  lft: 14
-  rgt: 15
+  lft: 16
+  rgt: 17
 
 fifth-proposal:
   root_id: <%= Fixtures.identify('test-question') %>
@@ -128,8 +128,8 @@ fifth-proposal:
   creator_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('fifth-proposal-statement') %>
   echo_id: <%= Echo.create.id %>
-  lft: 6
-  rgt: 7
+  lft: 8
+  rgt: 9
 
 sixth-proposal:
   root_id: <%= Fixtures.identify('test-question') %>
@@ -158,8 +158,8 @@ second-german-proposal:
   creator_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('second-german-proposal-statement') %>
   echo_id: <%= Echo.create.id %>
-  lft: 2
-  rgt: 3
+  #lft: 2
+  #rgt: 3
 
 not-published-proposal:
   root_id: <%= Fixtures.identify('test-question') %>
@@ -168,8 +168,8 @@ not-published-proposal:
   creator_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('not-published-proposal-statement') %>
   echo_id: <%= Echo.create.id %>
-  lft: 12
-  rgt: 13
+  lft: 14
+  rgt: 15
 
 german-child-proposal:
   root_id: <%= Fixtures.identify('with-german-children-question') %>
@@ -191,6 +191,26 @@ english-child-proposal:
   lft: 2
   rgt: 3
   
+seventh-proposal:
+  root_id: <%= Fixtures.identify('test-question') %>
+  parent_id: <%= Fixtures.identify('test-question') %>
+  type: Proposal
+  creator_id: <%= Fixtures.identify(:editor) %>
+  statement_id: <%= Fixtures.identify('seventh-proposal-statement') %>
+  echo_id: <%= Echo.create.id %>
+  lft: 6
+  rgt: 7
+
+eighth-proposal:
+  root_id: <%= Fixtures.identify('test-question') %>
+  parent_id: <%= Fixtures.identify('test-question') %>
+  type: Proposal
+  creator_id: <%= Fixtures.identify(:editor) %>
+  statement_id: <%= Fixtures.identify('eighth-proposal-statement') %>
+  echo_id: <%= Echo.create.id %>
+  lft: 18
+  rgt: 19
+
 
 first-impro-proposal:
   root_id: <%= Fixtures.identify('test-question-2') %>  

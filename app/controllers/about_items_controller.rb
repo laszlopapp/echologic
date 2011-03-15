@@ -12,7 +12,7 @@ class AboutItemsController < AdminController
 
   active_scaffold :about_items do |config|
     config.label = "About items"
-    config.columns = [:about_category_id, :photo, :name, :responsibility, :description, :index]
+    config.columns = [:about_category_id, :photo, :name, :responsibility, :description, :url, :index]
     list.sorting = [{:about_category_id => 'DESC'}, {:index => 'ASC'}]
     config.columns[:about_category_id].form_ui = :select
     config.columns[:about_category_id].options[:options] = AboutCategory.all.map{|c|[c.value, c.id]}

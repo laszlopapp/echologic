@@ -41,11 +41,27 @@ google:
   description: 'Today just you. Tomorrow the world'
   about_category_id: <%= Fixtures.identify(:about_category_technology_partners) %>
   index: 1
+  url: http://www.google.com
 microsoft:
   name: 'Microsoft Inc.'
   description: 'We suck. Really, we do'
   about_category_id: <%= Fixtures.identify(:about_category_technology_partners) %>
   index: 2
+  url: http://www.microsoft.com
+
+north_korea:
+  name: 'North Korea Inc.'
+  description: 'ROONERYY!!!! IM SO ROOOONERYYYY!!!!'
+  about_category_id: <%= Fixtures.identify(:about_category_strategic_partners) %>
+  index: 1
+  url: http://www.north-korea.com
+ussr:
+  name: 'Mother Russia Inc.'
+  description: 'Zeee Ruzzianz vill teike ôva di wold'
+  about_category_id: <%= Fixtures.identify(:about_category_strategic_partners) %>
+  index: 2
+  url: http://www.ussr.com
+
 
 federal_reserve_bank:
   name: 'Federal Reserve Bank'

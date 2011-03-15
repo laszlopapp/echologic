@@ -116,6 +116,21 @@ sixth-proposal-doc-english:
   language_id: <%= Fixtures.identify('language_en') %>
   statement_id: <%= Fixtures.identify('sixth-proposal-statement') %>
   current: 1
+
+seventh-proposal-doc-english:
+  title: 'Seventh Proposal'
+  text: 'I think we should have a seventh proposal as well!'
+  language_id: <%= Fixtures.identify('language_en') %>
+  statement_id: <%= Fixtures.identify('seventh-proposal-statement') %>
+  current: 1
+
+eighth-proposal-doc-english:
+  title: 'Eighth Proposal'
+  text: 'I think we should have an eighth proposal as well!'
+  language_id: <%= Fixtures.identify('language_en') %>
+  statement_id: <%= Fixtures.identify('eighth-proposal-statement') %>
+  current: 1
+
   
 german-proposal-doc-german:
   title: 'Vorschlag auf Deutsch'

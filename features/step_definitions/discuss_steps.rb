@@ -218,3 +218,9 @@ Then /^there should be a "([^\"]*)" breadcrumb$/ do |title|
     assert result
   end
 end
+
+
+Given /^([^\"]*) are not immediately loaded on ([^\"]*)$/ do |child_type, parent_type|
+  flexmock(parent_type.singularize.classify.constantize).should_receive(:children_types).with({:visibility => true}).and_return([[child_type.singularize.classify.to_sym, false]])
+  flexmock(parent_type.singularize.classify.constantize).should_receive(:children_types).and_return([child_type.singularize.classify.to_sym])
+end

@@ -29,8 +29,12 @@ class Users::ActivationsController < ApplicationController
     User.transaction do
       if @user.nil?
         redirect_or_render_with_error(root_path, "users.activation.messages.no_account")
+      elsif params[:user].delete(:agreement).nil?
+        redirect_or_render_with_error(root_path, "users.activation.messages.no_agreement")
       elsif @user.active?
         redirect_or_render_with_error(root_path, "users.activation.messages.already_active")
+      elsif params[:user][:full_name].try(:strip).blank?
+        redirect_or_render_with_error(root_path, "users.activation.messages.no_full_name")
       else
         if @user.email or @user.has_verified_email? params[:user][:email] # given email is a verified email, therefore, no activation is needed
           if @user.activate!(params[:user]) and @user.profile.save # so that the name persists

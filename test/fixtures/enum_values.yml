@@ -303,3 +303,10 @@ financial_partners_<%= code %>:
   value: <%= value %>
   context:
 <% end %>
+<% {'en' => "Strategic Partners",'de' => "Strategische Partner",'fr'=> "Partenaires Stratégiques",'pt' => "Parceiros Estratégicos",'es' => "Colaboradores Estratégicos"}.each_pair do |code,value| %>
+strategic_partners_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:about_category_strategic_partners) %>
+  code: <%= code %>
+  value: <%= value %>
+  context:
+<% end %>
