@@ -15,13 +15,13 @@ class Users::UserSessionsController < ApplicationController
   # TODO use redirect back or default! see application controller!
   def create
     redirect_url = session[:redirect_url] || root_path
-    
+
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
-      # if the user failed to log in with a social account just previously, 
+      # if the user failed to log in with a social account just previously,
     # this will be added as the user logs in with its' echo account
       add_social_to_user(User.find_by_email(params[:user_session][:email])) if session[:identifier]
-      
+
       redirect_with_info(redirect_url, 'users.signin.messages.success')
     else
       later_call_with_error(redirect_url, signin_path, 'users.signin.messages.failed')
@@ -31,13 +31,17 @@ class Users::UserSessionsController < ApplicationController
   def create_social
     redirect_url = session[:redirect_url] || root_path
     profile_info = SocialService.instance.get_profile_info(params[:token])
-    user = profile_info['primaryKey'].nil? ? User.find_by_social_identifier(profile_info['identifier']) : User.find(profile_info['primaryKey']) 
-    
+    user = profile_info['primaryKey'].nil? ? User.find_by_social_identifier(profile_info['identifier']) : User.find(profile_info['primaryKey'])
+
     if user.nil?
       session[:identifier] = profile_info.to_json
       later_call_with_error(redirect_url, signin_path, 'users.signin.messages.failed_social')
     else
-      user.identified_by?(profile_info['identifier']).update_attribute(:profile_info, profile_info.to_json)
+      if social = user.identified_by?(profile_info['identifier'])
+        social.update_attribute(:profile_info, profile_info.to_json)
+      else
+        user.add_social_identifier( profile_info['identifier'], profile_info['providerName'], profile_info.to_json )
+      end
       if user.active? # user was already actived, i.e. he has an email account defined
         @user_session = UserSession.new(user)
         if @user_session.save
@@ -58,13 +62,13 @@ class Users::UserSessionsController < ApplicationController
     set_info 'users.signout.messages.success'
     flash_info and redirect_to root_path
   end
-  
+
   protected
   def add_social_to_user(user)
     profile_info = JSON.parse(session[:identifier])
-    social_identifier =  SocialIdentifier.create(:identifier => profile_info['identifier'], 
+    social_identifier =  SocialIdentifier.create(:identifier => profile_info['identifier'],
                                                  :provider_name => profile_info['providerName'],
-                                                 :profile_info => session[:identifier], 
+                                                 :profile_info => session[:identifier],
                                                  :user => user)
     session.delete(:identifier)
     SocialService.instance.map(social_identifier.identifier, user.id)

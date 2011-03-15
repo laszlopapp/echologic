@@ -22,40 +22,58 @@ class Users::ActivationsController < ApplicationController
   end
 
 
-
+  #
+  # We arrive here from setup basic profile form or via following the activation link sent by an Email.
+  #
   def create
     @user = User.find_by_perishable_token(params[:activation_code], 1.week)
 
     User.transaction do
+
+      via_form = params.has_key?(:user)
+
       if @user.nil?
         redirect_or_render_with_error(root_path, "users.activation.messages.no_account")
-      elsif params[:user].delete(:agreement).nil?
-        redirect_or_render_with_error(root_path, "users.activation.messages.no_agreement")
-      elsif @user.active?
-        redirect_or_render_with_error(root_path, "users.activation.messages.already_active")
-      elsif params[:user][:full_name].try(:strip).blank?
-        redirect_or_render_with_error(root_path, "users.activation.messages.no_full_name")
-      else
-        if @user.email or @user.has_verified_email? params[:user][:email] # given email is a verified email, therefore, no activation is needed
-          if @user.activate!(params[:user]) and @user.profile.save # so that the name persists
-            UserSession.create(@user, false)
-            @user.deliver_activation_confirmation!
-            redirect_with_info(root_path, 'users.activation.messages.success')
-          else
-            set_error 'users.activation.messages.failed'
-            redirect_or_render_with_error(root_path, @user)
-          end
-        else # given email is not verified, therefore, send activation email
-          if !params[:user][:email].blank? and @user.signup!(params[:user]) and @user.profile.save
-            @user.deliver_activate!
-            redirect_or_render_with_info(root_path, 'users.users.messages.created') do |page|
-              page << "$('#dialogContent').dialog('close');"
-            end
-          else
-            set_error 'users.activation.messages.failed'
-            later_call_with_error(request.referer, signup_url, @user)
-          end
+        return
+      elsif via_form # Coming from setup basic profile form
+        if params[:user].delete(:agreement).nil?
+          redirect_or_render_with_error(root_path, "users.activation.messages.no_agreement")
+          return
+        elsif params[:user][:full_name].try(:strip).blank?
+          redirect_or_render_with_error(root_path, "users.activation.messages.no_full_name")
+          return
         end
+      end
+      if @user.active?
+        redirect_or_render_with_error(root_path, "users.activation.messages.already_active")
+        return
+      end
+
+      if (!via_form and @user.email) or @user.social_identifiers.empty? or @user.has_verified_email? params[:user][:email]
+
+        # Given email is a verified email, therefore, no activation is needed
+        if @user.activate!(params[:user]) and @user.profile.save # so that the name persists
+          UserSession.create(@user, false)
+          @user.deliver_activation_confirmation!
+          redirect_with_info(my_profile_path, 'users.activation.messages.success')
+        else
+          set_error 'users.activation.messages.failed'
+          redirect_or_render_with_error(root_path, @user)
+        end
+
+      else
+
+        # via_form === true, given email is not verified, therefore, send activation email
+        if !params[:user][:email].blank? and @user.signup!(params[:user]) and @user.profile.save
+          @user.deliver_activate!
+          redirect_or_render_with_info(root_path, 'users.users.messages.created') do |page|
+            page << "$('#dialogContent').dialog('close');"
+          end
+        else
+          set_error 'users.activation.messages.failed'
+          later_call_with_error(request.referer, signup_url, @user)
+        end
+
       end
     end
   end
