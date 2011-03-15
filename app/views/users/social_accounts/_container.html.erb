@@ -7,7 +7,7 @@
 		<% social_providers = SocialService.instance.social_providers %>
 		<li>
       <% social_providers.each do |social_provider| %>
-				<%= content_tag :span, I18n.t("users.social_accounts.providers.#{social_provider}"), :class => 'social_label' %>
+				<%= content_tag :span, I18n.t("users.social_accounts.providers.#{social_provider}"), :class => "social_label #{social_provider}" %>
 			<% end %>
     </li>
 		<li>

@@ -3,8 +3,10 @@
 	<div class="guide">
     <%= I18n.t("users.echo_account.delete_account.guide") %>
   </div>
-	<% link_to url_for(:controller => "users/users", :action => "destroy_account"), :id => 'destroy_account',
-             :method => :delete, :confirm => I18n.t("users.echo_account.delete_account.last_confirm") do %>
-	   <%= content_tag :span, I18n.t("users.echo_account.delete_account.confirm"), :class => 'button_150' %>
-	<% end %>
+	<%= link_to I18n.t("users.echo_account.delete_account.confirm"),
+             url_for(:controller => "users/users",
+                     :action => "destroy_account"),
+             :id => 'destroy_account',
+             :class => 'button big_red_button big_red_button_300',
+             :method => :delete %>
 </div>

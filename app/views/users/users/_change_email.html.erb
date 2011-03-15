@@ -1,14 +1,21 @@
 <% style ||= "" %>
 <div class="content change_email" style="<%= style %>">
 	<div class="guide">
-    <%= I18n.t("users.echo_account.change_email.guide") %>
+    <%= I18n.t("users.echo_account.change_email.guide", :email => current_user.email) %>
   </div>
-	<% form_for current_user, :url => url_for(:controller => "users/users", :action => "update_email"), :method => :put, :html => {:class => 'ajax_form echoForm'} do |f| %>
-	   <%= f.label I18n.t('application.general.email') %><br />
-     <%= f.text_field :email %><br /><br />
-		 <%= f.label I18n.t('application.general.email_confirmation') %><br />
-     <%= f.text_field :email_confirmation %><br />
-		 <br /><br />
+	<% form_for current_user,
+              :url => url_for(:controller => "users/users",
+                              :action => "update_email"),
+              :method => :put,
+              :html => {:class => 'ajax_form echoForm'} do |f| %>
+     <p>
+       <%= f.label I18n.t('application.general.email') %><br/>
+       <%= f.text_field :email, :value => '' %>
+     </p>
+	   <p>
+       <%= f.label I18n.t('application.general.email_confirmation') %><br/>
+       <%= f.text_field :email_confirmation %>
+	   </p>
     <%= f.submit I18n.t('application.general.ok'), :class => 'signupButton formButton200' %>
 	<% end %>
 </div>

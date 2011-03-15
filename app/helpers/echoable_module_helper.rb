@@ -82,32 +82,33 @@ module EchoableModuleHelper
                 'data-not-supported' => I18n.t("discuss.statements.#{statement_node.class.support_tag}_link"),
                 'data-supported' => I18n.t("discuss.statements.#{statement_node.class.unsupport_tag}_link"))
   end
-  
-  def social_echo_container(statement_node, echoed=false) 
-    content_tag(:div, :class => 'social_echo_container') do 
+
+  def social_echo_container(statement_node, echoed=false)
+    content_tag(:div, :class => 'social_echo_container') do
       content = ''
-      content << content_tag(:span, '', :class => 'social_echo_button expandable', 
-                  :href => social_widget_statement_node_url(statement_node, :bids => params[:bids], :origin => params[:origin]), 
+      content << content_tag(:span, '', :class => 'social_echo_button expandable',
+                  :href => social_widget_statement_node_url(statement_node, :bids => params[:bids], :origin => params[:origin]),
                   :style => "#{echoed ? '' : 'display:none'}")
       content
     end
   end
-  
+
   def social_echo_panel(statement_node)
-    render :partial => 'statements/social_widget', :locals => {:statement_node => statement_node}
+    render :partial => 'statements/social_widget',
+           :locals => {:statement_node => statement_node}
   end
-  
+
   def render_social_account_buttons(statement_node)
     content_tag(:div, :class => "buttons_container", 'data-enabled' => I18n.t("users.social_accounts.share.enabled"),
                                                      'data-disabled' => I18n.t("users.social_accounts.share.disabled")) do
       content = ''
-      token_url = redirect_token_url(:redirect_url => statement_node_url(statement_node, 
-                                                                           :bids => params[:bids], 
+      token_url = redirect_token_url(:redirect_url => statement_node_url(statement_node,
+                                                                           :bids => params[:bids],
                                                                            :origin => params[:origin]),
                                        :later_call => social_widget_statement_node_url(statement_node,
-                                                                           :bids => params[:bids], 
+                                                                           :bids => params[:bids],
                                                                            :origin => params[:origin]))
-      %w(facebook twitter yahoo! linked_in).each do |provider|
+      %w(facebook twitter yahoo! linkedin).each do |provider|
         content << content_tag(:div, :class => "button_container #{provider}") do
           sub_content = ''
           sub_content << content_tag(:span, I18n.t("users.social_accounts.providers.#{provider}"))
@@ -118,11 +119,11 @@ module EchoableModuleHelper
       content
     end
   end
-  
+
   def provider_button(provider, statement_node, token_url)
     current_user.has_provider?(provider) ? provider_switch_button(provider, true) : provider_connect_button(provider, statement_node, token_url)
   end
-  
+
   def provider_switch_button(provider, enable = false)
     tag = enable ? 'enabled' : 'disabled'
     content = ''
@@ -130,11 +131,11 @@ module EchoableModuleHelper
     content << hidden_field_tag("providers[#{provider}]", tag)
     content
   end
-  
+
   def provider_connect_button(provider, statement_node, token_url)
-    
+
     content_tag(:a, :href => SocialService.instance.get_provider_signup_url(provider, token_url), :onClick => "return popup(this, true)", :class => 'button connect') do
-      content_tag :span, I18n.t("users.social_accounts.connect.title"), :class => "button_150"
+      content_tag :span, I18n.t("users.social_accounts.connect.title"), :class => "button button_150"
     end
   end
 end

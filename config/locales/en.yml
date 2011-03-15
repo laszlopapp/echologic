@@ -17,7 +17,7 @@ en:
       name: Name
       undefined: Not yet entered
       email: E-Mail
-      email_confirmation: confirm E-Mail
+      email_confirmation: Confirm E-Mail
       ok: Ok
       or: or
       save: Save
@@ -141,14 +141,14 @@ en:
       set_password: Forgot your password?
       remember: Remember me!
       hello: Logged in<br/><strong>{{name}}</strong>
-      setup_basic_profile: 
+      setup_basic_profile:
         title: 'Setup Basic Profile'
         guide: Please, fill your basic information in and publish your account!
         agreement: I agree with the terms of data policy...
       messages:
         success: "Login successful. Welcome back to echo."
         failed: "Unknown user or wrong password."
-        failed_social: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account" 
+        failed_social: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account"
     signup:
       label: 'Sign Up'
       member_tag: Not a member yet?
@@ -161,7 +161,7 @@ en:
     user_sessions:
       messages:
         session_timeout: "Your session has expired. Please log in again."
-        
+
 
     # Activations section
     activation:
@@ -213,7 +213,7 @@ en:
 
       picture:
         upload_button: Change
-        
+
 
       upload_picture:
         title: Upload Picture
@@ -301,14 +301,16 @@ en:
         guide: Let other logged in members (but no search engines) see your profile information as being a co-author of a statement in echo Discuss.
         turned_on: Your profile information will be shown when displaying co-authors of statements.
         turned_off: You will be displayed as Anonym among other authors of a statement.
-        
+
     # Manage Echo Account section
     echo_account:
-      title: Manage your echo Account
-      guide: Here you can handle your personal account information 
+      title: echo Account
+      guide: Here you can manage your echo account.
       change_email:
         title: Change E-Mail
-        guide: Please define new E-Mail address that echo should use to keep in touch with you.
+        guide: |
+          You are currently registered with the E-Mail address: <strong>{{email}}</strong>.<br/>
+          Here you can define a new address echo should use to keep in touch with you.
         success: E-Mail changed successfully!
         failed: Failed to change E-Mail!
       change_password:
@@ -320,29 +322,30 @@ en:
       delete_account:
         title: Delete Account
         guide: |
-          <p>ATTENTION! Your account and ALL your personal data will be <strong>permanently deleted</strong>. 
-          The echos you have made will be kept fully anonymously.</p><br/>
-          <p>Are you sure you want to proceed?</p><br/>
+          <p><strong>ATTENTION!</strong></p>
+          <p>Your account and ALL your personal data will be <strong>permanently deleted</strong>.<br/>
+          The echos you have made will be kept fully anonymously.</p>
+          <p>Are you sure you want to proceed?</p>
         confirm: Yes, delete my account permanently
         last_confirm: Are you really really sure?
-        success: Your echo account was successfully deleted.  
+        success: Your echo account was successfully deleted.
     social_accounts:
       title: Connected Accounts
-      guide: Connect your social accounts with your echo account so you can easily share and amplify your echo throughout the web. 
+      guide: Connect your social accounts with your echo account so you can easily share and amplify your echo throughout the web.
       providers:
         facebook: Facebook
         twitter: Twitter
         yahoo!: Yahoo!
-        linked_in: Linked-In
+        linkedin: LinkedIn
         google: Google
-      connect: 
+      connect:
         title: Connect
         success: Added your {{account}} account successfully!
         failed: Failed to add your {{account}} account!
-      disconnect: 
+      disconnect:
         title: Disconnect
         success: Removed your {{account}} account successfully!
-        failed: Failed to remove your {{account}} account! 
+        failed: Failed to remove your {{account}} account!
       share:
         title: Amplify your echo via
         text: Text
@@ -358,8 +361,8 @@ en:
           <p>Failed via {{accounts}}.</p>
         enabled: Enabled
         disabled: Disabled
-       
-      
+
+
 
     # New Users section
     users:
@@ -752,7 +755,7 @@ en:
             email:
               taken: 'Your e-Mail address is already in use.'
               invalid: 'Your e-Mail must be in a valid format.'
-              
+
 
       messages:
         blank: "The field '{{attribute}}' must not be empty."

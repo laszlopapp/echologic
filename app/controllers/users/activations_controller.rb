@@ -14,19 +14,19 @@ class Users::ActivationsController < ApplicationController
          set_error "users.activation.messages.already_active"
          render_with_error
        else
-         render :template => 'users/components/users_form', 
+         render :template => 'users/components/users_form',
                 :locals => {:partial => 'users/activations/new', :css_class => "basic_profile_box"}
        end
        }
     end
   end
- 
- 
+
+
 
   def create
     @user = User.find_by_perishable_token(params[:activation_code], 1.week)
-  
-    User.transaction do 
+
+    User.transaction do
       if @user.nil?
         redirect_or_render_with_error(root_path, "users.activation.messages.no_account")
       elsif @user.active?
@@ -39,11 +39,11 @@ class Users::ActivationsController < ApplicationController
             redirect_with_info(root_path, 'users.activation.messages.success')
           else
             set_error 'users.activation.messages.failed'
-            redirect_or_render_with_error(url, @user)
+            redirect_or_render_with_error(root_path, @user)
           end
         else # given email is not verified, therefore, send activation email
           if !params[:user][:email].blank? and @user.signup!(params[:user]) and @user.profile.save
-            @user.deliver_activate! 
+            @user.deliver_activate!
             redirect_or_render_with_info(root_path, 'users.users.messages.created') do |page|
               page << "$('#dialogContent').dialog('close');"
             end
@@ -55,17 +55,17 @@ class Users::ActivationsController < ApplicationController
       end
     end
   end
-  
+
   def activate_email
     @action = PendingAction.find(params[:token])
-    
+
     if @action.nil?
       redirect_or_render_with_error(root_path, "users.activation.messages.no_account")
     elsif @action.status
       redirect_or_render_with_error(root_path, "users.activation.messages.already_active")
     else
       @user = @action.user
-      User.transaction do 
+      User.transaction do
         if @user.update_attributes(JSON.parse(@action.action))
           @action.update_attribute(:status, true)
           UserSession.create(@user, false)
