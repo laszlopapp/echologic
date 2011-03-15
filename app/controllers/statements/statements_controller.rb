@@ -318,7 +318,7 @@ class StatementsController < ApplicationController
   #
   def descendants
     @type = params[:type].to_s.camelize.to_sym || @statement_node.class.children_types.first
-    @current_node = StatementNode.find(params[:current_node])
+    @current_node = StatementNode.find(params[:current_node]) if params[:current_node]
     if @statement_node
       load_children(@type, 1, -1)
     else
@@ -327,8 +327,12 @@ class StatementsController < ApplicationController
     
     respond_to do |format|
       format.html{
-        @statement_node = @current_node
-        show
+        if @current_node.nil?
+          @statement_node = @current_node
+          show
+        else
+          add
+        end
       }
       format.js { render :template => @type.to_s.constantize.descendants_template }
     end

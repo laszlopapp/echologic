@@ -356,9 +356,6 @@ class StatementNode < ActiveRecord::Base
     # expand: whether we should replace a children type for it's sub-types
     #
     def children_types(opts={})
-      opts[:visibility] ||= false
-      opts[:no_default] ||= false
-      opts[:expand] ||= false
       types = @@children_types[self.name] || @@children_types[self.superclass.name]
       types -= @@default_children_types if opts[:no_default]
       if opts[:expand]
