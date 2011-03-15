@@ -65,7 +65,7 @@ function initFragmentStatementChange() {
 				return $.inArray(a, visible_sids) == -1 ;});
 
       var bids = $("#breadcrumbs").data('breadcrumbApi').breadcrumbsToLoad($.fragment().bids);
-			
+
 			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sids": sids.join(","),
 				"bids": bids.join(","),
@@ -87,7 +87,7 @@ function initFragmentStatementChange() {
 			var bids = $("#breadcrumbs").data('breadcrumbApi').getBreadcrumbStack(null).join(',');
 			}
 		else {var bids = $.fragment().bids;}
-    
+
 		if (!$.fragment().origin || $.fragment().origin == 'undefined') {var origin = bids.split(',').pop();}
 		else {var origin = $.fragment().origin;}
 
@@ -158,7 +158,7 @@ function socialSharingFinished(array) {
 			aux = true;
 			if (!elem['success']) {
 		  	error($('#social_messages').data('messages')['error']);
-				return; 
+				return;
 			}
 		}
 	});
@@ -168,38 +168,3 @@ function socialSharingFinished(array) {
 	}
 }
 
-function popup(mylink, windowname)
-{
-	if (!window.focus) {
-  	return true;
-  }
-	var href;
-	if (typeof(mylink) == 'string') {
-  	href = mylink;
-  }
-  else {
-  	href = mylink.href;
-  }
-	window.open(href, windowname, 'width=400,height=200,scrollbars=yes');
-	return false;
-}
-
-
-function targetopener(mylink, closeme, closeonly)
-{
-	if (!(window.focus && window.opener)) {
-  	return true;
-  }
-	window.opener.focus();
-	if (!closeonly) {
-		if (typeof(mylink) == 'string') {
-			window.opener.location.href = mylink;
-	  } else {
-			window.opener.location.href = mylink.href;
-		}
-  }
-	if (closeme) {
-  	window.close();
-  }
-	return false;
-}
