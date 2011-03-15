@@ -31,7 +31,7 @@
           return;
         }
         echo_label = echo_button.find('.label');
-				
+
 				social_container = echo_button.siblings('.social_echo_container');
         social_echo_button = social_container.find('.social_echo_button');
 
@@ -152,7 +152,7 @@
 			      data:   { '_method': 'put' },
 						success: function(data, textStatus, XMLHttpRequest) {
               echo_button.removeClass('pending');
-							
+
               // Request returns with successful with an info, but the echo itself failed
 							if (href == echo_button.attr('href')) {
 						  	rollback(to_remove, to_add);
@@ -187,8 +187,8 @@
 					echo_button.removeClass('clicked');
 				});
 			}
-		
-			
+
+
 
 			function updateEchoButton(classToAdd, classToRemove) {
         echo_button.removeClass(classToRemove).addClass(classToAdd);
@@ -200,18 +200,13 @@
           social_echo_button.animate(toggleParams, 500);
         }
       }
-			
+
 			function initSocialPanel() {
 				social_panel = social_container.find('.social_echo_panel');
-				
-				/*social_panel.bind("mouseleave", function() {
-				  $(this).fadeOut();
-				})*/
-				 
 				initSocialAccountButtons();
 				initTextCounter();
 			}
-      
+
 			function initSocialAccountButtons() {
 				//1 step: load enable/disable tags
 				var buttons_container = social_panel.find('.buttons_container');
@@ -227,7 +222,7 @@
 				  }
 				  else if (button_container.hasClass('disabled')) {
 			  		tag = 'disabled'; toggle_tag = 'enabled';
-			  	} 
+			  	}
 					if (tag) {
 						button_container.text(messages[tag]);
 						button_container.bind('click', function(){
@@ -242,7 +237,7 @@
 					}
 				});
 			}
-			
+
 			function initTextCounter() {
 				var text = social_panel.find('.text');
 				var preview = social_panel.find('.preview');
@@ -251,7 +246,7 @@
 				text.simplyCountable({
 			    counter: text.next(),
 			    countable: 'characters',
-			    maxCount: maxChar, 
+			    maxCount: maxChar,
 					strictMax: true,
 			    countDirection: 'down',
 			    safeClass: 'safe',
