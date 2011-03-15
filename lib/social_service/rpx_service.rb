@@ -9,7 +9,7 @@ require 'json'
 
 class RpxService
   attr_reader :api_key, :base_url, :realm
-  
+
   def initialize(api_key, base_url, realm)
     @api_key = api_key
     @base_url = base_url.sub(/\/*$/, '')
@@ -44,8 +44,8 @@ class RpxService
     case provider
       when "facebook" then "https://#{RPX_APP_NAME}/facebook/connect_start?token_url=#{url}&ext_perm=publish_stream,email,offline_access"
       when "twitter" then "https://#{RPX_APP_NAME}/twitter/start?token_url=#{url}"
-      when "yahoo" then "https://#{RPX_APP_NAME}/openid/start?openid_identifier=http://me.yahoo.com/&token_url=#{url}"
-      when "linked_in" then "https://#{RPX_APP_NAME}/linkedin/start?token_url=#{url}"
+      when "yahoo!" then "https://#{RPX_APP_NAME}/openid/start?openid_identifier=http://me.yahoo.com/&token_url=#{url}"
+      when "linkedin" then "https://#{RPX_APP_NAME}/linkedin/start?token_url=#{url}"
       when "google" then "https://#{RPX_APP_NAME}/openid/start?openid_identifier=https://www.google.com/accounts/o8/id&token_url=#{url}"
     end
   end
@@ -82,9 +82,9 @@ class RpxService
     end
     data
   end
-  
-  
-  
+
+
+
   class RpxException < StandardError
     attr_reader :http_response
     def initialize(http_response)
