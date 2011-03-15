@@ -148,7 +148,7 @@ module StatementsHelper
   # Creates a link to add a new child for the given statement (appears in the SIDEBAR).
   #
   def add_new_child_buttons(statement_node)
-    children_types = statement_node.class.children_types(:default => false, :expand => true)
+    children_types = statement_node.class.children_types(:no_default => true, :expand => true)
     return '' if children_types.empty?
     content = ''
     content << content_tag(:div, :class => 'children container') do
@@ -417,8 +417,14 @@ module StatementsHelper
 
   # Loads the link to a given statement, placed in the child panel section
   def link_to_child(title, statement_node,extra_classes, type = dom_class(statement_node))
+    bids = params[:bids] || ''
+    if statement_node.class.is_top_statement?
+      bids = bids.split(",")
+      bids << "fq#{@statement_node.target_id}" 
+      bids = bids.join(",")
+    end
     link_to h(title),
-            statement_node_url(statement_node.target_id, :new_level => true),
+            statement_node_url(statement_node.target_id, :bids => bids, :origin => params[:origin],  :new_level => true),
             :class => "statement_link #{dom_class(statement_node)}_link #{extra_classes}"
   end
 

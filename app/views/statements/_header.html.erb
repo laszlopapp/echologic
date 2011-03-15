@@ -10,8 +10,8 @@
 	 <%= navigation_buttons statement_node, dom_class(statement_node), :origin => params[:origin] %>
 	 
 	 <%= render :partial => "statements/descendants", 
-              :locals => {:type => dom_class(statement_node),
-              :children => @children[statement_type.to_sym]} if @children[statement_type.to_sym] %>
+              :locals => {:type => dom_class(statement_node), :display => true,
+              :children => @children[statement_type.to_sym]} if @children and @children[statement_type.to_sym] %>
 	<% end %>
 	<% content_tag :div, :class => 'header_link'  do %>
 		<%= statement_node_context_link(statement_node, @language_preference_list,

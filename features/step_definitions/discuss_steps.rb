@@ -1,5 +1,3 @@
-require 'flexmock/test_unit'
-
 Given /^there are no questions$/ do
   Question.destroy_all
 end
@@ -212,7 +210,6 @@ Then /^there should be a "([^\"]*)" breadcrumb$/ do |title|
   response.should have_selector("#breadcrumbs span.statement") do |selector|
     result = false
     selector.each do |breadcrumb|
-      puts breadcrumb.inner_text.strip
       if title.eql?(breadcrumb.inner_text.strip)
         result = true
         break

@@ -357,10 +357,10 @@ class StatementNode < ActiveRecord::Base
     #
     def children_types(opts={})
       opts[:visibility] ||= false
-      opts[:default] ||= true
+      opts[:no_default] ||= false
       opts[:expand] ||= false
       types = @@children_types[self.name] || @@children_types[self.superclass.name]
-      types = types - @@default_children_types if !opts[:default]
+      types -= @@default_children_types if opts[:no_default]
       if opts[:expand]
         array = []
         types.each{|c| array += c[0].to_s.constantize.sub_types.map{|st|[st, c[1]]} }

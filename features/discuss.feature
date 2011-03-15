@@ -379,18 +379,19 @@ Feature: Take Part on a question
       And I choose the "Test Question2?" Question
       And I follow "Authors"
     Then I should see "Edi Tor"
-    
-  Scenario: User open a previously closed children's block
-    Given proposals are not immediately loaded on questions
-      And I am logged in as "user" with password "true"
-      And I am on the discuss index
-      And I follow "Featured"
-      And I follow "echonomyJAM"
-      And I choose the "Test Question?" Question
-    Then I should not see "Fifth Proposal"
-      And I go to the question
-      And I follow "proposals"
-    Then I should see "Fifth Proposal"
+  
+  
+ # Scenario: User open a previously closed children's block
+ #   Given proposals are not immediately loaded on questions
+ #     And I am logged in as "user" with password "true"
+ #     And I am on the discuss index
+ #     And I follow "Featured"
+ #     And I follow "echonomyJAM"
+ #     And I choose the "Test Question?" Question
+ #   Then I should not see "Second Proposal"
+ #     And I go to the question
+ #     And I follow "proposals"
+ #   Then I should see "Second Proposal"
         
   Scenario: User opens proposals on another page under a children's block
     Given I am logged in as "user" with password "true"
@@ -398,12 +399,12 @@ Feature: Take Part on a question
       And I follow "Featured"
       And I follow "echonomyJAM"
       And I choose the "Test Question?" Question
-    Then I should not see "Eighth Proposal"
+    Then I should not see "Sixth Proposal"
       And I go to the question
       And I follow localized "application.general.more" within ".proposals"
       # needed because of the TOP CHILDREN mechanism
       And I follow localized "application.general.more" within ".proposals"
-    Then I should see "Eighth Proposal"
+    Then I should see "Sixth Proposal"
     
   Scenario: User opens question's siblings block
     Given I am logged in as "user" with password "true"

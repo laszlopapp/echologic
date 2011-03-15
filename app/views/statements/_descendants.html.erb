@@ -1,4 +1,5 @@
 <% children ||= @children %>
+<% display ||= false %>
 <div class='siblings_panel popup_panel expandable_content'
      style="<%= display ? 'display:block' : 'display:none'%>">
   <%= sibling_box_title(type) %>

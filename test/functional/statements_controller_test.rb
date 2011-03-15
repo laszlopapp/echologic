@@ -253,8 +253,8 @@ class StatementsControllerTest < ActionController::TestCase
     assert_response :success
   end
   
-  test "should get statement's descendants" do
-    get :descendants, :id => statement_nodes('test-question').to_param, :type => "proposal"
+  test "should get statements descendants" do
+    get :descendants, :id => statement_nodes('test-question').to_param, :type => "proposal", :current_node => statement_nodes('second-proposal').to_param
     assert_not_nil assigns(:children)
     assert assigns(:children).size, 7
     assert_not_nil assigns(:children_documents)

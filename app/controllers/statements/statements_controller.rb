@@ -318,7 +318,7 @@ class StatementsController < ApplicationController
   #
   def descendants
     @type = params[:type].to_s.camelize.to_sym || @statement_node.class.children_types.first
-    @current_node = StatementNode.find(params[:current_node]) if params[:current_node]
+    @current_node = StatementNode.find(params[:current_node])
     if @statement_node
       load_children(@type, 1, -1)
     else
@@ -326,7 +326,10 @@ class StatementsController < ApplicationController
     end
     
     respond_to do |format|
-      format.html{show}
+      format.html{
+        @statement_node = @current_node
+        show
+      }
       format.js { render :template => @type.to_s.constantize.descendants_template }
     end
   end
@@ -632,6 +635,10 @@ class StatementsController < ApplicationController
                    statement_document.title.gsub(/\\;/, ','),
                    I18n.t("discuss.statements.breadcrumbs.labels.fq"),
                    I18n.t("discuss.statements.breadcrumbs.labels.over.fq")]
+    @bids = params[:bids]||''
+    @bids = @bids.split(",")
+    @bids << @breadcrumb[0]
+    @bids = @bids.join(",")
   end
 
   #
@@ -656,9 +663,10 @@ class StatementsController < ApplicationController
         when "fq" then statement_node = StatementNode.find(bid[2..-1])
                        statement_document = search_statement_documents(statement_node.statement_id, @language_preference_list)[statement_node.statement_id] ||
                                             statement_node.document_in_original_language
-                          ["fq#{bid[2..-1]}",
-                          "statement statement_link #{statement_node.class.name.underscore}_link",
-          statement_node_url(statement_node, :bids => params[:bids], :origin => params[:origin]), statement_document.title]
+                       origin = index > 0 ? bids[index-1] : ''
+                       ["fq#{bid[2..-1]}",
+                        "statement statement_link #{statement_node.class.name.underscore}_link",
+          statement_node_url(statement_node, :bids => bids[0, bids.index(bid)].join(","), :origin => origin), statement_document.title]
       end
       breadcrumb << label
       breadcrumb << over
