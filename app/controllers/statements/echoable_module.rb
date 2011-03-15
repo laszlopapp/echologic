@@ -40,12 +40,12 @@ module EchoableModule
       return if !@statement_node.echoable?
 
       @statement_node.unsupported!(current_user)
-      
-      
+
+
       if @statement_node.draftable?
         @statement_node.children.each{|c|c.unsupported!(current_user) if c.incorporable? and c.supported?(current_user)}
       end
-      
+
       # Logic to update the children caused by cascading unsupport
       @page = params[:page] || 1
       set_statement_info('discuss.statements.statement_unsupported')
@@ -57,9 +57,9 @@ module EchoableModule
       log_message_info("Statement node '#{@statement_node.id}' has been unechoed sucessfully.")
     end
   end
-  
+
   #
-  # Called if user wants to share his echo in his social networks. 
+  # Called if user wants to share his echo in his social networks.
   #
   # Method:   GET
   # Response: HTTP or JS
@@ -91,15 +91,15 @@ module EchoableModule
   # Response: HTTP or JS
   #
   def share
-    begin 
+    begin
       @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
-      
+
       if !@statement_node.supported?(current_user)
         set_info "discuss.statements.supporter_to_share"
         render_statement_with_info
       else
         command = {:operation => "statement_node", :params => {:id => @statement_node.id}, :language => @statement_document.language.code}.to_json
-        @shortcut_url = ShortcutUrl.find_or_create(:shortcut => @statement_document.title, 
+        @shortcut_url = ShortcutUrl.find_or_create(:shortcut => @statement_document.title,
                                                    :human_readable => true, :shortcut_command => {:command => command})
         if !@shortcut_url
           set_error @shortcut_url
@@ -115,8 +115,8 @@ module EchoableModule
           #insert default image in this line
           opts[:title] = @statement_document.title
           opts[:description] = "#{@statement_document.text[0,255]}..."
-          
-          providers = %w(facebook twitter yahoo! linked_in)
+
+          providers = %w(facebook twitter yahoo! linkedin)
           providers.reject!{|p|provider_states[p].nil? || provider_states[p].eql?('disabled')}
           providers_hash = providers.each_with_object({}) {|prov, hash|
             social = current_user.has_provider?(prov)
@@ -127,10 +127,11 @@ module EchoableModule
           respond_to do |format|
             %w(success failed).each do |state|
               providers_state = eval("@providers_#{state}")
-              set_info("users.social_accounts.share.#{state}", 
-                     :accounts => providers_state.map{|c|I18n.t("users.social_accounts.providers.#{c}")}.join("/")) if !providers_state.empty?
+              set_info("users.social_accounts.share.#{state}", :accounts => providers_state.map {|c|
+                I18n.t("users.social_accounts.providers.#{c}")
+              }.join("/")) if !providers_state.empty?
             end
-            
+
             format.html{flash_info and redirect_to @statement_node}
             format.js {
               render_with_info do |page|
@@ -141,9 +142,9 @@ module EchoableModule
         end
       end
     rescue Exception => e
-      log_error_statement(e, "Error getting social widget for statement node '#{@statement_node.id}'.")
+      log_error_statement(e, "Error getting social sharing panel for statement node '#{@statement_node.id}'.")
     else
-      log_message_info("Statement node '#{@statement_node.id}' has loaded widget sucessfully.")
+      log_message_info("Social sharing panel for statement node '#{@statement_node.id}' has been loaded successfully.")
     end
   end
 
@@ -155,7 +156,7 @@ module EchoableModule
     @messages = {:supported => set_statement_info('discuss.statements.statement_supported'),
                  :not_supported => set_statement_info('discuss.statements.statement_unsupported')}.to_json
   end
-  
+
 
   def is_echoable?
     @statement_node.echoable?
