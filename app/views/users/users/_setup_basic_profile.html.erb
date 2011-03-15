@@ -15,11 +15,11 @@
           <%= f.text_field :full_name %><br />
         </p>
         <%= tag('br');tag('br') %>
-        <%= f.submit I18n.t('application.general.save'), :class => 'signinButton formButton200' %><br/>
 				<p>
-	       <%= I18n.t('users.signin.setup_basic_profile.agreement') %>
-				 <%= check_box_tag :agreement, 1, false %>
-	     </p>
+					<%= check_box_tag 'user[agreement]', 1, false %>
+          <%= link_to(I18n.t('users.signin.setup_basic_profile.agreement'), static_path(:data_privacy),:target => '_blank') %>
+       </p>
+        <%= f.submit I18n.t('application.general.save'), :class => 'signinButton formButton200' %><br/>
 		 </div>
 		 <div class='setup_basic_profile_container'>
 		 	  <% if !@profile_info['photo'].blank? %>

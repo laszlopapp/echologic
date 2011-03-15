@@ -172,6 +172,8 @@ en:
           <p>Your account could not be activated. Please check your input.</p>
         already_active: Your account is already active!
         no_account: Your account does not exist!
+        no_full_name: You have to fill the 'Full Name' field up
+        no_agreement: You have to agree with our data policy in order to register.
 
     # Password resets section
     password_reset:
@@ -752,6 +754,8 @@ en:
             email:
               taken: 'Your e-Mail address is already in use.'
               invalid: 'Your e-Mail must be in a valid format.'
+        social_identifier:
+          taken: 'This Social Account is already in use.'
               
 
       messages:
