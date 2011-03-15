@@ -273,12 +273,12 @@ class ApplicationController < ActionController::Base
   def flash_error
     flash[:error] = @error
   end
-  
+
   # Sets the @later_call variable for the flash object (used for HTTP requests).
   def flash_later_call
     flash[:later_call] = @later_call
   end
-  
+
   # Get formatted error string from error partial for a given object, then show
   # it on the page object as an error message.
   def render_with_error(message=@error)
@@ -364,10 +364,10 @@ class ApplicationController < ActionController::Base
       format.js   { render :template => 'layouts/outerMenuDialog' , :locals => opts[:locals]}
     end
   end
-  
+
   def render_signings(type)
     render_static_new :template => "users/#{type}/new" do |format|
-      format.js {render :template => 'users/components/users_form', 
+      format.js {render :template => 'users/components/users_form',
                         :locals => {:partial => "users/#{type}/new"}}
     end
   end
@@ -376,26 +376,26 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       set_info message_or_object, opts
       format.html { flash_info and redirect_to url }
-      format.js   { 
+      format.js   {
         render_with_info do |page|
           yield page if block_given?
         end
       }
     end
   end
-  
+
   def redirect_or_render_with_error(url, message_or_object, opts={})
     respond_to do |format|
       set_error message_or_object, opts
       format.html { flash_error and redirect_to url }
-      format.js   { 
+      format.js   {
         render_with_error do |page|
           yield page if block_given?
         end
       }
     end
   end
-  
+
   def redirect_with_info(url, message_or_object, opts={})
     set_info message_or_object, opts
     flash_info
@@ -408,19 +408,23 @@ class ApplicationController < ActionController::Base
       }
     end
   end
-  
+
   def later_call_with_info(url, later_url, message_or_object=nil, opts={})
     respond_to do |format|
-      set_info message_or_object, opts
+      set_info(message_or_object, opts) if message_or_object
       set_later_call later_url
-      format.html { flash_info and flash_later_call and redirect_to url }
-      yield format if block_given? 
+      format.html {
+        flash_info if message_or_object
+        flash_later_call
+        redirect_to url
+      }
+      yield format if block_given?
     end
   end
-  
+
   def later_call_with_error(url, later_url, message_or_object, opts={})
     respond_to do |format|
-      set_error message_or_object, opts
+      set_error(message_or_object, opts)
       set_later_call later_url
       format.html { flash_error and flash_later_call and redirect_to url }
       format.js{ render_with_error }
@@ -453,7 +457,7 @@ class ApplicationController < ActionController::Base
       format.js   { render_with_error }
     end
   end
-  
+
   public
   def shortcut
     respond_to do |format|
@@ -466,7 +470,7 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-  
+
   def redirect_from_popup
     @redirect_url = params[:redirect_url].split('&').concat(["token=#{params[:token]}"]).join('&')
     respond_to do |format|
