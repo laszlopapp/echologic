@@ -1,10 +1,14 @@
 <div class='registry'>
 	<div id="setup_basic_profile" class='modal_form_container'>
-	   <%= content_tag :span, content_tag(:h1, I18n.t('users.signin.setup_basic_profile.title')), :class => 'sign_in logo'%>
+	   <%= content_tag :span, content_tag(:h1, I18n.t('users.signin.setup_basic_profile.title')),
+                     :class => 'sign_in logo'%>
 		 <p>
       <%= I18n.t('users.signin.setup_basic_profile.guide') %>
     </p>
-		 <% form_for @user, :url => activate_path(@user.perishable_token), :html => {:method => :post, :class => "echoForm ajax_form",:id => 'new_user_form'} do |f| %>
+		 <% form_for @user, :url => activate_path(@user.perishable_token),
+                 :html => {:method => :post,
+                           :class => "echoForm ajax_form",
+                           :id => 'new_user_form'} do |f| %>
 		 <div class='setup_basic_profile_container'>
 		 	  <p>
           <%= f.label I18n.t('application.general.email') %><br />
@@ -17,15 +21,17 @@
         <%= tag('br');tag('br') %>
 				<p>
 					<%= check_box_tag 'user[agreement]', 1, false %>
-          <%= link_to(I18n.t('users.signin.setup_basic_profile.agreement'), static_path(:data_privacy),:target => '_blank') %>
+          <%= link_to(I18n.t('users.signin.setup_basic_profile.agreement'), static_path(:data_privacy),
+                      :target => '_blank') %>
        </p>
         <%= f.submit I18n.t('application.general.save'), :class => 'signinButton formButton200' %><br/>
 		 </div>
 		 <div class='setup_basic_profile_container'>
 		 	  <% if !@profile_info['photo'].blank? %>
-			 	  <%= image_tag @profile_info['photo'], :size => "150x185" %>
-					<%= check_box_tag "user[avatar_url]", @profile_info['photo'], nil, :class => "avatar" %>
-					<%= f.label I18n.t("users.signup.use_photo") %><br />
+			 	  <%= image_tag @profile_info['photo'], :class => 'photo' %>
+					<%= check_box_tag "user[avatar_url]", @profile_info['photo'], nil,
+                            :class => "avatar" %>
+					<%= f.label I18n.t("users.signup.use_photo") %><br/>
 				<% end %>
      </div>
 		 <% end %>
