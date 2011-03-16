@@ -48,3 +48,7 @@ editor_profile:
   country: Germany
   birthday: 2010-03-17
 <% end %>
+
+no_pass_user_profile:
+  user_id: <%= Fixtures.identify(:no_pass_user) %>
+  full_name: No Pass

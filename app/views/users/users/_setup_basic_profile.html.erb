@@ -21,8 +21,7 @@
         <%= tag('br');tag('br') %>
 				<p>
 					<%= check_box_tag 'user[agreement]', 1, false %>
-          <%= link_to(I18n.t('users.signin.setup_basic_profile.agreement'), static_path(:data_privacy),
-                      :target => '_blank') %>
+          <%= link_to(I18n.t('users.signin.setup_basic_profile.agreement'), '/resources/Datenschutz_echologic.pdf', {:target => 'blank'}) %>
        </p>
         <%= f.submit I18n.t('application.general.save'), :class => 'signinButton formButton200' %><br/>
 		 </div>

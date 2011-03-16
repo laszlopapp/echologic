@@ -44,6 +44,7 @@ Feature: Set my settings
       And I fill in the following:
       | user_email                | thedarksideofthemoon@sun.com |
       | user_email_confirmation   | thedarksideofthemoon@sun.com |
+      | user_password             | true                         |
       And I press "Ok"
     Then I should see localized "users.users.messages.email_updated"
     Then an "activate" email should be sent to "thedarksideofthemoon@sun.com"
@@ -53,7 +54,7 @@ Feature: Set my settings
     When I go to my settings
       And I follow "change_password"
       And I fill in the following:
-      | old_password                 | malaka  |
+      | user_old_password            | malaka  |
       | user_password                | dzenkui |
       | user_password_confirmation   | dzenkui |
       And I press "Ok"
@@ -64,7 +65,7 @@ Feature: Set my settings
     When I go to my settings
       And I follow "change_password"
       And I fill in the following:
-      | old_password                 | true  |
+      | user_old_password            |  true   |
       | user_password                | dzenkui |
       | user_password_confirmation   | dzenkui |
       And I press "Ok"

@@ -23,10 +23,16 @@ class MyEchoController < ApplicationController
   end
 
   def settings
-    @profile = @current_user.profile
-    @user    = @current_user
-    @current_user.update_social_accounts
-    render
+    begin
+      @profile = @current_user.profile
+      @user    = @current_user
+      @current_user.update_social_accounts
+      render
+    rescue RpxService::RpxServerException
+      redirect_or_render_with_error(redirect_url, "application.remote_error")
+    rescue Exception => e
+      log_message_error(e, "Error showing settings")
+    end
   end
 
   %w(change_email change_password delete_account).each do |action_name|

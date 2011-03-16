@@ -42,22 +42,46 @@ class UsersControllerTest < ActionController::TestCase
   test "should change users email" do
     login_as :user
     assert_difference('PendingAction.count', 1) do
-      put :update_email, :user => {:email => 'jokini@gmail.com', :email_confirmation => 'jokini@gmail.com'}
+      put :update_email, :user => {:email => 'jokini@gmail.com', :email_confirmation => 'jokini@gmail.com', :password => 'true'}
       assert_response :redirect
     end
   end
   
-  test "should fail to change users email" do
+  test "should not change users email because password is wrong" do
+    login_as :user
+    assert_difference('PendingAction.count', 0) do
+      put :update_email, :user => {:email => 'jokini@gmail.com', :email_confirmation => 'jokini@gmail.com', :password => 'pass'}
+      assert assigns(:error).eql?(I18n.t("activerecord.errors.models.user.attributes.password.invalid"))
+    end
+  end
+  
+  test "should not change users email because password is not defined" do
+    login_as :no_pass_user
+    assert_difference('PendingAction.count', 0) do
+      put :update_email, :user => {:email => 'jokini@gmail.com', :email_confirmation => 'jokini@gmail.com', :password => 'pass'}
+      assert assigns(:error).eql?(I18n.t("users.echo_account.change_email.no_password"))
+    end
+  end
+  
+  test "should fail to change users email because confirmation was not filled" do
     login_as :user
     assert_difference('User.count', 0) do
-      put :update_email, :user => {:email => 'jokini@gmail.com', :email_confirmation => ''}
+      put :update_email, :user => {:email => 'jokini@gmail.com', :email_confirmation => '', :password => 'true'}
+      assert_response :redirect
+    end
+  end
+  
+  test "should fail to change users email because email field was not filled" do
+    login_as :user
+    assert_difference('User.count', 0) do
+      put :update_email, :user => {:email => '', :email_confirmation => 'jokini@gmail.com', :password => 'true'}
       assert_response :redirect
     end
   end
 
   test "should change users password" do
     login_as :user
-    put :update_password, :old_password => 'true', :user => {:password => 'mega', :password_confirmation => 'mega'}
+    put :update_password, :user => {:old_password => 'true', :password => 'mega', :password_confirmation => 'mega'}
     assert_response :redirect
     u = User.find_by_email('user@echologic.org')
     assert u.has_password? 'mega'
@@ -65,19 +89,60 @@ class UsersControllerTest < ActionController::TestCase
   
   test "should fail to change users password because old password is wrong" do
     login_as :user
-    put :update_password, :old_password => 'pass', :user => {:password => 'mega', :password_confirmation => 'mega'}
+    put :update_password, :user => {:old_password => 'pass', :password => 'mega', :password_confirmation => 'mega'}
     assert_response :redirect
     u = User.find_by_email('user@echologic.org')
     assert !u.has_password?('mega')
     assert u.has_password?('true')
+    assert assigns(:error).eql?(I18n.t("users.echo_account.change_password.wrong_password"))
+  end
+  
+  test "should fail to change users password because confirmation was not filled" do
+    login_as :user
+    put :update_password, :user => {:old_password => 'true', :password => 'mega', :password_confirmation => ''}
+    assert_response :redirect
+    u = User.find_by_email('user@echologic.org')
+    assert !u.has_password?('mega')
+    assert u.has_password?('true')
+    assert assigns(:error).include?("Password confirmation")
+  end
+  
+  test "should fail to change users password because password field was not filled" do
+    login_as :user
+    put :update_password, :user => {:old_password => 'true', :password => '', :password_confirmation => 'mega'}
+    assert_response :redirect
+    u = User.find_by_email('user@echologic.org')
+    assert !u.has_password?('mega')
+    assert u.has_password?('true')
+    assert assigns(:error).include?("Password")
+  end
+  
+  test "should fail to change users password because nothing was filled" do
+    login_as :user
+    put :update_password, :user => {:old_password => 'true', :password => '', :password_confirmation => ''}
+    assert_response :redirect
+    u = User.find_by_email('user@echologic.org')
+    assert !u.has_password?('mega')
+    assert u.has_password?('true')
+    assert assigns(:error).include?("Password")
+  end
+  
+  test "should change users password without password because there is none defined" do
+    login_as :no_pass_user
+    put :update_password, :user => {:old_password => '', :password => 'mega', :password_confirmation => 'mega'}
+    assert_response :redirect
+    u = User.find_by_email('no_pass@echologic.org')
+    assert u.has_password?('mega')
   end
   
   test "should fail to change users password because there is no confirmation" do
     login_as :user
-    put :update_password, :old_password => 'true', :user => {:password => 'mega'}
+    put :update_password, :user => {:old_password => 'true', :password => 'mega', :password_confirmation => ''}
     assert_response :redirect
     u = User.find_by_email('user@echologic.org')
-    assert u.has_password? 'mega'
+    assert !u.has_password?('mega')
+    assert u.has_password?('true')
+    assert assigns(:error).include?("confirmation")
   end
 
   test "should delete own account" do

@@ -324,10 +324,10 @@ class StatementsController < ApplicationController
     else
       load_roots(@current_node,1, -1)
     end
-    
+
     respond_to do |format|
       format.html{
-        if @current_node.nil?
+        if @current_node
           @statement_node = @current_node
           show
         else

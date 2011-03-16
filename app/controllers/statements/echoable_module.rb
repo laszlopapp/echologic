@@ -143,6 +143,8 @@ module EchoableModule
           end
         end
       end
+    rescue RpxService::RpxServerException
+      redirect_or_render_with_error(redirect_url, "application.remote_error")
     rescue Exception => e
       log_error_statement(e, "Error getting social sharing panel for statement node '#{@statement_node.id}'.")
     else

@@ -7,6 +7,7 @@ en:
     # Unexpected Error
     unexpected_error: An unexpected error has occurred. Sorry for the inconvenience.
     routing_error: Unknown URL. Redirecting...
+    remote_error: 'Failed to communicate with the Remote Service.'
 
     # General purpose resources
     general:
@@ -168,6 +169,7 @@ en:
 
       messages:
         success: Your account has been successfully created. Welcome to echo!
+        email_success: Your E-mail has been changed successfully!
         failed: |-
           <p>Your account could not be activated. Please check your input.</p>
         already_active: Your account is already active!
@@ -313,8 +315,10 @@ en:
         guide: |
           You are currently registered with the E-Mail address: <strong>{{email}}</strong>.<br/>
           Here you can define a new address echo should use to keep in touch with you.
+        confirm_password: Confirm Password
         success: E-Mail changed successfully!
         failed: Failed to change E-Mail!
+        no_password: You must have a password defined in order to change your email!
       change_password:
         title: Change Password
         guide: Please define your new password.
@@ -756,6 +760,8 @@ en:
             email:
               taken: 'Your e-Mail address is already in use.'
               invalid: 'Your e-Mail must be in a valid format.'
+            password:
+              invalid: 'Wrong password.'
         social_identifier:
           taken: 'This Social Account is already in use.'
 

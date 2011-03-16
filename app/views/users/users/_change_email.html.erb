@@ -16,6 +16,10 @@
        <%= f.label I18n.t('application.general.email_confirmation') %><br/>
        <%= f.text_field :email_confirmation %>
 	   </p>
+		 <p>
+       <%= f.label I18n.t('users.echo_account.change_email.confirm_password') %><br/>
+       <%= f.password_field :password %>
+     </p>
     <%= f.submit I18n.t('application.general.ok'), :class => 'signupButton formButton200' %>
 	<% end %>
 </div>

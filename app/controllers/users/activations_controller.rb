@@ -31,7 +31,6 @@ class Users::ActivationsController < ApplicationController
     User.transaction do
 
       via_form = params.has_key?(:user)
-
       if @user.nil?
         redirect_or_render_with_error(root_path, "users.activation.messages.no_account")
         return
@@ -48,9 +47,9 @@ class Users::ActivationsController < ApplicationController
         redirect_or_render_with_error(root_path, "users.activation.messages.already_active")
         return
       end
+      
 
-      if (!via_form and @user.email) or @user.social_identifiers.empty? or @user.has_verified_email? params[:user][:email]
-
+      if @user.email or @user.has_verified_email? params[:user][:email]
         # Given email is a verified email, therefore, no activation is needed
         if @user.activate!(params[:user]) and @user.profile.save # so that the name persists
           UserSession.create(@user, false)
@@ -92,10 +91,10 @@ class Users::ActivationsController < ApplicationController
           @action.update_attribute(:status, true)
           UserSession.create(@user, false)
           @user.deliver_activation_confirmation!
-          redirect_with_info(root_path, 'users.activation.messages.success')
+          redirect_with_info(my_profile_path, 'users.activation.messages.email_success')
         else
           set_error 'users.activation.messages.failed'
-          redirect_or_render_with_error(url, @user)
+          redirect_or_render_with_error(root_path, @user)
         end
       end
     end

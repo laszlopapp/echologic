@@ -97,10 +97,17 @@ class Users::UsersController < ApplicationController
 
   def update_email
     User.transaction do
-      if params[:user][:email].eql? params[:user][:email_confirmation]
+      if current_user.crypted_password.blank?
+        redirect_or_render_with_error(settings_path, "users.echo_account.change_email.no_password")
+      elsif !current_user.has_password? params[:user].delete(:password)
+        redirect_or_render_with_error(settings_path, "activerecord.errors.models.user.attributes.password.invalid")
+      elsif params[:user][:email].eql? params[:user][:email_confirmation]
         if current_user.has_verified_email?(params[:user][:email])
           if current_user.update_attributes(params[:user])
-            redirect_or_render_with_info(settings_path, "users.echo_account.change_email.success")
+            redirect_or_render_with_info(settings_path, "users.echo_account.change_email.success") do |page|
+              page << "$('#change_email').removeClass('active');"
+              page << "$('#echo_account_settings .content').animate(toggleParams,1000, function(){$(this).remove()});"
+            end
           else
             redirect_or_render_with_error(settings_path, current_user)
           end
@@ -110,17 +117,20 @@ class Users::UsersController < ApplicationController
           redirect_or_render_with_info(settings_path, "users.users.messages.email_updated")
         end
       else
-        redirect_or_render_with_error(settings_path, "active_record.errors.messages.confirmation", :attribute => I18n.t("application.general.email"))
+        redirect_or_render_with_error(settings_path, "activerecord.errors.messages.confirmation", :attribute => I18n.t("application.general.email"))
       end
     end
   end
 
   def update_password
-    old_password = params[:old_password]
+    old_password = params[:user][:old_password]
     begin
-      if current_user.has_password?(old_password)
+      if current_user.crypted_password.blank? or current_user.has_password?(old_password)
         if current_user.update_attributes(params[:user])
-          redirect_or_render_with_info(settings_path, 'users.echo_account.change_password.success')
+          redirect_or_render_with_info(settings_path, 'users.echo_account.change_password.success') do |page|
+            page << "$('#change_password').removeClass('active');"
+            page << "$('#echo_account_settings .content').removeClass('active').animate(toggleParams,1000, function(){$(this).remove()});"
+          end
         else
           redirect_or_render_with_error(settings_path, current_user)
         end

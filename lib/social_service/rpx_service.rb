@@ -67,7 +67,11 @@ class RpxService
     data = query.map { |k,v|
       "#{CGI::escape k.to_s}=#{CGI::escape v.to_s}"
     }.join('&')
-    resp = http.post(url.path, data)
+    begin 
+      resp = http.post(url.path, data)
+    rescue SocketError
+      raise RpxServerException.new, 'Unable to connect to Rpx Server'
+    end
     if resp.code == '200'
       begin
         data = JSON.parse(resp.body)
@@ -90,6 +94,8 @@ class RpxService
     def initialize(http_response)
       @http_response = http_response
     end
+  end
+  class RpxServerException < StandardError
   end
 end
 

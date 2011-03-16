@@ -9,10 +9,10 @@ module Users::SocialModule
       @user = User.new
       @user.create_profile
       
-      opts = SocialService.instance.load_basic_profile_options(profile_info) || {}
-      opts[:social_identifiers] = [SocialIdentifier.new(:identifier => profile_info['identifier'], 
+      opts ={} 
+      opts = {:social_identifiers => [SocialIdentifier.new(:identifier => profile_info['identifier'], 
                                                           :provider_name => profile_info['providerName'],
-                                                          :profile_info => profile_info.to_json )]
+                                                          :profile_info => profile_info.to_json )] }
       
       
       User.transaction do
@@ -23,6 +23,8 @@ module Users::SocialModule
           later_call_with_error(redirect_url, signup_url, @user.social_identifiers.first)
         end
       end
+    rescue RpxService::RpxServerException
+      redirect_or_render_with_error(redirect_url, "application.remote_error")
     rescue Exception => e
       log_message_error(e, "Error creating user")
     else
@@ -35,20 +37,24 @@ module Users::SocialModule
     later_call_url = params[:later_call]
     token = params[:token]
     begin
-      profile_info = SocialService.instance.get_profile_info(token)
-      social_id = current_user.add_social_identifier( profile_info['identifier'], profile_info['providerName'], profile_info.to_json )
-      if social_id.save
-        SocialService.instance.map(profile_info['identifier'], current_user.id)
-        if later_call_url
-          later_call_with_info(redirect_url, later_call_url, "users.social_accounts.connect.success", 
-                                       :account => I18n.t("users.social_accounts.providers.#{profile_info['providerName'].underscore}"))
+      User.transaction do 
+        profile_info = SocialService.instance.get_profile_info(token)
+        social_id = current_user.add_social_identifier( profile_info['identifier'], profile_info['providerName'], profile_info.to_json )
+        if social_id.save
+          SocialService.instance.map(profile_info['identifier'], current_user.id)
+          if later_call_url
+            later_call_with_info(redirect_url, later_call_url, "users.social_accounts.connect.success", 
+                                         :account => I18n.t("users.social_accounts.providers.#{profile_info['providerName'].underscore}"))
+          else
+            redirect_or_render_with_info(redirect_url, "users.social_accounts.connect.success", 
+                                         :account => I18n.t("users.social_accounts.providers.#{profile_info['providerName'].underscore}"))
+          end
         else
-          redirect_or_render_with_info(redirect_url, "users.social_accounts.connect.success", 
-                                       :account => I18n.t("users.social_accounts.providers.#{profile_info['providerName'].underscore}"))
+          redirect_or_render_with_error(redirect_url, "users.social_accounts.connect.failed", :account => I18n.t("users.social_accounts.providers.#{profile_info['providerName'].underscore}"))
         end
-      else
-        redirect_or_render_with_error(redirect_url, "users.social_accounts.connect.failed", :account => I18n.t("users.social_accounts.providers.#{profile_info['providerName'].underscore}"))
       end
+    rescue RpxService::RpxServerException
+      redirect_or_render_with_error(redirect_url, "application.remote_error")
     rescue Exception => e
       log_message_error(e, "Error adding social account to user")
     else
@@ -59,17 +65,21 @@ module Users::SocialModule
   def remove_social
     @provider = params[:provider]
     begin
-      if social_id = current_user.has_provider?(@provider)
-         social_id.destroy
-         SocialService.instance.unmap(social_id.identifier,current_user.id)
-         redirect_or_render_with_info(settings_path, "users.social_accounts.disconnect.success", 
-                  :account => I18n.t("users.social_accounts.providers.#{@provider}")) do |page|
-           page.replace @provider, :partial => 'users/social_accounts/connect'
-         end
-      else
-        redirect_or_render_with_error(settings_path, "users.social_accounts.disconnect.failed", 
-                                      :account => I18n.t("users.social_accounts.providers.#{@provider}"))
+      User.transaction do 
+        if social_id = current_user.has_provider?(@provider)
+           social_id.destroy
+           SocialService.instance.unmap(social_id.identifier,current_user.id)
+           redirect_or_render_with_info(settings_path, "users.social_accounts.disconnect.success", 
+                    :account => I18n.t("users.social_accounts.providers.#{@provider}")) do |page|
+             page.replace @provider, :partial => 'users/social_accounts/connect'
+           end
+        else
+          redirect_or_render_with_error(settings_path, "users.social_accounts.disconnect.failed", 
+                                        :account => I18n.t("users.social_accounts.providers.#{@provider}"))
+        end
       end
+    rescue RpxService::RpxServerException
+      redirect_or_render_with_error(settings_path, "application.remote_error")
     rescue Exception => e
       log_message_error(e, "Error removing social account to user")
     else
@@ -86,6 +96,8 @@ module Users::SocialModule
     elsif @user.active?
       redirect_or_render_with_error(root_path, "users.activation.messages.already_active")
     else
+      opts = SocialService.instance.load_basic_profile_options(@profile_info) || {}
+      opts.each{|k,v|@user.send("#{k}=",v)}
       render_static_new :template => 'users/users/setup_basic_profile' do |format|
         format.js {render :template => 'users/components/users_form', 
                           :locals => {:partial => 'users/users/setup_basic_profile', :css_class => "basic_profile_box"}}

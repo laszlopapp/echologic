@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   # TODO uncomment attr_accessible :active if needed.
   #attr_accessible :active
 
-  
+  attr_accessor :old_password
   
 
   # Authlogic plugin to do authentication
@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   # we need to make sure that either a password or openid gets set
   # when the user activates his account
   def has_no_credentials?
-    self.crypted_password.blank? && self.social_identifiers.empty?
+    (self.crypted_password.blank? and social_identifiers.empty?) or !@old_password.nil?
   end
 
   # Return true if user is activated.
