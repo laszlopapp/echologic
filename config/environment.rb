@@ -36,8 +36,11 @@ Rails::Initializer.run do |config|
   # Unit testing
   config.gem 'test-unit', :lib => 'test/unit'
 
-  # require should to use it for testing :)
+  # require shoulda to use it for testing :)
   config.gem 'shoulda'
+
+  # Mocks for testing
+  config.gem 'flexmock'
 
   # gem for background processing
   config.gem 'delayed_job'
