@@ -1,5 +1,6 @@
-<% content_for :submenu, tabnav(:connect) %>
-
+<% load_submenu :connect do %>
+  <%= content_for :section, "connect search" %>
+<% end %>
 <%=
   if current_user.profile.completeness.nil? ||
        current_user.profile.completeness < Profile::COMPLETENESS_THRESHOLD
