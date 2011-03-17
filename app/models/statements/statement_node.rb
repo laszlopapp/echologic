@@ -310,7 +310,12 @@ class StatementNode < ActiveRecord::Base
       tags_query = ''
       and_conditions = []
       and_conditions << sanitize_sql(["s.type = '#{opts.delete(:type)}'"]) if opts[:type]
-      and_conditions << sanitize_sql(["#{Statement.table_name}.editorial_state_id = ?", StatementState['published'].id]) unless opts[:show_unpublished]
+      unless opts[:show_unpublished]
+        publish_condition = []
+        publish_condition << sanitize_sql(["#{Statement.table_name}.editorial_state_id = ?",StatementState['published'].id])
+        publish_condition << sanitize_sql(["s.creator_id = ?",  opts[:user].id]) if opts[:user]
+        and_conditions << "(#{publish_condition.join(' OR ')})"
+      end
       and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]]) if opts[:language_ids]
       and_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]]) if opts[:drafting_states]
       if !search_term.blank?

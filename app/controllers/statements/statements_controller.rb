@@ -745,8 +745,8 @@ class StatementsController < ApplicationController
   #
   # Gets all the statement documents belonging to a group of statements, and orders them per language ids.
   #
-  def search_statement_documents(statement_ids, language_ids = @language_preference_list)
-    statement_documents = StatementDocument.search_statement_documents(statement_ids, language_ids).sort! {|a, b|
+  def search_statement_documents(statement_ids, language_ids = @language_preference_list, opts={})
+    statement_documents = StatementDocument.search_statement_documents(statement_ids, language_ids, opts).sort! {|a, b|
       language_ids.index(a.language_id) <=> language_ids.index(b.language_id)
     }
     statement_documents.each_with_object({}) do |sd, documents_hash|

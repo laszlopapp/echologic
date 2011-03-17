@@ -35,13 +35,15 @@ module PublishableModule
     @page     = params[:page]  || 1
 
     statement_nodes_not_paginated = search_statement_nodes(:search_term => @value,
+                                                           :user => current_user,
                                                            :language_ids => @language_preference_list,
                                                            :show_unpublished => current_user &&
                                                                                 current_user.has_role?(:editor))
 
     @count    = statement_nodes_not_paginated.count
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => 6)
-    @statement_documents = search_statement_documents(@statement_nodes.map(&:statement_id), @language_preference_list)
+    @statement_documents = search_statement_documents(@statement_nodes.map(&:statement_id), @language_preference_list, 
+                                            :select => "DISTINCT id, title, statement_id, language_id, current, text")
 
     respond_to_js :template => 'statements/questions/index',
                   :template_js => 'statements/questions/questions'

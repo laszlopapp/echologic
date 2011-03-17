@@ -2,10 +2,13 @@
   <%= content_for :section, "discuss search" %>
 <% end %>
 
+
 <%= render 'statements/questions/search' %>
 
+<%= render :partial => 'statements/questions/questions', :locals => { :statement_nodes => @statement_nodes } %>
+
 <!-- Search results -->
-<%= render :partial => 'statements/questions/questions',
+<%= render :partial => 'statements/questions/questions1',
            :locals => {:statement_nodes => @statement_nodes} %>
 
 

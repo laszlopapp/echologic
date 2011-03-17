@@ -312,11 +312,10 @@ module StatementsHelper
   end
 
   # Returns the context menu link for this statement_node.
-  def statement_node_context_link(statement_node, language_ids, action = 'read', last_statement_node = false)
-    return if (statement_document = statement_node.document_in_preferred_language(language_ids)).nil?
-    link_to(h(statement_document.title),
+  def statement_node_context_link(statement_node, title, action = 'read', opts={})
+    link_to(h(title),
              statement_node_url(statement_node),
-             :class => "ajax no_border statement_link #{dom_class(statement_node)}_link ttLink",
+             :class => "#{opts[:css]} no_border statement_link #{dom_class(statement_node)}_link ttLink",
              :title => I18n.t("discuss.tooltips.#{action}_#{dom_class(statement_node)}"))
   end
 

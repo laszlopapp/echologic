@@ -103,7 +103,7 @@
   text-align: center;
 }
 
-#question_list a.publish_button {
+a.publish_button {
 	background: url("../images/page/publish_button_200.png") no-repeat scroll left top transparent;
 	border: medium none;
 	color: #21587F;
@@ -118,11 +118,12 @@
   top: -5px;
 }
 
-#question_list a.publish_button:hover {
+a.publish_button:hover {
   background-position: 0 -43px;
+	border-bottom-width: 0px;
 }
 
-#question_list span.publish_button {
+span.publish_button {
   background:transparent url(../images/page/icons/publish_button.png) no-repeat scroll 0 0;
   background-position: 0 -17px;
   height: 17px;
@@ -335,6 +336,85 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 #discuss_search_container.search_container {
   margin:   35px auto 25px;
 }
+
+#questions_container .header {
+	background: url("../images/page/discuss/stack_separator.png") no-repeat scroll 7px 0 transparent;
+  clear: both;
+  display: inline-block;
+  min-height: 34px;
+  width: 990px;
+	margin-bottom: 10px;
+}
+
+#questions_container .header .label {
+	 color: #21587F;
+   cursor: default;
+   font-size: 16px;
+   font-weight: bold;
+	 position: absolute;
+	 left: 69px;
+	 top: 66px;
+}
+
+#questions_container .header .icon {
+	display: inline-block;
+  background: url(../images/page/box/box_icon_discuss.png) repeat-x left top;
+	height: 36px;
+	width: 36px;
+	position: absolute;
+	top: 58px;
+  left: 22px;
+}
+
+#questions_container li.question {
+	display: inline-block;
+	width: 900px;
+	height: 160px;
+}
+
+#questions_container li.question .top {
+	float: left;
+  height: 20px;
+  position: relative;
+  top: 12px;
+  width: 720px;
+	margin-bottom: 9px;
+}
+#questions_container li.question .top .statement_link {
+	background: none;
+}
+
+#questions_container li.question .bottom {
+  float: left;
+  height: 100px;
+  position: relative;
+  width: 720px;
+}
+
+#questions_container li.question .bottom .description {
+	padding-left: 21px;
+	width: 480px;
+	height: 90px;
+}
+
+#questions_container li.question .buttons {
+  position: absolute;
+	right: 95px;
+	top: 200px;
+}
+
+#questions_container li.question a.publish_button{
+	left: 55px;
+}
+
+#questions_container li.question .avatar_holder {
+	float: left;
+}
+#questions_container li.question .avatar_holder img {
+  height: 130px;
+	width: 175px;
+}
+/********************** TODO: OLD; MAYBE TO DELETE *******************************************/
 
 #function_container .simple_header_block h2 {
   color: #21587f !important;
