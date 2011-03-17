@@ -1,16 +1,16 @@
 /* Do init stuff. */
 $(document).ready(function () {
-  
-  loadAvatarHolders();
-  
+  if ($('#function_container.connect').length > 0) {
+  	loadAvatarHolders();
+  }
 });
 
 
 function loadAvatarHolders(){
-	$('.profile.active .avatar_holder').live("click", function() {
-    $.scrollTo('top', 400, function() {$('#profile_details_container').animate(toggleParams, 500)});
-    $('.profile').removeClass('active');
-    return false;
-  });
+	  $('#connect_results').delegate('.profile.active .avatar_holder', 'click', function(){
+			$.scrollTo('body', 400, function() {$('#profile_details_container').animate(toggleParams, 500)});
+	    $('.profile').removeClass('active');
+	    return false;
+		});
 }
 

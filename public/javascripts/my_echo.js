@@ -1,9 +1,11 @@
 /* Do init stuff. */
 
 $(document).ready(function () {
-  loadComponentAutoComplete();
-	loadProfileEditForm();
-	initEchoAccountButtons();
+	if ($('#function_container.my_echo').length > 0) {
+  	loadComponentAutoComplete();
+  	loadProfileEditForm();
+  	initEchoAccountButtons();
+  }
 });
 
 

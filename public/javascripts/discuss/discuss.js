@@ -2,10 +2,12 @@
 
 /* Initialization on loading the document */
 $(document).ready(function () {
-	initBreadcrumbs();
-	initStatements();
-	initFragmentStatementChange();
-	loadSocialMessages();
+	if ($('#function_container.discuss').length > 0) {
+  	initBreadcrumbs();
+  	initStatements();
+  	initFragmentStatementChange();
+  	loadSocialMessages();
+  }
 });
 
 
@@ -166,4 +168,5 @@ function socialSharingFinished(array) {
 		info($('#social_messages').data('messages')['success']);
 	}
 }
+
 

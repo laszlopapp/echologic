@@ -219,7 +219,7 @@
 
   /* TODO: Load the upload picture forms here */
   function uploadFormSubmit(){
-    $('.upload_form').livequery(function(){
+    $('#dialogContent .upload_form').livequery(function(){
       var element = $(this);
       element.submit(function(){
 				$(this).ajaxSubmit({

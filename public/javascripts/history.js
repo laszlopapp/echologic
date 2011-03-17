@@ -1,9 +1,9 @@
 $(document).ready(function () {
-  initHistoryEvents();
-	
-	initPaginationButtons();
-	
-	initFragmentChange();
+	if ($('#function_container.search').length > 0) {
+  	initHistoryEvents();
+  	initPaginationButtons();
+  	initFragmentChange();
+  }
 });
 
 
