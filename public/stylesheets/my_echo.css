@@ -51,23 +51,44 @@
 /* Social accounts */
 
 #social_accounts_settings #social_account_list {
-  margin-top: 30px;
+  margin-top: 25px;
 }
 
-#social_accounts_settings .social_label,
-#social_accounts_settings .connect,
-#social_accounts_settings .disconnect {
+#social_accounts_settings li {
 	display: inline-block;
 	width: 150px;
 	text-align: center;
 }
 
 #social_accounts_settings .social_label {
-  font-weight:bold;
+  font-weight: bold;
+  display: inline-block;
 }
 
 #social_accounts_settings .disconnect .button {
   text-decoration: underline;
+}
+
+/* Social Network labels */
+#social_accounts_settings .social_label {
+  background: transparent url(../images/page/social_echo_icons_big.png) no-repeat scroll 0 0;
+  width: 110px;
+  height: 35px;
+}
+#social_accounts_settings .social_label.facebook {
+  background-position: 0 -35px;
+}
+#social_accounts_settings .social_label.twitter {
+  background-position: -110px -35px;
+}
+#social_accounts_settings .social_label.yahoo {
+  background-position: -220px -35px;
+}
+#social_accounts_settings .social_label.linkedin {
+  background-position: -330px -35px;
+}
+#social_accounts_settings .social_label.google {
+  background-position: -440px -35px;
 }
 
 

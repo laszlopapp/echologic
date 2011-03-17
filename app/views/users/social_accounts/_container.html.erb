@@ -4,17 +4,9 @@
     <%= I18n.t("users.social_accounts.guide") %>
   </div>
 	<ul id="social_account_list">
-		<% social_providers = SocialService.instance.social_providers %>
-		<li>
-      <% social_providers.each do |social_provider| %>
-				<%= content_tag :span, I18n.t("users.social_accounts.providers.#{social_provider}"), :class => "social_label #{social_provider}" %>
-			<% end %>
-    </li>
-		<li>
 			<% token_url = redirect_token_url %>
-      <% social_providers.each do |social_provider| %>
-			  <%= social_account_button social_provider, token_url %>
+      <% SocialService.instance.social_providers.each do |provider| %>
+			  <%= content_tag :li, social_account_button(provider, token_url) %>
       <% end %>
-    </li>
   </ul>
 </div>
