@@ -77,6 +77,15 @@ Feature: Set my settings
     Given I am logged in as "user" with password "true"
     When I go to my settings
       And I follow "delete_account"
-      And I follow "destroy_account"
+      And I fill in the following:
+      | password            |  true   |
+      And I press localized "users.echo_account.delete_account.confirm"
     Then I should see "Your echo account was successfully deleted."
       And I should be inactive
+      
+  Scenario: Fail to delete Account
+    Given I am logged in as "user" with password "true"
+    When I go to my settings
+      And I follow "delete_account"
+      And I press localized "users.echo_account.delete_account.confirm"
+    Then I should see localized "users.echo_account.change_password.wrong_password"
