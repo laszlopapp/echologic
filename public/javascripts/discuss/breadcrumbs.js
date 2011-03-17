@@ -62,8 +62,7 @@
        * Initializes the links in the different sort of breadcrumbs.
        */
 			function initBreadcrumb(breadcrumb) {
-
-        if (breadcrumb.children().hasClass('.search_link')) {return;}
+        if (!breadcrumb.children(':last').hasClass('statement')) {return;}
 
         // Loads ids of the statements appearing in the stack
 		    var path_id = breadcrumb.attr('id');
