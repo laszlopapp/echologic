@@ -14,7 +14,7 @@ module ConnectHelper
         :id => 'close_details_container',
         :class => 'close_link',
         :onclick => "$('.profile').removeClass('active');
-                     $.scrollTo('top', 400, function(){
+                     $.scrollTo('body', 400, function(){
                        $('#profile_details_container').animate(toggleParams, 500);
                      });
                      return false;"
