@@ -123,7 +123,7 @@
 }
 
 #question_list span.publish_button {
-  background:transparent url(../images/page/icons/publish_button.png) no-repeat scroll 0 0;
+  background: transparent url(../images/page/icons/publish_button.png) no-repeat scroll 0 0;
   background-position: 0 -17px;
   height: 17px;
   line-height: 17px;
@@ -573,7 +573,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	padding-top: 10px;
 }
 
-.social_echo_panel .button.enabled, 
+.social_echo_panel .button.enabled,
 .social_echo_panel .button.disabled {
 	display: inline-block;
 	width: 100%;
@@ -583,8 +583,8 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	vertical-align: middle;
 	text-decoration: underline;
 	cursor: pointer;
-} 
-.social_echo_panel .button.enabled:hover, 
+}
+.social_echo_panel .button.enabled:hover,
 .social_echo_panel .button.disabled:hover {
 	color: #7BB031;
 }
@@ -621,7 +621,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	height: 60px;
 	border: 1px dashed;
 	vertical-align: top;
-	display: inline-block; 
+	display: inline-block;
 	text-align: left;
 }
 
