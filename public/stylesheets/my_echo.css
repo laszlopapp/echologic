@@ -97,7 +97,7 @@
 	color: #c13d08;
 }
 
-#echo_account_settings .delete_account #destroy_account {
+#echo_account_settings .delete_account .destroy_account {
   color: #FFF;
   padding: 0;
   margin: 15px 0;

@@ -3,10 +3,13 @@
 	<div class="guide">
     <%= I18n.t("users.echo_account.delete_account.guide") %>
   </div>
-	<%= link_to I18n.t("users.echo_account.delete_account.confirm"),
-             url_for(:controller => "users/users",
-                     :action => "destroy_account"),
-             :id => 'destroy_account',
-             :class => 'button big_red_button big_red_button_300',
-             :method => :delete %>
+	<% form_for current_user, :url => url_for(:controller => "users/users", :action => "destroy_account"),
+                            :method => :delete, :html => {:class => 'ajax_form echoForm'} do |f| %>
+		<p>
+	    <%= label_tag I18n.t('users.echo_account.delete_account.password') %><br/>
+	    <%= password_field_tag :password %>
+	  </p>
+		<%= f.submit I18n.t("users.echo_account.delete_account.confirm"), 
+                 :class => 'destroy_account button big_red_button big_red_button_300' %>
+	<% end %>
 </div>
