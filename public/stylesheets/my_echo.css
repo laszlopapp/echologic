@@ -54,7 +54,9 @@
   margin-top: 25px;
 }
 
-#social_accounts_settings li {
+#social_accounts_settings li,
+#social_accounts_settings .connect,
+#social_accounts_settings .disconnect {
 	display: inline-block;
 	width: 150px;
 	text-align: center;
