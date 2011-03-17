@@ -3,7 +3,7 @@ class Users::ActivationsController < ApplicationController
   skip_before_filter :require_user
   before_filter :require_no_user
 
-  def new
+  def basic_profile
     later_call_with_info(root_path, request.url) do |format|
       format.js {
        @user = User.find_by_perishable_token(params[:activation_code], 1.week)
@@ -15,7 +15,7 @@ class Users::ActivationsController < ApplicationController
          render_with_error
        else
          render :template => 'users/components/users_form',
-                :locals => {:partial => 'users/activations/new', :css_class => "basic_profile_box"}
+                :locals => {:partial => 'users/activations/basic_profile', :css_class => "basic_profile_box"}
        end
        }
     end
@@ -25,7 +25,7 @@ class Users::ActivationsController < ApplicationController
   #
   # We arrive here from setup basic profile form or via following the activation link sent by an Email.
   #
-  def create
+  def activate
     @user = User.find_by_perishable_token(params[:activation_code], 1.week)
 
     User.transaction do
