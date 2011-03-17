@@ -60,7 +60,6 @@
 				}
 
 				initExpandables();
-        initRatioBars(statement);
 
         if (isEchoable()) {
           statement.echoable();
@@ -131,13 +130,6 @@
 			  });
 			}
 
-      function initRatioBars(container) {
-				container.find('.echo_indicator').each(function() {
-			    var indicator = $(this);
-			    var echo_value = parseInt(indicator.attr('alt'));
-			    indicator.progressbar({ value: echo_value });
-			  });
-			}
 
       function initContentLinks() {
         statement.find(".statement_content a").each(function() {
@@ -431,14 +423,16 @@
 					initMoreButton();
           initChildrenLinks(container);
           initFUQChildrenLinks(container);
-					initRatioBars(container);
+					var echoableApi = statement.data('echoableApi');
+					echoableApi.loadRatioBars(container);
 				},
 
 				reinitialiseSiblings: function(siblingsContainerSelector) {
           var container = statement.find(siblingsContainerSelector);
           initSiblingsLinks(container);
           initFUQSiblingsLinks(container);
-					initRatioBars(container);
+					var echoableApi = statement.data('echoableApi');
+          echoableApi.loadRatioBars(container);
         },
 
         insertContent: function(content) {
