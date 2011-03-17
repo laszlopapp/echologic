@@ -625,6 +625,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	text-align: left;
 }
 
+.social_echo_panel .share_form input[disabled='disabled'] {
+	color: #9999CC;
+}
+
 /****************************/
 /* Add New statement button */
 /****************************/

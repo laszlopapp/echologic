@@ -25,6 +25,6 @@
                         :class => 'url' %>
 	 <%= tag('br') %>
    <%= submit_tag I18n.t('users.social_accounts.share.submit'),
-                  :class => 'formButton300' %><br/>
+                  :class => 'formButton300', :disabled => !current_user.using_rpx? %><br/>
 	<% end %>
 <% end %>
