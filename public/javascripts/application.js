@@ -5,7 +5,6 @@
   $(function() {
 
     $.fragmentChange(true);
-    makeRatiobars();
     makeTooltips();
     roundCorners();
     bindLanguageSelectionEvents();
@@ -203,15 +202,7 @@
     $('#messageContainer #errorBox').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
   }
 
-  /* Collects all echo_indicators by class and invokes the progressbar-init on them by taking
-   * the value from the alt-attribute. */
-  function makeRatiobars() {
-    $('.echo_indicator').livequery(function() {
-      var indicator = $(this);
-      var echo_value = parseInt(indicator.attr('alt'));
-      indicator.progressbar({ value: echo_value });
-    });
-  }
+  
 
   function loadTabsContainer() {
     $('.tab_details_container').livequery(function() {

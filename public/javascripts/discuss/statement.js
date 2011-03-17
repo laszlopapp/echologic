@@ -60,6 +60,7 @@
 				}
 
 				initExpandables();
+        initRatioBars(statement);
 
         if (isEchoable()) {
           statement.echoable();
@@ -127,6 +128,14 @@
             // Children container
 				  	expandableElement.expandable();
 				  }
+			  });
+			}
+
+      function initRatioBars(container) {
+				container.find('.echo_indicator').each(function() {
+			    var indicator = $(this);
+			    var echo_value = parseInt(indicator.attr('alt'));
+			    indicator.progressbar({ value: echo_value });
 			  });
 			}
 
@@ -422,12 +431,14 @@
 					initMoreButton();
           initChildrenLinks(container);
           initFUQChildrenLinks(container);
+					initRatioBars(container);
 				},
 
 				reinitialiseSiblings: function(siblingsContainerSelector) {
           var container = statement.find(siblingsContainerSelector);
           initSiblingsLinks(container);
           initFUQSiblingsLinks(container);
+					initRatioBars(container);
         },
 
         insertContent: function(content) {
