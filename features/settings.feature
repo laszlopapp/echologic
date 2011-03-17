@@ -46,9 +46,9 @@ Feature: Set my settings
       | user_email_confirmation   | thedarksideofthemoon@sun.com |
       | user_password             | true                         |
       And I press "Ok"
-    Then I should see localized "users.users.messages.email_updated"
+    Then I should see localized "users.users.messages.activate_email"
     Then an "activate" email should be sent to "thedarksideofthemoon@sun.com"
-  
+
   Scenario: Change Password Fail
     Given I am logged in as "user" with password "true"
     When I go to my settings
@@ -59,8 +59,8 @@ Feature: Set my settings
       | user_password_confirmation   | dzenkui |
       And I press "Ok"
     Then I should see "The password you entered is not your password!"
-    
-  Scenario: Change Password 
+
+  Scenario: Change Password
     Given I am logged in as "user" with password "true"
     When I go to my settings
       And I follow "change_password"
@@ -71,8 +71,8 @@ Feature: Set my settings
       And I press "Ok"
     Then I should see "Password changed successfully!"
       And "User Test" should have "dzenkui" as password
-      
-      
+
+
   Scenario: Delete Account
     Given I am logged in as "user" with password "true"
     When I go to my settings

@@ -102,24 +102,44 @@ class Users::UsersController < ApplicationController
       elsif !current_user.has_password? params[:user].delete(:password)
         redirect_or_render_with_error(settings_path, "activerecord.errors.models.user.attributes.password.invalid")
       elsif params[:user][:email].eql? params[:user][:email_confirmation]
+
+        # Check if Email exists
+        if User.find_by_email(params[:user][:email])
+          redirect_or_render_with_error(settings_path, "activerecord.errors.models.user.attributes.email.taken")
+          return
+        end
+
+        # Have it already as verified Mail?
         if current_user.has_verified_email?(params[:user][:email])
+
+          # Change now
           if current_user.update_attributes(params[:user])
             redirect_or_render_with_info(settings_path, "users.echo_account.change_email.success") do |page|
-              page << "$('#change_email').removeClass('active');"
-              page << "$('#echo_account_settings .content').animate(toggleParams,1000, function(){$(this).remove()});"
+              close_panel(page)
             end
           else
             redirect_or_render_with_error(settings_path, current_user)
           end
+
         else
+          # Validate per Mail and change in a pending action
           pending_action = PendingAction.create(:action => params[:user].to_json, :user => current_user)
           current_user.deliver_activate_email!(params[:user][:email], pending_action.uuid)
-          redirect_or_render_with_info(settings_path, "users.users.messages.email_updated")
+          redirect_or_render_with_info(settings_path, "users.users.messages.activate_email") do |page|
+            close_panel(page)
+          end
         end
       else
-        redirect_or_render_with_error(settings_path, "activerecord.errors.messages.confirmation", :attribute => I18n.t("application.general.email"))
+        redirect_or_render_with_error(settings_path, "activerecord.errors.messages.confirmation",
+                                      :attribute => I18n.t("application.general.email"))
       end
     end
+  end
+
+  def close_panel(page)
+    page << "$('#change_email').removeClass('active');"
+    page << "$('#echo_account_settings .content').animate(toggleParams,1000, function(){$(this).remove()});"
+    page
   end
 
   def update_password

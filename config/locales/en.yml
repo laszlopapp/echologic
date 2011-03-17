@@ -315,10 +315,11 @@ en:
         guide: |
           You are currently registered with the E-Mail address: <strong>{{email}}</strong>.<br/>
           Here you can define a new address echo should use to keep in touch with you.
-        confirm_password: Confirm Password
-        success: E-Mail changed successfully!
-        failed: Failed to change E-Mail!
-        no_password: You must have a password defined in order to change your email!
+        password: Your Password
+        success: E-Mail changed successfully.
+        failed: Failed to change E-Mail.
+        no_password: Please enter your valid password to change your E-Mail.
+
       change_password:
         title: Change Password
         guide: Please define your new password.
@@ -384,7 +385,7 @@ en:
 
       messages:
         created: "Please check your E-Mails to activate your newly created account!"
-        email_updated: "Please check your E-Mails to activate your new email!"
+        activate_email: "Please check your E-Mails to activate your new email!"
 
     # Reports section
     reports:
@@ -758,8 +759,8 @@ en:
         user:
           attributes:
             email:
-              taken: 'Your e-Mail address is already in use.'
-              invalid: 'Your e-Mail must be in a valid format.'
+              taken: 'The E-Mail address is already in use.'
+              invalid: 'The E-Mail must be in a valid format.'
             password:
               invalid: 'Wrong password.'
         social_identifier:
