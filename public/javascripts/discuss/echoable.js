@@ -40,6 +40,7 @@
 				} else {
 					initEchoButton();
 				}
+				initRatioBars(echoable);
 		  }
 
       function initLabelMessages() {
@@ -105,13 +106,23 @@
       }
 
       function updateSupportersBar(form, classToAdd, classToRemove, ratio) {
-        var old_supporter_bar = form.find('.supporters_bar');
+				var header = form.find('.header');
+        var old_supporter_bar = header.find('.supporters_bar');
         var new_supporter_bar = $('<span></span>').attr('class', old_supporter_bar.attr('class')).
                                 addClass(classToAdd).removeClass(classToRemove).attr('alt', ratio);
         new_supporter_bar.attr('title', form.find('.supporters_label').text());
         old_supporter_bar.replaceWith(new_supporter_bar);
+				initRatioBars(header);
       }
 
+
+      function initRatioBars(container) {
+        container.find('.echo_indicator').each(function() {
+          var indicator = $(this);
+          var echo_value = parseInt(indicator.attr('alt'));
+          indicator.progressbar({ value: echo_value });
+        });
+      }
 
       /************************************/
       /* For normal statements (not form) */
@@ -271,6 +282,7 @@
           echo_button.attr('href', href);
           echoable.find('.header .supporters_bar').replaceWith(supporters_bar);
           echoable.find('.header .supporters_label').text(supporters_number);
+					initRatioBars(echoable.find('.header'));
           return this;
         },
 				loadEchoLabelMessages: function(messages) {
@@ -283,6 +295,10 @@
         },
 				loadSocialEchoPanel: function() {
 					initSocialPanel();
+					return this;
+				},
+				loadRatioBars: function(container) {
+					initRatioBars(container);
 					return this;
 				}
 			});

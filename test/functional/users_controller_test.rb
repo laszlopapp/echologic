@@ -201,10 +201,19 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should delete own account" do
     login_as :user
-    put :destroy_account
+    put :destroy_account, :password => 'true'
     assert_response :redirect
     u = User.find_by_email('user@echologic.org')
     assert_nil u
+  end
+
+  test "should fail to delete own account because password entered is wrong" do
+    login_as :user
+    put :destroy_account, :password => 'pass'
+    assert_response :redirect
+    u = User.find_by_email('user@echologic.org')
+    assert_not_nil u
+    assert assigns(:error).eql?(I18n.t("users.echo_account.change_password.wrong_password"))
   end
 
   test "should add social account" do

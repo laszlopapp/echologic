@@ -1,4 +1,6 @@
-<% content_for :submenu, tabnav(:discuss) %>
+<% load_submenu :discuss do %>
+  <%= content_for :section, "discuss search" %>
+<% end %>
 
 <%= render 'statements/questions/search' %>
 

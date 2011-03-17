@@ -182,12 +182,21 @@ class Users::UsersController < ApplicationController
 
   def destroy_account
     begin
-      current_user_session.destroy
-      reset_session
-      current_user.delete_account
-      respond_to do |format|
-        set_info "users.echo_account.delete_account.success"
-        format.html { flash_info and redirect_to root_path }
+      if current_user.crypted_password.blank? or current_user.has_password?(params[:password])
+        current_user_session.destroy
+        reset_session
+        current_user.delete_account
+        respond_to do |format|
+          set_info "users.echo_account.delete_account.success"
+          format.html { flash_info and redirect_to root_path }
+          format.js {
+            render_with_info do |page|
+              page.redirect_to root_path
+            end
+          }
+        end
+      else
+        redirect_or_render_with_error(settings_path, "users.echo_account.change_password.wrong_password")
       end
     rescue Exception => e
       log_message_error(e, "Error deleting account from user '#{current_user.id}'.")

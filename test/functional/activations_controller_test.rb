@@ -6,8 +6,8 @@ class ActivationsControllerTest < ActionController::TestCase
     @controller = Users::ActivationsController.new
   end
 
-  test "should get new" do
-    get :new
+  test "should get basic_profile form" do
+    get :basic_profile
     assert_response :redirect
   end
 
@@ -15,7 +15,7 @@ class ActivationsControllerTest < ActionController::TestCase
     u = flexmock(User.new)
     u.create_profile
     u.signup!({:email => "mymummysdead@john.com"})
-    post :create, :activation_code => u.perishable_token,
+    post :activate, :activation_code => u.perishable_token,
          :user => {:full_name => "Mad Max",
                    :password => "pass",
                    :password_confirmation => "pass",
@@ -29,8 +29,7 @@ class ActivationsControllerTest < ActionController::TestCase
     u = flexmock(User.new)
     u.create_profile
     u.signup!({:email => "mymummysdead@john.com"})
-    post :create,
-         :activation_code => u.perishable_token,
+    post :activate, :activation_code => u.perishable_token,
          :user => {:full_name => "Mad Max",
                    :password => "pass",
                    :password_confirmation => "pass"}
@@ -47,7 +46,6 @@ class ActivationsControllerTest < ActionController::TestCase
     p.save
     p.reload
     post :activate_email, :token => p.uuid
-    puts assigns(:error).inspect
     assert_not_nil User.find_by_email("maingirl@g5.com")
   end
 
@@ -56,7 +54,7 @@ class ActivationsControllerTest < ActionController::TestCase
                  SocialIdentifier.new(:identifier => "mi", :provider_name => "o2",
                 :profile_info => {'email' => "main@main.com", 'preferredUsername' => "echo beach"}.to_json)]))
     assert_difference('ActionMailer::Base.deliveries.count', 1) do # activate email
-      post :create, :activation_code => u.perishable_token,
+      post :activate, :activation_code => u.perishable_token,
            :user => {:full_name => "Mad Max",
                      :email => "main@main.com",
                      :agreement => 1}
@@ -71,7 +69,7 @@ class ActivationsControllerTest < ActionController::TestCase
                  SocialIdentifier.new(:identifier => "mi", :provider_name => "o2",
                 :profile_info => {'email' => "main@main.com", 'preferredUsername' => "echo beach"}.to_json)]))
     assert_difference('ActionMailer::Base.deliveries.count', 0) do # activate email
-      post :create, :activation_code => u.perishable_token,
+      post :activate, :activation_code => u.perishable_token,
            :user => {:full_name => "Mad Max",
                      :email => "user@echologic.org",
                      :agreement => 1}
@@ -89,7 +87,7 @@ class ActivationsControllerTest < ActionController::TestCase
                 :profile_info => {'verifiedEmail' => "main@main.com", 'preferredUsername'=> "echo beach"}.to_json)]))
     u.save
     assert_difference('ActionMailer::Base.deliveries.count', 1) do #activation confirmation email
-      post :create, :activation_code => u.perishable_token,
+      post :activate, :activation_code => u.perishable_token,
            :user => {:full_name => "Mad Max",
                      :email => "main@main.com",
                      :agreement => 1}

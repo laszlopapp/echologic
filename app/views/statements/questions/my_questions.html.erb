@@ -1,3 +1,3 @@
 <% questions ||= @questions %>
-<% content_for :submenu, tabnav(:discuss) %>
+<% load_submenu :discuss %>
 <%= render 'statements/questions/my_questions', :locals => {:questions => questions} %>

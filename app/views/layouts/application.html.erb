@@ -88,7 +88,7 @@
       <%= yield :submenu %>
 
       <!-- The chosen function -->
-      <div id="function_container">
+      <div id="function_container" class="<%= yield :section %>">
       	<%#= tabnav :admin if current_user and current_user.has_role? :admin %>
         <%= yield %>
       </div>

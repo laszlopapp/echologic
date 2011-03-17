@@ -328,6 +328,7 @@ en:
         wrong_password: The password you entered is not your password!
       delete_account:
         title: Delete Account
+        password: Password
         guide: |
           <p><strong>ATTENTION!</strong></p>
           <p>Your account and ALL your personal data will be <strong>permanently deleted</strong>.<br/>
