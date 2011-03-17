@@ -563,6 +563,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .social_echo_panel .buttons_container {
 	padding-top: 10px;
+	height: 105px;
 }
 
 .social_echo_panel .button_container {
