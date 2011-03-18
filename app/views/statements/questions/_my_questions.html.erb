@@ -2,9 +2,10 @@
 
 <!-- List my new and published questions -->
 <div id="my_questions">
-
+  <% content_tag :div, '', :class => 'action_bar' do %>
   <!-- Create new question-->
-  <%= create_my_question_link_for %>
+    <% create_my_question_link_for %>
+	<% end %>
 
   <div class="header_block discuss_right_block">
     <!-- Header -->

@@ -56,7 +56,7 @@
        * Handles the click on the more Button event (replaces it with an element of class 'more_loading')
        */
       function initMoreButton() {
-        search_container.find(".more_pagination a:Event(!click)").bind("click", function() {
+        search_container.find(".more_pagination a:Event(!click)").addClass('ajax').bind("click", function() {
           var moreButton = $(this);
           moreButton.replaceWith($('<span/>').text(moreButton.text()).addClass('more_loading'));
         });
@@ -74,17 +74,25 @@
           settings = $.extend({}, resettings);
           initialise();
         }, 
-				insertContent: function(content, pagination_buttons)
+				insertContent: function(content, pagination_buttons, page)
 				{
 					var scrollpane = elements_list.data('jsp');
 					children_list = scrollpane.getContentPane();
+					if (page == 1) {
+				  	children_list.find('li').remove();
+				  }
 					children_list.append(content);
-					
-					pagination.replaceWith(pagination_buttons);
+					if (pagination.length > 0) {
+				  	pagination.replaceWith(pagination_buttons);
+				  } else {
+						pagination_buttons.insertAfter(elements_list);
+					}
+					pagination = pagination_buttons;
 					
 					scrollpane.reinitialise();
           scrollpane.scrollToBottom();
-					initRatioBars($(content));
+					initRatioBars(children_list);
+					initMoreButton();
 				}
       });
     }

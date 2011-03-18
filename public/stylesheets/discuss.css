@@ -50,7 +50,7 @@
   text-align: center;
 }
 
-#my_questions .add_new_question_icon {
+.action_bar .add_new_question_icon {
 	height:   32px;
   width:    32px;
   display:  inline-block;
@@ -59,11 +59,11 @@
 	margin-top: 10px;
 }
 
-#my_questions .add_new_button:hover .add_new_question_icon {
+.action_bar .add_new_button:hover .add_new_question_icon {
   background-position: 0 -32px;
 }
 
-#my_questions .action_bar .label {
+.action_bar .add_new_button .label {
   top: 9px;
 }
 
@@ -327,12 +327,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* Search */
 /**********/
 
-#discuss_search_container .new_question {
-  position: absolute;
-  top: -1px;
-  margin-left: 10px;
-}
-
 #discuss_search_container.search_container {
   margin:   35px auto 25px;
 }
@@ -342,7 +336,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   clear: both;
   display: inline-block;
   min-height: 34px;
-  width: 990px;
+  width: 785px;
 	margin-bottom: 10px;
 }
 
@@ -351,9 +345,9 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
    cursor: default;
    font-size: 16px;
    font-weight: bold;
-	 position: absolute;
-	 left: 69px;
-	 top: 66px;
+	 position: relative;
+	 left: 30px;
+	 top: 3px;
 }
 
 #questions_container .header .icon {
@@ -361,8 +355,8 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   background: url(../images/page/box/box_icon_discuss.png) repeat-x left top;
 	height: 36px;
 	width: 36px;
-	position: absolute;
-	top: 58px;
+	position: relative;
+	top: 15px;
   left: 22px;
 }
 
@@ -372,7 +366,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 #questions_container li.question {
 	display: inline-block;
-	width: 900px;
 	height: 160px;
 }
 
@@ -381,7 +374,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   height: 20px;
   position: relative;
   top: 0px;
-  width: 720px;
+  width: 590px;
 	margin-bottom: 9px;
 }
 #questions_container li.question .top .statement_link {
@@ -392,19 +385,18 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   float: left;
   height: 100px;
   position: relative;
-  width: 720px;
 	bottom: 0px;
 }
 
 #questions_container li.question .bottom .description {
 	padding-left: 21px;
-	width: 480px;
+	width: 365px;
 	height: 90px;
 }
 
 #questions_container li.question .buttons {
   position: absolute;
-	right: 144px;
+	right: 64px;
 	top: 74px;
 }
 
@@ -723,8 +715,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	margin-top: 20px;
 }
 
-#my_questions .add_new_button,
-#statements .action_bar .add_new_button {
+.action_bar .add_new_button {
   height:   80px;
   width:    160px;
   display:  block;
@@ -1237,15 +1228,6 @@ a.statement_link:hover {
 .create_contra_argument_button_32 {background: transparent url(../images/page/discuss/contra_argument_32.png) no-repeat scroll 0 4px;}
 .create_follow_up_question_button_32 {background: transparent url(../images/page/discuss/question_32.png) no-repeat scroll 0 0;}
 
-.add_question_button_32 {
-  background:transparent url(../images/page/discuss/add_question_32.png) no-repeat scroll 0 0;
-  height: 24px;
-  padding: 8px 0 0 38px;
-}
-
-.add_question_button_32:hover {
-  background-position: 0 -32px;
-}
 
 /*****************/
 /* Incorporation */

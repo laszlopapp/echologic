@@ -5,6 +5,10 @@
 
 <%= render 'statements/questions/search' %>
 
+<% content_tag :div, '', :class => 'action_bar' do %>
+  <!-- Create new question-->
+    <% create_question_link_for(params[:search_terms]) %>
+  <% end %>
 <%= render :partial => 'statements/questions/questions_list', :locals => { :statement_nodes => @statement_nodes } %>
 
 <!-- Search results -->
