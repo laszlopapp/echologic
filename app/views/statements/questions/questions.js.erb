@@ -1,5 +1,7 @@
 var content = "<%= escape_javascript(render(:partial => 'statements/questions/questions', :locals => {:statement_nodes => @statement_nodes})) %>";
 
-$("#questions_container").replaceWith(content);
+var pagination_buttons = "<%= escape_javascript(will_paginate(@statement_nodes, :class => 'more_pagination',
+                                                   :next_label => I18n.t("application.general.more"),
+                                                   :renderer => StatementsHelper::MoreRenderer)) %>";
 
-$("#create_question_link").replaceWith('<%= create_question_link_for(params[:search_terms]) %>');
+$("#questions_container").data('searchApi').insertContent(content, pagination_buttons);

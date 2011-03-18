@@ -128,4 +128,11 @@ module PublishableModuleHelper
   def statement_states_collection
     StatementState.all.map{|s|[I18n.t("discuss.statements.states.initial_state.#{s.code}"),s.id]}
   end
+  
+  # renders pagination 'more' button
+  def more_questions(page=0)
+    link_to I18n.t("application.general.more"),
+            discuss_search_url(:search_terms => params[:search_terms], :page => page.to_i+1),
+            :class => 'more_children ajax'
+  end
 end

@@ -313,9 +313,10 @@ module StatementsHelper
 
   # Returns the context menu link for this statement_node.
   def statement_node_context_link(statement_node, title, action = 'read', opts={})
+    css = opts.delete(:css)
     link_to(h(title),
-             statement_node_url(statement_node),
-             :class => "#{opts[:css]} no_border statement_link #{dom_class(statement_node)}_link ttLink",
+             statement_node_url(statement_node, opts),
+             :class => "#{css} no_border statement_link #{dom_class(statement_node)}_link ttLink",
              :title => I18n.t("discuss.tooltips.#{action}_#{dom_class(statement_node)}"))
   end
 

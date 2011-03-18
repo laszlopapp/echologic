@@ -366,6 +366,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   left: 22px;
 }
 
+#questions_container ul {
+	height: 900px;
+}
+
 #questions_container li.question {
 	display: inline-block;
 	width: 900px;
@@ -376,7 +380,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	float: left;
   height: 20px;
   position: relative;
-  top: 12px;
+  top: 0px;
   width: 720px;
 	margin-bottom: 9px;
 }
@@ -389,6 +393,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   height: 100px;
   position: relative;
   width: 720px;
+	bottom: 0px;
 }
 
 #questions_container li.question .bottom .description {
@@ -399,8 +404,8 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 #questions_container li.question .buttons {
   position: absolute;
-	right: 95px;
-	top: 200px;
+	right: 144px;
+	top: 74px;
 }
 
 #questions_container li.question a.publish_button{

@@ -3,6 +3,7 @@ $(document).ready(function () {
   	initHistoryEvents();
   	initPaginationButtons();
   	initFragmentChange();
+		$('#questions_container').statement_search();
   }
 });
 

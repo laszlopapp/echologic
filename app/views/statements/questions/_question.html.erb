@@ -2,9 +2,11 @@
 <% question_label = I18n.t("discuss.statements.types.#{dom_class(question)}")%>
 <li id="<%= dom_id(question) %>" class="question">
   	<% long_title = question_document.title.length > 70 %>
+		<% title = long_title ? "#{question_document.title[0..70]}..." : question_document.title %>
 	  <% link_to_question(question_document.title, question, long_title, params[:search_terms]) %>
     <% content_tag :div, :class => 'top' do %>
-		  <%= statement_node_context_link(question, "#{question_label} - #{question_document.title[0..70]}", 'current') %>
+		  <%= statement_node_context_link(question, "#{question_label} - #{title}", 'current', 
+          :bids => @origin, :origin => @origin) %>
 			<%= supporter_ratio_bar(question) %>
       <%= supporters_label(question, true) %>
     <% end %>

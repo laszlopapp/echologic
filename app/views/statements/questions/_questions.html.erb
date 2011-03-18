@@ -1,21 +1,2 @@
-<div id="questions_container" class="questions_container with-header">
-	<% content_tag :div, :class => 'header' do %>
-	 <%= content_tag :span, '', :class => 'icon' %>
-	 <%= content_tag :span, questions_count_text(@count, params[:search_terms]), :class => 'label' %>
-	<% end %>
-	<% content_tag :dov, :class => 'content' do %>
-	 <ul>
-    <% unless statement_nodes.empty? %>
-      <%= render :partial => 'statements/questions/question', :collection => statement_nodes %>
-    <% else %>
-      <span class="no_results">
-        <%= (!current_user or current_user.spoken_languages.blank?) ?
-            I18n.t('discuss.messages.empty_without_spoken_languages', :my_echo => my_profile_path) :
-            I18n.t('discuss.messages.empty') %>
-      </span>
-      <br/>
-      <% create_first_question_link_for(params[:search_terms]) %>
-    <% end %>
-   </ul>
-	<% end %>
-</div>
+<% @origin = params[:search_terms].nil? ? 'ds' : "sr#{params[:search_terms].gsub(/,/,'\\;')}" %>
+<%= render :partial => 'statements/questions/question', :collection => statement_nodes %>
