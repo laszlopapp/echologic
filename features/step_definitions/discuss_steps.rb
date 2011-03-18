@@ -33,13 +33,38 @@ When /^I choose the "([^\"]*)" ([^\"]*)$/ do |name, type|
   type = type.underscore
   response.should have_selector("li.#{type}") do |selector|
     selector.each do |statement|
-      css_element = (type.eql?('question') ? "span.name" : "a.#{type}_link")
-      if name.eql?(statement.at_css(css_element).inner_text.strip)
+      title = type.eql?('question') ? "Question - #{name}" : name
+      if title.eql?(statement.at_css("a.#{type}_link").inner_text.strip)
         instance_variable_set("@#{type}", type_class.find(URI.parse(statement.at_css("a")['href']).path.match(/\d+/)[0]))
         visit statement.at_css("a")['href']
       end
     end
   end
+end
+
+When /^there are hidden ([^\"]*) for this ([^\"]*)$/ do |hidden_type, parent_type|
+  parent_children = instance_variable_get("@#{parent_type}").child_statements :language_ids => [Language[:en].id], :type => hidden_type.singularize.classify
+  parent_children_titles = parent_children.map{|p|p.document_in_preferred_language([Language[:en].id]).title}
+  
+  visible_titles = []
+  response.should have_selector("li.#{hidden_type.singularize}") do |selector|
+    selector.each do |statement|
+      visible_titles << statement.at_css('a.statement_link').inner_text.strip
+    end
+  end
+  instance_variable_set("@hidden_#{hidden_type}", parent_children_titles - visible_titles)
+  
+end
+
+Then /^I should see the hidden ([^\"]*)$/ do |type|
+  titles = instance_variable_get("@hidden_#{type}")
+  res = false
+  response.should have_selector("li.#{type.singularize}") do |selector|
+    selector.each do |statement|
+      res = true if titles.include?(statement.at_css('a.statement_link').inner_text.strip)
+    end
+  end
+  assert res
 end
 
 Then /^I should see an error message$/i do

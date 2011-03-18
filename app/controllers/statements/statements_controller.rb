@@ -777,6 +777,7 @@ class StatementsController < ApplicationController
   def load_ancestors(teaser = false)
     if @statement_node
       @ancestors = @statement_node.ancestors
+      @ancestor_documents = {}
       @ancestors.each {|a| load_siblings(a) }
 
       load_siblings(@statement_node) # if teaser: @statement_node is the teaser's parent, otherwise the node on the bottom-most level
@@ -784,6 +785,8 @@ class StatementsController < ApplicationController
         @ancestors << @statement_node # if teaser: @statement_node is the teaser's parent, therefore, an ancestor
         load_children_for_parent(@statement_node, @type)
       end
+      
+      @ancestors.each{|a|@ancestor_documents[a.statement_id] = a.document_in_preferred_language(@language_preference_list)}
     else
       if teaser
         load_roots_to_session

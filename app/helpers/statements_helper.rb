@@ -9,16 +9,16 @@ module StatementsHelper
   ##################
 
   # Renders ancestors headers (when we have a GET operation on a child node)
-  def render_ancestors(ancestors)
+  def render_ancestors(ancestors, ancestor_documents)
     val = ''
     ancestors.each do |ancestor|
-      val << render_ancestor(ancestor)
+      val << render_ancestor(ancestor, ancestor_documents[ancestor.statement_id])
     end
     val
   end
 
-  def render_ancestor(ancestor)
-    render :partial => 'statements/show', :locals => {:statement_node => ancestor, :only_header => true}
+  def render_ancestor(ancestor, document)
+    render :partial => 'statements/show', :locals => {:statement_node => ancestor, :statement_document => document, :only_header => true}
   end
 
   # Renders all the possible children of the current node (per type, ordering must be defined in the node type definition)
