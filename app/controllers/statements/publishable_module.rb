@@ -33,6 +33,7 @@ module PublishableModule
   def category
     @value    = params[:search_terms] || ""
     @page     = params[:page]  || 1
+    @per_page = params[:per_page] || 6
 
     statement_nodes_not_paginated = search_statement_nodes(:search_term => @value,
                                                            :user => current_user,
@@ -41,7 +42,7 @@ module PublishableModule
                                                                                 current_user.has_role?(:editor))
 
     @count    = statement_nodes_not_paginated.count
-    @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => 6)
+    @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => @per_page)
     @statement_documents = search_statement_documents(@statement_nodes.map(&:statement_id), @language_preference_list, 
                                             :select => "DISTINCT id, title, statement_id, language_id, current, text")
 

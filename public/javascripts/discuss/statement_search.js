@@ -8,7 +8,8 @@
   $.fn.statement_search = function(current_settings) {
 
     $.fn.statement_search.defaults = {
-      'animation_speed': 300
+      'animation_speed': 300,
+			'per_page' : 6
     };
 
     // Merging settings with defaults
@@ -56,9 +57,11 @@
        * Handles the click on the more Button event (replaces it with an element of class 'more_loading')
        */
       function initMoreButton() {
+				var elements_count = search_container.find('li.question').length;
         search_container.find(".more_pagination a:Event(!click)").addClass('ajax').bind("click", function() {
           var moreButton = $(this);
           moreButton.replaceWith($('<span/>').text(moreButton.text()).addClass('more_loading'));
+					$.setFragment({"per_page" : elements_count + settings['per_page']});
         });
       }
 			
