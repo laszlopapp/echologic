@@ -50,9 +50,9 @@ function setSearchHistory() {
   }
   if ($(':input[id=sort]').length > 0) {
     var sort = $(':input[id=sort]').val();
-	  $.setFragment({ "search_terms": search_terms, "sort" : sort, "page": "1", "page_count" : ""});
+	  $.setFragment({ "search_terms": search_terms, "sort" : sort, "page": "1", "page_count" : "", "per_page" : ""});
   } else {
-    $.setFragment({ "search_terms": search_terms, "page": "1"});
+    $.setFragment({ "search_terms": search_terms, "page": "1", "per_page" : ""});
   }
 }
 

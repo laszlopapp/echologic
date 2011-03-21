@@ -658,11 +658,14 @@ class StatementsController < ApplicationController
 
     bids.each_with_index do |bid, index| #[id, classes, url, title, label, over]
       key = bid[0,2]
+      value = bid[2..-1]
       label = I18n.t("discuss.statements.breadcrumbs.labels.#{key}")
       over = I18n.t("discuss.statements.breadcrumbs.labels.over.#{key}")
       breadcrumb = case key
-        when "ds" then ["ds","search_link statement_link", discuss_search_url, I18n.t("discuss.statements.breadcrumbs.discuss_search")]
-        when "sr" then ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :search_terms => bid[2..-1].gsub(/\\;/, ',')), bid[2..-1]]
+        when "ds" then value = value.split('|')
+                       ["ds","search_link statement_link", discuss_search_url(:per_page => value[1]), I18n.t("discuss.statements.breadcrumbs.discuss_search")]
+        when "sr" then value = value.split('|')
+                       ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :per_page => value[1], :search_terms => value[0].gsub(/\\;/, ',')), value[0]]
         when "mi" then ["mi","my_discussions_link statement_link", my_questions_url, I18n.t("discuss.statements.breadcrumbs.my_questions")]
         when "fq" then statement_node = StatementNode.find(bid[2..-1])
                        statement_document = search_statement_documents(statement_node.statement_id, @language_preference_list)[statement_node.statement_id] ||
@@ -834,16 +837,22 @@ class StatementsController < ApplicationController
     if !params[:origin].blank? #statement node is a question
       origin = params[:origin]
       key = origin[0,2]
+      value = origin[2..-1]
       siblings = case key
-        when 'ds' then search_statement_nodes(:language_ids => @language_preference_list,
-                                              :show_unpublished => current_user && current_user.has_role?(:editor),
-                                              :only_id => true).map(&:id) + ["/add/question"]
-        when 'sr'then search_statement_nodes(:search_term => origin[2..-1].gsub(/\\;/,','),
+       when 'ds' then per_page = value.blank? ? 6 : value[1..-1]
+                      search_statement_nodes(:language_ids => @language_preference_list,
+                                             :show_unpublished => current_user && current_user.has_role?(:editor),
+                                             :only_id => true).paginate(:page => 1, 
+                                                                        :per_page => per_page).map(&:id) + ["/add/question"]
+        when 'sr'then value = value.split('|')
+                      per_page = value.length > 0 ? value[1] : 6
+                      search_statement_nodes(:search_term => value[0].gsub(/\\;/,','),
                                              :language_ids => @language_preference_list,
                                              :show_unpublished => current_user && current_user.has_role?(:editor),
-                                             :only_id => true).map(&:id) + ["/add/question"]
+                                             :only_id => true).paginate(:page => 1, 
+                                                                        :per_page => per_page).map(&:id) + ["/add/question"]
         when 'mi' then Question.by_creator(current_user).by_creation.only_id.map(&:id) + ["/add/question"]
-        when 'fq' then @previous_node = StatementNode.find(origin[2..-1])
+        when 'fq' then @previous_node = StatementNode.find(value)
                        @previous_type = "FollowUpQuestion"
                        @previous_node.child_statements :language_ids => @language_preference_list, 
                                                        :type => @previous_type, 
@@ -860,12 +869,19 @@ class StatementsController < ApplicationController
     if !params[:origin].blank? #statement node is a question
       origin = params[:origin]
       key = origin[0,2]
+      value = origin[2..-1]
       roots = case key
-        when 'ds' then search_statement_nodes(:language_ids => @language_preference_list,
-                                              :show_unpublished => current_user && current_user.has_role?(:editor))
-        when 'sr'then search_statement_nodes(:search_term => origin[2..-1].gsub(/\\;/,','),
+        when 'ds' then per_page = value.blank? ? 6 : value[1..-1]
+                       search_statement_nodes(:language_ids => @language_preference_list,
+                                             :show_unpublished => current_user && current_user.has_role?(:editor)).paginate(
+                                                                  :page => 1, :per_page => per_page)
+                                                                        
+        when 'sr' then value = value.split('|')
+                       per_page = value.length > 1 ? value[1] : 6
+                       search_statement_nodes(:search_term => value[0].gsub(/\\;/,','),
                                              :language_ids => @language_preference_list,
-                                             :show_unpublished => current_user && current_user.has_role?(:editor))
+                                             :show_unpublished => current_user && current_user.has_role?(:editor)).paginate(
+                                                                  :page => 1, :per_page => per_page)
         when 'mi' then Question.by_creator(current_user).by_creation
         when 'fq' then @previous_node = StatementNode.find(origin[2..-1])
                        @previous_type = "FollowUpQuestion"

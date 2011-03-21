@@ -1,2 +1,5 @@
-<% @origin = params[:search_terms].nil? ? 'ds' : "sr#{params[:search_terms].gsub(/,/,'\\;')}" %>
+<% 
+  @origin = @value.blank? ? 'ds' : "sr#{@value.gsub(/,/,'\\;')}" 
+  @origin << "|#{@per_page.to_i*@page.to_i}"
+%>
 <%= render :partial => 'statements/questions/question', :collection => statement_nodes %>
