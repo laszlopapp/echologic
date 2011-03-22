@@ -1,4 +1,4 @@
-<% question_document = @statement_documents[question.statement_id] %>
+<% question_document ||= @statement_documents[question.statement_id] %>
 <% question_label = I18n.t("discuss.statements.types.#{dom_class(question)}")%>
 <li id="<%= dom_id(question) %>" class="question">
   	<% long_title = question_document.title.length > 70 %>
@@ -15,7 +15,7 @@
 			 <%= question_document.text.length > 300 ? "#{question_document.text[0..300]}..." : question_document.text%>
 			<% end %>
 		<% end %>
-		<% content_tag :div, :class => 'buttons' do %>
-     <%= publish_button_or_state(question, true) %>
-    <% end %>
+		<% content_tag :div, :class => 'buttons', :id => "#{dom_id(question)}_buttons" do %>
+		 <%= publish_button_or_state(question, true) %>
+		<% end %>
 </li>

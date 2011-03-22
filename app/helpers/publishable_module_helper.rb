@@ -115,10 +115,10 @@ module PublishableModuleHelper
   end
 
   # Creates a 'Publish' button to release the question on my questions area.
-  def publish_button_or_state(statement_node, no_published_label = false)
+  def publish_button_or_state(statement_node, no_published_label, opts={})
     if !statement_node.published?
       link_to(I18n.t("discuss.statements.publish"),
-              publish_statement_node_path(statement_node),
+              { :controller => :statements, :id => statement_node.id, :action => :publish }.merge(opts),
               :class => 'ajax_put publish_button ttLink',
               :title => I18n.t('discuss.tooltips.publish'))
     else
@@ -132,9 +132,10 @@ module PublishableModuleHelper
   end
   
   # renders pagination 'more' button
-  def more_questions(page=0)
+  def more_questions(total_loaded, page=1)
+    loaded_pages = total_loaded/QUESTIONS_PER_PAGE.to_i + (total_loaded%QUESTIONS_PER_PAGE.to_i > 0 ? 1 : 0)
     link_to I18n.t("application.general.more"),
-            discuss_search_url(:search_terms => params[:search_terms], :page => page.to_i+1),
+            discuss_search_url(:search_terms => params[:search_terms], :page => page.to_i+loaded_pages),
             :class => 'more_children ajax'
   end
 end

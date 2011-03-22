@@ -742,7 +742,10 @@ class StatementsController < ApplicationController
   # Calls the statement node sql query for questions.
   #
   def search_statement_nodes(opts = {})
-    StatementNode.search_statement_nodes(opts.merge({:type => "Question"}))
+    StatementNode.search_statement_nodes(opts.merge({:type => "Question", 
+                                                     :user => current_user,
+                                                     :language_ids => @language_preference_list,
+                                                     :show_unpublished => current_user && current_user.has_role?(:editor)}))
   end
 
   #
@@ -839,18 +842,12 @@ class StatementsController < ApplicationController
       key = origin[0,2]
       value = origin[2..-1]
       siblings = case key
-       when 'ds' then per_page = value.blank? ? 6 : value[1..-1]
-                      search_statement_nodes(:language_ids => @language_preference_list,
-                                             :show_unpublished => current_user && current_user.has_role?(:editor),
-                                             :only_id => true).paginate(:page => 1, 
-                                                                        :per_page => per_page).map(&:id) + ["/add/question"]
+       when 'ds' then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1]
+                      search_statement_nodes(:only_id => true).paginate(:page => 1, :per_page => per_page).map(&:id) + ["/add/question"]
         when 'sr'then value = value.split('|')
-                      per_page = value.length > 0 ? value[1] : 6
+                      per_page = value.length > 0 ? value[1] : QUESTIONS_PER_PAGE
                       search_statement_nodes(:search_term => value[0].gsub(/\\;/,','),
-                                             :language_ids => @language_preference_list,
-                                             :show_unpublished => current_user && current_user.has_role?(:editor),
-                                             :only_id => true).paginate(:page => 1, 
-                                                                        :per_page => per_page).map(&:id) + ["/add/question"]
+                                             :only_id => true).paginate(:page => 1, :per_page => per_page).map(&:id) + ["/add/question"]
         when 'mi' then Question.by_creator(current_user).by_creation.only_id.map(&:id) + ["/add/question"]
         when 'fq' then @previous_node = StatementNode.find(value)
                        @previous_type = "FollowUpQuestion"
@@ -871,16 +868,12 @@ class StatementsController < ApplicationController
       key = origin[0,2]
       value = origin[2..-1]
       roots = case key
-        when 'ds' then per_page = value.blank? ? 6 : value[1..-1]
-                       search_statement_nodes(:language_ids => @language_preference_list,
-                                             :show_unpublished => current_user && current_user.has_role?(:editor)).paginate(
-                                                                  :page => 1, :per_page => per_page)
+        when 'ds' then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1]
+                       search_statement_nodes.paginate(:page => 1, :per_page => per_page)
                                                                         
         when 'sr' then value = value.split('|')
-                       per_page = value.length > 1 ? value[1] : 6
-                       search_statement_nodes(:search_term => value[0].gsub(/\\;/,','),
-                                             :language_ids => @language_preference_list,
-                                             :show_unpublished => current_user && current_user.has_role?(:editor)).paginate(
+                       per_page = value.length > 1 ? value[1] : QUESTIONS_PER_PAGE
+                       search_statement_nodes(:search_term => value[0].gsub(/\\;/,',')).paginate(
                                                                   :page => 1, :per_page => per_page)
         when 'mi' then Question.by_creator(current_user).by_creation
         when 'fq' then @previous_node = StatementNode.find(origin[2..-1])

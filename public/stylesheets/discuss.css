@@ -367,6 +367,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 #questions_container li.question {
 	display: inline-block;
 	height: 160px;
+	position: relative;
 }
 
 #questions_container li.question .top {
