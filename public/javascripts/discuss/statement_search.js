@@ -61,7 +61,7 @@
         search_container.find(".more_pagination a:Event(!click)").addClass('ajax').bind("click", function() {
           var moreButton = $(this);
           moreButton.replaceWith($('<span/>').text(moreButton.text()).addClass('more_loading'));
-					$.setFragment({"per_page" : elements_count + settings['per_page']});
+					$.setFragment({"per_page" : elements_count + settings['per_page'], "page" : ""});
         });
       }
 			

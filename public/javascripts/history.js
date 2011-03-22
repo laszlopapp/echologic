@@ -70,20 +70,25 @@ function initPaginationButtons() {
 
 function initFragmentChange() {
   $(document).bind("fragmentChange.page", function() {
-	  if ($.fragment().page) {
-			$.getScript($.queryString(document.location.href, { 
-			  "per_page": $.fragment().per_page,
-				"page": $.fragment().page,
-				"sort": $.fragment().sort,
-				"search_terms": $.fragment().search_terms
-			}));
-		}
+	  if ($.fragment().page) {triggerSearchQuery();}
   });
+
+  if ($.fragment().per_page) {
+    $.setFragment({"page": "1"});
+  }
 
   if ($.fragment().page) {
     $(document).trigger("fragmentChange.page");
   }
-	if ($.fragment().per_page) {
-		$.setFragment({"page": "1"});
-  }
+	
 }
+
+function triggerSearchQuery(){ 
+  $.getScript($.queryString(document.location.href, { 
+    "per_page": $.fragment().per_page,
+    "page": $.fragment().page,
+    "sort": $.fragment().sort,
+    "search_terms": $.fragment().search_terms
+  }));
+}
+

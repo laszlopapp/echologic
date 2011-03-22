@@ -1,9 +1,13 @@
 var content = $("<%= escape_javascript(render(:partial => 'statements/questions/questions', :locals => {:statement_nodes => @statement_nodes})) %>");
 
-var pagination_buttons = $("<%= escape_javascript(will_paginate(@statement_nodes, :class => 'more_pagination',
+var pagination_buttons = $("<%= escape_javascript(more_questions(@statement_nodes, @page)) %>")
+
+/*
+var pagination_buttons = $("<%= escape_javascript(will_paginate(@statement_nodes, :per_page => QUESTIONS_PER_PAGE, 
+                                                   :class => 'more_pagination',
                                                    :next_label => I18n.t("application.general.more"),
                                                    :renderer => StatementsHelper::MoreRenderer)) %>");
-
+*/
 $("#questions_container .header .label").text("<%= questions_count_text(@count, params[:search_terms]) %>");
 
 $("#questions_container").data('searchApi').insertContent(content, pagination_buttons, <%= @page || 1%>);
