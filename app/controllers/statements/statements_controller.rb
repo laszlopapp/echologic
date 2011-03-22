@@ -317,13 +317,9 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def descendants
-    @type = params[:type].to_s.camelize.to_sym || @statement_node.class.children_types.first
+    @type = params[:type].to_s.camelize.to_sym
     @current_node = StatementNode.find(params[:current_node]) if params[:current_node]
-    if @statement_node
-      load_children(@type, 1, -1)
-    else
-      load_roots(@current_node,1, -1)
-    end
+    @statement_node ? load_children(@type, 1, -1) : load_roots(@current_node,1, -1)
 
     respond_to do |format|
       format.html{
@@ -346,7 +342,7 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def children
-    @type = params[:type].camelize.to_sym || @statement_node.class.children_types.first
+    @type = params[:type].camelize.to_sym
     load_top_children @type
     respond_to do |format|
       format.html{show}
@@ -364,7 +360,7 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def more
-    @type = params[:type].camelize.to_sym || @statement_node.class.children_types.first
+    @type = params[:type].camelize.to_sym
     @page = params[:page] || 1
     @per_page = MORE_CHILDREN
     @offset = @page.to_i == 1 ? TOP_CHILDREN : 0
@@ -391,11 +387,11 @@ class StatementsController < ApplicationController
         load_roots_to_session
       end
     end
-#    begin
+    begin
       render_template('statements/add', true)
-#    rescue Exception => e
-#      log_error_home(e, "Error showing add #{@type} teaser.")
-#    end
+    rescue Exception => e
+      log_error_home(e, "Error showing add #{@type} teaser.")
+    end
   end
 
 
@@ -465,9 +461,9 @@ class StatementsController < ApplicationController
         immediate_render = children_types[1][index]
         if @children[type].nil?
           if immediate_render
-            @children[type] ||= @statement_node.get_paginated_child_statements(:language_ids => @language_preference_list,
-                                                                             :type => type.to_s,
-                                                                             :user => current_user)
+            @children[type] ||= @statement_node.paginated_child_statements(:language_ids => @language_preference_list,
+                                                                           :type => type.to_s,
+                                                                           :user => current_user)
             @children_documents.merge!(search_statement_documents(@children[type].flatten.map(&:statement_id),
                                                                   @language_preference_list))
           else
@@ -489,11 +485,11 @@ class StatementsController < ApplicationController
   #
   def load_children(type, page = @page, per_page = @per_page)
     @children = {}
-    @children[type] = @statement_node.get_paginated_child_statements(:language_ids => @language_preference_list,
-                                                                     :type => type.to_s,
-                                                                     :user => current_user,
-                                                                     :page => page,
-                                                                     :per_page => per_page)
+    @children[type] = @statement_node.paginated_child_statements(:language_ids => @language_preference_list,
+                                                                 :type => type.to_s,
+                                                                 :user => current_user,
+                                                                 :page => page,
+                                                                 :per_page => per_page)
     @children_documents = search_statement_documents(@children[type].flatten.map(&:statement_id),
                                                      @language_preference_list)
   end
@@ -662,10 +658,11 @@ class StatementsController < ApplicationController
       label = I18n.t("discuss.statements.breadcrumbs.labels.#{key}")
       over = I18n.t("discuss.statements.breadcrumbs.labels.over.#{key}")
       breadcrumb = case key
-        when "ds" then value = value.split('|')
-                       ["ds","search_link statement_link", discuss_search_url(:per_page => value[1]), I18n.t("discuss.statements.breadcrumbs.discuss_search")]
+    when "ds" then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1]
+                   ["ds","search_link statement_link", discuss_search_url(:per_page => per_page), I18n.t("discuss.statements.breadcrumbs.discuss_search")]
         when "sr" then value = value.split('|')
-                       ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :per_page => value[1], :search_terms => value[0].gsub(/\\;/, ',')), value[0]]
+                       per_page = value.length > 0 ? value[1] : QUESTIONS_PER_PAGE
+                       ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :per_page => per_page, :search_terms => value[0].gsub(/\\;/, ',')), value[0]]
         when "mi" then ["mi","my_discussions_link statement_link", my_questions_url, I18n.t("discuss.statements.breadcrumbs.my_questions")]
         when "fq" then statement_node = StatementNode.find(bid[2..-1])
                        statement_document = search_statement_documents(statement_node.statement_id, @language_preference_list)[statement_node.statement_id] ||
@@ -837,61 +834,52 @@ class StatementsController < ApplicationController
   # Gets the root ids that need to be loaded to the session.
   #
   def roots_to_session(statement_node)
+    load_roots(statement_node, 1, -1, true)
+  end
+
+  def load_roots(statement_node, page=1, per_page=QUESTIONS_PER_PAGE, for_session=false)
     if !params[:origin].blank? #statement node is a question
       origin = params[:origin]
       key = origin[0,2]
       value = origin[2..-1]
       siblings = case key
+       # get question siblings depending from the request's origin (key)
+       # discuss search with no search results
        when 'ds' then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1]
-                      search_statement_nodes(:only_id => true).paginate(:page => 1, :per_page => per_page).map(&:id) + ["/add/question"]
-        when 'sr'then value = value.split('|')
-                      per_page = value.length > 0 ? value[1] : QUESTIONS_PER_PAGE
-                      search_statement_nodes(:search_term => value[0].gsub(/\\;/,','),
-                                             :only_id => true).paginate(:page => 1, :per_page => per_page).map(&:id) + ["/add/question"]
-        when 'mi' then Question.by_creator(current_user).by_creation.only_id.map(&:id) + ["/add/question"]
-        when 'fq' then @previous_node = StatementNode.find(value)
-                       @previous_type = "FollowUpQuestion"
-                       @previous_node.child_statements :language_ids => @language_preference_list, 
-                                                       :type => @previous_type, 
-                                                       :user => current_user, 
-                                                       :for_session => true
+                      sn = search_statement_nodes(:only_id => for_session).paginate(:page => 1, :per_page => per_page)
+                      for_session ? sn.map(&:id) + ["/add/question"] : sn
+       # discuss search with search results 
+       when 'sr'then value = value.split('|')
+                     per_page = value.length > 0 ? value[1] : QUESTIONS_PER_PAGE
+                     sn = search_statement_nodes(:search_term => value[0].gsub(/\\;/,','),
+                                                 :only_id => for_session).paginate(:page => 1, :per_page => per_page)
+                     for_session ? sn.map(&:id) + ["/add/question"] : sn
+       # my discussions
+       when 'mi' then sn = Question.by_creator(current_user).by_creation
+                      for_session ? sn.only_id.map(&:id) + ["/add/question"] : sn
+       # follow up questions from a statement
+       when 'fq' then @previous_node = StatementNode.find(value)
+                      @previous_type = "FollowUpQuestion"
+                      sn = @previous_node.child_statements :language_ids => @language_preference_list, 
+                                                           :type => @previous_type, 
+                                                           :user => current_user, 
+                                                           :for_session => for_session
+                      for_session ? sn : sn.map(&:target_statement)
       end
     else
-      siblings = (statement_node ? [statement_node.id] : []) + ["/add/question"]
+      # no origin (direct link)
+      siblings = statement_node.nil? ? [] :[statement_node]
+      siblings = siblings.map(&:id) + ["/add/question"] if for_session
+    end
+    if !for_session # for descendants, must load statement documents and fill the necessary attributes for rendering
+      per_page = per_page == -1 ? siblings.length : per_page
+      @children = {}
+      type = @previous_type || @current_node.class.name
+      @children[type.to_sym] = siblings.paginate :page => page, :per_page => per_page
+      
+      @children_documents = search_statement_documents(@children[type.to_sym].flatten.map(&:statement_id),@language_preference_list)
     end
     siblings
-  end
-
-  def load_roots(statement_node, page, per_page)
-    if !params[:origin].blank? #statement node is a question
-      origin = params[:origin]
-      key = origin[0,2]
-      value = origin[2..-1]
-      roots = case key
-        when 'ds' then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1]
-                       search_statement_nodes.paginate(:page => 1, :per_page => per_page)
-                                                                        
-        when 'sr' then value = value.split('|')
-                       per_page = value.length > 1 ? value[1] : QUESTIONS_PER_PAGE
-                       search_statement_nodes(:search_term => value[0].gsub(/\\;/,',')).paginate(
-                                                                  :page => 1, :per_page => per_page)
-        when 'mi' then Question.by_creator(current_user).by_creation
-        when 'fq' then @previous_node = StatementNode.find(origin[2..-1])
-                       @previous_type = "FollowUpQuestion"
-                       @previous_node.child_statements(:language_ids => @language_preference_list,
-                                                       :type => @previous_type,
-                                                       :user => current_user).map(&:target_statement)
-      end
-    else
-      roots = statement_node.nil? ? [] :[statement_node]
-      roots
-    end
-    per_page = per_page == -1 ? roots.length : per_page
-    @children = {}
-    type = @previousNode || @current_node.class.name
-    @children[type.to_sym] = roots.paginate :page => page, :per_page => per_page
-    
-    @children_documents = search_statement_documents(@children[type.to_sym].flatten.map(&:statement_id),@language_preference_list)
   end
 
 

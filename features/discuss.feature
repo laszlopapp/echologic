@@ -422,6 +422,6 @@ Feature: Take Part on a question
       And I choose the "Test Question?" Question
       And I choose the "Second Proposal" Proposal
     Then I should not see "Eighth Proposal"
-      And I follow "show_siblings_button" within ".header_buttons"
+      And I follow "show_siblings_button" within ".proposal .header_buttons"
     Then I should see "Eighth Proposal"
       

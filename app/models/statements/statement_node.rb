@@ -189,7 +189,7 @@ class StatementNode < ActiveRecord::Base
   end
 
   # Get the top children given a certain child type
-  def get_paginated_child_statements(opts)
+  def paginated_child_statements(opts)
     opts[:type] ||= self.class.children_types.first.to_s
     opts[:page] ||= 1
     opts[:per_page] ||= TOP_CHILDREN
