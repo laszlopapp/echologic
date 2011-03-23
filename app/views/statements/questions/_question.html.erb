@@ -1,5 +1,9 @@
+<% puts "mec"%>
 <% question_document ||= @statement_documents[question.statement_id] %>
+<% puts "mec"%>
 <% question_label = I18n.t("discuss.statements.types.#{dom_class(question)}")%>
+<% puts "mec"%>
+
 <li id="<%= dom_id(question) %>" class="question">
 	  <% link_to_question(question_document.title, question, params[:search_terms]) %>
     <% content_tag :div, :class => 'top' do %>

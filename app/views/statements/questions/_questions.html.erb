@@ -1,5 +1,16 @@
-<% 
-  @origin = @value.blank? ? 'ds' : "sr#{@value.gsub(/,/,'\\;')}" 
-  @origin << "|#{@page_count}"
-%>
-<%= render :partial => 'statements/questions/question', :collection => statement_nodes %>
+<% @origin = @value.blank? ? 'ds' : "sr#{@value.gsub(/,/,'\\;').gsub(/\|/, '\\:;')}" %> 
+<% @origin << "|#{@page_count}" %>
+
+<% unless statement_nodes.empty? %>
+  <%= render :partial => 'statements/questions/question', :collection => statement_nodes %>
+<% else %>
+  <li>
+	  <span class="no_results">
+	    <%= (!current_user or current_user.spoken_languages.blank?) ?
+	        I18n.t('discuss.messages.empty_without_spoken_languages', :my_echo => my_profile_path) :
+	        I18n.t('discuss.messages.empty') %>
+	  </span>
+	  <br/>
+	  <% create_first_question_link_for(params[:search_terms]) %>
+	</li>
+<% end %>

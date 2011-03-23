@@ -1,7 +1,8 @@
+
 var content = $("<%= escape_javascript(render(:partial => 'statements/questions/questions', :locals => {:statement_nodes => @statement_nodes})) %>");
 
 var pagination_buttons = $("<%= escape_javascript(more_questions(@statement_nodes, @page)) %>")
 
 $("#questions_container .header .label").text("<%= questions_count_text(@count, params[:search_terms]) %>");
 
-$("#questions_container").data('searchApi').insertContent(content, pagination_buttons, <%= @page || 1%>);
+$("#questions_container").data('searchApi').insertContent(content, pagination_buttons, <%= @page || 1 %>);

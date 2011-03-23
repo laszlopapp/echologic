@@ -463,7 +463,7 @@ module StatementsHelper
         content << content_tag(:span, '>', :class => 'delimiter') if index != 0
         content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.#{b[0][0,2]}"), :class => 'label')
         content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.over.#{b[0][0,2]}"), :class => 'over')
-        content << content_tag(:span, h(b[3].gsub(/\\;/, ',')), :class => b[1])
+        content << content_tag(:span, h(b[3].gsub(/\\;/, ',').gsub(/\\:;/, '|')), :class => b[1])
         content
       end
       breadcrumb_trail << breadcrumb

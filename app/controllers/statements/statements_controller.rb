@@ -640,7 +640,7 @@ class StatementsController < ApplicationController
     @breadcrumb = ["fq#{parent_node.id}",
                    "statement statement_link #{parent_node.class.name.underscore}_link",
                    statement_node_url(parent_node, :bids => params[:bids], :origin => params[:origin]),
-                   statement_document.title.gsub(/\\;/, ','),
+                   statement_document.title.gsub(/\\;/, ',').gsub(/\\:;/, '|'),
                    I18n.t("discuss.statements.breadcrumbs.labels.fq"),
                    I18n.t("discuss.statements.breadcrumbs.labels.over.fq")]
     @bids = params[:bids]||''
@@ -670,7 +670,7 @@ class StatementsController < ApplicationController
                    ["ds","search_link statement_link", discuss_search_url(:page_count => page_count), I18n.t("discuss.statements.breadcrumbs.discuss_search")]
         when "sr" then value = value.split('|')
                        page_count = value.length > 1 ? value[1] : 1
-                       ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :page_count => page_count, :search_terms => value[0].gsub(/\\;/, ',')), value[0]]
+                       ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :page_count => page_count, :search_terms => value[0].gsub(/\\;/, ',').gsub(/\\:;/, '|')), value[0]]
         when "mi" then ["mi","my_discussions_link statement_link", my_questions_url, I18n.t("discuss.statements.breadcrumbs.my_questions")]
         when "fq" then statement_node = StatementNode.find(bid[2..-1])
                        statement_document = search_statement_documents(:statement_ids => [statement_node.statement_id])[statement_node.statement_id] ||
@@ -867,7 +867,7 @@ class StatementsController < ApplicationController
        # discuss search with search results 
        when 'sr'then value = value.split('|')
                      per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
-                     sn = search_statement_nodes(:search_term => value[0].gsub(/\\;/,','),
+                     sn = search_statement_nodes(:search_term => value[0].gsub(/\\;/,',').gsub(/\\:;/, '|'),
                                                  :only_id => for_session).paginate(:page => 1, :per_page => per_page)
                      for_session ? sn.map(&:id) + ["/add/question"] : sn
        # my discussions
@@ -963,7 +963,7 @@ class StatementsController < ApplicationController
   def loadSearchTermsAsTags(origin)
     return if !origin[0,2].eql?('sr')
     origin = origin.split('|')[0]
-    default_tags = origin[2..-1].gsub(/\\;/, ',')
+    default_tags = origin[2..-1].gsub(/\\;/, ',').gsub(/\\:;/, '|')
     default_tags[/[\s]+/] = ',' if default_tags[/[\s]+/]
     default_tags = default_tags.split(',').compact
     default_tags.each{|t| @statement_node.topic_tags << t }

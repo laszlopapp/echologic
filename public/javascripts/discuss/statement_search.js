@@ -60,8 +60,24 @@
 				var elements_count = search_container.find('li.question').length;
         search_container.find(".more_pagination a:Event(!click)").addClass('ajax').bind("click", function() {
           var moreButton = $(this);
-          moreButton.replaceWith($('<span/>').text(moreButton.text()).addClass('more_loading'));
-					$.setFragment({"page_count" : elements_count / settings['per_page'] + 1, "page" : ""});
+					var loadingMoreButton = $('<span/>').text(moreButton.text()).addClass('more_loading');
+					var page_count = elements_count / settings['per_page'] + 1;
+          moreButton.replaceWith(loadingMoreButton);
+					$.setFragment({"page_count" : page_count, "page" : ""});
+					$.ajax({
+						url: moreButton.attr('href'),
+            type: 'get',
+            dataType: 'script',
+            success: function(){
+							search_container.find('a').each(function(){
+								$(this).attr('href',decodeURI($(this).attr('href')).replace(/\|\d+/g, "|" + page_count));
+							});
+			      },
+						error: function(){
+							loadingButton.replaceWith(moreButton);
+			      }
+					});
+					return false;
         });
       }
 			
