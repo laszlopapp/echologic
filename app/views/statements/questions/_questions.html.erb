@@ -1,5 +1,5 @@
 <% 
   @origin = @value.blank? ? 'ds' : "sr#{@value.gsub(/,/,'\\;')}" 
-  @origin << "|#{@per_page.to_i*@page.to_i}"
+  @origin << "|#{@page_count}"
 %>
 <%= render :partial => 'statements/questions/question', :collection => statement_nodes %>

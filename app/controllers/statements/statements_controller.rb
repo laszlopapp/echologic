@@ -49,7 +49,7 @@ class StatementsController < ApplicationController
   #
   def show
 
-    begin
+#    begin
       # Get document to show or redirect if not found
       @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
       if @statement_document.nil?
@@ -77,9 +77,9 @@ class StatementsController < ApplicationController
       load_all_children
 
       render_template 'statements/show'
-    rescue Exception => e
-      log_error_home(e, "Error showing statement.")
-    end
+#    rescue Exception => e
+#      log_error_home(e, "Error showing statement.")
+#    end
   end
 
   #
@@ -666,11 +666,11 @@ class StatementsController < ApplicationController
       label = I18n.t("discuss.statements.breadcrumbs.labels.#{key}")
       over = I18n.t("discuss.statements.breadcrumbs.labels.over.#{key}")
       breadcrumb = case key
-    when "ds" then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1]
-                   ["ds","search_link statement_link", discuss_search_url(:per_page => per_page), I18n.t("discuss.statements.breadcrumbs.discuss_search")]
+    when "ds" then page_count = value.blank? ? 1 : value[1..-1]
+                   ["ds","search_link statement_link", discuss_search_url(:page_count => page_count), I18n.t("discuss.statements.breadcrumbs.discuss_search")]
         when "sr" then value = value.split('|')
-                       per_page = value.length > 0 ? value[1] : QUESTIONS_PER_PAGE
-                       ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :per_page => per_page, :search_terms => value[0].gsub(/\\;/, ',')), value[0]]
+                       page_count = value.length > 1 ? value[1] : 1
+                       ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :page_count => page_count, :search_terms => value[0].gsub(/\\;/, ',')), value[0]]
         when "mi" then ["mi","my_discussions_link statement_link", my_questions_url, I18n.t("discuss.statements.breadcrumbs.my_questions")]
         when "fq" then statement_node = StatementNode.find(bid[2..-1])
                        statement_document = search_statement_documents(:statement_ids => [statement_node.statement_id])[statement_node.statement_id] ||
@@ -861,12 +861,12 @@ class StatementsController < ApplicationController
       siblings = case key
        # get question siblings depending from the request's origin (key)
        # discuss search with no search results
-       when 'ds' then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1]
+       when 'ds' then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1].to_i * QUESTIONS_PER_PAGE
                       sn = search_statement_nodes(:only_id => for_session).paginate(:page => 1, :per_page => per_page)
                       for_session ? sn.map(&:id) + ["/add/question"] : sn
        # discuss search with search results 
        when 'sr'then value = value.split('|')
-                     per_page = value.length > 0 ? value[1] : QUESTIONS_PER_PAGE
+                     per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
                      sn = search_statement_nodes(:search_term => value[0].gsub(/\\;/,','),
                                                  :only_id => for_session).paginate(:page => 1, :per_page => per_page)
                      for_session ? sn.map(&:id) + ["/add/question"] : sn
@@ -962,6 +962,7 @@ class StatementsController < ApplicationController
   #
   def loadSearchTermsAsTags(origin)
     return if !origin[0,2].eql?('sr')
+    origin = origin.split('|')[0]
     default_tags = origin[2..-1].gsub(/\\;/, ',')
     default_tags[/[\s]+/] = ',' if default_tags[/[\s]+/]
     default_tags = default_tags.split(',').compact

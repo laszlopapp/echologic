@@ -71,13 +71,14 @@ Feature: Take Part on a question
       And I am on the discuss index
     When I follow "Search"
       And I choose the "Test Question2?" Question
+    Then the question should have 5 siblings in session
       And I follow localized "discuss.statements.types.question" within ".add_new_panel"
       And I fill in the following:
       | question_statement_document_title           | Question on the side              |
       | question_statement_document_text            | i like big butts and i cannot lie |
       And I press "Save"
     Then I should see "Question on the side"
-      And the question should have 5 siblings in session
+      And the question should have 6 siblings in session
 
   Scenario: Add a sibling Proposal
     Given I am logged in as "user" with password "true"
@@ -86,6 +87,7 @@ Feature: Take Part on a question
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
+    Then the proposal should have 0 siblings in session
       And I follow localized "discuss.statements.types.proposal" within ".add_new_panel"
       And I fill in the following:
       | proposal_statement_document_title           | How to propose to women   |
@@ -102,6 +104,7 @@ Feature: Take Part on a question
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
       And I choose the "A better first proposal" Improvement
+    Then the improvement should have 4 siblings in session
       And I follow localized "discuss.statements.types.improvement" within ".add_new_panel"
       And I fill in the following:
       | improvement_statement_document_title           | How to improve yer status    |

@@ -32,7 +32,8 @@ module PublishableModule
   def category
     @value    = params[:search_terms] || ""
     @page     = params[:page]  || 1
-    @per_page = params[:per_page].blank? ? QUESTIONS_PER_PAGE : params[:per_page]
+    @page_count = params[:page_count] || 1
+    @per_page = @page_count.to_i * QUESTIONS_PER_PAGE
 
     statement_nodes_not_paginated = search_statement_nodes :search_term => @value
 

@@ -50,9 +50,9 @@ function setSearchHistory() {
   }
   if ($(':input[id=sort]').length > 0) {
     var sort = $(':input[id=sort]').val();
-	  $.setFragment({ "search_terms": search_terms, "sort" : sort, "page": "1", "page_count" : "", "per_page" : ""});
+	  $.setFragment({ "search_terms": search_terms, "sort" : sort, "page": "1", "page_count" : "", "page_count" : ""});
   } else {
-    $.setFragment({ "search_terms": search_terms, "page": "1", "per_page" : ""});
+    $.setFragment({ "search_terms": search_terms, "page": "1", "page_count" : ""});
   }
 }
 
@@ -73,7 +73,7 @@ function initFragmentChange() {
 	  if ($.fragment().page) {triggerSearchQuery();}
   });
 
-  if ($.fragment().per_page) {
+  if ($.fragment().page_count) {
     $.setFragment({"page": "1"});
   }
 
@@ -85,7 +85,7 @@ function initFragmentChange() {
 
 function triggerSearchQuery(){ 
   $.getScript($.queryString(document.location.href, { 
-    "per_page": $.fragment().per_page,
+    "page_count": $.fragment().page_count,
     "page": $.fragment().page,
     "sort": $.fragment().sort,
     "search_terms": $.fragment().search_terms
