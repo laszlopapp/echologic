@@ -59,11 +59,11 @@ class StatementDocument < ActiveRecord::Base
                     self.id, self.language.id])
   end
 
-  def self.search_statement_documents(statement_ids, language_ids, opts={} )
+  def self.search_statement_documents(opts={})
       opts.delete(:readonly)
       opts[:select] ||= "DISTINCT id, title, statement_id, language_id, current"
       opts[:conditions] ||= sanitize_sql(["current = 1 AND statement_id IN (?) AND language_id IN (?) ",
-                                   statement_ids, language_ids])
+                                   opts.delete(:statement_ids), opts.delete(:language_ids)])
       opts[:order] ||= "language_id" 
       all opts
     end

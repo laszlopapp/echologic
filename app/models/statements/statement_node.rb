@@ -238,12 +238,20 @@ class StatementNode < ActiveRecord::Base
       children.paginate(default_scope.merge(:page => page, :per_page => per_page))
     end
 
+    ################################
+    # CHILDREN BLOCK QUERY HELPERS #
+    ################################
+
+    #
     # Aux Function: gets a set of children given a certain parent (used to get siblings and children)
+    #
     def statements_for_parent(opts)
       get_statements_for_parent(opts)
     end
 
+    #
     # Aux Function: gets a set of children given a certain parent (used above)
+    #
     def get_statements_for_parent(opts)
       fields = parent_conditions(opts)
 
@@ -260,12 +268,18 @@ class StatementNode < ActiveRecord::Base
       statements
     end
 
+    #
+    # Returns the number of child statements of a certain type (or types) from a given statement
+    #
     def count_statements_for_parent(opts)
       fields = parent_conditions(opts.merge({:types => sub_types.map(&:to_s)}))
       fields[:select] = "DISTINCT #{table_name}.id"
       self.count(:all, fields)
     end
 
+    #
+    # Aux: Builds the query attributes for the children operations
+    #
     def parent_conditions(opts)
       fields = {}
       fields.delete(:readonly)
@@ -277,11 +291,6 @@ class StatementNode < ActiveRecord::Base
       fields[:conditions] << drafting_conditions if opts[:filter_drafting_state]
       fields[:order] = "e.supporter_count DESC, #{table_name}.created_at DESC"
       fields
-    end
-
-    # Aux Function: drafting conditions on a query (overwritten in acts_as_incorporable)
-    def drafting_conditions
-      ''
     end
 
     def children_joins

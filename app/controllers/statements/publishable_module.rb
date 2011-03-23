@@ -17,8 +17,7 @@ module PublishableModule
     questions_not_paginated = Question.by_creator(current_user).by_creation
 
     @questions = questions_not_paginated.paginate(:page => @page, :per_page => 5)
-    @statement_documents = search_statement_documents(@questions.map(&:statement_id),
-                                                      @language_preference_list)
+    @statement_documents = search_statement_documents :statement_ids => @questions.map(&:statement_id)
 
     respond_to_js :template => 'statements/questions/my_questions', :template_js => 'statements/questions/my_questions'
   end
@@ -39,7 +38,7 @@ module PublishableModule
 
     @count    = statement_nodes_not_paginated.count
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => @per_page)
-    @statement_documents = search_statement_documents(@statement_nodes.map(&:statement_id), @language_preference_list, 
+    @statement_documents = search_statement_documents(:statement_ids => @statement_nodes.map(&:statement_id),  
                                             :select => "DISTINCT id, title, statement_id, language_id, current, text")
 
     respond_to_js :template => 'statements/questions/index',
@@ -67,8 +66,7 @@ module PublishableModule
                   page << "$('#statements .#{dom_class(@statement_node)} .edit_text_button').remove();"
                   page << "$('#statements .#{dom_class(@statement_node)} .publish_text_button').remove();"
                 elsif params[:in] == 'mi'
-                  @statement_documents =
-                    search_statement_documents([@statement_node.statement_id])
+                  @statement_documents = search_statement_documents :statement_ids => [@statement_node.statement_id]
                   page.replace(dom_id(@statement_node),
                                :partial => 'statements/questions/my_question',
                                :locals => {:my_question => @statement_node,
