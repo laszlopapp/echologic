@@ -331,7 +331,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   margin:   35px auto 25px;
 }
 
-#questions_container .header {
+.questions_container .header {
 	background: url("../images/page/discuss/stack_separator.png") no-repeat scroll 7px 0 transparent;
   clear: both;
   display: inline-block;
@@ -340,7 +340,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	margin-bottom: 10px;
 }
 
-#questions_container .header .label {
+.questions_container .header .label {
 	 color: #21587F;
    cursor: default;
    font-size: 16px;
@@ -350,7 +350,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	 top: 3px;
 }
 
-#questions_container .header .icon {
+.questions_container .header .icon {
 	display: inline-block;
   background: url(../images/page/box/box_icon_discuss.png) repeat-x left top;
 	height: 36px;
@@ -360,17 +360,17 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   left: 22px;
 }
 
-#questions_container ul {
+.questions_container ul {
 	height: 900px;
 }
 
-#questions_container li.question {
+.questions_container li.question {
 	display: inline-block;
 	height: 160px;
 	position: relative;
 }
 
-#questions_container li.question .top {
+.questions_container li.question .top_area {
 	float: left;
   height: 20px;
   position: relative;
@@ -378,37 +378,37 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   width: 590px;
 	margin-bottom: 9px;
 }
-#questions_container li.question .top .statement_link {
+.questions_container li.question .top_area .statement_link {
 	background: none;
 }
 
-#questions_container li.question .bottom {
+.questions_container li.question .bottom {
   float: left;
   height: 100px;
   position: relative;
 	bottom: 0px;
 }
 
-#questions_container li.question .bottom .description {
+.questions_container li.question .bottom .description {
 	padding-left: 21px;
 	width: 365px;
 	height: 90px;
 }
 
-#questions_container li.question .buttons {
+.questions_container li.question .buttons {
   position: absolute;
 	right: 64px;
 	top: 74px;
 }
 
-#questions_container li.question a.publish_button{
+.questions_container li.question a.publish_button{
 	left: 55px;
 }
 
-#questions_container li.question .avatar_holder {
+.questions_container li.question .avatar_holder {
 	float: left;
 }
-#questions_container li.question .avatar_holder img {
+.questions_container li.question .avatar_holder img {
   height: 130px;
 	width: 175px;
 }
@@ -443,11 +443,11 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	color: #7BB031;
 }
 
-#questions_container .results_container .no_results {
+.questions_container .results_container .no_results {
   top: 85px;
 }
 
-#questions_container .results_container .create_first_question_button {
+.questions_container .results_container .create_first_question_button {
   background: transparent url(../images/page/discuss/add_first_question_button.png) no-repeat scroll 0 0;
 	width: 400px;
 	height: 50px;
@@ -457,18 +457,18 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   color: #21587f;
 }
 
-#questions_container .results_container .create_first_question_button:hover {
+.questions_container .results_container .create_first_question_button:hover {
   background-position: 0 -50px;
 }
 
-#questions_container .results_container .create_first_question_button span {
+.questions_container .results_container .create_first_question_button span {
   font-weight: bold;
   position: relative;
   left: 23px;
   top: 18px;
 }
 
-#questions_container .results_container .add_teaser {
+.questions_container .results_container .add_teaser {
 	left: 260px;
   position: absolute;
   top: 147px;

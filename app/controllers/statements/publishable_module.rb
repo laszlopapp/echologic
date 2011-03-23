@@ -35,6 +35,9 @@ module PublishableModule
     @page_count = params[:page_count].blank? ? 1 : params[:page_count]
     @per_page = @page_count.to_i * QUESTIONS_PER_PAGE
 
+    @origin = @value.blank? ? 'ds' : "sr#{@value.gsub(/,/,'\\;').gsub(/\|/, '\\:;')}" 
+    @origin << "|#{@page_count}"
+
     statement_nodes_not_paginated = search_statement_nodes :search_term => @value
 
     @count    = statement_nodes_not_paginated.count

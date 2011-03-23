@@ -1,6 +1,3 @@
-<% @origin = @value.blank? ? 'ds' : "sr#{@value.gsub(/,/,'\\;').gsub(/\|/, '\\:;')}" %> 
-<% @origin << "|#{@page_count}" %>
-
 <% unless statement_nodes.empty? %>
   <%= render :partial => 'statements/questions/question', :collection => statement_nodes %>
 <% else %>

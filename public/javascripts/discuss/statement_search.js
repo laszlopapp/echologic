@@ -34,6 +34,7 @@
     function StatementSearch(search_container) {
 			var elements_list = search_container.find('ul');
 			var pagination = search_container.find('.more_pagination');
+			var action_bar = $('#action_bar');
       // Initialize the statement
       initialise();
 
@@ -70,7 +71,7 @@
             dataType: 'script',
             success: function(){
 							search_container.find('a').each(function(){
-								$(this).attr('href',decodeURI($(this).attr('href')).replace(/\|\d+/g, "|" + page_count));
+								updateUrlCount($(this), page_count);
 							});
 			      },
 						error: function(){
@@ -80,6 +81,10 @@
 					return false;
         });
       }
+			
+			function updateUrlCount(element, page_count) {
+				element.attr('href',decodeURI(element.attr('href')).replace(/\|\d+/g, "|" + page_count));
+			}
 			
 			function initScrollPane() {
 				elements_list.jScrollPane({animateScroll: true});
