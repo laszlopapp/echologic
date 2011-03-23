@@ -82,7 +82,7 @@ Rails::Initializer.run do |config|
   raise "RPX/Janrain Engage Application Name must be defined ENV['ECHO_RPX_APP_NAME']" unless RPX_APP_NAME
 
   # Questions per page
-  QUESTIONS_PER_PAGE = 6
+  QUESTIONS_PER_PAGE = 7
 
   # Session Storage
   config.action_controller.session_store = :active_record_store

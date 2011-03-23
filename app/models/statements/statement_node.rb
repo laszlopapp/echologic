@@ -161,7 +161,7 @@ class StatementNode < ActiveRecord::Base
     opts[:parent_id] = self.target_id
     opts[:filter_drafting_state] = self.draftable?
     opts[:type] ||= self.class.children_types.first.to_s
-    return opts[:type].constantize.statements_for_parent(opts)
+    return opts[:type].to_s.constantize.statements_for_parent(opts)
   end
 
   # Collects a filtered list of all siblings statements
@@ -171,7 +171,7 @@ class StatementNode < ActiveRecord::Base
     opts[:parent_id] = self.parent.target_id
     opts[:filter_drafting_state] = self.incorporable?
     opts[:type] ||= self.class.to_s
-    return opts[:parent_id].nil? ? [] : opts[:type].constantize.statements_for_parent(opts)
+    return opts[:parent_id].nil? ? [] : opts[:type].to_s.constantize.statements_for_parent(opts)
   end
 
   # Collects a filtered list of all siblings statements
@@ -194,7 +194,7 @@ class StatementNode < ActiveRecord::Base
     opts[:page] ||= 1
     opts[:per_page] ||= TOP_CHILDREN
     children = child_statements(opts)
-    opts[:type].constantize.paginate_statements(children, opts[:page], opts[:per_page])
+    opts[:type].to_s.constantize.paginate_statements(children, opts[:page], opts[:per_page])
   end
 
   # counts the children the statement has of a certain type
@@ -202,7 +202,7 @@ class StatementNode < ActiveRecord::Base
     opts[:parent_id] = self.target_id
     opts[:filter_drafting_state] = self.draftable?
     opts[:type] ||= self.class.children_types.first.to_s
-    opts[:type].constantize.count_statements_for_parent(opts)
+    opts[:type].to_s.constantize.count_statements_for_parent(opts)
   end
 
   private

@@ -324,7 +324,7 @@ class StatementsController < ApplicationController
     @type = params[:type].to_s.camelize.to_sym
     @current_node = StatementNode.find(params[:current_node]) if params[:current_node]
     begin
-      @statement_node ? load_children(@type, 1, -1) : load_roots(@current_node,1, -1)
+      @statement_node ? load_children(:type => @type, :per_page => -1) : load_roots(@current_node,1, -1)
   
       respond_to do |format|
         format.html{
@@ -352,7 +352,7 @@ class StatementsController < ApplicationController
   def children
     @type = params[:type].camelize.to_sym
     begin
-      load_top_children @type
+      load_children :type => @type
       respond_to do |format|
         format.html{show}
         format.js { render :template => @type.to_s.constantize.children_template }
@@ -377,7 +377,7 @@ class StatementsController < ApplicationController
     @per_page = MORE_CHILDREN
     @offset = @page.to_i == 1 ? TOP_CHILDREN : 0
     begin
-      load_children @type
+      load_children :type => @type, :page => @page, :per_page => @per_page
       respond_to do |format|
         format.html{show}
         format.js {render :template => @type.to_s.constantize.more_template}
@@ -477,35 +477,29 @@ class StatementsController < ApplicationController
         immediate_render = children_types[1][index]
         if @children[type].nil?
           if immediate_render
-            @children[type] ||= @statement_node.paginated_child_statements(:language_ids => @language_preference_list,
-                                                                           :type => type.to_s,
-                                                                           :user => current_user)
-            @children_documents.merge!(search_statement_documents(:statement_ids => @children[type].flatten.map(&:statement_id)))
+            load_children :type => type
           else
             @children[type] ||= @statement_node.count_child_statements :language_ids => @language_preference_list,
                                                                        :user => current_user,
-                                                                       :type => type.to_s
+                                                                       :type => type
           end
         end
       end
     end
   end
 
-  def load_top_children(type)
-    load_children(type, 1, TOP_CHILDREN)
-  end
-
   #
   # Loads the children of the current statement from a certain type
   #
-  def load_children(type, page = @page, per_page = @per_page)
-    @children = {}
-    @children[type] = @statement_node.paginated_child_statements(:language_ids => @language_preference_list,
-                                                                 :type => type.to_s,
-                                                                 :user => current_user,
-                                                                 :page => page,
-                                                                 :per_page => per_page)
-    @children_documents = search_statement_documents :statement_ids => @children[type].flatten.map(&:statement_id)
+  def load_children(opts)
+    opts[:page] ||= 1
+    opts[:per_page] ||= TOP_CHILDREN
+    opts[:language_ids] ||= @language_preference_list
+    opts[:user] ||= current_user
+    @children ||= {}
+    @children[opts[:type]] = @statement_node.paginated_child_statements(opts)
+    @children_documents ||= {}
+    @children_documents.merge!(search_statement_documents :statement_ids => @children[opts[:type]].flatten.map(&:statement_id))
   end
 
   #
@@ -682,9 +676,9 @@ class StatementsController < ApplicationController
                        statement_document = search_statement_documents(:statement_ids => [statement_node.statement_id])[statement_node.statement_id] ||
                                             statement_node.document_in_original_language
                        origin = index > 0 ? bids[index-1] : ''
-                       ["fq#{bid[2..-1]}",
+                       ["fq#{value}",
                         "statement statement_link #{statement_node.class.name.underscore}_link",
-          statement_node_url(statement_node, :bids => bids[0, bids.index(bid)].join(","), :origin => origin), statement_document.title]
+                        statement_node_url(statement_node, :bids => bids[0, bids.index(bid)].join(","), :origin => origin), statement_document.title]
       end
       breadcrumb << label
       breadcrumb << over
@@ -692,6 +686,12 @@ class StatementsController < ApplicationController
     end
   end
 
+
+  def build_breadcrumb(key)
+#    ["fq#{value}",
+#     "statement statement_link #{statement_node.class.name.underscore}_link",
+#     statement_node_url(statement_node, :bids => bids[0, bids.index(bid)].join(","), :origin => origin), statement_document.title]
+  end
 
   ###############
   # PERMISSIONS #

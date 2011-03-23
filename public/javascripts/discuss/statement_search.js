@@ -9,7 +9,7 @@
 
     $.fn.statement_search.defaults = {
       'animation_speed': 300,
-			'per_page' : 6
+			'per_page' : 7
     };
 
     // Merging settings with defaults
