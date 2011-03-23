@@ -116,7 +116,9 @@
   margin-right: 15px;
 }
 
-#echo_account_settings .delete_account .guide {
+#echo_account_settings .delete_account .guide,
+#echo_account_settings .delete_account .password_label,
+#echo_account_settings .delete_account .password_field {
 	color: #c13d08;
 }
 

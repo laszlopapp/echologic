@@ -129,7 +129,7 @@
   overflow: hidden;
 }
 
-.header_block input[type="text"] {
+.header_block input[type="text"], .header_block input[type="password"] {
   border: 1px solid #999;
   color: #21587F;
   font-size: 14px;

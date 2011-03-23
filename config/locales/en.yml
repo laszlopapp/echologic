@@ -328,13 +328,13 @@ en:
         wrong_password: The password you entered is not your password!
       delete_account:
         title: Delete Account
-        password: Password
+        password: Your Password
         guide: |
           <p><strong>ATTENTION!</strong></p>
           <p>Your account and ALL your personal data will be <strong>permanently deleted</strong>.<br/>
           The echos you have made will be kept fully anonymously.</p>
-          <p>Are you sure you want to proceed?</p>
-        confirm: Yes, delete my account permanently
+          <p>Please enter your password and click the button below, if you want to proceed.</p>
+        confirm: Delete my account permanently
         last_confirm: Are you really really sure?
         success: Your echo account was successfully deleted.
     social_accounts:
