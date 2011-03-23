@@ -155,4 +155,7 @@ ActionController::Routing::Routes.draw do |map|
   # SECTION default routes
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
+
+  # SECTION shortcut urls
+  map.shortcut ':shortcut', :controller => :application, :action => :shortcut
 end

@@ -91,7 +91,7 @@ class ApplicationController < ActionController::Base
     redirect_to_home
   end
 
-  before_filter :require_user
+  before_filter :require_user, :except => [:shortcut]
 
   private
   # Before filter used to define which controller actions require an active and valid user session.
@@ -357,6 +357,7 @@ class ApplicationController < ActionController::Base
   #  LOGGING  #
   #############
 
+  protected
   def log_message_info(message)
     timestamp = Time.now.utc.strftime("%m/%d/%Y %H:%M")
     user = current_user.nil? ? 'not logged in' : current_user.id
@@ -378,4 +379,18 @@ class ApplicationController < ActionController::Base
       format.js   { render_with_error }
     end
   end
+
+
+  #
+  # Temporary Hot-Fix solution for redirecting and arbitrary (unknown) URL to Discuss Search.
+  #
+  public
+  def shortcut
+    respond_to do |format|
+      format.html do
+        redirect_to discuss_search_url(:search_terms => params[:shortcut])
+      end
+    end
+  end
+
 end
