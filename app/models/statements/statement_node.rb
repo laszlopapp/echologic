@@ -309,6 +309,7 @@ class StatementNode < ActiveRecord::Base
 
       tags_query = ''
       and_conditions = []
+      and_conditions << "d.current = 1"
       and_conditions << sanitize_sql(["s.type = '#{opts.delete(:type)}'"]) if opts[:type]
       and_conditions << sanitize_sql(["#{Statement.table_name}.editorial_state_id = ?", StatementState['published'].id]) unless opts[:show_unpublished]
       and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]]) if opts[:language_ids]

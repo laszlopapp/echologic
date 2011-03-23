@@ -91,7 +91,7 @@ class ApplicationController < ActionController::Base
     redirect_to_home
   end
 
-  before_filter :require_user
+  before_filter :require_user, :except => [:shortcut]
 
   private
   # Before filter used to define which controller actions require an active and valid user session.
@@ -147,7 +147,7 @@ class ApplicationController < ActionController::Base
     reset_session
     if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'
       # If the user wants to log out, we go to the root page and display the logout message.
-      redirect_to_url root_url, 'users.signout.messages.success'
+      redirect_to_url root_url, 'users.user_sessions.messages.logout_success'
     else
       # Not logout
       @user_required ||= false
@@ -223,8 +223,7 @@ class ApplicationController < ActionController::Base
   protected
   # Sets the @info variable to the localisation given through the string
   def set_info(string, options = {})
-    @info ||= ""
-    @info << I18n.t(string, options)
+    @info = I18n.t(string, options)
   end
 
   # Sets the @info variable for the flash object (used for HTTP requests)
@@ -262,21 +261,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  #
-  # sets an url which will be called assynchronously as the page loads on the user's side
-  #
-  def set_later_call(url)
-    @later_call = url
-  end
-
   # Sets the @error variable for the flash object (used for HTTP requests).
   def flash_error
     flash[:error] = @error
-  end
-
-  # Sets the @later_call variable for the flash object (used for HTTP requests).
-  def flash_later_call
-    flash[:later_call] = @later_call
   end
 
   # Get formatted error string from error partial for a given object, then show
@@ -436,6 +423,7 @@ class ApplicationController < ActionController::Base
   #  LOGGING  #
   #############
 
+  protected
   def log_message_info(message)
     timestamp = Time.now.utc.strftime("%m/%d/%Y %H:%M")
     user = current_user.nil? ? 'not logged in' : current_user.id
@@ -464,9 +452,11 @@ class ApplicationController < ActionController::Base
       if shortcut = ShortcutUrl.find(params[:shortcut])
          command = JSON.parse(shortcut.command)
          url = send("#{command['operation']}_path", command['params'].merge({:locale => command['language']}))
-         format.html{redirect_to url}
+         format.html {redirect_to url}
       else
-        redirect_or_render_with_error(root_url, 'application.unexpected_error')
+        format.html do
+          redirect_to discuss_search_url(:search_terms => params[:shortcut])
+        end
       end
     end
   end
