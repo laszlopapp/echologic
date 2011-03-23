@@ -1,13 +1,22 @@
 <% unless statement_nodes.empty? %>
   <%= render :partial => 'statements/questions/question', :collection => statement_nodes %>
 <% else %>
-  <li>
-	  <span class="no_results">
-	    <%= (!current_user or current_user.spoken_languages.blank?) ?
+  <li class="question">
+  	<div class="avatar_holder">
+  	<%= image_tag('add_statement_teaser_image.png') %>
+		</div>
+		<% content_tag :div, :class => 'top_area' do %>
+		  <%= create_new_question_link %>
+		<% end %>
+		<% content_tag :div, :class => 'bottom' do %>
+		  <%= content_tag :div, I18n.t("discuss.statements.add_teaser.question"), :class => 'description' %>
+		<% end %>
+	  <!--span class="no_results">
+	    <%#= (!current_user or current_user.spoken_languages.blank?) ?
 	        I18n.t('discuss.messages.empty_without_spoken_languages', :my_echo => my_profile_path) :
 	        I18n.t('discuss.messages.empty') %>
 	  </span>
-	  <br/>
-	  <% create_first_question_link_for(params[:search_terms]) %>
+	  <br/-->
+	  <%# create_first_question_link_for(params[:search_terms]) %>
 	</li>
 <% end %>

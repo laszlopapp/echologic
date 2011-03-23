@@ -43,9 +43,7 @@ module PublishableModuleHelper
   #
   # question link for the discuss search results
   #
-  def link_to_question(title, question, search_terms=nil)
-    search_terms = search_terms.nil? ? '' : search_terms.gsub(/,/,'\\;').gsub(/\\:;/, '|')
-    origin = search_terms.blank? ? "ds" : "sr#{search_terms}"
+  def link_to_question(title, question, origin=@origin)
     link_to statement_node_url(question, :origin => origin, :bids => origin),
                :class => "avatar_holder" do
       image_tag question.image.url(:small)

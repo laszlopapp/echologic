@@ -25,7 +25,7 @@ var double_list = statement.find('.<%= type_plural %> .doubles_list');
 
 	<% if children_group.next_page.nil? %>
 	  if (children_list.find('.add_new_button').length == 0) {
-	   children_list.append('<%= content_tag :li, create_new_child_statement_link(@statement_node, type, :new_level => true) %>');
+	   children_list.append('<%= content_tag :li, create_new_child_statement_link(@statement_node, type, :new_level => true, :css => "ajax) %>');
 		}
 	<% end %>
 

@@ -54,14 +54,15 @@ module StatementsHelper
   #
   def create_new_child_statement_link(statement_node, child_type, opts={})
     url = opts.delete(:url) if opts[:url]
+    css = opts.delete(:css) if opts[:css]
     title = opts[:no_text] ? '' :
     link_to(I18n.t("discuss.statements.create_#{child_type}_link"),
             url ? url : new_statement_node_url(statement_node.nil? ? nil : statement_node.target_id,child_type, opts),
-            :class => "ajax add_new_button text_button create_#{child_type}_button ttLink no_border",
+            :class => "#{css} add_new_button text_button create_#{child_type}_button ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_#{child_type}"))
   end
 
-  def create_new_question_link(origin=nil)
+  def create_new_question_link(origin=@origin, opts={})
     type = 'question'
     parent = nil
     if !origin.blank?
@@ -73,7 +74,7 @@ module StatementsHelper
       end
     end
     url = parent.nil? ? new_question_url(:origin => origin) : new_statement_node_url(parent, type)
-    create_new_child_statement_link(parent, type, :url => url)
+    create_new_child_statement_link(parent, type, opts.merge({:url => url}))
   end
 
 
@@ -226,7 +227,7 @@ module StatementsHelper
       content = ''
       content << image_tag(user.avatar.url(:small), :alt => '')
       content << content_tag(:span, I18n.t('users.authors.teaser.title'), :class => 'name')
-      content << create_new_child_statement_link(statement_node, 'improvement', :new_level => true)
+      content << create_new_child_statement_link(statement_node, 'improvement', :new_level => true, :css => "ajax")
       content
     end
   end

@@ -370,6 +370,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	position: relative;
 }
 
+.questions_container li.question img{
+  border: 2px solid #7BB031;
+}
+
 .questions_container li.question .top_area {
 	float: left;
   height: 20px;
