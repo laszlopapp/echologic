@@ -420,7 +420,7 @@ module StatementsHelper
     bids = params[:bids] || ''
     if statement_node.class.is_top_statement?
       bids = bids.split(",")
-      bids << "fq#{@statement_node.target_id}" 
+      bids << "fq#{@statement_node.target_id}"
       bids = bids.join(",")
     end
     link_to h(title),
@@ -460,7 +460,7 @@ module StatementsHelper
     breadcrumbs.each_with_index do |b, index| #[id, classes, url, title]
       breadcrumb = content_tag(:a, :href => b[2], :id => b[0], :class => 'breadcrumb') do
         content = ""
-        content << content_tag(:span, '>', :class => 'delimiter') if index != 0
+        content << content_tag(:span, '', :class => 'big_delimiter') if index != 0
         content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.#{b[0][0,2]}"), :class => 'label')
         content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.over.#{b[0][0,2]}"), :class => 'over')
         content << content_tag(:span, h(b[3].gsub(/\\;/, ',')), :class => b[1])
