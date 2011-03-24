@@ -355,7 +355,7 @@ en:
         success: Removed your {{account}} account successfully!
         failed: Failed to remove your {{account}} account!
       share:
-        title: Amplify your echo via
+        title: Send out the voice
         text: Message
         data_privacy:
           title: Data Privacy Notice
@@ -367,8 +367,8 @@ en:
           Made an echo via {{accounts}}.
         failed: |
           Failed via {{accounts}}.
-        enabled: Enabled
-        disabled: Disabled
+        enabled: Sending
+        disabled: Not Sending
 
 
     # New Users section

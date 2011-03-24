@@ -114,11 +114,15 @@ module EchoableModuleHelper
         connected = current_user.has_provider? provider
         css_classes = "social_label #{provider.eql?('yahoo!') ? 'yahoo' : provider}#{connected ? ' connected' : ''}"
         content << content_tag(:div, :class => "social_account #{provider}") do
-          sub_content = ''
-          sub_content << content_tag(:span, '', :class => css_classes)
-          sub_content << (connected ? provider_switch_button(provider, true) :
-                                      provider_connect_button(provider, statement_node, token_url))
-          sub_content
+          button = ''
+          if connected
+            button << link_to('', connected.identifier, :target => "_blank", :class => css_classes)
+            button << provider_switch_button(provider, true)
+          else
+            button << content_tag(:span, '', :class => css_classes)
+            button << provider_connect_button(provider, token_url)
+          end
+          button
         end
       end
       content
@@ -133,11 +137,10 @@ module EchoableModuleHelper
     content
   end
 
-  def provider_connect_button(provider, statement_node, token_url)
-    content_tag(:a, :href => SocialService.instance.get_provider_signup_url(provider, token_url),
-                :onClick => "return popup(this, true)",
-                :class => 'button connect') do
-      content_tag :span, I18n.t("users.social_accounts.connect.title"), :class => "button button_150"
-    end
+  def provider_connect_button(provider, token_url)
+    content_tag :a, I18n.t("users.social_accounts.connect.title"),
+                :href => SocialService.instance.get_provider_signup_url(provider, token_url),
+                :class => 'button connect',
+                :onClick => "return popup(this, true);"
   end
 end
