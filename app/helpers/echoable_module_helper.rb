@@ -112,8 +112,9 @@ module EchoableModuleHelper
                                                                                      :origin => params[:origin]))
       %w(facebook twitter yahoo! linkedin).each do |provider|
         connected = current_user.has_provider? provider
-        css_classes = "social_label #{provider.eql?('yahoo!') ? 'yahoo' : provider}#{connected ? ' connected' : ''}"
-        content << content_tag(:div, :class => "social_account #{provider}") do
+        css_provider = provider.eql?('yahoo!') ? 'yahoo' : provider
+        css_classes = "social_label #{css_provider}#{connected ? ' connected' : ''}"
+        content << content_tag(:div, :class => "social_account #{css_provider}") do
           button = ''
           if connected
             button << link_to('', connected.identifier, :target => "_blank", :class => css_classes)
