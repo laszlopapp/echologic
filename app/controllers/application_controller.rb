@@ -223,7 +223,8 @@ class ApplicationController < ActionController::Base
   protected
   # Sets the @info variable to the localisation given through the string
   def set_info(string, options = {})
-    @info = I18n.t(string, options)
+    @info ||= ""
+    @info << I18n.t(string, options)
   end
 
   # Sets the @info variable for the flash object (used for HTTP requests)
@@ -261,9 +262,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  #
+  # sets an url which will be called assynchronously as the page loads on the user's side
+  #
+  def set_later_call(url)
+    @later_call = url
+  end
+
   # Sets the @error variable for the flash object (used for HTTP requests).
   def flash_error
     flash[:error] = @error
+  end
+
+  # Sets the @later_call variable for the flash object (used for HTTP requests).
+  def flash_later_call
+    flash[:later_call] = @later_call
   end
 
   # Get formatted error string from error partial for a given object, then show
