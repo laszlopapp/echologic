@@ -73,7 +73,7 @@ module StatementsHelper
                        origin[2..-1]
       end
     end
-    url = parent.nil? ? new_question_url(:origin => origin) : new_statement_node_url(parent, type)
+    url = parent.nil? ? new_question_url(:bids => origin, :origin => origin) : new_statement_node_url(parent, type)
     create_new_child_statement_link(parent, type, opts.merge({:url => url}))
   end
 
