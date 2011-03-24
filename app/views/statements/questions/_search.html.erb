@@ -3,7 +3,7 @@
 
   <!-- Search field -->
   <% content_tag :div, :id => 'search_form', :class => 'ajax_form' do %>
-    <%= text_field_tag :search_terms, params[:search_terms] %>
+    <%= text_field_tag :search_terms, params[:search_terms],'data-default' => I18n.t("discuss.search.placeholder") %>
     <%= content_tag :span, '', :name => 'submit_button', :class => 'submit_button', :alt => 'search_button' %>
   <% end %>
 </div>

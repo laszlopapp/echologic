@@ -94,55 +94,8 @@
 			function loadDefaultText() {
         if (!form.hasClass('new')) {return;}
 
-        // Text Inputs
-         
-				form.find("input[type='text']").each(function(index){
-	        var inputText = $(this);
-					var value = inputText.attr('data-default');
-	        if (inputText.val().length == 0) {
-	          inputText.toggleVal({
-	            populateFrom: 'custom',
-	            text: value
-	          });
-	        }
-	        inputText.removeAttr('data-default');
-					if (index == 0) {
-				  	inputText.blur();
-				  }
-        });
+        form.placeholder();
 
-        // Text Area (RTE Editor)
-        var editor = form.find("iframe.rte_doc");
-        var value = editor.attr('data-default');
-        var doc = $(editor.contents().get(0));
-        var text = $(doc).find('body');
-        if(text.html().length == 0) {
-          var label = $("<span class='defaultText'></span>").html(value);
-          label.insertAfter(editor).click(function() {
-            doc.click();
-          });
-
-          doc.bind('click', function(){
-            label.hide();
-            editor.focus();
-          });
-          doc.bind('blur', function(){
-            var new_text = $(editor.contents().get(0)).find('body');
-            if (new_text.html().length == 0) {
-              label.show();
-            }
-          });
-        }
-        editor.removeAttr('data-default');
-
-        // Clean text inputs on submit
-        form.bind('submit', (function() {
-          $(this).find(".toggleval").each(function() {
-            if($(this).val() == $(this).data("defText")) {
-              $(this).val("");
-            }
-          });
-        }));
       }
 
       /*

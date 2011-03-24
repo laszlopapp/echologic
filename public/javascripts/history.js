@@ -1,5 +1,6 @@
 $(document).ready(function () {
 	if ($('#function_container.search').length > 0) {
+		$("#search_form").placeholder();
   	initHistoryEvents();
   	initPaginationButtons();
   	initFragmentChange();
@@ -43,9 +44,9 @@ function initHistoryEvents() {
 
 
 function setSearchHistory() {
+	$("#search_form").data('placeholderApi').cleanDefaultValues();
   var search_terms = $("#search_terms").val();
   if (search_terms.length > 0) {
-		
     search_terms = search_terms.trim();
   }
   if ($(':input[id=sort]').length > 0) {
