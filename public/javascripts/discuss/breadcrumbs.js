@@ -94,10 +94,10 @@
 	          if (origin == null || origin == "undefined") {
 	            origin = '';
 	          }
-	           
 						if (sids.join(",") == $.fragment().sids) {
 			        /* sids won't change, we are inside a new form, and we press the breadcrumb to go back*/
-							$.getScript($(this).attr('href'));
+							var path = $.queryString($(this).attr('href'), {"sids" : sids.join(",")});
+							$.getScript(path);
 						}
 						else {
 							$.setFragment({

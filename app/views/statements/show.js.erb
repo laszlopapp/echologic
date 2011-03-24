@@ -15,7 +15,7 @@
 		var ancestor_element = $('#statements .statement').eq(<%= index %>);
 		/* if not rendered, than render */
     if(ancestor_element.length == 0 || !ancestor_element.attr('id').match(ancestor)) {
-		  var new_ancestor = $("<%= escape_javascript(render_ancestor(ancestor)) %>").statement({'level' : <%= index %>});
+		  var new_ancestor = $("<%= escape_javascript(render_ancestor(ancestor,@ancestor_documents[ancestor.statement_id])) %>").statement({'level' : <%= index %>});
     } else {
       ancestor_element.data('api').hide();
     }

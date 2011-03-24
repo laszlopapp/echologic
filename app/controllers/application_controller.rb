@@ -224,6 +224,7 @@ class ApplicationController < ActionController::Base
   # Sets the @info variable to the localisation given through the string
   def set_info(string, options = {})
     @info ||= ""
+    @info << "<br/>" if !@info.blank?
     @info << I18n.t(string, options)
   end
 

@@ -363,9 +363,9 @@ en:
         submit: Send out the voice! Make an echo!
         error: Something went wrong while sharing your entry.
         success: |
-          <p>Made an echo via {{accounts}}.</p>
+          Made an echo via {{accounts}}.
         failed: |
-          <p>Failed via {{accounts}}.</p>
+          Failed via {{accounts}}.
         enabled: Enabled
         disabled: Disabled
 

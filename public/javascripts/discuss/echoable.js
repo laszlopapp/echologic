@@ -27,6 +27,7 @@
        */
 			function initialize() {
         echo_button = echoable.find('.action_bar .echo_button');
+				initRatioBars(echoable);
         if (echo_button.length == 0) {
           return;
         }
@@ -40,7 +41,7 @@
 				} else {
 					initEchoButton();
 				}
-				initRatioBars(echoable);
+				
 		  }
 
       function initLabelMessages() {
