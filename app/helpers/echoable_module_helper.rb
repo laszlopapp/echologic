@@ -99,8 +99,10 @@ module EchoableModuleHelper
   end
 
   def render_social_account_buttons(statement_node)
-    content_tag(:div, :class => "buttons_container", 'data-enabled' => I18n.t("users.social_accounts.share.enabled"),
-                                                     'data-disabled' => I18n.t("users.social_accounts.share.disabled")) do
+    content_tag(:div,
+                :class => "buttons_container block center", 
+                'data-enabled' => I18n.t("users.social_accounts.share.enabled"),
+                'data-disabled' => I18n.t("users.social_accounts.share.disabled")) do
       content = ''
       token_url = redirect_token_url(:redirect_url => statement_node_url(statement_node,
                                                                            :bids => params[:bids],

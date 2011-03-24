@@ -444,11 +444,14 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   cursor: pointer;
 }
 
-.breadcrumb .delimiter {
+.breadcrumb .big_delimiter {
+  background: transparent url(../images/page/discuss/breadcrumb_delimiter_big.png) no-repeat scroll 0 0;
+  width: 11px;
+  height: 23px;
   font-weight: bold;
   position: absolute;
-  left: 20px;
-  top: 18px;
+  left: 11px;
+  top: 16px;
 }
 
 .breadcrumb .label,
@@ -537,6 +540,11 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   display: none;
 }
 
+
+/***********************************/
+/* Social echo container and panel */
+/***********************************/
+
 .social_echo_container {
 	display: inline-block;
 }
@@ -553,17 +561,25 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 .social_echo_panel {
-	width: 615px;
+	width: 640px;
   border: 3px solid #BBB;
   background: #FEFEFE;
   position: absolute;
-  top: 90px;
-  left: 136px;
+  top: -32px;
+  left: 165px;
+}
+
+.social_echo_panel .panel_header {
+	background: none;
+  width: 400px;
+  margin: 16px 0 16px 30px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .social_echo_panel .buttons_container {
 	padding-top: 10px;
-	height: 105px;
+	height: 100px;
 }
 
 .social_echo_panel .button_container {
@@ -589,44 +605,60 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	color: #7BB031;
 }
 
-.social_echo_panel .share_form {
+.social_echo_panel .share_form .block {
+	margin: 15px 0;
+  position: relative;
+}
+
+.social_echo_panel .share_form .block.center {
 	text-align: center;
 }
 
-.social_echo_panel .share_form .elem{
-	margin-top: 20px;
+.social_echo_panel .share_form .block.left {
+  margin: 15px 0 15px 25px;
+  width: 575px;
+  display: inline-block;
 }
 
 .social_echo_panel .share_form label {
-	text-align: left;
-	width: 90px;
+	width: 110px;
 	display: inline-block;
+  color: #7bb031;
+  font-weight: bold;
 }
 
 .social_echo_panel .share_form .hint {
-	text-align: left;
-	padding: 0px 52px;
+	position: relative;
+  left: 40px;
 }
 
 .social_echo_panel .share_form .text {
-	width: 407px;
+  width: 442px;
+  border: 1px solid #777;
+  padding: 3px 4px;
+  color: #21587f;
+  display: inline-block;
 }
+
 .social_echo_panel .share_form .counter {
-  text-align: right;
-	padding: 0px 56px;
+  display: inline-block;
+  position: absolute;
+  right: 10px;
+  margin-top: 3px;
 }
 
 .social_echo_panel .share_form .preview {
-  width: 407px;
 	height: 60px;
-	border: 1px dashed;
 	vertical-align: top;
-	display: inline-block;
-	text-align: left;
 }
 
 .social_echo_panel .share_form input[disabled='disabled'] {
-	color: #9999CC;
+	color: #999;
+}
+
+.social_echo_panel .share_form input[disabled='disabled']:hover {
+  background-position: 0 0;
+  cursor: default;
 }
 
 /****************************/
@@ -697,7 +729,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	left: 136px;
 }
 
-.popup_panel .panel_header {
+.add_new_panel .panel_header {
 	background: none;
   width: 400px;
   margin: 16px 0 16px 59px;
@@ -744,7 +776,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   font-size: 16px;
   font-weight: bold;
   position: relative;
-  left: 15px;
+  left: 32px;
   top: 2px;
 }
 

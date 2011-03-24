@@ -356,12 +356,12 @@ en:
         failed: Failed to remove your {{account}} account!
       share:
         title: Amplify your echo via
-        text: Text
+        text: Message
         data_privacy:
           title: Data Privacy Notice
           description: Mind the privacy policy of other networks before sharing your views on them...
         preview: Preview
-        submit: Send out the voice! Make an echo!
+        submit: Send echo
         error: Something went wrong while sharing your entry.
         success: |
           <p>Made an echo via {{accounts}}.</p>

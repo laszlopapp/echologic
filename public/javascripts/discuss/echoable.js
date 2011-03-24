@@ -149,7 +149,7 @@
             to_add = 'supported';
 					}
 
-          /* pre-request */
+          // pre-request
 					updateEchoButton(to_add, to_remove);
 					echo_label.text(echo_label.data('messages')[to_add]);
 					toggleSocialEchoButton();
@@ -168,7 +168,7 @@
 							if (href == echo_button.attr('href')) {
 						  	rollback(to_remove, to_add);
 						  } else if(social_echo_button.hasClass('clicked')) {
-								//IMPORTANT: social echo button must be expandable!
+								// IMPORTANT: social echo button must be expandable!
 								social_echo_button.data('expandableApi').toggle();
               }
 							social_echo_button.removeClass('clicked');
@@ -216,15 +216,16 @@
 				social_panel = social_container.find('.social_echo_panel');
 				initSocialAccountButtons();
 				initTextCounter();
+        initActionButtons();
 			}
 
 			function initSocialAccountButtons() {
-				//1 step: load enable/disable tags
+				// 1st step: load enable/disable tags
 				var buttons_container = social_panel.find('.buttons_container');
 				var messages = {
 					'enabled': buttons_container.attr('data-enabled'),
 					'disabled': buttons_container.attr('data-disabled')
-				}
+				};
 				buttons_container.find('.button').each(function() {
 					var button_container = $(this);
 					var tag = null, toggle_tag = null;
@@ -249,6 +250,9 @@
 				});
 			}
 
+      /*
+       * Initializes character counter for the message so that it cannot be longer than the tweetable 140 chars.
+       */
 			function initTextCounter() {
 				var text = social_panel.find('.text');
 				var preview = social_panel.find('.preview');
@@ -271,6 +275,17 @@
 				});
 				preview.removeAttr('data-url');
 			}
+
+      /*
+       * Initializes the Cancel button.
+       */
+      function initActionButtons() {
+        var cancel_button = social_panel.find('.cancel_text_button');
+        cancel_button.click(function() {
+          social_echo_button.data('expandableApi').toggle();
+        });
+      }
+
 
 			// Public API
       $.extend(this,
