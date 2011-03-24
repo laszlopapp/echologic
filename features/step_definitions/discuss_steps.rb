@@ -34,9 +34,10 @@ When /^I choose the "([^\"]*)" ([^\"]*)$/ do |name, type|
   response.should have_selector("li.#{type}") do |selector|
     selector.each do |statement|
       title = type.eql?('question') ? "Question - #{name}" : name
-      if title.eql?(statement.at_css("a.#{type}_link").inner_text.strip)
-        instance_variable_set("@#{type}", type_class.find(URI.parse(statement.at_css("a")['href']).path.match(/\d+/)[0]))
-        visit statement.at_css("a")['href']
+      elem = statement.at_css("a.#{type}_link")
+      if elem and title.eql?(elem.inner_text.strip)
+        instance_variable_set("@#{type}", type_class.find(URI.parse(elem['href']).path.match(/\d+/)[0]))
+        visit elem['href']
       end
     end
   end

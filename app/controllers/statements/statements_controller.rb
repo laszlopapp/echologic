@@ -49,7 +49,7 @@ class StatementsController < ApplicationController
   #
   def show
 
-#    begin
+    begin
       # Get document to show or redirect if not found
       @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
       if @statement_document.nil?
@@ -77,9 +77,9 @@ class StatementsController < ApplicationController
       load_all_children
 
       render_template 'statements/show'
-#    rescue Exception => e
-#      log_error_home(e, "Error showing statement.")
-#    end
+    rescue Exception => e
+      log_error_home(e, "Error showing statement.")
+    end
   end
 
   #
@@ -324,7 +324,7 @@ class StatementsController < ApplicationController
     @type = params[:type].to_s.camelize.to_sym
     @current_node = StatementNode.find(params[:current_node]) if params[:current_node]
     begin
-      @statement_node ? load_children(:type => @type, :per_page => -1) : load_roots(@current_node,1, -1)
+      @statement_node ? load_children(:type => @type, :per_page => -1) : load_roots(:node => @current_node, :per_page => -1)
   
       respond_to do |format|
         format.html{
@@ -492,10 +492,8 @@ class StatementsController < ApplicationController
   # Loads the children of the current statement from a certain type
   #
   def load_children(opts)
-    opts[:page] ||= 1
-    opts[:per_page] ||= TOP_CHILDREN
-    opts[:language_ids] ||= @language_preference_list
     opts[:user] ||= current_user
+    opts[:language_ids] ||= @language_preference_list
     @children ||= {}
     @children[opts[:type]] = @statement_node.paginated_child_statements(opts)
     @children_documents ||= {}
@@ -637,12 +635,13 @@ class StatementsController < ApplicationController
     statement_document = search_statement_documents(:statement_ids => [parent_node.statement_id])[parent_node.statement_id] ||
                          parent_node.document_in_original_language
     #[id, classes, url, title, label, over]
-    @breadcrumb = ["fq#{parent_node.id}",
-                   "statement statement_link #{parent_node.class.name.underscore}_link",
-                   statement_node_url(parent_node, :bids => params[:bids], :origin => params[:origin]),
-                   statement_document.title.gsub(/\\;/, ',').gsub(/\\:;/, '|'),
-                   I18n.t("discuss.statements.breadcrumbs.labels.fq"),
-                   I18n.t("discuss.statements.breadcrumbs.labels.over.fq")]
+    opts = {:key => "fq#{parent_node.id}",
+            :css => "statement statement_link #{parent_node.class.name.underscore}_link",
+            :url => statement_node_url(parent_node, :bids => params[:bids], :origin => params[:origin]),
+            :title => statement_document.title.gsub(/\\;/, ',').gsub(/\\:;/, '|'),
+            :label => I18n.t("discuss.statements.breadcrumbs.labels.fq"),
+            :over => I18n.t("discuss.statements.breadcrumbs.labels.over.fq")}
+    @breadcrumb = build_breadcrumb opts
     @bids = params[:bids]||''
     @bids = @bids.split(",")
     @bids << @breadcrumb[0]
@@ -663,34 +662,41 @@ class StatementsController < ApplicationController
     bids.each_with_index do |bid, index| #[id, classes, url, title, label, over]
       key = bid[0,2]
       value = bid[2..-1]
-      label = I18n.t("discuss.statements.breadcrumbs.labels.#{key}")
-      over = I18n.t("discuss.statements.breadcrumbs.labels.over.#{key}")
-      breadcrumb = case key
-    when "ds" then page_count = value.blank? ? 1 : value[1..-1]
-                   ["ds","search_link statement_link", discuss_search_url(:page_count => page_count), I18n.t("discuss.statements.breadcrumbs.discuss_search")]
+      opts = {}
+      #default values
+      opts[:key] = key
+      opts[:css] = "search_link statement_link"
+      case key
+        when "ds" then page_count = value.blank? ? 1 : value[1..-1] # ds|:page_count
+                       opts[:url] = discuss_search_url(:page_count => page_count)
+                       opts[:title] = I18n.t("discuss.statements.breadcrumbs.discuss_search") 
         when "sr" then value = value.split('|')
-                       page_count = value.length > 1 ? value[1] : 1
-                       ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :page_count => page_count, :search_terms => value[0].gsub(/\\;/, ',').gsub(/\\:;/, '|')), value[0]]
-        when "mi" then ["mi","my_discussions_link statement_link", my_questions_url, I18n.t("discuss.statements.breadcrumbs.my_questions")]
+                       page_count = value.length > 1 ? value[1] : 1 # sr:search_term|:page_count
+                       search_terms = value[0].gsub(/\\;/, ',').gsub(/\\:;/, '|')
+                       opts[:url] = discuss_search_url(:page_count => page_count, :search_terms => search_terms)
+                       opts[:title] = value[0] 
+        when "mi" then opts[:css] = "my_discussions_link statement_link" 
+                       opts[:url] = my_questions_url
+                       opts[:title] = I18n.t("discuss.statements.breadcrumbs.my_questions") 
         when "fq" then statement_node = StatementNode.find(bid[2..-1])
                        statement_document = search_statement_documents(:statement_ids => [statement_node.statement_id])[statement_node.statement_id] ||
                                             statement_node.document_in_original_language
                        origin = index > 0 ? bids[index-1] : ''
-                       ["fq#{value}",
-                        "statement statement_link #{statement_node.class.name.underscore}_link",
-                        statement_node_url(statement_node, :bids => bids[0, bids.index(bid)].join(","), :origin => origin), statement_document.title]
+                       opts[:key] = "fq#{value}"
+                       opts[:css] = "statement statement_link #{statement_node.class.name.underscore}_link"
+                       opts[:url] = statement_node_url(statement_node, :bids => bids[0, bids.index(bid)].join(","), :origin => origin)
+                       opts[:title] = statement_document.title 
       end
-      breadcrumb << label
-      breadcrumb << over
+      opts[:label] = I18n.t("discuss.statements.breadcrumbs.labels.#{key}")
+      opts[:over] = I18n.t("discuss.statements.breadcrumbs.labels.over.#{key}")
+      breadcrumb = build_breadcrumb opts
       @breadcrumbs << breadcrumb
     end
   end
 
 
-  def build_breadcrumb(key)
-#    ["fq#{value}",
-#     "statement statement_link #{statement_node.class.name.underscore}_link",
-#     statement_node_url(statement_node, :bids => bids[0, bids.index(bid)].join(","), :origin => origin), statement_document.title]
+  def build_breadcrumb(opts={})
+    [opts[:key],opts[:css],opts[:url],opts[:title], opts[:label], opts[:over]]
   end
 
   ###############
@@ -850,10 +856,13 @@ class StatementsController < ApplicationController
   # Gets the root ids that need to be loaded to the session.
   #
   def roots_to_session(statement_node)
-    load_roots(statement_node, 1, -1, true)
+    load_roots :node => statement_node, :per_page => -1, :for_session => true
   end
 
-  def load_roots(statement_node, page=1, per_page=QUESTIONS_PER_PAGE, for_session=false)
+  def load_roots(opts)
+    opts[:page] ||= 1
+    opts[:per_page] ||= QUESTIONS_PER_PAGE
+    opts[:for_session] ||= false
     if !params[:origin].blank? #statement node is a question
       origin = params[:origin]
       key = origin[0,2]
@@ -862,36 +871,36 @@ class StatementsController < ApplicationController
        # get question siblings depending from the request's origin (key)
        # discuss search with no search results
        when 'ds' then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1].to_i * QUESTIONS_PER_PAGE
-                      sn = search_statement_nodes(:only_id => for_session).paginate(:page => 1, :per_page => per_page)
-                      for_session ? sn.map(&:id) + ["/add/question"] : sn
+                      sn = search_statement_nodes(:only_id => opts[:for_session]).paginate(:page => 1, :per_page => per_page)
+                      opts[:for_session] ? sn.map(&:id) + ["/add/question"] : sn
        # discuss search with search results 
        when 'sr'then value = value.split('|')
                      per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
                      sn = search_statement_nodes(:search_term => value[0].gsub(/\\;/,',').gsub(/\\:;/, '|'),
-                                                 :only_id => for_session).paginate(:page => 1, :per_page => per_page)
-                     for_session ? sn.map(&:id) + ["/add/question"] : sn
+                                                 :only_id => opts[:for_session]).paginate(:page => 1, :per_page => per_page)
+                     opts[:for_session] ? sn.map(&:id) + ["/add/question"] : sn
        # my discussions
        when 'mi' then sn = Question.by_creator(current_user).by_creation
-                      for_session ? sn.only_id.map(&:id) + ["/add/question"] : sn
+                      opts[:for_session] ? sn.only_id.map(&:id) + ["/add/question"] : sn
        # follow up questions from a statement
        when 'fq' then @previous_node = StatementNode.find(value)
                       @previous_type = "FollowUpQuestion"
                       sn = @previous_node.child_statements :language_ids => @language_preference_list, 
                                                            :type => @previous_type, 
                                                            :user => current_user, 
-                                                           :for_session => for_session
-                      for_session ? sn : sn.map(&:target_statement)
+                                                           :for_session => opts[:for_session]
+                      opts[:for_session] ? sn : sn.map(&:target_statement)
       end
     else
       # no origin (direct link)
-      siblings = statement_node.nil? ? [] :[statement_node]
-      siblings = siblings.map(&:id) + ["/add/question"] if for_session
+      siblings = opts[:node].nil? ? [] :[opts[:node]]
+      siblings = siblings.map(&:id) + ["/add/question"] if opts[:for_session]
     end
-    if !for_session # for descendants, must load statement documents and fill the necessary attributes for rendering
-      per_page = per_page == -1 ? siblings.length : per_page
+    if !opts[:for_session] # for descendants, must load statement documents and fill the necessary attributes for rendering
+      per_page = opts[:per_page] == -1 ? siblings.length : opts[:per_page]
       @children = {}
       type = @previous_type || @current_node.class.name
-      @children[type.to_sym] = siblings.paginate :page => page, :per_page => per_page
+      @children[type.to_sym] = siblings.paginate :page => opts[:page], :per_page => per_page
       
       @children_documents = search_statement_documents :statement_ids => @children[type.to_sym].flatten.map(&:statement_id)
     end

@@ -10,6 +10,7 @@ class StatementDocument < ActiveRecord::Base
   has_enumerated :language, :class_name => 'Language'
 
   validates_presence_of :title
+  validates_length_of :title, :maximum => 101
   validates_presence_of :text
   validates_presence_of :language_id
   validates_presence_of :statement
