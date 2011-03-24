@@ -12,13 +12,18 @@ module PublishableModuleHelper
   #
   # create question button above the discuss search results and on the left corner of my questions
   #
-  def create_question_link_for(search_terms=nil)
-    search_terms = search_terms.nil? ? '' : search_terms.gsub(/,/,'\\;')
-    origin = search_terms.blank? ? "ds" : "sr#{search_terms}"
-    link_to(I18n.t("discuss.statements.create_question_link"),
-            new_question_url(:origin => origin, :bids => origin),
-            :id => 'create_question_link',
-            :class => 'new_question add_new_button text_button add_question_button_32')
+  def create_question_link_for(search_terms=nil, origin=@origin)
+    link_to(new_question_url(:origin => origin, :bids => origin),
+                       :id => 'create_question_link',
+                       :class => 'add_new_button') do
+      link_content = ''
+      link_content << content_tag(:span, '',
+                      :class => "add_new_question_icon ttLink no_border",
+                      :title => I18n.t("discuss.tooltips.create_question"))
+      link_content <<  content_tag(:span, I18n.t("discuss.my_questions.add"),
+                                   :class => 'label')
+      link_content
+    end
   end
 
   #
@@ -38,12 +43,9 @@ module PublishableModuleHelper
   #
   # question link for the discuss search results
   #
-  def link_to_question(title, question,long_title,search_terms=nil)
-    search_terms = search_terms.nil? ? '' : search_terms.gsub(/,/,'\\;')
-    origin = search_terms.blank? ? "ds" : "sr#{search_terms}"
+  def link_to_question(title, question, origin=@origin)
     link_to statement_node_url(question, :origin => origin, :bids => origin),
-               :title => "#{h(title) if long_title}",
-               :class => "avatar_holder#{' ttLink no_border' if long_title }" do
+               :class => "avatar_holder" do
       image_tag question.image.url(:small)
     end
   end
@@ -95,37 +97,47 @@ module PublishableModuleHelper
   # create question button above the discuss search results and on the left corner of my questions
   #
   def create_my_question_link_for
-    content_tag :div, '', :class => 'action_bar' do
-      content = ''
-      content << link_to(new_question_url(:origin => :mi, :bids => :mi),
-                         :id => 'create_question_link',
-                         :class => 'add_new_button') do
-        link_content = ''
-        link_content << content_tag(:span, '',
-                        :class => "add_new_question_icon ttLink no_border",
-                        :title => I18n.t("discuss.tooltips.create_question"))
-        link_content <<  content_tag(:span, I18n.t("discuss.my_questions.add"),
-                                     :class => 'label')
-        link_content
-      end
-      content
+    link_to(new_question_url(:origin => :mi, :bids => :mi),
+                       :id => 'create_question_link',
+                       :class => 'add_new_button') do
+      link_content = ''
+      link_content << content_tag(:span, '',
+                      :class => "add_new_question_icon ttLink no_border",
+                      :title => I18n.t("discuss.tooltips.create_question"))
+      link_content <<  content_tag(:span, I18n.t("discuss.my_questions.add"),
+                                   :class => 'label')
+      link_content
     end
   end
 
   # Creates a 'Publish' button to release the question on my questions area.
-  def publish_button_or_state(statement_node)
+  def publish_button_or_state(statement_node, no_published_label, opts={})
     if !statement_node.published?
       link_to(I18n.t("discuss.statements.publish"),
-              publish_statement_node_path(statement_node),
+              { :controller => :statements, :id => statement_node.id, :action => :publish }.merge(opts),
               :class => 'ajax_put publish_button ttLink',
               :title => I18n.t('discuss.tooltips.publish'))
     else
-      content_tag :span , I18n.t('discuss.statements.states.published'), :class => 'publish_button'
+      no_published_label ? '' : content_tag(:span , I18n.t('discuss.statements.states.published'), :class => 'publish_button')
     end
   end
 
   # returns a collection from possible statement states to be used on radios and select boxes
   def statement_states_collection
     StatementState.all.map{|s|[I18n.t("discuss.statements.states.initial_state.#{s.code}"),s.id]}
+  end
+  
+  # renders pagination 'more' button
+  def more_questions(statement_nodes, page=1)
+    loaded_pages = statement_nodes.length/QUESTIONS_PER_PAGE.to_i + (statement_nodes.length%QUESTIONS_PER_PAGE.to_i > 0 ? 1 : 0)
+    content_tag :div, :class => 'more_pagination' do 
+      if statement_nodes.current_page != statement_nodes.total_pages
+      link_to I18n.t("application.general.more"),
+              discuss_search_url(:search_terms => params[:search_terms], :page => page.to_i+loaded_pages),
+              :class => 'more_children ajax'
+      else
+        content_tag :span, I18n.t("application.general.more"), :class => 'disabled more_children'
+      end
+    end
   end
 end

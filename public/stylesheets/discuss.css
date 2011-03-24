@@ -50,7 +50,7 @@
   text-align: center;
 }
 
-#my_questions .add_new_question_icon {
+.action_bar .add_new_question_icon {
 	height:   32px;
   width:    32px;
   display:  inline-block;
@@ -59,11 +59,11 @@
 	margin-top: 10px;
 }
 
-#my_questions .add_new_button:hover .add_new_question_icon {
+.action_bar .add_new_button:hover .add_new_question_icon {
   background-position: 0 -32px;
 }
 
-#my_questions .action_bar .label {
+.action_bar .add_new_button .label {
   top: 9px;
 }
 
@@ -103,7 +103,7 @@
   text-align: center;
 }
 
-#question_list a.publish_button {
+a.publish_button {
 	background: url("../images/page/publish_button_200.png") no-repeat scroll left top transparent;
 	border: medium none;
 	color: #21587F;
@@ -118,12 +118,12 @@
   top: -5px;
 }
 
-#question_list a.publish_button:hover {
+a.publish_button:hover {
   background-position: 0 -43px;
 }
 
-#question_list span.publish_button {
-  background: transparent url(../images/page/icons/publish_button.png) no-repeat scroll 0 0;
+span.publish_button {
+  background:transparent url(../images/page/icons/publish_button.png) no-repeat scroll 0 0;
   background-position: 0 -17px;
   height: 17px;
   line-height: 17px;
@@ -326,15 +326,96 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* Search */
 /**********/
 
-#discuss_search_container .new_question {
-  position: absolute;
-  top: -1px;
-  margin-left: 10px;
-}
-
 #discuss_search_container.search_container {
   margin:   35px auto 25px;
 }
+
+.questions_container .header {
+	background: url("../images/page/discuss/stack_separator.png") no-repeat scroll 7px 0 transparent;
+  clear: both;
+  display: inline-block;
+  min-height: 34px;
+  width: 785px;
+	margin-bottom: 10px;
+}
+
+.questions_container .header .label {
+	 color: #21587F;
+   cursor: default;
+   font-size: 16px;
+   font-weight: bold;
+	 position: relative;
+	 left: 30px;
+	 top: 3px;
+}
+
+.questions_container .header .icon {
+	display: inline-block;
+  background: url(../images/page/box/box_icon_discuss.png) repeat-x left top;
+	height: 36px;
+	width: 36px;
+	position: relative;
+	top: 15px;
+  left: 22px;
+}
+
+.questions_container ul {
+	height: 900px;
+}
+
+.questions_container li.question {
+	display: inline-block;
+	height: 160px;
+	position: relative;
+}
+
+.questions_container li.question img{
+  border: 2px solid #7BB031;
+}
+
+.questions_container li.question .top_area {
+	float: left;
+  height: 20px;
+  position: relative;
+  top: 0px;
+  width: 590px;
+	margin-bottom: 9px;
+}
+.questions_container li.question .top_area .statement_link {
+	background: none;
+}
+
+.questions_container li.question .bottom {
+  float: left;
+  height: 100px;
+  position: relative;
+	bottom: 0px;
+}
+
+.questions_container li.question .bottom .description {
+	padding-left: 21px;
+	width: 365px;
+	height: 90px;
+}
+
+.questions_container li.question .buttons {
+  position: absolute;
+	right: 64px;
+	top: 74px;
+}
+
+.questions_container li.question a.publish_button {
+	left: 55px;
+}
+
+.questions_container li.question .avatar_holder {
+	float: left;
+}
+.questions_container li.question .avatar_holder img {
+  height: 130px;
+	width: 175px;
+}
+/********************** TODO: OLD; MAYBE TO DELETE *******************************************/
 
 #function_container .simple_header_block h2 {
   color: #21587f !important;
@@ -365,11 +446,11 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	color: #7BB031;
 }
 
-#questions_container .results_container .no_results {
+.questions_container .results_container .no_results {
   top: 85px;
 }
 
-#questions_container .results_container .create_first_question_button {
+.questions_container .results_container .create_first_question_button {
   background: transparent url(../images/page/discuss/add_first_question_button.png) no-repeat scroll 0 0;
 	width: 400px;
 	height: 50px;
@@ -379,18 +460,18 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   color: #21587f;
 }
 
-#questions_container .results_container .create_first_question_button:hover {
+.questions_container .results_container .create_first_question_button:hover {
   background-position: 0 -50px;
 }
 
-#questions_container .results_container .create_first_question_button span {
+.questions_container .results_container .create_first_question_button span {
   font-weight: bold;
   position: relative;
   left: 23px;
   top: 18px;
 }
 
-#questions_container .results_container .add_teaser {
+.questions_container .results_container .add_teaser {
 	left: 260px;
   position: absolute;
   top: 147px;
@@ -710,8 +791,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	margin-top: 20px;
 }
 
-#my_questions .add_new_button,
-#statements .action_bar .add_new_button {
+.action_bar .add_new_button {
   height:   80px;
   width:    160px;
   display:  block;
@@ -1224,15 +1304,6 @@ a.statement_link:hover {
 .create_contra_argument_button_32 {background: transparent url(../images/page/discuss/contra_argument_32.png) no-repeat scroll 0 4px;}
 .create_follow_up_question_button_32 {background: transparent url(../images/page/discuss/question_32.png) no-repeat scroll 0 0;}
 
-.add_question_button_32 {
-  background:transparent url(../images/page/discuss/add_question_32.png) no-repeat scroll 0 0;
-  height: 24px;
-  padding: 8px 0 0 38px;
-}
-
-.add_question_button_32:hover {
-  background-position: 0 -32px;
-}
 
 /*****************/
 /* Incorporation */

@@ -2,10 +2,12 @@
   <%= content_for :section, "discuss search" %>
 <% end %>
 
+
 <%= render 'statements/questions/search' %>
 
-<!-- Search results -->
-<%= render :partial => 'statements/questions/questions',
-           :locals => {:statement_nodes => @statement_nodes} %>
+<% content_tag :div, :id => "questions_container" do %>
+	<%= render :partial => 'statements/questions/action_bar' %>
+	<%= render :partial => 'statements/questions/questions_list', :locals => { :statement_nodes => @statement_nodes } %>
+<% end %>
 
 

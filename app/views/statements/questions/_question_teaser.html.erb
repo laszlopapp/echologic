@@ -1,0 +1,13 @@
+<li class="question">
+  <div class="avatar_holder">
+  <%= image_tag('add_statement_teaser_image.png') %>
+  </div>
+  <% content_tag :div, :class => 'top_area' do %>
+    <%= create_new_question_link %>
+    <%= content_tag(:span, '', :class => "no_echo_indicator supporters_bar") %>
+    
+  <% end %>
+  <% content_tag :div, :class => 'bottom' do %>
+    <%= content_tag :div, I18n.t("discuss.statements.add_teaser.question"), :class => 'description' %>
+  <% end %>
+</li>

@@ -9,16 +9,16 @@ module StatementsHelper
   ##################
 
   # Renders ancestors headers (when we have a GET operation on a child node)
-  def render_ancestors(ancestors)
+  def render_ancestors(ancestors, ancestor_documents)
     val = ''
     ancestors.each do |ancestor|
-      val << render_ancestor(ancestor)
+      val << render_ancestor(ancestor, ancestor_documents[ancestor.statement_id])
     end
     val
   end
 
-  def render_ancestor(ancestor)
-    render :partial => 'statements/show', :locals => {:statement_node => ancestor, :only_header => true}
+  def render_ancestor(ancestor, document)
+    render :partial => 'statements/show', :locals => {:statement_node => ancestor, :statement_document => document, :only_header => true}
   end
 
   # Renders all the possible children of the current node (per type, ordering must be defined in the node type definition)
@@ -54,14 +54,15 @@ module StatementsHelper
   #
   def create_new_child_statement_link(statement_node, child_type, opts={})
     url = opts.delete(:url) if opts[:url]
+    css = opts.delete(:css) if opts[:css]
     title = opts[:no_text] ? '' :
     link_to(I18n.t("discuss.statements.create_#{child_type}_link"),
             url ? url : new_statement_node_url(statement_node.nil? ? nil : statement_node.target_id,child_type, opts),
-            :class => "ajax add_new_button text_button create_#{child_type}_button ttLink no_border",
+            :class => "#{css} add_new_button text_button create_#{child_type}_button ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_#{child_type}"))
   end
 
-  def create_new_question_link(origin=nil)
+  def create_new_question_link(origin=@origin, opts={})
     type = 'question'
     parent = nil
     if !origin.blank?
@@ -72,8 +73,8 @@ module StatementsHelper
                        origin[2..-1]
       end
     end
-    url = parent.nil? ? new_question_url(:origin => origin) : new_statement_node_url(parent, type)
-    create_new_child_statement_link(parent, type, :url => url)
+    url = parent.nil? ? new_question_url(:bids => origin, :origin => origin) : new_statement_node_url(parent, type)
+    create_new_child_statement_link(parent, type, opts.merge({:url => url}))
   end
 
 
@@ -226,7 +227,7 @@ module StatementsHelper
       content = ''
       content << image_tag(user.avatar.url(:small), :alt => '')
       content << content_tag(:span, I18n.t('users.authors.teaser.title'), :class => 'name')
-      content << create_new_child_statement_link(statement_node, 'improvement', :new_level => true)
+      content << create_new_child_statement_link(statement_node, 'improvement', :new_level => true, :css => "ajax")
       content
     end
   end
@@ -312,11 +313,11 @@ module StatementsHelper
   end
 
   # Returns the context menu link for this statement_node.
-  def statement_node_context_link(statement_node, language_ids, action = 'read', last_statement_node = false)
-    return if (statement_document = statement_node.document_in_preferred_language(language_ids)).nil?
-    link_to(h(statement_document.title),
-             statement_node_url(statement_node),
-             :class => "ajax no_border statement_link #{dom_class(statement_node)}_link ttLink",
+  def statement_node_context_link(statement_node, title, action = 'read', opts={})
+    css = opts.delete(:css)
+    link_to(h(title),
+             statement_node_url(statement_node, opts),
+             :class => "#{css} no_border statement_link #{dom_class(statement_node)}_link ttLink",
              :title => I18n.t("discuss.tooltips.#{action}_#{dom_class(statement_node)}"))
   end
 
@@ -463,7 +464,7 @@ module StatementsHelper
         content << content_tag(:span, '', :class => 'big_delimiter') if index != 0
         content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.#{b[0][0,2]}"), :class => 'label')
         content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.over.#{b[0][0,2]}"), :class => 'over')
-        content << content_tag(:span, h(b[3].gsub(/\\;/, ',')), :class => b[1])
+        content << content_tag(:span, h(b[3].gsub(/\\;/, ',').gsub(/\\:;/, '|')), :class => b[1])
         content
       end
       breadcrumb_trail << breadcrumb

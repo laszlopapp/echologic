@@ -364,9 +364,9 @@ en:
         submit: Send echo
         error: Something went wrong while sharing your entry.
         success: |
-          <p>Made an echo via {{accounts}}.</p>
+          Made an echo via {{accounts}}.
         failed: |
-          <p>Failed via {{accounts}}.</p>
+          Failed via {{accounts}}.
         enabled: Enabled
         disabled: Disabled
 
@@ -434,6 +434,7 @@ en:
       title: Search
       in: '... in {{category}} ...'
       add: "Create the first question about the topic"
+      placeholder: "Which topic do you want to search for?"
 
     tooltips:
       read_question: 'Go to this question'
@@ -673,6 +674,7 @@ en:
 
     fill_out_profile:
       text: Please fill out <strong>at least {{percentage}}%</strong> of your profile to make "the computer" happy and let this block disappear. :-)
+    placeholder: 'Topic, Organization, Name'
 
     segments:
       all:       'All'

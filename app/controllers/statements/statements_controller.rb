@@ -302,10 +302,14 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def authors
-    load_authors
-    respond_to do |format|
-      format.html{show}
-      format.js {render :template => 'statements/authors'}
+    begin
+      load_authors
+      respond_to do |format|
+        format.html{show}
+        format.js {render :template => 'statements/authors'}
+      end
+    rescue Exception => e
+      log_error_home(e, "Error loading authors of statement node #{@statement_node ? @statement_node.id : params[:id]}.")
     end
   end
 
@@ -317,24 +321,24 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def descendants
-    @type = params[:type].to_s.camelize.to_sym || @statement_node.class.children_types.first
+    @type = params[:type].to_s.camelize.to_sym
     @current_node = StatementNode.find(params[:current_node]) if params[:current_node]
-    if @statement_node
-      load_children(@type, 1, -1)
-    else
-      load_roots(@current_node,1, -1)
-    end
-
-    respond_to do |format|
-      format.html{
-        if @current_node
-          @statement_node = @current_node
-          show
-        else
-          add
-        end
-      }
-      format.js { render :template => @type.to_s.constantize.descendants_template }
+    begin
+      @statement_node ? load_children(:type => @type, :per_page => -1) : load_roots(:node => @current_node, :per_page => -1)
+  
+      respond_to do |format|
+        format.html{
+          if @current_node
+            @statement_node = @current_node
+            show
+          else
+            add
+          end
+        }
+        format.js { render :template => @type.to_s.constantize.descendants_template }
+      end
+    rescue Exception => e
+      log_error_home(e, "Error loading descendants of type #{@type}.")
     end
   end
 
@@ -346,11 +350,15 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def children
-    @type = params[:type].camelize.to_sym || @statement_node.class.children_types.first
-    load_top_children @type
-    respond_to do |format|
-      format.html{show}
-      format.js { render :template => @type.to_s.constantize.children_template }
+    @type = params[:type].camelize.to_sym
+    begin
+      load_children :type => @type
+      respond_to do |format|
+        format.html{show}
+        format.js { render :template => @type.to_s.constantize.children_template }
+      end
+    rescue Exception => e
+      log_error_home(e, "Error loading children of type #{@type}.")
     end
   end
 
@@ -364,14 +372,18 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def more
-    @type = params[:type].camelize.to_sym || @statement_node.class.children_types.first
+    @type = params[:type].camelize.to_sym
     @page = params[:page] || 1
     @per_page = MORE_CHILDREN
     @offset = @page.to_i == 1 ? TOP_CHILDREN : 0
-    load_children @type
-    respond_to do |format|
-      format.html{show}
-      format.js {render :template => @type.to_s.constantize.more_template}
+    begin
+      load_children :type => @type, :page => @page, :per_page => @per_page
+      respond_to do |format|
+        format.html{show}
+        format.js {render :template => @type.to_s.constantize.more_template}
+      end
+    rescue Exception => e
+      log_error_home(e, "Error loading more children of type #{@type}.")
     end
   end
 
@@ -384,18 +396,18 @@ class StatementsController < ApplicationController
   #
   def add
     @type = params[:type].to_s
-    if !params[:new_level].blank?
-      if @statement_node # this is the teaser's parent (e.g.: 1212345/add/proposal)
-        load_children_for_parent @statement_node, @type
-      else # this is the question's teaser (e.g.: /add/question
-        load_roots_to_session
+    begin
+      if !params[:new_level].blank?
+        if @statement_node # this is the teaser's parent (e.g.: 1212345/add/proposal)
+          load_children_for_parent @statement_node, @type
+        else # this is the question's teaser (e.g.: /add/question
+          load_roots_to_session
+        end
       end
-    end
-#    begin
       render_template('statements/add', true)
-#    rescue Exception => e
-#      log_error_home(e, "Error showing add #{@type} teaser.")
-#    end
+    rescue Exception => e
+      log_error_home(e, "Error showing add #{@type} teaser.")
+    end
   end
 
 
@@ -465,37 +477,27 @@ class StatementsController < ApplicationController
         immediate_render = children_types[1][index]
         if @children[type].nil?
           if immediate_render
-            @children[type] ||= @statement_node.get_paginated_child_statements(:language_ids => @language_preference_list,
-                                                                             :type => type.to_s,
-                                                                             :user => current_user)
-            @children_documents.merge!(search_statement_documents(@children[type].flatten.map(&:statement_id),
-                                                                  @language_preference_list))
+            load_children :type => type
           else
             @children[type] ||= @statement_node.count_child_statements :language_ids => @language_preference_list,
                                                                        :user => current_user,
-                                                                       :type => type.to_s
+                                                                       :type => type
           end
         end
       end
     end
   end
 
-  def load_top_children(type)
-    load_children(type, 1, TOP_CHILDREN)
-  end
-
   #
   # Loads the children of the current statement from a certain type
   #
-  def load_children(type, page = @page, per_page = @per_page)
-    @children = {}
-    @children[type] = @statement_node.get_paginated_child_statements(:language_ids => @language_preference_list,
-                                                                     :type => type.to_s,
-                                                                     :user => current_user,
-                                                                     :page => page,
-                                                                     :per_page => per_page)
-    @children_documents = search_statement_documents(@children[type].flatten.map(&:statement_id),
-                                                     @language_preference_list)
+  def load_children(opts)
+    opts[:user] ||= current_user
+    opts[:language_ids] ||= @language_preference_list
+    @children ||= {}
+    @children[opts[:type]] = @statement_node.paginated_child_statements(opts)
+    @children_documents ||= {}
+    @children_documents.merge!(search_statement_documents :statement_ids => @children[opts[:type]].flatten.map(&:statement_id))
   end
 
   #
@@ -630,15 +632,16 @@ class StatementsController < ApplicationController
   def set_parent_breadcrumb
     return if @statement_node.parent.nil?
     parent_node = @statement_node.parent
-    statement_document = search_statement_documents(parent_node.statement_id,@language_preference_list)[parent_node.statement_id] ||
+    statement_document = search_statement_documents(:statement_ids => [parent_node.statement_id])[parent_node.statement_id] ||
                          parent_node.document_in_original_language
     #[id, classes, url, title, label, over]
-    @breadcrumb = ["fq#{parent_node.id}",
-                   "statement statement_link #{parent_node.class.name.underscore}_link",
-                   statement_node_url(parent_node, :bids => params[:bids], :origin => params[:origin]),
-                   statement_document.title.gsub(/\\;/, ','),
-                   I18n.t("discuss.statements.breadcrumbs.labels.fq"),
-                   I18n.t("discuss.statements.breadcrumbs.labels.over.fq")]
+    opts = {:key => "fq#{parent_node.id}",
+            :css => "statement statement_link #{parent_node.class.name.underscore}_link",
+            :url => statement_node_url(parent_node, :bids => params[:bids], :origin => params[:origin]),
+            :title => statement_document.title.gsub(/\\;/, ',').gsub(/\\:;/, '|'),
+            :label => I18n.t("discuss.statements.breadcrumbs.labels.fq"),
+            :over => I18n.t("discuss.statements.breadcrumbs.labels.over.fq")}
+    @breadcrumb = build_breadcrumb opts
     @bids = params[:bids]||''
     @bids = @bids.split(",")
     @bids << @breadcrumb[0]
@@ -658,26 +661,43 @@ class StatementsController < ApplicationController
 
     bids.each_with_index do |bid, index| #[id, classes, url, title, label, over]
       key = bid[0,2]
-      label = I18n.t("discuss.statements.breadcrumbs.labels.#{key}")
-      over = I18n.t("discuss.statements.breadcrumbs.labels.over.#{key}")
-      breadcrumb = case key
-        when "ds" then ["ds","search_link statement_link", discuss_search_url, I18n.t("discuss.statements.breadcrumbs.discuss_search")]
-        when "sr" then ["sr","search_link statement_link", discuss_search_url(:origin => :discuss_search, :search_terms => bid[2..-1].gsub(/\\;/, ',')), bid[2..-1]]
-        when "mi" then ["mi","my_discussions_link statement_link", my_questions_url, I18n.t("discuss.statements.breadcrumbs.my_questions")]
+      value = bid[2..-1]
+      opts = {}
+      #default values
+      opts[:key] = key
+      opts[:css] = "search_link statement_link"
+      case key
+        when "ds" then page_count = value.blank? ? 1 : value[1..-1] # ds|:page_count
+                       opts[:url] = discuss_search_url(:page_count => page_count)
+                       opts[:title] = I18n.t("discuss.statements.breadcrumbs.discuss_search") 
+        when "sr" then value = value.split('|')
+                       page_count = value.length > 1 ? value[1] : 1 # sr:search_term|:page_count
+                       search_terms = value[0].gsub(/\\;/, ',').gsub(/\\:;/, '|')
+                       opts[:url] = discuss_search_url(:page_count => page_count, :search_terms => search_terms)
+                       opts[:title] = value[0] 
+        when "mi" then opts[:css] = "my_discussions_link statement_link" 
+                       opts[:url] = my_questions_url
+                       opts[:title] = I18n.t("discuss.statements.breadcrumbs.my_questions") 
         when "fq" then statement_node = StatementNode.find(bid[2..-1])
-                       statement_document = search_statement_documents(statement_node.statement_id, @language_preference_list)[statement_node.statement_id] ||
+                       statement_document = search_statement_documents(:statement_ids => [statement_node.statement_id])[statement_node.statement_id] ||
                                             statement_node.document_in_original_language
                        origin = index > 0 ? bids[index-1] : ''
-                       ["fq#{bid[2..-1]}",
-                        "statement statement_link #{statement_node.class.name.underscore}_link",
-          statement_node_url(statement_node, :bids => bids[0, bids.index(bid)].join(","), :origin => origin), statement_document.title]
+                       opts[:key] = "fq#{value}"
+                       opts[:css] = "statement statement_link #{statement_node.class.name.underscore}_link"
+                       opts[:url] = statement_node_url(statement_node, :bids => bids[0, bids.index(bid)].join(","), :origin => origin)
+                       opts[:title] = statement_document.title 
       end
-      breadcrumb << label
-      breadcrumb << over
+      opts[:label] = I18n.t("discuss.statements.breadcrumbs.labels.#{key}")
+      opts[:over] = I18n.t("discuss.statements.breadcrumbs.labels.over.#{key}")
+      breadcrumb = build_breadcrumb opts
       @breadcrumbs << breadcrumb
     end
   end
 
+
+  def build_breadcrumb(opts={})
+    [opts[:key],opts[:css],opts[:url],opts[:title], opts[:label], opts[:over]]
+  end
 
   ###############
   # PERMISSIONS #
@@ -739,15 +759,20 @@ class StatementsController < ApplicationController
   # Calls the statement node sql query for questions.
   #
   def search_statement_nodes(opts = {})
-    StatementNode.search_statement_nodes(opts.merge({:type => "Question"}))
+    StatementNode.search_statement_nodes(opts.merge({:type => "Question", 
+                                                     :user => current_user,
+                                                     :language_ids => @language_preference_list,
+                                                     :show_unpublished => current_user && current_user.has_role?(:editor)}))
   end
 
   #
   # Gets all the statement documents belonging to a group of statements, and orders them per language ids.
   #
-  def search_statement_documents(statement_ids, language_ids = @language_preference_list)
-    statement_documents = StatementDocument.search_statement_documents(statement_ids, language_ids).sort! {|a, b|
-      language_ids.index(a.language_id) <=> language_ids.index(b.language_id)
+  def search_statement_documents(opts={})
+    opts[:language_ids] ||= @language_preference_list
+    l_ids = opts[:language_ids]
+    statement_documents = StatementDocument.search_statement_documents(opts).sort! {|a, b|
+      l_ids.index(a.language_id) <=> l_ids.index(b.language_id)
     }
     statement_documents.each_with_object({}) do |sd, documents_hash|
       documents_hash[sd.statement_id] = sd unless documents_hash.has_key?(sd.statement_id)
@@ -777,6 +802,7 @@ class StatementsController < ApplicationController
   def load_ancestors(teaser = false)
     if @statement_node
       @ancestors = @statement_node.ancestors
+      @ancestor_documents = {}
       @ancestors.each {|a| load_siblings(a) }
 
       load_siblings(@statement_node) # if teaser: @statement_node is the teaser's parent, otherwise the node on the bottom-most level
@@ -784,6 +810,8 @@ class StatementsController < ApplicationController
         @ancestors << @statement_node # if teaser: @statement_node is the teaser's parent, therefore, an ancestor
         load_children_for_parent(@statement_node, @type)
       end
+      
+      @ancestors.each{|a|@ancestor_documents[a.statement_id] = a.document_in_preferred_language(@language_preference_list)}
     else
       if teaser
         load_roots_to_session
@@ -828,58 +856,55 @@ class StatementsController < ApplicationController
   # Gets the root ids that need to be loaded to the session.
   #
   def roots_to_session(statement_node)
-    if !params[:origin].blank? #statement node is a question
-      origin = params[:origin]
-      key = origin[0,2]
-      siblings = case key
-        when 'ds' then search_statement_nodes(:language_ids => @language_preference_list,
-                                              :show_unpublished => current_user && current_user.has_role?(:editor),
-                                              :only_id => true).map(&:id) + ["/add/question"]
-        when 'sr'then search_statement_nodes(:search_term => origin[2..-1].gsub(/\\;/,','),
-                                             :language_ids => @language_preference_list,
-                                             :show_unpublished => current_user && current_user.has_role?(:editor),
-                                             :only_id => true).map(&:id) + ["/add/question"]
-        when 'mi' then Question.by_creator(current_user).by_creation.only_id.map(&:id) + ["/add/question"]
-        when 'fq' then @previous_node = StatementNode.find(origin[2..-1])
-                       @previous_type = "FollowUpQuestion"
-                       @previous_node.child_statements :language_ids => @language_preference_list, 
-                                                       :type => @previous_type, 
-                                                       :user => current_user, 
-                                                       :for_session => true
-      end
-    else
-      siblings = (statement_node ? [statement_node.id] : []) + ["/add/question"]
-    end
-    siblings
+    load_roots :node => statement_node, :per_page => -1, :for_session => true
   end
 
-  def load_roots(statement_node, page, per_page)
+  def load_roots(opts)
+    opts[:page] ||= 1
+    opts[:per_page] ||= QUESTIONS_PER_PAGE
+    opts[:for_session] ||= false
     if !params[:origin].blank? #statement node is a question
       origin = params[:origin]
       key = origin[0,2]
-      roots = case key
-        when 'ds' then search_statement_nodes(:language_ids => @language_preference_list,
-                                              :show_unpublished => current_user && current_user.has_role?(:editor))
-        when 'sr'then search_statement_nodes(:search_term => origin[2..-1].gsub(/\\;/,','),
-                                             :language_ids => @language_preference_list,
-                                             :show_unpublished => current_user && current_user.has_role?(:editor))
-        when 'mi' then Question.by_creator(current_user).by_creation
-        when 'fq' then @previous_node = StatementNode.find(origin[2..-1])
-                       @previous_type = "FollowUpQuestion"
-                       @previous_node.child_statements(:language_ids => @language_preference_list,
-                                                       :type => @previous_type,
-                                                       :user => current_user).map(&:target_statement)
+      value = origin[2..-1]
+      siblings = case key
+       # get question siblings depending from the request's origin (key)
+       # discuss search with no search results
+       when 'ds' then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1].to_i * QUESTIONS_PER_PAGE
+                      sn = search_statement_nodes(:only_id => opts[:for_session]).paginate(:page => 1, :per_page => per_page)
+                      opts[:for_session] ? sn.map(&:id) + ["/add/question"] : sn
+       # discuss search with search results 
+       when 'sr'then value = value.split('|')
+                     per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
+                     sn = search_statement_nodes(:search_term => value[0].gsub(/\\;/,',').gsub(/\\:;/, '|'),
+                                                 :only_id => opts[:for_session]).paginate(:page => 1, :per_page => per_page)
+                     opts[:for_session] ? sn.map(&:id) + ["/add/question"] : sn
+       # my discussions
+       when 'mi' then sn = Question.by_creator(current_user).by_creation
+                      opts[:for_session] ? sn.only_id.map(&:id) + ["/add/question"] : sn
+       # follow up questions from a statement
+       when 'fq' then @previous_node = StatementNode.find(value)
+                      @previous_type = "FollowUpQuestion"
+                      sn = @previous_node.child_statements :language_ids => @language_preference_list, 
+                                                           :type => @previous_type, 
+                                                           :user => current_user, 
+                                                           :for_session => opts[:for_session]
+                      opts[:for_session] ? sn : sn.map(&:target_statement)
       end
     else
-      roots = statement_node.nil? ? [] :[statement_node]
-      roots
+      # no origin (direct link)
+      siblings = opts[:node].nil? ? [] :[opts[:node]]
+      siblings = siblings.map(&:id) + ["/add/question"] if opts[:for_session]
     end
-    per_page = per_page == -1 ? roots.length : per_page
-    @children = {}
-    type = @previousNode || @current_node.class.name
-    @children[type.to_sym] = roots.paginate :page => page, :per_page => per_page
-    
-    @children_documents = search_statement_documents(@children[type.to_sym].flatten.map(&:statement_id),@language_preference_list)
+    if !opts[:for_session] # for descendants, must load statement documents and fill the necessary attributes for rendering
+      per_page = opts[:per_page] == -1 ? siblings.length : opts[:per_page]
+      @children = {}
+      type = @previous_type || @current_node.class.name
+      @children[type.to_sym] = siblings.paginate :page => opts[:page], :per_page => per_page
+      
+      @children_documents = search_statement_documents :statement_ids => @children[type.to_sym].flatten.map(&:statement_id)
+    end
+    siblings
   end
 
 
@@ -946,7 +971,8 @@ class StatementsController < ApplicationController
   #
   def loadSearchTermsAsTags(origin)
     return if !origin[0,2].eql?('sr')
-    default_tags = origin[2..-1].gsub(/\\;/, ',')
+    origin = origin.split('|')[0]
+    default_tags = origin[2..-1].gsub(/\\;/, ',').gsub(/\\:;/, '|')
     default_tags[/[\s]+/] = ',' if default_tags[/[\s]+/]
     default_tags = default_tags.split(',').compact
     default_tags.each{|t| @statement_node.topic_tags << t }

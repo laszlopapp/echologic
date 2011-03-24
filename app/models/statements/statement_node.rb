@@ -154,6 +154,36 @@ class StatementNode < ActiveRecord::Base
   # CHILDREN/SIBLINGS #
   #####################
 
+  
+
+  # Collects a filtered list of all siblings statements
+  #
+  # for_session argument: when true, returns a list of ids + the "add_type" teaser name
+  def sibling_statements(opts={})
+    opts[:type] ||= self.class.to_s
+    self.parent.nil? ? [] : self.parent.child_statements(opts) 
+  end
+
+  # Collects a filtered list of all siblings statements
+  def siblings_to_session(opts)
+    opts[:for_session] = true
+    sibling_statements(opts)
+  end
+
+  # Collects a filtered list of all siblings statements
+  def children_to_session(opts)
+    opts[:for_session] = true
+    child_statements(opts)
+  end
+
+  # Get the top children given a certain child type
+  def paginated_child_statements(opts)
+    opts[:page] ||= 1
+    opts[:per_page] ||= TOP_CHILDREN
+    children = child_statements(opts)
+    opts[:type].to_s.constantize.paginate_statements(children, opts[:page], opts[:per_page])
+  end
+  
   # Collects a filtered list of all children statements
   #
   # for_session argument: when true, returns a list of ids + the "add_type" teaser name
@@ -161,40 +191,7 @@ class StatementNode < ActiveRecord::Base
     opts[:parent_id] = self.target_id
     opts[:filter_drafting_state] = self.draftable?
     opts[:type] ||= self.class.children_types.first.to_s
-    return opts[:type].constantize.statements_for_parent(opts)
-  end
-
-  # Collects a filtered list of all siblings statements
-  #
-  # for_session argument: when true, returns a list of ids + the "add_type" teaser name
-  def sibling_statements(opts={})
-    opts[:parent_id] = self.parent.target_id
-    opts[:filter_drafting_state] = self.incorporable?
-    opts[:type] ||= self.class.to_s
-    return opts[:parent_id].nil? ? [] : opts[:type].constantize.statements_for_parent(opts)
-  end
-
-  # Collects a filtered list of all siblings statements
-  def siblings_to_session(opts)
-    opts[:type] ||= self.class.to_s
-    opts[:for_session] = true
-    sibling_statements(opts)
-  end
-
-  # Collects a filtered list of all siblings statements
-  def children_to_session(opts)
-    opts[:type] ||= self.class.children_types.first.to_s
-    opts[:for_session] = true
-    child_statements(opts)
-  end
-
-  # Get the top children given a certain child type
-  def get_paginated_child_statements(opts)
-    opts[:type] ||= self.class.children_types.first.to_s
-    opts[:page] ||= 1
-    opts[:per_page] ||= TOP_CHILDREN
-    children = child_statements(opts)
-    opts[:type].constantize.paginate_statements(children, opts[:page], opts[:per_page])
+    return opts[:type].to_s.constantize.statements_for_parent(opts)
   end
 
   # counts the children the statement has of a certain type
@@ -202,7 +199,7 @@ class StatementNode < ActiveRecord::Base
     opts[:parent_id] = self.target_id
     opts[:filter_drafting_state] = self.draftable?
     opts[:type] ||= self.class.children_types.first.to_s
-    opts[:type].constantize.count_statements_for_parent(opts)
+    opts[:type].to_s.constantize.count_statements_for_parent(opts)
   end
 
   private
@@ -238,12 +235,29 @@ class StatementNode < ActiveRecord::Base
       children.paginate(default_scope.merge(:page => page, :per_page => per_page))
     end
 
+    ################################
+    # CHILDREN BLOCK QUERY HELPERS #
+    ################################
+
+    #
+    # Returns the number of child statements of a certain type (or types) from a given statement
+    #
+    def count_statements_for_parent(opts)
+      fields = parent_conditions(opts.merge({:types => sub_types.map(&:to_s)}))
+      fields[:select] = "DISTINCT #{table_name}.id"
+      self.count(:all, fields)
+    end
+
+    #
     # Aux Function: gets a set of children given a certain parent (used to get siblings and children)
+    #
     def statements_for_parent(opts)
       get_statements_for_parent(opts)
     end
 
+    #
     # Aux Function: gets a set of children given a certain parent (used above)
+    #
     def get_statements_for_parent(opts)
       fields = parent_conditions(opts)
 
@@ -259,13 +273,10 @@ class StatementNode < ActiveRecord::Base
       end
       statements
     end
-
-    def count_statements_for_parent(opts)
-      fields = parent_conditions(opts.merge({:types => sub_types.map(&:to_s)}))
-      fields[:select] = "DISTINCT #{table_name}.id"
-      self.count(:all, fields)
-    end
-
+    
+    #
+    # Aux: Builds the query attributes for the children operations
+    #
     def parent_conditions(opts)
       fields = {}
       fields.delete(:readonly)
@@ -277,11 +288,6 @@ class StatementNode < ActiveRecord::Base
       fields[:conditions] << drafting_conditions if opts[:filter_drafting_state]
       fields[:order] = "e.supporter_count DESC, #{table_name}.created_at DESC"
       fields
-    end
-
-    # Aux Function: drafting conditions on a query (overwritten in acts_as_incorporable)
-    def drafting_conditions
-      ''
     end
 
     def children_joins
@@ -311,7 +317,12 @@ class StatementNode < ActiveRecord::Base
       and_conditions = []
       and_conditions << "d.current = 1"
       and_conditions << sanitize_sql(["s.type = '#{opts.delete(:type)}'"]) if opts[:type]
-      and_conditions << sanitize_sql(["#{Statement.table_name}.editorial_state_id = ?", StatementState['published'].id]) unless opts[:show_unpublished]
+      unless opts[:show_unpublished]
+        publish_condition = []
+        publish_condition << sanitize_sql(["#{Statement.table_name}.editorial_state_id = ?",StatementState['published'].id])
+        publish_condition << sanitize_sql(["s.creator_id = ?",  opts[:user].id]) if opts[:user]
+        and_conditions << "(#{publish_condition.join(' OR ')})"
+      end
       and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]]) if opts[:language_ids]
       and_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]]) if opts[:drafting_states]
       if !search_term.blank?

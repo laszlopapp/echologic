@@ -1,8 +1,10 @@
 $(document).ready(function () {
 	if ($('#function_container.search').length > 0) {
+		$("#search_form").placeholder();
   	initHistoryEvents();
   	initPaginationButtons();
   	initFragmentChange();
+		$('#questions_container').statement_search();
   }
 });
 
@@ -42,16 +44,16 @@ function initHistoryEvents() {
 
 
 function setSearchHistory() {
+	$("#search_form").data('placeholderApi').cleanDefaultValues();
   var search_terms = $("#search_terms").val();
   if (search_terms.length > 0) {
-		
     search_terms = search_terms.trim();
   }
   if ($(':input[id=sort]').length > 0) {
     var sort = $(':input[id=sort]').val();
-	  $.setFragment({ "search_terms": search_terms, "sort" : sort, "page": "1"});
+	  $.setFragment({ "search_terms": search_terms, "sort" : sort, "page": "1", "page_count" : "", "page_count" : ""});
   } else {
-    $.setFragment({ "search_terms": search_terms, "page": "1"});
+    $.setFragment({ "search_terms": search_terms, "page": "1", "page_count" : ""});
   }
 }
 
@@ -69,16 +71,25 @@ function initPaginationButtons() {
 
 function initFragmentChange() {
   $(document).bind("fragmentChange.page", function() {
-		if ($.fragment().page) {
-			$.getScript($.queryString(document.location.href, { 
-				"page": $.fragment().page,
-				"sort": $.fragment().sort,
-				"search_terms": $.fragment().search_terms
-			}));
-		}
+	  if ($.fragment().page) {triggerSearchQuery();}
   });
+
+  if ($.fragment().page_count) {
+    $.setFragment({"page": "1"});
+  }
 
   if ($.fragment().page) {
     $(document).trigger("fragmentChange.page");
   }
+	
 }
+
+function triggerSearchQuery(){ 
+  $.getScript($.queryString(document.location.href, { 
+    "page_count": $.fragment().page_count,
+    "page": $.fragment().page,
+    "sort": $.fragment().sort,
+    "search_terms": $.fragment().search_terms
+  }));
+}
+

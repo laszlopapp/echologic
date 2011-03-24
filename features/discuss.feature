@@ -71,13 +71,14 @@ Feature: Take Part on a question
       And I am on the discuss index
     When I follow "Search"
       And I choose the "Test Question2?" Question
+    Then the question should have 5 siblings in session
       And I follow localized "discuss.statements.types.question" within ".add_new_panel"
       And I fill in the following:
       | question_statement_document_title           | Question on the side              |
       | question_statement_document_text            | i like big butts and i cannot lie |
       And I press "Save"
     Then I should see "Question on the side"
-      And the question should have 5 siblings in session
+      And the question should have 6 siblings in session
 
   Scenario: Add a sibling Proposal
     Given I am logged in as "user" with password "true"
@@ -86,6 +87,7 @@ Feature: Take Part on a question
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
+    Then the proposal should have 0 siblings in session
       And I follow localized "discuss.statements.types.proposal" within ".add_new_panel"
       And I fill in the following:
       | proposal_statement_document_title           | How to propose to women   |
@@ -102,6 +104,7 @@ Feature: Take Part on a question
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
       And I choose the "A better first proposal" Improvement
+    Then the improvement should have 4 siblings in session
       And I follow localized "discuss.statements.types.improvement" within ".add_new_panel"
       And I fill in the following:
       | improvement_statement_document_title           | How to improve yer status    |
@@ -381,30 +384,28 @@ Feature: Take Part on a question
     Then I should see "Edi Tor"
   
   
- # Scenario: User open a previously closed children's block
- #   Given proposals are not immediately loaded on questions
- #     And I am logged in as "user" with password "true"
- #     And I am on the discuss index
- #     And I follow "Featured"
- #     And I follow "echonomyJAM"
- #     And I choose the "Test Question?" Question
- #   Then I should not see "Second Proposal"
- #     And I go to the question
- #     And I follow "proposals"
- #   Then I should see "Second Proposal"
+#  Scenario: User open a previously closed children's block
+#    Given proposals are not immediately loaded on questions
+#      And I am logged in as "user" with password "true"
+#      And I am on the discuss index
+#      And I follow "Featured"
+#      And I follow "echonomyJAM"
+#      And I choose the "Test Question?" Question
+#      And there are hidden proposals for this question
+#      And I follow "proposals"
+#    Then I should see the hidden proposals
         
-  Scenario: User opens proposals on another page under a children's block
+  Scenario: User presses more button on question's proposals children block
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
       And I follow "Featured"
       And I follow "echonomyJAM"
       And I choose the "Test Question?" Question
-    Then I should not see "Sixth Proposal"
-      And I go to the question
+      And there are hidden proposals for this question
       And I follow localized "application.general.more" within ".proposals"
       # needed because of the TOP CHILDREN mechanism
       And I follow localized "application.general.more" within ".proposals"
-    Then I should see "Sixth Proposal"
+    Then I should see the hidden proposals
     
   Scenario: User opens question's siblings block
     Given I am logged in as "user" with password "true"
@@ -424,6 +425,6 @@ Feature: Take Part on a question
       And I choose the "Test Question?" Question
       And I choose the "Second Proposal" Proposal
     Then I should not see "Eighth Proposal"
-      And I follow "show_siblings_button" within ".header_buttons"
+      And I follow "show_siblings_button" within ".proposal .header_buttons"
     Then I should see "Eighth Proposal"
       

@@ -8,9 +8,9 @@
 	<% end %>
   <% content_tag :div, :class => 'add_header_link'  do %>
 	  <% if !statement_node.nil? %>
-      <%= create_new_child_statement_link(statement_node, @type, :new_level => nil) %>
+      <%= create_new_child_statement_link(statement_node, @type, :new_level => nil, :css => "ajax") %>
 		<% else %>
-		  <%= create_new_question_link(params[:origin]) %>
+		  <%= create_new_question_link(params[:origin], :css => "ajax") %>
 		<% end %>
   <% end %>
 <% end %>
