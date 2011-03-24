@@ -10,7 +10,7 @@
       },
       'animation_speed': 300,
 			'loading_class': '.loading',
-			
+
 			// SPECIAL CONDITION ELEMENTS
 			'condition_element': null,
       'condition_class': ''
@@ -39,10 +39,10 @@
 			var expandable_supporters_label = expandable.find('.supporters_label');
 			var expandable_loading = expandable.parent().find(settings['loading_class']);
 			var expandable_content = expandable_parent.children('.expandable_content');
-			
+
 			var path = expandable.attr('href');
 			expandable.removeAttr('href');
-			
+
       initialise();
 
       function initialise() {
@@ -60,7 +60,7 @@
           return false;
         });
 			}
-			
+
 			function toggleExpandable () {
         if (expandable_content.length > 0) {
 					// Content is already loaded
@@ -94,20 +94,7 @@
 						type: 'get',
 						dataType: 'script',
 						success: function(){
-							expandable_loading.hide();
-							expandable_content = expandable_parent.children('.expandable_content');
-							if (expandable_content.length > 0) {
-								expandable.addClass('active');
-							}
-							if (expandable_supporters_label) {
-								if (settings['animate']) {
-									expandable_supporters_label.animate(settings['animation_params'], settings['animation_speed']);
-								}
-								else {
-									expandable_supporters_label.toggle();
-								}
-							}
-							expandable.removeClass('pending');
+							activate();
 						},
 						error: function(){
 							expandable_loading.hide();
@@ -116,18 +103,43 @@
 					});
 				}
 			}
-				
-			// Public API
+
+      /*
+       * Designates the expandable as active.
+       */
+      function activate() {
+        expandable_loading.hide();
+        expandable_content = expandable_parent.children('.expandable_content');
+        if (expandable_content.length > 0) {
+          expandable.addClass('active');
+        }
+        if (expandable_supporters_label) {
+          if (settings['animate']) {
+            expandable_supporters_label.animate(settings['animation_params'], settings['animation_speed']);
+          }
+          else {
+            expandable_supporters_label.toggle();
+          }
+        }
+        expandable.removeClass('pending');
+      }
+
+
+      /**************/
+			/* Public API */
+      /**************/
+
       $.extend(this,
       {
-        reinitialise: function()
-        {
+        reinitialise: function() {
           initialise();
         },
-				toggle: function()
-				{
+				toggle: function() {
 					toggleExpandable();
-				}
+				},
+        activated: function() {
+          activate();
+        }
       });
     }
 

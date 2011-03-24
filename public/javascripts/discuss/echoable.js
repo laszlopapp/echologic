@@ -169,7 +169,7 @@
 						  	rollback(to_remove, to_add);
 						  } else if(social_echo_button.hasClass('clicked')) {
 								// IMPORTANT: social echo button must be expandable!
-								social_echo_button.data('expandableApi').toggle();
+								toggleSocialPanel();
               }
 							social_echo_button.removeClass('clicked');
 						},
@@ -221,12 +221,12 @@
 
 			function initSocialAccountButtons() {
 				// 1st step: load enable/disable tags
-				var buttons_container = social_panel.find('.buttons_container');
+				var social_account_list = social_panel.find('.social_account_list');
 				var messages = {
-					'enabled': buttons_container.attr('data-enabled'),
-					'disabled': buttons_container.attr('data-disabled')
+					'enabled': social_account_list.attr('data-enabled'),
+					'disabled': social_account_list.attr('data-disabled')
 				};
-				buttons_container.find('.button').each(function() {
+				social_account_list.find('.button').each(function() {
 					var button_container = $(this);
 					var tag = null, toggle_tag = null;
 					if (button_container.hasClass('enabled')) {
@@ -282,10 +282,13 @@
       function initActionButtons() {
         var cancel_button = social_panel.find('.cancel_text_button');
         cancel_button.click(function() {
-          social_echo_button.data('expandableApi').toggle();
+          toggleSocialPanel();
         });
       }
 
+      function toggleSocialPanel() {
+        social_echo_button.data('expandableApi').toggle();
+      }
 
 			// Public API
       $.extend(this,
@@ -310,6 +313,7 @@
         },
 				loadSocialEchoPanel: function() {
 					initSocialPanel();
+          social_echo_button.data("expandableApi").activated();
 					return this;
 				},
 				loadRatioBars: function(container) {

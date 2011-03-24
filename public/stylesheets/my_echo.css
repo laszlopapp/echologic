@@ -54,7 +54,7 @@
   margin-top: 25px;
 }
 
-#social_accounts_settings li,
+#social_accounts_settings .social_account,
 #social_accounts_settings .connect,
 #social_accounts_settings .disconnect {
 	display: inline-block;
@@ -63,7 +63,6 @@
 }
 
 #social_accounts_settings .social_label {
-  font-weight: bold;
   display: inline-block;
 }
 

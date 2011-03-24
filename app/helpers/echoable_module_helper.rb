@@ -100,30 +100,29 @@ module EchoableModuleHelper
 
   def render_social_account_buttons(statement_node)
     content_tag(:div,
-                :class => "buttons_container block center", 
+                :class => "social_account_list block center",
                 'data-enabled' => I18n.t("users.social_accounts.share.enabled"),
                 'data-disabled' => I18n.t("users.social_accounts.share.disabled")) do
       content = ''
       token_url = redirect_token_url(:redirect_url => statement_node_url(statement_node,
-                                                                           :bids => params[:bids],
-                                                                           :origin => params[:origin]),
-                                       :later_call => social_widget_statement_node_url(statement_node,
-                                                                           :bids => params[:bids],
-                                                                           :origin => params[:origin]))
+                                                                         :bids => params[:bids],
+                                                                         :origin => params[:origin]),
+                                     :later_call => social_widget_statement_node_url(statement_node,
+                                                                                     :bids => params[:bids],
+                                                                                     :origin => params[:origin]))
       %w(facebook twitter yahoo! linkedin).each do |provider|
-        content << content_tag(:div, :class => "button_container #{provider}") do
+        connected = current_user.has_provider? provider
+        css_classes = "social_label #{provider.eql?('yahoo!') ? 'yahoo' : provider}#{connected ? ' connected' : ''}"
+        content << content_tag(:div, :class => "social_account #{provider}") do
           sub_content = ''
-          sub_content << content_tag(:span, I18n.t("users.social_accounts.providers.#{provider}"))
-          sub_content << provider_button(provider, statement_node, token_url)
+          sub_content << content_tag(:span, '', :class => css_classes)
+          sub_content << (connected ? provider_switch_button(provider, true) :
+                                      provider_connect_button(provider, statement_node, token_url))
           sub_content
         end
       end
       content
     end
-  end
-
-  def provider_button(provider, statement_node, token_url)
-    current_user.has_provider?(provider) ? provider_switch_button(provider, true) : provider_connect_button(provider, statement_node, token_url)
   end
 
   def provider_switch_button(provider, enable = false)
@@ -135,8 +134,9 @@ module EchoableModuleHelper
   end
 
   def provider_connect_button(provider, statement_node, token_url)
-
-    content_tag(:a, :href => SocialService.instance.get_provider_signup_url(provider, token_url), :onClick => "return popup(this, true)", :class => 'button connect') do
+    content_tag(:a, :href => SocialService.instance.get_provider_signup_url(provider, token_url),
+                :onClick => "return popup(this, true)",
+                :class => 'button connect') do
       content_tag :span, I18n.t("users.social_accounts.connect.title"), :class => "button button_150"
     end
   end

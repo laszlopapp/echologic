@@ -40,26 +40,29 @@ module Users::SocialModule
       User.transaction do
         profile_info = SocialService.instance.get_profile_info(token)
         social_id = current_user.add_social_identifier( profile_info['identifier'], profile_info['providerName'], profile_info.to_json )
+        account_name = I18n.t("users.social_accounts.providers.#{profile_info['providerName'].underscore}")
         if social_id.save
           SocialService.instance.map(profile_info['identifier'], current_user.id)
           if later_call_url
             later_call_with_info(redirect_url,
                                  later_call_url,
                                  "users.social_accounts.connect.success",
-                                 :account => I18n.t("users.social_accounts.providers.#{profile_info['providerName'].underscore}"))
+                                 :account => account_name)
           else
             redirect_or_render_with_info(redirect_url,
                                          "users.social_accounts.connect.success",
-                                         :account => I18n.t("users.social_accounts.providers.#{profile_info['providerName'].underscore}"))
+                                         :account => account_name)
           end
         else
           redirect_or_render_with_error(redirect_url,
                                         "users.social_accounts.connect.failed",
-                                        :account => I18n.t("users.social_accounts.providers.#{profile_info['providerName'].underscore}"))
+                                        :account => account_name)
         end
       end
     rescue RpxService::RpxServerException
       redirect_or_render_with_error(redirect_url, "application.remote_error")
+    rescue RpxService::RpxException => e
+      log_message_error(e, "Error calling PRX service")
     rescue Exception => e
       log_message_error(e, "Error adding social account to user")
     else

@@ -577,16 +577,54 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   font-weight: bold;
 }
 
-.social_echo_panel .buttons_container {
+.social_echo_panel .social_account_list {
 	padding-top: 10px;
 	height: 100px;
 }
 
-.social_echo_panel .button_container {
+.social_echo_panel .social_account {
 	display: inline-block;
 	width: 150px;
 	text-align: center;
 	padding-top: 10px;
+}
+
+/* Social Network labels */
+.social_echo_panel .social_label {
+  background: transparent url(../images/page/social_echo_icons_big.png) no-repeat scroll 0 0;
+  width: 110px;
+  height: 35px;
+  display: inline-block;
+}
+.social_echo_panel .social_label.facebook {
+  background-position: 0 0;
+}
+.social_echo_panel .social_label.twitter {
+  background-position: -110px 0;
+}
+.social_echo_panel .social_label.yahoo {
+  background-position: -220px 0;
+}
+.social_echo_panel .social_label.linkedin {
+  background-position: -330px 0;
+}
+.social_echo_panel .social_label.google {
+  background-position: -440px 0;
+}
+.social_echo_panel .social_label.facebook.connected {
+  background-position: 0 -35px;
+}
+.social_echo_panel .social_label.twitter.connected {
+  background-position: -110px -35px;
+}
+.social_echo_panel .social_label.yahoo.connected {
+  background-position: -220px -35px;
+}
+.social_echo_panel .social_label.linkedin.connected {
+  background-position: -330px -35px;
+}
+.social_echo_panel .social_label.google.connected {
+  background-position: -440px -35px;
 }
 
 .social_echo_panel .button.enabled,
@@ -604,6 +642,8 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .social_echo_panel .button.disabled:hover {
 	color: #7BB031;
 }
+
+/* Texts */
 
 .social_echo_panel .share_form .block {
 	margin: 15px 0;
