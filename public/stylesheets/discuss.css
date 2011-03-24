@@ -719,6 +719,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   background-color: #AAA;
 }
 
+.social_echo_panel .button.connect:hover {
+  background-color: #BBB;
+}
+
 .social_echo_panel .button.enabled { color: #FFF; }
 .social_echo_panel .social_account.facebook .button.enabled { background-color: #526ea5; }
 .social_echo_panel .social_account.twitter .button.enabled { background-color: #5dd5fd; }

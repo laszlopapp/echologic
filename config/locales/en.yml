@@ -361,7 +361,7 @@ en:
           title: Data Privacy Notice
           description: Mind the privacy policy of other networks before sharing your views on them...
         preview: Preview
-        submit: Send echo
+        submit: Make an echo
         error: Something went wrong while sharing your entry.
         success: |
           Made an echo via {{accounts}}.
