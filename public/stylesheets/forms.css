@@ -86,3 +86,12 @@
   color:        #999;
   padding:      0 0 0 1px;
 }
+
+/* Default texts */
+.toggleval, .defaultText {
+  color: #AAA !important;
+}
+
+.toggleval.has_focus, .toggleval.changed {
+  color: #21587f !important;
+}
