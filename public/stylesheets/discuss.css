@@ -792,11 +792,11 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   cursor: text;
 }
 
-.social_echo_panel .share_form input[disabled='disabled'] {
+.social_echo_panel .share_form .submit_block .disabled {
 	color: #999;
 }
 
-.social_echo_panel .share_form input[disabled='disabled']:hover {
+.social_echo_panel .share_form .submit_block .disabled:hover {
   background-position: 0 0;
   cursor: default;
 }

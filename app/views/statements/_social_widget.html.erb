@@ -23,7 +23,7 @@
 	 <% end %>
    <%= hidden_field_tag "url", @proposed_url, :class => 'url' %>
 
-   <% content_tag :div, :class => 'block center' do %>
+   <% content_tag :div, :class => 'submit_block block center' do %>
      <%= submit_tag I18n.t('users.social_accounts.share.submit'),
                     :class => "formButton200 #{current_user.using_rpx? ? '' : 'disabled'}", :disabled => !current_user.using_rpx? %>
      <%= content_tag :span, I18n.t('application.general.or'),
