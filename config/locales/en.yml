@@ -33,7 +33,7 @@ en:
       welcome: Welcome
       all: All
       authors: Authors
-      share_comment: 'Have your say'
+      share_action: 'Make an echo!'
 
     # Roadmap - Progress
     roadmap:
@@ -367,8 +367,8 @@ en:
           Made an echo via {{accounts}}.
         failed: |
           Failed via {{accounts}}.
-        enabled: Sending
-        disabled: Not Sending
+        enabled: "On"
+        disabled: "Off"
 
 
     # New Users section
