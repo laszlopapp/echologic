@@ -138,7 +138,10 @@
 				},
         activated: function() {
           activate();
-        }
+        },
+				isLoaded: function() {
+					return expandable_content != null && expandable_content.length > 0;
+				}
       });
     }
 
