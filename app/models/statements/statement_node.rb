@@ -275,7 +275,10 @@ class StatementNode < ActiveRecord::Base
     end
     
     #
-    # Aux: Builds the query attributes for the children operations
+    # Aux: Builds the query attributes for standard children operations
+    # opts attributes:
+    # language_ids (Array[Integer] : optional) : filters out documents which language is not included on the array (gets all of them if nil)
+    # drafting_states (Array[String] : optional) : filters out incorporable statements per drafting state (only for incorporable types)
     #
     def parent_conditions(opts)
       fields = {}
@@ -293,7 +296,13 @@ class StatementNode < ActiveRecord::Base
     def children_joins
       ''
     end
-
+    
+    #
+    # returns a string of sql conditions representing getting statement nodes of certain types filtered by parent
+    # opts attributes:
+    # types (Array(String)) : array of types of statement nodes to filter by
+    # parent_id (Integer) : id of parent statement node
+    #
     def children_conditions(opts)
       sanitize_sql(["#{table_name}.type IN (?) AND #{table_name}.parent_id = ? ",
                     opts[:types] || [self.name], opts[:parent_id]])
@@ -302,7 +311,21 @@ class StatementNode < ActiveRecord::Base
     public
 
 
+    #
     # gets a set of statement nodes given an hash of arguments
+    #
+    # opts attributes:
+    #
+    # search_term (string : optional) : value we ought to search for on title, text and statement tags
+    # only_id (boolean : optional) : if true, returns an hash of the statements only with the id attribute filled
+    # type (string : optional) : defines the type of statement to look for ("Question" in most of the cases)
+    # show_unpublished (boolean : optional) : if false or nil, only get the published statements (see user as well)
+    # user (User : optional) : only used if show_unpublished is false or nil; gets the statements belonging to the user regardless of state (published or new)
+    # language_ids (Array[Integer] : optional) : filters out documents which language is not included on the array (gets all of them if nil)
+    # drafting_states (Array[String] : optional) : filters out incorporable statements per drafting state (only for incorporable types)
+    #
+    # Called with no attributes filled: returns all published statements
+    #
     def search_statement_nodes(opts={})
       search_term = opts.delete(:search_term)
       opts[:only_id] ||= false

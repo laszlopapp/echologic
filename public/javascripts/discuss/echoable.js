@@ -19,7 +19,9 @@
     /****************/
 
 	  function Echoable(echoable) {
-      var echo_button, echo_label, social_echo_button, social_container, social_panel;
+      var echo_button, echo_label;
+			/* Social Panel Variables */
+			var social_echo_button, social_container, social_panel, social_account_list, social_submit_button;
       initialize();
 
 			/*
@@ -209,20 +211,25 @@
       // Social Sharing
 			function toggleSocialEchoButton() {
         if (social_echo_button.length > 0) {
+					if (social_echo_button.is(":visible")) {
+            social_echo_button.data('expandableApi').toggle();
+          }
           social_echo_button.animate(toggleParams, 500);
         }
       }
 
 			function initSocialPanel() {
 				social_panel = social_container.find('.social_echo_panel');
+				social_account_list = social_panel.find('.social_account_list');
+        social_submit_button = social_panel.find("input[type='submit']");
 				initSocialAccountButtons();
 				initTextCounter();
         initActionButtons();
+				initSocialSubmitButton();
 			}
 
 			function initSocialAccountButtons() {
 				// 1st step: load enable/disable tags
-				var social_account_list = social_panel.find('.social_account_list');
 				var messages = {
 					'enabled': social_account_list.attr('data-enabled'),
 					'disabled': social_account_list.attr('data-disabled')
@@ -246,6 +253,7 @@
 								button_container.text(messages[tag]).removeClass(toggle_tag).addClass(tag);
 								button_container.next().val(tag);
 							}
+							updateSocialSubmitButtonState();
 						});
 					}
 				});
@@ -286,6 +294,23 @@
           toggleSocialPanel();
         });
       }
+
+      function initSocialSubmitButton() {
+				social_submit_button.bind('click', function() {
+					if(social_submit_button.hasClass('disabled')) {
+						return false;
+					}
+				});
+			}
+
+      function updateSocialSubmitButtonState() {
+				var enabled = social_account_list.find("input[value='enabled']");
+				if (enabled.length == 0) {
+			  	social_submit_button.addClass('disabled');
+			  } else {
+			  	social_submit_button.removeClass('disabled');
+			  }
+			}
 
       function toggleSocialPanel() {
         social_echo_button.data('expandableApi').toggle();

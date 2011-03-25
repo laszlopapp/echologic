@@ -124,7 +124,6 @@
         expandable.removeClass('pending');
       }
 
-
       /**************/
 			/* Public API */
       /**************/
