@@ -43,7 +43,7 @@
 				} else {
 					initEchoButton();
 				}
-				
+
 		  }
 
       function initLabelMessages() {
@@ -212,7 +212,6 @@
 			function toggleSocialEchoButton() {
         if (social_echo_button.length > 0) {
 					var expandableApi = social_echo_button.data('expandableApi');
-					alert(expandableApi.isLoaded());
 					if (social_echo_button.is(":visible") && expandableApi.isLoaded()) {
             expandableApi.toggle();
           }
@@ -301,7 +300,9 @@
 				social_submit_button.bind('click', function() {
 					if(social_submit_button.hasClass('disabled')) {
 						return false;
-					}
+					} else {
+            toggleSocialPanel();
+          }
 				});
 			}
 

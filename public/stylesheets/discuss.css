@@ -731,16 +731,16 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .social_echo_panel .button.enabled,
 .social_echo_panel .button.disabled {
-  padding-left: 22px;
+  padding-left: 10px;
   background-image: url(../images/page/discuss/send_social_echo.png);
   background-repeat: no-repeat;
-  width: 108px;
+  width: 120px;
 }
 
-.social_echo_panel .button.enabled { background-position: 5px -40px; }
-.social_echo_panel .button.enabled:hover { background-position: 5px 0 !important; }
-.social_echo_panel .button.disabled { background-position: 5px 0 !important; }
-.social_echo_panel .button.disabled:hover { background-position: 5px -40px !important; }
+.social_echo_panel .button.enabled { background-position: 13px -40px; }
+.social_echo_panel .button.enabled:hover { background-position: 13px 0 !important; }
+.social_echo_panel .button.disabled { background-position: 13px 0 !important; }
+.social_echo_panel .button.disabled:hover { background-position: 13px -40px !important; }
 
 /* Texts */
 
@@ -792,11 +792,11 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   cursor: text;
 }
 
-.social_echo_panel .share_form input[disabled='disabled'] {
+.social_echo_panel .share_form .submit_block .disabled {
 	color: #999;
 }
 
-.social_echo_panel .share_form input[disabled='disabled']:hover {
+.social_echo_panel .share_form .submit_block .disabled:hover {
   background-position: 0 0;
   cursor: default;
 }
@@ -1610,7 +1610,7 @@ form.statement fieldset ol li.tags_container {
   height: 7px;
   position: absolute;
   right: 13px;
-  top: 12px;
+  top: 18px;
 }
 
 .expandable .headline .expand_icon {

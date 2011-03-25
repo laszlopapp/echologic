@@ -40,7 +40,7 @@ module Users::SocialModule
       User.transaction do
         profile_info = SocialService.instance.get_profile_info(token)
         social_id = current_user.add_social_identifier( profile_info['identifier'], profile_info['providerName'], profile_info.to_json )
-        account_name = I18n.t("users.social_accounts.providers.#{profile_info['providerName'].underscore}")
+        account_name = I18n.t("users.social_accounts.providers.#{profile_info['providerName'].downcase}")
         if social_id.save
           SocialService.instance.map(profile_info['identifier'], current_user.id)
           if later_call_url

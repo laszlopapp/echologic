@@ -3,7 +3,7 @@ require 'singleton'
 class SocialService
   include Singleton
 
-  attr_accessor :service, :social_providers
+  attr_accessor :service, :social_providers, :default_echo_image
 
   def initialize
   end
@@ -39,7 +39,6 @@ class SocialService
 
 
   def share_activities(providers, opts={})
-
     providers_reached = []
     threads = []
     providers.each do |provider, social_identifier|
@@ -83,11 +82,17 @@ class SocialService
   private
   def create_activity(providerName, attrs={})
     opts = attrs.clone
+
+    # Handling images
+    opts[:media] ||= []
     images = opts.delete(:images) || []
-    images.each do |im|
-      opts[:media] ||= []
-      opts[:media] << {:href => opts[:url], :src => im, :type => 'image'}
+    images.each do |image|
+      opts[:media] << {:href => opts[:url], :src => image, :type => 'image'}
     end
+    # Adding default echo image
+    opts[:media] << {:href => opts[:url], :src => "http://#{ECHO_HOST}/#{@default_echo_image}", :type => 'image'}
+
+    # Handling actions
     action_links = opts.delete(:action_links) || []
     action_links.each do |al|
       opts[:action_links] ||= []

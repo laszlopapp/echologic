@@ -33,7 +33,7 @@ en:
       welcome: Welcome
       all: All
       authors: Authors
-      share_comment: 'Have your say'
+      share_action: 'Make an echo!'
 
     # Roadmap - Progress
     roadmap:
@@ -367,8 +367,8 @@ en:
           Made an echo via {{accounts}}.
         failed: |
           Failed via {{accounts}}.
-        enabled: Sending
-        disabled: Not Sending
+        enabled: "On"
+        disabled: "Off"
 
 
     # New Users section
@@ -434,7 +434,7 @@ en:
       title: Search
       in: '... in {{category}} ...'
       add: "Create the first question about the topic"
-      placeholder: "Which topic do you want to search for?"
+      placeholder: "Topic and/or place of interest"
 
     tooltips:
       read_question: 'Go to this question'
@@ -674,7 +674,7 @@ en:
 
     fill_out_profile:
       text: Please fill out <strong>at least {{percentage}}%</strong> of your profile to make "the computer" happy and let this block disappear. :-)
-    placeholder: 'Topic, Organization, Name'
+    placeholder: 'Topic, place, organization or name of interest'
 
     segments:
       all:       'All'
