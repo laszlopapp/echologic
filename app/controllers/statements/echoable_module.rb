@@ -160,8 +160,9 @@ module EchoableModule
   # Loads the echo/unecho messages as JSON data to handled on the client
   #
   def load_echo_info_messages
-    @messages = {:supported => set_statement_info('discuss.statements.statement_supported'),
-                 :not_supported => set_statement_info('discuss.statements.statement_unsupported')}.to_json
+    type = I18n.t("discuss.statements.types.#{@statement_node.class.name.underscore}")
+    @messages = {:supported => I18n.t('discuss.statements.statement_supported', :type => type),
+                 :not_supported => I18n.t('discuss.statements.statement_unsupported', :type => type)}.to_json
   end
 
 
