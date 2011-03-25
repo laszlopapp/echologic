@@ -140,7 +140,7 @@
           activate();
         },
 				isLoaded: function() {
-					return expandable_content != null && expandable_content.length > 0;
+					return expandable_content != null && expandable_content.length > 0 && expandable_content.is(":visible");
 				}
       });
     }
