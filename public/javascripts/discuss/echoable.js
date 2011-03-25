@@ -48,8 +48,8 @@
 
       function initLabelMessages() {
         var messages = {
-          'supported'     : echo_label.attr('data-supported'),
-          'not_supported' : echo_label.attr('data-not-supported')
+          'supported'     : echo_label.data('supported'),
+          'not_supported' : echo_label.data('not-supported')
         };
         echo_label.data('messages', messages);
         echo_label.removeAttr('data-supported').removeAttr('data-not-supported');
@@ -211,8 +211,10 @@
       // Social Sharing
 			function toggleSocialEchoButton() {
         if (social_echo_button.length > 0) {
-					if (social_echo_button.is(":visible")) {
-            social_echo_button.data('expandableApi').toggle();
+					var expandableApi = social_echo_button.data('expandableApi');
+					alert(expandableApi.isLoaded());
+					if (social_echo_button.is(":visible") && expandableApi.isLoaded()) {
+            expandableApi.toggle();
           }
           social_echo_button.animate(toggleParams, 500);
         }
@@ -231,8 +233,8 @@
 			function initSocialAccountButtons() {
 				// 1st step: load enable/disable tags
 				var messages = {
-					'enabled': social_account_list.attr('data-enabled'),
-					'disabled': social_account_list.attr('data-disabled')
+					'enabled': social_account_list.data('enabled'),
+					'disabled': social_account_list.data('disabled')
 				};
 				social_account_list.find('.button').each(function() {
 					var button_container = $(this);
@@ -265,7 +267,7 @@
 			function initTextCounter() {
 				var text = social_panel.find('.text');
 				var preview = social_panel.find('.preview');
-				var url = preview.attr('data-url');
+				var url = preview.data('url');
 				var maxChar = 140 - url.length-1; //-1 = white space
 				text.simplyCountable({
 			    counter: text.next(),
