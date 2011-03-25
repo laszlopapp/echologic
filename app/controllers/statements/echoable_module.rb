@@ -99,9 +99,9 @@ module EchoableModule
         set_info "discuss.statements.supporter_to_share"
         render_statement_with_info
       else
-        command = {:operation => "statement_node",
-                   :params => {:id => @statement_node.id},
-                   :language => @statement_document.language.code}.to_json
+        command = ShortcutCommand.build_command(:operation => "statement_node",
+                                                 :params => {:id => @statement_node.id},
+                                                 :language => @statement_document.language.code)
         @shortcut_url = ShortcutUrl.find_or_create(:shortcut => @statement_document.title,
                                                    :human_readable => true,
                                                    :shortcut_command => {:command => command})

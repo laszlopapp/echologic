@@ -77,9 +77,9 @@ module ActsAsDouble
           #
           # Overrides default behaviour.
           #
-          def paginate_statements(children, page, per_page = nil)
-            per_page = children.map(&:length).max if per_page.nil? or per_page < 0
-            children.map{|c|c.paginate(default_scope.merge(:page => page, :per_page => per_page))}
+          def paginate_statements(statements, page, per_page = nil)
+            per_page = statements.map(&:length).max if per_page.nil? or per_page < 0
+            statements.map{|c|c.paginate(default_scope.merge(:page => page, :per_page => per_page))}
           end
 
           def merge_statement_lists(list)

@@ -60,6 +60,16 @@ class StatementDocument < ActiveRecord::Base
                     self.id, self.language.id])
   end
 
+  #
+  # gets a set of current statement documents given an hash of arguments
+  #
+  # opts attributes:
+  #
+  # statement_ids (Array[Integer]) : array of statement ids which we have to search the documents through
+  # language_ids (Array[Integer])  : filters out documents which language is not included on the array
+  # 
+  # the rest of the opts hash works as a normal ActiveRecord query array; check documentation if you have doubts about it
+  #
   def self.search_statement_documents(opts={})
       opts.delete(:readonly)
       opts[:select] ||= "DISTINCT id, title, statement_id, language_id, current"

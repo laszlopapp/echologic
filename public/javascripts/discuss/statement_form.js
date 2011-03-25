@@ -52,7 +52,7 @@
        */
       function loadRTEEditor() {
         var textArea = form.find('textarea.rte_doc, textarea.rte_tr_doc');
-        var defaultText = textArea.attr('data-default');
+        var defaultText = textArea.data('default');
         var url = 'http://' + window.location.host + '/stylesheets/';
 
         textArea.rte({

@@ -233,7 +233,7 @@
 				    $.ajax({
               type: 'get',
               dataType: 'script',
-              url: element.attr('data-image-redirect')
+              url: element.data('image-redirect')
             });
             $('#dialogContent').dialog('close');
           }
