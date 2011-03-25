@@ -43,7 +43,7 @@
 				} else {
 					initEchoButton();
 				}
-				
+
 		  }
 
       function initLabelMessages() {
@@ -212,7 +212,6 @@
 			function toggleSocialEchoButton() {
         if (social_echo_button.length > 0) {
 					var expandableApi = social_echo_button.data('expandableApi');
-					alert(expandableApi.isLoaded());
 					if (social_echo_button.is(":visible") && expandableApi.isLoaded()) {
             expandableApi.toggle();
           }
