@@ -113,7 +113,7 @@ module EchoableModule
           opts = {}
           opts[:url] = "http://#{ECHO_HOST}/#{@shortcut_url.shortcut}"
           opts[:action] = "#{params[:text].strip}"
-          opts[:action_links] = [I18n.t("application.general.share_comment")]
+          opts[:action_links] = [I18n.t("application.general.share_action")]
           opts[:images] = []
           opts[:images] << "http://#{ECHO_HOST}/#{@statement_node.image.url(:medium)}" if @statement_node.image.exists?
           #insert default image in this line
@@ -136,13 +136,8 @@ module EchoableModule
               }.join("/")) if !providers_state.empty?
             end
 
-            format.html{flash_info and redirect_to @statement_node}
-            format.js {
-              render_with_info do |page|
-                page << "$('#statements .#{dom_class(@statement_node)} .social_echo_panel').fadeOut();"
-                page << "$('#statements .#{dom_class(@statement_node)} .social_echo_button').removeClass('active');"
-              end
-            }
+            format.html{ flash_info and redirect_to @statement_node }
+            format.js { render_with_info }
           end
         end
       end

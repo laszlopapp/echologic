@@ -300,7 +300,9 @@
 				social_submit_button.bind('click', function() {
 					if(social_submit_button.hasClass('disabled')) {
 						return false;
-					}
+					} else {
+            toggleSocialPanel();
+          }
 				});
 			}
 
