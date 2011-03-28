@@ -155,51 +155,87 @@ class StatementNode < ActiveRecord::Base
   #####################
 
   
-
+  #
   # Collects a filtered list of all siblings statements
   #
-  # for_session argument: when true, returns a list of ids + the "add_type" teaser name
+  # about other possible attributes, check child_statements documentation
+  #
   def sibling_statements(opts={})
     opts[:type] ||= self.class.to_s
     self.parent.nil? ? [] : self.parent.child_statements(opts) 
   end
 
-  # Collects a filtered list of all siblings statements
+  #
+  # Collects a filtered list of all siblings statements' ids
+  #
+  # about other possible attributes, check sibling_statements documentation
+  #
   def siblings_to_session(opts)
     opts[:for_session] = true
     sibling_statements(opts)
   end
 
-  # Collects a filtered list of all siblings statements
+  #
+  # Collects a filtered list of all siblings statements' ids
+  #
+  # about other possible attributes, check child_statements documentation
+  #
   def children_to_session(opts)
     opts[:for_session] = true
     child_statements(opts)
   end
 
-  # Get the top children given a certain child type
+  #
+  # Get the paginated children given a certain child type
+  # opts attributes:
+  #
+  # type (String : optional) : type of child statements to get 
+  # page (Integer : optional) : pagination parameter (default = 1)
+  # per_page (Integer : optional) : pagination parameter (default = TOP_CHILDREN)
+  #
+  # call with no pagination attributes returns the top children
+  # about other possible attributes, check child_statements documentation
+  #
   def paginated_child_statements(opts)
     opts[:page] ||= 1
     opts[:per_page] ||= TOP_CHILDREN
     children = child_statements(opts)
-    opts[:type].to_s.constantize.paginate_statements(children, opts[:page], opts[:per_page])
+    opts[:type] ? opts[:type].to_s.constantize.paginate_statements(children, opts[:page], opts[:per_page]) : 
+    this.class.paginate_statements(children, opts[:page], opts[:per_page])
   end
   
-  # Collects a filtered list of all children statements
   #
-  # for_session argument: when true, returns a list of ids + the "add_type" teaser name
+  # Collects a filtered list of all children statements
+  # opts attributes:
+  #
+  # type (String : optional) : type of child statements to get 
+  # user (User : optional) :   gets the statements belonging to the user regardless of state (published or new)
+  # language_ids (Array[Integer] : optional) : filters out statement nodes whose documents languages are not included on the array (gets all of them if nil)
+  #
+  # call with no attributes returns the immediate children (check awesome nested set)
+  # about other possible attributes, check statements_for_parent documentation
+  #
   def child_statements(opts={})
     opts[:parent_id] = self.target_id
     opts[:filter_drafting_state] = self.draftable?
-    opts[:type] ||= self.class.children_types.first.to_s
-    return opts[:type].to_s.constantize.statements_for_parent(opts)
+    opts[:type] ? opts[:type].to_s.constantize.statements_for_parent(opts) : children
   end
 
+  #
   # counts the children the statement has of a certain type
-  def count_child_statements(opts)
+  # opts attributes:
+  #
+  # type (String : optional) : type of child statements to count 
+  # user (User : optional) :   gets the statements belonging to the user regardless of state (published or new)
+  # language_ids (Array[Integer] : optional) : filters out statement nodes whose documents languages are not included on the array (gets all of them if nil)
+  #
+  # call with no attributes returns the count of immediate children (check awesome nested set)
+  # about other possible attributes, check count_statements_for_parent documentation
+  #
+  def count_child_statements(opts={})
     opts[:parent_id] = self.target_id
     opts[:filter_drafting_state] = self.draftable?
-    opts[:type] ||= self.class.children_types.first.to_s
-    opts[:type].to_s.constantize.count_statements_for_parent(opts)
+    opts[:type] ? opts[:type].to_s.constantize.count_statements_for_parent(opts) : children.count
   end
 
   private
@@ -229,10 +265,14 @@ class StatementNode < ActiveRecord::Base
       self.name.underscore
     end
 
+    #
     # Aux Function: paginates a set of ActiveRecord Objects
-    def paginate_statements(children, page, per_page = nil)
-      per_page = children.length if per_page.nil? or per_page < 0
-      children.paginate(default_scope.merge(:page => page, :per_page => per_page))
+    # statements (Array) : array of objects to paginate
+    # page, per_page (Integer) : pagination parameters
+    #
+    def paginate_statements(statements, page, per_page = nil)
+      per_page = statements.length if per_page.nil? or per_page < 0
+      statements.paginate(default_scope.merge(:page => page, :per_page => per_page))
     end
 
     ################################
@@ -257,6 +297,12 @@ class StatementNode < ActiveRecord::Base
 
     #
     # Aux Function: gets a set of children given a certain parent (used above)
+    # opts attributes:
+    #
+    # for_session (Boolean : optional) : if true, returns an array of statement ids with the teaser path as last argument. if false, returns, the statements array
+    # parent_id (Integer : optional) : if set, the parent id is added in the beginning of the teaser path (important URL contruct)
+    #
+    # about other possible attributes, check parent_conditions documentation
     #
     def get_statements_for_parent(opts)
       fields = parent_conditions(opts)
@@ -277,6 +323,7 @@ class StatementNode < ActiveRecord::Base
     #
     # Aux: Builds the query attributes for standard children operations
     # opts attributes:
+    #
     # language_ids (Array[Integer] : optional) : filters out documents which language is not included on the array (gets all of them if nil)
     # drafting_states (Array[String] : optional) : filters out incorporable statements per drafting state (only for incorporable types)
     #

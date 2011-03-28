@@ -167,7 +167,7 @@
 		      // No parent means it's a root node, therefore, store siblings under the key 'roots'
 		      key = 'roots';
 		    }
-		    var siblings = eval(statement.attr("data-siblings"));
+		    var siblings = eval(statement.data("siblings"));
 		    if (siblings != null) {
 		      $("#statements").data(key, siblings);
 		    }

@@ -144,8 +144,8 @@ function redirectToStatementUrl() {
 function loadSocialMessages(){
 	var social_messages = $('#social_messages');
   var messages = {
-    'success'     : social_messages.attr('data-success'),
-    'error'       : social_messages.attr('data-error')
+    'success'     : social_messages.data('success'),
+    'error'       : social_messages.data('error')
   };
   social_messages.data('messages', messages);
   social_messages.removeAttr('data-success').removeAttr('data-error');
