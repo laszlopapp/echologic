@@ -73,7 +73,7 @@ pt:
 
           "*{{ip_title}}*"
 
-          foi a mais votada para ser incorporada na proposta "{{p_title}}".
+          foi a mais votada para ser incorporada na proposta "*{{p_title}}*".
 
           A partir de agora tem {{hours}} horas para o fazer. Depois desse tempo esgotar poderá perder o direito a editar a proposta.
 
@@ -96,7 +96,7 @@ pt:
 
           "*{{ip_title}}*"
 
-          O autor da melhoria não chegou a aproveitar a sua oportunidade de melhorar a proposta "{{p_title}}". Como apoiantes dessa melhoria, terão agora a oportunidade de o fazer por ele *durante as próximas {{hours}} horas*.
+          O autor da melhoria não chegou a aproveitar a sua oportunidade de melhorar a proposta "*{{p_title}}*". Como apoiantes dessa melhoria, terão agora a oportunidade de o fazer por ele *durante as próximas {{hours}} horas*.
 
           Para editar a proposta e *incorporar a ideia*, siga o link e clique no botão de incorporação (flecha verde-amarela no meio):
 
@@ -119,7 +119,7 @@ pt:
 
           "*{{p_title}}*"
 
-          A melhoria "{{ip_title}}" foi selecionada para ser incorporada na proposta "{{p_title}}".
+          A melhoria "*{{ip_title}}*" foi selecionada para ser incorporada na proposta "*{{p_title}}*".
 
           Clique no link para *visualizar a nova ideia*:
 
@@ -140,7 +140,7 @@ pt:
 
           "*{{ip_title}}*"
 
-          na proposta "{{p_title}}". Caso não o faça poderá perder o direito a editar a proposta.
+          na proposta "*{{p_title}}*". Caso não o faça poderá perder o direito a editar a proposta.
 
           Para editar a proposta siga o link e clique no botão de incorporação (flecha verde-amarela no meio):
 
@@ -159,9 +159,9 @@ pt:
         text: |-
           Caros/as apoiantes da melhoria
 
-          "{{ip_title}}"
+          "*{{ip_title}}*"
 
-          *Já só lhes restam {{hours}} horas* para incorporarem a melhoria "{{ip_title}}".
+          *Já só lhes restam {{hours}} horas* para incorporarem a melhoria "*{{ip_title}}*".
 
           Caso não o façam, serão eliminados todos os votos da melhoria, retirando à mesma o vosso apoio.
 
@@ -186,7 +186,7 @@ pt:
 
           "*{{ip_title}}*"
 
-          na proposta "{{p_title}}" esgotou.
+          na proposta "*{{p_title}}*" esgotou.
 
           Caso a sua melhoria seja selecionada novamente, o privilégio de incorporação da mesma será dado igualmente a todos os apoiantes da mesma.
 
@@ -203,7 +203,7 @@ pt:
 
           "*{{ip_title}}*"
 
-          Infelizmente, o tempo para incorporar a ideia na proposta "{{p_title}}" esgotou.
+          Infelizmente, o tempo para incorporar a ideia na proposta "*{{p_title}}*" esgotou.
 
           Como lhes foi previamente comunicado, todos os votos da melhoria serão eliminados, retirando-lhe assim o vosso apoio.
 
@@ -226,7 +226,7 @@ pt:
 
           "*{{ip_title}}*"
 
-          na proposta "{{p_title}}".
+          na proposta "*{{p_title}}*".
 
           Para visualizar a nova versão, pode seguir o link:
 
@@ -245,7 +245,7 @@ pt:
 
           "*{{p_title}}*"
 
-          A melhoria com mais votos "{{ip_title}}" foi incorporada na proposta.
+          A melhoria com mais votos "*{{ip_title}}*" foi incorporada na proposta.
 
           Podem seguir o link e ver as mudanças, para além de verificarem se estas estão de acordo com a melhoria original (futuramente, um historial de edições tornará esta tarefa mais fácil para todos):
 

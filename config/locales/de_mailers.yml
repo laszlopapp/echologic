@@ -75,7 +75,7 @@ de:
 
           "*{{ip_title}}*"
 
-          hat die meisten Stimmen bekommen und wurde ausgewählt, um in den Vorschlag "{{p_title}}" übernommen zu werden. Sie haben ab jetzt {{hours}} Stunden Zeit, um den Vorschlag zu bearbeiten.
+          hat die meisten Stimmen bekommen und wurde ausgewählt, um in den Vorschlag "*{{p_title}}*" übernommen zu werden. Sie haben ab jetzt {{hours}} Stunden Zeit, um den Vorschlag zu bearbeiten.
 
           Bitte beachten Sie, dass Sie nach Ablauf dieser Frist Ihr exklusives Schreibrecht verlieren.
 
@@ -98,7 +98,7 @@ de:
 
           "*{{ip_title}}*",
 
-          der Author der Ergänzung hat leider die Idee nicht in den Vorschlag "{{p_title}}" eingearbeitet.
+          der Author der Ergänzung hat leider die Idee nicht in den Vorschlag "*{{p_title}}*" eingearbeitet.
           Als UnterstützerIn dieser Ergänzung haben Sie jetzt die Gelegenheit dies zu tun - *innerhalb der nächsten {{hours}} Stunden*.
 
           Um die *Idee jetzt in den Vorschlag einzuarbeiten*, folgen Sie bitte diesem Link und klicken Sie auf das Übernahmesymbol (grün-gelber Pfeil in der Mitte):
@@ -122,7 +122,7 @@ de:
 
           "*{{p_title}}*",
 
-          die Ergänzung "{{ip_title}}" hat die meisten Stimmen bekommen und wurde zur Übernahme in den Vorschlag angenommen.
+          die Ergänzung "*{{ip_title}}*" hat die meisten Stimmen bekommen und wurde zur Übernahme in den Vorschlag angenommen.
 
           Um die *neue Idee zu sehen*, folgen Sie bitte diesem Link:
 
@@ -143,7 +143,7 @@ de:
 
           "*{{ip_title}}*"
 
-          in den Vorschlag "{{p_title}}" einzuarbeiten. Bitte beachten Sie, dass Sie nach Ablauf dieser Frist Ihr exklusives Schreibrecht verlieren.
+          in den Vorschlag "*{{p_title}}*" einzuarbeiten. Bitte beachten Sie, dass Sie nach Ablauf dieser Frist Ihr exklusives Schreibrecht verlieren.
 
           Um den *Vorschlag jetzt zu bearbeiten*, folgen Sie bitte diesem Link und klicken Sie auf das Übernahmesymbol (grün-gelber Pfeil in der Mitte):
 
@@ -164,7 +164,7 @@ de:
 
           "*{{ip_title}}*",
 
-          Sie haben nur noch {{hours}} Stunden, um die Ergänzung in den Vorschlag "{{p_title}}" einzuarbeiten.
+          Sie haben nur noch {{hours}} Stunden, um die Ergänzung in den Vorschlag "*{{p_title}}*" einzuarbeiten.
 
           Bitte beachten Sie, dass der Idee nach Ablauf dieser Frist alle bisherigen Stimmen entzogen werden.
 
@@ -191,7 +191,7 @@ de:
 
           "*{{ip_title}}*"
 
-          abgelaufen. Sie können den Vorschlag "{{p_title}}" jetzt nicht mehr bearbeiten.
+          abgelaufen. Sie können den Vorschlag "*{{p_title}}*" jetzt nicht mehr bearbeiten.
 
           Sollte Ihre Ergänzung erneut angenommen werden, werden auch andere UnterstützerInnen Ihrer Idee die Möglichkeit bekommen, diese in den Vorschlag einzuarbeiten.
 
@@ -208,7 +208,7 @@ de:
 
           "*{{ip_title}}*",
 
-          leider ist die Einarbeitungszeit für die Ergänzung abgelaufen. Sie können den Vorschlag "{{p_title}}" jetzt nicht mehr bearbeiten.
+          leider ist die Einarbeitungszeit für die Ergänzung abgelaufen. Sie können den Vorschlag "*{{p_title}}*" jetzt nicht mehr bearbeiten.
 
           Alle bisherigen Stimmen wurden der Ergänzung entzogen.
 
@@ -231,7 +231,7 @@ de:
 
           "*{{ip_title}}*"
 
-          in den Vorschlag "{{p_title}}".
+          in den Vorschlag "*{{p_title}}*".
 
           Um die neue Version des Vorschlags zu sehen, klicken Sie bitte auf diesen Link:
 
@@ -250,7 +250,7 @@ de:
 
           "*{{p_title}}*",
 
-          die Ergänzung "{{ip_title}}" hat die meisten Stimmen bekommen und wurde in den Vorschlag eingearbeitet.
+          die Ergänzung "*{{ip_title}}*" hat die meisten Stimmen bekommen und wurde in den Vorschlag eingearbeitet.
 
           Bitte *werfen Sie einen Blick auf die Veränderungen* und überprüfen Sie, ob diese mit der Ergänzung übereinstimmen:
 

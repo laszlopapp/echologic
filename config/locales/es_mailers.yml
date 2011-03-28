@@ -74,7 +74,7 @@ es:
 
           "*{{ip_title}}*"
 
-          ha sido la más votada. Tienes ahora la oportunidad de incorporarla a la propuesta "{{p_title}}".
+          ha sido la más votada. Tienes ahora la oportunidad de incorporarla a la propuesta "*{{p_title}}*".
 
           *Tienes {{hours}} horas* para hacerlo. Transcurrido este tiempo, puedes perder esta oportunidad de forma definitiva- dependiendo del apoyo de tu mejora en comparación con las demás.
 
@@ -97,7 +97,7 @@ es:
 
           "*{{ip_title}}*",
 
-          El/la autor/a de la mejora no la ha incorporado a la propuesta "{{p_title}}". Ahora tienes tú la oportunidad de hacerlo *en las próximas {{hours}} horas*.
+          El/la autor/a de la mejora no la ha incorporado a la propuesta "*{{p_title}}*". Ahora tienes tú la oportunidad de hacerlo *en las próximas {{hours}} horas*.
 
           Para editor la propuesta e *incorporar la idea*, sigue por favor el enlace y haz clic en el icono con la flecha verde-amarilla en el centro:
 
@@ -120,7 +120,7 @@ es:
 
           "*{{p_title}}*",
 
-          la mejora "{{ip_title}}" ha sido la más votada y puede ser ahora incorporada en la propuesta.
+          la mejora "*{{ip_title}}*" ha sido la más votada y puede ser ahora incorporada en la propuesta.
 
           Para *ver la nueva idea*, sigue, por favor, el enlace siguiente:
 
@@ -141,7 +141,7 @@ es:
 
           "*{{ip_title}}*"
 
-          a la propuesta "{{p_title}}". Transcurrido este tiempo, podrás perder esta oportunidad de forma definitiva, dependiendo del apoyo de tu mejora en comparación con las demás.
+          a la propuesta "*{{p_title}}*". Transcurrido este tiempo, podrás perder esta oportunidad de forma definitiva, dependiendo del apoyo de tu mejora en comparación con las demás.
 
           Para editor e *incorporar tu idea ahora*, sigue por favor el enlace y haz clic en el icono con la flecha verde-amarilla en el centro:
 
@@ -162,7 +162,7 @@ es:
 
           "*{{ip_title}}*",
 
-          Te quedan *sólo {{hours}} horas* para incorporar la mejora a la propuesta "{{p_title}}".
+          Te quedan *sólo {{hours}} horas* para incorporar la mejora a la propuesta "*{{p_title}}*".
 
           Transcurrido este tiempo, los votos de la mejora serán retirados haciéndola desaparecer.
 
@@ -189,7 +189,7 @@ es:
 
           "*{{ip_title}}*"
 
-          en la propuesta "{{p_title}}" ha caducado.
+          en la propuesta "*{{p_title}}*" ha caducado.
 
           En el caso de que tu mejora sea de nuevo elegida, los/las partidarios/as de tu idea ganadora tendrán también la oportunidad de incorporarla en la propuesta.
 
@@ -206,7 +206,7 @@ es:
 
           "*{{ip_title}}*",
 
-          Lo sentimos, pero el plazo para introducir la idea en la propuesta "{{p_title}}" ha caducado.
+          Lo sentimos, pero el plazo para introducir la idea en la propuesta "*{{p_title}}*" ha caducado.
 
           Los votos de la mejora serán retirados apagando su eco.
 
@@ -229,7 +229,7 @@ es:
 
           "*{{ip_title}}*"
 
-          a la propuesta "{{p_title}}".
+          a la propuesta "*{{p_title}}*".
 
           Para ver la nueva versión de la propuesta, sigue por favor el siguiente enlace:
 
@@ -248,7 +248,7 @@ es:
 
           "*{{p_title}}*",
 
-          La mejora más votada "{{ip_title}}" ha sido incorporada a la propuesta.
+          La mejora más votada "*{{ip_title}}*" ha sido incorporada a la propuesta.
 
           Puedes seguir el enlace en *ver los cambios* y comprobar que corresponde con la mejora original (posteriormente, será más sencillo con las notificaciones inmediatas):
 

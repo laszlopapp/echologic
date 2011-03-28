@@ -73,7 +73,7 @@ en:
 
           "*{{ip_title}}*"
 
-          won the most votes. Therefore, you now have the opportunity to incorporate it into the proposal "{{p_title}}".
+          won the most votes. Therefore, you now have the opportunity to incorporate it into the proposal "*{{p_title}}*".
 
           *You have {{hours}} hours* to do so. Afterwards you might lose the opportunity to incorporate your idea to the proposal at all - this will depend on the current support of other additions compared to yours.
 
@@ -96,7 +96,7 @@ en:
 
           "*{{ip_title}}*",
 
-          The author of the addition did not incorporate it to the proposal "{{p_title}}". As supporters of the idea, you now all have the opportunity to do so *for the next {{hours}} hours*.
+          The author of the addition did not incorporate it to the proposal "*{{p_title}}*". As supporters of the idea, you now all have the opportunity to do so *for the next {{hours}} hours*.
 
           To edit the proposal and *incorporate the idea*, please follow the link and click the button with the yellow-green arrow in the middle:
 
@@ -119,7 +119,7 @@ en:
 
           "*{{p_title}}*",
 
-          The addition "{{ip_title}}" has won the most votes and can now be incorporated into the proposal.
+          The addition "*{{ip_title}}*" has won the most votes and can now be incorporated into the proposal.
 
           To *see the new idea*, please follow the link below:
 
@@ -140,7 +140,7 @@ en:
 
           "*{{ip_title}}*"
 
-          to the proposal "{{p_title}}". Afterwards you might lose the opportunity to do so depending on the support of other additions compared to yours.
+          to the proposal "*{{p_title}}*". Afterwards you might lose the opportunity to do so depending on the support of other additions compared to yours.
 
           To edit the proposal and *incorporate your idea now*, please follow the link and click the button with the yellow-green arrow in the middle:
 
@@ -161,7 +161,7 @@ en:
 
           "*{{ip_title}}*",
 
-          You have *only {{hours}} hours left* to incorporate the addition to the proposal "{{p_title}}".
+          You have *only {{hours}} hours left* to incorporate the addition to the proposal "*{{p_title}}*".
 
           Afterwards all votes for the addition will be withdrawn making your echos fade out.
 
@@ -188,7 +188,7 @@ en:
 
           "*{{ip_title}}*"
 
-          into the proposal "{{p_title}}" has expired.
+          into the proposal "*{{p_title}}*" has expired.
 
           In case your addition will be selected for the second time, all supporters of your winner idea will also get the opportunity to incorporate it into the proposal.
 
@@ -205,7 +205,7 @@ en:
 
           "*{{ip_title}}*",
 
-          Unfortunately, the time for you to incorporate the idea into the proposal "{{p_title}}" has expired.
+          Unfortunately, the time for you to incorporate the idea into the proposal "*{{p_title}}*" has expired.
 
           As said, all votes for the addition will now be withdrawn making the echos for this favourite idea fade out.
 
@@ -228,7 +228,7 @@ en:
 
           "*{{ip_title}}*"
 
-          into the proposal "{{p_title}}".
+          into the proposal "*{{p_title}}*".
 
           To see the new version of the proposal, please follow the link:
 
@@ -247,7 +247,7 @@ en:
 
           "*{{p_title}}*",
 
-          The addition with the most votes "{{ip_title}}" has been incorporated into the proposal.
+          The addition with the most votes "*{{ip_title}}*" has been incorporated into the proposal.
 
           You can follow the link to *see the changes* and to check that they really correspond with the original addition (later on, a detailed change history will make it much easier to do so):
 
