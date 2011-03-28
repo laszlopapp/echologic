@@ -75,7 +75,7 @@ fr:
 
           "*{{ip_title}}*"
 
-          a obtenu le plus des voix et a été sélectionnée "{{p_title}}" parmi les thèmes à développer.
+          a obtenu le plus des voix et a été sélectionnée "*{{p_title}}*" parmi les thèmes à développer.
 
           A partir de maintenant, il vous reste *{{hours}} heure pour l'élaborer*.
 
@@ -98,7 +98,7 @@ fr:
 
           "*{{ip_title}}*",
 
-          L'auteur de cet rajout n'a pas intégré à votre proposition dans "{{p_title}}". Ayant soutenu ce rajout, vous avez maintentant l'occasion pendant *{{hours}} heure* de vous exprimer.
+          L'auteur de cet rajout n'a pas intégré à votre proposition dans "*{{p_title}}*". Ayant soutenu ce rajout, vous avez maintentant l'occasion pendant *{{hours}} heure* de vous exprimer.
 
           Pour *intégrer votre idée*, veuillez suivre ce lien et cliquez sur la flèche vert-jaune au milieu:
 
@@ -121,7 +121,7 @@ fr:
 
           "*{{p_title}}*",
 
-          Le rajout "{{ip_title}}" a obtenu le plus de voix et a été adopté pour être inséré dans la proposition.
+          Le rajout "*{{ip_title}}*" a obtenu le plus de voix et a été adopté pour être inséré dans la proposition.
 
           Pour voir la nouvelle idee, veuillez suivre ce lien:
 
@@ -142,7 +142,7 @@ fr:
 
           "*{{ip_title}}*"
 
-          proposition "{{p_title}}". Soyez rapide! Vous perdrez votre droit de rédacteur après expiration de ce délai.
+          proposition "*{{p_title}}*". Soyez rapide! Vous perdrez votre droit de rédacteur après expiration de ce délai.
 
           Pour travailler la *propositon maintenant*, suivez ce lien et cliquez sur le symbole de connection - la flèche vert-jaune au milieu:
 
@@ -163,7 +163,7 @@ fr:
 
           "*{{ip_title}}*",
 
-          Il ne vous reste plus que {{hours}} heure pour insérer le rajout dans la proposition "{{p_title}}".
+          Il ne vous reste plus que {{hours}} heure pour insérer le rajout dans la proposition "*{{p_title}}*".
 
           Nous vous rappelons qu'après expiration de ce délai, toutes les voix données à cette idée deviennent caduques.
 
@@ -188,7 +188,7 @@ fr:
 
           "*{{ip_title}}*"
 
-          terminé. Vous ne pouvez plus "{{p_title}}" accéder à la partie rédactionnelle.
+          terminé. Vous ne pouvez plus "*{{p_title}}*" accéder à la partie rédactionnelle.
 
           Au cas où votre proposition serait quand même acceptée, vous aurez la possibilité, ainsi que les autres supporters, d'insérer votre idée dans la proposition.
 
@@ -205,7 +205,7 @@ fr:
 
           "*{{ip_title}}*",
 
-          Malheureusement le délai pour insérer votre rajout "{{p_title}}" est expiré. Vous ne pouvez plus intervenir.
+          Malheureusement le délai pour insérer votre rajout "*{{p_title}}*" est expiré. Vous ne pouvez plus intervenir.
 
           Toutes les voix supportant la proposition sont invalidées.
 
@@ -228,7 +228,7 @@ fr:
 
           "*{{ip_title}}*"
 
-          dans la proposition "{{p_title}}".
+          dans la proposition "*{{p_title}}*".
 
           Pour voir la nouvelle proposition cliquez sur ce lien:
 
@@ -247,7 +247,7 @@ fr:
 
           "*{{p_title}}*",
 
-          le rajout "{{ip_title}}" a obtenu le plus de voix et est ajouté au débat.
+          le rajout "*{{ip_title}}*" a obtenu le plus de voix et est ajouté au débat.
 
           Veuillez *jeter un regard sur les modifications* et vérifiez, si vous êtes d'accord avec la proposition d'amélioration.
 

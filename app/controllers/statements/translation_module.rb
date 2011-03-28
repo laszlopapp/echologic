@@ -57,6 +57,7 @@ module TranslationModule
           @new_statement_document = @statement_node.add_statement_document(new_doc_attrs)
           @new_statement_document.save
           @statement_node.save
+          old_statement_document.unlock
         end
       end
 
