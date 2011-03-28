@@ -53,10 +53,11 @@ module TranslationModule
       StatementNode.transaction do
         old_statement_document = StatementDocument.find(new_doc_attrs[:old_document_id])
         holds_lock = holds_lock?(old_statement_document, locked_at)
-        if (holds_lock)
+        if holds_lock
           @new_statement_document = @statement_node.add_statement_document(new_doc_attrs)
           @new_statement_document.save
           @statement_node.save
+          old_statement_document.unlock
         end
       end
 

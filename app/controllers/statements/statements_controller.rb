@@ -211,7 +211,10 @@ class StatementsController < ApplicationController
       @action ||= StatementAction["updated"]
     end
 
-    if !is_current_document
+    if !current_user.may_edit? @statement_node
+      set_statement_info 'discuss.statements.cannot_be_edited'
+      render_statement_with_info
+    elsif !is_current_document
       set_statement_info 'discuss.statements.statement_updated'
       render_statement_with_info
     elsif !has_lock
@@ -247,8 +250,8 @@ class StatementsController < ApplicationController
           old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
           holds_lock = holds_lock?(old_statement_document, locked_at)
           if holds_lock
-            old_statement_document.update_attribute(:current, false)
-            old_statement_document.save!
+            old_statement_document.current = false
+            old_statement_document.unlock # unlock already saves the document
             @statement_document = @statement_node.add_statement_document(
                                     attrs_doc.merge({:author_id => current_user.id,
                                                      :current => true}))
@@ -259,7 +262,7 @@ class StatementsController < ApplicationController
               @tags = @statement_node.topic_tags = form_tags
             end
             @statement_node.statement.save
-#            @statement_node.save
+            
           end
         end
       end
@@ -323,7 +326,7 @@ class StatementsController < ApplicationController
   def descendants
     @type = params[:type].to_s.camelize.to_sym
     @current_node = StatementNode.find(params[:current_node]) if params[:current_node]
-#    begin
+    begin
       @statement_node ? load_children(:type => @type, :per_page => -1) : load_roots(:node => @current_node, :per_page => -1)
   
       respond_to do |format|
@@ -337,9 +340,9 @@ class StatementsController < ApplicationController
         }
         format.js { render :template => @type.to_s.constantize.descendants_template }
       end
-#    rescue Exception => e
-#      log_error_home(e, "Error loading descendants of type #{@type}.")
-#    end
+    rescue Exception => e
+      log_error_home(e, "Error loading descendants of type #{@type}.")
+    end
   end
 
   #
