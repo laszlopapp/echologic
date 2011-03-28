@@ -208,7 +208,7 @@ class StatementsController < ApplicationController
 
     if !is_current_document
       set_statement_info 'discuss.statements.statement_updated'
-      render_statement_with_info
+      show
     elsif !has_lock
       set_info 'discuss.statements.being_edited'
       render_statement_with_info
@@ -242,8 +242,8 @@ class StatementsController < ApplicationController
           old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
           holds_lock = holds_lock?(old_statement_document, locked_at)
           if holds_lock
-            old_statement_document.update_attribute(:current, false)
-            old_statement_document.save!
+            old_statement_document.current = false
+            old_statement_document.unlock # also saved the document
             @statement_document = @statement_node.add_statement_document(
                                     attrs_doc.merge({:author_id => current_user.id,
                                                      :current => true}))
@@ -254,7 +254,6 @@ class StatementsController < ApplicationController
               @tags = @statement_node.topic_tags = form_tags
             end
             @statement_node.statement.save
-            @statement_node.save
           end
         end
       end
@@ -551,10 +550,10 @@ class StatementsController < ApplicationController
         end
         respond_to do |format|
           flash_info
-          format.html { redirect_to @statement_node.parent }
+          format.html { redirect_to statement_node_url @statement_node.parent }
           format.js do
             render :update do |page|
-              page.redirect_to @statement_node.parent
+              page.redirect_to statement_node_url @statement_node.parent
             end
           end
         end
