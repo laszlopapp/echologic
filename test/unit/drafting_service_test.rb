@@ -455,6 +455,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
         assert @statement_1.incorporated?
       end
       should("enqueue sending incorporation mails") do
+        assert_equal 1, Delayed::Job.count
         assert !Delayed::Job.all.map{|d|d.handler}.select{|h| h =~ /send_incorporation_mails/ }.empty?
       end
     end

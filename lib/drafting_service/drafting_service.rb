@@ -216,7 +216,6 @@ class DraftingService
   # Set incorporable state to incorporated.
   #
   def incorporate(incorporable)
-    puts "incorporating..."
     set_incorporate(incorporable)
     incorporable.reload
     send_incorporation_mails(incorporable)
@@ -438,6 +437,6 @@ class DraftingService
   # Async calls #
   ###############
 
-#  handle_asynchronously :send_incorporation_mails
+  handle_asynchronously :send_incorporation_mails
 
 end

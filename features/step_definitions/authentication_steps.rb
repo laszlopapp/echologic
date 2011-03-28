@@ -44,6 +44,7 @@ end
 
 Then /^an "([^\"]*)" email should be sent to "([^\"]*)"$/ do |email_type, email_address|
   assert !ActionMailer::Base.deliveries.empty?
+  assert_equal 1, ActionMailer::Base.deliveries.length
   email = ActionMailer::Base.deliveries.first
   assert_equal [email_address], email.to
   assert_match /#{email_type}/, email.subject
