@@ -272,6 +272,7 @@ class StatementNode < ActiveRecord::Base
     #
     def paginate_statements(statements, page, per_page = nil)
       per_page = statements.length if per_page.nil? or per_page < 0
+      per_page = 1 if per_page.to_i == 0
       statements.paginate(default_scope.merge(:page => page, :per_page => per_page))
     end
 

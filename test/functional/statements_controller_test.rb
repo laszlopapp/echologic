@@ -237,26 +237,105 @@ class StatementsControllerTest < ActionController::TestCase
 
 
 
+  test "should get more proposal children" do
+    get :more, :id => statement_nodes('test-question').to_param, :type => "proposal"
+    assert_kind_of Hash, assigns(:children)
+    assert_not_nil assigns(:children)
+    assert_equal 7, assigns(:children)[:Proposal].size
+    assert_not_nil assigns(:children_documents)
+    assert_kind_of Hash, assigns(:children_documents)
+    assert_response :success
+  end
+
   test "should get more argument children" do
     get :more, :id => statement_nodes('first-proposal').to_param, :type => "argument"
     assert_not_nil assigns(:children)
-    assert assigns(:children).size, 5
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 2, assigns(:children)[:Argument].size # Should be an array with 2 arrays inside, and they must be empty both
+    assert assigns(:children)[:Argument].select{|s|s.kind_of? Array and s.empty?}
     assert_not_nil assigns(:children_documents)
     assert_response :success
   end
+  
+  test "should get more follow up question children" do
+    get :more, :id => statement_nodes('test-question').to_param, :type => "follow_up_question"
+    assert_not_nil assigns(:children)
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 0, assigns(:children)[:FollowUpQuestion].size # no follow up questions
+    assert_response :success
+  end
+  
+  
 
-  test "should get more children" do
+  test "should get proposal children" do
     get :children, :id => statement_nodes('test-question').to_param, :type => "proposal"
     assert_not_nil assigns(:children)
-    assert assigns(:children).size, 7
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 7, assigns(:children)[:Proposal].size
+    assert_not_nil assigns(:children_documents)
+    assert_response :success
+  end
+  
+  test "should get argument children" do
+    get :children, :id => statement_nodes('first-proposal').to_param, :type => "argument"
+    assert_not_nil assigns(:children)
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 2, assigns(:children)[:Argument].size
+    assert assigns(:children)[:Argument].select{|s|s.kind_of? Array and s.empty?}
+    assert_not_nil assigns(:children_documents)
+    assert_response :success
+  end
+  
+  test "should get follow up question children" do
+    get :children, :id => statement_nodes('test-question').to_param, :type => "follow_up_question"
+    assert_not_nil assigns(:children)
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 0, assigns(:children)[:FollowUpQuestion].size
+    assert_response :success
+  end
+
+  test "should get test question siblings coming from discuss search" do
+    get :descendants, :type => "question", :current_node => statement_nodes('test-question').to_param, :origin => "ds|1"
+    assert_not_nil assigns(:children)
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 7, assigns(:children)[:Question].size
+    assert_not_nil assigns(:children_documents)
+    assert_response :success
+  end
+  
+  test "should get test question siblings coming from discuss search with search term test" do
+    get :descendants, :type => "question", :current_node => statement_nodes('test-question').to_param, :origin => "srtest|1"
+    assert_not_nil assigns(:children)
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 2, assigns(:children)[:Question].size
+    assert_not_nil assigns(:children_documents)
+    assert_response :success
+  end
+  
+  test "should get test question siblings being test question a follow up question from test question 2" do
+    get :descendants, :type => "question", :current_node => statement_nodes('test-question').to_param, :origin => "fq#{statement_nodes('test-question-2').to_param}"
+    assert_not_nil assigns(:children)
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 0, assigns(:children)[:Question].size
     assert_not_nil assigns(:children_documents)
     assert_response :success
   end
 
-  test "should get statements descendants" do
+  test "should get second proposal siblings" do
     get :descendants, :id => statement_nodes('test-question').to_param, :type => "proposal", :current_node => statement_nodes('second-proposal').to_param
     assert_not_nil assigns(:children)
-    assert assigns(:children).size, 7
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 9, assigns(:children)[:Proposal].size
+    assert_not_nil assigns(:children_documents)
+    assert_response :success
+  end
+
+  test "should get argument siblings" do
+    get :descendants, :id => statement_nodes('second-proposal').to_param, :type => "argument"
+    assert_not_nil assigns(:children)
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 2, assigns(:children)[:Argument].size
+    assert assigns(:children)[:Argument].select{|s|s.kind_of? Array and s.empty?}
     assert_not_nil assigns(:children_documents)
     assert_response :success
   end
@@ -265,7 +344,7 @@ class StatementsControllerTest < ActionController::TestCase
     @statement_node = Question.first
     get :authors,:id => @statement_node.id
     assert_not_nil assigns(:authors)
-    assert assigns(:authors).size, @statement_node.authors.size
+    assert_equal @statement_node.authors.size, assigns(:authors).size
     assert_response :success
   end
 
@@ -284,7 +363,7 @@ class StatementsControllerTest < ActionController::TestCase
 
   test "should not get social widget bcuz im not a supporter of this statement" do
     get :social_widget, :id => statement_nodes('test-question').to_param
-    assert assigns(:info).eql?(I18n.t("discuss.statements.supporter_to_share"))
+    assert_equal I18n.t("discuss.statements.supporter_to_share"), assigns(:info)
     assert_response :success
   end
 
@@ -311,7 +390,7 @@ class StatementsControllerTest < ActionController::TestCase
                     :text => "i would like to make an echo"
                     }
       assert_nil assigns(:shortcut_url)
-      assert assigns(:info).eql?(I18n.t("discuss.statements.supporter_to_share"))
+      assert_equal I18n.t("discuss.statements.supporter_to_share"), assigns(:info)
     end
   end
 
@@ -323,7 +402,7 @@ class StatementsControllerTest < ActionController::TestCase
                     :text => "i would like to make an echo"
                     }
       assert_not_nil assigns(:shortcut_url)
-      assert assigns(:shortcut_url).shortcut.eql?("test-question")
+      assert_equal "test-question", assigns(:shortcut_url).shortcut
       assert assigns(:providers_success).include?('facebook')
       assert assigns(:providers_success).include?('twitter')
       assert assigns(:providers_failed).empty?
@@ -338,7 +417,7 @@ class StatementsControllerTest < ActionController::TestCase
                     :text => "i would like to make an echo"
                     }
       assert_not_nil assigns(:shortcut_url)
-      assert assigns(:shortcut_url).shortcut.eql?("test-question")
+      assert_equal "test-question", assigns(:shortcut_url).shortcut
       assert assigns(:providers_success).include?('facebook')
       assert assigns(:providers_success).include?('twitter')
       assert assigns(:providers_failed).include?('linkedin')

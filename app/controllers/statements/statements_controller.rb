@@ -323,7 +323,7 @@ class StatementsController < ApplicationController
   def descendants
     @type = params[:type].to_s.camelize.to_sym
     @current_node = StatementNode.find(params[:current_node]) if params[:current_node]
-    begin
+#    begin
       @statement_node ? load_children(:type => @type, :per_page => -1) : load_roots(:node => @current_node, :per_page => -1)
   
       respond_to do |format|
@@ -337,9 +337,9 @@ class StatementsController < ApplicationController
         }
         format.js { render :template => @type.to_s.constantize.descendants_template }
       end
-    rescue Exception => e
-      log_error_home(e, "Error loading descendants of type #{@type}.")
-    end
+#    rescue Exception => e
+#      log_error_home(e, "Error loading descendants of type #{@type}.")
+#    end
   end
 
   #
@@ -1020,10 +1020,11 @@ class StatementsController < ApplicationController
       roots = roots.map(&:id) + ["/add/question"] if opts[:for_session]
     end
     if !opts[:for_session] # for descendants, must load statement documents and fill the necessary attributes for rendering
-      per_page = opts[:per_page] == -1 ? roots.length : opts[:per_page]
+      per_page = opts[:per_page].to_i == -1 ? roots.length : opts[:per_page].to_i
+      per_page = 1 if per_page == 0 # in case roots is an empty array
       @children = {}
-      type = @previous_type || @current_node.class.name
-      @children[type.to_sym] = roots.paginate :page => opts[:page], :per_page => per_page
+      type = @current_node.class.name
+      @children[type.to_sym] = roots.paginate :page => opts[:page].to_i, :per_page => per_page
       
       @children_documents = search_statement_documents :statement_ids => @children[type.to_sym].flatten.map(&:statement_id)
     end
