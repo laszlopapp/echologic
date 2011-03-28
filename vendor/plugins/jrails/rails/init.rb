@@ -11,8 +11,9 @@
 # ActionView::Helpers::PrototypeHelper::DISABLE_JQUERY_FORGERY_PROTECTION = true
 
 ActionView::Helpers::AssetTagHelper::JAVASCRIPT_DEFAULT_SOURCES = [
-'http://code.jquery.com/jquery-1.5.1.min.js',
-'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js',
-'jrails']
+  'http://code.jquery.com/jquery-1.5.1.min.js',
+  'http://cdn.jquerytools.org/1.2.5/all/jquery.tools.min.js',
+  'jrails',
+  'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js']
 ActionView::Helpers::AssetTagHelper::reset_javascript_include_default
 require 'jrails'
