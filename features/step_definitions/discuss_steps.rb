@@ -198,9 +198,11 @@ Then /^the questions title should be "([^\"]*)"$/ do |title|
 end
 
 
-Then /^I should see the proposals data$/ do
-  Then 'I should see "'+@proposal.document_in_preferred_language([Language["en"].id,Language["de"].id]).title+'"'
-  Then 'I should see "'+@proposal.document_in_preferred_language([Language["en"].id,Language["de"].id]).text+'"'
+Then /^I should see the ([^\"]*) data$/ do |type|
+  type = type.split(" ").join("_")
+  doc = instance_variable_get("@#{type}").document_in_preferred_language([Language["en"].id,Language["de"].id])
+  Then 'I should see "'+doc.title+'"'
+  Then 'I should see "'+doc.text+'"'
 end
 
 Then /^I should see no proposals$/ do

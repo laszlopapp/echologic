@@ -24,3 +24,8 @@ Then /^the proposal has ([^\"]*) children$/ do |state|
   end
 end
 
+Then /^a "([^\"]*)" delayed job should be created$/ do |job|
+  assert_equal 1, Delayed::Job.count
+  assert !Delayed::Job.all.map{|d|d.handler}.select{|h| h =~ /#{job}/ }.empty?
+end
+

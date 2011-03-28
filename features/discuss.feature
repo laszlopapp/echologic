@@ -284,7 +284,7 @@ Feature: Take Part on a question
        And there is a proposal
      When I go to the proposal
      Then I should see "Proposal"
-       And I should see the proposals data
+       And I should see the proposal data
        And I should see localized "discuss.statements.create_improvement_link"
 
 
@@ -315,6 +315,7 @@ Feature: Take Part on a question
     Then I should see "corporative beast"
       And the proposal has no approved children
       And the proposal has incorporated children
+      And a "send_incorporation_mails" delayed job should be created
 
 
   Scenario: User tries to edit, gets out of the form and editor can't edit it
@@ -327,7 +328,7 @@ Feature: Take Part on a question
     Given I am logged in as "editor" with password "true"
     When I go to the question
       And I follow "Edit"
-    Then I should see "The statement is currently being edited. Please try again later."
+    Then I should see localized "discuss.statements.being_edited"
 
   Scenario: User tries to edit, cancels and editor can edit it
     Given I am logged in as "user" with password "true"
@@ -340,7 +341,21 @@ Feature: Take Part on a question
     Given I am logged in as "editor" with password "true"
     When I go to the question
       And I follow "Edit"
-    Then I should not see "The statement is currently being edited. Please try again later."
+    Then I should not see localized "discuss.statements.being_edited"
+    
+  Scenario: User sees the edit button, then someone supports it, and then there is no more edit for no one
+    Given I am logged in as "user" with password "true"
+      And there is a question i have created
+    When I go to the question
+      Then I should see localized "application.general.edit" within ".action_buttons"
+    Given I follow "Logout"
+      And I am logged in as "ben" with password "benrocks"
+      And I go to the question
+      And I follow "echo_button"
+      And I follow "Logout"
+      And I am logged in as "user" with password "true"
+      And I go to the question
+    Then I should not see localized "application.general.edit" within ".action_buttons"
 
   Scenario: Ben edits for incorporation, doesn't make it, editor tries to edit and can't
     Given I am logged in as "ben" with password "benrocks"
@@ -356,7 +371,7 @@ Feature: Take Part on a question
     Given I am logged in as "editor" with password "true"
       When I go to the proposal
         And I follow "Edit"
-      Then I should see "The statement is currently being edited. Please try again later."
+      Then I should see localized "discuss.statements.being_edited"
 
   Scenario: Editor tries to edit, gets out of the form and ben can't incorporate it
     Given I am logged in as "editor" with password "true"
@@ -371,7 +386,7 @@ Feature: Take Part on a question
       And the proposal has an approved child
       And I go to the proposal
       And I follow localized "discuss.tooltips.incorporate"
-    Then I should see "The statement is currently being edited. Please try again later."
+    Then I should see localized "discuss.statements.being_edited"
     
     
   Scenario: User checks authors from a statement

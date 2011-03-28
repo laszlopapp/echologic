@@ -79,6 +79,7 @@ module ActsAsDouble
           #
           def paginate_statements(statements, page, per_page = nil)
             per_page = statements.map(&:length).max if per_page.nil? or per_page < 0
+            per_page = 1 if per_page.to_i == 0
             statements.map{|c|c.paginate(default_scope.merge(:page => page, :per_page => per_page))}
           end
 

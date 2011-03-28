@@ -148,10 +148,11 @@ class User < ActiveRecord::Base
   ## PERMISSIONS
   ##
 
-  # the given `statement_node' is ignored for now, but we need it later
   # when we enable editing for users.
-  def may_edit?
-    has_role?(:editor) or has_role?(:admin)
+  def may_edit?(entity)
+    has_role?(:editor) or has_role?(:admin) or
+    ( entity.authors.include?(self) and entity.echoable? and 
+    (!entity.published? or entity.supporter_count == 0 or (entity.supporters-[self]).empty? ))
   end
 
   def may_delete?(statement_node)

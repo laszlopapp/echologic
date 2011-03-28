@@ -15,6 +15,14 @@ Then /^I should see localized "([^\"]*)"$/ do |key|
   response.should contain(I18n.t(key))  
 end
 
+Then /^I should see localized "([^\/]*)" within "([^\"]*)"$/ do |key, selector|
+  Then 'I should see "'+I18n.t(key)+'" within "'+selector+'"'
+end
+
 Then /^I should not see localized "([^\"]*)"$/ do |key|
   response.should_not contain(I18n.t(key))
+end
+
+Then /^I should not see localized "([^\/]*)" within "([^\"]*)"$/ do |key, selector|
+  Then 'I should not see "'+I18n.t(key)+'" within "'+selector+'"'
 end

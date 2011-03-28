@@ -188,9 +188,7 @@ module StatementsHelper
   # Creates a link to edit the current document.
   #
   def edit_statement_node_link(statement_node, statement_document)
-    if current_user and
-       (current_user.may_edit? or
-       (statement_node.authors.include?(current_user) and !statement_node.published?))
+    if current_user and current_user.may_edit?(statement_node)
       link_to(I18n.t('application.general.edit'), edit_statement_node_url(statement_node, :current_document_id => statement_document.id),
               :class => 'ajax header_button text_button edit_text_button')
     else

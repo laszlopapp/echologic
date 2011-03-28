@@ -129,15 +129,15 @@ class StatementsController < ApplicationController
     begin
       parent_node_id = attrs[:parent_id]
       attrs.merge!({:root_id => StatementNode.find(parent_node_id).root_id}) if !parent_node_id.blank?
-      
-      
+
+
       # Preapre in memory
       @statement_node ||= @statement_node_type.new_instance(attrs)
       @statement_document = @statement_node.add_statement_document(
                             doc_attrs.merge({:original_language_id => doc_attrs[:language_id],
                                              :author_id => current_user.id,
                                              :current => true}))
-      
+
       @tags = []
       has_permission = true
       created = false
@@ -146,7 +146,7 @@ class StatementsController < ApplicationController
         @tags = @statement_node.topic_tags = form_tags
       end
 
-      
+
 
       # Persisting
       if has_permission
@@ -211,7 +211,10 @@ class StatementsController < ApplicationController
       @action ||= StatementAction["updated"]
     end
 
-    if !is_current_document
+    if !current_user.may_edit? @statement_node
+      set_statement_info 'discuss.statements.cannot_be_edited'
+      render_statement_with_info
+    elsif !is_current_document
       set_statement_info 'discuss.statements.statement_updated'
       show
     elsif !has_lock
@@ -324,7 +327,7 @@ class StatementsController < ApplicationController
     @current_node = StatementNode.find(params[:current_node]) if params[:current_node]
     begin
       @statement_node ? load_children(:type => @type, :per_page => -1) : load_roots(:node => @current_node, :per_page => -1)
-  
+
       respond_to do |format|
         format.html{
           if @current_node
@@ -480,7 +483,7 @@ class StatementsController < ApplicationController
   #
   # Loads the children of the current statement
   #
-  # Loads instance variables: 
+  # Loads instance variables:
   # @children(Hash) : key   : class name (String)
   #                   value : an array of statement nodes (Array) or an URL (string)
   # @children_documents(Hash) : key   : statement_id (Integer)
@@ -508,13 +511,13 @@ class StatementsController < ApplicationController
   end
 
   #
-  # Loads the children from a certain type of the current statement 
+  # Loads the children from a certain type of the current statement
   # opts attributes:
   # type (String : optional) : Type of child to load
-  # 
-  # more info about attributes, please check paginated child statements documentation 
   #
-  # Loads instance variables: 
+  # more info about attributes, please check paginated child statements documentation
+  #
+  # Loads instance variables:
   # @children(Hash) : key   : class name (String)
   #                   value : an array of statement nodes (Array) or an URL (string)
   # @children_documents(Hash) : key   : statement_id (Integer)
@@ -532,7 +535,7 @@ class StatementsController < ApplicationController
   #
   # Load the authors of the current statement.
   #
-  # Loads instance variables: 
+  # Loads instance variables:
   # @authors(Array[User])
   #
   def load_authors
@@ -579,7 +582,7 @@ class StatementsController < ApplicationController
   #
   # Gets the correspondent statement node to the id that is given in the request.
   #
-  # Loads instance variables: 
+  # Loads instance variables:
   # @statement_node(StatementNode)
   #
   def fetch_statement_node
@@ -589,7 +592,7 @@ class StatementsController < ApplicationController
   #
   # Gets the type of a new statement.
   #
-  # Loads instance variables: 
+  # Loads instance variables:
   # @statement_node_type(Class)
   #
   def fetch_statement_node_type
@@ -626,7 +629,7 @@ class StatementsController < ApplicationController
   #
   # Loads the locale language and the language preference list.
   #
-  # Loads instance variables: 
+  # Loads instance variables:
   # @locale_language_id(Integer)
   # @language_preference_list(Array[Integer])
   #
@@ -671,7 +674,7 @@ class StatementsController < ApplicationController
   #
   # Sets the breadcrumb of the current statement node's parent.
   #
-  # Loads instance variables: 
+  # Loads instance variables:
   # @breadcrumb(Array[]) (check build_breadcrumb documentation)
   # @bids(String) : breadcrumb keycodes separated by comma
   #
@@ -697,7 +700,7 @@ class StatementsController < ApplicationController
   #
   # Sets the breadcrumbs for the current statement node view previous path.
   #
-  # Loads instance variables: 
+  # Loads instance variables:
   # @breadcrumbs(Array[Array[]]) (check build_breadcrumb documentation)
   #
   def load_breadcrumbs
@@ -718,15 +721,15 @@ class StatementsController < ApplicationController
       case key
         when "ds" then page_count = value.blank? ? 1 : value[1..-1] # ds|:page_count
                        opts[:url] = discuss_search_url(:page_count => page_count)
-                       opts[:title] = I18n.t("discuss.statements.breadcrumbs.discuss_search") 
+                       opts[:title] = I18n.t("discuss.statements.breadcrumbs.discuss_search")
         when "sr" then value = value.split('|')
                        page_count = value.length > 1 ? value[1] : 1 # sr:search_term|:page_count
                        search_terms = value[0].gsub(/\\;/, ',').gsub(/\\:;/, '|')
                        opts[:url] = discuss_search_url(:page_count => page_count, :search_terms => search_terms)
-                       opts[:title] = value[0] 
-        when "mi" then opts[:css] = "my_discussions_link statement_link" 
+                       opts[:title] = value[0]
+        when "mi" then opts[:css] = "my_discussions_link statement_link"
                        opts[:url] = my_questions_url
-                       opts[:title] = I18n.t("discuss.statements.breadcrumbs.my_questions") 
+                       opts[:title] = I18n.t("discuss.statements.breadcrumbs.my_questions")
         when "fq" then statement_node = StatementNode.find(bid[2..-1])
                        statement_document = search_statement_documents(:statement_ids => [statement_node.statement_id])[statement_node.statement_id] ||
                                             statement_node.document_in_original_language
@@ -734,7 +737,7 @@ class StatementsController < ApplicationController
                        opts[:key] = "fq#{value}"
                        opts[:css] = "statement statement_link #{statement_node.class.name.underscore}_link"
                        opts[:url] = statement_node_url(statement_node, :bids => bids[0, bids.index(bid)].join(","), :origin => origin)
-                       opts[:title] = statement_document.title 
+                       opts[:title] = statement_document.title
       end
       opts[:label] = I18n.t("discuss.statements.breadcrumbs.labels.#{key}")
       opts[:over] = I18n.t("discuss.statements.breadcrumbs.labels.over.#{key}")
@@ -825,7 +828,7 @@ class StatementsController < ApplicationController
   # for more info about attributes, please check the StatementNode.search_statement_nodes documentation
   #
   def search_statement_nodes(opts = {})
-    StatementNode.search_statement_nodes(opts.merge({:type => "Question", 
+    StatementNode.search_statement_nodes(opts.merge({:type => "Question",
                                                      :user => current_user,
                                                      :language_ids => @language_preference_list,
                                                      :show_unpublished => current_user && current_user.has_role?(:editor)}))
@@ -833,7 +836,7 @@ class StatementsController < ApplicationController
 
   #
   # Gets all the statement documents belonging to a group of statements, and orders them per language ids.
-  # opts attributes: 
+  # opts attributes:
   #
   # statement_ids (Array[Integer]) : ids from statements which documents we should look through
   # for more info about attributes, please check the StatementDocument.search_statement_documents documentation
@@ -857,10 +860,10 @@ class StatementsController < ApplicationController
   # SESSION HANDLING HELPERS #
   ############################
 
-  # 
+  #
   # Loads information necessary to build a breadcrumb for the new Follow Up Statement
-  #  
-  # Loads instance variables: 
+  #
+  # Loads instance variables:
   # @previous_node(StatementNode) : the parent of the new statement
   # @previous_type(String) : type of breadcrumb
   #
@@ -873,12 +876,12 @@ class StatementsController < ApplicationController
 
 
   #
-  # Loads the ancestors of the current statement node, in order to display the correct context. 
+  # Loads the ancestors of the current statement node, in order to display the correct context.
   # On the process, loads its siblings (check load_siblings, load_roots_to_session and load_children_for_parent documentation)
   #
   # teaser(Boolean) : if true, @statement_node is the PARENT node of the teaser.
   #
-  # Loads instance variables: 
+  # Loads instance variables:
   # @ancestors(Array[StatementNode]) : ancestors of the current statement node
   # @ancestor_documents(Hash) : key   : statement id (Integer)
   #                             value : document (StatementDocument)
@@ -895,7 +898,7 @@ class StatementsController < ApplicationController
         @ancestors << @statement_node # if teaser: @statement_node is the teaser's parent, therefore, an ancestor
         load_children_for_parent(@statement_node, @type)
       end
-      
+
       @ancestors.each{|a|@ancestor_documents[a.statement_id] = a.document_in_preferred_language(@language_preference_list)}
     else
       if teaser
@@ -907,19 +910,19 @@ class StatementsController < ApplicationController
   end
 
   #
-  # Loads the children ids array formatted for session from a certain type of a certain statement node 
+  # Loads the children ids array formatted for session from a certain type of a certain statement node
   #
   # statement_node(StatementNode) : the parent node
   # type(String)                  : the type of children we want to get
   #
-  # Loads instance variables: 
+  # Loads instance variables:
   # @siblings(Hash) : key   : statement node dom id ; ":type_:id" or "add_:type" for teasers (String)
   #                   value : Array[Integer] : Array of statement ids with teaser path as last element
   #
   def load_children_for_parent(statement_node, type)
     @siblings ||= {}
     class_name = type.classify
-    siblings = statement_node.children_to_session :language_ids => @language_preference_list, 
+    siblings = statement_node.children_to_session :language_ids => @language_preference_list,
                                                   :type => class_name, :user => current_user
     @siblings["add_#{type}"] = siblings
   end
@@ -929,7 +932,7 @@ class StatementsController < ApplicationController
   #
   # statement_node(StatementNode) : the statement node
   #
-  # Loads instance variables: 
+  # Loads instance variables:
   # @siblings(Hash) : key   : statement node dom id ; ":type_:id" or "add_:type" for teasers (String)
   #                   value : Array[Integer] : Array of statement ids with teaser path as last element
   #
@@ -948,7 +951,7 @@ class StatementsController < ApplicationController
   #
   # Loads Add Question Teaser siblings (Only for HTTP and add question teaser).
   #
-  # Loads instance variables: 
+  # Loads instance variables:
   # @siblings(Hash) : key   : statement node dom id ; ":type_:id" or "add_:type" for teasers (String)
   #                   value : Array[Integer] : Array of statement ids with teaser path as last element
   #
@@ -968,14 +971,14 @@ class StatementsController < ApplicationController
 
 
   #
-  # Loads The Roots for current Top Statement (Question, Follow Up Question, ...) 
+  # Loads The Roots for current Top Statement (Question, Follow Up Question, ...)
   # opts attributes:
-  # 
+  #
   # node (StatementNode : optional) : statement node which is currently shown
   # page (Integer : optional) : pagination parameter (default = 1)
   # per_page (Integer : optional) : pagination parameter (default = QUESTIONS_PER_PAGE)
-  # 
-  # Loads instance variables (if not for session): 
+  #
+  # Loads instance variables (if not for session):
   # @children(Hash) : key   : class name (String)
   #                   value : an array of statement nodes (Array) or an URL (string)
   # @children_documents(Hash) : key   : statement_id (Integer)
@@ -995,7 +998,7 @@ class StatementsController < ApplicationController
        when 'ds' then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1].to_i * QUESTIONS_PER_PAGE
                       sn = search_statement_nodes(:only_id => opts[:for_session]).paginate(:page => 1, :per_page => per_page)
                       opts[:for_session] ? sn.map(&:id) + ["/add/question"] : sn
-       # discuss search with search results 
+       # discuss search with search results
        when 'sr'then value = value.split('|')
                      per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
                      sn = search_statement_nodes(:search_term => value[0].gsub(/\\;/,',').gsub(/\\:;/, '|'),
@@ -1007,23 +1010,24 @@ class StatementsController < ApplicationController
        # follow up questions from a statement
        when 'fq' then @previous_node = StatementNode.find(value)
                       @previous_type = "FollowUpQuestion"
-                      sn = @previous_node.child_statements :language_ids => @language_preference_list, 
-                                                           :type => @previous_type, 
-                                                           :user => current_user, 
+                      sn = @previous_node.child_statements :language_ids => @language_preference_list,
+                                                           :type => @previous_type,
+                                                           :user => current_user,
                                                            :for_session => opts[:for_session]
                       opts[:for_session] ? sn : sn.map(&:target_statement)
       end
     else
       # no origin (direct link)
-      roots = opts[:node].nil? ? [] : [opts[:node]]      
+      roots = opts[:node].nil? ? [] : [opts[:node]]
       roots = roots.map(&:id) + ["/add/question"] if opts[:for_session]
     end
     if !opts[:for_session] # for descendants, must load statement documents and fill the necessary attributes for rendering
-      per_page = opts[:per_page] == -1 ? roots.length : opts[:per_page]
+      per_page = opts[:per_page].to_i == -1 ? roots.length : opts[:per_page].to_i
+      per_page = 1 if per_page == 0 # in case roots is an empty array
       @children = {}
-      type = @previous_type || @current_node.class.name
-      @children[type.to_sym] = roots.paginate :page => opts[:page], :per_page => per_page
-      
+      type = @current_node.class.name
+      @children[type.to_sym] = roots.paginate :page => opts[:page].to_i, :per_page => per_page
+
       @children_documents = search_statement_documents :statement_ids => @children[type.to_sym].flatten.map(&:statement_id)
     end
     roots
