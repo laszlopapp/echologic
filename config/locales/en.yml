@@ -596,8 +596,6 @@ en:
         The statement is currently being edited. Please try again later.
       statement_updated: |-
         This {{type}} has just been updated by another person.
-      statement_updated: |-
-        This {{type}} has just been updated.
       statement_supported: |-
          Thanks for making an echo to the {{type}}.
       statement_unsupported: |-
@@ -608,6 +606,7 @@ en:
       staled_modification: 'We are very sorry, but you exceeded the 60 minutes limit to edit and save the statement. Meanwhile it has already been updated by a different user. Therefore, your changes must have been unfortunately discarded.'
       no_document_in_language: 'The statement does not exist in English yet.'
       supporter_to_share: 'You must be a supporter of this statement in order to share it!'
+      cannot_be_edited: 'The statement can not be edited after other members have supported it'
 
       breadcrumbs:
         discuss_search: Search results
