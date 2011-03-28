@@ -259,7 +259,7 @@ class StatementsController < ApplicationController
               @tags = @statement_node.topic_tags = form_tags
             end
             @statement_node.statement.save
-            @statement_node.save
+#            @statement_node.save
           end
         end
       end
