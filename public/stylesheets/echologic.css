@@ -74,23 +74,29 @@
   float: right;
   padding: 13px 0 8px;
   height: 40px;
-  margin-top: 20px;
+
 }
 
 #login_container .signup {
   color: #21587f;
   font-weight: bold;
   text-decoration: underline;
+  position: relative;
+  top: 13px;
 }
 
 #login_container .or_label {
   margin: 0 10px;
+  position: relative;
+  top: 13px;
 }
 
 #login_container .signin {
   color: #21587f;
   font-weight: bold;
   text-decoration: underline;
+  position: relative;
+  top: 7px;
 }
 
 /* ------------------- */
