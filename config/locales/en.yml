@@ -144,17 +144,17 @@ en:
       hello: Logged in<br/><strong>{{name}}</strong>
       setup_basic_profile:
         title: 'Setup Basic Profile'
-        guide: Please, fill your basic information in and publish your account!
-        agreement: I agree with the terms of data policy...
+        guide: Please fill in your basic profile information to set up your account.
+        agreement: I have read and agree to the terms of data policy.
       messages:
         success: "Login successful. Welcome back to echo."
         failed: "Unknown user or wrong password."
-        failed_social: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account"
+        failed_social: "Please log in with an account you registered with or that you connected to your echo account."
     signup:
       label: 'Sign Up'
       member_tag: Not a member yet?
       via_echo: '... for a new echo Account'
-      via_social: '... via another Existing Account'
+      via_social: '... via another social account '
       use_photo: 'Use in echo, too'
     signout:
       messages:
@@ -338,8 +338,8 @@ en:
         last_confirm: Are you really really sure?
         success: Your echo account was successfully deleted.
     social_accounts:
-      title: Connected Accounts
-      guide: Connect your social accounts with your echo account so you can easily share and amplify your echo throughout the web.
+      title: Social Accounts
+      guide: Connect up your accounts to easily share and amplify your echo via other social networks.
       providers:
         facebook: Facebook
         twitter: Twitter
@@ -348,12 +348,12 @@ en:
         google: Google
       connect:
         title: Connect
-        success: Added your {{account}} account successfully!
-        failed: Failed to add your {{account}} account!
+        success: Your {{account}} account has been connected successfully.
+        failed: Failed to connect to your {{account}} account.
       disconnect:
         title: Disconnect
-        success: Removed your {{account}} account successfully!
-        failed: Failed to remove your {{account}} account!
+        success: Your {{account}} account has been disconnected.
+        failed: Failed to disconnect your {{account}} account.
       share:
         title: Send out the voice
         text: Message
@@ -606,7 +606,7 @@ en:
       staled_modification: 'We are very sorry, but you exceeded the 60 minutes limit to edit and save the statement. Meanwhile it has already been updated by a different user. Therefore, your changes must have been unfortunately discarded.'
       no_document_in_language: 'The statement does not exist in English yet.'
       supporter_to_share: 'You must be a supporter of this statement in order to share it!'
-      cannot_be_edited: 'The statement can not be edited after other members have supported it'
+      cannot_be_edited: 'Unfortunately, you cannot edit this statement after other members supported it. This is to avoid faking of opinions. '
 
       breadcrumbs:
         discuss_search: Search results
