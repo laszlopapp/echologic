@@ -30,7 +30,7 @@
 			 	  <%= image_tag @profile_info['photo'], :class => 'photo' %>
 					<%= check_box_tag "user[avatar_url]", @profile_info['photo'], nil,
                             :class => "avatar" %>
-					<%= f.label I18n.t("users.signup.use_photo") %><br/>
+					<%= f.label I18n.t("users.setup_basic_profile.use_photo") %><br/>
 				<% end %>
      </div>
 		 <% end %>

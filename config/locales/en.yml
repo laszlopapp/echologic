@@ -146,6 +146,7 @@ en:
         title: 'Setup Basic Profile'
         guide: Please, fill your basic information in and publish your account!
         agreement: I agree with the terms of data policy...
+        use_photo: 'Use in echo, too'
       messages:
         success: "Login successful. Welcome back to echo."
         failed: "Unknown user or wrong password."
@@ -155,7 +156,6 @@ en:
       member_tag: Not a member yet?
       via_echo: '... for a new echo Account'
       via_social: '... via another Existing Account'
-      use_photo: 'Use in echo, too'
     signout:
       messages:
         success: "Logout successful. See you later. Bye!"
@@ -169,9 +169,9 @@ en:
 
       messages:
         success: Your account has been successfully created. Welcome to echo!
-        email_success: Your E-mail has been changed successfully!
         failed: |-
           <p>Your account could not be activated. Please check your input.</p>
+        email_success: Your E-mail has been changed successfully!
         already_active: Your account is already active!
         no_account: Your account does not exist!
         no_full_name: You have to fill the 'Full Name' field up
@@ -316,7 +316,7 @@ en:
           You are currently registered with the E-Mail address: <strong>{{email}}</strong>.<br/>
           Here you can define a new address echo should use to keep in touch with you.
         password: Your Password
-        success: E-Mail changed successfully.
+        success: E-Mail changed successfully!
         failed: Failed to change E-Mail.
         no_password: Please enter your valid password to change your E-Mail.
 
@@ -335,7 +335,6 @@ en:
           The echos you have made will be kept fully anonymously.</p>
           <p>Please enter your password and click the button below, if you want to proceed.</p>
         confirm: Delete my account permanently
-        last_confirm: Are you really really sure?
         success: Your echo account was successfully deleted.
     social_accounts:
       title: Connected Accounts
