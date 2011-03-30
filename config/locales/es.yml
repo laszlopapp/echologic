@@ -131,29 +131,29 @@ es:
       teaser:
         title: 'Conviértete en co-autor!'
     # User sessions section
+    signup:
+      label: 'Sign Up'
+      member_tag: Noch kein Mitglied?
+      via_echo: '... for a new echo Account'
+      via_social: '... via another Existing Account'
+    setup_basic_profile:
+      title: 'Setup Basic Profile'
+      guide: Please, fill your basic information in and publish your account!
+      agreement: I agree with the terms of data policy...
+      use_photo: 'Use in echo, too'
     signin:
       label: 'Sign In'
-      password: 'Contraseña'
+      password: 'Passwort'
       member_tag: Already a member?
       via_echo: '... via echo'
       via_social: '... via another Account'
-      set_password: Has olvidado la contraseña?
-      remember: Recuérdame!
-      hello: Registrado <br/><strong>{{name}}</strong>
-      setup_basic_profile:
-        title: 'Setup Basic Profile'
-        guide: Please, fill your basic information in and publish your account!
-        agreement: I agree with the terms of data policy...
-        use_photo: 'Use in echo, too'
+      set_password: Passwort vergessen?
+      remember: Merke mich!
+      hello: Eingeloggt<br/><strong>{{name}}</strong>
       messages:
-        success:  "Te has registrado correctamente.<br/>Bienvenido de nuevo a echo!"
-        failed:   "Usuario desconocido o contraseña incorrecta."
+        success: "Login erfolgreich.<br/>Willkommen zurück auf echo!"
+        failed: "Unbekannter Nutzer oder falsches Passwort."
         failed_social: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account"
-    signup:
-      label: 'Sign Up'
-      member_tag: Aún no eres miembro?
-      via_echo: '... for a new echo Account'
-      via_social: '... via another Existing Account'
     signout:
       messages:
         success: "Has cerrado tu cuenta.<br/>Hasta la próxima!"

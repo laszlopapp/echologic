@@ -132,6 +132,16 @@ de:
       teaser:
         title: 'Werden Sie MitautorIn!'
     # User sessions section
+    signup:
+      label: 'Sign Up'
+      member_tag: Noch kein Mitglied?
+      via_echo: '... for a new echo Account'
+      via_social: '... via another Existing Account'
+    setup_basic_profile:
+      title: 'Setup Basic Profile'
+      guide: Please, fill your basic information in and publish your account!
+      agreement: I agree with the terms of data policy...
+      use_photo: 'Use in echo, too'
     signin:
       label: 'Sign In'
       password: 'Passwort'
@@ -141,27 +151,17 @@ de:
       set_password: Passwort vergessen?
       remember: Merke mich!
       hello: Eingeloggt<br/><strong>{{name}}</strong>
-      setup_basic_profile:
-        title: 'Setup Basic Profile'
-        guide: Please, fill your basic information in and publish your account!
-        agreement: I agree with the terms of data policy...
-        use_photo: 'Use in echo, too'
       messages:
         success: "Login erfolgreich.<br/>Willkommen zurück auf echo!"
         failed: "Unbekannter Nutzer oder falsches Passwort."
         failed_social: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account"
-    signup:
-      label: 'Sign Up'
-      member_tag: Noch kein Mitglied?
-      via_echo: '... for a new echo Account'
-      via_social: '... via another Existing Account'
     signout:
       messages:
         success: "Logout erfolgreich.<br/>Tschüß - Bis zum nächsten Mal!"
     user_sessions:
       messages:
         session_timeout: "Ihre alte Sitzung wurde beendet. Bitte melden Sie sich erneut an."
-     
+
     # Activations section
     activation:
       messages:

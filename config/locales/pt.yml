@@ -131,36 +131,36 @@ pt:
     authors:
       teaser:
         title: 'Torne-se um co-autor!'
+    signup:
+      label: 'Sign Up'
+      member_tag: Noch kein Mitglied?
+      via_echo: '... for a new echo Account'
+      via_social: '... via another Existing Account'
+    setup_basic_profile:
+      title: 'Setup Basic Profile'
+      guide: Please, fill your basic information in and publish your account!
+      agreement: I agree with the terms of data policy...
+      use_photo: 'Use in echo, too'
     signin:
       label: 'Sign In'
-      password: 'Senha'
+      password: 'Passwort'
       member_tag: Already a member?
       via_echo: '... via echo'
       via_social: '... via another Account'
-      set_password: Esqueceu-se da senha?
-      remember: Lembre-me!
-      hello: Autenticado<br/><strong>{{name}}</strong>
-      setup_basic_profile:
-        title: 'Setup Basic Profile'
-        guide: Please, fill your basic information in and publish your account!
-        agreement: I agree with the terms of data policy...
-        use_photo: 'Use in echo, too'
+      set_password: Passwort vergessen?
+      remember: Merke mich!
+      hello: Eingeloggt<br/><strong>{{name}}</strong>
       messages:
-        success: "Autenticação bem-sucedida. Bemvindo de volta à echo."
-        failed: "Utilizador desconhecido ou senha errada."
+        success: "Login erfolgreich.<br/>Willkommen zurück auf echo!"
+        failed: "Unbekannter Nutzer oder falsches Passwort."
         failed_social: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account"
-    signup:
-      label: 'Sign Up'
-      member_tag: Ainda não é um membro?
-      via_echo: '... for a new echo Account'
-      via_social: '... via another Existing Account'
     signout:
       messages:
         success: "Saída bem-sucedida. Até breve!"
     user_sessions:
       messages:
         session_timeout: "A sua sessão foi terminada. Por favor autentique-se de novo."
-    
+
     # Activations section
     activation:
       messages:
