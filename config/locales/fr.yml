@@ -147,27 +147,27 @@ fr:
         title: 'Devenez co-auteur!'
     signup:
       label: 'Sign Up'
-      member_tag: Noch kein Mitglied?
+      member_tag: Not a member yet?
       via_echo: '... for a new echo Account'
-      via_social: '... via another Existing Account'
+      via_social: '... via another social account '
+      use_photo: 'Use in echo, too'
     setup_basic_profile:
       title: 'Setup Basic Profile'
-      guide: Please, fill your basic information in and publish your account!
-      agreement: I agree with the terms of data policy...
-      use_photo: 'Use in echo, too'
+      guide: Please fill in your basic profile information to set up your account.
+      agreement: I have read and agree to the terms of data policy.
     signin:
       label: 'Sign In'
-      password: 'Passwort'
+      password: 'Password'
       member_tag: Already a member?
       via_echo: '... via echo'
       via_social: '... via another Account'
-      set_password: Passwort vergessen?
-      remember: Merke mich!
-      hello: Eingeloggt<br/><strong>{{name}}</strong>
+      set_password: Forgot your password?
+      remember: Remember me!
+      hello: Logged in<br/><strong>{{name}}</strong>
       messages:
-        success: "Login erfolgreich.<br/>Willkommen zurück auf echo!"
-        failed: "Unbekannter Nutzer oder falsches Passwort."
-        failed_social: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account"
+        success: "Login successful. Welcome back to echo."
+        failed: "Unknown user or wrong password."
+        failed_social: "Please log in with an account you registered with or that you connected to your echo account."
     signout:
       messages:
         success: "Vous vous êtes déconnecté(e).<br/>Au revoir et à bientôt!"
