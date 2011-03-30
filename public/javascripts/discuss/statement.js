@@ -389,7 +389,6 @@
 		    }
 
 		    // Get current_stack of visible statements (if any matches the clicked statement, then break)
-        var current_stack = [];
 		    $("#statements .statement").each( function(index){
 		      if (index < statement_index) {
 		        id = $(this).attr('id').split('_').pop();
@@ -407,7 +406,6 @@
 		    current_stack.push(current_sids);
 				return current_stack;
 		  }
-
 
       // Public API of statement
       $.extend(this,
@@ -491,7 +489,11 @@
 		      statement.find('.content').hide('slow');
 		      statement.find('.supporters_label').hide();
 					return this;
-		    }
+		    },
+        loadRatioBars: function(container) 
+        {
+          initRatioBars(container);
+        }
       });
 	  }
 

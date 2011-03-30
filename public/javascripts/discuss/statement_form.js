@@ -47,6 +47,8 @@
         }
 			}
 
+      
+
 			/*
        * Loads the Rich Text Editor for the statement text.
        */
