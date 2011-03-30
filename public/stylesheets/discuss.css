@@ -22,10 +22,19 @@
   float: left;
   position: relative;
   left: 7px;
-  top: 25px;
-  padding: 0 0 17px;
+  top: 43px;
+  padding: 17px 7px;
   text-align: center;
-  margin: 0 0 20px;
+  margin: 0 0 40px;
+  background-color: #E6EEF1;
+  background-color: #e0e8ec;
+  background-color: #d3dce0;
+  background-color: #D8E2E5;
+  background-color: #CAD5DE;
+  background-color: #cad3db;
+  border-radius: 12px;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
 }
 
 .action_bar .label {
@@ -64,7 +73,7 @@
 }
 
 .action_bar .add_new_button .label {
-  top: 9px;
+  top: 5px;
 }
 
 #question_list a.avatar_holder{
@@ -978,7 +987,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   float: left;
   position: relative;
   top: 3px;
-  left: 49px;
+  left: 55px;
   height: 30px;
   overflow: visible;
 }
@@ -1577,8 +1586,8 @@ form.statement fieldset ol li.tags_container {
 }
 
 .statement .social_echo_container .loading {
-	left: 156px;
-  top: 130px;
+	left: 178px;
+  top: 145px;
 }
 
 .statement .header .loading {

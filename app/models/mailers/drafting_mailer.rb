@@ -7,9 +7,9 @@ class DraftingMailer < ActionMailer::Base
     recipients    mail_data[:incorporable_document].author.email
     sent_on       Time.now
     body          :name => mail_data[:incorporable_document].author.full_name,
-                  :ip_title => mail_data[:incorporable_document].title,
+                  :ip_title => mail_data[:incorporable_document].title.strip,
                   :hours => DraftingService.approved_hours,
-                  :p_title => mail_data[:draftable_document].title,
+                  :p_title => mail_data[:draftable_document].title.strip,
                   :p_link => statement_node_url(mail_data[:draftable]),
                   :language => mail_data[:language]
   end
@@ -19,8 +19,8 @@ class DraftingMailer < ActionMailer::Base
     from          "noreply@echologic.org"
     bcc           recipients.map(&:email)
     sent_on       Time.now
-    body          :ip_title => mail_data[:incorporable_document].title,
-                  :p_title => mail_data[:draftable_document].title,
+    body          :ip_title => mail_data[:incorporable_document].title.strip,
+                  :p_title => mail_data[:draftable_document].title.strip,
                   :hours => DraftingService.approved_hours,
                   :p_link => statement_node_url(mail_data[:draftable]),
                   :language => mail_data[:language]
@@ -31,8 +31,8 @@ class DraftingMailer < ActionMailer::Base
     from          "noreply@echologic.org"
     bcc           recipients.map(&:email)
     sent_on       Time.now
-    body          :ip_title => mail_data[:incorporable_document].title,
-                  :p_title => mail_data[:draftable_document].title,
+    body          :ip_title => mail_data[:incorporable_document].title.strip,
+                  :p_title => mail_data[:draftable_document].title.strip,
                   :p_link => statement_node_url(mail_data[:draftable]),
                   :language => mail_data[:language]
   end
@@ -44,8 +44,8 @@ class DraftingMailer < ActionMailer::Base
     sent_on       Time.now
     body          :name => mail_data[:incorporable_document].author.full_name,
                   :hours => DraftingService.approved_hours_left,
-                  :ip_title => mail_data[:incorporable_document].title,
-                  :p_title => mail_data[:draftable_document].title,
+                  :ip_title => mail_data[:incorporable_document].title.strip,
+                  :p_title => mail_data[:draftable_document].title.strip,
                   :p_link => statement_node_url(mail_data[:draftable]),
                   :language => mail_data[:language]
   end
@@ -56,8 +56,8 @@ class DraftingMailer < ActionMailer::Base
     bcc           recipients.map(&:email)
     sent_on       Time.now
     body          :hours => DraftingService.approved_hours_left,
-                  :ip_title => mail_data[:incorporable_document].title,
-                  :p_title => mail_data[:draftable_document].title,
+                  :ip_title => mail_data[:incorporable_document].title.strip,
+                  :p_title => mail_data[:draftable_document].title.strip,
                   :p_link => statement_node_url(mail_data[:draftable]),
                   :language => mail_data[:language]
   end
@@ -68,8 +68,8 @@ class DraftingMailer < ActionMailer::Base
     recipients    mail_data[:incorporable_document].author.email
     sent_on       Time.now
     body          :name => mail_data[:incorporable_document].author.full_name,
-                  :ip_title => mail_data[:incorporable_document].title,
-                  :p_title => mail_data[:draftable_document].title,
+                  :ip_title => mail_data[:incorporable_document].title.strip,
+                  :p_title => mail_data[:draftable_document].title.strip,
                   :language => mail_data[:language]
   end
 
@@ -78,8 +78,8 @@ class DraftingMailer < ActionMailer::Base
     from          "noreply@echologic.org"
     bcc           recipients.map(&:email)
     sent_on       Time.now
-    body          :ip_title => mail_data[:incorporable_document].title,
-                  :p_title => mail_data[:draftable_document].title,
+    body          :ip_title => mail_data[:incorporable_document].title.strip,
+                  :p_title => mail_data[:draftable_document].title.strip,
                   :ip_link => statement_node_url(mail_data[:incorporable]),
                   :language => mail_data[:language]
   end
@@ -90,8 +90,8 @@ class DraftingMailer < ActionMailer::Base
     recipients    mail_data[:draftable_document].author.email
     sent_on       Time.now
     body          :name => mail_data[:draftable_document].author.full_name,
-                  :ip_title => mail_data[:incorporable_document].title,
-                  :p_title => mail_data[:draftable_document].title,
+                  :ip_title => mail_data[:incorporable_document].title.strip,
+                  :p_title => mail_data[:draftable_document].title.strip,
                   :p_link => statement_node_url(mail_data[:draftable]),
                   :language => mail_data[:language]
   end
@@ -101,8 +101,8 @@ class DraftingMailer < ActionMailer::Base
     from          "noreply@echologic.org"
     bcc           recipients.map(&:email)
     sent_on       Time.now
-    body          :ip_title => mail_data[:incorporable_document].title,
-                  :p_title => mail_data[:draftable_document].title,
+    body          :ip_title => mail_data[:incorporable_document].title.strip,
+                  :p_title => mail_data[:draftable_document].title.strip,
                   :p_link => statement_node_url(mail_data[:draftable]),
                   :language => mail_data[:language]
   end

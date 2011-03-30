@@ -1,15 +1,11 @@
 class Users::UserSessionsController < ApplicationController
-  helper :signings_form
 
   before_filter :require_no_user, :only => [:new, :create, :create_social]
   skip_before_filter :require_user, :only => [:new, :create, :create_social]
 
   def new
     session[:redirect_url] = request.referer
-    @user_session = UserSession.new
-    @user ||= User.new
-    @to_show = "signin"
-    render_signings "user_sessions"
+    render_signinup :signin
   end
 
   # TODO use redirect back or default! see application controller!
@@ -21,7 +17,7 @@ class Users::UserSessionsController < ApplicationController
         # if the user failed to log in with a social account just previously,
       # this will be added as the user logs in with its' echo account
         add_social_to_user(User.find_by_email(params[:user_session][:email])) if session[:identifier]
-  
+
         redirect_with_info(redirect_url, 'users.signin.messages.success')
       else
         later_call_with_error(redirect_url, signin_path, 'users.signin.messages.failed')
@@ -38,7 +34,7 @@ class Users::UserSessionsController < ApplicationController
     begin
       profile_info = SocialService.instance.get_profile_info(params[:token])
       user = profile_info['primaryKey'].nil? ? User.find_by_social_identifier(profile_info['identifier']) : User.find(profile_info['primaryKey'])
-  
+
       if user.nil?
         session[:identifier] = profile_info.to_json
         later_call_with_error(redirect_url, signin_path, 'users.signin.messages.failed_social')

@@ -98,18 +98,7 @@ class ApplicationController < ActionController::Base
   def require_user
     @user_required = true
     unless current_user
-      set_info('authlogic.error_messages.must_be_logged_in')
-      respond_to do |format|
-        format.html {
-          flash_info
-          redirect_to request.url == last_url ? root_url : last_url
-        }
-        format.js {
-          render_with_info do |page|
-            page << "$('#user_session_email').focus();"
-          end
-        }
-      end
+      render_signinup :signin
       return false
     end
   end
@@ -352,7 +341,9 @@ class ApplicationController < ActionController::Base
   def render_static_new(opts={})
     opts[:layout] ||= 'static'
     respond_to do |format|
-      [:template,:partial].each{|t|format.html { render t => opts[t], :layout => opts[:layout] } if opts[t]}
+      [:template,:partial].each{|t|
+        format.html { render t => opts[t], :layout => opts[:layout]} if opts[t]
+      }
       format.js if !block_given?
       yield format if block_given?
     end
@@ -366,10 +357,26 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def render_signings(type)
-    render_static_new :template => "users/#{type}/new" do |format|
-      format.js {render :template => 'users/components/users_form',
-                        :locals => {:partial => "users/#{type}/new"}}
+  # Makes the signin / signup dialog appear.
+  def render_signinup(type)
+    # Settings views and controllers
+    @user ||= User.new
+    @user_session ||= UserSession.new
+    if type == :signin
+      @to_show = 'signin'
+      controller_name = 'user_sessions'
+    elsif type == :signup
+      @to_show = 'signup'
+      controller_name = 'users'
+    else
+      raise Exception "Invalid type. Use ':signin' or ':signup'."
+    end
+    # Rendering
+    render_static_new :template => "users/#{controller_name}/new" do |format|
+      format.js do
+        render :template => 'users/components/users_form',
+               :locals => {:partial => "users/#{controller_name}/new"}
+      end
     end
   end
 
