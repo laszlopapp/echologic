@@ -33,6 +33,7 @@ es:
       welcome: Bienvenido
       all: Todos
       authors: Autores
+      share_action: 'Make an echo!'
 
     # Roadmap - Progress
     roadmap:
