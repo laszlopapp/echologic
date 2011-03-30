@@ -33,6 +33,10 @@ class RpxService
   def unmap(identifier, key)
     api_call 'unmap', :primaryKey => key, :identifier => identifier
   end
+  def all_mappings
+    data = api_call 'all_mappings', :apiKey => RPX_API_KEY
+    data['mappings']
+  end
   def signin_url(dest)
     "#{rp_url}/openid/signin?token_url=#{CGI.escape(dest)}"
   end

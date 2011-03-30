@@ -37,6 +37,9 @@ class SocialService
     @service.unmap(identifier, key)
   end
 
+  def all_mappings(primary_key)
+    @service.all_mappings(primary_key)
+  end
 
   def share_activities(providers, opts={})
     providers_reached = []
