@@ -13,9 +13,12 @@
     </span>
 
   <% else %>
-    <%= link_to I18n.t('users.signup.label').capitalize(), signup_path, :class => 'ajax signup' %>
-		<%= content_tag :span, I18n.t('application.general.or'), :class => 'or_label' %>
-		<%= link_to I18n.t('users.signin.label').capitalize(), signin_path, :class => 'ajax signin' %>
+    <%= link_to I18n.t('users.signup.label').capitalize(), signup_path,
+                :class => 'ajax signup' %>
+		<%= content_tag :span, I18n.t('application.general.or'),
+                    :class => 'or_label' %>
+		<%= link_to I18n.t('users.signin.label').capitalize(), signin_path,
+                :class => 'ajax signin big_button big_green_button_150' %>
   <% end %>
 
 </div>

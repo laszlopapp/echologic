@@ -439,13 +439,47 @@
   width: 300px;
 }
 
-.big_red_button {
-  height: 51px;
-  line-height: 51px;
+.green_button {
+  color: #FFF;
+  font-weight: bold;
+  display: inline-block;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
 }
 
-.big_red_button:hover {
+.green_button:hover {
+  background-position: 0 -28px !important;
+}
+
+.green_button_120 {
+  background: transparent url(../images/page/red_button_120.png) no-repeat scroll left top;
+  width: 120px;
+}
+
+.big_red_button_150 {
+  background: transparent url(../images/page/red_button_big_150.png) no-repeat scroll left top;
+  width: 150px;
+}
+
+
+.big_button {
+  color: #FFF;
+  font-size: 15px;
+  font-weight: bold;
+  display: inline-block;
+  height: 51px;
+  line-height: 46px;
+  text-align: center;
+}
+
+.big_button:hover {
   background-position: 0 -51px !important;
+}
+
+.big_green_button_150 {
+  background: transparent url(../images/page/green_button_big_150.png) no-repeat scroll left top;
+  width: 150px;
 }
 
 .big_red_button_150 {
