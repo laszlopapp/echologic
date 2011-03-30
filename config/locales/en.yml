@@ -133,6 +133,16 @@ en:
     authors:
       teaser:
         title: 'Become a co-author!'
+    signup:
+      label: 'Sign Up'
+      member_tag: Not a member yet?
+      via_echo: '... for a new echo Account'
+      via_social: '... via another social account '
+      use_photo: 'Use in echo, too'
+    setup_basic_profile:
+      title: 'Setup Basic Profile'
+      guide: Please fill in your basic profile information to set up your account.
+      agreement: I have read and agree to the terms of data policy.
     signin:
       label: 'Sign In'
       password: 'Password'
@@ -142,20 +152,10 @@ en:
       set_password: Forgot your password?
       remember: Remember me!
       hello: Logged in<br/><strong>{{name}}</strong>
-      setup_basic_profile:
-        title: 'Setup Basic Profile'
-        guide: Please fill in your basic profile information to set up your account.
-        agreement: I have read and agree to the terms of data policy.
       messages:
         success: "Login successful. Welcome back to echo."
         failed: "Unknown user or wrong password."
         failed_social: "Please log in with an account you registered with or that you connected to your echo account."
-    signup:
-      label: 'Sign Up'
-      member_tag: Not a member yet?
-      via_echo: '... for a new echo Account'
-      via_social: '... via another social account '
-      use_photo: 'Use in echo, too'
     signout:
       messages:
         success: "Logout successful. See you later. Bye!"
@@ -166,12 +166,11 @@ en:
 
     # Activations section
     activation:
-
       messages:
         success: Your account has been successfully created. Welcome to echo!
-        email_success: Your E-mail has been changed successfully!
         failed: |-
           <p>Your account could not be activated. Please check your input.</p>
+        email_success: Your E-mail has been changed successfully!
         already_active: Your account is already active!
         no_account: Your account does not exist!
         no_full_name: You have to fill the 'Full Name' field up
@@ -335,7 +334,6 @@ en:
           The echos you have made will be kept fully anonymously.</p>
           <p>Please enter your password and click the button below, if you want to proceed.</p>
         confirm: Delete my account permanently
-        last_confirm: Are you really really sure?
         success: Your echo account was successfully deleted.
     social_accounts:
       title: Social Accounts

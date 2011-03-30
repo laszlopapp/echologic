@@ -4,9 +4,9 @@
 	 <%= content_tag :span, questions_count_text(@count, params[:search_terms]), :class => 'label' %>
 	<% end %>
 	<% content_tag :div, :class => 'content' do %>
-		 <ul>
-	    <%= render :partial => 'statements/questions/questions', :locals => {:statement_nodes => statement_nodes}%>
-	   </ul>
+		 <% content_tag :ul do %>
+	     <%= render :partial => 'statements/questions/questions', :locals => {:statement_nodes => statement_nodes}%>
+	   <% end %>
     <% if !statement_nodes.empty? and statement_nodes.current_page != statement_nodes.total_pages %>
       <%= more_questions statement_nodes, @page %>
     <% end %>

@@ -63,7 +63,7 @@ user-question-doc-english-history:
 first-proposal-doc-english-history:
   statement_document_id: <%= Fixtures.identify('first-proposal-doc-english') %>
   statement_id: <%= Fixtures.identify('first-proposal-statement') %>
-  author_id: <%= Fixtures.identify(:editor) %>
+  author_id: <%= Fixtures.identify(:user) %>
   action_id: <%= Fixtures.identify('statement_action_created') %>
 
 second-proposal-doc-english-history:

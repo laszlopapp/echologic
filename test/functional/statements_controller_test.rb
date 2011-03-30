@@ -59,7 +59,7 @@ class StatementsControllerTest < ActionController::TestCase
   ######################
 
 
-  test "should translate the statement" do
+  test "should translate the question" do
     user = users(:editor)
     document = statement_documents('test-question-doc-english')
     document.lock(user)
@@ -220,19 +220,30 @@ class StatementsControllerTest < ActionController::TestCase
   test "should get the edit question form" do
     get :edit, :id => statement_nodes('test-question').to_param, :type => :question, :current_document_id => statement_documents('test-question-doc-english').to_param
     assert_response :success
+    assert_nil assigns(:info)
   end
   test "should get the edit proposal form" do
     get :edit, :id => statement_nodes('first-proposal').to_param, :type => :proposal, :current_document_id => statement_documents('first-proposal-doc-english').to_param
     assert_response :success
+    assert_nil assigns(:info)
   end
   test "should get the edit improvement form" do
     get :edit, :id => statement_nodes('third-impro-proposal').to_param, :type => :improvement, :current_document_id => statement_documents('third-impro-proposal-doc-english').to_param
     assert_response :success
+    assert_nil assigns(:info)
+  end
+  test "should not get the edit proposal form cuz somebody just updated it" do
+    login_as :user
+    statement_nodes('first-proposal').supported! users(:ben)
+    get :edit, :id => statement_nodes('first-proposal').to_param, :type => :proposal, :current_document_id => statement_documents('first-proposal-doc-english').to_param
+    assert_response :success
+    assert_equal I18n.t('discuss.statements.cannot_be_edited'), assigns(:info)
   end
   test "should not get the edit question form" do
     get :edit, :id => statement_nodes('test-question').to_param, :type => :question, :current_document_id => 0
     assert_template 'statements/show'
     assert_response :success
+    assert_equal I18n.t('discuss.statements.statement_updated', :type => 'Question'), assigns(:info)
   end
 
 

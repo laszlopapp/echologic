@@ -7,6 +7,7 @@ es:
     # Unexpected Error
     unexpected_error: Se ha detectado un error inesperado en el servidor.
     routing_error: URL desconocida. Redireccionando...
+    remote_error: 'Failed to communicate with the Remote Service.'
 
     # General purpose resources
     general:
@@ -15,6 +16,7 @@ es:
       next: Seguir
       back: Regresar
       email: E-Mail
+      email_confirmation: Confirm E-Mail
       name: Nombre
       undefined: No definido
       ok: Ok
@@ -31,6 +33,7 @@ es:
       welcome: Bienvenido
       all: Todos
       authors: Autores
+      share_action: 'Make an echo!'
 
     # Roadmap - Progress
     roadmap:
@@ -129,26 +132,29 @@ es:
       teaser:
         title: 'Conviértete en co-autor!'
     # User sessions section
+    signup:
+      label: 'Sign Up'
+      member_tag: Not a member yet?
+      via_echo: '... for a new echo Account'
+      via_social: '... via another social account '
+      use_photo: 'Use in echo, too'
+    setup_basic_profile:
+      title: 'Setup Basic Profile'
+      guide: Please fill in your basic profile information to set up your account.
+      agreement: I have read and agree to the terms of data policy.
     signin:
       label: 'Sign In'
-      password: 'Contraseña'
+      password: 'Password'
       member_tag: Already a member?
       via_echo: '... via echo'
       via_social: '... via another Account'
-      set_password: Has olvidado la contraseña?
-      remember: Recuérdame!
-      hello: Registrado <br/><strong>{{name}}</strong>
-      setup_basic_profile: 'Setup Basic Profile'
+      set_password: Forgot your password?
+      remember: Remember me!
+      hello: Logged in<br/><strong>{{name}}</strong>
       messages:
-        success:  "Te has registrado correctamente.<br/>Bienvenido de nuevo a echo!"
-        failed:   "Usuario desconocido o contraseña incorrecta."
-        failed_social: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account" 
-    signup:
-      label: 'Sign Up'
-      member_tag: Aún no eres miembro?
-      via_echo: '... for a new echo Account'
-      via_social: '... via another Existing Account'
-      use_photo: 'Use in echo, too'
+        success: "Login successful. Welcome back to echo."
+        failed: "Unknown user or wrong password."
+        failed_social: "Please log in with an account you registered with or that you connected to your echo account."
     signout:
       messages:
         success: "Has cerrado tu cuenta.<br/>Hasta la próxima!"
@@ -161,6 +167,11 @@ es:
       messages:
         success: Tu cuenta ha sido activada. Bienvenido a echo!
         failed: Lo sentimos, pero no ha sido posible activar tu cuenta. Por favor, comprueba tu entrada.
+        email_success: Your E-mail has been changed successfully!
+        already_active: Your account is already active!
+        no_account: Your account does not exist!
+        no_full_name: You have to fill the 'Full Name' field up
+        no_agreement: You have to agree with our data policy in order to register.
 
     # Password resets section
     password_reset:
@@ -198,6 +209,7 @@ es:
 
       password:
         title: Cambiar contraseña
+        old: Old password
         new: Tu nueva contraseña
         confirm: Verificar contraseña
 
@@ -305,6 +317,69 @@ es:
         turned_on: La información de tu perfil será visible cuando se muestren los autores de un contenido.
         turned_off: Serás visualizado como "anónimo" entre otros autores del contenido.
 
+    # Manage Echo Account section
+    echo_account:
+      title: echo Account
+      guide: Here you can manage your echo account.
+      change_email:
+        title: Change E-Mail
+        guide: |
+          You are currently registered with the E-Mail address: <strong>{{email}}</strong>.<br/>
+          Here you can define a new address echo should use to keep in touch with you.
+        password: Your Password
+        success: E-Mail changed successfully.
+        failed: Failed to change E-Mail.
+        no_password: Please enter your valid password to change your E-Mail.
+
+      change_password:
+        title: Change Password
+        guide: Please define your new password.
+        success: Password changed successfully!
+        failed: Failed to change Password!
+        wrong_password: The password you entered is not your password!
+      delete_account:
+        title: Delete Account
+        password: Your Password
+        guide: |
+          <p><strong>ATTENTION!</strong></p>
+          <p>Your account and ALL your personal data will be <strong>permanently deleted</strong>.<br/>
+          The echos you have made will be kept fully anonymously.</p>
+          <p>Please enter your password and click the button below, if you want to proceed.</p>
+        confirm: Delete my account permanently
+        success: Your echo account was successfully deleted.
+    social_accounts:
+      title: Connected Accounts
+      guide: Connect your social accounts with your echo account so you can easily share and amplify your echo throughout the web.
+      providers:
+        facebook: Facebook
+        twitter: Twitter
+        yahoo!: Yahoo!
+        linkedin: LinkedIn
+        google: Google
+      connect:
+        title: Connect
+        success: Added your {{account}} account successfully!
+        failed: Failed to add your {{account}} account!
+      disconnect:
+        title: Disconnect
+        success: Removed your {{account}} account successfully!
+        failed: Failed to remove your {{account}} account!
+      share:
+        title: Send out the voice
+        text: Message
+        data_privacy:
+          title: Data Privacy Notice
+          description: Mind the privacy policy of other networks before sharing your views on them...
+        preview: Preview
+        submit: Make an echo
+        error: Something went wrong while sharing your entry.
+        success: |
+          Made an echo via {{accounts}}.
+        failed: |
+          Failed via {{accounts}}.
+        enabled: "On"
+        disabled: "Off"
+
     # New Users section
     users:
       new:
@@ -326,6 +401,7 @@ es:
 
       messages:
         created: "Por favor, verifica tu cuenta de correo electrónico para activar tu nueva cuenta."
+        activate_email: "Please check your E-Mails to activate your new email!"
 
     # Reports section
     reports:
@@ -381,6 +457,7 @@ es:
       title: Buscar
       in: '... en {{category}} ...'
       add: "Crea la primera pregunta sobre el tema"
+      placeholder: "Topic and/or place of interest"
 
     tooltips:
       read_question: 'Ver esta cuestión'
@@ -554,6 +631,8 @@ es:
         la propuesta. Otro miembro ha aprovechado su oportunidad y ha editado la
         propuesta, por lo que no se han podido guardar tus modificaciones.
       no_document_in_language: 'Este contenido no está disponible en inglés.'
+      supporter_to_share: 'You must be a supporter of this statement in order to share it!'
+      cannot_be_edited: 'The statement can not be edited after other members have supported it'
 
       breadcrumbs:
         discuss_search: Buscar resultados
@@ -621,6 +700,7 @@ es:
       text: |-
         Por favor completa tu perfil <strong>por lo menos en un {{percentage}}%</strong>, para hacer feliz al servidor (HAL)
         y retirar este bloque ;-)
+      placeholder: 'Topic, place, organization or name of interest'
 
     segments:
       all: Todos
@@ -712,6 +792,11 @@ es:
           attributes:
             email:
               taken: 'Te has equivocado en tu E-Mail. Por favor, introdúcelo de nuevo.'
+              invalid: 'The E-Mail must be in a valid format.'
+            password:
+              invalid: 'Wrong password.'
+        social_identifier:
+          taken: 'This Social Account is already in use.'
 
       messages:
         blank: "Tienes que rellenar el espacio '{{attribute}}' ."
