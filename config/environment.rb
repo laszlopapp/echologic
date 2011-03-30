@@ -81,6 +81,9 @@ Rails::Initializer.run do |config|
   RPX_APP_NAME = ENV['ECHO_RPX_APP_NAME']
   RPX_API_KEY = ENV['ECHO_RPX_API_KEY']
 
+  # Setting RPX data in EngineYard environment
+  require File.join(File.dirname(__FILE__), 'rpx_config')
+
   raise "RPX/Janrain Engage API key must be defined ENV['ECHO_RPX_API_KEY']" unless RPX_API_KEY
   raise "RPX/Janrain Engage Application Name must be defined ENV['ECHO_RPX_APP_NAME']" unless RPX_APP_NAME
 

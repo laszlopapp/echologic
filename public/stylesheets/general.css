@@ -1,9 +1,12 @@
 /* Styles for body, headings and standard HTML elements. */
 
 body {
-  background:  #a8c642 url(../images/page/background.png) repeat-x;
-  margin:      0px;
-  padding:     0px;
+  /*background:  #a8c642 url(../images/page/background.png) repeat-x;*/
+  background:  #C8D5DA url(../images/page/background.png) repeat-x;
+  background:  #96a6b3 url(../images/page/background.png) repeat-x;
+  background:  #B5C0C9 url(../images/page/background.png) repeat-x;
+  margin:      0;
+  padding:     0;
   color:       #21587f;
   text-align:  left;
   overflow-y:  scroll;

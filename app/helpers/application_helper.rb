@@ -26,7 +26,7 @@ module ApplicationHelper
       content_for :section, key
     end
   end
-  
+
 
   # Return a progressbar
   def insert_progressbar(percent)
@@ -111,36 +111,63 @@ module ApplicationHelper
     end
     val
   end
-  
+
   ########################
   # POP-UP LOGIN HELPERS #
   ########################
-  
+
+  def toggle_form_field(type)
+    toggle_type = type.eql?('signin') ? 'signup' : 'signin'
+    content = ''
+    content << content_tag(:span, "#{I18n.t("users.#{toggle_type}.member_tag")} >>>",
+                           :class => 'registry_label')
+    content << content_tag(:a, I18n.t("users.#{toggle_type}.label"),
+                           :class => 'toggle_button',
+                           :href => "##{toggle_type}")
+    content
+  end
+
+  def signing_header(type)
+    content = ''
+    content << content_tag(:span, content_tag(:h2, I18n.t("users.#{type}.via_echo")), :class => 'box_label')
+    content << I18n.t('application.general.or')
+    content << content_tag(:span, content_tag(:h2, I18n.t("users.#{type}.via_social")), :class => 'box_label')
+    content
+  end
+
+  def signin_social_link
+    janrain_login_widget signin_remote_url, :language => I18n.locale
+  end
+
+  def signup_social_link
+    janrain_login_widget signup_remote_url, :language => I18n.locale
+  end
+
   def redirect_token_url(opts= {})
     # first step: create the url to redirect everything in the end
     redirect_url = add_remote_url + '?' + (
       opts.merge({:authenticity_token => form_authenticity_token}).collect { |n| "#{n[0]}=#{ u(n[1]) }" if n[1] }
     ).compact.join('&')
-    
+
     # second step: create the url to which we will be redirect at the end of the external login
     token_url = redirect_from_popup_url + '?' + (
-    { :redirect_url => redirect_url, 
+    { :redirect_url => redirect_url,
       :authenticity_token => form_authenticity_token }.collect { |n| "#{n[0]}=#{ u(n[1]) }" if n[1] }
     ).compact.join('&')
     token_url
   end
-  
-  
+
+
   def janrain_login_widget(token_url, options={})
     url = token_url + '?' + (
       { :authenticity_token => form_authenticity_token }.collect { |n| "#{n[0]}=#{ u(n[1]) }" if n[1] }
     ).compact.join('&')
     <<-EOF
-    <iframe src='http://#{ENV['ECHO_RPX_APP_NAME']}/openid/embed?#{embed_params(url)}' scrolling='no' frameBorder='no'  
+    <iframe src='http://#{RPX_APP_NAME}/openid/embed?#{embed_params(url)}' scrolling='no' frameBorder='no'
     allowtransparency='true' style='width:400px;height:240px'></iframe>
     EOF
   end
-  
+
   def embed_params(url, options={})
     {
       :token_url => CGI::escape( url ),

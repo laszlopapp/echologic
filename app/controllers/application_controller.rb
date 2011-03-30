@@ -99,22 +99,9 @@ class ApplicationController < ActionController::Base
     @user_required = true
     unless current_user
       redirect_url = request.url == last_url ? root_url : last_url
-      later_call_with_info(redirect_url, signin_url, 'authlogic.error_messages.must_be_logged_in') do |format|
-        format.js{render_with_info}
+      later_call_with_info(redirect_url, signin_url) do |format|
+        format.js{render_signinup_js(:signin)}
       end
-      
-#      set_info('authlogic.error_messages.must_be_logged_in')
-#      respond_to do |format|
-#        format.html {
-#          flash_info
-#          redirect_to request.url == last_url ? root_url : last_url
-#        }
-#        format.js {
-#          render_with_info do |page|
-#            page << "$('#user_session_email').focus();"
-#          end
-#        }
-#      end
       return false
     end
   end
@@ -357,7 +344,9 @@ class ApplicationController < ActionController::Base
   def render_static_new(opts={})
     opts[:layout] ||= 'static'
     respond_to do |format|
-      [:template,:partial].each{|t|format.html { render t => opts[t], :layout => opts[:layout] } if opts[t]}
+      [:template,:partial].each{|t|
+        format.html { render t => opts[t], :layout => opts[:layout]} if opts[t]
+      }
       format.js if !block_given?
       yield format if block_given?
     end
@@ -371,11 +360,36 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def render_signings(type)
-    render_static_new :template => "users/#{type}/new" do |format|
-      format.js {render :template => 'users/components/users_form',
-                        :locals => {:partial => "users/#{type}/new"}}
+  def load_signinup_data(type)
+    @user ||= User.new
+    @user_session ||= UserSession.new
+    if @to_show.nil?
+      if type == :signin
+        @to_show = 'signin'
+        @controller_name = 'user_sessions'
+      elsif type == :signup
+        @to_show = 'signup'
+        @controller_name = 'users'
+      else
+        raise Exception "Invalid type. Use ':signin' or ':signup'."
+      end
     end
+  end
+
+  # Makes the signin / signup dialog appear.
+  def render_signinup(type)
+    # Settings views and controllers
+    load_signinup_data(type)
+    # Rendering
+    render_static_new :template => "users/#{@controller_name}/new" do |format|
+      format.js{render_signinup_js(type)}
+    end
+  end
+  
+  def render_signinup_js(type)
+    load_signinup_data(type)
+    render :template => 'users/components/users_form',
+               :locals => {:partial => "users/#{@controller_name}/new"}
   end
 
   def redirect_or_render_with_info(url, message_or_object, opts={})

@@ -1,5 +1,4 @@
 class Users::UsersController < ApplicationController
-  helper :signings_form
   include Users::SocialModule
 
   before_filter :require_no_user, :only => [:new, :create, :create_social, :setup_basic_profile]
@@ -43,10 +42,7 @@ class Users::UsersController < ApplicationController
   # GET /users/new.xml
   def new
     session[:redirect_url] = request.referer
-    @user ||= User.new
-    @user_session ||= UserSession.new
-    @to_show = "signup"
-    render_signings "users"
+    render_signinup :signup
   end
 
   # GET /users/1/edit
