@@ -1,3 +1,5 @@
+require 'sanitize'
+
 module PublishableModuleHelper
   #
   # get the text that shows up on the top left corner of discuss search results
@@ -74,6 +76,11 @@ module PublishableModuleHelper
     else
       ''
     end
+  end
+  
+  def format_description(text)
+    l = text.length
+    l > 300 ? Sanitize.clean("#{text[0..150].strip} ... #{text[l-151..-1].strip}") : Sanitize.clean(text)
   end
 
   #
