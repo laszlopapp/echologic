@@ -99,12 +99,11 @@ module EchoableModule
         set_info "discuss.statements.supporter_to_share"
         render_statement_with_info
       else
-        command = ShortcutCommand.build_command(:operation => "statement_node",
-                                                 :params => {:id => @statement_node.id},
-                                                 :language => @statement_document.language.code)
-        @shortcut_url = ShortcutUrl.find_or_create(:shortcut => @statement_document.title,
-                                                   :human_readable => true,
-                                                   :shortcut_command => {:command => command})
+        @shortcut_url = ShortcutUrl.statement_shortcut :title => @statement_document.title,
+                                                       :operation => "statement_node",
+                                                       :id => @statement_node.id,
+                                                       :language => @statement_document.language.code
+                                                       
         if !@shortcut_url
           set_error @shortcut_url
           render_statement_with_error
