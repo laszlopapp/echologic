@@ -98,7 +98,10 @@ class ApplicationController < ActionController::Base
   def require_user
     @user_required = true
     unless current_user
-      render_signinup :signin
+      redirect_url = request.url == last_url ? root_url : last_url
+      later_call_with_info(redirect_url, signin_url) do |format|
+        format.js{render_signinup_js(:signin)}
+      end
       return false
     end
   end
@@ -357,27 +360,36 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def load_signinup_data(type)
+    @user ||= User.new
+    @user_session ||= UserSession.new
+    if @to_show.nil?
+      if type == :signin
+        @to_show = 'signin'
+        @controller_name = 'user_sessions'
+      elsif type == :signup
+        @to_show = 'signup'
+        @controller_name = 'users'
+      else
+        raise Exception "Invalid type. Use ':signin' or ':signup'."
+      end
+    end
+  end
+
   # Makes the signin / signup dialog appear.
   def render_signinup(type)
     # Settings views and controllers
-    @user ||= User.new
-    @user_session ||= UserSession.new
-    if type == :signin
-      @to_show = 'signin'
-      controller_name = 'user_sessions'
-    elsif type == :signup
-      @to_show = 'signup'
-      controller_name = 'users'
-    else
-      raise Exception "Invalid type. Use ':signin' or ':signup'."
-    end
+    load_signinup_data(type)
     # Rendering
-    render_static_new :template => "users/#{controller_name}/new" do |format|
-      format.js do
-        render :template => 'users/components/users_form',
-               :locals => {:partial => "users/#{controller_name}/new"}
-      end
+    render_static_new :template => "users/#{@controller_name}/new" do |format|
+      format.js{render_signinup_js(type)}
     end
+  end
+  
+  def render_signinup_js(type)
+    load_signinup_data(type)
+    render :template => 'users/components/users_form',
+               :locals => {:partial => "users/#{@controller_name}/new"}
   end
 
   def redirect_or_render_with_info(url, message_or_object, opts={})

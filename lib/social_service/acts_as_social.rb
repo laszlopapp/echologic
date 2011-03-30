@@ -55,7 +55,7 @@ module ActiveRecord
               outer_mappings = SocialService.instance.mappings(self.id)
               inner_mappings = social_identifiers.map(&:identifier)
               to_remove_mappings = inner_mappings - outer_mappings 
-              social_identifiers.destroy :conditions => ["identifier IN (?)", to_remove_mappings] if !to_remove_mappings.empty?
+              social_identifiers.destroy_all :conditions => ["identifier IN (?)", to_remove_mappings] if !to_remove_mappings.empty?
             end
           
             class << self
