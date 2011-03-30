@@ -98,18 +98,23 @@ class ApplicationController < ActionController::Base
   def require_user
     @user_required = true
     unless current_user
-      set_info('authlogic.error_messages.must_be_logged_in')
-      respond_to do |format|
-        format.html {
-          flash_info
-          redirect_to request.url == last_url ? root_url : last_url
-        }
-        format.js {
-          render_with_info do |page|
-            page << "$('#user_session_email').focus();"
-          end
-        }
+      redirect_url = request.url == last_url ? root_url : last_url
+      later_call_with_info(redirect_url, signin_url, 'authlogic.error_messages.must_be_logged_in') do |format|
+        format.js{render_with_info}
       end
+      
+#      set_info('authlogic.error_messages.must_be_logged_in')
+#      respond_to do |format|
+#        format.html {
+#          flash_info
+#          redirect_to request.url == last_url ? root_url : last_url
+#        }
+#        format.js {
+#          render_with_info do |page|
+#            page << "$('#user_session_email').focus();"
+#          end
+#        }
+#      end
       return false
     end
   end
