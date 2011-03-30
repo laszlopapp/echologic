@@ -1,10 +1,10 @@
 Feature: User Generated Debates
 
-  @ok
-  Scenario: Unlogged user unable to access My Questions
-    When I am on the Discuss Index
-      And I follow "My Questions"
-    Then I should see "Please log in to perform this action"
+#  @ok
+#  Scenario: Unlogged user unable to access My Questions
+#    When I am on the Discuss Index
+#      And I follow "My Questions"
+#    Then I should see "Please log in to perform this action"
 
   @ok
   Scenario: user tries to create Debate without content

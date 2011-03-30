@@ -38,7 +38,7 @@ module PublishableModule
     @origin = @value.blank? ? 'ds' : "sr#{@value.gsub(/,/,'\\;').gsub(/\|/, '\\:;')}" 
     @origin << "|#{@page_count}"
 
-    statement_nodes_not_paginated = search_statement_nodes :search_term => @value
+    statement_nodes_not_paginated = search_discussions :search_term => @value
 
     @count    = statement_nodes_not_paginated.count
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => @per_page)

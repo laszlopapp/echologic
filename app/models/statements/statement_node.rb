@@ -359,6 +359,12 @@ class StatementNode < ActiveRecord::Base
     public
 
 
+    def search_discussions(opts={})
+      opts.delete(:type)
+      search_statement_nodes(opts)
+    end
+
+
     #
     # gets a set of statement nodes given an hash of arguments
     #
@@ -372,14 +378,15 @@ class StatementNode < ActiveRecord::Base
     # language_ids (Array[Integer] : optional) : filters out documents which language is not included on the array (gets all of them if nil)
     # drafting_states (Array[String] : optional) : filters out incorporable statements per drafting state (only for incorporable types)
     #
-    # Called with no attributes filled: returns all published statements
+    # Called with no attributes filled: returns all published questions
     #
     def search_statement_nodes(opts={})
       search_term = opts.delete(:search_term)
+      search_attrs = opts[:type].nil? ? 'root_id' : 'id'
       opts[:only_id] ||= false
-      tag_clause = "SELECT DISTINCT s.id FROM #{table_name} s "
+      tag_clause = "SELECT DISTINCT s.#{search_attrs} FROM #{table_name} s "
       tag_clause << "LEFT JOIN #{Statement.table_name}               ON #{Statement.table_name}.id = s.statement_id " +
-                    "LEFT JOIN #{StatementDocument.table_name} d        ON s.statement_id = d.statement_id "
+                    "LEFT JOIN #{StatementDocument.table_name} d     ON s.statement_id = d.statement_id "
       tag_clause << Statement.extaggable_joins_clause
       tag_clause << "WHERE "
 
@@ -387,7 +394,6 @@ class StatementNode < ActiveRecord::Base
       tags_query = ''
       and_conditions = []
       and_conditions << "d.current = 1"
-      and_conditions << sanitize_sql(["s.type = '#{opts.delete(:type)}'"]) if opts[:type]
       unless opts[:show_unpublished]
         publish_condition = []
         publish_condition << sanitize_sql(["#{Statement.table_name}.editorial_state_id = ?",StatementState['published'].id])
@@ -396,6 +402,7 @@ class StatementNode < ActiveRecord::Base
       end
       and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]]) if opts[:language_ids]
       and_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]]) if opts[:drafting_states]
+      and_conditions << sanitize_sql(["s.type = ?", opts[:type]]) if opts[:type]
       if !search_term.blank?
         tags_query = []
         terms = search_term.split(/[,\s]+/)
@@ -405,13 +412,14 @@ class StatementNode < ActiveRecord::Base
           tags_query << (tag_clause + (and_conditions + ["(#{or_conditions})"]).join(" AND "))
         end
         tags_query = tags_query.join(" UNION ALL ")
-        statements_query = "SELECT #{table_name}.#{opts[:only_id] ? 'id' : '*'} " +
+        statements_query = "SELECT #{table_name}.#{opts[:only_id] ? search_attrs : '*'} " +
                            "FROM (#{tags_query}) statement_node_ids " +
-                           "LEFT JOIN #{table_name} ON #{table_name}.id = statement_node_ids.id " +
+                           "LEFT JOIN #{table_name} ON #{table_name}.id = statement_node_ids.#{search_attrs} " +
                            "LEFT JOIN #{Echo.table_name} e ON e.id = #{table_name}.echo_id " +
-                           "GROUP BY statement_node_ids.id " +
-                           "ORDER BY COUNT(statement_node_ids.id) DESC,e.supporter_count DESC, #{table_name}.created_at DESC;"
+                           "GROUP BY statement_node_ids.#{search_attrs} " +
+                           "ORDER BY COUNT(statement_node_ids.#{search_attrs}) DESC,e.supporter_count DESC, #{table_name}.created_at DESC;"
       else
+        and_conditions << "s.type = 'Question'" if opts[:type].nil?
         statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? 'id' : '*'} from #{table_name} s " +
                            "LEFT JOIN #{Statement.table_name} ON #{Statement.table_name}.id = s.statement_id " +
                            "LEFT JOIN #{StatementDocument.table_name} d ON s.statement_id = d.statement_id " +

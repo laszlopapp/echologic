@@ -131,7 +131,7 @@ class StatementsController < ApplicationController
       attrs.merge!({:root_id => StatementNode.find(parent_node_id).root_id}) if !parent_node_id.blank?
 
 
-      # Preapre in memory
+      # Prepare in memory
       @statement_node ||= @statement_node_type.new_instance(attrs)
       @statement_document = @statement_node.add_statement_document(
                             doc_attrs.merge({:original_language_id => doc_attrs[:language_id],
@@ -165,7 +165,6 @@ class StatementsController < ApplicationController
             # Propagating the creation event
             EchoService.instance.created(@statement_node)
             EchoService.instance.created(@statement_node.question) if @statement_node.question_id
-
             created = true
           end
         end
@@ -825,13 +824,12 @@ class StatementsController < ApplicationController
   #
   # search_term (String : optional) : text snippet to look for in the statements
   #
-  # for more info about attributes, please check the StatementNode.search_statement_nodes documentation
+  # for more info about attributes, please check the StatementNode.search_discussions documentation
   #
-  def search_statement_nodes(opts = {})
-    StatementNode.search_statement_nodes(opts.merge({:type => "Question",
-                                                     :user => current_user,
-                                                     :language_ids => @language_preference_list,
-                                                     :show_unpublished => current_user && current_user.has_role?(:editor)}))
+  def search_discussions(opts = {})
+    StatementNode.search_discussions(opts.merge({:user => current_user,
+                                                 :language_ids => @language_preference_list,
+                                                 :show_unpublished => current_user && current_user.has_role?(:editor)}))
   end
 
   #
@@ -996,12 +994,12 @@ class StatementsController < ApplicationController
        # get question siblings depending from the request's origin (key)
        # discuss search with no search results
        when 'ds' then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1].to_i * QUESTIONS_PER_PAGE
-                      sn = search_statement_nodes(:only_id => opts[:for_session]).paginate(:page => 1, :per_page => per_page)
+                      sn = search_discussions(:only_id => opts[:for_session]).paginate(:page => 1, :per_page => per_page)
                       opts[:for_session] ? sn.map(&:id) + ["/add/question"] : sn
        # discuss search with search results
        when 'sr'then value = value.split('|')
                      per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
-                     sn = search_statement_nodes(:search_term => value[0].gsub(/\\;/,',').gsub(/\\:;/, '|'),
+                     sn = search_discussions(:search_term => value[0].gsub(/\\;/,',').gsub(/\\:;/, '|'),
                                                  :only_id => opts[:for_session]).paginate(:page => 1, :per_page => per_page)
                      opts[:for_session] ? sn.map(&:id) + ["/add/question"] : sn
        # my discussions

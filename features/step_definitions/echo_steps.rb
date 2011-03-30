@@ -24,8 +24,8 @@ end
 Then /^the proposal should have ([^\"]*) supporters$/ do |supporter_count|
   @proposal.reload
   user_echos = UserEcho.count(:conditions => ["echo_id = ? and supported = 1", @proposal.echo.id])
-  assert supporter_count.to_i == user_echos
-  assert supporter_count.to_i == @proposal.echo.supporter_count
+  assert_equal supporter_count.to_i, user_echos
+  assert_equal supporter_count.to_i, @proposal.echo.supporter_count
 end
 
 Then /^the proposal should have ([^\"]*) visitors$/ do |visitor_count|
