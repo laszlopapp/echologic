@@ -1,5 +1,5 @@
-<div class='registry'>
-  <div id="reset_password" class='modal_form_container'>
+<div class='signinup_dialog'>
+  <div id="reset_password" class='signinup_container'>
      <%= content_tag :span, content_tag(:h1, I18n.t('users.password_reset.step2')), :class => 'password_resets logo'%>
 		 <p>
 		  <%= I18n.t('users.password_reset.step2_text') %>
@@ -14,13 +14,13 @@
 			    <%= f.label I18n.t('users.profile.password.confirm') %><br/>
 			    <%= f.password_field :password_confirmation %>
 			  </p>
-        
-        
+
+
         <%= tag('br');tag('br') %>
 				<%= f.submit I18n.t('users.password_reset.step2_ok'), :class => 'signinButton formButton300' %>
      </div>
      <div class='password_resets_container'>
-        
+
      </div>
      <% end %>
   </div>

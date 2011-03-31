@@ -5,7 +5,6 @@
 /* Write render output into JS variables for later use. */
 var content = "<%= escape_javascript(render(:partial => partial)) %>";
 
-
 $('#dialogContent').html(content);
 
 $('#dialogContent').dialog({
@@ -13,12 +12,8 @@ $('#dialogContent').dialog({
   modal:    true,
   close:    function() { $(this).dialog('destroy'); },
   buttons: {},
-  width:    900,
-  height:   600,
+  width:    850,
+  height:   540,
   resizable: false,
-  dialogClass: 'register_box'
-});
-
-$('#dialogContent').find('.close_button').bind('click', function (){
-  $('#dialogContent').dialog('close');
+  dialogClass: 'signinup_dialog'
 });

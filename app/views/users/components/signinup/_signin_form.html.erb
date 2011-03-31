@@ -13,10 +13,10 @@
                          :class => 'loginField' %><br/>
     <%= link_to I18n.t('users.signin.set_password'),
                 new_password_reset_path,
-                :class => "ajax bottomLabel" %>
+                :class => "ajax password_label" %>
   <% end %>
 
   <%= f.submit(I18n.t('users.signin.label'),
                :class => 'signinButton formButton200') %>
-  
+
 <% end %>

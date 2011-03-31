@@ -1,5 +1,5 @@
-<div class='registry'>
-  <div id="reset_password" class='modal_form_container'>
+<div class='signinup_dialog'>
+  <div id="reset_password" class='signinup_container'>
      <%= content_tag :span, content_tag(:h1, I18n.t('users.password_reset.step1')), :class => 'password_resets logo'%>
 		 <p>
 		  <%= I18n.t('users.password_reset.step1_text') %>
@@ -10,13 +10,13 @@
 			    <%= label_tag I18n.t('application.general.email') %><br/>
 			    <%= text_field_tag "email" %>
 			  </p>
-        
-        
+
+
         <%= tag('br');tag('br') %>
 				<%= submit_tag I18n.t('users.password_reset.step1_mail'), :class => 'signinButton formButton200' %>
      </div>
      <div class='password_resets_container'>
-        
+
      </div>
      <% end %>
   </div>
