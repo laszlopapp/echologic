@@ -73,7 +73,7 @@
   clear: right;
   float: right;
   padding: 13px 0 8px;
-  height: 55px;
+  height: 46px;
 
 }
 
@@ -82,19 +82,19 @@
   font-weight: bold;
   text-decoration: underline;
   position: relative;
-  top: 7px;
+  top: 4px;
 }
 
 #login_container .or_label {
   margin: 0 10px;
   position: relative;
-  top: 7px;
+  top: 4px;
 }
 
 #login_container .signin {
   text-decoration: underline;
   position: relative;
-  top: 7px;
+  top: 4px;
 }
 
 /* ------------------- */
@@ -105,7 +105,7 @@
   width:       945px;
   height:      165px;
   margin:      0 auto;
-  padding:     33px 23px 23px;
+  padding:     45px 23px 23px;
   z-index:     5;
   position:    relative;
   clear:       both;
