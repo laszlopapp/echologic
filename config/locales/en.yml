@@ -365,6 +365,8 @@ en:
           Made an echo via {{accounts}}.
         failed: |
           Failed via {{accounts}}.
+        timeout: |
+          Connection with {{accounts}} timed out!
         enabled: "On"
         disabled: "Off"
 

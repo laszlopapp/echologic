@@ -377,6 +377,8 @@ es:
           Made an echo via {{accounts}}.
         failed: |
           Failed via {{accounts}}.
+        timeout: |
+          Connection with {{accounts}} timed out!
         enabled: "On"
         disabled: "Off"
 
@@ -700,7 +702,7 @@ es:
       text: |-
         Por favor completa tu perfil <strong>por lo menos en un {{percentage}}%</strong>, para hacer feliz al servidor (HAL)
         y retirar este bloque ;-)
-      placeholder: 'Topic, place, organization or name of interest'
+    placeholder: 'Topic, place, organization or name of interest'
 
     segments:
       all: Todos
