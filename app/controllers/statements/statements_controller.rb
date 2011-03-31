@@ -828,9 +828,9 @@ class StatementsController < ApplicationController
   #
   def search_discussions(opts = {})
     languages ||= @language_preference_list
-    original_language = @statement_node.original_language
-    languages -= [original_language.id] if @statement_node and 
-                                           original_language.code != I18n.locale.to_s
+    if @statement_node
+      languages -= [original_language.id] if @statement_node.original_language.code != I18n.locale.to_s
+    end
     StatementNode.search_discussions(opts.merge({:user => current_user,
                                                  :language_ids => languages,
                                                  :show_unpublished => current_user && current_user.has_role?(:editor)}))
