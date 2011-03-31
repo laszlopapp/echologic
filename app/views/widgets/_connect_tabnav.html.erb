@@ -1,6 +1,3 @@
-<div class="roadmap_tab">
-	<%= image_tag("../images/page/icons/under_construction.png", :border => "none") %>
-</div>
 
 <%
 # Render submenu tabs for act section.
@@ -13,13 +10,6 @@ render_tabnav :connect,
     t.links_to hash_for_connect_search_path
     t.highlights_on :action => 'search'
     t.highlights_on :action => 'fill_out_profile'
-  end
-
-  add_tab :html => {:id => 'roadmap_tab'} do |t|
-    value = I18n.t('application.roadmap.title')
-    t.named value
-		t.links_to connect_roadmap_path
-		t.highlights_on :action => :roadmap
   end
 
 end
