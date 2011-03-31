@@ -389,6 +389,7 @@
 		    }
 
 		    // Get current_stack of visible statements (if any matches the clicked statement, then break)
+				var current_stack = [];
 		    $("#statements .statement").each( function(index){
 		      if (index < statement_index) {
 		        id = $(this).attr('id').split('_').pop();
