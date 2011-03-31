@@ -136,8 +136,8 @@ en:
     signup:
       label: 'Sign Up'
       member_tag: Not a member yet?
-      via_echo: '... for a new echo Account'
-      via_social: '... via another social account '
+      via_echo: '... for a new echo account'
+      via_social: '... via another social account'
       use_photo: 'Use in echo, too'
     setup_basic_profile:
       title: 'Setup Basic Profile'
@@ -148,7 +148,7 @@ en:
       password: 'Password'
       member_tag: Already a member?
       via_echo: '... via echo'
-      via_social: '... via another Account'
+      via_social: '... via another social account'
       set_password: Forgot your password?
       remember: Remember me!
       hello: Logged in<br/><strong>{{name}}</strong>
