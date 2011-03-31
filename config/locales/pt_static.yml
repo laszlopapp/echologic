@@ -98,7 +98,7 @@ pt:
             </p>
         action: |-
           Ir para o protótipo »<br/>
-          echo 0.14 está online.
+          echo 0.14 está online
 
       #About
       about:

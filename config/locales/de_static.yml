@@ -96,12 +96,12 @@ de:
             Ihre Stimme braucht ein Echo. echo braucht Ihre Stimme! Helfen Sie mit, die Demokratie in eine Zukunft
             zu führen, in der <strong>jede Stimme zählt</strong> – jeden Tag und überall auf der Welt.
             </p><p>
-            echo steckt zwar momentan noch in den Kinderschuhen, Sie können aber bereits jetzt:
+            echo steckt zwar momentan noch in den Kinderschuhen, Sie können aber bereits:
             </p>
 
         action: |-
           Jetzt zum Prototyp »<br/>
-          echo 0.14 ist online.
+          echo 0.14 ist online
 
       # about section
       about:
