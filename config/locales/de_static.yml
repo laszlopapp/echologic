@@ -109,6 +109,7 @@ de:
         tabs:
           project: Das Projekt
           team: Das Team
+          partners: Das Netzwerk
         text: |-
           <p>
           Hinter echo steht ein <strong><a id="about_team_link" href="#">internationales und interdisziplinäres Team</a></strong>
