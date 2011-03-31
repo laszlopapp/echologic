@@ -1,9 +1,9 @@
 class Development
 
   # Roadmap progress constants
-  DISCUSS_PROGRESS = 35
-  CONNECT_PROGRESS = 10
+  DISCUSS_PROGRESS = 40
+  CONNECT_PROGRESS = 15
   ACT_PROGRESS = 0
-  MY_ECHO_PROGRESS = 10
+  MY_ECHO_PROGRESS = 25
 
 end
