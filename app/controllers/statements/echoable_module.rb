@@ -100,8 +100,7 @@ module EchoableModule
         render_statement_with_info
       else
         @shortcut_url = ShortcutUrl.statement_shortcut :title => @statement_document.title,
-                                                       :operation => "statement_node",
-                                                       :id => @statement_node.id,
+                                                       :params => { :id => @statement_node.id },
                                                        :language => @statement_document.language.code
                                                        
         if !@shortcut_url
