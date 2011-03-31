@@ -337,7 +337,7 @@ class StatementNode < ActiveRecord::Base
       fields[:conditions] = children_conditions(opts)
       fields[:conditions] << sanitize_sql([" AND d.language_id IN (?) ", opts[:language_ids]]) if opts[:language_ids]
       fields[:conditions] << drafting_conditions if opts[:filter_drafting_state]
-      fields[:order] = "e.supporter_count DESC, #{table_name}.created_at DESC"
+      fields[:order] = "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id"
       fields
     end
 
@@ -417,7 +417,7 @@ class StatementNode < ActiveRecord::Base
                            "LEFT JOIN #{table_name} ON #{table_name}.id = statement_node_ids.#{search_attrs} " +
                            "LEFT JOIN #{Echo.table_name} e ON e.id = #{table_name}.echo_id " +
                            "GROUP BY statement_node_ids.#{search_attrs} " +
-                           "ORDER BY COUNT(statement_node_ids.#{search_attrs}) DESC,e.supporter_count DESC, #{table_name}.created_at DESC;"
+                           "ORDER BY COUNT(statement_node_ids.#{search_attrs}) DESC,e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id;"
       else
         and_conditions << "s.type = 'Question'" if opts[:type].nil?
         statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? 'id' : '*'} from #{table_name} s " +
@@ -425,7 +425,7 @@ class StatementNode < ActiveRecord::Base
                            "LEFT JOIN #{StatementDocument.table_name} d ON s.statement_id = d.statement_id " +
                            "LEFT JOIN #{Echo.table_name} e ON e.id = s.echo_id " +
                            "WHERE " + and_conditions.join(' AND ') + 
-                           " ORDER BY e.supporter_count DESC, s.created_at DESC;"
+                           " ORDER BY e.supporter_count DESC, s.created_at DESC, s.id;"
       end
       find_by_sql statements_query
     end
@@ -433,7 +433,7 @@ class StatementNode < ActiveRecord::Base
 
     def default_scope
       { :include => :echo,
-        :order => "echos.supporter_count DESC, #{table_name}.created_at DESC" }
+        :order => "echos.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id" }
     end
 
     ###################################
