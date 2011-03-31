@@ -1067,11 +1067,13 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   cursor: pointer;
 }
 
-.header:hover .prev_stmt:hover {
+.header:hover .prev_stmt:hover,
+.header .clicked .prev_stmt {
   background-position: 0 -39px;
 }
 
-.header:hover .next_stmt:hover {
+.header:hover .next_stmt:hover,
+.header .clicked .next_stmt {
   background-position: -37px -39px;
 }
 

@@ -59,7 +59,7 @@
             var new_tags = new Array(0);
             while (entered_tags.length > 0) {
               var tag = entered_tags.shift().trim();
-              if (existing_tags.indexOf(tag) < 0 && entered_tags.indexOf(tag) < 0) {
+              if ($.inArray(tag,existing_tags) < 0 && $.inArray(tag,entered_tags) < 0) {
                 if (tag.localeCompare(' ') > 0) {
                   var element = createTagButton(tag, ".question_tags");
                   $('#question_tags_values').append(element);
@@ -92,7 +92,7 @@
 					var form_tags = taggable.find(tags_class).val();
 					form_tags = form_tags.split(',');
           form_tags = $.map(form_tags,function(q){return q.trim()});
-          var index_to_delete = form_tags.indexOf(tag_to_delete);
+          var index_to_delete = $.inArray(tag_to_delete,form_tags);
           if (index_to_delete >= 0) {
             form_tags.splice(index_to_delete, 1);
           }

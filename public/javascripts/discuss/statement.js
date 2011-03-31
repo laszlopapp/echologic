@@ -74,6 +74,7 @@
 					initAddNewButton();
           initMoreButton();
           initAllStatementLinks();
+					initFlicks();
 					initAllFUQLinks();
         }
       }
@@ -218,7 +219,7 @@
 		    // Get siblings ids
 		    var siblingIds = $("div#statements").data(siblingsKey);
 				// Get index of the prev/next sibling
-		    var targetIndex = (siblingIds.indexOf(currentStatementId) + inc + siblingIds.length) % siblingIds.length;
+				var targetIndex = ($.inArray(currentStatementId,siblingIds) + inc + siblingIds.length) % siblingIds.length;
 
 		    var targetStatementId = new String(siblingIds[targetIndex]);
 				if (targetStatementId.match('add')) {
@@ -258,6 +259,33 @@
 					moreButton.replaceWith($('<span/>').text(moreButton.text()).addClass('more_loading'));
 		    });
 		  }
+
+      /*
+       * Sets the different links on the statement UI, after the user clicked on them.
+       */
+      function initFlicks(){
+	     statement.detectFlicks({
+         axis: 'x',
+         threshold: 60,
+         flickEvent: function(d) 
+				 { 
+				   alert('flick detected: ' + d.direction);
+					 var button = null;
+					 switch(d.direction) {
+					 	case 'left2right' :
+						  button = statement.find('.header a.next');
+						  break;
+					  case 'right2left' :
+						  button = statement.find('.header a.prev');
+						  break;
+					 }
+					 if (button) {
+					 	button.addClass('clicked');
+						button.click();
+					 }
+         }
+        });
+	    }
 
 		  /*
 		   * Sets the different links on the statement UI, after the user clicked on them.
