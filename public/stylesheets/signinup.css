@@ -1,6 +1,8 @@
+
 .registry {
 	position: relative;
 }
+
 .modal_form_container {
 	width: 870px;
 	line-height: 4.5em;
@@ -16,11 +18,11 @@
 }
 
 .modal_form_container .logo.sign_in {
-	
+
 }
 
 .modal_form_container .logo.sign_up {
-  
+
 }
 
 .modal_form_container .logo.password_resets {
@@ -61,8 +63,6 @@
   float: left; {
 	padding-top: 137px;
 }
-
-
 
 .registry .close_button {
 	display: block;
