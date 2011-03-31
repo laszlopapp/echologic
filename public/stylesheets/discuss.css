@@ -368,9 +368,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   left: 22px;
 }
 
-.questions_container ul {
-	height: 900px;
-}
 
 .questions_container li.question {
 	display: inline-block;
@@ -387,7 +384,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   height: 20px;
   position: relative;
   top: 0px;
-  width: 590px;
+  width: 566px;
 	margin-bottom: 9px;
 }
 .questions_container li.question .top_area .statement_link {

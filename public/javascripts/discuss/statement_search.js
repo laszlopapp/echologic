@@ -43,7 +43,7 @@
       function initialise() {
         initRatioBars(search_container);
 				initMoreButton();
-				initScrollPane();
+				//initScrollPane();
       }
 			
 			function initRatioBars(container) {
@@ -100,10 +100,9 @@
         }, 
 				insertContent: function(content, pagination_buttons, page)
 				{
-					var scrollpane = elements_list.data('jsp');
-					children_list = scrollpane.getContentPane();
+					children_list = $("#questions_container .content ul");
 					if (page == 1) {
-				  	children_list.find('li').remove();
+				  	children_list.children().remove();
 				  }
 					children_list.append(content);
 					if (pagination.length > 0) {
@@ -113,8 +112,6 @@
 					}
 					pagination = pagination_buttons;
 					
-					scrollpane.reinitialise();
-          scrollpane.scrollToBottom();
 					initRatioBars(children_list);
 					initMoreButton();
 				}
