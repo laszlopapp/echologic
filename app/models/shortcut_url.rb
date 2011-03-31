@@ -41,7 +41,7 @@ class ShortcutUrl < ActiveRecord::Base
     def discuss_search_shortcut(opts={})
       command = ShortcutCommand.build_command(:operation => "discuss_search",
                                               :params => opts[:params],
-                                              :language => :opts[:language])
+                                              :language => opts[:language])
       ShortcutUrl.find_or_create(:shortcut => opts[:title],
                                  :human_readable => true,
                                  :shortcut_command => {:command => command})
@@ -50,7 +50,7 @@ class ShortcutUrl < ActiveRecord::Base
     def statement_shortcut(opts={})
       command = ShortcutCommand.build_command(:operation => "statement_node",
                                               :params => opts[:params],
-                                              :language => :opts[:language])
+                                              :language => opts[:language])
       ShortcutUrl.find_or_create(:shortcut => opts[:title],
                                  :human_readable => true,
                                  :shortcut_command => {:command => command})
