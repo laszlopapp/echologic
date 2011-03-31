@@ -400,6 +400,8 @@ fr:
           Made an echo via {{accounts}}.
         failed: |
           Failed via {{accounts}}.
+        timeout: |
+          Connection with {{accounts}} timed out!
         enabled: "On"
         disabled: "Off"
 
@@ -727,7 +729,7 @@ fr:
       text: |-
         Veuillez établir votre profil <strong>au moins à {{percentage}}%</strong> pour "faire plaisir à notre logiciel"
         et pour faire disparaître cette partie.
-      placeholder: 'Topic, place, organization or name of interest'
+    placeholder: 'Topic, place, organization or name of interest'
 
     segments:
       all: Tous

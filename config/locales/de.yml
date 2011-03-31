@@ -369,6 +369,8 @@ de:
           Made an echo via {{accounts}}.
         failed: |
           Failed via {{accounts}}.
+        timeout: |
+          Connection with {{accounts}} timed out!
         enabled: "On"
         disabled: "Off"
 
@@ -687,7 +689,7 @@ de:
 
     fill_out_profile:
       text: Bitte füllen Sie Ihr Profil <strong>mindestens zu {{percentage}}%</strong> aus, um "den Rechner" glücklich zu machen und diesen Block verschwinden zu lassen. :-)
-      placeholder: 'Topic, place, organization or name of interest'
+    placeholder: 'Topic, place, organization or name of interest'
 
     segments:
       all: Alle

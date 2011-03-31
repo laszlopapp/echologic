@@ -4,7 +4,7 @@ class StatementsControllerTest < ActionController::TestCase
   def setup
     login_as :editor
     @controller = StatementsController.new
-    flexmock(SocialService.instance).should_receive(:share_activities).with(Hash, Hash).and_return(['facebook', 'twitter'])
+    flexmock(SocialService.instance).should_receive(:share_activities).with(Hash, Hash).and_return({:success => ['facebook', 'twitter'], :failed => ['linkedin'], :timeout => []})
   end
 
   #####################
@@ -414,9 +414,9 @@ class StatementsControllerTest < ActionController::TestCase
                     }
       assert_not_nil assigns(:shortcut_url)
       assert_equal "test-question", assigns(:shortcut_url).shortcut
-      assert assigns(:providers_success).include?('facebook')
-      assert assigns(:providers_success).include?('twitter')
-      assert assigns(:providers_failed).empty?
+      assert assigns(:providers_status)[:success].include?('facebook')
+      assert assigns(:providers_status)[:success].include?('twitter')
+      assert assigns(:providers_status)[:failed].empty?
     end
   end
 
@@ -429,9 +429,9 @@ class StatementsControllerTest < ActionController::TestCase
                     }
       assert_not_nil assigns(:shortcut_url)
       assert_equal "test-question", assigns(:shortcut_url).shortcut
-      assert assigns(:providers_success).include?('facebook')
-      assert assigns(:providers_success).include?('twitter')
-      assert assigns(:providers_failed).include?('linkedin')
+      assert assigns(:providers_status)[:success].include?('facebook')
+      assert assigns(:providers_status)[:success].include?('twitter')
+      assert assigns(:providers_status)[:failed].include?('linkedin')
     end
   end
 

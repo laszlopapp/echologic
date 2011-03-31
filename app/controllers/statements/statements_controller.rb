@@ -827,8 +827,13 @@ class StatementsController < ApplicationController
   # for more info about attributes, please check the StatementNode.search_discussions documentation
   #
   def search_discussions(opts = {})
+    languages ||= @language_preference_list
+    if opts[:node] and !opts[:node].new_record?
+      original_language = opts[:node].original_language
+      languages -= [original_language.id] if original_language.code != I18n.locale.to_s
+    end
     StatementNode.search_discussions(opts.merge({:user => current_user,
-                                                 :language_ids => @language_preference_list,
+                                                 :language_ids => languages,
                                                  :show_unpublished => current_user && current_user.has_role?(:editor)}))
   end
 
@@ -994,13 +999,13 @@ class StatementsController < ApplicationController
        # get question siblings depending from the request's origin (key)
        # discuss search with no search results
        when 'ds' then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1].to_i * QUESTIONS_PER_PAGE
-                      sn = search_discussions(:only_id => opts[:for_session]).paginate(:page => 1, :per_page => per_page)
+                      sn = search_discussions(:only_id => opts[:for_session], :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
                       opts[:for_session] ? sn.map(&:id) + ["/add/question"] : sn
        # discuss search with search results
        when 'sr'then value = value.split('|')
                      per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
                      sn = search_discussions(:search_term => value[0].gsub(/\\;/,',').gsub(/\\:;/, '|'),
-                                                 :only_id => opts[:for_session]).paginate(:page => 1, :per_page => per_page)
+                                                 :only_id => opts[:for_session], :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
                      opts[:for_session] ? sn.map(&:id) + ["/add/question"] : sn
        # my discussions
        when 'mi' then sn = Question.by_creator(current_user).by_creation
@@ -1023,7 +1028,7 @@ class StatementsController < ApplicationController
       per_page = opts[:per_page].to_i == -1 ? roots.length : opts[:per_page].to_i
       per_page = 1 if per_page == 0 # in case roots is an empty array
       @children = {}
-      type = @current_node.class.name
+      type = opts[:node].nil? ? @type : opts[:node].class.name 
       @children[type.to_sym] = roots.paginate :page => opts[:page].to_i, :per_page => per_page
 
       @children_documents = search_statement_documents :statement_ids => @children[type.to_sym].flatten.map(&:statement_id)

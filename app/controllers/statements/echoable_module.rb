@@ -124,11 +124,10 @@ module EchoableModule
             social = current_user.has_provider?(prov)
             hash[prov] = social if social
           }
-          @providers_success = SocialService.instance.share_activities(providers_hash, opts)
-          @providers_failed = providers - @providers_success
+          @providers_status = SocialService.instance.share_activities(providers_hash, opts)
           respond_to do |format|
-            %w(success failed).each do |state|
-              providers_state = eval("@providers_#{state}")
+            %w(success failed timeout).each do |state|
+              providers_state = @providers_status[state.to_sym]
               set_info("users.social_accounts.share.#{state}", :accounts => providers_state.map {|c|
                 I18n.t("users.social_accounts.providers.#{c}")
               }.join("/")) if !providers_state.empty?

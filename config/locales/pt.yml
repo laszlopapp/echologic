@@ -363,6 +363,8 @@ pt:
           Made an echo via {{accounts}}.
         failed: |
           Failed via {{accounts}}.
+        timeout: |
+          Connection with {{accounts}} timed out!
         enabled: "On"
         disabled: "Off"
 
@@ -674,7 +676,7 @@ pt:
 
     fill_out_profile:
       text: Por favor preencha <strong>pelo menos {{percentage}}%</strong> do seu perfil para fazer a vontado ao "HAL" e fazer este bloco desaparecer. :-)
-      placeholder: 'Topic, place, organization or name of interest'
+    placeholder: 'Topic, place, organization or name of interest'
 
     segments:
       all:       'Todos'

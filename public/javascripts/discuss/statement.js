@@ -422,16 +422,18 @@
 					initMoreButton();
           initChildrenLinks(container);
           initFUQChildrenLinks(container);
-					var echoableApi = statement.data('echoableApi');
-					echoableApi.loadRatioBars(container);
+					if (isEchoable) {
+            statement.data('echoableApi').loadRatioBars(container);
+          }
 				},
 
 				reinitialiseSiblings: function(siblingsContainerSelector) {
           var container = statement.find(siblingsContainerSelector);
           initSiblingsLinks(container);
           initFUQSiblingsLinks(container);
-					var echoableApi = statement.data('echoableApi');
-          echoableApi.loadRatioBars(container);
+					if (isEchoable) {
+			  		statement.data('echoableApi').loadRatioBars(container);
+				  }
         },
 
         insertContent: function(content) {
