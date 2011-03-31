@@ -98,8 +98,9 @@ en:
             </p>
 
         action: |-
-          The NEW echo is ONLINE!<br/>
-          Check out prototype »
+          Check out prototype »<br/>
+          echo 0.14 is online.
+
 
       #About
       about:

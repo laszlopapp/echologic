@@ -100,8 +100,8 @@ de:
             </p>
 
         action: |-
-          Das NEUE echo ist ONLINE!<br/>
-          Jetzt zum Prototyp »
+          Jetzt zum Prototyp »<br/>
+          echo 0.14 ist online.
 
       # about section
       about:

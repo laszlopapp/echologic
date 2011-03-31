@@ -104,9 +104,8 @@ fr:
             </p>
 
         action: |-
-          La nouvelle echo est ON-LINE<br/>
-          Essayez le prototype »
-
+          Essayez le prototype »<br/>
+          echo 0.14 est on-line.
 
       # about section
       about:

@@ -96,10 +96,9 @@ pt:
             </p><p>
             A echo encontra-se de momento ainda a dar os seus primeiros passos. No entanto, já é possível:
             </p>
-
         action: |-
-          O novo echo está ONLINE<br/>
-          Ir para o protótipo »
+          Ir para o protótipo »<br/>
+          echo 0.14 está online.
 
       #About
       about:
