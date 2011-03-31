@@ -127,7 +127,7 @@ module ApplicationHelper
     content
   end
 
-  def signing_header(type)
+  def signinup_header(type)
     content = ''
     content << content_tag(:span, content_tag(:h2, I18n.t("users.#{type}.via_echo")), :class => 'box_label')
     content << I18n.t('application.general.or')

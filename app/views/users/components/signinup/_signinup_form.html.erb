@@ -4,9 +4,9 @@
                   :class => "#{type} logo"%>
 	<%= toggle_form_field(type) %>
 
-	<%= signing_header(type) %>
+	<%= signinup_header(type) %>
   <div class='<%= type %>_container'>
-  	<%= render :partial => "users/components/signings/#{type}_form"%>
+  	<%= render :partial => "users/components/signinup/#{type}_form"%>
   </div>
   <div class='<%= type %>_container'>
   	<%= send("#{type}_social_link")%>
