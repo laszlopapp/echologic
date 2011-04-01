@@ -53,8 +53,8 @@ module Users::SocialModule
                                          :account => account_name)
           end
         else
-          redirect_or_render_with_error(redirect_url,
-                                        "users.social_accounts.connect.failed",
+          redirect_or_render_with_error(redirect_url, 
+                                        social_id, 
                                         :account => account_name)
         end
       end
