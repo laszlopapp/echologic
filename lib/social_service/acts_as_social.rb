@@ -48,7 +48,7 @@ module ActiveRecord
 
             def delete_social_accounts
               self.social_identifiers.each do |social|
-                SocialService.unmap(social.identifier, self.id)
+                SocialService.instance.unmap(social.identifier, self.id)
               end
               self.social_identifiers.destroy_all
             end
