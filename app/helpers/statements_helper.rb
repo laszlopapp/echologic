@@ -170,7 +170,8 @@ module StatementsHelper
     bids = bids ? bids.split(",") : []
     bids << "fq#{statement_node.id}"
     content_tag(:div, add_new_child_link(statement_node, "follow_up_question",
-                                         :bids => bids.join(",")),
+                                                         :bids => bids.join(","), 
+                                                         :origin => params[:origin]),
                 :class => 'children container')
   end
 
