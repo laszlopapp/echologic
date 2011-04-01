@@ -51,7 +51,7 @@ class Users::PasswordResetsController < ApplicationController
       if @user.save
         redirect_with_info(root_path, 'users.password_reset.messages.reset_success')
       else
-        set_error 'users.password_reset.messages.reset_failed'
+        set_error @user#'users.password_reset.messages.reset_failed'
         later_call_with_error(root_path, request.referer, @user)
       end
     rescue Exception => e
