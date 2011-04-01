@@ -827,10 +827,12 @@ class StatementsController < ApplicationController
   # for more info about attributes, please check the StatementNode.search_discussions documentation
   #
   def search_discussions(opts = {})
-    languages ||= @language_preference_list
-    if opts[:node] and !opts[:node].new_record?
+    languages = @language_preference_list
+    if current_user and opts[:node] and !opts[:node].new_record?
+      # VERY IMP: remove statement original language if user doesn't speak it
       original_language = opts[:node].original_language
-      languages -= [original_language.id] if original_language.code != I18n.locale.to_s
+      languages -= [original_language.id] if original_language.code.to_s != I18n.locale and 
+                                             !current_user.sorted_spoken_languages.include?(original_language.id) 
     end
     StatementNode.search_discussions(opts.merge({:user => current_user,
                                                  :language_ids => languages,
