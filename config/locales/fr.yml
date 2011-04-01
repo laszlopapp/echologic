@@ -193,16 +193,15 @@ fr:
       step2: Indiquez un nouveau mot de passe
       step1_text: |
         <p>
-        <strong>Vous avez oublié votre mot de passe</strong> ou voulez vous un nouveau mot de passe?
+        Vous avez oublié votre mot de passe ou voulez vous un nouveau mot de passe?
         </p><p>
-        C'est simple! Indiquez simplement l' adresse <strong>E-Mail</strong>, avec laquelle vous vous êtes enregistré(e).
-        Nous vous enverrons ensuite un courriel vous permettant de réinitialiser <strong>votre mot de passe</strong>.
+        C'est simple! Indiquez simplement l' adresse E-Mail, avec laquelle vous vous êtes enregistré(e).
+        Nous vous enverrons ensuite un courriel vous permettant de réinitialiser votre mot de passe.
         </p>
       step1_mail: Envoyer un courriel
-
       step2_text: |
-        Veuillez indiquer <strong>le nouveau mot de passe</strong> avec lequel vous souhaitez vous inscrire à echo.
-      step2_ok: Indiquer un mot de passe et connectez-vous
+        Veuillez indiquer le nouveau mot de passe avec lequel vous souhaitez vous inscrire à echo.
+      step2_ok: Indiquer un mot de passe
       messages:
         success: |
           Nous vous avons envoyé un courriel vous permettant de réinitialiser votre mot de passe.

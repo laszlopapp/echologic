@@ -178,14 +178,13 @@ pt:
       step1: Requerir nova senha
       step2: Definir nova senha
       step1_text: |
-        <strong>Esqueceu-se da sua senha</strong> e gostaria de definir uma nova?<br/><br/>
-        Sem problema! Preencha este campo apenas com o endereço de <strong>E-Mail</strong> com o qual está autenticado na echo.<br/>
-        Nós enviar-lhe-emos um E-mail em breve possibilitando-lhe <strong>definir a nova senha</strong>.
+        <p>Esqueceu-se da sua senha e gostaria de definir uma nova?</p>
+        <p>Sem problema! Preencha este campo apenas com o endereço de E-Mail com o qual está autenticado na echo.
+        Nós enviar-lhe-emos um E-mail em breve possibilitando-lhe definir a nova senha.</p>
       step1_mail: Enviar E-Mail
-
       step2_text: |
-        Por favor defina <strong>a nova senha</strong> que gostaria de usar para se autenticar na echo.
-      step2_ok: Defina a senha e autentique-se
+        Por favor defina a nova senha que gostaria de usar para se autenticar na echo.
+      step2_ok: Defina a senha
       messages:
         success: "Enviámos-lhe um E-mail possibilitando-lhe redefinir a sua senha. Por favor dê uma olhada na sua caixa de entrada."
         not_found: "Endereço de E-Mail desconhecido."

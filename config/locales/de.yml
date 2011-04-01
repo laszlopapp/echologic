@@ -179,16 +179,16 @@ de:
       step1: Neues Passwort anfordern
       step2: Neues Passwort setzen
       step1_text: |
-        <p><strong>Haben Sie Ihr Passwort vergessen</strong> oder möchten Sie einfach ein neues?
+        <p>Haben Sie Ihr Passwort vergessen oder möchten Sie einfach ein neues?
         </p><p>
-        Kein Problem! Tragen Sie einfach Ihre <strong>E-Mail</strong> Adresse ein, mit der Sie sich auf echo angemeldet haben.
-        Wir schicken Ihnen anschließend eine E-Mail, die es Ihnen ermöglicht <strong>Ihr Passwort neu zu setzen</strong>.
+        Kein Problem! Tragen Sie einfach Ihre E-Mail Adresse ein, mit der Sie sich auf echo angemeldet haben.
+        Wir schicken Ihnen anschließend eine E-Mail, die es Ihnen ermöglicht Ihr Passwort neu zu setzen.
         </p>
       step1_mail: E-Mail verschicken
 
       step2_text: |
-        Bitte tragen Sie <strong>Ihr neues Passwort</strong> ein, mit dem Sie sich in echo einloggen möchten.
-      step2_ok: Passwort setzen und einloggen
+        Bitte tragen Sie Ihr neues Passwort ein, mit dem Sie sich in echo einloggen möchten.
+      step2_ok: Passwort setzen
       messages:
         success:        'Wir haben Ihnen eine E-Mail zugesandt, die es Ihnen ermöglicht Ihr Passwort neu zu setzen.<br/>Bitte sehen Sie Ihrem Posteingang nach.'
         not_found:      'Die angegebene E-Mail Adresse wurde nicht gefunden.'

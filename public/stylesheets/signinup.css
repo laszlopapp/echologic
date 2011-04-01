@@ -5,7 +5,7 @@
 
 .signinup_container {
   position: relative;
-	width: 870px;
+	width: 100%;
   cursor: default;
 }
 
@@ -114,6 +114,19 @@
 	float: right;
 	height: 250px;
   margin-right: -40px;
+}
+
+
+/* Password resets panel */
+
+#reset_password .header.block {
+  margin-bottom: 20px;
+}
+
+.signinup_container .guide.block {
+  margin: 0 20px 10px;
+  position: relative;
+  width: 770px;
 }
 
 .setup_basic_profile_container, .password_resets_container {
