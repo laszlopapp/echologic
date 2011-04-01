@@ -14,7 +14,6 @@ module Users::SocialModule
                                                           :provider_name => profile_info['providerName'],
                                                           :profile_info => profile_info.to_json )] }
 
-
       User.transaction do
         if @user.signup!(opts)
           SocialService.instance.map(profile_info['identifier'], @user.id)

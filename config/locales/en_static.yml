@@ -98,8 +98,9 @@ en:
             </p>
 
         action: |-
-          The NEW echo is ONLINE!<br/>
-          Check out prototype »
+          Check out prototype »<br/>
+          echo 0.14 is online
+
 
       #About
       about:
@@ -107,7 +108,7 @@ en:
         tabs:
           project: The Project
           team: The Team
-          partners: The Partners
+          partners: The Network
         text: |-
           <p>
           echo is driven forward by an <strong><a id="about_team_link" href="#">international, interdisciplinary team</a>

@@ -1,0 +1,22 @@
+<% form_for @user_session, :url => user_sessions_path,
+            :html => {:id => 'new_login_form',
+                      :class => "echoForm ajax_form"} do |f| %>
+
+  <% content_tag :p do %>
+    <%= content_tag :label, I18n.t('application.general.email') %><br/>
+    <%= f.text_field :email, :class => 'loginField' %>
+  <% end %>
+
+  <% content_tag :p do %>
+    <%= content_tag :label, I18n.t('users.signin.password') %><br/>
+    <%= f.password_field :password,
+                         :class => 'loginField' %><br/>
+    <%= link_to I18n.t('users.signin.set_password'),
+                new_password_reset_path,
+                :class => "ajax password_label" %>
+  <% end %>
+
+  <%= f.submit(I18n.t('users.signin.label'),
+               :class => 'signinButton formButton200') %>
+
+<% end %>

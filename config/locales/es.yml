@@ -178,16 +178,15 @@ es:
       step1: Solicitar nueva contraseña
       step2: Definir nueva contraseña
       step1_text: |
-        <p><strong>Has olvidado tu contraseña</strong> o simplemente deseas cambiarla?
+        <p>Has olvidado tu contraseña o simplemente deseas cambiarla?
         </p><p>
-        No hay problema! Sólo tienes que introducir tu <strong>dirección de correo electrónico</strong> con la que estás registrado en echo.
-        Te enviaremos un correo electrónico que te permitirá <strong>definir una nueva contraseña</strong>.
+        No hay problema! Sólo tienes que introducir tu dirección de correo electrónico con la que estás registrado en echo.
+        Te enviaremos un correo electrónico que te permitirá definir una nueva contraseña.
         </p>
       step1_mail: Enviar correo electrónico
-
       step2_text: |
-        Por favor, introduce <strong>una nueva contraseña</strong> con la que entrarás en echo la próxima vez.
-      step2_ok: Definir contraseña y entrar
+        Por favor, introduce una nueva contraseña con la que entrarás en echo la próxima vez.
+      step2_ok: Definir contraseña
       messages:
         success:        'Te enviamos un correo electrónico, que te permite definir una nueva contraseña.<br/>Por favor, comprueba tu cuenta de correo.'
         not_found:      'No se ha encontrado la dirección electrónica indicada.'

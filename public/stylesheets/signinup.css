@@ -1,0 +1,131 @@
+
+.signinup_dialog {
+  overflow: hidden;
+}
+
+.signinup_container {
+  position: relative;
+	width: 100%;
+  cursor: default;
+}
+
+.signinup_container .block {
+  display: inline-block;
+}
+
+.signinup_container .header.block {
+  margin-bottom: 35px;
+  width: 800px;
+}
+
+.signinup_container .symbol {
+  background: url(../images/page/echo_o.png) no-repeat bottom left;
+  width: 120px;
+  height: 105px;
+  margin: 5px 15px 0 0;
+  display: inline-block;
+  float: left;
+}
+
+.signinup_title {
+  font-size: 30px;
+  font-weight: bold;
+  position: relative;
+  top: 39px;
+}
+
+.signinup_toggle_label {
+  float: right;
+  position: relative;
+  top: 50px;
+}
+
+.toggle_arrow {
+  float: right;
+  position: relative;
+  top: 50px;
+  margin: 0 20px;
+}
+
+.signinup_toggle_button {
+  float: right;
+  position: relative;
+  top: 35px;
+}
+
+.signinup_container .label.block {
+  margin: 0 20px 40px;
+  position: relative;
+  width: 770px;
+}
+
+.signinup_container .label.block .echo_label {
+  width: 320px;
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.signinup_container .label.block .or_holder {
+  position: absolute;
+  left: 320px;
+  top: 5px;
+  width: 64px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.signinup_container .label.block .or_label {
+}
+
+.signinup_container .label.block .social_label {
+  width: 320px;
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  right: 0;
+  text-align: right;
+}
+
+.signinup_label {
+	display: inline-block;
+  width: 170px;
+  display: inline-block;
+}
+
+.signinup_container .form.block {
+  margin: 0 20px;
+  width: 770px;
+}
+
+.signinup_container .echo_container {
+  float: left;
+  width: 350px;
+	height: 230px;
+  border-right: 3px dotted #AAA;
+}
+
+.signinup_container .echo_container .password_label {
+  font-size: 11px;
+}
+
+.signinup_container .social_container {
+	float: right;
+	height: 250px;
+  margin-right: -40px;
+}
+
+
+/* Password resets panel */
+
+#reset_password .header.block {
+  margin-bottom: 20px;
+}
+
+.signinup_container .guide.block {
+  margin: 0 20px 10px;
+  position: relative;
+  width: 770px;
+}
+

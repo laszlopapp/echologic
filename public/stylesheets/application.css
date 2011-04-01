@@ -464,7 +464,7 @@
 
 
 .big_button {
-  color: #FFF;
+  color: #FFF !important;
   font-size: 15px;
   font-weight: bold;
   display: inline-block;

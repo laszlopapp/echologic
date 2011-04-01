@@ -100,11 +100,9 @@ es:
             </p><p>
             Aunque echo todavía está empezando a gatear, ya puedes:
             </p>
-
         action: |-
-          El nuevo echo está ON-LINE<br/>
-          Al prototipo »
-
+          Al prototipo »<br/>
+          echo 0.14 está on-line
 
       # about section
       about:

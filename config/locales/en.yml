@@ -137,7 +137,7 @@ en:
       label: 'Sign Up'
       member_tag: Not a member yet?
       via_echo: '... for a new echo account'
-      via_social: '... via another social account'
+      via_social: '... via another account'
       use_photo: 'Use in echo, too'
     setup_basic_profile:
       title: 'Setup Basic Profile'
@@ -148,7 +148,7 @@ en:
       password: 'Password'
       member_tag: Already a member?
       via_echo: '... via echo'
-      via_social: '... via another social account'
+      via_social: '... via another account'
       set_password: Forgot your password?
       remember: Remember me!
       hello: Logged in<br/><strong>{{name}}</strong>
@@ -181,14 +181,14 @@ en:
       step1: Require new password
       step2: Define new password
       step1_text: |
-        <strong>Forgot your password</strong> or you would simply like to define a new one?<br/><br/>
-        No problem! Just fill in your <strong>E-Mail</strong> address you used to sign up to echo.<br/>
-        We will send you an E-mail shortly allowing you <strong>to define a new password</strong>.
+        <p>Forgot your password or you would simply like to define a new one?</p>
+        <p>No problem! Just fill in your E-Mail address you used to sign up to echo.
+        We will send you an E-mail shortly allowing you to define a new password</p>.
       step1_mail: Send E-Mail
 
       step2_text: |
-        Please define <strong>your new password</strong> you would like to use to log in to echo.
-      step2_ok: Set password and log in
+        Please define your new password you would like to use to log in to echo.
+      step2_ok: Set new password
       messages:
         success: "We have sent you an E-mail allowing you to reset your password. Please check your inbox."
         not_found: "Unknown E-Mail address."

@@ -33,10 +33,12 @@ class Users::UserSessionsController < ApplicationController
     redirect_url = session[:redirect_url] || root_path
     begin
       profile_info = SocialService.instance.get_profile_info(params[:token])
-      user = profile_info['primaryKey'].nil? ? User.find_by_social_identifier(profile_info['identifier']) : User.find(profile_info['primaryKey'])
 
-      if user.nil?
+      user = nil
+      if profile_info['primaryKey'].nil? or (user = User.find(profile_info['primaryKey'])).nil?
         session[:identifier] = profile_info.to_json
+        invalid_social = SocialIdentifier.find_by_identifier(profile_info['identifier'])
+        invalid_social.destroy if invalid_social
         later_call_with_error(redirect_url, signin_path, 'users.signin.messages.failed_social')
       else
         if social = user.identified_by?(profile_info['identifier'])
