@@ -37,6 +37,9 @@ class RpxService
     data = api_call 'all_mappings', :apiKey => RPX_API_KEY
     data['mappings']
   end
+  def delete_mappings(key)
+    api_call 'unmap', :all_identifiers => true, :primaryKey => key
+  end
   def signin_url(dest)
     "#{rp_url}/openid/signin?token_url=#{CGI.escape(dest)}"
   end
