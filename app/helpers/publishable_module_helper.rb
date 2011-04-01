@@ -79,8 +79,8 @@ module PublishableModuleHelper
   end
   
   def format_description(text)
-    l = text.length
-    l > 300 ? Sanitize.clean("#{text[0..150].strip} ... #{text[l-151..-1].strip}") : Sanitize.clean(text)
+    s_text = Sanitize.clean(text)
+    s_text.length > 300 ? "#{s_text[0..150].strip} ... #{s_text[s_text.length-151..-1].strip}" : s_text
   end
 
   #
