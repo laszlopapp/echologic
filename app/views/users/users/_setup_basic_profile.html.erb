@@ -27,7 +27,7 @@
         <%= f.submit I18n.t('application.general.save'), :class => 'signinButton formButton200' %><br/>
 		 </div>
 		 <div class='setup_basic_profile_container'>
-		 	  <% if !@profile_info['photo'].blank? %>
+		 	  <% if @profile_info and !@profile_info['photo'].blank? %>
 			 	  <%= image_tag @profile_info['photo'], :class => 'photo' %>
 					<%= check_box_tag "user[avatar_url]", @profile_info['photo'], nil,
                             :class => "avatar" %>

@@ -261,7 +261,7 @@ class User < ActiveRecord::Base
   # invalidate all user echos.
   #
   def delete_account
-    self.profile.destroy
+    self.profile.destroy if self.profile
     self.memberships.each(&:destroy)
     self.spoken_languages.each(&:destroy)
     self.tao_tags.each(&:destroy)
