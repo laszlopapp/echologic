@@ -37,8 +37,8 @@ class SocialService
     @service.unmap(identifier, key)
   end
 
-  def all_mappings(primary_key)
-    @service.all_mappings(primary_key)
+  def all_mappings
+    @service.all_mappings
   end
 
   def share_activities(providers, opts={})
@@ -52,7 +52,7 @@ class SocialService
       t.join(10)
     end
     threads.each do |t|
-      if t.terminated? 
+      if t.terminated?
        providers_status[t.succeeded? ? :success : :failed] << t.provider
       else
         providers_status[:timeout] << t.provider
