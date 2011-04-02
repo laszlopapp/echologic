@@ -77,11 +77,18 @@ module PublishableModuleHelper
       ''
     end
   end
-  
+
   def format_description(text)
     s_text = Sanitize.clean(text)
-    s_text.length > 300 ? "#{s_text[0..150].strip} ... #{s_text[s_text.length-151..-1].strip}" : s_text
+    s_text.mb_chars.length > 200 ? word_truncate(s_text, 100, 150) : s_text
   end
+
+  # To be used to strip the rest letters of last / first words.
+  def word_truncate(text, start_length, end_length, delimiter = ' ...<br/>... ')
+    text.mb_chars.length <= start_length + end_length ? text :
+      text[/\A.{#{start_length}}\w*/m] + delimiter + text[/\w*.{#{end_length}}\Z/m]
+  end
+
 
   #
   # linked title of question on my question area
@@ -133,11 +140,11 @@ module PublishableModuleHelper
   def statement_states_collection
     StatementState.all.map{|s|[I18n.t("discuss.statements.states.initial_state.#{s.code}"),s.id]}
   end
-  
+
   # renders pagination 'more' button
   def more_questions(statement_nodes, page=1)
     loaded_pages = statement_nodes.length/QUESTIONS_PER_PAGE.to_i + (statement_nodes.length%QUESTIONS_PER_PAGE.to_i > 0 ? 1 : 0)
-    content_tag :div, :class => 'more_pagination' do 
+    content_tag :div, :class => 'more_pagination' do
       if statement_nodes.current_page != statement_nodes.total_pages
       link_to I18n.t("application.general.more"),
               discuss_search_url(:search_terms => params[:search_terms], :page => page.to_i+loaded_pages),
