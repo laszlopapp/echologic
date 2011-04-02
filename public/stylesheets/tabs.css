@@ -43,7 +43,6 @@
   background: url(../images/page/tabs/mainmenu_left_off.png) no-repeat scroll left top;
   height: 51px;
   display: inline-block;
-  color: #21587f;
   border: 0;
   margin: 0;
   text-decoration: none;
@@ -61,11 +60,7 @@
   min-width: 85px;
 }
 
-.applicationTabs a.active {
-  font-weight: bold;
-  color: #7bb031;
-}
-
+.applicationTabs a,
 .applicationTabs a:visited {
   color: #21587f;
 }
@@ -80,7 +75,8 @@
 
 .applicationTabs a.active {
   background: transparent url(../images/page/tabs/mainmenu_right_on.png) no-repeat scroll right top !important;
-  color: #7bb031 !important;
+  font-weight: bold;
+  color: #7bb031;
 }
 
 /* My echo tab */
