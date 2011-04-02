@@ -666,9 +666,9 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .social_echo_panel .panel_description {
   background: none;
-  width: 400px;
+  width: 580px;
   margin: 25px 0 0 30px;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .social_echo_panel .social_account_list {
@@ -1334,7 +1334,11 @@ a.statement_link:hover {
 .create_improvement_button_32 {background: transparent url(../images/page/discuss/improvement_32.png) no-repeat scroll 0 0;}
 .create_pro_argument_button_32 {background: transparent url(../images/page/discuss/pro_argument_32.png) no-repeat scroll 0 0;}
 .create_contra_argument_button_32 {background: transparent url(../images/page/discuss/contra_argument_32.png) no-repeat scroll 0 4px;}
-.create_follow_up_question_button_32 {background: transparent url(../images/page/discuss/question_32.png) no-repeat scroll 0 0;}
+.create_follow_up_question_button_32 {
+  background:  transparent url("../images/page/discuss/fuq_32.png") no-repeat scroll -5px 0;
+  margin: 0 20px 0 15px !important;
+  padding: 7px 0 0 45px !important;
+}
 
 
 /*****************/
