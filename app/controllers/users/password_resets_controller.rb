@@ -44,11 +44,10 @@ class Users::PasswordResetsController < ApplicationController
   end
 
   def update
-    @user.password = params[:user][:password]
-    @user.password_confirmation = params[:user][:password_confirmation]
     @user.active = true
     begin
-      if @user.save
+      @user.old_password = true # Variable that allows the password validations. TODO: rename it
+      if @user.update_attributes(params[:user])
         redirect_with_info(root_path, 'users.password_reset.messages.reset_success')
       else
         set_error @user#'users.password_reset.messages.reset_failed'
