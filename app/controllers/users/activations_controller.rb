@@ -15,7 +15,7 @@ class Users::ActivationsController < ApplicationController
          render_with_error
        else
          render :template => 'users/components/users_form',
-                :locals => {:partial => 'users/activations/basic_profile', :css_class => "basic_profile_box"}
+                :locals => {:partial => 'users/activations/basic_profile'}
        end
        }
     end
