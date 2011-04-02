@@ -109,7 +109,7 @@
           // Scrolling to the first new list element
           if (page > 1) {
             var first_new_id = "#" + $(content).first().attr("id");
-            $.scrollTo(first_new_id, 1000);
+            $.scrollTo(first_new_id, 700);
           }
 
 					if (pagination.length > 0) {
