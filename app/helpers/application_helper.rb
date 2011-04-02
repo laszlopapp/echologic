@@ -179,7 +179,7 @@ module ApplicationHelper
     {
       :token_url => CGI::escape(url),
       :language_preference => options[:language],
-      :flags => 'hide_sign_in_with'
+      :flags => 'show_provider_list,hide_sign_in_with'
     }.map{|k,v| "#{k}=#{v}" if v}.compact.join('&amp;')
   end
 end
