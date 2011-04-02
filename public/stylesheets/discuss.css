@@ -668,7 +668,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   background: none;
   width: 580px;
   margin: 25px 0 0 30px;
-  font-size: 13px;
 }
 
 .social_echo_panel .social_account_list {
@@ -1516,13 +1515,17 @@ form.statement fieldset ol li.tags_container {
 .statement .authors .jcarousel-container {
   width: 685px;
   left: -5px;
-  background: #F8F8F8;
+  /*background: #F8F8F8;*/
+  background: #F5F7F9;
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
   border-radius: 15px;
-  -moz-box-shadow: 0 0 33px #F0F0F0;
+  /*-moz-box-shadow: 0 0 33px #F0F0F0;
   -webkit-box-shadow: 0 0 33px #F0F0F0;
-  box-shadow: 0 0 33px #F0F0F0;
+  -box-shadow: 0 0 33px #F0F0F0;*/
+  -moz-box-shadow: 0 0 33px #EBEFF2;
+  -webkit-box-shadow: 0 0 33px #EBEFF2;
+  box-shadow: 0 0 33px #EBEFF2;
 }
 .statement .authors .jcarousel-clip-horizontal {
 	width: 685px;
