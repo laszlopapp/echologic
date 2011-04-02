@@ -119,7 +119,8 @@
 
 /* Password resets panel */
 
-#reset_password .header.block {
+#reset_password .header.block,
+#setup_basic_profile .header.block {
   margin-bottom: 20px;
 }
 
@@ -129,3 +130,8 @@
   width: 770px;
 }
 
+/* Setup Basic Profile */
+
+.signinup_container .terms_agreement {
+  margin: 35px 0 0;
+}
