@@ -1,5 +1,6 @@
 <% unless statement_nodes.empty? %>
-  <%= render :partial => 'statements/questions/question', :collection => statement_nodes %>
+  <%= render :partial => 'statements/questions/question',
+             :collection => statement_nodes %>
 	<%= render :partial => 'statements/questions/question_teaser' if statement_nodes.current_page == statement_nodes.total_pages %>
 <% else %>
   <%= render :partial => 'statements/questions/question_teaser' %>
