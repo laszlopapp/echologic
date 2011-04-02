@@ -368,14 +368,14 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   left: 22px;
 }
 
-
 .questions_container li.question {
 	display: block;
 	height: 160px;
 	position: relative;
+  padding-top: 15px;
 }
 
-.questions_container li.question img{
+.questions_container li.question img {
   border: 2px solid #7BB031;
 }
 
@@ -421,6 +421,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   height: 130px;
 	width: 175px;
 }
+
 /********************** TODO: OLD; MAYBE TO DELETE *******************************************/
 
 #function_container .simple_header_block h2 {
