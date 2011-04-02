@@ -74,12 +74,12 @@ module Users::SocialModule
     begin
       User.transaction do
         if social_id = current_user.has_provider?(@provider)
-           social_id.destroy
-           SocialService.instance.unmap(social_id.identifier,current_user.id)
-           redirect_or_render_with_info(settings_path, "users.social_accounts.disconnect.success",
-                    :account => I18n.t("users.social_accounts.providers.#{@provider}")) do |page|
-             page.replace @provider, :partial => 'users/social_accounts/connect'
-           end
+          SocialService.instance.unmap(social_id.identifier,current_user.id)
+          social_id.destroy
+          redirect_or_render_with_info(settings_path, "users.social_accounts.disconnect.success",
+                   :account => I18n.t("users.social_accounts.providers.#{@provider}")) do |page|
+            page.replace @provider, :partial => 'users/social_accounts/connect'
+          end
         else
           redirect_or_render_with_error(settings_path, "users.social_accounts.disconnect.failed",
                                         :account => I18n.t("users.social_accounts.providers.#{@provider}"))

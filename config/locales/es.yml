@@ -365,6 +365,7 @@ es:
         failed: Failed to remove your {{account}} account!
       share:
         title: Send out the voice
+        guide: Connect up your accounts to easily share and amplify your echo via other social networks.
         text: Message
         data_privacy:
           title: Data Privacy Notice

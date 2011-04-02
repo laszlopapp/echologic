@@ -354,6 +354,7 @@ en:
         failed: Failed to disconnect your {{account}} account.
       share:
         title: Send your echo via
+        guide: Send out the voice and make an echo via your social accounts.
         text: Message
         data_privacy:
           title: Data Privacy Notice

@@ -664,6 +664,13 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   font-weight: bold;
 }
 
+.social_echo_panel .panel_description {
+  background: none;
+  width: 400px;
+  margin: 16px 0 0 30px;
+  font-size: 12px;
+}
+
 .social_echo_panel .social_account_list {
 	padding-top: 10px;
 	height: 100px;
