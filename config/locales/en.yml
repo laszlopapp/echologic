@@ -353,13 +353,13 @@ en:
         success: Your {{account}} account has been disconnected.
         failed: Failed to disconnect your {{account}} account.
       share:
-        title: Send out the voice
+        title: Send your echo via
         text: Message
         data_privacy:
           title: Data Privacy Notice
           description: Mind the privacy policy of other networks before sharing your views on them...
         preview: Preview
-        submit: Make an echo
+        submit: Send
         error: Something went wrong while sharing your entry.
         success: |
           Made an echo via {{accounts}}.
