@@ -37,8 +37,8 @@ class SocialService
     @service.unmap(identifier, key)
   end
 
-  def delete_mappings
-    User.all.each{|u|@service.delete_mappings(u.id)}
+  def delete_mappings(key)
+    @service.delete_mappings(key)
   end
 
   def all_mappings
