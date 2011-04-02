@@ -134,4 +134,27 @@
 
 .signinup_container .terms_agreement {
   margin: 35px 0 0;
+  clear: both;
+}
+
+.signinup_container .avatar_part {
+  float: right;
+  margin: 3px 40px 20px 0;
+  position: relative;
+}
+
+.signinup_container .avatar {
+  max-width: 135px;
+  max-height: 135px;
+  border: 2px solid #7bb031;
+}
+
+.signinup_container .avatar_checkbox {
+  margin-left: 10px;
+  vertical-align: top;
+}
+
+.signinup_container .avatar_label {
+  vertical-align: top;
+  line-height: 17px;
 }
