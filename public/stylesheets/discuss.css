@@ -667,7 +667,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .social_echo_panel .panel_description {
   background: none;
   width: 400px;
-  margin: 16px 0 0 30px;
+  margin: 25px 0 0 30px;
   font-size: 12px;
 }
 
@@ -758,7 +758,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* Texts */
 
 .social_echo_panel .share_form .block {
-	margin: 15px 0;
+	margin: 0 0 15px;
   position: relative;
 }
 

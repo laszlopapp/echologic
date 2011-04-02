@@ -353,7 +353,7 @@ en:
         success: Your {{account}} account has been disconnected.
         failed: Failed to disconnect your {{account}} account.
       share:
-        title: Send your echo via
+        title: Send your echo
         guide: Send out the voice and make an echo via your social accounts.
         text: Message
         data_privacy:
