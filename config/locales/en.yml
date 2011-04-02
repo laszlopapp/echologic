@@ -354,6 +354,7 @@ en:
         failed: Failed to disconnect your {{account}} account.
       share:
         title: Send out the voice
+        guide: write a post on this statement throughout your social accounts. 
         text: Message
         data_privacy:
           title: Data Privacy Notice

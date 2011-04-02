@@ -1,5 +1,6 @@
 <% content_tag(:div, :class => 'social_echo_panel popup_panel expandable_content', :style => "display:none") do %>
   <%= content_tag :div, I18n.t("users.social_accounts.share.title"), :class => 'panel_header' %>
+	<%= content_tag :div, I18n.t("users.social_accounts.share.guide"), :class => 'panel_description' %>
   <% form_tag share_statement_node_url(statement_node),
               :method => :post,
               :class => 'ajax_form share_form' do -%>
