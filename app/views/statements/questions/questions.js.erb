@@ -7,5 +7,4 @@ $("#questions_container .header .label").text("<%= questions_count_text(@count, 
 
 $("#questions_container").data('searchApi').insertContent(content, pagination_buttons, <%= @page || 1 %>);
 
-
 $('#action_bar').replaceWith("<%= escape_javascript(render(:partial => 'statements/questions/action_bar')) %>");
