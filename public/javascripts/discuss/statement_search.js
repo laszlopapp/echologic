@@ -2,7 +2,7 @@
  * @author Tiago
  */
 
- 
+
 (function($) {
 
   $.fn.statement_search = function(current_settings) {
@@ -41,19 +41,19 @@
 
       // Initializes the statement.
       function initialise() {
-        initRatioBars(search_container);
+        initEchoIndicators(search_container);
 				initMoreButton();
 				//initScrollPane();
       }
-			
-			function initRatioBars(container) {
+
+			function initEchoIndicators(container) {
         container.find('.echo_indicator').each(function() {
           var indicator = $(this);
           var echo_value = parseInt(indicator.attr('alt'));
           indicator.progressbar({ value: echo_value });
         });
       }
-			
+
 			/*
        * Handles the click on the more Button event (replaces it with an element of class 'more_loading')
        */
@@ -81,14 +81,14 @@
 					return false;
         });
       }
-			
+
 			function updateUrlCount(element, page_count) {
 				element.attr('href',decodeURI(element.attr('href')).replace(/\|\d+/g, "|" + page_count));
 			}
-			
-			function initScrollPane() {
-				elements_list.jScrollPane({animateScroll: true});
-			}
+
+//			function initScrollPane() {
+//				elements_list.jScrollPane({animateScroll: true});
+//			}
 
       // Public API of statement
       $.extend(this,
@@ -97,22 +97,29 @@
         {
           settings = $.extend({}, resettings);
           initialise();
-        }, 
+        },
 				insertContent: function(content, pagination_buttons, page)
 				{
-					children_list = $("#questions_container .content ul");
+					var children_list = $("#questions_container .content ul");
 					if (page == 1) {
 				  	children_list.children().remove();
 				  }
 					children_list.append(content);
+
+          // Scrolling to the first new list element
+          if (page > 1) {
+            var first_new_id = "#" + $(content).first().attr("id");
+            $.scrollTo(first_new_id, 400);
+          }
+
 					if (pagination.length > 0) {
 				  	pagination.replaceWith(pagination_buttons);
 				  } else {
 						pagination_buttons.insertAfter(elements_list);
 					}
 					pagination = pagination_buttons;
-					
-					initRatioBars(children_list);
+
+					initEchoIndicators(children_list);
 					initMoreButton();
 				}
       });
