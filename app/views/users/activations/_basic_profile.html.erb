@@ -1,37 +1,44 @@
-<div class='signinup_dialog'>
-  <div id="setup_basic_profile" class='signinup_container'>
-     <%= content_tag :span, content_tag(:h1, I18n.t('users.setup_basic_profile.title')), 
-                     :class => 'sign_in logo'%>
-		 <p>
-      <%= I18n.t('users.setup_basic_profile.guide') %>
-    </p>
-     <% form_for @user, :url => activate_path(@user.perishable_token), 
-                 :html => {:method => :post, 
-                           :class => "echoForm ajax_form",
-                           :id => 'new_user_form'} do |f| %>
-     <div class='setup_basic_profile_container'>
-        <p>
-          <%= f.label I18n.t('application.general.name') %><br />
-          <%= f.text_field :full_name %><br />
-        </p>
-				<p>
-			    <%= f.label :password, I18n.t('users.profile.password.new') %><br/>
+<% content_tag :div, '', :class => "signinup_dialog" do %>
+  <% content_tag :div,
+                 :id => 'setup_basic_profile',
+                 :class => 'signinup_container' do %>
+
+    <% content_tag :div, '', :class => "header block" do %>
+      <%= content_tag :span, '', :class => "symbol"%>
+      <%= content_tag(:span, I18n.t("users.setup_basic_profile.title"),
+                      :class => 'signinup_title') %>
+    <% end %>
+
+    <% content_tag :div, '', :class => "guide block" do %>
+      <%= content_tag :span, I18n.t('users.setup_basic_profile.guide') %>
+    <% end %>
+
+    <% content_tag :div, '', :class => "form block" do %>
+      <% form_for @user, :url => activate_path(@user.perishable_token),
+                  :html => {:method => :post,
+                            :id => 'new_user_form',
+                            :class => "echoForm ajax_form"} do |f| %>
+        <% content_tag :p do %>
+          <%= f.label I18n.t('application.general.name') %><br/>
+          <%= f.text_field :full_name %>
+        <% end %>
+        <% content_tag :p do %>
+          <%= f.label :password, I18n.t('users.profile.password.new') %><br/>
 			    <%= f.password_field :password %>
-			  </p>
-				<p>
-			    <%= f.label I18n.t('users.profile.password.confirm') %><br/>
+        <% end %>
+        <% content_tag :p do %>
+          <%= f.label I18n.t('users.profile.password.confirm') %><br/>
 			    <%= f.password_field :password_confirmation %>
-			  </p>
-				<%= tag('br');tag('br') %>
-				<p>
-	        <%= check_box_tag 'user[agreement]', 1, false %>
-					<%= link_to(I18n.t('users.setup_basic_profile.agreement'), 
-                       '/resources/Datenschutz_echologic.pdf', {:target => 'blank'}) %>
-				</p>
-        <%= f.submit I18n.t('application.general.save'), :class => 'signinButton formButton200' %><br/>
-     </div>
-     <div class='setup_basic_profile_container'>
-     </div>
-     <% end %>
-  </div>
-</div>
+        <% end %>
+        <% content_tag :p, :class => 'terms_agreement' do %>
+          <%= check_box_tag 'user[agreement]', 1, false %>
+					<%= link_to(I18n.t('users.setup_basic_profile.agreement'),
+                      '/resources/Datenschutz_echologic.pdf', {:target => '_blank'}) %>
+        <% end %>
+        <%= f.submit I18n.t('application.general.save'),
+                     :class => 'signinButton formButton200' %><br/>
+      <% end %>
+    <% end %>
+
+  <% end %>
+<% end %>
