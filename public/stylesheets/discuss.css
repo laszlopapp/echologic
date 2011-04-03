@@ -792,15 +792,15 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 .action_bar .add_new_button {
-  height:   80px;
-  width:    160px;
-  display:  block;
+  height: 80px;
+  width: 160px;
+  display: block;
   background-image: url(../images/page/discuss/add_new_button.png);
   cursor: pointer;
 }
 
 #my_questions .add_new_button:hover,
-#statements .action_bar .add_new_button:hover {
+.action_bar .add_new_button:hover {
   background-position: 0 80px;
 }
 
