@@ -2,7 +2,7 @@
 <% path = children.kind_of?(String) ? children : '' %>
 <div class="<%= type.pluralize %> children header_block discuss_right_block">
   <!-- Title -->
-	<% link_to path, :class => "children_header expandable #{path.blank? ? 'active' : '' } ", :title => type.pluralize do %>
+	<% link_to path, :class => "children_header #{type.pluralize} expandable #{path.blank? ? 'active' : '' } " do %>
 	  <% content_tag :div, :class => "headline" do %>
 	    <%= children_heading_title(type, count) %>
 	    <%= content_tag :div, '', :class => 'expand_icon' %>
