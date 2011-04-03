@@ -466,12 +466,7 @@
 /* Progressbar
 ----------------------------------*/
 .ui-progressbar { height:2em; text-align: left; border: 1px solid #A9B6BD !important; }
-.ui-progressbar .ui-progressbar-value {
-  margin: -1px; height:100%;
-  border-radius: 12px;
-  -moz-border-radius: 12px;
-  -webkit-border-radius: 12px;
-}
+.ui-progressbar .ui-progressbar-value { margin: -1px; height:100%; }
 /* Resizable
 ----------------------------------*/
 .ui-resizable { position: relative;}

@@ -49,8 +49,11 @@
 			function initEchoIndicators(container) {
         container.find('.echo_indicator').each(function() {
           var indicator = $(this);
-          var echo_value = parseInt(indicator.attr('alt'));
-          indicator.progressbar({ value: echo_value });
+          if (!indicator.hasClass("ei_initialized")) {
+            var echo_value = parseInt(indicator.attr('alt'));
+            indicator.progressbar({ value: echo_value });
+          }
+          indicator.addClass("ei_initialized");
         });
       }
 
