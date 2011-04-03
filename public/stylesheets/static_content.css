@@ -98,8 +98,8 @@ li {
 
 .about_logo {
 	float: left;
-  text-align: center;
-  width: 290px;
+  margin: 5px 90px 20px 0;
+  cursor: pointer;
 }
 
 .about_logo a {
