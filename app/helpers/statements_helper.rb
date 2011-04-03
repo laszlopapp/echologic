@@ -55,7 +55,6 @@ module StatementsHelper
   def create_new_child_statement_link(statement_node, child_type, opts={})
     url = opts.delete(:url) if opts[:url]
     css = opts.delete(:css) if opts[:css]
-    title = opts[:no_text] ? '' :
     link_to(I18n.t("discuss.statements.create_#{child_type}_link"),
             url ? url : new_statement_node_url(statement_node.nil? ? nil : statement_node.target_id,child_type, opts),
             :class => "#{css} add_new_button text_button create_#{child_type}_button ttLink no_border",
@@ -170,7 +169,7 @@ module StatementsHelper
     bids = bids ? bids.split(",") : []
     bids << "fq#{statement_node.id}"
     content_tag(:div, add_new_child_link(statement_node, "follow_up_question",
-                                                         :bids => bids.join(","), 
+                                                         :bids => bids.join(","),
                                                          :origin => params[:origin]),
                 :class => 'children container')
   end
