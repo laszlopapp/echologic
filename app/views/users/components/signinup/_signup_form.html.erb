@@ -3,7 +3,7 @@
                       :class => "echoForm ajax_form"} do |f| %>
 
   <% content_tag :p do %>
-    <%= f.label I18n.t('application.general.email') %><br/>
+    <%= content_tag :label, I18n.t('application.general.email') %><br/>
     <%= f.text_field :email %>
   <% end %>
 
