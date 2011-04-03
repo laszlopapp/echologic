@@ -53,11 +53,11 @@ en:
       statements:
         new_questions: 'There are <strong>{{count}} new question(s)</strong> since the last update. '
         new_tags: 'They are related to the following topics:'
-        created_proposals: 'New content in the question "{{title}}":'
-        created_improvements: 'New content in the proposal "{{title}}":'
-        created_pro_arguments: 'New content in the proposal "{{title}}":'
-        created_contra_arguments: 'New content in the proposal "{{title}}":'
-        created_follow_up_questions: 'New follow-up questions for "{{title}}":'
+        created_proposals: 'New content in the question "<strong>{{title}}</strong>":'
+        created_improvements: 'New content in the proposal "<strong>{{title}}</strong>":'
+        created_pro_arguments: 'New content in the proposal "<strong>{{title}}</strong>":'
+        created_contra_arguments: 'New content in the proposal "<strong>{{title}}</strong>":'
+        created_follow_up_questions: 'New follow-up questions for "<strong>{{title}}</strong>":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         If you do not wish to receive regular updates on new discussion entries, please log in to
