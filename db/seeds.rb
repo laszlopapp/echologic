@@ -72,7 +72,7 @@ StatementAction.enumeration_model_updates_permitted = false
 # ABOUT CATEGORIES
 AboutCategory.enumeration_model_updates_permitted = true
 AboutCategory.purge_enumerations_cache
-%w(core_team supporters translators interns alumni technology_partners financial_partners strategic_partners).each_with_index do |code, index|
+%w(core_team supporters translators interns alumni technology_partners financial_partners strategic_partners thematic_partners).each_with_index do |code, index|
   AboutCategory.create(:code => code, :key => index+1, :description => "about_category")
 end
 AboutCategory.enumeration_model_updates_permitted = false
@@ -313,6 +313,12 @@ end
 ["Strategic Partners","Strategische Partner","Partenaires Stratégiques",
  "Parceiros Estratégicos","Colaboradores Estratégicos"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('strategic_partners','AboutCategory'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
+["Thematic Partners","Thematische Partner","Partenaires Thématiques",
+ "Parceiros Temáticas","Colaboradores Temáticas"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('thematic_partners','AboutCategory'),
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
