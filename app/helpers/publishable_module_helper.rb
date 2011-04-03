@@ -1,6 +1,7 @@
 require 'sanitize'
 
 module PublishableModuleHelper
+
   #
   # get the text that shows up on the top left corner of discuss search results
   #
@@ -45,10 +46,10 @@ module PublishableModuleHelper
   #
   # question link for the discuss search results
   #
-  def link_to_question(title, question, origin=@origin)
+  def image_link_to_question(question, origin=@origin)
     link_to statement_node_url(question, :origin => origin, :bids => origin),
                :class => "avatar_holder" do
-      image_tag question.image.url(:small)
+      image_tag question.image.url(:medium)
     end
   end
 
@@ -70,7 +71,10 @@ module PublishableModuleHelper
     if current_user and
        statement_document.author == current_user and !statement_node.published?
       link_to(I18n.t('discuss.statements.publish'),
-              { :controller => :statements, :id => statement_node.id, :action => :publish, :in => :summary },
+              { :controller => :statements,
+                :id => statement_node.id,
+                :action => :publish,
+                :in => :summary },
               :class => 'ajax_put header_button text_button publish_text_button ttLink',
               :title => I18n.t('discuss.tooltips.publish'))
     else
@@ -78,13 +82,13 @@ module PublishableModuleHelper
     end
   end
 
-  def format_description(text)
-    s_text = Sanitize.clean(text)
-    s_text.mb_chars.length > 200 ? word_truncate(s_text, 100, 150) : s_text
+  def truncate_statement_text(statement_document)
+    text = Sanitize.clean(statement_document.text)
+    text.mb_chars.length > 200 ? word_truncate(text, 150, 150) : text
   end
 
   # To be used to strip the rest letters of last / first words.
-  def word_truncate(text, start_length, end_length, delimiter = ' ...<br/>... ')
+  def word_truncate(text, start_length, end_length, delimiter = ' ... ... ... ')
     text.mb_chars.length <= start_length + end_length ? text :
       text[/\A.{#{start_length}}\w*/m] + delimiter + text[/\w*.{#{end_length}}\Z/m]
   end
@@ -94,7 +98,10 @@ module PublishableModuleHelper
   # linked title of question on my question area
   #
   def my_question_title(title,question)
-    link_to(h(title),statement_node_url(question, :origin => :mi, :bids => :mi), :class => "statement_link ttLink no_border",
+    link_to(h(title),statement_node_url(question,
+                                        :origin => :mi,
+                                        :bids => :mi),
+            :class => "statement_link ttLink no_border",
             :title => I18n.t("discuss.tooltips.read_#{question.class.name.underscore}"))
   end
 
@@ -102,7 +109,10 @@ module PublishableModuleHelper
   # linked image of question on my question area
   #
   def my_question_image(question)
-    link_to statement_node_url(question, :origin => :mi, :bids => :mi), :class => "avatar_holder" do
+    link_to statement_node_url(question,
+                               :origin => :mi,
+                               :bids => :mi),
+            :class => "avatar_holder" do
       image_tag question.image.url(:small)
     end
   end
@@ -128,29 +138,36 @@ module PublishableModuleHelper
   def publish_button_or_state(statement_node, no_published_label, opts={})
     if !statement_node.published?
       link_to(I18n.t("discuss.statements.publish"),
-              { :controller => :statements, :id => statement_node.id, :action => :publish }.merge(opts),
+              { :controller => :statements,
+                :id => statement_node.id,
+                :action => :publish }.merge(opts),
               :class => 'ajax_put publish_button ttLink',
               :title => I18n.t('discuss.tooltips.publish'))
     else
-      no_published_label ? '' : content_tag(:span , I18n.t('discuss.statements.states.published'), :class => 'publish_button')
+      no_published_label ? '' : content_tag(:span ,
+                                            I18n.t('discuss.statements.states.published'),
+                                            :class => 'publish_button')
     end
   end
 
   # returns a collection from possible statement states to be used on radios and select boxes
   def statement_states_collection
-    StatementState.all.map{|s|[I18n.t("discuss.statements.states.initial_state.#{s.code}"),s.id]}
+    StatementState.all.map{|s| [I18n.t("discuss.statements.states.initial_state.#{s.code}"), s.id]}
   end
 
   # renders pagination 'more' button
   def more_questions(statement_nodes, page=1)
-    loaded_pages = statement_nodes.length/QUESTIONS_PER_PAGE.to_i + (statement_nodes.length%QUESTIONS_PER_PAGE.to_i > 0 ? 1 : 0)
+    loaded_pages = statement_nodes.length / QUESTIONS_PER_PAGE.to_i +
+                   (statement_nodes.length % QUESTIONS_PER_PAGE.to_i > 0 ? 1 : 0)
     content_tag :div, :class => 'more_pagination' do
       if statement_nodes.current_page != statement_nodes.total_pages
       link_to I18n.t("application.general.more"),
-              discuss_search_url(:search_terms => params[:search_terms], :page => page.to_i+loaded_pages),
+              discuss_search_url(:search_terms => params[:search_terms],
+                                 :page => page.to_i + loaded_pages),
               :class => 'more_children ajax'
       else
-        content_tag :span, I18n.t("application.general.more"), :class => 'disabled more_children'
+        content_tag :span, I18n.t("application.general.more"),
+                    :class => 'disabled more_children'
       end
     end
   end
