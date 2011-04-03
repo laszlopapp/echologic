@@ -100,7 +100,7 @@
         },
 				insertContent: function(content, pagination_buttons, page)
 				{
-					var children_list = $("#questions_container .content ul");
+					var children_list = $("#questions_container .content");
 					if (page == 1) {
 				  	children_list.children().remove();
 				  }
