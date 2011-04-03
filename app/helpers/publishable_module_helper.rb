@@ -141,7 +141,7 @@ module PublishableModuleHelper
               { :controller => :statements,
                 :id => statement_node.id,
                 :action => :publish }.merge(opts),
-              :class => 'ajax_put publish_button ttLink',
+              :class => 'ajax_put publish_button ttLink no_border',
               :title => I18n.t('discuss.tooltips.publish'))
     else
       no_published_label ? '' : content_tag(:span ,
