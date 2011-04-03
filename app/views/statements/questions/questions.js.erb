@@ -1,7 +1,7 @@
 
 var content = $("<%= escape_javascript(render(:partial => 'statements/questions/questions', :locals => {:statement_nodes => @statement_nodes})) %>");
 
-var pagination_buttons = $("<%= escape_javascript(more_questions(@statement_nodes, @page)) %>")
+var pagination_buttons = $("<%= escape_javascript(more_questions(@statement_nodes, @page)) %>");
 
 $("#questions_container .header .label").text("<%= questions_count_text(@count, @value) %>");
 
