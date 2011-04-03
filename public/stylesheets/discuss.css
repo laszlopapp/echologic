@@ -388,7 +388,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   margin-right: 16px;
 }
 .questions_container .question .avatar_holder img {
-  width: 145px;
+  max-width: 145px;
   max-height: 90px;
   border: 2px solid #7BB031;
 }
