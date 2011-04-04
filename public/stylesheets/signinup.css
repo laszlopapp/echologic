@@ -42,9 +42,9 @@
   padding: 10px 15px 10px 20px;
   position: relative;
   right: -15px;
-  border-radius: 12px;
-  -moz-border-radius: 12px;
-  -webkit-border-radius: 12px;
+  border-radius: 35px;
+  -moz-border-radius: 35px;
+  -webkit-border-radius: 35px;
 }
 
 .signinup_toggle_label {
