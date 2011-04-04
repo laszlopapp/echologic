@@ -135,8 +135,8 @@ module PublishableModuleHelper
   end
 
   # Creates a 'Publish' button to release the question on my questions area.
-  def publish_button_or_state(statement_node, no_published_label, opts={})
-    if !statement_node.published?
+  def publish_button_or_state(statement_node, opts={})
+    if current_user and current_user.may_publish?(statement_node)
       link_to(I18n.t("discuss.statements.publish"),
               { :controller => :statements,
                 :id => statement_node.id,
@@ -144,7 +144,7 @@ module PublishableModuleHelper
               :class => 'ajax_put publish_button ttLink no_border',
               :title => I18n.t('discuss.tooltips.publish'))
     else
-      no_published_label ? '' : content_tag(:span ,
+      opts[:no_published_label] ? '' : content_tag(:span ,
                                             I18n.t('discuss.statements.states.published'),
                                             :class => 'publish_button')
     end

@@ -148,6 +148,11 @@ class User < ActiveRecord::Base
   ## PERMISSIONS
   ##
 
+  def may_publish?(entity)
+    !entity.published? and 
+    (has_role?(:editor) or has_role?(:admin) or entity.authors.include?(self))
+  end
+
   # when we enable editing for users.
   def may_edit?(entity)
     has_role?(:editor) or has_role?(:admin) or
