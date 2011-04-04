@@ -22,35 +22,50 @@
   background: url(../images/page/echo_o.png) no-repeat bottom left;
   width: 120px;
   height: 105px;
-  margin: 5px 15px 0 0;
+  margin: 5px 7px 0 0;
   display: inline-block;
   float: left;
 }
 
 .signinup_title {
-  font-size: 30px;
+  font-size: 35px;
   font-weight: bold;
   position: relative;
-  top: 39px;
+  top: 37px;
+}
+
+.signinup_container .toggle.part {
+  background: #EEE;
+  float: right;
+  min-width: 375px;
+  margin: 25px 0 0;
+  padding: 10px 15px 10px 20px;
+  position: relative;
+  right: -15px;
+  border-radius: 12px;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
 }
 
 .signinup_toggle_label {
   float: right;
   position: relative;
-  top: 50px;
+  top: 17px;
+  font-weight: bold;
 }
 
 .toggle_arrow {
   float: right;
   position: relative;
-  top: 50px;
+  top: 17px;
   margin: 0 20px;
+  font-weight: bold;
 }
 
 .signinup_toggle_button {
   float: right;
   position: relative;
-  top: 35px;
+  top: 1px;
 }
 
 .signinup_container .label.block {
@@ -61,7 +76,7 @@
 
 .signinup_container .label.block .echo_label {
   width: 320px;
-  font-size: 20px;
+  font-size: 21px;
   font-weight: bold;
   position: absolute;
   left: 0;
@@ -81,7 +96,7 @@
 
 .signinup_container .label.block .social_label {
   width: 320px;
-  font-size: 20px;
+  font-size: 21px;
   font-weight: bold;
   position: absolute;
   right: 0;
