@@ -831,7 +831,7 @@ class StatementsController < ApplicationController
     if opts[:node] and !opts[:node].new_record?
       # VERY IMP: remove statement original language if user doesn't speak it
       original_language = opts[:node].original_language
-      languages -= [original_language.id] if original_language.code.to_s != I18n.locale and 
+      languages -= [original_language.id] if languages.length > 1 and original_language.code.to_s != I18n.locale and 
                                              (current_user.nil? or 
                                               !current_user.sorted_spoken_languages.include?(original_language.id)) 
     end
