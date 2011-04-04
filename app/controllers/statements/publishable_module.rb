@@ -37,6 +37,7 @@ module PublishableModule
 
     @origin = @value.blank? ? 'ds' : "sr#{@value.gsub(/,/,'\\;').gsub(/\|/, '\\:;')}" 
     @origin << "|#{@page_count}"
+    @origin = CGI.escape(@origin)
 
     statement_nodes_not_paginated = search_discussions :search_term => @value
 

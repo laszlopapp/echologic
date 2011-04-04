@@ -46,11 +46,21 @@ module ActiveRecord
               return false
             end
 
-            def delete_social_accounts
-              self.social_identifiers.each do |social|
-                SocialService.instance.unmap(social.identifier, self.id)
+            def check_social_accounts
+              mappings = SocialService.instance.mappings(self.id)
+              accounts_to_delete = social_identifiers.select{|s|!mappings.include?(s.identifier)}
+              delete_social_accounts(accounts_to_delete)
+            end
+
+            handle_asynchronously :check_social_accounts
+
+            def delete_social_accounts(accounts=self.social_identifiers)
+              if !accounts.blank?
+                accounts.each do |social|
+                  SocialService.instance.unmap(social.identifier, self.id)
+                end
+                SocialIdentifier.destroy_all(:id => accounts.map(&:id))
               end
-              self.social_identifiers.destroy_all
             end
 
             def update_social_accounts

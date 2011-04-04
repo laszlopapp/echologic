@@ -656,6 +656,7 @@ fr:
         autre utilisateur. Votre rajout ne peut pas être pris en compte.
       no_document_in_language: "Le constat n'existe pas dans votre langue."
       supporter_to_share: 'You must be a supporter of this statement in order to share it!'
+      published_to_share: 'This discussion is yet to be published. Until then, you can not unfortunately share it!'
       cannot_be_edited: 'The statement can not be edited after other members have supported it'
 
       breadcrumbs:

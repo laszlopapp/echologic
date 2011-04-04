@@ -712,7 +712,7 @@ class StatementsController < ApplicationController
 
     bids.each_with_index do |bid, index| #[id, classes, url, title, label, over]
       key = bid[0,2]
-      value = bid[2..-1]
+      value = CGI.unescape(bid[2..-1])
       opts = {}
       #default values
       opts[:key] = key
@@ -831,7 +831,7 @@ class StatementsController < ApplicationController
     if opts[:node] and !opts[:node].new_record?
       # VERY IMP: remove statement original language if user doesn't speak it
       original_language = opts[:node].original_language
-      languages -= [original_language.id] if original_language.code.to_s != I18n.locale and 
+      languages -= [original_language.id] if languages.length > 1 and original_language.code.to_s != I18n.locale and 
                                              (current_user.nil? or 
                                               !current_user.sorted_spoken_languages.include?(original_language.id)) 
     end
@@ -997,7 +997,7 @@ class StatementsController < ApplicationController
     if !params[:origin].blank? #statement node is a question
       origin = params[:origin]
       key = origin[0,2]
-      value = origin[2..-1]
+      value = CGI.unescape(origin[2..-1])
       roots = case key
        # get question siblings depending from the request's origin (key)
        # discuss search with no search results
@@ -1103,7 +1103,7 @@ class StatementsController < ApplicationController
   #
   def loadSearchTermsAsTags(origin)
     return if !origin[0,2].eql?('sr')
-    origin = origin.split('|')[0]
+    origin = CGI.unescape(origin).split('|')[0]
     default_tags = origin[2..-1].gsub(/\\;/, ',').gsub(/\\:;/, '|')
     default_tags[/[\s]+/] = ',' if default_tags[/[\s]+/]
     default_tags = default_tags.split(',').compact

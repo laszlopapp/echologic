@@ -313,7 +313,8 @@ en:
           You are currently registered with the E-Mail address: <strong>{{email}}</strong>.<br/>
           Here you can define a new address echo should use to keep in touch with you.
         password: Your Password
-        success: E-Mail changed successfully.
+        success: |
+          E-Mail changed successfully.
         failed: Failed to change E-Mail.
         no_password: Please enter your valid password to change your E-Mail.
 
@@ -385,7 +386,7 @@ en:
 
       messages:
         created: "Please check your E-Mails to activate your newly created account!"
-        activate_email: "Please check your E-Mails to activate your new email!"
+        activate_email: In order to complete the Email address modification, please log out and press the confimation link sent to your new Email address!
 
     # Reports section
     reports:
@@ -605,6 +606,7 @@ en:
       staled_modification: 'We are very sorry, but you exceeded the 60 minutes limit to edit and save the statement. Meanwhile it has already been updated by a different user. Therefore, your changes must have been unfortunately discarded.'
       no_document_in_language: 'The statement does not exist in English yet.'
       supporter_to_share: 'You must be a supporter of this statement in order to share it!'
+      published_to_share: 'This discussion is yet to be published. Until then, you can not unfortunately share it!'
       cannot_be_edited: 'Unfortunately, you cannot edit this statement after other members supported it. This is to avoid faking of opinions. '
 
       breadcrumbs:

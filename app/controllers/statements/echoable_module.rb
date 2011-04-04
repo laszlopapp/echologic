@@ -67,12 +67,17 @@ module EchoableModule
   def social_widget
     begin
       if @statement_node.supported?(current_user)
-        @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
-        @title = "Made an"
-        @proposed_url = "http://#{ECHO_HOST}/#{ShortcutUrl.truncate(@statement_document.title)}"
-        @proposed_url << " #{@statement_node.root.hash_topic_tags}" if !@statement_node.root.hash_topic_tags.empty?
-        respond_to do |format|
-          format.js { render :template => "statements/social_widget" }
+        if @statement_node.root.published?
+          @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
+          @title = "Made an"
+          @proposed_url = "http://#{ECHO_HOST}/#{ShortcutUrl.truncate(@statement_document.title)}"
+          @proposed_url << " #{@statement_node.root.hash_topic_tags}" if !@statement_node.root.hash_topic_tags.empty?
+          respond_to do |format|
+            format.js { render :template => "statements/social_widget" }
+          end
+        else
+          set_info "discuss.statements.published_to_share"
+          render_statement_with_info
         end
       else
         set_info "discuss.statements.supporter_to_share"
@@ -97,6 +102,9 @@ module EchoableModule
 
       if !@statement_node.supported?(current_user)
         set_info "discuss.statements.supporter_to_share"
+        render_statement_with_info
+      elsif !@statement_node.root.published?
+        set_info "discuss.statements.published_to_share"
         render_statement_with_info
       else
         @shortcut_url = ShortcutUrl.statement_shortcut :title => @statement_document.title,

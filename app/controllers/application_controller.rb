@@ -99,6 +99,7 @@ class ApplicationController < ActionController::Base
     @user_required = true
     unless current_user
       redirect_url = request.url == last_url ? root_url : last_url
+      session[:redirect_url] = redirect_url
       later_call_with_info(redirect_url, signin_url) do |format|
         format.js{render_signinup_js(:signin)}
       end

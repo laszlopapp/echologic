@@ -101,7 +101,7 @@
           settings = $.extend({}, resettings);
           initialise();
         },
-				insertContent: function(content, pagination_buttons, page)
+				insertContent: function(content, page)
 				{
 					var children_list = $("#questions_container .content");
 					if (page == 1) {
@@ -114,16 +114,25 @@
             var first_new_id = "#" + $(content).first().attr("id");
             $.scrollTo(first_new_id, 700);
           }
-
-					if (pagination.length > 0) {
-				  	pagination.replaceWith(pagination_buttons);
-				  } else {
-						pagination_buttons.insertAfter(elements_list);
-					}
-					pagination = pagination_buttons;
-
 					initEchoIndicators(children_list);
-					initMoreButton();
+				},
+				updateMoreButton: function(content, to_insert)
+				{
+          if (to_insert) {
+				  	if (pagination && pagination.length > 0) {
+				  		pagination.replaceWith(content);
+				  	}
+				  	else {
+				  		content.insertAfter(elements_list);
+				  	}
+						pagination = content;
+				  	initMoreButton();
+				  } else {
+					  if (pagination) {
+							pagination.remove();
+							pagination = null;
+						}
+					}
 				}
       });
     }
