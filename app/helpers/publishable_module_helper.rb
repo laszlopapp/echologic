@@ -15,7 +15,7 @@ module PublishableModuleHelper
   #
   # create question button above the discuss search results and on the left corner of my questions
   #
-  def create_question_link_for(search_terms=nil, origin=@origin)
+  def create_question_link_for(origin=@origin)
     link_to(new_question_url(:origin => origin, :bids => origin),
                              :id => 'create_question_link',
                              :class => 'add_new_button') do
