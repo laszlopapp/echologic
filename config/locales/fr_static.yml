@@ -974,3 +974,18 @@ fr:
         Bonne continuation, beaucoup d'idées nouvelles, et surtout,  des moments stimulants avec echo.
 
         Votre équipe echo
+    
+    activate_email:
+      subject: Please activate your echo account
+      text1: |
+        Dear {{name}},
+
+        Thank you for registering at echo. Please click the URL below to activate your account.
+      text2: |
+        If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
+
+        If you keep having problems with activating your account, please feel free to contact us at support@echologic.org.
+
+        Looking forward to seeing you soon at echo,
+
+        Your echo team
