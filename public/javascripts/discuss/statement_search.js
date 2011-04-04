@@ -114,17 +114,25 @@
             var first_new_id = "#" + $(content).first().attr("id");
             $.scrollTo(first_new_id, 700);
           }
-
 					initEchoIndicators(children_list);
-					initMoreButton();
 				},
-				insertMoreButton: function(content)
+				updateMoreButton: function(content, to_insert)
 				{
-					if (pagination.length > 0) {
-            pagination.replaceWith(content);
-          } else {
-            content.insertAfter(elements_list);
-          }
+          if (to_insert) {
+				  	if (pagination && pagination.length > 0) {
+				  		pagination.replaceWith(content);
+				  	}
+				  	else {
+				  		content.insertAfter(elements_list);
+				  	}
+						pagination = content;
+				  	initMoreButton();
+				  } else {
+					  if (pagination) {
+							pagination.remove();
+							pagination = null;
+						}
+					}
 				}
       });
     }
