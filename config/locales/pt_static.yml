@@ -917,16 +917,19 @@ pt:
         A sua equipa echo
     
     activate_email:
-      subject: Please activate your echo account
+      subject: Por favor confirme o seu endereço E-Mail
       text1: |
-        Dear {{name}},
 
-        Thank you for registering at echo. Please click the URL below to activate your account.
+        Caro/a {{name}},
+
+        De modo a completar o processo de alteração do endereço E-Mail, necessita de completar o último passo do processo, que consiste em premir o URL seguinte, permitindo-nos assim confirmar o seu novo endereço E-Mail.
+
       text2: |
-        If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
+        Se ao premir o URL não for aberta automaticamente uma nova janela no seu navegador web, por favor copie e cole você mesmo o URL no navegador web.
 
-        If you keep having problems with activating your account, please feel free to contact us at support@echologic.org.
+        Se tiver problemas com a confirmação do seu novo endereço E-mail, por favor contacte-nos através do endereço support@echologic.org.
 
-        Looking forward to seeing you soon at echo,
+        Esperamos encontrá-lo brevemente na echo,
 
-        Your echo team
+        A sua equipa echo
+ 
