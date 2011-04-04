@@ -712,7 +712,7 @@ class StatementsController < ApplicationController
 
     bids.each_with_index do |bid, index| #[id, classes, url, title, label, over]
       key = bid[0,2]
-      value = bid[2..-1]
+      value = CGI.unescape(bid[2..-1])
       opts = {}
       #default values
       opts[:key] = key
@@ -997,7 +997,7 @@ class StatementsController < ApplicationController
     if !params[:origin].blank? #statement node is a question
       origin = params[:origin]
       key = origin[0,2]
-      value = origin[2..-1]
+      value = CGI.unescape(origin[2..-1])
       roots = case key
        # get question siblings depending from the request's origin (key)
        # discuss search with no search results
@@ -1103,7 +1103,7 @@ class StatementsController < ApplicationController
   #
   def loadSearchTermsAsTags(origin)
     return if !origin[0,2].eql?('sr')
-    origin = origin.split('|')[0]
+    origin = CGI.unescape(origin).split('|')[0]
     default_tags = origin[2..-1].gsub(/\\;/, ',').gsub(/\\:;/, '|')
     default_tags[/[\s]+/] = ',' if default_tags[/[\s]+/]
     default_tags = default_tags.split(',').compact
