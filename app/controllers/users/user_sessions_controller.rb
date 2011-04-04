@@ -34,31 +34,35 @@ class Users::UserSessionsController < ApplicationController
   def create_social
     redirect_url = session[:redirect_url] || root_path
     begin
-      profile_info = SocialService.instance.get_profile_info(params[:token])
-      user = nil
-      User.transaction do
-        if profile_info['primaryKey'].nil? or (user = User.find(profile_info['primaryKey'])).nil?
-          session[:identifier] = profile_info.to_json
-          invalid_social = SocialIdentifier.find_by_identifier(profile_info['identifier'])
-          invalid_social.destroy if invalid_social
-          later_call_with_error(redirect_url, signin_path, 'users.signin.messages.failed_social')
-        else
-          if social = user.identified_by?(profile_info['identifier'])
-            social.update_attribute(:profile_info, profile_info.to_json)
+      if params[:token]
+        profile_info = SocialService.instance.get_profile_info(params[:token])
+        user = nil
+        User.transaction do
+          if profile_info['primaryKey'].nil? or (user = User.find(profile_info['primaryKey'])).nil?
+            session[:identifier] = profile_info.to_json
+            invalid_social = SocialIdentifier.find_by_identifier(profile_info['identifier'])
+            invalid_social.destroy if invalid_social
+            later_call_with_error(redirect_url, signin_path, 'users.signin.messages.failed_social')
           else
-            user.add_social_identifier( profile_info['identifier'], profile_info['providerName'], profile_info.to_json )
-          end
-          if user.active? # user was already actived, i.e. he has an email account defined
-            @user_session = UserSession.new(user)
-            if @user_session.save
-              redirect_or_render_with_info(redirect_url, 'users.signin.messages.success')
+            if social = user.identified_by?(profile_info['identifier'])
+              social.update_attribute(:profile_info, profile_info.to_json)
             else
-              redirect_or_render_with_error(redirect_url, 'users.signin.messages.failed')
+              user.add_social_identifier( profile_info['identifier'], profile_info['providerName'], profile_info.to_json )
             end
-          else # user doesn't have an email account, so he should go get it
-            later_call_with_info(redirect_url, setup_basic_profile_url(user.perishable_token))
+            if user.active? # user was already actived, i.e. he has an email account defined
+              @user_session = UserSession.new(user)
+              if @user_session.save
+                redirect_or_render_with_info(redirect_url, 'users.signin.messages.success')
+              else
+                redirect_or_render_with_error(redirect_url, 'users.signin.messages.failed')
+              end
+            else # user doesn't have an email account, so he should go get it
+              later_call_with_info(redirect_url, setup_basic_profile_url(user.perishable_token))
+            end
           end
         end
+      else
+        redirect_to redirect_url
       end
     rescue RpxService::RpxServerException
       redirect_or_render_with_error(redirect_url, "application.remote_error")
