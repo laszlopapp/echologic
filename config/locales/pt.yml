@@ -608,6 +608,7 @@ pt:
       staled_modification: 'Pedimos desculpa, mas o prazo de 60 minutos para editar a proposta esgotou. Entretanto a proposta foi editada por outra pessoa. Por esta razão, as suas mudanças foram lamentavelmente perdidas.'
       no_document_in_language: 'O conteúdo ainda não existe em Português.'
       supporter_to_share: 'You must be a supporter of this statement in order to share it!'
+      published_to_share: 'This discussion is yet to be published. Until then, you can not unfortunately share it!'
       cannot_be_edited: 'The statement can not be edited after other members have supported it'
 
 
