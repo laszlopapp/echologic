@@ -122,7 +122,7 @@ de:
           </p><p>
           echo wurde im September 2008 initiiert. Im Oktober 2009 wurde der als <strong>gemeinnützig</strong> anerkannte
           echo source e.V. gegründet. Für die Entwicklung, Vermarktung und den Betrieb von echo wurde April 2011 als
-          hundertprozentige Tochter des Vereins die echo Systems UG i.G. gegründet. Das Unternehmen wird als <strong>
+          hundertprozentige Tochter des Vereins die echo Systems UG gegründet. Das Unternehmen wird als <strong>
           <a href='http://de.wikipedia.org/wiki/Social_Business' target='_blank'>Social Business</a></strong>
           betrieben. Seine <strong>"Your-Profit" Geschäftsphilosophie</strong> wurde von den Werten und Erfolgen vom
           Friedensnobelpreisträger <a href='http://de.wikipedia.org/wiki/Muhammad_Yunus' target='_blank'>Muhammad Yunus</a>
@@ -131,9 +131,9 @@ de:
           Von 2010 bis Anfang 2011 wurde echo im Rahmen des EXIST-Programmes durch die EU, BMWi und ESF für Deutschland
           gefördert. Weitere finanzielle Unterstützung erhält zurzeit echo durch einen privaten Förderer.
           </p><p>
-          Die Arbeit bei echo konzentriert sich momentan in erster Linie auf die funktionale
-          Weiterentwicklung des Software Prototyps, die Ableitung verschiedener vermarktbarer Produktzweige und
-          die <strong>Gewinnung weiterer Partner, Förderer und (bevorzugt nachhaltiger) Investoren</strong>.
+          Die Arbeit des echo Teams konzentriert sich momentan in erster Linie auf die funktionale Weiterentwicklung
+          des Software Prototyps, die Ableitung verschiedener vermarktbarer Produktzweige und die <strong>Gewinnung
+          weiterer Partner, Förderer und (bevorzugt nachhaltiger) Investoren</strong>.
           </p>
 
       # imprint section
@@ -942,7 +942,7 @@ de:
         Mit den besten Grüßen,
 
         Ihr echo Team
-        
+
     activate_email:
       subject: Please activate your echo account
       text1: |
