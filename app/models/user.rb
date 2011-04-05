@@ -150,18 +150,23 @@ class User < ActiveRecord::Base
 
   def may_publish?(entity)
     !entity.published? and 
-    (has_role?(:editor) or has_role?(:admin) or entity.authors.include?(self))
+    (has_role?(:editor) or has_role?(:admin) or entity.has_author?(self))
   end
 
   # when we enable editing for users.
   def may_edit?(entity)
     has_role?(:editor) or has_role?(:admin) or
-    ( entity.authors.include?(self) and entity.echoable? and 
+    ( entity.has_author?(self) and entity.echoable? and 
     (!entity.published? or entity.supporter_count == 0 or (entity.supporters-[self]).empty? ))
   end
 
   def may_delete?(statement_node)
     has_role?(:admin)
+  end
+
+  def may_update_image?(statement_node)
+    has_role?(:editor) or has_role?(:admin) or 
+    (statement_node.has_author? current_user and (!statement_node.published? or !statement_node.image.exists?))
   end
 
   # Returns true if the user has the topic editor privileges for the given tag (as a String).
