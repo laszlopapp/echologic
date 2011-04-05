@@ -351,8 +351,8 @@ en:
         success: Your {{account}} account has been disconnected.
         failed: Failed to disconnect your {{account}} account.
       share:
-        title: Send your echo
-        guide: Send out the voice and make an echo in your social networks.
+        title: Spread the word
+        guide: Make an echo in your social networks.
         text: Message
         data_privacy:
           title: Data Privacy Notice
