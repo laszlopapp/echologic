@@ -96,10 +96,9 @@ pt:
             </p><p>
             A echo encontra-se de momento ainda a dar os seus primeiros passos. No entanto, já é possível:
             </p>
-
         action: |-
-          O novo echo está ONLINE<br/>
-          Ir para o protótipo »
+          Ir para o protótipo »<br/>
+          echo 0.14 está online
 
       #About
       about:
@@ -916,4 +915,21 @@ pt:
         Com os melhores cumprimentos,
 
         A sua equipa echo
+    
+    activate_email:
+      subject: Por favor confirme o seu endereço E-Mail
+      text1: |
 
+        Caro/a {{name}},
+
+        De modo a completar o processo de alteração do endereço E-Mail, necessita de completar o último passo do processo, que consiste em premir o URL seguinte, permitindo-nos assim confirmar o seu novo endereço E-Mail.
+
+      text2: |
+        Se ao premir o URL não for aberta automaticamente uma nova janela no seu navegador web, por favor copie e cole você mesmo o URL no navegador web.
+
+        Se tiver problemas com a confirmação do seu novo endereço E-mail, por favor contacte-nos através do endereço support@echologic.org.
+
+        Esperamos encontrá-lo brevemente na echo,
+
+        A sua equipa echo
+ 

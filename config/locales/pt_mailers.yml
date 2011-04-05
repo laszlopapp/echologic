@@ -53,11 +53,11 @@ pt:
       statements:
         new_questions: 'Existem <strong>{{count}} questões novas</strong> desde a última actualização. '
         new_tags: 'Os debates estão relacionados com os seguintes tópicos:'
-        created_proposals: 'Novo conteúdo na questão "{{title}}"'
-        created_improvements: 'Novo conteúdo na proposta "{{title}}":'
-        created_pro_arguments: 'Novo conteúdo na proposta "{{title}}":'
-        created_contra_arguments: 'Novo conteúdo na proposta "{{title}}":'
-        created_follow_up_questions: 'Novas questões complementares de "{{title}}":'
+        created_proposals: 'Novo conteúdo na questão "<strong>{{title}}</strong>"'
+        created_improvements: 'Novo conteúdo na proposta "<strong>{{title}}</strong>":'
+        created_pro_arguments: 'Novo conteúdo na proposta "<strong>{{title}}</strong>":'
+        created_contra_arguments: 'Novo conteúdo na proposta "<strong>{{title}}</strong>":'
+        created_follow_up_questions: 'Novas questões complementares de "<strong>{{title}}</strong>":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         Se não deseja receber notificações diárias sobre novidades nas suas discussões, por favor logue-se em

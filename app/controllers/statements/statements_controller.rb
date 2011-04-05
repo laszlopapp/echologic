@@ -131,7 +131,7 @@ class StatementsController < ApplicationController
       attrs.merge!({:root_id => StatementNode.find(parent_node_id).root_id}) if !parent_node_id.blank?
 
 
-      # Preapre in memory
+      # Prepare in memory
       @statement_node ||= @statement_node_type.new_instance(attrs)
       @statement_document = @statement_node.add_statement_document(
                             doc_attrs.merge({:original_language_id => doc_attrs[:language_id],
@@ -142,32 +142,29 @@ class StatementsController < ApplicationController
       has_permission = true
       created = false
 
-      if @statement_node.taggable? and (has_permission = check_hash_tag_permissions(form_tags))
+      if @statement_node.taggable?
         @tags = @statement_node.topic_tags = form_tags
       end
 
 
 
       # Persisting
-      if has_permission
-        StatementNode.transaction do
-          if @statement_node.save
-            # add to tree
-            if parent_node_id.blank? or @statement_node.class.is_top_statement?
-              @statement_node.target_statement.update_attribute(:root_id, @statement_node.target_id)
-            end
-
-            if @statement_node.echoable?
-              echo = params.delete(:echo)
-              @statement_node.author_support if echo=='true'
-            end
-
-            # Propagating the creation event
-            EchoService.instance.created(@statement_node)
-            EchoService.instance.created(@statement_node.question) if @statement_node.question_id
-
-            created = true
+      StatementNode.transaction do
+        if @statement_node.save
+          # add to tree
+          if parent_node_id.blank? or @statement_node.class.is_top_statement?
+            @statement_node.target_statement.update_attribute(:root_id, @statement_node.target_id)
           end
+
+          if @statement_node.echoable?
+            echo = params.delete(:echo)
+            @statement_node.author_support if echo=='true'
+          end
+
+          # Propagating the creation event
+          EchoService.instance.created(@statement_node)
+          EchoService.instance.created(@statement_node.question) if @statement_node.question_id
+          created = true
         end
       end
 
@@ -242,33 +239,30 @@ class StatementsController < ApplicationController
 
       # Updating tags of the statement
       form_tags = attrs.delete(:topic_tags)
-      has_permission = form_tags.nil? || !@statement_node.taggable? || check_hash_tag_permissions(form_tags)
 
       holds_lock = true
-      if has_permission
-        StatementNode.transaction do
-          old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
-          holds_lock = holds_lock?(old_statement_document, locked_at)
-          if holds_lock
-            old_statement_document.current = false
-            old_statement_document.unlock # also saved the document
-            @statement_document = @statement_node.add_statement_document(
-                                    attrs_doc.merge({:author_id => current_user.id,
-                                                     :current => true}))
-            @statement_document.save
+      StatementNode.transaction do
+        old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
+        holds_lock = holds_lock?(old_statement_document, locked_at)
+        if holds_lock
+          old_statement_document.current = false
+          old_statement_document.unlock # also saved the document
+          @statement_document = @statement_node.add_statement_document(
+                                  attrs_doc.merge({:author_id => current_user.id,
+                                                   :current => true}))
+          @statement_document.save
 
-            @statement_node.update_attributes(attrs)
-            if @statement_node.taggable? and form_tags
-              @tags = @statement_node.topic_tags = form_tags
-            end
-            @statement_node.statement.save
+          @statement_node.update_attributes(attrs)
+          if @statement_node.taggable? and form_tags
+            @tags = @statement_node.topic_tags = form_tags
           end
+          @statement_node.statement.save
         end
       end
 
       if !holds_lock
         being_edited
-      elsif has_permission and @statement_node.valid? and @statement_document.valid?
+      elsif @statement_node.valid? and @statement_document.valid?
         update = true
         set_statement_info(@statement_document)
         show_statement
@@ -291,9 +285,9 @@ class StatementsController < ApplicationController
   #
   def cancel
     locked_at = params[:locked_at]
-    statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
-    if holds_lock?(statement_document, locked_at)
-      statement_document.unlock
+    @statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
+    if holds_lock?(@statement_document, locked_at)
+      @statement_document.unlock
     end
     show_statement
   end
@@ -713,7 +707,7 @@ class StatementsController < ApplicationController
 
     bids.each_with_index do |bid, index| #[id, classes, url, title, label, over]
       key = bid[0,2]
-      value = bid[2..-1]
+      value = CGI.unescape(bid[2..-1])
       opts = {}
       #default values
       opts[:key] = key
@@ -792,29 +786,7 @@ class StatementsController < ApplicationController
     return true
   end
 
-  #
-  # Checks whether the user is allowed to assign the given hash tags (#tag).
-  #
-  def check_hash_tag_permissions(tags_values)
-
-    # Editors can define all tags
-    return true if current_user.has_role? :editor
-
-    # Check the individual hash tag permissions
-    decision_making_tags = current_user.decision_making_tags
-    tags = tags_values.split(',').map{|t|t.strip}.uniq
-    tags.each do |tag|
-      index = tag.index '#'
-      next if index != 0
-      decision_making_tag = '*' + tag[1..-1]
-      if !current_user.is_topic_editor(tag) and
-        !decision_making_tags.include? decision_making_tag
-        set_error('discuss.tag_permission', :tag => tag)
-      end
-    end
-    @error.nil? ? true : false
-  end
-
+  
   ##########
   # SEARCH #
   ##########
@@ -825,13 +797,20 @@ class StatementsController < ApplicationController
   #
   # search_term (String : optional) : text snippet to look for in the statements
   #
-  # for more info about attributes, please check the StatementNode.search_statement_nodes documentation
+  # for more info about attributes, please check the StatementNode.search_discussions documentation
   #
-  def search_statement_nodes(opts = {})
-    StatementNode.search_statement_nodes(opts.merge({:type => "Question",
-                                                     :user => current_user,
-                                                     :language_ids => @language_preference_list,
-                                                     :show_unpublished => current_user && current_user.has_role?(:editor)}))
+  def search_discussions(opts = {})
+    languages = @language_preference_list
+    if opts[:node] and !opts[:node].new_record?
+      # VERY IMP: remove statement original language if user doesn't speak it
+      original_language = opts[:node].original_language
+      languages -= [original_language.id] if languages.length > 1 and original_language.code.to_s != I18n.locale and 
+                                             (current_user.nil? or 
+                                              !current_user.sorted_spoken_languages.include?(original_language.id)) 
+    end
+    StatementNode.search_discussions(opts.merge({:user => current_user,
+                                                 :language_ids => languages,
+                                                 :show_unpublished => current_user && current_user.has_role?(:editor)}))
   end
 
   #
@@ -991,18 +970,18 @@ class StatementsController < ApplicationController
     if !params[:origin].blank? #statement node is a question
       origin = params[:origin]
       key = origin[0,2]
-      value = origin[2..-1]
+      value = CGI.unescape(origin[2..-1])
       roots = case key
        # get question siblings depending from the request's origin (key)
        # discuss search with no search results
        when 'ds' then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1].to_i * QUESTIONS_PER_PAGE
-                      sn = search_statement_nodes(:only_id => opts[:for_session]).paginate(:page => 1, :per_page => per_page)
+                      sn = search_discussions(:only_id => opts[:for_session], :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
                       opts[:for_session] ? sn.map(&:id) + ["/add/question"] : sn
        # discuss search with search results
        when 'sr'then value = value.split('|')
                      per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
-                     sn = search_statement_nodes(:search_term => value[0].gsub(/\\;/,',').gsub(/\\:;/, '|'),
-                                                 :only_id => opts[:for_session]).paginate(:page => 1, :per_page => per_page)
+                     sn = search_discussions(:search_term => value[0].gsub(/\\;/,',').gsub(/\\:;/, '|'),
+                                                 :only_id => opts[:for_session], :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
                      opts[:for_session] ? sn.map(&:id) + ["/add/question"] : sn
        # my discussions
        when 'mi' then sn = Question.by_creator(current_user).by_creation
@@ -1025,7 +1004,7 @@ class StatementsController < ApplicationController
       per_page = opts[:per_page].to_i == -1 ? roots.length : opts[:per_page].to_i
       per_page = 1 if per_page == 0 # in case roots is an empty array
       @children = {}
-      type = @current_node.class.name
+      type = opts[:node].nil? ? @type : opts[:node].class.name 
       @children[type.to_sym] = roots.paginate :page => opts[:page].to_i, :per_page => per_page
 
       @children_documents = search_statement_documents :statement_ids => @children[type.to_sym].flatten.map(&:statement_id)
@@ -1097,7 +1076,7 @@ class StatementsController < ApplicationController
   #
   def loadSearchTermsAsTags(origin)
     return if !origin[0,2].eql?('sr')
-    origin = origin.split('|')[0]
+    origin = CGI.unescape(origin).split('|')[0]
     default_tags = origin[2..-1].gsub(/\\;/, ',').gsub(/\\:;/, '|')
     default_tags[/[\s]+/] = ',' if default_tags[/[\s]+/]
     default_tags = default_tags.split(',').compact

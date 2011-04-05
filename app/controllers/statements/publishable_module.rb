@@ -31,14 +31,15 @@ module PublishableModule
   #
   def category
     @value    = params[:search_terms] || ""
-    @page     = params[:page] || 1
+    @page     = params[:page].blank? ? 1 : params[:page]
     @page_count = params[:page_count].blank? ? 1 : params[:page_count]
     @per_page = @page_count.to_i * QUESTIONS_PER_PAGE
 
     @origin = @value.blank? ? 'ds' : "sr#{@value.gsub(/,/,'\\;').gsub(/\|/, '\\:;')}" 
     @origin << "|#{@page_count}"
+    @origin = CGI.escape(@origin)
 
-    statement_nodes_not_paginated = search_statement_nodes :search_term => @value
+    statement_nodes_not_paginated = search_discussions :search_term => @value
 
     @count    = statement_nodes_not_paginated.count
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => @per_page)

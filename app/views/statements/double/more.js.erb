@@ -13,7 +13,8 @@ var double_list = statement.find('.<%= type_plural %> .doubles_list');
   <% type = @type.to_s.constantize.sub_types[index].to_s.underscore %>
 	var children_list = statement.find('.<%= type_plural %> .children_list:eq(<%= index %>)');
 	var elements_list =
-      "<%= escape_javascript(render :partial => 'statements/child', :collection => children_group[@offset, @per_page]) %>";
+      "<%= escape_javascript(render :partial => 'statements/child',
+                                    :collection => children_group[@offset, @per_page]) %>";
 
   var scrollpane;
   <% if @page.to_i > 1 %>
@@ -25,7 +26,9 @@ var double_list = statement.find('.<%= type_plural %> .doubles_list');
 
 	<% if children_group.next_page.nil? %>
 	  if (children_list.find('.add_new_button').length == 0) {
-	   children_list.append('<%= content_tag :li, create_new_child_statement_link(@statement_node, type, :new_level => true, :css => "ajax) %>');
+	   children_list.append('<%= content_tag :li, create_new_child_statement_link(@statement_node, type,
+	                                                                              :new_level => true,
+	                                                                              :css => "ajax") %>');
 		}
 	<% end %>
 

@@ -417,7 +417,7 @@
 		    }
 
 		    // Get current_stack of visible statements (if any matches the clicked statement, then break)
-        var current_stack = [];
+				var current_stack = [];
 		    $("#statements .statement").each( function(index){
 		      if (index < statement_index) {
 		        id = $(this).attr('id').split('_').pop();
@@ -436,7 +436,6 @@
 				return current_stack;
 		  }
 
-
       // Public API of statement
       $.extend(this,
       {
@@ -451,16 +450,18 @@
 					initMoreButton();
           initChildrenLinks(container);
           initFUQChildrenLinks(container);
-					var echoableApi = statement.data('echoableApi');
-					echoableApi.loadRatioBars(container);
+					if (isEchoable) {
+            statement.data('echoableApi').loadRatioBars(container);
+          }
 				},
 
 				reinitialiseSiblings: function(siblingsContainerSelector) {
           var container = statement.find(siblingsContainerSelector);
           initSiblingsLinks(container);
           initFUQSiblingsLinks(container);
-					var echoableApi = statement.data('echoableApi');
-          echoableApi.loadRatioBars(container);
+					if (isEchoable) {
+			  		statement.data('echoableApi').loadRatioBars(container);
+				  }
         },
 
         insertContent: function(content) {
@@ -519,7 +520,11 @@
 		      statement.find('.content').hide('slow');
 		      statement.find('.supporters_label').hide();
 					return this;
-		    }
+		    },
+        loadRatioBars: function(container) 
+        {
+          initRatioBars(container);
+        }
       });
 	  }
 

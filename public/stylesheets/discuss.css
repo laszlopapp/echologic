@@ -21,16 +21,9 @@
   clear: both;
   float: left;
   position: relative;
-  left: 7px;
-  top: 43px;
   padding: 17px 7px;
   text-align: center;
-  margin: 0 0 40px;
-  background-color: #E6EEF1;
-  background-color: #e0e8ec;
-  background-color: #d3dce0;
-  background-color: #D8E2E5;
-  background-color: #CAD5DE;
+  margin: 0 0 55px;
   background-color: #cad3db;
   border-radius: 12px;
   -moz-border-radius: 12px;
@@ -44,6 +37,15 @@
   position: relative;
   top: 3px;
   display: block;
+}
+
+#questions_container .action_bar {
+  top: 8px;
+}
+
+.statement .action_bar {
+  left: 7px;
+  top: 43px;
 }
 
 
@@ -336,26 +338,16 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /**********/
 
 #discuss_search_container.search_container {
-  margin:   35px auto 25px;
+  margin: 40px auto 30px;
 }
 
 .questions_container .header {
-	background: url("../images/page/discuss/stack_separator.png") no-repeat scroll 7px 0 transparent;
+	background: #B5C0C9 url("../images/page/colored_header_780.png") no-repeat scroll 0 0;
   clear: both;
   display: inline-block;
-  min-height: 34px;
-  width: 785px;
+  width: 780px;
+  height: 55px;
 	margin-bottom: 10px;
-}
-
-.questions_container .header .label {
-	 color: #21587F;
-   cursor: default;
-   font-size: 16px;
-   font-weight: bold;
-	 position: relative;
-	 left: 30px;
-	 top: 3px;
 }
 
 .questions_container .header .icon {
@@ -365,127 +357,104 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	width: 36px;
 	position: relative;
 	top: 15px;
-  left: 22px;
+  left: 8px;
 }
 
-.questions_container ul {
-	height: 900px;
+.questions_container .header .label {
+	 color: #21587F;
+   cursor: default;
+   font-size: 16px;
+   font-weight: bold;
+	 position: relative;
+	 left: 15px;
+	 top: 1px;
 }
 
-.questions_container li.question {
-	display: inline-block;
-	height: 160px;
+.questions_container .content {
+  margin: 0;
+  padding: 0 5px;
+  width: 770px;
+  display: inline-block;
+}
+
+.questions_container .question {
+  width: 100%;
+	display: block;
 	position: relative;
+  padding-top: 15px;
+  clear: both;
 }
 
-.questions_container li.question img{
+.questions_container .question .avatar_holder {
+	float: left;
+  margin-right: 16px;
+  width: 145px;
+}
+
+.questions_container .question .avatar_holder img {
+  max-width: 145px;
+  max-height: 90px;
   border: 2px solid #7BB031;
 }
 
-.questions_container li.question .top_area {
-	float: left;
-  height: 20px;
+.questions_container .question .middle_block {
+  display: inline-block;
   position: relative;
-  top: 0px;
-  width: 590px;
-	margin-bottom: 9px;
+  top: -3px;
+  width: 405px;
+  overflow: hidden;
 }
-.questions_container li.question .top_area .statement_link {
+
+.questions_container .question .title a.statement_link {
 	background: none;
-}
-
-.questions_container li.question .bottom {
-  float: left;
-  height: 100px;
-  position: relative;
-	bottom: 0px;
-}
-
-.questions_container li.question .bottom .description {
-	padding-left: 21px;
-	width: 365px;
-	height: 90px;
-}
-
-.questions_container li.question .buttons {
-  position: absolute;
-	right: 64px;
-	top: 74px;
-}
-
-.questions_container li.question a.publish_button {
-	left: 55px;
-}
-
-.questions_container li.question .avatar_holder {
-	float: left;
-}
-.questions_container li.question .avatar_holder img {
-  height: 130px;
-	width: 175px;
-}
-/********************** TODO: OLD; MAYBE TO DELETE *******************************************/
-
-#function_container .simple_header_block h2 {
-  color: #21587f !important;
-  border-bottom: 1px solid #a8a8a8;
-  padding-bottom: 6px;
-  margin-bottom: 15px;
-}
-
-#function_container .search_category {
-  position: absolute;
-  left: 66px;
-  top: 6px;
-  width: 195px;
+  padding-left: 0 !important;
+  font-size: 18px;
   font-weight: bold;
-  text-align: center;
-  cursor: default;
 }
 
-#discuss_results .box_header_icon {
-  background: url(../images/page/box/box_icon_discuss.png) repeat-x left top;
-}
-
-#discuss_results .ttLink img {
-  color: #7BB031;
-}
-
-#discuss_results .ttLink img {
-	color: #7BB031;
-}
-
-.questions_container .results_container .no_results {
-  top: 85px;
-}
-
-.questions_container .results_container .create_first_question_button {
-  background: transparent url(../images/page/discuss/add_first_question_button.png) no-repeat scroll 0 0;
-	width: 400px;
-	height: 50px;
-	text-align: center;
+.questions_container .question .title a.create_question_button {
+  background-position: 0 3px;
+  font-size: 18px;
+  margin-left: 0;
+  padding-left: 22px;
   position: relative;
-  top: 80px;
-  color: #21587f;
+  text-decoration: underline;
 }
 
-.questions_container .results_container .create_first_question_button:hover {
-  background-position: 0 -50px;
+.questions_container .question .description {
+  margin-top: 10px;
 }
 
-.questions_container .results_container .create_first_question_button span {
-  font-weight: bold;
+.questions_container .question.teaser .description {
+  margin-top: 20px;
+}
+
+.questions_container .question .right_panel {
+  float: right;
+  display: block;
   position: relative;
-  left: 23px;
+}
+
+.questions_container .question .echo_indicator,
+.questions_container .question .no_echo_indicator {
+  margin: 2px 0 0;
+}
+
+.questions_container .question .right_panel .supporters_label {
+  right: 2px;
   top: 18px;
 }
 
-.questions_container .results_container .add_teaser {
-	left: 260px;
+.questions_container .question .buttons {
   position: absolute;
-  top: 147px;
-	cursor: pointer;
+	right: -30px;
+	top: 45px;
 }
+
+.questions_container .more_pagination {
+  margin: 20px 0 15px;
+}
+
 
 /***************/
 /* Breadcrumbs */
@@ -655,7 +624,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   border: 3px solid #BBB;
   background: #FEFEFE;
   position: absolute;
-  top: -32px;
+  top: -50px;
   left: 165px;
 }
 
@@ -665,6 +634,12 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   margin: 16px 0 0 30px;
   font-size: 20px;
   font-weight: bold;
+}
+
+.social_echo_panel .panel_description {
+  background: none;
+  width: 580px;
+  margin: 25px 0 0 30px;
 }
 
 .social_echo_panel .social_account_list {
@@ -754,7 +729,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* Texts */
 
 .social_echo_panel .share_form .block {
-	margin: 15px 0;
+	margin: 0 0 15px;
   position: relative;
 }
 
@@ -799,6 +774,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	height: 60px;
 	vertical-align: top;
   cursor: text;
+  overflow: hidden;
 }
 
 .social_echo_panel .share_form .submit_block .disabled {
@@ -820,15 +796,15 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 .action_bar .add_new_button {
-  height:   80px;
-  width:    160px;
-  display:  block;
+  height: 80px;
+  width: 160px;
+  display: block;
   background-image: url(../images/page/discuss/add_new_button.png);
   cursor: pointer;
 }
 
 #my_questions .add_new_button:hover,
-#statements .action_bar .add_new_button:hover {
+.action_bar .add_new_button:hover {
   background-position: 0 80px;
 }
 
@@ -1120,6 +1096,13 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   clear: right;
 }
 
+#function_container .simple_header_block h2 {
+  color: #21587f !important;
+  border-bottom: 1px solid #a8a8a8;
+  padding-bottom: 6px;
+  margin-bottom: 15px;
+}
+
 .summary.discuss_right_block {
   width: 767px;
 }
@@ -1332,7 +1315,11 @@ a.statement_link:hover {
 .create_improvement_button_32 {background: transparent url(../images/page/discuss/improvement_32.png) no-repeat scroll 0 0;}
 .create_pro_argument_button_32 {background: transparent url(../images/page/discuss/pro_argument_32.png) no-repeat scroll 0 0;}
 .create_contra_argument_button_32 {background: transparent url(../images/page/discuss/contra_argument_32.png) no-repeat scroll 0 4px;}
-.create_follow_up_question_button_32 {background: transparent url(../images/page/discuss/question_32.png) no-repeat scroll 0 0;}
+.create_follow_up_question_button_32 {
+  background:  transparent url("../images/page/discuss/fuq_32.png") no-repeat scroll -5px 0;
+  margin: 0 20px 0 15px !important;
+  padding: 7px 0 0 45px !important;
+}
 
 
 /*****************/
@@ -1412,7 +1399,7 @@ a.statement_link:hover {
 .translation_box_class .translation_link {
   position: relative;
   top: 19px;
-  font: 14px;
+  font-size: 14px;
   color: #21587f;
   text-decoration: underline;
 }
@@ -1467,7 +1454,6 @@ form.translation .rte-panel {
 	border: 1px solid #999999;
 	overflow: auto;
   padding: 2px;
-
 }
 
 form.statement fieldset ol li.tags_container {
@@ -1510,13 +1496,17 @@ form.statement fieldset ol li.tags_container {
 .statement .authors .jcarousel-container {
   width: 685px;
   left: -5px;
-  background: #F8F8F8;
+  /*background: #F8F8F8;*/
+  background: #F5F7F9;
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
   border-radius: 15px;
-  -moz-box-shadow: 0 0 33px #F0F0F0;
+  /*-moz-box-shadow: 0 0 33px #F0F0F0;
   -webkit-box-shadow: 0 0 33px #F0F0F0;
-  box-shadow: 0 0 33px #F0F0F0;
+  -box-shadow: 0 0 33px #F0F0F0;*/
+  -moz-box-shadow: 0 0 33px #EBEFF2;
+  -webkit-box-shadow: 0 0 33px #EBEFF2;
+  box-shadow: 0 0 33px #EBEFF2;
 }
 .statement .authors .jcarousel-clip-horizontal {
 	width: 685px;

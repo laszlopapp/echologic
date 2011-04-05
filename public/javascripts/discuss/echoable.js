@@ -28,8 +28,8 @@
        * Initializes an echoable statement in a form or in normal mode.
        */
 			function initialize() {
+				initEchoIndicators(echoable);
         echo_button = echoable.find('.action_bar .echo_button');
-				initRatioBars(echoable);
         if (echo_button.length == 0) {
           return;
         }
@@ -43,7 +43,6 @@
 				} else {
 					initEchoButton();
 				}
-
 		  }
 
       function initLabelMessages() {
@@ -115,17 +114,11 @@
                                 addClass(classToAdd).removeClass(classToRemove).attr('alt', ratio);
         new_supporter_bar.attr('title', form.find('.supporters_label').text());
         old_supporter_bar.replaceWith(new_supporter_bar);
-				initRatioBars(header);
+				echoable.data('api').loadRatioBars(header);
       }
 
 
-      function initRatioBars(container) {
-        container.find('.echo_indicator').each(function() {
-          var indicator = $(this);
-          var echo_value = parseInt(indicator.attr('alt'));
-          indicator.progressbar({ value: echo_value });
-        });
-      }
+
 
       /************************************/
       /* For normal statements (not form) */
@@ -319,6 +312,17 @@
         social_echo_button.data('expandableApi').toggle();
       }
 
+			function initEchoIndicators(container) {
+        container.find('.echo_indicator').each(function() {
+          var indicator = $(this);
+          if (!indicator.hasClass("ei_initialized")) {
+            var echo_value = parseInt(indicator.attr('alt'));
+            indicator.progressbar({ value: echo_value });
+          }
+          indicator.addClass("ei_initialized");
+        });
+      }
+
 			// Public API
       $.extend(this,
       {
@@ -329,7 +333,7 @@
           echo_button.attr('href', href);
           echoable.find('.header .supporters_bar').replaceWith(supporters_bar);
           echoable.find('.header .supporters_label').text(supporters_number);
-					initRatioBars(echoable.find('.header'));
+					initEchoIndicators(echoable.find('.header'));
           return this;
         },
 				loadEchoLabelMessages: function(messages) {
@@ -345,10 +349,10 @@
           social_echo_button.data("expandableApi").activated();
 					return this;
 				},
-				loadRatioBars: function(container) {
-					initRatioBars(container);
-					return this;
-				}
+        loadRatioBars: function(container) {
+          initEchoIndicators(container);
+          return this;
+			  }
 			});
 		}
 

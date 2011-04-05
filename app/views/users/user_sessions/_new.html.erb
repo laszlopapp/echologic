@@ -1,6 +1,9 @@
-<div class='registry'>
-  <%= render :partial => 'users/components/signings/signing_form', :locals => {:type => 'signin'} %>
-  <%= render :partial => 'users/components/signings/signing_form', :locals => {:type => 'signup', :style => "display:none"} %>
+<div class='signinup_dialog'>
+  <%= render :partial => 'users/components/signinup/signinup_form',
+             :locals => {:type => 'signin'} %>
+  <%= render :partial => 'users/components/signinup/signinup_form',
+             :locals => {:type => 'signup',
+                         :style => "display:none"} %>
   <span class='close_button'>
   </span>
 </div>

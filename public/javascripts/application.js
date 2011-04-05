@@ -15,7 +15,7 @@
     loadAjaxForms();
     uploadFormSubmit();
     loadAboutUs();
-		loadModalFormButtons();
+		initSigninupButtons();
 
     /* Always send the authenticity_token with Ajax */
     $(document).ajaxSend(function(event, request, settings) {
@@ -202,7 +202,7 @@
     $('#messageContainer #errorBox').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
   }
 
-  
+
 
   function loadTabsContainer() {
     $('.tab_details_container').livequery(function() {
@@ -270,11 +270,11 @@
     }
   }
 
-  function loadModalFormButtons() {
-		$('.modal_form_container > .toggle_button').live('click', function(){
+  function initSigninupButtons() {
+		$('.signinup_container .signinup_toggle_button').live('click', function() {
 			var to_show = $(this).attr('href');
 			$(to_show).show();
-			$(this).parents('.modal_form_container').hide();
+			$(this).parents('.signinup_container').hide();
 			return false;
 		});
 	}

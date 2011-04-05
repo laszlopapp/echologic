@@ -33,6 +33,7 @@ fr:
       welcome: Bienvenue
       all: Tous
       authors: Auteurs
+      share_action: 'Make an echo!'
 
     # Roadmap - progrès
     roadmap:
@@ -145,37 +146,36 @@ fr:
     authors:
       teaser:
         title: 'Devenez co-auteur!'
+    signup:
+      label: 'Sign Up'
+      member_tag: Not a member yet?
+      via_echo: '... for a new echo Account'
+      via_social: '... via another social account '
+    setup_basic_profile:
+      title: 'Setup Basic Profile'
+      guide: Please fill in your basic profile information to set up your account.
+      agreement: I have read and agree to the terms of data policy.
+      use_photo: 'Use in echo, too'
     signin:
       label: 'Sign In'
-      password: Mot de passe
+      password: 'Password'
       member_tag: Already a member?
       via_echo: '... via echo'
       via_social: '... via another Account'
-      set_password: Mot de passe oublié?
-      remember: Mémoriser mon mot de passe!
-      hello: Vous êtes connecté(e)<br/><strong>{{name}}</strong>
-      setup_basic_profile:
-        title: 'Setup Basic Profile'
-        guide: Please, fill your basic information in and publish your account!
-        agreement: I agree with the terms of data policy...
-        use_photo: 'Use in echo, too'
+      set_password: Forgot your password?
+      remember: Remember me!
+      hello: Logged in<br/><strong>{{name}}</strong>
       messages:
-        success: "Votre inscription a réussi.<br/>Bienvenue sur echo!"
-        failed: "Utilisateur inconnu ou erreur de mot de passe."
-        failed_social: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account"
-    signup:
-      label: 'Sign Up'
-      member_tag: |
-        Pas encore membre?
-      via_echo: '... for a new echo Account'
-      via_social: '... via another Existing Account'
+        success: "Login successful. Welcome back to echo."
+        failed: "Unknown user or wrong password."
+        failed_social: "Please log in with an account you registered with or that you connected to your echo account."
     signout:
       messages:
         success: "Vous vous êtes déconnecté(e).<br/>Au revoir et à bientôt!"
     user_sessions:
       messages:
         session_timeout: "Votre ancienne session a été fermée. Veuillez recommencer."
-     
+
     # Activations section
     activation:
       messages:
@@ -193,16 +193,15 @@ fr:
       step2: Indiquez un nouveau mot de passe
       step1_text: |
         <p>
-        <strong>Vous avez oublié votre mot de passe</strong> ou voulez vous un nouveau mot de passe?
+        Vous avez oublié votre mot de passe ou voulez vous un nouveau mot de passe?
         </p><p>
-        C'est simple! Indiquez simplement l' adresse <strong>E-Mail</strong>, avec laquelle vous vous êtes enregistré(e).
-        Nous vous enverrons ensuite un courriel vous permettant de réinitialiser <strong>votre mot de passe</strong>.
+        C'est simple! Indiquez simplement l' adresse E-Mail, avec laquelle vous vous êtes enregistré(e).
+        Nous vous enverrons ensuite un courriel vous permettant de réinitialiser votre mot de passe.
         </p>
       step1_mail: Envoyer un courriel
-
       step2_text: |
-        Veuillez indiquer <strong>le nouveau mot de passe</strong> avec lequel vous souhaitez vous inscrire à echo.
-      step2_ok: Indiquer un mot de passe et connectez-vous
+        Veuillez indiquer le nouveau mot de passe avec lequel vous souhaitez vous inscrire à echo.
+      step2_ok: Indiquer un mot de passe
       messages:
         success: |
           Nous vous avons envoyé un courriel vous permettant de réinitialiser votre mot de passe.
@@ -389,6 +388,7 @@ fr:
         failed: Failed to remove your {{account}} account!
       share:
         title: Send out the voice
+        guide: Connect up your accounts to easily share and amplify your echo via other social networks.
         text: Message
         data_privacy:
           title: Data Privacy Notice
@@ -400,6 +400,8 @@ fr:
           Made an echo via {{accounts}}.
         failed: |
           Failed via {{accounts}}.
+        timeout: |
+          Connection with {{accounts}} timed out!
         enabled: "On"
         disabled: "Off"
 
@@ -654,6 +656,7 @@ fr:
         autre utilisateur. Votre rajout ne peut pas être pris en compte.
       no_document_in_language: "Le constat n'existe pas dans votre langue."
       supporter_to_share: 'You must be a supporter of this statement in order to share it!'
+      published_to_share: 'This discussion is yet to be published. Until then, you can not unfortunately share it!'
       cannot_be_edited: 'The statement can not be edited after other members have supported it'
 
       breadcrumbs:
@@ -727,7 +730,7 @@ fr:
       text: |-
         Veuillez établir votre profil <strong>au moins à {{percentage}}%</strong> pour "faire plaisir à notre logiciel"
         et pour faire disparaître cette partie.
-      placeholder: 'Topic, place, organization or name of interest'
+    placeholder: 'Topic, place, organization or name of interest'
 
     segments:
       all: Tous

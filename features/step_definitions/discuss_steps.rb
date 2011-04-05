@@ -33,9 +33,8 @@ When /^I choose the "([^\"]*)" ([^\"]*)$/ do |name, type|
   type = type.underscore
   response.should have_selector("li.#{type}") do |selector|
     selector.each do |statement|
-      title = type.eql?('question') ? "Question - #{name}" : name
       elem = statement.at_css("a.#{type}_link")
-      if elem and title.eql?(elem.inner_text.strip)
+      if elem and name.eql?(elem.inner_text.strip)
         instance_variable_set("@#{type}", type_class.find(URI.parse(elem['href']).path.match(/\d+/)[0]))
         visit elem['href']
       end

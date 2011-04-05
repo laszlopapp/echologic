@@ -37,21 +37,32 @@ class SocialService
     @service.unmap(identifier, key)
   end
 
+  def delete_mappings(key)
+    @service.delete_mappings(key)
+  end
+
+  def all_mappings
+    @service.all_mappings
+  end
 
   def share_activities(providers, opts={})
-    providers_reached = []
+    providers_status = {:success => [], :failed => [], :timeout => []}
     threads = []
     providers.each do |provider, social_identifier|
       activity = create_activity(provider, opts)
       threads << SharingJob.new(social_identifier.identifier, provider, activity)
     end
     threads.each do |t|
-      t.join(3)
+      t.join(10)
     end
     threads.each do |t|
-      providers_reached << t.provider if t.succeeded?
+      if t.terminated?
+       providers_status[t.succeeded? ? :success : :failed] << t.provider
+      else
+        providers_status[:timeout] << t.provider
+      end
     end
-    providers_reached
+    providers_status
   end
 
 

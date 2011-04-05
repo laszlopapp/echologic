@@ -4,7 +4,7 @@ class StatementsControllerTest < ActionController::TestCase
   def setup
     login_as :editor
     @controller = StatementsController.new
-    flexmock(SocialService.instance).should_receive(:share_activities).with(Hash, Hash).and_return(['facebook', 'twitter'])
+    flexmock(SocialService.instance).should_receive(:share_activities).with(Hash, Hash).and_return({:success => ['facebook', 'twitter'], :failed => ['linkedin'], :timeout => []})
   end
 
   #####################
@@ -267,7 +267,7 @@ class StatementsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:children_documents)
     assert_response :success
   end
-  
+
   test "should get more follow up question children" do
     get :more, :id => statement_nodes('test-question').to_param, :type => "follow_up_question"
     assert_not_nil assigns(:children)
@@ -275,8 +275,8 @@ class StatementsControllerTest < ActionController::TestCase
     assert_equal 0, assigns(:children)[:FollowUpQuestion].size # no follow up questions
     assert_response :success
   end
-  
-  
+
+
 
   test "should get proposal children" do
     get :children, :id => statement_nodes('test-question').to_param, :type => "proposal"
@@ -286,7 +286,7 @@ class StatementsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:children_documents)
     assert_response :success
   end
-  
+
   test "should get argument children" do
     get :children, :id => statement_nodes('first-proposal').to_param, :type => "argument"
     assert_not_nil assigns(:children)
@@ -296,7 +296,7 @@ class StatementsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:children_documents)
     assert_response :success
   end
-  
+
   test "should get follow up question children" do
     get :children, :id => statement_nodes('test-question').to_param, :type => "follow_up_question"
     assert_not_nil assigns(:children)
@@ -313,7 +313,7 @@ class StatementsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:children_documents)
     assert_response :success
   end
-  
+
   test "should get test question siblings coming from discuss search with search term test" do
     get :descendants, :type => "question", :current_node => statement_nodes('test-question').to_param, :origin => "srtest|1"
     assert_not_nil assigns(:children)
@@ -322,7 +322,7 @@ class StatementsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:children_documents)
     assert_response :success
   end
-  
+
   test "should get test question siblings being test question a follow up question from test question 2" do
     get :descendants, :type => "question", :current_node => statement_nodes('test-question').to_param, :origin => "fq#{statement_nodes('test-question-2').to_param}"
     assert_not_nil assigns(:children)
@@ -414,9 +414,8 @@ class StatementsControllerTest < ActionController::TestCase
                     }
       assert_not_nil assigns(:shortcut_url)
       assert_equal "test-question", assigns(:shortcut_url).shortcut
-      assert assigns(:providers_success).include?('facebook')
-      assert assigns(:providers_success).include?('twitter')
-      assert assigns(:providers_failed).empty?
+      assert assigns(:providers_status)[:success].include?('facebook')
+      assert assigns(:providers_status)[:success].include?('twitter')
     end
   end
 
@@ -429,9 +428,9 @@ class StatementsControllerTest < ActionController::TestCase
                     }
       assert_not_nil assigns(:shortcut_url)
       assert_equal "test-question", assigns(:shortcut_url).shortcut
-      assert assigns(:providers_success).include?('facebook')
-      assert assigns(:providers_success).include?('twitter')
-      assert assigns(:providers_failed).include?('linkedin')
+      assert assigns(:providers_status)[:success].include?('facebook')
+      assert assigns(:providers_status)[:success].include?('twitter')
+      assert assigns(:providers_status)[:failed].include?('linkedin')
     end
   end
 

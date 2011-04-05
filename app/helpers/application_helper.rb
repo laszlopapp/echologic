@@ -116,22 +116,28 @@ module ApplicationHelper
   # POP-UP LOGIN HELPERS #
   ########################
 
-  def toggle_form_field(type)
+  def signinup_toggle_block(type)
     toggle_type = type.eql?('signin') ? 'signup' : 'signin'
     content = ''
-    content << content_tag(:span, "#{I18n.t("users.#{toggle_type}.member_tag")} >>>",
-                           :class => 'registry_label')
     content << content_tag(:a, I18n.t("users.#{toggle_type}.label"),
-                           :class => 'toggle_button',
+                           :class => 'signinup_toggle_button big_button big_green_button_150',
                            :href => "##{toggle_type}")
+    content << content_tag(:span, '»»»', :class => 'toggle_arrow')
+    content << content_tag(:span, "#{I18n.t("users.#{toggle_type}.member_tag")}",
+                           :class => 'signinup_toggle_label')
     content
   end
 
-  def signing_header(type)
+  def signinup_labels(type)
     content = ''
-    content << content_tag(:span, content_tag(:h2, I18n.t("users.#{type}.via_echo")), :class => 'box_label')
-    content << I18n.t('application.general.or')
-    content << content_tag(:span, content_tag(:h2, I18n.t("users.#{type}.via_social")), :class => 'box_label')
+    content << content_tag(:span, I18n.t("users.#{type}.via_echo"),
+                           :class => 'echo_label')
+    content << content_tag(:span, :class => 'or_holder') do
+      content_tag(:span, I18n.t('application.general.or'),
+                  :class => 'or_label')
+    end
+    content << content_tag(:span, I18n.t("users.#{type}.via_social"),
+                           :class => 'social_label')
     content
   end
 
@@ -163,17 +169,17 @@ module ApplicationHelper
       { :authenticity_token => form_authenticity_token }.collect { |n| "#{n[0]}=#{ u(n[1]) }" if n[1] }
     ).compact.join('&')
     <<-EOF
-    <iframe src='http://#{RPX_APP_NAME}/openid/embed?#{embed_params(url)}' scrolling='no' frameBorder='no'
-    allowtransparency='true' style='width:400px;height:240px'></iframe>
+    <iframe src='http://#{RPX_APP_NAME}/openid/embed?#{embed_params(url, options)}'
+    scrolling='no' frameBorder='no' allowtransparency='true'
+    style='width:400px;height:240px'></iframe>
     EOF
   end
 
   def embed_params(url, options={})
     {
-      :token_url => CGI::escape( url ),
+      :token_url => CGI::escape(url),
       :language_preference => options[:language],
-      :flags => options[:flags],
-      :default_provider => options[:default_provider]
+      :flags => 'show_provider_list,hide_sign_in_with'
     }.map{|k,v| "#{k}=#{v}" if v}.compact.join('&amp;')
   end
 end

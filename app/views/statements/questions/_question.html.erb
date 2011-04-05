@@ -1,22 +1,29 @@
 <% question_document ||= @statement_documents[question.statement_id] %>
-<% question_label = I18n.t("discuss.statements.types.#{dom_class(question)}")%>
 
-<li id="<%= dom_id(question) %>" class="question">
-	  <% link_to_question(question_document.title, question) %>
-    <% content_tag :div, :class => 'top_area' do %>
-		  <%= statement_node_context_link(question, "#{question_label} - #{question_document.title}", 'current', 
-          :bids => @origin, :origin => @origin) %>
-			<%= supporter_ratio_bar(question) %>
+<% content_tag :li, '', :id => dom_id(question), :class => 'question' do %>
+
+	  <% image_link_to_question(question) %>
+
+    <% content_tag :div, :class => 'right_panel' do %>
+      <%= supporter_ratio_bar(question) %>
       <%= supporters_label(question, true) %>
+      <% content_tag :div, :class => 'buttons',
+                     :id => "#{dom_id(question)}_buttons" do %>
+        <%= publish_button_or_state(question, :no_published_label => true) %>
+      <% end %>
     <% end %>
-		<% content_tag :div, :class => 'bottom' do %>
-		  <% content_tag :div, :class => 'description' do %>
-			 <%= question_document.text.length > 300 ? 
-           "#{question_document.text[0..150].strip} ... #{question_document.text[question_document.text.length-151..-1].strip}" : 
-           question_document.text %>
-			<% end %>
-		<% end %>
-		<% content_tag :div, :class => 'buttons', :id => "#{dom_id(question)}_buttons" do %>
-		 <%= publish_button_or_state(question, true) %>
-		<% end %>
-</li>
+
+    <% content_tag :div, :class => 'middle_block' do %>
+      <% content_tag :div, :class => 'title' do %>
+        <%= statement_node_context_link(question,
+                                        "#{question_document.title}",
+                                        'read',
+                                        :bids => @origin,
+                                        :origin => @origin) %>
+      <% end %>
+      <%= content_tag :div,
+                      truncate_statement_text(question_document),
+                      :class => 'description' %>
+    <% end %>
+
+<% end %>

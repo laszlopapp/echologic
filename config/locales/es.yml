@@ -33,6 +33,7 @@ es:
       welcome: Bienvenido
       all: Todos
       authors: Autores
+      share_action: 'Make an echo!'
 
     # Roadmap - Progress
     roadmap:
@@ -131,29 +132,29 @@ es:
       teaser:
         title: 'Conviértete en co-autor!'
     # User sessions section
+    signup:
+      label: 'Sign Up'
+      member_tag: Not a member yet?
+      via_echo: '... for a new echo Account'
+      via_social: '... via another social account '
+    setup_basic_profile:
+      title: 'Setup Basic Profile'
+      guide: Please fill in your basic profile information to set up your account.
+      agreement: I have read and agree to the terms of data policy.
+      use_photo: 'Use in echo, too'
     signin:
       label: 'Sign In'
-      password: 'Contraseña'
+      password: 'Password'
       member_tag: Already a member?
       via_echo: '... via echo'
       via_social: '... via another Account'
-      set_password: Has olvidado la contraseña?
-      remember: Recuérdame!
-      hello: Registrado <br/><strong>{{name}}</strong>
-      setup_basic_profile:
-        title: 'Setup Basic Profile'
-        guide: Please, fill your basic information in and publish your account!
-        agreement: I agree with the terms of data policy...
-        use_photo: 'Use in echo, too'
+      set_password: Forgot your password?
+      remember: Remember me!
+      hello: Logged in<br/><strong>{{name}}</strong>
       messages:
-        success:  "Te has registrado correctamente.<br/>Bienvenido de nuevo a echo!"
-        failed:   "Usuario desconocido o contraseña incorrecta."
-        failed_social: "Unknown Profile. Please log yourself in with your echo account and add this profile to your account"
-    signup:
-      label: 'Sign Up'
-      member_tag: Aún no eres miembro?
-      via_echo: '... for a new echo Account'
-      via_social: '... via another Existing Account'
+        success: "Login successful. Welcome back to echo."
+        failed: "Unknown user or wrong password."
+        failed_social: "Please log in with an account you registered with or that you connected to your echo account."
     signout:
       messages:
         success: "Has cerrado tu cuenta.<br/>Hasta la próxima!"
@@ -177,16 +178,15 @@ es:
       step1: Solicitar nueva contraseña
       step2: Definir nueva contraseña
       step1_text: |
-        <p><strong>Has olvidado tu contraseña</strong> o simplemente deseas cambiarla?
+        <p>Has olvidado tu contraseña o simplemente deseas cambiarla?
         </p><p>
-        No hay problema! Sólo tienes que introducir tu <strong>dirección de correo electrónico</strong> con la que estás registrado en echo.
-        Te enviaremos un correo electrónico que te permitirá <strong>definir una nueva contraseña</strong>.
+        No hay problema! Sólo tienes que introducir tu dirección de correo electrónico con la que estás registrado en echo.
+        Te enviaremos un correo electrónico que te permitirá definir una nueva contraseña.
         </p>
       step1_mail: Enviar correo electrónico
-
       step2_text: |
-        Por favor, introduce <strong>una nueva contraseña</strong> con la que entrarás en echo la próxima vez.
-      step2_ok: Definir contraseña y entrar
+        Por favor, introduce una nueva contraseña con la que entrarás en echo la próxima vez.
+      step2_ok: Definir contraseña
       messages:
         success:        'Te enviamos un correo electrónico, que te permite definir una nueva contraseña.<br/>Por favor, comprueba tu cuenta de correo.'
         not_found:      'No se ha encontrado la dirección electrónica indicada.'
@@ -365,6 +365,7 @@ es:
         failed: Failed to remove your {{account}} account!
       share:
         title: Send out the voice
+        guide: Connect up your accounts to easily share and amplify your echo via other social networks.
         text: Message
         data_privacy:
           title: Data Privacy Notice
@@ -376,6 +377,8 @@ es:
           Made an echo via {{accounts}}.
         failed: |
           Failed via {{accounts}}.
+        timeout: |
+          Connection with {{accounts}} timed out!
         enabled: "On"
         disabled: "Off"
 
@@ -631,6 +634,7 @@ es:
         propuesta, por lo que no se han podido guardar tus modificaciones.
       no_document_in_language: 'Este contenido no está disponible en inglés.'
       supporter_to_share: 'You must be a supporter of this statement in order to share it!'
+      published_to_share: 'This discussion is yet to be published. Until then, you can not unfortunately share it!'
       cannot_be_edited: 'The statement can not be edited after other members have supported it'
 
       breadcrumbs:
@@ -699,7 +703,7 @@ es:
       text: |-
         Por favor completa tu perfil <strong>por lo menos en un {{percentage}}%</strong>, para hacer feliz al servidor (HAL)
         y retirar este bloque ;-)
-      placeholder: 'Topic, place, organization or name of interest'
+    placeholder: 'Topic, place, organization or name of interest'
 
     segments:
       all: Todos

@@ -99,6 +99,7 @@ class ApplicationController < ActionController::Base
     @user_required = true
     unless current_user
       redirect_url = request.url == last_url ? root_url : last_url
+      session[:redirect_url] = redirect_url
       later_call_with_info(redirect_url, signin_url) do |format|
         format.js{render_signinup_js(:signin)}
       end
@@ -139,7 +140,7 @@ class ApplicationController < ActionController::Base
     reset_session
     if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'
       # If the user wants to log out, we go to the root page and display the logout message.
-      redirect_to_url root_url, 'users.user_sessions.messages.logout_success'
+      redirect_to_url root_url, 'users.signout.messages.success'
     else
       # Not logout
       @user_required ||= false
@@ -202,9 +203,15 @@ class ApplicationController < ActionController::Base
   end
 
   def language_preference_list
-    priority_languages = (@statement_node.nil? ? [locale_language_id] : [locale_language_id,
-                                                                        @statement_node.original_language.id])
-    priority_languages.concat(current_user ? current_user.sorted_spoken_languages : []).uniq
+    priority_languages = [locale_language_id]
+    # get statement node original language
+    st_original_language = @statement_node.original_language if @statement_node
+    # insert original language in the priority languages
+    priority_languages << st_original_language.id if st_original_language
+    # insert user spoken languages into the priority languages
+    priority_languages += current_user.sorted_spoken_languages if current_user
+    
+    priority_languages.uniq
   end
 
 
@@ -385,7 +392,7 @@ class ApplicationController < ActionController::Base
       format.js{render_signinup_js(type)}
     end
   end
-  
+
   def render_signinup_js(type)
     load_signinup_data(type)
     render :template => 'users/components/users_form',
@@ -481,16 +488,15 @@ class ApplicationController < ActionController::Base
 
   public
   def shortcut
-    respond_to do |format|
-      if shortcut = ShortcutUrl.find(params[:shortcut])
-         command = JSON.parse(shortcut.command)
-         url = send("#{command['operation']}_path", command['params'].merge({:locale => command['language']}))
-         format.html {redirect_to url}
-      else
-        format.html do
-          redirect_to discuss_search_url(:search_terms => params[:shortcut])
-        end
-      end
+    begin
+      shortcut = ShortcutUrl.find(params[:shortcut])
+      command = JSON.parse(shortcut.command)
+      url = send("#{command['operation']}_path", command['params'].merge({:locale => command['language']}))
+      redirect_to url
+    rescue ActiveRecord::RecordNotFound
+      redirect_to discuss_search_url(:search_terms => params[:shortcut])
+    rescue Exception => e
+      log_message_error(e, "Error redirecting from shortcut.")
     end
   end
 

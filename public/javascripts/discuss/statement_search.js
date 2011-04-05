@@ -2,7 +2,7 @@
  * @author Tiago
  */
 
- 
+
 (function($) {
 
   $.fn.statement_search = function(current_settings) {
@@ -41,19 +41,22 @@
 
       // Initializes the statement.
       function initialise() {
-        initRatioBars(search_container);
+        initEchoIndicators(search_container);
 				initMoreButton();
-				initScrollPane();
+				//initScrollPane();
       }
-			
-			function initRatioBars(container) {
+
+			function initEchoIndicators(container) {
         container.find('.echo_indicator').each(function() {
           var indicator = $(this);
-          var echo_value = parseInt(indicator.attr('alt'));
-          indicator.progressbar({ value: echo_value });
+          if (!indicator.hasClass("ei_initialized")) {
+            var echo_value = parseInt(indicator.attr('alt'));
+            indicator.progressbar({ value: echo_value });
+          }
+          indicator.addClass("ei_initialized");
         });
       }
-			
+
 			/*
        * Handles the click on the more Button event (replaces it with an element of class 'more_loading')
        */
@@ -81,14 +84,14 @@
 					return false;
         });
       }
-			
+
 			function updateUrlCount(element, page_count) {
 				element.attr('href',decodeURI(element.attr('href')).replace(/\|\d+/g, "|" + page_count));
 			}
-			
-			function initScrollPane() {
-				elements_list.jScrollPane({animateScroll: true});
-			}
+
+//			function initScrollPane() {
+//				elements_list.jScrollPane({animateScroll: true});
+//			}
 
       // Public API of statement
       $.extend(this,
@@ -97,26 +100,39 @@
         {
           settings = $.extend({}, resettings);
           initialise();
-        }, 
-				insertContent: function(content, pagination_buttons, page)
+        },
+				insertContent: function(content, page)
 				{
-					var scrollpane = elements_list.data('jsp');
-					children_list = scrollpane.getContentPane();
+					var children_list = $("#questions_container .content");
 					if (page == 1) {
-				  	children_list.find('li').remove();
+				  	children_list.children().remove();
 				  }
 					children_list.append(content);
-					if (pagination.length > 0) {
-				  	pagination.replaceWith(pagination_buttons);
+
+          // Scrolling to the first new list element
+          if (page > 1) {
+            var first_new_id = "#" + $(content).first().attr("id");
+            $.scrollTo(first_new_id, 700);
+          }
+					initEchoIndicators(children_list);
+				},
+				updateMoreButton: function(content, to_insert)
+				{
+          if (to_insert) {
+				  	if (pagination && pagination.length > 0) {
+				  		pagination.replaceWith(content);
+				  	}
+				  	else {
+				  		content.insertAfter(elements_list);
+				  	}
+						pagination = content;
+				  	initMoreButton();
 				  } else {
-						pagination_buttons.insertAfter(elements_list);
+					  if (pagination) {
+							pagination.remove();
+							pagination = null;
+						}
 					}
-					pagination = pagination_buttons;
-					
-					scrollpane.reinitialise();
-          scrollpane.scrollToBottom();
-					initRatioBars(children_list);
-					initMoreButton();
 				}
       });
     }

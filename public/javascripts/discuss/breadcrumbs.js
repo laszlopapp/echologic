@@ -97,7 +97,7 @@
 
 						if (sids.join(",") == $.fragment().sids) {
 			        /* sids won't change, we are inside a new form, and we press the breadcrumb to go back*/
-							var path = $.queryString($(this).attr('href'), {"sids" : sids.join(",")});
+							var path = $.queryString($(this).attr('href'), {"sids" : sids.join(","), "bids" : ''});
 							$.getScript(path);
 						}
 						else {
@@ -181,7 +181,7 @@
 					var jsp = breadcrumbs.data('jsp');
 					var elements = jsp.getContentPane().find('.elements');
 					if (originId.length > 0) {
-						if(originId.substring(0,2) == 'sr'){originId = 'sr';}
+						if($.inArray(originId.substring(0,2),['ds','sr']) != -1){originId = originId.substring(0,2);}
             // There is an origin, so delete breadcrumbs to the right
 				  	var to_remove = elements.find('a#' + originId).nextAll().remove();
             var remove_length = to_remove.length;

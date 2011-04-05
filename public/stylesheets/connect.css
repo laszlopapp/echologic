@@ -9,7 +9,7 @@
 /* Search */
 
 #connect_search_container.search_container {
-  margin:   25px auto 0;
+  margin:   35px auto 0;
 }
 
 .segments {
@@ -22,8 +22,8 @@
 }
 
 .segments ul {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 
 .segments li {

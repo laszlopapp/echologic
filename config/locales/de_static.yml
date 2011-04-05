@@ -96,12 +96,12 @@ de:
             Ihre Stimme braucht ein Echo. echo braucht Ihre Stimme! Helfen Sie mit, die Demokratie in eine Zukunft
             zu führen, in der <strong>jede Stimme zählt</strong> – jeden Tag und überall auf der Welt.
             </p><p>
-            echo steckt zwar momentan noch in den Kinderschuhen, Sie können aber bereits jetzt:
+            echo steckt zwar momentan noch in den Kinderschuhen, Sie können aber bereits:
             </p>
 
         action: |-
-          Das NEUE echo ist ONLINE!<br/>
-          Jetzt zum Prototyp »
+          Jetzt zum Prototyp »<br/>
+          echo 0.14 ist online
 
       # about section
       about:
@@ -109,6 +109,7 @@ de:
         tabs:
           project: Das Projekt
           team: Das Team
+          partners: Das Netzwerk
         text: |-
           <p>
           Hinter echo steht ein <strong><a id="about_team_link" href="#">internationales und interdisziplinäres Team</a></strong>
@@ -120,19 +121,19 @@ de:
           Initiativen und andere synergiensuchende Internetprojekte.
           </p><p>
           echo wurde im September 2008 initiiert. Im Oktober 2009 wurde der als <strong>gemeinnützig</strong> anerkannte
-          echo source e.V. gegründet. Mit Erreichen des ersten Finanzierungszieles wird für die Entwicklung,
-          Vermarktung und den Betrieb von echo die echo Systems GmbH oder AG gegründet. Das Unternehmen wird als
-          <strong><a href='http://de.wikipedia.org/wiki/Social_Business' target='_blank'>Social Business</a></strong>
+          echo source e.V. gegründet. Für die Entwicklung, Vermarktung und den Betrieb von echo wurde April 2011 als
+          hundertprozentige Tochter des Vereins die echo Systems UG i.G. gegründet. Das Unternehmen wird als <strong>
+          <a href='http://de.wikipedia.org/wiki/Social_Business' target='_blank'>Social Business</a></strong>
           betrieben. Seine <strong>"Your-Profit" Geschäftsphilosophie</strong> wurde von den Werten und Erfolgen vom
           Friedensnobelpreisträger <a href='http://de.wikipedia.org/wiki/Muhammad_Yunus' target='_blank'>Muhammad Yunus</a>
           inspiriert.
           </p><p>
-          Seit 2010 wird echo im Rahmen des EXIST-Programmes durch die EU, BMWi und ESF für Deutschland
+          Von 2010 bis Anfang 2011 wurde echo im Rahmen des EXIST-Programmes durch die EU, BMWi und ESF für Deutschland
           gefördert. Weitere finanzielle Unterstützung erhält zurzeit echo durch einen privaten Förderer.
           </p><p>
-          Die Arbeit des echo source e.V. konzentriert sich momentan in erster Linie auf die funktionale
-          Weiterentwicklung des Software Prototyps und die <strong>Gewinnung weiterer Partner, Förderer und
-          (bevorzugt nachhaltiger) Investoren</strong>.
+          Die Arbeit bei echo konzentriert sich momentan in erster Linie auf die funktionale
+          Weiterentwicklung des Software Prototyps, die Ableitung verschiedener vermarktbarer Produktzweige und
+          die <strong>Gewinnung weiterer Partner, Förderer und (bevorzugt nachhaltiger) Investoren</strong>.
           </p>
 
       # imprint section
@@ -941,3 +942,18 @@ de:
         Mit den besten Grüßen,
 
         Ihr echo Team
+        
+    activate_email:
+      subject: Please activate your echo account
+      text1: |
+        Dear {{name}},
+
+        Thank you for registering at echo. Please click the URL below to activate your account.
+      text2: |
+        If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
+
+        If you keep having problems with activating your account, please feel free to contact us at support@echologic.org.
+
+        Looking forward to seeing you soon at echo,
+
+        Your echo team

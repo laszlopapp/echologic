@@ -67,12 +67,17 @@ module EchoableModule
   def social_widget
     begin
       if @statement_node.supported?(current_user)
-        @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
-        @title = "Made an"
-        @proposed_url = "http://#{ECHO_HOST}/#{ShortcutUrl.truncate(@statement_document.title)}"
-        @proposed_url << " #{@statement_node.root.hash_topic_tags}" if !@statement_node.root.hash_topic_tags.empty?
-        respond_to do |format|
-          format.js { render :template => "statements/social_widget" }
+        if @statement_node.root.published?
+          @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
+          @title = "Made an"
+          @proposed_url = "http://#{ECHO_HOST}/#{ShortcutUrl.truncate(@statement_document.title)}"
+          @proposed_url << " #{@statement_node.root.hash_topic_tags}" if !@statement_node.root.hash_topic_tags.empty?
+          respond_to do |format|
+            format.js { render :template => "statements/social_widget" }
+          end
+        else
+          set_info "discuss.statements.published_to_share"
+          render_statement_with_info
         end
       else
         set_info "discuss.statements.supporter_to_share"
@@ -98,13 +103,14 @@ module EchoableModule
       if !@statement_node.supported?(current_user)
         set_info "discuss.statements.supporter_to_share"
         render_statement_with_info
+      elsif !@statement_node.root.published?
+        set_info "discuss.statements.published_to_share"
+        render_statement_with_info
       else
-        command = ShortcutCommand.build_command(:operation => "statement_node",
-                                                 :params => {:id => @statement_node.id},
-                                                 :language => @statement_document.language.code)
-        @shortcut_url = ShortcutUrl.find_or_create(:shortcut => @statement_document.title,
-                                                   :human_readable => true,
-                                                   :shortcut_command => {:command => command})
+        @shortcut_url = ShortcutUrl.statement_shortcut :title => @statement_document.title,
+                                                       :params => { :id => @statement_node.id },
+                                                       :language => @statement_document.language.code
+                                                       
         if !@shortcut_url
           set_error @shortcut_url
           render_statement_with_error
@@ -126,11 +132,10 @@ module EchoableModule
             social = current_user.has_provider?(prov)
             hash[prov] = social if social
           }
-          @providers_success = SocialService.instance.share_activities(providers_hash, opts)
-          @providers_failed = providers - @providers_success
+          @providers_status = SocialService.instance.share_activities(providers_hash, opts)
           respond_to do |format|
-            %w(success failed).each do |state|
-              providers_state = eval("@providers_#{state}")
+            %w(success failed timeout).each do |state|
+              providers_state = @providers_status[state.to_sym]
               set_info("users.social_accounts.share.#{state}", :accounts => providers_state.map {|c|
                 I18n.t("users.social_accounts.providers.#{c}")
               }.join("/")) if !providers_state.empty?
