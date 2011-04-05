@@ -28,7 +28,7 @@
 }
 
 .signinup_title {
-  font-size: 35px;
+  font-size: 30px;
   font-weight: bold;
   position: relative;
   top: 37px;
@@ -36,6 +36,7 @@
 
 #signin .signinup_title,
 #signup .signinup_title {
+  font-size: 35px;
   top: 21px;
 }
 
