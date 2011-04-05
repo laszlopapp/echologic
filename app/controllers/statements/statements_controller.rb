@@ -142,31 +142,29 @@ class StatementsController < ApplicationController
       has_permission = true
       created = false
 
-      if @statement_node.taggable? and (has_permission = check_hash_tag_permissions(form_tags))
+      if @statement_node.taggable?
         @tags = @statement_node.topic_tags = form_tags
       end
 
 
 
       # Persisting
-      if has_permission
-        StatementNode.transaction do
-          if @statement_node.save
-            # add to tree
-            if parent_node_id.blank? or @statement_node.class.is_top_statement?
-              @statement_node.target_statement.update_attribute(:root_id, @statement_node.target_id)
-            end
-
-            if @statement_node.echoable?
-              echo = params.delete(:echo)
-              @statement_node.author_support if echo=='true'
-            end
-
-            # Propagating the creation event
-            EchoService.instance.created(@statement_node)
-            EchoService.instance.created(@statement_node.question) if @statement_node.question_id
-            created = true
+      StatementNode.transaction do
+        if @statement_node.save
+          # add to tree
+          if parent_node_id.blank? or @statement_node.class.is_top_statement?
+            @statement_node.target_statement.update_attribute(:root_id, @statement_node.target_id)
           end
+
+          if @statement_node.echoable?
+            echo = params.delete(:echo)
+            @statement_node.author_support if echo=='true'
+          end
+
+          # Propagating the creation event
+          EchoService.instance.created(@statement_node)
+          EchoService.instance.created(@statement_node.question) if @statement_node.question_id
+          created = true
         end
       end
 
@@ -241,33 +239,30 @@ class StatementsController < ApplicationController
 
       # Updating tags of the statement
       form_tags = attrs.delete(:topic_tags)
-      has_permission = form_tags.nil? || !@statement_node.taggable? || check_hash_tag_permissions(form_tags)
 
       holds_lock = true
-      if has_permission
-        StatementNode.transaction do
-          old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
-          holds_lock = holds_lock?(old_statement_document, locked_at)
-          if holds_lock
-            old_statement_document.current = false
-            old_statement_document.unlock # also saved the document
-            @statement_document = @statement_node.add_statement_document(
-                                    attrs_doc.merge({:author_id => current_user.id,
-                                                     :current => true}))
-            @statement_document.save
+      StatementNode.transaction do
+        old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
+        holds_lock = holds_lock?(old_statement_document, locked_at)
+        if holds_lock
+          old_statement_document.current = false
+          old_statement_document.unlock # also saved the document
+          @statement_document = @statement_node.add_statement_document(
+                                  attrs_doc.merge({:author_id => current_user.id,
+                                                   :current => true}))
+          @statement_document.save
 
-            @statement_node.update_attributes(attrs)
-            if @statement_node.taggable? and form_tags
-              @tags = @statement_node.topic_tags = form_tags
-            end
-            @statement_node.statement.save
+          @statement_node.update_attributes(attrs)
+          if @statement_node.taggable? and form_tags
+            @tags = @statement_node.topic_tags = form_tags
           end
+          @statement_node.statement.save
         end
       end
 
       if !holds_lock
         being_edited
-      elsif has_permission and @statement_node.valid? and @statement_document.valid?
+      elsif @statement_node.valid? and @statement_document.valid?
         update = true
         set_statement_info(@statement_document)
         show_statement
@@ -290,9 +285,9 @@ class StatementsController < ApplicationController
   #
   def cancel
     locked_at = params[:locked_at]
-    statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
-    if holds_lock?(statement_document, locked_at)
-      statement_document.unlock
+    @statement_document = @statement_node.document_in_preferred_language(@language_preference_list)
+    if holds_lock?(@statement_document, locked_at)
+      @statement_document.unlock
     end
     show_statement
   end
@@ -791,29 +786,7 @@ class StatementsController < ApplicationController
     return true
   end
 
-  #
-  # Checks whether the user is allowed to assign the given hash tags (#tag).
-  #
-  def check_hash_tag_permissions(tags_values)
-
-    # Editors can define all tags
-    return true if current_user.has_role? :editor
-
-    # Check the individual hash tag permissions
-    decision_making_tags = current_user.decision_making_tags
-    tags = tags_values.split(',').map{|t|t.strip}.uniq
-    tags.each do |tag|
-      index = tag.index '#'
-      next if index != 0
-      decision_making_tag = '*' + tag[1..-1]
-      if !current_user.is_topic_editor(tag) and
-        !decision_making_tags.include? decision_making_tag
-        set_error('discuss.tag_permission', :tag => tag)
-      end
-    end
-    @error.nil? ? true : false
-  end
-
+  
   ##########
   # SEARCH #
   ##########

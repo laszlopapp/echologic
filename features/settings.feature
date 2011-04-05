@@ -58,7 +58,7 @@ Feature: Set my settings
       | user_password                | dzenkui |
       | user_password_confirmation   | dzenkui |
       And I press "Ok"
-    Then I should see "The password you entered is not your password!"
+    Then I should see localized "users.echo_account.change_password.wrong_password"
 
   Scenario: Change Password
     Given I am logged in as "user" with password "true"
@@ -69,7 +69,7 @@ Feature: Set my settings
       | user_password                | dzenkui |
       | user_password_confirmation   | dzenkui |
       And I press "Ok"
-    Then I should see "Password changed successfully!"
+    Then I should see localized "users.echo_account.change_password.success"
       And "User Test" should have "dzenkui" as password
 
 
@@ -80,7 +80,7 @@ Feature: Set my settings
       And I fill in the following:
       | password            |  true   |
       And I press localized "users.echo_account.delete_account.confirm"
-    Then I should see "Your echo account was successfully deleted."
+    Then I should see localized "users.echo_account.delete_account.success"
       And I should be inactive
       
   Scenario: Fail to delete Account

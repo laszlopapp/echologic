@@ -150,11 +150,11 @@ de:
       via_echo: '... über echo'
       via_social: '... über ein anderes Konto'
       set_password: Forgot your password?
-      remember: Remember me!
-      hello: Logged in<br/><strong>{{name}}</strong>
+      remember: Vergiss mich nicht!
+      hello: Eingeloggt<br/><strong>{{name}}</strong>
       messages:
-        success: "Login successful. Welcome back to echo."
-        failed: "Unknown user or wrong password."
+        success: "Login erfolgreich.<br/>Willkommen zurück auf echo!"
+        failed: "Unbekannter Nutzer oder falsches Passwort."
         failed_social: "Bitte melden Sie sich über das Konto an, mit dem Sie sich registriert haben oder das Sie bereits verknüpft haben."
     signout:
       messages:

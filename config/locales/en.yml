@@ -153,7 +153,7 @@ en:
       messages:
         success: "Login successful. Welcome back to echo."
         failed: "Unknown user or wrong password."
-        failed_social: "Please log in with an account you registered with or that you connected to your echo account."
+        failed_social: Please log in with an account you registered with or that you connected to your echo account.
     signout:
       messages:
         success: "Logout successful. See you later. Bye!"
@@ -171,8 +171,8 @@ en:
         email_success: Your E-mail has been changed successfully!
         already_active: Your account is already active!
         no_account: Your account does not exist!
-        no_full_name: You have to fill the 'Full Name' field up
-        no_agreement: You have to agree with our data policy in order to register.
+        no_full_name: Please fill in your full name.
+        no_agreement: Please confirm our data policy in order to register.
 
     # Password resets section
     password_reset:
@@ -208,7 +208,7 @@ en:
 
       password:
         title: Change my password
-        old: Old password
+        old: Current password
         new: New password
         confirm: Confirm password
 
@@ -313,8 +313,7 @@ en:
           You are currently registered with the E-Mail address: <strong>{{email}}</strong>.<br/>
           Here you can define a new address echo should use to keep in touch with you.
         password: Your Password
-        success: |
-          E-Mail changed successfully.
+        success: E-Mail changed successfully.
         failed: Failed to change E-Mail.
         no_password: Please enter your valid password to change your E-Mail.
 
@@ -323,7 +322,7 @@ en:
         guide: Please define your new password.
         success: Password changed successfully!
         failed: Failed to change Password!
-        wrong_password: The password you entered is not your password!
+        wrong_password: The entered current password is wrong.
       delete_account:
         title: Delete Account
         password: Your Password
@@ -360,11 +359,11 @@ en:
           description: Mind the privacy policy of other networks before sharing your views on them...
         preview: Preview
         submit: Send echo
-        error: Something went wrong while sharing your entry.
+        error: Something went wrong while sharing your echo. Please check your network connection.
         success: |
           Made an echo via {{accounts}}.
         failed: |
-          Failed via {{accounts}}.
+          Failed to share via {{accounts}}.
         timeout: |
           Connection with {{accounts}} timed out!
         enabled: "On"
@@ -386,7 +385,7 @@ en:
 
       messages:
         created: "Please check your E-Mails to activate your newly created account!"
-        activate_email: In order to complete the Email address modification, please log out and press the confimation link sent to your new Email address!
+        activate_email: In order to complete the E-Mail address modification, please log out and press the confimation link sent to your new E-Mail address!
 
     # Reports section
     reports:
@@ -606,8 +605,8 @@ en:
       staled_modification: 'We are very sorry, but you exceeded the 60 minutes limit to edit and save the statement. Meanwhile it has already been updated by a different user. Therefore, your changes must have been unfortunately discarded.'
       no_document_in_language: 'The statement does not exist in English yet.'
       supporter_to_share: 'You must be a supporter of this statement in order to share it!'
-      published_to_share: 'This discussion is yet to be published. Until then, you can not unfortunately share it!'
-      cannot_be_edited: 'Unfortunately, you cannot edit this statement after other members supported it. This is to avoid faking of opinions. '
+      published_to_share: 'This discussion is yet to be published. Until then, it is not possible to share it.'
+      cannot_be_edited: Unfortunately, you cannot edit this statement after other members supported it. This is to avoid faking of opinions.
 
       breadcrumbs:
         discuss_search: Search results
@@ -763,7 +762,7 @@ en:
           attributes:
             email:
               taken: 'The E-Mail address is already in use.'
-              invalid: 'The E-Mail must be in a valid format.'
+              invalid: 'Please enter a valid E-Mail address.'
             password:
               invalid: 'Wrong password.'
         social_identifier:

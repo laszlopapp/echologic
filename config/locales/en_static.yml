@@ -935,17 +935,18 @@ en:
         Your echo team
         
     activate_email:
-      subject: Please activate your echo account
+      subject: Please verify your E-Mail adress 
       text1: |
         Dear {{name}},
 
-        Thank you for registering at echo. Please click the URL below to activate your account.
+        In order to successfully update your E-Mail address, you must complete the last step of the process, which consists of clicking the URL below, allowing us to successfully confirm your new E-Mail address.
       text2: |
         If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
 
-        If you keep having problems with activating your account, please feel free to contact us at support@echologic.org.
+        If you keep having problems with activating your email, please feel free to contact us at support@echologic.org.
 
         Looking forward to seeing you soon at echo,
 
         Your echo team
 
+ 

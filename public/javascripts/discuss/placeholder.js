@@ -41,7 +41,8 @@
 			
 			function loadInputs() {
 				container.find("input[type='text']").each(function(index){
-          var inputText = $(this);
+					var inputText = $(this);
+					var initValue = inputText.val();
           var value = inputText.attr(settings["default_attr"]);
           inputText.toggleVal({
             populateFrom: 'custom',
@@ -53,6 +54,11 @@
           if (index == 0) {
             inputText.blur();
           }
+					if (initValue && initValue.length > 0) {
+				  	inputText.val(initValue);
+						inputText.focus();
+						inputText.blur();
+				  }
         });
 			}
 			

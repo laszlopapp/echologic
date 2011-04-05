@@ -162,12 +162,12 @@ fr:
       member_tag: Already a member?
       via_echo: '... via echo'
       via_social: '... via another Account'
-      set_password: Forgot your password?
-      remember: Remember me!
-      hello: Logged in<br/><strong>{{name}}</strong>
+      set_password: Mot de passe oublié?
+      hello: |
+        Vous êtes connecté<br/><strong>{{name}}</strong>
       messages:
         success: "Login successful. Welcome back to echo."
-        failed: "Unknown user or wrong password."
+        failed: "Utilisateur inconnu ou erreur de mot de passe."
         failed_social: "Please log in with an account you registered with or that you connected to your echo account."
     signout:
       messages:

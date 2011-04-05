@@ -148,12 +148,11 @@ pt:
       member_tag: Já é membro?
       via_echo: ... via echo
       via_social: ... via outra conta
-      set_password: Forgot your password?
-      remember: Remember me!
-      hello: Logged in<br/><strong>{{name}}</strong>
+      set_password: Esqueceu a sua senha?
+      hello: Autenticado<br/><strong>{{name}}</strong>
       messages:
         success: A sua conta foi criada com sucesso. Bem-vindo à echo!
-        failed: "Unknown user or wrong password."
+        failed: "Utilizador desconhecido ou senha errada."
         failed_social: Por favor autentique-se com uma conta com a qual esteja conectado/a na echo.
     signout:
       messages:

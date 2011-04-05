@@ -488,16 +488,15 @@ class ApplicationController < ActionController::Base
 
   public
   def shortcut
-    respond_to do |format|
-      if shortcut = ShortcutUrl.find(params[:shortcut])
-         command = JSON.parse(shortcut.command)
-         url = send("#{command['operation']}_path", command['params'].merge({:locale => command['language']}))
-         format.html {redirect_to url}
-      else
-        format.html do
-          redirect_to discuss_search_url(:search_terms => params[:shortcut])
-        end
-      end
+    begin
+      shortcut = ShortcutUrl.find(params[:shortcut])
+      command = JSON.parse(shortcut.command)
+      url = send("#{command['operation']}_path", command['params'].merge({:locale => command['language']}))
+      redirect_to url
+    rescue ActiveRecord::RecordNotFound
+      redirect_to discuss_search_url(:search_terms => params[:shortcut])
+    rescue Exception => e
+      log_message_error(e, "Error redirecting from shortcut.")
     end
   end
 

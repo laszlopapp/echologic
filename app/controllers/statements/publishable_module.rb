@@ -31,7 +31,7 @@ module PublishableModule
   #
   def category
     @value    = params[:search_terms] || ""
-    @page     = params[:page] || 1
+    @page     = params[:page].blank? ? 1 : params[:page]
     @page_count = params[:page_count].blank? ? 1 : params[:page_count]
     @per_page = @page_count.to_i * QUESTIONS_PER_PAGE
 
