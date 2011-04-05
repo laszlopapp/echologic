@@ -9,9 +9,7 @@
     <%= content_tag :span, '', :class => "symbol"%>
     <%= content_tag(:span, I18n.t("users.#{type}.label"),
                     :class => 'signinup_title') %>
-    <% content_tag :div, '', :class => "toggle part" do %>  
-      <%= signinup_toggle_block(type) %>
-    <% end %>
+    <%= signinup_toggle_button(type) %>
   <% end %>
 
   <% content_tag :div, '', :class => "label block" do %>
