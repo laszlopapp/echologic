@@ -1141,6 +1141,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   border: 1px solid #a8a8a8;
   width: 200px;
   height: 133px;
+  text-align: center;
 }
 
 .statement_content .image_container.editable .image {
