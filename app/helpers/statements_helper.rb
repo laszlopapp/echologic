@@ -439,7 +439,7 @@ module StatementsHelper
                        :class => 'ajax upload_link button button_150')
       end
     end
-    content_tag :div, val, :class => 'image_container' if !val.blank?
+    content_tag :div, val, :class => "image_container #{editable ? 'editable' : ''}" if !val.blank?
   end
 
   # Renders the "more" link when the statement is loaded

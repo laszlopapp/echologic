@@ -1133,8 +1133,18 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .statement_content .image {
   border: 1px solid #a8a8a8;
-  max-height: 133px;
   max-width: 200px;
+  max-height: 133px;
+}
+
+.statement_content .image_container.editable {
+  border: 1px solid #a8a8a8;
+  width: 200px;
+  height: 133px;
+}
+
+.statement_content .image_container.editable .image {
+  border: none;
 }
 
 .statement_content .upload_link {
