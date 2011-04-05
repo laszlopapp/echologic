@@ -428,12 +428,12 @@ module StatementsHelper
   end
 
   # draws the statement image container
-  def statement_image(statement_node, current_user)
+  def statement_image(statement_node)
     val = ""
     if statement_node.image.exists? or statement_node.has_author? current_user
       val << image_tag(statement_node.image.url(:medium), :class => 'image')
     end
-    if current_user.may_update_image?(statement_node)
+    if current_user and current_user.may_update_image?(statement_node)
       val << link_to(I18n.t('users.profile.picture.upload_button'),
                 edit_statement_image_url(statement_node.statement_image, statement_node),
                 :class => 'ajax upload_link button button_150')
