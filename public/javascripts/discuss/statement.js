@@ -266,7 +266,7 @@
       function initFlicks(){
 	     statement.detectFlicks({
          axis: 'x',
-         threshold: 60,
+         threshold: 15,
          flickEvent: function(d) 
 				 { 
 				   alert('flick detected: ' + d.direction);
