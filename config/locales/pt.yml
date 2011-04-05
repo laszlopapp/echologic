@@ -7,7 +7,7 @@ pt:
     # Unexpected Error
     unexpected_error: Ocorreu um erro inesperado. Pedimos desculpas pela inconveniência.
     routing_error: URL desconhecido. Redireccionando...
-    remote_error: Ocorreu uma falha na comunicação com o Serviço Remoto. 
+    remote_error: Ocorreu uma falha na comunicação com o Serviço Remoto.
 
     # General purpose resources
     general:
@@ -136,7 +136,7 @@ pt:
       label: Inscrição
       member_tag: Ainda não é membro?
       via_echo: ... via uma nova conta echo
-      via_social: ... via uma conta já existente 
+      via_social: ... via uma conta já existente
     setup_basic_profile:
       title: Preenchimento do Perfil de Base
       guide: Por favor preencha o seu perfil de base para iniciar a sua conta.
@@ -170,7 +170,7 @@ pt:
         email_success: O seu endereço E-Mail foi alterado com sucesso!
         already_active: A sua conta já se encontra ativada!
         no_account: A sua conta não existe!
-        no_full_name: Por favor preencha o seu nome completo. 
+        no_full_name: Por favor preencha o seu nome completo.
         no_agreement: Precisamos da sua concordância com a nossa política de dados de modo a proceder.
     # Password resets section
     password_reset:
@@ -309,7 +309,7 @@ pt:
         title: Alterar E-Mail
         guide: |
           Atualmente encontra-se registrado com o seguinte endereço E-Mail: <strong>{{email}}</strong>.<br/>
-          Aqui pode definir um novo endereço, o qual a echo usará para entrar em contato consigo. 
+          Aqui pode definir um novo endereço, o qual a echo usará para entrar em contato consigo.
         password: A sua senha
         success: Endereço E-mail alterado com sucesso.
         failed: Failed to change E-Mail.
@@ -329,7 +329,7 @@ pt:
           <p>A sua conta e TODA a sua informação pessoal será <strong>permanentemente apagada</strong>.<br/>
           Os seus ec(h)os serão mantidos anonimamente.</p>
           <p>Por favor insira a sua senha e prima o botão que se encontra em baixo se desejar proceder.</p>
-        confirm: Apagar a sua conta permanentemente
+        confirm: Apagar a sua conta
         success: A sua conta na echo foi apagada com sucesso.
     social_accounts:
       title: Contas Sociais
@@ -381,7 +381,7 @@ pt:
         created: "Por favor verifique os seus E-Mails para ativar a sua conta recém-criada!"
         activate_email: De modo a completar a alteração do seu endereço E-Mail, por favor desconecte-se e prima o link de confirmação que acabou de ser enviado para o seu novo endereço!
 
- 
+
 
     # Reports section
     reports:
