@@ -951,8 +951,8 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 #statements .header.active {
-  background:  url(../images/page/discuss/stack_separator_active.png) no-repeat scroll 7px 0;
-  min-height: 41px;
+  background:  url(../images/page/discuss/stack_separator_active.png) no-repeat scroll 6px -3px;
+  min-height: 45px;
 }
 
 #statements .header_buttons {
@@ -1089,7 +1089,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /*********************/
 
 #statements .content {
-  margin-top: 10px;
+  margin-top: 6px;
 }
 
 .discuss_right_block {
