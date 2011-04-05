@@ -15,14 +15,14 @@ module PublishableModuleHelper
   #
   # create question button above the discuss search results and on the left corner of my questions
   #
-  def create_question_link_for(search_terms=nil, origin=@origin)
+  def create_question_link_for(origin=@origin)
     link_to(new_question_url(:origin => origin, :bids => origin),
-                       :id => 'create_question_link',
-                       :class => 'add_new_button') do
+                             :id => 'create_question_link',
+                             :class => 'add_new_button') do
       link_content = ''
       link_content << content_tag(:span, '',
-                      :class => "add_new_question_icon ttLink no_border",
-                      :title => I18n.t("discuss.tooltips.create_question"))
+                                  :class => "add_new_question_icon ttLink no_border",
+                                  :title => I18n.t("discuss.tooltips.create_question"))
       link_content <<  content_tag(:span, I18n.t("discuss.my_questions.add"),
                                    :class => 'label')
       link_content
@@ -48,7 +48,7 @@ module PublishableModuleHelper
   #
   def image_link_to_question(question, origin=@origin)
     link_to statement_node_url(question, :origin => origin, :bids => origin),
-               :class => "avatar_holder" do
+            :class => "avatar_holder" do
       image_tag question.image.url(:medium)
     end
   end
@@ -145,8 +145,8 @@ module PublishableModuleHelper
               :title => I18n.t('discuss.tooltips.publish'))
     else
       opts[:no_published_label] ? '' : content_tag(:span ,
-                                            I18n.t('discuss.statements.states.published'),
-                                            :class => 'publish_button')
+                                                   I18n.t('discuss.statements.states.published'),
+                                                   :class => 'publish_button')
     end
   end
 

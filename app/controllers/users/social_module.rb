@@ -5,15 +5,15 @@ module Users::SocialModule
     begin
       if params[:token]
         profile_info = SocialService.instance.get_profile_info(params[:token])
-  
+
         @user = User.new
         @user.create_profile
-  
+
         opts ={}
         opts = {:social_identifiers => [SocialIdentifier.new(:identifier => profile_info['identifier'],
                                                             :provider_name => profile_info['providerName'],
                                                             :profile_info => profile_info.to_json )] }
-  
+
         User.transaction do
           if @user.signup!(opts)
             SocialService.instance.map(profile_info['identifier'], @user.id)
@@ -30,7 +30,7 @@ module Users::SocialModule
     rescue Exception => e
       log_message_error(e, "Error creating user")
     else
-      params[:token] ? log_message_info("User '#{@user.id}' has been created sucessfully.") : 
+      params[:token] ? log_message_info("User '#{@user.id}' has been created sucessfully.") :
                        log_message_info("User creation cancelled")
     end
   end
@@ -57,13 +57,13 @@ module Users::SocialModule
                                            :account => account_name)
             end
           else
-            redirect_or_render_with_error(redirect_url, 
-                                          social_id, 
+            redirect_or_render_with_error(redirect_url,
+                                          social_id,
                                           :account => account_name)
           end
         end
       else
-        redirect_to redirec_url
+        redirect_to redirect_url
       end
     rescue RpxService::RpxServerException
       redirect_or_render_with_error(redirect_url, "application.remote_error")
