@@ -134,7 +134,7 @@ en:
     signup:
       label: 'Sign Up'
       member_tag: Not a member yet?
-      via_echo: '... for a new echo account'
+      via_echo: '... via E-Mail'
       via_social: '... via existing account'
     setup_basic_profile:
       title: 'Setup Basic Profile'
