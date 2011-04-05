@@ -944,16 +944,20 @@ de:
         Ihr echo Team
 
     activate_email:
-      subject: Please activate your echo account
+      subject: Bitte bestätigen Sie Ihre E-Mail Adresse
       text1: |
-        Dear {{name}},
+        Liebe(r) {{name}},
 
-        Thank you for registering at echo. Please click the URL below to activate your account.
+        Um die Änderung Ihrer E-Mail Adresse abzuschließen, benötigen wir die Bestätigung, dass es sich
+        tatsächlich um Ihre E-Mail Adresse handelt und Nachrichten auch wirklich ankommen.
+        Bitte klicken Sie die folgende URL, um die Bestätigung durchzuführen.
       text2: |
-        If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
+        Sollte sich nach Klick auf den Link nicht automatisch ein neues Browserfenster öffnen,
+        kopieren Sie bitte die URL und fügen Sie sie in ein neues Browserfenster ein.
 
-        If you keep having problems with activating your account, please feel free to contact us at support@echologic.org.
+        Sollten Sie weitere Schwierigkeiten mit Ihrem echo Zugang haben, zögern Sie bitte nicht uns
+        jederzeit unter support@echologic.org zu kontaktieren.
 
-        Looking forward to seeing you soon at echo,
+        Wir freuen uns sehr auf ein baldiges Treffen auf echo.
 
-        Your echo team
+        Ihr echo Team 
