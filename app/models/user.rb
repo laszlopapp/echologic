@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :spoken_languages, :order => 'level_id asc'
 
   has_many :reports, :foreign_key => 'suspect_id'
-  
+
   has_many :pending_actions, :foreign_key => 'uuid'
 
   named_scope :no_member, :conditions => { :memberships => nil }, :order => :email
@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   #attr_accessible :active
 
   attr_accessor :old_password
-  
+
 
   # Authlogic plugin to do authentication
   acts_as_authentic do |c|
@@ -39,18 +39,18 @@ class User < ActiveRecord::Base
                                                                  :minimum => 4,
                                                                  :if => :has_no_credentials?}
   end
-  
+
   validates_confirmation_of :email
-  
+
   def active_or_email_defined?
     !(!self.active and !self.social_identifiers.empty?)
   end
-  
+
   def has_password?(password)
     salt = self.password_salt
     Authlogic::CryptoProviders::Sha512.encrypt(password + salt).eql? self.crypted_password
   end
-  
+
 
   # acl9 plugin to do authorization
   acts_as_authorization_subject
@@ -97,14 +97,14 @@ class User < ActiveRecord::Base
     mail = RegistrationMailer.create_activation_instructions(self)
     RegistrationMailer.deliver(mail)
   end
-  
+
   # Uses mailer to deliver activation instructions
   def deliver_activate!
     reset_perishable_token!
     mail = RegistrationMailer.create_activate(self)
     RegistrationMailer.deliver(mail)
   end
-  
+
   # Uses mailer to deliver activation instructions
   def deliver_activate_email!(email, token)
     reset_perishable_token!
@@ -149,24 +149,19 @@ class User < ActiveRecord::Base
   ##
 
   def may_publish?(entity)
-    !entity.published? and 
+    !entity.published? and
     (has_role?(:editor) or has_role?(:admin) or entity.has_author?(self))
   end
 
   # when we enable editing for users.
   def may_edit?(entity)
     has_role?(:editor) or has_role?(:admin) or
-    ( entity.has_author?(self) and entity.echoable? and 
+    ( entity.has_author?(self) and entity.echoable? and
     (!entity.published? or entity.supporter_count == 0 or (entity.supporters-[self]).empty? ))
   end
 
   def may_delete?(statement_node)
     has_role?(:admin)
-  end
-
-  def may_update_image?(statement_node)
-    has_role?(:editor) or has_role?(:admin) or 
-    (statement_node.has_author? current_user and (!statement_node.published? or !statement_node.image.exists?))
   end
 
   # Returns true if the user has the topic editor privileges for the given tag (as a String).
