@@ -1,5 +1,5 @@
 namespace :janrain do
-  desc "Turns on newsletter notifications for all users"
+  desc "Removes all remote mappings in RPX"
   task :delete_all_mappings => :environment do
     mappings = SocialService.instance.all_mappings
     mappings.each do |user_id, identifiers|
