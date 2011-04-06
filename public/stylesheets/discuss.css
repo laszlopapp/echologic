@@ -257,12 +257,7 @@ form.statement fieldset ol span.defaultText {
 }
 
 #statements form.formtastic fieldset.statement_language li.hint {
-	background: url("../images/page/icons/pin.png") no-repeat scroll 142px 2px #FBF3BB;
-	border: 1px solid #7bb031;
-	width: 300px;
-	padding: 33px 10px 5px;
   margin-bottom: 20px;
-  color: #21587f;
 }
 
 form .hint p {
