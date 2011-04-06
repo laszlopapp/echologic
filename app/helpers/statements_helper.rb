@@ -405,13 +405,44 @@ module StatementsHelper
   end
 
   # Inserts a button that links to the previous statement_node
+  #
+  # IMP NOTE: siblings always include the teaser at the end, so always be careful when handling it
   def statement_button(statement_node, title, type, options={})
     options[:class] ||= ''
     teaser = options[:class].include? 'add'
+    url_opts = {:origin => params[:origin], :bids => params[:bids]}
+    # if prev/next for teaser
+    if teaser
+      if @siblings and (siblings = @siblings["add_#{@type}"])
+        if options[:rel].eql? 'prev'
+          url = statement_node_url(siblings[siblings.length-2], url_opts)
+        elsif options[:rel].eql? 'next'
+          url = statement_node_url(siblings[0], url_opts)
+        end
+      else
+        url = add_teaser_statement_node_path(statement_node)
+      end
+    else # if prev/next for statement
+      if @siblings and (siblings = @siblings[dom_id(statement_node)])
+        statement_node_index = siblings.index(statement_node.id)
+        index = statement_node_index
+        if options[:rel].eql? 'prev'
+          index = statement_node_index - 1
+        elsif options[:rel].eql? 'next'
+          index = statement_node_index + 1
+        end
+        url = (index >= 0 and index < siblings.length - 1) ? statement_node_url(siblings[index], url_opts) : add_teaser_statement_node_path(statement_node,url_opts)
+      else
+        url = add_teaser_statement_node_path(statement_node)
+      end
+    end
     options['data-id'] =
       teaser ? "#{statement_node.nil? ? '' : "#{statement_node.id}_"}add_#{type}" : statement_node.id
-    url = statement_node.nil? ? '' : statement_node_url(statement_node)
     return link_to(title, url, options)
+  end
+
+  def add_teaser_statement_node_path(statement_node, opts={})
+    statement_node.nil? ? '' : statement_node_url(statement_node)
   end
 
   # Loads the link to a given statement, placed in the child panel section
