@@ -7,7 +7,7 @@ es:
     # Unexpected Error
     unexpected_error: Se ha detectado un error inesperado en el servidor.
     routing_error: URL desconocida. Redireccionando...
-    remote_error: 'Failed to communicate with the Remote Service.'
+    remote_error: 'Error en la comunicación con el Servicio Remoto.'
 
     # General purpose resources
     general:
@@ -16,7 +16,7 @@ es:
       next: Seguir
       back: Regresar
       email: E-Mail
-      email_confirmation: Confirm E-Mail
+      email_confirmation: Confirma E-Mail
       name: Nombre
       undefined: No definido
       ok: Ok
@@ -133,27 +133,30 @@ es:
         title: 'Conviértete en co-autor!'
     # User sessions section
     signup:
-      label: 'Sign Up'
-      member_tag: Not a member yet?
-      via_echo: '... for a new echo Account'
-      via_social: '... via another social account '
+      label: 'Regístrate'
+      member_tag: '¿No eres aún miembro?'
+      via_echo: '... a través de E-Mail'
+      via_social: '... con una cuenta ya existente'
     setup_basic_profile:
-      title: 'Setup Basic Profile'
-      guide: Please fill in your basic profile information to set up your account.
-      agreement: I have read and agree to the terms of data policy.
-      use_photo: 'Use in echo, too'
+      title: 'Configuración del Perfil Básico'
+      guide: Por favor, introduce la información de tu Perfil Básico para crear tu cuenta.
+      agreement: He leído y acepto los términos en materia de privacidad.
+      use_photo: 'Utilizar en echo también'
     signin:
-      label: 'Sign In'
+      label: 'Entrada'
       password: 'Password'
-      member_tag: Already a member?
-      via_echo: '... via echo'
-      via_social: '... via another Account'
+      member_tag: '¿Ya eres miembro?'
+      via_echo: '...  vía echo'
+      via_social: '... con otra cuenta'
       set_password: Has olvidado la contraseña?
       hello: Registrado<br/><strong>{{name}}</strong>
+      hint: |
+        To avoid logging in again without having to enter your password,
+        please logout of the used social account (e.g. Facebook) in the end explicitely.
       messages:
         success: "Login successful. Welcome back to echo."
         failed: "Usuario desconocido o contraseña incorrecta."
-        failed_social: "Please log in with an account you registered with or that you connected to your echo account."
+        failed_social: "Por favor, introduce la cuenta con la que te has registrado en echo o con una conectada a ésta."
     signout:
       messages:
         success: "Has cerrado tu cuenta.<br/>Hasta la próxima!"
@@ -165,12 +168,12 @@ es:
     activation:
       messages:
         success: Tu cuenta ha sido activada. Bienvenido a echo!
-        failed: Lo sentimos, pero no ha sido posible activar tu cuenta. Por favor, comprueba tu entrada.
-        email_success: Your E-mail has been changed successfully!
-        already_active: Your account is already active!
-        no_account: Your account does not exist!
-        no_full_name: You have to fill the 'Full Name' field up
-        no_agreement: You have to agree with our data policy in order to register.
+        failed: Tu cuenta no ha podido ser activada. Por favor, comprueba tu entrada.
+        email_success:  Tu E-mail ha sido modificado con éxito.
+        already_active: Tu cuenta ya está activa.
+        no_account: 'Tu cuenta ya no existe.'
+        no_full_name: 'Por favor, introduce tu nombre completo.'
+        no_agreement: Por favor, confirma nuestra política de datos para poder registrarte.
 
     # Password resets section
     password_reset:
@@ -187,10 +190,10 @@ es:
         Por favor, introduce una nueva contraseña con la que entrarás en echo la próxima vez.
       step2_ok: Definir contraseña
       messages:
-        success:        'Te enviamos un correo electrónico, que te permite definir una nueva contraseña.<br/>Por favor, comprueba tu cuenta de correo.'
-        not_found:      'No se ha encontrado la dirección electrónica indicada.'
-        reset_success:  'Tu nueva contraseña ha sido guardada correctamente.'
-        reset_failed:   'Lo sentimos, pero tu contraseña no puede ser utilizada. Por favor, comprueba tu entrada.'
+        success: 'Te enviamos un correo electrónico, que te permite definir una nueva contraseña.<br/>Por favor, comprueba tu cuenta de correo.'
+        not_found: 'No se ha encontrado la dirección electrónica indicada.'
+        reset_success: 'Tu nueva contraseña ha sido guardada correctamente.'
+        reset_failed: 'Lo sentimos, pero tu contraseña no puede ser utilizada. Por favor, comprueba tu entrada.'
 
     # Profile Section
     profile:
@@ -207,9 +210,9 @@ es:
 
       password:
         title: Cambiar contraseña
-        old: Old password
-        new: Tu nueva contraseña
-        confirm: Verificar contraseña
+        old: Contraseña actual
+        new: Nueva contraseña
+        confirm: Verificar nueva contraseña
 
       picture:
         upload_button: Cambiar
@@ -317,37 +320,39 @@ es:
 
     # Manage Echo Account section
     echo_account:
-      title: echo Account
-      guide: Here you can manage your echo account.
+      title: Cuenta echo
+      guide: Aquí puedes gestionar tu cuenta echo.
       change_email:
-        title: Change E-Mail
+        title: Cambiar E-Mail
         guide: |
-          You are currently registered with the E-Mail address: <strong>{{email}}</strong>.<br/>
-          Here you can define a new address echo should use to keep in touch with you.
-        password: Your Password
-        success: E-Mail changed successfully.
-        failed: Failed to change E-Mail.
-        no_password: Please enter your valid password to change your E-Mail.
+          Actualmente estás registrado con la dirección E-Mail: <strong>{{email}}</strong>.<br/>
+          Aquí puedes definir una nueva cuenta de contacto para echo.
+        password: Tu contraseña
+        success: E-Mail modificado con éxito.
+        failed: No se pudo cambiar de E-Mail.
+        no_password: Por favor, introduce tu contraseña para modificar el E-Mail.
 
       change_password:
-        title: Change Password
-        guide: Please define your new password.
-        success: Password changed successfully!
+        title: Modificar Contraseña
+        guide: Por favor, define una nueva contraseña.
+        success: Tu contraseña ha sido modificada con éxito.
         failed: Failed to change Password!
-        wrong_password: The password you entered is not your password!
+        wrong_password: La contraseña introducida es errónea.
+
       delete_account:
-        title: Delete Account
-        password: Your Password
+        title: Borrar Cuenta
+        password:  Tu contraseña
         guide: |
-          <p><strong>ATTENTION!</strong></p>
-          <p>Your account and ALL your personal data will be <strong>permanently deleted</strong>.<br/>
-          The echos you have made will be kept fully anonymously.</p>
-          <p>Please enter your password and click the button below, if you want to proceed.</p>
-        confirm: Delete my account permanently
-        success: Your echo account was successfully deleted.
+          <p><strong>ATENCIÓN!</strong></p>
+          <p>Tu cuenta y TODOS tus datos personales se <strong>eliminarán definitivamente</strong>.<br/>
+          Tus echos se guardarán como anónimos.</p>
+          <p>Por favor, si deseas continuar, introduce tu contraseña y haz clic en la pestaña inferior.</p>
+        confirm: Borrar mi cuenta
+        success: Tu cuenta echo ha sido eliminada con éxito.
+
     social_accounts:
-      title: Connected Accounts
-      guide: Connect your social accounts with your echo account so you can easily share and amplify your echo throughout the web.
+      title: Cuentas Sociales
+      guide: Conecta tus cuentas para compartir de forma fácil y propagar tu echo por otras redes sociales.
       providers:
         facebook: Facebook
         twitter: Twitter
@@ -355,29 +360,29 @@ es:
         linkedin: LinkedIn
         google: Google
       connect:
-        title: Connect
-        success: Added your {{account}} account successfully!
-        failed: Failed to add your {{account}} account!
+        title: Conectar
+        success: Tu {{account}} cuenta se ha conectado con éxito.
+        failed: Error en la conexión con tu {{account}} cuenta.
       disconnect:
-        title: Disconnect
-        success: Removed your {{account}} account successfully!
-        failed: Failed to remove your {{account}} account!
+        title: Desconectar
+        success: Tu {{account}} cuenta se ha desconectado.
+        failed: Error en la desconexión de tu {{account}} cuenta.
       share:
-        title: Send out the voice
-        guide: Connect up your accounts to easily share and amplify your echo via other social networks.
-        text: Message
+        title: Propaga tu voz
+        guide: Haz echo utilizando tus cuentas sociales.
+        text: Mensaje
         data_privacy:
           title: Data Privacy Notice
           description: Mind the privacy policy of other networks before sharing your views on them...
-        preview: Preview
-        submit: Make an echo
-        error: Something went wrong while sharing your entry.
+        preview: Vista preliminar
+        submit: Enviar echo
+        error: Algo ha fallado al compartir tu echo. Por favor, comprueba tu conexión con la red.
         success: |
-          Made an echo via {{accounts}}.
+          Se ha hecho echo por {{accounts}}.
         failed: |
-          Failed via {{accounts}}.
+          Error al compartir por {{accounts}}.
         timeout: |
-          Connection with {{accounts}} timed out!
+          La conexión con {{accounts}} ha expirado.
         enabled: "On"
         disabled: "Off"
 
@@ -402,7 +407,7 @@ es:
 
       messages:
         created: "Por favor, verifica tu cuenta de correo electrónico para activar tu nueva cuenta."
-        activate_email: "Please check your E-Mails to activate your new email!"
+        activate_email: "Para completar la modificación de Email, sal de la cuenta y accede al enlace de confirmación que ha sido enviado a tu nueva dirección Email."
 
     # Reports section
     reports:
@@ -458,7 +463,7 @@ es:
       title: Buscar
       in: '... en {{category}} ...'
       add: "Crea la primera pregunta sobre el tema"
-      placeholder: "Topic and/or place of interest"
+      placeholder: " Tema y/o lugar de interés"
 
     tooltips:
       read_question: 'Ver esta cuestión'
@@ -632,9 +637,9 @@ es:
         la propuesta. Otro miembro ha aprovechado su oportunidad y ha editado la
         propuesta, por lo que no se han podido guardar tus modificaciones.
       no_document_in_language: 'Este contenido no está disponible en inglés.'
-      supporter_to_share: 'You must be a supporter of this statement in order to share it!'
-      published_to_share: 'This discussion is yet to be published. Until then, you can not unfortunately share it!'
-      cannot_be_edited: 'The statement can not be edited after other members have supported it'
+      supporter_to_share: 'Tienes que apoyar este contenido para poder compartirlo.'
+      published_to_share: 'Este debate está aún por publicar. Lo sentimos, pero hasta entonces, no puedes compartirlo.'
+      cannot_be_edited: 'Lo sentimos, pero no puedes editar este contenido hasta obtener el apoyo de otros miembros. El motivo es evitar el falseamiento de opiniones.'
 
       breadcrumbs:
         discuss_search: Buscar resultados
@@ -702,7 +707,7 @@ es:
       text: |-
         Por favor completa tu perfil <strong>por lo menos en un {{percentage}}%</strong>, para hacer feliz al servidor (HAL)
         y retirar este bloque ;-)
-    placeholder: 'Topic, place, organization or name of interest'
+    placeholder: 'Tema, lugar, organización o nombre de interés'
 
     segments:
       all: Todos
@@ -798,7 +803,7 @@ es:
             password:
               invalid: 'Wrong password.'
         social_identifier:
-          taken: 'This Social Account is already in use.'
+          taken: 'Esta entrada está siendo utilizada.'
 
       messages:
         blank: "Tienes que rellenar el espacio '{{attribute}}' ."

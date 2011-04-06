@@ -110,6 +110,7 @@ es:
         tabs:
           project: El Proyecto
           team: El Equipo
+          partners: La Red
         text: |-
           <p>
           echo está formado por un
@@ -887,9 +888,9 @@ es:
 
     # New password section
     new_password:
-      subject: "pedir una nueva contraseña "
+      subject: Pedir una nueva contraseña
       text1: |
-        Estimado/a (nombre),
+        Estimado/a {{name}},
 
         gracias por registrate en echo! Por favor, activa tu cuenta siguiendo el enlace de abajo.
       text2: |
@@ -901,19 +902,23 @@ es:
 
         Atentamente
         Tu equipe de echo
-        
+
     activate_email:
-      subject: Please activate your echo account
+      subject: Por favor, comprueba tu dirección de email
       text1: |
-        Dear {{name}},
+        Estimado/a {{name}},
 
-        Thank you for registering at echo. Please click the URL below to activate your account.
+        Para poder actualizar tu dirección email, es necesario completar el último paso
+        del proceso, que consiste en hacer clic en el enlace URL inferior, permitiéndonos
+        confirmar con éxito tu nueva dirección E-Mail.
       text2: |
-        If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
+        Si haciendo clic en el enlace URL no se abre una nueva ventana automaticamente,
+        por favor, copia y pega la dirección URL en tu navegador.
 
-        If you keep having problems with activating your account, please feel free to contact us at support@echologic.org.
+        Si sigues teniendo problemas con la activación de tu email, por favor,
+        no dudes en contactarnos en support@echologic.org.
 
-        Looking forward to seeing you soon at echo,
+        Esperamos encontrarte pronto en echo,
 
-        Your echo team
-        
+        Tu equipo echo
+
