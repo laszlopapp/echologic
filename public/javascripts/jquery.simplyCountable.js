@@ -14,7 +14,7 @@
 (function($){
 
   $.fn.simplyCountable = function(options){
-    
+
     options = $.extend({
       counter: $('#counter'),
       countType: 'characters',
@@ -29,25 +29,25 @@
       onSafeCount: function(){},
       onMaxCount: function(){}
     }, options);
-    
+
     var countable = this;
 		var counter = options.counter;
     if (!counter.length) { return false; }
     regex = new RegExp('['+options.wordSeparator+']+');
-    
+
     var countCheck = function(){
-           
+
       var count;
       var revCount;
-      
+
       var reverseCount = function(ct){
         return ct - (ct*2) + options.maxCount;
-      }
-      
+      };
+
       var countInt = function(){
         return (options.countDirection === 'up') ? revCount : count;
-      }
-      
+      };
+
       var numberFormat = function(ct){
         if (options.thousandSeparator){
           ct = ct.toString();
@@ -56,8 +56,8 @@
           }
         }
         return ct;
-      }
-      
+      };
+
       /* Calculates count for either words or characters */
       if (options.countType === 'words'){
         count = options.maxCount - $.trim(countable.val()).split(regex).length;
@@ -65,7 +65,7 @@
       }
       else { count = options.maxCount - countable.val().length; }
       revCount = reverseCount(count);
-      
+
       /* If strictMax set restrict further characters */
       if (options.strictMax && count <= 0){
         var content = countable.val();
@@ -78,9 +78,9 @@
         else { countable.val(content.substring(0, options.maxCount)); }
         count = 0, revCount = options.maxCount;
       }
-      
+
       counter.text(numberFormat(countInt()));
-      
+
       /* Set CSS class rules and API callbacks */
       if (!counter.hasClass(options.safeClass) && !counter.hasClass(options.overClass)){
         if (count < 0){ counter.addClass(options.overClass); }
@@ -94,12 +94,12 @@
         counter.removeClass(options.overClass).addClass(options.safeClass);
         options.onSafeCount(countInt(), countable, counter);
       }
-      
+
     };
-    
+
     countCheck();
     countable.keyup(countCheck);
-    
+
   };
 
 })(jQuery);
