@@ -135,7 +135,7 @@ pt:
     signup:
       label: Inscrição
       member_tag: Ainda não é membro?
-      via_echo: ... via uma nova conta echo
+      via_echo: ... via endereço E-Mail
       via_social: ... via uma conta já existente
     setup_basic_profile:
       title: Preenchimento do Perfil de Base
@@ -147,7 +147,7 @@ pt:
       password: 'Password'
       member_tag: Já é membro?
       via_echo: ... via echo
-      via_social: ... via outra conta
+      via_social: ... via uma conta já conectada
       set_password: Esqueceu a sua senha?
       hello: Autenticado<br/><strong>{{name}}</strong>
       messages:
@@ -348,8 +348,8 @@ pt:
         success: A sua conta no/a {{account}} foi desconectada!
         failed: Ocorreu uma falha na desconexão com a sua conta no/a {{account}}.
       share:
-        title: Partilhar o seu ec(h)o
-        guide: Partilhe e espalhe o seu ec(h)o pelas suas contas sociais.
+        title: Espalhe a palavra
+        guide: Provoque um ec(h)o nas suas contas sociais.
         text: Mensagem
         data_privacy:
           title: Data Privacy Notice
