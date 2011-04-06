@@ -165,8 +165,8 @@ fr:
       set_password: Mot de passe oublié?
       hello: 'Vous êtes connecté<br/><strong>{{name}}</strong>'
       hint: |
-        To avoid logging in again without having to enter your password,
-        please logout of the used social account (e.g. Facebook) in the end explicitely.
+        Si vous voulez éviter de vous enregistrer de nouveau sans votre mot de passe, 
+        vous avez comme alternative de vous inscrire avec votre compte activé sur d´autres réseaux sociaux (Facebook, Twitter etc.)
       messages:
         success: Votre compte a été crée avec succès. Bienvenue sur echo!
         failed: "Utilisateur inconnu ou erreur de mot de passe."
@@ -184,10 +184,10 @@ fr:
         success: Vous vous êtes connecté(e) avec succès. Bienvenue sur echo!
         failed: La connexion a échoué. Veuillez vérifier vos données.
         email_success: Votre nouvelle adresse Mail est activée!
-        already_active: Your account is already active!
+        already_active: Votre compte est déjà activé!
         no_account: Ce compte est inconnu!
-        no_full_name: You have to fill the 'Full Name' field up
-        no_agreement: You have to agree with our data policy in order to register.
+        no_full_name: Veuillez indiquer votre nom et votre prénom!
+        no_agreement: Veuillez souscrire à nos conditions générales!
 
     # Password resets section
     password_reset:
@@ -231,8 +231,8 @@ fr:
       password:
         title: Changer le mot de passe
         old: Actuel mot de passe
-        new: Nouveau nom de passe
-        confirm: Confirmer le mot de pase
+        new: Nouveau mot de passe
+        confirm: Confirmer le mot de passe
 
       picture:
         upload_button: Remplacer
@@ -389,13 +389,13 @@ fr:
         success: Votre {{account}} connection a réuissi!
         failed: Connexion avec votre {{account}} échoué!
       share:
-        title: Envoyer votre echo
-        guide: Connect up your accounts to easily share and amplify your echo via other social networks.
+        title: Diffusez le message partout
+        guide: Faites en l´echo dans vos réseaux sociaux.
         text: Message
         data_privacy:
           title: Data Privacy Notice
           description: Mind the privacy policy of other networks before sharing your views on them...
-        preview: Preview
+        preview: Aperçu
         submit: Envoyer votre echo
         error: Le partage n'a pas réuissi. Veillez vérifier votre connection.
         success: |
