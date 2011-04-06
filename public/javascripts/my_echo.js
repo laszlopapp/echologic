@@ -33,7 +33,7 @@ function loadProfileEditForm() {
     $(this).find(':input').blur(function() {
       $(this).toggleClass('active');
     });
-    $(this).find("#profile_city").autocomplete("users/profile/auto_complete_for_profile_city",
+    $(this).find("#profile_city").autocomplete("users/profiles/auto_complete_for_profile_city",
                                                {minChars: 3, selectFirst: false});
     $(this).ajaxForm({ dataType : 'script' });
   });
