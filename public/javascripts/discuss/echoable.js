@@ -20,17 +20,23 @@
 
 	  function Echoable(echoable) {
       var echo_button, echo_label;
+			/* Social Panel Variables */
+			var social_echo_button, social_container, social_panel, social_account_list, social_submit_button;
       initialize();
 
 			/*
        * Initializes an echoable statement in a form or in normal mode.
        */
 			function initialize() {
+				initEchoIndicators(echoable);
         echo_button = echoable.find('.action_bar .echo_button');
         if (echo_button.length == 0) {
           return;
         }
         echo_label = echo_button.find('.label');
+
+				social_container = echo_button.siblings('.social_echo_container');
+        social_echo_button = social_container.find('.social_echo_button');
 
 				if (echoable.hasClass('new')) {
 					initNewStatementEchoButton();
@@ -41,8 +47,8 @@
 
       function initLabelMessages() {
         var messages = {
-          'supported'     : echo_label.attr('data-supported'),
-          'not_supported' : echo_label.attr('data-not-supported')
+          'supported'     : echo_label.data('supported'),
+          'not_supported' : echo_label.data('not-supported')
         };
         echo_label.data('messages', messages);
         echo_label.removeAttr('data-supported').removeAttr('data-not-supported');
@@ -102,12 +108,16 @@
       }
 
       function updateSupportersBar(form, classToAdd, classToRemove, ratio) {
-        var old_supporter_bar = form.find('.supporters_bar');
+				var header = form.find('.header');
+        var old_supporter_bar = header.find('.supporters_bar');
         var new_supporter_bar = $('<span></span>').attr('class', old_supporter_bar.attr('class')).
                                 addClass(classToAdd).removeClass(classToRemove).attr('alt', ratio);
         new_supporter_bar.attr('title', form.find('.supporters_label').text());
         old_supporter_bar.replaceWith(new_supporter_bar);
+				echoable.data('api').loadRatioBars(header);
       }
+
+
 
 
       /************************************/
@@ -135,9 +145,10 @@
             to_add = 'supported';
 					}
 
-          /* pre-request */
+          // pre-request
 					updateEchoButton(to_add, to_remove);
 					echo_label.text(echo_label.data('messages')[to_add]);
+					toggleSocialEchoButton();
 
 					var href = echo_button.attr('href');
 
@@ -148,10 +159,15 @@
 			      data:   { '_method': 'put' },
 						success: function(data, textStatus, XMLHttpRequest) {
               echo_button.removeClass('pending');
+
               // Request returns with successful with an info, but the echo itself failed
-              if(href == echo_button.attr('href')) {
-							  rollback(to_remove, to_add);
-							}
+							if (href == echo_button.attr('href')) {
+						  	rollback(to_remove, to_add);
+						  } else if(social_echo_button.hasClass('clicked')) {
+								// IMPORTANT: social echo button must be expandable!
+								toggleSocialPanel();
+              }
+							social_echo_button.removeClass('clicked');
 						},
 
 						error: function() {
@@ -163,6 +179,7 @@
           function rollback(to_remove, to_add) {
             updateEchoButton(to_remove, to_add);
 					  echo_label.text(echo_label.data('messages')[to_remove]);
+						toggleSocialEchoButton();
             var error_lamp = echo_button.find('.error_lamp');
             error_lamp.css('opacity','0.70').show().fadeTo(1000, 0, function() {
               error_lamp.hide();
@@ -178,10 +195,133 @@
 				});
 			}
 
+
+
 			function updateEchoButton(classToAdd, classToRemove) {
         echo_button.removeClass(classToRemove).addClass(classToAdd);
       }
 
+      // Social Sharing
+			function toggleSocialEchoButton() {
+        if (social_echo_button.length > 0) {
+					var expandableApi = social_echo_button.data('expandableApi');
+					if (social_echo_button.is(":visible") && expandableApi.isLoaded()) {
+            expandableApi.toggle();
+          }
+          social_echo_button.animate(toggleParams, 500);
+        }
+      }
+
+			function initSocialPanel() {
+				social_panel = social_container.find('.social_echo_panel');
+				social_account_list = social_panel.find('.social_account_list');
+        social_submit_button = social_panel.find("input[type='submit']");
+				initSocialAccountButtons();
+				initTextCounter();
+        initActionButtons();
+				initSocialSubmitButton();
+			}
+
+			function initSocialAccountButtons() {
+				// 1st step: load enable/disable tags
+				var messages = {
+					'enabled': social_account_list.data('enabled'),
+					'disabled': social_account_list.data('disabled')
+				};
+				social_account_list.find('.button').each(function() {
+					var button_container = $(this);
+					var tag = null, toggle_tag = null;
+					if (button_container.hasClass('enabled')) {
+				  	tag = 'enabled'; toggle_tag = 'disabled';
+				  }
+				  else if (button_container.hasClass('disabled')) {
+			  		tag = 'disabled'; toggle_tag = 'enabled';
+			  	}
+					if (tag) {
+						button_container.text(messages[tag]);
+						button_container.bind('click', function(){
+							if (button_container.hasClass(tag)) {
+								button_container.text(messages[toggle_tag]).removeClass(tag).addClass(toggle_tag);
+								button_container.next().val(toggle_tag);
+							} else {
+								button_container.text(messages[tag]).removeClass(toggle_tag).addClass(tag);
+								button_container.next().val(tag);
+							}
+							updateSocialSubmitButtonState();
+						});
+					}
+				});
+			}
+
+      /*
+       * Initializes character counter for the message so that it cannot be longer than the tweetable 140 chars.
+       */
+			function initTextCounter() {
+				var text = social_panel.find('.text');
+				var preview = social_panel.find('.preview');
+				var url = preview.data('url');
+				var maxChar = 140 - url.length-1; //-1 = white space
+				text.simplyCountable({
+			    counter: text.next(),
+			    countable: 'characters',
+			    maxCount: maxChar,
+					strictMax: true,
+			    countDirection: 'down',
+			    safeClass: 'safe',
+			    overClass: 'over',
+					onMaxCount: function() {
+						text.val(text.val().substring(0, maxChar));
+					}
+				});
+				text.bind('keyup', function(){
+					preview.text($.trim(text.val()) + ' ' + url);
+				});
+				preview.removeAttr('data-url');
+			}
+
+      /*
+       * Initializes the Cancel button.
+       */
+      function initActionButtons() {
+        var cancel_button = social_panel.find('.cancel_text_button');
+        cancel_button.click(function() {
+          toggleSocialPanel();
+        });
+      }
+
+      function initSocialSubmitButton() {
+				social_submit_button.bind('click', function() {
+					if(social_submit_button.hasClass('disabled')) {
+						return false;
+					} else {
+            toggleSocialPanel();
+          }
+				});
+			}
+
+      function updateSocialSubmitButtonState() {
+				var enabled = social_account_list.find("input[value='enabled']");
+				if (enabled.length == 0) {
+			  	social_submit_button.addClass('disabled');
+			  } else {
+			  	social_submit_button.removeClass('disabled');
+			  }
+			}
+
+      function toggleSocialPanel() {
+        social_echo_button.data('expandableApi').toggle();
+      }
+
+			function initEchoIndicators(container) {
+        container.find('.echo_indicator').each(function() {
+          var indicator = $(this);
+          if (!indicator.hasClass("ei_initialized")) {
+            var echo_value = parseInt(indicator.attr('alt'));
+            indicator.progressbar({ value: echo_value });
+          }
+          indicator.addClass("ei_initialized");
+        });
+      }
 
 			// Public API
       $.extend(this,
@@ -193,6 +333,7 @@
           echo_button.attr('href', href);
           echoable.find('.header .supporters_bar').replaceWith(supporters_bar);
           echoable.find('.header .supporters_label').text(supporters_number);
+					initEchoIndicators(echoable.find('.header'));
           return this;
         },
 				loadEchoLabelMessages: function(messages) {
@@ -202,7 +343,16 @@
 				loadEchoInfoMessages: function(messages) {
           echo_button.data('messages', messages);
           return this;
-        }
+        },
+				loadSocialEchoPanel: function() {
+					initSocialPanel();
+          social_echo_button.data("expandableApi").activated();
+					return this;
+				},
+        loadRatioBars: function(container) {
+          initEchoIndicators(container);
+          return this;
+			  }
 			});
 		}
 

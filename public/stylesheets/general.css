@@ -1,9 +1,9 @@
 /* Styles for body, headings and standard HTML elements. */
 
 body {
-  background:  #a8c642 url(../images/page/background.png) repeat-x;
-  margin:      0px;
-  padding:     0px;
+  background:  #B5C0C9 url(../images/page/background.png) repeat-x;
+  margin:      0;
+  padding:     0;
   color:       #21587f;
   text-align:  left;
   overflow-y:  scroll;
@@ -69,6 +69,11 @@ p a, span a {
 
 .link {
   cursor: pointer !important;
+}
+
+.link:focus, span:focus, div:focus, a:focus, input:focus {
+  border: none;
+  outline: none;
 }
 
 .floatLeft {

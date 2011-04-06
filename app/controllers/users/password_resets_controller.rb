@@ -5,12 +5,13 @@ class Users::PasswordResetsController < ApplicationController
 
   skip_before_filter :require_user
   # Use perishable_token on edit or update methods
-  before_filter :load_user_using_perishable_token, :only => [:edit, :update]
+  before_filter :load_user_using_perishable_token, :only => [:update]
 
   # Render password reset creation partial
   def new
     render_static_new :template => 'users/password_resets/new' do |format|
-      format.js { render :template => 'users/users/new' }
+      format.js {render :template => 'users/components/users_form', 
+                        :locals => {:partial => 'users/password_resets/new', :css_class => "basic_profile_box"}}
     end
   end
 
@@ -18,17 +19,11 @@ class Users::PasswordResetsController < ApplicationController
   def create
     @user = User.find_by_email(params[:email])
     begin
-      respond_to do |format|
-        if @user
-          @user.deliver_password_reset_instructions!
-          set_info 'users.password_reset.messages.success'
-          format.html { flash_info and redirect_to root_url }
-          format.js   { render_with_info }
-        else
-          set_error 'users.password_reset.messages.not_found'
-          format.html { flash_error and render :action => :new, :layout => 'static' }
-          format.js   { render_with_error }
-        end
+      if @user
+        @user.deliver_password_reset_instructions!
+        redirect_with_info(root_path, 'users.password_reset.messages.success')
+      else
+        later_call_with_error(root_path, new_password_reset_path, 'users.password_reset.messages.not_found')
       end
     rescue Exception => e
       log_message_error(e, "Error creating user '#{@user.nil? ? params[:email] : @user.id}' password.")
@@ -39,22 +34,24 @@ class Users::PasswordResetsController < ApplicationController
 
   # Render the edit partial
   def edit
-    respond_to do |format|
-      format.html { render :template => 'users/password_resets/edit', :layout => 'static' }
+    later_call_with_info(root_path, request.url) do |format|
+      format.js {
+        load_user_using_perishable_token(true)
+        render :template => 'users/components/users_form', 
+               :locals => {:partial => 'users/password_resets/edit', :css_class => "basic_profile_box"}
+      }
     end
   end
 
   def update
-    @user.password = params[:user][:password]
-    @user.password_confirmation = params[:user][:password_confirmation]
     @user.active = true
     begin
-      if @user.save
-        set_info 'users.password_reset.messages.reset_success'
-        flash_info and redirect_to_home
+      @user.old_password = true # Variable that allows the password validations. TODO: rename it
+      if @user.update_attributes(params[:user])
+        redirect_with_info(root_path, 'users.password_reset.messages.reset_success')
       else
-        set_error 'users.password_reset.messages.reset_failed'
-        flash_error and render :action => :edit, :layout => 'static'
+        set_error @user#'users.password_reset.messages.reset_failed'
+        later_call_with_error(root_path, request.referer, @user)
       end
     rescue Exception => e
       log_message_error(e, "Error updating user '#{@user.id}' password.")
@@ -68,14 +65,20 @@ class Users::PasswordResetsController < ApplicationController
   #
   private
 
-  def load_user_using_perishable_token
+  def load_user_using_perishable_token(js=false)
     @user = User.find_by_perishable_token(params[:id])
     unless @user
       flash[:notice] = "We're sorry, but we could not locate your account. " +
         "If you are having issues try copying and pasting the URL " +
         "from your email into your browser or restarting the " +
         "reset password process."
-      redirect_to root_url
+        if js
+          render :update do |page|
+            page.redirect_to root_url
+          end
+        else
+          redirect_to root_url
+        end
     end
   end
 

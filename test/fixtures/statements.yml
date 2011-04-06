@@ -58,6 +58,14 @@ sixth-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_en)%>
   statement_image_id: <%= Fixtures.identify('statement-image')%>
   editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
+seventh-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
+eighth-proposal-statement:
+  original_language_id: <%= Fixtures.identify(:language_en)%>
+  statement_image_id: <%= Fixtures.identify('statement-image')%>
+  editorial_state_id: <%= Fixtures.identify(:statement_state_published) %>
 german-proposal-statement:
   original_language_id: <%= Fixtures.identify(:language_de)%>
   statement_image_id: <%= Fixtures.identify('statement-image')%>

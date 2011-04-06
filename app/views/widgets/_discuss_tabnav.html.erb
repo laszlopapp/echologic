@@ -1,6 +1,4 @@
-<div class="roadmap_tab">
-	<%= image_tag("../images/page/icons/under_construction.png", :border => "none") %>
-</div>
+
 <%
 # Render submenu tabs for discuss section.
 
@@ -23,13 +21,6 @@ render_tabnav :discuss,
     t.named I18n.t('discuss.my_questions.link')
     t.links_to hash_for_my_questions_path
   end
-
-  add_tab :html => {:id => 'roadmap_tab'} do |t|
-    value = I18n.t('application.roadmap.title')
-    t.named value
-    t.links_to hash_for_discuss_roadmap_path
-  end
-
 
 end
 %>

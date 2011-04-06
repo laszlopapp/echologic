@@ -2,7 +2,7 @@
 # the standard mail ending will be appended.
 When /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |user, password|
   user += "@echologic.org" unless user =~ /.*@.*\..{2,3}/
-  visit root_url
+  visit signin_url
   fill_in('user_session_email', :with => user)
   fill_in('user_session_password', :with => password)
   click_button('user_session_submit')
@@ -10,16 +10,11 @@ When /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |user, passwor
 end
 
 When /^I login as "([^\"]*)" with password "([^\"]*)"$/ do |user, password|
-  user += "@echologic.org" unless user =~ /.*@.*\..{2,3}/
-  fill_in('user_session_email', :with => user)
-  fill_in('user_session_password', :with => password)
-  click_button('user_session_submit')
-  @user = User.find_by_email(user)
+  Then "I am logged in as \"#{user}\" with password \"#{password}\""
 end
 
-Given /^"([^\"]*)" forgot his password$/ do |user_full_name|
-  user_names = user_full_name.split(" ")
-  @user = Profile.find_by_first_name_and_last_name(user_names.first,user_names.last).user
+Given /^"([^\"]*)" forgot his password$/ do |name|
+  @user = Profile.find_by_full_name(name).user
 end
 
 
@@ -34,11 +29,10 @@ When /^I restore normal session expiry time$/ do
   # controller.send(:current_user_session).destroy
 end
 
-Given /^"([^\"]*)" is an unregistered user with "([^\"]*)" as an email$/ do |user_full_name, email|
-  user_names = user_full_name.split(" ")
+Given /^"([^\"]*)" is an unregistered user with "([^\"]*)" as an email$/ do |name, email|
   @user = User.new
   @user.create_profile
-  @user.signup!(:user => {:profile => {:first_name => user_names.first, :last_name => user_names.last}, :email => email})
+  @user.signup!(:full_name => name, :email => email)
 end
 
 Then /^"([^\"]*)" should have "([^\"]*)" as "([^\"]*)"$/ do |user, code, attribute|
@@ -48,22 +42,30 @@ Then /^"([^\"]*)" should have "([^\"]*)" as "([^\"]*)"$/ do |user, code, attribu
   assert @user.send(attribute.to_sym).eql?(key)
 end
 
-Then /^an "([^\"]*)" email should be sent to "([^\"]*)"$/ do |email_type, user_full_name|
+Then /^an "([^\"]*)" email should be sent to "([^\"]*)"$/ do |email_type, email_address|
   assert !ActionMailer::Base.deliveries.empty?
+  assert_equal 1, ActionMailer::Base.deliveries.length
   email = ActionMailer::Base.deliveries.first
+  assert_equal [email_address], email.to
   assert_match /#{email_type}/, email.subject
-  assert_match /Dear #{user_full_name}/, email.encoded
 end
 
-Then /^"([^\"]*)" should have "([^\"]*)" as password$/ do |user_full_name, password|
-  user_names = user_full_name.split(" ")
-  user = Profile.find_by_first_name_and_last_name(user_names.first,user_names.last).user
+
+Then /^"([^\"]*)" should have "([^\"]*)" as password$/ do |name, password|
+  user = Profile.find_by_full_name(name).user
   u_session = UserSession.new(:email => user.email, :password => password)
   assert u_session.save
 end
 
-Then /^"([^\"]*)" should have a profile$/ do |user_full_name|
-  user_names = user_full_name.split(" ")
-  profile = Profile.find_by_first_name_and_last_name(user_names.first,user_names.last)
+Then /^"([^\"]*)" should have a profile$/ do |name|
+  profile = Profile.find_by_full_name(name)
   assert !profile.nil?
+end
+
+Then /^I should have "([^\"]*)" as ([^\"]*)$/ do |value, attr|
+  assert @user.reload.send(attr).eql? value
+end
+
+Then /^I should be inactive$/ do 
+  assert !@user.reload.active
 end

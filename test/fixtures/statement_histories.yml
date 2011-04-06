@@ -63,7 +63,7 @@ user-question-doc-english-history:
 first-proposal-doc-english-history:
   statement_document_id: <%= Fixtures.identify('first-proposal-doc-english') %>
   statement_id: <%= Fixtures.identify('first-proposal-statement') %>
-  author_id: <%= Fixtures.identify(:editor) %>
+  author_id: <%= Fixtures.identify(:user) %>
   action_id: <%= Fixtures.identify('statement_action_created') %>
 
 second-proposal-doc-english-history:
@@ -99,6 +99,18 @@ fifth-proposal-doc-english-history:
 sixth-proposal-doc-english-history:
   statement_document_id: <%= Fixtures.identify('sixth-proposal-doc-english') %>
   statement_id: <%= Fixtures.identify('sixth-proposal-statement') %>
+  author_id: <%= Fixtures.identify(:editor) %>
+  action_id: <%= Fixtures.identify('statement_action_created') %>
+
+seventh-proposal-doc-english-history:
+  statement_document_id: <%= Fixtures.identify('seventh-proposal-doc-english') %>
+  statement_id: <%= Fixtures.identify('seventh-proposal-statement') %>
+  author_id: <%= Fixtures.identify(:editor) %>
+  action_id: <%= Fixtures.identify('statement_action_created') %>
+
+eighth-proposal-doc-english-history:
+  statement_document_id: <%= Fixtures.identify('eighth-proposal-doc-english') %>
+  statement_id: <%= Fixtures.identify('eighth-proposal-statement') %>
   author_id: <%= Fixtures.identify(:editor) %>
   action_id: <%= Fixtures.identify('statement_action_created') %>
 

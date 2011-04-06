@@ -11,6 +11,7 @@
 
     <!-- Stylesheets -->
     <%= stylesheet_link_tag 'echologic',
+                            'signinup',
                             'jcarousel_skin',
                             'jquery.autocomplete',
                             'jquery.rte',
@@ -20,7 +21,7 @@
                             'application',
                             'discuss',
                             'connect',
-                            'profile',
+                            'my_echo',
                             'admin',
                             :cache => 'echo_app' %>
 
@@ -34,9 +35,12 @@
                                'discuss/taggable',
                                'discuss/expandable',
                                'discuss/breadcrumbs',
+                               'discuss/statement_search',
+                               'discuss/placeholder',
                                'connect',
                                'my_echo',
                                'history',
+                               'jquery.simplyCountable',
                                'jquery.event-filter.min',
                                'jquery.getUrlParam',
                                'jquery.ba-url.min',
@@ -53,6 +57,7 @@
                                'jquery.jscrollpane.min.js',
                                'jquery.livequery',
                                'jquery.toggleval',
+                               'jFlick',
                                :cache => 'echo_app' %>
 
     <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
@@ -86,7 +91,7 @@
       <%= yield :submenu %>
 
       <!-- The chosen function -->
-      <div id="function_container">
+      <div id="function_container" class="<%= yield :section %>">
       	<%#= tabnav :admin if current_user and current_user.has_role? :admin %>
         <%= yield %>
       </div>
@@ -100,6 +105,5 @@
 
     <!-- Dialog container for outer menu. -->
     <div id="dialogContent" style="display:none;"></div>
-
   </body>
 </html>

@@ -98,8 +98,9 @@ en:
             </p>
 
         action: |-
-          The NEW echo is ONLINE!<br/>
-          Check out prototype »
+          Check out prototype »<br/>
+          echo 0.14 is online
+
 
       #About
       about:
@@ -107,6 +108,7 @@ en:
         tabs:
           project: The Project
           team: The Team
+          partners: The Network
         text: |-
           <p>
           echo is driven forward by an <strong><a id="about_team_link" href="#">international, interdisciplinary team</a>
@@ -116,18 +118,20 @@ en:
           and cooperation give echo additional momentum: experts from various areas with long work experience, politicians,
           organisations, initiatives and other synergy-seeking internet projects.
           </p><p>
-          echo was started in September 2008. In October 2009, a German <strong>non-profit</strong> organisation
-          echo source e.V. was founded. After successful seed-financing, echo Systems GmbH or AG will be founded to take over responsibility
-          for technical realisation, editorial work and international marketing and sales. The company will be operated as a
-          <strong><a href='http://en.wikipedia.org/wiki/Social_business' target='_blank'>social business</a></strong>.
+          echo was started in September 2008. In October 2009, a German <strong>non-profit</strong> association
+          echo source e.V. was founded. In April 2011, echo Systems UG was founded as a 100% subsidiary of the association
+          to take over responsibility for technical realisation, editorial work and international marketing and sales.
+          The company will be operated as a <strong>
+          <a href='http://en.wikipedia.org/wiki/Social_business' target='_blank'>social business</a></strong>.
           Its <strong>"Your-Profit" business philosophy</strong> is inspired by the ethical principles and values of
           Nobel Peace Prize winner <a href='http://en.wikipedia.org/wiki/Muhammad_Yunus' target='_blank'>Muhammad Yunus</a>.
           </p><p>
-          Since 2010, echo has been funded by the EXIST program through the EU, the ESF and BMWi. Additionally, echo also
-          receives financial support of some private donors.
+          From 2010 till early 2011, echo was funded by the EXIST program through the EU, the ESF and BMWi. Additionally,
+          echo also receives financial support of some private donors.
           </p><p>
-          The work of echo source e.V. currently concentrates on further development of the software prototype as well as
-          finding and <strong>negotiating with new partners, sponsors and (preferably sustainable) investors</strong>.
+          The work of echo currently focuses on further development of the software prototype, on creating marketable
+          product derivatives as well as on finding and <strong>negotiating with new partners, sponsors and 
+          (preferably sustainable) investors</strong>.
           </p>
 
       # Static content for imprint
@@ -929,4 +933,20 @@ en:
         With best regards,
 
         Your echo team
+        
+    activate_email:
+      subject: Please verify your E-Mail adress 
+      text1: |
+        Dear {{name}},
 
+        In order to successfully update your E-Mail address, you must complete the last step of the process, which consists of clicking the URL below, allowing us to successfully confirm your new E-Mail address.
+      text2: |
+        If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
+
+        If you keep having problems with activating your email, please feel free to contact us at support@echologic.org.
+
+        Looking forward to seeing you soon at echo,
+
+        Your echo team
+
+ 

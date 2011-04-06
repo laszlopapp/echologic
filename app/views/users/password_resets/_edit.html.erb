@@ -1,0 +1,34 @@
+
+<% content_tag :div,
+               :id => 'reset_password',
+               :class => 'signinup_container' do %>
+
+  <% content_tag :div, '', :class => "header block" do %>
+    <%= content_tag :span, '', :class => "symbol" %>
+    <%= content_tag(:span, I18n.t('users.password_reset.step2'),
+                    :class => 'signinup_title') %>
+  <% end %>
+
+  <% content_tag :div, '', :class => "guide block" do %>
+    <%= content_tag :span, I18n.t('users.password_reset.step2_text') %>
+  <% end %>
+
+  <% content_tag :div, '', :class => "form block" do %>
+    <% form_for @user,
+                :url => password_reset_path,
+                :method => :put,
+                :html => {:class => 'echoForm ajax_form'} do |f| %>
+      <% content_tag :p do %>
+        <%= f.label I18n.t('users.profile.password.new') %><br/>
+			  <%= f.password_field :password %>
+      <% end %>
+      <% content_tag :p do %>
+        <%= f.label I18n.t('users.profile.password.confirm') %><br/>
+			  <%= f.password_field :password_confirmation %>
+      <% end %>
+      <%= f.submit I18n.t('users.password_reset.step2_ok'),
+                   :class => 'signinButton formButton300' %>
+    <% end %>
+  <% end %>
+
+<% end %>

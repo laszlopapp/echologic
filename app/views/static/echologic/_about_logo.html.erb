@@ -1,0 +1,7 @@
+<li id="<%= dom_id(about_logo) %>" class="<%= cycle('odd', 'even', :name => 'about_logos') -%> about_logo">
+	<% link_to about_logo.url do %>
+	 <%= image_tag about_logo.photo.url(:big),
+                 :class => 'picture ttLink no_border',
+                 :title => h("#{about_logo.name} - #{about_logo.description}") %>
+	 <% end %>
+</li>

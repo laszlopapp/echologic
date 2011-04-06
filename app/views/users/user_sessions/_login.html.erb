@@ -1,28 +1,29 @@
-<div id="login_container">
 
-  <% if current_user_session %>
+<% if current_user_session %>
+
+  <div id="login_container" class="logged_in">
     <%= link_to(image_tag(current_user.profile.avatar.url(:small),
                           :id => 'logged_in_user_pic',
                           :class => 'ttLink pointer',
                           :title => I18n.t('users.profile.to')),
                 my_profile_path) %>
     <span id="logged_in_user">
-      <%= I18n.t('users.user_sessions.login.hello',
+      <%= I18n.t('users.signin.hello',
                  :name => current_user.full_name) %><br/>
     </span>
-  <% else %>
+  </div>
 
-    <% form_for UserSession.new, :url => user_session_path do |f| %>
-      <span class="label"><%= I18n.t('users.user_sessions.login.email') %></span>
-      <span class="label"><%= I18n.t('users.user_sessions.login.password') %></span><br/>
-      <%= f.text_field :email, :class => 'loginField' %>
-      <%= f.password_field :password, :class => 'loginField' %>
-      <%= f.hidden_field :redirect_url, :value => request.url %>
-      <%= f.submit 'Login', :class => 'loginButton' %><br/>
-    <% end %>
-    <% ajax_class = params[:controller].match(%r[static|users])? 'ajaxLink' : '' %>
-    <%= link_to I18n.t('users.user_sessions.login.signup'), join_path, :class => "#{ajax_class} bottomLabel" %>
-    <%= link_to I18n.t('users.user_sessions.login.set_password'), new_password_reset_path, :class => "#{ajax_class} bottomLabel" %><br/>
-  <% end %>
+<% else %>
 
-</div>
+  <div id="login_container" class="logged_out">
+    <%= link_to I18n.t('users.signup.label').capitalize(), signup_path,
+                :class => 'ajax signup' %>
+    <%= content_tag :span, I18n.t('application.general.or'),
+                    :class => 'or_label' %>
+    <%= link_to I18n.t('users.signin.label').capitalize(), signin_path,
+                :class => 'ajax signin big_button big_green_button_150' %>
+  </div>
+
+<% end %>
+
+

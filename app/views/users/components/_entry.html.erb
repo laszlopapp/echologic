@@ -1,0 +1,12 @@
+<li id="<%= dom_id entry %>" >
+  <span class="column_200">
+  	<%= yield "#{type}_#{entry.id}_label".to_sym%>
+  </span>
+  <span class="column_200">
+  	<%= yield "#{type}_#{entry.id}_value".to_sym%>
+  </span>
+
+  <% %w(edit delete).each do |method| %>
+	  <%= component_link(method, type, entry) %>
+	<% end %>
+</li>

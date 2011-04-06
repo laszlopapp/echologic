@@ -4,6 +4,7 @@ class StatementsControllerTest < ActionController::TestCase
   def setup
     login_as :editor
     @controller = StatementsController.new
+    flexmock(SocialService.instance).should_receive(:share_activities).with(Hash, Hash).and_return({:success => ['facebook', 'twitter'], :failed => ['linkedin'], :timeout => []})
   end
 
   #####################
@@ -58,7 +59,7 @@ class StatementsControllerTest < ActionController::TestCase
   ######################
 
 
-  test "should translate the statement" do
+  test "should translate the question" do
     user = users(:editor)
     document = statement_documents('test-question-doc-english')
     document.lock(user)
@@ -146,108 +147,291 @@ class StatementsControllerTest < ActionController::TestCase
   end
 
 
-  test "should create new statement form" do
-#    assert_difference('Question.count', 1) do
-#      post :create, :type => "Question",
-#      :question => {
-#        :statement_document => {:title => "Super Question", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en],
-#                                :action_id => StatementAction[:created] , :locked_at => ""},
-#        :editorial_state_id => StatementState[:published],
-#        :statement_id => "",
-#        :parent_id => nil,
-#        :topic_tags => "" }
-#    end
-#    assert_difference('Proposal.count', 1) do
-#      post :create, :type => "Proposal", :echo => true,
-#      :proposal => {
-#        :statement_document => {:title => "Super Proposal", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en],
-#                                :action_id => StatementAction[:created] , :locked_at => ""},
-#        :editorial_state_id => StatementState[:published],
-#        :statement_id => "",
-#        :parent_id => statement_nodes('test-question').to_param }
-#    end
-#    assert_difference('ImprovementProposal.count', 1) do
-#      post :create, :type => "ImprovementProposal", :echo => true,
-#      :improvement => {
-#        :statement_document => {:title => "Super Improvement", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en],
-#                                :action_id => StatementAction[:created] , :locked_at => ""},
-#        :editorial_state_id => StatementState[:published],
-#        :statement_id => "",
-#        :parent_id => statement_nodes('first-proposal').to_param }
-#    end
-#    assert_difference('ProArgument.count', 1) do
-#      post :create, :type => "ProArgument", :echo => true,
-#      :pro_argument => {
-#        :statement_document => {:title => "Super Pro Argument", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en],
-#                                :action_id => StatementAction[:created] , :locked_at => ""},
-#        :editorial_state_id => StatementState[:published],
-#        :statement_id => "",
-#        :parent_id => statement_nodes('first-proposal').to_param }
-#    end
-#    assert_difference('ContraArgument.count', 1) do
-#      post :create, :type => "ContraArgument", :echo => true,
-#      :contra_argument => {
-#        :statement_document => {:title => "Super Contra Argument", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en],
-#                                :action_id => StatementAction[:created] , :locked_at => ""},
-#        :editorial_state_id => StatementState[:published],
-#        :statement_id => "",
-#        :parent_id => statement_nodes('first-proposal').to_param }
-#    end
-#    assert_difference('FollowUpQuestion.count', 1) do
-#      post :create, :type => "FollowUpQuestion", :echo => true,
-#      :contra_argument => {
-#        :statement_document => {:title => "Super Follow Up Question", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en],
-#                                :action_id => StatementAction[:created] , :locked_at => ""},
-#        :editorial_state_id => StatementState[:published],
-#        :statement_id => "",
-#        :parent_id => statement_nodes('first-proposal').to_param }
-#    end
+  test "should create new question" do
+    assert_difference('Question.count', 1) do
+      post :create, :type => "Question",
+      :question => {
+        :statement_document => {:title => "Super Question", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en].id,
+                                :action_id => StatementAction[:created].id , :locked_at => ""},
+        :editorial_state_id => StatementState[:published].id,
+        :statement_id => "",
+        :parent_id => nil,
+        :topic_tags => "" }
+    end
+  end
+
+  test "shoud create proposal" do
+    assert_difference('Proposal.count', 1) do
+      post :create, :type => "Proposal", :echo => true,
+      :proposal => {
+        :statement_document => {:title => "Super Proposal", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en].id,
+                                :action_id => StatementAction[:created].id , :locked_at => ""},
+        :editorial_state_id => StatementState[:published].id,
+        :statement_id => "",
+        :parent_id => statement_nodes('test-question').to_param }
+    end
+  end
+
+  test "should create improvement" do
+    assert_difference('Improvement.count', 1) do
+      post :create, :type => "Improvement", :echo => true,
+      :improvement => {
+        :statement_document => {:title => "Super Improvement", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en].id,
+                                :action_id => StatementAction[:created].id , :locked_at => ""},
+        :editorial_state_id => StatementState[:published].id,
+        :statement_id => "",
+        :parent_id => statement_nodes('first-proposal').to_param }
+    end
+  end
+  test "should create pro argument" do
+    assert_difference('ProArgument.count', 1) do
+      post :create, :type => "ProArgument", :echo => true,
+      :pro_argument => {
+        :statement_document => {:title => "Super Pro Argument", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en].id,
+                                :action_id => StatementAction[:created].id , :locked_at => ""},
+        :editorial_state_id => StatementState[:published].id,
+        :statement_id => "",
+        :parent_id => statement_nodes('first-proposal').to_param }
+    end
+  end
+  test "should create contra argument" do
+    assert_difference('ContraArgument.count', 1) do
+      post :create, :type => "ContraArgument", :echo => true,
+      :contra_argument => {
+        :statement_document => {:title => "Super Contra Argument", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en].id,
+                                :action_id => StatementAction[:created].id , :locked_at => ""},
+        :editorial_state_id => StatementState[:published].id,
+        :statement_id => "",
+        :parent_id => statement_nodes('first-proposal').to_param }
+    end
+  end
+  test "should create follow up question" do
+    assert_difference('FollowUpQuestion.count', 1) do
+      post :create, :type => "FollowUpQuestion", :echo => true,
+      :follow_up_question => {
+        :statement_document => {:title => "Super Follow Up Question", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en].id,
+                                :action_id => StatementAction[:created].id , :locked_at => ""},
+        :editorial_state_id => StatementState[:published].id,
+        :statement_id => "",
+        :parent_id => statement_nodes('first-proposal').to_param }
+    end
   end
 
   test "should get the edit question form" do
     get :edit, :id => statement_nodes('test-question').to_param, :type => :question, :current_document_id => statement_documents('test-question-doc-english').to_param
     assert_response :success
+    assert_nil assigns(:info)
   end
   test "should get the edit proposal form" do
     get :edit, :id => statement_nodes('first-proposal').to_param, :type => :proposal, :current_document_id => statement_documents('first-proposal-doc-english').to_param
     assert_response :success
+    assert_nil assigns(:info)
   end
   test "should get the edit improvement form" do
     get :edit, :id => statement_nodes('third-impro-proposal').to_param, :type => :improvement, :current_document_id => statement_documents('third-impro-proposal-doc-english').to_param
     assert_response :success
+    assert_nil assigns(:info)
+  end
+  test "should not get the edit proposal form cuz somebody just updated it" do
+    login_as :user
+    statement_nodes('first-proposal').supported! users(:ben)
+    get :edit, :id => statement_nodes('first-proposal').to_param, :type => :proposal, :current_document_id => statement_documents('first-proposal-doc-english').to_param
+    assert_response :success
+    assert_equal I18n.t('discuss.statements.cannot_be_edited'), assigns(:info)
   end
   test "should not get the edit question form" do
     get :edit, :id => statement_nodes('test-question').to_param, :type => :question, :current_document_id => 0
     assert_template 'statements/show'
     assert_response :success
+    assert_equal I18n.t('discuss.statements.statement_updated', :type => 'Question'), assigns(:info)
   end
 
 
+
+  test "should get more proposal children" do
+    get :more, :id => statement_nodes('test-question').to_param, :type => "proposal"
+    assert_kind_of Hash, assigns(:children)
+    assert_not_nil assigns(:children)
+    assert_equal 7, assigns(:children)[:Proposal].size
+    assert_not_nil assigns(:children_documents)
+    assert_kind_of Hash, assigns(:children_documents)
+    assert_response :success
+  end
 
   test "should get more argument children" do
     get :more, :id => statement_nodes('first-proposal').to_param, :type => "argument"
+    assert_not_nil assigns(:children)
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 2, assigns(:children)[:Argument].size # Should be an array with 2 arrays inside, and they must be empty both
+    assert assigns(:children)[:Argument].select{|s|s.kind_of? Array and s.empty?}
+    assert_not_nil assigns(:children_documents)
     assert_response :success
   end
 
-  test "should get more children" do
-    get :children, :id => statement_nodes('test-question').to_param, :type => "proposal"
+  test "should get more follow up question children" do
+    get :more, :id => statement_nodes('test-question').to_param, :type => "follow_up_question"
+    assert_not_nil assigns(:children)
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 0, assigns(:children)[:FollowUpQuestion].size # no follow up questions
     assert_response :success
   end
-  
-  test "should get statement's descendants" do
-    get :descendants, :id => statement_nodes('test-question').to_param, :type => :proposal
+
+
+
+  test "should get proposal children" do
+    get :children, :id => statement_nodes('test-question').to_param, :type => "proposal"
+    assert_not_nil assigns(:children)
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 7, assigns(:children)[:Proposal].size
+    assert_not_nil assigns(:children_documents)
+    assert_response :success
+  end
+
+  test "should get argument children" do
+    get :children, :id => statement_nodes('first-proposal').to_param, :type => "argument"
+    assert_not_nil assigns(:children)
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 2, assigns(:children)[:Argument].size
+    assert assigns(:children)[:Argument].select{|s|s.kind_of? Array and s.empty?}
+    assert_not_nil assigns(:children_documents)
+    assert_response :success
+  end
+
+  test "should get follow up question children" do
+    get :children, :id => statement_nodes('test-question').to_param, :type => "follow_up_question"
+    assert_not_nil assigns(:children)
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 0, assigns(:children)[:FollowUpQuestion].size
+    assert_response :success
+  end
+
+  test "should get test question siblings coming from discuss search" do
+    get :descendants, :type => "question", :current_node => statement_nodes('test-question').to_param, :origin => "ds|1"
+    assert_not_nil assigns(:children)
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 7, assigns(:children)[:Question].size
+    assert_not_nil assigns(:children_documents)
+    assert_response :success
+  end
+
+  test "should get test question siblings coming from discuss search with search term test" do
+    get :descendants, :type => "question", :current_node => statement_nodes('test-question').to_param, :origin => "srtest|1"
+    assert_not_nil assigns(:children)
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 2, assigns(:children)[:Question].size
+    assert_not_nil assigns(:children_documents)
+    assert_response :success
+  end
+
+  test "should get test question siblings being test question a follow up question from test question 2" do
+    get :descendants, :type => "question", :current_node => statement_nodes('test-question').to_param, :origin => "fq#{statement_nodes('test-question-2').to_param}"
+    assert_not_nil assigns(:children)
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 0, assigns(:children)[:Question].size
+    assert_not_nil assigns(:children_documents)
+    assert_response :success
+  end
+
+  test "should get second proposal siblings" do
+    get :descendants, :id => statement_nodes('test-question').to_param, :type => "proposal", :current_node => statement_nodes('second-proposal').to_param
+    assert_not_nil assigns(:children)
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 9, assigns(:children)[:Proposal].size
+    assert_not_nil assigns(:children_documents)
+    assert_response :success
+  end
+
+  test "should get argument siblings" do
+    get :descendants, :id => statement_nodes('second-proposal').to_param, :type => "argument"
+    assert_not_nil assigns(:children)
+    assert_kind_of Hash, assigns(:children)
+    assert_equal 2, assigns(:children)[:Argument].size
+    assert assigns(:children)[:Argument].select{|s|s.kind_of? Array and s.empty?}
+    assert_not_nil assigns(:children_documents)
     assert_response :success
   end
 
   test "should get the statement node authors" do
     @statement_node = Question.first
     get :authors,:id => @statement_node.id
+    assert_not_nil assigns(:authors)
+    assert_equal @statement_node.authors.size, assigns(:authors).size
     assert_response :success
   end
 
 
   test "should get me the right parents list" do
     get :ancestors, :id => statement_nodes('first-impro-proposal').to_param
+    assert assigns(:statement_ids).include?(statement_nodes('test-question-2').to_param.to_i)
+    assert assigns(:statement_ids).include?(statement_nodes('first-proposal').to_param.to_i)
     assert_response :success
   end
+
+
+  ########################
+  # SOCIAL SHARING TESTS #
+  ########################
+
+  test "should not get social widget bcuz im not a supporter of this statement" do
+    get :social_widget, :id => statement_nodes('test-question').to_param
+    assert_equal I18n.t("discuss.statements.supporter_to_share"), assigns(:info)
+    assert_response :success
+  end
+
+  test "should get social widget" do
+    statement_nodes('test-question').supported!(users(:editor))
+    get :social_widget, :id => statement_nodes('test-question').to_param
+    assert assigns(:proposed_url).include?("http://#{ECHO_HOST}/test-question")
+    assert assigns(:proposed_url).include?(tags('echonomy-jam').value)
+    assert_response :success
+  end
+
+  test "should get social widget and message must have the hash tag of root" do
+    statement_nodes('second-proposal').supported!(users(:editor))
+    get :social_widget, :id => statement_nodes('second-proposal').to_param
+    assert assigns(:proposed_url).include?("http://#{ECHO_HOST}/second-proposal")
+    assert assigns(:proposed_url).include?(tags('echonomy-jam').value)
+    assert_response :success
+  end
+
+  test "should not share bcuz i'm not a supporter of this statement" do
+    assert_difference('ShortcutUrl.count', 0) do
+      post :share, {:id => statement_nodes('test-question').to_param,
+                    :providers => {'facebook' => 'enabled', 'twitter' => 'enabled'},
+                    :text => "i would like to make an echo"
+                    }
+      assert_nil assigns(:shortcut_url)
+      assert_equal I18n.t("discuss.statements.supporter_to_share"), assigns(:info)
+    end
+  end
+
+  test "should share message to twitter and facebook account" do
+    statement_nodes('test-question').supported!(users(:editor))
+    assert_difference('ShortcutUrl.count', 1) do
+      post :share, {:id => statement_nodes('test-question').to_param,
+                    :providers => {'facebook' => 'enabled', 'twitter' => 'enabled'},
+                    :text => "i would like to make an echo"
+                    }
+      assert_not_nil assigns(:shortcut_url)
+      assert_equal "test-question", assigns(:shortcut_url).shortcut
+      assert assigns(:providers_status)[:success].include?('facebook')
+      assert assigns(:providers_status)[:success].include?('twitter')
+    end
+  end
+
+  test "should share message to twitter and facebook account, but fail to share to linkedin" do
+    statement_nodes('test-question').supported!(users(:editor))
+    assert_difference('ShortcutUrl.count', 1) do
+      post :share, {:id => statement_nodes('test-question').to_param,
+                    :providers => {'facebook' => 'enabled', 'twitter' => 'enabled', 'linkedin' => 'enabled'},
+                    :text => "i would like to make an echo"
+                    }
+      assert_not_nil assigns(:shortcut_url)
+      assert_equal "test-question", assigns(:shortcut_url).shortcut
+      assert assigns(:providers_status)[:success].include?('facebook')
+      assert assigns(:providers_status)[:success].include?('twitter')
+      assert assigns(:providers_status)[:failed].include?('linkedin')
+    end
+  end
+
 end

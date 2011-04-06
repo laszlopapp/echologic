@@ -1,5 +1,15 @@
-var content = "<%= escape_javascript(render(:partial => 'statements/questions/questions', :locals => {:statement_nodes => @statement_nodes})) %>";
 
-$("#questions_container").replaceWith(content);
+var content = $("<%= escape_javascript(render(:partial => 'statements/questions/questions', :locals => {:statement_nodes => @statement_nodes})) %>");
 
-$("#create_question_link").replaceWith('<%= create_question_link_for(params[:search_terms]) %>');
+var pagination_buttons = $("<%= escape_javascript(more_questions(@statement_nodes, @page)) %>");
+
+$("#questions_container .header .label").text("<%= questions_count_text(@count, @value) %>");
+
+var api = $("#questions_container").data('searchApi');
+
+api.insertContent(content, <%= @page || 1 %>);
+
+api.updateMoreButton(pagination_buttons, <%= !@statement_nodes.empty? and @statement_nodes.current_page != @statement_nodes.total_pages %>);
+
+
+$('#action_bar').replaceWith("<%= escape_javascript(render(:partial => 'statements/questions/action_bar')) %>");

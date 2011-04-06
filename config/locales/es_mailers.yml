@@ -54,11 +54,11 @@ es:
       statements:
         new_questions: 'Hay <strong>{{count}} debates nuevos</strong> desde la última actualización. '
         new_tags: 'Los debates están relacionados con los temas:'
-        created_proposals: 'Nuevo contenido a debate "{{title}}":'
-        created_improvement_proposals: 'Nuevo contenido para la propuesta "{{title}}":'
-        created_pro_arguments: 'Nuevo contenido para la propuesta "{{title}}":'
-        created_contra_arguments: 'Nuevo contenido para la propuesta "{{title}}":'
-        created_follow_up_questions: 'Nuevas preguntas de seguimiento para "{{title}}":'
+        created_proposals: 'Nuevo contenido a debate "<strong>{{title}}</strong>":'
+        created_improvement_proposals: 'Nuevo contenido para la propuesta "<strong>{{title}}</strong>":'
+        created_pro_arguments: 'Nuevo contenido para la propuesta "<strong>{{title}}</strong>":'
+        created_contra_arguments: 'Nuevo contenido para la propuesta "<strong>{{title}}</strong>":'
+        created_follow_up_questions: 'Nuevas preguntas de seguimiento para "<strong>{{title}}</strong>":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         Si no quieres recibir notificaciones sobre las actividades de tus debates, por favor, entra en

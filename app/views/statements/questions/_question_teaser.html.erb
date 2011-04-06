@@ -1,0 +1,17 @@
+
+<% content_tag :li, '', :class => 'question teaser' do %>
+
+    <% content_tag :div, :class => 'avatar_holder' do %>
+	    <%= image_tag('add_statement_teaser_image.png') %>
+    <% end %>
+
+    <% content_tag :div, :class => 'middle_block' do %>
+      <% content_tag :div, :class => 'title' do %>
+        <%= create_new_question_link %>
+      <% end %>
+      <%= content_tag :div,
+                      I18n.t("discuss.statements.add_teaser.question"),
+                      :class => 'description' %>
+    <% end %>
+
+<% end %>

@@ -23,15 +23,13 @@ Feature: Profile settings
     When I go to the profile
       And I follow "edit" within "#personal_container"
       And I fill in the following:
-        | profile[last_name]  | Last name      |
-        | profile[first_name] | First name     |
+        | profile[full_name]  | Ace Ventura    |
         | profile[city]       | Berlin         |
         | profile[about_me]   | This is me.    |
         | profile[motivation] | My motivation. | 
       And I select "Germany" from "profile[country]"
       And I press the "Save" button within the "Personal" container
-    Then I should see "Last name"
-      And I should see "First name"
+    Then I should see "Ace Ventura"
       And I should see "Berlin"
       And I should see "Germany"
       And I should see "This is me."

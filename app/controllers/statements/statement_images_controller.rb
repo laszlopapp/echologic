@@ -50,7 +50,7 @@ class StatementImagesController < ApplicationController
         format.js {
           render_with_info do |page|
             page << "$('#statements div.#{dom_class(@statement_node)} .image_container .image').replaceWith('#{render :partial => 'statement_images/image'}')"
-            page << "$('#statements div.#{dom_class(@statement_node)} .image_container .upload_link').remove()" if @statement_node.published?
+            page << "$('#statements div.#{dom_class(@statement_node)} .image_container .upload_link').remove()" if !current_user or !current_user.may_edit?(@statement_node)
           end
         }
       else

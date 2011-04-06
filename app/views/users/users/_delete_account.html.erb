@@ -1,0 +1,17 @@
+<% style ||= "" %>
+<div class="content delete_account" style="<%= style %>">
+	<div class="guide">
+    <%= I18n.t("users.echo_account.delete_account.guide") %>
+  </div>
+	<% form_for current_user, :url => url_for(:controller => "users/users", :action => "destroy_account"),
+                            :method => :delete, :html => {:class => 'ajax_form echoForm'} do |f| %>
+		<p>
+	    <%= label_tag I18n.t('users.echo_account.delete_account.password'), nil,
+                    :class => 'password_label' %>
+      <br/>
+	    <%= password_field_tag :password, nil, :class => 'password_field' %>
+	  </p>
+		<%= f.submit I18n.t("users.echo_account.delete_account.confirm"),
+                 :class => 'destroy_account button big_button big_red_button_300' %>
+	<% end %>
+</div>

@@ -1,0 +1,31 @@
+<% style ||= '' %>
+
+<% content_tag :div,
+               :id => type,
+               :class => 'signinup_container',
+               :style => style do %>
+
+  <% content_tag :div, '', :class => "header block" do %>
+    <%= content_tag :span, '', :class => "symbol"%>
+    <%= content_tag(:span, I18n.t("users.#{type}.label"),
+                    :class => 'signinup_title') %>
+    <%= signinup_toggle_button(type) %>
+    <%= content_tag :span, I18n.t('users.signin.hint'),
+                    :class => "hint"%>
+  <% end %>
+
+  <% content_tag :div, '', :class => "label block" do %>
+	  <%= signinup_labels(type) %>
+  <% end %>
+
+  <% content_tag :div, '', :class => "form block" do %>
+    <% content_tag :div, :class => "echo_container" do %>
+      <%= render :partial => "users/components/signinup/#{type}_form"%>
+    <% end %>
+
+    <% content_tag :div, :class => "social_container" do %>
+      <%= send("#{type}_social_link")%>
+    <% end %>
+  <% end %>
+
+<% end %>

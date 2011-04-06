@@ -54,11 +54,11 @@ de:
       statements:
         new_questions: 'Es gibt <strong>{{count}} neue Fragestellung(en)</strong> seit dem letzten Update. '
         new_tags: 'Sie befassen sich mit den folgenden Themen:'
-        created_proposals: 'Neue Inhalte in der Fragestellung "{{title}}":'
-        created_improvements: 'Neue Inhalte zum Vorschlag "{{title}}":'
-        created_pro_arguments: 'Neue Inhalte zum Vorschlag "{{title}}":'
-        created_contra_arguments: Neue Inhalte zum Vorschlag "{{title}}":'
-        created_follow_up_questions: 'Neue Folgefrage zu "{{title}}":'
+        created_proposals: 'Neue Inhalte in der Fragestellung "<strong>{{title}}</strong>":'
+        created_improvements: 'Neue Inhalte zum Vorschlag "<strong>{{title}}</strong>":'
+        created_pro_arguments: 'Neue Inhalte zum Vorschlag "<strong>{{title}}</strong>":'
+        created_contra_arguments: Neue Inhalte zum Vorschlag "<strong>{{title}}</strong>":'
+        created_follow_up_questions: 'Neue Folgefrage zu "<strong>{{title}}</strong>":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         Wenn Sie keine Benachrichtigungen über neue Discussionen und Vorschläge erhalten möchten, melden Sie sich bitte auf

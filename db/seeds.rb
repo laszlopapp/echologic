@@ -72,7 +72,7 @@ StatementAction.enumeration_model_updates_permitted = false
 # ABOUT CATEGORIES
 AboutCategory.enumeration_model_updates_permitted = true
 AboutCategory.purge_enumerations_cache
-%w(core_team supporters translators interns alumni technology_partners financial_partners).each_with_index do |code, index|
+%w(core_team supporters translators interns alumni technology_partners financial_partners strategic_partners thematic_partners).each_with_index do |code, index|
   AboutCategory.create(:code => code, :key => index+1, :description => "about_category")
 end
 AboutCategory.enumeration_model_updates_permitted = false
@@ -298,17 +298,30 @@ end
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
-["Technology Partners","Technologiepartner","Partenaires Tecnologiques",
- "Parceiros Tecnológicos","Colaboradores Tecnológicos"].each_with_index do |value,index|
+["Technology Partners","Technologiepartner","Les partenaires tecnologiques",
+ "Parceiros Tecnológicos","Socios Técnicos"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('technology_partners','AboutCategory'),
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
-["Financial Partners","Finanzpartner","Partenaires Financières",
- "Parceiros Financeiros","Colaboradores Financieros"].each_with_index do |value,index|
+["Financial Partners","Finanzpartner","Les partenaires financières",
+ "Parceiros Financeiros","Socios Financieros"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('financial_partners','AboutCategory'),
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
+["Strategic Partners","Strategische Partner","Les partenaires stratégiques",
+ "Parceiros Estratégicos","Socios Estratégicos"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('strategic_partners','AboutCategory'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
+["Thematic Partners","Thematische Partner","Les partenaires thématiques",
+ "Parceiros Temáticos","Socios Temáticos"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('thematic_partners','AboutCategory'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
+
 
 EnumValue.enumeration_model_updates_permitted = false

@@ -4,7 +4,7 @@
 <div id="topMenuContainer">
 
   <%= link_to I18n.t('layouts.outer_menu.logout'),
-              user_session_path,
+              signout_path,
               :method => :delete,
               :id => 'logout_button' if current_user_session and logout %>
   <%= link_to(I18n.t('layouts.outer_menu.about'),

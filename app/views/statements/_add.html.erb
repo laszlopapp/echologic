@@ -3,7 +3,7 @@
 
 <% content_tag :div,
                :id => "add_#{@type}",
-               :class => "statement #{type} add_teaser",
+               :class => "statement #{type} add_teaser echoable",
                'data-siblings' => (@siblings ? @siblings["add_#{@type}"].to_json : '') do %>
   <%= render :partial => 'statements/add_header' %>
   <%= render :partial => 'statements/add_content' %>

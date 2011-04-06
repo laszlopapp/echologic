@@ -14,4 +14,4 @@
 <%= observe_field "#{content}_#{type}_switch".to_sym,
                   :url => {:controller => :my_echo,
                            :action => "set_#{content}_#{type}".to_sym,
-                           :id => @user.id} %>
+                           :id => @user.id, :method => :put} %>

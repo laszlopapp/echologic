@@ -268,6 +268,20 @@ supporters_<%= code %>:
   value: <%= value %>
   context:
 <% end %>
+<% {'en' => "Translators",'de' => "Übersetzer",'fr'=> "Traducteurs",'pt' => "Tradutores",'es' => "Traductores"}.each_pair do |code,value| %>
+translators_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:about_category_translators) %>
+  code: <%= code %>
+  value: <%= value %>
+  context:
+<% end %>
+<% {'en' => "Interns",'de' => "Praktikanten",'fr'=> "Stagiaires",'pt' => "Estagiários",'es' => "Becarios"}.each_pair do |code,value| %>
+interns_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:about_category_interns) %>
+  code: <%= code %>
+  value: <%= value %>
+  context:
+<% end %>
 <% {'en' => "Alumni",'de' => "Absolventen",'fr'=> "Diplômées",'pt' => "Graduados",'es' => "Graduados"}.each_pair do |code,value| %>
 alumni_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:about_category_alumni) %>
@@ -285,6 +299,13 @@ technology_partners_<%= code %>:
 <% {'en' => "Financial Partners",'de' => "Finanzpartner",'fr'=> "Partenaires Financières",'pt' => "Parceiros Financeiros",'es' => "Colaboradores Financieros"}.each_pair do |code,value| %>
 financial_partners_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:about_category_financial_partners) %>
+  code: <%= code %>
+  value: <%= value %>
+  context:
+<% end %>
+<% {'en' => "Strategic Partners",'de' => "Strategische Partner",'fr'=> "Partenaires Stratégiques",'pt' => "Parceiros Estratégicos",'es' => "Colaboradores Estratégicos"}.each_pair do |code,value| %>
+strategic_partners_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:about_category_strategic_partners) %>
   code: <%= code %>
   value: <%= value %>
   context:

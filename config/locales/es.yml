@@ -7,6 +7,7 @@ es:
     # Unexpected Error
     unexpected_error: Se ha detectado un error inesperado en el servidor.
     routing_error: URL desconocida. Redireccionando...
+    remote_error: 'Error en la comunicación con el Servicio Remoto.'
 
     # General purpose resources
     general:
@@ -15,9 +16,8 @@ es:
       next: Seguir
       back: Regresar
       email: E-Mail
+      email_confirmation: Confirma E-Mail
       name: Nombre
-      first_name: Nombre
-      last_name: Apellido
       undefined: No definido
       ok: Ok
       or: o
@@ -33,6 +33,7 @@ es:
       welcome: Bienvenido
       all: Todos
       authors: Autores
+      share_action: 'Make an echo!'
 
     # Roadmap - Progress
     roadmap:
@@ -131,46 +132,68 @@ es:
       teaser:
         title: 'Conviértete en co-autor!'
     # User sessions section
-    user_sessions:
-      login:
-        password: Contraseña
-        email: E-Mail
-        signup: Aún no eres miembro?
-        set_password: Has olvidado la contraseña?
-        remember: Recuérdame!
-        hello: Registrado <br/><strong>{{name}}</strong>
+    signup:
+      label: 'Regístrate'
+      member_tag: '¿No eres aún miembro?'
+      via_echo: '... a través de E-Mail'
+      via_social: '... con una cuenta ya existente'
+    setup_basic_profile:
+      title: 'Configuración del Perfil Básico'
+      guide: Por favor, introduce la información de tu Perfil Básico para crear tu cuenta.
+      agreement: He leído y acepto los términos en materia de privacidad.
+      use_photo: 'Utilizar en echo también'
+    signin:
+      label: 'Entrada'
+      password: 'Password'
+      member_tag: '¿Ya eres miembro?'
+      via_echo: '...  vía echo'
+      via_social: '... con otra cuenta'
+      set_password: Has olvidado la contraseña?
+      hello: Registrado<br/><strong>{{name}}</strong>
+      hint: |
+        To avoid logging in again without having to enter your password,
+        please logout of the used social account (e.g. Facebook) in the end explicitely.
       messages:
-        login_success:  "Te has registrado correctamente.<br/>Bienvenido de nuevo a echo!"
-        login_failed:   "Usuario desconocido o contraseña incorrecta."
-        logout_success: "Has cerrado tu cuenta.<br/>Hasta la próxima!"
+        success: "Login successful. Welcome back to echo."
+        failed: "Usuario desconocido o contraseña incorrecta."
+        failed_social: "Por favor, introduce la cuenta con la que te has registrado en echo o con una conectada a ésta."
+    signout:
+      messages:
+        success: "Has cerrado tu cuenta.<br/>Hasta la próxima!"
+    user_sessions:
+      messages:
         session_timeout: "Tu sesión ha caducado. Por favor, entra de nuevo."
 
     # Activations section
     activation:
       messages:
         success: Tu cuenta ha sido activada. Bienvenido a echo!
-        failed: Lo sentimos, pero no ha sido posible activar tu cuenta. Por favor, comprueba tu entrada.
+        failed: Tu cuenta no ha podido ser activada. Por favor, comprueba tu entrada.
+        email_success:  Tu E-mail ha sido modificado con éxito.
+        already_active: Tu cuenta ya está activa.
+        no_account: 'Tu cuenta ya no existe.'
+        no_full_name: 'Por favor, introduce tu nombre completo.'
+        no_agreement: Por favor, confirma nuestra política de datos para poder registrarte.
 
     # Password resets section
     password_reset:
       step1: Solicitar nueva contraseña
       step2: Definir nueva contraseña
       step1_text: |
-        <p><strong>Has olvidado tu contraseña</strong> o simplemente deseas cambiarla?
+        <p>Has olvidado tu contraseña o simplemente deseas cambiarla?
         </p><p>
-        No hay problema! Sólo tienes que introducir tu <strong>dirección de correo electrónico</strong> con la que estás registrado en echo.
-        Te enviaremos un correo electrónico que te permitirá <strong>definir una nueva contraseña</strong>.
+        No hay problema! Sólo tienes que introducir tu dirección de correo electrónico con la que estás registrado en echo.
+        Te enviaremos un correo electrónico que te permitirá definir una nueva contraseña.
         </p>
       step1_mail: Enviar correo electrónico
-
       step2_text: |
-        Por favor, introduce <strong>una nueva contraseña</strong> con la que entrarás en echo la próxima vez.
-      step2_ok: Definir contraseña y entrar
+        Por favor, introduce una nueva contraseña con la que entrarás en echo la próxima vez.
+      step2_ok: Definir contraseña
       messages:
-        success:        'Te enviamos un correo electrónico, que te permite definir una nueva contraseña.<br/>Por favor, comprueba tu cuenta de correo.'
-        not_found:      'No se ha encontrado la dirección electrónica indicada.'
-        reset_success:  'Tu nueva contraseña ha sido guardada correctamente.'
-        reset_failed:   'Lo sentimos, pero tu contraseña no puede ser utilizada. Por favor, comprueba tu entrada.'
+        success: 'Te enviamos un correo electrónico, que te permite definir una nueva contraseña.<br/>Por favor, comprueba tu cuenta de correo.'
+        not_found: 'No se ha encontrado la dirección electrónica indicada.'
+        reset_success: 'Tu nueva contraseña ha sido guardada correctamente.'
+        reset_failed: 'Lo sentimos, pero tu contraseña no puede ser utilizada. Por favor, comprueba tu entrada.'
 
     # Profile Section
     profile:
@@ -187,8 +210,9 @@ es:
 
       password:
         title: Cambiar contraseña
-        new: Tu nueva contraseña
-        confirm: Verificar contraseña
+        old: Contraseña actual
+        new: Nueva contraseña
+        confirm: Verificar nueva contraseña
 
       picture:
         upload_button: Cambiar
@@ -294,6 +318,74 @@ es:
         turned_on: La información de tu perfil será visible cuando se muestren los autores de un contenido.
         turned_off: Serás visualizado como "anónimo" entre otros autores del contenido.
 
+    # Manage Echo Account section
+    echo_account:
+      title: Cuenta echo
+      guide: Aquí puedes gestionar tu cuenta echo.
+      change_email:
+        title: Cambiar E-Mail
+        guide: |
+          Actualmente estás registrado con la dirección E-Mail: <strong>{{email}}</strong>.<br/>
+          Aquí puedes definir una nueva cuenta de contacto para echo.
+        password: Tu contraseña
+        success: E-Mail modificado con éxito.
+        failed: No se pudo cambiar de E-Mail.
+        no_password: Por favor, introduce tu contraseña para modificar el E-Mail.
+
+      change_password:
+        title: Modificar Contraseña
+        guide: Por favor, define una nueva contraseña.
+        success: Tu contraseña ha sido modificada con éxito.
+        failed: Failed to change Password!
+        wrong_password: La contraseña introducida es errónea.
+
+      delete_account:
+        title: Borrar Cuenta
+        password:  Tu contraseña
+        guide: |
+          <p><strong>ATENCIÓN!</strong></p>
+          <p>Tu cuenta y TODOS tus datos personales se <strong>eliminarán definitivamente</strong>.<br/>
+          Tus echos se guardarán como anónimos.</p>
+          <p>Por favor, si deseas continuar, introduce tu contraseña y haz clic en la pestaña inferior.</p>
+        confirm: Borrar mi cuenta
+        success: Tu cuenta echo ha sido eliminada con éxito.
+
+    social_accounts:
+      title: Cuentas Sociales
+      guide: Conecta tus cuentas para compartir de forma fácil y propagar tu echo por otras redes sociales.
+      providers:
+        facebook: Facebook
+        twitter: Twitter
+        yahoo!: Yahoo!
+        linkedin: LinkedIn
+        google: Google
+      connect:
+        title: Conectar
+        success: Tu {{account}} cuenta se ha conectado con éxito.
+        failed: Error en la conexión con tu {{account}} cuenta.
+      disconnect:
+        title: Desconectar
+        success: Tu {{account}} cuenta se ha desconectado.
+        failed: Error en la desconexión de tu {{account}} cuenta.
+      share:
+        title: Propaga tu voz
+        guide: Haz echo utilizando tus cuentas sociales.
+        text: Mensaje
+        data_privacy:
+          title: Data Privacy Notice
+          description: Mind the privacy policy of other networks before sharing your views on them...
+        preview: Vista preliminar
+        submit: Enviar echo
+        error: Algo ha fallado al compartir tu echo. Por favor, comprueba tu conexión con la red.
+        success: |
+          Se ha hecho echo por {{accounts}}.
+        failed: |
+          Error al compartir por {{accounts}}.
+        timeout: |
+          La conexión con {{accounts}} ha expirado.
+        enabled: "On"
+        disabled: "Off"
+
     # New Users section
     users:
       new:
@@ -315,6 +407,7 @@ es:
 
       messages:
         created: "Por favor, verifica tu cuenta de correo electrónico para activar tu nueva cuenta."
+        activate_email: "Para completar la modificación de Email, sal de la cuenta y accede al enlace de confirmación que ha sido enviado a tu nueva dirección Email."
 
     # Reports section
     reports:
@@ -370,6 +463,7 @@ es:
       title: Buscar
       in: '... en {{category}} ...'
       add: "Crea la primera pregunta sobre el tema"
+      placeholder: " Tema y/o lugar de interés"
 
     tooltips:
       read_question: 'Ver esta cuestión'
@@ -543,6 +637,9 @@ es:
         la propuesta. Otro miembro ha aprovechado su oportunidad y ha editado la
         propuesta, por lo que no se han podido guardar tus modificaciones.
       no_document_in_language: 'Este contenido no está disponible en inglés.'
+      supporter_to_share: 'Tienes que apoyar este contenido para poder compartirlo.'
+      published_to_share: 'Este debate está aún por publicar. Lo sentimos, pero hasta entonces, no puedes compartirlo.'
+      cannot_be_edited: 'Lo sentimos, pero no puedes editar este contenido hasta obtener el apoyo de otros miembros. El motivo es evitar el falseamiento de opiniones.'
 
       breadcrumbs:
         discuss_search: Buscar resultados
@@ -610,6 +707,7 @@ es:
       text: |-
         Por favor completa tu perfil <strong>por lo menos en un {{percentage}}%</strong>, para hacer feliz al servidor (HAL)
         y retirar este bloque ;-)
+    placeholder: 'Tema, lugar, organización o nombre de interés'
 
     segments:
       all: Todos
@@ -701,6 +799,11 @@ es:
           attributes:
             email:
               taken: 'Te has equivocado en tu E-Mail. Por favor, introdúcelo de nuevo.'
+              invalid: 'The E-Mail must be in a valid format.'
+            password:
+              invalid: 'Wrong password.'
+        social_identifier:
+          taken: 'Esta entrada está siendo utilizada.'
 
       messages:
         blank: "Tienes que rellenar el espacio '{{attribute}}' ."
@@ -720,8 +823,6 @@ es:
     attributes:
       profile:
         email:      E-Mail
-        first_name: Nombre
-        last_name:  Apellido
         full_name:  Nombre
         gender:     Sexo
         city:       Ciudad

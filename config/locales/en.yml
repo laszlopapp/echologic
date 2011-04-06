@@ -1,5 +1,3 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
   application:
@@ -7,6 +5,7 @@ en:
     # Unexpected Error
     unexpected_error: An unexpected error has occurred. Sorry for the inconvenience.
     routing_error: Unknown URL. Redirecting...
+    remote_error: 'Failed to communicate with the Remote Service.'
 
     # General purpose resources
     general:
@@ -14,11 +13,10 @@ en:
       hide: « okay
       next: Next
       back: Back
-      last_name: Last Name
-      first_name: First Name
-      undefined: Not yet entered
       name: Name
+      undefined: Not yet entered
       email: E-Mail
+      email_confirmation: Confirm E-Mail
       ok: Ok
       or: or
       save: Save
@@ -33,6 +31,7 @@ en:
       welcome: Welcome
       all: All
       authors: Authors
+      share_action: 'Make an echo!'
 
     # Roadmap - Progress
     roadmap:
@@ -132,40 +131,65 @@ en:
     authors:
       teaser:
         title: 'Become a co-author!'
-    user_sessions:
-      login:
-        password: 'Password'
-        email: 'E-Mail'
-        signup: Not a member yet?
-        set_password: Forgot your password?
-        remember: Remember me!
-        hello: Logged in<br/><strong>{{name}}</strong>
+    signup:
+      label: 'Sign Up'
+      member_tag: Not a member yet?
+      via_echo: '... via E-Mail'
+      via_social: '... via existing account'
+    setup_basic_profile:
+      title: 'Setup Basic Profile'
+      guide: Please fill in your basic profile information to set up your account.
+      agreement: I have read and agree to the terms of data policy.
+      use_photo: 'Use in echo, too'
+    signin:
+      label: 'Sign In'
+      password: 'Password'
+      member_tag: Already a member?
+      via_echo: '... via echo'
+      via_social: '... via a connected account'
+      set_password: Forgot your password?
+      remember: Remember me!
+      hello: Logged in<br/><strong>{{name}}</strong>
+      hint: |
+        To avoid logging in again without having to enter your password,
+        please logout of the used social account (e.g. Facebook) in the end explicitely. 
       messages:
-        login_success: "Login successful. Welcome back to echo."
-        login_failed: "Unknown user or wrong password."
-        logout_success: "Logout successful. See you later. Bye!"
+        success: "Login successful. Welcome back to echo."
+        failed: "Unknown user or wrong password."
+        failed_social: Please log in with an account you registered with or that you connected to your echo account.
+    signout:
+      messages:
+        success: "Logout successful. See you later. Bye!"
+    user_sessions:
+      messages:
         session_timeout: "Your session has expired. Please log in again."
+
 
     # Activations section
     activation:
-
       messages:
-        success: Your account has been successfully activated. Welcome to echo!
-        failed: Your account could not be activated. Please check your input.
+        success: Your account has been successfully created. Welcome to echo!
+        failed: |-
+          <p>Your account could not be activated. Please check your input.</p>
+        email_success: Your E-mail has been changed successfully!
+        already_active: Your account is already active!
+        no_account: Your account does not exist!
+        no_full_name: Please fill in your full name.
+        no_agreement: Please confirm our data policy in order to register.
 
     # Password resets section
     password_reset:
       step1: Require new password
       step2: Define new password
       step1_text: |
-        <strong>Forgot your password</strong> or you would simply like to define a new one?<br/><br/>
-        No problem! Just fill in your <strong>E-Mail</strong> address you used to sign up to echo.<br/>
-        We will send you an E-mail shortly allowing you <strong>to define a new password</strong>.
+        <p>Forgot your password or you would simply like to define a new one?</p>
+        <p>No problem! Just fill in your E-Mail address you used to sign up to echo.
+        We will send you an E-mail shortly allowing you to define a new password.</p>
       step1_mail: Send E-Mail
 
       step2_text: |
-        Please define <strong>your new password</strong> you would like to use to log in to echo.
-      step2_ok: Set password and log in
+        Please define your new password you would like to use to log in to echo.
+      step2_ok: Set new password
       messages:
         success: "We have sent you an E-mail allowing you to reset your password. Please check your inbox."
         not_found: "Unknown E-Mail address."
@@ -186,12 +210,14 @@ en:
       location: Location
 
       password:
-        title: Change my password
+        title: Change password
+        old: Current password
         new: New password
-        confirm: Confirm password
+        confirm: Confirm new password
 
       picture:
         upload_button: Change
+
 
       upload_picture:
         title: Upload Picture
@@ -199,7 +225,8 @@ en:
         progress: Your avatar is being uploaded. Please wait...
 
       messages:
-        updated: "Profile information updated successful."
+        updated: "Profile information updated successfully."
+        image_invalid: 'is invalid or inaccessible'
 
     # Spoken Languages section
     spoken_languages:
@@ -233,7 +260,6 @@ en:
       guide: |
         All of us have <strong>different facets</strong>. In some areas we might be affected and need help from others,
         in other areas we engage ourselves and offer help to others. In certain fields we have professional expertise,
-        in others we might represent other people and make decisions.<br/>
         echo helps like-minded people to find each other with <strong>knowledge complementing each other</strong>.<br/>
         Which <strong>keywords (tags)</strong> would you describe <strong>your concernments and competences</strong> with?
       sorts:
@@ -280,6 +306,74 @@ en:
         turned_on: Your profile information will be shown when displaying co-authors of statements.
         turned_off: You will be displayed as Anonym among other authors of a statement.
 
+    # Manage Echo Account section
+    echo_account:
+      title: echo Account
+      guide: Here you can manage your echo account.
+      change_email:
+        title: Change E-Mail
+        guide: |
+          You are currently registered with the E-Mail address: <strong>{{email}}</strong>.<br/>
+          Here you can define a new address echo should use to keep in touch with you.
+        password: Your Password
+        success: E-Mail changed successfully.
+        failed: Failed to change E-Mail.
+        no_password: Please enter your valid password to change your E-Mail.
+
+      change_password:
+        title: Change Password
+        guide: Please define your new password.
+        success: Your password has been changed successfully.
+        failed: Failed to change your password.
+        wrong_password: The entered current password is wrong.
+
+      delete_account:
+        title: Delete Account
+        password: Your Password
+        guide: |
+          <p><strong>ATTENTION!</strong></p>
+          <p>Your account and ALL your personal data will be <strong>permanently deleted</strong>.<br/>
+          The echos you have made will be kept fully anonymously.</p>
+          <p>Please enter your password and click the button below, if you want to proceed.</p>
+        confirm: Delete my account permanently
+        success: Your echo account was successfully deleted.
+    social_accounts:
+      title: Social Accounts
+      guide: Connect up your accounts to easily share and amplify your echo via other social networks.
+      providers:
+        facebook: Facebook
+        twitter: Twitter
+        yahoo!: Yahoo!
+        linkedin: LinkedIn
+        google: Google
+      connect:
+        title: Connect
+        success: Your {{account}} account has been connected successfully.
+        failed: Failed to connect to your {{account}} account.
+      disconnect:
+        title: Disconnect
+        success: Your {{account}} account has been disconnected.
+        failed: Failed to disconnect your {{account}} account.
+      share:
+        title: Spread the word
+        guide: Make an echo in your social networks.
+        text: Message
+        data_privacy:
+          title: Data Privacy Notice
+          description: Mind the privacy policy of other networks before sharing your views on them...
+        preview: Preview
+        submit: Send echo
+        error: Something went wrong while sharing your echo. Please check your network connection.
+        success: |
+          Made an echo via {{accounts}}.
+        failed: |
+          Failed to share via {{accounts}}.
+        timeout: |
+          Connection with {{accounts}} timed out!
+        enabled: "On"
+        disabled: "Off"
+
+
     # New Users section
     users:
       new:
@@ -295,6 +389,7 @@ en:
 
       messages:
         created: "Please check your E-Mails to activate your newly created account!"
+        activate_email: In order to complete the E-Mail address modification, please log out and press the confimation link sent to your new E-Mail address!
 
     # Reports section
     reports:
@@ -342,6 +437,7 @@ en:
       title: Search
       in: '... in {{category}} ...'
       add: "Create the first question about the topic"
+      placeholder: "Topic and/or place of interest"
 
     tooltips:
       read_question: 'Go to this question'
@@ -503,8 +599,6 @@ en:
         The statement is currently being edited. Please try again later.
       statement_updated: |-
         This {{type}} has just been updated by another person.
-      statement_updated: |-
-        This {{type}} has just been updated.
       statement_supported: |-
          Thanks for making an echo to the {{type}}.
       statement_unsupported: |-
@@ -514,6 +608,9 @@ en:
         Afterwards, your modifications might even get discarded.
       staled_modification: 'We are very sorry, but you exceeded the 60 minutes limit to edit and save the statement. Meanwhile it has already been updated by a different user. Therefore, your changes must have been unfortunately discarded.'
       no_document_in_language: 'The statement does not exist in English yet.'
+      supporter_to_share: 'You must be a supporter of this statement in order to share it!'
+      published_to_share: 'This discussion is yet to be published. Until then, it is not possible to share it.'
+      cannot_be_edited: Unfortunately, you cannot edit this statement after other members supported it. This is to avoid faking of opinions.
 
       breadcrumbs:
         discuss_search: Search results
@@ -580,6 +677,7 @@ en:
 
     fill_out_profile:
       text: Please fill out <strong>at least {{percentage}}%</strong> of your profile to make "the computer" happy and let this block disappear. :-)
+    placeholder: 'Topic, place, organization or name of interest'
 
     segments:
       all:       'All'
@@ -667,7 +765,13 @@ en:
         user:
           attributes:
             email:
-              taken: 'Your e-Mail address is already in use.'
+              taken: 'The E-Mail address is already in use.'
+              invalid: 'Please enter a valid E-Mail address.'
+            password:
+              invalid: 'Wrong password.'
+        social_identifier:
+          taken: 'This Social Account is already in use.'
+
 
       messages:
         blank: "The field '{{attribute}}' must not be empty."
@@ -687,8 +791,6 @@ en:
     attributes:
       profile:
         email:      E-Mail
-        first_name: First name
-        last_name:  Last name
         full_name:  Name
         gender:     Gender
         city:       City

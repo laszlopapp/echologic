@@ -1,9 +1,9 @@
-<% content_for :submenu, tabnav(:my_echo) %>
+<% load_submenu :my_echo %>
 
 <!-- Avatar picture -->
 <%= render :partial => 'users/avatar/picture' %>
 <!-- Personal profile -->
-<%= render :partial => 'users/profile/profile_own' %>
+<%= render :partial => 'users/profiles/profile_own' %>
 <!-- Organisations -->
 <%= render :partial => 'users/memberships/container' %>
 <!-- Spoken Languages -->
@@ -14,5 +14,5 @@
 <%= render :partial => 'users/web_addresses/container' %>
 <!-- Account data -->
 <% # TODO: Password change ist not possible atm - when possible again, the related test needs to be activated (profile.feature) %>
-<%# render :partial => 'users/profile/password' %>
+<%# render :partial => 'users/profiles/password' %>
 

@@ -10,7 +10,7 @@ if !RAILS_ENV.eql? 'production'
   ActivityTrackingService.instance.period = 6.minutes
 else
   ActivityTrackingService.instance.charges = 24
-  ActivityTrackingService.instance.period = 2.days
+  ActivityTrackingService.instance.period = 1.day
 end
 
 ActiveRecord::Base.send :include, ActiveRecord::Acts::Subscribeable

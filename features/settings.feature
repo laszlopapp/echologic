@@ -36,3 +36,56 @@ Feature: Set my settings
 #    When I go to my settings
 #      And I uncheck "drafting_notification"
 #    Then I must have the drafting notification disabled
+
+  Scenario: Change Email
+    Given I am logged in as "user" with password "true"
+    When I go to my settings
+      And I follow "change_email"
+      And I fill in the following:
+      | user_email                | thedarksideofthemoon@sun.com |
+      | user_email_confirmation   | thedarksideofthemoon@sun.com |
+      | user_password             | true                         |
+      And I press "Ok"
+    Then I should see localized "users.users.messages.activate_email"
+    Then an "activate" email should be sent to "thedarksideofthemoon@sun.com"
+
+  Scenario: Change Password Fail
+    Given I am logged in as "user" with password "true"
+    When I go to my settings
+      And I follow "change_password"
+      And I fill in the following:
+      | user_old_password            | malaka  |
+      | user_password                | dzenkui |
+      | user_password_confirmation   | dzenkui |
+      And I press "Ok"
+    Then I should see localized "users.echo_account.change_password.wrong_password"
+
+  Scenario: Change Password
+    Given I am logged in as "user" with password "true"
+    When I go to my settings
+      And I follow "change_password"
+      And I fill in the following:
+      | user_old_password            |  true   |
+      | user_password                | dzenkui |
+      | user_password_confirmation   | dzenkui |
+      And I press "Ok"
+    Then I should see localized "users.echo_account.change_password.success"
+      And "User Test" should have "dzenkui" as password
+
+
+  Scenario: Delete Account
+    Given I am logged in as "user" with password "true"
+    When I go to my settings
+      And I follow "delete_account"
+      And I fill in the following:
+      | password            |  true   |
+      And I press localized "users.echo_account.delete_account.confirm"
+    Then I should see localized "users.echo_account.delete_account.success"
+      And I should be inactive
+      
+  Scenario: Fail to delete Account
+    Given I am logged in as "user" with password "true"
+    When I go to my settings
+      And I follow "delete_account"
+      And I press localized "users.echo_account.delete_account.confirm"
+    Then I should see localized "users.echo_account.change_password.wrong_password"

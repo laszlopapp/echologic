@@ -13,7 +13,7 @@ Feature: Report unseemly behaving users
     Given I am logged in as "User" with password "true"
       And there are no user reports
     When I am on the connect page
-      And I follow the "Show" link for the profile of "user"
+      And I follow the "Show" link for the profile of "user test"
       And I follow "Report"
       And I fill in "reason" with "User has red hair."
     # Problem with jquery-ui modal dialog.
@@ -41,7 +41,7 @@ Feature: Report unseemly behaving users
   Scenario: Change report status and decision
     Given I am logged in as "Admin" with password "true"
     When I go to the reports page
-      And I follow the "Edit" link for the active report of "Joe"
+      And I follow the "Edit" link for the active report of "Joe test"
       And I fill in "decision" with "User is invulnerable!"
       And I check "done"
       And I press the "Save" button

@@ -4,6 +4,8 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/virtual_enumeratio
 require 'test_help'
 require 'authlogic/test_case'
 require 'shoulda'
+require 'flexmock/test_unit'
+
 class ActiveSupport::TestCase
   # Transactional fixtures accelerate your tests by wrapping each test method
   # in a transaction that's rolled back on completion.  This ensures that the

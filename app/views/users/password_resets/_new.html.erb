@@ -1,17 +1,30 @@
 
-<h1><%= I18n.t('static.join.title') %></h1>
-<h2><%= I18n.t('users.password_reset.step1') %></h2>
 
-<p>
-  <%= I18n.t('users.password_reset.step1_text') %>
-</p>
+<% content_tag :div,
+               :id => 'reset_password',
+               :class => 'signinup_container' do %>
 
-<% form_tag password_resets_path, :class => 'echoForm' do %>
+  <% content_tag :div, '', :class => "header block" do %>
+    <%= content_tag :span, '', :class => "symbol" %>
+    <%= content_tag(:span, I18n.t('users.password_reset.step1'),
+                    :class => 'signinup_title') %>
+  <% end %>
 
-  <p>
-    <%= label_tag I18n.t('application.general.email') %><br/>
-    <%= text_field_tag "email" %>
-  </p>
+  <% content_tag :div, '', :class => "guide block" do %>
+    <%= content_tag :span, I18n.t('users.password_reset.step1_text') %>
+  <% end %>
 
-  <%= submit_tag I18n.t('users.password_reset.step1_mail'), :class => 'formButton200' %>
+  <% content_tag :div, '', :class => "form block" do %>
+    <% form_tag password_resets_path,
+                :id => 'reset_password_form',
+                :class => "echoForm ajax_form" do  %>
+      <% content_tag :p do %>
+        <%= label_tag I18n.t('application.general.email') %><br/>
+        <%= text_field_tag "email" %>
+      <% end %>
+      <%= submit_tag I18n.t('users.password_reset.step1_mail'),
+                     :class => 'signinButton formButton250' %>
+    <% end %>
+  <% end %>
+
 <% end %>

@@ -10,6 +10,7 @@ class StatementDocument < ActiveRecord::Base
   has_enumerated :language, :class_name => 'Language'
 
   validates_presence_of :title
+  validates_length_of :title, :maximum => 101
   validates_presence_of :text
   validates_presence_of :language_id
   validates_presence_of :statement
@@ -55,15 +56,25 @@ class StatementDocument < ActiveRecord::Base
   def translations
     #StatementDocument.find_all_by_translated_document_id(self.id)
     StatementDocument.all(:joins => :statement_history,
-    :conditions => ["statement_histories.old_document_id = ? AND statement_documents.language_id != ?",
+    :conditions => ["#{StatementHistory.table_name}.old_document_id = ? AND #{self.class.table_name}.language_id != ?",
                     self.id, self.language.id])
   end
 
-  def self.search_statement_documents(statement_ids, language_ids, opts={} )
+  #
+  # gets a set of current statement documents given an hash of arguments
+  #
+  # opts attributes:
+  #
+  # statement_ids (Array[Integer]) : array of statement ids which we have to search the documents through
+  # language_ids (Array[Integer])  : filters out documents which language is not included on the array
+  # 
+  # the rest of the opts hash works as a normal ActiveRecord query array; check documentation if you have doubts about it
+  #
+  def self.search_statement_documents(opts={})
       opts.delete(:readonly)
       opts[:select] ||= "DISTINCT id, title, statement_id, language_id, current"
       opts[:conditions] ||= sanitize_sql(["current = 1 AND statement_id IN (?) AND language_id IN (?) ",
-                                   statement_ids, language_ids])
+                                   opts.delete(:statement_ids), opts.delete(:language_ids)])
       opts[:order] ||= "language_id" 
       all opts
     end

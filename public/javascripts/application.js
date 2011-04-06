@@ -5,8 +5,6 @@
   $(function() {
 
     $.fragmentChange(true);
-
-    makeRatiobars();
     makeTooltips();
     roundCorners();
     bindLanguageSelectionEvents();
@@ -17,6 +15,7 @@
     loadAjaxForms();
     uploadFormSubmit();
     loadAboutUs();
+		initSigninupButtons();
 
     /* Always send the authenticity_token with Ajax */
     $(document).ajaxSend(function(event, request, settings) {
@@ -203,20 +202,13 @@
     $('#messageContainer #errorBox').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
   }
 
-  /* Collects all echo_indicators by class and invokes the progressbar-init on them by taking
-   * the value from the alt-attribute. */
-  function makeRatiobars() {
-    $('.echo_indicator').livequery(function() {
-      $(this).progressbar({ value: $(this).attr('alt') });
-    });
-  }
+
 
   function loadTabsContainer() {
     $('.tab_details_container').livequery(function() {
      $(this).tabs();
     });
   }
-
 
   /* loads form ajaxs */
   function loadAjaxForms() {
@@ -227,7 +219,7 @@
 
   /* TODO: Load the upload picture forms here */
   function uploadFormSubmit(){
-    $('.upload_form').livequery(function(){
+    $('#dialogContent .upload_form').livequery(function(){
       var element = $(this);
       element.submit(function(){
 				$(this).ajaxSubmit({
@@ -241,7 +233,7 @@
 				    $.ajax({
               type: 'get',
               dataType: 'script',
-              url: element.attr('data-image-redirect')
+              url: element.data('image-redirect')
             });
             $('#dialogContent').dialog('close');
           }
@@ -261,6 +253,9 @@
         if (ui.panel.id == "team") {
           $('#team_members').jScrollPane({animateTo: true, wheelSpeed: 25});
         }
+				if (ui.panel.id == "partners") {
+          $('#partners_members').jScrollPane({animateTo: true, wheelSpeed: 25});
+        }
       });
     });
   }
@@ -275,3 +270,46 @@
     }
   }
 
+  function initSigninupButtons() {
+		$('.signinup_container .signinup_toggle_button').live('click', function() {
+			var to_show = $(this).attr('href');
+			$(to_show).show();
+			$(this).parents('.signinup_container').hide();
+			return false;
+		});
+	}
+
+
+  function popup(mylink, windowname) {
+    if (!window.focus) {
+      return true;
+    }
+    var href;
+    if (typeof(mylink) == 'string') {
+      href = mylink;
+    }
+    else {
+      href = mylink.href;
+    }
+    window.open(href, windowname, 'width=800,height=450,scrollbars=yes');
+    return false;
+  }
+
+
+  function targetopener(mylink, closeme, closeonly) {
+    if (!(window.focus && window.opener)) {
+      return true;
+    }
+    window.opener.focus();
+    if (!closeonly) {
+      if (typeof(mylink) == 'string') {
+        window.opener.location.href = mylink;
+      } else {
+        window.opener.location.href = mylink.href;
+      }
+    }
+    if (closeme) {
+      window.close();
+    }
+    return false;
+  }

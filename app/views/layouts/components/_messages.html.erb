@@ -21,6 +21,10 @@
   <% elsif flash[:error] %>
     error('<%= escape_javascript(flash[:error]) %>');
   <% end %>
+	
+	<% if flash[:later_call] %>
+	   $.getScript('<%= escape_javascript(flash[:later_call]) %>');
+  <% end %>
 </script>
 
 <!-- noscript! -->
@@ -38,4 +42,4 @@
 </noscript>
 
 <%# Clear messages, otherwise they appear again on the next page reload.  -%>
-<% flash[:notice] = flash[:error] = nil -%>
+<% flash[:notice] = flash[:error] = flash[:later_call] = nil -%>

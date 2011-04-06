@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   include UserExtension::Echo
   acts_as_subscriber
   acts_as_extaggable :affections, :engagements, :expertises, :decision_makings
+  acts_as_social
 
   has_many :web_addresses
   has_many :memberships
@@ -9,11 +10,13 @@ class User < ActiveRecord::Base
 
   has_many :reports, :foreign_key => 'suspect_id'
 
+  has_many :pending_actions, :foreign_key => 'uuid'
+
   named_scope :no_member, :conditions => { :memberships => nil }, :order => :email
 
   # Every user must have a profile. Profiles are destroyed with the user.
   has_one :profile
-  delegate :avatar, :percent_completed, :full_name, :first_name, :first_name=, :last_name, :last_name=,
+  delegate :avatar, :avatar=, :avatar_url=, :percent_completed, :full_name, :full_name=,
            :city, :city=, :country, :country=, :completeness, :calculate_completeness, :location, :to => :profile
 
   #last login language, important for the activity tracking email language when the user doesn't have anything set
@@ -22,9 +25,13 @@ class User < ActiveRecord::Base
   # TODO uncomment attr_accessible :active if needed.
   #attr_accessible :active
 
+  attr_accessor :old_password
+
+
   # Authlogic plugin to do authentication
   acts_as_authentic do |c|
-#    c.logged_in_timeout = 10.minutes #1.hour
+    c.validates_length_of_email_field_options = {:minimum => 6, :if => :active_or_email_defined?}
+    c.validates_format_of_email_field_options = {:with => Authlogic::Regex.email, :if => :active_or_email_defined?}
     c.validates_length_of_password_field_options = {:on => :update,
                                                     :minimum => 4,
                                                     :if => :has_no_credentials?}
@@ -33,6 +40,18 @@ class User < ActiveRecord::Base
                                                                  :if => :has_no_credentials?}
   end
 
+  validates_confirmation_of :email
+
+  def active_or_email_defined?
+    !(!self.active and !self.social_identifiers.empty?)
+  end
+
+  def has_password?(password)
+    salt = self.password_salt
+    Authlogic::CryptoProviders::Sha512.encrypt(password + salt).eql? self.crypted_password
+  end
+
+
   # acl9 plugin to do authorization
   acts_as_authorization_subject
   acts_as_authorization_object
@@ -40,7 +59,7 @@ class User < ActiveRecord::Base
   # we need to make sure that either a password or openid gets set
   # when the user activates his account
   def has_no_credentials?
-    self.crypted_password.blank? && self.openid_identifier.blank?
+    (self.crypted_password.blank? and social_identifiers.empty?) or !@old_password.nil?
   end
 
   # Return true if user is activated.
@@ -60,32 +79,36 @@ class User < ActiveRecord::Base
 
   # Signup process before activation: get login name and email, ensure to not
   # handle with sessions.
-  def signup!(params)
-    self.first_name = params[:user][:profile][:first_name]
-    self.last_name  = params[:user][:profile][:last_name]
-    self.email              = params[:user][:email]
+  def signup!(opts={})
+    opts.each{|k,v|self.send("#{k}=", v)}
     save_without_session_maintenance
-  end
-
-  # Returns the display name of the user
-  # TODO Depricated. Use user.full_name
-  #  Changed for mailer model - anywhere else used?
-  def display_name()
-    self.first_name + " " + self.last_name;
   end
 
   # Activation process. Set user active and add its password and openID and
   # save with session handling afterwards.
-  def activate!(params)
-    u = params[:user]
+  def activate!(opts)
     self.active = true
-    self.update_attributes(params[:user])
+    self.update_attributes(opts)
   end
 
   # Uses mailer to deliver activation instructions
   def deliver_activation_instructions!
     reset_perishable_token!
     mail = RegistrationMailer.create_activation_instructions(self)
+    RegistrationMailer.deliver(mail)
+  end
+
+  # Uses mailer to deliver activation instructions
+  def deliver_activate!
+    reset_perishable_token!
+    mail = RegistrationMailer.create_activate(self)
+    RegistrationMailer.deliver(mail)
+  end
+
+  # Uses mailer to deliver activation instructions
+  def deliver_activate_email!(email, token)
+    reset_perishable_token!
+    mail = RegistrationMailer.create_activate_email(self, email, token)
     RegistrationMailer.deliver(mail)
   end
 
@@ -125,10 +148,16 @@ class User < ActiveRecord::Base
   ## PERMISSIONS
   ##
 
-  # the given `statement_node' is ignored for now, but we need it later
+  def may_publish?(entity)
+    !entity.published? and
+    (has_role?(:editor) or has_role?(:admin) or entity.has_author?(self))
+  end
+
   # when we enable editing for users.
-  def may_edit?
-    has_role?(:editor) or has_role?(:admin)
+  def may_edit?(entity)
+    has_role?(:editor) or has_role?(:admin) or
+    ( entity.has_author?(self) and entity.echoable? and
+    (!entity.published? or entity.supporter_count == 0 or (entity.supporters-[self]).empty? ))
   end
 
   def may_delete?(statement_node)
@@ -237,30 +266,25 @@ class User < ActiveRecord::Base
   # invalidate all user echos.
   #
   def delete_account
-    begin
-      self.profile.destroy
-      self.memberships.each(&:destroy)
-      self.spoken_languages.each(&:destroy)
-      self.tao_tags.each(&:destroy)
-      self.web_addresses.each(&:destroy)
-      self.save(false)
-      self.reload
-      old_email = self.email
-      self.email = ""
-      self.crypted_password = nil
-      self.current_login_ip = nil
-      self.last_login_ip = nil
-      self.activity_notification = 0
-      self.drafting_notification = 0
-      self.newsletter_notification = 0
-      self.active = 0
-      self.save(false)
-    rescue Exception => e
-      puts "Error deleting user account:"
-      puts e.backtrace
-    else
-      puts "User account with E-Mail address '#{old_email}' has been deleted..."
-    end
+    self.profile.destroy if self.profile
+    self.memberships.each(&:destroy)
+    self.spoken_languages.each(&:destroy)
+    self.tao_tags.each(&:destroy)
+    self.web_addresses.each(&:destroy)
+    self.save(false)
+    self.reload
+    old_email = self.email
+    self.email = ""
+    self.crypted_password = nil
+    self.current_login_ip = nil
+    self.last_login_ip = nil
+    self.activity_notification = 0
+    self.drafting_notification = 0
+    self.newsletter_notification = 0
+    self.authorship_permission = 0
+    self.delete_social_accounts
+    self.active = 0
+    self.save(false)
   end
 
 end

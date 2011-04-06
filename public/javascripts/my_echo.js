@@ -1,8 +1,11 @@
 /* Do init stuff. */
 
 $(document).ready(function () {
-  loadComponentAutoComplete();
-	loadProfileEditForm();
+	if ($('#function_container.my_echo').length > 0) {
+  	loadComponentAutoComplete();
+  	loadProfileEditForm();
+  	initEchoAccountButtons();
+  }
 });
 
 
@@ -30,8 +33,39 @@ function loadProfileEditForm() {
     $(this).find(':input').blur(function() {
       $(this).toggleClass('active');
     });
-    $(this).find("#profile_city").autocomplete("users/profile/auto_complete_for_profile_city",
+    $(this).find("#profile_city").autocomplete("users/profiles/auto_complete_for_profile_city",
                                                {minChars: 3, selectFirst: false});
     $(this).ajaxForm({ dataType : 'script' });
   });
+}
+
+
+function initEchoAccountButtons() {
+	var container = $('#echo_account_settings');
+	container.find('a.header').live('click', function(){
+		var button = $(this);
+		if (!$(this).hasClass('active')) {
+			var content = container.children('.content');
+
+			$.ajax({
+				url: button.attr('href'),
+				type: 'get',
+				dataType: 'script',
+				success: function() {
+					button.addClass('active').siblings().removeClass('active');
+
+					if (content.length > 0) {
+					  content.replaceWith(container.children(':last').show());
+					} else {
+						container.find('.content').show();
+            $.scrollTo('#echo_account_settings', 500);
+					}
+				},
+				error: function(){
+
+				}
+			});
+	 }
+	 return false;
+	});
 }

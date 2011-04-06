@@ -11,13 +11,13 @@ Feature: Echo
     # Todo: This test will always fail. Echo link does not work without js atm
     Then I should see a "echo" button
       And the proposal should have one echo
-      And the proposal should have "user" as supporters
-      #And the proposal should have "user" as follower
+      And the proposal should have "user test" as supporters
+      #And the proposal should have "user test" as follower
     Given I go to the proposal
       And I follow "echo_button"
     Then I should see a "echo" button
       And the proposal should have no more echo
-      #And the proposal should not have "user" as follower
+      #And the proposal should not have "user test" as follower
 
   Scenario: Undo an Echo to a statement as a user
     Given I am logged in as "user" with password "true"
@@ -27,7 +27,7 @@ Feature: Echo
     # Todo: This test will always fail. Echo link does not work without js atm
     Then I should see a "echo" button
       And the proposal should have no more echo
-      #And the proposal should not have "user" as follower
+      #And the proposal should not have "user test" as follower
 
   Scenario: Visit an Statement without giving an echo
     Given I am logged in as "user" with password "true"
@@ -55,41 +55,41 @@ Feature: Echo
       And I have the "proposal title" proposal
     Then the proposal should have 1 visitors
       And the proposal should have 1 supporters
-      And the proposal should have "user" as visitors
-      And the proposal should have "user" as supporters
+      And the proposal should have "user test" as visitors
+      And the proposal should have "user test" as supporters
     Given I follow "logout_button"
       And I login as "luise" with password "luise"
       And I go to the proposal
     Then I am not supporter of the proposal
       And the proposal should have 2 visitors
       And the proposal should have 1 supporters
-      And the proposal should have "user, luise" as visitors
-      And the proposal should have "user" as supporters
+      And the proposal should have "user test, luise echmeier" as visitors
+      And the proposal should have "user test" as supporters
     Given I follow "echo_button"
     Then I am supporter of the proposal
       And the proposal should have 2 visitors
       And the proposal should have 2 supporters
-      And the proposal should have "user, luise" as visitors
-      And the proposal should have "user, luise" as supporters
+      And the proposal should have "user test, luise echmeier" as visitors
+      And the proposal should have "user test, luise echmeier" as supporters
     Given I follow "echo_button"
     Then I am not supporter of the proposal
       And the proposal should have 2 visitors
       And the proposal should have 1 supporters
-      And the proposal should have "user, luise" as visitors
-      And the proposal should have "user" as supporters
+      And the proposal should have "user test, luise echmeier" as visitors
+      And the proposal should have "user test" as supporters
     Given I follow "logout_button"
       And I login as "user" with password "true"
       And I go to the proposal
     Then I am supporter of the proposal
       And the proposal should have 2 visitors
       And the proposal should have 1 supporters
-      And the proposal should have "user, luise" as visitors
-      And the proposal should have "user" as supporters
+      And the proposal should have "user test, luise echmeier" as visitors
+      And the proposal should have "user test" as supporters
     Given I follow "echo_button"
     Then I am not supporter of the proposal
       And the proposal should have 2 visitors
       And the proposal should have 0 supporters
-      And the proposal should have "user, luise" as visitors
+      And the proposal should have "user test, luise echmeier" as visitors
 
 
   Scenario: User tries to echo an improvement without echoing the respective proposal

@@ -5,6 +5,14 @@ pt:
     topics:
       on_echo: no echo
 
+      vs11:
+        name: Vision Summit 2011
+        short_name: Vision Summit
+        teaser: |
+          For a strong "echo" of Vision Summit and the social impact business movement.<br/>
+          Participate now!
+        description: ''
+
       echonomyjam:
         continues: 'continua online!'
         register_here: 'Clique aqui para se registar!'

@@ -1,0 +1,128 @@
+
+/***********/
+/* Profile */
+/***********/
+
+#profile_avatar_container {
+  width: 140px;
+  float: left;
+  text-align: center;
+}
+
+#profile_avatar_container img {
+  width: 128px;
+  border: 2px solid #7bb031;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+#concernment_container .form_container {
+  width: 410px;
+  margin: 7px 0 25px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+#concernment_container .label {
+  color: #7bb031;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  cursor: default;
+}
+
+#concernment_container form input[type='text'] {
+  width: 250px !important;
+}
+
+#profile_completeness_bar {
+  width: 130px;
+  height: 9px;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+
+/************/
+/* Settings */
+/************/
+
+/* Social accounts */
+
+#social_accounts_settings #social_account_list {
+  margin-top: 25px;
+}
+
+#social_accounts_settings .social_account,
+#social_accounts_settings .connect,
+#social_accounts_settings .disconnect {
+	display: inline-block;
+	width: 150px;
+	text-align: center;
+}
+
+#social_accounts_settings .social_label {
+  display: inline-block;
+}
+
+#social_accounts_settings .disconnect .button {
+  text-decoration: underline;
+}
+
+/* Social Network labels */
+#social_accounts_settings .social_label {
+  background: transparent url(../images/page/social_echo_icons_big.png) no-repeat scroll 0 0;
+  width: 110px;
+  height: 35px;
+}
+#social_accounts_settings .social_label.facebook {
+  background-position: 0 -35px;
+}
+#social_accounts_settings .social_label.twitter {
+  background-position: -110px -35px;
+}
+#social_accounts_settings .social_label.yahoo {
+  background-position: -220px -35px;
+}
+#social_accounts_settings .social_label.linkedin {
+  background-position: -330px -35px;
+}
+#social_accounts_settings .social_label.google {
+  background-position: -440px -35px;
+}
+
+
+/* echo Account */
+
+#echo_account_settings .guide {
+  margin: 10px 0;
+}
+
+#echo_account_settings .header.active span {
+  color: #7bb031;
+}
+
+#echo_account_settings .content {
+  clear: both;
+  margin: 10px 0;
+  min-height: 300px;
+  overflow: auto;
+}
+
+#echo_account_list #delete_account {
+  float: right;
+  margin-right: 15px;
+}
+
+#echo_account_settings .delete_account .guide,
+#echo_account_settings .delete_account .password_label,
+#echo_account_settings .delete_account .password_field {
+	color: #c13d08;
+}
+
+#echo_account_settings .delete_account .destroy_account {
+  color: #FFF;
+  padding: 0;
+  margin: 15px 0;
+}

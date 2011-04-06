@@ -28,37 +28,43 @@ When /^I choose the second Question$/ do
   end
 end
 
-When /^I choose the "([^\"]*)" Question$/ do |name|
-  response.should have_selector("li.question") do |selector|
-    selector.each do |question|
-      if name.eql?(question.at_css("span.name").inner_text.strip)
-        @question = Question.find(URI.parse(question.at_css("a")['href']).path.match(/\d+/)[0].to_i)
-        visit question.at_css("a")['href']
+When /^I choose the "([^\"]*)" ([^\"]*)$/ do |name, type|
+  type_class = type.classify.constantize
+  type = type.underscore
+  response.should have_selector("li.#{type}") do |selector|
+    selector.each do |statement|
+      elem = statement.at_css("a.#{type}_link")
+      if elem and name.eql?(elem.inner_text.strip)
+        instance_variable_set("@#{type}", type_class.find(URI.parse(elem['href']).path.match(/\d+/)[0]))
+        visit elem['href']
       end
     end
   end
 end
 
-When /^I choose the "([^\"]*)" Proposal$/ do |name|
-  response.should have_selector("li.proposal") do |selector|
-    selector.each do |proposal|
-      if name.eql?(proposal.at_css("a.proposal_link").inner_text.strip)
-        @proposal = Proposal.find(URI.parse(proposal.at_css("a")['href']).path.match(/\d+/)[0].to_i)
-        visit proposal.at_css("a")['href']
-      end
+When /^there are hidden ([^\"]*) for this ([^\"]*)$/ do |hidden_type, parent_type|
+  parent_children = instance_variable_get("@#{parent_type}").child_statements :language_ids => [Language[:en].id], :type => hidden_type.singularize.classify
+  parent_children_titles = parent_children.map{|p|p.document_in_preferred_language([Language[:en].id]).title}
+  
+  visible_titles = []
+  response.should have_selector("li.#{hidden_type.singularize}") do |selector|
+    selector.each do |statement|
+      visible_titles << statement.at_css('a.statement_link').inner_text.strip
     end
   end
+  instance_variable_set("@hidden_#{hidden_type}", parent_children_titles - visible_titles)
+  
 end
 
-When /^I choose the "([^\"]*)" Improvement$/ do |name|
-  response.should have_selector("li.improvement") do |selector|
-    selector.each do |improvement|
-      if name.eql?(improvement.at_css("a.improvement_link").inner_text.strip)
-        @improvement = Improvement.find(URI.parse(improvement.at_css("a")['href']).path.match(/\d+/)[0].to_i)
-        visit improvement.at_css("a")['href']
-      end
+Then /^I should see the hidden ([^\"]*)$/ do |type|
+  titles = instance_variable_get("@hidden_#{type}")
+  res = false
+  response.should have_selector("li.#{type.singularize}") do |selector|
+    selector.each do |statement|
+      res = true if titles.include?(statement.at_css('a.statement_link').inner_text.strip)
     end
   end
+  assert res
 end
 
 Then /^I should see an error message$/i do
@@ -191,9 +197,11 @@ Then /^the questions title should be "([^\"]*)"$/ do |title|
 end
 
 
-Then /^I should see the proposals data$/ do
-  Then 'I should see "'+@proposal.document_in_preferred_language([Language["en"].id,Language["de"].id]).title+'"'
-  Then 'I should see "'+@proposal.document_in_preferred_language([Language["en"].id,Language["de"].id]).text+'"'
+Then /^I should see the ([^\"]*) data$/ do |type|
+  type = type.split(" ").join("_")
+  doc = instance_variable_get("@#{type}").document_in_preferred_language([Language["en"].id,Language["de"].id])
+  Then 'I should see "'+doc.title+'"'
+  Then 'I should see "'+doc.text+'"'
 end
 
 Then /^I should see no proposals$/ do
@@ -236,4 +244,10 @@ Then /^there should be a "([^\"]*)" breadcrumb$/ do |title|
     end
     assert result
   end
+end
+
+
+Given /^([^\"]*) are not immediately loaded on ([^\"]*)$/ do |child_type, parent_type|
+  flexmock(parent_type.singularize.classify.constantize).should_receive(:children_types).with({:visibility => true}).and_return([[child_type.singularize.classify.to_sym, false]])
+  flexmock(parent_type.singularize.classify.constantize).should_receive(:children_types).and_return([child_type.singularize.classify.to_sym])
 end

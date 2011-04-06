@@ -104,9 +104,8 @@ fr:
             </p>
 
         action: |-
-          La nouvelle echo est ON-LINE<br/>
-          Essayez le prototype »
-
+          Essayez le prototype »<br/>
+          echo 0.14 est on-line
 
       # about section
       about:
@@ -114,6 +113,7 @@ fr:
         tabs:
           project: Le Projet
           team: "L'équipe"
+          partners: Le réseau
         text: |
           <p>
           <strong>A la source</strong> echo est une
@@ -975,3 +975,18 @@ fr:
         Bonne continuation, beaucoup d'idées nouvelles, et surtout,  des moments stimulants avec echo.
 
         Votre équipe echo
+    
+    activate_email:
+      subject: Veuillez verifier votre adresse mail
+      text1: |
+        Cher,e {{name}},
+
+        Afin de rétablir avec succès votre adresse mail, vous devez accomplir un dernier pas  en cliquant sur l'URL ci-desous. Nous pourrons ainsi confirmer votre nouvelle adresse mail. 
+      text2: |
+        Si la fenêtre dans votre navigateur ne s'ouvre pas en cIiquant sur l'URL, veuillez copier et glisser l'URL dans la barre de votre navigateur. 
+        
+        Si les problèmes persistaient pour activer votre adresse mail, veuillez contacter le support technique: support@echologic.org.
+        
+        A bientôt sur echo!
+        
+        Votre équipe echo  

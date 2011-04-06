@@ -7,6 +7,7 @@ pt:
     # Unexpected Error
     unexpected_error: Ocorreu um erro inesperado. Pedimos desculpas pela inconveniência.
     routing_error: URL desconhecido. Redireccionando...
+    remote_error: Ocorreu uma falha na comunicação com o Serviço Remoto.
 
     # General purpose resources
     general:
@@ -14,11 +15,10 @@ pt:
       hide: « ok
       next: Seguinte
       back: de volta
-      last_name: Sobrenome
-      first_name: Nome Próprio
-      undefined: Ainda não inserido
       name: Nome
+      undefined: Ainda não inserido
       email: E-Mail
+      email_confirmation: Confirmar E-Mail
       ok: Ok
       or: ou
       save: Guardar
@@ -33,6 +33,7 @@ pt:
       welcome: Bemvindo
       all: Tudo
       authors: Autores
+      share_action: 'Make an echo!'
 
     # Roadmap - Progress
     roadmap:
@@ -131,39 +132,60 @@ pt:
     authors:
       teaser:
         title: 'Torne-se um co-autor!'
-    user_sessions:
-      login:
-        password: 'Senha'
-        email: 'E-Mail'
-        signup: Ainda não é um membro?
-        set_password: Esqueceu-se da senha?
-        remember: Lembre-me!
-        hello: Autenticado<br/><strong>{{name}}</strong>
+    signup:
+      label: Inscrição
+      member_tag: Ainda não é membro?
+      via_echo: ... via endereço E-Mail
+      via_social: ... via uma conta já existente
+    setup_basic_profile:
+      title: Preenchimento do Perfil de Base
+      guide: Por favor preencha o seu perfil de base para iniciar a sua conta.
+      agreement: Li e concordo com os termos da política de dados.
+      use_photo: Usar na echo também
+    signin:
+      label: Autenticação
+      password: 'Password'
+      member_tag: Já é membro?
+      via_echo: ... via echo
+      via_social: ... via uma conta já conectada
+      set_password: Esqueceu a sua senha?
+      hello: Autenticado<br/><strong>{{name}}</strong>
+      hint: |
+        Se quiser evitar a autenticação através de uma conta social sem a inserção da senha pessoal, 
+        por favor termine a sessão na rede social dessa conta explicitamente ao terminar a sua sessão na echo.
       messages:
-        login_success: "Autenticação bem-sucedida. Bemvindo de volta à echo."
-        login_failed: "Utilizador desconhecido ou senha errada."
-        logout_success: "Saída bem-sucedida. Até breve!"
+        success: A sua conta foi criada com sucesso. Bem-vindo à echo!
+        failed: "Utilizador desconhecido ou senha errada."
+        failed_social: Por favor autentique-se com uma conta com a qual esteja conectado/a na echo.
+    signout:
+      messages:
+        success: "Saída bem-sucedida. Até breve!"
+    user_sessions:
+      messages:
         session_timeout: "A sua sessão foi terminada. Por favor autentique-se de novo."
 
     # Activations section
     activation:
       messages:
         success: A sua conta foi ativada com sucesso. Bemvindo à echo!
-        failed: A sua conta não pode ser ativada. Por favor verifique os dados inseridos.
-
+        failed: A sua conta não pode ser ativada. Por favor confira os dados preenchidos.
+        email_success: O seu endereço E-Mail foi alterado com sucesso!
+        already_active: A sua conta já se encontra ativada!
+        no_account: A sua conta não existe!
+        no_full_name: Por favor preencha o seu nome completo.
+        no_agreement: Precisamos da sua concordância com a nossa política de dados de modo a proceder.
     # Password resets section
     password_reset:
       step1: Requerir nova senha
       step2: Definir nova senha
       step1_text: |
-        <strong>Esqueceu-se da sua senha</strong> e gostaria de definir uma nova?<br/><br/>
-        Sem problema! Preencha este campo apenas com o endereço de <strong>E-Mail</strong> com o qual está autenticado na echo.<br/>
-        Nós enviar-lhe-emos um E-mail em breve possibilitando-lhe <strong>definir a nova senha</strong>.
+        <p>Esqueceu-se da sua senha e gostaria de definir uma nova?</p>
+        <p>Sem problema! Preencha este campo apenas com o endereço de E-Mail com o qual está autenticado na echo.
+        Nós enviar-lhe-emos um E-mail em breve possibilitando-lhe definir a nova senha.</p>
       step1_mail: Enviar E-Mail
-
       step2_text: |
-        Por favor defina <strong>a nova senha</strong> que gostaria de usar para se autenticar na echo.
-      step2_ok: Defina a senha e autentique-se
+        Por favor defina a nova senha que gostaria de usar para se autenticar na echo.
+      step2_ok: Defina a senha
       messages:
         success: "Enviámos-lhe um E-mail possibilitando-lhe redefinir a sua senha. Por favor dê uma olhada na sua caixa de entrada."
         not_found: "Endereço de E-Mail desconhecido."
@@ -185,6 +207,7 @@ pt:
 
       password:
         title: Mudar a minha senha
+        old: Senha atual
         new: Nova Senha
         confirm: Confirmar Senha
 
@@ -280,6 +303,69 @@ pt:
         turned_on: A sua informação pessoal será exposta na secção de co-autores de um conteúdo.
         turned_off: Será exposto anonimamente entre os outros autores de um conteúdo.
 
+    # Manage Echo Account section
+    echo_account:
+      title: Conta echo
+      guide: Aqui pode gerir a sua conta na echo.
+      change_email:
+        title: Alterar E-Mail
+        guide: |
+          Atualmente encontra-se registrado com o seguinte endereço E-Mail: <strong>{{email}}</strong>.<br/>
+          Aqui pode definir um novo endereço, o qual a echo usará para entrar em contato consigo.
+        password: A sua senha
+        success: Endereço E-mail alterado com sucesso.
+        failed: Failed to change E-Mail.
+        no_password: Por favor insira a sua senha para alterar o endereço E-Mail.
+
+      change_password:
+        title: Alterar Senha
+        guide: Aqui pode definir uma nova senha.
+        success: A sua senha foi alterada com sucesso!
+        failed: Failed to change Password!
+        wrong_password: A senha atual inserida é incorreta!
+      delete_account:
+        title: Apagar Conta
+        password: A sua senha
+        guide: |
+          <p><strong>Atenção!</strong></p>
+          <p>A sua conta e TODA a sua informação pessoal será <strong>permanentemente apagada</strong>.<br/>
+          Os seus ec(h)os serão mantidos anonimamente.</p>
+          <p>Por favor insira a sua senha e prima o botão que se encontra em baixo se desejar proceder.</p>
+        confirm: Apagar a sua conta
+        success: A sua conta na echo foi apagada com sucesso.
+    social_accounts:
+      title: Contas Sociais
+      guide: Conecte as suas contas de modo a partilhar e amplificar o seu ec(h)o pelas redes sociais.
+      providers:
+        facebook: Facebook
+        twitter: Twitter
+        yahoo!: Yahoo!
+        linkedin: LinkedIn
+        google: Google
+      connect:
+        title: Conectar
+        success: A sua conta no/a {{account}} foi conectada com sucesso!
+        failed: Ocorreu uma falha na conexão com a sua conta no/a {{account}}.
+      disconnect:
+        title: Desconectar
+        success: A sua conta no/a {{account}} foi desconectada!
+        failed: Ocorreu uma falha na desconexão com a sua conta no/a {{account}}.
+      share:
+        title: Espalhe a palavra
+        guide: Provoque um ec(h)o nas suas contas sociais.
+        text: Mensagem
+        data_privacy:
+          title: Data Privacy Notice
+          description: Mind the privacy policy of other networks before sharing your views on them...
+        preview: Pré-visualização
+        submit: Partilhar Echo
+        error: Ocorreu um erro ao partilhar o seu ec(h)o. Por favor verifique a sua ligação à rede.
+        success: ec(h)o partilhado via {{accounts}}.
+        failed: Falha ao partilhar ec(h)o via {{accounts}}.
+        timeout: Conexão com {{accounts}} expirou!
+        enabled: Ligado
+        disabled: Desligado
+
     # New Users section
     users:
       new:
@@ -295,6 +381,9 @@ pt:
 
       messages:
         created: "Por favor verifique os seus E-Mails para ativar a sua conta recém-criada!"
+        activate_email: De modo a completar a alteração do seu endereço E-Mail, por favor desconecte-se e prima o link de confirmação que acabou de ser enviado para o seu novo endereço!
+
+
 
     # Reports section
     reports:
@@ -351,6 +440,7 @@ pt:
       title: Pesquisa
       in: '... em {{category}} ...'
       add: "Crie a primeira pergunta sobre o tema"
+      placeholder: Tópico e/ou local de interesse
 
     tooltips:
       read_question: 'Ir para esta questão'
@@ -478,7 +568,7 @@ pt:
       headings:
         question: 'Questões'
         proposal: 'Propostas'
-        improvement: 'melhorias'
+        improvement: 'Melhorias'
         argument: 'Argumentos'
         follow_up_question: 'Questões Complementares'
       siblings:
@@ -517,7 +607,9 @@ pt:
         Depois de este tempo esgotar poderá perder as suas modificações.
       staled_modification: 'Pedimos desculpa, mas o prazo de 60 minutos para editar a proposta esgotou. Entretanto a proposta foi editada por outra pessoa. Por esta razão, as suas mudanças foram lamentavelmente perdidas.'
       no_document_in_language: 'O conteúdo ainda não existe em Português.'
-
+      supporter_to_share: Tem que apoiar este conteúdo de forma a poder partilhá-lo.
+      published_to_share: 'Esta discussão ainda não foi publicada. Por enquanto não poderá infelizmente partilhar o seu conteúdo!'
+      cannot_be_edited: Este conteúdo não pode ser mais editado. A edição de conteúdos não é mais possível após esse mesmo conteúdo ter sido apoiado por alguém. É uma opção de segurança para evitar a posterior alteração de opiniões já apoiadas por alguém.
 
       breadcrumbs:
         discuss_search: Pesquisa resultados
@@ -584,6 +676,7 @@ pt:
 
     fill_out_profile:
       text: Por favor preencha <strong>pelo menos {{percentage}}%</strong> do seu perfil para fazer a vontado ao "HAL" e fazer este bloco desaparecer. :-)
+    placeholder: Tópico, lugar, organização ou nome de interesse
 
     segments:
       all:       'Todos'
@@ -672,6 +765,11 @@ pt:
           attributes:
             email:
               taken: 'O seu endereço de e-Mail já se encontra em uso.'
+              invalid: Por favor insira um endereço E-Mail válido.
+            password:
+              invalid: 'Wrong password.'
+        social_identifier:
+          taken: Esta conta social já se encontra em utilização.
 
       messages:
         blank: "O campo '{{attribute}}' tem que ser preenchido obrigatoriamente."
@@ -691,8 +789,6 @@ pt:
     attributes:
       profile:
         email:      E-Mail
-        first_name: Nome Próprio
-        last_name:  Sobrenome
         full_name:  Nome
         gender:     Sexo
         city:       Cidade

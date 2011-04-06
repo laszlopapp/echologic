@@ -100,11 +100,9 @@ es:
             </p><p>
             Aunque echo todavía está empezando a gatear, ya puedes:
             </p>
-
         action: |-
-          El nuevo echo está ON-LINE<br/>
-          Al prototipo »
-
+          Al prototipo »<br/>
+          echo 0.14 está on-line
 
       # about section
       about:
@@ -112,6 +110,7 @@ es:
         tabs:
           project: El Proyecto
           team: El Equipo
+          partners: La Red
         text: |-
           <p>
           echo está formado por un
@@ -889,9 +888,9 @@ es:
 
     # New password section
     new_password:
-      subject: "pedir una nueva contraseña "
+      subject: Pedir una nueva contraseña
       text1: |
-        Estimado/a (nombre),
+        Estimado/a {{name}},
 
         gracias por registrate en echo! Por favor, activa tu cuenta siguiendo el enlace de abajo.
       text2: |
@@ -903,3 +902,23 @@ es:
 
         Atentamente
         Tu equipe de echo
+
+    activate_email:
+      subject: Por favor, comprueba tu dirección de email
+      text1: |
+        Estimado/a {{name}},
+
+        Para poder actualizar tu dirección email, es necesario completar el último paso
+        del proceso, que consiste en hacer clic en el enlace URL inferior, permitiéndonos
+        confirmar con éxito tu nueva dirección E-Mail.
+      text2: |
+        Si haciendo clic en el enlace URL no se abre una nueva ventana automaticamente,
+        por favor, copia y pega la dirección URL en tu navegador.
+
+        Si sigues teniendo problemas con la activación de tu email, por favor,
+        no dudes en contactarnos en support@echologic.org.
+
+        Esperamos encontrarte pronto en echo,
+
+        Tu equipo echo
+

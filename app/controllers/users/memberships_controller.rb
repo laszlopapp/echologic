@@ -2,7 +2,8 @@ class Users::MembershipsController < ApplicationController
 
   before_filter :fetch_membership, :only => [:show, :edit, :update, :destroy]
 
-  helper :profile
+  helper :profiles
+  helper :my_echo
 
   access_control do
     allow logged_in

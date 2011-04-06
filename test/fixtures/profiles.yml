@@ -2,25 +2,22 @@
 
 joe_profile:
   user_id: <%= Fixtures.identify(:joe) %>
-  last_name: Test
-  first_name: Joe
+  full_name: Joe Test
   female: false
   motivation: I am idealist.
   about_me: Pantha Rei.
-  city: Berlin
+ # city: Berlin
   country: Germany
   birthday: 2009-10-30
 
 ben_profile:
   user_id: <%= Fixtures.identify(:ben) %>
-  last_name: Test
-  first_name: Ben
+  full_name: Ben Test
   completeness: 0.55
 
 user_profile:
   user_id: <%= Fixtures.identify(:user) %>
-  last_name: Test
-  first_name: User
+  full_name: User Test
   country: Germany
   city: berlin
   female: false
@@ -33,24 +30,25 @@ user_profile:
 
 admin_profile:
   user_id: <%= Fixtures.identify(:admin) %>
-  last_name: Test
-  first_name: Admin
+  full_name: Admin Test
 
 editor_profile:
   user_id: <%= Fixtures.identify(:editor) %>
-  last_name: Tor
-  first_name: Edi
+  full_name: Edi Tor
 
 # Profiles for pagination
 
 <% ["theodor","friedrich","luise","charlotte","lisa","red","blue","green","yellow","red","illiterate","tobias"].each do |name| %>
 <%= name %>_profile:
   user_id: <%= Fixtures.identify(name.to_sym) %>
-  last_name: Echmeier
-  first_name: <%= name %>
+  full_name: <%= name %> Echmeier
   motivation: I am f..ing test user. What you expect my motivation to be?.
   about_me: As i said.. a test user. What kind of life is this!?
   city: Berlin
   country: Germany
   birthday: 2010-03-17
 <% end %>
+
+no_pass_user_profile:
+  user_id: <%= Fixtures.identify(:no_pass_user) %>
+  full_name: No Pass

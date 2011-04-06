@@ -1,0 +1,20 @@
+
+<% content_tag :div, '', :class => "questions_container discuss_right_block" do %>
+
+	<% content_tag :div, :class => 'header' do %>
+	 <%= content_tag :span, '',
+                   :class => 'icon' %>
+	 <%= content_tag :span, questions_count_text(@count, params[:search_terms]),
+                   :class => 'label' %>
+	<% end %>
+
+  <% content_tag :ul, :class => 'content' do %>
+    <%= render :partial => 'statements/questions/questions',
+               :locals => {:statement_nodes => statement_nodes}%>
+  <% end %>
+
+  <% if !statement_nodes.empty? and statement_nodes.current_page != statement_nodes.total_pages %>
+    <%= more_questions statement_nodes, @page %>
+  <% end %>
+
+<% end %>

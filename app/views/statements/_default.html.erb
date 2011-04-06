@@ -1,5 +1,4 @@
-<% content_for :submenu, tabnav(:discuss) %>
-
+<% load_submenu :discuss %>
 
 <% content_tag :div, :id => 'breadcrumbs', :class => 'breadcrumbs' do %>
   <% content_tag :div, :class => 'elements' do %>
@@ -8,7 +7,9 @@
 <% end %>
  
 <div id="statements">
-  <%= render_ancestors(@ancestors) if @ancestors %>
+  <%= render_ancestors(@ancestors, @ancestor_documents) if @ancestors %>
   <%= render :partial => template %>
 </div>
 
+<%= content_tag :span, '', :id => 'social_messages', 'data-success' => I18n.t("users.social_accounts.share.success"), 
+                                                       'data-error' => I18n.t("users.social_accounts.share.error")%>

@@ -2,16 +2,16 @@
 /* GENERAL STYLES */
 
 #function_container h1 {
-  color:        #21587f;
-  font-size:    30px;
-  margin:       12px 0px 20px;
+  color: #21587f;
+  font-size: 30px;
+  margin: 12px 0 20px;
 }
 
 #function_container h2 {
-  color:        #7bb031;
-  font-size:    15px;
-  font-weight:  bold !important;
-  margin:       18px 0px 5px;
+  color: #7bb031;
+  font-size: 15px;
+  font-weight: bold !important;
+  margin: 18px 0 5px;
 }
 
 .shadow_line_separator {
@@ -129,7 +129,7 @@
   overflow: hidden;
 }
 
-.header_block input[type="text"] {
+.header_block input[type="text"], .header_block input[type="password"] {
   border: 1px solid #999;
   color: #21587F;
   font-size: 14px;
@@ -397,30 +397,100 @@
 }
 
 
-/* ASSETS */
+/* Standard buttons */
 
-.button_150 {
-  border:       none;
-  background:   #FFF url(../images/page/button_150.png) no-repeat scroll left top;
-  width:        150px;
-  height:       43px;
-  line-height:  43px;
-  display:      inline-block;
-  font-size:    14px;
-  font-weight:  bold;
-  color:        #21587f;
-  text-align:   center;
+.button {
+  border: none;
+  height: 43px;
+  line-height: 43px;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  color: #21587f;
+  text-align: center;
   vertical-align: middle;
-  margin:       10px 0 0 -6px;
-  padding:      0;
+  margin: 10px 0 0 -6px;
+  padding:  0;
   cursor: pointer;
 }
 
-.button_150:hover {
+.button:hover {
   background-position: 0 -43px !important;
   color: #7bb031;
 }
 
+.button_150 {
+  background: transparent url(../images/page/button_150.png) no-repeat scroll left top;
+  width: 150px;
+}
+
+.button_200 {
+  background: transparent url(../images/page/button_200.png) no-repeat scroll left top;
+  width: 200px;
+}
+
+.button_250 {
+  background: transparent url(../images/page/button_250.png) no-repeat scroll left top;
+  width: 250px;
+}
+
+.button_300 {
+  background: transparent url(../images/page/button_300.png) no-repeat scroll left top;
+  width: 300px;
+}
+
+.green_button {
+  color: #FFF;
+  font-weight: bold;
+  display: inline-block;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+}
+
+.green_button:hover {
+  background-position: 0 -28px !important;
+}
+
+.green_button_120 {
+  background: transparent url(../images/page/red_button_120.png) no-repeat scroll left top;
+  width: 120px;
+}
+
+.big_red_button_150 {
+  background: transparent url(../images/page/red_button_big_150.png) no-repeat scroll left top;
+  width: 150px;
+}
+
+
+.big_button {
+  color: #FFF !important;
+  font-size: 15px;
+  font-weight: bold;
+  display: inline-block;
+  height: 51px;
+  line-height: 46px;
+  text-align: center;
+}
+
+.big_button:hover {
+  background-position: 0 -51px !important;
+}
+
+.big_green_button_150 {
+  background: transparent url(../images/page/green_button_big_150.png) no-repeat scroll left top;
+  width: 150px;
+}
+
+.big_red_button_150 {
+  background: transparent url(../images/page/red_button_big_150.png) no-repeat scroll left top;
+  width: 150px;
+}
+
+.big_red_button_300 {
+  background: transparent url(../images/page/red_button_big_300.png) no-repeat scroll left top;
+  width: 300px;
+}
 
 /* Application layout stuff */
 
@@ -437,59 +507,62 @@
   height: 45px;
   float: right;
   border: 2px solid #7bb031;
+  border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
 }
 
 #applicationContainer {
-  width:       100%;
-  z-index:     5;
-  clear:       both;
-  background:  #fff;
-  position:    relative;
-  overflow:    visible;
-  margin-bottom:12px;
-  min-height:  410px;
+  width: 100%;
+  z-index: 5;
+  clear: both;
+  background: #fff;
+  position: relative;
+  overflow: visible;
+  margin-bottom: 12px;
+  min-height: 410px;
 }
 
 /* BORDER SECTION */
 
 #applicationContainer .border {
-  width:       100%;
-  height:      16px;
-  background:  url(../images/page/box/borders_7bb031_iwot_topbottom.png) repeat-x;
-  position:    absolute;
-  left:        0px;
+  width: 100%;
+  height: 16px;
+  background: url(../images/page/box/borders_7bb031_iwot_topbottom.png) repeat-x;
+  position: absolute;
+  left: 0;
 
 }
 
 #applicationContainer .bottom {
   background-position: bottom;
-  bottom:      -16px;
+  bottom: -16px;
 }
 
 #applicationContainer .top {
   background-position: top;
-  top:         -16px;
+  top: -16px;
 }
 
 #function_container {
-  margin:      0 auto;
-  width:       990px;
+  margin: 0 auto;
+  width: 990px;
   padding-bottom: 1px;
 }
 
 #messageContainer {
-  width:       400px;
-  margin:      0 auto;
+  width: 400px;
+  margin: 0 auto;
 }
 
 #messageContainer div {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
   -moz-border-radius-bottomleft: 10px;
   -moz-border-radius-bottomright: 10px;
   -webkit-border-bottom-left-radius: 10px;
   -webkit-border-bottom-right-radius: 10px;
-  border-top:  0px;
+  border-top:  0;
   position: fixed;
 }
 
@@ -518,17 +591,17 @@
 /* SUBMENUS */
 
 .submenu {
-  margin:       0 auto;
-  width:        990px;
-  overflow:     auto;
-  color:        #21587f;
-  margin-bottom:11px;
-  padding:      0 0 10px 0;
-  z-index:      1;
-  text-align:   center;
-  background:   url(../images/page/separator_no_shadow.png) no-repeat bottom;
-  position:     relative;
-  height:       20px;
+  margin: 0 auto;
+  width: 990px;
+  overflow: auto;
+  color: #21587f;
+  margin-bottom: 11px;
+  padding: 0 0 10px 0;
+  z-index: 1;
+  text-align: center;
+  background: url(../images/page/separator_no_shadow.png) no-repeat bottom;
+  position: relative;
+  height: 20px;
 }
 
 .submenu ul {
@@ -562,61 +635,59 @@
 }
 
 .function_button_holder {
-  /*min-height:   95px;*/
-  margin:      0px;
-  padding:     0 0 30px;
-  clear:       both;
+  margin: 0;
+  padding: 0 0 30px;
+  clear: both;
 }
 
 .function_button {
-  float:       left;
-  margin:      0px;
-  padding:     0px;
-  min-height:      80px;
-  position:    relative;
-  left:        10px;
-  z-index:     5;
-  border:      none;
-  width: 	   140px;
+  float: left;
+  margin: 0;
+  padding: 0;
+  min-height: 80px;
+  position: relative;
+  left: 10px;
+  z-index: 5;
+  border: none;
+  width: 140px;
 }
 
 .function_button:hover {
-  cursor:      pointer;
+  cursor: pointer;
 
 }
 
 .function_name {
-  font-size:   20px;
+  font-size: 20px;
   font-weight: bold;
-  color:       #21587f;
-  position:    relative;
-  width: 	   100%;
-  display: 	   block;
-  padding:     7px 0;
+  color: #21587f;
+  position: relative;
+  width: 100%;
+  display: block;
+  padding: 7px 0;
 }
 
 .function_description {
-  font-size:   14px;
-  color:       #21587f;
-  position:    relative;
-  width: 	   100%;
+  font-size: 14px;
+  color: #21587f;
+  position: relative;
+  width: 100%;
   cursor: default;
 }
 
 .function_button_holder .function_name:hover {
-  color:       #7bb031;
+  color: #7bb031;
   text-decoration: none;
-  cursor:      pointer;
+  cursor: pointer;
 }
 
 .function_button_holder .function_more {
-	font-size:	14px;
-	/*position: 	relative;*/
+	font-size:14px;
 }
 
 .function_button_holder .toggled_content {
-	font-size:	14px;
-	position: 	relative;
+	font-size: 14px;
+	position: relative;
 	margin-left: 140px;
 }
 
@@ -636,14 +707,14 @@
 /* All tab content containers */
 .tab_details_container .tab_content_container {
   float: left;
-  padding: 0px 15px;
+  padding: 0 15px;
 }
 
 
 /* SEARCH */
 
 .search_container {
-  width:    990px;
+  width: 990px;
   position: relative;
 }
 
@@ -663,7 +734,7 @@
   vertical-align: top;
   font-size: 17px;
   color: #21587f;
-  padding: 3px 0 0 11px;
+  padding-left: 11px;
 }
 
 /*#search_form input[type='submit'],*/
@@ -677,7 +748,6 @@
   cursor: pointer;
 }
 
-/*#search_form input[type='submit']:hover,*/
 #search_form .submit_button:hover {
   background-position: 0 -29px;
 }
@@ -717,11 +787,11 @@
 }
 
 .results_container .content {
-  float:    left;
-  width:    287px;
-  height:   55px;
+  float: left;
+  width: 287px;
+  height: 55px;
   list-style: none;
-  display:  block;
+  display: block;
   margin: 11px 10px 11px 30px;
   position: relative;
   overflow: hidden;
@@ -795,6 +865,7 @@
 	position: absolute;
 	cursor: pointer;
 	background: #f1f1f1;
+  border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
 }
@@ -819,6 +890,7 @@
 	background: #97b0bf;
 	cursor: pointer;
 	overflow: hidden;
+  border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
 }

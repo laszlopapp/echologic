@@ -10,3 +10,4 @@ element.data('api').removeBelow();
 <% if !params[:new_level].blank? and @statement_node.class.is_top_statement? and @breadcrumb %>
    $('#breadcrumbs').data('breadcrumbApi').addBreadcrumbs(<%= [@breadcrumb].to_json %>);
 <% end %>
+

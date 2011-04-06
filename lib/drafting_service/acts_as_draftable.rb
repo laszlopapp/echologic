@@ -59,6 +59,7 @@ module ActiveRecord
             def check_incorporated
               last_document = self.statement_documents.last
               if last_document and last_document.action.code.eql?('incorporated')
+                "gonna start the thing"
                 EchoService.instance.incorporated(last_document.incorporated_node, last_document.author)
               end
             end

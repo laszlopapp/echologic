@@ -18,6 +18,16 @@ module ApplicationHelper
     val
   end
 
+  def load_submenu(key)
+    content_for :submenu, tabnav(key)
+    if block_given?
+      yield
+    else
+      content_for :section, key
+    end
+  end
+
+
   # Return a progressbar
   def insert_progressbar(percent)
     tooltip = I18n.t('application.roadmap.progress_tooltip', :progress => percent)
@@ -100,5 +110,71 @@ module ApplicationHelper
       val += "<span class='#{type}'>" + I18n.t("static.#{item}.#{type}")    + "</span><br/>"
     end
     val
+  end
+
+  ########################
+  # POP-UP LOGIN HELPERS #
+  ########################
+
+  def signinup_toggle_button(type)
+    toggle_type = type.eql?('signin') ? 'signup' : 'signin'
+    content_tag(:a, I18n.t("users.#{toggle_type}.member_tag"),
+                           :class => 'signinup_toggle_button',
+                           :href => "##{toggle_type}")
+  end
+
+  def signinup_labels(type)
+    content = ''
+    content << content_tag(:span, I18n.t("users.#{type}.via_echo"),
+                           :class => 'echo_label')
+    content << content_tag(:span, :class => 'or_holder') do
+      content_tag(:span, I18n.t('application.general.or'),
+                  :class => 'or_label')
+    end
+    content << content_tag(:span, I18n.t("users.#{type}.via_social"),
+                           :class => 'social_label')
+    content
+  end
+
+  def signin_social_link
+    janrain_login_widget signin_remote_url, :language => I18n.locale
+  end
+
+  def signup_social_link
+    janrain_login_widget signup_remote_url, :language => I18n.locale
+  end
+
+  def redirect_token_url(opts= {})
+    # first step: create the url to redirect everything in the end
+    redirect_url = add_remote_url + '?' + (
+      opts.merge({:authenticity_token => form_authenticity_token}).collect { |n| "#{n[0]}=#{ u(n[1]) }" if n[1] }
+    ).compact.join('&')
+
+    # second step: create the url to which we will be redirect at the end of the external login
+    token_url = redirect_from_popup_url + '?' + (
+    { :redirect_url => redirect_url,
+      :authenticity_token => form_authenticity_token }.collect { |n| "#{n[0]}=#{ u(n[1]) }" if n[1] }
+    ).compact.join('&')
+    token_url
+  end
+
+
+  def janrain_login_widget(token_url, options={})
+    url = token_url + '?' + (
+      { :authenticity_token => form_authenticity_token }.collect { |n| "#{n[0]}=#{ u(n[1]) }" if n[1] }
+    ).compact.join('&')
+    <<-EOF
+    <iframe src='http://#{RPX_APP_NAME}/openid/embed?#{embed_params(url, options)}'
+    scrolling='no' frameBorder='no' allowtransparency='true'
+    style='width:400px;height:240px'></iframe>
+    EOF
+  end
+
+  def embed_params(url, options={})
+    {
+      :token_url => CGI::escape(url),
+      :language_preference => options[:language],
+      :flags => 'show_provider_list,hide_sign_in_with'
+    }.map{|k,v| "#{k}=#{v}" if v}.compact.join('&amp;')
   end
 end

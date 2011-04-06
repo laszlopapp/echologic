@@ -15,6 +15,13 @@ module ActiveRecord
       end
 
       module ClassMethods
+        
+        #
+        # Aux Function: drafting conditions on a query (overwritten in acts_as_incorporable)
+        #
+        def drafting_conditions
+          ''
+        end
 
         def acts_as_incorporable(*args)
 

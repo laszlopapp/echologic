@@ -17,8 +17,7 @@ module PublishableModule
     questions_not_paginated = Question.by_creator(current_user).by_creation
 
     @questions = questions_not_paginated.paginate(:page => @page, :per_page => 5)
-    @statement_documents = search_statement_documents(@questions.map(&:statement_id),
-                                                      @language_preference_list)
+    @statement_documents = search_statement_documents :statement_ids => @questions.map(&:statement_id)
 
     respond_to_js :template => 'statements/questions/my_questions', :template_js => 'statements/questions/my_questions'
   end
@@ -32,16 +31,20 @@ module PublishableModule
   #
   def category
     @value    = params[:search_terms] || ""
-    @page     = params[:page]  || 1
+    @page     = params[:page].blank? ? 1 : params[:page]
+    @page_count = params[:page_count].blank? ? 1 : params[:page_count]
+    @per_page = @page_count.to_i * QUESTIONS_PER_PAGE
 
-    statement_nodes_not_paginated = search_statement_nodes(:search_term => @value,
-                                                           :language_ids => @language_preference_list,
-                                                           :show_unpublished => current_user &&
-                                                                                current_user.has_role?(:editor))
+    @origin = @value.blank? ? 'ds' : "sr#{@value.gsub(/,/,'\\;').gsub(/\|/, '\\:;')}" 
+    @origin << "|#{params[:page_count].blank? ? @page : params[:page_count]}"
+    @origin = @origin
+
+    statement_nodes_not_paginated = search_discussions :search_term => @value
 
     @count    = statement_nodes_not_paginated.count
-    @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => 6)
-    @statement_documents = search_statement_documents(@statement_nodes.map(&:statement_id), @language_preference_list)
+    @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => @per_page)
+    @statement_documents = search_statement_documents(:statement_ids => @statement_nodes.map(&:statement_id),  
+                                            :select => "DISTINCT id, title, statement_id, language_id, current, text")
 
     respond_to_js :template => 'statements/questions/index',
                   :template_js => 'statements/questions/questions'
@@ -67,13 +70,14 @@ module PublishableModule
                 if params[:in] == 'summary'
                   page << "$('#statements .#{dom_class(@statement_node)} .edit_text_button').remove();"
                   page << "$('#statements .#{dom_class(@statement_node)} .publish_text_button').remove();"
-                else
-                  @statement_documents =
-                    search_statement_documents([@statement_node.statement_id])
+                elsif params[:in] == 'mi'
+                  @statement_documents = search_statement_documents :statement_ids => [@statement_node.statement_id]
                   page.replace(dom_id(@statement_node),
                                :partial => 'statements/questions/my_question',
-                               :locals => {:my_question => @statement_node ,
+                               :locals => {:my_question => @statement_node,
                                            :statement_document => @statement_documents[@statement_node.statement_id]})
+                else
+                  page << "$('##{dom_id(@statement_node)} .publish_button').remove();"
                 end
               end
             end

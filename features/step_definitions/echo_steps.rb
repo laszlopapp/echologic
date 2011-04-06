@@ -24,8 +24,8 @@ end
 Then /^the proposal should have ([^\"]*) supporters$/ do |supporter_count|
   @proposal.reload
   user_echos = UserEcho.count(:conditions => ["echo_id = ? and supported = 1", @proposal.echo.id])
-  assert supporter_count.to_i == user_echos
-  assert supporter_count.to_i == @proposal.echo.supporter_count
+  assert_equal supporter_count.to_i, user_echos
+  assert_equal supporter_count.to_i, @proposal.echo.supporter_count
 end
 
 Then /^the proposal should have ([^\"]*) visitors$/ do |visitor_count|
@@ -54,16 +54,10 @@ end
 
 Then /^the proposal should have "([^\"]*)" as follower$/ do |name|
   assert Delayed::Job.last.name[9..22] == "add_subscriber"
-#  user = Profile.find_by_first_name(name).user
-#  @proposal.reload
-#  assert user.follows?(@proposal)
 end
 
 Then /^the proposal should not have "([^\"]*)" as follower$/ do |name|
   assert Delayed::Job.last.name[9..25] == "remove_subscriber"
-#  user = Profile.find_by_first_name(name).user
-#  @proposal.reload
-#  assert !user.follows?(@proposal)
 end
 
 Then /^I am supporter of the proposal$/ do
@@ -88,14 +82,14 @@ end
 
 Then /^the proposal should have "([^\"]*)" as supporters$/ do |users|
   @proposal.reload
-  users.split(",").each do |user_name|
-    assert @proposal.supported?(Profile.find_by_first_name(user_name.strip).user)
+  users.split(",").each do |name|
+    assert @proposal.supported?(Profile.find_by_full_name(name.strip).user)
   end
 end
 
 Then /^the proposal should have "([^\"]*)" as visitors$/ do |users|
   @proposal.reload
-  users.split(",").each do |user_name|
-    assert @proposal.visited?(Profile.find_by_first_name(user_name.strip).user)
+  users.split(",").each do |name|
+    assert @proposal.visited?(Profile.find_by_full_name(name.strip).user)
   end
 end

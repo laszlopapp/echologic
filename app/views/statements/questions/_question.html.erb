@@ -1,10 +1,29 @@
-<% @question = question if defined?(question) %>
-<% question_document = @statement_documents[@question.statement_id] %>
-<li id="<%= dom_id(@question) %>" class="content question">
-    <% long_title = question_document.title.length > 70 %>
-    <span class="name">
-      <%=h (long_title ? question_document.title[0,69]+"..." : question_document.title)%>
-    </span>
-    <br/>
-		<% link_to_question(question_document.title, @question, long_title, params[:search_terms]) %>
-</li>
+<% question_document ||= @statement_documents[question.statement_id] %>
+
+<% content_tag :li, '', :id => dom_id(question), :class => 'question' do %>
+
+	  <% image_link_to_question(question) %>
+
+    <% content_tag :div, :class => 'right_panel' do %>
+      <%= supporter_ratio_bar(question) %>
+      <%= supporters_label(question, true) %>
+      <% content_tag :div, :class => 'buttons',
+                     :id => "#{dom_id(question)}_buttons" do %>
+        <%= publish_button_or_state(question, :no_published_label => true) %>
+      <% end %>
+    <% end %>
+
+    <% content_tag :div, :class => 'middle_block' do %>
+      <% content_tag :div, :class => 'title' do %>
+        <%= statement_node_context_link(question,
+                                        "#{question_document.title}",
+                                        'read',
+                                        :bids => @origin,
+                                        :origin => @origin) %>
+      <% end %>
+      <%= content_tag :div,
+                      truncate_statement_text(question_document),
+                      :class => 'description' %>
+    <% end %>
+
+<% end %>

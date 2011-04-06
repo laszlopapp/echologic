@@ -1,0 +1,37 @@
+<% content_tag(:div, :class => 'social_echo_panel popup_panel expandable_content', :style => "display:none") do %>
+  <%= content_tag :div, I18n.t("users.social_accounts.share.title"), :class => 'panel_header' %>
+	<%= content_tag :div, I18n.t("users.social_accounts.share.guide"), :class => 'panel_description' %>
+  <% form_tag share_statement_node_url(statement_node),
+              :method => :post,
+              :class => 'ajax_form share_form' do -%>
+	 <%= render_social_account_buttons statement_node %>
+	 <%# content_tag :div, :class => 'hint' do %>
+	   <%# content_tag :span, I18n.t("users.social_accounts.share.data_privacy.title"),
+                     :class => 'ttLink no_border',
+                     :title => I18n.t("users.social_accounts.share.data_privacy.description") %>
+	 <%# end %>
+	 <% content_tag :div, :class => 'block left' do %>
+	   <%= label_tag I18n.t('users.social_accounts.share.text') %>
+		 <%= text_field_tag 'text', @title,
+                        :class => 'text' %>
+		 <%= content_tag :span, '', :class => 'counter' %>
+	 <% end %>
+	 <% content_tag :div, :class => 'block left' do %>
+		 <%= label_tag I18n.t('users.social_accounts.share.preview') %>
+	   <%= content_tag :div, "#{@title} #{@proposed_url}",
+                     :class => 'text preview',
+                     'data-url' => @proposed_url %>
+	 <% end %>
+   <%= hidden_field_tag "url", @proposed_url, :class => 'url' %>
+
+   <% content_tag :div, :class => 'submit_block block center' do %>
+     <%= submit_tag I18n.t('users.social_accounts.share.submit'),
+                    :class => "formButton200 #{current_user.using_rpx? ? '' : 'disabled'}", :disabled => !current_user.using_rpx? %>
+     <%= content_tag :span, I18n.t('application.general.or'),
+                     :class => 'or_cancel' %>
+     <%= content_tag :span, I18n.t('application.general.cancel'),
+                     :class => 'text_button cancel_text_button' %>
+   <% end %>
+
+	<% end %>
+<% end %>

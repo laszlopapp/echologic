@@ -2,9 +2,12 @@
 
 /* Initialization on loading the document */
 $(document).ready(function () {
-	initBreadcrumbs();
-	initStatements();
-	initFragmentStatementChange();
+	if ($('#function_container.discuss').length > 0) {
+  	initBreadcrumbs();
+  	initStatements();
+  	initFragmentStatementChange();
+  	loadSocialMessages();
+  }
 });
 
 
@@ -45,7 +48,6 @@ function initFragmentStatementChange() {
 		if ($.fragment().sids) {
 			var sids = $.fragment().sids;
 			var new_sids = sids.split(",");
-
 			var path = "/" + new_sids[new_sids.length-1];
 
 
@@ -64,7 +66,7 @@ function initFragmentStatementChange() {
 				return $.inArray(a, visible_sids) == -1 ;});
 
       var bids = $("#breadcrumbs").data('breadcrumbApi').breadcrumbsToLoad($.fragment().bids);
-			
+
 			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sids": sids.join(","),
 				"bids": bids.join(","),
@@ -86,7 +88,7 @@ function initFragmentStatementChange() {
 			var bids = $("#breadcrumbs").data('breadcrumbApi').getBreadcrumbStack(null).join(',');
 			}
 		else {var bids = $.fragment().bids;}
-    
+
 		if (!$.fragment().origin || $.fragment().origin == 'undefined') {var origin = bids.split(',').pop();}
 		else {var origin = $.fragment().origin;}
 
@@ -133,6 +135,38 @@ function redirectToStatementUrl() {
 		url = url.pop();
 	}
 	window.location.replace(url);
+}
+
+/******************/
+/* SOCIAL SHARING */
+/******************/
+
+function loadSocialMessages(){
+	var social_messages = $('#social_messages');
+  var messages = {
+    'success'     : social_messages.data('success'),
+    'error'       : social_messages.data('error')
+  };
+  social_messages.data('messages', messages);
+  social_messages.removeAttr('data-success').removeAttr('data-error');
+}
+
+function socialSharingFinished(array) {
+	var aux = false;
+	$('#social_messages').data('stuff', array);
+	$.map(array, function(elem) {
+		if (elem['attempted']) {
+			aux = true;
+			if (!elem['success']) {
+		  	error($('#social_messages').data('messages')['error']);
+				return;
+			}
+		}
+	});
+	if (aux) {
+		$('.rpxnow_lightbox').hide();
+		info($('#social_messages').data('messages')['success']);
+	}
 }
 
 

@@ -98,17 +98,10 @@ class ApplicationController < ActionController::Base
   def require_user
     @user_required = true
     unless current_user
-      set_info('authlogic.error_messages.must_be_logged_in')
-      respond_to do |format|
-        format.html {
-          flash_info
-          redirect_to request.url == last_url ? root_url : last_url
-        }
-        format.js {
-          render_with_info do |page|
-            page << "$('#user_session_email').focus();"
-          end
-        }
+      redirect_url = request.url == last_url ? root_url : last_url
+      session[:redirect_url] = redirect_url
+      later_call_with_info(redirect_url, signin_url) do |format|
+        format.js{render_signinup_js(:signin)}
       end
       return false
     end
@@ -147,7 +140,7 @@ class ApplicationController < ActionController::Base
     reset_session
     if params[:controller] == 'users/user_sessions' && params[:action] == 'destroy'
       # If the user wants to log out, we go to the root page and display the logout message.
-      redirect_to_url root_url, 'users.user_sessions.messages.logout_success'
+      redirect_to_url root_url, 'users.signout.messages.success'
     else
       # Not logout
       @user_required ||= false
@@ -210,9 +203,15 @@ class ApplicationController < ActionController::Base
   end
 
   def language_preference_list
-    priority_languages = (@statement_node.nil? ? [locale_language_id] : [locale_language_id,
-                                                                        @statement_node.original_language.id])
-    priority_languages.concat(current_user ? current_user.sorted_spoken_languages : []).uniq
+    priority_languages = [locale_language_id]
+    # get statement node original language
+    st_original_language = @statement_node.original_language if @statement_node
+    # insert original language in the priority languages
+    priority_languages << st_original_language.id if st_original_language
+    # insert user spoken languages into the priority languages
+    priority_languages += current_user.sorted_spoken_languages if current_user
+    
+    priority_languages.uniq
   end
 
 
@@ -223,7 +222,9 @@ class ApplicationController < ActionController::Base
   protected
   # Sets the @info variable to the localisation given through the string
   def set_info(string, options = {})
-    @info = I18n.t(string, options)
+    @info ||= ""
+    @info << "<br/>" if !@info.blank?
+    @info << I18n.t(string, options)
   end
 
   # Sets the @info variable for the flash object (used for HTTP requests)
@@ -261,9 +262,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  #
+  # sets an url which will be called assynchronously as the page loads on the user's side
+  #
+  def set_later_call(url)
+    @later_call = url
+  end
+
   # Sets the @error variable for the flash object (used for HTTP requests).
   def flash_error
     flash[:error] = @error
+  end
+
+  # Sets the @later_call variable for the flash object (used for HTTP requests).
+  def flash_later_call
+    flash[:later_call] = @later_call
   end
 
   # Get formatted error string from error partial for a given object, then show
@@ -338,7 +351,9 @@ class ApplicationController < ActionController::Base
   def render_static_new(opts={})
     opts[:layout] ||= 'static'
     respond_to do |format|
-      [:template,:partial].each{|t|format.html { render t => opts[t], :layout => opts[:layout] } if opts[t]}
+      [:template,:partial].each{|t|
+        format.html { render t => opts[t], :layout => opts[:layout]} if opts[t]
+      }
       format.js if !block_given?
       yield format if block_given?
     end
@@ -349,6 +364,97 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.html { render :partial => opts[:partial], :layout => opts[:layout], :locals => opts[:locals]}
       format.js   { render :template => 'layouts/outerMenuDialog' , :locals => opts[:locals]}
+    end
+  end
+
+  def load_signinup_data(type)
+    @user ||= User.new
+    @user_session ||= UserSession.new
+    if @to_show.nil?
+      if type == :signin
+        @to_show = 'signin'
+        @controller_name = 'user_sessions'
+      elsif type == :signup
+        @to_show = 'signup'
+        @controller_name = 'users'
+      else
+        raise Exception "Invalid type. Use ':signin' or ':signup'."
+      end
+    end
+  end
+
+  # Makes the signin / signup dialog appear.
+  def render_signinup(type)
+    # Settings views and controllers
+    load_signinup_data(type)
+    # Rendering
+    render_static_new :template => "users/#{@controller_name}/new" do |format|
+      format.js{render_signinup_js(type)}
+    end
+  end
+
+  def render_signinup_js(type)
+    load_signinup_data(type)
+    render :template => 'users/components/users_form',
+               :locals => {:partial => "users/#{@controller_name}/new"}
+  end
+
+  def redirect_or_render_with_info(url, message_or_object, opts={})
+    respond_to do |format|
+      set_info message_or_object, opts
+      format.html { flash_info and redirect_to url }
+      format.js   {
+        render_with_info do |page|
+          yield page if block_given?
+        end
+      }
+    end
+  end
+
+  def redirect_or_render_with_error(url, message_or_object, opts={})
+    respond_to do |format|
+      set_error message_or_object, opts
+      format.html { flash_error and redirect_to url }
+      format.js   {
+        render_with_error do |page|
+          yield page if block_given?
+        end
+      }
+    end
+  end
+
+  def redirect_with_info(url, message_or_object, opts={})
+    set_info message_or_object, opts
+    flash_info
+    respond_to do |format|
+      format.html { redirect_to url }
+      format.js{
+        render :update do |page|
+          page.redirect_to url
+        end
+      }
+    end
+  end
+
+  def later_call_with_info(url, later_url, message_or_object=nil, opts={})
+    respond_to do |format|
+      set_info(message_or_object, opts) if message_or_object
+      set_later_call later_url
+      format.html {
+        flash_info if message_or_object
+        flash_later_call
+        redirect_to url
+      }
+      yield format if block_given?
+    end
+  end
+
+  def later_call_with_error(url, later_url, message_or_object, opts={})
+    respond_to do |format|
+      set_error(message_or_object, opts)
+      set_later_call later_url
+      format.html { flash_error and flash_later_call and redirect_to url }
+      format.js{ render_with_error }
     end
   end
 
@@ -380,17 +486,24 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
-  #
-  # Temporary Hot-Fix solution for redirecting and arbitrary (unknown) URL to Discuss Search.
-  #
   public
   def shortcut
-    respond_to do |format|
-      format.html do
-        redirect_to discuss_search_url(:search_terms => params[:shortcut])
-      end
+    begin
+      shortcut = ShortcutUrl.find(params[:shortcut])
+      command = JSON.parse(shortcut.command)
+      url = send("#{command['operation']}_path", command['params'].merge({:locale => command['language']}))
+      redirect_to url
+    rescue ActiveRecord::RecordNotFound
+      redirect_to discuss_search_url(:search_terms => params[:shortcut])
+    rescue Exception => e
+      log_message_error(e, "Error redirecting from shortcut.")
     end
   end
 
+  def redirect_from_popup
+    @redirect_url = params[:redirect_url].split('&').concat(["token=#{params[:token]}"]).join('&')
+    respond_to do |format|
+      format.html{ render :template => "redirect_from_popup"}
+    end
+  end
 end

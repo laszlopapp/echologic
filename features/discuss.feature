@@ -40,7 +40,7 @@ Feature: Take Part on a question
       And I am on the Discuss Index
     When I follow "Featured"
     When I follow "echonomyJAM"
-      And I choose the first Question
+      And I choose the "Test Question2?" Question
       And I follow localized "discuss.statements.create_proposal_link"
       And I fill in the following:
         | proposal_statement_document_title | a proposal to propose some proposeworthy proposal data |
@@ -71,13 +71,14 @@ Feature: Take Part on a question
       And I am on the discuss index
     When I follow "Search"
       And I choose the "Test Question2?" Question
+    Then the question should have 5 siblings in session
       And I follow localized "discuss.statements.types.question" within ".add_new_panel"
       And I fill in the following:
       | question_statement_document_title           | Question on the side              |
       | question_statement_document_text            | i like big butts and i cannot lie |
       And I press "Save"
     Then I should see "Question on the side"
-      And the question should have 5 siblings in session
+      And the question should have 6 siblings in session
 
   Scenario: Add a sibling Proposal
     Given I am logged in as "user" with password "true"
@@ -86,6 +87,7 @@ Feature: Take Part on a question
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
+    Then the proposal should have 0 siblings in session
       And I follow localized "discuss.statements.types.proposal" within ".add_new_panel"
       And I fill in the following:
       | proposal_statement_document_title           | How to propose to women   |
@@ -102,6 +104,7 @@ Feature: Take Part on a question
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
       And I choose the "A better first proposal" Improvement
+    Then the improvement should have 4 siblings in session
       And I follow localized "discuss.statements.types.improvement" within ".add_new_panel"
       And I fill in the following:
       | improvement_statement_document_title           | How to improve yer status    |
@@ -179,6 +182,7 @@ Feature: Take Part on a question
       And I fill in the following:
       | follow_up_question_statement_document_title           | Livin it up      |
       | follow_up_question_statement_document_text            | I love this game |
+      | follow_up_question_topic_tags                         |                  |
       And I press "Save"
     Then I should see "Livin it up"
       And the question should have 0 siblings in session
@@ -201,6 +205,7 @@ Feature: Take Part on a question
       And I fill in the following:
       | follow_up_question_statement_document_title           | Livin it up      |
       | follow_up_question_statement_document_text            | I love this game |
+      | follow_up_question_topic_tags                         |                  |
       And I press "Save"
     Then I should see "Livin it up"
       And the question should have 0 siblings in session
@@ -218,6 +223,7 @@ Feature: Take Part on a question
       And I fill in the following:
       | follow_up_question_statement_document_title           | Livin it up      |
       | follow_up_question_statement_document_text            | I love this game |
+      | follow_up_question_topic_tags                         |                  |
       And I press "Save"
     Then I should see "Livin it up"
       And the question should have 0 siblings in session
@@ -235,6 +241,7 @@ Feature: Take Part on a question
       And I fill in the following:
       | follow_up_question_statement_document_title           | Livin it up      |
       | follow_up_question_statement_document_text            | I love this game |
+      | follow_up_question_topic_tags                         |                  |
       And I press "Save"
     Then I should see "Livin it up"
       And the question should have 0 siblings in session
@@ -277,7 +284,7 @@ Feature: Take Part on a question
        And there is a proposal
      When I go to the proposal
      Then I should see "Proposal"
-       And I should see the proposals data
+       And I should see the proposal data
        And I should see localized "discuss.statements.create_improvement_link"
 
 
@@ -308,6 +315,7 @@ Feature: Take Part on a question
     Then I should see "corporative beast"
       And the proposal has no approved children
       And the proposal has incorporated children
+      And a "send_incorporation_mails" delayed job should be created
 
 
   Scenario: User tries to edit, gets out of the form and editor can't edit it
@@ -320,7 +328,7 @@ Feature: Take Part on a question
     Given I am logged in as "editor" with password "true"
     When I go to the question
       And I follow "Edit"
-    Then I should see "The statement is currently being edited. Please try again later."
+    Then I should see localized "discuss.statements.being_edited"
 
   Scenario: User tries to edit, cancels and editor can edit it
     Given I am logged in as "user" with password "true"
@@ -333,7 +341,21 @@ Feature: Take Part on a question
     Given I am logged in as "editor" with password "true"
     When I go to the question
       And I follow "Edit"
-    Then I should not see "The statement is currently being edited. Please try again later."
+    Then I should not see localized "discuss.statements.being_edited"
+    
+  Scenario: User sees the edit button, then someone supports it, and then there is no more edit for no one
+    Given I am logged in as "user" with password "true"
+      And there is a question i have created
+    When I go to the question
+      Then I should see localized "application.general.edit" within ".action_buttons"
+    Given I follow "Logout"
+      And I am logged in as "ben" with password "benrocks"
+      And I go to the question
+      And I follow "echo_button"
+      And I follow "Logout"
+      And I am logged in as "user" with password "true"
+      And I go to the question
+    Then I should not see localized "application.general.edit" within ".action_buttons"
 
   Scenario: Ben edits for incorporation, doesn't make it, editor tries to edit and can't
     Given I am logged in as "ben" with password "benrocks"
@@ -349,7 +371,7 @@ Feature: Take Part on a question
     Given I am logged in as "editor" with password "true"
       When I go to the proposal
         And I follow "Edit"
-      Then I should see "The statement is currently being edited. Please try again later."
+      Then I should see localized "discuss.statements.being_edited"
 
   Scenario: Editor tries to edit, gets out of the form and ben can't incorporate it
     Given I am logged in as "editor" with password "true"
@@ -364,4 +386,60 @@ Feature: Take Part on a question
       And the proposal has an approved child
       And I go to the proposal
       And I follow localized "discuss.tooltips.incorporate"
-    Then I should see "The statement is currently being edited. Please try again later."
+    Then I should see localized "discuss.statements.being_edited"
+    
+    
+  Scenario: User checks authors from a statement
+    Given I am logged in as "user" with password "true"
+    When I am on the discuss index
+      And I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I follow "Authors"
+    Then I should see "Edi Tor"
+  
+  
+#  Scenario: User open a previously closed children's block
+#    Given proposals are not immediately loaded on questions
+#      And I am logged in as "user" with password "true"
+#      And I am on the discuss index
+#      And I follow "Featured"
+#      And I follow "echonomyJAM"
+#      And I choose the "Test Question?" Question
+#      And there are hidden proposals for this question
+#      And I follow "proposals"
+#    Then I should see the hidden proposals
+        
+  Scenario: User presses more button on question's proposals children block
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+      And I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question?" Question
+      And there are hidden proposals for this question
+      And I follow localized "application.general.more" within ".proposals"
+      # needed because of the TOP CHILDREN mechanism
+      And I follow localized "application.general.more" within ".proposals"
+    Then I should see the hidden proposals
+    
+  Scenario: User opens question's siblings block
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+      And I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question?" Question
+    Then I should not see "Test Question2?"
+      And I follow "show_siblings_button" within ".header_buttons"
+    Then I should see "Test Question2?"
+  
+  Scenario: User opens proposal's siblings block
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+      And I follow "Featured"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question?" Question
+      And I choose the "Second Proposal" Proposal
+    Then I should not see "Eighth Proposal"
+      And I follow "show_siblings_button" within ".proposal .header_buttons"
+    Then I should see "Eighth Proposal"
+      

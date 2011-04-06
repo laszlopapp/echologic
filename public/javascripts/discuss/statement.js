@@ -74,6 +74,7 @@
 					initAddNewButton();
           initMoreButton();
           initAllStatementLinks();
+					//initFlicks();
 					initAllFUQLinks();
         }
       }
@@ -101,7 +102,17 @@
       function initExpandables() {
 				statement.find(".expandable:Event(!click)").each(function() {
           var expandableElement = $(this);
-					if (expandableElement.hasClass('show_siblings_button')) {
+					if (expandableElement.hasClass('social_echo_button')) {
+						// Social Widget button
+            expandableElement.expandable({
+              'condition_element': expandableElement.parent().prev(),
+							'condition_class': 'supported',
+							'animation_params': {
+                'opacity': 'toggle'
+              }
+            });
+					}
+					else if (expandableElement.hasClass('show_siblings_button')) {
             // Siblings button
 				  	expandableElement.expandable({
 				  		'animation_params': {
@@ -119,6 +130,7 @@
 				  }
 			  });
 			}
+
 
       function initContentLinks() {
         statement.find(".statement_content a").each(function() {
@@ -156,7 +168,7 @@
 		      // No parent means it's a root node, therefore, store siblings under the key 'roots'
 		      key = 'roots';
 		    }
-		    var siblings = eval(statement.attr("data-siblings"));
+		    var siblings = eval(statement.data("siblings"));
 		    if (siblings != null) {
 		      $("#statements").data(key, siblings);
 		    }
@@ -207,7 +219,7 @@
 		    // Get siblings ids
 		    var siblingIds = $("div#statements").data(siblingsKey);
 				// Get index of the prev/next sibling
-		    var targetIndex = (siblingIds.indexOf(currentStatementId) + inc + siblingIds.length) % siblingIds.length;
+				var targetIndex = ($.inArray(currentStatementId,siblingIds) + inc + siblingIds.length) % siblingIds.length;
 
 		    var targetStatementId = new String(siblingIds[targetIndex]);
 				if (targetStatementId.match('add')) {
@@ -247,6 +259,33 @@
 					moreButton.replaceWith($('<span/>').text(moreButton.text()).addClass('more_loading'));
 		    });
 		  }
+
+      /*
+       * Sets the different links on the statement UI, after the user clicked on them.
+       */
+      function initFlicks(){
+	     statement.detectFlicks({
+         axis: 'x',
+         threshold: 60,
+         flickEvent: function(d) 
+				 { 
+				   alert('flick detected: ' + d.direction);
+					 var button = null;
+					 switch(d.direction) {
+					 	case 'left2right' :
+						  button = statement.find('.header a.next');
+						  break;
+					  case 'right2left' :
+						  button = statement.find('.header a.prev');
+						  break;
+					 }
+					 if (button) {
+					 	button.addClass('clicked');
+						button.click();
+					 }
+         }
+        });
+	    }
 
 		  /*
 		   * Sets the different links on the statement UI, after the user clicked on them.
@@ -378,7 +417,7 @@
 		    }
 
 		    // Get current_stack of visible statements (if any matches the clicked statement, then break)
-        var current_stack = [];
+				var current_stack = [];
 		    $("#statements .statement").each( function(index){
 		      if (index < statement_index) {
 		        id = $(this).attr('id').split('_').pop();
@@ -397,7 +436,6 @@
 				return current_stack;
 		  }
 
-
       // Public API of statement
       $.extend(this,
       {
@@ -412,12 +450,18 @@
 					initMoreButton();
           initChildrenLinks(container);
           initFUQChildrenLinks(container);
+					if (isEchoable) {
+            statement.data('echoableApi').loadRatioBars(container);
+          }
 				},
 
 				reinitialiseSiblings: function(siblingsContainerSelector) {
           var container = statement.find(siblingsContainerSelector);
           initSiblingsLinks(container);
           initFUQSiblingsLinks(container);
+					if (isEchoable) {
+			  		statement.data('echoableApi').loadRatioBars(container);
+				  }
         },
 
         insertContent: function(content) {
@@ -476,7 +520,11 @@
 		      statement.find('.content').hide('slow');
 		      statement.find('.supporters_label').hide();
 					return this;
-		    }
+		    },
+        loadRatioBars: function(container) 
+        {
+          initRatioBars(container);
+        }
       });
 	  }
 
