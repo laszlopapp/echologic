@@ -299,25 +299,25 @@ end
                               :value => value, :context=> "")
 end
 ["Technology Partners","Technologiepartner","Partenaires Tecnologiques",
- "Parceiros Tecnológicos","Colaboradores Tecnológicos"].each_with_index do |value,index|
+ "Parceiros Tecnológicos","Socios Técnicos"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('technology_partners','AboutCategory'),
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
 ["Financial Partners","Finanzpartner","Partenaires Financières",
- "Parceiros Financeiros","Colaboradores Financieros"].each_with_index do |value,index|
+ "Parceiros Financeiros","Socios Financieros"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('financial_partners','AboutCategory'),
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
 ["Strategic Partners","Strategische Partner","Partenaires Stratégiques",
- "Parceiros Estratégicos","Colaboradores Estratégicos"].each_with_index do |value,index|
+ "Parceiros Estratégicos","Socios Estratégicos"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('strategic_partners','AboutCategory'),
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
 ["Thematic Partners","Thematische Partner","Partenaires Thématiques",
- "Parceiros Temáticos","Colaboradores Temáticas"].each_with_index do |value,index|
+ "Parceiros Temáticos","Socios Temáticos"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('thematic_partners','AboutCategory'),
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
