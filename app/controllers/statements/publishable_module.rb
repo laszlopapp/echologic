@@ -36,8 +36,8 @@ module PublishableModule
     @per_page = @page_count.to_i * QUESTIONS_PER_PAGE
 
     @origin = @value.blank? ? 'ds' : "sr#{@value.gsub(/,/,'\\;').gsub(/\|/, '\\:;')}" 
-    @origin << "|#{@page_count}"
-    @origin = CGI.escape(@origin)
+    @origin << "|#{params[:page_count].blank? ? @page : params[:page_count]}"
+    @origin = @origin
 
     statement_nodes_not_paginated = search_discussions :search_term => @value
 

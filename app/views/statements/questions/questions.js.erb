@@ -8,7 +8,8 @@ $("#questions_container .header .label").text("<%= questions_count_text(@count, 
 var api = $("#questions_container").data('searchApi');
 
 api.insertContent(content, <%= @page || 1 %>);
-  api.updateMoreButton(pagination_buttons, <%= !@statement_nodes.empty? and @statement_nodes.current_page != @statement_nodes.total_pages %>);
+
+api.updateMoreButton(pagination_buttons, <%= !@statement_nodes.empty? and @statement_nodes.current_page != @statement_nodes.total_pages %>);
 
 
 $('#action_bar').replaceWith("<%= escape_javascript(render(:partial => 'statements/questions/action_bar')) %>");

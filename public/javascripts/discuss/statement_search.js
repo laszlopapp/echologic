@@ -109,6 +109,11 @@
 				  }
 					children_list.append(content);
 
+          //escape links
+					children_list.find('a').each(function(){
+						$(this).attr('href', encodeURI($(this).attr('href')));
+					});
+
           // Scrolling to the first new list element
           if (page > 1) {
             var first_new_id = "#" + $(content).first().attr("id");
