@@ -430,7 +430,7 @@ module StatementsHelper
   # draws the statement image container
   def statement_image(statement_node)
     val = ""
-    editable = current_user and current_user.may_edit?(statement_node)
+    editable = (current_user and current_user.may_edit?(statement_node))
     if statement_node.image.exists? or editable
       val << image_tag(statement_node.image.url(:medium), :class => 'image')
       if editable
