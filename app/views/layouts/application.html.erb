@@ -27,8 +27,8 @@
 
 
     <!-- Javascript -->
-    <%= javascript_include_tag :defaults %>
-    <%= javascript_include_tag 'discuss/discuss',
+    <%= javascript_include_tag :defaults,
+                               'discuss/discuss',
                                'discuss/statement',
                                'discuss/statement_form',
                                'discuss/echoable',
@@ -57,7 +57,6 @@
                                'jquery.jscrollpane.min.js',
                                'jquery.livequery',
                                'jquery.toggleval',
-                               'jFlick',
                                :cache => 'echo_app' %>
 
     <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
