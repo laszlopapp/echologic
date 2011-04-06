@@ -976,13 +976,14 @@ class StatementsController < ApplicationController
        # discuss search with no search results
        when 'ds' then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1].to_i * QUESTIONS_PER_PAGE
                       sn = search_discussions(:only_id => opts[:for_session], :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
-                      opts[:for_session] ? sn.map(&:id) + ["/add/question"] : sn
+                      opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
        # discuss search with search results
-       when 'sr'then value = value.split('|')
-                     per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
-                     sn = search_discussions(:search_term => value[0].gsub(/\\;/,',').gsub(/\\:;/, '|'),
-                                                 :only_id => opts[:for_session], :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
-                     opts[:for_session] ? sn.map(&:id) + ["/add/question"] : sn
+     when 'sr'then value = value.split('|')
+                   term = value[0].gsub(/\\;/,',').gsub(/\\:;/, '|')
+                   per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
+                   sn = search_discussions(:search_term => term,
+                                           :only_id => opts[:for_session], :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
+                   opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
        # my discussions
        when 'mi' then sn = Question.by_creator(current_user).by_creation
                       opts[:for_session] ? sn.only_id.map(&:id) + ["/add/question"] : sn

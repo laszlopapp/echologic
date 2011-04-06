@@ -383,7 +383,6 @@ class StatementNode < ActiveRecord::Base
     def search_statement_nodes(opts={})
       search_term = opts.delete(:search_term)
       search_attrs = opts[:type].nil? ? 'root_id' : 'id'
-      opts[:only_id] ||= false
       tag_clause = "SELECT DISTINCT s.#{search_attrs} FROM #{table_name} s "
       tag_clause << "LEFT JOIN #{Statement.table_name}               ON #{Statement.table_name}.id = s.statement_id " +
                     "LEFT JOIN #{StatementDocument.table_name} d     ON s.statement_id = d.statement_id "
@@ -420,7 +419,7 @@ class StatementNode < ActiveRecord::Base
                            "ORDER BY COUNT(statement_node_ids.#{search_attrs}) DESC,e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id;"
       else
         and_conditions << "s.type = 'Question'" if opts[:type].nil?
-        statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? 'id' : '*'} from #{table_name} s " +
+        statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? search_attrs : '*'} from #{table_name} s " +
                            "LEFT JOIN #{Statement.table_name} ON #{Statement.table_name}.id = s.statement_id " +
                            "LEFT JOIN #{StatementDocument.table_name} d ON s.statement_id = d.statement_id " +
                            "LEFT JOIN #{Echo.table_name} e ON e.id = s.echo_id " +
