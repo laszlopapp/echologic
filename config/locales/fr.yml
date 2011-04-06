@@ -732,7 +732,7 @@ fr:
       text: |-
         Veuillez établir votre profil <strong>au moins à {{percentage}}%</strong> pour "faire plaisir à notre logiciel"
         et pour faire disparaître cette partie.
-    placeholder: 'Topic, emplacement, organisation ou terme recherché'
+    placeholder: 'Topic, emplacement ou organisation recherché'
 
     segments:
       all: Tous

@@ -151,8 +151,8 @@ pt:
       set_password: Esqueceu a sua senha?
       hello: Autenticado<br/><strong>{{name}}</strong>
       hint: |
-        To avoid logging in again without having to enter your password,
-        please logout of the used social account (e.g. Facebook) in the end explicitely.
+        Se quiser evitar a autenticação através de uma conta social sem a inserção da senha pessoal, 
+        por favor termine a sessão na rede social dessa conta explicitamente ao terminar a sua sessão na echo.
       messages:
         success: A sua conta foi criada com sucesso. Bem-vindo à echo!
         failed: "Utilizador desconhecido ou senha errada."
