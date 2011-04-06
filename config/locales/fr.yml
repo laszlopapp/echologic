@@ -7,7 +7,7 @@ fr:
     # Unexpected Error
     unexpected_error: Zut ..encore un bug informatique. Nous sommes désolés de ce désagrément.
     routing_error: URL inconnue. Redirection...
-    remote_error: 'Failed to communicate with the Remote Service.'
+    remote_error: 'La communication avec le support technique a échoué.'
 
     # General purpose resources
     general:
@@ -16,7 +16,7 @@ fr:
       next: Suite
       back: Retour
       email: E-Mail
-      email_confirmation: Confirm E-Mail
+      email_confirmation: Confirmer votre E-Mail
       name: Nom
       undefined: Vous n'êtes pas encore enregistré(e)?
       ok: D'accord
@@ -147,28 +147,28 @@ fr:
       teaser:
         title: 'Devenez co-auteur!'
     signup:
-      label: 'Sign Up'
-      member_tag: Not a member yet?
-      via_echo: '... for a new echo Account'
-      via_social: '... via another social account '
+      label: "S'inscrire"
+      member_tag: "Vous n'êtes pas encore membre ?"
+      via_echo: '... par courrier électronique'
+      via_social: '... par un compte existant'
     setup_basic_profile:
-      title: 'Setup Basic Profile'
-      guide: Please fill in your basic profile information to set up your account.
-      agreement: I have read and agree to the terms of data policy.
-      use_photo: 'Use in echo, too'
+      title: 'Paramètres de votre profile'
+      guide: Veuillez fournir les informations indispensables pour ouvir votre account.
+      agreement: "J'ai lu et j'accepte les conditions générales."
+      use_photo: Publier sur echo
     signin:
-      label: 'Sign In'
-      password: 'Password'
-      member_tag: Already a member?
+      label: Se connecter
+      password: 'Mot de passe'
+      member_tag: Déjà membre?
       via_echo: '... via echo'
-      via_social: '... via another Account'
+      via_social: '... via un autre compte'
       set_password: Mot de passe oublié?
       hello: |
         Vous êtes connecté<br/><strong>{{name}}</strong>
       messages:
-        success: "Login successful. Welcome back to echo."
+        success: Votre compte a été crée avec succès. Bienvenue sur echo!
         failed: "Utilisateur inconnu ou erreur de mot de passe."
-        failed_social: "Please log in with an account you registered with or that you connected to your echo account."
+        failed_social: Connectez-vous avec un autre compte déjà ouvert qui vous reconnecte à echo.
     signout:
       messages:
         success: "Vous vous êtes déconnecté(e).<br/>Au revoir et à bientôt!"
@@ -181,9 +181,9 @@ fr:
       messages:
         success: Vous vous êtes connecté(e) avec succès. Bienvenue sur echo!
         failed: La connexion a échoué. Veuillez vérifier vos données.
-        email_success: Your E-mail has been changed successfully!
+        email_success: Votre nouvelle adresse Mail est activée!
         already_active: Your account is already active!
-        no_account: Your account does not exist!
+        no_account: Ce compte est inconnu!
         no_full_name: You have to fill the 'Full Name' field up
         no_agreement: You have to agree with our data policy in order to register.
 
@@ -228,8 +228,8 @@ fr:
 
       password:
         title: Changer le mot de passe
-        old: Old password
-        new: Votre nouveau mot de passe
+        old: Actuel mot de passe
+        new: Nouveau nom de passe
         confirm: Confirmer le mot de pase
 
       picture:
@@ -341,37 +341,37 @@ fr:
 
     # Manage Echo Account section
     echo_account:
-      title: echo Account
-      guide: Here you can manage your echo account.
+      title: echo compte
+      guide: Paramétrage de votre compte.
       change_email:
-        title: Change E-Mail
+        title: Changer d' E-Mail
         guide: |
-          You are currently registered with the E-Mail address: <strong>{{email}}</strong>.<br/>
-          Here you can define a new address echo should use to keep in touch with you.
-        password: Your Password
-        success: E-Mail changed successfully.
+          Votre adresse E-Mail <strong>{{email}}</strong> actuelle.<br/>
+          Vous pouvez indiquer ici une autre adresse E-mail pour rester en contact avec echo.
+        password: Votre mot de passe
+        success: Mot de passe a été changé avec succès.
         failed: Failed to change E-Mail.
-        no_password: Please enter your valid password to change your E-Mail.
+        no_password: Entrer votre mot de passe valide pour changer votre adresse mail.
 
       change_password:
-        title: Change Password
-        guide: Please define your new password.
+        title: Changer le mot de passe
+        guide: Indiquez un nouveau mot de passe.
         success: Password changed successfully!
         failed: Failed to change Password!
-        wrong_password: The password you entered is not your password!
+        wrong_password: Mot de passe incorrect!
       delete_account:
-        title: Delete Account
-        password: Your Password
+        title: Supprimer le compte
+        password: Votre mot de passe
         guide: |
           <p><strong>ATTENTION!</strong></p>
-          <p>Your account and ALL your personal data will be <strong>permanently deleted</strong>.<br/>
-          The echos you have made will be kept fully anonymously.</p>
-          <p>Please enter your password and click the button below, if you want to proceed.</p>
-        confirm: Delete my account permanently
-        success: Your echo account was successfully deleted.
+          <p>Votre compte et TOUTES vos données personnelles seront <strong> définitivement supprimées</strong>.<br/>
+          Toutes vos contributions seront tenues secrètes.</p>
+          <p>Veuillez entrer votre mot de passe et cliquer sur le bouton ci-dessous, si vous souhaitez poursuivre.</p>
+        confirm: Supprimer mon compte définitivement
+        success: Votre compte echo a été supprimé avec succès.
     social_accounts:
-      title: Connected Accounts
-      guide: Connect your social accounts with your echo account so you can easily share and amplify your echo throughout the web.
+      title: Les réseaux sociaux
+      guide: Reliez vos comptes  pour partager et amplifier votre echo à travers les autres réseaux sociaux.
       providers:
         facebook: Facebook
         twitter: Twitter
@@ -379,29 +379,29 @@ fr:
         linkedin: LinkedIn
         google: Google
       connect:
-        title: Connect
-        success: Added your {{account}} account successfully!
-        failed: Failed to add your {{account}} account!
+        title: Connecter
+        success: La {{account}} connection a réussi!
+        failed: La connexion avec votre {{account}}compte a échoué!
       disconnect:
-        title: Disconnect
-        success: Removed your {{account}} account successfully!
-        failed: Failed to remove your {{account}} account!
+        title: Déconnecter
+        success: Votre {{account}} connection a réuissi!
+        failed: Connexion avec votre {{account}} échoué!
       share:
-        title: Send out the voice
+        title: Envoyer votre echo
         guide: Connect up your accounts to easily share and amplify your echo via other social networks.
         text: Message
         data_privacy:
           title: Data Privacy Notice
           description: Mind the privacy policy of other networks before sharing your views on them...
         preview: Preview
-        submit: Make an echo
-        error: Something went wrong while sharing your entry.
+        submit: Envoyer votre echo
+        error: Le partage n'a pas réuissi. Veillez vérifier votre connection.
         success: |
-          Made an echo via {{accounts}}.
+          Envoyer un echo via {{accounts}}.
         failed: |
-          Failed via {{accounts}}.
+          Le partage a échoué via {{accounts}}.
         timeout: |
-          Connection with {{accounts}} timed out!
+          Le délai de connection avec {{accounts}} a expiré!
         enabled: "On"
         disabled: "Off"
 
@@ -422,7 +422,7 @@ fr:
         created: |-
           Retournez à votre messagerie mail. Nous vous avons envoyé un mail de confirmation.
           Cliquez sur le lien pour activer votre compte.
-        activate_email: "Please check your E-Mails to activate your new email!"
+        activate_email: Pour compléter votre adresse mail, veuillez vous déconnecter. Une confirmation vous parveniendra à votre nouvelle adresse mail.
 
     # Reports section
     reports:
@@ -472,7 +472,7 @@ fr:
       title: Chercher
       in: '... dans {{category}} ...'
       add: "Créer la première question à ce sujet"
-      placeholder: "Topic and/or place of interest"
+      placeholder: "Topic et/ou terme pertinent recherché"
 
     tooltips:
       read_question: 'Regarder cette question'
@@ -655,9 +655,9 @@ fr:
         Désolé, mais le délai de 60 minutes maximum est terminé. Entretemps, la proposition a été traitée par un
         autre utilisateur. Votre rajout ne peut pas être pris en compte.
       no_document_in_language: "Le constat n'existe pas dans votre langue."
-      supporter_to_share: 'You must be a supporter of this statement in order to share it!'
-      published_to_share: 'This discussion is yet to be published. Until then, you can not unfortunately share it!'
-      cannot_be_edited: 'The statement can not be edited after other members have supported it'
+      supporter_to_share: Vous devez approuver ce point de vue pour le partager.
+      published_to_share: 'La contribution est en cours de transmission. Pendant la transmission vous ne pouvez pas la partager.'
+      cannot_be_edited: "Dommage, vous ne pouvez pas éditer ce constat après que les autres membres l'aient approuvé. Cette disposition évitera aussi des piratages éventuels."
 
       breadcrumbs:
         discuss_search: Chercher des résultats
@@ -730,7 +730,7 @@ fr:
       text: |-
         Veuillez établir votre profil <strong>au moins à {{percentage}}%</strong> pour "faire plaisir à notre logiciel"
         et pour faire disparaître cette partie.
-    placeholder: 'Topic, place, organization or name of interest'
+    placeholder: 'Topic, emplacement, organisation ou terme recherché'
 
     segments:
       all: Tous
@@ -824,11 +824,11 @@ fr:
           attributes:
             email:
               taken: "L'adresse indiquée est déjà utilisée."
-              invalid: 'The E-Mail must be in a valid format.'
+              invalid: "Entrez une adresse mail validée."
             password:
               invalid: 'Wrong password.'
         social_identifier:
-          taken: 'This Social Account is already in use.'
+          taken: 'Ce compte est déjà utilisé.'
 
       messages:
         blank: "La case '{{attribute}}' doit être remplie."
