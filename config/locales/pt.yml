@@ -150,6 +150,9 @@ pt:
       via_social: ... via outra conta
       set_password: Esqueceu a sua senha?
       hello: Autenticado<br/><strong>{{name}}</strong>
+      hint: |
+        To avoid logging in again without having to enter your password,
+        please logout of the used social account (e.g. Facebook) in the end explicitely.
       messages:
         success: A sua conta foi criada com sucesso. Bem-vindo à echo!
         failed: "Utilizador desconhecido ou senha errada."

@@ -163,8 +163,10 @@ fr:
       via_echo: '... via echo'
       via_social: '... via another Account'
       set_password: Mot de passe oublié?
-      hello: |
-        Vous êtes connecté<br/><strong>{{name}}</strong>
+      hello: 'Vous êtes connecté<br/><strong>{{name}}</strong>'
+      hint: |
+        To avoid logging in again without having to enter your password,
+        please logout of the used social account (e.g. Facebook) in the end explicitely.
       messages:
         success: "Login successful. Welcome back to echo."
         failed: "Utilisateur inconnu ou erreur de mot de passe."

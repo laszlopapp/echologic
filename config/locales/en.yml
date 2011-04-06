@@ -150,6 +150,9 @@ en:
       set_password: Forgot your password?
       remember: Remember me!
       hello: Logged in<br/><strong>{{name}}</strong>
+      hint: |
+        To avoid logging in again without having to enter your password,
+        please logout of the used social account (e.g. Facebook) in the end explicitely. 
       messages:
         success: "Login successful. Welcome back to echo."
         failed: "Unknown user or wrong password."
@@ -207,10 +210,10 @@ en:
       location: Location
 
       password:
-        title: Change my password
+        title: Change password
         old: Current password
         new: New password
-        confirm: Confirm password
+        confirm: Confirm new password
 
       picture:
         upload_button: Change
@@ -323,6 +326,7 @@ en:
         success: Your password has been changed successfully.
         failed: Failed to change your password.
         wrong_password: The entered current password is wrong.
+
       delete_account:
         title: Delete Account
         password: Your Password

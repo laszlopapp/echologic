@@ -152,6 +152,9 @@ de:
       set_password: Passwort vergessen?
       remember: Vergiss mich nicht!
       hello: Eingeloggt<br/><strong>{{name}}</strong>
+      hint: |
+        Wenn Sie eine erneute Anmeldung ohne Eintragung Ihres Passwortes vermeiden wollen,
+        melden Sie sich am Ende aus dem benutzten Konto (Facebook, Twitter, usw.) gesondert ab. 
       messages:
         success: "Login erfolgreich.<br/>Willkommen zurück auf echo!"
         failed: "Unbekannter Nutzer oder falsches Passwort."
