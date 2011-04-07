@@ -165,8 +165,8 @@ fr:
       set_password: Mot de passe oublié?
       hello: 'Vous êtes connecté<br/><strong>{{name}}</strong>'
       hint: |
-        Si vous voulez éviter de vous enregistrer de nouveau sans votre mot de passe, 
-        vous avez comme alternative de vous inscrire avec votre compte activé sur d´autres réseaux sociaux (Facebook, Twitter etc.)
+        Pour vous connecter de nouveau sans indiquer votre mot de passe, 
+        il vous suffit de vous reconnecter avec votre compte d'utilisateur sur Facebook, Twitter, séparément.
       messages:
         success: Votre compte a été crée avec succès. Bienvenue sur echo!
         failed: "Utilisateur inconnu ou erreur de mot de passe."
@@ -399,9 +399,9 @@ fr:
         submit: Envoyer votre echo
         error: Le partage n'a pas réuissi. Veillez vérifier votre connection.
         success: |
-          Envoyer un echo via {{accounts}}.
+          Envoyé un echo sur {{accounts}}.
         failed: |
-          Le partage a échoué via {{accounts}}.
+          Le partage a échoué sur {{accounts}}.
         timeout: |
           Le délai de connection avec {{accounts}} a expiré!
         enabled: "On"
