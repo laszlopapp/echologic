@@ -399,9 +399,9 @@ fr:
         submit: Envoyer votre echo
         error: Le partage n'a pas réuissi. Veillez vérifier votre connection.
         success: |
-          Envoyer un echo via {{accounts}}.
+          Envoyé un echo sur {{accounts}}.
         failed: |
-          Le partage a échoué via {{accounts}}.
+          Le partage a échoué sur {{accounts}}.
         timeout: |
           Le délai de connection avec {{accounts}} a expiré!
         enabled: "On"
