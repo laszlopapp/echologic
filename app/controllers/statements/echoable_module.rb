@@ -71,7 +71,7 @@ module EchoableModule
           @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
           @title = "Made an"
           @proposed_url = "http://#{ECHO_HOST}/#{ShortcutUrl.truncate(@statement_document.title)}"
-          @proposed_url << " #{@statement_node.root.hash_topic_tags}" if !@statement_node.root.hash_topic_tags.empty?
+          @proposed_url << " #{@statement_node.root.hash_topic_tags.join(", ")}" if !@statement_node.root.hash_topic_tags.empty?
           respond_to do |format|
             format.js { render :template => "statements/social_widget" }
           end
@@ -119,7 +119,7 @@ module EchoableModule
           opts = {}
           opts[:url] = "http://#{ECHO_HOST}/#{@shortcut_url.shortcut}"
           opts[:action] = "#{params[:text].strip}"
-          opts[:tags] = @statement_node.root.hash_topic_tags if !@statement_node.root.hash_topic_tags.empty?
+          opts[:tags] = @statement_node.root.hash_topic_tags.join(", ") if !@statement_node.root.hash_topic_tags.empty?
           opts[:action_links] = [I18n.t("application.general.share_action")]
           opts[:images] = []
           opts[:images] << "http://#{ECHO_HOST}/#{@statement_node.image.url(:medium)}" if @statement_node.image.exists?
