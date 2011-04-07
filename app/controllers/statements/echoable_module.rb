@@ -71,7 +71,7 @@ module EchoableModule
           @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
           @title = "Made an"
           @proposed_url = "http://#{ECHO_HOST}/#{ShortcutUrl.truncate(@statement_document.title)}"
-          @proposed_url << " #{@statement_node.root.hash_topic_tags.join(", ")}" if !@statement_node.root.hash_topic_tags.empty?
+          @proposed_url << " #{@statement_node.root.hash_topic_tags.join(" ")}" if !@statement_node.root.hash_topic_tags.empty?
           respond_to do |format|
             format.js { render :template => "statements/social_widget" }
           end
@@ -110,7 +110,7 @@ module EchoableModule
         @shortcut_url = ShortcutUrl.statement_shortcut :title => @statement_document.title,
                                                        :params => { :id => @statement_node.id },
                                                        :language => @statement_document.language.code
-                                                       
+
         if !@shortcut_url
           set_error @shortcut_url
           render_statement_with_error
