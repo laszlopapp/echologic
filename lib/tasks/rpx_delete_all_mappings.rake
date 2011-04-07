@@ -8,5 +8,6 @@ namespace :rpx do
       SocialService.instance.delete_mappings user_id
       puts 'x'
     end
+    SocialIdentifier.destroy_all
   end
 end

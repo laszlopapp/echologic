@@ -297,6 +297,7 @@
             toggleSocialPanel();
           }
 				});
+        updateSocialSubmitButtonState();
 			}
 
       function updateSocialSubmitButtonState() {
