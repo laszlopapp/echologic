@@ -110,9 +110,11 @@ class SocialService
       opts[:action_links] << {:text => al, :href => opts[:url]}
     end
 
-    opts[:action] += " #{opts[:url]}" if !providerName.eql?('twitter')
+    opts[:action] += " #{opts[:url]}"
+    opts[:action] += " #{opts[:tags]}" if opts[:tags]
     opts[:user_generated_content] = opts[:action]
-
+    
+    opts[:url] = "" if providerName.eql?('twitter')
     opts[:action] = "made an echo" if providerName.eql?('facebook')
 
     #TAG TEST

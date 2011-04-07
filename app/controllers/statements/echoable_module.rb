@@ -119,6 +119,7 @@ module EchoableModule
           opts = {}
           opts[:url] = "http://#{ECHO_HOST}/#{@shortcut_url.shortcut}"
           opts[:action] = "#{params[:text].strip}"
+          opts[:tags] = @statement_node.root.hash_topic_tags if !@statement_node.root.hash_topic_tags.empty?
           opts[:action_links] = [I18n.t("application.general.share_action")]
           opts[:images] = []
           opts[:images] << "http://#{ECHO_HOST}/#{@statement_node.image.url(:medium)}" if @statement_node.image.exists?
