@@ -587,6 +587,11 @@
   padding-right: 20px;
 }
 
+/* Roadmap */
+#function_container .roadmap {
+  width: 830px;
+  margin: 30px 66px;
+}
 
 /* SUBMENUS */
 
