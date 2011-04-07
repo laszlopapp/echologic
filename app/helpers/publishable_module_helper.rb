@@ -63,6 +63,22 @@ module PublishableModuleHelper
             :class => "create_question_button_32 resource_link ajax")
   end
 
+  #
+  # Creates a featured topic link in the discuss search action panel.
+  #
+  def featured_topic_link(topic, search_terms)
+    link_to(discuss_search_url(:search_terms => search_terms),
+            :class => 'featured_topic') do
+      content = ''
+      content << image_tag("page/discuss/topics/#{topic}.png",
+                           :class => "featured_topic_picture",
+                           :alt => '')
+      content << content_tag(:span, I18n.t("discuss.topics.#{topic}.name"),
+                             :class => 'featured_topic_label')
+      content
+    end
+  end
+
 
   #
   # publish button that appears on the right top corner of the statement

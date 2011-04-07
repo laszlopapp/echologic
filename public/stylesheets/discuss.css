@@ -336,6 +336,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   margin: 40px auto 30px;
 }
 
+#questions_container {
+  display: inline-block;
+}
+
 .questions_container .header {
 	background: #B5C0C9 url("../images/page/colored_header_780.png") no-repeat scroll 0 0;
   clear: both;
@@ -448,6 +452,51 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .questions_container .more_pagination {
   margin: 20px 0 15px;
+}
+
+/* Action bar in Discuss Search */
+
+.action_panel {
+  margin-top: 30px;
+}
+
+.action_panel_header {
+  background: transparent url(../images/page/action_bar_header.png) no-repeat scroll 0 0;
+  font-weight: bold;
+  height: 30px;
+  line-height: 30px;
+}
+
+.action_panel_content {
+  width: 114px;
+  background: #F7FAFA;
+  display: inline-block;
+  margin: -1px 12px 0;
+  padding: 10px;
+  border: 1px solid #acbdc6;
+  border-radius: 0 0 12px 12px;
+  -moz-border-radius: 0 0 12px 12px;
+  -webkit-border-radius: 0 0 12px 12px;
+}
+
+.action_panel_content .featured_topic {
+  display: inline-block;
+  margin: 15px 0 10px;
+}
+
+.action_panel_content .featured_topic_picture {
+  border: none;
+}
+
+.action_panel_content .featured_topic_label {
+  color: #21587F;
+  display: inline-block;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.action_panel_content .featured_topic:hover .featured_topic_label {
+  color: #7bb031;
 }
 
 
