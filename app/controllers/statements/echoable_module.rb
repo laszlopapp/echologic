@@ -1,4 +1,7 @@
+require 'sanitize'
+
 module EchoableModule
+
   ###################
   # ECHO STATEMENTS #
   ###################
@@ -125,7 +128,7 @@ module EchoableModule
           opts[:images] << "http://#{ECHO_HOST}/#{@statement_node.image.url(:medium)}" if @statement_node.image.exists?
           #insert default image in this line
           opts[:title] = @statement_document.title
-          opts[:description] = "#{@statement_document.text[0,255]}..."
+          opts[:description] = "#{Sanitize.clean(@statement_document.text)[0,255]} ..."
 
           providers = %w(facebook twitter yahoo! linkedin)
           providers.reject!{|p|provider_states[p].nil? || provider_states[p].eql?('disabled')}

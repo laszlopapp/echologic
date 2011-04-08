@@ -5,6 +5,13 @@ es:
     topics:
       on_echo: en echo
 
+      ds_vs11:
+        name: Vision Summit 2011
+      ds_faq:
+        name: echo - FAQ
+      ds_guided_tour:
+        name: echo - Guided Tour
+        
       vs11:
         name: Vision Summit 2011
         short_name: Vision Summit
