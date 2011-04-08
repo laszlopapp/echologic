@@ -462,9 +462,11 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .action_panel_header {
   background: transparent url(../images/page/action_bar_header.png) no-repeat scroll 0 0;
+  font-size: 13px;
   font-weight: bold;
   height: 30px;
   line-height: 30px;
+  cursor: default;
 }
 
 .action_panel_content {
