@@ -481,7 +481,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .action_panel_content .featured_topic {
   display: inline-block;
-  margin: 15px 0 10px;
+  margin: 15px 0;
 }
 
 .action_panel_content .featured_topic_picture {
