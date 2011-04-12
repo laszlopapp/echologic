@@ -6,13 +6,13 @@ de:
       # static: de.seo.title.static
       static:
         echologic:
-          show: 'echo - die globale Agora (Demokratie neu gedacht)'
+          show: 'echo - Demokratie zum Mitmachen'
           about: 'echo - Über uns'
           imprint: 'echo - Impressum'
           data_privacy: 'echo - Datenschutz'
         echo:
-          show:    'echo - die globale Agora (Demokratie zum Mitmachen)'
-          discuss: 'echo - Diskutieren (Meinungs- & Willensbildung - lösungsorientiert, transparent & demokratisch)'
+          show:    'echo - Demokratie zum Mitmachen'
+          discuss: 'echo - Diskutieren (Meinungsbildung & gemeinsame Lösungsfindung)'
           connect: 'echo - Vernetzen (mit MitstreiterInnen mit verschiedenen Kompetenzen)'
           act:     'echo - Handeln (für spürbare Erfolge im Alltag)'
           echo_on_waves: 'echo - Überall (Synergien durch dezentrale Infrastruktur - echo on waves)'
