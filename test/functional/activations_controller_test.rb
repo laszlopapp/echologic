@@ -13,7 +13,6 @@ class ActivationsControllerTest < ActionController::TestCase
 
   test "should activate coming from the activation form" do
     u = flexmock(User.new)
-    u.create_profile
     u.signup!({:email => "mymummysdead@john.com"})
     post :activate, :activation_code => u.perishable_token,
          :user => {:full_name => "Mad Max",
@@ -27,7 +26,6 @@ class ActivationsControllerTest < ActionController::TestCase
 
   test "should not activate because data policy was not checked" do
     u = flexmock(User.new)
-    u.create_profile
     u.signup!({:email => "mymummysdead@john.com"})
     post :activate, :activation_code => u.perishable_token,
          :user => {:full_name => "Mad Max",

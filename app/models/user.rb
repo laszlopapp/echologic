@@ -74,21 +74,22 @@ class User < ActiveRecord::Base
 
   # permission
   def permits_authorship?
-    self.authorship_permission == 1
+    authorship_permission == 1
   end
 
   # Signup process before activation: get login name and email, ensure to not
   # handle with sessions.
   def signup!(opts={})
-    opts.each{|k,v|self.send("#{k}=", v)}
+    create_profile unless profile
+    opts.each{|k,v|send("#{k}=", v)}
     save_without_session_maintenance
   end
 
   # Activation process. Set user active and add its password and openID and
   # save with session handling afterwards.
   def activate!(opts)
-    self.active = true
-    self.update_attributes(opts)
+    create_profile unless profile
+    update_attributes(opts.merge({:active => true}))
   end
 
   # Uses mailer to deliver activation instructions
