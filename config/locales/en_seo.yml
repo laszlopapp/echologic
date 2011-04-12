@@ -7,13 +7,13 @@ en:
       # static: de.seo.title.static
       static:
         echologic:
-          show: 'echo - The Global Agora (Engage into Democracy)'
+          show: 'echo - Living Democracy'
           about: 'echo - About us'
           imprint: 'echo - Imprint'
           data_privacy: 'echo - Data Privacy'
         echo:
-          show:    'echo - The Global Agora (Engage into Democracy)'
-          discuss: 'echo - Discuss (opinion and will formation - solution-oriented, transparent & democratic)'
+          show:    'echo - Living Democracy'
+          discuss: 'echo - Discuss (opinion formation & joint solution finding)'
           connect: 'echo - Connect (with allies with different forms of competence)'
           act:     'echo - Act (for noticeable results in everyday life)'
           echo_on_waves: 'echo - Everywhere (synergies through decentral infrastructure - echo on waves)'
@@ -36,7 +36,7 @@ en:
 
       application:
         redirect_from_popup: 'Redirecting...'
-          
+
 
       # users: de.seo.title.users
       users:
@@ -103,7 +103,7 @@ en:
           joint actions. Wherever we are in the virtual or real world, echo gives us the proof: We are no longer
           alone with our opinion and convictions - the echo of our voice can change the world.
         keywords: |-
-          echo, constructive mass dialog, global agora, democracy, participatory democracy,
+          echo, living democracy, constructive mass dialog, global agora, democracy, participatory democracy,
           self-determination, global movement, collective intelligence, opinion base, opinion formation,
           collective decision making, mobilization, critical masses, legislative instruments, political influence,
           social collaboration, echocracy, equality, transparency, echologic, echonomy, eco-social, ecosocial democratic economy,
@@ -120,7 +120,7 @@ en:
           joint actions. Wherever we are in the virtual or real world, echo gives us the proof: We are no longer
           alone with our opinion and convictions - the echo of our voice can change the world.
         keywords: |-
-          echo, agora, global agora, democracy, participatory democracy, self-determination, collective intelligence,
+          echo, living democracy, agora, global agora, democracy, participatory democracy, self-determination, collective intelligence,
           opinion base, opinion formation, will formation, collective decision making, mobilization, critical masses,
           legislative instruments, political influence, social collaboration, echocracy, equality, transparency,
           echonomy, eco-social, Your-Profit, glocal, glocality, sustainability, sustainable change

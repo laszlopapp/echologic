@@ -152,7 +152,7 @@ en:
       hello: Logged in<br/><strong>{{name}}</strong>
       hint: |
         To avoid logging in again without having to enter your password,
-        please logout of the used social account (e.g. Facebook) in the end explicitely. 
+        please logout of the used social account (e.g. Facebook) in the end explicitely.
       messages:
         success: "Login successful. Welcome back to echo."
         failed: "Unknown user or wrong password."
@@ -504,9 +504,9 @@ en:
       create_pro_argument_link: Add new PRO argument
       create_contra_argument_link: Add new CONTRA argument
       create_follow_up_question_link: Add new follow-up question
-      recommend_link: 'Recommend this'
+      recommend_link: 'Recommend (echo)'
       unrecommend_link: 'Withdraw echo'
-      support_link: 'Support this'
+      support_link: 'Support (echo)'
       unsupport_link: 'Withdraw echo'
       create_question_explanation: |
         Please formulate the <strong>question</strong> to be discussed, describe the issue with some more details

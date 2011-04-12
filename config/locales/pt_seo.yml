@@ -7,12 +7,12 @@ pt:
       # static: de.seo.title.static
       static:
         echologic:
-          show: 'echo - A Ágora Global (Democracia Re-estruturada)'
+          show: 'echo - Democracia para Participar'
           about: 'echo - Sobre nós'
           imprint: 'echo - Rubrica'
           data_privacy: 'echo - Privacidade de dados'
         echo:
-          show:    'echo - A Ágora Global (Democracia Re-estruturada)'
+          show:    'echo - Democracia para Participar'
           discuss: 'echo - Discutir (formação de opiniões e tomada de decisões - orientado à solução, transparente e democrático)'
           connect: 'echo - Conectar (com aliados com diferentes formas de competência )'
           act:     'echo - Agir (por resultados notáveis no dia-a-dia e por uma mudança sustentável)'
