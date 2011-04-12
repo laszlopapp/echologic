@@ -65,21 +65,25 @@ class Users::ActivationsController < ApplicationController
           # via_form === true, given email is not verified, therefore, send activation email
   
           # Check if Email exists
-          if User.find_by_email(params[:user][:email])
-            redirect_or_render_with_error(settings_path, "activerecord.errors.models.user.attributes.email.taken")
-            return
-          end
-  
-          if !params[:user][:email].blank? and @user.signup!(params[:user]) and @user.profile.save 
-            @user.deliver_activate!
-            redirect_or_render_with_info(root_path, 'users.users.messages.created') do |page|
-              page << "$('#dialogContent').dialog('close');"
+          if !params[:user][:email].blank? 
+            if User.find_by_email(params[:user][:email])
+              redirect_or_render_with_error(settings_path, "activerecord.errors.models.user.attributes.email.taken")
+              return
+            end
+    
+            if @user.signup!(params[:user]) and @user.profile.save 
+              @user.deliver_activate!
+              redirect_or_render_with_info(root_path, 'users.users.messages.created') do |page|
+                page << "$('#dialogContent').dialog('close');"
+              end
+            else
+              set_error 'users.activation.messages.failed'
+              later_call_with_error(request.referer, signup_url, @user)
             end
           else
-            set_error 'users.activation.messages.failed'
-            later_call_with_error(request.referer, signup_url, @user)
+              set_error 'activerecord.errors.messages.too_short', :attribute => I18n.t('application.general.email')
+              later_call_with_error(request.referer, signup_url, @user)
           end
-  
         end
       end
     end

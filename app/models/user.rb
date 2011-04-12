@@ -87,7 +87,7 @@ class User < ActiveRecord::Base
 
   # Activation process. Set user active and add its password and openID and
   # save with session handling afterwards.
-  def activate!(opts)
+  def activate!(opts={})
     create_profile unless profile
     update_attributes(opts.merge({:active => true}))
   end
