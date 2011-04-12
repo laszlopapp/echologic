@@ -54,7 +54,6 @@ class Users::UsersController < ApplicationController
   def create
     redirect_url = session[:redirect_url] || root_path
     @user = User.new
-    @user.create_profile
     begin
       if @user.signup!(params[:user])
         @user.deliver_activation_instructions!
