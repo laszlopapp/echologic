@@ -529,9 +529,9 @@ es:
       create_pro_argument_link: Crear un nuevo argumento a favor
       create_contra_argument_link: Crear un nuevo argumento en contra
       create_follow_up_question_link: Formular una nueva pregunta de seguimiento
-      recommend_link: 'Recomienda esto'
+      recommend_link: 'Recomienda (echo)'
       unrecommend_link: 'Retira tu ec(h)o'
-      support_link: 'Apoya esto'
+      support_link: 'Apoya (echo)'
       unsupport_link: 'Retira tu ec(h)o'
       create_question_explanation: |
         Aquí puedes iniciar un <strong>nuevo debate</strong>.

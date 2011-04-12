@@ -151,7 +151,7 @@ pt:
       set_password: Esqueceu a sua senha?
       hello: Autenticado<br/><strong>{{name}}</strong>
       hint: |
-        Se quiser evitar a autenticação através de uma conta social sem a inserção da senha pessoal, 
+        Se quiser evitar a autenticação através de uma conta social sem a inserção da senha pessoal,
         por favor termine a sessão na rede social dessa conta explicitamente ao terminar a sua sessão na echo.
       messages:
         success: A sua conta foi criada com sucesso. Bem-vindo à echo!
@@ -506,9 +506,9 @@ pt:
       create_pro_argument_link: 'Criar novo argumento a favor'
       create_contra_argument_link: 'Criar novo argumento contra'
       create_follow_up_question_link: 'Criar nova questão complementar'
-      recommend_link: 'Aconselhar'
+      recommend_link: 'Aconselhar (echo)'
       unrecommend_link: 'Desaconselhar'
-      support_link: 'Apoiar'
+      support_link: 'Apoiar (echo)'
       unsupport_link: 'Desapoiar'
       create_question_explanation: |
         Aqui pode começar uma <strong>nova questão</strong> e providenciar um conjunto de <strong>palavras-chave

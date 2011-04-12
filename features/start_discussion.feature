@@ -47,7 +47,7 @@ Feature: Start a question
       And there is the first question
       And the question has no proposals
       And I am on the discuss index
-    When I follow "Featured"
+    When I follow localized "discuss.featured_topics.title"
     When I follow "echonomyJAM"
       And I choose the first Question
       And I follow localized "discuss.statements.create_proposal_link"
@@ -63,7 +63,7 @@ Feature: Start a question
   Scenario: I want to see all categories
     Given I am logged in as "user" with password "true"
    	And I am on the discuss index
-   	When I follow "Featured"
+   	When I follow localized "discuss.featured_topics.title"
     Then I should see localized "discuss.topics.echonomyjam.name"
     Then I should see localized "discuss.topics.echocracy.name"
     Then I should see localized "discuss.topics.echo.name"

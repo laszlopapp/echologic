@@ -46,14 +46,15 @@ de:
           <p>
           echo ist ein <a href="{{github_url}}" target="_blank">Open Source</a> Gemeinschaftsprojekt für
           <strong>aktive Bürgerbeteiligung</strong> - <span title="{{subsidiarity_tooltip}}" class="ttLink">weltweit</span>
-          und für alle Menschen. echo bringt alle gesellschaftlichen Akteure zusammen, um gemeinsam einen
-          <strong>nachhaltigen Wandel</strong> zu gestalten.
+          und für alle Menschen. Es wurde als ganzheitlicher Lösungsansatz für ein Kernproblem unserer Zeit konzipiert:
+          die politische Resignation und die gefühlte Machtlosigkeit der Einzelnen.
           </p><p>
           „Diskutieren – Vernetzen – Handeln!“ - Die soziale Anwendung ermöglicht <strong>konstruktive,
-          sprachübergreifende Massendialoge</strong>.
-          Sie vernetzt weltweit Menschen mit den gleichen Zielen und unterstützt sie im <strong>gemeinsamen Handeln</strong>.
+          sprachübergreifende öffentliche Dialoge</strong> zur Meinungsbildung und gemeinsamen Lösungsfindung.
+          Sie vernetzt Menschen mit den gleichen Zielen und unterstützt sie im <strong>gemeinsamen Handeln</strong> für
+          gesellschaftliche und politische Einflussnahme.<br/>
           Wo auch immer wir in der virtuellen oder realen Welt sind, echo macht uns deutlich: wir sind mit unserer
-          Meinung nicht alleine – das „Echo“ unserer Stimmen kann <strong>die Welt verändern</strong>.
+          Meinung nicht alleine – das „Echo“ unserer Stimmen <strong>macht aus Visionen Realität</strong>.
           </p>
         gender_tooltip: Selbstverständlich Frauen und Männer - unabhängig vom grammatischen Geschlecht :-)
         subsidiarity_tooltip: Stichwort Subsidiarität
@@ -64,8 +65,8 @@ de:
             Zeitungsartikel, Blogs, Videos und alle sonstigen Inhalte im Internet werden zu Einstiegspunkten in
             strukturierte echo Diskussionen, die in jede Webseite eingebettet werden können. Überall dort können
             Menschen in einem demokratischen Verfahren - ohne Moderatoren oder Administratoren - ihre Ideen und
-            Lösungen kollektiv als Texte ausarbeiten. So werden <strong>Wissen und Meinungen über alle Webseiten und
-            Communities hinaus zusammengefasst</strong>.
+            Lösungen kollektiv als Texte ausarbeiten. So werden <strong>Wissen, Meinungen und deren Befürworter
+            über Webseiten, Communities und Sprachgrenzen hinaus im gesamten Internet zusammengeführt.</strong>
             </p><p>
             echo Diskussionen liefern jederzeit einen <strong>schnellen und transparenten Überblick</strong> über
             alternative Vorschläge, Pro/Kontra Argumente und multimediale Hintergrundinformationen. Sie machen
@@ -960,4 +961,4 @@ de:
 
         Wir freuen uns sehr auf ein baldiges Treffen auf echo.
 
-        Ihr echo Team 
+        Ihr echo Team

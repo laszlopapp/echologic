@@ -231,7 +231,7 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def update
-    update = update_image = false
+    update = false
     begin
       attrs = params[statement_node_symbol]
       attrs_doc = attrs.delete(:statement_document)
@@ -245,8 +245,6 @@ class StatementsController < ApplicationController
         old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
         holds_lock = holds_lock?(old_statement_document, locked_at)
         if holds_lock
-          old_statement_document.current = false
-          old_statement_document.unlock # also saved the document
           @statement_document = @statement_node.add_statement_document(
                                   attrs_doc.merge({:author_id => current_user.id,
                                                    :current => true}))
@@ -258,25 +256,27 @@ class StatementsController < ApplicationController
           end
           @statement_node.statement.save
         end
-      end
+      
 
-      if !holds_lock
-        being_edited
-      elsif @statement_node.valid? and @statement_document.valid?
-        update = true
-        set_statement_info(@statement_document)
-        show_statement
-      else
-        set_error(@statement_document) if @statement_document
-        set_error(@statement_node)
-        show_statement true
+        if !holds_lock
+          being_edited
+        elsif @statement_node.valid? and @statement_document.valid?
+          old_statement_document.current = false
+          old_statement_document.unlock # also saves the document
+          update = true
+          set_statement_info(@statement_document)
+          show_statement
+        else
+          set_error(@statement_document) if @statement_document
+          set_error(@statement_node) unless @statement_document
+          show_statement true
+        end
       end
 
     rescue Exception => e
       log_error_statement(e, "Error updating statement node '#{@statement_node.id}'.")
     else
       log_message_info("Statement node '#{@statement_node.id}' has been updated sucessfully.") if update
-      log_message_info("Statement node '#{@statement_node.id}' has a new image.") if update_image
     end
   end
 

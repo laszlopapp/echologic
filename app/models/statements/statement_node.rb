@@ -402,6 +402,7 @@ class StatementNode < ActiveRecord::Base
       and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]]) if opts[:language_ids]
       and_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]]) if opts[:drafting_states]
       and_conditions << sanitize_sql(["s.type = ?", opts[:type]]) if opts[:type]
+      and_conditions << "s.question_id is NULL"
       if !search_term.blank?
         tags_query = []
         terms = search_term.split(/[,\s]+/)
