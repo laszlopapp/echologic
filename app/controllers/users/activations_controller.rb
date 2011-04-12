@@ -30,7 +30,7 @@ class Users::ActivationsController < ApplicationController
 
     begin
       User.transaction do
-  
+
         via_form = params.has_key?(:user)
         if @user.nil?
           redirect_or_render_with_error(root_path, "users.activation.messages.no_account")
@@ -48,8 +48,8 @@ class Users::ActivationsController < ApplicationController
           redirect_or_render_with_error(root_path, "users.activation.messages.already_active")
           return
         end
-  
-  
+
+
         if @user.email or @user.has_verified_email? params[:user][:email]
           # Given email is a verified email, therefore, no activation is needed
           if @user.activate!(params[:user]) and @user.profile.save # so that the name persists
@@ -60,18 +60,18 @@ class Users::ActivationsController < ApplicationController
             set_error 'users.activation.messages.failed'
             redirect_or_render_with_error(root_path, @user)
           end
-  
+
         else
           # via_form === true, given email is not verified, therefore, send activation email
-  
+
           # Check if Email exists
-          if !params[:user][:email].blank? 
+          if !params[:user][:email].blank?
             if User.find_by_email(params[:user][:email])
               redirect_or_render_with_error(settings_path, "activerecord.errors.models.user.attributes.email.taken")
               return
             end
-    
-            if @user.signup!(params[:user]) and @user.profile.save 
+
+            if @user.signup!(params[:user]) and @user.profile.save
               @user.deliver_activate!
               redirect_or_render_with_info(root_path, 'users.users.messages.created') do |page|
                 page << "$('#dialogContent').dialog('close');"
@@ -81,7 +81,7 @@ class Users::ActivationsController < ApplicationController
               later_call_with_error(request.referer, signup_url, @user)
             end
           else
-              set_error 'activerecord.errors.messages.too_short', :attribute => I18n.t('application.general.email')
+              set_error 'activerecord.errors.messages.blank', :attribute => I18n.t('application.general.email')
               later_call_with_error(request.referer, signup_url, @user)
           end
         end
