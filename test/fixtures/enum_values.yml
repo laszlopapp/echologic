@@ -310,3 +310,10 @@ strategic_partners_<%= code %>:
   value: <%= value %>
   context:
 <% end %>
+<% {'en' => "Thematic Partners",'de' => "Thematische Partner",'fr'=> "Partenaires Thématiques",'pt' => "Parceiros Temáticos",'es' => "Colaboradores Temàticos"}.each_pair do |code,value| %>
+thematic_partners_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:about_category_thematic_partners) %>
+  code: <%= code %>
+  value: <%= value %>
+  context:
+<% end %>

@@ -11,7 +11,7 @@ laszlo:
 
 leroy:
   name: 'Leeeeeeroy Jeeeeenkins'
-  description: 'Leeeeeeeeeeeroy!!!!!!!!!'
+  description: 'Leeeeeeeeeeeroy!!!!!!!!! <a href="http://jesussaves.com">Jesus</a>'
   about_category_id: <%= Fixtures.identify(:about_category_supporters) %>
   index: 1
 
@@ -73,3 +73,9 @@ deutsche_bank:
   description: 'We broke. Have some change?'
   about_category_id: <%= Fixtures.identify(:about_category_financial_partners) %>
   index: 2
+  
+moulin_rouge:
+  name: 'Moulin Rouge'
+  description: 'We like to dance'
+  about_category_id: <%= Fixtures.identify(:about_category_thematic_partners) %>
+  index: 1

@@ -124,8 +124,8 @@ ActionController::Routing::Routes.draw do |map|
   map.new_question         'statement/new/question', :controller => :statements, :action => :new, :type => :question
 
   #Add Teaser section
-  map.add_question  'statement/add/question', :controller => :statements, :action => :add, :type => :question
-  map.connect  'statement/:id/add/:type', :controller => :statements, :action => :add
+  map.add_question_teaser  'statement/add/question', :controller => :statements, :action => :add, :type => :question
+  map.add_teaser  'statement/:id/add/:type', :controller => :statements, :action => :add
    
   map.question_descendants 'statement/descendants/question/', :controller => :statements, :action => :descendants, :type => :question
 
