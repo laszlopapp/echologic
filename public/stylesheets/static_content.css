@@ -52,7 +52,7 @@ li {
   width: 920px;
 }
 
-#team_members, #partners {
+#team_members, #partner_orgas {
   height: 400px;
   overflow: hidden;
 }
@@ -96,19 +96,6 @@ li {
   display: block;
 }
 
-#partners ul {
-  padding: 0;
-  margin: 0;
-}
-
-#partners li {
-  list-style-type: none;
-  line-height: 24px;
-  display: block;
-  vertical-align: middle;
-  cursor: default;
-}
-
 .about_logo {
 	float: left;
   margin: 5px 90px 20px 0;
@@ -121,4 +108,5 @@ li {
 
 .about_logo img {
 	color: #FFFFFF;
+  cursor: pointer;
 }
