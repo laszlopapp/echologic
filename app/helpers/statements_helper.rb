@@ -412,30 +412,30 @@ module StatementsHelper
     teaser = options[:class].include? 'add'
     url_opts = {:origin => params[:origin], :bids => params[:bids]}
     # if prev/next for teaser
-    if teaser
-      if @siblings and (siblings = @siblings["add_#{@type}"])
-        if options[:rel].eql? 'prev'
-          url = statement_node_url(siblings[siblings.length-2], url_opts)
-        elsif options[:rel].eql? 'next'
-          url = statement_node_url(siblings[0], url_opts)
+    unless @siblings.nil?
+      element_index = 0
+      if teaser
+        if (siblings = @siblings["add_#{@type}"])
+          element_index = siblings.index { |s| s =~ /#{@type}/ }
         end
-      else
-        url = add_teaser_statement_node_path(statement_node)
-      end
-    else # if prev/next for statement
-      if @siblings and (siblings = @siblings[dom_id(statement_node)])
-        statement_node_index = siblings.index(statement_node.id)
-        index = statement_node_index
-        if options[:rel].eql? 'prev'
-          index = statement_node_index - 1
-        elsif options[:rel].eql? 'next'
-          index = statement_node_index + 1
+      else # if prev/next for statement
+        if (siblings = @siblings[dom_id(statement_node)])
+          element_index = siblings.index(statement_node.id)
         end
-        url = (index >= 0 and index < siblings.length - 1) ? statement_node_url(siblings[index], url_opts) : add_teaser_statement_node_path(statement_node,url_opts)
-      else
-        url = add_teaser_statement_node_path(statement_node)
       end
+      index = element_index
+      if options[:rel].eql? 'prev'
+        index = element_index - 1
+      elsif options[:rel].eql? 'next'
+        index = element_index + 1
+      end
+      index = index < 0 ? (siblings.length - 1) : (index >= siblings.length ? 0 : index )
+      
+      url = (siblings[index] =~ /add/) ? add_teaser_statement_node_path(statement_node,url_opts) : statement_node_url(siblings[index], url_opts)
+    else
+      url = add_teaser_statement_node_path(statement_node)
     end
+    
     options['data-id'] =
       teaser ? "#{statement_node.nil? ? '' : "#{statement_node.id}_"}add_#{type}" : statement_node.id
     return link_to(title, url, options)
