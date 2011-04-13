@@ -231,7 +231,7 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def update
-    update = update_image = false
+    update = false
     begin
       attrs = params[statement_node_symbol]
       attrs_doc = attrs.delete(:statement_document)
@@ -245,8 +245,6 @@ class StatementsController < ApplicationController
         old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
         holds_lock = holds_lock?(old_statement_document, locked_at)
         if holds_lock
-          old_statement_document.current = false
-          old_statement_document.unlock # also saved the document
           @statement_document = @statement_node.add_statement_document(
                                   attrs_doc.merge({:author_id => current_user.id,
                                                    :current => true}))
@@ -258,25 +256,27 @@ class StatementsController < ApplicationController
           end
           @statement_node.statement.save
         end
-      end
+      
 
-      if !holds_lock
-        being_edited
-      elsif @statement_node.valid? and @statement_document.valid?
-        update = true
-        set_statement_info(@statement_document)
-        show_statement
-      else
-        set_error(@statement_document) if @statement_document
-        set_error(@statement_node)
-        show_statement true
+        if !holds_lock
+          being_edited
+        elsif @statement_node.valid? and @statement_document.valid?
+          old_statement_document.current = false
+          old_statement_document.unlock # also saves the document
+          update = true
+          set_statement_info(@statement_document)
+          show_statement
+        else
+          set_error(@statement_document) if @statement_document
+          set_error(@statement_node) unless @statement_document
+          show_statement true
+        end
       end
 
     rescue Exception => e
       log_error_statement(e, "Error updating statement node '#{@statement_node.id}'.")
     else
       log_message_info("Statement node '#{@statement_node.id}' has been updated sucessfully.") if update
-      log_message_info("Statement node '#{@statement_node.id}' has a new image.") if update_image
     end
   end
 
@@ -976,13 +976,14 @@ class StatementsController < ApplicationController
        # discuss search with no search results
        when 'ds' then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1].to_i * QUESTIONS_PER_PAGE
                       sn = search_discussions(:only_id => opts[:for_session], :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
-                      opts[:for_session] ? sn.map(&:id) + ["/add/question"] : sn
+                      opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
        # discuss search with search results
-       when 'sr'then value = value.split('|')
-                     per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
-                     sn = search_discussions(:search_term => value[0].gsub(/\\;/,',').gsub(/\\:;/, '|'),
-                                                 :only_id => opts[:for_session], :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
-                     opts[:for_session] ? sn.map(&:id) + ["/add/question"] : sn
+     when 'sr'then value = value.split('|')
+                   term = value[0].gsub(/\\;/,',').gsub(/\\:;/, '|')
+                   per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
+                   sn = search_discussions(:search_term => term,
+                                           :only_id => opts[:for_session], :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
+                   opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
        # my discussions
        when 'mi' then sn = Question.by_creator(current_user).by_creation
                       opts[:for_session] ? sn.only_id.map(&:id) + ["/add/question"] : sn

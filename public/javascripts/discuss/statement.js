@@ -74,7 +74,7 @@
 					initAddNewButton();
           initMoreButton();
           initAllStatementLinks();
-					initFlicks();
+					//initFlicks();
 					initAllFUQLinks();
         }
       }

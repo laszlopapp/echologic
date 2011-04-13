@@ -134,22 +134,25 @@ en:
     signup:
       label: 'Sign Up'
       member_tag: Not a member yet?
-      via_echo: '... for a new echo account'
+      via_echo: '... via E-Mail'
       via_social: '... via existing account'
     setup_basic_profile:
       title: 'Setup Basic Profile'
       guide: Please fill in your basic profile information to set up your account.
       agreement: I have read and agree to the terms of data policy.
-      use_photo: 'Use in echo'
+      use_photo: 'Use in echo, too'
     signin:
       label: 'Sign In'
       password: 'Password'
       member_tag: Already a member?
       via_echo: '... via echo'
-      via_social: '... via another account'
+      via_social: '... via a connected account'
       set_password: Forgot your password?
       remember: Remember me!
       hello: Logged in<br/><strong>{{name}}</strong>
+      hint: |
+        To avoid logging in again without having to enter your password,
+        please logout of the used social account (e.g. Facebook) in the end explicitely.
       messages:
         success: "Login successful. Welcome back to echo."
         failed: "Unknown user or wrong password."
@@ -207,10 +210,10 @@ en:
       location: Location
 
       password:
-        title: Change my password
+        title: Change password
         old: Current password
         new: New password
-        confirm: Confirm password
+        confirm: Confirm new password
 
       picture:
         upload_button: Change
@@ -320,9 +323,10 @@ en:
       change_password:
         title: Change Password
         guide: Please define your new password.
-        success: Password changed successfully!
-        failed: Failed to change Password!
+        success: Your password has been changed successfully.
+        failed: Failed to change your password.
         wrong_password: The entered current password is wrong.
+
       delete_account:
         title: Delete Account
         password: Your Password
@@ -351,8 +355,8 @@ en:
         success: Your {{account}} account has been disconnected.
         failed: Failed to disconnect your {{account}} account.
       share:
-        title: Send your echo
-        guide: Send out the voice and make an echo via your social accounts.
+        title: Spread the word
+        guide: Make an echo in your social networks.
         text: Message
         data_privacy:
           title: Data Privacy Notice
@@ -500,9 +504,9 @@ en:
       create_pro_argument_link: Add new PRO argument
       create_contra_argument_link: Add new CONTRA argument
       create_follow_up_question_link: Add new follow-up question
-      recommend_link: 'Recommend this'
+      recommend_link: 'Recommend (echo)'
       unrecommend_link: 'Withdraw echo'
-      support_link: 'Support this'
+      support_link: 'Support (echo)'
       unsupport_link: 'Withdraw echo'
       create_question_explanation: |
         Please formulate the <strong>question</strong> to be discussed, describe the issue with some more details

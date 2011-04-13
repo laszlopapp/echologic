@@ -7,7 +7,6 @@ module Users::SocialModule
         profile_info = SocialService.instance.get_profile_info(params[:token])
 
         @user = User.new
-        @user.create_profile
 
         opts ={}
         opts = {:social_identifiers => [SocialIdentifier.new(:identifier => profile_info['identifier'],

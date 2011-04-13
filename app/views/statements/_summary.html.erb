@@ -16,7 +16,7 @@
                          :statement_document => statement_document} if @set_language_skills_teaser %>
   <!-- Show the document -->
   <div class="statement_content">
-  	<%= statement_image(statement_node, current_user) %>
+  	<%= statement_image(statement_node) %>
     <%= sanitize statement_document.text %>
   </div>
 

@@ -1,12 +1,11 @@
 <div id="newsContainer" class="rounded-box rounded-box-green-iwot">
+  <div>
+    <%= render :partial => 'layouts/components/featured_topic',
+               :locals => {:featured_topic => "vs11"} %>
+  </div>
   <div id="social_media_panel">
     <%= render :partial => 'layouts/components/social_media' %>
   </div>
-  <div>
-    <%= render :partial => 'layouts/components/featured_topic',
-               :locals => {:featured_topic => "hochschultage"} %>
-  </div>
-
 </div>
 
 <script type="text/javascript">

@@ -147,14 +147,14 @@ class StatementNode < ActiveRecord::Base
   def document_in_original_language
     document_in_language(original_language)
   end
-  
-  
+
+
 
   #####################
   # CHILDREN/SIBLINGS #
   #####################
 
-  
+
   #
   # Collects a filtered list of all siblings statements
   #
@@ -162,7 +162,7 @@ class StatementNode < ActiveRecord::Base
   #
   def sibling_statements(opts={})
     opts[:type] ||= self.class.to_s
-    self.parent.nil? ? [] : self.parent.child_statements(opts) 
+    self.parent.nil? ? [] : self.parent.child_statements(opts)
   end
 
   #
@@ -189,7 +189,7 @@ class StatementNode < ActiveRecord::Base
   # Get the paginated children given a certain child type
   # opts attributes:
   #
-  # type (String : optional) : type of child statements to get 
+  # type (String : optional) : type of child statements to get
   # page (Integer : optional) : pagination parameter (default = 1)
   # per_page (Integer : optional) : pagination parameter (default = TOP_CHILDREN)
   #
@@ -200,15 +200,15 @@ class StatementNode < ActiveRecord::Base
     opts[:page] ||= 1
     opts[:per_page] ||= TOP_CHILDREN
     children = child_statements(opts)
-    opts[:type] ? opts[:type].to_s.constantize.paginate_statements(children, opts[:page], opts[:per_page]) : 
+    opts[:type] ? opts[:type].to_s.constantize.paginate_statements(children, opts[:page], opts[:per_page]) :
     this.class.paginate_statements(children, opts[:page], opts[:per_page])
   end
-  
+
   #
   # Collects a filtered list of all children statements
   # opts attributes:
   #
-  # type (String : optional) : type of child statements to get 
+  # type (String : optional) : type of child statements to get
   # user (User : optional) :   gets the statements belonging to the user regardless of state (published or new)
   # language_ids (Array[Integer] : optional) : filters out statement nodes whose documents languages are not included on the array (gets all of them if nil)
   #
@@ -225,7 +225,7 @@ class StatementNode < ActiveRecord::Base
   # counts the children the statement has of a certain type
   # opts attributes:
   #
-  # type (String : optional) : type of child statements to count 
+  # type (String : optional) : type of child statements to count
   # user (User : optional) :   gets the statements belonging to the user regardless of state (published or new)
   # language_ids (Array[Integer] : optional) : filters out statement nodes whose documents languages are not included on the array (gets all of them if nil)
   #
@@ -320,7 +320,7 @@ class StatementNode < ActiveRecord::Base
       end
       statements
     end
-    
+
     #
     # Aux: Builds the query attributes for standard children operations
     # opts attributes:
@@ -344,7 +344,7 @@ class StatementNode < ActiveRecord::Base
     def children_joins
       ''
     end
-    
+
     #
     # returns a string of sql conditions representing getting statement nodes of certain types filtered by parent
     # opts attributes:
@@ -383,7 +383,6 @@ class StatementNode < ActiveRecord::Base
     def search_statement_nodes(opts={})
       search_term = opts.delete(:search_term)
       search_attrs = opts[:type].nil? ? 'root_id' : 'id'
-      opts[:only_id] ||= false
       tag_clause = "SELECT DISTINCT s.#{search_attrs} FROM #{table_name} s "
       tag_clause << "LEFT JOIN #{Statement.table_name}               ON #{Statement.table_name}.id = s.statement_id " +
                     "LEFT JOIN #{StatementDocument.table_name} d     ON s.statement_id = d.statement_id "
@@ -403,12 +402,15 @@ class StatementNode < ActiveRecord::Base
       and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]]) if opts[:language_ids]
       and_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]]) if opts[:drafting_states]
       and_conditions << sanitize_sql(["s.type = ?", opts[:type]]) if opts[:type]
+      and_conditions << "s.question_id is NULL"
       if !search_term.blank?
         tags_query = []
         terms = search_term.split(/[,\s]+/)
         terms.each do |term|
           or_conditions = Statement.extaggable_conditions_for_term(term)
-          or_conditions << sanitize_sql([" OR d.title LIKE ? OR d.text LIKE ?", "%#{term}%", "%#{term}%"])
+          if (term.length > 3)
+            or_conditions << sanitize_sql([" OR d.title LIKE ? OR d.text LIKE ?", "%#{term}%", "%#{term}%"])
+          end
           tags_query << (tag_clause + (and_conditions + ["(#{or_conditions})"]).join(" AND "))
         end
         tags_query = tags_query.join(" UNION ALL ")
@@ -420,11 +422,11 @@ class StatementNode < ActiveRecord::Base
                            "ORDER BY COUNT(statement_node_ids.#{search_attrs}) DESC,e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id;"
       else
         and_conditions << "s.type = 'Question'" if opts[:type].nil?
-        statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? 'id' : '*'} from #{table_name} s " +
+        statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? search_attrs : '*'} from #{table_name} s " +
                            "LEFT JOIN #{Statement.table_name} ON #{Statement.table_name}.id = s.statement_id " +
                            "LEFT JOIN #{StatementDocument.table_name} d ON s.statement_id = d.statement_id " +
                            "LEFT JOIN #{Echo.table_name} e ON e.id = s.echo_id " +
-                           "WHERE " + and_conditions.join(' AND ') + 
+                           "WHERE " + and_conditions.join(' AND ') +
                            " ORDER BY e.supporter_count DESC, s.created_at DESC, s.id;"
       end
       find_by_sql statements_query

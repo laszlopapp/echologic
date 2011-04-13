@@ -257,12 +257,7 @@ form.statement fieldset ol span.defaultText {
 }
 
 #statements form.formtastic fieldset.statement_language li.hint {
-	background: url("../images/page/icons/pin.png") no-repeat scroll 142px 2px #FBF3BB;
-	border: 1px solid #7bb031;
-	width: 300px;
-	padding: 33px 10px 5px;
   margin-bottom: 20px;
-  color: #21587f;
 }
 
 form .hint p {
@@ -339,6 +334,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 #discuss_search_container.search_container {
   margin: 40px auto 30px;
+}
+
+#questions_container {
+  display: inline-block;
 }
 
 .questions_container .header {
@@ -453,6 +452,53 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .questions_container .more_pagination {
   margin: 20px 0 15px;
+}
+
+/* Action bar in Discuss Search */
+
+.action_panel {
+  margin-top: 40px;
+}
+
+.action_panel_header {
+  background: transparent url(../images/page/action_bar_header.png) no-repeat scroll 0 0;
+  font-size: 13px;
+  font-weight: bold;
+  height: 30px;
+  line-height: 30px;
+  cursor: default;
+}
+
+.action_panel_content {
+  width: 114px;
+  background: #F7FAFA;
+  display: inline-block;
+  margin: -1px 12px 0;
+  padding: 10px;
+  border: 1px solid #acbdc6;
+  border-radius: 0 0 12px 12px;
+  -moz-border-radius: 0 0 12px 12px;
+  -webkit-border-radius: 0 0 12px 12px;
+}
+
+.action_panel_content .featured_topic {
+  display: inline-block;
+  margin: 15px 0;
+}
+
+.action_panel_content .featured_topic_picture {
+  border: none;
+}
+
+.action_panel_content .featured_topic_label {
+  color: #21587F;
+  display: inline-block;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.action_panel_content .featured_topic:hover .featured_topic_label {
+  color: #7bb031;
 }
 
 
@@ -715,10 +761,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .social_echo_panel .button.enabled,
 .social_echo_panel .button.disabled {
-  padding-left: 10px;
+  padding-left: 25px;
   background-image: url(../images/page/discuss/send_social_echo.png);
   background-repeat: no-repeat;
-  width: 120px;
+  width: 105px;
 }
 
 .social_echo_panel .button.enabled { background-position: 13px -40px; }
@@ -744,7 +790,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 .social_echo_panel .share_form label {
-	width: 110px;
+	width: 130px;
 	display: inline-block;
   color: #7bb031;
   font-weight: bold;
@@ -756,7 +802,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 .social_echo_panel .share_form .text {
-  width: 442px;
+  width: 425px;
   border: 1px solid #777;
   padding: 3px 4px;
   color: #21587f;
@@ -951,8 +997,8 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 #statements .header.active {
-  background:  url(../images/page/discuss/stack_separator_active.png) no-repeat scroll 7px 0;
-  min-height: 41px;
+  background:  url(../images/page/discuss/stack_separator_active.png) no-repeat scroll 6px -3px;
+  min-height: 45px;
 }
 
 #statements .header_buttons {
@@ -1057,17 +1103,20 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   background-position: -74px -39px;
 }
 
-.header:hover .prev_stmt.disabled, .header.active .prev_stmt.disabled {
+.header:hover .prev_stmt.disabled,
+.header.active .prev_stmt.disabled {
   background-position: 0 -78px;
   cursor: default;
 }
 
-.header:hover .next_stmt.disabled, .header.active .next_stmt.disabled {
+.header:hover .next_stmt.disabled,
+.header.active .next_stmt.disabled {
   background-position: -37px -78px;
   cursor: default;
 }
 
-.header:hover .show_siblings_button.disabled, .header.active .show_siblings_button.disabled {
+.header:hover .show_siblings_label.disabled,
+.header.active .show_siblings_label.disabled {
 	background-position: -74px -78px;
   cursor: default;
 }
@@ -1086,7 +1135,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /*********************/
 
 #statements .content {
-  margin-top: 10px;
+  margin-top: 6px;
 }
 
 .discuss_right_block {
@@ -1130,8 +1179,19 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .statement_content .image {
   border: 1px solid #a8a8a8;
-  max-height: 133px;
   max-width: 200px;
+  max-height: 133px;
+}
+
+.statement_content .image_container.editable {
+  border: 1px solid #a8a8a8;
+  width: 200px;
+  height: 133px;
+  text-align: center;
+}
+
+.statement_content .image_container.editable .image {
+  border: none;
 }
 
 .statement_content .upload_link {

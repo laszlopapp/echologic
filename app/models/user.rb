@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :spoken_languages, :order => 'level_id asc'
 
   has_many :reports, :foreign_key => 'suspect_id'
-  
+
   has_many :pending_actions, :foreign_key => 'uuid'
 
   named_scope :no_member, :conditions => { :memberships => nil }, :order => :email
@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   #attr_accessible :active
 
   attr_accessor :old_password
-  
+
 
   # Authlogic plugin to do authentication
   acts_as_authentic do |c|
@@ -39,18 +39,18 @@ class User < ActiveRecord::Base
                                                                  :minimum => 4,
                                                                  :if => :has_no_credentials?}
   end
-  
+
   validates_confirmation_of :email
-  
+
   def active_or_email_defined?
     !(!self.active and !self.social_identifiers.empty?)
   end
-  
+
   def has_password?(password)
     salt = self.password_salt
     Authlogic::CryptoProviders::Sha512.encrypt(password + salt).eql? self.crypted_password
   end
-  
+
 
   # acl9 plugin to do authorization
   acts_as_authorization_subject
@@ -74,21 +74,23 @@ class User < ActiveRecord::Base
 
   # permission
   def permits_authorship?
-    self.authorship_permission == 1
+    authorship_permission == 1
   end
 
   # Signup process before activation: get login name and email, ensure to not
   # handle with sessions.
   def signup!(opts={})
-    opts.each{|k,v|self.send("#{k}=", v)}
+    create_profile unless profile
+    opts.each{|k,v|send("#{k}=", v)}
     save_without_session_maintenance
   end
 
   # Activation process. Set user active and add its password and openID and
   # save with session handling afterwards.
   def activate!(opts)
-    self.active = true
-    self.update_attributes(opts)
+    opts ||= {}
+    create_profile unless profile
+    update_attributes(opts.merge({:active => true}))
   end
 
   # Uses mailer to deliver activation instructions
@@ -97,14 +99,14 @@ class User < ActiveRecord::Base
     mail = RegistrationMailer.create_activation_instructions(self)
     RegistrationMailer.deliver(mail)
   end
-  
+
   # Uses mailer to deliver activation instructions
   def deliver_activate!
     reset_perishable_token!
     mail = RegistrationMailer.create_activate(self)
     RegistrationMailer.deliver(mail)
   end
-  
+
   # Uses mailer to deliver activation instructions
   def deliver_activate_email!(email, token)
     reset_perishable_token!
@@ -149,14 +151,14 @@ class User < ActiveRecord::Base
   ##
 
   def may_publish?(entity)
-    !entity.published? and 
-    (has_role?(:editor) or has_role?(:admin) or entity.authors.include?(self))
+    !entity.published? and
+    (has_role?(:editor) or has_role?(:admin) or entity.has_author?(self))
   end
 
   # when we enable editing for users.
   def may_edit?(entity)
     has_role?(:editor) or has_role?(:admin) or
-    ( entity.authors.include?(self) and entity.echoable? and 
+    ( entity.has_author?(self) and entity.echoable? and
     (!entity.published? or entity.supporter_count == 0 or (entity.supporters-[self]).empty? ))
   end
 

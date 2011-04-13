@@ -459,17 +459,18 @@ module StatementsHelper
   end
 
   # draws the statement image container
-  def statement_image(statement_node, current_user)
+  def statement_image(statement_node)
     val = ""
-    if statement_node.image.exists? or statement_node.has_author? current_user
+    editable = (current_user and current_user.may_edit?(statement_node))
+    if statement_node.image.exists? or editable
       val << image_tag(statement_node.image.url(:medium), :class => 'image')
+      if editable
+        val << link_to(I18n.t('users.profile.picture.upload_button'),
+                       edit_statement_image_url(statement_node.statement_image, statement_node),
+                       :class => 'ajax upload_link button button_150')
+      end
     end
-    if statement_node.has_author? current_user and (!statement_node.published? or !statement_node.image.exists?)
-      val << link_to(I18n.t('users.profile.picture.upload_button'),
-                edit_statement_image_url(statement_node.statement_image, statement_node),
-                :class => 'ajax upload_link button button_150')
-    end
-    content_tag :div, val, :class => 'image_container' if !val.blank?
+    content_tag :div, val, :class => "image_container #{editable ? 'editable' : ''}" if !val.blank?
   end
 
   # Renders the "more" link when the statement is loaded

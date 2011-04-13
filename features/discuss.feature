@@ -13,11 +13,11 @@ Feature: Take Part on a question
   Scenario: View debates list
      Given I am logged in as "user" with password "true"
      And I am on the Discuss Index
-     When I follow "Featured"
+     When I follow localized "discuss.featured_topics.title"
      When I follow "echonomyJAM"
        When I choose the first Question
      And I am on the Discuss Index
-     When I follow "Featured"
+     When I follow localized "discuss.featured_topics.title"
      When I follow "echonomyJAM"
        When I choose the second Question
      Then the second question must be more recent than the first question
@@ -27,7 +27,7 @@ Feature: Take Part on a question
   Scenario: Open a question
     Given I am logged in as "user" with password "true"
       And I am on the Discuss Index
-    When I follow "Featured"
+    When I follow localized "discuss.featured_topics.title"
     When I follow "echonomyJAM"
       And I choose the first Question
     Then I should see the questions title
@@ -38,7 +38,7 @@ Feature: Take Part on a question
       And there is the first question
       And the question has no proposals
       And I am on the Discuss Index
-    When I follow "Featured"
+    When I follow localized "discuss.featured_topics.title"
     When I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I follow localized "discuss.statements.create_proposal_link"
@@ -83,7 +83,7 @@ Feature: Take Part on a question
   Scenario: Add a sibling Proposal
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
-    When I follow "Featured"
+    When I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
@@ -99,7 +99,7 @@ Feature: Take Part on a question
   Scenario: Add a sibling Improvement
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
-    When I follow "Featured"
+    When I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
@@ -116,7 +116,7 @@ Feature: Take Part on a question
   Scenario: Add a Proposal to a Question
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
-    When I follow "Featured"
+    When I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I follow localized "discuss.statements.types.proposal" within ".add_new_panel"
@@ -130,7 +130,7 @@ Feature: Take Part on a question
   Scenario: Add an Improvement to a proposal
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
-    When I follow "Featured"
+    When I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
@@ -145,7 +145,7 @@ Feature: Take Part on a question
   Scenario: Add a Pro Argument to a proposal
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
-    When I follow "Featured"
+    When I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
@@ -160,7 +160,7 @@ Feature: Take Part on a question
   Scenario: Add a Pro Argument to a proposal
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
-    When I follow "Featured"
+    When I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
@@ -175,7 +175,7 @@ Feature: Take Part on a question
   Scenario: Add a Follow Up Question to a Question
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
-    When I follow "Featured"
+    When I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I follow localized "discuss.statements.types.follow_up_question" within ".add_new_panel"
@@ -197,7 +197,7 @@ Feature: Take Part on a question
   Scenario: Add a Follow Up Question to a Proposal
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
-    When I follow "Featured"
+    When I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
@@ -214,7 +214,7 @@ Feature: Take Part on a question
   Scenario: Add a Follow Up Question to an Improvement
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
-    When I follow "Featured"
+    When I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
@@ -232,7 +232,7 @@ Feature: Take Part on a question
   Scenario: Add a Follow Up Question to an Improvement, then a Follow Up Question to that question
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
-    When I follow "Featured"
+    When I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
@@ -291,7 +291,7 @@ Feature: Take Part on a question
    Scenario: Question has only proposals in german, which will not be seen by a user with no defined german language
     Given I am logged in as "red" with password "red"
       And I am on the Discuss Index
-    When I follow "Featured"
+    When I follow localized "discuss.featured_topics.title"
     When I follow "echonomyJAM"
       And I choose the "I only have kids in German" Question
       And the question has proposals
@@ -301,7 +301,7 @@ Feature: Take Part on a question
   Scenario: Incorporate an approved statement
     Given I am logged in as "ben" with password "benrocks"
       And I am on the discuss index
-    When I follow "Featured"
+    When I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
@@ -360,7 +360,7 @@ Feature: Take Part on a question
   Scenario: Ben edits for incorporation, doesn't make it, editor tries to edit and can't
     Given I am logged in as "ben" with password "benrocks"
       And I am on the discuss index
-    When I follow "Featured"
+    When I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
@@ -376,7 +376,7 @@ Feature: Take Part on a question
   Scenario: Editor tries to edit, gets out of the form and ben can't incorporate it
     Given I am logged in as "editor" with password "true"
     When I am on the discuss index
-      And I follow "Featured"
+      And I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
@@ -392,7 +392,7 @@ Feature: Take Part on a question
   Scenario: User checks authors from a statement
     Given I am logged in as "user" with password "true"
     When I am on the discuss index
-      And I follow "Featured"
+      And I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I follow "Authors"
@@ -403,7 +403,7 @@ Feature: Take Part on a question
 #    Given proposals are not immediately loaded on questions
 #      And I am logged in as "user" with password "true"
 #      And I am on the discuss index
-#      And I follow "Featured"
+#      And I follow localized "discuss.featured_topics.title"
 #      And I follow "echonomyJAM"
 #      And I choose the "Test Question?" Question
 #      And there are hidden proposals for this question
@@ -413,7 +413,7 @@ Feature: Take Part on a question
   Scenario: User presses more button on question's proposals children block
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
-      And I follow "Featured"
+      And I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the "Test Question?" Question
       And there are hidden proposals for this question
@@ -425,7 +425,7 @@ Feature: Take Part on a question
   Scenario: User opens question's siblings block
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
-      And I follow "Featured"
+      And I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the "Test Question?" Question
     Then I should not see "Test Question2?"
@@ -435,7 +435,7 @@ Feature: Take Part on a question
   Scenario: User opens proposal's siblings block
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
-      And I follow "Featured"
+      And I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the "Test Question?" Question
       And I choose the "Second Proposal" Proposal

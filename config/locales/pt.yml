@@ -7,7 +7,7 @@ pt:
     # Unexpected Error
     unexpected_error: Ocorreu um erro inesperado. Pedimos desculpas pela inconveniência.
     routing_error: URL desconhecido. Redireccionando...
-    remote_error: Ocorreu uma falha na comunicação com o Serviço Remoto. 
+    remote_error: Ocorreu uma falha na comunicação com o Serviço Remoto.
 
     # General purpose resources
     general:
@@ -135,8 +135,8 @@ pt:
     signup:
       label: Inscrição
       member_tag: Ainda não é membro?
-      via_echo: ... via uma nova conta echo
-      via_social: ... via uma conta já existente 
+      via_echo: ... via endereço E-Mail
+      via_social: ... via uma conta já existente
     setup_basic_profile:
       title: Preenchimento do Perfil de Base
       guide: Por favor preencha o seu perfil de base para iniciar a sua conta.
@@ -147,13 +147,15 @@ pt:
       password: 'Password'
       member_tag: Já é membro?
       via_echo: ... via echo
-      via_social: ... via outra conta
-      set_password: Forgot your password?
-      remember: Remember me!
-      hello: Logged in<br/><strong>{{name}}</strong>
+      via_social: ... via uma conta já conectada
+      set_password: Esqueceu a sua senha?
+      hello: Autenticado<br/><strong>{{name}}</strong>
+      hint: |
+        Se quiser evitar a autenticação através de uma conta social sem a inserção da senha pessoal,
+        por favor termine a sessão na rede social dessa conta explicitamente ao terminar a sua sessão na echo.
       messages:
         success: A sua conta foi criada com sucesso. Bem-vindo à echo!
-        failed: "Unknown user or wrong password."
+        failed: "Utilizador desconhecido ou senha errada."
         failed_social: Por favor autentique-se com uma conta com a qual esteja conectado/a na echo.
     signout:
       messages:
@@ -170,7 +172,7 @@ pt:
         email_success: O seu endereço E-Mail foi alterado com sucesso!
         already_active: A sua conta já se encontra ativada!
         no_account: A sua conta não existe!
-        no_full_name: Por favor preencha o seu nome completo. 
+        no_full_name: Por favor preencha o seu nome completo.
         no_agreement: Precisamos da sua concordância com a nossa política de dados de modo a proceder.
     # Password resets section
     password_reset:
@@ -309,7 +311,7 @@ pt:
         title: Alterar E-Mail
         guide: |
           Atualmente encontra-se registrado com o seguinte endereço E-Mail: <strong>{{email}}</strong>.<br/>
-          Aqui pode definir um novo endereço, o qual a echo usará para entrar em contato consigo. 
+          Aqui pode definir um novo endereço, o qual a echo usará para entrar em contato consigo.
         password: A sua senha
         success: Endereço E-mail alterado com sucesso.
         failed: Failed to change E-Mail.
@@ -329,7 +331,7 @@ pt:
           <p>A sua conta e TODA a sua informação pessoal será <strong>permanentemente apagada</strong>.<br/>
           Os seus ec(h)os serão mantidos anonimamente.</p>
           <p>Por favor insira a sua senha e prima o botão que se encontra em baixo se desejar proceder.</p>
-        confirm: Apagar a sua conta permanentemente
+        confirm: Apagar a sua conta
         success: A sua conta na echo foi apagada com sucesso.
     social_accounts:
       title: Contas Sociais
@@ -349,8 +351,8 @@ pt:
         success: A sua conta no/a {{account}} foi desconectada!
         failed: Ocorreu uma falha na desconexão com a sua conta no/a {{account}}.
       share:
-        title: Partilhar o seu ec(h)o
-        guide: Partilhe e espalhe o seu ec(h)o pelas suas contas sociais.
+        title: Espalhe a palavra
+        guide: Provoque um ec(h)o nas suas contas sociais.
         text: Mensagem
         data_privacy:
           title: Data Privacy Notice
@@ -381,7 +383,7 @@ pt:
         created: "Por favor verifique os seus E-Mails para ativar a sua conta recém-criada!"
         activate_email: De modo a completar a alteração do seu endereço E-Mail, por favor desconecte-se e prima o link de confirmação que acabou de ser enviado para o seu novo endereço!
 
- 
+
 
     # Reports section
     reports:
@@ -504,9 +506,9 @@ pt:
       create_pro_argument_link: 'Criar novo argumento a favor'
       create_contra_argument_link: 'Criar novo argumento contra'
       create_follow_up_question_link: 'Criar nova questão complementar'
-      recommend_link: 'Aconselhar'
+      recommend_link: 'Aconselhar (echo)'
       unrecommend_link: 'Desaconselhar'
-      support_link: 'Apoiar'
+      support_link: 'Apoiar (echo)'
       unsupport_link: 'Desapoiar'
       create_question_explanation: |
         Aqui pode começar uma <strong>nova questão</strong> e providenciar um conjunto de <strong>palavras-chave

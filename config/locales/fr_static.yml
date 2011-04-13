@@ -113,6 +113,7 @@ fr:
         tabs:
           project: Le Projet
           team: "L'équipe"
+          partners: Le réseau
         text: |
           <p>
           <strong>A la source</strong> echo est une
@@ -976,16 +977,16 @@ fr:
         Votre équipe echo
     
     activate_email:
-      subject: Please activate your echo account
+      subject: Veuillez verifier votre adresse mail
       text1: |
-        Dear {{name}},
+        Cher,e {{name}},
 
-        Thank you for registering at echo. Please click the URL below to activate your account.
+        Afin de rétablir avec succès votre adresse mail, vous devez accomplir un dernier pas  en cliquant sur l'URL ci-desous. Nous pourrons ainsi confirmer votre nouvelle adresse mail. 
       text2: |
-        If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
-
-        If you keep having problems with activating your account, please feel free to contact us at support@echologic.org.
-
-        Looking forward to seeing you soon at echo,
-
-        Your echo team
+        Si la fenêtre dans votre navigateur ne s'ouvre pas en cIiquant sur l'URL, veuillez copier et glisser l'URL dans la barre de votre navigateur. 
+        
+        Si les problèmes persistaient pour activer votre adresse mail, veuillez contacter le support technique: support@echologic.org.
+        
+        A bientôt sur echo!
+        
+        Votre équipe echo  

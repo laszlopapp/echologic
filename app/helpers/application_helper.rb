@@ -116,16 +116,11 @@ module ApplicationHelper
   # POP-UP LOGIN HELPERS #
   ########################
 
-  def signinup_toggle_block(type)
+  def signinup_toggle_button(type)
     toggle_type = type.eql?('signin') ? 'signup' : 'signin'
-    content = ''
-    content << content_tag(:a, I18n.t("users.#{toggle_type}.label"),
-                           :class => 'signinup_toggle_button big_button big_green_button_150',
+    content_tag(:a, I18n.t("users.#{toggle_type}.member_tag"),
+                           :class => 'signinup_toggle_button',
                            :href => "##{toggle_type}")
-    content << content_tag(:span, '»»»', :class => 'toggle_arrow')
-    content << content_tag(:span, "#{I18n.t("users.#{toggle_type}.member_tag")}",
-                           :class => 'signinup_toggle_label')
-    content
   end
 
   def signinup_labels(type)

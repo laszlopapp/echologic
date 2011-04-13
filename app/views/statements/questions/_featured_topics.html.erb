@@ -1,0 +1,12 @@
+
+<% content_tag :div, '', :class => 'action_panel' do %>
+
+  <%= content_tag :div, I18n.t('discuss.featured_topics.title'),
+                  :class => 'action_panel_header' %>
+  <% content_tag :div, '', :class => 'action_panel_content' do %>
+    <% featured_topic_link('ds_vs11', 'vision-summit-2011') %>
+    <% featured_topic_link('ds_faq', 'echo-faq') %>
+    <% featured_topic_link('ds_guided_tour', 'echo-guided-tour') %>
+  <% end %>
+
+<% end %>

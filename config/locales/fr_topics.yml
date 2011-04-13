@@ -5,6 +5,21 @@ fr:
     topics:
       on_echo: Sur echo
 
+      ds_vs11:
+        name: Vision Summit 2011
+      ds_faq:
+        name: echo - FAQ
+      ds_guided_tour:
+        name: echo - Guided Tour
+        
+      vs11:
+        name: Vision Summit 2011
+        short_name: Vision Summit
+        teaser: |
+          For a strong "echo" of Vision Summit and the social impact business movement.<br/>
+          Participate now!
+        description: ''
+
       echonomyjam:
         continues: 'echo poursuit sa route online!'
         register_here: "Pour la première inscription, c'est par ici...!"

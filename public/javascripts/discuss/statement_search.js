@@ -68,12 +68,15 @@
 					var page_count = elements_count / settings['per_page'] + 1;
           moreButton.replaceWith(loadingMoreButton);
 					$.setFragment({"page_count" : page_count, "page" : ""});
+					
+					// load elements that have to be updated on the page count parameter
+					var elements_to_update = search_container.find('a.statement_link, a.avatar_holder, a.add_new_button');
 					$.ajax({
 						url: moreButton.attr('href'),
             type: 'get',
             dataType: 'script',
             success: function(){
-							search_container.find('a').each(function(){
+							elements_to_update.each(function(){
 								updateUrlCount($(this), page_count);
 							});
 			      },
@@ -86,7 +89,7 @@
       }
 
 			function updateUrlCount(element, page_count) {
-				element.attr('href',decodeURI(element.attr('href')).replace(/\|\d+/g, "|" + page_count));
+				element.attr('href',encodeURI(decodeURI(element.attr('href')).replace(/\|\d+/g, "|" + page_count)));
 			}
 
 //			function initScrollPane() {

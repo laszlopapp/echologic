@@ -1,12 +1,13 @@
 
-<% link_to hash_for_discuss_search_path.merge({:value => "##{featured_topic}"}), {:id => 'featured_topic_teaser'} do %>
+<% link_to hash_for_discuss_search_path.merge({:search_terms => "##{featured_topic}"}),
+           {:id => 'featured_topic_teaser'} do %>
 
   <div id="featured_topic_image">
     <%= image_tag("page/discuss/topics/#{featured_topic}_teaser.png") %>
   </div>
 
   <div id="featured_topic_name">
-    <%= I18n.t("discuss.topics.#{featured_topic}.short_name") %> »
+    <%= I18n.t("discuss.topics.#{featured_topic}.short_name") %>
   </div>
 
   <span id="featured_topic_on_echo">

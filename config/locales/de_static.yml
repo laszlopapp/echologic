@@ -46,14 +46,15 @@ de:
           <p>
           echo ist ein <a href="{{github_url}}" target="_blank">Open Source</a> Gemeinschaftsprojekt für
           <strong>aktive Bürgerbeteiligung</strong> - <span title="{{subsidiarity_tooltip}}" class="ttLink">weltweit</span>
-          und für alle Menschen. echo bringt alle gesellschaftlichen Akteure zusammen, um gemeinsam einen
-          <strong>nachhaltigen Wandel</strong> zu gestalten.
+          und für alle Menschen. Es wurde als ganzheitlicher Lösungsansatz für ein Kernproblem unserer Zeit konzipiert:
+          die politische Resignation und die gefühlte Machtlosigkeit der Einzelnen.
           </p><p>
           „Diskutieren – Vernetzen – Handeln!“ - Die soziale Anwendung ermöglicht <strong>konstruktive,
-          sprachübergreifende Massendialoge</strong>.
-          Sie vernetzt weltweit Menschen mit den gleichen Zielen und unterstützt sie im <strong>gemeinsamen Handeln</strong>.
+          sprachübergreifende öffentliche Dialoge</strong> zur Meinungsbildung und gemeinsamen Lösungsfindung.
+          Sie vernetzt Menschen mit den gleichen Zielen und unterstützt sie im <strong>gemeinsamen Handeln</strong> für
+          gesellschaftliche und politische Einflussnahme.<br/>
           Wo auch immer wir in der virtuellen oder realen Welt sind, echo macht uns deutlich: wir sind mit unserer
-          Meinung nicht alleine – das „Echo“ unserer Stimmen kann <strong>die Welt verändern</strong>.
+          Meinung nicht alleine – das „Echo“ unserer Stimmen <strong>macht aus Visionen Realität</strong>.
           </p>
         gender_tooltip: Selbstverständlich Frauen und Männer - unabhängig vom grammatischen Geschlecht :-)
         subsidiarity_tooltip: Stichwort Subsidiarität
@@ -64,8 +65,8 @@ de:
             Zeitungsartikel, Blogs, Videos und alle sonstigen Inhalte im Internet werden zu Einstiegspunkten in
             strukturierte echo Diskussionen, die in jede Webseite eingebettet werden können. Überall dort können
             Menschen in einem demokratischen Verfahren - ohne Moderatoren oder Administratoren - ihre Ideen und
-            Lösungen kollektiv als Texte ausarbeiten. So werden <strong>Wissen und Meinungen über alle Webseiten und
-            Communities hinaus zusammengefasst</strong>.
+            Lösungen kollektiv als Texte ausarbeiten. So werden <strong>Wissen, Meinungen und deren Befürworter
+            über Webseiten, Communities und Sprachgrenzen hinaus im gesamten Internet zusammengeführt.</strong>
             </p><p>
             echo Diskussionen liefern jederzeit einen <strong>schnellen und transparenten Überblick</strong> über
             alternative Vorschläge, Pro/Kontra Argumente und multimediale Hintergrundinformationen. Sie machen
@@ -122,7 +123,7 @@ de:
           </p><p>
           echo wurde im September 2008 initiiert. Im Oktober 2009 wurde der als <strong>gemeinnützig</strong> anerkannte
           echo source e.V. gegründet. Für die Entwicklung, Vermarktung und den Betrieb von echo wurde April 2011 als
-          hundertprozentige Tochter des Vereins die echo Systems UG i.G. gegründet. Das Unternehmen wird als <strong>
+          hundertprozentige Tochter des Vereins die echo Systems UG gegründet. Das Unternehmen wird als <strong>
           <a href='http://de.wikipedia.org/wiki/Social_Business' target='_blank'>Social Business</a></strong>
           betrieben. Seine <strong>"Your-Profit" Geschäftsphilosophie</strong> wurde von den Werten und Erfolgen vom
           Friedensnobelpreisträger <a href='http://de.wikipedia.org/wiki/Muhammad_Yunus' target='_blank'>Muhammad Yunus</a>
@@ -131,9 +132,9 @@ de:
           Von 2010 bis Anfang 2011 wurde echo im Rahmen des EXIST-Programmes durch die EU, BMWi und ESF für Deutschland
           gefördert. Weitere finanzielle Unterstützung erhält zurzeit echo durch einen privaten Förderer.
           </p><p>
-          Die Arbeit bei echo konzentriert sich momentan in erster Linie auf die funktionale
-          Weiterentwicklung des Software Prototyps, die Ableitung verschiedener vermarktbarer Produktzweige und
-          die <strong>Gewinnung weiterer Partner, Förderer und (bevorzugt nachhaltiger) Investoren</strong>.
+          Die Arbeit des echo Teams konzentriert sich momentan in erster Linie auf die funktionale Weiterentwicklung
+          des Software Prototyps, die Ableitung verschiedener vermarktbarer Produktzweige und die <strong>Gewinnung
+          weiterer Partner, Förderer und (bevorzugt nachhaltiger) Investoren</strong>.
           </p>
 
       # imprint section
@@ -942,18 +943,22 @@ de:
         Mit den besten Grüßen,
 
         Ihr echo Team
-        
+
     activate_email:
-      subject: Please activate your echo account
+      subject: Bitte bestätigen Sie Ihre E-Mail Adresse
       text1: |
-        Dear {{name}},
+        Liebe(r) {{name}},
 
-        Thank you for registering at echo. Please click the URL below to activate your account.
+        Um die Änderung Ihrer E-Mail Adresse abzuschließen, benötigen wir die Bestätigung, dass es sich
+        tatsächlich um Ihre E-Mail Adresse handelt und Nachrichten auch wirklich ankommen.
+        Bitte klicken Sie die folgende URL, um die Bestätigung durchzuführen.
       text2: |
-        If clicking on the URL does not make a new browser window open automatically, please copy and paste the URL into your browser.
+        Sollte sich nach Klick auf den Link nicht automatisch ein neues Browserfenster öffnen,
+        kopieren Sie bitte die URL und fügen Sie sie in ein neues Browserfenster ein.
 
-        If you keep having problems with activating your account, please feel free to contact us at support@echologic.org.
+        Sollten Sie weitere Schwierigkeiten mit Ihrem echo Zugang haben, zögern Sie bitte nicht uns
+        jederzeit unter support@echologic.org zu kontaktieren.
 
-        Looking forward to seeing you soon at echo,
+        Wir freuen uns sehr auf ein baldiges Treffen auf echo.
 
-        Your echo team
+        Ihr echo Team

@@ -1,4 +1,7 @@
+require 'sanitize'
+
 module EchoableModule
+
   ###################
   # ECHO STATEMENTS #
   ###################
@@ -71,7 +74,7 @@ module EchoableModule
           @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
           @title = "Made an"
           @proposed_url = "http://#{ECHO_HOST}/#{ShortcutUrl.truncate(@statement_document.title)}"
-          @proposed_url << " #{@statement_node.root.hash_topic_tags}" if !@statement_node.root.hash_topic_tags.empty?
+          @proposed_url << " #{@statement_node.root.hash_topic_tags.join(" ")}" if !@statement_node.root.hash_topic_tags.empty?
           respond_to do |format|
             format.js { render :template => "statements/social_widget" }
           end
@@ -110,7 +113,7 @@ module EchoableModule
         @shortcut_url = ShortcutUrl.statement_shortcut :title => @statement_document.title,
                                                        :params => { :id => @statement_node.id },
                                                        :language => @statement_document.language.code
-                                                       
+
         if !@shortcut_url
           set_error @shortcut_url
           render_statement_with_error
@@ -119,12 +122,13 @@ module EchoableModule
           opts = {}
           opts[:url] = "http://#{ECHO_HOST}/#{@shortcut_url.shortcut}"
           opts[:action] = "#{params[:text].strip}"
+          opts[:tags] = @statement_node.root.hash_topic_tags.join(" ") if !@statement_node.root.hash_topic_tags.empty?
           opts[:action_links] = [I18n.t("application.general.share_action")]
           opts[:images] = []
           opts[:images] << "http://#{ECHO_HOST}/#{@statement_node.image.url(:medium)}" if @statement_node.image.exists?
           #insert default image in this line
           opts[:title] = @statement_document.title
-          opts[:description] = "#{@statement_document.text[0,255]}..."
+          opts[:description] = "#{Sanitize.clean(@statement_document.text)[0,255]} ..."
 
           providers = %w(facebook twitter yahoo! linkedin)
           providers.reject!{|p|provider_states[p].nil? || provider_states[p].eql?('disabled')}

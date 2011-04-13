@@ -98,25 +98,26 @@ class SocialService
     opts[:media] ||= []
     images = opts.delete(:images) || []
     images.each do |image|
-      opts[:media] << {:href => opts[:url], :src => image, :type => 'image'}
+      opts[:media] += [{:href => opts[:url], :src => image, :type => 'image'}]
     end
     # Adding default echo image
-    opts[:media] << {:href => opts[:url], :src => "http://#{ECHO_HOST}/#{@default_echo_image}", :type => 'image'}
+    opts[:media] += [{:href => opts[:url], :src => "http://#{ECHO_HOST}/#{@default_echo_image}", :type => 'image'}]
 
     # Handling actions
     action_links = opts.delete(:action_links) || []
     action_links.each do |al|
       opts[:action_links] ||= []
-      opts[:action_links] << {:text => al, :href => opts[:url]}
+      opts[:action_links] += [{:text => al, :href => opts[:url]}]
     end
 
-    opts[:action] += " #{opts[:url]}" if !providerName.eql?('twitter')
+    opts[:action] += " #{opts[:url]}"
+    opts[:action] += " #{opts[:tags]}" if opts[:tags]
     opts[:user_generated_content] = opts[:action]
 
+    opts[:url] = "" if providerName.eql?('twitter')
     opts[:action] = "made an echo" if providerName.eql?('facebook')
 
     #TAG TEST
-    opts[:url] += " #test" if providerName.eql?('twitter')
     opts.to_json
   end
 end

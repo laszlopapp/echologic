@@ -15,7 +15,7 @@
 
 .signinup_container .header.block {
   margin-bottom: 35px;
-  width: 780px;
+  width: 760px;
 }
 
 .signinup_container .symbol {
@@ -28,50 +28,44 @@
 }
 
 .signinup_title {
-  font-size: 35px;
+  font-size: 30px;
   font-weight: bold;
   position: relative;
   top: 37px;
 }
 
-.signinup_container .toggle.part {
-  background: #EEE;
-  float: right;
-  min-width: 375px;
-  margin: 25px 0 0;
-  padding: 10px 15px 10px 20px;
-  position: relative;
-  right: -15px;
-  border-radius: 35px;
-  -moz-border-radius: 35px;
-  -webkit-border-radius: 35px;
-}
-
-.signinup_toggle_label {
-  float: right;
-  position: relative;
-  top: 17px;
-  font-weight: bold;
-}
-
-.toggle_arrow {
-  float: right;
-  position: relative;
-  top: 17px;
-  margin: 0 20px;
-  font-weight: bold;
+#signin .signinup_title,
+#signup .signinup_title {
+  font-size: 35px;
+  top: 21px;
 }
 
 .signinup_toggle_button {
-  float: right;
-  position: relative;
-  top: 1px;
+  padding: 5px 10px;
+  background: #EEE;
+  font-size: 13px;
+  text-decoration: underline;
+  position: absolute;
+  left: 119px;
+  top: 65px;
+  border-radius: 22px;
+  -moz-border-radius: 22px;
+  -webkit-border-radius: 22px;
+}
+
+.signinup_container .hint {
+  width: 320px !important;
+  background-position: 160px 2px !important;
+  font-size: 13px;
+  margin: 15px 0 5px;
+  position: absolute;
+  right: 25px;
 }
 
 .signinup_container .label.block {
   margin: 0 20px 40px;
   position: relative;
-  width: 752px;
+  width: 722px;
 }
 
 .signinup_container .label.block .echo_label {
@@ -84,7 +78,7 @@
 
 .signinup_container .label.block .or_holder {
   position: absolute;
-  left: 310px;
+  left: 290px;
   top: 5px;
   width: 64px;
   margin: 0 auto;
@@ -95,7 +89,7 @@
 }
 
 .signinup_container .label.block .social_label {
-  width: 320px;
+  width: 350px;
   font-size: 21px;
   font-weight: bold;
   position: absolute;
@@ -111,18 +105,18 @@
 
 .signinup_container .form.block {
   margin: 0 0 0 15px;
-  width: 810px;
+  width: 780px;
 }
 
 .signinup_container .echo_container {
   float: left;
-  width: 346px;
+  width: 326px;
 	height: 230px;
   border-right: 3px dotted #AAA;
 }
 
 .signinup_container .echo_container .password_label {
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .signinup_container .social_container {
@@ -141,7 +135,7 @@
 .signinup_container .guide.block {
   margin: 0 20px 10px;
   position: relative;
-  width: 770px;
+  width: 750px;
 }
 
 /* Setup Basic Profile */

@@ -80,13 +80,6 @@
   background-position: 0 -43px;
 }
 
-.hint {
-  font-size:    12px;
-  font-weight:  normal;
-  color:        #999;
-  padding:      0 0 0 1px;
-}
-
 /* Default texts */
 .toggleval, .defaultText {
   color: #AAA !important;

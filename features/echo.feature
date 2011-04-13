@@ -39,12 +39,12 @@ Feature: Echo
   Scenario: Comprehensive integrity check for echos and user echos with multiple users
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
-      And I follow "Featured"
+      And I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the first Question
       And the question has no proposals
       And I am on the discuss index
-      And I follow "Featured"
+      And I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the first Question
       And I follow localized "discuss.statements.create_proposal_link"
@@ -95,7 +95,7 @@ Feature: Echo
   Scenario: User tries to echo an improvement without echoing the respective proposal
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
-      And I follow "Featured"
+      And I follow localized "discuss.featured_topics.title"
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
@@ -121,7 +121,8 @@ Feature: Echo
   Scenario: User echoes an improvement, and this becomes ready
     Given the minimum number of votes is 1
       And I am logged in as "joe" with password "true"
-      And I am on the discuss featured And I follow "Featured"
+      And I am on the discuss featured
+      And I follow "Featured"
       And I follow "echonomyJAM"
       And I choose the "Test Question2?" Question
       And I choose the "A first proposal!" Proposal
