@@ -52,7 +52,7 @@ li {
   width: 920px;
 }
 
-#team_members, #partners_members {
+#team_members, #partners {
   height: 400px;
   overflow: hidden;
 }
@@ -94,6 +94,19 @@ li {
 .about_item .description {
   margin: 10px 0 0 145px;
   display: block;
+}
+
+#partners ul {
+  padding: 0;
+  margin: 0;
+}
+
+#partners li {
+  list-style-type: none;
+  line-height: 24px;
+  display: block;
+  vertical-align: middle;
+  cursor: default;
 }
 
 .about_logo {
