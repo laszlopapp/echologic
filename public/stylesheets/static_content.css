@@ -97,7 +97,8 @@ li {
 }
 
 .about_logo {
-  margin: 10px 90px 30px 0;
+  margin: 10px 90px 40px 0;
+  display: inline-block !important;
   cursor: pointer;
 }
 
