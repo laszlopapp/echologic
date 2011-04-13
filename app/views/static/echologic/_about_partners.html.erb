@@ -1,8 +1,17 @@
-<div id='<%= about_partners.code %>_container' class ='header_block'>
-	<%= content_tag :h2, about_partners.value %>
-	<ul>
-	 <%= render :partial => 'about_logo',
-              :collection => @about_items.select{|ai|ai.about_category == about_partners} %>
-	 <% reset_cycle("about_items") %>
-	</ul>
-</div>
+
+<% partner_items = @about_items.select{|ai|ai.about_category == about_partners} %>
+
+<% unless partner_items.blank? %>
+
+  <% content_tag :div,
+                 :id => about_partners.code + '_container',
+                 :class => 'header_block' do %>
+    <%= content_tag :h2, about_partners.value %>
+    <% content_tag :ul do %>
+      <%= render :partial => 'about_logo',
+                 :collection => partner_items %>
+      <% reset_cycle("about_items") %>
+    <% end %>
+
+  <% end %>
+<% end %>

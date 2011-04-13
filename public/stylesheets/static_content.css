@@ -52,7 +52,7 @@ li {
   width: 920px;
 }
 
-#team_members, #partners_members {
+#team_members, #partner_orgas {
   height: 400px;
   overflow: hidden;
 }
@@ -97,8 +97,8 @@ li {
 }
 
 .about_logo {
-	float: left;
-  margin: 5px 90px 20px 0;
+  margin: 10px 90px 40px 0;
+  display: inline-block !important;
   cursor: pointer;
 }
 
@@ -108,4 +108,5 @@ li {
 
 .about_logo img {
 	color: #FFFFFF;
+  cursor: pointer;
 }
