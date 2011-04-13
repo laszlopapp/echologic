@@ -84,8 +84,7 @@ module PublishableModuleHelper
   # publish button that appears on the right top corner of the statement
   #
   def publish_statement_node_link(statement_node, statement_document)
-    if current_user and
-       statement_document.author == current_user and !statement_node.published?
+    if current_user and current_user.may_publish?(statement_node)
       link_to(I18n.t('discuss.statements.publish'),
               { :controller => :statements,
                 :id => statement_node.id,
