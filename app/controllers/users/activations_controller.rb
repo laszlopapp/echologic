@@ -74,7 +74,7 @@ class Users::ActivationsController < ApplicationController
             if @user.signup!(params[:user]) and @user.profile.save
               @user.deliver_activate!
               redirect_or_render_with_info(root_path, 'users.users.messages.created') do |page|
-                page << "$('#dialogContent').dialog('close');"
+                page << "$('#dialog_content').dialog('close');"
               end
             else
               set_error 'users.activation.messages.failed'

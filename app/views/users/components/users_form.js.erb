@@ -5,9 +5,9 @@
 /* Write render output into JS variables for later use. */
 var content = "<%= escape_javascript(render(:partial => partial)) %>";
 
-$('#dialogContent').html(content);
+$('#dialog_content').html(content);
 
-$('#dialogContent').dialog({
+$('#dialog_content').dialog({
   bgiframe: true,
   modal:    true,
   close:    function() { $(this).dialog('destroy'); },

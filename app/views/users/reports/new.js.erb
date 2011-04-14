@@ -5,11 +5,11 @@
 /* Write render output into JS variables for later use. */
 var content = "<%= escape_javascript(render(:partial => 'users/reports/new')) %>";
 
-$('#dialogContent').html(content);
+$('#dialog_content').html(content);
 
 $("input[alt='report_button']").hide();
 
-$('#dialogContent').dialog({
+$('#dialog_content').dialog({
   title:    "<%= I18n.t('users.reports.new.title') %>",
   bgiframe: true,
   modal:    true,

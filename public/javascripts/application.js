@@ -219,7 +219,7 @@
 
   /* TODO: Load the upload picture forms here */
   function uploadFormSubmit(){
-    $('#dialogContent .upload_form').livequery(function(){
+    $('#dialog_content .upload_form').livequery(function(){
       var element = $(this);
       element.submit(function(){
 				$(this).ajaxSubmit({
@@ -235,7 +235,7 @@
               dataType: 'script',
               url: element.data('image-redirect')
             });
-            $('#dialogContent').dialog('close');
+            $('#dialog_content').dialog('close');
           }
         });
         return false;

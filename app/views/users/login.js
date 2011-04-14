@@ -1,9 +1,9 @@
 /* Write render output into JS variable and put it into the container. */
 var content = "<%= escape_javascript(render(:partial => 'new')) %>";
-$('#dialogContent').html(content);
+$('#dialog_content').html(content);
 
 /* Create a jqueryUI modal dialog with a send button. */
-$('#dialogContent').dialog({
+$('#dialog_content').dialog({
   title:    "Feedback",
   bgiframe: true,
   modal:    true,
