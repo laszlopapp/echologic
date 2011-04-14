@@ -138,6 +138,13 @@
                             settings['container_animation_speed']);
       }
 
+      function loadBIDSFromBreadcrumbs() {
+				return breadcrumbs.find(".breadcrumb").map(function() {
+          var page_count = $(this).attr('page_count');
+          var key = this.id == 'sr' ? (this.id + $(this).find('.search_link').text().replace(/,/, "\\;")) : this.id;
+          return page_count == null ? key : key + '|' + page_count;
+        }).get();
+			}
 
 			// Public API
       $.extend(this,
@@ -215,9 +222,7 @@
 		      var bid_list = bids.split(",");
 
           // Current breadcrumb entries
-		      var visible_bids = breadcrumbs.find(".breadcrumb").map(function() {
-						return  this.id == 'sr' ? (this.id + $(this).find('.search_link').text().replace(/,/, "\\;")) : this.id;
-		      }).get();
+		      var visible_bids = loadBIDSFromBreadcrumbs();
 
 					// Get bids that are not visible (DRY)
           return $.grep(bid_list, function(a, index) {
@@ -226,9 +231,7 @@
 		    },
 
 				getBreadcrumbStack : function (newBreadcrumb) {
-		      var currentBreadcrumbs = breadcrumbs.find(".breadcrumb").map(function() {
-						return  this.id == 'sr' ? (this.id + $(this).find('.search_link').text().replace(/,/, "\\;")) : this.id;
-					}).get();
+		      var currentBreadcrumbs = loadBIDSFromBreadcrumbs();
 					if (newBreadcrumb) {
             currentBreadcrumbs.push(newBreadcrumb);
           }
