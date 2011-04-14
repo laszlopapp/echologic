@@ -618,7 +618,7 @@ en:
         labels:
           ds: ''
           mi: ''
-          sr: 'Search results for'
+          sr: 'Questions found for'
           fq: 'Follow-up Questions for'
           over:
             ds: 'Back to'

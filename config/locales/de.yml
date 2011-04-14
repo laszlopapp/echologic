@@ -641,7 +641,7 @@ de:
         labels:
           ds: ''
           mi: ''
-          sr: 'Suchergebnisse für'
+          sr: 'Gefundene Fragestellungen für'
           fq: 'Folgefragen zu'
           over:
             ds: 'Zurück zu'
