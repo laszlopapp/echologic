@@ -157,14 +157,17 @@
               toggleContainer();
             }
 			  	  // Assemble new breadcrumb entries
-						$.each(breadcrumbsData, function(index, breadcrumbData) { //[id, classes, url, title, label, over]
-							var breadcrumb = $('<a/>').addClass('breadcrumb').attr('id',breadcrumbData[0]).attr('href',breadcrumbData[2]);
+						$.each(breadcrumbsData, function(index, breadcrumbData) { //[id, classes, url, title, label, over, page_count]
+							var breadcrumb = $('<a/>').addClass('breadcrumb').attr('id',breadcrumbData['key']).attr('href',breadcrumbData['url']);
+							if (breadcrumbData['page_count']) {
+						  	breadcrumb.attr('page_count', breadcrumbData['page_count'])
+						  };
 							if (index != 0 || elements.find(".breadcrumb").length != 0) {
 								breadcrumb.append($("<span/>").addClass('big_delimiter'));
 							}
-              breadcrumb.append($('<span/>').addClass('label').text(breadcrumbData[4]));
-							breadcrumb.append($('<span/>').addClass('over').text(breadcrumbData[5]));
-							breadcrumb.append($('<span/>').addClass(breadcrumbData[1]).text(breadcrumbData[3]));
+              breadcrumb.append($('<span/>').addClass('label').text(breadcrumbData['label']));
+							breadcrumb.append($('<span/>').addClass('over').text(breadcrumbData['over']));
+							breadcrumb.append($('<span/>').addClass(breadcrumbData['css']).text(breadcrumbData['title']));
 							breadcrumb.hide();
 							initBreadcrumb(breadcrumb);
 							elements.append(breadcrumb);
