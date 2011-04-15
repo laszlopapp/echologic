@@ -72,10 +72,32 @@ class StatementDocument < ActiveRecord::Base
   #
   def self.search_statement_documents(opts={})
       opts.delete(:readonly)
-      opts[:select] ||= "DISTINCT id, title, statement_id, language_id, current"
-      opts[:conditions] ||= sanitize_sql(["current = 1 AND statement_id IN (?) AND language_id IN (?) ",
-                                   opts.delete(:statement_ids), opts.delete(:language_ids)])
-      opts[:order] ||= "language_id" 
+      
+      opts[:select] = "DISTINCT #{table_name}.id, " + 
+                                 "#{table_name}.title, " + 
+                                 "#{table_name}.statement_id, " + 
+                                 "#{table_name}.language_id, " +
+                                 "#{table_name}.current"
+      # insert more elements to be taken to the model if needed
+      more = opts.delete(:more).map{|m|"#{table_name}.#{m}"} if opts[:more]
+      opts[:select] << ", #{more.join(', ')}" if more
+      
+      # join will be important to get the original document
+      opts[:joins] = :statement if opts[:user].nil? or opts[:user].spoken_languages.empty?
+      
+      and_conditions = []
+      and_conditions << "#{table_name}.current = 1"
+      and_conditions << sanitize_sql(["#{table_name}.statement_id IN (?)", opts.delete(:statement_ids)])
+      # if there is no user, get the document in local language, or, if it does not exist, get the original
+      if (user = opts.delete(:user)).nil? or user.spoken_languages.empty?
+        and_conditions << sanitize_sql(["(#{table_name}.language_id IN (?) OR " +
+                                        "#{table_name}.language_id = #{Statement.table_name}.original_language_id)", 
+                                        opts.delete(:language_ids)])
+      else
+        and_conditions << sanitize_sql(["#{table_name}.language_id IN (?)", opts.delete(:language_ids)])
+      end
+      opts[:conditions] ||= and_conditions.join(" AND ")
+      opts[:order] ||= "#{table_name}.language_id" 
       all opts
     end
 end

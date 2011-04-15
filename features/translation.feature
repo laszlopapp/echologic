@@ -156,3 +156,13 @@ Feature: Translation permission
     When I follow "echonomyJAM"
       And I choose the "Raindrops keep falling on my head" Question
     Then I should see "The original statement is in GERMAN. Set your language skills to see content in other languages."
+
+  @ok
+  Scenario: illiterate doesn't speak any languages, and  does not see a warning when he chooses a question which original language is german with the application in german
+    Given I am logged in as "illiterate" with password "illiterate"
+    When I am on the discuss featured
+    When I follow "Pilot Projects"
+    When I follow "echonomyJAM"
+      And I choose the "Raindrops keep falling on my head" Question
+      And I change the application language to "de"
+    Then I should not see "Die originale Aussage ist auf DEUTSCH. Definieren Sie Ihre Sprachkenntnisse, um weitere Inhalte zu sehen."

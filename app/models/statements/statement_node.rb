@@ -137,8 +137,8 @@ class StatementNode < ActiveRecord::Base
 
   # Checks if, in case the user hasn't yet set his language knowledge, the current language is different from
   # the statement original language. used for the original message warning
-  def not_original_language?(user, current_language_id)
-    user ? (user.spoken_languages.empty? and current_language_id != original_language.id) : false
+  def not_original_language?(user, current_language_id, document_language_id)
+    user ? (user.spoken_languages.empty? and current_language_id != original_language.id and original_language.id != document_language_id) : false
   end
 
   #
@@ -399,7 +399,7 @@ class StatementNode < ActiveRecord::Base
         publish_condition << sanitize_sql(["s.creator_id = ?",  opts[:user].id]) if opts[:user]
         and_conditions << "(#{publish_condition.join(' OR ')})"
       end
-      and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]]) if opts[:language_ids]
+      and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]]) if opts[:user] and !opts[:user].spoken_languages.empty? and opts[:language_ids]
       and_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]]) if opts[:drafting_states]
       and_conditions << sanitize_sql(["s.type = ?", opts[:type]]) if opts[:type]
       and_conditions << "s.question_id is NULL"

@@ -63,7 +63,9 @@ class StatementsController < ApplicationController
       load_siblings(@statement_node) if !params[:new_level].blank?
 
       # Test for special links
-      @set_language_skills_teaser = @statement_node.not_original_language?(current_user, @locale_language_id)
+      @set_language_skills_teaser = @statement_node.not_original_language?(current_user, 
+                                                                           @locale_language_id, 
+                                                                           @statement_document.language_id)
       @translation_permission = @statement_node.original_language == @statement_document.language &&
                                 @statement_node.translatable?(current_user,
                                                               @statement_document.language,
@@ -822,9 +824,12 @@ class StatementsController < ApplicationController
   #
   def search_statement_documents(opts={})
     opts[:language_ids] ||= @language_preference_list
+    opts[:user] = current_user
     l_ids = opts[:language_ids]
     statement_documents = StatementDocument.search_statement_documents(opts).sort! {|a, b|
-      l_ids.index(a.language_id) <=> l_ids.index(b.language_id)
+      a_index = l_ids.index(a.language_id)
+      b_index = l_ids.index(b.language_id)
+      (a_index and b_index) ? a_index <=> b_index : 1
     }
     statement_documents.each_with_object({}) do |sd, documents_hash|
       documents_hash[sd.statement_id] = sd unless documents_hash.has_key?(sd.statement_id)
