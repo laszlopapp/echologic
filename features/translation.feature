@@ -166,3 +166,4 @@ Feature: Translation permission
       And I choose the "Raindrops keep falling on my head" Question
       And I change the application language to "de"
     Then I should not see "Die originale Aussage ist auf DEUTSCH. Definieren Sie Ihre Sprachkenntnisse, um weitere Inhalte zu sehen."
+      And I change the application language to "en"
