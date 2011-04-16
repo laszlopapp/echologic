@@ -529,6 +529,8 @@ en:
       fuq_formulation_hint: |
         Since follow-up questions also appear as questions in "Search", title and description should both be
         comprehensible independently of the original discussion.
+      set_languages: |
+        Set your language skills to see content only in languages you speak.
       title_hint:
         question: Enter the question title in... English?
         proposal: Enter the proposal title in... English?

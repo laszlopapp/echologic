@@ -8,6 +8,8 @@
                    :class => 'label' %>
 	<% end %>
 
+  <%= render :partial => '/statements/questions/set_languages' if current_user and current_user.spoken_languages.empty?%>
+
   <% content_tag :ul, :class => 'content' do %>
     <%= render :partial => 'statements/questions/questions',
                :locals => {:statement_nodes => statement_nodes}%>
