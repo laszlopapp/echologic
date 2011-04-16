@@ -203,7 +203,7 @@ third-proposal-doc-german:
   current: 1
   
 inbetween-proposal-doc-german:
-  title: 'Inbetween Proposal'
+  title: 'Inzwischen vorschlag'
   text: 'I think we should have a proposal inbetween as well!'
   language_id: <%= Fixtures.identify('language_de') %>
   statement_id: <%= Fixtures.identify('inbetween-proposal-statement') %>
