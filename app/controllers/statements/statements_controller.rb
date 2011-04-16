@@ -497,7 +497,7 @@ class StatementsController < ApplicationController
           if immediate_render
             load_children :type => type
           else
-            @children[type] ||= @statement_node.count_child_statements :language_ids => @language_preference_list,
+            @children[type] ||= @statement_node.count_child_statements :language_ids => filter_languages_for_children,
                                                                        :user => current_user,
                                                                        :type => type
           end
@@ -521,11 +521,17 @@ class StatementsController < ApplicationController
   #
   def load_children(opts)
     opts[:user] ||= current_user
-    opts[:language_ids] ||= @language_preference_list
+    opts[:language_ids] ||= filter_languages_for_children
     @children ||= {}
     @children[opts[:type]] = @statement_node.paginated_child_statements(opts)
     @children_documents ||= {}
-    @children_documents.merge!(search_statement_documents :statement_ids => @children[opts[:type]].flatten.map(&:statement_id))
+    @children_documents.merge!(search_statement_documents :language_ids => filter_languages_for_children, 
+                                                          :statement_ids => @children[opts[:type]].flatten.map(&:statement_id))
+  end
+
+  # aux function to load the children with the right set of languages
+  def filter_languages_for_children
+    (current_user and !current_user.spoken_languages.empty? and !current_user.speaks_language?(Language[I18n.locale])) ? @language_preference_list - [locale_language_id] : @language_preference_list
   end
 
   #
