@@ -142,7 +142,7 @@ de:
       title: 'Basisinformationen eintragen'
       guide: Bitte füllen Sie die Basisinformationen aus, um Ihr Konto zu aktivieren.
       agreement:  Ich habe die Datenschutzbestimmungen gelesen und stimme zu.
-      use_photo: 'Auch in echo verwenden.'
+      use_photo: 'Auch in echo verwenden'
     signin:
       label: 'Anmelden'
       password: 'Password'
