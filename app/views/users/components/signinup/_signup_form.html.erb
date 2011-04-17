@@ -4,7 +4,10 @@
 
   <% content_tag :p do %>
     <%= content_tag :label, I18n.t('application.general.email') %><br/>
-    <%= f.text_field :email %>
+    <%= f.text_field :email %><br/>
+    <%= content_tag(:a, I18n.t("users.signin.member_tag"),
+                    :class => 'hint_label signinup_switch',
+                    :href => "#signin") %>
   <% end %>
 
   <%= f.submit I18n.t('users.signup.label'),

@@ -58,7 +58,7 @@ class Users::UsersController < ApplicationController
       if @user.signup!(params[:user])
         @user.deliver_activation_instructions!
         redirect_or_render_with_info(redirect_url, 'users.users.messages.created') do |page|
-          page << "$('#dialog_content').dialog('close');"
+          page << "$('#dialog_container').dialog('close');"
         end
       else
         later_call_with_error(redirect_url, signup_url, @user)

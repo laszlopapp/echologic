@@ -158,7 +158,7 @@
             }
 			  	  // Assemble new breadcrumb entries
 						$.each(breadcrumbsData, function(index, breadcrumbData) { //[id, classes, url, title, label, over]
-							var breadcrumb = $('<a/>').addClass('breadcrumb').attr('id',breadcrumbData[0]).attr('href',breadcrumbData[2]);
+							var breadcrumb = $('<a/>').addClass('breadcrumb').attr('id', breadcrumbData[0]).attr('href', breadcrumbData[2]);
 							if (index != 0 || elements.find(".breadcrumb").length != 0) {
 								breadcrumb.append($("<span/>").addClass('big_delimiter'));
 							}

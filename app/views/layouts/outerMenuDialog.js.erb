@@ -7,9 +7,9 @@ var content = "<%= escape_javascript(render(:partial => request[:action])) %>";
 var title = "<%= title %>";
 var dialogWidth = <%= dialog_width ||= 750 %>;
 
-$('#dialog_content').html(content);
+$('#dialog_container').html(content);
 
-$('#dialog_content').dialog({
+$('#dialog_container').dialog({
   title:    title,
   bgiframe: true,
   modal:    true,

@@ -4,7 +4,11 @@
 
   <% content_tag :p do %>
     <%= content_tag :label, I18n.t('application.general.email') %><br/>
-    <%= f.text_field :email, :class => 'loginField' %>
+    <%= f.text_field :email,
+                     :class => 'loginField' %><br/>
+    <%= content_tag(:a, I18n.t("users.signup.member_tag"),
+                    :class => 'hint_label signinup_switch',
+                    :href => "#signup") %>
   <% end %>
 
   <% content_tag :p do %>
@@ -13,7 +17,7 @@
                          :class => 'loginField' %><br/>
     <%= link_to I18n.t('users.signin.set_password'),
                 new_password_reset_path,
-                :class => "ajax password_label" %>
+                :class => "ajax hint_label" %>
   <% end %>
 
   <%= f.submit(I18n.t('users.signin.label'),

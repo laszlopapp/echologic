@@ -5,9 +5,9 @@
 /* Write render output into JS variables for later use. */
 var content = "<%= escape_javascript(render(:partial => 'users/avatar/upload_picture')) %>";
 
-$('#dialog_content').html(content);
+$('#dialog_container').html(content);
 
-$('#dialog_content').dialog({
+$('#dialog_container').dialog({
   title:    "<%= I18n.t('users.profile.upload_picture.title') %>",
   bgiframe: true,
   modal:    true,

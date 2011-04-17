@@ -5,9 +5,9 @@
 /* Write render output into JS variables for later use. */
 var content = "<%= escape_javascript(render(:partial => 'statement_images/edit')) %>";
 
-$('#dialog_content').html(content);
+$('#dialog_container').html(content);
 
-$('#dialog_content').dialog({
+$('#dialog_container').dialog({
   title:    "<%= I18n.t('discuss.statements.upload_image.title') %>",
   bgiframe: true,
   modal:    true,

@@ -119,7 +119,7 @@ module ApplicationHelper
   def signinup_toggle_button(type)
     toggle_type = type.eql?('signin') ? 'signup' : 'signin'
     content_tag(:a, I18n.t("users.#{toggle_type}.member_tag"),
-                           :class => 'signinup_toggle_button',
+                           :class => 'signinup_toggle_button signinup_switch',
                            :href => "##{toggle_type}")
   end
 

@@ -909,3 +909,36 @@
 	top: -2px;
   height: 10px !important;
 }
+
+
+/* Modal dialogs */
+
+#modal_dialog {
+  display: none;
+  padding: 20px 15px;
+  border: 7px solid #777;
+	background: #FEFEFE;
+  border-radius: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  box-shadow: 0 5px 40px #555;
+  -moz-box-shadow: 0 5px 40px #555;
+  -webkit-box-shadow: 0 5px 40px #555;
+  z-index: 500;
+  cursor: default;
+  position: relative;
+}
+
+#modal_dialog .close {
+	background-image: url(../images/page/overlay_close_button.png);
+	position: absolute;
+	right: -18px;
+	top: -18px;
+	cursor: pointer;
+	height: 31px;
+	width: 31px;
+}
+
+#modal_dialog .close:hover {
+  background-position: 0 -31px;
+}

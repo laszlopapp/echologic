@@ -1,36 +1,7 @@
 
-
-
-#dialog_content {
-  display: none;
+#signinup, #reset_password {
   width: 795px;
-  padding: 20px 15px;
-  border: 7px solid #777;
-	background: #FEFEFE;
-  border-radius: 20px;
-  -moz-border-radius: 20px;
-  -webkit-border-radius: 20px;
-  box-shadow: 0 5px 40px #555;
-  -moz-box-shadow: 0 5px 40px #555;
-  -webkit-box-shadow: 0 5px 40px #555;
-  z-index: 500;
-  cursor: default;
-}
-
-#dialog_content .close {
-	background-image: url(../images/page/overlay_close_button.png);
-	position: absolute;
-	right: -15px;
-	top: -15px;
-	cursor: pointer;
-	height: 24px;
-	width: 24px;
-}
-
-.signinup_container {
-  position: relative;
-	width: 100%;
-  cursor: default;
+  height: 435px;
 }
 
 .signinup_container .block {
@@ -59,24 +30,27 @@
   top: 37px;
 }
 
-#signin .signinup_title,
-#signup .signinup_title {
+#signinup .signinup_title {
   font-size: 35px;
   top: 21px;
 }
 
 .signinup_toggle_button {
-  color: #21587f;
+  color: #fff;
   padding: 5px 10px;
-  background: #EEE;
+  background: #427192;
   font-size: 13px;
   text-decoration: underline;
   position: absolute;
-  left: 119px;
+  left: 125px;
   top: 65px;
   border-radius: 22px;
   -moz-border-radius: 22px;
   -webkit-border-radius: 22px;
+}
+
+.signinup_toggle_button:hover {
+  background: #638aa5;
 }
 
 .signinup_container .hint {
@@ -141,8 +115,8 @@
   border-right: 3px dotted #AAA;
 }
 
-.signinup_container .echo_container .password_label {
-  font-size: 13px;
+.signinup_container .echo_container .hint_label {
+  font-size: 11px;
 }
 
 .signinup_container .social_container {

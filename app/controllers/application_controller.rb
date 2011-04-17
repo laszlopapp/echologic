@@ -210,7 +210,7 @@ class ApplicationController < ActionController::Base
     priority_languages << st_original_language.id if st_original_language
     # insert user spoken languages into the priority languages
     priority_languages += current_user.sorted_spoken_languages if current_user
-    
+
     priority_languages.uniq
   end
 
@@ -396,7 +396,7 @@ class ApplicationController < ActionController::Base
   def render_signinup_js(type)
     load_signinup_data(type)
     render :template => 'users/components/users_form',
-               :locals => {:partial => "users/#{@controller_name}/new"}
+           :locals => {:partial => "users/#{@controller_name}/new"}
   end
 
   def redirect_or_render_with_info(url, message_or_object, opts={})

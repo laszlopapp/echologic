@@ -219,7 +219,7 @@
 
   /* TODO: Load the upload picture forms here */
   function uploadFormSubmit(){
-    $('#dialog_content .upload_form').livequery(function(){
+    $('#dialog_container .upload_form').livequery(function(){
       var element = $(this);
       element.submit(function(){
 				$(this).ajaxSubmit({
@@ -235,7 +235,7 @@
               dataType: 'script',
               url: element.data('image-redirect')
             });
-            $('#dialog_content').dialog('close');
+            $('#dialog_container').dialog('close');
           }
         });
         return false;
@@ -271,7 +271,7 @@
   }
 
   function initSigninupButtons() {
-		$('.signinup_container .signinup_toggle_button').live('click', function() {
+		$('.signinup_container .signinup_switch').live('click', function() {
 			var to_show = $(this).attr('href');
 			$(to_show).show();
 			$(this).parents('.signinup_container').hide();
@@ -280,6 +280,7 @@
 	}
 
 
+  /* Handling pop-ups and redirections in parent window. */
   function popup(mylink, windowname) {
     if (!window.focus) {
       return true;
@@ -294,7 +295,6 @@
     window.open(href, windowname, 'width=800,height=450,scrollbars=yes');
     return false;
   }
-
 
   function targetopener(mylink, closeme, closeonly) {
     if (!(window.focus && window.opener)) {
@@ -312,4 +312,25 @@
       window.close();
     }
     return false;
+  }
+
+  /* Handling modal overlays */
+  function openModalDialog(content) {
+    $('#dialog_container').empty().append('<div/>').find('div').attr('id', 'modal_dialog').html(content);
+
+    $('#modal_dialog').overlay({
+      closeOnClick: false,
+      mask: {
+        color: '#B5C0C9',
+        loadSpeed: 300,
+        opacity: 0.85
+      },
+      load: true,
+      left: 'center',
+      top: 'center',
+      speed: 700,
+      onClose: function (event) {
+        $('#modal_dialog').remove();
+      }
+    });
   }
