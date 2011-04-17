@@ -62,20 +62,20 @@
 }
 
 .action_bar .add_new_question_icon {
-	height:   32px;
-  width:    32px;
+	height:   42px;
+  width:    42px;
   display:  inline-block;
-  background-image: url(../images/page/discuss/add_question_32.png);
+  background-image: url(../images/page/discuss/add_question_42.png);
   cursor: pointer;
 	margin-top: 10px;
 }
 
 .action_bar .add_new_button:hover .add_new_question_icon {
-  background-position: 0 -32px;
+  background-position: 0 -42px;
 }
 
 .action_bar .add_new_button .label {
-  top: 5px;
+  top: 4px;
 }
 
 #question_list a.avatar_holder{
