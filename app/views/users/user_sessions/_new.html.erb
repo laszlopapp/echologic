@@ -1,9 +1,11 @@
-<div class='signinup_dialog'>
+
+<% content_tag :div,
+               :class => 'signinup_dialog' do %>
+
   <%= render :partial => 'users/components/signinup/signinup_form',
              :locals => {:type => 'signin'} %>
   <%= render :partial => 'users/components/signinup/signinup_form',
              :locals => {:type => 'signup',
                          :style => "display:none"} %>
-  <span class='close_button'>
-  </span>
-</div>
+
+<% end %>

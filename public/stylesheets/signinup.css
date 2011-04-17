@@ -1,8 +1,30 @@
 
 
 
-.signinup_dialog {
-  overflow: hidden;
+#dialog_content {
+  display: none;
+  width: 795px;
+  padding: 20px 15px;
+  border: 7px solid #777;
+	background: #FEFEFE;
+  border-radius: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  box-shadow: 0 5px 40px #555;
+  -moz-box-shadow: 0 5px 40px #555;
+  -webkit-box-shadow: 0 5px 40px #555;
+  z-index: 500;
+  cursor: default;
+}
+
+#dialog_content .close {
+	background-image: url(../images/page/overlay_close_button.png);
+	position: absolute;
+	right: -15px;
+	top: -15px;
+	cursor: pointer;
+	height: 24px;
+	width: 24px;
 }
 
 .signinup_container {
@@ -17,7 +39,8 @@
 
 .signinup_container .header.block {
   margin-bottom: 35px;
-  width: 760px;
+  width: 100%;
+  position: relative;
 }
 
 .signinup_container .symbol {
@@ -43,6 +66,7 @@
 }
 
 .signinup_toggle_button {
+  color: #21587f;
   padding: 5px 10px;
   background: #EEE;
   font-size: 13px;
