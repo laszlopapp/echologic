@@ -135,7 +135,7 @@ de:
     # User sessions section
     signup:
       label: 'Registrieren'
-      member_tag: Sind Sie noch kein Mitglied?
+      member_tag: Noch kein Mitglied?
       via_echo: '... über E-Mail'
       via_social: '... über ein vorhandenes Konto'
     setup_basic_profile:
@@ -146,7 +146,7 @@ de:
     signin:
       label: 'Anmelden'
       password: 'Password'
-      member_tag: Sind Sie schon Mitglied?
+      member_tag: Schon Mitglied?
       via_echo: '... über echo'
       via_social: '... über ein verknüpftes Konto'
       set_password: Passwort vergessen?
