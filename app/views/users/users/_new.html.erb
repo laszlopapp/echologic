@@ -1,6 +1,7 @@
 
 <% content_tag :div,
-               :id => 'signinup' do %>
+               :id => 'signinup',
+               :class => 'signinup_dialog' do %>
 
   <%= render :partial => 'users/components/signinup/signinup_form',
              :locals => {:type => 'signin',
