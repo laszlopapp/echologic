@@ -79,17 +79,35 @@
   color: #7bb031;
 }
 
-/* My echo tab */
+#home_tab_container {
+  background: none !important;
+  position: absolute;
+  left: 33px;
+  top: 0;
+}
+
+#home_tab {
+  background: transparent url(../images/page/tabs/homemenu.png) no-repeat scroll right top !important;
+  min-width: 76px;
+  width: 76px;
+  margin: 0;
+  padding: 0;
+}
+
+#home_tab:hover,
+#home_tab.active {
+  background-position: 0 -51px !important;
+}
+
 #my_echo_tab_container {
   position: absolute;
   right: 55px;
   top: 0;
 }
 
-/* Admin tab */
 #admin_tab_container {
   position: absolute;
-  left: 4px;
+  left: 101px;
   top: 0;
 }
 
