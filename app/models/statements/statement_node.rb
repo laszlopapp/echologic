@@ -387,6 +387,7 @@ class StatementNode < ActiveRecord::Base
       tag_clause << "LEFT JOIN #{Statement.table_name}               ON #{Statement.table_name}.id = s.statement_id " +
                     "LEFT JOIN #{StatementDocument.table_name} d     ON s.statement_id = d.statement_id "
       tag_clause << Statement.extaggable_joins_clause
+#      tag_clause << "LEFT JOIN users_decision_making_tags ON users_decision_making_tags.value = #{Tag.table_name}.value " if opts[:user]
       tag_clause << "WHERE "
 
 
@@ -399,6 +400,12 @@ class StatementNode < ActiveRecord::Base
         publish_condition << sanitize_sql(["s.creator_id = ?",  opts[:user].id]) if opts[:user]
         and_conditions << "(#{publish_condition.join(' OR ')})"
       end
+      
+#      tag_conditions = []
+#      tag_conditions << "SUBSTR(tags.value, 1, 2) != '**'"
+#      tag_conditions << sanitize_sql(["? = users_decision_making_tags.id", opts[:user].id]) if opts[:user]
+#      and_conditions << "(#{tag_conditions.join(' OR ')})" 
+      
       and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]]) if opts[:user] and !opts[:user].spoken_languages.empty? and opts[:language_ids]
       and_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]]) if opts[:drafting_states]
       and_conditions << sanitize_sql(["s.type = ?", opts[:type]]) if opts[:type]
@@ -422,10 +429,13 @@ class StatementNode < ActiveRecord::Base
                            "ORDER BY COUNT(statement_node_ids.#{search_attrs}) DESC,e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id;"
       else
         and_conditions << "s.type = 'Question'" if opts[:type].nil?
+        joins = "LEFT JOIN #{Statement.table_name} ON #{Statement.table_name}.id = s.statement_id " +
+                "LEFT JOIN #{StatementDocument.table_name} d ON s.statement_id = d.statement_id " +
+                "LEFT JOIN #{Echo.table_name} e ON e.id = s.echo_id " +
+                Statement.extaggable_joins_clause
+#        joins << " LEFT JOIN users_decision_making_tags ON users_decision_making_tags.value = #{Tag.table_name}.value " if opts[:user]
         statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? search_attrs : '*'} from #{table_name} s " +
-                           "LEFT JOIN #{Statement.table_name} ON #{Statement.table_name}.id = s.statement_id " +
-                           "LEFT JOIN #{StatementDocument.table_name} d ON s.statement_id = d.statement_id " +
-                           "LEFT JOIN #{Echo.table_name} e ON e.id = s.echo_id " +
+                           joins +
                            "WHERE " + and_conditions.join(' AND ') +
                            " ORDER BY e.supporter_count DESC, s.created_at DESC, s.id;"
       end

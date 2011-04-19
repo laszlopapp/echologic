@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110311174559) do
+ActiveRecord::Schema.define(:version => 20110418105009) do
 
   create_table "about_item_translations", :force => true do |t|
     t.integer "about_item_id"
@@ -387,5 +387,43 @@ ActiveRecord::Schema.define(:version => 20110311174559) do
   end
 
   add_index "web_addresses", ["user_id"], :name => "index_web_profiles_on_user_id"
+
+  create_view "closed_statement_permissions", "select `statement_permissions`.`statement_id` AS `statement_id`,`user_permissions`.`user_id` AS `user_id` from (`statement_permissions` left join `user_permissions` on((`statement_permissions`.`tag_id` = `user_permissions`.`tag_id`)))", :force => true do |v|
+    v.column :statement_id
+    v.column :user_id
+  end
+
+  create_view "search_statement_nodes", "select distinct `s`.`id` AS `id`,`s`.`type` AS `type`,`s`.`parent_id` AS `parent_id`,`s`.`root_id` AS `root_id`,`s`.`creator_id` AS `creator_id`,`s`.`echo_id` AS `echo_id`,`s`.`created_at` AS `created_at`,`s`.`updated_at` AS `updated_at`,`s`.`statement_id` AS `statement_id`,`s`.`drafting_state` AS `drafting_state`,`s`.`lft` AS `lft`,`s`.`rgt` AS `rgt`,`s`.`question_id` AS `question_id`,`statements`.`editorial_state_id` AS `editorial_state_id`,`d`.`language_id` AS `language_id`,`d`.`title` AS `title`,`d`.`text` AS `text`,`echos`.`supporter_count` AS `supporter_count`,`closed_statement_permissions`.`statement_id` AS `closed_statement`,`closed_statement_permissions`.`user_id` AS `allowed_user_id` from ((((`statement_nodes` `s` left join `statements` on((`statements`.`id` = `s`.`statement_id`))) left join `statement_documents` `d` on((`s`.`statement_id` = `d`.`statement_id`))) left join `echos` on((`echos`.`id` = `s`.`echo_id`))) left join `closed_statement_permissions` on((`closed_statement_permissions`.`statement_id` = `statements`.`id`))) where ((`d`.`current` = 1) and isnull(`s`.`question_id`) and (`s`.`type` = 'Question'))", :force => true do |v|
+    v.column :id
+    v.column :type
+    v.column :parent_id
+    v.column :root_id
+    v.column :creator_id
+    v.column :echo_id
+    v.column :created_at
+    v.column :updated_at
+    v.column :statement_id
+    v.column :drafting_state
+    v.column :lft
+    v.column :rgt
+    v.column :question_id
+    v.column :editorial_state_id
+    v.column :language_id
+    v.column :title
+    v.column :text
+    v.column :supporter_count
+    v.column :closed_statement
+    v.column :allowed_user_id
+  end
+
+  create_view "statement_permissions", "select `statements`.`id` AS `statement_id`,`tags`.`id` AS `tag_id` from (((`statements` left join `tao_tags` on(((`statements`.`id` = `tao_tags`.`tao_id`) and (`tao_tags`.`tao_type` = 'Statement')))) left join `tags` on((`tags`.`id` = `tao_tags`.`tag_id`))) left join `enum_keys` on(((`enum_keys`.`id` = `tao_tags`.`context_id`) and (`enum_keys`.`code` = 'topic')))) where (substr(`tags`.`value`,1,2) = '**')", :force => true do |v|
+    v.column :statement_id
+    v.column :tag_id
+  end
+
+  create_view "user_permissions", "select `users`.`id` AS `user_id`,`tags`.`id` AS `tag_id` from (((`users` left join `tao_tags` on(((`users`.`id` = `tao_tags`.`tao_id`) and (`tao_tags`.`tao_type` = 'User')))) left join `tags` on((`tags`.`id` = `tao_tags`.`tag_id`))) left join `enum_keys` on(((`enum_keys`.`id` = `tao_tags`.`context_id`) and (`enum_keys`.`code` = 'decision_making')))) where (substr(`tags`.`value`,1,2) = '**')", :force => true do |v|
+    v.column :user_id
+    v.column :tag_id
+  end
 
 end
