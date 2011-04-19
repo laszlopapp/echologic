@@ -388,6 +388,16 @@ ActiveRecord::Schema.define(:version => 20110418105009) do
 
   add_index "web_addresses", ["user_id"], :name => "index_web_profiles_on_user_id"
 
+  create_view "statement_permissions", "select `statements`.`id` AS `statement_id`,`tags`.`id` AS `tag_id` from (((`statements` left join `tao_tags` on(((`statements`.`id` = `tao_tags`.`tao_id`) and (`tao_tags`.`tao_type` = 'Statement')))) left join `tags` on((`tags`.`id` = `tao_tags`.`tag_id`))) left join `enum_keys` on(((`enum_keys`.`id` = `tao_tags`.`context_id`) and (`enum_keys`.`code` = 'topic')))) where (substr(`tags`.`value`,1,2) = '**')", :force => true do |v|
+    v.column :statement_id
+    v.column :tag_id
+  end
+
+  create_view "user_permissions", "select `users`.`id` AS `user_id`,`tags`.`id` AS `tag_id` from (((`users` left join `tao_tags` on(((`users`.`id` = `tao_tags`.`tao_id`) and (`tao_tags`.`tao_type` = 'User')))) left join `tags` on((`tags`.`id` = `tao_tags`.`tag_id`))) left join `enum_keys` on(((`enum_keys`.`id` = `tao_tags`.`context_id`) and (`enum_keys`.`code` = 'decision_making')))) where (substr(`tags`.`value`,1,2) = '**')", :force => true do |v|
+    v.column :user_id
+    v.column :tag_id
+  end
+
   create_view "closed_statement_permissions", "select `statement_permissions`.`statement_id` AS `statement_id`,`user_permissions`.`user_id` AS `user_id` from (`statement_permissions` left join `user_permissions` on((`statement_permissions`.`tag_id` = `user_permissions`.`tag_id`)))", :force => true do |v|
     v.column :statement_id
     v.column :user_id
@@ -413,14 +423,6 @@ ActiveRecord::Schema.define(:version => 20110418105009) do
     v.column :allowed_user_id
   end
 
-  create_view "statement_permissions", "select `statements`.`id` AS `statement_id`,`tags`.`id` AS `tag_id` from (((`statements` left join `tao_tags` on(((`statements`.`id` = `tao_tags`.`tao_id`) and (`tao_tags`.`tao_type` = 'Statement')))) left join `tags` on((`tags`.`id` = `tao_tags`.`tag_id`))) left join `enum_keys` on(((`enum_keys`.`id` = `tao_tags`.`context_id`) and (`enum_keys`.`code` = 'topic')))) where (substr(`tags`.`value`,1,2) = '**')", :force => true do |v|
-    v.column :statement_id
-    v.column :tag_id
-  end
-
-  create_view "user_permissions", "select `users`.`id` AS `user_id`,`tags`.`id` AS `tag_id` from (((`users` left join `tao_tags` on(((`users`.`id` = `tao_tags`.`tao_id`) and (`tao_tags`.`tao_type` = 'User')))) left join `tags` on((`tags`.`id` = `tao_tags`.`tag_id`))) left join `enum_keys` on(((`enum_keys`.`id` = `tao_tags`.`context_id`) and (`enum_keys`.`code` = 'decision_making')))) where (substr(`tags`.`value`,1,2) = '**')", :force => true do |v|
-    v.column :user_id
-    v.column :tag_id
-  end
+  
 
 end

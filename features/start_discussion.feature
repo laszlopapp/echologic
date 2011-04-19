@@ -92,3 +92,25 @@ Feature: Start a question
       And I am logged in as "ben" with password "benrocks"
     When I go to the question
       Then I should not see "Change"
+      
+      
+      
+   ######################
+   # CLOSED DISCUSSIONS #
+   ######################
+   
+   Scenario: Various Users try to see the new statement marked with a ** tag
+     Given I am logged in as "user" with password "true"
+       And I am on the discuss index
+     Then I should see "Test Question?"
+       And I choose the "Test Question?" Question
+       And the question has "**secret, **top_secret, not_secret" for tags
+       And I am on the discuss index
+     Then I should not see "Test Question?"
+     Given I have "**secret" as decision making tags
+       And I am on the discuss index
+       Then I should see "Test Question?"
+     Given I follow "logout_button"
+       And I login as "ben" with password "benrocks"
+       And I am on the discuss index
+     Then I should not see "Test Question?"

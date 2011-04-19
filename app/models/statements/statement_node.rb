@@ -414,7 +414,7 @@ class StatementNode < ActiveRecord::Base
         terms.each do |term|
           or_conditions = Statement.extaggable_conditions_for_term(term)
           if (term.length > 3)
-            or_conditions << sanitize_sql([" OR s.title LIKE ? OR s.text LIKE ?", "%#{term}%", "%#{term}%"])
+            or_conditions << sanitize_sql([" OR d.title LIKE ? OR d.text LIKE ?", "%#{term}%", "%#{term}%"])
           end
           tags_query << (tag_clause + (and_conditions + ["(#{or_conditions})"]).join(" AND "))
         end
