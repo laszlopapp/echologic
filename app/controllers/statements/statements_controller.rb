@@ -12,6 +12,7 @@ class StatementsController < ApplicationController
 
   before_filter :fetch_statement_node, :except => [:category, :my_questions, :new, :create]
   before_filter :fetch_statement_node_type, :only => [:new, :create]
+  before_filter :check_statement_permissions, :except => [:category, :my_questions, :new, :create]
   before_filter :redirect_if_approved_or_incorporated, :only => [:show, :edit, :update, :destroy,
                                                                  :new_translation, :create_translation,
                                                                  :echo, :unecho]
@@ -50,12 +51,6 @@ class StatementsController < ApplicationController
   def show
 
     begin
-      
-      # check if the user has permissions to read this statement
-      if !check_tag_permissions(@statement_node.root.topic_tags, false)
-        redirect_to_url discuss_search_url, 'discuss.statements.read_permission'
-        return
-      end
       # Get document to show or redirect if not found
       @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
       if @statement_document.nil?
@@ -157,7 +152,7 @@ class StatementsController < ApplicationController
 
 
 
-      if has_permission
+      if has_permission #TODO: is this really necessary? this actually blocks the possible errors from the document to show up
         # Persisting
         StatementNode.transaction do
           if @statement_node.save
@@ -249,7 +244,7 @@ class StatementsController < ApplicationController
       locked_at = attrs_doc.delete(:locked_at) if attrs_doc
 
       # Updating tags of the statement
-      form_tags = attrs.delete(:topic_tags)
+      form_tags = attrs.delete(:topic_tags) || ""
       has_permission = form_tags.nil? || !@statement_node.taggable? || check_tag_permissions(form_tags.split(","))
 
       holds_lock = true
@@ -613,6 +608,18 @@ class StatementsController < ApplicationController
   def fetch_statement_node_type
     @statement_node_type = params[:type] ? params[:type].to_s.classify.constantize : nil
   end
+  
+  
+  #
+  # Checks if the user can access this very statement
+  #
+  def check_statement_permissions
+    # check if the user has permissions to read this statement
+    if @statement_node and !check_tag_permissions(@statement_node.root.topic_tags, false)
+      redirect_to_url discuss_search_url, 'discuss.statements.read_permission'
+      return
+    end
+  end
 
   #
   # Redirect to parent if incorporable is approved or already incorporated.
@@ -811,24 +818,33 @@ class StatementsController < ApplicationController
   # Checks whether the user is allowed to assign the given hash tags (#tag).
   #
   def check_tag_permissions(tags_values, write=true)
-
-    tags = tags_values.map{|t|t.strip}.uniq.select{|t|t[0,2].eql? "**"}
-    # Editors can define all tags
-    return true if tags.empty? or (current_user and current_user.has_role? :editor) 
-    return false if current_user.nil?
-    # Check the individual hash tag permissions
-    decision_making_tags = current_user.decision_making_tags
+    tags = filter_read_write_tags(tags_values)
     
-    return true if tags.empty?
-    ret_value = true
-    tags.each do |tag|
-      if !decision_making_tags.include? tag
-        ret_value = false
-        return ret_value if !write
-        set_error('discuss.statements.tag_permission', :tag => tag) if write
+    if tags.empty? # no read/write permission tag, good to go
+      return true
+    elsif current_user.nil? # no user logged in, can't access super secret statement
+      return false
+    elsif current_user.has_role? :editor # editor can do whatever he wants
+      return true
+    else # calculate for the remaining users
+      decision_making_tags = current_user.decision_making_tags
+      ret_value = true
+      tags.each do |tag|
+        unless decision_making_tags.include? tag
+          ret_value = false
+          if write
+            set_error('discuss.statements.tag_permission', :tag => tag)
+          else
+            return ret_value
+          end
+        end
       end
+      return ret_value
     end
-    ret_value
+  end
+  
+  def filter_read_write_tags(tags)
+    tags.map{|t|t.strip}.uniq.select{|t|t[0,2].eql? "**"}
   end
 
   ##########
