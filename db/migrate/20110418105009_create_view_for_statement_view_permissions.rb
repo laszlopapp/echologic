@@ -28,16 +28,13 @@ class CreateViewForStatementViewPermissions < ActiveRecord::Migration
     end
     
     create_view :search_statement_nodes, 
-    "SELECT DISTINCT s.*, statements.editorial_state_id, d.language_id, d.title, d.text,
+    "SELECT DISTINCT s.*, statements.editorial_state_id,
      echos.supporter_count, closed_statement_permissions.statement_id AS closed_statement,
      closed_statement_permissions.user_id AS allowed_user_id from statement_nodes s
      LEFT JOIN statements ON statements.id = s.statement_id
-     LEFT JOIN statement_documents d ON s.statement_id = d.statement_id
      LEFT OUTER JOIN echos ON echos.id = s.echo_id
      LEFT OUTER JOIN closed_statement_permissions ON closed_statement_permissions.statement_id = statements.id
-     WHERE d.current = 1 AND
-     s.question_id is NULL AND
-     s.type = 'Question'" do |t|
+     WHERE s.question_id is NULL" do |t|
       t.column :id 
       t.column :type
       t.column :parent_id
@@ -52,9 +49,6 @@ class CreateViewForStatementViewPermissions < ActiveRecord::Migration
       t.column :rgt
       t.column :question_id
       t.column :editorial_state_id
-      t.column :language_id
-      t.column :title
-      t.column :text
       t.column :supporter_count
       t.column :closed_statement
       t.column :allowed_user_id

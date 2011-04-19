@@ -393,7 +393,7 @@ ActiveRecord::Schema.define(:version => 20110418105009) do
     v.column :user_id
   end
 
-  create_view "search_statement_nodes", "select distinct `s`.`id` AS `id`,`s`.`type` AS `type`,`s`.`parent_id` AS `parent_id`,`s`.`root_id` AS `root_id`,`s`.`creator_id` AS `creator_id`,`s`.`echo_id` AS `echo_id`,`s`.`created_at` AS `created_at`,`s`.`updated_at` AS `updated_at`,`s`.`statement_id` AS `statement_id`,`s`.`drafting_state` AS `drafting_state`,`s`.`lft` AS `lft`,`s`.`rgt` AS `rgt`,`s`.`question_id` AS `question_id`,`statements`.`editorial_state_id` AS `editorial_state_id`,`d`.`language_id` AS `language_id`,`d`.`title` AS `title`,`d`.`text` AS `text`,`echos`.`supporter_count` AS `supporter_count`,`closed_statement_permissions`.`statement_id` AS `closed_statement`,`closed_statement_permissions`.`user_id` AS `allowed_user_id` from ((((`statement_nodes` `s` left join `statements` on((`statements`.`id` = `s`.`statement_id`))) left join `statement_documents` `d` on((`s`.`statement_id` = `d`.`statement_id`))) left join `echos` on((`echos`.`id` = `s`.`echo_id`))) left join `closed_statement_permissions` on((`closed_statement_permissions`.`statement_id` = `statements`.`id`))) where ((`d`.`current` = 1) and isnull(`s`.`question_id`) and (`s`.`type` = 'Question'))", :force => true do |v|
+  create_view "search_statement_nodes", "select distinct `s`.`id` AS `id`,`s`.`type` AS `type`,`s`.`parent_id` AS `parent_id`,`s`.`root_id` AS `root_id`,`s`.`creator_id` AS `creator_id`,`s`.`echo_id` AS `echo_id`,`s`.`created_at` AS `created_at`,`s`.`updated_at` AS `updated_at`,`s`.`statement_id` AS `statement_id`,`s`.`drafting_state` AS `drafting_state`,`s`.`lft` AS `lft`,`s`.`rgt` AS `rgt`,`s`.`question_id` AS `question_id`,`statements`.`editorial_state_id` AS `editorial_state_id`,`echos`.`supporter_count` AS `supporter_count`,`closed_statement_permissions`.`statement_id` AS `closed_statement`,`closed_statement_permissions`.`user_id` AS `allowed_user_id` from (((`statement_nodes` `s` left join `statements` on((`statements`.`id` = `s`.`statement_id`))) left join `echos` on((`echos`.`id` = `s`.`echo_id`))) left join `closed_statement_permissions` on((`closed_statement_permissions`.`statement_id` = `statements`.`id`))) where isnull(`s`.`question_id`)", :force => true do |v|
     v.column :id
     v.column :type
     v.column :parent_id
@@ -408,9 +408,6 @@ ActiveRecord::Schema.define(:version => 20110418105009) do
     v.column :rgt
     v.column :question_id
     v.column :editorial_state_id
-    v.column :language_id
-    v.column :title
-    v.column :text
     v.column :supporter_count
     v.column :closed_statement
     v.column :allowed_user_id
