@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   map.filter :locale
 
   # SECTION main parts of echologic
-  map.act '/act/roadmap', :controller => :act, :action => :roadmap
+  map.act_roadmap '/act/roadmap', :controller => :act, :action => :roadmap
   map.discuss_featured '/discuss/featured', :controller => :discuss, :action => :index
   map.discuss_roadmap '/discuss/roadmap', :controller => :discuss, :action => :roadmap
   map.my_questions '/discuss/my_questions', :controller => :statements, :action => :my_questions
@@ -19,8 +19,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect_search '/connect/search', :controller => :connect, :action => :show
   map.connect_roadmap '/connect/roadmap', :controller => :connect, :action => :roadmap
 
-  map.my_echo '/my_echo/roadmap', :controller => :my_echo, :action => :roadmap
-
   map.resource :admin,   :controller => 'admin',   :only => [:show]
 
   # SECTION my echo routing
@@ -31,6 +29,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.welcome 'welcome', :controller => 'my_echo', :action => 'welcome'
   map.settings 'settings', :controller => 'my_echo', :action => 'settings'
+  map.my_echo_roadmap '/my_echo/roadmap', :controller => :my_echo, :action => :roadmap
 
   # SECTION autocomplete
   map.auto_complete ':controller/:action',
@@ -126,7 +125,7 @@ ActionController::Routing::Routes.draw do |map|
   #Add Teaser section
   map.add_question_teaser  'statement/add/question', :controller => :statements, :action => :add, :type => :question
   map.add_teaser  'statement/:id/add/:type', :controller => :statements, :action => :add
-   
+
   map.question_descendants 'statement/descendants/question/', :controller => :statements, :action => :descendants, :type => :question
 
   map.resources :statement_nodes, :controller => :statements,

@@ -1,42 +1,47 @@
 
 <% render_tabnav :main,
                  :generate_css => false,
-                 :html => { :class => 'applicationTabs' } do
+                 :html => { :class => 'applicationTabs' } do |tn|
 
-  add_tab :html => { :id => 'home_tab' } do |t|
+  tn.add_tab :html => { :id => 'home_tab' } do |t|
     t.named ''
-    t.links_to discuss_search_path
+    t.links_to hash_for_discuss_search_path
     t.highlights_on :controller => 'discuss'
     t.highlights_on :controller => 'statements'
+    t.drops_down render :partial => 'widgets/dropdown_home'
   end
 
-  add_tab :html => { :id => 'discuss_tab' } do |t|
+  tn.add_tab :html => { :id => 'discuss_tab' } do |t|
     t.named I18n.t('layouts.tabs.discuss')
-    t.links_to discuss_search_path
+    t.links_to hash_for_discuss_search_path
     t.highlights_on :controller => 'discuss'
     t.highlights_on :controller => 'statements'
+    t.drops_down render :partial => 'widgets/dropdown_discuss'
   end
 
-  add_tab :html => { :id => 'connect_tab', :class => "#{'ajax' unless current_user}" } do |t|
+  tn.add_tab :html => { :id => 'connect_tab', :class => "#{'ajax' unless current_user}" } do |t|
     t.named I18n.t('layouts.tabs.connect')
-    t.links_to connect_search_path
+    t.links_to hash_for_connect_search_path
     t.highlights_on :controller => 'connect'
+    t.drops_down render :partial => 'widgets/dropdown_connect'
   end
 
-  add_tab :html => { :id => 'act_tab', :class => "#{'ajax' unless current_user}" } do |t|
+  tn.add_tab :html => { :id => 'act_tab', :class => "#{'ajax' unless current_user}" } do |t|
     t.named I18n.t('layouts.tabs.act')
-    t.links_to act_path
+    t.links_to hash_for_act_roadmap_path
     t.highlights_on :controller => 'act'
+    t.drops_down render :partial => 'widgets/dropdown_act'
   end
 
-  add_tab :html => { :id => 'my_echo_tab', :class => "#{'ajax' unless current_user}" } do |t|
+  tn.add_tab :html => { :id => 'my_echo_tab', :class => "#{'ajax' unless current_user}" } do |t|
     t.named I18n.t('layouts.tabs.my_echo')
-    t.links_to my_profile_path
+    t.links_to hash_for_my_profile_path
     t.highlights_on :controller => 'users/profiles'
     t.highlights_on :controller => 'my_echo'
+    t.drops_down render :partial => 'widgets/dropdown_my_echo'
   end
 
-  add_tab :html => { :id => 'admin_tab' } do |t|
+  tn.add_tab :html => { :id => 'admin_tab' } do |t|
     t.named I18n.t('layouts.tabs.admin')
     t.links_to admin_path
     t.highlights_on :controller => 'i18n/locales'
