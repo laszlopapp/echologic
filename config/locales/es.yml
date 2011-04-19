@@ -431,8 +431,6 @@ es:
       no_questions: |
         Lo sentimos, pero no hay debates por el momento. Para abrir un nuevo debate, haz clic en el signo de interrogación de la izquierda.
       add: Crea nueva pregunta
-    tag_permission: |
-      Lo sentimos, pero no tienes permiso para insertar esta '{{tag}}' nota.
     original_language_warning: |
       El texto original es <strong>{{language}}</strong>. Por favor, <br/>
       indica los idiomas que conoces.
@@ -556,6 +554,8 @@ es:
       fuq_formulation_hint: |
         Las preguntas de seguimiento aparecen también como preguntas en "Buscar", por ello, el título y la
         descripción deben ser comprensibles también fuera de contexto del debate principal.
+      tag_permission: |
+        Lo sentimos, pero no tienes permiso para insertar esta '{{tag}}' nota.
       title_hint:
         question: Introduce el título de la pregunta en...
         proposal: Introduce el título de la propuesta en...

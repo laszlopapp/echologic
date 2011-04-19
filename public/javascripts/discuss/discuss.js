@@ -3,11 +3,14 @@
 /* Initialization on loading the document */
 $(document).ready(function () {
 	if ($('#function_container.discuss').length > 0) {
-  	initBreadcrumbs();
-  	initStatements();
-  	initFragmentStatementChange();
-  	loadSocialMessages();
+  	if ($('#statements').length > 0) {
+	    initFragmentStatementChange();
+	    initBreadcrumbs();
+	    initStatements();
+	    loadSocialMessages();
+	  }
   }
+	
 });
 
 

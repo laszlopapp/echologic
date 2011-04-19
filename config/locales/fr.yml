@@ -452,8 +452,6 @@ fr:
         Vous n'avez pas encore précisé un sujet de discussion. Pour ce faire,
         cliquez sur le point d'interrogation à gauche.
       add: Nouvelle question
-    tag_permission: |
-      Ce tag '{{tag}}' n'est pas autorisé.
     original_language_warning: |
       La formulaton originale est en  <strong>{{language}}</strong>.<br/>
       Précisez vos compétences linguistiques pour accéder à d'autres pages.
@@ -574,6 +572,8 @@ fr:
       fuq_formulation_hint: |
         La "question suivie" apparaissant aussi comme question dans le registre "Chercher",
         son titre et sa description doivent etre clairs et compréhensibles indépendemment de la discusion d'origine.
+      tag_permission: |
+        Ce tag '{{tag}}' n'est pas autorisé.
       title_hint:
         question: Entrez le titre de la question en... français?
         proposal: Entrer le titre de votre proposition en... français?

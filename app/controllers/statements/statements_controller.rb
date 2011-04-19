@@ -50,10 +50,17 @@ class StatementsController < ApplicationController
   def show
 
     begin
+      
+      # check if the user has permissions to read this statement
+      if !check_tag_permissions(@statement_node.root.topic_tags, false)
+        redirect_to_url discuss_search_url, 'discuss.statements.read_permission'
+        return
+      end
       # Get document to show or redirect if not found
       @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
       if @statement_document.nil?
         redirect_to_url discuss_search_url, 'discuss.statements.no_document_in_language'
+        return
       end
 
       # Record visited
@@ -144,7 +151,7 @@ class StatementsController < ApplicationController
       has_permission = true
       created = false
 
-      if @statement_node.taggable? and (has_permission = check_tag_permissions(form_tags))
+      if @statement_node.taggable? and (has_permission = check_tag_permissions(form_tags.split(",")))
         @tags = @statement_node.topic_tags = form_tags
       end
 
@@ -243,7 +250,7 @@ class StatementsController < ApplicationController
 
       # Updating tags of the statement
       form_tags = attrs.delete(:topic_tags)
-      has_permission = form_tags.nil? || !@statement_node.taggable? || check_tag_permissions(form_tags)
+      has_permission = form_tags.nil? || !@statement_node.taggable? || check_tag_permissions(form_tags.split(","))
 
       holds_lock = true
       old_statement_document = nil
@@ -803,19 +810,24 @@ class StatementsController < ApplicationController
   #
   # Checks whether the user is allowed to assign the given hash tags (#tag).
   #
-  def check_tag_permissions(tags_values)
+  def check_tag_permissions(tags_values, write=true)
 
     # Editors can define all tags
-    return true if current_user.has_role? :editor
+    return true if current_user.has_role? :editor or tags_values.blank?
 
     # Check the individual hash tag permissions
     decision_making_tags = current_user.decision_making_tags
-    tags = tags_values.split(',').map{|t|t.strip}.uniq
+    tags = tags_values.map{|t|t.strip}.uniq.select{|t|t[0,2].eql? "**"}
+    return true if tags.empty?
+    ret_value = true
     tags.each do |tag|
-      next if !tag[0,2].eql? "**"
-      set_error('discuss.tag_permission', :tag => tag) if !decision_making_tags.include? tag
+      if !decision_making_tags.include? tag
+        ret_value = false
+        return ret_value if !write
+        set_error('discuss.statements.tag_permission', :tag => tag) if write
+      end
     end
-    @error.nil? ? true : false
+    ret_value
   end
 
   ##########
