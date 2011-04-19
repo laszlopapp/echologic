@@ -133,7 +133,7 @@ class StatementsController < ApplicationController
   def create
     attrs = params[statement_node_symbol].merge({:creator_id => current_user.id})
     doc_attrs = attrs.delete(:statement_document)
-    form_tags = attrs.delete(:topic_tags)
+    form_tags = attrs.delete(:topic_tags) || ""
 
     begin
       parent_node_id = attrs[:parent_id]
@@ -812,12 +812,13 @@ class StatementsController < ApplicationController
   #
   def check_tag_permissions(tags_values, write=true)
 
+    tags = tags_values.map{|t|t.strip}.uniq.select{|t|t[0,2].eql? "**"}
     # Editors can define all tags
-    return true if current_user.has_role? :editor or tags_values.blank?
-
+    return true if tags.empty? or (current_user and current_user.has_role? :editor) 
+    return false if current_user.nil?
     # Check the individual hash tag permissions
     decision_making_tags = current_user.decision_making_tags
-    tags = tags_values.map{|t|t.strip}.uniq.select{|t|t[0,2].eql? "**"}
+    
     return true if tags.empty?
     ret_value = true
     tags.each do |tag|
