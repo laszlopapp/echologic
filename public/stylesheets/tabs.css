@@ -87,16 +87,19 @@
 }
 
 #home_tab {
-  background: transparent url(../images/page/tabs/homemenu.png) no-repeat scroll right top !important;
+  background: transparent url(../images/page/tabs/homemenu.png) no-repeat scroll 0 0 !important;
   min-width: 76px;
   width: 76px;
   margin: 0;
   padding: 0;
 }
 
-#home_tab:hover,
-#home_tab.active {
+#home_tab:hover {
   background-position: 0 -51px !important;
+}
+
+#home_tab.active {
+  background-position: 0 -102px !important;
 }
 
 #my_echo_tab_container {
@@ -113,7 +116,7 @@
 
 #roadmap_tab_container {
   position: absolute;
-  left: 55px;
+  left: 45px;
   width: 150px;
   top: 0;
   text-align: left;
@@ -132,7 +135,8 @@
 
 .roadmap_tab img {
   position: absolute;
-  top: -23px;
+  top: -17px;
+  width: 50px;
   z-index: 11;
 }
 
