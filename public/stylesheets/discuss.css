@@ -1578,7 +1578,8 @@ form.statement fieldset ol li.tags_container {
 
 .statement .authors li.author {
   width: 229px;
-	height: 55px;
+	height: 52px;
+  overflow: hidden;
   margin: 4px 15px 0 0;
 	display: inline-block;
   position: relative;
