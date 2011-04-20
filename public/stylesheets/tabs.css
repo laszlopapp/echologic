@@ -68,7 +68,6 @@ li.main_menu_item.active {
 a.main_menu_item.active {
   background: transparent url(../images/page/tabs/mainmenu_right_on.png) no-repeat scroll right top !important;
   font-weight: bold;
-  color: #7bb031;
 }
 
 
@@ -128,8 +127,13 @@ a.main_menu_item.active {
 
 .main_menu_item .dropdown {
   display: none;
-  padding: 0px 3px;
+  padding: 0 3px;
   background: #f8f9fa;
+  width: 150px;
+  position: absolute;
+  top: 46px;
+  left: -16px;
+  list-style: none outside none;
   border: 3px solid #CAD3DB;
   border-top: none;
   border-radius: 20px 20px 12px 12px;
@@ -138,11 +142,6 @@ a.main_menu_item.active {
   box-shadow: 0 7px 35px #CAD3DB;
   -moz-box-shadow: 0 7px 35px #CAD3DB;
   -webkit-box-shadow: 0 7px 35px #CAD3DB;
-  width: 150px;
-  position: absolute;
-  top: 46px;
-  left: -16px;
-  list-style: none outside none;
 }
 
 .main_menu_item .dropdown li {
@@ -155,7 +154,7 @@ a.main_menu_item.active {
   font-weight: bold;
   border-bottom: 1px dotted #BBBBBB;
   margin: 0;
-  padding: 8px 10px;
+  padding: 10px;
   display: block;
 }
 
@@ -172,6 +171,14 @@ a.main_menu_item.active {
   left: -42px;
 }
 
+li.main_menu_item:hover .dropdown {
+  display: inline-block;
+}
+
+li.main_menu_item.active:hover .dropdown {
+  display: none;
+}
+
 /* Label colors */
 
 .main_menu_tabs a,
@@ -180,6 +187,7 @@ a.main_menu_item.active {
 }
 
 .main_menu_tabs li.main_menu_item:hover a.main_menu_item,
+.main_menu_tabs li.main_menu_item.active a.main_menu_item,
 .main_menu_tabs .dropdown li:hover a {
   color: #7bb031;
 }

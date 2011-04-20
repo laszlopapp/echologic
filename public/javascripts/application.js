@@ -5,6 +5,7 @@
   $(function() {
 
     $.fragmentChange(true);
+    positionMainMenuDropdowns();
     makeTooltips();
     roundCorners();
     bindLanguageSelectionEvents();
@@ -162,6 +163,13 @@
     toggleParams = {
       'height' : 'toggle'
     };
+  }
+
+  function positionMainMenuDropdowns() {
+    $('li.main_menu_item').each(function () {
+      var menuItem = $(this);
+      menuItem.find('.dropdown').css('left', (menuItem.innerWidth()-150)/2 - 7);
+    });
   }
 
   /* Lightweight tooltip plugin initialization to create fancy tooltips
