@@ -128,7 +128,7 @@ class StatementNode < ActiveRecord::Base
   #
   def translatable?(user, from_language, to_language)
     if user && from_language != to_language
-      languages = user.spoken_languages_at_min_level('advanced')
+      languages = user.spoken_languages_at_min_level('intermediate')
       languages.include?(from_language) && languages.include?(to_language)
     else
       false
@@ -137,8 +137,8 @@ class StatementNode < ActiveRecord::Base
 
   # Checks if, in case the user hasn't yet set his language knowledge, the current language is different from
   # the statement original language. used for the original message warning
-  def not_original_language?(user, current_language_id, document_language_id)
-    user ? (user.spoken_languages.empty? and current_language_id != original_language.id and original_language.id != document_language_id) : false
+  def should_set_languages?(user, current_language_id, document_language_id)
+    user ? (user.spoken_languages.empty? and current_language_id != document_language_id) : false
   end
 
   #

@@ -47,16 +47,6 @@ Feature: Translation permission
       Then I should see "Andere Frage?"
 
   @ok
-  Scenario: ben doesn't have current language as mother tongue
-    Given I am logged in as "ben" with password "benrocks"
-    When I am on the discuss featured
-    When I follow "Pilot Projects"
-    When I follow "echonomyJAM"
-      And I choose the "Andere Frage?" Question
-    Then I should see "Andere Frage?"
-    Then I should not see "Please translate this statement to ENGLISH"
-
-  @ok
   Scenario: user has language level smaller than intermediate, thus can not translate
     Given I am logged in as "user" with password "true"
     When I am on the discuss featured
@@ -154,8 +144,8 @@ Feature: Translation permission
     When I am on the discuss featured
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the "Raindrops keep falling on my head" Question
-    Then I should see "The original statement is in GERMAN. Set your language skills to see content in other languages."
+      And I choose the "Andere Frage?" Question
+    Then I should see "Set your language skills to see content only in languages you speak"
 
   @ok
   Scenario: illiterate doesn't speak any languages, and  does not see a warning when he chooses a question which original language is german with the application in german

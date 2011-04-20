@@ -63,7 +63,7 @@ class StatementsController < ApplicationController
       load_siblings(@statement_node) if !params[:new_level].blank?
 
       # Test for special links
-      @set_language_skills_teaser = @statement_node.not_original_language?(current_user, 
+      @set_language_skills_teaser = @statement_node.should_set_languages?(current_user, 
                                                                            @locale_language_id, 
                                                                            @statement_document.language_id)
       @translation_permission = @statement_node.original_language == @statement_document.language &&
