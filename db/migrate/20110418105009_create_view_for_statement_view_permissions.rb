@@ -1,28 +1,11 @@
 class CreateViewForStatementViewPermissions < ActiveRecord::Migration
   def self.up
-    create_view :statement_permissions, 
-    "select statements.id AS statement_id, tags.id AS tag_id from statements
-      LEFT JOIN tao_tags  ON statements.id = tao_tags.tao_id AND tao_tags.tao_type = 'Statement'
-      LEFT JOIN tags      ON tags.id = tao_tags.tag_id
-      LEFT JOIN enum_keys ON enum_keys.id = tao_tags.context_id AND enum_keys.code = 'topic'
-      WHERE SUBSTR(tags.value, 1, 2) = '**'" do |t|
-      t.column :statement_id
-      t.column :tag_id
-    end
-    
-    create_view :user_permissions, 
-    "select users.id AS user_id, tags.id AS tag_id from users
-     LEFT JOIN tao_tags  ON users.id = tao_tags.tao_id AND tao_tags.tao_type = 'User'
-     LEFT JOIN tags      ON tags.id = tao_tags.tag_id
-     LEFT JOIN enum_keys ON enum_keys.id = tao_tags.context_id AND enum_keys.code = 'decision_making'
-     WHERE SUBSTR(tags.value, 1, 2) = '**'" do |t|
-      t.column :user_id
-      t.column :tag_id
-    end
-    create_view :closed_statement_permissions, 
-    "select statement_permissions.statement_id AS statement_id, user_permissions.user_id AS user_id FROM statement_permissions
-     LEFT JOIN user_permissions
-     ON statement_permissions.tag_id = user_permissions.tag_id" do |t|
+    create_view :closed_statement_permissions,
+    "select statements.id AS statement_id, tao_users.tao_id AS user_id from statements
+     LEFT JOIN tao_tags AS tao_statements  ON statements.id = tao_statements.tao_id AND tao_statements.tao_type = 'Statement' AND tao_statements.context_id = 586794338
+     LEFT JOIN tags      ON tags.id = tao_statements.tag_id
+     LEFT JOIN tao_tags AS tao_users ON tags.id = tao_users.tag_id AND tao_users.tao_type = 'User' AND tao_users.context_id = 549825790
+     WHERE SUBSTR(tags.value, 1, 2) = '**';" do |t|
       t.column :statement_id
       t.column :user_id
     end
@@ -58,7 +41,5 @@ class CreateViewForStatementViewPermissions < ActiveRecord::Migration
   def self.down
     drop_view :search_statement_nodes
     drop_view :closed_statement_permissions
-    drop_view :user_permissions
-    drop_view :statement_permissions
   end
 end
