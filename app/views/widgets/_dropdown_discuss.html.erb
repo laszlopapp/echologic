@@ -1,7 +1,7 @@
 
 <% content_tag :ul, :class => 'dropdown' do %>
 
-  <% content_tag :li do %>
+  <% content_tag :li, :class => 'first' do %>
      <%= link_to I18n.t('discuss.featured_topics.title'),
                  discuss_featured_path %>
   <% end %>
