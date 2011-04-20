@@ -40,8 +40,8 @@ module ActiveRecord
             #
             # SQL Queries Helpers
             #
-            def self.extaggable_joins_clause
-              "LEFT JOIN #{TaoTag.table_name} ON (#{TaoTag.table_name}.tao_id = #{self.table_name}.id and #{TaoTag.table_name}.tao_type = '#{self.name}') " +
+            def self.extaggable_joins_clause(attribute = "#{self.table_name}.id")
+              "LEFT JOIN #{TaoTag.table_name} ON (#{TaoTag.table_name}.tao_id = #{attribute} and #{TaoTag.table_name}.tao_type = '#{self.name}') " +
               "LEFT JOIN #{Tag.table_name}    ON #{TaoTag.table_name}.tag_id = #{Tag.table_name}.id "
             end
             

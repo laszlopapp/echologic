@@ -12,6 +12,7 @@ class StatementsController < ApplicationController
 
   before_filter :fetch_statement_node, :except => [:category, :my_questions, :new, :create]
   before_filter :fetch_statement_node_type, :only => [:new, :create]
+  before_filter :check_statement_permissions, :except => [:category, :my_questions, :new, :create]
   before_filter :redirect_if_approved_or_incorporated, :only => [:show, :edit, :update, :destroy,
                                                                  :new_translation, :create_translation,
                                                                  :echo, :unecho]
@@ -54,6 +55,7 @@ class StatementsController < ApplicationController
       @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
       if @statement_document.nil?
         redirect_to_url discuss_search_url, 'discuss.statements.no_document_in_language'
+        return
       end
 
       # Record visited
@@ -126,7 +128,7 @@ class StatementsController < ApplicationController
   def create
     attrs = params[statement_node_symbol].merge({:creator_id => current_user.id})
     doc_attrs = attrs.delete(:statement_document)
-    form_tags = attrs.delete(:topic_tags)
+    form_tags = attrs.delete(:topic_tags) || ""
 
     begin
       parent_node_id = attrs[:parent_id]
@@ -144,29 +146,31 @@ class StatementsController < ApplicationController
       has_permission = true
       created = false
 
-      if @statement_node.taggable?
+      if @statement_node.taggable? and (has_permission = check_tag_permissions(form_tags.split(",")))
         @tags = @statement_node.topic_tags = form_tags
       end
 
 
 
-      # Persisting
-      StatementNode.transaction do
-        if @statement_node.save
-          # add to tree
-          if parent_node_id.blank? or @statement_node.class.is_top_statement?
-            @statement_node.target_statement.update_attribute(:root_id, @statement_node.target_id)
+      if has_permission #TODO: is this really necessary? this actually blocks the possible errors from the document to show up
+        # Persisting
+        StatementNode.transaction do
+          if @statement_node.save
+            # add to tree
+            if parent_node_id.blank? or @statement_node.class.is_top_statement?
+              @statement_node.target_statement.update_attribute(:root_id, @statement_node.target_id)
+            end
+  
+            if @statement_node.echoable?
+              echo = params.delete(:echo)
+              @statement_node.author_support if echo=='true'
+            end
+  
+            # Propagating the creation event
+            EchoService.instance.created(@statement_node)
+            EchoService.instance.created(@statement_node.question) if @statement_node.question_id
+            created = true
           end
-
-          if @statement_node.echoable?
-            echo = params.delete(:echo)
-            @statement_node.author_support if echo=='true'
-          end
-
-          # Propagating the creation event
-          EchoService.instance.created(@statement_node)
-          EchoService.instance.created(@statement_node.question) if @statement_node.question_id
-          created = true
         end
       end
 
@@ -240,40 +244,44 @@ class StatementsController < ApplicationController
       locked_at = attrs_doc.delete(:locked_at) if attrs_doc
 
       # Updating tags of the statement
-      form_tags = attrs.delete(:topic_tags)
+      form_tags = attrs.delete(:topic_tags) || ""
+      has_permission = form_tags.nil? || !@statement_node.taggable? || check_tag_permissions(form_tags.split(","))
 
       holds_lock = true
-      StatementNode.transaction do
-        old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
-        holds_lock = holds_lock?(old_statement_document, locked_at)
-        if holds_lock
-          @statement_document = @statement_node.add_statement_document(
-                                  attrs_doc.merge({:author_id => current_user.id,
-                                                   :current => true}))
-          @statement_document.save
-
-          @statement_node.update_attributes(attrs)
-          if @statement_node.taggable? and form_tags
-            @tags = @statement_node.topic_tags = form_tags
+      old_statement_document = nil
+      if has_permission
+        StatementNode.transaction do
+          old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
+          holds_lock = holds_lock?(old_statement_document, locked_at)
+          if holds_lock
+            @statement_document = @statement_node.add_statement_document(
+                                    attrs_doc.merge({:author_id => current_user.id,
+                                                     :current => true}))
+            @statement_document.save
+  
+            @statement_node.update_attributes(attrs)
+            if @statement_node.taggable? and form_tags
+              @tags = @statement_node.topic_tags = form_tags
+            end
+            @statement_node.statement.save
           end
-          @statement_node.statement.save
-        end
-      
-
-        if !holds_lock
-          being_edited
-        elsif @statement_node.valid? and @statement_document.valid?
-          old_statement_document.current = false
-          old_statement_document.unlock # also saves the document
-          update = true
-          set_statement_info(@statement_document)
-          show_statement
-        else
-          set_error(@statement_document) if @statement_document
-          set_error(@statement_node) unless @statement_document
-          show_statement true
         end
       end
+
+      if !holds_lock
+        being_edited
+      elsif has_permission and @statement_node.valid? and @statement_document.valid?
+        old_statement_document.current = false
+        old_statement_document.unlock # also saves the document
+        update = true
+        set_statement_info(@statement_document)
+        show_statement
+      else
+        set_error(@statement_document) if @statement_document
+        set_error(@statement_node) unless @statement_document
+        show_statement true
+      end
+      
 
     rescue Exception => e
       log_error_statement(e, "Error updating statement node '#{@statement_node.id}'.")
@@ -600,6 +608,18 @@ class StatementsController < ApplicationController
   def fetch_statement_node_type
     @statement_node_type = params[:type] ? params[:type].to_s.classify.constantize : nil
   end
+  
+  
+  #
+  # Checks if the user can access this very statement
+  #
+  def check_statement_permissions
+    # check if the user has permissions to read this statement
+    if @statement_node and !check_tag_permissions(@statement_node.root.topic_tags, false)
+      redirect_to_url discuss_search_url, 'discuss.statements.read_permission'
+      return
+    end
+  end
 
   #
   # Redirect to parent if incorporable is approved or already incorporated.
@@ -794,7 +814,39 @@ class StatementsController < ApplicationController
     return true
   end
 
+  #
+  # Checks whether the user is allowed to assign the given hash tags (#tag).
+  #
+  def check_tag_permissions(tags_values, write=true)
+    tags = filter_read_write_tags(tags_values)
+    
+    if tags.empty? # no read/write permission tag, good to go
+      return true
+    elsif current_user.nil? # no user logged in, can't access super secret statement
+      return false
+    elsif current_user.has_role? :editor # editor can do whatever he wants
+      return true
+    else # calculate for the remaining users
+      decision_making_tags = current_user.decision_making_tags
+      ret_value = true
+      tags.each do |tag|
+        unless decision_making_tags.include? tag
+          ret_value = false
+          if write
+            set_error('discuss.statements.tag_permission', :tag => tag)
+          else
+            return ret_value
+          end
+        end
+      end
+      return ret_value
+    end
+  end
   
+  def filter_read_write_tags(tags)
+    tags.map{|t|t.strip}.uniq.select{|t|t[0,2].eql? "**"}
+  end
+
   ##########
   # SEARCH #
   ##########

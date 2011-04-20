@@ -383,10 +383,9 @@ class StatementNode < ActiveRecord::Base
     def search_statement_nodes(opts={})
       search_term = opts.delete(:search_term)
       search_attrs = opts[:type].nil? ? 'root_id' : 'id'
-      tag_clause = "SELECT DISTINCT s.#{search_attrs} FROM #{table_name} s "
-      tag_clause << "LEFT JOIN #{Statement.table_name}               ON #{Statement.table_name}.id = s.statement_id " +
-                    "LEFT JOIN #{StatementDocument.table_name} d     ON s.statement_id = d.statement_id "
-      tag_clause << Statement.extaggable_joins_clause
+      tag_clause = "SELECT DISTINCT s.#{search_attrs} FROM search_statement_nodes s "
+      tag_clause << "LEFT OUTER JOIN statement_documents d ON d.statement_id = s.statement_id "
+      tag_clause << Statement.extaggable_joins_clause("s.statement_id")
       tag_clause << "WHERE "
 
 
@@ -395,10 +394,16 @@ class StatementNode < ActiveRecord::Base
       and_conditions << "d.current = 1"
       unless opts[:show_unpublished]
         publish_condition = []
-        publish_condition << sanitize_sql(["#{Statement.table_name}.editorial_state_id = ?",StatementState['published'].id])
+        publish_condition << sanitize_sql(["s.editorial_state_id = ?",StatementState['published'].id])
         publish_condition << sanitize_sql(["s.creator_id = ?",  opts[:user].id]) if opts[:user]
         and_conditions << "(#{publish_condition.join(' OR ')})"
       end
+      
+      tag_conditions = []
+      tag_conditions << "closed_statement is null"
+      tag_conditions << sanitize_sql(["? = s.allowed_user_id", opts[:user].id]) if opts[:user]
+      and_conditions << "(#{tag_conditions.join(' OR ')})" 
+      
       and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]]) if opts[:user] and !opts[:user].spoken_languages.empty? and opts[:language_ids]
       and_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]]) if opts[:drafting_states]
       and_conditions << sanitize_sql(["s.type = ?", opts[:type]]) if opts[:type]
@@ -422,12 +427,11 @@ class StatementNode < ActiveRecord::Base
                            "ORDER BY COUNT(statement_node_ids.#{search_attrs}) DESC,e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id;"
       else
         and_conditions << "s.type = 'Question'" if opts[:type].nil?
-        statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? search_attrs : '*'} from #{table_name} s " +
-                           "LEFT JOIN #{Statement.table_name} ON #{Statement.table_name}.id = s.statement_id " +
-                           "LEFT JOIN #{StatementDocument.table_name} d ON s.statement_id = d.statement_id " +
-                           "LEFT JOIN #{Echo.table_name} e ON e.id = s.echo_id " +
+        statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? search_attrs : '*'} from search_statement_nodes s " +
+                           "LEFT OUTER JOIN statement_documents d ON d.statement_id = s.statement_id " +
+                           Statement.extaggable_joins_clause("s.statement_id") +
                            "WHERE " + and_conditions.join(' AND ') +
-                           " ORDER BY e.supporter_count DESC, s.created_at DESC, s.id;"
+                           " ORDER BY s.supporter_count DESC, s.created_at DESC, s.id;"
       end
       find_by_sql statements_query
     end

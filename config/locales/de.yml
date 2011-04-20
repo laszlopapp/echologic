@@ -423,8 +423,6 @@ de:
       no_questions: |
         Sie haben bislang keine Fragestellungen hinzugefügt. Um welche anzulegen, klicken Sie bitte links auf das Fragezeichen.
       add: Neue Fragestellung
-    tag_permission: |
-      Sie dürfen leider den Tag '{{tag}}' nicht vergeben.
     original_language_warning: |
       Die originale Aussage ist auf <strong>{{language}}</strong>. Definieren Sie<br/>
       Ihre Sprachkenntnisse, um weitere Inhalte zu sehen.
@@ -546,6 +544,8 @@ de:
       fuq_formulation_hint: |
         Da Folgefragen auch wie andere Fragestellungen in der Suche erscheinen, sollten Überschrift und Erläuterung auch
         ausserhalb der ursprünglichen Diskussion verständlich sein.
+      tag_permission: |
+        Sie dürfen leider den Tag '{{tag}}' nicht vergeben.
       title_hint:
         question: Überschrift der Fragestellung auf... Deutsch?
         proposal: Überschrift des Vorschlags auf... Deutsch?

@@ -415,8 +415,6 @@ en:
       no_questions: |
         You haven't created any questions yet. To do so, please click on the question mark button on the left.
       add: Add New Question
-    tag_permission: |
-      You do not have the permission to insert the '{{tag}}' tag.
     translation_request: Please translate this statement to <strong>ENGLISH</strong>.
     original_language_warning: |
       The original statement is in <strong>{{language}}</strong>. Set your <br/>
@@ -529,8 +527,12 @@ en:
       fuq_formulation_hint: |
         Since follow-up questions also appear as questions in "Search", title and description should both be
         comprehensible independently of the original discussion.
+      tag_permission: |
+        You do not have the permission to insert the '{{tag}}' tag.
       set_languages: |
         Set your language skills to see content only in languages you speak.
+      read_permission: |
+        You do not have permission to read this statement.
       title_hint:
         question: Enter the question title in... English?
         proposal: Enter the proposal title in... English?
