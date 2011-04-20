@@ -1,7 +1,7 @@
 
 <% content_tag :ul, :class => 'dropdown' do %>
 
-  <% content_tag :li do %>
+  <% content_tag :li, :class => 'default' do %>
      <%= link_to I18n.t('layouts.my_echo.tabs.profile'),
                  my_profile_path %>
   <% end %>
@@ -11,7 +11,7 @@
                  settings_path %>
   <% end %>
 
-  <% content_tag :li, :class => 'roadmap' do %>
+  <% content_tag :li, :class => 'roadmap last' do %>
      <%= link_to I18n.t('application.roadmap.title'),
                  my_echo_roadmap_path %>
   <% end %>
