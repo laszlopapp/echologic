@@ -6,14 +6,14 @@
                  :generate_css => false, :html => {:class => 'submenu'} do |tn|
 
   tn.add_tab do |t|
-    t.named I18n.t('discuss.featured_topics.title')
-    t.links_to hash_for_discuss_featured_path
-  end
-
-  tn.add_tab do |t|
     t.named I18n.t('discuss.search.title')
     t.links_to hash_for_discuss_search_path
 	  t.highlight! if params[:id] and @statement_node.blank?
+  end
+
+  tn.add_tab do |t|
+    t.named I18n.t('discuss.featured_topics.title')
+    t.links_to hash_for_discuss_featured_path
   end
 
   tn.add_tab do |t|

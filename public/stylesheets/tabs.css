@@ -85,11 +85,11 @@ a.main_menu_item.active {
   padding: 0;
 }
 
-#home_tab:hover {
+.main_menu_tabs li.main_menu_item:hover #home_tab {
   background-position: 0 -51px !important;
 }
 
-#home_tab.active {
+.main_menu_tabs li.main_menu_item.active #home_tab {
   background-position: 0 -102px !important;
 }
 
@@ -107,7 +107,7 @@ a.main_menu_item.active {
 
 #roadmap_tab_container {
   position: absolute;
-  left: 45px;
+  left: 42px;
   width: 150px;
   top: 0;
   text-align: left;
@@ -126,8 +126,8 @@ a.main_menu_item.active {
 
 .roadmap_tab img {
   position: absolute;
-  top: -17px;
-  width: 50px;
+  top: -11px;
+  width: 48px;
   z-index: 11;
 }
 
@@ -149,13 +149,13 @@ a.main_menu_item.active {
 .main_menu_item .dropdown {
   display: none;
   padding: 0 3px;
-  background: #f8f9fa;
+  background: #f9fafb;
   width: 150px;
   position: absolute;
   top: 46px;
   left: -16px;
   list-style: none outside none;
-  border: 3px solid #CAD3DB;
+  border: 3px solid #b5c0c9;
   border-top: none;
   border-radius: 20px 20px 12px 12px;
   -moz-border-radius: 20px 20px 12px 12px;
