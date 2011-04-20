@@ -61,15 +61,6 @@ a.main_menu_item, a.main_menu_item.active {
   min-width: 85px;
 }
 
-.main_menu_tabs a,
-.main_menu_tabs a:visited {
-  color: #21587f;
-}
-
-.main_menu_tabs a:hover {
-  color: #7bb031;
-}
-
 li.main_menu_item.active {
   background: url(../images/page/tabs/mainmenu_left_on.png) no-repeat scroll left top !important;
 }
@@ -158,7 +149,7 @@ a.main_menu_item.active {
 
 .main_menu_item .dropdown {
   display: none;
-  padding: 5px 3px 2px;
+  padding: 0px 3px;
   background: #f8f9fa;
   border: 3px solid #CAD3DB;
   border-top: none;
@@ -189,6 +180,39 @@ a.main_menu_item.active {
   display: block;
 }
 
+.main_menu_item .dropdown li.first a {
+  padding-top: 11px;
+}
+
+.main_menu_item .dropdown li.last a {
+  border-bottom: none;
+  padding-bottom: 9px;
+}
+
+#home_tab_container .dropdown {
+  left: -42px;
+}
+
+/* Label colors */
+
+.main_menu_tabs a,
+.main_menu_tabs a:visited {
+  color: #21587f;
+}
+
+.main_menu_tabs li.main_menu_item:hover a.main_menu_item,
+.main_menu_tabs .dropdown li:hover a {
+  color: #7bb031;
+}
+
+.main_menu_item .dropdown li.roadmap a {
+  color: #CAD3DB;
+}
+
+.main_menu_item .dropdown li.roadmap:hover a {
+  color: #7bb031;
+}
+
 .main_menu_item .dropdown li.default a,
 .main_menu_item .dropdown:hover li.default:hover a {
   color: #7bb031;
@@ -196,12 +220,4 @@ a.main_menu_item.active {
 
 .main_menu_item .dropdown:hover li.default a {
   color: #21587f;
-}
-
-.main_menu_item .dropdown li.last a {
-  border-bottom: none;
-}
-
-#home_tab_container .dropdown {
-  left: -42px;
 }

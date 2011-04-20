@@ -1,7 +1,7 @@
 
 <% content_tag :ul, :class => 'dropdown' do %>
 
-  <% content_tag :li, :class => 'default roadmap last' do %>
+  <% content_tag :li, :class => 'default roadmap first last' do %>
      <%= link_to I18n.t('application.roadmap.title'),
                  act_roadmap_path %>
   <% end %>
