@@ -312,11 +312,11 @@ class StatementNode < ActiveRecord::Base
 
       if opts[:for_session]
         fields[:select] = "DISTINCT #{table_name}.id, #{table_name}.question_id"
-        statements = self.scoped(fields).map{|s| s.question_id.nil? ? s.id : s.question_id}
+        statements = self.base_class.scoped(fields).map{|s| s.question_id.nil? ? s.id : s.question_id}
         statements << "/#{opts[:parent_id].nil? ? '' : "#{opts[:parent_id]}/" }add/#{self.name.underscore}" # ADD TEASER
       else
         fields[:select] = "DISTINCT #{table_name}.*"
-        statements = self.all(fields)
+        statements = self.base_class.all(fields)
       end
       statements
     end
