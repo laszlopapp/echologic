@@ -576,6 +576,7 @@ en:
         improvement: 'Additions'
         argument: 'Arguments'
         follow_up_question: 'Follow-up Questions'
+        alternatives: 'Alternatives'
       siblings:
         follow_up_question: 'Follow-up Question in the context shown above'
 

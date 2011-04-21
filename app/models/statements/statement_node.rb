@@ -238,6 +238,15 @@ class StatementNode < ActiveRecord::Base
     opts[:type] ? opts[:type].to_s.constantize.count_statements_for_parent(opts) : children.count
   end
 
+
+  ##########################
+  # ALTERNATIVE STATEMENTS #
+  ##########################
+  
+  def has_alternatives?
+    true
+  end
+
   private
 
   #################
