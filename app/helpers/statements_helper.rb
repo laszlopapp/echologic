@@ -495,8 +495,8 @@ module StatementsHelper
       breadcrumb = content_tag(:a, attrs.merge({:href => b[:url], :id => b[:key], :class => 'breadcrumb'})) do
         content = ""
         content << content_tag(:span, '', :class => 'big_delimiter') if index != 0
-        content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.#{b[:label]}"), :class => 'label')
-        content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.over.#{b[:over]}"), :class => 'over')
+        content << content_tag(:span, b[:label], :class => 'label')
+        content << content_tag(:span, b[:over], :class => 'over')
         content << content_tag(:span, h(b[:title].gsub(/\\;/, ',').gsub(/\\:;/, '|')), :class => b[:css])
         content
       end

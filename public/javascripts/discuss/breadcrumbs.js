@@ -75,7 +75,7 @@
 					breadcrumb.bind("click", function() {
 	          // Getting bids from fragment
 	          var bids_stack = $(this).prevAll().map(function() {
-	            return  this.id == 'sr' ? (this.id + $(this).find('.search_link').text().replace(/,/, "\\;")) : this.id;
+							return truncateBreadcrumbKey($(this));
 	          }).get().reverse();
 
 
@@ -138,6 +138,14 @@
                             settings['container_animation_speed']);
       }
 
+
+      function truncateBreadcrumbKey(breadcrumb) {
+				var key = breadcrumb.attr('id') == 'sr' ? (breadcrumb.attr('id') + breadcrumb.find('.search_link').text().replace(/,/, "\\;")) : breadcrumb.attr('id');
+				if (breadcrumb.attr('page_count')) {
+					key += "|" + breadcrumb.attr('page_count');
+				}
+				return key; 
+			}
 
 			// Public API
       $.extend(this,
@@ -216,7 +224,7 @@
 
           // Current breadcrumb entries
 		      var visible_bids = breadcrumbs.find(".breadcrumb").map(function() {
-						return  this.id == 'sr' ? (this.id + $(this).find('.search_link').text().replace(/,/, "\\;")) : this.id;
+						return truncateBreadcrumbKey($(this));
 		      }).get();
 
 					// Get bids that are not visible (DRY)
@@ -227,7 +235,7 @@
 
 				getBreadcrumbStack : function (newBreadcrumb) {
 		      var currentBreadcrumbs = breadcrumbs.find(".breadcrumb").map(function() {
-						return  this.id == 'sr' ? (this.id + $(this).find('.search_link').text().replace(/,/, "\\;")) : this.id;
+						return truncateBreadcrumbKey($(this));
 					}).get();
 					if (newBreadcrumb) {
             currentBreadcrumbs.push(newBreadcrumb);
