@@ -1,11 +1,15 @@
 class CreateViewForStatementViewPermissions < ActiveRecord::Migration
   def self.up
+    
+    topic = TagContext[:topic]
+    decision_making = TagContext[:decision_making]
+    
     create_view :closed_statement_permissions,
-    "select statements.id AS statement_id, tao_users.tao_id AS user_id from statements
-     LEFT JOIN tao_tags AS tao_statements  ON statements.id = tao_statements.tao_id AND tao_statements.tao_type = 'Statement' AND tao_statements.context_id = 586794338
-     LEFT JOIN tags      ON tags.id = tao_statements.tag_id
-     LEFT JOIN tao_tags AS tao_users ON tags.id = tao_users.tag_id AND tao_users.tao_type = 'User' AND tao_users.context_id = 549825790
-     WHERE SUBSTR(tags.value, 1, 2) = '**';" do |t|
+    "select statements.id AS statement_id, tao_users.tao_id AS user_id from statements " +
+    "LEFT JOIN tao_tags AS tao_statements  ON statements.id = tao_statements.tao_id AND tao_statements.tao_type = 'Statement' AND tao_statements.context_id = #{topic.id} " +
+    "LEFT JOIN tags      ON tags.id = tao_statements.tag_id " +
+    "LEFT JOIN tao_tags AS tao_users ON tags.id = tao_users.tag_id AND tao_users.tao_type = 'User' AND tao_users.context_id = #{decision_making.id} " +
+    "WHERE SUBSTR(tags.value, 1, 2) = '**';" do |t|
       t.column :statement_id
       t.column :user_id
     end
