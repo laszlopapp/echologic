@@ -75,7 +75,7 @@
 					breadcrumb.bind("click", function() {
 	          // Getting bids from fragment
 	          var bids_stack = $(this).prevAll().map(function() {
-	            return  this.id == 'sr' ? (this.id + $(this).find('.search_link').text().replace(/,/, "\\;")) : this.id;
+							return truncateBreadcrumbKey($(this));
 	          }).get().reverse();
 
 
@@ -139,6 +139,14 @@
       }
 
 
+      function truncateBreadcrumbKey(breadcrumb) {
+				var key = breadcrumb.attr('id') == 'sr' ? (breadcrumb.attr('id') + breadcrumb.find('.search_link').text().replace(/,/, "\\;")) : breadcrumb.attr('id');
+				if (breadcrumb.attr('page_count')) {
+					key += "|" + breadcrumb.attr('page_count');
+				}
+				return key; 
+			}
+
 			// Public API
       $.extend(this,
       {
@@ -158,13 +166,16 @@
             }
 			  	  // Assemble new breadcrumb entries
 						$.each(breadcrumbsData, function(index, breadcrumbData) { //[id, classes, url, title, label, over]
-							var breadcrumb = $('<a/>').addClass('breadcrumb').attr('id',breadcrumbData[0]).attr('href',breadcrumbData[2]);
+							var breadcrumb = $('<a/>').addClass('breadcrumb').attr('id',breadcrumbData['key']).attr('href',breadcrumbData['url']);
+							if (breadcrumbsData['page_count']) {
+						  	breadcrumb.attr('page_count', breadcrumbData['page_count']);
+						  }
 							if (index != 0 || elements.find(".breadcrumb").length != 0) {
 								breadcrumb.append($("<span/>").addClass('big_delimiter'));
 							}
-              breadcrumb.append($('<span/>').addClass('label').text(breadcrumbData[4]));
-							breadcrumb.append($('<span/>').addClass('over').text(breadcrumbData[5]));
-							breadcrumb.append($('<span/>').addClass(breadcrumbData[1]).text(breadcrumbData[3]));
+              breadcrumb.append($('<span/>').addClass('label').text(breadcrumbData['label']));
+							breadcrumb.append($('<span/>').addClass('over').text(breadcrumbData['over']));
+							breadcrumb.append($('<span/>').addClass(breadcrumbData['css']).text(breadcrumbData['title']));
 							breadcrumb.hide();
 							initBreadcrumb(breadcrumb);
 							elements.append(breadcrumb);
@@ -213,7 +224,7 @@
 
           // Current breadcrumb entries
 		      var visible_bids = breadcrumbs.find(".breadcrumb").map(function() {
-						return  this.id == 'sr' ? (this.id + $(this).find('.search_link').text().replace(/,/, "\\;")) : this.id;
+						return truncateBreadcrumbKey($(this));
 		      }).get();
 
 					// Get bids that are not visible (DRY)
@@ -224,7 +235,7 @@
 
 				getBreadcrumbStack : function (newBreadcrumb) {
 		      var currentBreadcrumbs = breadcrumbs.find(".breadcrumb").map(function() {
-						return  this.id == 'sr' ? (this.id + $(this).find('.search_link').text().replace(/,/, "\\;")) : this.id;
+						return truncateBreadcrumbKey($(this));
 					}).get();
 					if (newBreadcrumb) {
             currentBreadcrumbs.push(newBreadcrumb);

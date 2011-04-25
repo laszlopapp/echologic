@@ -220,14 +220,13 @@
 		    var siblingIds = $("div#statements").data(siblingsKey);
 				// Get index of the prev/next sibling
 				var targetIndex = ($.inArray(currentStatementId,siblingIds) + inc + siblingIds.length) % siblingIds.length;
-
 		    var targetStatementId = new String(siblingIds[targetIndex]);
 				if (targetStatementId.match('add')) {
           // Add (teaser) link
-					button.attr('href', button.attr('href').replace(/\/\d+.*/, targetStatementId));
+					button.attr('href', button.attr('href').replace(/statement\/.*/, 'statement/' + targetStatementId));
 		    }
 		    else {
-					button.attr('href', button.attr('href').replace(/\/\d+.*/, "/" + targetStatementId));
+					button.attr('href', button.attr('href').replace(/statement\/.*/, "statement/" + targetStatementId));
 		    }
 
 		    button.removeAttr('data-id');

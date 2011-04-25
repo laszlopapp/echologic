@@ -388,7 +388,7 @@ module StatementsHelper
     end
     content_tag(:a, :href => url, :class => 'show_siblings_button expandable', :title => 'show_siblings_button') do
       content_tag(:span, '&nbsp;', :class => 'show_siblings_label ttLink no_border',
-                                   :title => I18n.t("discuss.tooltips.siblings.#{dom_class(statement_node)}"))
+                                   :title => I18n.t("discuss.tooltips.siblings.#{statement_node ? dom_class(statement_node) : 'question'}"))
     end
   end
 
@@ -490,12 +490,14 @@ module StatementsHelper
   def render_breadcrumb(breadcrumbs)
     breadcrumb_trail = ""
     breadcrumbs.each_with_index do |b, index| #[id, classes, url, title]
-      breadcrumb = content_tag(:a, :href => b[2], :id => b[0], :class => 'breadcrumb') do
+      attrs = {}
+      attrs[:page_count] = b[:page_count] if b[:page_count]
+      breadcrumb = content_tag(:a, attrs.merge({:href => b[:url], :id => b[:key], :class => 'breadcrumb'})) do
         content = ""
         content << content_tag(:span, '', :class => 'big_delimiter') if index != 0
-        content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.#{b[0][0,2]}"), :class => 'label')
-        content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.over.#{b[0][0,2]}"), :class => 'over')
-        content << content_tag(:span, h(b[3].gsub(/\\;/, ',').gsub(/\\:;/, '|')), :class => b[1])
+        content << content_tag(:span, b[:label], :class => 'label')
+        content << content_tag(:span, b[:over], :class => 'over')
+        content << content_tag(:span, h(b[:title].gsub(/\\;/, ',').gsub(/\\:;/, '|')), :class => b[:css])
         content
       end
       breadcrumb_trail << breadcrumb
