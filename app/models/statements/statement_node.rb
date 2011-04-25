@@ -162,7 +162,13 @@ class StatementNode < ActiveRecord::Base
   #
   def sibling_statements(opts={})
     opts[:type] ||= self.class.to_s
-    self.parent.nil? ? [] : self.parent.child_statements(opts)
+    if self.parent.nil?
+      []
+    else
+      opts[:lft] = self.parent.lft
+      opts[:rgt] = self.parent.rgt
+      self.child_statements(opts)
+    end
   end
 
   #
@@ -216,7 +222,9 @@ class StatementNode < ActiveRecord::Base
   # about other possible attributes, check statements_for_parent documentation
   #
   def child_statements(opts={})
-    opts[:parent_id] = self.target_id
+    opts[:root_id] = self.root_id
+    opts[:lft] ||= self.lft
+    opts[:rgt] ||= self.rgt
     opts[:filter_drafting_state] = self.draftable?
     opts[:type] ? opts[:type].to_s.constantize.statements_for_parent(opts) : children
   end
@@ -233,7 +241,9 @@ class StatementNode < ActiveRecord::Base
   # about other possible attributes, check count_statements_for_parent documentation
   #
   def count_child_statements(opts={})
-    opts[:parent_id] = self.target_id
+    opts[:root_id] = self.root_id
+    opts[:lft] = self.lft
+    opts[:rgt] = self.rgt
     opts[:filter_drafting_state] = self.draftable?
     opts[:type] ? opts[:type].to_s.constantize.count_statements_for_parent(opts) : children.count
   end
@@ -344,6 +354,7 @@ class StatementNode < ActiveRecord::Base
       fields[:joins] << "LEFT JOIN #{Echo.table_name} e ON #{table_name}.echo_id = e.id"
       fields[:joins] << children_joins
       fields[:conditions] = children_conditions(opts)
+      fields[:conditions] << state_conditions(opts)
       fields[:conditions] << sanitize_sql([" AND d.language_id IN (?) ", opts[:language_ids]]) if opts[:language_ids]
       fields[:conditions] << drafting_conditions if opts[:filter_drafting_state]
       fields[:order] = "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id"
@@ -351,6 +362,10 @@ class StatementNode < ActiveRecord::Base
     end
 
     def children_joins
+      ''
+    end
+    
+    def state_conditions(opts)
       ''
     end
 
@@ -361,8 +376,10 @@ class StatementNode < ActiveRecord::Base
     # parent_id (Integer) : id of parent statement node
     #
     def children_conditions(opts)
-      sanitize_sql(["#{table_name}.type IN (?) AND #{table_name}.parent_id = ? ",
-                    opts[:types] || [self.name], opts[:parent_id]])
+      sanitize_sql(["#{table_name}.type IN (?) AND 
+                     #{table_name}.root_id = ? AND
+                     #{table_name}.lft >= ? AND #{table_name}.rgt <= ? ",
+                    opts[:types] || [self.name], opts[:root_id], opts[:lft], opts[:rgt]])
     end
 
     public
