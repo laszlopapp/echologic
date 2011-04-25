@@ -79,6 +79,8 @@ class StatementsController < ApplicationController
       # Find all child statement_nodes, which are published (except user is an editor)
       # sorted by supporters count, and paginate them
       load_all_children
+      
+      load_alternative_statements
 
       render_template 'statements/show'
     rescue Exception => e
@@ -483,6 +485,10 @@ class StatementsController < ApplicationController
   #############
 
   protected
+
+  def load_alternative_statements
+    @alternative_statements = @statement_node.class.has_alternatives? ? @statement_node.alternative_statements : nil
+  end
 
   #
   # Loads the children of the current statement
