@@ -388,7 +388,7 @@ module StatementsHelper
     end
     content_tag(:a, :href => url, :class => 'show_siblings_button expandable', :title => 'show_siblings_button') do
       content_tag(:span, '&nbsp;', :class => 'show_siblings_label ttLink no_border',
-                                   :title => I18n.t("discuss.tooltips.siblings.#{dom_class(statement_node)}"))
+                                   :title => I18n.t("discuss.tooltips.siblings.#{statement_node ? dom_class(statement_node) : 'question'}"))
     end
   end
 
