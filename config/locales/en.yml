@@ -502,6 +502,7 @@ en:
       create_pro_argument_link: Add new PRO argument
       create_contra_argument_link: Add new CONTRA argument
       create_follow_up_question_link: Add new follow-up question
+      create_alternative_statement_link: Add new contrary statement
       recommend_link: 'Recommend (echo)'
       unrecommend_link: 'Withdraw echo'
       support_link: 'Support (echo)'
