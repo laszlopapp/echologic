@@ -16,7 +16,13 @@ module ActiveRecord
           args.flatten! if args
           args.compact! if args
           
+          belongs_to :hub, :class_name => 'CasHub', :foreign_key => 'parent_id' 
           
+          has_many :alternative_statements, 
+                   :finder_sql => 'SELECT DISTINCT * FROM statement_nodes s ' +
+                                  'LEFT OUTER JOIN statement_nodes hubs ON s.parent_id = hubs.id AND hubs.type = \'CasHub\' ' +
+                                  'WHERE s.parent_id is not null AND s.question_id is null AND s.parent_id = #{hub ? hub.id : -1} AND s.id != #{id}',
+                   :class_name => 'StatementNode'
           
           class_eval do
             class << self
