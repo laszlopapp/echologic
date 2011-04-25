@@ -19,11 +19,6 @@ class Question < StatementNode
     true
   end
 
-
-  def has_alternatives?
-    false
-  end
-  
   #################################################
   # string helpers (acts_as_echoable overwriting) #
   #################################################
