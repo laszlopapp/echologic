@@ -706,13 +706,12 @@ class StatementsController < ApplicationController
     statement_document = search_statement_documents(:statement_ids => [parent_node.statement_id])[parent_node.statement_id] ||
                          parent_node.document_in_original_language
     #[id, classes, url, title, label, over]
-    opts = {:key => "fq#{parent_node.id}",
-            :css => "statement statement_link #{parent_node.class.name.underscore}_link",
-            :url => statement_node_url(parent_node, :bids => params[:bids], :origin => params[:origin]),
-            :title => statement_document.title.gsub(/\\;/, ',').gsub(/\\:;/, '|'),
-            :label => I18n.t("discuss.statements.breadcrumbs.labels.fq"),
-            :over => I18n.t("discuss.statements.breadcrumbs.labels.over.fq")}
-    @breadcrumb = build_breadcrumb opts
+    @breadcrumb = {:key => "fq#{parent_node.id}",
+                   :css => "statement statement_link #{parent_node.class.name.underscore}_link",
+                   :url => statement_node_url(parent_node, :bids => params[:bids], :origin => params[:origin]),
+                   :title => statement_document.title.gsub(/\\;/, ',').gsub(/\\:;/, '|'),
+                   :label => I18n.t("discuss.statements.breadcrumbs.labels.fq"),
+                   :over => I18n.t("discuss.statements.breadcrumbs.labels.over.fq")}
     @bids = params[:bids]||''
     @bids = @bids.split(",")
     @bids << @breadcrumb[0]
@@ -736,53 +735,35 @@ class StatementsController < ApplicationController
     bids.each_with_index do |bid, index| #[id, classes, url, title, label, over]
       key = bid[0,2]
       value = CGI.unescape(bid[2..-1])
-      opts = {}
+      breadcrumb = {}
       #default values
-      opts[:key] = key
-      opts[:css] = "search_link statement_link"
+      breadcrumb[:key] = key
+      breadcrumb[:css] = "search_link statement_link"
       case key
-        when "ds" then page_count = value.blank? ? 1 : value[1..-1] # ds|:page_count
-                       opts[:url] = discuss_search_url(:page_count => page_count)
-                       opts[:title] = I18n.t("discuss.statements.breadcrumbs.discuss_search")
+        when "ds" then breadcrumb[:page_count] = value.blank? ? 1 : value[1..-1] # ds|:page_count
+                       breadcrumb[:url] = discuss_search_url(:page_count => breadcrumb[:page_count])
+                       breadcrumb[:title] = I18n.t("discuss.statements.breadcrumbs.discuss_search")
         when "sr" then value = value.split('|')
-                       page_count = value.length > 1 ? value[1] : 1 # sr:search_term|:page_count
+                       breadcrumb[:page_count] = value.length > 1 ? value[1] : 1 # sr:search_term|:page_count
                        search_terms = value[0].gsub(/\\;/, ',').gsub(/\\:;/, '|')
-                       opts[:url] = discuss_search_url(:page_count => page_count, :search_terms => search_terms)
-                       opts[:title] = value[0]
-        when "mi" then opts[:css] = "my_discussions_link statement_link"
-                       opts[:url] = my_questions_url
-                       opts[:title] = I18n.t("discuss.statements.breadcrumbs.my_questions")
+                       breadcrumb[:url] = discuss_search_url(:page_count => breadcrumb[:page_count], :search_terms => search_terms)
+                       breadcrumb[:title] = value[0]
+        when "mi" then breadcrumb[:css] = "my_discussions_link statement_link"
+                       breadcrumb[:url] = my_questions_url
+                       breadcrumb[:title] = I18n.t("discuss.statements.breadcrumbs.my_questions")
         when "fq" then statement_node = StatementNode.find(bid[2..-1])
                        statement_document = search_statement_documents(:statement_ids => [statement_node.statement_id])[statement_node.statement_id] ||
                                             statement_node.document_in_original_language
                        origin = index > 0 ? bids[index-1] : ''
-                       opts[:key] = "fq#{value}"
-                       opts[:css] = "statement statement_link #{statement_node.class.name.underscore}_link"
-                       opts[:url] = statement_node_url(statement_node, :bids => bids[0, bids.index(bid)].join(","), :origin => origin)
-                       opts[:title] = statement_document.title
+                       breadcrumb[:key] = "fq#{value}"
+                       breadcrumb[:css] = "statement statement_link #{statement_node.class.name.underscore}_link"
+                       breadcrumb[:url] = statement_node_url(statement_node, :bids => bids[0, bids.index(bid)].join(","), :origin => origin)
+                       breadcrumb[:title] = statement_document.title
       end
-      opts[:label] = I18n.t("discuss.statements.breadcrumbs.labels.#{key}")
-      opts[:over] = I18n.t("discuss.statements.breadcrumbs.labels.over.#{key}")
-      breadcrumb = build_breadcrumb opts
+      breadcrumb[:label] = I18n.t("discuss.statements.breadcrumbs.labels.#{key}")
+      breadcrumb[:over] = I18n.t("discuss.statements.breadcrumbs.labels.over.#{key}")
       @breadcrumbs << breadcrumb
     end
-  end
-
-  #
-  # Sets the breadcrumbs for the current statement node view previous path.
-  # opts attributes:
-  #
-  # key   (String) : breadcrumb identification code
-  # css   (String) : css attributes to be inserted into the breadcrumb
-  # url   (String) : url path which the breadcrumb will lead to if clicked
-  # title (String) : breadcrumb main text
-  # label (String) : label that shows up above the title
-  # over  (String) : label that replaces the "label" attribute when the "hover" event occurs
-  #
-  # Returns an array with the attributes above
-  #
-  def build_breadcrumb(opts={})
-    [opts[:key],opts[:css],opts[:url],opts[:title], opts[:label], opts[:over]]
   end
 
   ###############
