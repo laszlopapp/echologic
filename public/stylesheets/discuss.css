@@ -18,13 +18,13 @@
 .alternative_panel {
 	-moz-border-radius: 15px 15px 15px 15px;
   background: none repeat scroll 0 0 #BFCFFE;
-	width: 970px;
+	width: 961px;
   border: 2px solid #000000;
 	position: relative;
   left: 7px;
-	margin-top: 30px;
 	height: 70px;
 	color: #000000;
+	margin-left: 0px;
 }
 
 .alternative_panel .alternative_header {
@@ -33,10 +33,17 @@
 	border-right: 1px solid #000000;
 	height: 100%;
 	text-align: center;
+	float: left;
 }
 .alternative_panel .alternative_header label {
 	position: relative;
   top: 8px;
+}
+
+.alternative_panel .alternative_content {
+	display: inline-block;
+	width: 770px;
+	padding: 5px 0px 0px 10px;
 }
 
 /**************/
@@ -1396,6 +1403,7 @@ a.statement_link:hover {
 .create_pro_argument_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
 .create_contra_argument_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
 .create_follow_up_question_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
+.create_alternative_statement_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
 
 .create_question_button_32 {background: transparent url(../images/page/discuss/question_32.png) no-repeat scroll 0 0;}
 .create_proposal_button_32 {background: transparent url(../images/page/discuss/proposal_32.png) no-repeat scroll 0 0;}
