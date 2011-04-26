@@ -28,3 +28,4 @@ FEEDBACK_RECIPIENT = 'laszlo.papp@echologic.org'
 # Number of children statements shown
 TOP_CHILDREN = 3
 MORE_CHILDREN = 7
+TOP_ALTERNATIVES = 2
