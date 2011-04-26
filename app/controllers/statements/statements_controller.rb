@@ -484,9 +484,9 @@ class StatementsController < ApplicationController
 
   protected
 
-  def load_alternative_statements(page = 1, per_page = TOP_ALTERNATIVES)
+  def load_alternatives(page = 1, per_page = TOP_ALTERNATIVES)
     @children ||= {}
-    @children[:Alternative] = @statement_node.paginated_alternative_statements(page, per_page)
+    @children[:Alternative] = @statement_node.paginated_alternatives(page, per_page)
   end
 
   #
@@ -517,7 +517,7 @@ class StatementsController < ApplicationController
         end
       end
     end
-    load_alternative_statements if @statement_node.class.has_alternatives?
+    load_alternatives if @statement_node.class.has_alternatives?
   end
 
   #

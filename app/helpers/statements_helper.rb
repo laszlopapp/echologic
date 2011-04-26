@@ -271,7 +271,7 @@ module StatementsHelper
     content_tag :span, I18n.t("discuss.statements.headings.#{type}"), :class => 'label'
   end
   
-  def alternative_statements_box_title
+  def alternatives_box_title
     content_tag :div, :class => 'alternative_header' do
       content_tag :label, I18n.t("discuss.statements.headings.alternatives")
     end
@@ -518,7 +518,7 @@ module StatementsHelper
   def render_alternatives(statement_node, children)
     render :partial => 'statements/alternatives', 
              :locals => {:statement_node => statement_node,
-                         :alternative_statements => children}
+                         :alternatives => children}
   end
 
   # This class does the heavy lifting of actually building the pagination
