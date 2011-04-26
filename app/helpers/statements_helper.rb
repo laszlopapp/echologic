@@ -511,6 +511,16 @@ module StatementsHelper
     breadcrumb_trail
   end
 
+  ################
+  # ALTERNATIVES #
+  ################
+
+  def render_alternatives(statement_node, children)
+    render :partial => 'statements/alternatives', 
+             :locals => {:statement_node => statement_node,
+                         :alternative_statements => children}
+  end
+
   # This class does the heavy lifting of actually building the pagination
   # links. It is used by the <tt>will_paginate</tt> helper internally.
   class MoreRenderer < WillPaginate::LinkRenderer

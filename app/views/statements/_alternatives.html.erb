@@ -1,10 +1,12 @@
 <% statement_node ||= @statement_node %>
 <% alternative_statements ||= @alternative_statements %>
+<% template = type.kind_of?(String) ? type.classify.constantize.children_list_template : 'statements/children_list' %>
 <% content_tag :div, :class => 'alternatives alternative_panel header_block' do %>
   <%= alternative_statements_box_title %>
   
-	<% content_tag :div, :class => 'alternative_content children_container' do %>
-    <%= render :partial => 'statements/elements_list' , :locals => { :children => alternative_statements, 
-                                                                     :type => "alternative_statement" }%>
-	<% end %>
+	<%= render :partial => template,
+             :locals => {:type => "alternative_statement",
+                         :children => alternative_statements,
+                         :parent => @statement_node,
+                         :display => true}%>
 <% end %>

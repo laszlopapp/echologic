@@ -1,9 +1,7 @@
 <% statement_node ||= @statement_node %>
 <% hide_content ||= false %>
 <div class="expandable_content content" style="<%= hide_content ? 'display:none' : '' %>">
-	<%= render :partial => 'statements/alternatives', 
-             :locals => {:statement_node => statement_node,
-                         :alternative_statements => @alternative_statements} if statement_node.class.has_alternatives? %>
+	 <%= render_alternatives(statement_node, @children[:Alternative]) if statement_node.class.has_alternatives? %>
 	 <%= render :partial => 'statements/action_bar', :locals => {:statement_node => statement_node}%>
 	 <%= render :partial => 'statements/summary', :locals => {:statement_node => statement_node,
                                                          :statement_document => @statement_document,
