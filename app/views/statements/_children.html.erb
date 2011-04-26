@@ -1,21 +1,20 @@
 <% children ||= @children %>
 <% path = children.kind_of?(String) ? children : '' %>
-<div class="<%= type.pluralize %> children header_block discuss_right_block">
+<div class="<%= child_type.pluralize %> children header_block discuss_right_block">
   <!-- Title -->
-	<% link_to path, :class => "children_header #{type.pluralize} expandable #{path.blank? ? 'active' : '' } " do %>
+	<% link_to path, :class => "children_header #{child_type.pluralize} expandable #{path.blank? ? 'active' : '' } " do %>
 	  <% content_tag :div, :class => "headline" do %>
-	    <%= children_heading_title(type, count) %>
+	    <%= children_heading_title(child_type, count) %>
 	    <%= content_tag :div, '', :class => 'expand_icon' %>
 	  <% end %>
 	<% end %>
 
   <!-- The children -->
 	<% if children and children.kind_of?(Array) %>
-  <%= render :partial => type.classify.constantize.children_list_template,
-             :locals => {:type => type,
-                         :children => children,
-                         :parent => @statement_node,
-                         :display => true,
-                         :new_level => true}%>
+	  <%= render :partial => child_type.classify.constantize.children_list_template,
+	             :locals => {:child_type => child_type,
+	                         :children => children,
+	                         :display => true,
+	                         :new_level => true}%>
 	<% end %>
 </div>

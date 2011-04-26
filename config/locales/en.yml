@@ -471,6 +471,7 @@ en:
       create_pro_argument: "Post a new PRO argument to this proposal"
       create_contra_argument: "Post a new CONTRA argument to this proposal"
       create_follow_up_question: "Post a new new follow-up question"
+      create_alternative: "Post a new contrary statement"
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your echo to stop supporting this statement'
       publish: |

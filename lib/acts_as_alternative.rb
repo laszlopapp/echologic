@@ -37,7 +37,13 @@ module ActiveRecord
               def has_alternatives?
                 true
               end
+              
+              # TODO: When statement allows more alternative types, change this here
+              def alternative
+                @@alternative_types[self.name].first
+              end
             end
+            
             
             def paginated_alternatives(page, per_page = nil)
               per_page = alternatives.length if per_page.nil? or per_page < 0

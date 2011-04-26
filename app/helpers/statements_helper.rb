@@ -36,7 +36,7 @@ module StatementsHelper
         count = child_type.to_s.constantize.double? ? type_children.map(&:total_entries).sum : type_children.total_entries
       end
       val << render(:partial => 'statements/children',
-                    :locals => {:type => dom_child_class,
+                    :locals => {:child_type => dom_child_class,
                                 :count => count,
                                 :children => type_children})
     end
@@ -55,7 +55,8 @@ module StatementsHelper
   def create_new_child_statement_link(statement_node, child_type, opts={})
     url = opts.delete(:url) if opts[:url]
     css = opts.delete(:css) if opts[:css]
-    link_to(I18n.t("discuss.statements.create_#{child_type}_link"),
+    label_type = opts.delete(:label_type) || child_type
+    link_to(I18n.t("discuss.statements.create_#{label_type}_link"),
             url ? url : new_statement_node_url(statement_node.nil? ? nil : statement_node.target_id,child_type, opts),
             :class => "#{css} add_new_button text_button create_#{child_type}_button ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_#{child_type}"))
@@ -481,9 +482,9 @@ module StatementsHelper
   end
 
   # Renders the "more" link when the statement is loaded
-  def more_children(statement_node,type,page=0)
+  def more_children(statement_node,child_type,page=0)
     link_to I18n.t("application.general.more"),
-            more_statement_node_url(statement_node, :page => page.to_i+1, :type => type),
+            more_statement_node_url(statement_node, :page => page.to_i+1, :type => child_type),
             :class => 'more_children ajax'
   end
 

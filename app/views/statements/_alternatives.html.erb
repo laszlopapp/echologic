@@ -1,12 +1,11 @@
 <% statement_node ||= @statement_node %>
 <% alternatives ||= @alternatives %>
-<% template = type.kind_of?(String) ? type.classify.constantize.children_list_template : 'statements/children_list' %>
 <% content_tag :div, :class => 'alternatives alternative_panel header_block' do %>
   <%= alternatives_box_title %>
   
-	<%= render :partial => template,
-             :locals => {:type => "alternative",
+	<%= render :partial => 'statements/children_list',
+             :locals => {:label_type => "alternative",
+                         :child_type => @statement_node.class.alternative.to_s.underscore,
                          :children => alternatives,
-                         :parent => @statement_node,
                          :display => true}%>
 <% end %>

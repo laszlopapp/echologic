@@ -1,14 +1,14 @@
 <% display ||= false %>
-<% type ||= @type.downcase %>
+<% child_type ||= @type.downcase %>
 <% children ||= @children %>
 <% no_more ||= false %>
 <% new_level ||= false %>
 <div class="expandable_content children_container" style="<%= display ? 'display:block' : 'display:none'%>">
 	<div class="doubles_list">
 		<% children.each_with_index do |c, index| %>
-		  <% t = type.classify.constantize.sub_types[index].to_s.underscore %>
+		  <% t = child_type.classify.constantize.sub_types[index].to_s.underscore %>
 		  <%= render :partial => 'statements/elements_list',
-                 :locals => {:type => t,
+                 :locals => {:child_type => t,
                              :children => c,
                              :new_level => new_level }%>
 		<% end %>
@@ -16,7 +16,7 @@
 	<% if !no_more %>
 		<div class="more_pagination">
 	    <% if !children.select{|c|!c.empty?}.empty? and !children.select{|c|c.total_pages > 0 and c.current_page != c.total_pages}.empty? %>
-	      <%= more_children(@statement_node,type) %>
+	      <%= more_children(@statement_node,child_type) %>
 	    <% end %>
 	  </div>
 	<% end %>
