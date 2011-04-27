@@ -55,11 +55,12 @@ module StatementsHelper
   def create_new_child_statement_link(statement_node, child_type, opts={})
     url = opts.delete(:url) if opts[:url]
     css = opts.delete(:css) if opts[:css]
-    label_type = opts.delete(:label_type) || child_type
+    label_type = opts[:label_type] || child_type
+    opts[:hub] = opts.delete(:label_type)
     link_to(I18n.t("discuss.statements.create_#{label_type}_link"),
             url ? url : new_statement_node_url(statement_node.nil? ? nil : statement_node.target_id,child_type, opts),
-            :class => "#{css} add_new_button text_button create_#{child_type}_button ttLink no_border",
-            :title => I18n.t("discuss.tooltips.create_#{child_type}"))
+            :class => "#{css} add_new_button text_button create_#{label_type}_button ttLink no_border",
+            :title => I18n.t("discuss.tooltips.create_#{label_type}"))
   end
 
   def create_new_question_link(origin=@origin, opts={})
