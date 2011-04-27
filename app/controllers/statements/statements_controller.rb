@@ -357,7 +357,7 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def children
-    @type = params[:type].camelize.to_sym
+    @type = params[:type].classify.to_sym
     begin
       load_children :type => @type
       respond_to do |format|
@@ -379,15 +379,22 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def more
-    @type = params[:type].camelize.to_sym
+    @type = params[:type].classify.to_sym
     @page = params[:page] || 1
     @per_page = MORE_CHILDREN
     @offset = @page.to_i == 1 ? TOP_CHILDREN : 0
     begin
-      load_children :type => @type, :page => @page, :per_page => @per_page
+      if @type.eql? :Alternative
+        @offset =  TOP_ALTERNATIVES if @offset > 0
+        template = @statement_node.class.alternative_more_template
+        load_alternatives @page, @per_page
+      else
+        template = @type.to_s.constantize.more_template
+        load_children :type => @type, :page => @page, :per_page => @per_page
+      end
       respond_to do |format|
         format.html{show}
-        format.js {render :template => @type.to_s.constantize.more_template}
+        format.js {render :template => template}
       end
     rescue Exception => e
       log_error_home(e, "Error loading more children of type #{@type}.")

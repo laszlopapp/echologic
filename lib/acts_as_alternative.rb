@@ -22,7 +22,12 @@ module ActiveRecord
           #      through joins the statement nodes table with itself (correct) without alias (false!). 
           #      when all goes well, please update the paginated alternative statements function
           #
-          #has_many :alternatives, :through => :hub, :source => :contrary_statements
+          #has_many :alternatives, :through => :hub
+          has_many :alternatives, 
+                   :class_name => "StatementNode",
+                   :finder_sql => 'select s.* from statement_nodes s ' +
+                                  'LEFT JOIN statement_nodes hubs ON hubs.id = s.parent_id AND hubs.type = \'CasHub\' ' +
+                                  'WHERE hubs.id = #{hub.nil? ? -1 : hub.id} AND s.id != #{id}'
 
           
           class_eval do
@@ -43,13 +48,13 @@ module ActiveRecord
                 @@alternative_types[self.name].first
               end
               
+              def alternative_more_template
+                'statements/more'
+              end
+              
               def alternative_conditions(opts)
                 sanitize_sql([" AND statement_nodes.id IN (?) ", opts[:alternative_ids]])
               end
-            end
-            
-            def alternatives
-              hub.nil? ? [] : hub.alternatives - [self]
             end
             
             def paginated_alternatives(page, per_page = nil,opts={})
