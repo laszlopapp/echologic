@@ -455,7 +455,7 @@ module StatementsHelper
   end
 
   # Loads the link to a given statement, placed in the child panel section
-  def link_to_child(title, statement_node,extra_classes, type = dom_class(statement_node))
+  def link_to_child(title, statement_node, opts={})
     bids = params[:bids] || ''
     if statement_node.class.is_top_statement?
       bids = bids.split(",")
@@ -463,8 +463,8 @@ module StatementsHelper
       bids = bids.join(",")
     end
     link_to h(title),
-            statement_node_url(statement_node.target_id, :bids => bids, :origin => params[:origin],  :new_level => true),
-            :class => "statement_link #{dom_class(statement_node)}_link #{extra_classes}"
+            statement_node_url(statement_node.target_id, :bids => bids, :origin => params[:origin],  :new_level => opts[:new_level]),
+            :class => "statement_link #{dom_class(statement_node)}_link #{opts[:css]}"
   end
 
   # draws the statement image container

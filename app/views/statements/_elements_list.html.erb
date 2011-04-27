@@ -2,7 +2,7 @@
 <% new_level ||= false %>
 <% label_type ||= child_type %>
 <ul class="children_list children_pagination">
-  <%= render :partial => 'statements/child', :collection => children %>
+  <%= render :partial => 'statements/child', :collection => children, :locals => {:new_level => new_level} %>
   <%if children.blank? or children.current_page == children.total_pages %>
 	    <% if @statement_node.nil? %> <!-- only for siblings; there ain't no child question creation possibility; hence, no new_level param is given -->
 			  <%= content_tag :li, create_new_question_link(params[:origin], :css => "ajax") %>
