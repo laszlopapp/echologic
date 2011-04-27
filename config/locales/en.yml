@@ -231,7 +231,11 @@ en:
     # Spoken Languages section
     spoken_languages:
       title: Language Skills
-      guide: Here you can enter your language skills.
+      guide: |
+        Here you can enter your language skills to <strong>see content only in languages you speak</strong>.<br/>
+        Additionally, it will enable you to contribute to echos cross-language, intercultural dialogs by
+        <strong>translating statements</strong> between languages you speak at least intermediate level.
+        This is to ensure good content quality.
       language: Language
       level: Level
       error_messages:
@@ -416,9 +420,10 @@ en:
         You haven't created any questions yet. To do so, please click on the question mark button on the left.
       add: Add New Question
     translation_request: Please translate this statement to <strong>ENGLISH</strong>.
-    original_language_warning: |
-      The original statement is in <strong>{{language}}</strong>. Set your <br/>
-      language skills to see content in other languages.
+    mixed_languages: Mixed up languages
+    set_languages: Set the <strong>LANGUAGES YOU SPEAK</strong> - Unravel the noise!
+    no_locale_language: No ENGLISH
+    adjust_languages: Adjust your language skills to see <strong>ENGLISH</strong> content!
     results_count:
       one: '{{count}} question'
       more: '{{count}} questions'
@@ -529,8 +534,6 @@ en:
         comprehensible independently of the original discussion.
       tag_permission: |
         You do not have the permission to insert the '{{tag}}' tag.
-      set_languages: |
-        Set your language skills to see content only in languages you speak.
       read_permission: |
         You do not have permission to read this statement.
       title_hint:

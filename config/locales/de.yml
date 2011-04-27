@@ -231,7 +231,8 @@ de:
     # Spoken Languages section
     spoken_languages:
       title: Sprachkenntnisse
-      guide:  Hier können Sie Ihre Sprachkenntnisse angeben.
+      guide: |
+        Hier können Sie Ihre Sprachkenntnisse angeben.
       language: Sprache
       level: Niveau
       error_messages:
@@ -423,10 +424,11 @@ de:
       no_questions: |
         Sie haben bislang keine Fragestellungen hinzugefügt. Um welche anzulegen, klicken Sie bitte links auf das Fragezeichen.
       add: Neue Fragestellung
-    original_language_warning: |
-      Die originale Aussage ist auf <strong>{{language}}</strong>. Definieren Sie<br/>
-      Ihre Sprachkenntnisse, um weitere Inhalte zu sehen.
     translation_request: Bitte übersetzen Sie die Aussage auf <strong>DEUTSCH</strong>.
+    mixed_languages: Verwirrte Sprachen
+    set_languages: Stellen Sie <strong>Ihre Sprachkenntnisse</strong> ein - Entwirren Sie das Geräusch!
+    no_locale_language: Kein DEUTSCH
+    adjust_languages: Passen Sie <strong>Ihre Sprachkenntnisse</strong> an, um Inhalte auf <strong>DEUTSCH</strong> zu sehen!
     results_count:
       one: '{{count}} Fragestellung'
       more: '{{count}} Fragestellungen'
