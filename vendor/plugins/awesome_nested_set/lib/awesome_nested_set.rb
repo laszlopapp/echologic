@@ -44,6 +44,7 @@ module CollectiveIdea #:nodoc:
             :left_column => 'lft',
             :right_column => 'rgt',
             :dependent => :delete_all, # or :destroy
+            :set_conditions => nil
           }.merge(options)
           
           if options[:scope].is_a?(Symbol) && options[:scope].to_s !~ /_id$/
@@ -436,9 +437,12 @@ module CollectiveIdea #:nodoc:
         def nested_set_scope
           options = {:order => quoted_left_column_name}
           scopes = Array(acts_as_nested_set_options[:scope])
-          options[:conditions] = scopes.inject({}) do |conditions,attr|
-            conditions.merge attr => self[attr]
+          options[:conditions] = []
+          scopes.each do |attr|
+            options[:conditions] << "#{attr} = #{self[attr]}" if self[attr]
           end unless scopes.empty?
+          options[:conditions] << acts_as_nested_set_options[:set_conditions] if acts_as_nested_set_options[:set_conditions]
+          options[:conditions] = options[:conditions].join(" AND ")
           self.class.base_class.scoped options
         end
         

@@ -1,7 +1,7 @@
 class StatementNode < ActiveRecord::Base
   acts_as_echoable
   acts_as_subscribeable
-  acts_as_nested_set :scope => :root_id
+  acts_as_nested_set :scope => :root_id, :set_conditions => "type != 'CasHub'"
 
   alias_attribute :target_id, :id
 
@@ -163,11 +163,11 @@ class StatementNode < ActiveRecord::Base
   #
   def sibling_statements(opts={})
     opts[:type] ||= self.class.to_s
-    if self.parent.nil?
+    if self.parent_node.nil?
       []
     else
-      opts[:lft] = self.parent.lft
-      opts[:rgt] = self.parent.rgt
+      opts[:lft] = self.parent_node.lft
+      opts[:rgt] = self.parent_node.rgt
       self.child_statements(opts)
     end
   end
