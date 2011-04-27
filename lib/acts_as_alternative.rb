@@ -73,7 +73,8 @@ module ActiveRecord
               if alternative
                 hub = alternative.hub
                 if hub.nil?
-                  hub = CasHub.create(:root_id =>alternative.root_id, :parent_id => alternative.parent_id)
+                  hub = CasHub.create(:root_id => alternative.root_id, :parent_id => alternative.parent_id,
+                                      :statement => alternative.parent.statement, :creator_id => alternative.parent.creator_id)
                   alternative.move_to_child_of hub
                 end
                 self.parent_id = hub.id
