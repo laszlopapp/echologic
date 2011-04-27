@@ -12,7 +12,7 @@ class StatementNode < ActiveRecord::Base
   after_destroy :destroy_statement
 
   def destroy_statement
-    self.statement.destroy if !self.is_hub? and (self.statement.statement_nodes - [self]).empty?
+    self.statement.destroy if (self.statement.statement_nodes - [self]).empty?
   end
 
   ##
@@ -41,14 +41,11 @@ class StatementNode < ActiveRecord::Base
   ## VALIDATIONS
   ##
 
-  validates_presence_of :creator_id, :unless => :is_hub?
-  validates_presence_of :statement, :unless => :is_hub?
+  validates_presence_of :creator_id
+  validates_presence_of :statement
   validates_associated :creator
   validates_associated :statement
 
-  def is_hub?
-    false
-  end
 
   ##
   ## NAMED SCOPES
