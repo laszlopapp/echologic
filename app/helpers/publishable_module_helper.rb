@@ -49,7 +49,7 @@ module PublishableModuleHelper
   def image_link_to_question(question, origin=@origin)
     link_to statement_node_url(question, :origin => origin, :bids => origin),
             :class => "avatar_holder" do
-      image_tag question.image.url(:medium)
+      image_tag question.image.url(:medium), :alt => ''
     end
   end
 
