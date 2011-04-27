@@ -4,6 +4,15 @@ module ActiveRecord
 
       def self.included(base)
         base.extend(ClassMethods)
+        base.instance_eval do
+          include InstanceMethods
+        end
+      end
+      
+      module InstanceMethods
+        def parent_node
+          parent
+        end
       end
     
       module ClassMethods
@@ -16,7 +25,7 @@ module ActiveRecord
           args.flatten! if args
           args.compact! if args
           
-          belongs_to :hub, :class_name => 'CasHub', :foreign_key => 'parent_id' 
+          belongs_to :hub, :class_name => 'CasHub', :foreign_key => 'parent_id'
           
           #TODO: WHEN RAILS ALLOWS THIS TO WORK, PLEASE ACTIVATE THIS RELSHIP: currently fails because the has many
           #      through joins the statement nodes table with itself (correct) without alias (false!). 
@@ -57,6 +66,10 @@ module ActiveRecord
               end
             end
             
+            def parent_node
+              hub.nil? ? parent : hub.parent
+            end
+            
             def paginated_alternatives(page, per_page = nil,opts={})
               alternative_statements = hub.nil? ? [] : hub.child_statements(opts.merge({:type => self.class.alternative, 
                                                                                         :alternative_ids => alternatives.map(&:id)}))
@@ -74,7 +87,7 @@ module ActiveRecord
                 hub = alternative.hub
                 if hub.nil?
                   hub = CasHub.create(:root_id => alternative.root_id, :parent_id => alternative.parent_id,
-                                      :statement => alternative.parent.statement, :creator_id => alternative.parent.creator_id)
+                                      :statement => alternative.parent_node.statement, :creator_id => alternative.parent_node.creator_id)
                   alternative.move_to_child_of hub
                 end
                 self.parent_id = hub.id

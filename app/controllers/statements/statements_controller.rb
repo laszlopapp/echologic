@@ -441,7 +441,7 @@ class StatementsController < ApplicationController
       @statement_node.destroy
       set_statement_info("discuss.messages.deleted")
       flash_info
-      redirect_to(@statement_node.parent ? statement_node_url(@statement_node.parent) : discuss_search_url)
+      redirect_to(@statement_node.parent_node ? statement_node_url(@statement_node.parent_node) : discuss_search_url)
     rescue Exception => e
       log_message_error(e, "Error deleting statement node '#{@statement_node.id}'.") do
         flash_error and redirect_to_statement
@@ -654,10 +654,10 @@ class StatementsController < ApplicationController
         end
         respond_to do |format|
           flash_info
-          format.html { redirect_to statement_node_url @statement_node.parent }
+          format.html { redirect_to statement_node_url @statement_node.parent_node }
           format.js do
             render :update do |page|
-              page.redirect_to statement_node_url @statement_node.parent
+              page.redirect_to statement_node_url @statement_node.parent_node
             end
           end
         end
@@ -721,8 +721,8 @@ class StatementsController < ApplicationController
   # @bids(String) : breadcrumb keycodes separated by comma
   #
   def set_parent_breadcrumb
-    return if @statement_node.parent.nil?
-    parent_node = @statement_node.parent
+    return if @statement_node.parent_node.nil?
+    parent_node = @statement_node.parent_node
     statement_document = search_statement_documents(:statement_ids => [parent_node.statement_id])[parent_node.statement_id] ||
                          parent_node.document_in_original_language
     #[id, classes, url, title, label, over]
@@ -911,7 +911,7 @@ class StatementsController < ApplicationController
   # @previous_type(String) : type of breadcrumb
   #
   def load_origin_statement
-    @previous_node = @statement_node.parent
+    @previous_node = @statement_node.parent_node
     @previous_type = case @statement_node.class.name
       when "FollowUpQuestion" then "fq"
     end

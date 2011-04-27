@@ -13,8 +13,8 @@ class DraftingMailerTest < ActionMailer::TestCase
     assert_equal "Your addition can now be incorporated", email.subject
     assert_match /#{statement_document.author.full_name}/, email.encoded
     assert_match /#{statement_document.title}/, email.encoded
-    assert_match /#{statement_node_url(statement_node.parent, :host => ECHO_HOST)}/, email.encoded
-    assert_match /#{statement_node.parent.id}/, email.encoded
+    assert_match /#{statement_node_url(statement_node.parent_node, :host => ECHO_HOST)}/, email.encoded
+    assert_match /#{statement_node.parent_node.id}/, email.encoded
   end
 
   def test_supporters_approval_email
@@ -28,8 +28,8 @@ class DraftingMailerTest < ActionMailer::TestCase
     assert_equal users.map{|u|u.email}, email.bcc
     assert_equal "An addition you support can now be incorporated", email.subject
     assert_match /#{statement_document.title}/, email.encoded
-    assert_match /#{statement_node_url(statement_node.parent, :host => ECHO_HOST)}/, email.encoded
-    assert_match /#{statement_node.parent.id}/, email.encoded
+    assert_match /#{statement_node_url(statement_node.parent_node, :host => ECHO_HOST)}/, email.encoded
+    assert_match /#{statement_node.parent_node.id}/, email.encoded
   end
 
   def test_approval_reminder_email
@@ -43,8 +43,8 @@ class DraftingMailerTest < ActionMailer::TestCase
     assert_equal "Reminder! - Time is running out to incorporate your winner addition", email.subject
     assert_match /#{statement_document.author.full_name}/, email.encoded
     assert_match /#{statement_document.title}/, email.encoded
-    assert_match /#{statement_node_url(statement_node.parent, :host => ECHO_HOST)}/, email.encoded
-    assert_match /#{statement_node.parent.id}/, email.encoded
+    assert_match /#{statement_node_url(statement_node.parent_node, :host => ECHO_HOST)}/, email.encoded
+    assert_match /#{statement_node.parent_node.id}/, email.encoded
   end
 
   def test_supporters_approval_reminder_email
@@ -58,8 +58,8 @@ class DraftingMailerTest < ActionMailer::TestCase
     assert_equal users.map{|u|u.email}, email.bcc
     assert_equal "Last Reminder! - Time is running out to incorporate a winner addition", email.subject
     assert_match /#{statement_document.title}/, email.encoded
-    assert_match /#{statement_node_url(statement_node.parent, :host => ECHO_HOST)}/, email.encoded
-    assert_match /#{statement_node.parent.id}/, email.encoded
+    assert_match /#{statement_node_url(statement_node.parent_node, :host => ECHO_HOST)}/, email.encoded
+    assert_match /#{statement_node.parent_node.id}/, email.encoded
   end
 
   def test_passed_email
@@ -96,11 +96,11 @@ class DraftingMailerTest < ActionMailer::TestCase
     email = DraftingMailer.deliver_incorporated!(DraftingService.instance.prepare_mail(statement_node))
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
-    assert_equal [statement_node.parent.document_in_drafting_language.author.email], email.to
+    assert_equal [statement_node.parent_node.document_in_drafting_language.author.email], email.to
     assert_equal "Thank you for improving the proposal", email.subject
     assert_match /#{statement_document.title}/, email.encoded
-    assert_match /#{statement_node_url(statement_node.parent, :host => ECHO_HOST)}/, email.encoded
-    assert_match /#{statement_node.parent.id}/, email.encoded
+    assert_match /#{statement_node_url(statement_node.parent_node, :host => ECHO_HOST)}/, email.encoded
+    assert_match /#{statement_node.parent_node.id}/, email.encoded
   end
 
   def test_approval_notification_email
@@ -114,8 +114,8 @@ class DraftingMailerTest < ActionMailer::TestCase
     assert_equal users.map{|u|u.email}, email.bcc
     assert_equal "A proposal you support is about to be improved", email.subject
     assert_match /#{statement_document.title}/, email.encoded
-    assert_match /#{statement_node_url(statement_node.parent, :host => ECHO_HOST)}/, email.encoded
-    assert_match /#{statement_node.parent.id}/, email.encoded
+    assert_match /#{statement_node_url(statement_node.parent_node, :host => ECHO_HOST)}/, email.encoded
+    assert_match /#{statement_node.parent_node.id}/, email.encoded
   end
 
   def test_incorporation_notification_email
@@ -129,8 +129,8 @@ class DraftingMailerTest < ActionMailer::TestCase
     assert_equal users.map{|u|u.email}, email.bcc
     assert_equal "A proposal you support has been improved", email.subject
     assert_match /#{statement_document.title}/, email.encoded
-    assert_match /#{statement_node_url(statement_node.parent, :host => ECHO_HOST)}/, email.encoded
-    assert_match /#{statement_node.parent.id}/, email.encoded
+    assert_match /#{statement_node_url(statement_node.parent_node, :host => ECHO_HOST)}/, email.encoded
+    assert_match /#{statement_node.parent_node.id}/, email.encoded
   end
 
 end

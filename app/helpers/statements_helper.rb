@@ -111,7 +111,7 @@ module StatementsHelper
   def add_new_sibling_buttons(statement_node, origin = nil, type = dom_class(statement_node))
     content = ''
     content << content_tag(:div, :class => 'siblings container') do
-      if statement_node.parent
+      if statement_node.parent_node
         add_new_sibling_button(statement_node)
       else
         if origin.blank? or %w(ds mi sr).include? origin[0,2] # create new question
@@ -140,7 +140,7 @@ module StatementsHelper
     statement_node.class.sub_types.map.each do |sub_type|
       sub_type = sub_type.to_s.underscore
       content << link_to(I18n.t("discuss.statements.types.#{sub_type}"),
-                         new_statement_node_url(statement_node.parent, sub_type),
+                         new_statement_node_url(statement_node.parent_node, sub_type),
                          :class => "create_#{sub_type}_button_32 resource_link ajax")
     end
     content
@@ -389,7 +389,7 @@ module StatementsHelper
       if statement_node.parent_id.nil?
         question_descendants_url(:origin => origin, :current_node => statement_node)
       else
-        descendants_statement_node_url(statement_node.parent,
+        descendants_statement_node_url(statement_node.parent_node,
                                        statement_node.class.name_for_siblings,
                                        :current_node => statement_node)
       end
@@ -451,7 +451,7 @@ module StatementsHelper
   end
 
   def add_teaser_statement_node_path(statement_node, opts={})
-    (statement_node.nil? or statement_node.level == 0) ? add_question_teaser_url(opts) : add_teaser_url(statement_node.parent, opts.merge(:type => dom_class(statement_node)))
+    (statement_node.nil? or statement_node.level == 0) ? add_question_teaser_url(opts) : add_teaser_url(statement_node.parent_node, opts.merge(:type => dom_class(statement_node)))
   end
 
   # Loads the link to a given statement, placed in the child panel section

@@ -11,7 +11,7 @@ if(!window.location.href.match(/\/\d+/)) {
 <% if @statement_node.class.is_top_statement? or @statement_node.level == 0 %>
   var session_id = 'roots';
 <% else %>
-  var session_id = '<%= dom_class(@statement_node.parent) %>';
+  var session_id = '<%= dom_class(@statement_node.parent_node) %>';
 <% end %>
 
 var session_data =  $('div#statements').data(session_id);

@@ -21,7 +21,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
         DraftingService.min_votes=1
         @user = users(:user)
         @statement = statement_nodes('first-impro-proposal')
-        @statement.parent.supported!(@user)
+        @statement.parent_node.supported!(@user)
         EchoService.instance.supported!(@statement, @user)
       }
       should("then this improvement shall be ready ") do
@@ -75,8 +75,8 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_1.reload
 
         @statement_2 = statement_nodes('first-impro-proposal')
-        @statement_2.parent.supported!(users(:red))
-        @statement_2.parent.supported!(users(:luise))
+        @statement_2.parent_node.supported!(users(:red))
+        @statement_2.parent_node.supported!(users(:luise))
 #        @statement_2.user_echos.destroy_all
         @statement_2.user_echos << flexmock(UserEcho.new(:echo => @statement_2.find_or_create_echo,
                                                 :user => users(:red),
@@ -91,8 +91,8 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_2.reload
         DraftingService.min_votes=2
 
-        @statement_1.parent.supported!(users(:luise))
-        @statement_1.parent.supported!(users(:green))
+        @statement_1.parent_node.supported!(users(:luise))
+        @statement_1.parent_node.supported!(users(:green))
 
         EchoService.instance.supported!(@statement_1, users(:luise))
         @statement_1.reload
@@ -145,17 +145,17 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_2.state_since = Time.now
         @statement_2.save
 
-        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+        @statement_2.parent_node.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent_node.find_or_create_echo,
                                                        :user => users(:red),
                                                        :supported => true))
-        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+        @statement_2.parent_node.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent_node.find_or_create_echo,
                                                        :user => users(:luise),
                                                        :supported => true))
-        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+        @statement_2.parent_node.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent_node.find_or_create_echo,
                                                        :user => users(:green),
                                                        :supported => true))
-        @statement_2.parent.find_or_create_echo.update_counter!
-        @statement_2.parent.save
+        @statement_2.parent_node.find_or_create_echo.update_counter!
+        @statement_2.parent_node.save
 
         statement = StatementNode.find(@statement_1.id)
         act = TestForStagedJob.new(statement.id, statement.state_since)
@@ -181,7 +181,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
       end
       should("send an approval notification email") do
         email = ActionMailer::Base.deliveries.last
-        supporters = @statement_2.parent.supporters.select{|supporter|
+        supporters = @statement_2.parent_node.supporters.select{|supporter|
           supporter.speaks_language?(@statement_2.original_language)
         }
         assert !ActionMailer::Base.deliveries.empty?
@@ -226,17 +226,17 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_2.times_passed = 1
         @statement_2.save
 
-        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+        @statement_2.parent_node.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent_node.find_or_create_echo,
                                                        :user => users(:red),
                                                        :supported => true))
-        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+        @statement_2.parent_node.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent_node.find_or_create_echo,
                                                        :user => users(:luise),
                                                        :supported => true))
-        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+        @statement_2.parent_node.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent_node.find_or_create_echo,
                                                        :user => users(:green),
                                                        :supported => true))
-        @statement_2.parent.find_or_create_echo.update_counter!
-        @statement_2.parent.save
+        @statement_2.parent_node.find_or_create_echo.update_counter!
+        @statement_2.parent_node.save
 
         statement = StatementNode.find(@statement_1.id)
         act = TestForStagedJob.new(statement.id, statement.state_since)
@@ -265,7 +265,7 @@ class DraftingServiceTest < ActiveSupport::TestCase
       end
       should("send an approval notification email") do
         email = ActionMailer::Base.deliveries.last
-        supporters = @statement_2.parent.supporters.select{|supporter|
+        supporters = @statement_2.parent_node.supporters.select{|supporter|
           supporter.speaks_language?(@statement_2.original_language)
         }
         assert !ActionMailer::Base.deliveries.empty?
@@ -312,17 +312,17 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_2.times_passed = 1
         @statement_2.save
 
-        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+        @statement_2.parent_node.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent_node.find_or_create_echo,
                                                        :user => users(:red),
                                                        :supported => true))
-        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+        @statement_2.parent_node.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent_node.find_or_create_echo,
                                                        :user => users(:luise),
                                                        :supported => true))
-        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+        @statement_2.parent_node.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent_node.find_or_create_echo,
                                                        :user => users(:green),
                                                        :supported => true))
-        @statement_2.parent.find_or_create_echo.update_counter!
-        @statement_2.parent.save
+        @statement_2.parent_node.find_or_create_echo.update_counter!
+        @statement_2.parent_node.save
 
         act = TestForPassedJob.new(@statement_1.id)
         act.perform
@@ -379,17 +379,17 @@ class DraftingServiceTest < ActiveSupport::TestCase
         @statement_2.times_passed = 1
         @statement_2.save
 
-        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+        @statement_2.parent_node.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent_node.find_or_create_echo,
                                                        :user => users(:red),
                                                        :supported => true))
-        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+        @statement_2.parent_node.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent_node.find_or_create_echo,
                                                        :user => users(:luise),
                                                        :supported => true))
-        @statement_2.parent.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent.find_or_create_echo,
+        @statement_2.parent_node.user_echos << flexmock(UserEcho.new(:echo => @statement_2.parent_node.find_or_create_echo,
                                                        :user => users(:green),
                                                        :supported => true))
-        @statement_2.parent.find_or_create_echo.update_counter!
-        @statement_2.parent.save
+        @statement_2.parent_node.find_or_create_echo.update_counter!
+        @statement_2.parent_node.save
 
         @supporters = @statement_1.supporters.select{|supporter|
           supporter.speaks_language?(@statement_1.original_language, 'intermediate')}

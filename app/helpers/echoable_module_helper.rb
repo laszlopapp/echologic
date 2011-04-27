@@ -4,7 +4,7 @@ module EchoableModuleHelper
   # (The support ratio is the calculated ratio for a statement_node,
   # representing and visualizing the agreement a statement_node has found within the community.)
   def supporter_ratio_bar(statement_node,
-                          previous_statement = statement_node.parent,
+                          previous_statement = statement_node.parent_node,
                           type = statement_node.class.name)
     # TODO:How to spare calculating this label two times (see next method, they're almost always sequencially triggered)
     label = supporters_number(statement_node)

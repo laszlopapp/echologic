@@ -19,7 +19,7 @@
                                    (!only_header ? 'current' : 'back_to'), :css => 'ajax') %>
 		<% if statement_node.echoable? %>
 			<%= supporter_ratio_bar(statement_node,
-                              @previous_node || statement_node.parent,
+                              @previous_node || statement_node.parent_node,
                               @previous_type || statement_node.class.name) %>
 			<%= supporters_label(statement_node, !only_header) %>
 		<% end %>
