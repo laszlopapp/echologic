@@ -22,7 +22,7 @@
   border: 2px solid #000000;
 	position: relative;
   left: 7px;
-	height: 70px;
+	min-height: 70px;
 	color: #000000;
 	margin-left: 0px;
 }
