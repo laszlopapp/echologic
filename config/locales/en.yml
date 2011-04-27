@@ -587,7 +587,7 @@ en:
         label: 'Publish question immediately?'
         initial_state:
           new: 'Set up at first and publish later'
-          published: 'Publish immediately (no further editing is possible)'
+          published: 'Publish immediately (further editing will be limited)'
         published: Released
         approved: Approved
       delete_link: 'Delete'

@@ -598,7 +598,7 @@ de:
         label: 'Fragestellung sofort veröffentlichen?'
         initial_state:
           new: 'Erstmal weiter vorbereiten und später veröffentlichen'
-          published: 'Sofort veröffentlichen (danach ist keine Bearbeitung mehr möglich)'
+          published: 'Sofort veröffentlichen (danach ist eine Bearbeitung nur begrenzt möglich)'
         published: Freigegeben
         approved: Approved
       delete_link: 'Löschen'
