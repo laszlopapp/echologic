@@ -131,8 +131,8 @@ class StatementsController < ApplicationController
     form_tags = attrs.delete(:topic_tags) || ""
 
     begin
-      parent_node_id = attrs[:parent_id]
-      attrs.merge!({:root_id => StatementNode.find(parent_node_id).root_id}) if !parent_node_id.blank?
+      node_id = attrs[:parent_id]
+      attrs.merge!({:root_id => StatementNode.find(node_id).root_id}) if !node_id.blank?
 
 
       # Prepare in memory
@@ -155,9 +155,10 @@ class StatementsController < ApplicationController
       if has_permission #TODO: is this really necessary? this actually blocks the possible errors from the document to show up
         # Persisting
         StatementNode.transaction do
+          @statement_node.move_to_alternatives_hub(node_id) if params[:hub] and params[:hub].eql? 'alternative'
           if @statement_node.save
             # add to tree
-            if parent_node_id.blank? or @statement_node.class.is_top_statement?
+            if node_id.blank? or @statement_node.class.is_top_statement?
               @statement_node.target_statement.update_attribute(:root_id, @statement_node.target_id)
             end
   
@@ -486,7 +487,14 @@ class StatementsController < ApplicationController
 
   def load_alternatives(page = 1, per_page = TOP_ALTERNATIVES)
     @children ||= {}
-    @children[:Alternative] = @statement_node.paginated_alternatives(page, per_page)
+    @children_documents ||= {}
+    @children[:Alternative] = @statement_node.paginated_alternatives(page, 
+                                                                     per_page, 
+                                                                     :language_ids => filter_languages_for_children,
+                                                                     :user => current_user)
+    @children_documents.merge!(search_statement_documents :language_ids => filter_languages_for_children, 
+                                                          :statement_ids => @children[:Alternative].flatten.map(&:statement_id))
+    
   end
 
   #
@@ -614,7 +622,6 @@ class StatementsController < ApplicationController
   def fetch_statement_node_type
     @statement_node_type = params[:type] ? params[:type].to_s.classify.constantize : nil
   end
-  
   
   #
   # Checks if the user can access this very statement

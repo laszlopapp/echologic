@@ -42,17 +42,38 @@ module ActiveRecord
               def alternative
                 @@alternative_types[self.name].first
               end
-            end
-            
-            
-            def paginated_alternatives(page, per_page = nil)
-              per_page = alternatives.length if per_page.nil? or per_page < 0
-              per_page = 1 if per_page.to_i == 0
               
-              (hub.nil? ? [] : hub.alternatives).paginate(self.class.base_class.default_scope.merge(:page => page, 
-                                                                                                              :per_page => per_page))
+              def alternative_conditions(opts)
+                sanitize_sql([" AND statement_nodes.id IN (?) ", opts[:alternative_ids]])
+              end
             end
             
+            def alternatives
+              hub.nil? ? [] : hub.alternatives - [self]
+            end
+            
+            def paginated_alternatives(page, per_page = nil,opts={})
+              alternative_statements = hub.nil? ? [] : hub.child_statements(opts.merge({:type => self.class.alternative, 
+                                                                                        :alternative_ids => alternatives.map(&:id)}))
+              
+              per_page = alternative_statements.length if per_page.nil? or per_page < 0
+              per_page = 1 if per_page.to_i == 0
+              alternative_statements.paginate(self.class.base_class.default_scope.merge(:page => page, 
+                                                                                        :per_page => per_page))
+            end
+            
+            # function called on the alternative creation process
+            def move_to_alternatives_hub(node_id)
+              alternative = StatementNode.find(node_id)
+              if alternative
+                hub = alternative.hub
+                if hub.nil?
+                  hub = CasHub.create(:root_id =>alternative.root_id, :parent_id => alternative.parent_id)
+                  alternative.move_to_child_of hub
+                end
+                self.parent_id = hub.id
+              end
+            end
           end # --- class_eval
           has_alternatives args
         end

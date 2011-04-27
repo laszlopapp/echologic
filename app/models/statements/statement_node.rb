@@ -350,6 +350,7 @@ class StatementNode < ActiveRecord::Base
       fields[:joins] << children_joins
       fields[:conditions] = children_conditions(opts)
       fields[:conditions] << state_conditions(opts)
+      fields[:conditions] << alternative_conditions(opts) if opts[:alternative_ids]
       fields[:conditions] << sanitize_sql([" AND d.language_id IN (?) ", opts[:language_ids]]) if opts[:language_ids]
       fields[:conditions] << drafting_conditions if opts[:filter_drafting_state]
       fields[:order] = "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id"
