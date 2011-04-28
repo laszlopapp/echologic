@@ -1696,8 +1696,12 @@ form.statement fieldset ol li.tags_container {
 }
 
 .expandable .headline .expand_icon {
-  right: 15px;
+  right: 12px;
   top: 12px;
+}
+
+.expandable.active .headline .expand_icon {
+  top: 13px;
 }
 
 .expandable:hover .expand_icon {
@@ -1725,6 +1729,6 @@ form.statement fieldset ol li.tags_container {
   line-height: 17px;
   padding-left: 20px;
   position: absolute;
-  right: 35px;
+  right: 32px;
   top: 7px;
 }
