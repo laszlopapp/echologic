@@ -475,7 +475,7 @@ en:
       create_improvement: "Post a new addition to the current proposal"
       create_pro_argument: "Post a new PRO argument to this proposal"
       create_contra_argument: "Post a new CONTRA argument to this proposal"
-      create_follow_up_question: "Post a new new follow-up question"
+      create_follow_up_question: "Post a new new follow-up question concerning the current statement"
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your echo to stop supporting this statement'
       publish: |
@@ -494,11 +494,11 @@ en:
       label: 'votes'
       echo_indicator:
         support:
-          one: '{{supporter_count}} supporter'
-          many: '{{supporter_count}} supporters'
+          one: '{{supporter_count}} supporter (echo)'
+          many: '{{supporter_count}} supporters (echos)'
         recommend:
-          one: '{{supporter_count}} recommendation'
-          many: '{{supporter_count}} recommendations'
+          one: '{{supporter_count}} recommendation (echo)'
+          many: '{{supporter_count}} recommendations (echos)'
       add_new: Add new...
       create_question_link: 'Create new question'
       create_proposal_link: Add new proposal
@@ -508,9 +508,9 @@ en:
       create_contra_argument_link: Add new CONTRA argument
       create_follow_up_question_link: Add new follow-up question
       recommend_link: 'Recommend (echo)'
-      unrecommend_link: 'Withdraw echo'
+      unrecommend_link: 'Withdraw vote'
       support_link: 'Support (echo)'
-      unsupport_link: 'Withdraw echo'
+      unsupport_link: 'Withdraw vote'
       create_question_explanation: |
         Please formulate the <strong>question</strong> to be discussed, describe the issue with some more details
         and tag it with <strong>relevant keywords</strong> for better searchability.

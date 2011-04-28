@@ -508,11 +508,11 @@ de:
       label: 'Stimmen'
       echo_indicator:
         support:
-          one: '{{supporter_count}} UnterstützerIn'
-          many: '{{supporter_count}} UnterstützerInnen'
+          one: '{{supporter_count}} UnterstützerIn (echo)'
+          many: '{{supporter_count}} UnterstützerInnen (echos)'
         recommend:
-          one: '{{supporter_count}} Empfehlung'
-          many: '{{supporter_count}} Empfehlungen'
+          one: '{{supporter_count}} Empfehlung (echo)'
+          many: '{{supporter_count}} Empfehlungen (echos)'
       add_new: Neues hinzufügen...
       create_question_link: 'Neue Fragestellung hinzufügen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
@@ -522,9 +522,9 @@ de:
       create_contra_argument_link: Neues KONTRA-Argument hinzufügen
       create_follow_up_question_link: Neue Folgefrage hinzufügen
       recommend_link: 'Empfehlen (echo)'
-      unrecommend_link: 'echo widerrufen'
+      unrecommend_link: 'Stimme widerrufen'
       support_link: 'Unterstützen (echo)'
-      unsupport_link: 'echo widerrufen'
+      unsupport_link: 'Stimme widerrufen'
       create_question_explanation: |
         Hier können Sie eine <strong>neue Fragestellung</strong> hinzufügen und mit den
         passenden <strong>thematischen Schlüsselwörten</strong> (sog. Tags) versehen.
