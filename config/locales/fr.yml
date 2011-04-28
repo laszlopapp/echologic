@@ -616,6 +616,11 @@ fr:
         improvement: 'Rajouts'
         argument: 'Arguments'
         follow_up_question: 'Question suivie'
+      sibling_labels:
+        question: 'Questions'
+        proposal: 'Propositions'
+        improvement: 'Rajouts'
+        argument: 'Arguments'
       siblings:
         follow_up_question: 'Question suivie dans le contexte affiché ci-dessus'
 

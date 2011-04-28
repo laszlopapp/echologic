@@ -571,6 +571,11 @@ pt:
         improvement: 'Melhorias'
         argument: 'Argumentos'
         follow_up_question: 'Questões Complementares'
+      sibling_labels:
+        question: 'Questões'
+        proposal: 'Propostas'
+        improvement: 'Melhorias'
+        argument: 'Argumentos'
       siblings:
         follow_up_question: 'Questão Complementar no contexto exposto acima'
 

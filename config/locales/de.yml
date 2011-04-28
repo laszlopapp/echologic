@@ -590,6 +590,11 @@ de:
         improvement: 'Ergänzungen'
         argument: 'Pro & Kontra'
         follow_up_question: 'Folgefragen'
+      sibling_labels:
+        question: 'Fragen'
+        proposal: 'Vorschläge'
+        improvement: 'Ergänzungen'
+        argument: 'Argumente'
       siblings:
         follow_up_question: 'Folgefrage im obigen Kontext'
 

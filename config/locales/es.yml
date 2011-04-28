@@ -596,6 +596,11 @@ es:
         improvement: 'Mejora'
         argument: 'Argumentos'
         follow_up_question: 'Preguntas de Seguimiento'
+      sibling_labels:
+        question: 'Cuestiones'
+        proposal: 'Propuestas'
+        improvement: 'Mejora'
+        argument: 'Argumentos'
       siblings:
         follow_up_question: 'Pregunta de seguimiento según lo indicado arriba'
 

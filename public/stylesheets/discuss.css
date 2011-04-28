@@ -948,8 +948,8 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /******************/
 
 .statement .siblings_panel {
-  left: 120px;
-  top: -39px;
+  left: 162px;
+  top: -41px;
   width: 819px;
   max-height: 360px;
   padding: 10px 0;
@@ -1017,16 +1017,31 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 #statements .header_buttons {
-  width: 160px;
-  margin-right: 23px;
+  width: 170px;
+  margin-right: 13px;
   min-height: 1px;
   display: inline-block;
   float: left;
   position: relative;
   top: 3px;
-  left: 55px;
+  left: 7px;
   height: 30px;
   overflow: visible;
+}
+
+#statements .header_buttons .prev {
+  position: absolute;
+  left: 16px;
+}
+
+#statements .header_buttons .next {
+  position: absolute;
+  right: 10px;
+}
+
+#statements .header_buttons .show_siblings_button {
+  position: absolute;
+  left: 50px;
 }
 
 #statements .header_link,
@@ -1051,7 +1066,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   font-size: 18px;
   font-weight: bold;
   text-decoration: none;
-	/*padding-right: 21px !important;*/
 	max-width: 550px;
 }
 
@@ -1085,8 +1099,15 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .header_buttons .show_siblings_label {
   background:  url(../images/page/prev_next_buttons.png) no-repeat scroll -74px -117px;
+  width: 75px;
+  height: 25px;
+  line-height: 20px;
+  font-size: 11px;
+  font-weight: bold;
+  color: #dce0e2;
   position: relative;
-  left: -5px;
+  text-align: center;
+  top: 9px;
 }
 
 .header:hover .prev_stmt, .header.active .prev_stmt {
@@ -1102,6 +1123,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .header:hover .show_siblings_label, .header.active .show_siblings_label {
 	background-position: -74px 0;
   cursor: pointer;
+  color: #21587f;
 }
 
 .header:hover .prev_stmt:hover,
@@ -1116,24 +1138,32 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .header:hover .show_siblings_label:hover {
   background-position: -74px -39px;
+  color: #7bb031;
 }
 
 .header:hover .prev_stmt.disabled,
 .header.active .prev_stmt.disabled {
   background-position: 0 -78px;
   cursor: default;
+  position: absolute;
+  left: 16px;
 }
 
 .header:hover .next_stmt.disabled,
 .header.active .next_stmt.disabled {
   background-position: -37px -78px;
   cursor: default;
+  position: absolute;
+  right: 10px;
 }
 
 .header:hover .show_siblings_label.disabled,
 .header.active .show_siblings_label.disabled {
 	background-position: -74px -78px;
   cursor: default;
+  position: absolute;
+  left: 50px;
+  color: #B4BEC3;
 }
 
 .supporters_label {
@@ -1664,8 +1694,8 @@ form.statement fieldset ol li.tags_container {
 }
 
 .statement .header .loading {
-  left: -33px;
-  top: 10px;
+  left: -1px;
+  top: -1px;
 }
 
 .statement .action_buttons .loading {

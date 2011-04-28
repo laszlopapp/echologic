@@ -384,7 +384,9 @@ module StatementsHelper
     buttons = ''
     if statement_node and statement_node.new_record?
       %w(prev next).each{|button| buttons << statement_tag(button.to_sym, type, true)}
-      buttons << content_tag(:span, '&nbsp;', :class => 'show_siblings_label disabled')
+      buttons << content_tag(:span,
+                             I18n.t("discuss.statements.sibling_labels.#{type.classify.constantize.name_for_siblings}"), 
+                             :class => 'show_siblings_label disabled')
     else
       buttons << content_tag(:span, '', :class => 'loading', :style => 'display:none')
       %w(prev next).each do |button|
@@ -401,11 +403,12 @@ module StatementsHelper
 
   def siblings_button(statement_node, type, opts={})
     origin = opts[:origin]
+    name = type.classify.constantize.name_for_siblings
     url = if statement_node.nil? or statement_node.class.name.underscore != type # ADD TEASERS
       if statement_node.nil?
         question_descendants_url(:origin => origin)
       else
-        descendants_statement_node_url(statement_node, type.classify.constantize.name_for_siblings)
+        descendants_statement_node_url(statement_node, name)
       end
     else  # STATEMENT NODES
       if statement_node.parent_id.nil?
@@ -416,11 +419,11 @@ module StatementsHelper
                                        :current_node => statement_node)
       end
     end
+
     content_tag(:a,
                 :href => url,
-                :class => 'show_siblings_button expandable',
-                :title => 'show_siblings_button') do
-      content_tag(:span, '&nbsp;',
+                :class => 'show_siblings_button expandable') do
+      content_tag(:span, I18n.t("discuss.statements.sibling_labels.#{name}"),
                   :class => 'show_siblings_label ttLink no_border',
                   :title => I18n.t("discuss.tooltips.siblings.#{statement_node ? dom_class(statement_node) : 'question'}"))
     end

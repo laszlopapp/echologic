@@ -579,6 +579,11 @@ en:
         improvement: 'Additions'
         argument: 'Pros & Cons'
         follow_up_question: 'Follow-up Questions'
+      sibling_labels:
+        question: 'Questions'
+        proposal: 'Proposals'
+        improvement: 'Additions'
+        argument: 'Arguments'
       siblings:
         follow_up_question: 'Follow-up Question in the context shown above'
 
