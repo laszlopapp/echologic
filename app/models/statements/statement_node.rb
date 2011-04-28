@@ -386,11 +386,10 @@ class StatementNode < ActiveRecord::Base
       # Constant criteria
       and_conditions = []
       and_conditions << "d.current = 1"  # Only current documents
-      and_conditions << "s.question_id IS NULL"  # Exclude FUQs (pointing to an unwanted root question)
       # Access permissions
       access_conditions = []
-      access_conditions << "closed_statement IS NULL"
-      access_conditions << sanitize_sql(["s.allowed_user_id = ?", opts[:user].id]) if opts[:user]
+      access_conditions << "s.closed_statement IS NULL"  # NOT a closed statement
+      access_conditions << sanitize_sql(["s.granted_user_id = ?", opts[:user].id]) if opts[:user]
       and_conditions << "(#{access_conditions.join(' OR ')})"
 
       # Statement type
@@ -441,7 +440,7 @@ class StatementNode < ActiveRecord::Base
       else
         and_conditions << "s.type = 'Question'" if opts[:type].nil?
         statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? aggregator_field : '*'} from search_statement_nodes s " +
-                           "LEFT OUTER JOIN statement_documents d ON d.statement_id = s.statement_id " +
+                           "LEFT JOIN statement_documents d ON d.statement_id = s.statement_id " +
                            Statement.extaggable_joins_clause("s.statement_id") +
                            "WHERE " + and_conditions.join(' AND ') +
                            " ORDER BY s.supporter_count DESC, s.created_at DESC, s.id;"
