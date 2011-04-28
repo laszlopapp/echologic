@@ -1725,7 +1725,6 @@ form.statement fieldset ol li.tags_container {
   line-height: 17px;
   padding-left: 20px;
   position: absolute;
-  /*right: 35px;*/
-  left: 583px;
+  right: 35px;
   top: 7px;
 }
