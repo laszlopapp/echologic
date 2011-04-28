@@ -11,9 +11,7 @@
 	<%= render :partial => '/statements/translation_link',
              :locals => {:statement_node => statement_node,
                          :statement_document => statement_document} if @translation_permission %>
-	<%= render :partial => '/statements/original_language_warning',
-             :locals => {:statement_node => statement_node,
-                         :statement_document => statement_document} if @set_language_skills_teaser %>
+	<%= render :partial => '/statements/set_languages' if @set_language_skills_teaser %>
   <!-- Show the document -->
   <div class="statement_content">
   	<%= statement_image(statement_node) %>

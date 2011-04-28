@@ -231,7 +231,7 @@ form.statement fieldset ol span.defaultText {
 }
 
 #statements form.translation .content {
-  margin-top: 10px;
+  margin-top: 6px;
 }
 
 #statements form.formtastic fieldset.statement_title,
@@ -452,6 +452,21 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .questions_container .more_pagination {
   margin: 20px 0 15px;
+}
+
+.questions_container .language_skills_teaser_box {
+  margin: 10px 5px;
+  width: 770px;
+  height: 75px;
+}
+
+.questions_container .language_skills_teaser_box .fish_left {
+  top: 11px;
+}
+
+.questions_container .language_skills_teaser_box .language_label,
+.questions_container .language_skills_teaser_box .translation_link {
+  top: 29px;
 }
 
 /* Action bar in Discuss Search */
@@ -1428,6 +1443,10 @@ a.statement_link:hover {
 	text-align: center;
 }
 
+.language_skills_teaser_box {
+  text-align: right;
+}
+
 .translation_box_class .fish_left {
   position: absolute;
   left: 12px;
@@ -1462,6 +1481,7 @@ a.statement_link:hover {
   font-size: 14px;
   color: #21587f;
   text-decoration: underline;
+  padding: 0 20px;
 }
 
 .translation_box_class .translation_link strong {
@@ -1485,6 +1505,7 @@ form.translation .rte-panel {
   left: -30px !important;
   top: -218px !important;
 }
+
 
 /********************/
 /* Translation form */

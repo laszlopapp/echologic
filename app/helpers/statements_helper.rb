@@ -388,7 +388,7 @@ module StatementsHelper
     end
     content_tag(:a, :href => url, :class => 'show_siblings_button expandable', :title => 'show_siblings_button') do
       content_tag(:span, '&nbsp;', :class => 'show_siblings_label ttLink no_border',
-                                   :title => I18n.t("discuss.tooltips.siblings.#{dom_class(statement_node)}"))
+                                   :title => I18n.t("discuss.tooltips.siblings.#{statement_node ? dom_class(statement_node) : 'question'}"))
     end
   end
 
@@ -405,13 +405,45 @@ module StatementsHelper
   end
 
   # Inserts a button that links to the previous statement_node
+  #
+  # IMP NOTE: siblings always include the teaser at the end, so always be careful when handling it
   def statement_button(statement_node, title, type, options={})
     options[:class] ||= ''
     teaser = options[:class].include? 'add'
+    url_opts = {:origin => params[:origin], :bids => params[:bids]}
+    # if prev/next for teaser
+    unless @siblings.nil?
+      if teaser
+        if (siblings = @siblings["add_#{@type}"])
+          element_index = siblings.index { |s| s =~ /#{@type}/ }
+        end
+      else # if prev/next for statement
+        if (siblings = @siblings[dom_id(statement_node)])
+          element_index = siblings.index(statement_node.id)
+        end
+      end
+      unless siblings.nil?
+        element_index = 0 if element_index.nil?
+        index = element_index
+        if options[:rel].eql? 'prev'
+          index = element_index - 1
+        elsif options[:rel].eql? 'next'
+          index = element_index + 1
+        end
+        index = index < 0 ? (siblings.length - 1) : (index >= siblings.length ? 0 : index )
+
+        url = !(siblings[index].to_s =~ /add/).nil? ? add_teaser_statement_node_path(statement_node,url_opts) : statement_node_url(siblings[index], url_opts)
+      end
+    else
+      url = add_teaser_statement_node_path(statement_node)
+    end
     options['data-id'] =
       teaser ? "#{statement_node.nil? ? '' : "#{statement_node.id}_"}add_#{type}" : statement_node.id
-    url = statement_node.nil? ? '' : statement_node_url(statement_node)
     return link_to(title, url, options)
+  end
+
+  def add_teaser_statement_node_path(statement_node, opts={})
+    (statement_node.nil? or statement_node.level == 0) ? add_question_teaser_url(opts) : add_teaser_url(statement_node.parent, opts.merge(:type => dom_class(statement_node)))
   end
 
   # Loads the link to a given statement, placed in the child panel section
@@ -458,7 +490,9 @@ module StatementsHelper
   def render_breadcrumb(breadcrumbs)
     breadcrumb_trail = ""
     breadcrumbs.each_with_index do |b, index| #[id, classes, url, title]
-      breadcrumb = content_tag(:a, :href => b[:url], :id => b[:key], :class => 'breadcrumb', :page_count => b[:page_count]) do
+      attrs = {}
+      attrs[:page_count] = b[:page_count] if b[:page_count]
+      breadcrumb = content_tag(:a, attrs.merge({:href => b[:url], :id => b[:key], :class => 'breadcrumb'})) do
         content = ""
         content << content_tag(:span, '', :class => 'big_delimiter') if index != 0
         content << content_tag(:span, b[:label], :class => 'label')

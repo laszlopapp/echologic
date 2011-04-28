@@ -231,7 +231,11 @@ en:
     # Spoken Languages section
     spoken_languages:
       title: Language Skills
-      guide: Here you can enter your language skills.
+      guide: |
+        Here you can enter your language skills to <strong>see content only in languages you speak</strong>.<br/>
+        Additionally, it will enable you to contribute to echos cross-language, intercultural dialogs by
+        <strong>translating statements</strong> between languages you speak at least intermediate level.
+        This is to ensure good content quality.
       language: Language
       level: Level
       error_messages:
@@ -415,12 +419,11 @@ en:
       no_questions: |
         You haven't created any questions yet. To do so, please click on the question mark button on the left.
       add: Add New Question
-    tag_permission: |
-      You do not have the permission to insert the '{{tag}}' tag.
     translation_request: Please translate this statement to <strong>ENGLISH</strong>.
-    original_language_warning: |
-      The original statement is in <strong>{{language}}</strong>. Set your <br/>
-      language skills to see content in other languages.
+    mixed_languages: Mixed up languages
+    set_languages: Set the <strong>LANGUAGES YOU SPEAK</strong> - Unravel the noise!
+    no_locale_language: No ENGLISH
+    adjust_languages: Adjust your language skills to see <strong>ENGLISH</strong> content!
     results_count:
       one: '{{count}} question'
       more: '{{count}} questions'
@@ -529,6 +532,10 @@ en:
       fuq_formulation_hint: |
         Since follow-up questions also appear as questions in "Search", title and description should both be
         comprehensible independently of the original discussion.
+      tag_permission: |
+        You do not have the permission to insert the '{{tag}}' tag.
+      read_permission: |
+        You do not have permission to read this statement.
       title_hint:
         question: Enter the question title in... English?
         proposal: Enter the proposal title in... English?
@@ -580,7 +587,7 @@ en:
         label: 'Publish question immediately?'
         initial_state:
           new: 'Set up at first and publish later'
-          published: 'Publish immediately (no further editing is possible)'
+          published: 'Publish immediately (further editing will be limited)'
         published: Released
         approved: Approved
       delete_link: 'Delete'
@@ -618,7 +625,7 @@ en:
         labels:
           ds: ''
           mi: ''
-          sr: 'Search results for'
+          sr: 'Questions found for'
           fq: 'Follow-up Questions for'
           over:
             ds: 'Back to'

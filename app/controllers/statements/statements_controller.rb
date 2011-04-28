@@ -12,6 +12,7 @@ class StatementsController < ApplicationController
 
   before_filter :fetch_statement_node, :except => [:category, :my_questions, :new, :create]
   before_filter :fetch_statement_node_type, :only => [:new, :create]
+  before_filter :check_statement_permissions, :except => [:category, :my_questions, :new, :create]
   before_filter :redirect_if_approved_or_incorporated, :only => [:show, :edit, :update, :destroy,
                                                                  :new_translation, :create_translation,
                                                                  :echo, :unecho]
@@ -54,6 +55,7 @@ class StatementsController < ApplicationController
       @statement_document ||= @statement_node.document_in_preferred_language(@language_preference_list)
       if @statement_document.nil?
         redirect_to_url discuss_search_url, 'discuss.statements.no_document_in_language'
+        return
       end
 
       # Record visited
@@ -63,7 +65,9 @@ class StatementsController < ApplicationController
       load_siblings(@statement_node) if !params[:new_level].blank?
 
       # Test for special links
-      @set_language_skills_teaser = @statement_node.not_original_language?(current_user, @locale_language_id)
+      @set_language_skills_teaser = @statement_node.should_set_languages?(current_user,
+                                                                           @locale_language_id,
+                                                                           @statement_document.language_id)
       @translation_permission = @statement_node.original_language == @statement_document.language &&
                                 @statement_node.translatable?(current_user,
                                                               @statement_document.language,
@@ -124,7 +128,7 @@ class StatementsController < ApplicationController
   def create
     attrs = params[statement_node_symbol].merge({:creator_id => current_user.id})
     doc_attrs = attrs.delete(:statement_document)
-    form_tags = attrs.delete(:topic_tags)
+    form_tags = attrs.delete(:topic_tags) || ""
 
     begin
       parent_node_id = attrs[:parent_id]
@@ -142,29 +146,31 @@ class StatementsController < ApplicationController
       has_permission = true
       created = false
 
-      if @statement_node.taggable?
+      if @statement_node.taggable? and (has_permission = check_tag_permissions(form_tags.split(",")))
         @tags = @statement_node.topic_tags = form_tags
       end
 
 
 
-      # Persisting
-      StatementNode.transaction do
-        if @statement_node.save
-          # add to tree
-          if parent_node_id.blank? or @statement_node.class.is_top_statement?
-            @statement_node.target_statement.update_attribute(:root_id, @statement_node.target_id)
-          end
+      if has_permission #TODO: is this really necessary? this actually blocks the possible errors from the document to show up
+        # Persisting
+        StatementNode.transaction do
+          if @statement_node.save
+            # add to tree
+            if parent_node_id.blank? or @statement_node.class.is_top_statement?
+              @statement_node.target_statement.update_attribute(:root_id, @statement_node.target_id)
+            end
 
-          if @statement_node.echoable?
-            echo = params.delete(:echo)
-            @statement_node.author_support if echo=='true'
-          end
+            if @statement_node.echoable?
+              echo = params.delete(:echo)
+              @statement_node.author_support if echo=='true'
+            end
 
-          # Propagating the creation event
-          EchoService.instance.created(@statement_node)
-          EchoService.instance.created(@statement_node.question) if @statement_node.question_id
-          created = true
+            # Propagating the creation event
+            EchoService.instance.created(@statement_node)
+            EchoService.instance.created(@statement_node.question) if @statement_node.question_id
+            created = true
+          end
         end
       end
 
@@ -238,40 +244,44 @@ class StatementsController < ApplicationController
       locked_at = attrs_doc.delete(:locked_at) if attrs_doc
 
       # Updating tags of the statement
-      form_tags = attrs.delete(:topic_tags)
+      form_tags = attrs.delete(:topic_tags) || ""
+      has_permission = form_tags.nil? || !@statement_node.taggable? || check_tag_permissions(form_tags.split(","))
 
       holds_lock = true
-      StatementNode.transaction do
-        old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
-        holds_lock = holds_lock?(old_statement_document, locked_at)
-        if holds_lock
-          @statement_document = @statement_node.add_statement_document(
-                                  attrs_doc.merge({:author_id => current_user.id,
-                                                   :current => true}))
-          @statement_document.save
+      old_statement_document = nil
+      if has_permission
+        StatementNode.transaction do
+          old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
+          holds_lock = holds_lock?(old_statement_document, locked_at)
+          if holds_lock
+            @statement_document = @statement_node.add_statement_document(
+                                    attrs_doc.merge({:author_id => current_user.id,
+                                                     :current => true}))
+            @statement_document.save
 
-          @statement_node.update_attributes(attrs)
-          if @statement_node.taggable? and form_tags
-            @tags = @statement_node.topic_tags = form_tags
+            @statement_node.update_attributes(attrs)
+            if @statement_node.taggable? and form_tags
+              @tags = @statement_node.topic_tags = form_tags
+            end
+            @statement_node.statement.save
           end
-          @statement_node.statement.save
-        end
-      
-
-        if !holds_lock
-          being_edited
-        elsif @statement_node.valid? and @statement_document.valid?
-          old_statement_document.current = false
-          old_statement_document.unlock # also saves the document
-          update = true
-          set_statement_info(@statement_document)
-          show_statement
-        else
-          set_error(@statement_document) if @statement_document
-          set_error(@statement_node) unless @statement_document
-          show_statement true
         end
       end
+
+      if !holds_lock
+        being_edited
+      elsif has_permission and @statement_node.valid? and @statement_document.valid?
+        old_statement_document.current = false
+        old_statement_document.unlock # also saves the document
+        update = true
+        set_statement_info(@statement_document)
+        show_statement
+      else
+        set_error(@statement_document) if @statement_document
+        set_error(@statement_node) unless @statement_document
+        show_statement true
+      end
+
 
     rescue Exception => e
       log_error_statement(e, "Error updating statement node '#{@statement_node.id}'.")
@@ -495,7 +505,7 @@ class StatementsController < ApplicationController
           if immediate_render
             load_children :type => type
           else
-            @children[type] ||= @statement_node.count_child_statements :language_ids => @language_preference_list,
+            @children[type] ||= @statement_node.count_child_statements :language_ids => filter_languages_for_children,
                                                                        :user => current_user,
                                                                        :type => type
           end
@@ -519,11 +529,25 @@ class StatementsController < ApplicationController
   #
   def load_children(opts)
     opts[:user] ||= current_user
-    opts[:language_ids] ||= @language_preference_list
+    opts[:language_ids] ||= filter_languages_for_children
     @children ||= {}
     @children[opts[:type]] = @statement_node.paginated_child_statements(opts)
     @children_documents ||= {}
-    @children_documents.merge!(search_statement_documents :statement_ids => @children[opts[:type]].flatten.map(&:statement_id))
+    @children_documents.merge!(search_statement_documents :language_ids => filter_languages_for_children,
+                                                          :statement_ids => @children[opts[:type]].flatten.map(&:statement_id))
+  end
+
+  # aux function to load the children with the right set of languages
+  def filter_languages_for_children
+    # if no user or user doesn't have any language defined, show everything
+    if current_user.nil? or current_user.spoken_languages.empty?
+      nil
+    #if user doesn't speak the local language, then don't show the children on it
+    elsif !current_user.speaks_language?(Language[I18n.locale])
+      @language_preference_list - [locale_language_id]
+    else
+      @language_preference_list
+    end
   end
 
   #
@@ -591,6 +615,18 @@ class StatementsController < ApplicationController
   #
   def fetch_statement_node_type
     @statement_node_type = params[:type] ? params[:type].to_s.classify.constantize : nil
+  end
+
+
+  #
+  # Checks if the user can access this very statement
+  #
+  def check_statement_permissions
+    # check if the user has permissions to read this statement
+    if @statement_node and !check_tag_permissions(@statement_node.root.topic_tags, false)
+      redirect_to_url discuss_search_url, 'discuss.statements.read_permission'
+      return
+    end
   end
 
   #
@@ -707,36 +743,34 @@ class StatementsController < ApplicationController
     bids.each_with_index do |bid, index| #[id, classes, url, title, label, over]
       key = bid[0,2]
       value = CGI.unescape(bid[2..-1])
-      opts = {}
+      breadcrumb = {}
       #default values
-      opts[:key] = key
-      opts[:css] = "search_link statement_link"
+      breadcrumb[:key] = key
+      breadcrumb[:css] = "search_link statement_link"
       case key
-        when "ds" then page_count = value.blank? ? 1 : value[1..-1] # ds|:page_count
-                       opts[:url] = discuss_search_url(:page_count => page_count)
-                       opts[:title] = I18n.t("discuss.statements.breadcrumbs.discuss_search")
-                       opts[:page_count] = page_count
+        when "ds" then breadcrumb[:page_count] = value.blank? ? 1 : value[1..-1] # ds|:page_count
+                       breadcrumb[:url] = discuss_search_url(:page_count => breadcrumb[:page_count])
+                       breadcrumb[:title] = I18n.t("discuss.statements.breadcrumbs.discuss_search")
         when "sr" then value = value.split('|')
-                       page_count = value.length > 1 ? value[1] : 1 # sr:search_term|:page_count
+                       breadcrumb[:page_count] = value.length > 1 ? value[1] : 1 # sr:search_term|:page_count
                        search_terms = value[0].gsub(/\\;/, ',').gsub(/\\:;/, '|')
-                       opts[:url] = discuss_search_url(:page_count => page_count, :search_terms => search_terms)
-                       opts[:title] = value[0]
-                       opts[:page_count] = page_count
-        when "mi" then opts[:css] = "my_discussions_link statement_link"
-                       opts[:url] = my_questions_url
-                       opts[:title] = I18n.t("discuss.statements.breadcrumbs.my_questions")
+                       breadcrumb[:url] = discuss_search_url(:page_count => breadcrumb[:page_count], :search_terms => search_terms)
+                       breadcrumb[:title] = value[0]
+        when "mi" then breadcrumb[:css] = "my_discussions_link statement_link"
+                       breadcrumb[:url] = my_questions_url
+                       breadcrumb[:title] = I18n.t("discuss.statements.breadcrumbs.my_questions")
         when "fq" then statement_node = StatementNode.find(bid[2..-1])
                        statement_document = search_statement_documents(:statement_ids => [statement_node.statement_id])[statement_node.statement_id] ||
                                             statement_node.document_in_original_language
                        origin = index > 0 ? bids[index-1] : ''
-                       opts[:key] = "fq#{value}"
-                       opts[:css] = "statement statement_link #{statement_node.class.name.underscore}_link"
-                       opts[:url] = statement_node_url(statement_node, :bids => bids[0, bids.index(bid)].join(","), :origin => origin)
-                       opts[:title] = statement_document.title
+                       breadcrumb[:key] = "fq#{value}"
+                       breadcrumb[:css] = "statement statement_link #{statement_node.class.name.underscore}_link"
+                       breadcrumb[:url] = statement_node_url(statement_node, :bids => bids[0, bids.index(bid)].join(","), :origin => origin)
+                       breadcrumb[:title] = statement_document.title
       end
-      opts[:label] = I18n.t("discuss.statements.breadcrumbs.labels.#{key}")
-      opts[:over] = I18n.t("discuss.statements.breadcrumbs.labels.over.#{key}")
-      @breadcrumbs << opts
+      breadcrumb[:label] = I18n.t("discuss.statements.breadcrumbs.labels.#{key}")
+      breadcrumb[:over] = I18n.t("discuss.statements.breadcrumbs.labels.over.#{key}")
+      @breadcrumbs << breadcrumb
     end
   end
 
@@ -769,7 +803,39 @@ class StatementsController < ApplicationController
     return true
   end
 
-  
+  #
+  # Checks whether the user is allowed to assign the given hash tags (#tag).
+  #
+  def check_tag_permissions(tags_values, write=true)
+    tags = filter_read_write_tags(tags_values)
+
+    if tags.empty? # no read/write permission tag, good to go
+      return true
+    elsif current_user.nil? # no user logged in, can't access super secret statement
+      return false
+    elsif current_user.has_role? :editor # editor can do whatever he wants
+      return true
+    else # calculate for the remaining users
+      decision_making_tags = current_user.decision_making_tags
+      ret_value = true
+      tags.each do |tag|
+        unless decision_making_tags.include? tag
+          ret_value = false
+          if write
+            set_error('discuss.statements.tag_permission', :tag => tag)
+          else
+            return ret_value
+          end
+        end
+      end
+      return ret_value
+    end
+  end
+
+  def filter_read_write_tags(tags)
+    tags.map{|t|t.strip}.uniq.select{|t|t[0,2].eql? "**"}
+  end
+
   ##########
   # SEARCH #
   ##########
@@ -787,9 +853,9 @@ class StatementsController < ApplicationController
     if opts[:node] and !opts[:node].new_record?
       # VERY IMP: remove statement original language if user doesn't speak it
       original_language = opts[:node].original_language
-      languages -= [original_language.id] if languages.length > 1 and original_language.code.to_s != I18n.locale and 
-                                             (current_user.nil? or 
-                                              !current_user.sorted_spoken_languages.include?(original_language.id)) 
+      languages -= [original_language.id] if languages.length > 1 and original_language.code.to_s != I18n.locale and
+                                             (current_user.nil? or
+                                              !current_user.sorted_spoken_languages.include?(original_language.id))
     end
     StatementNode.search_discussions(opts.merge({:user => current_user,
                                                  :language_ids => languages,
@@ -805,9 +871,12 @@ class StatementsController < ApplicationController
   #
   def search_statement_documents(opts={})
     opts[:language_ids] ||= @language_preference_list
+    opts[:user] = current_user
     l_ids = opts[:language_ids]
     statement_documents = StatementDocument.search_statement_documents(opts).sort! {|a, b|
-      l_ids.index(a.language_id) <=> l_ids.index(b.language_id)
+      a_index = l_ids.index(a.language_id)
+      b_index = l_ids.index(b.language_id)
+      (a_index and b_index) ? a_index <=> b_index : 1
     }
     statement_documents.each_with_object({}) do |sd, documents_hash|
       documents_hash[sd.statement_id] = sd unless documents_hash.has_key?(sd.statement_id)
@@ -988,7 +1057,7 @@ class StatementsController < ApplicationController
       per_page = opts[:per_page].to_i == -1 ? roots.length : opts[:per_page].to_i
       per_page = 1 if per_page == 0 # in case roots is an empty array
       @children = {}
-      type = opts[:node].nil? ? @type : opts[:node].class.name 
+      type = opts[:node].nil? ? @type : opts[:node].class.name
       @children[type.to_sym] = roots.paginate :page => opts[:page].to_i, :per_page => per_page
 
       @children_documents = search_statement_documents :statement_ids => @children[type.to_sym].flatten.map(&:statement_id)

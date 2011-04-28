@@ -408,8 +408,6 @@ pt:
       no_questions: |
         Ainda não criou nenhuma questão. Para o fazer, por favor clique no ponto de interrogação que se encontra à esquerda.
       add: Criar nova questão
-    tag_permission: |
-      Não tem permissão para inserir a tag '{{tag}}'.
     translation_request: Por favor traduza este texto em <strong>PORTUGUÊS</strong>.
     original_language_warning: |
       O texto original encontra-se em <strong>{{language}}</strong>. Defina os seus conheci-<br/>
@@ -531,6 +529,8 @@ pt:
       fuq_formulation_hint: |
         Como as questões complementares também podem ser encontradas em "Pesquisa", o seu conteúdo deve poder ser
         compreendido fora do contexto da discussão original.
+      tag_permission: |
+        Não tem permissão para inserir a tag '{{tag}}'.
       title_hint:
         question: Introduza o título da questão em...
         proposal: Introduza o título da proposta em...

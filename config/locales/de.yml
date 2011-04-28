@@ -231,7 +231,8 @@ de:
     # Spoken Languages section
     spoken_languages:
       title: Sprachkenntnisse
-      guide:  Hier können Sie Ihre Sprachkenntnisse angeben.
+      guide: |
+        Hier können Sie Ihre Sprachkenntnisse angeben.
       language: Sprache
       level: Niveau
       error_messages:
@@ -423,12 +424,11 @@ de:
       no_questions: |
         Sie haben bislang keine Fragestellungen hinzugefügt. Um welche anzulegen, klicken Sie bitte links auf das Fragezeichen.
       add: Neue Fragestellung
-    tag_permission: |
-      Sie dürfen leider den Tag '{{tag}}' nicht vergeben.
-    original_language_warning: |
-      Die originale Aussage ist auf <strong>{{language}}</strong>. Definieren Sie<br/>
-      Ihre Sprachkenntnisse, um weitere Inhalte zu sehen.
     translation_request: Bitte übersetzen Sie die Aussage auf <strong>DEUTSCH</strong>.
+    mixed_languages: Verwirrte Sprachen
+    set_languages: Stellen Sie <strong>Ihre Sprachkenntnisse</strong> ein - Entwirren Sie das Geräusch!
+    no_locale_language: Kein DEUTSCH
+    adjust_languages: Passen Sie <strong>Ihre Sprachkenntnisse</strong> an, um Inhalte auf <strong>DEUTSCH</strong> zu sehen!
     results_count:
       one: '{{count}} Fragestellung'
       more: '{{count}} Fragestellungen'
@@ -546,6 +546,8 @@ de:
       fuq_formulation_hint: |
         Da Folgefragen auch wie andere Fragestellungen in der Suche erscheinen, sollten Überschrift und Erläuterung auch
         ausserhalb der ursprünglichen Diskussion verständlich sein.
+      tag_permission: |
+        Sie dürfen leider den Tag '{{tag}}' nicht vergeben.
       title_hint:
         question: Überschrift der Fragestellung auf... Deutsch?
         proposal: Überschrift des Vorschlags auf... Deutsch?
@@ -596,7 +598,7 @@ de:
         label: 'Fragestellung sofort veröffentlichen?'
         initial_state:
           new: 'Erstmal weiter vorbereiten und später veröffentlichen'
-          published: 'Sofort veröffentlichen (danach ist keine Bearbeitung mehr möglich)'
+          published: 'Sofort veröffentlichen (danach ist eine Bearbeitung nur begrenzt möglich)'
         published: Freigegeben
         approved: Approved
       delete_link: 'Löschen'
@@ -641,7 +643,7 @@ de:
         labels:
           ds: ''
           mi: ''
-          sr: 'Suchergebnisse für'
+          sr: 'Gefundene Fragestellungen für'
           fq: 'Folgefragen zu'
           over:
             ds: 'Zurück zu'

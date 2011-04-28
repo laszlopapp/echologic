@@ -1,0 +1,14 @@
+
+<% content_tag :div,
+               :class => 'language_skills_teaser_box message_box translation_box_class
+                          rounded-box rounded-box-gray-itow with_bg_bw_grad_small' do %>
+
+  <%= image_tag 'page/translation/babelfish_left.png',
+                :class => 'fish_left' %>
+  <%= content_tag(:span, I18n.t('discuss.mixed_languages'),
+                  :class => "language_label from_language") %>
+  <%= link_to I18n.t('discuss.set_languages'),
+              my_profile_path,
+              :class => "translation_link" %>
+
+<% end %>
