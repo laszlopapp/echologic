@@ -588,7 +588,7 @@ de:
         question: 'Fragestellungen'
         proposal: 'Vorschläge'
         improvement: 'Ergänzungen'
-        argument: 'Für & Wider'
+        argument: 'Pro & Kontra'
         follow_up_question: 'Folgefragen'
       siblings:
         follow_up_question: 'Folgefrage im obigen Kontext'
