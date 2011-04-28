@@ -18,7 +18,9 @@ module StatementsHelper
   end
 
   def render_ancestor(ancestor, document)
-    render :partial => 'statements/show', :locals => {:statement_node => ancestor, :statement_document => document, :only_header => true}
+    render :partial => 'statements/show', :locals => {:statement_node => ancestor,
+                                                      :statement_document => document,
+                                                      :only_header => true}
   end
 
   # Renders all the possible children of the current node (per type, ordering must be defined in the node type definition)
