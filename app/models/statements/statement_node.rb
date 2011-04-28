@@ -384,34 +384,39 @@ class StatementNode < ActiveRecord::Base
       aggregator_field = opts[:type].nil? ? 'root_id' : 'id'
 
       # Constant criteria
-      and_conditions = []
-      and_conditions << "d.current = 1"  # Only current documents
-      and_conditions << "s.question_id IS NULL"  # Exclude FUQs (pointing to an unwanted root question)
+      document_conditions = []
+      document_conditions << "d.current = 1"  # Only current documents
+      
+      # Languages
+      if opts[:user] and !opts[:user].spoken_languages.empty? and opts[:language_ids]
+        document_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]])
+      end
+      
+      node_conditions = []
       # Access permissions
       access_conditions = []
-      access_conditions << "closed_statement IS NULL"
+      access_conditions << "s.closed_statement IS NULL"
       access_conditions << sanitize_sql(["s.allowed_user_id = ?", opts[:user].id]) if opts[:user]
-      and_conditions << "(#{access_conditions.join(' OR ')})"
+      node_conditions << "(#{access_conditions.join(' OR ')})"
 
       # Statement type
       if opts[:type]
-        and_conditions << sanitize_sql(["s.type = ?", opts[:type]])
+        node_conditions << sanitize_sql(["s.type = ?", opts[:type]])
       end
+      
       # Published state
       unless opts[:show_unpublished]
         publish_condition = []
         publish_condition << sanitize_sql(["s.editorial_state_id = ?",StatementState['published'].id])
         publish_condition << sanitize_sql(["s.creator_id = ?",  opts[:user].id]) if opts[:user]
-        and_conditions << "(#{publish_condition.join(' OR ')})"
+        node_conditions << "(#{publish_condition.join(' OR ')})"
       end
+      
       # Drafting state
       if opts[:drafting_states]
-        and_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]])
+        node_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]])
       end
-      # Languages
-      if opts[:user] and !opts[:user].spoken_languages.empty? and opts[:language_ids]
-        and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]])
-      end
+      
 
       # Search terms
       search_term = opts.delete(:search_term)
@@ -428,7 +433,7 @@ class StatementNode < ActiveRecord::Base
           if (term.length > 3)
             or_conditions << sanitize_sql([" OR d.title LIKE ? OR d.text LIKE ?", "%#{term}%", "%#{term}%"])
           end
-          term_queries << (term_query + (and_conditions + ["(#{or_conditions})"]).join(" AND "))
+          term_queries << (term_query + (node_conditions + document_conditions + ["(#{or_conditions})"]).join(" AND "))
         end
         term_queries = term_queries.join(" UNION ALL ")
         statements_query = "SELECT #{table_name}.#{opts[:only_id] ? aggregator_field : '*'} " +
@@ -439,11 +444,11 @@ class StatementNode < ActiveRecord::Base
                            "ORDER BY COUNT(statement_node_ids.#{aggregator_field}) DESC, " +
                                     "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id;"
       else
-        and_conditions << "s.type = 'Question'" if opts[:type].nil?
+        node_conditions << "s.type = 'Question'" if opts[:type].nil?
         statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? aggregator_field : '*'} from search_statement_nodes s " +
                            "LEFT OUTER JOIN statement_documents d ON d.statement_id = s.statement_id " +
                            Statement.extaggable_joins_clause("s.statement_id") +
-                           "WHERE " + and_conditions.join(' AND ') +
+                           "WHERE " + (node_conditions + document_conditions).join(' AND ') +
                            " ORDER BY s.supporter_count DESC, s.created_at DESC, s.id;"
       end
       find_by_sql statements_query
