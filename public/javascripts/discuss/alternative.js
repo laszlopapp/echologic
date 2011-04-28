@@ -27,6 +27,7 @@
 
     function Alternative(statement) {
       var alternative_panel = statement.find('.alternative_panel');
+			var arrow = alternative_panel.find('.arrow');
       initialize();
 
       /*
@@ -46,9 +47,11 @@
         },
 				highlight: function() {
 					alternative_panel.animate({backgroundColor : settings['highlight_color']}, 300);
+					arrow.fadeIn(300);
 				},
 				normal_mode: function() {
 					alternative_panel.animate({backgroundColor : settings['normal_mode_color']}, 300);
+					arrow.fadeOut(300);
 				}
       });
     }

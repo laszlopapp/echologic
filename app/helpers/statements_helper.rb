@@ -522,6 +522,10 @@ module StatementsHelper
              :locals => {:statement_node => statement_node,
                          :alternatives => children}
   end
+  
+  def render_arrow
+    image_tag('page/discuss/arrow.png', :class => 'arrow', :style => 'display:none')
+  end
 
   # This class does the heavy lifting of actually building the pagination
   # links. It is used by the <tt>will_paginate</tt> helper internally.
