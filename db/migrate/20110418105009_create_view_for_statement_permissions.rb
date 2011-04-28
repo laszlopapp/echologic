@@ -4,7 +4,7 @@ class CreateViewForStatementPermissions < ActiveRecord::Migration
     topic = TagContext[:topic]
     decision_making = TagContext[:decision_making]
 
-    create_view :closed_statement_permissions,
+    create_view :statement_permissions,
     "SELECT statements.id AS statement_id, tao_users.tao_id AS user_id
      FROM statements
           LEFT JOIN tao_tags AS tao_statements ON statements.id = tao_statements.tao_id AND
@@ -20,14 +20,14 @@ class CreateViewForStatementPermissions < ActiveRecord::Migration
     end
 
     create_view :search_statement_nodes,
-    "SELECT DISTINCT s.*, statements.editorial_state_id,
-            echos.supporter_count, closed_statement_permissions.statement_id AS closed_statement,
-            closed_statement_permissions.user_id AS allowed_user_id
-     FROM statement_nodes s
-          LEFT JOIN statements ON statements.id = s.statement_id
-          LEFT OUTER JOIN echos ON echos.id = s.echo_id
-          LEFT OUTER JOIN closed_statement_permissions ON closed_statement_permissions.statement_id = statements.id
-     WHERE s.question_id is NULL" do |t|
+    "SELECT DISTINCT n.*, s.editorial_state_id,
+            e.supporter_count, sp.statement_id AS closed_statement,
+            sp.user_id AS granted_user_id
+     FROM statement_nodes n
+          LEFT JOIN statements s ON s.id = n.statement_id
+          LEFT JOIN echos e ON n.echo_id = e.id
+          LEFT OUTER JOIN statement_permissions sp ON s.id = sp.statement_id
+     WHERE n.question_id IS NULL" do |t|
       t.column :id
       t.column :type
       t.column :parent_id
@@ -44,12 +44,12 @@ class CreateViewForStatementPermissions < ActiveRecord::Migration
       t.column :editorial_state_id
       t.column :supporter_count
       t.column :closed_statement
-      t.column :allowed_user_id
+      t.column :granted_user_id
     end
   end
 
   def self.down
+    drop_view :statement_permissions
     drop_view :search_statement_nodes
-    drop_view :closed_statement_permissions
   end
 end

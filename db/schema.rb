@@ -388,12 +388,7 @@ ActiveRecord::Schema.define(:version => 20110418105009) do
 
   add_index "web_addresses", ["user_id"], :name => "index_web_profiles_on_user_id"
 
-  create_view "closed_statement_permissions", "select `statements`.`id` AS `statement_id`,`tao_users`.`tao_id` AS `user_id` from (((`statements` left join `tao_tags` `tao_statements` on(((`statements`.`id` = `tao_statements`.`tao_id`) and (`tao_statements`.`tao_type` = 'Statement') and (`tao_statements`.`context_id` = 586794338)))) left join `tags` on((`tags`.`id` = `tao_statements`.`tag_id`))) left join `tao_tags` `tao_users` on(((`tags`.`id` = `tao_users`.`tag_id`) and (`tao_users`.`tao_type` = 'User') and (`tao_users`.`context_id` = 549825790)))) where (substr(`tags`.`value`,1,2) = '**')", :force => true do |v|
-    v.column :statement_id
-    v.column :user_id
-  end
-
-  create_view "search_statement_nodes", "select distinct `s`.`id` AS `id`,`s`.`type` AS `type`,`s`.`parent_id` AS `parent_id`,`s`.`root_id` AS `root_id`,`s`.`creator_id` AS `creator_id`,`s`.`echo_id` AS `echo_id`,`s`.`created_at` AS `created_at`,`s`.`updated_at` AS `updated_at`,`s`.`statement_id` AS `statement_id`,`s`.`drafting_state` AS `drafting_state`,`s`.`lft` AS `lft`,`s`.`rgt` AS `rgt`,`s`.`question_id` AS `question_id`,`statements`.`editorial_state_id` AS `editorial_state_id`,`echos`.`supporter_count` AS `supporter_count`,`closed_statement_permissions`.`statement_id` AS `closed_statement`,`closed_statement_permissions`.`user_id` AS `allowed_user_id` from (((`statement_nodes` `s` left join `statements` on((`statements`.`id` = `s`.`statement_id`))) left join `echos` on((`echos`.`id` = `s`.`echo_id`))) left join `closed_statement_permissions` on((`closed_statement_permissions`.`statement_id` = `statements`.`id`))) where isnull(`s`.`question_id`)", :force => true do |v|
+  create_view "search_statement_nodes", "select distinct `n`.`id` AS `id`,`n`.`type` AS `type`,`n`.`parent_id` AS `parent_id`,`n`.`root_id` AS `root_id`,`n`.`creator_id` AS `creator_id`,`n`.`echo_id` AS `echo_id`,`n`.`created_at` AS `created_at`,`n`.`updated_at` AS `updated_at`,`n`.`statement_id` AS `statement_id`,`n`.`drafting_state` AS `drafting_state`,`n`.`lft` AS `lft`,`n`.`rgt` AS `rgt`,`n`.`question_id` AS `question_id`,`s`.`editorial_state_id` AS `editorial_state_id`,`e`.`supporter_count` AS `supporter_count`,`sp`.`statement_id` AS `closed_statement`,`sp`.`user_id` AS `granted_user_id` from (((`statement_nodes` `n` left join `statements` `s` on((`s`.`id` = `n`.`statement_id`))) left join `echos` `e` on((`n`.`echo_id` = `e`.`id`))) left join `statement_permissions` `sp` on((`s`.`id` = `sp`.`statement_id`))) where isnull(`n`.`question_id`)", :force => true do |v|
     v.column :id
     v.column :type
     v.column :parent_id
@@ -410,7 +405,12 @@ ActiveRecord::Schema.define(:version => 20110418105009) do
     v.column :editorial_state_id
     v.column :supporter_count
     v.column :closed_statement
-    v.column :allowed_user_id
+    v.column :granted_user_id
+  end
+
+  create_view "statement_permissions", "select `statements`.`id` AS `statement_id`,`tao_users`.`tao_id` AS `user_id` from (((`statements` left join `tao_tags` `tao_statements` on(((`statements`.`id` = `tao_statements`.`tao_id`) and (`tao_statements`.`tao_type` = 'Statement') and (`tao_statements`.`context_id` = 586794338)))) left join `tags` on((`tags`.`id` = `tao_statements`.`tag_id`))) left join `tao_tags` `tao_users` on(((`tags`.`id` = `tao_users`.`tag_id`) and (`tao_users`.`tao_type` = 'User') and (`tao_users`.`context_id` = 549825790)))) where (substr(`tags`.`value`,1,2) = '**')", :force => true do |v|
+    v.column :statement_id
+    v.column :user_id
   end
 
 end

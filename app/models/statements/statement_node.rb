@@ -396,7 +396,7 @@ class StatementNode < ActiveRecord::Base
       # Access permissions
       access_conditions = []
       access_conditions << "s.closed_statement IS NULL"
-      access_conditions << sanitize_sql(["s.allowed_user_id = ?", opts[:user].id]) if opts[:user]
+      access_conditions << sanitize_sql(["s.granted_user_id = ?", opts[:user].id]) if opts[:user]
       node_conditions << "(#{access_conditions.join(' OR ')})"
 
       # Statement type
@@ -421,9 +421,9 @@ class StatementNode < ActiveRecord::Base
       # Search terms
       search_term = opts.delete(:search_term)
       if !search_term.blank?
-        term_query = "SELECT DISTINCT s.#{aggregator_field} FROM search_statement_nodes s "
-        term_query << "LEFT JOIN statement_documents d ON d.statement_id = s.statement_id "
-        term_query << Statement.extaggable_joins_clause("s.statement_id")
+        term_query = "SELECT DISTINCT s.id FROM #{Statement.table_name} s "
+        term_query << "LEFT JOIN #{StatementDocument.table_name} d ON d.statement_id = s.id "
+        term_query << Statement.extaggable_joins_clause("s.id")
         term_query << "WHERE "
 
         term_queries = []
@@ -433,20 +433,22 @@ class StatementNode < ActiveRecord::Base
           if (term.length > 3)
             or_conditions << sanitize_sql([" OR d.title LIKE ? OR d.text LIKE ?", "%#{term}%", "%#{term}%"])
           end
-          term_queries << (term_query + (node_conditions + document_conditions + ["(#{or_conditions})"]).join(" AND "))
+          term_queries << (term_query + (document_conditions + ["(#{or_conditions})"]).join(" AND "))
         end
         term_queries = term_queries.join(" UNION ALL ")
         statements_query = "SELECT #{table_name}.#{opts[:only_id] ? aggregator_field : '*'} " +
-                           "FROM (#{term_queries}) statement_node_ids " +
-                           "LEFT JOIN #{table_name} ON #{table_name}.id = statement_node_ids.#{aggregator_field} " +
+                           "FROM (#{term_queries}) statement_ids " +
+                           "LEFT JOIN search_statement_nodes s ON statement_ids.id = s.statement_id AND " +
+                           "(#{node_conditions.join(" AND ")}) " +
+                           "LEFT JOIN #{table_name} ON #{table_name}.id = s.#{aggregator_field} " +
                            "LEFT JOIN #{Echo.table_name} e ON e.id = #{table_name}.echo_id " +
-                           "GROUP BY statement_node_ids.#{aggregator_field} " +
-                           "ORDER BY COUNT(statement_node_ids.#{aggregator_field}) DESC, " +
-                                    "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id;"
+                           "GROUP BY s.#{aggregator_field} " +
+                           "ORDER BY COUNT(s.#{aggregator_field}) DESC, " +
+                           "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id;"
       else
         node_conditions << "s.type = 'Question'" if opts[:type].nil?
         statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? aggregator_field : '*'} from search_statement_nodes s " +
-                           "LEFT OUTER JOIN statement_documents d ON d.statement_id = s.statement_id " +
+                           "LEFT JOIN statement_documents d ON d.statement_id = s.statement_id " +
                            Statement.extaggable_joins_clause("s.statement_id") +
                            "WHERE " + (node_conditions + document_conditions).join(' AND ') +
                            " ORDER BY s.supporter_count DESC, s.created_at DESC, s.id;"
