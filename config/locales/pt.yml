@@ -610,6 +610,7 @@ pt:
       supporter_to_share: Tem que apoiar este conteúdo de forma a poder partilhá-lo.
       published_to_share: 'Esta discussão ainda não foi publicada. Por enquanto não poderá infelizmente partilhar o seu conteúdo!'
       cannot_be_edited: Este conteúdo não pode ser mais editado. A edição de conteúdos não é mais possível após esse mesmo conteúdo ter sido apoiado por alguém. É uma opção de segurança para evitar a posterior alteração de opiniões já apoiadas por alguém.
+      echos_label: Support
 
       breadcrumbs:
         discuss_search: Pesquisa resultados

@@ -165,7 +165,7 @@ fr:
       set_password: Mot de passe oublié?
       hello: 'Vous êtes connecté<br/><strong>{{name}}</strong>'
       hint: |
-        Pour vous connecter de nouveau sans indiquer votre mot de passe, 
+        Pour vous connecter de nouveau sans indiquer votre mot de passe,
         il vous suffit de vous reconnecter avec votre compte d'utilisateur sur Facebook, Twitter, séparément.
       messages:
         success: Votre compte a été crée avec succès. Bienvenue sur echo!
@@ -660,6 +660,7 @@ fr:
       supporter_to_share: Vous devez approuver ce point de vue pour le partager.
       published_to_share: 'La contribution est en cours de transmission. Pendant la transmission vous ne pouvez pas la partager.'
       cannot_be_edited: "Dommage, vous ne pouvez pas éditer ce constat après que les autres membres l'aient approuvé. Cette disposition évitera aussi des piratages éventuels."
+      echos_label: Support
 
       breadcrumbs:
         discuss_search: Chercher des résultats

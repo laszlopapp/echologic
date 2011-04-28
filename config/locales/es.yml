@@ -640,6 +640,7 @@ es:
       supporter_to_share: 'Tienes que apoyar este contenido para poder compartirlo.'
       published_to_share: 'Este debate está aún por publicar. Lo sentimos, pero hasta entonces, no puedes compartirlo.'
       cannot_be_edited: 'Lo sentimos, pero no puedes editar este contenido hasta obtener el apoyo de otros miembros. El motivo es evitar el falseamiento de opiniones.'
+      echos_label: Support
 
       breadcrumbs:
         discuss_search: Buscar resultados

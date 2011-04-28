@@ -1711,3 +1711,20 @@ form.statement fieldset ol li.tags_container {
 .expandable.active:hover .expand_icon {
   background-position: 0 -35px;
 }
+
+.statement .expandable .headline .echos_label {
+  visibility: hidden;
+}
+
+.statement .expandable.active .headline .echos_label {
+  visibility: visible;
+  background: url("../images/page/discuss/echo_small.png") no-repeat scroll 0 0 transparent;
+  color: #21587F;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 17px;
+  padding-left: 20px;
+  position: absolute;
+  right: 35px;
+  top: 7px;
+}

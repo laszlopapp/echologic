@@ -508,11 +508,11 @@ de:
       label: 'Stimmen'
       echo_indicator:
         support:
-          one: '{{supporter_count}} UnterstützerIn (echo)'
-          many: '{{supporter_count}} UnterstützerInnen (echos)'
+          one: '{{supporter_count}} UnterstützerIn'
+          many: '{{supporter_count}} UnterstützerInnen'
         recommend:
-          one: '{{supporter_count}} Empfehlung (echo)'
-          many: '{{supporter_count}} Empfehlungen (echos)'
+          one: '{{supporter_count}} Empfehlung'
+          many: '{{supporter_count}} Empfehlungen'
       add_new: Neues hinzufügen...
       create_question_link: 'Neue Fragestellung hinzufügen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
@@ -588,7 +588,7 @@ de:
         question: 'Fragestellungen'
         proposal: 'Vorschläge'
         improvement: 'Ergänzungen'
-        argument: 'Argumente'
+        argument: 'Für & Wider'
         follow_up_question: 'Folgefragen'
       siblings:
         follow_up_question: 'Folgefrage im obigen Kontext'
@@ -636,6 +636,7 @@ de:
       cannot_be_edited: |
         Sie können diesen Beitrag nicht mehr editieren, da er bereits durch jemanden unterstützt wurde.
         Dies ist notwendig, um Verfälschungen des Meinungsbildes zu vermeiden.
+      echos_label: Unterstützung
 
       breadcrumbs:
         discuss_search: Suchergebnisse

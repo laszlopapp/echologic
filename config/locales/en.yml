@@ -494,11 +494,11 @@ en:
       label: 'votes'
       echo_indicator:
         support:
-          one: '{{supporter_count}} supporter (echo)'
-          many: '{{supporter_count}} supporters (echos)'
+          one: '{{supporter_count}} supporter'
+          many: '{{supporter_count}} supporters'
         recommend:
-          one: '{{supporter_count}} recommendation (echo)'
-          many: '{{supporter_count}} recommendations (echos)'
+          one: '{{supporter_count}} recommendation'
+          many: '{{supporter_count}} recommendations'
       add_new: Add new...
       create_question_link: 'Create new question'
       create_proposal_link: Add new proposal
@@ -577,7 +577,7 @@ en:
         question: 'Questions'
         proposal: 'Proposals'
         improvement: 'Additions'
-        argument: 'Arguments'
+        argument: 'Pros & Cons'
         follow_up_question: 'Follow-up Questions'
       siblings:
         follow_up_question: 'Follow-up Question in the context shown above'
@@ -618,6 +618,7 @@ en:
       supporter_to_share: 'You must be a supporter of this statement in order to share it!'
       published_to_share: 'This discussion is yet to be published. Until then, it is not possible to share it.'
       cannot_be_edited: Unfortunately, you cannot edit this statement after other members supported it. This is to avoid faking of opinions.
+      echos_label: Support
 
       breadcrumbs:
         discuss_search: Search results
