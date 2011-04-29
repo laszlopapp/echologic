@@ -1,7 +1,8 @@
 <% type_plural = @type.to_s.underscore.pluralize %>
 var statement = $('#statements > #<%=dom_id(@statement_node)%>');
-var children_list = statement.find('.<%=type_plural%> .children_list');
-var more_element = statement.find('.<%=type_plural%> .more_pagination');
+var container = statement.find('.<%=type_plural%>');
+var children_list = container.find('.children_list');
+var more_element = container.find('.more_pagination');
 
 <%if @page.to_i == 1 %>
   panel_height = <%= @children[@type].total_entries <= 7 ? ((@children[@type].total_entries + 1) * 29) : 203 %>
@@ -16,7 +17,7 @@ var pagination_buttons = "<%= escape_javascript(will_paginate(@children[@type], 
 
 var scrollpane;
 <% if @page.to_i > 1 %>
-  scrollpane = statement.find('.<%=type_plural%> .children_list').data('jsp');
+  scrollpane = container.find('.children_list').data('jsp');
   children_list = scrollpane.getContentPane();
 <% end %>
 
@@ -31,6 +32,10 @@ more_element.replaceWith(pagination_buttons);
   scrollpane.reinitialise();
   scrollpane.scrollToBottom();
 <% end %>
-statement.find('.<%=type_plural%> .more_pagination a').addClass('ajax');
+container.find('.more_pagination a').addClass('ajax');
 
-statement.data('api').reinitialiseChildren(".<%=type_plural%>");
+if (container.hasClass('.children')) {
+  statement.data('api').reinitialiseChildren(".<%=type_plural%>");
+} else {
+  statement.data('api').reinitialiseSiblings(".<%=type_plural%>");
+}
