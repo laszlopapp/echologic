@@ -315,7 +315,9 @@
   }
 
 
-
+  /*
+   * Detecting mobile devices.
+   */
 	function isMobileDevice() {
     var userAgent = navigator.userAgent.toLowerCase();
 		return userAgent.match(/android/i) ||

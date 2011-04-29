@@ -166,6 +166,7 @@ span.publish_button {
 
 #statements textarea, .summary textarea {
   height: 200px;
+  width: 760px;
 }
 
 form.statement p {
