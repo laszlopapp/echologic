@@ -18,7 +18,7 @@ module CollectiveIdea #:nodoc:
       # Methods names are aligned with acts_as_tree as much as possible to make replacment from one
       # by another easier.
       #
-      #   item.children.create(:name => "child1")
+      # item.children.create(:name => "child1")
       #
       module SingletonMethods
         # Configuration options are:
@@ -27,16 +27,16 @@ module CollectiveIdea #:nodoc:
         # * +:left_column+ - column name for left boundry data, default "lft"
         # * +:right_column+ - column name for right boundry data, default "rgt"
         # * +:scope+ - restricts what is to be considered a list. Given a symbol, it'll attach "_id"
-        #   (if it hasn't been already) and use that as the foreign key restriction. You
-        #   can also pass an array to scope by multiple attributes.
-        #   Example: <tt>acts_as_nested_set :scope => [:notable_id, :notable_type]</tt>
+        # (if it hasn't been already) and use that as the foreign key restriction. You
+        # can also pass an array to scope by multiple attributes.
+        # Example: <tt>acts_as_nested_set :scope => [:notable_id, :notable_type]</tt>
         # * +:dependent+ - behavior for cascading destroy. If set to :destroy, all the
-        #   child objects are destroyed alongside this object by calling their destroy
-        #   method. If set to :delete_all (default), all the child objects are deleted
-        #   without calling their destroy method.
+        # child objects are destroyed alongside this object by calling their destroy
+        # method. If set to :delete_all (default), all the child objects are deleted
+        # without calling their destroy method.
         #
         # See CollectiveIdea::Acts::NestedSet::ClassMethods for a list of class methods and
-        # CollectiveIdea::Acts::NestedSet::InstanceMethods for a list of instance methods added 
+        # CollectiveIdea::Acts::NestedSet::InstanceMethods for a list of instance methods added
         # to acts_as_nested_set models
         def acts_as_nested_set(options = {})
           options = {
@@ -44,7 +44,6 @@ module CollectiveIdea #:nodoc:
             :left_column => 'lft',
             :right_column => 'rgt',
             :dependent => :delete_all, # or :destroy
-            :set_conditions => nil
           }.merge(options)
           
           if options[:scope].is_a?(Symbol) && options[:scope].to_s !~ /_id$/
@@ -70,21 +69,21 @@ module CollectiveIdea #:nodoc:
           
             # no bulk assignment
             if accessible_attributes.blank?
-              attr_protected  left_column_name.intern, right_column_name.intern 
+              attr_protected left_column_name.intern, right_column_name.intern
             end
                           
-            before_create  :set_default_left_and_right
-            before_save    :store_new_parent
-            after_save     :move_to_new_parent
+            before_create :set_default_left_and_right
+            before_save :store_new_parent
+            after_save :move_to_new_parent
             before_destroy :destroy_descendants
                           
             # no assignment to structure fields
             [left_column_name, right_column_name].each do |column|
               module_eval <<-"end_eval", __FILE__, __LINE__
-                def #{column}=(x)
-                  raise ActiveRecord::ActiveRecordError, "Unauthorized assignment to #{column}: it's an internal field handled by acts_as_nested_set code, use move_to_* methods instead."
-                end
-              end_eval
+def #{column}=(x)
+raise ActiveRecord::ActiveRecordError, "Unauthorized assignment to #{column}: it's an internal field handled by acts_as_nested_set code, use move_to_* methods instead."
+end
+end_eval
             end
           
             named_scope :roots, :conditions => {parent_column_name => nil}, :order => quoted_left_column_name
@@ -129,10 +128,10 @@ module CollectiveIdea #:nodoc:
           end.push(nil).join(", ")
           [quoted_left_column_name, quoted_right_column_name].all? do |column|
             # No duplicates
-            find(:first, 
-              :select => "#{scope_string}#{column}, COUNT(#{column})", 
-              :group => "#{scope_string}#{column} 
-                HAVING COUNT(#{column}) > 1").nil?
+            find(:first,
+              :select => "#{scope_string}#{column}, COUNT(#{column})",
+              :group => "#{scope_string}#{column}
+HAVING COUNT(#{column}) > 1").nil?
           end
         end
         
@@ -157,14 +156,14 @@ module CollectiveIdea #:nodoc:
           end
         end
                 
-        # Rebuilds the left & rights if unset or invalid.  Also very useful for converting from acts_as_tree.
+        # Rebuilds the left & rights if unset or invalid. Also very useful for converting from acts_as_tree.
         def rebuild!
           # Don't rebuild a valid tree.
           return true if valid?
           
           scope = lambda{|node|}
           if acts_as_nested_set_options[:scope]
-            scope = lambda{|node| 
+            scope = lambda{|node|
               scope_column_names.inject(""){|str, column_name|
                 str << "AND #{connection.quote_column_name(column_name)} = #{connection.quote(node.send(column_name.to_sym))} "
               }
@@ -178,8 +177,8 @@ module CollectiveIdea #:nodoc:
             # find
             find(:all, :conditions => ["#{quoted_parent_column_name} = ? #{scope.call(node)}", node], :order => "#{quoted_left_column_name}, #{quoted_right_column_name}, id").each{|n| set_left_and_rights.call(n) }
             # set right
-            node[right_column_name] = indices[scope.call(node)] += 1    
-            node.save!    
+            node[right_column_name] = indices[scope.call(node)] += 1
+            node.save!
           end
                               
           # Find root node(s)
@@ -196,7 +195,7 @@ module CollectiveIdea #:nodoc:
         # because it doesn't require any additional database queries.
         #
         # Example:
-        #    Category.each_with_level(Category.root.self_and_descendants) do |o, level|
+        # Category.each_with_level(Category.root.self_and_descendants) do |o, level|
         #
         def each_with_level(objects)
           path = [nil]
@@ -252,8 +251,8 @@ module CollectiveIdea #:nodoc:
 
       # Any instance method that returns a collection makes use of Rails 2.1's named_scope (which is bundled for Rails 2.0), so it can be treated as a finder.
       #
-      #   category.self_and_descendants.count
-      #   category.ancestors.find(:all, :conditions => "name like '%foo%'")
+      # category.self_and_descendants.count
+      # category.ancestors.find(:all, :conditions => "name like '%foo%'")
       module InstanceMethods
         # Value of the parent column
         def parent_id
@@ -324,10 +323,10 @@ module CollectiveIdea #:nodoc:
           without_self self_and_siblings
         end
 
-        # Returns a set of all of its nested children which do not have children  
+        # Returns a set of all of its nested children which do not have children
         def leaves
           descendants.scoped :conditions => "#{self.class.quoted_table_name}.#{quoted_right_column_name} - #{self.class.quoted_table_name}.#{quoted_left_column_name} = 1"
-        end    
+        end
 
         # Returns the level of this object in the tree
         # root level is 0
@@ -437,12 +436,9 @@ module CollectiveIdea #:nodoc:
         def nested_set_scope
           options = {:order => quoted_left_column_name}
           scopes = Array(acts_as_nested_set_options[:scope])
-          options[:conditions] = []
-          scopes.each do |attr|
-            options[:conditions] << "#{attr} = #{self[attr]}" if self[attr]
+          options[:conditions] = scopes.inject({}) do |conditions,attr|
+            conditions.merge attr => self[attr]
           end unless scopes.empty?
-          options[:conditions] << acts_as_nested_set_options[:set_conditions] if acts_as_nested_set_options[:set_conditions]
-          options[:conditions] = options[:conditions].join(" AND ")
           self.class.base_class.scoped options
         end
         
@@ -524,10 +520,10 @@ module CollectiveIdea #:nodoc:
             end
             
             bound = case position
-              when :child;  target[right_column_name]
-              when :left;   target[left_column_name]
-              when :right;  target[right_column_name] + 1
-              when :root;   1
+              when :child; target[right_column_name]
+              when :left; target[left_column_name]
+              when :right; target[right_column_name] + 1
+              when :root; 1
               else raise ActiveRecord::ActiveRecordError, "Position should be :child, :left, :right or :root ('#{position}' received)."
             end
           
@@ -541,14 +537,14 @@ module CollectiveIdea #:nodoc:
             # there would be no change
             return if bound == self[right_column_name] || bound == self[left_column_name]
           
-            # we have defined the boundaries of two non-overlapping intervals, 
+            # we have defined the boundaries of two non-overlapping intervals,
             # so sorting puts both the intervals and their boundaries in order
             a, b, c, d = [self[left_column_name], self[right_column_name], bound, other_bound].sort
 
             new_parent = case position
-              when :child;  target.id
-              when :root;   nil
-              else          target[parent_column_name]
+              when :child; target.id
+              when :root; nil
+              else target[parent_column_name]
             end
 
             self.class.base_class.update_all([
