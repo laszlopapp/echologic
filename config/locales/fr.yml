@@ -615,12 +615,13 @@ fr:
         proposal: 'Propositions'
         improvement: 'Rajouts'
         argument: 'Arguments'
-        follow_up_question: 'Question suivie'
+        follow_up_question: 'Questions suivie'
       sibling_labels:
         question: 'Questions'
         proposal: 'Propositions'
         improvement: 'Rajouts'
         argument: 'Arguments'
+        follow_up_question: 'Questions'
       siblings:
         follow_up_question: 'Question suivie dans le contexte affiché ci-dessus'
 

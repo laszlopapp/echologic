@@ -601,6 +601,7 @@ es:
         proposal: 'Propuestas'
         improvement: 'Mejora'
         argument: 'Argumentos'
+        follow_up_question: 'Cuestiones'
       siblings:
         follow_up_question: 'Pregunta de seguimiento según lo indicado arriba'
 

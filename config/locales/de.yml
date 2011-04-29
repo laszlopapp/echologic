@@ -595,6 +595,7 @@ de:
         proposal: 'Vorschläge'
         improvement: 'Ergänzungen'
         argument: 'Argumente'
+        follow_up_question: 'Fragen'
       siblings:
         follow_up_question: 'Folgefrage im obigen Kontext'
 

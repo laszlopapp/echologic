@@ -584,6 +584,7 @@ en:
         proposal: 'Proposals'
         improvement: 'Additions'
         argument: 'Arguments'
+        follow_up_question: 'Questions'
       siblings:
         follow_up_question: 'Follow-up Question in the context shown above'
 

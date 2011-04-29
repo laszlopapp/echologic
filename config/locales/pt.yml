@@ -576,6 +576,7 @@ pt:
         proposal: 'Propostas'
         improvement: 'Melhorias'
         argument: 'Argumentos'
+        follow_up_question: 'Questões'
       siblings:
         follow_up_question: 'Questão Complementar no contexto exposto acima'
 
