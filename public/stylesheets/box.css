@@ -146,6 +146,10 @@
   background: url(../images/page/box/colored_background.png) repeat-x 0 0 transparent;
 }
 
+.with_bg_tw_grad_mid {
+  background: url(../images/page/box/colored_background_mid.png) repeat-x 0 0 transparent;
+}
+
 .with_bg_tw_grad_small {
   background: url(../images/page/box/colored_background_small.png) repeat-x 0 0 transparent;
 }
