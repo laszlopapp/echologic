@@ -1694,8 +1694,8 @@ form.statement fieldset ol li.tags_container {
 }
 
 .statement .header .loading {
-  left: -1px;
-  top: -1px;
+  left: 158px;
+  top: 10px;
 }
 
 .statement .action_buttons .loading {
