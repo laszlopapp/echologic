@@ -93,6 +93,8 @@ Feature: Take Part on a question
       And I press "Save"
     Then I should see "Improving the unimprovable"
       And the proposal should have one improvement
+      
+  
 
   # TEST THE 'ADD NEW' SECTION
 
@@ -301,6 +303,26 @@ Feature: Take Part on a question
       And I press "Save"
     Then I should see "my updated proposal"
 
+  ################
+  # ALTERNATIVES #
+  ################
+
+  @ok
+  Scenario: Add a contrary statement to a Proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow localized "discuss.statements.create_alternative_link"
+      And I fill in the following:
+      | proposal_statement_document_title           | Pile of contradictions         |
+      | proposal_statement_document_text            | I aquit, I am too legit        |
+      And I press "Save"
+    Then I should see "Pile of contradictions"
+      And I should see "A first proposal!" within ".alternative_panel"
+      And the proposal should have one alternative
 
 # Open Questions:
 
