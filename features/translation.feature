@@ -106,6 +106,17 @@ Feature: Translation permission
         | question_new_statement_document_text | new statement to ENGLISH |
       And I press "Save"
     Then I should see "new statement to ENGLISH"
+      And I follow "Logout"
+      And I login as "illiterate" with password "illiterate"
+      And I go to the question
+    Then I should see "Another Question?"
+      And I should see "new statement to ENGLISH"
+      And I follow "Logout"
+      And I go to the question
+    Then I should see "Another Question?"
+      And I should see "new statement to ENGLISH"
+      And I go to the discuss index
+      Then I should see "Another Question?"
 
   @ok
   Scenario: luise succeeds in translating a proposal
