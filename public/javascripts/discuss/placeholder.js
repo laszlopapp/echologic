@@ -4,6 +4,7 @@
 
     $.fn.placeholder.defaults = {
       "text_class"    : "iframe.rte_doc",
+			"text_area_class" : ".statement_text",
 			"changed_class" : "changed",
 			"default_attr"  : "data-default",
 			"focus_class"   : "has_focus"
@@ -58,36 +59,57 @@
 				  	inputText.val(initValue);
 						inputText.focus();
 						inputText.blur();
-				  }
-        });
+				  } 
+				});
 			}
 			
 			function loadText() {
-				// Text Area (RTE Editor)
-        container.find(settings["text_class"]).each(function(){
-					var editor = $(this);
-	        var value = editor.attr(settings["default_attr"]);
-	        var doc = $(editor.contents().get(0));
-	        var text = $(doc).find('body');
-	        if(text && text.html().length == 0) {
-	          var label = $("<span class='defaultText'></span>").html(value);
-	          label.insertAfter(editor).click(function() {
-	            doc.click();
+				if (isMobileDevice()) {
+					container.find(settings["text_area_class"]).each(function(){
+						var text_area = $(this);
+						var initValue = text_area.val();
+					  var value = text_area.attr(settings["default_attr"]);
+						text_area.toggleVal({
+	            populateFrom: 'custom',
+	            text: value,
+	            changedClass: settings["changed_class"],
+	            focusClass: settings["focus_class"]
 	          });
-	
-	          doc.bind('click', function(){
-	            label.hide();
-	            editor.focus();
-	          });
-	          doc.bind('blur', function(){
-	            var new_text = $(editor.contents().get(0)).find('body');
-	            if (new_text.html().length == 0) {
-	              label.show();
-	            }
-	          });
-	        }
-	        editor.removeAttr(settings["default_attr"]);
-				});
+						text_area.removeAttr(settings["default_attr"]);
+						if (initValue && initValue.length > 0) {
+	            inputText.val(initValue);
+	            inputText.focus();
+	            inputText.blur();
+	          }
+					});
+				}
+				else {
+					// Text Area (RTE Editor)
+					container.find(settings["text_class"]).each(function(){
+						var editor = $(this);
+						var value = editor.attr(settings["default_attr"]);
+						var doc = $(editor.contents().get(0));
+						var text = $(doc).find('body');
+						if (text && text.html().length == 0) {
+							var label = $("<span class='defaultText'></span>").html(value);
+							label.insertAfter(editor).click(function(){
+								doc.click();
+							});
+							
+							doc.bind('click', function(){
+								label.hide();
+								editor.focus();
+							});
+							doc.bind('blur', function(){
+								var new_text = $(editor.contents().get(0)).find('body');
+								if (new_text.html().length == 0) {
+									label.show();
+								}
+							});
+						}
+						editor.removeAttr(settings["default_attr"]);
+					});
+		    }
 			}
 			
 			function loadSubmitClean() {
