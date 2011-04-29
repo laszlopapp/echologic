@@ -142,6 +142,17 @@ Then /^the question should have one proposal$/ do
   @question.children.proposals.count.should >= 1
 end
 
+Then /^the ([^\"]*) should have 1 alternative$/ do |type|
+  Then "the #{type} should have 1 alternatives"
+end 
+
+Then /^the ([^\"]*) should have ([^\"]*) alternatives$/ do |type, number|
+  var = instance_variable_get("@#{type}")
+  var.reload
+  n = number.to_i
+  assert_equal n, var.alternatives.count
+end
+
 Then /^the question "([^\"]*)" should have "([^\"]*)" as tags$/ do |title, tags|
   tags = tags.split(',').map{|t| t.strip}
   @question = StatementNode.search_statement_nodes(:type => "Question",

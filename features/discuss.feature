@@ -322,7 +322,7 @@ Feature: Take Part on a question
       And I press "Save"
     Then I should see "Pile of contradictions"
       And I should see "A first proposal!" within ".alternative_panel"
-      And the proposal should have one alternative
+      And the proposal should have 1 alternative
 
 # Open Questions:
 
