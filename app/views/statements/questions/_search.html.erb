@@ -3,6 +3,8 @@
 
   <!-- Search field -->
   <% content_tag :div, :id => 'search_form', :class => 'ajax_form' do %>
+    <%= content_tag :span, '',
+                    :class => 'search_field' %>
     <%= text_field_tag 'search_terms',
                        params[:search_terms],
                        :class => 'tag_value_autocomplete',

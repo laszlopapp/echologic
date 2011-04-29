@@ -1471,10 +1471,12 @@ a.statement_link:hover {
   height: 55px;
 	margin: 15px -10px;
 	text-align: center;
+  background-color: #bec7cf;
 }
 
 .language_skills_teaser_box {
   text-align: right;
+  background-color: #DCCB3B;
 }
 
 .translation_box_class .fish_left {
