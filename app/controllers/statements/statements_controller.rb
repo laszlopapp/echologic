@@ -876,7 +876,7 @@ class StatementsController < ApplicationController
     statement_documents = StatementDocument.search_statement_documents(opts).sort! {|a, b|
       a_index = l_ids.index(a.language_id)
       b_index = l_ids.index(b.language_id)
-      (a_index and b_index) ? a_index <=> b_index : 1
+      (a_index and b_index) ? a_index <=> b_index : 0
     }
     statement_documents.each_with_object({}) do |sd, documents_hash|
       documents_hash[sd.statement_id] = sd unless documents_hash.has_key?(sd.statement_id)
