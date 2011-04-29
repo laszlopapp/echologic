@@ -438,10 +438,10 @@ class StatementNode < ActiveRecord::Base
         term_queries = term_queries.join(" UNION ALL ")
         statements_query = "SELECT #{table_name}.#{opts[:only_id] ? aggregator_field : '*'} " +
                            "FROM (#{term_queries}) statement_ids " +
-                           "LEFT JOIN search_statement_nodes s ON statement_ids.id = s.statement_id AND " +
-                           "(#{node_conditions.join(" AND ")}) " +
+                           "LEFT JOIN search_statement_nodes s ON statement_ids.id = s.statement_id " +
                            "LEFT JOIN #{table_name} ON #{table_name}.id = s.#{aggregator_field} " +
                            "LEFT JOIN #{Echo.table_name} e ON e.id = #{table_name}.echo_id " +
+                           "WHERE #{node_conditions.join(" AND ")} " +
                            "GROUP BY s.#{aggregator_field} " +
                            "ORDER BY COUNT(s.#{aggregator_field}) DESC, " +
                            "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id;"
