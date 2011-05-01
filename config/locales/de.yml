@@ -527,9 +527,9 @@ de:
       create_pro_argument_link: Neues PRO-Argument hinzufügen
       create_contra_argument_link: Neues KONTRA-Argument hinzufügen
       create_follow_up_question_link: Neue Folgefrage hinzufügen
-      recommend_link: 'Empfehlen (echo)'
+      recommend_link: 'Empfehlen (Echo)'
       unrecommend_link: 'Stimme widerrufen'
-      support_link: 'Unterstützen (echo)'
+      support_link: 'Unterstützen (Echo)'
       unsupport_link: 'Stimme widerrufen'
       create_question_explanation: |
         Hier können Sie eine <strong>neue Fragestellung</strong> hinzufügen und mit den
