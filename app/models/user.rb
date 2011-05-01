@@ -229,7 +229,7 @@ class User < ActiveRecord::Base
   end
 
   #
-  # Returns the languages the user speaks at least at the given level.
+  # Returns true if the user speaks the given language at least at the given level.
   #
   def speaks_language?(language, min_level = nil)
     spoken_languages_at_min_level(min_level).include?(language)
