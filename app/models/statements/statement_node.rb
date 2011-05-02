@@ -22,7 +22,7 @@ class StatementNode < ActiveRecord::Base
   belongs_to :creator, :class_name => "User"
   belongs_to :statement
 
-  delegate :original_language, :document_in_language, :authors, :has_author?,
+  delegate :original_language, :document_in_language, :authors, :has_author?, :private_tags,
            :statement_image, :statement_image=, :image, :image=, :published?, :publish,
            :taggable?, :filtered_topic_tags, :topic_tags, :topic_tags=, :hash_topic_tags, :tags, :editorial_state_id,
            :editorial_state_id=, :editorial_state, :editorial_state=, :to => :statement
@@ -236,6 +236,13 @@ class StatementNode < ActiveRecord::Base
     opts[:parent_id] = self.target_id
     opts[:filter_drafting_state] = self.draftable?
     opts[:type] ? opts[:type].to_s.constantize.count_statements_for_parent(opts) : children.count
+  end
+
+  #
+  # gets me the tags that privatize this statement node
+  #
+  def private_tags
+    self.root.private_tags
   end
 
   private
