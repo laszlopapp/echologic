@@ -1,5 +1,9 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
+user_subscriber_data:
+  subscriber_id: <%= Fixtures.identify(:user)%>
+  subscriber_type: User
+
 one:
   subscriber_id: 1
   subscriber_type: 

@@ -71,7 +71,8 @@ class ActivityTrackingService
       :documents => set_titles_hash(node.statement_documents),
       :parent_documents => node.parent ? set_titles_hash(node.parent.statement_documents) : nil,
       :parent_id => node.parent_id || -1,
-      :operation => 'created'
+      :operation => 'created',
+      :private_tags => node.private_tags
     }.to_json
 
     Event.create(:event => event_json,
@@ -128,8 +129,15 @@ class ActivityTrackingService
     last_event = events.first
     events.map!{|e| JSON.parse(e.event)}
 
+    decision_making_tags = recipient.decision_making_tags
+    
     # Filter only events whose titles languages the recipient speaks
     events.reject!{|e| (e['documents'].keys.map{|id|id.to_i} & recipient.sorted_spoken_languages).empty? }
+    
+    # Filter out events that belong to discussion that are private and where I don't have access to
+    events.reject!{|e| !e['private_tags'].empty? and 
+                       e['private_tags'].select{|t|decision_making_tags.include? t or 
+                                                   decision_making_tags.include? t[1..-1]}.empty?}
 
     return if events.blank? #if there are no events to send per email, take the next user
 

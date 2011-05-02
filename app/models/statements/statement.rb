@@ -57,8 +57,12 @@ class Statement < ActiveRecord::Base
   def publish
     self.editorial_state = StatementState["published"]
   end
-
+  
+  def private_tags
+    self.topic_tags.select{|tag| tag.starts_with?('**')}
+  end
+  
   def filtered_topic_tags
-    self.topic_tags.select{|tag| !tag.starts_with?('*')}
+    self.topic_tags.select{|tag| !tag.starts_with?('*') and !tag.starts_with?('**')}
   end
 end
