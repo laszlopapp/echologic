@@ -1044,7 +1044,7 @@ class StatementsController < ApplicationController
        # follow up questions from a statement
        when 'fq' then @previous_node = StatementNode.find(value)
                       @previous_type = "FollowUpQuestion"
-                      sn = @previous_node.child_statements :language_ids => @language_preference_list,
+                      sn = @previous_node.child_statements :language_ids => filter_languages_for_children,
                                                            :type => @previous_type,
                                                            :user => current_user,
                                                            :for_session => opts[:for_session]
