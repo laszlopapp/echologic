@@ -819,11 +819,13 @@ class StatementsController < ApplicationController
       decision_making_tags = current_user.decision_making_tags
       ret_value = true
       tags.each do |tag|
-        unless decision_making_tags.include? tag
+        unless decision_making_tags.include? tag or # user has the ** tag
+               (!write and decision_making_tags.include? tag[1..-1]) # user has the *tag, thus making him able to read
           ret_value = false
           if write
             set_error('discuss.statements.tag_permission', :tag => tag)
           else
+            
             return ret_value
           end
         end
