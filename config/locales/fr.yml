@@ -71,7 +71,31 @@ fr:
          serez toujours au courant des <strong>discussions et actions actuelles.</strong>
          </p>
 
-# Localizations for the layout components
+  help:
+    discuss:
+      closed_discussions:
+        hint: Tags to create closed discussions...
+        text: |
+          <p>Defining a *tag (starting with ONE *) will make this discussion semi-closed. Users must define the same
+          *tag as a decision making tag in their profile to be able to participate in the discussion, however it
+          will remain visible and transparent to the outside world.</p>
+          <p>Defining a **tag (with TWO **) will make this discussion fully closed. It will only be visible for users
+          having the same **tag as a decision making tag in their profile.</p>
+          <p>Please note, that you must add *tags and **tags in your profile as decision making tags first,
+          before you can use them to control access rights on discussions.</p>
+          <p>Also note, that this is just a temporary solution to facilitate closed discussions in echo. The real
+          solution with contact lists, invitations and fine-graded access right management will be coming later.</p>
+    profile:
+      closed_discussions:
+        hint: Tags to access closed discussions...
+        text: |
+          <p>Here you can enter the appropriate *tags and **tags as decision making tags. This will allow you to
+          take part in transparent, semi-closed discussions (tagged with *tag) and to see closed, internal
+          ones (protected with **tag) respectively.</p>
+          <p>Also note, that this is just a temporary solution to facilitate closed discussions in echo. The real
+          solution with contact lists, invitations and fine-graded access right management will be coming later.</p>
+
+  # Localizations for the layout components
   layouts:
     tabs:
       discuss: Discuter

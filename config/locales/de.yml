@@ -61,7 +61,34 @@ de:
          Diskussionen und Aktionen</strong> auf dem Laufenden gehalten.
          </p>
 
-# Localizations for the layout components
+  help:
+    discuss:
+      closed_discussions:
+        hint: Tags für geschlossene Diskussionen...
+        text: |
+          <p>Das Setzen eines *tag (beginnend mit EINEM *) macht diese Diskussion sicht- aber nicht bearbeitbar.
+          Nutzer, die an dieser Diskussion teilnehmen wollen, müssen den selben *tag in Ihrem Profil bei
+          'Entscheidungsträger in' eintragen.</p>
+          <p>Das Setzen eines **tag (mit ZWEI **) macht die Diskussion geschlossen und nicht sichtbar.
+          Sie ist nur sichtbar für Nutzer, die den selben **tag unter 'Entscheidungsträger in' in ihrem
+          Profil eingetragen haben.</p>
+          <p>Bitte beachten Sie, dass Sie zuerst die *tags/**tags in Ihrem Profil unter 'Entscheidungsträger in'
+          eintragen, bevor Sie sie benutzen, um den Zugang zu Diskussionen zu steuern.</p>
+          <p>Dies ist nur eine vorübergehende Lösung, um geschlossene Diskussionen in echo anzubieten.
+          Die angestrebte Lösung, mit Kontaktlisten, Einladungsversand und Rechtemanagement, wird zu einem
+          späteren Zeitpunkt realisiert.</p>
+    profile:
+      closed_discussions:
+        hint: Tags für geschlossene Diskussionen...
+        text: |
+          <p>Hier können Sie die nötigen *tags und **tags als Entscheidungsträger-Kompetenz eintragen.
+          Dies erlaubt es Ihnen, in transparenten, halb-geschlossenen Diskussionen (markiert mit *tag) teilzunehmen
+          sowie vollständig geschlossene Diskussionen (geschützt durch **tags) zu sehen.</p>
+          <p>Dies ist nur eine vorübergehende Lösung, um geschlossene Diskussionen in echo anzubieten.
+          Die angestrebte Lösung, mit Kontaktlisten, Einladungsversand und Rechtemanagement, wird zu einem
+          späteren Zeitpunkt realisiert.</p>
+
+  # Localizations for the layout components
   layouts:
     tabs:
       discuss: Diskutieren

@@ -25,6 +25,10 @@
   font-weight: bold !important;
 }
 
+#tooltip h3, #tooltip h3 p {
+  line-height: 1.35em;
+}
+
 /* Tooltipable links. */
 .ttLink, .ttLink:visited {
   cursor: help;

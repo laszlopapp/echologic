@@ -147,6 +147,21 @@
   width: 195px;
 }
 
+/* Function labels */
+
+.icon_label {
+  color: #21587f;
+  font-family: arial,Helvetica,sans-serif;
+  font-size: 13px;
+  padding-left: 20px;
+  border: none;
+  display: inline-block;
+  margin-top: 3px;
+}
+
+.help_on_icon {
+  background: transparent url(../images/page/icons/help.png) no-repeat scroll 0 -16px;
+}
 
 /* FUNCTION BUTTONS */
 
