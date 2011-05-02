@@ -232,7 +232,13 @@ de:
     spoken_languages:
       title: Sprachkenntnisse
       guide: |
-        Hier können Sie Ihre Sprachkenntnisse angeben.
+        Hier können Sie Ihre Sprachkenntnisse angeben, um <strong>Inhalte nur in den von Ihnen gesprochenen Sprachen
+        zu sehen</strong>.<br/>
+        Darüber hinaus wird es Ihnen möglich sein, zu echos sprachübergreifenden, interkulturellen Dialogen durch
+        <strong>Übersetzung der Inhalte</strong> aktiv beizutragen. Um eine hohe Qualität der Inhalte zu gewährleisten,
+        können diese nur dann übersetzt werden, wenn Sie sowohl die Ausgangssprache als auch die Zielsprache <strong>
+        mindestens auf 'Mittelstufe'</strong> sprechen.<br/>
+        Bitte vergessen Sie nicht auch <strong>Ihre Muttersprache</strong> einzutragen.
       language: Sprache
       level: Niveau
       error_messages:

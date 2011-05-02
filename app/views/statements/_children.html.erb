@@ -6,7 +6,8 @@
 	<% link_to path, :class => "children_header #{type.pluralize} expandable #{path.blank? ? 'active' : '' } " do %>
 	  <% content_tag :div, :class => "headline" do %>
 	    <%= children_heading_title(type, count) %>
-      <%= content_tag :span, I18n.t('discuss.statements.echos_label'), :class => 'echos_label' %>
+      <%= content_tag :span, I18n.t('discuss.statements.echos_label'),
+                      :class => 'echos_label' if count > 0 %>
 	    <%= content_tag :div, '', :class => 'expand_icon' %>
 	  <% end %>
 	<% end %>

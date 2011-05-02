@@ -234,8 +234,9 @@ en:
       guide: |
         Here you can enter your language skills to <strong>see content only in languages you speak</strong>.<br/>
         Additionally, it will enable you to contribute to echos cross-language, intercultural dialogs by
-        <strong>translating statements</strong> between languages you speak at least intermediate level.
-        This is to ensure good content quality.
+        <strong>translating statements</strong> between languages you speak <strong>at least intermediate level</strong>.
+        This is to ensure good content quality.<br/>
+        Please don't forget to also set your <strong>mother language</strong>.
       language: Language
       level: Level
       error_messages:

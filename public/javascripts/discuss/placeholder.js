@@ -9,7 +9,7 @@
 			"default_attr"  : "data-default",
 			"focus_class"   : "has_focus"
     };
-		
+
 		// Merging settings with defaults
     var settings = $.extend({}, $.fn.placeholder.defaults, current_settings);
 
@@ -39,7 +39,7 @@
 				loadText();
 				loadSubmitClean();
       }
-			
+
 			function loadInputs() {
 				container.find("input[type='text']").each(function(index){
 					var inputText = $(this);
@@ -59,16 +59,18 @@
 				  	inputText.val(initValue);
 						inputText.focus();
 						inputText.blur();
-				  } 
+				  }
 				});
 			}
-			
+
 			function loadText() {
 				if (isMobileDevice()) {
-					container.find(settings["text_area_class"]).each(function(){
+          // Simple text area (so that mobile devices detect it as input field)
+					container.find('textarea' + settings["text_area_class"]).each(function(){
 						var text_area = $(this);
 						var initValue = text_area.val();
 					  var value = text_area.attr(settings["default_attr"]);
+            value = value.replace(/(<([^>]+)>)/ig,""); // Stripping HTML tags
 						text_area.toggleVal({
 	            populateFrom: 'custom',
 	            text: value,
@@ -82,8 +84,7 @@
 	            inputText.blur();
 	          }
 					});
-				}
-				else {
+				}	else {
 					// Text Area (RTE Editor)
 					container.find(settings["text_class"]).each(function(){
 						var editor = $(this);
@@ -95,7 +96,7 @@
 							label.insertAfter(editor).click(function(){
 								doc.click();
 							});
-							
+
 							doc.bind('click', function(){
 								label.hide();
 								editor.focus();
@@ -111,14 +112,14 @@
 					});
 		    }
 			}
-			
+
 			function loadSubmitClean() {
 				// Clean text inputs on submit
         container.bind('submit', (function() {
 					cleanToggleValues($(this));
         }));
 			}
-			
+
 			function cleanToggleValues(content) {
 				content.find(".toggleval").each(function() {
           if($(this).val() == $(this).data("defText")) {
