@@ -431,8 +431,13 @@ class StatementNode < ActiveRecord::Base
         term_query << "WHERE "
       
         term_queries = []
-        terms = search_term.split(/[,\s]+/)
-        terms.each do |term|
+        if search_term.include? ','
+          terms = search_term.split(',')
+        else
+          terms = search_term.split(/[\s]+/)
+        end
+        
+        terms.map(&:strip).each do |term|
           or_conditions = Statement.extaggable_conditions_for_term(term, "d.tag")
           if (term.length > 3)
             or_conditions << sanitize_sql([" OR d.title LIKE ? OR d.text LIKE ?", "%#{term}%", "%#{term}%"])

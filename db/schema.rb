@@ -388,7 +388,8 @@ ActiveRecord::Schema.define(:version => 20110503121637) do
 
   add_index "web_addresses", ["user_id"], :name => "index_web_profiles_on_user_id"
 
-  create_view "closed_statement_permissions", "select `statements`.`id` AS `statement_id`,`tao_users`.`tao_id` AS `user_id` from (((`statements` left join `tao_tags` `tao_statements` on(((`statements`.`id` = `tao_statements`.`tao_id`) and (`tao_statements`.`tao_type` = 'Statement') and (`tao_statements`.`context_id` = 586794338)))) left join `tags` on((`tags`.`id` = `tao_statements`.`tag_id`))) left join `tao_tags` `tao_users` on(((`tags`.`id` = `tao_users`.`tag_id`) and (`tao_users`.`tao_type` = 'User') and (`tao_users`.`context_id` = 549825790)))) where (substr(`tags`.`value`,1,2) = '**')", :force => true do |v|
+  
+  create_view "statement_permissions", "select `statements`.`id` AS `statement_id`,`tao_users`.`tao_id` AS `user_id` from (((`statements` left join `tao_tags` `tao_statements` on(((`statements`.`id` = `tao_statements`.`tao_id`) and (`tao_statements`.`tao_type` = 'Statement') and (`tao_statements`.`context_id` = 586794338)))) left join `tags` on((`tags`.`id` = `tao_statements`.`tag_id`))) left join `tao_tags` `tao_users` on(((`tags`.`id` = `tao_users`.`tag_id`) and (`tao_users`.`tao_type` = 'User') and (`tao_users`.`context_id` = 549825790)))) where (substr(`tags`.`value`,1,2) = '**')", :force => true do |v|
     v.column :statement_id
     v.column :user_id
   end
@@ -427,9 +428,6 @@ ActiveRecord::Schema.define(:version => 20110503121637) do
     v.column :tag
   end
 
-  create_view "statement_permissions", "select `statements`.`id` AS `statement_id`,`tao_users`.`tao_id` AS `user_id` from (((`statements` left join `tao_tags` `tao_statements` on(((`statements`.`id` = `tao_statements`.`tao_id`) and (`tao_statements`.`tao_type` = 'Statement') and (`tao_statements`.`context_id` = 586794338)))) left join `tags` on((`tags`.`id` = `tao_statements`.`tag_id`))) left join `tao_tags` `tao_users` on(((`tags`.`id` = `tao_users`.`tag_id`) and (`tao_users`.`tao_type` = 'User') and (`tao_users`.`context_id` = 549825790)))) where (substr(`tags`.`value`,1,2) = '**')", :force => true do |v|
-    v.column :statement_id
-    v.column :user_id
-  end
+  
 
 end

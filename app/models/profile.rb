@@ -94,8 +94,13 @@ class Profile < ActiveRecord::Base
       term_query << "WHERE "
       
       term_queries = []
-      terms = search_terms.split(/[,\s]+/)
-      terms.each do |term|
+      
+      if search_terms.include? ','
+          terms = search_terms.split(',')
+        else
+          terms = search_terms.split(/[\s]+/)
+        end
+      terms.map(&:strip).each do |term|
         or_conditions = [User.extaggable_conditions_for_term(term)]
         or_conditions += searched_fields.map{|field|sanitize_sql(["#{field} LIKE ?", "%#{term}%"])}
         term_queries << (term_query + (conditions + ["(#{or_conditions.join(" OR ")})"]).join(" AND "))
