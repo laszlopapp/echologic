@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110503091100) do
+ActiveRecord::Schema.define(:version => 20110503121637) do
 
   create_table "about_item_translations", :force => true do |t|
     t.integer "about_item_id"
@@ -388,7 +388,7 @@ ActiveRecord::Schema.define(:version => 20110503091100) do
 
   add_index "web_addresses", ["user_id"], :name => "index_web_profiles_on_user_id"
 
-  create_view "statement_permissions", "select `statements`.`id` AS `statement_id`,`tao_users`.`tao_id` AS `user_id` from (((`statements` left join `tao_tags` `tao_statements` on(((`statements`.`id` = `tao_statements`.`tao_id`) and (`tao_statements`.`tao_type` = 'Statement') and (`tao_statements`.`context_id` = 586794338)))) left join `tags` on((`tags`.`id` = `tao_statements`.`tag_id`))) left join `tao_tags` `tao_users` on(((`tags`.`id` = `tao_users`.`tag_id`) and (`tao_users`.`tao_type` = 'User') and (`tao_users`.`context_id` = 549825790)))) where (substr(`tags`.`value`,1,2) = '**')", :force => true do |v|
+  create_view "closed_statement_permissions", "select `statements`.`id` AS `statement_id`,`tao_users`.`tao_id` AS `user_id` from (((`statements` left join `tao_tags` `tao_statements` on(((`statements`.`id` = `tao_statements`.`tao_id`) and (`tao_statements`.`tao_type` = 'Statement') and (`tao_statements`.`context_id` = 586794338)))) left join `tags` on((`tags`.`id` = `tao_statements`.`tag_id`))) left join `tao_tags` `tao_users` on(((`tags`.`id` = `tao_users`.`tag_id`) and (`tao_users`.`tao_type` = 'User') and (`tao_users`.`context_id` = 549825790)))) where (substr(`tags`.`value`,1,2) = '**')", :force => true do |v|
     v.column :statement_id
     v.column :user_id
   end
@@ -419,6 +419,17 @@ ActiveRecord::Schema.define(:version => 20110503091100) do
     v.column :granted_user_id
   end
 
-  
+  create_view "search_statement_text", "select distinct `s`.`id` AS `statement_id`,`d`.`title` AS `title`,`d`.`text` AS `text`,`d`.`language_id` AS `language_id`,`tags`.`value` AS `tag` from (((`statements` `s` left join `statement_documents` `d` on((`d`.`statement_id` = `s`.`id`))) left join `tao_tags` on(((`tao_tags`.`tao_id` = `s`.`id`) and (`tao_tags`.`tao_type` = 'Statement')))) left join `tags` on((`tao_tags`.`tag_id` = `tags`.`id`))) where (`d`.`current` = 1)", :force => true do |v|
+    v.column :statement_id
+    v.column :title
+    v.column :text
+    v.column :language_id
+    v.column :tag
+  end
+
+  create_view "statement_permissions", "select `statements`.`id` AS `statement_id`,`tao_users`.`tao_id` AS `user_id` from (((`statements` left join `tao_tags` `tao_statements` on(((`statements`.`id` = `tao_statements`.`tao_id`) and (`tao_statements`.`tao_type` = 'Statement') and (`tao_statements`.`context_id` = 586794338)))) left join `tags` on((`tags`.`id` = `tao_statements`.`tag_id`))) left join `tao_tags` `tao_users` on(((`tags`.`id` = `tao_users`.`tag_id`) and (`tao_users`.`tao_type` = 'User') and (`tao_users`.`context_id` = 549825790)))) where (substr(`tags`.`value`,1,2) = '**')", :force => true do |v|
+    v.column :statement_id
+    v.column :user_id
+  end
 
 end
