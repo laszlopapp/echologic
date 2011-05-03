@@ -565,6 +565,7 @@ en:
         pro_argument: 'Pro Argument'
         contra_argument: 'Contra Argument'
         follow_up_question: 'Follow-Up Question'
+        alternative: 'Alternative'
       new:
         question: 'New Question'
         proposal: 'New Proposal'

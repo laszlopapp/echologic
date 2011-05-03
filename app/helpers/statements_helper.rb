@@ -111,22 +111,31 @@ module StatementsHelper
   def add_new_sibling_buttons(statement_node, origin = nil, type = dom_class(statement_node))
     content = ''
     content << content_tag(:div, :class => 'siblings container') do
+      buttons = ''
       if statement_node.parent_node
-        add_new_sibling_button(statement_node)
+        buttons << add_new_sibling_button(statement_node)
       else
         if origin.blank? or %w(ds mi sr).include? origin[0,2] # create new question
-          add_new_question_button(!origin.blank? ? origin : nil)
+          buttons << add_new_question_button(!origin.blank? ? origin : nil)
         else #create sibling follow up question
           context_type = ''
           context_type << case origin[0,2]
             when 'fq' then "follow_up_question"
           end
 
-          link_to(I18n.t("discuss.statements.siblings.#{context_type}"),
-                new_statement_node_url(origin[2..-1], context_type, :origin => origin),
-                :class => "create_#{context_type}_button_32 resource_link ajax")
+          buttons << link_to(I18n.t("discuss.statements.siblings.#{context_type}"),
+                     new_statement_node_url(origin[2..-1], context_type, :origin => origin),
+                     :class => "create_#{context_type}_button_32 resource_link ajax")
         end
       end
+      # New alternative Button TODO: this is going to the logic above, in the future
+      if statement_node.class.has_alternatives?
+        buttons << link_to(I18n.t("discuss.statements.types.alternative"),
+                     new_statement_node_url(statement_node.target_id, statement_node.class.alternative.to_s.underscore,
+                                            :hub => 'alternative', :bids => params[:bids], :origin => origin),
+                     :class => "create_alternative_button_32 resource_link ajax")
+      end
+      buttons
     end
     content << content_tag(:div, '', :class => 'block_separator')
     content
