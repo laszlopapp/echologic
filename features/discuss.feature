@@ -308,7 +308,7 @@ Feature: Take Part on a question
   ################
 
   @ok
-  Scenario: Add a contrary statement to a Proposal
+  Scenario: Add 2 contrary statements to a Proposal
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
     When I follow localized "discuss.featured_topics.title"
@@ -323,6 +323,18 @@ Feature: Take Part on a question
     Then I should see "Pile of contradictions"
       And I should see "A first proposal!" within ".alternative_panel"
       And the proposal should have 1 alternative
+      And I go to the proposal
+      And I follow localized "discuss.statements.create_alternative_link"
+      And I fill in the following:
+      | proposal_statement_document_title           | Another Pile of contradictions         |
+      | proposal_statement_document_text            | I aquit, I am too legit, I kick ass    |
+      And I press "Save"
+    Then I should see "Another Pile of contradictions"
+      And I should see "A first proposal!" within ".alternative_panel"
+      And I should see "Pile of contradictions" within ".alternative_panel"
+      And the proposal should have 2 alternatives
+      
+      
 
 # Open Questions:
 
