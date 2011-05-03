@@ -22,7 +22,7 @@ class StatementNode < ActiveRecord::Base
   belongs_to :creator, :class_name => "User"
   belongs_to :statement
 
-  delegate :original_language, :document_in_language, :authors, :has_author?, :private_tags,
+  delegate :original_language, :document_in_language, :authors, :has_author?, 
            :statement_image, :statement_image=, :image, :image=, :published?, :publish,
            :taggable?, :filtered_topic_tags, :topic_tags, :topic_tags=, :hash_topic_tags, :tags, :editorial_state_id,
            :editorial_state_id=, :editorial_state, :editorial_state=, :to => :statement

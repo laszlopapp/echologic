@@ -5,3 +5,16 @@
 #
 # two:
 #   column: value
+
+
+user_subscribes_test_question:
+  subscriber_id: <%= Fixtures.identify(:users) %>
+  subscriber_type: User
+  subscribeable_id: <%= Fixtures.identify('test-question') %>
+  subscribeable_type: StatementNode
+
+user_subscribes_second_proposal:
+  subscriber_id: <%= Fixtures.identify(:users) %>
+  subscriber_type: User
+  subscribeable_id: <%= Fixtures.identify('second-proposal') %>
+  subscribeable_type: StatementNode

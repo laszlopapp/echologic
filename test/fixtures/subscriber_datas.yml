@@ -3,6 +3,7 @@
 user_subscriber_data:
   subscriber_id: <%= Fixtures.identify(:user)%>
   subscriber_type: User
+  last_processed_event_id: 1
 
 one:
   subscriber_id: 1
