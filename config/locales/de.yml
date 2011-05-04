@@ -458,10 +458,10 @@ de:
         Sie haben bislang keine Fragestellungen hinzugefügt. Um welche anzulegen, klicken Sie bitte links auf das Fragezeichen.
       add: Neue Fragestellung
     translation_request: Bitte übersetzen Sie die Aussage auf <strong>DEUTSCH</strong>.
-    mixed_languages: Verwirrte Sprachen
-    set_languages: Stellen Sie <strong>Ihre Sprachkenntnisse</strong> ein - Entwirren Sie das Rauschen!
-    no_locale_language: Kein DEUTSCH
-    adjust_languages: Passen Sie <strong>Ihre Sprachkenntnisse</strong> an, um Inhalte auf <strong>DEUTSCH</strong> zu sehen!
+    mixed_languages: Sprachverwirrung
+    set_languages: Stellen Sie <strong>Ihre Sprachkenntnisse</strong> ein - Entwirren Sie die Sprachen!
+    no_locale_language: Sprechen Sie Deutsch?
+    adjust_languages: Bitte stellen Sie <strong>Ihre Sprachkenntnisse</strong> auf DEUTSCH ein!
     results_count:
       one: '{{count}} Fragestellung'
       more: '{{count}} Fragestellungen'
