@@ -130,16 +130,8 @@ Feature: Start a question
         | question_statement_document_text  | my super secret description           |
         | question_topic_tags               | **secret                              |
       And I press "Save"
-    Then I should see "You do not have the permission to insert the '**secret' tag."
-    Given I have "**secret" as decision making tags
-    When I am on My Questions
-      And I follow "Create a new question"
-      And I fill in the following:
-        | question_statement_document_title | my super secret world domination plan |
-        | question_statement_document_text  | my super secret description           |
-        | question_topic_tags               | **secret                              |
-      And I press "Save"
     Then I should see "The new Question has been entered successfully."
+      And I have "**secret" as decision making tags
      
    Scenario: User tries to mark existing statement with a ** tag
     Given I am logged in as "user" with password "true"
@@ -151,17 +143,8 @@ Feature: Start a question
        | question_statement_document_text  | my super secret description           |
        | question_topic_tags               | **secret                              |
       And I press "Save"
-    Then I should see "You do not have the permission to insert the '**secret' tag."
-    Given I have "**secret" as decision making tags
-      And I go to the question
-      And I follow "edit"
-      And I fill in the following:
-       | question_statement_document_title | my super secret world domination plan |
-       | question_statement_document_text  | my super secret description           |
-       | question_topic_tags               | **secret                              |
-      And I press "Save"
       Then I should see "The Question has been updated successfully."
-      
+        And I have "**secret" as decision making tags
       
    Scenario: There is a question with a **tag, and a user with *tag can see it, but not touch it
     Given I am logged in as "user" with password "true"

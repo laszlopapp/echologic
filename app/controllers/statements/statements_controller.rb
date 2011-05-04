@@ -143,39 +143,45 @@ class StatementsController < ApplicationController
                                              :current => true}))
 
       @tags = []
-      has_permission = true
       created = false
 
-      if @statement_node.taggable? and (has_permission = check_tag_permissions(form_tags.split(",")))
+      
+      # add possible secret tags to the current user profile
+      new_closed_tags = filter_read_write_tags(form_tags.split(","))
+      
+      
+      #added tags to statement
+      if @statement_node.taggable?
         @tags = @statement_node.topic_tags = form_tags
       end
-
-
-
-      if has_permission #TODO: is this really necessary? this actually blocks the possible errors from the document to show up
-        # Persisting
-        StatementNode.transaction do
-          if @statement_node.save
-            # add to tree
-            if parent_node_id.blank? or @statement_node.class.is_top_statement?
-              @statement_node.target_statement.update_attribute(:root_id, @statement_node.target_id)
-            end
-
-            if @statement_node.echoable?
-              echo = params.delete(:echo)
-              @statement_node.author_support if echo=='true'
-            end
-
-            # Propagating the creation event
-            EchoService.instance.created(@statement_node)
-            EchoService.instance.created(@statement_node.question) if @statement_node.question_id
-            created = true
+      
+      # Persisting
+      StatementNode.transaction do
+        if @statement_node.save
+          # add to tree
+          if parent_node_id.blank? or @statement_node.class.is_top_statement?
+            @statement_node.target_statement.update_attribute(:root_id, @statement_node.target_id)
           end
-        end
-      end
 
+          if @statement_node.echoable?
+            echo = params.delete(:echo)
+            @statement_node.author_support if echo=='true'
+          end
+          
+          if !new_closed_tags.empty?
+            current_user.decision_making_tags += new_closed_tags
+            current_user.save
+          end
+
+          # Propagating the creation event
+          EchoService.instance.created(@statement_node)
+          EchoService.instance.created(@statement_node.question) if @statement_node.question_id
+          created = true
+        end
+      end
+    
       # Rendering
-      if has_permission and created
+      if created
         load_siblings @statement_node
         load_all_children
 
@@ -244,33 +250,36 @@ class StatementsController < ApplicationController
       locked_at = attrs_doc.delete(:locked_at) if attrs_doc
 
       # Updating tags of the statement
-      form_tags = attrs.delete(:topic_tags) || ""
-      has_permission = form_tags.nil? || !@statement_node.taggable? || check_tag_permissions(form_tags.split(","))
+      form_tags = attrs.delete(:topic_tags) || ''
+      new_closed_tags = filter_read_write_tags(form_tags.split(','))
 
       holds_lock = true
       old_statement_document = nil
-      if has_permission
-        StatementNode.transaction do
-          old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
-          holds_lock = holds_lock?(old_statement_document, locked_at)
-          if holds_lock
-            @statement_document = @statement_node.add_statement_document(
-                                    attrs_doc.merge({:author_id => current_user.id,
-                                                     :current => true}))
-            @statement_document.save
+      StatementNode.transaction do
+        old_statement_document = StatementDocument.find(attrs_doc[:old_document_id])
+        holds_lock = holds_lock?(old_statement_document, locked_at)
+        if holds_lock
+          @statement_document = @statement_node.add_statement_document(
+                                  attrs_doc.merge({:author_id => current_user.id,
+                                                   :current => true}))
+          @statement_document.save
 
-            @statement_node.update_attributes(attrs)
-            if @statement_node.taggable? and form_tags
-              @tags = @statement_node.topic_tags = form_tags
-            end
-            @statement_node.statement.save
+          @statement_node.update_attributes(attrs)
+          if @statement_node.taggable? and form_tags
+            @tags = @statement_node.topic_tags = form_tags
+          end
+          @statement_node.statement.save
+          
+          if !new_closed_tags.empty?
+            current_user.decision_making_tags += new_closed_tags
+            current_user.save
           end
         end
       end
 
       if !holds_lock
         being_edited
-      elsif has_permission and @statement_node.valid? and @statement_document.valid?
+      elsif @statement_node.valid? and @statement_document.valid?
         old_statement_document.current = false
         old_statement_document.unlock # also saves the document
         update = true
@@ -623,7 +632,7 @@ class StatementsController < ApplicationController
   #
   def check_statement_permissions
     # check if the user has permissions to read this statement
-    if @statement_node and !check_tag_permissions(@statement_node.root.topic_tags, false)
+    if @statement_node and !check_tag_permissions(@statement_node.root.topic_tags)
       redirect_to_url discuss_search_url, 'discuss.statements.read_permission'
       return
     end
@@ -817,20 +826,13 @@ class StatementsController < ApplicationController
       return true
     else # calculate for the remaining users
       decision_making_tags = current_user.decision_making_tags
-      ret_value = true
       tags.each do |tag|
         unless decision_making_tags.include? tag or # user has the ** tag
-               (!write and decision_making_tags.include? tag[1..-1]) # user has the *tag, thus making him able to read
-          ret_value = false
-          if write
-            set_error('discuss.statements.tag_permission', :tag => tag)
-          else
-            
-            return ret_value
-          end
+               decision_making_tags.include? tag[1..-1] # user has the *tag, thus making him able to read
+            return false
         end
       end
-      return ret_value
+      return true
     end
   end
 
