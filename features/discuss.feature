@@ -288,6 +288,74 @@ Feature: Take Part on a question
       And the question should have 0 siblings in session
 
 
+  ###############
+  # ALTERNATIVE #
+  ###############
+
+  Scenario: Add an Alternative to a Proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow localized "discuss.statements.types.alternative" within ".add_new_panel"
+      And I fill in the following:
+      | proposal_statement_document_title           | Alternativating         |
+      | proposal_statement_document_text            | I like to alternativate |
+      And I press "Save"
+    Then I should see "Alternativating"
+      And the proposal should have 1 alternative
+      
+  Scenario: Add an Alternative to an Improvement
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I choose the "A better first proposal" Improvement
+      And I follow localized "discuss.statements.types.alternative" within ".add_new_panel"
+      And I fill in the following:
+      | improvement_statement_document_title           | Alternativating         |
+      | improvement_statement_document_text            | I like to alternativate |
+      And I press "Save"
+    Then I should see "Alternativating"
+      And the improvement should have 1 alternative
+      
+      
+  Scenario: Add an Alternative to a pro argument (and afterwards adding an alternative to the alternative)
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow localized "discuss.statements.types.pro_argument" within ".add_new_panel"
+      And I fill in the following:
+      | pro_argument_statement_document_title           | Pro 4 life                   |
+      | pro_argument_statement_document_text            | I submit this pro-life stand |
+      And I press "Save"
+      And I follow localized "discuss.statements.types.alternative" within ".add_new_panel"
+      And I fill in the following:
+      | contra_argument_statement_document_title           | Alternativating part 1  |
+      | contra_argument_statement_document_text            | I like to alternativate |
+      And I press "Save"
+    Then I should see "Alternativating part 1"
+      And I go to the proposal
+      And I choose the "Alternativating part 1" Contra Argument
+      And the contra argument should have 1 alternative
+      And I follow localized "discuss.statements.types.alternative" within ".add_new_panel"
+      And I fill in the following:
+      | pro_argument_statement_document_title           | Alternativating part 2  |
+      | pro_argument_statement_document_text            | I like to alternativate |
+      And I press "Save"
+    Then I should see "Alternativating part 2"
+      And I go to the proposal
+      And I choose the "Alternativating part 2" Pro Argument
+      And the pro argument should have 1 alternative
+      
+
 
   @ok
   Scenario: Edit a proposal i created
@@ -333,6 +401,34 @@ Feature: Take Part on a question
       And I should see "A first proposal!" within ".alternative_panel"
       And I should see "Pile of contradictions" within ".alternative_panel"
       And the proposal should have 2 alternatives
+  
+  @ok
+  Scenario: Add 2 contrary statements to a Improvement
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I choose the "A better first proposal" Improvement
+      And I follow localized "discuss.statements.create_alternative_link"
+      And I fill in the following:
+      | improvement_statement_document_title           | Pile of contradictions         |
+      | improvement_statement_document_text            | I aquit, I am too legit        |
+      And I press "Save"
+    Then I should see "Pile of contradictions"
+      And I should see "A better first proposal" within ".alternative_panel"
+      And the improvement should have 1 alternative
+      And I go to the improvement
+      And I follow localized "discuss.statements.create_alternative_link"
+      And I fill in the following:
+      | improvement_statement_document_title           | Another Pile of contradictions         |
+      | improvement_statement_document_text            | I aquit, I am too legit, I kick ass    |
+      And I press "Save"
+    Then I should see "Another Pile of contradictions"
+      And I should see "A better first proposal" within ".alternative_panel"
+      And I should see "Pile of contradictions" within ".alternative_panel"
+      And the improvement should have 2 alternatives
       
       
 

@@ -36,7 +36,7 @@ module ActiveRecord
                    :class_name => "StatementNode",
                    :finder_sql => 'select s.* from statement_nodes s ' +
                                   'LEFT JOIN statement_nodes hubs ON hubs.id = s.parent_id AND hubs.type = \'CasHub\' ' +
-                                  'WHERE hubs.id = #{hub.nil? ? -1 : hub.id} AND s.id != #{id}'
+                                  'WHERE hubs.id = #{hub.nil? ? -1 : hub.id} AND s.id != #{id} AND s.type = \'#{self.class.alternative}\''
 
           
           class_eval do
