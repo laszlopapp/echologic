@@ -22,7 +22,7 @@ class StatementNode < ActiveRecord::Base
   belongs_to :creator, :class_name => "User"
   belongs_to :statement
 
-  delegate :original_language, :document_in_language, :authors, :has_author?, :private_tags,
+  delegate :original_language, :document_in_language, :authors, :has_author?, 
            :statement_image, :statement_image=, :image, :image=, :published?, :publish,
            :taggable?, :filtered_topic_tags, :topic_tags, :topic_tags=, :hash_topic_tags, :tags, :editorial_state_id,
            :editorial_state_id=, :editorial_state, :editorial_state=, :to => :statement
@@ -389,10 +389,9 @@ class StatementNode < ActiveRecord::Base
     #
     def search_statement_nodes(opts={})
       aggregator_field = opts[:type].nil? ? 'root_id' : 'id'
-
+      
       # Constant criteria
       document_conditions = []
-      document_conditions << "d.current = 1"  # Only current documents
       
       # Languages
       if opts[:user] and !opts[:user].spoken_languages.empty? and opts[:language_ids]
@@ -428,15 +427,18 @@ class StatementNode < ActiveRecord::Base
       # Search terms
       search_term = opts.delete(:search_term)
       if !search_term.blank?
-        term_query = "SELECT DISTINCT s.id FROM #{Statement.table_name} s "
-        term_query << "LEFT JOIN #{StatementDocument.table_name} d ON d.statement_id = s.id "
-        term_query << Statement.extaggable_joins_clause("s.id")
+        term_query = "SELECT DISTINCT statement_id AS id FROM search_statement_text d "
         term_query << "WHERE "
-
+      
         term_queries = []
-        terms = search_term.split(/[,\s]+/)
-        terms.each do |term|
-          or_conditions = Statement.extaggable_conditions_for_term(term)
+        if search_term.include? ','
+          terms = search_term.split(',')
+        else
+          terms = search_term.split(/[\s]+/)
+        end
+        
+        terms.map(&:strip).each do |term|
+          or_conditions = Statement.extaggable_conditions_for_term(term, "d.tag")
           if (term.length > 3)
             or_conditions << sanitize_sql([" OR d.title LIKE ? OR d.text LIKE ?", "%#{term}%", "%#{term}%"])
           end
@@ -453,7 +455,10 @@ class StatementNode < ActiveRecord::Base
                            "ORDER BY COUNT(s.#{aggregator_field}) DESC, " +
                            "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id;"
       else
+        document_conditions << "d.current = 1"
+        
         node_conditions << "s.type = 'Question'" if opts[:type].nil?
+        
         statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? aggregator_field : '*'} from search_statement_nodes s " +
                            "LEFT JOIN statement_documents d ON d.statement_id = s.statement_id " +
                            Statement.extaggable_joins_clause("s.statement_id") +

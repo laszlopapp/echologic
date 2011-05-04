@@ -45,8 +45,8 @@ module ActiveRecord
               "LEFT JOIN #{Tag.table_name} ON #{TaoTag.table_name}.tag_id = #{Tag.table_name}.id "
             end
 
-            def self.extaggable_conditions_for_term(term, word_length=3)
-              (term.length > word_length ? sanitize_sql(["#{Tag.table_name}.value LIKE ?","%#{term}%"]) : sanitize_sql(["#{Tag.table_name}.value = ?",term]))
+            def self.extaggable_conditions_for_term(term, attribute="#{Tag.table_name}.value", word_length=3)
+              (term.length > word_length ? sanitize_sql(["#{attribute} LIKE ?","%#{term}%"]) : sanitize_sql(["#{attribute} = ?",term]))
             end
 
             def self.extaggable_filter_by_type(type)

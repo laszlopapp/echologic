@@ -6,7 +6,7 @@ class ActivityTrackingMailerTest < ActionMailer::TestCase
     
     setup {
       events = [events(:event_test_question), events(:event_second_proposal), events(:event_first_impro_proposal), events(:event_closed_impro_proposal)]
-      flexmock(Event).should_receive(:find_tracked_events).with(User).and_return(events)
+#      flexmock(Event).should_receive(:find_tracked_events).with(User).and_return(events)
       @user = users(:user) 
     }
     subject { 
