@@ -1,13 +1,19 @@
 
+<%
+   mode ||= :set
+   language_key = mode == :set ? 'discuss.mixed_languages' : 'discuss.no_locale_language'
+   hint_key = mode == :set ? 'discuss.set_languages' : 'discuss.adjust_languages'
+%>
+
 <% content_tag :div,
                :class => 'language_skills_teaser_box message_box translation_box_class
-                          rounded-box rounded-box-gray-itow with_bg_bw_grad_small' do %>
+                          rounded-box rounded-box-gray-itow with_bg_tw_grad_mid' do %>
 
   <%= image_tag 'page/translation/babelfish_left.png',
                 :class => 'fish_left' %>
-  <%= content_tag(:span, I18n.t('discuss.mixed_languages'),
+  <%= content_tag(:span, I18n.t(language_key),
                   :class => "language_label from_language") %>
-  <%= link_to I18n.t('discuss.set_languages'),
+  <%= link_to I18n.t(hint_key),
               my_profile_path,
               :class => "translation_link" %>
 

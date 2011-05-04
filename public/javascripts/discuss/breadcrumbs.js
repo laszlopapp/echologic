@@ -138,13 +138,14 @@
                             settings['container_animation_speed']);
       }
 
-
       function truncateBreadcrumbKey(breadcrumb) {
-				var key = breadcrumb.attr('id') == 'sr' ? (breadcrumb.attr('id') + breadcrumb.find('.search_link').text().replace(/,/, "\\;")) : breadcrumb.attr('id');
+				var key = breadcrumb.attr('id') == 'sr' ?
+                    (breadcrumb.attr('id') + breadcrumb.find('.search_link').text().replace(/,/, "\\;")) :
+                    breadcrumb.attr('id');
 				if (breadcrumb.attr('page_count')) {
 					key += "|" + breadcrumb.attr('page_count');
 				}
-				return key; 
+				return key;
 			}
 
 			// Public API

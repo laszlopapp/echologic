@@ -313,3 +313,19 @@
     }
     return false;
   }
+
+
+  /*
+   * Detecting mobile devices.
+   */
+	function isMobileDevice() {
+    var userAgent = navigator.userAgent.toLowerCase();
+		return userAgent.match(/android/i) ||
+           userAgent.match(/iphone/i)  ||
+           userAgent.match(/ipod/i) ||
+           userAgent.match(/ipad/i) ||
+           userAgent.match(/webos/i) ||
+           userAgent.match(/palm/i) ||
+           userAgent.match(/blackberry/i) ||
+           userAgent.match(/windows ce/i);
+	}

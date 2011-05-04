@@ -161,3 +161,26 @@ Feature: Start a question
        | question_topic_tags               | **secret                              |
       And I press "Save"
       Then I should see "The Question has been updated successfully."
+      
+      
+   Scenario: There is a question with a **tag, and a user with *tag can see it, but not touch it
+    Given I am logged in as "user" with password "true"
+      And I have "**secret" as decision making tags
+      And there is a question i have created
+    When I go to the question
+      And I follow "edit"
+      And I fill in the following:
+       | question_statement_document_title | my super secret world domination plan |
+       | question_statement_document_text  | my super secret description           |
+       | question_topic_tags               | **secret                              |
+      And I press "Save"
+    Then I should see "The Question has been updated successfully."
+      And I follow "Logout"
+      And I login as "ben" with password "benrocks"
+      And I have "*secret" as decision making tags
+      And I go to the question
+    Then I should see the questions title
+      And I should not see "You do not have permission to read this statement."
+      And the question has "**secret, **supersecret" for tags
+      And I go to the question
+    Then I should see "You do not have permission to read this statement."

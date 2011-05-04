@@ -129,7 +129,7 @@ class ApplicationController < ActionController::Base
     if current_user_session and session[:expiry_time] and session[:expiry_time] < Time.now
       expire_session!
     end
-    session[:expiry_time] = MAX_SESSION_PERIOD.seconds.from_now
+    session[:expiry_time] = MAX_SESSION_PERIOD.hours.from_now
     return true
   end
 

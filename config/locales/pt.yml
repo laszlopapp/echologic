@@ -61,6 +61,22 @@ pt:
          com as suas preferências.
          </p>
 
+  help:
+    discuss:
+      closed_discussions:
+        hint: Palavras-chave (tags) para criar discussões fechadas...
+        text: |
+          <p>Definindo uma palavra-chave '*tag' (começando com UMA *) tornará a discussão semi-fechada. Os utilizadores terão que definir a mesma palavra-chave como uma competência no campo de Decisão no seu perfil de utilizador de modo a poderem participar na discussão, no entanto permanecerá visível e transparente para o mundo exterior.</p>
+          <p>Definindo a palavra-chave '**tag' (começando com DUAS **) tornará a discussão totalmente fechada. Estará visível para utilizadores que definam essa mesma palavra-chave começando com duas ** como competência no campo de Decisão do seu perfil.</p>
+          <p>Repare por favor, que tem que adicionar estas palavras-chave especiais como competência no campo de Decisão do seu perfil primeiramente, antes de as utilizar para controlar os direitos de acesso às discussões.</p>
+          <p>Tome nota de que esta é uma solução temporária que facilita a criação de discussões fechadas na echo. A solução mais robusta incluirá lista de contatos, convites e gerência de acesso avançada, mas só se encontrará à disposição mais tarde.</p> 
+    profile:
+      closed_discussions:
+        hint: Palavras-chave (tags) para aceder a discussões fechadas...
+        text: |-
+          <p>Aqui poderá inserir as palavras-chave especiais (p.ex. *tag ou **tag) como competências no campo da Decisão. Deste modo ser-lhe-á permitido participar em discussões transparentes e semi-fechadas (tags começando com UM *) e ver discussões fechadas e internas (marcadas com DOIS **) respetivamente.</p>
+          <p>Tome nota de que esta é uma solução temporária que facilita a criação de discussões fechadas na echo. A solução mais robusta incluirá lista de contatos, convites e gerência de acesso avançada, mas só se encontrará à disposição mais tarde.</p> 
+
   # Localizations for the layout components
   layouts:
     tabs:
@@ -225,7 +241,10 @@ pt:
     # Spoken Languages section
     spoken_languages:
       title: Línguas Faladas
-      guide: Aqui pode inserir as línguas que domina, assim como o seu nível nas mesmas.
+      guide: |
+        Aqui pode inserir os seus conhecimentos linguísticos de modo a  <strong>ver conteúdo escrito somente em línguas que você compreende</strong>.<br/>
+        Adicionalmente, possibilitar-lhe-á contribuir para os diálogos interculturais e multilingues através da <strong>tradução de conteúdos</strong> entre línguas que você fala pelo menos até um nível intermédio.
+        Tudo isto de modo a assegurar a  qualidade do nosso conteúdo.<br/>Por favor não se esqueça de inserir a sua <strong>língua materna</strong>.
       language: Língua
       level: Nível
       error_messages:
@@ -409,6 +428,11 @@ pt:
         Ainda não criou nenhuma questão. Para o fazer, por favor clique no ponto de interrogação que se encontra à esquerda.
       add: Criar nova questão
     translation_request: Por favor traduza este texto em <strong>PORTUGUÊS</strong>.
+    mixed_languages: Mistura de Línguas
+    set_languages: Insira os seus <strong>Conhecimentos Linguísticos</strong> - Filtre o conteúdo!
+    no_locale_language: Fala PORTUGUÊS?
+    adjust_languages: |
+      Por favor defina os seus <strong>conhecimentos linguísticos de Português</strong>!  
     original_language_warning: |
       O texto original encontra-se em <strong>{{language}}</strong>. Defina os seus conheci-<br/>
       mentos linguísticos para poder visualizar conteúdo noutras línguas.
@@ -531,6 +555,8 @@ pt:
         compreendido fora do contexto da discussão original.
       tag_permission: |
         Não tem permissão para inserir a tag '{{tag}}'.
+      read_permission: |
+        You do not have permission to read this statement.
       title_hint:
         question: Introduza o título da questão em...
         proposal: Introduza o título da proposta em...
@@ -569,8 +595,14 @@ pt:
         question: 'Questões'
         proposal: 'Propostas'
         improvement: 'Melhorias'
-        argument: 'Argumentos'
+        argument: 'Prós & Contras'
         follow_up_question: 'Questões Complementares'
+      sibling_labels:
+        question: 'Questões'
+        proposal: 'Propostas'
+        improvement: 'Melhorias'
+        argument: 'Argumentos'
+        follow_up_question: 'Questões'
       siblings:
         follow_up_question: 'Questão Complementar no contexto exposto acima'
 
@@ -579,7 +611,7 @@ pt:
         label: 'Publicar questão?'
         initial_state:
           new: 'Primeiro criar e mais tarde publicar.'
-          published: 'Imediatamente publicar (não será mais possível editar a questão)'
+          published: 'Publicar imediatamente (edição posterior será limitada) '
         published: Publicado
         approved: Aprovado
       delete_link: "Apagar"
@@ -610,6 +642,7 @@ pt:
       supporter_to_share: Tem que apoiar este conteúdo de forma a poder partilhá-lo.
       published_to_share: 'Esta discussão ainda não foi publicada. Por enquanto não poderá infelizmente partilhar o seu conteúdo!'
       cannot_be_edited: Este conteúdo não pode ser mais editado. A edição de conteúdos não é mais possível após esse mesmo conteúdo ter sido apoiado por alguém. É uma opção de segurança para evitar a posterior alteração de opiniões já apoiadas por alguém.
+      echos_label: Apoio
 
       breadcrumbs:
         discuss_search: Pesquisa resultados
@@ -617,7 +650,7 @@ pt:
         labels:
           ds: ''
           mi: ''
-          sr: 'Pesquisar resultados para'
+          sr: 'Discussões encontradas para'
           fq: 'Questões complementares para'
           over:
             ds: 'Voltar para'

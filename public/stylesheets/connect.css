@@ -9,7 +9,7 @@
 /* Search */
 
 #connect_search_container.search_container {
-  margin:   35px auto 0;
+  margin: 40px auto 0;
 }
 
 .segments {
@@ -47,6 +47,10 @@
 
 
 /* RESULTS */
+
+#connect_results {
+  background-color: #B5C0C9;
+}
 
 #connect_results .box_header_icon {
   background: url(../images/page/box/box_icon_people.png) repeat-x left top;

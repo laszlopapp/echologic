@@ -31,7 +31,9 @@
 			initialise();
 
 			function initialise() {
-			  loadRTEEditor();
+				if (!isMobileDevice()) {
+					loadRTEEditor();
+				}
 
         // New Statement Form Helpers
         if (form.hasClass('new')) {
