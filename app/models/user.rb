@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   has_many :web_addresses
   has_many :memberships
-  has_many :spoken_languages, :order => 'level_id asc'
+  has_many :spoken_languages, :order => 'level_id ASC, language_id DESC'
 
   has_many :reports, :foreign_key => 'suspect_id'
 
