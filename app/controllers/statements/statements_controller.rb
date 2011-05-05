@@ -12,12 +12,12 @@ class StatementsController < ApplicationController
 
   before_filter :fetch_statement_node, :except => [:category, :my_questions, :new, :create]
   before_filter :fetch_statement_node_type, :only => [:new, :create]
-  before_filter :check_statement_permissions, :except => [:category, :my_questions, :new, :create]
+  before_filter :check_read_permission, :except => [:category, :my_questions, :new, :create]
   before_filter :redirect_if_approved_or_incorporated, :only => [:show, :edit, :update, :destroy,
                                                                  :new_translation, :create_translation,
                                                                  :echo, :unecho]
   before_filter :fetch_languages, :except => [:destroy, :redirect_to_statement, :ancestors]
-  before_filter :require_decision_making_permission, :only => [:echo, :unecho, :new, :new_translation]
+  before_filter :check_write_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
 
   include PublishableModule
@@ -145,16 +145,14 @@ class StatementsController < ApplicationController
       @tags = []
       created = false
 
-      
       # add possible secret tags to the current user profile
-      new_closed_tags = filter_read_write_tags(form_tags.split(","))
-      
-      
+      new_permission_tags = filter_permission_tags(form_tags.split(","), :read_write)
+
       #added tags to statement
       if @statement_node.taggable?
         @tags = @statement_node.topic_tags = form_tags
       end
-      
+
       # Persisting
       StatementNode.transaction do
         if @statement_node.save
@@ -167,9 +165,9 @@ class StatementsController < ApplicationController
             echo = params.delete(:echo)
             @statement_node.author_support if echo=='true'
           end
-          
-          if !new_closed_tags.empty?
-            current_user.decision_making_tags += new_closed_tags
+
+          if !new_permission_tags.empty?
+            current_user.decision_making_tags += new_permission_tags
             current_user.save
           end
 
@@ -178,8 +176,9 @@ class StatementsController < ApplicationController
           EchoService.instance.created(@statement_node.question) if @statement_node.question_id
           created = true
         end
-      end
-    
+      end
+
+
       # Rendering
       if created
         load_siblings @statement_node
@@ -251,7 +250,7 @@ class StatementsController < ApplicationController
 
       # Updating tags of the statement
       form_tags = attrs.delete(:topic_tags) || ''
-      new_closed_tags = filter_read_write_tags(form_tags.split(','))
+      new_permission_tags = filter_permission_tags(form_tags.split(','), :read_write)
 
       holds_lock = true
       old_statement_document = nil
@@ -269,9 +268,9 @@ class StatementsController < ApplicationController
             @tags = @statement_node.topic_tags = form_tags
           end
           @statement_node.statement.save
-          
-          if !new_closed_tags.empty?
-            current_user.decision_making_tags += new_closed_tags
+
+          if !new_permission_tags.empty?
+            current_user.decision_making_tags += new_permission_tags
             current_user.save
           end
         end
@@ -626,18 +625,6 @@ class StatementsController < ApplicationController
     @statement_node_type = params[:type] ? params[:type].to_s.classify.constantize : nil
   end
 
-
-  #
-  # Checks if the user can access this very statement
-  #
-  def check_statement_permissions
-    # check if the user has permissions to read this statement
-    if @statement_node and !check_tag_permissions(@statement_node.root.topic_tags)
-      redirect_to_url discuss_search_url, 'discuss.statements.read_permission'
-      return
-    end
-  end
-
   #
   # Redirect to parent if incorporable is approved or already incorporated.
   #
@@ -788,57 +775,85 @@ class StatementsController < ApplicationController
   ###############
 
   #
-  # Checks if the statement node or parent has a * tag and the user has permission for it.
+  # Checks if the user has read permission on the current statement node (based on **tags).
   #
-  def require_decision_making_permission
-    decision_making_tags = current_user.decision_making_tags
-    statement = @statement_node || parent
-    return true if statement.nil?
-    tags = statement.root.tags.map{|t|t.value}
-    tags.each do |tag|
-      index = tag.index '*'
-      next if index != 0
-      if !decision_making_tags.include? tag
-        set_info('discuss.statements.read_only_permission')
-        respond_to do |format|
-          format.html { flash_info and redirect_to(statement_node_url(statement)) }
-          format.js do
-            render_with_info
-          end
-        end
-        return false
-      end
+  def check_read_permission
+    if @statement_node and !has_read_permission?(@statement_node.root.topic_tags)
+      redirect_to_url discuss_search_url, 'discuss.statements.read_permission'
+      return
     end
-    return true
   end
 
   #
-  # Checks whether the user is allowed to assign the given hash tags (#tag).
+  # Checks whether the user is allowed to read a statement with the given tags.
   #
-  def check_tag_permissions(tags_values, write=true)
-    tags = filter_read_write_tags(tags_values)
+  def has_read_permission?(statement_tags)
+    read_tags = filter_permission_tags(statement_tags, :read)
 
-    if tags.empty? # no read/write permission tag, good to go
+    if read_tags.empty? # no read permission tags, good to go
       return true
-    elsif current_user.nil? # no user logged in, can't access super secret statement
+    elsif current_user.nil? # no user logged in, can't access closed statements
       return false
-    elsif current_user.has_role? :editor # editor can do whatever he wants
+    elsif current_user.has_role? :editor # editor can read everything
       return true
-    else # calculate for the remaining users
+    else
+      # Calculate for the remaining users
       decision_making_tags = current_user.decision_making_tags
-      tags.each do |tag|
-        unless decision_making_tags.include? tag or # user has the ** tag
-               decision_making_tags.include? tag[1..-1] # user has the *tag, thus making him able to read
-            return false
-        end
+      read_tags.each do |tag|
+        return true if decision_making_tags.include? tag  # User has one of the **tags
       end
-      return true
+
+      #User has none of the **tags -> no read permission
+      return false
     end
   end
 
-  def filter_read_write_tags(tags)
-    tags.map{|t|t.strip}.uniq.select{|t|t[0,2].eql? "**"}
+  #
+  # Returns *tags or **tags according to the given access level.
+  #
+  # access_level: :read, :write or :read_write
+  #
+  def filter_permission_tags(tags, access_level)
+    tags.map{|t| t.strip}.uniq.select{|t| t.start_with?(access_level == :read ? '**' : '*')}
   end
+
+  #
+  # Checks if the user has write permission on the current statement node (based on *tags).
+  #
+  def check_write_permission
+    statement_node = @statement_node || parent
+    return statement_node.nil? ? true : has_write_permission?(statement_node.root.topic_tags)
+  end
+
+  #
+  # Checks whether the user is allowed to write a statement with the given tags.
+  #
+  def has_write_permission?(statement_tags)
+    write_tags = filter_permission_tags(statement_tags, :write)
+
+    if write_tags.empty? # no write permission tags, good to go
+      return true
+    elsif current_user.nil? # no user logged in, can't write protected statements
+      return false
+    else
+      # Calculate for the remaining users
+      decision_making_tags = current_user.decision_making_tags
+      write_tags.each do |tag|
+        return true if decision_making_tags.include? tag   # User has one of the *tags
+      end
+
+      # User has none of the *tags -> no write permission
+      set_info('discuss.statements.read_only_permission')
+      respond_to do |format|
+        format.html { flash_info and redirect_to(statement_node_url(statement_node)) }
+        format.js do
+          render_with_info
+        end
+      end
+      return false
+    end
+  end
+
 
   ##########
   # SEARCH #
