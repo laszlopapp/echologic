@@ -1544,6 +1544,7 @@ form.translation .rte-panel {
 /* Translation form */
 /********************/
 
+
 .translation form {
   margin-top: 15px;
 }
@@ -1556,6 +1557,16 @@ form.translation .rte-panel {
 .translation .right_panel {
   float: right;
   width: 365px;
+}
+
+#statements .translation textarea {
+  max-height: 225px;
+  height: 225px;
+  width: 354px;
+}
+
+#statements .translation .rte-zone {
+  height: 229px;
 }
 
 .translation fieldset.buttons {
