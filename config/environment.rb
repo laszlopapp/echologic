@@ -2,7 +2,7 @@
 
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
-MAX_SESSION_PERIOD = 24     # in hours
+MAX_SESSION_PERIOD = 36     # in hours
 
 GITHUB_URL = 'http://github.com/echosystem/echo'
 
@@ -56,7 +56,7 @@ Rails::Initializer.run do |config|
   config.gem 'uuidtools'
 
   config.gem 'sanitize'
-  
+
   config.gem 'rails_sql_views'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
