@@ -238,13 +238,6 @@ class StatementNode < ActiveRecord::Base
     opts[:type] ? opts[:type].to_s.constantize.count_statements_for_parent(opts) : children.count
   end
 
-  #
-  # gets me the tags that privatize this statement node
-  #
-  def private_tags
-    self.root.private_tags
-  end
-
   private
 
   #################
