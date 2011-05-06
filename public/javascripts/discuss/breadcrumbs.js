@@ -75,7 +75,7 @@
 					breadcrumb.bind("click", function() {
 	          // Getting bids from fragment
 	          var bids_stack = $(this).prevAll().map(function() {
-	            return  this.id == 'sr' ? (this.id + $(this).find('.search_link').text().replace(/,/, "\\;")) : this.id;
+							return truncateBreadcrumbKey($(this));
 	          }).get().reverse();
 
 
@@ -138,12 +138,14 @@
                             settings['container_animation_speed']);
       }
 
-      function loadBIDSFromBreadcrumbs() {
-				return breadcrumbs.find(".breadcrumb").map(function() {
-          var page_count = $(this).attr('page_count');
-          var key = this.id == 'sr' ? (this.id + $(this).find('.search_link').text().replace(/,/, "\\;")) : this.id;
-          return page_count == null ? key : key + '|' + page_count;
-        }).get();
+      function truncateBreadcrumbKey(breadcrumb) {
+				var key = breadcrumb.attr('id') == 'sr' ?
+                    (breadcrumb.attr('id') + breadcrumb.find('.search_link').text().replace(/,/, "\\;")) :
+                    breadcrumb.attr('id');
+				if (breadcrumb.attr('page_count')) {
+					key += "|" + breadcrumb.attr('page_count');
+				}
+				return key;
 			}
 
 			// Public API
@@ -164,11 +166,11 @@
               toggleContainer();
             }
 			  	  // Assemble new breadcrumb entries
-						$.each(breadcrumbsData, function(index, breadcrumbData) { //[id, classes, url, title, label, over, page_count]
+						$.each(breadcrumbsData, function(index, breadcrumbData) { //[id, classes, url, title, label, over]
 							var breadcrumb = $('<a/>').addClass('breadcrumb').attr('id',breadcrumbData['key']).attr('href',breadcrumbData['url']);
-							if (breadcrumbData['page_count']) {
-						  	breadcrumb.attr('page_count', breadcrumbData['page_count'])
-						  };
+							if (breadcrumbsData['page_count']) {
+						  	breadcrumb.attr('page_count', breadcrumbData['page_count']);
+						  }
 							if (index != 0 || elements.find(".breadcrumb").length != 0) {
 								breadcrumb.append($("<span/>").addClass('big_delimiter'));
 							}
@@ -222,7 +224,9 @@
 		      var bid_list = bids.split(",");
 
           // Current breadcrumb entries
-		      var visible_bids = loadBIDSFromBreadcrumbs();
+		      var visible_bids = breadcrumbs.find(".breadcrumb").map(function() {
+						return truncateBreadcrumbKey($(this));
+		      }).get();
 
 					// Get bids that are not visible (DRY)
           return $.grep(bid_list, function(a, index) {
@@ -231,7 +235,9 @@
 		    },
 
 				getBreadcrumbStack : function (newBreadcrumb) {
-		      var currentBreadcrumbs = loadBIDSFromBreadcrumbs();
+		      var currentBreadcrumbs = breadcrumbs.find(".breadcrumb").map(function() {
+						return truncateBreadcrumbKey($(this));
+					}).get();
 					if (newBreadcrumb) {
             currentBreadcrumbs.push(newBreadcrumb);
           }

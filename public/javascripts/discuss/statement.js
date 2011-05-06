@@ -220,14 +220,13 @@
 		    var siblingIds = $("div#statements").data(siblingsKey);
 				// Get index of the prev/next sibling
 				var targetIndex = ($.inArray(currentStatementId,siblingIds) + inc + siblingIds.length) % siblingIds.length;
-
 		    var targetStatementId = new String(siblingIds[targetIndex]);
 				if (targetStatementId.match('add')) {
           // Add (teaser) link
-					button.attr('href', button.attr('href').replace(/\/\d+.*/, targetStatementId));
+					button.attr('href', button.attr('href').replace(/statement\/.*/, 'statement/' + targetStatementId));
 		    }
 		    else {
-					button.attr('href', button.attr('href').replace(/\/\d+.*/, "/" + targetStatementId));
+					button.attr('href', button.attr('href').replace(/statement\/.*/, "statement/" + targetStatementId));
 		    }
 
 		    button.removeAttr('data-id');
@@ -265,8 +264,8 @@
        */
       function initFlicks(){
 	     statement.detectFlicks({
-         axis: 'x',
-         threshold: 60,
+         axis: 'y',
+         threshold: 15,
          flickEvent: function(d) 
 				 { 
 				   alert('flick detected: ' + d.direction);

@@ -128,9 +128,11 @@ class ActivityTrackingService
     last_event = events.first
     events.map!{|e| JSON.parse(e.event)}
 
+    decision_making_tags = recipient.decision_making_tags
+    
     # Filter only events whose titles languages the recipient speaks
     events.reject!{|e| (e['documents'].keys.map{|id|id.to_i} & recipient.sorted_spoken_languages).empty? }
-
+    
     return if events.blank? #if there are no events to send per email, take the next user
 
     # take the question events apart

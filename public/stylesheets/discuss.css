@@ -166,6 +166,7 @@ span.publish_button {
 
 #statements textarea, .summary textarea {
   height: 200px;
+  width: 760px;
 }
 
 form.statement p {
@@ -231,7 +232,7 @@ form.statement fieldset ol span.defaultText {
 }
 
 #statements form.translation .content {
-  margin-top: 10px;
+  margin-top: 6px;
 }
 
 #statements form.formtastic fieldset.statement_title,
@@ -452,6 +453,21 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .questions_container .more_pagination {
   margin: 20px 0 15px;
+}
+
+.questions_container .language_skills_teaser_box {
+  margin: 10px 5px;
+  width: 770px;
+  height: 75px;
+}
+
+.questions_container .language_skills_teaser_box .fish_left {
+  top: 11px;
+}
+
+.questions_container .language_skills_teaser_box .language_label,
+.questions_container .language_skills_teaser_box .translation_link {
+  top: 29px;
 }
 
 /* Action bar in Discuss Search */
@@ -933,8 +949,8 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /******************/
 
 .statement .siblings_panel {
-  left: 120px;
-  top: -39px;
+  left: 162px;
+  top: -41px;
   width: 819px;
   max-height: 360px;
   padding: 10px 0;
@@ -1002,16 +1018,31 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 #statements .header_buttons {
-  width: 160px;
-  margin-right: 23px;
+  width: 170px;
+  margin-right: 13px;
   min-height: 1px;
   display: inline-block;
   float: left;
   position: relative;
   top: 3px;
-  left: 55px;
+  left: 7px;
   height: 30px;
   overflow: visible;
+}
+
+#statements .header_buttons .prev {
+  position: absolute;
+  left: 16px;
+}
+
+#statements .header_buttons .next {
+  position: absolute;
+  right: 10px;
+}
+
+#statements .header_buttons .show_siblings_button {
+  position: absolute;
+  left: 50px;
 }
 
 #statements .header_link,
@@ -1036,7 +1067,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   font-size: 18px;
   font-weight: bold;
   text-decoration: none;
-	/*padding-right: 21px !important;*/
 	max-width: 550px;
 }
 
@@ -1070,8 +1100,15 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .header_buttons .show_siblings_label {
   background:  url(../images/page/prev_next_buttons.png) no-repeat scroll -74px -117px;
+  width: 75px;
+  height: 25px;
+  line-height: 20px;
+  font-size: 11px;
+  font-weight: bold;
+  color: #dce0e2;
   position: relative;
-  left: -5px;
+  text-align: center;
+  top: 9px;
 }
 
 .header:hover .prev_stmt, .header.active .prev_stmt {
@@ -1087,6 +1124,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .header:hover .show_siblings_label, .header.active .show_siblings_label {
 	background-position: -74px 0;
   cursor: pointer;
+  color: #21587f;
 }
 
 .header:hover .prev_stmt:hover,
@@ -1101,24 +1139,32 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .header:hover .show_siblings_label:hover {
   background-position: -74px -39px;
+  color: #7bb031;
 }
 
 .header:hover .prev_stmt.disabled,
 .header.active .prev_stmt.disabled {
   background-position: 0 -78px;
   cursor: default;
+  position: absolute;
+  left: 16px;
 }
 
 .header:hover .next_stmt.disabled,
 .header.active .next_stmt.disabled {
   background-position: -37px -78px;
   cursor: default;
+  position: absolute;
+  right: 10px;
 }
 
 .header:hover .show_siblings_label.disabled,
 .header.active .show_siblings_label.disabled {
 	background-position: -74px -78px;
   cursor: default;
+  position: absolute;
+  left: 50px;
+  color: #B4BEC3;
 }
 
 .supporters_label {
@@ -1426,6 +1472,12 @@ a.statement_link:hover {
   height: 55px;
 	margin: 15px -10px;
 	text-align: center;
+  background-color: #bec7cf;
+}
+
+.language_skills_teaser_box {
+  text-align: right;
+  background-color: #DCCB3B;
 }
 
 .translation_box_class .fish_left {
@@ -1462,6 +1514,7 @@ a.statement_link:hover {
   font-size: 14px;
   color: #21587f;
   text-decoration: underline;
+  padding: 0 20px;
 }
 
 .translation_box_class .translation_link strong {
@@ -1486,9 +1539,11 @@ form.translation .rte-panel {
   top: -218px !important;
 }
 
+
 /********************/
 /* Translation form */
 /********************/
+
 
 .translation form {
   margin-top: 15px;
@@ -1502,6 +1557,16 @@ form.translation .rte-panel {
 .translation .right_panel {
   float: right;
   width: 365px;
+}
+
+#statements .translation textarea {
+  max-height: 225px;
+  height: 225px;
+  width: 354px;
+}
+
+#statements .translation .rte-zone {
+  height: 229px;
 }
 
 .translation fieldset.buttons {
@@ -1643,7 +1708,7 @@ form.statement fieldset ol li.tags_container {
 }
 
 .statement .header .loading {
-  left: -33px;
+  left: 158px;
   top: 10px;
 }
 
@@ -1675,8 +1740,12 @@ form.statement fieldset ol li.tags_container {
 }
 
 .expandable .headline .expand_icon {
-  right: 15px;
+  right: 12px;
   top: 12px;
+}
+
+.expandable.active .headline .expand_icon {
+  top: 13px;
 }
 
 .expandable:hover .expand_icon {
@@ -1689,4 +1758,21 @@ form.statement fieldset ol li.tags_container {
 
 .expandable.active:hover .expand_icon {
   background-position: 0 -35px;
+}
+
+.statement .expandable .headline .echos_label {
+  visibility: hidden;
+}
+
+.statement .expandable.active .headline .echos_label {
+  visibility: visible;
+  background: url("../images/page/discuss/echo_small.png") no-repeat scroll 0 0 transparent;
+  color: #21587F;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 17px;
+  padding-left: 20px;
+  position: absolute;
+  right: 32px;
+  top: 7px;
 }

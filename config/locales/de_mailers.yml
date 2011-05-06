@@ -61,7 +61,7 @@ de:
         created_follow_up_questions: 'Neue Folgefrage zu "<strong>{{title}}</strong>":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
-        Wenn Sie keine Benachrichtigungen über neue Discussionen und Vorschläge erhalten möchten, melden Sie sich bitte auf
+        Wenn Sie keine Benachrichtigungen über neue Diskussionen und Vorschläge erhalten möchten, melden Sie sich bitte auf
         <a href='{{echo_url}}'>echo</a> an, gehen Sie auf "Mein echo", "Einstellungen" und deaktivieren Sie die
         Benachrichtigungen über neue Diskussionsbeiträge.
 

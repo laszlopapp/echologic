@@ -43,8 +43,8 @@ module PublishableModule
 
     @count    = statement_nodes_not_paginated.count
     @statement_nodes = statement_nodes_not_paginated.paginate(:page => @page, :per_page => @per_page)
-    @statement_documents = search_statement_documents(:statement_ids => @statement_nodes.map(&:statement_id),  
-                                            :select => "DISTINCT id, title, statement_id, language_id, current, text")
+    @statement_documents = search_statement_documents(:statement_ids => @statement_nodes.map(&:statement_id),
+                                                      :more => ["text"])
 
     respond_to_js :template => 'statements/questions/index',
                   :template_js => 'statements/questions/questions'

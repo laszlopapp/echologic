@@ -22,6 +22,37 @@ Feature: Take Part on a question
        When I choose the second Question
      Then the second question must be more recent than the first question
 
+  # Navigation prev/next button
+  @ok
+  Scenario: Navigate with the navigation button through the questions
+    Given I am logged in as "user" with password "true"
+      And I am on the Discuss Index
+      And I see a group of questions
+    When I choose the first Question
+      Then I should see the group of question titles while pressing the next button
+      Then I should see the group of question titles while pressing the prev button
+
+
+  @ok
+  Scenario: Navigate with the next button through the proposals
+    Given I am logged in as "user" with password "true"
+      And I am on the Discuss Index
+      And I choose the "Test Question2?" Question 
+      And I see a group of proposals
+    When I choose the first Proposal
+      Then I should see the group of proposal titles while pressing the next button
+      Then I should see the group of proposal titles while pressing the prev button
+      
+  @ok
+  Scenario: Navigate with the next button through the improvements
+    Given I am logged in as "user" with password "true"
+      And I am on the Discuss Index
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I see a group of improvements
+    When I choose the first Improvement
+      Then I should see the group of improvement titles while pressing the next button
+      Then I should see the group of improvement titles while pressing the prev button
 
   @ok
   Scenario: Open a question

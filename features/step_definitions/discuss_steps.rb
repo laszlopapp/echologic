@@ -10,9 +10,10 @@ Then /^there should be one question$/ do
   Question.count.should == 1
 end
 
-When /^I choose the first Question$/ do
-  response.should have_selector("li.question a") do |selector|
-    @question = Question.find(URI.parse(selector.first['href']).path.match(/\d+/)[0].to_i)
+When /^I choose the first ([^\"]*)$/ do |type|
+  type = type.split(" ").join("_").downcase
+  response.should have_selector("li.#{type} a") do |selector|
+    instance_variable_set("@#{type}",type.classify.constantize.find(URI.parse(selector.first['href']).path.match(/\d+/)[0].to_i))
     visit selector.first['href']
   end
 end
@@ -39,6 +40,27 @@ When /^I choose the "([^\"]*)" ([^\"]*)$/ do |name, type|
         visit elem['href']
       end
     end
+  end
+end
+
+When /^I see a group of ([^\"]*)$/ do |type|
+  type = type.singularize
+  elements = []
+  response.should have_selector("li.#{type}") do |selector|
+    selector.each do |statement|
+      elem = statement.at_css("a.#{type}_link")
+      elements << elem.inner_text.strip if elem
+    end
+  end
+  instance_variable_set("@#{type}_titles", elements + [I18n.t("discuss.statements.create_#{type}_link")])
+end
+
+Then /^I should see the group of ([^\"]*) titles while pressing the ([^\"]*) button$/ do |type, button|
+  elements = instance_variable_get("@#{type}_titles")
+  elements = [elements[0]] + elements[1..-1].reverse if button.eql? 'prev'
+  elements.each do |title|
+    Then 'I should see "' + title + '"'
+    When 'I follow "' + button + '" within "div.' + type + ' .header_buttons' + '"' 
   end
 end
 

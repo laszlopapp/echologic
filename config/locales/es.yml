@@ -60,7 +60,31 @@ es:
          Aquí tendrás un resumen de las <strong>noticias mas importantes</strong> y los <strong>debates y actividades más recientes</strong>.
          </p>
 
-# Localizations for the layout components
+  help:
+    discuss:
+      closed_discussions:
+        hint: Tags para crear conversaciones privadas...
+        text: |
+          <p>Defining a *tag (starting with ONE *) will make this discussion semi-closed. Users must define the same
+          *tag as a decision making tag in their profile to be able to participate in the discussion, however it
+          will remain visible and transparent to the outside world.</p>
+          <p>Defining a **tag (with TWO **) will make this discussion fully closed. It will only be visible for users
+          having the same **tag as a decision making tag in their profile.</p>
+          <p>Please note, that you must add *tags and **tags in your profile as decision making tags first,
+          before you can use them to control access rights on discussions.</p>
+          <p>Also note, that this is just a temporary solution to facilitate closed discussions in echo. The real
+          solution with contact lists, invitations and fine-graded access right management will be coming later.</p>
+    profile:
+      closed_discussions:
+        hint: Tags para crear conversaciones privadas...
+        text: |
+          <p>Aqui puede *etiquetar y **etiqueta hecha en tu perfil. Esto te permitirá participar en los debates
+          transparentes, las conversaciones semi-privadas (etiquetados con **etiquetas)  privadas e internas
+          (protegido con **etiqueta) respectivamente.</p>
+          <p>Ten en cuenta, que es una solución temporal para facilitar las conversaciones privadas en echo.
+          La solución con las listas de contactos, invitaciones y la gestión de derechos de acceso esta por venir
+
+  # Localizations for the layout components
   layouts:
     tabs:
       discuss: Debatir
@@ -228,7 +252,12 @@ es:
     # Spoken Languages section
     spoken_languages:
       title: Idiomas que hablo
-      guide:  Por favor indica los idiomas que hablas y el nivel que tienes en cada uno.
+      guide: |
+        Aqui puedes incluir tu idioma <strong>para ver el contenido sólo en la lengua que hablas</strong>.<br/>
+        Además, te permitirá colaborar con Eco en otros idiomas, diálogo intercultural mediante
+        <strong>la traducción de las declaraciones</strong> entre los idiomas que hablas al menos en
+        un nivel intermedio para garantizar la calidad del buen contenido.<br/>
+        No olvides colocar tu <strong>idioma materno</strong>.
       language: Idioma
       level: Nivel
       error_messages:
@@ -431,12 +460,14 @@ es:
       no_questions: |
         Lo sentimos, pero no hay debates por el momento. Para abrir un nuevo debate, haz clic en el signo de interrogación de la izquierda.
       add: Crea nueva pregunta
-    tag_permission: |
-      Lo sentimos, pero no tienes permiso para insertar esta '{{tag}}' nota.
     original_language_warning: |
       El texto original es <strong>{{language}}</strong>. Por favor, <br/>
       indica los idiomas que conoces.
     translation_request: Por favor, traduce este texto al <strong>ESPAÑOL</strong>.
+    mixed_languages: Mezcla de idiomas
+    set_languages: Selecciona tu <strong>Idioma</strong> - Descifra los idiomas!
+    no_locale_language: Hablas Español?
+    adjust_languages: Elige <strong>tu idioma</strong>!
     results_count:
       one: '{{count}} debates'
       more: '{{count}} debates'
@@ -530,9 +561,9 @@ es:
       create_contra_argument_link: Crear un nuevo argumento en contra
       create_follow_up_question_link: Formular una nueva pregunta de seguimiento
       recommend_link: 'Recomienda (echo)'
-      unrecommend_link: 'Retira tu ec(h)o'
+      unrecommend_link: 'Retirar voto'
       support_link: 'Apoya (echo)'
-      unsupport_link: 'Retira tu ec(h)o'
+      unsupport_link: 'Retirar voto'
       create_question_explanation: |
         Aquí puedes iniciar un <strong>nuevo debate</strong>.
         Por favor, no te olvides de insertar palabras clave para que tu nuevo debate sea hallado fácilmente.
@@ -556,6 +587,8 @@ es:
       fuq_formulation_hint: |
         Las preguntas de seguimiento aparecen también como preguntas en "Buscar", por ello, el título y la
         descripción deben ser comprensibles también fuera de contexto del debate principal.
+      tag_permission: |
+        Lo sentimos, pero no tienes permiso para insertar esta '{{tag}}' nota.
       title_hint:
         question: Introduce el título de la pregunta en...
         proposal: Introduce el título de la propuesta en...
@@ -594,8 +627,14 @@ es:
         question: 'Cuestiones'
         proposal: 'Propuestas'
         improvement: 'Mejora'
-        argument: 'Argumentos'
+        argument: 'Pros & Cons'
         follow_up_question: 'Preguntas de Seguimiento'
+      sibling_labels:
+        question: 'Cuestiones'
+        proposal: 'Propuestas'
+        improvement: 'Mejora'
+        argument: 'Argumentos'
+        follow_up_question: 'Cuestiones'
       siblings:
         follow_up_question: 'Pregunta de seguimiento según lo indicado arriba'
 
@@ -640,6 +679,7 @@ es:
       supporter_to_share: 'Tienes que apoyar este contenido para poder compartirlo.'
       published_to_share: 'Este debate está aún por publicar. Lo sentimos, pero hasta entonces, no puedes compartirlo.'
       cannot_be_edited: 'Lo sentimos, pero no puedes editar este contenido hasta obtener el apoyo de otros miembros. El motivo es evitar el falseamiento de opiniones.'
+      echos_label: Support
 
       breadcrumbs:
         discuss_search: Buscar resultados
@@ -647,7 +687,7 @@ es:
         labels:
           ds: ''
           mi: ''
-          sr: 'Buscar resultados para'
+          sr: 'Preguntas encontrada por'
           fq: 'Preguntas de seguimiento para'
           over:
             ds: 'Volver a'

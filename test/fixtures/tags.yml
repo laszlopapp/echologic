@@ -20,7 +20,7 @@ water:
   value: Water
   language_id: <%= Fixtures.identify(:language_en) %>
 
-
+  
 ###
 ### Tags for Statement Categories 
 ###
@@ -43,4 +43,8 @@ echosocial:
 
 realprices:
   value: '#realprices'
+  language_id: <%= Fixtures.identify(:language_en) %>
+
+secret:
+  value: **secret
   language_id: <%= Fixtures.identify(:language_en) %>

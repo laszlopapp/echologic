@@ -206,11 +206,10 @@ class ApplicationController < ActionController::Base
     priority_languages = [locale_language_id]
     # get statement node original language
     st_original_language = @statement_node.original_language if @statement_node
-    # insert original language in the priority languages
-    priority_languages << st_original_language.id if st_original_language
     # insert user spoken languages into the priority languages
     priority_languages += current_user.sorted_spoken_languages if current_user
-
+    # insert original language in the priority languages; in case everything else fails, we show the original document
+    priority_languages << st_original_language.id if st_original_language
     priority_languages.uniq
   end
 

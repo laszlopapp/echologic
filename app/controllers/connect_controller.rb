@@ -6,13 +6,7 @@ class ConnectController < ApplicationController
     @value    = params[:search_terms] || ""
     @sort     = params[:sort]  || ""
     @page     = params[:page]  || 1
-    @profiles = Profile.search_profiles(@sort, @value.split(' ').first)
-
-    if @value.split(' ').size > 1
-       for value in @value.split(' ')[1..-1] do
-        @profiles &= Profile.search_profiles(@sort, value)
-      end
-    end
+    @profiles = Profile.search_profiles(@sort, @value)
 
     @profiles = @profiles.paginate(:page => @page, :per_page => 6)
 

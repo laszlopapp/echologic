@@ -100,7 +100,7 @@
   color: #21587f;
   font-size: 13px;
   line-height: 18px;
-  margin: 10px 0;
+  margin: 13px 0 15px;
   cursor: default;
 }
 
@@ -147,6 +147,21 @@
   width: 195px;
 }
 
+/* Function labels */
+
+.icon_label {
+  color: #21587f;
+  font-family: arial,Helvetica,sans-serif;
+  font-size: 13px;
+  padding-left: 20px;
+  border: none;
+  display: inline-block;
+  margin-top: 3px;
+}
+
+.help_on_icon {
+  background: transparent url(../images/page/icons/help.png) no-repeat scroll 0 -16px;
+}
 
 /* FUNCTION BUTTONS */
 
@@ -730,16 +745,26 @@
   text-align: center;
 }
 
-#search_form #search_terms {
+#search_form .search_field {
   background: #FFF url(../images/page/searchbar_left.png) no-repeat scroll left top;
-  width: 365px;
+  width: 380px;
   height: 29px;
-  border: none;
   display: inline-block;
-  vertical-align: top;
+}
+
+#search_form #search_terms {
+  background: transparent;
+  display: inline-block;
+  border: none;
+  width: 365px;
+  height: 23px;
   font-size: 17px;
   color: #21587f;
-  padding-left: 11px;
+  margin: 0;
+  padding: 2px 2px 3px;
+  position: absolute;
+  left: 292px;
+  top: 1px;
 }
 
 /*#search_form input[type='submit'],*/

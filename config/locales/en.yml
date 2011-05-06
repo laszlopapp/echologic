@@ -59,6 +59,28 @@ en:
          to your preferences.
          </p>
 
+  help:
+    discuss:
+      closed_discussions:
+        hint: Tags to create closed discussions...
+        text: |
+          <p>Defining a *tag (starting with ONE *) will make this discussion semi-closed. Users must define the same
+          *tag as a decision making tag in their profile to be able to participate in the discussion, however it
+          will remain visible and transparent to the outside world.</p>
+          <p>Defining a **tag (with TWO **) will make this discussion fully closed. It will only be visible for users
+          having the same **tag as a decision making tag in their profile.</p>
+          <p>Please note, that this is just a temporary solution to facilitate closed discussions in echo. The real
+          solution with contact lists, invitations and fine-graded access right management will be coming later.</p>
+    profile:
+      closed_discussions:
+        hint: Tags to access closed discussions...
+        text: |
+          <p>Here you can enter the appropriate *tags and **tags as decision making tags. This will allow you to
+          take part in transparent, semi-closed discussions (tagged with *tag) and to see closed, internal
+          ones (protected with **tag) respectively.</p>
+          <p>Please note, that this is just a temporary solution to facilitate closed discussions in echo. The real
+          solution with contact lists, invitations and fine-graded access right management will be coming later.</p>
+
   # Localizations for the layout components
   layouts:
     tabs:
@@ -231,7 +253,12 @@ en:
     # Spoken Languages section
     spoken_languages:
       title: Language Skills
-      guide: Here you can enter your language skills.
+      guide: |
+        Here you can enter your language skills to <strong>see content only in languages you speak</strong>.<br/>
+        Additionally, it will enable you to contribute to echos cross-language, intercultural dialogs by
+        <strong>translating statements</strong> between languages you speak <strong>at least intermediate level</strong>.
+        This is to ensure good content quality.<br/>
+        Please don't forget to also set your <strong>mother language</strong>.
       language: Language
       level: Level
       error_messages:
@@ -415,12 +442,11 @@ en:
       no_questions: |
         You haven't created any questions yet. To do so, please click on the question mark button on the left.
       add: Add New Question
-    tag_permission: |
-      You do not have the permission to insert the '{{tag}}' tag.
     translation_request: Please translate this statement to <strong>ENGLISH</strong>.
-    original_language_warning: |
-      The original statement is in <strong>{{language}}</strong>. Set your <br/>
-      language skills to see content in other languages.
+    mixed_languages: Mixed up languages
+    set_languages: Set your <strong>LANGUAGE SKILLS</strong> - Wipe out the noise!
+    no_locale_language: Do you speak ENGLISH?
+    adjust_languages: Please define your <strong>ENGLISH language skills</strong>! 
     results_count:
       one: '{{count}} question'
       more: '{{count}} questions'
@@ -472,7 +498,7 @@ en:
       create_improvement: "Post a new addition to the current proposal"
       create_pro_argument: "Post a new PRO argument to this proposal"
       create_contra_argument: "Post a new CONTRA argument to this proposal"
-      create_follow_up_question: "Post a new new follow-up question"
+      create_follow_up_question: "Post a new new follow-up question concerning the current statement"
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your echo to stop supporting this statement'
       publish: |
@@ -505,9 +531,9 @@ en:
       create_contra_argument_link: Add new CONTRA argument
       create_follow_up_question_link: Add new follow-up question
       recommend_link: 'Recommend (echo)'
-      unrecommend_link: 'Withdraw echo'
+      unrecommend_link: 'Withdraw vote'
       support_link: 'Support (echo)'
-      unsupport_link: 'Withdraw echo'
+      unsupport_link: 'Withdraw vote'
       create_question_explanation: |
         Please formulate the <strong>question</strong> to be discussed, describe the issue with some more details
         and tag it with <strong>relevant keywords</strong> for better searchability.
@@ -529,6 +555,10 @@ en:
       fuq_formulation_hint: |
         Since follow-up questions also appear as questions in "Search", title and description should both be
         comprehensible independently of the original discussion.
+      tag_permission: |
+        You do not have the permission to insert the '{{tag}}' tag.
+      read_permission: |
+        You do not have permission to read this statement.
       title_hint:
         question: Enter the question title in... English?
         proposal: Enter the proposal title in... English?
@@ -570,8 +600,14 @@ en:
         question: 'Questions'
         proposal: 'Proposals'
         improvement: 'Additions'
-        argument: 'Arguments'
+        argument: 'Pros & Cons'
         follow_up_question: 'Follow-up Questions'
+      sibling_labels:
+        question: 'Questions'
+        proposal: 'Proposals'
+        improvement: 'Additions'
+        argument: 'Arguments'
+        follow_up_question: 'Questions'
       siblings:
         follow_up_question: 'Follow-up Question in the context shown above'
 
@@ -580,7 +616,7 @@ en:
         label: 'Publish question immediately?'
         initial_state:
           new: 'Set up at first and publish later'
-          published: 'Publish immediately (no further editing is possible)'
+          published: 'Publish immediately (further editing will be limited)'
         published: Released
         approved: Approved
       delete_link: 'Delete'
@@ -611,6 +647,7 @@ en:
       supporter_to_share: 'You must be a supporter of this statement in order to share it!'
       published_to_share: 'This discussion is yet to be published. Until then, it is not possible to share it.'
       cannot_be_edited: Unfortunately, you cannot edit this statement after other members supported it. This is to avoid faking of opinions.
+      echos_label: Support
 
       breadcrumbs:
         discuss_search: Search results
@@ -618,7 +655,7 @@ en:
         labels:
           ds: ''
           mi: ''
-          sr: 'Search results for'
+          sr: 'Questions found for'
           fq: 'Follow-up Questions for'
           over:
             ds: 'Back to'
