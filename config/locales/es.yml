@@ -63,7 +63,7 @@ es:
   help:
     discuss:
       closed_discussions:
-        hint: Tags to create closed discussions...
+        hint: Tags para crear conversaciones privadas...
         text: |
           <p>Defining a *tag (starting with ONE *) will make this discussion semi-closed. Users must define the same
           *tag as a decision making tag in their profile to be able to participate in the discussion, however it
@@ -76,13 +76,13 @@ es:
           solution with contact lists, invitations and fine-graded access right management will be coming later.</p>
     profile:
       closed_discussions:
-        hint: Tags to access closed discussions...
+        hint: Tags para crear conversaciones privadas...
         text: |
-          <p>Here you can enter the appropriate *tags and **tags as decision making tags. This will allow you to
-          take part in transparent, semi-closed discussions (tagged with *tag) and to see closed, internal
-          ones (protected with **tag) respectively.</p>
-          <p>Also note, that this is just a temporary solution to facilitate closed discussions in echo. The real
-          solution with contact lists, invitations and fine-graded access right management will be coming later.</p>
+          <p>Aqui puede *etiquetar y **etiqueta hecha en tu perfil. Esto te permitirá participar en los debates
+          transparentes, las conversaciones semi-privadas (etiquetados con **etiquetas)  privadas e internas
+          (protegido con **etiqueta) respectivamente.</p>
+          <p>Ten en cuenta, que es una solución temporal para facilitar las conversaciones privadas en echo.
+          La solución con las listas de contactos, invitaciones y la gestión de derechos de acceso esta por venir
 
   # Localizations for the layout components
   layouts:
@@ -252,7 +252,12 @@ es:
     # Spoken Languages section
     spoken_languages:
       title: Idiomas que hablo
-      guide:  Por favor indica los idiomas que hablas y el nivel que tienes en cada uno.
+      guide: |
+        Aqui puedes incluir tu idioma <strong>para ver el contenido sólo en la lengua que hablas</strong>.<br/>
+        Además, te permitirá colaborar con Eco en otros idiomas, diálogo intercultural mediante
+        <strong>la traducción de las declaraciones</strong> entre los idiomas que hablas al menos en
+        un nivel intermedio para garantizar la calidad del buen contenido.<br/>
+        No olvides colocar tu <strong>idioma materno</strong>.
       language: Idioma
       level: Nivel
       error_messages:
@@ -459,6 +464,10 @@ es:
       El texto original es <strong>{{language}}</strong>. Por favor, <br/>
       indica los idiomas que conoces.
     translation_request: Por favor, traduce este texto al <strong>ESPAÑOL</strong>.
+    mixed_languages: Mezcla de idiomas
+    set_languages: Selecciona tu <strong>Idioma</strong> - Descifra los idiomas!
+    no_locale_language: Hablas Español?
+    adjust_languages: Elige <strong>tu idioma</strong>!
     results_count:
       one: '{{count}} debates'
       more: '{{count}} debates'
@@ -552,9 +561,9 @@ es:
       create_contra_argument_link: Crear un nuevo argumento en contra
       create_follow_up_question_link: Formular una nueva pregunta de seguimiento
       recommend_link: 'Recomienda (echo)'
-      unrecommend_link: 'Retira tu ec(h)o'
+      unrecommend_link: 'Retirar voto'
       support_link: 'Apoya (echo)'
-      unsupport_link: 'Retira tu ec(h)o'
+      unsupport_link: 'Retirar voto'
       create_question_explanation: |
         Aquí puedes iniciar un <strong>nuevo debate</strong>.
         Por favor, no te olvides de insertar palabras clave para que tu nuevo debate sea hallado fácilmente.
@@ -618,7 +627,7 @@ es:
         question: 'Cuestiones'
         proposal: 'Propuestas'
         improvement: 'Mejora'
-        argument: 'Argumentos'
+        argument: 'Pros & Cons'
         follow_up_question: 'Preguntas de Seguimiento'
       sibling_labels:
         question: 'Cuestiones'
@@ -678,7 +687,7 @@ es:
         labels:
           ds: ''
           mi: ''
-          sr: 'Buscar resultados para'
+          sr: 'Preguntas encontrada por'
           fq: 'Preguntas de seguimiento para'
           over:
             ds: 'Volver a'
