@@ -845,7 +845,7 @@ class StatementsController < ApplicationController
       # User has none of the *tags -> no write permission
       set_info('discuss.statements.read_only_permission')
       respond_to do |format|
-        format.html { flash_info and redirect_to(statement_node_url(statement_node)) }
+        format.html { flash_info and redirect_to request.referer }
         format.js do
           render_with_info
         end
