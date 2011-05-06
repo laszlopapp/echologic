@@ -155,7 +155,10 @@ class StatementsController < ApplicationController
       if has_permission #TODO: is this really necessary? this actually blocks the possible errors from the document to show up
         # Persisting
         StatementNode.transaction do
+          
+          # IF ALTERNATIVE
           @statement_node.move_to_alternatives_hub(node_id) if params[:hub] and params[:hub].eql? 'alternative'
+          
           if @statement_node.save
             # add to tree
             if node_id.blank? or @statement_node.class.is_top_statement?
