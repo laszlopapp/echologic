@@ -75,7 +75,7 @@
           initMoreButton();
           initAllStatementLinks();
 					//initFlicks();
-					initAllFUQLinks();
+					//initAllFUQLinks();
         }
       }
 
@@ -336,62 +336,35 @@
        * Initializes links for all statements but Follow-up Questions.
        */
       function initStatementLinks(container, newLevel) {
-				container.find('a.statement_link:not(.follow_up_question_link):Event(!click)').bind("click", function() {
-					var current_stack = getStatementsStack(this, newLevel);
-					var new_bid = newLevel ? (generate_key($(this).parent().attr('class')) + statementId) : null;
-					var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(new_bid);
-					//var origin = bids.length == 0 ? '' : bids[bids.length - 1];
+				var current_stack = getStatementsStack(null, newLevel);
+				var current_bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
+				container.find('a.statement_link').bind("click", function() {
+					var childId = $(this).parent().attr('statement-id');
+					var key = generate_key($(this).parent().attr('class'));
+					var bids = current_bids;
+					if(newLevel){bids.push((key + statementId))};
+					var stack = current_stack, origin;
+          switch(key){
+						case 'fq':
+						  stack = [childId];
+							origin = current_bids.length == 0 ? '' : current_bids[current_bids.length - 1];
+						  break;
+						default :
+						  stack.push(childId);
+							origin = $.fragment().origin;
+						  break;
+					}
           $.setFragment({
-            "sids": current_stack.join(','),
+            "sids": stack.join(','),
             "new_level": newLevel,
-						"bids": bids.join(',')//,
-           // "origin": origin
+						"bids": bids.join(','),
+						"origin": origin
           });
           return false;
         });
       }
 			
-			/* Initializes follow up question links. */
-      function initFUQLinks(container, newLevel) {
-        container.find("a.statement_link.follow_up_question_link:Event(!click)").bind("click", function() {
-					var questionId = $(this).parent().attr('statement-id');
-					var new_bid = newLevel ? 'fq'+statementId : null;
-          var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(new_bid);
-          var origin = bids.length == 0 ? '' : bids[bids.length - 1];
-          $.setFragment({
-						"sids": questionId,
-						"new_level": newLevel,
-            "bids": bids.join(','),            
-            "origin": origin
-          });
-          return false;
-        });
-      }
-
-
-      /*
-		   * Handles the follow up question (FUQ) related behaviour:
-		   * - click on the statement's FUQ child
-		   * - new FUQ button,
-		   * - FUQ form's cancel button
-		   */
-		  function initAllFUQLinks() {
-        statement.find(".follow_up_questions.children").each(function(){
-					initFUQChildrenLinks($(this));
-				});
-			}
-
-      /* Initializes follow up question children. */
-      function initFUQChildrenLinks(container) {
-				initFUQLinks(container, true);
-			}
-
-
-      /* Initializes follow up question siblings. */
-			function initFUQSiblingsLinks(container) {
-        initFUQLinks(container, false);
-      }
-
+			
 
       
 
@@ -403,22 +376,25 @@
 		   * - newLevel: true or false (child statement link)
 		   */
 		  function getStatementsStack(statementLink, newLevel) {
-				// Get soon to be visible statement
-		    var path = statementLink.href.split("/");
-		    var id = path.pop().split('?').shift();
-
-        var current_sids;
-		    if (id.match(/\d+/)) {
-		      current_sids = id;
-		    } else {
-		      // Add teaser case
-		      // When there's a parent id attached, copy :id/add/:type, or else, just copy the add/:type
-		      var index_backwards = path[path.length - 2].match(/\d+/) ? 2 : 1;
-		      current_sids = path.splice(path.length - index_backwards, 2);
-		      current_sids.push(id);
-		      current_sids = current_sids.join('/');
+				if (statementLink) {
+					// Get soon to be visible statement
+					var path = statementLink.href.split("/");
+					var id = path.pop().split('?').shift();
+					
+					var current_sids;
+					if (id.match(/\d+/)) {
+						current_sids = id;
+					}
+					else {
+						// Add teaser case
+						// When there's a parent id attached, copy :id/add/:type, or else, just copy the add/:type
+						var index_backwards = path[path.length - 2].match(/\d+/) ? 2 : 1;
+						current_sids = path.splice(path.length - index_backwards, 2);
+						current_sids.push(id);
+						current_sids = current_sids.join('/');
+					}
 		    }
-
+				
 		    // Get current_stack of visible statements (if any matches the clicked statement, then break)
 				var current_stack = [];
 		    $("#statements .statement").each( function(index){
@@ -435,7 +411,9 @@
 		        }
 		    });
 		    // Insert clicked statement
-		    current_stack.push(current_sids);
+				if (current_sids) {
+					current_stack.push(current_sids);
+				}
 				return current_stack;
 		  }
 
@@ -461,7 +439,6 @@
 				reinitialiseSiblings: function(siblingsContainerSelector) {
           var container = statement.find(siblingsContainerSelector);
           initSiblingsLinks(container);
-          initFUQSiblingsLinks(container);
 					if (isEchoable) {
 			  		statement.data('echoableApi').loadRatioBars(container);
 				  }
