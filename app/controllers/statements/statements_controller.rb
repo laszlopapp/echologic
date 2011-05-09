@@ -759,7 +759,8 @@ class StatementsController < ApplicationController
         when "mi" then breadcrumb[:css] = "my_discussions_link statement_link"
                        breadcrumb[:url] = my_questions_url
                        breadcrumb[:title] = I18n.t("discuss.statements.breadcrumbs.my_questions")
-        when "fq" then statement_node = StatementNode.find(bid[2..-1])
+        when "pr", "im", "ar", "fq" 
+                  then statement_node = StatementNode.find(bid[2..-1])
                        statement_document = search_statement_documents(:statement_ids => [statement_node.statement_id])[statement_node.statement_id] ||
                                             statement_node.document_in_original_language
                        origin = index > 0 ? bids[index-1] : ''

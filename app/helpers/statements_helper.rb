@@ -501,10 +501,18 @@ module StatementsHelper
     bids << bid
     bids = bids.join(",")
 
-    link_to h(title),
-            statement_node_url(statement_node.target_id, :bids => bids, :origin => params[:origin],  :new_level => true),
-            :class => "statement_link #{dom_class(statement_node)}_link #{extra_classes}"
+
+    content_tag :li, :class => dom_class(statement_node), 'statement-id' => statement_node.target_id do
+      content = ''
+      content << link_to(h(title),
+                 statement_node_url(statement_node.target_id, :bids => bids, :origin => params[:origin],  :new_level => true),
+                 :class => "statement_link #{type}_link #{extra_classes}")
+      content << supporter_ratio_bar(statement_node)
+      content
+    end
   end
+  
+  
 
   #
   # Draws the statement image container.
