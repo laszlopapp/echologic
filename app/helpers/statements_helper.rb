@@ -550,7 +550,7 @@ module StatementsHelper
         content << content_tag(:span, '', :class => 'big_delimiter') if index != 0
         content << content_tag(:span, b[:label], :class => 'label')
         content << content_tag(:span, b[:over], :class => 'over')
-        content << content_tag(:span, h(b[:title].gsub(/\\;/, ',').gsub(/\\:;/, '|')), :class => b[:css])
+        content << content_tag(:span, h(Breadcrumb.instance.decode_terms(b[:title])), :class => b[:css])
         content
       end
       breadcrumb_trail << breadcrumb
