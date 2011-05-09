@@ -37,8 +37,9 @@
     function Statement(statement) {
 			var timer;
       var statementDomId = statement.attr('id');
+			var statementType = statementDomId.match(/\w+[^_\d+]/);
       var statementId = getStatementId(statementDomId);
-      var statement_index;
+			var parentStatement, statement_index;
 
       // Initialize the statement
       initialise();
@@ -52,6 +53,7 @@
 
           // Initialise index of the current statement
           statement_index = $('#statements .statement').index(statement);
+					parentStatement = statement.prev();
 
 					// Navigation through siblings
 	        storeSiblings();
@@ -75,7 +77,6 @@
           initMoreButton();
           initAllStatementLinks();
 					//initFlicks();
-					//initAllFUQLinks();
         }
       }
 
@@ -290,11 +291,25 @@
 		   * Sets the different links on the statement UI, after the user clicked on them.
 		   */
 		  function initAllStatementLinks() {
+				var key;
+				if (parentStatement.length > 0) {
+					key = generateKey(statementType) + getStatementId(parentStatement.attr('id'));
+				}
 		    statement.find('.header a.statement_link').bind("click", function() {
+					
 					var old_stack = $.fragment().sids;
 		      var current_stack = getStatementsStack(this, false);
-					var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
-					var origin = bids.length == 0 ? '' : bids[bids.length-1];
+					var current_bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
+					var bids;
+					
+					var index = key ? $.inArray(key, current_bids) : -1;
+					if (index != -1) {
+						bids = current_bids.splice(0, index + 1);
+					} else {
+						var l = current_bids.length;
+						bids = current_bids.splice(0, l - (3-l%3)+1);
+					}
+					var origin = $.fragment().origin;
 
 					if (current_stack.join(',') != old_stack) {
             statement.find('.header .loading').show();
@@ -340,7 +355,7 @@
 				var current_bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
 				container.find('a.statement_link').bind("click", function() {
 					var childId = $(this).parent().attr('statement-id');
-					var key = generate_key($(this).parent().attr('class'));
+					var key = generateKey($(this).parent().attr('class'));
 					var bids = current_bids;
 					if(newLevel){bids.push((key + statementId))};
 					var stack = current_stack, origin;

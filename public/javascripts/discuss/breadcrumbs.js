@@ -189,21 +189,23 @@
                                                       settings['animation_speed']);
 				},
 
-				deleteAfter : function (originId) {
+				deleteAfter : function (originId, level) {
 					var jsp = breadcrumbs.data('jsp');
 					var elements = jsp.getContentPane().find('.elements');
 					if (originId.length > 0) {
 						if($.inArray(originId.substring(0,2),['ds','sr']) != -1){originId = originId.substring(0,2);}
             // There is an origin, so delete breadcrumbs to the right
-				  	var to_remove = elements.find('a#' + originId).nextAll().remove();
+						var breadcrumb_ids = elements.find('.breadcrumb').map(function(){return $(this).attr('id')});
+						var index = $.inArray(originId, breadcrumb_ids);
+				  	var to_remove = elements.find('.breadcrumb:eq(' + (index + level) + ')').nextAll().remove();
             var remove_length = to_remove.length;
             to_remove.remove();
 				  } else {
-						// No origin, that means first breadcrumb pressed, no predecessor, so delete everything
-						elements.find('a').each(function() {
-						  $(this).remove();
-						});
-					}
+					// No origin, that means first breadcrumb pressed, no predecessor, so delete everything
+					elements.find('a').each(function() {
+					  $(this).remove();
+					});
+				 }
 
           if (remove_length > 0) {
             jsp.scrollToX(0);

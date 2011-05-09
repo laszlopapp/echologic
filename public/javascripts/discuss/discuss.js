@@ -174,16 +174,25 @@ function socialSharingFinished(array) {
 
 
 
-function generate_key(label) {
-	switch(label) {
-		case 'proposal':
-		  return 'pr';
-	  case 'improvement':
+function generateKey(type) {
+	if (type=='proposal'){return 'pr';}
+	else if (type =='improvement'){return 'im';}
+	else if (type=='pro_argument' || type=='contra_argument'){return 'ar';}
+	else if (type=='follow_up_question'){return 'fq';}
+	else {return '';}
+	switch(type) {
+		case "question":
+		  return "qu";
+		case "proposal":
+		  return "pr";
+	  case "improvement":
 		  return 'im';
-	  case 'pro_argument':
-		case 'contra_argument':
+	  case "pro_argument":
+		case "contra_argument":
 		  return 'ar';
-	  case 'follow_up_question':
+	  case "follow_up_question":
 		  return 'fq';
+	  default:
+		  return '';
 	}	
 }

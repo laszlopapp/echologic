@@ -21,13 +21,15 @@
   <% end %>
 <% end %>
 
+<% level = (@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 0 : @statement_node.level + 1 %>
+
 /* breadcrumb */
 <% if !params[:origin].blank? %>
-  $('#breadcrumbs').data('breadcrumbApi').deleteAfter('<%= params[:origin] %>');
+  $('#breadcrumbs').data('breadcrumbApi').deleteAfter('<%= params[:origin] %>', <%= level %>);
 <% end %>
 <% if @breadcrumbs %>
   $('#breadcrumbs').data('breadcrumbApi').addBreadcrumbs(<%= @breadcrumbs.to_json %>);
 <% end %>
 
-var add_teaser = $("<%= escape_javascript(render :partial => 'statements/add') %>").statement({'level' : <%= (@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 0 : @statement_node.level + 1 %>});
+var add_teaser = $("<%= escape_javascript(render :partial => 'statements/add') %>").statement({'level' : <%= level %>});
 add_teaser.data('api').removeBelow();
