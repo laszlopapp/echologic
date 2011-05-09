@@ -172,3 +172,18 @@ function socialSharingFinished(array) {
 }
 
 
+
+
+function generate_key(label) {
+	switch(label) {
+		case 'proposal':
+		  return 'pr';
+	  case 'improvement':
+		  return 'im';
+	  case 'pro_argument':
+		case 'contra_argument':
+		  return 'ar';
+	  case 'follow_up_question':
+		  return 'fq';
+	}	
+}

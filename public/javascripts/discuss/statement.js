@@ -336,15 +336,32 @@
        * Initializes links for all statements but Follow-up Questions.
        */
       function initStatementLinks(container, newLevel) {
-        var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
-        var origin = bids.length == 0 ? '' : bids[bids.length - 1];
-
 				container.find('a.statement_link:not(.follow_up_question_link):Event(!click)').bind("click", function() {
 					var current_stack = getStatementsStack(this, newLevel);
+					var new_bid = newLevel ? (generate_key($(this).parent().attr('class')) + statementId) : null;
+					var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(new_bid);
+					//var origin = bids.length == 0 ? '' : bids[bids.length - 1];
           $.setFragment({
             "sids": current_stack.join(','),
-            "new_level": true,
-						"bids": bids.join(','),
+            "new_level": newLevel,
+						"bids": bids.join(',')//,
+           // "origin": origin
+          });
+          return false;
+        });
+      }
+			
+			/* Initializes follow up question links. */
+      function initFUQLinks(container, newLevel) {
+        container.find("a.statement_link.follow_up_question_link:Event(!click)").bind("click", function() {
+					var questionId = $(this).parent().attr('statement-id');
+					var new_bid = newLevel ? 'fq'+statementId : null;
+          var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(new_bid);
+          var origin = bids.length == 0 ? '' : bids[bids.length - 1];
+          $.setFragment({
+						"sids": questionId,
+						"new_level": newLevel,
+            "bids": bids.join(','),            
             "origin": origin
           });
           return false;
@@ -376,20 +393,7 @@
       }
 
 
-      /* Initializes follow up question links. */
-      function initFUQLinks(container, newLevel) {
-        container.find("a.statement_link.follow_up_question_link:Event(!click)").bind("click", function() {
-					var questionId = $(this).parent().attr('statement-id');
-          var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(newLevel ? 'fq'+statementId : null);
-          $.setFragment({
-            "bids": bids.join(','),
-            "sids": questionId,
-            "new_level": newLevel,
-            "origin": bids[bids.length - 1]
-          });
-          return false;
-        });
-      }
+      
 
 
 		  /*
