@@ -496,11 +496,11 @@ module StatementsHelper
   #
   def link_to_child(title, statement_node,extra_classes, type = dom_class(statement_node))
     bids = params[:bids] || ''
-    if statement_node.class.is_top_statement?
-      bids = bids.split(",")
-      bids << "fq#{@statement_node.target_id}"
-      bids = bids.join(",")
-    end
+    bids = bids.split(",")
+    bid = "#{Breadcrumb.instance.generate_key(type)}#{@statement_node.target_id}"
+    bids << bid
+    bids = bids.join(",")
+
     link_to h(title),
             statement_node_url(statement_node.target_id, :bids => bids, :origin => params[:origin],  :new_level => true),
             :class => "statement_link #{dom_class(statement_node)}_link #{extra_classes}"
