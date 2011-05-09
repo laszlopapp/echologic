@@ -197,7 +197,8 @@
             // There is an origin, so delete breadcrumbs to the right
 						var breadcrumb_ids = elements.find('.breadcrumb').map(function(){return $(this).attr('id')});
 						var index = $.inArray(originId, breadcrumb_ids);
-				  	var to_remove = elements.find('.breadcrumb:eq(' + (index + level) + ')').nextAll().remove();
+				  	var to_remove = elements.find('.breadcrumb:eq(' + (index + level) + ')');
+						to_remove.nextAll().remove();
             var remove_length = to_remove.length;
             to_remove.remove();
 				  } else {

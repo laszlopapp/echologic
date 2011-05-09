@@ -24,9 +24,11 @@
 
 
 /* breadcrumb */
+<% if params[:expand].blank? %>
 $('#breadcrumbs').data('breadcrumbApi').deleteAfter('<%= params[:origin] %>', <%= @statement_node.level %>);
 <% if @breadcrumbs %>
   $('#breadcrumbs').data('breadcrumbApi').addBreadcrumbs(<%= @breadcrumbs.to_json %>);
+<% end %>
 <% end %>
 
 <% if !params[:expand].blank? %>
