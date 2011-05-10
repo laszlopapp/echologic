@@ -365,28 +365,32 @@
 					var childId = $(this).parent().attr('statement-id');
 					var key = generateKey($(this).parent().attr('class'));
 					var current_bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
-					var bids = current_bids;
-					if(newLevel){
-						var level = Math.floor((bids.length-1)/3) * 3 + (statement_index+1);
-						bids = bids.splice(0, level);
-						
-						var new_bid = key + statementId;
-						bids.push(new_bid);
-					}
 					
-          $('#breadcrumbs').data('element_clicked', generateBreadcrumbKey());
+					var bids = current_bids;
+          if(newLevel){
+            var or_index = bids.length == 0 ? 0 : $.inArray($.fragment().origin, bids);
+            var level = or_index + (statement_index+1);
+            bids = bids.splice(0, level);
+            var new_bid = key + statementId;
+            bids.push(new_bid);
+          }
 					
 					var stack = current_stack, origin;
           switch(key){
 						case 'fq':
 						  stack = [childId];
-							origin = current_bids.length == 0 ? '' : current_bids[current_bids.length - 1];
+							origin = bids.length == 0 ? '' : bids[bids.length - 1];
 						  break;
 						default :
 						  stack.push(childId);
 							origin = $.fragment().origin;
 						  break;
 					}
+					
+					
+          
+          $('#breadcrumbs').data('element_clicked', generateBreadcrumbKey());
+					
           $.setFragment({
             "sids": stack.join(','),
             "new_level": newLevel,
