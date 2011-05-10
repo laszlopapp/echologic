@@ -25,7 +25,7 @@
 
 /* breadcrumb */
 <% if params[:expand].blank? %>
-	$('#breadcrumbs').data('breadcrumbApi').deleteAfter('<%= params[:origin] %>', <%= @statement_node.level %>, <%= !@breadcrumbs.blank? %>);
+	$('#breadcrumbs').data('breadcrumbApi').deleteAfter();
 	<% if @breadcrumbs %>
 	  $('#breadcrumbs').data('breadcrumbApi').addBreadcrumbs(<%= @breadcrumbs.to_json %>);
 	<% end %>

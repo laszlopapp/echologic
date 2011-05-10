@@ -24,9 +24,7 @@
 <% level = (@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 0 : @statement_node.level + 1 %>
 
 /* breadcrumb */
-<% if !params[:origin].blank? %>
-  $('#breadcrumbs').data('breadcrumbApi').deleteAfter('<%= params[:origin] %>', <%= level %>, <%= !@breadcrumbs.blank? %>);
-<% end %>
+$('#breadcrumbs').data('breadcrumbApi').deleteAfter();
 <% if @breadcrumbs %>
   $('#breadcrumbs').data('breadcrumbApi').addBreadcrumbs(<%= @breadcrumbs.to_json %>);
 <% end %>

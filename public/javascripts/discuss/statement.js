@@ -37,7 +37,7 @@
     function Statement(statement) {
 			var timer;
       var statementDomId = statement.attr('id');
-			var statementType = statementDomId.match(/\w+[^_\d+]/);
+			var statementType = statementDomId.match(/[^add_]\w+[^_\d+]/);
       var statementId = getStatementId(statementDomId);
 			var parentStatement, statement_index;
 
@@ -287,35 +287,42 @@
         });
 	    }
 
+      function generateBreadcrumbKey() {
+				if (parentStatement.length > 0) {
+          return generateKey(statementType) + getStatementId(parentStatement.attr('id'));
+        } else {
+          return $.fragment().origin;
+        }
+			}
+			
 		  /*
 		   * Sets the different links on the statement UI, after the user clicked on them.
 		   */
 		  function initAllStatementLinks() {
-				var key;
-				if (parentStatement.length > 0) {
-					key = generateKey(statementType) + getStatementId(parentStatement.attr('id'));
-				}
-		    statement.find('.header a.statement_link').bind("click", function() {
+				var key = generateBreadcrumbKey();
+				
+        statement.find('.header a.statement_link').bind("click", function() {
 					
 					var old_stack = $.fragment().sids;
 		      var current_stack = getStatementsStack(this, false);
 					var current_bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
 					var bids;
 					
-					var index = key ? $.inArray(key, current_bids) : -1;
-					if (index != -1) {
+					// Update the bids
+					var index = $.inArray(key, current_bids);
+					if (index != -1) { // if parent breadcrumb exists, then delete everything after it
 						bids = current_bids.splice(0, index + 1);
 					} else {
-						var l = current_bids.length;
-						bids = current_bids.splice(0, l - (3-l%3)+1);
+						bids = current_bids;
 					}
+					// save element after which the breadcrumbs will be deleted
+          $('#breadcrumbs').data('element_clicked', key);
+					
 					var origin = $.fragment().origin;
 
 					if (current_stack.join(',') != old_stack) {
             statement.find('.header .loading').show();
           }
-
-          $('#breadcrumbs').data('element_clicked', key);
 
 		      $.setFragment({
 		        "sids": current_stack.join(','),
@@ -353,19 +360,21 @@
        */
       function initStatementLinks(container, newLevel) {
 				var current_stack = getStatementsStack(null, newLevel);
-				var current_bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
+				
 				container.find('a.statement_link').bind("click", function() {
 					var childId = $(this).parent().attr('statement-id');
 					var key = generateKey($(this).parent().attr('class'));
+					var current_bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
 					var bids = current_bids;
 					if(newLevel){
-						bids.push((key + statementId));
-						if (parentStatement.length > 0) {
-							$('#breadcrumbs').data('element_clicked', generateKey(statementType) + getStatementId(parentStatement.attr('id')));
-						} else {
-							$('#breadcrumbs').data('element_clicked', $.fragment().origin);
-						}
+						var new_bid = key + statementId;
+						var level = bids.length - (3 - bids.length%3) + (statement_index+1);
+						bids = bids.splice(0, level);
+						bids.push(new_bid);
 					}
+					
+          $('#breadcrumbs').data('element_clicked', generateBreadcrumbKey());
+					
 					var stack = current_stack, origin;
           switch(key){
 						case 'fq':
