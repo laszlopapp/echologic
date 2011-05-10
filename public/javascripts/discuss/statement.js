@@ -367,9 +367,10 @@
 					var current_bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
 					var bids = current_bids;
 					if(newLevel){
-						var new_bid = key + statementId;
-						var level = bids.length - (3 - bids.length%3) + (statement_index+1);
+						var level = Math.floor((bids.length-1)/3) * 3 + (statement_index+1);
 						bids = bids.splice(0, level);
+						
+						var new_bid = key + statementId;
 						bids.push(new_bid);
 					}
 					
