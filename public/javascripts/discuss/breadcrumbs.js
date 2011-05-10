@@ -209,13 +209,20 @@
 						var remove_length = to_remove.length;
 						
 						
-				  }/* else {
-					// No origin, that means first breadcrumb pressed, no predecessor, so delete everything
-					elements.find('a').each(function() {
-					  $(this).remove();
-					});
-				 }*/
-				breadcrumbs.removeData('element_clicked');
+				  } else {
+						
+						var bids = $.fragment().bids;
+						var remove_length = 0;
+						bids = bids ? bids.split(',') : [];
+						// No origin, that means first breadcrumb pressed, no predecessor, so delete everything
+						elements.find('.breadcrumb').each(function() {
+						  if($.inArray(truncateBreadcrumbKey($(this)), bids) == -1) {
+								remove_length += $(this).length;
+								$(this).remove();
+						  }
+						});
+					}
+				  breadcrumbs.removeData('element_clicked');
 
           if (remove_length > 0) {
             jsp.scrollToX(0);
