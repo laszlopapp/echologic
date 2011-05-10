@@ -315,6 +315,7 @@
             statement.find('.header .loading').show();
           }
 
+          $('#breadcrumbs').data('element_clicked', key);
 
 		      $.setFragment({
 		        "sids": current_stack.join(','),
@@ -357,7 +358,14 @@
 					var childId = $(this).parent().attr('statement-id');
 					var key = generateKey($(this).parent().attr('class'));
 					var bids = current_bids;
-					if(newLevel){bids.push((key + statementId))};
+					if(newLevel){
+						bids.push((key + statementId));
+						if (parentStatement.length > 0) {
+							$('#breadcrumbs').data('element_clicked', generateKey(statementType) + getStatementId(parentStatement.attr('id')));
+						} else {
+							$('#breadcrumbs').data('element_clicked', $.fragment().origin);
+						}
+					}
 					var stack = current_stack, origin;
           switch(key){
 						case 'fq':

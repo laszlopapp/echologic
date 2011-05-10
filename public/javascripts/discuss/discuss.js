@@ -67,7 +67,10 @@ function initFragmentStatementChange() {
 			sids = $.grep(new_sids, function (a) {
 				return $.inArray(a, visible_sids) == -1 ;});
 
+
+      /* Breadcrumb Logic */
       var bids = $("#breadcrumbs").data('breadcrumbApi').breadcrumbsToLoad($.fragment().bids);
+			
 
 			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sids": sids.join(","),
