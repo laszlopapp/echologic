@@ -63,26 +63,23 @@ es:
   help:
     discuss:
       closed_discussions:
-        hint: Tags para crear conversaciones privadas...
+        hint: Tags para conversaciones privadas...
         text: |
-          <p>Defining a *tag (starting with ONE *) will make this discussion semi-closed. Users must define the same
-          *tag as a decision making tag in their profile to be able to participate in the discussion, however it
-          will remain visible and transparent to the outside world.</p>
-          <p>Defining a **tag (with TWO **) will make this discussion fully closed. It will only be visible for users
-          having the same **tag as a decision making tag in their profile.</p>
-          <p>Please note, that you must add *tags and **tags in your profile as decision making tags first,
-          before you can use them to control access rights on discussions.</p>
-          <p>Also note, that this is just a temporary solution to facilitate closed discussions in echo. The real
-          solution with contact lists, invitations and fine-graded access right management will be coming later.</p>
+          <p>Definir *tag (comenzar UNA *) hacer esta conversación semi-privada. Los usuarios deben definir el
+          mismo *tag como el tag hecho en tu perfil para poder participar en el debate, sin embargo, permanecerá
+          visible y transparente con el mundo exterior.</p>
+          <p>Definir **tag (con DOS **) hacer esta conversación completamente privada. Sólo será visible para
+          usuarios con el mismo **tag hecha en tu perfil.</p>
+          <p>Ten en cuenta, que es una solución temporal para facilitar las conversaciones privadas en echo.
+          La solución con las listas de contactos, invitaciones y la gestión de derechos de acceso esta por venir.</p>
     profile:
       closed_discussions:
-        hint: Tags para crear conversaciones privadas...
+        hint: Tags para conversaciones privadas...
         text: |
-          <p>Aqui puede *etiquetar y **etiqueta hecha en tu perfil. Esto te permitirá participar en los debates
-          transparentes, las conversaciones semi-privadas (etiquetados con **etiquetas)  privadas e internas
-          (protegido con **etiqueta) respectivamente.</p>
+          <p>Aqui puede *tag y **tag hecho en tu perfil. Esto te permitirá participar en los debates transparentes,
+          las conversaciones semi-privadas (marcado con *tag)  privadas e internas (protegido con **tag) respectivamente.</p>
           <p>Ten en cuenta, que es una solución temporal para facilitar las conversaciones privadas en echo.
-          La solución con las listas de contactos, invitaciones y la gestión de derechos de acceso esta por venir
+          La solución con las listas de contactos, invitaciones y la gestión de derechos de acceso esta por venir. 
 
   # Localizations for the layout components
   layouts:
@@ -467,7 +464,7 @@ es:
     mixed_languages: Mezcla de idiomas
     set_languages: Selecciona tu <strong>Idioma</strong> - Descifra los idiomas!
     no_locale_language: Hablas Español?
-    adjust_languages: Elige <strong>tu idioma</strong>!
+    adjust_languages: Elige <strong>tu nivel de Español</strong>!
     results_count:
       one: '{{count}} debates'
       more: '{{count}} debates'
