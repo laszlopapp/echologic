@@ -18,46 +18,29 @@ Rails::Initializer.run do |config|
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
   # Specify gems that this application depends on and have them installed with rake gems:install
-  # config.gem "bj"
-  # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
 
-  # Access control list gem Acl9.
-  config.gem "acl9", :lib => "acl9", :source => "http://gemcutter.org"
-  config.gem 'ezcrypto'
+  # Authentication / Authorisation
+  config.gem 'acl9', :version => '0.12.0'
+  config.gem 'authlogic', :version => '2.1.6'
 
-  # Authlogic authentication gem with RPX extension.
-  config.gem 'authlogic', :version => '>= 2.1.5', :lib => "authlogic", :source => "http://gems.github.com"
+  # Application libs
+  config.gem 'formtastic', :version => '1.1.0'
+  config.gem 'i18n', :version => '0.4.2'
+  #config.gem 'mysql', :version => '2.8.1'
+  config.gem 'rails_sql_views', :version => '0.8.0'
+  config.gem 'will_paginate', :version => '2.3.15'
 
-  # Require formtastic gem to build semantic forms
-  config.gem "formtastic"
+  # Utility libraries
+  config.gem 'ezcrypto', :version => '0.7.2'
+  config.gem 'rest-open-uri', :version => '1.0.0'
+  config.gem 'sanitize', :version => '2.0.1'
+  config.gem 'uuidtools', :version => '2.1.2'
 
-  # Unit testing
-  config.gem 'test-unit', :lib => 'test/unit'
-
-  # require shoulda to use it for testing :)
-  config.gem 'shoulda'
-
-  # Mocks for testing
-  config.gem 'flexmock'
-
-  # gem for background processing
-  config.gem 'delayed_job'
-
-  # gem for running the background jobs in production
-  config.gem 'daemons'
-
-  # gems for endless pagination
-  config.gem 'will_paginate', :lib => 'will_paginate', :source => 'http://gems.github.com'
-
-  config.gem 'rest-open-uri'
-
-  config.gem 'uuidtools'
-
-  config.gem 'sanitize'
-
-  config.gem 'rails_sql_views'
+  # Background jobs
+  #config.gem 'daemons', :version => '1.1.3'
+  config.gem 'delayed_job', :version => '2.0.3'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -103,4 +86,5 @@ Rails::Initializer.run do |config|
   config.load_paths += %w(statements).collect{|dir|"#{RAILS_ROOT}/app/controllers/#{dir}"}
   # libs
   config.load_paths += %w(activity_tracking_service drafting_service echo_service social_service).collect{|dir|"#{RAILS_ROOT}/lib/#{dir}"}
+
 end

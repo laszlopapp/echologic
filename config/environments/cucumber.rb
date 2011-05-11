@@ -23,12 +23,17 @@ config.action_controller.allow_forgery_protection    = false
 config.action_mailer.delivery_method = :test
 config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
-config.gem 'cucumber-rails',   :lib => false, :version => '>=0.2.4' unless File.directory?(File.join(Rails.root, 'vendor/plugins/cucumber-rails'))
-config.gem 'database_cleaner', :lib => false, :version => '>=0.4.3' unless File.directory?(File.join(Rails.root, 'vendor/plugins/database_cleaner'))
-config.gem 'webrat',           :lib => false, :version => '>=0.6.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/webrat'))
-config.gem 'rspec',            :lib => false, :version => '>=1.3.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec'))
-config.gem 'rspec-rails',      :lib => false, :version => '>=1.3.2' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
+# Testing gems
+config.gem 'flexmock', :version => '0.9.0'
+config.gem 'shoulda', :version => '2.11.3'
+config.gem 'test-unit', :lib => 'test/unit', :version => '2.0.9'
 
+config.gem "cucumber", :lib => false, :version => "0.8.3"
+config.gem "cucumber-rails", :lib => false, :version => "0.3.2"
+config.gem 'database_cleaner', :lib => false, :version => '0.4.3'
+config.gem 'rspec', :lib => false, :version => '1.3.2'
+config.gem 'rspec-rails', :lib => false, :version => '1.3.4'
+config.gem 'webrat', :lib => false, :version => '0.7.3'
 
 # Number of children statements shown
 TOP_CHILDREN = 7
