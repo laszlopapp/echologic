@@ -39,7 +39,7 @@ Rails::Initializer.run do |config|
   config.gem 'uuidtools', :version => '2.1.2'
 
   # Background jobs
-  #config.gem 'daemons', :version => '1.1.3'
+  config.gem 'daemons', :version => '1.1.3'
   config.gem 'delayed_job', :version => '2.0.3'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
