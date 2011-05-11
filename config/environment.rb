@@ -28,7 +28,7 @@ Rails::Initializer.run do |config|
   # Application libs
   config.gem 'formtastic', :version => '1.1.0'
   config.gem 'i18n', :version => '0.4.2'
-  config.gem 'mysql', :version => '2.8.1'
+  #config.gem 'mysql', :version => '2.8.1'
   config.gem 'rails_sql_views', :version => '0.8.0'
   config.gem 'will_paginate', :version => '2.3.15'
 
@@ -39,7 +39,7 @@ Rails::Initializer.run do |config|
   config.gem 'uuidtools', :version => '2.1.2'
 
   # Background jobs
-  config.gem 'daemons', :version => '1.1.3'
+  #config.gem 'daemons', :version => '1.1.3'
   config.gem 'delayed_job', :version => '2.0.3'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
