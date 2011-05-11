@@ -183,19 +183,10 @@ function generateKey(type) {
 	else if (type=='pro_argument' || type=='contra_argument'){return 'ar';}
 	else if (type=='follow_up_question'){return 'fq';}
 	else {return '';}
-	switch(type) {
-		case "question":
-		  return "qu";
-		case "proposal":
-		  return "pr";
-	  case "improvement":
-		  return 'im';
-	  case "pro_argument":
-		case "contra_argument":
-		  return 'ar';
-	  case "follow_up_question":
-		  return 'fq';
-	  default:
-		  return '';
-	}	
+}
+
+function getOriginKeys(array) {
+  return $.grep(array, function(a, index) {
+    return $.inArray(a.substring(0,2), ['pr','ar','im']) == -1;
+  });
 }

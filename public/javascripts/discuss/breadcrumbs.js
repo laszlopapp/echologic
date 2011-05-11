@@ -57,13 +57,6 @@
         }
 	    }
 
-
-      function getOriginKeys(array) {
-				return $.grep(array, function(a, index) {
-          return $.inArray(a.substring(0,2), ['pr','ar','im']) == -1;
-        });
-			}
-
       /*
        * Initializes the links in the different sort of breadcrumbs.
        */

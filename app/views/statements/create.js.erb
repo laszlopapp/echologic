@@ -32,7 +32,8 @@ var sids = $('div#statements .statement').map(function(){
 
 var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
 
-var origin = bids[bids.length-1];
+var origin_bids = getOriginKeys(bids);
+var origin = origin_bids[origin_bids.length-1];
 if (origin == null || origin == "undefined"){origin = '';}
 
 $.setFragment({ "bids" : bids.join(','), "sids": sids.join(','), "new_level" : '', "origin" : origin});

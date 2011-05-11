@@ -105,10 +105,13 @@ class StatementsController < ApplicationController
       loadSearchTermsAsTags(params[:origin]) if params[:origin]
     end
 
-    # set new breadcrumb
-    if @statement_node.class.is_top_statement? and !params[:new_level].blank?
+    
+    if !params[:new_level].blank?
       set_parent_breadcrumb
-      load_origin_statement
+      # set new breadcrumb
+      if @statement_node.class.is_top_statement?
+        load_origin_statement
+      end
     end
 
     load_echo_info_messages if @statement_node.echoable?
@@ -713,13 +716,14 @@ class StatementsController < ApplicationController
     parent_node = @statement_node.parent
     statement_document = search_statement_documents(:statement_ids => [parent_node.statement_id])[parent_node.statement_id] ||
                          parent_node.document_in_original_language
+    key = Breadcrumb.instance.generate_key(@statement_node.class.name.underscore)
     #[id, classes, url, title, label, over]
-    @breadcrumb = {:key => "fq#{parent_node.id}",
+    @breadcrumb = {:key => "#{key}#{parent_node.id}",
                    :css => "statement statement_link #{parent_node.class.name.underscore}_link",
                    :url => statement_node_url(parent_node, :bids => params[:bids], :origin => params[:origin]),
                    :title => Breadcrumb.instance.decode_terms(statement_document.title),
-                   :label => I18n.t("discuss.statements.breadcrumbs.labels.fq"),
-                   :over => I18n.t("discuss.statements.breadcrumbs.labels.over.fq")}
+                   :label => I18n.t("discuss.statements.breadcrumbs.labels.#{Breadcrumb.instance.generate_key(@statement_node.class.name.underscore)}"),
+                   :over => I18n.t("discuss.statements.breadcrumbs.labels.over.#{Breadcrumb.instance.generate_key(@statement_node.class.name.underscore)}")}
     @bids = params[:bids]||''
     @bids = @bids.split(",")
     @bids << @breadcrumb[:key]
