@@ -58,6 +58,12 @@
 	    }
 
 
+      function getOriginKeys(array) {
+				return $.grep(array, function(a, index) {
+          return $.inArray(a.substring(0,2), ['pr','ar','im']) == -1;
+        });
+			}
+
       /*
        * Initializes the links in the different sort of breadcrumbs.
        */
@@ -90,7 +96,8 @@
 	          });
 
 	          // Getting previous breadcrumb entry, in order to load the proper siblings to session
-	          var origin = new_bids[new_bids.length -1];
+						var origin_bids = getOriginKeys(new_bids);
+	          var origin = origin_bids.length > 0 ? origin_bids[origin_bids.length -1] : '';
 	          if (origin == null || origin == "undefined") {
 	            origin = '';
 	          }

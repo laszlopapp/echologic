@@ -306,14 +306,12 @@
 					var old_stack = $.fragment().sids;
 		      var current_stack = getStatementsStack(this, false);
 					var current_bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
-					var bids;
+					var bids = current_bids;
 					
 					// Update the bids
-					var index = $.inArray(key, current_bids);
+					var index = $.inArray(key, bids);
 					if (index != -1) { // if parent breadcrumb exists, then delete everything after it
-						bids = current_bids.splice(0, index + 1);
-					} else {
-						bids = current_bids;
+						bids = bids.splice(0, index + 1);
 					}
 					// save element after which the breadcrumbs will be deleted
           $('#breadcrumbs').data('element_clicked', key);
@@ -373,7 +371,14 @@
             bids = bids.splice(0, level);
             var new_bid = key + statementId;
             bids.push(new_bid);
-          }
+          } 
+					else { // siblings box or maybe alternatives box
+						var parentKey = generateBreadcrumbKey();
+						var index = $.inArray(parentKey, bids);
+	          if (index != -1) { // if parent breadcrumb exists, then delete everything after it
+	            bids = bids.splice(0, index + 1);
+	          }
+					}
 					
 					var stack = current_stack, origin;
           switch(key){
