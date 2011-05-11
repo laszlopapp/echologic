@@ -14,8 +14,7 @@ class Breadcrumb
     case name
       when "proposal" then 'pr'
       when "improvement" then 'im'
-      when "pro_argument"
-      when "contra_argument" then 'ar'
+      when "pro_argument","contra_argument" then 'ar'
       when "follow_up_question" then 'fq'
     end
   end
