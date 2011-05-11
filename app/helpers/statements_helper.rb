@@ -494,19 +494,21 @@ module StatementsHelper
   #
   # Loads the link to a given statement, placed in the child panel section.
   #
-  def link_to_child(title, statement_node,extra_classes, type = dom_class(statement_node))
+  def link_to_child(title, statement_node,opts={})
+    opts[:type] ||= dom_class(statement_node)
     bids = params[:bids] || ''
-    bids = bids.split(",")
-    bid = "#{Breadcrumb.instance.generate_key(type)}#{@statement_node.target_id}"
-    bids << bid
-    bids = bids.join(",")
-
+    if opts[:new_level]
+      bids = bids.split(",")
+      bid = "#{Breadcrumb.instance.generate_key(type)}#{@statement_node.target_id}"
+      bids << bid
+      bids = bids.join(",")
+    end
 
     content_tag :li, :class => dom_class(statement_node), 'statement-id' => statement_node.target_id do
       content = ''
       content << link_to(h(title),
-                 statement_node_url(statement_node.target_id, :bids => bids, :origin => params[:origin],  :new_level => true),
-                 :class => "statement_link #{type}_link #{extra_classes}")
+                 statement_node_url(statement_node.target_id, :bids => bids, :origin => params[:origin],  :new_level => opts[:new_level]),
+                 :class => "statement_link #{opts[:type]}_link #{opts[:css]}")
       content << supporter_ratio_bar(statement_node)
       content
     end
