@@ -79,7 +79,7 @@ es:
           <p>Aqui puede *tag y **tag hecho en tu perfil. Esto te permitirá participar en los debates transparentes,
           las conversaciones semi-privadas (marcado con *tag)  privadas e internas (protegido con **tag) respectivamente.</p>
           <p>Ten en cuenta, que es una solución temporal para facilitar las conversaciones privadas en echo.
-          La solución con las listas de contactos, invitaciones y la gestión de derechos de acceso esta por venir. 
+          La solución con las listas de contactos, invitaciones y la gestión de derechos de acceso esta por venir.
 
   # Localizations for the layout components
   layouts:
@@ -462,7 +462,7 @@ es:
       indica los idiomas que conoces.
     translation_request: Por favor, traduce este texto al <strong>ESPAÑOL</strong>.
     mixed_languages: Mezcla de idiomas
-    set_languages: Selecciona tu <strong>Idioma</strong> - Descifra los idiomas!
+    set_languages: Selecciona tu <strong>nivel de lenguaje</strong> -  Descifra los idiomas! 
     no_locale_language: Hablas Español?
     adjust_languages: Elige <strong>tu nivel de Español</strong>!
     results_count:
