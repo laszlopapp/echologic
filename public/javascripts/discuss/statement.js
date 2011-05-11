@@ -472,7 +472,6 @@
 					var container = statement.find(childrenContainerSelector);
 					initMoreButton();
           initChildrenLinks(container);
-          initFUQChildrenLinks(container);
 					if (isEchoable) {
             statement.data('echoableApi').loadRatioBars(container);
           }
