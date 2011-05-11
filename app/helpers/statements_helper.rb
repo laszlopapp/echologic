@@ -499,7 +499,7 @@ module StatementsHelper
     bids = params[:bids] || ''
     if opts[:new_level]
       bids = bids.split(",")
-      bid = "#{Breadcrumb.instance.generate_key(type)}#{@statement_node.target_id}"
+      bid = "#{Breadcrumb.instance.generate_key(opts[:type])}#{@statement_node.target_id}"
       bids << bid
       bids = bids.join(",")
     end
