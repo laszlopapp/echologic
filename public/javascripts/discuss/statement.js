@@ -133,14 +133,34 @@
 			}
 
 
+      function loadJumpLink(url){
+				var anchor_index = url.indexOf("#");
+        if (anchor_index != -1) {
+          url = url.substring(0, anchor_index);
+        }
+        var bid = 'jp' + statementId;
+        var bids = $.fragment().bids;
+        
+        bids = (bids && bids.length > 0) ? bids.split(',') : [];
+        bids.push(bid);
+        return $.queryString(url, {"bids" : bids.join(','), "origin" : bid });
+				
+			}
+
       function initContentLinks() {
         statement.find(".statement_content a").each(function() {
           var link = $(this);
           link.attr("target", "_blank");
           var url = link.attr("href");
+					
           if (url.substring(0,7) != "http://" && url.substring(0,8) != "https://") {
-            link.attr("href", "http://" + url);
+            url =  "http://" + url;
           }
+					if (url.match(/\/statement\/\d+/)) { // if this link goes to another statement, then add a jump bid
+						url = loadJumpLink(url);
+					}
+					
+					link.attr('href', url);
         });
       }
 

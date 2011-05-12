@@ -662,6 +662,7 @@ en:
           im: 'Improvements for'
           ar: 'Arguments for'
           fq: 'Follow-up Questions for'
+          jp: 'Jump from'
           over:
             ds: 'Back to'
             mi: 'Back to'
@@ -670,6 +671,7 @@ en:
             im: 'Back to'
             ar: 'Back to'
             fq: 'Back to'
+            jp: 'Back to'
 
       upload_image:
         title: Upload Image

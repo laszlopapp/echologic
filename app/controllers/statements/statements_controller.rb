@@ -763,11 +763,11 @@ class StatementsController < ApplicationController
         when "mi" then breadcrumb[:css] = "my_discussions_link statement_link"
                        breadcrumb[:url] = my_questions_url
                        breadcrumb[:title] = I18n.t("discuss.statements.breadcrumbs.my_questions")
-        when "pr", "im", "ar", "fq" 
+        when "pr", "im", "ar", "fq", "jp"
                   then statement_node = StatementNode.find(bid[2..-1])
                        statement_document = search_statement_documents(:statement_ids => [statement_node.statement_id])[statement_node.statement_id] ||
                                             statement_node.document_in_original_language
-                       origin = index > 0 ? bids[index-1] : ''
+                       origin = index > 0 ? bids.select{|b|Breadcrumb.instance.origin_keys.include?(b[0,2])}[index-1] : ''
                        breadcrumb[:key] = "#{key}#{value}"
                        breadcrumb[:css] = "statement statement_link #{statement_node.class.name.underscore}_link"
                        breadcrumb[:url] = statement_node_url(statement_node, :bids => bids[0, bids.index(bid)].join(","), :origin => origin)
@@ -1037,12 +1037,12 @@ class StatementsController < ApplicationController
                       sn = search_discussions(:only_id => opts[:for_session], :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
                       opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
        # discuss search with search results
-     when 'sr'then value = value.split('|')
-                   term = Breadcrumb.instance.decode_terms(value[0])
-                   per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
-                   sn = search_discussions(:search_term => term,
-                                           :only_id => opts[:for_session], :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
-                   opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
+       when 'sr'then value = value.split('|')
+                     term = Breadcrumb.instance.decode_terms(value[0])
+                     per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
+                     sn = search_discussions(:search_term => term,
+                                             :only_id => opts[:for_session], :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
+                     opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
        # my discussions
        when 'mi' then sn = Question.by_creator(current_user).by_creation
                       opts[:for_session] ? sn.only_id.map(&:id) + ["/add/question"] : sn
@@ -1054,6 +1054,9 @@ class StatementsController < ApplicationController
                                                            :user => current_user,
                                                            :for_session => opts[:for_session]
                       opts[:for_session] ? sn : sn.map(&:target_statement)
+       # jumped from 
+       when 'jp' then nodes = opts[:node].nil? ? [] : [opts[:node]]
+                      opts[:for_session] ? nodes.map(&:id) + ["/add/question"] : nodes
       end
     else
       # no origin (direct link)

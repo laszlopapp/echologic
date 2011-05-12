@@ -9,6 +9,10 @@ class Breadcrumb
   def encode_terms(terms)
     terms.gsub(/,/,'\\;').gsub(/\|/, '\\:;')
   end
+
+  def origin_keys
+    ["sr","ds","mi","fq","jp"]
+  end
   
   def generate_key(name)
     case name
