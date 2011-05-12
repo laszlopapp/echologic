@@ -10,7 +10,6 @@
 <% if !params[:sids].blank? and @ancestors %>
   var stack = "<%= params[:sids] %>".split(",");
 	<% @ancestors.each_with_index do |ancestor, index| %>
-   <% type = ancestor.class.name.underscore %>
     var ancestor = stack[<%= index %>];
 		var ancestor_element = $('#statements .statement').eq(<%= index %>);
 		/* if not rendered, than render */
