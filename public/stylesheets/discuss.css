@@ -289,6 +289,23 @@ form.formtastic fieldset.publish_radios li {
   width: 700px;
 }
 
+
+
+form.statement .header .auto_complete {
+	display: inline-block;
+	height: 16px;
+	width: 16px;
+	position: absolute;
+	top: 3px;
+	right: 240px;
+}
+
+form.statement .header .auto_complete.enabled {
+	background: transparent url(../images/page/discuss/auto_complete_enabled.png) no-repeat scroll;
+}
+form.statement .header .auto_complete.disabled {
+  background: transparent url(../images/page/discuss/auto_complete_disabled.png) no-repeat scroll;
+}
 /*********/
 /* lwRTE */
 /*********/
