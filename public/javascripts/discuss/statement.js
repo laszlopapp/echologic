@@ -47,7 +47,6 @@
 
       // Initializes the statement.
       function initialise() {
-
         if (settings['load']) {
 					insertStatement();
 

@@ -7,7 +7,7 @@
 	      <%= doc.input :title, :label => false,
                       :input_html => {:class => 'focus',
                                       'data-default' => title_hint_text(statement_node)} %>
-				<%= content_tag :span, '', :class => "auto_complete enabled" %>
+				<%= content_tag :span, '', :class => "auto_complete enabled" if statement_node.new_record? %>
 			<% end %>
 	  <% end %>
 		<% if statement_node.echoable? %>

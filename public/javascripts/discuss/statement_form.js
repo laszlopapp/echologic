@@ -31,16 +31,18 @@
 			initialise();
 
 			function initialise() {
+				          
+
 				if (!isMobileDevice()) {
 					loadRTEEditor();
 				}
-
         // New Statement Form Helpers
         if (form.hasClass('new')) {
           hideNewStatementType();
           loadDefaultText();
           handleStatementFormsSubmit();
           initFormCancelButton();
+					initAutoCompleteTitle();
         }
 
         // Taggable Form Helpers
@@ -140,6 +142,27 @@
           }));
         }
       }
+
+      function initAutoCompleteTitle() {
+				var title = form.find('.header input');
+				var auto_complete_button = form.find('.header .auto_complete');
+				auto_complete_button.bind('click', function(){
+					var to_add, to_remove;
+					if($(this).hasClass('enabled')) {
+						to_remove = 'enabled';
+						to_add = 'disabled';
+					} else if ($(this).hasClass('disabled')) {
+						to_remove = 'disabled';
+						to_add = 'enabled';
+					}
+					$(this).addClass(to_add).removeClass(to_remove);
+				});
+				title.autocomplete('../../discuss/auto_complete_for_tag_value',
+                           {minChars: 10, selectFirst: false, multiple: true,
+													 search: function() {
+													 	return auto_complete_button.hasClass('enabled');
+													 }});
+			}
 
 			// Public API functions
 			$.extend(this,
