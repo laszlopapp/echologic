@@ -24,7 +24,7 @@
 <% level = (@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 0 : @statement_node.level + 1 %>
 
 /* breadcrumb */
-$('#breadcrumbs').data('breadcrumbApi').deleteAfter();
+$('#breadcrumbs').data('breadcrumbApi').deleteBreadcrumbs();
 <% if @breadcrumbs %>
   $('#breadcrumbs').data('breadcrumbApi').addBreadcrumbs(<%= @breadcrumbs.to_json %>);
 <% end %>
