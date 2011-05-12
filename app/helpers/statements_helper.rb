@@ -121,7 +121,7 @@ module StatementsHelper
       if statement_node.parent
         add_new_sibling_button(statement_node)
       else
-        if origin.blank? or %w(ds mi sr).include? origin[0,2] # create new question
+        if origin.blank? or %w(ds mi sr jp).include? origin[0,2] # create new question
           add_new_question_button(!origin.blank? ? origin : nil)
         else #create sibling follow up question
           context_type = ''
@@ -494,17 +494,27 @@ module StatementsHelper
   #
   # Loads the link to a given statement, placed in the child panel section.
   #
-  def link_to_child(title, statement_node,extra_classes, type = dom_class(statement_node))
+  def link_to_child(title, statement_node,opts={})
+    opts[:type] ||= dom_class(statement_node)
     bids = params[:bids] || ''
-    if statement_node.class.is_top_statement?
+    if opts[:new_level]
       bids = bids.split(",")
-      bids << "fq#{@statement_node.target_id}"
+      bid = "#{Breadcrumb.instance.generate_key(opts[:type])}#{@statement_node.target_id}"
+      bids << bid
       bids = bids.join(",")
     end
-    link_to h(title),
-            statement_node_url(statement_node.target_id, :bids => bids, :origin => params[:origin],  :new_level => true),
-            :class => "statement_link #{dom_class(statement_node)}_link #{extra_classes}"
+
+    content_tag :li, :class => dom_class(statement_node), 'statement-id' => statement_node.target_id do
+      content = ''
+      content << link_to(h(title),
+                 statement_node_url(statement_node.target_id, :bids => bids, :origin => params[:origin],  :new_level => opts[:new_level]),
+                 :class => "statement_link #{opts[:type]}_link #{opts[:css]}")
+      content << supporter_ratio_bar(statement_node)
+      content
+    end
   end
+  
+  
 
   #
   # Draws the statement image container.
@@ -550,7 +560,7 @@ module StatementsHelper
         content << content_tag(:span, '', :class => 'big_delimiter') if index != 0
         content << content_tag(:span, b[:label], :class => 'label')
         content << content_tag(:span, b[:over], :class => 'over')
-        content << content_tag(:span, h(b[:title].gsub(/\\;/, ',').gsub(/\\:;/, '|')), :class => b[:css])
+        content << content_tag(:span, h(Breadcrumb.instance.decode_terms(b[:title])), :class => b[:css])
         content
       end
       breadcrumb_trail << breadcrumb

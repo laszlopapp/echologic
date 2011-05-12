@@ -658,12 +658,20 @@ en:
           ds: ''
           mi: ''
           sr: 'Questions found for'
+          pr: 'Proposals for'
+          im: 'Improvements for'
+          ar: 'Arguments for'
           fq: 'Follow-up Questions for'
+          jp: 'Jump from'
           over:
             ds: 'Back to'
             mi: 'Back to'
             sr: 'Back to search results for'
+            pr: 'Back to'
+            im: 'Back to'
+            ar: 'Back to'
             fq: 'Back to'
+            jp: 'Back to'
 
       upload_image:
         title: Upload Image

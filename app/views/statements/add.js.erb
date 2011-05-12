@@ -9,7 +9,6 @@
 <% if !params[:sids].blank? and @ancestors %>
   var stack = "<%= params[:sids] %>".split(",");
   <% @ancestors.each_with_index do |ancestor, index| %>
-   <% type = ancestor.class.name.underscore %>
     var ancestor = stack[<%= index %>];
     var ancestor_element = $('#statements .statement').eq(<%= index %>);
     /* if not rendered, than render */
@@ -21,13 +20,13 @@
   <% end %>
 <% end %>
 
+<% level = (@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 0 : @statement_node.level + 1 %>
+
 /* breadcrumb */
-<% if !params[:origin].blank? %>
-  $('#breadcrumbs').data('breadcrumbApi').deleteAfter('<%= params[:origin] %>');
-<% end %>
+$('#breadcrumbs').data('breadcrumbApi').deleteBreadcrumbs();
 <% if @breadcrumbs %>
   $('#breadcrumbs').data('breadcrumbApi').addBreadcrumbs(<%= @breadcrumbs.to_json %>);
 <% end %>
 
-var add_teaser = $("<%= escape_javascript(render :partial => 'statements/add') %>").statement({'level' : <%= (@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 0 : @statement_node.level + 1 %>});
+var add_teaser = $("<%= escape_javascript(render :partial => 'statements/add') %>").statement({'level' : <%= level %>});
 add_teaser.data('api').removeBelow();
