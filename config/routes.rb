@@ -37,6 +37,9 @@ ActionController::Routing::Routes.draw do |map|
     :requirements => { :action => /auto_complete_for_\S+/ },
     :conditions => { :method => :get }
 
+  # AUTO COMPLETE FOR statements title TODO: WHY DOES THE PREVIOUS ROUTE DOES NOT WORK?????
+  map.connect 'statements/auto_complete_for_statement_title', :controller => :statements, :action => :auto_complete_for_statement_title
+  
   # Not being logged in
   map.requires_login 'requires_login', :controller => 'application', :action => 'flash_info'
 

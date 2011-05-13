@@ -157,8 +157,8 @@
 					}
 					$(this).addClass(to_add).removeClass(to_remove);
 				});
-				title.autocomplete('../../discuss/auto_complete_for_tag_value',
-                           {minChars: 10, selectFirst: false, multiple: true,
+				title.autocomplete('../../statements/auto_complete_for_statement_title',
+                           {minChars: 4, selectFirst: false, multiple: true,
 													 search: function() {
 													 	return auto_complete_button.hasClass('enabled');
 													 }});

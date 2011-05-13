@@ -1,18 +1,19 @@
 class StatementsController < ApplicationController
 
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
-                                    :more, :children, :authors, :add, :ancestors, :descendants, :social_widget]
+                                    :more, :children, :authors, :add, :ancestors, :descendants, :social_widget,
+                                    :auto_complete_for_statement_title]
   verify :method => :post, :only => [:create, :share]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
   skip_before_filter :require_user, :only => [:category, :show, :more, :children, :add, :ancestors, :descendants,
-                                              :redirect_to_statement]
+                                              :redirect_to_statement, :auto_complete_for_statement_title]
 
-  before_filter :fetch_statement_node, :except => [:category, :my_questions, :new, :create]
+  before_filter :fetch_statement_node, :except => [:category, :my_questions, :new, :create, :auto_complete_for_statement_title]
   before_filter :fetch_statement_node_type, :only => [:new, :create]
-  before_filter :check_statement_permissions, :except => [:category, :my_questions, :new, :create]
+  before_filter :check_statement_permissions, :except => [:category, :my_questions, :new, :create, :auto_complete_for_statement_title]
   before_filter :redirect_if_approved_or_incorporated, :only => [:show, :edit, :update, :destroy,
                                                                  :new_translation, :create_translation,
                                                                  :echo, :unecho]
@@ -34,7 +35,6 @@ class StatementsController < ApplicationController
     allow logged_in, :editor, :except => [:destroy]
     allow anonymous, :to => [:index, :show, :category, :more, :children, :authors, :add, :ancestors, :descendants]
   end
-
 
   ##############
   # ATTRIBUTES #
@@ -553,6 +553,19 @@ class StatementsController < ApplicationController
     end
   end
 
+  # aux function to load the statements with the right set of languages
+  def filter_languages(opts={})
+    languages = @language_preference_list
+    if opts[:node] and !opts[:node].new_record?
+      # VERY IMP: remove statement original language if user doesn't speak it
+      original_language = opts[:node].original_language
+      languages -= [original_language.id] if languages.length > 1 and original_language.code.to_s != I18n.locale and
+                                             (current_user.nil? or
+                                              !current_user.sorted_spoken_languages.include?(original_language.id))
+    end
+    languages
+  end
+  
   #
   # Load the authors of the current statement.
   #
@@ -856,17 +869,25 @@ class StatementsController < ApplicationController
   # for more info about attributes, please check the StatementNode.search_discussions documentation
   #
   def search_discussions(opts = {})
-    languages = @language_preference_list
-    if opts[:node] and !opts[:node].new_record?
-      # VERY IMP: remove statement original language if user doesn't speak it
-      original_language = opts[:node].original_language
-      languages -= [original_language.id] if languages.length > 1 and original_language.code.to_s != I18n.locale and
-                                             (current_user.nil? or
-                                              !current_user.sorted_spoken_languages.include?(original_language.id))
-    end
+    languages = filter_languages
     StatementNode.search_discussions(opts.merge({:user => current_user,
                                                  :language_ids => languages,
                                                  :show_unpublished => current_user && current_user.has_role?(:editor)}))
+  end
+  
+  #
+  # Calls the statement sql query.
+  # opts attributes:
+  #
+  # search_term (String : optional) : text snippet to look for in the statements
+  #
+  # for more info about attributes, please check the Statement.search_statements documentation
+  #
+  def search_statements(opts = {})
+    languages = filter_languages
+    Statement.search_statements(opts.merge({:user => current_user,
+                                            :language_ids => languages,
+                                            :show_unpublished => current_user && current_user.has_role?(:editor)}))
   end
 
   #
