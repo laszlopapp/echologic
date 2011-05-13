@@ -378,7 +378,7 @@ class StatementNode < ActiveRecord::Base
     # opts attributes:
     #
     # search_term (string : optional) : value we ought to search for on title, text and statement tags
-    # only_id (boolean : optional) : if true, returns a hash of the statements only with the id attribute filled
+    # param (string : optional) : specifies the attribute which we should search 
     # type (string : optional) : defines the type of statement to look for ("Question" in most of the cases)
     # show_unpublished (boolean : optional) : if false or nil, only get the published statements (see user as well)
     # user (User : optional) : only used if show_unpublished is false or nil; gets the statements belonging to the user regardless of state (published or new)
@@ -399,12 +399,8 @@ class StatementNode < ActiveRecord::Base
       end
       
       node_conditions = []
-      # Access permissions
-      access_conditions = []
-      access_conditions << "s.closed_statement IS NULL"
-      access_conditions << sanitize_sql(["s.granted_user_id = ?", opts[:user].id]) if opts[:user]
-      node_conditions << "(#{access_conditions.join(' OR ')})"
-
+      node_conditions << Statement.conditions(opts, "s.closed_statement", "s.granted_user_id")
+     
       # Statement type
       if opts[:type]
         node_conditions << sanitize_sql(["s.type = ?", opts[:type]])
@@ -440,10 +436,7 @@ class StatementNode < ActiveRecord::Base
         end
         
         terms.map(&:strip).each do |term|
-          or_conditions = Statement.extaggable_conditions_for_term(term, "d.tag")
-          if (term.length > 3)
-            or_conditions << sanitize_sql([" OR d.title LIKE ? OR d.text LIKE ?", "%#{term}%", "%#{term}%"])
-          end
+          or_conditions = StatementDocument.term_conditions(term)
           term_queries << (term_query + (document_conditions + ["(#{or_conditions})"]).join(" AND "))
         end
         term_queries = term_queries.join(" UNION ALL ")
