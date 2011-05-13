@@ -423,6 +423,8 @@ class StatementNode < ActiveRecord::Base
         node_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]])
       end
       
+      # Limit
+      limit = "LIMIT #{opts[:limit]}" if opts[:limit]
 
       # Search terms
       search_term = opts.delete(:search_term)
@@ -445,7 +447,7 @@ class StatementNode < ActiveRecord::Base
           term_queries << (term_query + (document_conditions + ["(#{or_conditions})"]).join(" AND "))
         end
         term_queries = term_queries.join(" UNION ALL ")
-        statements_query = "SELECT #{table_name}.#{opts[:only_id] ? aggregator_field : '*'} " +
+        statements_query = "SELECT #{table_name}.#{opts[:param] || '*'} " +
                            "FROM (#{term_queries}) statement_ids " +
                            "LEFT JOIN search_statement_nodes s ON statement_ids.id = s.statement_id " +
                            "LEFT JOIN #{table_name} ON #{table_name}.id = s.#{aggregator_field} " +
@@ -453,17 +455,17 @@ class StatementNode < ActiveRecord::Base
                            "WHERE #{node_conditions.join(" AND ")} " +
                            "GROUP BY s.#{aggregator_field} " +
                            "ORDER BY COUNT(s.#{aggregator_field}) DESC, " +
-                           "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id;"
+                           "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id #{limit};"
       else
         document_conditions << "d.current = 1"
         
         node_conditions << "s.type = 'Question'" if opts[:type].nil?
         
-        statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? aggregator_field : '*'} from search_statement_nodes s " +
+        statements_query = "SELECT DISTINCT s.#{opts[:param] || '*'} from search_statement_nodes s " +
                            "LEFT JOIN statement_documents d ON d.statement_id = s.statement_id " +
                            Statement.extaggable_joins_clause("s.statement_id") +
                            "WHERE " + (node_conditions + document_conditions).join(' AND ') +
-                           " ORDER BY s.supporter_count DESC, s.created_at DESC, s.id;"
+                           " ORDER BY s.supporter_count DESC, s.created_at DESC, s.id #{limit};"
       end
       find_by_sql statements_query
     end
