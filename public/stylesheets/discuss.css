@@ -297,16 +297,18 @@ form.statement .header .auto_complete {
 	width: 98px;
 	position: absolute;
 	top: 2px;
-	right: 281px;
+	right: 231px;
 	background: transparent url(../images/page/discuss/linking_button.png) 0 -40px no-repeat scroll;
+}
+
+form.statement .header .auto_complete.disabled {
+  background-position: 0px 0px;
 }
 
 form.statement .header .auto_complete:hover {
 	background-position: 0px -20px;
 }
-form.statement .header .auto_complete.disabled {
-  background-position: 0px 0px;
-}
+
 /*********/
 /* lwRTE */
 /*********/
