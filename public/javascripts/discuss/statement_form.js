@@ -157,11 +157,15 @@
 					}
 					$(this).addClass(to_add).removeClass(to_remove);
 				});
-				title.autocomplete('../../statements/auto_complete_for_statement_title',
-                           {minChars: 4, selectFirst: false, multiple: true,
-													 search: function() {
-													 	return auto_complete_button.hasClass('enabled');
-													 }});
+				title.autocompletes('../../statements/auto_complete_for_statement_title',
+				                    {
+												   	minChars: 4,
+														selectFirst: false
+												   });
+				title.result(function(){
+					alert("bam");
+				});
+				
 			}
 
 			// Public API functions

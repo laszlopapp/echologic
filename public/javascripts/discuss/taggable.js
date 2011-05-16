@@ -106,7 +106,7 @@
        * Initializes auto_complete property for the tags text input
        */
       function loadStatementAutoComplete() {
-        taggable.find('.tag_value_autocomplete').autocomplete('../../discuss/auto_complete_for_tag_value',
+        taggable.find('.tag_value_autocomplete').autocompletes('../../discuss/auto_complete_for_tag_value',
                                                               {minChars: 3, selectFirst: false, multiple: true});
       }
 
