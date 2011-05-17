@@ -884,9 +884,8 @@ class StatementsController < ApplicationController
   # for more info about attributes, please check the Statement.search_statements documentation
   #
   def search_statements(opts = {})
-    languages = filter_languages
+    opts[:languages] ||= filter_languages
     Statement.search_statements(opts.merge({:user => current_user,
-                                            :language_ids => languages,
                                             :show_unpublished => current_user && current_user.has_role?(:editor)}))
   end
 

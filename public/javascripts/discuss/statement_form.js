@@ -27,6 +27,7 @@
     /******************************/
 
     function StatementForm(form) {
+			var chosenLanguage = form.find('select.language_combo');
 
 			initialise();
 
@@ -160,10 +161,13 @@
 				title.autocompletes('../../statements/auto_complete_for_statement_title',
 				                    {
 												   	minChars: 4,
-														selectFirst: false
+														selectFirst: false,
+														extraParams: {
+															code: function(){ return chosenLanguage.val(); }
+														}
 												   });
-				title.result(function(){
-					alert("bam");
+				title.result(function(evt, data, formatted) {
+					var chosenStatementId = data[1];
 				});
 				
 			}
