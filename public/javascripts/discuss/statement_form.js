@@ -27,6 +27,8 @@
     /******************************/
 
     function StatementForm(form) {
+			var title = form.find('.statement_title input');
+			var textArea = form.find('textarea.rte_doc, textarea.rte_tr_doc');
 			var chosenLanguage = form.find('select.language_combo');
 
 			initialise();
@@ -58,7 +60,6 @@
        * Loads the Rich Text Editor for the statement text.
        */
       function loadRTEEditor() {
-        var textArea = form.find('textarea.rte_doc, textarea.rte_tr_doc');
         var defaultText = textArea.data('default');
         var url = 'http://' + window.location.host + '/stylesheets/';
 
@@ -162,14 +163,30 @@
 				                    {
 												   	minChars: 4,
 														selectFirst: false,
+														multipleSeparator: "",
 														extraParams: {
 															code: function(){ return chosenLanguage.val(); }
 														}
 												   });
 				title.result(function(evt, data, formatted) {
-					var chosenStatementId = data[1];
+					linkStatement(data[1]);
 				});
 				
+			}
+			
+			function linkStatement(statementId) {
+				var path = '../../statements/link_statement/' + statementId;
+				path = $.queryString(path, {
+					"code" : chosenLanguage.val()
+				});
+				$.getJSON(path, function(data) {
+					var text = data['text'];
+					var tags = data['tags'];
+					var state = data['editorial_state'];
+					alert(text);
+					alert(tags);
+					alert(stateId);
+				});
 			}
 
 			// Public API functions
