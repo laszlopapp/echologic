@@ -28,17 +28,17 @@
 
     function StatementForm(form) {
 			var title = form.find('.statement_title input');
-			var textArea = form.find('textarea.rte_doc, textarea.rte_tr_doc');
+			var text;
 			var chosenLanguage = form.find('select.language_combo');
+			var statementLinked = form.find('input.statement_id');
 
 			initialise();
 
 			function initialise() {
 				          
 
-				if (!isMobileDevice()) {
-					loadRTEEditor();
-				}
+				loadRTEEditor();
+
         // New Statement Form Helpers
         if (form.hasClass('new')) {
           hideNewStatementType();
@@ -60,20 +60,27 @@
        * Loads the Rich Text Editor for the statement text.
        */
       function loadRTEEditor() {
-        var defaultText = textArea.data('default');
-        var url = 'http://' + window.location.host + '/stylesheets/';
-
-        textArea.rte({
-          css: ['jquery.rte.css'],
-          base_url: url,
-          frame_class: 'wysiwyg',
-          controls_rte: rte_toolbar,
-          controls_html: html_toolbar
-        });
-        form.find('.focus').focus();
-
-        // The default placeholder text
-        form.find('iframe').attr('data-default', defaultText);
+				textArea = form.find('textarea.rte_doc, textarea.rte_tr_doc');
+				if (!isMobileDevice()) {
+					var defaultText = textArea.data('default');
+					var url = 'http://' + window.location.host + '/stylesheets/';
+					
+					textArea.rte({
+						css: ['jquery.rte.css'],
+						base_url: url,
+						frame_class: 'wysiwyg',
+						controls_rte: rte_toolbar,
+						controls_html: html_toolbar
+					});
+					form.find('.focus').focus();
+					
+					// The default placeholder text
+					form.find('iframe').attr('data-default', defaultText);
+					
+					text = $(form.find('iframe.rte_doc').contents().get(0)).find('body');
+				} else {
+          text = textArea;					
+				}
       }
 
 
@@ -180,12 +187,22 @@
 					"code" : chosenLanguage.val()
 				});
 				$.getJSON(path, function(data) {
-					var text = data['text'];
-					var tags = data['tags'];
-					var state = data['editorial_state'];
-					alert(text);
-					alert(tags);
-					alert(stateId);
+					var statementText = data['text'];
+					var statementTags = data['tags'];
+					var statementState = data['editorial_state'];
+					
+					statementLinked.val(statementId);
+					if(text.is('textarea')) {
+						text.val(statementText);
+					} else {
+						text.empty().text(statementText).click().blur();
+					}
+					
+					if (form.hasClass(settings['taggableClass'])) {
+				  	form.data('taggableApi').addTags(statementTags);
+				  }
+					
+					$('input:radio[value=' + statementState + ']').attr('checked', true);
 				});
 			}
 
