@@ -143,7 +143,9 @@ class StatementsController < ApplicationController
 
       # Prepare in memory
       @statement_node ||= @statement_node_type.new_instance(attrs)
-      @statement_document = @statement_node.add_statement_document(
+      @statement_document = @statement_node.statement ?
+                            @statement_node.statement.document_in_language(doc_attrs[:language_id]) :
+                            @statement_node.add_statement_document(
                             doc_attrs.merge({:original_language_id => doc_attrs[:language_id],
                                              :author_id => current_user.id,
                                              :current => true}))

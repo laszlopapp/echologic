@@ -258,7 +258,7 @@ class StatementNode < ActiveRecord::Base
       attributes[:editorial_state] = StatementState[attributes.delete(:editorial_state_id).to_i] if attributes[:editorial_state_id]
       editorial_state = attributes.delete(:editorial_state)
       node = self.new(attributes)
-      node.set_statement(:editorial_state => editorial_state)
+      node.set_statement(:editorial_state => editorial_state) if node.statement.nil?
       node
     end
 
