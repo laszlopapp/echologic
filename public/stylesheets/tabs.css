@@ -48,6 +48,7 @@ li.main_menu_item {
   text-decoration: none;
   font-size: 15px;
   position: relative;
+  z-index: 10;
 }
 
 a.main_menu_item, a.main_menu_item.active {
@@ -146,6 +147,8 @@ a.main_menu_item.active {
   margin-left: 10px;
 }
 
+/* Dropdown menus */
+
 .main_menu_item .dropdown {
   display: none;
   padding: 0 3px;
@@ -163,6 +166,7 @@ a.main_menu_item.active {
   box-shadow: 0 7px 35px #CAD3DB;
   -moz-box-shadow: 0 7px 35px #CAD3DB;
   -webkit-box-shadow: 0 7px 35px #CAD3DB;
+  z-index: -1;
 }
 
 .main_menu_item .dropdown li {
@@ -197,7 +201,7 @@ li.main_menu_item:hover .dropdown {
 }
 
 li.main_menu_item.active:hover .dropdown {
-  display: none;
+  /*display: none;*/
 }
 
 /* Label colors */
