@@ -35,8 +35,8 @@ Given /^"([^\"]*)" is an unregistered user with "([^\"]*)" as an email$/ do |nam
   @user.signup!(:full_name => name, :email => email)
 end
 
-Given /^I have no tags$/ do
-  @user.tao_tags.destroy_all
+Given /^I have no ([^\"]*) tags$/ do |type|
+  @user.send("#{type.split(' ').join('_')}_tags=", [])
   @user.save
 end
 

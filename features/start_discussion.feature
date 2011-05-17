@@ -111,7 +111,7 @@ Feature: Start a question
        And I am on the discuss index
        Then I should see "Test Question?"
        And I choose the "Test Question?" Question
-       And I have no tags
+       And I have no decision making tags
      When I go to the question
        Then I should see "You do not have permission to read this statement."
      Given I follow "logout_button"
@@ -130,16 +130,8 @@ Feature: Start a question
         | question_statement_document_text  | my super secret description           |
         | question_topic_tags               | **secret                              |
       And I press "Save"
-    Then I should see "You do not have the permission to insert the '**secret' tag."
-    Given I have "**secret" as decision making tags
-    When I am on My Questions
-      And I follow "Create a new question"
-      And I fill in the following:
-        | question_statement_document_title | my super secret world domination plan |
-        | question_statement_document_text  | my super secret description           |
-        | question_topic_tags               | **secret                              |
-      And I press "Save"
     Then I should see "The new Question has been entered successfully."
+      And I have "**secret" as decision making tags
      
    Scenario: User tries to mark existing statement with a ** tag
     Given I am logged in as "user" with password "true"
@@ -151,36 +143,7 @@ Feature: Start a question
        | question_statement_document_text  | my super secret description           |
        | question_topic_tags               | **secret                              |
       And I press "Save"
-    Then I should see "You do not have the permission to insert the '**secret' tag."
-    Given I have "**secret" as decision making tags
-      And I go to the question
-      And I follow "edit"
-      And I fill in the following:
-       | question_statement_document_title | my super secret world domination plan |
-       | question_statement_document_text  | my super secret description           |
-       | question_topic_tags               | **secret                              |
-      And I press "Save"
       Then I should see "The Question has been updated successfully."
+        And I have "**secret" as decision making tags
       
-      
-   Scenario: There is a question with a **tag, and a user with *tag can see it, but not touch it
-    Given I am logged in as "user" with password "true"
-      And I have "**secret" as decision making tags
-      And there is a question i have created
-    When I go to the question
-      And I follow "edit"
-      And I fill in the following:
-       | question_statement_document_title | my super secret world domination plan |
-       | question_statement_document_text  | my super secret description           |
-       | question_topic_tags               | **secret                              |
-      And I press "Save"
-    Then I should see "The Question has been updated successfully."
-      And I follow "Logout"
-      And I login as "ben" with password "benrocks"
-      And I have "*secret" as decision making tags
-      And I go to the question
-    Then I should see the questions title
-      And I should not see "You do not have permission to read this statement."
-      And the question has "**secret, **supersecret" for tags
-      And I go to the question
-    Then I should see "You do not have permission to read this statement."
+  

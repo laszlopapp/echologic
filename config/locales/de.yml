@@ -72,8 +72,6 @@ de:
           <p>Das Setzen eines **tag (mit ZWEI **) macht die Diskussion geschlossen und nicht sichtbar.
           Sie ist nur sichtbar für Nutzer, die den selben **tag unter 'Entscheidungsträger in' in ihrem
           Profil eingetragen haben.</p>
-          <p>Bitte beachten Sie, dass Sie zuerst die *tags/**tags in Ihrem Profil unter 'Entscheidungsträger in'
-          eintragen, bevor Sie sie benutzen, um den Zugang zu Diskussionen zu steuern.</p>
           <p>Dies ist nur eine vorübergehende Lösung, um geschlossene Diskussionen in echo anzubieten.
           Die angestrebte Lösung, mit Kontaktlisten, Einladungsversand und Rechtemanagement, wird zu einem
           späteren Zeitpunkt realisiert.</p>
@@ -460,8 +458,8 @@ de:
     translation_request: Bitte übersetzen Sie die Aussage auf <strong>DEUTSCH</strong>.
     mixed_languages: Sprachverwirrung
     set_languages: Stellen Sie <strong>Ihre Sprachkenntnisse</strong> ein - Entwirren Sie die Sprachen!
-    no_locale_language: Sprechen Sie Deutsch?
-    adjust_languages: Bitte stellen Sie <strong>Ihre Sprachkenntnisse</strong> auf DEUTSCH ein!
+    no_locale_language: Sprechen Sie DEUTSCH?
+    adjust_languages: Bitte stellen Sie <strong>Ihre Sprachkenntnisse auf DEUTSCH</strong> ein!
     results_count:
       one: '{{count}} Fragestellung'
       more: '{{count}} Fragestellungen'
@@ -581,6 +579,7 @@ de:
         ausserhalb der ursprünglichen Diskussion verständlich sein.
       tag_permission: |
         Sie dürfen leider den Tag '{{tag}}' nicht vergeben.
+      read_permission: Dieser Beitrag ist geschützt. Leider haben Sie nicht die nötigen Rechte, um ihn zu lesen.
       title_hint:
         question: Überschrift der Fragestellung auf... Deutsch?
         proposal: Überschrift des Vorschlags auf... Deutsch?
