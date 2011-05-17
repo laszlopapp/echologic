@@ -39,8 +39,9 @@ class Statement < ActiveRecord::Base
   # Returns the current statement document in the given language.
   #
   def document_in_language(language)
+    l_id = (language.kind_of?(String) or language.kind_of?(Integer)) ? language : language.id
     self.statement_documents.find(:first,
-                                  :conditions => ["language_id = ? and current = 1", language.id])
+                                  :conditions => ["language_id = ? and current = 1", l_id])
   end
 
 
