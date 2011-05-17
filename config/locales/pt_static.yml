@@ -46,13 +46,15 @@ pt:
           A echo é um projeto comunitário <a href="{{github_url}}" target="_blank">Open Source</a> desenvolvido para a
           <strong>participação ativa dos cidadãos</strong> - por
           <span title="{{subsidiarity_tooltip}}" class="ttLink">todo o mundo</span> e para todos os cidadãos.
-          A echo congrega todos os agentes sociais de modo a que estes construam juntos uma
-          <strong>mudança sustentável</strong>.
+          A sua abordagem abrangente está destinada a expressar um problema base do nosso tempo:
+          a resignação política e sentimento de impotência do indivíduo.
           </p><p>
-          "Discutir - Conectar - Agir!" - A aplicação permite <strong>construtivamente dialogar em massa em
-          todas as línguas</strong>, conectando cidadãos por todo o mundo com os mesmos objetivos e auxiliando-os na
-          <strong>ação conjunta</strong>. Onde quer que estejamos no mundo real ou virtual, a echo mostra-nos:
-          nós (e a nossa opinião) não estamos sozinhos - o ec(h)o das nossas vozes pode <strong>mudar o mundo</strong>.
+          "Discutir - Conectar - Agir!" - O software social facilita a criação de <strong>diálogos construtivos, multilíngues e
+          públicos</strong> que visam a formação de opiniões e a busca de soluções coletiva</strong>. Visa também conectar
+          pessoas que partilham dos mesmos propósitos e apoiam estes de modo a criar <strong>ações conjuntas</strong> que
+          impactem socialmente e políticamente.<br/>
+          Onde quer que estejamos no mundo real ou virtual, a echo mostra-nos:
+          nós (e a nossa opinião) não estamos sozinhos - o echo da nossa voz pode <strong>tornar ide(i)a(i)s em realidade</strong>.
           </p>
         subsidiarity_tooltip: De acordo com os princípios da subsidiaridade
         text_2:
@@ -98,7 +100,7 @@ pt:
             </p>
         action: |-
           Ir para o protótipo »<br/>
-          echo 0.14 está online
+          echo 0.15 está online
 
       #About
       about:
@@ -916,7 +918,7 @@ pt:
         Com os melhores cumprimentos,
 
         A sua equipa echo
-    
+
     activate_email:
       subject: Por favor confirme o seu endereço E-Mail
       text1: |
@@ -933,4 +935,3 @@ pt:
         Esperamos encontrá-lo brevemente na echo,
 
         A sua equipa echo
- 

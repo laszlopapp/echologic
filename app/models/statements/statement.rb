@@ -59,6 +59,6 @@ class Statement < ActiveRecord::Base
   end
 
   def filtered_topic_tags
-    self.topic_tags.select{|tag| !tag.starts_with?('*')}
+    self.topic_tags.select{|tag| !tag.starts_with?('*')}  # Also filters out **tags
   end
 end

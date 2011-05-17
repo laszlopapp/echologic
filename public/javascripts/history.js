@@ -4,6 +4,7 @@ $(document).ready(function () {
   	initHistoryEvents();
   	initPaginationButtons();
   	initFragmentChange();
+		loadSearchAutoComplete();
 		$('#questions_container').statement_search();
   }
 });
@@ -91,5 +92,16 @@ function triggerSearchQuery(){
     "sort": $.fragment().sort,
     "search_terms": $.fragment().search_terms
   }));
+}
+
+
+/*
+ * Initializes auto_complete property for the tags text input
+ */
+function loadSearchAutoComplete() {
+	var path = $('#function_container').hasClass('discuss') ? '../../discuss/auto_complete_for_tag_value' : '../users/users/auto_complete_for_tag_value';
+
+  $('#search_form .tag_value_autocomplete').autocomplete(path,
+                                                        {minChars: 3, selectFirst: false, multiple: true});
 }
 

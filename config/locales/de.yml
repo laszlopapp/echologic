@@ -61,7 +61,32 @@ de:
          Diskussionen und Aktionen</strong> auf dem Laufenden gehalten.
          </p>
 
-# Localizations for the layout components
+  help:
+    discuss:
+      closed_discussions:
+        hint: Tags für geschlossene Diskussionen...
+        text: |
+          <p>Das Setzen eines *tag (beginnend mit EINEM *) macht diese Diskussion sicht- aber nicht bearbeitbar.
+          Nutzer, die an dieser Diskussion teilnehmen wollen, müssen den selben *tag in Ihrem Profil bei
+          'Entscheidungsträger in' eintragen.</p>
+          <p>Das Setzen eines **tag (mit ZWEI **) macht die Diskussion geschlossen und nicht sichtbar.
+          Sie ist nur sichtbar für Nutzer, die den selben **tag unter 'Entscheidungsträger in' in ihrem
+          Profil eingetragen haben.</p>
+          <p>Dies ist nur eine vorübergehende Lösung, um geschlossene Diskussionen in echo anzubieten.
+          Die angestrebte Lösung, mit Kontaktlisten, Einladungsversand und Rechtemanagement, wird zu einem
+          späteren Zeitpunkt realisiert.</p>
+    profile:
+      closed_discussions:
+        hint: Tags für geschlossene Diskussionen...
+        text: |
+          <p>Hier können Sie die nötigen *tags und **tags als Entscheidungsträger-Kompetenz eintragen.
+          Dies erlaubt es Ihnen, in transparenten, halb-geschlossenen Diskussionen (markiert mit *tag) teilzunehmen
+          sowie vollständig geschlossene Diskussionen (geschützt durch **tags) zu sehen.</p>
+          <p>Dies ist nur eine vorübergehende Lösung, um geschlossene Diskussionen in echo anzubieten.
+          Die angestrebte Lösung, mit Kontaktlisten, Einladungsversand und Rechtemanagement, wird zu einem
+          späteren Zeitpunkt realisiert.</p>
+
+  # Localizations for the layout components
   layouts:
     tabs:
       discuss: Diskutieren
@@ -231,7 +256,14 @@ de:
     # Spoken Languages section
     spoken_languages:
       title: Sprachkenntnisse
-      guide:  Hier können Sie Ihre Sprachkenntnisse angeben.
+      guide: |
+        Hier können Sie Ihre Sprachkenntnisse angeben, um <strong>Inhalte nur in den von Ihnen gesprochenen Sprachen
+        zu sehen</strong>.<br/>
+        Darüber hinaus wird es Ihnen möglich sein, zu echos sprachübergreifenden, interkulturellen Dialogen durch
+        <strong>Übersetzung der Inhalte</strong> aktiv beizutragen. Um eine hohe Qualität der Inhalte zu gewährleisten,
+        können diese nur dann übersetzt werden, wenn Sie sowohl die Ausgangssprache als auch die Zielsprache <strong>
+        mindestens auf 'Mittelstufe'</strong> sprechen.<br/>
+        Bitte vergessen Sie nicht auch <strong>Ihre Muttersprache</strong> einzutragen.
       language: Sprache
       level: Niveau
       error_messages:
@@ -423,12 +455,11 @@ de:
       no_questions: |
         Sie haben bislang keine Fragestellungen hinzugefügt. Um welche anzulegen, klicken Sie bitte links auf das Fragezeichen.
       add: Neue Fragestellung
-    tag_permission: |
-      Sie dürfen leider den Tag '{{tag}}' nicht vergeben.
-    original_language_warning: |
-      Die originale Aussage ist auf <strong>{{language}}</strong>. Definieren Sie<br/>
-      Ihre Sprachkenntnisse, um weitere Inhalte zu sehen.
     translation_request: Bitte übersetzen Sie die Aussage auf <strong>DEUTSCH</strong>.
+    mixed_languages: Sprachverwirrung
+    set_languages: Stellen Sie <strong>Ihre Sprachkenntnisse</strong> ein - Entwirren Sie die Sprachen!
+    no_locale_language: Sprechen Sie DEUTSCH?
+    adjust_languages: Bitte stellen Sie <strong>Ihre Sprachkenntnisse auf DEUTSCH</strong> ein!
     results_count:
       one: '{{count}} Fragestellung'
       more: '{{count}} Fragestellungen'
@@ -521,10 +552,10 @@ de:
       create_pro_argument_link: Neues PRO-Argument hinzufügen
       create_contra_argument_link: Neues KONTRA-Argument hinzufügen
       create_follow_up_question_link: Neue Folgefrage hinzufügen
-      recommend_link: 'Empfehlen (echo)'
-      unrecommend_link: 'echo widerrufen'
-      support_link: 'Unterstützen (echo)'
-      unsupport_link: 'echo widerrufen'
+      recommend_link: 'Empfehlen (Echo)'
+      unrecommend_link: 'Stimme widerrufen'
+      support_link: 'Unterstützen (Echo)'
+      unsupport_link: 'Stimme widerrufen'
       create_question_explanation: |
         Hier können Sie eine <strong>neue Fragestellung</strong> hinzufügen und mit den
         passenden <strong>thematischen Schlüsselwörten</strong> (sog. Tags) versehen.
@@ -546,6 +577,9 @@ de:
       fuq_formulation_hint: |
         Da Folgefragen auch wie andere Fragestellungen in der Suche erscheinen, sollten Überschrift und Erläuterung auch
         ausserhalb der ursprünglichen Diskussion verständlich sein.
+      tag_permission: |
+        Sie dürfen leider den Tag '{{tag}}' nicht vergeben.
+      read_permission: Dieser Beitrag ist geschützt. Leider haben Sie nicht die nötigen Rechte, um ihn zu lesen.
       title_hint:
         question: Überschrift der Fragestellung auf... Deutsch?
         proposal: Überschrift des Vorschlags auf... Deutsch?
@@ -586,8 +620,14 @@ de:
         question: 'Fragestellungen'
         proposal: 'Vorschläge'
         improvement: 'Ergänzungen'
-        argument: 'Argumente'
+        argument: 'Pro & Kontra'
         follow_up_question: 'Folgefragen'
+      sibling_labels:
+        question: 'Fragen'
+        proposal: 'Vorschläge'
+        improvement: 'Ergänzungen'
+        argument: 'Argumente'
+        follow_up_question: 'Fragen'
       siblings:
         follow_up_question: 'Folgefrage im obigen Kontext'
 
@@ -596,7 +636,7 @@ de:
         label: 'Fragestellung sofort veröffentlichen?'
         initial_state:
           new: 'Erstmal weiter vorbereiten und später veröffentlichen'
-          published: 'Sofort veröffentlichen (danach ist keine Bearbeitung mehr möglich)'
+          published: 'Sofort veröffentlichen (danach ist eine Bearbeitung nur begrenzt möglich)'
         published: Freigegeben
         approved: Approved
       delete_link: 'Löschen'
@@ -634,6 +674,7 @@ de:
       cannot_be_edited: |
         Sie können diesen Beitrag nicht mehr editieren, da er bereits durch jemanden unterstützt wurde.
         Dies ist notwendig, um Verfälschungen des Meinungsbildes zu vermeiden.
+      echos_label: Unterstützung
 
       breadcrumbs:
         discuss_search: Suchergebnisse

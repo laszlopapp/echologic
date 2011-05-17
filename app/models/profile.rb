@@ -11,7 +11,7 @@ class Profile < ActiveRecord::Base
   has_many :memberships,  :through => :user
   has_many :spoken_languages, :through => :user
 
-  delegate :email, :email=, :affection_tags, :expertise_tags, :engagement_tags, :decision_making_tags, 
+  delegate :email, :email=, :affection_tags, :expertise_tags, :engagement_tags, :decision_making_tags,
            :first_membership, :to => :user
 
 
@@ -45,8 +45,8 @@ class Profile < ActiveRecord::Base
   validates_attachment_size :avatar, :less_than => 5.megabytes
   validates_attachment_content_type :avatar, :content_type => ['image/jpeg', 'image/png', 'image/pjpeg', 'image/x-png']
   before_validation :get_remote_avatar, :if => :avatar_url?
-  
-  
+
+
   # paperclip callback, used to recalculate completeness when uploading an avatar
   after_avatar_post_process :calculate_completeness
 
@@ -57,50 +57,73 @@ class Profile < ActiveRecord::Base
     [city, country].select { |s| s.try(:any?) }.collect(&:capitalize).join(', ')
   end
 
-  
+
 
   # Self written SQL for querying profiles in echo Connect
-  def self.search_profiles(competence, search_term, opts={})
-    
-    opts[:readonly] = false
-    opts[:select] ||= "DISTINCT #{self.table_name}.*, #{User.table_name}.email"
-    
-    
-    # join clauses
-    opts[:joins] =  "LEFT JOIN #{User.table_name} ON #{User.table_name}.id = profiles.user_id "
-    opts[:joins] << "LEFT JOIN #{Membership.table_name} m  ON #{User.table_name}.id = m.user_id "
-    opts[:joins] << User.extaggable_joins_clause
-    
-    
-    # Building the where clause
+  def self.search_profiles(competence, search_terms, opts={})
 
-    # Filtering active users
-    opts[:conditions] = ["#{User.table_name}.active = 1"]
-    
-    # Searching for different competences
+    conditions = []
+
+    # get active users
+    conditions << "#{User.table_name}.active = 1"
+
+    # sort by competence (or not)
     if competence.blank?
+      joins = "LEFT JOIN #{Membership.table_name} ON #{Membership.table_name}.user_id = #{User.table_name}.id "
       # General search
-      searched_fields = ["#{self.table_name}.full_name", "#{self.table_name}.city", "#{self.table_name}.country",
-                         "#{self.table_name}.about_me", "#{self.table_name}.motivation", 
-                         "#{User.table_name}.email", "m.position", "m.organisation"]
+      searched_fields = ["#{table_name}.full_name", "#{table_name}.city",
+                         "#{table_name}.country", "#{table_name}.about_me",
+                         "#{table_name}.motivation", "#{User.table_name}.email",
+                         "#{Membership.table_name}.position", "#{Membership.table_name}.organisation"]
     else
+      joins = ""
       # Search for a certain competence area
-      searched_fields = ["#{self.table_name}.full_name", "#{self.table_name}.city", "#{self.table_name}.country"]
-      opts[:conditions] << User.extaggable_filter_by_type(competence)
+      searched_fields = ["#{table_name}.full_name", "#{table_name}.city", "#{table_name}.country"]
+      conditions << User.extaggable_filter_by_type(competence)
     end
-    search_conditions = searched_fields.map{|field|sanitize_sql(["#{field} LIKE ?", "%#{search_term}%"])}
-    search_conditions << User.extaggable_conditions_for_term(search_term||'', 0)
-    opts[:conditions] << "(#{search_conditions.join(' OR ')})"
-    opts[:conditions] = opts[:conditions].join(" AND ")
-    
-    # Building the order clause
-    opts[:order] = "CASE WHEN #{self.table_name}.completeness >= #{COMPLETENESS_THRESHOLD} THEN 0 ELSE 1 END, " +
-                   "CASE WHEN #{self.table_name}.full_name='' THEN 1 ELSE 0 END, " +
-                   "#{self.table_name}.full_name, #{User.table_name}.id asc;"
-      
-    all opts
+
+    order_conditions = "CASE WHEN #{table_name}.completeness >= #{COMPLETENESS_THRESHOLD} THEN 0 ELSE 1 END, " +
+                       "CASE WHEN #{table_name}.full_name='' THEN 1 ELSE 0 END, " +
+                       "#{table_name}.full_name, #{User.table_name}.id asc;"
+
+    if !search_terms.blank?
+      term_query =  "SELECT DISTINCT #{table_name}.id FROM #{table_name} "
+      term_query << "LEFT JOIN #{User.table_name}  ON #{User.table_name}.id = #{table_name}.user_id "
+      term_query << User.extaggable_joins_clause("#{User.table_name}.id")
+      term_query << joins
+      term_query << "WHERE "
+
+      term_queries = []
+
+      if search_terms.include? ','
+        terms = search_terms.split(',')
+      else
+        terms = search_terms.split(/[\s]+/)
+      end
+      terms.map(&:strip).each do |term|
+        or_conditions = [User.extaggable_conditions_for_term(term)]
+        or_conditions += searched_fields.map{|field|sanitize_sql(["#{field} LIKE ?", "%#{term}%"])}
+        term_queries << (term_query + (conditions + ["(#{or_conditions.join(" OR ")})"]).join(" AND "))
+      end
+      term_queries = term_queries.join(" UNION ALL ")
+
+      profiles_query = "SELECT #{table_name}.*, users.email " +
+                           "FROM (#{term_queries}) profile_ids " +
+                           "LEFT JOIN #{table_name} ON #{table_name}.id = profile_ids.id " +
+                           "LEFT JOIN #{User.table_name} ON #{User.table_name}.id = #{table_name}.user_id " +
+                           "GROUP BY profile_ids.id " +
+                           "ORDER BY COUNT(profile_ids.id) DESC, " + order_conditions
+    else
+      profiles_query = "SELECT DISTINCT #{table_name}.*, #{User.table_name}.email from profiles " +
+                       "LEFT JOIN #{User.table_name} ON #{User.table_name}.id = #{table_name}.user_id " +
+                       User.extaggable_joins_clause("#{User.table_name}.id") +
+                       joins +
+                       "WHERE " + conditions.join(' AND ') +
+                       " ORDER BY " + order_conditions
+    end
+    find_by_sql profiles_query
   end
-  
+
   private
   def avatar_url?
     !self.avatar_url.blank?

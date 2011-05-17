@@ -21,6 +21,12 @@ joe_water_ngo:
   context_id: <%= Fixtures.identify(:tag_context_topic) %>
 <% end %>
 
+fifth_impro_proposal_secret_topic:
+  tag_id: <%= Fixtures.identify('secret') %>
+  tao_id: <%= Fixtures.identify('fifth-impro-proposal-statement') %>
+  tao_type: Statement
+  context_id: <%= Fixtures.identify(:tag_context_topic) %>
+
 joe_energy:
   tao_id:  <%= Fixtures.identify(:joe) %>  
   tag_id:   <%= Fixtures.identify(:energy) %>
@@ -38,3 +44,4 @@ joe_water:
   tag_id:   <%= Fixtures.identify(:water) %>
   tao_type: User
   context_id: <%= Fixtures.identify(:tag_context_affection) %>
+  

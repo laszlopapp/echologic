@@ -92,3 +92,58 @@ Feature: Start a question
       And I am logged in as "ben" with password "benrocks"
     When I go to the question
       Then I should not see "Change"
+      
+      
+      
+   ######################
+   # CLOSED DISCUSSIONS #
+   ######################
+   
+   Scenario: Various Users try to see the new statement marked with a ** tag
+     Given I am logged in as "user" with password "true"
+       And I am on the discuss index
+     Then I should see "Test Question?"
+       And I choose the "Test Question?" Question
+       And the question has "**secret, **top_secret, not_secret" for tags
+       And I am on the discuss index
+     Then I should not see "Test Question?"
+     Given I have "**secret" as decision making tags
+       And I am on the discuss index
+       Then I should see "Test Question?"
+       And I choose the "Test Question?" Question
+       And I have no decision making tags
+     When I go to the question
+       Then I should see "You do not have permission to read this statement."
+     Given I follow "logout_button"
+     When I go to the question
+       Then I should see "You do not have permission to read this statement."
+     Given I login as "ben" with password "benrocks"
+       And I am on the discuss index
+     Then I should not see "Test Question?"
+     
+   Scenario: User tries to create a statement with a ** tag
+    Given I am logged in as "user" with password "true"
+    When I am on My Questions
+      And I follow "Create a new question"
+      And I fill in the following:
+        | question_statement_document_title | my super secret world domination plan |
+        | question_statement_document_text  | my super secret description           |
+        | question_topic_tags               | **secret                              |
+      And I press "Save"
+    Then I should see "The new Question has been entered successfully."
+      And I have "**secret" as decision making tags
+     
+   Scenario: User tries to mark existing statement with a ** tag
+    Given I am logged in as "user" with password "true"
+      And there is a question i have created
+    When I go to the question
+      And I follow "edit"
+      And I fill in the following:
+       | question_statement_document_title | my super secret world domination plan |
+       | question_statement_document_text  | my super secret description           |
+       | question_topic_tags               | **secret                              |
+      And I press "Save"
+      Then I should see "The Question has been updated successfully."
+        And I have "**secret" as decision making tags
+      
+  

@@ -2,23 +2,31 @@
 
 /* Container to hold the tooltip. */
 #tooltip {
-	position:   absolute;
-	z-index:    3000;
-	border:     none;
-	-moz-border-radius: 8px;
+  position: absolute;
+  max-width: 450px;
+  padding:  10px 16px 11px;
+	z-index: 3000;
+  background-color: #F9F1D3;
+	border: 2px solid #6A6A6A;
+	border-radius: 8px;
+  -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
-	background-color:   #7AB030;
-	padding:    6px 8px 7px;
-	max-width:  450px;
+  box-shadow: 0 1px 20px #AAA;
+  -moz-box-shadow: 0 1px 20px #AAA;
+  -webkit-box-shadow: 0 1px 20px #AAA;
 }
 
 #tooltip h3, #tooltip div { margin: 0; }
 
 /* Text inside of the tooltip. */
 #tooltip h3 {
-	color:      #fff;
-	font-size:  12px;
+	color: #4C4C4C;
+  font-size: 13px;
+  font-weight: bold !important;
+}
 
+#tooltip h3, #tooltip h3 p {
+  line-height: 1.35em;
 }
 
 /* Tooltipable links. */

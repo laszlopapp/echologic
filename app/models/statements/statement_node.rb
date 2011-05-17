@@ -22,7 +22,7 @@ class StatementNode < ActiveRecord::Base
   belongs_to :creator, :class_name => "User"
   belongs_to :statement
 
-  delegate :original_language, :document_in_language, :authors, :has_author?,
+  delegate :original_language, :document_in_language, :authors, :has_author?, 
            :statement_image, :statement_image=, :image, :image=, :published?, :publish,
            :taggable?, :filtered_topic_tags, :topic_tags, :topic_tags=, :hash_topic_tags, :tags, :editorial_state_id,
            :editorial_state_id=, :editorial_state, :editorial_state=, :to => :statement
@@ -128,7 +128,7 @@ class StatementNode < ActiveRecord::Base
   #
   def translatable?(user, from_language, to_language)
     if user && from_language != to_language
-      languages = user.spoken_languages_at_min_level('advanced')
+      languages = user.spoken_languages_at_min_level('intermediate')
       languages.include?(from_language) && languages.include?(to_language)
     else
       false
@@ -137,8 +137,8 @@ class StatementNode < ActiveRecord::Base
 
   # Checks if, in case the user hasn't yet set his language knowledge, the current language is different from
   # the statement original language. used for the original message warning
-  def not_original_language?(user, current_language_id)
-    user ? (user.spoken_languages.empty? and current_language_id != original_language.id) : false
+  def should_set_languages?(user, current_language_id, document_language_id)
+    user ? (user.spoken_languages.empty? and current_language_id != document_language_id) : false
   end
 
   #
@@ -312,11 +312,11 @@ class StatementNode < ActiveRecord::Base
 
       if opts[:for_session]
         fields[:select] = "DISTINCT #{table_name}.id, #{table_name}.question_id"
-        statements = self.scoped(fields).map{|s| s.question_id.nil? ? s.id : s.question_id}
+        statements = self.base_class.scoped(fields).map{|s| s.question_id.nil? ? s.id : s.question_id}
         statements << "/#{opts[:parent_id].nil? ? '' : "#{opts[:parent_id]}/" }add/#{self.name.underscore}" # ADD TEASER
       else
         fields[:select] = "DISTINCT #{table_name}.*"
-        statements = self.all(fields)
+        statements = self.base_class.all(fields)
       end
       statements
     end
@@ -371,7 +371,7 @@ class StatementNode < ActiveRecord::Base
     # opts attributes:
     #
     # search_term (string : optional) : value we ought to search for on title, text and statement tags
-    # only_id (boolean : optional) : if true, returns an hash of the statements only with the id attribute filled
+    # only_id (boolean : optional) : if true, returns a hash of the statements only with the id attribute filled
     # type (string : optional) : defines the type of statement to look for ("Question" in most of the cases)
     # show_unpublished (boolean : optional) : if false or nil, only get the published statements (see user as well)
     # user (User : optional) : only used if show_unpublished is false or nil; gets the statements belonging to the user regardless of state (published or new)
@@ -381,53 +381,82 @@ class StatementNode < ActiveRecord::Base
     # Called with no attributes filled: returns all published questions
     #
     def search_statement_nodes(opts={})
-      search_term = opts.delete(:search_term)
-      search_attrs = opts[:type].nil? ? 'root_id' : 'id'
-      tag_clause = "SELECT DISTINCT s.#{search_attrs} FROM #{table_name} s "
-      tag_clause << "LEFT JOIN #{Statement.table_name}               ON #{Statement.table_name}.id = s.statement_id " +
-                    "LEFT JOIN #{StatementDocument.table_name} d     ON s.statement_id = d.statement_id "
-      tag_clause << Statement.extaggable_joins_clause
-      tag_clause << "WHERE "
+      aggregator_field = opts[:type].nil? ? 'root_id' : 'id'
+      
+      # Constant criteria
+      document_conditions = []
+      
+      # Languages
+      if opts[:user] and !opts[:user].spoken_languages.empty? and opts[:language_ids]
+        document_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]])
+      end
+      
+      node_conditions = []
+      # Access permissions
+      access_conditions = []
+      access_conditions << "s.closed_statement IS NULL"
+      access_conditions << sanitize_sql(["s.granted_user_id = ?", opts[:user].id]) if opts[:user]
+      node_conditions << "(#{access_conditions.join(' OR ')})"
 
-
-      tags_query = ''
-      and_conditions = []
-      and_conditions << "d.current = 1"
+      # Statement type
+      if opts[:type]
+        node_conditions << sanitize_sql(["s.type = ?", opts[:type]])
+      end
+      
+      # Published state
       unless opts[:show_unpublished]
         publish_condition = []
-        publish_condition << sanitize_sql(["#{Statement.table_name}.editorial_state_id = ?",StatementState['published'].id])
+        publish_condition << sanitize_sql(["s.editorial_state_id = ?",StatementState['published'].id])
         publish_condition << sanitize_sql(["s.creator_id = ?",  opts[:user].id]) if opts[:user]
-        and_conditions << "(#{publish_condition.join(' OR ')})"
+        node_conditions << "(#{publish_condition.join(' OR ')})"
       end
-      and_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]]) if opts[:language_ids]
-      and_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]]) if opts[:drafting_states]
-      and_conditions << sanitize_sql(["s.type = ?", opts[:type]]) if opts[:type]
-      and_conditions << "s.question_id is NULL"
+      
+      # Drafting state
+      if opts[:drafting_states]
+        node_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]])
+      end
+      
+
+      # Search terms
+      search_term = opts.delete(:search_term)
       if !search_term.blank?
-        tags_query = []
-        terms = search_term.split(/[,\s]+/)
-        terms.each do |term|
-          or_conditions = Statement.extaggable_conditions_for_term(term)
+        term_query = "SELECT DISTINCT statement_id AS id FROM search_statement_text d "
+        term_query << "WHERE "
+      
+        term_queries = []
+        if search_term.include? ','
+          terms = search_term.split(',')
+        else
+          terms = search_term.split(/[\s]+/)
+        end
+        
+        terms.map(&:strip).each do |term|
+          or_conditions = Statement.extaggable_conditions_for_term(term, "d.tag")
           if (term.length > 3)
             or_conditions << sanitize_sql([" OR d.title LIKE ? OR d.text LIKE ?", "%#{term}%", "%#{term}%"])
           end
-          tags_query << (tag_clause + (and_conditions + ["(#{or_conditions})"]).join(" AND "))
+          term_queries << (term_query + (document_conditions + ["(#{or_conditions})"]).join(" AND "))
         end
-        tags_query = tags_query.join(" UNION ALL ")
-        statements_query = "SELECT #{table_name}.#{opts[:only_id] ? search_attrs : '*'} " +
-                           "FROM (#{tags_query}) statement_node_ids " +
-                           "LEFT JOIN #{table_name} ON #{table_name}.id = statement_node_ids.#{search_attrs} " +
+        term_queries = term_queries.join(" UNION ALL ")
+        statements_query = "SELECT #{table_name}.#{opts[:only_id] ? aggregator_field : '*'} " +
+                           "FROM (#{term_queries}) statement_ids " +
+                           "LEFT JOIN search_statement_nodes s ON statement_ids.id = s.statement_id " +
+                           "LEFT JOIN #{table_name} ON #{table_name}.id = s.#{aggregator_field} " +
                            "LEFT JOIN #{Echo.table_name} e ON e.id = #{table_name}.echo_id " +
-                           "GROUP BY statement_node_ids.#{search_attrs} " +
-                           "ORDER BY COUNT(statement_node_ids.#{search_attrs}) DESC,e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id;"
+                           "WHERE #{node_conditions.join(" AND ")} " +
+                           "GROUP BY s.#{aggregator_field} " +
+                           "ORDER BY COUNT(s.#{aggregator_field}) DESC, " +
+                           "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id;"
       else
-        and_conditions << "s.type = 'Question'" if opts[:type].nil?
-        statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? search_attrs : '*'} from #{table_name} s " +
-                           "LEFT JOIN #{Statement.table_name} ON #{Statement.table_name}.id = s.statement_id " +
-                           "LEFT JOIN #{StatementDocument.table_name} d ON s.statement_id = d.statement_id " +
-                           "LEFT JOIN #{Echo.table_name} e ON e.id = s.echo_id " +
-                           "WHERE " + and_conditions.join(' AND ') +
-                           " ORDER BY e.supporter_count DESC, s.created_at DESC, s.id;"
+        document_conditions << "d.current = 1"
+        
+        node_conditions << "s.type = 'Question'" if opts[:type].nil?
+        
+        statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? aggregator_field : '*'} from search_statement_nodes s " +
+                           "LEFT JOIN statement_documents d ON d.statement_id = s.statement_id " +
+                           Statement.extaggable_joins_clause("s.statement_id") +
+                           "WHERE " + (node_conditions + document_conditions).join(' AND ') +
+                           " ORDER BY s.supporter_count DESC, s.created_at DESC, s.id;"
       end
       find_by_sql statements_query
     end

@@ -1,14 +1,18 @@
 module StatementsHelper
+
   include PublishableModuleHelper
   include EchoableModuleHelper
   include IncorporationModuleHelper
   include TranslationModuleHelper
 
+
   ##################
   # RENDER HELPERS #
   ##################
 
-  # Renders ancestors headers (when we have a GET operation on a child node)
+  #
+  # Renders ancestors headers (when we have a GET operation on a child node).
+  #
   def render_ancestors(ancestors, ancestor_documents)
     val = ''
     ancestors.each do |ancestor|
@@ -18,10 +22,15 @@ module StatementsHelper
   end
 
   def render_ancestor(ancestor, document)
-    render :partial => 'statements/show', :locals => {:statement_node => ancestor, :statement_document => document, :only_header => true}
+    render :partial => 'statements/show', :locals => {:statement_node => ancestor,
+                                                      :statement_document => document,
+                                                      :only_header => true}
   end
 
-  # Renders all the possible children of the current node (per type, ordering must be defined in the node type definition)
+  #
+  # Renders all the possible children of the current node
+  # (per type, ordering must be defined in the node type definition).
+  #
   def render_children(statement_node, children, type = dom_class(statement_node))
     return content_tag :div, '', :style => "clear:right" if children.blank?
     val = ''
@@ -132,8 +141,8 @@ module StatementsHelper
 
   #
   # Creates a link to add a new sibling for the given statement (appears in the SIDEBAR).
-  def add_new_sibling_button(statement_node)
   #
+  def add_new_sibling_button(statement_node)
     content = ''
     statement_node.class.sub_types.map.each do |sub_type|
       sub_type = sub_type.to_s.underscore
@@ -205,7 +214,7 @@ module StatementsHelper
   end
 
   #
-  # Render authors' list
+  # Render the list of authors.
   #
   def render_authors(statement_node, user, authors)
     content_tag(:ul, :class => 'authors_list') do
@@ -216,9 +225,8 @@ module StatementsHelper
     end
   end
 
-
   #
-  # Creates a teaser for authors with author styling
+  # Creates a teaser for authors with author styling.
   #
   def author_teaser(statement_node, user)
     content_tag :li, :class => 'author teaser' do
@@ -229,7 +237,6 @@ module StatementsHelper
       content
     end
   end
-
 
   #
   # Creates a link to delete the current statement.
@@ -253,12 +260,16 @@ module StatementsHelper
     content_tag :span, val, :class => 'action_buttons'
   end
 
-  # Returns the block heading for entering a new child for the given statement node
+  #
+  # Returns the block heading for entering a new child for the given statement node.
+  #
   def children_new_box_title(statement_node)
     I18n.t("discuss.statements.new.#{dom_class(statement_node)}")
   end
 
-  # Returns the block heading for the children of the current statement node
+  #
+  # Returns the block heading for the children of the current statement node.
+  #
   def children_heading_title(type, count)
     title = ''
     title << I18n.t("discuss.statements.headings.#{type}")
@@ -266,20 +277,25 @@ module StatementsHelper
     title
   end
 
-  # Returns the block heading for the siblings of the current statement node
+  #
+  # Returns the block heading for the siblings of the current statement node.
+  #
   def sibling_box_title(type)
     content_tag :span, I18n.t("discuss.statements.headings.#{type}"), :class => 'label'
   end
 
-
-  # Creates the cancel button in the new statement form (right link will be handled in jquery)
+  #
+  # Creates the cancel button in the new statement form (right link will be handled in jquery).
+  #
   def cancel_new_statement_node(cancel_js=false)
     link_to I18n.t('application.general.cancel'),
             :back,
             :class => 'cancel text_button cancel_text_button'
   end
 
-  # Creates the cancel button in the edit statement form
+  #
+  # Creates the cancel button in the edit statement form.
+  #
   def cancel_edit_statement_node(statement_node, locked_at,type = dom_class(statement_node))
     link_to I18n.t('application.general.cancel'),
             cancel_statement_node_url(statement_node, :locked_at => locked_at.to_s),
@@ -298,19 +314,25 @@ module StatementsHelper
   # Sugar & UI #
   ##############
 
-  # Loads the right add statement image
+  #
+  # Loads the right add statement image.
+  #
   def statement_form_illustration(statement_node)
     image_tag("page/discuss/add_#{dom_class(statement_node)}_big.png",
               :class => 'statement_form_illustration')
   end
 
-  # returns the right icon for a statement_node, determined from statement_node class and given size
+  #
+  # Returns the right icon for a statement_node, determined from statement_node class and given size.
+  #
   def statement_node_icon(statement_node, size = :medium)
     # remove me to have different sizes again
     image_tag("page/discuss/#{dom_class(statement_node)}_#{size.to_s}.png")
   end
 
+  #
   # Returns the context menu link for this statement_node.
+  #
   def statement_node_context_link(statement_node, title, action = 'read', opts={})
     css = opts.delete(:css)
     link_to(h(title),
@@ -319,14 +341,18 @@ module StatementsHelper
              :title => I18n.t("discuss.tooltips.#{action}_#{dom_class(statement_node)}"))
   end
 
-  #render the hint on the new statement forms for users with no spoken language defined
+  #
+  # Render the hint on the new statement forms for users with no spoken language defined.
+  #
   def define_languages_hint
     content_tag :p, I18n.t('discuss.statements.statement_language_hint', :url => my_profile_url),
                 :class => 'ttLink no_border',
                 :title => I18n.t('discuss.statements.statement_language_hint_tooltip')
   end
 
-  #render the hint on the new draftable statement forms to warn about drafting language on collective text creation
+  #
+  # Render the hint on the new draftable statement forms to warn about drafting language on collective text creation.
+  #
   def drafting_language_hint
     content_tag :p, I18n.t('discuss.statements.drafting_language_hint')
   end
@@ -335,7 +361,9 @@ module StatementsHelper
     content_tag :p, I18n.t("discuss.statements.fuq_formulation_hint")
   end
 
-  #render the hint on the edit statement forms to warn about the time the users have to edit it
+  #
+  # Render the hint on the edit statement forms to warn about the time the users have to edit it.
+  #
   def edit_period_hint
     content = ''
     content << content_tag(:li, :class => 'hint') do
@@ -344,16 +372,21 @@ module StatementsHelper
     content
   end
 
+
   ##############
   # Navigation #
   ##############
 
+  #
   # Renders prev/next/siblings buttons for the current statement_node.
+  #
   def navigation_buttons(statement_node, type, opts={})
     buttons = ''
     if statement_node and statement_node.new_record?
       %w(prev next).each{|button| buttons << statement_tag(button.to_sym, type, true)}
-      buttons << content_tag(:span, '&nbsp;', :class => 'show_siblings_label disabled')
+      buttons << content_tag(:span,
+                             I18n.t("discuss.statements.sibling_labels.#{type.classify.constantize.name_for_siblings}"), 
+                             :class => 'show_siblings_label disabled')
     else
       buttons << content_tag(:span, '', :class => 'loading', :style => 'display:none')
       %w(prev next).each do |button|
@@ -363,7 +396,6 @@ module StatementsHelper
                                     :rel => button,
                                     :class => " statement_link #{opts[:classes]} #{button}")
       end
-
       buttons << siblings_button(statement_node, type, opts)
     end
     buttons
@@ -371,11 +403,12 @@ module StatementsHelper
 
   def siblings_button(statement_node, type, opts={})
     origin = opts[:origin]
+    name = type.classify.constantize.name_for_siblings
     url = if statement_node.nil? or statement_node.class.name.underscore != type # ADD TEASERS
       if statement_node.nil?
         question_descendants_url(:origin => origin)
       else
-        descendants_statement_node_url(statement_node, type.classify.constantize.name_for_siblings)
+        descendants_statement_node_url(statement_node, name)
       end
     else  # STATEMENT NODES
       if statement_node.parent_id.nil?
@@ -386,13 +419,19 @@ module StatementsHelper
                                        :current_node => statement_node)
       end
     end
-    content_tag(:a, :href => url, :class => 'show_siblings_button expandable', :title => 'show_siblings_button') do
-      content_tag(:span, '&nbsp;', :class => 'show_siblings_label ttLink no_border',
-                                   :title => I18n.t("discuss.tooltips.siblings.#{dom_class(statement_node)}"))
+
+    content_tag(:a,
+                :href => url,
+                :class => 'show_siblings_button expandable') do
+      content_tag(:span, I18n.t("discuss.statements.sibling_labels.#{name}"),
+                  :class => 'show_siblings_label ttLink no_border',
+                  :title => I18n.t("discuss.tooltips.siblings.#{statement_node ? dom_class(statement_node) : 'question'}"))
     end
   end
 
-  # Renders the correct prev/next image buttons
+  #
+  # Renders the correct prev/next image buttons.
+  #
   def statement_tag(direction, class_identifier, disabled=false)
     if !disabled
       content_tag(:span, '&nbsp;',
@@ -404,9 +443,10 @@ module StatementsHelper
     end
   end
 
-  # Inserts a button that links to the previous statement_node
   #
+  # Inserts a button that links to the previous statement_node.  #
   # IMP NOTE: siblings always include the teaser at the end, so always be careful when handling it
+  #
   def statement_button(statement_node, title, type, options={})
     options[:class] ||= ''
     teaser = options[:class].include? 'add'
@@ -431,8 +471,9 @@ module StatementsHelper
           index = element_index + 1
         end
         index = index < 0 ? (siblings.length - 1) : (index >= siblings.length ? 0 : index )
-        
-        url = !(siblings[index].to_s =~ /add/).nil? ? add_teaser_statement_node_path(statement_node,url_opts) : statement_node_url(siblings[index], url_opts)
+
+        url = !(siblings[index].to_s =~ /add/).nil? ? add_teaser_statement_node_path(statement_node,url_opts) :
+                                                      statement_node_url(siblings[index], url_opts)
       end
     else
       url = add_teaser_statement_node_path(statement_node)
@@ -443,10 +484,16 @@ module StatementsHelper
   end
 
   def add_teaser_statement_node_path(statement_node, opts={})
-    (statement_node.nil? or statement_node.level == 0) ? add_question_teaser_url(opts) : add_teaser_url(statement_node.parent, opts.merge(:type => dom_class(statement_node)))
+    if statement_node.nil? or statement_node.level == 0
+      add_question_teaser_url(opts)
+    else
+      add_teaser_url(statement_node.parent, opts.merge(:type => dom_class(statement_node)))
+    end
   end
 
-  # Loads the link to a given statement, placed in the child panel section
+  #
+  # Loads the link to a given statement, placed in the child panel section.
+  #
   def link_to_child(title, statement_node,extra_classes, type = dom_class(statement_node))
     bids = params[:bids] || ''
     if statement_node.class.is_top_statement?
@@ -459,7 +506,9 @@ module StatementsHelper
             :class => "statement_link #{dom_class(statement_node)}_link #{extra_classes}"
   end
 
-  # draws the statement image container
+  #
+  # Draws the statement image container.
+  #
   def statement_image(statement_node)
     val = ""
     editable = (current_user and current_user.may_edit?(statement_node))
@@ -474,28 +523,34 @@ module StatementsHelper
     content_tag :div, val, :class => "image_container #{editable ? 'editable' : ''}" if !val.blank?
   end
 
-  # Renders the "more" link when the statement is loaded
+  #
+  # Renders the "more" link when the statement is loaded.
+  #
   def more_children(statement_node,type,page=0)
     link_to I18n.t("application.general.more"),
             more_statement_node_url(statement_node, :page => page.to_i+1, :type => type),
             :class => 'more_children ajax'
   end
 
+
   ###############
   # BREADCRUMBS #
   ###############
 
-
-  # renders the breadcrumb given
+  #
+  # Renders the given breadcrumbs.
+  #
   def render_breadcrumb(breadcrumbs)
     breadcrumb_trail = ""
     breadcrumbs.each_with_index do |b, index| #[id, classes, url, title]
-      breadcrumb = content_tag(:a, :href => b[2], :id => b[0], :class => 'breadcrumb') do
+      attrs = {}
+      attrs[:page_count] = b[:page_count] if b[:page_count]
+      breadcrumb = content_tag(:a, attrs.merge({:href => b[:url], :id => b[:key], :class => 'breadcrumb'})) do
         content = ""
         content << content_tag(:span, '', :class => 'big_delimiter') if index != 0
-        content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.#{b[0][0,2]}"), :class => 'label')
-        content << content_tag(:span, I18n.t("discuss.statements.breadcrumbs.labels.over.#{b[0][0,2]}"), :class => 'over')
-        content << content_tag(:span, h(b[3].gsub(/\\;/, ',').gsub(/\\:;/, '|')), :class => b[1])
+        content << content_tag(:span, b[:label], :class => 'label')
+        content << content_tag(:span, b[:over], :class => 'over')
+        content << content_tag(:span, h(b[:title].gsub(/\\;/, ',').gsub(/\\:;/, '|')), :class => b[:css])
         content
       end
       breadcrumb_trail << breadcrumb
@@ -503,17 +558,17 @@ module StatementsHelper
     breadcrumb_trail
   end
 
-  # This class does the heavy lifting of actually building the pagination
-  # links. It is used by the <tt>will_paginate</tt> helper internally.
+  #
+  # This class does the heavy lifting of actually building the pagination links.
+  # It is used by the <tt>will_paginate</tt> helper internally.
+  #
   class MoreRenderer < WillPaginate::LinkRenderer
-
-
     def to_html
       html = page_link_or_span(@collection.next_page, 'disabled more_children', @options[:next_label])
       html = html.html_safe if html.respond_to? :html_safe
       @options[:container] ? @template.content_tag(:div, html, html_attributes) : html
     end
-
   end
+
 end
 

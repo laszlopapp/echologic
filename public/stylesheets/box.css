@@ -132,10 +132,24 @@
 
 /* Background */
 
+/* Blue to white gradient */
 .with_bg_bw_grad {
-  background: #fff url(../images/page/box/blue_white_gradient.png) repeat-x left top;
+  background: #fff url(../images/page/box/blue_white_gradient.png) repeat-x  0 0;
 }
 
 .with_bg_bw_grad_small {
-  background: #fff url(../images/page/box/blue_white_gradient_small.png) repeat-x left top;
+  background: #fff url(../images/page/box/blue_white_gradient_small.png) repeat-x  0 0;
+}
+
+/* Transparent to white gradient - customizable by the background color */
+.with_bg_tw_grad {
+  background: url(../images/page/box/colored_background.png) repeat-x 0 0 transparent;
+}
+
+.with_bg_tw_grad_mid {
+  background: url(../images/page/box/colored_background_mid.png) repeat-x 0 0 transparent;
+}
+
+.with_bg_tw_grad_small {
+  background: url(../images/page/box/colored_background_small.png) repeat-x 0 0 transparent;
 }

@@ -129,7 +129,7 @@ class ApplicationController < ActionController::Base
     if current_user_session and session[:expiry_time] and session[:expiry_time] < Time.now
       expire_session!
     end
-    session[:expiry_time] = MAX_SESSION_PERIOD.seconds.from_now
+    session[:expiry_time] = MAX_SESSION_PERIOD.hours.from_now
     return true
   end
 
@@ -206,11 +206,10 @@ class ApplicationController < ActionController::Base
     priority_languages = [locale_language_id]
     # get statement node original language
     st_original_language = @statement_node.original_language if @statement_node
-    # insert original language in the priority languages
-    priority_languages << st_original_language.id if st_original_language
     # insert user spoken languages into the priority languages
     priority_languages += current_user.sorted_spoken_languages if current_user
-
+    # insert original language in the priority languages; in case everything else fails, we show the original document
+    priority_languages << st_original_language.id if st_original_language
     priority_languages.uniq
   end
 
@@ -396,7 +395,7 @@ class ApplicationController < ActionController::Base
   def render_signinup_js(type)
     load_signinup_data(type)
     render :template => 'users/components/users_form',
-           :locals => {:partial => "users/#{@controller_name}/new"}
+               :locals => {:partial => "users/#{@controller_name}/new"}
   end
 
   def redirect_or_render_with_info(url, message_or_object, opts={})

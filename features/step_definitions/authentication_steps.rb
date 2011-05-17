@@ -35,6 +35,17 @@ Given /^"([^\"]*)" is an unregistered user with "([^\"]*)" as an email$/ do |nam
   @user.signup!(:full_name => name, :email => email)
 end
 
+Given /^I have no ([^\"]*) tags$/ do |type|
+  @user.send("#{type.split(' ').join('_')}_tags=", [])
+  @user.save
+end
+
+Given /^ I have "([^\"]*)" as ([^\"]*) tags$/ do |tags, tag_type|
+tag_type = tag_type.split(" ").join("_")
+@user.send("#{tag_type}_tags", tags)
+@user.save
+end
+
 Then /^"([^\"]*)" should have "([^\"]*)" as "([^\"]*)"$/ do |user, code, attribute|
   user += "@echologic.org" unless user =~ /.*@.*\..{2,3}/
   @user = User.find_by_email(user)
