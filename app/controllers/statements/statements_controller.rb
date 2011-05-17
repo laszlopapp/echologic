@@ -143,7 +143,7 @@ class StatementsController < ApplicationController
 
       # Prepare in memory
       @statement_node ||= @statement_node_type.new_instance(attrs)
-      @statement_document = @statement_node.statement ?
+      @statement_document = !@statement_node.statement.new_record? ?
                             @statement_node.statement.document_in_language(doc_attrs[:language_id]) :
                             @statement_node.add_statement_document(
                             doc_attrs.merge({:original_language_id => doc_attrs[:language_id],
@@ -1059,14 +1059,14 @@ class StatementsController < ApplicationController
        # get question siblings depending from the request's origin (key)
        # discuss search with no search results
        when 'ds' then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1].to_i * QUESTIONS_PER_PAGE
-                      sn = search_discussions(:param => 'root_id', :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
+                      sn = search_discussions(:param => opts[:for_session] ? 'root_id' : nil, :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
                       opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
        # discuss search with search results
        when 'sr'then value = value.split('|')
                      term = Breadcrumb.instance.decode_terms(value[0])
                      per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
                      sn = search_discussions(:search_term => term,
-                                             :param => 'root_id', :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
+                                             :param => opts[:for_session] ? 'root_id' : nil, :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
                      opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
        # my discussions
        when 'mi' then sn = Question.by_creator(current_user).by_creation

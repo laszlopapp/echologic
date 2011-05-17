@@ -159,6 +159,21 @@ class StatementsControllerTest < ActionController::TestCase
         :topic_tags => "" }
     end
   end
+  
+  test "should create new question with existing statement" do
+    assert_difference('Statement.count', 0) do
+      post :create, :type => "Question",
+      :question => {
+        :statement_document => {:title => "Super Question", :statement_id => "", 
+                                :text => "I am Sam", :language_id => Language[:en].id,
+                                :action_id => StatementAction[:created].id , :locked_at => ""},
+        :editorial_state_id => StatementState[:published].id,
+        :statement_id => statements('test-question-statement').to_param,
+        :parent_id => nil,
+        :topic_tags => "" }
+      assert_equal "Test Question?", assigns(:statement_document).title 
+    end
+  end
 
   test "shoud create proposal" do
     assert_difference('Proposal.count', 1) do
