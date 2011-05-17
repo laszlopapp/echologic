@@ -46,6 +46,7 @@
           handleStatementFormsSubmit();
           initFormCancelButton();
 					initAutoCompleteTitle();
+					handleChangeText();
         }
 
         // Taggable Form Helpers
@@ -191,8 +192,7 @@
 					var statementTags = data['tags'];
 					var statementState = data['editorial_state'];
 					
-					statementLinked.val(statementId);
-					if(text.is('textarea')) {
+					if(text && text.is('textarea')) {
 						text.val(statementText);
 					} else {
 						text.empty().text(statementText).click().blur();
@@ -203,7 +203,25 @@
 				  }
 					
 					$('input:radio[value=' + statementState + ']').attr('checked', true);
+					
+					statementLinked.val(statementId);
 				});
+			}
+			
+			function handleChangeText() {
+				if (text && text.is('textarea')) {
+		      text.bind('change', function(){
+						if (statementLinked.val() && statementLinked.val()) {
+							statementLinked.val('');
+						}
+					});
+				} else {
+					text.bind('DOMSubtreeModified', function(){
+						if (statementLinked.val() && text && text.html().length > 0) {
+							statementLinked.val('');
+						}
+					});
+				}
 			}
 
 			// Public API functions
