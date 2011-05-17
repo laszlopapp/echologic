@@ -142,7 +142,7 @@ ActionController::Routing::Routes.draw do |map|
                 :as => 'statement'
   #publish
   map.connect   'statements/:id/publish/:in',   :controller => :statements, :action => :publish
-
+  map.connect   'statements/link_statement/:id', :controller => :statements, :action => :link_statement
 
   map.resources :questions, :controller => :statements, :type => :question, :only => [:create, :update]
   map.resources :proposals, :controller => :statements, :only => [:create, :update]

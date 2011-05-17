@@ -101,23 +101,6 @@ module PublishableModule
     end
   end
   
-  
-
-  # auto completion (gets all statements with certain terms in them)
-  #
-  # Method:   GET
-  # Response: JS
-  #
-  def auto_complete_for_statement_title
-    statements = search_statements :param => 'id', :search_term => params[:q], :limit => params[:limit] || 5, :language_ids => [params[:code]||locale_language_id]
-    documents = search_statement_documents(:statement_ids => statements.map(&:id))
-    
-    content = statements.map{ |statement|
-      "#{documents[statement.id].title}|#{statement.id}"
-    }.join("\n")
-    
-    render :text => content
-  end
 
   protected
 

@@ -2,7 +2,7 @@ class StatementsController < ApplicationController
 
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
                                     :more, :children, :authors, :add, :ancestors, :descendants, :social_widget,
-                                    :auto_complete_for_statement_title]
+                                    :auto_complete_for_statement_title, :link_statement]
   verify :method => :post, :only => [:create, :share]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
@@ -11,9 +11,11 @@ class StatementsController < ApplicationController
   skip_before_filter :require_user, :only => [:category, :show, :more, :children, :add, :ancestors, :descendants,
                                               :redirect_to_statement, :auto_complete_for_statement_title]
 
-  before_filter :fetch_statement_node, :except => [:category, :my_questions, :new, :create, :auto_complete_for_statement_title]
+  before_filter :fetch_statement_node, :except => [:category, :my_questions, :new, :create, 
+                                                   :auto_complete_for_statement_title, :link_statement]
   before_filter :fetch_statement_node_type, :only => [:new, :create]
-  before_filter :check_statement_permissions, :except => [:category, :my_questions, :new, :create, :auto_complete_for_statement_title]
+  before_filter :check_statement_permissions, :except => [:category, :my_questions, :new, :create, 
+                                                          :auto_complete_for_statement_title, :link_statement]
   before_filter :redirect_if_approved_or_incorporated, :only => [:show, :edit, :update, :destroy,
                                                                  :new_translation, :create_translation,
                                                                  :echo, :unecho]
@@ -28,6 +30,7 @@ class StatementsController < ApplicationController
   include TranslationModule
   include IncorporationModule
   before_filter :is_draftable?, :only => [:incorporate]
+  include LinkingModule
 
   # Authlogic access control block
   access_control do
