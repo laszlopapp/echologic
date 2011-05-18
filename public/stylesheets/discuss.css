@@ -309,7 +309,7 @@ form.statement .header .auto_complete.off {
   background-position: 0px 0px;
 }
 
-form.statement .header .auto_complete:hover {
+form.statement .header .auto_complete.off:hover {
 	background-position: 0px -20px;
 }
 
