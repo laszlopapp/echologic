@@ -513,6 +513,8 @@ en:
         improvement: See all additions proposed for the current proposal
         pro_argument: See all arguments belonging to the current proposal
         contra_argument:  See all arguments belonging to the current proposal
+      link_statement: "Enter a part of the title and press the button to search for matching statements to be referenced..."
+
 
 
     statements:
