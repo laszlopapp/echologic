@@ -220,11 +220,21 @@
 					// check right editorial state
 					$('input:radio[value=' + statementState + ']').attr('checked', true);
 					
-					// link statement Id
-					statementLinked.val(statementId);
-					
+										
 					// activate auto complete button
 					activateAutoCompleteButton();
+					
+					form.addClass('linked');
+					alert(form.attr('class'))
+					
+					//TODO: Not working when text is inside the iframe!!!
+					if (!isMobileDevice()) {
+				  	text.addClass('linked');
+				  }
+					
+					// link statement Id
+          statementLinked.val(statementId);
+
 				});
 			}
 			
@@ -235,6 +245,12 @@
 			{
 				statementLinked.val('');
         deactivateAutoCompleteButton();
+				form.removeClass('linked');
+				
+				//TODO: Not working when text is inside the iframe!!!
+				if (!isMobileDevice()) {
+          text.removeClass('linked');
+        }
 			}
 		
 			

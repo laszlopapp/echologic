@@ -235,12 +235,18 @@ form.statement fieldset ol span.defaultText {
   margin-top: 6px;
 }
 
+#statements form.linked fieldset.statement_title input {
+  color: #00868B !important;
+}
+
+
 #statements form.formtastic fieldset.statement_title,
   #statements form.formtastic fieldset.statement_title li,
 #statements form.formtastic fieldset.statement_title input {
   margin-bottom: 0;
   width: 545px;
 }
+
 
 #statements form.formtastic fieldset.statement_language li,
 #statements form.formtastic fieldset.statement_language select {
@@ -312,6 +318,8 @@ form.statement .header .auto_complete.off {
 form.statement .header .auto_complete.off:hover {
 	background-position: 0px -20px;
 }
+
+
 
 /*********/
 /* lwRTE */
