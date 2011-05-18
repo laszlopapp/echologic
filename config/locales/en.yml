@@ -651,6 +651,10 @@ en:
       cannot_be_edited: Unfortunately, you cannot edit this statement after other members supported it. This is to avoid faking of opinions.
       echos_label: Support
 
+      linking:
+        disabled: Link 
+        enabled: Linked
+
       breadcrumbs:
         discuss_search: Search results
         my_questions: My Questions
@@ -678,6 +682,8 @@ en:
         guide: Please <strong>select an image</strong> (JPG or PNG, max. 5MB) and upload it.
         progress: The image is being uploaded. Please wait...
         error: The image couldn't be applied. Please upload a supported format (JPG or PNG and max. 5MB).
+
+      
 
       add_teaser:
         question: |

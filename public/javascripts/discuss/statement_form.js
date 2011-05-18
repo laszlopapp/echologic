@@ -156,16 +156,26 @@
       function initAutoCompleteTitle() {
 				var title = form.find('.header input');
 				var auto_complete_button = form.find('.header .auto_complete');
+				
+				var linking_messages = {
+					'on' : auto_complete_button.attr('linking_on'),
+					'off': auto_complete_button.attr('linking_off')
+				}
+				
+				auto_complete_button.removeAttr('linking_on').removeAttr('linking_off');
+				
 				auto_complete_button.bind('click', function(){
-					var to_add, to_remove;
-					if($(this).hasClass('enabled')) {
-						to_remove = 'enabled';
-						to_add = 'disabled';
-					} else if ($(this).hasClass('disabled')) {
-						to_remove = 'disabled';
-						to_add = 'enabled';
+					var to_add, to_remove, label;
+					if($(this).hasClass('on')) {
+						to_remove = 'on';
+						to_add = 'off';
+						label = linking_messages['off'];
+					} else if ($(this).hasClass('off')) {
+						to_remove = 'off';
+						to_add = 'on';
+						label = linking_messages['on'];
 					}
-					$(this).addClass(to_add).removeClass(to_remove);
+					$(this).addClass(to_add).removeClass(to_remove).text(label);
 				});
 				title.autocompletes('../../statements/auto_complete_for_statement_title',
 				                    {

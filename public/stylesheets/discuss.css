@@ -293,15 +293,19 @@ form.formtastic fieldset.publish_radios li {
 
 form.statement .header .auto_complete {
 	display: inline-block;
-	height: 20px;
-	width: 98px;
+	height: 18px;
+	width: 72px;
 	position: absolute;
 	top: 2px;
 	right: 231px;
+	padding: 2px 0px 0px 26px;
+	text-align: center;
+	color: #FFFFFF;
+	cursor: pointer;
 	background: transparent url(../images/page/discuss/linking_button.png) 0 -40px no-repeat scroll;
 }
 
-form.statement .header .auto_complete.disabled {
+form.statement .header .auto_complete.off {
   background-position: 0px 0px;
 }
 
