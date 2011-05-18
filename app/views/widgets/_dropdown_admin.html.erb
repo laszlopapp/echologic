@@ -5,11 +5,6 @@ render_tabnav :admin,
               :generate_css => false, :html => {:class => 'submenu'} do |tn|
 
   tn.add_tab do |t|
-    t.named "Locales"
-    t.links_to hash_for_locales_path
-  end
-
-  tn.add_tab do |t|
     t.named "Reports"
     t.links_to hash_for_reports_path
   end
