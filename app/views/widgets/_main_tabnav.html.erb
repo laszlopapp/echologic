@@ -43,10 +43,11 @@
 
   tn.add_tab :html => { :id => 'admin_tab', :class => 'main_menu_item'} do |t|
     t.named I18n.t('layouts.tabs.admin')
-    t.links_to admin_path
-    t.highlights_on :controller => 'i18n/locales'
-    t.highlights_on :controller => 'i18n/translations'
+    t.links_to hash_for_admin_path
     t.highlights_on :controller => 'users/reports'
+    t.highlights_on :controller => 'newsletters'
+    t.highlights_on :controller => 'about_items'
+    t.drops_down render :partial => 'widgets/dropdown_admin'
   end if show_admin_options?
 
 end
