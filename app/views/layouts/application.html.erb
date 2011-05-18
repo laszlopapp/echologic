@@ -82,7 +82,7 @@
     <% content_tag :div, :id => 'app_container' do %>
       <%= yield :submenu %>
       <% content_tag :div,
-                     :id => 'echo_' + @function_name,
+                     :id => 'echo_' + (@function_name || 'function'),
                      :class => 'function_container' do %>
         <%= yield %>
       <% end %>
