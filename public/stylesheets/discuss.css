@@ -339,6 +339,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 #questions_container {
   display: inline-block;
+  margin-top: 7px;
 }
 
 .questions_container .header {
@@ -1191,7 +1192,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   clear: right;
 }
 
-#function_container .simple_header_block h2 {
+.function_container .simple_header_block h2 {
   color: #21587f !important;
   border-bottom: 1px solid #a8a8a8;
   padding-bottom: 6px;
