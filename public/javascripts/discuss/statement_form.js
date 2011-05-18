@@ -135,7 +135,7 @@
        * turns the auto complete button grey and with the label 'link'
        */
 			function deactivateAutoCompleteButton() {
-				toggleAutoCompleteButton('on','off');
+				toggleAutoCompleteButton('off','on');
 			}
 
       /*
@@ -158,7 +158,7 @@
 				// initializes the autocompletion plugin 
 				var auto_complete_api = title.autocompletes('../../statements/auto_complete_for_statement_title',
 							                    {
-															   	minChars: 4,
+															   	minChars: 100,
 																	selectFirst: false,
 																	multipleSeparator: "",
 																	extraParams: {
@@ -225,7 +225,6 @@
 					activateAutoCompleteButton();
 					
 					form.addClass('linked');
-					alert(form.attr('class'))
 					
 					//TODO: Not working when text is inside the iframe!!!
 					if (!isMobileDevice()) {
@@ -258,7 +257,6 @@
        * handles the event of writing new content in one of the fields (in the case, has to unlink a previously unlinked statement)
        */
 			function handleContentChange() {
-				
 				// title
 				title.bind('change', function(){
 					if (statementLinked.val()) {
