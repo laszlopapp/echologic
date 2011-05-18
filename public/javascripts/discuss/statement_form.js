@@ -31,24 +31,21 @@
 			var text;
 			var chosenLanguage = form.find('select.language_combo');
 			var statementLinked = form.find('input.statement_id');
-			var auto_complete_button = form.find('.header .auto_complete');
+			var auto_complete_button;
       var linking_messages;
 			
 			initialise();
 
 			function initialise() {
-				          
 
 				loadRTEEditor();
 
         // New Statement Form Helpers
         if (form.hasClass('new')) {
-          hideNewStatementType();
           loadDefaultText();
-          handleStatementFormsSubmit();
           initFormCancelButton();
 					initAutoCompleteTitle();
-					handleChangeText();
+					handleContentChange();
         }
 
         // Taggable Form Helpers
@@ -56,8 +53,6 @@
           form.taggable();
         }
 			}
-
-      
 
 			/*
        * Loads the Rich Text Editor for the statement text.
@@ -87,25 +82,6 @@
       }
 
 
-      /*
-       * Shows the statement type on new statement forms
-       */
-      function showNewStatementType() {
-        var input_type = form.find('input#type');
-        input_type.attr('value', input_type.data('value'));
-      }
-
-
-			/*
-       * Hides the statement type on new statement forms.
-       */
-      function hideNewStatementType() {
-        var input_type = form.find('input#type');
-        input_type.data('value', input_type.attr('value'));
-        input_type.removeAttr('value');
-      }
-
-
 			/*
        * Loads the form's default texts for title, text and tags.
        */
@@ -115,26 +91,7 @@
         form.placeholder();
 
       }
-
-      /*
-       * Submits the form.
-       */
-			function handleStatementFormsSubmit() {
-        form.bind('submit', (function() {
-          showNewStatementType();
-          $.ajax({
-            url: this.action,
-            type: "POST",
-            data: $(this).serialize(),
-            dataType: 'script',
-            success: function(data, status){
-              hideNewStatementType();
-            }
-          });
-          return false;
-        }));
-      }
-
+      
 			/*
        * Handles Cancel Button click on new statement forms.
        */
@@ -155,20 +112,41 @@
         }
       }
 
+      /**********************/
+      /* Statement Linking  */
+      /**********************/
+
+      /*
+       * updates the auto complete button with css classes and a new label
+       */
       function toggleAutoCompleteButton(to_add, to_remove) {
 				auto_complete_button.addClass(to_add).removeClass(to_remove).text(linking_messages[to_add]);
 			}
 			
+			
+			/*
+       * turns the auto complete button green and with the label 'linked'
+       */
 			function activateAutoCompleteButton() {
 				toggleAutoCompleteButton('on','off');
 			}
 			
+			/*
+       * turns the auto complete button grey and with the label 'link'
+       */
 			function deactivateAutoCompleteButton() {
 				toggleAutoCompleteButton('on','off');
 			}
 
+      /*
+       * initializes the whole title auto completion behaviour
+       */
       function initAutoCompleteTitle() {
+
+        // gets the auto complete button				
+				auto_complete_button = form.find('.header .auto_complete')
 				
+				// loads the labels 
 				linking_messages = {
 					'on' : auto_complete_button.attr('linking_on'),
 					'off': auto_complete_button.attr('linking_off')
@@ -176,6 +154,8 @@
 				
 				auto_complete_button.removeAttr('linking_on').removeAttr('linking_off');
 				
+				
+				// initializes the autocompletion plugin 
 				var auto_complete_api = title.autocompletes('../../statements/auto_complete_for_statement_title',
 							                    {
 															   	minChars: 4,
@@ -185,12 +165,15 @@
 																		code: function(){ return chosenLanguage.val(); }
 																	}
 												        });
+		    
+				// handles the selection of an auto completion results entry
 				title.result(function(evt, data, formatted) {
 					if (data) {
 				  	linkStatement(data[1]);
 				  }
 				});
 
+        // what happens when i click the auto completion button
         auto_complete_button.bind('click', function(){
           if ($(this).hasClass('on')) {
             // TODO: Right now, nothing happens. But wouldn't it be better to just unlink the statement? 
@@ -207,7 +190,12 @@
 				
 			}
 			
+			
+			/*
+       * given a statement Id, gets the statement remotely and fills the form with the given data
+       */
 			function linkStatement(statementId) {
+				
 				var path = '../../statements/link_statement/' + statementId;
 				path = $.queryString(path, {
 					"code" : chosenLanguage.val()
@@ -216,25 +204,33 @@
 					var statementText = data['text'];
 					var statementTags = data['tags'];
 					var statementState = data['editorial_state'];
-					
+				
+				  // fill in summary text	
 					if(text && text.is('textarea')) {
 						text.val(statementText);
 					} else {
 						text.empty().text(statementText).click().blur();
 					}
 					
+					// fill in tags
 					if (form.hasClass(settings['taggableClass'])) {
 				  	form.data('taggableApi').addTags(statementTags);
 				  }
 					
+					// check right editorial state
 					$('input:radio[value=' + statementState + ']').attr('checked', true);
 					
+					// link statement Id
 					statementLinked.val(statementId);
 					
+					// activate auto complete button
 					activateAutoCompleteButton();
 				});
 			}
 			
+			/*
+       * unlink the previously linked statement (delete statement Id field and deactivate auto completion button
+       */
 			function unlinkStatement()
 			{
 				statementLinked.val('');
@@ -242,12 +238,19 @@
 			}
 		
 			
-			function handleChangeText() {
+			/*
+       * handles the event of writing new content in one of the fields (in the case, has to unlink a previously unlinked statement)
+       */
+			function handleContentChange() {
+				
+				// title
 				title.bind('change', function(){
 					if (statementLinked.val()) {
               unlinkStatement();
             }
 				});
+				
+				// text
 				if (text && text.is('textarea')) {
 		      text.bind('change', function(){
 						if (statementLinked.val()) {

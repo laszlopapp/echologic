@@ -2,14 +2,13 @@
 <% statement_document ||= @statement_document %>
 
 <% semantic_form_for statement_node, 
-          :html => {:class => "new wide_form statement #{dom_class(statement_node)} 
+          :html => {:class => "ajax_form new wide_form statement #{dom_class(statement_node)} 
                     #{statement_node.taggable? ? 'taggable' : ''} 
                     #{statement_node.echoable? ? 'echoable' : ''}" } do |form| -%>
 
 	<%= hidden_field_tag :origin, @previous_node ? "#{@previous_type}#{@previous_node.id}" : (params[:origin]||"") %>
   <%= hidden_field_tag :bids, @bids || params[:bids] || '' %>
 	<%= hidden_field_tag :sids, params[:sids] if params[:sids] %>
-	<%= hidden_field_tag :type, @statement_node_type.name if @statement_node_type %>
 	
 	<%= render :partial => 'statements/form/form_header', :locals => {:form => form, :statement_node => statement_node} %>
   <%= render :partial => 'statements/form/form_content', 

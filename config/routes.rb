@@ -144,12 +144,21 @@ ActionController::Routing::Routes.draw do |map|
   map.connect   'statements/:id/publish/:in',   :controller => :statements, :action => :publish
   map.connect   'statements/link_statement/:id', :controller => :statements, :action => :link_statement
 
-  map.resources :questions, :controller => :statements, :type => :question, :only => [:create, :update]
-  map.resources :proposals, :controller => :statements, :only => [:create, :update]
-  map.resources :improvements, :controller => :statements, :only => [:create, :update]
-  map.resources :pro_arguments, :controller => :statements, :only => [:create, :update]
-  map.resources :contra_arguments, :controller => :statements, :only => [:create, :update]
-  map.resources :follow_up_questions, :controller => :statements, :only => [:create, :update]
+  map.with_options(:path_prefix => ":type/:action") do |m|
+    m.resources :questions, :controller => :statements, :only => [:create]
+    m.resources :proposals, :controller => :statements, :only => [:create]
+    m.resources :improvements, :controller => :statements, :only => [:create]
+    m.resources :pro_arguments, :controller => :statements, :only => [:create]
+    m.resources :contra_arguments, :controller => :statements, :only => [:create]
+    m.resources :follow_up_questions, :controller => :statements, :only => [:create]
+  end
+  
+  map.resources :questions, :controller => :statements, :only => [:update]
+  map.resources :proposals, :controller => :statements, :only => [:update]
+  map.resources :improvements, :controller => :statements, :only => [:update]
+  map.resources :pro_arguments, :controller => :statements, :only => [:update]
+  map.resources :contra_arguments, :controller => :statements, :only => [:update]
+  map.resources :follow_up_questions, :controller => :statements, :only => [:update]
 
   #statement images
   map.resources :statement_images,
