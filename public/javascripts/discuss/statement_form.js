@@ -31,7 +31,9 @@
 			var text;
 			var chosenLanguage = form.find('select.language_combo');
 			var statementLinked = form.find('input.statement_id');
-
+			var auto_complete_button = form.find('.header .auto_complete');
+      var linking_messages;
+			
 			initialise();
 
 			function initialise() {
@@ -153,42 +155,55 @@
         }
       }
 
+      function toggleAutoCompleteButton(to_add, to_remove) {
+				auto_complete_button.addClass(to_add).removeClass(to_remove).text(linking_messages[to_add]);
+			}
+			
+			function activateAutoCompleteButton() {
+				toggleAutoCompleteButton('on','off');
+			}
+			
+			function deactivateAutoCompleteButton() {
+				toggleAutoCompleteButton('on','off');
+			}
+
       function initAutoCompleteTitle() {
-				var title = form.find('.header input');
-				var auto_complete_button = form.find('.header .auto_complete');
 				
-				var linking_messages = {
+				linking_messages = {
 					'on' : auto_complete_button.attr('linking_on'),
 					'off': auto_complete_button.attr('linking_off')
 				}
 				
 				auto_complete_button.removeAttr('linking_on').removeAttr('linking_off');
 				
-				auto_complete_button.bind('click', function(){
-					var to_add, to_remove, label;
-					if($(this).hasClass('on')) {
-						to_remove = 'on';
-						to_add = 'off';
-						label = linking_messages['off'];
-					} else if ($(this).hasClass('off')) {
-						to_remove = 'off';
-						to_add = 'on';
-						label = linking_messages['on'];
-					}
-					$(this).addClass(to_add).removeClass(to_remove).text(label);
-				});
-				title.autocompletes('../../statements/auto_complete_for_statement_title',
-				                    {
-												   	minChars: 4,
-														selectFirst: false,
-														multipleSeparator: "",
-														extraParams: {
-															code: function(){ return chosenLanguage.val(); }
-														}
-												   });
+				var auto_complete_api = title.autocompletes('../../statements/auto_complete_for_statement_title',
+							                    {
+															   	minChars: 4,
+																	selectFirst: false,
+																	multipleSeparator: "",
+																	extraParams: {
+																		code: function(){ return chosenLanguage.val(); }
+																	}
+												        });
 				title.result(function(evt, data, formatted) {
-					linkStatement(data[1]);
+					if (data) {
+				  	linkStatement(data[1]);
+				  }
 				});
+
+        auto_complete_button.bind('click', function(){
+          if ($(this).hasClass('on')) {
+            // TODO: Right now, nothing happens. But wouldn't it be better to just unlink the statement? 
+            // (the visual elements (text, tags...) would remain, just the statement id reference would be lost.
+            // this way, we could unlink a wrongly unlinked statement and link it again
+            // unlinkStatement();
+          }
+          else 
+          if ($(this).hasClass('off')) {
+            title.search();
+          }
+          
+        });
 				
 			}
 			
@@ -215,20 +230,34 @@
 					$('input:radio[value=' + statementState + ']').attr('checked', true);
 					
 					statementLinked.val(statementId);
+					
+					activateAutoCompleteButton();
 				});
 			}
 			
+			function unlinkStatement()
+			{
+				statementLinked.val('');
+        deactivateAutoCompleteButton();
+			}
+		
+			
 			function handleChangeText() {
+				title.bind('change', function(){
+					if (statementLinked.val()) {
+              unlinkStatement();
+            }
+				});
 				if (text && text.is('textarea')) {
 		      text.bind('change', function(){
-						if (statementLinked.val() && statementLinked.val()) {
-							statementLinked.val('');
+						if (statementLinked.val()) {
+							unlinkStatement();
 						}
 					});
 				} else {
 					text.bind('DOMSubtreeModified', function(){
 						if (statementLinked.val() && text && text.html().length > 0) {
-							statementLinked.val('');
+							unlinkStatement();
 						}
 					});
 				}
