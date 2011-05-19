@@ -6,6 +6,7 @@
 class Question < StatementNode
 
   has_children_of_types [:Proposal,true]
+  has_linkable_types :Question
 
   # methods / settings to overwrite default statement_node behaviour
 
