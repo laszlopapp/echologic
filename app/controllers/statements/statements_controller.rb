@@ -874,9 +874,8 @@ class StatementsController < ApplicationController
   # for more info about attributes, please check the StatementNode.search_discussions documentation
   #
   def search_discussions(opts = {})
-    languages = filter_languages
+    opts[:language_ids] ||= filter_languages
     StatementNode.search_discussions(opts.merge({:user => current_user,
-                                                 :language_ids => languages,
                                                  :show_unpublished => current_user && current_user.has_role?(:editor)}))
   end
   
