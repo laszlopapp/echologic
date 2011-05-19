@@ -871,12 +871,12 @@ class StatementsController < ApplicationController
   #
   # search_term (String : optional) : text snippet to look for in the statements
   #
-  # for more info about attributes, please check the StatementNode.search_discussions documentation
+  # for more info about attributes, please check the StatementNode.search_statement_nodes documentation
   #
-  def search_discussions(opts = {})
+  def search_statement_nodes(opts = {})
     opts[:language_ids] ||= filter_languages
-    StatementNode.search_discussions(opts.merge({:user => current_user,
-                                                 :show_unpublished => current_user && current_user.has_role?(:editor)}))
+    StatementNode.search_statement_nodes(opts.merge({:user => current_user,
+                                                     :show_unpublished => current_user && current_user.has_role?(:editor)}))
   end
   
   #
@@ -1058,13 +1058,13 @@ class StatementsController < ApplicationController
        # get question siblings depending from the request's origin (key)
        # discuss search with no search results
        when 'ds' then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1].to_i * QUESTIONS_PER_PAGE
-                      sn = search_discussions(:param => opts[:for_session] ? 'root_id' : nil, :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
+                      sn = search_statement_nodes(:param => opts[:for_session] ? 'root_id' : nil, :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
                       opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
        # discuss search with search results
        when 'sr'then value = value.split('|')
                      term = Breadcrumb.instance.decode_terms(value[0])
                      per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
-                     sn = search_discussions(:search_term => term,
+                     sn = search_statement_nodes(:search_term => term,
                                              :param => opts[:for_session] ? 'root_id' : nil, :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
                      opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
        # my discussions

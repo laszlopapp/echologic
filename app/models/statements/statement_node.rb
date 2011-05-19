@@ -365,13 +365,6 @@ class StatementNode < ActiveRecord::Base
 
     public
 
-
-    def search_discussions(opts={})
-      opts.delete(:type)
-      search_statement_nodes(opts)
-    end
-
-
     #
     # gets a set of statement nodes given an hash of arguments
     #
@@ -388,7 +381,7 @@ class StatementNode < ActiveRecord::Base
     # Called with no attributes filled: returns all published questions
     #
     def search_statement_nodes(opts={})
-      aggregator_field = opts[:type].nil? ? 'root_id' : 'id'
+      aggregator_field = opts[:types].nil? ? 'root_id' : 'id'
       
       # Constant criteria
       document_conditions = []
@@ -398,12 +391,13 @@ class StatementNode < ActiveRecord::Base
         document_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]])
       end
       
+      # Permissions
       node_conditions = []
       node_conditions << Statement.conditions(opts, "s.closed_statement", "s.granted_user_id")
      
       # Statement type
-      if opts[:type]
-        node_conditions << sanitize_sql(["s.type = ?", opts[:type]])
+      if opts[:types]
+        node_conditions << sanitize_sql(["s.type IN (?)", opts[:types]])
       end
       
       # Published state
@@ -452,7 +446,7 @@ class StatementNode < ActiveRecord::Base
       else
         document_conditions << "d.current = 1"
         
-        node_conditions << "s.type = 'Question'" if opts[:type].nil?
+        node_conditions << "s.type = 'Question'" if opts[:types].nil?
         
         statements_query = "SELECT DISTINCT s.#{opts[:param] || '*'} from search_statement_nodes s " +
                            "LEFT JOIN statement_documents d ON d.statement_id = s.statement_id " +
@@ -473,23 +467,7 @@ class StatementNode < ActiveRecord::Base
     # EXPANDABLE CHILDREN GUI HELPERS #
     ###################################
 
-    #
-    # visibility = false: returns an array of symbols of the possible children types
-    # visibility = true: returns an array of sub arrays representing pairs [type: symbol class , visibility : true/false]
-    # default: whether we should take out from or let the default children types in the array
-    # expand: whether we should replace a children type for it's sub-types
-    #
-    def children_types(opts={})
-      types = @@children_types[self.name] || @@children_types[self.superclass.name]
-      types -= @@default_children_types if opts[:no_default]
-      if opts[:expand]
-        array = []
-        types.each{|c| array += c[0].to_s.constantize.sub_types.map{|st|[st, c[1]]} }
-        types = array
-      end
-      return types.map{|c|c[0]} if !opts[:visibility]
-      types
-    end
+    
 
 
     # PARTIAL PATHS #
@@ -509,6 +487,32 @@ class StatementNode < ActiveRecord::Base
       "statements/descendants"
     end
 
+    # TYPE-RELATIONS
+
+    #
+    # visibility = false: returns an array of symbols of the possible children types
+    # visibility = true: returns an array of sub arrays representing pairs [type: symbol class , visibility : true/false]
+    # default: whether we should take out from or let the default children types in the array
+    # expand: whether we should replace a children type for it's sub-types
+    #
+    def children_types(opts={})
+      types = @@children_types[self.name] || @@children_types[self.superclass.name]
+      types -= @@default_children_types if opts[:no_default]
+      if opts[:expand]
+        array = []
+        types.each{|c| array += c[0].to_s.constantize.sub_types.map{|st|[st, c[1]]} }
+        types = array
+      end
+      return types.map{|c|c[0]} if !opts[:visibility]
+      types
+    end
+
+
+    # gets the statement node types this content can be linked with
+    def linkable_types
+      @@linkable_types[self.name]
+    end
+
     def sub_types
       [self.name.to_sym]
     end
@@ -521,6 +525,11 @@ class StatementNode < ActiveRecord::Base
       @@children_types ||= { }
       @@children_types[self.name] ||= @@default_children_types.nil? ? [] : @@default_children_types
       @@children_types[self.name] = klasses + @@children_types[self.name]
+    end
+    
+    def has_linkable_types(*klasses)
+      @@linkable_types ||= { }
+      @@linkable_types[self.name] ||= klasses
     end
   end
   default_children_types [:FollowUpQuestion,true]

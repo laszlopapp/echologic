@@ -7,11 +7,17 @@ module LinkingModule
   # Response: JS
   #
   def auto_complete_for_statement_title
-    statements = search_statements :param => 'id', :search_term => params[:q], :limit => params[:limit] || 5, :language_ids => [params[:code]||locale_language_id]
-    documents = search_statement_documents(:statement_ids => statements.map(&:id))
+    type = params[:type]
+    linkable_types = type.classify.constantize.linkable_types.map(&:to_s)
+    statement_nodes = search_statement_nodes :param => 'statement_id', 
+                                             :search_term => params[:q],
+                                             :types => linkable_types, 
+                                             :limit => params[:limit] || 5, 
+                                             :language_ids => [params[:code] || locale_language_id]
+    documents = search_statement_documents(:statement_ids => statement_nodes.map(&:statement_id))
     
-    content = statements.map{ |statement|
-      "#{documents[statement.id].title}|#{statement.id}"
+    content = statement_nodes.map(&:statement_id).uniq.map{ |id|
+      "#{documents[id].title}|#{id}"
     }.join("\n")
     
     render :text => content
