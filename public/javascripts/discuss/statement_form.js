@@ -29,6 +29,7 @@
     function StatementForm(form) {
 			var title = form.find('.statement_title input');
 			var text;
+			var language_combo;
 			var chosenLanguage = form.find('select.language_combo');
 			var statementLinked = form.find('input.statement_id');
 			var auto_complete_button;
@@ -42,6 +43,7 @@
 
         // New Statement Form Helpers
         if (form.hasClass('new')) {
+					language_combo = form.find('.statement_language select');
           loadDefaultText();
           initFormCancelButton();
 					initAutoCompleteTitle();
@@ -204,6 +206,9 @@
 					var statementText = data['text'];
 					var statementTags = data['tags'];
 					var statementState = data['editorial_state'];
+
+          // disable language combo
+          language_combo.attr('disabled', true);
 				
 				  // fill in summary text	
 					if(text && text.is('textarea')) {
@@ -245,6 +250,9 @@
 				statementLinked.val('');
         deactivateAutoCompleteButton();
 				form.removeClass('linked');
+				
+				// disable language combo
+        language_combo.removeAttr('disabled');
 				
 				//TODO: Not working when text is inside the iframe!!!
 				if (!isMobileDevice()) {
