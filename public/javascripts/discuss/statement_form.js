@@ -28,6 +28,7 @@
 
     function StatementForm(form) {
 			var title = form.find('.statement_title input');
+			var type = form.attr('id').match(/[^new_]\w+/)[0];
 			var text;
 			var language_combo;
 			var chosenLanguage = form.find('select.language_combo');
@@ -48,6 +49,7 @@
           initFormCancelButton();
 					initAutoCompleteTitle();
 					handleContentChange();
+					unlinkStatement();
         }
 
         // Taggable Form Helpers
@@ -164,7 +166,8 @@
 																	selectFirst: false,
 																	multipleSeparator: "",
 																	extraParams: {
-																		code: function(){ return chosenLanguage.val(); }
+																		code: function(){ return chosenLanguage.val(); },
+																	  type: type
 																	}
 												        });
 		    
