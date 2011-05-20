@@ -324,7 +324,23 @@
 		  function initMoreButton() {
 		    statement.find(".more_pagination a:Event(!click)").bind("click", function() {
           var moreButton = $(this);
-					moreButton.replaceWith($('<span/>').text(moreButton.text()).addClass('more_loading'));
+					var moreLoading = $('<span/>').text(moreButton.text()).addClass('more_loading');
+					moreButton.hide();
+					moreLoading.insertAfter(moreButton);
+          var path = moreButton.attr('href');
+					$.ajax({
+				  	url: path,
+				  	type: 'get',
+				  	dataType: 'script',
+				  	success: function(data, status){
+							moreButton.remove();
+				  	},
+				  	error: function(){
+				  	 moreLoading.remove();
+						 moreButton.show();
+				  	}
+				  });		
+					return false;
 		    });
 		  }
 

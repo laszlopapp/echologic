@@ -1,7 +1,7 @@
 <% type_plural = @type.to_s.underscore.pluralize %>
 var statement = $('#statements > #<%=dom_id(@statement_node)%>');
-var children_list = statement.find('.<%=type_plural%> .children_list');
-var more_element = statement.find('.<%=type_plural%> .more_pagination');
+var children_list = statement.find('.children .<%=type_plural%> .children_list');
+var more_element = statement.find('.children .<%=type_plural%> .more_pagination');
 
 <%if @page.to_i == 1 %>
   panel_height = <%= @children[@type].total_entries <= 7 ? ((@children[@type].total_entries + 1) * 29) : 203 %>
@@ -31,6 +31,6 @@ more_element.replaceWith(pagination_buttons);
   scrollpane.reinitialise();
   scrollpane.scrollToBottom();
 <% end %>
-statement.find('.<%=type_plural%> .more_pagination a').addClass('ajax');
+statement.find('.children .<%=type_plural%> .more_pagination a').addClass('ajax');
 
-statement.data('api').reinitialiseChildren(".<%=type_plural%>");
+statement.data('api').reinitialiseChildren(".children .<%=type_plural%>");
