@@ -19,17 +19,17 @@ hu:
       email_confirmation: E-Mail újra
       ok: Ok
       or: vagy
-      save: Elmentem
-      edit: Szerkesztem
+      save: Mentés
+      edit: Szerkesztés
       cancel: Mégsem
-      close: Bezárom
-      send: Küldöm
-      upload: Feltöltöm
-      delete: Törlöm
-      create: Hozzáadom
-      incorporate: Összefésülöm
+      close: Bezárás
+      send: Küldés
+      upload: Feltöltés
+      delete: Törlés
+      create: Hozzáadás
+      incorporate: Beépítés
       welcome: Üdvözöljük
-      all: Mind
+      all: Mindenki
       authors: Szerzők
       share_action: 'Kelts visszhangot!'
 
@@ -62,7 +62,7 @@ hu:
   help:
     discuss:
       closed_discussions:
-        hint: Tagek zártkörő dialógusokhoz
+        hint: Tagek zártkörő dialógus létrehozásához...
         text: |
           <p>Defining a *tag (starting with ONE *) will make this discussion semi-closed. Users must define the same
           *tag as a decision making tag in their profile to be able to participate in the discussion, however it
@@ -73,7 +73,7 @@ hu:
           solution with contact lists, invitations and fine-graded access right management will be coming later.</p>
     profile:
       closed_discussions:
-        hint: Tagek zártkörő dialógusokhoz
+        hint: Tagek zártkörő dialógusok eléréséhez...
         text: |
           <p>Here you can enter the appropriate *tags and **tags as decision making tags. This will allow you to
           take part in transparent, semi-closed discussions (tagged with *tag) and to see closed, internal
@@ -103,7 +103,7 @@ hu:
 
     connect:
       tabs:
-        search: Community böngésző
+        search: Közösség böngésző
 
     act:
       tabs:
@@ -125,7 +125,7 @@ hu:
       teaser:
         title: 'Légy társszerző!'
     signup:
-      label: 'Regisztrálok'
+      label: 'Regisztráció'
       member_tag: Még nem vagy tag?
       via_echo: '... E-Mail címmel'
       via_social: '... meglévő közösségi profillal'
@@ -135,7 +135,7 @@ hu:
       agreement: Elolvastam és egyetértek az adatvédelmi szabályokkal.
       use_photo: 'Jó lesz az echoban is'
     signin:
-      label: 'Belépek'
+      label: 'Belépés'
       password: 'Jelszó'
       member_tag: Már regisztrált tag vagy?
       via_echo: '... echo profilommal'
@@ -193,8 +193,8 @@ hu:
     # Profile Section
     profile:
       to: Ugrás a profilomhoz
-      title: Személyes adataim
-      edit_title: A szemelyes adatok szerkesztése
+      title: Személyes Adataim
+      edit_title: A személyes adatok szerkesztése
       guide: Itt a személyes adataidat láthatod. Megváltoztatásukhoz kérjük nyomd meg a jobb felső sarokban a "Szerkesztés" gombot.
 
       gender:
@@ -224,10 +224,10 @@ hu:
 
     # Spoken Languages section
     spoken_languages:
-      title: Nyelvtudás
+      title: Nyelvtudásom
       guide: |
-        Itt beállíthatod nyelvtudásod, hogy így csak azokat a <strong>tartalmakat lásd, melyeket értesz</strong>.<br/>
-        Ezáltal lehetőséged nyílik echo interkulturális, többnyelvű vitáiban való részvételre és a
+        Itt beállíthatod nyelvtudásod, hogy így csak azokat a <strong>tartalmakat lásd, amelyeket értesz</strong>.<br/>
+        Ezáltal egyúttal lehetőséged nyílik echo interkulturális, többnyelvű vitáiban való részvételre és a
         hozzászólások <strong>általad beszélt nyelvek közti fordítására</strong>. A minőségi tartalmak érdekében ehhez
         a forrás és cél nyelvek <strong>minimum középszintű</strong> ismerete szükséges.<br/>
         Kérjük ne feledd megadni <strong>anyanyelvedet</strong> sem.
@@ -238,36 +238,36 @@ hu:
 
     # Memberships section
     memberships:
-      title: Tevékenységek
+      title: Tevékenységeim
       guide: Itt közzé teheted önkéntes, szakmai és egyéb tevékenységeidet különböző szervezetekben és körökben.
       organisation: Szervezet / Kör
       position: Az én szerepem
 
     # Web profiles section
     web_addresses:
-      title: Webes elérhetőségeim
+      title: Elérhetőségeim
       guide: |
         Itt megadhatod webes elérhetőségeidet.<br/>
         <strong>FONTOS TUDNI</strong>, hogy egyelőre minden itt közzétett információ
         <strong>az echo közösség minden tagja számára látható</strong> lesz,
-        rejtve marad viszont a keresők (Google, stb.) elől.
-      type: Elérhetőség fajtája
-      address: Webes cím
+        rejtve marad azonban a keresők (Google, stb.) elől.
+      type: Elérhetőség
+      address: Cím
 
     # Concernments section
     concernments:
-      title: Társadalmi Szerepek
+      title: Társadalmi Szerepeim
       guide: |
-        Mindannyiunk sokoldalú. Bizonyos dolgokben érintettek vagyunk és szőkségünk van mások segítségére, más
-        területeken aktívak vagyunk és mi magunk ajánlunk segítséget embertársaink számára. Vannak területek, melyekben
+        Mindannyiunk sokoldalú. Bizonyos dolgokben érintettek vagyunk és szükségünk van mások segítségére, más
+        területeken aktívak vagyunk és mi magunk segítünk embertársainkon. Vannak területek, melyekben
         megalapozott szaktudással rendelkezünk, és esetleg vannak olyanok, melyekben már ma is döntéshozói pozícióban
-        vállalunk felelősséget sokunk életéért.<br/>
+        vállalunk felelősséget sokak életéért.<br/>
         echo segít abban, hogy <strong>hasonló gondolkodású emberek egymást kiegészítő tudással és tapasztalattal</strong>
         egymásra találhassanak és együtt cselekedhessenek céljaik eléréséért.<br/>
         Te mely kulcsszavakkal (un. tag-ekkel) írnád le <strong>saját társadalmi szerepeid</strong>?
       sorts:
         affection: <strong>(Károsan) érintett</strong> e témákban
-        engagement: <strong>Aktiv</strong> e célokért
+        engagement: <strong>Aktív</strong> e célokért
         expertise: <strong>Szakértő</strong> e területeken
         decision_making: <strong>Döntéshozó</strong> e kérdésekben
       tags: Kulcsszavak (tags)
@@ -424,7 +424,7 @@ hu:
       add: Új kérdésfelvetés
     translation_request: Kérjük fordítsd le a hozzászólást <strong>MAGYARRA</strong>.
     mixed_languages: Összezavart nyelvek
-    set_languages: Állítsd be <strong>NYELVTUDÁSOD</strong> - Oldd fel a zőrzavart!
+    set_languages: Állítsd be <strong>NYELVTUDÁSOD</strong> - Oldd fel a zűrzavart!
     no_locale_language: Beszélsz magyarul?
     adjust_languages: Kérjük, állítsd be <strong>MAGYAR nyelvtudásod</strong>!
     results_count:
@@ -691,7 +691,7 @@ hu:
     placeholder: 'Téma, hely, szervezet vagy név keresése'
 
     segments:
-      all: 'Mind'
+      all: 'Mindenki'
       affection: 'Érintettek'
       engagement: 'Aktívak'
       expertise: 'Szakértők'
@@ -706,11 +706,11 @@ hu:
           more: "személy '{{filter}}' kapcsán"
       affection:
         no_filter:
-          one: (károsan) érintett személy
-          more: (károsan) érintett személy
+          one: károsan érintett
+          more: károsan érintett
         with_filter:
-          one: "'{{filter}}' által (károsan) érintett személy"
-          more: "'{{filter}}' által (károsan) érintett személy"
+          one: "'{{filter}}' által károsan érintett személy"
+          more: "'{{filter}}' által károsan érintett személy"
       engagement:
         no_filter:
           one: aktív személy
@@ -720,15 +720,15 @@ hu:
           more: "'{{filter}}' ügyben aktív személy"
       expertise:
         no_filter:
-          one: szakértő személy
-          more: szakértő személy
+          one: szakértő
+          more: szakértő
         with_filter:
           one: "'{{filter}}' területén szakértő személy"
           more: "'{{filter}}' területén szakértő személy"
       decision_making:
         no_filter:
-          one: döntéshozó személy
-          more: döntéshozó személy
+          one: döntéshozó
+          more: döntéshozó
         with_filter:
           one: "'{{filter}}' témában döntéshozó személy"
           more: "'{{filter}}' témában döntéshozó személy"
@@ -808,7 +808,7 @@ hu:
         country:    Ország
         location:   Ország - város
         about_me:   Magamról
-        motivation: Gondolatok az echo-ról
+        motivation: Gondolatok az echoról
         memberships: Tevékenységek
         spoken_languages: Nyelvtudás
       report:

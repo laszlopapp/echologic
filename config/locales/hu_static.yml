@@ -19,7 +19,7 @@ hu:
     # Static content for the echoLogic main menu point
     echologic:
       title: echo
-      subtitle: Home
+      subtitle: Startlap
       show:
         ms1: echologic is a network of newthinkers and <br/>their organizations united to realize
         ms2: |
@@ -101,8 +101,8 @@ hu:
             </p>
 
         action: |-
-          Check out prototype »<br/>
-          echo 0.15 is online
+          Próbald ki a prototípust »<br/>
+          echo 0.15 online
 
 
       #About
@@ -177,7 +177,7 @@ hu:
     # Static content for the echo main menu point
     echo:
       title: echo
-      subtitle: The Project
+      subtitle: A Projekt
 
       tabs:
         echo: echo
@@ -397,7 +397,7 @@ hu:
     # Static content for the echocracy main menu point
     echocracy:
       title: echocracy
-      subtitle: The Actors
+      subtitle: A Cél
       tabs:
         echocracy: "echocracy"
         citizens: "Citizens"
@@ -561,7 +561,7 @@ hu:
     # Static content for the echonomy main menu point
     echonomy:
       title: echonomy
-      subtitle: The Values
+      subtitle: Az Értékek
 
       tabs:
         echonomy: "echonomy"
@@ -888,7 +888,7 @@ hu:
   mail:
     # Activation section
     activation:
-      subject: Please activate your echo account
+      subject: Kérjük aktiváld új echo profilodat
       text1: |
         Dear {{name}},
 
@@ -904,7 +904,7 @@ hu:
 
     # Welcome section
     welcome:
-      subject: Welcome to echo
+      subject: Üdvözlünk az echo közösségben
       text: |
         Dear {{name}},
 
@@ -921,7 +921,7 @@ hu:
         Your echo team
 
     new_password:
-      subject: New password for echo
+      subject: Új echo jelszó
       text1: |
         Dear {{name}},
 
@@ -938,7 +938,7 @@ hu:
         Your echo team
 
     activate_email:
-      subject: Please verify your E-Mail adress
+      subject: Kérjük aktiváld E-Mail címedet
       text1: |
         Dear {{name}},
 

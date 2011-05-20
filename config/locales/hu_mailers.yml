@@ -48,7 +48,7 @@ hu:
         Your newsletter mails are being delivered...
 
     activity_tracking:
-      subject: echo - New discussion content
+      subject: echo - Új tartalom
       title: New discussion content
       statements:
         new_questions: 'There are <strong>{{count}} new question(s)</strong> since the last update. '
