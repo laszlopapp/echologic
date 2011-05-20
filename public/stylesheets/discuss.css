@@ -1301,6 +1301,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 .statement .children .headline .child_header.selected .header_content {
 	background-position: right bottom;
+	color: #7BB031;
 }
 
 .statement .children .headline .header_content:hover {

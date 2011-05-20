@@ -32,24 +32,6 @@ module StatementsHelper
   # (per type, ordering must be defined in the node type definition).
   #
   def render_all_children(statement_node, children, type = dom_class(statement_node))
-#    return content_tag :div, '', :style => "clear:right" if children.blank?
-#    val = ''
-#    statement_node.class.children_types.each do |child_type|
-#      dom_child_class = child_type.to_s.underscore
-#      arg = children[child_type]
-#      if (arg.kind_of?(Integer))
-#        type_children = children_statement_node_url(statement_node, :type => dom_child_class)
-#        count = arg
-#      else
-#        type_children = arg
-#        count = child_type.to_s.constantize.double? ? type_children.map(&:total_entries).sum : type_children.total_entries
-#      end
-#      val << render(:partial => 'statements/children',
-#                    :locals => {:type => dom_child_class,
-#                                :count => count,
-#                                :children => type_children})
-#    end
-#    val
     
     content = ''
     content << render_children(statement_node, statement_node.class.children_types, children)
@@ -59,6 +41,7 @@ module StatementsHelper
 
 
   def render_children(statement_node, children_types, children)
+    return content_tag :div, '', :style => "clear:right" if children_types.blank?
     content_tag :div, :class => "children header_block discuss_right_block" do
       content = ''
       
