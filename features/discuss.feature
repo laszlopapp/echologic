@@ -448,9 +448,9 @@ Feature: Take Part on a question
       And I follow "echonomyJAM"
       And I choose the "Test Question?" Question
       And there are hidden proposals for this question
-      And I follow localized "application.general.more" within ".proposals"
+      And I follow localized "application.general.more" within "div.proposals"
       # needed because of the TOP CHILDREN mechanism
-      And I follow localized "application.general.more" within ".proposals"
+      And I follow localized "application.general.more" within "div.proposals"
     Then I should see the hidden proposals
     
   Scenario: User opens question's siblings block
