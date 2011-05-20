@@ -481,12 +481,26 @@ class StatementNode < ActiveRecord::Base
     #
     # visibility = false: returns an array of symbols of the possible children types
     # visibility = true: returns an array of sub arrays representing pairs [type: symbol class , visibility : true/false]
-    # default: whether we should take out from or let the default children types in the array
     # expand: whether we should replace a children type for it's sub-types
     #
     def children_types(opts={})
-      types = @@children_types[self.name] || @@children_types[self.superclass.name]
-      types -= @@default_children_types if opts[:no_default]
+      format_types @@children_types[self.name] || @@children_types[self.superclass.name], opts
+    end
+    
+    #
+    # visibility = false: returns an array of symbols of the possible children types
+    # visibility = true: returns an array of sub arrays representing pairs [type: symbol class , visibility : true/false]
+    # expand: whether we should replace a children type for it's sub-types
+    #
+    def default_children_types(opts={})
+      format_types @@default_children_types, opts
+    end
+    
+    def all_children_types(opts={})
+      children_types(opts) + default_children_types(opts)
+    end
+    
+    def format_types(types, opts={})
       if opts[:expand]
         array = []
         types.each{|c| array += c[0].to_s.constantize.sub_types.map{|st|[st, c[1]]} }
@@ -518,15 +532,15 @@ class StatementNode < ActiveRecord::Base
       [self.name.to_sym]
     end
 
-    def default_children_types(*klasses)
+    def has_default_children_of_types(*klasses)
       @@default_children_types = klasses
     end
 
     def has_children_of_types(*klasses)
       @@children_types ||= { }
-      @@children_types[self.name] ||= @@default_children_types.nil? ? [] : @@default_children_types
-      @@children_types[self.name] = klasses + @@children_types[self.name]
+      @@children_types[self.name] ||= []
+      @@children_types[self.name] += klasses
     end
   end
-  default_children_types [:FollowUpQuestion,true]
+  has_default_children_of_types [:FollowUpQuestion,true]
 end

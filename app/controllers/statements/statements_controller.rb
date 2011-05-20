@@ -498,7 +498,7 @@ class StatementsController < ApplicationController
   #
   def load_all_children
     @children ||= {}
-    children_types = @statement_node.class.children_types(:visibility => true).transpose
+    children_types = @statement_node.class.all_children_types(:visibility => true).transpose
     if !children_types.empty?
       types = children_types[0]
       @children_documents ||= {}
