@@ -2,7 +2,7 @@
 <% display ||= false %>
 <% no_more ||= false %>
 <% new_level ||= false %>
-<div class="expandable_content children_container" style="<%= display ? 'display:block' : 'display:none'%>">
+<div class="<%= type.pluralize %> expandable_content children_container" style="<%= display ? 'display:block' : 'display:none'%>">
 
 	<%= render :partial => 'statements/elements_list' , :locals => { :children => children, :type => type, :new_level => new_level }%>
 

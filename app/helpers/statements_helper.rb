@@ -89,6 +89,7 @@ module StatementsHelper
                             :path => children_statement_node_url(statement_node, :type => h[0]), 
                             :selected => i==selected)
         end
+        header_content << content_tag(:span, '', :class => 'loading', :style => 'display: none')
         header_content << content_tag(:div, '', :class => 'expand_icon')
         header_content
       end
@@ -325,7 +326,9 @@ module StatementsHelper
   # Returns the block heading for the children of the current statement node.
   #
   def children_heading_title(type, count, opts={})
-    content_tag :a, :href => opts[:path], :class => "child_header #{'selected' if opts[:selected]}" do
+    content_tag :a, :href => opts[:path], 
+                    :type => type.pluralize, 
+                    :class => "#{type.pluralize} child_header #{'selected' if opts[:selected]}" do
       content_tag :div, :class => "header_content" do
         title = ''
         title << I18n.t("discuss.statements.headings.#{type}")

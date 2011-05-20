@@ -3,7 +3,7 @@
 
 <% content_tag :div, :class => "#{type.pluralize} children header_block discuss_right_block" do %>
 
-	<% link_to path, :class => "children_header #{type.pluralize} expandable #{path.blank? ? 'active' : '' } " do %>
+	<% link_to path, :class => "children_header #{type.pluralize} #{path.blank? ? 'active' : '' } " do %>
 	  <% content_tag :div, :class => "headline" do %>
 	    <%= children_heading_title(type, count) %>
       <%= content_tag :span, I18n.t('discuss.statements.echos_label'),

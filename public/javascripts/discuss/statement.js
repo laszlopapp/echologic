@@ -62,6 +62,7 @@
 				}
 
 				initExpandables();
+        initChildrenButtons();
 
         if (isEchoable()) {
           statement.echoable();
@@ -130,6 +131,53 @@
 				  	expandableElement.expandable();
 				  }
 			  });
+			}
+			
+			
+			/*
+       * Handles the children panel buttons
+       */
+			function initChildrenButtons() {
+				statement.find(".children").each(function(){
+					var container = $(this);
+					var loading = container.find('.headline .loading');
+				  container.find("a.child_header").bind('click', function(){
+						var last_button = container.find('a.child_header.selected');
+						var button = $(this);
+						var type = button.attr('type');
+						var panel = container.find('div.' + type);
+						if (panel.length > 0) {
+							if (!panel.is(':visible')) {
+						  	container.find('div.children_container').hide();
+						  	panel.show();
+						  	last_button.removeClass('selected');
+						  	button.addClass('selected');
+						  }
+						} else {
+							var path = button.attr('href');
+							loading.show();
+							$.ajax({
+				        url:      path,
+				        type:     'get',
+				        dataType: 'script',
+								success: function(data, status) {
+									panel = container.find('.children_container:first');
+									if (!panel.is(':visible')) {
+		                container.find('div.children_container').hide();
+		                panel.show();
+		                last_button.removeClass('selected');
+		                button.addClass('selected');
+										loading.hide();
+		              }
+								},
+								error: function() {
+									loading.hide();
+								}
+				      });
+						}
+						return false;
+					});
+				});
 			}
 
 

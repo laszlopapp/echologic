@@ -1747,8 +1747,8 @@ form.statement fieldset ol li.tags_container {
 }
 
 .statement .children .loading {
-  right: 33px;
-	top: 5px;
+  right: 9px;
+	top: 10px;
 }
 
 .expandable {
