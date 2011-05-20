@@ -6,5 +6,5 @@ var statement = $('#statements div.<%=dom_class(@statement_node)%>');
 
 var headline = statement.find('.children a.<%= type_dom_class.pluralize %>').parent();
 
-elements.insertAfter(headline);
+headline.next().prepend(elements);
 statement.data('api').reinitialiseChildren(".children .<%= type_dom_class.pluralize %>");

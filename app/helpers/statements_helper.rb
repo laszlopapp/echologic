@@ -65,7 +65,7 @@ module StatementsHelper
 
       
       # load headers
-      content << content_tag(:div, :class => "headline") do
+      content << content_tag(:div, :class => "headline expandable") do
         header_content = ''
         headers.each_with_index do |h, i|
           header_content << children_heading_title(h[0],h[1], 
@@ -78,13 +78,17 @@ module StatementsHelper
       end
       
       # load children
-      headers.each_with_index do |h, index|
-        content << render(:partial => h[0].classify.constantize.children_list_template,
-                          :locals => {:type => h[0],
-                                      :children => children_to_render[h[0]],
-                                      :parent => @statement_node,
-                                      :display => index==0,
-                                      :new_level => true}) if children_to_render[h[0]] 
+      content << content_tag(:div, :class => 'children_content expandable_content') do
+        children_content = ''
+        headers.each_with_index do |h, index|
+          children_content << render(:partial => h[0].classify.constantize.children_list_template,
+                            :locals => {:type => h[0],
+                                        :children => children_to_render[h[0]],
+                                        :parent => @statement_node,
+                                        :display => index==0,
+                                        :new_level => true}) if children_to_render[h[0]] 
+        end
+        children_content
       end
       content
     end
