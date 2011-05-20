@@ -325,8 +325,8 @@ module StatementsHelper
   # Returns the block heading for the children of the current statement node.
   #
   def children_heading_title(type, count, opts={})
-    content_tag :div, :class => "child_header #{'selected' if opts[:selected]}" do
-      link_to opts[:path], :class => "header_content" do
+    content_tag :a, :href => opts[:path], :class => "child_header #{'selected' if opts[:selected]}" do
+      content_tag :div, :class => "header_content" do
         title = ''
         title << I18n.t("discuss.statements.headings.#{type}")
         title << content_tag(:span, " (#{count})", :class => 'count')   
