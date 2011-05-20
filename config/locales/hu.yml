@@ -9,8 +9,8 @@ hu:
 
     # General purpose resources
     general:
-      more: még »
-      hide: « okés
+      more: tovább »
+      hide: « bezár
       next: Következő
       back: Előző
       name: Név
@@ -258,7 +258,7 @@ hu:
     concernments:
       title: Társadalmi Szerepeim
       guide: |
-        Mindannyiunk sokoldalú. Bizonyos dolgokben érintettek vagyunk és szükségünk van mások segítségére, más
+        Mindannyiunk sokoldalú. Bizonyos dolgokban érintettek vagyunk és szükségünk van mások segítségére, más
         területeken aktívak vagyunk és mi magunk segítünk embertársainkon. Vannak területek, melyekben
         megalapozott szaktudással rendelkezünk, és esetleg vannak olyanok, melyekben már ma is döntéshozói pozícióban
         vállalunk felelősséget sokak életéért.<br/>
@@ -266,7 +266,7 @@ hu:
         egymásra találhassanak és együtt cselekedhessenek céljaik eléréséért.<br/>
         Te mely kulcsszavakkal (un. tag-ekkel) írnád le <strong>saját társadalmi szerepeid</strong>?
       sorts:
-        affection: <strong>(Károsan) érintett</strong> e témákban
+        affection: <strong>Károsan érintett</strong> e témákban
         engagement: <strong>Aktív</strong> e célokért
         expertise: <strong>Szakértő</strong> e területeken
         decision_making: <strong>Döntéshozó</strong> e kérdésekben
@@ -279,13 +279,13 @@ hu:
 
       newsletter:
         title: echo Hírlevél
-        guide: echo hírlevel küldése max. havi egy alkalommal.
+        guide: echo hírlevél küldése max. havi egy alkalommal.
         turned_on: Sikeresen feliratkoztál az echo hírlevélre.
         turned_off: Sikeresen leiratkoztál az echo hírlevélről.
 
       activity:
         title: Új tartalmak
-        guide: Napi hirek új vitákról és az általad támogatott hozzászólások kapcsán történtekről.
+        guide: Napi hírek új vitákról és az általad támogatott hozzászólások kapcsán történtekről.
         turned_on: A napi aktivitásról szóló hirlevelek küldését sikeresen aktiváltad.
         turned_off: A napi aktivitásról szóló hirlevelek küldését kikapcsoltad.
 
@@ -478,7 +478,7 @@ hu:
       create_improvement: "Tégy hozzá új kiegészítést az aktuális javaslathoz"
       create_pro_argument: "Mondj egy új érvet a javaslat MELLETT"
       create_contra_argument: "Mondj egy új érvet a javaslat ELLEN"
-      create_follow_up_question: "Vess fel egy új implikált kérdést az aktuális hozzászólás kapcsán"
+      create_follow_up_question: "Vess fel egy új, az aktuális hozzászólásból fakadó kérdést"
       echo: 'Támogasd ezt a hozzászólást! Kelts visszhangot!'
       unecho: 'Vond vissza támogatásod!'
       publish: |
@@ -498,17 +498,17 @@ hu:
       echo_indicator:
         support:
           one: '{{supporter_count}} támogató'
-          many: '{{supporter_count}} támogatók'
+          many: '{{supporter_count}} támogató'
         recommend:
           one: '{{supporter_count}} támogató'
-          many: '{{supporter_count}} támogatók'
-      add_new: Add new...
+          many: '{{supporter_count}} támogató'
+      add_new: Új hozzászólás...
       create_question_link: Vess fel egy új kérdést
       create_proposal_link: Tégy új javaslatot
       create_improvement_link: Javasolj új kiegészítést
       create_pro_argument_link: Mondj egy új érvet MELLETTE
       create_contra_argument_link: Mondj egy új érvet ELLENE
-      create_follow_up_question_link: Vess fel egy új implikált kérdést
+      create_follow_up_question_link: Vess fel egy a fentiekből fakadó új kérdést
       recommend_link: 'Támogatom (echo)'
       unrecommend_link: 'Nem támogatom'
       support_link: 'Támogatom (echo)'
@@ -560,8 +560,8 @@ hu:
         question: 'Kérdésfelvetés'
         proposal: 'Javaslat'
         improvement: 'Kiegészítés'
-        pro_argument: 'Érv Mellette'
-        contra_argument: 'Érv Ellene'
+        pro_argument: 'Érv mellette'
+        contra_argument: 'Érv ellene'
         follow_up_question: 'Implikált kérdés'
       new:
         question: 'Új Kérdésfelvetés'
@@ -590,7 +590,7 @@ hu:
         label: 'Azonnali publikáció?'
         initial_state:
           new: 'Először előkészítem a vitát és később publikálom'
-          published: 'Rögtön publikálom (s így a szerkeszés azután limitált lesz)'
+          published: 'Rögtön publikálom (s így azután a szerkeszés lehtősége korlátozott lesz)'
         published: Publikált
         approved: Jóváhagyott
       delete_link: 'Delete'
@@ -625,7 +625,7 @@ hu:
       cannot_be_edited: |
         A hozzászólás sajnos már nem szerkeszthető, mivel időközben már mások is támogatták azt.
         Ez a korlátozás a vélemények meghamisításának elkerülése érdekében szükséges.
-      echos_label: Támogatás
+      echos_label: Támogatottság
 
       breadcrumbs:
         discuss_search: Keresés eredménye

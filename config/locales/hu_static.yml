@@ -3,7 +3,7 @@ hu:
 
   # Supporters & Sponsors
   sponsors:
-    text: 'Supported by'
+    text: 'Támogatók'
     exist: EXIST
     eu: European Union
     esf: European Social Fund for Germany
@@ -19,99 +19,92 @@ hu:
     # Static content for the echoLogic main menu point
     echologic:
       title: echo
-      subtitle: Startlap
+      subtitle: A Startlap
       show:
-        ms1: echologic is a network of newthinkers and <br/>their organizations united to realize
-        ms2: |
-          echo - the global <span title="{{tooltip}}" class="ttLink">agora</span>!
-
-        agora_tooltip: |-
-          The agora was the central place in ancient Athens – the cradle of democracy.
-          It was the hub of the social and political life of the polis: a society self-governed by its free citizens.
-          echo, as the global agora, overcomes the communicative and spatial limits of the ancient agora and
-          makes it accessible for all people on the planet.
-
-        yucca: |-
-          'Yucca elata' as symbol of a new beginning
-
-        news_title: echo on the Web
-        twitter: Follow echo on Twitter!
-        facebook: Follow echo on Facebook!
-
-        header1: means
-        header2: |
-          the end of powerlessness!&nbsp;&nbsp;&nbsp;&nbsp;<br/>the beginning of self-determination!
+        news_title: echo a Weben
+        twitter: Kövesd echot a Twitteren!
+        facebook: Kövesd echot a Facebookon!
 
         text_1: |
           <p>
-          echo is a joint <a href="{{github_url}}" target="_blank">Open Source</a> project for
-          <strong>active citizen participation</strong> -
-          <span title="{{subsidiarity_tooltip}}" class="ttLink">worldwide</span> and for all people.
-          Its comprehensive approach is designed to address a core problem of our time: the political resignation
-          and feeling of powerlessness of the individual.
+          Az echo egy a közösségből fakadó <a href="{{github_url}}" target="_blank">nyílt forrású</a> projekt egy
+          <strong>élő demokráciáért</strong> - <span title="{{subsidiarity_tooltip}}" class="ttLink">világszerte</span>,
+          minden ember egyenrangú, aktív részvételével.
+          Átfogó koncepciója korunk egyik kulcsproblémájának megoldását célozza:
+          a politikai rezignáció és az egyedüli ember tehetetlenség érzetének leküzdését.
           </p><p>
-          "Discuss - Connect - Act!“ - The social software facilitates <strong>constructive, cross-language
-          public dialogs</strong> for opinion formation and collective solution finding</strong>. It connects people
-          sharing the same purposes and supports them in creating <strong>joint actions</strong> for social and
-          political impact.<br/>
-          Wherever we are in the virtual or real world, echo gives us the proof: we are no longer alone with our
-          opinion and convictions - the echo of our voice can <strong>turn idea(l)s into reality</strong>.
+          "Megvitatjuk - Összefogunk - Cselekszünk!" - A szociális szoftver lehetőséget nyújt <strong>konstruktív,
+          többnyelvű nyílt viták</strong> folytatására véleményformálás és közös megoldáskeresés céljából.
+          Az echo összeköti a vitákban azonos álláspontokat képviselő embereket és támogatja őket a
+          <strong>közös cselekvésben</strong> a társadalmi és politikai érdekérvényesítés sikeréért.<br/>
+          Bármerre is legyünk a virtuális vagy valódi világban, az echo végleg egyértelművé teszi: többé nem vagyunk
+          egyedül véleményünkkel és céljainkkal - hangunk visszhangja <strong>átformálja a világot</strong>.
           </p>
         gender_tooltip: ''
-        subsidiarity_tooltip: According to the principles of subsidiarity
+        subsidiarity_tooltip: A glokalitás, dezentralizáció és szubszidiaritás elve mentén
         text_2:
-          title: Collective solution finding
+          title: Közös megoldáskeresés
           more: |
             <p>
-            Newspaper articles, blogs, videos and any kind of Internet content become the gateways into well
-            structured echo discussions, which can be embedded in any website. Wherever on the web they are,
-            people can elaborate their ideas and solutions by writing the same drafts together - in a democratic
-            process without moderators or admins.
-            In this way, echo <strong>summarizes knowledge, opinions and their advocates
-            beyond the borders of websites, communities and languages.</strong>
+            Az echo <strong>NEM egy újabb platform</strong>. Tartalmai tetszőleges weblapokba ágyazva
+            megjelenhetnek majd: így pl. társadalmi és politikai szereplők weboldalain, hírportálokon, cégek honlapján
+            vagy éppen privát blogokban.<br/>
+            Kollektív tudásunk szilánkjai, vélemények és ezek támogatói ezáltal az egymástól elszigetelt weblapok,
+            közösségek és különböző beszélt nyelvek határain túl <strong>az Internet teljes egészére kiterjedően</strong>
+            összeköttetnek egymással.
             </p><p>
-            echo discussions give a <strong>fast and clear overview</strong> on alternative proposals, pro/contra
-            arguments and multimedia background information. They make interrelations of topics easily comprehensible
-            and provide a <strong>clearly structured "opinion base"</strong>. E.g. which parts of society and how many
-            people are really against Genfood? What are the arguments of biotechnologists and ecologists? What is the
-            position of political parties, NGOs and other organisations?
+            Az echo többnyelvű dialógusai <strong>bármennyi résztvevővel is gyorsan áttekinthetőek</strong>.
+            Elénk tárják a különböző alternatívákat, a mellettük és ellenük szóló érveket valamint a velük kapcsolatos
+            multimediális háttérinformációkat. A témák közötti összefüggések illetve a különböző
+            <strong>társadalmi csoportok álláspontja</strong> és érvelése könnyen átláthatóvá válik.<br/>
+            Pl.: Hányan gondolják úgy, hogy a szociális konzultáció vonalkódos megoldása problémamentes?
+            Hogyan érvelnek adatvédelmi szakemberek és utópiákkal foglalkozó irodalomtörténészek?
+            Mi az álláspontja pártoknak, civil szervezeteknek és más társadalmi csoportoknak?
             </p>
         text_3:
-          title: Participatory democracy
+          title: Élő demokrácia
           more: |
             <p>
-            In order to achieve noticeable results in everyday life, echo actively motivates like-minded participants of
-            discussions to create <strong>joint projects</strong> and utilize direct democractic instruments (e.g. European Citizens'
-            Initiative, ePetition, referenda, carrot mob). echo helps to <strong>finance these projects</strong> with
-            cost-neutral fundraising and a user-driven, democratic redistribution of all its surpluses
-            (<strong>“Your-Profit” business philosophy</strong>).
+            Az életünkben valóban érezhető változások érdekében az echo a vitákban azonos álláspontokat
+            képviselő összes embert motiválja <strong>közös akciók</strong> megszervezésére. Ezen akciók spektruma az
+            általános projektektől kezdve, a
+            "<a href='http://en.wikipedia.org/wiki/Social_business' target='_blank'>social business</a>"
+            cégek és civil szervezetek alapításán át, felöleli a különböző direkt demokratikus eszközök szervezett
+            használatát (pl. Európai Polgári Kezdeményezés, e-Petíció, népszavazás, carrot mob, demonstráció, bojkott).<br/>
+            Az akciók finanszírozását az echo költségsemleges pénzgyűjtéssel valamint több
+            skálázható üzleti modellből származó teljes nyereségének demokratikus, az echo közösség által történő
+            elosztásával segíti (Non-profit helyett <strong>"Your-profit" üzleti filozófia</strong>).
             </p><p>
-            Through the promotion of <strong>constructive collaboration between citizens, states and their
-            organizations</strong>, echo helps to avoid destructive confrontation and enables us to
-            <strong>jointly develop innovative responses</strong> to the challenges of our time.
+            <strong>Az állampolgárok, az állam és ezek különböző szervezetei közötti konstruktív együttműködés</strong>
+            támogatásával az echo segít elkerülni a destruktív konfrontációt, és lehetőséget teremt arra, hogy korunk
+            kihívásaira együtt találjuk meg az innovatív, mindenki számára elfogadható válaszokat.
             </p>
         text_4:
-          title: Your echo
+          title: A Te (vissz)hangod
           more: |
             <p>
-            Your voice needs an echo. echo needs your voice. Be part of creating a future democracy where <strong>every
-            voice counts</strong> the same – all over the world.
+            A hangod egy echora, az echo a hangodra vár. Építsd velünk a jövő demokráciáját, melyben <strong>minden hang
+            egyformán számít</strong> - mindenütt a világon.
             </p><p>
-            Although echo is still in its embryonic stage, you can already:
+            Az echo mint a jövő generációk értő világpolgárainak "társadalmi motorja" egyelőre még gyerekcipőben jár.
+            De belépve már itt és most lehetőséged van, hogy <strong>SAJÁT témáid</strong> kapcsán mobilizáld ismerőseid és kezedbe
+            vedd családod és közös jövőnk alakulását.
+            </p><p>
+            <strong>Hallasd a hangod! Kelts visszhangot!</strong>
             </p>
 
         action: |-
           Próbald ki a prototípust »<br/>
-          echo 0.15 online
+          Kövesd a fejlődést
 
 
       #About
       about:
-        title: About us
+        title: Rólunk
         tabs:
-          project: The Project
-          team: The Team
-          partners: The Network
+          project: A Projekt
+          team: A Csapat
+          partners: A Hálózat
         text: |-
           <p>
           echo is driven forward by an <strong><a id="about_team_link" href="#">international, interdisciplinary team</a>
@@ -397,7 +390,7 @@ hu:
     # Static content for the echocracy main menu point
     echocracy:
       title: echocracy
-      subtitle: A Cél
+      subtitle: A Résztvevők
       tabs:
         echocracy: "echocracy"
         citizens: "Citizens"
