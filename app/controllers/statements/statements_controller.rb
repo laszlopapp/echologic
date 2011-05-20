@@ -364,7 +364,10 @@ class StatementsController < ApplicationController
       load_children :type => @type
       respond_to do |format|
         format.html{show}
-        format.js { render :template => @type.to_s.constantize.children_template }
+        format.js {
+          @children_list_template = @type.to_s.constantize.children_list_template
+          render :template => "statements/children" 
+        }
       end
     rescue Exception => e
       log_error_home(e, "Error loading children of type #{@type}.")
