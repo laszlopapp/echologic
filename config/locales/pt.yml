@@ -69,13 +69,13 @@ pt:
           <p>Definindo uma palavra-chave '*tag' (começando com UMA *) tornará a discussão semi-fechada. Os utilizadores terão que definir a mesma palavra-chave como uma competência no campo de Decisão no seu perfil de utilizador de modo a poderem participar na discussão, no entanto permanecerá visível e transparente para o mundo exterior.</p>
           <p>Definindo a palavra-chave '**tag' (começando com DUAS **) tornará a discussão totalmente fechada. Estará visível para utilizadores que definam essa mesma palavra-chave começando com duas ** como competência no campo de Decisão do seu perfil.</p>
           <p>Repare por favor, que tem que adicionar estas palavras-chave especiais como competência no campo de Decisão do seu perfil primeiramente, antes de as utilizar para controlar os direitos de acesso às discussões.</p>
-          <p>Tome nota de que esta é uma solução temporária que facilita a criação de discussões fechadas na echo. A solução mais robusta incluirá lista de contatos, convites e gerência de acesso avançada, mas só se encontrará à disposição mais tarde.</p> 
+          <p>Tome nota de que esta é uma solução temporária que facilita a criação de discussões fechadas na echo. A solução mais robusta incluirá lista de contatos, convites e gerência de acesso avançada, mas só se encontrará à disposição mais tarde.</p>
     profile:
       closed_discussions:
         hint: Palavras-chave (tags) para aceder a discussões fechadas...
         text: |-
           <p>Aqui poderá inserir as palavras-chave especiais (p.ex. *tag ou **tag) como competências no campo da Decisão. Deste modo ser-lhe-á permitido participar em discussões transparentes e semi-fechadas (tags começando com UM *) e ver discussões fechadas e internas (marcadas com DOIS **) respetivamente.</p>
-          <p>Tome nota de que esta é uma solução temporária que facilita a criação de discussões fechadas na echo. A solução mais robusta incluirá lista de contatos, convites e gerência de acesso avançada, mas só se encontrará à disposição mais tarde.</p> 
+          <p>Tome nota de que esta é uma solução temporária que facilita a criação de discussões fechadas na echo. A solução mais robusta incluirá lista de contatos, convites e gerência de acesso avançada, mas só se encontrará à disposição mais tarde.</p>
 
   # Localizations for the layout components
   layouts:
@@ -432,7 +432,7 @@ pt:
     set_languages: Insira os seus <strong>Conhecimentos Linguísticos</strong> - Filtre o conteúdo!
     no_locale_language: Fala PORTUGUÊS?
     adjust_languages: |
-      Por favor defina os seus <strong>conhecimentos linguísticos de Português</strong>!  
+      Por favor defina os seus <strong>conhecimentos linguísticos de Português</strong>!
     original_language_warning: |
       O texto original encontra-se em <strong>{{language}}</strong>. Defina os seus conheci-<br/>
       mentos linguísticos para poder visualizar conteúdo noutras línguas.
@@ -518,8 +518,8 @@ pt:
           one: '{{supporter_count}} apoiante'
           many: '{{supporter_count}} apoiantes'
         recommend:
-          one: '{{supporter_count}} recomendação'
-          many: '{{supporter_count}} recomendações'
+          one: '{{supporter_count}} apoiante'
+          many: '{{supporter_count}} apoiantes'
       add_new: Adicionar novo/a...
       create_question_link: 'Criar uma nova questão'
       create_proposal_link: 'Criar nova proposta'
@@ -528,22 +528,11 @@ pt:
       create_pro_argument_link: 'Criar novo argumento a favor'
       create_contra_argument_link: 'Criar novo argumento contra'
       create_follow_up_question_link: 'Criar nova questão complementar'
-      recommend_link: 'Aconselhar (echo)'
-      unrecommend_link: 'Desaconselhar'
+      recommend_link: 'Apoiar (echo)'
+      unrecommend_link: 'Desapoiar'
       support_link: 'Apoiar (echo)'
       unsupport_link: 'Desapoiar'
-      create_question_explanation: |
-        Aqui pode começar uma <strong>nova questão</strong> e providenciar um conjunto de <strong>palavras-chave
-        temáticas</strong> adequadas de forma a esta ser facilmente encontrada.
-      create_proposal_explanation: |
-        Tem uma <strong>boa ideia</strong> no que diz respeito à questão actual, que ainda <strong>não existe</strong>?<br/>
-        Aqui pode criar uma <strong>nova proposta</strong>.
-      create_improvement_explanation: |
-        Tem uma <strong>boa ideia</strong> para <strong>tornar a proposta actual ainda melhor</strong>?<br/>
-        Aqui pode criar uma <strong>nova melhoria</strong>.
-      create_statement_language_hint: |
-        Por favor escreva sua ideia em <strong>PORTUGUÊS</strong> ou escolha um outro idioma usando o
-        babelfish no canto superior direito.
+
       statement_language_hint: |
         Por favor defina o seu conhecimento de línguas no seu <a href='{{url}}'>Perfil</a>.
       statement_language_hint_tooltip: |
@@ -693,10 +682,6 @@ pt:
       translated: "A {{type}} foi traduzida com sucesso."
       incorporated: "A melhoria foi incorporada na proposta com sucesso."
       image_uploaded: "A imagem acabou de ser incluída na {{type}}."
-      empty:   "Nenhuma questão encontrada. Por favor altere os seus critérios de pesquisa."
-      empty_without_spoken_languages: |
-        Nenhuma questão encontrada. Pode tentar definir as suas <a href='{{my_echo}}'><u>Línguas Faladas</u></a>
-        de forma a aceder a conteúdos noutras línguas.
       new_percentage: "O seu perfil está {{percentage}}% completo."
 
 

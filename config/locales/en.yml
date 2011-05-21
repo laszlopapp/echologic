@@ -287,6 +287,7 @@ en:
       guide: |
         All of us have <strong>different facets</strong>. In some areas we might be affected and need help from others,
         in other areas we engage ourselves and offer help to others. In certain fields we have professional expertise,
+        in others we might represent other people and make decisions.<br/>
         echo helps like-minded people to find each other with <strong>knowledge complementing each other</strong>.<br/>
         Which <strong>keywords (tags)</strong> would you describe <strong>your concernments and competences</strong> with?
       sorts:
@@ -446,7 +447,7 @@ en:
     mixed_languages: Mixed up languages
     set_languages: Set your <strong>LANGUAGE SKILLS</strong> - Wipe out the noise!
     no_locale_language: Do you speak ENGLISH?
-    adjust_languages: Please define your <strong>ENGLISH language skills</strong>! 
+    adjust_languages: Please define your <strong>ENGLISH language skills</strong>!
     results_count:
       one: '{{count}} question'
       more: '{{count}} questions'
@@ -520,8 +521,8 @@ en:
           one: '{{supporter_count}} supporter'
           many: '{{supporter_count}} supporters'
         recommend:
-          one: '{{supporter_count}} recommendation'
-          many: '{{supporter_count}} recommendations'
+          one: '{{supporter_count}} supporter'
+          many: '{{supporter_count}} supporters'
       add_new: Add new...
       create_question_link: 'Create new question'
       create_proposal_link: Add new proposal
@@ -530,22 +531,11 @@ en:
       create_pro_argument_link: Add new PRO argument
       create_contra_argument_link: Add new CONTRA argument
       create_follow_up_question_link: Add new follow-up question
-      recommend_link: 'Recommend (echo)'
+      recommend_link: 'Support (echo)'
       unrecommend_link: 'Withdraw vote'
       support_link: 'Support (echo)'
       unsupport_link: 'Withdraw vote'
-      create_question_explanation: |
-        Please formulate the <strong>question</strong> to be discussed, describe the issue with some more details
-        and tag it with <strong>relevant keywords</strong> for better searchability.
-      create_proposal_explanation: |
-        Do you have a <strong>good idea</strong> concerning the current question, which <strong>isn't entered</strong> yet?<br/>
-        Here you can create a <strong>new proposal</strong>.
-      create_improvement_explanation: |
-        Do you have a <strong>good idea</strong> to <strong>make the current proposal even better</strong>?<br/>
-        Here you can propose a <strong>new addition</strong>.
-      create_statement_language_hint: |
-        Please post the statement in <strong>ENGLISH</strong> or choose another language
-        using the babelfish in the upper menu.
+
       statement_language_hint: |
         Please set your language skills in your <a href='{{url}}'>Profile</a>.
       statement_language_hint_tooltip: |
@@ -636,9 +626,9 @@ en:
       statement_updated: |-
         This {{type}} has just been updated by another person.
       statement_supported: |-
-         Thanks for making an echo to the {{type}}.
+        Thanks for making an echo to the {{type}}.
       statement_unsupported: |-
-         You withdrew your echo from the {{type}}.
+        You withdrew your echo from the {{type}}.
       edit_period_hint: |
         You have <strong>{{minutes}} minutes</strong> to edit the statement.
         Afterwards, your modifications might even get discarded.
@@ -706,10 +696,6 @@ en:
       translated: "The {{type}} has been translated successfully."
       incorporated: "The addition has been successfully incorporated into the proposal."
       image_uploaded: "The illustration image has been added to the {{type}}."
-      empty:   "No questions found. Please change your search criteria."
-      empty_without_spoken_languages: |
-        No questions found. You can try defining your <a href='{{my_echo}}'>language skills</a>
-        to see content in other languages.
       new_percentage: "Your profile is {{percentage}}% complete."
 
 

@@ -1,4 +1,5 @@
-en:
+
+hu:
 
   # SEO data
   seo:
@@ -7,16 +8,16 @@ en:
       # static: de.seo.title.static
       static:
         echologic:
-          show: 'echo - Living Democracy'
-          about: 'echo - About us'
-          imprint: 'echo - Imprint'
-          data_privacy: 'echo - Data Privacy'
+          show: 'echo - Élő Demokrácia'
+          about: 'echo - Rólunk'
+          imprint: 'echo - Impresszum'
+          data_privacy: 'echo - Adatvédelem'
         echo:
-          show:    'echo - Living Democracy'
-          discuss: 'echo - Discuss (opinion formation & joint solution finding)'
-          connect: 'echo - Connect (with allies with different forms of competence)'
-          act:     'echo - Act (for noticeable results in everyday life)'
-          echo_on_waves: 'echo - Everywhere (synergies through decentral infrastructure - echo on waves)'
+          show:    'echo - Élő Demokrácia'
+          discuss: 'echo - Megvitatjuk'
+          connect: 'echo - Összefogunk'
+          act:     'echo - Cselekszünk'
+          echo_on_waves: 'echo - Mindenhol'
         echocracy:
           show:            'echocracy - The Open, Participatory Democracy of echo'
           citizens:        'echocracy - Affected & Engaged Citizens'
@@ -55,7 +56,7 @@ en:
 
       # discuss: de.seo.title.discuss
       discuss:
-        index: 'echo - Discuss'
+        index: 'echo - Megvitatjuk'
         roadmap: 'echo - Roadmap for Discuss'
       statements:
         category: 'echo - Question Topic'
@@ -67,8 +68,8 @@ en:
       # connect: de.seo.title.connect
       connect:
         roadmap:  'echo - Roadmap for Connect'
-        show:   'echo - Connect - Explore Community'
-        fill_out_profile: 'echo - Connect'
+        show:   'echo - Összefogunk - Közösség böngésző'
+        fill_out_profile: 'echo - Összefogunk'
 
       # act: de.seo.title.act
       act:
@@ -78,8 +79,8 @@ en:
       my_echo:
         roadmap: 'echo - Roadmap for My echo'
         welcome: 'echo - Welcome'
-        profile: 'echo - My Profile'
-        settings: 'echo - My Settings'
+        profile: 'echo - Profilom'
+        settings: 'echo - Beállításaim'
 
       # my_echo: de.seo.title.admin
       admin:
