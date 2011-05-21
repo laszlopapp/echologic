@@ -478,7 +478,7 @@ hu:
       create_improvement: "Tégy hozzá új kiegészítést az aktuális javaslathoz"
       create_pro_argument: "Mondj egy új érvet a javaslat MELLETT"
       create_contra_argument: "Mondj egy új érvet a javaslat ELLEN"
-      create_follow_up_question: "Vess fel egy új, az aktuális hozzászólásból fakadó kérdést"
+      create_follow_up_question: "Vess fel egy új, a fenti hozzászólásból fakadó kérdést"
       echo: 'Támogasd ezt a hozzászólást! Kelts visszhangot!'
       unecho: 'Vond vissza támogatásod!'
       publish: |
