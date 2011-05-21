@@ -1,0 +1,962 @@
+
+hu:
+  application:
+
+    # Unexpected Error
+    unexpected_error: An unexpected error has occurred. Sorry for the inconvenience.
+    routing_error: Unknown URL. Redirecting...
+    remote_error: 'Failed to communicate with the Remote Service.'
+
+    # General purpose resources
+    general:
+      more: tovább »
+      hide: « bezár
+      next: Következő
+      back: Előző
+      name: Név
+      undefined: Ismeretlen
+      email: E-Mail
+      email_confirmation: E-Mail újra
+      ok: Ok
+      or: vagy
+      save: Mentés
+      edit: Szerkesztés
+      cancel: Mégsem
+      close: Bezárás
+      send: Küldés
+      upload: Feltöltés
+      delete: Törlés
+      create: Hozzáadás
+      incorporate: Beépítés
+      welcome: Üdvözöljük
+      all: Mindenki
+      authors: Szerzők
+      share_action: 'Kelts visszhangot!'
+
+    # Roadmap - Progress
+    roadmap:
+      title: Roadmap
+      progress_tooltip: 'This area of echo is {{progress}}% ready.'
+      status_quo: 'Status Quo'
+      next_steps: 'Next Steps'
+      vision: 'At The End of The Road'
+      discuss:
+        status_quo: 'echo "Discuss" is currently <strong>{{progress}}% ready</strong>.'
+        next_steps: 'The first features of echo "Discuss" have been released. Its functionality will be extended step by step in the next releases.'
+      connect:
+        status_quo: 'echo "Connect" is currently <strong>{{progress}}% ready</strong>.'
+        next_steps: 'echo "Connect" will be enhanced after the first features of echo "Discuss" and echo "Act" have been released.'
+      act:
+        status_quo: 'echo "Act" is currently <strong>{{progress}}% ready</strong>.'
+        next_steps: 'The development of echo "Act" will begin after the first functions of echo "Discuss" have been released.'
+      my_echo:
+        status_quo: 'The "My echo" area is currently <strong>{{progress}}% ready</strong>.'
+        next_steps: 'Further development of this area is planned after some basic functionality of "Discuss, Connect and Act" has been released.'
+        vision: |
+         <p>
+         In the long term, the My echo area will be your <strong>personal information hub</strong> inside of echo. E.g. it will provide
+         you with the most <strong>important news</strong> and call your attention to the most <strong>recent discussions and actions</strong> according
+         to your preferences.
+         </p>
+
+  help:
+    discuss:
+      closed_discussions:
+        hint: Tagek zártkörő dialógus létrehozásához...
+        text: |
+          <p>Defining a *tag (starting with ONE *) will make this discussion semi-closed. Users must define the same
+          *tag as a decision making tag in their profile to be able to participate in the discussion, however it
+          will remain visible and transparent to the outside world.</p>
+          <p>Defining a **tag (with TWO **) will make this discussion fully closed. It will only be visible for users
+          having the same **tag as a decision making tag in their profile.</p>
+          <p>Please note, that this is just a temporary solution to facilitate closed discussions in echo. The real
+          solution with contact lists, invitations and fine-graded access right management will be coming later.</p>
+    profile:
+      closed_discussions:
+        hint: Tagek zártkörő dialógusok eléréséhez...
+        text: |
+          <p>Here you can enter the appropriate *tags and **tags as decision making tags. This will allow you to
+          take part in transparent, semi-closed discussions (tagged with *tag) and to see closed, internal
+          ones (protected with **tag) respectively.</p>
+          <p>Please note, that this is just a temporary solution to facilitate closed discussions in echo. The real
+          solution with contact lists, invitations and fine-graded access right management will be coming later.</p>
+
+  # Localizations for the layout components
+  layouts:
+    tabs:
+      discuss: Megvitatjuk
+      connect: Összefogunk
+      act: Cselekszünk
+      my_echo: Az én echom
+      admin: Admin
+
+    outer_menu:
+      language: Nyelv
+      feedback: &feedback Visszajelzés
+      about: &about Rólunk
+      logout: Kilépés
+      imprint: &imprint Impresszum
+      data_privacy: &data_privacy Adatvédelem
+
+    discuss:
+      tabs:
+
+    connect:
+      tabs:
+        search: Közösség böngésző
+
+    act:
+      tabs:
+
+    my_echo:
+      tabs:
+        welcome: Üdvözöljük
+        profile: Profilom
+        settings: Beállításaim
+      profile_complete: '{{complete}}% kitötöttség'
+
+
+  # ------------
+  # USERS MODULE
+  # ------------
+  users:
+    anonym: Név nélkül
+    authors:
+      teaser:
+        title: 'Légy társszerző!'
+    signup:
+      label: 'Regisztráció'
+      member_tag: Még nem vagy tag?
+      via_echo: '... E-Mail címmel'
+      via_social: '... meglévő közösségi profillal'
+    setup_basic_profile:
+      title: 'Alap Profilinformaciók'
+      guide: Kérjük állítsd be alapvető profilinformációidat.
+      agreement: Elolvastam és egyetértek az adatvédelmi szabályokkal.
+      use_photo: 'Jó lesz az echoban is'
+    signin:
+      label: 'Belépés'
+      password: 'Jelszó'
+      member_tag: Már regisztrált tag vagy?
+      via_echo: '... echo profilommal'
+      via_social: '... egy összekapcsolt profillal'
+      set_password: Egy elfelejtett (jel)szó?
+      remember: Emlékezz rám!
+      hello: Belépett<br/><strong>{{name}}</strong>
+      hint: |
+        Egy jelszó nélküli későbbi belépést elkerülendő, kérjük, hogy kilépéskor lépjél ki a használt
+        Facebook, Twitter, stb. profiljaidból is.
+      messages:
+        success: "Sikeresen beléptél. Üdvözlünk Téged az echo közösségben."
+        failed: "Ismeretlen név vagy hibás jelszó."
+        failed_social: Kérjük a belépéshez használj egy profilt, mellyel regisztráltál vagy melyet összekötöttél echo profiloddal.
+    signout:
+      messages:
+        success: "Sikeresen kiléptél. Ne feledd a Facebook és egyéb profilokból való kilépést sem. Minden jót!"
+    user_sessions:
+      messages:
+        session_timeout: |
+          Az "ülés" megszakadt. Kérjük jelentkezz be újra."
+
+
+    # Activations section
+    activation:
+      messages:
+        success: Profilodat sikeresen aktiváltad. Üdvözlünk az echo közösségben!
+        failed: |-
+          <p>Profilodat nem tudtuk aktiválni. Kérjük ellenőrizd a megadottak helyességét.</p>
+        email_success: E-mail címedet sikeresen megváltoztattad!
+        already_active: A profilod már aktiválásra került.
+        no_account: A keresett profil nem létezik.
+        no_full_name: Kérjük add meg teljes nevedet.
+        no_agreement: A regisztráláshoz kérjük fogadd el az adatvédelmi szabályokat.
+
+    # Password resets section
+    password_reset:
+      step1: Új jelszó igénylése
+      step2: Új jelszó megadása
+      step1_text: |
+        <p>Forgot your password or you would simply like to define a new one?</p>
+        <p>No problem! Just fill in your E-Mail address you used to sign up to echo.
+        We will send you an E-mail shortly allowing you to define a new password.</p>
+      step1_mail: E-Mail küldése
+
+      step2_text: |
+        Please define your new password you would like to use to log in to echo.
+      step2_ok: Új jelszó elfogadása
+      messages:
+        success: "Jelszavad megváltoztatásához a megadott címre küldünk Neked egy E-Mailt. Kérjük ellenőrizd postafiókodat."
+        not_found: "Ismeretlen E-Mail cím."
+        reset_success: "Jelszavadat sikeresen megváltoztattad."
+        reset_failed: "Jelszavadat nem tudtuk megváltoztatni. Kérjük ellenőrizd a megadottak helyességét."
+
+    # Profile Section
+    profile:
+      to: Ugrás a profilomhoz
+      title: Személyes Adataim
+      edit_title: A személyes adatok szerkesztése
+      guide: Itt a személyes adataidat láthatod. Megváltoztatásukhoz kérjük nyomd meg a jobb felső sarokban a "Szerkesztés" gombot.
+
+      gender:
+        male: Férfi
+        female: Nő
+
+      location: Ország - város
+
+      password:
+        title: Jelszó megváltoztatása
+        old: Aktuális (régi) jelszó
+        new: Új jelszó
+        confirm: Új jelszó újra
+
+      picture:
+        upload_button: Kicserélem
+
+
+      upload_picture:
+        title: Kép feltöltése
+        guide: Kérjük <strong>válassz ki egy képet</strong> (JPG vagy PNG, max. 5MB) és töltsd fel.
+        progress: Profilképed feltöltés alatt áll. Egy pillanat türelmet...
+
+      messages:
+        updated: "Profilinformációidat sikeresen megváltoztattad."
+        image_invalid: 'érvénytelen vagy elérhetetlen'
+
+    # Spoken Languages section
+    spoken_languages:
+      title: Nyelvtudásom
+      guide: |
+        Itt beállíthatod nyelvtudásod, hogy így csak azokat a <strong>tartalmakat lásd, amelyeket értesz</strong>.<br/>
+        Ezáltal egyúttal lehetőséged nyílik echo interkulturális, többnyelvű vitáiban való részvételre és a
+        hozzászólások <strong>általad beszélt nyelvek közti fordítására</strong>. A minőségi tartalmak érdekében ehhez
+        a forrás és cél nyelvek <strong>minimum középszintű</strong> ismerete szükséges.<br/>
+        Kérjük ne feledd megadni <strong>anyanyelvedet</strong> sem.
+      language: Beszélt nyelv
+      level: Szint
+      error_messages:
+        repeated_instance: Ezt a nyelvet már megadtad.
+
+    # Memberships section
+    memberships:
+      title: Tevékenységeim
+      guide: Itt közzé teheted önkéntes, szakmai és egyéb tevékenységeidet különböző szervezetekben és körökben.
+      organisation: Szervezet / Kör
+      position: Az én szerepem
+
+    # Web profiles section
+    web_addresses:
+      title: Elérhetőségeim
+      guide: |
+        Itt megadhatod webes elérhetőségeidet.<br/>
+        <strong>FONTOS TUDNI</strong>, hogy egyelőre minden itt közzétett információ
+        <strong>az echo közösség minden tagja számára látható</strong> lesz,
+        rejtve marad azonban a keresők (Google, stb.) elől.
+      type: Elérhetőség
+      address: Cím
+
+    # Concernments section
+    concernments:
+      title: Társadalmi Szerepeim
+      guide: |
+        Mindannyiunk sokoldalú. Bizonyos dolgokban érintettek vagyunk és szükségünk van mások segítségére, más
+        területeken aktívak vagyunk és mi magunk segítünk embertársainkon. Vannak területek, melyekben
+        megalapozott szaktudással rendelkezünk, és esetleg vannak olyanok, melyekben már ma is döntéshozói pozícióban
+        vállalunk felelősséget sokak életéért.<br/>
+        echo segít abban, hogy <strong>hasonló gondolkodású emberek egymást kiegészítő tudással és tapasztalattal</strong>
+        egymásra találhassanak és együtt cselekedhessenek céljaik eléréséért.<br/>
+        Te mely kulcsszavakkal (un. tag-ekkel) írnád le <strong>saját társadalmi szerepeid</strong>?
+      sorts:
+        affection: <strong>Károsan érintett</strong> e témákban
+        engagement: <strong>Aktív</strong> e célokért
+        expertise: <strong>Szakértő</strong> e területeken
+        decision_making: <strong>Döntéshozó</strong> e kérdésekben
+      tags: Kulcsszavak (tags)
+
+    # Email notifications section
+    notifications:
+      title: Értesítések E-Mailben
+      guide: Itt beállíthatod, hogy kívánsz-e E-Mailben értesítést kapni különböző témákban.
+
+      newsletter:
+        title: echo Hírlevél
+        guide: echo hírlevél küldése max. havi egy alkalommal.
+        turned_on: Sikeresen feliratkoztál az echo hírlevélre.
+        turned_off: Sikeresen leiratkoztál az echo hírlevélről.
+
+      activity:
+        title: Új tartalmak
+        guide: Napi hírek új vitákról és az általad támogatott hozzászólások kapcsán történtekről.
+        turned_on: A napi aktivitásról szóló hirlevelek küldését sikeresen aktiváltad.
+        turned_off: A napi aktivitásról szóló hirlevelek küldését kikapcsoltad.
+
+      drafting:
+        title: Közös szövegírás és javaslatformálás
+        guide: |
+          Azonnali hírek a közösség kreativitását kiaknázó együttes szövegírás folyamatáról az általad támogatott
+          javaslatok kapcsán - pl. mikor az Te kiegészítésed a demokratikus támogatottság okán bekerülhet a
+          javaslat addigi szövegébe.<br/><br/>
+          <strong>Figyelem!</strong> Ezeket az értesítéseket kikapcsolva könnyen elszalaszthatod az alkalmat, hogy
+          kiegészítő gondolataid és jobbító ötleteid bekerülhessenek az általad támogatott javaslatokba.
+        turned_on: A közös szövegírásról szóló hírek küldését sikeresen aktiváltad.
+        turned_off: A közös szövegírásról szóló hírek küldését kikapcsoltad.
+
+    # Permissions section
+    permissions:
+      title: Adataim Védelme
+      guide: Mikor mutassa és mikor rejtse el echo személyes adataidat?
+      authorship:
+        title: Hozzászólások társszerzőjeként
+        guide: |
+          Az echo közösség belépett tagjai láthatnak engem, mint az általam írott vagy szerkesztett
+          hozzászólások társszerzője. Keresők (Google, stb.) számára ez az információ továbbra is rejtve marad.
+        turned_on: Profilod hozzászólások társszerzőjeként látható lesz.
+        turned_off: Hozzászólások társszerzőjeként névtelenül fogsz megjelenni.
+
+    # Manage Echo Account section
+    echo_account:
+      title: echo Profilom
+      guide: Itt kezelheted az echo profiloddal kapcsolatos beállításokat.
+      change_email:
+        title: Új E-Mail
+        guide: |
+          Pillanatnyilag a <strong>{{email}}</strong> E-Mail címmel szerepelsz az echo rendszerében.<br/>
+          Itt megadhatod azt az új címet, melyen szeretnéd, hogy a jövőben kapcsolatot tartsunk Veled.
+        password: Jelszó
+        success: E-Mail címedet sikeresen megváltoztattad.
+        failed: E-Mail címedet nem tudtuk megváltoztatni.
+        no_password: Kérjük add meg jelszavad E-Mail címed megváltoztatásához.
+
+      change_password:
+        title: Új Jelszó
+        guide: Kérjük add meg az új jelszavad.
+        success: Jelszavad sikeresen megváltoztattad.
+        failed: Jelszavad nem tudtuk megváltoztatni.
+        wrong_password: A megadott aktuális (régi) jelszó hibás.
+
+      delete_account:
+        title: Profilom törlése
+        password: Jelszó
+        guide: |
+          <p><strong>FIGYELEM!</strong></p>
+          <p>Profilod és MINDEN személyes adatod <strong>visszafordíthatatlanul törlésre kerül</strong>.<br/>
+          A hozzászólásokhoz adott támogatásaid névtelenül (az azonosítás lehetőségét kizárva) továbbra is
+          megmaradnak a rendszerben.</p>
+          <p>Kérjük add meg jelszavad és erősítsd meg törlési szándékodat a lenti gomb megnyomásával.</p>
+        confirm: Profilom végleges törlése
+        success: echo profilod véglegesen törlésre került.
+    social_accounts:
+      title: Közösségi Profilok
+      guide: Kapcsold össze közösségi profiljaidat echo profiloddal, hogy hangoddal más szociális hálókon keresztül is könnyen visszhangot kelthess.
+      providers:
+        facebook: Facebook
+        twitter: Twitter
+        yahoo!: Yahoo!
+        linkedin: LinkedIn
+        google: Google
+      connect:
+        title: Összekapcsolom
+        success: "{{account}} profilodat sikeresen összekapcsoltad echo profiloddal."
+        failed: "{{account}} profilod összekapcsolása sajnos sikertelen volt."
+      disconnect:
+        title: Szétkapcsolom
+        success: "{{account}} profilodat szétkapcsoltad echo profilodtól."
+        failed: "{{account}} profilodnak szétkapcsolása sajnos sikertelen volt."
+      share:
+        title: Hallasd a hangod!
+        guide: Kelts visszhangot - más közösségi hálókon is!
+        text: Üzenet
+        data_privacy:
+          title: Data Privacy Notice
+          description: Mind the privacy policy of other networks before sharing your views on them...
+        preview: Minta
+        submit: echo küldése
+        error: Hiba történt a visszhang terjedésekor. Kérjük ellenőrizd a hálózati kapcsolatot.
+        success: |
+          A visszhang sikeresen eterjedt a {{accounts}} hálózatán.
+        failed: |
+          Hiba történt itt: {{accounts}}.
+        timeout: |
+          A várakozási idő lejárt itt: {{accounts}}.
+        enabled: "Küld"
+        disabled: "Hallgat"
+
+
+    # New Users section
+    users:
+      new:
+        title: Your echo
+        subtitle: Join echo
+        text: |
+          <p>
+          <strong>echo is democracy from the people for the people.</strong>
+          </p><p>
+          Join us now to participate!
+          </p>
+        action: 'Join now!'
+
+      messages:
+        created: "Please check your E-Mails to activate your newly created account!"
+        activate_email: In order to complete the E-Mail address modification, please log out and press the confimation link sent to your new E-Mail address!
+
+    # Reports section
+    reports:
+      new:
+        title:  "Report user"
+        text: |
+          <p>Did you see <strong>offensive, unethical or illegal content?</strong><br/>
+          If so, here you can report the user to our administrative team.
+          </p><p>
+          We will check the issue as soon as possible.
+          </p>
+      messages:
+        created: "Thank you for your message. An administrator was notified."
+
+  # ---------------
+  # Discuss section
+  # ---------------
+
+  discuss:
+    my_questions:
+      link: Saját Kérdéseim
+      title: Új és publikált kérdésfelvetéseim
+      no_questions: |
+        A bal oldali gombbal felvetheted első kérdésedet. Hallasd a hangod, kelts visszhangot!
+      add: Új kérdésfelvetés
+    translation_request: Kérjük fordítsd le a hozzászólást <strong>MAGYARRA</strong>.
+    mixed_languages: Összezavart nyelvek
+    set_languages: Állítsd be <strong>NYELVTUDÁSOD</strong> - Oldd fel a zűrzavart!
+    no_locale_language: Beszélsz magyarul?
+    adjust_languages: Kérjük, állítsd be <strong>MAGYAR nyelvtudásod</strong>!
+    results_count:
+      one: '{{count}} kérdésfelvetés'
+      more: '{{count}} kérdésfelvetés'
+    for: |-
+      '{{value}}' kapcsán
+    featured_topics:
+      title: Ajánlott Témák
+      tabs:
+        echo:
+          title: echo
+        pilot_projects:
+          title: Teszt Projektek
+    search:
+      title: Keresés
+      in: '... {{category}} kapcsán ...'
+      add: "Vesd fel az első kérdést a témában"
+      placeholder: "Téma és/vagy hely keresése"
+
+    tooltips:
+      read_question: 'Olvasd el ezt a kérdésfelvetést'
+      read_proposal: 'Olvasd el ezt a javaslatot'
+      read_improvement: 'Olvasd el ezt az érvet'
+      read_pro_argument: 'Olvasd el ezt az érvet a javaslat MELLETT'
+      read_contra_argument: 'Olvasd el ezt az érvet a javaslat ELLEN'
+      read_follow_up_question: 'Olvasd el ezt az implikált kérdésfeltevést'
+      current_question: 'Az éppen olvasható kérdésfeltevés'
+      current_proposal: 'Az éppen olvasható javaslat'
+      current_improvement: 'Az éppen olvasható kiegészítés a javaslathoz'
+      current_pro_argument: 'Az éppen olvasható érv a javaslat MELLETT'
+      current_contra_argument: 'Az éppen olvasható érv a javaslat ELLEN'
+      current_follow_up_question: 'Az éppen olvasható implikált kérdés'
+      back_to_question: 'Vissza az aktuális kérdésfelvetéshez'
+      back_to_proposal: 'Vissza az aktuális javaslathoz'
+      back_to_improvement: 'Vissza az aktuális kiegészítéshez'
+      prev_question: 'Olvasd el az előző kérdésfelvetést a fenti összefüggésben'
+      next_question: 'Olvasd el a következő kérdésfelvetést a fenti összefüggésben'
+      prev_proposal: 'Olvasd el az előző javaslatot az aktuális kérdésfelvetésre'
+      next_proposal: 'Olvasd el a következő javaslatot az aktuális kérdésfelvetésre'
+      prev_improvement: 'Olvasd el az előző kiegészítést az aktuális javaslathoz'
+      next_improvement: 'Olvasd el a következő kiegészítést az aktuális javaslathoz'
+      prev_pro_argument: 'Olvasd el az előző érvet az aktuális javaslathoz'
+      next_pro_argument: 'Olvasd el a következő érvet az aktuális javaslathoz'
+      prev_contra_argument: 'Olvasd el az előző érvet az aktuális javaslathoz'
+      next_contra_argument: 'Olvasd el a következő érvet az aktuális javaslathoz'
+      prev_follow_up_question: 'Olvasd el az előző implikált kérdésfelvetést a fenti összefüggésben'
+      next_follow_up_question: 'Olvasd el a következő implikált kérdésfelvetést a fenti összefüggésben'
+      create_question: 'Új kérdésfelvetés'
+      create_proposal: "Tégy egy új javaslatot az aktuális kérdésfevetésre"
+      create_improvement: "Tégy hozzá új kiegészítést az aktuális javaslathoz"
+      create_pro_argument: "Mondj egy új érvet a javaslat MELLETT"
+      create_contra_argument: "Mondj egy új érvet a javaslat ELLEN"
+      create_follow_up_question: "Vess fel egy új, az aktuális hozzászólásból fakadó kérdést"
+      echo: 'Támogasd ezt a hozzászólást! Kelts visszhangot!'
+      unecho: 'Vond vissza támogatásod!'
+      publish: |
+        Engedd a kérdést szabadjára és tedd közzé mindenki számára.
+        (A szerkesztés utána csak addig lesz lehetséges, míg szavazatával senki más nem támogatta azt.)
+      incorporate: 'Katt ide, hogy a kiegészítés bekerüljön a fenti javaslatba.'
+      siblings:
+        question: Tekintsd át az összes kérdésfelvetést a fenti összefüggésben
+        proposal: Tekintsd át az összes javaslatot az aktuális kérdésfelvetésre
+        improvement: Tekintsd át az összes kiegészítést az aktuális javaslathoz
+        pro_argument: Tekintsd át az összes érvet az aktuális javaslatra vonatkozóan
+        contra_argument:  Tekintsd át az összes érvet az aktuális javaslatra vonatkozóan
+
+
+    statements:
+      label: 'szavazatok'
+      echo_indicator:
+        support:
+          one: '{{supporter_count}} támogató'
+          many: '{{supporter_count}} támogató'
+        recommend:
+          one: '{{supporter_count}} támogató'
+          many: '{{supporter_count}} támogató'
+      add_new: Új hozzászólás...
+      create_question_link: Vess fel egy új kérdést
+      create_proposal_link: Tégy új javaslatot
+      create_improvement_link: Javasolj új kiegészítést
+      create_pro_argument_link: Mondj egy új érvet MELLETTE
+      create_contra_argument_link: Mondj egy új érvet ELLENE
+      create_follow_up_question_link: Vess fel egy a fentiekből fakadó új kérdést
+      recommend_link: 'Támogatom (echo)'
+      unrecommend_link: 'Nem támogatom'
+      support_link: 'Támogatom (echo)'
+      unsupport_link: 'Nem támogatom'
+
+      statement_language_hint: |
+        Kerjük állítsd be nyelvtudásod a <a href='{{url}}'>profilodban</a>.
+      statement_language_hint_tooltip: |
+        Ez lehetővé teszi, hogy minden minimum középszinten beszélt nyelven új tartalmakat hozhass létre.
+      drafting_language_hint: |
+        Fontos, hogy a javaslat szövegének közös továbbfejlesztésére csak a kiválasztott eredeti nyelven lesz lehetőség.
+      fuq_formulation_hint: |
+        Mivel kereséskor az implikált kérdések teljesen normális kérdésfelvetésekként jelennek meg,
+        ezek címe és leírása az eredeti diskurzus ismerete nélkül is érthető kell, hogy legyen.
+      tag_permission: |
+        A '{{tag}}' kulcsszó megadása számodra nem engedélyezett.
+      read_permission: |
+        Ezt a hozzászólást sajnos nem olvashatod el.
+      title_hint:
+        question: Írd be a kérdésfelvetés címét... Magyarul?
+        proposal: Írd be a javaslat címét... Magyarul?
+        improvement: Írd be a kiegészítés címét... Magyarul?
+        pro_argument: Írd be a MELLETTE szóló érv címét... Magyarul?
+        contra_argument: Írd be az ELLENE szóló érv címét... Magyarul?
+        follow_up_question: Írd be az implikált kérdés címét... Magyarul?
+      text_hint:
+        question: Kérjük mutasd be röviden a témát és tégy fel egy konkrét kérdést...
+        proposal: |
+          Kérjük fejtsd ki javaslatodat részletesebben...<br/><br/>
+          A kérdés jellegétől függően, egy javaslat értelmezhető egy a kérdésre adott lehetséges válaszként
+          (enciklopédia - tudásbázis), ötletként vagy megoldási javaslatként (brainstorming) avagy egy politikai
+          vitában elfoglalt pozícióként.
+        improvement: |
+          Kérjük mutasd be kiegészítési vagy jobbító javaslatodat részletesebben...<br/><br/>
+          Ezen kiegésztések szolgálnak a javaslatok közös, demokratikus úton történő továbbfejlesztésének alapjául.
+          echo a stabilan legtöbb támogatást elnyerő kiegészítés szerzőjének újra és újra engedélyt ad a javaslatnak
+          az itt leírt gondolatokkal és ötletekkel történő kiegészítésére.
+
+        pro_argument: Kérjük fejtsd ki a javaslat MELLETT szóló érved részletesebben...
+        contra_argument: Kérjük fejtsd ki a javaslat ELLEN szóló érved részletesebben...
+        follow_up_question: Kérjük mutasd be röviden az implikált kérdésfevetés témáját és tégy fel egy konkrét kérdést...
+      tag_hint: 'Adj meg pár kulcsszót (tags)...'
+
+      publish: Publikálom
+      published: A kérdésfelvetést sikeresen publikáltad.
+      edit: '{{type}} szereksztése'
+
+      types:
+        question: 'Kérdésfelvetés'
+        proposal: 'Javaslat'
+        improvement: 'Kiegészítés'
+        pro_argument: 'Érv mellette'
+        contra_argument: 'Érv ellene'
+        follow_up_question: 'Implikált kérdés'
+      new:
+        question: 'Új Kérdésfelvetés'
+        proposal: 'Új Javaslat'
+        improvement: 'Új Kiegészítés'
+        pro_argument: 'Új Érv Mellette'
+        contra_argument: 'Új Érv Ellene'
+        follow_up_question: 'Új Implikált Kérdés'
+      headings:
+        question: 'Kérdésfelvetések'
+        proposal: 'Javaslatok'
+        improvement: 'Kiegészítések'
+        argument: 'Érvek Mellette & Ellene'
+        follow_up_question: 'Implikált Kérdések'
+      sibling_labels:
+        question: 'Kérdések'
+        proposal: 'Javaslatok'
+        improvement: 'Kiegészítések'
+        argument: 'Érvek'
+        follow_up_question: 'Kérdések'
+      siblings:
+        follow_up_question: 'Implikált kérdés a fenti összefüggésben'
+
+      topic: Téma (Kulcsszavak / Tags)
+      states:
+        label: 'Azonnali publikáció?'
+        initial_state:
+          new: 'Először előkészítem a vitát és később publikálom'
+          published: 'Rögtön publikálom (s így azután a szerkeszés lehtősége korlátozott lesz)'
+        published: Publikált
+        approved: Jóváhagyott
+      delete_link: 'Delete'
+      delete_confirmation: 'Are you sure you want to delete this statement?'
+      read_only_permission: |-
+        Ez egy transzparens de zárt kürő eszmecsere, mely számodra csak olvasható.
+      unsupported_parent: |-
+        Kiegészítéseket egy javaslathoz csak akkor támogathatsz, ha a javaslatot magát is támogatod.
+      not_approved_any_more: |-
+        Sajnos ez a kiegészítés már nem építhető be a javaslatba.
+      see_parent_if_approved: |-
+        A kívánt kiegészítés kiválasztásra került az alábbi javaslat továbbfejlesztéséhez.
+      see_parent_if_incorporated: |-
+        A kívánt kiegészítés már beépítésre került az alábbi javaslatba.
+      being_edited: |-
+        Ez a hozzászólás éppen szerkesztés alatt áll. Kérjük próbálkozz újra később.
+      statement_updated: |-
+        Ezt a {{type}} épp most aktualizálta egy másik felhasználó.
+      statement_supported: |-
+        Köszönet a {{type}} támogatásáért. Hallasd a hangod - Kelts visszhangot!
+      statement_unsupported: |-
+        A {{type}} támogatását ezennel visszavontad.
+      edit_period_hint: |
+        <strong>{{minutes}} perced van</strong> a hozzászólás szerkesztésére.
+        Utána változtatásaid akár el is veszhetnek.
+      staled_modification: |
+        Sajnos túllépted a szerkesztéshez járó 60 perces időhatárt.
+        Közben valaki más már szintén aktualizálta a hozzászólást, így változtatásaidat sajnos elvesztek.
+      no_document_in_language: 'A hozzászólás még nem olvasható magyarul.'
+      supporter_to_share: 'A hozzászólás megosztásához támogatnod kell azt.'
+      published_to_share: 'Ez a hozzászólás egy még nem publikált kérdéshez tartozik és így egyelőre nem megosztható.'
+      cannot_be_edited: |
+        A hozzászólás sajnos már nem szerkeszthető, mivel időközben már mások is támogatták azt.
+        Ez a korlátozás a vélemények meghamisításának elkerülése érdekében szükséges.
+      echos_label: Támogatottság
+
+      breadcrumbs:
+        discuss_search: Keresés eredménye
+        my_questions: Saját kérdéseim
+        labels:
+          ds: ''
+          mi: ''
+          sr: 'Erre talált kérdések'
+          fq: 'Ebből fakadó kérdések'
+          over:
+            ds: 'Vissza ide'
+            mi: 'Vissza ide'
+            sr: 'Vissza a keresés eredményéhez'
+            fq: 'Vissza ide'
+
+      upload_image:
+        title: Illusztrációs feltöltése
+        guide: Kérjük <strong>válasszon ki egy képet</strong> (JPG vagy PNG, max. 5MB) és töltse fel.
+        progress: Az illusztrációs kép feltöltés alatt áll. Egy pillanat türelmet...
+        error: A képet nem volt megfelelő. Kérjük tölts fel egy támogatott formátumot (JPG vagy PNG és max. 5MB).
+
+      add_teaser:
+        question: |
+          Ez az a hely, ahol a TE kérdésfelvetésed állhatna.<br/><br/>Van ötleted?<br/><br/>
+          Nyomd meg a fenti gombot és oszd meg velünk MOST!
+        proposal: |
+          Ez az a hely, ahol a TE javaslatod állhatna a kérdésfelvetésre.<br/><br/>Van ötleted?<br/><br/>
+          Nyomd meg a fenti gombot és oszd meg velünk MOST!
+        improvement: |
+          Ez az a hely, ahol a TE kiegészítésed állhatna a javaslatra vonatkozóan.<br/><br/>Van ötleted?<br/><br/>
+          Nyomd meg a fenti gombot és oszd meg velünk MOST!
+        pro_argument: |
+          Ez az a hely, ahol a TE érved állhatna a javaslat MELLETT.<br/><br/>Van ötleted?<br/><br/>
+          Nyomd meg a fenti gombot és oszd meg velünk MOST!
+        contra_argument: |
+          Ez az a hely, ahol a TE érved állhatna a javaslat ELLEN.<br/><br/>Van ötleted?<br/><br/>
+          Nyomd meg a fenti gombot és oszd meg velünk MOST!
+        follow_up_question: |
+          Ez az a hely, ahol a TE kérdésfelvetésed állhatna az aktuális hozzászólásból fakadóan.<br/><br/>Van ötleted?<br/><br/>
+          Nyomd meg a fenti gombot és oszd meg velünk MOST!
+    summary:
+      title: 'Leírás'
+
+    messages:
+      created: "Köszönet az újonnan létrehozott {{type}}ért."
+      updated: "A(z) {{type}} sikeresen frissítésre került."
+      deleted: "A(z) {{type}} sikeresen törlésre került."
+      translated: "Köszönet a {{type}} lefordításáért."
+      incorporated: "Köszönet a javaslat továbbfejlesztéséért."
+      image_uploaded: "Az illusztrációs kép a {{type}}hez/hoz beillesztésre került."
+      new_percentage: "A profilod kitöltöttsége {{percentage}}%."
+
+
+
+  # ---------------
+  # Connect section
+  # ---------------
+
+  connect:
+
+    fill_out_profile:
+      text: Kérjük töltsd ki profilodat <strong>minimum  {{percentage}} százalékban</strong>, hogy "HAL" elégedett legyen és eltüntesse innét ezt a blokkot. :-)
+    placeholder: 'Téma, hely, szervezet vagy név keresése'
+
+    segments:
+      all: 'Mindenki'
+      affection: 'Érintettek'
+      engagement: 'Aktívak'
+      expertise: 'Szakértők'
+      decision_making: 'Döntéshozók'
+    results_count:
+      all:
+        no_filter:
+          one: 'személy'
+          more: 'személy'
+        with_filter:
+          one: "személy '{{filter}}' kapcsán"
+          more: "személy '{{filter}}' kapcsán"
+      affection:
+        no_filter:
+          one: károsan érintett
+          more: károsan érintett
+        with_filter:
+          one: "'{{filter}}' által károsan érintett személy"
+          more: "'{{filter}}' által károsan érintett személy"
+      engagement:
+        no_filter:
+          one: aktív személy
+          more: aktív személy
+        with_filter:
+          one: "'{{filter}}' ügyben aktív személy"
+          more: "'{{filter}}' ügyben aktív személy"
+      expertise:
+        no_filter:
+          one: szakértő
+          more: szakértő
+        with_filter:
+          one: "'{{filter}}' területén szakértő személy"
+          more: "'{{filter}}' területén szakértő személy"
+      decision_making:
+        no_filter:
+          one: döntéshozó
+          more: döntéshozó
+        with_filter:
+          one: "'{{filter}}' témában döntéshozó személy"
+          more: "'{{filter}}' témában döntéshozó személy"
+    details:
+      tabs:
+        overview: 'Személyes adatok'
+        concernments: 'Tudás és tapasztalat'
+        web_addresses: 'Elérhetőségek'
+      actions:
+        report: "Jelentem"
+    messages:
+      empty: 'Sajnos senkit sem találtunk. Kerjük változtass keresési feltételeiden.'
+      no_concernments: "Ez a felhasználó még nem definiálta ezen információkat."
+      no_web_addresses: "Ez a felhasználó még nem definiálta webes elérhetőségeit."
+
+  # Feedback resources
+  feedback:
+    new:
+      title: Visszajelzés
+      welcome: |
+        <p>
+        <strong>Szívesen halljuk vélemenyedet!</strong><br/>
+        </p><p>
+        Írd meg nekünk kérdéseidet, megjegyzéseidet és kritikus vagy éppen dicsérő szavaidat.
+        </p>
+      message: Üzenet
+      send: Elküldöm
+    create:
+      thank_you: Köszönjük, hogy írtál nekünk. Mihamarabb válaszolunk.
+
+  activerecord:
+    errors:
+      models:
+        feedback:
+          attributes:
+            blank: 'Kérjük tölts ki minden mezőt.'
+            email:
+              invalid: 'Kérjük adj meg egy szabályos E-Mail címet.'
+        newsletter:
+          attributes:
+            blank: 'Kérjük tölts ki minden mezőt.'
+            email:
+              invalid: 'Kérjük adj meg egy szabályos E-Mail címet.'
+
+        user:
+          attributes:
+            email:
+              taken: 'Az E-Mail cím már használatban van.'
+              invalid: 'Kérjük adj meg egy szabályos E-Mail címet.'
+            password:
+              invalid: 'Hibás jelszó.'
+        social_identifier:
+          taken: 'Ez a közösségi profil már használatban van.'
+
+
+      messages:
+        blank: "A(z) '{{attribute}}' mező nem maradhat üresen."
+        taken: 'Már használatban van.'
+        too_short: "Az itt megadott érték túl rövid: '{{attribute}}'."
+        too_long: "Az itt megadott érték túl hosszú: '{{attribute}}'."
+        invalid: "A(z) '{{attribute}}' mező nem szabályos formátumú."
+        confirmation: '{{attribute}} megerősítése nem egyezik.'
+        access_denied: "Ezt az akciót sajnos nem hajthatod végre."
+
+      template:
+        header:
+          one: "Egy mező helytelenül van kitöltve."
+          other: "{{count}}  mező helytelenül van kitöltve."
+        body: "Kerjük javítsd ki a következőket:"
+
+    attributes:
+      profile:
+        email:      E-Mail
+        full_name:  Név
+        gender:     Nem
+        city:       Város
+        country:    Ország
+        location:   Ország - város
+        about_me:   Magamról
+        motivation: Gondolatok az echoról
+        memberships: Tevékenységek
+        spoken_languages: Nyelvtudás
+      report:
+        reason:     'Ok'
+      web_address:
+        location:   'Webes cím'
+      membership:
+        position: Az én szerepem
+      statement_node:
+        image: 'Illusztrációs kép'
+      statement_document:
+        language_id: 'Nyelv'
+        language: 'Nyelv'
+        title: 'Cím'
+        text: 'Leírás'
+        image: 'Illusztráció'
+      about_item:
+        photo: 'Kép'
+        name: 'Név'
+        responsibility: 'Feladatkör'
+        description: 'Leírás'
+        about_category_id: 'About Item'
+        index: 'Index'
+
+    models:
+      question: "kérdésfelvetés"
+      proposal: "javaslat"
+      improvement: "kiegészítés"
+      pro_argument: 'támogató érv'
+      contra_argument: 'ellenérv'
+      follow_up_question: 'implikált kérdés'
+
+
+  authlogic:
+    error_messages:
+      email_invalid:      "Kérjük adj meg egy szabályos E-Mail címet."
+      password_blank:     "Kérjük add meg a jelszavad."
+      not_active:         "echo profilodat még nem aktiváltad. Kérjük ellenőrizd E-Mailes postafiókod és kattints az aktivaló linkre."
+      must_be_logged_in:  "Kérjük jelentkezz be ezen akció végrehajtásához."
+      must_be_logged_out: "Ezen akció végrehajtásához kérjük, hogy jelentkezz ki."
+
+    attributes:
+      user_session:
+        email: E-Mail
+        password: Jelszó
+
+  # Date and time formatting
+  date:
+    formats:
+      default: "%Y.%m.%d."
+      short: "%e. %b"
+      long: "%e. %B %Y"
+      only_day: "%e"
+      month_name: "%B"
+      day_name: "%a"
+
+    day_names: [Vasárnap, Hétfő, Kedd, Szerda, Csütörtök, Péntek, Szombat]
+    abbr_day_names: [Va, He, Ke, Sze, Cs, Pe, Szo]
+    month_names: [~, Január, Február, Március, Április, Május, Június, Július, Augusztus, Szeptember, Október, November, December]
+    abbr_month_names: [~, Jan, Feb, Már, Ápr, Máj, Júni, Júli, Aug, Szept, Okt, Nov, Dec]
+    order: [ :year, :month, :day ]
+
+  time:
+    formats:
+      default: "%a, %d. %B %Y"
+      short: "%e. %B, %H:%M"
+      long: "%A, %e. %B %Y, %H:%M"
+      time: "%H:%M"
+
+    am: "délelőtt"
+    pm: "délután"
+
+  datetime:
+    distance_in_words:
+      half_a_minute: 'half a minute'
+      less_than_x_seconds:
+        zero: 'less than 1 second'
+        one: 'less than 1 second'
+        other: 'less than {{count}} seconds'
+      x_seconds:
+        one: '1 second'
+        other: '{{count}} seconds'
+      less_than_x_minutes:
+        zero: 'less than 1 minute'
+        one: 'less than one minute'
+        other: 'less than {{count}} minutes'
+      x_minutes:
+        one: '1 minute'
+        other: '{{count}} minutes'
+      about_x_hours:
+        one: 'about 1 hour'
+        other: 'about {{count}} hours'
+      x_days:
+        one: '1 day'
+        other: '{{count}} days'
+      about_x_months:
+        one: 'about 1 month'
+        other: 'about {{count}} months'
+      x_months:
+        one: '1 month'
+        other: '{{count}} months'
+      about_x_years:
+        one: 'about 1 year'
+        other: 'about {{count}} years'
+      over_x_years:
+        one: 'over 1 year'
+        other: 'over {{count}} years'
+    prompts:
+      second: "másodperc"
+      minute: "perc"
+      hour: "óra"
+      day: "nap"
+      month: "hónap"
+      year: "év"
+
+  number:
+    format:
+      precision: 2
+      separator: ','
+      delimiter: '.'
+    currency:
+      format:
+        unit: 'Ft'
+        format: '%n%u'
+        separator:
+        delimiter:
+        precision:
+    percentage:
+      format:
+        delimiter: ""
+    precision:
+      format:
+        delimiter: ""
+    human:
+      format:
+        delimiter: ""
+        precision: 1
+      storage_units:
+        # Storage units output formatting.
+        # %u is the storage unit, %n is the number (default: 2 MB)
+        format: "%n %u"
+        units:
+          byte:
+            one: "Byte"
+            other: "Bytes"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
+  newsletters:
+    send_confirmation: Are you sure?

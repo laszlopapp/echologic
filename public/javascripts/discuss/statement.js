@@ -37,8 +37,9 @@
     function Statement(statement) {
 			var timer;
       var statementDomId = statement.attr('id');
+			var statementType = statementDomId.match(/[^add_]\w+[^_\d+]/);
       var statementId = getStatementId(statementDomId);
-      var statement_index;
+			var parentStatement, statement_index;
 
       // Initialize the statement
       initialise();
@@ -52,6 +53,7 @@
 
           // Initialise index of the current statement
           statement_index = $('#statements .statement').index(statement);
+					parentStatement = statement.prev();
 
 					// Navigation through siblings
 	        storeSiblings();
@@ -75,7 +77,6 @@
           initMoreButton();
           initAllStatementLinks();
 					//initFlicks();
-					initAllFUQLinks();
         }
       }
 
@@ -132,14 +133,34 @@
 			}
 
 
+      function loadJumpLink(url){
+				var anchor_index = url.indexOf("#");
+        if (anchor_index != -1) {
+          url = url.substring(0, anchor_index);
+        }
+        var bid = 'jp' + statementId;
+        var bids = $.fragment().bids;
+        
+        bids = (bids && bids.length > 0) ? bids.split(',') : [];
+        bids.push(bid);
+        return $.queryString(url, {"bids" : bids.join(','), "origin" : bid });
+				
+			}
+
       function initContentLinks() {
         statement.find(".statement_content a").each(function() {
           var link = $(this);
           link.attr("target", "_blank");
           var url = link.attr("href");
+					
           if (url.substring(0,7) != "http://" && url.substring(0,8) != "https://") {
-            link.attr("href", "http://" + url);
+            url =  "http://" + url;
           }
+					if (url.match(/\/statement\/\d+/)) { // if this link goes to another statement, then add a jump bid
+						url = loadJumpLink(url);
+					}
+					
+					link.attr('href', url);
         });
       }
 
@@ -286,20 +307,40 @@
         });
 	    }
 
+      function generateBreadcrumbKey() {
+				if (parentStatement.length > 0) {
+          return generateKey(statementType) + getStatementId(parentStatement.attr('id'));
+        } else {
+          return $.fragment().origin;
+        }
+			}
+			
 		  /*
 		   * Sets the different links on the statement UI, after the user clicked on them.
 		   */
 		  function initAllStatementLinks() {
-		    statement.find('.header a.statement_link').bind("click", function() {
+				var key = generateBreadcrumbKey();
+				
+        statement.find('.header a.statement_link').bind("click", function() {
+					
 					var old_stack = $.fragment().sids;
 		      var current_stack = getStatementsStack(this, false);
-					var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
-					var origin = bids.length == 0 ? '' : bids[bids.length-1];
+					var current_bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
+					var bids = current_bids;
+					
+					// Update the bids
+					var index = $.inArray(key, bids);
+					if (index != -1) { // if parent breadcrumb exists, then delete everything after it
+						bids = bids.splice(0, index + 1);
+					}
+					// save element after which the breadcrumbs will be deleted
+          $('#breadcrumbs').data('element_clicked', key);
+					
+					var origin = $.fragment().origin;
 
 					if (current_stack.join(',') != old_stack) {
             statement.find('.header .loading').show();
           }
-
 
 		      $.setFragment({
 		        "sids": current_stack.join(','),
@@ -336,60 +377,58 @@
        * Initializes links for all statements but Follow-up Questions.
        */
       function initStatementLinks(container, newLevel) {
-        var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
-        var origin = bids.length == 0 ? '' : bids[bids.length - 1];
-
-				container.find('a.statement_link:not(.follow_up_question_link):Event(!click)').bind("click", function() {
-					var current_stack = getStatementsStack(this, newLevel);
+				var current_stack = getStatementsStack(null, newLevel);
+				
+				container.find('a.statement_link').bind("click", function() {
+					var childId = $(this).parent().attr('statement-id');
+					var key = generateKey($(this).parent().attr('class'));
+					var current_bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
+					
+					var bids = current_bids;
+          if(newLevel){ // necessary evil: erase all breadcrumbs after the parent of the clicked statement
+            var or_index = bids.length == 0 ? 0 : $.inArray($.fragment().origin, bids);
+            var level = or_index + (statement_index+1);
+            bids = bids.splice(0, level);
+            var new_bid = key + statementId;
+            bids.push(new_bid);
+          } 
+					else { // siblings box or maybe alternatives box
+						var parentKey = generateBreadcrumbKey();
+						var index = $.inArray(parentKey, bids);
+	          if (index != -1) { // if parent breadcrumb exists, then delete everything after it
+	            bids = bids.splice(0, index + 1);
+	          }
+					}
+					
+					var stack = current_stack, origin;
+          switch(key){
+						case 'fq':
+						  stack = [childId];
+							origin = bids.length == 0 ? '' : bids[bids.length - 1];
+						  break;
+						default :
+						  stack.push(childId);
+							origin = $.fragment().origin;
+						  break;
+					}
+					
+					
+          
+          $('#breadcrumbs').data('element_clicked', generateBreadcrumbKey());
+					
           $.setFragment({
-            "sids": current_stack.join(','),
-            "new_level": true,
-						"bids": bids.join(','),
-            "origin": origin
-          });
-          return false;
-        });
-      }
-
-
-      /*
-		   * Handles the follow up question (FUQ) related behaviour:
-		   * - click on the statement's FUQ child
-		   * - new FUQ button,
-		   * - FUQ form's cancel button
-		   */
-		  function initAllFUQLinks() {
-        statement.find(".follow_up_questions.children").each(function(){
-					initFUQChildrenLinks($(this));
-				});
-			}
-
-      /* Initializes follow up question children. */
-      function initFUQChildrenLinks(container) {
-				initFUQLinks(container, true);
-			}
-
-
-      /* Initializes follow up question siblings. */
-			function initFUQSiblingsLinks(container) {
-        initFUQLinks(container, false);
-      }
-
-
-      /* Initializes follow up question links. */
-      function initFUQLinks(container, newLevel) {
-        container.find("a.statement_link.follow_up_question_link:Event(!click)").bind("click", function() {
-					var questionId = $(this).parent().attr('statement-id');
-          var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(newLevel ? 'fq'+statementId : null);
-          $.setFragment({
-            "bids": bids.join(','),
-            "sids": questionId,
+            "sids": stack.join(','),
             "new_level": newLevel,
-            "origin": bids[bids.length - 1]
+						"bids": bids.join(','),
+						"origin": origin
           });
           return false;
         });
       }
+			
+			
+
+      
 
 
 		  /*
@@ -399,22 +438,25 @@
 		   * - newLevel: true or false (child statement link)
 		   */
 		  function getStatementsStack(statementLink, newLevel) {
-				// Get soon to be visible statement
-		    var path = statementLink.href.split("/");
-		    var id = path.pop().split('?').shift();
-
-        var current_sids;
-		    if (id.match(/\d+/)) {
-		      current_sids = id;
-		    } else {
-		      // Add teaser case
-		      // When there's a parent id attached, copy :id/add/:type, or else, just copy the add/:type
-		      var index_backwards = path[path.length - 2].match(/\d+/) ? 2 : 1;
-		      current_sids = path.splice(path.length - index_backwards, 2);
-		      current_sids.push(id);
-		      current_sids = current_sids.join('/');
+				if (statementLink) {
+					// Get soon to be visible statement
+					var path = statementLink.href.split("/");
+					var id = path.pop().split('?').shift();
+					
+					var current_sids;
+					if (id.match(/\d+/)) {
+						current_sids = id;
+					}
+					else {
+						// Add teaser case
+						// When there's a parent id attached, copy :id/add/:type, or else, just copy the add/:type
+						var index_backwards = path[path.length - 2].match(/\d+/) ? 2 : 1;
+						current_sids = path.splice(path.length - index_backwards, 2);
+						current_sids.push(id);
+						current_sids = current_sids.join('/');
+					}
 		    }
-
+				
 		    // Get current_stack of visible statements (if any matches the clicked statement, then break)
 				var current_stack = [];
 		    $("#statements .statement").each( function(index){
@@ -431,7 +473,9 @@
 		        }
 		    });
 		    // Insert clicked statement
-		    current_stack.push(current_sids);
+				if (current_sids) {
+					current_stack.push(current_sids);
+				}
 				return current_stack;
 		  }
 
@@ -448,7 +492,6 @@
 					var container = statement.find(childrenContainerSelector);
 					initMoreButton();
           initChildrenLinks(container);
-          initFUQChildrenLinks(container);
 					if (isEchoable) {
             statement.data('echoableApi').loadRatioBars(container);
           }
@@ -457,7 +500,6 @@
 				reinitialiseSiblings: function(siblingsContainerSelector) {
           var container = statement.find(siblingsContainerSelector);
           initSiblingsLinks(container);
-          initFUQSiblingsLinks(container);
 					if (isEchoable) {
 			  		statement.data('echoableApi').loadRatioBars(container);
 				  }

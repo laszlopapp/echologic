@@ -67,7 +67,10 @@ function initFragmentStatementChange() {
 			sids = $.grep(new_sids, function (a) {
 				return $.inArray(a, visible_sids) == -1 ;});
 
+
+      /* Breadcrumb Logic */
       var bids = $("#breadcrumbs").data('breadcrumbApi').breadcrumbsToLoad($.fragment().bids);
+			
 
 			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sids": sids.join(","),
@@ -172,3 +175,18 @@ function socialSharingFinished(array) {
 }
 
 
+
+
+function generateKey(type) {
+	if (type=='proposal'){return 'pr';}
+	else if (type =='improvement'){return 'im';}
+	else if (type=='pro_argument' || type=='contra_argument'){return 'ar';}
+	else if (type=='follow_up_question'){return 'fq';}
+	else {return '';}
+}
+
+function getOriginKeys(array) {
+  return $.grep(array, function(a, index) {
+    return $.inArray(a.substring(0,2), ['pr','ar','im']) == -1;
+  });
+}

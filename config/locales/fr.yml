@@ -558,8 +558,8 @@ fr:
           one: '{{supporter_count}} supporter'
           many: '{{supporter_count}} supporters'
         recommend:
-          one: '{{supporter_count}} suggestion'
-          many: '{{supporter_count}} les suggestions'
+          one: '{{supporter_count}} supporter'
+          many: '{{supporter_count}} supporters'
       add_new: Nouvel élément...
       create_question_link: 'Poser une nouvelle question'
       create_proposal_link: 'Soumettre de nouvelles propositions'
@@ -572,23 +572,11 @@ fr:
       unrecommend_link: 'Retirer ce lien'
       support_link: 'Soutener ce lien'
       unsupport_link: 'Lien non soutenu'
-      recommend_link: 'Recommander ce'
+      recommend_link: 'Soutenez ce'
       unrecommend_link: 'Retirer écho'
       support_link: 'Soutenez ce'
       unsupport_link: 'Retirer écho'
-      create_question_explanation: |
-        Vous pouvez ouvrir ici <strong>une nouvelles discussions</strong> et définir
-        <strong>les mots-clefs thématiques</strong> (les "tags").
-      create_proposal_explanation: |
-        Vous avez une <strong>bonne idée</strong> concernant la question actuelle qui n'a
-        <strong>pas encore été abordée?</strong><br/>
-        Vous pouvez faire ici <strong>une proposition nouvelle</strong>.
-      create_improvement_explanation: |
-        Vous avez une <strong>bonne idée</strong> comment <strong>améliorer la proposition actuelle?</strong><br/>
-        Vous pouvez faire ici <strong>proposer votre rajout</strong>.
-      create_statement_language_hint: |
-        Veuillez décrire votre proposition en <strong>Français</strong> ou sélectionnez une autre langue
-        Notre petit poisson de Babel ci-dessus en parle plus d'une...
+
       statement_language_hint: |
         Veuillez préciser vos connaissances linguistiques et votre niveau respectif dans <a href='{{url}}'>profil</a>.
       statement_language_hint_tooltip: |
@@ -748,10 +736,6 @@ fr:
       translated: "{{type}} a été traduit avec succès."
       incorporated: "Le rajout a été intégré au projet avec succès."
       image_uploaded: "L'image a été ajoutée à/ {{type}}"
-      empty: "Aucune discussion n'a pu être trouvée. Veuillez choisir un autre mot-clef."
-      empty_without_spoken_languages: |
-        Pas de r'esultat. Cliquez sur <a href='{{my_echo}}'>connaissances linguistiques</a>
-        pour accéder aux contenus thématiques dans les autres langues.
       new_percentage: "Votre profil est maintenant complet à {{percentage}}%."
 
 

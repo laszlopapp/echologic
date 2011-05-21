@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   private
   # Takes the locale from the URL or return the most matching one for the IP.
   def set_locale
-    available = %w{en de es pt fr}
+    available = %w{en de es pt fr hu}
     I18n.locale = params[:locale] ? params[:locale].to_sym : request.compatible_language_from(available)
   end
 

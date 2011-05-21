@@ -542,8 +542,8 @@ de:
           one: '{{supporter_count}} UnterstützerIn'
           many: '{{supporter_count}} UnterstützerInnen'
         recommend:
-          one: '{{supporter_count}} Empfehlung'
-          many: '{{supporter_count}} Empfehlungen'
+          one: '{{supporter_count}} UnterstützerIn'
+          many: '{{supporter_count}} UnterstützerInnen'
       add_new: Neues hinzufügen...
       create_question_link: 'Neue Fragestellung hinzufügen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
@@ -552,22 +552,11 @@ de:
       create_pro_argument_link: Neues PRO-Argument hinzufügen
       create_contra_argument_link: Neues KONTRA-Argument hinzufügen
       create_follow_up_question_link: Neue Folgefrage hinzufügen
-      recommend_link: 'Empfehlen (Echo)'
+      recommend_link: 'Unterstützen (Echo)'
       unrecommend_link: 'Stimme widerrufen'
       support_link: 'Unterstützen (Echo)'
       unsupport_link: 'Stimme widerrufen'
-      create_question_explanation: |
-        Hier können Sie eine <strong>neue Fragestellung</strong> hinzufügen und mit den
-        passenden <strong>thematischen Schlüsselwörten</strong> (sog. Tags) versehen.
-      create_proposal_explanation: |
-        Haben Sie eine <strong>gute Idee</strong> zur aktuellen Fragestellung, die noch <strong>nicht vorhandenen</strong> ist?<br/>
-        Hier können Sie einen <strong>neuen Vorschlag</strong> erstellen.
-      create_improvement_explanation: |
-        Haben Sie eine <strong>gute Idee</strong>, wie man den aktuellen <strong>Vorschlag noch besser machen</strong> kann?<br/>
-        Hier können Sie eine <strong>neue Ergänzung</strong> vorschlagen.
-      create_statement_language_hint: |
-        Bitte schreiben Sie Ihre Idee auf <strong>DEUTSCH</strong> oder wählen Sie über
-        den Babelfish im oberen Menü eine andere Sprache aus.
+
       statement_language_hint: |
         Bitte stellen Sie Ihre Sprachkenntnisse in Ihrem <a href='{{url}}'>Profil</a> ein.
       statement_language_hint_tooltip: |

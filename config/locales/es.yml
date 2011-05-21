@@ -462,7 +462,7 @@ es:
       indica los idiomas que conoces.
     translation_request: Por favor, traduce este texto al <strong>ESPAÑOL</strong>.
     mixed_languages: Mezcla de idiomas
-    set_languages: Selecciona tu <strong>nivel de lenguaje</strong> -  Descifra los idiomas! 
+    set_languages: Selecciona tu <strong>nivel de lenguaje</strong> -  Descifra los idiomas!
     no_locale_language: Hablas Español?
     adjust_languages: Elige <strong>tu nivel de Español</strong>!
     results_count:
@@ -544,11 +544,11 @@ es:
       label: 'votos'
       echo_indicator:
         support:
-          one: '{{supporter_count}} votos'
+          one: '{{supporter_count}} voto'
           many: '{{supporter_count}} votos'
         recommend:
-          one: '{{supporter_count}} recommendation'
-          many: '{{supporter_count}} recommendations'
+          one: '{{supporter_count}} voto'
+          many: '{{supporter_count}} votos'
       add_new: Crear nuevo/a...
       create_question_link: 'Crear nuevo debate'
       create_proposal_link: 'Crear nueva propuesta'
@@ -557,24 +557,11 @@ es:
       create_pro_argument_link: Crear un nuevo argumento a favor
       create_contra_argument_link: Crear un nuevo argumento en contra
       create_follow_up_question_link: Formular una nueva pregunta de seguimiento
-      recommend_link: 'Recomienda (echo)'
+      recommend_link: 'Apoya (echo)'
       unrecommend_link: 'Retirar voto'
       support_link: 'Apoya (echo)'
       unsupport_link: 'Retirar voto'
-      create_question_explanation: |
-        Aquí puedes iniciar un <strong>nuevo debate</strong>.
-        Por favor, no te olvides de insertar palabras clave para que tu nuevo debate sea hallado fácilmente.
-      create_proposal_explanation: |
-        Tienes una <strong>buena idea</strong>, que todavia <strong>no existe</strong>?<br/>
-        Aquí puedes crear una <strong>nueva propuesta</strong>.
-      create_improvement_explanation: |
-        Tienes una <strong>buena idea</strong>, para mejorar esta <strong>propuesta</strong>?<br/>
-        Aquí puedes crear una <strong> mejora</strong>.
-      create_statement_language_hint: |
-        Este debate es visible pero la edición está restringida - sólo puedes leerlo.
-      create_statement_language_hint: |
-        Por favor, escribe tu idea en <strong>ESPAÑOL</strong> o escoge otro idioma utilizando el
-        babelfish del menu de arriba.
+
       statement_language_hint: |
         Para realizar algún comentario, selecciona por favor, el conocimiento de idiomas en tu <a href='{{url}}'>Perfil</a>.
       statement_language_hint_tooltip: |
@@ -727,10 +714,6 @@ es:
       translated: "La {{type}} ha sido traducida correctamente."
       incorporated: "La mejora ha sido incorporada a la propuesta correctamente."
       image_uploaded: "La imagen se ha cargado correctamente en el {{type}}."
-      empty: "No se ha encontrado ningún debate. Por favor, intenta la búsqueda con otra palabra"
-      empty_without_spoken_languages: |
-        No se ha encontrado ninguna cuestión. Intenta definir tus <a href='{{my_echo}}'>idiomas conocidos</a>
-        para ver contenidos en otros idiomas.
       new_percentage: "Ahora tu perfil está completo en un {{percentage}}%."
 
 

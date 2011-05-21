@@ -10,7 +10,6 @@
 <% if !params[:sids].blank? and @ancestors %>
   var stack = "<%= params[:sids] %>".split(",");
 	<% @ancestors.each_with_index do |ancestor, index| %>
-   <% type = ancestor.class.name.underscore %>
     var ancestor = stack[<%= index %>];
 		var ancestor_element = $('#statements .statement').eq(<%= index %>);
 		/* if not rendered, than render */
@@ -24,11 +23,11 @@
 
 
 /* breadcrumb */
-<% if params[:origin] %>
-  $('#breadcrumbs').data('breadcrumbApi').deleteAfter('<%= params[:origin] %>');
-<% end %>
-<% if @breadcrumbs %>
-  $('#breadcrumbs').data('breadcrumbApi').addBreadcrumbs(<%= @breadcrumbs.to_json %>);
+<% if params[:expand].blank? %>
+	$('#breadcrumbs').data('breadcrumbApi').deleteBreadcrumbs();
+	<% if @breadcrumbs %>
+	  $('#breadcrumbs').data('breadcrumbApi').addBreadcrumbs(<%= @breadcrumbs.to_json %>);
+	<% end %>
 <% end %>
 
 <% if !params[:expand].blank? %>
