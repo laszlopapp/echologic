@@ -147,7 +147,7 @@ hu:
         Egy jelszó nélküli későbbi belépést elkerülendő, kérjük, hogy kilépéskor lépjél ki a használt
         Facebook, Twitter, stb. profiljaidból is.
       messages:
-        success: "Sikeresen beléptél. Üdvözlünk Téged az echo közösségben."
+        success: "Sikeresen beléptél. Üdvözlégy újra az echoban."
         failed: "Ismeretlen név vagy hibás jelszó."
         failed_social: Kérjük a belépéshez használj egy profilt, mellyel regisztráltál vagy melyet összekötöttél echo profiloddal.
     signout:
@@ -540,12 +540,12 @@ hu:
           Kérjük fejtsd ki javaslatodat részletesebben...<br/><br/>
           A kérdés jellegétől függően, egy javaslat értelmezhető egy a kérdésre adott lehetséges válaszként
           (enciklopédia - tudásbázis), ötletként vagy megoldási javaslatként (brainstorming) avagy egy politikai
-          vitában elfoglalt pozícióként.
+          vitában tett állásfoglalásként.
         improvement: |
           Kérjük mutasd be kiegészítési vagy jobbító javaslatodat részletesebben...<br/><br/>
           Ezen kiegésztések szolgálnak a javaslatok közös, demokratikus úton történő továbbfejlesztésének alapjául.
           echo a stabilan legtöbb támogatást elnyerő kiegészítés szerzőjének újra és újra engedélyt ad a javaslatnak
-          az itt leírt gondolatokkal és ötletekkel történő kiegészítésére.
+          az itt leírt gondolatokkal és ötletekkel történő továbbfejlesztésére.
 
         pro_argument: Kérjük fejtsd ki a javaslat MELLETT szóló érved részletesebben...
         contra_argument: Kérjük fejtsd ki a javaslat ELLEN szóló érved részletesebben...
