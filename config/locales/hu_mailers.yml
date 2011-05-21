@@ -3,16 +3,16 @@ hu:
 
   mailers:
     header:
-      follow_echo: Follow echo
-    greeting: 'Dear {{name}},'
+      follow_echo: Kövesd az echot
+    greeting: 'Kedves {{name}},'
     echo_community: 'echo community'
     bye_as_html: |-
-      Best regards,
+      Minden jót kíván,
       <br/><br/>
-      Your echo team
+      Az echo csapata
     signature: |
       --
-      echo - Living Democracy
+      echo - Élő Demokrácia
 
       Web: http://echo.to
       Blog: http://blog.echo.to
@@ -20,7 +20,7 @@ hu:
       Facebook: http://www.facebook.com/echo.agora
       E-Mail: team@echologic.org
     signature_as_html: |-
-      <strong>echo</strong> - Living Democracy
+      <strong>echo</strong> - Élő Demokrácia
       <br/><br/>
       Web: <a href="http://echo.to/en">http://echo.to</a><br/>
       Blog: <a href="http://blog.echo.to">http://blog.echo.to</a><br/>
@@ -29,8 +29,8 @@ hu:
       E-Mail: <a href="mailto:team@echologic.org">team@echologic.org</a>
 
     newsletter:
-      show_online: "Click here if the newsletter isn't displaying correctly."
-      title: Newsletter
+      show_online: "Kattints ide, ha a hírlevél nem jeleníthető meg megfelelően."
+      title: Hírlevél
       header: |
         <p>
         <strong>This is the Newsletter Section!</strong><br/>
@@ -40,32 +40,33 @@ hu:
       subject: Subject
       text: Text
       unsubscribe: |-
-        If you do not wish to receive newsletters, please log in to
-        <a href='{{echo_url}}'>echo</a>, go to Settings under My echo and uncheck the newsletter option.
+        Ha le szeretnél irtakozni a hírlevélről, kérjük jelentkezz be az <a href='{{echo_url}}'>echora</a>,
+        menj az Én echom menüpont alatt a Beállításokhoz és ott kapcsold ki a hírlevélküldés opciót.
       fields_not_filled: |-
         You need to fill the subject and text fields in order to send the newsletter.
       sent: |-
         Your newsletter mails are being delivered...
 
     activity_tracking:
-      subject: echo - Új tartalom
-      title: New discussion content
+      subject: echo - Új tartalmak
+      title: Új viták és hozzászólások
       statements:
-        new_questions: 'There are <strong>{{count}} new question(s)</strong> since the last update. '
-        new_tags: 'They are related to the following topics:'
-        created_proposals: 'New content in the question "<strong>{{title}}</strong>":'
-        created_improvements: 'New content in the proposal "<strong>{{title}}</strong>":'
-        created_pro_arguments: 'New content in the proposal "<strong>{{title}}</strong>":'
-        created_contra_arguments: 'New content in the proposal "<strong>{{title}}</strong>":'
-        created_follow_up_questions: 'New follow-up questions for "<strong>{{title}}</strong>":'
+        new_questions: 'Az előző értesítés óta <strong>{{count}} új kérdés</strong> került felvetésre.'
+        new_tags: 'Ezek a következő témákhoz kapcsolódnak:'
+        created_proposals: 'Új hozzászólások a kérdés kapcsán "<strong>{{title}}</strong>":'
+        created_improvements: 'Új hozzászólások a javaslathoz "<strong>{{title}}</strong>":'
+        created_pro_arguments: 'Új hozzászólások a javaslathoz "<strong>{{title}}</strong>":'
+        created_contra_arguments: 'Új hozzászólások a javaslathoz "<strong>{{title}}</strong>":'
+        created_follow_up_questions: 'Új implikált kérdés a hozzászólás kapcsán "<strong>{{title}}</strong>":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
-        If you do not wish to receive regular updates on new discussion entries, please log in to
-        <a href='{{echo_url}}'>echo</a>, go to Settings under My echo and uncheck the activity notification option.
+        Ha nem szeretnél értesítést kapni új vitákról és hozzászólásokról, kérjük jelentkezz be az
+        <a href='{{echo_url}}'>echora</a>, menj az Én echom menüpont alatt a Beállításokhoz és ott kapcsold ki az
+        új tartalmakról szóló hírlevélküldést.
 
     drafting:
       approval:
-        subject: Your addition can now be incorporated
+        subject: Kiegészítésed bekerülhet a javaslatba
         text: |-
           Dear {{name}},
 
@@ -90,7 +91,7 @@ hu:
           Your echo team
 
       supporters_approval:
-        subject: An addition you support can now be incorporated
+        subject: Egy általad támogatott kiegészítés bekerülhet a javaslatba
         text: |-
           Dear supporters of the addition
 
@@ -113,7 +114,7 @@ hu:
           Your echo team
 
       approval_notification:
-        subject: A proposal you support is about to be improved
+        subject: Egy általad támogatott javaslat továbbfejlesztés előtt áll
         text: |-
           Dear supporters of the proposal
 
@@ -132,7 +133,7 @@ hu:
           Your echo team
 
       approval_reminder:
-        subject: Reminder! - Time is running out to incorporate your winner addition
+        subject: Emlékeztető! - Lassan lejár az idő kiegészítésed beépítésére
         text: |-
           Dear {{name}},
 
@@ -155,7 +156,7 @@ hu:
           Your echo team
 
       supporters_approval_reminder:
-        subject: Last Reminder! - Time is running out to incorporate a winner addition
+        subject: Utolsó emlékeztető! - Lassan lejár az idő egy kiegészítés beépítésére
         text: |-
           Dear supporters of the addition
 
@@ -180,7 +181,7 @@ hu:
           Your echo team
 
       passed:
-        subject: Passed to incorporate your winner addition
+        subject: Elszalasztottad kiegészítésed javaslatba való beépítését
         text: |-
           Dear {{name}},
 
@@ -199,7 +200,7 @@ hu:
           Your echo team
 
       supporters_passed:
-        subject: Passed to incorporate a winner addition
+        subject: Elszalasztottátok a nyertes kiegészítés javaslatba való beépítését
         text: |
           Dear supporters of the addition
 
@@ -220,7 +221,7 @@ hu:
           Your echo team
 
       incorporated:
-        subject: Thank you for improving the proposal
+        subject: Köszönet a javaslat továbbfejlesztéséért
         text: |-
           Dear {{name}},
 
@@ -241,7 +242,7 @@ hu:
           Your echo team
 
       incorporation_notification:
-        subject: A proposal you support has been improved
+        subject: Egy általad támogatott javaslat továbbfejlesztésre került
         text: |-
           Dear supporters of the proposal
 
@@ -260,4 +261,6 @@ hu:
           Your echo team
 
       unsubscribe: |-
-        If you do not wish to receive immediate updates on the co-creative drafing process of your supported statements, please log in to {{echo_url}}, go to Settings under My echo and uncheck the drafting notification option.
+        Ha nem szeretnél azonnali értesítést kapni a közös szövegírás és javaslatformálás folyamatáról, kérjük
+        jelentkezz be az <a href='{{echo_url}}'>echora</a>, menj az Én echom menüpont alatt a Beállításokhoz és ott
+        kapcsold ki az erre vonatkozó értesítési opciót.

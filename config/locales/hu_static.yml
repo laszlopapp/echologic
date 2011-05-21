@@ -35,13 +35,13 @@ hu:
           </p><p>
           "Megvitatjuk - Összefogunk - Cselekszünk!" - A szociális szoftver lehetőséget nyújt <strong>konstruktív,
           többnyelvű nyílt viták</strong> folytatására véleményformálás és közös megoldáskeresés céljából.
-          Az echo összeköti a vitákban azonos álláspontokat képviselő embereket és támogatja őket a
+          Az echo összeköti a vitákban azonos álláspontokat kialakító embereket és támogatja őket a
           <strong>közös cselekvésben</strong> a társadalmi és politikai érdekérvényesítés sikeréért.<br/>
-          Bármerre is legyünk a virtuális vagy valódi világban, az echo végleg egyértelművé teszi: többé nem vagyunk
+          Bárhol is legyünk a virtuális vagy valódi világban, az echo végleg egyértelművé teszi: többé nem vagyunk
           egyedül véleményünkkel és céljainkkal - hangunk visszhangja <strong>átformálja a világot</strong>.
           </p>
         gender_tooltip: ''
-        subsidiarity_tooltip: A glokalitás, dezentralizáció és szubszidiaritás elve mentén
+        subsidiarity_tooltip: A gloKalitás, dezentralizáció és szubszidiaritás elve mentén
         text_2:
           title: Közös megoldáskeresés
           more: |
@@ -94,7 +94,7 @@ hu:
             </p>
 
         action: |-
-          Próbald ki a prototípust »<br/>
+          Próbáld ki a prototípust »<br/>
           Kövesd a fejlődést
 
 
