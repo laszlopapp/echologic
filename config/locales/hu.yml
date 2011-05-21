@@ -510,9 +510,9 @@ hu:
       create_contra_argument_link: Mondj egy új érvet ELLENE
       create_follow_up_question_link: Vess fel egy a fentiekből fakadó új kérdést
       recommend_link: 'Támogatom (echo)'
-      unrecommend_link: 'Nem támogatom'
+      unrecommend_link: 'Visszavonom'
       support_link: 'Támogatom (echo)'
-      unsupport_link: 'Nem támogatom'
+      unsupport_link: 'Visszavonom'
 
       statement_language_hint: |
         Kerjük állítsd be nyelvtudásod a <a href='{{url}}'>profilodban</a>.
