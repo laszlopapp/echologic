@@ -7,6 +7,10 @@
 	      <%= doc.input :title, :label => false,
                       :input_html => {:class => 'focus',
                                       'data-default' => title_hint_text(statement_node)} %>
+				<%= content_tag :span, I18n.t('discuss.statements.linking.disabled'), :class => "auto_complete off ttLink",
+                        :title => I18n.t('discuss.tooltips.link_statement'),
+						            :linking_on => I18n.t('discuss.statements.linking.enabled'),
+						            :linking_off => I18n.t('discuss.statements.linking.disabled') if statement_node.new_record? %>
 			<% end %>
 	  <% end %>
 		<% if statement_node.echoable? %>

@@ -60,17 +60,32 @@ class StatementDocument < ActiveRecord::Base
                     self.id, self.language.id])
   end
 
-  #
-  # gets a set of current statement documents given an hash of arguments
-  #
-  # opts attributes:
-  #
-  # statement_ids (Array[Integer]) : array of statement ids which we have to search the documents through
-  # language_ids (Array[Integer])  : filters out documents which language is not included on the array
-  # 
-  # the rest of the opts hash works as a normal ActiveRecord query array; check documentation if you have doubts about it
-  #
-  def self.search_statement_documents(opts={})
+  class << self
+    
+    #
+    # returns an array of sql conditions representing a search for a term across the searchable fields
+    # opts attributes:
+    # term (String) : the term to search for
+    #
+    def term_conditions(term)
+      conditions = Statement.extaggable_conditions_for_term(term, "d.tag")
+      if (term.length > 3)
+        conditions << sanitize_sql([" OR d.title LIKE ? OR d.text LIKE ?", "%#{term}%", "%#{term}%"])
+      end
+      conditions
+    end
+    
+    #
+    # gets a set of current statement documents given an hash of arguments
+    #
+    # opts attributes:
+    #
+    # statement_ids (Array[Integer]) : array of statement ids which we have to search the documents through
+    # language_ids (Array[Integer])  : filters out documents which language is not included on the array
+    # 
+    # the rest of the opts hash works as a normal ActiveRecord query array; check documentation if you have doubts about it
+    #
+    def search_statement_documents(opts={})
       opts.delete(:readonly)
       
       opts[:select] = "DISTINCT #{table_name}.id, " + 
@@ -100,4 +115,5 @@ class StatementDocument < ActiveRecord::Base
       opts[:order] ||= "#{table_name}.language_id" 
       all opts
     end
+  end
 end

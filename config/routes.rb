@@ -37,6 +37,9 @@ ActionController::Routing::Routes.draw do |map|
     :requirements => { :action => /auto_complete_for_\S+/ },
     :conditions => { :method => :get }
 
+  # AUTO COMPLETE FOR statements title TODO: WHY DOES THE PREVIOUS ROUTE DOES NOT WORK?????
+  map.connect 'statements/auto_complete_for_statement_title', :controller => :statements, :action => :auto_complete_for_statement_title
+  
   # Not being logged in
   map.requires_login 'requires_login', :controller => 'application', :action => 'flash_info'
 
@@ -139,14 +142,23 @@ ActionController::Routing::Routes.draw do |map|
                 :as => 'statement'
   #publish
   map.connect   'statements/:id/publish/:in',   :controller => :statements, :action => :publish
+  map.connect   'statements/link_statement/:id', :controller => :statements, :action => :link_statement
 
-
-  map.resources :questions, :controller => :statements, :type => :question, :only => [:create, :update]
-  map.resources :proposals, :controller => :statements, :only => [:create, :update]
-  map.resources :improvements, :controller => :statements, :only => [:create, :update]
-  map.resources :pro_arguments, :controller => :statements, :only => [:create, :update]
-  map.resources :contra_arguments, :controller => :statements, :only => [:create, :update]
-  map.resources :follow_up_questions, :controller => :statements, :only => [:create, :update]
+  map.with_options(:path_prefix => ":type/:action") do |m|
+    m.resources :questions, :controller => :statements, :only => [:create]
+    m.resources :proposals, :controller => :statements, :only => [:create]
+    m.resources :improvements, :controller => :statements, :only => [:create]
+    m.resources :pro_arguments, :controller => :statements, :only => [:create]
+    m.resources :contra_arguments, :controller => :statements, :only => [:create]
+    m.resources :follow_up_questions, :controller => :statements, :only => [:create]
+  end
+  
+  map.resources :questions, :controller => :statements, :only => [:update]
+  map.resources :proposals, :controller => :statements, :only => [:update]
+  map.resources :improvements, :controller => :statements, :only => [:update]
+  map.resources :pro_arguments, :controller => :statements, :only => [:update]
+  map.resources :contra_arguments, :controller => :statements, :only => [:update]
+  map.resources :follow_up_questions, :controller => :statements, :only => [:update]
 
   #statement images
   map.resources :statement_images,

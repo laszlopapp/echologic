@@ -31,6 +31,10 @@ class FollowUpQuestion < StatementNode
     def children_types(opts={})
       Question.children_types(opts)
     end
+    
+    def linkable_types
+      Question.linkable_types
+    end
 
     def new_instance(attributes = nil)
       parent = attributes ? attributes.delete(:parent_id) : nil

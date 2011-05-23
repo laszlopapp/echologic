@@ -262,7 +262,7 @@ class StatementNode < ActiveRecord::Base
       attributes[:editorial_state] = StatementState[attributes.delete(:editorial_state_id).to_i] if attributes[:editorial_state_id]
       editorial_state = attributes.delete(:editorial_state)
       node = self.new(attributes)
-      node.set_statement(:editorial_state => editorial_state)
+      node.set_statement(:editorial_state => editorial_state) if node.statement.nil?
       node
     end
 
@@ -377,20 +377,13 @@ class StatementNode < ActiveRecord::Base
 
     public
 
-
-    def search_discussions(opts={})
-      opts.delete(:type)
-      search_statement_nodes(opts)
-    end
-
-
     #
     # gets a set of statement nodes given an hash of arguments
     #
     # opts attributes:
     #
     # search_term (string : optional) : value we ought to search for on title, text and statement tags
-    # only_id (boolean : optional) : if true, returns a hash of the statements only with the id attribute filled
+    # param (string : optional) : specifies the attribute which we should search 
     # type (string : optional) : defines the type of statement to look for ("Question" in most of the cases)
     # show_unpublished (boolean : optional) : if false or nil, only get the published statements (see user as well)
     # user (User : optional) : only used if show_unpublished is false or nil; gets the statements belonging to the user regardless of state (published or new)
@@ -400,7 +393,7 @@ class StatementNode < ActiveRecord::Base
     # Called with no attributes filled: returns all published questions
     #
     def search_statement_nodes(opts={})
-      aggregator_field = opts[:type].nil? ? 'root_id' : 'id'
+      aggregator_field = opts[:types].nil? ? 'root_id' : 'id'
       
       # Constant criteria
       document_conditions = []
@@ -410,16 +403,13 @@ class StatementNode < ActiveRecord::Base
         document_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]])
       end
       
+      # Permissions
       node_conditions = []
-      # Access permissions
-      access_conditions = []
-      access_conditions << "s.closed_statement IS NULL"
-      access_conditions << sanitize_sql(["s.granted_user_id = ?", opts[:user].id]) if opts[:user]
-      node_conditions << "(#{access_conditions.join(' OR ')})"
-
+      node_conditions << Statement.conditions(opts, "s.closed_statement", "s.granted_user_id")
+     
       # Statement type
-      if opts[:type]
-        node_conditions << sanitize_sql(["s.type = ?", opts[:type]])
+      if opts[:types]
+        node_conditions << sanitize_sql(["s.type IN (?)", opts[:types]])
       end
       
       # Published state
@@ -435,6 +425,8 @@ class StatementNode < ActiveRecord::Base
         node_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]])
       end
       
+      # Limit
+      limit = "LIMIT #{opts[:limit]}" if opts[:limit]
 
       # Search terms
       search_term = opts.delete(:search_term)
@@ -450,14 +442,11 @@ class StatementNode < ActiveRecord::Base
         end
         
         terms.map(&:strip).each do |term|
-          or_conditions = Statement.extaggable_conditions_for_term(term, "d.tag")
-          if (term.length > 3)
-            or_conditions << sanitize_sql([" OR d.title LIKE ? OR d.text LIKE ?", "%#{term}%", "%#{term}%"])
-          end
+          or_conditions = StatementDocument.term_conditions(term)
           term_queries << (term_query + (document_conditions + ["(#{or_conditions})"]).join(" AND "))
         end
         term_queries = term_queries.join(" UNION ALL ")
-        statements_query = "SELECT #{table_name}.#{opts[:only_id] ? aggregator_field : '*'} " +
+        statements_query = "SELECT #{table_name}.#{opts[:param] || '*'} " +
                            "FROM (#{term_queries}) statement_ids " +
                            "LEFT JOIN search_statement_nodes s ON statement_ids.id = s.statement_id " +
                            "LEFT JOIN #{table_name} ON #{table_name}.id = s.#{aggregator_field} " +
@@ -465,17 +454,17 @@ class StatementNode < ActiveRecord::Base
                            "WHERE #{node_conditions.join(" AND ")} " +
                            "GROUP BY s.#{aggregator_field} " +
                            "ORDER BY COUNT(s.#{aggregator_field}) DESC, " +
-                           "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id;"
+                           "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id #{limit};"
       else
         document_conditions << "d.current = 1"
         
-        node_conditions << "s.type = 'Question'" if opts[:type].nil?
+        node_conditions << "s.type = 'Question'" if opts[:types].nil?
         
-        statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? aggregator_field : '*'} from search_statement_nodes s " +
+        statements_query = "SELECT DISTINCT s.#{opts[:param] || '*'} from search_statement_nodes s " +
                            "LEFT JOIN statement_documents d ON d.statement_id = s.statement_id " +
                            Statement.extaggable_joins_clause("s.statement_id") +
                            "WHERE " + (node_conditions + document_conditions).join(' AND ') +
-                           " ORDER BY s.supporter_count DESC, s.created_at DESC, s.id;"
+                           " ORDER BY s.supporter_count DESC, s.created_at DESC, s.id #{limit};"
       end
       find_by_sql statements_query
     end
@@ -489,6 +478,28 @@ class StatementNode < ActiveRecord::Base
     ###################################
     # EXPANDABLE CHILDREN GUI HELPERS #
     ###################################
+
+    
+
+
+    # PARTIAL PATHS #
+    def children_list_template
+      "statements/children_list"
+    end
+
+    def children_template
+      "statements/children"
+    end
+
+    def more_template
+      "statements/more"
+    end
+
+    def descendants_template
+      "statements/descendants"
+    end
+
+    # TYPE-RELATIONS
 
     #
     # visibility = false: returns an array of symbols of the possible children types
@@ -509,21 +520,9 @@ class StatementNode < ActiveRecord::Base
     end
 
 
-    # PARTIAL PATHS #
-    def children_list_template
-      "statements/children_list"
-    end
-
-    def children_template
-      "statements/children"
-    end
-
-    def more_template
-      "statements/more"
-    end
-
-    def descendants_template
-      "statements/descendants"
+    # gets the statement node types this content can be linked with
+    def linkable_types
+      @@linkable_types[self.name]
     end
 
     def sub_types
@@ -538,6 +537,11 @@ class StatementNode < ActiveRecord::Base
       @@children_types ||= { }
       @@children_types[self.name] ||= @@default_children_types.nil? ? [] : @@default_children_types
       @@children_types[self.name] = klasses + @@children_types[self.name]
+    end
+    
+    def has_linkable_types(*klasses)
+      @@linkable_types ||= { }
+      @@linkable_types[self.name] ||= klasses
     end
   end
   default_children_types [:FollowUpQuestion,true]

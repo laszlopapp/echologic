@@ -27,20 +27,29 @@
     /******************************/
 
     function StatementForm(form) {
-
+			var title = form.find('.statement_title input');
+			var type = form.attr('id').match(/[^new_]\w+/)[0];
+			var text;
+			var language_combo;
+			var chosenLanguage = form.find('select.language_combo');
+			var statementLinked = form.find('input.statement_id');
+			var auto_complete_button;
+      var linking_messages;
+			
 			initialise();
 
 			function initialise() {
-				if (!isMobileDevice()) {
-					loadRTEEditor();
-				}
+
+				loadRTEEditor();
 
         // New Statement Form Helpers
         if (form.hasClass('new')) {
-          hideNewStatementType();
+					language_combo = form.find('.statement_language select');
           loadDefaultText();
-          handleStatementFormsSubmit();
           initFormCancelButton();
+					initAutoCompleteTitle();
+					handleContentChange();
+					unlinkStatement();
         }
 
         // Taggable Form Helpers
@@ -49,46 +58,31 @@
         }
 			}
 
-      
-
 			/*
        * Loads the Rich Text Editor for the statement text.
        */
       function loadRTEEditor() {
-        var textArea = form.find('textarea.rte_doc, textarea.rte_tr_doc');
-        var defaultText = textArea.data('default');
-        var url = 'http://' + window.location.host + '/stylesheets/';
-
-        textArea.rte({
-          css: ['jquery.rte.css'],
-          base_url: url,
-          frame_class: 'wysiwyg',
-          controls_rte: rte_toolbar,
-          controls_html: html_toolbar
-        });
-        form.find('.focus').focus();
-
-        // The default placeholder text
-        form.find('iframe').attr('data-default', defaultText);
-      }
-
-
-      /*
-       * Shows the statement type on new statement forms
-       */
-      function showNewStatementType() {
-        var input_type = form.find('input#type');
-        input_type.attr('value', input_type.data('value'));
-      }
-
-
-			/*
-       * Hides the statement type on new statement forms.
-       */
-      function hideNewStatementType() {
-        var input_type = form.find('input#type');
-        input_type.data('value', input_type.attr('value'));
-        input_type.removeAttr('value');
+				textArea = form.find('textarea.rte_doc, textarea.rte_tr_doc');
+				if (!isMobileDevice()) {
+					var defaultText = textArea.data('default');
+					var url = 'http://' + window.location.host + '/stylesheets/';
+					
+					textArea.rte({
+						css: ['jquery.rte.css'],
+						base_url: url,
+						frame_class: 'wysiwyg',
+						controls_rte: rte_toolbar,
+						controls_html: html_toolbar
+					});
+					form.find('.focus').focus();
+					
+					// The default placeholder text
+					form.find('iframe').attr('data-default', defaultText);
+					
+					text = $(form.find('iframe.rte_doc').contents().get(0)).find('body');
+				} else {
+          text = textArea;					
+				}
       }
 
 
@@ -101,26 +95,7 @@
         form.placeholder();
 
       }
-
-      /*
-       * Submits the form.
-       */
-			function handleStatementFormsSubmit() {
-        form.bind('submit', (function() {
-          showNewStatementType();
-          $.ajax({
-            url: this.action,
-            type: "POST",
-            data: $(this).serialize(),
-            dataType: 'script',
-            success: function(data, status){
-              hideNewStatementType();
-            }
-          });
-          return false;
-        }));
-      }
-
+      
 			/*
        * Handles Cancel Button click on new statement forms.
        */
@@ -140,6 +115,181 @@
           }));
         }
       }
+
+      /**********************/
+      /* Statement Linking  */
+      /**********************/
+
+      /*
+       * updates the auto complete button with css classes and a new label
+       */
+      function toggleAutoCompleteButton(to_add, to_remove) {
+				auto_complete_button.addClass(to_add).removeClass(to_remove).text(linking_messages[to_add]);
+			}
+			
+			
+			/*
+       * turns the auto complete button green and with the label 'linked'
+       */
+			function activateAutoCompleteButton() {
+				toggleAutoCompleteButton('on','off');
+			}
+			
+			/*
+       * turns the auto complete button grey and with the label 'link'
+       */
+			function deactivateAutoCompleteButton() {
+				toggleAutoCompleteButton('off','on');
+			}
+
+      /*
+       * initializes the whole title auto completion behaviour
+       */
+      function initAutoCompleteTitle() {
+
+        // gets the auto complete button				
+				auto_complete_button = form.find('.header .auto_complete')
+				
+				// loads the labels 
+				linking_messages = {
+					'on' : auto_complete_button.attr('linking_on'),
+					'off': auto_complete_button.attr('linking_off')
+				}
+				
+				auto_complete_button.removeAttr('linking_on').removeAttr('linking_off');
+				
+				
+				// initializes the autocompletion plugin 
+				var auto_complete_api = title.autocompletes('../../statements/auto_complete_for_statement_title',
+							                    {
+															   	minChars: 100,
+																	selectFirst: false,
+																	multipleSeparator: "",
+																	extraParams: {
+																		code: function(){ return chosenLanguage.val(); },
+																	  type: type
+																	}
+												        });
+		    
+				// handles the selection of an auto completion results entry
+				title.result(function(evt, data, formatted) {
+					if (data) {
+				  	linkStatement(data[1]);
+				  }
+				});
+
+        // what happens when i click the auto completion button
+        auto_complete_button.bind('click', function(){
+          if ($(this).hasClass('on')) {
+            // TODO: Right now, nothing happens. But wouldn't it be better to just unlink the statement? 
+            // (the visual elements (text, tags...) would remain, just the statement id reference would be lost.
+            // this way, we could unlink a wrongly unlinked statement and link it again
+            // unlinkStatement();
+          }
+          else 
+          if ($(this).hasClass('off')) {
+            title.search();
+          }
+          
+        });
+				
+			}
+			
+			
+			/*
+       * given a statement Id, gets the statement remotely and fills the form with the given data
+       */
+			function linkStatement(statementId) {
+				
+				var path = '../../statements/link_statement/' + statementId;
+				path = $.queryString(path, {
+					"code" : chosenLanguage.val()
+				});
+				$.getJSON(path, function(data) {
+					var statementText = data['text'];
+					var statementTags = data['tags'];
+					var statementState = data['editorial_state'];
+
+          // disable language combo
+          language_combo.attr('disabled', true);
+				
+				  // fill in summary text	
+					if(text && text.is('textarea')) {
+						text.val(statementText);
+					} else {
+						text.empty().text(statementText).click().blur();
+					}
+					
+					// fill in tags
+					if (form.hasClass(settings['taggableClass'])) {
+				  	form.data('taggableApi').addTags(statementTags);
+				  }
+					
+					// check right editorial state
+					$('input:radio[value=' + statementState + ']').attr('checked', true);
+					
+										
+					// activate auto complete button
+					activateAutoCompleteButton();
+					
+					form.addClass('linked');
+					
+					//TODO: Not working when text is inside the iframe!!!
+					if (!isMobileDevice()) {
+				  	text.addClass('linked');
+				  }
+					
+					// link statement Id
+          statementLinked.val(statementId);
+
+				});
+			}
+			
+			/*
+       * unlink the previously linked statement (delete statement Id field and deactivate auto completion button
+       */
+			function unlinkStatement()
+			{
+				statementLinked.val('');
+        deactivateAutoCompleteButton();
+				form.removeClass('linked');
+				
+				// disable language combo
+        language_combo.removeAttr('disabled');
+				
+				//TODO: Not working when text is inside the iframe!!!
+				if (!isMobileDevice()) {
+          text.removeClass('linked');
+        }
+			}
+		
+			
+			/*
+       * handles the event of writing new content in one of the fields (in the case, has to unlink a previously unlinked statement)
+       */
+			function handleContentChange() {
+				// title
+				title.bind('change', function(){
+					if (statementLinked.val()) {
+              unlinkStatement();
+            }
+				});
+				
+				// text
+				if (text && text.is('textarea')) {
+		      text.bind('change', function(){
+						if (statementLinked.val()) {
+							unlinkStatement();
+						}
+					});
+				} else {
+					text.bind('DOMSubtreeModified', function(){
+						if (statementLinked.val() && text && text.html().length > 0) {
+							unlinkStatement();
+						}
+					});
+				}
+			}
 
 			// Public API functions
 			$.extend(this,

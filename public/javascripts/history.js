@@ -101,7 +101,7 @@ function triggerSearchQuery(){
 function loadSearchAutoComplete() {
 	var path = $('#function_container').hasClass('discuss') ? '../../discuss/auto_complete_for_tag_value' : '../users/users/auto_complete_for_tag_value';
 
-  $('#search_form .tag_value_autocomplete').autocomplete(path,
+  $('#search_form .tag_value_autocomplete').autocompletes(path,
                                                         {minChars: 3, selectFirst: false, multiple: true});
 }
 

@@ -3,11 +3,12 @@
   $.fn.taggable = function(settings) {
 
     function Taggable(taggable){
-
+      var loadedTags = taggable.find('input.question_tags');
+			
 			initialise();
 
 			function initialise(){
-			  loadTags();
+			  loadTags(loadedTags.val());
 				loadTagEvents();
 				loadStatementAutoComplete();
 			}
@@ -17,8 +18,8 @@
 			/*
        * load this current statement's already existing tags into the tags input box
        */
-      function loadTags() {
-        var tags_to_load = taggable.find('input.question_tags').val();
+      function loadTags(tags) {
+        var tags_to_load = tags;
         tags_to_load = $.trim(tags_to_load);
         tags_to_load = tags_to_load.split(',');
 				while (tags_to_load.length > 0) {
@@ -106,7 +107,7 @@
        * Initializes auto_complete property for the tags text input
        */
       function loadStatementAutoComplete() {
-        taggable.find('.tag_value_autocomplete').autocomplete('../../discuss/auto_complete_for_tag_value',
+        taggable.find('.tag_value_autocomplete').autocompletes('../../discuss/auto_complete_for_tag_value',
                                                               {minChars: 3, selectFirst: false, multiple: true});
       }
 
@@ -118,7 +119,20 @@
 				reinitialise: function()
         {
           initialise();
-        }
+        },
+				addTags: function(tags) // Array of new tags
+				{
+					var oldTags = $.trim(loadedTags.val());
+					oldTags = !oldTags ? [] : oldTags.split(',');
+					var newTags = oldTags;
+					$.merge(newTags,tags);
+					
+					//update internally on the hidden field
+					loadedTags.val(newTags.join(','));
+					
+					//create the visual buttons
+					loadTags(tags.join(','));
+				}
 			});
 		}
 

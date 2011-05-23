@@ -1,18 +1,21 @@
 class StatementsController < ApplicationController
 
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
-                                    :more, :children, :authors, :add, :ancestors, :descendants, :social_widget]
+                                    :more, :children, :authors, :add, :ancestors, :descendants, :social_widget,
+                                    :auto_complete_for_statement_title, :link_statement]
   verify :method => :post, :only => [:create, :share]
   verify :method => :put, :only => [:update, :create_translation, :publish]
   verify :method => :delete, :only => [:destroy]
 
   # The order of these filters matters. change with caution.
   skip_before_filter :require_user, :only => [:category, :show, :more, :children, :add, :ancestors, :descendants,
-                                              :redirect_to_statement]
+                                              :redirect_to_statement, :auto_complete_for_statement_title]
 
-  before_filter :fetch_statement_node, :except => [:category, :my_questions, :new, :create]
+  before_filter :fetch_statement_node, :except => [:category, :my_questions, :new, :create,
+                                                   :auto_complete_for_statement_title, :link_statement]
   before_filter :fetch_statement_node_type, :only => [:new, :create]
-  before_filter :check_read_permission, :except => [:category, :my_questions, :new, :create]
+  before_filter :check_read_permission, :except => [:category, :my_questions, :new, :create,
+                                                          :auto_complete_for_statement_title, :link_statement]
   before_filter :redirect_if_approved_or_incorporated, :only => [:show, :edit, :update, :destroy,
                                                                  :new_translation, :create_translation,
                                                                  :echo, :unecho]
@@ -27,6 +30,7 @@ class StatementsController < ApplicationController
   include TranslationModule
   include IncorporationModule
   before_filter :is_draftable?, :only => [:incorporate]
+  include LinkingModule
 
   # Authlogic access control block
   access_control do
@@ -34,7 +38,6 @@ class StatementsController < ApplicationController
     allow logged_in, :editor, :except => [:destroy]
     allow anonymous, :to => [:index, :show, :category, :more, :children, :authors, :add, :ancestors, :descendants]
   end
-
 
   ##############
   # ATTRIBUTES #
@@ -140,7 +143,9 @@ class StatementsController < ApplicationController
 
       # Prepare in memory
       @statement_node ||= @statement_node_type.new_instance(attrs)
-      @statement_document = @statement_node.add_statement_document(
+      @statement_document = !@statement_node.statement.new_record? ?
+                            @statement_node.statement.document_in_language(doc_attrs[:language_id]) :
+                            @statement_node.add_statement_document(
                             doc_attrs.merge({:original_language_id => doc_attrs[:language_id],
                                              :author_id => current_user.id,
                                              :current => true}))
@@ -585,6 +590,19 @@ class StatementsController < ApplicationController
     end
   end
 
+  # aux function to load the statements with the right set of languages
+  def filter_languages(opts={})
+    languages = @language_preference_list
+    if opts[:node] and !opts[:node].new_record?
+      # VERY IMP: remove statement original language if user doesn't speak it
+      original_language = opts[:node].original_language
+      languages -= [original_language.id] if languages.length > 1 and original_language.code.to_s != I18n.locale and
+                                             (current_user.nil? or
+                                              !current_user.sorted_spoken_languages.include?(original_language.id))
+    end
+    languages
+  end
+
   #
   # Load the authors of the current statement.
   #
@@ -907,20 +925,26 @@ class StatementsController < ApplicationController
   #
   # search_term (String : optional) : text snippet to look for in the statements
   #
-  # for more info about attributes, please check the StatementNode.search_discussions documentation
+  # for more info about attributes, please check the StatementNode.search_statement_nodes documentation
   #
-  def search_discussions(opts = {})
-    languages = @language_preference_list
-    if opts[:node] and !opts[:node].new_record?
-      # VERY IMP: remove statement original language if user doesn't speak it
-      original_language = opts[:node].original_language
-      languages -= [original_language.id] if languages.length > 1 and original_language.code.to_s != I18n.locale and
-                                             (current_user.nil? or
-                                              !current_user.sorted_spoken_languages.include?(original_language.id))
-    end
-    StatementNode.search_discussions(opts.merge({:user => current_user,
-                                                 :language_ids => languages,
-                                                 :show_unpublished => current_user && current_user.has_role?(:editor)}))
+  def search_statement_nodes(opts = {})
+    opts[:language_ids] ||= filter_languages
+    StatementNode.search_statement_nodes(opts.merge({:user => current_user,
+                                                     :show_unpublished => current_user && current_user.has_role?(:editor)}))
+  end
+
+  #
+  # Calls the statement sql query.
+  # opts attributes:
+  #
+  # search_term (String : optional) : text snippet to look for in the statements
+  #
+  # for more info about attributes, please check the Statement.search_statements documentation
+  #
+  def search_statements(opts = {})
+    opts[:languages] ||= filter_languages
+    Statement.search_statements(opts.merge({:user => current_user,
+                                            :show_unpublished => current_user && current_user.has_role?(:editor)}))
   end
 
   #
@@ -1088,14 +1112,14 @@ class StatementsController < ApplicationController
        # get question siblings depending from the request's origin (key)
        # discuss search with no search results
        when 'ds' then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1].to_i * QUESTIONS_PER_PAGE
-                      sn = search_discussions(:only_id => opts[:for_session], :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
+                      sn = search_statement_nodes(:param => opts[:for_session] ? 'root_id' : nil, :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
                       opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
        # discuss search with search results
        when 'sr'then value = value.split('|')
                      term = Breadcrumb.instance.decode_terms(value[0])
                      per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
-                     sn = search_discussions(:search_term => term,
-                                             :only_id => opts[:for_session], :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
+                     sn = search_statement_nodes(:search_term => term,
+                                             :param => opts[:for_session] ? 'root_id' : nil, :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
                      opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
        # my discussions
        when 'mi' then sn = Question.by_creator(current_user).by_creation
