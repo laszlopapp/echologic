@@ -64,10 +64,12 @@ module StatementsHelper
   def create_new_child_statement_link(statement_node, child_type, opts={})
     url = opts.delete(:url) if opts[:url]
     css = opts.delete(:css) if opts[:css]
-    link_to(I18n.t("discuss.statements.create_#{child_type}_link"),
+    label_type = opts[:label_type] || child_type
+    opts[:hub] = opts.delete(:label_type)
+    link_to(I18n.t("discuss.statements.create_#{label_type}_link"),
             url ? url : new_statement_node_url(statement_node.nil? ? nil : statement_node.target_id,child_type, opts),
-            :class => "#{css} add_new_button text_button create_#{child_type}_button ttLink no_border",
-            :title => I18n.t("discuss.tooltips.create_#{child_type}"))
+            :class => "#{css} add_new_button text_button create_#{label_type}_button ttLink no_border",
+            :title => I18n.t("discuss.tooltips.create_#{label_type}"))
   end
 
   def create_new_question_link(origin=@origin, opts={})
@@ -118,22 +120,31 @@ module StatementsHelper
   def add_new_sibling_buttons(statement_node, origin = nil, type = dom_class(statement_node))
     content = ''
     content << content_tag(:div, :class => 'siblings container') do
-      if statement_node.parent
-        add_new_sibling_button(statement_node)
+      buttons = ''
+      if statement_node.parent_node
+        buttons << add_new_sibling_button(statement_node)
       else
         if origin.blank? or %w(ds mi sr jp).include? origin[0,2] # create new question
-          add_new_question_button(!origin.blank? ? origin : nil)
+          buttons << add_new_question_button(!origin.blank? ? origin : nil)
         else #create sibling follow up question
           context_type = ''
           context_type << case origin[0,2]
             when 'fq' then "follow_up_question"
           end
 
-          link_to(I18n.t("discuss.statements.siblings.#{context_type}"),
-                new_statement_node_url(origin[2..-1], context_type, :origin => origin),
-                :class => "create_#{context_type}_button_32 resource_link ajax")
+          buttons << link_to(I18n.t("discuss.statements.siblings.#{context_type}"),
+                     new_statement_node_url(origin[2..-1], context_type, :origin => origin),
+                     :class => "create_#{context_type}_button_32 resource_link ajax")
         end
       end
+      # New alternative Button TODO: this is going to the logic above, in the future
+      if statement_node.class.has_alternatives?
+        buttons << link_to(I18n.t("discuss.statements.types.alternative"),
+                     new_statement_node_url(statement_node.target_id, statement_node.class.alternative.to_s.underscore,
+                                            :hub => 'alternative', :bids => params[:bids], :origin => origin),
+                     :class => "create_alternative_button_32 resource_link ajax")
+      end
+      buttons
     end
     content << content_tag(:div, '', :class => 'block_separator')
     content
@@ -147,7 +158,7 @@ module StatementsHelper
     statement_node.class.sub_types.map.each do |sub_type|
       sub_type = sub_type.to_s.underscore
       content << link_to(I18n.t("discuss.statements.types.#{sub_type}"),
-                         new_statement_node_url(statement_node.parent, sub_type),
+                         new_statement_node_url(statement_node.parent_node, sub_type),
                          :class => "create_#{sub_type}_button_32 resource_link ajax")
     end
     content
@@ -284,6 +295,12 @@ module StatementsHelper
     content_tag :span, I18n.t("discuss.statements.headings.#{type}"), :class => 'label'
   end
 
+  def alternatives_box_title
+    content_tag :div, :class => 'alternative_header' do
+      content_tag :label, I18n.t("discuss.statements.headings.alternatives")
+    end
+  end
+
   #
   # Creates the cancel button in the new statement form (right link will be handled in jquery).
   #
@@ -414,7 +431,7 @@ module StatementsHelper
       if statement_node.parent_id.nil?
         question_descendants_url(:origin => origin, :current_node => statement_node)
       else
-        descendants_statement_node_url(statement_node.parent,
+        descendants_statement_node_url(statement_node.parent_node,
                                        statement_node.class.name_for_siblings,
                                        :current_node => statement_node)
       end
@@ -487,7 +504,7 @@ module StatementsHelper
     if statement_node.nil? or statement_node.level == 0
       add_question_teaser_url(opts)
     else
-      add_teaser_url(statement_node.parent, opts.merge(:type => dom_class(statement_node)))
+      add_teaser_url(statement_node.parent_node, opts.merge(:type => dom_class(statement_node)))
     end
   end
 
@@ -568,9 +585,23 @@ module StatementsHelper
     breadcrumb_trail
   end
 
+  ################
+  # ALTERNATIVES #
+  ################
+
+  def render_alternatives(statement_node, children)
+    render :partial => 'statements/alternatives',
+             :locals => {:statement_node => statement_node,
+                         :alternatives => children}
+  end
+
+  def render_arrow
+    image_tag('page/discuss/alternatives-arrow.png', :class => 'arrow', :style => 'display:none')
+  end
+
   #
-  # This class does the heavy lifting of actually building the pagination links.
-  # It is used by the <tt>will_paginate</tt> helper internally.
+  # This class does the heavy lifting of actually building the pagination
+  # links. It is used by the <tt>will_paginate</tt> helper internally.
   #
   class MoreRenderer < WillPaginate::LinkRenderer
     def to_html

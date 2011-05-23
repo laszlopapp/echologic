@@ -37,12 +37,12 @@ Feature: Take Part on a question
   Scenario: Navigate with the next button through the proposals
     Given I am logged in as "user" with password "true"
       And I am on the Discuss Index
-      And I choose the "Test Question2?" Question 
+      And I choose the "Test Question2?" Question
       And I see a group of proposals
     When I choose the first Proposal
       Then I should see the group of proposal titles while pressing the next button
       Then I should see the group of proposal titles while pressing the prev button
-      
+
   @ok
   Scenario: Navigate with the next button through the improvements
     Given I am logged in as "user" with password "true"
@@ -93,6 +93,8 @@ Feature: Take Part on a question
       And I press "Save"
     Then I should see "Improving the unimprovable"
       And the proposal should have one improvement
+
+
 
   # TEST THE 'ADD NEW' SECTION
 
@@ -286,6 +288,74 @@ Feature: Take Part on a question
       And the question should have 0 siblings in session
 
 
+  ###############
+  # ALTERNATIVE #
+  ###############
+
+  Scenario: Add an Alternative to a Proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow localized "discuss.statements.types.alternative" within ".add_new_panel"
+      And I fill in the following:
+      | proposal_statement_document_title           | Alternativating         |
+      | proposal_statement_document_text            | I like to alternativate |
+      And I press "Save"
+    Then I should see "Alternativating"
+      And the proposal should have 1 alternative
+
+  Scenario: Add an Alternative to an Improvement
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I choose the "A better first proposal" Improvement
+      And I follow localized "discuss.statements.types.alternative" within ".add_new_panel"
+      And I fill in the following:
+      | improvement_statement_document_title           | Alternativating         |
+      | improvement_statement_document_text            | I like to alternativate |
+      And I press "Save"
+    Then I should see "Alternativating"
+      And the improvement should have 1 alternative
+
+
+  Scenario: Add an Alternative to a pro argument (and afterwards adding an alternative to the alternative)
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow localized "discuss.statements.types.pro_argument" within ".add_new_panel"
+      And I fill in the following:
+      | pro_argument_statement_document_title           | Pro 4 life                   |
+      | pro_argument_statement_document_text            | I submit this pro-life stand |
+      And I press "Save"
+      And I follow localized "discuss.statements.types.alternative" within ".add_new_panel"
+      And I fill in the following:
+      | contra_argument_statement_document_title           | Alternativating part 1  |
+      | contra_argument_statement_document_text            | I like to alternativate |
+      And I press "Save"
+    Then I should see "Alternativating part 1"
+      And I go to the proposal
+      And I choose the "Alternativating part 1" Contra Argument
+      And the contra argument should have 1 alternative
+      And I follow localized "discuss.statements.types.alternative" within ".add_new_panel"
+      And I fill in the following:
+      | pro_argument_statement_document_title           | Alternativating part 2  |
+      | pro_argument_statement_document_text            | I like to alternativate |
+      And I press "Save"
+    Then I should see "Alternativating part 2"
+      And I go to the proposal
+      And I choose the "Alternativating part 2" Pro Argument
+      And the pro argument should have 1 alternative
+
+
 
   @ok
   Scenario: Edit a proposal i created
@@ -300,6 +370,66 @@ Feature: Take Part on a question
        | proposal_statement_document_text  | somewhat more to propose at lease |
       And I press "Save"
     Then I should see "my updated proposal"
+
+  ################
+  # ALTERNATIVES #
+  ################
+
+  @ok
+  Scenario: Add 2 contrary statements to a Proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow localized "discuss.statements.create_alternative_link"
+      And I fill in the following:
+      | proposal_statement_document_title           | Pile of contradictions         |
+      | proposal_statement_document_text            | I aquit, I am too legit        |
+      And I press "Save"
+    Then I should see "Pile of contradictions"
+      And I should see "A first proposal!" within ".alternative_panel"
+      And the proposal should have 1 alternative
+      And I go to the proposal
+      And I follow localized "discuss.statements.create_alternative_link"
+      And I fill in the following:
+      | proposal_statement_document_title           | Another Pile of contradictions         |
+      | proposal_statement_document_text            | I aquit, I am too legit, I kick ass    |
+      And I press "Save"
+    Then I should see "Another Pile of contradictions"
+      And I should see "A first proposal!" within ".alternative_panel"
+      And I should see "Pile of contradictions" within ".alternative_panel"
+      And the proposal should have 2 alternatives
+
+  @ok
+  Scenario: Add 2 contrary statements to a Improvement
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I choose the "A better first proposal" Improvement
+      And I follow localized "discuss.statements.create_alternative_link"
+      And I fill in the following:
+      | improvement_statement_document_title           | Pile of contradictions         |
+      | improvement_statement_document_text            | I aquit, I am too legit        |
+      And I press "Save"
+    Then I should see "Pile of contradictions"
+      And I should see "A better first proposal" within ".alternative_panel"
+      And the improvement should have 1 alternative
+      And I go to the improvement
+      And I follow localized "discuss.statements.create_alternative_link"
+      And I fill in the following:
+      | improvement_statement_document_title           | Another Pile of contradictions         |
+      | improvement_statement_document_text            | I aquit, I am too legit, I kick ass    |
+      And I press "Save"
+    Then I should see "Another Pile of contradictions"
+      And I should see "A better first proposal" within ".alternative_panel"
+      And I should see "Pile of contradictions" within ".alternative_panel"
+      And the improvement should have 2 alternatives
+
 
 
 # Open Questions:
@@ -373,7 +503,7 @@ Feature: Take Part on a question
     When I go to the question
       And I follow "Edit"
     Then I should not see localized "discuss.statements.being_edited"
-    
+
   Scenario: User sees the edit button, then someone supports it, and then there is no more edit for no one
     Given I am logged in as "user" with password "true"
       And there is a question i have created
@@ -418,8 +548,8 @@ Feature: Take Part on a question
       And I go to the proposal
       And I follow localized "discuss.tooltips.incorporate"
     Then I should see localized "discuss.statements.being_edited"
-    
-    
+
+
   Scenario: User checks authors from a statement
     Given I am logged in as "user" with password "true"
     When I am on the discuss index
@@ -428,8 +558,8 @@ Feature: Take Part on a question
       And I choose the "Test Question2?" Question
       And I follow "Authors"
     Then I should see "Edi Tor"
-  
-  
+
+
 #  Scenario: User open a previously closed children's block
 #    Given proposals are not immediately loaded on questions
 #      And I am logged in as "user" with password "true"
@@ -440,7 +570,7 @@ Feature: Take Part on a question
 #      And there are hidden proposals for this question
 #      And I follow "proposals"
 #    Then I should see the hidden proposals
-        
+
   Scenario: User presses more button on question's proposals children block
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
@@ -452,7 +582,7 @@ Feature: Take Part on a question
       # needed because of the TOP CHILDREN mechanism
       And I follow localized "application.general.more" within ".proposals"
     Then I should see the hidden proposals
-    
+
   Scenario: User opens question's siblings block
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
@@ -460,9 +590,9 @@ Feature: Take Part on a question
       And I follow "echonomyJAM"
       And I choose the "Test Question?" Question
     Then I should not see "Test Question2?"
-      And I follow "show_siblings_button" within ".header_buttons"
+      And I follow "Questions" within ".header_buttons"
     Then I should see "Test Question2?"
-  
+
   Scenario: User opens proposal's siblings block
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
@@ -471,6 +601,5 @@ Feature: Take Part on a question
       And I choose the "Test Question?" Question
       And I choose the "Second Proposal" Proposal
     Then I should not see "Eighth Proposal"
-      And I follow "show_siblings_button" within ".proposal .header_buttons"
+      And I follow "Proposals" within ".proposal .header_buttons"
     Then I should see "Eighth Proposal"
-      

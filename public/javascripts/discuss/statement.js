@@ -274,11 +274,16 @@
 		   * Handles the click on the more Button event (replaces it with an element of class 'more_loading')
 		   */
 		  function initMoreButton() {
-		    statement.find(".more_pagination a:Event(!click)").bind("click", function() {
-          var moreButton = $(this);
-					moreButton.replaceWith($('<span/>').text(moreButton.text()).addClass('more_loading'));
-		    });
+				initContainerMoreButton(statement);
 		  }
+			
+			function initContainerMoreButton(container) {
+				container.find(".more_pagination a:Event(!click)").bind("click", function() {
+          var moreButton = $(this);
+          moreButton.replaceWith($('<span/>').text(moreButton.text()).addClass('more_loading'));
+        });
+			}
+			
 
       /*
        * Sets the different links on the statement UI, after the user clicked on them.
@@ -351,6 +356,12 @@
 
 		      return false;
 		    });
+  
+	
+	      
+	      statement.find('.alternatives').each(function(){
+					initSiblingsLinks($(this));
+				});
 
         statement.find('.children').each(function() {
 					initChildrenLinks($(this));
@@ -490,7 +501,7 @@
 
 				reinitialiseChildren: function(childrenContainerSelector) {
 					var container = statement.find(childrenContainerSelector);
-					initMoreButton();
+					initContainerMoreButton(container);
           initChildrenLinks(container);
 					if (isEchoable) {
             statement.data('echoableApi').loadRatioBars(container);
@@ -499,6 +510,7 @@
 
 				reinitialiseSiblings: function(siblingsContainerSelector) {
           var container = statement.find(siblingsContainerSelector);
+					initContainerMoreButton(container);
           initSiblingsLinks(container);
 					if (isEchoable) {
 			  		statement.data('echoableApi').loadRatioBars(container);

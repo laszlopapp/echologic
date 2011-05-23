@@ -3,7 +3,7 @@
   <% content_tag :div, :class => 'header_buttons' do %>
 	 <%= navigation_buttons(statement_node, @type,:classes => "add",:origin => params[:origin]) %>
 	 <%= render :partial => "statements/descendants", 
-              :locals => {:type => @type.to_s.underscore, :display => true,
+              :locals => {:child_type => @type.to_s.underscore, :display => true,
               :children => @children[@type]} if @children and @children[@type] %>
 	<% end %>
   <% content_tag :div, :class => 'add_header_link'  do %>

@@ -98,7 +98,7 @@ module ActsAsDouble
           opts[:type] ||= self.class.to_s
           sibling_statements(opts).map{|s|s.map(&:id)}.each_with_index do |s, index|
             siblings << s + ["/#{self.parent_id.nil? ? '' :
-                              "#{self.parent.target_id}/"}add/#{self.class.sub_types[index].to_s.underscore}"]
+                              "#{self.parent_node.target_id}/"}add/#{self.class.sub_types[index].to_s.underscore}"]
           end
           #order them properly, as you want them to be navigated
           ordered_siblings = self.class.merge_statement_lists(siblings)

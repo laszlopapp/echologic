@@ -500,6 +500,7 @@ en:
       create_pro_argument: "Post a new PRO argument to this proposal"
       create_contra_argument: "Post a new CONTRA argument to this proposal"
       create_follow_up_question: "Post a new new follow-up question concerning the current statement"
+      create_alternative: "Post a new contrary statement"
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your echo to stop supporting this statement'
       publish: |
@@ -531,6 +532,7 @@ en:
       create_pro_argument_link: Add new PRO argument
       create_contra_argument_link: Add new CONTRA argument
       create_follow_up_question_link: Add new follow-up question
+      create_alternative_link: Add new contrary statement
       recommend_link: 'Support (echo)'
       unrecommend_link: 'Withdraw vote'
       support_link: 'Support (echo)'
@@ -583,6 +585,7 @@ en:
         pro_argument: 'Pro Argument'
         contra_argument: 'Contra Argument'
         follow_up_question: 'Follow-Up Question'
+        alternative: 'Alternative'
       new:
         question: 'New Question'
         proposal: 'New Proposal'
@@ -596,6 +599,7 @@ en:
         improvement: 'Additions'
         argument: 'Pros & Cons'
         follow_up_question: 'Follow-up Questions'
+        alternatives: 'Alternatives'
       sibling_labels:
         question: 'Questions'
         proposal: 'Proposals'

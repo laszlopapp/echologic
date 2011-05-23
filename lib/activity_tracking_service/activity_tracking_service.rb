@@ -23,9 +23,9 @@ class ActivityTrackingService
       user.subscriptions << Subscription.new(:subscriber => user,
                                              :subscribeable => echoable)
     end
-    if echoable.parent && !echoable.parent.subscriptions.find_by_subscriber_id(user.id)
+    if echoable.parent_node && !echoable.parent_node.subscriptions.find_by_subscriber_id(user.id)
       user.subscriptions << Subscription.new(:subscriber => user,
-                                             :subscribeable => echoable.parent)
+                                             :subscribeable => echoable.parent_node)
     end
   end
 
@@ -34,9 +34,9 @@ class ActivityTrackingService
     subscription = echoable.subscriptions.find_by_subscriber_id(user.id)
     echoable.subscriptions.delete(subscription) if subscription
 
-    if echoable.parent
+    if echoable.parent_node
       parent_subscription = user.subscriptions.find_by_subscribeable_id(echoable.parent_id)
-      if (user.subscriptions.map(&:subscribeable_id) & echoable.parent.child_statements.map(&:id)).empty?
+      if (user.subscriptions.map(&:subscribeable_id) & echoable.parent_node.child_statements.map(&:id)).empty?
         user.subscriptions.delete(parent_subscription) if parent_subscription
       end
     end
@@ -66,17 +66,17 @@ class ActivityTrackingService
     event_json = {
       :type => node.class.name.underscore,
       :id => node.target_id,
-      :level => node.class.is_top_statement? ? node.parent.level + 1 : node.level,
+      :level => node.class.is_top_statement? ? node.parent_node.level + 1 : node.level,
       :tags => node.filtered_topic_tags,
       :documents => set_titles_hash(node.statement_documents),
-      :parent_documents => node.parent ? set_titles_hash(node.parent.statement_documents) : nil,
+      :parent_documents => node.parent_node ? set_titles_hash(node.parent_node.statement_documents) : nil,
       :parent_id => node.parent_id || -1,
       :operation => 'created'
     }.to_json
 
     Event.create(:event => event_json,
                  :operation => 'created',
-                 :subscribeable => node.parent.nil? ? node : node.parent)
+                 :subscribeable => node.parent_node.nil? ? node : node.parent_node)
   end
 
   def set_titles_hash(documents)

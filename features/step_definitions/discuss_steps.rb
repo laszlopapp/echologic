@@ -30,8 +30,8 @@ When /^I choose the second Question$/ do
 end
 
 When /^I choose the "([^\"]*)" ([^\"]*)$/ do |name, type|
-  type_class = type.classify.constantize
-  type = type.underscore
+  type_class = type.split(' ').join('').constantize
+  type = type_class.name.underscore
   response.should have_selector("li.#{type}") do |selector|
     selector.each do |statement|
       elem = statement.at_css("a.#{type}_link")
@@ -140,6 +140,17 @@ end
 Then /^the question should have one proposal$/ do
   @question.reload
   @question.children.proposals.count.should >= 1
+end
+
+Then /^the ([^\"]*) should have 1 alternative$/ do |type|
+  Then "the #{type} should have 1 alternatives"
+end 
+
+Then /^the ([^\"]*) should have ([^\"]*) alternatives$/ do |type, number|
+  var = instance_variable_get("@#{type.split(' ').join('_')}")
+  var.reload
+  n = number.to_i
+  assert_equal n, var.alternatives.count
 end
 
 Then /^the question "([^\"]*)" should have "([^\"]*)" as tags$/ do |title, tags|

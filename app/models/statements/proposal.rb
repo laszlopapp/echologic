@@ -6,11 +6,14 @@
 
 class Proposal < StatementNode
   acts_as_draftable :tracked, :staged, :approved, :incorporated, :passed
-
+  acts_as_alternative :Proposal
   has_children_of_types [:Improvement,true], [:Argument,true]
 
   # Overwriting the acts_as_taggable function saying this object is not taggable anymore
   def taggable?
     false
   end
+  
+  #Overwriting of nested set function (hub's make it impossible to level them right)
+  def level; 1; end
 end

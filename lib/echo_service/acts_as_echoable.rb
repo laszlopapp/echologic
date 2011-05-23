@@ -135,7 +135,7 @@ module ActiveRecord
 
             # Records the creator's support for the statement.
             def author_support
-              if (!self.incorporable? or self.parent.supported?(self.creator)) # and self.echoable? SHOULD I????
+              if (!self.incorporable? or self.parent_node.supported?(self.creator)) # and self.echoable? SHOULD I????
                 self.supported!(self.creator)
               end
             end

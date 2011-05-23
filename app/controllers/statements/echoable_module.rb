@@ -16,7 +16,7 @@ module EchoableModule
   def echo
     begin
       return if !@statement_node.echoable?
-      if !@statement_node.incorporable? or @statement_node.parent.supported?(current_user)
+      if !@statement_node.incorporable? or @statement_node.parent_node.supported?(current_user)
         @statement_node.supported!(current_user)
         set_statement_info('discuss.statements.statement_supported')
         respond_to_js :redirect_to => statement_node_url(@statement_node), :template_js => 'statements/echo'

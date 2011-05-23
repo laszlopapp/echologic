@@ -20,6 +20,8 @@
 
 	  function Echoable(echoable) {
       var echo_button, echo_label;
+			/* alternatives auxiliary function */
+			var has_alternatives = false;
 			/* Social Panel Variables */
 			var social_echo_button, social_container, social_panel, social_account_list, social_submit_button;
       initialize();
@@ -42,6 +44,9 @@
 					initNewStatementEchoButton();
 				} else {
 					initEchoButton();
+				}
+				if(echoable.find('.alternative_panel').length > 0) {
+					initAlternativePanel();
 				}
 		  }
 
@@ -167,6 +172,7 @@
 								// IMPORTANT: social echo button must be expandable!
 								toggleSocialPanel();
               }
+							if (has_alternatives) { echoable.data('alternativeApi').normal_mode(); }
 							social_echo_button.removeClass('clicked');
 						},
 
@@ -324,6 +330,25 @@
         });
       }
 
+      /*********************/
+			/* Alternative Panel */
+			/*********************/
+
+      function initAlternativePanel() {
+				has_alternatives = true;
+				echoable.alternative();
+				var api = echoable.data('alternativeApi');
+				echo_button.bind('mouseover', function(){
+					if (!echo_button.hasClass('clicked')) {
+				  	api.highlight();
+				  }
+				});
+				echo_button.bind('mouseleave', function(){
+					if (!echo_button.hasClass('clicked')) {
+				  	api.normal_mode();
+				  }
+        });
+			}
 			// Public API
       $.extend(this,
       {

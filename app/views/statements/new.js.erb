@@ -1,4 +1,4 @@
-<% level = (@statement_node.parent.nil? or @statement_node.class.is_top_statement?) ? 0 : @statement_node.parent.level + 1 %>
+<% level = (@statement_node.parent_node.nil? or @statement_node.class.is_top_statement?) ? 0 : @statement_node.parent_node.level + 1 %>
 var element = $("<%= escape_javascript(render :partial => 'statements/new') %>").statement({'level' : <%= level %>});
 element.data('api').removeBelow();
 

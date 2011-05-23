@@ -2,14 +2,16 @@
 <% display ||= false %>
 <% no_more ||= false %>
 <% new_level ||= false %>
-<div class="expandable_content children_container" style="<%= display ? 'display:block' : 'display:none'%>">
+<% label_type ||= child_type.underscore %>
+<div class="expandable_content children_container" style="<%= display ? 'display:inline-block' : 'display:none'%>">
 
-	<%= render :partial => 'statements/elements_list' , :locals => { :children => children, :type => type, :new_level => new_level }%>
+	<%= render :partial => 'statements/elements_list' , :locals => { :children => children, :label_type => label_type, 
+                                                                   :child_type => child_type, :new_level => new_level }%>
 
   <% if !no_more %> 
 		<div class="more_pagination">
 			<% if !children.blank? and children.current_page != children.total_pages %>
-			  <%= more_children(@statement_node,type,@page || 0) %>
+			  <%= more_children(@statement_node,label_type,@page || 0) %>
 		  <% end %>
 		</div>
 	<% end %>

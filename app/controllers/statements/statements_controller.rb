@@ -134,8 +134,8 @@ class StatementsController < ApplicationController
     form_tags = attrs.delete(:topic_tags) || ""
 
     begin
-      parent_node_id = attrs[:parent_id]
-      attrs.merge!({:root_id => StatementNode.find(parent_node_id).root_id}) if !parent_node_id.blank?
+      node_id = attrs[:parent_id]
+      attrs.merge!({:root_id => StatementNode.find(node_id).root_id}) if !node_id.blank?
 
 
       # Prepare in memory
@@ -156,11 +156,17 @@ class StatementsController < ApplicationController
         @tags = @statement_node.topic_tags = form_tags
       end
 
+
+
       # Persisting
       StatementNode.transaction do
+
+        # IF ALTERNATIVE
+        @statement_node.move_to_alternatives_hub(node_id) if params[:hub] and params[:hub].eql? 'alternative'
+
         if @statement_node.save
           # add to tree
-          if parent_node_id.blank? or @statement_node.class.is_top_statement?
+          if node_id.blank? or @statement_node.class.is_top_statement?
             @statement_node.target_statement.update_attribute(:root_id, @statement_node.target_id)
           end
 
@@ -180,7 +186,6 @@ class StatementsController < ApplicationController
           created = true
         end
       end
-
 
       # Rendering
       if created
@@ -293,7 +298,6 @@ class StatementsController < ApplicationController
         show_statement true
       end
 
-
     rescue Exception => e
       log_error_statement(e, "Error updating statement node '#{@statement_node.id}'.")
     else
@@ -367,7 +371,7 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def children
-    @type = params[:type].camelize.to_sym
+    @type = params[:type].classify.to_sym
     begin
       load_children :type => @type
       respond_to do |format|
@@ -389,15 +393,22 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def more
-    @type = params[:type].camelize.to_sym
+    @type = params[:type].classify.to_sym
     @page = params[:page] || 1
     @per_page = MORE_CHILDREN
     @offset = @page.to_i == 1 ? TOP_CHILDREN : 0
     begin
-      load_children :type => @type, :page => @page, :per_page => @per_page
+      if @type.eql? :Alternative
+        @offset =  TOP_ALTERNATIVES if @offset > 0
+        template = @statement_node.class.alternative_more_template
+        load_alternatives @page, @per_page
+      else
+        template = @type.to_s.constantize.more_template
+        load_children :type => @type, :page => @page, :per_page => @per_page
+      end
       respond_to do |format|
         format.html{show}
-        format.js {render :template => @type.to_s.constantize.more_template}
+        format.js {render :template => template}
       end
     rescue Exception => e
       log_error_home(e, "Error loading more children of type #{@type}.")
@@ -444,7 +455,7 @@ class StatementsController < ApplicationController
       @statement_node.destroy
       set_statement_info("discuss.messages.deleted")
       flash_info
-      redirect_to(@statement_node.parent ? statement_node_url(@statement_node.parent) : discuss_search_url)
+      redirect_to(@statement_node.parent_node ? statement_node_url(@statement_node.parent_node) : discuss_search_url)
     rescue Exception => e
       log_message_error(e, "Error deleting statement node '#{@statement_node.id}'.") do
         flash_error and redirect_to_statement
@@ -495,6 +506,18 @@ class StatementsController < ApplicationController
 
   protected
 
+  def load_alternatives(page = 1, per_page = TOP_ALTERNATIVES)
+    @children ||= {}
+    @children_documents ||= {}
+    @children[:Alternative] = @statement_node.paginated_alternatives(page,
+                                                                     per_page,
+                                                                     :language_ids => filter_languages_for_children,
+                                                                     :user => current_user)
+    @children_documents.merge!(search_statement_documents :language_ids => filter_languages_for_children,
+                                                          :statement_ids => @children[:Alternative].flatten.map(&:statement_id))
+
+  end
+
   #
   # Loads the children of the current statement
   #
@@ -523,6 +546,7 @@ class StatementsController < ApplicationController
         end
       end
     end
+    load_alternatives if @statement_node.class.has_alternatives?
   end
 
   #
@@ -629,6 +653,17 @@ class StatementsController < ApplicationController
   end
 
   #
+  # Checks if the user can access this very statement
+  #
+  def check_statement_permissions
+    # check if the user has permissions to read this statement
+    if @statement_node and !check_tag_permissions(@statement_node.root.topic_tags, false)
+      redirect_to_url discuss_search_url, 'discuss.statements.read_permission'
+      return
+    end
+  end
+
+  #
   # Redirect to parent if incorporable is approved or already incorporated.
   #
   def redirect_if_approved_or_incorporated
@@ -641,10 +676,10 @@ class StatementsController < ApplicationController
         end
         respond_to do |format|
           flash_info
-          format.html { redirect_to statement_node_url @statement_node.parent }
+          format.html { redirect_to statement_node_url @statement_node.parent_node }
           format.js do
             render :update do |page|
-              page.redirect_to statement_node_url @statement_node.parent
+              page.redirect_to statement_node_url @statement_node.parent_node
             end
           end
         end
@@ -708,8 +743,8 @@ class StatementsController < ApplicationController
   # @bids(String) : breadcrumb keycodes separated by comma
   #
   def set_parent_breadcrumb
-    return if @statement_node.parent.nil?
-    parent_node = @statement_node.parent
+    return if @statement_node.parent_node.nil?
+    parent_node = @statement_node.parent_node
     statement_document = search_statement_documents(:statement_ids => [parent_node.statement_id])[parent_node.statement_id] ||
                          parent_node.document_in_original_language
     key = Breadcrumb.instance.generate_key(@statement_node.class.name.underscore)
@@ -925,7 +960,7 @@ class StatementsController < ApplicationController
   # @previous_type(String) : type of breadcrumb
   #
   def load_origin_statement
-    @previous_node = @statement_node.parent
+    @previous_node = @statement_node.parent_node
     @previous_type = case @statement_node.class.name
       when "FollowUpQuestion" then "fq"
     end

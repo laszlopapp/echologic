@@ -23,7 +23,7 @@ german-question:
   statement_id: <%= Fixtures.identify('third-question-statement') %>
   echo_id: <%= Echo.create.id %>
   lft: 1
-  rgt: 4
+  rgt: 8
 
 original-language-question:
   root_id: <%= Fixtures.identify('original-language-question') %>
@@ -158,8 +158,8 @@ second-german-proposal:
   creator_id: <%= Fixtures.identify(:editor) %>
   statement_id: <%= Fixtures.identify('second-german-proposal-statement') %>
   echo_id: <%= Echo.create.id %>
-  #lft: 2
-  #rgt: 3
+  lft: 2
+  rgt: 3
 
 not-published-proposal:
   root_id: <%= Fixtures.identify('test-question') %>
