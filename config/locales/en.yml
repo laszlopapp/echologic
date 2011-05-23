@@ -181,7 +181,7 @@ en:
         failed_social: Please log in with an account you registered with or that you connected to your echo account.
     signout:
       messages:
-        success: "Logout successful. See you later. Bye!"
+        success: "Logout successful. Please don't forget to also logout from Facebook & co. See you later. Bye!"
     user_sessions:
       messages:
         session_timeout: "Your session has expired. Please log in again."
@@ -562,7 +562,11 @@ en:
           Please describe your proposal in more detail...<br/><br/>
           Depending on the kind of question, a proposal can be understood as a possible answer,
           solution approach or position to the question.
-        improvement: Please describe your addition or amendment to the proposal in more detail...
+        improvement: |
+          Please describe your addition or amendment to the proposal in more detail...<br/><br/>
+          These additions serve as a basis for echos democratic process of joint elaboration and
+          improvement of proposals. The author of the additions with the greatest support are regularly given the
+          opportunity to incorporate their ideas and thoughts into the proposal.
         pro_argument: Please describe your point FOR the proposal in more detail...
         contra_argument: Please describe your point AGAINST the proposal in more detail...
         follow_up_question: Please describe your follow-up question in more detail...
