@@ -1,10 +1,10 @@
 <% type_dom_class = @type.to_s.underscore %>
-var elements = $("<%= escape_javascript(render :partial => "statements/children_list", :locals => {:children => @children[@type],
-                                                                                                   :child_type => type_dom_class, 
-                                                                                                   :new_level => true}) %>");
+var elements = $("<%= escape_javascript(render :partial => @children_list_template, :locals => {:children => @children[@type],
+                                                                                                 :child_type => type_dom_class,
+                                                                                                 :new_level => true}) %>");
 var statement = $('#statements div.<%=dom_class(@statement_node)%>');
-var element = statement.find('.<%= type_dom_class.pluralize %> .children_header');
 
-elements.insertAfter(element).animate(toggleParams, 300);
+var headline = statement.find('.children a.<%= type_dom_class.pluralize %>').parent();
 
-statement.data('api').reinitialiseChildren(".<%=type_dom_class.pluralize%>");
+headline.next().prepend(elements);
+statement.data('api').reinitialiseChildren(".children .<%= type_dom_class.pluralize %>");

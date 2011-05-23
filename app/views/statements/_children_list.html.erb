@@ -3,12 +3,12 @@
 <% no_more ||= false %>
 <% new_level ||= false %>
 <% label_type ||= child_type.underscore %>
-<div class="expandable_content children_container" style="<%= display ? 'display:inline-block' : 'display:none'%>">
+<div class="<%= child_type.pluralize %> expandable_content children_container" style="<%= display ? 'display:inline-block' : 'display:none'%>">
 
-	<%= render :partial => 'statements/elements_list' , :locals => { :children => children, :label_type => label_type, 
+	<%= render :partial => 'statements/elements_list' , :locals => { :children => children, :label_type => label_type,
                                                                    :child_type => child_type, :new_level => new_level }%>
 
-  <% if !no_more %> 
+  <% if !no_more %>
 		<div class="more_pagination">
 			<% if !children.blank? and children.current_page != children.total_pages %>
 			  <%= more_children(@statement_node,label_type,@page || 0) %>

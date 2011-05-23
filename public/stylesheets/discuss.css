@@ -1337,9 +1337,50 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* Children statements */
 /***********************/
 
-.statement .children {
+.statement .children.header_block {
+	background: url("../images/page/tabbar_header_left.png") no-repeat scroll left top transparent;
+	padding-top: 17px;
 	display: block;
 	position: relative;
+}
+
+.statement .children.header_block .headline {
+	background: url("../images/page/tabbar_header_right.png") no-repeat scroll right top transparent;
+	margin-top: -17px !important;
+	height: 40px;
+}
+
+
+.statement .children .headline .child_header {
+	background: url("../images/page/tabbar_tab_left.png") no-repeat scroll 0 0;
+	background-color: transparent;
+	height: 43px;
+	padding-left: 23px;
+	clear: right;
+	text-align: center;
+	display: inline-block;
+	margin-top: -1px;
+}
+.statement .children .headline .child_header.selected {
+	background-position: left bottom;
+}
+
+.statement .children .headline .child_header .header_content {
+  background: url("../images/page/tabbar_tab_right.png") no-repeat scroll right top transparent;
+	height: 43px;
+	min-width: 100px;
+	padding: 0 20px 0 0;
+	line-height: 40px;
+	display: inline-block;
+	color: #21587F;
+}
+.statement .children .headline .child_header.selected .header_content {
+	background-position: right bottom;
+	color: #7BB031;
+}
+
+.statement .children .headline .header_content:hover {
+  color: #7BB031 !important;
 }
 
 .statement .children .headline .count {
@@ -1795,8 +1836,8 @@ form.statement fieldset ol li.tags_container {
 }
 
 .statement .children .loading {
-  right: 33px;
-	top: 5px;
+  right: 40px;
+	top: 10px;
 }
 
 .expandable {

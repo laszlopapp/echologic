@@ -61,6 +61,7 @@
 				}
 
 				initExpandables();
+        initChildrenButtons();
 
         if (isEchoable()) {
           statement.echoable();
@@ -132,6 +133,53 @@
 			}
 
 
+			/*
+       * Handles the children panel buttons
+       */
+			function initChildrenButtons() {
+				statement.find(".children").each(function(){
+					var container = $(this);
+					var loading = container.find('.headline .loading');
+				  container.find("a.child_header").bind('click', function(){
+						var last_button = container.find('a.child_header.selected');
+						var button = $(this);
+						var type = button.attr('type');
+						var panel = container.find('div.' + type);
+						if (panel.length > 0) {
+							if (!panel.is(':visible')) {
+						  	container.find('div.children_container').hide();
+						  	panel.show();
+						  	last_button.removeClass('selected');
+						  	button.addClass('selected');
+						  }
+						} else {
+							var path = button.attr('href');
+							loading.show();
+							$.ajax({
+				        url:      path,
+				        type:     'get',
+				        dataType: 'script',
+								success: function(data, status) {
+									panel = container.find('.children_container:first');
+									if (!panel.is(':visible')) {
+		                container.find('div.children_container').hide();
+		                panel.show();
+		                last_button.removeClass('selected');
+		                button.addClass('selected');
+										loading.hide();
+		              }
+								},
+								error: function() {
+									loading.hide();
+								}
+				      });
+						}
+						return false;
+					});
+				});
+			}
+
+
       function loadJumpLink(url){
 				var anchor_index = url.indexOf("#");
         if (anchor_index != -1) {
@@ -139,11 +187,11 @@
         }
         var bid = 'jp' + statementId;
         var bids = $.fragment().bids;
-        
+
         bids = (bids && bids.length > 0) ? bids.split(',') : [];
         bids.push(bid);
         return $.queryString(url, {"bids" : bids.join(','), "origin" : bid });
-				
+
 			}
 
       function initContentLinks() {
@@ -151,14 +199,14 @@
           var link = $(this);
           link.attr("target", "_blank");
           var url = link.attr("href");
-					
+
           if (url.substring(0,7) != "http://" && url.substring(0,8) != "https://") {
             url =  "http://" + url;
           }
 					if (url.match(/\/statement\/\d+/)) { // if this link goes to another statement, then add a jump bid
 						url = loadJumpLink(url);
 					}
-					
+
 					link.attr('href', url);
         });
       }
@@ -275,14 +323,30 @@
 		  function initMoreButton() {
 				initContainerMoreButton(statement);
 		  }
-			
+
 			function initContainerMoreButton(container) {
 				container.find(".more_pagination a:Event(!click)").bind("click", function() {
           var moreButton = $(this);
-          moreButton.replaceWith($('<span/>').text(moreButton.text()).addClass('more_loading'));
-        });
+					var moreLoading = $('<span/>').text(moreButton.text()).addClass('more_loading');
+					moreButton.hide();
+					moreLoading.insertAfter(moreButton);
+          var path = moreButton.attr('href');
+					$.ajax({
+				  	url: path,
+				  	type: 'get',
+				  	dataType: 'script',
+				  	success: function(data, status){
+							moreButton.remove();
+				  	},
+				  	error: function(){
+				  	 moreLoading.remove();
+						 moreButton.show();
+				  	}
+				  });
+					return false;
+		    });
 			}
-			
+
 
       /*
        * Sets the different links on the statement UI, after the user clicked on them.
@@ -291,8 +355,8 @@
 	     statement.detectFlicks({
          axis: 'y',
          threshold: 15,
-         flickEvent: function(d) 
-				 { 
+         flickEvent: function(d)
+				 {
 				   alert('flick detected: ' + d.direction);
 					 var button = null;
 					 switch(d.direction) {
@@ -318,20 +382,20 @@
           return $.fragment().origin;
         }
 			}
-			
+
 		  /*
 		   * Sets the different links on the statement UI, after the user clicked on them.
 		   */
 		  function initAllStatementLinks() {
 				var key = generateBreadcrumbKey();
-				
+
         statement.find('.header a.statement_link').bind("click", function() {
-					
+
 					var old_stack = $.fragment().sids;
 		      var current_stack = getStatementsStack(this, false);
 					var current_bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
 					var bids = current_bids;
-					
+
 					// Update the bids
 					var index = $.inArray(key, bids);
 					if (index != -1) { // if parent breadcrumb exists, then delete everything after it
@@ -339,7 +403,7 @@
 					}
 					// save element after which the breadcrumbs will be deleted
           $('#breadcrumbs').data('element_clicked', key);
-					
+
 					var origin = $.fragment().origin;
 
 					if (current_stack.join(',') != old_stack) {
@@ -355,9 +419,9 @@
 
 		      return false;
 		    });
-  
-	
-	      
+
+
+
 	      statement.find('.alternatives').each(function(){
 					initSiblingsLinks($(this));
 				});
@@ -388,12 +452,12 @@
        */
       function initStatementLinks(container, newLevel) {
 				var current_stack = getStatementsStack(null, newLevel);
-				
+
 				container.find('a.statement_link').bind("click", function() {
 					var childId = $(this).parent().attr('statement-id');
 					var key = generateKey($(this).parent().attr('class'));
 					var current_bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
-					
+
 					var bids = current_bids;
           if(newLevel){ // necessary evil: erase all breadcrumbs after the parent of the clicked statement
             var or_index = bids.length == 0 ? 0 : $.inArray($.fragment().origin, bids);
@@ -401,7 +465,7 @@
             bids = bids.splice(0, level);
             var new_bid = key + statementId;
             bids.push(new_bid);
-          } 
+          }
 					else { // siblings box or maybe alternatives box
 						var parentKey = generateBreadcrumbKey();
 						var index = $.inArray(parentKey, bids);
@@ -409,7 +473,7 @@
 	            bids = bids.splice(0, index + 1);
 	          }
 					}
-					
+
 					var stack = current_stack, origin;
           switch(key){
 						case 'fq':
@@ -421,11 +485,11 @@
 							origin = $.fragment().origin;
 						  break;
 					}
-					
-					
-          
+
+
+
           $('#breadcrumbs').data('element_clicked', generateBreadcrumbKey());
-					
+
           $.setFragment({
             "sids": stack.join(','),
             "new_level": newLevel,
@@ -435,10 +499,10 @@
           return false;
         });
       }
-			
-			
 
-      
+
+
+
 
 
 		  /*
@@ -452,7 +516,7 @@
 					// Get soon to be visible statement
 					var path = statementLink.href.split("/");
 					var id = path.pop().split('?').shift();
-					
+
 					var current_sids;
 					if (id.match(/\d+/)) {
 						current_sids = id;
@@ -466,7 +530,7 @@
 						current_sids = current_sids.join('/');
 					}
 		    }
-				
+
 		    // Get current_stack of visible statements (if any matches the clicked statement, then break)
 				var current_stack = [];
 		    $("#statements .statement").each( function(index){
@@ -573,7 +637,7 @@
 		      statement.find('.supporters_label').hide();
 					return this;
 		    },
-        loadRatioBars: function(container) 
+        loadRatioBars: function(container)
         {
           initRatioBars(container);
         }

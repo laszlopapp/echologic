@@ -31,25 +31,67 @@ module StatementsHelper
   # Renders all the possible children of the current node
   # (per type, ordering must be defined in the node type definition).
   #
-  def render_children(statement_node, children, type = dom_class(statement_node))
-    return content_tag :div, '', :style => "clear:right" if children.blank?
-    val = ''
-    statement_node.class.children_types.each do |child_type|
-      dom_child_class = child_type.to_s.underscore
-      arg = children[child_type]
-      if (arg.kind_of?(Integer))
-        type_children = children_statement_node_url(statement_node, :type => dom_child_class)
-        count = arg
-      else
-        type_children = arg
-        count = child_type.to_s.constantize.double? ? type_children.map(&:total_entries).sum : type_children.total_entries
+  def render_all_children(statement_node, children, type = dom_class(statement_node))
+
+    content = ''
+    content << render_children(statement_node, statement_node.class.children_types, children)
+    content << render_children(statement_node, statement_node.class.default_children_types, children)
+    content
+  end
+
+
+  def render_children(statement_node, children_types, children)
+    return content_tag :div, '', :style => "clear:right" if children_types.blank?
+    content_tag :div, :class => "children header_block discuss_right_block" do
+      content = ''
+
+      # load variables
+      children_to_render = {}
+      headers = []
+      selected = nil
+      children_types.each_with_index do |child_type, index|
+        dom_child_type = child_type.to_s.underscore
+        arg = children[child_type]
+        if arg.kind_of?(Integer)
+          count = arg
+        else
+          selected = index if selected.nil?
+          count = child_type.to_s.constantize.double? ? arg.map(&:total_entries).sum : arg.total_entries
+          children_to_render[dom_child_type] = arg
+        end
+        headers << [dom_child_type, count]
       end
-      val << render(:partial => 'statements/children',
-                    :locals => {:type => dom_child_class,
-                                :count => count,
-                                :children => type_children})
+      headers
+
+
+      # load headers
+      content << content_tag(:div, :class => "headline expandable") do
+        header_content = ''
+        headers.each_with_index do |h, i|
+          header_content << children_heading_title(h[0],h[1],
+                            :path => children_statement_node_url(statement_node, :type => h[0]),
+                            :selected => i==selected)
+        end
+        header_content << content_tag(:span, '', :class => 'loading', :style => 'display: none')
+        header_content << content_tag(:div, '', :class => 'expand_icon')
+        header_content
+      end
+
+      # load children
+      content << content_tag(:div, :class => 'children_content expandable_content') do
+        children_content = ''
+        headers.each_with_index do |h, index|
+          children_content << render(:partial => h[0].classify.constantize.children_list_template,
+                            :locals => {:child_type => h[0],
+                                        :children => children_to_render[h[0]],
+                                        :parent => @statement_node,
+                                        :display => index==0,
+                                        :new_level => true}) if children_to_render[h[0]]
+        end
+        children_content
+      end
+      content
     end
-    val
   end
 
 
@@ -171,7 +213,7 @@ module StatementsHelper
     children_types = statement_node.class.children_types(:no_default => true, :expand => true)
     return '' if children_types.empty?
     content = ''
-    content << content_tag(:div, :class => 'children container') do
+    content << content_tag(:div, :class => 'container') do
       children = ''
       children_types.each do |type|
         children << add_new_child_link(statement_node, type.to_s.underscore)
@@ -191,7 +233,7 @@ module StatementsHelper
     content_tag(:div, add_new_child_link(statement_node, "follow_up_question",
                                                          :bids => bids.join(","),
                                                          :origin => params[:origin]),
-                :class => 'children container')
+                :class => 'container')
   end
 
   #
@@ -281,11 +323,17 @@ module StatementsHelper
   #
   # Returns the block heading for the children of the current statement node.
   #
-  def children_heading_title(type, count)
-    title = ''
-    title << I18n.t("discuss.statements.headings.#{type}")
-    title << content_tag(:span, " (#{count})", :class => 'count')   # ·
-    title
+  def children_heading_title(type, count, opts={})
+    content_tag :a, :href => opts[:path],
+                    :type => type.pluralize,
+                    :class => "#{type.pluralize} child_header #{'selected' if opts[:selected]}" do
+      content_tag :div, :class => "header_content" do
+        title = ''
+        title << I18n.t("discuss.statements.headings.#{type}")
+        title << content_tag(:span, " (#{count})", :class => 'count')
+        title
+      end
+    end
   end
 
   #
