@@ -13,7 +13,7 @@ namespace :create_shortcuts do
     end
     %w(szocialis-konzultacio szocikon).each do |shortcut|
       ShortcutUrl.discuss_search_shortcut :title => shortcut,
-                                          :params => {:search_terms => "szociális-konzultáció"},
+                                          :params => {:search_terms => "Szociális-Konzultáció"},
                                           :language => "hu"
     end
     %w(allam-polgari-dialogus apold).each do |shortcut|
