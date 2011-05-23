@@ -105,7 +105,7 @@ class StatementsController < ApplicationController
       loadSearchTermsAsTags(params[:origin]) if params[:origin]
     end
 
-    
+
     if !params[:new_level].blank?
       set_parent_breadcrumb
       # set new breadcrumb
@@ -766,7 +766,9 @@ class StatementsController < ApplicationController
                        origin = index > 0 ? bids.select{|b|Breadcrumb.instance.origin_keys.include?(b[0,2])}[index-1] : ''
                        breadcrumb[:key] = "#{key}#{value}"
                        breadcrumb[:css] = "statement statement_link #{statement_node.class.name.underscore}_link"
-                       breadcrumb[:url] = statement_node_url(statement_node, :bids => bids[0, bids.index(bid)].join(","), :origin => origin)
+                       breadcrumb[:url] = statement_node_url(statement_node,
+                                                             :bids => bids[0, bids.index(bid)].join(","),
+                                                             :origin => origin)
                        breadcrumb[:title] = statement_document.title
       end
       breadcrumb[:label] = I18n.t("discuss.statements.breadcrumbs.labels.#{key}")
@@ -1071,7 +1073,7 @@ class StatementsController < ApplicationController
                                                            :user => current_user,
                                                            :for_session => opts[:for_session]
                       opts[:for_session] ? sn : sn.map(&:target_statement)
-       # jumped from 
+       # jumped from
        when 'jp' then nodes = opts[:node].nil? ? [] : [opts[:node]]
                       opts[:for_session] ? nodes.map(&:id) + ["/add/question"] : nodes
       end
