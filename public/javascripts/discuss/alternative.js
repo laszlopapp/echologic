@@ -7,8 +7,8 @@
     var settings = {
       'highlight_color' : '#BFCFFE',
       'normal_mode_color' : '#D4D3D3'
-    }
-		
+    };
+
     return this.each(function() {
       /* Creating echoable and binding its API */
       var elem = $(this), alternativeApi = elem.data('alternativeApi');
@@ -21,9 +21,9 @@
     });
 
 
-    /****************/
-    /* The echoable */
-    /****************/
+    /*******************/
+    /* The Alternative */
+    /*******************/
 
     function Alternative(statement) {
       var alternative_panel = statement.find('.alternative_panel');
@@ -34,7 +34,7 @@
        * Initializes an echoable statement in a form or in normal mode.
        */
       function initialize() {
-				
+
       }
 
 
