@@ -385,7 +385,7 @@ module StatementsHelper
     if statement_node and statement_node.new_record?
       %w(prev next).each{|button| buttons << statement_tag(button.to_sym, type, true)}
       buttons << content_tag(:span,
-                             I18n.t("discuss.statements.sibling_labels.#{type.classify.constantize.name_for_siblings}"), 
+                             I18n.t("discuss.statements.sibling_labels.#{type.classify.constantize.name_for_siblings}"),
                              :class => 'show_siblings_label disabled')
     else
       buttons << content_tag(:span, '', :class => 'loading', :style => 'display:none')
@@ -425,7 +425,7 @@ module StatementsHelper
                 :class => 'show_siblings_button expandable') do
       content_tag(:span, I18n.t("discuss.statements.sibling_labels.#{name}"),
                   :class => 'show_siblings_label ttLink no_border',
-                  :title => I18n.t("discuss.tooltips.siblings.#{statement_node ? dom_class(statement_node) : 'question'}"))
+                  :title => I18n.t("discuss.tooltips.siblings.#{type}"))
     end
   end
 
@@ -513,8 +513,8 @@ module StatementsHelper
       content
     end
   end
-  
-  
+
+
 
   #
   # Draws the statement image container.
@@ -555,7 +555,7 @@ module StatementsHelper
     breadcrumbs.each_with_index do |b, index| #[id, classes, url, title]
       attrs = {}
       attrs[:page_count] = b[:page_count] if b[:page_count]
-      breadcrumb = content_tag(:a, attrs.merge({:href => b[:url], :id => b[:key], :class => 'breadcrumb'})) do
+      breadcrumb = content_tag(:a, attrs.merge({:href => b[:url], :id => b[:key], :class => "breadcrumb #{b[:key][0..2]}"})) do
         content = ""
         content << content_tag(:span, '', :class => 'big_delimiter') if index != 0
         content << content_tag(:span, b[:label], :class => 'label')
