@@ -167,8 +167,10 @@
 
             var index = $.inArray(delete_from, breadcrumb_ids);
             var to_remove = elements.find('.breadcrumb:eq(' + (index) + ')');
-            to_remove.nextAll().remove();
-            var remove_length = to_remove.length;
+						var to_remove_elements = to_remove.nextAll();
+						var remove_length = to_remove_elements.length;
+            to_remove_elements.remove();
+            
 
 
           } else { // delete all breadcrumbs that are not in the fragment bids
