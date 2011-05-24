@@ -64,22 +64,25 @@ hu:
       closed_discussions:
         hint: Tagek zártkörő dialógus létrehozásához...
         text: |
-          <p>Defining a *tag (starting with ONE *) will make this discussion semi-closed. Users must define the same
-          *tag as a decision making tag in their profile to be able to participate in the discussion, however it
-          will remain visible and transparent to the outside world.</p>
-          <p>Defining a **tag (with TWO **) will make this discussion fully closed. It will only be visible for users
-          having the same **tag as a decision making tag in their profile.</p>
-          <p>Please note, that this is just a temporary solution to facilitate closed discussions in echo. The real
-          solution with contact lists, invitations and fine-graded access right management will be coming later.</p>
+          <p>Egy *tag megadásával (EGY csillaggal az elején) védetté teheted ezt a dialógust. Így bár az itt elhangzó
+          hozzászólások mindenki számára láthatóak maradnak, a párbeszédben csak azok vehetnek aktívan
+          részt, kiknek profiljában ugyanaz a *tag szerepel a 'Döntéshozó' kategóriában.</p>
+          <p>Egy **tag megadásával (KÉT csillaggal az elején) teljesen zártkörűvé teheted ezt a dialógust. Így ez és
+          az itt elhangzó hozzászólások csak azok számára lesznek láthatóak, kiknek profiljában ugyanaz a **tag
+          szerepel a 'Döntéshozó' kategóriában.</p>
+          <p>Ez természetesen csak egy átmeneti megoldás a zártkörű dialógusok megvalósítására az echoban. A végleges
+          megoldás ismerősök listájával, meghívásokkal és finoman szabályozható hozzáférési jogokkal később kerül
+          megvalósításra.</p>
     profile:
       closed_discussions:
         hint: Tagek zártkörő dialógusok eléréséhez...
         text: |
-          <p>Here you can enter the appropriate *tags and **tags as decision making tags. This will allow you to
-          take part in transparent, semi-closed discussions (tagged with *tag) and to see closed, internal
-          ones (protected with **tag) respectively.</p>
-          <p>Please note, that this is just a temporary solution to facilitate closed discussions in echo. The real
-          solution with contact lists, invitations and fine-graded access right management will be coming later.</p>
+          <p>Itt megadhatod azokat a *tageket és **tageket (egy illetve két csillaggal az elején), melyek lehetővé
+          teszik számodra a védett (*taggel megjelelölt) illetve a teljesen zártkörű (**taggel ellátott) dialógusokban
+          való részvételt.</p>
+          <p>Ez természetesen csak egy átmeneti megoldás a zártkörű dialógusok megvalósítására az echoban. A végleges
+          megoldás ismerősök listájával, meghívásokkal és finoman szabályozható hozzáférési jogokkal később kerül
+          megvalósításra.</p>
 
   # Localizations for the layout components
   layouts:
@@ -451,13 +454,13 @@ hu:
       read_improvement: 'Olvasd el ezt az érvet'
       read_pro_argument: 'Olvasd el ezt az érvet a javaslat MELLETT'
       read_contra_argument: 'Olvasd el ezt az érvet a javaslat ELLEN'
-      read_follow_up_question: 'Olvasd el ezt az implikált kérdésfeltevést'
+      read_follow_up_question: 'Olvasd el ezt az előzőek kapcsán felmerülő kérdést'
       current_question: 'Az éppen olvasható kérdésfeltevés'
       current_proposal: 'Az éppen olvasható javaslat'
       current_improvement: 'Az éppen olvasható kiegészítés a javaslathoz'
       current_pro_argument: 'Az éppen olvasható érv a javaslat MELLETT'
       current_contra_argument: 'Az éppen olvasható érv a javaslat ELLEN'
-      current_follow_up_question: 'Az éppen olvasható implikált kérdés'
+      current_follow_up_question: 'Az éppen olvasható fenti összefüggésben felmerülő kérdés'
       back_to_question: 'Vissza az aktuális kérdésfelvetéshez'
       back_to_proposal: 'Vissza az aktuális javaslathoz'
       back_to_improvement: 'Vissza az aktuális kiegészítéshez'
@@ -471,14 +474,14 @@ hu:
       next_pro_argument: 'Olvasd el a következő érvet az aktuális javaslathoz'
       prev_contra_argument: 'Olvasd el az előző érvet az aktuális javaslathoz'
       next_contra_argument: 'Olvasd el a következő érvet az aktuális javaslathoz'
-      prev_follow_up_question: 'Olvasd el az előző implikált kérdésfelvetést a fenti összefüggésben'
-      next_follow_up_question: 'Olvasd el a következő implikált kérdésfelvetést a fenti összefüggésben'
+      prev_follow_up_question: 'Olvasd el a fenti összefüggésben felmerülő előző kérdést'
+      next_follow_up_question: 'Olvasd el a fenti összefüggésben felmerülő következő kérdést'
       create_question: 'Új kérdésfelvetés'
       create_proposal: "Tégy egy új javaslatot az aktuális kérdésfevetésre"
-      create_improvement: "Tégy hozzá új kiegészítést az aktuális javaslathoz"
+      create_improvement: "Mondj egy új kiegészítést vagy jobbító ötletet az aktuális javaslathoz"
       create_pro_argument: "Mondj egy új érvet a javaslat MELLETT"
       create_contra_argument: "Mondj egy új érvet a javaslat ELLEN"
-      create_follow_up_question: "Vess fel egy új, a fenti hozzászólásból fakadó kérdést"
+      create_follow_up_question: "Vess fel egy új, az aktuális hozzászólás kapcsán felmerülő kérdést"
       echo: 'Támogasd ezt a hozzászólást! Kelts visszhangot!'
       unecho: 'Vond vissza támogatásod!'
       publish: |
@@ -508,7 +511,7 @@ hu:
       create_improvement_link: Javasolj új kiegészítést
       create_pro_argument_link: Mondj egy új érvet MELLETTE
       create_contra_argument_link: Mondj egy új érvet ELLENE
-      create_follow_up_question_link: Vess fel egy a fentiekből fakadó új kérdést
+      create_follow_up_question_link: Vess fel egy ennek kapcsán felmerülő új kérdést
       recommend_link: 'Támogatom (echo)'
       unrecommend_link: 'Visszavonom'
       support_link: 'Támogatom (echo)'
@@ -521,7 +524,7 @@ hu:
       drafting_language_hint: |
         Fontos, hogy a javaslat szövegének közös továbbfejlesztésére csak a kiválasztott eredeti nyelven lesz lehetőség.
       fuq_formulation_hint: |
-        Mivel kereséskor az implikált kérdések teljesen normális kérdésfelvetésekként jelennek meg,
+        Mivel a keresési eredményekben az újonnan felmerülő kérdések teljesen normális kérdésként jelennek meg,
         ezek címe és leírása az eredeti diskurzus ismerete nélkül is érthető kell, hogy legyen.
       tag_permission: |
         A '{{tag}}' kulcsszó megadása számodra nem engedélyezett.
@@ -533,7 +536,7 @@ hu:
         improvement: Írd be a kiegészítés címét... Magyarul?
         pro_argument: Írd be a MELLETTE szóló érv címét... Magyarul?
         contra_argument: Írd be az ELLENE szóló érv címét... Magyarul?
-        follow_up_question: Írd be az implikált kérdés címét... Magyarul?
+        follow_up_question: Írd be az előzőek kapcsán felmerülő kérdés címét... Magyarul?
       text_hint:
         question: Kérjük mutasd be röviden a témát és tégy fel egy konkrét kérdést...
         proposal: |
@@ -549,7 +552,7 @@ hu:
 
         pro_argument: Kérjük fejtsd ki a javaslat MELLETT szóló érved részletesebben...
         contra_argument: Kérjük fejtsd ki a javaslat ELLEN szóló érved részletesebben...
-        follow_up_question: Kérjük mutasd be röviden az implikált kérdésfevetés témáját és tégy fel egy konkrét kérdést...
+        follow_up_question: Kérjük mutasd be röviden az előzőek kapcsán felmerülő témát és tégy fel egy konkrét kérdést...
       tag_hint: 'Adj meg pár kulcsszót (tags)...'
 
       publish: Publikálom
@@ -562,20 +565,20 @@ hu:
         improvement: 'Kiegészítés'
         pro_argument: 'Érv mellette'
         contra_argument: 'Érv ellene'
-        follow_up_question: 'Implikált kérdés'
+        follow_up_question: 'Felmerülő kérdés'
       new:
         question: 'Új Kérdésfelvetés'
         proposal: 'Új Javaslat'
         improvement: 'Új Kiegészítés'
         pro_argument: 'Új Érv Mellette'
         contra_argument: 'Új Érv Ellene'
-        follow_up_question: 'Új Implikált Kérdés'
+        follow_up_question: 'Új Felmerülő Kérdés'
       headings:
         question: 'Kérdésfelvetések'
         proposal: 'Javaslatok'
         improvement: 'Kiegészítések'
         argument: 'Érvek Mellette & Ellene'
-        follow_up_question: 'Implikált Kérdések'
+        follow_up_question: 'Felmerülő Kérdések'
       sibling_labels:
         question: 'Kérdések'
         proposal: 'Javaslatok'
@@ -583,14 +586,14 @@ hu:
         argument: 'Érvek'
         follow_up_question: 'Kérdések'
       siblings:
-        follow_up_question: 'Implikált kérdés a fenti összefüggésben'
+        follow_up_question: 'A fenti összefüggésben felmerülő kérdés'
 
       topic: Téma (Kulcsszavak / Tags)
       states:
         label: 'Azonnali publikáció?'
         initial_state:
           new: 'Először előkészítem a vitát és később publikálom'
-          published: 'Rögtön publikálom (s így azután a szerkeszés lehtősége korlátozott lesz)'
+          published: 'Rögtön publikálom (s így azután a szerkeszés lehetősége korlátozott lesz)'
         published: Publikált
         approved: Jóváhagyott
       delete_link: 'Delete'
@@ -610,7 +613,7 @@ hu:
       statement_updated: |-
         Ezt a {{type}} épp most aktualizálta egy másik felhasználó.
       statement_supported: |-
-        Köszönet a {{type}} támogatásáért. Hallasd a hangod - Kelts visszhangot!
+        Köszönet a {{type}} támogatásáért.
       statement_unsupported: |-
         A {{type}} támogatását ezennel visszavontad.
       edit_period_hint: |
@@ -671,7 +674,7 @@ hu:
 
     messages:
       created: "Köszönet az újonnan létrehozott {{type}}ért."
-      updated: "A(z) {{type}} sikeresen frissítésre került."
+      updated: "A(z) {{type}} sikeresen átdolgozásra került."
       deleted: "A(z) {{type}} sikeresen törlésre került."
       translated: "Köszönet a {{type}} lefordításáért."
       incorporated: "Köszönet a javaslat továbbfejlesztéséért."
@@ -839,7 +842,7 @@ hu:
       improvement: "kiegészítés"
       pro_argument: 'támogató érv'
       contra_argument: 'ellenérv'
-      follow_up_question: 'implikált kérdés'
+      follow_up_question: 'felvetődő kérdés'
 
 
   authlogic:
