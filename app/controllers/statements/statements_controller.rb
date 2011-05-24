@@ -108,8 +108,10 @@ class StatementsController < ApplicationController
       loadSearchTermsAsTags(params[:origin]) if params[:origin]
     end
 
+    inc = params[:hub].blank? ? 1 : 0
+    @level = (@statement_node.parent_node.nil? or @statement_node.class.is_top_statement?) ? 0 : @statement_node.parent_node.level + inc
 
-    if !params[:new_level].blank?
+    if !params[:new_level].blank? and params[:hub].blank?
       set_parent_breadcrumb
       # set new breadcrumb
       if @statement_node.class.is_top_statement?
@@ -407,6 +409,7 @@ class StatementsController < ApplicationController
     @offset = @page.to_i == 1 ? TOP_CHILDREN : 0
     begin
       if @type.eql? :Alternative
+        @child_type = @statement_node.class.alternative.to_s.underscore
         @offset =  TOP_ALTERNATIVES if @offset > 0
         template = @statement_node.class.alternative_more_template
         load_alternatives @page, @per_page
