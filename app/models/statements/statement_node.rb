@@ -1,7 +1,7 @@
 class StatementNode < ActiveRecord::Base
   acts_as_echoable
   acts_as_subscribeable
-  acts_as_nested_set :scope => :root_id, :set_conditions => "type != 'CasHub'"
+  acts_as_nested_set :scope => :root_id, :base_conditions => "type != 'CasHub'"
 
   alias_attribute :target_id, :id
 

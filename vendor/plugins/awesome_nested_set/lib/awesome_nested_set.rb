@@ -436,9 +436,12 @@ HAVING COUNT(#{column}) > 1").nil?
         def nested_set_scope
           options = {:order => quoted_left_column_name}
           scopes = Array(acts_as_nested_set_options[:scope])
-          options[:conditions] = scopes.inject({}) do |conditions,attr|
-            conditions.merge attr => self[attr]
+          options[:conditions] = Array(acts_as_nested_set_options[:base_conditions])
+          options[:conditions] += scopes.inject([]) do |conditions,attr|
+            conditions << "#{attr} =  #{self[attr]}"
+#            conditions.merge attr => self[attr]
           end unless scopes.empty?
+          
           self.class.base_class.scoped options
         end
         
