@@ -168,6 +168,7 @@ class StatementNode < ActiveRecord::Base
     else
       opts[:lft] = self.parent_node.lft
       opts[:rgt] = self.parent_node.rgt
+      opts[:parent_id] = self.parent_node.target_id
       self.child_statements(opts)
     end
   end
@@ -224,7 +225,7 @@ class StatementNode < ActiveRecord::Base
   #
   def child_statements(opts={})
     opts[:root_id] = self.root_id
-    opts[:parent_id] = self.target_id
+    opts[:parent_id] ||= self.target_id
     opts[:lft] ||= self.lft
     opts[:rgt] ||= self.rgt
     opts[:filter_drafting_state] = self.draftable?

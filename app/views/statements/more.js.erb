@@ -23,7 +23,7 @@ var scrollpane;
 
 children_list.append(elements_list);
 <% if @children[@type].next_page.nil? %>
-  children_list.append('<%= content_tag :li, create_new_child_statement_link(@statement_node, @type.to_s.underscore, :css => 'ajax', :new_level => true) %>');
+  children_list.append('<%= add_create_new_statement_button(@statement_node, @child_type || @type.to_s.underscore, :label_type => @type.to_s.underscore, :new_level => true, :bids => params[:bids], :origin => params[:origin], :css => "ajax" ) %>');
 <% end %>
 
 more_element.replaceWith(pagination_buttons);
