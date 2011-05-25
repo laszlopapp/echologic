@@ -116,34 +116,6 @@ es:
         profile_complete: '{{complete}}% completo'
 
 
-  # ----------------
-  # Welcome function
-  # ----------------
-
-  welcome:
-    title: Bienvenido a echo!
-    text: |
-      <p>
-      <strong>Debatir - Conectar - Actuar!</strong><br/>
-      Estas son las tres áreas que desarrollaremos en echo paso a paso contigo.<br/>
-      En <strong>"desarrollo"</strong> (arriba en el lado derecho de la pantalla) puedes seguir
-      el desarrollo actual de cada área y los próximos pasos a seguir.
-      </p><p>
-      Como miembro de echo estás invitado a contribuir con tus ideas a su <strong>evolución </strong>!<br/>
-      Por el momento sólo han sido publicadas funciones simples en las siguientes áreas:
-      </p>
-    function_1:
-      name: 'Mi Perfil'
-      description: |
-        Completa tu perfil para que otros que buscan tus competencias puedan encontrarte.
-    function_2:
-      name: 'Conectar'
-      description: 'Descubre la comunidad y conéctate con otras personas interesadas en el movimiento.'
-    function_3:
-      name: 'Debatir'
-      description: |
-        Intercambia tus ideas con otros participantes. Contribuye a la evolución de echo.
-
   # ------------
   # USERS MODULE
   # ------------
@@ -722,11 +694,13 @@ es:
   # ---------------
 
   connect:
-
     fill_out_profile:
       text: |-
         Por favor completa tu perfil <strong>por lo menos en un {{percentage}}%</strong>, para hacer feliz al servidor (HAL)
         y retirar este bloque ;-)
+      name: 'Mi Perfil'
+      description: |
+        Completa tu perfil para que otros que buscan tus competencias puedan encontrarte.
     placeholder: 'Tema, lugar, organización o nombre de interés'
 
     segments:

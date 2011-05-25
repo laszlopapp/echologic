@@ -688,9 +688,10 @@ hu:
   # ---------------
 
   connect:
-
     fill_out_profile:
       text: Kérjük töltsd ki profilodat <strong>minimum  {{percentage}} százalékban</strong>, hogy "HAL" elégedett legyen és eltüntesse innét ezt a blokkot. :-)
+      name: 'Profilom'
+      description: 'Kérjük töltsd ki profilodat és mutasd be magad a közösség számára.'
     placeholder: 'Téma, hely, szervezet vagy név keresése'
 
     segments:
