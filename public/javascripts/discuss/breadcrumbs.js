@@ -230,6 +230,16 @@
 					cleanBreadcrumbs();
 					return this;
 				},
+				deleteBreadcrumb: function(key) // IMPORTANT: ONLY REMOVES VISUALLY
+				{
+					if (key && key.length > 0) {
+						var origin = $.fragment().origin;
+						if ($.inArray(origin.substring(0,2),['ds','sr']) != -1){origin = origin.substring(0,2);}
+						var top_breadcrumb = origin.length > 0 ? breadcrumbs.find('#' + origin) : breadcrumbs.find('.breadcrumb:first');
+						var breadcrumb = top_breadcrumb.nextAll('#' + key).remove();
+					}
+					return this;
+				},
 				addBreadcrumbs : function(breadcrumbsData) {
 
 					var jsp = breadcrumbs.data('jsp');
@@ -243,8 +253,10 @@
 						var breadcrumbs_length = elements.find(".breadcrumb").length;
 			  	  // Assemble new breadcrumb entries
 						$.each(breadcrumbsData, function(index, breadcrumbData) { //[id, classes, url, title, label, over]
-						  var breadcrumb = buildBreadcrumb(breadcrumbData, index, breadcrumbs_length);
-							elements.append(breadcrumb);
+						  if (breadcrumbs.find('#' + breadcrumbData['key']).length == 0) {
+						  	var breadcrumb = buildBreadcrumb(breadcrumbData, index, breadcrumbs_length);
+						  	elements.append(breadcrumb);
+						  }
 						});
 					}
 					var width = updateContainerWidth();

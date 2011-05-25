@@ -106,11 +106,25 @@
           var new_sids = sids.split(",");
           var path = "/" + new_sids[new_sids.length-1];
           new_sids.pop();
+					
+					var bids = $.fragment().bids;
+					var bids = bids ? bids.split(',') : [];
+					var current_bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
 
+					var i = -1;
+					$.map(bids, function(a, index){
+						if($.inArray(a, current_bids) == -1) {
+							i = index;
+							return false;
+						}
+					});
+					
+					var bids_to_load = i > -1 ? bids.splice(i, bids.length) : [];
+					
           cancelButton.addClass("ajax");
           cancelButton.attr('href', $.queryString(cancelButton.attr('href').replace(/\/\d+/, path), {
             "sids": new_sids.join(","),
-            "bids": '',
+            "bids": bids_to_load.join(','),
 						"origin": $.fragment().origin
           }));
         }

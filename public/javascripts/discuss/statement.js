@@ -92,6 +92,9 @@
 				var element = $('div#statements .statement').eq(settings['level']);
 				hideStatements(settings);
 				if(element.length > 0) {
+					if (statementDomId.match('new')) {
+				  	var key = element.data('api').deleteBreadcrumb();
+				  }
           element.replaceWith(statement);
         }
         else
@@ -398,9 +401,14 @@
 
 					// Update the bids
 					var index = $.inArray(key, bids);
+					
 					if (index != -1) { // if parent breadcrumb exists, then delete everything after it
 						bids = bids.splice(0, index + 1);
+					} else { // if parent breadcrumb doesn't exist, it means top stack statement
+						bids = bids.splice(0, current_bids.length - current_bids.length%3); 
 					}
+					
+					 
 					// save element after which the breadcrumbs will be deleted
           $('#breadcrumbs').data('element_clicked', key);
 
@@ -588,11 +596,19 @@
 		    removeBelow: function(){
 		     statement.nextAll().each(function() {
 			     // Delete the session data relative to this statement first
+					 if (statementDomId.match('new')) {
+				   	$(this).data('api').deleteBreadcrumb();
+				   }
 			     $('div#statements').removeData(this.id);
 			     $(this).remove();
+					 
 		     });
 				 return this;
 		    },
+				deleteBreadcrumb: function() {
+					var key = generateBreadcrumbKey();
+				  $('#breadcrumbs').data('breadcrumbApi').deleteBreadcrumb(key);
+				},
 
         insert: function() {
 		      var element = $('div#statements .statement').eq(settings['level']);

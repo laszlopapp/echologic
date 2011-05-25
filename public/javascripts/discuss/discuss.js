@@ -94,7 +94,7 @@ function initFragmentStatementChange() {
 			}
 		else {var bids = $.fragment().bids;}
 
-		if (!$.fragment().origin || $.fragment().origin == 'undefined') {var origin = bids.split(',').pop();}
+		if (!$.fragment().origin || $.fragment().origin == 'undefined') {var origin = "";}
 		else {var origin = $.fragment().origin;}
 
     $.setFragment({ "new_level" : true, "bids" : bids, "origin" : origin });
