@@ -35,6 +35,7 @@
 			var statementLinked = form.find('input.statement_id');
 			var auto_complete_button;
       var linking_messages;
+		  var linkedTags;
 			
 			initialise();
 
@@ -236,7 +237,8 @@
 					
 					// fill in tags
 					if (form.hasClass(settings['taggableClass'])) {
-				  	form.data('taggableApi').addTags(statementTags);
+						linkedTags = statementTags;
+				  	form.data('taggableApi').removeAllTags().addTags(statementTags);
 				  }
 					
 					// check right editorial state and disable the radio buttons
@@ -306,6 +308,15 @@
 						}
 					});
 				}
+				
+				//tags
+				form.bind('tagremoved', function(event, tag){
+					if (statementLinked.val()) {
+						if ($.inArray(tag, linkedTags) != -1) {
+							unlinkStatement();
+						}
+					}
+				});
 			}
 
 			// Public API functions
