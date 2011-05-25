@@ -63,11 +63,11 @@
         },
 				highlight: function() {
 					panelHighlight();
-					arrow.fadeIn(300);
+					arrow.fadeIn(100);
 				},
 				normal_mode: function() {
 					panelNormal();
-					arrow.fadeOut(300);
+					arrow.fadeOut(100);
 				}
       });
     }
