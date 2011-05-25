@@ -239,9 +239,9 @@
 				  	form.data('taggableApi').addTags(statementTags);
 				  }
 					
-					// check right editorial state
-					$('input:radio[value=' + statementState + ']').attr('checked', true);
-					
+					// check right editorial state and disable the radio buttons
+					$('.publish_radios input:radio[value=' + statementState + ']').attr('checked', true);
+					$('.publish_radios input:radio').attr('disabled', true);
 										
 					// activate auto complete button
 					activateAutoCompleteButton();
@@ -275,6 +275,9 @@
 				if (!isMobileDevice()) {
           text.removeClass('linked');
         }
+				
+				// enable editorial state buttons
+				$('.publish_radios input:radio').removeAttr('disabled');
 			}
 		
 			
