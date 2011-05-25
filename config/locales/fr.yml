@@ -128,38 +128,6 @@ fr:
       profile_complete: "{{complete}}% rempli"
 
 
-  # ----------------
-  # Welcome function
-  # ----------------
-
-  welcome:
-    title: Bienvenue
-    text: |
-      <p>
-      <strong>Discuter - Connecter  - Agir!</strong><br/>
-      Nous allons construire ensemble avec vous, pas à pas, les trois espaces de fonctionnalités.
-      Sur la feuille de route (en haut à gauche de l'image) vous pouvez suivre à l'intérieur de chaque espace l'état
-      actuel <strong>et le pas suivant</strong> de l'avancée des discussions.
-      </p><p>
-      Comme élément moteur d'echo, nous vous invitons très cordialement, à participer
-      <strong>au développement d'echo</strong>!<br/>
-      Jusqu'à présent nous avons rendu public les liens suivant:
-      </p>
-    function_1:
-      name: 'Mon profil'
-      description: |
-        Complétez votre profil afin de vous présenter à la communité d'echo.
-    function_2:
-      name: 'Connecter'
-      description: |
-        Découvrez la communité de votre choix et mettez vous en rapport avec les personnes qui pensent
-        et qui agissent comme vous.
-    function_3:
-      name: 'Discussion'
-      description: |-
-        Echangez vos idées avec les nouveaux adhérents. Participez au développement futur d'echo.
-
-
   # ------------
   # USERS MODULE
   # ------------
@@ -744,11 +712,13 @@ fr:
   # ---------------
 
   connect:
-
     fill_out_profile:
       text: |-
         Veuillez établir votre profil <strong>au moins à {{percentage}}%</strong> pour "faire plaisir à notre logiciel"
         et pour faire disparaître cette partie.
+      name: 'Mon profil'
+      description: |
+        Complétez votre profil afin de vous présenter à la communité d'echo.
     placeholder: 'Topic, emplacement ou organisation recherché'
 
     segments:

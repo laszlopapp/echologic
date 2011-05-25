@@ -115,35 +115,6 @@ en:
         settings: Settings
       profile_complete: '{{complete}}% complete'
 
-  # ----------------
-  # Welcome function
-  # ----------------
-
-  welcome:
-    title: Welcome to echo!
-    text: |
-      <p>
-      <strong>Discuss - Connect - Act!</strong><br/>
-      These are the three functional areas of echo being developed with your active participation.
-      The Roadmap (in the upper left corner of the screen) always shows you the
-      current state of development and the next steps planned in the area you are looking at.
-      </p><p>
-      As a mover you are welcome to <strong>engage into the evolution of echo</strong>!<br/>
-      Until now, the following simple features have been released:
-      </p>
-    function_1:
-      name: 'My Profile'
-      description: 'Complete your profile to present yourself in the echo community.'
-    function_2:
-      name: 'Connect'
-      description: 'Explore the community and connect with other interesting people of the movement.'
-    function_3:
-      name: 'Discuss'
-      description: |
-        Exchange your ideas with other newthinkers. Engage into the evolution of echo.
-
-
-
 
   # ------------
   # USERS MODULE
@@ -701,9 +672,10 @@ en:
   # ---------------
 
   connect:
-
     fill_out_profile:
       text: Please fill out <strong>at least {{percentage}}%</strong> of your profile to make "the computer" happy and let this block disappear. :-)
+      name: 'My Profile'
+      description: 'Complete your profile to present yourself in the echo community.'
     placeholder: 'Topic, place, organization or name of interest'
 
     segments:
