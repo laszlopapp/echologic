@@ -36,6 +36,7 @@
 			var auto_complete_button;
       var linking_messages;
 		  var linkedTags;
+			var linkedTitle;
 			
 			initialise();
 
@@ -163,7 +164,7 @@
       function initAutoCompleteTitle() {
 
         // gets the auto complete button				
-				auto_complete_button = form.find('.header .auto_complete')
+				auto_complete_button = form.find('.header .auto_complete');
 				
 				// loads the labels 
 				linking_messages = {
@@ -203,6 +204,7 @@
           }
           else 
           if ($(this).hasClass('off')) {
+						title.addClass('ac_loading');
             title.search();
           }
           
@@ -221,9 +223,12 @@
 					"code" : chosenLanguage.val()
 				});
 				$.getJSON(path, function(data) {
+					linkedTitle = data['title']; // used for the key pressed event
 					var statementText = data['text'];
 					var statementTags = data['tags'];
 					var statementState = data['editorial_state'];
+
+          
 
           // disable language combo
           language_combo.attr('disabled', true);
@@ -266,6 +271,7 @@
        */
 			function unlinkStatement()
 			{
+				linkedTitle = null;
 				statementLinked.val('');
         deactivateAutoCompleteButton();
 				form.removeClass('linked');
@@ -288,9 +294,11 @@
        */
 			function handleContentChange() {
 				// title
-				title.bind('change', function(){
+				title.bind('keypress', function(){
 					if (statementLinked.val()) {
-              unlinkStatement();
+						  if (title.val() != linkedTitle) {
+							 unlinkStatement();	
+							}
             }
 				});
 				

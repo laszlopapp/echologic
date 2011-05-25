@@ -358,6 +358,10 @@ form.statement .header .auto_complete {
 	background: transparent url(../images/page/discuss/linking_button.png) 0 -40px no-repeat scroll;
 }
 
+form.statement .ac_loading {
+	background-position: 428px 3px;
+}
+
 form.statement .header .auto_complete.off {
   background-position: 0px 0px;
 }

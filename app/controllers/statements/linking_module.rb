@@ -33,7 +33,8 @@ module LinkingModule
   def link_statement
     @statement ||= Statement.find(params[:id])
     @statement_document ||= @statement.document_in_language(params[:code]||locale_language_id)
-    @content = {:editorial_state => @statement.editorial_state_id, 
+    @content = {:title => @statement_document.title,
+                :editorial_state => @statement.editorial_state_id, 
                 :tags => @statement.topic_tags, 
                 :text => @statement_document.text}
     render :json => @content.to_json 
