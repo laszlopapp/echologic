@@ -47,11 +47,11 @@
 			}
 
       function panelHighlight() {
-				alternative_panel.find('a.statement_link').animate({color : settings['highlight_color']}, 300);
+				alternative_panel.find('a.statement_link').animate({color : settings['highlight_color']}, 200);
 			}
 			
 			function panelNormal() {
-        alternative_panel.find('a.statement_link').animate({color : settings['normal_mode_color']}, 300);				
+        alternative_panel.find('a.statement_link').animate({color : settings['normal_mode_color']}, 200);				
 			}
 
 
