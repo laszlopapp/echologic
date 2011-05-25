@@ -437,11 +437,11 @@ HAVING COUNT(#{column}) > 1").nil?
           options = {:order => quoted_left_column_name}
           scopes = Array(acts_as_nested_set_options[:scope])
           options[:conditions] = opts[:write] ? [] : Array(acts_as_nested_set_options[:base_conditions])
-          options[:conditions] += scopes.inject([]) do |conditions,attr|
-            conditions << "#{attr} =  #{self[attr]}"
+          options[:conditions] += Array(scopes.inject([]) do |conditions,attr|
+            conditions << "#{attr} =  #{self[attr]}" if self[attr] 
 #            conditions.merge attr => self[attr]
-          end unless scopes.empty?
-          
+          end) unless scopes.empty?
+          options[:conditions] = options[:conditions].join(" AND ")
           self.class.base_class.scoped options
         end
         
