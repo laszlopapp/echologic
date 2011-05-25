@@ -511,7 +511,7 @@ hu:
       create_improvement_link: Javasolj új kiegészítést
       create_pro_argument_link: Mondj egy új érvet MELLETTE
       create_contra_argument_link: Mondj egy új érvet ELLENE
-      create_follow_up_question_link: Vess fel egy ennek kapcsán felmerülő új kérdést
+      create_follow_up_question_link: Vess fel egy új felmerülő kérdést
       recommend_link: 'Támogatom (echo)'
       unrecommend_link: 'Visszavonom'
       support_link: 'Támogatom (echo)'
@@ -637,7 +637,7 @@ hu:
           ds: ''
           mi: ''
           sr: 'Erre talált kérdések'
-          fq: 'Ebből fakadó kérdések'
+          fq: 'Ennek kapcsán felmerülő kérdések'
           over:
             ds: 'Vissza ide'
             mi: 'Vissza ide'
