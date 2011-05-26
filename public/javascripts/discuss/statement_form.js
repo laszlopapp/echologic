@@ -33,10 +33,11 @@
 			var language_combo;
 			var chosenLanguage = form.find('select.language_combo');
 			var statementLinked = form.find('input.statement_id');
+			var publish_checkbox = form.find('.publish_radios');
 			var auto_complete_button;
       var linking_messages;
 		  var linkedTags;
-			var linkedTitle;
+			var linkedTitle, linkedText;
 			
 			initialise();
 
@@ -224,7 +225,7 @@
 				});
 				$.getJSON(path, function(data) {
 					linkedTitle = data['title']; // used for the key pressed event
-					var statementText = data['text'];
+					linkedText = data['text'];
 					var statementTags = data['tags'];
 					var statementState = data['editorial_state'];
 
@@ -235,9 +236,9 @@
 				
 				  // fill in summary text	
 					if(text && text.is('textarea')) {
-						text.val(statementText);
+						text.val(linkedText);
 					} else {
-						text.empty().text(statementText).click().blur();
+						text.empty().text(linkedText).click().blur();
 					}
 					
 					// fill in tags
@@ -247,8 +248,8 @@
 				  }
 					
 					// check right editorial state and disable the radio buttons
-					$('.publish_radios input:radio[value=' + statementState + ']').attr('checked', true);
-					$('.publish_radios input:radio').attr('disabled', true);
+					publish_checkbox.find('input:radio[value=' + statementState + ']').attr('checked', true);
+					publish_checkbox.find('input:radio').attr('disabled', true);
 										
 					// activate auto complete button
 					activateAutoCompleteButton();
@@ -272,6 +273,7 @@
 			function unlinkStatement()
 			{
 				linkedTitle = null;
+				linkedText = null;
 				statementLinked.val('');
         deactivateAutoCompleteButton();
 				form.removeClass('linked');
@@ -304,9 +306,11 @@
 				
 				// text
 				if (text && text.is('textarea')) {
-		      text.bind('change', function(){
+		      text.bind('keypress', function(){
 						if (statementLinked.val()) {
-							unlinkStatement();
+							if (text.val() != linkedText) {
+						  	unlinkStatement();
+						  }
 						}
 					});
 				} else {
