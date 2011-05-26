@@ -219,7 +219,7 @@
        */
 			function linkStatement(statementId) {
 				
-				var path = '../../statements/link_statement/' + statementId;
+				var path = '../../statement/link_statement/' + statementId;
 				path = $.queryString(path, {
 					"code" : chosenLanguage.val()
 				});

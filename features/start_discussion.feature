@@ -94,6 +94,41 @@ Feature: Start a question
       Then I should not see "Change"
       
       
+  # create an unpublished question, then a proposal, and publish ...
+  @ok
+  Scenario: Create unpublished question and proposal and publish them
+    Given there are no questions
+      And I am logged in as "editor" with password "true"
+      And I am on the discuss index
+    When I follow "My Questions"
+      And I follow "Create a new question"
+      And I fill in the following:
+        | question_statement_document_title | Unpublished Question   |
+        | question_statement_document_text  | unseeable              |
+      And I choose "Set up at first and publish later"
+      And I press "Save"
+    Then I should see "Unpublished Question"
+      And I go to discuss search
+      And I choose the "Unpublished Question" Question
+    Then the question should be new
+      And the question should have no events
+      And I go to the question
+      And I follow localized "discuss.statements.create_proposal_link"
+      And I fill in the following:
+        | proposal_statement_document_title | Unpublished Proposal  |
+        | proposal_statement_document_text  | Scooby Doo, I see you |
+      And I press "Save"
+    Then I should see "Unpublished Proposal"
+      And I go to the question
+      And I choose the "Unpublished Proposal" Proposal
+    Then the proposal should be new
+      And the proposal should have no events
+      And I go to the question
+      And I follow "Release"
+    Then the question should be published
+      And the question should have a "created" event
+      And the proposal should be published
+      And the proposal should have a "created" event
       
    ######################
    # CLOSED DISCUSSIONS #

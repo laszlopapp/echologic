@@ -86,6 +86,17 @@ class StatementNode < ActiveRecord::Base
     false
   end
 
+  def publish_descendants
+    descendants.each do |node|
+      if !node.published?
+        node.publish
+        node.statement.save
+        EchoService.instance.published(node)
+      end
+    end
+  end
+
+#  handle_asynchronously :publish_descendants
 
 
   # Initializes this statement node's statement

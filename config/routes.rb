@@ -141,8 +141,8 @@ ActionController::Routing::Routes.draw do |map|
                                  :descendants => 'descendants/:type/'},
                 :as => 'statement'
   #publish
-  map.connect   'statements/:id/publish/:in',   :controller => :statements, :action => :publish
-  map.connect   'statements/link_statement/:id', :controller => :statements, :action => :link_statement
+  map.publish_statement   'statement/:id/publish/:in',   :controller => :statements, :action => :publish, :method => :put
+  map.connect   'statement/link_statement/:id', :controller => :statements, :action => :link_statement
 
   map.with_options(:path_prefix => ":type/:action") do |m|
     m.resources :questions, :controller => :statements, :only => [:create]

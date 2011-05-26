@@ -198,9 +198,10 @@ Given /^a "([^\"]*)" question in "([^\"]*)"$/ do |state, category|
   @question.save!
 end
 
-Then /^the question should be published$/ do
-  @question.reload
-  assert @question.state.eql?(StatementState["published"])
+Then /^the ([^\"]*) should be ([^\"]*)$/ do |type, state|
+  type = type.split(' ').join('_')
+  variable = instance_variable_get("@#{type}").reload
+  assert_equal StatementState[state], variable.editorial_state
 end
 
 Then /^I should see the questions title$/ do
@@ -248,13 +249,27 @@ Then /^I should be a subscriber from "([^\"]*)"$/ do |question|
   assert(@question.followed_by?(@user))
 end
 
-Then /^"([^\"]*)" should have a "([^\"]*)" event$/ do |question, op_type|
-  @question = StatementNode.search_statement_nodes(:type => "Question",
-                                                   :search_term => question,
-                                                   :language_ids => [Language["en"]]).first
-  event = Event.find_by_subscribeable_id(@question.id)
+Then /^the ([^\"]*) should have a "([^\"]*)" event$/ do |type, op_type|
+  type = type.split(' ').join('_')
+  variable = instance_variable_get("@#{type}")
+  variable.reload
+  event = Event.all.select{|e|
+    ev = JSON.parse(e.event)
+    ev['id'].eql? variable.target_id and ev['type'].eql? variable.class.name.underscore
+  }.first
   assert !event.nil?
-  assert event.operation.eql?(op_type)
+  assert_equal op_type, event.operation
+end
+
+Then /^the ([^\"]*) should have no events$/ do |type|
+  type = type.split(' ').join('_')
+  variable = instance_variable_get("@#{type}")
+  variable.reload
+  event = Event.all.select{|e|
+    ev = JSON.parse(e.event)
+    ev['id'].eql? variable.target_id and ev['type'].eql? variable.class.name.underscore
+  }.first
+  assert event.nil?
 end
 
 Then /^the ([^\"]*) should have ([^\"]*) siblings in session$/ do |statement_type, siblings_number|
