@@ -501,6 +501,7 @@ en:
       create_contra_argument: "Post a new CONTRA argument to this proposal"
       create_follow_up_question: "Post a new new follow-up question concerning the current statement"
       create_alternative: "Post a new contrary statement"
+      create_background_info: "Post a new background info"
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your echo to stop supporting this statement'
       publish: |
@@ -535,6 +536,7 @@ en:
       create_contra_argument_link: Add new CONTRA argument
       create_follow_up_question_link: Add new follow-up question
       create_alternative_link: Add new contrary statement
+      create_background_info_link: Add new background info
       recommend_link: 'Support (echo)'
       unrecommend_link: 'Withdraw vote'
       support_link: 'Support (echo)'
@@ -560,6 +562,7 @@ en:
         pro_argument: Enter the PRO argument title in... English?
         contra_argument: Enter the CONTRA argument title in... English?
         follow_up_question: Enter the follow-up question title in... English?
+        background_info: Enter the background info title in... English?
       text_hint:
         question: Please describe the issue in more detail and ask a concrete question...
         proposal: |
@@ -574,6 +577,7 @@ en:
         pro_argument: Please describe your point FOR the proposal in more detail...
         contra_argument: Please describe your point AGAINST the proposal in more detail...
         follow_up_question: Please describe your follow-up question in more detail...
+        background_info: Please describe your background info in more detail...
       tag_hint: 'Enter tags here...'
 
       publish: Release
@@ -588,6 +592,7 @@ en:
         contra_argument: 'Contra Argument'
         follow_up_question: 'Follow-Up Question'
         alternative: 'Alternative'
+        background_info: 'Background Info'
       new:
         question: 'New Question'
         proposal: 'New Proposal'
@@ -595,6 +600,7 @@ en:
         pro_argument: 'New Pro Argument'
         contra_argument: 'New Contra Argument'
         follow_up_question: 'New Follow-Up Question'
+        background_info: 'New Background_Info'
       headings:
         question: 'Questions'
         proposal: 'Proposals'
@@ -602,14 +608,17 @@ en:
         argument: 'Pros & Cons'
         follow_up_question: 'Follow-up Questions'
         alternatives: 'Alternatives'
+        background_info: 'Background Infos'
       sibling_labels:
         question: 'Questions'
         proposal: 'Proposals'
         improvement: 'Additions'
         argument: 'Arguments'
         follow_up_question: 'Questions'
+        background_infos: 'Background Infos'
       siblings:
         follow_up_question: 'Follow-up Question in the context shown above'
+        background_info: 'Background Infos'
 
       topic: Topic (Tags / Keywords)
       states:

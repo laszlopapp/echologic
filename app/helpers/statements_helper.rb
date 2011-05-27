@@ -159,7 +159,7 @@ module StatementsHelper
       panel << content_tag(:div, '', :class => 'block_separator')
       panel << add_new_sibling_buttons(statement_node, origin)
       panel << add_new_child_buttons(statement_node)
-      panel << add_new_follow_up_question_button(statement_node, bids)
+      panel << add_new_default_child_button(statement_node, bids)
       panel
     end
   end
@@ -218,7 +218,7 @@ module StatementsHelper
   # Creates a link to add a new child for the given statement (appears in the SIDEBAR).
   #
   def add_new_child_buttons(statement_node)
-    children_types = statement_node.class.children_types(:no_default => true, :expand => true)
+    children_types = statement_node.class.children_types(:expand => true)
     return '' if children_types.empty?
     content = ''
     content << content_tag(:div, :class => 'container') do
@@ -233,15 +233,19 @@ module StatementsHelper
   end
 
   #
-  # Creates a link to add a new follow up question for the given statement (appears in the SIDEBAR).
+  # Creates a link to add a new default child (follow up question, background info) for the given statement (appears in the SIDEBAR).
   #
-  def add_new_follow_up_question_button(statement_node, bids)
+  def add_new_default_child_button(statement_node, bids)
     bids = bids ? bids.split(",") : []
     bids << "fq#{statement_node.id}"
-    content_tag(:div, add_new_child_link(statement_node, "follow_up_question",
+    content_tag(:div, :class => 'container') do
+      content = ''
+      content << add_new_child_link(statement_node, "follow_up_question",
                                                          :bids => bids.join(","),
-                                                         :origin => params[:origin]),
-                :class => 'container')
+                                                         :origin => params[:origin])
+      content << add_new_child_link(statement_node, "background_info")
+      content
+    end
   end
 
   #

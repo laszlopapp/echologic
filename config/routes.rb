@@ -151,6 +151,7 @@ ActionController::Routing::Routes.draw do |map|
     m.resources :pro_arguments, :controller => :statements, :only => [:create]
     m.resources :contra_arguments, :controller => :statements, :only => [:create]
     m.resources :follow_up_questions, :controller => :statements, :only => [:create]
+    m.resources :background_infos, :controller => :statements, :only => [:create]
   end
   
   map.resources :questions, :controller => :statements, :only => [:update]
@@ -159,6 +160,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :pro_arguments, :controller => :statements, :only => [:update]
   map.resources :contra_arguments, :controller => :statements, :only => [:update]
   map.resources :follow_up_questions, :controller => :statements, :only => [:update]
+  map.resources :background_infos, :controller => :statements, :only => [:update]
 
   #statement images
   map.resources :statement_images,

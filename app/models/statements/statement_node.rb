@@ -571,5 +571,5 @@ class StatementNode < ActiveRecord::Base
       @@linkable_types[self.name] ||= klasses
     end
   end
-  has_default_children_of_types [:FollowUpQuestion,true]
+  has_default_children_of_types [:FollowUpQuestion,true],[:BackgroundInfo,true]
 end
