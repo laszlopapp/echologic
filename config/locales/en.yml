@@ -514,6 +514,7 @@ en:
         improvement: See all additions proposed for the current proposal
         pro_argument: See all arguments belonging to the current proposal
         contra_argument:  See all arguments belonging to the current proposal
+        background_info:  See all background infos belonging to the current statement
       link_statement: "Enter a part of the title and press the button to search for matching statements to be referenced..."
 
 
@@ -615,7 +616,7 @@ en:
         improvement: 'Additions'
         argument: 'Arguments'
         follow_up_question: 'Questions'
-        background_infos: 'Background Infos'
+        background_info: 'Background Infos'
       siblings:
         follow_up_question: 'Follow-up Question in the context shown above'
         background_info: 'Background Infos'
@@ -672,6 +673,7 @@ en:
           pr: 'Proposals for'
           im: 'Improvements for'
           ar: 'Arguments for'
+          bi: 'Background Infos for'
           fq: 'Follow-up Questions for'
           jp: 'Jump from'
           over:
@@ -681,6 +683,7 @@ en:
             pr: 'Back to'
             im: 'Back to'
             ar: 'Back to'
+            bi: 'Back to'
             fq: 'Back to'
             jp: 'Back to'
 

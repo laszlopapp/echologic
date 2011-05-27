@@ -188,6 +188,7 @@ function generateKey(type) {
 	else if (type =='improvement'){return 'im';}
 	else if (type=='pro_argument' || type=='contra_argument'){return 'ar';}
 	else if (type=='follow_up_question'){return 'fq';}
+	else if (type=='background_info'){return 'bi';}
 	else {return '';}
 }
 

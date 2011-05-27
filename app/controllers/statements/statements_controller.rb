@@ -825,7 +825,7 @@ def load_breadcrumbs
       when "mi" then breadcrumb[:css] = "my_discussions_link statement_link"
       breadcrumb[:url] = my_questions_url
       breadcrumb[:title] = I18n.t("discuss.statements.breadcrumbs.my_questions")
-      when "pr", "im", "ar", "fq", "jp"
+      when "pr", "im", "ar", "bi", "fq", "jp"
       then statement_node = StatementNode.find(bid[2..-1])
       statement_document = search_statement_documents(:statement_ids => [statement_node.statement_id])[statement_node.statement_id] ||
       statement_node.document_in_original_language
