@@ -1,6 +1,8 @@
 class BackgroundInfo < StatementNode
   has_children_of_types
   has_linkable_types :BackgroundInfo
+
+  belongs_to :node_type
   
   #Overwriting of nested set function (hub's make it impossible to level them right)
   def level; parent_node.level + 1; end

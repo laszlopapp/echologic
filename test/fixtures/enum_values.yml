@@ -317,3 +317,50 @@ thematic_partners_<%= code %>:
   value: <%= value %>
   context:
 <% end %>
+
+<% {'en' => "Article",'de' => "Artikel",'fr'=> "Article",'pt' => "Artigo",'es' => "Artículo"}.each_pair do |code,value| %>
+info_type_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:info_type_article) %>
+  code: <%= code %>s
+  value: <%= value %>
+  context:
+<% end %>
+<% {'en' => "Paper",'de' => "Referat",'fr'=> "Exposé",'pt' => "Artigo Científico",'es' => "Ponencia"}.each_pair do |code,value| %>
+info_type_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:info_type_paper) %>
+  code: <%= code %>s
+  value: <%= value %>
+  context:
+<% end %>
+<% {'en' => "Book",'de' => "Buch",'fr'=> "Livre",'pt' => "Livro",'es' => "Libro"}.each_pair do |code,value| %>
+info_type_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:info_type_book) %>
+  code: <%= code %>s
+  value: <%= value %>
+  context:
+<% end %>
+<% {'en' => "Photo",'de' => "Foto",'fr'=> "Photo",'pt' => "Foto",'es' => "Foto"}.each_pair do |code,value| %>
+info_type_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:info_type_photo) %>
+  code: <%= code %>s
+  value: <%= value %>
+  context:
+<% end %>
+<% {'en' => "Video",'de' => "Video",'fr'=> "Video",'pt' => "Video",'es' => "Video"}.each_pair do |code,value| %>
+info_type_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:info_type_video) %>
+  code: <%= code %>s
+  value: <%= value %>
+  context:
+<% end %>
+<% {'en' => "URL",'de' => "URL",'fr'=> "URL",'pt' => "URL",'es' => "URL"}.each_pair do |code,value| %>
+info_type_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:info_type_url) %>
+  code: <%= code %>s
+  value: <%= value %>
+  context:
+<% end %>
+
+
+
+

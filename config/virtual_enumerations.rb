@@ -6,7 +6,7 @@
 ActiveRecord::VirtualEnumerations.define do |config|
   config.define :enum_key, :order => 'key ASC', :table_name => 'enum_keys'
   config.define [:language,:language_level,:web_address_type,:organisation_type,
-                 :tag_context,:statement_state,:statement_action,:about_category],
+                 :tag_context,:statement_state,:statement_action,:about_category,:info_type],
                 :order => 'enum_keys.key ASC',
                 :extends => 'EnumKey' do
 
