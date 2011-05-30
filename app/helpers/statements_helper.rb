@@ -239,11 +239,11 @@ module StatementsHelper
     bids = bids ? bids.split(",") : []
     content_tag(:div, :class => 'container') do
       content = ''
-      statement_node.class.default_children_types(:visibility => false) do |default_type|
+      statement_node.class.default_children_types(:visibility => false).each do |default_type|
         dom_type = default_type.to_s.underscore
         content << add_new_child_link(statement_node, dom_type,
-                                                         :bids => (bids + ["#{Breadcrumb.instance.generate_key(dom_type)}#{statement_node.id}"]).join(","),
-                                                         :origin => params[:origin])
+                                                      :bids => (bids + ["#{Breadcrumb.instance.generate_key(dom_type)}#{statement_node.id}"]).join(","),
+                                                      :origin => params[:origin])
       end
       content
     end
