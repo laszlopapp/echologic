@@ -287,7 +287,7 @@ ActiveRecord::Schema.define(:version => 20110530110033) do
     t.integer  "lft"
     t.integer  "rgt"
     t.integer  "question_id"
-    t.integer  "info_id"
+    t.integer  "node_info_id"
   end
 
   add_index "statement_nodes", ["creator_id"], :name => "index_statement_nodes_on_creator_id"

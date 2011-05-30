@@ -1,6 +1,6 @@
 class CreateNodeInfos < ActiveRecord::Migration
   def self.up
-    add_column :statement_nodes, :info_id, :integer
+    add_column :statement_nodes, :node_info_id, :integer
     
     create_table :node_infos do |t|
       t.string :info_file_name
@@ -14,6 +14,6 @@ class CreateNodeInfos < ActiveRecord::Migration
 
   def self.down
     drop_table :node_infos
-    remove_column :statement_nodes, :info_id
+    remove_column :statement_nodes, :node_info_id
   end
 end
