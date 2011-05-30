@@ -4,7 +4,8 @@
 
     $.fn.statementForm.defaults = {
       'animation_speed': 500,
-      'taggableClass' : 'taggable'
+      'taggableClass' : 'taggable',
+			'selected_color' : '#999999'
     };
 
     // Merging settings with defaults
@@ -38,6 +39,7 @@
       var linking_messages;
 		  var linkedTags;
 			var linkedTitle, linkedText;
+			var node_info = form.find('.info_types_container');
 			
 			initialise();
 
@@ -53,6 +55,10 @@
 					initAutoCompleteTitle();
 					handleContentChange();
 					unlinkStatement();
+					if (node_info.length > 0) {
+						form.jqTransform();
+						handleInputTypeClicks();
+					}
         }
 
         // Taggable Form Helpers
@@ -329,6 +335,18 @@
 						}
 					}
 				});
+			}
+
+      /* Input Types */
+			function handleInputTypeClicks() {
+				var selected = null;
+				node_info.find('ol li label').bind('click', function(){				
+					if (selected) { selected.removeClass('selected').find('a.jqTransformRadio').removeClass('jqTransformChecked'); }
+          $(this).addClass('selected').find('a.jqTransformRadio').addClass('jqTransformChecked');
+					selected = $(this);
+				});
+				
+				
 			}
 
 			// Public API functions

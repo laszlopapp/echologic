@@ -48,3 +48,8 @@
   <%= content_tag :span, I18n.t('application.general.or'), :class => "or_cancel" %>
   <%= statement_node.new_record? ? cancel_new_statement_node : cancel_edit_statement_node(statement_node, statement_document.locked_at) %>
 <% end %>
+
+<!-- Embeeded part of the form for background infos --> 
+<%= render :partial => 'statements/form/info_type', 
+           :locals => {:form => form, 
+                       :statement_node => statement_node} if statement_node.new_record? and statement_node.respond_to? :node_info %>

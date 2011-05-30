@@ -352,32 +352,32 @@ end
 
 ["Article","Artikel","Article","Artigo","Artículo","Article"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('article','InfoType'),
-                              :code => EnumKey.find_by_type_and_key('InfoType',index+1).code,
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end                           
 ["Paper","Paper","Paper","Paper","Paper","Paper"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('paper','InfoType'),
-                              :code => EnumKey.find_by_type_and_key('InfoType',index+1).code,
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
 ["Book","Book","Book","Book","Book","Book"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('book','InfoType'),
-                              :code => EnumKey.find_by_type_and_key('InfoType',index+1).code,
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
 ["Photo","Photo","Photo","Photo","Photo","Photo"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('photo','InfoType'),
-                              :code => EnumKey.find_by_type_and_key('InfoType',index+1).code,
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
 ["Video","Video","Video","Video","Video","Video"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('video','InfoType'),
-                              :code => EnumKey.find_by_type_and_key('InfoType',index+1).code,
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
 ["URL","URL","URL","URL","URL","URL"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('url','InfoType'),
-                              :code => EnumKey.find_by_type_and_key('InfoType',index+1).code,
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
 

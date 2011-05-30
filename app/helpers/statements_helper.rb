@@ -660,6 +660,16 @@ module StatementsHelper
     image_tag('page/discuss/alternatives-arrow.png', :class => 'arrow', :style => 'display:none')
   end
 
+  ####################
+  # BACKGROUND INFOS #
+  ####################
+
+
+
+
+
+
+
   #
   # This class does the heavy lifting of actually building the pagination
   # links. It is used by the <tt>will_paginate</tt> helper internally.
