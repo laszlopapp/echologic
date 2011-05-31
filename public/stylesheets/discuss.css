@@ -434,6 +434,11 @@ form.statement fieldset.info_types_container a.url {
 }
 
 
+form.statement .embedded_content {
+	width: 721px;
+	height: 600px;
+}
+
 /*********/
 /* lwRTE */
 /*********/

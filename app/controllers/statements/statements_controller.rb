@@ -212,6 +212,7 @@ class StatementsController < ApplicationController
         end
       else
         set_error(@statement_document)
+        set_error(@statement_node.node_info) if @statement_node.respond_to? :node_info
         render_statement_with_error :template => 'statements/new'
       end
     

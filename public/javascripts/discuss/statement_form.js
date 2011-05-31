@@ -5,7 +5,11 @@
     $.fn.statementForm.defaults = {
       'animation_speed': 500,
       'taggableClass' : 'taggable',
-			'selected_color' : '#999999'
+			'selected_color' : '#999999',
+			'video_settings' : {
+				'width' : 640,
+				'height': 390
+			}
     };
 
     // Merging settings with defaults
@@ -40,6 +44,8 @@
 		  var linkedTags;
 			var linkedTitle, linkedText;
 			var node_info = form.find('.info_types_container');
+			var embed_url = form.find('.embed_url input');
+			var embedded_content = form.find('.embedded_content');
 			
 			initialise();
 
@@ -56,8 +62,9 @@
 					handleContentChange();
 					unlinkStatement();
 					if (node_info.length > 0) {
-						form.jqTransform();
+						node_info.jqTransform();
 						handleInputTypeClicks();
+						handleInputURL();
 					}
         }
 
@@ -345,9 +352,41 @@
           $(this).addClass('selected').find('a.jqTransformRadio').addClass('jqTransformChecked');
 					selected = $(this);
 				});
-				
-				
 			}
+
+      function handleInputURL() {
+				var url_value = embed_url.val();
+				embed_url.bind('change', function(){
+					if (url_value != embed_url.val())
+					{
+						url_value = embed_url.val();  
+						loadEmbeddedContent(url_value);
+						if (!embedded_content.is(':visible')) {
+							embedded_content.fadeIn();
+						}
+					}
+				});
+			}
+			
+			function loadEmbeddedContent(url) {
+				var handled_url = url;
+				if (containsVideo(handled_url)){
+					var video_id = handled_url.match("[\?&]v=([^&#]*)")[1];
+					handled_url = "http://www.youtube.com/embed/" + video_id;
+					embedded_content.attr('width', settings['video_settings']['width']).attr('height', settings['video_settings']['height']);
+					embedded_content.attr('allowfullscreen',''); 
+				}
+				else {
+					embedded_content.removeAttr('width').removeAttr('height');
+					embedded_content.removeAttr('allowfullscreen');
+				}
+        embedded_content.attr('src',handled_url);				
+			}
+			
+			/* right now only working for youtube urls */
+			function containsVideo(url) {
+	 		  return url.match(/.*http:\/\/(\w+\.)?youtube.com\/watch\?v=(\w+).*/);
+      }
 
 			// Public API functions
 			$.extend(this,

@@ -8,6 +8,12 @@
                         :collection => InfoType.all.collect{|i|[i.value,i.code]},
                         :class => "info_type" %>
   <% end %>
-
+	
+	<% node_info.inputs :class => 'embed_url' do %>
+    <%= node_info.input :info_url %>
+  <% end %>
+	
+	<%= content_tag :iframe, '', :class => 'embedded_content', :frameborder => 0, :style => 'display:none' %>
+  
 
 <% end %>
