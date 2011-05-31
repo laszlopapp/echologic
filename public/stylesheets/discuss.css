@@ -398,7 +398,7 @@ form.statement fieldset.info_types_container label {
 }
 
 form.statement fieldset.info_types_container label.selected {
-  background-color: #999999;
+	color: #7BB031;
 }
 
 form.statement fieldset.info_types_container a {
