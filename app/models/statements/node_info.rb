@@ -2,7 +2,9 @@ class NodeInfo < ActiveRecord::Base
   has_one :background_info
   
   has_enumerated :info_type, :class_name => 'InfoType'
-  
+  validates_presence_of :info_type_id
+  validates_numericality_of :info_type_id
+  validates_presence_of :info_url # TODO: When there's the possibility to upload files, rethink this
   
   # TODO: This is not used yet! This will be activated when it is possible to update files
 #  has_attached_file :image, :default_url => "/images/default_:style_statement_image.png"

@@ -3,6 +3,7 @@ class BackgroundInfo < StatementNode
   has_linkable_types :BackgroundInfo
 
   belongs_to :node_info
+  validates_associated :node_info
   
   #Overwriting of nested set function (hub's make it impossible to level them right)
   def level; parent_node.level + 1; end
