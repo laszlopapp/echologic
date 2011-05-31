@@ -873,6 +873,9 @@ en:
         title: 'Title'
         text: 'Summary'
         image: 'Illustration'
+      node_info:
+        info_type: 'Content Type'
+        info_url: 'Background Info URL'
       about_item:
         photo: 'Photo'
         name: 'Name'
