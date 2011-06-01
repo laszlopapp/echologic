@@ -11,15 +11,27 @@ namespace :create_shortcuts do
                                           :params => {:search_terms => "vision-fair-2011"},
                                           :language => "de"
     end
-    %w(szocialis-konzultacio szocikon).each do |shortcut|
-      ShortcutUrl.discuss_search_shortcut :title => shortcut,
-                                          :params => {:search_terms => "Szociális-Konzultáció"},
-                                          :language => "hu"
-    end
+  end
+
+  task :apold => :environment do
     %w(allam-polgari-dialogus apold).each do |shortcut|
       ShortcutUrl.discuss_search_shortcut :title => shortcut,
                                           :params => {:search_terms => "Állam-POLgári-Dialógus"},
                                           :language => "hu"
     end
   end
+
+  task :szocikon => :environment do
+    %w(szocialis-konzultacio szocikon).each do |shortcut|
+      ShortcutUrl.statement_shortcut :title => shortcut,
+                                     :params => { :id => 1555 },
+                                     :language => "hu"
+    end
+    %w(vonalkod kakaostej).each do |shortcut|
+      ShortcutUrl.discuss_search_shortcut :title => shortcut,
+                                          :params => {:search_terms => "vonalkód, kakaóstej"},
+                                          :language => "hu"
+    end
+  end
+
 end
