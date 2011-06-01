@@ -29,7 +29,7 @@ class BackgroundInfo < StatementNode
     end
     
     def default_children_types(opts={})
-      []
+      format_types [[:FollowUpQuestion, true]], opts
     end
     
     def support_tag
