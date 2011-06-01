@@ -43,5 +43,9 @@ class BackgroundInfo < StatementNode
     def has_more_data?
       true
     end
+
+    def more_data_partial
+      'statements/background_data'
+    end
   end
 end

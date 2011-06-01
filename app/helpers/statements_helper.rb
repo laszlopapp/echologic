@@ -666,11 +666,44 @@ module StatementsHelper
   ####################
 
 
+  def render_more_data(background_info)
+    content_tag :div, :class => 'embedded_container' do
+     send("render_#{background_info.info_type.code}_data", background_info)
+    end
+  end
+  
+  def render_article_data(background_info)
+    render_in_iframe(background_info.statement_data.info_url)
+  end
+  
+  def render_paper_data(background_info)
+    render_in_iframe(background_info.statement_data.info_url)
+  end
+  
+  def render_book_data(background_info)
+    render_in_iframe(background_info.statement_data.info_url)
+  end
+  
+  def render_photo_data(background_info)
+    render_in_iframe(background_info.statement_data.info_url)
+  end
+  
+  
+  def render_video_data(background_info)
+    if background_info.statement_data.is_youtube_url?
+      %Q{<iframe title="YouTube video player" width="640" height="390" src="http://www.youtube.com/embed/#{ background_info.statement_data.youtube_id }" frameborder="0" allowfullscreen></iframe>}
+    else
+      
+    end
+  end
 
-
-
-
-
+  def render_url_data(background_info)
+    render_in_iframe(background_info.statement_data.info_url)
+  end
+  
+  def render_in_iframe(url)
+    content_tag :iframe, '', :src => url, :class => 'embedded_content', :frameborder => 0
+  end
   #
   # This class does the heavy lifting of actually building the pagination
   # links. It is used by the <tt>will_paginate</tt> helper internally.

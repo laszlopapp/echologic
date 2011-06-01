@@ -437,7 +437,7 @@ form.statement fieldset.info_types_container a.url {
 }
 
 
-form.statement .embedded_content {
+.statement .embedded_content {
 	width: 721px;
 	height: 600px;
 }
@@ -1979,4 +1979,14 @@ form.statement fieldset ol li.tags_container {
   position: absolute;
   right: 32px;
   top: 7px;
+}
+
+/******************/
+/* Statement Data */
+/******************/
+
+.statement .embedded_container {
+  width: 100%;
+	text-align: center;
+	margin-bottom: 20px;
 }

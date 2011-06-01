@@ -8,4 +8,6 @@
                                                          :approved_node => @approved_node,
                                                          :approved_document => @approved_document} %>
 	 <%= render_all_children(statement_node, @children) %>
+	 
+	 <%= render_more_data(statement_node) if statement_node.class.has_more_data? %>
 </div>
