@@ -212,7 +212,7 @@ class StatementsController < ApplicationController
         end
       else
         set_error(@statement_document)
-        set_error(@statement_node.node_info) if @statement_node.respond_to? :node_info
+        set_error(@statement_node.statement_data) if @statement_node.class.has_more_data?
         render_statement_with_error :template => 'statements/new'
       end
     

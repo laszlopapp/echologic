@@ -5,6 +5,12 @@ class Statement < ActiveRecord::Base
   belongs_to :statement_image
   delegate :image, :image=, :to => :statement_image
 
+  belongs_to :statement_data
+  validates_presence_of :statement_data
+  validates_associated :statement_data
+  
+  delegate :info_type, :to => :statement_data
+
   has_enumerated :editorial_state, :class_name => 'StatementState'
 
   validates_presence_of :editorial_state_id

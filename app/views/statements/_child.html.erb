@@ -1,7 +1,7 @@
 <%
   statement_document = @children_documents[child.statement_id]
   extra_classes ||= (@current_node && child == @current_node ? 'active' : '')
-  extra_classes << " #{child.info_type.code}_link" if child.respond_to? :node_info
+  extra_classes << " #{child.info_type.code}_link" if child.class.has_more_data?
   new_level ||= false
 %>
 

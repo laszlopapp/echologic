@@ -194,6 +194,6 @@ function generateKey(type) {
 
 function getOriginKeys(array) {
   return $.grep(array, function(a, index) {
-    return $.inArray(a.substring(0,2), ['pr','ar','im']) == -1;
+    return $.inArray(a.substring(0,2), ['pr','ar','im', 'bi']) == -1;
   });
 }

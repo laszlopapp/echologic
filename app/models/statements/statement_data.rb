@@ -1,5 +1,5 @@
-class NodeInfo < ActiveRecord::Base
-  has_one :background_info
+class StatementData < ActiveRecord::Base
+  has_one :statement
   
   has_enumerated :info_type, :class_name => 'InfoType'
   validates_presence_of :info_type_id

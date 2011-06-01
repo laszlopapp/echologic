@@ -1,16 +1,16 @@
 <% statement_node ||= @statement_node %>
 
-<% form.semantic_fields_for :node_info, statement_node.node_info do |node_info|  %>
+<% form.semantic_fields_for :statement_data, statement_node.statement_data do |statement_data|  %>
 
-  <% node_info.inputs :class => 'info_types_container' do %>
-    <%= node_info.input :info_type, 
+  <% statement_data.inputs :class => 'info_types_container' do %>
+    <%= statement_data.input :info_type, 
                         :as => :radio,
                         :collection => InfoType.all.collect{|i|[i.value,i.code]},
                         :class => "info_type" %>
   <% end %>
 	
-	<% node_info.inputs :class => 'embed_url' do %>
-    <%= node_info.input :info_url %>
+	<% statement_data.inputs :class => 'embed_url' do %>
+    <%= statement_data.input :info_url %>
   <% end %>
 	
 	<%= content_tag :iframe, '', :class => 'embedded_content', :frameborder => 0, :style => 'display:none' %>
