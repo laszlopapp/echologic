@@ -22,8 +22,6 @@ module NavigationHelpers
       connect_search_path
     when /the connect roadmap/
       connect_roadmap_path
-    when /the welcome page/
-      welcome_path
     when /the reports page/
       reports_path
     when /^create a question$/
