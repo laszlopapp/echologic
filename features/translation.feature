@@ -103,20 +103,18 @@ Feature: Translation permission
       And I follow "Please translate this statement to ENGLISH"
       And I fill in the following:
         | question_new_statement_document_title | Another Question? |
-        | question_new_statement_document_text | new statement to ENGLISH |
+        | question_new_statement_document_text | new statement in ENGLISH |
       And I press "Save"
-    Then I should see "new statement to ENGLISH"
+    Then I should see "new statement in ENGLISH"
       And I follow "Logout"
       And I login as "illiterate" with password "illiterate"
       And I go to the question
     Then I should see "Another Question?"
-      And I should see "new statement to ENGLISH"
+      And I should see "new statement in ENGLISH"
       And I follow "Logout"
       And I go to the question
     Then I should see "Another Question?"
-      And I should see "new statement to ENGLISH"
-      And I go to the discuss index
-      Then I should see "Another Question?"
+      And I should see "new statement in ENGLISH"
 
   @ok
   Scenario: luise succeeds in translating a proposal
@@ -150,21 +148,10 @@ Feature: Translation permission
     Then I should see "new statement to ENGLISH"
 
   @ok
-  Scenario: illiterate doesn't speak any languages, and sees a warning when he chooses a question which original language is german
+  Scenario: illiterate doesn't speak any languages, and sees a teaser to set his languages skills
     Given I am logged in as "illiterate" with password "illiterate"
     When I am on the discuss featured
     When I follow "Pilot Projects"
     When I follow "echonomyJAM"
-      And I choose the "Andere Frage?" Question
-    Then I should see "Set your language skills to see content only in languages you speak"
+    Then I should see "Wipe out the noise"
 
-  @ok
-  Scenario: illiterate doesn't speak any languages, and  does not see a warning when he chooses a question which original language is german with the application in german
-    Given I am logged in as "illiterate" with password "illiterate"
-    When I am on the discuss featured
-    When I follow "Pilot Projects"
-    When I follow "echonomyJAM"
-      And I choose the "Raindrops keep falling on my head" Question
-      And I change the application language to "de"
-    Then I should not see "Die originale Aussage ist auf DEUTSCH. Definieren Sie Ihre Sprachkenntnisse, um weitere Inhalte zu sehen."
-      And I change the application language to "en"
