@@ -321,7 +321,7 @@
 	function isMobileDevice() {
     var userAgent = navigator.userAgent.toLowerCase();
 		return userAgent.match(/android/i) ||
-           userAgent.match(/iphone/i)  ||
+           userAgent.match(/iphone/i) ||
            userAgent.match(/ipod/i) ||
            userAgent.match(/ipad/i) ||
            userAgent.match(/webos/i) ||
