@@ -111,34 +111,6 @@ pt:
         settings: Definições
       profile_complete: '{{complete}}% completo'
 
-  # ----------------
-  # Welcome function
-  # ----------------
-
-  welcome:
-    title: Bemvindo à echo!
-    text: |
-      <p>
-      <strong>Discutir - Conectar - Agir!</strong><br/>
-      Estas são as três áreas funcionais da echo desenvolvidas na echo com a sua participação ativa.<br/>
-      O roteiro (no canto superior esquerdo do ecrã) mostra-lhe sempre o
-      <strong>estado actual do desenvolvimento</strong> e os próximos passos planeados na área em que se encontra.
-      </p><p>
-      Como um motor da echo é bemvindo a <strong>participar na evolução da echo</strong>!<br/>
-      Até agora, foram lançadas as seguintes características simples:
-      </p>
-    function_1:
-      name: 'O meu Perfil'
-      description: Complete o seu perfil de forma a apresentar-se perante a comunidade echo.
-    function_2:
-      name: 'Conectar'
-      description: 'Explore a comunidade e conecte-se com outros membros interessantes ligados ao movimento.'
-    function_3:
-      name: 'Discutir'
-      description: |
-        Troque as suas ideias com outros novos-pensadores. Participe na evolução da echo.
-
-
 
   # ------------
   # USERS MODULE
@@ -401,7 +373,6 @@ pt:
       messages:
         created: "Por favor verifique os seus E-Mails para ativar a sua conta recém-criada!"
         activate_email: De modo a completar a alteração do seu endereço E-Mail, por favor desconecte-se e prima o link de confirmação que acabou de ser enviado para o seu novo endereço!
-
 
 
     # Reports section
@@ -691,9 +662,10 @@ pt:
   # ---------------
 
   connect:
-
     fill_out_profile:
       text: Por favor preencha <strong>pelo menos {{percentage}}%</strong> do seu perfil para fazer a vontado ao "HAL" e fazer este bloco desaparecer. :-)
+      name: 'O meu Perfil'
+      description: Complete o seu perfil de forma a apresentar-se perante a comunidade echo.
     placeholder: Tópico, lugar, organização ou nome de interesse
 
     segments:
