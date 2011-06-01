@@ -63,7 +63,9 @@ module PublishableModule
           if @statement_node.statement.save
             @statement_node.statement.statement_nodes.each do |node|
               EchoService.instance.published(node)
+              node.publish_descendants
             end
+            format.html {params[:in] == 'mi' ? my_questions : show}
             format.js do
               set_info("discuss.statements.published")
               render_with_info do |page|
@@ -82,6 +84,8 @@ module PublishableModule
               end
             end
           else
+            set_error(@statement_node.statement)
+            format.html{flash_error and params[:in] == 'mi' ? my_questions : show}
             format.js do
               set_error @statement_node and render_with_error
             end

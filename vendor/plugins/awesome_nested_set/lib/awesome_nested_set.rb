@@ -433,12 +433,15 @@ HAVING COUNT(#{column}) > 1").nil?
         # All nested set queries should use this nested_set_scope, which performs finds on
         # the base ActiveRecord class, using the :scope declared in the acts_as_nested_set
         # declaration.
-        def nested_set_scope
+        def nested_set_scope(opts={})
           options = {:order => quoted_left_column_name}
           scopes = Array(acts_as_nested_set_options[:scope])
-          options[:conditions] = scopes.inject({}) do |conditions,attr|
-            conditions.merge attr => self[attr]
-          end unless scopes.empty?
+          options[:conditions] = opts[:write] ? [] : Array(acts_as_nested_set_options[:base_conditions])
+          options[:conditions] += Array(scopes.inject([]) do |conditions,attr|
+            conditions << "#{attr} =  #{self[attr]}" if self[attr] 
+#            conditions.merge attr => self[attr]
+          end) unless scopes.empty?
+          options[:conditions] = options[:conditions].join(" AND ")
           self.class.base_class.scoped options
         end
         
@@ -457,7 +460,7 @@ HAVING COUNT(#{column}) > 1").nil?
         
         # on creation, set automatically lft and rgt to the end of the tree
         def set_default_left_and_right
-          maxright = nested_set_scope.maximum(right_column_name) || 0
+          maxright = nested_set_scope(:write => true).maximum(right_column_name) || 0
           # adds the new node to the right of all existing nodes
           self[left_column_name] = maxright + 1
           self[right_column_name] = maxright + 2
@@ -475,7 +478,7 @@ HAVING COUNT(#{column}) > 1").nil?
                 model.destroy
               end
             else
-              nested_set_scope.delete_all(
+              nested_set_scope(:write => true).delete_all(
                 ["#{quoted_left_column_name} > ? AND #{quoted_right_column_name} < ?",
                   left, right]
               )
@@ -483,11 +486,11 @@ HAVING COUNT(#{column}) > 1").nil?
             
             # update lefts and rights for remaining nodes
             diff = right - left + 1
-            nested_set_scope.update_all(
+            nested_set_scope(:write => true).update_all(
               ["#{quoted_left_column_name} = (#{quoted_left_column_name} - ?)", diff],
               ["#{quoted_left_column_name} > ?", right]
             )
-            nested_set_scope.update_all(
+            nested_set_scope(:write => true).update_all(
               ["#{quoted_right_column_name} = (#{quoted_right_column_name} - ?)", diff],
               ["#{quoted_right_column_name} > ?", right]
             )
@@ -511,7 +514,7 @@ HAVING COUNT(#{column}) > 1").nil?
               target.reload_nested_set
             elsif position != :root
               # load object if node is not an object
-              target = nested_set_scope.find(target)
+              target = nested_set_scope(:write=>true).find(target)
             end
             self.reload_nested_set
           
@@ -564,7 +567,7 @@ HAVING COUNT(#{column}) > 1").nil?
                 "WHEN #{self.class.base_class.primary_key} = :id THEN :new_parent " +
                 "ELSE #{quoted_parent_column_name} END",
               {:a => a, :b => b, :c => c, :d => d, :id => self.id, :new_parent => new_parent}
-            ], nested_set_scope.proxy_options[:conditions])
+            ], nested_set_scope(:write => true).proxy_options[:conditions])
           end
           target.reload_nested_set if target
           self.reload_nested_set

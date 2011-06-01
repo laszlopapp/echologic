@@ -106,8 +106,8 @@ module StatementsHelper
   def create_new_child_statement_link(statement_node, child_type, opts={})
     url = opts.delete(:url) if opts[:url]
     css = opts.delete(:css) if opts[:css]
-    label_type = opts[:label_type] || child_type
-    opts[:hub] = opts.delete(:label_type)
+    label_type = opts.delete(:label_type) || child_type
+    opts[:hub] = label_type if !label_type.eql?(child_type)
     link_to(I18n.t("discuss.statements.create_#{label_type}_link"),
             url ? url : new_statement_node_url(statement_node.nil? ? nil : statement_node.target_id,child_type, opts),
             :class => "#{css} add_new_button text_button create_#{label_type}_button ttLink no_border",
@@ -129,6 +129,14 @@ module StatementsHelper
     create_new_child_statement_link(parent, type, opts.merge({:url => url}))
   end
 
+
+  def add_create_new_statement_button(statement_node, type, opts={})
+    if statement_node.nil? # only for siblings; there ain't no child question creation possibility; hence, no new_level param is given 
+       content_tag :li, create_new_question_link(params[:origin], opts)
+    else
+       content_tag :li, create_new_child_statement_link(statement_node, type, opts)
+    end
+  end
 
   #
   # Creates a link to add a new resource for the given statement (appears in the SIDEBAR).

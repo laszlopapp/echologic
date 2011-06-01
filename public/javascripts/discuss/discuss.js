@@ -90,14 +90,20 @@ function initFragmentStatementChange() {
 	/* Statement Stack */
   if ($.fragment().sids) {
 		if (!$.fragment().bids || $.fragment().bids == 'undefined') {
-			var bids = $("#breadcrumbs").data('breadcrumbApi').getBreadcrumbStack(null).join(',');
+			var bids = $("#breadcrumbs").data('breadcrumbApi').getBreadcrumbStack(null);
 			}
-		else {var bids = $.fragment().bids;}
-
-		if (!$.fragment().origin || $.fragment().origin == 'undefined') {var origin = bids.split(',').pop();}
+		else {
+			var bids = $.fragment().bids;
+			bids = bids ? bids.split(',') : [];
+		}
+    
+		var origin_bids = $.grep(bids, function(a){
+			return $.inArray(a.substring(0,2), ['ds','sr','fq']) != -1;
+		});
+		if (!$.fragment().origin || $.fragment().origin == 'undefined') {var origin = origin_bids.length == 0 ? "" : origin_bids.pop();}
 		else {var origin = $.fragment().origin;}
 
-    $.setFragment({ "new_level" : true, "bids" : bids, "origin" : origin });
+    $.setFragment({ "new_level" : true, "bids" : bids.join(','), "origin" : origin });
 	  $(document).trigger("fragmentChange.sids");
   }
 

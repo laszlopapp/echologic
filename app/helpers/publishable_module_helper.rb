@@ -86,10 +86,8 @@ module PublishableModuleHelper
   def publish_statement_node_link(statement_node, statement_document)
     if current_user and current_user.may_publish?(statement_node)
       link_to(I18n.t('discuss.statements.publish'),
-              { :controller => :statements,
-                :id => statement_node.id,
-                :action => :publish,
-                :in => :summary },
+              publish_statement_url(:id => statement_node.id,
+                                    :in => :summary),
               :class => 'ajax_put header_button text_button publish_text_button ttLink',
               :title => I18n.t('discuss.tooltips.publish'))
     else
@@ -153,9 +151,7 @@ module PublishableModuleHelper
   def publish_button_or_state(statement_node, opts={})
     if current_user and current_user.may_publish?(statement_node)
       link_to(I18n.t("discuss.statements.publish"),
-              { :controller => :statements,
-                :id => statement_node.id,
-                :action => :publish }.merge(opts),
+              publish_statement_url({:id => statement_node.id}.merge(opts)),
               :class => 'ajax_put publish_button ttLink no_border',
               :title => I18n.t('discuss.tooltips.publish'))
     else

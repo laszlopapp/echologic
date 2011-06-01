@@ -170,6 +170,7 @@ $.Autocompleter = function(input, options) {
 		var fn = (arguments.length > 1) ? arguments[1] : null;
 		function findValueCallback(q, data) {
 			var result;
+			$input.addClass(options.loadingClass);
 			if( data && data.length ) {
 				for (var i=0; i < data.length; i++) {
 					if( data[i].result.toLowerCase() == q.toLowerCase() ) {
@@ -179,6 +180,7 @@ $.Autocompleter = function(input, options) {
 				}
 			}
 			if( typeof fn == "function" ) fn(result);
+			$input.removeClass(options.loadingClass);
 			else $input.trigger("result", result && [result.data, result.value]);
 		}
 		$.each(trimWords($input.val()), function(i, value) {

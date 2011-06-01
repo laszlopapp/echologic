@@ -9,7 +9,7 @@
       <%= supporters_label(question, true) %>
       <% content_tag :div, :class => 'buttons',
                      :id => "#{dom_id(question)}_buttons" do %>
-        <%= publish_button_or_state(question, :no_published_label => true) %>
+        <%= publish_button_or_state(question, :no_published_label => true, :in => :mi) %>
       <% end %>
     <% end %>
 

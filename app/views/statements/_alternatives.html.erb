@@ -6,7 +6,7 @@
 	<%= render :partial => 'statements/children_list',
              :locals => {:label_type => "alternative",
                          :child_type => @statement_node.class.alternative.to_s.underscore,
-                         :children => alternatives.flatten,
+                         :children => alternatives,
                          :display => true}%>
 	<%= render_arrow %>
 <% end %>

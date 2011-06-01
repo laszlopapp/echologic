@@ -4,6 +4,7 @@
 
     function Taggable(taggable){
       var loadedTags = taggable.find('input.question_tags');
+			var container = taggable.find('.tag_container');
 			
 			initialise();
 
@@ -26,7 +27,7 @@
           var tag = $.trim(tags_to_load.shift());
           if (tag.localeCompare(' ') > 0) {
             var element = createTagButton(tag, ".question_tags");
-            taggable.find('#question_tags_values').append(element);
+            container.append(element);
           }
         }
       }
@@ -63,7 +64,7 @@
               if ($.inArray(tag,existing_tags) < 0 && $.inArray(tag,entered_tags) < 0) {
                 if (tag.localeCompare(' ') > 0) {
                   var element = createTagButton(tag, ".question_tags");
-                  $('#question_tags_values').append(element);
+                  container.append(element);
                   new_tags.push(tag);
                 }
               }
@@ -98,6 +99,7 @@
             form_tags.splice(index_to_delete, 1);
           }
           taggable.find(tags_class).val(form_tags.join(','));
+					taggable.trigger('tagremoved', [tag_to_delete]);
         });
         element.append(deleteButton);
         return element;
@@ -119,6 +121,7 @@
 				reinitialise: function()
         {
           initialise();
+					return this;
         },
 				addTags: function(tags) // Array of new tags
 				{
@@ -132,6 +135,13 @@
 					
 					//create the visual buttons
 					loadTags(tags.join(','));
+					return this;
+				},
+				removeAllTags: function() 
+				{
+				  loadedTags.val('');
+				  container.children().remove();
+					return this;
 				}
 			});
 		}

@@ -72,7 +72,7 @@ module ActiveRecord
 
             def paginated_alternatives(page, per_page = nil,opts={})
               alternative_statements = hub.nil? ? [] : hub.child_statements(opts.merge({:type => self.class.alternative,
-                                                                                        :alternative_ids => alternatives.map(&:id)}))
+                                                                                        :alternative_ids => alternatives.map(&:id)})).flatten
 
               per_page = alternative_statements.length if per_page.nil? or per_page < 0
               per_page = 1 if per_page.to_i == 0

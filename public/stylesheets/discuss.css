@@ -17,7 +17,7 @@
 
 .alternative_panel {
 	-moz-border-radius: 15px 15px 15px 15px;
-  background: none repeat scroll 0 0 #D4D3D3;
+  background: none repeat scroll 0 0 #FFFFFF;
 	width: 961px;
   border: 2px solid #000000;
 	position: relative;
@@ -53,6 +53,10 @@
 	width: 30px;
 	top: 80px;
 	left: 80px;
+}
+
+.alternative_panel a.statement_link {
+	color: #888888;
 }
 
 /**************/
@@ -352,6 +356,10 @@ form.statement .header .auto_complete {
 	color: #FFFFFF;
 	cursor: pointer;
 	background: transparent url(../images/page/discuss/linking_button.png) 0 -40px no-repeat scroll;
+}
+
+form.statement .ac_loading {
+	background-position: 428px 3px;
 }
 
 form.statement .header .auto_complete.off {

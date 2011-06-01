@@ -5,8 +5,8 @@
 
     // Merging settings with defaults
     var settings = {
-      'highlight_color' : '#BFCFFE',
-      'normal_mode_color' : '#D4D3D3'
+      'highlight_color' : '#21587F',
+      'normal_mode_color' : '#888888'
     };
 
     return this.each(function() {
@@ -34,9 +34,25 @@
        * Initializes an echoable statement in a form or in normal mode.
        */
       function initialize() {
-
+        initPanel();
       }
+			
+			function initPanel() {
+				alternative_panel.bind('mouseover', function(){
+					panelHighlight();
+				});
+        alternative_panel.bind('mouseleave', function(){
+					panelNormal();
+        });
+			}
 
+      function panelHighlight() {
+				alternative_panel.find('a.statement_link').animate({color : settings['highlight_color']}, 100);
+			}
+			
+			function panelNormal() {
+        alternative_panel.find('a.statement_link').animate({color : settings['normal_mode_color']}, 100);				
+			}
 
 
       // Public API
@@ -46,12 +62,12 @@
           initialize();
         },
 				highlight: function() {
-					alternative_panel.animate({backgroundColor : settings['highlight_color']}, 300);
-					arrow.fadeIn(300);
+					panelHighlight();
+					arrow.fadeIn(100);
 				},
 				normal_mode: function() {
-					alternative_panel.animate({backgroundColor : settings['normal_mode_color']}, 300);
-					arrow.fadeOut(300);
+					panelNormal();
+					arrow.fadeOut(100);
 				}
       });
     }

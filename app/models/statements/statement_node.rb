@@ -1,7 +1,7 @@
 class StatementNode < ActiveRecord::Base
   acts_as_echoable
   acts_as_subscribeable
-  acts_as_nested_set :scope => :root_id, :set_conditions => "type != 'CasHub'"
+  acts_as_nested_set :scope => :root_id, :base_conditions => "type != 'CasHub'"
 
   alias_attribute :target_id, :id
 
@@ -86,6 +86,17 @@ class StatementNode < ActiveRecord::Base
     false
   end
 
+  def publish_descendants
+    descendants.each do |node|
+      if !node.published?
+        node.publish
+        node.statement.save
+        EchoService.instance.published(node)
+      end
+    end
+  end
+
+#  handle_asynchronously :publish_descendants
 
 
   # Initializes this statement node's statement
@@ -168,6 +179,7 @@ class StatementNode < ActiveRecord::Base
     else
       opts[:lft] = self.parent_node.lft
       opts[:rgt] = self.parent_node.rgt
+      opts[:parent_id] = self.parent_node.target_id
       self.child_statements(opts)
     end
   end
@@ -224,6 +236,7 @@ class StatementNode < ActiveRecord::Base
   #
   def child_statements(opts={})
     opts[:root_id] = self.root_id
+    opts[:parent_id] ||= self.target_id
     opts[:lft] ||= self.lft
     opts[:rgt] ||= self.rgt
     opts[:filter_drafting_state] = self.draftable?

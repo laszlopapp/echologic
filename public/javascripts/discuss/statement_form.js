@@ -33,8 +33,11 @@
 			var language_combo;
 			var chosenLanguage = form.find('select.language_combo');
 			var statementLinked = form.find('input.statement_id');
+			var publish_checkbox = form.find('.publish_radios');
 			var auto_complete_button;
       var linking_messages;
+		  var linkedTags;
+			var linkedTitle, linkedText;
 			
 			initialise();
 
@@ -106,11 +109,25 @@
           var new_sids = sids.split(",");
           var path = "/" + new_sids[new_sids.length-1];
           new_sids.pop();
+					
+					var bids = $.fragment().bids;
+					var bids = bids ? bids.split(',') : [];
+					var current_bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
 
+					var i = -1;
+					$.map(bids, function(a, index){
+						if($.inArray(a, current_bids) == -1) {
+							i = index;
+							return false;
+						}
+					});
+					
+					var bids_to_load = i > -1 ? bids.splice(i, bids.length) : [];
+					
           cancelButton.addClass("ajax");
           cancelButton.attr('href', $.queryString(cancelButton.attr('href').replace(/\/\d+/, path), {
             "sids": new_sids.join(","),
-            "bids": '',
+            "bids": bids_to_load.join(','),
 						"origin": $.fragment().origin
           }));
         }
@@ -148,7 +165,7 @@
       function initAutoCompleteTitle() {
 
         // gets the auto complete button				
-				auto_complete_button = form.find('.header .auto_complete')
+				auto_complete_button = form.find('.header .auto_complete');
 				
 				// loads the labels 
 				linking_messages = {
@@ -188,6 +205,7 @@
           }
           else 
           if ($(this).hasClass('off')) {
+						title.addClass('ac_loading');
             title.search();
           }
           
@@ -201,33 +219,37 @@
        */
 			function linkStatement(statementId) {
 				
-				var path = '../../statements/link_statement/' + statementId;
+				var path = '../../statement/link_statement/' + statementId;
 				path = $.queryString(path, {
 					"code" : chosenLanguage.val()
 				});
 				$.getJSON(path, function(data) {
-					var statementText = data['text'];
+					linkedTitle = data['title']; // used for the key pressed event
+					linkedText = data['text'];
 					var statementTags = data['tags'];
 					var statementState = data['editorial_state'];
+
+          
 
           // disable language combo
           language_combo.attr('disabled', true);
 				
 				  // fill in summary text	
 					if(text && text.is('textarea')) {
-						text.val(statementText);
+						text.val(linkedText);
 					} else {
-						text.empty().text(statementText).click().blur();
+						text.empty().text(linkedText).click().blur();
 					}
 					
 					// fill in tags
 					if (form.hasClass(settings['taggableClass'])) {
-				  	form.data('taggableApi').addTags(statementTags);
+						linkedTags = statementTags;
+				  	form.data('taggableApi').removeAllTags().addTags(statementTags);
 				  }
 					
-					// check right editorial state
-					$('input:radio[value=' + statementState + ']').attr('checked', true);
-					
+					// check right editorial state and disable the radio buttons
+					publish_checkbox.find('input:radio[value=' + statementState + ']').attr('checked', true);
+					publish_checkbox.find('input:radio').attr('disabled', true);
 										
 					// activate auto complete button
 					activateAutoCompleteButton();
@@ -250,6 +272,8 @@
        */
 			function unlinkStatement()
 			{
+				linkedTitle = null;
+				linkedText = null;
 				statementLinked.val('');
         deactivateAutoCompleteButton();
 				form.removeClass('linked');
@@ -261,6 +285,9 @@
 				if (!isMobileDevice()) {
           text.removeClass('linked');
         }
+				
+				// enable editorial state buttons
+				$('.publish_radios input:radio').removeAttr('disabled');
 			}
 		
 			
@@ -269,17 +296,21 @@
        */
 			function handleContentChange() {
 				// title
-				title.bind('change', function(){
+				title.bind('keypress', function(){
 					if (statementLinked.val()) {
-              unlinkStatement();
+						  if (title.val() != linkedTitle) {
+							 unlinkStatement();	
+							}
             }
 				});
 				
 				// text
 				if (text && text.is('textarea')) {
-		      text.bind('change', function(){
+		      text.bind('keypress', function(){
 						if (statementLinked.val()) {
-							unlinkStatement();
+							if (text.val() != linkedText) {
+						  	unlinkStatement();
+						  }
 						}
 					});
 				} else {
@@ -289,6 +320,15 @@
 						}
 					});
 				}
+				
+				//tags
+				form.bind('tagremoved', function(event, tag){
+					if (statementLinked.val()) {
+						if ($.inArray(tag, linkedTags) != -1) {
+							unlinkStatement();
+						}
+					}
+				});
 			}
 
 			// Public API functions
