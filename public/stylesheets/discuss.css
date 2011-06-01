@@ -254,6 +254,9 @@ form.pro_argument .header li {
 form.contra_argument .header li {
   background: transparent url(../images/page/discuss/contra_argument_16.png) no-repeat scroll 0 2px;
 }
+form.background_info .header li {
+  background: transparent url(../images/page/discuss/question_16.png) no-repeat scroll 0 2px;
+}
 
 form.statement .header_link fieldset ol li {
   padding-left: 20px;
@@ -1599,7 +1602,13 @@ a.statement_link:hover {
 .pro_argument_link {background:transparent url(../images/page/discuss/pro_argument_16.png) no-repeat scroll 0 0;}
 .contra_argument_link {background:transparent url(../images/page/discuss/contra_argument_16.png) no-repeat scroll 0 2px;}
 .follow_up_question_link {background:transparent url(../images/page/discuss/follow_up_question_16.png) no-repeat scroll 0 0;}
-.background_info_link {background:transparent url(../images/page/discuss/follow_up_question_16.png) no-repeat scroll 0 0;}
+
+.article_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_article_16.png) no-repeat scroll 0 0;}
+.book_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_book_16.png) no-repeat scroll 0 0;}
+.paper_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_paper_16.png) no-repeat scroll 0 0;}
+.photo_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_photo_16.png) no-repeat scroll 0 0;}
+.video_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_video_16.png) no-repeat scroll 0 0;}
+.url_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_url_16.png) no-repeat scroll 0 0;}
 
 .create_question_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
 .create_proposal_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}

@@ -6,6 +6,8 @@ class BackgroundInfo < StatementNode
   validates_presence_of :node_info
   validates_associated :node_info
   
+  delegate :info_type, :to => :node_info
+  
   #Overwriting of nested set function (hub's make it impossible to level them right)
   def level; parent_node.level + 1; end
     

@@ -412,7 +412,8 @@ module StatementsHelper
   # Returns the context menu link for this statement_node.
   #
   def statement_node_context_link(statement_node, title, action = 'read', opts={})
-    css = opts.delete(:css)
+    css = String.new(opts.delete(:css))
+    css << " #{statement_node.info_type.code}_link" if statement_node.respond_to? :node_info
     link_to(h(title),
              statement_node_url(statement_node, opts),
              :class => "#{css} no_border statement_link #{dom_class(statement_node)}_link ttLink",
