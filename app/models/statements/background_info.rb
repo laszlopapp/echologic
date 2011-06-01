@@ -11,17 +11,22 @@ class BackgroundInfo < StatementNode
     
   class << self
     def new_instance(attributes={})
-      attributes[:editorial_state] = StatementState[attributes.delete(:editorial_state_id).to_i] if attributes[:editorial_state_id]
+      attributes = filter_attributes(attributes)
       editorial_state = attributes.delete(:editorial_state)
+      node = self.new(attributes)
+      node.set_statement(:editorial_state => editorial_state) if node.statement.nil?
+      node
+    end
+    
+    def filter_attributes(attributes={})
+      attributes = filter_editorial_state(attributes)
       if node_info_attrs = attributes.delete(:node_info)
         if info_type = node_info_attrs.delete(:info_type)
           node_info_attrs[:info_type_id] = InfoType[info_type].id
         end
         attributes[:node_info] = NodeInfo.new(node_info_attrs)
       end
-      node = self.new(attributes)
-      node.set_statement(:editorial_state => editorial_state) if node.statement.nil?
-      node
+      attributes
     end
     
     def default_children_types(opts={})
