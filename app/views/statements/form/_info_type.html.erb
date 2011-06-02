@@ -4,6 +4,7 @@
 <% first_data = statement.statement_datas.first if !no_data %>
 <% external_url = statement.external_url %>
 
+<!-- Info Type Radio Buttons -->
 <% content_tag :fieldset, :id => 'info_type_container' do %>
 	<% content_tag :ol do %>
 		<% content_tag :li, :class => 'two_columns_block' do %>
@@ -24,6 +25,8 @@
 		<% end %> 
 	<% end %>
 <% end %>
+
+<!-- External URL -->
 <% content_tag :fieldset, :id => 'statement_datas_container' do %>
   <% content_tag :ol do %>
     <% content_tag :li, :class => 'two_columns_block string' do %> 

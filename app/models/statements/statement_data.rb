@@ -1,9 +1,6 @@
 class StatementData < ActiveRecord::Base
   belongs_to :statement
   
-  has_enumerated :info_type, :class_name => 'InfoType'
-  validates_presence_of :info_type_id
-  
   # TODO: This is not used yet! This will be activated when it is possible to update files
 #  has_attached_file :image, :default_url => "/images/default_:style_statement_image.png"
 #  validates_attachment_size :image, :less_than => 5.megabytes

@@ -5,17 +5,25 @@ class Statement < ActiveRecord::Base
   belongs_to :statement_image
   delegate :image, :image=, :to => :statement_image
 
+  # statement_datas
   has_many :statement_datas
   validates_associated :statement_datas
+  has_enumerated :info_type, :class_name => 'InfoType'
 
+
+  # editorial state
   has_enumerated :editorial_state, :class_name => 'StatementState'
 
   validates_presence_of :editorial_state_id
   validates_numericality_of :editorial_state_id
   validates_associated :statement_documents
   validates_associated :statement_image
+  validates_presence_of :info_type_id, :if => :has_data? 
 
 
+  def has_data?
+    !statement_datas.empty?
+  end
 
   has_many :statement_histories, :source => :statement_histories
 

@@ -239,7 +239,6 @@ ActiveRecord::Schema.define(:version => 20110530110033) do
     t.integer  "info_file_size"
     t.datetime "info_updated_at"
     t.string   "info_url"
-    t.integer  "info_type_id"
     t.integer  "statement_id"
   end
 
@@ -300,6 +299,7 @@ ActiveRecord::Schema.define(:version => 20110530110033) do
     t.integer "original_language_id"
     t.integer "statement_image_id"
     t.integer "editorial_state_id"
+    t.integer "info_type_id"
   end
 
   create_table "subscriber_datas", :force => true do |t|
