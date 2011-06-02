@@ -57,7 +57,7 @@ hu:
         created_improvements: 'Új hozzászólások a javaslathoz "<strong>{{title}}</strong>":'
         created_pro_arguments: 'Új hozzászólások a javaslathoz "<strong>{{title}}</strong>":'
         created_contra_arguments: 'Új hozzászólások a javaslathoz "<strong>{{title}}</strong>":'
-        created_follow_up_questions: 'Új implikált kérdés a hozzászólás kapcsán "<strong>{{title}}</strong>":'
+        created_follow_up_questions: 'Új felmerülő kérdés a hozzászólás kapcsán "<strong>{{title}}</strong>":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
         Ha nem szeretnél értesítést kapni új vitákról és hozzászólásokról, kérjük jelentkezz be az
