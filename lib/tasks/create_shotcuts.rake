@@ -16,7 +16,7 @@ namespace :create_shortcuts do
   task :apold => :environment do
     %w(allam-polgari-dialogus apold).each do |shortcut|
       ShortcutUrl.discuss_search_shortcut :title => shortcut,
-                                          :params => {:search_terms => "Állam-POLgári-Dialógus"},
+                                          :params => {:search_terms => "Állam-POLgári-Dialógus, ÁPOLD-Kezdőlap"},
                                           :language => "hu"
     end
   end
