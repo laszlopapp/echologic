@@ -158,7 +158,7 @@ de:
         failed_social: "Bitte melden Sie sich über das Konto an, mit dem Sie sich registriert haben oder das Sie bereits verknüpft haben."
     signout:
       messages:
-        success: "Logout erfolgreich. Bitte vergessen Sie nicht, sich von Facebook, Twitter, usw. gesondert abzumelden.<br/>Tschüß - Bis zum nächsten Mal!"
+        success: "Logout erfolgreich. Bitte vergessen Sie nicht, sich von Facebook, Twitter, usw. gesondert abzumelden. Tschüß - Bis zum nächsten Mal!"
     user_sessions:
       messages:
         session_timeout: "Ihre alte Sitzung wurde beendet. Bitte melden Sie sich erneut an."
