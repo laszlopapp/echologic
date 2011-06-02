@@ -1,8 +1,4 @@
-class StatementData < ActiveRecord::Base
-  belongs_to :statement
-  
-  has_enumerated :info_type, :class_name => 'InfoType'
-  validates_presence_of :info_type_id
+class ExternalFile < StatementData
   
   # TODO: This is not used yet! This will be activated when it is possible to update files
 #  has_attached_file :image, :default_url => "/images/default_:style_statement_image.png"
@@ -13,11 +9,4 @@ class StatementData < ActiveRecord::Base
 #    !(data_content_type =~ /^image.*/).nil?
 #  end
   
-  def is_youtube_url?
-    info_url.match(/.*http:\/\/(\w+\.)?youtube.com\/watch\?v=(\w+).*/)
-  end
-  
-  def youtube_id
-    info_url.match("[\?&]v=([^&#]*)")[1]
-  end
 end

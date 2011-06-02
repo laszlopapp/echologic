@@ -44,7 +44,7 @@
 		  var linkedTags;
 			var linkedTitle, linkedText;
 			var node_info = form.find('.info_types_container');
-			var embed_url = form.find('.embed_url input');
+			var embed_url = form.find('input.embed_url');
 			var embedded_content = form.find('.embedded_content');
 			
 			initialise();

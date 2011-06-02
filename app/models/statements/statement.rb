@@ -5,11 +5,8 @@ class Statement < ActiveRecord::Base
   belongs_to :statement_image
   delegate :image, :image=, :to => :statement_image
 
-  belongs_to :statement_data
-  validates_presence_of :statement_data
-  validates_associated :statement_data
-  
-  delegate :info_type, :to => :statement_data
+  has_many :statement_datas
+  validates_associated :statement_datas
 
   has_enumerated :editorial_state, :class_name => 'StatementState'
 
@@ -67,6 +64,14 @@ class Statement < ActiveRecord::Base
 
   def filtered_topic_tags
     self.topic_tags.select{|tag| !tag.starts_with?('*')}  # Also filters out **tags
+  end
+  
+  ###################
+  # STATEMENT DATAS #
+  ###################
+  
+  def external_url
+    @external_url ||= statement_datas.first(:conditions => "type = 'ExternalUrl'")
   end
   
   

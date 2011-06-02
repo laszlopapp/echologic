@@ -673,19 +673,19 @@ module StatementsHelper
   end
   
   def render_article_data(background_info)
-    render_in_iframe(background_info.statement_data.info_url)
+    render_in_iframe(background_info.external_url.info_url)
   end
   
   def render_paper_data(background_info)
-    render_in_iframe(background_info.statement_data.info_url)
+    render_in_iframe(background_info.external_url.info_url)
   end
   
   def render_book_data(background_info)
-    render_in_iframe(background_info.statement_data.info_url)
+    render_in_iframe(background_info.external_url.info_url)
   end
   
   def render_photo_data(background_info)
-    render_in_iframe(background_info.statement_data.info_url)
+    render_in_iframe(background_info.external_url.info_url)
   end
   
   
@@ -698,7 +698,7 @@ module StatementsHelper
   end
 
   def render_url_data(background_info)
-    render_in_iframe(background_info.statement_data.info_url)
+    render_in_iframe(background_info.external_url.info_url)
   end
   
   def render_in_iframe(url)

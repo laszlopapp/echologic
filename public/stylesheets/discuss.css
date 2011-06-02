@@ -376,35 +376,33 @@ form.statement .header .auto_complete.off:hover {
 /* Info Type */
 
 form.statement .info_types_container {
-	
-}
-
-form.statement fieldset.info_types_container li.radio {
 	width: 680px;
 }
 
-form.statement fieldset.info_types_container li.radio fieldset ol {
+
+form.statement .info_types_container fieldset ol {
   width: 100%;	
 }
 
-form.statement fieldset.info_types_container li.radio fieldset ol li {
+form.statement .info_types_container fieldset ol li {
 	float: left;
 	width: 200px;
 }
 	
-form.statement fieldset.info_types_container input {
+form.statement .info_types_container input {
 	display: none;
 }
 
-form.statement fieldset.info_types_container label {
+form.statement .info_types_container label {
+	color: #21587F;
 	line-height: 2em;
 }
 
-form.statement fieldset.info_types_container label.selected {
+form.statement .info_types_container label.selected {
 	color: #7BB031;
 }
 
-form.statement fieldset.info_types_container a {
+form.statement .info_types_container a {
 	width: 32px;
   height: 32px;
   padding: 0 5px 0 0;
@@ -413,29 +411,32 @@ form.statement fieldset.info_types_container a {
   float: left;
 }
 
-form.statement fieldset.info_types_container a.jqTransformChecked {
+form.statement.info_types_container a.jqTransformChecked {
 	background-color: #999999;
 }
 
-form.statement fieldset.info_types_container a.article {
+form.statement .info_types_container a.article {
 	background: url("../images/page/discuss/background_info_types/icon_attach_article_32.png") no-repeat scroll 0 0;
 }
-form.statement fieldset.info_types_container a.paper {
+form.statement .info_types_container a.paper {
   background: url("../images/page/discuss/background_info_types/icon_attach_paper_32.png") no-repeat scroll 0 0;
 }
-form.statement fieldset.info_types_container a.book {
+form.statement .info_types_container a.book {
   background: url("../images/page/discuss/background_info_types/icon_attach_book_32.png") no-repeat scroll 0 0;
 }
-form.statement fieldset.info_types_container a.photo {
+form.statement .info_types_container a.photo {
   background: url("../images/page/discuss/background_info_types/icon_attach_photo_32.png") no-repeat scroll 0 0;
 }
-form.statement fieldset.info_types_container a.video {
+form.statement .info_types_container a.video {
   background: url("../images/page/discuss/background_info_types/icon_attach_video_32.png") no-repeat scroll 0 0;
 }
-form.statement fieldset.info_types_container a.url {
+form.statement .info_types_container a.url {
   background: url("../images/page/discuss/background_info_types/icon_attach_url_32.png") no-repeat scroll 0 0;
 }
 
+form.statement input.embed_url {
+	
+}
 
 .statement .embedded_content {
 	width: 721px;
