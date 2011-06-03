@@ -37,7 +37,7 @@
     function Statement(statement) {
 			var timer;
       var statementDomId = statement.attr('id');
-			var statementType = statementDomId.match(/[^add_]\w+[^_\d+]/);
+			var statementType = $.trim(statementDomId.match(/[^(add_|new_)]\w+[^_\d+]/));
       var statementId = getStatementId(statementDomId);
 			var parentStatement, statement_index;
 
@@ -92,7 +92,7 @@
 				var element = $('div#statements .statement').eq(settings['level']);
 				hideStatements(settings);
 				if(element.length > 0) {
-					if (statementDomId.match('new')) {
+					if (statementDomId.match('new') && element.data('api').getType() != statementType) {
 				  	var key = element.data('api').deleteBreadcrumb();
 				  }
           element.replaceWith(statement);
@@ -656,7 +656,11 @@
         loadRatioBars: function(container)
         {
           initRatioBars(container);
-        }
+        },
+				getType: function() 
+				{
+					return statementType;
+				}
       });
 	  }
 
