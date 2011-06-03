@@ -383,7 +383,7 @@ Feature: Take Part on a question
       And I press "Save"
     Then I should see "Undercova Brotha"
       And the background info should have 0 siblings in session
-      And there should be a "Undercova Brotha" breadcrumb
+      And there should be a "Test Question2?" breadcrumb
     Given I go to the question
     Then I should see "Undercova Brotha"
   
@@ -399,11 +399,11 @@ Feature: Take Part on a question
       | background_info_statement_document_title           | Undercova Brotha       |
       | background_info_statement_document_text            | Funkytime in Funkytown |
       | background_info_external_url_info_url              | Ipitythefool.com       |
-      And I check "background_info_info_type_url"
+      And I choose "background_info_info_type_url"
       And I press "Save"
     Then I should see "Undercova Brotha"
       And the background info should have 0 siblings in session
-      And there should be a "Undercova Brotha" breadcrumb
+      And there should be a "A first proposal!" breadcrumb
     Given I go to the improvement
     Then I should see "Undercova Brotha"
   
@@ -420,11 +420,11 @@ Feature: Take Part on a question
       | background_info_statement_document_title           | Undercova Brotha       |
       | background_info_statement_document_text            | Funkytime in Funkytown |
       | background_info_external_url_info_url              | Ipitythefool.com       |
-      And I check "background_info_info_type_url"
+      And I choose "background_info_info_type_url"
       And I press "Save"
     Then I should see "Undercova Brotha"
       And the background info should have 0 siblings in session
-      And there should be a "Undercova Brotha" breadcrumb
+      And there should be a "A better first proposal" breadcrumb
     Given I go to the improvement
     Then I should see "Undercova Brotha"
   

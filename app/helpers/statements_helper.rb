@@ -159,7 +159,7 @@ module StatementsHelper
       panel << content_tag(:div, '', :class => 'block_separator')
       panel << add_new_sibling_buttons(statement_node, origin)
       panel << add_new_child_buttons(statement_node)
-      panel << add_new_default_child_button(statement_node, bids)
+      panel << add_new_default_child_button(statement_node)
       panel
     end
   end
@@ -235,14 +235,13 @@ module StatementsHelper
   #
   # Creates a link to add a new default child (follow up question, background info) for the given statement (appears in the SIDEBAR).
   #
-  def add_new_default_child_button(statement_node, bids)
-    bids = bids ? bids.split(",") : []
+  def add_new_default_child_button(statement_node)
     content_tag(:div, :class => 'container') do
       content = ''
       statement_node.class.default_children_types(:visibility => false).each do |default_type|
         dom_type = default_type.to_s.underscore
         content << add_new_child_link(statement_node, dom_type,
-                                                      :bids => (bids + ["#{Breadcrumb.instance.generate_key(dom_type)}#{statement_node.id}"]).join(","),
+                                                      :bids => params[:bids],
                                                       :origin => params[:origin])
       end
       content
@@ -631,7 +630,7 @@ module StatementsHelper
   #
   def render_breadcrumb(breadcrumbs)
     breadcrumb_trail = ""
-    breadcrumbs.each_with_index do |b, index| #[id, classes, url, title]
+    breadcrumbs.each_with_index do |b, index| #[key, classes, url, title, label, over, page_co]
       attrs = {}
       attrs[:page_count] = b[:page_count] if b[:page_count]
       breadcrumb = content_tag(:a, attrs.merge({:href => b[:url], :id => b[:key], :class => "breadcrumb #{b[:key][0..2]}"})) do

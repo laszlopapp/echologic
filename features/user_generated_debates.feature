@@ -104,7 +104,7 @@ Feature: User Generated Debates
       And I press "Save"
       And I go to "My Questions"
       And I follow "Release"
-    Then I should not see "Release"
+    Then I should see "Released"
 
   @ok
   Scenario: added a hash tag to a debate when i had the asterisk tag as a decision making tag, and it should work!

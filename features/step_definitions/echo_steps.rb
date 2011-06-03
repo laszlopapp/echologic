@@ -4,7 +4,7 @@ Given /^a proposal without echos$/ do
 end
 
 Given /^I have the "([^\"]*)" proposal$/ do |title|
-  @proposal = StatementNode.search_statement_nodes(:type => "Proposal",
+  @proposal = StatementNode.search_statement_nodes(:types => "Proposal",
                                                    :search_term => title,
                                                    :language_ids => [Language["en"]]).first
 end
@@ -30,8 +30,8 @@ end
 
 Then /^the proposal should have ([^\"]*) visitors$/ do |visitor_count|
   user_echos = UserEcho.count(:conditions => ["echo_id = ? and visited = 1", @proposal.echo.id])
-  assert visitor_count.to_i == user_echos
-  assert visitor_count.to_i == @proposal.echo.visitor_count
+  assert_equal visitor_count.to_i, user_echos
+  assert_equal visitor_count.to_i, @proposal.echo.visitor_count
 end
 
 Then /^the proposal should have one visitor but no echos$/ do
