@@ -289,7 +289,7 @@ def update
                                                    :current => true}))
         @statement_document.save
         
-        @statement_node.update_attributes(attrs)
+        @statement_node.update_node(attrs)
         if @statement_node.taggable? and form_tags
           @tags = @statement_node.topic_tags = form_tags
         end

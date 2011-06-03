@@ -411,7 +411,7 @@ form.statement .info_types_container a {
   float: left;
 }
 
-form.statement.info_types_container a.jqTransformChecked {
+form.statement .info_types_container a.jqTransformChecked {
 	background-color: #999999;
 }
 

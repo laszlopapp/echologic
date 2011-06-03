@@ -6,8 +6,11 @@ class Statement < ActiveRecord::Base
   delegate :image, :image=, :to => :statement_image
 
   # statement_datas
-  has_many :statement_datas
-  validates_associated :statement_datas
+  has_many :statement_datas # only important for certain selects 
+  has_many :external_files
+  has_one :external_url
+  validates_associated :external_files
+  validates_associated :external_url
   has_enumerated :info_type, :class_name => 'InfoType'
 
 
@@ -22,7 +25,7 @@ class Statement < ActiveRecord::Base
 
 
   def has_data?
-    !statement_datas.empty?
+    !external_files.empty? or !external_url.nil?
   end
 
   has_many :statement_histories, :source => :statement_histories

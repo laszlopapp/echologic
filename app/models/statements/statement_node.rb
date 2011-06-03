@@ -114,6 +114,11 @@ class StatementNode < ActiveRecord::Base
     self.statement.statement_documents << doc
     return doc
   end
+  
+  # updates an existing node with a new set of attributes
+  def update_node(attrs={})
+    update_attributes(attrs)
+  end
 
   ########################
   # DOCUMENTS' LANGUAGES #

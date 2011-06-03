@@ -6,6 +6,17 @@ class BackgroundInfo < StatementNode
   
   #Overwriting of nested set function (hub's make it impossible to level them right)
   def level; parent_node.level + 1; end
+
+  
+  def update_node(attributes={})
+    attributes = self.class.filter_attributes(attributes)
+    external_files = attributes.delete(:external_files)
+    external_url_attrs = attributes.delete(:external_url)
+    info_type_id = attributes.delete(:info_type_id)
+    statement.external_url.update_attributes(external_url_attrs)
+    statement.update_attributes(:info_type_id => info_type_id)
+    update_attributes(attributes)
+  end
     
   class << self
     
@@ -14,10 +25,14 @@ class BackgroundInfo < StatementNode
     def new_instance(attributes={})
       attributes = filter_attributes(attributes)
       editorial_state = attributes.delete(:editorial_state)
-      statement_datas = attributes.delete(:statement_datas) || []
+      external_files = attributes.delete(:external_files) || []
+      external_url = ExternalUrl.new(attributes.delete(:external_url))
       info_type_id = attributes.delete(:info_type_id)
       node = self.new(attributes)
-      node.set_statement(:editorial_state => editorial_state, :statement_datas => statement_datas, :info_type_id => info_type_id) if node.statement.nil?
+      node.set_statement(:editorial_state => editorial_state, 
+                         :external_files => external_files,
+                         :external_url => external_url,
+                         :info_type_id => info_type_id) if node.statement.nil?
       node
     end
     
@@ -26,10 +41,8 @@ class BackgroundInfo < StatementNode
       attributes = filter_editorial_state(attributes)
       # info_type comes as a label ; we must get the info type through this label
       attributes[:info_type_id] = attributes[:info_type] ? InfoType[attributes.delete(:info_type)].id : nil
-      attributes[:statement_datas] = []
-      if external_url_attrs = attributes.delete(:external_url)
-        attributes[:statement_datas] << ExternalUrl.new(external_url_attrs)
-      end
+      attributes[:external_files] = [] # for now; later on, it will record the file attributes into here
+      attributes[:external_url] = attributes.delete(:external_url) if attributes[:external_url]
       # TODO: Add here the external files that might be uploaded
       attributes
     end
