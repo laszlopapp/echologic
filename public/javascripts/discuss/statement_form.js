@@ -345,6 +345,10 @@
 			}
 
       /* Input Types */
+			
+			/*
+			 * Handles the click events on the background info type labels
+			 */
 			function handleInputTypeClicks() {
 				var selected = null;
 				node_info.find('ol li label').bind('click', function(){				
@@ -354,6 +358,10 @@
 				});
 			}
 
+
+      /*
+       * Handles the event of filling the info url (triggers the loading of that url on an iframe)
+       */
       function handleInputURL() {
 				var url_value = embed_url.val();
 				embed_url.bind('change', function(){
@@ -368,6 +376,9 @@
 				});
 			}
 			
+			/*
+			 * Loads an url onto the iframe
+			 */
 			function loadEmbeddedContent(url) {
 				var handled_url = url;
 				if (containsVideo(handled_url)){
@@ -383,7 +394,9 @@
         embedded_content.attr('src',handled_url);				
 			}
 			
-			/* right now only working for youtube urls */
+			/* 
+			 * checks if the url is from a video (youtube, vimeo)
+			 */
 			function containsVideo(url) {
 	 		  return url.match(/.*http:\/\/(\w+\.)?youtube.com\/watch\?v=(\w+).*/);
       }

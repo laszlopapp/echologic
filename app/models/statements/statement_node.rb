@@ -270,7 +270,7 @@ class StatementNode < ActiveRecord::Base
 
   class << self
 
-    # Aux Function: generates new instance (overwritten in follow up question)
+    # Aux Function: generates new instance
     def new_instance(attributes = {})
       attributes = filter_editorial_state(attributes)
       editorial_state = attributes.delete(:editorial_state)
