@@ -87,12 +87,12 @@ Feature: Start a question
     Then I should see "Upload Image"
       And I should see "Cancel"
       And I should see "Upload"
-    Given I go to the welcome page
+    Given I go to discuss search
       And I follow "logout_button"
       And I am logged in as "ben" with password "benrocks"
     When I go to the question
       Then I should not see "Change"
-      
+
       
   # create an unpublished question, then a proposal, and publish ...
   @ok
@@ -129,11 +129,11 @@ Feature: Start a question
       And the question should have a "created" event
       And the proposal should be published
       And the proposal should have a "created" event
-      
+
    ######################
    # CLOSED DISCUSSIONS #
    ######################
-   
+
    Scenario: Various Users try to see the new statement marked with a ** tag
      Given I am logged in as "user" with password "true"
        And I am on the discuss index
@@ -155,7 +155,7 @@ Feature: Start a question
      Given I login as "ben" with password "benrocks"
        And I am on the discuss index
      Then I should not see "Test Question?"
-     
+
    Scenario: User tries to create a statement with a ** tag
     Given I am logged in as "user" with password "true"
     When I am on My Questions
@@ -167,7 +167,7 @@ Feature: Start a question
       And I press "Save"
     Then I should see "The new Question has been entered successfully."
       And I have "**secret" as decision making tags
-     
+
    Scenario: User tries to mark existing statement with a ** tag
     Given I am logged in as "user" with password "true"
       And there is a question i have created
@@ -180,5 +180,4 @@ Feature: Start a question
       And I press "Save"
       Then I should see "The Question has been updated successfully."
         And I have "**secret" as decision making tags
-      
-  
+

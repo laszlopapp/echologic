@@ -121,34 +121,6 @@ de:
       profile_complete: '{{complete}}% ausgefüllt'
 
 
-  # ----------------
-  # Welcome function
-  # ----------------
-
-  welcome:
-    title: Willkommen auf echo!
-    text: |
-      <p>
-      <strong>Diskutieren - Vernetzen - Handeln!</strong><br/>
-      Die drei Funktionsbereiche von echo werden wir gemeinsam mit Ihnen Stück für Stück ausbauen.<br/>
-      Im Fahrplan (links oben im Bild) können Sie für jeden Bereich den aktuellen <strong>Stand der
-      Entwicklung</strong> sowie die geplanten nächsten Schritte verfolgen.
-      </p><p>
-      Als BewegerIn von echo sind Sie herzlich eingeladen, die Entwicklung von <strong>echo mit zu gestalten</strong>!<br/>
-      Bisher sind erste einfache Funktionen in folgenden Bereichen veröffentlicht:
-      </p>
-    function_1:
-      name: 'Mein Profil'
-      description: 'Vervollständigen Sie Ihr Profil, um sich in der echo Community zu präsentieren.'
-    function_2:
-      name: 'Vernetzen'
-      description: 'Entdecken Sie die Community und vernetzen Sie sich mit anderen interessanten Menschen der Bewegung.'
-    function_3:
-      name: 'Diskutieren'
-      description: |
-        Tauschen Sie Ihre Ideen mit anderen NeudenkerInnen. Bringen Sie sich in die weitere Entwicklung echos ein.
-
-
   # ------------
   # USERS MODULE
   # ------------
@@ -186,7 +158,7 @@ de:
         failed_social: "Bitte melden Sie sich über das Konto an, mit dem Sie sich registriert haben oder das Sie bereits verknüpft haben."
     signout:
       messages:
-        success: "Logout erfolgreich.<br/>Tschüß - Bis zum nächsten Mal!"
+        success: "Logout erfolgreich. Bitte vergessen Sie nicht, sich von Facebook, Twitter, usw. gesondert abzumelden.<br/>Tschüß - Bis zum nächsten Mal!"
     user_sessions:
       messages:
         session_timeout: "Ihre alte Sitzung wurde beendet. Bitte melden Sie sich erneut an."
@@ -581,7 +553,11 @@ de:
         proposal: |
           Bitte erläutern Sie Ihren Vorschlag näher...<br/><br/>
           Er kann je nach Art der Fragestellung als mögliche Antwort, Lösungsansatz oder Stellungnahme verstanden werden.
-        improvement: Bitte erläutern Sie Ihre Ergänzungs- oder Verbesserungsidee zum Vorschlag näher...
+        improvement: |
+          Bitte erläutern Sie Ihre Ergänzungs- oder Verbesserungsidee zum Vorschlag näher...<br/<br/>
+          Diese Ergänzungen sind die Basis für echos demokratisches Verfahren zur gemeinsamen Ausarbeitung von
+          Vorschlägen. Die AuthorIn der jeweils meist unterstützten Ergänzungen erhalten von echo die Möglichkeit,
+          ihre hier formulierten Ideen und Gedanken in den Vorschlag einzupflegen.
         pro_argument: Bitte erläutern Sie Ihren Grund FÜR den Vorschlag näher...
         contra_argument: Bitte erläutern Sie Ihren Grund GEGEN den Vorschlag näher...
         follow_up_question: Bitte erläutern Sie Ihre Folgefrage näher...
@@ -726,9 +702,10 @@ de:
   # ---------------
 
   connect:
-
     fill_out_profile:
       text: Bitte füllen Sie Ihr Profil <strong>mindestens zu {{percentage}}%</strong> aus, um "den Rechner" glücklich zu machen und diesen Block verschwinden zu lassen. :-)
+      name: 'Mein Profil'
+      description: 'Vervollständigen Sie Ihr Profil, um sich in der echo Community zu präsentieren.'
     placeholder: 'Thema, Ort, Organisation oder Name eingeben'
 
     segments:
