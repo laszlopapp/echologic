@@ -175,6 +175,10 @@ Feature: Take Part on a question
     Then I should see "How to improve yer status"
       And the improvement should have 5 siblings in session
 
+  #############
+  # ARGUMENTS #
+  #############
+
   Scenario: Add a Pro Argument to a proposal
     Given I am logged in as "user" with password "true"
       And I am on the discuss index
@@ -204,6 +208,10 @@ Feature: Take Part on a question
       And I press "Save"
     Then I should see "Contra is cool"
       And the contra argument should have 0 siblings in session
+
+  #######################
+  # FOLLOW UP QUESTIONS #
+  #######################
 
   Scenario: Add a Follow Up Question to a Question
     Given I am logged in as "user" with password "true"
@@ -355,6 +363,71 @@ Feature: Take Part on a question
       And I choose the "Alternativating part 2" Pro Argument
       And the pro argument should have 1 alternative
 
+
+  ####################
+  # BACKGROUND INFOS #
+  ####################
+  
+  Scenario: Add a Background Info to a Question
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I follow localized "discuss.statements.types.background_info" within ".add_new_panel"
+      And I fill in the following:
+      | background_info_statement_document_title           | Undercova Brotha       |
+      | background_info_statement_document_text            | Funkytime in Funkytown |
+      | background_info_external_url_info_url              | Ipitythefool.com       |
+      And I choose "background_info_info_type_url"
+      And I press "Save"
+    Then I should see "Undercova Brotha"
+      And the background info should have 0 siblings in session
+      And there should be a "Undercova Brotha" breadcrumb
+    Given I go to the question
+    Then I should see "Undercova Brotha"
+  
+  Scenario: Add a Background Info to a proposal
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow localized "discuss.statements.types.background_info" within ".add_new_panel"
+      And I fill in the following:
+      | background_info_statement_document_title           | Undercova Brotha       |
+      | background_info_statement_document_text            | Funkytime in Funkytown |
+      | background_info_external_url_info_url              | Ipitythefool.com       |
+      And I check "background_info_info_type_url"
+      And I press "Save"
+    Then I should see "Undercova Brotha"
+      And the background info should have 0 siblings in session
+      And there should be a "Undercova Brotha" breadcrumb
+    Given I go to the improvement
+    Then I should see "Undercova Brotha"
+  
+  Scenario: Add a Background Info to an improvement
+    Given I am logged in as "user" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I choose the "A better first proposal" Improvement
+      And I follow localized "discuss.statements.types.background_info" within ".add_new_panel"
+      And I fill in the following:
+      | background_info_statement_document_title           | Undercova Brotha       |
+      | background_info_statement_document_text            | Funkytime in Funkytown |
+      | background_info_external_url_info_url              | Ipitythefool.com       |
+      And I check "background_info_info_type_url"
+      And I press "Save"
+    Then I should see "Undercova Brotha"
+      And the background info should have 0 siblings in session
+      And there should be a "Undercova Brotha" breadcrumb
+    Given I go to the improvement
+    Then I should see "Undercova Brotha"
+  
 
 
   @ok
