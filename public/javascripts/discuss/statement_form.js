@@ -5,11 +5,7 @@
     $.fn.statementForm.defaults = {
       'animation_speed': 500,
       'taggableClass' : 'taggable',
-			'selected_color' : '#999999',
-			'video_settings' : {
-				'width' : 640,
-				'height': 390
-			}
+			'selected_color' : '#999999'
     };
 
     // Merging settings with defaults
@@ -43,10 +39,6 @@
       var linking_messages;
 		  var linkedTags;
 			var linkedTitle, linkedText;
-			var node_info = form.find('.info_types_container');
-			var embed_url = form.find('input.embed_url');
-			var embedded_content = form.find('.embedded_content');
-			var selected_content_type;
 			
 			initialise();
 
@@ -54,10 +46,8 @@
 
 				loadRTEEditor();
 
-        if (node_info.length > 0) {
-          node_info.jqTransform();
-          handleInputTypeClicks();
-          handleInputURL();
+        if (form.hasClass('embeddable')) {
+					form.embeddable();
         }
 
         // New Statement Form Helpers
@@ -282,17 +272,9 @@
 
 
           // Embedded Data
-					if (node_info.length > 0) {
-						var content_type = data['content_type'];
-						var external_url = data['external_url'];
-						
-						deselectContentType();
-						selectContentType(node_info.find('a.' + content_type).parent().siblings('label'));
-						
-						embed_url.val(external_url).trigger('change');
-						embedded_content.fadeIn();
+					if (form.hasClass('embeddable')) {
+						form.data('embeddableApi').linkEmbeddedContent(data);
 					}
-
 				});
 			}
 			
@@ -321,10 +303,8 @@
 				
 				// Uncomment if unlinking is supposed to make the info contents disappear
 				/*
-				if (node_info.length > 0) {
-					deselectContentType();
-					embed_url.val('').trigger('change');
-					embedded_content.hide();
+				if (form.hasClass('embeddable') {
+				  form.unlinkEmbeddedContent();
 				}
 				*/
 			}
@@ -368,107 +348,16 @@
 						}
 					}
 				});
-			}
-
-      /* Input Types */
-			
-			/*
-			 * Handles the click events on the background info type labels
-			 */
-			function handleInputTypeClicks() {
-				var content_type_labels = node_info.find('ol li label');
-				var content_type_radios = node_info.find("ol li input[type='radio']");
-				content_type_labels.each(function(){
-					loadInputType($(this));
-				}); 
-				content_type_labels.bind('click', function(){				
-					deselectContentType();
-          selectContentType($(this));
+				
+				form.bind('unlink', function(){
+					if (statementLinked.val()) {
+						unlinkStatement();
+		      }
 				});
-				content_type_radios.bind('click', function(){
-					deselectContentType();
-					selectContentType($(this).parent().siblings('label'));
-				});
-			}
-
-      function loadInputType(label) {
-        if (label.siblings().find('a.jqTransformRadio').hasClass('jqTransformChecked')) {
-					label.addClass('selected');
-					selected_content_type = label;
+				
+				if (form.hasClass('embeddable')) {
+					form.data('embeddableApi').handleContentChange('unlink');
 				}
-			}
-			
-			function selectContentType(label) { 
-			  label.addClass('selected').find('a.jqTransformRadio').addClass('jqTransformChecked');
-        selected_content_type = label;
-			}
-			
-			function deselectContentType() {
-				if (selected_content_type) { selected_content_type.removeClass('selected').find('a.jqTransformRadio').removeClass('jqTransformChecked'); }
-			}
-			
-
-      /*
-       * Handles the event of filling the info url (triggers the loading of that url on an iframe)
-       */
-      function handleInputURL() {
-				var url_value = embed_url.val();
-				if (url_value && url_value.length > 0) {
-					loadEmbeddedContent(url_value);
-				}
-				embed_url.bind('change', function(){
-					if (url_value != embed_url.val())
-					{
-						url_value = embed_url.val();  
-						loadEmbeddedContent(url_value);
-					}
-				});
-			}
-			
-			/*
-			 * Loads an url onto the iframe
-			 */
-			function loadEmbeddedContent(url) {
-				var handled_url = url;
-				if (containsYoutubeVideo(handled_url)){
-					handled_url = getYoutubeEmbeddedCode(handl_url);
-					embedded_content.attr('width', settings['video_settings']['width']).attr('height', settings['video_settings']['height']);
-					embedded_content.attr('allowfullscreen',''); 
-				} else if (containsVimeoVideo(handled_url)) {
-					handled_url = getVimeoEmbeddedCode(handled_url);
-					embedded_content.attr('width', settings['video_settings']['width']).attr('height', settings['video_settings']['height']);
-				} else {
-					embedded_content.removeAttr('width').removeAttr('height');
-					embedded_content.removeAttr('allowfullscreen');
-				}
-        embedded_content.attr('src',handled_url);
-				if (!embedded_content.is(':visible')) {
-          embedded_content.fadeIn();
-        }				
-			}
-			
-			/* 
-			 * checks if the url is from a video (youtube)
-			 */
-			function containsYoutubeVideo(url) {
-	 		  return url.match(/.*http:\/\/(\w+\.)?youtube.com\/watch\?v=(\w+).*/);
-      }
-			
-			/* 
-       * checks if the url is from a video (vimeo)
-       */
-      function containsVimeoVideo(url) {
-        return url.match(/.*http:\/\/(\w+\.)?vimeo.com\/(\d+).*/);
-      }
-			
-			function getYoutubeEmbeddedCode(url) {
-				var video_id = handled_url.match("[\?&]v=([^&#]*)")[1];
-				return "http://www.youtube.com/embed/" + video_id;
-			}
-			
-			function getVimeoEmbeddedCode(url) {
-				var video_id = handled_url.match("vimeo\.com/(?:.*#|.*/videos/)?([0-9]+)")[1];
-				return "http://player.vimeo.com/video/" + video_id + "?portrait=0";
 			}
 
 			// Public API functions
