@@ -1991,7 +1991,9 @@ form.statement fieldset ol li.tags_container {
 /******************/
 
 .statement .embedded_container {
-  width: 100%;
+  width: 785px;
 	text-align: center;
 	margin-bottom: 20px;
+	margin-left: 190px;
+  padding-left: 15px;
 }
