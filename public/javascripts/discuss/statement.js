@@ -78,6 +78,8 @@
           initAllStatementLinks();
 					//initFlicks();
         }
+				
+				//statement.find('.embedded_container').iframeResize({height: "auto", autoUpdate : true, classes: ".embedded_content"});
       }
 
 
