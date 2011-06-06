@@ -7,7 +7,7 @@
 <% content_tag :fieldset, :id => 'info_type_container' do %>
 	<% content_tag :ol do %>
 		<% content_tag :li, :class => 'two_columns_block' do %>
-		  <%= label_tag I18n.t('activerecord.attributes.statement_data.info_type') %>
+		  <%= label_tag I18n.t('activerecord.attributes.statement.info_type_id') %>
 		  <% content_tag :div, :class => 'info_types_container' do %>
 			  <% content_tag :fieldset do %>
 				  <% content_tag :ol do %>
@@ -30,7 +30,9 @@
   <% content_tag :ol do %>
     <% content_tag :li, :class => 'two_columns_block string' do %> 
 		  <%= label_tag I18n.t('activerecord.attributes.statement_data.info_url') %>
-			<%= text_field_tag "#{dom_class(statement_node)}[external_url][info_url]", external_url ? external_url.info_url : '', :class => "embed_url" %>
+			<%= text_field_tag "#{dom_class(statement_node)}[external_url][info_url]", external_url ? external_url.info_url : '', 
+          :class => "embed_url",
+          'data-default' => I18n.t("discuss.statements.info_url_hint") %>
 		<% end %>
 		<%= content_tag :iframe, '', :class => 'embedded_content', :frameborder => 0, :style => 'display:none' %>
   <% end %>

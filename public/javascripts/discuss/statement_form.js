@@ -46,12 +46,19 @@
 			var node_info = form.find('.info_types_container');
 			var embed_url = form.find('input.embed_url');
 			var embedded_content = form.find('.embedded_content');
+			var selected_content_type;
 			
 			initialise();
 
 			function initialise() {
 
 				loadRTEEditor();
+
+        if (node_info.length > 0) {
+          node_info.jqTransform();
+          handleInputTypeClicks();
+          handleInputURL();
+        }
 
         // New Statement Form Helpers
         if (form.hasClass('new')) {
@@ -62,11 +69,7 @@
 					handleContentChange();
 					unlinkStatement();
         }
-				if (node_info.length > 0) {
-          node_info.jqTransform();
-          handleInputTypeClicks();
-          handleInputURL();
-        }
+				
 
         // Taggable Form Helpers
         if (form.hasClass(settings['taggableClass'])) {
@@ -277,6 +280,19 @@
 					// link statement Id
           statementLinked.val(statementId);
 
+
+          // Embedded Data
+					if (node_info.length > 0) {
+						var content_type = data['content_type'];
+						var external_url = data['external_url'];
+						
+						deselectContentType();
+						selectContentType(node_info.find('a.' + content_type).parent().siblings('label'));
+						
+						embed_url.val(external_url).trigger('change');
+						embedded_content.fadeIn();
+					}
+
 				});
 			}
 			
@@ -301,6 +317,16 @@
 				
 				// enable editorial state buttons
 				$('.publish_radios input:radio').removeAttr('disabled');
+				
+				
+				// Uncomment if unlinking is supposed to make the info contents disappear
+				/*
+				if (node_info.length > 0) {
+					deselectContentType();
+					embed_url.val('').trigger('change');
+					embedded_content.hide();
+				}
+				*/
 			}
 		
 			
@@ -350,21 +376,37 @@
 			 * Handles the click events on the background info type labels
 			 */
 			function handleInputTypeClicks() {
-				var selected = null;
 				var content_type_labels = node_info.find('ol li label');
+				var content_type_radios = node_info.find("ol li input[type='radio']");
 				content_type_labels.each(function(){
-					if($(this).siblings().find('a.jqTransformRadio').hasClass('jqTransformChecked')) {
-						$(this).addClass('selected');
-						selected = $(this);
-					}
+					loadInputType($(this));
 				}); 
 				content_type_labels.bind('click', function(){				
-					if (selected) { selected.removeClass('selected').find('a.jqTransformRadio').removeClass('jqTransformChecked'); }
-          $(this).addClass('selected').find('a.jqTransformRadio').addClass('jqTransformChecked');
-					selected = $(this);
+					deselectContentType();
+          selectContentType($(this));
+				});
+				content_type_radios.bind('click', function(){
+					deselectContentType();
+					selectContentType($(this).parent().siblings('label'));
 				});
 			}
 
+      function loadInputType(label) {
+        if (label.siblings().find('a.jqTransformRadio').hasClass('jqTransformChecked')) {
+					label.addClass('selected');
+					selected_content_type = label;
+				}
+			}
+			
+			function selectContentType(label) { 
+			  label.addClass('selected').find('a.jqTransformRadio').addClass('jqTransformChecked');
+        selected_content_type = label;
+			}
+			
+			function deselectContentType() {
+				if (selected_content_type) { selected_content_type.removeClass('selected').find('a.jqTransformRadio').removeClass('jqTransformChecked'); }
+			}
+			
 
       /*
        * Handles the event of filling the info url (triggers the loading of that url on an iframe)
