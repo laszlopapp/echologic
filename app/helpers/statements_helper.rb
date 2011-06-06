@@ -665,7 +665,7 @@ module StatementsHelper
   ####################
 
 
-  def render_more_data(background_info)
+  def render_embeddable_data(background_info)
     content_tag :div, :class => 'embedded_container' do
      send("render_#{background_info.info_type.code}_data", background_info)
     end
