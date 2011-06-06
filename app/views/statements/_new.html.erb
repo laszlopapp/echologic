@@ -4,7 +4,8 @@
 <% semantic_form_for statement_node,
           :html => {:class => "ajax_form new wide_form statement #{dom_class(statement_node)}
                     #{statement_node.taggable? ? 'taggable' : ''}
-                    #{statement_node.echoable? ? 'echoable' : ''}" } do |form| -%>
+                    #{statement_node.echoable? ? 'echoable' : ''}
+                    #{statement_node.class.has_embeddable_data? ? 'embeddable' : ''}" } do |form| -%>
 
 	<%= hidden_field_tag :origin, @previous_node ? "#{@previous_type}#{@previous_node.id}" : (params[:origin]||"") %>
   <%= hidden_field_tag :bids, @bids || params[:bids] || '' %>

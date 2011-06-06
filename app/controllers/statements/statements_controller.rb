@@ -212,7 +212,7 @@ class StatementsController < ApplicationController
         end
       else
         set_error(@statement_document)
-        if @statement_node.class.has_more_data?
+        if @statement_node.class.has_embeddable_data?
           set_error(@statement_node.statement, :only => [:info_type_id])
           @statement_node.statement_datas.each{|s|set_error(s)}
         end

@@ -52,4 +52,4 @@
 <!-- Embeeded part of the form for background infos --> 
 <%= render :partial => 'statements/form/background_data', 
            :locals => {:form => form, 
-                       :statement_node => statement_node} if statement_node.class.has_more_data? %>
+                       :statement_node => statement_node} if statement_node.class.has_embeddable_data? %>

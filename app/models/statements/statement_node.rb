@@ -290,7 +290,7 @@ class StatementNode < ActiveRecord::Base
     end
     
     # Aux Function: Checks if node has more data to show or load
-    def has_more_data?
+    def has_embeddable_data?
       false
     end
 

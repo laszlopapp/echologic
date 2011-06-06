@@ -412,7 +412,7 @@ module StatementsHelper
   #
   def statement_node_context_link(statement_node, title, action = 'read', opts={})
     css = String(opts.delete(:css))
-    css << " #{statement_node.info_type.code}_link" if statement_node.class.has_more_data?
+    css << " #{statement_node.info_type.code}_link" if statement_node.class.has_embeddable_data?
     link_to(h(title),
              statement_node_url(statement_node, opts),
              :class => "#{css} no_border statement_link #{dom_class(statement_node)}_link ttLink",
