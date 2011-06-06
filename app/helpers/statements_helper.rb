@@ -689,10 +689,12 @@ module StatementsHelper
   
   
   def render_video_data(background_info)
-    if background_info.statement_data.is_youtube_url?
-      %Q{<iframe title="YouTube video player" width="640" height="390" src="http://www.youtube.com/embed/#{ background_info.statement_data.youtube_id }" frameborder="0" allowfullscreen></iframe>}
+    if background_info.external_url.is_youtube_url?
+      %Q{<iframe title="YouTube video player" width="640" height="390" src="http://www.youtube.com/embed/#{ background_info.external_url.youtube_id }" frameborder="0" allowfullscreen></iframe>}
+    elsif background_info.external_url.is_vimeo_url?
+      %Q{<iframe width="400" height="170" src="http://player.vimeo.com/video/#{ background_info.external_url.vimeo_id }?portrait=0" frameborder="0"></iframe>}
     else
-      
+      render_in_iframe background_info.external_url.info_url
     end
   end
 

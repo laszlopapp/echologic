@@ -388,13 +388,14 @@
 			 */
 			function loadEmbeddedContent(url) {
 				var handled_url = url;
-				if (containsVideo(handled_url)){
-					var video_id = handled_url.match("[\?&]v=([^&#]*)")[1];
-					handled_url = "http://www.youtube.com/embed/" + video_id;
+				if (containsYoutubeVideo(handled_url)){
+					handled_url = getYoutubeEmbeddedCode(handl_url);
 					embedded_content.attr('width', settings['video_settings']['width']).attr('height', settings['video_settings']['height']);
 					embedded_content.attr('allowfullscreen',''); 
-				}
-				else {
+				} else if (containsVimeoVideo(handled_url)) {
+					handled_url = getVimeoEmbeddedCode(handled_url);
+					embedded_content.attr('width', settings['video_settings']['width']).attr('height', settings['video_settings']['height']);
+				} else {
 					embedded_content.removeAttr('width').removeAttr('height');
 					embedded_content.removeAttr('allowfullscreen');
 				}
@@ -405,11 +406,28 @@
 			}
 			
 			/* 
-			 * checks if the url is from a video (youtube, vimeo)
+			 * checks if the url is from a video (youtube)
 			 */
-			function containsVideo(url) {
+			function containsYoutubeVideo(url) {
 	 		  return url.match(/.*http:\/\/(\w+\.)?youtube.com\/watch\?v=(\w+).*/);
       }
+			
+			/* 
+       * checks if the url is from a video (vimeo)
+       */
+      function containsVimeoVideo(url) {
+        return url.match(/.*http:\/\/(\w+\.)?vimeo.com\/(\d+).*/);
+      }
+			
+			function getYoutubeEmbeddedCode(url) {
+				var video_id = handled_url.match("[\?&]v=([^&#]*)")[1];
+				return "http://www.youtube.com/embed/" + video_id;
+			}
+			
+			function getVimeoEmbeddedCode(url) {
+				var video_id = handled_url.match("vimeo\.com/(?:.*#|.*/videos/)?([0-9]+)")[1];
+				return "http://player.vimeo.com/video/" + video_id + "?portrait=0";
+			}
 
 			// Public API functions
 			$.extend(this,
