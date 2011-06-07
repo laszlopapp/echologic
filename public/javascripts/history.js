@@ -48,7 +48,7 @@ function setSearchHistory() {
 	$("#search_form").data('placeholderApi').cleanDefaultValues();
   var search_terms = $("#search_terms").val();
   if (search_terms.length > 0) {
-    search_terms = search_terms.trim();
+    search_terms = $.trim(search_terms);
   }
   if ($(':input[id=sort]').length > 0) {
     var sort = $(':input[id=sort]').val();
