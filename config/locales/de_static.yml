@@ -59,36 +59,39 @@ de:
         gender_tooltip: Selbstverständlich Frauen und Männer - unabhängig vom grammatischen Geschlecht :-)
         subsidiarity_tooltip: Stichwort Subsidiarität
         text_2:
-          title: Gemeinsame Lösungsfindung
+          title: Gemeinsame Lösungsfindung - überall
           more: |
             <p>
-            Zeitungsartikel, Blogs, Videos und alle sonstigen Inhalte im Internet werden zu Einstiegspunkten in
-            strukturierte echo Diskussionen, die in jede Webseite eingebettet werden können. Überall dort können
-            Menschen in einem demokratischen Verfahren - ohne Moderatoren oder Administratoren - ihre Ideen und
-            Lösungen kollektiv als Texte ausarbeiten. So werden <strong>Wissen, Meinungen und deren Befürworter
-            über Webseiten, Communities und Sprachgrenzen hinaus im gesamten Internet zusammengeführt.</strong>
+            echo wird <strong>KEINE Plattform</strong> sein. Seine Inhalte werden in beliebigen Webseiten erscheinen
+            können – wie z.B. in Webseiten von gesellschaftspolitischen Akteuren, Nachrichtenportalen, Unternehmen
+            oder in privaten Blogs. Überall dort können Menschen in einem demokratischen Verfahren - ohne Moderatoren
+            oder Administratoren - ihre Ideen und Lösungen kollektiv als Texte ausarbeiten. So werden
+            Wissen, Meinungen und deren Befürworter über verinselte Webseiten, Communities und Sprachgrenzen
+            hinaus <strong>im gesamten Internet zusammengeführt.</strong>
             </p><p>
-            echo Diskussionen liefern jederzeit einen <strong>schnellen und transparenten Überblick</strong> über
-            alternative Vorschläge, Pro/Kontra Argumente und multimediale Hintergrundinformationen. Sie machen
-            Zusammenhänge leicht nachvollziehbar und liefern ein <strong>differenziertes Meinungsbild</strong> –
-            z.B. welche Gesellschaftsgruppen und wie viele Menschen sind für die Verlängerung der AKW Laufzeiten?
-            Welche Gegenargumente bringen Bauingenieure? Was meinen die Bürger von Gorleben? Wie stehen dazu Parteien,
-            NGOs und andere Organisationen?
+            echos lösungsorientierte Diskussionen sind auch <strong>mit beliebig vielen Teilnehmern übersichtlich</strong>.
+            Sie enthalten alternative Sichtweisen, Pro/Kontra Argumente und multimediale Hintergrundinformationen.
+            Thematische Zusammenhänge sowie die <strong>Positionen verschiedener Gesellschaftsgruppen werden
+            transparent</strong> und leicht nachvollziehbar – z.B. welche Gesellschaftsgruppen und wie viele Menschen
+            sind für die Verlängerung der AKW Laufzeiten? Welche Gegenargumente bringen Bauingenieure? Was meinen die
+            Bürger von Gorleben? Wie stehen dazu Parteien, NGOs und andere Organisationen?
             </p>
         text_3:
           title: Demokratie zum Mitmachen
           more: |
             <p>
             Für eine spürbare Veränderung des Alltags, motiviert echo gleichgesinnte Menschen aus den Diskussionen
-            <strong>gemeinsam zu handeln</strong>, und fördert explizit die Nutzung direkt demokratischer
-            Instrumente (z.B. Europäische Bürgerinitiative, ePetition, Volksentscheid, Carrot Mob).
+            <strong>gemeinsam zu handeln</strong>. Das Spektrum dieser Handlungen reicht von Projekten, über Gründung
+            neuer NRO und Social Impact Businesses, bis hin zur organisierten Nutzung <strong>direkt demokratischer
+            Instrumente</strong> (z.B. Europäische Bürgerinitiative, ePetition, Volksentscheid, Demonstration, Boykott).
+            </p><p>
             Die <strong>Finanzierung dieser Handlungen</strong> unterstützt echo durch kostenneutrales Fundraising und
-            nutzerbestimmte, demokratische Verteilung seiner überschüssigen Einnahmen (<strong>“Your-Profit”
-            Geschäftsphilosophie</strong>).
+            nutzerbestimmte, demokratische Verteilung seiner überschüssigen Einnahmen aus mehreren skalierbaren
+            Geschäftsmodellen (<strong>“Your-Profit” Geschäftsphilosophie</strong>).
             </p><p>
             Durch Förderung <strong>konstruktiver Zusammenarbeit von Bürgern, Staat und deren Organisationen</strong>
             auf allen Ebenen, hilft echo destruktive Konfrontation zu vermeiden und ermöglicht uns allen,
-            für die Herausforderungen unserer Zeit <strong>gemeinsam innovative Antworten zu entwickeln</strong>.
+            für die Herausforderungen unserer Zeit gemeinsam innovative Antworten zu entwickeln.
             </p>
         text_4:
           title: Ihr echo
@@ -97,7 +100,10 @@ de:
             Ihre Stimme braucht ein Echo. echo braucht Ihre Stimme! Helfen Sie mit, die Demokratie in eine Zukunft
             zu führen, in der <strong>jede Stimme zählt</strong> – jeden Tag und überall auf der Welt.
             </p><p>
-            echo steckt zwar momentan noch in den Kinderschuhen, Sie können aber bereits:
+            echo, als „Gesellschaftsbetriebssystem“ von mündigen Weltbürgern zukünftiger Generationen, steckt momentan
+            noch in den Kinderschuhen. Sie können aber bereits hier und jetzt Ihre <strong>Bekannten mobilisieren</strong>,
+            und ein starkes gesellschaftliches <strong>„Echo“ für Ihr Anliegen</strong> und für eine gemeinsame
+            Zukunft erzeugen!
             </p>
 
         action: |-

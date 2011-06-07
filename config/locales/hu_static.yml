@@ -43,7 +43,7 @@ hu:
         gender_tooltip: ''
         subsidiarity_tooltip: A gloKalitás, dezentralizáció és szubszidiaritás elve mentén
         text_2:
-          title: Közös megoldáskeresés
+          title: Közös megoldáskeresés - mindenütt
           more: |
             <p>
             Az echo <strong>NEM egy újabb platform</strong>. Tartalmai tetszőleges weblapokba ágyazva
@@ -69,11 +69,13 @@ hu:
             képviselő összes embert motiválja <strong>közös akciók</strong> megszervezésére. Ezen akciók spektruma az
             általános projektektől kezdve, a
             "<a href='http://en.wikipedia.org/wiki/Social_business' target='_blank'>social business</a>"
-            cégek és civil szervezetek alapításán át, felöleli a különböző direkt demokratikus eszközök szervezett
-            használatát (pl. Európai Polgári Kezdeményezés, e-Petíció, népszavazás, carrot mob, demonstráció, bojkott).<br/>
-            Az akciók finanszírozását az echo költségsemleges pénzgyűjtéssel valamint több
+            cégek és civil szervezetek alapításán át, felöleli a különböző <strong>direkt demokratikus eszközök</strong>
+            szervezett használatát (pl. Európai Polgári Kezdeményezés, e-Petíció, népszavazás, carrot mob,
+            demonstráció, bojkott).<br/>
+            </p><p>
+            Az <strong>akciók finanszírozását</strong> az echo költségsemleges pénzgyűjtéssel valamint több
             skálázható üzleti modellből származó teljes nyereségének demokratikus, az echo közösség által történő
-            elosztásával segíti (Non-profit helyett <strong>"Your-profit" üzleti filozófia</strong>).
+            elosztásával segíti (<strong>"Your-profit" üzleti filozófia</strong>).
             </p><p>
             <strong>Az állampolgárok, az állam és ezek különböző szervezetei közötti konstruktív együttműködés</strong>
             támogatásával az echo segít elkerülni a destruktív konfrontációt, és lehetőséget teremt arra, hogy korunk
