@@ -1176,6 +1176,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   cursor: default;
 }
 
+
 /*********************/
 /* Statement content */
 /*********************/
@@ -1346,6 +1347,24 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	margin: 3px 17px 0;
   width: 85px;
   height: 11px !important;
+}
+
+.header .echo_indicator, .header .no_echo_indicator, .header .no_echo_indicator:hover {
+  border: 1px solid #DCE0E2 !important;
+}
+
+.header .echo_indicator .ui-progressbar-value {
+  background: #DCE0E2;
+  border: 1px solid #DCE0E2 !important;
+}
+
+.header.active .echo_indicator, .header.active .no_echo_indicator {
+  border: 1px solid #A9B6BD !important;
+}
+
+.header.active .echo_indicator .ui-progressbar-value {
+  background: url("../images/jquery-ui/ui-bg_gloss-wave_85_9fda58_500x100.gif") repeat-x scroll 50% 50% #7AB031;
+  border: 1px solid #A9B6BD !important;
 }
 
 /******************/
