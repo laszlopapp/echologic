@@ -139,11 +139,11 @@ a.main_menu_item.active {
   top: 51px;
   left: -16px;
   list-style: none outside none;
-  border: 3px solid #7bb031; /* #b5c0c9; */
+  border: 2px solid #7bb031;
   border-top: none;
-  border-radius: 20px 20px 12px 12px;
-  -moz-border-radius: 20px 20px 12px 12px;
-  -webkit-border-radius: 20px 20px 12px 12px;
+  border-radius: 14px;
+  -moz-border-radius: 14px;
+  -webkit-border-radius: 14px;
   box-shadow: 0 10px 25px #CAD3DB;
   -moz-box-shadow: 0 10px 25px #CAD3DB;
   -webkit-box-shadow: 0 10px 25px #CAD3DB;
