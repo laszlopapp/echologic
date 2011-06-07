@@ -23,6 +23,17 @@ module LinkingModule
     render :text => content
   end
   
+  #
+  # gets the statement data needed to fill the new statement node form and successfully link it with the statement (calls link_statement)
+  #
+  # Method:   GET
+  # Response: JSON
+  #
+  def link_statement_node
+    @statement = @statement_node.statement
+    link_statement
+  end
+  
   
   #
   # gets the statement data needed to fill the new statement node form and successfully link it with the statement
@@ -33,7 +44,8 @@ module LinkingModule
   def link_statement
     @statement ||= Statement.find(params[:id])
     @statement_document ||= @statement.document_in_language(params[:code]||locale_language_id)
-    @content = {:title => @statement_document.title,
+    @content = {:id => @statement.id,
+                :title => @statement_document.title,
                 :editorial_state => @statement.editorial_state_id, 
                 :tags => @statement.topic_tags, 
                 :text => @statement_document.text}

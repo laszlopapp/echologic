@@ -134,7 +134,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :statement_nodes, :controller => :statements,
                 :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :social_widget, #:add,
-                            :children, :more, :authors, :publish, :incorporate, :ancestors, :descendants, :share],
+                            :children, :more, :authors, :publish, :incorporate, :ancestors, :descendants, :share, 
+                            :link_statement, :link_statement_node],
                 :path_names => { :new => ':id/new/:type', :more => 'more/:type',# :add => ':id/add/:type',
                                  :edit => 'edit/:current_document_id', :new_translation => 'translation/:current_document_id',
                                  :children => 'children/:type', :incorporate => 'incorporate/:approved_ip',
@@ -142,7 +143,6 @@ ActionController::Routing::Routes.draw do |map|
                 :as => 'statement'
   #publish
   map.publish_statement   'statement/:id/publish/:in',   :controller => :statements, :action => :publish, :method => :put
-  map.connect   'statement/link_statement/:id', :controller => :statements, :action => :link_statement
 
   map.with_options(:path_prefix => ":type/:action") do |m|
     m.resources :questions, :controller => :statements, :only => [:create]

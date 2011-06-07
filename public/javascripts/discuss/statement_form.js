@@ -205,12 +205,33 @@
           }
           else 
           if ($(this).hasClass('off')) {
-						title.addClass('ac_loading');
-            title.search();
+						var titleValue = title.val();
+						if (isEchoStatementUrl(titleValue)) {
+							var echoId = titleValue.match("statement/([0-9]+).*")[1];
+							linkStatementNode(echoId);
+						}
+						else {
+							title.addClass('ac_loading');
+							title.search();
+						}
           }
           
         });
 				
+			}
+			
+			/*
+       * given a statement node Id, gets the statement remotely and fills the form with the given data
+       */
+			function linkStatementNode(nodeId) {
+				var path = '../../statement/' + nodeId + '/link_statement_node';
+        path = $.queryString(path, {
+          "code" : chosenLanguage.val()
+        });
+        $.getJSON(path, function(data) {
+          linkStatementData(data);
+
+        });
 			}
 			
 			
@@ -219,52 +240,60 @@
        */
 			function linkStatement(statementId) {
 				
-				var path = '../../statement/link_statement/' + statementId;
+				var path = '../../statement/' + statementId + '/link_statement';
 				path = $.queryString(path, {
 					"code" : chosenLanguage.val()
 				});
 				$.getJSON(path, function(data) {
-					linkedTitle = data['title']; // used for the key pressed event
-					linkedText = data['text'];
-					var statementTags = data['tags'];
-					var statementState = data['editorial_state'];
-
-          
-
-          // disable language combo
-          language_combo.attr('disabled', true);
-				
-				  // fill in summary text	
-					if(text && text.is('textarea')) {
-						text.val(linkedText);
-					} else {
-						text.empty().text(linkedText).click().blur();
-					}
-					
-					// fill in tags
-					if (form.hasClass(settings['taggableClass'])) {
-						linkedTags = statementTags;
-				  	form.data('taggableApi').removeAllTags().addTags(statementTags);
-				  }
-					
-					// check right editorial state and disable the radio buttons
-					publish_checkbox.find('input:radio[value=' + statementState + ']').attr('checked', true);
-					publish_checkbox.find('input:radio').attr('disabled', true);
-										
-					// activate auto complete button
-					activateAutoCompleteButton();
-					
-					form.addClass('linked');
-					
-					//TODO: Not working when text is inside the iframe!!!
-					if (!isMobileDevice()) {
-				  	text.addClass('linked');
-				  }
-					
-					// link statement Id
-          statementLinked.val(statementId);
+					linkStatementData(data);
 
 				});
+			}
+			
+			function linkStatementData(data) {
+				statementId = data['id'];
+				linkedTitle = data['title']; // used for the key pressed event
+        linkedText = data['text'];
+        var statementTags = data['tags'];
+        var statementState = data['editorial_state'];
+
+        // write title
+        if (title.val() != linkedTitle) {
+          title.val(linkedTitle);
+        }
+        
+        // disable language combo
+        language_combo.attr('disabled', true);
+      
+        // fill in summary text 
+        if(text && text.is('textarea')) {
+          text.val(linkedText);
+        } else {
+          text.empty().text(linkedText).click().blur();
+        }
+        
+        // fill in tags
+        if (form.hasClass(settings['taggableClass'])) {
+          linkedTags = statementTags;
+          form.data('taggableApi').removeAllTags().addTags(statementTags);
+        }
+        
+        // check right editorial state and disable the radio buttons
+        publish_checkbox.find('input:radio[value=' + statementState + ']').attr('checked', true);
+        publish_checkbox.find('input:radio').attr('disabled', true);
+                  
+        // activate auto complete button
+        activateAutoCompleteButton();
+        
+        form.addClass('linked');
+        
+        //TODO: Not working when text is inside the iframe!!!
+        if (!isMobileDevice()) {
+          text.addClass('linked');
+        }
+        
+        // link statement Id
+        statementLinked.val(statementId);
 			}
 			
 			/*

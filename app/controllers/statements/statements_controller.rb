@@ -2,7 +2,7 @@ class StatementsController < ApplicationController
   
   verify :method => :get, :only => [:index, :show, :new, :edit, :category, :new_translation,
                                     :more, :children, :authors, :add, :ancestors, :descendants, :social_widget,
-                                    :auto_complete_for_statement_title, :link_statement]
+                                    :auto_complete_for_statement_title, :link_statement, :link_statement_node]
   verify :method => :post, :only => [:create, :share]
   verify :method => :put, :only => [:update, :create_translation]
   verify :method => :delete, :only => [:destroy]
@@ -15,7 +15,8 @@ class StatementsController < ApplicationController
                                                    :auto_complete_for_statement_title, :link_statement]
   before_filter :fetch_statement_node_type, :only => [:new, :create]
   before_filter :check_read_permission, :except => [:category, :my_questions, :new, :create,
-                                                          :auto_complete_for_statement_title, :link_statement]
+                                                    :auto_complete_for_statement_title, :link_statement, 
+                                                    :link_statement_node]
   before_filter :redirect_if_approved_or_incorporated, :only => [:show, :edit, :update, :destroy,
                                                                  :new_translation, :create_translation,
                                                                  :echo, :unecho]
@@ -153,9 +154,9 @@ class StatementsController < ApplicationController
       # Prepare in memory
       @statement_node ||= @statement_node_type.new_instance(attrs)
       @statement_document = !@statement_node.statement.new_record? ?
-      @statement_node.statement.document_in_language(doc_attrs[:language_id]) :
+      @statement_node.statement.document_in_language(doc_attrs[:language_id] || @locale_language_id) :
       @statement_node.add_statement_document(
-                                             doc_attrs.merge({:original_language_id => doc_attrs[:language_id],
+                                             doc_attrs.merge({:original_language_id => doc_attrs[:language_id]  || @locale_language_id,
                                                :author_id => current_user.id,
                                                :current => true}))
       
