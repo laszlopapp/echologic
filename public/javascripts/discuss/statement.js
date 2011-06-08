@@ -255,7 +255,20 @@
 		  function initMoreButton() {
 		    statement.find(".more_pagination a:Event(!click)").bind("click", function() {
           var moreButton = $(this);
-					moreButton.replaceWith($('<span/>').text(moreButton.text()).addClass('more_loading'));
+					var moreLoading = $('<span/>').text(moreButton.text()).addClass('more_loading');
+					moreButton.replaceWith(moreLoading);
+					$.ajax({
+            url: moreButton.attr('href'),
+            type: 'get',
+            dataType: 'script',
+            success: function(){
+							//TODO: Future Handling of more event; propagate js request functions into here
+            },
+            error: function(){
+							moreLoading.replaceWith(moreButton);
+            }
+          });
+					return false;
 		    });
 		  }
 

@@ -529,7 +529,7 @@ module StatementsHelper
   def more_children(statement_node,type,page=0)
     link_to I18n.t("application.general.more"),
             more_statement_node_url(statement_node, :page => page.to_i+1, :type => type),
-            :class => 'more_children ajax'
+            :class => 'more_children'
   end
 
 
