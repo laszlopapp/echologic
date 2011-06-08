@@ -468,9 +468,9 @@ en:
       create_question: 'Create a new question'
       create_proposal: "Post a new proposal for the current question"
       create_improvement: "Post a new addition to the current proposal"
-      create_pro_argument: "Post a new PRO argument to this proposal"
-      create_contra_argument: "Post a new CONTRA argument to this proposal"
-      create_follow_up_question: "Post a new new follow-up question concerning the current statement"
+      create_pro_argument: "Post a new PRO argument to the current proposal"
+      create_contra_argument: "Post a new CONTRA argument to the current proposal"
+      create_follow_up_question: "Post a new new follow-up question concerning this statement"
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your echo to stop supporting this statement'
       publish: |

@@ -60,7 +60,8 @@ module PublishableModuleHelper
   def add_new_question_button(origin = nil)
     link_to(I18n.t("discuss.statements.types.question"),
             new_question_url(:origin => origin, :bids => origin),
-            :class => "create_question_button_32 resource_link ajax")
+            :class => "create_question_button_32 resource_link ajax ttLink no_border",
+            :title => I18n.t("discuss.tooltips.create_question"))
   end
 
   #
