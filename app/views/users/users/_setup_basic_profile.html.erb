@@ -41,7 +41,7 @@
         <% content_tag :p, :class => 'terms_agreement' do %>
           <%= check_box_tag 'user[agreement]', 1, false %>
 					<%= link_to(I18n.t('users.setup_basic_profile.agreement'),
-                      '/resources/Datenschutz_echologic.pdf', {:target => '_blank'}) %>
+                      '/resources/Datenschutz_echo.pdf', {:target => '_blank'}) %>
         <% end %>
         <%= f.submit I18n.t('application.general.save'),
                      :class => 'signinButton formButton200' %>
