@@ -131,7 +131,7 @@ module StatementsHelper
 
 
   def add_create_new_statement_button(statement_node, type, opts={})
-    if statement_node.nil? # only for siblings; there ain't no child question creation possibility; hence, no new_level param is given 
+    if statement_node.nil? # only for siblings; there ain't no child question creation possibility; hence, no new_level param is given
        content_tag :li, create_new_question_link(params[:origin], opts)
     else
        content_tag :li, create_new_child_statement_link(statement_node, type, opts)
@@ -139,7 +139,7 @@ module StatementsHelper
   end
 
   #
-  # Creates a link to add a new resource for the given statement (appears in the SIDEBAR).
+  # Generates the 'Add New...' statement panel in the action panel.
   #
   def render_add_new_button(statement_node, origin = nil, bids = nil)
     content = ''
@@ -176,15 +176,16 @@ module StatementsHelper
       else
         if origin.blank? or %w(ds mi sr jp).include? origin[0,2] # create new question
           buttons << add_new_question_button(!origin.blank? ? origin : nil)
-        else #create sibling follow up question
+        else # create sibling follow up question
           context_type = ''
           context_type << case origin[0,2]
             when 'fq' then "follow_up_question"
           end
 
-          buttons << link_to(I18n.t("discuss.statements.siblings.#{context_type}"),
-                     new_statement_node_url(origin[2..-1], context_type, :origin => origin),
-                     :class => "create_#{context_type}_button_32 resource_link ajax")
+          link_to(I18n.t("discuss.statements.siblings.#{context_type}"),
+                  new_statement_node_url(origin[2..-1], context_type, :origin => origin),
+                  :class => "create_#{context_type}_button_32 resource_link ajax ttLink no_border",
+                  :title => I18n.t("discuss.statements.siblings.#{context_type}"))
         end
       end
       # New alternative Button TODO: this is going to the logic above, in the future
@@ -208,8 +209,9 @@ module StatementsHelper
     statement_node.class.sub_types.map.each do |sub_type|
       sub_type = sub_type.to_s.underscore
       content << link_to(I18n.t("discuss.statements.types.#{sub_type}"),
-                         new_statement_node_url(statement_node.parent_node, sub_type, :origin => params[:origin], :bids => params[:bids]),
-                         :class => "create_#{sub_type}_button_32 resource_link ajax")
+                         new_statement_node_url(statement_node.parent_node, sub_type),
+                         :class => "create_#{sub_type}_button_32 resource_link ajax ttLink no_border",
+                         :title => I18n.t("discuss.tooltips.create_#{sub_type}"))
     end
     content
   end
@@ -251,7 +253,8 @@ module StatementsHelper
     opts[:new_level] = true
     link_to(I18n.t("discuss.statements.types.#{type}"),
             new_statement_node_url(statement_node, type, opts),
-            :class => "create_#{type}_button_32 resource_link ajax")
+            :class => "create_#{type}_button_32 resource_link ajax ttLink no_border",
+            :title => I18n.t("discuss.tooltips.create_#{type}"))
   end
 
   #
@@ -612,7 +615,7 @@ module StatementsHelper
   def more_children(statement_node,type,page=0)
     link_to I18n.t("application.general.more"),
             more_statement_node_url(statement_node, :page => page.to_i+1, :type => type),
-            :class => 'more_children ajax'
+            :class => 'more_children'
   end
 
 

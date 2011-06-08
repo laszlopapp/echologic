@@ -476,7 +476,7 @@ hu:
       next_contra_argument: 'Olvasd el a következő érvet az aktuális javaslathoz'
       prev_follow_up_question: 'Olvasd el a fenti összefüggésben felmerülő előző kérdést'
       next_follow_up_question: 'Olvasd el a fenti összefüggésben felmerülő következő kérdést'
-      create_question: 'Új kérdésfelvetés'
+      create_question: 'Vess fel egy új kérdést'
       create_proposal: "Tégy egy új javaslatot az aktuális kérdésfevetésre"
       create_improvement: "Mondj egy új kiegészítést vagy jobbító ötletet az aktuális javaslathoz"
       create_pro_argument: "Mondj egy új érvet a javaslat MELLETT"
