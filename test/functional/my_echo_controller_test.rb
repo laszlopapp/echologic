@@ -7,11 +7,6 @@ class MyEchoControllerTest < ActionController::TestCase
     @user = users(:ben)
   end
 
-  test "should get welcome" do
-    get :welcome
-    assert_response :success
-  end
-
   test "should get profile" do
     get :profile
     assert_response :success
@@ -21,8 +16,8 @@ class MyEchoControllerTest < ActionController::TestCase
     get :roadmap
     assert_response :success
   end
-  
-  test "should get setters" do 
+
+  test "should get setters" do
     {'notification' => ['newsletter','activity','drafting'], 'permission' => ['authorship']}.each do |type, contents|
       contents.each do |content|
         value = @user.send("#{content}_#{type}")
@@ -36,6 +31,6 @@ class MyEchoControllerTest < ActionController::TestCase
         assert_not_equal value, @user.send("#{content}_#{type}")
       end
     end
-  end 
-  
+  end
+
 end
