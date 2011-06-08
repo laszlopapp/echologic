@@ -87,7 +87,7 @@ module StatementsHelper
 
 
   #
-  # Creates a link to add a new resource for the given statement (appears in the SIDEBAR).
+  # Generates the 'Add New...' statement panel in the action panel.
   #
   def render_add_new_button(statement_node, origin = nil, bids = nil)
     content = ''
@@ -123,15 +123,16 @@ module StatementsHelper
       else
         if origin.blank? or %w(ds mi sr).include? origin[0,2] # create new question
           add_new_question_button(!origin.blank? ? origin : nil)
-        else #create sibling follow up question
+        else # create sibling follow up question
           context_type = ''
           context_type << case origin[0,2]
             when 'fq' then "follow_up_question"
           end
 
           link_to(I18n.t("discuss.statements.siblings.#{context_type}"),
-                new_statement_node_url(origin[2..-1], context_type, :origin => origin),
-                :class => "create_#{context_type}_button_32 resource_link ajax")
+                  new_statement_node_url(origin[2..-1], context_type, :origin => origin),
+                  :class => "create_#{context_type}_button_32 resource_link ajax ttLink no_border",
+                  :title => I18n.t("discuss.statements.siblings.#{context_type}"))
         end
       end
     end
@@ -148,7 +149,8 @@ module StatementsHelper
       sub_type = sub_type.to_s.underscore
       content << link_to(I18n.t("discuss.statements.types.#{sub_type}"),
                          new_statement_node_url(statement_node.parent, sub_type),
-                         :class => "create_#{sub_type}_button_32 resource_link ajax")
+                         :class => "create_#{sub_type}_button_32 resource_link ajax ttLink no_border",
+                         :title => I18n.t("discuss.tooltips.create_#{sub_type}"))
     end
     content
   end
@@ -190,7 +192,8 @@ module StatementsHelper
     opts[:new_level] = true
     link_to(I18n.t("discuss.statements.types.#{type}"),
             new_statement_node_url(statement_node, type, opts),
-            :class => "create_#{type}_button_32 resource_link ajax")
+            :class => "create_#{type}_button_32 resource_link ajax ttLink no_border",
+            :title => I18n.t("discuss.tooltips.create_#{type}"))
   end
 
   #
@@ -385,7 +388,7 @@ module StatementsHelper
     if statement_node and statement_node.new_record?
       %w(prev next).each{|button| buttons << statement_tag(button.to_sym, type, true)}
       buttons << content_tag(:span,
-                             I18n.t("discuss.statements.sibling_labels.#{type.classify.constantize.name_for_siblings}"), 
+                             I18n.t("discuss.statements.sibling_labels.#{type.classify.constantize.name_for_siblings}"),
                              :class => 'show_siblings_label disabled')
     else
       buttons << content_tag(:span, '', :class => 'loading', :style => 'display:none')
