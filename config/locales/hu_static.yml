@@ -29,31 +29,32 @@ hu:
           <p>
           Az echo egy a közösségből fakadó <a href="{{github_url}}" target="_blank">nyílt forrású</a> projekt egy
           <strong>élő demokráciáért</strong> - <span title="{{subsidiarity_tooltip}}" class="ttLink">világszerte</span>,
-          minden ember egyenrangú, aktív részvételével.
-          Átfogó koncepciója korunk egyik kulcsproblémájának megoldását célozza:
-          a politikai rezignáció és az egyedüli ember tehetetlenség érzetének leküzdését.
+          minden ember egyenrangú, aktív részvételével. A tehetetlenség érzete és a politikai rezignáció lassan a múlté.
+          Az echo megteremti a szükséges technológiát, hogy a valódi demokrácia víziója egy a mindennapjainkban megélt
+          valósággá váljék.
           </p><p>
           "Megvitatjuk - Összefogunk - Cselekszünk!" - A szociális szoftver lehetőséget nyújt <strong>konstruktív,
           többnyelvű nyílt viták</strong> folytatására véleményformálás és közös megoldáskeresés céljából.
           Az echo összeköti a vitákban azonos álláspontokat kialakító embereket és támogatja őket a
-          <strong>közös cselekvésben</strong> a társadalmi és politikai érdekérvényesítés sikeréért.<br/>
+          <strong>közös cselekvésben</strong> a társadalmi és politikai befolyásgyakorlás sikeréért.
           Bárhol is legyünk a virtuális vagy valódi világban, az echo végleg egyértelművé teszi: többé nem vagyunk
           egyedül véleményünkkel és céljainkkal - hangunk visszhangja <strong>átformálja a világot</strong>.
           </p>
         gender_tooltip: ''
-        subsidiarity_tooltip: A gloKalitás, dezentralizáció és szubszidiaritás elve mentén
+        subsidiarity_tooltip: A gloKalitás, dezentralizáció és szubszidiaritás elvei mentén
         text_2:
           title: Közös megoldáskeresés - mindenütt
           more: |
             <p>
             Az echo <strong>NEM egy újabb platform</strong>. Tartalmai tetszőleges weblapokba ágyazva
             megjelenhetnek majd: így pl. társadalmi és politikai szereplők weboldalain, hírportálokon, cégek honlapján
-            vagy éppen privát blogokban.<br/>
+            vagy éppen privát blogokban. Bármely weboldalon is legyünk, az echo segítségével együtt alakíthatjuk ki és
+            fejleszthetjük tovább javaslatainkat - demokratikus úton, adminisztrátorok és moderátorok nélkül.
             Kollektív tudásunk szilánkjai, vélemények és ezek támogatói ezáltal az egymástól elszigetelt weblapok,
             közösségek és különböző beszélt nyelvek határain túl <strong>az Internet teljes egészére kiterjedően</strong>
             összeköttetnek egymással.
             </p><p>
-            Az echo többnyelvű dialógusai <strong>bármennyi résztvevővel is gyorsan áttekinthetőek</strong>.
+            Az echo struktúrált dialógusai <strong>bármennyi résztvevővel is gyorsan áttekinthetőek</strong>.
             Elénk tárják a különböző alternatívákat, a mellettük és ellenük szóló érveket valamint a velük kapcsolatos
             multimediális háttérinformációkat. A témák közötti összefüggések illetve a különböző
             <strong>társadalmi csoportok álláspontja</strong> és érvelése könnyen átláthatóvá válik.<br/>
