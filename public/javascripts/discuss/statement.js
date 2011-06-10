@@ -40,6 +40,7 @@
 			var statementType = $.trim(statementDomId.match(/[^(add_|new_)]\w+[^_\d+]/));
       var statementId = getStatementId(statementDomId);
 			var parentStatement, statement_index;
+			var statementUrl;
 
       // Initialize the statement
       initialise();
@@ -73,7 +74,10 @@
         if(statement.is('form')) {
 					statement.statementForm();
         } else {
+					statementUrl = statement.find('.header_link a.statement_link').attr('href');
+					
 					initAddNewButton();
+					initClipboardButton();
           initMoreButton();
           initAllStatementLinks();
 					//initFlicks();
@@ -318,8 +322,16 @@
           return false;
 		    });
 		  }
-
-
+   
+	    function initClipboardButton() {
+				$.clipboardReady(function(){
+					statement.find('.action_bar .clip_button').bind('click', function(){
+						$.clipboard($(this).attr('href'));
+					  return false; 	
+					});
+				}, { swfpath: "flash/jquery.clipboard.swf", debug: true } ); 
+			}  
+	 
 		  /*
 		   * Handles the click on the more Button event (replaces it with an element of class 'more_loading')
 		   */

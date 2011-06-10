@@ -93,6 +93,44 @@ module StatementsHelper
       content
     end
   end
+  
+  
+  #
+  # Creates a link to copy the statement node link into the clipboard
+  #
+  def render_clipboard_button(statement_node)
+    url = CGI::escape(statement_node_url(statement_node))
+    content_tag :div, :class => "clip_button_container" do
+      link_to '', url, :class => 'clip_button'
+#      content_tag :span, '', 
+#                  :class => "clip_button ttLink no_border", 
+#                  :title => I18n.t('discuss.tooltips.copy_to_clipboard') do
+#        html = <<-EOF
+#          <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+#                  width="16"
+#                  height="20"
+#                  id="clippy" >
+#          <param name="movie" value="/flash/clippy.swf"/>
+#          <param name="allowScriptAccess" value="always" />
+#          <param name="quality" value="high" />
+#          <param name="scale" value="noscale" />
+#          <param NAME="FlashVars" value="text=#{url}">
+#          <embed src="/flash/clippy.swf"
+#                 width="16"
+#                 height="20"
+#                 name="clippy"
+#                 quality="high"
+#                 allowScriptAccess="always"
+#                 type="application/x-shockwave-flash"
+#                 pluginspage="http://www.macromedia.com/go/getflashplayer"
+#                 FlashVars="text=#{url}"
+#          />
+#          </object>
+#        EOF
+#            
+#      end
+    end
+  end
 
 
   #########

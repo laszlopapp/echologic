@@ -966,6 +966,22 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   background-position: 0 42px;
 }
 
+/****************************/
+/* Copy to clipboard button */
+/****************************/
+
+#statements .action_bar .clip_button_container {
+  position: relative;
+  margin-top: 20px;
+}
+
+.action_bar .clip_button {
+  display: inline-block;
+	background: url(../images/page/discuss/copy_link_16.png) no-repeat scroll 0 0;
+	height: 16px;
+	width: 20px;
+}
+
 /****************/
 /* Popup panels */
 /****************/

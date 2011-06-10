@@ -313,7 +313,7 @@
     }
     return false;
   }
-
+	
 
   /*
    * Detecting mobile devices.

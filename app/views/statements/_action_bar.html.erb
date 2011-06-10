@@ -5,10 +5,12 @@
   <%= render_echo_button statement_node %>
 
   <% if !only_echo_button %>
-    <div class="add_new_container">
+	  <% content_tag :div, :class => "add_new_container" do %>
       <%= render_add_new_button(statement_node, params[:origin], params[:bids]) %>
-    </div>
-
+    <% end %>
+    
+		<%= render_clipboard_button(statement_node) %>
+		  
     <% if current_user and current_user.may_delete?(statement_node) -%>
       <br/><br/>
       <%= delete_statement_node_link(statement_node) %>
