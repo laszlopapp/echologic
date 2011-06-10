@@ -48,19 +48,19 @@
 
         /* Clicking 'add tag' button */
         taggable.find('.addTag').bind('click', (function() {
-          var entered_tags = taggable.find('#tag_topic_id').val().trim().split(",");
+          var entered_tags = $.trim(taggable.find('#tag_topic_id').val()).split(",");
           if (entered_tags.length != 0) {
             /* Trimming all tags */
             entered_tags = jQuery.map(entered_tags, function(tag) {
-              return (tag.trim());
+              return $.trim(tag);
             });
             var existing_tags = taggable.find('.question_tags').val();
             existing_tags = existing_tags.split(',');
-            existing_tags = $.map(existing_tags,function(q){return q.trim()});
+            existing_tags = $.map(existing_tags, function(q) {return $.trim(q)});
 
             var new_tags = new Array(0);
             while (entered_tags.length > 0) {
-              var tag = entered_tags.shift().trim();
+              var tag = $.trim(entered_tags.shift());
               if ($.inArray(tag,existing_tags) < 0 && $.inArray(tag,entered_tags) < 0) {
                 if (tag.localeCompare(' ') > 0) {
                   var element = createTagButton(tag, ".question_tags");
@@ -71,7 +71,7 @@
             }
 						var question_tags = taggable.find('.question_tags').val();
 						if (new_tags.length > 0) {
-              question_tags = ((question_tags.trim().length > 0) ? question_tags + ',' : '') + new_tags.join(',');
+              question_tags = (($.trim(question_tags).length > 0) ? question_tags + ',' : '') + new_tags.join(',');
               taggable.find('.question_tags').val(question_tags);
             }
 						taggable.find('#tag_topic_id').val('');
@@ -93,7 +93,7 @@
           var tag_to_delete = $(this).parent().text();
 					var form_tags = taggable.find(tags_class).val();
 					form_tags = form_tags.split(',');
-          form_tags = $.map(form_tags,function(q){return q.trim()});
+          form_tags = $.map(form_tags, function(q) {return $.trim(q)});
           var index_to_delete = $.inArray(tag_to_delete,form_tags);
           if (index_to_delete >= 0) {
             form_tags.splice(index_to_delete, 1);

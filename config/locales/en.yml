@@ -468,9 +468,9 @@ en:
       create_question: 'Create a new question'
       create_proposal: "Post a new proposal for the current question"
       create_improvement: "Post a new addition to the current proposal"
-      create_pro_argument: "Post a new PRO argument to this proposal"
-      create_contra_argument: "Post a new CONTRA argument to this proposal"
-      create_follow_up_question: "Post a new new follow-up question concerning the current statement"
+      create_pro_argument: "Post a new PRO argument to the current proposal"
+      create_contra_argument: "Post a new CONTRA argument to the current proposal"
+      create_follow_up_question: "Post a new new follow-up question concerning this statement"
       create_alternative: "Post a new contrary statement"
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your echo to stop supporting this statement'
@@ -486,8 +486,6 @@ en:
         contra_argument:  See all arguments belonging to the current proposal
       link_statement: "Enter a part of the title and press the button to search for matching statements to be referenced..."
       copy_to_clipboard: "Copy Statement Link to Clipboard"
-
-
 
     statements:
       label: 'votes'
@@ -622,7 +620,7 @@ en:
       echos_label: Support
 
       linking:
-        disabled: Link 
+        disabled: Link
         enabled: Linked
 
       breadcrumbs:
@@ -653,7 +651,7 @@ en:
         progress: The image is being uploaded. Please wait...
         error: The image couldn't be applied. Please upload a supported format (JPG or PNG and max. 5MB).
 
-      
+
 
       add_teaser:
         question: |

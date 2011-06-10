@@ -158,7 +158,7 @@ de:
         failed_social: "Bitte melden Sie sich über das Konto an, mit dem Sie sich registriert haben oder das Sie bereits verknüpft haben."
     signout:
       messages:
-        success: "Logout erfolgreich. Bitte vergessen Sie nicht, sich von Facebook, Twitter, usw. gesondert abzumelden.<br/>Tschüß - Bis zum nächsten Mal!"
+        success: "Logout erfolgreich. Bitte vergessen Sie nicht, sich von Facebook, Twitter, usw. gesondert abzumelden. Tschüß - Bis zum nächsten Mal!"
     user_sessions:
       messages:
         session_timeout: "Ihre alte Sitzung wurde beendet. Bitte melden Sie sich erneut an."
@@ -554,7 +554,7 @@ de:
           Bitte erläutern Sie Ihren Vorschlag näher...<br/><br/>
           Er kann je nach Art der Fragestellung als mögliche Antwort, Lösungsansatz oder Stellungnahme verstanden werden.
         improvement: |
-          Bitte erläutern Sie Ihre Ergänzungs- oder Verbesserungsidee zum Vorschlag näher...<br/<br/>
+          Bitte erläutern Sie Ihre Ergänzungs- oder Verbesserungsidee zum Vorschlag näher...<br/><br/>
           Diese Ergänzungen sind die Basis für echos demokratisches Verfahren zur gemeinsamen Ausarbeitung von
           Vorschlägen. Die AuthorIn der jeweils meist unterstützten Ergänzungen erhalten von echo die Möglichkeit,
           ihre hier formulierten Ideen und Gedanken in den Vorschlag einzupflegen.

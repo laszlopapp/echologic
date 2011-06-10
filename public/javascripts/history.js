@@ -82,11 +82,11 @@ function initFragmentChange() {
   if ($.fragment().page) {
     $(document).trigger("fragmentChange.page");
   }
-	
+
 }
 
-function triggerSearchQuery(){ 
-  $.getScript($.queryString(document.location.href, { 
+function triggerSearchQuery(){
+  $.getScript($.queryString(document.location.href, {
     "page_count": $.fragment().page_count,
     "page": $.fragment().page,
     "sort": $.fragment().sort,

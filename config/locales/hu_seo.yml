@@ -88,34 +88,36 @@ hu:
 
       # my_echo: de.seo.title.newsletter
       newsletters:
-        index: 'echo - Newsletter'
+        index: 'echo - Hírlevél'
       about_items:
-        index: 'echo - About us'
+        index: 'echo - Rólunk'
 
     meta:
       echologic:
         description: |-
-          echo facilitates constructive public dialogs for opinion formation and collective solution
-          finding. It connects like-minded people and supports them in creating joint actions for social and
-          political impact. Wherever we are in the virtual or real world, echo gives us the proof: we are no longer
-          alone with our opinion and convictions - the echo of our voice can turn idea(l)s into reality.
+          Az echo lehetőséget nyújt konstruktív, többnyelvű nyílt viták folytatására véleményformálás és közös
+          megoldáskeresés céljából. A szociális szoftver összeköti a vitákban azonos álláspontokat kialakító embereket
+          és támogatja őket a közös cselekvésben a társadalmi és politikai befolyásgyakorlás sikeréért.
+          Bárhol is legyünk a virtuális vagy valódi világban, az echo végleg egyértelművé teszi: többé nem vagyunk
+          egyedül véleményünkkel és céljainkkal - hangunk visszhangja átformálja a világot.
         keywords: |-
-          echo, living democracy, active citizenship, collective solution finding, political impact, global agora,
-          participatory democracy, self-determination, collective intelligence, opinion formation, will formation,
-          mobilization, critical masses, legislative instruments, social collaboration, echocracy, equality, transparency,
-          echonomy, eco-social, Your-Profit, glocal, glocality, sustainability, sustainable change
+          echo, élő demokrácia, aktív állampolgárok, együttes megoldáskeresés, politikai befolyás,
+          résztvevő demokrácia, önmeghatározás, kollektív intelligencia, véleményformálás, akaratformálás,
+          mobilizáció, mozgósítás, kritikus tömeg, direkt demokratikus eszközök, szociális együttműködés,
+          echokrácia, egyenlőség, átláthatóság, echonómia, öko-szociális, Your-Profit, glokális, glokalitás, fenntarthatóság
 
       echo:
         description: |-
-          echo facilitates constructive public dialogs for opinion formation and collective solution
-          finding. It connects like-minded people and supports them in creating joint actions for social and
-          political impact. Wherever we are in the virtual or real world, echo gives us the proof: we are no longer
-          alone with our opinion and convictions - the echo of our voice can turn idea(l)s into reality.
+          Az echo lehetőséget nyújt konstruktív, többnyelvű nyílt viták folytatására véleményformálás és közös
+          megoldáskeresés céljából. A szociális szoftver összeköti a vitákban azonos álláspontokat kialakító embereket
+          és támogatja őket a közös cselekvésben a társadalmi és politikai befolyásgyakorlás sikeréért.
+          Bárhol is legyünk a virtuális vagy valódi világban, az echo végleg egyértelművé teszi: többé nem vagyunk
+          egyedül véleményünkkel és céljainkkal - hangunk visszhangja átformálja a világot.
         keywords: |-
-          echo, living democracy, active citizenship, collective solution finding, political impact, global agora,
-          participatory democracy, self-determination, collective intelligence, opinion formation, will formation,
-          mobilization, critical masses, legislative instruments, social collaboration, echocracy, equality, transparency,
-          echonomy, eco-social, Your-Profit, glocal, glocality, sustainability, sustainable change
+          echo, élő demokrácia, aktív állampolgárok, együttes megoldáskeresés, politikai befolyás,
+          résztvevő demokrácia, önmeghatározás, kollektív intelligencia, véleményformálás, akaratformálás,
+          mobilizáció, mozgósítás, kritikus tömeg, direkt demokratikus eszközök, szociális együttműködés,
+          echokrácia, egyenlőség, átláthatóság, echonómia, öko-szociális, Your-Profit, glokális, glokalitás, fenntarthatóság
 
       echosocial:
         description: |-

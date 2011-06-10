@@ -413,14 +413,14 @@
 
 					// Update the bids
 					var index = $.inArray(key, bids);
-					
+
 					if (index != -1) { // if parent breadcrumb exists, then delete everything after it
 						bids = bids.splice(0, index + 1);
 					} else { // if parent breadcrumb doesn't exist, it means top stack statement
-						bids = bids.splice(0, current_bids.length - current_bids.length%3); 
+						bids = bids.splice(0, current_bids.length - current_bids.length%3);
 					}
-					
-					 
+
+
 					// save element after which the breadcrumbs will be deleted
           $('#breadcrumbs').data('element_clicked', key);
 
@@ -613,7 +613,7 @@
 				   }
 			     $('div#statements').removeData(this.id);
 			     $(this).remove();
-					 
+
 		     });
 				 return this;
 		    },
@@ -669,7 +669,7 @@
         {
           initRatioBars(container);
         },
-				getType: function() 
+				getType: function()
 				{
 					return statementType;
 				}
