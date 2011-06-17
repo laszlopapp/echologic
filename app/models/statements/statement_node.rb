@@ -14,10 +14,25 @@ class StatementNode < ActiveRecord::Base
   # important for the successful deletion of follow up questions that reference the deleted statement node
   has_many :follow_up_questions, :foreign_key => 'question_id', :dependent => :destroy
 
-  after_destroy :destroy_statement
-
+  after_destroy :destroy_associated
+  
+  def destroy_associated
+    destroy_statement
+    destroy_shortcuts
+  end
+  
+  #
+  # destroys the statement ONLY if this is the only statement node belonging the statement
+  #
   def destroy_statement
     self.statement.destroy if self.statement and (self.statement.statement_nodes - [self]).empty?
+  end
+  
+  #
+  # destroys the shortcuts referencing this statement node
+  #
+  def destroy_shortcuts
+    ShortcutCommand.destroy_all("command LIKE '%\"id\":#{self.id}%'")
   end
 
   ##

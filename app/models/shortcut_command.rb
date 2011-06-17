@@ -1,5 +1,5 @@
 class ShortcutCommand < ActiveRecord::Base
-  has_many :shortcut_urls
+  has_many :shortcut_urls, :dependent => :destroy
   
   validates_uniqueness_of :command
   
