@@ -324,12 +324,18 @@
 		  }
    
 	    function initClipboardButton() {
-				$.clipboardReady(function(){
+			/*	$.clipboardReady(function(){
 					statement.find('.action_bar .clip_button').bind('click', function(){
 						$.clipboard($(this).attr('href'));
 					  return false; 	
 					});
-				}, { swfpath: "flash/jquery.clipboard.swf", debug: true } ); 
+				}, { swfpath: "flash/jquery.clipboard.swf", debug: true } ); */
+				$('.action_bar a.clip_button').zclip({
+					path: 'flash/ZeroClipboard.swf',
+					copy: function(){
+					  return $(this).prev().val();
+					}
+				});
 			}  
 	 
 		  /*
