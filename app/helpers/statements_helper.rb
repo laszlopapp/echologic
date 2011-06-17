@@ -102,9 +102,9 @@ module StatementsHelper
     url = statement_node_url(statement_node)
     content_tag :div, :class => "clip_button_container" do
       content = ""
-      content << hidden_field_tag('', url, :class => 'clip_url')
       content << link_to('', '#', :class => 'clip_button ttLink no_border',
-                                  :title => I18n.t('discuss.tooltips.copy_to_clipboard'))  
+                                  :title => I18n.t('discuss.tooltips.copy_to_clipboard'))
+      content << text_field_tag('', url, :class => 'clip_url', :style => "display:none")
       content
 #      content_tag :span, '', 
 #                  :class => "clip_button ttLink no_border", 

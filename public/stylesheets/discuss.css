@@ -982,6 +982,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	width: 20px;
 }
 
+.action_bar .clip_url {
+	margin-top: 10px;
+}
+
 /****************/
 /* Popup panels */
 /****************/
