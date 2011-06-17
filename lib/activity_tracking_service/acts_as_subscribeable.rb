@@ -20,12 +20,14 @@ module ActiveRecord
                      :as => :subscribeable,
                      :dependent => :destroy
 
+            has_many :events, :foreign_key => 'subscribeable_id', :dependent => :destroy
+
             has_many :subscribers,
                      :class_name => 'User',
                      :finder_sql => 'SELECT DISTINCT * FROM users u ' +
                                     'LEFT JOIN subscriptions s ON s.subscriber_id = u.id ' +
                                     'WHERE s.subscribeable_id = #{id}'
-
+            
             def self.subscribeable?
               true
             end

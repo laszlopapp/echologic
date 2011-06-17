@@ -9,6 +9,11 @@ class StatementNode < ActiveRecord::Base
     self
   end
 
+  # STATEMENT NODE DELETION HANDLING
+
+  # important for the successful deletion of follow up questions that reference the deleted statement node
+  has_many :follow_up_questions, :foreign_key => 'question_id', :dependent => :destroy
+
   after_destroy :destroy_statement
 
   def destroy_statement
@@ -37,9 +42,7 @@ class StatementNode < ActiveRecord::Base
     end
   end
   
-  # important for the successful deletion of follow up questions that reference the deleted statement node
-  has_many :follow_up_questions, :foreign_key => 'question_id', :dependent => :destroy
-
+  
   ##
   ## VALIDATIONS
   ##
