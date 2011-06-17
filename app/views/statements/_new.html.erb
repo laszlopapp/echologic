@@ -3,6 +3,7 @@
 
 <% semantic_form_for statement_node,
           :html => {:class => "ajax_form new wide_form statement #{dom_class(statement_node)}
+                    #{params[:hub]}
                     #{statement_node.taggable? ? 'taggable' : ''}
                     #{statement_node.echoable? ? 'echoable' : ''}" } do |form| -%>
 

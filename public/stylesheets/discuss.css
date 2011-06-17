@@ -254,6 +254,10 @@ form.pro_argument .header li {
 form.contra_argument .header li {
   background: transparent url(../images/page/discuss/contra_argument_16.png) no-repeat scroll 0 2px;
 }
+form.alternative .header li {
+	background: transparent url(../images/page/discuss/alternative_16.png) no-repeat scroll 0 2px;
+}
+
 
 form.statement .header_link fieldset ol li {
   padding-left: 20px;
@@ -1573,6 +1577,8 @@ a.statement_link:hover {
 .pro_argument_link {background:transparent url(../images/page/discuss/pro_argument_16.png) no-repeat scroll 0 0;}
 .contra_argument_link {background:transparent url(../images/page/discuss/contra_argument_16.png) no-repeat scroll 0 2px;}
 .follow_up_question_link {background:transparent url(../images/page/discuss/follow_up_question_16.png) no-repeat scroll 0 0;}
+
+.alternatives .statement_link {background:transparent url(../images/page/discuss/alternative_16.png) no-repeat scroll 0 0;}
 
 .create_question_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
 .create_proposal_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
