@@ -8,7 +8,7 @@ class Event < ActiveRecord::Base
         LEFT JOIN event_permissions e_perm ON e_perm.event_id = events.id
       WHERE id IN
         (SELECT distinct e.id FROM events e
-          WHERE e.subscribeable_id is null AND e.created_at > ? AND e.id > ?
+          WHERE e.broadcast = 1 AND e.created_at > ? AND e.id > ?
         UNION
         SELECT distinct e.id FROM events e
           LEFT JOIN subscriptions sb ON (e.subscribeable_id = sb.subscribeable_id)
