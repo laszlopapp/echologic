@@ -12,7 +12,7 @@ class StatementNode < ActiveRecord::Base
   after_destroy :destroy_statement
 
   def destroy_statement
-    self.statement.destroy if (self.statement.statement_nodes - [self]).empty?
+    self.statement.destroy if self.statement and (self.statement.statement_nodes - [self]).empty?
   end
 
   ##
@@ -36,6 +36,9 @@ class StatementNode < ActiveRecord::Base
       }.first
     end
   end
+  
+  # important for the successful deletion of follow up questions that reference the deleted statement node
+  has_many :follow_up_questions, :foreign_key => 'question_id', :dependent => :destroy
 
   ##
   ## VALIDATIONS
