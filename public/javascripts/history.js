@@ -86,7 +86,7 @@ function initFragmentChange() {
 }
 
 function triggerSearchQuery(){
-  $.getScript($.queryString(document.location.href, {
+  $.getScript($.queryString(document.location.href.split('?')[0], {
     "page_count": $.fragment().page_count,
     "page": $.fragment().page,
     "sort": $.fragment().sort,
