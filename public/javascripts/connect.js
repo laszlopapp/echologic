@@ -2,6 +2,7 @@
 $(document).ready(function () {
   if ($('#function_container.connect').length > 0) {
   	loadAvatarHolders();
+		initScrollToProfile();
   }
 });
 
@@ -14,3 +15,8 @@ function loadAvatarHolders(){
 		});
 }
 
+function initScrollToProfile() {
+	if ($('#profile_details_container').is(":visible")) {
+		$.scrollTo('#results_anchor', 400);
+	}
+}

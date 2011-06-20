@@ -23,4 +23,5 @@
 
 <%= render :partial => 'connect/profiles/results' %>
 
-<%= render :partial => 'connect/profiles/details', :locals => {:profile => Profile.new, :hidden => true} %>
+<%= render :partial => 'connect/profiles/details', 
+           :locals => {:profile => @profile} %>

@@ -1,40 +1,38 @@
-<%# Renders the profile details for the given profile. Will only be used in the non-ajax case.
-%>
-
+<!-- Renders the profile details for the given profile. Will only be used in the non-ajax case. -->
 <% @profile = profile if defined?(profile) %>
 
-<div id="profile_details_container" class=" tab_details_container connect" style="<%= 'display:none' if (defined?(hidden) and hidden) %>">
-  <ul id="profile_details_tabs">
-    <li id="full_name"><%=h @profile.full_name %></li>
+<% content_tag :div, :id => "profile_details_container", :class => "tab_details_container connect", 
+                     :style => (profile.nil? or profile.new_record?) ? 'display:none' : '' do %>
+	  <ul id="profile_details_tabs">
+	    <li id="full_name"><%=h profile.full_name %></li>
+	
+	    <li><a href="#overview"><%= I18n.t('connect.details.tabs.overview') %></a></li>
+	    <li><a href="#concernments"><%= I18n.t('connect.details.tabs.concernments') %></a></li>
+	    <li><a href="#web_addresses"><%= I18n.t('connect.details.tabs.web_addresses') %></a></li>
+	
+	    <%= close_profile_details %>
+	  </ul>
+	
+	  <div id="avatar">
+	    <%= render :partial => 'connect/profiles/avatar' %>
+	  </div>
+	
+	  <div id="overview" class="tab_content_container">
+	    <%= render :partial => 'connect/profiles/overview' %>
+	  </div>
+	
+	  <div id="concernments" class="tab_content_container">
+	    <%= render :partial => 'connect/profiles/concernments' %>
+	  </div>
+	  
+	  <div id="web_addresses" class="tab_content_container">
+	    <%= render :partial => 'connect/profiles/web_addresses' %>
+	  </div>
+	
+	  <div id="actions" class="actions">
+	    <%= render :partial => 'connect/profiles/actions' %>
+	  </div>
 
-    <li><a href="#overview"><%= I18n.t('connect.details.tabs.overview') %></a></li>
-    <li><a href="#concernments"><%= I18n.t('connect.details.tabs.concernments') %></a></li>
-    <li><a href="#web_addresses"><%= I18n.t('connect.details.tabs.web_addresses') %></a></li>
-
-    <%= close_profile_details %>
-  </ul>
-
-  <div id="avatar">
-    <%= render :partial => 'connect/profiles/avatar' %>
-  </div>
-
-  <div id="overview" class="tab_content_container">
-    <%= render :partial => 'connect/profiles/overview' %>
-  </div>
-
-  <div id="concernments" class="tab_content_container">
-    <%= render :partial => 'connect/profiles/concernments' %>
-  </div>
-  
-  <div id="web_addresses" class="tab_content_container">
-    <%= render :partial => 'connect/profiles/web_addresses' %>
-  </div>
-
-  <div id="actions" class="actions">
-    <%= render :partial => 'connect/profiles/actions' %>
-  </div>
 
 
-
-
-</div>
+<% end %>
