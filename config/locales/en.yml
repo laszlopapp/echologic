@@ -746,6 +746,7 @@ en:
         web_addresses: 'Web Addresses'
       actions:
         report: "Report"
+        send_mail: "Send Mail"
     messages:
       empty:           'No members found. Please change your search criteria.'
       no_concernments: "This member hasn't defined any concernments and competences, yet."

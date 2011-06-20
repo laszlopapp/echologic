@@ -1,6 +1,8 @@
 
 <%= link_to I18n.t('connect.details.actions.report'),
     url_for(:controller => 'users/reports', :action => 'new', :id => @profile.user), :class => 'ajax action_button report_action' %>
+<%= link_to I18n.t('connect.details.actions.send_mail'),
+    url_for(:controller => 'users/reports', :action => 'new', :id => @profile.user), :class => 'ajax action_button send_mail_action' %>
 
 <% if show_admin_options? %>
   <br/><br/><br/>
