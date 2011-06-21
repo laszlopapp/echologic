@@ -1,0 +1,21 @@
+/* Write render output into JS variable and put it into the container. */
+var content = "<%= escape_javascript(render(:partial => 'users/profiles/mails/new')) %>";
+$('#dialogContent').html(content);
+
+/* Create a jqueryUI modal dialog with a send button. */
+$('#dialogContent').dialog({
+  title:    "<%= I18n.t('connect.details.actions.send_mail') %>",
+  bgiframe: true,
+  modal:    true,
+  buttons:  {
+    "<%= I18n.t('application.general.send') %>":  function() { $('#new_user_mail_form').submit(); },
+    "<%= I18n.t('application.general.cancel') %>": function() { $(this).dialog('close'); }
+  },
+  close:    function(event, ui) { $(this).dialog('destroy'); },
+  width:    650,
+  resizable: false
+});
+
+<% if current_user %>
+  $('#user_mail_text').focus();
+<% end %>

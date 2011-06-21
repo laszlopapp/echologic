@@ -1,4 +1,5 @@
 class Users::ProfilesController < ApplicationController
+  include Users::ProfileActionsModule
   helper :connect
 
   skip_before_filter :require_user, :only => [:details]
@@ -8,14 +9,6 @@ class Users::ProfilesController < ApplicationController
   end
 
   auto_complete_for :profile, :city, :limit => 7
-
-  def details
-    @profile = Profile.find(params[:id], :include => [:web_addresses, :memberships, :user])
-    respond_to do |format|
-      format.js   { render :template => 'connect/profiles/details'}
-      format.html { render :partial => 'connect/profiles/details', :layout => 'application' }
-    end
-  end
 
   # Shows details for the current user, this action is formaly known as
   # profile! ;)

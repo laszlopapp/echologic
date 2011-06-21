@@ -26,7 +26,11 @@ ActionController::Routing::Routes.draw do |map|
   # SECTION my echo routing
   map.my_profile 'my_profile', :controller => 'my_echo', :action => 'profile'
 
-  map.resources :profiles, :controller => 'users/profiles', :path_prefix => '', :only => [:show, :edit, :update]
+  map.resources :profiles, :controller => 'users/profiles', 
+                :path_prefix => '', 
+                :only => [:show, :edit, :update]
+  map.new_user_mail '/profiles/:id/new_mail', :controller => 'users/profiles', :action => :new_mail
+  map.send_user_mail '/profiles/:id/send_mail', :controller => 'users/profiles', :action => :send_mail, :method => :post
   map.profile_details '/profiles/:id/details', :controller => 'users/profiles', :action => 'details'
 
   map.welcome 'welcome', :controller => 'my_echo', :action => 'welcome'

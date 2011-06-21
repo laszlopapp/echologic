@@ -402,6 +402,11 @@ en:
           </p>
       messages:
         created: "Thank you for your message. An administrator was notified."
+        
+    user_mails:
+      messages:
+        created: "The mail was sent to you fellow echo user. Thank you for the participation."
+      
 
   # ---------------
   # Discuss section
@@ -766,6 +771,18 @@ en:
       send: Send message
     create:
       thank_you: Thank you for your feedback.
+      
+  user_mail:
+    new:
+      title: Send Mail
+      guide: |
+        <p>
+        <strong>Send an email to a fellow echo user!</strong><br/>
+        </p><p>
+      subject: Subject
+      text: Text
+    create:
+      thank_you: Thank you for your participation
 
   activerecord:
     errors:

@@ -46,7 +46,11 @@ en:
         You need to fill the subject and text fields in order to send the newsletter.
       sent: |-
         Your newsletter mails are being delivered...
-
+        
+    user_mail:
+      title: User Mail 
+      prefix: "{{sender}} has sent you an email via echo..."
+      suffix: "You can answer XY directly or see his/her profile in echo here: {{url}}"
     activity_tracking:
       subject: echo - New discussion content
       title: New discussion content
