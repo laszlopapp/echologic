@@ -76,7 +76,7 @@ class ActivityTrackingService
 
     Event.create(:event => event_json,
                  :operation => 'created',
-                 :broadcast => nodel.level == 0 ? true : false,
+                 :broadcast => node.parent.nil? ? true : false,
                  :subscribeable => node.parent.nil? ? node : node.parent)
   end
 
