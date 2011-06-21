@@ -9,31 +9,28 @@ class StatementNode < ActiveRecord::Base
     self
   end
 
-  # STATEMENT NODE DELETION HANDLING
+  # Deletion handling
+  after_destroy :destroy_associated_objects
 
-  # important for the successful deletion of follow up questions that reference the deleted statement node
-  has_many :follow_up_questions, :foreign_key => 'question_id', :dependent => :destroy
-
-  after_destroy :destroy_associated
-  
-  def destroy_associated
+  def destroy_associated_objects
     destroy_statement
     destroy_shortcuts
   end
-  
+
   #
-  # destroys the statement ONLY if this is the only statement node belonging the statement
+  # Destroys the statement ONLY if this is the only statement node belonging the statement
   #
   def destroy_statement
     self.statement.destroy if self.statement and (self.statement.statement_nodes - [self]).empty?
   end
-  
+
   #
-  # destroys the shortcuts referencing this statement node
+  # Destroys the shortcuts referencing this statement node
   #
   def destroy_shortcuts
-    ShortcutCommand.destroy_all("command LIKE '%\"id\":#{self.id}%'")
+    ShortcutCommand.destroy_all("command LIKE '%\"operation\":statement_node_url%' AND command LIKE '%\"id\":#{self.id}%'")
   end
+
 
   ##
   ## ASSOCIATIONS
@@ -42,7 +39,7 @@ class StatementNode < ActiveRecord::Base
   belongs_to :creator, :class_name => "User"
   belongs_to :statement
 
-  delegate :original_language, :document_in_language, :authors, :has_author?, 
+  delegate :original_language, :document_in_language, :authors, :has_author?,
            :statement_image, :statement_image=, :image, :image=, :published?, :publish,
            :taggable?, :filtered_topic_tags, :topic_tags, :topic_tags=, :hash_topic_tags, :tags, :editorial_state_id,
            :editorial_state_id=, :editorial_state, :editorial_state=, :to => :statement
@@ -56,8 +53,8 @@ class StatementNode < ActiveRecord::Base
       }.first
     end
   end
-  
-  
+
+
   ##
   ## VALIDATIONS
   ##
@@ -403,15 +400,15 @@ class StatementNode < ActiveRecord::Base
     #
     def search_statement_nodes(opts={})
       aggregator_field = opts[:type].nil? ? 'root_id' : 'id'
-      
+
       # Constant criteria
       document_conditions = []
-      
+
       # Languages
       if opts[:user] and !opts[:user].spoken_languages.empty? and opts[:language_ids]
         document_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]])
       end
-      
+
       node_conditions = []
       # Access permissions
       access_conditions = []
@@ -423,7 +420,7 @@ class StatementNode < ActiveRecord::Base
       if opts[:type]
         node_conditions << sanitize_sql(["s.type = ?", opts[:type]])
       end
-      
+
       # Published state
       unless opts[:show_unpublished]
         publish_condition = []
@@ -431,26 +428,26 @@ class StatementNode < ActiveRecord::Base
         publish_condition << sanitize_sql(["s.creator_id = ?",  opts[:user].id]) if opts[:user]
         node_conditions << "(#{publish_condition.join(' OR ')})"
       end
-      
+
       # Drafting state
       if opts[:drafting_states]
         node_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]])
       end
-      
+
 
       # Search terms
       search_term = opts.delete(:search_term)
       if !search_term.blank?
         term_query = "SELECT DISTINCT statement_id AS id FROM search_statement_text d "
         term_query << "WHERE "
-      
+
         term_queries = []
         if search_term.include? ','
           terms = search_term.split(',')
         else
           terms = search_term.split(/[\s]+/)
         end
-        
+
         terms.map(&:strip).each do |term|
           or_conditions = Statement.extaggable_conditions_for_term(term, "d.tag")
           if (term.length > 3)
@@ -470,9 +467,9 @@ class StatementNode < ActiveRecord::Base
                            "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id;"
       else
         document_conditions << "d.current = 1"
-        
+
         node_conditions << "s.type = 'Question'" if opts[:type].nil?
-        
+
         statements_query = "SELECT DISTINCT s.#{opts[:only_id] ? aggregator_field : '*'} from search_statement_nodes s " +
                            "LEFT JOIN statement_documents d ON d.statement_id = s.statement_id " +
                            Statement.extaggable_joins_clause("s.statement_id") +

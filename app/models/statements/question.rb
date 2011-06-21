@@ -5,6 +5,9 @@
 
 class Question < StatementNode
 
+  # Deletion handling - also delete all FUQs referencing this question
+  has_many :follow_up_questions, :foreign_key => 'question_id', :dependent => :destroy
+
   has_children_of_types [:Proposal,true]
 
   # methods / settings to overwrite default statement_node behaviour
