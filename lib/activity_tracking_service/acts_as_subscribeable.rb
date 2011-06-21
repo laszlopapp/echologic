@@ -20,14 +20,21 @@ module ActiveRecord
                      :as => :subscribeable,
                      :dependent => :destroy
 
-            has_many :events, :foreign_key => 'subscribeable_id', :dependent => :destroy
-
             has_many :subscribers,
                      :class_name => 'User',
                      :finder_sql => 'SELECT DISTINCT * FROM users u ' +
                                     'LEFT JOIN subscriptions s ON s.subscriber_id = u.id ' +
                                     'WHERE s.subscribeable_id = #{id}'
-            
+
+            after_destroy :destroy_events
+
+            #
+            # Destroys Events which would become orphaned after deleting this statement.
+            #
+            def destroy_events
+              Event.destroy_all("event LIKE '%\"id\":#{self.id}%' AND event LIKE '%\"type\":#{self.class.name.downcase}%'")
+            end
+
             def self.subscribeable?
               true
             end
