@@ -15,6 +15,7 @@ class StatementNode < ActiveRecord::Base
   def destroy_associated_objects
     destroy_statement
     destroy_shortcuts
+    destroy_children
   end
 
   #
@@ -29,6 +30,13 @@ class StatementNode < ActiveRecord::Base
   #
   def destroy_shortcuts
     ShortcutCommand.destroy_all("command LIKE '%\"operation\":statement_node_url%' AND command LIKE '%\"id\":#{self.id}%'")
+  end
+  
+  #
+  # Destroys the children of this statement node, that in any other way can't be seen anymore
+  #
+  def destroy_children
+    children.destroy_all
   end
 
 
