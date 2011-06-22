@@ -144,8 +144,8 @@ en:
       remember: Remember me!
       hello: Logged in<br/><strong>{{name}}</strong>
       hint: |
-        To avoid logging in again without having to enter your password,
-        please logout of the used social account (e.g. Facebook) in the end explicitely.
+        To prevent others from logging in without having to enter your password,
+        please logout of the used social account (e.g. Facebook, Twitter) in the end explicitely.
       messages:
         success: "Login successful. Welcome back to echo."
         failed: "Unknown user or wrong password."
