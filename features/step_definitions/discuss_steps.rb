@@ -237,6 +237,10 @@ Then /^I should be a subscriber from the ([^\"]*)$/ do |st_type|
   assert(@user.follows?(statement))
 end
 
+Then /^I should have 1 subscription$/ do
+  Then "I should have 1 subscriptions"
+end
+
 Then /^I should have ([^\"]*) subscriptions$/ do |number|
   @user.reload
   assert_equal number.to_i, @user.subscriptions.length

@@ -15,7 +15,7 @@ class StatementNode < ActiveRecord::Base
   def destroy_associated_objects
     destroy_statement
     destroy_shortcuts
-    destroy_children
+    destroy_descendants
   end
 
   #
@@ -35,8 +35,8 @@ class StatementNode < ActiveRecord::Base
   #
   # Destroys the children of this statement node, that in any other way can't be seen anymore
   #
-  def destroy_children
-    children.destroy_all
+  def destroy_descendants
+    descendants.destroy_all
   end
 
 

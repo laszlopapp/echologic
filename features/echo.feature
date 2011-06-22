@@ -160,5 +160,28 @@ Feature: Echo
     Then I should not see "Main Improve"
       #And the improvement should not have a "created" event
       And I should have 2 subscriptions
-    
+      
+  Scenario: User deletes proposal, subsequently deleting children and all related objects
+    Given I am logged in as "admin" with password "true"
+      And I am on the discuss index
+    When I follow localized "discuss.featured_topics.title"
+      And I follow "echonomyJAM"
+      And I choose the "Test Question2?" Question
+      And I choose the "A first proposal!" Proposal
+      And I follow "echo_button"
+      And I follow localized "discuss.statements.create_improvement_link"
+      And I fill in the following:
+      | improvement_statement_document_title           | Main Improve   |
+      | improvement_statement_document_text            | improve, biatx |
+      And I press "Save"
+      And I go to the proposal
+      And I choose the "Main Improve" Improvement
+    Then I should have 3 subscriptions
+      And the improvement should have a "created" event
+    When I go to the proposal 
+      And I follow localized "application.general.delete"
+      And I go to the question
+    Then I should not see "A first proposal!"
+      #And the improvement should not have a "created" event
+      And I should have 1 subscription
     
