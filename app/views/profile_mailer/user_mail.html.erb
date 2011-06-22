@@ -1,6 +1,7 @@
 <%= I18n.t("mailers.user_mail.prefix", :sender => @sender.full_name) %>
 
-<%= @text %>
+"<%= @text %>"
 
 <%= I18n.t("mailers.user_mail.suffix", :url => connect_search_url(:id => @sender.profile.id)) %>
 
+<%= I18n.t('mailers.signature') %>
