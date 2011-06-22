@@ -802,7 +802,7 @@ de:
             password:
               invalid: 'Falsches Passwort.'
         social_identifier:
-          taken: 'Dieses Konto wird bereits verwendet.'
+          taken: 'Dieses Konto wird bereits verwendet. Bitte melden Sie sich damit an.'
 
       messages:
         blank: "Das Feld '{{attribute}}' muss ausgefüllt werden."
