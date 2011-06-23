@@ -37,7 +37,7 @@
     function Statement(statement) {
 			var timer;
       var statementDomId = statement.attr('id');
-			var statementType = $.trim(statementDomId.match(/[^(add_|new_)]\w+[^_\d+]/));
+			var statementType = statementDomId.match("new") ? $.trim(statement.find('input#type').val()) : $.trim(statementDomId.match(/[^(add_|new_)]\w+[^_\d+]/));
       var statementId = getStatementId(statementDomId);
 			var parentStatement, statement_index;
 			var statementUrl;
@@ -97,7 +97,14 @@
 				hideStatements(settings);
 				if(element.length > 0) {
 					if (statementDomId.match('new') && element.data('api').getType() != statementType) {
-				  	var key = element.data('api').deleteBreadcrumb();
+						var dom_parent = statement.attr('dom_parent');
+						if (dom_parent && dom_parent.length > 0) {
+							var parent = $("#statements div#" + dom_parent);
+							parent.data('api').deleteBreadcrumb();
+						}
+						else {
+							var key = element.data('api').deleteBreadcrumb();
+						}
 				  }
           element.replaceWith(statement);
         }
@@ -619,6 +626,7 @@
 		    },
 				deleteBreadcrumb: function() {
 					var key = generateBreadcrumbKey();
+					alert(key)
 				  $('#breadcrumbs').data('breadcrumbApi').deleteBreadcrumb(key);
 				},
 
