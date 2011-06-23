@@ -37,7 +37,7 @@
     function Statement(statement) {
 			var timer;
       var statementDomId = statement.attr('id');
-			var statementType = statementDomId.match("new") ? $.trim(statement.find('input#type').val()) : $.trim(statementDomId.match(/[^(add_|new_)]\w+[^_\d+]/));
+			var statementType = $.trim(statement.find('input#type').val());
       var statementId = getStatementId(statementDomId);
 			var parentStatement, statement_index;
 			var statementUrl;
@@ -100,7 +100,10 @@
 						var dom_parent = statement.attr('dom_parent');
 						if (dom_parent && dom_parent.length > 0) {
 							var parent = $("#statements div#" + dom_parent);
-							parent.data('api').deleteBreadcrumb();
+							var parentBreadcrumb = $("#breadcrumbs").data('breadcrumbApi').getBreadcrumb(parent.data('api').getBreadcrumbKey());
+							if (parentBreadcrumb.length > 0) {
+								parentBreadcrumb.nextAll().remove();
+							}
 						}
 						else {
 							var key = element.data('api').deleteBreadcrumb();
@@ -615,18 +618,20 @@
 		    removeBelow: function(){
 		     statement.nextAll().each(function() {
 			     // Delete the session data relative to this statement first
-					 if (statementDomId.match('new')) {
+					 /*if (statementDomId.match('new')) {
 				   	$(this).data('api').deleteBreadcrumb();
-				   }
+				   }*/
 			     $('div#statements').removeData(this.id);
 			     $(this).remove();
 
 		     });
 				 return this;
 		    },
+				getBreadcrumbKey: function() {
+					return generateBreadcrumbKey();
+				},
 				deleteBreadcrumb: function() {
 					var key = generateBreadcrumbKey();
-					alert(key)
 				  $('#breadcrumbs').data('breadcrumbApi').deleteBreadcrumb(key);
 				},
 

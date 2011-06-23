@@ -28,7 +28,7 @@
 
     function StatementForm(form) {
 			var title = form.find('.statement_title input');
-			var type = form.attr('id').match(/[^new_]\w+/)[0];
+			var type = $.trim(form.find('input#type').val());
 			var text;
 			var language_combo;
 			var chosenLanguage = form.find('select.language_combo');
