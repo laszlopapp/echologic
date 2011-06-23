@@ -682,6 +682,7 @@ end
 #
 def fetch_statement_node_type
   @statement_node_type = params[:type] ? params[:type].to_s.classify.constantize : nil
+  @type = params[:type] ? params[:type].to_s.classify : nil
 end
 
 #

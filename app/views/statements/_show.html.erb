@@ -2,7 +2,7 @@
 <% statement_document ||= @statement_document %>
 <% only_header ||= false %>
 <% hide_content ||= false %>
-<% type = [statement_node.class.name_for_siblings, dom_class(statement_node)].uniq.join(' ') %>
+<% type = [statement_node.class.name_for_siblings, node_type(statement_node)].uniq.join(' ') %>
 
 
 <div id="<%=dom_id(statement_node)%>"

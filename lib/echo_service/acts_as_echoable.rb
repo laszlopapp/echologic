@@ -15,6 +15,10 @@ module ActiveRecord
       end
 
       module ClassMethods
+        def echoable?
+          false
+        end
+        
         def acts_as_echoable
 
           class_eval do
@@ -35,6 +39,10 @@ module ActiveRecord
           class_eval do
             # All echoable objects return true by default.
             def echoable?
+              true
+            end
+            
+            def self.echoable?
               true
             end
 

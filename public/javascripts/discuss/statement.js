@@ -298,7 +298,7 @@
 		    var targetStatementId = new String(siblingIds[targetIndex]);
 				if (targetStatementId.match('add')) {
           // Add (teaser) link
-					button.attr('href', button.attr('href').replace(/statement\/.*/, 'statement/' + targetStatementId));
+					button.attr('href', button.attr('href').replace(/statement\/.*/, "statement" + targetStatementId));
 		    }
 		    else {
 					button.attr('href', button.attr('href').replace(/statement\/.*/, "statement/" + targetStatementId));
