@@ -7,7 +7,10 @@
 
 <div id="<%=dom_id(statement_node)%>"
      class="statement <%= type %> <%=statement_node.echoable? ? 'echoable' : ''%>"
-     data-siblings=<%= @siblings ? @siblings[dom_id(statement_node)].to_json : '' %>>
+     data-siblings=<%= @siblings ? @siblings[dom_id(statement_node)].to_json : '' %>
+		 dom_parent="<%= statement_node.parent_node ? 
+                   "#{dom_class(statement_node.parent_node)}_#{statement_node.parent_node.id}" :
+                   params[:origin] %>"
   <%= render :partial => 'statements/header',
              :locals => {:statement_node => statement_node,
                          :statement_document => statement_document,

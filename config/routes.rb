@@ -148,14 +148,14 @@ ActionController::Routing::Routes.draw do |map|
   #publish
   map.publish_statement   'statement/:id/publish/:in',   :controller => :statements, :action => :publish, :method => :put
 
-  map.with_options(:path_prefix => ":type/:action") do |m|
-    m.resources :questions, :controller => :statements, :only => [:create]
-    m.resources :proposals, :controller => :statements, :only => [:create]
-    m.resources :improvements, :controller => :statements, :only => [:create]
-    m.resources :pro_arguments, :controller => :statements, :only => [:create]
-    m.resources :contra_arguments, :controller => :statements, :only => [:create]
-    m.resources :follow_up_questions, :controller => :statements, :only => [:create]
-  end
+#  map.with_options(:path_prefix => ":type/:action") do |m|
+#    m.resources :questions, :controller => :statements, :only => [:create]
+#    m.resources :proposals, :controller => :statements, :only => [:create]
+#    m.resources :improvements, :controller => :statements, :only => [:create]
+#    m.resources :pro_arguments, :controller => :statements, :only => [:create]
+#    m.resources :contra_arguments, :controller => :statements, :only => [:create]
+#    m.resources :follow_up_questions, :controller => :statements, :only => [:create]
+#  end
   
   map.resources :questions, :controller => :statements, :only => [:update]
   map.resources :proposals, :controller => :statements, :only => [:update]
