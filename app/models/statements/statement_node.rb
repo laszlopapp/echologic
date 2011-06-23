@@ -82,7 +82,15 @@ class StatementNode < ActiveRecord::Base
   ######### ACTIONS ############
   ##############################
 
+  def self.taggable?
+    true
+  end
+
   def publishable?
+    false
+  end
+  
+  def self.publishable?
     false
   end
 

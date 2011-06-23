@@ -13,7 +13,7 @@
 <!-- Approved document -->
 <%= render(:partial => 'statements/approved', :locals => {:only_text => true}) unless @approved_node.nil? %>
 
-<% if statement_node.publishable? -%>
+<% if @statement_node_type ? @statement_node_type.publishable? : statement_node.publishable? -%>
 
   <!-- Statement tags (currently only for questions) -->
   <% form.inputs :class => 'statement_tags' do %>

@@ -19,6 +19,10 @@ class Question < StatementNode
   def publishable?
     true
   end
+  
+  def self.publishable
+    true
+  end
 
   #################################################
   # string helpers (acts_as_echoable overwriting) #
