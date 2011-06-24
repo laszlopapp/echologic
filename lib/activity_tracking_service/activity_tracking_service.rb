@@ -33,13 +33,6 @@ class ActivityTrackingService
     return if user.nil?
     subscription = echoable.subscriptions.find_by_subscriber_id(user.id)
     echoable.subscriptions.delete(subscription) if subscription
-
-    if echoable.parent
-      parent_subscription = user.subscriptions.find_by_subscribeable_id(echoable.parent_id)
-      if (user.subscriptions.map(&:subscribeable_id) & echoable.parent.child_statements.map(&:id)).empty?
-        user.subscriptions.delete(parent_subscription) if parent_subscription
-      end
-    end
   end
 
   def created(node)
