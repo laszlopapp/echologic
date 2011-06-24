@@ -6,7 +6,7 @@ class ProArgument < Argument
   def taggable?
     false
   end
-  
+
   def self.taggable?
     false
   end

@@ -4,7 +4,8 @@
 
     $.fn.statementForm.defaults = {
       'animation_speed': 500,
-      'taggableClass' : 'taggable'
+      'taggableClass' : 'taggable',
+			'selected_color' : '#999999'
     };
 
     // Merging settings with defaults
@@ -45,6 +46,10 @@
 
 				loadRTEEditor();
 
+        if (form.hasClass('embeddable')) {
+					form.embeddable();
+        }
+
         // New Statement Form Helpers
         if (form.hasClass('new')) {
 					language_combo = form.find('.statement_language select');
@@ -54,6 +59,7 @@
 					handleContentChange();
 					unlinkStatement();
         }
+				
 
         // Taggable Form Helpers
         if (form.hasClass(settings['taggableClass'])) {
@@ -247,6 +253,11 @@
 				$.getJSON(path, function(data) {
 					linkStatementData(data);
 
+
+          // Embedded Data
+					if (form.hasClass('embeddable')) {
+						form.data('embeddableApi').linkEmbeddedContent(data);
+					}
 				});
 			}
 			
@@ -317,6 +328,14 @@
 				
 				// enable editorial state buttons
 				$('.publish_radios input:radio').removeAttr('disabled');
+				
+				
+				// Uncomment if unlinking is supposed to make the info contents disappear
+				/*
+				if (form.hasClass('embeddable') {
+				  form.unlinkEmbeddedContent();
+				}
+				*/
 			}
 		
 			
@@ -358,6 +377,16 @@
 						}
 					}
 				});
+				
+				form.bind('unlink', function(){
+					if (statementLinked.val()) {
+						unlinkStatement();
+		      }
+				});
+				
+				if (form.hasClass('embeddable')) {
+					form.data('embeddableApi').handleContentChange('unlink');
+				}
 			}
 
 			// Public API functions

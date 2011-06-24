@@ -49,6 +49,10 @@ module LinkingModule
                 :editorial_state => @statement.editorial_state_id, 
                 :tags => @statement.topic_tags, 
                 :text => @statement_document.text}
+    if @statement.has_data?
+      @content[:content_type] = @statement.info_type.code
+      @content[:external_url] = @statement.external_url.info_url
+    end
     render :json => @content.to_json 
   end
 end

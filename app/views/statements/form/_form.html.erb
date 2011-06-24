@@ -2,11 +2,12 @@
 <% tags ||= @tags %>
 <% statement_document ||= @statement_document %>
 <% publishable = @statement_node_type ? @statement_node_type.publishable? : statement_node.publishable? %>
+<% has_embeddable_data = @statement_node_type ? @statement_node_type.has_embeddable_data? : statement_node.class.has_embeddable_data? %>
 
 <!-- Basic fields: title + text -->
 <%= render :partial => "statements/form/document_form",
            :locals => { :form => form,
-                        :statement_node => statement_node, 
+                        :statement_node => statement_node,
                         :statement_document => statement_document } %>
 
 
@@ -48,3 +49,8 @@
   <%= content_tag :span, I18n.t('application.general.or'), :class => "or_cancel" %>
   <%= statement_node.new_record? ? cancel_new_statement_node : cancel_edit_statement_node(statement_node, statement_document.locked_at) %>
 <% end %>
+
+<!-- Embeeded part of the form for background infos -->
+<%= render :partial => 'statements/form/background_data',
+           :locals => {:form => form,
+                       :statement_node => statement_node} if has_embeddable_data %>

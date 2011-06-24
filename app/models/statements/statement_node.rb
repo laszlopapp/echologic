@@ -148,6 +148,11 @@ class StatementNode < ActiveRecord::Base
     self.statement.statement_documents << doc
     return doc
   end
+  
+  # updates an existing node with a new set of attributes
+  def update_node(attrs={})
+    update_attributes(attrs)
+  end
 
   ########################
   # DOCUMENTS' LANGUAGES #
@@ -304,14 +309,25 @@ class StatementNode < ActiveRecord::Base
 
   class << self
 
-    # Aux Function: generates new instance (overwritten in follow up question)
+    # Aux Function: generates new instance
     def new_instance(attributes = {})
-      attributes[:editorial_state] = StatementState[attributes.delete(:editorial_state_id).to_i] if attributes[:editorial_state_id]
+      attributes = filter_editorial_state(attributes)
       editorial_state = attributes.delete(:editorial_state)
       node = self.new(attributes)
       node.set_statement(:editorial_state => editorial_state) if node.statement.nil?
       node
     end
+    
+    def filter_editorial_state(attributes={})
+      attributes[:editorial_state] = StatementState[attributes.delete(:editorial_state_id).to_i] if attributes[:editorial_state_id]
+      attributes
+    end
+    
+    # Aux Function: Checks if node has more data to show or load
+    def has_embeddable_data?
+      false
+    end
+
 
     # Aux Function: GUI Helper (overwritten in follow up question)
     def is_top_statement?
@@ -606,5 +622,5 @@ class StatementNode < ActiveRecord::Base
       @@linkable_types[self.name] ||= klasses
     end
   end
-  has_default_children_of_types [:FollowUpQuestion,true]
+  has_default_children_of_types [:FollowUpQuestion,true],[:BackgroundInfo,true]
 end

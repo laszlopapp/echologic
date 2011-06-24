@@ -174,7 +174,7 @@ module StatementsHelper
       panel << content_tag(:div, '', :class => 'block_separator')
       panel << add_new_sibling_buttons(statement_node, origin)
       panel << add_new_child_buttons(statement_node)
-      panel << add_new_follow_up_question_button(statement_node, bids)
+      panel << add_new_default_child_button(statement_node)
       panel
     end
   end
@@ -235,7 +235,7 @@ module StatementsHelper
   # Creates a link to add a new child for the given statement (appears in the SIDEBAR).
   #
   def add_new_child_buttons(statement_node)
-    children_types = statement_node.class.children_types(:no_default => true, :expand => true)
+    children_types = statement_node.class.children_types(:expand => true)
     return '' if children_types.empty?
     content = ''
     content << content_tag(:div, :class => 'container') do
@@ -250,15 +250,19 @@ module StatementsHelper
   end
 
   #
-  # Creates a link to add a new follow up question for the given statement (appears in the SIDEBAR).
+  # Creates a link to add a new default child (follow up question, background info) for the given statement (appears in the SIDEBAR).
   #
-  def add_new_follow_up_question_button(statement_node, bids)
-    bids = bids ? bids.split(",") : []
-    bids << "fq#{statement_node.id}"
-    content_tag(:div, add_new_child_link(statement_node, "follow_up_question",
-                                                         :bids => bids.join(","),
-                                                         :origin => params[:origin]),
-                :class => 'container')
+  def add_new_default_child_button(statement_node)
+    content_tag(:div, :class => 'container') do
+      content = ''
+      statement_node.class.default_children_types(:visibility => false).each do |default_type|
+        dom_type = default_type.to_s.underscore
+        content << add_new_child_link(statement_node, dom_type,
+                                                      :bids => params[:bids],
+                                                      :origin => params[:origin])
+      end
+      content
+    end
   end
 
   #
@@ -424,7 +428,8 @@ module StatementsHelper
   # Returns the context menu link for this statement_node.
   #
   def statement_node_context_link(statement_node, title, action = 'read', opts={})
-    css = opts.delete(:css)
+    css = String(opts.delete(:css))
+    css << " #{statement_node.info_type.code}_link" if statement_node.class.has_embeddable_data?
     link_to(h(title),
              statement_node_url(statement_node, opts),
              :class => "#{css} no_border statement_link #{node_type(statement_node)}_link ttLink",
@@ -641,7 +646,7 @@ module StatementsHelper
   #
   def render_breadcrumb(breadcrumbs)
     breadcrumb_trail = ""
-    breadcrumbs.each_with_index do |b, index| #[id, classes, url, title]
+    breadcrumbs.each_with_index do |b, index| #[key, classes, url, title, label, over, page_co]
       attrs = {}
       attrs[:page_count] = b[:page_count] if b[:page_count]
       breadcrumb = content_tag(:a, attrs.merge({:href => b[:url], :id => b[:key], :class => "breadcrumb #{b[:key][0..2]}"})) do
@@ -671,6 +676,51 @@ module StatementsHelper
     image_tag('page/discuss/alternatives-arrow.png', :class => 'arrow', :style => 'display:none')
   end
 
+  ####################
+  # BACKGROUND INFOS #
+  ####################
+
+
+  def render_embeddable_data(background_info)
+    content_tag :div, :class => 'embedded_container' do
+     send("render_#{background_info.info_type.code}_data", background_info)
+    end
+  end
+  
+  def render_article_data(background_info)
+    render_in_iframe(background_info.external_url.info_url)
+  end
+  
+  def render_paper_data(background_info)
+    render_in_iframe(background_info.external_url.info_url)
+  end
+  
+  def render_book_data(background_info)
+    render_in_iframe(background_info.external_url.info_url)
+  end
+  
+  def render_photo_data(background_info)
+    render_in_iframe(background_info.external_url.info_url)
+  end
+  
+  
+  def render_video_data(background_info)
+    if background_info.external_url.is_youtube_url?
+      %Q{<iframe title="YouTube video player" width="640" height="390" src="http://www.youtube.com/embed/#{ background_info.external_url.youtube_id }" frameborder="0" allowfullscreen></iframe>}
+    elsif background_info.external_url.is_vimeo_url?
+      %Q{<iframe width="400" height="170" src="http://player.vimeo.com/video/#{ background_info.external_url.vimeo_id }?portrait=0" frameborder="0"></iframe>}
+    else
+      render_in_iframe background_info.external_url.info_url
+    end
+  end
+
+  def render_url_data(background_info)
+    render_in_iframe(background_info.external_url.info_url)
+  end
+  
+  def render_in_iframe(url)
+    content_tag :iframe, '', :src => url, :class => 'embedded_content', :frameborder => 0
+  end
   #
   # This class does the heavy lifting of actually building the pagination
   # links. It is used by the <tt>will_paginate</tt> helper internally.

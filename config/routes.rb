@@ -26,8 +26,8 @@ ActionController::Routing::Routes.draw do |map|
   # SECTION my echo routing
   map.my_profile 'my_profile', :controller => 'my_echo', :action => 'profile'
 
-  map.resources :profiles, :controller => 'users/profiles', 
-                :path_prefix => '', 
+  map.resources :profiles, :controller => 'users/profiles',
+                :path_prefix => '',
                 :only => [:show, :edit, :update]
   map.new_user_mail '/profiles/:id/new_mail', :controller => 'users/profiles', :action => :new_mail
   map.send_user_mail '/profiles/:id/send_mail', :controller => 'users/profiles', :action => :send_mail, :method => :post
@@ -43,7 +43,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # AUTO COMPLETE FOR statements title TODO: WHY DOES THE PREVIOUS ROUTE DOES NOT WORK?????
   map.connect 'statements/auto_complete_for_statement_title', :controller => :statements, :action => :auto_complete_for_statement_title
-  
+
   # Not being logged in
   map.requires_login 'requires_login', :controller => 'application', :action => 'flash_info'
 
@@ -133,29 +133,34 @@ ActionController::Routing::Routes.draw do |map|
   #Add Teaser section
   map.add_question_teaser  'statement/add/question', :controller => :statements, :action => :add, :type => :question
   map.add_teaser  'statement/:id/add/:type', :controller => :statements, :action => :add
-   
+
   map.question_descendants 'statement/descendants/question/', :controller => :statements, :action => :descendants, :type => :question
 
   map.resources :statement_nodes, :controller => :statements,
                 :member => [:echo, :unecho, :new_translation, :create_translation, :cancel, :social_widget, #:add,
-                            :children, :more, :authors, :publish, :incorporate, :ancestors, :descendants, :share, 
+                            :children, :more, :authors, :publish, :incorporate, :ancestors, :descendants, :share,
                             :link_statement, :link_statement_node],
                 :path_names => { :new => ':id/new/:type', :more => 'more/:type',# :add => ':id/add/:type',
                                  :edit => 'edit/:current_document_id', :new_translation => 'translation/:current_document_id',
                                  :children => 'children/:type', :incorporate => 'incorporate/:approved_ip',
                                  :descendants => 'descendants/:type/'},
                 :as => 'statement'
-  #publish
+
+  # Publish
   map.publish_statement   'statement/:id/publish/:in',   :controller => :statements, :action => :publish, :method => :put
-  
+
+  # Linking statements
+  map.connect   'statement/link_statement/:id', :controller => :statements, :action => :link_statement
+
   map.resources :questions, :controller => :statements, :only => [:create, :update]
   map.resources :proposals, :controller => :statements, :only => [:create, :update]
   map.resources :improvements, :controller => :statements, :only => [:create, :update]
   map.resources :pro_arguments, :controller => :statements, :only => [:create, :update]
   map.resources :contra_arguments, :controller => :statements, :only => [:create, :update]
   map.resources :follow_up_questions, :controller => :statements, :only => [:create, :update]
+  map.resources :background_infos, :controller => :statements, :only => [:create, :update]
 
-  #statement images
+  # Statement images
   map.resources :statement_images,
                 :member => [:reload], :only => [:edit, :update],
                 :path_names => {:edit => 'statement/:node_id/edit',

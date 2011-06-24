@@ -249,14 +249,20 @@ class ApplicationController < ActionController::Base
     elsif object.class.kind_of?(ActiveRecord::Base.class) && object.errors.count > 0
       value = I18n.t('activerecord.errors.template.body')
       value += "<ul>"
+      errors_number = 0
       object.errors.each do |attr_name, message|
-        value += "<li>#{message}</li>"
+        if options[:only].nil? or options[:only].map(&:to_s).include? attr_name
+          value += "<li>#{message}</li>"
+          errors_number += 1
+        end 
       end
       value += "</ul>"
-      if @error.nil?
-        @error = value
-      else
-        @error << value
+      if errors_number > 0
+        if @error.nil?
+          @error = value
+        else
+          @error << value
+        end
       end
     end
   end
