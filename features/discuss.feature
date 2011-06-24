@@ -366,8 +366,8 @@ Feature: Take Part on a question
      Then I should see "Edit"
       And I follow "Edit"
       And I fill in the following:
-       | statement_node_statement_document_title | my updated proposal               |
-       | statement_node_statement_document_text  | somewhat more to propose at lease |
+       | proposal_statement_document_title | my updated proposal               |
+       | proposal_statement_document_text  | somewhat more to propose at lease |
       And I press "Save"
     Then I should see "my updated proposal"
 

@@ -2,11 +2,12 @@
 <% statement_document ||= @statement_document %>
 
 <% semantic_form_for statement_node,
-          :html => {:class => "ajax_form new wide_form statement #{node_type(statement_node)}
-                    #{params[:hub]}
-                    #{@statement_node_type.taggable? ? 'taggable' : ''}
-                    #{@statement_node_type.echoable? ? 'echoable' : ''}",
-                    :dom_parent => statement_node.parent_node ? 
+          :html => {:class => "ajax_form new wide_form statement 
+                               #{node_type(statement_node)}
+						                   #{params[:hub]}
+						                   #{@statement_node_type.taggable? ? 'taggable' : ''}
+						                   #{@statement_node_type.echoable? ? 'echoable' : ''}",
+                    'dom-parent' => statement_node.parent_node ? 
                                    "#{dom_class(statement_node.parent_node)}_#{statement_node.parent_node.id}" :
                                    params[:origin] } do |form| -%>
 

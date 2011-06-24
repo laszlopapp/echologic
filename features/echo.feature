@@ -49,8 +49,8 @@ Feature: Echo
       And I choose the first Question
       And I follow localized "discuss.statements.create_proposal_link"
       And I fill in the following:
-        | proposal_statement_document_title | proposal title |
-        | proposal_statement_document_text  | proposal text. |
+        | statement_node_statement_document_title | proposal title |
+        | statement_node_statement_document_text  | proposal text. |
       And I press "Save"
       And I have the "proposal title" proposal
     Then the proposal should have 1 visitors

@@ -750,7 +750,7 @@ end
 # Returns the statement node corresponding symbol (:question, :proposal...).
 #
 def statement_node_symbol
-  @symbol ||= @statement_node_type.nil? ? @statement_node.name.underscore_sym : :statement_node
+  @symbol ||= @statement_node_type.nil? ? @statement_node.class.name.underscore.to_sym : :statement_node
 end
 
 #

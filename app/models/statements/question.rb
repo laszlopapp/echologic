@@ -20,7 +20,7 @@ class Question < StatementNode
     true
   end
   
-  def self.publishable
+  def self.publishable?
     true
   end
 

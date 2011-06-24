@@ -149,8 +149,8 @@ class StatementsControllerTest < ActionController::TestCase
 
   test "should create new question" do
     assert_difference('Question.count', 1) do
-      post :create, :type => "Question",
-      :question => {
+      post :create, :type => "question",
+      :statement_node => {
         :statement_document => {:title => "Super Question", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en].id,
                                 :action_id => StatementAction[:created].id , :locked_at => ""},
         :editorial_state_id => StatementState[:published].id,
@@ -162,8 +162,8 @@ class StatementsControllerTest < ActionController::TestCase
   
   test "should create new question with existing statement" do
     assert_difference('Statement.count', 0) do
-      post :create, :type => "Question",
-      :question => {
+      post :create, :type => "question",
+      :statement_node => {
         :statement_document => {:title => "Super Question", :statement_id => "", 
                                 :text => "I am Sam", :language_id => Language[:en].id,
                                 :action_id => StatementAction[:created].id , :locked_at => ""},
@@ -177,8 +177,8 @@ class StatementsControllerTest < ActionController::TestCase
 
   test "shoud create proposal" do
     assert_difference('Proposal.count', 1) do
-      post :create, :type => "Proposal", :echo => true,
-      :proposal => {
+      post :create, :type => "proposal", :echo => true,
+      :statement_node => {
         :statement_document => {:title => "Super Proposal", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en].id,
                                 :action_id => StatementAction[:created].id , :locked_at => ""},
         :editorial_state_id => StatementState[:published].id,
@@ -189,8 +189,8 @@ class StatementsControllerTest < ActionController::TestCase
 
   test "should create improvement" do
     assert_difference('Improvement.count', 1) do
-      post :create, :type => "Improvement", :echo => true,
-      :improvement => {
+      post :create, :type => "improvement", :echo => true,
+      :statement_node => {
         :statement_document => {:title => "Super Improvement", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en].id,
                                 :action_id => StatementAction[:created].id , :locked_at => ""},
         :editorial_state_id => StatementState[:published].id,
@@ -200,8 +200,8 @@ class StatementsControllerTest < ActionController::TestCase
   end
   test "should create pro argument" do
     assert_difference('ProArgument.count', 1) do
-      post :create, :type => "ProArgument", :echo => true,
-      :pro_argument => {
+      post :create, :type => "pro_argument", :echo => true,
+      :statement_node => {
         :statement_document => {:title => "Super Pro Argument", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en].id,
                                 :action_id => StatementAction[:created].id , :locked_at => ""},
         :editorial_state_id => StatementState[:published].id,
@@ -211,8 +211,8 @@ class StatementsControllerTest < ActionController::TestCase
   end
   test "should create contra argument" do
     assert_difference('ContraArgument.count', 1) do
-      post :create, :type => "ContraArgument", :echo => true,
-      :contra_argument => {
+      post :create, :type => "contra_argument", :echo => true,
+      :statement_node => {
         :statement_document => {:title => "Super Contra Argument", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en].id,
                                 :action_id => StatementAction[:created].id , :locked_at => ""},
         :editorial_state_id => StatementState[:published].id,
@@ -222,8 +222,8 @@ class StatementsControllerTest < ActionController::TestCase
   end
   test "should create follow up question" do
     assert_difference('FollowUpQuestion.count', 1) do
-      post :create, :type => "FollowUpQuestion", :echo => true,
-      :follow_up_question => {
+      post :create, :type => "follow_up_question", :echo => true,
+      :statement_node => {
         :statement_document => {:title => "Super Follow Up Question", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en].id,
                                 :action_id => StatementAction[:created].id , :locked_at => ""},
         :editorial_state_id => StatementState[:published].id,

@@ -37,6 +37,7 @@
     function Statement(statement) {
 			var timer;
       var statementDomId = statement.attr('id');
+			var statementDomParent = statement.attr('dom-parent');
 			var statementType = $.trim(statement.find('input#type').val());
       var statementId = getStatementId(statementDomId);
 			var parentStatement, statement_index;
@@ -97,10 +98,12 @@
 				hideStatements(settings);
 				if(element.length > 0) {
 					if (statementDomId.match('new') && element.data('api').getType() != statementType) {
-						var dom_parent = statement.attr('dom_parent');
+						var dom_parent = statementDomParent;
 						if (dom_parent && dom_parent.length > 0) {
-							var parent = $("#statements div#" + dom_parent);
-							var parentBreadcrumb = $("#breadcrumbs").data('breadcrumbApi').getBreadcrumb(parent.data('api').getBreadcrumbKey());
+							var key = $.inArray(dom_parent.substring(0,2),['ds','sr']) == -1 ? 
+							          $("#statements div#" + dom_parent).data('api').getBreadcrumbKey() : 
+												dom_parent.substring(0,2);
+							var parentBreadcrumb = $("#breadcrumbs").data('breadcrumbApi').getBreadcrumb(key);
 							if (parentBreadcrumb.length > 0) {
 								parentBreadcrumb.nextAll().remove();
 							}
