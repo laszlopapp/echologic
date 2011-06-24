@@ -1,4 +1,4 @@
-class FollowUpQuestion < StatementNode
+class FollowUpQuestion < Question
 
   belongs_to :question
 
@@ -50,6 +50,14 @@ class FollowUpQuestion < StatementNode
 
     # helper function to differentiate this model as a level 0 model
     def is_top_statement?
+      true
+    end
+    
+    def self.publishable?
+      true
+    end
+    
+    def publishable?
       true
     end
 

@@ -2,7 +2,7 @@ module TranslationModuleHelper
   #
   # Creates a link to translate the current document in the current language.
   #
-  def create_translate_statement_link(statement_node, statement_document, css_class = "",type = dom_class(statement_node))
+  def create_translate_statement_link(statement_node, statement_document, css_class = "",type = node_type(statement_node))
     link = image_tag 'page/translation/babelfish_left.png', :class => 'fish_left'
     link << content_tag(:span, statement_document.language.value.upcase, :class => "language_label from_language")
     link << link_to(I18n.t('discuss.translation_request'),

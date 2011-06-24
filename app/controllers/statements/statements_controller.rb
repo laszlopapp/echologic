@@ -98,7 +98,7 @@ class StatementsController < ApplicationController
   # Response: JS
   #
   def new
-    @statement_node ||= @statement_node_type.new_instance(:parent_id => params[:id],
+    @statement_node ||= StatementNode.new_instance(:parent_id => params[:id],
                                                           :editorial_state => StatementState[:new])
     @statement_document ||= StatementDocument.new(:language_id => @locale_language_id)
     @action ||= StatementAction["created"]
@@ -110,12 +110,12 @@ class StatementsController < ApplicationController
     end
     
     inc = params[:hub].blank? ? 1 : 0
-    @level = (@statement_node.parent_node.nil? or @statement_node.class.is_top_statement?) ? 0 : @statement_node.parent_node.level + inc
+    @level = (@statement_node.parent_node.nil? or @statement_node_type.is_top_statement?) ? 0 : @statement_node.parent_node.level + inc
     
     if !params[:new_level].blank? and params[:hub].blank?
       set_parent_breadcrumb
       # set new breadcrumb
-      if @statement_node.class.is_top_statement?
+      if @statement_node_type.is_top_statement?
         load_origin_statement
       end
     end
@@ -750,8 +750,7 @@ end
 # Returns the statement node corresponding symbol (:question, :proposal...).
 #
 def statement_node_symbol
-  klass = @statement_node_type.nil? ? @statement_node.class : @statement_node_type
-  klass.name.underscore.to_sym
+  @symbol ||= @statement_node_type.nil? ? @statement_node.class.name.underscore.to_sym : :statement_node
 end
 
 #
@@ -779,14 +778,14 @@ def set_parent_breadcrumb
   parent_node = @statement_node.parent_node
   statement_document = search_statement_documents(:statement_ids => [parent_node.statement_id])[parent_node.statement_id] ||
   parent_node.document_in_original_language
-  key = Breadcrumb.instance.generate_key(@statement_node.class.name.underscore)
+  key = Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)
   #[id, classes, url, title, label, over]
   @breadcrumb = {:key => "#{key}#{parent_node.id}",
                    :css => "statement statement_link #{parent_node.class.name.underscore}_link",
                    :url => statement_node_url(parent_node, :bids => params[:bids], :origin => params[:origin]),
                    :title => Breadcrumb.instance.decode_terms(statement_document.title),
-                   :label => I18n.t("discuss.statements.breadcrumbs.labels.#{Breadcrumb.instance.generate_key(@statement_node.class.name.underscore)}"),
-                   :over => I18n.t("discuss.statements.breadcrumbs.labels.over.#{Breadcrumb.instance.generate_key(@statement_node.class.name.underscore)}")}
+                   :label => I18n.t("discuss.statements.breadcrumbs.labels.#{Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)}"),
+                   :over => I18n.t("discuss.statements.breadcrumbs.labels.over.#{Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)}")}
   @bids = params[:bids]||''
   @bids = @bids.split(",")
   @bids << @breadcrumb[:key]
@@ -999,7 +998,7 @@ end
 #
 def load_origin_statement
   @previous_node = @statement_node.parent_node
-  @previous_type = case @statement_node.class.name
+  @previous_type = case @statement_node_type.name
     when "FollowUpQuestion" then "fq"
   end
 end

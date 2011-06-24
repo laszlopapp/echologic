@@ -6,4 +6,8 @@ class ContraArgument < Argument
   def taggable?
     false
   end
+  
+  def self.taggable?
+    false
+  end
 end

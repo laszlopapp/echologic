@@ -225,6 +225,9 @@
         {
           initialise();
         },
+				getBreadcrumb: function(key) {
+					return breadcrumbs.data('jsp').getContentPane().find('#'+key);
+				},
         deleteBreadcrumbs: function()
 				{
 					cleanBreadcrumbs();
