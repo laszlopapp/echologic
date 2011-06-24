@@ -32,10 +32,10 @@ Feature: Authentication
 
   Scenario: New User registers himself and gets an activation email
     Given I am on the start page
-      And I follow "Sign Up"
+      And I follow "Register"
       And I fill in the following:
         | user_email              | jesus.christ.the.son.not.the.father@heaven.com |
-      And I press "Sign Up"
+      And I press "Register"
     Then an "activate" email should be sent to "jesus.christ.the.son.not.the.father@heaven.com"
 
 #  Scenario: Fresh unregistered User must set his password to complete registration
