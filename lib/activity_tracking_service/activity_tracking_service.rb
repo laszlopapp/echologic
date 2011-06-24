@@ -33,13 +33,6 @@ class ActivityTrackingService
     return if user.nil?
     subscription = echoable.subscriptions.find_by_subscriber_id(user.id)
     echoable.subscriptions.delete(subscription) if subscription
-
-    if echoable.parent
-      parent_subscription = user.subscriptions.find_by_subscribeable_id(echoable.parent_id)
-      if (user.subscriptions.map(&:subscribeable_id) & echoable.parent.child_statements.map(&:id)).empty?
-        user.subscriptions.delete(parent_subscription) if parent_subscription
-      end
-    end
   end
 
   def created(node)
@@ -76,6 +69,7 @@ class ActivityTrackingService
 
     Event.create(:event => event_json,
                  :operation => 'created',
+                 :broadcast => node.parent.nil? ? true : false,
                  :subscribeable => node.parent.nil? ? node : node.parent)
   end
 
@@ -128,11 +122,9 @@ class ActivityTrackingService
     last_event = events.first
     events.map!{|e| JSON.parse(e.event)}
 
-    decision_making_tags = recipient.decision_making_tags
-    
     # Filter only events whose titles languages the recipient speaks
     events.reject!{|e| (e['documents'].keys.map{|id|id.to_i} & recipient.sorted_spoken_languages).empty? }
-    
+
     return if events.blank? #if there are no events to send per email, take the next user
 
     # take the question events apart

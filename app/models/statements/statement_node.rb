@@ -9,11 +9,36 @@ class StatementNode < ActiveRecord::Base
     self
   end
 
-  after_destroy :destroy_statement
+  # Deletion handling
+  after_destroy :destroy_associated_objects
 
-  def destroy_statement
-    self.statement.destroy if (self.statement.statement_nodes - [self]).empty?
+  def destroy_associated_objects
+    destroy_statement
+    destroy_shortcuts
+    destroy_descendants
   end
+
+  #
+  # Destroys the statement ONLY if this is the only statement node belonging the statement
+  #
+  def destroy_statement
+    self.statement.destroy if self.statement and (self.statement.statement_nodes - [self]).empty?
+  end
+
+  #
+  # Destroys the shortcuts referencing this statement node
+  #
+  def destroy_shortcuts
+    ShortcutCommand.destroy_all("command LIKE '%\"operation\":\"statement_node\"%' AND command LIKE '%\"id\":#{self.id}%'")
+  end
+
+  #
+  # Destroys the children of this statement node, that in any other way can't be seen anymore
+  #
+  def destroy_descendants
+    descendants.destroy_all
+  end
+
 
   ##
   ## ASSOCIATIONS
@@ -36,6 +61,7 @@ class StatementNode < ActiveRecord::Base
       }.first
     end
   end
+
 
   ##
   ## VALIDATIONS

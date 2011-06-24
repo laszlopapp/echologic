@@ -473,3 +473,5 @@ Feature: Take Part on a question
     Then I should not see "Eighth Proposal"
       And I follow "Proposals" within ".proposal .header_buttons"
     Then I should see "Eighth Proposal"
+
+    

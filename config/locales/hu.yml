@@ -785,7 +785,7 @@ hu:
             password:
               invalid: 'Hibás jelszó.'
         social_identifier:
-          taken: 'Ez a közösségi profil már használatban van.'
+          taken: 'Ez a közösségi profil már használatban van. Kérjük lépj be vele.'
 
 
       messages:

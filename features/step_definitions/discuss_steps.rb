@@ -230,18 +230,34 @@ Then /^I should see no proposals$/ do
   assert_have_no_selector("li.question")
 end
 
-Then /^I should be a subscriber from "([^\"]*)"$/ do |question|
-  @question = StatementNode.search_statement_nodes(:type => "Question",
-                                                   :search_term => question,
-                                                   :language_ids => [Language["en"]]).first
-  assert(@question.followed_by?(@user))
+Then /^I should be a subscriber from the ([^\"]*)$/ do |st_type|
+  st_type = st_type.split(' ').join('_')
+  statement = instance_variable_get("@#{st_type}")
+  @user.reload
+  assert(@user.follows?(statement))
 end
 
-Then /^"([^\"]*)" should have a "([^\"]*)" event$/ do |question, op_type|
-  @question = StatementNode.search_statement_nodes(:type => "Question",
-                                                   :search_term => question,
-                                                   :language_ids => [Language["en"]]).first
-  event = Event.find_by_subscribeable_id(@question.id)
+Then /^I should have 1 subscription$/ do
+  Then "I should have 1 subscriptions"
+end
+
+Then /^I should have ([^\"]*) subscriptions$/ do |number|
+  @user.reload
+  assert_equal number.to_i, @user.subscriptions.length
+end
+
+Then /^the ([^\"]*) should not have a "([^\"]*)" event$/ do |st_type, op_type|
+  st_type = st_type.split(' ').join('_')
+  statement = instance_variable_get("@#{st_type}")
+  event = Event.all.select{|e|event = JSON.parse(e.event) ; event['id'].eql? statement.id and event['type'].eql? st_type}.first
+  puts event.inspect
+  assert event.nil?
+end
+
+Then /^the ([^\"]*) should have a "([^\"]*)" event$/ do |st_type, op_type|
+  st_type = st_type.split(' ').join('_')
+  statement = instance_variable_get("@#{st_type}")
+  event = Event.all.select{|e|event = JSON.parse(e.event) ; event['id'].eql? statement.id and event['type'].eql? st_type}.first
   assert !event.nil?
   assert event.operation.eql?(op_type)
 end
