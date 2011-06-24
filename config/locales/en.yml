@@ -125,7 +125,7 @@ en:
       teaser:
         title: 'Become a co-author!'
     signup:
-      label: 'Sign Up'
+      label: 'Register'
       member_tag: Not a member yet?
       via_echo: '... via E-Mail'
       via_social: '... via existing account'
@@ -135,7 +135,7 @@ en:
       agreement: I have read and agree to the terms of data policy.
       use_photo: 'Use in echo, too'
     signin:
-      label: 'Sign In'
+      label: 'Login'
       password: 'Password'
       member_tag: Already a member?
       via_echo: '... via echo'
@@ -144,8 +144,8 @@ en:
       remember: Remember me!
       hello: Logged in<br/><strong>{{name}}</strong>
       hint: |
-        To avoid logging in again without having to enter your password,
-        please logout of the used social account (e.g. Facebook) in the end explicitely.
+        To prevent others from logging in without having to enter your password,
+        please logout of the used social account (e.g. Facebook, Twitter) in the end explicitely.
       messages:
         success: "Login successful. Welcome back to echo."
         failed: "Unknown user or wrong password."
@@ -176,7 +176,7 @@ en:
       step2: Define new password
       step1_text: |
         <p>Forgot your password or you would simply like to define a new one?</p>
-        <p>No problem! Just fill in your E-Mail address you used to sign up to echo.
+        <p>No problem! Just fill in your E-Mail address you used to register in echo.
         We will send you an E-mail shortly allowing you to define a new password.</p>
       step1_mail: Send E-Mail
 
@@ -544,7 +544,7 @@ en:
         improvement: |
           Please describe your addition or amendment to the proposal in more detail...<br/><br/>
           These additions serve as a basis for echos democratic process of joint elaboration and
-          improvement of proposals. The author of the additions with the greatest support are regularly given the
+          improvement of proposals. The authors of the additions with the greatest support are regularly given the
           opportunity to incorporate their ideas and thoughts into the proposal.
         pro_argument: Please describe your point FOR the proposal in more detail...
         contra_argument: Please describe your point AGAINST the proposal in more detail...
@@ -806,7 +806,7 @@ en:
             password:
               invalid: 'Wrong password.'
         social_identifier:
-          taken: 'This Social Account is already in use.'
+          taken: 'This Social Account is already in use. Please log in with it!'
 
 
       messages:

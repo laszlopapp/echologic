@@ -44,20 +44,19 @@ en:
         text_1: |
           <p>
           echo is a joint <a href="{{github_url}}" target="_blank">Open Source</a> project for
-          <strong>active citizen participation</strong> -
+          <strong>active citizen participation</strong> - available
           <span title="{{subsidiarity_tooltip}}" class="ttLink">worldwide</span> and for all people.
-          Feeling of powerlessness and political resignation will soon belong to the past. echo brings us the necessary
+          Feelings of powerlessness and political resignation will soon belong to the past. echo brings us the necessary
           technology to turn the vision of real democracy into lived reality in our everyday life.
           </p><p>
           "Discuss - Connect - Act!“ - The social software facilitates <strong>constructive, cross-language
           public dialogs</strong> for opinion formation and collective solution finding. It connects people
-          sharing the same purposes and supports them in creating <strong>joint actions</strong> for social and
-          political impact.<br/>
-          Wherever we are in the virtual or real world, echo gives us the proof: we are no longer alone with our
-          opinion and convictions - the echo of our voice can <strong>turn idea(l)s into reality</strong>.
+          sharing common purposes and supports them in creating <strong>joint actions</strong> for social and
+          political impact. Wherever we are in the virtual or real world, echo gives us the proof: we are no longer
+          alone with our opinion and convictions - the echo of our voice can <strong>turn idea(l)s into reality</strong>.
           </p>
         gender_tooltip: ''
-        subsidiarity_tooltip: According to the principles of subsidiarity
+        subsidiarity_tooltip: According to the principles of gloCality, decentralization and subsidiarity
         text_2:
           title: Collective solution finding - everywhere
           more: |

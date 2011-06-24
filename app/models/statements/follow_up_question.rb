@@ -1,6 +1,6 @@
 class FollowUpQuestion < StatementNode
 
-  belongs_to :question, :dependent => :destroy
+  belongs_to :question
 
   delegate :level, :ancestors, :topic_tags, :topic_tags=, :tags, :taggable?, :echoable?, :editorial_state_id,
            :editorial_state_id=, :publishable?, :published, :locked_at, :supported?, :taggable?, :creator_id=,
@@ -15,12 +15,12 @@ class FollowUpQuestion < StatementNode
   def set_statement(attrs={})
     self.statement = self.question.statement = Statement.new(attrs)
   end
-  
+
   #
   # Helper function to load the tags from the root
   #
   def load_root_tags
-    self.topic_tags = self.root.nil? ? parent.root.topic_tags : self.root.topic_tags 
+    self.topic_tags = self.root.nil? ? parent.root.topic_tags : self.root.topic_tags
   end
 
   #################################################
