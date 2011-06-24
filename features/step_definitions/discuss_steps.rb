@@ -277,7 +277,7 @@ Then /^the ([^\"]*) should have ([^\"]*) siblings in session$/ do |statement_typ
   response.should have_selector("#statements div.#{type}") do |selector|
     statement = selector.first
     siblings = eval(statement.get_attribute("data-siblings"))
-    assert siblings.select{|s|s.is_a?(Numeric)}.length - 1 == siblings_number.to_i
+    assert_equal siblings_number.to_i, siblings.select{|s|s.is_a?(Numeric)}.length - 1
   end
 end
 
