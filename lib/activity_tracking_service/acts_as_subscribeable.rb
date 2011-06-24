@@ -17,10 +17,12 @@ module ActiveRecord
           args.compact! if args
           class_eval do
             has_many :subscriptions,
-                     :as => :subscribeable
+                     :as => :subscribeable,
+                     :dependent => :destroy
 
             has_many :events,
-                     :as => :subscribeable
+                     :as => :subscribeable,
+                     :dependent => :destroy
 
             has_many :subscribers,
                      :class_name => 'User',
@@ -28,15 +30,13 @@ module ActiveRecord
                                     'LEFT JOIN subscriptions s ON s.subscriber_id = u.id ' +
                                     'WHERE s.subscribeable_id = #{id}'
 
-            after_destroy :destroy_subscriptions_and_events
+            after_destroy :destroy_events
 
             #
             # Destroys Subscriptions and Events which would become orphaned after deleting this statement.
             #
-            def destroy_subscriptions_and_events
-              self.subscriptions.destroy_all
-              self.events.destroy_all
-              Event.destroy_all("event LIKE '%\"id\":#{self.id}%' AND event LIKE '%\"type\":#{self.class.name.downcase}%'")
+            def destroy_events
+              Event.destroy_all("event LIKE '%\"id\":#{self.target_id}%' AND event LIKE '%\"type\":\"#{self.class.name.underscore}\"%'")
             end
 
             def self.subscribeable?
