@@ -127,16 +127,16 @@ class ActivityTrackingService
 
     return if events.blank? #if there are no events to send per email, take the next user
 
-    # take the question events apart
+    # Take the question events apart
     root_events = events.select{|e| e['level'] == 0}
     events -= root_events
 
-    # created an Hash containing the number of ocurrences of the new tags in the new questions
+    # Create a Hash containing the number of occurrences of the new tags in the new questions
     question_tag_counts = root_events.each_with_object({}) do |root, tags_hash|
       root['tags'].each{|tag| tags_hash[tag] = tags_hash.has_key?(tag) ? tags_hash[tag] + 1 : 1 }
     end
 
-    #turn array of events into an hash
+    # Turn array of events into an hash
     events = events.each_with_object({}) do |e, hash|
       hash[e['level']] ||= {}
       hash[e['level']][e['parent_id']] ||= {}
