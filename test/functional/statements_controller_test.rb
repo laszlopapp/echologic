@@ -120,6 +120,10 @@ class StatementsControllerTest < ActionController::TestCase
     get :add, :type => :follow_up_question, :id => statement_nodes('first-proposal').to_param
     assert_response :success
   end
+  test "should get to view the background infos teaser" do
+    get :add, :type => :background_info, :id => statement_nodes('first-proposal').to_param
+    assert_response :success
+  end
 
   test "should get the new question form" do
     get :new, :type => :question
@@ -143,6 +147,10 @@ class StatementsControllerTest < ActionController::TestCase
   end
   test "should get the new follow-up question form" do
     get :new, :id => statement_nodes('first-proposal').to_param, :type => :follow_up_question
+    assert_response :success
+  end
+  test "should get the new background info form" do
+    get :new, :id => statement_nodes('first-proposal').to_param, :type => :background_info
     assert_response :success
   end
 
@@ -229,6 +237,19 @@ class StatementsControllerTest < ActionController::TestCase
         :editorial_state_id => StatementState[:published].id,
         :statement_id => "",
         :parent_id => statement_nodes('first-proposal').to_param }
+    end
+  end
+  test "should create background info" do
+    assert_difference('BackgroundInfo.count', 1) do
+      post :create, :type => "background_info", :echo => true,
+      :statement_node => {
+        :statement_document => {:title => "Super Background Info", :statement_id=> "", :text => "I am Sam", :language_id => Language[:en].id,
+                                :action_id => StatementAction[:created].id , :locked_at => ""},
+        :editorial_state_id => StatementState[:published].id,
+        :statement_id => "",
+        :parent_id => statement_nodes('first-proposal').to_param,
+        :info_type => InfoType[:video].code,
+        :external_url => {:info_url => "http://thevideourl.com"}}
     end
   end
 
