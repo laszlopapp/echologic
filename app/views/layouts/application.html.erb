@@ -39,6 +39,7 @@
                                'discuss/breadcrumbs',
                                'discuss/statement_search',
                                'discuss/placeholder',
+                               'discuss/embeddable',
                                'connect',
                                'my_echo',
                                'history',
@@ -60,6 +61,8 @@
                                'jquery.jscrollpane.min.js',
                                'jquery.livequery',
                                'jquery.toggleval',
+                               'jquery.jqtransform',
+                               'jquery-iframe-resizer',
                                :cache => 'echo_app' %>
 
     <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>

@@ -9,11 +9,36 @@ class StatementNode < ActiveRecord::Base
     self
   end
 
-  after_destroy :destroy_statement
+  # Deletion handling
+  after_destroy :destroy_associated_objects
 
-  def destroy_statement
-    self.statement.destroy if (self.statement.statement_nodes - [self]).empty?
+  def destroy_associated_objects
+    destroy_statement
+    destroy_shortcuts
+    destroy_descendants
   end
+
+  #
+  # Destroys the statement ONLY if this is the only statement node belonging the statement
+  #
+  def destroy_statement
+    self.statement.destroy if self.statement and (self.statement.statement_nodes - [self]).empty?
+  end
+
+  #
+  # Destroys the shortcuts referencing this statement node
+  #
+  def destroy_shortcuts
+    ShortcutCommand.destroy_all("command LIKE '%\"operation\":\"statement_node\"%' AND command LIKE '%\"id\":#{self.id}%'")
+  end
+
+  #
+  # Destroys the children of this statement node, that in any other way can't be seen anymore
+  #
+  def destroy_descendants
+    descendants.destroy_all
+  end
+
 
   ##
   ## ASSOCIATIONS
@@ -22,7 +47,7 @@ class StatementNode < ActiveRecord::Base
   belongs_to :creator, :class_name => "User"
   belongs_to :statement
 
-  delegate :original_language, :document_in_language, :authors, :has_author?, 
+  delegate :original_language, :document_in_language, :authors, :has_author?,
            :statement_image, :statement_image=, :image, :image=, :published?, :publish,
            :taggable?, :filtered_topic_tags, :topic_tags, :topic_tags=, :hash_topic_tags, :tags, :editorial_state_id,
            :editorial_state_id=, :editorial_state, :editorial_state=, :to => :statement
@@ -36,6 +61,7 @@ class StatementNode < ActiveRecord::Base
       }.first
     end
   end
+
 
   ##
   ## VALIDATIONS
@@ -82,7 +108,15 @@ class StatementNode < ActiveRecord::Base
   ######### ACTIONS ############
   ##############################
 
+  def self.taggable?
+    true
+  end
+
   def publishable?
+    false
+  end
+  
+  def self.publishable?
     false
   end
 
@@ -113,6 +147,11 @@ class StatementNode < ActiveRecord::Base
     attributes.each {|k,v|doc.send("#{k.to_s}=", v)}
     self.statement.statement_documents << doc
     return doc
+  end
+  
+  # updates an existing node with a new set of attributes
+  def update_node(attrs={})
+    update_attributes(attrs)
   end
 
   ########################
@@ -270,14 +309,25 @@ class StatementNode < ActiveRecord::Base
 
   class << self
 
-    # Aux Function: generates new instance (overwritten in follow up question)
+    # Aux Function: generates new instance
     def new_instance(attributes = {})
-      attributes[:editorial_state] = StatementState[attributes.delete(:editorial_state_id).to_i] if attributes[:editorial_state_id]
+      attributes = filter_editorial_state(attributes)
       editorial_state = attributes.delete(:editorial_state)
       node = self.new(attributes)
       node.set_statement(:editorial_state => editorial_state) if node.statement.nil?
       node
     end
+    
+    def filter_editorial_state(attributes={})
+      attributes[:editorial_state] = StatementState[attributes.delete(:editorial_state_id).to_i] if attributes[:editorial_state_id]
+      attributes
+    end
+    
+    # Aux Function: Checks if node has more data to show or load
+    def has_embeddable_data?
+      false
+    end
+
 
     # Aux Function: GUI Helper (overwritten in follow up question)
     def is_top_statement?
@@ -370,11 +420,11 @@ class StatementNode < ActiveRecord::Base
     def children_joins
       ''
     end
-    
+
     def state_conditions(opts)
       ''
     end
-    
+
     #
     # returns a string of sql conditions representing getting statement nodes of certain types filtered by parent
     # opts attributes:
@@ -382,7 +432,7 @@ class StatementNode < ActiveRecord::Base
     # parent_id (Integer) : id of parent statement node
     #
     def children_conditions(opts)
-      sanitize_sql(["#{table_name}.type IN (?) AND 
+      sanitize_sql(["#{table_name}.type IN (?) AND
                      #{table_name}.root_id = ? AND
                      #{table_name}.lft >= ? AND #{table_name}.rgt <= ? ",
                     opts[:types] || [self.name], opts[:root_id], opts[:lft], opts[:rgt]])
@@ -396,7 +446,7 @@ class StatementNode < ActiveRecord::Base
     # opts attributes:
     #
     # search_term (string : optional) : value we ought to search for on title, text and statement tags
-    # param (string : optional) : specifies the attribute which we should search 
+    # param (string : optional) : specifies the attribute which we should search
     # type (string : optional) : defines the type of statement to look for ("Question" in most of the cases)
     # show_unpublished (boolean : optional) : if false or nil, only get the published statements (see user as well)
     # user (User : optional) : only used if show_unpublished is false or nil; gets the statements belonging to the user regardless of state (published or new)
@@ -407,24 +457,24 @@ class StatementNode < ActiveRecord::Base
     #
     def search_statement_nodes(opts={})
       aggregator_field = opts[:types].nil? ? 'root_id' : 'id'
-      
+
       # Constant criteria
       document_conditions = []
-      
+
       # Languages
       if opts[:user] and !opts[:user].spoken_languages.empty? and opts[:language_ids]
         document_conditions << sanitize_sql(["d.language_id IN (?)", opts[:language_ids]])
       end
-      
+
       # Permissions
       node_conditions = []
       node_conditions << Statement.conditions(opts, "s.closed_statement", "s.granted_user_id")
-     
+
       # Statement type
       if opts[:types]
         node_conditions << sanitize_sql(["s.type IN (?)", opts[:types]])
       end
-      
+
       # Published state
       unless opts[:show_unpublished]
         publish_condition = []
@@ -432,28 +482,29 @@ class StatementNode < ActiveRecord::Base
         publish_condition << sanitize_sql(["s.creator_id = ?",  opts[:user].id]) if opts[:user]
         node_conditions << "(#{publish_condition.join(' OR ')})"
       end
-      
+
       # Drafting state
       if opts[:drafting_states]
         node_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]])
       end
-      
+
       # Limit
       limit = "LIMIT #{opts[:limit]}" if opts[:limit]
+
 
       # Search terms
       search_term = opts.delete(:search_term)
       if !search_term.blank?
         term_query = "SELECT DISTINCT statement_id AS id FROM search_statement_text d "
         term_query << "WHERE "
-      
+
         term_queries = []
         if search_term.include? ','
           terms = search_term.split(',')
         else
           terms = search_term.split(/[\s]+/)
         end
-        
+
         terms.map(&:strip).each do |term|
           or_conditions = StatementDocument.term_conditions(term)
           term_queries << (term_query + (document_conditions + ["(#{or_conditions})"]).join(" AND "))
@@ -470,9 +521,9 @@ class StatementNode < ActiveRecord::Base
                            "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id #{limit};"
       else
         document_conditions << "d.current = 1"
-        
+
         node_conditions << "s.type = 'Question'" if opts[:types].nil?
-        
+
         statements_query = "SELECT DISTINCT s.#{opts[:param] || '*'} from search_statement_nodes s " +
                            "LEFT JOIN statement_documents d ON d.statement_id = s.statement_id " +
                            Statement.extaggable_joins_clause("s.statement_id") +
@@ -492,7 +543,7 @@ class StatementNode < ActiveRecord::Base
     # EXPANDABLE CHILDREN GUI HELPERS #
     ###################################
 
-    
+
 
 
     # PARTIAL PATHS #
@@ -522,7 +573,7 @@ class StatementNode < ActiveRecord::Base
     def children_types(opts={})
       format_types @@children_types[self.name] || @@children_types[self.superclass.name], opts
     end
-    
+
     #
     # visibility = false: returns an array of symbols of the possible children types
     # visibility = true: returns an array of sub arrays representing pairs [type: symbol class , visibility : true/false]
@@ -531,11 +582,11 @@ class StatementNode < ActiveRecord::Base
     def default_children_types(opts={})
       format_types @@default_children_types, opts
     end
-    
+
     def all_children_types(opts={})
       children_types(opts) + default_children_types(opts)
     end
-    
+
     def format_types(types, opts={})
       if opts[:expand]
         array = []
@@ -565,11 +616,11 @@ class StatementNode < ActiveRecord::Base
       @@children_types[self.name] ||= []
       @@children_types[self.name] += klasses
     end
-    
+
     def has_linkable_types(*klasses)
       @@linkable_types ||= { }
       @@linkable_types[self.name] ||= klasses
     end
   end
-  has_default_children_of_types [:FollowUpQuestion,true]
+  has_default_children_of_types [:FollowUpQuestion,true],[:BackgroundInfo,true]
 end

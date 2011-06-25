@@ -11,6 +11,10 @@ class Improvement < StatementNode
     false
   end
   
+  def self.taggable?
+    false
+  end
+  
   #Overwriting of nested set function (hub's make it impossible to level them right)
   def level; 2; end
 end

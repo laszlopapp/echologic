@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110518214946) do
+ActiveRecord::Schema.define(:version => 20110617122504) do
 
   create_table "about_item_translations", :force => true do |t|
     t.integer "about_item_id"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(:version => 20110518214946) do
     t.string   "subscribeable_type"
     t.string   "operation"
     t.datetime "created_at"
+    t.boolean  "broadcast",          :default => false
   end
 
   add_index "events", ["subscribeable_id", "subscribeable_type", "created_at"], :name => "events_index"
@@ -232,6 +233,16 @@ ActiveRecord::Schema.define(:version => 20110518214946) do
 
   add_index "spoken_languages", ["user_id", "level_id"], :name => "index_spoken_languages_on_user_id_and_level_id"
 
+  create_table "statement_datas", :force => true do |t|
+    t.string   "type"
+    t.string   "info_file_name"
+    t.string   "info_content_type"
+    t.integer  "info_file_size"
+    t.datetime "info_updated_at"
+    t.string   "info_url"
+    t.integer  "statement_id"
+  end
+
   create_table "statement_documents", :force => true do |t|
     t.string   "title"
     t.text     "text"
@@ -289,6 +300,7 @@ ActiveRecord::Schema.define(:version => 20110518214946) do
     t.integer "original_language_id"
     t.integer "statement_image_id"
     t.integer "editorial_state_id"
+    t.integer "info_type_id"
   end
 
   create_table "subscriber_datas", :force => true do |t|

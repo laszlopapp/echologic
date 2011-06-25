@@ -31,7 +31,7 @@ module StatementsHelper
   # Renders all the possible children of the current node
   # (per type, ordering must be defined in the node type definition).
   #
-  def render_all_children(statement_node, children, type = dom_class(statement_node))
+  def render_all_children(statement_node, children)
 
     content = ''
     content << render_children(statement_node, statement_node.class.children_types, children)
@@ -106,33 +106,6 @@ module StatementsHelper
                                   :title => I18n.t('discuss.tooltips.copy_to_clipboard'))
       content << text_field_tag('', url, :class => 'clip_url', :style => "display:none")
       content
-#      content_tag :span, '', 
-#                  :class => "clip_button ttLink no_border", 
-#                  :title => I18n.t('discuss.tooltips.copy_to_clipboard') do
-#        html = <<-EOF
-#          <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
-#                  width="16"
-#                  height="20"
-#                  id="clippy" >
-#          <param name="movie" value="/flash/clippy.swf"/>
-#          <param name="allowScriptAccess" value="always" />
-#          <param name="quality" value="high" />
-#          <param name="scale" value="noscale" />
-#          <param NAME="FlashVars" value="text=#{url}">
-#          <embed src="/flash/clippy.swf"
-#                 width="16"
-#                 height="20"
-#                 name="clippy"
-#                 quality="high"
-#                 allowScriptAccess="always"
-#                 type="application/x-shockwave-flash"
-#                 pluginspage="http://www.macromedia.com/go/getflashplayer"
-#                 FlashVars="text=#{url}"
-#          />
-#          </object>
-#        EOF
-#            
-#      end
     end
   end
 
@@ -201,7 +174,7 @@ module StatementsHelper
       panel << content_tag(:div, '', :class => 'block_separator')
       panel << add_new_sibling_buttons(statement_node, origin)
       panel << add_new_child_buttons(statement_node)
-      panel << add_new_follow_up_question_button(statement_node, bids)
+      panel << add_new_default_child_button(statement_node)
       panel
     end
   end
@@ -209,7 +182,7 @@ module StatementsHelper
   #
   # Creates a link to add a new sibling for the given statement (appears in the SIDEBAR).
   #
-  def add_new_sibling_buttons(statement_node, origin = nil, type = dom_class(statement_node))
+  def add_new_sibling_buttons(statement_node, origin = nil)
     content = ''
     content << content_tag(:div, :class => 'siblings container') do
       buttons = ''
@@ -262,7 +235,7 @@ module StatementsHelper
   # Creates a link to add a new child for the given statement (appears in the SIDEBAR).
   #
   def add_new_child_buttons(statement_node)
-    children_types = statement_node.class.children_types(:no_default => true, :expand => true)
+    children_types = statement_node.class.children_types(:expand => true)
     return '' if children_types.empty?
     content = ''
     content << content_tag(:div, :class => 'container') do
@@ -277,15 +250,19 @@ module StatementsHelper
   end
 
   #
-  # Creates a link to add a new follow up question for the given statement (appears in the SIDEBAR).
+  # Creates a link to add a new default child (follow up question, background info) for the given statement (appears in the SIDEBAR).
   #
-  def add_new_follow_up_question_button(statement_node, bids)
-    bids = bids ? bids.split(",") : []
-    bids << "fq#{statement_node.id}"
-    content_tag(:div, add_new_child_link(statement_node, "follow_up_question",
-                                                         :bids => bids.join(","),
-                                                         :origin => params[:origin]),
-                :class => 'container')
+  def add_new_default_child_button(statement_node)
+    content_tag(:div, :class => 'container') do
+      content = ''
+      statement_node.class.default_children_types(:visibility => false).each do |default_type|
+        dom_type = default_type.to_s.underscore
+        content << add_new_child_link(statement_node, dom_type,
+                                                      :bids => params[:bids],
+                                                      :origin => params[:origin])
+      end
+      content
+    end
   end
 
   #
@@ -314,7 +291,7 @@ module StatementsHelper
   #
   # Creates a link to show the authors of the current node.
   #
-  def authors_statement_node_link(statement_node,type = dom_class(statement_node))
+  def authors_statement_node_link(statement_node)
     link_to(I18n.t('application.general.authors'), authors_statement_node_url(statement_node),
             :class => 'expandable header_button text_button authors_text_button')
   end
@@ -367,13 +344,6 @@ module StatementsHelper
   end
 
   #
-  # Returns the block heading for entering a new child for the given statement node.
-  #
-  def children_new_box_title(statement_node)
-    I18n.t("discuss.statements.new.#{dom_class(statement_node)}")
-  end
-
-  #
   # Returns the block heading for the children of the current statement node.
   #
   def children_heading_title(type, count, opts={})
@@ -414,29 +384,35 @@ module StatementsHelper
   #
   # Creates the cancel button in the edit statement form.
   #
-  def cancel_edit_statement_node(statement_node, locked_at,type = dom_class(statement_node))
+  def cancel_edit_statement_node(statement_node, locked_at)
     link_to I18n.t('application.general.cancel'),
             cancel_statement_node_url(statement_node, :locked_at => locked_at.to_s),
            :class => "text_button cancel_text_button ajax"
   end
 
   def title_hint_text(statement_node)
-    I18n.t("discuss.statements.title_hint.#{dom_class(statement_node)}")
+    I18n.t("discuss.statements.title_hint.#{node_type(statement_node)}")
   end
 
   def summary_hint_text(statement_node)
-    I18n.t("discuss.statements.text_hint.#{dom_class(statement_node)}")
+    I18n.t("discuss.statements.text_hint.#{node_type(statement_node)}")
   end
 
   ##############
   # Sugar & UI #
   ##############
 
+  def node_type(statement_node)
+    @statement_type ||= {}
+    @statement_type[statement_node.level] ||= statement_node.new_record? ? @statement_node_type.name.underscore : dom_class(statement_node) 
+  end
+
+
   #
   # Loads the right add statement image.
   #
   def statement_form_illustration(statement_node)
-    image_tag("page/discuss/add_#{dom_class(statement_node)}_big.png",
+    image_tag("page/discuss/add_#{node_type(statement_node)}_big.png",
               :class => 'statement_form_illustration')
   end
 
@@ -445,18 +421,19 @@ module StatementsHelper
   #
   def statement_node_icon(statement_node, size = :medium)
     # remove me to have different sizes again
-    image_tag("page/discuss/#{dom_class(statement_node)}_#{size.to_s}.png")
+    image_tag("page/discuss/#{node_type(statement_node)}_#{size.to_s}.png")
   end
 
   #
   # Returns the context menu link for this statement_node.
   #
   def statement_node_context_link(statement_node, title, action = 'read', opts={})
-    css = opts.delete(:css)
+    css = String(opts.delete(:css))
+    css << " #{statement_node.info_type.code}_link" if statement_node.class.has_embeddable_data?
     link_to(h(title),
              statement_node_url(statement_node, opts),
-             :class => "#{css} no_border statement_link #{dom_class(statement_node)}_link ttLink",
-             :title => I18n.t("discuss.tooltips.#{action}_#{dom_class(statement_node)}"))
+             :class => "#{css} no_border statement_link #{node_type(statement_node)}_link ttLink",
+             :title => I18n.t("discuss.tooltips.#{action}_#{node_type(statement_node)}"))
   end
 
   #
@@ -613,7 +590,6 @@ module StatementsHelper
   # Loads the link to a given statement, placed in the child panel section.
   #
   def link_to_child(title, statement_node,opts={})
-    opts[:type] ||= dom_class(statement_node)
     bids = params[:bids] || ''
     if opts[:new_level]
       bids = bids.split(",")
@@ -622,7 +598,7 @@ module StatementsHelper
       bids = bids.join(",")
     end
 
-    content_tag :li, :class => dom_class(statement_node), 'statement-id' => statement_node.target_id do
+    content_tag :li, :class => opts[:type], 'statement-id' => statement_node.target_id do
       content = ''
       content << link_to(h(title),
                  statement_node_url(statement_node.target_id, :bids => bids, :origin => params[:origin],  :new_level => opts[:new_level]),
@@ -670,7 +646,7 @@ module StatementsHelper
   #
   def render_breadcrumb(breadcrumbs)
     breadcrumb_trail = ""
-    breadcrumbs.each_with_index do |b, index| #[id, classes, url, title]
+    breadcrumbs.each_with_index do |b, index| #[key, classes, url, title, label, over, page_co]
       attrs = {}
       attrs[:page_count] = b[:page_count] if b[:page_count]
       breadcrumb = content_tag(:a, attrs.merge({:href => b[:url], :id => b[:key], :class => "breadcrumb #{b[:key][0..2]}"})) do
@@ -700,6 +676,51 @@ module StatementsHelper
     image_tag('page/discuss/alternatives-arrow.png', :class => 'arrow', :style => 'display:none')
   end
 
+  ####################
+  # BACKGROUND INFOS #
+  ####################
+
+
+  def render_embeddable_data(background_info)
+    content_tag :div, :class => 'embedded_container' do
+     send("render_#{background_info.info_type.code}_data", background_info)
+    end
+  end
+  
+  def render_article_data(background_info)
+    render_in_iframe(background_info.external_url.info_url)
+  end
+  
+  def render_paper_data(background_info)
+    render_in_iframe(background_info.external_url.info_url)
+  end
+  
+  def render_book_data(background_info)
+    render_in_iframe(background_info.external_url.info_url)
+  end
+  
+  def render_photo_data(background_info)
+    render_in_iframe(background_info.external_url.info_url)
+  end
+  
+  
+  def render_video_data(background_info)
+    if background_info.external_url.is_youtube_url?
+      %Q{<iframe title="YouTube video player" width="640" height="390" src="http://www.youtube.com/embed/#{ background_info.external_url.youtube_id }" frameborder="0" allowfullscreen></iframe>}
+    elsif background_info.external_url.is_vimeo_url?
+      %Q{<iframe width="400" height="170" src="http://player.vimeo.com/video/#{ background_info.external_url.vimeo_id }?portrait=0" frameborder="0"></iframe>}
+    else
+      render_in_iframe background_info.external_url.info_url
+    end
+  end
+
+  def render_url_data(background_info)
+    render_in_iframe(background_info.external_url.info_url)
+  end
+  
+  def render_in_iframe(url)
+    content_tag :iframe, '', :src => url, :class => 'embedded_content', :frameborder => 0
+  end
   #
   # This class does the heavy lifting of actually building the pagination
   # links. It is used by the <tt>will_paginate</tt> helper internally.

@@ -1,7 +1,12 @@
 <%
   statement_document = @children_documents[child.statement_id]
   extra_classes ||= (@current_node && child == @current_node ? 'active' : '')
+  extra_classes << " #{child.info_type.code}_link" if child.class.has_embeddable_data?
   new_level ||= false
 %>
 
-<%= link_to_child(statement_document.title,child,:css => extra_classes, :new_level => new_level) %>
+<%= link_to_child(statement_document.title,
+                  child,
+                  :css => extra_classes,
+                  :new_level => new_level,
+                  :type => child_type) %>

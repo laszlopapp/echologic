@@ -33,13 +33,6 @@ class ActivityTrackingService
     return if user.nil?
     subscription = echoable.subscriptions.find_by_subscriber_id(user.id)
     echoable.subscriptions.delete(subscription) if subscription
-
-    if echoable.parent_node
-      parent_subscription = user.subscriptions.find_by_subscribeable_id(echoable.parent_id)
-      if (user.subscriptions.map(&:subscribeable_id) & echoable.parent_node.child_statements.map(&:id)).empty?
-        user.subscriptions.delete(parent_subscription) if parent_subscription
-      end
-    end
   end
 
   def created(node)
@@ -76,7 +69,8 @@ class ActivityTrackingService
 
     Event.create(:event => event_json,
                  :operation => 'created',
-                 :subscribeable => node.parent_node.nil? ? node : node.parent_node)
+                 :broadcast => node.parent_node.nil? ? true : false,
+                 :subscribeable => node.parent_node.nil? ? node : node.parent)
   end
 
   def set_titles_hash(documents)
@@ -128,23 +122,21 @@ class ActivityTrackingService
     last_event = events.first
     events.map!{|e| JSON.parse(e.event)}
 
-    decision_making_tags = recipient.decision_making_tags
-    
     # Filter only events whose titles languages the recipient speaks
     events.reject!{|e| (e['documents'].keys.map{|id|id.to_i} & recipient.sorted_spoken_languages).empty? }
-    
+
     return if events.blank? #if there are no events to send per email, take the next user
 
-    # take the question events apart
+    # Take the question events apart
     root_events = events.select{|e| e['level'] == 0}
     events -= root_events
 
-    # created an Hash containing the number of ocurrences of the new tags in the new questions
+    # Create a Hash containing the number of occurrences of the new tags in the new questions
     question_tag_counts = root_events.each_with_object({}) do |root, tags_hash|
       root['tags'].each{|tag| tags_hash[tag] = tags_hash.has_key?(tag) ? tags_hash[tag] + 1 : 1 }
     end
 
-    #turn array of events into an hash
+    # Turn array of events into an hash
     events = events.each_with_object({}) do |e, hash|
       hash[e['level']] ||= {}
       hash[e['level']][e['parent_id']] ||= {}

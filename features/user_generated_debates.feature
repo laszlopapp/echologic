@@ -15,7 +15,7 @@ Feature: User Generated Debates
     When I am on My Questions
       And I follow "Create a new question"
       And I fill in the following:
-        | question_statement_document_title | A Debate for all Seasons |
+        | statement_node_statement_document_title | A Debate for all Seasons |
       And I press "Save"
     Then I should see "The field 'Summary' must not be empty."
 
@@ -25,7 +25,7 @@ Feature: User Generated Debates
     When I am on My Questions
       And I follow "Create a new question"
       And I fill in the following:
-        | question_statement_document_text | A Debate for all Seasons |
+        | statement_node_statement_document_text | A Debate for all Seasons |
       And I press "Save"
     Then I should see "The field 'Title' must not be empty."
 
@@ -35,8 +35,8 @@ Feature: User Generated Debates
     When I am on My Questions
       And I follow "Create a new question"
       And I fill in the following:
-        | question_statement_document_title | A Debate for all Seasons |
-        | question_statement_document_text  | A Debate for all Seasons |
+        | statement_node_statement_document_title | A Debate for all Seasons |
+        | statement_node_statement_document_text  | A Debate for all Seasons |
       And I press "Save"
     Then I should see "A Debate for all Seasons"
     When I follow "Edit"
@@ -52,9 +52,9 @@ Feature: User Generated Debates
     When I am on My Questions
       And I follow "Create a new question"
       And I fill in the following:
-        | question_statement_document_title | A Debate for all Seasons |
-        | question_statement_document_text  | A Debate for all Seasons |
-        | question_topic_tags                     | first_tag,second_tag,third_tag|
+        | statement_node_statement_document_title | A Debate for all Seasons |
+        | statement_node_statement_document_text  | A Debate for all Seasons |
+        | statement_node_topic_tags                     | first_tag,second_tag,third_tag|
       And I press "Save"
     Then I should see "The new Question has been entered successfully."
     Then the question "A Debate for all Seasons" should have "first_tag, second_tag, third_tag" as tags
@@ -65,9 +65,9 @@ Feature: User Generated Debates
     When I am on My Questions
       And I follow "Create a new question"
       And I fill in the following:
-        | question_statement_document_title | A Debate for all Seasons |
-        | question_statement_document_text  | A Debate for all Seasons |
-        | question_topic_tags                     | first_tag,second_tag,third_tag|
+        | statement_node_statement_document_title | A Debate for all Seasons |
+        | statement_node_statement_document_text  | A Debate for all Seasons |
+        | statement_node_topic_tags                     | first_tag,second_tag,third_tag|
       And I press "Save"
       And I follow "Edit"
       And I fill in the following:
@@ -81,9 +81,9 @@ Feature: User Generated Debates
     When I am on My Questions
       And I follow "Create a new question"
       And I fill in the following:
-        | question_statement_document_title | A Debate for all Seasons |
-        | question_statement_document_text  | A Debate for all Seasons |
-        | question_topic_tags                     | #echonomyjam |
+        | statement_node_statement_document_title | A Debate for all Seasons |
+        | statement_node_statement_document_text  | A Debate for all Seasons |
+        | statement_node_topic_tags                     | #echonomyjam |
       And I choose "Publish immediately (further editing will be limited)"
       And I press "Save"
     When I am on the discuss featured
@@ -98,13 +98,13 @@ Feature: User Generated Debates
     When I am on My Questions
       And I follow "Create a new question"
       And I fill in the following:
-        | question_statement_document_title | A Debate for all Seasons |
-        | question_statement_document_text  | A Debate for all Seasons |
-        | question_topic_tags                     | first_tag |
+        | statement_node_statement_document_title | A Debate for all Seasons |
+        | statement_node_statement_document_text  | A Debate for all Seasons |
+        | statement_node_topic_tags                     | first_tag |
       And I press "Save"
       And I go to "My Questions"
       And I follow "Release"
-    Then I should not see "Release"
+    Then I should see "Released"
 
   @ok
   Scenario: added a hash tag to a debate when i had the asterisk tag as a decision making tag, and it should work!
@@ -113,9 +113,9 @@ Feature: User Generated Debates
       And I am on My Questions
       And I follow localized "discuss.my_questions.add"
       And I fill in the following:
-        | question_statement_document_title | A Debate for all Seasons |
-        | question_statement_document_text  | A Debate for all Seasons |
-        | question_topic_tags                     | #xyz |
+        | statement_node_statement_document_title | A Debate for all Seasons |
+        | statement_node_statement_document_text  | A Debate for all Seasons |
+        | statement_node_topic_tags                     | #xyz |
       And I press "Save"
     Then I should see "The new Question has been entered successfully."
     Then the question "A Debate for all Seasons" should have "#xyz" as tags
@@ -126,9 +126,9 @@ Feature: User Generated Debates
       And I am on My Questions
       And I follow localized "discuss.my_questions.add"
       And I fill in the following:
-        | question_statement_document_title | A Debate for all Seasons |
-        | question_statement_document_text  | A Debate for all Seasons |
-        | question_topic_tags                     | #new,#echo |
+        | statement_node_statement_document_title | A Debate for all Seasons |
+        | statement_node_statement_document_text  | A Debate for all Seasons |
+        | statement_node_topic_tags                     | #new,#echo |
       And I press "Save"
     Then I should see "The new Question has been entered successfully."
     Then the question "A Debate for all Seasons" should have "#new,#echo" as tags

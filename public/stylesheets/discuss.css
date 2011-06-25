@@ -254,10 +254,12 @@ form.pro_argument .header li {
 form.contra_argument .header li {
   background: transparent url(../images/page/discuss/contra_argument_16.png) no-repeat scroll 0 2px;
 }
+form.background_info .header li {
+  background: transparent url(../images/page/discuss/background_info_16.png) no-repeat scroll 0 2px;
+}
 form.alternative .header li {
 	background: transparent url(../images/page/discuss/alternative_16.png) no-repeat scroll 0 2px;
 }
-
 
 form.statement .header_link fieldset ol li {
   padding-left: 20px;
@@ -374,7 +376,75 @@ form.statement .header .auto_complete.off:hover {
 	background-position: 0px -20px;
 }
 
+/* Info Type */
 
+form.statement .info_types_container {
+	width: 680px;
+}
+
+
+form.statement .info_types_container fieldset ol {
+  width: 100%;
+}
+
+form.statement .info_types_container fieldset ol li {
+	float: left;
+	width: 200px;
+}
+
+form.statement .info_types_container input {
+	display: none;
+}
+
+form.statement .info_types_container label {
+	color: #21587F;
+	line-height: 2em;
+}
+
+form.statement .info_types_container label.selected {
+	color: #7BB031;
+}
+
+form.statement .info_types_container a {
+	width: 32px;
+  height: 32px;
+  padding: 0 5px 0 0;
+  display: block;
+  clear: left;
+  float: left;
+}
+
+form.statement .info_types_container a.jqTransformChecked {
+	background-color: #999999;
+}
+
+form.statement .info_types_container a.article {
+	background: url("../images/page/discuss/background_info_types/icon_attach_article_32.png") no-repeat scroll 0 0;
+}
+form.statement .info_types_container a.paper {
+  background: url("../images/page/discuss/background_info_types/icon_attach_paper_32.png") no-repeat scroll 0 0;
+}
+form.statement .info_types_container a.book {
+  background: url("../images/page/discuss/background_info_types/icon_attach_book_32.png") no-repeat scroll 0 0;
+}
+form.statement .info_types_container a.photo {
+  background: url("../images/page/discuss/background_info_types/icon_attach_photo_32.png") no-repeat scroll 0 0;
+}
+form.statement .info_types_container a.video {
+  background: url("../images/page/discuss/background_info_types/icon_attach_video_32.png") no-repeat scroll 0 0;
+}
+form.statement .info_types_container a.url {
+  background: url("../images/page/discuss/background_info_types/icon_attach_url_32.png") no-repeat scroll 0 0;
+}
+
+form.statement input.embed_url {
+
+}
+
+.statement .embedded_content {
+	width: 721px;
+	height: 600px;
+}
 
 /*********/
 /* lwRTE */
@@ -1578,6 +1648,13 @@ a.statement_link:hover {
 .contra_argument_link {background:transparent url(../images/page/discuss/contra_argument_16.png) no-repeat scroll 0 2px;}
 .follow_up_question_link {background:transparent url(../images/page/discuss/follow_up_question_16.png) no-repeat scroll 0 0;}
 
+.article_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_article_16.png) no-repeat scroll 0 0;}
+.book_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_book_16.png) no-repeat scroll 0 0;}
+.paper_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_paper_16.png) no-repeat scroll 0 0;}
+.photo_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_photo_16.png) no-repeat scroll 0 0;}
+.video_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_video_16.png) no-repeat scroll 0 0;}
+.url_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_url_16.png) no-repeat scroll 0 0;}
+
 .alternatives .statement_link {background:transparent url(../images/page/discuss/alternative_16.png) no-repeat scroll 0 0;}
 
 .create_question_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
@@ -1587,6 +1664,7 @@ a.statement_link:hover {
 .create_contra_argument_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
 .create_follow_up_question_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
 .create_alternative_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
+.create_background_info_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
 
 .create_question_button_32 {background: transparent url(../images/page/discuss/question_32.png) no-repeat scroll 0 0;}
 .create_proposal_button_32 {background: transparent url(../images/page/discuss/proposal_32.png) no-repeat scroll 0 0;}
@@ -1599,7 +1677,7 @@ a.statement_link:hover {
   padding: 7px 0 0 45px !important;
 }
 .create_alternative_button_32 {background: transparent url(../images/page/discuss/alternative_32.png) no-repeat scroll 0 4px;}
-
+.create_background_info_button_32 {background: transparent url(../images/page/discuss/background_info_32.png) no-repeat scroll 0 4px;}
 
 /*****************/
 /* Incorporation */
@@ -1952,4 +2030,16 @@ form.statement fieldset ol li.tags_container {
   position: absolute;
   right: 32px;
   top: 7px;
+}
+
+/******************/
+/* Statement Data */
+/******************/
+
+.statement .embedded_container {
+  width: 785px;
+	text-align: center;
+	margin-bottom: 20px;
+	margin-left: 190px;
+  padding-left: 15px;
 }

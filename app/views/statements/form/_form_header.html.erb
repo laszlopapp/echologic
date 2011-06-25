@@ -1,6 +1,6 @@
 <% statement_document ||= @statement_document %>
 <div class="header active">
-  <div class="header_buttons"><%= navigation_buttons(statement_node, dom_class(statement_node)) %></div>
+  <div class="header_buttons"><%= navigation_buttons(statement_node, node_type(statement_node)) %></div>
 	<div class="header_link">
 		<% form.inputs :class => 'statement_title' do %>
 			<% form.semantic_fields_for :statement_document, statement_document do |doc| %>

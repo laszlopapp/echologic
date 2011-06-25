@@ -193,11 +193,12 @@ function generateKey(type) {
 	else if (type =='improvement'){return 'im';}
 	else if (type=='pro_argument' || type=='contra_argument'){return 'ar';}
 	else if (type=='follow_up_question'){return 'fq';}
+	else if (type=='background_info'){return 'bi';}
 	else {return '';}
 }
 
 function getOriginKeys(array) {
   return $.grep(array, function(a, index) {
-    return $.inArray(a.substring(0,2), ['pr','ar','im']) == -1;
+    return $.inArray(a.substring(0,2), ['pr','ar','im', 'bi']) == -1;
   });
 }

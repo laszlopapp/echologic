@@ -5,14 +5,28 @@ class Statement < ActiveRecord::Base
   belongs_to :statement_image
   delegate :image, :image=, :to => :statement_image
 
+  # statement_datas
+  has_many :statement_datas # only important for certain selects 
+  has_many :external_files
+  has_one :external_url
+  validates_associated :external_files
+  validates_associated :external_url
+  has_enumerated :info_type, :class_name => 'InfoType'
+
+
+  # editorial state
   has_enumerated :editorial_state, :class_name => 'StatementState'
 
   validates_presence_of :editorial_state_id
   validates_numericality_of :editorial_state_id
   validates_associated :statement_documents
   validates_associated :statement_image
+  validates_presence_of :info_type_id, :if => :has_data? 
 
 
+  def has_data?
+    !external_files.empty? or !external_url.nil?
+  end
 
   has_many :statement_histories, :source => :statement_histories
 
@@ -61,6 +75,14 @@ class Statement < ActiveRecord::Base
 
   def filtered_topic_tags
     self.topic_tags.select{|tag| !tag.starts_with?('*')}  # Also filters out **tags
+  end
+  
+  ###################
+  # STATEMENT DATAS #
+  ###################
+  
+  def external_url
+    @external_url ||= statement_datas.first(:conditions => "type = 'ExternalUrl'")
   end
   
   

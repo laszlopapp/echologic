@@ -77,6 +77,13 @@ AboutCategory.purge_enumerations_cache
 end
 AboutCategory.enumeration_model_updates_permitted = false
 
+# INFO TYPE
+InfoType.enumeration_model_updates_permitted = true
+InfoType.purge_enumerations_cache
+%w(article paper book photo video url).each_with_index do |code, index|
+  InfoType.create(:code => code, :key => index+1, :description => "info_type")
+end
+InfoType.enumeration_model_updates_permitted = false
 
 #################
 #  ENUM VALUES  #
@@ -342,5 +349,36 @@ end
                               :value => value, :context=> "")
 end
 
+
+["Article","Artikel","Article","Artigo","Artículo","Article"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('article','InfoType'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end                           
+["Paper","Paper","Paper","Paper","Paper","Paper"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('paper','InfoType'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
+["Book","Book","Book","Book","Book","Book"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('book','InfoType'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
+["Photo","Photo","Photo","Photo","Photo","Photo"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('photo','InfoType'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
+["Video","Video","Video","Video","Video","Video"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('video','InfoType'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
+["URL","URL","URL","URL","URL","URL"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('url','InfoType'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
 
 EnumValue.enumeration_model_updates_permitted = false

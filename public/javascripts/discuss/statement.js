@@ -37,7 +37,8 @@
     function Statement(statement) {
 			var timer;
       var statementDomId = statement.attr('id');
-			var statementType = $.trim(statementDomId.match(/[^(add_|new_)]\w+[^_\d+]/));
+			var statementDomParent = statement.attr('dom-parent');
+			var statementType = $.trim(statement.find('input#type').val());
       var statementId = getStatementId(statementDomId);
 			var parentStatement, statement_index;
 			var statementUrl;
@@ -82,6 +83,8 @@
           initAllStatementLinks();
 					//initFlicks();
         }
+				
+				//statement.find('.embedded_container').iframeResize({height: "auto", autoUpdate : true, classes: ".embedded_content"});
       }
 
 
@@ -97,7 +100,19 @@
 				hideStatements(settings);
 				if(element.length > 0) {
 					if (statementDomId.match('new') && element.data('api').getType() != statementType) {
-				  	var key = element.data('api').deleteBreadcrumb();
+						var dom_parent = statementDomParent;
+						if (dom_parent && dom_parent.length > 0) {
+							var key = $.inArray(dom_parent.substring(0,2),['ds','sr']) == -1 ? 
+							          $("#statements div#" + dom_parent).data('api').getBreadcrumbKey() : 
+												dom_parent.substring(0,2);
+							var parentBreadcrumb = $("#breadcrumbs").data('breadcrumbApi').getBreadcrumb(key);
+							if (parentBreadcrumb.length > 0) {
+								parentBreadcrumb.nextAll().remove();
+							}
+						}
+						else {
+							var key = element.data('api').deleteBreadcrumb();
+						}
 				  }
           element.replaceWith(statement);
         }
@@ -298,7 +313,7 @@
 		    var targetStatementId = new String(siblingIds[targetIndex]);
 				if (targetStatementId.match('add')) {
           // Add (teaser) link
-					button.attr('href', button.attr('href').replace(/statement\/.*/, 'statement/' + targetStatementId));
+					button.attr('href', button.attr('href').replace(/statement\/.*/, "statement" + targetStatementId));
 		    }
 		    else {
 					button.attr('href', button.attr('href').replace(/statement\/.*/, "statement/" + targetStatementId));
@@ -608,15 +623,18 @@
 		    removeBelow: function(){
 		     statement.nextAll().each(function() {
 			     // Delete the session data relative to this statement first
-					 if (statementDomId.match('new')) {
+					 /*if (statementDomId.match('new')) {
 				   	$(this).data('api').deleteBreadcrumb();
-				   }
+				   }*/
 			     $('div#statements').removeData(this.id);
 			     $(this).remove();
 
 		     });
 				 return this;
 		    },
+				getBreadcrumbKey: function() {
+					return generateBreadcrumbKey();
+				},
 				deleteBreadcrumb: function() {
 					var key = generateBreadcrumbKey();
 				  $('#breadcrumbs').data('breadcrumbApi').deleteBreadcrumb(key);

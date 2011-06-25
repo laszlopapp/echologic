@@ -5,6 +5,9 @@
 
 class Question < StatementNode
 
+  # Deletion handling - also delete all FUQs referencing this question
+  has_many :follow_up_questions, :foreign_key => 'question_id', :dependent => :destroy
+
   has_children_of_types [:Proposal,true]
   has_linkable_types :Question
 
@@ -17,6 +20,10 @@ class Question < StatementNode
   end
 
   def publishable?
+    true
+  end
+  
+  def self.publishable?
     true
   end
 

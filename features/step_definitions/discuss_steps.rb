@@ -60,14 +60,14 @@ Then /^I should see the group of ([^\"]*) titles while pressing the ([^\"]*) but
   elements = [elements[0]] + elements[1..-1].reverse if button.eql? 'prev'
   elements.each do |title|
     Then 'I should see "' + title + '"'
-    When 'I follow "' + button + '" within "div.' + type + ' .header_buttons' + '"' 
+    When 'I follow "' + button + '" within "div.' + type + ' .header_buttons' + '"'
   end
 end
 
 When /^there are hidden ([^\"]*) for this ([^\"]*)$/ do |hidden_type, parent_type|
   parent_children = instance_variable_get("@#{parent_type}").child_statements :language_ids => [Language[:en].id], :type => hidden_type.singularize.classify
   parent_children_titles = parent_children.map{|p|p.document_in_preferred_language([Language[:en].id]).title}
-  
+
   visible_titles = []
   response.should have_selector("li.#{hidden_type.singularize}") do |selector|
     selector.each do |statement|
@@ -75,7 +75,7 @@ When /^there are hidden ([^\"]*) for this ([^\"]*)$/ do |hidden_type, parent_typ
     end
   end
   instance_variable_set("@hidden_#{hidden_type}", parent_children_titles - visible_titles)
-  
+
 end
 
 Then /^I should see the hidden ([^\"]*)$/ do |type|
@@ -144,7 +144,7 @@ end
 
 Then /^the ([^\"]*) should have 1 alternative$/ do |type|
   Then "the #{type} should have 1 alternatives"
-end 
+end
 
 Then /^the ([^\"]*) should have ([^\"]*) alternatives$/ do |type, number|
   var = instance_variable_get("@#{type.split(' ').join('_')}")
@@ -242,21 +242,34 @@ Then /^I should see no proposals$/ do
   assert_have_no_selector("li.question")
 end
 
-Then /^I should be a subscriber from "([^\"]*)"$/ do |question|
-  @question = StatementNode.search_statement_nodes(:type => "Question",
-                                                   :search_term => question,
-                                                   :language_ids => [Language["en"]]).first
-  assert(@question.followed_by?(@user))
+Then /^I should be a subscriber from the ([^\"]*)$/ do |st_type|
+  st_type = st_type.split(' ').join('_')
+  statement = instance_variable_get("@#{st_type}")
+  @user.reload
+  assert(@user.follows?(statement))
 end
 
-Then /^the ([^\"]*) should have a "([^\"]*)" event$/ do |type, op_type|
-  type = type.split(' ').join('_')
-  variable = instance_variable_get("@#{type}")
-  variable.reload
-  event = Event.all.select{|e|
-    ev = JSON.parse(e.event)
-    ev['id'].eql? variable.target_id and ev['type'].eql? variable.class.name.underscore
-  }.first
+Then /^I should have 1 subscription$/ do
+  Then "I should have 1 subscriptions"
+end
+
+Then /^I should have ([^\"]*) subscriptions$/ do |number|
+  @user.reload
+  assert_equal number.to_i, @user.subscriptions.length
+end
+
+Then /^the ([^\"]*) should not have a "([^\"]*)" event$/ do |st_type, op_type|
+  st_type = st_type.split(' ').join('_')
+  statement = instance_variable_get("@#{st_type}")
+  event = Event.all.select{|e|event = JSON.parse(e.event) ; event['id'].eql? statement.id and event['type'].eql? st_type}.first
+  puts event.inspect
+  assert event.nil?
+end
+
+Then /^the ([^\"]*) should have a "([^\"]*)" event$/ do |st_type, op_type|
+  st_type = st_type.split(' ').join('_')
+  statement = instance_variable_get("@#{st_type}")
+  event = Event.all.select{|e|event = JSON.parse(e.event) ; event['id'].eql? statement.id and event['type'].eql? st_type}.first
   assert !event.nil?
   assert_equal op_type, event.operation
 end

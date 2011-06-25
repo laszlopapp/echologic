@@ -1,0 +1,39 @@
+<% statement_node ||= @statement_node %>
+<% statement = statement_node.statement %>
+<% no_data = statement.statement_datas.empty? %>
+<% external_url = statement.external_url %>
+
+<!-- Info Type Radio Buttons -->
+<% content_tag :fieldset, :id => 'info_type_container' do %>
+	<% content_tag :ol do %>
+		<% content_tag :li, :class => 'two_columns_block' do %>
+		  <%= label_tag I18n.t('activerecord.attributes.statement.info_type_id') %>
+		  <% content_tag :div, :class => 'info_types_container' do %>
+			  <% content_tag :fieldset do %>
+				  <% content_tag :ol do %>
+						<% InfoType.all.each do |info_type| %>
+						  <% content_tag :li do %>
+					      <%= radio_button_tag "#{dom_class(statement_node)}[info_type]", info_type.code, (!no_data and statement_node.info_type.eql?(info_type)), 
+					                           :class => "info_type #{info_type.code}" %>
+								<%= label_tag info_type.value %>
+							<% end %>
+						<% end %>
+				  <% end %>
+				<% end %>
+			<% end %>
+		<% end %> 
+	<% end %>
+<% end %>
+
+<!-- External URL -->
+<% content_tag :fieldset, :id => 'statement_datas_container' do %>
+  <% content_tag :ol do %>
+    <% content_tag :li, :class => 'two_columns_block string' do %> 
+		  <%= label_tag I18n.t('activerecord.attributes.statement_data.info_url') %>
+			<%= text_field_tag "#{dom_class(statement_node)}[external_url][info_url]", external_url ? external_url.info_url : '', 
+          :class => "embed_url",
+          'data-default' => I18n.t("discuss.statements.info_url_hint") %>
+		<% end %>
+		<%= content_tag :iframe, '', :class => 'embedded_content', :frameborder => 0, :style => 'display:none' %>
+  <% end %>
+<% end %>

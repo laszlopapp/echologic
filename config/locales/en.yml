@@ -125,7 +125,7 @@ en:
       teaser:
         title: 'Become a co-author!'
     signup:
-      label: 'Sign Up'
+      label: 'Register'
       member_tag: Not a member yet?
       via_echo: '... via E-Mail'
       via_social: '... via existing account'
@@ -135,7 +135,7 @@ en:
       agreement: I have read and agree to the terms of data policy.
       use_photo: 'Use in echo, too'
     signin:
-      label: 'Sign In'
+      label: 'Login'
       password: 'Password'
       member_tag: Already a member?
       via_echo: '... via echo'
@@ -144,8 +144,8 @@ en:
       remember: Remember me!
       hello: Logged in<br/><strong>{{name}}</strong>
       hint: |
-        To avoid logging in again without having to enter your password,
-        please logout of the used social account (e.g. Facebook) in the end explicitely.
+        To prevent others from logging in without having to enter your password,
+        please logout of the used social account (e.g. Facebook, Twitter) in the end explicitely.
       messages:
         success: "Login successful. Welcome back to echo."
         failed: "Unknown user or wrong password."
@@ -176,7 +176,7 @@ en:
       step2: Define new password
       step1_text: |
         <p>Forgot your password or you would simply like to define a new one?</p>
-        <p>No problem! Just fill in your E-Mail address you used to sign up to echo.
+        <p>No problem! Just fill in your E-Mail address you used to register in echo.
         We will send you an E-mail shortly allowing you to define a new password.</p>
       step1_mail: Send E-Mail
 
@@ -455,6 +455,7 @@ en:
       current_pro_argument: 'The currently displayed PRO argument'
       current_contra_argument: 'The currently displayed CONTRA argument'
       current_follow_up_question: 'The currently displayed follow-up question'
+      current_background_info: 'The currently displayed background info'
       back_to_question: 'Back to current question'
       back_to_proposal: 'Back to current proposal'
       back_to_improvement: 'Back to current addition'
@@ -470,6 +471,8 @@ en:
       next_contra_argument: 'Read next argument for the current proposal'
       prev_follow_up_question: 'Read previous follow-up question in the context shown above'
       next_follow_up_question: 'Read next follow-up question in the context shown above'
+      prev_background_info: 'Read previous background info for the current content'
+      next_background_info: 'Read next background info for the current content'
       create_question: 'Create a new question'
       create_proposal: "Post a new proposal for the current question"
       create_improvement: "Post a new addition to the current proposal"
@@ -477,6 +480,7 @@ en:
       create_contra_argument: "Post a new CONTRA argument to the current proposal"
       create_follow_up_question: "Post a new new follow-up question concerning this statement"
       create_alternative: "Post a new contrary statement"
+      create_background_info: "Post a new background info"
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your echo to stop supporting this statement'
       publish: |
@@ -489,6 +493,7 @@ en:
         improvement: See all additions proposed for the current proposal
         pro_argument: See all arguments belonging to the current proposal
         contra_argument:  See all arguments belonging to the current proposal
+        background_info:  See all background infos belonging to the current statement
       link_statement: "Enter a part of the title and press the button to search for matching statements to be referenced..."
       copy_to_clipboard: "Copy Statement Link to Clipboard"
 
@@ -510,6 +515,7 @@ en:
       create_contra_argument_link: Add new CONTRA argument
       create_follow_up_question_link: Add new follow-up question
       create_alternative_link: Add new contrary statement
+      create_background_info_link: Add new background info
       recommend_link: 'Support (echo)'
       unrecommend_link: 'Withdraw vote'
       support_link: 'Support (echo)'
@@ -535,6 +541,7 @@ en:
         pro_argument: Enter the PRO argument title in... English?
         contra_argument: Enter the CONTRA argument title in... English?
         follow_up_question: Enter the follow-up question title in... English?
+        background_info: Enter the background info title in... English?
       text_hint:
         question: Please describe the issue in more detail and ask a concrete question...
         proposal: |
@@ -544,12 +551,14 @@ en:
         improvement: |
           Please describe your addition or amendment to the proposal in more detail...<br/><br/>
           These additions serve as a basis for echos democratic process of joint elaboration and
-          improvement of proposals. The author of the additions with the greatest support are regularly given the
+          improvement of proposals. The authors of the additions with the greatest support are regularly given the
           opportunity to incorporate their ideas and thoughts into the proposal.
         pro_argument: Please describe your point FOR the proposal in more detail...
         contra_argument: Please describe your point AGAINST the proposal in more detail...
         follow_up_question: Please describe your follow-up question in more detail...
+        background_info: Please describe your background info in more detail...
       tag_hint: 'Enter tags here...'
+      info_url_hint: 'Enter here the url you want to link'
 
       publish: Release
       published: The question has been released successfully.
@@ -563,6 +572,7 @@ en:
         contra_argument: 'Contra Argument'
         follow_up_question: 'Follow-Up Question'
         alternative: 'Alternative'
+        background_info: 'Background Info'
       new:
         question: 'New Question'
         proposal: 'New Proposal'
@@ -570,6 +580,7 @@ en:
         pro_argument: 'New Pro Argument'
         contra_argument: 'New Contra Argument'
         follow_up_question: 'New Follow-Up Question'
+        background_info: 'New Background_Info'
       headings:
         question: 'Questions'
         proposal: 'Proposals'
@@ -577,14 +588,17 @@ en:
         argument: 'Pros & Cons'
         follow_up_question: 'Follow-up Questions'
         alternatives: 'Alternatives'
+        background_info: 'Background Infos'
       sibling_labels:
         question: 'Questions'
         proposal: 'Proposals'
         improvement: 'Additions'
         argument: 'Arguments'
         follow_up_question: 'Questions'
+        background_info: 'Background Infos'
       siblings:
         follow_up_question: 'Follow-up Question in the context shown above'
+        background_info: 'Background Infos'
 
       topic: Topic (Tags / Keywords)
       states:
@@ -638,6 +652,7 @@ en:
           pr: 'Proposals for'
           im: 'Improvements for'
           ar: 'Arguments for'
+          bi: 'Background Infos for'
           fq: 'Follow-up Questions for'
           jp: 'Jump from'
           over:
@@ -647,6 +662,7 @@ en:
             pr: 'Back to'
             im: 'Back to'
             ar: 'Back to'
+            bi: 'Back to'
             fq: 'Back to'
             jp: 'Back to'
 
@@ -806,7 +822,7 @@ en:
             password:
               invalid: 'Wrong password.'
         social_identifier:
-          taken: 'This Social Account is already in use.'
+          taken: 'This Social Account is already in use. Please log in with it!'
 
 
       messages:
@@ -850,6 +866,10 @@ en:
         title: 'Title'
         text: 'Summary'
         image: 'Illustration'
+      statement:
+        info_type_id: 'Content Type'
+      statement_data:
+        info_url: 'Background Info URL'
       about_item:
         photo: 'Photo'
         name: 'Name'

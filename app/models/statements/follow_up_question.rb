@@ -1,6 +1,6 @@
-class FollowUpQuestion < StatementNode
+class FollowUpQuestion < Question
 
-  belongs_to :question, :dependent => :destroy
+  belongs_to :question
 
   delegate :level, :ancestors, :topic_tags, :topic_tags=, :tags, :taggable?, :echoable?, :editorial_state_id,
            :editorial_state_id=, :publishable?, :published, :locked_at, :supported?, :taggable?, :creator_id=,
@@ -15,12 +15,12 @@ class FollowUpQuestion < StatementNode
   def set_statement(attrs={})
     self.statement = self.question.statement = Statement.new(attrs)
   end
-  
+
   #
   # Helper function to load the tags from the root
   #
   def load_root_tags
-    self.topic_tags = self.root.nil? ? parent.root.topic_tags : self.root.topic_tags 
+    self.topic_tags = self.root.nil? ? parent.root.topic_tags : self.root.topic_tags
   end
 
   #################################################
@@ -50,6 +50,14 @@ class FollowUpQuestion < StatementNode
 
     # helper function to differentiate this model as a level 0 model
     def is_top_statement?
+      true
+    end
+    
+    def self.publishable?
+      true
+    end
+    
+    def publishable?
       true
     end
 

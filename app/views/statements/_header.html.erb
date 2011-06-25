@@ -8,10 +8,10 @@
                :href => only_header ? statement_node_url(statement_node,
                                                          :expand => true) : nil do %>
   <% content_tag :div, :class => 'header_buttons' do %>
-	 <%= navigation_buttons statement_node, dom_class(statement_node), :origin => params[:origin] %>
+	 <%= navigation_buttons statement_node, node_type(statement_node), :origin => params[:origin] %>
 	 
 	 <%= render :partial => "statements/descendants", 
-              :locals => {:child_type => dom_class(statement_node), :display => true,
+              :locals => {:child_type => node_type(statement_node), :display => true,
               :children => @children[statement_type.to_sym]} if @children and @children[statement_type.to_sym] %>
 	<% end %>
 	<% content_tag :div, :class => 'header_link'  do %>
