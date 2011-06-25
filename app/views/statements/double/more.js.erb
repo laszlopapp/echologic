@@ -14,6 +14,7 @@ var double_list = statement.find('.children .<%= type_plural %> .doubles_list');
 	var children_list = statement.find('.<%= type_plural %> .children_list:eq(<%= index %>)');
 	var elements_list =
       "<%= escape_javascript(render :partial => 'statements/child',
+                                    :locals => {:child_type => type}, 
                                     :collection => children_group[@offset, @per_page]) %>";
 
   var scrollpane;
