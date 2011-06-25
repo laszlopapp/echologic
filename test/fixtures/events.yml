@@ -2,8 +2,10 @@
 
 event_test_question:
   event: '{"type":"question","id":<%= Fixtures.identify('test-question')%>,"tags":["#echonomyjam"],"documents":{"<%= Fixtures.identify('language_en') %>":"Test Question?"},"parent_documents":null,"parent_id":-1,"operation":"created","level":0}'
+  subscribeable_id: <%= Fixtures.identify('test-question')%>
   subscribeable_type: StatementNode
   operation: new
+  broadcast: 1
 
   
 event_second_proposal:
@@ -11,16 +13,19 @@ event_second_proposal:
   subscribeable_id: <%= Fixtures.identify('test-question')%>
   subscribeable_type: StatementNode
   operation: new
+  broadcast: 0
   
 event_first_impro_proposal:
   event: '{"type":"improvement","id":<%= Fixtures.identify('first-impro-proposal')%>,"tags":[],"documents":{"<%= Fixtures.identify('language_en') %>":"A better first proposal"},"parent_documents":{"<%= Fixtures.identify('language_en') %>":"A first proposal!","<%= Fixtures.identify('language_de') %>":"Ein erster Vorschlag"},"parent_id":<%= Fixtures.identify('first-proposal')%>,"operation":"created","level":2}'
   subscribeable_id: <%= Fixtures.identify('first-proposal')%>
   subscribeable_type: StatementNode
   operation: new
+  broadcast: 0
   
 event_closed_impro_proposal:
   event: '{"type":"improvement","id":<%= Fixtures.identify('fifth-impro-proposal')%>,"tags":[],"documents":{"<%= Fixtures.identify('language_en') %>":"A better fifth proposal"},"parent_documents":{"<%= Fixtures.identify('language_en') %>":"A second proposal!","<%= Fixtures.identify('language_de') %>":"Ein zweiter Vorschlag"},"parent_id":<%= Fixtures.identify('second-proposal')%>,"operation":"created","level":2}'
   subscribeable_id: <%= Fixtures.identify('second-proposal')%>
   subscribeable_type: StatementNode
   operation: new
+  broadcast: 0
   

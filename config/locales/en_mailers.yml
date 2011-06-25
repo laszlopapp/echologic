@@ -48,9 +48,10 @@ en:
         Your newsletter mails are being delivered...
         
     user_mail:
-      title: User Mail 
+      title: User Mail
+      subject: "[echo message] {{subject}}" 
       prefix: "{{sender}} has sent you an email via echo..."
-      suffix: "You can answer XY directly or see his/her profile in echo here: {{url}}"
+      suffix: "You can answer {{sender}} directly or see his/her profile in echo here: {{url}}"
     activity_tracking:
       subject: echo - New discussion content
       title: New discussion content

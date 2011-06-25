@@ -27,8 +27,6 @@ class MailerService
   
   def send_user_mail(sender, recipient, mail)
     ProfileMailer.deliver_user_mail(sender, recipient, mail)
-    puts "User #{sender.id} has sent an email to: " + recipient.email
-    sleep 2
   end
 
   ###############

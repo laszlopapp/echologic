@@ -2,11 +2,12 @@ class ProfileMailer < ActionMailer::Base
   
   # Send a user email communication between two echo users
   def user_mail(sender, recipient, mail)
-    subject       "[echo message] #{mail[:subject]}"
+    language = recipient.default_language
+    subject       I18n.t("mailers.user_mail.subject", :subject => mail[:subject])
     from          "noreply@echologic.org"
     recipients    [recipient.email]
     reply_to      [sender.email]
     sent_on       Time.now
-    body          :sender => sender, :text => mail[:text]
+    body          :sender => sender, :text => mail[:text], :language => language
   end
 end

@@ -124,7 +124,7 @@ class ActivityTrackingService
 
     # Filter only events whose titles languages the recipient speaks
     events.reject!{|e| (e['documents'].keys.map{|id|id.to_i} & recipient.sorted_spoken_languages).empty? }
-
+    
     return if events.blank? #if there are no events to send per email, take the next user
 
     # Take the question events apart

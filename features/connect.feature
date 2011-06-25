@@ -66,3 +66,20 @@ Feature: Use connect functionality
     And the profile of user "luise echmeier" has no show_profile flag
     And I am on the connect page
     Then I should not see the profile of "luise echmeier"
+    
+  
+    
+  Scenario: Send an email to another user
+    Given I am logged in as "user" with password "true"
+    When I am on the connect page
+      And I follow the "Show" link for the profile of "User Test"
+    Then I should not see localized "connect.details.actions.send_mail" within "#profile_details_container .actions"
+      And I go to the connect page
+      And I follow the "Show" link for the profile of "Ben Test"
+      And I follow localized "connect.details.actions.send_mail" within "#profile_details_container .actions"
+      And I fill in the following:
+      | user_mail_subject | I Like the Subject |
+      | user_mail_text    | I Like the Text    |
+      And I press "Send"
+    Then I should see localized "users.user_mails.messages.created"
+      And an "echo message" email should be sent to "ben@echologic.org"
