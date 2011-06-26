@@ -438,7 +438,13 @@ form.statement .info_types_container a.url {
 }
 
 form.statement input.embed_url {
+  width: 660px !important;
+}
 
+form.statement .preview_button {
+	float: right;
+	position: relative;
+	top: 3px;
 }
 
 .statement .embedded_content {
@@ -446,6 +452,9 @@ form.statement input.embed_url {
 	height: 600px;
 }
 
+form.embeddable #statement_datas_container li {
+	width: 762px;
+}
 /*********/
 /* lwRTE */
 /*********/

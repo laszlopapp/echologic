@@ -520,6 +520,7 @@ en:
       unrecommend_link: 'Withdraw vote'
       support_link: 'Support (echo)'
       unsupport_link: 'Withdraw vote'
+      embed_preview_link: Preview
 
       statement_language_hint: |
         Please set your language skills in your <a href='{{url}}'>Profile</a>.
