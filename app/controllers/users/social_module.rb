@@ -1,7 +1,7 @@
 module Users::SocialModule
 
   def create_social
-    redirect_url = session[:redirect_url] || root_path
+    redirect_url = session.delete(:redirect_url)
     begin
       if params[:token]
         profile_info = SocialService.instance.get_profile_info(params[:token])
@@ -16,7 +16,7 @@ module Users::SocialModule
         User.transaction do
           if @user.signup!(opts)
             SocialService.instance.map(profile_info['identifier'], @user.id)
-            later_call_with_info(redirect_url, setup_basic_profile_url(@user.perishable_token))
+            later_call_with_info(redirect_url, setup_basic_profile_url(@user.perishable_token, :redirect_url => redirect_url))
           else
             later_call_with_error(redirect_url, signup_url, @user.social_identifiers.first)
           end
@@ -101,7 +101,7 @@ module Users::SocialModule
   end
 
   def setup_basic_profile
-    session[:redirect_url] = request.referer
+    session[:redirect_url] = params[:redirect_url] || last_url
     @user = User.find_by_perishable_token(params[:activation_code], 1.week)
     @profile_info = JSON.parse(@user.social_identifiers.first.profile_info)
     if @user.nil?

@@ -53,9 +53,10 @@ class Users::ActivationsController < ApplicationController
         if @user.email or @user.has_verified_email? params[:user][:email]
           # Given email is a verified email, therefore, no activation is needed
           if @user.activate!(params[:user]) and @user.profile.save # so that the name persists
+            redirect_url = session.delete(:redirect_url) || my_profile_path
             UserSession.create(@user, false)
             @user.deliver_activation_confirmation!
-            redirect_with_info(my_profile_path, 'users.activation.messages.success')
+            redirect_with_info(redirect_url, 'users.activation.messages.success')
           else
             set_error 'users.activation.messages.failed'
             redirect_or_render_with_error(root_path, @user)
