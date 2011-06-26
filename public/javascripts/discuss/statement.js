@@ -417,9 +417,8 @@
 		   * Sets the different links on the statement UI, after the user clicked on them.
 		   */
 		  function initAllStatementLinks() {
-				var key = generateBreadcrumbKey();
-
         statement.find('.header a.statement_link').bind("click", function() {
+					var key = generateBreadcrumbKey();
 
 					var old_stack = $.fragment().sids;
 		      var current_stack = getStatementsStack(this, false);
@@ -428,7 +427,6 @@
 
 					// Update the bids
 					var index = $.inArray(key, bids);
-					
 					if (index != -1) { // if parent breadcrumb exists, then delete everything after it
 						bids = bids.splice(0, index + 1);
 					} else { // if parent breadcrumb doesn't exist, it means top stack statement
