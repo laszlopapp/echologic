@@ -98,17 +98,30 @@ module StatementsHelper
   #
   # Creates a link to copy the statement node link into the clipboard
   #
-  def render_clipboard_button(statement_node)
+  def render_clipboard_area(statement_node)
     url = statement_node_url(statement_node)
-    content_tag :div, :class => "clip_button_container" do
-      content = ""
-      content << link_to('', '#', :class => 'clip_button ttLink no_border',
-                                  :title => I18n.t('discuss.tooltips.copy_to_clipboard'))
-      content << text_field_tag('', url, :class => 'clip_url', :style => "display:none")
-      content
-    end
+    content = ""
+    content << render_clipboard_button
+    content << render_clipboard_panel(url)
+    content
+  end
+  
+  def render_clipboard_button
+    link_to(I18n.t("discuss.statements.copy_to_clipboard"), '#', :class => 'clip_button text_button')
   end
 
+  def render_clipboard_panel(url)
+    content_tag(:div, :class => 'clipboard_panel popup_panel',
+                           :style => "display:none") do
+      panel = ''
+      panel << content_tag(:div, :class => 'panel_header') do
+        I18n.t("discuss.statements.copy_to_clipboard")
+      end
+      panel << content_tag(:div, I18n.t("discuss.statements.clipboard_hint"), :class => '')
+      panel << text_field_tag('', url, :class => 'clip_url')    
+      panel
+    end
+  end
 
   #########
   # Links #
