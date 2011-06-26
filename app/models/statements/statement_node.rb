@@ -115,7 +115,7 @@ class StatementNode < ActiveRecord::Base
   def publishable?
     false
   end
-  
+
   def self.publishable?
     false
   end
@@ -148,7 +148,7 @@ class StatementNode < ActiveRecord::Base
     self.statement.statement_documents << doc
     return doc
   end
-  
+
   # updates an existing node with a new set of attributes
   def update_node(attrs={})
     update_attributes(attrs)
@@ -317,12 +317,12 @@ class StatementNode < ActiveRecord::Base
       node.set_statement(:editorial_state => editorial_state) if node.statement.nil?
       node
     end
-    
+
     def filter_editorial_state(attributes={})
       attributes[:editorial_state] = StatementState[attributes.delete(:editorial_state_id).to_i] if attributes[:editorial_state_id]
       attributes
     end
-    
+
     # Aux Function: Checks if node has more data to show or load
     def has_embeddable_data?
       false

@@ -35,17 +35,16 @@
     /*************************/
 
     function Statement(statement) {
-			var timer;
       var statementDomId = statement.attr('id');
 			var statementDomParent = statement.attr('dom-parent');
-			var statementType = statement.attr('id').match("new") ? $.trim(statement.find('input#type').val()) : $.trim(statementDomId.match(/[^(add_|new_)]\w+[^_\d+]/));
+			var statementType = statement.attr('id').match("new") ? $.trim(statement.find('input#type').val()) :
+                                                              $.trim(statementDomId.match(/[^(add_|new_)]\w+[^_\d+]/));
       var statementId = getStatementId(statementDomId);
 			var parentStatement, statement_index;
 			var statementUrl;
 
       // Initialize the statement
       initialise();
-
 
       // Initializes the statement.
       function initialise() {
@@ -76,14 +75,14 @@
 					statement.statementForm();
         } else {
 					statementUrl = statement.find('.header_link a.statement_link').attr('href');
-					
+
 					initAddNewButton();
 					initClipboardButton();
           initMoreButton();
           initAllStatementLinks();
 					//initFlicks();
         }
-				
+
 				//statement.find('.embedded_container').iframeResize({height: "auto", autoUpdate : true, classes: ".embedded_content"});
       }
 
@@ -102,8 +101,8 @@
 					if (statementDomId.match('new') && element.data('api').getType() != statementType) {
 						var dom_parent = statementDomParent;
 						if (dom_parent && dom_parent.length > 0) {
-							var key = $.inArray(dom_parent.substring(0,2),['ds','sr']) == -1 ? 
-							          $("#statements div#" + dom_parent).data('api').getBreadcrumbKey() : 
+							var key = $.inArray(dom_parent.substring(0,2),['ds','sr']) == -1 ?
+							          $("#statements div#" + dom_parent).data('api').getBreadcrumbKey() :
 												dom_parent.substring(0,2);
 							var parentBreadcrumb = $("#breadcrumbs").data('breadcrumbApi').getBreadcrumb(key);
 							if (parentBreadcrumb.length > 0) {
@@ -337,16 +336,16 @@
           return false;
 		    });
 		  }
-   
+
 	    function initClipboardButton() {
 				var clip_url = statement.find('.action_bar .clip_url')
 				statement.find('.action_bar a.clip_button').bind('click', function(){
 					clip_url.show().select();
 					return false;
 				});
-			
-			}  
-	 
+
+			}
+
 		  /*
 		   * Handles the click on the more Button event (replaces it with an element of class 'more_loading')
 		   */
@@ -428,7 +427,7 @@
 
 					// Update the bids
 					var index = $.inArray(key, bids);
-					
+
 					if (index != -1) { // if parent breadcrumb exists, then delete everything after it
 						bids = bids.splice(0, index + 1);
 					} else { // if parent breadcrumb doesn't exist, it means top stack statement

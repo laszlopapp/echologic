@@ -93,8 +93,8 @@ module StatementsHelper
       content
     end
   end
-  
-  
+
+
   #
   # Creates a link to copy the statement node link into the clipboard
   #
@@ -404,7 +404,8 @@ module StatementsHelper
 
   def node_type(statement_node)
     @statement_type ||= {}
-    @statement_type[statement_node.level] ||= statement_node.new_record? ? @statement_node_type.name.underscore : dom_class(statement_node.target_statement) 
+    @statement_type[statement_node.level] ||= statement_node.new_record? ? @statement_node_type.name.underscore :
+                                                                           dom_class(statement_node.target_statement) 
   end
 
 
@@ -686,24 +687,24 @@ module StatementsHelper
      send("render_#{background_info.info_type.code}_data", background_info)
     end
   end
-  
+
   def render_article_data(background_info)
     render_in_iframe(background_info.external_url.info_url)
   end
-  
+
   def render_paper_data(background_info)
     render_in_iframe(background_info.external_url.info_url)
   end
-  
+
   def render_book_data(background_info)
     render_in_iframe(background_info.external_url.info_url)
   end
-  
+
   def render_photo_data(background_info)
     render_in_iframe(background_info.external_url.info_url)
   end
-  
-  
+
+
   def render_video_data(background_info)
     if background_info.external_url.is_youtube_url?
       %Q{<iframe title="YouTube video player" width="640" height="390" src="http://www.youtube.com/embed/#{ background_info.external_url.youtube_id }" frameborder="0" allowfullscreen></iframe>}
@@ -717,7 +718,7 @@ module StatementsHelper
   def render_url_data(background_info)
     render_in_iframe(background_info.external_url.info_url)
   end
-  
+
   def render_in_iframe(url)
     content_tag :iframe, '', :src => url, :class => 'embedded_content', :frameborder => 0
   end
