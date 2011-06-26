@@ -583,6 +583,25 @@
 				}
 				return current_stack;
 		  }
+			
+			
+			function reinitialiseChildren(childrenContainerSelector) {
+				var container = statement.find(childrenContainerSelector);
+        initContainerMoreButton(container);
+        initChildrenLinks(container);
+        if (isEchoable) {
+          statement.data('echoableApi').loadRatioBars(container);
+        }
+			}
+			
+			function reinitialiseSiblings(siblingsContainerSelector) {
+	      var container = statement.find(siblingsContainerSelector);
+        initContainerMoreButton(container);
+        initSiblingsLinks(container);
+        if (isEchoable) {
+          statement.data('echoableApi').loadRatioBars(container);
+        }
+	    }
 
       // Public API of statement
       $.extend(this,
@@ -593,22 +612,16 @@
           initialise();
         },
 
+        reinitialiseContainerBlock: function(containerSelector, newLevel) {
+					newLevel ? reinitialiseChildren(containerSelector) : reinitialiseSiblings(containerSelector);
+				},
+
 				reinitialiseChildren: function(childrenContainerSelector) {
-					var container = statement.find(childrenContainerSelector);
-					initContainerMoreButton(container);
-          initChildrenLinks(container);
-					if (isEchoable) {
-            statement.data('echoableApi').loadRatioBars(container);
-          }
+					reinitialiseChildren(siblingsContainerSelector);
 				},
 
 				reinitialiseSiblings: function(siblingsContainerSelector) {
-          var container = statement.find(siblingsContainerSelector);
-					initContainerMoreButton(container);
-          initSiblingsLinks(container);
-					if (isEchoable) {
-			  		statement.data('echoableApi').loadRatioBars(container);
-				  }
+          reinitialiseSiblings(siblingsContainerSelector);
         },
 
         insertContent: function(content) {

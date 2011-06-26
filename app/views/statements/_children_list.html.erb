@@ -11,7 +11,7 @@
   <% if !no_more %>
 		<div class="more_pagination">
 			<% if !children.blank? and children.current_page != children.total_pages %>
-			  <%= more_children(@statement_node,label_type,@page || 0) %>
+			  <%= more_children(@statement_node,:type => label_type, :page => @page || 0, :new_level => new_level) %>
 		  <% end %>
 		</div>
 	<% end %>

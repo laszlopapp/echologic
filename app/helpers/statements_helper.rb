@@ -631,9 +631,14 @@ module StatementsHelper
   #
   # Renders the "more" link when the statement is loaded.
   #
-  def more_children(statement_node,type,page=0)
+  def more_children(statement_node,opts={})
+    opts[:page] ||= 0
     link_to I18n.t("application.general.more"),
-            more_statement_node_url(statement_node, :page => page.to_i+1, :type => type),
+            more_statement_node_url(statement_node, :page => opts[:page]+1, 
+                                                    :type => opts[:type], 
+                                                    :bids => params[:bids], 
+                                                    :origin => params[:origin], 
+                                                    :new_level => opts[:new_level]),
             :class => 'more_children'
   end
 
