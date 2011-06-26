@@ -164,7 +164,6 @@
             var remove_length;
 
             // There is an origin, so delete breadcrumbs to the right
-
             var index = $.inArray(delete_from, breadcrumb_ids);
             var to_remove = elements.find('.breadcrumb:eq(' + (index) + ')');
 						var to_remove_elements = to_remove.nextAll();

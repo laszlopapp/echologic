@@ -404,7 +404,7 @@ module StatementsHelper
 
   def node_type(statement_node)
     @statement_type ||= {}
-    @statement_type[statement_node.level] ||= statement_node.new_record? ? @statement_node_type.name.underscore : dom_class(statement_node) 
+    @statement_type[statement_node.level] ||= statement_node.new_record? ? @statement_node_type.name.underscore : dom_class(statement_node.target_statement) 
   end
 
 

@@ -38,7 +38,7 @@
 			var timer;
       var statementDomId = statement.attr('id');
 			var statementDomParent = statement.attr('dom-parent');
-			var statementType = $.trim(statement.find('input#type').val());
+			var statementType = statement.attr('id').match("new") ? $.trim(statement.find('input#type').val()) : $.trim(statementDomId.match(/[^(add_|new_)]\w+[^_\d+]/));
       var statementId = getStatementId(statementDomId);
 			var parentStatement, statement_index;
 			var statementUrl;
@@ -428,13 +428,12 @@
 
 					// Update the bids
 					var index = $.inArray(key, bids);
-
+					
 					if (index != -1) { // if parent breadcrumb exists, then delete everything after it
 						bids = bids.splice(0, index + 1);
 					} else { // if parent breadcrumb doesn't exist, it means top stack statement
 						bids = bids.splice(0, current_bids.length - current_bids.length%3);
 					}
-
 
 					// save element after which the breadcrumbs will be deleted
           $('#breadcrumbs').data('element_clicked', key);
