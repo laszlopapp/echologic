@@ -599,9 +599,6 @@ def filter_languages_for_children
   # if no user or user doesn't have any language defined, show everything
   if current_user.nil? or current_user.spoken_languages.empty?
     nil
-    #if user doesn't speak the local language, then don't show the children on it
-  elsif !current_user.speaks_language?(Language[I18n.locale])
-    @language_preference_list - [locale_language_id]
   else
     @language_preference_list
   end
