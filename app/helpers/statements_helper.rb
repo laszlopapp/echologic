@@ -197,10 +197,10 @@ module StatementsHelper
             when 'fq' then "follow_up_question"
           end
 
-          link_to(I18n.t("discuss.statements.siblings.#{context_type}"),
-                  new_statement_node_url(origin[2..-1], context_type, :origin => origin),
-                  :class => "create_#{context_type}_button_32 resource_link ajax ttLink no_border",
-                  :title => I18n.t("discuss.statements.siblings.#{context_type}"))
+          buttons << link_to(I18n.t("discuss.statements.siblings.#{context_type}"),
+                             new_statement_node_url(origin[2..-1], context_type, :origin => origin),
+                             :class => "create_#{context_type}_button_32 resource_link ajax ttLink no_border",
+                             :title => I18n.t("discuss.statements.siblings.#{context_type}"))
         end
       end
       # New alternative Button TODO: this is going to the logic above, in the future
@@ -404,7 +404,7 @@ module StatementsHelper
 
   def node_type(statement_node)
     @statement_type ||= {}
-    @statement_type[statement_node.level] ||= statement_node.new_record? ? @statement_node_type.name.underscore : dom_class(statement_node) 
+    @statement_type[statement_node.level] ||= statement_node.new_record? ? @statement_node_type.name.underscore : dom_class(statement_node.target_statement) 
   end
 
 
