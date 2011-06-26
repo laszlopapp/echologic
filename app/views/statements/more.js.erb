@@ -10,6 +10,7 @@ var more_element = container.find('.more_pagination');
 <% end %>
 
 var elements_list = "<%= escape_javascript(render :partial => 'statements/child',
+                                                  :locals => {:child_type => @type.to_s.underscore},
                                                   :collection => @children[@type][@offset, @per_page]) %>";
 var pagination_buttons = "<%= escape_javascript(will_paginate(@children[@type], :class => 'more_pagination',
                                                    :next_label => I18n.t("application.general.more"),

@@ -4,15 +4,15 @@ class Users::UserSessionsController < ApplicationController
   skip_before_filter :require_user, :only => [:new, :create, :create_social]
 
   def new
-    session[:redirect_url] = request.referer
+    session[:redirect_url] = params[:redirect_url] || last_url
     render_signinup :signin
   end
 
   # TODO use redirect back or default! see application controller!
   def create
-    redirect_url = session[:redirect_url] || root_path
+    redirect_url = session.delete(:redirect_url)
     begin
-      User.transaction do 
+      User.transaction do
         @user_session = UserSession.new(params[:user_session])
         if @user_session.save
           # if the user failed to log in with a social account just previously,
@@ -20,7 +20,7 @@ class Users::UserSessionsController < ApplicationController
           user = User.find_by_email(params[:user_session][:email])
           add_social_to_user(user) if session[:identifier]
           user.check_social_accounts
-  
+
           redirect_with_info(redirect_url, 'users.signin.messages.success')
         else
           later_call_with_error(redirect_url, signin_path, 'users.signin.messages.failed')
@@ -34,7 +34,7 @@ class Users::UserSessionsController < ApplicationController
   end
 
   def create_social
-    redirect_url = session[:redirect_url] || root_path
+    redirect_url = session.delete(:redirect_url)
     begin
       if params[:token]
         profile_info = SocialService.instance.get_profile_info(params[:token])
