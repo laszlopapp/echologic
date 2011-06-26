@@ -41,7 +41,7 @@ class Users::UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.xml
   def new
-    session[:redirect_url] = params[:redirect_url] || last_url
+    session[:redirect_url] = last_url
     render_signinup :signup
   end
 

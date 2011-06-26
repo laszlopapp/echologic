@@ -3,6 +3,9 @@ class Users::ActivationsController < ApplicationController
   skip_before_filter :require_user
   before_filter :require_no_user
 
+  #
+  # Setup basic profile after registering for an echo account with an E-Mail address.
+  #
   def basic_profile
     later_call_with_info(root_path, request.url) do |format|
       format.js {
@@ -53,10 +56,9 @@ class Users::ActivationsController < ApplicationController
         if @user.email or @user.has_verified_email? params[:user][:email]
           # Given email is a verified email, therefore, no activation is needed
           if @user.activate!(params[:user]) and @user.profile.save # so that the name persists
-            redirect_url = session.delete(:redirect_url) || my_profile_path
             UserSession.create(@user, false)
             @user.deliver_activation_confirmation!
-            redirect_with_info(redirect_url, 'users.activation.messages.success')
+            redirect_with_info(my_profile_path, 'users.activation.messages.success')
           else
             set_error 'users.activation.messages.failed'
             redirect_or_render_with_error(root_path, @user)
