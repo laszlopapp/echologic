@@ -702,7 +702,12 @@ module StatementsHelper
 
   def render_embeddable_data(background_info)
     content_tag :div, :class => 'embedded_container' do
-     send("render_#{background_info.info_type.code}_data", background_info)
+     content = ''
+     content << link_to(I18n.t("discuss.statements.open_embed_link"), background_info.external_url.info_url, 
+                        :class => "open_embed_button text_button", 
+                        :target => "_blank")
+     content << send("render_#{background_info.info_type.code}_data", background_info)
+     content
     end
   end
 

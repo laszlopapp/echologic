@@ -447,19 +447,50 @@ form.statement .preview_button {
 	top: 3px;
 }
 
-.statement .embedded_content {
-	width: 721px;
-	height: 600px;
-	margin-top: 16px;
+form.statement .edit_embed_button {
+	display: block;
+}
+
+form.embeddable #statement_datas_container li {
+  width: 762px;
+}
+
+.statement .open_embed_button {
+	float: right;
 }
 
 .statement .embedding_display {
 	text-align: center;
 }
 
-form.embeddable #statement_datas_container li {
-	width: 762px;
+
+
+.statement .embedding_area {
+  border-top: 1px solid #000000;
+  margin-top: 20px;
+	margin-left: -190px;
+  padding-top: 40px;
+	padding-left: 190px;
+	width: 800px;
 }
+
+.statement .embedded_container {
+  clear: both;
+  text-align: center;
+  margin-bottom: 0 auto;
+	border-top: 1px solid #000000;
+	padding-top: 10px;
+}
+
+.statement .embedded_content {
+  width: 100%;
+  height: 1000px;
+  margin-top: 16px;
+	overflow-x: hidden;
+	overflow-y: auto;
+
+}
+
 /*********/
 /* lwRTE */
 /*********/
@@ -2065,14 +2096,5 @@ form.statement fieldset ol li.tags_container {
   top: 7px;
 }
 
-/******************/
-/* Statement Data */
-/******************/
 
-.statement .embedded_container {
-  width: 785px;
-	text-align: center;
-	margin-bottom: 20px;
-	margin-left: 190px;
-  padding-left: 15px;
-}
+

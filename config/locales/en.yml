@@ -521,6 +521,7 @@ en:
       support_link: 'Support (echo)'
       unsupport_link: 'Withdraw vote'
       embed_preview_link: Preview
+      open_embed_link: Open Embedded Url
 
       statement_language_hint: |
         Please set your language skills in your <a href='{{url}}'>Profile</a>.

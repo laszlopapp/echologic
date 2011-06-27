@@ -3,7 +3,7 @@
 <% no_data = statement.statement_datas.empty? %>
 <% external_url = statement.external_url %>
 
-<% content_tag :div, :class => "embedding_info" do %>
+<% content_tag :div, :class => "embedding_info embedding_area" do %>
 	<!-- Info Type Radio Buttons -->
 	<% content_tag :fieldset, :id => 'info_type_container' do %>
 		<% content_tag :ol do %>
@@ -43,7 +43,7 @@
 	<% end %>
 <% end %>
 
-<% content_tag :div, :class => "embedding_display" do %>
-<%= link_to I18n.t("application.general.edit"), "#", :class => "text_button" %>
+<% content_tag :div, :class => "embedding_display embedding_area" do %>
+<%= link_to I18n.t("application.general.edit"), "#", :class => "edit_embed_button text_button" %>
 <%= content_tag :iframe, '', :class => 'embedded_content', :frameborder => 0, :style => 'display:none' %>
 <% end %>
