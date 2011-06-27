@@ -702,7 +702,8 @@
 		    },
         loadRatioBars: function(container)
         {
-          initRatioBars(container);
+          statement.data('echoableApi').loadRatioBars(container);
+					return this;
         },
 				getType: function()
 				{
