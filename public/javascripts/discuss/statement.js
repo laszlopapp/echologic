@@ -160,12 +160,16 @@
 			function initChildrenButtons() {
 				statement.find(".children").each(function(){
 					var container = $(this);
-					var loading = container.find('.headline .loading');
+					var headline = container.find('.headline');
+					var loading = headline.find('.loading');
+					var content = container.find('.children_content');
 				  container.find("a.child_header").bind('click', function(){
 						var last_button = container.find('a.child_header.selected');
 						var button = $(this);
 						var type = button.attr('type');
 						var panel = container.find('div.' + type);
+						var headlineApi = headline.data('expandableApi');
+						if (!content.is(":visible")) { headlineApi.toggle(); }
 						if (panel.length > 0) {
 							if (!panel.is(':visible')) {
 						  	container.find('div.children_container').hide();
