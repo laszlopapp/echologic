@@ -1528,7 +1528,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	display: inline-block;
 	margin-top: -1px;
 }
-.statement .children .headline .child_header.selected {
+.statement .children .headline.active .child_header.selected {
 	background-position: left bottom;
 }
 
@@ -1541,7 +1541,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	display: inline-block;
 	color: #21587F;
 }
-.statement .children .headline .child_header.selected .header_content {
+.statement .children .headline.active .child_header.selected .header_content {
 	background-position: right bottom;
 	color: #7BB031;
 }
