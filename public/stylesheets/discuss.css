@@ -450,6 +450,11 @@ form.statement .preview_button {
 .statement .embedded_content {
 	width: 721px;
 	height: 600px;
+	margin-top: 16px;
+}
+
+.statement .embedding_display {
+	text-align: center;
 }
 
 form.embeddable #statement_datas_container li {
