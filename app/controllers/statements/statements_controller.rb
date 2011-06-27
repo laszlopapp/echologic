@@ -213,7 +213,7 @@ class StatementsController < ApplicationController
       else
         set_error(@statement_document)
         if @statement_node.class.has_embeddable_data?
-          set_error(@statement_node.statement, :only => [:info_type_id])
+          set_error(@statement_node.statement, :only => [:info_type_id, :external_url])
           @statement_node.statement_datas.each{|s|set_error(s)}
         end
         render_statement_with_error :template => 'statements/new'
