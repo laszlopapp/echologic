@@ -870,6 +870,7 @@ en:
         image: 'Illustration'
       statement:
         info_type_id: 'Content Type'
+        external_url: 'Background Info URL'
       statement_data:
         info_url: 'Background Info URL'
       about_item:

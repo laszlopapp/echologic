@@ -34,7 +34,9 @@
 			  <%= label_tag I18n.t('activerecord.attributes.statement_data.info_url') %>
 				<%= text_field_tag "#{dom_class(statement_node)}[external_url][info_url]", external_url ? external_url.info_url : '', 
 	          :class => "embed_url",
-	          'data-default' => I18n.t("discuss.statements.info_url_hint") %>
+	          'data-default' => I18n.t("discuss.statements.info_url_hint"),
+            'invalid-message' => I18n.t("activerecord.errors.messages.invalid", 
+                                        :attribute => I18n.t("activerecord.attributes.statement_data.info_url")) %>
 				<%= link_to I18n.t("discuss.statements.embed_preview_link"), "#", :class => "preview_button text_button" %>
 			<% end %>
 	  <% end %>

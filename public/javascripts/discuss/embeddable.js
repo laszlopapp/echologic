@@ -102,6 +102,9 @@
 				if (!selected_content_type) {
 					embed_url.attr('disabled', 'disabled');
 				}
+				var invalid_message = embed_url.attr('invalid-message');
+				embed_url.data('invalid-message', invalid_message);
+				embed_url.removeAttr('invalid-message');
 				embed_url.bind('keypress', function (event) {
 					if (event && event.keyCode == 13) { /* check if enter was pressed */
 					  showEmbeddingDisplay(); 
@@ -109,6 +112,10 @@
 					}
         });
 				handlePreviewButton();
+				embeddable.bind('submit', function(){
+					var url = embed_url.val();
+					if (!url.match(/http(s)?:\/\/.*/)) {embed_url.val("http://" + url);}
+				});
       }
 			
 			function handlePreviewButton() {
@@ -120,11 +127,14 @@
 			
 			function showEmbeddingDisplay() {
 				var url = embed_url.val();
+				if (!url.match(/http(s)?:\/\/.*/)) {url = "http://" + url;}
 				if (isValidUrl(url)) {
 					embedding_info.hide();
 				  loadEmbeddedContent(url);
 					embedding_display.show();
 					triggerChange();
+				} else {
+					error(embed_url.data('invalid-message'));
 				}
 			}
 			
@@ -167,7 +177,7 @@
        * checks if the url is from a video (youtube)
        */
       function containsYoutubeVideo(url) {
-        return url.match(/.*http:\/\/(\w+\.)?youtube.com\/watch\?v=(\w+).*/);
+        return url.match(/.*http(s)?:\/\/(\w+\.)?youtube.com\/watch\?v=(\w+).*/);
       }
       
       /* 
