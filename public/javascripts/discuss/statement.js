@@ -240,8 +240,8 @@
 		   * Collapses all visible statements.
 		   */
 		  function hideStatements() {
-				$('#statements .statement .header').removeClass('active').addClass('expandable');
 				$('#statements .statement .header:Event(!click)').expandable();
+				$('#statements .statement .header').removeClass('active').addClass('expandable');
 		    $('#statements .statement .content').animate(settings['hide_animation_params'],
                                                      settings['hide_animation_speed']);
 		    $('#statements .statement .header .supporters_label').animate(settings['hide_animation_params'],
