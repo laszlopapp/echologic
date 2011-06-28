@@ -220,8 +220,16 @@
 							linkStatementNode(echoId);
 						}
 						else {
-							title.addClass('ac_loading');
-							title.search();
+							var words = titleValue.split(" ");
+							var moreThanThreeChars = true;
+							$.each(words, function(index, word){
+								if(word.length < 3) {moreThanThreeChars = false; return;}
+								if (index > 1) { return; }
+							}); 
+							if (words.length >= 2 && moreThanThreeChars) {
+						  	title.addClass('ac_loading');
+						  	title.search();
+						  }
 						}
           }
           
