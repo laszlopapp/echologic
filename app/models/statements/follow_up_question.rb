@@ -33,7 +33,8 @@ class FollowUpQuestion < Question
     def new_instance(attributes = nil)
       parent = attributes ? attributes.delete(:parent_id) : nil
       root = attributes.delete(:root_id)
-      question = Question.new_instance(attributes)
+      statement = Statement.find(attributes.delete(:statement_id)) if attributes[:statement_id]
+      question = statement.nil? ? Question.new_instance(attributes) : statement.statement_nodes.all(:conditions => "type = 'Question'").first
       self.new({:parent_id => parent,
                 :root_id => root,
                 :question => question,

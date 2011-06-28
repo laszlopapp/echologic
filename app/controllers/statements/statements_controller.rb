@@ -99,7 +99,7 @@ class StatementsController < ApplicationController
   #
   def new
     @statement_node ||= StatementNode.new_instance(:parent_id => params[:id],
-                                                          :editorial_state => StatementState[:new])
+                                                   :editorial_state => StatementState[:new])
     @statement_document ||= StatementDocument.new(:language_id => @locale_language_id)
     @action ||= StatementAction["created"]
 
