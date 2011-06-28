@@ -1,4 +1,5 @@
 class FollowUpQuestion < Question
+  has_linkable_types :Question
 
   belongs_to :question
 
@@ -30,10 +31,6 @@ class FollowUpQuestion < Question
   class << self
     def children_types(opts={})
       Question.children_types(opts)
-    end
-    
-    def linkable_types
-      Question.linkable_types
     end
 
     def new_instance(attributes = nil)
