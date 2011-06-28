@@ -438,12 +438,57 @@ form.statement .info_types_container a.url {
 }
 
 form.statement input.embed_url {
+  width: 660px !important;
+}
 
+form.statement .preview_button {
+	float: right;
+	position: relative;
+	top: 3px;
+}
+
+form.statement .edit_embed_button {
+	display: block;
+}
+
+form.embeddable #statement_datas_container li {
+  width: 762px;
+}
+
+.statement .open_embed_button {
+	float: right;
+}
+
+.statement .embedding_display {
+	text-align: center;
+}
+
+
+
+.statement .embedding_area {
+  border-top: 1px solid #000000;
+  margin-top: 20px;
+	margin-left: -190px;
+  padding-top: 40px;
+	padding-left: 190px;
+	width: 800px;
+}
+
+.statement .embedded_container {
+  clear: both;
+  text-align: center;
+  margin-bottom: 0 auto;
+	border-top: 1px solid #000000;
+	padding-top: 10px;
 }
 
 .statement .embedded_content {
-	width: 721px;
-	height: 600px;
+  width: 100%;
+  height: 1000px;
+  margin-top: 16px;
+	overflow-x: hidden;
+	overflow-y: auto;
+
 }
 
 /*********/
@@ -1052,12 +1097,28 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .action_bar .clip_button {
   display: inline-block;
 	background: url(../images/page/discuss/copy_link_16.png) no-repeat scroll 0 0;
-	height: 16px;
-	width: 20px;
+	padding-left: 24px;
+	margin-left: 0;
+}
+
+.clipboard_panel {
+    background: none repeat scroll 0 0 #FEFEFE;
+    border: 3px solid #BBBBBB;
+    bottom: -69px;
+    left: 136px;
+    position: absolute;
+    width: 322px;
+		padding: 15px 30px;
+}
+
+.clipboard_panel .panel_header {
+  width: 280px;
+	margin-left: 0 !important;
 }
 
 .action_bar .clip_url {
-	margin-top: 10px;
+	margin-top: 20px;
+	width: 317px;
 }
 
 /****************/
@@ -1079,6 +1140,13 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   cursor: default;
 }
 
+.statement .popup_panel .panel_header {
+  background: none;
+  margin: 16px 0 16px 59px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
 /***************************/
 /* Add new statement panel */
 /***************************/
@@ -1093,11 +1161,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 .add_new_panel .panel_header {
-	background: none;
   width: 400px;
-  margin: 16px 0 16px 59px;
-  font-size: 16px;
-  font-weight: bold;
 }
 
 .add_new_panel .block_separator {
@@ -1464,7 +1528,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	display: inline-block;
 	margin-top: -1px;
 }
-.statement .children .headline .child_header.selected {
+.statement .children .headline.active .child_header.selected {
 	background-position: left bottom;
 }
 
@@ -1477,7 +1541,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	display: inline-block;
 	color: #21587F;
 }
-.statement .children .headline .child_header.selected .header_content {
+.statement .children .headline.active .child_header.selected .header_content {
 	background-position: right bottom;
 	color: #7BB031;
 }
@@ -2032,14 +2096,5 @@ form.statement fieldset ol li.tags_container {
   top: 7px;
 }
 
-/******************/
-/* Statement Data */
-/******************/
 
-.statement .embedded_container {
-  width: 785px;
-	text-align: center;
-	margin-bottom: 20px;
-	margin-left: 190px;
-  padding-left: 15px;
-}
+

@@ -9,7 +9,9 @@
       <%= render_add_new_button(statement_node, params[:origin], params[:bids]) %>
     <% end %>
     
-		<%= render_clipboard_button(statement_node) %>
+		<% content_tag :div, :class => "clip_button_container" do %>
+		  <%= render_clipboard_area(statement_node) %>
+		<% end %>
 		  
     <% if current_user and current_user.may_delete?(statement_node) -%>
       <br/><br/>

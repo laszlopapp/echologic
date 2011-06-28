@@ -47,6 +47,9 @@
       initialise();
 
       function initialise() {
+				if(expandable_content.length > 0) {
+					expandable.addClass("active");
+				}
 			  // Collapse/expand clicks
         expandable.bind("click", function(){
 					if (!settings['condition_element']) {

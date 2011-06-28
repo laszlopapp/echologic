@@ -98,17 +98,30 @@ module StatementsHelper
   #
   # Creates a link to copy the statement node link into the clipboard
   #
-  def render_clipboard_button(statement_node)
+  def render_clipboard_area(statement_node)
     url = statement_node_url(statement_node)
-    content_tag :div, :class => "clip_button_container" do
-      content = ""
-      content << link_to('', '#', :class => 'clip_button ttLink no_border',
-                                  :title => I18n.t('discuss.tooltips.copy_to_clipboard'))
-      content << text_field_tag('', url, :class => 'clip_url', :style => "display:none")
-      content
-    end
+    content = ""
+    content << render_clipboard_button
+    content << render_clipboard_panel(url)
+    content
+  end
+  
+  def render_clipboard_button
+    link_to(I18n.t("discuss.statements.copy_to_clipboard"), '#', :class => 'clip_button text_button')
   end
 
+  def render_clipboard_panel(url)
+    content_tag(:div, :class => 'clipboard_panel popup_panel',
+                           :style => "display:none") do
+      panel = ''
+      panel << content_tag(:div, :class => 'panel_header') do
+        I18n.t("discuss.statements.copy_to_clipboard")
+      end
+      panel << content_tag(:div, I18n.t("discuss.statements.clipboard_hint"), :class => '')
+      panel << text_field_tag('', url, :class => 'clip_url')    
+      panel
+    end
+  end
 
   #########
   # Links #
@@ -631,9 +644,14 @@ module StatementsHelper
   #
   # Renders the "more" link when the statement is loaded.
   #
-  def more_children(statement_node,type,page=0)
+  def more_children(statement_node,opts={})
+    opts[:page] ||= 0
     link_to I18n.t("application.general.more"),
-            more_statement_node_url(statement_node, :page => page.to_i+1, :type => type),
+            more_statement_node_url(statement_node, :page => opts[:page]+1, 
+                                                    :type => opts[:type], 
+                                                    :bids => params[:bids], 
+                                                    :origin => params[:origin], 
+                                                    :new_level => opts[:new_level]),
             :class => 'more_children'
   end
 
@@ -684,7 +702,12 @@ module StatementsHelper
 
   def render_embeddable_data(background_info)
     content_tag :div, :class => 'embedded_container' do
-     send("render_#{background_info.info_type.code}_data", background_info)
+     content = ''
+     content << link_to(I18n.t("discuss.statements.open_embed_link"), background_info.external_url.info_url, 
+                        :class => "open_embed_button text_button", 
+                        :target => "_blank")
+     content << send("render_#{background_info.info_type.code}_data", background_info)
+     content
     end
   end
 

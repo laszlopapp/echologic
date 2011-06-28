@@ -160,12 +160,16 @@
 			function initChildrenButtons() {
 				statement.find(".children").each(function(){
 					var container = $(this);
-					var loading = container.find('.headline .loading');
+					var headline = container.find('.headline');
+					var loading = headline.find('.loading');
+					var content = container.find('.children_content');
 				  container.find("a.child_header").bind('click', function(){
 						var last_button = container.find('a.child_header.selected');
 						var button = $(this);
 						var type = button.attr('type');
 						var panel = container.find('div.' + type);
+						var headlineApi = headline.data('expandableApi');
+						if (!content.is(":visible")) { headlineApi.toggle(); }
 						if (panel.length > 0) {
 							if (!panel.is(':visible')) {
 						  	container.find('div.children_container').hide();
@@ -236,8 +240,8 @@
 		   * Collapses all visible statements.
 		   */
 		  function hideStatements() {
-				$('#statements .statement .header').removeClass('active').addClass('expandable');
 				$('#statements .statement .header:Event(!click)').expandable();
+				$('#statements .statement .header').removeClass('active').addClass('expandable');
 		    $('#statements .statement .content').animate(settings['hide_animation_params'],
                                                      settings['hide_animation_speed']);
 		    $('#statements .statement .header .supporters_label').animate(settings['hide_animation_params'],
@@ -338,12 +342,16 @@
 		  }
 
 	    function initClipboardButton() {
-				var clip_url = statement.find('.action_bar .clip_url')
-				statement.find('.action_bar a.clip_button').bind('click', function(){
+				var clip_url = statement.find('.action_bar .clip_url');
+				statement.find('.action_bar a.clip_button').bind("click", function() {
+          $(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
 					clip_url.show().select();
-					return false;
-				});
-
+          return false;
+        });
+				statement.find('.action_bar .clipboard_panel').bind("mouseleave", function() {
+          $(this).fadeOut();
+          return false;
+        });
 			}
 
 		  /*
@@ -578,6 +586,25 @@
 				return current_stack;
 		  }
 
+
+			function reinitialiseChildren(childrenContainerSelector) {
+				var container = statement.find(childrenContainerSelector);
+        initContainerMoreButton(container);
+        initChildrenLinks(container);
+        if (isEchoable) {
+          statement.data('echoableApi').loadRatioBars(container);
+        }
+			}
+
+			function reinitialiseSiblings(siblingsContainerSelector) {
+	      var container = statement.find(siblingsContainerSelector);
+        initContainerMoreButton(container);
+        initSiblingsLinks(container);
+        if (isEchoable) {
+          statement.data('echoableApi').loadRatioBars(container);
+        }
+	    }
+
       // Public API of statement
       $.extend(this,
       {
@@ -587,22 +614,16 @@
           initialise();
         },
 
+        reinitialiseContainerBlock: function(containerSelector, newLevel) {
+					newLevel ? reinitialiseChildren(containerSelector) : reinitialiseSiblings(containerSelector);
+				},
+
 				reinitialiseChildren: function(childrenContainerSelector) {
-					var container = statement.find(childrenContainerSelector);
-					initContainerMoreButton(container);
-          initChildrenLinks(container);
-					if (isEchoable) {
-            statement.data('echoableApi').loadRatioBars(container);
-          }
+					reinitialiseChildren(siblingsContainerSelector);
 				},
 
 				reinitialiseSiblings: function(siblingsContainerSelector) {
-          var container = statement.find(siblingsContainerSelector);
-					initContainerMoreButton(container);
-          initSiblingsLinks(container);
-					if (isEchoable) {
-			  		statement.data('echoableApi').loadRatioBars(container);
-				  }
+          reinitialiseSiblings(siblingsContainerSelector);
         },
 
         insertContent: function(content) {
@@ -675,7 +696,8 @@
 		    },
         loadRatioBars: function(container)
         {
-          this.data('echoableApi').loadRatioBars(container);
+          statement.data('echoableApi').loadRatioBars(container);
+					return this;
         },
 				getType: function()
 				{

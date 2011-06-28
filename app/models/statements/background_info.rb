@@ -47,11 +47,6 @@ class BackgroundInfo < StatementNode
       attributes
     end
     
-    
-    def default_children_types(opts={})
-      format_types [[:FollowUpQuestion, true]], opts
-    end
-    
     def support_tag
       "recommend"
     end

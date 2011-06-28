@@ -495,7 +495,6 @@ en:
         contra_argument:  See all arguments belonging to the current proposal
         background_info:  See all background infos belonging to the current statement
       link_statement: "Enter a part of the title and press the button to search for matching statements to be referenced..."
-      copy_to_clipboard: "Copy Statement Link to Clipboard"
 
     statements:
       label: 'votes'
@@ -507,6 +506,7 @@ en:
           one: '{{supporter_count}} supporter'
           many: '{{supporter_count}} supporters'
       add_new: Add new...
+      copy_to_clipboard: Copy URL
       create_question_link: 'Create new question'
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
@@ -520,6 +520,8 @@ en:
       unrecommend_link: 'Withdraw vote'
       support_link: 'Support (echo)'
       unsupport_link: 'Withdraw vote'
+      embed_preview_link: Preview
+      open_embed_link: Open Embedded Url
 
       statement_language_hint: |
         Please set your language skills in your <a href='{{url}}'>Profile</a>.
@@ -559,6 +561,7 @@ en:
         background_info: Please describe your background info in more detail...
       tag_hint: 'Enter tags here...'
       info_url_hint: 'Enter here the url you want to link'
+      clipboard_hint: 'Copy this statement URL pressing Ctrl + C on your keyboard or right clicking on it with your mouse'
 
       publish: Release
       published: The question has been released successfully.
@@ -868,6 +871,7 @@ en:
         image: 'Illustration'
       statement:
         info_type_id: 'Content Type'
+        external_url: 'Background Info URL'
       statement_data:
         info_url: 'Background Info URL'
       about_item:

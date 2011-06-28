@@ -28,9 +28,11 @@
     /*******************/
 
     function Embeddable(embeddable) {
-			var node_info = embeddable.find('.info_types_container');
-			var embed_url = embeddable.find('input.embed_url');
-      var embedded_content = embeddable.find('.embedded_content');
+			var embedding_info = embeddable.find('.embedding_info');
+			var embedding_display = embeddable.find('.embedding_display');
+			var node_info = embedding_info.find('.info_types_container');
+			var embed_url = embedding_info.find('input.embed_url');
+      var embedded_content = embedding_display.find('.embedded_content');
       var selected_content_type, change_event;
 			
 			
@@ -43,6 +45,7 @@
 				node_info.jqTransform();
         handleInputTypeClicks();
         handleInputURL();
+				handleEmbeddedContent();
       }
       
 			/*
@@ -84,6 +87,7 @@
       function selectContentType(label) { 
         label.addClass('selected').find('a.jqTransformRadio').addClass('jqTransformChecked');
         selected_content_type = label;
+				embed_url.removeAttr('disabled');
       }
       
       function deselectContentType() {
@@ -95,20 +99,58 @@
        * Handles the event of filling the info url (triggers the loading of that url on an iframe)
        */
       function handleInputURL() {
-        var url_value = embed_url.val();
-        if (url_value && url_value.length > 0) {
-          loadEmbeddedContent(url_value);
-        }
-        embed_url.bind('change', function(){
-          if (url_value != embed_url.val())
-          {
-            url_value = embed_url.val();  
-            loadEmbeddedContent(url_value);
-						triggerChange();
-          }
+				if (!selected_content_type) {
+					embed_url.attr('disabled', 'disabled');
+				}
+				var invalid_message = embed_url.attr('invalid-message');
+				embed_url.data('invalid-message', invalid_message);
+				embed_url.removeAttr('invalid-message');
+				embed_url.bind('keypress', function (event) {
+					if (event && event.keyCode == 13) { /* check if enter was pressed */
+					  showEmbeddingDisplay(); 
+						return false;
+					}
         });
+				handlePreviewButton();
+				embeddable.bind('submit', function(){
+					var url = embed_url.val();
+					if (!url.match(/http(s)?:\/\/.*/)) {embed_url.val("http://" + url);}
+				});
       }
+			
+			function handlePreviewButton() {
+				embed_url.next().bind('click', function(){
+					showEmbeddingDisplay();
+					return false;
+				});
+			}
+			
+			function showEmbeddingDisplay() {
+				var url = embed_url.val();
+				if (!url.match(/http(s)?:\/\/.*/)) {url = "http://" + url;}
+				if (isValidUrl(url)) {
+					embedding_info.hide();
+				  loadEmbeddedContent(url);
+					embedding_display.show();
+					triggerChange();
+				} else {
+					error(embed_url.data('invalid-message'));
+				}
+			}
+			
+			function showEmbeddingInfo() {
+				embedding_display.hide();
+				embedding_info.show();
+			}
       
+			function handleEmbeddedContent() {
+				embedding_display.hide();
+				embedded_content.prev().bind('click', function(){
+					showEmbeddingInfo();
+					return false;
+				});
+			}
+			
       /*
        * Loads an url onto the iframe
        */
@@ -135,7 +177,7 @@
        * checks if the url is from a video (youtube)
        */
       function containsYoutubeVideo(url) {
-        return url.match(/.*http:\/\/(\w+\.)?youtube.com\/watch\?v=(\w+).*/);
+        return url.match(/.*http(s)?:\/\/(\w+\.)?youtube.com\/watch\?v=(\w+).*/);
       }
       
       /* 
@@ -157,6 +199,10 @@
 			
 			function handleEmbeddedContentChange(eventName) {
 				change_event = eventName;
+			}
+			
+			function isValidUrl(url) {
+				return url.match(/^(http|https|ftp):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i);
 			}
 			
       // Public API

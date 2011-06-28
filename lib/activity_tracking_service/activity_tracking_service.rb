@@ -123,7 +123,7 @@ class ActivityTrackingService
     events.map!{|e| JSON.parse(e.event)}
 
     # Filter only events whose titles languages the recipient speaks
-    events.reject!{|e| (e['documents'].keys.map{|id|id.to_i} & recipient.sorted_spoken_languages).empty? }
+    events.reject!{|e| (e['documents'].keys.map{|id|id.to_i} & user_filtered_languages(recipient)).empty? }
     
     return if events.blank? #if there are no events to send per email, take the next user
 
@@ -159,6 +159,16 @@ class ActivityTrackingService
   def send_activity_mail(recipient, root_events, question_tag_counts, events)
     puts "Send mail to:" + recipient.email
     ActivityTrackingMailer.deliver_activity_tracking_mail(recipient, root_events, question_tag_counts, events)
+  end
+
+  #################
+  # Aux Functions #
+  #################
+
+  def user_filtered_languages(user)
+    spoken_languages = recipient.sorted_spoken_languages
+    spoken_languages << user.default_language.id if spoken_languages.empty? and user.default_language
+    spoken_languages
   end
 
 
