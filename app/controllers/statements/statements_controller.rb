@@ -420,7 +420,7 @@ def more
   @offset = @page.to_i == 1 ? TOP_CHILDREN : 0
   begin
     if @type.eql? :Alternative
-      @child_type = @statement_node.class.alternative.to_s.underscore
+      @child_type = @statement_node.class.alternative_types.first.to_s.underscore
       @offset =  TOP_ALTERNATIVES if @offset > 0
       template = @statement_node.class.alternative_more_template
       load_alternatives @page, @per_page

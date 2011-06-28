@@ -52,9 +52,8 @@ module ActiveRecord
                 true
               end
 
-              # TODO: When statement allows more alternative types, change this here
-              def alternative
-                @@alternative_types[self.name].first
+              def alternative_types
+                @@alternative_types[self.name]
               end
 
               def alternative_more_template

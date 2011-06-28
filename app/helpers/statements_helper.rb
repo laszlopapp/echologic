@@ -240,7 +240,7 @@ module StatementsHelper
       # New alternative Button TODO: this is going to the logic above, in the future
       if statement_node.class.has_alternatives?
         buttons << link_to(I18n.t("discuss.statements.types.alternative"),
-                     new_statement_node_url(statement_node.target_id, statement_node.class.alternative.to_s.underscore,
+                     new_statement_node_url(statement_node.target_id, statement_node.class.alternative_types.first.to_s.underscore,
                                             :hub => 'alternative', :bids => params[:bids], :origin => origin),
                      :class => "create_alternative_button_32 resource_link ajax")
       end
@@ -625,6 +625,7 @@ module StatementsHelper
   # Loads the link to a given statement, placed in the child panel section.
   #
   def link_to_child(title, statement_node,opts={})
+    opts[:type] = dom_class(statement_node) #TODO: This forced op must be deleted when alternatives navigation/breadcrumb are available
     bids = params[:bids] || ''
     if opts[:new_level]
       bids = bids.split(",")
@@ -676,6 +677,26 @@ module StatementsHelper
             :class => 'more_children'
   end
 
+
+  def render_alternative_types(statement_node, statement_types, selected=statement_types.first)
+    if statement_types.length > 1
+      render_statement_types_radio_buttons(statement_types, selected)
+    else
+      hidden_field_tag :type, node_type(statement_node)
+    end
+  end
+
+  def render_statement_types_radio_buttons(statement_types, selected=statement_types.first)
+   content = ""
+   statement_types.each do |statement_type|
+     
+     content << radio_button_tag(:type, statement_type, statement_type.eql?(selected), 
+                                 :class => "statement_type")
+     content << label_tag(statement_type, I18n.t("discuss.statements.types.#{statement_type}"), 
+                          :class => "statement_type_label")
+   end
+   content
+  end
 
   ###############
   # BREADCRUMBS #
