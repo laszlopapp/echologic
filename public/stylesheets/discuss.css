@@ -95,6 +95,12 @@
   top: 43px;
 }
 
+.statement .action_bar .moreButton,
+.statement .action_bar .hideButton {
+	margin-top: 10px;
+	display: inline-block;
+}
+
 
 /****************/
 /* My Questions */
