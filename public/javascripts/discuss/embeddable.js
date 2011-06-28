@@ -156,48 +156,21 @@
        */
       function loadEmbeddedContent(url) {
         var handled_url = url;
-        if (containsYoutubeVideo(handled_url)){
-          handled_url = getYoutubeEmbeddedCode(handled_url);
-          embedded_content.attr('width', settings['video_settings']['width']).attr('height', settings['video_settings']['height']);
-          embedded_content.attr('allowfullscreen',''); 
-        } else if (containsVimeoVideo(handled_url)) {
-          handled_url = getVimeoEmbeddedCode(handled_url);
-          embedded_content.attr('width', settings['video_settings']['width']).attr('height', settings['video_settings']['height']);
-        } else {
-          embedded_content.removeAttr('width').removeAttr('height');
-          embedded_content.removeAttr('allowfullscreen');
-        }
-        embedded_content.attr('src',handled_url);
-        if (!embedded_content.is(':visible')) {
+				embedded_content.nextAll().remove();
+				embedded_content.attr('href', url);
+				embedded_content.embedly({
+					// key: ECHO_EMBEDLY_KEY!!!!!!!!!! TODO!
+					method: 'after',
+          error: function(node, dict){
+				  	$("<iframe/>").addClass('embedded_content').attr('frameborder', 0).attr('src', node.attr('href')).insertAfter(node);
+				  }
+				});
+				if (!embedded_content.is(':visible')) {
           embedded_content.fadeIn();
         }       
       }
       
-      /* 
-       * checks if the url is from a video (youtube)
-       */
-      function containsYoutubeVideo(url) {
-        return url.match(/.*http(s)?:\/\/(\w+\.)?youtube.com\/watch\?v=(\w+).*/);
-      }
-      
-      /* 
-       * checks if the url is from a video (vimeo)
-       */
-      function containsVimeoVideo(url) {
-        return url.match(/.*http:\/\/(\w+\.)?vimeo.com\/(\d+).*/);
-      }
-      
-      function getYoutubeEmbeddedCode(url) {
-        var video_id = url.match("[\?&]v=([^&#]*)")[1];
-        return "http://www.youtube.com/embed/" + video_id;
-      }
-      
-      function getVimeoEmbeddedCode(url) {
-        var video_id = url.match("vimeo\.com/(?:.*#|.*/videos/)?([0-9]+)")[1];
-        return "http://player.vimeo.com/video/" + video_id + "?portrait=0";
-      }
-			
-			function handleEmbeddedContentChange(eventName) {
+     	function handleEmbeddedContentChange(eventName) {
 				change_event = eventName;
 			}
 			

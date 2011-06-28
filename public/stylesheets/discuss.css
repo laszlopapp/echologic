@@ -485,10 +485,12 @@ form.embeddable #statement_datas_container li {
 .statement .embedded_content {
   width: 100%;
   height: 1000px;
-  margin-top: 16px;
 	overflow-x: hidden;
 	overflow-y: auto;
 
+}
+.statement .embed {
+	margin-top: 16px;
 }
 
 /*********/
