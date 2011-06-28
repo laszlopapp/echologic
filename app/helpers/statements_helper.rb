@@ -122,6 +122,27 @@ module StatementsHelper
       panel
     end
   end
+  
+  def render_statement_actions(statement_node, opts={})
+    opts[:class] ||= ""
+    opts[:class] << ' statement_actions'
+    content_tag :div, opts  do
+      actions = ""
+      actions << content_tag(:div, :class => "add_new_container") do
+        render_add_new_button(statement_node, params[:origin], params[:bids])
+      end
+      
+      actions << content_tag(:div, :class => "clip_button_container") do
+        render_clipboard_area(statement_node)
+      end
+        
+      if current_user and current_user.may_delete?(statement_node)
+        actions << "#{tag("br")}#{tag("br")}"
+        actions << delete_statement_node_link(statement_node)
+      end
+      actions
+    end
+  end
 
   #########
   # Links #
