@@ -10,7 +10,7 @@
 	<% desc_number.times do |n| %>
 	  <li>
 	    <strong><%= I18n.t("static.echocracy.#{person_type.to_s}.adv#{n+1}") %></strong>
-	  <% insert_toggle_more('<ul>' + I18n.t("static.echocracy.#{person_type.to_s}.adv#{n+1}_details") + '</ul>') %>
+	  <%= insert_toggle_more('<ul>' + I18n.t("static.echocracy.#{person_type.to_s}.adv#{n+1}_details") + '</ul>') %>
 	  </li>
 	<% end %>
 </ul>
