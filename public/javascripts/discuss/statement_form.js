@@ -33,7 +33,7 @@
 			var text;
 			var language_combo;
 			var chosenLanguage = form.find('select.language_combo');
-			var statementLinked = form.find('input.statement_id');
+			var statementLinked, statementParentId;
 			var publish_checkbox = form.find('.publish_radios');
 			var auto_complete_button;
       var linking_messages;
@@ -53,6 +53,8 @@
         // New Statement Form Helpers
         if (form.hasClass('new')) {
 					language_combo = form.find('.statement_language select');
+					statementLinked = form.find('input#statement_node_statement_id');
+					statementParentId = form.find('input#statement_node_parent_id');
           loadDefaultText();
           initFormCancelButton();
 					initAutoCompleteTitle();
@@ -190,6 +192,7 @@
 																	multipleSeparator: "",
 																	extraParams: {
 																		code: function(){ return chosenLanguage.val(); },
+																		parent_id: function() {return statementParentId.val(); },
 																	  type: type
 																	}
 												        });
