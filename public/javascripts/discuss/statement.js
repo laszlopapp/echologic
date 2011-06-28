@@ -517,8 +517,6 @@
 						  break;
 					}
 
-
-
           $('#breadcrumbs').data('element_clicked', generateBreadcrumbKey());
 
           $.setFragment({
@@ -530,10 +528,6 @@
           return false;
         });
       }
-
-
-
-
 
 
 		  /*
@@ -681,7 +675,7 @@
 		    },
         loadRatioBars: function(container)
         {
-          initRatioBars(container);
+          this.data('echoableApi').loadRatioBars(container);
         },
 				getType: function()
 				{
