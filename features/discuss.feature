@@ -376,9 +376,9 @@ Feature: Take Part on a question
       And I choose the "Test Question2?" Question
       And I follow localized "discuss.statements.types.background_info" within ".add_new_panel"
       And I fill in the following:
-      | statement_node_statement_document_title           | Undercova Brotha       |
-      | statement_node_statement_document_text            | Funkytime in Funkytown |
-      | statement_node_external_url_info_url              | Ipitythefool.com       |
+      | statement_node_statement_document_title           | Undercova Brotha        |
+      | statement_node_statement_document_text            | Funkytime in Funkytown  |
+      | statement_node_external_url_info_url              | http://Ipitythefool.com |
       And I choose "statement_node_info_type_url"
       And I press "Save"
     Then I should see "Undercova Brotha"
@@ -396,9 +396,9 @@ Feature: Take Part on a question
       And I choose the "A first proposal!" Proposal
       And I follow localized "discuss.statements.types.background_info" within ".add_new_panel"
       And I fill in the following:
-      | statement_node_statement_document_title           | Undercova Brotha       |
-      | statement_node_statement_document_text            | Funkytime in Funkytown |
-      | statement_node_external_url_info_url              | Ipitythefool.com       |
+      | statement_node_statement_document_title           | Undercova Brotha        |
+      | statement_node_statement_document_text            | Funkytime in Funkytown  |
+      | statement_node_external_url_info_url              | http://Ipitythefool.com |
       And I choose "statement_node_info_type_url"
       And I press "Save"
     Then I should see "Undercova Brotha"
@@ -417,9 +417,9 @@ Feature: Take Part on a question
       And I choose the "A better first proposal" Improvement
       And I follow localized "discuss.statements.types.background_info" within ".add_new_panel"
       And I fill in the following:
-      | statement_node_statement_document_title           | Undercova Brotha       |
-      | statement_node_statement_document_text            | Funkytime in Funkytown |
-      | statement_node_external_url_info_url              | Ipitythefool.com       |
+      | statement_node_statement_document_title           | Undercova Brotha        |
+      | statement_node_statement_document_text            | Funkytime in Funkytown  |
+      | statement_node_external_url_info_url              | http://Ipitythefool.com |
       And I choose "statement_node_info_type_url"
       And I press "Save"
     Then I should see "Undercova Brotha"

@@ -668,7 +668,7 @@ module StatementsHelper
   def more_children(statement_node,opts={})
     opts[:page] ||= 0
     link_to I18n.t("application.general.more"),
-            more_statement_node_url(statement_node, :page => opts[:page]+1, 
+            more_statement_node_url(statement_node, :page => opts[:page].to_i+1, 
                                                     :type => opts[:type], 
                                                     :bids => params[:bids], 
                                                     :origin => params[:origin], 
