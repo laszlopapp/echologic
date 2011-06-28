@@ -38,7 +38,14 @@ module LinkingModule
   #
   def link_statement_node
     @statement = @statement_node.statement
-    link_statement
+    @type_to_link = params[:type].to_s.classify.constantize
+    @parent_node = StatementNode.find(params[:parent_id])
+    if @type_to_link.linkable_types.include? @statement_node.class.name.to_sym and 
+      !@statement_node.parent_node.id.eql?(@parent_node.target_id) 
+      link_statement
+    else
+      render :json => {:error => I18n.t("discuss.statements.cannot_be_linked")}
+    end
   end
   
   
@@ -51,15 +58,19 @@ module LinkingModule
   def link_statement
     @statement ||= Statement.find(params[:id])
     @statement_document ||= @statement.document_in_language(params[:code]||locale_language_id)
-    @content = {:id => @statement.id,
-                :title => @statement_document.title,
-                :editorial_state => @statement.editorial_state_id, 
-                :tags => @statement.topic_tags, 
-                :text => @statement_document.text}
-    if @statement.has_data?
-      @content[:content_type] = @statement.info_type.code
-      @content[:external_url] = @statement.external_url.info_url
+    if @statement_document
+      @content = {:id => @statement.id,
+                  :title => @statement_document.title,
+                  :editorial_state => @statement.editorial_state_id, 
+                  :tags => @statement.topic_tags, 
+                  :text => @statement_document.text}
+      if @statement.has_data?
+        @content[:content_type] = @statement.info_type.code
+        @content[:external_url] = @statement.external_url.info_url
+      end
+      render :json => @content.to_json
+    else
+      render :json => {:error => I18n.t("discuss.statements.no_document_in_language")}
     end
-    render :json => @content.to_json 
   end
 end

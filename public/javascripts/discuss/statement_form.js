@@ -241,13 +241,18 @@
        * given a statement node Id, gets the statement remotely and fills the form with the given data
        */
 			function linkStatementNode(nodeId) {
-				var path = '../../statement/' + nodeId + '/link_statement_node';
+				var path = '../../statement/' + nodeId + '/link_statement_node/' + type;
         path = $.queryString(path, {
-          "code" : chosenLanguage.val()
+          "code" : chosenLanguage.val(),
+					"parent_id": statementParentId.val()
         });
         $.getJSON(path, function(data) {
-          linkStatementData(data);
-
+					if (data['error']) {
+		        error(data['error']);
+				  }
+				  else {
+				  	linkStatementData(data);
+				  }
         });
 			}
 			

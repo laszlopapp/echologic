@@ -639,6 +639,7 @@ en:
       supporter_to_share: 'You must be a supporter of this statement in order to share it!'
       published_to_share: 'This discussion is yet to be published. Until then, it is not possible to share it.'
       cannot_be_edited: Unfortunately, you cannot edit this statement after other members supported it. This is to avoid faking of opinions.
+      cannot_be_linked: Unfortunately, you cannot link this statement.
       echos_label: Support
 
       linking:
