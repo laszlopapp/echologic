@@ -42,6 +42,7 @@
       var statementId = getStatementId(statementDomId);
 			var parentStatement, statement_index;
 			var statementUrl;
+			var embeddedContent = statement.find('.embedded_container');
 
       // Initialize the statement
       initialise();
@@ -80,6 +81,9 @@
 					initClipboardButton();
           initMoreButton();
           initAllStatementLinks();
+					if(embeddedContent.length > 0) {
+						initEmbeddedContent();
+					}
 					//initFlicks();
         }
 
@@ -604,6 +608,20 @@
           statement.data('echoableApi').loadRatioBars(container);
         }
 	    }
+			
+			
+			/********************/
+			/* EMBEDDED CONTENT */
+			/********************/
+			
+			function initEmbeddedContent(){
+		  	embeddedContent.embedly({
+					// key: ECHO_EMBEDLY_KEY!!!!!!!!!! TODO!
+					error: function(node, dict) {
+						node.replaceWith($("<iframe/>").addClass('embedded_content').attr('frameborder',0).attr('src', node.attr('href')));
+					}
+		  	});
+		  }
 
       // Public API of statement
       $.extend(this,

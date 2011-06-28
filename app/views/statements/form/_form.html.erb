@@ -38,8 +38,16 @@
   <%= form.hidden_field :editorial_state_id, :value => StatementState[:published].id %>
 <% end -%>
 
+
+<!-- Type or Radio Types -->
+<% if @statement_node_type and @statement_node_type.has_alternatives? %>
+  <%= render_alternative_types(@statement_node, @statement_node_type.alternative_types.map{|t|t.to_s.underscore} %>
+<% else %>
+  <%= hidden_field_tag :type, node_type(statement_node) %>
+<% end %>
+
 <!-- Hidden fields -->
-<%= form.hidden_field :statement_id, :class => 'statement_id' %>
+<%= form.hidden_field :statement_id %>
 <%= form.hidden_field :parent_id %>
 
 <!-- Submit or cancel -->

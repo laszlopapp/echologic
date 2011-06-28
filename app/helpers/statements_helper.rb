@@ -122,6 +122,27 @@ module StatementsHelper
       panel
     end
   end
+  
+  def render_statement_actions(statement_node, opts={})
+    opts[:class] ||= ""
+    opts[:class] << ' statement_actions'
+    content_tag :div, opts  do
+      actions = ""
+      actions << content_tag(:div, :class => "add_new_container") do
+        render_add_new_button(statement_node, params[:origin], params[:bids])
+      end
+      
+      actions << content_tag(:div, :class => "clip_button_container") do
+        render_clipboard_area(statement_node)
+      end
+        
+      if current_user and current_user.may_delete?(statement_node)
+        actions << "#{tag("br")}#{tag("br")}"
+        actions << delete_statement_node_link(statement_node)
+      end
+      actions
+    end
+  end
 
   #########
   # Links #
@@ -219,7 +240,7 @@ module StatementsHelper
       # New alternative Button TODO: this is going to the logic above, in the future
       if statement_node.class.has_alternatives?
         buttons << link_to(I18n.t("discuss.statements.types.alternative"),
-                     new_statement_node_url(statement_node.target_id, statement_node.class.alternative.to_s.underscore,
+                     new_statement_node_url(statement_node.target_id, statement_node.class.alternative_types.first.to_s.underscore,
                                             :hub => 'alternative', :bids => params[:bids], :origin => origin),
                      :class => "create_alternative_button_32 resource_link ajax")
       end
@@ -604,6 +625,7 @@ module StatementsHelper
   # Loads the link to a given statement, placed in the child panel section.
   #
   def link_to_child(title, statement_node,opts={})
+    opts[:type] = dom_class(statement_node) #TODO: This forced op must be deleted when alternatives navigation/breadcrumb are available
     bids = params[:bids] || ''
     if opts[:new_level]
       bids = bids.split(",")
@@ -647,7 +669,7 @@ module StatementsHelper
   def more_children(statement_node,opts={})
     opts[:page] ||= 0
     link_to I18n.t("application.general.more"),
-            more_statement_node_url(statement_node, :page => opts[:page]+1, 
+            more_statement_node_url(statement_node, :page => opts[:page].to_i+1, 
                                                     :type => opts[:type], 
                                                     :bids => params[:bids], 
                                                     :origin => params[:origin], 
@@ -655,6 +677,26 @@ module StatementsHelper
             :class => 'more_children'
   end
 
+
+  def render_alternative_types(statement_node, statement_types, selected=statement_types.first)
+    if statement_types.length > 1
+      render_statement_types_radio_buttons(statement_types, selected)
+    else
+      hidden_field_tag :type, node_type(statement_node)
+    end
+  end
+
+  def render_statement_types_radio_buttons(statement_types, selected=statement_types.first)
+   content = ""
+   statement_types.each do |statement_type|
+     
+     content << radio_button_tag(:type, statement_type, statement_type.eql?(selected), 
+                                 :class => "statement_type")
+     content << label_tag(statement_type, I18n.t("discuss.statements.types.#{statement_type}"), 
+                          :class => "statement_type_label")
+   end
+   content
+  end
 
   ###############
   # BREADCRUMBS #
@@ -701,50 +743,50 @@ module StatementsHelper
 
 
   def render_embeddable_data(background_info)
-    content_tag :div, :class => 'embedded_container' do
-     content = ''
-     content << link_to(I18n.t("discuss.statements.open_embed_link"), background_info.external_url.info_url, 
+    content = ''
+    content << content_tag(:a, I18n.t("discuss.statements.open_embed_link"), :href => background_info.external_url.info_url, 
                         :class => "open_embed_button text_button", 
                         :target => "_blank")
-     content << send("render_#{background_info.info_type.code}_data", background_info)
-     content
-    end
+    content << content_tag(:div, :class => 'embedded_container') do
+     content_tag(:a, '', :href => background_info.external_url.info_url, :class => 'embedded_content')
+   end
+   content
   end
 
-  def render_article_data(background_info)
-    render_in_iframe(background_info.external_url.info_url)
-  end
-
-  def render_paper_data(background_info)
-    render_in_iframe(background_info.external_url.info_url)
-  end
-
-  def render_book_data(background_info)
-    render_in_iframe(background_info.external_url.info_url)
-  end
-
-  def render_photo_data(background_info)
-    render_in_iframe(background_info.external_url.info_url)
-  end
-
-
-  def render_video_data(background_info)
-    if background_info.external_url.is_youtube_url?
-      %Q{<iframe title="YouTube video player" width="640" height="390" src="http://www.youtube.com/embed/#{ background_info.external_url.youtube_id }" frameborder="0" allowfullscreen></iframe>}
-    elsif background_info.external_url.is_vimeo_url?
-      %Q{<iframe width="400" height="170" src="http://player.vimeo.com/video/#{ background_info.external_url.vimeo_id }?portrait=0" frameborder="0"></iframe>}
-    else
-      render_in_iframe background_info.external_url.info_url
-    end
-  end
-
-  def render_url_data(background_info)
-    render_in_iframe(background_info.external_url.info_url)
-  end
-
-  def render_in_iframe(url)
-    content_tag :iframe, '', :src => url, :class => 'embedded_content', :frameborder => 0
-  end
+#  def render_article_data(background_info)
+#    render_in_iframe(background_info.external_url.info_url)
+#  end
+#
+#  def render_paper_data(background_info)
+#    render_in_iframe(background_info.external_url.info_url)
+#  end
+#
+#  def render_book_data(background_info)
+#    render_in_iframe(background_info.external_url.info_url)
+#  end
+#
+#  def render_photo_data(background_info)
+#    render_in_iframe(background_info.external_url.info_url)
+#  end
+#
+#
+#  def render_video_data(background_info)
+#    if background_info.external_url.is_youtube_url?
+#      %Q{<iframe title="YouTube video player" width="640" height="390" src="http://www.youtube.com/embed/#{ background_info.external_url.youtube_id }" frameborder="0" allowfullscreen></iframe>}
+#    elsif background_info.external_url.is_vimeo_url?
+#      %Q{<iframe width="400" height="170" src="http://player.vimeo.com/video/#{ background_info.external_url.vimeo_id }?portrait=0" frameborder="0"></iframe>}
+#    else
+#      render_in_iframe background_info.external_url.info_url
+#    end
+#  end
+#
+#  def render_url_data(background_info)
+#    render_in_iframe(background_info.external_url.info_url)
+#  end
+#
+#  def render_in_iframe(url)
+#    content_tag :iframe, '', :src => url, :class => 'embedded_content', :frameborder => 0
+#  end
   #
   # This class does the heavy lifting of actually building the pagination
   # links. It is used by the <tt>will_paginate</tt> helper internally.
