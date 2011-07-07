@@ -36,7 +36,9 @@ module ActiveRecord
                    :class_name => "StatementNode",
                    :finder_sql => 'select s.* from statement_nodes s ' +
                                   'LEFT JOIN statement_nodes hubs ON hubs.id = s.parent_id AND hubs.type = \'CasHub\' ' +
-                                  'WHERE hubs.id = #{hub.nil? ? -1 : hub.id} AND s.id != #{id} AND s.type = \'#{self.class.alternative}\''
+                                  'WHERE hubs.id = #{hub.nil? ? -1 : hub.id} AND ' +
+                                  's.id != #{id} AND ' +
+                                  's.type IN (#{self.class.alternative_types.map{|s|"\"#{s.to_s}\""}})'
 
 
           class_eval do
@@ -70,7 +72,8 @@ module ActiveRecord
             end
 
             def paginated_alternatives(page, per_page = nil,opts={})
-              alternative_statements = hub.nil? ? [] : hub.child_statements(opts.merge({:type => self.class.alternative,
+              #TODO: When the support of multiple alternatives is set, we have to rethink this
+              alternative_statements = hub.nil? ? [] : hub.child_statements(opts.merge({:type => self.class.alternative_types.first.to_s, 
                                                                                         :alternative_ids => alternatives.map(&:id)})).flatten
 
               per_page = alternative_statements.length if per_page.nil? or per_page < 0

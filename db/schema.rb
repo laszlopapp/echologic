@@ -1,4 +1,4 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file,
+# This file is auto-generated from the current state of the database. Instead of editing this file, 
 # please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110628143055) do
+ActiveRecord::Schema.define(:version => 20110707184338) do
 
   create_table "about_item_translations", :force => true do |t|
     t.integer "about_item_id"
@@ -400,9 +400,20 @@ ActiveRecord::Schema.define(:version => 20110628143055) do
 
   add_index "web_addresses", ["user_id"], :name => "index_web_profiles_on_user_id"
 
-  create_view "statement_permissions", "select `statements`.`id` AS `statement_id`,`tao_users`.`tao_id` AS `user_id` from (((`statements` left join `tao_tags` `tao_statements` on(((`statements`.`id` = `tao_statements`.`tao_id`) and (`tao_statements`.`tao_type` = 'Statement') and (`tao_statements`.`context_id` = (SELECT id FROM enum_keys WHERE type = 'TagContext' AND code = 'topic'))))) left join `tags` on((`tags`.`id` = `tao_statements`.`tag_id`))) left join `tao_tags` `tao_users` on(((`tags`.`id` = `tao_users`.`tag_id`) and (`tao_users`.`tao_type` = 'User') and (`tao_users`.`context_id` = (SELECT id FROM enum_keys WHERE type = 'TagContext' AND code = 'decision_making'))))) where (substr(`tags`.`value`,1,2) = '**')", :force => true do |v|
+  create_view "closed_statement_permissions", "select `statements`.`id` AS `statement_id`,`tao_users`.`tao_id` AS `user_id` from (((`statements` left join `tao_tags` `tao_statements` on(((`statements`.`id` = `tao_statements`.`tao_id`) and (`tao_statements`.`tao_type` = 'Statement') and (`tao_statements`.`context_id` = 586794338)))) left join `tags` on((`tags`.`id` = `tao_statements`.`tag_id`))) left join `tao_tags` `tao_users` on(((`tags`.`id` = `tao_users`.`tag_id`) and (`tao_users`.`tao_type` = 'User') and (`tao_users`.`context_id` = 549825790)))) where (substr(`tags`.`value`,1,2) = '**')", :force => true do |v|
     v.column :statement_id
     v.column :user_id
+  end
+  
+  create_view "statement_permissions", "select `statements`.`id` AS `statement_id`,`tao_users`.`tao_id` AS `user_id` from (((`statements` left join `tao_tags` `tao_statements` on(((`statements`.`id` = `tao_statements`.`tao_id`) and (`tao_statements`.`tao_type` = 'Statement') and (`tao_statements`.`context_id` = (select `enum_keys`.`id` from `enum_keys` where ((`enum_keys`.`type` = 'TagContext') and (`enum_keys`.`code` = 'topic'))))))) left join `tags` on((`tags`.`id` = `tao_statements`.`tag_id`))) left join `tao_tags` `tao_users` on(((`tags`.`id` = `tao_users`.`tag_id`) and (`tao_users`.`tao_type` = 'User') and (`tao_users`.`context_id` = (select `enum_keys`.`id` from `enum_keys` where ((`enum_keys`.`type` = 'TagContext') and (`enum_keys`.`code` = 'decision_making'))))))) where (substr(`tags`.`value`,1,2) = '**')", :force => true do |v|
+    v.column :statement_id
+    v.column :user_id
+  end
+  
+  create_view "event_permissions", "select distinct `e`.`id` AS `event_id`,`perm`.`statement_id` AS `closed_statement`,`perm`.`user_id` AS `granted_user_id` from ((((`events` `e` left join `statement_nodes` `s_nodes` on(((`e`.`subscribeable_id` = `s_nodes`.`id`) and (`e`.`subscribeable_type` = 'StatementNode')))) left join `statement_nodes` `roots` on((`roots`.`id` = `s_nodes`.`root_id`))) left join `statements` `s` on((`s`.`id` = `roots`.`statement_id`))) left join `statement_permissions` `perm` on((`perm`.`statement_id` = `s`.`id`)))", :force => true do |v|
+    v.column :event_id
+    v.column :closed_statement
+    v.column :granted_user_id
   end
 
   create_view "search_statement_nodes", "select distinct `n`.`id` AS `id`,`n`.`type` AS `type`,`n`.`parent_id` AS `parent_id`,`n`.`root_id` AS `root_id`,`n`.`creator_id` AS `creator_id`,`n`.`echo_id` AS `echo_id`,`n`.`created_at` AS `created_at`,`n`.`updated_at` AS `updated_at`,`n`.`statement_id` AS `statement_id`,`n`.`drafting_state` AS `drafting_state`,`n`.`lft` AS `lft`,`n`.`rgt` AS `rgt`,`n`.`question_id` AS `question_id`,`s`.`editorial_state_id` AS `editorial_state_id`,`e`.`supporter_count` AS `supporter_count`,`sp`.`statement_id` AS `closed_statement`,`sp`.`user_id` AS `granted_user_id` from (((`statement_nodes` `n` left join `statements` `s` on((`s`.`id` = `n`.`statement_id`))) left join `echos` `e` on((`n`.`echo_id` = `e`.`id`))) left join `statement_permissions` `sp` on((`s`.`id` = `sp`.`statement_id`))) where isnull(`n`.`question_id`)", :force => true do |v|
@@ -438,12 +449,6 @@ ActiveRecord::Schema.define(:version => 20110628143055) do
     v.column :type
     v.column :parent_id
     v.column :parent_node_id
-  end
-
-  create_view "event_permissions", "select distinct `e`.`id` AS `event_id`,`perm`.`statement_id` AS `closed_statement`,`perm`.`user_id` AS `granted_user_id` from ((((`events` `e` left join `statement_nodes` `s_nodes` on(((`e`.`subscribeable_id` = `s_nodes`.`id`) and (`e`.`subscribeable_type` = 'StatementNode')))) left join `statement_nodes` `roots` on((`roots`.`id` = `s_nodes`.`root_id`))) left join `statements` `s` on((`s`.`id` = `roots`.`statement_id`))) left join `statement_permissions` `perm` on((`perm`.`statement_id` = `s`.`id`)))", :force => true do |v|
-    v.column :event_id
-    v.column :closed_statement
-    v.column :granted_user_id
   end
 
 end

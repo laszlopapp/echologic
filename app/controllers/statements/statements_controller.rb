@@ -139,7 +139,7 @@ class StatementsController < ApplicationController
     doc_attrs = attrs.delete(:statement_document)
     form_tags = attrs.delete(:topic_tags) || ""
 
-    begin
+#    begin
       node_id = attrs[:parent_id]
       if !node_id.blank?
         parent_node = StatementNode.find(node_id)
@@ -217,13 +217,13 @@ class StatementsController < ApplicationController
         render_statement_with_error :template => 'statements/new'
       end
 
-    rescue Exception => e
-      log_message_error(e, "Error creating statement node.") do
-        load_ancestors and flash_error and render :template => 'statements/new'
-      end
-    else
-      log_message_info("Statement node has been created sucessfully.") if created
-    end
+#    rescue Exception => e
+#      log_message_error(e, "Error creating statement node.") do
+#        load_ancestors and flash_error and render :template => 'statements/new'
+#      end
+#    else
+#      log_message_info("Statement node has been created sucessfully.") if created
+#    end
   end
 
 
