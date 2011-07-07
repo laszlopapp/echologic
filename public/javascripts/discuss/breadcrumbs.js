@@ -169,7 +169,7 @@
 						var to_remove_elements = to_remove.nextAll();
 						var remove_length = to_remove_elements.length;
             to_remove_elements.remove();
-            
+
 
 
           } else { // delete all breadcrumbs that are not in the fragment bids
@@ -207,7 +207,7 @@
           breadcrumb.attr('page_count', data['page_count']);
         }
         if (index != 0 || breadcrumbs_length != 0) {
-          breadcrumb.append($("<span/>").addClass('big_delimiter'));
+          breadcrumb.append($("<span/>").addClass('delimiter'));
         }
         breadcrumb.append($('<span/>').addClass('label').text(data['label']));
         breadcrumb.append($('<span/>').addClass('over').text(data['over']));
