@@ -105,7 +105,7 @@ module StatementsHelper
     content << render_clipboard_panel(url)
     content
   end
-  
+
   def render_clipboard_button
     link_to(I18n.t("discuss.statements.copy_to_clipboard"), '#', :class => 'clip_button text_button')
   end
@@ -118,11 +118,11 @@ module StatementsHelper
         I18n.t("discuss.statements.copy_to_clipboard")
       end
       panel << content_tag(:div, I18n.t("discuss.statements.clipboard_hint"), :class => '')
-      panel << text_field_tag('', url, :class => 'clip_url')    
+      panel << text_field_tag('', url, :class => 'clip_url')
       panel
     end
   end
-  
+
   def render_statement_actions(statement_node, opts={})
     opts[:class] ||= ""
     opts[:class] << ' statement_actions'
@@ -131,11 +131,11 @@ module StatementsHelper
       actions << content_tag(:div, :class => "add_new_container") do
         render_add_new_button(statement_node, params[:origin], params[:bids])
       end
-      
+
       actions << content_tag(:div, :class => "clip_button_container") do
         render_clipboard_area(statement_node)
       end
-        
+
       if current_user and current_user.may_delete?(statement_node)
         actions << "#{tag("br")}#{tag("br")}"
         actions << delete_statement_node_link(statement_node)
@@ -386,7 +386,7 @@ module StatementsHelper
                     :class => "#{type.pluralize} child_header #{'selected' if opts[:selected]}" do
       content_tag :div, :class => "header_content" do
         title = ''
-        title << I18n.t("discuss.statements.headings.#{type}")
+        title << content_tag(:span, I18n.t("discuss.statements.headings.#{type}"), :class => 'type')
         title << content_tag(:span, " (#{count})", :class => 'count')
         title
       end
@@ -409,7 +409,7 @@ module StatementsHelper
   #
   # Creates the cancel button in the new statement form (right link will be handled in jquery).
   #
-  def cancel_new_statement_node(cancel_js=false)
+  def cancel_new_statement_node
     link_to I18n.t('application.general.cancel'),
             :back,
             :class => 'cancel text_button cancel_text_button'
@@ -439,7 +439,7 @@ module StatementsHelper
   def node_type(statement_node)
     @statement_type ||= {}
     @statement_type[statement_node.level] ||= statement_node.new_record? ? @statement_node_type.name.underscore :
-                                                                           dom_class(statement_node.target_statement) 
+                                                                           dom_class(statement_node.target_statement)
   end
 
 
@@ -669,10 +669,10 @@ module StatementsHelper
   def more_children(statement_node,opts={})
     opts[:page] ||= 0
     link_to I18n.t("application.general.more"),
-            more_statement_node_url(statement_node, :page => opts[:page].to_i+1, 
-                                                    :type => opts[:type], 
-                                                    :bids => params[:bids], 
-                                                    :origin => params[:origin], 
+            more_statement_node_url(statement_node, :page => opts[:page].to_i+1,
+                                                    :type => opts[:type],
+                                                    :bids => params[:bids],
+                                                    :origin => params[:origin],
                                                     :new_level => opts[:new_level]),
             :class => 'more_children'
   end
@@ -689,10 +689,10 @@ module StatementsHelper
   def render_statement_types_radio_buttons(statement_types, selected=statement_types.first)
    content = ""
    statement_types.each do |statement_type|
-     
-     content << radio_button_tag(:type, statement_type, statement_type.eql?(selected), 
+
+     content << radio_button_tag(:type, statement_type, statement_type.eql?(selected),
                                  :class => "statement_type")
-     content << label_tag(statement_type, I18n.t("discuss.statements.types.#{statement_type}"), 
+     content << label_tag(statement_type, I18n.t("discuss.statements.types.#{statement_type}"),
                           :class => "statement_type_label")
    end
    content
@@ -712,7 +712,7 @@ module StatementsHelper
       attrs[:page_count] = b[:page_count] if b[:page_count]
       breadcrumb = content_tag(:a, attrs.merge({:href => b[:url], :id => b[:key], :class => "breadcrumb #{b[:key][0..2]}"})) do
         content = ""
-        content << content_tag(:span, '', :class => 'big_delimiter') if index != 0
+        content << content_tag(:span, '', :class => 'delimiter') if index != 0
         content << content_tag(:span, b[:label], :class => 'label')
         content << content_tag(:span, b[:over], :class => 'over')
         content << content_tag(:span, h(Breadcrumb.instance.decode_terms(b[:title])), :class => b[:css])
@@ -744,8 +744,8 @@ module StatementsHelper
 
   def render_embeddable_data(background_info)
     content = ''
-    content << content_tag(:a, I18n.t("discuss.statements.open_embed_link"), :href => background_info.external_url.info_url, 
-                        :class => "open_embed_button text_button", 
+    content << content_tag(:a, I18n.t("discuss.statements.open_embed_link"), :href => background_info.external_url.info_url,
+                        :class => "open_embed_button text_button",
                         :target => "_blank")
     content << content_tag(:div, :class => 'embedded_container') do
      content_tag(:a, '', :href => background_info.external_url.info_url, :class => 'embedded_content')
