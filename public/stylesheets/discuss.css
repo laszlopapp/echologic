@@ -775,7 +775,17 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   cursor: pointer;
 }
 
-.breadcrumb .big_delimiter {
+.breadcrumb .delimiter {
+  background: transparent url(../images/page/discuss/breadcrumb_delimiter_small.png) no-repeat scroll 0 0;
+  width: 11px;
+  height: 23px;
+  font-weight: bold;
+  position: absolute;
+  left: 12px;
+  top: 19px;
+}
+
+.breadcrumb.fq .delimiter {
   background: transparent url(../images/page/discuss/breadcrumb_delimiter_big.png) no-repeat scroll 0 0;
   width: 11px;
   height: 23px;
@@ -1522,7 +1532,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .statement .children.header_block .headline {
 	background: url("../images/page/tabbar_header_right.png") no-repeat scroll right top transparent;
 	margin-top: -17px !important;
-	height: 40px;
+	height: 43px;
 }
 
 
@@ -1548,6 +1558,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	line-height: 40px;
 	display: inline-block;
 	color: #21587F;
+  text-align: left;
 }
 .statement .children .headline.active .child_header.selected .header_content {
 	background-position: right bottom;
@@ -1556,6 +1567,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .statement .children .headline .header_content:hover {
   color: #7BB031 !important;
+}
+
+.statement .children .headline .type {
+  margin-left: -3px;
 }
 
 .statement .children .headline .count {
@@ -1594,7 +1609,11 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .children_pagination, .doubles_list {
   margin-bottom: 3px !important;
-  overflow: hidden;
+  display: inline-block;
+}
+
+.doubles_list .children_pagination {
+  margin-bottom: 0 !important;
 }
 
 .children_pagination .jspVerticalBar, .doubles_list .jspVerticalBar {
