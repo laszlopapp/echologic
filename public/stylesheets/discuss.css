@@ -1577,6 +1577,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   font-weight: normal;
 }
 
+.statement .children .children_content {
+  overflow: hidden;
+}
+
 .children_pagination, .children_pagination .jspPane, .doubles_list, .doubles_list .jspPane {
   width: 785px !important;
 }

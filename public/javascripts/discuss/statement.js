@@ -63,7 +63,7 @@
 				}
 
 				initExpandables();
-        initChildrenButtons();
+        initChildrenTabbars();
 
         if (isEchoable()) {
           statement.echoable();
@@ -114,7 +114,7 @@
 							}
 						}
 						else {
-							var key = element.data('api').deleteBreadcrumb();
+							element.data('api').deleteBreadcrumb();
 						}
 				  }
           element.replaceWith(statement);
@@ -159,42 +159,38 @@
 
 
 			/*
-       * Handles the children panel buttons
+       * Handles the children tabs and their content panels.
        */
-			function initChildrenButtons() {
+      function initChildrenTabbars() {
 				statement.find(".children").each(function(){
 					var container = $(this);
-					var headline = container.find('.headline');
-					var loading = headline.find('.loading');
-					var content = container.find('.children_content');
+					var tabbar = container.find('.headline');
+					var loading = tabbar.find('.loading');
+					var childrenContent = container.find('.children_content');
+
 				  container.find("a.child_header").bind('click', function(){
-						var last_button = container.find('a.child_header.selected');
-						var button = $(this);
-						var type = button.attr('type');
-						var panel = container.find('div.' + type);
-						var headlineApi = headline.data('expandableApi');
-						if (!content.is(":visible")) { headlineApi.toggle(); }
-						if (panel.length > 0) {
-							if (!panel.is(':visible')) {
-						  	container.find('div.children_container').hide();
-						  	panel.show();
-						  	last_button.removeClass('selected');
-						  	button.addClass('selected');
-						  }
+						var oldTab = container.find('a.child_header.selected');
+						var newTab = $(this);
+            var oldChildrenPanel = childrenContent.find('div.' + oldTab.attr('type'));
+						var newChildrenPanel = childrenContent.find('div.' + newTab.attr('type'));
+
+            // Switching tabs
+            var tabbarVisible = childrenContent.is(":visible");
+            if (newChildrenPanel.length > 0) {
+							if (!newChildrenPanel.is(':visible')) {
+                switchTabs(oldTab, newTab, childrenContent, oldChildrenPanel, newChildrenPanel, tabbarVisible);
+              }
 						} else {
-							var path = button.attr('href');
+							var path = newTab.attr('href');
 							loading.show();
 							$.ajax({
 				        url:      path,
 				        type:     'get',
 				        dataType: 'script',
 								success: function(data, status) {
-									panel = container.find('.children_container:first');
-									if (!panel.is(':visible')) {
-		                container.find('div.children_container').hide();
-		                panel.show();
-		                last_button.removeClass('selected');
-		                button.addClass('selected');
+									newChildrenPanel = childrenContent.find('.children_container:first');
+									if (!newChildrenPanel.is(':visible')) {
+		                switchTabs(oldTab, newTab, childrenContent, oldChildrenPanel, newChildrenPanel, tabbarVisible);
 										loading.hide();
 		              }
 								},
@@ -203,11 +199,27 @@
 								}
 				      });
 						}
+            // Expanding the content if the headline is closed
+            if (!tabbarVisible) { tabbar.data('expandableApi').toggle(); }
 						return false;
 					});
 				});
 			}
 
+      function switchTabs(oldTab, newTab, childrenContent, oldChildrenPanel, newChildrenPanel, animate) {
+        oldTab.removeClass('selected');
+        newTab.addClass('selected');
+        childrenContent.find('div.children_container').hide();
+        if (animate) {
+          newChildrenPanel.fadeIn(settings['animation_speed']);
+          childrenContent.height(oldChildrenPanel.height()).
+            animate({'height': newChildrenPanel.height()}, settings['animation_speed'], function() {
+              childrenContent.removeAttr('style');
+            });
+        } else {
+          newChildrenPanel.show();
+        }
+      }
 
       function loadJumpLink(url){
 				var anchor_index = url.indexOf("#");
@@ -608,12 +620,12 @@
           statement.data('echoableApi').loadRatioBars(container);
         }
 	    }
-			
-			
+
+
 			/********************/
 			/* EMBEDDED CONTENT */
 			/********************/
-			
+
 			function initEmbeddedContent(){
 		  	embeddedContent.embedly({
 					// key: ECHO_EMBEDLY_KEY!!!!!!!!!! TODO!
