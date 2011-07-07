@@ -209,7 +209,7 @@
       function switchTabs(oldTab, newTab, childrenContent, oldChildrenPanel, newChildrenPanel, animate) {
         oldTab.removeClass('selected');
         newTab.addClass('selected');
-        childrenContent.find('div.children_container').hide();
+        oldChildrenPanel.hide();
         if (animate) {
           newChildrenPanel.fadeIn(settings['animation_speed']);
           childrenContent.height(oldChildrenPanel.height()).
