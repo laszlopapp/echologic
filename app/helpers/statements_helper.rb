@@ -199,7 +199,8 @@ module StatementsHelper
                             :class => 'label')
       button
     end
-    content << content_tag(:div, :class => 'add_new_panel popup_panel',
+    wide = statement_node.is_a?(Proposal) ? ' wide' : ''
+    content << content_tag(:div, :class => "add_new_panel#{wide} popup_panel",
                            :style => "display:none") do
       panel = ''
       panel << content_tag(:div, :class => 'panel_header') do
