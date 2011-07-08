@@ -7,6 +7,14 @@ class ApplicationController < ActionController::Base
   # ROUTING #
   ###########
 
+  before_filter :set_mode
+  
+  private
+  def set_mode
+    RoutingFilter::Mode.current_mode = params[:mode]
+  end
+
+
   #
   # Initialize the locale of the application
   #

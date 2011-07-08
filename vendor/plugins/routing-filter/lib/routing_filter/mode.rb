@@ -2,8 +2,8 @@ require 'routing_filter/base'
 
 module RoutingFilter
   class Mode < Base
+    cattr_writer :current_mode
     class << self
-      
       def modes
         @@modes ||= [:embed]
       end
@@ -13,22 +13,22 @@ module RoutingFilter
       end
     end
     
+    def current_mode
+      @@current_mode
+    end
+    
     def around_recognize(path, env, &block)
-      mode = extract_mode!(path)   
+      mode = extract_mode!(path) 
       returning yield do |params|
         params[:mode] = mode
       end
     end
 
     def around_generate(*args, &block)
-      puts args.inspect
-      mode = args.extract_options!.delete(:mode) 
-      puts mode.inspect
+      mode = args.extract_options!.delete(:mode) || current_mode
       returning yield do |result|
-        if mode
-          url = result.is_a?(Array) ? result.first : result
-          prepend_mode(url, mode)
-        end
+        url = result.is_a?(Array) ? result.first : result
+        prepend_mode(url, mode) if prepend_mode?(url, mode)
       end
     end
     
@@ -37,6 +37,10 @@ module RoutingFilter
     def extract_mode!(path)
       path.sub! self.class.modes_pattern, ''
       $1
+    end
+    
+    def prepend_mode?(url, mode)
+      mode and !url[/(http.?:\/\/(\\w{2}\/)?)?#{mode}/]
     end
     
     def prepend_mode(url, mode)
