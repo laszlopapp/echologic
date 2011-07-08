@@ -9,6 +9,8 @@
       <%= render_add_new_button(statement_node, params[:origin], params[:bids]) %>
     <% end %>
     
+		<%= render_embed_button(statement_node) %>
+		
 		<%= render_clipboard_button(statement_node) %>
 		  
     <% if current_user and current_user.may_delete?(statement_node) -%>

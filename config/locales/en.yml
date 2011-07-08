@@ -496,6 +496,7 @@ en:
         background_info:  See all background infos belonging to the current statement
       link_statement: "Enter a part of the title and press the button to search for matching statements to be referenced..."
       copy_to_clipboard: "Copy Statement Link to Clipboard"
+      embed: "embed this statement in your blog/website"
 
     statements:
       label: 'votes'

@@ -94,6 +94,21 @@ module StatementsHelper
     end
   end
   
+  #
+  # Creates a link to embed the statement node 
+  #
+  def render_embed_button(statement_node)
+    url = statement_node_url(statement_node, :locale => I18n.locale, :mode => :embed)
+    embed_code = %Q{<iframe width="800" height="1000" src="#{url}" frameborder="0"></iframe>}
+    
+    content_tag :div, :class => "embed_button_container" do
+      content = ""
+      content << link_to('', '#', :class => 'embed_button ttLink no_border',
+                                  :title => I18n.t('discuss.tooltips.embed'))
+      content << text_field_tag('', h(embed_code), :class => 'embed_url', :style => "display:none")
+      content
+    end
+  end
   
   #
   # Creates a link to copy the statement node link into the clipboard
