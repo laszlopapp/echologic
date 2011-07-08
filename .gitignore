@@ -8,7 +8,9 @@ public/system/avatars/
 /echologic.ipr
 /echologic.iws
 /rerun.txt
+/.generators
 /.rakeTasks
+/.generators
 db/*.sqlite3
 .idea/
 *~

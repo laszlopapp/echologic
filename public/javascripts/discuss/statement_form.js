@@ -33,7 +33,7 @@
 			var text;
 			var language_combo;
 			var chosenLanguage = form.find('select.language_combo');
-			var statementLinked = form.find('input.statement_id');
+			var statementLinked, statementParentId;
 			var publish_checkbox = form.find('.publish_radios');
 			var auto_complete_button;
       var linking_messages;
@@ -53,6 +53,8 @@
         // New Statement Form Helpers
         if (form.hasClass('new')) {
 					language_combo = form.find('.statement_language select');
+					statementLinked = form.find('input#statement_node_statement_id');
+					statementParentId = form.find('input#statement_node_parent_id');
           loadDefaultText();
           initFormCancelButton();
 					initAutoCompleteTitle();
@@ -190,6 +192,7 @@
 																	multipleSeparator: "",
 																	extraParams: {
 																		code: function(){ return chosenLanguage.val(); },
+																		parent_id: function() {return statementParentId.val(); },
 																	  type: type
 																	}
 												        });
@@ -217,8 +220,16 @@
 							linkStatementNode(echoId);
 						}
 						else {
-							title.addClass('ac_loading');
-							title.search();
+							var words = titleValue.split(" ");
+							var moreThanThreeChars = true;
+							$.each(words, function(index, word){
+								if(word.length < 3) {moreThanThreeChars = false; return;}
+								if (index > 1) { return; }
+							}); 
+							if (words.length >= 2 && moreThanThreeChars) {
+						  	title.addClass('ac_loading');
+						  	title.search();
+						  }
 						}
           }
           
@@ -230,13 +241,18 @@
        * given a statement node Id, gets the statement remotely and fills the form with the given data
        */
 			function linkStatementNode(nodeId) {
-				var path = '../../statement/' + nodeId + '/link_statement_node';
+				var path = '../../statement/' + nodeId + '/link_statement_node/' + type;
         path = $.queryString(path, {
-          "code" : chosenLanguage.val()
+          "code" : chosenLanguage.val(),
+					"parent_id": statementParentId.val()
         });
         $.getJSON(path, function(data) {
-          linkStatementData(data);
-
+					if (data['error']) {
+		        error(data['error']);
+				  }
+				  else {
+				  	linkStatementData(data);
+				  }
         });
 			}
 			

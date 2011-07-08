@@ -35,17 +35,17 @@
     /*************************/
 
     function Statement(statement) {
-			var timer;
       var statementDomId = statement.attr('id');
 			var statementDomParent = statement.attr('dom-parent');
-			var statementType = statement.attr('id').match("new") ? $.trim(statement.find('input#type').val()) : $.trim(statementDomId.match(/[^(add_|new_)]\w+[^_\d+]/));
+			var statementType = statement.attr('id').match("new") ? $.trim(statement.find('input#type').val()) :
+                                                              $.trim(statementDomId.match(/[^(add_|new_)]\w+[^_\d+]/));
       var statementId = getStatementId(statementDomId);
 			var parentStatement, statement_index;
 			var statementUrl;
+			var embeddedContent = statement.find('.embedded_container');
 
       // Initialize the statement
       initialise();
-
 
       // Initializes the statement.
       function initialise() {
@@ -63,7 +63,7 @@
 				}
 
 				initExpandables();
-        initChildrenButtons();
+        initChildrenTabbars();
 
         if (isEchoable()) {
           statement.echoable();
@@ -76,14 +76,17 @@
 					statement.statementForm();
         } else {
 					statementUrl = statement.find('.header_link a.statement_link').attr('href');
-					
+
 					initAddNewButton();
 					initClipboardButton();
           initMoreButton();
           initAllStatementLinks();
+					if(embeddedContent.length > 0) {
+						initEmbeddedContent();
+					}
 					//initFlicks();
         }
-				
+
 				//statement.find('.embedded_container').iframeResize({height: "auto", autoUpdate : true, classes: ".embedded_content"});
       }
 
@@ -102,8 +105,8 @@
 					if (statementDomId.match('new') && element.data('api').getType() != statementType) {
 						var dom_parent = statementDomParent;
 						if (dom_parent && dom_parent.length > 0) {
-							var key = $.inArray(dom_parent.substring(0,2),['ds','sr']) == -1 ? 
-							          $("#statements div#" + dom_parent).data('api').getBreadcrumbKey() : 
+							var key = $.inArray(dom_parent.substring(0,2),['ds','sr']) == -1 ?
+							          $("#statements div#" + dom_parent).data('api').getBreadcrumbKey() :
 												dom_parent.substring(0,2);
 							var parentBreadcrumb = $("#breadcrumbs").data('breadcrumbApi').getBreadcrumb(key);
 							if (parentBreadcrumb.length > 0) {
@@ -111,7 +114,7 @@
 							}
 						}
 						else {
-							var key = element.data('api').deleteBreadcrumb();
+							element.data('api').deleteBreadcrumb();
 						}
 				  }
           element.replaceWith(statement);
@@ -156,38 +159,38 @@
 
 
 			/*
-       * Handles the children panel buttons
+       * Handles the children tabs and their content panels.
        */
-			function initChildrenButtons() {
+      function initChildrenTabbars() {
 				statement.find(".children").each(function(){
 					var container = $(this);
-					var loading = container.find('.headline .loading');
+					var tabbar = container.find('.headline');
+					var loading = tabbar.find('.loading');
+					var childrenContent = container.find('.children_content');
+
 				  container.find("a.child_header").bind('click', function(){
-						var last_button = container.find('a.child_header.selected');
-						var button = $(this);
-						var type = button.attr('type');
-						var panel = container.find('div.' + type);
-						if (panel.length > 0) {
-							if (!panel.is(':visible')) {
-						  	container.find('div.children_container').hide();
-						  	panel.show();
-						  	last_button.removeClass('selected');
-						  	button.addClass('selected');
-						  }
+						var oldTab = container.find('a.child_header.selected');
+						var newTab = $(this);
+            var oldChildrenPanel = childrenContent.find('div.' + oldTab.attr('type'));
+						var newChildrenPanel = childrenContent.find('div.' + newTab.attr('type'));
+
+            // Switching tabs
+            var tabbarVisible = childrenContent.is(":visible");
+            if (newChildrenPanel.length > 0) {
+							if (!newChildrenPanel.is(':visible')) {
+                switchTabs(oldTab, newTab, childrenContent, oldChildrenPanel, newChildrenPanel, tabbarVisible);
+              }
 						} else {
-							var path = button.attr('href');
+							var path = newTab.attr('href');
 							loading.show();
 							$.ajax({
 				        url:      path,
 				        type:     'get',
 				        dataType: 'script',
 								success: function(data, status) {
-									panel = container.find('.children_container:first');
-									if (!panel.is(':visible')) {
-		                container.find('div.children_container').hide();
-		                panel.show();
-		                last_button.removeClass('selected');
-		                button.addClass('selected');
+									newChildrenPanel = childrenContent.find('.children_container:first');
+									if (!newChildrenPanel.is(':visible')) {
+		                switchTabs(oldTab, newTab, childrenContent, oldChildrenPanel, newChildrenPanel, tabbarVisible);
 										loading.hide();
 		              }
 								},
@@ -196,11 +199,27 @@
 								}
 				      });
 						}
+            // Expanding the content if the headline is closed
+            if (!tabbarVisible) { tabbar.data('expandableApi').toggle(); }
 						return false;
 					});
 				});
 			}
 
+      function switchTabs(oldTab, newTab, childrenContent, oldChildrenPanel, newChildrenPanel, animate) {
+        oldTab.removeClass('selected');
+        newTab.addClass('selected');
+        oldChildrenPanel.hide();
+        if (animate) {
+          newChildrenPanel.fadeIn(settings['animation_speed']);
+          childrenContent.height(oldChildrenPanel.height()).
+            animate({'height': newChildrenPanel.height()}, settings['animation_speed'], function() {
+              childrenContent.removeAttr('style');
+            });
+        } else {
+          newChildrenPanel.show();
+        }
+      }
 
       function loadJumpLink(url){
 				var anchor_index = url.indexOf("#");
@@ -237,8 +256,8 @@
 		   * Collapses all visible statements.
 		   */
 		  function hideStatements() {
-				$('#statements .statement .header').removeClass('active').addClass('expandable');
 				$('#statements .statement .header:Event(!click)').expandable();
+				$('#statements .statement .header').removeClass('active').addClass('expandable');
 		    $('#statements .statement .content').animate(settings['hide_animation_params'],
                                                      settings['hide_animation_speed']);
 		    $('#statements .statement .header .supporters_label').animate(settings['hide_animation_params'],
@@ -337,16 +356,20 @@
           return false;
 		    });
 		  }
-   
+
 	    function initClipboardButton() {
-				var clip_url = statement.find('.action_bar .clip_url')
-				statement.find('.action_bar a.clip_button').bind('click', function(){
+				var clip_url = statement.find('.action_bar .clip_url');
+				statement.find('.action_bar a.clip_button').bind("click", function() {
+          $(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
 					clip_url.show().select();
-					return false;
-				});
-			
-			}  
-	 
+          return false;
+        });
+				statement.find('.action_bar .clipboard_panel').bind("mouseleave", function() {
+          $(this).fadeOut();
+          return false;
+        });
+			}
+
 		  /*
 		   * Handles the click on the more Button event (replaces it with an element of class 'more_loading')
 		   */
@@ -518,8 +541,6 @@
 						  break;
 					}
 
-
-
           $('#breadcrumbs').data('element_clicked', generateBreadcrumbKey());
 
           $.setFragment({
@@ -531,10 +552,6 @@
           return false;
         });
       }
-
-
-
-
 
 
 		  /*
@@ -585,6 +602,39 @@
 				return current_stack;
 		  }
 
+
+			function reinitialiseChildren(childrenContainerSelector) {
+				var container = statement.find(childrenContainerSelector);
+        initContainerMoreButton(container);
+        initChildrenLinks(container);
+        if (isEchoable) {
+          statement.data('echoableApi').loadRatioBars(container);
+        }
+			}
+
+			function reinitialiseSiblings(siblingsContainerSelector) {
+	      var container = statement.find(siblingsContainerSelector);
+        initContainerMoreButton(container);
+        initSiblingsLinks(container);
+        if (isEchoable) {
+          statement.data('echoableApi').loadRatioBars(container);
+        }
+	    }
+
+
+			/********************/
+			/* EMBEDDED CONTENT */
+			/********************/
+
+			function initEmbeddedContent(){
+		  	embeddedContent.embedly({
+					// key: ECHO_EMBEDLY_KEY!!!!!!!!!! TODO!
+					error: function(node, dict) {
+						node.replaceWith($("<iframe/>").addClass('embedded_content').attr('frameborder',0).attr('src', node.attr('href')));
+					}
+		  	});
+		  }
+
       // Public API of statement
       $.extend(this,
       {
@@ -594,22 +644,16 @@
           initialise();
         },
 
+        reinitialiseContainerBlock: function(containerSelector, newLevel) {
+					newLevel ? reinitialiseChildren(containerSelector) : reinitialiseSiblings(containerSelector);
+				},
+
 				reinitialiseChildren: function(childrenContainerSelector) {
-					var container = statement.find(childrenContainerSelector);
-					initContainerMoreButton(container);
-          initChildrenLinks(container);
-					if (isEchoable) {
-            statement.data('echoableApi').loadRatioBars(container);
-          }
+					reinitialiseChildren(siblingsContainerSelector);
 				},
 
 				reinitialiseSiblings: function(siblingsContainerSelector) {
-          var container = statement.find(siblingsContainerSelector);
-					initContainerMoreButton(container);
-          initSiblingsLinks(container);
-					if (isEchoable) {
-			  		statement.data('echoableApi').loadRatioBars(container);
-				  }
+          reinitialiseSiblings(siblingsContainerSelector);
         },
 
         insertContent: function(content) {
@@ -682,7 +726,8 @@
 		    },
         loadRatioBars: function(container)
         {
-          initRatioBars(container);
+          statement.data('echoableApi').loadRatioBars(container);
+					return this;
         },
 				getType: function()
 				{

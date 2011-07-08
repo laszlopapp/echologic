@@ -1,19 +1,16 @@
 <% statement_node ||= @statement_node %>
 <% only_echo_button ||= false %>
 
-<div class="action_bar">
+<% content_tag :div, :class => "action_bar" do %>
   <%= render_echo_button statement_node %>
 
+
   <% if !only_echo_button %>
-	  <% content_tag :div, :class => "add_new_container" do %>
-      <%= render_add_new_button(statement_node, params[:origin], params[:bids]) %>
-    <% end %>
-    
-		<%= render_clipboard_button(statement_node) %>
-		  
-    <% if current_user and current_user.may_delete?(statement_node) -%>
-      <br/><br/>
-      <%= delete_statement_node_link(statement_node) %>
-    <% end -%>
+    <% if statement_node.class.has_embeddable_data? %>
+			<%= render_statement_actions(statement_node, :class => "toggled_content", :style => "display:none") %>
+			<%= insert_toggle_more %>
+		<% else %>
+      <%= render_statement_actions(statement_node) %>
+	  <% end %>
   <% end %>
-</div>
+<% end %>

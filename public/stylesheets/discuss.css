@@ -95,6 +95,12 @@
   top: 43px;
 }
 
+.statement .action_bar .moreButton,
+.statement .action_bar .hideButton {
+	margin-top: 10px;
+	display: inline-block;
+}
+
 
 /****************/
 /* My Questions */
@@ -438,12 +444,59 @@ form.statement .info_types_container a.url {
 }
 
 form.statement input.embed_url {
+  width: 660px !important;
+}
 
+form.statement .preview_button {
+	float: right;
+	position: relative;
+	top: 3px;
+}
+
+form.statement .edit_embed_button {
+	display: block;
+}
+
+form.embeddable #statement_datas_container li {
+  width: 762px;
+}
+
+.statement .open_embed_button {
+	float: right;
+}
+
+.statement .embedding_display {
+	text-align: center;
+}
+
+
+
+.statement .embedding_area {
+  border-top: 1px solid #000000;
+  margin-top: 20px;
+	margin-left: -190px;
+  padding-top: 40px;
+	padding-left: 190px;
+	width: 800px;
+}
+
+.statement .embedded_container {
+  clear: both;
+  text-align: center;
+  margin-bottom: 0 auto;
+	border-top: 1px solid #000000;
+	padding-top: 10px;
 }
 
 .statement .embedded_content {
-	width: 721px;
-	height: 600px;
+  width: 100%;
+  height: 1000px;
+	overflow-x: hidden;
+	overflow-y: auto;
+
+}
+.statement .embed {
+	margin-top: 16px;
 }
 
 /*********/
@@ -722,7 +775,17 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   cursor: pointer;
 }
 
-.breadcrumb .big_delimiter {
+.breadcrumb .delimiter {
+  background: transparent url(../images/page/discuss/breadcrumb_delimiter_small.png) no-repeat scroll 0 0;
+  width: 11px;
+  height: 23px;
+  font-weight: bold;
+  position: absolute;
+  left: 12px;
+  top: 19px;
+}
+
+.breadcrumb.fq .delimiter {
   background: transparent url(../images/page/discuss/breadcrumb_delimiter_big.png) no-repeat scroll 0 0;
   width: 11px;
   height: 23px;
@@ -819,26 +882,54 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 
+/****************/
+/* Popup panels */
+/****************/
+
+.statement .popup_panel {
+  border: 3px solid #BBB;
+	background: #FEFEFE;
+  position: absolute;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  -moz-box-shadow: 0 5px 25px #999;
+  -webkit-box-shadow: 0 5px 25px #999;
+  box-shadow: 0 5px 25px #999;
+  text-align: left;
+  z-index: 5;
+  cursor: default;
+}
+
+.statement .popup_panel .panel_header {
+  background: none;
+  margin: 16px 0 16px 59px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+
 /***********************************/
 /* Social echo container and panel */
 /***********************************/
 
-.social_echo_container {
+.statement .social_echo_container {
 	display: inline-block;
 }
 
-.social_echo_container .social_echo_button {
+.statement .social_echo_container .social_echo_button {
 	background-image: url(../images/page/discuss/social_echo.png);
 	width: 150px;
 	height: 50px;
 	display: inline-block;
 	cursor: pointer;
 }
-.social_echo_container .social_echo_button:hover {
+
+.statement .social_echo_container .social_echo_button:hover {
 	background-position: 0 50px;
 }
 
-.social_echo_panel {
+.statement .social_echo_panel {
 	width: 640px;
   border: 3px solid #BBB;
   background: #FEFEFE;
@@ -847,7 +938,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   left: 165px;
 }
 
-.social_echo_panel .panel_header {
+.statement .social_echo_panel .panel_header {
 	background: none;
   width: 400px;
   margin: 16px 0 0 30px;
@@ -855,18 +946,18 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   font-weight: bold;
 }
 
-.social_echo_panel .panel_description {
+.statement .social_echo_panel .panel_description {
   background: none;
   width: 580px;
   margin: 25px 0 0 30px;
 }
 
-.social_echo_panel .social_account_list {
+.statement .social_echo_panel .social_account_list {
 	padding-top: 10px;
 	height: 100px;
 }
 
-.social_echo_panel .social_account {
+.statement .social_echo_panel .social_account {
 	display: inline-block;
 	width: 130px;
   height: 80px;
@@ -884,7 +975,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 /* Social Network labels */
-.social_echo_panel .social_label {
+.statement .social_echo_panel .social_label {
   background: transparent url(../images/page/social_echo_icons_big.png) no-repeat scroll 0 0;
   width: 110px;
   height: 35px;
@@ -892,18 +983,18 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   margin-top: 5px;
 }
 
-.social_echo_panel .social_label.facebook { background-position: 0 0; }
-.social_echo_panel .social_label.twitter { background-position: -110px 0; }
-.social_echo_panel .social_label.yahoo { background-position: -220px 0; }
-.social_echo_panel .social_label.linkedin { background-position: -330px 0; }
-.social_echo_panel .social_label.google { background-position: -440px 0; }
-.social_echo_panel .social_label.facebook.connected { background-position: 0 -35px; }
-.social_echo_panel .social_label.twitter.connected { background-position: -110px -35px; }
-.social_echo_panel .social_label.yahoo.connected { background-position: -220px -35px; }
-.social_echo_panel .social_label.linkedin.connected { background-position: -330px -35px; }
-.social_echo_panel .social_label.google.connected { background-position: -440px -35px; }
+.statement .social_echo_panel .social_label.facebook { background-position: 0 0; }
+.statement .social_echo_panel .social_label.twitter { background-position: -110px 0; }
+.statement .social_echo_panel .social_label.yahoo { background-position: -220px 0; }
+.statement .social_echo_panel .social_label.linkedin { background-position: -330px 0; }
+.statement .social_echo_panel .social_label.google { background-position: -440px 0; }
+.statement .social_echo_panel .social_label.facebook.connected { background-position: 0 -35px; }
+.statement .social_echo_panel .social_label.twitter.connected { background-position: -110px -35px; }
+.statement .social_echo_panel .social_label.yahoo.connected { background-position: -220px -35px; }
+.statement .social_echo_panel .social_label.linkedin.connected { background-position: -330px -35px; }
+.statement .social_echo_panel .social_label.google.connected { background-position: -440px -35px; }
 
-.social_echo_panel .button {
+.statement .social_echo_panel .button {
 	display: inline-block;
   width: 100%;
 	height: 40px;
@@ -916,65 +1007,65 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   -webkit-border-radius: 0 0 11px 11px;
 }
 
-.social_echo_panel .button.disabled,
-.social_echo_panel .button.connect {
+.statement .social_echo_panel .button.disabled,
+.statement .social_echo_panel .button.connect {
   color: #FFF;
   background-color: #AAA;
 }
 
-.social_echo_panel .button.connect:hover {
+.statement .social_echo_panel .button.connect:hover {
   background-color: #BBB;
 }
 
-.social_echo_panel .button.enabled { color: #FFF; }
-.social_echo_panel .social_account.facebook .button.enabled { background-color: #526ea5; }
-.social_echo_panel .social_account.twitter .button.enabled { background-color: #5dd5fd; }
-.social_echo_panel .social_account.yahoo .button.enabled { background-color: #7d287d; }
-.social_echo_panel .social_account.linkedin .button.enabled { background-color: #287097; }
+.statement .social_echo_panel .button.enabled { color: #FFF; }
+.statement .social_echo_panel .social_account.facebook .button.enabled { background-color: #526ea5; }
+.statement .social_echo_panel .social_account.twitter .button.enabled { background-color: #5dd5fd; }
+.statement .social_echo_panel .social_account.yahoo .button.enabled { background-color: #7d287d; }
+.statement .social_echo_panel .social_account.linkedin .button.enabled { background-color: #287097; }
 
-.social_echo_panel .button.enabled,
-.social_echo_panel .button.disabled {
+.statement .social_echo_panel .button.enabled,
+.statement .social_echo_panel .button.disabled {
   padding-left: 25px;
   background-image: url(../images/page/discuss/send_social_echo.png);
   background-repeat: no-repeat;
   width: 105px;
 }
 
-.social_echo_panel .button.enabled { background-position: 13px -40px; }
-.social_echo_panel .button.enabled:hover { background-position: 13px 0 !important; }
-.social_echo_panel .button.disabled { background-position: 13px 0 !important; }
-.social_echo_panel .button.disabled:hover { background-position: 13px -40px !important; }
+.statement .social_echo_panel .button.enabled { background-position: 13px -40px; }
+.statement .social_echo_panel .button.enabled:hover { background-position: 13px 0 !important; }
+.statement .social_echo_panel .button.disabled { background-position: 13px 0 !important; }
+.statement .social_echo_panel .button.disabled:hover { background-position: 13px -40px !important; }
 
 /* Texts */
 
-.social_echo_panel .share_form .block {
+.statement .social_echo_panel .share_form .block {
 	margin: 0 0 15px;
   position: relative;
 }
 
-.social_echo_panel .share_form .block.center {
+.statement .social_echo_panel .share_form .block.center {
 	text-align: center;
 }
 
-.social_echo_panel .share_form .block.left {
+.statement .social_echo_panel .share_form .block.left {
   margin: 15px 0 15px 28px;
   width: 575px;
   display: inline-block;
 }
 
-.social_echo_panel .share_form label {
+.statement .social_echo_panel .share_form label {
 	width: 130px;
 	display: inline-block;
   color: #7bb031;
   font-weight: bold;
 }
 
-.social_echo_panel .share_form .hint {
+.statement .social_echo_panel .share_form .hint {
 	position: relative;
   left: 40px;
 }
 
-.social_echo_panel .share_form .text {
+.statement .social_echo_panel .share_form .text {
   width: 425px;
   border: 1px solid #777;
   padding: 3px 4px;
@@ -982,25 +1073,25 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   display: inline-block;
 }
 
-.social_echo_panel .share_form .counter {
+.statement .social_echo_panel .share_form .counter {
   display: inline-block;
   position: absolute;
   right: 10px;
   margin-top: 3px;
 }
 
-.social_echo_panel .share_form .preview {
+.statement .social_echo_panel .share_form .preview {
 	height: 60px;
 	vertical-align: top;
   cursor: text;
   overflow: hidden;
 }
 
-.social_echo_panel .share_form .submit_block .disabled {
+.statement .social_echo_panel .share_form .submit_block .disabled {
 	color: #999;
 }
 
-.social_echo_panel .share_form .submit_block .disabled:hover {
+.statement .social_echo_panel .share_form .submit_block .disabled:hover {
   background-position: 0 0;
   cursor: default;
 }
@@ -1052,38 +1143,36 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .action_bar .clip_button {
   display: inline-block;
 	background: url(../images/page/discuss/copy_link_16.png) no-repeat scroll 0 0;
-	height: 16px;
-	width: 20px;
+	padding-left: 24px;
+	margin-left: 0;
+}
+
+.clipboard_panel {
+    background: none repeat scroll 0 0 #FEFEFE;
+    border: 3px solid #BBBBBB;
+    bottom: -69px;
+    left: 136px;
+    position: absolute;
+    width: 322px;
+		padding: 15px 30px;
+}
+
+.clipboard_panel .panel_header {
+  width: 280px;
+	margin-left: 0 !important;
 }
 
 .action_bar .clip_url {
-	margin-top: 10px;
+	margin-top: 20px;
+	width: 317px;
 }
 
-/****************/
-/* Popup panels */
-/****************/
-
-.statement .popup_panel {
-  border: 3px solid #BBB;
-	background: #FEFEFE;
-  position: absolute;
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-  border-radius: 15px;
-  -moz-box-shadow: 0 5px 25px #999;
-  -webkit-box-shadow: 0 5px 25px #999;
-  box-shadow: 0 5px 25px #999;
-  text-align: left;
-  z-index: 5;
-  cursor: default;
-}
 
 /***************************/
 /* Add new statement panel */
 /***************************/
 
-.add_new_panel {
+.statement .add_new_panel {
   width: 575px;
 	border: 3px solid #BBB;
 	background: #FEFEFE;
@@ -1092,15 +1181,18 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	left: 136px;
 }
 
-.add_new_panel .panel_header {
-	background: none;
-  width: 400px;
-  margin: 16px 0 16px 59px;
-  font-size: 16px;
-  font-weight: bold;
+.statement .add_new_panel.wide {
+  width: 700px;
 }
 
-.add_new_panel .block_separator {
+.statement .add_new_panel .panel_header {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 16px 0 16px 59px;
+  width: 400px;
+}
+
+.statement .add_new_panel .block_separator {
 	height: 1px;
 	width: 100%;
 	background: #DDD;
@@ -1108,17 +1200,18 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   border: none;
 }
 
-.add_new_panel .container {
+.statement .add_new_panel .container {
   margin: 18px 0 7px;
 }
 
-.add_new_panel .resource_link {
+.statement .add_new_panel .resource_link {
 	color: #21587F;
   text-decoration: underline;
 	margin: 0 15px 0 20px;
 	padding: 7px 0 0 40px;
   display: inline-block;
   height: 38px;
+  min-width: 60px;
 }
 
 /******************/
@@ -1450,7 +1543,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .statement .children.header_block .headline {
 	background: url("../images/page/tabbar_header_right.png") no-repeat scroll right top transparent;
 	margin-top: -17px !important;
-	height: 40px;
+	height: 43px;
 }
 
 
@@ -1464,7 +1557,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	display: inline-block;
 	margin-top: -1px;
 }
-.statement .children .headline .child_header.selected {
+.statement .children .headline.active .child_header.selected {
 	background-position: left bottom;
 }
 
@@ -1476,8 +1569,9 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	line-height: 40px;
 	display: inline-block;
 	color: #21587F;
+  text-align: left;
 }
-.statement .children .headline .child_header.selected .header_content {
+.statement .children .headline.active .child_header.selected .header_content {
 	background-position: right bottom;
 	color: #7BB031;
 }
@@ -1486,8 +1580,16 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   color: #7BB031 !important;
 }
 
+.statement .children .headline .type {
+  margin-left: -3px;
+}
+
 .statement .children .headline .count {
   font-weight: normal;
+}
+
+.statement .children .children_content {
+  overflow: hidden;
 }
 
 .children_pagination, .children_pagination .jspPane, .doubles_list, .doubles_list .jspPane {
@@ -1522,7 +1624,11 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .children_pagination, .doubles_list {
   margin-bottom: 3px !important;
-  overflow: hidden;
+  display: inline-block;
+}
+
+.doubles_list .children_pagination {
+  margin-bottom: 0 !important;
 }
 
 .children_pagination .jspVerticalBar, .doubles_list .jspVerticalBar {
@@ -1676,8 +1782,8 @@ a.statement_link:hover {
   margin: 0 20px 0 15px !important;
   padding: 7px 0 0 45px !important;
 }
-.create_alternative_button_32 {background: transparent url(../images/page/discuss/alternative_32.png) no-repeat scroll 0 4px;}
-.create_background_info_button_32 {background: transparent url(../images/page/discuss/background_info_32.png) no-repeat scroll 0 4px;}
+.create_alternative_button_32 {background: transparent url(../images/page/discuss/alternative_32.png) no-repeat scroll 0 0;}
+.create_background_info_button_32 {background: transparent url(../images/page/discuss/background_info_32.png) no-repeat scroll 0 0;}
 
 /*****************/
 /* Incorporation */
@@ -1905,6 +2011,12 @@ form.statement fieldset ol li.tags_container {
   cursor: default;
 }
 
+.statement .authors .author_link {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 .statement .authors .author img {
   float: left;
 	border: 2px solid #7BB031;
@@ -1919,6 +2031,11 @@ form.statement fieldset ol li.tags_container {
 	font-size: 14px;
   font-weight: bold;
 	overflow: hidden;
+  color: #21587f;
+}
+
+.statement .authors .author_link:hover .name {
+  color: #7bb031;
 }
 
 .statement .authors .author .location_orga {
@@ -1927,6 +2044,7 @@ form.statement fieldset ol li.tags_container {
   left: 60px;
 	font-size: 14px;
 	overflow: hidden;
+  color: #21587f;
 }
 
 .statement .authors .author.teaser {
@@ -2032,14 +2150,5 @@ form.statement fieldset ol li.tags_container {
   top: 7px;
 }
 
-/******************/
-/* Statement Data */
-/******************/
 
-.statement .embedded_container {
-  width: 785px;
-	text-align: center;
-	margin-bottom: 20px;
-	margin-left: 190px;
-  padding-left: 15px;
-}
+

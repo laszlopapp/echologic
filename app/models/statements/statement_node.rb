@@ -115,7 +115,7 @@ class StatementNode < ActiveRecord::Base
   def publishable?
     false
   end
-  
+
   def self.publishable?
     false
   end
@@ -148,7 +148,7 @@ class StatementNode < ActiveRecord::Base
     self.statement.statement_documents << doc
     return doc
   end
-  
+
   # updates an existing node with a new set of attributes
   def update_node(attrs={})
     update_attributes(attrs)
@@ -218,6 +218,7 @@ class StatementNode < ActiveRecord::Base
     else
       opts[:lft] = self.parent_node.lft
       opts[:rgt] = self.parent_node.rgt
+      opts[:filter_drafting_state] = self.incorporable?
       opts[:parent_id] = self.parent_node.target_id
       self.child_statements(opts)
     end
@@ -278,7 +279,7 @@ class StatementNode < ActiveRecord::Base
     opts[:parent_id] ||= self.target_id
     opts[:lft] ||= self.lft
     opts[:rgt] ||= self.rgt
-    opts[:filter_drafting_state] = self.draftable?
+    opts[:filter_drafting_state] ||= self.draftable?
     opts[:type] ? opts[:type].to_s.constantize.statements_for_parent(opts) : children
   end
 
@@ -317,12 +318,12 @@ class StatementNode < ActiveRecord::Base
       node.set_statement(:editorial_state => editorial_state) if node.statement.nil?
       node
     end
-    
+
     def filter_editorial_state(attributes={})
       attributes[:editorial_state] = StatementState[attributes.delete(:editorial_state_id).to_i] if attributes[:editorial_state_id]
       attributes
     end
-    
+
     # Aux Function: Checks if node has more data to show or load
     def has_embeddable_data?
       false
@@ -467,12 +468,12 @@ class StatementNode < ActiveRecord::Base
       end
 
       # Permissions
-      node_conditions = []
-      node_conditions << Statement.conditions(opts, "s.closed_statement", "s.granted_user_id")
+      opts[:node_conditions] ||= [] 
+      opts[:node_conditions] << Statement.conditions(opts, "s.closed_statement", "s.granted_user_id")
 
       # Statement type
       if opts[:types]
-        node_conditions << sanitize_sql(["s.type IN (?)", opts[:types]])
+        opts[:node_conditions] << sanitize_sql(["s.type IN (?)", opts[:types]])
       end
 
       # Published state
@@ -480,17 +481,19 @@ class StatementNode < ActiveRecord::Base
         publish_condition = []
         publish_condition << sanitize_sql(["s.editorial_state_id = ?",StatementState['published'].id])
         publish_condition << sanitize_sql(["s.creator_id = ?",  opts[:user].id]) if opts[:user]
-        node_conditions << "(#{publish_condition.join(' OR ')})"
+        opts[:node_conditions] << "(#{publish_condition.join(' OR ')})"
       end
 
       # Drafting state
       if opts[:drafting_states]
-        node_conditions << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]])
+        opts[:node_conditions] << sanitize_sql(["s.drafting_state IN (?)", opts[:drafting_states]])
       end
 
       # Limit
       limit = "LIMIT #{opts[:limit]}" if opts[:limit]
 
+      
+      opts[:joins] ||= ""
 
       # Search terms
       search_term = opts.delete(:search_term)
@@ -510,24 +513,28 @@ class StatementNode < ActiveRecord::Base
           term_queries << (term_query + (document_conditions + ["(#{or_conditions})"]).join(" AND "))
         end
         term_queries = term_queries.join(" UNION ALL ")
+        
+        joins = "LEFT JOIN search_statement_nodes s ON statement_ids.id = s.statement_id " +
+                "LEFT JOIN #{table_name} ON #{table_name}.id = s.#{aggregator_field} " +
+                "LEFT JOIN #{Echo.table_name} e ON e.id = #{table_name}.echo_id "
+        joins << opts[:joins]
         statements_query = "SELECT #{table_name}.#{opts[:param] || '*'} " +
-                           "FROM (#{term_queries}) statement_ids " +
-                           "LEFT JOIN search_statement_nodes s ON statement_ids.id = s.statement_id " +
-                           "LEFT JOIN #{table_name} ON #{table_name}.id = s.#{aggregator_field} " +
-                           "LEFT JOIN #{Echo.table_name} e ON e.id = #{table_name}.echo_id " +
-                           "WHERE #{node_conditions.join(" AND ")} " +
+                           "FROM (#{term_queries}) statement_ids " + joins +
+                           "WHERE #{opts[:node_conditions].join(" AND ")} " +
                            "GROUP BY s.#{aggregator_field} " +
                            "ORDER BY COUNT(s.#{aggregator_field}) DESC, " +
                            "e.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id #{limit};"
       else
         document_conditions << "d.current = 1"
 
-        node_conditions << "s.type = 'Question'" if opts[:types].nil?
-
-        statements_query = "SELECT DISTINCT s.#{opts[:param] || '*'} from search_statement_nodes s " +
-                           "LEFT JOIN statement_documents d ON d.statement_id = s.statement_id " +
-                           Statement.extaggable_joins_clause("s.statement_id") +
-                           "WHERE " + (node_conditions + document_conditions).join(' AND ') +
+        opts[:node_conditions] << "s.type = 'Question'" if opts[:types].nil?
+        
+        joins = "LEFT JOIN statement_documents d ON d.statement_id = s.statement_id " +
+                Statement.extaggable_joins_clause("s.statement_id")
+        joins << opts[:joins]
+        
+        statements_query = "SELECT DISTINCT s.#{opts[:param] || '*'} from search_statement_nodes s " + joins +
+                           "WHERE " + (opts[:node_conditions] + document_conditions).join(' AND ') +
                            " ORDER BY s.supporter_count DESC, s.created_at DESC, s.id #{limit};"
       end
       find_by_sql statements_query
@@ -622,5 +629,5 @@ class StatementNode < ActiveRecord::Base
       @@linkable_types[self.name] ||= klasses
     end
   end
-  has_default_children_of_types [:FollowUpQuestion,true],[:BackgroundInfo,true]
+  has_default_children_of_types [:FollowUpQuestion,true]
 end

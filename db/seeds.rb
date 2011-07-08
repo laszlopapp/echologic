@@ -349,12 +349,12 @@ end
                               :value => value, :context=> "")
 end
 
-
+# Order of values: EN, DE, FR, PT, ES, HU
 ["Article","Artikel","Article","Artigo","Artículo","Article"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('article','InfoType'),
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
-end                           
+end
 ["Paper","Paper","Paper","Paper","Paper","Paper"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('paper','InfoType'),
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
@@ -365,7 +365,7 @@ end
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
-["Photo","Photo","Photo","Photo","Photo","Photo"].each_with_index do |value,index|
+["Photo Gallery","Photo Gallery","Photo Gallery","Photo Gallery","Photo Gallery","Photo Gallery"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('photo','InfoType'),
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
@@ -375,7 +375,7 @@ end
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
-["URL","URL","URL","URL","URL","URL"].each_with_index do |value,index|
+["Misc. URL","Misc. URL","Misc. URL","Misc. URL","Misc. URL","Misc. URL"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('url','InfoType'),
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
