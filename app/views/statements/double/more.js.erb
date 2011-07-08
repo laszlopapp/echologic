@@ -40,7 +40,14 @@ var pagination_buttons = "<%= escape_javascript(will_paginate(@children[@type].s
                                                    :class => 'more_pagination',
                                                    :next_label => I18n.t("application.general.more"),
                                                    :renderer => StatementsHelper::MoreRenderer)) %>";
-more_element.replaceWith(pagination_buttons);
+
+if(pagination_buttons.length > 0) {
+  more_element.replaceWith(pagination_buttons);
+} else {
+  more_element.children().remove();
+  more_element.append($("<span/>").addClass("more_children disabled").text("<%= I18n.t("application.general.more") %>"));
+}
+
 
 <% if @page.to_i > 1 %>
   scrollpane.reinitialise();
