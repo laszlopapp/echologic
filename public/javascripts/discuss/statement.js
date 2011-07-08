@@ -20,7 +20,8 @@
 
     return this.each(function() {
 			// Creating and binding the statement API
-			var elem = $(this), statementApi = elem.data('api');
+			var elem = $(this);
+      var statementApi = elem.data('api');
 	    if (statementApi) {
 	      statementApi.reinitialise(current_settings);
 	    } else {
