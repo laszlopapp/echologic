@@ -5,7 +5,7 @@
 
 	<!-- The siblings -->
   <% if children and children.kind_of?(Array) %>
-  <%= render :partial => type.classify.constantize.children_list_template,
+  <%= render :partial => child_type.classify.constantize.children_list_template,
              :locals => {:child_type => child_type, :children => children, :display => true, :no_more => true}%>
   <% end %>
 </div>

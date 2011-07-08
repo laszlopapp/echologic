@@ -9,43 +9,43 @@
 <ul class="spreadedList">
   <li>
     <strong><%= I18n.t('static.echosocial.features.internet_presence.title') %></strong>
-    <% insert_toggle_more(I18n.t('static.echosocial.features.internet_presence.text')) %>
+    <%= insert_toggle_more(I18n.t('static.echosocial.features.internet_presence.text')) %>
   </li>
   <li>
     <strong><%= I18n.t('static.echosocial.features.community_management.title') %></strong>
-    <% insert_toggle_more(I18n.t('static.echosocial.features.community_management.text')) %>
+    <%= insert_toggle_more(I18n.t('static.echosocial.features.community_management.text')) %>
   </li>
   <li>
     <strong><%= I18n.t('static.echosocial.features.group_administration.title') %></strong>
-    <% insert_toggle_more(I18n.t('static.echosocial.features.group_administration.text')) %>
+    <%= insert_toggle_more(I18n.t('static.echosocial.features.group_administration.text')) %>
   </li>
   <li>
     <strong><%= I18n.t('static.echosocial.features.project_management.title') %></strong>
-    <% insert_toggle_more(I18n.t('static.echosocial.features.project_management.text')) %>
+    <%= insert_toggle_more(I18n.t('static.echosocial.features.project_management.text')) %>
   </li>
   <li>
     <strong><%= I18n.t('static.echosocial.features.calendar_event.title') %></strong>
-    <% insert_toggle_more(I18n.t('static.echosocial.features.calendar_event.text')) %>
+    <%= insert_toggle_more(I18n.t('static.echosocial.features.calendar_event.text')) %>
   </li>
   <li>
     <strong><%= I18n.t('static.echosocial.features.votings_polls.title') %></strong>
-    <% insert_toggle_more(I18n.t('static.echosocial.features.votings_polls.text')) %>
+    <%= insert_toggle_more(I18n.t('static.echosocial.features.votings_polls.text')) %>
   </li>
   <li>
     <strong><%= I18n.t('static.echosocial.features.photo_video_gallery.title') %></strong>
-    <% insert_toggle_more(I18n.t('static.echosocial.features.photo_video_gallery.text')) %>
+    <%= insert_toggle_more(I18n.t('static.echosocial.features.photo_video_gallery.text')) %>
   </li>
   <li>
     <strong><%= I18n.t('static.echosocial.features.cost_neutral_fundraising.title') %></strong>
-    <% insert_toggle_more(I18n.t('static.echosocial.features.cost_neutral_fundraising.text')) %>
+    <%= insert_toggle_more(I18n.t('static.echosocial.features.cost_neutral_fundraising.text')) %>
   </li>
   <li>
     <strong><%= I18n.t('static.echosocial.features.question_methods.title') %></strong>
-    <% insert_toggle_more(I18n.t('static.echosocial.features.question_methods.text')) %>
+    <%= insert_toggle_more(I18n.t('static.echosocial.features.question_methods.text')) %>
   </li>
   <li>
     <strong><%= I18n.t('static.echosocial.features.decentral_infrastructure.title') %></strong>
-    <% insert_toggle_more(I18n.t('static.echosocial.features.decentral_infrastructure.text')) %>
+    <%= insert_toggle_more(I18n.t('static.echosocial.features.decentral_infrastructure.text')) %>
   </li>
   <li>
     <%= I18n.t('static.echosocial.features.your_wishes.title') %>
@@ -54,7 +54,7 @@
                            url_for(hash_for_question_tags_path.merge({
                                    :only_path => false, :host => ECHO_HOST, :id=>'echosocial'})), :target => '_blank') +
                    '</strong>' + ' ' + I18n.t('static.echosocial.features.your_wishes.text_end') %>
-    <% insert_toggle_more(more_text) %>
+    <%= insert_toggle_more(more_text) %>
   </li>
 </ul>
 

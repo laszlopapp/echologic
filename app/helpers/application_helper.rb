@@ -47,12 +47,14 @@ module ApplicationHelper
 
   # Inserts text area with the given text and two butt
   # Click-functions are added via jQuery, take a look at application.js
-  def insert_toggle_more(text)
-    concat("<span class='hideButton' style='display:none;'>#{I18n.t('application.general.hide')}</span>")
-    concat("<span class='moreButton'>#{I18n.t('application.general.more')}</span>")
-    concat("<div class='toggled_content' style='display: none;'>")
+  def insert_toggle_more(text="")
+    content = ""
+    content << content_tag(:span, I18n.t('application.general.hide'), :class => "hideButton", :style => "display:none;")
+    content << content_tag(:span, I18n.t('application.general.more') ,:class => "moreButton")
+    content << content_tag(:div, :class => "toggled_content", :style => "display:none") do
       concat("#{text}")
-    concat("</div>")
+    end if !text.blank?
+    content
   end
 
   # Container is only visible in echologic

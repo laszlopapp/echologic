@@ -4,7 +4,7 @@ module Users::SocialModule
   # Callback method called by the social account integration service (Janrain) during registration.
   #
   def create_social
-    redirect_url = session.delete(:redirect_url)
+    redirect_url = session.delete(:redirect_url) || my_profile_path
     begin
       if params[:token]
         profile_info = SocialService.instance.get_profile_info(params[:token])

@@ -118,13 +118,13 @@
   /* IE7 compatibility through IE8.js plugin. */
   function moreHideButtonEvents() {
     $('.moreButton').live('click', (function() {
-      $(this).next().animate(toggleParams, 300);
+      $(this).siblings('.toggled_content').animate(toggleParams, 300);
       $(this).hide();
       $(this).prev().show();
     }));
 
     $('.hideButton').live('click', (function() {
-      $(this).next().next().animate(toggleParams, 300);
+      $(this).siblings('.toggled_content').animate(toggleParams, 300);
       $(this).hide();
       $(this).next().show();
     }));

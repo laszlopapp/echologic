@@ -30,6 +30,7 @@ ActionController::Routing::Routes.draw do |map|
                                  :descendants => 'descendants/:type/',
                                  :new_translation => 'translation/:current_document_id',
                                  :incorporate => 'incorporate/:approved_ip',
+                                 :link_statement_node => 'link_statement_node/:type',
                                  :edit => 'edit/:current_document_id'},
                 :as => 'statement'
 

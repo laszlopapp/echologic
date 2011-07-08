@@ -3,7 +3,7 @@ class Improvement < StatementNode
   acts_as_incorporable
   acts_as_alternative :Improvement
   
-  has_children_of_types
+  has_children_of_types [:BackgroundInfo,true]
   has_linkable_types :Improvement, :Proposal, :ProArgument, :ContraArgument
 
   # Overwriting the acts_as_taggable function saying this object is not taggable anymore
