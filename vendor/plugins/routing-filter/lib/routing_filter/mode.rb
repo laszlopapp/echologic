@@ -44,7 +44,9 @@ module RoutingFilter
     end
     
     def prepend_mode(url, mode)
-      url.sub!(%r(^(http.?://[^/]*\/[^/]*)?(.*))) { "#{$1}/#{mode}#{$2}" }
+      puts url
+      url.sub!(%r(^(http.?://[^/]*)?(/\w+)?(.*))) { "#{$1}#{$2}/#{mode}#{$3}" }
+      puts url
     end
     
   end
