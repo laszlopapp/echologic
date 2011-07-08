@@ -335,19 +335,21 @@
 			/*********************/
 
       function initAlternativePanel() {
-				has_alternatives = true;
 				echoable.alternative();
-				var api = echoable.data('alternativeApi');
-				echo_button.bind('mouseover', function(){
-					if (!echo_button.hasClass('clicked')) {
-				  	api.highlight();
-				  }
-				});
-				echo_button.bind('mouseleave', function(){
-					if (!echo_button.hasClass('clicked')) {
-				  	api.normal_mode();
-				  }
-        });
+				has_alternatives = (echoable.find('.alternatives a.statement_link').length > 0);
+				if (has_alternatives) {
+					var api = echoable.data('alternativeApi');
+					echo_button.bind('mouseover', function(){
+						if (!echo_button.hasClass('clicked')) {
+							api.highlight();
+						}
+					});
+					echo_button.bind('mouseleave', function(){
+						if (!echo_button.hasClass('clicked')) {
+							api.normal_mode();
+						}
+					});
+				}
 			}
 			// Public API
       $.extend(this,

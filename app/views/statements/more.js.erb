@@ -27,7 +27,12 @@ children_list.append(elements_list);
   children_list.append('<%= add_create_new_statement_button(@statement_node, @child_type || @type.to_s.underscore, :label_type => @type.to_s.underscore, :new_level => true, :bids => params[:bids], :origin => params[:origin], :css => "ajax" ) %>');
 <% end %>
 
-more_element.replaceWith(pagination_buttons);
+if(pagination_buttons.length > 0) {
+  more_element.replaceWith(pagination_buttons);
+} else {
+	more_element.children().remove();
+  more_element.append($("<span/>").addClass("more_children disabled").text("<%= I18n.t("application.general.more") %>"));
+}
 
 <% if @page.to_i > 1 %>
   scrollpane.reinitialise();
