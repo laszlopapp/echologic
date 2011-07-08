@@ -1143,12 +1143,29 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .action_bar .embed_button {
   display: inline-block;
   background: url(../images/page/discuss/copy_link_16.png) no-repeat scroll 0 0;
-  height: 16px;
-  width: 20px;
+  padding-left: 24px;
+  margin-left: 0;
+}
+
+.embed_panel {
+    background: none repeat scroll 0 0 #FEFEFE;
+    border: 3px solid #BBBBBB;
+    bottom: -49px;
+    left: 136px;
+    position: absolute;
+    width: 322px;
+    padding: 15px 30px;
+}
+
+.embed_panel .panel_header {
+  width: 280px;
+  margin-left: 0 !important;
 }
 
 .action_bar .embed_url {
-  margin-top: 10px;
+  margin-top: 20px;
+  width: 317px !important;
+	height: 65px !important;
 }
 
 /****************************/

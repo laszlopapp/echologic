@@ -95,18 +95,31 @@ module StatementsHelper
   end
   
   #
-  # Creates a link to embed the statement node 
+  # Creates a link to embed statement node 
   #
-  def render_embed_button(statement_node)
-    url = statement_node_url(statement_node, :locale => I18n.locale, :mode => :embed)
-    embed_code = %Q{<iframe width="800" height="1000" src="#{url}" frameborder="0"></iframe>}
-    
-    content_tag :div, :class => "embed_button_container" do
-      content = ""
-      content << link_to('', '#', :class => 'embed_button ttLink no_border',
-                                  :title => I18n.t('discuss.tooltips.embed'))
-      content << text_field_tag('', h(embed_code), :class => 'embed_url', :style => "display:none")
-      content
+  def render_embed_area(statement_node)
+     url = statement_node_url(statement_node, :locale => I18n.locale, :mode => :embed)
+    embedded_code = %Q{<iframe width="800" height="1000" src="#{url}" frameborder="0"></iframe>}
+    content = ""
+    content << render_embed_button
+    content << render_embed_panel(embedded_code)
+    content
+  end
+  
+  def render_embed_button
+    link_to(I18n.t("discuss.statements.embed_button"), '#', :class => 'embed_button text_button')
+  end
+
+  def render_embed_panel(embedded_code)
+    content_tag(:div, :class => 'embed_panel popup_panel',
+                           :style => "display:none") do
+      panel = ''
+      panel << content_tag(:div, :class => 'panel_header') do
+        I18n.t("discuss.statements.embed_button")
+      end
+      panel << content_tag(:div, I18n.t("discuss.statements.embed_hint"), :class => '')
+      panel << text_area_tag('', embedded_code, :class => 'embed_url')
+      panel
     end
   end
   
@@ -147,7 +160,9 @@ module StatementsHelper
         render_add_new_button(statement_node, params[:origin], params[:bids])
       end
 
-      render_embed_button(statement_node)
+      actions << content_tag(:div, :class => "embed_button_container") do
+        render_embed_area(statement_node)
+      end
 
       actions << content_tag(:div, :class => "clip_button_container") do
         render_clipboard_area(statement_node)

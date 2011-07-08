@@ -79,6 +79,7 @@
 
 					initAddNewButton();
 					initClipboardButton();
+					initEmbedButton();
           initMoreButton();
           initAllStatementLinks();
 					if(embeddedContent.length > 0) {
@@ -357,6 +358,9 @@
 		    });
 		  }
 
+      /*
+       * Handles the Clipboard button panel
+       */
 	    function initClipboardButton() {
 				var clip_url = statement.find('.action_bar .clip_url');
 				statement.find('.action_bar a.clip_button').bind("click", function() {
@@ -369,6 +373,22 @@
           return false;
         });
 			}
+			
+			/*
+       * Handles the Embedded Code panel
+       */
+      function initEmbedButton() {
+        var embed_url = statement.find('.action_bar .embed_url');
+        statement.find('.action_bar a.embed_button').bind("click", function() {
+          $(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
+          embed_url.show().select();
+          return false;
+        });
+        statement.find('.action_bar .embed_panel').bind("mouseleave", function() {
+          $(this).fadeOut();
+          return false;
+        });
+      }
 
 		  /*
 		   * Handles the click on the more Button event (replaces it with an element of class 'more_loading')
