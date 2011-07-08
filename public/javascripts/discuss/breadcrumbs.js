@@ -20,7 +20,8 @@
 
     return this.each(function() {
 	    // Creating and binding the breadcrumb API
-	    var elem = $(this), breadcrumbApi = elem.data('breadcrumbApi');
+	    var elem = $(this);
+      var breadcrumbApi = elem.data('breadcrumbApi');
 	    if (breadcrumbApi) {
 	      breadcrumbApi.reinitialise();
 	    } else {
@@ -35,6 +36,10 @@
     /***************************/
 
     function Breadcrumbs(breadcrumbs) {
+
+      var scrollPane;
+      var container; // contentPane of the scrollPane
+
       initialise();
 
 			function initialise(){
@@ -43,14 +48,11 @@
 				});
 
         breadcrumbs.jScrollPane({animateScroll: true});
-				var jsp = breadcrumbs.data('jsp');
+				scrollPane = breadcrumbs.data('jsp');
+        container = scrollPane.getContentPane().find('.elements');
+        scrollToEnd();
 
-				var width = updateContainerWidth();
-				jsp.reinitialise();
-        jsp.scrollToX(width);
-
-				var elements = jsp.getContentPane().find('.elements');
-				if (elements.children().length == 0) {
+				if (container.children().length == 0) {
 					if (breadcrumbs.is(':visible')) {
 				  	toggleContainer();
 				  }
@@ -58,7 +60,7 @@
 	    }
 
       /*
-       * Initializes the links in the different sort of breadcrumbs.
+       * Initializes the links in the different sort of breadcrumb items.
        */
 			function initBreadcrumb(breadcrumb) {
         if (!breadcrumb.children(':last').hasClass('statement')) {return;}
@@ -96,7 +98,7 @@
 	          }
 
 						if (sids.join(",") == $.fragment().sids) {
-			        /* sids won't change, we are inside a new form, and we press the breadcrumb to go back*/
+			        // Sids won't change, we are inside a new form, and we press the breadcrumb to go back
 							var path = $.queryString($(this).attr('href'), {"sids" : sids.join(","), "bids" : ''});
 							$.getScript(path);
 						}
@@ -111,13 +113,25 @@
 	          return false;
 	        });
 		    });
-
-
 		  }
 
+
+      /*
+       * Scrolls the breadcrumbs' scrollable pane to the right end.
+       */
+      function scrollToEnd() {
+        var oldWidth =  scrollPane.getContentPositionX();
+				var newWidth = updateContainerWidth();
+        scrollPane.reinitialise();
+        scrollPane.scrollToX(oldWidth, false);
+        scrollPane.scrollToX(newWidth);
+      }
+
+
+      /*
+       * Sets and returns the new width of the breadcrumbs container according to the width of breadcrumb items inside.
+       */
 			function updateContainerWidth() {
-				var jsp = breadcrumbs.data('jsp');
-        var container = jsp.getContentPane().find(".elements");
 
 				// Calculate width
         var width = 0;
@@ -138,6 +152,7 @@
                             settings['container_animation_speed']);
       }
 
+
       function truncateBreadcrumbKey(breadcrumb) {
 				var key = breadcrumb.attr('id') == 'sr' ?
                     (breadcrumb.attr('id') + breadcrumb.find('.search_link').text().replace(/,/, "\\;")) :
@@ -148,61 +163,59 @@
 				return key;
 			}
 
-		/*
-		 * Deletes Breadcrumbs that are not defined on the bids fragment (and after the last element clicked)
-		 */
-		 function cleanBreadcrumbs() {
-          var jsp = breadcrumbs.data('jsp');
-          var elements = jsp.getContentPane().find('.elements');
-          var delete_from = breadcrumbs.data('element_clicked');
 
-          if (delete_from && delete_from.length > 0) { /* if a special link was clicked */
-            if($.inArray(delete_from.substring(0,2),['ds','sr']) != -1){delete_from = delete_from.substring(0,2);}
+      /*
+       * Deletes Breadcrumbs that are not defined on the bids fragment (and after the last element clicked).
+       */
+      function cleanBreadcrumbs() {
+        var remove_length = 0;
+        var delete_from = breadcrumbs.data('element_clicked');
 
-            // Get breadcrumbs ordered per id
-            var breadcrumb_ids = elements.find('.breadcrumb').map(function(){return $(this).attr('id')});
-            var remove_length;
+        if (delete_from && delete_from.length > 0) { /* if a special link was clicked */
+          if($.inArray(delete_from.substring(0,2),['ds','sr']) != -1){delete_from = delete_from.substring(0,2);}
 
-            // There is an origin, so delete breadcrumbs to the right
-            var index = $.inArray(delete_from, breadcrumb_ids);
-            var to_remove = elements.find('.breadcrumb:eq(' + (index) + ')');
-						var to_remove_elements = to_remove.nextAll();
-						var remove_length = to_remove_elements.length;
-            to_remove_elements.remove();
+          // Get breadcrumbs ordered per id
+          var breadcrumb_ids = container.find('.breadcrumb').map(function(){return $(this).attr('id')});
 
+          // There is an origin, so delete breadcrumbs to the right
+          var index = $.inArray(delete_from, breadcrumb_ids);
+          var to_remove = container.find('.breadcrumb:eq(' + (index) + ')');
+          var to_remove_elements = to_remove.nextAll();
+          remove_length = to_remove_elements.length;
+          to_remove_elements.remove();
 
+        } else { // delete all breadcrumbs that are not in the fragment bids
 
-          } else { // delete all breadcrumbs that are not in the fragment bids
-
-            var bids = $.fragment().bids;
-            var remove_length = 0;
-            bids = bids ? bids.split(',') : [];
-            // No origin, that means first breadcrumb pressed, no predecessor, so delete everything
-            elements.find('.breadcrumb').each(function() {
-              if($.inArray(truncateBreadcrumbKey($(this)), bids) == -1) {
-                remove_length += $(this).length;
-                $(this).remove();
-              }
-            });
-          }
-          breadcrumbs.removeData('element_clicked');
-
-          if (remove_length > 0) {
-            jsp.scrollToX(0);
-            updateContainerWidth();
-            jsp.reinitialise();
-          }
-          if (jsp.getContentPane().find('a').length == 0) {
-            if (breadcrumbs.is(':visible')) {
-              toggleContainer();
+          var bids = $.fragment().bids;
+          bids = bids ? bids.split(',') : [];
+          // No origin, that means first breadcrumb pressed, no predecessor, so delete everything
+          container.find('.breadcrumb').each(function() {
+            if($.inArray(truncateBreadcrumbKey($(this)), bids) == -1) {
+              remove_length += $(this).length;
+              $(this).remove();
             }
-          }
-          return this;
+          });
         }
+
+        breadcrumbs.removeData('element_clicked');
+
+        if (remove_length > 0) {
+          scrollPane.scrollToX(0);
+          updateContainerWidth();
+          scrollPane.reinitialise();
+        }
+        if (container.find('.breadcrumb').length == 0) {
+          if (breadcrumbs.is(':visible')) {
+            toggleContainer();
+          }
+        }
+        return this;
+      }
+
 
       function buildBreadcrumb(data, index, breadcrumbs_length) {
         var b_key = data['key'].substring(0,2);
-				var breadcrumb = $('<a/>').addClass('breadcrumb').attr('id',data['key']).attr('href',data['url']).addClass(b_key);
+        var breadcrumb = $('<a/>').addClass('breadcrumb').attr('id',data['key']).attr('href',data['url']).addClass(b_key);
         if (data['page_count']) {
           breadcrumb.attr('page_count', data['page_count']);
         }
@@ -214,26 +227,27 @@
         breadcrumb.append($('<span/>').addClass(data['css']).text(data['title']));
         breadcrumb.hide();
         initBreadcrumb(breadcrumb);
-				return breadcrumb;
-			}
+        return breadcrumb;
+      }
 
 			// Public API
       $.extend(this,
       {
-        reinitialise: function()
-        {
+        reinitialise: function() {
           initialise();
         },
+
 				getBreadcrumb: function(key) {
-					return breadcrumbs.data('jsp').getContentPane().find('#'+key);
+					return container.find('#'+key);
 				},
+
         deleteBreadcrumbs: function()
 				{
 					cleanBreadcrumbs();
 					return this;
 				},
-				deleteBreadcrumb: function(key) // IMPORTANT: ONLY REMOVES VISUALLY
-				{
+
+				deleteBreadcrumb: function(key) { // Removes the breadcrumb ONLY VISUALLY
 					if (key && key.length > 0) {
 						var origin = $.fragment().origin;
 						if ($.inArray(origin.substring(0,2),['ds','sr']) != -1){origin = origin.substring(0,2);}
@@ -242,39 +256,31 @@
 					}
 					return this;
 				},
+
 				addBreadcrumbs : function(breadcrumbsData) {
-
-					var jsp = breadcrumbs.data('jsp');
-          var elements = jsp.getContentPane().find(".elements");
-
 					if (breadcrumbsData) {
 						if(breadcrumbs.is(":hidden")) {
               toggleContainer();
             }
 
-						var breadcrumbs_length = elements.find(".breadcrumb").length;
+						var breadcrumbs_length = container.find(".breadcrumb").length;
 			  	  // Assemble new breadcrumb entries
 						$.each(breadcrumbsData, function(index, breadcrumbData) { //[id, classes, url, title, label, over]
 						  if (breadcrumbs.find('#' + breadcrumbData['key']).length == 0) {
 						  	var breadcrumb = buildBreadcrumb(breadcrumbData, index, breadcrumbs_length);
-						  	elements.append(breadcrumb);
+						  	container.append(breadcrumb);
 						  }
 						});
 					}
-					var width = updateContainerWidth();
-          jsp.reinitialise();
-					jsp.scrollToX(width);
-          elements.find('.breadcrumb:hidden').animate(settings['breadcrumb_animation_params'],
+					scrollToEnd();
+          container.find('.breadcrumb:hidden').animate(settings['breadcrumb_animation_params'],
                                                       settings['animation_speed']);
 				},
-
 
 				breadcrumbsToLoad : function (bids) {
 		      if (bids == null) { return []; }
 		      // Current bids in the list
 		      var bid_list = bids.split(",");
-
-
 
 					var delete_from = breadcrumbs.data('element_clicked');
 					if (delete_from) {
@@ -295,13 +301,12 @@
 		    },
 
 				getBreadcrumbStack : function (newBreadcrumb) {
-		      var currentBreadcrumbs = breadcrumbs.find(".breadcrumb").map(function() {
+		      var currentBreadcrumbs = container.find(".breadcrumb").map(function() {
 						return truncateBreadcrumbKey($(this));
 					}).get();
 					if (newBreadcrumb) {
             currentBreadcrumbs.push(newBreadcrumb);
           }
-
 		      return currentBreadcrumbs;
 		    }
 			});
