@@ -3,6 +3,18 @@
 
 class ApplicationController < ActionController::Base
 
+  layout :layout_mode
+
+  ##########
+  # LAYOUT #
+  ##########
+  private
+  
+  def layout_mode
+    params[:mode] || 'application'
+  end
+
+
   ###########
   # ROUTING #
   ###########
