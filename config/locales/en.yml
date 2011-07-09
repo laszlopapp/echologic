@@ -508,7 +508,7 @@ en:
           many: '{{supporter_count}} supporters'
       add_new: Add new...
       copy_to_clipboard: Copy URL
-      embed_button: "Embed Statement"
+      embed_button: "Embed"
       create_question_link: 'Create new question'
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
