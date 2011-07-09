@@ -279,6 +279,10 @@ ActionController::Routing::Routes.draw do |map|
                  :conditions=> {:rails_env => 'production', :host => "echosocial-prod-clone.echo-test.org" }
 
 
+  # oembed
+  map.oembed '/api/oembed', :controller => :api, :action => :oembed
+  map.oembed '/api/oembed.:format', :controller => :api, :action => :oembed
+
   ##################
   # Unmatched URLs #
   ##################
