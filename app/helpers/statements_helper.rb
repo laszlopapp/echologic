@@ -212,6 +212,7 @@ module StatementsHelper
       panel << add_new_default_child_button(statement_node)
       panel
     end
+    content
   end
 
   #
@@ -233,7 +234,9 @@ module StatementsHelper
           end
 
           buttons << link_to(I18n.t("discuss.statements.siblings.#{context_type}"),
-                             new_statement_node_url(origin[2..-1], context_type, :origin => origin),
+                             new_statement_node_url(origin[2..-1],
+                                                    context_type,
+                                                    :origin => origin),
                              :class => "create_#{context_type}_button_32 resource_link ajax ttLink no_border",
                              :title => I18n.t("discuss.statements.siblings.#{context_type}"))
           end
@@ -241,9 +244,12 @@ module StatementsHelper
       # New alternative Button TODO: this is going to the logic above, in the future
       if statement_node.class.has_alternatives?
         buttons << link_to(I18n.t("discuss.statements.types.alternative"),
-                     new_statement_node_url(statement_node.target_id, statement_node.class.alternative_types.first.to_s.underscore,
-                                            :hub => 'alternative', :bids => params[:bids], :origin => origin),
-                     :class => "create_alternative_button_32 resource_link ajax")
+                           new_statement_node_url(statement_node.target_id,
+                                                  statement_node.class.alternative_types.first.to_s.underscore,
+                                                  :hub => 'alternative',
+                                                  :bids => params[:bids],
+                                                  :origin => origin),
+                           :class => "create_alternative_button_32 resource_link ajax")
         end
       buttons
     end
@@ -259,7 +265,8 @@ module StatementsHelper
     statement_node.class.sub_types.map.each do |sub_type|
       sub_type = sub_type.to_s.underscore
       content << link_to(I18n.t("discuss.statements.types.#{sub_type}"),
-                         new_statement_node_url(statement_node.parent_node, sub_type),
+                         new_statement_node_url(statement_node.parent_node,
+                                                sub_type),
                          :class => "create_#{sub_type}_button_32 resource_link ajax ttLink no_border",
                          :title => I18n.t("discuss.tooltips.create_#{sub_type}"))
       end
@@ -307,7 +314,9 @@ module StatementsHelper
   def add_new_child_link(statement_node, type, opts={})
     opts[:new_level] = true
     link_to(I18n.t("discuss.statements.types.#{type}"),
-            new_statement_node_url(statement_node, type, opts),
+            new_statement_node_url(statement_node,
+                                   type,
+                                   opts),
             :class => "create_#{type}_button_32 resource_link ajax ttLink no_border",
             :title => I18n.t("discuss.tooltips.create_#{type}"))
   end
@@ -317,7 +326,9 @@ module StatementsHelper
   #
   def edit_statement_node_link(statement_node, statement_document)
     if current_user and current_user.may_edit?(statement_node)
-      link_to(I18n.t('application.general.edit'), edit_statement_node_url(statement_node, :current_document_id => statement_document.id),
+      link_to(I18n.t('application.general.edit'),
+              edit_statement_node_url(statement_node,
+                                      :current_document_id => statement_document.id),
               :class => 'ajax header_button text_button edit_text_button')
     else
       ''
@@ -328,7 +339,8 @@ module StatementsHelper
   # Creates a link to show the authors of the current node.
   #
   def authors_statement_node_link(statement_node)
-    link_to(I18n.t('application.general.authors'), authors_statement_node_url(statement_node),
+    link_to(I18n.t('application.general.authors'),
+            authors_statement_node_url(statement_node),
             :class => 'expandable header_button text_button authors_text_button')
   end
 
