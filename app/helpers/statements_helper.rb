@@ -236,15 +236,15 @@ module StatementsHelper
                              new_statement_node_url(origin[2..-1], context_type, :origin => origin),
                              :class => "create_#{context_type}_button_32 resource_link ajax ttLink no_border",
                              :title => I18n.t("discuss.statements.siblings.#{context_type}"))
+          end
         end
-      end
       # New alternative Button TODO: this is going to the logic above, in the future
       if statement_node.class.has_alternatives?
         buttons << link_to(I18n.t("discuss.statements.types.alternative"),
                      new_statement_node_url(statement_node.target_id, statement_node.class.alternative_types.first.to_s.underscore,
                                             :hub => 'alternative', :bids => params[:bids], :origin => origin),
                      :class => "create_alternative_button_32 resource_link ajax")
-      end
+        end
       buttons
     end
     content << content_tag(:div, '', :class => 'block_separator')
@@ -262,7 +262,7 @@ module StatementsHelper
                          new_statement_node_url(statement_node.parent_node, sub_type),
                          :class => "create_#{sub_type}_button_32 resource_link ajax ttLink no_border",
                          :title => I18n.t("discuss.tooltips.create_#{sub_type}"))
-    end
+      end
     content
   end
 
@@ -292,9 +292,10 @@ module StatementsHelper
       content = ''
       statement_node.class.default_children_types(:visibility => false).each do |default_type|
         dom_type = default_type.to_s.underscore
-        content << add_new_child_link(statement_node, dom_type,
-                                                      :bids => params[:bids],
-                                                      :origin => params[:origin])
+        content << add_new_child_link(statement_node,
+                                      dom_type,
+                                      :bids => params[:bids],
+                                      :origin => params[:origin])
       end
       content
     end
@@ -466,10 +467,11 @@ module StatementsHelper
   def statement_node_context_link(statement_node, title, action = 'read', opts={})
     css = String(opts.delete(:css))
     css << " #{statement_node.info_type.code}_link" if statement_node.class.has_embeddable_data?
-    link_to(h(title),
-             statement_node_url(statement_node, opts),
-             :class => "#{css} no_border statement_link #{node_type(statement_node)}_link ttLink",
-             :title => I18n.t("discuss.tooltips.#{action}_#{node_type(statement_node)}"))
+    link_to(statement_node_url(statement_node, opts),
+            :class => "#{css} no_border statement_link #{node_type(statement_node)}_link ttLink",
+            :title => I18n.t("discuss.tooltips.#{action}_#{node_type(statement_node)}")) do
+      statement_icon_title(title)
+    end
   end
 
   #
@@ -622,6 +624,7 @@ module StatementsHelper
     end
   end
 
+
   #
   # Loads the link to a given statement, placed in the child panel section.
   #
@@ -636,15 +639,27 @@ module StatementsHelper
     end
 
     content_tag :li, :class => opts[:type], 'statement-id' => statement_node.target_id do
-      content = ''
-      content << link_to(h(title),
-                 statement_node_url(statement_node.target_id, :bids => bids, :origin => params[:origin],  :new_level => opts[:new_level]),
-                 :class => "statement_link #{opts[:type]}_link #{opts[:css]}")
-      content << supporter_ratio_bar(statement_node)
+      content = link_to(statement_node_url(statement_node.target_id,
+                                           :bids => bids,
+                                           :origin => params[:origin],
+                                           :new_level => opts[:new_level]),
+                        :class => "statement_link #{opts[:type]}_link #{opts[:css]}") do
+        statement_icon_title(title)
+      end
+      content += supporter_ratio_bar(statement_node)
       content
     end
   end
 
+
+  #
+  # Creates a statement link with icon and title.
+  #
+  def statement_icon_title(title)
+    link = content_tag(:span, '&nbsp;', :class => 'icon')
+    link += content_tag(:span, h(title), :class => 'title')
+    link
+  end
 
 
   #

@@ -244,28 +244,24 @@ form.statement .discuss_right_block {
   border: none;
 }
 
-form.question .header li,
-form.follow_up_question .header li {
-  background:transparent url(../images/page/discuss/question_16.png) no-repeat scroll 0 2px;
+form.statement_node .header_link .icon {
+  background-image: url(../images/page/discuss/statement_icons_16.png);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  display: block;
+  position: absolute;
+  top: 3px;
 }
-form.proposal .header li {
-  background: transparent url(../images/page/discuss/proposal_16.png) no-repeat scroll 0 2px;
-}
-form.improvement .header li {
-  background: transparent url(../images/page/discuss/improvement_16.png) no-repeat scroll 0 2px;
-}
-form.pro_argument .header li {
-  background: transparent url(../images/page/discuss/pro_argument_16.png) no-repeat scroll 0 2px;
-}
-form.contra_argument .header li {
-  background: transparent url(../images/page/discuss/contra_argument_16.png) no-repeat scroll 0 2px;
-}
-form.background_info .header li {
-  background: transparent url(../images/page/discuss/background_info_16.png) no-repeat scroll 0 2px;
-}
-form.alternative .header li {
-	background: transparent url(../images/page/discuss/alternative_16.png) no-repeat scroll 0 2px;
-}
+form.question .header_link .icon,
+form.follow_up_question .header_link .icon {background-position: 0 0;}
+form.proposal .header_link .icon {background-position: -16px 0;}
+form.improvement .header_link .icon {background-position: -32px 0;}
+form.pro_argument .header_link .icon {background-position: -48px 0;}
+form.contra_argument .header_link .icon {background-position: -64px 0;}
+form.background_info .header_link .icon {background-position: -96px 0;}
 
 form.statement .header_link fieldset ol li {
   padding-left: 20px;
@@ -363,7 +359,7 @@ form.statement .header .auto_complete {
 	position: absolute;
 	top: 2px;
 	right: 231px;
-	padding: 2px 0px 0px 26px;
+	padding: 2px 0 0 26px;
 	text-align: center;
 	color: #FFFFFF;
 	cursor: pointer;
@@ -375,11 +371,11 @@ form.statement .ac_loading {
 }
 
 form.statement .header .auto_complete.off {
-  background-position: 0px 0px;
+  background-position: 0 0;
 }
 
 form.statement .header .auto_complete.off:hover {
-	background-position: 0px -20px;
+	background-position: 0 -20px;
 }
 
 /* Info Type */
@@ -404,9 +400,11 @@ form.statement .info_types_container input {
 
 form.statement .info_types_container label {
 	color: #21587F;
-	line-height: 2em;
+	line-height: 32px;
+  padding-left: 40px;
 }
 
+form.statement .info_types_container li:hover label,
 form.statement .info_types_container label.selected {
 	color: #7BB031;
 }
@@ -414,34 +412,21 @@ form.statement .info_types_container label.selected {
 form.statement .info_types_container a {
 	width: 32px;
   height: 32px;
-  padding: 0 5px 0 0;
   display: block;
   clear: left;
   float: left;
 }
 
-form.statement .info_types_container a.jqTransformChecked {
-	background-color: #999999;
+form.statement .info_types_container a {
+  background-image: url("../images/page/discuss/bi_icons_32.png");
 }
 
-form.statement .info_types_container a.article {
-	background: url("../images/page/discuss/background_info_types/icon_attach_article_32.png") no-repeat scroll 0 0;
-}
-form.statement .info_types_container a.paper {
-  background: url("../images/page/discuss/background_info_types/icon_attach_paper_32.png") no-repeat scroll 0 0;
-}
-form.statement .info_types_container a.book {
-  background: url("../images/page/discuss/background_info_types/icon_attach_book_32.png") no-repeat scroll 0 0;
-}
-form.statement .info_types_container a.photo {
-  background: url("../images/page/discuss/background_info_types/icon_attach_photo_32.png") no-repeat scroll 0 0;
-}
-form.statement .info_types_container a.video {
-  background: url("../images/page/discuss/background_info_types/icon_attach_video_32.png") no-repeat scroll 0 0;
-}
-form.statement .info_types_container a.url {
-  background: url("../images/page/discuss/background_info_types/icon_attach_url_32.png") no-repeat scroll 0 0;
-}
+form.statement .info_types_container a.article {background-position: 0 0;}
+form.statement .info_types_container a.paper {background-position: -32px 0;}
+form.statement .info_types_container a.book {background-position: -64px 0;}
+form.statement .info_types_container a.photo {background-position: -96px 0;}
+form.statement .info_types_container a.video {background-position: -128px 0;}
+form.statement .info_types_container a.url {background-position: -160px 0;}
 
 form.statement input.embed_url {
   width: 660px !important;
@@ -483,7 +468,7 @@ form.embeddable #statement_datas_container li {
 .statement .embedded_container {
   clear: both;
   text-align: center;
-  margin-bottom: 0 auto;
+  margin: 0 auto;
 	border-top: 1px solid #000000;
 	padding-top: 10px;
 }
@@ -1204,15 +1189,45 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   margin: 18px 0 7px;
 }
 
-.statement .add_new_panel .resource_link {
-	color: #21587F;
-  text-decoration: underline;
+.statement .add_new_panel .resource_link  {
 	margin: 0 15px 0 20px;
-	padding: 7px 0 0 40px;
+	padding-top: 7px;
   display: inline-block;
   height: 38px;
   min-width: 60px;
+  position: relative;
 }
+
+.statement .add_new_panel .resource_link .title {
+  color: #21587F;
+  text-decoration: underline;
+  margin-left: 40px;
+}
+
+.statement .add_new_panel .resource_link .icon {
+  background-image: url(../images/page/discuss/statement_icons_32.png);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  display: block;
+  position: absolute;
+  top: 0;
+}
+
+.create_question_button_32 .icon {background-position: 0 0;}
+.create_proposal_button_32 .icon {background-position: -32px 0;}
+.create_improvement_button_32 .icon {background-position: -64px 0;}
+.create_pro_argument_button_32 .icon {background-position: -96px 0;}
+.create_contra_argument_button_32 .icon {background-position: -128px 0;}
+.create_alternative_button_32 .icon {background-position: -160px 0;}
+.create_background_info_button_32 .icon {background-position: -192px 0;}
+.create_follow_up_question_button_32 .icon {
+  background-position: -224px 0;
+  left: -5px;
+}
+
+
 
 /******************/
 /* SIBLINGS PANEL */
@@ -1325,10 +1340,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   top: 12px;
   left: 1px;
   margin-bottom: 4px;
-}
-
-#statements .header_link .statement_link {
-  background-position: 0 2px;
 }
 
 #statements .header .header_link a {
@@ -1724,7 +1735,6 @@ a.statement_link {
   font-weight: bold;
   display:inline-block;
   min-height: 20px;
-  padding-left: 21px !important;
   vertical-align: top;
   margin-bottom: 5px;
 }
@@ -1747,43 +1757,46 @@ a.statement_link:hover {
 .search_link {background:transparent url(../images/page/discuss/search_icon_16.png) no-repeat scroll 0 0;}
 .my_discussions_link {background:transparent url(../images/page/discuss/my_discussions_16.png) no-repeat scroll 0 -1px;}
 
-.question_link {background:transparent url(../images/page/discuss/question_16.png) no-repeat scroll 0 0;}
-.proposal_link {background:transparent url(../images/page/discuss/proposal_16.png) no-repeat scroll 0 0;}
-.improvement_link {background:transparent url(../images/page/discuss/improvement_16.png) no-repeat scroll 0 0;}
-.pro_argument_link {background:transparent url(../images/page/discuss/pro_argument_16.png) no-repeat scroll 0 0;}
-.contra_argument_link {background:transparent url(../images/page/discuss/contra_argument_16.png) no-repeat scroll 0 2px;}
-.follow_up_question_link {background:transparent url(../images/page/discuss/follow_up_question_16.png) no-repeat scroll 0 0;}
-
-.article_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_article_16.png) no-repeat scroll 0 0;}
-.book_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_book_16.png) no-repeat scroll 0 0;}
-.paper_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_paper_16.png) no-repeat scroll 0 0;}
-.photo_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_photo_16.png) no-repeat scroll 0 0;}
-.video_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_video_16.png) no-repeat scroll 0 0;}
-.url_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_url_16.png) no-repeat scroll 0 0;}
-
-.alternatives .statement_link {background:transparent url(../images/page/discuss/alternative_16.png) no-repeat scroll 0 0;}
-
-.create_question_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
-.create_proposal_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
-.create_improvement_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
-.create_pro_argument_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
-.create_contra_argument_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
-.create_follow_up_question_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
-.create_alternative_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
-.create_background_info_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
-
-.create_question_button_32 {background: transparent url(../images/page/discuss/question_32.png) no-repeat scroll 0 0;}
-.create_proposal_button_32 {background: transparent url(../images/page/discuss/proposal_32.png) no-repeat scroll 0 0;}
-.create_improvement_button_32 {background: transparent url(../images/page/discuss/improvement_32.png) no-repeat scroll 0 0;}
-.create_pro_argument_button_32 {background: transparent url(../images/page/discuss/pro_argument_32.png) no-repeat scroll 0 0;}
-.create_contra_argument_button_32 {background: transparent url(../images/page/discuss/contra_argument_32.png) no-repeat scroll 0 4px;}
-.create_follow_up_question_button_32 {
-  background:  transparent url("../images/page/discuss/fuq_32.png") no-repeat scroll -5px 0;
-  margin: 0 20px 0 15px !important;
-  padding: 7px 0 0 45px !important;
+.statement_link .icon {
+  background-image: url(../images/page/discuss/statement_icons_16.png);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  display: inline-block;
+  line-height: 16px;
 }
-.create_alternative_button_32 {background: transparent url(../images/page/discuss/alternative_32.png) no-repeat scroll 0 0;}
-.create_background_info_button_32 {background: transparent url(../images/page/discuss/background_info_32.png) no-repeat scroll 0 0;}
+.question_link .icon, .follow_up_question_link .icon {background-position: 0 0;}
+.proposal_link .icon {background-position: -16px 0;}
+.improvement_link .icon {background-position: -32px 0;}
+.pro_argument_link .icon {background-position: -48px 0;}
+.contra_argument_link .icon {background-position: -64px 0;}
+
+.alternatives .statement_link {background-position: -80px 0;}
+
+.statement_link.background_info_link .icon {
+  background-image: url(../images/page/discuss/bi_icons_16.png);
+}
+
+.article_link .icon {background-position: 0 0;}
+.paper_link .icon {background-position: -16px 0;}
+.book_link .icon {background-position: -32px 0;}
+.photo_link .icon {background-position: -48px 0;}
+.video_link .icon {background-position: -64px 0;}
+.url_link .icon {background-position: -80px 0;}
+
+.create_question_button,
+.create_proposal_button,
+.create_improvement_button,
+.create_pro_argument_button,
+.create_contra_argument_button,
+.create_follow_up_question_button,
+.create_alternative_button,
+.create_background_info_button {
+  background: transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
+}
+
 
 /*****************/
 /* Incorporation */

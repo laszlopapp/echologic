@@ -38,7 +38,6 @@ module PublishableModuleHelper
             :id => 'create_question_teaser_link',
             :class => 'no_results create_first_question_button') do
       content_tag(:span, I18n.t('discuss.search.add'))
-
     end
   end
 
@@ -58,10 +57,11 @@ module PublishableModuleHelper
   # Creates a button link to create a new question (SIDEBAR).
   #
   def add_new_question_button(origin = nil)
-    link_to(I18n.t("discuss.statements.types.question"),
-            new_question_url(:origin => origin, :bids => origin),
+    link_to(new_question_url(:origin => origin, :bids => origin),
             :class => "create_question_button_32 resource_link ajax ttLink no_border",
-            :title => I18n.t("discuss.tooltips.create_question"))
+            :title => I18n.t("discuss.tooltips.create_question")) do
+      statement_icon_title(I18n.t("discuss.statements.types.question"))
+    end
   end
 
   #
