@@ -75,14 +75,7 @@
 
   <body>
     <div id="header">
-      <!--div class="main_logo">
-        <%#= link_to(image_tag('page/echo_logo.png'), current_user ? discuss_search_path : root_path) %>
-        <%#= link_to(image_tag('page/beta_stamp.png', :class => 'stamp'),
-                    current_user ? discuss_search_path : root_path) %>
-        <%#= image_tag('page/beta_label.png', :class => 'label') %>
-      </div-->
-      <%#= render :partial => "layouts/components/top_menu" %>
-      <%#= render :partial => "users/user_sessions/login" %>
+      <!--  Here we should render the embedded layout header -->
     </div>
 
 
@@ -92,6 +85,10 @@
     <!-- Embedded menu -->
 		<div class="embed_menu">
 			<%= render :partial => "users/user_sessions/login" %>
+			<%= link_to I18n.t('layouts.outer_menu.logout'),
+              signout_path,
+              :method => :delete,
+              :id => 'logout_button' if current_user_session %>
       <%= tabnav :embed_main %>
 			<div class="main_logo">
         <%= link_to(image_tag('page/echo_logo.png'), current_user ? discuss_search_path : root_path) %>

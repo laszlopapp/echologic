@@ -101,3 +101,13 @@
   color:       #FFF;
 }
 
+/*
+ * Embed
+ */
+
+.embed_menu #logout_button {
+	background: none repeat scroll 0 0 transparent;
+  left: 289px;
+  position: absolute;
+	z-index: 99;
+}
