@@ -15,8 +15,10 @@
               :children => @children[statement_type.to_sym]} if @children and @children[statement_type.to_sym] %>
 	<% end %>
 	<% content_tag :div, :class => 'header_link'  do %>
-		<% statement_node_context_link(statement_node, statement_document.title,
-                                  (!only_header ? 'current' : 'back_to'), :css => 'ajax') %>
+		<% statement_node_context_link(statement_node,
+                                   statement_document.title,
+                                  (!only_header ? 'current' : 'back_to'),
+                                  :css => 'ajax') %>
 		<% if statement_node.echoable? %>
 			<%= supporter_ratio_bar(statement_node,
                               @previous_node || statement_node.parent_node,

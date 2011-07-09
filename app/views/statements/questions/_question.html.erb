@@ -15,11 +15,11 @@
 
     <% content_tag :div, :class => 'middle_block' do %>
       <% content_tag :div, :class => 'title' do %>
-        <%= statement_node_context_link(question,
-                                        "#{question_document.title}",
-                                        'read',
-                                        :bids => @origin,
-                                        :origin => @origin) %>
+        <% statement_node_context_link(question,
+                                       "#{question_document.title}",
+                                       'read',
+                                       :bids => @origin,
+                                       :origin => @origin) %>
       <% end %>
       <%= content_tag :div,
                       truncate_statement_text(question_document),

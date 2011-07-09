@@ -607,6 +607,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   font-weight: bold;
 }
 
+.questions_container .question .title a.statement_link .icon {
+  display: none;
+}
+
 .questions_container .question .title a.create_question_button {
   background-position: 0 3px;
   font-size: 18px;
@@ -1226,7 +1230,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   background-position: -224px 0;
   left: -5px;
 }
-
 
 
 /******************/
