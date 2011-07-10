@@ -505,7 +505,7 @@ hu:
         recommend:
           one: '{{supporter_count}} támogató'
           many: '{{supporter_count}} támogató'
-      add_new: Új hozzászólás...
+      add_new: Szólj hozzá!
       create_question_link: Vess fel egy új kérdést
       create_proposal_link: Tégy új javaslatot
       create_improvement_link: Javasolj új kiegészítést

@@ -402,11 +402,11 @@ en:
           </p>
       messages:
         created: "Thank you for your message. An administrator was notified."
-        
+
     user_mails:
       messages:
         created: "The mail was sent to you fellow echo user. Thank you for the participation."
-      
+
 
   # ---------------
   # Discuss section
@@ -505,8 +505,8 @@ en:
         recommend:
           one: '{{supporter_count}} supporter'
           many: '{{supporter_count}} supporters'
-      add_new: Add new...
-      copy_to_clipboard: Copy URL
+      add_new: Have YOUR say!
+      copy_url: Link to
       create_question_link: 'Create new question'
       create_proposal_link: Add new proposal
       create_internal_link: 'New idea?'
@@ -791,7 +791,7 @@ en:
       send: Send message
     create:
       thank_you: Thank you for your feedback.
-      
+
   user_mail:
     new:
       title: Send Mail
