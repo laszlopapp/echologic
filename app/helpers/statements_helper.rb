@@ -45,7 +45,7 @@ module StatementsHelper
     content_tag :div, :class => "children header_block discuss_right_block" do
       content = ''
 
-      # load variables
+      # Load variables
       children_to_render = {}
       headers = []
       selected = nil
@@ -63,8 +63,7 @@ module StatementsHelper
       end
       headers
 
-
-      # load headers
+      # Load headers
       content << content_tag(:div, :class => "headline expandable") do
         header_content = ''
         headers.each_with_index do |h, i|
@@ -82,11 +81,11 @@ module StatementsHelper
         children_content = ''
         headers.each_with_index do |h, index|
           children_content << render(:partial => h[0].classify.constantize.children_list_template,
-                            :locals => {:child_type => h[0],
-                                        :children => children_to_render[h[0]],
-                                        :parent => @statement_node,
-                                        :display => index==0,
-                                        :new_level => true}) if children_to_render[h[0]]
+                                     :locals => {:child_type => h[0],
+                                                 :children => children_to_render[h[0]],
+                                                 :parent => @statement_node,
+                                                 :display => index==0,
+                                                 :new_level => true}) if children_to_render[h[0]]
         end
         children_content
       end
@@ -96,33 +95,8 @@ module StatementsHelper
 
 
   #
-  # Creates a link to copy the statement node link into the clipboard
+  # Renders all the actions shown in the action panel on the left.
   #
-  def render_clipboard_area(statement_node)
-    url = statement_node_url(statement_node)
-    content = ""
-    content << render_clipboard_button
-    content << render_clipboard_panel(url)
-    content
-  end
-
-  def render_clipboard_button
-    link_to(I18n.t("discuss.statements.copy_to_clipboard"), '#', :class => 'clip_button text_button')
-  end
-
-  def render_clipboard_panel(url)
-    content_tag(:div, :class => 'clipboard_panel popup_panel',
-                           :style => "display:none") do
-      panel = ''
-      panel << content_tag(:div, :class => 'panel_header') do
-        I18n.t("discuss.statements.copy_to_clipboard")
-      end
-      panel << content_tag(:div, I18n.t("discuss.statements.clipboard_hint"), :class => '')
-      panel << text_field_tag('', url, :class => 'clip_url')
-      panel
-    end
-  end
-
   def render_statement_actions(statement_node, opts={})
     opts[:class] ||= ""
     opts[:class] << ' statement_actions'
@@ -132,8 +106,12 @@ module StatementsHelper
         render_add_new_button(statement_node, params[:origin], params[:bids])
       end
 
-      actions << content_tag(:div, :class => "clip_button_container") do
-        render_clipboard_area(statement_node)
+      actions << content_tag(:div, :class => "actions_container") do
+        buttons = ''
+        buttons << content_tag(:div, :class => "copy_url_container") do
+          render_copy_url_button(statement_node)
+        end
+        buttons
       end
 
       if current_user and current_user.may_delete?(statement_node)
@@ -143,6 +121,35 @@ module StatementsHelper
       actions
     end
   end
+
+  #
+  # Creates the button to pop up the Copy URL panel.
+  #
+  def render_copy_url_button(statement_node)
+    url = statement_node_url(statement_node)
+    content = ""
+    content << link_to(I18n.t("discuss.statements.copy_url"), '#',
+                       :class => 'copy_url_button text_button')
+    content << render_copy_url_panel(url)
+    content
+  end
+
+  #
+  # Renders the Copy URL panel to copy the statement URL into the clipboard.
+  #
+  def render_copy_url_panel(url)
+    content_tag(:div, :class => 'copy_url_panel popup_panel',
+                      :style => "display: none") do
+      panel = ''
+      panel << content_tag(:div, :class => 'panel_header') do
+        I18n.t("discuss.statements.copy_url")
+      end
+      panel << content_tag(:div, I18n.t("discuss.statements.clipboard_hint"), :class => '')
+      panel << text_field_tag('', url, :class => 'statement_url')
+      panel
+    end
+  end
+
 
   #########
   # Links #

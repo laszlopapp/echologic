@@ -359,13 +359,13 @@
 		  }
 
 	    function initClipboardButton() {
-				var clip_url = statement.find('.action_bar .clip_url');
-				statement.find('.action_bar a.clip_button').bind("click", function() {
+				var statement_url = statement.find('.action_bar .statement_url');
+				statement.find('.action_bar a.copy_url_button').bind("click", function() {
           $(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
-					clip_url.show().select();
+					statement_url.show().select();
           return false;
         });
-				statement.find('.action_bar .clipboard_panel').bind("mouseleave", function() {
+				statement.find('.action_bar .copy_url_panel').bind("mouseleave", function() {
           $(this).fadeOut();
           return false;
         });

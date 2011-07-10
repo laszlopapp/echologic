@@ -892,7 +892,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .statement .popup_panel .panel_header {
   background: none;
-  margin: 16px 0 16px 59px;
+  margin: 0 0 20px 60px;
   font-size: 16px;
   font-weight: bold;
 }
@@ -1120,46 +1120,69 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   background-position: 0 42px;
 }
 
-/****************************/
-/* Copy to clipboard button */
-/****************************/
 
-#statements .action_bar .clip_button_container {
-  position: relative;
-  margin-top: 20px;
-}
+/*******************************/
+/* Action Panel - More options */
+/*******************************/
 
-.action_bar .clip_button {
+.action_bar .actions_container {
+  width: 158px;
+  background: #F7FAFA;
   display: inline-block;
-	background: url(../images/page/discuss/copy_link_16.png) no-repeat scroll 0 0;
+  margin-top: 30px;
+  padding-bottom: 15px;
+  border: 1px solid #acbdc6;
+  border-radius: 12px;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+}
+
+.actions_container .text_button {
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  margin: 15px 0 0;
+  display: inline-block;
+}
+
+/* Copy to clipboard button */
+
+.statement .action_bar .copy_url_container {
+  position: relative;
+}
+
+.action_bar .copy_url_button {
+	background: transparent url(../images/page/discuss/copy_url_16.png) no-repeat scroll 0 0;
 	padding-left: 24px;
-	margin-left: 0;
+  height: 16px;
 }
 
-.clipboard_panel {
-    background: none repeat scroll 0 0 #FEFEFE;
-    border: 3px solid #BBBBBB;
-    bottom: -69px;
-    left: 136px;
-    position: absolute;
-    width: 322px;
-		padding: 15px 30px;
+.action_bar .copy_url_button:hover {
+  background-position: 0 -16px;
 }
 
-.clipboard_panel .panel_header {
+.copy_url_panel {
+  top: -55px;
+  left: 136px;
+  width: 330px;
+  padding: 21px 30px 25px;
+}
+
+.copy_url_panel .panel_header {
   width: 280px;
 	margin-left: 0 !important;
 }
 
-.action_bar .clip_url {
-	margin-top: 20px;
-	width: 317px;
+.copy_url_panel .statement_url {
+  border: 2px solid #7BB031;
+  color: #21587F;
+  margin-top: 20px;
+  padding: 3px;
+  width: 320px;
 }
 
 
-/***************************/
 /* Add new statement panel */
-/***************************/
 
 .statement .add_new_panel {
   width: 575px;
