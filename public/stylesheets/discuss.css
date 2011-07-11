@@ -1729,6 +1729,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 .no_echo_indicator {
+  background-color: #FFF;
   border: 1px solid #A9B6BD;
   -moz-border-radius: 12px;
   -webkit-border-radius: 12px;
