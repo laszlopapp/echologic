@@ -651,11 +651,12 @@ a.statement_link:hover {
   overflow: hidden;
 }
 
-.questions_container .question .title a.statement_link {
-	background: none;
-  padding-left: 0 !important;
+.questions_container .question .title a.statement_link {width: 400px;}
+
+.questions_container .question .title a.statement_link .title {
   font-size: 18px;
   font-weight: bold;
+  left: 0;
 }
 
 .questions_container .question .title a.statement_link .icon {
