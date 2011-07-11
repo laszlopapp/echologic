@@ -12,5 +12,9 @@
                          :display => true} %>
 
   <%= content_tag :span, '', :class => 'alt_border bottom' %>
-	<%= render_arrow %>
+
+	<% content_tag :div, :class => 'teaser', :style => 'display: none' do %>
+    <%= content_tag :span, '', :class => 'arrow' %>
+    <%= content_tag :span, I18n.t('application.general.or'), :class => 'or' %>
+  <% end %>
 <% end %>

@@ -27,14 +27,14 @@
 
     function Alternative(statement) {
       var alternatives = statement.find('.alternatives');
-			var arrow = alternatives.find('.arrow');
+			var teaser = alternatives.find('.teaser');
       initialize();
 
       /*
        * Initializes an echoable statement in a form or in normal mode.
        */
       function initialize() {
-        initPanel();
+        //initPanel();
       }
 
 			function initPanel() {
@@ -62,12 +62,12 @@
           initialize();
         },
 				highlight: function() {
-					panelHighlight();
-					arrow.fadeIn(100);
+					//panelHighlight();
+					teaser.fadeIn(100);
 				},
 				normal_mode: function() {
-					panelNormal();
-					arrow.fadeOut(100);
+					//panelNormal();
+					teaser.fadeOut(100);
 				}
       });
     }

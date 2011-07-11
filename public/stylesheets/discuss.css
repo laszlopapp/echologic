@@ -1566,17 +1566,40 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   width: 805px !important;
 }
 
-.alternatives .arrow {
-	position: absolute;
-	height: 50px;
-	width: 30px;
-	top: 80px;
-	left: 80px;
-}
 
 .alternatives a.statement_link {
-	/*color: #888888;*/
+  width: 575px;
 }
+
+.alternatives .teaser {
+	position: absolute;
+	bottom: 30px;
+	left: 10px;
+  width: 160px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.alternatives .teaser .arrow {
+  background: url("../images/page/discuss/cas_arrow.png") no-repeat scroll 0 0;
+  display: block;
+  width: 47px;
+  height: 36px;
+  position: relative;
+  bottom: -48px;
+  left: 56px;
+}
+
+.alternatives .teaser .or {
+  font-size: 15px;
+  font-weight: bold;
+  color: #cad3db;
+  position: relative;
+  bottom: -65px;
+  cursor: default;
+}
+
+
 
 /***********************/
 /* Children statements */

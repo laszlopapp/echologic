@@ -766,9 +766,6 @@ module StatementsHelper
                          :alternatives => children}
   end
 
-  def render_arrow
-    image_tag('page/discuss/alternatives-arrow.png', :class => 'arrow', :style => 'display:none')
-  end
 
   ####################
   # BACKGROUND INFOS #
