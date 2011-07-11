@@ -516,7 +516,7 @@ de:
         recommend:
           one: '{{supporter_count}} UnterstützerIn'
           many: '{{supporter_count}} UnterstützerInnen'
-      add_new: IHRE Aussage
+      add_new: Neue Aussage
       create_question_link: 'Neue Fragestellung hinzufügen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
       create_internal_link: 'Neue Idee?'

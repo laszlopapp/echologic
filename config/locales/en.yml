@@ -505,7 +505,7 @@ en:
         recommend:
           one: '{{supporter_count}} supporter'
           many: '{{supporter_count}} supporters'
-      add_new: Have YOUR say!
+      add_new: New statement
       copy_url: Link to
       create_question_link: 'Create new question'
       create_proposal_link: Add new proposal
