@@ -89,10 +89,11 @@
   margin: 0 10px;
   position: relative;
   top: 4px;
+  cursor: default;
 }
 
 #login_container .signin {
-  text-decoration: underline;
+  font-size: 16px;
   position: relative;
   top: 4px;
 }
