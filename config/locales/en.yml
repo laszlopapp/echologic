@@ -520,8 +520,8 @@ en:
       unrecommend_link: 'Withdraw vote'
       support_link: 'Support (echo)'
       unsupport_link: 'Withdraw vote'
-      embed_preview_link: Preview
-      open_embed_link: Open Embedded Url
+      preview_embedded_page: Preview
+      open_embedded_page: Open in new window
 
       statement_language_hint: |
         Please set your language skills in your <a href='{{url}}'>Profile</a>.
@@ -598,7 +598,7 @@ en:
         improvement: 'Additions'
         argument: 'Arguments'
         follow_up_question: 'Questions'
-        background_info: 'Background Infos'
+        background_info: 'Backgrounds'
       siblings:
         follow_up_question: 'Follow-up Question in the context shown above'
         background_info: 'Background Infos'

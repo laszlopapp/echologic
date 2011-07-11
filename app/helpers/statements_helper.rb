@@ -772,15 +772,18 @@ module StatementsHelper
   ####################
 
 
-  def render_embeddable_data(background_info)
-    content = ''
-    content << content_tag(:a, I18n.t("discuss.statements.open_embed_link"), :href => background_info.external_url.info_url,
-                        :class => "open_embed_button text_button",
-                        :target => "_blank")
-    content << content_tag(:div, :class => 'embedded_container') do
-     content_tag(:a, '', :href => background_info.external_url.info_url, :class => 'embedded_content')
-   end
-   content
+  def render_embedded_content(background_info)
+    content_tag(:div, :class => 'embedded_content') do
+      content = ''
+      content << content_tag(:a, I18n.t("discuss.statements.open_embedded_page"),
+                             :href => background_info.external_url.info_url,
+                             :class => "open_embedded_page_button",
+                             :target => "_blank")
+      content << content_tag(:a, '',
+                             :href => background_info.external_url.info_url,
+                             :class => 'embed_here')
+      content
+    end
   end
 
   #

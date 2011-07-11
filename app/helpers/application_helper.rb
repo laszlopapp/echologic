@@ -37,7 +37,7 @@ module ApplicationHelper
   end
 
   def insert_separator_line
-    content_tag :span, '', :class => 'shadow_line_separator'
+    content_tag :span, '', :class => 'line_separator_990'
   end
 
   def count_text(key, count)

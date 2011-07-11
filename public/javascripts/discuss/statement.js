@@ -43,7 +43,7 @@
       var statementId = getStatementId(statementDomId);
 			var parentStatement, statement_index;
 			var statementUrl;
-			var embeddedContent = statement.find('.embedded_container');
+			var embeddedContent = statement.find('.embed_here');
 
       // Initialize the statement
       initialise();
@@ -88,7 +88,7 @@
 					//initFlicks();
         }
 
-				//statement.find('.embedded_container').iframeResize({height: "auto", autoUpdate : true, classes: ".embedded_content"});
+				//statement.find('.embedded_content').iframeResize({height: "auto", autoUpdate : true, classes: ".embedded_page"});
       }
 
 
@@ -629,7 +629,7 @@
 		  	embeddedContent.embedly({
 					// key: ECHO_EMBEDLY_KEY!!!!!!!!!! TODO!
 					error: function(node, dict) {
-						node.replaceWith($("<iframe/>").addClass('embedded_content').attr('frameborder',0).attr('src', node.attr('href')));
+						node.replaceWith($("<iframe/>").addClass('embedded_page').attr('frameborder',0).attr('src', node.attr('href')));
 					}
 		  	});
 		  }

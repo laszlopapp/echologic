@@ -8,6 +8,6 @@
                                                          :approved_node => @approved_node,
                                                          :approved_document => @approved_document} %>
 	 <%= render_all_children(statement_node, @children) %>
-	 
-	 <%= render_embeddable_data(statement_node) if statement_node.class.has_embeddable_data? %>
+
+	 <%= render_embedded_content(statement_node) if statement_node.class.has_embeddable_data? %>
 </div>
