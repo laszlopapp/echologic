@@ -45,7 +45,7 @@
 				} else {
 					initEchoButton();
 				}
-				if(echoable.find('.alternative_panel').length > 0) {
+				if(echoable.find('.alternatives').length > 0) {
 					initAlternativePanel();
 				}
 		  }

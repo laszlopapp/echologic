@@ -476,8 +476,6 @@
 		      return false;
 		    });
 
-
-
 	      statement.find('.alternatives').each(function(){
 					initSiblingsLinks($(this));
 				});

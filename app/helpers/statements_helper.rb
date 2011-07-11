@@ -425,12 +425,6 @@ module StatementsHelper
     content_tag :span, I18n.t("discuss.statements.headings.#{type}"), :class => 'label'
   end
 
-  def alternatives_box_title
-    content_tag :div, :class => 'alternative_header' do
-      content_tag :label, I18n.t("discuss.statements.headings.alternatives")
-    end
-  end
-
   #
   # Creates the cancel button in the new statement form (right link will be handled in jquery).
   #

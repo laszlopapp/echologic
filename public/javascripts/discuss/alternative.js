@@ -26,8 +26,8 @@
     /*******************/
 
     function Alternative(statement) {
-      var alternative_panel = statement.find('.alternative_panel');
-			var arrow = alternative_panel.find('.arrow');
+      var alternatives = statement.find('.alternatives');
+			var arrow = alternatives.find('.arrow');
       initialize();
 
       /*
@@ -36,22 +36,22 @@
       function initialize() {
         initPanel();
       }
-			
+
 			function initPanel() {
-				alternative_panel.bind('mouseover', function(){
+				alternatives.bind('mouseover', function(){
 					panelHighlight();
 				});
-        alternative_panel.bind('mouseleave', function(){
+        alternatives.bind('mouseleave', function(){
 					panelNormal();
         });
 			}
 
       function panelHighlight() {
-				alternative_panel.find('a.statement_link').animate({color : settings['highlight_color']}, 100);
+				alternatives.find('a.statement_link').animate({color : settings['highlight_color']}, 100);
 			}
-			
+
 			function panelNormal() {
-        alternative_panel.find('a.statement_link').animate({color : settings['normal_mode_color']}, 100);				
+        alternatives.find('a.statement_link').animate({color : settings['normal_mode_color']}, 100);
 			}
 
 

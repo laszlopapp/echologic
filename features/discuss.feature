@@ -462,7 +462,7 @@ Feature: Take Part on a question
       | statement_node_statement_document_text            | I aquit, I am too legit        |
       And I press "Save"
     Then I should see "Pile of contradictions"
-      And I should see "A first proposal!" within ".alternative_panel"
+      And I should see "A first proposal!" within ".alternatives"
       And the proposal should have 1 alternative
       And I go to the proposal
       And I follow localized "discuss.statements.create_alternative_link"
@@ -471,8 +471,8 @@ Feature: Take Part on a question
       | statement_node_statement_document_text            | I aquit, I am too legit, I kick ass    |
       And I press "Save"
     Then I should see "Another Pile of contradictions"
-      And I should see "A first proposal!" within ".alternative_panel"
-      And I should see "Pile of contradictions" within ".alternative_panel"
+      And I should see "A first proposal!" within ".alternatives"
+      And I should see "Pile of contradictions" within ".alternatives"
       And the proposal should have 2 alternatives
 
   @ok
@@ -490,7 +490,7 @@ Feature: Take Part on a question
       | statement_node_statement_document_text            | I aquit, I am too legit        |
       And I press "Save"
     Then I should see "Pile of contradictions"
-      And I should see "A better first proposal" within ".alternative_panel"
+      And I should see "A better first proposal" within ".alternatives"
       And the improvement should have 1 alternative
       And I go to the improvement
       And I follow localized "discuss.statements.create_alternative_link"
@@ -499,8 +499,8 @@ Feature: Take Part on a question
       | statement_node_statement_document_text            | I aquit, I am too legit, I kick ass    |
       And I press "Save"
     Then I should see "Another Pile of contradictions"
-      And I should see "A better first proposal" within ".alternative_panel"
-      And I should see "Pile of contradictions" within ".alternative_panel"
+      And I should see "A better first proposal" within ".alternatives"
+      And I should see "Pile of contradictions" within ".alternatives"
       And the improvement should have 2 alternatives
 
 
