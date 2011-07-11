@@ -247,14 +247,12 @@ form.statement fieldset ol span.defaultText {
   color: #00868B !important;
 }
 
-
 #statements form.formtastic fieldset.statement_title,
-  #statements form.formtastic fieldset.statement_title li,
+#statements form.formtastic fieldset.statement_title li,
 #statements form.formtastic fieldset.statement_title input {
   margin-bottom: 0;
   width: 545px;
 }
-
 
 #statements form.formtastic fieldset.statement_language li,
 #statements form.formtastic fieldset.statement_language select {
@@ -293,7 +291,6 @@ form.formtastic fieldset.statement_tags .tags_container {
   margin-bottom: 10px;
 }
 
-
 form.formtastic fieldset.statement_tags .tag_container {
   width: 365px;
 }
@@ -302,8 +299,6 @@ form.formtastic fieldset.publish_radios .label,
 form.formtastic fieldset.publish_radios li {
   width: 700px;
 }
-
-
 
 form.statement .header .auto_complete {
 	display: inline-block;
@@ -336,7 +331,6 @@ form.statement .header .auto_complete.off:hover {
 form.statement .info_types_container {
 	width: 680px;
 }
-
 
 form.statement .info_types_container fieldset ol {
   width: 100%;
@@ -407,8 +401,6 @@ form.embeddable #statement_datas_container li {
 	text-align: center;
 }
 
-
-
 .statement .embedding_area {
   border-top: 1px solid #000000;
   margin-top: 20px;
@@ -477,9 +469,115 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 
+/*****************************/
+/* Statement links & buttons */
+/*****************************/
+
+.add_new_button {
+  vertical-align: top;
+}
+
+.add_header_link .add_new_button {
+  font-size: 18px;
+  margin-left: 0;
+  padding-left: 22px;
+  background-position: 0 3px;
+  position: relative;
+  top: -2px;
+}
+
+a.statement_link {
+  color: #21587f;
+  font-size: 14px;
+  font-weight: bold;
+  display:inline-block;
+  min-height: 20px;
+  vertical-align: top;
+  margin-bottom: 5px;
+  position: relative;
+  display: inline-block;
+}
+
+a.statement_link.active {
+	color: #7bb031;
+}
+
+.header_buttons a.statement_link.prev, .header_buttons a.statement_link.next {
+	padding-left: 0 !important;
+}
+
+a.statement_link:hover {
+  color: #7bb031;
+}
+
+.search_link {background:transparent url(../images/page/discuss/search_icon_16.png) no-repeat scroll 0 0;}
+.my_discussions_link {background:transparent url(../images/page/discuss/my_discussions_16.png) no-repeat scroll 0 -1px;}
+
+.statement_link .icon {
+  background-image: url(../images/page/discuss/statement_icons_16.png);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  display: inline-block;
+  line-height: 16px;
+  position: absolute;
+}
+.question_link .icon, .follow_up_question_link .icon {background-position: 0 0;}
+.proposal_link .icon {background-position: -16px 0;}
+.improvement_link .icon {background-position: -32px 0;}
+.pro_argument_link .icon {background-position: -48px 0;}
+.contra_argument_link .icon {background-position: -64px 0;}
+.alternative_statement .icon {background-position: -80px 0;}
+
+.statement_link.background_info_link .icon {
+  background-image: url(../images/page/discuss/bi_icons_16.png);
+}
+
+.article_link .icon {background-position: 0 0;}
+.paper_link .icon {background-position: -16px 0;}
+.book_link .icon {background-position: -32px 0;}
+.photo_link .icon {background-position: -48px 0;}
+.video_link .icon {background-position: -64px 0;}
+.url_link .icon {background-position: -80px 0;}
+
+.create_question_button,
+.create_proposal_button,
+.create_improvement_button,
+.create_pro_argument_button,
+.create_contra_argument_button,
+.create_follow_up_question_button,
+.create_alternative_button,
+.create_background_info_button {
+  background: transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
+}
+
+.header .statement_link .icon {top: 3px}
+.children_pagination .statement_link .icon, .doubles_list .statement_link .icon {top: 1px}
+
+.statement_link .title {
+  position: relative;
+  left: 21px;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+}
+
+.siblings_panel a.statement_link .title,
+.alternatives a.statement_link .title,
+.children a.statement_link .title {
+  line-height: 20px;
+  top: -1px;
+}
+
 /**********/
 /* Search */
 /**********/
+
+.question_links {
+  list-style: none;
+}
 
 #discuss_search_container.search_container {
   margin: 40px auto 30px;
@@ -1199,7 +1297,10 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .create_proposal_button_32 .icon {background-position: -32px 0;}
 .create_improvement_button_32 .icon {background-position: -64px 0;}
 .create_pro_argument_button_32 .icon {background-position: -96px 0;}
-.create_contra_argument_button_32 .icon {background-position: -128px 0;}
+.create_contra_argument_button_32 .icon {
+  background-position: -128px 4px;
+  height: 36px !important;
+}
 .create_alternative_button_32 .icon {background-position: -160px 0;}
 .create_background_info_button_32 .icon {background-position: -192px 0;}
 .create_follow_up_question_button_32 .icon {
@@ -1240,13 +1341,11 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	margin: 15px 0 0 12px;
 }
 
-.siblings_panel a.statement_link {
-  width: 550px;
-}
+.siblings_panel a.statement_link {width: 570px;}
+.siblings_panel a.statement_link .title {width: 550px;}
 
-.siblings_panel .doubles_list a.statement_link {
-  width: 245px;
-}
+.siblings_panel .doubles_list a.statement_link {width: 265px;}
+.siblings_panel .doubles_list a.statement_link .title {width: 245px;}
 
 .siblings_panel .doubles_list .children_pagination {
   width: 395px !important;
@@ -1321,22 +1420,25 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   margin-bottom: 4px;
 }
 
-#statements .header .header_link a {
+#statements .header .header_link .statement_link {
   display: inline-block;
   color: #21587F;
   font-size: 18px;
   font-weight: bold;
   text-decoration: none;
-	max-width: 550px;
+	max-width: 570px;
 }
 
-#statements .header .header_link a:hover {
+#statements .header .header_link .statement_link .title {
+  max-width: 550px;
+  line-height: 23px;
+}
+
+#statements .header .header_link .statement_link:hover,
+#statements .header.active .header_link .statement_link {
   color: #7bb031;
 }
 
-#statements .header.active .header_link a {
-  color: #7bb031;
-}
 
 /*******************************/
 /* Prev/Next Statement buttons */
@@ -1566,9 +1668,12 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   width: 805px !important;
 }
 
-
 .alternatives a.statement_link {
-  width: 575px;
+  width: 570px;
+}
+.alternatives a.statement_link .title {
+  max-width: 550px;
+  line-height: 20px;
 }
 
 .alternatives .teaser {
@@ -1617,7 +1722,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	margin-top: -17px !important;
 	height: 43px;
 }
-
 
 .statement .children .headline .child_header {
 	background: url("../images/page/tabbar_tab_left.png") no-repeat scroll 0 0;
@@ -1686,13 +1790,11 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   margin-left: 0;
 }
 
-.children a.statement_link {
-	width: 530px;
-}
+.children a.statement_link {width: 550px;}
+.children a.statement_link .title {width: 530px;}
 
-.children .doubles_list a.statement_link {
-  width: 240px;
-}
+.children .doubles_list a.statement_link {width: 260px;}
+.children .doubles_list a.statement_link .title {width: 240px;}
 
 .children_pagination, .doubles_list {
   margin-bottom: 3px !important;
@@ -1773,91 +1875,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 .statement.add_teaser {
   min-height: 350px;
 }
-
-/*****************************/
-/* Statement links & buttons */
-/*****************************/
-
-.add_new_button {
-  vertical-align: top;
-}
-
-.add_header_link .add_new_button {
-  font-size: 18px;
-  margin-left: 0;
-  padding-left: 22px;
-  background-position: 0 3px;
-  position: relative;
-  top: -2px;
-}
-
-a.statement_link {
-  color: #21587f;
-  font-size: 14px;
-  font-weight: bold;
-  display:inline-block;
-  min-height: 20px;
-  vertical-align: top;
-  margin-bottom: 5px;
-}
-a.statement_link.active {
-	color: #7bb031;
-}
-
-.header_buttons a.statement_link.prev, .header_buttons a.statement_link.next {
-	padding-left: 0 !important;
-}
-
-a.statement_link:hover {
-  color: #7bb031;
-}
-
-.question_links {
-  list-style:none;
-}
-
-.search_link {background:transparent url(../images/page/discuss/search_icon_16.png) no-repeat scroll 0 0;}
-.my_discussions_link {background:transparent url(../images/page/discuss/my_discussions_16.png) no-repeat scroll 0 -1px;}
-
-.statement_link .icon {
-  background-image: url(../images/page/discuss/statement_icons_16.png);
-  background-color: transparent;
-  background-repeat: no-repeat;
-  width: 16px;
-  height: 16px;
-  margin-right: 5px;
-  display: inline-block;
-  line-height: 16px;
-}
-.question_link .icon, .follow_up_question_link .icon {background-position: 0 0;}
-.proposal_link .icon {background-position: -16px 0;}
-.improvement_link .icon {background-position: -32px 0;}
-.pro_argument_link .icon {background-position: -48px 0;}
-.contra_argument_link .icon {background-position: -64px 0;}
-.alternative_statement .icon {background-position: -80px 0;}
-
-.statement_link.background_info_link .icon {
-  background-image: url(../images/page/discuss/bi_icons_16.png);
-}
-
-.article_link .icon {background-position: 0 0;}
-.paper_link .icon {background-position: -16px 0;}
-.book_link .icon {background-position: -32px 0;}
-.photo_link .icon {background-position: -48px 0;}
-.video_link .icon {background-position: -64px 0;}
-.url_link .icon {background-position: -80px 0;}
-
-.create_question_button,
-.create_proposal_button,
-.create_improvement_button,
-.create_pro_argument_button,
-.create_contra_argument_button,
-.create_follow_up_question_button,
-.create_alternative_button,
-.create_background_info_button {
-  background: transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
-}
-
 
 /*****************/
 /* Incorporation */
