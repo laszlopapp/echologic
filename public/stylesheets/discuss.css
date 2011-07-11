@@ -411,7 +411,7 @@ form.embeddable #statement_datas_container li {
 .statement .embedded_content {
   clear: both;
   background: url(../images/page/separator_no_shadow.png) no-repeat center top;
-  margin: 5px auto;
+  margin: 5px auto 25px;
   text-align: center;
 	padding-top: 10px;
   display: inline-block;
@@ -500,8 +500,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   margin-left: 0;
   padding-left: 22px;
   background-position: 0 3px;
-  position: relative;
-  top: -2px;
+  line-height: 20px;
 }
 
 a.statement_link {
@@ -569,6 +568,8 @@ a.statement_link:hover {
 .create_alternative_button,
 .create_background_info_button {
   background: transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
+  display: inline-block;
+  line-height: 16px;
 }
 
 .header .statement_link .icon {top: 3px}
