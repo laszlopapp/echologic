@@ -1650,22 +1650,25 @@ a.statement_link:hover {
 .alternatives {
   position: relative;
   left: 7px;
-  background: url("../images/page/discuss/cas_panel_bg.png") repeat-y scroll 0 0 #eee7dd;
+  background: url("../images/page/discuss/cas_panel_bg.png") repeat-y scroll 0 0 #EAF0E1;
 	width: 980px;
-	margin: 23px 0 10px;
+	margin: 18px 0 5px;
 	padding: 6px 0 8px;
 }
 
 .alternatives .alt_border {
-  background: url("../images/page/discuss/cas_panel_border.png") no-repeat scroll 0 0;
+  background: url("../images/page/discuss/cas_panel_border_shadow.png") no-repeat scroll 0 0;
   width: 980px;
-  height: 1px;
+  height: 7px;
   display: inline-block;
   position: relative;
 }
 
 .alternatives .alt_border.top {top: -6px !important;}
-.alternatives .alt_border.bottom {bottom: -8px !important;}
+.alternatives .alt_border.bottom {
+  background-position: 0 -7px;
+  bottom: -8px !important;
+}
 
 .alternatives li {
   line-height: 16px;
