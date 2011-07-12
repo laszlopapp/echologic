@@ -947,7 +947,7 @@ a.statement_link:hover {
 /****************/
 
 .statement .popup_panel {
-  border: 3px solid #BBB;
+  border: 2px solid #777;
 	background: #FEFEFE;
   position: absolute;
   -moz-border-radius: 15px;
@@ -991,7 +991,6 @@ a.statement_link:hover {
 
 .statement .social_echo_panel {
 	width: 640px;
-  border: 3px solid #BBB;
   background: #FEFEFE;
   position: absolute;
   top: -50px;
@@ -1257,7 +1256,6 @@ a.statement_link:hover {
 
 .statement .add_new_panel {
   width: 575px;
-	border: 3px solid #BBB;
 	background: #FEFEFE;
   position: absolute;
 	bottom: -69px;
@@ -1648,7 +1646,7 @@ a.statement_link:hover {
 .alternatives {
   position: relative;
   left: 7px;
-  background: url("../images/page/discuss/cas_panel_bg.png") repeat-y scroll 0 0 #fff3d4;
+  background: url("../images/page/discuss/cas_panel_bg.png") repeat-y scroll 0 0 #eee7dd;
 	width: 980px;
 	margin: 23px 0 10px;
 	padding: 6px 0 8px;
