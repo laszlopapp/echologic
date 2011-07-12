@@ -773,11 +773,11 @@ module StatementsHelper
 
 
   def render_embedded_content(background_info)
-    content_tag(:div, :class => 'embedded_content') do
+    content_tag(:div, :class => 'embed_container') do
       content = ''
       content << content_tag(:a, I18n.t("discuss.statements.open_embedded_page"),
                              :href => background_info.external_url.info_url,
-                             :class => "open_embedded_page_button",
+                             :class => "embedded_content_button",
                              :target => "_blank")
       content << content_tag(:a, '',
                              :href => background_info.external_url.info_url,

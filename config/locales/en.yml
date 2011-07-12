@@ -583,7 +583,7 @@ en:
         pro_argument: 'New Pro Argument'
         contra_argument: 'New Contra Argument'
         follow_up_question: 'New Follow-Up Question'
-        background_info: 'New Background_Info'
+        background_info: 'New Background Info'
       headings:
         question: 'Questions'
         proposal: 'Proposals'
@@ -872,9 +872,9 @@ en:
         image: 'Illustration'
       statement:
         info_type_id: 'Content Type'
-        external_url: 'Background Info URL'
+        external_url: 'Background Info Link'
       statement_data:
-        info_url: 'Background Info URL'
+        info_url: 'Background Info Link'
       about_item:
         photo: 'Photo'
         name: 'Name'

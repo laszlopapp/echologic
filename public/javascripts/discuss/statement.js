@@ -88,7 +88,7 @@
 					//initFlicks();
         }
 
-				//statement.find('.embedded_content').iframeResize({height: "auto", autoUpdate : true, classes: ".embedded_page"});
+				//statement.find('.embed_container').iframeResize({height: "auto", autoUpdate : true, classes: ".embedded_page"});
       }
 
 
