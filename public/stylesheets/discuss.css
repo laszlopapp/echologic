@@ -1651,7 +1651,7 @@ a.statement_link:hover {
   background: url("../images/page/discuss/cas_panel_bg.png") repeat-y scroll 0 0 #fff3d4;
 	width: 980px;
 	margin: 23px 0 10px;
-	padding: 10px 0 6px;
+	padding: 6px 0 8px;
 }
 
 .alternatives .alt_border {
@@ -1662,13 +1662,17 @@ a.statement_link:hover {
   position: relative;
 }
 
-.alternatives .alt_border.top {top: -10px !important;}
-.alternatives .alt_border.bottom {bottom: -6px !important;}
+.alternatives .alt_border.top {top: -6px !important;}
+.alternatives .alt_border.bottom {bottom: -8px !important;}
+
+.alternatives li {
+  line-height: 16px;
+}
 
 .alternatives .label {
   position: relative;
   left: 10px;
-  top: 6px;
+  top: 5px;
 	width: 160px;
 	text-align: center;
 	float: left;
