@@ -1,8 +1,8 @@
-ul.benefitList {
+ul.benefit_list {
   margin-top: 22px;
 }
 
-ul.spreadedList li {
+ul.spreaded_list li {
   margin: 15px 0;
 }
 
@@ -12,7 +12,7 @@ li {
 }
 
 /* more buttons */
-.moreButton, .hideButton {
+.more_button, .hide_button {
   cursor: pointer;
   color: #21587f;
   text-decoration: underline;

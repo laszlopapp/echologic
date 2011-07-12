@@ -48,8 +48,8 @@
   top: 43px;
 }
 
-.statement .action_bar .moreButton,
-.statement .action_bar .hideButton {
+.statement .action_bar .more_button,
+.statement .action_bar .hide_button {
 	margin-top: 10px;
 	display: inline-block;
 }

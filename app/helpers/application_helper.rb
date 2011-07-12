@@ -49,8 +49,8 @@ module ApplicationHelper
   # Click-functions are added via jQuery, take a look at application.js
   def insert_toggle_more(text="")
     content = ""
-    content << content_tag(:span, I18n.t('application.general.hide'), :class => "hideButton", :style => "display:none;")
-    content << content_tag(:span, I18n.t('application.general.more') ,:class => "moreButton")
+    content << content_tag(:span, I18n.t('application.general.hide'), :class => "hide_button", :style => "display:none;")
+    content << content_tag(:span, I18n.t('application.general.more') ,:class => "more_button")
     content << content_tag(:div, :class => "toggled_content", :style => "display:none") do
       concat("#{text}")
     end if !text.blank?

@@ -117,13 +117,13 @@
   /* Toggle more text on click, use toggleParams. */
   /* IE7 compatibility through IE8.js plugin. */
   function moreHideButtonEvents() {
-    $('.moreButton').live('click', (function() {
+    $('.more_button').live('click', (function() {
       $(this).siblings('.toggled_content').animate(toggleParams, 300);
       $(this).hide();
       $(this).prev().show();
     }));
 
-    $('.hideButton').live('click', (function() {
+    $('.hide_button').live('click', (function() {
       $(this).siblings('.toggled_content').animate(toggleParams, 300);
       $(this).hide();
       $(this).next().show();
@@ -313,7 +313,7 @@
     }
     return false;
   }
-	
+
 
   /*
    * Detecting mobile devices.
