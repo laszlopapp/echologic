@@ -63,11 +63,11 @@
         },
 				highlight: function() {
 					//panelHighlight();
-					teaser.fadeIn(100);
+					teaser.fadeIn(120);
 				},
 				normal_mode: function() {
 					//panelNormal();
-					teaser.fadeOut(100);
+					teaser.fadeOut(120);
 				}
       });
     }
