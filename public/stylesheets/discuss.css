@@ -2188,7 +2188,7 @@ form.statement fieldset ol li.tags_container {
 /**************/
 
 .statement .loading {
-	background: url('../images/indicator.gif') left center no-repeat;
+	background: url('../images/indicator_16.gif') left center no-repeat;
   width: 20px;
   height: 20px;
 	position: absolute;

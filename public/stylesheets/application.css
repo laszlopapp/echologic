@@ -338,7 +338,7 @@
 }
 
 .more_pagination .more_loading {
-  background: url('../images/indicator.gif') left center no-repeat;
+  background: url('../images/indicator_16.gif') left center no-repeat;
   padding-left: 25px;
   color: #21587F;
   font-size: 15px;
