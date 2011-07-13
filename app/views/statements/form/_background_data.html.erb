@@ -37,7 +37,7 @@
                          'data-default' => I18n.t("discuss.statements.info_url_hint"),
                          'invalid-message' => I18n.t("activerecord.errors.messages.invalid",
                                                      :attribute => I18n.t("activerecord.attributes.statement_data.info_url")) %>
-      <%= link_to I18n.t("discuss.statements.preview_embedded_page"), "#", :class => "text_button" %>
+      <%= link_to I18n.t('discuss.statements.preview_embedded_content'), "#", :class => "text_button" %>
     <% end %>
   <% end %>
 <% end %>
@@ -46,8 +46,6 @@
 <% content_tag :div, :class => "embed_preview embed_container" do %>
   <%= link_to I18n.t("application.general.edit"), "#",
               :class => "embedded_content_button" %>
-  <%= link_to '', '#',
-              :class => 'embedded_page',
-              :frameborder => 0,
-              :style => 'display: none;' %>
+  <%= content_tag(:span, '', :class => 'loading') %>
+  <%= content_tag(:a, '', :class => 'embed_command') %>
 <% end %>

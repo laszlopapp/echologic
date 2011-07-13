@@ -22,10 +22,11 @@
     function Embeddable(embeddable) {
 
 			var embedData = embeddable.find('.embed_data');
-			var embedPreview = embeddable.find('.embed_preview');
 			var entryTypes = embedData.find('.entry_types');
 			var embedUrl = embedData.find('input.embed_url');
-      var embeddedPage = embedPreview.find('.embedded_page');
+
+      var embedPreview = embeddable.find('.embed_preview');
+      var embedCommand = embedPreview.find('.embed_command');
       var selectedContentType, changeEvent;
 
       initialize();
@@ -88,7 +89,6 @@
         }
       }
 
-
       /*
        * Handles the event of filling the info url (triggers the loading of that url on an iframe)
        */
@@ -132,36 +132,63 @@
 				}
 			}
 
-			function showEmbedData() {
-				embedPreview.hide();
-				embedData.show();
-			}
 
 			function handleEmbeddedContent() {
 				embedPreview.hide();
-				embeddedPage.prev().bind('click', function(){
+				embedPreview.find('.embedded_content_button').bind('click', function() {
 					showEmbedData();
 					return false;
 				});
 			}
 
+      function showEmbedData() {
+				embedPreview.hide();
+				embedData.show();
+			}
+
+
       /*
        * Loads embedded content with the given URL.
        */
       function loadEmbeddedContent(url) {
-				embeddedPage.nextAll().remove();
-				embeddedPage.attr('href', url);
-				embeddedPage.embedly({
-					// key: ECHO_EMBEDLY_KEY!!!!!!!!!! TODO!
-					method: 'after',
-          error: function(node, dict){
-				  	$("<iframe/>").addClass('embedded_page').attr('frameborder', 0).attr('src', node.attr('href')).insertAfter(node);
-				  }
-				});
-				if (!embeddedPage.is(':visible')) {
-          embeddedPage.fadeIn();
-        }
+        // Reset command
+				embedCommand.nextAll().remove();
+        embedCommand.attr('href', url);
+        // Embed URL
+				embedCommand.embedly({
+          maxWidth: 990,
+          maxHeight: 1000,
+          className: 'embedded_content',
+          success: embedlySuccess,
+					error: embedlyError
+		  	});
+        embedPreview.find('.loading').show();
       }
+
+      function embedlySuccess(oembed, dict) {
+        var elem = $(dict.node);
+        if (! (oembed) ) { return null; }
+        elem.after(oembed.code);
+        showEmbeddedContent(oembed.type != 'video');
+      }
+
+      function embedlyError(node, dict) {
+        node.after($("<div/>").addClass('embedded_content').addClass('manual')
+                     .append($("<iframe/>").attr('frameborder',0).attr('src', node.attr('href'))));
+        showEmbeddedContent(true);
+      }
+
+      function showEmbeddedContent(animate) {
+        setTimeout(function() {
+          embedPreview.find('.loading').hide();
+          if (animate) {
+            embedPreview.find('.embedded_content').animate(toggleParams, 700);
+          } else {
+            embedPreview.find('.embedded_content').fadeIn(700);
+          }
+        }, 2000);
+      }
+
 
      	function handleEmbeddedContentChange(eventName) {
 				changeEvent = eventName;
@@ -187,14 +214,13 @@
           selectContentType(entryTypes.find('a.' + content_type).parent().siblings('label'));
           embedUrl.val(external_url);
 					loadEmbeddedContent(external_url);
-          embeddedPage.fadeIn();
 				},
 
 				unlinkEmbeddedContent: function() {
-					deselectContentType();
-          embedUrl.val('');
-					loadEmbeddedContent(external_url);
-          embeddedPage.hide();
+//					deselectContentType();
+//          embedUrl.val('');
+//					loadEmbeddedContent(external_url);
+//          embeddedContent.hide();
 				},
 
 				handleContentChange: function(eventName) {
