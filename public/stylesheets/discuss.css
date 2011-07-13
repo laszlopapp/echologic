@@ -350,6 +350,10 @@ form.embeddable .entry_types label {
 }
 
 form.embeddable .entry_types {
+  background: #F5F7F9;
+  box-shadow: 0 0 60px #EBEFF2;
+  -moz-box-shadow: 0 0 60px #EBEFF2;
+  -webkit-box-shadow: 0 0 60px #EBEFF2;
   width: 542px;
   margin: 10px 0 20px;
   padding: 20px 30px 0;
@@ -1760,7 +1764,6 @@ a.statement_link:hover {
 	clear: right;
 	text-align: center;
 	display: inline-block;
-	margin-top: -1px;
 }
 .statement .children .headline.active .child_header.selected {
 	background-position: left bottom;
@@ -2107,9 +2110,6 @@ form.statement fieldset ol li.tags_container {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
   border-radius: 15px;
-  /*-moz-box-shadow: 0 0 33px #F0F0F0;
-  -webkit-box-shadow: 0 0 33px #F0F0F0;
-  -box-shadow: 0 0 33px #F0F0F0;*/
   -moz-box-shadow: 0 0 33px #EBEFF2;
   -webkit-box-shadow: 0 0 33px #EBEFF2;
   box-shadow: 0 0 33px #EBEFF2;
