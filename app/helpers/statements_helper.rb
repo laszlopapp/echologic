@@ -779,9 +779,10 @@ module StatementsHelper
                              :href => background_info.external_url.info_url,
                              :class => "embedded_content_button",
                              :target => "_blank")
+      content << content_tag(:span, '', :class => 'loading')
       content << content_tag(:a, '',
                              :href => background_info.external_url.info_url,
-                             :class => 'embed_here')
+                             :class => 'embed_placeholder')
       content
     end
   end

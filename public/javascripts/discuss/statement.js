@@ -43,7 +43,7 @@
       var statementId = getStatementId(statementDomId);
 			var parentStatement, statement_index;
 			var statementUrl;
-			var embeddedContent = statement.find('.embed_here');
+			var embedPlaceholder = statement.find('.embed_placeholder');
 
       // Initialize the statement
       initialise();
@@ -82,13 +82,11 @@
 					initClipboardButton();
           initMoreButton();
           initAllStatementLinks();
-					if(embeddedContent.length > 0) {
+					if(embedPlaceholder.length > 0) {
 						initEmbeddedContent();
 					}
 					//initFlicks();
         }
-
-				//statement.find('.embed_container').iframeResize({height: "auto", autoUpdate : true, classes: ".embedded_page"});
       }
 
 
@@ -625,14 +623,40 @@
 			/* EMBEDDED CONTENT */
 			/********************/
 
-			function initEmbeddedContent(){
-		  	embeddedContent.embedly({
-					// key: ECHO_EMBEDLY_KEY!!!!!!!!!! TODO!
-					error: function(node, dict) {
-						node.replaceWith($("<iframe/>").addClass('embedded_page').attr('frameborder',0).attr('src', node.attr('href')));
-					}
+			function initEmbeddedContent() {
+		  	embedPlaceholder.embedly({
+          maxWidth: 990,
+          maxHeight: 1000,
+          className: 'embedded_content',
+          success: embedlySuccess,
+					error: embedlyError
 		  	});
 		  }
+
+      function embedlySuccess(oembed, dict) {
+        var elem = $(dict.node);
+        if (! (oembed) ) { return null; }
+        elem.replaceWith(oembed.code);
+        showEmbeddedContent(oembed.type != 'video');
+      }
+
+      function embedlyError(node, dict) {
+        node.replaceWith($("<div/>").addClass('embedded_content').addClass('manual')
+                          .append($("<iframe/>").attr('frameborder',0).attr('src', node.attr('href'))));
+        showEmbeddedContent(true);
+      }
+
+      function showEmbeddedContent(animate) {
+        setTimeout(function() {
+          statement.find('.embed_container .loading').hide();
+          if (animate) {
+            statement.find('.embedded_content').animate(toggleParams, 700);
+          } else {
+            statement.find('.embedded_content').fadeIn(700);
+          }
+        }, 2000);
+      }
+
 
       // Public API of statement
       $.extend(this,
