@@ -1,7 +1,16 @@
 
 (function($){
 
-  $.fn.embeddable = function() {
+  $.fn.embeddable = function(current_settings) {
+
+    $.fn.embeddable.defaults = {
+      'embed_speed': 700,
+      'scroll_speed': 300,
+      'time_to_load': 2000
+    };
+
+    // Merging settings with defaults
+    var settings = $.extend({}, $.fn.embeddable.defaults, current_settings);
 
     return this.each(function() {
       /* Creating embeddable and binding its API */
@@ -27,7 +36,7 @@
 
       var embedPreview = embeddable.find('.embed_preview');
       var embedCommand = embedPreview.find('.embed_command');
-      var selectedContentType, changeEvent;
+      var selectedType, changeEvent;
 
       initialize();
 
@@ -37,63 +46,66 @@
        */
       function initialize() {
 				entryTypes.jqTransform();
-        handleEntryTypeClicks();
-        handleInputURL();
-				handleEmbeddedContent();
+        initEntryTypes();
+        initEmbedURL();
+				initEmbeddedContent();
       }
 
 			/*
        * Handles the click events on the background info type labels.
        */
-      function handleEntryTypeClicks() {
+      function initEntryTypes() {
         var entryTypeLabels = entryTypes.find("li label");
         var entryTypeRadios = entryTypes.find("li input[type='radio']");
         entryTypeLabels.each(function(){
-          loadInputType($(this));
+          loadType($(this));
         });
-        var previousContentType = selectedContentType;
+        var previousType = selectedType;
         entryTypeLabels.bind('click', function(){
-          deselectContentType();
-          selectContentType($(this));
-					if(previousContentType != selectedContentType) {triggerChange();}
+          deselectType();
+          selectType($(this));
+					if(previousType != selectedType) {triggerTypeChange();}
         });
         entryTypeRadios.bind('click', function(){
-          deselectContentType();
-          selectContentType($(this).parent().siblings('label'));
-					if(previousContentType != selectedContentType) {triggerChange();}
+          deselectType();
+          selectType($(this).parent().siblings('label'));
+					if(previousType != selectedType) {triggerTypeChange();}
         });
       }
 
-			function triggerChange() {
+      function triggerTypeChange() {
 				if(changeEvent) {
           embeddable.trigger(changeEvent);
         }
 			}
 
-      function loadInputType(label) {
+      function loadType(label) {
         if (label.siblings().find('a.jqTransformRadio').hasClass('jqTransformChecked')) {
           label.addClass('selected');
-          selectedContentType = label;
+          selectedType = label;
         }
       }
 
-      function selectContentType(label) {
+      function selectType(label) {
         label.addClass('selected').find('a.jqTransformRadio').addClass('jqTransformChecked');
-        selectedContentType = label;
+        selectedType = label;
 				embedUrl.removeAttr('disabled');
       }
 
-      function deselectContentType() {
-        if (selectedContentType) {
-          selectedContentType.removeClass('selected').find('a.jqTransformRadio').removeClass('jqTransformChecked');
+      function deselectType() {
+        if (selectedType) {
+          selectedType.removeClass('selected').find('a.jqTransformRadio').removeClass('jqTransformChecked');
         }
       }
 
+
       /*
-       * Handles the event of filling the info url (triggers the loading of that url on an iframe)
+       * Initiates the event of filling the info url (triggers the loading of that url on an iframe)
        */
-      function handleInputURL() {
-				if (!selectedContentType) {
+      function initEmbedURL() {
+
+        // URL Input
+				if (!selectedType) {
 					embedUrl.attr('disabled', 'disabled');
 				}
 				var invalid_message = embedUrl.attr('invalid-message');
@@ -105,35 +117,24 @@
 						return false;
 					}
         });
-				handlePreviewButton();
+
+        // Preview button
+				embedData.find('.preview_button').bind('click', function(){
+					showEmbedPreview();
+					return false;
+				});
+
+        // Submit button
 				embeddable.bind('submit', function(){
 					var url = embedUrl.val();
 					if (!url.match(/http(s)?:\/\/.*/)) {embedUrl.val("http://" + url);}
 				});
       }
 
-			function handlePreviewButton() {
-				embedUrl.next().bind('click', function(){
-					showEmbedPreview();
-					return false;
-				});
-			}
-
-			function showEmbedPreview() {
-				var url = embedUrl.val();
-				if (!url.match(/http(s)?:\/\/.*/)) {url = "http://" + url;}
-				if (isValidUrl(url)) {
-					embedData.hide();
-				  loadEmbeddedContent(url);
-					embedPreview.show();
-					triggerChange();
-				} else {
-					error(embedUrl.data('invalid-message'));
-				}
-			}
-
-
-			function handleEmbeddedContent() {
+      /*
+       * Initiates the embedded content preview.
+       */
+      function initEmbeddedContent() {
 				embedPreview.hide();
 				embedPreview.find('.embedded_content_button').bind('click', function() {
 					showEmbedData();
@@ -142,19 +143,41 @@
 			}
 
       function showEmbedData() {
-				embedPreview.hide();
-				embedData.show();
+        $.scrollTo('form.embeddable .embed_data', settings['scroll_speed']);
 			}
 
+			function showEmbedPreview() {
+				var url = embedUrl.val();
+				if (!url.match(/http(s)?:\/\/.*/)) {url = "http://" + url;}
+				if (isValidUrl(url)) {
+          if (!embedPreview.is(':visible')) {
+				    embedPreview.animate(toggleParams, settings['embed_speed']);
+            scrollToPreview();
+          }
+          loadEmbeddedContent(url);
+					triggerTypeChange();
+				} else {
+					error(embedUrl.data('invalid-message'));
+				}
+			}
 
       /*
        * Loads embedded content with the given URL.
        */
       function loadEmbeddedContent(url) {
-        // Reset command
-				embedCommand.nextAll().remove();
+
+        // Reseting the preview area
+        var embeddedContent = embedPreview.find('.embedded_content');
+        if (embeddedContent.is(':visible')) {
+          embedPreview.find('.embedded_content').animate(toggleParams, settings['embed_speed'], function() {
+            embeddedContent.remove();
+            scrollToPreview();
+          });
+        }
         embedCommand.attr('href', url);
+
         // Embed URL
+        embedPreview.find('.loading').show();
 				embedCommand.embedly({
           maxWidth: 990,
           maxHeight: 1000,
@@ -162,7 +185,6 @@
           success: embedlySuccess,
 					error: embedlyError
 		  	});
-        embedPreview.find('.loading').show();
       }
 
       function embedlySuccess(oembed, dict) {
@@ -182,17 +204,22 @@
         setTimeout(function() {
           embedPreview.find('.loading').hide();
           if (animate) {
-            embedPreview.find('.embedded_content').animate(toggleParams, 700);
+            embedPreview.find('.embedded_content').animate(toggleParams, settings['embed_speed'], scrollToPreview);
           } else {
-            embedPreview.find('.embedded_content').fadeIn(700);
+            embedPreview.find('.embedded_content').fadeIn(settings['embed_speed'], scrollToPreview);
           }
-        }, 2000);
+        }, settings['time_to_load']);
+      }
+
+      function scrollToPreview() {
+        $.scrollTo('form.embeddable .entry_url_container', settings['scroll_speed']);
       }
 
 
      	function handleEmbeddedContentChange(eventName) {
 				changeEvent = eventName;
 			}
+
 
 			function isValidUrl(url) {
 				return url.match(/^(http|https|ftp):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i);
@@ -210,8 +237,8 @@
 					var content_type = data['content_type'];
           var external_url = data['external_url'];
 
-					deselectContentType();
-          selectContentType(entryTypes.find('a.' + content_type).parent().siblings('label'));
+					deselectType();
+          selectType(entryTypes.find('a.' + content_type).parent().siblings('label'));
           embedUrl.val(external_url);
 					loadEmbeddedContent(external_url);
 				},

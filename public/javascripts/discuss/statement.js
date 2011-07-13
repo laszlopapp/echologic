@@ -12,7 +12,9 @@
         'opacity': 'hide'
       },
       'hide_animation_speed': 500,
-      'animation_speed': 300
+      'animation_speed': 300,
+      'embedding_animation_speed': 700,
+       'time_to_load': 2000
     };
 
     // Merging settings with defaults
@@ -650,11 +652,11 @@
         setTimeout(function() {
           statement.find('.embed_container .loading').hide();
           if (animate) {
-            statement.find('.embedded_content').animate(toggleParams, 700);
+            statement.find('.embedded_content').animate(toggleParams, settings['embedding_animation_speed']);
           } else {
-            statement.find('.embedded_content').fadeIn(700);
+            statement.find('.embedded_content').fadeIn(settings['embedding_animation_speed']);
           }
-        }, 2000);
+        }, settings['time_to_load']);
       }
 
 

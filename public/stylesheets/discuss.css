@@ -345,6 +345,7 @@ form.embeddable .embed_data .label {
   font-size: 15px;
   font-weight: bold;
   display: inline-block;
+  padding-top: 10px;
 }
 
 form.embeddable .entry_types label {
@@ -353,13 +354,17 @@ form.embeddable .entry_types label {
   padding-left: 40px;
 }
 
+form.embeddable .entry_types .entry_type {
+  margin-top: -10px;
+}
+
 form.embeddable .entry_types {
   background: #F5F7F9;
   box-shadow: 0 0 60px #EBEFF2;
   -moz-box-shadow: 0 0 60px #EBEFF2;
   -webkit-box-shadow: 0 0 60px #EBEFF2;
   width: 542px;
-  margin: 10px 0 20px;
+  margin: 10px 0 15px;
   padding: 20px 30px 0;
   border: 2px solid #AAA;
   border-radius: 15px;
@@ -421,18 +426,14 @@ form.embeddable input.embed_url {
 }
 
 form.embeddable .embed_container {
-  margin-left: -200px;
-  width: 980px;
+  margin-left: -205px;
+  width: 990px;
   min-height: 42px;
+  overflow: visible !important;
 }
 
-form.embeddable .embed_container.embed_data {
-  text-align: left;
-  padding-top: 30px;
-}
-
-form.embeddable .embed_container.embed_data .data_block {
-  margin-left: 200px;
+form.embeddable .embed_data {
+  margin-bottom: 30px;
 }
 
 .statement .embedded_content_button {
