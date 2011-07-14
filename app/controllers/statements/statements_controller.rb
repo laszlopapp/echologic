@@ -23,7 +23,7 @@ class StatementsController < ApplicationController
   before_filter :fetch_languages, :except => [:destroy, :redirect_to_statement, :ancestors]
   before_filter :check_write_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
-
+  
   include PublishableModule
   before_filter :is_publishable?, :only => [:publish]
   include EchoableModule
@@ -680,7 +680,7 @@ class StatementsController < ApplicationController
   def fetch_statement_node_type
     @statement_node_type = params[:type] ? params[:type].to_s.classify.constantize : nil
   end
-
+  
   #
   # Checks if the user can access this very statement
   #
@@ -1014,14 +1014,19 @@ class StatementsController < ApplicationController
   #                             documents belonging to the loaded ancestors
   #
   def load_ancestors(teaser = false)
+    stack_ids = !params[:sids].blank? ? params[:sids].split(",") : nil
+    
     if @statement_node
-      @ancestors = @statement_node.ancestors
+      @ancestors = stack_ids ? StatementNode.find(stack_ids).sort{|s1, s2|s1.level <=> s2.level} : @statement_node.ancestors
       @ancestor_documents = {}
       @ancestors.each {|a| load_siblings(a) }
 
       load_siblings(@statement_node) # if teaser: @statement_node is the teaser's parent, otherwise the node on the bottom-most level
       if teaser
-        @ancestors << @statement_node # if teaser: @statement_node is the teaser's parent, therefore, an ancestor
+        
+        # if teaser: @statement_node is the teaser's parent, therefore, an ancestor
+        # if stack ids exists, that means the @statement node is already in ancestors
+        @ancestors << @statement_node if stack_ids.nil? 
         load_children_for_parent(@statement_node, @type)
       end
 
@@ -1166,6 +1171,35 @@ class StatementsController < ApplicationController
     roots
   end
 
+  #########################
+  # RENDER HELPER METHODS #
+  #########################
+
+  #
+  # Loads the level which the statement (or teaser) will be render in
+  #
+  # teaser (boolean : optional) : whether what we are rendering now is a teaser or a statement
+  #
+  # Loads instance variables:
+  # @level(Integer)
+  #
+  def load_statement_level(teaser = false)
+    # if level already set, it means it was set for the forms, therefore, get the hell outta here
+    return if @level
+    
+    
+    if params[:len].blank? # boring case: we have to calculate everything
+        # if it is a teaser, calculate the level of the current parent and add 1 (unless it's a question or follow up teaser)
+        @level = teaser ?  
+                 ((@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 
+                   0 : 
+                   @statement_node.level + 1) :
+                 @statement_node.level 
+    else # the new ways (this will be operated much more often, and it will be quicker and fancier)
+    
+        @level = params[:len].to_i - 1
+    end
+  end
 
   ####################
   # RESPONSE RENDERS #
@@ -1207,6 +1241,7 @@ class StatementsController < ApplicationController
       format.js {
         load_ancestors(teaser) if !params[:sids].blank? or (!params[:new_level].blank? and (@statement_node.nil? or @statement_node.level == 0))
         load_breadcrumbs if !params[:bids].blank?
+        load_statement_level(teaser)
         render :template => template
       }
     end

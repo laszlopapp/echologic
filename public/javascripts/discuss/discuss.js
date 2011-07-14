@@ -50,6 +50,7 @@ function initFragmentStatementChange() {
 		if ($.fragment().sids) {
 			var sids = $.fragment().sids;
 			var new_sids = sids.split(",");
+			var length = new_sids.length;
 			var path = "/" + new_sids[new_sids.length-1];
 
 
@@ -76,7 +77,8 @@ function initFragmentStatementChange() {
         "sids": sids.join(","),
 				"bids": bids.join(","),
         "new_level": $.fragment().new_level,
-				"origin": $.fragment().origin
+				"origin": $.fragment().origin,
+				"len": length
       });
 
 			$.ajax({
