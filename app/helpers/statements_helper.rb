@@ -257,7 +257,8 @@ module StatementsHelper
                                                                    :hub => 'alternative',
                                                                    :bids => params[:bids],
                                                                    :origin => origin),
-                               :class => "create_alternative_button_32 resource_link ajax") do
+                               :class => "create_alternative_button_32 resource_link ajax ttLink no_border",
+                               :title => I18n.t("discuss.tooltips.create_alternative")) do
           statement_icon_title(I18n.t("discuss.statements.types.alternative"))
         end
       end
