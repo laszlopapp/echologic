@@ -1025,7 +1025,10 @@ class StatementsController < ApplicationController
         load_children_for_parent(@statement_node, @type)
       end
 
-      @ancestors.each{|a|@ancestor_documents[a.statement_id] = a.document_in_preferred_language(@language_preference_list)}
+      @ancestors.each do |a|
+        l_ids = (@language_preference_list + [a.original_language.id]).uniq
+        @ancestor_documents[a.statement_id] = a.document_in_preferred_language(l_ids)
+      end
     else
       if teaser
         load_roots_to_session
