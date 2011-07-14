@@ -23,7 +23,7 @@ class StatementsController < ApplicationController
   before_filter :fetch_languages, :except => [:destroy, :redirect_to_statement, :ancestors]
   before_filter :check_write_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
-  
+
   include PublishableModule
   before_filter :is_publishable?, :only => [:publish]
   include EchoableModule
@@ -106,7 +106,7 @@ class StatementsController < ApplicationController
     #search terms as tags
     if @statement_node.taggable?
       @statement_node.load_root_tags if @statement_node.class.is_top_statement?
-      loadSearchTermsAsTags(params[:origin]) if params[:origin]
+      load_search_terms_as_tags(params[:origin]) if params[:origin]
     end
 
     inc = params[:hub].blank? ? 1 : 0
@@ -680,7 +680,7 @@ class StatementsController < ApplicationController
   def fetch_statement_node_type
     @statement_node_type = params[:type] ? params[:type].to_s.classify.constantize : nil
   end
-  
+
   #
   # Checks if the user can access this very statement
   #
@@ -1015,7 +1015,7 @@ class StatementsController < ApplicationController
   #
   def load_ancestors(teaser = false)
     stack_ids = !params[:sids].blank? ? params[:sids].split(",") : nil
-    
+
     if @statement_node
       @ancestors = stack_ids ? StatementNode.find(stack_ids).sort{|s1, s2|s1.level <=> s2.level} : @statement_node.ancestors
       @ancestor_documents = {}
@@ -1023,10 +1023,10 @@ class StatementsController < ApplicationController
 
       load_siblings(@statement_node) # if teaser: @statement_node is the teaser's parent, otherwise the node on the bottom-most level
       if teaser
-        
+
         # if teaser: @statement_node is the teaser's parent, therefore, an ancestor
         # if stack ids exists, that means the @statement node is already in ancestors
-        @ancestors << @statement_node if stack_ids.nil? 
+        @ancestors << @statement_node if stack_ids.nil?
         load_children_for_parent(@statement_node, @type)
       end
 
@@ -1127,38 +1127,51 @@ class StatementsController < ApplicationController
       key = origin[0,2]
       value = CGI.unescape(origin[2..-1])
       roots = case key
+
         # get question siblings depending from the request's origin (key)
         # discuss search with no search results
-        when 'ds' then per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1].to_i * QUESTIONS_PER_PAGE
-        sn = search_statement_nodes(:param => opts[:for_session] ? 'root_id' : nil, :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
-        opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
+        when 'ds' then
+          per_page = value.blank? ? QUESTIONS_PER_PAGE : value[1..-1].to_i * QUESTIONS_PER_PAGE
+          sn = search_statement_nodes(:param => opts[:for_session] ? 'root_id' : nil, :node => opts[:node]).
+                 paginate(:page => 1, :per_page => per_page)
+          opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
+
         # discuss search with search results
-        when 'sr'then value = value.split('|')
-        term = Breadcrumb.instance.decode_terms(value[0])
-        per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
-        sn = search_statement_nodes(:search_term => term,
-                                               :param => opts[:for_session] ? 'root_id' : nil, :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
-        opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
+        when 'sr'then
+          value = value.split('|')
+          term = Breadcrumb.instance.decode_terms(value[0])
+          per_page = value.length > 1 ? value[1].to_i * QUESTIONS_PER_PAGE : QUESTIONS_PER_PAGE
+          sn = search_statement_nodes(:search_term => term,
+                                      :param => opts[:for_session] ? 'root_id' : nil,
+                                      :node => opts[:node]).paginate(:page => 1, :per_page => per_page)
+          opts[:for_session] ? sn.map(&:root_id) + ["/add/question"] : sn
+
         # my discussions
-        when 'mi' then sn = Question.by_creator(current_user).by_creation
-        opts[:for_session] ? sn.only_id.map(&:id) + ["/add/question"] : sn
+        when 'mi' then
+          sn = Question.by_creator(current_user).by_creation
+          opts[:for_session] ? sn.only_id.map(&:id) + ["/add/question"] : sn
+
         # follow up questions from a statement
-        when 'fq' then @previous_node = StatementNode.find(value)
-        @previous_type = "FollowUpQuestion"
-        sn = @previous_node.child_statements :language_ids => filter_languages_for_children,
-                                                             :type => @previous_type,
-                                                             :user => current_user,
-                                                             :for_session => opts[:for_session]
-        opts[:for_session] ? sn : sn.map(&:target_statement)
+        when 'fq' then
+          @previous_node = StatementNode.find(value)
+          @previous_type = "FollowUpQuestion"
+          sn = @previous_node.child_statements :language_ids => filter_languages_for_children,
+                                                               :type => @previous_type,
+                                                               :user => current_user,
+                                                               :for_session => opts[:for_session]
+          opts[:for_session] ? sn : sn.map(&:target_statement)
+
         # jumped from
-        when 'jp' then nodes = opts[:node].nil? ? [] : [opts[:node]]
-        opts[:for_session] ? nodes.map(&:id) + ["/add/question"] : nodes
+        when 'jp' then
+          nodes = opts[:node].nil? ? [] : [opts[:node]]
+          opts[:for_session] ? nodes.map(&:id) + ["/add/question"] : nodes
       end
     else
       # no origin (direct link)
       roots = opts[:node].nil? ? [] : [opts[:node]]
       roots = roots.map(&:id) + ["/add/question"] if opts[:for_session]
     end
+
     if !opts[:for_session] # for descendants, must load statement documents and fill the necessary attributes for rendering
       per_page = opts[:per_page].to_i == -1 ? roots.length : opts[:per_page].to_i
       per_page = 1 if per_page == 0 # in case roots is an empty array
@@ -1176,7 +1189,7 @@ class StatementsController < ApplicationController
   #########################
 
   #
-  # Loads the level which the statement (or teaser) will be render in
+  # Loads the level which the statement (or teaser) will be rendered in
   #
   # teaser (boolean : optional) : whether what we are rendering now is a teaser or a statement
   #
@@ -1184,20 +1197,18 @@ class StatementsController < ApplicationController
   # @level(Integer)
   #
   def load_statement_level(teaser = false)
-    # if level already set, it means it was set for the forms, therefore, get the hell outta here
+    # if level already set, it means it was set for the forms
     return if @level
-    
-    
+
     if params[:len].blank? # boring case: we have to calculate everything
-        # if it is a teaser, calculate the level of the current parent and add 1 (unless it's a question or follow up teaser)
-        @level = teaser ?  
-                 ((@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 
-                   0 : 
-                   @statement_node.level + 1) :
-                 @statement_node.level 
+      # if it is a teaser, calculate the level of the current parent and add 1 (unless it's a question or follow up teaser)
+      if (teaser)
+        @level = (@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 0 : @statement_node.level + 1
+      else
+        @level = @statement_node.level
+      end
     else # the new ways (this will be operated much more often, and it will be quicker and fancier)
-    
-        @level = params[:len].to_i - 1
+      @level = params[:len].to_i - 1
     end
   end
 
@@ -1263,7 +1274,7 @@ class StatementsController < ApplicationController
   #
   # Loads search terms from the search as tags for the statement node.
   #
-  def loadSearchTermsAsTags(origin)
+  def load_search_terms_as_tags(origin)
     return if !origin[0,2].eql?('sr')
     origin = CGI.unescape(origin).split('|')[0]
     default_tags = Breadcrumb.instance.decode_terms(origin[2..-1])
