@@ -13,8 +13,8 @@
       },
       'hide_animation_speed': 500,
       'animation_speed': 300,
-      'embedding_animation_speed': 700,
-       'time_to_load': 2000
+      'embedding_animation_speed': 500,
+      'embed_delay': 2000
     };
 
     // Merging settings with defaults
@@ -627,36 +627,37 @@
 
 			function initEmbeddedContent() {
 		  	embedPlaceholder.embedly({
+          key: 'ccb0f6aaad5111e0a7ce4040d3dc5c07',
           maxWidth: 990,
           maxHeight: 1000,
           className: 'embedded_content',
-          success: embedlySuccess,
-					error: embedlyError
+          success: embedlyEmbed,
+					error: manualEmbed
 		  	});
 		  }
 
-      function embedlySuccess(oembed, dict) {
+      function embedlyEmbed(oembed, dict) {
         var elem = $(dict.node);
         if (! (oembed) ) { return null; }
-        elem.replaceWith(oembed.code);
-        showEmbeddedContent(oembed.type != 'video');
+        if (oembed.type != 'link') {
+          elem.replaceWith(oembed.code);
+          showEmbeddedContent();
+        } else {
+          manualEmbed(embedPlaceholder, null);
+        }
       }
 
-      function embedlyError(node, dict) {
+      function manualEmbed(node, dict) {
         node.replaceWith($("<div/>").addClass('embedded_content').addClass('manual')
-                          .append($("<iframe/>").attr('frameborder',0).attr('src', node.attr('href'))));
-        showEmbeddedContent(true);
+                           .append($("<iframe/>").attr('frameborder', 0).attr('src', node.attr('href'))));
+        showEmbeddedContent();
       }
 
-      function showEmbeddedContent(animate) {
+      function showEmbeddedContent() {
         setTimeout(function() {
           statement.find('.embed_container .loading').hide();
-          if (animate) {
-            statement.find('.embedded_content').animate(toggleParams, settings['embedding_animation_speed']);
-          } else {
-            statement.find('.embedded_content').fadeIn(settings['embedding_animation_speed']);
-          }
-        }, settings['time_to_load']);
+          statement.find('.embedded_content').fadeIn(settings['embedding_animation_speed']);
+        }, settings['embed_delay']);
       }
 
 
