@@ -510,9 +510,8 @@
 				container.find('a.statement_link').bind("click", function() {
 					var childId = $(this).parent().attr('statement-id');
 					var key = generateKey($(this).parent().attr('class'));
-					var current_bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
+					var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
 
-					var bids = current_bids;
           if(newLevel){ // necessary evil: erase all breadcrumbs after the parent of the clicked statement
             var or_index = bids.length == 0 ? 0 : $.inArray($.fragment().origin, bids);
             var level = or_index + (statement_index+1);
