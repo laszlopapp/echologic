@@ -6,6 +6,10 @@ de:
       follow_echo: Folgen Sie echo
     greeting: 'Hallo {{name}},'
     echo_community: 'echo Community'
+    bye: |
+      Herzliche Grüße,
+
+      Ihr echo Team
     bye_as_html: |-
       Herzliche Grüße,
       <br/><br/>

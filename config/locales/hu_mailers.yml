@@ -6,6 +6,10 @@ hu:
       follow_echo: Kövesd az echot
     greeting: 'Kedves {{name}},'
     echo_community: 'echo community'
+    bye: |
+      Minden jót kíván,
+
+      Az echo csapata
     bye_as_html: |-
       Minden jót kíván,
       <br/><br/>
