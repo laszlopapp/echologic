@@ -26,6 +26,8 @@
 $('#breadcrumbs').data('breadcrumbApi').deleteBreadcrumbs();
 <% if @breadcrumbs %>
   $('#breadcrumbs').data('breadcrumbApi').addBreadcrumbs(<%= @breadcrumbs.to_json %>);
+<% else %>
+  $('#breadcrumbs').data('breadcrumbApi').hideContainer();
 <% end %>
 
 var add_teaser = $("<%= escape_javascript(render :partial => 'statements/add') %>").statement({'level' : <%= level %>});

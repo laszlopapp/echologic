@@ -204,11 +204,7 @@
           updateContainerWidth();
           scrollPane.reinitialise();
         }
-        if (container.find('.breadcrumb').length == 0) {
-          if (breadcrumbs.is(':visible')) {
-            toggleContainer();
-          }
-        }
+        
         return this;
       }
 
@@ -308,7 +304,15 @@
             currentBreadcrumbs.push(newBreadcrumb);
           }
 		      return currentBreadcrumbs;
-		    }
+		    },
+				hideContainer: function() {
+					if (container.find('.breadcrumb').length == 0) {
+	          if (breadcrumbs.is(':visible')) {
+	            toggleContainer();
+	          }
+	        }
+					return this;
+				}
 			});
     }
 
