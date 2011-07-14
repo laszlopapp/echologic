@@ -1014,8 +1014,10 @@ class StatementsController < ApplicationController
   #                             documents belonging to the loaded ancestors
   #
   def load_ancestors(teaser = false)
+    stack_ids = !params[:sids].blank? ? params[:sids].split(",") : nil
+    
     if @statement_node
-      @ancestors = @statement_node.ancestors
+      @ancestors = stack_ids ? StatementNode.find(stack_ids) : @statement_node.ancestors
       @ancestor_documents = {}
       @ancestors.each {|a| load_siblings(a) }
 
