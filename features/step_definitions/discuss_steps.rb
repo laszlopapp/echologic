@@ -34,10 +34,11 @@ When /^I choose the "([^\"]*)" ([^\"]*)$/ do |name, type|
   type = type_class.name.underscore
   response.should have_selector("li.#{type}") do |selector|
     selector.each do |statement|
-      elem = statement.at_css("a.#{type}_link")
+      link = statement.at_css("a.#{type}_link")
+      elem = statement.at_css("a.#{type}_link span.title")
       if elem and name.eql?(elem.inner_text.strip)
-        instance_variable_set("@#{type}", type_class.find(URI.parse(elem['href']).path.match(/\d+/)[0]))
-        visit elem['href']
+        instance_variable_set("@#{type}", type_class.find(URI.parse(link['href']).path.match(/\d+/)[0]))
+        visit link['href']
       end
     end
   end
@@ -75,7 +76,6 @@ When /^there are hidden ([^\"]*) for this ([^\"]*)$/ do |hidden_type, parent_typ
     end
   end
   instance_variable_set("@hidden_#{hidden_type}", parent_children_titles - visible_titles)
-
 end
 
 Then /^I should see the hidden ([^\"]*)$/ do |type|
@@ -83,7 +83,7 @@ Then /^I should see the hidden ([^\"]*)$/ do |type|
   res = false
   response.should have_selector("li.#{type.singularize}") do |selector|
     selector.each do |statement|
-      res = true if titles.include?(statement.at_css('a.statement_link').inner_text.strip)
+      res = true if titles.include?(statement.at_css('a.statement_link span.title').inner_text.strip)
     end
   end
   assert res
