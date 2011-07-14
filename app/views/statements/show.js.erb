@@ -8,13 +8,14 @@
 
 /* history handling */
 <% if !params[:sids].blank? and @ancestors %>
+  <% inc = @level - @ancestors.length %>
   var stack = "<%= params[:sids] %>".split(",");
 	<% @ancestors.each_with_index do |ancestor, index| %>
     var ancestor = stack[<%= index %>];
 		var ancestor_element = $('#statements .statement').eq(<%= index %>);
 		/* if not rendered, than render */
     if(ancestor_element.length == 0 || !ancestor_element.attr('id').match(ancestor)) {
-		  var new_ancestor = $("<%= escape_javascript(render_ancestor(ancestor,@ancestor_documents[ancestor.statement_id])) %>").statement({'level' : <%= index %>});
+		  var new_ancestor = $("<%= escape_javascript(render_ancestor(ancestor,@ancestor_documents[ancestor.statement_id])) %>").statement({'level' : <%= inc + index %>});
     } else {
       ancestor_element.data('api').hide();
     }
@@ -36,12 +37,12 @@
   var content = "<%= escape_javascript(render :partial => 'statements/content',
                                               :locals => {:hide_content => true}) %>";
   var statement = $('#statements .statement').eq(<%= @statement_node.level %>);
-	statement.data('api').insertContent(content).show().reinitialise({'level' : <%= @statement_node.level %>, 'insertStatement' : false});
+	statement.data('api').insertContent(content).show().reinitialise({'level' : <%= @level %>, 'insertStatement' : false});
 <% elsif !params[:new_level].blank? %>
   var element = $("<%= escape_javascript(render :partial => 'statements/show',
-                                                :locals => {:hide_content => true}) %>").statement({'level' : <%= @statement_node.level %>});
+                                                :locals => {:hide_content => true}) %>").statement({'level' : <%= @level %>});
 	element.data('api').show().removeBelow();
 <% else %>
-  var element = $("<%= escape_javascript(render :partial => 'statements/show') %>").statement({'level' : <%= @statement_node.level %>});
+  var element = $("<%= escape_javascript(render :partial => 'statements/show') %>").statement({'level' : <%= @level %>});
 	element.data('api').removeBelow();
 <% end %>
