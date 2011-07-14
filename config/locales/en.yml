@@ -561,7 +561,7 @@ en:
         background_info: Please describe your background info in more detail...
       tag_hint: 'Enter tags here...'
       info_url_hint: 'Enter here the url you want to link'
-      clipboard_hint: 'Copy this statement URL pressing Ctrl + C on your keyboard or right clicking on it with your mouse'
+      copy_url_hint: 'Copy this statement URL pressing Ctrl + C '
 
       publish: Release
       published: The question has been released successfully.
@@ -694,6 +694,9 @@ en:
         contra_argument: |
           This is where your argument AGAINST the proposal could appear.<br/><br/>Have you got one?<br/><br/>
           Press the button above to enter it NOW!
+        background_info: |
+          This is where your background information concerning the current statement could appear.<br/><br/>Have you got one?<br/><br/>
+            Press the button above to enter it NOW!
         follow_up_question: |
           This is where YOUR follow-up question could appear.<br/><br/>Have you got one?<br/><br/>
           Press the button above to enter it NOW!

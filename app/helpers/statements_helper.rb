@@ -144,7 +144,7 @@ module StatementsHelper
       panel << content_tag(:div, :class => 'panel_header') do
         I18n.t("discuss.statements.copy_url")
       end
-      panel << content_tag(:div, I18n.t("discuss.statements.clipboard_hint"), :class => '')
+      panel << content_tag(:div, I18n.t('discuss.statements.copy_url_hint'), :class => '')
       panel << text_field_tag('', url, :class => 'statement_url')
       panel
     end
