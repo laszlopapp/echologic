@@ -223,7 +223,7 @@
 					deselectType();
           selectType(entryTypes.find('a.' + content_type).parent().siblings('label'));
           embedUrl.val(external_url);
-					loadEmbeddedContent(external_url);
+					showEmbedPreview();
 				},
 
 				unlinkEmbeddedContent: function() {
