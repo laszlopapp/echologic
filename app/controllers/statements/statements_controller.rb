@@ -24,6 +24,8 @@ class StatementsController < ApplicationController
   before_filter :check_write_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
   
+  before_filter :fetch_current_stack, :only => [:show, :add]
+  
   include PublishableModule
   before_filter :is_publishable?, :only => [:publish]
   include EchoableModule
@@ -682,6 +684,18 @@ class StatementsController < ApplicationController
   end
   
   #
+  # Gets the current stack state.
+  #
+  # Loads instance variables:
+  # @current_stack(Array[Integer]) : current stack state that will be visible once this request reaches its end 
+  # @level(Integer) : level at which the new statement will be rendered
+  #
+  def fetch_current_stack
+    @current_stack = params[:cs] ? params[:cs].split(",") : (@statement_node ? @statement_node.self_and_ancestors.map(&:id) : [])
+    @level = params[:cs] ? @current_stack.length - 1 : nil
+  end
+  
+  #
   # Checks if the user can access this very statement
   #
   def check_statement_permissions
@@ -1184,21 +1198,12 @@ class StatementsController < ApplicationController
   # @level(Integer)
   #
   def load_statement_level(teaser = false)
-    # if level already set, it means it was set for the forms, therefore, get the hell outta here
-    return if @level
-    
-    
-    if params[:len].blank? # boring case: we have to calculate everything
-        # if it is a teaser, calculate the level of the current parent and add 1 (unless it's a question or follow up teaser)
-        @level = teaser ?  
-                 ((@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 
-                   0 : 
-                   @statement_node.level + 1) :
-                 @statement_node.level 
-    else # the new ways (this will be operated much more often, and it will be quicker and fancier)
-    
-        @level = params[:len].to_i - 1
-    end
+    # if it is a teaser, calculate the level of the current parent and add 1 (unless it's a question or follow up teaser)
+    @level ||= teaser ?  
+               ((@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 
+                 0 : 
+                 @statement_node.level + 1) :
+               @statement_node.level 
   end
 
   ####################
