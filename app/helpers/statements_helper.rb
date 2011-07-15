@@ -274,7 +274,7 @@ module StatementsHelper
     content = ''
     statement_node.class.sub_types.map.each do |sub_type|
       sub_type = sub_type.to_s.underscore
-      content << content_tag(:a, :href => new_statement_node_url(statement_node.parent_node, sub_type),
+      content << content_tag(:a, :href => new_statement_node_url(@parent_node || statement_node.parent_node, sub_type),
                              :class => "create_#{sub_type}_button_32 resource_link ajax ttLink no_border",
                              :title => I18n.t("discuss.tooltips.create_#{sub_type}")) do
         statement_icon_title(I18n.t("discuss.statements.types.#{sub_type}"))
