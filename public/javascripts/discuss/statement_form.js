@@ -290,7 +290,7 @@
         if(text && text.is('textarea')) {
           text.val(linkedText);
         } else {
-          text.empty().text(linkedText).click().blur();
+          text.empty().html(linkedText).click().blur();
         }
 
         // fill in tags
