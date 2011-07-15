@@ -220,7 +220,7 @@ class StatementNode < ActiveRecord::Base
       opts[:lft] = opts[:prev].lft
       opts[:rgt] = opts[:prev].rgt
       opts[:filter_drafting_state] = self.incorporable?
-      opts[:parent_id] = self.parent_node.target_id
+      opts[:parent_id] = opts[:prev].target_id
       self.child_statements(opts)
     end
   end
