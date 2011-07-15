@@ -252,7 +252,7 @@ form.statement fieldset ol span.defaultText {
 }
 
 #statements form.linked fieldset.statement_title input {
-  color: #00868B !important;
+  color: #555 !important;
 }
 
 #statements form.formtastic fieldset.statement_title,

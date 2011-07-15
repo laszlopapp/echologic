@@ -184,9 +184,8 @@ function socialSharingFinished(array) {
 
 
 function isEchoStatementUrl(url) {
-	return url.match(/.*http:\/\/(\w+\.)?echo\.\/\w+\/statement\/(\d+).*/);
+	return url.match(/^http:\/\/(www\.)?echo\..+\/statement\/(\d+)$/);
 }
-
 
 
 function generateKey(type) {

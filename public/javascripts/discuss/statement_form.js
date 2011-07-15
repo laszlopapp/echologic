@@ -205,25 +205,25 @@
             // (the visual elements (text, tags...) would remain, just the statement id reference would be lost.
             // this way, we could unlink a wrongly unlinked statement and link it again
             // unlinkStatement();
-          }
-          else
-          if ($(this).hasClass('off')) {
-						var titleValue = title.val();
-						if (isEchoStatementUrl(titleValue)) {
-							var statementNodeId = titleValue.match("statement/([0-9]+).*")[1];
-							linkStatementNode(statementNodeId);
-						}	else {
-							var longWords = 0;
-							$.each(titleValue.split(" "), function(word){
-								if (word.length > 3) {
-                  longWords++;
+          } else {
+            if ($(this).hasClass('off')) {
+              var titleValue = title.val();
+              if (isEchoStatementUrl(titleValue)) {
+                var statementNodeId = titleValue.match("statement/([0-9]+).*")[1];
+                linkStatementNode(statementNodeId);
+              }	else {
+                var longWords = 0;
+                $.each(titleValue.split(" "), function(word){
+                  if (word.length > 3) {
+                    longWords++;
+                  }
+                });
+                if (longWords >= 2) {
+                  title.addClass('ac_loading');
+                  title.search();
                 }
-							});
-							if (longWords >= 2) {
-						  	title.addClass('ac_loading');
-						  	title.search();
-						  }
-						}
+              }
+            }
           }
 
         });
