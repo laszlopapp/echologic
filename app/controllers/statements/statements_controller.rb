@@ -693,9 +693,9 @@ class StatementsController < ApplicationController
   def fetch_current_stack
     @current_stack = params[:cs] ? params[:cs].split(",").map(&:to_i) : nil
     @level = @current_stack ? @current_stack.length - 1 : nil
-    @parent_node = @current_stack ? 
+    @parent_node = (@current_stack and @statement_node and !@statement_node.level.eql?(0)) ? 
                    StatementNode.find(@current_stack[@current_stack.index(@statement_node.id)-1], :select => "id, type") : 
-                   @statement_node.parent_node
+                   nil
   end
   
   #
@@ -1095,7 +1095,7 @@ class StatementsController < ApplicationController
     # if has parent then load siblings
     if statement_node.parent_id
       prev = @current_stack ? 
-             StatementNode.find(@current_stack[@current_stack.index(statement_node.id)-1], :select => "id, lft, rgt") : 
+             StatementNode.find(@current_stack[@current_stack.index(statement_node.id)-1], :select => "id, lft, rgt, question_id") : 
              statement_node.parent_node
       siblings = statement_node.siblings_to_session :language_ids => @language_preference_list, 
                                                     :user => current_user, 
