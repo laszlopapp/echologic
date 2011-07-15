@@ -545,6 +545,8 @@ en:
         follow_up_question: Enter the follow-up question title in... English?
         background_info: Enter the background info title in... English?
       text_hint:
+        alternative_prefix: |
+          OPPOSITIONS are mutually exclusive to the original statement and all its other alternatives.<br/><br/>
         question: Please describe the issue in more detail and ask a concrete question...
         proposal: |
           Please describe your proposal in more detail...<br/><br/>
@@ -559,8 +561,6 @@ en:
         contra_argument: Please describe your point AGAINST the proposal in more detail...
         follow_up_question: Please describe your follow-up question in more detail...
         background_info: Please describe your background info in more detail...
-        alternative_prefix: |
-          OPPOSITIONS are mutually exclusive to the original statement and all its other alternatives.\n\n
       tag_hint: 'Enter tags here...'
       info_url_hint: 'Enter here the url you want to link'
       copy_url_hint: 'Copy this statement URL pressing Ctrl + C '
