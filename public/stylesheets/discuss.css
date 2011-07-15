@@ -205,7 +205,7 @@ form.statement .discuss_right_block {
   border: none;
 }
 
-form.statement_node .header_link .icon {
+form.statement .header_link .icon {
   background-image: url(../images/page/discuss/statement_icons_16.png);
   background-color: transparent;
   background-repeat: no-repeat;
@@ -263,7 +263,7 @@ form.statement fieldset ol span.defaultText {
 }
 
 #statements form.formtastic fieldset.statement_language {
-  margin-top: -15px;
+  margin-top: -10px;
 }
 
 #statements form.formtastic fieldset.statement_language li,
@@ -401,9 +401,12 @@ form.embeddable .entry_types a {
 form.embeddable .entry_types a.article {background-position: 0 0;}
 form.embeddable .entry_types a.paper {background-position: -32px 0;}
 form.embeddable .entry_types a.book {background-position: -64px 0;}
-form.embeddable .entry_types a.photo {background-position: -96px 0;}
-form.embeddable .entry_types a.video {background-position: -128px 0;}
-form.embeddable .entry_types a.url {background-position: -160px 0;}
+form.embeddable .entry_types a.audio {background-position: -96px 0;}
+form.embeddable .entry_types a.photo {background-position: -128px 0;}
+form.embeddable .entry_types a.video {background-position: -160px 0;}
+form.embeddable .entry_types a.law {background-position: -192px 0;}
+form.embeddable .entry_types a.document {background-position: -224px 0;}
+form.embeddable .entry_types a.misc {background-position: -256px 0;}
 
 form.embeddable .entry_url_container li {
   width: 762px;
@@ -588,9 +591,12 @@ a.statement_link:hover {
 .article_link .icon {background-position: 0 0;}
 .paper_link .icon {background-position: -16px 0;}
 .book_link .icon {background-position: -32px 0;}
-.photo_link .icon {background-position: -48px 0;}
-.video_link .icon {background-position: -64px 0;}
-.url_link .icon {background-position: -80px 0;}
+.audio_link .icon {background-position: -48px 0;}
+.photo_link .icon {background-position: -64px 0;}
+.video_link .icon {background-position: -80px 0;}
+.law_link .icon {background-position: -96px 0;}
+.document_link .icon {background-position: -112px 0;}
+.misc_link .icon {background-position: -128px 0;}
 
 .create_question_button,
 .create_proposal_button,
