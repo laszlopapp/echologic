@@ -275,7 +275,7 @@ module StatementsHelper
     content = ''
     statement_node.class.sub_types.map.each do |sub_type|
       sub_type = sub_type.to_s.underscore
-      content << content_tag(:a, :href => new_statement_node_url(statement_node.parent_node, sub_type),
+      content << content_tag(:a, :href => new_statement_node_url(@parent_node || statement_node.parent_node, sub_type),
                              :class => "create_#{sub_type}_button_32 resource_link ajax ttLink no_border",
                              :title => I18n.t("discuss.tooltips.create_#{sub_type}")) do
         statement_icon_title(I18n.t("discuss.statements.types.#{sub_type}"))
@@ -559,13 +559,19 @@ module StatementsHelper
       if statement_node.nil?
         question_descendants_url(:origin => origin)
       else
-        descendants_statement_node_url(statement_node, name)
+        parent = @current_stack ? @current_stack[@current_stack.length - 2] : statement_node
+        descendants_statement_node_url(parent, name)
       end
     else  # STATEMENT NODES
+      
       if statement_node.parent_id.nil?
         question_descendants_url(:origin => origin, :current_node => statement_node)
       else
-        descendants_statement_node_url(statement_node.parent_node,
+        prev = @current_stack ? 
+               StatementNode.find(@current_stack[@current_stack.index(statement_node.id)-1], :select => "id, lft, rgt, question_id") : 
+               statement_node.parent_node
+
+        descendants_statement_node_url(prev,
                                        statement_node.class.name_for_siblings,
                                        :current_node => statement_node)
       end

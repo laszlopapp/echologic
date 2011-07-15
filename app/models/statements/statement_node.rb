@@ -212,14 +212,15 @@ class StatementNode < ActiveRecord::Base
   # about other possible attributes, check child_statements documentation
   #
   def sibling_statements(opts={})
+    opts[:prev] ||= self.parent_node
     opts[:type] ||= self.class.to_s
-    if self.parent_node.nil?
+    if opts[:prev].nil?
       []
     else
-      opts[:lft] = self.parent_node.lft
-      opts[:rgt] = self.parent_node.rgt
+      opts[:lft] = opts[:prev].lft
+      opts[:rgt] = opts[:prev].rgt
       opts[:filter_drafting_state] = self.incorporable?
-      opts[:parent_id] = self.parent_node.target_id
+      opts[:parent_id] = opts[:prev].target_id
       self.child_statements(opts)
     end
   end

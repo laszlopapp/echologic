@@ -23,7 +23,9 @@ class StatementsController < ApplicationController
   before_filter :fetch_languages, :except => [:destroy, :redirect_to_statement, :ancestors]
   before_filter :check_write_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
-
+  
+  before_filter :fetch_current_stack, :only => [:show, :add, :new]
+  
   include PublishableModule
   before_filter :is_publishable?, :only => [:publish]
   include EchoableModule
@@ -682,6 +684,21 @@ class StatementsController < ApplicationController
   end
 
   #
+  # Gets the current stack state.
+  #
+  # Loads instance variables:
+  # @current_stack(Array[Integer]) : current stack state that will be visible once this request reaches its end 
+  # @level(Integer) : level at which the new statement will be rendered
+  #
+  def fetch_current_stack
+    @current_stack = params[:cs] ? params[:cs].split(",").map(&:to_i) : nil
+    @level = @current_stack ? @current_stack.length - 1 : nil
+    @parent_node = (@current_stack and @statement_node and !@statement_node.level.eql?(0)) ? 
+                   StatementNode.find(@current_stack[@current_stack.index(@statement_node.id)-1], :select => "id, type") : 
+                   nil
+  end
+  
+  #
   # Checks if the user can access this very statement
   #
   def check_statement_permissions
@@ -778,11 +795,11 @@ class StatementsController < ApplicationController
     key = Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)
     #[id, classes, url, title, label, over]
     @breadcrumb = {:key => "#{key}#{parent_node.id}",
-                     :css => "statement statement_link #{parent_node.class.name.underscore}_link",
-                     :url => statement_node_url(parent_node, :bids => params[:bids], :origin => params[:origin]),
-                     :title => Breadcrumb.instance.decode_terms(statement_document.title),
-                     :label => I18n.t("discuss.statements.breadcrumbs.labels.#{Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)}"),
-                     :over => I18n.t("discuss.statements.breadcrumbs.labels.over.#{Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)}")}
+                   :css => "statement statement_link #{parent_node.class.name.underscore}_link",
+                   :url => statement_node_url(parent_node, :bids => params[:bids], :origin => params[:origin]),
+                   :title => Breadcrumb.instance.decode_terms(statement_document.title),
+                   :label => I18n.t("discuss.statements.breadcrumbs.labels.#{Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)}"),
+                   :over => I18n.t("discuss.statements.breadcrumbs.labels.over.#{Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)}")}
     @bids = params[:bids]||''
     @bids = @bids.split(",")
     @bids << @breadcrumb[:key]
@@ -1026,7 +1043,7 @@ class StatementsController < ApplicationController
 
         # if teaser: @statement_node is the teaser's parent, therefore, an ancestor
         # if stack ids exists, that means the @statement node is already in ancestors
-        @ancestors << @statement_node if stack_ids.nil?
+        @ancestors << @statement_node if !@ancestors.map(&:id).include?(@statement_node.id) 
         load_children_for_parent(@statement_node, @type)
       end
 
@@ -1071,11 +1088,19 @@ class StatementsController < ApplicationController
   #                   value : Array[Integer] : Array of statement ids with teaser path as last element
   #
   def load_siblings(statement_node)
+    return if statement_node.new_record?
     @siblings ||= {}
     class_name = statement_node.target_statement.class.name.underscore
+    
+    
     # if has parent then load siblings
     if statement_node.parent_id
-      siblings = statement_node.siblings_to_session :language_ids => @language_preference_list, :user => current_user
+      prev = @current_stack ? 
+             StatementNode.find(@current_stack[@current_stack.index(statement_node.id)-1], :select => "id, lft, rgt, question_id") : 
+             statement_node.parent_node
+      siblings = statement_node.siblings_to_session :language_ids => @language_preference_list, 
+                                                    :user => current_user, 
+                                                    :prev => prev
     else #else, it's a root node
       siblings = roots_to_session(statement_node)
     end
@@ -1197,19 +1222,12 @@ class StatementsController < ApplicationController
   # @level(Integer)
   #
   def load_statement_level(teaser = false)
-    # if level already set, it means it was set for the forms
-    return if @level
-
-    if params[:len].blank? # boring case: we have to calculate everything
-      # if it is a teaser, calculate the level of the current parent and add 1 (unless it's a question or follow up teaser)
-      if (teaser)
-        @level = (@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 0 : @statement_node.level + 1
-      else
-        @level = @statement_node.level
-      end
-    else # the new ways (this will be operated much more often, and it will be quicker and fancier)
-      @level = params[:len].to_i - 1
-    end
+    # if it is a teaser, calculate the level of the current parent and add 1 (unless it's a question or follow up teaser)
+    @level ||= teaser ?  
+               ((@statement_node.nil? or @type.classify.constantize.is_top_statement?) ? 
+                0 : 
+                @statement_node.level + 1) :
+               @statement_node.level 
   end
 
   ####################

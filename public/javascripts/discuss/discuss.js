@@ -73,7 +73,7 @@ function initFragmentStatementChange() {
 				"bids": bids.join(","),
         "new_level": $.fragment().new_level,
 				"origin": $.fragment().origin,
-				"len": length
+				"cs": $.fragment().sids
       });
 
 			$.ajax({

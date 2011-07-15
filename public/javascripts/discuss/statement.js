@@ -505,9 +505,8 @@
        * Initializes links for all statements but Follow-up Questions.
        */
       function initStatementLinks(container, newLevel) {
-				var current_stack = getStatementsStack(null, newLevel);
-
 				container.find('a.statement_link').bind("click", function() {
+					var current_stack = getStatementsStack(null, newLevel);
 					var childId = $(this).parent().attr('statement-id');
 					var key = generateKey($(this).parent().attr('class'));
 					var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
@@ -526,7 +525,6 @@
 	            bids = bids.splice(0, index + 1);
 	          }
 					}
-
 					var stack = current_stack, origin;
           switch(key){
 						case 'fq':
@@ -577,6 +575,8 @@
 						current_sids = current_sids.join('/');
 					}
 		    }
+				
+				var top_stack = $.fragment().sids.split(",");
 
 		    // Get current_stack of visible statements (if any matches the clicked statement, then break)
 				var current_stack = [];
