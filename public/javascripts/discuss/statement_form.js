@@ -33,9 +33,9 @@
 			var language_combo;
 			var chosenLanguage = form.find('select.language_combo');
 			var statementLinked, statementParentId;
-			var publish_checkbox = form.find('.publish_radios');
-			var auto_complete_button;
-      var linking_messages;
+			var publishRadios = form.find('.publish_radios');
+			var linkButton;
+      var linkingMessages;
 		  var linkedTags;
 			var linkedTitle, linkedText;
 
@@ -56,7 +56,7 @@
 					statementParentId = form.find('input#statement_node_parent_id');
           loadDefaultText();
           initFormCancelButton();
-					initAutoCompleteTitle();
+					initLinking();
 					handleContentChange();
 					unlinkStatement();
         }
@@ -100,9 +100,7 @@
        */
 			function loadDefaultText() {
         if (!form.hasClass('new')) {return;}
-
         form.placeholder();
-
       }
 
 			/*
@@ -143,42 +141,42 @@
       /* Statement Linking  */
       /**********************/
 
-      /*
-       * updates the auto complete button with css classes and a new label
+			/*
+       * Turns the link button green and with the label 'linked'.
        */
-      function toggleAutoCompleteButton(to_add, to_remove) {
-				auto_complete_button.addClass(to_add).removeClass(to_remove).text(linking_messages[to_add]);
+			function activateLinkButton() {
+				toggleLinkButton('on','off');
 			}
 
 			/*
-       * turns the auto complete button green and with the label 'linked'
+       * Turns the auto complete button grey and with the label 'link'
        */
-			function activateAutoCompleteButton() {
-				toggleAutoCompleteButton('on','off');
-			}
-
-			/*
-       * turns the auto complete button grey and with the label 'link'
-       */
-			function deactivateAutoCompleteButton() {
-				toggleAutoCompleteButton('off','on');
+			function deactivateLinkButton() {
+				toggleLinkButton('off','on');
 			}
 
       /*
-       * Initializes the whole title auto completion behaviour.
+       * Updates the link button with css classes and a new label.
        */
-      function initAutoCompleteTitle() {
+      function toggleLinkButton(to_add, to_remove) {
+				linkButton.addClass(to_add).removeClass(to_remove).text(linkingMessages[to_add]);
+			}
+
+      /*
+       * Initializes the whole auto completion and linking behaviour.
+       */
+      function initLinking() {
 
         // gets the auto complete button
-				auto_complete_button = form.find('.header .auto_complete');
+				linkButton = form.find('.header .link_button');
 
 				// loads the labels
-				linking_messages = {
-					'on' : auto_complete_button.attr('linking_on'),
-					'off': auto_complete_button.attr('linking_off')
+				linkingMessages = {
+					'on' : linkButton.attr('linking_on'),
+					'off': linkButton.attr('linking_off')
 				};
 
-				auto_complete_button.removeAttr('linking_on').removeAttr('linking_off');
+				linkButton.removeAttr('linking_on').removeAttr('linking_off');
 
 
 				// initialize the autocompletion plugin
@@ -201,7 +199,7 @@
 				});
 
         // what happens when i click the auto completion button
-        auto_complete_button.bind('click', function(){
+        linkButton.bind('click', function(){
           if ($(this).hasClass('on')) {
             // TODO: Right now, nothing happens. But wouldn't it be better to just unlink the statement?
             // (the visual elements (text, tags...) would remain, just the statement id reference would be lost.
@@ -212,17 +210,16 @@
           if ($(this).hasClass('off')) {
 						var titleValue = title.val();
 						if (isEchoStatementUrl(titleValue)) {
-							var echoId = titleValue.match("statement/([0-9]+).*")[1];
-							linkStatementNode(echoId);
-						}
-						else {
-							var words = titleValue.split(" ");
-							var moreThanThreeChars = true;
-							$.each(words, function(index, word){
-								if(word.length < 3) {moreThanThreeChars = false; return;}
-								if (index > 1) { return; }
+							var statementNodeId = titleValue.match("statement/([0-9]+).*")[1];
+							linkStatementNode(statementNodeId);
+						}	else {
+							var longWords = 0;
+							$.each(titleValue.split(" "), function(word){
+								if (word.length > 3) {
+                  longWords++;
+                }
 							});
-							if (words.length >= 2 && moreThanThreeChars) {
+							if (longWords >= 2) {
 						  	title.addClass('ac_loading');
 						  	title.search();
 						  }
@@ -303,11 +300,11 @@
         }
 
         // check right editorial state and disable the radio buttons
-        publish_checkbox.find('input:radio[value=' + statementState + ']').attr('checked', true);
-        publish_checkbox.find('input:radio').attr('disabled', true);
+        publishRadios.find('input:radio[value=' + statementState + ']').attr('checked', true);
+        publishRadios.find('input:radio').attr('disabled', true);
 
         // activate auto complete button
-        activateAutoCompleteButton();
+        activateLinkButton();
 
         form.addClass('linked');
 
@@ -327,7 +324,7 @@
 				linkedTitle = null;
 				linkedText = null;
 				statementLinked.val('');
-        deactivateAutoCompleteButton();
+        deactivateLinkButton();
 				form.removeClass('linked');
 
 				// Disable language combo
