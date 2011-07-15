@@ -326,6 +326,9 @@ module StatementsHelper
   #
   def add_new_child_link(statement_node, type, opts={})
     opts[:new_level] = true
+    opts[:cs] = @current_stack ? 
+                @current_stack.join(",") : 
+                statement_node.self_and_ancestors.scoped(:select => "id").map(&:id).join(",")
     content = ''
     content << content_tag(:a, :href => new_statement_node_url(statement_node, type, opts),
                            :class => "create_#{type}_button_32 resource_link ajax ttLink no_border",
