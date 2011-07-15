@@ -449,7 +449,10 @@ module StatementsHelper
   end
 
   def summary_hint_text(statement_node)
-    I18n.t("discuss.statements.text_hint.#{node_type(statement_node)}")
+    text = ""
+    text << I18n.t("discuss.statements.text_hint.alternative_prefix") if params[:hub].eql? 'alternative'
+    text << I18n.t("discuss.statements.text_hint.#{node_type(statement_node)}")
+    text
   end
 
   ##############
