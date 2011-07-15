@@ -162,9 +162,6 @@ module StatementsHelper
   def create_new_child_statement_link(statement_node, child_type, opts={})
     url = opts.delete(:url) if opts[:url]
     css = opts.delete(:css) if opts[:css]
-    opts[:cs] = @current_stack ? 
-                @current_stack.join(",") : 
-                statement_node.self_and_ancestors.scoped(:select => "id").map(&:id).join(",")
     label_type = opts.delete(:label_type) || child_type
     opts[:hub] = label_type if !label_type.eql?(child_type)
     link_to(I18n.t("discuss.statements.create_#{label_type}_link"),
@@ -326,9 +323,6 @@ module StatementsHelper
   #
   def add_new_child_link(statement_node, type, opts={})
     opts[:new_level] = true
-    opts[:cs] = @current_stack ? 
-                @current_stack.join(",") : 
-                statement_node.self_and_ancestors.scoped(:select => "id").map(&:id).join(",")
     content = ''
     content << content_tag(:a, :href => new_statement_node_url(statement_node, type, opts),
                            :class => "create_#{type}_button_32 resource_link ajax ttLink no_border",
@@ -572,7 +566,11 @@ module StatementsHelper
       if statement_node.parent_id.nil?
         question_descendants_url(:origin => origin, :current_node => statement_node)
       else
-        descendants_statement_node_url(@parent_node || statement_node.parent_node,
+        prev = @current_stack ? 
+               StatementNode.find(@current_stack[@current_stack.index(statement_node.id)-1], :select => "id, lft, rgt, question_id") : 
+               statement_node.parent_node
+
+        descendants_statement_node_url(prev,
                                        statement_node.class.name_for_siblings,
                                        :current_node => statement_node)
       end
