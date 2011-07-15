@@ -4,8 +4,7 @@
 
     $.fn.statementForm.defaults = {
       'animation_speed': 500,
-      'taggableClass' : 'taggable',
-			'selected_color' : '#999999'
+      'taggableClass' : 'taggable'
     };
 
     // Merging settings with defaults
@@ -39,7 +38,7 @@
       var linking_messages;
 		  var linkedTags;
 			var linkedTitle, linkedText;
-			
+
 			initialise();
 
 			function initialise() {
@@ -61,7 +60,6 @@
 					handleContentChange();
 					unlinkStatement();
         }
-				
 
         // Taggable Form Helpers
         if (form.hasClass(settings['taggableClass'])) {
@@ -73,11 +71,11 @@
        * Loads the Rich Text Editor for the statement text.
        */
       function loadRTEEditor() {
-				textArea = form.find('textarea.rte_doc, textarea.rte_tr_doc');
+				var textArea = form.find('textarea.rte_doc, textarea.rte_tr_doc');
 				if (!isMobileDevice()) {
 					var defaultText = textArea.data('default');
 					var url = 'http://' + window.location.host + '/stylesheets/';
-					
+
 					textArea.rte({
 						css: ['jquery.rte.css'],
 						base_url: url,
@@ -86,13 +84,13 @@
 						controls_html: html_toolbar
 					});
 					form.find('.focus').focus();
-					
+
 					// The default placeholder text
 					form.find('iframe').attr('data-default', defaultText);
-					
+
 					text = $(form.find('iframe.rte_doc').contents().get(0)).find('body');
 				} else {
-          text = textArea;					
+          text = textArea;
 				}
       }
 
@@ -106,7 +104,7 @@
         form.placeholder();
 
       }
-      
+
 			/*
        * Handles Cancel Button click on new statement forms.
        */
@@ -117,9 +115,9 @@
           var new_sids = sids.split(",");
           var path = "/" + new_sids[new_sids.length-1];
           new_sids.pop();
-					
+
 					var bids = $.fragment().bids;
-					var bids = bids ? bids.split(',') : [];
+					bids = bids ? bids.split(',') : [];
 					var current_bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
 
 					var i = -1;
@@ -129,9 +127,9 @@
 							return false;
 						}
 					});
-					
+
 					var bids_to_load = i > -1 ? bids.splice(i, bids.length) : [];
-					
+
           cancelButton.addClass("ajax");
           cancelButton.attr('href', $.queryString(cancelButton.attr('href').replace(/\/\d+/, path), {
             "sids": new_sids.join(","),
@@ -151,15 +149,14 @@
       function toggleAutoCompleteButton(to_add, to_remove) {
 				auto_complete_button.addClass(to_add).removeClass(to_remove).text(linking_messages[to_add]);
 			}
-			
-			
+
 			/*
        * turns the auto complete button green and with the label 'linked'
        */
 			function activateAutoCompleteButton() {
 				toggleAutoCompleteButton('on','off');
 			}
-			
+
 			/*
        * turns the auto complete button grey and with the label 'link'
        */
@@ -168,36 +165,35 @@
 			}
 
       /*
-       * initializes the whole title auto completion behaviour
+       * Initializes the whole title auto completion behaviour.
        */
       function initAutoCompleteTitle() {
 
-        // gets the auto complete button				
+        // gets the auto complete button
 				auto_complete_button = form.find('.header .auto_complete');
-				
-				// loads the labels 
+
+				// loads the labels
 				linking_messages = {
 					'on' : auto_complete_button.attr('linking_on'),
 					'off': auto_complete_button.attr('linking_off')
-				}
-				
+				};
+
 				auto_complete_button.removeAttr('linking_on').removeAttr('linking_off');
-				
-				
-				// initializes the autocompletion plugin 
-				var auto_complete_api = title.autocompletes('../../statements/auto_complete_for_statement_title',
-							                    {
-															   	minChars: 100,
-																	selectFirst: false,
-																	multipleSeparator: "",
-																	extraParams: {
-																		code: function(){ return chosenLanguage.val(); },
-																		parent_id: function() {return statementParentId.val(); },
-																	  type: type
-																	}
-												        });
-		    
-				// handles the selection of an auto completion results entry
+
+
+				// initialize the autocompletion plugin
+				title.autocompletes('../../statements/auto_complete_for_statement_title', {
+          minChars: 100,
+          selectFirst: false,
+          multipleSeparator: "",
+          extraParams: {
+            code: function(){ return chosenLanguage.val(); },
+            parent_id: function() {return statementParentId.val(); },
+            type: type
+          }
+        });
+
+				// handle the selection of an auto completion results entry
 				title.result(function(evt, data, formatted) {
 					if (data) {
 				  	linkStatement(data[1]);
@@ -207,12 +203,12 @@
         // what happens when i click the auto completion button
         auto_complete_button.bind('click', function(){
           if ($(this).hasClass('on')) {
-            // TODO: Right now, nothing happens. But wouldn't it be better to just unlink the statement? 
+            // TODO: Right now, nothing happens. But wouldn't it be better to just unlink the statement?
             // (the visual elements (text, tags...) would remain, just the statement id reference would be lost.
             // this way, we could unlink a wrongly unlinked statement and link it again
             // unlinkStatement();
           }
-          else 
+          else
           if ($(this).hasClass('off')) {
 						var titleValue = title.val();
 						if (isEchoStatementUrl(titleValue)) {
@@ -225,20 +221,21 @@
 							$.each(words, function(index, word){
 								if(word.length < 3) {moreThanThreeChars = false; return;}
 								if (index > 1) { return; }
-							}); 
+							});
 							if (words.length >= 2 && moreThanThreeChars) {
 						  	title.addClass('ac_loading');
 						  	title.search();
 						  }
 						}
           }
-          
+
         });
-				
+
 			}
-			
+
+
 			/*
-       * given a statement node Id, gets the statement remotely and fills the form with the given data
+       * Given a statement node Id, gets the statement remotely and fills the form with the given data.
        */
 			function linkStatementNode(nodeId) {
 				var path = '../../statement/' + nodeId + '/link_statement_node/' + type;
@@ -255,13 +252,13 @@
 				  }
         });
 			}
-			
-			
+
+
 			/*
-       * given a statement Id, gets the statement remotely and fills the form with the given data
+       * Given a statement Id, gets the statement remotely and fills the form with the given data.
        */
 			function linkStatement(statementId) {
-				
+
 				var path = '../../statement/' + statementId + '/link_statement';
 				path = $.queryString(path, {
 					"code" : chosenLanguage.val()
@@ -276,7 +273,7 @@
 					}
 				});
 			}
-			
+
 			function linkStatementData(data) {
 				statementId = data['id'];
 				linkedTitle = data['title']; // used for the key pressed event
@@ -288,87 +285,80 @@
         if (title.val() != linkedTitle) {
           title.val(linkedTitle);
         }
-        
+
         // disable language combo
         language_combo.attr('disabled', true);
-      
-        // fill in summary text 
+
+        // fill in summary text
         if(text && text.is('textarea')) {
           text.val(linkedText);
         } else {
           text.empty().text(linkedText).click().blur();
         }
-        
+
         // fill in tags
         if (form.hasClass(settings['taggableClass'])) {
           linkedTags = statementTags;
           form.data('taggableApi').removeAllTags().addTags(statementTags);
         }
-        
+
         // check right editorial state and disable the radio buttons
         publish_checkbox.find('input:radio[value=' + statementState + ']').attr('checked', true);
         publish_checkbox.find('input:radio').attr('disabled', true);
-                  
+
         // activate auto complete button
         activateAutoCompleteButton();
-        
+
         form.addClass('linked');
-        
+
         //TODO: Not working when text is inside the iframe!!!
         if (!isMobileDevice()) {
           text.addClass('linked');
         }
-        
+
         // link statement Id
         statementLinked.val(statementId);
 			}
-			
+
 			/*
-       * unlink the previously linked statement (delete statement Id field and deactivate auto completion button
+       * Unlinks the previously linked statement (delete statement Id field and deactivate auto completion button.
        */
-			function unlinkStatement()
-			{
+			function unlinkStatement() {
 				linkedTitle = null;
 				linkedText = null;
 				statementLinked.val('');
         deactivateAutoCompleteButton();
 				form.removeClass('linked');
-				
-				// disable language combo
+
+				// Disable language combo
         language_combo.removeAttr('disabled');
-				
+
 				//TODO: Not working when text is inside the iframe!!!
 				if (!isMobileDevice()) {
           text.removeClass('linked');
         }
-				
-				// enable editorial state buttons
+
+				// Enable editorial state buttons
 				$('.publish_radios input:radio').removeAttr('disabled');
-				
-				
-				// Uncomment if unlinking is supposed to make the info contents disappear
-				/*
-				if (form.hasClass('embeddable') {
-				  form.unlinkEmbeddedContent();
-				}
-				*/
 			}
-		
-			
+
+
 			/*
-       * handles the event of writing new content in one of the fields (in the case, has to unlink a previously unlinked statement)
+       * Handles the event of writing new content in one of the fields
+       * (in the case, has to unlink a previously unlinked statement).
        */
 			function handleContentChange() {
-				// title
+
+				// Title
 				title.bind('keypress', function(){
 					if (statementLinked.val()) {
 						  if (title.val() != linkedTitle) {
-							 unlinkStatement();	
+							 unlinkStatement();
 							}
             }
 				});
-				
-				// text
+
+				// Text
 				if (text && text.is('textarea')) {
 		      text.bind('keypress', function(){
 						if (statementLinked.val()) {
@@ -378,44 +368,43 @@
 						}
 					});
 				} else {
-					text.bind('DOMSubtreeModified', function(){
+					text.bind('DOMSubtreeModified', function() {
 						if (statementLinked.val() && text && text.html().length > 0) {
 							unlinkStatement();
 						}
 					});
 				}
-				
-				//tags
-				form.bind('tagremoved', function(event, tag){
+
+				// Tags
+				form.bind('tagremoved', function(event, tag) {
 					if (statementLinked.val()) {
 						if ($.inArray(tag, linkedTags) != -1) {
 							unlinkStatement();
 						}
 					}
 				});
-				
-				form.bind('unlink', function(){
+
+        // Unlink event to be fired by the embeddable part and cathed again here
+        if (form.hasClass('embeddable')) {
+					form.data('embeddableApi').handleContentChange('unlink');
+				}
+				form.bind('unlink', function() {
 					if (statementLinked.val()) {
 						unlinkStatement();
 		      }
 				});
-				
-				if (form.hasClass('embeddable')) {
-					form.data('embeddableApi').handleContentChange('unlink');
-				}
 			}
+
 
 			// Public API functions
 			$.extend(this,
       {
-        reinitialise: function()
-        {
+        reinitialise: function() {
           initialise();
         }
 			});
 
 		}
-
   };
 
 })(jQuery);

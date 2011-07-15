@@ -63,16 +63,19 @@
         entryTypeLabels.bind('click', function(){
           deselectType();
           selectType($(this));
-					if(previousType != selectedType) {triggerTypeChange();}
+					if(previousType != selectedType) {triggerChangeEvent();}
         });
         entryTypeRadios.bind('click', function(){
           deselectType();
           selectType($(this).parent().siblings('label'));
-					if(previousType != selectedType) {triggerTypeChange();}
+					if(previousType != selectedType) {triggerChangeEvent();}
         });
       }
 
-      function triggerTypeChange() {
+      /*
+       * Triggers the unlink event on type change.
+       */
+      function triggerChangeEvent() {
 				if(changeEvent) {
           embeddable.trigger(changeEvent);
         }
@@ -115,6 +118,7 @@
 					  showEmbedPreview();
 						return false;
 					}
+          triggerChangeEvent();
         });
 
         // Preview button
@@ -140,7 +144,6 @@
             scrollToPreview();
           }
           loadEmbeddedContent(url);
-					triggerTypeChange();
 				} else {
 					error(embedUrl.data('invalid-message'));
 				}
@@ -201,11 +204,6 @@
       }
 
 
-     	function handleEmbeddedContentChange(eventName) {
-				changeEvent = eventName;
-			}
-
-
 			function isValidUrl(url) {
 				return url.match(/^(http|https|ftp):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i);
 			}
@@ -229,14 +227,10 @@
 				},
 
 				unlinkEmbeddedContent: function() {
-//					deselectContentType();
-//          embedUrl.val('');
-//					loadEmbeddedContent(external_url);
-//          embeddedContent.hide();
 				},
 
 				handleContentChange: function(eventName) {
-					handleEmbeddedContentChange(eventName);
+					changeEvent = eventName;
 				}
       });
     }
