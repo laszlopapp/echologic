@@ -462,23 +462,23 @@
 
 					var origin = $.fragment().origin;
 
-					
-					
+
+
 		      $.setFragment({
 		        "sids": current_stack.join(','),
 		        "nl": '',
 						"bids": bids.join(','),
 						"origin": origin
 		      });
-					
-					
+
+
 					var nextStat = statement.next();
 					var triggerRequest = (nextStat.length > 0 && nextStat.is("form"));
-					
+
 					if (triggerRequest || current_stack.join(',') != old_stack) {
             statement.find('.header .loading').show();
           }
-					
+
 					// if this is the parent of a form, then it must be triggered a request to render it
           if (triggerRequest) {
             $(document).trigger("fragmentChange.sids");
@@ -494,8 +494,8 @@
         statement.find('.children').each(function() {
 					initChildrenLinks($(this));
 				});
-				
-				
+
+
 				// All form requests must nullify the nl, so that, when one clicks the parent button, it triggers one request instead of two
 				statement.find('.add_new_button').each(function(){
 					$(this).bind('click', function(){
@@ -596,7 +596,7 @@
 						current_sids = current_sids.join('/');
 					}
 		    }
-				
+
 				var top_stack = $.fragment().sids.split(",");
 
 		    // Get current_stack of visible statements (if any matches the clicked statement, then break)
@@ -677,7 +677,7 @@
         setTimeout(function() {
           statement.find('.embed_container .loading').hide();
           statement.find('.embedded_content').fadeIn(settings['embed_speed']);
-          $.scrollTo(statement, 300);
+          $.scrollTo(statement, settings['scroll_speed']);
         }, settings['embed_delay']);
       }
 
