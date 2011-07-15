@@ -303,7 +303,7 @@
         publishRadios.find('input:radio[value=' + statementState + ']').attr('checked', true);
         publishRadios.find('input:radio').attr('disabled', true);
 
-        // activate auto complete button
+        // activate link button
         activateLinkButton();
 
         form.addClass('linked');
