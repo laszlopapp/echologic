@@ -174,7 +174,7 @@ class ActivityTrackingService
   #################
 
   def user_filtered_languages(user)
-    spoken_languages = recipient.sorted_spoken_languages
+    spoken_languages = user.sorted_spoken_languages
     spoken_languages << user.default_language.id if spoken_languages.empty? and user.default_language
     spoken_languages
   end
