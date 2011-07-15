@@ -205,7 +205,7 @@ form.statement .discuss_right_block {
   border: none;
 }
 
-form.statement_node .header_link .icon {
+form.statement .header_link .icon {
   background-image: url(../images/page/discuss/statement_icons_16.png);
   background-color: transparent;
   background-repeat: no-repeat;
@@ -252,7 +252,7 @@ form.statement fieldset ol span.defaultText {
 }
 
 #statements form.linked fieldset.statement_title input {
-  color: #00868B !important;
+  color: #555 !important;
 }
 
 #statements form.formtastic fieldset.statement_title,
@@ -263,7 +263,7 @@ form.statement fieldset ol span.defaultText {
 }
 
 #statements form.formtastic fieldset.statement_language {
-  margin-top: -15px;
+  margin-top: -10px;
 }
 
 #statements form.formtastic fieldset.statement_language li,
@@ -312,29 +312,31 @@ form.formtastic fieldset.publish_radios li {
   width: 700px;
 }
 
-form.statement .header .auto_complete {
-	display: inline-block;
-	height: 18px;
-	width: 72px;
+form.statement .header .link_button {
+	background: transparent url(../images/page/discuss/linking_button.png) 0 -40px no-repeat scroll;
+  display: inline-block;
+	width: 80px;
+  height: 18px;
 	position: absolute;
 	top: 2px;
-	right: 231px;
+	right: 223px;
 	padding: 2px 0 0 26px;
-	text-align: center;
 	color: #FFFFFF;
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center;
 	cursor: pointer;
-	background: transparent url(../images/page/discuss/linking_button.png) 0 -40px no-repeat scroll;
 }
 
 form.statement .ac_loading {
 	background-position: 428px 3px;
 }
 
-form.statement .header .auto_complete.off {
+form.statement .header .link_button.off {
   background-position: 0 0;
 }
 
-form.statement .header .auto_complete.off:hover {
+form.statement .header .link_button.off:hover {
 	background-position: 0 -20px;
 }
 
@@ -401,9 +403,12 @@ form.embeddable .entry_types a {
 form.embeddable .entry_types a.article {background-position: 0 0;}
 form.embeddable .entry_types a.paper {background-position: -32px 0;}
 form.embeddable .entry_types a.book {background-position: -64px 0;}
-form.embeddable .entry_types a.photo {background-position: -96px 0;}
-form.embeddable .entry_types a.video {background-position: -128px 0;}
-form.embeddable .entry_types a.url {background-position: -160px 0;}
+form.embeddable .entry_types a.audio {background-position: -96px 0;}
+form.embeddable .entry_types a.photo {background-position: -128px 0;}
+form.embeddable .entry_types a.video {background-position: -160px 0;}
+form.embeddable .entry_types a.law {background-position: -192px 0;}
+form.embeddable .entry_types a.document {background-position: -224px 0;}
+form.embeddable .entry_types a.misc {background-position: -256px 0;}
 
 form.embeddable .entry_url_container li {
   width: 762px;
@@ -432,7 +437,7 @@ form.embeddable .embed_container {
   margin-left: -205px;
   width: 990px;
   min-height: 42px;
-  overflow: visible !important;
+  padding-top: 25px;
 }
 
 form.embeddable .embed_data {
@@ -588,9 +593,12 @@ a.statement_link:hover {
 .article_link .icon {background-position: 0 0;}
 .paper_link .icon {background-position: -16px 0;}
 .book_link .icon {background-position: -32px 0;}
-.photo_link .icon {background-position: -48px 0;}
-.video_link .icon {background-position: -64px 0;}
-.url_link .icon {background-position: -80px 0;}
+.audio_link .icon {background-position: -48px 0;}
+.photo_link .icon {background-position: -64px 0;}
+.video_link .icon {background-position: -80px 0;}
+.law_link .icon {background-position: -96px 0;}
+.document_link .icon {background-position: -112px 0;}
+.misc_link .icon {background-position: -128px 0;}
 
 .create_question_button,
 .create_proposal_button,
