@@ -106,8 +106,8 @@ class StatementsController < ApplicationController
     @action ||= StatementAction["created"]
 
     #search terms as tags
-    if @statement_node.taggable?
-      @statement_node.load_root_tags if @statement_node.class.is_top_statement?
+    if @statement_node_type.taggable?
+      @statement_node.load_root_tags if @statement_node_type.is_top_statement?
       load_search_terms_as_tags(params[:origin]) if params[:origin]
     end
 
