@@ -184,8 +184,7 @@ function socialSharingFinished(array) {
 
 
 function isEchoStatementUrl(url) {
-	return url.match(/.*http:\/\/(\w+\.)?localhost:3000\/\w+\/statement\/(\d+).*/);
-	//return url.match(/.*http:\/\/(\w+\.)?echo.to\/\w+\/statement\/(\d+).*/);
+	return url.match(/.*http:\/\/(\w+\.)?echo\.\/\w+\/statement\/(\d+).*/);
 }
 
 
