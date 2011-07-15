@@ -558,13 +558,15 @@ module StatementsHelper
       if statement_node.nil?
         question_descendants_url(:origin => origin)
       else
-        descendants_statement_node_url(statement_node, name)
+        parent = @current_stack ? @current_stack[@current_stack.length - 2] : statement_node
+        descendants_statement_node_url(parent, name)
       end
     else  # STATEMENT NODES
+      
       if statement_node.parent_id.nil?
         question_descendants_url(:origin => origin, :current_node => statement_node)
       else
-        descendants_statement_node_url(statement_node.parent_node,
+        descendants_statement_node_url(@parent_node || statement_node.parent_node,
                                        statement_node.class.name_for_siblings,
                                        :current_node => statement_node)
       end
