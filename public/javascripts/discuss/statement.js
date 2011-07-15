@@ -462,16 +462,27 @@
 
 					var origin = $.fragment().origin;
 
-					if (current_stack.join(',') != old_stack) {
-            statement.find('.header .loading').show();
-          }
-
+					
+					
 		      $.setFragment({
 		        "sids": current_stack.join(','),
-		        "new_level": '',
+		        "nl": '',
 						"bids": bids.join(','),
 						"origin": origin
 		      });
+					
+					
+					var nextStat = statement.next();
+					var triggerRequest = (nextStat.length > 0 && nextStat.is("form"));
+					
+					if (triggerRequest || current_stack.join(',') != old_stack) {
+            statement.find('.header .loading').show();
+          }
+					
+					// if this is the parent of a form, then it must be triggered a request to render it
+          if (triggerRequest) {
+            $(document).trigger("fragmentChange.sids");
+          }
 
 		      return false;
 		    });
@@ -483,6 +494,16 @@
         statement.find('.children').each(function() {
 					initChildrenLinks($(this));
 				});
+				
+				
+				// All form requests must nullify the nl, so that, when one clicks the parent button, it triggers one request instead of two
+				statement.find('.add_new_button').each(function(){
+					$(this).bind('click', function(){
+						$.setFragment({
+							"nl" : ''
+						});
+					});
+				})
 		  }
 
       /*
@@ -541,7 +562,7 @@
 
           $.setFragment({
             "sids": stack.join(','),
-            "new_level": newLevel,
+            "nl": newLevel,
 						"bids": bids.join(','),
 						"origin": origin
           });

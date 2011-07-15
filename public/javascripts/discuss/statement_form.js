@@ -213,7 +213,7 @@
                 linkStatementNode(statementNodeId);
               }	else {
                 var longWords = 0;
-                $.each(titleValue.split(" "), function(word){
+                $.each(titleValue.split(" "), function(index, word){
                   if (word.length > 3) {
                     longWords++;
                   }

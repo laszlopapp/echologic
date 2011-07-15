@@ -153,6 +153,13 @@ class StatementNode < ActiveRecord::Base
   def update_node(attrs={})
     update_attributes(attrs)
   end
+  
+  #
+  # Helper function to load the tags from the root
+  #
+  def load_root_tags
+    self.topic_tags = self.root.nil? ? parent.root.topic_tags : self.root.topic_tags
+  end
 
   ########################
   # DOCUMENTS' LANGUAGES #

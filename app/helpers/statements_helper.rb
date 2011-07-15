@@ -323,7 +323,7 @@ module StatementsHelper
   # Returns a link to create a new child statement from a given type for the given statement (appears in the SIDEBAR).
   #
   def add_new_child_link(statement_node, type, opts={})
-    opts[:new_level] = true
+    opts[:nl] = true
     content = ''
     content << content_tag(:a, :href => new_statement_node_url(statement_node, type, opts),
                            :class => "create_#{type}_button_32 resource_link ajax ttLink no_border",
@@ -449,7 +449,10 @@ module StatementsHelper
   end
 
   def summary_hint_text(statement_node)
-    I18n.t("discuss.statements.text_hint.#{node_type(statement_node)}")
+    text = ""
+    text << I18n.t("discuss.statements.text_hint.alternative_prefix") if params[:hub].eql? 'alternative'
+    text << I18n.t("discuss.statements.text_hint.#{node_type(statement_node)}")
+    text
   end
 
   ##############

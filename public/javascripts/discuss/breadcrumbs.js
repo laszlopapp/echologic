@@ -106,7 +106,7 @@
 							$.setFragment({
 								"bids": new_bids.join(","),
 								"sids": sids.join(","),
-								"new_level": true,
+								"nl": true,
 								"origin": origin
 							});
 						}
