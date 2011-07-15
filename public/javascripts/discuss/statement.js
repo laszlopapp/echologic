@@ -468,7 +468,7 @@
 
 		      $.setFragment({
 		        "sids": current_stack.join(','),
-		        "new_level": '',
+		        "nl": '',
 						"bids": bids.join(','),
 						"origin": origin
 		      });
@@ -541,7 +541,7 @@
 
           $.setFragment({
             "sids": stack.join(','),
-            "new_level": newLevel,
+            "nl": newLevel,
 						"bids": bids.join(','),
 						"origin": origin
           });
