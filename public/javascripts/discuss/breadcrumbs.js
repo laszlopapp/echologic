@@ -204,14 +204,15 @@
           updateContainerWidth();
           scrollPane.reinitialise();
         }
-        
+
         return this;
       }
 
 
       function buildBreadcrumb(data, index, breadcrumbs_length) {
         var b_key = data['key'].substring(0,2);
-        var breadcrumb = $('<a/>').addClass('breadcrumb').attr('id',data['key']).attr('href',data['url']).addClass(b_key);
+        var breadcrumb = $('<a/>').addClass('breadcrumb').
+                            attr('id', data['key']).attr('href', data['url']).addClass(b_key);
         if (data['page_count']) {
           breadcrumb.attr('page_count', data['page_count']);
         }
@@ -220,7 +221,9 @@
         }
         breadcrumb.append($('<span/>').addClass('label').text(data['label']));
         breadcrumb.append($('<span/>').addClass('over').text(data['over']));
-        breadcrumb.append($('<span/>').addClass(data['css']).text(data['title']));
+        breadcrumb.append($('<div/>').addClass(data['css']).
+                             append($('<span/>').addClass('icon')).
+                             append($('<span/>').addClass('title').text(data['title'])));
         breadcrumb.hide();
         initBreadcrumb(breadcrumb);
         return breadcrumb;

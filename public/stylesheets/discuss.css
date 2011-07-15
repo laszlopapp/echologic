@@ -414,6 +414,7 @@ form.embeddable input.embed_url {
   margin-top: 5px;
   border: 1px solid #999999;
   padding: 3px;
+  color: #21587f;
 }
 
 .statement .embed_container {
@@ -559,8 +560,8 @@ a.statement_link:hover {
   color: #7bb031;
 }
 
-.search_link {background:transparent url(../images/page/discuss/search_icon_16.png) no-repeat scroll 0 0;}
-.my_discussions_link {background:transparent url(../images/page/discuss/my_discussions_16.png) no-repeat scroll 0 -1px;}
+.statement_link.search_link .icon {background: transparent url(../images/page/discuss/search_icon_16.png) no-repeat scroll 0 0;}
+.statement_link.my_discussions_link .icon {background: transparent url(../images/page/discuss/my_discussions_16.png) no-repeat scroll 0 -1px;}
 
 .statement_link .icon {
   background-image: url(../images/page/discuss/statement_icons_16.png);
@@ -906,6 +907,8 @@ a.statement_link:hover {
   display: block;
 }
 
+.breadcrumb .icon {top: 0;}
+
 .breadcrumb .statement_link {
   padding-top: 1px;
   position: absolute;
@@ -914,8 +917,6 @@ a.statement_link:hover {
   font-size: 12px;
   font-weight: bold;
   width: 215px;
-  height: 32px;
-	padding-left: 21px;
 }
 
 .breadcrumb:hover .statement_link {
