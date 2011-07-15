@@ -479,7 +479,7 @@ en:
       create_pro_argument: "Post a new PRO argument to the current proposal"
       create_contra_argument: "Post a new CONTRA argument to the current proposal"
       create_follow_up_question: "Post a new new follow-up question concerning this statement"
-      create_alternative: "Post a new contrary statement"
+      create_alternative: "Post a new opposition to the current statement"
       create_background_info: "Post a new background info"
       echo: 'echo this statement to support it!'
       unecho: 'Withdraw your echo to stop supporting this statement'
@@ -514,7 +514,7 @@ en:
       create_pro_argument_link: Add new PRO argument
       create_contra_argument_link: Add new CONTRA argument
       create_follow_up_question_link: Add new follow-up question
-      create_alternative_link: Add new contrary statement
+      create_alternative_link: Add new opposition
       create_background_info_link: Add new background info
       recommend_link: 'Support (echo)'
       unrecommend_link: 'Withdraw vote'
@@ -561,7 +561,7 @@ en:
         background_info: Please describe your background info in more detail...
       tag_hint: 'Enter tags here...'
       info_url_hint: 'Enter here the url you want to link'
-      clipboard_hint: 'Copy this statement URL pressing Ctrl + C on your keyboard or right clicking on it with your mouse'
+      copy_url_hint: 'Copy this statement URL pressing Ctrl + C '
 
       publish: Release
       published: The question has been released successfully.
@@ -574,7 +574,7 @@ en:
         pro_argument: 'Pro Argument'
         contra_argument: 'Contra Argument'
         follow_up_question: 'Follow-Up Question'
-        alternative: 'Alternative'
+        alternative: 'Opposition'
         background_info: 'Background Info'
       new:
         question: 'New Question'
@@ -694,6 +694,9 @@ en:
         contra_argument: |
           This is where your argument AGAINST the proposal could appear.<br/><br/>Have you got one?<br/><br/>
           Press the button above to enter it NOW!
+        background_info: |
+          This is where your background information concerning the current statement could appear.<br/><br/>Have you got one?<br/><br/>
+            Press the button above to enter it NOW!
         follow_up_question: |
           This is where YOUR follow-up question could appear.<br/><br/>Have you got one?<br/><br/>
           Press the button above to enter it NOW!

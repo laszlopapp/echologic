@@ -6,13 +6,17 @@ pt:
       follow_echo: Siga o echo
     greeting: 'Caro/a {{name}},'
     echo_community: 'comunidade echo'
+    bye: |
+      Os melhores cumprimentos,
+
+      A sua equipa echo
     bye_as_html: |-
       Os melhores cumprimentos,
       <br/><br/>
       A sua equipa echo
     signature: |
       --
-      echo - Democracia Viva 
+      echo - Democracia Viva
 
       Web: http://echo.to
       Blog: http://blog.echo.to

@@ -6,6 +6,11 @@ en:
       follow_echo: Follow echo
     greeting: 'Dear {{name}},'
     echo_community: 'echo community'
+    echo_member: echo member
+    bye: |
+      Best regards,
+
+      Your echo team
     bye_as_html: |-
       Best regards,
       <br/><br/>
@@ -46,10 +51,9 @@ en:
         You need to fill the subject and text fields in order to send the newsletter.
       sent: |-
         Your newsletter mails are being delivered...
-        
+
     user_mail:
-      title: User Mail
-      subject: "[echo message] {{subject}}" 
+      subject: "[echo message] {{subject}}"
       prefix: "{{sender}} has sent you an email via echo..."
       suffix: "You can answer {{sender}} directly or see his/her profile in echo here: {{url}}"
     activity_tracking:

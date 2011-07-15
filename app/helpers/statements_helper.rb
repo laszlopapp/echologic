@@ -144,7 +144,7 @@ module StatementsHelper
       panel << content_tag(:div, :class => 'panel_header') do
         I18n.t("discuss.statements.copy_url")
       end
-      panel << content_tag(:div, I18n.t("discuss.statements.clipboard_hint"), :class => '')
+      panel << content_tag(:div, I18n.t('discuss.statements.copy_url_hint'), :class => '')
       panel << text_field_tag('', url, :class => 'statement_url')
       panel
     end
@@ -257,7 +257,8 @@ module StatementsHelper
                                                                    :hub => 'alternative',
                                                                    :bids => params[:bids],
                                                                    :origin => origin),
-                               :class => "create_alternative_button_32 resource_link ajax") do
+                               :class => "create_alternative_button_32 resource_link ajax ttLink no_border",
+                               :title => I18n.t("discuss.tooltips.create_alternative")) do
           statement_icon_title(I18n.t("discuss.statements.types.alternative"))
         end
       end
@@ -749,12 +750,19 @@ module StatementsHelper
     breadcrumbs.each_with_index do |b, index| #[key, classes, url, title, label, over, page_co]
       attrs = {}
       attrs[:page_count] = b[:page_count] if b[:page_count]
-      breadcrumb = content_tag(:a, attrs.merge({:href => b[:url], :id => b[:key], :class => "breadcrumb #{b[:key][0..2]}"})) do
+      breadcrumb = content_tag(:a, attrs.merge({:href => b[:url],
+                                                :id => b[:key],
+                                                :class => "breadcrumb #{b[:key][0..2]}"})) do
         content = ""
         content << content_tag(:span, '', :class => 'delimiter') if index != 0
         content << content_tag(:span, b[:label], :class => 'label')
         content << content_tag(:span, b[:over], :class => 'over')
-        content << content_tag(:span, h(Breadcrumb.instance.decode_terms(b[:title])), :class => b[:css])
+        content << content_tag(:div, '', :class => b[:css]) do
+          link = ""
+          link << content_tag(:span, '', :class => 'icon')
+          link << content_tag(:span, h(Breadcrumb.instance.decode_terms(b[:title])), :class => 'title')
+          link
+        end
         content
       end
       breadcrumb_trail << breadcrumb

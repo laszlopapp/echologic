@@ -13,8 +13,9 @@
       },
       'hide_animation_speed': 500,
       'animation_speed': 300,
-      'embedding_animation_speed': 700,
-       'time_to_load': 2000
+      'embed_delay': 2000,
+      'embed_speed': 500,
+      'scroll_speed': 500
     };
 
     // Merging settings with defaults
@@ -38,11 +39,11 @@
     /*************************/
 
     function Statement(statement) {
-      var statementDomId = statement.attr('id');
-			var statementDomParent = statement.attr('dom-parent');
+      var domId = statement.attr('id');
+			var domParent = statement.attr('dom-parent');
 			var statementType = statement.attr('id').match("new") ? $.trim(statement.find('input#type').val()) :
-                                                              $.trim(statementDomId.match(/[^(add_|new_)]\w+[^_\d+]/));
-      var statementId = getStatementId(statementDomId);
+                                                              $.trim(domId.match(/[^(add_|new_)]\w+[^_\d+]/));
+      var statementId = getStatementId(domId);
 			var parentStatement, statement_index;
 			var statementUrl;
 			var embedPlaceholder = statement.find('.embed_placeholder');
@@ -101,14 +102,13 @@
 				if (!settings['insertStatement']) {return;}
 
 				var element = $('div#statements .statement').eq(settings['level']);
-				hideStatements(settings);
+				hideStatements();
 				if(element.length > 0) {
-					if (statementDomId.match('new') && element.data('api').getType() != statementType) {
-						var dom_parent = statementDomParent;
-						if (dom_parent && dom_parent.length > 0) {
-							var key = $.inArray(dom_parent.substring(0,2),['ds','sr']) == -1 ?
-							          $("#statements div#" + dom_parent).data('api').getBreadcrumbKey() :
-												dom_parent.substring(0,2);
+					if (domId.match('new') && element.data('api').getType() != statementType) {
+						if (domParent && domParent.length > 0) {
+							var key = $.inArray(domParent.substring(0,2),['ds','sr']) == -1 ?
+							          $("#statements div#" + domParent).data('api').getBreadcrumbKey() :
+												domParent.substring(0,2);
 							var parentBreadcrumb = $("#breadcrumbs").data('breadcrumbApi').getBreadcrumb(key);
 							if (parentBreadcrumb.length > 0) {
 								parentBreadcrumb.nextAll().remove();
@@ -509,9 +509,8 @@
 					var current_stack = getStatementsStack(null, newLevel);
 					var childId = $(this).parent().attr('statement-id');
 					var key = generateKey($(this).parent().attr('class'));
-					var current_bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
+					var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
 
-					var bids = current_bids;
           if(newLevel){ // necessary evil: erase all breadcrumbs after the parent of the clicked statement
             var or_index = bids.length == 0 ? 0 : $.inArray($.fragment().origin, bids);
             var level = or_index + (statement_index+1);
@@ -627,36 +626,38 @@
 
 			function initEmbeddedContent() {
 		  	embedPlaceholder.embedly({
+          key: 'ccb0f6aaad5111e0a7ce4040d3dc5c07',
           maxWidth: 990,
           maxHeight: 1000,
           className: 'embedded_content',
-          success: embedlySuccess,
-					error: embedlyError
+          success: embedlyEmbed,
+					error: manualEmbed
 		  	});
 		  }
 
-      function embedlySuccess(oembed, dict) {
+      function embedlyEmbed(oembed, dict) {
         var elem = $(dict.node);
         if (! (oembed) ) { return null; }
-        elem.replaceWith(oembed.code);
-        showEmbeddedContent(oembed.type != 'video');
+        if (oembed.type != 'link') {
+          elem.replaceWith(oembed.code);
+          showEmbeddedContent();
+        } else {
+          manualEmbed(embedPlaceholder, null);
+        }
       }
 
-      function embedlyError(node, dict) {
+      function manualEmbed(node, dict) {
         node.replaceWith($("<div/>").addClass('embedded_content').addClass('manual')
-                          .append($("<iframe/>").attr('frameborder',0).attr('src', node.attr('href'))));
-        showEmbeddedContent(true);
+                           .append($("<iframe/>").attr('frameborder', 0).attr('src', node.attr('href'))));
+        showEmbeddedContent();
       }
 
-      function showEmbeddedContent(animate) {
+      function showEmbeddedContent() {
         setTimeout(function() {
           statement.find('.embed_container .loading').hide();
-          if (animate) {
-            statement.find('.embedded_content').animate(toggleParams, settings['embedding_animation_speed']);
-          } else {
-            statement.find('.embedded_content').fadeIn(settings['embedding_animation_speed']);
-          }
-        }, settings['time_to_load']);
+          statement.find('.embedded_content').fadeIn(settings['embed_speed']);
+          $.scrollTo(statement, 300);
+        }, settings['embed_delay']);
       }
 
 
@@ -689,7 +690,7 @@
 		    removeBelow: function(){
 		     statement.nextAll().each(function() {
 			     // Delete the session data relative to this statement first
-					 /*if (statementDomId.match('new')) {
+					 /*if (domId.match('new')) {
 				   	$(this).data('api').deleteBreadcrumb();
 				   }*/
 			     $('div#statements').removeData(this.id);

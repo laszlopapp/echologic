@@ -4,9 +4,9 @@
   $.fn.embeddable = function(current_settings) {
 
     $.fn.embeddable.defaults = {
-      'embed_speed': 700,
+      'embed_speed': 500,
       'scroll_speed': 300,
-      'time_to_load': 2000
+      'embed_delay': 2000
     };
 
     // Merging settings with defaults
@@ -48,7 +48,6 @@
 				entryTypes.jqTransform();
         initEntryTypes();
         initEmbedURL();
-				initEmbeddedContent();
       }
 
 			/*
@@ -64,16 +63,19 @@
         entryTypeLabels.bind('click', function(){
           deselectType();
           selectType($(this));
-					if(previousType != selectedType) {triggerTypeChange();}
+					if(previousType != selectedType) {triggerChangeEvent();}
         });
         entryTypeRadios.bind('click', function(){
           deselectType();
           selectType($(this).parent().siblings('label'));
-					if(previousType != selectedType) {triggerTypeChange();}
+					if(previousType != selectedType) {triggerChangeEvent();}
         });
       }
 
-      function triggerTypeChange() {
+      /*
+       * Triggers the unlink event on type change.
+       */
+      function triggerChangeEvent() {
 				if(changeEvent) {
           embeddable.trigger(changeEvent);
         }
@@ -116,6 +118,7 @@
 					  showEmbedPreview();
 						return false;
 					}
+          triggerChangeEvent();
         });
 
         // Preview button
@@ -131,20 +134,6 @@
 				});
       }
 
-      /*
-       * Initiates the embedded content preview.
-       */
-      function initEmbeddedContent() {
-				embedPreview.hide();
-				embedPreview.find('.embedded_content_button').bind('click', function() {
-					showEmbedData();
-					return false;
-				});
-			}
-
-      function showEmbedData() {
-        $.scrollTo('form.embeddable .embed_data', settings['scroll_speed']);
-			}
 
 			function showEmbedPreview() {
 				var url = embedUrl.val();
@@ -155,7 +144,6 @@
             scrollToPreview();
           }
           loadEmbeddedContent(url);
-					triggerTypeChange();
 				} else {
 					error(embedUrl.data('invalid-message'));
 				}
@@ -182,43 +170,38 @@
           maxWidth: 990,
           maxHeight: 1000,
           className: 'embedded_content',
-          success: embedlySuccess,
-					error: embedlyError
+          success: embedlyEmbed,
+					error: manualEmbed
 		  	});
       }
 
-      function embedlySuccess(oembed, dict) {
+      function embedlyEmbed(oembed, dict) {
         var elem = $(dict.node);
         if (! (oembed) ) { return null; }
-        elem.after(oembed.code);
-        showEmbeddedContent(oembed.type != 'video');
+        if (oembed.type != 'link') {
+          elem.after(oembed.code);
+          showEmbeddedContent();
+        } else {
+          manualEmbed(elem, null);
+        }
       }
 
-      function embedlyError(node, dict) {
+      function manualEmbed(node, dict) {
         node.after($("<div/>").addClass('embedded_content').addClass('manual')
-                     .append($("<iframe/>").attr('frameborder',0).attr('src', node.attr('href'))));
-        showEmbeddedContent(true);
+                    .append($("<iframe/>").attr('frameborder', 0).attr('src', node.attr('href'))));
+        showEmbeddedContent();
       }
 
-      function showEmbeddedContent(animate) {
+      function showEmbeddedContent() {
         setTimeout(function() {
           embedPreview.find('.loading').hide();
-          if (animate) {
-            embedPreview.find('.embedded_content').animate(toggleParams, settings['embed_speed'], scrollToPreview);
-          } else {
-            embedPreview.find('.embedded_content').fadeIn(settings['embed_speed'], scrollToPreview);
-          }
-        }, settings['time_to_load']);
+          embedPreview.find('.embedded_content').fadeIn(settings['embed_speed'], scrollToPreview);
+        }, settings['embed_delay']);
       }
 
       function scrollToPreview() {
         $.scrollTo('form.embeddable .entry_url_container', settings['scroll_speed']);
       }
-
-
-     	function handleEmbeddedContentChange(eventName) {
-				changeEvent = eventName;
-			}
 
 
 			function isValidUrl(url) {
@@ -244,14 +227,10 @@
 				},
 
 				unlinkEmbeddedContent: function() {
-//					deselectContentType();
-//          embedUrl.val('');
-//					loadEmbeddedContent(external_url);
-//          embeddedContent.hide();
 				},
 
 				handleContentChange: function(eventName) {
-					handleEmbeddedContentChange(eventName);
+					changeEvent = eventName;
 				}
       });
     }

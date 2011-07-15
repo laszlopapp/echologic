@@ -52,10 +52,7 @@ function initFragmentStatementChange() {
 			var new_sids = sids.split(",");
 			var length = new_sids.length;
 			var path = "/" + new_sids[new_sids.length-1];
-
-
-			last_sids = new_sids.pop();
-
+			var last_sid = new_sids.pop();
 
 			var visible_sids = $("#statements .statement").map(function(){
 				return getStatementId(this.id);
@@ -63,15 +60,13 @@ function initFragmentStatementChange() {
 
 
 			/* after new statement was created and added to the stack, we needn't load again */
-			if ($.inArray(last_sids, visible_sids) != -1 && visible_sids[visible_sids.length-1]==last_sids) {return;}
+			if ($.inArray(last_sid, visible_sids) != -1 && visible_sids[visible_sids.length-1]==last_sid) {return;}
 
 			sids = $.grep(new_sids, function (a) {
 				return $.inArray(a, visible_sids) == -1 ;});
 
-
       /* Breadcrumb Logic */
       var bids = $("#breadcrumbs").data('breadcrumbApi').breadcrumbsToLoad($.fragment().bids);
-			
 
 			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sids": sids.join(","),
@@ -90,20 +85,25 @@ function initFragmentStatementChange() {
   });
 
 	/* Statement Stack */
+  var bids;
   if ($.fragment().sids) {
 		if (!$.fragment().bids || $.fragment().bids == 'undefined') {
-			var bids = $("#breadcrumbs").data('breadcrumbApi').getBreadcrumbStack(null);
+			bids = $("#breadcrumbs").data('breadcrumbApi').getBreadcrumbStack(null);
 			}
 		else {
-			var bids = $.fragment().bids;
+			bids = $.fragment().bids;
 			bids = bids ? bids.split(',') : [];
 		}
-    
+
 		var origin_bids = $.grep(bids, function(a){
 			return $.inArray(a.substring(0,2), ['ds','sr','fq']) != -1;
 		});
-		if (!$.fragment().origin || $.fragment().origin == 'undefined') {var origin = origin_bids.length == 0 ? "" : origin_bids.pop();}
-		else {var origin = $.fragment().origin;}
+    var origin;
+		if (!$.fragment().origin || $.fragment().origin == 'undefined') {
+      origin = origin_bids.length == 0 ? "" : origin_bids.pop();
+    } else {
+      origin = $.fragment().origin;
+    }
 
     $.setFragment({ "new_level" : true, "bids" : bids.join(','), "origin" : origin });
 	  $(document).trigger("fragmentChange.sids");
