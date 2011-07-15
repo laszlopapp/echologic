@@ -24,7 +24,7 @@ class StatementsController < ApplicationController
   before_filter :check_write_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
   
-  before_filter :fetch_current_stack, :only => [:show, :add]
+  before_filter :fetch_current_stack, :only => [:show, :add, :new]
   
   include PublishableModule
   before_filter :is_publishable?, :only => [:publish]
@@ -795,11 +795,11 @@ class StatementsController < ApplicationController
     key = Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)
     #[id, classes, url, title, label, over]
     @breadcrumb = {:key => "#{key}#{parent_node.id}",
-                     :css => "statement statement_link #{parent_node.class.name.underscore}_link",
-                     :url => statement_node_url(parent_node, :bids => params[:bids], :origin => params[:origin]),
-                     :title => Breadcrumb.instance.decode_terms(statement_document.title),
-                     :label => I18n.t("discuss.statements.breadcrumbs.labels.#{Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)}"),
-                     :over => I18n.t("discuss.statements.breadcrumbs.labels.over.#{Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)}")}
+                   :css => "statement statement_link #{parent_node.class.name.underscore}_link",
+                   :url => statement_node_url(parent_node, :bids => params[:bids], :origin => params[:origin]),
+                   :title => Breadcrumb.instance.decode_terms(statement_document.title),
+                   :label => I18n.t("discuss.statements.breadcrumbs.labels.#{Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)}"),
+                   :over => I18n.t("discuss.statements.breadcrumbs.labels.over.#{Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)}")}
     @bids = params[:bids]||''
     @bids = @bids.split(",")
     @bids << @breadcrumb[:key]
@@ -1088,6 +1088,7 @@ class StatementsController < ApplicationController
   #                   value : Array[Integer] : Array of statement ids with teaser path as last element
   #
   def load_siblings(statement_node)
+    return if statement_node.new_record?
     @siblings ||= {}
     class_name = statement_node.target_statement.class.name.underscore
     

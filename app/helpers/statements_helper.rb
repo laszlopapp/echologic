@@ -162,6 +162,9 @@ module StatementsHelper
   def create_new_child_statement_link(statement_node, child_type, opts={})
     url = opts.delete(:url) if opts[:url]
     css = opts.delete(:css) if opts[:css]
+    opts[:cs] = @current_stack ? 
+                @current_stack.join(",") : 
+                statement_node.self_and_ancestors.scoped(:select => "id").map(&:id).join(",")
     label_type = opts.delete(:label_type) || child_type
     opts[:hub] = label_type if !label_type.eql?(child_type)
     link_to(I18n.t("discuss.statements.create_#{label_type}_link"),
