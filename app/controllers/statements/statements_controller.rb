@@ -691,8 +691,11 @@ class StatementsController < ApplicationController
   # @level(Integer) : level at which the new statement will be rendered
   #
   def fetch_current_stack
-    @current_stack = params[:cs] ? params[:cs].split(",") : (@statement_node ? @statement_node.self_and_ancestors.map(&:id) : [])
-    @level = params[:cs] ? @current_stack.length - 1 : nil
+    @current_stack = params[:cs] ? params[:cs].split(",").map(&:to_i) : nil
+    @level = @current_stack ? @current_stack.length - 1 : nil
+    @parent_node = @current_stack ? 
+                   StatementNode.find(@current_stack[@current_stack.index(@statement_node.id)-1], :select => "id, type") : 
+                   @statement_node.parent_node
   end
   
   #
@@ -1087,9 +1090,16 @@ class StatementsController < ApplicationController
   def load_siblings(statement_node)
     @siblings ||= {}
     class_name = statement_node.target_statement.class.name.underscore
+    
+    
     # if has parent then load siblings
     if statement_node.parent_id
-      siblings = statement_node.siblings_to_session :language_ids => @language_preference_list, :user => current_user
+      prev = @current_stack ? 
+             StatementNode.find(@current_stack[@current_stack.index(statement_node.id)-1], :select => "id, lft, rgt") : 
+             statement_node.parent_node
+      siblings = statement_node.siblings_to_session :language_ids => @language_preference_list, 
+                                                    :user => current_user, 
+                                                    :prev => prev
     else #else, it's a root node
       siblings = roots_to_session(statement_node)
     end
