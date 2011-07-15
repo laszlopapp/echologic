@@ -338,7 +338,9 @@ form.statement .header .auto_complete.off:hover {
 	background-position: 0 -20px;
 }
 
+/*********************/
 /* Embeddded content */
+/*********************/
 
 form.embeddable .embed_data .label {
   color: #7bb031;
@@ -422,7 +424,7 @@ form.embeddable input.embed_url {
 	padding-top: 13px;
   display: inline-block;
   width: 100%;
-  min-height: 42px;
+  min-height: 350px;
 }
 
 form.embeddable .embed_container {
@@ -462,7 +464,7 @@ form.embeddable .embed_data {
   position: relative;
   left: 478px;
   top: 7px;
-  opacity: 0.2;
+  opacity: 0.4;
 }
 
 .statement .embedded_content {
@@ -1926,9 +1928,7 @@ a.statement_link:hover {
 /* Add new teaser */
 /******************/
 
-.statement.add_teaser {
-  min-height: 350px;
-}
+.statement.add_teaser {min-height: 350px;}
 
 /*****************/
 /* Incorporation */
