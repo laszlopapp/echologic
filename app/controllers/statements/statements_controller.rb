@@ -1026,7 +1026,7 @@ class StatementsController < ApplicationController
         
         # if teaser: @statement_node is the teaser's parent, therefore, an ancestor
         # if stack ids exists, that means the @statement node is already in ancestors
-        @ancestors << @statement_node if stack_ids.nil? 
+        @ancestors << @statement_node if !@ancestors.map(&:id).include?(@statement_node.id) 
         load_children_for_parent(@statement_node, @type)
       end
 
