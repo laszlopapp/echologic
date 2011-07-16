@@ -201,10 +201,7 @@
         // what happens when i click the auto completion button
         linkButton.bind('click', function(){
           if ($(this).hasClass('on')) {
-            // TODO: Right now, nothing happens. But wouldn't it be better to just unlink the statement?
-            // (the visual elements (text, tags...) would remain, just the statement id reference would be lost.
-            // this way, we could unlink a wrongly unlinked statement and link it again
-            // unlinkStatement();
+            unlinkStatement();
           } else {
             if ($(this).hasClass('off')) {
               var titleValue = title.val();
@@ -263,7 +260,6 @@
 				$.getJSON(path, function(data) {
 					linkStatementData(data);
 
-
           // Embedded Data
 					if (form.hasClass('embeddable')) {
 						form.data('embeddableApi').linkEmbeddedContent(data);
@@ -303,7 +299,7 @@
         publishRadios.find('input:radio[value=' + statementState + ']').attr('checked', true);
         publishRadios.find('input:radio').attr('disabled', true);
 
-        // activate auto complete button
+        // activate link button
         activateLinkButton();
 
         form.addClass('linked');
@@ -336,7 +332,7 @@
         }
 
 				// Enable editorial state buttons
-				$('.publish_radios input:radio').removeAttr('disabled');
+				publishRadios.find(' input:radio').removeAttr('disabled');
 			}
 
 

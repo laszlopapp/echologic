@@ -69,7 +69,7 @@ about_category_<%= code %>:
   description: about_category
 <% end %>
 
-<% %w(article paper book photo video url).each_with_index do |code, index| %>
+<% %w(article paper book audio photo video law document misc).each_with_index do |code, index| %>
 info_type_<%= code %>:
   code: <%= code %>
   type: InfoType

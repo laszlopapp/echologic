@@ -370,7 +370,7 @@ end
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
-["Photo Gallery","Photo Gallery","Photo Gallery","Photo Gallery","Photo Gallery","Photo Gallery"].each_with_index do |value,index|
+["Photo","Photo","Photo","Photo","Photo","Photo"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('photo','InfoType'),
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")

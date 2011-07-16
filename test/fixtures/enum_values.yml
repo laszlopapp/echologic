@@ -318,6 +318,7 @@ thematic_partners_<%= code %>:
   context:
 <% end %>
 
+
 <% {'en' => "Article",'de' => "Artikel",'fr'=> "Article",'pt' => "Artigo",'es' => "Artículo"}.each_pair do |code,value| %>
 article_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:info_type_article) %>
@@ -339,6 +340,13 @@ book_<%= code %>:
   value: <%= value %>
   context:
 <% end %>
+<% {'en' => "Audio",'de' => "Audio",'fr'=> "Audio",'pt' => "Audio",'es' => "Audio"}.each_pair do |code,value| %>
+audio_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:info_type_audio) %>
+  code: <%= code %>
+  value: <%= value %>
+  context:
+<% end %>
 <% {'en' => "Photo",'de' => "Foto",'fr'=> "Photo",'pt' => "Foto",'es' => "Foto"}.each_pair do |code,value| %>
 photo_<%= code %>:
   enum_key_id: <%= Fixtures.identify(:info_type_photo) %>
@@ -353,9 +361,23 @@ video_<%= code %>:
   value: <%= value %>
   context:
 <% end %>
-<% {'en' => "URL",'de' => "URL",'fr'=> "URL",'pt' => "URL",'es' => "URL"}.each_pair do |code,value| %>
-url_<%= code %>:
-  enum_key_id: <%= Fixtures.identify(:info_type_url) %>
+<% {'en' => "Law",'de' => "Law",'fr'=> "Law",'pt' => "Law",'es' => "Law"}.each_pair do |code,value| %>
+law_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:info_type_law) %>
+  code: <%= code %>
+  value: <%= value %>
+  context:
+<% end %>
+<% {'en' => "Document",'de' => "Document",'fr'=> "Document",'pt' => "Document",'es' => "Document"}.each_pair do |code,value| %>
+document_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:info_type_document) %>
+  code: <%= code %>
+  value: <%= value %>
+  context:
+<% end %>
+<% {'en' => "Misc",'de' => "Misc",'fr'=> "Misc",'pt' => "Misc",'es' => "Misc"}.each_pair do |code,value| %>
+misc_<%= code %>:
+  enum_key_id: <%= Fixtures.identify(:info_type_misc) %>
   code: <%= code %>
   value: <%= value %>
   context:
