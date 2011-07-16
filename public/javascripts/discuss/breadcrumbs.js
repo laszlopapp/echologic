@@ -257,19 +257,24 @@
 				},
 
 				addBreadcrumbs : function(breadcrumbsData) {
+					var scroll = true;
 					if (breadcrumbsData) {
 						if(breadcrumbs.is(":hidden")) {
               toggleContainer();
             }
-
 						var breadcrumbs_length = container.find(".breadcrumb").length;
 			  	  // Assemble new breadcrumb entries
+						var existentBreadcrumb;
 						$.each(breadcrumbsData, function(index, breadcrumbData) { //[id, classes, url, title, label, over]
-						  if (breadcrumbs.find('#' + breadcrumbData['key']).length == 0) {
+						  existentBreadcrumb = breadcrumbs.find('#' + breadcrumbData['key']);
+						  if (existentBreadcrumb.length == 0) {
 						  	var breadcrumb = buildBreadcrumb(breadcrumbData, index, breadcrumbs_length);
 						  	container.append(breadcrumb);
-						  }
+						  } else {
+								existentBreadcrumb.nextAll().remove();
+							}
 						});
+						
 					}
 					scrollToEnd();
           container.find('.breadcrumb:hidden').animate(settings['breadcrumb_animation_params'],
