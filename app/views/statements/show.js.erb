@@ -38,7 +38,7 @@
                                               :locals => {:hide_content => true}) %>";
   var statement = $('#statements div#<%= dom_id(@statement_node)%>');
 	statement.data('api').insertContent(content).show().reinitialise({'level' : <%= @level %>, 'insertStatement' : false});
-<% elsif !params[:new_level].blank? %>
+<% elsif !params[:new_level].blank? && params[:new_level] == 'true' %>
   var element = $("<%= escape_javascript(render :partial => 'statements/show',
                                                 :locals => {:hide_content => true}) %>").statement({'level' : <%= @level %>});
 	element.data('api').show().removeBelow();
