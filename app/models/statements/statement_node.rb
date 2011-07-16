@@ -8,6 +8,10 @@ class StatementNode < ActiveRecord::Base
   def target_statement
     self
   end
+  
+  def u_class_name
+    class.name.underscore
+  end
 
   # Deletion handling
   after_destroy :destroy_associated_objects

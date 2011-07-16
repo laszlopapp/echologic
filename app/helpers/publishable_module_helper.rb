@@ -116,7 +116,7 @@ module PublishableModuleHelper
                                         :origin => :mi,
                                         :bids => :mi),
             :class => "statement_link ttLink no_border",
-            :title => I18n.t("discuss.tooltips.read_#{question.class.name.underscore}"))
+            :title => I18n.t("discuss.tooltips.read_#{question.u_class_name}"))
   end
 
   #

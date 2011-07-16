@@ -764,7 +764,7 @@ class StatementsController < ApplicationController
   # Returns the statement node corresponding symbol (:question, :proposal...).
   #
   def statement_node_symbol
-    @symbol ||= @statement_node_type.nil? ? @statement_node.class.name.underscore.to_sym : :statement_node
+    @symbol ||= @statement_node_type.nil? ? @statement_node.u_class_name.to_sym : :statement_node
   end
 
   #
@@ -795,7 +795,7 @@ class StatementsController < ApplicationController
     key = Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)
     #[id, classes, url, title, label, over]
     @breadcrumb = {:key => "#{key}#{parent_node.id}",
-                   :css => "statement statement_link #{parent_node.class.name.underscore}_link",
+                   :css => "statement statement_link #{parent_node.u_class_name}_link",
                    :url => statement_node_url(parent_node, :bids => params[:bids], :origin => params[:origin]),
                    :title => Breadcrumb.instance.decode_terms(statement_document.title),
                    :label => I18n.t("discuss.statements.breadcrumbs.labels.#{Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)}"),
@@ -821,8 +821,8 @@ class StatementsController < ApplicationController
       bids = []
       @ancestors.each_with_index do |ancestor, index|
         b_type = ancestor == @ancestors.last ? 
-                 @statement_node.class.name.underscore :
-                 @ancestors[index+1].class.name.underscore
+                 @statement_node.u_class_name :
+                 @ancestors[index+1].u_class_name
         bids << "#{Breadcrumb.instance.generate_key(b_type)}#{ancestor.id}"
       end
     end
@@ -854,7 +854,7 @@ class StatementsController < ApplicationController
         statement_node.document_in_original_language
         origin = index > 0 ? bids.select{|b|Breadcrumb.instance.origin_keys.include?(b[0,2])}[index-1] : ''
         breadcrumb[:key] = "#{key}#{value}"
-        breadcrumb[:css] = "statement statement_link #{statement_node.class.name.underscore}_link"
+        breadcrumb[:css] = "statement statement_link #{statement_node.u_class_name}_link"
         breadcrumb[:url] = statement_node_url(statement_node,
                                                                :bids => bids[0, bids.index(bid)].join(","),
                                                                :origin => origin)
@@ -1099,7 +1099,7 @@ class StatementsController < ApplicationController
   def load_siblings(statement_node)
     return if statement_node.new_record?
     @siblings ||= {}
-    class_name = statement_node.target_statement.class.name.underscore
+    class_name = statement_node.target_statement.u_class_name
 
 
     # if has parent then load siblings
@@ -1294,7 +1294,7 @@ class StatementsController < ApplicationController
   #
   def set_statement_info(object)
     code = object.kind_of?(String) ? object : "discuss.messages.#{object.action.code}"
-    set_info code, :type => I18n.t("discuss.statements.types.#{@statement_node.class.name.underscore}")
+    set_info code, :type => I18n.t("discuss.statements.types.#{@statement_node.u_class_name}")
   end
 
   #

@@ -558,7 +558,7 @@ module StatementsHelper
   def siblings_button(statement_node, type, opts={})
     origin = opts[:origin]
     name = type.classify.constantize.name_for_siblings
-    url = if statement_node.nil? or statement_node.class.name.underscore != type # ADD TEASERS
+    url = if statement_node.nil? or statement_node.u_class_name != type # ADD TEASERS
       if statement_node.nil?
         question_descendants_url(:origin => origin)
       else

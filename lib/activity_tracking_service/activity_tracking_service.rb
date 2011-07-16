@@ -58,7 +58,7 @@ class ActivityTrackingService
 
     event_json = {
       :operation => 'created',
-      :type => node.class.name.underscore,
+      :type => node.u_class_name,
       :info_type => node.class.has_embeddable_data? ? node.info_type.code : nil,
       :id => node.target_id,
       :level => node.class.is_top_statement? ? node.parent_node.level + 1 : node.level,
