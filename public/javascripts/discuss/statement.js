@@ -677,7 +677,7 @@
         setTimeout(function() {
           statement.find('.embed_container .loading').hide();
           statement.find('.embedded_content').fadeIn(settings['embed_speed']);
-          $.scrollTo(statement, settings['scroll_speed']);
+          //$.scrollTo(statement, settings['scroll_speed']);
         }, settings['embed_delay']);
       }
 
