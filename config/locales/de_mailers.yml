@@ -62,6 +62,7 @@ de:
         created_improvements: 'Neue Inhalte zum Vorschlag "<strong>{{title}}</strong>":'
         created_pro_arguments: 'Neue Inhalte zum Vorschlag "<strong>{{title}}</strong>":'
         created_contra_arguments: Neue Inhalte zum Vorschlag "<strong>{{title}}</strong>":'
+        created_background_infos: 'Neue Inhalte zur Aussage "<strong>{{title}}</strong>":'
         created_follow_up_questions: 'Neue Folgefrage zu "<strong>{{title}}</strong>":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-
