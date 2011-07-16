@@ -466,7 +466,7 @@
 
 		      $.setFragment({
 		        "sids": current_stack.join(','),
-		        "nl": '',
+		        "new_level": '',
 						"bids": bids.join(','),
 						"origin": origin
 		      });
@@ -496,11 +496,11 @@
 				});
 
 
-				// All form requests must nullify the nl, so that, when one clicks the parent button, it triggers one request instead of two
+				// All form requests must nullify the new_level, so that, when one clicks the parent button, it triggers one request instead of two
 				statement.find('.add_new_button').each(function(){
 					$(this).bind('click', function(){
 						$.setFragment({
-							"nl" : ''
+							"new_level" : ''
 						});
 					});
 				})
@@ -562,7 +562,7 @@
 
           $.setFragment({
             "sids": stack.join(','),
-            "nl": newLevel,
+            "new_level": newLevel,
 						"bids": bids.join(','),
 						"origin": origin
           });

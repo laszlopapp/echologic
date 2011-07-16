@@ -323,7 +323,7 @@ module StatementsHelper
   # Returns a link to create a new child statement from a given type for the given statement (appears in the SIDEBAR).
   #
   def add_new_child_link(statement_node, type, opts={})
-    opts[:nl] = true
+    opts[:new_level] = true
     content = ''
     content << content_tag(:a, :href => new_statement_node_url(statement_node, type, opts),
                            :class => "create_#{type}_button_32 resource_link ajax ttLink no_border",
@@ -566,12 +566,12 @@ module StatementsHelper
         descendants_statement_node_url(parent, name)
       end
     else  # STATEMENT NODES
-      
+
       if statement_node.parent_id.nil?
         question_descendants_url(:origin => origin, :current_node => statement_node)
       else
-        prev = @current_stack ? 
-               StatementNode.find(@current_stack[@current_stack.index(statement_node.id)-1], :select => "id, lft, rgt, question_id") : 
+        prev = @current_stack ?
+               StatementNode.find(@current_stack[@current_stack.index(statement_node.id)-1], :select => "id, lft, rgt, question_id") :
                statement_node.parent_node
 
         descendants_statement_node_url(prev,

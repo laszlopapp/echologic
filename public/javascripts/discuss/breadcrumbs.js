@@ -106,7 +106,7 @@
 							$.setFragment({
 								"bids": new_bids.join(","),
 								"sids": sids.join(","),
-								"nl": true,
+								"new_level": true,
 								"origin": origin
 							});
 						}
@@ -274,7 +274,7 @@
 								existentBreadcrumb.nextAll().remove();
 							}
 						});
-						
+
 					}
 					scrollToEnd();
           container.find('.breadcrumb:hidden').animate(settings['breadcrumb_animation_params'],
