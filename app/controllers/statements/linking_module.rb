@@ -21,22 +21,23 @@ module LinkingModule
     
     statement_nodes = search_statement_nodes :param => 'statement_id', 
                                              :search_term => params[:q],
-                                             :types => linkable_types, 
-                                             :limit => params[:limit] || 5, 
+                                             :types => linkable_types,
+                                             :limit => params[:limit] || 5,
                                              :language_ids => [params[:code] || locale_language_id],
                                              :joins => joins,
                                              :node_conditions => [conditions]
     documents = search_statement_documents(:statement_ids => statement_nodes.map(&:statement_id))
-    
+
     content = statement_nodes.map(&:statement_id).uniq.map{ |id|
       "#{documents[id].title}|#{id}"
     }.join("\n")
-    
+
     render :text => content
   end
-  
+
   #
-  # gets the statement data needed to fill the new statement node form and successfully link it with the statement (calls link_statement)
+  # Gets the statement data needed to fill the new statement node form and successfully link it with the statement.
+  # This is called when entering a URL into the title field and pressing the Link button.
   #
   # Method:   GET
   # Response: JSON
@@ -45,15 +46,15 @@ module LinkingModule
     @statement = @statement_node.statement
     @type_to_link = params[:type].to_s.classify.constantize
     @parent_node = StatementNode.find(params[:parent_id])
-    if @type_to_link.linkable_types.include? @statement_node.class.name.to_sym and 
-      !@statement_node.parent_node.id.eql?(@parent_node.target_id) 
+    if @type_to_link.linkable_types.include? @statement_node.class.name.to_sym and
+      !@statement_node.parent_node.id.eql?(@parent_node.target_id)
       link_statement
     else
       render :json => {:error => I18n.t("discuss.statements.cannot_be_linked")}
     end
   end
-  
-  
+
+
   #
   # gets the statement data needed to fill the new statement node form and successfully link it with the statement
   #
@@ -66,8 +67,8 @@ module LinkingModule
     if @statement_document
       @content = {:id => @statement.id,
                   :title => @statement_document.title,
-                  :editorial_state => @statement.editorial_state_id, 
-                  :tags => @statement.topic_tags, 
+                  :editorial_state => @statement.editorial_state_id,
+                  :tags => @statement.topic_tags,
                   :text => @statement_document.text}
       if @statement.has_data?
         @content[:content_type] = @statement.info_type.code
