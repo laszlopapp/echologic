@@ -12,7 +12,7 @@ module LinkingModule
 
     # Excluding content belonging to the same subtree
     joins = "LEFT JOIN statement_nodes_parents s_parents ON s_parents.id = s.id "
-    conditions = ["(s_parents.parent_node_id != #{params[:parent_id]} OR (s_parents.type = 'Question' AND s.root_id != #{params[:parent_id]}))"]
+    conditions = sanitize_sql(["(s_parents.parent_node_id != ? OR (s_parents.type = 'Question' AND s.root_id != ?))", params[:parent_id], params[:parent_id]])
 
     statement_nodes = search_statement_nodes :param => 'statement_id',
                                              :search_term => params[:q],
