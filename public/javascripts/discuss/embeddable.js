@@ -141,7 +141,7 @@
 				if (isValidUrl(url)) {
           if (!embedPreview.is(':visible')) {
 				    embedPreview.animate(toggleParams, settings['embed_speed']);
-            scrollToPreview();
+            scrollOnPreview();
           }
           loadEmbeddedContent(url);
 				} else {
@@ -159,7 +159,7 @@
         if (embeddedContent.is(':visible')) {
           embedPreview.find('.embedded_content').animate(toggleParams, settings['embed_speed'], function() {
             embeddedContent.remove();
-            scrollToPreview();
+            scrollOnPreview();
           });
         }
         embedCommand.attr('href', url);
@@ -195,12 +195,12 @@
       function showEmbeddedContent() {
         setTimeout(function() {
           embedPreview.find('.loading').hide();
-          embedPreview.find('.embedded_content').fadeIn(settings['embed_speed'], scrollToPreview);
+          embedPreview.find('.embedded_content').fadeIn(settings['embed_speed'], scrollOnPreview);
         }, settings['embed_delay']);
       }
 
-      function scrollToPreview() {
-        $.scrollTo('form.embeddable .entry_url_container', settings['scroll_speed']);
+      function scrollOnPreview() {
+        $.scrollTo('form.embeddable .entry_type', settings['scroll_speed']);
       }
 
 
@@ -223,7 +223,7 @@
 					deselectType();
           selectType(entryTypes.find('a.' + content_type).parent().siblings('label'));
           embedUrl.val(external_url);
-					showEmbedPreview();
+					//showEmbedPreview();
 				},
 
 				unlinkEmbeddedContent: function() {

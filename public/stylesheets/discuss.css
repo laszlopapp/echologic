@@ -422,6 +422,10 @@ form.embeddable input.embed_url {
   color: #21587f;
 }
 
+form.embeddable.linked input.embed_url {
+  color: #555 !important;
+}
+
 .statement .embed_container {
   clear: both;
   background: url(../images/page/separator_no_shadow.png) no-repeat center top;
