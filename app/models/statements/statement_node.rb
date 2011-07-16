@@ -8,9 +8,9 @@ class StatementNode < ActiveRecord::Base
   def target_statement
     self
   end
-  
+
   def u_class_name
-    class.name.underscore
+    self.class.name.underscore
   end
 
   # Deletion handling
@@ -157,7 +157,7 @@ class StatementNode < ActiveRecord::Base
   def update_node(attrs={})
     update_attributes(attrs)
   end
-  
+
   #
   # Helper function to load the tags from the root
   #
@@ -480,7 +480,7 @@ class StatementNode < ActiveRecord::Base
       end
 
       # Permissions
-      opts[:node_conditions] ||= [] 
+      opts[:node_conditions] ||= []
       opts[:node_conditions] << Statement.conditions(opts, "s.closed_statement", "s.granted_user_id")
 
       # Statement type
@@ -504,7 +504,7 @@ class StatementNode < ActiveRecord::Base
       # Limit
       limit = "LIMIT #{opts[:limit]}" if opts[:limit]
 
-      
+
       opts[:joins] ||= ""
 
       # Search terms
@@ -525,7 +525,7 @@ class StatementNode < ActiveRecord::Base
           term_queries << (term_query + (document_conditions + ["(#{or_conditions})"]).join(" AND "))
         end
         term_queries = term_queries.join(" UNION ALL ")
-        
+
         joins = "LEFT JOIN search_statement_nodes s ON statement_ids.id = s.statement_id " +
                 "LEFT JOIN #{table_name} ON #{table_name}.id = s.#{aggregator_field} " +
                 "LEFT JOIN #{Echo.table_name} e ON e.id = #{table_name}.echo_id "
@@ -540,11 +540,11 @@ class StatementNode < ActiveRecord::Base
         document_conditions << "d.current = 1"
 
         opts[:node_conditions] << "s.type = 'Question'" if opts[:types].nil?
-        
+
         joins = "LEFT JOIN statement_documents d ON d.statement_id = s.statement_id " +
                 Statement.extaggable_joins_clause("s.statement_id")
         joins << opts[:joins]
-        
+
         statements_query = "SELECT DISTINCT s.#{opts[:param] || '*'} from search_statement_nodes s " + joins +
                            "WHERE " + (opts[:node_conditions] + document_conditions).join(' AND ') +
                            " ORDER BY s.supporter_count DESC, s.created_at DESC, s.id #{limit};"
