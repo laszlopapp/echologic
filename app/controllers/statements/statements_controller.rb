@@ -813,10 +813,19 @@ class StatementsController < ApplicationController
   # @breadcrumbs(Array[Array[]]) (check build_breadcrumb documentation)
   #
   def load_breadcrumbs
-    return if params[:bids].blank?
-
-    # get bids into an array structure
-    bids = params[:bids].split(',')
+    
+    if !params[:bids].blank?
+      # get bids into an array structure
+      bids = params[:bids].split(',')
+    else
+      bids = []
+      @ancestors.each_with_index do |ancestor, index|
+        b_type = ancestor == @ancestors.last ? 
+                 @statement_node.class.name.underscore :
+                 @ancestors[index+1].class.name.underscore
+        bids << "#{Breadcrumb.instance.generate_key(b_type)}#{ancestor.id}"
+      end
+    end
 
     @breadcrumbs = []
 
@@ -1262,8 +1271,8 @@ class StatementsController < ApplicationController
   def render_template(template, teaser = false)
     respond_to do |format|
       format.html {
-        load_breadcrumbs
         load_ancestors(teaser)
+        load_breadcrumbs
         render :template => template
       }
       format.js {
