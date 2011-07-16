@@ -10,7 +10,7 @@ class StatementNode < ActiveRecord::Base
   end
   
   def u_class_name
-    class.name.underscore
+    self.class.name.underscore
   end
 
   # Deletion handling
