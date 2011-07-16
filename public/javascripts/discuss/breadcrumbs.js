@@ -66,53 +66,61 @@
         if (!breadcrumb.children(':last').hasClass('statement')) {return;}
 
         // Loads ids of the statements appearing in the stack
-		    var path_id = breadcrumb.attr('id');
-				path_id = path_id.substring(2, path_id.length);
-		    var path = breadcrumb.attr('href').replace(/\/\d+.*/, '/' + path_id + '/' + 'ancestors');
-				var sids;
-		    $.getJSON(path, function(data) {
-		      sids = data;
+				var sids = [];
+				
+				var b_gen = breadcrumb.prev();
+				
+				// iterate on the previous breadcrumbs to generate the stack list
+				while (b_gen.length > 0) {
+					var b_id = b_gen.attr("id");
+					var b_key = b_id.substring(0,2)
+					// if it's an origin breadcrumb, stack is done
+					if (getOriginKeys([b_id]).length == 0) {
+			   	 sids.unshift(b_id.match(/\d+/)); 
+					} else {break;}
+					b_gen = b_gen.prev();
+				}
+				sids.push(breadcrumb.attr('id').match(/\d+/));
 
-					breadcrumb.bind("click", function() {
-	          // Getting bids from fragment
-	          var bids_stack = $(this).prevAll().map(function() {
-							return truncateBreadcrumbKey($(this));
-	          }).get().reverse();
+				breadcrumb.bind("click", function() {
+          // Getting bids from fragment
+          var bids_stack = $(this).prevAll().map(function() {
+						return truncateBreadcrumbKey($(this));
+          }).get().reverse();
 
 
-	          // Getting links that must be removed from the breadcrumbs
-	          var links_to_delete = $(this).nextAll().map(function() {
-	            return $(this).attr('id');
-	          }).get();
-	          links_to_delete.unshift($(this).attr('id'));
+          // Getting links that must be removed from the breadcrumbs
+          var links_to_delete = $(this).nextAll().map(function() {
+            return $(this).attr('id');
+          }).get();
+          links_to_delete.unshift($(this).attr('id'));
 
-	          var new_bids = $.grep(bids_stack, function(a, index) {
-	            return $.inArray(a, links_to_delete) == -1;
-	          });
+          var new_bids = $.grep(bids_stack, function(a, index) {
+            return $.inArray(a, links_to_delete) == -1;
+          });
 
-	          // Getting previous breadcrumb entry, in order to load the proper siblings to session
-						var origin_bids = getOriginKeys(new_bids);
-	          var origin = origin_bids.length > 0 ? origin_bids[origin_bids.length -1] : '';
-	          if (origin == null || origin == "undefined") {
-	            origin = '';
-	          }
+          // Getting previous breadcrumb entry, in order to load the proper siblings to session
+					var origin_bids = getOriginKeys(new_bids);
+          var origin = origin_bids.length > 0 ? origin_bids[origin_bids.length -1] : '';
+          if (origin == null || origin == "undefined") {
+            origin = '';
+          }
 
-						if (sids.join(",") == $.fragment().sids) {
-			        // Sids won't change, we are inside a new form, and we press the breadcrumb to go back
-							var path = $.queryString($(this).attr('href'), {"sids" : sids.join(","), "bids" : ''});
-							$.getScript(path);
-						}
-						else {
-							$.setFragment({
-								"bids": new_bids.join(","),
-								"sids": sids.join(","),
-								"nl": true,
-								"origin": origin
-							});
-						}
-	          return false;
-	        });
-		    });
+					if (sids.join(",") == $.fragment().sids) {
+		        // Sids won't change, we are inside a new form, and we press the breadcrumb to go back
+						var path = $.queryString($(this).attr('href'), {"sids" : sids.join(","), "bids" : ''});
+						$.getScript(path);
+					}
+					else {
+						$.setFragment({
+							"bids": new_bids.join(","),
+							"sids": sids.join(","),
+							"nl": true,
+							"origin": origin
+						});
+					}
+          return false;
+        });
 		  }
 
 
@@ -225,7 +233,6 @@
                              append($('<span/>').addClass('icon')).
                              append($('<span/>').addClass('title').text(data['title'])));
         breadcrumb.hide();
-        initBreadcrumb(breadcrumb);
         return breadcrumb;
       }
 
@@ -270,6 +277,7 @@
 						  if (existentBreadcrumb.length == 0) {
 						  	var breadcrumb = buildBreadcrumb(breadcrumbData, index, breadcrumbs_length);
 						  	container.append(breadcrumb);
+								initBreadcrumb(breadcrumb);
 						  } else {
 								existentBreadcrumb.nextAll().remove();
 							}
