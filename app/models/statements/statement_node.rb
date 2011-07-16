@@ -480,7 +480,8 @@ class StatementNode < ActiveRecord::Base
       end
 
       # Permissions
-      opts[:node_conditions] ||= [] 
+      opts[:node_conditions] ||= []
+      opts[:node_conditions].map!{|cond|sanitize_sql(cond)}
       opts[:node_conditions] << Statement.conditions(opts, "s.closed_statement", "s.granted_user_id")
 
       # Statement type
