@@ -9,18 +9,23 @@ module LinkingModule
   def auto_complete_for_statement_title
     type = params[:type]
     linkable_types = type.classify.constantize.linkable_types.map(&:to_s)
-
+    
+    parent_node = StatementNode.find(params[:parent_id])
+    
     # Excluding content belonging to the same subtree
     joins = "LEFT JOIN statement_nodes_parents s_parents ON s_parents.id = s.id "
-    conditions = sanitize_sql(["(s_parents.parent_node_id != ? OR (s_parents.type = 'Question' AND s.root_id != ?))", params[:parent_id], params[:parent_id]])
-
-    statement_nodes = search_statement_nodes :param => 'statement_id',
+    conditions = ["(s_parents.parent_node_id != ? OR 
+                   (s_parents.type = 'Question' AND s.root_id != ?) OR
+                   (statement_nodes.root_id = ? AND statement_nodes.lft < ? AND statement_nodes.rgt > ?))", 
+                   parent_node.id, parent_node.id, parent_node.root_id, parent_node.lft, parent_node.rgt]
+    
+    statement_nodes = search_statement_nodes :param => 'statement_id', 
                                              :search_term => params[:q],
                                              :types => linkable_types,
                                              :limit => params[:limit] || 5,
                                              :language_ids => [params[:code] || locale_language_id],
                                              :joins => joins,
-                                             :node_conditions => conditions
+                                             :node_conditions => [conditions]
     documents = search_statement_documents(:statement_ids => statement_nodes.map(&:statement_id))
 
     content = statement_nodes.map(&:statement_id).uniq.map{ |id|
