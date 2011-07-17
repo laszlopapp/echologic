@@ -206,7 +206,7 @@
 			function insertStatement() {
 				if (!settings['insertStatement']) {return;}
 
-				hideStatements();
+				collapseStatements();
 
         var element = $('div#statements .statement').eq(settings['level']);
 				if(element.length > 0) {
@@ -234,9 +234,9 @@
 
 
       /*
-		   * Collapses all visible statements.
+		   * Collapses all visible statements to focus on the one appearing on new level.
 		   */
-		  function hideStatements() {
+		  function collapseStatements() {
 				$('#statements .statement .header:Event(!click)').expandable();
 				$('#statements .statement .header').removeClass('active').addClass('expandable');
 		    $('#statements .statement .content').animate(settings['hide_animation_params'],
@@ -786,7 +786,7 @@
 		      }
 		      else
 		      {
-		        hideStatements();
+		        collapseStatements();
 		        $('div#statements').append(statement);
 		      }
 					return this;
