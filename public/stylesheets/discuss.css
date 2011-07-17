@@ -631,7 +631,7 @@ a.statement_link:hover {
 .siblings_panel a.statement_link .title,
 .alternatives a.statement_link .title,
 .children a.statement_link .title {
-  line-height: 20px;
+  line-height: 18px;
   top: -1px;
 }
 
@@ -734,6 +734,7 @@ a.statement_link:hover {
   padding-left: 22px;
   position: relative;
   text-decoration: underline;
+  line-height: 20px;
 }
 
 .questions_container .question .description {
