@@ -44,7 +44,7 @@
 			var statementType = statement.attr('id').match("new") ? $.trim(statement.find('input#type').val()) :
                                                               $.trim(domId.match(/[^(add_|new_)]\w+[^_\d+]/));
       var statementId = getStatementId(domId);
-			var parentStatement, statementIndex;
+			var parentStatement, statementLevel;
 			var statementUrl;
 			var embedPlaceholder = statement.find('.embed_placeholder');
 
@@ -54,12 +54,12 @@
       // Initializes the statement.
       function initialise() {
 
-        // New level is loaded for the first time
+        // A new statement is loaded for the first time
         if (settings['load']) {
 					insertStatement();
 
-          // Initialise index of the current statement
-          statementIndex = $('#statements .statement').index(statement);
+          // Initialise the level and the parent of the current statement
+          statementLevel = $('#statements .statement').index(statement);
 					parentStatement = statement.prev();
 
 					// Navigation through siblings
@@ -120,23 +120,25 @@
       /******************/
 
       /*
-		   * Gets the siblings of the statement and places them in the client for navigation.
+		   * Gets the siblings of the statement and stores them in the client for navigation.
 		   */
 		  function storeSiblings() {
-        var key;
-				if (statementIndex > 0) {
-		      // Store siblings with the parent node id
-					var index = statementIndex-1;
-					key = $('#statements .statement:eq(' + index + ')').attr('id');
-		    } else {
-		      // No parent means it's a root node, therefore, store siblings under the key 'roots'
-		      key = 'roots';
-		    }
 		    var siblings = eval(statement.data("siblings"));
-		    if (siblings != null) {
-		      $("#statements").data(key, siblings);
-		    }
-		    statement.removeAttr("data-siblings");
+        if (!siblings) {return;}
+
+        // Siblings were transferred to the client with the currently loaded statement
+        var key;
+        if (statementLevel > 0) {
+          // Store siblings with the parent node id
+          var index = statementLevel-1;
+          key = $('#statements .statement:eq(' + index + ')').attr('id');
+        } else {
+          // No parent means it's a root node => store siblings under the key 'roots'
+          key = 'roots';
+        }
+
+        $("#statements").data(key, siblings);
+        statement.removeAttr("data-siblings");
 		  }
 
 
@@ -588,7 +590,7 @@
 
           if(newLevel){ // necessary evil: erase all breadcrumbs after the parent of the clicked statement
             var or_index = bids.length == 0 ? 0 : $.inArray($.fragment().origin, bids);
-            var level = or_index + (statementIndex+1);
+            var level = or_index + (statementLevel+1);
             bids = bids.splice(0, level);
             var new_bid = key + statementId;
             bids.push(new_bid);
@@ -667,13 +669,13 @@
         // Get current_stack of visible statements (if any matches the clicked statement, then break)
 				var current_stack = [];
 		    $("#statements .statement").each( function(index){
-		      if (index < statementIndex) {
+		      if (index < statementLevel) {
 		        id = $(this).attr('id').split('_').pop();
 		        if(id.match("add")){
 		          id = "add/" + id;
 		        }
 		        current_stack.push(id);
-		      } else if (index == statementIndex) {
+		      } else if (index == statementLevel) {
 		         if (newLevel) {
 		          current_stack.push($(this).attr('id').split('_').pop());
 		         }
