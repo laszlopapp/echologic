@@ -6,6 +6,7 @@ de:
       follow_echo: Folgen Sie echo
     greeting: 'Hallo {{name}},'
     echo_community: 'echo Community'
+    echo_member: 'echo-Mitglied'
     bye: |
       Herzliche Grüße,
 
@@ -51,6 +52,11 @@ de:
         You need to fill the subject and text fields in order to send the newsletter.
       sent: |-
         Your newsletter mails are being delivered...
+
+    user_mail:
+      subject: "[echo Nachricht] {{subject}}"
+      prefix: "{{sender}} hat Ihnen eine Nachricht via echo gesendet:"
+      suffix: "Sie können {{sender}} direkt antworten, in dem Sie auf diese Mail antworten oder ihr/sein echo-Profil besuchen: {{url}}"
 
     activity_tracking:
       subject: echo - Neue Diskussionsbeiträge

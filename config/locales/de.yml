@@ -472,6 +472,7 @@ de:
       current_improvement: 'Die aktuell angezeigte Ergänzung'
       current_pro_argument: 'Das gegenwärtig angezeigte PRO-Argument'
       current_contra_argument: 'Das gegenwärtig angezeigte KONTRA-Argument'
+      current_background_info: 'Die aktuell angezeigte Hintergrundinformation'
       current_follow_up_question: 'Die gegenwärtig angezeigte Folgefrage'
       back_to_question: 'Zurück zur aktuellen Fragestellung'
       back_to_proposal: 'Zurück zum aktuellen Vorschlag'
@@ -486,6 +487,8 @@ de:
       next_pro_argument: Das nächste Argument für den aktuellen Vorschlag lesen'
       prev_contra_argument: 'Das vorherige Argument für den aktuellen Vorschlag lesen'
       next_contra_argument: 'Das nächste Argument für den aktuellen Vorschlag lesen'
+      prev_background_info: 'Vorige Hintergrundinfo zum aktuellen Statement anschauen'
+      next_background_info: 'Nächste Hintergrundinfo zum aktuellen Statement anschauen'
       prev_follow_up_question: 'Die vorherige Folgefrage in diesem Zusammenhang lesen'
       next_follow_up_question: 'Die nächste Folgefrage in diesem Zusammenhang lesen'
       create_question: 'Neue Fragestellung hinzufügen'
@@ -493,6 +496,8 @@ de:
       create_improvement: 'Tragen Sie Ihre neue Idee zum aktuellen Vorschlag ein'
       create_pro_argument: "Ein neues PRO-Argument für diesen Vorschlag hinzufügen"
       create_contra_argument: "Ein neues KONTRA-Argument für diesen Vorschlag hinzufügen"
+      create_alternative: "Geben Sie eine neue Gegenmeinung zu diesem Statement ein"
+      create_background_info: "Fügen Sie eine weitere Hintergrundinformation zu diesem Statement an."
       create_follow_up_question: "Eine neue Folgefrage im aktuellen Zusammenhang hinzufügen"
       echo: 'Unterstützen Sie diese Aussage durch Ihr Echo!'
       unecho: 'Ziehen Sie Ihre Stimme zurück, wenn Sie die Aussage nicht mehr unterstützen möchten'
@@ -506,6 +511,10 @@ de:
         improvement: Alle Ergänzungsideen zum gegenwärtigen Vorschlag anzeigen
         pro_argument: Alle Argumente zum gegenwärtigen Vorschlag anzeigen
         contra_argument:  Alle Argumente zum gegenwärtigen Vorschlag anzeigen
+      link_statement: |
+        Geben Sie einen Teil des Titels ein oder fügen Sie die URL eines Statements ein.
+        Klicken Sie danach hier, um das Statement im aktuellen Kontext zu verlinken.
+      unlink_statement: "Klicken Sie hier erneut, um die Verlinkung wieder zu entfernen."
 
     statements:
       label: 'Stimmen'
@@ -517,17 +526,23 @@ de:
           one: '{{supporter_count}} UnterstützerIn'
           many: '{{supporter_count}} UnterstützerInnen'
       add_new: Neue Aussage
+      copy_url: Link zu
       create_question_link: 'Neue Fragestellung hinzufügen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
       create_internal_link: 'Neue Idee?'
-      create_improvement_link: 'Neue Ergänzung vorschlagen'
+      create_improvement_link: Neue Ergänzung vorschlagen
       create_pro_argument_link: Neues PRO-Argument hinzufügen
       create_contra_argument_link: Neues KONTRA-Argument hinzufügen
+      create_alternative_link: Neue Gegenmeinung hinzufügen
+      create_background_info_link: Neue Hintergrundinfo hinzufügen
       create_follow_up_question_link: Neue Folgefrage hinzufügen
       recommend_link: 'Unterstützen (Echo)'
       unrecommend_link: 'Stimme widerrufen'
       support_link: 'Unterstützen (Echo)'
       unsupport_link: 'Stimme widerrufen'
+      preview_embedded_content: Vorschau
+      open_embedded_content: In neuem Fenster öffnen
+
 
       statement_language_hint: |
         Bitte stellen Sie Ihre Sprachkenntnisse in Ihrem <a href='{{url}}'>Profil</a> ein.
@@ -547,8 +562,12 @@ de:
         improvement: Überschrift der Ergänzungsidee auf... Deutsch?
         pro_argument: Überschrift des PRO-Arguments auf... Deutsch?
         contra_argument: Überschrift des KONTRA-Arguments auf... Deutsch?
+        background_info: Überschrift der Hintergrundinfo auf... Deutsch?
         follow_up_question: Überschrift der Folgefrage auf... Deutsch?
       text_hint:
+        alternative_prefix: |
+          GEGENMEINUNGEN sind gegenläufig zum originalen Statement und allen seiner anderen Alternativen.
+          Sie schließen sich alle gegenseitig aus.<br/><br/>
         question: Bitte erläutern Sie das Thema näher und stellen Sie eine konkrete Frage...
         proposal: |
           Bitte erläutern Sie Ihren Vorschlag näher...<br/><br/>
@@ -560,8 +579,13 @@ de:
           ihre hier formulierten Ideen und Gedanken in den Vorschlag einzupflegen.
         pro_argument: Bitte erläutern Sie Ihren Grund FÜR den Vorschlag näher...
         contra_argument: Bitte erläutern Sie Ihren Grund GEGEN den Vorschlag näher...
+        background_info: |
+          Bitte beschreiben Sie kurz die angefügte Hintergrundinformation und erwähnen Sie,
+          warum diese im aktuellen Kontext interessant ist.
         follow_up_question: Bitte erläutern Sie Ihre Folgefrage näher...
       tag_hint: 'Schlagworte hier eingeben...'
+      info_url_hint: 'Geben Sie den Link zum externen Inhalt ein'
+      copy_url_hint: 'Kopieren Sie den Link zum Statement und teilen Sie ihn über Ihre bevorzugten Netzwerke und Kanäle.'
 
       publish: Freigeben
       published: Die Fragestellung wurde erfolgreich freigegeben.
@@ -573,6 +597,8 @@ de:
         improvement: 'Ergänzung'
         pro_argument: 'Pro-Argument'
         contra_argument: 'Kontra-Argument'
+        alternative: 'Gegenmeinung'
+        background_info: 'Hintergrundinfos'
         follow_up_question: 'Folgefrage'
       new:
         question:  'Neue Fragestellung'
@@ -580,20 +606,25 @@ de:
         improvement: 'Neue Ergänzung'
         pro_argument: 'Neues Pro-Argument'
         contra_argument: 'Neues Kontra-Argument'
+        background_info: 'Neue Hintergrundinfo'
         follow_up_question: 'Neue Folgefrage'
       headings:
         question: 'Fragestellungen'
         proposal: 'Vorschläge'
         improvement: 'Ergänzungen'
         argument: 'Pro & Kontra'
+        alternatives: 'Alternativen'
+        background_info: 'Hintergrundinfos'
         follow_up_question: 'Folgefragen'
       sibling_labels:
         question: 'Fragen'
         proposal: 'Vorschläge'
         improvement: 'Ergänzungen'
         argument: 'Argumente'
+        background_info: 'Hintergründe'
         follow_up_question: 'Fragen'
       siblings:
+        background_info: 'Hintergrundinfos'
         follow_up_question: 'Folgefrage im obigen Kontext'
 
       topic: Thema (Tags / Schlüsselwörte)
@@ -639,7 +670,12 @@ de:
       cannot_be_edited: |
         Sie können diesen Beitrag nicht mehr editieren, da er bereits durch jemanden unterstützt wurde.
         Dies ist notwendig, um Verfälschungen des Meinungsbildes zu vermeiden.
+      cannot_be_linked: Leider kann dieses Statement nicht im aktuellen Zusammenhang verlinkt werden.
       echos_label: Unterstützung
+
+      linking:
+        disabled: Verlinken
+        enabled: Verlinkt
 
       breadcrumbs:
         discuss_search: Suchergebnisse
@@ -648,11 +684,21 @@ de:
           ds: ''
           mi: ''
           sr: 'Gefundene Fragestellungen für'
+          pr: 'Vorschläge für'
+          im: 'Ergänzungen zu'
+          ar: 'Argumente für'
+          bi: 'Hintergrundinfos für'
+          jp: 'Direktlink in'
           fq: 'Folgefragen zu'
           over:
             ds: 'Zurück zu'
             mi: 'Zurück zu'
             sr: 'Zurück zu Suchergebnissen für'
+            pr: 'Zurück zu'
+            im: 'Zurück zu'
+            ar: 'Zurück zu'
+            bi: 'Zurück zu'
+            jp: 'Zurück zu'
             fq: 'Zurück zu'
 
       upload_image:
@@ -677,6 +723,9 @@ de:
         contra_argument: |
           Hier könnte Ihr Argument GEGEN den Vorschlag stehen.<br/><br/>Haben Sie eines?<br/><br/>
           Nutzen Sie den obenstehenden Link, um es JETZT einzugeben!
+        background_info: |
+          Hier könnte IHRE Hintergrundinfo zum Statement stehen.<br/><br/>Möchten Sie eine hinzufügen?<br/><br/>
+          Nutzen Sie den obenstehenden Link, um sie JETZT einzugeben!
         follow_up_question: |
           Hier könnte Ihre Folgefrage stehen.<br/><br/>Haben Sie eine?<br/><br/>
           Nutzen Sie den obenstehenden Link, um sie JETZT einzugeben!
@@ -757,8 +806,9 @@ de:
         web_addresses: 'Web Adressen'
       actions:
         report: "Melden"
+        send_mail: "Nachricht senden"
     messages:
-      empty:           'Zu Ihrer Suchanfrage wurden keine Ergebnisse gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff.'
+      empty: 'Zu Ihrer Suchanfrage wurden keine Ergebnisse gefunden. Bitte versuchen Sie es mit einem anderen Suchbegriff.'
       no_concernments: 'Dieses Mitgleid hat noch keine Betroffenheiten und Kompetenzen eingetragen.'
       no_web_addresses: 'Dieses Mitglied hat noch keine Web Adressen eingetragen.'
 
@@ -778,8 +828,16 @@ de:
     create:
       thank_you: Vielen Dank für Ihre Nachricht.
 
+  user_mail:
+    new:
+      title: Nachricht senden
+      guide: Hier können Sie eine E-Mail an das von Ihnen ausgewählte echo-Mitglied senden.
+      subject: Betreff
+      text: Nachricht
+    create:
+      thank_you: Ihre Nachricht wurde erfolgreich versendet.
 
-# Model resources
+  # Model resources
   activerecord:
     errors:
       models:
@@ -847,6 +905,10 @@ de:
         title: 'Titel'
         text: 'Erläuterung'
         image: 'Illustration'
+      statement:
+        info_type_id: 'Inhaltsart'
+      statement_data:
+        info_url: 'Link zur Hintergrundinfo'
       about_item:
         photo: 'Photo'
         name: 'Name'
