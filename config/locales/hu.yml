@@ -414,6 +414,10 @@ hu:
       messages:
         created: "Thank you for your message. An administrator was notified."
 
+    user_mails:
+      messages:
+        created: "Üzeneted sikeresen elküldésre került."
+
   # ---------------
   # Discuss section
   # ---------------
@@ -559,9 +563,8 @@ hu:
         question: Kérjük mutasd be röviden a témát és tégy fel egy konkrét kérdést...
         proposal: |
           Kérjük fejtsd ki javaslatodat részletesebben...<br/><br/>
-          A kérdés jellegétől függően, egy javaslat értelmezhető egy a kérdésre adott lehetséges válaszként
-          (enciklopédia - tudásbázis), ötletként vagy megoldási javaslatként (brainstorming) avagy egy politikai
-          vitában tett állásfoglalásként.
+          A kérdés jellegétől függően egy javaslat értelmezhető egy a kérdésre adott lehetséges válaszként
+          (enciklopédia - tudásbázis), ötletként (brainstorming) avagy egy politikai vitában tett állásfoglalásként.
         improvement: |
           Kérjük mutasd be kiegészítési vagy jobbító javaslatodat részletesebben...<br/><br/>
           Ezen kiegésztések szolgálnak a javaslatok közös, demokratikus úton történő továbbfejlesztésének alapjául.
@@ -603,7 +606,7 @@ hu:
         question: 'Kérdésfelvetések'
         proposal: 'Javaslatok'
         improvement: 'Kiegészítések'
-        argument: 'Érvek Mellette & Ellene'
+        argument: 'Mellette & Ellene'
         alternatives: 'Alternatívák'
         background_info: 'Háttérinfók'
         follow_up_question: 'Felmerülő Kérdések'
