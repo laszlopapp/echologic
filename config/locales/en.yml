@@ -405,7 +405,7 @@ en:
 
     user_mails:
       messages:
-        created: "The mail was sent to you fellow echo user. Thank you for the participation."
+        created: "Ihre Nachricht wurde erfolgreich versendet."
 
 
   # ---------------
@@ -780,7 +780,7 @@ en:
         web_addresses: 'Web Addresses'
       actions:
         report: "Report"
-        send_mail: "Send Mail"
+        send_mail: "Send Message"
     messages:
       empty:           'No members found. Please change your search criteria.'
       no_concernments: "This member hasn't defined any concernments and competences, yet."
