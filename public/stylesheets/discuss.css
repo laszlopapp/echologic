@@ -348,7 +348,7 @@ form.embeddable .embed_data .label {
   color: #7bb031;
   font-size: 15px;
   font-weight: bold;
-  display: inline-block;
+  display: block;
   padding-top: 10px;
 }
 
