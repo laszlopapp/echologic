@@ -460,6 +460,7 @@ hu:
       current_improvement: 'Az éppen olvasható kiegészítés a javaslathoz'
       current_pro_argument: 'Az éppen olvasható érv a javaslat MELLETT'
       current_contra_argument: 'Az éppen olvasható érv a javaslat ELLEN'
+      current_background_info: 'Az éppen látható háttérinformáció'
       current_follow_up_question: 'Az éppen olvasható fenti összefüggésben felmerülő kérdés'
       back_to_question: 'Vissza az aktuális kérdésfelvetéshez'
       back_to_proposal: 'Vissza az aktuális javaslathoz'
@@ -474,6 +475,8 @@ hu:
       next_pro_argument: 'Olvasd el a következő érvet az aktuális javaslathoz'
       prev_contra_argument: 'Olvasd el az előző érvet az aktuális javaslathoz'
       next_contra_argument: 'Olvasd el a következő érvet az aktuális javaslathoz'
+      prev_background_info: 'Nézd meg az előző háttérinfót az aktuális hozzászólás kapcsán'
+      next_background_info: 'Nézd meg a következő háttérinfót az aktuális hozzászólás kapcsán'
       prev_follow_up_question: 'Olvasd el a fenti összefüggésben felmerülő előző kérdést'
       next_follow_up_question: 'Olvasd el a fenti összefüggésben felmerülő következő kérdést'
       create_question: 'Vess fel egy új kérdést'
@@ -481,6 +484,8 @@ hu:
       create_improvement: "Mondj egy új kiegészítést vagy jobbító ötletet az aktuális javaslathoz"
       create_pro_argument: "Mondj egy új érvet a javaslat MELLETT"
       create_contra_argument: "Mondj egy új érvet a javaslat ELLEN"
+      create_alternative: "Állíts szembe egy új ellenvéleményt az aktuális hozzászólással"
+      create_background_info: "Ajánlj egy új háttérinfót az aktuális hozzászólás kapcsán"
       create_follow_up_question: "Vess fel egy új, az aktuális hozzászólás kapcsán felmerülő kérdést"
       echo: 'Támogasd ezt a hozzászólást! Kelts visszhangot!'
       unecho: 'Vond vissza támogatásod!'
@@ -494,6 +499,10 @@ hu:
         improvement: Tekintsd át az összes kiegészítést az aktuális javaslathoz
         pro_argument: Tekintsd át az összes érvet az aktuális javaslatra vonatkozóan
         contra_argument:  Tekintsd át az összes érvet az aktuális javaslatra vonatkozóan
+      link_statement: |-
+        Add meg a cím egy részletét vagy másold be a kijelentés közvetlen URL-jét.
+        Ezután nyomd meg ezt a gombot a régi kijelentés beillesztéséhez.
+      unlink_statement: "Nyomd meg a gombot újra a régi és új bejegyzés közti összeköttetés feloldásához."
 
 
     statements:
@@ -506,16 +515,21 @@ hu:
           one: '{{supporter_count}} támogató'
           many: '{{supporter_count}} támogató'
       add_new: Új hozzászólás
+      copy_url: Link ide
       create_question_link: Vess fel egy új kérdést
       create_proposal_link: Tégy új javaslatot
       create_improvement_link: Javasolj új kiegészítést
       create_pro_argument_link: Mondj egy új érvet MELLETTE
       create_contra_argument_link: Mondj egy új érvet ELLENE
+      create_alternative_link: Mondj egy új ellenvéleményt
+      create_background_info_link: Ajánlj új háttérinformációt
       create_follow_up_question_link: Vess fel egy új felmerülő kérdést
       recommend_link: 'Támogatom (echo)'
       unrecommend_link: 'Visszavonom'
       support_link: 'Támogatom (echo)'
       unsupport_link: 'Visszavonom'
+      preview_embedded_content: Megtekintés
+      open_embedded_content: Megnyitom új ablakban
 
       statement_language_hint: |
         Kerjük állítsd be nyelvtudásod a <a href='{{url}}'>profilodban</a>.
@@ -536,8 +550,12 @@ hu:
         improvement: Írd be a kiegészítés címét... Magyarul?
         pro_argument: Írd be a MELLETTE szóló érv címét... Magyarul?
         contra_argument: Írd be az ELLENE szóló érv címét... Magyarul?
+        background_info: Írd be a háttérinfó címét... Magyarul?
         follow_up_question: Írd be az előzőek kapcsán felmerülő kérdés címét... Magyarul?
       text_hint:
+        alternative_prefix: |
+          Az ELLENVÉLEMÉNYEK az eredeti hozzászólással illetve ennek minden alternatívájával
+          egymást kölcsönösen kizáró viszonyban állnak.<br/><br/>
         question: Kérjük mutasd be röviden a témát és tégy fel egy konkrét kérdést...
         proposal: |
           Kérjük fejtsd ki javaslatodat részletesebben...<br/><br/>
@@ -552,8 +570,13 @@ hu:
 
         pro_argument: Kérjük fejtsd ki a javaslat MELLETT szóló érved részletesebben...
         contra_argument: Kérjük fejtsd ki a javaslat ELLEN szóló érved részletesebben...
+        background_info: |
+          Kérjük mutasd be röviden az ajánlott háttérinformációt, és írd le,
+          hogy miért találod azt érdekesnek az adott kontextusban...
         follow_up_question: Kérjük mutasd be röviden az előzőek kapcsán felmerülő témát és tégy fel egy konkrét kérdést...
       tag_hint: 'Adj meg pár kulcsszót (tags)...'
+      info_url_hint: 'Add meg a külső tartalomhoz vezető linket'
+      copy_url_hint: 'Másold ki a hozzászóláshoz vezető linket és terjeszd a szót kedvenc csatornáidon keresztül.'
 
       publish: Publikálom
       published: A kérdésfelvetést sikeresen publikáltad.
@@ -565,6 +588,8 @@ hu:
         improvement: 'Kiegészítés'
         pro_argument: 'Érv mellette'
         contra_argument: 'Érv ellene'
+        alternative: 'Ellenvélemény'
+        background_info: 'Háttérinfó'
         follow_up_question: 'Felmerülő kérdés'
       new:
         question: 'Új Kérdésfelvetés'
@@ -572,20 +597,25 @@ hu:
         improvement: 'Új Kiegészítés'
         pro_argument: 'Új Érv Mellette'
         contra_argument: 'Új Érv Ellene'
+        background_info: 'Új Háttérinfó'
         follow_up_question: 'Új Felmerülő Kérdés'
       headings:
         question: 'Kérdésfelvetések'
         proposal: 'Javaslatok'
         improvement: 'Kiegészítések'
         argument: 'Érvek Mellette & Ellene'
+        alternatives: 'Alternatívák'
+        background_info: 'Háttérinfók'
         follow_up_question: 'Felmerülő Kérdések'
       sibling_labels:
         question: 'Kérdések'
         proposal: 'Javaslatok'
         improvement: 'Kiegészítések'
         argument: 'Érvek'
+        background_info: 'Háttérinfók'
         follow_up_question: 'Kérdések'
       siblings:
+        background_info: 'Háttérinformációk'
         follow_up_question: 'A fenti összefüggésben felmerülő kérdés'
 
       topic: Téma (Kulcsszavak / Tags)
@@ -628,7 +658,12 @@ hu:
       cannot_be_edited: |
         A hozzászólás sajnos már nem szerkeszthető, mivel időközben már mások is támogatták azt.
         Ez a korlátozás a vélemények meghamisításának elkerülése érdekében szükséges.
+      cannot_be_linked:  Ez a hozzászólás az aktuális kontextusban nem beilleszthető.
       echos_label: Támogatottság
+
+      linking:
+        disabled: Beilleszt
+        enabled: Beillesztve
 
       breadcrumbs:
         discuss_search: Keresés eredménye
@@ -637,11 +672,21 @@ hu:
           ds: ''
           mi: ''
           sr: 'Erre talált kérdések'
+          pr: 'Javaslatok erre'
+          im: 'Kiegészítések ehhez'
+          ar: 'Érvek erre'
+          bi: 'Háttérinfók ehhez'
+          jp: 'Közvetlen link itt'
           fq: 'Itt felmerülő kérdések'
           over:
             ds: 'Vissza ide'
             mi: 'Vissza ide'
             sr: 'Vissza a keresés eredményéhez'
+            pr: 'Vissza ide'
+            im: 'Vissza ide'
+            ar: 'Vissza ide'
+            bi: 'Vissza ide'
+            jp: 'Vissza ide'
             fq: 'Vissza ide'
 
       upload_image:
@@ -665,6 +710,9 @@ hu:
           Nyomd meg a fenti gombot és oszd meg velünk MOST!
         contra_argument: |
           Ez az a hely, ahol a TE érved állhatna a javaslat ELLEN.<br/><br/>Van ötleted?<br/><br/>
+          Nyomd meg a fenti gombot és oszd meg velünk MOST!
+        background_info: |
+          Ez az a hely, ahol egy általad javasolt háttérinfó állhatna.<br/><br/>Van ötleted?<br/><br/>
           Nyomd meg a fenti gombot és oszd meg velünk MOST!
         follow_up_question: |
           Ez az a hely, ahol a TE kérdésfelvetésed állhatna az aktuális hozzászólásból fakadóan.<br/><br/>Van ötleted?<br/><br/>
@@ -743,6 +791,8 @@ hu:
         web_addresses: 'Elérhetőségek'
       actions:
         report: "Jelentem"
+        send_mail: "Írok neki"
+
     messages:
       empty: 'Sajnos senkit sem találtunk. Kerjük változtass keresési feltételeiden.'
       no_concernments: "Ez a felhasználó még nem definiálta ezen információkat."
@@ -762,6 +812,15 @@ hu:
       send: Elküldöm
     create:
       thank_you: Köszönjük, hogy írtál nekünk. Mihamarabb válaszolunk.
+
+  user_mail:
+    new:
+      title: Üzenet küldése
+      guide: Küldj üzenetet E-Mailben az echo közösség kiválasztott tagjának.
+      subject: Tárgy
+      text: Üzenet
+    create:
+      thank_you: Üzeneted sikeresen elküldésre került.
 
   activerecord:
     errors:
@@ -829,6 +888,11 @@ hu:
         title: 'Cím'
         text: 'Leírás'
         image: 'Illusztráció'
+      statement:
+        info_type_id: 'A háttérinfó típusa'
+        external_url: 'Háttérinfó link'
+      statement_data:
+        info_url: 'Háttérinfó link'
       about_item:
         photo: 'Kép'
         name: 'Név'

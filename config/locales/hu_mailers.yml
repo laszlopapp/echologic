@@ -6,6 +6,7 @@ hu:
       follow_echo: Kövesd az echot
     greeting: 'Kedves {{name}},'
     echo_community: 'echo community'
+    echo_member: 'echo közösségi tag'
     bye: |
       Minden jót kíván,
 
@@ -50,6 +51,11 @@ hu:
         You need to fill the subject and text fields in order to send the newsletter.
       sent: |-
         Your newsletter mails are being delivered...
+
+    user_mail:
+      subject: "[echo üzenet] {{subject}}"
+      prefix: "{{sender}} üzenetet küldött Neked az echon keresztül:"
+      suffix: "Válaszolj {{sender}}nak/nek közvetlenül E-Mailben vagy nézd meg a profilját az echon itt: {{url}}"
 
     activity_tracking:
       subject: echo - Új tartalmak
