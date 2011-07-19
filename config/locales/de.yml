@@ -511,7 +511,7 @@ de:
         improvement: Alle Ergänzungsideen zum gegenwärtigen Vorschlag anzeigen
         pro_argument: Alle Argumente zum gegenwärtigen Vorschlag anzeigen
         contra_argument:  Alle Argumente zum gegenwärtigen Vorschlag anzeigen
-        background_info:  Alle Argumente zur gegenwärtigen Hintergrundinfo anzeigen
+        background_info:  Alle Hintergrundinfos zum gegenwärtigen Statement anzeigen
       link_statement: |
         Geben Sie einen Teil des Titels ein oder fügen Sie die URL eines Statements ein.
         Klicken Sie danach hier, um das Statement im aktuellen Kontext zu verlinken.
@@ -526,7 +526,7 @@ de:
         recommend:
           one: '{{supporter_count}} UnterstützerIn'
           many: '{{supporter_count}} UnterstützerInnen'
-      add_new: Neue Aussage
+      add_new: Neues Statement
       copy_url: Link zu
       create_question_link: 'Neue Fragestellung hinzufügen'
       create_proposal_link: 'Neuen Vorschlag erstellen'
