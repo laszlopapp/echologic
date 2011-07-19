@@ -511,6 +511,7 @@ de:
         improvement: Alle Ergänzungsideen zum gegenwärtigen Vorschlag anzeigen
         pro_argument: Alle Argumente zum gegenwärtigen Vorschlag anzeigen
         contra_argument:  Alle Argumente zum gegenwärtigen Vorschlag anzeigen
+        background_info:  Alle Argumente zur gegenwärtigen Hintergrundinfo anzeigen
       link_statement: |
         Geben Sie einen Teil des Titels ein oder fügen Sie die URL eines Statements ein.
         Klicken Sie danach hier, um das Statement im aktuellen Kontext zu verlinken.
