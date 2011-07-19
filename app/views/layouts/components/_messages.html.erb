@@ -1,15 +1,15 @@
-<div id="messageContainer">
-  <div id="infoBox" class="ui-state-highlight" style="display:none;">
-    <div class="ui-icon ui-icon-info infoErrorIcon"></div>
+<div id="message_container">
+  <div id="info_box" class="ui-state-highlight" style="display:none;">
+    <div class="ui-icon ui-icon-info info_error_icon"></div>
     <div class="message">Message</div>
-    <a class="closeButton" href="close" onclick="$('#infoBox').stop(); return false;">
+    <a class="close_button" href="close" onclick="$('#infoBox').stop(); return false;">
       <%= I18n.t('application.general.close') %>
     </a>
   </div>
-  <div id="errorBox" class="ui-state-error" style="display:none;">
-    <div class="ui-icon ui-icon-alert infoErrorIcon"></div>
+  <div id="error_box" class="ui-state-error" style="display:none;">
+    <div class="ui-icon ui-icon-alert info_error_icon"></div>
     <div class="message">Message</div>
-    <a class="closeButton" href="close" onclick="$('#errorBox').stop(); return false;">
+    <a class="close_button" href="close" onclick="$('#errorBox').stop(); return false;">
       <%= I18n.t('application.general.close') %>
     </a>
   </div>
@@ -21,7 +21,7 @@
   <% elsif flash[:error] %>
     error('<%= escape_javascript(flash[:error]) %>');
   <% end %>
-	
+
 	<% if flash[:later_call] %>
 	   $.getScript('<%= escape_javascript(flash[:later_call]) %>');
   <% end %>
@@ -29,13 +29,13 @@
 
 <!-- noscript! -->
 <noscript>
-  <div id="messageContainer">
-    <div id="infoBox" class="ui-state-highlight" <%= "style='display:none'" unless flash[:notice] %> >
-      <div class="ui-icon ui-icon-info infoErrorIcon"></div>
+  <div id="message_container">
+    <div id="info_box" class="ui-state-highlight" <%= "style='display:none'" unless flash[:notice] %> >
+      <div class="ui-icon ui-icon-info info_error_icon"></div>
       <div class="message"><%= flash[:notice] %></div>
     </div>
-    <div id="errorBox" class="ui-state-error" <%= "style='display:none'" unless flash[:error] %> >
-      <div class="ui-icon ui-icon-alert infoErrorIcon"></div>
+    <div id="error_box" class="ui-state-error" <%= "style='display:none'" unless flash[:error] %> >
+      <div class="ui-icon ui-icon-alert info_error_icon"></div>
       <div class="message"><%= flash[:error] %></div>
     </div>
   </div>
