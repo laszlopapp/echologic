@@ -496,8 +496,8 @@ de:
       create_improvement: 'Tragen Sie Ihre neue Idee zum aktuellen Vorschlag ein'
       create_pro_argument: "Ein neues PRO-Argument für diesen Vorschlag hinzufügen"
       create_contra_argument: "Ein neues KONTRA-Argument für diesen Vorschlag hinzufügen"
-      create_alternative: "Geben Sie eine neue Gegenmeinung zu diesem Statement ein"
-      create_background_info: "Fügen Sie eine weitere Hintergrundinformation zu diesem Statement an."
+      create_alternative: "Eine neue Gegenmeinung zu diesem Statement eingeben"
+      create_background_info: "Eine neue Hintergrundinformation zu diesem Statement hinzufügen"
       create_follow_up_question: "Eine neue Folgefrage im aktuellen Zusammenhang hinzufügen"
       echo: 'Unterstützen Sie diese Aussage durch Ihr Echo!'
       unecho: 'Ziehen Sie Ihre Stimme zurück, wenn Sie die Aussage nicht mehr unterstützen möchten'
@@ -598,7 +598,7 @@ de:
         pro_argument: 'Pro-Argument'
         contra_argument: 'Kontra-Argument'
         alternative: 'Gegenmeinung'
-        background_info: 'Hintergrundinfos'
+        background_info: 'Hintergrundinfo'
         follow_up_question: 'Folgefrage'
       new:
         question:  'Neue Fragestellung'
