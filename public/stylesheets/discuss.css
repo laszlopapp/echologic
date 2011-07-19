@@ -16,60 +16,26 @@
 /* Action bar */
 /**************/
 
-.action_bar {
-  width: 160px;
-  clear: both;
-  float: left;
-  position: relative;
-  padding: 17px 7px;
-  text-align: center;
-  margin: 0 0 55px;
-  background-color: #cad3db;
-  border-radius: 12px;
-  -moz-border-radius: 12px;
-  -webkit-border-radius: 12px;
-}
-
-.action_bar .label {
-  color: #21587F;
-  font-size: 14px;
-  font-weight: bold;
-  position: relative;
-  top: 3px;
-  display: block;
-}
-
 #questions_container .action_bar {
   top: 8px;
+  float: left;
+}
+
+#my_questions .action_bar {
+  top: 0;
+  float: left;
 }
 
 .statement .action_bar {
   left: 7px;
   top: 43px;
+  float: left;
 }
 
-.statement .action_bar .more_button,
-.statement .action_bar .hide_button {
-  background: url("../images/page/discuss/action_panel_expander.png") no-repeat scroll left top transparent;
-	display: inline-block;
-  width: 174px;
-  height: 24px;
-  position: relative;
-  top: 17px;
-  left: -7px;
-}
-
-.statement .action_bar .more_button:hover {background-position: 0 -24px;}
-.statement .action_bar .hide_button {background-position: 0 -48px;}
-.statement .action_bar .hide_button:hover {background-position: 0 -72px;}
 
 /****************/
 /* My Questions */
 /****************/
-
-#my_questions .action_bar {
-  top: 0;
-}
 
 #my_questions .add_new_button {
   text-align: center;
@@ -1241,24 +1207,8 @@ a.statement_link:hover {
 /* Action Panel - More options */
 /*******************************/
 
-.action_bar .actions_container {
-  width: 158px;
-  background: #F7FAFA;
-  display: inline-block;
+.statement .action_bar .actions_container {
   margin-top: 30px;
-  padding-bottom: 15px;
-  border: 1px solid #acbdc6;
-  border-radius: 12px;
-  -moz-border-radius: 12px;
-  -webkit-border-radius: 12px;
-}
-
-.actions_container .text_button {
-  font-size: 14px;
-  font-weight: bold;
-  text-decoration: none;
-  margin: 15px 0 0;
-  display: inline-block;
 }
 
 /* Copy to clipboard button */

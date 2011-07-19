@@ -1,5 +1,5 @@
 
-/* GENERAL STYLES */
+/* General styles */
 
 #function_container h1 {
   color: #21587f;
@@ -21,7 +21,7 @@
   display: block;
 }
 
-/* BLOCK DESIGN WITH HEADER */
+/* Blocks and headers */
 
 .header_block {
   background: url(../images/page/header_left.png) no-repeat scroll left top;
@@ -163,7 +163,7 @@
   background: transparent url(../images/page/icons/help.png) no-repeat scroll 0 -16px;
 }
 
-/* FUNCTION BUTTONS */
+/* Standard buttons */
 
 .text_button {
   color: #21587f;
@@ -211,7 +211,7 @@
 }
 
 .cancel_text_button {
-  padding-left: 0px;
+  padding-left: 0;
   margin-left: 15px;
 }
 
@@ -249,7 +249,6 @@
   background-position: 0 0;
 }
 
-/* All buttons in a block header */
 .header_block .header_button {
   float: right;
   position: relative;
@@ -263,7 +262,7 @@
   top: 18px;
 }
 
-/* ADMIN STUFF */
+/* Admin stuff */
 
 .admin_action {
   background-color: #db4c3d;
@@ -279,7 +278,7 @@
 }
 
 
-/* TAGS */
+/* Tags */
 
 .tag_container {
   display: inline-block;
@@ -288,18 +287,20 @@
   padding: 2px 4px;
   min-height: 30px;
   border: 1px solid #999;
+  border-radius: 15px;
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
 }
 
 .tag {
   font-size: 13px;
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
   background-color: #E3EAEE;
   padding: 3px 7px;
   margin: 4px 3px;
   display: inline-block;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
 }
 
 .delete_tag_button {
@@ -320,8 +321,7 @@
   background-position: 0 -12px;
 }
 
-
-/* PAGINATION */
+/* Pagination */
 
 .more_pagination {
   text-align: center;
@@ -410,7 +410,6 @@
   background-position: -37px -78px;
   cursor: default;
 }
-
 
 /* Standard buttons */
 
@@ -507,7 +506,7 @@
   width: 300px;
 }
 
-/* Application layout stuff */
+/* Header layout */
 
 #logged_in_user {
   display: inline-block;
@@ -527,6 +526,8 @@
   -webkit-border-radius: 3px;
 }
 
+/* Application and function layout */
+
 #application_container {
   width: 100%;
   z-index: 5;
@@ -537,8 +538,6 @@
   margin-bottom: 12px;
   min-height: 410px;
 }
-
-/* BORDER SECTION */
 
 #application_container .border {
   width: 100%;
@@ -565,12 +564,12 @@
   padding-bottom: 1px;
 }
 
-#messageContainer {
+#message_container {
   width: 400px;
   margin: 0 auto;
 }
 
-#messageContainer div {
+#message_container div {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   -moz-border-radius-bottomleft: 10px;
@@ -581,12 +580,12 @@
   position: fixed;
 }
 
-#messageContainer #infoBox, #messageContainer #errorBox {
+#message_container #info_box, #message_container #error_box {
   z-index: 2000;
   position: fixed;
 }
 
-#messageContainer .infoErrorIcon {
+#message_container .info_error_icon {
   position: absolute;
   top: 6px;
   left: 10px;
@@ -595,7 +594,7 @@
   z-index: 2010;
 }
 
-#messageContainer .message , #messageContainer .closeButton {
+#message_container .message , #message_container .close_button {
   position: relative;
   left: 23px;
   width: 350px;
@@ -608,7 +607,7 @@
   margin: 30px 66px;
 }
 
-/* SUBMENUS */
+/* Submenus */
 
 .submenu {
   margin: 0 auto;
@@ -625,8 +624,8 @@
 }
 
 .submenu ul {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 
 .submenu li {
@@ -648,7 +647,7 @@
   color: #7bb031;
 }
 
-/* OTHER NAVIGATION*/
+/* Function button navigation */
 
 .text_for_function_button {
   margin: 5px 0 10px 30px;
@@ -724,14 +723,13 @@
   text-align: left;
 }
 
-/* All tab content containers */
 .tab_details_container .tab_content_container {
   float: left;
   padding: 0 15px;
 }
 
 
-/* SEARCH */
+/* Search panels */
 
 .search_container {
   width: 990px;
@@ -767,7 +765,6 @@
   top: 1px;
 }
 
-/*#search_form input[type='submit'],*/
 #search_form .submit_button {
   background: #FFF url(../images/page/searchbar_button.png) no-repeat scroll left top;
   width: 51px;
@@ -933,4 +930,62 @@
 .jspHorizontalBar .jspDrag {
 	top: -2px;
   height: 10px !important;
+}
+
+
+/* Action Panels */
+
+.action_bar {
+  width: 160px;
+  position: relative;
+  padding: 17px 7px;
+  text-align: center;
+  margin: 0 0 55px;
+  background-color: #cad3db;
+  border-radius: 12px;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+}
+
+.action_bar .label {
+  color: #21587F;
+  font-size: 14px;
+  font-weight: bold;
+  position: relative;
+  top: 3px;
+  display: block;
+}
+
+.action_bar .more_button,
+.action_bar .hide_button {
+  background: url("../images/page/discuss/action_panel_expander.png") no-repeat scroll left top transparent;
+	display: inline-block;
+  width: 174px;
+  height: 24px;
+  position: relative;
+  top: 17px;
+  left: -7px;
+}
+
+.action_bar .more_button:hover {background-position: 0 -24px;}
+.action_bar .hide_button {background-position: 0 -48px;}
+.action_bar .hide_button:hover {background-position: 0 -72px;}
+
+.action_bar .actions_container {
+  width: 158px;
+  background: #F7FAFA;
+  display: inline-block;
+  padding-bottom: 15px;
+  border: 1px solid #acbdc6;
+  border-radius: 12px;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+}
+
+.actions_container .text_button {
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  margin: 15px 0 0;
+  display: inline-block;
 }
