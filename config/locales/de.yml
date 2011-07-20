@@ -832,7 +832,7 @@ de:
   user_mail:
     new:
       title: Nachricht senden
-      guide: Hier können Sie eine E-Mail an das von Ihnen ausgewählte echo-Mitglied senden.
+      guide: Hier können Sie eine E-Mail an ein von Ihnen ausgewähltes echo-Mitglied senden.
       subject: Betreff
       text: Nachricht
     create:
