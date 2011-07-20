@@ -387,9 +387,6 @@ pt:
       messages:
         created: "Obrigado pela sua mensagem. Um dos administradores foi notificado."
 
-    user_mails:
-      messages:
-        created: "A sua mensagem foi enviada com sucesso."
 
   # ---------------
   # Discuss section

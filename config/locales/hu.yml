@@ -414,9 +414,6 @@ hu:
       messages:
         created: "Thank you for your message. An administrator was notified."
 
-    user_mails:
-      messages:
-        created: "Üzeneted sikeresen elküldésre került."
 
   # ---------------
   # Discuss section
