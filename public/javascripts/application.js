@@ -146,8 +146,6 @@
   /* Remove all activeMenu classes and give it to the static menu item specified
    * through the given parameter. */
   function changeMenuImage(item) {
-    $('#staticMenu .menuImage').removeClass('activeMenu');
-    $('#staticMenu #'+item+' .menuImage').toggleClass('activeMenu');
     $('#static_menu a').removeClass('active');
     $('#static_menu #'+item+'_button').toggleClass('active');
   }
@@ -189,17 +187,17 @@
 
   /* Show error or info messages in messagesContainer and hide it with delay. */
   function info(text) {
-    $('#infoBox').stop().hide();
-    $('#errorBox').stop().hide();
-    $('#messageContainer #infoBox .message').html(text);
-    $('#messageContainer #infoBox').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
+    $('#info_box').stop().hide();
+    $('#error_box').stop().hide();
+    $('#message_container #info_box .message').html(text);
+    $('#message_container #info_box').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
   }
 
   function error(text) {
-    $('#infoBox').stop().hide();
-    $('#errorBox').stop().hide();
-    $('#messageContainer #errorBox .message').html(text);
-    $('#messageContainer #errorBox').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
+    $('#info_box').stop().hide();
+    $('#error_box').stop().hide();
+    $('#message_container #error_box .message').html(text);
+    $('#message_container #error_box').slideDown().animate({opacity: 1.0}, 5000 + text.length*50).slideUp();
   }
 
 
