@@ -73,7 +73,7 @@ de:
           Sie ist nur sichtbar für Nutzer, die den selben **tag unter 'Entscheidungsträger in' in ihrem
           Profil eingetragen haben.</p>
           <p>Dies ist nur eine vorübergehende Lösung, um geschlossene Diskussionen in echo anzubieten.
-          Die angestrebte Lösung, mit Kontaktlisten, Einladungsversand und Rechtemanagement, wird zu einem
+          Die angestrebte Lösung, mit Kreisen, Einladungsversand und Rechtemanagement, wird zu einem
           späteren Zeitpunkt realisiert.</p>
     profile:
       closed_discussions:
@@ -83,7 +83,7 @@ de:
           Dies erlaubt es Ihnen, in transparenten, halb-geschlossenen Diskussionen (markiert mit *tag) teilzunehmen
           sowie vollständig geschlossene Diskussionen (geschützt durch **tags) zu sehen.</p>
           <p>Dies ist nur eine vorübergehende Lösung, um geschlossene Diskussionen in echo anzubieten.
-          Die angestrebte Lösung, mit Kontaktlisten, Einladungsversand und Rechtemanagement, wird zu einem
+          Die angestrebte Lösung, mit Kreisen, Einladungsversand und Rechtemanagement, wird zu einem
           späteren Zeitpunkt realisiert.</p>
 
   # Localizations for the layout components
@@ -519,13 +519,11 @@ de:
 
     statements:
       label: 'Stimmen'
+      echo_link: 'Unterstützen (Echo)'
+      unecho_link: 'Stimme widerrufen'
       echo_indicator:
-        support:
-          one: '{{supporter_count}} UnterstützerIn'
-          many: '{{supporter_count}} UnterstützerInnen'
-        recommend:
-          one: '{{supporter_count}} UnterstützerIn'
-          many: '{{supporter_count}} UnterstützerInnen'
+        one: '{{supporter_count}} UnterstützerIn'
+        many: '{{supporter_count}} UnterstützerInnen'
       add_new: Neues Statement
       copy_url: Link zu
       create_question_link: 'Neue Fragestellung hinzufügen'
@@ -537,10 +535,6 @@ de:
       create_alternative_link: Neue Gegenmeinung hinzufügen
       create_background_info_link: Neue Hintergrundinfo hinzufügen
       create_follow_up_question_link: Neue Folgefrage hinzufügen
-      recommend_link: 'Unterstützen (Echo)'
-      unrecommend_link: 'Stimme widerrufen'
-      support_link: 'Unterstützen (Echo)'
-      unsupport_link: 'Stimme widerrufen'
       preview_embedded_content: Vorschau
       open_embedded_content: In neuem Fenster öffnen
 

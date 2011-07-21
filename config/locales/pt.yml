@@ -492,13 +492,11 @@ pt:
 
     statements:
       label: 'votos'
+      echo_link: 'Apoiar (echo)'
+      unecho_link: 'Desapoiar'
       echo_indicator:
-        support:
-          one: '{{supporter_count}} apoiante'
-          many: '{{supporter_count}} apoiantes'
-        recommend:
-          one: '{{supporter_count}} apoiante'
-          many: '{{supporter_count}} apoiantes'
+        one: '{{supporter_count}} apoiante'
+        many: '{{supporter_count}} apoiantes'
       add_new: Adicionar novo/a...
       copy_url: Link para
       create_question_link: 'Criar uma nova questão'
@@ -510,10 +508,6 @@ pt:
       create_alternative_link: "Criar nova oposição"
       create_background_info_link: Criar nova informação de fundo
       create_follow_up_question_link: 'Criar nova questão complementar'
-      recommend_link: 'Apoiar (echo)'
-      unrecommend_link: 'Desapoiar'
-      support_link: 'Apoiar (echo)'
-      unsupport_link: 'Desapoiar'
       preview_embedded_content: Pré-visualização
       open_embedded_content: Abrir em nova janela
 

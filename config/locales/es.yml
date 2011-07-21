@@ -514,13 +514,11 @@ es:
 
     statements:
       label: 'votos'
+      echo_link: 'Apoya (echo)'
+      unecho_link: 'Retirar voto'
       echo_indicator:
-        support:
-          one: '{{supporter_count}} voto'
-          many: '{{supporter_count}} votos'
-        recommend:
-          one: '{{supporter_count}} voto'
-          many: '{{supporter_count}} votos'
+        one: '{{supporter_count}} voto'
+        many: '{{supporter_count}} votos'
       add_new: Crear nuevo/a...
       create_question_link: 'Crear nuevo debate'
       create_proposal_link: 'Crear nueva propuesta'
@@ -529,10 +527,6 @@ es:
       create_pro_argument_link: Crear un nuevo argumento a favor
       create_contra_argument_link: Crear un nuevo argumento en contra
       create_follow_up_question_link: Formular una nueva pregunta de seguimiento
-      recommend_link: 'Apoya (echo)'
-      unrecommend_link: 'Retirar voto'
-      support_link: 'Apoya (echo)'
-      unsupport_link: 'Retirar voto'
 
       statement_language_hint: |
         Para realizar algún comentario, selecciona por favor, el conocimiento de idiomas en tu <a href='{{url}}'>Perfil</a>.

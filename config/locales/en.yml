@@ -70,7 +70,7 @@ en:
           <p>Defining a **tag (with TWO **) will make this discussion fully closed. It will only be visible for users
           having the same **tag as a decision making tag in their profile.</p>
           <p>Please note, that this is just a temporary solution to facilitate closed discussions in echo. The real
-          solution with contact lists, invitations and fine-graded access right management will be coming later.</p>
+          solution with circles, invitations and fine-graded access right management will be coming later.</p>
     profile:
       closed_discussions:
         hint: Tags to access closed discussions...
@@ -79,7 +79,7 @@ en:
           take part in transparent, semi-closed discussions (tagged with *tag) and to see closed, internal
           ones (protected with **tag) respectively.</p>
           <p>Please note, that this is just a temporary solution to facilitate closed discussions in echo. The real
-          solution with contact lists, invitations and fine-graded access right management will be coming later.</p>
+          solution with circles, invitations and fine-graded access right management will be coming later.</p>
 
   # Localizations for the layout components
   layouts:
@@ -497,13 +497,11 @@ en:
 
     statements:
       label: 'votes'
+      echo_link: 'Support (echo)'
+      unecho_link: 'Withdraw vote'
       echo_indicator:
-        support:
-          one: '{{supporter_count}} supporter'
-          many: '{{supporter_count}} supporters'
-        recommend:
-          one: '{{supporter_count}} supporter'
-          many: '{{supporter_count}} supporters'
+        one: '{{supporter_count}} supporter'
+        many: '{{supporter_count}} supporters'
       add_new: New statement
       copy_url: Link to
       create_question_link: 'Create new question'
@@ -515,10 +513,6 @@ en:
       create_alternative_link: Add new opposition
       create_background_info_link: Add new background info
       create_follow_up_question_link: Add new follow-up question
-      recommend_link: 'Support (echo)'
-      unrecommend_link: 'Withdraw vote'
-      support_link: 'Support (echo)'
-      unsupport_link: 'Withdraw vote'
       preview_embedded_content: Preview
       open_embedded_content: Open in new window
 

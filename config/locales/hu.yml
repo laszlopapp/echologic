@@ -71,7 +71,7 @@ hu:
           az itt elhangzó hozzászólások csak azok számára lesznek láthatóak, kiknek profiljában ugyanaz a **tag
           szerepel a 'Döntéshozó' kategóriában.</p>
           <p>Ez természetesen csak egy átmeneti megoldás a zártkörű dialógusok megvalósítására az echoban. A végleges
-          megoldás ismerősök listájával, meghívásokkal és finoman szabályozható hozzáférési jogokkal később kerül
+          megoldás körökkel, meghívásokkal és finoman szabályozható hozzáférési jogokkal később kerül
           megvalósításra.</p>
     profile:
       closed_discussions:
@@ -81,7 +81,7 @@ hu:
           teszik számodra a védett (*taggel megjelelölt) illetve a teljesen zártkörű (**taggel ellátott) dialógusokban
           való részvételt.</p>
           <p>Ez természetesen csak egy átmeneti megoldás a zártkörű dialógusok megvalósítására az echoban. A végleges
-          megoldás ismerősök listájával, meghívásokkal és finoman szabályozható hozzáférési jogokkal később kerül
+          megoldás körökkel, meghívásokkal és finoman szabályozható hozzáférési jogokkal később kerül
           megvalósításra.</p>
 
   # Localizations for the layout components
@@ -509,13 +509,11 @@ hu:
 
     statements:
       label: 'szavazatok'
+      echo_link: 'Támogatom (echo)'
+      unecho_link: 'Visszavonom'
       echo_indicator:
-        support:
-          one: '{{supporter_count}} támogató'
-          many: '{{supporter_count}} támogató'
-        recommend:
-          one: '{{supporter_count}} támogató'
-          many: '{{supporter_count}} támogató'
+        one: '{{supporter_count}} támogató'
+        many: '{{supporter_count}} támogató'
       add_new: Új hozzászólás
       copy_url: Link ide
       create_question_link: Vess fel egy új kérdést
@@ -526,10 +524,6 @@ hu:
       create_alternative_link: Mondj egy új ellenvéleményt
       create_background_info_link: Ajánlj új háttérinformációt
       create_follow_up_question_link: Vess fel egy új felmerülő kérdést
-      recommend_link: 'Támogatom (echo)'
-      unrecommend_link: 'Visszavonom'
-      support_link: 'Támogatom (echo)'
-      unsupport_link: 'Visszavonom'
       preview_embedded_content: Megtekintés
       open_embedded_content: Megnyitom új ablakban
 
