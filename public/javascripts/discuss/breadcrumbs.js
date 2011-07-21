@@ -263,7 +263,6 @@
 				},
 
 				addBreadcrumbs : function(breadcrumbsData) {
-					var scroll = true;
 					if (breadcrumbsData) {
 						if(breadcrumbs.is(":hidden")) {
               toggleContainer();
@@ -320,6 +319,7 @@
           }
 		      return currentBreadcrumbs;
 		    },
+
 				hideContainer: function() {
 					if (container.find('.breadcrumb').length == 0) {
 	          if (breadcrumbs.is(':visible')) {
