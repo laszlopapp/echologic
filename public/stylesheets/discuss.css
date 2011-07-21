@@ -857,7 +857,8 @@ a.statement_link:hover {
   top: 19px;
 }
 
-.breadcrumb.fq .delimiter {
+.breadcrumb.fq .delimiter,
+.breadcrumb.jp .delimiter {
   background: transparent url(../images/page/discuss/breadcrumb_delimiter_big.png) no-repeat scroll 0 0;
   width: 11px;
   height: 23px;
