@@ -73,7 +73,6 @@
 				// iterate on the previous breadcrumbs to generate the stack list
 				while (b_gen.length > 0) {
 					var b_id = b_gen.attr("id");
-					var b_key = b_id.substring(0,2)
 					// if it's an origin breadcrumb, stack is done
 					if (getOriginKeys([b_id]).length == 0) {
 			   	 sids.unshift(b_id.match(/\d+/));
