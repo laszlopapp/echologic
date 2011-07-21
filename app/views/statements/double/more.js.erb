@@ -14,7 +14,8 @@ var double_list = statement.find('.children .<%= type_plural %> .doubles_list');
 	var children_list = statement.find('.<%= type_plural %> .children_list:eq(<%= index %>)');
 	var elements_list =
       "<%= escape_javascript(render :partial => 'statements/child',
-                                    :locals => {:child_type => type, :new_level => params[:nl]},
+                                    :locals => {:child_type => type,
+                                                :new_level => params[:nl]},
                                     :collection => children_group[@offset, @per_page]) %>";
 
   var scrollpane;
@@ -37,9 +38,9 @@ var double_list = statement.find('.children .<%= type_plural %> .doubles_list');
 
 var more_element = statement.find('.<%= type_plural %> .more_pagination');
 var pagination_buttons = "<%= escape_javascript(will_paginate(@children[@type].sort{|a, b| b.length <=> a.length}.first,
-                                                   :class => 'more_pagination',
-                                                   :next_label => I18n.t("application.general.more"),
-                                                   :renderer => StatementsHelper::MoreRenderer)) %>";
+                                                              :class => 'more_pagination',
+                                                              :next_label => I18n.t("application.general.more"),
+                                                              :renderer => StatementsHelper::MoreRenderer)) %>";
 
 if(pagination_buttons.length > 0) {
   more_element.replaceWith(pagination_buttons);
