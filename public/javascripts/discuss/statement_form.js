@@ -119,12 +119,12 @@
 					var current_bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
 
 					var i = -1;
-					$.map(bids, function(a, index){
-						if($.inArray(a, current_bids) == -1) {
-							i = index;
-							return false;
-						}
-					});
+					for(j=0;j<bids.length;j++) {
+						if($.inArray(bids[j], current_bids) == -1) {
+              i = j;
+              break;
+            }
+					}
 
 					var bids_to_load = i > -1 ? bids.splice(i, bids.length) : [];
 
