@@ -534,11 +534,11 @@
 					var currentStack = $.fragment().sids;
 		      var targetStack = getStatementsStack(this, false);
 
-          var parenetKey = getParentKey();
-          var targetBids = getTargetBids(parenetKey);
+          var parentKey = getParentKey();
+          var targetBids = getTargetBids(parentKey);
 
           // save element after which the breadcrumbs will be deleted while processing the response
-          $('#breadcrumbs').data('element_clicked', parenetKey);
+          $('#breadcrumbs').data('element_clicked', parentKey);
 
 					var origin = $.fragment().origin;
 
