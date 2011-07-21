@@ -44,7 +44,7 @@
 	statement.data('api').insertContent(content).show().reinitialise({'level' : <%= @level %>, 'insertStatement' : false});
 
 /* Fade in new level with an animation */
-<% elsif !params[:new_level].blank? && params[:new_level] == 'true' %>
+<% elsif !params[:nl].blank? && params[:nl] == 'true' %>
   var element = $("<%= escape_javascript(render :partial => 'statements/show',
                                                 :locals => {:hide_content => true}) %>").statement({'level' : <%= @level %>});
 	element.data('api').show().removeBelow();

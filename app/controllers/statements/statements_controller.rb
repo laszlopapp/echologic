@@ -68,7 +68,7 @@ class StatementsController < ApplicationController
       @statement_node.visited!(current_user) if current_user
 
       # Transfer statement node data to client for prev/next functionality
-      load_siblings(@statement_node) if !params[:new_level].blank?
+      load_siblings(@statement_node) if !params[:nl].blank?
 
       # Test for special links
       @set_language_skills_teaser = @statement_node.should_set_languages?(current_user,
@@ -114,7 +114,7 @@ class StatementsController < ApplicationController
     inc = params[:hub].blank? ? 1 : 0
     @level = (@statement_node.parent_node.nil? or @statement_node_type.is_top_statement?) ? 0 : @statement_node.parent_node.level + inc
 
-    if !params[:new_level].blank? and params[:hub].blank?
+    if !params[:nl].blank? and params[:hub].blank?
       set_parent_breadcrumb
       # set new breadcrumb
       if @statement_node_type.is_top_statement?
@@ -446,7 +446,7 @@ class StatementsController < ApplicationController
   def add
     @type = params[:type].to_s
     begin
-      if !params[:new_level].blank?
+      if !params[:nl].blank?
         if @statement_node # this is the teaser's parent (e.g.: 1212345/add/proposal)
           load_children_for_parent @statement_node, @type
         else # this is the question's teaser (e.g.: /add/question
@@ -1258,7 +1258,7 @@ class StatementsController < ApplicationController
         render :template => template
       }
       format.js {
-        load_ancestors(teaser) if !params[:sids].blank? or (!params[:new_level].blank? and (@statement_node.nil? or @statement_node.level == 0))
+        load_ancestors(teaser) if !params[:sids].blank? or (!params[:nl].blank? and (@statement_node.nil? or @statement_node.level == 0))
         load_breadcrumbs if !params[:bids].blank?
         load_statement_level(teaser)
         render :template => template

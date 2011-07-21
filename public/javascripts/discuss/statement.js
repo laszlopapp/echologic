@@ -210,6 +210,7 @@
 
         var element = $('div#statements .statement').eq(settings['level']);
 				if(element.length > 0) {
+					// if statement this statement is going to replace is from a different type
 					if (domId.match('new') && element.data('api').getType() != statementType) {
 						if (domParent && domParent.length > 0) {
 							var key = $.inArray(domParent.substring(0,2),['ds','sr']) == -1 ?
@@ -522,7 +523,7 @@
 
 		      $.setFragment({
 		        "sids": targetStack.join(','),
-		        "new_level": '',
+		        "nl": '',
 						"bids": bids.join(','),
 						"origin": origin
 		      });
@@ -553,7 +554,7 @@
 				statement.find('.add_new_button').each(function(){
 					$(this).bind('click', function(){
 						$.setFragment({
-							"new_level" : ''
+							"nl" : ''
 						});
 					});
 				})
@@ -618,7 +619,7 @@
 
           $.setFragment({
             "sids": stack.join(','),
-            "new_level": newLevel,
+            "nl": newLevel ? newLevel : '',
 						"bids": bids.join(','),
 						"origin": origin
           });

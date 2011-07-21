@@ -71,7 +71,7 @@ function initFragmentStatementChange() {
 			path = $.queryString(document.location.href.replace(/\/\d+/, path), {
         "sids": sids.join(","),
 				"bids": bids.join(","),
-        "new_level": $.fragment().new_level,
+        "nl": $.fragment().nl,
 				"origin": $.fragment().origin,
 				"cs": $.fragment().sids
       });
@@ -105,7 +105,7 @@ function initFragmentStatementChange() {
       origin = $.fragment().origin;
     }
 
-    $.setFragment({ "new_level" : true, "bids" : bids.join(','), "origin" : origin });
+    $.setFragment({ "nl" : true, "bids" : bids.join(','), "origin" : origin });
 	  $(document).trigger("fragmentChange.sids");
   }
 
