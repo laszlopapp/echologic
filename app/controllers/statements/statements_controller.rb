@@ -24,7 +24,7 @@ class StatementsController < ApplicationController
   before_filter :check_write_permission, :only => [:echo, :unecho, :new, :new_translation]
   before_filter :check_empty_text, :only => [:create, :update, :create_translation]
 
-  before_filter :fetch_current_stack, :only => [:show, :add, :new]
+  before_filter :fetch_current_stack, :only => [:show, :add, :new, :cancel]
 
   include PublishableModule
   before_filter :is_publishable?, :only => [:publish]

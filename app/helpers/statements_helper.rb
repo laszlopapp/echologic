@@ -340,7 +340,8 @@ module StatementsHelper
     if current_user and current_user.may_edit?(statement_node)
       link_to(I18n.t('application.general.edit'),
               edit_statement_node_url(statement_node,
-                                      :current_document_id => statement_document.id),
+                                      :current_document_id => statement_document.id,
+                                      :cs => params[:cs]),
               :class => 'ajax header_button text_button edit_text_button')
     else
       ''
@@ -440,7 +441,9 @@ module StatementsHelper
   #
   def cancel_edit_statement_node(statement_node, locked_at)
     link_to I18n.t('application.general.cancel'),
-            cancel_statement_node_url(statement_node, :locked_at => locked_at.to_s),
+            cancel_statement_node_url(statement_node, 
+                                      :locked_at => locked_at.to_s,
+                                      :cs => params[:cs]),
            :class => "text_button cancel_text_button ajax"
   end
 
