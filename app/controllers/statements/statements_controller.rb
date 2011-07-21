@@ -763,7 +763,7 @@ class StatementsController < ApplicationController
 
 
   #
-  # Sets the breadcrumb of the current statement node's parent.
+  # Sets the breadcrumb of the current statement node's parent. Used only for new action.
   #
   # Loads instance variables:
   # @breadcrumb(Array[]) (check build_breadcrumb documentation)
