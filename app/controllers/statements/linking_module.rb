@@ -13,18 +13,15 @@ module LinkingModule
     parent_node = StatementNode.find(params[:parent_id])
     
     # Excluding content belonging to the same subtree
-    joins = "LEFT JOIN statement_nodes_parents s_parents ON s_parents.id = s.id "
-    conditions = ["(s_parents.parent_node_id != ? OR 
-                   (s_parents.type = 'Question' AND s.root_id != ?) OR
-                   (statement_nodes.root_id = ? AND statement_nodes.lft < ? AND statement_nodes.rgt > ?))", 
-                   parent_node.id, parent_node.id, parent_node.root_id, parent_node.lft, parent_node.rgt]
+    conditions = ["(s.root_id != ? OR 
+                   s.id NOT IN (select id FROM statement_nodes n where n.lft > ? AND n.rgt < ? AND n.root_id = ?))", 
+                   parent_node.root_id, parent_node.lft, parent_node.rgt, parent_node.root_id]
     
     statement_nodes = search_statement_nodes :param => 'statement_id', 
                                              :search_term => params[:q],
                                              :types => linkable_types,
                                              :limit => params[:limit] || 5,
                                              :language_ids => [params[:code] || locale_language_id],
-                                             :joins => joins,
                                              :node_conditions => [conditions]
     documents = search_statement_documents(:statement_ids => statement_nodes.map(&:statement_id))
 
