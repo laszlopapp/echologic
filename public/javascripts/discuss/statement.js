@@ -458,7 +458,7 @@
       /******************/
 
       /*
-       * Initilizes all external URLs and internal echo links.
+       * Initilizes all external URLs and internal echo links in the statement content (text) area.
        */
       function initContentLinks() {
         statement.find(".statement_content a:not(.upload_link)").each(function() {
@@ -468,7 +468,7 @@
           if (url.substring(0,7) != "http://" && url.substring(0,8) != "https://") {
             url =  "http://" + url;
           }
-					if (isEchoStatementUrl(url)) { // if this link goes to another echo statement, then add a jump bid
+					if (isEchoStatementUrl(url)) { // if this link goes to another echo statement => add a jump bid
 						generateJumpLink(link,url);
 					} else {
             link.attr("target", "_blank");
@@ -487,32 +487,21 @@
           url = url.substring(0, anchor_index);
         }
 				$.getJSON(url+'/ancestors', function(data) {
-					
-					sids = data;
-					
-					link.bind("click", function(){
-						var key = generateBreadcrumbKey();
-						var currentBids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
-						var bids = currentBids;
-						
-						// Update the bids
-	          var index = $.inArray(key, bids);
-	          if (index != -1) { // if parent breadcrumb exists, then delete everything after it
-	            bids = bids.splice(0, index + 1);
-	          } else { // if parent breadcrumb doesn't exist, it means top stack statement
-	            bids = bids.splice(0, currentBids.length - currentBids.length%3);
-	          }
-						
+					var sids = data;
+
+					link.bind("click", function() {
+
+						var targetBids = getTargetBids(getParentKey());
 						var bid = 'jp' + statementId;
-						bids.push(bid);
-						
+						targetBids.push(bid);
+
 						$.setFragment({
-              "bids": bids.join(","),
+              "bids": targetBids.join(","),
               "sids": sids.join(","),
               "nl": true,
               "origin": bid
             });
-						
+
 						return false;
 					});
 				});
@@ -522,39 +511,48 @@
       /*
 		   * Sets the different links on the statement UI, after the user clicked on them.
 		   */
-		  function initAllStatementLinks() {
+      function getTargetBids(key) {
+        var currentBids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
+        var targetBids = currentBids;
+
+        var index = $.inArray(key, targetBids);
+        if (index != -1) { // if parent breadcrumb exists, then delete everything after it
+          targetBids = targetBids.splice(0, index + 1);
+        } else { // if parent breadcrumb doesn't exist, it means top stack statement
+          targetBids = targetBids.splice(0, currentBids.length - currentBids.length % 3);
+        }
+        return targetBids;
+      }
+
+
+      /*
+       * Initializes all statement link apart from the inline content (jump) links handled separately.
+       */
+      function initAllStatementLinks() {
         statement.find('.header a.statement_link').bind("click", function() {
-					var key = generateBreadcrumbKey();
 
-					var oldStack = $.fragment().sids;
+					var currentStack = $.fragment().sids;
 		      var targetStack = getStatementsStack(this, false);
-					var currentBids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
-					var bids = currentBids;
 
-					// Update the bids
-					var index = $.inArray(key, bids);
-					if (index != -1) { // if parent breadcrumb exists, then delete everything after it
-						bids = bids.splice(0, index + 1);
-					} else { // if parent breadcrumb doesn't exist, it means top stack statement
-						bids = bids.splice(0, currentBids.length - currentBids.length%3);
-					}
+          var parenetKey = getParentKey();
+          var targetBids = getTargetBids(parenetKey);
 
-					// save element after which the breadcrumbs will be deleted
-          $('#breadcrumbs').data('element_clicked', key);
+          // save element after which the breadcrumbs will be deleted while processing the response
+          $('#breadcrumbs').data('element_clicked', parenetKey);
 
 					var origin = $.fragment().origin;
 
 		      $.setFragment({
 		        "sids": targetStack.join(','),
 		        "nl": '',
-						"bids": bids.join(','),
+						"bids": targetBids.join(','),
 						"origin": origin
 		      });
 
-					var nextStat = statement.next();
-					var triggerRequest = (nextStat.length > 0 && nextStat.is("form"));
+					var nextStatement = statement.next();
+					var triggerRequest = (nextStatement.length > 0 && nextStatement.is("form"));
 
-					if (triggerRequest || targetStack.join(',') != oldStack) {
+					if (triggerRequest || targetStack.join(',') != currentStack) {
             statement.find('.header .loading').show();
           }
 
@@ -573,7 +571,8 @@
 					initChildrenLinks($(this));
 				});
 
-				// All form requests must nullify the new_level, so that, when one clicks the parent button, it triggers one request instead of two
+				// All form requests must nullify the new_level, so that when one clicks the parent button
+				// it triggers one request instead of two.
 				statement.find('.add_new_button').each(function(){
 					$(this).bind('click', function(){
 						$.setFragment({
@@ -609,7 +608,7 @@
 				container.find('a.statement_link').bind("click", function() {
 					var current_stack = getStatementsStack(null, newLevel);
 					var childId = $(this).parent().attr('statement-id');
-					var key = generateKey($(this).parent().attr('class'));
+					var key = getTypeKey($(this).parent().attr('class'));
 					var bids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
 
           if(newLevel){ // necessary evil: erase all breadcrumbs after the parent of the clicked statement
@@ -620,7 +619,7 @@
             bids.push(new_bid);
           }
 					else { // siblings box or maybe alternatives box
-						var parentKey = generateBreadcrumbKey();
+						var parentKey = getParentKey();
 						var index = $.inArray(parentKey, bids);
 	          if (index != -1) { // if parent breadcrumb exists, then delete everything after it
 	            bids = bids.splice(0, index + 1);
@@ -638,7 +637,7 @@
 						  break;
 					}
 
-          $('#breadcrumbs').data('element_clicked', generateBreadcrumbKey());
+          $('#breadcrumbs').data('element_clicked', getParentKey());
 
           $.setFragment({
             "sids": stack.join(','),
@@ -654,9 +653,9 @@
       /*
        * Generates a bid for the parent statement.
        */
-      function generateBreadcrumbKey() {
+      function getParentKey() {
 				if (parentStatement.length > 0) {
-          return generateKey(statementType) + getStatementId(parentStatement.attr('id'));
+          return getTypeKey(statementType) + getStatementId(parentStatement.attr('id'));
         } else {
           return $.fragment().origin;
         }
@@ -796,11 +795,11 @@
 		    },
 
 				getBreadcrumbKey: function() {
-					return generateBreadcrumbKey();
+					return getParentKey();
 				},
 
 				deleteBreadcrumb: function() {
-					var key = generateBreadcrumbKey();
+					var key = getParentKey();
 				  $('#breadcrumbs').data('breadcrumbApi').deleteBreadcrumb(key);
 				},
 
