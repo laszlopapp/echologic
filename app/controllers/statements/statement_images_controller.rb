@@ -46,7 +46,7 @@ class StatementImagesController < ApplicationController
   def reload
     respond_to do |format|
       if @statement_image.image.exists? and @statement_image.image.updated_at != params[:date].to_i
-        set_info 'discuss.messages.image_uploaded', :type => I18n.t("discuss.statements.types.#{@statement_node.class.name.underscore}")
+        set_info 'discuss.messages.image_uploaded', :type => I18n.t("discuss.statements.types.#{@statement_node.u_class_name}")
         format.js {
           render_with_info do |page|
             page << "$('#statements div.#{dom_class(@statement_node)} .image_container .image').replaceWith('#{render :partial => 'statement_images/image'}')"

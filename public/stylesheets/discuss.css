@@ -11,104 +11,31 @@
   border: medium none;
 }
 
-/********************************/
-/* Alternative statements block */
-/********************************/
-
-.alternative_panel {
-	-moz-border-radius: 15px 15px 15px 15px;
-  background: none repeat scroll 0 0 #FFFFFF;
-	width: 961px;
-  border: 2px solid #000000;
-	position: relative;
-  left: 7px;
-	min-height: 70px;
-	color: #000000;
-	margin-left: 0px;
-	padding-top: 0px;
-}
-
-.alternative_panel .alternative_header {
-	display: inline-block;
-	width: 168px;
-	height: 100%;
-	text-align: center;
-	float: left;
-}
-.alternative_panel .alternative_header label {
-	position: relative;
-  top: 8px;
-}
-
-.alternative_panel .children_container {
-	border-left: 1px solid #000000;
-	display: inline-block;
-	width: 770px;
-	padding: 5px 0px 5px 10px;
-}
-
-.alternative_panel .arrow {
-	position: absolute;
-	height: 50px;
-	width: 30px;
-	top: 80px;
-	left: 80px;
-}
-
-.alternative_panel a.statement_link {
-	color: #888888;
-}
 
 /**************/
 /* Action bar */
 /**************/
 
-.action_bar {
-  width: 160px;
-  clear: both;
-  float: left;
-  position: relative;
-  padding: 17px 7px;
-  text-align: center;
-  margin: 0 0 55px;
-  background-color: #cad3db;
-  border-radius: 12px;
-  -moz-border-radius: 12px;
-  -webkit-border-radius: 12px;
-}
-
-.action_bar .label {
-  color: #21587F;
-  font-size: 14px;
-  font-weight: bold;
-  position: relative;
-  top: 3px;
-  display: block;
-}
-
 #questions_container .action_bar {
   top: 8px;
+  float: left;
+}
+
+#my_questions .action_bar {
+  top: 0;
+  float: left;
 }
 
 .statement .action_bar {
   left: 7px;
   top: 43px;
-}
-
-.statement .action_bar .moreButton,
-.statement .action_bar .hideButton {
-	margin-top: 10px;
-	display: inline-block;
+  float: left;
 }
 
 
 /****************/
 /* My Questions */
 /****************/
-
-#my_questions .action_bar {
-  top: 0;
-}
 
 #my_questions .add_new_button {
   text-align: center;
@@ -131,7 +58,7 @@
   top: 5px;
 }
 
-#question_list a.avatar_holder{
+#question_list a.avatar_holder {
 	float: left;
 }
 
@@ -148,7 +75,7 @@
 	width: 290px;
   height: 52px;
 	margin: -2px 5px 0 0;
-	padding: 0;
+	padding-left: 20px;
   overflow: hidden;
 }
 
@@ -244,28 +171,24 @@ form.statement .discuss_right_block {
   border: none;
 }
 
-form.question .header li,
-form.follow_up_question .header li {
-  background:transparent url(../images/page/discuss/question_16.png) no-repeat scroll 0 2px;
+form.statement .header_link .icon {
+  background-image: url(../images/page/discuss/statement_icons_16.png);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  display: block;
+  position: absolute;
+  top: 3px;
 }
-form.proposal .header li {
-  background: transparent url(../images/page/discuss/proposal_16.png) no-repeat scroll 0 2px;
-}
-form.improvement .header li {
-  background: transparent url(../images/page/discuss/improvement_16.png) no-repeat scroll 0 2px;
-}
-form.pro_argument .header li {
-  background: transparent url(../images/page/discuss/pro_argument_16.png) no-repeat scroll 0 2px;
-}
-form.contra_argument .header li {
-  background: transparent url(../images/page/discuss/contra_argument_16.png) no-repeat scroll 0 2px;
-}
-form.background_info .header li {
-  background: transparent url(../images/page/discuss/background_info_16.png) no-repeat scroll 0 2px;
-}
-form.alternative .header li {
-	background: transparent url(../images/page/discuss/alternative_16.png) no-repeat scroll 0 2px;
-}
+form.question .header_link .icon,
+form.follow_up_question .header_link .icon {background-position: 0 0;}
+form.proposal .header_link .icon {background-position: -16px 0;}
+form.improvement .header_link .icon {background-position: -32px 0;}
+form.pro_argument .header_link .icon {background-position: -48px 0;}
+form.contra_argument .header_link .icon {background-position: -64px 0;}
+form.background_info .header_link .icon {background-position: -96px 0;}
 
 form.statement .header_link fieldset ol li {
   padding-left: 20px;
@@ -295,17 +218,19 @@ form.statement fieldset ol span.defaultText {
 }
 
 #statements form.linked fieldset.statement_title input {
-  color: #00868B !important;
+  color: #555 !important;
 }
 
-
 #statements form.formtastic fieldset.statement_title,
-  #statements form.formtastic fieldset.statement_title li,
+#statements form.formtastic fieldset.statement_title li,
 #statements form.formtastic fieldset.statement_title input {
   margin-bottom: 0;
   width: 545px;
 }
 
+#statements form.formtastic fieldset.statement_language {
+  margin-top: -10px;
+}
 
 #statements form.formtastic fieldset.statement_language li,
 #statements form.formtastic fieldset.statement_language select {
@@ -344,7 +269,6 @@ form.formtastic fieldset.statement_tags .tags_container {
   margin-bottom: 10px;
 }
 
-
 form.formtastic fieldset.statement_tags .tag_container {
   width: 365px;
 }
@@ -354,150 +278,182 @@ form.formtastic fieldset.publish_radios li {
   width: 700px;
 }
 
-
-
-form.statement .header .auto_complete {
-	display: inline-block;
-	height: 18px;
-	width: 72px;
+form.statement .header .link_button {
+	background: transparent url(../images/page/discuss/linking_button.png) 0 -40px no-repeat scroll;
+  display: inline-block;
+	width: 80px;
+  height: 18px;
 	position: absolute;
 	top: 2px;
-	right: 231px;
-	padding: 2px 0px 0px 26px;
-	text-align: center;
+	right: 223px;
+	padding: 2px 0 0 26px;
 	color: #FFFFFF;
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center;
 	cursor: pointer;
-	background: transparent url(../images/page/discuss/linking_button.png) 0 -40px no-repeat scroll;
 }
 
 form.statement .ac_loading {
 	background-position: 428px 3px;
 }
 
-form.statement .header .auto_complete.off {
-  background-position: 0px 0px;
+form.statement .header .link_button.off {
+  background-position: 0 0;
 }
 
-form.statement .header .auto_complete.off:hover {
-	background-position: 0px -20px;
+form.statement .header .link_button.off:hover {
+	background-position: 0 -20px;
 }
 
-/* Info Type */
+/*********************/
+/* Embeddded content */
+/*********************/
 
-form.statement .info_types_container {
-	width: 680px;
+form.embeddable .embed_data .label {
+  color: #7bb031;
+  font-size: 15px;
+  font-weight: bold;
+  display: block;
+  padding-top: 10px;
 }
 
-
-form.statement .info_types_container fieldset ol {
-  width: 100%;
-}
-
-form.statement .info_types_container fieldset ol li {
-	float: left;
-	width: 200px;
-}
-
-form.statement .info_types_container input {
-	display: none;
-}
-
-form.statement .info_types_container label {
+form.embeddable .entry_types label {
 	color: #21587F;
-	line-height: 2em;
+	line-height: 32px;
+  padding-left: 40px;
 }
 
-form.statement .info_types_container label.selected {
+form.embeddable .entry_types .entry_type {
+  margin-top: -10px;
+}
+
+form.embeddable .entry_types {
+  background: #F5F7F9;
+  box-shadow: 0 0 60px #EBEFF2;
+  -moz-box-shadow: 0 0 60px #EBEFF2;
+  -webkit-box-shadow: 0 0 60px #EBEFF2;
+  width: 542px;
+  margin: 10px 0 15px;
+  padding: 20px 30px 0;
+  border: 2px solid #AAA;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+}
+
+form.embeddable .entry_types li {
+	float: left;
+	width: 180px;
+}
+
+form.embeddable .entry_types input {display: none;}
+
+form.embeddable .entry_types li:hover label,
+form.embeddable .entry_types label.selected {
 	color: #7BB031;
 }
 
-form.statement .info_types_container a {
+form.embeddable .entry_types a {
 	width: 32px;
   height: 32px;
-  padding: 0 5px 0 0;
   display: block;
   clear: left;
   float: left;
 }
 
-form.statement .info_types_container a.jqTransformChecked {
-	background-color: #999999;
+form.embeddable .entry_types a {
+  background-image: url("../images/page/discuss/bi_icons_32.png");
 }
 
-form.statement .info_types_container a.article {
-	background: url("../images/page/discuss/background_info_types/icon_attach_article_32.png") no-repeat scroll 0 0;
-}
-form.statement .info_types_container a.paper {
-  background: url("../images/page/discuss/background_info_types/icon_attach_paper_32.png") no-repeat scroll 0 0;
-}
-form.statement .info_types_container a.book {
-  background: url("../images/page/discuss/background_info_types/icon_attach_book_32.png") no-repeat scroll 0 0;
-}
-form.statement .info_types_container a.photo {
-  background: url("../images/page/discuss/background_info_types/icon_attach_photo_32.png") no-repeat scroll 0 0;
-}
-form.statement .info_types_container a.video {
-  background: url("../images/page/discuss/background_info_types/icon_attach_video_32.png") no-repeat scroll 0 0;
-}
-form.statement .info_types_container a.url {
-  background: url("../images/page/discuss/background_info_types/icon_attach_url_32.png") no-repeat scroll 0 0;
-}
+form.embeddable .entry_types a.article {background-position: 0 0;}
+form.embeddable .entry_types a.paper {background-position: -32px 0;}
+form.embeddable .entry_types a.book {background-position: -64px 0;}
+form.embeddable .entry_types a.audio {background-position: -96px 0;}
+form.embeddable .entry_types a.photo {background-position: -128px 0;}
+form.embeddable .entry_types a.video {background-position: -160px 0;}
+form.embeddable .entry_types a.law {background-position: -192px 0;}
+form.embeddable .entry_types a.document {background-position: -224px 0;}
+form.embeddable .entry_types a.misc {background-position: -256px 0;}
 
-form.statement input.embed_url {
-  width: 660px !important;
-}
-
-form.statement .preview_button {
-	float: right;
-	position: relative;
-	top: 3px;
-}
-
-form.statement .edit_embed_button {
-	display: block;
-}
-
-form.embeddable #statement_datas_container li {
+form.embeddable .entry_url_container li {
   width: 762px;
 }
 
-.statement .open_embed_button {
-	float: right;
+form.embeddable input.embed_url {
+  width: 600px !important;
+  margin-top: 5px;
+  border: 1px solid #999999;
+  padding: 3px;
+  color: #21587f;
 }
 
-.statement .embedding_display {
-	text-align: center;
+form.embeddable.linked input.embed_url {
+  color: #555 !important;
 }
 
-
-
-.statement .embedding_area {
-  border-top: 1px solid #000000;
-  margin-top: 20px;
-	margin-left: -190px;
-  padding-top: 40px;
-	padding-left: 190px;
-	width: 800px;
-}
-
-.statement .embedded_container {
+.statement .embed_container {
   clear: both;
+  background: url(../images/page/separator_no_shadow.png) no-repeat center top;
+  margin: 5px auto 25px;
   text-align: center;
-  margin-bottom: 0 auto;
-	border-top: 1px solid #000000;
-	padding-top: 10px;
+	padding-top: 13px;
+  display: inline-block;
+  width: 100%;
+  min-height: 350px;
+}
+
+form.embeddable .embed_container {
+  margin-left: -205px;
+  width: 990px;
+  min-height: 42px;
+  padding-top: 25px;
+}
+
+form.embeddable .embed_data {
+  margin-bottom: 30px;
+}
+
+.statement .embedded_content_button {
+  background: none repeat scroll 0 0 #F7FAFA;
+  color: #21587F;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 5px 15px;
+  position: relative;
+  top: -20px;
+  border: 1px solid #A8A8A8;
+  border-radius: 14px;
+  -moz-border-radius: 14px;
+  -webkit-border-radius: 14px;
+}
+
+.statement .embedded_content_button:hover {
+  color: #7bb031;
+}
+
+.statement .embed_container .loading {
+  background: url(../images/indicator_28.gif) no-repeat scroll left top transparent;
+  width: 28px;
+  height: 28px;
+  display: block;
+  position: relative;
+  left: 478px;
+  top: 7px;
+  opacity: 0.4;
 }
 
 .statement .embedded_content {
+  display: none;
+}
+
+.statement .embedded_content.manual iframe {
   width: 100%;
   height: 1000px;
 	overflow-x: hidden;
 	overflow-y: auto;
+}
 
-}
-.statement .embed {
-	margin-top: 16px;
-}
 
 /*********/
 /* lwRTE */
@@ -539,9 +495,119 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 
+/*****************************/
+/* Statement links & buttons */
+/*****************************/
+
+.add_new_button {
+  vertical-align: top;
+}
+
+.add_header_link .add_new_button {
+  font-size: 18px;
+  margin-left: 0;
+  padding-left: 22px;
+  background-position: 0 3px;
+  line-height: 20px;
+}
+
+a.statement_link {
+  color: #21587f;
+  font-size: 14px;
+  font-weight: bold;
+  display:inline-block;
+  min-height: 20px;
+  vertical-align: top;
+  margin-bottom: 5px;
+  position: relative;
+  display: inline-block;
+}
+
+a.statement_link.active {
+	color: #7bb031;
+}
+
+.header_buttons a.statement_link.prev, .header_buttons a.statement_link.next {
+	padding-left: 0 !important;
+}
+
+a.statement_link:hover {
+  color: #7bb031;
+}
+
+.statement_link.search_link .icon {background: transparent url(../images/page/discuss/search_icon_16.png) no-repeat scroll 0 0;}
+.statement_link.my_discussions_link .icon {background: transparent url(../images/page/discuss/my_discussions_16.png) no-repeat scroll 0 -1px;}
+
+.statement_link .icon {
+  background-image: url(../images/page/discuss/statement_icons_16.png);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  display: inline-block;
+  line-height: 16px;
+  position: absolute;
+}
+.question_link .icon, .follow_up_question_link .icon {background-position: 0 0;}
+.proposal_link .icon {background-position: -16px 0;}
+.improvement_link .icon {background-position: -32px 0;}
+.pro_argument_link .icon {background-position: -48px 0;}
+.contra_argument_link .icon {background-position: -64px 0;}
+.alternative_statement .icon {background-position: -80px 0;}
+
+.statement_link.background_info_link .icon {
+  background-image: url(../images/page/discuss/bi_icons_16.png);
+}
+
+.article_link .icon {background-position: 0 0;}
+.paper_link .icon {background-position: -16px 0;}
+.book_link .icon {background-position: -32px 0;}
+.audio_link .icon {background-position: -48px 0;}
+.photo_link .icon {background-position: -64px 0;}
+.video_link .icon {background-position: -80px 0;}
+.law_link .icon {background-position: -96px 0;}
+.document_link .icon {background-position: -112px 0;}
+.misc_link .icon {background-position: -128px 0;}
+
+.create_question_button,
+.create_proposal_button,
+.create_improvement_button,
+.create_pro_argument_button,
+.create_contra_argument_button,
+.create_follow_up_question_button,
+.create_alternative_button,
+.create_background_info_button {
+  background: transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;
+  display: inline-block;
+  line-height: 16px;
+}
+
+.header .statement_link .icon {top: 3px}
+.children_pagination .statement_link .icon, .doubles_list .statement_link .icon {top: 1px}
+
+.statement_link .title {
+  position: relative;
+  left: 21px;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+}
+
+.siblings_panel a.statement_link .title,
+.alternatives a.statement_link .title,
+.children a.statement_link .title {
+  line-height: 18px;
+  top: -1px;
+}
+
 /**********/
 /* Search */
 /**********/
+
+.question_links {
+  list-style: none;
+}
 
 #discuss_search_container.search_container {
   margin: 40px auto 30px;
@@ -615,11 +681,16 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   overflow: hidden;
 }
 
-.questions_container .question .title a.statement_link {
-	background: none;
-  padding-left: 0 !important;
+.questions_container .question .title a.statement_link {width: 400px;}
+
+.questions_container .question .title a.statement_link .title {
   font-size: 18px;
   font-weight: bold;
+  left: 0;
+}
+
+.questions_container .question .title a.statement_link .icon {
+  display: none;
 }
 
 .questions_container .question .title a.create_question_button {
@@ -629,6 +700,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   padding-left: 22px;
   position: relative;
   text-decoration: underline;
+  line-height: 20px;
 }
 
 .questions_container .question .description {
@@ -785,7 +857,8 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   top: 19px;
 }
 
-.breadcrumb.fq .delimiter {
+.breadcrumb.fq .delimiter,
+.breadcrumb.jp .delimiter {
   background: transparent url(../images/page/discuss/breadcrumb_delimiter_big.png) no-repeat scroll 0 0;
   width: 11px;
   height: 23px;
@@ -814,6 +887,8 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   display: block;
 }
 
+.breadcrumb .icon {top: 0;}
+
 .breadcrumb .statement_link {
   padding-top: 1px;
   position: absolute;
@@ -822,8 +897,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   font-size: 12px;
   font-weight: bold;
   width: 215px;
-  height: 32px;
-	padding-left: 21px;
 }
 
 .breadcrumb:hover .statement_link {
@@ -887,7 +960,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /****************/
 
 .statement .popup_panel {
-  border: 3px solid #BBB;
+  border: 2px solid #777;
 	background: #FEFEFE;
   position: absolute;
   -moz-border-radius: 15px;
@@ -903,7 +976,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .statement .popup_panel .panel_header {
   background: none;
-  margin: 16px 0 16px 59px;
+  margin: 0 0 20px 60px;
   font-size: 16px;
   font-weight: bold;
 }
@@ -931,7 +1004,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .statement .social_echo_panel {
 	width: 640px;
-  border: 3px solid #BBB;
   background: #FEFEFE;
   position: absolute;
   top: -50px;
@@ -1131,54 +1203,60 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   background-position: 0 42px;
 }
 
-/****************************/
+
+/*******************************/
+/* Action Panel - More options */
+/*******************************/
+
+.statement .action_bar .actions_container {
+  margin-top: 30px;
+}
+
 /* Copy to clipboard button */
-/****************************/
 
-#statements .action_bar .clip_button_container {
+.statement .action_bar .copy_url_container {
   position: relative;
-  margin-top: 20px;
 }
 
-.action_bar .clip_button {
-  display: inline-block;
-	background: url(../images/page/discuss/copy_link_16.png) no-repeat scroll 0 0;
+.action_bar .copy_url_button {
+	background: transparent url(../images/page/discuss/copy_url_16.png) no-repeat scroll 0 0;
 	padding-left: 24px;
-	margin-left: 0;
+  height: 16px;
 }
 
-.clipboard_panel {
-    background: none repeat scroll 0 0 #FEFEFE;
-    border: 3px solid #BBBBBB;
-    bottom: -69px;
-    left: 136px;
-    position: absolute;
-    width: 322px;
-		padding: 15px 30px;
+.action_bar .copy_url_button:hover {
+  background-position: 0 -16px;
 }
 
-.clipboard_panel .panel_header {
+.copy_url_panel {
+  top: -55px;
+  left: 140px;
+  width: 330px;
+  padding: 21px 30px 25px;
+}
+
+.copy_url_panel .panel_header {
   width: 280px;
 	margin-left: 0 !important;
 }
 
-.action_bar .clip_url {
-	margin-top: 20px;
-	width: 317px;
+.copy_url_panel .statement_url {
+  border: 2px solid #7BB031;
+  color: #21587F;
+  margin-top: 20px;
+  padding: 3px;
+  width: 320px;
 }
 
 
-/***************************/
 /* Add new statement panel */
-/***************************/
 
 .statement .add_new_panel {
   width: 575px;
-	border: 3px solid #BBB;
 	background: #FEFEFE;
   position: absolute;
 	bottom: -69px;
-	left: 136px;
+	left: 140px;
 }
 
 .statement .add_new_panel.wide {
@@ -1204,15 +1282,47 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   margin: 18px 0 7px;
 }
 
-.statement .add_new_panel .resource_link {
-	color: #21587F;
-  text-decoration: underline;
+.statement .add_new_panel .resource_link  {
 	margin: 0 15px 0 20px;
-	padding: 7px 0 0 40px;
+	padding-top: 7px;
   display: inline-block;
   height: 38px;
   min-width: 60px;
+  position: relative;
 }
+
+.statement .add_new_panel .resource_link .title {
+  color: #21587F;
+  text-decoration: underline;
+  margin-left: 40px;
+}
+
+.statement .add_new_panel .resource_link .icon {
+  background-image: url(../images/page/discuss/statement_icons_32.png);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  display: block;
+  position: absolute;
+  top: 0;
+}
+
+.create_question_button_32 .icon {background-position: 0 0;}
+.create_proposal_button_32 .icon {background-position: -32px 0;}
+.create_improvement_button_32 .icon {background-position: -64px 0;}
+.create_pro_argument_button_32 .icon {background-position: -96px 0;}
+.create_contra_argument_button_32 .icon {
+  background-position: -128px 4px;
+  height: 36px !important;
+}
+.create_alternative_button_32 .icon {background-position: -160px 0;}
+.create_background_info_button_32 .icon {background-position: -192px 0;}
+.create_follow_up_question_button_32 .icon {
+  background-position: -224px 0;
+  left: -5px;
+}
+
 
 /******************/
 /* SIBLINGS PANEL */
@@ -1246,13 +1356,11 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	margin: 15px 0 0 12px;
 }
 
-.siblings_panel a.statement_link {
-  width: 550px;
-}
+.siblings_panel a.statement_link {width: 570px;}
+.siblings_panel a.statement_link .title {width: 550px;}
 
-.siblings_panel .doubles_list a.statement_link {
-  width: 245px;
-}
+.siblings_panel .doubles_list a.statement_link {width: 265px;}
+.siblings_panel .doubles_list a.statement_link .title {width: 245px;}
 
 .siblings_panel .doubles_list .children_pagination {
   width: 395px !important;
@@ -1327,26 +1435,25 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   margin-bottom: 4px;
 }
 
-#statements .header_link .statement_link {
-  background-position: 0 2px;
-}
-
-#statements .header .header_link a {
+#statements .header .header_link .statement_link {
   display: inline-block;
   color: #21587F;
   font-size: 18px;
   font-weight: bold;
   text-decoration: none;
-	max-width: 550px;
+	max-width: 570px;
 }
 
-#statements .header .header_link a:hover {
+#statements .header .header_link .statement_link .title {
+  max-width: 550px;
+  line-height: 23px;
+}
+
+#statements .header .header_link .statement_link:hover,
+#statements .header.active .header_link .statement_link {
   color: #7bb031;
 }
 
-#statements .header.active .header_link a {
-  color: #7bb031;
-}
 
 /*******************************/
 /* Prev/Next Statement buttons */
@@ -1452,7 +1559,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /*********************/
 
 #statements .content {
-  margin-top: 6px;
+  padding-top: 6px;
 }
 
 .discuss_right_block {
@@ -1529,6 +1636,98 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   font-weight: normal; /* Just to fix some old texts generated with strong. WYSIWYG uses <b> tag - unfortunately. */
 }
 
+/**************************/
+/* Alternative statements */
+/**************************/
+
+.alternatives {
+  position: relative;
+  left: 7px;
+  background: url("../images/page/discuss/cas_panel_bg.png") repeat-y scroll 0 0 #EAF0E1;
+	width: 980px;
+	margin: 18px 0 5px;
+	padding: 6px 0 8px;
+}
+
+.alternatives .alt_border {
+  background: url("../images/page/discuss/cas_panel_border_shadow.png") no-repeat scroll 0 0;
+  width: 980px;
+  height: 7px;
+  display: inline-block;
+  position: relative;
+}
+
+.alternatives .alt_border.top {top: -6px !important;}
+.alternatives .alt_border.bottom {
+  background-position: 0 -7px;
+  bottom: -8px !important;
+}
+
+.alternatives li {
+  line-height: 16px;
+}
+
+.alternatives .label {
+  position: relative;
+  left: 10px;
+  top: 5px;
+	width: 160px;
+	text-align: center;
+	float: left;
+  margin-right: 17px;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: default;
+}
+
+.alternatives .children_container {
+	display: inline-block;
+	width: 780px;
+}
+
+.alternatives .children_pagination,
+.alternatives .children_pagination .jspPane {
+  width: 805px !important;
+}
+
+.alternatives a.statement_link {
+  width: 570px;
+}
+.alternatives a.statement_link .title {
+  max-width: 550px;
+  line-height: 20px;
+}
+
+.alternatives .teaser {
+	position: absolute;
+	bottom: 30px;
+	left: 10px;
+  width: 160px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.alternatives .teaser .arrow {
+  background: url("../images/page/discuss/cas_arrow.png") no-repeat scroll 0 0;
+  display: block;
+  width: 47px;
+  height: 36px;
+  position: relative;
+  bottom: -48px;
+  left: 56px;
+}
+
+.alternatives .teaser .or {
+  font-size: 15px;
+  font-weight: bold;
+  color: #cad3db;
+  position: relative;
+  bottom: -63px;
+  cursor: default;
+}
+
+
+
 /***********************/
 /* Children statements */
 /***********************/
@@ -1546,7 +1745,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	height: 43px;
 }
 
-
 .statement .children .headline .child_header {
 	background: url("../images/page/tabbar_tab_left.png") no-repeat scroll 0 0;
 	background-color: transparent;
@@ -1555,7 +1753,6 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 	clear: right;
 	text-align: center;
 	display: inline-block;
-	margin-top: -1px;
 }
 .statement .children .headline.active .child_header.selected {
 	background-position: left bottom;
@@ -1614,13 +1811,11 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   margin-left: 0;
 }
 
-.children a.statement_link {
-	width: 530px;
-}
+.children a.statement_link {width: 550px;}
+.children a.statement_link .title {width: 530px;}
 
-.children .doubles_list a.statement_link {
-  width: 240px;
-}
+.children .doubles_list a.statement_link {width: 260px;}
+.children .doubles_list a.statement_link .title {width: 240px;}
 
 .children_pagination, .doubles_list {
   margin-bottom: 3px !important;
@@ -1640,7 +1835,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 /*******************/
-/* echo indicators */
+/* echo Indicators */
 /*******************/
 
 .echo_indicator, .no_echo_indicator {
@@ -1657,6 +1852,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 }
 
 .no_echo_indicator {
+  background-color: #FFF;
   border: 1px solid #A9B6BD;
   -moz-border-radius: 12px;
   -webkit-border-radius: 12px;
@@ -1697,93 +1893,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* Add new teaser */
 /******************/
 
-.statement.add_teaser {
-  min-height: 350px;
-}
-
-/*****************************/
-/* Statement links & buttons */
-/*****************************/
-
-.add_new_button {
-  vertical-align: top;
-}
-
-.add_header_link .add_new_button {
-  font-size: 18px;
-  margin-left: 0;
-  padding-left: 22px;
-  background-position: 0 3px;
-  position: relative;
-  top: -2px;
-}
-
-a.statement_link {
-  color: #21587f;
-  font-size: 14px;
-  font-weight: bold;
-  display:inline-block;
-  min-height: 20px;
-  padding-left: 21px !important;
-  vertical-align: top;
-  margin-bottom: 5px;
-}
-a.statement_link.active {
-	color: #7bb031;
-}
-
-.header_buttons a.statement_link.prev, .header_buttons a.statement_link.next {
-	padding-left: 0 !important;
-}
-
-a.statement_link:hover {
-  color: #7bb031;
-}
-
-.question_links {
-  list-style:none;
-}
-
-.search_link {background:transparent url(../images/page/discuss/search_icon_16.png) no-repeat scroll 0 0;}
-.my_discussions_link {background:transparent url(../images/page/discuss/my_discussions_16.png) no-repeat scroll 0 -1px;}
-
-.question_link {background:transparent url(../images/page/discuss/question_16.png) no-repeat scroll 0 0;}
-.proposal_link {background:transparent url(../images/page/discuss/proposal_16.png) no-repeat scroll 0 0;}
-.improvement_link {background:transparent url(../images/page/discuss/improvement_16.png) no-repeat scroll 0 0;}
-.pro_argument_link {background:transparent url(../images/page/discuss/pro_argument_16.png) no-repeat scroll 0 0;}
-.contra_argument_link {background:transparent url(../images/page/discuss/contra_argument_16.png) no-repeat scroll 0 2px;}
-.follow_up_question_link {background:transparent url(../images/page/discuss/follow_up_question_16.png) no-repeat scroll 0 0;}
-
-.article_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_article_16.png) no-repeat scroll 0 0;}
-.book_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_book_16.png) no-repeat scroll 0 0;}
-.paper_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_paper_16.png) no-repeat scroll 0 0;}
-.photo_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_photo_16.png) no-repeat scroll 0 0;}
-.video_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_video_16.png) no-repeat scroll 0 0;}
-.url_link {background:transparent url(../images/page/discuss/background_info_types/icon_attach_url_16.png) no-repeat scroll 0 0;}
-
-.alternatives .statement_link {background:transparent url(../images/page/discuss/alternative_16.png) no-repeat scroll 0 0;}
-
-.create_question_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
-.create_proposal_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
-.create_improvement_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
-.create_pro_argument_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
-.create_contra_argument_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
-.create_follow_up_question_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
-.create_alternative_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
-.create_background_info_button {background:transparent url(../images/page/discuss/add_statement_small.png) no-repeat scroll 0 0;}
-
-.create_question_button_32 {background: transparent url(../images/page/discuss/question_32.png) no-repeat scroll 0 0;}
-.create_proposal_button_32 {background: transparent url(../images/page/discuss/proposal_32.png) no-repeat scroll 0 0;}
-.create_improvement_button_32 {background: transparent url(../images/page/discuss/improvement_32.png) no-repeat scroll 0 0;}
-.create_pro_argument_button_32 {background: transparent url(../images/page/discuss/pro_argument_32.png) no-repeat scroll 0 0;}
-.create_contra_argument_button_32 {background: transparent url(../images/page/discuss/contra_argument_32.png) no-repeat scroll 0 4px;}
-.create_follow_up_question_button_32 {
-  background:  transparent url("../images/page/discuss/fuq_32.png") no-repeat scroll -5px 0;
-  margin: 0 20px 0 15px !important;
-  padding: 7px 0 0 45px !important;
-}
-.create_alternative_button_32 {background: transparent url(../images/page/discuss/alternative_32.png) no-repeat scroll 0 0;}
-.create_background_info_button_32 {background: transparent url(../images/page/discuss/background_info_32.png) no-repeat scroll 0 0;}
+.statement.add_teaser {min-height: 350px;}
 
 /*****************/
 /* Incorporation */
@@ -1987,9 +2097,6 @@ form.statement fieldset ol li.tags_container {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
   border-radius: 15px;
-  /*-moz-box-shadow: 0 0 33px #F0F0F0;
-  -webkit-box-shadow: 0 0 33px #F0F0F0;
-  -box-shadow: 0 0 33px #F0F0F0;*/
   -moz-box-shadow: 0 0 33px #EBEFF2;
   -webkit-box-shadow: 0 0 33px #EBEFF2;
   box-shadow: 0 0 33px #EBEFF2;
@@ -2068,7 +2175,7 @@ form.statement fieldset ol li.tags_container {
 /**************/
 
 .statement .loading {
-	background: url('../images/indicator.gif') left center no-repeat;
+	background: url('../images/indicator_16.gif') left center no-repeat;
   width: 20px;
   height: 20px;
 	position: absolute;

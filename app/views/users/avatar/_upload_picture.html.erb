@@ -6,13 +6,16 @@
   <%= I18n.t('users.profile.upload_picture.guide') %>
 </p>
 
-<% semantic_form_for @profile, :html => { 'data-image-redirect' => url_for(:controller => 'users/profiles', :action => 'reload_pictures'), 
-                                          :multipart => true, :id => 'upload_picture_form', :class => 'upload_form' } do |form| %>
+<% semantic_form_for @profile, :html => { 'data-image-redirect' => url_for(:controller => 'users/profiles',
+                                                                           :action => 'reload_pictures'),
+                                          :multipart => true,
+                                          :id => 'upload_picture_form',
+                                          :class => 'upload_form' } do |form| %>
   <% form.inputs do %>
     <%= form.input :avatar, :input_html => {:size => 70}%>
   <% end %>
 <% end %>
 
 <div id="uploading_progress" style="display:none;">
-  <%= I18n.t('users.profile.upload_picture.progress') %> <%= image_tag 'indicator.gif' %>
+  <%= I18n.t('users.profile.upload_picture.progress') %> <%= image_tag 'indicator_16.gif' %>
 </div>

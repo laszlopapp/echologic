@@ -9,6 +9,10 @@ class StatementNode < ActiveRecord::Base
     self
   end
 
+  def u_class_name
+    self.class.name.underscore
+  end
+
   # Deletion handling
   after_destroy :destroy_associated_objects
 
@@ -154,6 +158,13 @@ class StatementNode < ActiveRecord::Base
     update_attributes(attrs)
   end
 
+  #
+  # Helper function to load the tags from the root
+  #
+  def load_root_tags
+    self.topic_tags = self.root.nil? ? parent.root.topic_tags : self.root.topic_tags
+  end
+
   ########################
   # DOCUMENTS' LANGUAGES #
   ########################
@@ -212,14 +223,15 @@ class StatementNode < ActiveRecord::Base
   # about other possible attributes, check child_statements documentation
   #
   def sibling_statements(opts={})
+    opts[:prev] ||= self.parent_node
     opts[:type] ||= self.class.to_s
-    if self.parent_node.nil?
+    if opts[:prev].nil?
       []
     else
-      opts[:lft] = self.parent_node.lft
-      opts[:rgt] = self.parent_node.rgt
+      opts[:lft] = opts[:prev].lft
+      opts[:rgt] = opts[:prev].rgt
       opts[:filter_drafting_state] = self.incorporable?
-      opts[:parent_id] = self.parent_node.target_id
+      opts[:parent_id] = opts[:prev].target_id
       self.child_statements(opts)
     end
   end
@@ -468,7 +480,8 @@ class StatementNode < ActiveRecord::Base
       end
 
       # Permissions
-      opts[:node_conditions] ||= [] 
+      opts[:node_conditions] ||= []
+      opts[:node_conditions].map!{|cond|sanitize_sql(cond)}
       opts[:node_conditions] << Statement.conditions(opts, "s.closed_statement", "s.granted_user_id")
 
       # Statement type
@@ -492,7 +505,7 @@ class StatementNode < ActiveRecord::Base
       # Limit
       limit = "LIMIT #{opts[:limit]}" if opts[:limit]
 
-      
+
       opts[:joins] ||= ""
 
       # Search terms
@@ -513,7 +526,7 @@ class StatementNode < ActiveRecord::Base
           term_queries << (term_query + (document_conditions + ["(#{or_conditions})"]).join(" AND "))
         end
         term_queries = term_queries.join(" UNION ALL ")
-        
+
         joins = "LEFT JOIN search_statement_nodes s ON statement_ids.id = s.statement_id " +
                 "LEFT JOIN #{table_name} ON #{table_name}.id = s.#{aggregator_field} " +
                 "LEFT JOIN #{Echo.table_name} e ON e.id = #{table_name}.echo_id "
@@ -528,11 +541,11 @@ class StatementNode < ActiveRecord::Base
         document_conditions << "d.current = 1"
 
         opts[:node_conditions] << "s.type = 'Question'" if opts[:types].nil?
-        
+
         joins = "LEFT JOIN statement_documents d ON d.statement_id = s.statement_id " +
                 Statement.extaggable_joins_clause("s.statement_id")
         joins << opts[:joins]
-        
+
         statements_query = "SELECT DISTINCT s.#{opts[:param] || '*'} from search_statement_nodes s " + joins +
                            "WHERE " + (opts[:node_conditions] + document_conditions).join(' AND ') +
                            " ORDER BY s.supporter_count DESC, s.created_at DESC, s.id #{limit};"
@@ -540,18 +553,15 @@ class StatementNode < ActiveRecord::Base
       find_by_sql statements_query
     end
 
-
     def default_scope
       { :include => :echo,
         :order => "echos.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id" }
     end
 
+
     ###################################
     # EXPANDABLE CHILDREN GUI HELPERS #
     ###################################
-
-
-
 
     # PARTIAL PATHS #
     def children_list_template

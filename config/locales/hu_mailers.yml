@@ -6,6 +6,11 @@ hu:
       follow_echo: Kövesd az echot
     greeting: 'Kedves {{name}},'
     echo_community: 'echo community'
+    echo_member: 'echo közösségi tag'
+    bye: |
+      Minden jót kíván,
+
+      Az echo csapata
     bye_as_html: |-
       Minden jót kíván,
       <br/><br/>
@@ -47,6 +52,11 @@ hu:
       sent: |-
         Your newsletter mails are being delivered...
 
+    user_mail:
+      subject: "[echo üzenet] {{subject}}"
+      prefix: "{{sender}} üzenetet küldött Neked az echon keresztül:"
+      suffix: "Válaszolj {{sender}}nak/nek közvetlenül E-Mailben vagy nézd meg a profilját az echon itt: {{url}}"
+
     activity_tracking:
       subject: echo - Új tartalmak
       title: Új viták és hozzászólások
@@ -57,6 +67,7 @@ hu:
         created_improvements: 'Új hozzászólások a javaslathoz "<strong>{{title}}</strong>":'
         created_pro_arguments: 'Új hozzászólások a javaslathoz "<strong>{{title}}</strong>":'
         created_contra_arguments: 'Új hozzászólások a javaslathoz "<strong>{{title}}</strong>":'
+        created_background_infos: 'Új tartalmak a hozzászóláshoz "<strong>{{title}}</strong>":'
         created_follow_up_questions: 'Új felmerülő kérdés a hozzászólás kapcsán "<strong>{{title}}</strong>":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-

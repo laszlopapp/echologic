@@ -6,6 +6,10 @@ fr:
       follow_echo: Suivez echo
     greeting: 'Cher(e) {{name}},'
     echo_community: 'echo community'
+    bye: |
+      Bien à vous,
+
+      L'équipe echo
     bye_as_html: |-
       Bien à vous,
       <br/><br/>
@@ -58,6 +62,7 @@ fr:
           Nouvelles propositions d'amélioraton' concernant la proposition "<strong>{{title}}</strong>":
         created_pro_arguments: 'Nouveaux arguments PRO concernant la proposition "<strong>{{title}}</strong>":'
         created_contra_arguments: 'Nouveaux arguments CONTRE concernant la proposition "<strong>{{title}}</strong>":'
+        created_background_infos: 'New content in the statement "<strong>{{title}}</strong>":'
         created_follow_up_questions: 'Nouvelle question suivie concernant "<strong>{{title}}</strong>":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-

@@ -7,10 +7,10 @@
 </p>
 
 <% semantic_form_for @statement_image,:html => { 'data-image-redirect' => reload_statement_image_url(@statement_image,
-                                                                         @statement_node, 
+                                                                         @statement_node,
                                                                         :date => @statement_image.image.updated_at),
-                                                 :multipart => true, 
-                                                 :id => 'upload_image_form', 
+                                                 :multipart => true,
+                                                 :id => 'upload_image_form',
                                                  :class => 'upload_form' } do |form| %>
   <% form.inputs do %>
     <%= form.input :image, :input_html => {:size => 70}  %>
@@ -18,5 +18,5 @@
 <% end %>
 
 <div id="uploading_progress" style="display:none;">
-  <%= I18n.t('discuss.statements.upload_image.progress') %> <%= image_tag 'indicator.gif' %>
+  <%= I18n.t('discuss.statements.upload_image.progress') %> <%= image_tag 'indicator_16.gif' %>
 </div>

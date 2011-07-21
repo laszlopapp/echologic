@@ -4,11 +4,11 @@
 
 /* Top menu */
 
-#topMenuContainer {
+#top_menu_container {
   position:    relative;
 }
 
-#topMenuContainer a, #topMenuContainer a:visited {
+#top_menu_container a, #top_menu_container a:visited {
   color:       #7691A2;
   font-family: arial,Helvetica,sans-serif;
   margin:      5px 2px 0 10px;
@@ -18,11 +18,11 @@
   font-size:   12px;
 }
 
-#topMenuContainer a img {
+#top_menu_container a img {
   border:      0px;
 }
 
-#topMenuContainer a:hover {
+#top_menu_container a:hover {
   color:       #1A4864;
 }
 
@@ -82,7 +82,7 @@
 
 /* Buttom menu */
 
-#bottomMenuContainer {
+#bottom_menu_container {
   width:       945px;
   margin:      2px auto 10px;
   text-align:  center;
@@ -90,13 +90,13 @@
   padding-top: 8px;
 }
 
-#bottomMenuContainer a, #bottomMenuContainer a:visited {
+#bottom_menu_container a, #bottom_menu_container a:visited {
   padding:     0 0 0 5px;
   color:       #21587f;
   font-family: arial,Helvetica,sans-serif;
   text-decoration: none;
 }
 
-#bottomMenuContainer a:hover {
+#bottom_menu_container a:hover {
   color:       #FFF;
 }

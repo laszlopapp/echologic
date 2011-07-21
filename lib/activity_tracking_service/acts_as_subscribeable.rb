@@ -36,7 +36,7 @@ module ActiveRecord
             # Destroys Subscriptions and Events which would become orphaned after deleting this statement.
             #
             def destroy_events
-              Event.destroy_all("event LIKE '%\"id\":#{self.target_id}%' AND event LIKE '%\"type\":\"#{self.class.name.underscore}\"%'")
+              Event.destroy_all("event LIKE '%\"id\":#{self.target_id}%' AND event LIKE '%\"type\":\"#{self.u_class_name}\"%'")
             end
 
             def self.subscribeable?

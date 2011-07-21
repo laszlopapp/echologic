@@ -1,12 +1,11 @@
 var element = $("<%= escape_javascript(render :partial => 'statements/new') %>").statement({'level' : <%= @level %>});
 element.data('api').removeBelow();
 
-<% if @statement_node.echoable? %>
-  element.data('echoableApi').loadEchoInfoMessages(<%= @messages %>);
-<% end %>
-
 /* Breadcrumb's stack (if follow-up question */
 <% if @breadcrumb %>
    $('#breadcrumbs').data('breadcrumbApi').addBreadcrumbs(<%= [@breadcrumb].to_json %>);
 <% end %>
 
+<% if @statement_node.echoable? %>
+  element.data('echoableApi').loadEchoInfoMessages(<%= @messages %>);
+<% end %>

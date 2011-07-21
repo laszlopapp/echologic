@@ -1,15 +1,16 @@
+
 (function($){
 
-  $.fn.embeddable = function() {
+  $.fn.embeddable = function(current_settings) {
 
+    $.fn.embeddable.defaults = {
+      'embed_speed': 500,
+      'scroll_speed': 300,
+      'embed_delay': 2000
+    };
 
     // Merging settings with defaults
-    var settings = {
-			'video_settings' : {
-        'width' : 640,
-        'height': 390
-      }
-    };
+    var settings = $.extend({}, $.fn.embeddable.defaults, current_settings);
 
     return this.each(function() {
       /* Creating embeddable and binding its API */
@@ -23,186 +24,213 @@
     });
 
 
-    /*******************/
-    /* The Alternative */
-    /*******************/
+    /******************/
+    /* The Embeddable */
+    /******************/
 
     function Embeddable(embeddable) {
-			var embedding_info = embeddable.find('.embedding_info');
-			var embedding_display = embeddable.find('.embedding_display');
-			var node_info = embedding_info.find('.info_types_container');
-			var embed_url = embedding_info.find('input.embed_url');
-      var embedded_content = embedding_display.find('.embedded_content');
-      var selected_content_type, change_event;
-			
-			
+
+			var embedData = embeddable.find('.embed_data');
+			var entryTypes = embedData.find('.entry_types');
+			var embedUrl = embedData.find('input.embed_url');
+
+      var embedPreview = embeddable.find('.embed_preview');
+      var embedCommand = embedPreview.find('.embed_command');
+      var selectedType, changeEvent;
+
       initialize();
+
 
       /*
        * Initializes an embeddable.
        */
       function initialize() {
-				node_info.jqTransform();
-        handleInputTypeClicks();
-        handleInputURL();
-				handleEmbeddedContent();
+				entryTypes.jqTransform();
+        initEntryTypes();
+        initEmbedURL();
       }
-      
+
 			/*
-       * Handles the click events on the background info type labels
+       * Handles the click events on the background info type labels.
        */
-      function handleInputTypeClicks() {
-        var content_type_labels = node_info.find('ol li label');
-        var content_type_radios = node_info.find("ol li input[type='radio']");
-        content_type_labels.each(function(){
-          loadInputType($(this));
-        }); 
-        content_type_labels.bind('click', function(){
-					var previous_selected_content_type = selected_content_type;       
-          deselectContentType();
-          selectContentType($(this));
-					if(previous_selected_content_type != selected_content_type){triggerChange();}
+      function initEntryTypes() {
+        var entryTypeLabels = entryTypes.find("li label");
+        var entryTypeRadios = entryTypes.find("li input[type='radio']");
+        entryTypeLabels.each(function(){
+          loadType($(this));
         });
-        content_type_radios.bind('click', function(){
-					var previous_selected_content_type = selected_content_type;
-          deselectContentType();
-          selectContentType($(this).parent().siblings('label'));
-					if(previous_selected_content_type != selected_content_type){triggerChange();}
+        var previousType = selectedType;
+        entryTypeLabels.bind('click', function(){
+          deselectType();
+          selectType($(this));
+					if(previousType != selectedType) {triggerChangeEvent();}
+        });
+        entryTypeRadios.bind('click', function(){
+          deselectType();
+          selectType($(this).parent().siblings('label'));
+					if(previousType != selectedType) {triggerChangeEvent();}
         });
       }
-			
-			function triggerChange() {
-				if(change_event) {
-          embeddable.trigger(change_event);
+
+      /*
+       * Triggers the unlink event on type change.
+       */
+      function triggerChangeEvent() {
+				if(changeEvent) {
+          embeddable.trigger(changeEvent);
         }
 			}
 
-      function loadInputType(label) {
+      function loadType(label) {
         if (label.siblings().find('a.jqTransformRadio').hasClass('jqTransformChecked')) {
           label.addClass('selected');
-          selected_content_type = label;
+          selectedType = label;
         }
       }
-      
-      function selectContentType(label) { 
+
+      function selectType(label) {
         label.addClass('selected').find('a.jqTransformRadio').addClass('jqTransformChecked');
-        selected_content_type = label;
-				embed_url.removeAttr('disabled');
+        selectedType = label;
+				embedUrl.removeAttr('disabled');
       }
-      
-      function deselectContentType() {
-        if (selected_content_type) { selected_content_type.removeClass('selected').find('a.jqTransformRadio').removeClass('jqTransformChecked'); }
+
+      function deselectType() {
+        if (selectedType) {
+          selectedType.removeClass('selected').find('a.jqTransformRadio').removeClass('jqTransformChecked');
+        }
       }
-      
+
 
       /*
-       * Handles the event of filling the info url (triggers the loading of that url on an iframe)
+       * Initiates the event of filling the info url (triggers the loading of that url on an iframe)
        */
-      function handleInputURL() {
-				if (!selected_content_type) {
-					embed_url.attr('disabled', 'disabled');
+      function initEmbedURL() {
+
+        // URL Input
+				if (!selectedType) {
+					embedUrl.attr('disabled', 'disabled');
 				}
-				var invalid_message = embed_url.attr('invalid-message');
-				embed_url.data('invalid-message', invalid_message);
-				embed_url.removeAttr('invalid-message');
-				embed_url.bind('keypress', function (event) {
+				var invalid_message = embedUrl.attr('invalid-message');
+				embedUrl.data('invalid-message', invalid_message);
+				embedUrl.removeAttr('invalid-message');
+				embedUrl.bind('keypress', function (event) {
 					if (event && event.keyCode == 13) { /* check if enter was pressed */
-					  showEmbeddingDisplay(); 
+					  showEmbedPreview();
 						return false;
 					}
+          triggerChangeEvent();
         });
-				handlePreviewButton();
-				embeddable.bind('submit', function(){
-					var url = embed_url.val();
-					if (!url.match(/http(s)?:\/\/.*/)) {embed_url.val("http://" + url);}
-				});
-      }
-			
-			function handlePreviewButton() {
-				embed_url.next().bind('click', function(){
-					showEmbeddingDisplay();
+
+        // Preview button
+				embedData.find('.preview_button').bind('click', function(){
+					showEmbedPreview();
 					return false;
 				});
-			}
-			
-			function showEmbeddingDisplay() {
-				var url = embed_url.val();
+
+        // Submit button
+				embeddable.bind('submit', function(){
+					var url = embedUrl.val();
+					if (!url.match(/http(s)?:\/\/.*/)) {embedUrl.val("http://" + url);}
+				});
+      }
+
+
+			function showEmbedPreview() {
+				var url = embedUrl.val();
 				if (!url.match(/http(s)?:\/\/.*/)) {url = "http://" + url;}
 				if (isValidUrl(url)) {
-					embedding_info.hide();
-				  loadEmbeddedContent(url);
-					embedding_display.show();
-					triggerChange();
+          if (!embedPreview.is(':visible')) {
+				    embedPreview.animate(toggleParams, settings['embed_speed']);
+            scrollOnPreview();
+          }
+          loadEmbeddedContent(url);
 				} else {
-					error(embed_url.data('invalid-message'));
+					error(embedUrl.data('invalid-message'));
 				}
 			}
-			
-			function showEmbeddingInfo() {
-				embedding_display.hide();
-				embedding_info.show();
-			}
-      
-			function handleEmbeddedContent() {
-				embedding_display.hide();
-				embedded_content.prev().bind('click', function(){
-					showEmbeddingInfo();
-					return false;
-				});
-			}
-			
+
       /*
-       * Loads an url onto the iframe
+       * Loads embedded content with the given URL.
        */
       function loadEmbeddedContent(url) {
-        var handled_url = url;
-				embedded_content.nextAll().remove();
-				embedded_content.attr('href', url);
-				embedded_content.embedly({
-					// key: ECHO_EMBEDLY_KEY!!!!!!!!!! TODO!
-					method: 'after',
-          error: function(node, dict){
-				  	$("<iframe/>").addClass('embedded_content').attr('frameborder', 0).attr('src', node.attr('href')).insertAfter(node);
-				  }
-				});
-				if (!embedded_content.is(':visible')) {
-          embedded_content.fadeIn();
-        }       
+
+        // Reseting the preview area
+        var embeddedContent = embedPreview.find('.embedded_content');
+        if (embeddedContent.is(':visible')) {
+          embedPreview.find('.embedded_content').animate(toggleParams, settings['embed_speed'], function() {
+            embeddedContent.remove();
+            scrollOnPreview();
+          });
+        }
+        embedCommand.attr('href', url);
+
+        // Embed URL
+        embedPreview.find('.loading').show();
+				embedCommand.embedly({
+          maxWidth: 990,
+          maxHeight: 1000,
+          className: 'embedded_content',
+          success: embedlyEmbed,
+					error: manualEmbed
+		  	});
       }
-      
-     	function handleEmbeddedContentChange(eventName) {
-				change_event = eventName;
-			}
-			
+
+      function embedlyEmbed(oembed, dict) {
+        var elem = $(dict.node);
+        if (! (oembed) ) { return null; }
+        if (oembed.type != 'link') {
+          elem.after(oembed.code);
+          showEmbeddedContent();
+        } else {
+          manualEmbed(elem, null);
+        }
+      }
+
+      function manualEmbed(node, dict) {
+        node.after($("<div/>").addClass('embedded_content').addClass('manual')
+                    .append($("<iframe/>").attr('frameborder', 0).attr('src', node.attr('href'))));
+        showEmbeddedContent();
+      }
+
+      function showEmbeddedContent() {
+        setTimeout(function() {
+          embedPreview.find('.loading').hide();
+          embedPreview.find('.embedded_content').fadeIn(settings['embed_speed'], scrollOnPreview);
+        }, settings['embed_delay']);
+      }
+
+      function scrollOnPreview() {
+        $.scrollTo('form.embeddable .entry_type', settings['scroll_speed']);
+      }
+
+
 			function isValidUrl(url) {
 				return url.match(/^(http|https|ftp):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i);
 			}
-			
+
+
       // Public API
       $.extend(this,
       {
         reinitialize: function() {
           initialize();
         },
+
 				linkEmbeddedContent: function(data) {
 					var content_type = data['content_type'];
           var external_url = data['external_url'];
-					
-					deselectContentType();
-          selectContentType(node_info.find('a.' + content_type).parent().siblings('label'));
-          
-          embed_url.val(external_url);
-					loadEmbeddedContent(external_url);
-          embedded_content.fadeIn();
+
+					deselectType();
+          selectType(entryTypes.find('a.' + content_type).parent().siblings('label'));
+          embedUrl.val(external_url);
+					//showEmbedPreview();
 				},
+
 				unlinkEmbeddedContent: function() {
-					deselectContentType();
-          embed_url.val('');
-					loadEmbeddedContent(external_url);
-          embedded_content.hide();
 				},
+
 				handleContentChange: function(eventName) {
-					handleEmbeddedContentChange(eventName);
+					changeEvent = eventName;
 				}
       });
     }

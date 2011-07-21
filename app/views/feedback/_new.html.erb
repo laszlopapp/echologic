@@ -1,7 +1,7 @@
 
 <%= t('feedback.new.welcome') %>
 
-<%= image_tag('page/illustrations/feedback.png', :id => 'feedbackIllustration') %>
+<%= image_tag('page/illustrations/feedback.png', :id => 'mail_illustration') %>
 
 <% form_for :feedback, :url => {:controller => 'feedback', :action => 'create'},
             :html => { :id => 'new_feedback_form', :class => 'echoForm'} do |f| %>

@@ -74,24 +74,26 @@ fr:
   help:
     discuss:
       closed_discussions:
-        hint: Tags to create closed discussions...
+        hint: Tags pour créer des discussions fermées...
         text: |
-          <p>Defining a *tag (starting with ONE *) will make this discussion semi-closed. Users must define the same
-          *tag as a decision making tag in their profile to be able to participate in the discussion, however it
-          will remain visible and transparent to the outside world.</p>
-          <p>Defining a **tag (with TWO **) will make this discussion fully closed. It will only be visible for users
-          having the same **tag as a decision making tag in their profile.</p>
-          <p>Please note, that this is just a temporary solution to facilitate closed discussions in echo. The real
-          solution with contact lists, invitations and fine-graded access right management will be coming later.</p>
+          <p>Définir un *Tag (à commencer par UN *) permet une discussion semi publique.
+          Les utilisateurs doivent définir le même *Tag affiché dans leur profil afin de pouvoir participer
+          à la discussion, toutefois celui-ci restera visible à tout le monde et à l'extérieur du groupe.</p>
+          <p>Déterminer un **Tag (par DEUX**) permettra de fermer complètement la discussion qui ne sera
+          accessible que pour les utilisateurs munis du même **Tag comme élément défini dans leur profil.</p>
+          <p>Ceci n'est qu'une disposition provisoire permettant d'ouvrir des groupes de discussion fermées sur echo.
+          La solution définitive avec des listes de contacts, invitations et la gestion des paliers d'accès est
+          en chantier.</p>
     profile:
       closed_discussions:
-        hint: Tags to access closed discussions...
+        hint:  Tags pour accéder à des discussions fermées...
         text: |
-          <p>Here you can enter the appropriate *tags and **tags as decision making tags. This will allow you to
-          take part in transparent, semi-closed discussions (tagged with *tag) and to see closed, internal
-          ones (protected with **tag) respectively.</p>
-          <p>Please note, that this is just a temporary solution to facilitate closed discussions in echo. The real
-          solution with contact lists, invitations and fine-graded access right management will be coming later.</p>
+          <p>Ici vos pouvez mettre les *Tags (UN *) et les **Tags (DEUX *). Ceci vous permettra de
+          participer à des discussion transparentes, semi-publiques (munis d'un *Tags ou de voir des discussions
+          entièrement fermées grâce à votre **Tags idoïne.</p>
+          <p>Ceci n'est qu'une disposition provisoire permettant d'ouvrir des groupes de discussion fermées sur echo.
+          La solution définitive avec des listes de contacts, invitations et la gestion des paliers d'accès est
+          en chantier.</p>
 
   # Localizations for the layout components
   layouts:
@@ -239,7 +241,13 @@ fr:
     # Spoken Languages section
     spoken_languages:
       title: Connaissances de langues étrangères
-      guide:  Indiquez vos connaissances linguistiques
+      guide: |
+        Vous pouvez fixer ici vos compétences linguistiques afin de <strong>voir le contenu seulement dans
+        les langues que vous parlez</strong>.<br/>
+        Par ailleurs, cela vous permettra de contribuer aux dialogues inter-culturels et multilangues sur echo et de
+        <strong>traduire des énoncéss</strong> entre les langues que vous maîtrisez au minimum au niveau intermédiaire.
+        Cela permettra de maintenir la qualité du fond et de la forme.<br/>
+        N'oubliez pas de préciser votre <strong>langue maternelle</strong>.
       language: Langue
       level: Niveau
       error_messages:
@@ -446,10 +454,10 @@ fr:
       La formulaton originale est en  <strong>{{language}}</strong>.<br/>
       Précisez vos compétences linguistiques pour accéder à d'autres pages.
     translation_request: Veuillez traduire la formulation en <strong>Français</strong>.
-    mixed_languages: Mixed up languages
-    set_languages: Set your <strong>LANGUAGE SKILLS</strong> - Wipe out the noise!
-    no_locale_language: Do you speak FRENCH?
-    adjust_languages: Please define your <strong>FRENCH language skills</strong>!
+    mixed_languages: Le brassage des langues
+    set_languages: Définissez vos <strong>COMPETENCES LINGUISTIQUES</strong> - Affirmez votre voix!
+    no_locale_language: Parlez-vous FRANÇAIS?
+    adjust_languages: Définissez vos <strong>Compétences en FRANÇAIS</strong>!
     results_count:
       one: '{{count}} question'
       more: '{{count}} questions'
@@ -521,13 +529,11 @@ fr:
 
     statements:
       label: 'Voter'
+      echo_link: 'Soutenez ce (echo)'
+      unecho_link: 'Retirer votre vote'
       echo_indicator:
-        support:
-          one: '{{supporter_count}} supporter'
-          many: '{{supporter_count}} supporters'
-        recommend:
-          one: '{{supporter_count}} supporter'
-          many: '{{supporter_count}} supporters'
+        one: '{{supporter_count}} supporter'
+        many: '{{supporter_count}} supporters'
       add_new: Nouvel élément...
       create_question_link: 'Poser une nouvelle question'
       create_proposal_link: 'Soumettre de nouvelles propositions'
@@ -536,14 +542,6 @@ fr:
       create_pro_argument_link: Ajouter un nouvel argument PRO
       create_contra_argument_link: Ajouter un nouvel argument CONTRE
       create_follow_up_question_link: Ajouter une nouvelle question suivie
-      recommend_link: 'Recommander ceci'
-      unrecommend_link: 'Retirer ce lien'
-      support_link: 'Soutener ce lien'
-      unsupport_link: 'Lien non soutenu'
-      recommend_link: 'Soutenez ce'
-      unrecommend_link: 'Retirer écho'
-      support_link: 'Soutenez ce'
-      unsupport_link: 'Retirer écho'
 
       statement_language_hint: |
         Veuillez préciser vos connaissances linguistiques et votre niveau respectif dans <a href='{{url}}'>profil</a>.
@@ -556,6 +554,8 @@ fr:
         son titre et sa description doivent etre clairs et compréhensibles indépendemment de la discusion d'origine.
       tag_permission: |
         Ce tag '{{tag}}' n'est pas autorisé.
+      read_permission: |
+        Vous n'êtes pas autorisé(e) à lire ces contributions.
       title_hint:
         question: Entrez le titre de la question en... français?
         proposal: Entrer le titre de votre proposition en... français?
@@ -596,7 +596,7 @@ fr:
         question: 'Questions'
         proposal: 'Propositions'
         improvement: 'Rajouts'
-        argument: 'Arguments'
+        argument: 'Pros & Cons'
         follow_up_question: 'Questions suivie'
       sibling_labels:
         question: 'Questions'
@@ -614,7 +614,7 @@ fr:
           new: |
             Poursuivre l'ébauche et publier plus tard
           published: |
-            Publier immédiatement (une mise à jour ultérieure n'est pas possible)
+            Publier immédiatement (une publication ultérieure sera restreinte)
         published: Publier
         approved: D'accord
       delete_link: 'Effacer'

@@ -18,7 +18,7 @@ module ActiveRecord
         def echoable?
           false
         end
-        
+
         def acts_as_echoable
 
           class_eval do
@@ -41,7 +41,7 @@ module ActiveRecord
             def echoable?
               true
             end
-            
+
             def self.echoable?
               true
             end
@@ -176,19 +176,6 @@ module ActiveRecord
             def supporters
               User.find(self.user_echos.supported.all.map(&:user_id))
             end
-
-            ##################
-            # string helpers #
-            ##################
-
-            def self.support_tag
-              "support"
-            end
-
-            def self.unsupport_tag
-              "unsupport"
-            end
-
 
           end # --- class_eval
 

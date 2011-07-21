@@ -89,10 +89,11 @@
   margin: 0 10px;
   position: relative;
   top: 4px;
+  cursor: default;
 }
 
 #login_container .signin {
-  text-decoration: underline;
+  font-size: 16px;
   position: relative;
   top: 4px;
 }
@@ -111,7 +112,7 @@
   clear:       both;
 }
 
-#missionStatementContainer {
+#mission_statement_container {
   width:       620px;
   height:      140px;
   clear:       both;
@@ -120,14 +121,14 @@
   background:  #fff;
 }
 
-#missionStatementContainer img {
+#mission_statement_container img {
   position:    absolute;
   left:        -6px;
   top:         -6px;
   z-index:     5;
 }
 
-#missionStatementContainer #yuccaHotspot {
+#mission_statement_container #yuccaHotspot {
   background:  url(../images/page/yucca.jpg) no-repeat scroll;
   position:    absolute;
   left:        533px;
@@ -166,7 +167,7 @@
   color:       #7BB031;
 }
 
-#newsContainer {
+#news_container {
   background:  #fff;
   width:       290px;
   height:      140px;
@@ -174,12 +175,12 @@
   margin-right: -5px;
 }
 
-#newsContainer img {
+#news_container img {
   border: none;
   margin-top: 3px;
 }
 
-#newsContainer p {
+#news_container p {
   margin: 0;
 }
 
@@ -416,7 +417,7 @@
   padding:     0px;
 }
 
-#missionStatementContainer .jump_in_button {
+#mission_statement_container .jump_in_button {
   margin: -7px 0 0 7px;
 }
 
@@ -548,7 +549,7 @@
   margin:        0px 10px 0;
 }
 
-#feedbackIllustration {
+#mail_illustration {
   float:         right;
   width:         190px;
   margin:        5px 25px 0 0;

@@ -6,6 +6,11 @@ de:
       follow_echo: Folgen Sie echo
     greeting: 'Hallo {{name}},'
     echo_community: 'echo Community'
+    echo_member: 'echo-Mitglied'
+    bye: |
+      Herzliche Grüße,
+
+      Ihr echo Team
     bye_as_html: |-
       Herzliche Grüße,
       <br/><br/>
@@ -48,6 +53,11 @@ de:
       sent: |-
         Your newsletter mails are being delivered...
 
+    user_mail:
+      subject: "[echo Nachricht] {{subject}}"
+      prefix: "{{sender}} hat Ihnen eine Nachricht via echo gesendet:"
+      suffix: "Sie können {{sender}} direkt antworten, in dem Sie auf diese Mail antworten oder ihr/sein echo-Profil besuchen: {{url}}"
+
     activity_tracking:
       subject: echo - Neue Diskussionsbeiträge
       title: Neue Diskussionsbeiträge
@@ -58,6 +68,7 @@ de:
         created_improvements: 'Neue Inhalte zum Vorschlag "<strong>{{title}}</strong>":'
         created_pro_arguments: 'Neue Inhalte zum Vorschlag "<strong>{{title}}</strong>":'
         created_contra_arguments: Neue Inhalte zum Vorschlag "<strong>{{title}}</strong>":'
+        created_background_infos: 'Neue Inhalte zur Aussage "<strong>{{title}}</strong>":'
         created_follow_up_questions: 'Neue Folgefrage zu "<strong>{{title}}</strong>":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-

@@ -6,6 +6,11 @@ en:
       follow_echo: Follow echo
     greeting: 'Dear {{name}},'
     echo_community: 'echo community'
+    echo_member: echo member
+    bye: |
+      Best regards,
+
+      Your echo team
     bye_as_html: |-
       Best regards,
       <br/><br/>
@@ -46,12 +51,12 @@ en:
         You need to fill the subject and text fields in order to send the newsletter.
       sent: |-
         Your newsletter mails are being delivered...
-        
+
     user_mail:
-      title: User Mail
-      subject: "[echo message] {{subject}}" 
-      prefix: "{{sender}} has sent you an email via echo..."
-      suffix: "You can answer {{sender}} directly or see his/her profile in echo here: {{url}}"
+      subject: "[echo message] {{subject}}"
+      prefix: "{{sender}} has sent you a message via echo:"
+      suffix: "You can answer {{sender}} directly by replying to this mail or see his or her profile in echo here: {{url}}"
+
     activity_tracking:
       subject: echo - New discussion content
       title: New discussion content
@@ -62,6 +67,7 @@ en:
         created_improvements: 'New content in the proposal "<strong>{{title}}</strong>":'
         created_pro_arguments: 'New content in the proposal "<strong>{{title}}</strong>":'
         created_contra_arguments: 'New content in the proposal "<strong>{{title}}</strong>":'
+        created_background_infos: 'New content in the statement "<strong>{{title}}</strong>":'
         created_follow_up_questions: 'New follow-up questions for "<strong>{{title}}</strong>":'
         tag_link: "{{tag}} ({{count}})"
       unsubscribe: |-

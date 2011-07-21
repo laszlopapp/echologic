@@ -1,12 +1,20 @@
 <% statement_node ||= @statement_node %>
 <% alternatives ||= @alternatives %>
-<% content_tag :div, :class => 'alternatives alternative_panel header_block' do %>
-  <%= alternatives_box_title %>
-  
+
+<% content_tag :div, :class => 'alternatives header_block' do %>
+  <%= content_tag :span, '', :class => 'alt_border top' %>
+  <%= content_tag :span, I18n.t("discuss.statements.headings.alternatives"), :class => 'label' %>
+
 	<%= render :partial => 'statements/children_list',
              :locals => {:label_type => "alternative",
                          :child_type => @statement_node.class.alternative_types.first.to_s.underscore,
                          :children => alternatives,
-                         :display => true}%>
-	<%= render_arrow %>
+                         :display => true} %>
+
+  <%= content_tag :span, '', :class => 'alt_border bottom' %>
+
+	<% content_tag :div, :class => 'teaser', :style => 'display: none' do %>
+    <%= content_tag :span, '', :class => 'arrow' %>
+    <%= content_tag :span, I18n.t('application.general.or'), :class => 'or' %>
+  <% end %>
 <% end %>
