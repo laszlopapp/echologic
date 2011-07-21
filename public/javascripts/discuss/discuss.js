@@ -50,7 +50,6 @@ function initFragmentStatementChange() {
 		if ($.fragment().sids) {
 			var sids = $.fragment().sids;
 			var new_sids = sids.split(",");
-			var length = new_sids.length;
 			var path = "/" + new_sids[new_sids.length-1];
 			var last_sid = new_sids.pop();
 

@@ -713,9 +713,9 @@
 		  }
 
 
-			/********************/
-			/* EMBEDDED CONTENT */
-			/********************/
+			/*****************************/
+			/* Embedded external content */
+			/*****************************/
 
 			function initEmbeddedContent() {
 		  	embedPlaceholder.embedly({
@@ -760,8 +760,7 @@
 
       $.extend(this,
       {
-        reinitialise: function(resettings)
-        {
+        reinitialise: function(resettings) {
           settings = $.extend({}, resettings, settings, {'load' : false});
           initialise();
         },
@@ -795,9 +794,11 @@
 		     });
 				 return this;
 		    },
+
 				getBreadcrumbKey: function() {
 					return generateBreadcrumbKey();
 				},
+
 				deleteBreadcrumb: function() {
 					var key = generateBreadcrumbKey();
 				  $('#breadcrumbs').data('breadcrumbApi').deleteBreadcrumb(key);
@@ -807,9 +808,7 @@
 		      var element = $('div#statements .statement').eq(settings['level']);
 		      if(element.length > 0) {
 		        element.replaceWith(statement);
-		      }
-		      else
-		      {
+		      } else {
 		        collapseStatements();
 		        $('div#statements').append(statement);
 		      }
@@ -834,7 +833,6 @@
 					return this;
 		    },
 
-		    /* Expandable Flow */
 		    show: function() {
 		      statement.find('.content').animate(toggleParams, settings['animation_speed']);
 					return this;
@@ -846,13 +844,12 @@
 		      statement.find('.supporters_label').hide();
 					return this;
 		    },
-        loadRatioBars: function(container)
-        {
+        loadRatioBars: function(container) {
           statement.data('echoableApi').loadRatioBars(container);
 					return this;
         },
-				getType: function()
-				{
+
+				getType: function() {
 					return statementType;
 				}
       });

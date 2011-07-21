@@ -553,18 +553,15 @@ class StatementNode < ActiveRecord::Base
       find_by_sql statements_query
     end
 
-
     def default_scope
       { :include => :echo,
         :order => "echos.supporter_count DESC, #{table_name}.created_at DESC, #{table_name}.id" }
     end
 
+
     ###################################
     # EXPANDABLE CHILDREN GUI HELPERS #
     ###################################
-
-
-
 
     # PARTIAL PATHS #
     def children_list_template

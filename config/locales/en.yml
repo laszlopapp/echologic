@@ -403,10 +403,6 @@ en:
       messages:
         created: "Thank you for your message. An administrator was notified."
 
-    user_mails:
-      messages:
-        created: "Ihre Nachricht wurde erfolgreich versendet."
-
 
   # ---------------
   # Discuss section
