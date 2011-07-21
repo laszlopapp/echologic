@@ -824,7 +824,7 @@ class StatementsController < ApplicationController
                  @statement_node.u_class_name :
                  @ancestors[index+1].u_class_name
         bids << "#{Breadcrumb.instance.generate_key(b_type)}#{ancestor.id}"
-      end
+      end if @ancestors
     end
 
     @breadcrumbs = []

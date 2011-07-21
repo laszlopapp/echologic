@@ -3,11 +3,11 @@ class Breadcrumb
   include Singleton
   
   def decode_terms(terms)
-    terms.gsub(/\\;/, ',').gsub(/\\:;/, '|')
+    terms ? terms.gsub(/\\;/, ',').gsub(/\\:;/, '|') : nil
   end
   
   def encode_terms(terms)
-    terms.gsub(/,/,'\\;').gsub(/\|/, '\\:;')
+    terms ? terms.gsub(/,/,'\\;').gsub(/\|/, '\\:;') : nil
   end
 
   def origin_keys
