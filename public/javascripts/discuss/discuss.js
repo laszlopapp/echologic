@@ -26,6 +26,26 @@ function initBreadcrumbs() {
 
 
 /*
+ * Initializes the statements (by applying the statement plugin on them)
+ * and sets the SIDS (statement Ids) in the fragement if it is empty.
+ */
+function initStatements() {
+	var sids = [];
+	$('#statements .statement').each(function() {
+		$(this).statement({'insertStatement': false});
+		if ($(this).is("div")) {
+			sids.push($(this).attr('id').match(/\d+/));
+		}
+	});
+	if (sids.length > 0 && (!$.fragment().sids || $.fragment().sids.length == 0)) {
+  	$.setFragment({
+  		"sids": sids.join(",")
+  	});
+  }
+}
+
+
+/*
  * Initializes handlers to react on fragement (SIDS - statement Ids) change events.
  */
 function initFragmentChangeHandling() {
@@ -103,38 +123,10 @@ function initFragmentChangeHandling() {
 
 
 /*
- * Initializes the statements (by applying the statement plugin on them)
- * and sets the SIDS (statement Ids) in the fragement if it is empty.
- */
-function initStatements() {
-	var sids = [];
-	$('#statements .statement').each(function() {
-		$(this).statement({'insertStatement': false});
-		if ($(this).is("div")) {
-			sids.push($(this).attr('id').match(/\d+/));
-		}
-	});
-	if (sids.length > 0 && (!$.fragment().sids || $.fragment().sids.length == 0)) {
-  	$.setFragment({
-  		"sids": sids.join(",")
-  	});
-  }
-}
-
-
-/*
  * Extracts the statement node Id from the statement DOM Id.
  */
 function getStatementId(domId) {
   return domId.replace(/[^0-9]+/, '');
-}
-
-
-/*
- * Returns true if the URL matches the pattern of an echo statement link.
- */
-function isEchoStatementUrl(url) {
-	return url.match(/^http:\/\/(www\.)?echo\..+\/statement\/(\d+)/);
 }
 
 
@@ -158,6 +150,14 @@ function getOriginKeys(array) {
   return $.grep(array, function(a, index) {
     return $.inArray(a.substring(0,2), ['sr','ds','mi','fq','jp']) != -1;
   });
+}
+
+
+/*
+ * Returns true if the URL matches the pattern of an echo statement link.
+ */
+function isEchoStatementUrl(url) {
+	return url.match(/^http:\/\/(www\.)?echo\..+\/statement\/(\d+)/);
 }
 
 
