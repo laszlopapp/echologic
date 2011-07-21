@@ -379,7 +379,7 @@ Feature: Take Part on a question
       | statement_node_statement_document_title           | Undercova Brotha        |
       | statement_node_statement_document_text            | Funkytime in Funkytown  |
       | statement_node_external_url_info_url              | http://Ipitythefool.com |
-      And I choose "statement_node_info_type_url"
+      And I choose "statement_node_info_type_misc"
       And I press "Save"
     Then I should see "Undercova Brotha"
       And the background info should have 0 siblings in session
@@ -399,7 +399,7 @@ Feature: Take Part on a question
       | statement_node_statement_document_title           | Undercova Brotha        |
       | statement_node_statement_document_text            | Funkytime in Funkytown  |
       | statement_node_external_url_info_url              | http://Ipitythefool.com |
-      And I choose "statement_node_info_type_url"
+      And I choose "statement_node_info_type_misc"
       And I press "Save"
     Then I should see "Undercova Brotha"
       And the background info should have 0 siblings in session
@@ -420,7 +420,7 @@ Feature: Take Part on a question
       | statement_node_statement_document_title           | Undercova Brotha        |
       | statement_node_statement_document_text            | Funkytime in Funkytown  |
       | statement_node_external_url_info_url              | http://Ipitythefool.com |
-      And I choose "statement_node_info_type_url"
+      And I choose "statement_node_info_type_misc"
       And I press "Save"
     Then I should see "Undercova Brotha"
       And the background info should have 0 siblings in session
