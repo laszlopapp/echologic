@@ -323,7 +323,7 @@ module StatementsHelper
   # Returns a link to create a new child statement from a given type for the given statement (appears in the SIDEBAR).
   #
   def add_new_child_link(statement_node, type, opts={})
-    opts[:new_level] = true
+    opts[:nl] = true
     content = ''
     content << content_tag(:a, :href => new_statement_node_url(statement_node, type, opts),
                            :class => "create_#{type}_button_32 resource_link ajax ttLink no_border",
@@ -340,7 +340,8 @@ module StatementsHelper
     if current_user and current_user.may_edit?(statement_node)
       link_to(I18n.t('application.general.edit'),
               edit_statement_node_url(statement_node,
-                                      :current_document_id => statement_document.id),
+                                      :current_document_id => statement_document.id,
+                                      :cs => params[:cs]),
               :class => 'ajax header_button text_button edit_text_button')
     else
       ''
@@ -376,7 +377,7 @@ module StatementsHelper
       content = ''
       content << image_tag(user.avatar.url(:small), :alt => '')
       content << content_tag(:span, I18n.t('users.authors.teaser.title'), :class => 'name')
-      content << create_new_child_statement_link(statement_node, 'improvement', :new_level => true, :css => "ajax")
+      content << create_new_child_statement_link(statement_node, 'improvement', :nl => true, :css => "ajax")
       content
     end
   end
@@ -440,7 +441,9 @@ module StatementsHelper
   #
   def cancel_edit_statement_node(statement_node, locked_at)
     link_to I18n.t('application.general.cancel'),
-            cancel_statement_node_url(statement_node, :locked_at => locked_at.to_s),
+            cancel_statement_node_url(statement_node, 
+                                      :locked_at => locked_at.to_s,
+                                      :cs => params[:cs]),
            :class => "text_button cancel_text_button ajax"
   end
 
@@ -658,7 +661,7 @@ module StatementsHelper
   def link_to_child(title, statement_node,opts={})
     opts[:type] = dom_class(statement_node) #TODO: This forced op must be deleted when alternatives navigation/breadcrumb are available
     bids = params[:bids] || ''
-    if opts[:new_level]
+    if opts[:nl]
       bids = bids.split(",")
       bid = "#{Breadcrumb.instance.generate_key(opts[:type])}#{@statement_node.target_id}"
       bids << bid
@@ -669,7 +672,7 @@ module StatementsHelper
       content = link_to(statement_node_url(statement_node.target_id,
                                            :bids => bids,
                                            :origin => params[:origin],
-                                           :new_level => opts[:new_level]),
+                                           :nl => opts[:nl]),
                         :class => "statement_link #{opts[:type]}_link #{opts[:css]}") do
         statement_icon_title(title)
       end
@@ -716,7 +719,7 @@ module StatementsHelper
                                                     :type => opts[:type],
                                                     :bids => params[:bids],
                                                     :origin => params[:origin],
-                                                    :new_level => opts[:new_level]),
+                                                    :nl => opts[:new_level]),
             :class => 'more_children'
   end
 

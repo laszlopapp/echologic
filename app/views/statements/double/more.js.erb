@@ -14,7 +14,7 @@ var double_list = statement.find('.children .<%= type_plural %> .doubles_list');
 	var children_list = statement.find('.<%= type_plural %> .children_list:eq(<%= index %>)');
 	var elements_list =
       "<%= escape_javascript(render :partial => 'statements/child',
-                                    :locals => {:child_type => type, :new_level => params[:new_level]},
+                                    :locals => {:child_type => type, :new_level => params[:nl]},
                                     :collection => children_group[@offset, @per_page]) %>";
 
   var scrollpane;
@@ -28,7 +28,7 @@ var double_list = statement.find('.children .<%= type_plural %> .doubles_list');
 	<% if children_group.next_page.nil? %>
 	  if (children_list.find('.add_new_button').length == 0) {
 	   children_list.append('<%= content_tag :li, create_new_child_statement_link(@statement_node, type,
-	                                                                              :new_level => true,
+	                                                                              :nl => true,
 	                                                                              :css => "ajax") %>');
 		}
 	<% end %>
@@ -55,4 +55,4 @@ if(pagination_buttons.length > 0) {
 <% end %>
 statement.find('.children .<%= type_plural %> .more_pagination a').addClass('ajax');
 
-statement.data('api').reinitialiseContainerBlock(".<%=type_plural%>", <%= params[:new_level] ? true : false %>);
+statement.data('api').reinitialiseContainerBlock(".<%=type_plural%>", <%= params[:nl] ? true : false %>);

@@ -31,7 +31,7 @@ var origin_bids = getOriginKeys(bids);
 var origin = origin_bids[origin_bids.length-1];
 if (origin == null || origin == "undefined"){origin = '';}
 
-$.setFragment({ "new_level" : '', "origin" : origin});
+$.setFragment({ "nl" : '', "origin" : origin});
 
 var element = $("<%= escape_javascript(render :partial => 'statements/show', :locals => {:statement_node => @statement_node.target_statement}) %>").statement({'level' : <%= @statement_node.level %>});
 element.data('api').removeBelow();
