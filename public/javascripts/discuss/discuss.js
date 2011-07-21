@@ -5,8 +5,8 @@ $(document).ready(function () {
 	if ($('#function_container.discuss').length > 0) {
   	if ($('#statements').length > 0) {
 	    initBreadcrumbs();
-	    initStatements();
 			initFragmentStatementChange();
+			initStatements();
 	    loadSocialMessages();
 	  }
   }
@@ -183,7 +183,7 @@ function socialSharingFinished(array) {
 
 
 function isEchoStatementUrl(url) {
-	return url.match(/^http:\/\/(www\.)?echo\..+\/statement\/(\d+)$/);
+	return url.match(/^http:\/\/(www\.)?echo\..+\/statement\/(\d+)/);
 }
 
 

@@ -487,6 +487,7 @@ pt:
         improvement: Visualizar todas as melhorias pertencentes à proposta atual
         pro_argument: Visualizar todos os argumentos pertencentes à proposta atual
         contra_argument: Visualizar todos os argumentos pertencentes à proposta atual
+        background_info:  Visualizar todas as informações de fundo pertencentes ao conteúdo acima
       link_statement: "Introduza parte do título ou cole o URL de um dos conteúdos. Seguidamente prima o botão para associar o conteúdo no contexto atual."
       unlink_statement: "Prima o botão de novo para dissociar o conteúdo."
 
@@ -497,7 +498,7 @@ pt:
       echo_indicator:
         one: '{{supporter_count}} apoiante'
         many: '{{supporter_count}} apoiantes'
-      add_new: Adicionar novo/a...
+      add_new: Novo Conteúdo
       copy_url: Link para
       create_question_link: 'Criar uma nova questão'
       create_proposal_link: 'Criar nova proposta'

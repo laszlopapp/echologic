@@ -461,16 +461,15 @@
        * Initilizes all external URLs and internal echo links.
        */
       function initContentLinks() {
-        statement.find(".statement_content a").each(function() {
+        statement.find(".statement_content a:not(.upload_link)").each(function() {
           var link = $(this);
 
           var url = link.attr("href");
           if (url.substring(0,7) != "http://" && url.substring(0,8) != "https://") {
             url =  "http://" + url;
           }
-
 					if (isEchoStatementUrl(url)) { // if this link goes to another echo statement, then add a jump bid
-						url = generateJumpLink(url);
+						generateJumpLink(link,url);
 					} else {
             link.attr("target", "_blank");
           }
@@ -482,17 +481,41 @@
       /*
        * Generates a link for the statement with the dorrect breadcrumbs and a new JUMP breadcrumb in the end.
        */
-      function generateJumpLink(url){
+      function generateJumpLink(link, url){
 				var anchor_index = url.indexOf("#");
         if (anchor_index != -1) {
           url = url.substring(0, anchor_index);
         }
-        var bid = 'jp' + statementId;
-        var bids = $.fragment().bids;
-
-        bids = (bids && bids.length > 0) ? bids.split(',') : [];
-        bids.push(bid);
-        return $.queryString(url, {"bids" : bids.join(','), "origin" : bid });
+				$.getJSON(url+'/ancestors', function(data) {
+					
+					sids = data;
+					
+					link.bind("click", function(){
+						var key = generateBreadcrumbKey();
+						var currentBids = $('#breadcrumbs').data('breadcrumbApi').getBreadcrumbStack(null);
+						var bids = currentBids;
+						
+						// Update the bids
+	          var index = $.inArray(key, bids);
+	          if (index != -1) { // if parent breadcrumb exists, then delete everything after it
+	            bids = bids.splice(0, index + 1);
+	          } else { // if parent breadcrumb doesn't exist, it means top stack statement
+	            bids = bids.splice(0, currentBids.length - currentBids.length%3);
+	          }
+						
+						var bid = 'jp' + statementId;
+						bids.push(bid);
+						
+						$.setFragment({
+              "bids": bids.join(","),
+              "sids": sids.join(","),
+              "nl": true,
+              "origin": bid
+            });
+						
+						return false;
+					});
+				});
 			}
 
 

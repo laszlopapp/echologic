@@ -502,6 +502,24 @@ class StatementsController < ApplicationController
       %w(origin bids).each{|s| options[s.to_sym] = params[s.to_sym]}
     redirect_to statement_node_url(@statement_node.target_statement, options)
   end
+  
+  ##############
+  # BREADCRUMB #
+  ##############
+
+  #
+  # Loads the ancestors' ids
+  #
+  # Method:   GET
+  # Params:   id: integer
+  # Response: JSON
+  #
+  def ancestors
+    @statement_ids = @statement_node.self_and_ancestors.map(&:id)
+    respond_to do |format|
+      format.json{render :json => @statement_ids}
+    end
+  end
 
   #############
   # PROTECTED #
