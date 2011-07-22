@@ -11,9 +11,9 @@
                                                           #{statement_node.taggable? ? 'taggable' : ''}
                                                           #{statement_node.echoable? ? 'echoable' : ''}"} do |form| -%>
   <%= render :partial => 'statements/header', :locals => {:statement_node => statement_node} %>
-  <%= render :partial => 'statements/form/form_content', 
-                         :locals => {:form_partial => 'statements/form/translation_form', 
-                                     :form => form, 
+  <%= render :partial => 'statements/form/form_content',
+                         :locals => {:form_partial => 'statements/form/translation_form',
+                                     :form => form,
                                      :statement_node => statement_node,
                                      :headline =>  I18n.t("discuss.statements.types.#{node_type(statement_node)}"),
                                      :no_language_info => true} %>
