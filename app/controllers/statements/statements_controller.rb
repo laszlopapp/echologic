@@ -806,6 +806,7 @@ class StatementsController < ApplicationController
                    :title => Breadcrumb.instance.decode_terms(statement_document.title),
                    :label => I18n.t("discuss.statements.breadcrumbs.labels.#{Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)}"),
                    :over => I18n.t("discuss.statements.breadcrumbs.labels.over.#{Breadcrumb.instance.generate_key(@statement_node_type.name.underscore)}")}
+    @breadcrumb[:css] << " #{parent_node.info_type.code}" if parent_node.class.has_embeddable_data?
     @bids = params[:bids]||''
     @bids = @bids.split(",")
     @bids << @breadcrumb[:key]
@@ -861,6 +862,7 @@ class StatementsController < ApplicationController
         origin = index > 0 ? bids.select{|b|Breadcrumb.instance.origin_keys.include?(b[0,2])}[index-1] : ''
         breadcrumb[:key] = "#{key}#{value}"
         breadcrumb[:css] = "statement statement_link #{statement_node.u_class_name}_link"
+        breadcrumb[:css] << " #{statement_node.info_type.code}" if statement_node.class.has_embeddable_data?
         breadcrumb[:url] = statement_node_url(statement_node,
                                                                :bids => bids[0, bids.index(bid)].join(","),
                                                                :origin => origin)
