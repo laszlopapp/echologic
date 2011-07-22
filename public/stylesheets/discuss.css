@@ -338,6 +338,7 @@ form.embeddable .entry_types label {
 	color: #21587F;
 	line-height: 32px;
   padding-left: 40px;
+  cursor: pointer;
 }
 
 form.embeddable .entry_types .entry_type {
@@ -381,15 +382,15 @@ form.embeddable .entry_types li .icon {
   float: left;
 }
 
-form.embeddable .entry_types li#article .icon {background-position: 0 0;}
-form.embeddable .entry_types li#paper .icon {background-position: -32px 0;}
-form.embeddable .entry_types li#book .icon {background-position: -64px 0;}
-form.embeddable .entry_types li#audio .icon {background-position: -96px 0;}
-form.embeddable .entry_types li#photo .icon {background-position: -128px 0;}
-form.embeddable .entry_types li#video .icon {background-position: -160px 0;}
-form.embeddable .entry_types li#law .icon {background-position: -192px 0;}
-form.embeddable .entry_types li#document .icon {background-position: -224px 0;}
-form.embeddable .entry_types li#misc  .icon {background-position: -256px 0;}
+form.embeddable .entry_types .article .icon {background-position: 0 0;}
+form.embeddable .entry_types .paper .icon {background-position: -32px 0;}
+form.embeddable .entry_types .book .icon {background-position: -64px 0;}
+form.embeddable .entry_types .audio .icon {background-position: -96px 0;}
+form.embeddable .entry_types .photo .icon {background-position: -128px 0;}
+form.embeddable .entry_types .video .icon {background-position: -160px 0;}
+form.embeddable .entry_types .law .icon {background-position: -192px 0;}
+form.embeddable .entry_types .document .icon {background-position: -224px 0;}
+form.embeddable .entry_types .misc  .icon {background-position: -256px 0;}
 
 form.embeddable .entry_url_container li {
   width: 762px;

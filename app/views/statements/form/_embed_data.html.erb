@@ -7,36 +7,30 @@
 <% content_tag :div, :class => "embed_data" do %>
 
   <!-- Info Type Radio Buttons -->
-  
-	  <% content_tag :ol, :class => 'data_block entry_type' do %>
-	    <% content_tag :li do %>
-	      <%= content_tag :span, I18n.t('activerecord.attributes.statement.info_type_id'), :class => 'label' %>
-	      <% content_tag :div, :class => 'entry_types' do %>
-	        <% content_tag :fieldset do %>
-	          <% content_tag :ol do %>
-	            <% InfoType.all.each do |info_type| %>
-	              <% content_tag :li, :id =>info_type.code do %>
-								  <noscript>
-	                <%= radio_button_tag "#{dom_class(statement_node)}[info_type]",
-	                                     info_type.code,
-	                                     (!no_data and statement_node.info_type.eql?(info_type)),
-	                                     :class => "info_type #{info_type.code}" %>
-								  </noscript>
-									<%= content_tag :span, '', :class => 'icon' %>
-	                <%= label_tag info_type.value %>
-	              <% end %>
-	            <% end %>
-							<%= hidden_field_tag "#{dom_class(statement_node)}[info_type]", statement_info_type, :class => "info_type_input"  %>
-	          <% end %>
-	        <% end %>
-	      <% end %>
-	    <% end %>
-	  <% end %>
-	
-	
-	
-
-  
+  <% content_tag :ol, :class => 'data_block entry_type' do %>
+    <% content_tag :li do %>
+      <%= content_tag :span, I18n.t('activerecord.attributes.statement.info_type_id'), :class => 'label' %>
+      <% content_tag :div, :class => 'entry_types' do %>
+        <% content_tag :fieldset do %>
+          <% content_tag :ol do %>
+            <% InfoType.all.each do |info_type| %>
+              <% content_tag :li, :class => info_type.code, 'data-value' => info_type.code do %>
+                <noscript>
+                <%= radio_button_tag "#{dom_class(statement_node)}[info_type]",
+                                     info_type.code,
+                                     (!no_data and statement_node.info_type.eql?(info_type)),
+                                     :class => "info_type #{info_type.code}" %>
+                </noscript>
+                <%= content_tag :span, '', :class => 'icon' %>
+                <%= label_tag info_type.value %>
+              <% end %>
+            <% end %>
+            <%= hidden_field_tag "#{dom_class(statement_node)}[info_type]", statement_info_type, :class => "info_type_input"  %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
 
   <!-- External URL -->
   <% content_tag :ol, :class => 'data_block entry_url_container' do %>

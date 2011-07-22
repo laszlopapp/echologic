@@ -50,22 +50,38 @@
         initEmbedURL();
       }
 
+
 			/*
        * Handles the click events on the background info type labels.
        */
       function initEntryTypes() {
 				var entries = entryTypes.find("li");
 				if (infoTypeInput.val().length > 0) {
-					selectedType = entries.siblings('#' + infoTypeInput.val());
+					selectedType = entries.siblings('.' + infoTypeInput.val());
 				  selectedType.addClass("selected");
 				}
-				
+
+        var previousType = selectedType;
 				entries.bind('click', function(){
 					deselectType();
 					selectType($(this));
+          if (previousType != selectedType) {
+            triggerChangeEvent();
+          }
 				});
-				
-        
+      }
+
+      function selectType(typeItem) {
+        typeItem.addClass('selected');
+        selectedType = typeItem;
+				infoTypeInput.val(typeItem.data('value'));
+				embedUrl.removeAttr('disabled');
+      }
+
+      function deselectType() {
+        if (selectedType) {
+          selectedType.removeClass('selected');
+        }
       }
 
       /*
@@ -76,20 +92,6 @@
           embeddable.trigger(changeEvent);
         }
 			}
-
-      
-      function selectType(label) {
-        label.addClass('selected');
-        selectedType = label;
-				infoTypeInput.val(label.attr('id'));
-				embedUrl.removeAttr('disabled');
-      }
-
-      function deselectType() {
-        if (selectedType) {
-          selectedType.removeClass('selected');
-        }
-      }
 
 
       /*
@@ -194,7 +196,6 @@
         $.scrollTo('form.embeddable .entry_type', settings['scroll_speed']);
       }
 
-
 			function isValidUrl(url) {
 				return url.match(/^(http|https|ftp):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i);
 			}
@@ -212,9 +213,8 @@
           var external_url = data['external_url'];
 
 					deselectType();
-          selectType(entryTypes.find('a.' + content_type).parent().siblings('label'));
+          selectType(entryTypes.find('.' + content_type));
           embedUrl.val(external_url);
-					//showEmbedPreview();
 				},
 
 				unlinkEmbeddedContent: function() {
