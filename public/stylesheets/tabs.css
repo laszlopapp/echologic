@@ -22,7 +22,8 @@
 }
 
 /* APPLICATION TABS SECTION */
-.applicationTabs {
+.applicationTabs,
+.embedTabs {
   margin: 0 auto;
   overflow: visible;
   position: relative;
@@ -34,12 +35,14 @@
   display: block;
 }
 
-.applicationTabs ul {
+.applicationTabs ul,
+.embedTabs ul {
   margin: 4px 0 7px;
   padding: 0;
 }
 
-.applicationTabs li {
+.applicationTabs li,
+.embedTabs li {
   background: url(../images/page/tabs/mainmenu_left_off.png) no-repeat scroll left top;
   height: 51px;
   display: inline-block;
@@ -49,7 +52,8 @@
   font-size: 15px;
 }
 
-.applicationTabs a, .applicationTabs a.active {
+.applicationTabs a, .applicationTabs a.active,
+.embedTabs a, .embedTabs a.active {
   background: transparent url(../images/page/tabs/mainmenu_right_off.png) no-repeat scroll right top;
   margin: 0 0 0 21px;
   padding: 0 21px 0 0;
@@ -61,11 +65,14 @@
 }
 
 .applicationTabs a,
-.applicationTabs a:visited {
+.applicationTabs a:visited,
+.embedTabs a,
+.embedTabs a:visited {
   color: #21587f;
 }
 
-.applicationTabs a:hover {
+.applicationTabs a:hover,
+.embedTabs a:hover {
   color: #7bb031;
 }
 
@@ -73,21 +80,47 @@
   background: url(../images/page/tabs/mainmenu_left_on.png) no-repeat scroll left top !important;
 }
 
-.applicationTabs a.active {
+.applicationTabs a.active,
+.embedTabs a.active {
   background: transparent url(../images/page/tabs/mainmenu_right_on.png) no-repeat scroll right top !important;
   font-weight: bold;
   color: #7bb031;
 }
 
+/**************/
+/* Embed Tabs */
+/**************/
+
+.embedTabs {
+  	
+}
+
+.embedTabs li {
+  background: none;
+}
+
+.embedTabs a, .embedTabs a.active {
+  background: none !important;
+	padding: 0;
+  margin: 0;
+	font-size: 14px;
+	min-width: 65px;
+}
+
+.embedTabs #echo_language_button {
+	position: absolute;
+	right: 195px;
+}
+
 /* My echo tab */
-#my_echo_tab_container {
+.applicationTabs #my_echo_tab_container {
   position: absolute;
   right: 55px;
   top: 0;
 }
 
 /* Admin tab */
-#admin_tab_container {
+.applicationTabs #admin_tab_container {
   position: absolute;
   left: 4px;
   top: 0;

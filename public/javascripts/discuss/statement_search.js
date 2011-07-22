@@ -43,6 +43,7 @@
       function initialise() {
         initEchoIndicators(search_container);
 				initMoreButton();
+				initEmbedButton();
 				//initScrollPane();
       }
 
@@ -96,6 +97,23 @@
 //				elements_list.jScrollPane({animateScroll: true});
 //			}
 
+      /*
+       * Handles the Embedded Code panel
+       */
+      function initEmbedButton() {
+        var embed_url = action_bar.find('.embed_url');
+        action_bar.find('a#embed_link').bind("click", function() {
+          $(this).next().animate({'opacity' : 'toggle'}, settings['animation_speed']);
+          embed_url.show().select();
+          return false;
+        });
+        action_bar.find('.embed_panel').bind("mouseleave", function() {
+          $(this).fadeOut();
+          return false;
+        });
+      }
+
+
       // Public API of statement
       $.extend(this,
       {
@@ -136,6 +154,12 @@
 							pagination = null;
 						}
 					}
+				},
+				updateEmbedButton: function()
+				{
+					action_bar = $('.action_bar');
+					initEmbedButton();
+					return this;
 				}
       });
     }

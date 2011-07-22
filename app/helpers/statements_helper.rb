@@ -93,8 +93,45 @@ module StatementsHelper
       content
     end
   end
+  
+  def render_discuss_search_embed_button
+    link_to('#', :id => 'embed_link', :class => 'add_new_button') do
+      link_content = ''
+      link_content << content_tag(:span, '',
+                                  :class => "embed_icon")
+      link_content <<  content_tag(:span, I18n.t("discuss.statements.embed_button"),
+                                   :class => 'label')
+      link_content
+    end
+  end
+  
+  #
+  # Creates a link to embed statement node 
+  #
+  def render_embed_area(statement_node)
+     url = statement_node_url(statement_node, :locale => I18n.locale, :mode => :embed)
+    content = ""
+    content << render_embed_button
+    content << render_embed_panel(url)
+    content
+  end
+  
+  def render_embed_button
+    link_to(I18n.t("discuss.statements.embed_button"), '#', :class => 'embed_button text_button')
+  end
 
-
+  def render_embed_panel(url)
+    embedded_code = %Q{<iframe width="800" height="1000" src="#{url}" frameborder="0"></iframe>}
+    content_tag(:div, :class => 'embed_panel popup_panel',
+                           :style => "display:none") do
+      panel = ''
+      panel << content_tag(:div, I18n.t("discuss.statements.embed_button"),:class => 'panel_header')
+      panel << content_tag(:div, I18n.t("discuss.statements.embed_hint"), :class => '')
+      panel << text_area_tag('', embedded_code, :class => 'embed_url')
+      panel
+    end
+  end
+  
   #
   # Creates a link to copy the statement node link into the clipboard
   #
@@ -130,6 +167,10 @@ module StatementsHelper
       actions = ""
       actions << content_tag(:div, :class => "add_new_container") do
         render_add_new_button(statement_node, params[:origin], params[:bids])
+      end
+
+      actions << content_tag(:div, :class => "embed_button_container") do
+        render_embed_area(statement_node)
       end
 
       actions << content_tag(:div, :class => "clip_button_container") do

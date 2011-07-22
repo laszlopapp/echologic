@@ -133,7 +133,7 @@
   /* Show and hide language selection on mouse enter and mouse leave. */
   function bindLanguageSelectionEvents() {
     $('#echo_language_button').bind("mouseenter", function() {
-      var pos = $("#echo_language_button").position();
+      var pos = $(this).position();
       $("#language_selector").css( { "left": (pos.left + 20) + "px", "top": (pos.top + 35) + "px" } );
       $('#language_selector').show();
     });

@@ -934,3 +934,12 @@
 	top: -2px;
   height: 10px !important;
 }
+
+/*
+ * Embed
+ */
+
+.embed_menu {
+	position: relative;
+  min-height: 70px;
+}

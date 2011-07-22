@@ -3,9 +3,29 @@
 
 class ApplicationController < ActionController::Base
 
+  layout :layout_mode
+
+  ##########
+  # LAYOUT #
+  ##########
+  private
+  
+  def layout_mode
+    params[:mode] || 'application'
+  end
+
+
   ###########
   # ROUTING #
   ###########
+
+  before_filter :set_mode
+  
+  private
+  def set_mode
+    RoutingFilter::Mode.current_mode = params[:mode]
+  end
+
 
   #
   # Initialize the locale of the application

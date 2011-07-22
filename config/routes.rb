@@ -5,6 +5,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Routing-filter plugin for wrapping :locale around URLs and paths.
   map.filter :locale
+  map.filter :mode
 
 
   ##################
@@ -277,6 +278,10 @@ ActionController::Routing::Routes.draw do |map|
                  :controller => 'static/echosocial',:action => 'show',
                  :conditions=> {:rails_env => 'production', :host => "echosocial-prod-clone.echo-test.org" }
 
+
+  # oembed
+  map.oembed '/api/oembed', :controller => :api, :action => :oembed
+  map.oembed '/api/oembed.:format', :controller => :api, :action => :oembed
 
   ##################
   # Unmatched URLs #

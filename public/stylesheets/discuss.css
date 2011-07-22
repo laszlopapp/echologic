@@ -123,6 +123,15 @@
 	margin-top: 10px;
 }
 
+.action_bar .embed_icon {
+  height:   42px;
+  width:    69px;
+  display:  inline-block;
+  background-image: url(../images/page/discuss/embed_icon_big.png);
+  cursor: pointer;
+  margin-top: 10px;
+}
+
 .action_bar .add_new_button:hover .add_new_question_icon {
   background-position: 0 -32px;
 }
@@ -683,7 +692,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* Action bar in Discuss Search */
 
 .action_panel {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .action_panel_header {
@@ -886,7 +895,9 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 /* Popup panels */
 /****************/
 
-.statement .popup_panel {
+
+.statement .popup_panel,
+.search .popup_panel {
   border: 3px solid #BBB;
 	background: #FEFEFE;
   position: absolute;
@@ -1111,6 +1122,7 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
   display: block;
   background-image: url(../images/page/discuss/add_new_button.png);
   cursor: pointer;
+	margin-bottom: 20px;
 }
 
 #my_questions .add_new_button:hover,
@@ -1129,6 +1141,48 @@ form.formtastic fieldset ol li.text .rte-zone textarea {
 
 .add_new_button:hover .add_new_button_icon {
   background-position: 0 42px;
+}
+
+/****************************/
+/* Embed button */
+/****************************/
+
+#statements .action_bar .embed_button_container {
+  position: relative;
+  margin-top: 20px;
+}
+
+.action_bar .embed_button {
+  display: inline-block;
+  background: url(../images/page/discuss/embed_icon_small.png) no-repeat scroll 0 0;
+  padding-left: 34px;
+  margin-left: 0;
+}
+
+.embed_panel {
+    background: none repeat scroll 0 0 #FEFEFE;
+    border: 3px solid #BBBBBB;
+    bottom: -49px;
+    left: 136px;
+    position: absolute;
+    width: 322px;
+    padding: 15px 30px;
+}
+
+.search .embed_panel {
+	top:98px;
+	bottom: auto;
+}
+
+.embed_panel .panel_header {
+  width: 280px;
+  margin-left: 0 !important;
+}
+
+.action_bar .embed_url {
+  margin-top: 20px;
+  width: 317px !important;
+	height: 65px !important;
 }
 
 /****************************/
