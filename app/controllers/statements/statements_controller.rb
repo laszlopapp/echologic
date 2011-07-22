@@ -502,7 +502,7 @@ class StatementsController < ApplicationController
       %w(origin bids).each{|s| options[s.to_sym] = params[s.to_sym]}
     redirect_to statement_node_url(@statement_node.target_statement, options)
   end
-  
+
   ##############
   # BREADCRUMB #
   ##############
@@ -966,7 +966,7 @@ class StatementsController < ApplicationController
   def search_statement_nodes(opts = {})
     opts[:language_ids] ||= filter_languages
     StatementNode.search_statement_nodes(opts.merge({:user => current_user,
-                                                       :show_unpublished => current_user && current_user.has_role?(:editor)}))
+                                                     :show_unpublished => current_user && current_user.has_role?(:editor)}))
   end
 
   #
@@ -980,7 +980,7 @@ class StatementsController < ApplicationController
   def search_statements(opts = {})
     opts[:languages] ||= filter_languages
     Statement.search_statements(opts.merge({:user => current_user,
-                                              :show_unpublished => current_user && current_user.has_role?(:editor)}))
+                                            :show_unpublished => current_user && current_user.has_role?(:editor)}))
   end
 
   #
