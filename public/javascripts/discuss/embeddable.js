@@ -33,6 +33,7 @@
 			var embedData = embeddable.find('.embed_data');
 			var entryTypes = embedData.find('.entry_types');
 			var embedUrl = embedData.find('input.embed_url');
+			var infoTypeInput = embedData.find('.info_type_input');
 
       var embedPreview = embeddable.find('.embed_preview');
       var embedCommand = embedPreview.find('.embed_command');
@@ -45,7 +46,6 @@
        * Initializes an embeddable.
        */
       function initialize() {
-				entryTypes.jqTransform();
         initEntryTypes();
         initEmbedURL();
       }
@@ -54,22 +54,18 @@
        * Handles the click events on the background info type labels.
        */
       function initEntryTypes() {
-        var entryTypeLabels = entryTypes.find("li label");
-        var entryTypeRadios = entryTypes.find("li input[type='radio']");
-        entryTypeLabels.each(function(){
-          loadType($(this));
-        });
-        var previousType = selectedType;
-        entryTypeLabels.bind('click', function(){
-          deselectType();
-          selectType($(this));
-					if(previousType != selectedType) {triggerChangeEvent();}
-        });
-        entryTypeRadios.bind('click', function(){
-          deselectType();
-          selectType($(this).parent().siblings('label'));
-					if(previousType != selectedType) {triggerChangeEvent();}
-        });
+				var entries = entryTypes.find("li");
+				if (infoTypeInput.val().length > 0) {
+					selectedType = entries.siblings('#' + infoTypeInput.val());
+				  selectedType.addClass("selected");
+				}
+				
+				entries.bind('click', function(){
+					deselectType();
+					selectType($(this));
+				});
+				
+        
       }
 
       /*
@@ -81,22 +77,17 @@
         }
 			}
 
-      function loadType(label) {
-        if (label.siblings().find('a.jqTransformRadio').hasClass('jqTransformChecked')) {
-          label.addClass('selected');
-          selectedType = label;
-        }
-      }
-
+      
       function selectType(label) {
-        label.addClass('selected').find('a.jqTransformRadio').addClass('jqTransformChecked');
+        label.addClass('selected');
         selectedType = label;
+				infoTypeInput.val(label.attr('id'));
 				embedUrl.removeAttr('disabled');
       }
 
       function deselectType() {
         if (selectedType) {
-          selectedType.removeClass('selected').find('a.jqTransformRadio').removeClass('jqTransformChecked');
+          selectedType.removeClass('selected');
         }
       }
 

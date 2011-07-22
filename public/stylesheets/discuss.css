@@ -357,36 +357,35 @@ form.embeddable .entry_types {
 form.embeddable .entry_types li {
 	float: left;
 	width: 180px;
+	cursor: pointer;
 }
 
 form.embeddable .entry_types input {display: none;}
 
 form.embeddable .entry_types li:hover label,
-form.embeddable .entry_types label.selected {
+form.embeddable .entry_types li.selected label {
 	color: #7BB031;
 }
 
-form.embeddable .entry_types a {
-	width: 32px;
+
+form.embeddable .entry_types li .icon {
+  background-image: url("../images/page/discuss/bi_icons_32.png");
+	padding-left: 32px;
   height: 32px;
   display: block;
   clear: left;
   float: left;
 }
 
-form.embeddable .entry_types a {
-  background-image: url("../images/page/discuss/bi_icons_32.png");
-}
-
-form.embeddable .entry_types a.article {background-position: 0 0;}
-form.embeddable .entry_types a.paper {background-position: -32px 0;}
-form.embeddable .entry_types a.book {background-position: -64px 0;}
-form.embeddable .entry_types a.audio {background-position: -96px 0;}
-form.embeddable .entry_types a.photo {background-position: -128px 0;}
-form.embeddable .entry_types a.video {background-position: -160px 0;}
-form.embeddable .entry_types a.law {background-position: -192px 0;}
-form.embeddable .entry_types a.document {background-position: -224px 0;}
-form.embeddable .entry_types a.misc {background-position: -256px 0;}
+form.embeddable .entry_types li#article .icon {background-position: 0 0;}
+form.embeddable .entry_types li#paper .icon {background-position: -32px 0;}
+form.embeddable .entry_types li#book .icon {background-position: -64px 0;}
+form.embeddable .entry_types li#audio .icon {background-position: -96px 0;}
+form.embeddable .entry_types li#photo .icon {background-position: -128px 0;}
+form.embeddable .entry_types li#video .icon {background-position: -160px 0;}
+form.embeddable .entry_types li#law .icon {background-position: -192px 0;}
+form.embeddable .entry_types li#document .icon {background-position: -224px 0;}
+form.embeddable .entry_types li#misc  .icon {background-position: -256px 0;}
 
 form.embeddable .entry_url_container li {
   width: 762px;
