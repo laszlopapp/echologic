@@ -1711,9 +1711,9 @@ a.statement_link:hover {
   background: url("../images/page/discuss/cas_arrow.png") no-repeat scroll 0 0;
   display: block;
   width: 47px;
-  height: 36px;
+  height: 38px;
   position: relative;
-  bottom: -48px;
+  bottom: -50px;
   left: 56px;
 }
 
@@ -1903,7 +1903,7 @@ a.statement_link:hover {
   border-top: 1px dashed #CCC;
   margin-top: 15px;
   padding: 5px 0 0;
-  width: 750px;
+  width: 767px;
 }
 
 #approved_ip.only_text {
