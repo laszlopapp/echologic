@@ -1723,9 +1723,9 @@ a.statement_link:hover {
   background: url("../images/page/discuss/cas_arrow.png") no-repeat scroll 0 0;
   display: block;
   width: 47px;
-  height: 36px;
+  height: 38px;
   position: relative;
-  bottom: -48px;
+  bottom: -50px;
   left: 56px;
 }
 
@@ -1912,10 +1912,8 @@ a.statement_link:hover {
 /*****************/
 
 #approved_ip {
-  border-top: 1px dashed #CCC;
-  margin-top: 15px;
   padding: 5px 0 0;
-  width: 750px;
+  width: 767px;
 }
 
 #approved_ip.only_text {
@@ -1925,22 +1923,29 @@ a.statement_link:hover {
 }
 
 .incorporate_statement_button_mid {
-  background: transparent url(../images/page/discuss/inc_improvement_mid.png) no-repeat scroll 0 0;
-  width: 55px;
-  height: 55px;
+  background: transparent url(../images/page/discuss/incorporate_button.png) no-repeat scroll 0 0;
+  width: 767px;
+  height: 54px;
   cursor: pointer;
   position: relative;
-  left: 390px;
   top: 0;
   display: block;
 }
 
 .incorporate_statement_button_mid:hover {
- background-position: 0 -55px;
+ background-position: 0 -54px;
 }
 
 #ip_text {
-  margin-top: 10px;
+  margin: 15px 0 25px;
+}
+
+form #approved_ip {
+  width: 750px;
+}
+
+form #ip_text {
+  margin: 15px 0 5px;
 }
 
 /***************/
