@@ -538,10 +538,10 @@ class StatementsController < ApplicationController
     @children_documents ||= {}
     @children[:Alternative] = @statement_node.paginated_alternatives(page,
                                                                      per_page,
-                                                                       :language_ids => filter_languages_for_children,
-                                                                       :user => current_user)
+                                                                     :language_ids => filter_languages_for_children,
+                                                                     :user => current_user)
     @children_documents.merge!(search_statement_documents :language_ids => filter_languages_for_children,
-                                                            :statement_ids => @children[:Alternative].flatten.map(&:statement_id))
+                                                          :statement_ids => @children[:Alternative].flatten.map(&:statement_id))
 
   end
 
