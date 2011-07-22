@@ -493,7 +493,7 @@
 					link.bind("click", function() {
 
 						var targetBids = getTargetBids(getParentKey());
-						
+
 						// if the jump link is for a statement on the same stack, delete those bids
 						// as they are going to be introduced anyway by the bids parameter
 						if (bids.length > 0) {
@@ -502,9 +502,10 @@
 								targetBids = targetBids.splice(0, index);
 							}
 						}
-						$.merge(targetBids, bids);
-						var bid = 'jp' + statementId;
+            var bid = 'jp' + statementId;
 						targetBids.push(bid);
+						$.merge(targetBids, bids);
+
 
 						$.setFragment({
               "bids": targetBids.join(","),
