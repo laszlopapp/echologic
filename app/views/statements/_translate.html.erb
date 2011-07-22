@@ -7,6 +7,7 @@
 <% semantic_form_for statement_node, :url => create_translation_statement_node_url(statement_node),
                                      :method => :put,
                                      :html => {:class => "ajax_form wide_form translation statement
+                                                          #{statement_node.class.has_embeddable_data? ? statement_node.info_type.code : ''}
                                                           #{statement_node.taggable? ? 'taggable' : ''}
                                                           #{statement_node.echoable? ? 'echoable' : ''}"} do |form| -%>
   <%= render :partial => 'statements/header', :locals => {:statement_node => statement_node} %>
