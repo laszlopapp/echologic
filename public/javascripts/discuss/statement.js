@@ -487,11 +487,22 @@
           url = url.substring(0, anchor_index);
         }
 				$.getJSON(url+'/ancestors', function(data) {
-					var sids = data;
+					var sids = data['sids'];
+					var bids = data['bids'];
 
 					link.bind("click", function() {
 
 						var targetBids = getTargetBids(getParentKey());
+						
+						// if the jump link is for a statement on the same stack, delete those bids
+						// as they are going to be introduced anyway by the bids parameter
+						if (bids.length > 0) {
+							var index;
+							if ((index = $.inArray(bids[0], targetBids)) != -1) {
+								targetBids = targetBids.splice(0, index);
+							}
+						}
+						$.merge(targetBids, bids);
 						var bid = 'jp' + statementId;
 						targetBids.push(bid);
 
