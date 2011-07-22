@@ -55,12 +55,18 @@
        * Handles the click events on the background info type labels.
        */
       function initEntryTypes() {
-				var entries = entryTypes.find("li");
+				var entries = entryTypes.find("li").each(function() {
+          var entry = $(this);
+          entry.data('value', entry.data('value')).removeAttr('data-value');
+        });
+
+        // Preselection
 				if (infoTypeInput.val().length > 0) {
 					selectedType = entries.siblings('.' + infoTypeInput.val());
 				  selectedType.addClass("selected");
 				}
 
+        // Click handling
         var previousType = selectedType;
 				entries.bind('click', function(){
 					deselectType();
