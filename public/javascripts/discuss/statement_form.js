@@ -132,7 +132,8 @@
           cancelButton.attr('href', $.queryString(cancelButton.attr('href').replace(/\/\d+/, path), {
             "sids": new_sids.join(","),
             "bids": bids_to_load.join(','),
-						"origin": $.fragment().origin
+						"origin": $.fragment().origin,
+						"cs" : $.fragment().sids
           }));
         }
       }

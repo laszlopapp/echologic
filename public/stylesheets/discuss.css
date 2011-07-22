@@ -182,13 +182,25 @@ form.statement .header_link .icon {
   position: absolute;
   top: 3px;
 }
+
 form.question .header_link .icon,
 form.follow_up_question .header_link .icon {background-position: 0 0;}
 form.proposal .header_link .icon {background-position: -16px 0;}
 form.improvement .header_link .icon {background-position: -32px 0;}
 form.pro_argument .header_link .icon {background-position: -48px 0;}
 form.contra_argument .header_link .icon {background-position: -64px 0;}
-form.background_info .header_link .icon {background-position: -96px 0;}
+
+form.background_info .header_link .icon {background-image: url(../images/page/discuss/bi_icons_16.png);}
+form.article .header_link .icon {background-position: 0 0;}
+form.paper .header_link .icon {background-position: -16px 0;}
+form.book .header_link .icon {background-position: -32px 0;}
+form.audio .header_link .icon {background-position: -48px 0;}
+form.photo .header_link .icon {background-position: -64px 0;}
+form.video .header_link .icon {background-position: -80px 0;}
+form.law .header_link .icon {background-position: -96px 0;}
+form.document .header_link .icon {background-position: -112px 0;}
+form.misc .header_link .icon {background-position: -128px 0;}
+
 
 form.statement .header_link fieldset ol li {
   padding-left: 20px;

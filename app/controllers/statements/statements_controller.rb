@@ -515,9 +515,15 @@ class StatementsController < ApplicationController
   # Response: JSON
   #
   def ancestors
-    @statement_ids = @statement_node.self_and_ancestors.map(&:id)
+    statement_nodes = @statement_node.self_and_ancestors
+    @statement_ids = statement_nodes.map(&:id)
+    @bids = []
+    statement_nodes.each_with_index do |s, index|
+      break if index > statement_nodes.length - 2
+      @bids << "#{Breadcrumb.instance.generate_key(statement_nodes[index+1].u_class_name)}#{s.id}"
+    end
     respond_to do |format|
-      format.json{render :json => @statement_ids}
+      format.json{render :json => {:sids => @statement_ids, :bids => @bids}}
     end
   end
 
@@ -561,8 +567,8 @@ class StatementsController < ApplicationController
             load_children :type => type
           else
             @children[type] ||= @statement_node.count_child_statements :language_ids => filter_languages_for_children,
-                                                                         :user => current_user,
-                                                                         :type => type
+                                                                       :user => current_user,
+                                                                       :type => type
           end
         end
       end
@@ -590,7 +596,7 @@ class StatementsController < ApplicationController
     @children[opts[:type]] = @statement_node.paginated_child_statements(opts)
     @children_documents ||= {}
     @children_documents.merge!(search_statement_documents :language_ids => filter_languages_for_children,
-                                                            :statement_ids => @children[opts[:type]].flatten.map(&:statement_id))
+                                                          :statement_ids => @children[opts[:type]].flatten.map(&:statement_id))
   end
 
   # aux function to load the children with the right set of languages
