@@ -26,32 +26,32 @@
     /*******************/
 
     function Alternative(statement) {
-      var alternative_panel = statement.find('.alternative_panel');
-			var arrow = alternative_panel.find('.arrow');
+      var alternatives = statement.find('.alternatives');
+			var teaser = alternatives.find('.teaser');
       initialize();
 
       /*
        * Initializes an echoable statement in a form or in normal mode.
        */
       function initialize() {
-        initPanel();
+        //initPanel();
       }
-			
+
 			function initPanel() {
-				alternative_panel.bind('mouseover', function(){
+				alternatives.bind('mouseover', function(){
 					panelHighlight();
 				});
-        alternative_panel.bind('mouseleave', function(){
+        alternatives.bind('mouseleave', function(){
 					panelNormal();
         });
 			}
 
       function panelHighlight() {
-				alternative_panel.find('a.statement_link').animate({color : settings['highlight_color']}, 100);
+				alternatives.find('a.statement_link').animate({color : settings['highlight_color']}, 100);
 			}
-			
+
 			function panelNormal() {
-        alternative_panel.find('a.statement_link').animate({color : settings['normal_mode_color']}, 100);				
+        alternatives.find('a.statement_link').animate({color : settings['normal_mode_color']}, 100);
 			}
 
 
@@ -62,12 +62,12 @@
           initialize();
         },
 				highlight: function() {
-					panelHighlight();
-					arrow.fadeIn(100);
+					//panelHighlight();
+					teaser.fadeIn(120);
 				},
 				normal_mode: function() {
-					panelNormal();
-					arrow.fadeOut(100);
+					//panelNormal();
+					teaser.fadeOut(120);
 				}
       });
     }

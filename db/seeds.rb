@@ -80,7 +80,7 @@ AboutCategory.enumeration_model_updates_permitted = false
 # INFO TYPE
 InfoType.enumeration_model_updates_permitted = true
 InfoType.purge_enumerations_cache
-%w(article paper book photo video url).each_with_index do |code, index|
+%w(article paper book audio photo video law document misc).each_with_index do |code, index|
   InfoType.create(:code => code, :key => index+1, :description => "info_type")
 end
 InfoType.enumeration_model_updates_permitted = false
@@ -350,33 +350,48 @@ end
 end
 
 # Order of values: EN, DE, FR, PT, ES, HU
-["Article","Artikel","Article","Artigo","Artículo","Article"].each_with_index do |value,index|
+["Article","Artikel","Article","Artigo","Artículo","Cikk"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('article','InfoType'),
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
-["Paper","Paper","Paper","Paper","Paper","Paper"].each_with_index do |value,index|
+["Paper","Ausarbeitung","Paper","Artigo Científico","Paper","Tudományos cikk"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('paper','InfoType'),
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
-["Book","Book","Book","Book","Book","Book"].each_with_index do |value,index|
+["Book","Buch","Book","Livro","Book","Könyv"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('book','InfoType'),
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
-["Photo Gallery","Photo Gallery","Photo Gallery","Photo Gallery","Photo Gallery","Photo Gallery"].each_with_index do |value,index|
+["Audio","Audio","Audio","Audio","Audio","Hanganyag"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('audio','InfoType'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
+["Photo","Foto","Photo","Fotografia","Photo","Fénykép"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('photo','InfoType'),
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
-["Video","Video","Video","Video","Video","Video"].each_with_index do |value,index|
+["Video","Video","Video","Video","Video","Videó"].each_with_index do |value,index|
   EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('video','InfoType'),
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end
-["Misc. URL","Misc. URL","Misc. URL","Misc. URL","Misc. URL","Misc. URL"].each_with_index do |value,index|
-  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('url','InfoType'),
+["Law","Rechtliches","Law","Legislação","Law","Jogszabály"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('law','InfoType'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
+["Document","Dokument","Document","Documento","Document","Dokumentum"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('document','InfoType'),
+                              :code => EnumKey.find_by_type_and_key('Language',index+1).code,
+                              :value => value, :context=> "")
+end
+["Misc.","Sonstiges","Misc.","Outro","Misc.","Egyéb"].each_with_index do |value,index|
+  EnumValue.create_or_update!(:enum_key => EnumKey.find_by_code_and_type('misc','InfoType'),
                               :code => EnumKey.find_by_type_and_key('Language',index+1).code,
                               :value => value, :context=> "")
 end

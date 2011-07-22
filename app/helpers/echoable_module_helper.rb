@@ -30,7 +30,7 @@ module EchoableModuleHelper
 
   # Returns the right line that shows up below the ratio bar (1 supporter, 2 supporters...)
   def supporters_number(statement_node)
-    I18n.t("discuss.statements.echo_indicator.#{statement_node.class.support_tag}.#{ statement_node.supporter_count == 1 ? 'one' : 'many'}",
+    I18n.t("discuss.statements.echo_indicator.#{statement_node.supporter_count == 1 ? 'one' : 'many'}",
            :supporter_count => statement_node.new_record? ? 1 : statement_node.supporter_count)
   end
 
@@ -79,8 +79,8 @@ module EchoableModuleHelper
   def echo_button_label(statement_node)
     content_tag(:span, '',
                 :class => 'label',
-                'data-not-supported' => I18n.t("discuss.statements.#{statement_node.class.support_tag}_link"),
-                'data-supported' => I18n.t("discuss.statements.#{statement_node.class.unsupport_tag}_link"))
+                'data-not-supported' => I18n.t("discuss.statements.echo_link"),
+                'data-supported' => I18n.t("discuss.statements.unecho_link"))
   end
 
   def social_echo_container(statement_node, echoed=false)

@@ -57,14 +57,15 @@ class ActivityTrackingService
   def created_event(node)
 
     event_json = {
-      :type => node.class.name.underscore,
+      :operation => 'created',
+      :type => node.u_class_name,
+      :info_type => node.class.has_embeddable_data? ? node.info_type.code : nil,
       :id => node.target_id,
       :level => node.class.is_top_statement? ? node.parent_node.level + 1 : node.level,
       :tags => node.filtered_topic_tags,
       :documents => set_titles_hash(node.statement_documents),
       :parent_documents => node.parent_node ? set_titles_hash(node.parent_node.statement_documents) : nil,
-      :parent_id => node.parent_id || -1,
-      :operation => 'created'
+      :parent_id => node.parent_id || -1
     }.to_json
 
     Event.create(:event => event_json,
@@ -124,8 +125,19 @@ class ActivityTrackingService
 
     # Filter only events whose titles languages the recipient speaks
     events.reject!{|e| (e['documents'].keys.map{|id|id.to_i} & user_filtered_languages(recipient)).empty? }
-    
+
     return if events.blank? #if there are no events to send per email, take the next user
+
+    root_events, events, question_tag_counts = build_events_hash(events)
+
+    # Sending the mail
+    send_activity_mail(recipient, root_events, question_tag_counts, events)
+
+    # Adjust last processed event
+    recipient.subscriber_data.update_attribute :last_processed_event, last_event
+  end
+
+  def build_events_hash(events)
 
     # Take the question events apart
     root_events = events.select{|e| e['level'] == 0}
@@ -145,13 +157,9 @@ class ActivityTrackingService
       hash[e['level']][e['parent_id']][e['type']][e['operation']] << e
     end
 
-    # Sending the mail
-    send_activity_mail(recipient, root_events, question_tag_counts, events)
+    [root_events, events, question_tag_counts]
 
-    # Adjust last processed event
-    recipient.subscriber_data.update_attribute :last_processed_event, last_event
   end
-
 
   #
   # Sends an activity tracking mail to the given recipient.
@@ -166,7 +174,7 @@ class ActivityTrackingService
   #################
 
   def user_filtered_languages(user)
-    spoken_languages = recipient.sorted_spoken_languages
+    spoken_languages = user.sorted_spoken_languages
     spoken_languages << user.default_language.id if spoken_languages.empty? and user.default_language
     spoken_languages
   end

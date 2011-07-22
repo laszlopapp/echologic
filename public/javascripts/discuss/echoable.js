@@ -45,7 +45,7 @@
 				} else {
 					initEchoButton();
 				}
-				if(echoable.find('.alternative_panel').length > 0) {
+				if(echoable.find('.alternatives').length > 0) {
 					initAlternativePanel();
 				}
 		  }
@@ -340,7 +340,7 @@
 				if (has_alternatives) {
 					var api = echoable.data('alternativeApi');
 					echo_button.bind('mouseover', function(){
-						if (!echo_button.hasClass('clicked')) {
+						if (echo_button.hasClass('not_supported') && !echo_button.hasClass('clicked')) {
 							api.highlight();
 						}
 					});

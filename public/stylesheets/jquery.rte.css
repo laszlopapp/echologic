@@ -1,6 +1,3 @@
-.wysiwyg.linked {
-  color: #00868B !important;	
-}
 
 .wysiwyg {
   margin: 0;
@@ -16,6 +13,9 @@
   font: 14px "Lucida Sans",Arial,Helvetica,sans-serif !important;
 }
 
+.wysiwyg.linked {
+  color: #555 !important;
+}
 
 .rte-zone {
     margin: 0;

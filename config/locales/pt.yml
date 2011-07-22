@@ -387,6 +387,7 @@ pt:
       messages:
         created: "Obrigado pela sua mensagem. Um dos administradores foi notificado."
 
+
   # ---------------
   # Discuss section
   # ---------------
@@ -447,6 +448,7 @@ pt:
       current_improvement: 'A melhoria atualmente apresentada'
       current_pro_argument: 'O argumento a favor atualmente apresentado'
       current_contra_argument: 'O argumento contra atualmente apresentado'
+      current_background_info: 'A informação de fundo atualmente apresentada'
       current_follow_up_question: 'A questão complementar atualmente apresentada'
       back_to_question: 'De volta à questão atual'
       back_to_proposal: 'De volta à proposta atual'
@@ -461,6 +463,8 @@ pt:
       next_pro_argument: 'Ler argumento seguinte da proposta atual'
       prev_contra_argument: 'Ler argumento anterior da proposta atual'
       next_contra_argument: 'Ler argumento seguinte da proposta atual'
+      prev_background_info: 'Ler informação de fundo anterior do conteúdo acima'
+      next_background_info: 'Ler informação de fundo seguinte do conteúdo acima'
       prev_follow_up_question: 'Ler questão complementar anterior no contexto exposto acima'
       next_follow_up_question: 'Ler questão complementar seguinte no contexto exposto acima'
       create_question: 'Criar uma nova questão'
@@ -468,6 +472,8 @@ pt:
       create_improvement: 'Criar nova melhoria à proposta atual'
       create_pro_argument: "Criar novo argumento a favor da proposta atual"
       create_contra_argument: "Criar novo argumento contra a proposta atual"
+      create_alternative: "Crie uma nova oposição para este conteúdo"
+      create_background_info: "Recomende informação de fundo complementar a este conteúdo"
       create_follow_up_question: "Criar nova questão complementar ao conteúdo atual"
       echo: "Apoie esta afirmação (dê o seu echo)!"
       unecho: 'Retire o seu apoio a esta afirmação (retire o seu echo)'
@@ -481,28 +487,30 @@ pt:
         improvement: Visualizar todas as melhorias pertencentes à proposta atual
         pro_argument: Visualizar todos os argumentos pertencentes à proposta atual
         contra_argument: Visualizar todos os argumentos pertencentes à proposta atual
+        background_info:  Visualizar todas as informações de fundo pertencentes ao conteúdo acima
+      link_statement: "Introduza parte do título ou cole o URL de um dos conteúdos. Seguidamente prima o botão para associar o conteúdo no contexto atual."
+      unlink_statement: "Prima o botão de novo para dissociar o conteúdo."
 
     statements:
       label: 'votos'
+      echo_link: 'Apoiar (echo)'
+      unecho_link: 'Desapoiar'
       echo_indicator:
-        support:
-          one: '{{supporter_count}} apoiante'
-          many: '{{supporter_count}} apoiantes'
-        recommend:
-          one: '{{supporter_count}} apoiante'
-          many: '{{supporter_count}} apoiantes'
-      add_new: Adicionar novo/a...
+        one: '{{supporter_count}} apoiante'
+        many: '{{supporter_count}} apoiantes'
+      add_new: Novo Conteúdo
+      copy_url: Link para
       create_question_link: 'Criar uma nova questão'
       create_proposal_link: 'Criar nova proposta'
       create_internal_link: 'Nova ideia?'
       create_improvement_link: 'Criar nova melhoria'
       create_pro_argument_link: 'Criar novo argumento a favor'
       create_contra_argument_link: 'Criar novo argumento contra'
+      create_alternative_link: "Criar nova oposição"
+      create_background_info_link: Criar nova informação de fundo
       create_follow_up_question_link: 'Criar nova questão complementar'
-      recommend_link: 'Apoiar (echo)'
-      unrecommend_link: 'Desapoiar'
-      support_link: 'Apoiar (echo)'
-      unsupport_link: 'Desapoiar'
+      preview_embedded_content: Pré-visualização
+      open_embedded_content: Abrir em nova janela
 
       statement_language_hint: |
         Por favor defina o seu conhecimento de línguas no seu <a href='{{url}}'>Perfil</a>.
@@ -518,20 +526,26 @@ pt:
       read_permission: |
         You do not have permission to read this statement.
       title_hint:
-        question: Introduza o título da questão em...
-        proposal: Introduza o título da proposta em...
-        improvement: Introduza o título da melhoria em...
-        pro_argument: Introduza o título do argumento a favor em...
-        contra_argument: Introduza o título do argumento contra em...
-        follow_up_question: Introduza o título da questão complementar em...
+        question: Introduza o título da questão em... Português?
+        proposal: Introduza o título da proposta em... Português?
+        improvement: Introduza o título da melhoria em... Português?
+        pro_argument: Introduza o título do argumento a favor em... Português?
+        contra_argument: Introduza o título do argumento contra em... Português?
+        background_info: Insira o título da informação de fundo em ... Português?
+        follow_up_question: Introduza o título da questão complementar em... Português?
       text_hint:
+        alternative_prefix: |
+          Oposições são mutuamente exclusivas em relação ao conteúdo original e a todas as suas alternativas.<br/><br/>
         question: Por favor descreva a questão e acrescente alguns detalhes sobre o tema...
         proposal: Por favor descreva a proposta mais detalhadamente...
         improvement: Por favor descreva a melhoria mais detalhadamente...
         pro_argument: Por favor descreva o argumento a favor mais detalhadamente...
         contra_argument: Por favor descreva o argumento contra mais detalhadamente...
+        background_info: Por favor descreva a informação de fundo recomendada sucintamente e diga porque pensa que poderá ser importante neste contexto...
         follow_up_question: Por favor descreva a questão complementar mais detalhadamente...
       tag_hint: 'Palavra-chave (tags) do tema'
+      info_url_hint: 'Insira o URL do conteúdo externo'
+      copy_url_hint: 'Copie o link para este conteúdo e use-o para espalhar a mensagem através dos seus canais sociais favoritos.'
 
       publish: Publicar
       published: A questão foi publicada com sucesso.
@@ -543,6 +557,8 @@ pt:
         improvement: 'Melhoria'
         pro_argument: 'Argumento a Favor'
         contra_argument: 'Argumento Contra'
+        alternative: 'Oposição'
+        background_info: 'Informação de Fundo'
         follow_up_question: 'Questão Complementar'
       new:
         question:  'Nova Questão'
@@ -550,20 +566,25 @@ pt:
         improvement: 'Nova Melhoria'
         pro_argument: 'Novo Argumento a Favor'
         contra_argument: 'Novo Argumento Contra'
+        background_info: 'Nova Informação de Fundo'
         follow_up_question: 'Nova Questão Complementar'
       headings:
         question: 'Questões'
         proposal: 'Propostas'
         improvement: 'Melhorias'
         argument: 'Prós & Contras'
+        alternatives: 'Alternativas'
+        background_info: 'Informação de Fundo'
         follow_up_question: 'Questões Complementares'
       sibling_labels:
         question: 'Questões'
         proposal: 'Propostas'
         improvement: 'Melhorias'
         argument: 'Argumentos'
+        background_info: 'Informações'
         follow_up_question: 'Questões'
       siblings:
+        background_info: 'Informações de Fundo'
         follow_up_question: 'Questão Complementar no contexto exposto acima'
 
       topic: Tópico (Tags / Palavras-chave)
@@ -602,7 +623,12 @@ pt:
       supporter_to_share: Tem que apoiar este conteúdo de forma a poder partilhá-lo.
       published_to_share: 'Esta discussão ainda não foi publicada. Por enquanto não poderá infelizmente partilhar o seu conteúdo!'
       cannot_be_edited: Este conteúdo não pode ser mais editado. A edição de conteúdos não é mais possível após esse mesmo conteúdo ter sido apoiado por alguém. É uma opção de segurança para evitar a posterior alteração de opiniões já apoiadas por alguém.
+      cannot_be_linked: Infelizmente este conteúdo não pode ser ligado neste contexto.
       echos_label: Apoio
+
+      linking:
+        disabled: Associar
+        enabled: Associado
 
       breadcrumbs:
         discuss_search: Pesquisa resultados
@@ -611,11 +637,21 @@ pt:
           ds: ''
           mi: ''
           sr: 'Discussões encontradas para'
+          pr: 'Propostas para'
+          im: 'Melhorias para'
+          ar: 'Melhorias para'
+          bi: 'Informações de Fundo para'
+          jp: 'Seguindo ligação de'
           fq: 'Questões complementares para'
           over:
             ds: 'Voltar para'
             mi: 'Voltar para'
             sr: 'Voltar para a pesquisa de resultados'
+            pr: 'Voltar para'
+            im: 'Voltar para'
+            ar: 'Voltar para'
+            bi: 'Voltar para'
+            jp: 'Voltar para'
             fq: 'Voltar para'
 
       upload_image:
@@ -639,6 +675,10 @@ pt:
           Prima o botão acima e insira-a AGORA!
         contra_argument: |
           Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>
+          Prima o botão acima e insira-a AGORA!
+        background_info: |
+          Aqui é onde uma nova informação de fundo relacionada com o conteúdo atual poderia aparecer.<br/><br/>
+          Gostaria de recomendar alguma?<br/><br/>
           Prima o botão acima e insira-a AGORA!
         follow_up_question: |
           Aqui poderia estar a sua ideia.<br/><br/>Tem alguma?<br/><br/>
@@ -716,6 +756,7 @@ pt:
         concernments: 'Competências'
         web_addresses: 'Endereços Web'
       actions:
+        send_mail: "Enviar Mensagem"
         report: "Relatório"
     messages:
       empty:           'Nenhum membro encontrado. Por favor altere os seus critérios de pesquisa.'
@@ -736,6 +777,15 @@ pt:
       send: Enviar mensagem
     create:
       thank_you: Muito Obrigado pelo seu parecer.
+
+  user_mail:
+    new:
+      title: Enviar Mensagem
+      guide: Aqui pode enviar uma mensagem (via E-Mail) para contactar o utilizador da echo selecionado.
+      subject: Assunto
+      text: Mensagem
+    create:
+      thank_you: A sua mensagem foi enviada com sucesso.
 
   activerecord:
     errors:
@@ -802,6 +852,10 @@ pt:
         text: 'Sumário'
         title: 'Título'
         image: 'Ilustração'
+      statement:
+        info_type_id: 'Tipo de Conteúdo'
+      statement_data:
+        info_url: 'URL da Informação de Fundo'
       about_item:
         photo: Foto
         name: Nome

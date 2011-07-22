@@ -1,23 +1,28 @@
 
-<%= t('user_mail.new.guide') %>
+<% form_for :user_mail,
+            :url => send_user_mail_path(@user),
+            :html => { :id => 'new_user_mail_form',
+                       :class => 'echoForm'} do |form| %>
 
-<%= image_tag('page/illustrations/feedback.png', :id => 'feedbackIllustration') %>
+  <%= content_tag :span, I18n.t('user_mail.new.guide'),
+                  :class => 'guide' %>
+  <%= image_tag('page/illustrations/feedback.png', :id => 'mail_illustration') %>
 
-<% form_for :user_mail, :url => send_user_mail_path(@user),
-            :html => { :id => 'new_user_mail_form', :class => 'echoForm'} do |f| %>
 
-  <p>
-    <%= label_tag I18n.t('user_mail.new.subject'), nil %><br />
-    <%= f.text_field :subject %><br/>
-  </p>
+  <% content_tag :p do %>
+    <%= label_tag I18n.t('user_mail.new.subject'), nil %>
+    <br/>
+    <%= form.text_field :subject %><br/>
+  <% end %>
 
-  <p>
-    <%= label_tag I18n.t('user_mail.new.text'), nil %><br/>
-    <%= f.text_area :text, :rows => 4, :cols => 30, :html => {:id => 'user_mail_text'} %>
-  </p>
-	
+  <% content_tag :p do %>
+    <%= label_tag I18n.t('user_mail.new.text'), nil %>
+    <br/>
+    <%= form.text_area :text, :rows => 4, :cols => 30, :html => {:id => 'user_mail_text'} %>
+  <% end %>
+
 	<noscript>
-		<%= f.submit(I18n.t('application.general.send'), :class => 'formButton200') %>
+		<%= form.submit(I18n.t('application.general.send'), :class => 'formButton200') %>
 	</noscript>
 
 <% end %>

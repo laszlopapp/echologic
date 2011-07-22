@@ -50,6 +50,10 @@
 <%= form.hidden_field :statement_id %>
 <%= form.hidden_field :parent_id %>
 
+<!-- Embed data -->
+<%= render :partial => 'statements/form/embed_data',
+           :locals => {:statement_node => statement_node} if has_embeddable_data %>
+
 <!-- Submit or cancel -->
 <% form.buttons do %>
   <%= form.commit_button I18n.t('application.general.save'),
@@ -58,7 +62,6 @@
   <%= statement_node.new_record? ? cancel_new_statement_node : cancel_edit_statement_node(statement_node, statement_document.locked_at) %>
 <% end %>
 
-<!-- Embeeded part of the form for background infos -->
-<%= render :partial => 'statements/form/background_data',
-           :locals => {:form => form,
-                       :statement_node => statement_node} if has_embeddable_data %>
+<!-- Embed data -->
+<%= render :partial => 'statements/form/embed_preview',
+           :locals => {:statement_node => statement_node} if has_embeddable_data %>

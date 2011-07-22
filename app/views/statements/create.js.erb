@@ -1,5 +1,5 @@
 <% if defined? @info %>
-  info('<%=@info%>') 
+  info('<%=@info%>')
 <% end %>
 
 /* if we came directly from one of the new statement links in search or my questions, then html response */
@@ -31,12 +31,12 @@ var origin_bids = getOriginKeys(bids);
 var origin = origin_bids[origin_bids.length-1];
 if (origin == null || origin == "undefined"){origin = '';}
 
-$.setFragment({ "new_level" : '', "origin" : origin});
+$.setFragment({ "nl" : '', "origin" : origin});
 
 var element = $("<%= escape_javascript(render :partial => 'statements/show', :locals => {:statement_node => @statement_node.target_statement}) %>").statement({'level' : <%= @statement_node.level %>});
 element.data('api').removeBelow();
 
-/* Statements' stack */ 
+/* Statements' stack */
 var sids = $('div#statements div.statement').map(function(){
   return this.id.replace(/[^0-9]+/, "");
 }).get();

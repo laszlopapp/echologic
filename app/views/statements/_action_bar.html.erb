@@ -4,11 +4,11 @@
 <% content_tag :div, :class => "action_bar" do %>
   <%= render_echo_button statement_node %>
 
-
   <% if !only_echo_button %>
     <% if statement_node.class.has_embeddable_data? %>
 			<%= render_statement_actions(statement_node, :class => "toggled_content", :style => "display:none") %>
-			<%= insert_toggle_more %>
+			<%= content_tag(:span, '', :class => "hide_button", :style => "display: none;") %>
+      <%= content_tag(:span, '', :class => "more_button") %>
 		<% else %>
       <%= render_statement_actions(statement_node) %>
 	  <% end %>

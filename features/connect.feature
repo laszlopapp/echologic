@@ -73,13 +73,13 @@ Feature: Use connect functionality
     Given I am logged in as "user" with password "true"
     When I am on the connect page
       And I follow the "Show" link for the profile of "User Test"
-    Then I should not see localized "connect.details.actions.send_mail" within "#profile_details_container .actions"
+    Then I should not see localized "connect.details.actions.send_mail" within "#profile_details_container #actions"
       And I go to the connect page
       And I follow the "Show" link for the profile of "Ben Test"
-      And I follow localized "connect.details.actions.send_mail" within "#profile_details_container .actions"
+      And I follow localized "connect.details.actions.send_mail" within "#profile_details_container #actions"
       And I fill in the following:
       | user_mail_subject | I Like the Subject |
       | user_mail_text    | I Like the Text    |
       And I press "Send"
-    Then I should see localized "users.user_mails.messages.created"
+    Then I should see localized "user_mail.create.thank_you"
       And an "echo message" email should be sent to "ben@echologic.org"
